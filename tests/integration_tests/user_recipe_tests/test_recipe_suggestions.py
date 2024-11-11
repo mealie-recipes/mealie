@@ -99,65 +99,61 @@ def test_suggestion_filter(api_client: TestClient, unique_user: TestUser, filter
 
 
 def test_food_suggestion_filter_with_max(api_client: TestClient, unique_user: TestUser):
-    food_1, food_2, food_3 = (create_food(unique_user) for _ in range(3))
-    recipe_1 = create_recipe(unique_user, foods=[food_1])
-    recipe_2 = create_recipe(unique_user, foods=[food_2])
-    recipe_1_and_2 = create_recipe(unique_user, foods=[food_1, food_2])
-    recipe_3 = create_recipe(unique_user, foods=[food_3])
-    recipe_1_and_2_and_3 = create_recipe(unique_user, foods=[food_1, food_2, food_3])
+    food_1, food_2, food_3, food_4 = (create_food(unique_user) for _ in range(4))
+    recipe_exact = create_recipe(unique_user, foods=[food_1])
+    recipe_missing_one = create_recipe(unique_user, foods=[food_1, food_2])
+    recipe_missing_two = create_recipe(unique_user, foods=[food_1, food_2, food_3])
+    recipe_missing_three = create_recipe(unique_user, foods=[food_1, food_2, food_3, food_4])
 
     try:
         response = api_client.get(
             api_routes.recipes_suggestions,
-            params={"maxMissingFoods": 1, "foods": [str(food_1.id)]},
+            params={"maxMissingFoods": 1, "includeFoodsOnHand": False, "foods": [str(food_1.id)]},
             headers=unique_user.token,
         )
         response.raise_for_status()
         data = response.json()
         fetched_recipe_ids = {item["recipe"]["id"] for item in data["items"]}
-        assert set(fetched_recipe_ids) == {str(recipe_1.id), str(recipe_2.id), str(recipe_1_and_2.id), str(recipe_3.id)}
+        assert set(fetched_recipe_ids) == {str(recipe_exact.id), str(recipe_missing_one.id)}
         for item in data["items"]:
-            if item["recipe"]["id"] == str(recipe_1.id):
-                assert item["missingFoods"] == []
-            elif item["recipe"]["id"] == str(recipe_2.id) or item["recipe"]["id"] == str(recipe_1_and_2.id):
-                assert item["missingFoods"] == [str(food_2.id)]
+            missing_food_ids = [food["id"] for food in item["missingFoods"]]
+            if item["recipe"]["id"] == str(recipe_exact.id):
+                assert missing_food_ids == []
             else:
-                assert item["missingFoods"] == [str(food_3.id)]
+                assert missing_food_ids == [str(food_2.id)]
 
     finally:
-        for recipe in [recipe_1, recipe_2, recipe_1_and_2, recipe_3, recipe_1_and_2_and_3]:
+        for recipe in [recipe_exact, recipe_missing_one, recipe_missing_two, recipe_missing_three]:
             unique_user.repos.recipes.delete(recipe.slug)
 
 
 def test_tool_suggestion_filter_with_max(api_client: TestClient, unique_user: TestUser):
-    tool_1, tool_2, tool_3 = (create_tool(unique_user) for _ in range(3))
-    recipe_1 = create_recipe(unique_user, tools=[tool_1])
-    recipe_2 = create_recipe(unique_user, tools=[tool_2])
-    recipe_1_and_2 = create_recipe(unique_user, tools=[tool_1, tool_2])
-    recipe_3 = create_recipe(unique_user, tools=[tool_3])
-    recipe_1_and_2_and_3 = create_recipe(unique_user, tools=[tool_1, tool_2, tool_3])
+    tool_1, tool_2, tool_3, tool_4 = (create_tool(unique_user) for _ in range(4))
+    recipe_exact = create_recipe(unique_user, tools=[tool_1])
+    recipe_missing_one = create_recipe(unique_user, tools=[tool_1, tool_2])
+    recipe_missing_two = create_recipe(unique_user, tools=[tool_1, tool_2, tool_3])
+    recipe_missing_three = create_recipe(unique_user, tools=[tool_1, tool_2, tool_3, tool_4])
 
     try:
         response = api_client.get(
             api_routes.recipes_suggestions,
-            params={"maxMissingTools": 1, "tools": [str(tool_1.id)]},
+            params={"maxMissingTools": 1, "includeToolsOnHand": False, "tools": [str(tool_1.id)]},
             headers=unique_user.token,
         )
         response.raise_for_status()
 
         data = response.json()
         fetched_recipe_ids = {item["recipe"]["id"] for item in data["items"]}
-        assert set(fetched_recipe_ids) == {str(recipe_1.id), str(recipe_2.id), str(recipe_1_and_2.id), str(recipe_3.id)}
+        assert set(fetched_recipe_ids) == {str(recipe_exact.id), str(recipe_missing_one.id)}
         for item in data["items"]:
-            if item["recipe"]["id"] == str(recipe_1.id):
-                assert item["missingTools"] == []
-            elif item["recipe"]["id"] == str(recipe_2.id) or item["recipe"]["id"] == str(recipe_1_and_2.id):
-                assert item["missingTools"] == [str(tool_2.id)]
+            missing_tool_ids = [tool["id"] for tool in item["missingTools"]]
+            if item["recipe"]["id"] == str(recipe_exact.id):
+                assert missing_tool_ids == []
             else:
-                assert item["missingTools"] == [str(tool_3.id)]
+                assert missing_tool_ids == [str(tool_2.id)]
 
     finally:
-        for recipe in [recipe_1, recipe_2, recipe_1_and_2, recipe_3, recipe_1_and_2_and_3]:
+        for recipe in [recipe_exact, recipe_missing_one, recipe_missing_two, recipe_missing_three]:
             unique_user.repos.recipes.delete(recipe.slug)
 
 
@@ -275,7 +271,7 @@ def test_include_tools_on_hand(api_client: TestClient, unique_user: TestUser, in
         unique_user.repos.recipes.delete(recipe.slug)
 
 
-def test_include_recipes_with_no_foods(api_client: TestClient, unique_user: TestUser):
+def test_exclude_recipes_with_no_foods(api_client: TestClient, unique_user: TestUser):
     known_food = create_food(unique_user)
     recipe_with_foods = create_recipe(unique_user, foods=[known_food])
     recipe_without_foods = create_recipe(unique_user, foods=[])
@@ -289,10 +285,7 @@ def test_include_recipes_with_no_foods(api_client: TestClient, unique_user: Test
         response.raise_for_status()
 
         data = response.json()
-        assert {item["recipe"]["id"] for item in data["items"]} == {
-            str(recipe_with_foods.id),
-            str(recipe_without_foods.id),
-        }
+        assert {item["recipe"]["id"] for item in data["items"]} == {str(recipe_with_foods.id)}
         for item in data["items"]:
             assert item["missingFoods"] == []
 
@@ -382,31 +375,53 @@ def test_include_recipes_with_ingredient_amounts_disabled_without_foods(api_clie
 
 
 def test_recipe_order(api_client: TestClient, unique_user: TestUser):
-    food_1, food_2, food_3, food_4 = (create_food(unique_user) for _ in range(4))
-    tool_1, tool_2, tool_3 = (create_tool(unique_user) for _ in range(3))
+    user_food_1, user_food_2, other_food_1, other_food_2, other_food_3 = (create_food(unique_user) for _ in range(5))
+    user_tool_1, other_tool_1, other_tool_2 = (create_tool(unique_user) for _ in range(3))
     food_on_hand = create_food(unique_user, on_hand=True)
 
-    # User will search for food_1 and tool_1
     recipe_lambdas = [
         # No missing tools or foods
-        (0, lambda: create_recipe(unique_user, tools=[tool_1], foods=[food_1])),
+        (0, lambda: create_recipe(unique_user, tools=[user_tool_1], foods=[user_food_1])),
         # No missing tools, one missing food
-        (1, lambda: create_recipe(unique_user, tools=[tool_1], foods=[food_1, food_2])),
+        (1, lambda: create_recipe(unique_user, tools=[user_tool_1], foods=[user_food_1, other_food_1])),
         # One missing tool, no missing foods
-        (2, lambda: create_recipe(unique_user, tools=[tool_1, tool_2], foods=[food_1])),
+        (2, lambda: create_recipe(unique_user, tools=[user_tool_1, other_tool_1], foods=[user_food_1])),
         # One missing tool, one missing food
-        (3, lambda: create_recipe(unique_user, tools=[tool_1, tool_2], foods=[food_1, food_2])),
-        # Two missing tools, two missing foods, include user food
-        (4, lambda: create_recipe(unique_user, tools=[tool_1, tool_2, tool_3], foods=[food_1, food_2, food_3])),
-        # Two missing tools, two missing foods, missing user food
-        (5, lambda: create_recipe(unique_user, tools=[tool_1, tool_2, tool_3], foods=[food_2, food_3])),
-        # Two missing tools, three missing foods, include user food, don't include food on hand
-        (6, lambda: create_recipe(unique_user, tools=[tool_1, tool_2, tool_3], foods=[food_1, food_2, food_3, food_4])),
-        # Two missing tools, three missing foods, missing user food, include food on hand
+        (3, lambda: create_recipe(unique_user, tools=[user_tool_1, other_tool_1], foods=[user_food_1, other_food_1])),
+        # Two missing tools, two missing foods, two user foods
+        (
+            4,
+            lambda: create_recipe(
+                unique_user,
+                tools=[user_tool_1, other_tool_1, other_tool_2],
+                foods=[user_food_1, user_food_2, other_food_1, other_food_2],
+            ),
+        ),
+        # Two missing tools, two missing foods, one user food
+        (
+            5,
+            lambda: create_recipe(
+                unique_user,
+                tools=[user_tool_1, other_tool_1, other_tool_2],
+                foods=[user_food_1, other_food_1, other_food_2],
+            ),
+        ),
+        # Two missing tools, three missing foods, two user foods, don't include food on hand
+        (
+            6,
+            lambda: create_recipe(
+                unique_user,
+                tools=[user_tool_1, other_tool_1, other_tool_2],
+                foods=[user_food_1, user_food_2, other_food_1, other_food_2, other_food_3],
+            ),
+        ),
+        # Two missing tools, three missing foods, one user food, include food on hand
         (
             7,
             lambda: create_recipe(
-                unique_user, tools=[tool_1, tool_2, tool_3], foods=[food_on_hand, food_2, food_3, food_4]
+                unique_user,
+                tools=[user_tool_1, other_tool_1, other_tool_2],
+                foods=[food_on_hand, user_food_1, other_food_1, other_food_2, other_food_3],
             ),
         ),
     ]
@@ -426,9 +441,11 @@ def test_recipe_order(api_client: TestClient, unique_user: TestUser):
             params={
                 "maxMissingFoods": 3,
                 "maxMissingTools": 3,
+                "includeFoodsOnHand": True,
+                "includeToolsOnHand": True,
                 "limit": 10,
-                "foods": [str(food_1.id)],
-                "tools": [str(tool_1.id)],
+                "foods": [str(user_food_1.id), str(user_food_2.id)],
+                "tools": [str(user_tool_1.id)],
             },
             headers=unique_user.token,
         )
