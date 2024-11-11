@@ -1,3 +1,4 @@
+import json
 import re
 from dataclasses import dataclass
 
@@ -126,13 +127,27 @@ smtp_validation_cases = [
     (
         "good_data_tls",
         SMTPValidationCase(
-            "email.mealie.io", "587", "tls", "Mealie", "mealie@mealie.io", "mealie@mealie.io", "mealie-password", True
+            "email.mealie.io",
+            "587",
+            "tls",
+            "Mealie",
+            "mealie@mealie.io",
+            "mealie@mealie.io",
+            "mealie-password",
+            True,
         ),
     ),
     (
         "good_data_ssl",
         SMTPValidationCase(
-            "email.mealie.io", "465", "tls", "Mealie", "mealie@mealie.io", "mealie@mealie.io", "mealie-password", True
+            "email.mealie.io",
+            "465",
+            "tls",
+            "Mealie",
+            "mealie@mealie.io",
+            "mealie@mealie.io",
+            "mealie-password",
+            True,
         ),
     ),
 ]
@@ -151,6 +166,149 @@ def test_smtp_enable_with_bad_data_tls(data: SMTPValidationCase):
         data.auth_strategy,
         data.user,
         data.password,
-    )
+    ).enabled
 
     assert is_valid is data.is_valid
+
+
+@dataclass(slots=True)
+class EnvVar:
+    name: str
+    value: any
+
+
+class LDAPValidationCase:
+    settings = list[EnvVar]
+    is_valid: bool
+
+    def __init__(
+        self,
+        enabled: bool,
+        server_url: str | None,
+        base_dn: str | None,
+        is_valid: bool,
+    ):
+        self.settings = [
+            EnvVar("LDAP_AUTH_ENABLED", enabled),
+            EnvVar("LDAP_SERVER_URL", server_url),
+            EnvVar("LDAP_BASE_DN", base_dn),
+        ]
+        self.is_valid = is_valid
+
+
+ldap_validation_cases = [
+    ("not enabled", LDAPValidationCase(False, None, None, False)),
+    ("missing url", LDAPValidationCase(True, None, "dn", False)),
+    ("missing base dn", LDAPValidationCase(True, "url", None, False)),
+    ("all good", LDAPValidationCase(True, "url", "dn", True)),
+]
+
+ldap_cases = [x[1] for x in ldap_validation_cases]
+ldap_cases_ids = [x[0] for x in ldap_validation_cases]
+
+
+@pytest.mark.parametrize("data", ldap_cases, ids=ldap_cases_ids)
+def test_ldap_settings_validation(data: LDAPValidationCase, monkeypatch: pytest.MonkeyPatch):
+    for setting in data.settings:
+        if setting.value is not None:
+            monkeypatch.setenv(setting.name, setting.value)
+        else:
+            monkeypatch.delenv(setting.name, raising=False)
+
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+
+    assert app_settings.LDAP_ENABLED is data.is_valid
+
+
+class OIDCValidationCase:
+    settings = list[EnvVar]
+    is_valid: bool
+
+    def __init__(
+        self,
+        enabled: bool,
+        client_id: str | None,
+        client_secret: str | None,
+        configuration_url: str | None,
+        groups_claim: str | None,
+        user_group: str | None,
+        admin_group: str | None,
+        is_valid: bool,
+    ):
+        self.settings = [
+            EnvVar("OIDC_AUTH_ENABLED", enabled),
+            EnvVar("OIDC_CLIENT_ID", client_id),
+            EnvVar("OIDC_CLIENT_SECRET", client_secret),
+            EnvVar("OIDC_CONFIGURATION_URL", configuration_url),
+            EnvVar("OIDC_GROUPS_CLAIM", groups_claim),
+            EnvVar("OIDC_USER_GROUP", user_group),
+            EnvVar("OIDC_ADMIN_GROUP", admin_group),
+        ]
+        self.is_valid = is_valid
+
+
+oidc_validation_cases = [
+    (
+        "not enabled",
+        OIDCValidationCase(False, None, None, None, None, None, None, False),
+    ),
+    (
+        "missing client id",
+        OIDCValidationCase(True, None, "secret", "url", "groups", "user", "admin", False),
+    ),
+    (
+        "missing client secret",
+        OIDCValidationCase(True, "id", None, "url", "groups", "user", "admin", False),
+    ),
+    (
+        "missing url",
+        OIDCValidationCase(True, "id", "secret", None, "groups", "user", "admin", False),
+    ),
+    (
+        "all good no groups",
+        OIDCValidationCase(True, "id", "secret", "url", None, None, None, True),
+    ),
+    (
+        "all good with groups",
+        OIDCValidationCase(True, "id", "secret", "url", "groups", "user", "admin", True),
+    ),
+]
+
+oidc_cases = [x[1] for x in oidc_validation_cases]
+oidc_cases_ids = [x[0] for x in oidc_validation_cases]
+
+
+@pytest.mark.parametrize("data", oidc_cases, ids=oidc_cases_ids)
+def test_oidc_settings_validation(data: OIDCValidationCase, monkeypatch: pytest.MonkeyPatch):
+    for setting in data.settings:
+        if setting.value is not None:
+            monkeypatch.setenv(setting.name, setting.value)
+        else:
+            monkeypatch.delenv(setting.name, raising=False)
+
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+
+    assert app_settings.OIDC_READY is data.is_valid
+
+
+def test_sensitive_settings_mask(monkeypatch: pytest.MonkeyPatch):
+    sensitive_settings = [
+        "LDAP_QUERY_PASSWORD",
+        "OPENAI_API_KEY",
+        "SMTP_USER",
+        "SMTP_PASSWORD",
+        "OIDC_CLIENT_SECRET",
+    ]
+    for setting in sensitive_settings:
+        monkeypatch.setenv(setting, "super_secret")
+
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+    settings = app_settings.model_dump()
+    settings_json = json.loads(app_settings.model_dump_json())
+
+    for setting in sensitive_settings:
+        assert settings[setting] == "*****"
+        assert settings_json[setting] == "*****"

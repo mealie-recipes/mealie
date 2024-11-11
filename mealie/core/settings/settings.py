@@ -3,10 +3,10 @@ import os
 import secrets
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, NamedTuple
+from typing import Annotated, Any, NamedTuple
 
 from dateutil.tz import tzlocal
-from pydantic import field_validator
+from pydantic import PlainSerializer, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from mealie.core.settings.themes import Theme
@@ -17,6 +17,29 @@ from .db_providers import AbstractDBProvider, db_provider_factory
 class ScheduleTime(NamedTuple):
     hour: int
     minute: int
+
+
+class FeatureDetails(NamedTuple):
+    enabled: bool
+    """Indicates if the feature is enabled or not"""
+    description: str | None
+    """Short description describing why the feature is not ready"""
+
+    def __str__(self):
+        s = f"Enabled: {self.enabled}"
+        if not self.enabled and self.description:
+            s += f"\nReason: {self.description}"
+        return s
+
+
+MaskedNoneString = Annotated[
+    str | None,
+    PlainSerializer(lambda x: None if x is None else "*****", return_type=str | None),
+]
+"""
+Custom serializer for sensitive settings. If the setting is None, then will serialize as null, otherwise,
+the secret will be serialized as '*****'
+"""
 
 
 def determine_secrets(data_dir: Path, secret: str, production: bool) -> str:
@@ -200,12 +223,16 @@ class AppSettings(AppLoggingSettings):
     SMTP_PORT: str | None = "587"
     SMTP_FROM_NAME: str | None = "Mealie"
     SMTP_FROM_EMAIL: str | None = None
-    SMTP_USER: str | None = None
-    SMTP_PASSWORD: str | None = None
+    SMTP_USER: MaskedNoneString = None
+    SMTP_PASSWORD: MaskedNoneString = None
     SMTP_AUTH_STRATEGY: str | None = "TLS"  # Options: 'TLS', 'SSL', 'NONE'
 
     @property
     def SMTP_ENABLE(self) -> bool:
+        return self.SMTP_FEATURE.enabled
+
+    @property
+    def SMTP_FEATURE(self) -> FeatureDetails:
         return AppSettings.validate_smtp(
             self.SMTP_HOST,
             self.SMTP_PORT,
@@ -225,15 +252,30 @@ class AppSettings(AppLoggingSettings):
         strategy: str | None = None,
         user: str | None = None,
         password: str | None = None,
-    ) -> bool:
+    ) -> FeatureDetails:
         """Validates all SMTP variables are set"""
-        required = {host, port, from_name, from_email, strategy}
+        description = None
+        required = {
+            "SMTP_HOST": host,
+            "SMTP_PORT": port,
+            "SMTP_FROM_NAME": from_name,
+            "SMTP_FROM_EMAIL": from_email,
+            "SMTP_AUTH_STRATEGY": strategy,
+        }
+        missing_values = [key for (key, value) in required.items() if value is None]
+        if missing_values:
+            description = f"Missing required values for {missing_values}"
 
         if strategy and strategy.upper() in {"TLS", "SSL"}:
-            required.add(user)
-            required.add(password)
+            required["SMTP_USER"] = user
+            required["SMTP_PASSWORD"] = password
+            if not description:
+                missing_values = [key for (key, value) in required.items() if value is None]
+                description = f"Missing required values for {missing_values} because SMTP_AUTH_STRATEGY is not None"
 
-        return "" not in required and None not in required
+        not_none = "" not in required.values() and None not in required.values()
+
+        return FeatureDetails(enabled=not_none, description=description)
 
     # ===============================================
     # LDAP Configuration
@@ -245,7 +287,7 @@ class AppSettings(AppLoggingSettings):
     LDAP_ENABLE_STARTTLS: bool = False
     LDAP_BASE_DN: str | None = None
     LDAP_QUERY_BIND: str | None = None
-    LDAP_QUERY_PASSWORD: str | None = None
+    LDAP_QUERY_PASSWORD: MaskedNoneString = None
     LDAP_USER_FILTER: str | None = None
     LDAP_ADMIN_FILTER: str | None = None
     LDAP_ID_ATTRIBUTE: str = "uid"
@@ -253,23 +295,35 @@ class AppSettings(AppLoggingSettings):
     LDAP_NAME_ATTRIBUTE: str = "name"
 
     @property
+    def LDAP_FEATURE(self) -> FeatureDetails:
+        description = None if self.LDAP_AUTH_ENABLED else "LDAP_AUTH_ENABLED is false"
+        required = {
+            "LDAP_SERVER_URL": self.LDAP_SERVER_URL,
+            "LDAP_BASE_DN": self.LDAP_BASE_DN,
+            "LDAP_ID_ATTRIBUTE": self.LDAP_ID_ATTRIBUTE,
+            "LDAP_MAIL_ATTRIBUTE": self.LDAP_MAIL_ATTRIBUTE,
+            "LDAP_NAME_ATTRIBUTE": self.LDAP_NAME_ATTRIBUTE,
+        }
+        not_none = None not in required.values()
+        if not not_none and not description:
+            missing_values = [key for (key, value) in required.items() if value is None]
+            description = f"Missing required values for {missing_values}"
+
+        return FeatureDetails(
+            enabled=self.LDAP_AUTH_ENABLED and not_none,
+            description=description,
+        )
+
+    @property
     def LDAP_ENABLED(self) -> bool:
         """Validates LDAP settings are all set"""
-        required = {
-            self.LDAP_SERVER_URL,
-            self.LDAP_BASE_DN,
-            self.LDAP_ID_ATTRIBUTE,
-            self.LDAP_MAIL_ATTRIBUTE,
-            self.LDAP_NAME_ATTRIBUTE,
-        }
-        not_none = None not in required
-        return self.LDAP_AUTH_ENABLED and not_none
+        return self.LDAP_FEATURE.enabled
 
     # ===============================================
     # OIDC Configuration
     OIDC_AUTH_ENABLED: bool = False
     OIDC_CLIENT_ID: str | None = None
-    OIDC_CLIENT_SECRET: str | None = None
+    OIDC_CLIENT_SECRET: MaskedNoneString = None
     OIDC_CONFIGURATION_URL: str | None = None
     OIDC_SIGNUP_ENABLED: bool = True
     OIDC_USER_GROUP: str | None = None
@@ -279,6 +333,7 @@ class AppSettings(AppLoggingSettings):
     OIDC_REMEMBER_ME: bool = False
     OIDC_USER_CLAIM: str = "email"
     OIDC_GROUPS_CLAIM: str | None = "groups"
+    OIDC_SCOPES_OVERRIDE: str | None = None
     OIDC_TLS_CACERTFILE: str | None = None
 
     @property
@@ -286,29 +341,41 @@ class AppSettings(AppLoggingSettings):
         return self.OIDC_USER_GROUP is not None or self.OIDC_ADMIN_GROUP is not None
 
     @property
-    def OIDC_READY(self) -> bool:
-        """Validates OIDC settings are all set"""
-
+    def OIDC_FEATURE(self) -> FeatureDetails:
+        description = None if self.OIDC_AUTH_ENABLED else "OIDC_AUTH_ENABLED is false"
         required = {
-            self.OIDC_CLIENT_ID,
-            self.OIDC_CLIENT_SECRET,
-            self.OIDC_CONFIGURATION_URL,
-            self.OIDC_USER_CLAIM,
+            "OIDC_CLIENT_ID": self.OIDC_CLIENT_ID,
+            "OIDC_CLIENT_SECRET": self.OIDC_CLIENT_SECRET,
+            "OIDC_CONFIGURATION_URL": self.OIDC_CONFIGURATION_URL,
+            "OIDC_USER_CLAIM": self.OIDC_USER_CLAIM,
         }
-        not_none = None not in required
-        valid_group_claim = True
+        not_none = None not in required.values()
+        if not not_none and not description:
+            missing_values = [key for (key, value) in required.items() if value is None]
+            description = f"Missing required values for {missing_values}"
 
+        valid_group_claim = True
         if self.OIDC_REQUIRES_GROUP_CLAIM and self.OIDC_GROUPS_CLAIM is None:
+            if not description:
+                description = "OIDC_GROUPS_CLAIM is required when OIDC_USER_GROUP or OIDC_ADMIN_GROUP are provided"
             valid_group_claim = False
 
-        return self.OIDC_AUTH_ENABLED and not_none and valid_group_claim
+        return FeatureDetails(
+            enabled=self.OIDC_AUTH_ENABLED and not_none and valid_group_claim,
+            description=description,
+        )
+
+    @property
+    def OIDC_READY(self) -> bool:
+        """Validates OIDC settings are all set"""
+        return self.OIDC_FEATURE.enabled
 
     # ===============================================
     # OpenAI Configuration
 
     OPENAI_BASE_URL: str | None = None
     """The base URL for the OpenAI API. Leave this unset for most usecases"""
-    OPENAI_API_KEY: str | None = None
+    OPENAI_API_KEY: MaskedNoneString = None
     """Your OpenAI API key. Required to enable OpenAI features"""
     OPENAI_MODEL: str = "gpt-4o"
     """Which OpenAI model to send requests to. Leave this unset for most usecases"""
@@ -333,6 +400,24 @@ class AppSettings(AppLoggingSettings):
     The number of seconds to wait for an OpenAI request to complete before cancelling the request
     """
 
+    @property
+    def OPENAI_FEATURE(self) -> FeatureDetails:
+        description = None
+        if not self.OPENAI_API_KEY:
+            description = "OPENAI_API_KEY is not set"
+        elif self.OPENAI_MODEL:
+            description = "OPENAI_MODEL is not set"
+
+        return FeatureDetails(
+            enabled=bool(self.OPENAI_API_KEY and self.OPENAI_MODEL),
+            description=description,
+        )
+
+    @property
+    def OPENAI_ENABLED(self) -> bool:
+        """Validates OpenAI settings are all set"""
+        return self.OPENAI_FEATURE.enabled
+
     # ===============================================
     # Web Concurrency
 
@@ -345,11 +430,6 @@ class AppSettings(AppLoggingSettings):
     @property
     def WORKERS(self) -> int:
         return max(1, self.WORKER_PER_CORE * self.UVICORN_WORKERS)
-
-    @property
-    def OPENAI_ENABLED(self) -> bool:
-        """Validates OpenAI settings are all set"""
-        return bool(self.OPENAI_API_KEY and self.OPENAI_MODEL)
 
     model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
 
