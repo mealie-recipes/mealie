@@ -9,7 +9,7 @@ from pydantic import UUID4
 from mealie.schema.cookbook.cookbook import SaveCookBook
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_category import TagSave
-from mealie.schema.recipe.recipe_tool import RecipeToolSave
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientFood
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -372,9 +372,12 @@ def test_get_suggested_recipes(
     random_recipe.settings.public = not is_private_recipe
     database.recipes.update(random_recipe.slug, random_recipe)
 
-    ## Add a known tool to the recipe
-    known_tool = database.tools.create(RecipeToolSave(id=uuid4(), name=random_string(), group_id=unique_user.group_id))
-    random_recipe.tools = [known_tool]
+    ## Add a known food to the recipe
+    known_food = database.ingredient_foods.create(
+        SaveIngredientFood(id=uuid4(), name=random_string(), group_id=unique_user.group_id)
+    )
+    random_recipe.recipe_ingredient = [RecipeIngredient(food_id=known_food.id, food=known_food)]
+    random_recipe.settings.disable_amount = False
     database.recipes.update(random_recipe.slug, random_recipe)
 
     ## Try to find suggested recipes
@@ -384,7 +387,7 @@ def test_get_suggested_recipes(
     assert recipe_household
     response = api_client.get(
         api_routes.explore_groups_group_slug_recipes_suggestions(recipe_group.slug),
-        params={"maxMissingTools": 0, "tools": [str(known_tool.id)], "includeToolsOnHand": False},
+        params={"maxMissingFoods": 0, "foods": [str(known_food.id)], "includeFoodsOnHand": False},
     )
     if is_private_group:
         assert response.status_code == 404
