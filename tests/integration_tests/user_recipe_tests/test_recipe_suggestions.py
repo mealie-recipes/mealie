@@ -374,6 +374,29 @@ def test_include_recipes_with_ingredient_amounts_disabled_without_foods(api_clie
             unique_user.repos.recipes.delete(recipe.slug)
 
 
+def test_exclude_recipes_with_no_user_foods(api_client: TestClient, unique_user: TestUser):
+    known_food = create_food(unique_user)
+    food_on_hand = create_food(unique_user, on_hand=True)
+    recipe_with_user_food = create_recipe(unique_user, foods=[known_food])
+    recipe_with_on_hand_food = create_recipe(unique_user, foods=[food_on_hand])
+
+    try:
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={"maxMissingFoods": 10, "includeFoodsOnHand": True, "foods": [str(known_food.id)]},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+
+        data = response.json()
+        assert {item["recipe"]["id"] for item in data["items"]} == {str(recipe_with_user_food.id)}
+        assert data["items"][0]["missingFoods"] == []
+
+    finally:
+        for recipe in [recipe_with_user_food, recipe_with_on_hand_food]:
+            unique_user.repos.recipes.delete(recipe.slug)
+
+
 def test_recipe_order(api_client: TestClient, unique_user: TestUser):
     user_food_1, user_food_2, other_food_1, other_food_2, other_food_3 = (create_food(unique_user) for _ in range(5))
     user_tool_1, other_tool_1, other_tool_2 = (create_tool(unique_user) for _ in range(3))
