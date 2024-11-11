@@ -321,33 +321,35 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         if not params.order_by:
             params.order_by = "created_at"
 
-        food_ids = list(set(food_ids or []))
-        tool_ids = list(set(tool_ids or []))
+        food_ids_with_on_hand = list(set(food_ids or []))
+        tool_ids_with_on_hand = list(set(tool_ids or []))
 
-        user_food_ids = food_ids.copy()  # preserve the original list of food ids before we add on_hand foods
+        # preserve the original lists of ids before we add on_hand items
+        user_food_ids = food_ids_with_on_hand.copy()
+        user_tool_ids = tool_ids_with_on_hand.copy()
 
         if params.include_foods_on_hand:
             foods_on_hand_query = sa.select(IngredientFoodModel.id).filter(
                 IngredientFoodModel.on_hand == True,  # noqa: E712 - required for SQLAlchemy comparison
-                sa.not_(IngredientFoodModel.id.in_(food_ids)),
+                sa.not_(IngredientFoodModel.id.in_(food_ids_with_on_hand)),
             )
             if self.group_id:
                 foods_on_hand_query = foods_on_hand_query.filter(IngredientFoodModel.group_id == self.group_id)
 
             foods_on_hand = self.session.execute(foods_on_hand_query).scalars().all()
-            food_ids.extend(foods_on_hand)
+            food_ids_with_on_hand.extend(foods_on_hand)
         if params.include_tools_on_hand:
             tools_on_hand_query = sa.select(Tool.id).filter(
                 Tool.on_hand == True,  # noqa: E712 - required for SQLAlchemy comparison
                 sa.not_(
-                    Tool.id.in_(tool_ids),
+                    Tool.id.in_(tool_ids_with_on_hand),
                 ),
             )
             if self.group_id:
                 tools_on_hand_query = tools_on_hand_query.filter(Tool.group_id == self.group_id)
 
             tools_on_hand = self.session.execute(tools_on_hand_query).scalars().all()
-            tool_ids.extend(tools_on_hand)
+            tool_ids_with_on_hand.extend(tools_on_hand)
 
         ## Build suggestion query
         settings_alias = orm.aliased(RecipeSettings)
@@ -359,11 +361,11 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         q = q.filter_by(**fltr)
 
         # Tools goes first so we can order by missing tools count before foods
-        if tool_ids:
+        if user_tool_ids:
             unmatched_tools_query = (
                 sa.select(recipes_to_tools.c.recipe_id, sa.func.count().label("unmatched_tools_count"))
                 .join(tools_alias, recipes_to_tools.c.tool_id == tools_alias.id)
-                .filter(sa.not_(tools_alias.id.in_(tool_ids)))
+                .filter(sa.not_(tools_alias.id.in_(tool_ids_with_on_hand)))
                 .group_by(recipes_to_tools.c.recipe_id)
                 .subquery()
             )
@@ -378,10 +380,10 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                 .order_by(unmatched_tools_query.c.unmatched_tools_count.asc().nulls_first())
             )
 
-        if food_ids:
+        if user_food_ids:
             unmatched_foods_query = (
                 sa.select(ingredients_alias.recipe_id, sa.func.count().label("unmatched_foods_count"))
-                .filter(sa.not_(ingredients_alias.food_id.in_(food_ids)))
+                .filter(sa.not_(ingredients_alias.food_id.in_(food_ids_with_on_hand)))
                 .filter(ingredients_alias.food_id.isnot(None))
                 .group_by(ingredients_alias.recipe_id)
                 .subquery()
@@ -440,9 +442,9 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             recipe = cast(RecipeModel, result)
 
             missing_foods: list[IngredientFood] = []
-            if food_ids:
+            if user_food_ids:  # only check for missing foods if the user has provided a list of foods
                 seen_food_ids: set[UUID4] = set()
-                seen_food_ids.update(food_ids)
+                seen_food_ids.update(food_ids_with_on_hand)
                 for ingredient in recipe.recipe_ingredient:
                     if not ingredient.food:
                         continue
@@ -453,9 +455,9 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                     missing_foods.append(IngredientFood.model_validate(ingredient.food))
 
             missing_tools: list[RecipeToolOut] = []
-            if tool_ids:
+            if user_tool_ids:  # only check for missing tools if the user has provided a list of tools
                 seen_tool_ids: set[UUID4] = set()
-                seen_tool_ids.update(tool_ids)
+                seen_tool_ids.update(tool_ids_with_on_hand)
                 for tool in recipe.tools:
                     if tool.id in seen_tool_ids:
                         continue
