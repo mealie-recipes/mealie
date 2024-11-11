@@ -666,7 +666,21 @@
     "not-linked-ingredients": "Additional Ingredients"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder"
+    "recipe-finder": "Recipe Finder",
+    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
+    "selected-ingredients": "Selected Ingredients",
+    "no-ingredients-selected": "No ingredients selected",
+    "missing": "Missing",
+    "no-recipes-found": "No recipes found",
+    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
+    "include-ingredients-on-hand": "Include Ingredients On Hand",
+    "include-tools-on-hand": "Include Tools On Hand",
+    "max-missing-ingredients": "Max Missing Ingredients",
+    "max-missing-tools": "Max Missing Tools",
+    "selected-tools": "Selected Tools",
+    "other-filters": "Other Filters",
+    "ready-to-make": "Ready to Make",
+    "almost-ready-to-make": "Almost Ready to Make"
   },
   "search": {
     "advanced-search": "Advanced Search",
@@ -686,20 +700,7 @@
     "search-hint": "Press '/'",
     "advanced": "Advanced",
     "auto-search": "Auto Search",
-    "no-results": "No results found",
-    "selected-ingredients": "Selected Ingredients",
-    "no-ingredients-selected": "No ingredients selected",
-    "missing": "Missing",
-    "no-recipes-found": "No recipes found",
-    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
-    "include-ingredients-on-hand": "Include Ingredients On Hand",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
-    "selected-tools": "Selected Tools",
-    "other-filters": "Other Filters",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "no-results": "No results found"
   },
   "settings": {
     "add-a-new-theme": "Add a New Theme",

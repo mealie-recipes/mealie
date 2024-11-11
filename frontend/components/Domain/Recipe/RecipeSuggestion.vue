@@ -19,7 +19,7 @@
         <div class="d-flex flex-row flex-wrap align-center pt-2">
           <v-icon class="ma-0 pa-0">{{ organizer.icon }}</v-icon>
           <v-card-text class="mr-2 my-0 pl-2 py-0" style="width: min-content;">
-            {{ $tc("search.missing") }}:
+            {{ $tc("recipe-finder.missing") }}:
           </v-card-text>
           <v-chip
             v-for="item in organizer.items"
