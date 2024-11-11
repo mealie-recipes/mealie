@@ -110,6 +110,7 @@
                       </div>
                       <div class="mt-1">
                         <v-checkbox
+                          v-if="isOwnGroup"
                           v-model="settings.includeFoodsOnHand"
                           dense
                           small
@@ -118,6 +119,7 @@
                           :label="$tc('recipe-finder.include-ingredients-on-hand')"
                         />
                         <v-checkbox
+                          v-if="isOwnGroup"
                           v-model="settings.includeToolsOnHand"
                           dense
                           small
@@ -293,6 +295,13 @@ interface RecipeSuggestions {
 export default defineComponent({
   components: { QueryFilterBuilder, RecipeSuggestion, SearchFilter },
   setup() {
+    const { $auth, i18n } = useContext();
+    const route = useRoute();
+
+    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const { isOwnGroup } = useLoggedInState();
+    const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
+
     const preferences = useRecipeFinderPreferences();
     const state = reactive({
       ready: false,
@@ -313,6 +322,13 @@ export default defineComponent({
       },
     });
 
+    onMounted(() => {
+      if (!isOwnGroup.value) {
+        state.settings.includeFoodsOnHand = false;
+        state.settings.includeToolsOnHand = false;
+      }
+    });
+
     watch(
       () => state,
       (newState) => {
@@ -327,13 +343,6 @@ export default defineComponent({
         deep: true,
       },
     );
-
-    const { $auth, i18n } = useContext();
-    const route = useRoute();
-
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
-    const { isOwnGroup } = useLoggedInState();
-    const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
 
     const attrs = computed(() => {
       return {
@@ -496,6 +505,7 @@ export default defineComponent({
     return {
       ...toRefs(state),
       attrs,
+      isOwnGroup,
       foods: foodStore.store,
       selectedFoods,
       removeFood,
