@@ -225,6 +225,15 @@
               </v-col>
             </v-row>
           </v-container>
+          <v-container v-else-if="!recipesReady">
+            <v-row>
+              <v-col cols="12" class="d-flex justify-center">
+                <div class="text-center">
+                  <AppLoader waiting-text="" />
+                </div>
+              </v-col>
+            </v-row>
+          </v-container>
           <v-container v-else>
             <v-row>
               <v-col cols="12" class="d-flex flex-row flex-wrap justify-center">
@@ -287,6 +296,7 @@ export default defineComponent({
     const preferences = useRecipeFinderPreferences();
     const state = reactive({
       ready: false,
+      recipesReady: false,
       settingsMenu: false,
       queryFilterMenu: false,
       queryFilterMenuKey: 0,
@@ -395,6 +405,9 @@ export default defineComponent({
     onMounted(async () => {
       await Promise.all([hydrateFoods(), hydrateTools()]);
       state.ready = true;
+      if (!selectedFoods.value.length) {
+        state.recipesReady = true;
+      };
     });
 
     const recipeResponseItems = ref<RecipeSuggestionResponseItem[]>([]);
@@ -420,6 +433,7 @@ export default defineComponent({
         // don't search for suggestions if no foods are selected
         if(!selectedFoods.value.length) {
           recipeResponseItems.value = [];
+          state.recipesReady = true;
           return;
         }
 
@@ -439,6 +453,7 @@ export default defineComponent({
           return;
         }
         recipeResponseItems.value = data.items;
+        state.recipesReady = true;
       },
       {
         debounce: 1000,
