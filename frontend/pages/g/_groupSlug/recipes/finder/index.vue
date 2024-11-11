@@ -18,25 +18,51 @@
                   </v-icon>
                   {{ $t("tool.tools") }}
                 </SearchFilter>
-                <v-btn
+                <v-badge
+                  :value="queryFilterJSON.parts && queryFilterJSON.parts.length"
                   small
-                  color="accent"
-                  dark
-                  @click="queryFilterMenu = !queryFilterMenu"
-                  class="mr-6 mb-2"
+                  overlap
+                  color="primary"
+                  :content="(queryFilterJSON.parts || []).length"
                 >
-                  <v-icon left>
-                    {{ $globals.icons.filter }}
-                  </v-icon>
-                  Other Filters
-                  <BaseDialog
-                    v-model="queryFilterMenu"
-                    title="Other Filters"
-                    :icon="$globals.icons.filter"
+                  <v-btn
+                    small
+                    color="accent"
+                    dark
+                    @click="queryFilterMenu = !queryFilterMenu"
+                    class="pr-6 mb-2"
                   >
-                    <!-- <QueryFilterBuilder /> -->
-                  </BaseDialog>
-                </v-btn>
+                    <v-icon left>
+                      {{ $globals.icons.filter }}
+                    </v-icon>
+                    Other Filters
+                    <BaseDialog
+                      v-model="queryFilterMenu"
+                      title="Other Filters"
+                      :icon="$globals.icons.filter"
+                      width="100%"
+                      max-width="1100px"
+                      :submit-disabled="!queryFilterEditorValue"
+                      @confirm="saveQueryFilter"
+                    >
+                      <QueryFilterBuilder
+                        :key="queryFilterMenuKey"
+                        :initial-query-filter="queryFilterJSON"
+                        :field-defs="queryFilterBuilderFields"
+                        @input="(value) => queryFilterEditorValue = value"
+                        @inputJSON="(value) => queryFilterEditorValueJSON = value"
+                      />
+                      <template #custom-card-action>
+                        <BaseButton color="error" type="submit" @click="clearQueryFilter">
+                          <template #icon>
+                            {{ $globals.icons.close }}
+                          </template>
+                          {{ $t("search.clear-selection") }}
+                        </BaseButton>
+                      </template>
+                    </BaseDialog>
+                  </v-btn>
+                </v-badge>
               </v-col>
             </v-row>
             <!-- Settings Menu -->
@@ -215,12 +241,13 @@ import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useFoodStore, usePublicFoodStore, useToolStore, usePublicToolStore } from "~/composables/store";
 import { IngredientFood, RecipeTool } from "~/lib/api/types/recipe";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import { NoUndefinedField, Organizer } from "~/lib/api/types/non-generated";
 import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
 import RecipeSuggestion from "~/components/Domain/Recipe/RecipeSuggestion.vue";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
-import { RecipeSuggestionQuery, RecipeSuggestionResponseItem } from "~/lib/api/types/response";
+import { QueryFilterJSON, RecipeSuggestionQuery, RecipeSuggestionResponseItem } from "~/lib/api/types/response";
 import { watchDebounced } from "@vueuse/core";
+import { FieldDefinition } from "~/composables/use-query-filter-builder";
 
 interface RecipeSuggestions {
   readyToMake: RecipeSuggestionResponseItem[];
@@ -233,6 +260,10 @@ export default defineComponent({
     const state = reactive({
       settingsMenu: false,
       queryFilterMenu: false,
+      queryFilterMenuKey: 0,
+      queryFilterEditorValue: "",
+      queryFilterEditorValueJSON: {},
+      queryFilterJSON: { parts: [] } as QueryFilterJSON,
       settings: {
         maxMissingFoods: 5,
         maxMissingTools: 5,
@@ -242,7 +273,7 @@ export default defineComponent({
       },
     });
 
-    const { $auth } = useContext();
+    const { $auth, i18n } = useContext();
     const route = useRoute();
 
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
@@ -302,8 +333,6 @@ export default defineComponent({
       };
     })
 
-
-
     watchDebounced(
       [selectedFoods, selectedTools, state.settings], async () => {
         // don't search for suggestions if no foods are selected
@@ -334,6 +363,39 @@ export default defineComponent({
       },
     );
 
+    const queryFilterBuilderFields: FieldDefinition[] = [
+      {
+        name: "recipe_category.id",
+        label: i18n.tc("category.categories"),
+        type: Organizer.Category,
+      },
+      {
+        name: "tags.id",
+        label: i18n.tc("tag.tags"),
+        type: Organizer.Tag,
+      },
+      {
+        name: "household_id",
+        label: i18n.tc("household.households"),
+        type: Organizer.Household,
+      },
+    ];
+
+    function clearQueryFilter() {
+      state.queryFilterEditorValue = "";
+      state.queryFilterEditorValueJSON = { parts: [] } as QueryFilterJSON;
+      state.settings.queryFilter = "";
+      state.queryFilterJSON = { parts: [] } as QueryFilterJSON;
+      state.queryFilterMenu = false;
+      state.queryFilterMenuKey += 1;
+    }
+
+    function saveQueryFilter() {
+      state.settings.queryFilter = state.queryFilterEditorValue || "";
+      state.queryFilterJSON = state.queryFilterEditorValueJSON || { parts: [] } as QueryFilterJSON;
+      state.queryFilterMenu = false;
+    }
+
     return {
       ...toRefs(state),
       attrs,
@@ -344,6 +406,9 @@ export default defineComponent({
       selectedTools,
       removeTool,
       recipeSuggestions,
+      queryFilterBuilderFields,
+      clearQueryFilter,
+      saveQueryFilter,
     };
   },
   head() {
