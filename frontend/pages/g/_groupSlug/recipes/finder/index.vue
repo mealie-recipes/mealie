@@ -35,10 +35,10 @@
                     <v-icon left>
                       {{ $globals.icons.filter }}
                     </v-icon>
-                    Other Filters
+                    {{ $tc("search.other-filters") }}
                     <BaseDialog
                       v-model="queryFilterMenu"
-                      title="Other Filters"
+                      :title="$tc('search.other-filters')"
                       :icon="$globals.icons.filter"
                       width="100%"
                       max-width="1100px"
@@ -90,14 +90,14 @@
                           type="number"
                           hide-details
                           hide-spin-buttons
-                          label="Max Missing Ingredients"
+                          :label="$tc('search.max-missing-ingredients')"
                         />
                         <v-text-field
                           v-model="settings.maxMissingTools"
                           type="number"
                           hide-details
                           hide-spin-buttons
-                          label="Max Missing Tools"
+                          :label="$tc('search.max-missing-tools')"
                           class="mt-4"
                         />
                       </div>
@@ -108,7 +108,7 @@
                           small
                           hide-details
                           class="my-auto"
-                          label="Include Ingredients On Hand"
+                          :label="$tc('search.include-ingredients-on-hand')"
                         />
                         <v-checkbox
                           v-model="settings.includeToolsOnHand"
@@ -116,7 +116,7 @@
                           small
                           hide-details
                           class="my-auto"
-                          label="Include Tools On Hand"
+                          :label="$tc('search.include-tools-on-hand')"
                         />
                       </div>
                     </v-card-text>
@@ -131,11 +131,11 @@
             </v-row>
             <v-row no-gutters class="mt-5">
               <v-card-title class="ma-0 pa-0">
-                Selected Ingredients
+                {{ $tc("search.selected-ingredients") }}
               </v-card-title>
               <v-container class="ma-0 pa-0" style="max-height: 60vh; overflow-y: auto;">
                 <v-card-text v-if="!selectedFoods.length" class="ma-0 pa-0">
-                  No ingredients selected
+                  {{ $tc("search.no-ingredients-selected") }}
                 </v-card-text>
                 <v-row v-for="food in selectedFoods" :key="food.id" no-gutters class="mb-1">
                   <v-col cols="12">
@@ -153,7 +153,7 @@
             </v-row>
             <v-row v-if="selectedTools.length" no-gutters class="mt-5">
               <v-card-title class="ma-0 pa-0">
-                Selected Tools
+                {{ $tc("search.selected-tools") }}
               </v-card-title>
               <v-container class="ma-0 pa-0">
                 <v-row v-for="tool in selectedTools" :key="tool.id" no-gutters class="mb-1">
@@ -180,7 +180,7 @@
             <v-row v-if="recipeSuggestions.readyToMake.length" dense>
               <v-col cols="12">
                 <v-card-title :class="attrs.class.title.readyToMake">
-                  Ready to Make
+                  {{ $tc("search.ready-to-make") }}
                 </v-card-title>
               </v-col>
               <v-col
@@ -200,7 +200,7 @@
             <v-row v-if="recipeSuggestions.missingItems.length" dense>
               <v-col cols="12">
                 <v-card-title :class="attrs.class.title.missingItems">
-                  Almost Ready to Make
+                  {{ $tc("search.almost-ready-to-make") }}
                 </v-card-title>
               </v-col>
               <v-col
@@ -221,9 +221,9 @@
           <v-container v-else>
             <v-row>
               <v-col cols="12" class="d-flex flex-row flex-wrap justify-center">
-                <v-card-title class="ma-0 pa-0">No recipes found</v-card-title>
+                <v-card-title class="ma-0 pa-0">{{ $tc("search.no-recipes-found") }}</v-card-title>
                 <v-card-text class="ma-0 pa-0 text-center">
-                  Try adding more ingredients to your search or adjusting your filters
+                  {{ $tc("search.no-recipes-found-description") }}
                 </v-card-text>
               </v-col>
             </v-row>
