@@ -36,8 +36,8 @@
                     small
                     color="accent"
                     dark
-                    @click="queryFilterMenu = !queryFilterMenu"
                     class="pr-6 mb-2"
+                    @click="queryFilterMenu = !queryFilterMenu"
                   >
                     <v-icon left>
                       {{ $globals.icons.filter }}
@@ -81,8 +81,8 @@
                   nudge-bottom="3"
                   :close-on-content-click="false"
                 >
-                  <template #activator="{ on, attrs }">
-                    <v-btn small color="primary" dark v-bind="attrs" v-on="on">
+                  <template #activator="{ on, attrs: activatorAttrs}">
+                    <v-btn small color="primary" dark v-bind="activatorAttrs" v-on="on">
                       <v-icon left>
                         {{ $globals.icons.cog }}
                       </v-icon>
@@ -183,8 +183,8 @@
         </v-col>
         <v-col cols="9">
           <v-container
-            class="ma-0 pa-0"
             v-if="recipeSuggestions.readyToMake.length || recipeSuggestions.missingItems.length"
+            class="ma-0 pa-0"
           >
             <v-row v-if="recipeSuggestions.readyToMake.length" dense>
               <v-col cols="12">
@@ -200,8 +200,8 @@
                 <v-lazy>
                   <RecipeSuggestion
                     :recipe="item.recipe"
-                    :missingFoods="item.missingFoods"
-                    :missingTools="item.missingTools"
+                    :missing-foods="item.missingFoods"
+                    :missing-tools="item.missingTools"
                   />
                 </v-lazy>
               </v-col>
@@ -220,8 +220,8 @@
               <v-lazy>
                 <RecipeSuggestion
                   :recipe="item.recipe"
-                  :missingFoods="item.missingFoods"
-                  :missingTools="item.missingTools"
+                  :missing-foods="item.missingFoods"
+                  :missing-tools="item.missingTools"
                 />
               </v-lazy>
               </v-col>
@@ -273,6 +273,7 @@ import {
   useRoute,
   watch
 } from "@nuxtjs/composition-api";
+import { watchDebounced } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
@@ -283,7 +284,6 @@ import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
 import RecipeSuggestion from "~/components/Domain/Recipe/RecipeSuggestion.vue";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { QueryFilterJSON, RecipeSuggestionQuery, RecipeSuggestionResponseItem } from "~/lib/api/types/response";
-import { watchDebounced } from "@vueuse/core";
 import { FieldDefinition } from "~/composables/use-query-filter-builder";
 import { useRecipeFinderPreferences } from "~/composables/use-users/preferences";
 

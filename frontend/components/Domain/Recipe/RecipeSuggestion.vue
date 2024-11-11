@@ -11,35 +11,36 @@
           :recipe-id="recipe.id"
         />
       </v-col>
-      <v-col
-        v-for="organizer in missingOrganizers"
-        v-if="organizer.show"
-        cols="12"
-      >
-        <div class="d-flex flex-row flex-wrap align-center pt-2">
-          <v-icon class="ma-0 pa-0">{{ organizer.icon }}</v-icon>
-          <v-card-text class="mr-2 my-0 pl-2 py-0" style="width: min-content;">
-            {{ $tc("recipe-finder.missing") }}:
-          </v-card-text>
-          <v-chip
-            v-for="item in organizer.items"
-            :key="item.id"
-            label
-            color="secondary custom-transparent"
-            class="mr-2 my-1"
-          >
-            <span>{{ organizer.getLabel(item) }}</span>
-          </v-chip>
-        </div>
-      </v-col>
+      <div v-for="(organizer, idx) in missingOrganizers" :key="idx">
+        <v-col
+          v-if="organizer.show"
+          cols="12"
+        >
+          <div class="d-flex flex-row flex-wrap align-center pt-2">
+            <v-icon class="ma-0 pa-0">{{ organizer.icon }}</v-icon>
+            <v-card-text class="mr-2 my-0 pl-2 py-0" style="width: min-content;">
+              {{ $tc("recipe-finder.missing") }}:
+            </v-card-text>
+            <v-chip
+              v-for="item in organizer.items"
+              :key="item.id"
+              label
+              color="secondary custom-transparent"
+              class="mr-2 my-1"
+            >
+              <span>{{ organizer.getLabel(item) }}</span>
+            </v-chip>
+          </div>
+        </v-col>
+      </div>
     </v-row>
   </v-container>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
-import { IngredientFood, RecipeSummary, RecipeTool } from "~/lib/api/types/recipe";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
+import { IngredientFood, RecipeSummary, RecipeTool } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   components: { RecipeCardMobile },
