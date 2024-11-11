@@ -417,6 +417,10 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                 q = q.filter(total_user_foods_query.c.total_user_foods_count > 0)
 
         ## Add filters and loader options
+        if self.group_id:
+            q = q.filter(self.model.group_id == self.group_id)
+        if self.household_id:
+            q = q.filter(self.model.household_id == self.household_id)
         if params.query_filter:
             try:
                 query_filter_builder = QueryFilterBuilder(params.query_filter)
