@@ -10,7 +10,7 @@ def main():
     if port is None:
         port = 9000
 
-    if all([os.getenv(x) for x in ["TLS_CERTIFICATE_PATH", "TLS_PRIVATE_KEY_PATH"]]):
+    if all(os.getenv(x) for x in ["TLS_CERTIFICATE_PATH", "TLS_PRIVATE_KEY_PATH"]):
         proto = "https"
     else:
         proto = "http"
