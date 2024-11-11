@@ -64,7 +64,7 @@
                           type="number"
                           hide-details
                           hide-spin-buttons
-                          label="Max Missing Foods"
+                          label="Max Missing Ingredients"
                         />
                         <v-text-field
                           v-model="settings.maxMissingTools"
@@ -82,7 +82,7 @@
                           small
                           hide-details
                           class="my-auto"
-                          label="Include Foods On Hand"
+                          label="Include Ingredients On Hand"
                         />
                         <v-checkbox
                           v-model="settings.includeToolsOnHand"
@@ -105,11 +105,11 @@
             </v-row>
             <v-row no-gutters class="mt-5">
               <v-card-title class="ma-0 pa-0">
-                Selected Foods
+                Selected Ingredients
               </v-card-title>
               <v-container class="ma-0 pa-0" style="max-height: 60vh; overflow-y: auto;">
                 <v-card-text v-if="!selectedFoods.length" class="ma-0 pa-0">
-                  No foods selected
+                  No ingredients selected
                 </v-card-text>
                 <v-row v-for="food in selectedFoods" :key="food.id" no-gutters class="mb-1">
                   <v-col cols="12">
@@ -197,7 +197,7 @@
               <v-col cols="12" class="d-flex flex-row flex-wrap justify-center">
                 <v-card-title class="ma-0 pa-0">No recipes found</v-card-title>
                 <v-card-text class="ma-0 pa-0 text-center">
-                  Try adding more foods to your search or adjusting your filters
+                  Try adding more ingredients to your search or adjusting your filters
                 </v-card-text>
               </v-col>
             </v-row>
