@@ -1,3 +1,5 @@
+from uuid import uuid4
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -29,6 +31,21 @@ def test_get_all_invitation(api_client: TestClient, unique_user: TestUser, invit
         assert item["groupId"] == unique_user.group_id
         assert item["householdId"] == unique_user.household_id
         assert item["token"] == invite
+
+
+def test_create_invitation(api_client: TestClient, unique_user: TestUser) -> None:
+    # Create invitation for the same group as user
+    r = api_client.post(api_routes.households_invitations, json={"uses": 1}, headers=unique_user.token)
+    assert r.status_code == 201
+
+    # Create invitation for other group as user
+    body = {
+        "uses": 1,
+        "groupId": str(uuid4()),
+        "householdId": str(uuid4()),
+    }
+    r = api_client.post(api_routes.households_invitations, json=body, headers=unique_user.token)
+    assert r.status_code == 403
 
 
 def register_user(api_client: TestClient, invite: str):

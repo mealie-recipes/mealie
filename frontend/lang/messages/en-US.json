@@ -1279,6 +1279,7 @@
   "profile": {
     "welcome-user": "👋 Welcome, {0}!",
     "description": "Manage your profile, recipes, and group settings.",
+    "invite-link": "Invite Link",
     "get-invite-link": "Get Invite Link",
     "get-public-link": "Get Public Link",
     "account-summary": "Account Summary",
