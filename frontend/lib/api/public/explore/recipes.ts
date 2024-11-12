@@ -1,9 +1,8 @@
 import { BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
 import { route } from "../../base";
-import { Recipe } from "~/lib/api/types/recipe";
+import { Recipe, RecipeSuggestionQuery, RecipeSuggestionResponse } from "~/lib/api/types/recipe";
 import { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
 import { RecipeSearchQuery } from "../../user/recipes/recipe";
-import { RecipeSuggestionQuery, RecipeSuggestionResponse } from "~/lib/api/types/response";
 
 const prefix = "/api";
 const exploreGroupSlug = (groupSlug: string | number) => `${prefix}/explore/groups/${groupSlug}`

@@ -7,6 +7,8 @@
 
 export type ExportTypes = "json";
 export type RegisteredParser = "nlp" | "brute" | "openai";
+export type OrderByNullPosition = "first" | "last";
+export type OrderDirection = "asc" | "desc";
 export type TimelineEventType = "system" | "info" | "comment";
 export type TimelineEventImage = "has image" | "does not have image";
 
@@ -116,7 +118,7 @@ export interface ExportBase {
 }
 export interface ExportRecipes {
   recipes: string[];
-  exportType?: ExportTypes & string;
+  exportType?: ExportTypes;
 }
 export interface IngredientConfidence {
   average?: number | null;
@@ -157,7 +159,7 @@ export interface IngredientReferences {
   referenceId?: string | null;
 }
 export interface IngredientRequest {
-  parser?: RegisteredParser & string;
+  parser?: RegisteredParser;
   ingredient: string;
 }
 export interface IngredientUnit {
@@ -181,7 +183,7 @@ export interface IngredientUnitAlias {
   name: string;
 }
 export interface IngredientsRequest {
-  parser?: RegisteredParser & string;
+  parser?: RegisteredParser;
   ingredients: string[];
 }
 export interface MergeFood {
@@ -266,9 +268,9 @@ export interface RecipeTool {
 export interface RecipeStep {
   id?: string | null;
   title?: string | null;
+  summary?: string | null;
   text: string;
   ingredientReferences?: IngredientReferences[];
-  summary?: string | null;
 }
 export interface RecipeAsset {
   name: string;
@@ -378,6 +380,26 @@ export interface RecipeShareTokenSummary {
 }
 export interface RecipeSlug {
   slug: string;
+}
+export interface RecipeSuggestionQuery {
+  orderBy?: string | null;
+  orderByNullPosition?: OrderByNullPosition | null;
+  orderDirection?: OrderDirection;
+  queryFilter?: string | null;
+  paginationSeed?: string | null;
+  limit?: number;
+  maxMissingFoods?: number;
+  maxMissingTools?: number;
+  includeFoodsOnHand?: boolean;
+  includeToolsOnHand?: boolean;
+}
+export interface RecipeSuggestionResponse {
+  items: RecipeSuggestionResponseItem[];
+}
+export interface RecipeSuggestionResponseItem {
+  recipe: RecipeSummary;
+  missingFoods: IngredientFood[];
+  missingTools: RecipeTool[];
 }
 export interface RecipeTagResponse {
   name: string;
@@ -491,7 +513,7 @@ export interface ScrapeRecipeTest {
   url: string;
   useOpenAI?: boolean;
 }
-export interface SlugResponse { }
+export interface SlugResponse {}
 export interface TagIn {
   name: string;
 }
@@ -517,4 +539,11 @@ export interface UnitFoodBase {
 }
 export interface UpdateImageResponse {
   image: string;
+}
+export interface RequestQuery {
+  orderBy?: string | null;
+  orderByNullPosition?: OrderByNullPosition | null;
+  orderDirection?: OrderDirection;
+  queryFilter?: string | null;
+  paginationSeed?: string | null;
 }

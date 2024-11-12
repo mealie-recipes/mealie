@@ -278,12 +278,12 @@ import { useUserApi } from "~/composables/api";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useFoodStore, usePublicFoodStore, useToolStore, usePublicToolStore } from "~/composables/store";
-import { IngredientFood, RecipeTool } from "~/lib/api/types/recipe";
+import { IngredientFood, RecipeSuggestionQuery, RecipeSuggestionResponseItem, RecipeTool } from "~/lib/api/types/recipe";
 import { Organizer } from "~/lib/api/types/non-generated";
 import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
 import RecipeSuggestion from "~/components/Domain/Recipe/RecipeSuggestion.vue";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
-import { QueryFilterJSON, RecipeSuggestionQuery, RecipeSuggestionResponseItem } from "~/lib/api/types/response";
+import { QueryFilterJSON } from "~/lib/api/types/response";
 import { FieldDefinition } from "~/composables/use-query-filter-builder";
 import { useRecipeFinderPreferences } from "~/composables/use-users/preferences";
 

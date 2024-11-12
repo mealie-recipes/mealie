@@ -11,12 +11,13 @@ import {
   UpdateImageResponse,
   RecipeZipTokenResponse,
   RecipeLastMade,
+  RecipeSuggestionQuery,
+  RecipeSuggestionResponse,
   RecipeTimelineEventIn,
   RecipeTimelineEventOut,
   RecipeTimelineEventUpdate,
 } from "~/lib/api/types/recipe";
 import { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
-import { RecipeSuggestionQuery, RecipeSuggestionResponse } from "~/lib/api/types/response";
 
 export type Parser = "nlp" | "brute" | "openai";
 
