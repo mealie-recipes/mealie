@@ -104,8 +104,9 @@
         :recipe="recipe"
         :scale="scale"
       />
-      <v-divider></v-divider>
-      <div class="px-2 px-md-4 pb-4 ">
+
+      <div v-if="notLinkedIngredients.length > 0" class="px-2 px-md-4 pb-4 ">
+        <v-divider></v-divider>
         <v-card flat>
           <v-card-title>{{ $t('recipe.not-linked-ingredients') }}</v-card-title>
             <RecipeIngredients
@@ -214,12 +215,10 @@ export default defineComponent({
       usePageState(props.recipe.slug);
     const { deactivateNavigationWarning } = useNavigationWarning();
     const notLinkedIngredients = computed(() => {
-      console.log("inst",props.recipe.recipeInstruction);
       return props.recipe.recipeIngredient.filter((ingredient) => {
         return !props.recipe.recipeInstructions.some((step) => step.ingredientReferences?.map((ref) => ref.referenceId).includes(ingredient.referenceId));
       })
     })
-    console.log(notLinkedIngredients);
 
     /** =============================================================
      * Recipe Snapshot on Mount

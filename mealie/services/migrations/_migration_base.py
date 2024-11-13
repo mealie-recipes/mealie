@@ -268,6 +268,5 @@ class BaseMigrator(BaseService):
         with contextlib.suppress(KeyError):
             del recipe_dict["id"]
 
-        recipe_dict = cleaner.clean(recipe_dict, self.translator, url=recipe_dict.get("org_url", None))
-
-        return Recipe(**recipe_dict)
+        recipe = cleaner.clean(recipe_dict, self.translator, url=recipe_dict.get("org_url", None))
+        return recipe
