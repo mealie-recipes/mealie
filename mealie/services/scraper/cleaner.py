@@ -11,6 +11,7 @@ from slugify import slugify
 
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator, get_all_translations
+from mealie.schema.recipe.recipe import Recipe
 from mealie.services.parser_services.parser_utils import extract_quantity_from_string
 
 logger = get_logger("recipe-scraper")
@@ -34,16 +35,23 @@ MATCH_ERRONEOUS_WHITE_SPACE = re.compile(r"\n\s*\n")
 """ Matches multiple new lines and removes erroneous white space """
 
 
-def clean(recipe_data: dict, translator: Translator, url=None) -> dict:
+def clean(recipe_data: Recipe | dict, translator: Translator, url=None) -> Recipe:
     """Main entrypoint to clean a recipe extracted from the web
     and format the data into an accectable format for the database
 
     Args:
-        recipe_data (dict): raw recipe dicitonary
+        recipe_data (dict): raw recipe or recipe dictionary
 
     Returns:
         dict: cleaned recipe dictionary
     """
+    if not isinstance(recipe_data, dict):
+        # format the recipe like a scraped dictionary
+        recipe_data_dict = recipe_data.model_dump(by_alias=True)
+        recipe_data_dict["recipeIngredient"] = [ing.display for ing in recipe_data.recipe_ingredient]
+
+        recipe_data = recipe_data_dict
+
     recipe_data["slug"] = slugify(recipe_data.get("name", ""))
     recipe_data["description"] = clean_string(recipe_data.get("description", ""))
 
@@ -63,7 +71,7 @@ def clean(recipe_data: dict, translator: Translator, url=None) -> dict:
     recipe_data["notes"] = clean_notes(recipe_data.get("notes"))
     recipe_data["rating"] = clean_int(recipe_data.get("rating"))
 
-    return recipe_data
+    return Recipe(**recipe_data)
 
 
 def clean_string(text: str | list | int) -> str:

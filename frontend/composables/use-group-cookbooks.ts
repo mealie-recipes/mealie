@@ -99,10 +99,10 @@ export const useCookbooks = function () {
 
       loading.value = false;
     },
-    async createOne() {
+    async createOne(name: string | null = null) {
       loading.value = true;
       const { data } = await api.cookbooks.createOne({
-        name: i18n.t("cookbook.household-cookbook-name", [household.value?.name || "", String((cookbookStore?.value?.length ?? 0) + 1)]) as string,
+        name: name || i18n.t("cookbook.household-cookbook-name", [household.value?.name || "", String((cookbookStore?.value?.length ?? 0) + 1)]) as string,
         position: (cookbookStore?.value?.length ?? 0) + 1,
         queryFilterString: "",
       });
@@ -129,18 +129,18 @@ export const useCookbooks = function () {
       return data;
     },
 
-    async updateOrder() {
-      if (!cookbookStore?.value) {
+    async updateOrder(cookbooks: ReadCookBook[]) {
+      if (!cookbooks?.length) {
         return;
       }
 
       loading.value = true;
 
-      cookbookStore.value.forEach((element, index) => {
+      cookbooks.forEach((element, index) => {
         element.position = index + 1;
       });
 
-      const { data } = await api.cookbooks.updateAll(cookbookStore.value);
+      const { data } = await api.cookbooks.updateAll(cookbooks);
 
       if (data && cookbookStore?.value) {
         this.refreshAll();

@@ -299,3 +299,16 @@ def test_cookbook_recipes_includes_all_households(api_client: TestClient, unique
         assert recipe.id in fetched_recipe_ids
     for recipe in other_recipes:
         assert recipe.id in fetched_recipe_ids
+
+
+def test_cookbooks_from_other_households(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+    h2_cookbook = h2_user.repos.cookbooks.create(
+        SaveCookBook(
+            name=random_string(),
+            group_id=h2_user.group_id,
+            household_id=h2_user.household_id,
+        )
+    )
+
+    response = api_client.get(api_routes.recipes, params={"cookbook": h2_cookbook.slug}, headers=unique_user.token)
+    assert response.status_code == 200

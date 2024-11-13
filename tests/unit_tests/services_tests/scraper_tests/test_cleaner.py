@@ -40,7 +40,7 @@ test_cleaner_data = [
 def test_cleaner_clean(json_file: Path, num_steps):
     translator = local_provider()
     recipe_data = cleaner.clean(json.loads(json_file.read_text()), translator)
-    assert len(recipe_data["recipeInstructions"]) == num_steps
+    assert len(recipe_data.recipe_instructions or []) == num_steps
 
 
 def test_html_with_recipe_data():

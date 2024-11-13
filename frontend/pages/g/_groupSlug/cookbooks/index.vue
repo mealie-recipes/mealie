@@ -48,20 +48,33 @@
         {{ $t('cookbook.description') }}
       </BasePageTitle>
 
+      <div class="my-6">
+        <v-checkbox
+          v-model="cookbookPreferences.hideOtherHouseholds"
+          :label="$tc('cookbook.hide-cookbooks-from-other-households')"
+          hide-details
+        />
+        <div class="ml-8">
+          <p class="text-subtitle-2 my-0 py-0">
+            {{ $tc("cookbook.hide-cookbooks-from-other-households-description") }}
+          </p>
+        </div>
+      </div>
+
       <!-- Create New -->
       <BaseButton create @click="createCookbook" />
 
       <!-- Cookbook List -->
       <v-expansion-panels class="mt-2">
         <draggable
-          v-model="cookbooks"
+          v-model="myCookbooks"
           handle=".handle"
           delay="250"
           :delay-on-touch-only="true"
           style="width: 100%"
-          @change="actions.updateOrder()"
+          @change="actions.updateOrder(myCookbooks)"
         >
-          <v-expansion-panel v-for="cookbook in cookbooks" :key="cookbook.id" class="my-2 left-border rounded">
+          <v-expansion-panel v-for="cookbook in myCookbooks" :key="cookbook.id" class="my-2 left-border rounded">
             <v-expansion-panel-header disable-icon-rotate class="headline">
               <div class="d-flex align-center">
                 <v-icon large left>
@@ -110,11 +123,13 @@
 
 <script lang="ts">
 
-import { defineComponent, onBeforeUnmount, onMounted, reactive, ref } from "@nuxtjs/composition-api";
+import { computed, defineComponent, onBeforeUnmount, onMounted, reactive, ref, useContext } from "@nuxtjs/composition-api";
 import draggable from "vuedraggable";
 import { useCookbooks } from "@/composables/use-group-cookbooks";
+import { useHouseholdSelf } from "@/composables/use-households";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
 import { ReadCookBook } from "~/lib/api/types/cookbook";
+import { useCookbookPreferences } from "~/composables/use-users/preferences";
 
 export default defineComponent({
   components: { CookbookEditor, draggable },
@@ -124,13 +139,28 @@ export default defineComponent({
       create: false,
       delete: false,
     });
-    const { cookbooks, actions } = useCookbooks();
+
+    const { $auth, i18n } = useContext();
+    const { cookbooks: allCookbooks, actions } = useCookbooks();
+    const myCookbooks = computed<ReadCookBook[]>({
+      get: () => {
+        return allCookbooks.value?.filter((cookbook) => {
+          return cookbook.householdId === $auth.user?.householdId;
+        }) || [];
+      },
+      set: (value: ReadCookBook[]) => {
+        actions.updateOrder(value);
+      },
+    });
+    const { household } = useHouseholdSelf();
+    const cookbookPreferences = useCookbookPreferences()
 
     // create
     const createTargetKey = ref(0);
     const createTarget = ref<ReadCookBook | null>(null);
     async function createCookbook() {
-      await actions.createOne().then((cookbook) => {
+      const name = i18n.t("cookbook.household-cookbook-name", [household.value?.name || "", String((myCookbooks.value?.length ?? 0) + 1)]) as string
+      await actions.createOne(name).then((cookbook) => {
         createTarget.value = cookbook as ReadCookBook;
         createTargetKey.value++;
       });
@@ -177,7 +207,8 @@ export default defineComponent({
     });
 
     return {
-      cookbooks,
+      myCookbooks,
+      cookbookPreferences,
       actions,
       dialogStates,
       // create
