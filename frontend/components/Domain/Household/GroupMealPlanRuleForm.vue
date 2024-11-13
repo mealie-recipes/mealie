@@ -119,6 +119,11 @@ export default defineComponent({
         type: Organizer.Tag,
       },
       {
+        name: "recipe_ingredient.food.id",
+        label: i18n.tc("recipe.ingredients"),
+        type: Organizer.Food,
+      },
+      {
         name: "tools.id",
         label: i18n.tc("tool.tools"),
         type: Organizer.Tool,

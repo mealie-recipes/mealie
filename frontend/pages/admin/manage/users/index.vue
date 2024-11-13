@@ -1,5 +1,6 @@
 <template>
   <v-container fluid>
+    <UserInviteDialog v-model="inviteDialog" />
     <BaseDialog
       v-model="deleteDialog"
       :title="$tc('general.confirm')"
@@ -21,6 +22,9 @@
       <v-toolbar color="transparent" flat class="justify-between">
         <BaseButton to="/admin/manage/users/create" class="mr-2">
           {{ $t("general.create") }}
+        </BaseButton>
+        <BaseButton class="mr-2" color="info" :icon="$globals.icons.link" @click="inviteDialog = true">
+          {{ $t("group.invite") }}
         </BaseButton>
 
         <BaseOverflowButton mode="event" :items="ACTIONS_OPTIONS" @unlock-all-users="unlockAllUsers">
@@ -69,12 +73,17 @@ import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useUser, useAllUsers } from "~/composables/use-user";
 import { UserOut } from "~/lib/api/types/user";
+import UserInviteDialog from "~/components/Domain/User/UserInviteDialog.vue";
 
 export default defineComponent({
+  components: {
+    UserInviteDialog,
+  },
   layout: "admin",
   setup() {
     const api = useAdminApi();
     const refUserDialog = ref();
+    const inviteDialog = ref();
     const { $auth } = useContext();
 
     const user = computed(() => $auth.user);
@@ -99,6 +108,9 @@ export default defineComponent({
       deleteDialog: false,
       deleteTargetId: "",
       search: "",
+      groups: [],
+      households: [],
+      sendTo: "",
     });
 
     const { users, refreshAllUsers } = useAllUsers();
@@ -154,6 +166,7 @@ export default defineComponent({
       deleteUser,
       loading,
       refUserDialog,
+      inviteDialog,
       users,
       user,
       handleRowClick,

@@ -65,8 +65,8 @@
     </v-dialog>
 
     <div class="d-flex justify-space-between justify-start">
-      <h2 class="mb-4 mt-1">{{ $t("recipe.instructions") }}</h2>
-      <BaseButton v-if="!isEditForm && showCookMode" minor cancel color="primary" @click="toggleCookMode()">
+      <h2 v-if="!isCookMode" class="mb-4 mt-1">{{ $t("recipe.instructions") }}</h2>
+      <BaseButton v-if="!isEditForm && !isCookMode" minor cancel color="primary" @click="toggleCookMode()">
         <template #icon>
           {{ $globals.icons.primary }}
         </template>
@@ -243,16 +243,31 @@
               </DropZone>
               <v-expand-transition>
                 <div v-show="!isChecked(index) && !isEditForm" class="m-0 p-0">
+
                   <v-card-text class="markdown">
-                    <SafeMarkdown class="markdown" :source="step.text" />
-                    <div v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0">
-                      <v-divider class="mb-2"></v-divider>
-                      <RecipeIngredientHtml
-                        v-for="ing in step.ingredientReferences"
-                        :key="ing.referenceId"
-                        :markup="getIngredientByRefId(ing.referenceId)"
-                      />
-                    </div>
+                    <v-row>
+                      <v-col
+                        v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0"
+                        cols="12"
+                        sm="5"
+                      >
+                        <div class="ml-n4">
+                          <RecipeIngredients
+                            :value="recipe.recipeIngredient.filter((ing) => {
+                              if(!step.ingredientReferences) return false
+                              return step.ingredientReferences.map((ref) => ref.referenceId).includes(ing.referenceId || '')
+                            })"
+                            :scale="scale"
+                            :disable-amount="recipe.settings.disableAmount"
+                            :is-cook-mode="isCookMode"
+                          />
+                        </div>
+                      </v-col>
+                      <v-divider v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0 && $vuetify.breakpoint.smAndUp" vertical ></v-divider>
+                      <v-col>
+                        <SafeMarkdown class="markdown" :source="step.text" />
+                      </v-col>
+                    </v-row>
                   </v-card-text>
                 </div>
               </v-expand-transition>
@@ -261,7 +276,7 @@
         </div>
       </TransitionGroup>
     </draggable>
-    <v-divider class="mt-10 d-flex d-md-none"/>
+    <v-divider v-if="!isCookMode" class="mt-10 d-flex d-md-none"/>
   </section>
 </template>
 
@@ -287,7 +302,7 @@ import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
-
+import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 interface MergerHistory {
   target: number;
   source: number;
@@ -300,6 +315,7 @@ export default defineComponent({
     draggable,
     RecipeIngredientHtml,
     DropZone,
+    RecipeIngredients
   },
   props: {
     value: {
