@@ -28,8 +28,6 @@ services:
       PUID: 1000
       PGID: 1000
       TZ: America/Anchorage
-      MAX_WORKERS: 1
-      WEB_CONCURRENCY: 1
       BASE_URL: https://mealie.yourdomain.com
 
 volumes:
