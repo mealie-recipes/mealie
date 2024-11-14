@@ -27,13 +27,13 @@ export default defineComponent({
         });
         async function lockScreen() {
             if (wakeIsSupported) {
-                console.log("Wake Lock Requested");
+                console.debug("Wake Lock Requested");
                 await request("screen");
             }
         }
         async function unlockScreen() {
             if (wakeIsSupported || isActive) {
-                console.log("Wake Lock Released");
+                console.debug("Wake Lock Released");
                 await release();
             }
         }
