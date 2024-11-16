@@ -3,7 +3,7 @@
     <div class="d-flex justify-end flex-wrap align-stretch">
       <RecipePageInfoCardImage v-if="landscape" :recipe="recipe" />
       <v-card
-        :width="landscape ? null : '50%'"
+        :width="landscape ? '100%' : '50%'"
         flat
         class="d-flex flex-column justify-center align-center"
       >
