@@ -5,7 +5,7 @@
         <RecipeScaleEditButton
           v-model.number="scaleValue"
           v-bind="attrs"
-          :recipe-servings="recipe.recipeServings"
+          :recipe-servings="recipeServings"
           :edit-scale="!recipe.settings.disableAmount && !isEditMode"
           v-on="on"
         />
@@ -54,6 +54,10 @@ export default defineComponent({
   setup(props, { emit }) {
     const { isEditMode } = usePageState(props.recipe.slug);
 
+    const recipeServings = computed<number>(() => {
+      return props.recipe.recipeServings || props.recipe.recipeYieldQuantity || 1;
+    });
+
     const scaleValue = computed<number>({
       get() {
         return props.scale;
@@ -64,6 +68,7 @@ export default defineComponent({
     });
 
     return {
+      recipeServings,
       scaleValue,
       isEditMode,
     };
