@@ -18,7 +18,7 @@
           <v-container class="d-flex flex-row flex-wrap justify-center align-center">
             <div>
               <v-row no-gutters class="mb-1">
-                <v-col v-if="recipe.yieldQuantity || recipe.recipeYield" cols="12" class="d-flex flex-wrap justify-center">
+                <v-col v-if="recipe.recipeYieldQuantity || recipe.recipeYield" cols="12" class="d-flex flex-wrap justify-center">
                   <RecipeYield
                     :yield-quantity="recipe.recipeYieldQuantity"
                     :yield="recipe.recipeYield"
@@ -60,6 +60,8 @@ import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import RecipeYield from "~/components/Domain/Recipe/RecipeYield.vue";
 import RecipePageInfoCardImage from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInfoCardImage.vue";
+import { Recipe } from "~/lib/api/types/recipe";
+import { NoUndefinedField } from "~/lib/api/types/non-generated";
 export default defineComponent({
   components: {
     RecipeRating,
@@ -70,7 +72,7 @@ export default defineComponent({
   },
   props: {
     recipe: {
-      type: Object,
+      type: Object as () => NoUndefinedField<Recipe>,
       required: true,
     },
     landscape: {

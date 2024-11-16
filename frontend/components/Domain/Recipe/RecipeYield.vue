@@ -55,10 +55,10 @@ export default defineComponent({
 
       const { scaledAmountDisplay } = useScaledAmount(props.yieldQuantity, props.scale);
 
-      return scaledAmountDisplay ? i18n.t("recipe.yields-amount-with-text", {
+      return i18n.t("recipe.yields-amount-with-text", {
         amount: scaledAmountDisplay,
         text: sanitizeHTML(props.yield),
-      }) as string : "";
+      }) as string;
     });
 
     return {
