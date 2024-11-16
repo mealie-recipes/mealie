@@ -22,7 +22,7 @@
             data management and mutation system we're using.
           -->
           <RecipePageEditorToolbar v-if="isEditForm" :recipe="recipe" />
-          <RecipePageTitleContent :recipe="recipe" :landscape="landscape" />
+          <RecipePageInfoEditor :recipe="recipe" :landscape="landscape" />
           <RecipePageIngredientEditor v-if="isEditForm" :recipe="recipe" />
           <RecipeYield :yield-quantity="recipe.recipeYieldQuantity" :scale.sync="scale" :yield="recipe.recipeYield" />
           <RecipePageScale :recipe="recipe" :scale.sync="scale" :landscape="landscape" />
@@ -155,7 +155,7 @@ import RecipePageIngredientToolsView from "./RecipePageParts/RecipePageIngredien
 import RecipePageInstructions from "./RecipePageParts/RecipePageInstructions.vue";
 import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
-import RecipePageTitleContent from "./RecipePageParts/RecipePageTitleContent.vue";
+import RecipePageInfoEditor from "./RecipePageParts/RecipePageInfoEditor.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
 import RecipeYield from "~/components/Domain/Recipe/RecipeYield.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
@@ -187,7 +187,7 @@ export default defineComponent({
     RecipePageHeader,
     RecipePrintContainer,
     RecipePageComments,
-    RecipePageTitleContent,
+    RecipePageInfoEditor,
     RecipePageEditorToolbar,
     RecipePageIngredientEditor,
     RecipePageOrganizers,
