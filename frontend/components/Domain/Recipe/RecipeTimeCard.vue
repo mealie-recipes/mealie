@@ -1,19 +1,41 @@
 <template>
-  <div>
-    <v-chip
-      v-for="(time, index) in allTimes"
-      :key="index"
-      :small="$vuetify.breakpoint.smAndDown"
-      label
-      :color="color"
-      class="ma-1"
-    >
-      <v-icon left>
-        {{ $globals.icons.clockOutline }}
-      </v-icon>
-      {{ time.name }} |
-      {{ time.value }}
-    </v-chip>
+  <div v-if="stacked">
+    <v-container>
+      <v-row v-for="(time, index) in allTimes" :key="`${index}-stacked`" no-gutters>
+        <v-col cols="12" :class="containerClass">
+          <v-chip
+            :small="$vuetify.breakpoint.smAndDown"
+            label
+            :color="color"
+            class="ma-1"
+          >
+            <v-icon left>
+              {{ $globals.icons.clockOutline }}
+            </v-icon>
+            {{ time.name }} |
+            {{ time.value }}
+          </v-chip>
+        </v-col>
+      </v-row>
+    </v-container>
+  </div>
+  <div v-else>
+    <v-container :class="containerClass">
+      <v-chip
+        v-for="(time, index) in allTimes"
+        :key="index"
+        :small="$vuetify.breakpoint.smAndDown"
+        label
+        :color="color"
+        class="ma-1"
+      >
+        <v-icon left>
+          {{ $globals.icons.clockOutline }}
+        </v-icon>
+        {{ time.name }} |
+        {{ time.value }}
+      </v-chip>
+    </v-container>
   </div>
 </template>
 
@@ -22,6 +44,10 @@ import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 
 export default defineComponent({
   props: {
+    stacked: {
+      type: Boolean,
+      default: false,
+    },
     prepTime: {
       type: String,
       default: null,
@@ -37,6 +63,10 @@ export default defineComponent({
     color: {
       type: String,
       default: "accent custom-transparent"
+    },
+    containerClass: {
+      type: String,
+      default: undefined,
     },
   },
   setup(props) {

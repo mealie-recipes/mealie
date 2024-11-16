@@ -12,45 +12,60 @@
             {{ recipe.name }}
             <RecipeRating :key="recipe.slug" :value="recipe.rating" :recipe-id="recipe.id" :slug="recipe.slug" />
           </v-card-title>
-          <v-divider class="my-2"></v-divider>
+          <v-divider class="my-2" />
           <SafeMarkdown :source="recipe.description" />
-          <v-divider></v-divider>
-          <div v-if="isOwnGroup" class="d-flex justify-center mt-5">
-            <RecipeLastMade
-              v-model="recipe.lastMade"
-              :recipe="recipe"
-              class="d-flex justify-center flex-wrap"
-              :class="true ? undefined : 'force-bottom'"
-            />
-          </div>
-          <div class="d-flex justify-center mt-5">
-            <RecipeTimeCard
-              class="d-flex justify-center flex-wrap"
-              :class="true ? undefined : 'force-bottom'"
-              :prep-time="recipe.prepTime"
-              :total-time="recipe.totalTime"
-              :perform-time="recipe.performTime"
-            />
-          </div>
+          <v-divider />
+          <v-container class="d-flex flex-row flex-wrap justify-center align-center">
+            <div>
+              <v-row no-gutters class="mb-1">
+                <v-col v-if="recipe.yieldQuantity || recipe.recipeYield" cols="12" class="d-flex flex-wrap justify-center">
+                  <RecipeYield
+                    :yield-quantity="recipe.recipeYieldQuantity"
+                    :yield="recipe.recipeYield"
+                  />
+                </v-col>
+              </v-row>
+              <v-row no-gutters>
+                <v-col cols="12" class="d-flex flex-wrap justify-center">
+                  <RecipeLastMade
+                    v-if="isOwnGroup"
+                    :class="true ? undefined : 'force-bottom'"
+                    :value="recipe.lastMade"
+                  />
+                </v-col>
+              </v-row>
+            </div>
+            <div>
+              <RecipeTimeCard
+                stacked
+                container-class="d-flex flex-wrap justify-end"
+                :prep-time="recipe.prepTime"
+                :total-time="recipe.totalTime"
+                :perform-time="recipe.performTime"
+              />
+            </div>
+          </v-container>
         </v-card-text>
       </v-card>
-      <RecipePageInfoCardImage v-if="!landscape" :recipe="recipe" max-width="50%" />
+      <RecipePageInfoCardImage v-if="!landscape" :recipe="recipe" max-width="50%" class="my-auto" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
+import RecipeYield from "~/components/Domain/Recipe/RecipeYield.vue";
 import RecipePageInfoCardImage from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInfoCardImage.vue";
 export default defineComponent({
   components: {
     RecipeRating,
     RecipeLastMade,
     RecipeTimeCard,
+    RecipeYield,
     RecipePageInfoCardImage,
   },
   props: {
@@ -64,10 +79,14 @@ export default defineComponent({
     },
   },
   setup() {
+    const { $vuetify } = useContext();
+    const useMobile = computed(() => $vuetify.breakpoint.smAndDown);
+
     const { isOwnGroup } = useLoggedInState();
 
     return {
       isOwnGroup,
+      useMobile,
     };
   }
 });

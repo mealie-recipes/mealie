@@ -1,5 +1,5 @@
 <template>
-  <div v-if="displayText" class="d-flex justify-space-between align-center pt-2">
+  <div v-if="displayText" class="d-flex justify-space-between align-center">
     <v-chip
       :small="$vuetify.breakpoint.smAndDown"
       label

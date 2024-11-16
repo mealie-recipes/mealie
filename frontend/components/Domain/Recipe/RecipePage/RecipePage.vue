@@ -24,7 +24,6 @@
           <RecipePageEditorToolbar v-if="isEditForm" :recipe="recipe" />
           <RecipePageInfoEditor :recipe="recipe" :landscape="landscape" />
           <RecipePageIngredientEditor v-if="isEditForm" :recipe="recipe" />
-          <RecipeYield :yield-quantity="recipe.recipeYieldQuantity" :scale.sync="scale" :yield="recipe.recipeYield" />
           <RecipePageScale :recipe="recipe" :scale.sync="scale" :landscape="landscape" />
 
           <!--
