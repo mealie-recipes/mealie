@@ -1,12 +1,4 @@
-import DOMPurify from "isomorphic-dompurify";
 import { useFraction } from "~/composables/recipes";
-
-function sanitizeHTML(rawHtml: string) {
-  return DOMPurify.sanitize(rawHtml, {
-    USE_PROFILES: { html: true },
-    ALLOWED_TAGS: ["b", "q", "i", "strong", "sup", "span"],
-  });
-}
 
 function formatQuantity(val: number): string {
   if (Number.isInteger(val)) {

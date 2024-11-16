@@ -156,7 +156,6 @@ import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageInfoEditor from "./RecipePageParts/RecipePageInfoEditor.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
-import RecipeYield from "~/components/Domain/Recipe/RecipeYield.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipePrintContainer from "~/components/Domain/Recipe/RecipePrintContainer.vue";
 import {
@@ -197,7 +196,6 @@ export default defineComponent({
     RecipePageInstructions,
     RecipePageFooter,
     RecipeIngredients,
-    RecipeYield,
   },
   props: {
     recipe: {

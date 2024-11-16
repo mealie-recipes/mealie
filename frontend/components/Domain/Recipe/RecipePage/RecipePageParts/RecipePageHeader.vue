@@ -32,10 +32,7 @@ import { defineComponent, useContext, computed, ref, watch } from "@nuxtjs/compo
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useRecipePermissions } from "~/composables/recipes";
 import RecipePageInfoCard from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInfoCard.vue";
-import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
-import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
-import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { useStaticRoutes, useUserApi  } from "~/composables/api";
 import { HouseholdSummary } from "~/lib/api/types/household";
 import { Recipe } from "~/lib/api/types/recipe";
@@ -44,10 +41,7 @@ import { usePageState, usePageUser, PageMode, EditorMode } from "~/composables/r
 export default defineComponent({
   components: {
     RecipePageInfoCard,
-    RecipeTimeCard,
     RecipeActionMenu,
-    RecipeRating,
-    RecipeLastMade,
   },
   props: {
     recipe: {

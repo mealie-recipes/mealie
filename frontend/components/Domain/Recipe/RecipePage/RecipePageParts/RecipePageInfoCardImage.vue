@@ -15,10 +15,12 @@ import { computed, defineComponent, ref, useContext, watch } from "@nuxtjs/compo
 import { useStaticRoutes, useUserApi  } from "~/composables/api";
 import { HouseholdSummary } from "~/lib/api/types/household";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
+import { Recipe } from "~/lib/api/types/recipe";
+import { NoUndefinedField } from "~/lib/api/types/non-generated";
 export default defineComponent({
   props: {
     recipe: {
-      type: Object,
+      type: Object as () => NoUndefinedField<Recipe>,
       required: true,
     },
     maxWidth: {
