@@ -18,7 +18,6 @@
 <script lang="ts">
 import { computed, defineComponent } from "@nuxtjs/composition-api";
 import RecipeScaleEditButton from "~/components/Domain/Recipe/RecipeScaleEditButton.vue";
-import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
 import { usePageState } from "~/composables/recipe-page/shared-state";
@@ -26,7 +25,6 @@ import { usePageState } from "~/composables/recipe-page/shared-state";
 export default defineComponent({
   components: {
     RecipeScaleEditButton,
-    RecipeRating,
   },
   props: {
     recipe: {
