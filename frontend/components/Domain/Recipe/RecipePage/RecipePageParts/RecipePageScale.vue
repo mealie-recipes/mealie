@@ -12,15 +12,6 @@
       </template>
       <span> {{ $t("recipe.edit-scale") }} </span>
     </v-tooltip>
-    <v-spacer></v-spacer>
-
-    <RecipeRating
-      v-if="landscape && $vuetify.breakpoint.smAndUp"
-      :key="recipe.slug"
-      v-model="recipe.rating"
-      :recipe-id="recipe.id"
-      :slug="recipe.slug"
-    />
   </div>
 </template>
 
@@ -41,10 +32,6 @@ export default defineComponent({
     recipe: {
       type: Object as () => NoUndefinedField<Recipe>,
       required: true,
-    },
-    landscape: {
-      type: Boolean,
-      default: false,
     },
     scale: {
       type: Number,

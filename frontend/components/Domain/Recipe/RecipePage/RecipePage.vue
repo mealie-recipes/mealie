@@ -24,7 +24,7 @@
           <RecipePageEditorToolbar v-if="isEditForm" :recipe="recipe" />
           <RecipePageInfoEditor :recipe="recipe" :landscape="landscape" />
           <RecipePageIngredientEditor v-if="isEditForm" :recipe="recipe" />
-          <RecipePageScale :recipe="recipe" :scale.sync="scale" :landscape="landscape" />
+          <RecipePageScale :recipe="recipe" :scale.sync="scale" />
 
           <!--
             This section contains the 2 column layout for the recipe steps and other content.
@@ -76,7 +76,7 @@
       <v-row  style="height: 100%;"  no-gutters class="overflow-hidden">
         <v-col  cols="12" sm="5" class="overflow-y-auto pl-4 pr-3 py-2" style="height: 100%;">
           <div class="d-flex align-center">
-            <RecipePageScale :recipe="recipe" :scale.sync="scale" :landscape="landscape" />
+            <RecipePageScale :recipe="recipe" :scale.sync="scale" />
           </div>
           <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="recipe" :scale="scale" :is-cook-mode="isCookMode" />
           <v-divider></v-divider>
@@ -95,7 +95,7 @@
     </v-sheet>
     <v-sheet v-show="isCookMode && hasLinkedIngredients">
       <div class="mt-2 px-2 px-md-4">
-        <RecipePageScale :recipe="recipe" :scale.sync="scale" :landscape="landscape"/>
+        <RecipePageScale :recipe="recipe" :scale.sync="scale"/>
       </div>
       <RecipePageInstructions
         v-model="recipe.recipeInstructions"
