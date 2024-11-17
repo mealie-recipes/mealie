@@ -338,7 +338,7 @@ export default defineComponent({
   },
 
   setup(props, context) {
-    const { i18n, req, $vuetify } = useContext();
+    const { i18n, req } = useContext();
     const BASE_URL = detectServerBaseUrl(req);
 
     const { isCookMode, toggleCookMode, isEditForm } = usePageState(props.recipe.slug);

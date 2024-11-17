@@ -16,7 +16,7 @@ export default defineComponent({
     setup() {
         const { isSupported: wakeIsSupported, isActive, request, release } = useWakeLock();
         const wakeLock = computed({
-            get: () => isActive,
+            get: () => isActive.value,
             set: () => {
                 if (isActive.value) {
                     unlockScreen();
@@ -27,13 +27,13 @@ export default defineComponent({
         });
         async function lockScreen() {
             if (wakeIsSupported) {
-                console.log("Wake Lock Requested");
+                console.debug("Wake Lock Requested");
                 await request("screen");
             }
         }
         async function unlockScreen() {
             if (wakeIsSupported || isActive) {
-                console.log("Wake Lock Released");
+                console.debug("Wake Lock Released");
                 await release();
             }
         }
