@@ -32,6 +32,7 @@ from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
 from mealie.services.openai import OpenAIDataInjection, OpenAILocalImage, OpenAIService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
+from mealie.services.scraper import cleaner
 
 from .template_service import TemplateService
 
@@ -297,6 +298,7 @@ class RecipeService(RecipeServiceBase):
             recipe_data = await openai_recipe_service.build_recipe_from_images(
                 local_images, translate_language=translate_language
             )
+            recipe_data = cleaner.clean(recipe_data, self.translator)
 
             recipe = self.create_one(recipe_data)
             data_service = RecipeDataService(recipe.id)

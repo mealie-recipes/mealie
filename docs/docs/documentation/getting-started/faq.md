@@ -79,7 +79,7 @@ Mealie's Recipe Steps and other fields support markdown syntax and therefore sup
 If your account has been locked by bad password attempts, you can use an administrator account to unlock another account. Alternatively, you can unlock all accounts via a script within the container.
 
 ```shell
-docker exec -it mealie-next bash
+docker exec -it mealie bash
 
 python /app/mealie/scripts/reset_locked_users.py
 ```
@@ -89,7 +89,7 @@ python /app/mealie/scripts/reset_locked_users.py
 You can change your password by going to the user profile page and clicking the "Change Password" button. Alternatively you can use the following script to change your password via the CLI if you are locked out of your account.
 
 ```shell
-docker exec -it mealie-next bash
+docker exec -it mealie bash
 
 python /app/mealie/scripts/change_password.py
 ```
