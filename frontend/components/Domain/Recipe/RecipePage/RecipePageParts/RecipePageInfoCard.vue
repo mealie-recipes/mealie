@@ -16,7 +16,7 @@
           <SafeMarkdown :source="recipe.description" />
           <v-divider />
           <v-container class="d-flex flex-row flex-wrap justify-center align-center">
-            <div>
+            <div class="mx-5">
               <v-row no-gutters class="mb-1">
                 <v-col v-if="recipe.recipeYieldQuantity || recipe.recipeYield" cols="12" class="d-flex flex-wrap justify-center">
                   <RecipeYield
@@ -35,10 +35,10 @@
                 </v-col>
               </v-row>
             </div>
-            <div>
+            <div class="mx-5">
               <RecipeTimeCard
                 stacked
-                container-class="d-flex flex-wrap justify-end"
+                container-class="d-flex flex-wrap justify-center"
                 :prep-time="recipe.prepTime"
                 :total-time="recipe.totalTime"
                 :perform-time="recipe.performTime"
