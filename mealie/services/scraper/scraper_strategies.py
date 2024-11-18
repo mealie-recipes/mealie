@@ -26,7 +26,7 @@ try:
 
     _FIREFOX_UA = HEADERS["User-Agent"]
 except (ImportError, KeyError):
-    _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0"
+    _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/128.0"
 
 
 SCRAPER_TIMEOUT = 15
