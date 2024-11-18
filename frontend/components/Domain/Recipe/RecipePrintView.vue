@@ -18,7 +18,24 @@
               </v-icon>
               {{ recipe.name }}
             </v-card-title>
-            <RecipeTimeCard :prep-time="recipe.prepTime" :total-time="recipe.totalTime" :perform-time="recipe.performTime" color="white" />
+            <div v-if="recipeYield" class="d-flex justify-space-between align-center px-4 pb-2">
+              <v-chip
+                :small="$vuetify.breakpoint.smAndDown"
+                label
+              >
+                <v-icon left>
+                  {{ $globals.icons.potSteam }}
+                </v-icon>
+                <!-- eslint-disable-next-line vue/no-v-html -->
+                <span v-html="recipeYield"></span>
+              </v-chip>
+            </div>
+            <RecipeTimeCard
+              :prep-time="recipe.prepTime"
+              :total-time="recipe.totalTime"
+              :perform-time="recipe.performTime"
+              color="white"
+            />
             <v-card-text v-if="preferences.showDescription" class="px-0">
               <SafeMarkdown :source="recipe.description" />
             </v-card-text>
@@ -30,9 +47,6 @@
     <!-- Ingredients -->
     <section>
       <v-card-title class="headline pl-0"> {{ $t("recipe.ingredients") }} </v-card-title>
-      <div class="font-italic px-0 py-0">
-        <SafeMarkdown :source="recipeYield" />
-      </div>
       <div
         v-for="(ingredientSection, sectionIndex) in ingredientSections"
         :key="`ingredient-section-${sectionIndex}`"
@@ -113,6 +127,8 @@
 <script lang="ts">
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
+import RecipeYield from "~/components/Domain/Recipe/RecipeYield.vue";
+import DOMPurify from "dompurify";
 import { useStaticRoutes } from "~/composables/api";
 import { Recipe, RecipeIngredient, RecipeStep} from "~/lib/api/types/recipe";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
@@ -136,6 +152,7 @@ type InstructionSection = {
 export default defineComponent({
   components: {
     RecipeTimeCard,
+    RecipeYield,
   },
   props: {
     recipe: {
@@ -158,6 +175,13 @@ export default defineComponent({
     const { imageKey } = usePageState(props.recipe.slug);
     const {labels} = useNutritionLabels();
 
+    function sanitizeHTML(rawHtml: string) {
+      return DOMPurify.sanitize(rawHtml, {
+        USE_PROFILES: { html: true },
+        ALLOWED_TAGS: ["strong", "sup"],
+      });
+    }
+
     const servingsDisplay = computed(() => {
       const { scaledAmountDisplay } = useScaledAmount(props.recipe.recipeYieldQuantity, props.scale);
       return scaledAmountDisplay ? i18n.t("recipe.yields-amount-with-text", {
@@ -173,9 +197,9 @@ export default defineComponent({
 
     const recipeYield = computed(() => {
       if (servingsDisplay.value && yieldDisplay.value) {
-        return `${yieldDisplay.value}; ${servingsDisplay.value}`
+        return sanitizeHTML(`${yieldDisplay.value}; ${servingsDisplay.value}`);
       } else {
-        return yieldDisplay.value || servingsDisplay.value;
+        return sanitizeHTML(yieldDisplay.value || servingsDisplay.value);
       }
     })
 
