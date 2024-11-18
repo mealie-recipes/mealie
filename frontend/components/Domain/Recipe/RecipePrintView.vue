@@ -126,9 +126,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
-import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
-import RecipeYield from "~/components/Domain/Recipe/RecipeYield.vue";
 import DOMPurify from "dompurify";
+import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { useStaticRoutes } from "~/composables/api";
 import { Recipe, RecipeIngredient, RecipeStep} from "~/lib/api/types/recipe";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
@@ -152,7 +151,6 @@ type InstructionSection = {
 export default defineComponent({
   components: {
     RecipeTimeCard,
-    RecipeYield,
   },
   props: {
     recipe: {
