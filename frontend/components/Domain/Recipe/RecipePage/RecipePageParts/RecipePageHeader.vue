@@ -1,11 +1,6 @@
 <template>
   <div>
-    <RecipePageInfoCard v-if="!isEditMode" :recipe="recipe" :landscape="landscape" />
-    <v-container v-else width="100%">
-      <v-card-title class="headline d-flex justify-center align-center pt-0 pb-12 mb-4">
-        {{ $t("recipe.editing-recipe", [recipe.name]) }}
-      </v-card-title>
-    </v-container>
+    <RecipePageInfoCard :recipe="recipe" :landscape="landscape" />
     <v-divider />
     <RecipeActionMenu
       :recipe="recipe"

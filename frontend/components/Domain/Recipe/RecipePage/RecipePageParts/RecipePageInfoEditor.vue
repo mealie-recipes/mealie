@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isEditMode">
+  <div>
     <v-text-field
       v-model="recipe.name"
       class="my-3"
@@ -51,8 +51,6 @@
 
 <script lang="ts">
 import { computed, defineComponent } from "@nuxtjs/composition-api";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
-import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { validators } from "~/composables/use-validators";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
@@ -65,10 +63,6 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { user } = usePageUser();
-    const { imageKey, isEditMode } = usePageState(props.recipe.slug);
-    const { isOwnGroup } = useLoggedInState();
-
     const recipeServings = computed<number>({
       get() {
         return props.recipe.recipeServings;
@@ -88,26 +82,22 @@ export default defineComponent({
     });
 
     function validateInput(value: string | null, property: "recipeServings" | "recipeYieldQuantity") {
-    if (!value) {
-      props.recipe[property] = 0;
-      return;
-    }
+      if (!value) {
+        props.recipe[property] = 0;
+        return;
+      }
 
-    const number = parseFloat(value.replace(/[^0-9.]/g, ""));
-    if (isNaN(number) || number <= 0) {
-      props.recipe[property] = 0;
-      return;
-    }
+      const number = parseFloat(value.replace(/[^0-9.]/g, ""));
+      if (isNaN(number) || number <= 0) {
+        props.recipe[property] = 0;
+        return;
+      }
 
-    props.recipe[property] = number;
-  }
+      props.recipe[property] = number;
+    }
 
     return {
-      user,
-      imageKey,
       validators,
-      isEditMode,
-      isOwnGroup,
       recipeServings,
       recipeYieldQuantity,
       validateInput,

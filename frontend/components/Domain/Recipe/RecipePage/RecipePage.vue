@@ -21,8 +21,8 @@
             a significant amount of prop management. When we move to Vue 3 and have access to some of the newer API's the plan to update this
             data management and mutation system we're using.
           -->
+          <RecipePageInfoEditor v-if="isEditMode" :recipe="recipe" :landscape="landscape" />
           <RecipePageEditorToolbar v-if="isEditForm" :recipe="recipe" />
-          <RecipePageInfoEditor :recipe="recipe" :landscape="landscape" />
           <RecipePageIngredientEditor v-if="isEditForm" :recipe="recipe" />
           <RecipePageScale :recipe="recipe" :scale.sync="scale" />
 
