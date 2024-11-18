@@ -1,6 +1,6 @@
 <template>
   <div>
-    <RecipePageInfoCard :recipe="recipe" :landscape="landscape" />
+    <RecipePageInfoCard :recipe="recipe" :recipe-scale="recipeScale" :landscape="landscape" />
     <v-divider />
     <RecipeActionMenu
       :recipe="recipe"

@@ -22,6 +22,7 @@
                   <RecipeYield
                     :yield-quantity="recipe.recipeYieldQuantity"
                     :yield="recipe.recipeYield"
+                    :scale="recipeScale"
                   />
                 </v-col>
               </v-row>
@@ -75,6 +76,10 @@ export default defineComponent({
     recipe: {
       type: Object as () => NoUndefinedField<Recipe>,
       required: true,
+    },
+    recipeScale: {
+      type: Number,
+      default: 1,
     },
     landscape: {
       type: Boolean,
