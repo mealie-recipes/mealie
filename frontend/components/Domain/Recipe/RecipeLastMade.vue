@@ -125,7 +125,7 @@ export default defineComponent({
     },
     recipe: {
       type: Object as () => Recipe,
-      default: null,
+      required: true,
     },
   },
   setup(props, context) {

@@ -29,8 +29,9 @@
                 <v-col cols="12" class="d-flex flex-wrap justify-center">
                   <RecipeLastMade
                     v-if="isOwnGroup"
-                    :class="true ? undefined : 'force-bottom'"
                     :value="recipe.lastMade"
+                    :recipe="recipe"
+                    :class="true ? undefined : 'force-bottom'"
                   />
                 </v-col>
               </v-row>
