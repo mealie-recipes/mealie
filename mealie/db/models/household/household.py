@@ -8,9 +8,11 @@ from sqlalchemy.orm import Mapped, mapped_column
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils.auto_init import auto_init
 from .._model_utils.guid import GUID
+from .household_to_recipe import HouseholdToRecipe
 
 if TYPE_CHECKING:
     from ..group import Group
+    from ..recipe import RecipeModel
     from ..users import User
     from . import (
         CookBook,
@@ -62,6 +64,10 @@ class Household(SqlAlchemyBase, BaseMixins):
         "GroupEventNotifierModel", **COMMON_ARGS
     )
 
+    made_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
+        "RecipeModel", secondary=HouseholdToRecipe.__tablename__, back_populates="made_by"
+    )
+
     model_config = ConfigDict(
         exclude={
             "users",
@@ -72,6 +78,7 @@ class Household(SqlAlchemyBase, BaseMixins):
             "invite_tokens",
             "group_event_notifiers",
             "group",
+            "made_recipes",
         }
     )
 
