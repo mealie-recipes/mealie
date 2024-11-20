@@ -18,7 +18,10 @@ class HouseholdService(BaseService):
         self.repos = repos
         super().__init__()
 
-    def _get_recipe_id_from_slug(self, recipe_slug: str) -> UUID4 | None:
+    def _get_recipe_id_from_slug(self, recipe_slug: str | UUID) -> UUID4 | None:
+        if isinstance(recipe_slug, UUID):
+            return recipe_slug
+
         try:
             return UUID(recipe_slug)
         except ValueError:
@@ -70,7 +73,7 @@ class HouseholdService(BaseService):
         else:
             return HouseholdRecipeSummary(recipe_id=recipe_id)
 
-    def set_household_recipe(self, recipe_slug: str, data: HouseholdRecipeUpdate) -> HouseholdRecipeSummary:
+    def set_household_recipe(self, recipe_slug: str | UUID, data: HouseholdRecipeUpdate) -> HouseholdRecipeSummary:
         """Sets the household's recipe data"""
         recipe_id = self._get_recipe_id_from_slug(recipe_slug)
         if not recipe_id:

@@ -5,7 +5,7 @@ from fastapi import Depends, HTTPException, status
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.routers import UserAPIRouter
-from mealie.schema.household import HouseholdInDB, HouseholdRecipeSummary, HouseholdRecipeUpdate
+from mealie.schema.household import HouseholdInDB, HouseholdRecipeSummary
 from mealie.schema.household.household_permissions import SetPermissions
 from mealie.schema.household.household_preferences import ReadHouseholdPreferences, UpdateHouseholdPreferences
 from mealie.schema.household.household_statistics import HouseholdStatistics
@@ -31,11 +31,6 @@ class HouseholdSelfServiceController(BaseUserController):
     def get_household_recipe(self, recipe_slug: str):
         """Returns recipe data for the current household"""
         return self.service.get_household_recipe(recipe_slug)
-
-    @router.post("/self/recipes/{recipe_slug}", response_model=HouseholdRecipeSummary)
-    def set_household_recipe(self, recipe_slug: str, data: HouseholdRecipeUpdate):
-        """Sets the household recipe data for the current household"""
-        return self.service.set_household_recipe(recipe_slug, data)
 
     @router.get("/members", response_model=PaginationBase[UserOut])
     def get_household_members(self, q: PaginationQuery = Depends()):
