@@ -11,10 +11,10 @@ from mealie.db.models.recipe.api_extras import IngredientFoodExtras, api_extras
 
 from .._model_utils.auto_init import auto_init
 from .._model_utils.guid import GUID
+from ..household import Household
 
 if TYPE_CHECKING:
     from ..group import Group
-    from ..household import Household
 
 
 households_to_ingredient_foods = sa.Table(
@@ -185,14 +185,25 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     def __init__(
         self,
         session: Session,
+        group_id: GUID,
         name: str | None = None,
         plural_name: str | None = None,
+        households_with_ingredient_food: list[str] | None = None,
         **_,
     ) -> None:
         if name is not None:
             self.name_normalized = self.normalize(name)
         if plural_name is not None:
             self.plural_name_normalized = self.normalize(plural_name)
+
+        if not households_with_ingredient_food:
+            self.households_with_ingredient_food = []
+        else:
+            self.households_with_ingredient_food = (
+                session.query(Household)
+                .filter(Household.group_id == group_id, Household.slug.in_(households_with_ingredient_food))
+                .all()
+            )
 
         tableargs = [
             sa.UniqueConstraint("name", "group_id", name="ingredient_foods_name_group_id_key"),
