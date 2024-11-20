@@ -8,11 +8,12 @@ from sqlalchemy.orm import Mapped, mapped_column
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils.auto_init import auto_init
 from .._model_utils.guid import GUID
+from ..recipe import households_to_ingredient_foods, households_to_tools
 from .household_to_recipe import HouseholdToRecipe
 
 if TYPE_CHECKING:
     from ..group import Group
-    from ..recipe import RecipeModel
+    from ..recipe import IngredientFoodModel, RecipeModel, Tool
     from ..users import User
     from . import (
         CookBook,
@@ -67,6 +68,10 @@ class Household(SqlAlchemyBase, BaseMixins):
     made_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=HouseholdToRecipe.__tablename__, back_populates="made_by"
     )
+    ingredient_foods: Mapped[list["IngredientFoodModel"]] = orm.relationship(
+        "IngredientFoodModel", secondary=households_to_ingredient_foods, back_populates="households"
+    )
+    tools: Mapped[list["Tool"]] = orm.relationship("Tool", secondary=households_to_tools, back_populates="households")
 
     model_config = ConfigDict(
         exclude={
