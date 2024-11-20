@@ -116,7 +116,7 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
         "prepTime": recipe.prep_time,
         "cookTime": recipe.cook_time,
         "totalTime": recipe.total_time,
-        "recipeYield": recipe.recipe_yield,
+        "recipeYield": recipe.recipe_yield_display,
         "recipeIngredient": ingredients,
         "recipeInstructions": [i.text for i in recipe.recipe_instructions] if recipe.recipe_instructions else [],
         "recipeCategory": [c.name for c in recipe.recipe_category] if recipe.recipe_category else [],

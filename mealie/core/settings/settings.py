@@ -332,6 +332,7 @@ class AppSettings(AppLoggingSettings):
     OIDC_PROVIDER_NAME: str = "OAuth"
     OIDC_REMEMBER_ME: bool = False
     OIDC_USER_CLAIM: str = "email"
+    OIDC_NAME_CLAIM: str = "name"
     OIDC_GROUPS_CLAIM: str | None = "groups"
     OIDC_SCOPES_OVERRIDE: str | None = None
     OIDC_TLS_CACERTFILE: str | None = None
