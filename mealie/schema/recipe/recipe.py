@@ -59,7 +59,6 @@ class RecipeCategoryPagination(PaginationBase):
 
 class RecipeTool(RecipeTag):
     id: UUID4
-    on_hand: bool = False
 
 
 class RecipeToolPagination(PaginationBase):
