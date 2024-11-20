@@ -68,10 +68,14 @@ class Household(SqlAlchemyBase, BaseMixins):
     made_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=HouseholdToRecipe.__tablename__, back_populates="made_by"
     )
-    ingredient_foods: Mapped[list["IngredientFoodModel"]] = orm.relationship(
-        "IngredientFoodModel", secondary=households_to_ingredient_foods, back_populates="households"
+    ingredient_foods_on_hand: Mapped[list["IngredientFoodModel"]] = orm.relationship(
+        "IngredientFoodModel",
+        secondary=households_to_ingredient_foods,
+        back_populates="households_with_ingredient_food",
     )
-    tools: Mapped[list["Tool"]] = orm.relationship("Tool", secondary=households_to_tools, back_populates="households")
+    tools_on_hand: Mapped[list["Tool"]] = orm.relationship(
+        "Tool", secondary=households_to_tools, back_populates="households_with_tool"
+    )
 
     model_config = ConfigDict(
         exclude={

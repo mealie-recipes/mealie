@@ -50,8 +50,8 @@ class Tool(SqlAlchemyBase, BaseMixins):
     name: Mapped[str] = mapped_column(String, index=True, nullable=False)
     slug: Mapped[str] = mapped_column(String, index=True, nullable=False)
 
-    households: Mapped[list["Household"]] = orm.relationship(
-        "Household", secondary=households_to_tools, back_populates="tools"
+    households_with_tool: Mapped[list["Household"]] = orm.relationship(
+        "Household", secondary=households_to_tools, back_populates="tools_on_hand"
     )
     recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=recipes_to_tools, back_populates="tools"

@@ -152,8 +152,8 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     # ID Relationships
     group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="ingredient_foods", foreign_keys=[group_id])
-    households: Mapped[list["Household"]] = orm.relationship(
-        "Household", secondary=households_to_ingredient_foods, back_populates="ingredient_foods"
+    households_with_ingredient_food: Mapped[list["Household"]] = orm.relationship(
+        "Household", secondary=households_to_ingredient_foods, back_populates="ingredient_foods_on_hand"
     )
 
     name: Mapped[str | None] = mapped_column(String)
