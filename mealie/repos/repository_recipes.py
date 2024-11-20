@@ -10,13 +10,13 @@ from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import InstrumentedAttribute
 from typing_extensions import Self
 
-from mealie.db.models.household.household import Household
+from mealie.db.models.household import Household, HouseholdToRecipe
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.ingredient import RecipeIngredientModel
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
-from mealie.db.models.users.user_to_recipe import UserToRecipe
+from mealie.db.models.users import User, UserToRecipe
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipeCategory, RecipePagination, RecipeSummary
@@ -34,7 +34,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
     user_id: UUID4 | None = None
 
     def by_user(self: Self, user_id: UUID4) -> Self:
-        """Add a user_id to the repo, which will be used to handle recipe ratings"""
+        """Add a user_id to the repo, which will be used to handle recipe ratings and other user-specific data"""
         self.user_id = user_id
         return self
 
@@ -97,20 +97,45 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         additional_ids = self.session.execute(sa.select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
 
-    def add_order_attr_to_query(
-        self,
-        query: sa.Select,
-        order_attr: InstrumentedAttribute,
-        order_dir: OrderDirection,
-        order_by_null: OrderByNullPosition | None,
+    def _add_last_made_ordering_to_query(
+        self, query: sa.Select, order_dir: OrderDirection, order_by_null: OrderByNullPosition | None
     ) -> sa.Select:
-        """Special handling for ordering recipes by rating"""
-        column_name = order_attr.key
-        if column_name != "rating" or not self.user_id:
-            return super().add_order_attr_to_query(query, order_attr, order_dir, order_by_null)
+        """
+        Sort by the user's household last_made date, otherwise falling back to null
+        """
+        user_household_subquery = sa.select(User.household_id).where(User.id == self.user_id).scalar_subquery()
+        query = query.outerjoin(
+            HouseholdToRecipe,
+            sa.and_(
+                HouseholdToRecipe.recipe_id == self.model.id,
+                HouseholdToRecipe.household_id == user_household_subquery,
+            ),
+        )
 
-        # calculate the effictive rating for the user by using the user's rating if it exists,
-        # falling back to the recipe's rating if it doesn't
+        effective_last_made_column_name = "_effective_last_made"
+        query = query.add_columns(HouseholdToRecipe.last_made.label(effective_last_made_column_name))
+
+        order_attr = effective_last_made_column_name
+        if order_dir is OrderDirection.asc:
+            order_attr = sa.asc(order_attr)
+        elif order_dir is OrderDirection.desc:
+            order_attr = sa.desc(order_attr)
+
+        if order_by_null is OrderByNullPosition.first:
+            order_attr = sa.nulls_first(order_attr)
+        else:
+            order_attr = sa.nulls_last(order_attr)
+
+        return query.order_by(order_attr)
+
+    def _add_rating_ordering_to_query(
+        self, query: sa.Select, order_dir: OrderDirection, order_by_null: OrderByNullPosition | None
+    ) -> sa.Select:
+        """
+        Calculate the effictive rating for the user by using the user's rating if it exists,
+        falling back to the recipe's rating if it doesn't
+        """
+
         effective_rating_column_name = "_effective_rating"
         query = query.add_columns(
             sa.case(
@@ -141,6 +166,26 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             order_attr = sa.nulls_last(order_attr)
 
         return query.order_by(order_attr)
+
+    def add_order_attr_to_query(
+        self,
+        query: sa.Select,
+        order_attr: InstrumentedAttribute,
+        order_dir: OrderDirection,
+        order_by_null: OrderByNullPosition | None,
+    ) -> sa.Select:
+        """Special handling for ordering recipes by rating and other user-specific data"""
+        column_name = order_attr.key
+        if not self.user_id:
+            return super().add_order_attr_to_query(query, order_attr, order_dir, order_by_null)
+
+        match column_name:
+            case "last_made":
+                return self._add_last_made_ordering_to_query(query, order_dir, order_by_null)
+            case "rating":
+                return self._add_rating_ordering_to_query(query, order_dir, order_by_null)
+            case _:
+                return super().add_order_attr_to_query(query, order_attr, order_dir, order_by_null)
 
     def page_all(  # type: ignore
         self,

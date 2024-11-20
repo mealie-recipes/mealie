@@ -359,8 +359,9 @@ class RecipeController(BaseRecipeController):
             if cookbook_data is None:
                 raise HTTPException(status_code=404, detail="cookbook not found")
 
-        # We use "group_recipes" here so we can return all recipes regardless of household. The query filter can include
-        # a household_id to filter by household. We use the "by_user" so we can sort favorites correctly.
+        # We use "group_recipes" here so we can return all recipes regardless of household. The query filter can
+        # include a household_id to filter by household.
+        # We use "by_user" so we can sort favorites and other user-specific data correctly.
         pagination_response = self.group_recipes.by_user(self.user.id).page_all(
             pagination=q,
             cookbook=cookbook_data,
