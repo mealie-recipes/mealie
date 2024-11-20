@@ -5,7 +5,7 @@
         <v-menu v-model="menu" :disabled="!canEditScale" offset-y top nudge-top="6" :close-on-content-click="false">
           <template #activator="{ on, attrs }">
             <v-card class="pa-1 px-2" dark color="secondary darken-1" small v-bind="attrs" v-on="on">
-              <v-icon small class="mr-1">{{ $globals.icons.edit }}</v-icon>
+              <v-icon small class="mr-2">{{ $globals.icons.edit }}</v-icon>
               <!-- eslint-disable-next-line vue/no-v-html -->
               <span v-html="yieldDisplay"></span>
 
