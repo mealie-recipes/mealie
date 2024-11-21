@@ -8,7 +8,8 @@ from sqlalchemy.orm import Mapped, mapped_column
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils.auto_init import auto_init
 from .._model_utils.guid import GUID
-from ..recipe import households_to_ingredient_foods, households_to_tools
+from ..recipe.ingredient import households_to_ingredient_foods
+from ..recipe.tool import households_to_tools
 from .household_to_recipe import HouseholdToRecipe
 
 if TYPE_CHECKING:
