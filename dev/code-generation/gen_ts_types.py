@@ -93,6 +93,10 @@ def generate_typescript_types() -> None:  # noqa: C901
 
         return line.split(" ")[2]
 
+    def is_comment_line(line: str) -> bool:
+        s = line.strip()
+        return s.startswith("/*") or s.startswith("*")
+
     def clean_output_file(file: Path) -> None:
         """
         json2ts generates duplicate types off of our enums and appends a number to the end of the type name.
@@ -111,6 +115,7 @@ def generate_typescript_types() -> None:  # noqa: C901
         lines_to_skip = set()
         wait_for_semicolon = False
         wait_for_close_bracket = False
+        skip_comments = False
         with open(file) as f:
             for i, line in enumerate(f.readlines()):
                 if wait_for_semicolon:
@@ -141,6 +146,13 @@ def generate_typescript_types() -> None:  # noqa: C901
                     if "}" not in line:
                         wait_for_close_bracket = True
                     lines_to_skip.add(i)
+
+                elif skip_comments and is_comment_line(line):
+                    lines_to_skip.add(i)
+
+                # we've passed the opening comments and empty line at the header
+                elif not skip_comments and not line.strip():
+                    skip_comments = True
 
         # Second pass: rewrite or remove lines as needed.
         # We have to do two passes here because definitions don't always appear in the same order as their usage.
