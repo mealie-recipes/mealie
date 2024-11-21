@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 from jinja2 import Template
@@ -65,6 +66,57 @@ def generate_global_components_types() -> None:
 
 
 def generate_typescript_types() -> None:
+    def contains_number(s: str) -> bool:
+        return bool(re.search(r"\d", s))
+
+    def remove_numbers(s: str) -> str:
+        return re.sub(r"\d", "", s)
+
+    def extract_type_name(line: str) -> str:
+        # Looking for "export type EnumName = "enumVal1 | enumVal2 | ...";"
+        if not (line.startswith("export type") and "=" in line and ";" in line):
+            return ""
+
+        return line.split(" ")[2]
+
+    def extract_property_type_name(line: str) -> str:
+        # Looking for " fieldName: FieldType;" or " fieldName: FieldType & string;"
+        if not (line.startswith("  ") and ":" in line and ";" in line):
+            return ""
+
+        return line.split(":")[1].strip().split(";")[0]
+
+    def clean_output_file(file: Path) -> None:
+        """
+        json2ts generates duplicate types off of our enums and appends a number to the end of the type name.
+        Our Python code (hopefully) doesn't have any duplicate enum names, or types with numbers in them,
+        so we can safely remove the numbers.
+
+        To do this, we read the output line-by-line and replace any type names that contain numbers with
+        the same type name, but without the numbers.
+
+        Note: the issue arrises from the JSON package json2ts, not the Python package pydantic2ts,
+        otherwise we could just fix pydantic2ts.
+        """
+
+        replacement_map = {}
+        lines = []
+        with open(file) as f:
+            for line in f.readlines():
+                if type_name := extract_type_name(line):
+                    if contains_number(type_name):
+                        replacement_map[type_name] = remove_numbers(type_name)
+                        continue  # don't write this line
+
+                if type_name := extract_property_type_name(line):
+                    if type_name in replacement_map:
+                        line = line.replace(type_name, replacement_map[type_name])
+
+                lines.append(line)
+
+        with open(file, "w") as f:
+            f.writelines(lines)
+
     def path_to_module(path: Path):
         str_path: str = str(path)
 
@@ -98,9 +150,10 @@ def generate_typescript_types() -> None:
         try:
             path_as_module = path_to_module(module)
             generate_typescript_defs(path_as_module, str(out_path), exclude=("MealieModel"))  # type: ignore
-        except Exception as e:
+            clean_output_file(out_path)
+        except Exception:
             failed_modules.append(module)
-            log.error(f"Module Error: {e}")
+            log.exception(f"Module Error: {module}")
 
     log.debug("\n📁 Skipped Directories:")
     for skipped_dir in skipped_dirs:
