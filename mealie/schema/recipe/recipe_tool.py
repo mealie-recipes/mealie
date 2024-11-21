@@ -8,6 +8,7 @@ from mealie.schema._mealie import MealieModel
 
 class RecipeToolCreate(MealieModel):
     name: str
+    households_with_tool: list[str] = []
 
 
 class RecipeToolSave(RecipeToolCreate):
@@ -17,7 +18,6 @@ class RecipeToolSave(RecipeToolCreate):
 class RecipeToolOut(RecipeToolCreate):
     id: UUID4
     slug: str
-    households_with_tool: list[str] = []
 
     model_config = ConfigDict(from_attributes=True)
 

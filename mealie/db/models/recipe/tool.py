@@ -1,5 +1,6 @@
 from typing import TYPE_CHECKING
 
+from pydantic import ConfigDict
 from slugify import slugify
 from sqlalchemy import Boolean, Column, ForeignKey, String, Table, UniqueConstraint, orm
 from sqlalchemy.orm import Mapped, mapped_column
@@ -55,6 +56,12 @@ class Tool(SqlAlchemyBase, BaseMixins):
     )
     recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=recipes_to_tools, back_populates="tools"
+    )
+
+    model_config = ConfigDict(
+        exclude={
+            "households_with_tool",
+        }
     )
 
     # Deprecated

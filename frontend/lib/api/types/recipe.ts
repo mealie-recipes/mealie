@@ -433,12 +433,13 @@ export interface RecipeTimelineEventUpdate {
 }
 export interface RecipeToolCreate {
   name: string;
+  householdsWithTool?: string[];
 }
 export interface RecipeToolOut {
   name: string;
+  householdsWithTool?: string[];
   id: string;
   slug: string;
-  householdsWithTool?: string[];
 }
 export interface RecipeToolResponse {
   name: string;
@@ -449,6 +450,7 @@ export interface RecipeToolResponse {
 }
 export interface RecipeToolSave {
   name: string;
+  householdsWithTool?: string[];
   groupId: string;
 }
 export interface RecipeZipTokenResponse {

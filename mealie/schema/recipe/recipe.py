@@ -61,6 +61,16 @@ class RecipeTool(RecipeTag):
     id: UUID4
     households_with_tool: list[str] = []
 
+    @field_validator("households_with_tool", mode="before")
+    def convert_households_to_slugs(cls, v):
+        if not v:
+            return []
+
+        try:
+            return [household.slug for household in v]
+        except AttributeError:
+            return v
+
 
 class RecipeToolPagination(PaginationBase):
     items: list[RecipeTool]

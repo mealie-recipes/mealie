@@ -66,6 +66,7 @@ class IngredientFoodAlias(CreateIngredientFoodAlias):
 class CreateIngredientFood(UnitFoodBase):
     label_id: UUID4 | None = None
     aliases: list[CreateIngredientFoodAlias] = []
+    households_with_ingredient_food: list[str] = []
 
 
 class SaveIngredientFood(CreateIngredientFood):
@@ -76,7 +77,6 @@ class IngredientFood(CreateIngredientFood):
     id: UUID4
     label: MultiPurposeLabelSummary | None = None
     aliases: list[IngredientFoodAlias] = []
-    households_with_ingredient_food: list[str] = []
 
     created_at: datetime.datetime | None = None
     updated_at: datetime.datetime | None = UpdatedAtField(None)
