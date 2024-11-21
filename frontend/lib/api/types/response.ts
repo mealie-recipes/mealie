@@ -24,7 +24,7 @@ export interface PaginationQuery {
   perPage?: number;
   orderBy?: string | null;
   orderByNullPosition?: OrderByNullPosition | null;
-  orderDirection?: OrderDirection & string;
+  orderDirection?: OrderDirection;
   queryFilter?: string | null;
   paginationSeed?: string | null;
 }

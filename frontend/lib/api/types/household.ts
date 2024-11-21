@@ -26,12 +26,14 @@ export interface CreateHouseholdPreferences {
 }
 export interface CreateInviteToken {
   uses: number;
+  groupId?: string | null;
+  householdId?: string | null;
 }
 export interface CreateWebhook {
   enabled?: boolean;
   name?: string;
   url?: string;
-  webhookType?: WebhookType & string;
+  webhookType?: WebhookType;
   scheduledTime: string;
 }
 export interface EmailInitationResponse {
@@ -204,11 +206,32 @@ export interface ReadWebhook {
   enabled?: boolean;
   name?: string;
   url?: string;
-  webhookType?: WebhookType & string;
+  webhookType?: WebhookType;
   scheduledTime: string;
   groupId: string;
   householdId: string;
   id: string;
+}
+export interface HouseholdRecipeBase {
+  lastMade?: string | null;
+}
+export interface HouseholdRecipeCreate {
+  lastMade?: string | null;
+  householdId: string;
+  recipeId: string;
+}
+export interface HouseholdRecipeOut {
+  lastMade?: string | null;
+  householdId: string;
+  recipeId: string;
+  id: string;
+}
+export interface HouseholdRecipeSummary {
+  lastMade?: string | null;
+  recipeId: string;
+}
+export interface HouseholdRecipeUpdate {
+  lastMade?: string | null;
 }
 export interface HouseholdSave {
   groupId: string;
@@ -263,7 +286,7 @@ export interface SaveWebhook {
   enabled?: boolean;
   name?: string;
   url?: string;
-  webhookType?: WebhookType & string;
+  webhookType?: WebhookType;
   scheduledTime: string;
   groupId: string;
   householdId: string;
@@ -299,7 +322,6 @@ export interface IngredientUnit {
   extras?: {
     [k: string]: unknown;
   } | null;
-  onHand?: boolean;
   fraction?: boolean;
   abbreviation?: string;
   pluralAbbreviation?: string | null;
@@ -320,7 +342,6 @@ export interface CreateIngredientUnit {
   extras?: {
     [k: string]: unknown;
   } | null;
-  onHand?: boolean;
   fraction?: boolean;
   abbreviation?: string;
   pluralAbbreviation?: string | null;
@@ -340,10 +361,10 @@ export interface IngredientFood {
   extras?: {
     [k: string]: unknown;
   } | null;
-  onHand?: boolean;
   labelId?: string | null;
   aliases?: IngredientFoodAlias[];
   label?: MultiPurposeLabelSummary | null;
+  householdsWithIngredientFood?: string[];
   createdAt?: string | null;
   updatedAt?: string | null;
 }
@@ -365,7 +386,6 @@ export interface CreateIngredientFood {
   extras?: {
     [k: string]: unknown;
   } | null;
-  onHand?: boolean;
   labelId?: string | null;
   aliases?: CreateIngredientFoodAlias[];
   [k: string]: unknown;
@@ -565,6 +585,8 @@ export interface RecipeSummary {
   name?: string | null;
   slug?: string;
   image?: unknown;
+  recipeServings?: number;
+  recipeYieldQuantity?: number;
   recipeYield?: string | null;
   totalTime?: string | null;
   prepTime?: string | null;
@@ -598,7 +620,7 @@ export interface RecipeTool {
   id: string;
   name: string;
   slug: string;
-  onHand?: boolean;
+  [k: string]: unknown;
 }
 export interface ShoppingListRemoveRecipeParams {
   recipeDecrementQuantity?: number;

@@ -62,7 +62,6 @@ export interface CreateIngredientFood {
   extras?: {
     [k: string]: unknown;
   } | null;
-  onHand?: boolean;
   labelId?: string | null;
   aliases?: CreateIngredientFoodAlias[];
 }
@@ -77,7 +76,6 @@ export interface CreateIngredientUnit {
   extras?: {
     [k: string]: unknown;
   } | null;
-  onHand?: boolean;
   fraction?: boolean;
   abbreviation?: string;
   pluralAbbreviation?: string | null;
@@ -116,7 +114,7 @@ export interface ExportBase {
 }
 export interface ExportRecipes {
   recipes: string[];
-  exportType?: ExportTypes & string;
+  exportType?: ExportTypes;
 }
 export interface IngredientConfidence {
   average?: number | null;
@@ -134,10 +132,10 @@ export interface IngredientFood {
   extras?: {
     [k: string]: unknown;
   } | null;
-  onHand?: boolean;
   labelId?: string | null;
   aliases?: IngredientFoodAlias[];
   label?: MultiPurposeLabelSummary | null;
+  householdsWithIngredientFood?: string[];
   createdAt?: string | null;
   updatedAt?: string | null;
 }
@@ -157,7 +155,7 @@ export interface IngredientReferences {
   referenceId?: string | null;
 }
 export interface IngredientRequest {
-  parser?: RegisteredParser & string;
+  parser?: RegisteredParser;
   ingredient: string;
 }
 export interface IngredientUnit {
@@ -168,7 +166,6 @@ export interface IngredientUnit {
   extras?: {
     [k: string]: unknown;
   } | null;
-  onHand?: boolean;
   fraction?: boolean;
   abbreviation?: string;
   pluralAbbreviation?: string | null;
@@ -181,7 +178,7 @@ export interface IngredientUnitAlias {
   name: string;
 }
 export interface IngredientsRequest {
-  parser?: RegisteredParser & string;
+  parser?: RegisteredParser;
   ingredients: string[];
 }
 export interface MergeFood {
@@ -207,8 +204,16 @@ export interface Nutrition {
 }
 export interface ParsedIngredient {
   input?: string | null;
-  confidence?: IngredientConfidence;
+  confidence?: IngredientConfidence1;
   ingredient: RecipeIngredient;
+}
+export interface IngredientConfidence1 {
+  average?: number | null;
+  comment?: number | null;
+  name?: number | null;
+  unit?: number | null;
+  quantity?: number | null;
+  food?: number | null;
 }
 export interface RecipeIngredient {
   quantity?: number | null;
@@ -263,14 +268,13 @@ export interface RecipeTool {
   id: string;
   name: string;
   slug: string;
-  onHand?: boolean;
 }
 export interface RecipeStep {
   id?: string | null;
   title?: string | null;
+  summary?: string | null;
   text: string;
   ingredientReferences?: IngredientReferences[];
-  summary?: string | null;
 }
 export interface RecipeAsset {
   name: string;
@@ -428,24 +432,22 @@ export interface RecipeTimelineEventUpdate {
 }
 export interface RecipeToolCreate {
   name: string;
-  onHand?: boolean;
 }
 export interface RecipeToolOut {
   name: string;
-  onHand?: boolean;
   id: string;
   slug: string;
+  householdsWithTool?: string[];
 }
 export interface RecipeToolResponse {
   name: string;
-  onHand?: boolean;
   id: string;
   slug: string;
+  householdsWithTool?: string[];
   recipes?: RecipeSummary[];
 }
 export interface RecipeToolSave {
   name: string;
-  onHand?: boolean;
   groupId: string;
 }
 export interface RecipeZipTokenResponse {
@@ -459,7 +461,6 @@ export interface SaveIngredientFood {
   extras?: {
     [k: string]: unknown;
   } | null;
-  onHand?: boolean;
   labelId?: string | null;
   aliases?: CreateIngredientFoodAlias[];
   groupId: string;
@@ -472,7 +473,6 @@ export interface SaveIngredientUnit {
   extras?: {
     [k: string]: unknown;
   } | null;
-  onHand?: boolean;
   fraction?: boolean;
   abbreviation?: string;
   pluralAbbreviation?: string | null;
@@ -495,7 +495,7 @@ export interface ScrapeRecipeTest {
   url: string;
   useOpenAI?: boolean;
 }
-export interface SlugResponse { }
+export interface SlugResponse {}
 export interface TagIn {
   name: string;
 }
@@ -517,7 +517,6 @@ export interface UnitFoodBase {
   extras?: {
     [k: string]: unknown;
   } | null;
-  onHand?: boolean;
 }
 export interface UpdateImageResponse {
   image: string;
