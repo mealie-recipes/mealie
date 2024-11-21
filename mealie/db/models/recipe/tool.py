@@ -8,10 +8,9 @@ from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models._model_utils.auto_init import auto_init
 from mealie.db.models._model_utils.guid import GUID
 
-from ..group import Group
-from ..household import Household
-
 if TYPE_CHECKING:
+    from ..group import Group
+    from ..household import Household
     from . import RecipeModel
 
 households_to_tools = Table(
@@ -65,6 +64,8 @@ class Tool(SqlAlchemyBase, BaseMixins):
     def __init__(
         self, session: orm.Session, group_id: GUID, name: str, households_with_tool: list[str] | None = None, **_
     ) -> None:
+        from ..household import Household
+
         self.slug = slugify(name)
 
         if not households_with_tool:

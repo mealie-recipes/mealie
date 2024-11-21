@@ -11,10 +11,10 @@ from mealie.db.models.recipe.api_extras import IngredientFoodExtras, api_extras
 
 from .._model_utils.auto_init import auto_init
 from .._model_utils.guid import GUID
-from ..household import Household
 
 if TYPE_CHECKING:
     from ..group import Group
+    from ..household import Household
 
 
 households_to_ingredient_foods = sa.Table(
@@ -191,6 +191,8 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
         households_with_ingredient_food: list[str] | None = None,
         **_,
     ) -> None:
+        from ..household import Household
+
         if name is not None:
             self.name_normalized = self.normalize(name)
         if plural_name is not None:
