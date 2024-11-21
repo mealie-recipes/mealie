@@ -65,7 +65,7 @@ def generate_global_components_types() -> None:
 # Pydantic To Typescript Generator
 
 
-def generate_typescript_types() -> None:
+def generate_typescript_types() -> None:  # noqa: C901
     def contains_number(s: str) -> bool:
         return bool(re.search(r"\d", s))
 
@@ -73,18 +73,25 @@ def generate_typescript_types() -> None:
         return re.sub(r"\d", "", s)
 
     def extract_type_name(line: str) -> str:
-        # Looking for "export type EnumName = "enumVal1 | enumVal2 | ...";"
-        if not (line.startswith("export type") and "=" in line and ";" in line):
+        # Looking for "export type EnumName = enumVal1 | enumVal2 | ..."
+        if not (line.startswith("export type") and "=" in line):
             return ""
 
         return line.split(" ")[2]
 
     def extract_property_type_name(line: str) -> str:
         # Looking for " fieldName: FieldType;" or " fieldName: FieldType & string;"
-        if not (line.startswith("  ") and ":" in line and ";" in line):
+        if not (line.startswith("  ") and ":" in line):
             return ""
 
         return line.split(":")[1].strip().split(";")[0]
+
+    def extract_interface_name(line: str) -> str:
+        # Looking for "export interface InterfaceName {"
+        if not (line.startswith("export interface") and "{" in line):
+            return ""
+
+        return line.split(" ")[2]
 
     def clean_output_file(file: Path) -> None:
         """
@@ -99,14 +106,49 @@ def generate_typescript_types() -> None:
         otherwise we could just fix pydantic2ts.
         """
 
+        # First pass: build a map of type names to their numberless counterparts and lines to skip
         replacement_map = {}
+        lines_to_skip = set()
+        wait_for_semicolon = False
+        wait_for_close_bracket = False
+        with open(file) as f:
+            for i, line in enumerate(f.readlines()):
+                if wait_for_semicolon:
+                    if ";" in line:
+                        wait_for_semicolon = False
+                    lines_to_skip.add(i)
+                    continue
+                if wait_for_close_bracket:
+                    if "}" in line:
+                        wait_for_close_bracket = False
+                    lines_to_skip.add(i)
+                    continue
+
+                if type_name := extract_type_name(line):
+                    if not contains_number(type_name):
+                        continue
+
+                    replacement_map[type_name] = remove_numbers(type_name)
+                    if ";" not in line:
+                        wait_for_semicolon = True
+                    lines_to_skip.add(i)
+
+                elif type_name := extract_interface_name(line):
+                    if not contains_number(type_name):
+                        continue
+
+                    replacement_map[type_name] = remove_numbers(type_name)
+                    if "}" not in line:
+                        wait_for_close_bracket = True
+                    lines_to_skip.add(i)
+
+        # Second pass: rewrite or remove lines as needed.
+        # We have to do two passes here because definitions don't always appear in the same order as their usage.
         lines = []
         with open(file) as f:
-            for line in f.readlines():
-                if type_name := extract_type_name(line):
-                    if contains_number(type_name):
-                        replacement_map[type_name] = remove_numbers(type_name)
-                        continue  # don't write this line
+            for i, line in enumerate(f.readlines()):
+                if i in lines_to_skip:
+                    continue
 
                 if type_name := extract_property_type_name(line):
                     if type_name in replacement_map:
