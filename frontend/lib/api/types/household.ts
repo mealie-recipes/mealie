@@ -48,10 +48,6 @@ export interface GroupEventNotifierCreate {
   name: string;
   appriseUrl?: string | null;
 }
-/**
- * These events are in-sync with the EventTypes found in the EventBusService.
- * If you modify this, make sure to update the EventBusService as well.
- */
 export interface GroupEventNotifierOptions {
   testMessage?: boolean;
   webhookTask?: boolean;
@@ -151,10 +147,6 @@ export interface GroupEventNotifierSave {
   householdId: string;
   options?: GroupEventNotifierOptions;
 }
-/**
- * These events are in-sync with the EventTypes found in the EventBusService.
- * If you modify this, make sure to update the EventBusService as well.
- */
 export interface GroupEventNotifierUpdate {
   name: string;
   appriseUrl?: string | null;
@@ -164,10 +156,6 @@ export interface GroupEventNotifierUpdate {
   options?: GroupEventNotifierOptions;
   id: string;
 }
-/**
- * These events are in-sync with the EventTypes found in the EventBusService.
- * If you modify this, make sure to update the EventBusService as well.
- */
 export interface GroupRecipeActionOut {
   actionType: GroupRecipeActionType;
   title: string;
@@ -496,9 +484,6 @@ export interface ShoppingListItemUpdate {
   } | null;
   recipeReferences?: (ShoppingListItemRecipeRefCreate | ShoppingListItemRecipeRefUpdate)[];
 }
-/**
- * Only used for bulk update operations where the shopping list item id isn't already supplied
- */
 export interface ShoppingListItemUpdateBulk {
   quantity?: number;
   unit?: IngredientUnit | CreateIngredientUnit | null;
@@ -519,9 +504,6 @@ export interface ShoppingListItemUpdateBulk {
   recipeReferences?: (ShoppingListItemRecipeRefCreate | ShoppingListItemRecipeRefUpdate)[];
   id: string;
 }
-/**
- * Container for bulk shopping list item changes
- */
 export interface ShoppingListItemsCollectionOut {
   createdItems?: ShoppingListItemOut[];
   updatedItems?: ShoppingListItemOut[];

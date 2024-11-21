@@ -150,9 +150,6 @@ export interface MultiPurposeLabelSummary {
   groupId: string;
   id: string;
 }
-/**
- * A list of ingredient references.
- */
 export interface IngredientReferences {
   referenceId?: string | null;
 }
