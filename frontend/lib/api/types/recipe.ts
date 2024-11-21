@@ -116,7 +116,7 @@ export interface ExportBase {
 }
 export interface ExportRecipes {
   recipes: string[];
-  exportType?: ExportTypes & string;
+  exportType?: ExportTypes;
 }
 export interface IngredientConfidence {
   average?: number | null;
@@ -157,7 +157,7 @@ export interface IngredientReferences {
   referenceId?: string | null;
 }
 export interface IngredientRequest {
-  parser?: RegisteredParser & string;
+  parser?: RegisteredParser;
   ingredient: string;
 }
 export interface IngredientUnit {
@@ -181,7 +181,7 @@ export interface IngredientUnitAlias {
   name: string;
 }
 export interface IngredientsRequest {
-  parser?: RegisteredParser & string;
+  parser?: RegisteredParser;
   ingredients: string[];
 }
 export interface MergeFood {
@@ -207,8 +207,16 @@ export interface Nutrition {
 }
 export interface ParsedIngredient {
   input?: string | null;
-  confidence?: IngredientConfidence;
+  confidence?: IngredientConfidence1;
   ingredient: RecipeIngredient;
+}
+export interface IngredientConfidence1 {
+  average?: number | null;
+  comment?: number | null;
+  name?: number | null;
+  unit?: number | null;
+  quantity?: number | null;
+  food?: number | null;
 }
 export interface RecipeIngredient {
   quantity?: number | null;
@@ -268,9 +276,9 @@ export interface RecipeTool {
 export interface RecipeStep {
   id?: string | null;
   title?: string | null;
+  summary?: string | null;
   text: string;
   ingredientReferences?: IngredientReferences[];
-  summary?: string | null;
 }
 export interface RecipeAsset {
   name: string;
@@ -495,7 +503,7 @@ export interface ScrapeRecipeTest {
   url: string;
   useOpenAI?: boolean;
 }
-export interface SlugResponse { }
+export interface SlugResponse {}
 export interface TagIn {
   name: string;
 }

@@ -26,12 +26,14 @@ export interface CreateHouseholdPreferences {
 }
 export interface CreateInviteToken {
   uses: number;
+  groupId?: string | null;
+  householdId?: string | null;
 }
 export interface CreateWebhook {
   enabled?: boolean;
   name?: string;
   url?: string;
-  webhookType?: WebhookType & string;
+  webhookType?: WebhookType;
   scheduledTime: string;
 }
 export interface EmailInitationResponse {
@@ -147,7 +149,35 @@ export interface GroupEventNotifierSave {
   enabled?: boolean;
   groupId: string;
   householdId: string;
-  options?: GroupEventNotifierOptions;
+  options?: GroupEventNotifierOptions1;
+}
+/**
+ * These events are in-sync with the EventTypes found in the EventBusService.
+ * If you modify this, make sure to update the EventBusService as well.
+ */
+export interface GroupEventNotifierOptions1 {
+  testMessage?: boolean;
+  webhookTask?: boolean;
+  recipeCreated?: boolean;
+  recipeUpdated?: boolean;
+  recipeDeleted?: boolean;
+  userSignup?: boolean;
+  dataMigrations?: boolean;
+  dataExport?: boolean;
+  dataImport?: boolean;
+  mealplanEntryCreated?: boolean;
+  shoppingListCreated?: boolean;
+  shoppingListUpdated?: boolean;
+  shoppingListDeleted?: boolean;
+  cookbookCreated?: boolean;
+  cookbookUpdated?: boolean;
+  cookbookDeleted?: boolean;
+  tagCreated?: boolean;
+  tagUpdated?: boolean;
+  tagDeleted?: boolean;
+  categoryCreated?: boolean;
+  categoryUpdated?: boolean;
+  categoryDeleted?: boolean;
 }
 export interface GroupEventNotifierUpdate {
   name: string;
@@ -155,8 +185,36 @@ export interface GroupEventNotifierUpdate {
   enabled?: boolean;
   groupId: string;
   householdId: string;
-  options?: GroupEventNotifierOptions;
+  options?: GroupEventNotifierOptions2;
   id: string;
+}
+/**
+ * These events are in-sync with the EventTypes found in the EventBusService.
+ * If you modify this, make sure to update the EventBusService as well.
+ */
+export interface GroupEventNotifierOptions2 {
+  testMessage?: boolean;
+  webhookTask?: boolean;
+  recipeCreated?: boolean;
+  recipeUpdated?: boolean;
+  recipeDeleted?: boolean;
+  userSignup?: boolean;
+  dataMigrations?: boolean;
+  dataExport?: boolean;
+  dataImport?: boolean;
+  mealplanEntryCreated?: boolean;
+  shoppingListCreated?: boolean;
+  shoppingListUpdated?: boolean;
+  shoppingListDeleted?: boolean;
+  cookbookCreated?: boolean;
+  cookbookUpdated?: boolean;
+  cookbookDeleted?: boolean;
+  tagCreated?: boolean;
+  tagUpdated?: boolean;
+  tagDeleted?: boolean;
+  categoryCreated?: boolean;
+  categoryUpdated?: boolean;
+  categoryDeleted?: boolean;
 }
 export interface GroupRecipeActionOut {
   actionType: GroupRecipeActionType;
@@ -204,7 +262,7 @@ export interface ReadWebhook {
   enabled?: boolean;
   name?: string;
   url?: string;
-  webhookType?: WebhookType & string;
+  webhookType?: WebhookType;
   scheduledTime: string;
   groupId: string;
   householdId: string;
@@ -263,7 +321,7 @@ export interface SaveWebhook {
   enabled?: boolean;
   name?: string;
   url?: string;
-  webhookType?: WebhookType & string;
+  webhookType?: WebhookType;
   scheduledTime: string;
   groupId: string;
   householdId: string;
@@ -565,6 +623,8 @@ export interface RecipeSummary {
   name?: string | null;
   slug?: string;
   image?: unknown;
+  recipeServings?: number;
+  recipeYieldQuantity?: number;
   recipeYield?: string | null;
   totalTime?: string | null;
   prepTime?: string | null;
@@ -599,6 +659,7 @@ export interface RecipeTool {
   name: string;
   slug: string;
   onHand?: boolean;
+  [k: string]: unknown;
 }
 export interface ShoppingListRemoveRecipeParams {
   recipeDecrementQuantity?: number;
