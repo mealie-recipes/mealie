@@ -207,16 +207,8 @@ export interface Nutrition {
 }
 export interface ParsedIngredient {
   input?: string | null;
-  confidence?: IngredientConfidence1;
+  confidence?: IngredientConfidence;
   ingredient: RecipeIngredient;
-}
-export interface IngredientConfidence1 {
-  average?: number | null;
-  comment?: number | null;
-  name?: number | null;
-  unit?: number | null;
-  quantity?: number | null;
-  food?: number | null;
 }
 export interface RecipeIngredient {
   quantity?: number | null;

@@ -51,11 +51,8 @@ export interface RecipeCookBook {
   groupId: string;
   householdId: string;
   id: string;
-  queryFilter?: QueryFilterJSON1;
+  queryFilter?: QueryFilterJSON;
   recipes: RecipeSummary[];
-}
-export interface QueryFilterJSON1 {
-  parts?: QueryFilterJSONPart[];
 }
 export interface RecipeSummary {
   id?: string | null;
@@ -123,7 +120,4 @@ export interface UpdateCookBook {
   groupId: string;
   householdId: string;
   id: string;
-}
-export interface QueryFilterJSON2 {
-  parts?: QueryFilterJSONPart[];
 }

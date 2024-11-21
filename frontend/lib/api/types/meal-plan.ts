@@ -8,27 +8,9 @@
 export type PlanEntryType = "breakfast" | "lunch" | "dinner" | "side";
 export type PlanRulesDay = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday" | "unset";
 export type PlanRulesType = "breakfast" | "lunch" | "dinner" | "side" | "unset";
-export type PlanRulesDay1 =
-  | "monday"
-  | "tuesday"
-  | "wednesday"
-  | "thursday"
-  | "friday"
-  | "saturday"
-  | "sunday"
-  | "unset";
 export type LogicalOperator = "AND" | "OR";
 export type RelationalKeyword = "IS" | "IS NOT" | "IN" | "NOT IN" | "CONTAINS ALL" | "LIKE" | "NOT LIKE";
 export type RelationalOperator = "=" | "<>" | ">" | "<" | ">=" | "<=";
-export type PlanRulesDay2 =
-  | "monday"
-  | "tuesday"
-  | "wednesday"
-  | "thursday"
-  | "friday"
-  | "saturday"
-  | "sunday"
-  | "unset";
 
 export interface CreatePlanEntry {
   date: string;
@@ -53,7 +35,7 @@ export interface PlanRulesCreate {
   queryFilterString?: string;
 }
 export interface PlanRulesOut {
-  day?: PlanRulesDay1;
+  day?: PlanRulesDay;
   entryType?: PlanRulesType;
   queryFilterString?: string;
   groupId: string;
@@ -74,7 +56,7 @@ export interface QueryFilterJSONPart {
   [k: string]: unknown;
 }
 export interface PlanRulesSave {
-  day?: PlanRulesDay2;
+  day?: PlanRulesDay;
   entryType?: PlanRulesType;
   queryFilterString?: string;
   groupId: string;
@@ -167,7 +149,4 @@ export interface UpdatePlanEntry {
   id: number;
   groupId: string;
   userId: string;
-}
-export interface QueryFilterJSON1 {
-  parts?: QueryFilterJSONPart[];
 }

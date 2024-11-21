@@ -149,73 +149,25 @@ export interface GroupEventNotifierSave {
   enabled?: boolean;
   groupId: string;
   householdId: string;
-  options?: GroupEventNotifierOptions1;
+  options?: GroupEventNotifierOptions;
 }
 /**
  * These events are in-sync with the EventTypes found in the EventBusService.
  * If you modify this, make sure to update the EventBusService as well.
  */
-export interface GroupEventNotifierOptions1 {
-  testMessage?: boolean;
-  webhookTask?: boolean;
-  recipeCreated?: boolean;
-  recipeUpdated?: boolean;
-  recipeDeleted?: boolean;
-  userSignup?: boolean;
-  dataMigrations?: boolean;
-  dataExport?: boolean;
-  dataImport?: boolean;
-  mealplanEntryCreated?: boolean;
-  shoppingListCreated?: boolean;
-  shoppingListUpdated?: boolean;
-  shoppingListDeleted?: boolean;
-  cookbookCreated?: boolean;
-  cookbookUpdated?: boolean;
-  cookbookDeleted?: boolean;
-  tagCreated?: boolean;
-  tagUpdated?: boolean;
-  tagDeleted?: boolean;
-  categoryCreated?: boolean;
-  categoryUpdated?: boolean;
-  categoryDeleted?: boolean;
-}
 export interface GroupEventNotifierUpdate {
   name: string;
   appriseUrl?: string | null;
   enabled?: boolean;
   groupId: string;
   householdId: string;
-  options?: GroupEventNotifierOptions2;
+  options?: GroupEventNotifierOptions;
   id: string;
 }
 /**
  * These events are in-sync with the EventTypes found in the EventBusService.
  * If you modify this, make sure to update the EventBusService as well.
  */
-export interface GroupEventNotifierOptions2 {
-  testMessage?: boolean;
-  webhookTask?: boolean;
-  recipeCreated?: boolean;
-  recipeUpdated?: boolean;
-  recipeDeleted?: boolean;
-  userSignup?: boolean;
-  dataMigrations?: boolean;
-  dataExport?: boolean;
-  dataImport?: boolean;
-  mealplanEntryCreated?: boolean;
-  shoppingListCreated?: boolean;
-  shoppingListUpdated?: boolean;
-  shoppingListDeleted?: boolean;
-  cookbookCreated?: boolean;
-  cookbookUpdated?: boolean;
-  cookbookDeleted?: boolean;
-  tagCreated?: boolean;
-  tagUpdated?: boolean;
-  tagDeleted?: boolean;
-  categoryCreated?: boolean;
-  categoryUpdated?: boolean;
-  categoryDeleted?: boolean;
-}
 export interface GroupRecipeActionOut {
   actionType: GroupRecipeActionType;
   title: string;
