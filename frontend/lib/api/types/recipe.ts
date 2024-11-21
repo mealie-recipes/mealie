@@ -268,6 +268,7 @@ export interface RecipeTool {
   id: string;
   name: string;
   slug: string;
+  householdsWithTool?: string[];
 }
 export interface RecipeStep {
   id?: string | null;

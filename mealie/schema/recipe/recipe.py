@@ -59,6 +59,7 @@ class RecipeCategoryPagination(PaginationBase):
 
 class RecipeTool(RecipeTag):
     id: UUID4
+    households_with_tool: list[str] = []
 
 
 class RecipeToolPagination(PaginationBase):
