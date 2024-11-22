@@ -200,7 +200,7 @@ export default defineComponent({
     });
 
     const userHousehold = computed(() => {
-      return $auth.user?.householdSlug|| "";
+      return $auth.user?.householdSlug || "";
     });
 
     const shoppingListChoices = computed(() => {
@@ -278,7 +278,7 @@ export default defineComponent({
 
           // Store the on-hand ingredients for later
           // @ts-expect-error householdsWithIngredientFood will either be a string array or undefined
-          const householdsWithFood = (ing.food?.householdsWithIngredientFood || []) as string[];
+          const householdsWithFood = (ing.ingredient.food?.householdsWithIngredientFood || []) as string[];
           if (householdsWithFood.includes(userHousehold.value)) {
             onHandIngs.push(ing);
             return sections;
