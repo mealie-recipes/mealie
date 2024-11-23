@@ -194,7 +194,7 @@ class SessionBuffer:
         self.shopping_list_ids.clear()
 
 
-session_buffer_context = ContextVar("session_buffer", default=SessionBuffer())
+session_buffer_context = ContextVar("session_buffer", default=SessionBuffer())  # noqa: B039
 
 
 @event.listens_for(ShoppingListItem, "after_insert")
