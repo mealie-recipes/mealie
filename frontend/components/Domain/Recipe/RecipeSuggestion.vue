@@ -23,12 +23,16 @@
             </v-card-text>
             <v-chip
               v-for="item in organizer.items"
-              :key="item.id"
+              :key="item.item.id"
               label
               color="secondary custom-transparent"
               class="mr-2 my-1"
             >
-              <span>{{ organizer.getLabel(item) }}</span>
+              <v-checkbox :ripple="false" @click="handleCheckbox(item)">
+                <template #label>
+                  {{ organizer.getLabel(item.item) }}
+                </template>
+              </v-checkbox>
             </v-chip>
           </div>
         </v-col>
@@ -38,9 +42,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, useContext } from "@nuxtjs/composition-api";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { IngredientFood, RecipeSummary, RecipeTool } from "~/lib/api/types/recipe";
+
+interface Organizer {
+  type: "food" | "tool";
+  item: IngredientFood | RecipeTool;
+  selected: boolean;
+}
 
 export default defineComponent({
   components: { RecipeCardMobile },
@@ -57,28 +67,53 @@ export default defineComponent({
       type: Array as () => RecipeTool[] | null,
       default: null,
     },
+    disableCheckbox: {
+      type: Boolean,
+      default: false,
+    },
   },
-  setup(props) {
+  setup(props, context) {
     const { $globals } = useContext();
     const missingOrganizers = computed(() => [
-      // Foods
       {
+        type: "food",
         show: props.missingFoods?.length,
         icon: $globals.icons.foods,
-        items: props.missingFoods,
+        items: props.missingFoods ? props.missingFoods.map((food) => {
+          return reactive({type: "food", item: food, selected: false} as Organizer);
+        }) : [],
         getLabel: (item: IngredientFood) => item.pluralName || item.name,
       },
-      // Tools
       {
+        type: "tool",
         show: props.missingTools?.length,
         icon: $globals.icons.tools,
-        items: props.missingTools,
+        items: props.missingTools ? props.missingTools.map((tool) => {
+          return reactive({type: "tool", item: tool, selected: false} as Organizer);
+        }) : [],
         getLabel: (item: RecipeTool) => item.name,
       }
     ])
 
+    function handleCheckbox(organizer: Organizer) {
+      if (props.disableCheckbox) {
+        return;
+      }
+
+      organizer.selected = !organizer.selected;
+
+      if (organizer.selected) {
+        context.emit(`add-${organizer.type}`, organizer.item);
+        return;
+      }
+      else {
+        context.emit(`remove-${organizer.type}`, organizer.item);
+      }
+    }
+
     return {
       missingOrganizers,
+      handleCheckbox,
     };
   }
 });

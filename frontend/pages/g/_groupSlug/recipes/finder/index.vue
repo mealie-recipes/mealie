@@ -241,6 +241,11 @@
                     :recipe="item.recipe"
                     :missing-foods="item.missingFoods"
                     :missing-tools="item.missingTools"
+                    :disable-checkbox="loading"
+                    @add-food="addFood"
+                    @remove-food="removeFood"
+                    @add-tool="addTool"
+                    @remove-tool="removeTool"
                   />
                 </v-lazy>
               </v-col>
@@ -261,6 +266,11 @@
                   :recipe="item.recipe"
                   :missing-foods="item.missingFoods"
                   :missing-tools="item.missingTools"
+                  :disable-checkbox="loading"
+                  @add-food="addFood"
+                  @remove-food="removeFood"
+                  @add-tool="addTool"
+                  @remove-tool="removeTool"
                 />
               </v-lazy>
               </v-col>
@@ -345,6 +355,7 @@ export default defineComponent({
     const preferences = useRecipeFinderPreferences();
     const state = reactive({
       ready: false,
+      loading: false,
       recipesReady: false,
       settingsMenu: false,
       queryFilterMenu: false,
@@ -404,6 +415,9 @@ export default defineComponent({
 
     const foodStore = isOwnGroup.value ? useFoodStore() : usePublicFoodStore(groupSlug.value);
     const selectedFoods = ref<IngredientFood[]>([]);
+    function addFood(food: IngredientFood) {
+      selectedFoods.value.push(food);
+    }
     function removeFood(food: IngredientFood) {
       selectedFoods.value = selectedFoods.value.filter((f) => f.id !== food.id);
     }
@@ -417,14 +431,17 @@ export default defineComponent({
 
     const toolStore = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
     const selectedTools = ref<RecipeTool[]>([]);
+    function addTool(tool: RecipeTool) {
+      selectedTools.value.push(tool);
+    }
     function removeTool(tool: RecipeTool) {
       selectedTools.value = selectedTools.value.filter((t) => t.id !== tool.id);
-      preferences.value.toolIds = selectedTools.value.map((tool) => tool.id);
     }
     watch(
       () => selectedTools.value,
       () => {
         selectedTools.value.sort((a, b) => a.name.localeCompare(b.name));
+        preferences.value.toolIds = selectedTools.value.map((tool) => tool.id);
       }
     )
 
@@ -493,6 +510,7 @@ export default defineComponent({
           return;
         }
 
+        state.loading = true;
         const { data } = await api.recipes.getSuggestions(
           {
             limit: state.settings.limit,
@@ -505,6 +523,7 @@ export default defineComponent({
           selectedFoods.value.map((food) => food.id),
           selectedTools.value.map((tool) => tool.id),
         );
+        state.loading = false;
         if (!data) {
           return;
         }
@@ -556,9 +575,11 @@ export default defineComponent({
       isOwnGroup,
       foods: foodStore.store,
       selectedFoods,
+      addFood,
       removeFood,
       tools: toolStore.store,
       selectedTools,
+      addTool,
       removeTool,
       recipeSuggestions,
       queryFilterBuilderFields,
