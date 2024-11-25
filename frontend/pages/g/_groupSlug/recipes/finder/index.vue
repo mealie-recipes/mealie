@@ -9,72 +9,73 @@
     </BasePageTitle>
     <v-container v-if="ready">
       <v-row>
-        <v-col cols="3">
+        <v-col :cols="useMobile ? 12 : 3">
           <v-container class="ma-0 pa-0">
             <v-row no-gutters>
-              <v-col cols="12" no-gutters class="d-flex flex-wrap justify-start">
-                <SearchFilter v-if="foods" v-model="selectedFoods" :items="foods" class="mr-6 mb-2">
+              <v-col cols="12" no-gutters :class="attrs.searchFilter.colClass">
+                <SearchFilter v-if="foods" v-model="selectedFoods" :items="foods" :class="attrs.searchFilter.filterClass">
                   <v-icon left>
                     {{ $globals.icons.foods }}
                   </v-icon>
                   {{ $t("general.foods") }}
                 </SearchFilter>
-                <SearchFilter v-if="tools" v-model="selectedTools" :items="tools" class="mr-6 mb-2">
+                <SearchFilter v-if="tools" v-model="selectedTools" :items="tools" :class="attrs.searchFilter.filterClass">
                   <v-icon left>
                     {{ $globals.icons.potSteam }}
                   </v-icon>
                   {{ $t("tool.tools") }}
                 </SearchFilter>
-                <v-badge
-                  :value="queryFilterJSON.parts && queryFilterJSON.parts.length"
-                  small
-                  overlap
-                  color="primary"
-                  :content="(queryFilterJSON.parts || []).length"
-                >
-                  <v-btn
+                <div :class="attrs.searchFilter.filterClass">
+                  <v-badge
+                    :value="queryFilterJSON.parts && queryFilterJSON.parts.length"
                     small
-                    color="accent"
-                    dark
-                    class="pr-6 mb-2"
-                    @click="queryFilterMenu = !queryFilterMenu"
+                    overlap
+                    color="primary"
+                    :content="(queryFilterJSON.parts || []).length"
                   >
-                    <v-icon left>
-                      {{ $globals.icons.filter }}
-                    </v-icon>
-                    {{ $tc("recipe-finder.other-filters") }}
-                    <BaseDialog
-                      v-model="queryFilterMenu"
-                      :title="$tc('recipe-finder.other-filters')"
-                      :icon="$globals.icons.filter"
-                      width="100%"
-                      max-width="1100px"
-                      :submit-disabled="!queryFilterEditorValue"
-                      @confirm="saveQueryFilter"
+                    <v-btn
+                      small
+                      color="accent"
+                      dark
+                      @click="queryFilterMenu = !queryFilterMenu"
                     >
-                      <QueryFilterBuilder
-                        :key="queryFilterMenuKey"
-                        :initial-query-filter="queryFilterJSON"
-                        :field-defs="queryFilterBuilderFields"
-                        @input="(value) => queryFilterEditorValue = value"
-                        @inputJSON="(value) => queryFilterEditorValueJSON = value"
-                      />
-                      <template #custom-card-action>
-                        <BaseButton color="error" type="submit" @click="clearQueryFilter">
-                          <template #icon>
-                            {{ $globals.icons.close }}
-                          </template>
-                          {{ $t("search.clear-selection") }}
-                        </BaseButton>
-                      </template>
-                    </BaseDialog>
-                  </v-btn>
-                </v-badge>
+                      <v-icon left>
+                        {{ $globals.icons.filter }}
+                      </v-icon>
+                      {{ $tc("recipe-finder.other-filters") }}
+                      <BaseDialog
+                        v-model="queryFilterMenu"
+                        :title="$tc('recipe-finder.other-filters')"
+                        :icon="$globals.icons.filter"
+                        width="100%"
+                        max-width="1100px"
+                        :submit-disabled="!queryFilterEditorValue"
+                        @confirm="saveQueryFilter"
+                      >
+                        <QueryFilterBuilder
+                          :key="queryFilterMenuKey"
+                          :initial-query-filter="queryFilterJSON"
+                          :field-defs="queryFilterBuilderFields"
+                          @input="(value) => queryFilterEditorValue = value"
+                          @inputJSON="(value) => queryFilterEditorValueJSON = value"
+                        />
+                        <template #custom-card-action>
+                          <BaseButton color="error" type="submit" @click="clearQueryFilter">
+                            <template #icon>
+                              {{ $globals.icons.close }}
+                            </template>
+                            {{ $t("search.clear-selection") }}
+                          </BaseButton>
+                        </template>
+                      </BaseDialog>
+                    </v-btn>
+                  </v-badge>
+                </div>
               </v-col>
             </v-row>
             <!-- Settings Menu -->
             <v-row no-gutters class="mb-2">
-              <v-col cols="12">
+              <v-col cols="12" :class="attrs.settings.colClass">
                 <v-menu
                   v-model="settingsMenu"
                   offset-y
@@ -146,18 +147,37 @@
                 <v-card-text v-if="!selectedFoods.length" class="ma-0 pa-0">
                   {{ $tc("recipe-finder.no-ingredients-selected") }}
                 </v-card-text>
-                <v-row v-for="food in selectedFoods" :key="food.id" no-gutters class="mb-1">
-                  <v-col cols="12">
-                    <v-chip
-                      label
-                      color="accent custom-transparent"
-                      close
-                      @click:close="removeFood(food)"
-                    >
-                      <span class="text-hide-overflow">{{ food.pluralName || food.name }}</span>
-                    </v-chip>
-                  </v-col>
-                </v-row>
+                <div v-if="useMobile">
+                  <v-row no-gutters>
+                    <v-col cols="12" class="d-flex flex-wrap justify-end">
+                      <v-chip
+                        v-for="food in selectedFoods"
+                        :key="food.id"
+                        label
+                        class="ma-1"
+                        color="accent custom-transparent"
+                        close
+                        @click:close="removeFood(food)"
+                      >
+                        <span class="text-hide-overflow">{{ food.pluralName || food.name }}</span>
+                      </v-chip>
+                    </v-col>
+                  </v-row>
+                </div>
+                <div v-else>
+                  <v-row v-for="food in selectedFoods" :key="food.id" no-gutters class="mb-1">
+                    <v-col cols="12">
+                      <v-chip
+                        label
+                        color="accent custom-transparent"
+                        close
+                        @click:close="removeFood(food)"
+                      >
+                        <span class="text-hide-overflow">{{ food.pluralName || food.name }}</span>
+                      </v-chip>
+                    </v-col>
+                  </v-row>
+                </div>
               </v-container>
             </v-row>
             <v-row v-if="selectedTools.length" no-gutters class="mt-5">
@@ -165,30 +185,49 @@
                 {{ $tc("recipe-finder.selected-tools") }}
               </v-card-title>
               <v-container class="ma-0 pa-0">
-                <v-row v-for="tool in selectedTools" :key="tool.id" no-gutters class="mb-1">
-                  <v-col cols="12">
-                    <v-chip
-                      label
-                      color="accent custom-transparent"
-                      close
-                      @click:close="removeTool(tool)"
-                    >
-                      <span class="text-hide-overflow">{{ tool.name }}</span>
-                    </v-chip>
-                  </v-col>
-                </v-row>
+                <div v-if="useMobile">
+                  <v-row no-gutters>
+                    <v-col cols="12" class="d-flex flex-wrap justify-end">
+                      <v-chip
+                        v-for="tool in selectedTools"
+                        :key="tool.id"
+                        label
+                        class="ma-1"
+                        color="accent custom-transparent"
+                        close
+                        @click:close="removeTool(tool)"
+                      >
+                        <span class="text-hide-overflow">{{ tool.name }}</span>
+                      </v-chip>
+                    </v-col>
+                  </v-row>
+                </div>
+                <div v-else>
+                  <v-row v-for="tool in selectedTools" :key="tool.id" no-gutters class="mb-1">
+                    <v-col cols="12">
+                      <v-chip
+                        label
+                        color="accent custom-transparent"
+                        close
+                        @click:close="removeTool(tool)"
+                      >
+                        <span class="text-hide-overflow">{{ tool.name }}</span>
+                      </v-chip>
+                    </v-col>
+                  </v-row>
+                </div>
               </v-container>
             </v-row>
           </v-container>
         </v-col>
-        <v-col cols="9">
+        <v-col :cols="useMobile ? 12 : 9">
           <v-container
             v-if="recipeSuggestions.readyToMake.length || recipeSuggestions.missingItems.length"
             class="ma-0 pa-0"
           >
             <v-row v-if="recipeSuggestions.readyToMake.length" dense>
               <v-col cols="12">
-                <v-card-title :class="attrs.class.title.readyToMake">
+                <v-card-title :class="attrs.title.class.readyToMake">
                   {{ $tc("recipe-finder.ready-to-make") }}
                 </v-card-title>
               </v-col>
@@ -208,7 +247,7 @@
             </v-row>
             <v-row v-if="recipeSuggestions.missingItems.length" dense>
               <v-col cols="12">
-                <v-card-title :class="attrs.class.title.missingItems">
+                <v-card-title :class="attrs.title.class.missingItems">
                   {{ $tc("recipe-finder.almost-ready-to-make") }}
                 </v-card-title>
               </v-col>
@@ -295,8 +334,9 @@ interface RecipeSuggestions {
 export default defineComponent({
   components: { QueryFilterBuilder, RecipeSuggestion, SearchFilter },
   setup() {
-    const { $auth, i18n } = useContext();
+    const { $auth, $vuetify, i18n } = useContext();
     const route = useRoute();
+    const useMobile = computed(() => $vuetify.breakpoint.smAndDown);
 
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const { isOwnGroup } = useLoggedInState();
@@ -346,13 +386,20 @@ export default defineComponent({
 
     const attrs = computed(() => {
       return {
-        class: {
-          title: {
+        title: {
+          class: {
             readyToMake: "ma-0 pa-0",
             missingItems: recipeSuggestions.value.readyToMake.length ? "ma-0 pa-0 mt-5" : "ma-0 pa-0",
-          }
-        }
-      }
+          },
+        },
+        searchFilter: {
+          colClass: useMobile.value ? "d-flex flex-wrap justify-end" : "d-flex flex-wrap justify-start",
+          filterClass: useMobile.value ? "ml-4 mb-2" : "mr-4 mb-2",
+        },
+        settings: {
+          colClass: useMobile.value ? "d-flex flex-wrap justify-end" : "d-flex flex-wrap justify-start",
+        },
+      };
     })
 
     const foodStore = isOwnGroup.value ? useFoodStore() : usePublicFoodStore(groupSlug.value);
@@ -504,6 +551,7 @@ export default defineComponent({
 
     return {
       ...toRefs(state),
+      useMobile,
       attrs,
       isOwnGroup,
       foods: foodStore.store,
