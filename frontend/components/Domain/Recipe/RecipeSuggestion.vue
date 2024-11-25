@@ -104,7 +104,6 @@ export default defineComponent({
 
       if (organizer.selected) {
         context.emit(`add-${organizer.type}`, organizer.item);
-        return;
       }
       else {
         context.emit(`remove-${organizer.type}`, organizer.item);
