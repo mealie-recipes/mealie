@@ -517,6 +517,7 @@
     "save-recipe-before-use": "Save recipe before use",
     "section-title": "Section Title",
     "servings": "Servings",
+    "serves-amount": "Serves {amount}",
     "share-recipe-message": "I wanted to share my {0} recipe with you.",
     "show-nutrition-values": "Show Nutrition Values",
     "sodium-content": "Sodium",
@@ -545,6 +546,8 @@
     "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
     "failed-to-add-to-list": "Failed to add to list",
     "yield": "Yield",
+    "yields-amount-with-text": "Yields {amount} {text}",
+    "yield-text": "Yield Text",
     "quantity": "Quantity",
     "choose-unit": "Choose Unit",
     "press-enter-to-create": "Press Enter to Create",
@@ -640,7 +643,9 @@
     "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debug",
     "tree-view": "Tree View",
+    "recipe-servings": "Recipe Servings",
     "recipe-yield": "Recipe Yield",
+    "recipe-yield-text": "Recipe Yield Text",
     "unit": "Unit",
     "upload-image": "Upload image",
     "screen-awake": "Keep Screen Awake",
@@ -662,7 +667,8 @@
       "missing-food": "Create missing food: {food}",
       "no-food": "No Food"
     },
-    "reset-servings-count": "Reset Servings Count"
+    "reset-servings-count": "Reset Servings Count",
+    "not-linked-ingredients": "Additional Ingredients"
   },
   "search": {
     "advanced-search": "Advanced Search",
@@ -1271,11 +1277,14 @@
     "debug-openai-services": "Debug OpenAI Services",
     "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Run Test",
-    "test-results": "Test Results"
+    "test-results": "Test Results",
+    "group-delete-note": "Groups with users or households cannot be deleted",
+    "household-delete-note": "Households with users cannot be deleted"
   },
   "profile": {
     "welcome-user": "👋 Welcome, {0}!",
     "description": "Manage your profile, recipes, and group settings.",
+    "invite-link": "Invite Link",
     "get-invite-link": "Get Invite Link",
     "get-public-link": "Get Public Link",
     "account-summary": "Account Summary",
@@ -1325,6 +1334,8 @@
   "cookbook": {
     "cookbooks": "Cookbooks",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
+    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
     "public-cookbook": "Public Cookbook",
     "public-cookbook-description": "Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.",
     "filter-options": "Filter Options",

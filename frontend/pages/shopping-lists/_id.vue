@@ -138,34 +138,40 @@
 
       <!-- View By Label -->
       <div v-else>
-        <div v-for="(value, key) in itemsByLabel" :key="key" class="mb-6">
-          <div class="text-left">
-            <v-btn
-              :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'"
-              :style="{
+        <div v-for="(value, key) in itemsByLabel" :key="key" class="pb-4">
+          <v-btn
+            :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'"
+            :style="{
                 'color': getTextColor(getLabelColor(value[0])),
                 'letter-spacing': 'normal',
               }"
-            >
-              {{ key }}
+            @click="toggleShowLabel(key)"
+          >
+            <v-icon>
+              {{ labelOpenState[key] ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
+            </v-icon>
+            {{ key }}
           </v-btn>
+        <v-divider/>
+        <v-expand-transition group>
+          <div v-show="labelOpenState[key]">
+            <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
+              <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
+                <ShoppingListItem
+                  v-model="value[index]"
+                  :show-label=false
+                  :labels="allLabels || []"
+                  :units="allUnits || []"
+                  :foods="allFoods || []"
+                  :recipes="recipeMap"
+                  @checked="saveListItem"
+                  @save="saveListItem"
+                  @delete="deleteListItem(item)"
+                />
+              </v-lazy>
+            </draggable>
           </div>
-          <v-divider/>
-          <draggable :value="value" handle=".handle" delay="250" :delay-on-touch-only="true" @start="loadingCounter += 1" @end="loadingCounter -= 1" @input="updateIndexUncheckedByLabel(key, $event)">
-            <v-lazy v-for="(item, index) in value" :key="item.id" class="ml-2 my-2">
-              <ShoppingListItem
-                v-model="value[index]"
-                :show-label=false
-                :labels="allLabels || []"
-                :units="allUnits || []"
-                :foods="allFoods || []"
-                :recipes="recipeMap"
-                @checked="saveListItem"
-                @save="saveListItem"
-                @delete="deleteListItem(item)"
-              />
-            </v-lazy>
-          </draggable>
+        </v-expand-transition>
         </div>
       </div>
 
@@ -179,7 +185,15 @@
         @submit="saveLabelOrder"
         @close="cancelLabelOrder">
         <v-card height="fit-content" max-height="70vh" style="overflow-y: auto;">
-          <draggable v-if="localLabels" :value="localLabels" handle=".handle" class="my-2" @input="updateLabelOrder">
+          <draggable
+            v-if="localLabels"
+            :value="localLabels"
+            handle=".handle"
+            delay="250"
+            :delay-on-touch-only="true"
+            class="my-2"
+            @input="updateLabelOrder"
+          >
             <div v-for="(labelSetting, index) in localLabels" :key="labelSetting.id">
               <MultiPurposeLabelSection v-model="localLabels[index]" use-color />
             </div>
@@ -293,7 +307,7 @@
 <script lang="ts">
 import draggable from "vuedraggable";
 
-import { defineComponent, useRoute, computed, ref, toRefs, onUnmounted, useContext, reactive } from "@nuxtjs/composition-api";
+import { defineComponent, useRoute, computed, ref, toRefs, onUnmounted, useContext, reactive, watch } from "@nuxtjs/composition-api";
 import { useIdle, useToggle } from "@vueuse/core";
 import { useCopyList } from "~/composables/use-copy";
 import { useUserApi } from "~/composables/api";
@@ -454,6 +468,43 @@ export default defineComponent({
           ?? [],
       };
     });
+
+    // =====================================
+    // Collapsable Labels
+    const labelOpenState = ref<{ [key: string]: boolean }>({});
+
+    const initializeLabelOpenStates = () => {
+      if (!shoppingList.value?.listItems) return;
+
+      const existingLabels = new Set(Object.keys(labelOpenState.value));
+      let hasChanges = false;
+
+      for (const item of shoppingList.value.listItems) {
+        const labelName = item.label?.name || i18n.tc("shopping-list.no-label");
+        if (!existingLabels.has(labelName) && !(labelName in labelOpenState.value)) {
+          labelOpenState.value[labelName] = true;
+          hasChanges = true;
+        }
+      }
+
+      if (hasChanges) {
+        labelOpenState.value = { ...labelOpenState.value };
+      }
+    };
+
+    const labelNames = computed(() => {
+      return new Set(
+        shoppingList.value?.listItems
+          ?.map(item => item.label?.name || i18n.tc("shopping-list.no-label"))
+          .filter(Boolean) ?? []
+      );
+    });
+
+    watch(labelNames, initializeLabelOpenStates, { immediate: true });
+
+    function toggleShowLabel(key: string) {
+      labelOpenState.value[key] = !labelOpenState.value[key];
+    }
 
     const [showChecked, toggleShowChecked] = useToggle(false);
 
@@ -1082,6 +1133,8 @@ export default defineComponent({
       shoppingList,
       showChecked,
       sortByLabels,
+      labelOpenState,
+      toggleShowLabel,
       toggleShowChecked,
       uncheckAll,
       openUncheckAll,

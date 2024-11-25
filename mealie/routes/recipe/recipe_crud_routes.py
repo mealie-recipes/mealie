@@ -105,8 +105,8 @@ class BaseRecipeController(BaseCrudController):
         return get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
 
     @cached_property
-    def cookbooks_repo(self) -> RepositoryGeneric[ReadCookBook, CookBook]:
-        return self.repos.cookbooks
+    def group_cookbooks(self) -> RepositoryGeneric[ReadCookBook, CookBook]:
+        return get_repositories(self.session, group_id=self.group_id, household_id=None).cookbooks
 
     @cached_property
     def service(self) -> RecipeService:
@@ -203,6 +203,20 @@ class RecipeController(BaseRecipeController):
     # =======================================================================
     # URL Scraping Operations
 
+    @router.post("/test-scrape-url")
+    async def test_parse_recipe_url(self, data: ScrapeRecipeTest):
+        # Debugger should produce the same result as the scraper sees before cleaning
+        ScraperClass = RecipeScraperOpenAI if data.use_openai else RecipeScraperPackage
+        try:
+            if scraped_data := await ScraperClass(data.url, self.translator).scrape_url():
+                return scraped_data.schema.data
+        except ForceTimeoutException as e:
+            raise HTTPException(
+                status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
+            ) from e
+
+        return "recipe_scrapers was unable to scrape this URL"
+
     @router.post("/create/html-or-json", status_code=201)
     async def create_recipe_from_html_or_json(self, req: ScrapeRecipeData):
         """Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL"""
@@ -270,20 +284,6 @@ class RecipeController(BaseRecipeController):
         )
 
         return {"reportId": report_id}
-
-    @router.post("/test-scrape-url")
-    async def test_parse_recipe_url(self, data: ScrapeRecipeTest):
-        # Debugger should produce the same result as the scraper sees before cleaning
-        ScraperClass = RecipeScraperOpenAI if data.use_openai else RecipeScraperPackage
-        try:
-            if scraped_data := await ScraperClass(data.url, self.translator).scrape_url():
-                return scraped_data.schema.data
-        except ForceTimeoutException as e:
-            raise HTTPException(
-                status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
-            ) from e
-
-        return "recipe_scrapers was unable to scrape this URL"
 
     # ==================================================================================================================
     # Other Create Operations
@@ -354,7 +354,7 @@ class RecipeController(BaseRecipeController):
                     cb_match_attr = "id"
                 except ValueError:
                     cb_match_attr = "slug"
-            cookbook_data = self.cookbooks_repo.get_one(search_query.cookbook, cb_match_attr)
+            cookbook_data = self.group_cookbooks.get_one(search_query.cookbook, cb_match_attr)
 
             if cookbook_data is None:
                 raise HTTPException(status_code=404, detail="cookbook not found")

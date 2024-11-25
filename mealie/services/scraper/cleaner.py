@@ -10,7 +10,9 @@ from datetime import datetime, timedelta
 from slugify import slugify
 
 from mealie.core.root_logger import get_logger
-from mealie.lang.providers import Translator
+from mealie.lang.providers import Translator, get_all_translations
+from mealie.schema.recipe.recipe import Recipe
+from mealie.services.parser_services.parser_utils import extract_quantity_from_string
 
 logger = get_logger("recipe-scraper")
 
@@ -33,33 +35,43 @@ MATCH_ERRONEOUS_WHITE_SPACE = re.compile(r"\n\s*\n")
 """ Matches multiple new lines and removes erroneous white space """
 
 
-def clean(recipe_data: dict, translator: Translator, url=None) -> dict:
+def clean(recipe_data: Recipe | dict, translator: Translator, url=None) -> Recipe:
     """Main entrypoint to clean a recipe extracted from the web
     and format the data into an accectable format for the database
 
     Args:
-        recipe_data (dict): raw recipe dicitonary
+        recipe_data (dict): raw recipe or recipe dictionary
 
     Returns:
         dict: cleaned recipe dictionary
     """
+    if not isinstance(recipe_data, dict):
+        # format the recipe like a scraped dictionary
+        recipe_data_dict = recipe_data.model_dump(by_alias=True)
+        recipe_data_dict["recipeIngredient"] = [ing.display for ing in recipe_data.recipe_ingredient]
+
+        recipe_data = recipe_data_dict
+
+    recipe_data["slug"] = slugify(recipe_data.get("name", ""))
     recipe_data["description"] = clean_string(recipe_data.get("description", ""))
 
-    # Times
     recipe_data["prepTime"] = clean_time(recipe_data.get("prepTime"), translator)
     recipe_data["performTime"] = clean_time(recipe_data.get("performTime"), translator)
     recipe_data["totalTime"] = clean_time(recipe_data.get("totalTime"), translator)
+
+    recipe_data["recipeServings"], recipe_data["recipeYieldQuantity"], recipe_data["recipeYield"] = clean_yield(
+        recipe_data.get("recipeYield")
+    )
     recipe_data["recipeCategory"] = clean_categories(recipe_data.get("recipeCategory", []))
-    recipe_data["recipeYield"] = clean_yield(recipe_data.get("recipeYield"))
     recipe_data["recipeIngredient"] = clean_ingredients(recipe_data.get("recipeIngredient", []))
     recipe_data["recipeInstructions"] = clean_instructions(recipe_data.get("recipeInstructions", []))
+
     recipe_data["image"] = clean_image(recipe_data.get("image"))[0]
-    recipe_data["slug"] = slugify(recipe_data.get("name", ""))
     recipe_data["orgURL"] = url or recipe_data.get("orgURL")
     recipe_data["notes"] = clean_notes(recipe_data.get("notes"))
     recipe_data["rating"] = clean_int(recipe_data.get("rating"))
 
-    return recipe_data
+    return Recipe(**recipe_data)
 
 
 def clean_string(text: str | list | int) -> str:
@@ -316,7 +328,31 @@ def clean_notes(notes: typing.Any) -> list[dict] | None:
     return parsed_notes
 
 
-def clean_yield(yld: str | list[str] | None) -> str:
+@functools.lru_cache
+def _get_servings_options() -> set[str]:
+    options: set[str] = set()
+    for key in [
+        "recipe.servings-text.makes",
+        "recipe.servings-text.serves",
+        "recipe.servings-text.serving",
+        "recipe.servings-text.servings",
+        "recipe.servings-text.yield",
+        "recipe.servings-text.yields",
+    ]:
+        options.update([t.strip().lower() for t in get_all_translations(key).values()])
+
+    return options
+
+
+def _is_serving_string(txt: str) -> bool:
+    txt = txt.strip().lower()
+    for option in _get_servings_options():
+        if option in txt.strip().lower():
+            return True
+    return False
+
+
+def clean_yield(yields: str | list[str] | None) -> tuple[float, float, str]:
     """
     yield_amount attemps to parse out the yield amount from a recipe.
 
@@ -325,15 +361,34 @@ def clean_yield(yld: str | list[str] | None) -> str:
         - `["4 servings", "4 Pies"]` - returns the last value
 
     Returns:
+        float: The servings, if it can be parsed else 0
+        float: The yield quantity, if it can be parsed else 0
         str: The yield amount, if it can be parsed else an empty string
     """
-    if not yld:
-        return ""
+    servings_qty: float = 0
+    yld_qty: float = 0
+    yld_str = ""
 
-    if isinstance(yld, list):
-        return yld[-1]
+    if not yields:
+        return servings_qty, yld_qty, yld_str
 
-    return yld
+    if not isinstance(yields, list):
+        yields = [yields]
+
+    for yld in yields:
+        if not yld:
+            continue
+        if not isinstance(yld, str):
+            yld = str(yld)
+
+        qty, txt = extract_quantity_from_string(yld)
+        if qty and _is_serving_string(yld):
+            servings_qty = qty
+        else:
+            yld_qty = qty
+            yld_str = txt
+
+    return servings_qty, yld_qty, yld_str
 
 
 def clean_time(time_entry: str | timedelta | None, translator: Translator) -> None | str:

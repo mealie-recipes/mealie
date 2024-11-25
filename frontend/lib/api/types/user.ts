@@ -69,7 +69,7 @@ export interface ReadWebhook {
   enabled?: boolean;
   name?: string;
   url?: string;
-  webhookType?: WebhookType & string;
+  webhookType?: WebhookType;
   scheduledTime: string;
   groupId: string;
   householdId: string;
@@ -110,7 +110,7 @@ export interface PrivateUser {
   username?: string | null;
   fullName?: string | null;
   email: string;
-  authMethod?: AuthMethod & string;
+  authMethod?: AuthMethod;
   admin?: boolean;
   group: string;
   household: string;
@@ -175,7 +175,7 @@ export interface CreateWebhook {
   enabled?: boolean;
   name?: string;
   url?: string;
-  webhookType?: WebhookType & string;
+  webhookType?: WebhookType;
   scheduledTime: string;
 }
 export interface UserBase {
@@ -183,7 +183,7 @@ export interface UserBase {
   username?: string | null;
   fullName?: string | null;
   email: string;
-  authMethod?: AuthMethod & string;
+  authMethod?: AuthMethod;
   admin?: boolean;
   group?: string | null;
   household?: string | null;
@@ -195,10 +195,10 @@ export interface UserBase {
 }
 export interface UserIn {
   id?: string | null;
-  username?: string | null;
-  fullName?: string | null;
+  username: string;
+  fullName: string;
   email: string;
-  authMethod?: AuthMethod & string;
+  authMethod?: AuthMethod;
   admin?: boolean;
   group?: string | null;
   household?: string | null;
@@ -214,7 +214,7 @@ export interface UserOut {
   username?: string | null;
   fullName?: string | null;
   email: string;
-  authMethod?: AuthMethod & string;
+  authMethod?: AuthMethod;
   admin?: boolean;
   group: string;
   household: string;

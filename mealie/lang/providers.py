@@ -29,3 +29,9 @@ def local_provider(accept_language: str | None = Header(None)) -> Translator:
     factory = _load_factory()
     accept_language = accept_language or "en-US"
     return factory.get(accept_language)
+
+
+@lru_cache
+def get_all_translations(key: str) -> dict[str, str]:
+    factory = _load_factory()
+    return {locale: factory.get(locale).t(key) for locale in factory.supported_locales}

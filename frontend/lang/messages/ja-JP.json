@@ -182,7 +182,7 @@
     "date": "日付",
     "id": "Id",
     "owner": "所有者",
-    "change-owner": "Change Owner",
+    "change-owner": "所有者の変更",
     "date-added": "追加日",
     "none": "なし",
     "run": "実行",
@@ -214,10 +214,10 @@
     "confirm-delete-generic-items": "次のアイテムを本当に削除しますか？",
     "organizers": "収納",
     "caution": "注意",
-    "show-advanced": "Show Advanced",
-    "add-field": "Add Field",
-    "date-created": "Date Created",
-    "date-updated": "Date Updated"
+    "show-advanced": "詳細を表示",
+    "add-field": "フィールドを追加",
+    "date-created": "作成日",
+    "date-updated": "更新日"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "<b>{groupName}<b/> を削除しますか？",
@@ -356,7 +356,7 @@
     "for-type-meal-types": "{0} の食事の種類",
     "meal-plan-rules": "食事プランのルール",
     "new-rule": "新しいルール",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "食事プランのレシピを自動選択するためのルールを作成できます。これらのルールは、食事プランを作成するときに選択するレシピのランダムプールを決定するためにサーバーによって使用されます。ルールに同じ日/タイプの制約がある場合は、ルールフィルターが結合されることに注意してください。実際には、重複したルールを作成する必要はありませんが、重複して作成することは可能です。",
     "new-rule-description": "食事プランの新しいルールを作成する場合は、特定の曜日および/または特定の種類の食事に適用されるルールを制限できます。 すべての日またはすべての食事タイプにルールを適用するには、その日または食事タイプのすべての可能な値に適用されるルールを \"すべて\" に設定できます。",
     "recipe-rules": "レシピのルール",
     "applies-to-all-days": "すべての日に適用",
@@ -1271,7 +1271,9 @@
     "debug-openai-services": "OpenAIサービスのデバッグ",
     "debug-openai-services-description": "このページを使用して、OpenAIサービスをデバッグします。ここでOpenAI接続をテストし、結果を確認できます。画像サービスが有効になっている場合は、画像を提供することもできます。",
     "run-test": "テスト実行",
-    "test-results": "テスト結果"
+    "test-results": "テスト結果",
+    "group-delete-note": "ユーザーまたは世帯を含むグループは削除できません",
+    "household-delete-note": "ユーザーがいる世帯は削除できません"
   },
   "profile": {
     "welcome-user": "👋 ようこそ, {0}!",
@@ -1324,7 +1326,7 @@
   },
   "cookbook": {
     "cookbooks": "料理本",
-    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "description": "料理本は、レシピのクロスセクション、オーガナイザー、その他のフィルターを作成してレシピを整理するもう 1 つの方法です。料理本を作成するとサイドバーにエントリが追加され、選択したフィルターが適用されたすべてのレシピが料理本に表示されます。",
     "public-cookbook": "公開料理本",
     "public-cookbook-description": "公開料理本は非Mealieユーザーと共有でき、グループページに表示されます。",
     "filter-options": "フィルタオプション",
@@ -1344,21 +1346,21 @@
       "or": "OR"
     },
     "relational-operators": {
-      "equals": "equals",
-      "does-not-equal": "does not equal",
-      "is-greater-than": "is greater than",
-      "is-greater-than-or-equal-to": "is greater than or equal to",
-      "is-less-than": "is less than",
-      "is-less-than-or-equal-to": "is less than or equal to"
+      "equals": "等しい",
+      "does-not-equal": "等しくない",
+      "is-greater-than": "より大きい",
+      "is-greater-than-or-equal-to": "以上",
+      "is-less-than": "より小さい",
+      "is-less-than-or-equal-to": "以下"
     },
     "relational-keywords": {
-      "is": "is",
-      "is-not": "is not",
-      "is-one-of": "is one of",
-      "is-not-one-of": "is not one of",
-      "contains-all-of": "contains all of",
-      "is-like": "is like",
-      "is-not-like": "is not like"
+      "is": "は",
+      "is-not": "ではない",
+      "is-one-of": "のうちの1つです",
+      "is-not-one-of": "のひとつではない",
+      "contains-all-of": "すべてを含む",
+      "is-like": "次のようなものです",
+      "is-not-like": "というわけではありません"
     }
   }
 }

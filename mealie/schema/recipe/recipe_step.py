@@ -16,7 +16,8 @@ class IngredientReferences(MealieModel):
 
 class RecipeStep(MealieModel):
     id: UUID | None = Field(default_factory=uuid4)
-    title: str | None = ""
+    title: str | None = ""  # This is the section title!!!
+    summary: str | None = ""
     text: str
     ingredient_references: list[IngredientReferences] = []
     model_config = ConfigDict(from_attributes=True)

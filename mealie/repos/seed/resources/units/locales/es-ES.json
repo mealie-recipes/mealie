@@ -1,13 +1,13 @@
 {
     "teaspoon": {
         "name": "cucharadita/s de café",
-        "plural_name": "teaspoons",
+        "plural_name": "cucharillas de té",
         "description": "",
-        "abbreviation": "cc"
+        "abbreviation": "cucharadita"
     },
     "tablespoon": {
         "name": "cucharada/s sopera/s",
-        "plural_name": "tablespoons",
+        "plural_name": "cucharadas",
         "description": "",
         "abbreviation": "cs"
     },
@@ -19,7 +19,7 @@
     },
     "fluid-ounce": {
         "name": "onzas líquidas",
-        "plural_name": "fluid ounces",
+        "plural_name": "onzas líquidas",
         "description": "",
         "abbreviation": "liq onz"
     },
@@ -31,7 +31,7 @@
     },
     "quart": {
         "name": "cuarto",
-        "plural_name": "quarts",
+        "plural_name": "cuartos de galón",
         "description": "",
         "abbreviation": "qt"
     },
@@ -43,50 +43,50 @@
     },
     "milliliter": {
         "name": "mililitro/s",
-        "plural_name": "milliliters",
+        "plural_name": "mililitros",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "litro/s",
-        "plural_name": "liters",
+        "plural_name": "litros",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "libra/s",
-        "plural_name": "pounds",
+        "plural_name": "libras",
         "description": "",
         "abbreviation": "lb",
-        "plural_abbreviation": "lbs"
+        "plural_abbreviation": "libras"
     },
     "ounce": {
         "name": "onza/s",
-        "plural_name": "ounces",
+        "plural_name": "onzas",
         "description": "",
         "abbreviation": "onz"
     },
     "gram": {
         "name": "gramo/s",
-        "plural_name": "grams",
+        "plural_name": "gramos",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilogramo/s",
-        "plural_name": "kilograms",
+        "plural_name": "kilogramos",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "miligramo/s",
-        "plural_name": "milligrams",
+        "plural_name": "miligramos",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
         "name": "gota/s",
-        "plural_name": "splashes",
+        "plural_name": "gota/s",
         "description": "",
         "abbreviation": ""
     },
@@ -98,7 +98,7 @@
     },
     "serving": {
         "name": "porción/es",
-        "plural_name": "servings",
+        "plural_name": "porciones",
         "description": "",
         "abbreviation": ""
     },
@@ -110,31 +110,31 @@
     },
     "clove": {
         "name": "diente/s",
-        "plural_name": "cloves",
+        "plural_name": "clavos de olor",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "lata",
-        "plural_name": "cans",
+        "plural_name": "latas",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "puñado",
+        "plural_name": "puñados",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "paquete",
+        "plural_name": "paquetes",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "pellizco",
+        "plural_name": "pellizcos",
         "description": "",
         "abbreviation": ""
     }

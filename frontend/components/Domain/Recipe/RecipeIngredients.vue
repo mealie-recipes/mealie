@@ -1,14 +1,16 @@
 <template>
   <div v-if="value && value.length > 0">
-    <div class="d-flex justify-start">
+    <div v-if="!isCookMode" class="d-flex justify-start" >
       <h2 class="mb-2 mt-1">{{ $t("recipe.ingredients") }}</h2>
       <AppButtonCopy btn-class="ml-auto" :copy-text="ingredientCopyText" />
     </div>
     <div>
       <div v-for="(ingredient, index) in value" :key="'ingredient' + index">
-        <h3 v-if="showTitleEditor[index]" class="mt-2">{{ ingredient.title }}</h3>
-        <v-divider v-if="showTitleEditor[index]"></v-divider>
-        <v-list-item dense @click="toggleChecked(index)">
+        <template v-if="!isCookMode">
+          <h3 v-if="showTitleEditor[index]" class="mt-2">{{ ingredient.title }}</h3>
+          <v-divider v-if="showTitleEditor[index]"></v-divider>
+        </template>
+        <v-list-item dense @click.stop="toggleChecked(index)">
           <v-checkbox hide-details :value="checked[index]" class="pt-0 my-auto py-auto" color="secondary" />
           <v-list-item-content :key="ingredient.quantity">
             <RecipeIngredientListItem :ingredient="ingredient" :disable-amount="disableAmount" :scale="scale" />
@@ -40,6 +42,10 @@ export default defineComponent({
       type: Number,
       default: 1,
     },
+    isCookMode: {
+      type: Boolean,
+      default: false,
+    }
   },
   setup(props) {
     function validateTitle(title?: string) {

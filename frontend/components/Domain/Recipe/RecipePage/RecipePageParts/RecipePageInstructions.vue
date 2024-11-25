@@ -65,8 +65,8 @@
     </v-dialog>
 
     <div class="d-flex justify-space-between justify-start">
-      <h2 class="mb-4 mt-1">{{ $t("recipe.instructions") }}</h2>
-      <BaseButton v-if="!isEditForm && showCookMode" minor cancel color="primary" @click="toggleCookMode()">
+      <h2 v-if="!isCookMode" class="mb-4 mt-1">{{ $t("recipe.instructions") }}</h2>
+      <BaseButton v-if="!isEditForm && !isCookMode" minor cancel color="primary" @click="toggleCookMode()">
         <template #icon>
           {{ $globals.icons.primary }}
         </template>
@@ -77,6 +77,8 @@
       :disabled="!isEditForm"
       :value="value"
       handle=".handle"
+      delay="250"
+      :delay-on-touch-only="true"
       v-bind="{
         animation: 200,
         group: 'recipe-instructions',
@@ -121,9 +123,22 @@
               @click="toggleDisabled(index)"
             >
               <v-card-title :class="{ 'pb-0': !isChecked(index) }">
-                <span :class="isEditForm ? 'handle' : ''">
-                  <v-icon v-if="isEditForm" size="26" class="pb-1">{{ $globals.icons.arrowUpDown }}</v-icon>
-                  {{ $t("recipe.step-index", { step: index + 1 }) }}
+                <v-text-field
+                  v-if="isEditForm"
+                  v-model="step.summary"
+                  class="headline handle"
+                  hide-details
+                  dense
+                  solo
+                  flat
+                  :placeholder="$t('recipe.step-index', { step: index + 1 })"
+                >
+                  <template #prepend>
+                    <v-icon size="26">{{ $globals.icons.arrowUpDown }}</v-icon>
+                  </template>
+                </v-text-field>
+                <span v-else>
+                  {{ step.summary ? step.summary : $t("recipe.step-index", { step: index + 1 }) }}
                 </span>
                 <template v-if="isEditForm">
                   <div class="ml-auto">
@@ -228,16 +243,31 @@
               </DropZone>
               <v-expand-transition>
                 <div v-show="!isChecked(index) && !isEditForm" class="m-0 p-0">
+
                   <v-card-text class="markdown">
-                    <SafeMarkdown class="markdown" :source="step.text" />
-                    <div v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0">
-                      <v-divider class="mb-2"></v-divider>
-                      <RecipeIngredientHtml
-                        v-for="ing in step.ingredientReferences"
-                        :key="ing.referenceId"
-                        :markup="getIngredientByRefId(ing.referenceId)"
-                      />
-                    </div>
+                    <v-row>
+                      <v-col
+                        v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0"
+                        cols="12"
+                        sm="5"
+                      >
+                        <div class="ml-n4">
+                          <RecipeIngredients
+                            :value="recipe.recipeIngredient.filter((ing) => {
+                              if(!step.ingredientReferences) return false
+                              return step.ingredientReferences.map((ref) => ref.referenceId).includes(ing.referenceId || '')
+                            })"
+                            :scale="scale"
+                            :disable-amount="recipe.settings.disableAmount"
+                            :is-cook-mode="isCookMode"
+                          />
+                        </div>
+                      </v-col>
+                      <v-divider v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0 && $vuetify.breakpoint.smAndUp" vertical ></v-divider>
+                      <v-col>
+                        <SafeMarkdown class="markdown" :source="step.text" />
+                      </v-col>
+                    </v-row>
                   </v-card-text>
                 </div>
               </v-expand-transition>
@@ -246,7 +276,7 @@
         </div>
       </TransitionGroup>
     </draggable>
-    <v-divider class="mt-10 d-flex d-md-none"/>
+    <v-divider v-if="!isCookMode" class="mt-10 d-flex d-md-none"/>
   </section>
 </template>
 
@@ -272,7 +302,7 @@ import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
-
+import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 interface MergerHistory {
   target: number;
   source: number;
@@ -285,6 +315,7 @@ export default defineComponent({
     draggable,
     RecipeIngredientHtml,
     DropZone,
+    RecipeIngredients
   },
   props: {
     value: {
@@ -339,7 +370,7 @@ export default defineComponent({
     // ===============================================================
     // UI State Helpers
 
-    function validateTitle(title: string | undefined) {
+    function hasSectionTitle(title: string | undefined) {
       return !(title === null || title === "" || title === undefined);
     }
 
@@ -348,7 +379,7 @@ export default defineComponent({
 
       v.forEach((element: RecipeStep) => {
         if (element.id !== undefined) {
-          showTitleEditor.value[element.id] = validateTitle(element.title);
+          showTitleEditor.value[element.id] = hasSectionTitle(element.title);
         }
       });
     });
@@ -359,7 +390,7 @@ export default defineComponent({
     onMounted(() => {
       props.value.forEach((element: RecipeStep) => {
         if (element.id !== undefined) {
-          showTitleEditor.value[element.id] = validateTitle(element.title);
+          showTitleEditor.value[element.id] = hasSectionTitle(element.title);
         }
 
         // showCookMode.value = false;
@@ -576,7 +607,7 @@ export default defineComponent({
       const sectionSteps: number[] = [];
 
       for (let i = index; i < props.value.length; i++) {
-        if (!(i === index) && validateTitle(props.value[i].title)) {
+        if (!(i === index) && hasSectionTitle(props.value[i].title)) {
           break;
         } else {
           sectionSteps.push(i);

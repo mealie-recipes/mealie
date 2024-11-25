@@ -87,12 +87,6 @@
     </div>
     <div>
       <div class="d-flex justify-center flex-wrap">
-        <BaseButton :small="$vuetify.breakpoint.smAndDown" @click="madeThisDialog = true">
-          <template #icon> {{ $globals.icons.chefHat }} </template>
-          {{ $t('recipe.made-this') }}
-        </BaseButton>
-      </div>
-      <div class="d-flex justify-center flex-wrap">
         <v-chip
           label
           :small="$vuetify.breakpoint.smAndDown"
@@ -104,6 +98,12 @@
           </v-icon>
             {{ $t('recipe.last-made-date', { date: value ? new Date(value).toLocaleDateString($i18n.locale) : $t("general.never") } ) }}
         </v-chip>
+      </div>
+      <div class="d-flex justify-center flex-wrap mt-1">
+        <BaseButton :small="$vuetify.breakpoint.smAndDown" @click="madeThisDialog = true">
+          <template #icon> {{ $globals.icons.chefHat }} </template>
+          {{ $t('recipe.made-this') }}
+        </BaseButton>
       </div>
     </div>
   </div>
@@ -125,7 +125,7 @@ export default defineComponent({
     },
     recipe: {
       type: Object as () => Recipe,
-      default: null,
+      required: true,
     },
   },
   setup(props, context) {

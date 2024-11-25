@@ -260,8 +260,8 @@
 		"name": "рахіси папороті"
 	},
 	"fiddlehead-fern": {
-		"name": "рахіси папороті",
-		"plural_name": "fiddlehead ferns"
+		"name": "рахіс папороті",
+		"plural_name": "рахіси папороті"
 	},
 	"fish": {
 		"name": "риба"
@@ -626,7 +626,7 @@
 	},
 	"taro": {
 		"name": "таро",
-		"plural_name": "taroes"
+		"plural_name": "таро"
 	},
 	"teff": {
 		"name": "тефф"

@@ -26,7 +26,7 @@ try:
 
     _FIREFOX_UA = HEADERS["User-Agent"]
 except (ImportError, KeyError):
-    _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/123.0"
+    _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/128.0"
 
 
 SCRAPER_TIMEOUT = 15
@@ -253,6 +253,18 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
     rather than trying to scrape it directly.
     """
 
+    def extract_json_ld_data_from_html(self, soup: bs4.BeautifulSoup) -> str:
+        data_parts: list[str] = []
+        for script in soup.find_all("script", type="application/ld+json"):
+            try:
+                script_data = script.string
+                if script_data:
+                    data_parts.append(str(script_data))
+            except AttributeError:
+                pass
+
+        return "\n\n".join(data_parts)
+
     def find_image(self, soup: bs4.BeautifulSoup) -> str | None:
         # find the open graph image tag
         og_image = soup.find("meta", property="og:image")
@@ -285,8 +297,10 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         soup = bs4.BeautifulSoup(html, "lxml")
 
         text = soup.get_text(separator="\n", strip=True)
+        text += self.extract_json_ld_data_from_html(soup)
         if not text:
-            raise Exception("No text found in HTML")
+            raise Exception("No text or ld+json data found in HTML")
+
         try:
             image = self.find_image(soup)
         except Exception:

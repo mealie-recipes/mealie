@@ -15,7 +15,7 @@ export interface CreateCookBook {
   slug?: string | null;
   position?: number;
   public?: boolean;
-  queryFilterString: string;
+  queryFilterString?: string;
 }
 export interface ReadCookBook {
   name: string;
@@ -23,11 +23,11 @@ export interface ReadCookBook {
   slug?: string | null;
   position?: number;
   public?: boolean;
-  queryFilterString: string;
+  queryFilterString?: string;
   groupId: string;
   householdId: string;
   id: string;
-  queryFilter: QueryFilterJSON;
+  queryFilter?: QueryFilterJSON;
 }
 export interface QueryFilterJSON {
   parts?: QueryFilterJSONPart[];
@@ -47,11 +47,11 @@ export interface RecipeCookBook {
   slug?: string | null;
   position?: number;
   public?: boolean;
-  queryFilterString: string;
+  queryFilterString?: string;
   groupId: string;
   householdId: string;
   id: string;
-  queryFilter: QueryFilterJSON;
+  queryFilter?: QueryFilterJSON;
   recipes: RecipeSummary[];
 }
 export interface RecipeSummary {
@@ -62,6 +62,8 @@ export interface RecipeSummary {
   name?: string | null;
   slug?: string;
   image?: unknown;
+  recipeServings?: number;
+  recipeYieldQuantity?: number;
   recipeYield?: string | null;
   totalTime?: string | null;
   prepTime?: string | null;
@@ -104,7 +106,7 @@ export interface SaveCookBook {
   slug?: string | null;
   position?: number;
   public?: boolean;
-  queryFilterString: string;
+  queryFilterString?: string;
   groupId: string;
   householdId: string;
 }
@@ -114,7 +116,7 @@ export interface UpdateCookBook {
   slug?: string | null;
   position?: number;
   public?: boolean;
-  queryFilterString: string;
+  queryFilterString?: string;
   groupId: string;
   householdId: string;
   id: string;

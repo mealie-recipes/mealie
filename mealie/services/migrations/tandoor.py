@@ -92,10 +92,8 @@ class TandoorMigrator(BaseMigrator):
             recipe_data.pop("working_time", 0), recipe_data.pop("waiting_time", 0)
         )
 
-        serving_size = recipe_data.pop("servings", 0)
-        serving_text = recipe_data.pop("servings_text", "")
-        if serving_size and serving_text:
-            recipe_data["recipeYield"] = f"{serving_size} {serving_text}"
+        recipe_data["recipeYieldQuantity"] = recipe_data.pop("servings", 0)
+        recipe_data["recipeYield"] = recipe_data.pop("servings_text", "")
 
         try:
             recipe_image_path = next(source_dir.glob("image.*"))
