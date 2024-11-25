@@ -101,7 +101,6 @@ export default defineComponent({
       }
 
       organizer.selected = !organizer.selected;
-
       if (organizer.selected) {
         context.emit(`add-${organizer.type}`, organizer.item);
       }
