@@ -13,7 +13,7 @@ export interface ReportCreate {
   category: ReportCategory;
   groupId: string;
   name: string;
-  status?: ReportSummaryStatus & string;
+  status?: ReportSummaryStatus;
 }
 export interface ReportEntryCreate {
   reportId: string;
@@ -35,7 +35,7 @@ export interface ReportOut {
   category: ReportCategory;
   groupId: string;
   name: string;
-  status?: ReportSummaryStatus & string;
+  status?: ReportSummaryStatus;
   id: string;
   entries?: ReportEntryOut[];
 }
@@ -44,6 +44,6 @@ export interface ReportSummary {
   category: ReportCategory;
   groupId: string;
   name: string;
-  status?: ReportSummaryStatus & string;
+  status?: ReportSummaryStatus;
   id: string;
 }
