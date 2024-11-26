@@ -2,12 +2,14 @@ from uuid import UUID
 
 from pydantic import UUID4
 
+from mealie.core import exceptions
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household import HouseholdCreate, HouseholdRecipeSummary
 from mealie.schema.household.household import HouseholdRecipeCreate, HouseholdRecipeUpdate
 from mealie.schema.household.household_preferences import CreateHouseholdPreferences, SaveHouseholdPreferences
 from mealie.schema.household.household_statistics import HouseholdStatistics
+from mealie.schema.recipe.recipe import Recipe
 from mealie.services._base_service import BaseService
 
 
@@ -18,17 +20,18 @@ class HouseholdService(BaseService):
         self.repos = repos
         super().__init__()
 
-    def _get_recipe_id_from_slug(self, recipe_slug: str | UUID) -> UUID4 | None:
-        if isinstance(recipe_slug, UUID):
-            return recipe_slug
+    def _get_recipe(self, recipe_slug: str | UUID) -> Recipe | None:
+        key = "id"
+        if not isinstance(recipe_slug, UUID):
+            try:
+                UUID(recipe_slug)
+            except ValueError:
+                key = "slug"
 
-        try:
-            return UUID(recipe_slug)
-        except ValueError:
-            pass
-
-        recipe = self.repos.recipes.get_by_slug(self.group_id, recipe_slug)
-        return recipe.id if recipe else None
+        cross_household_recipes = get_repositories(
+            self.repos.session, group_id=self.group_id, household_id=None
+        ).recipes
+        return cross_household_recipes.get_one(recipe_slug, key)
 
     @staticmethod
     def create_household(
@@ -66,27 +69,30 @@ class HouseholdService(BaseService):
 
     def get_household_recipe(self, recipe_slug: str) -> HouseholdRecipeSummary | None:
         """Returns recipe data for the current household"""
-        recipe_id = self._get_recipe_id_from_slug(recipe_slug)
-        household_recipe_out = self.repos.household_recipes.get_by_recipe(recipe_id) if recipe_id else None
+        recipe = self._get_recipe(recipe_slug)
+        if not recipe:
+            return None
+
+        household_recipe_out = self.repos.household_recipes.get_by_recipe(recipe.id)
         if household_recipe_out:
             return household_recipe_out.cast(HouseholdRecipeSummary)
         else:
-            return HouseholdRecipeSummary(recipe_id=recipe_id)
+            return HouseholdRecipeSummary(recipe_id=recipe.id)
 
     def set_household_recipe(self, recipe_slug: str | UUID, data: HouseholdRecipeUpdate) -> HouseholdRecipeSummary:
         """Sets the household's recipe data"""
-        recipe_id = self._get_recipe_id_from_slug(recipe_slug)
-        if not recipe_id:
-            raise ValueError("Recipe not found")
+        recipe = self._get_recipe(recipe_slug)
+        if not recipe:
+            raise exceptions.NoEntryFound("Recipe not found.")
 
-        existing_household_recipe = self.repos.household_recipes.get_by_recipe(recipe_id)
+        existing_household_recipe = self.repos.household_recipes.get_by_recipe(recipe.id)
 
         if existing_household_recipe:
             updated_data = existing_household_recipe.cast(HouseholdRecipeUpdate, **data.model_dump())
             household_recipe_out = self.repos.household_recipes.patch(existing_household_recipe.id, updated_data)
         else:
             create_data = HouseholdRecipeCreate(
-                household_id=self.household_id, recipe_id=recipe_id, **data.model_dump()
+                household_id=self.household_id, recipe_id=recipe.id, **data.model_dump()
             )
             household_recipe_out = self.repos.household_recipes.create(create_data)
 

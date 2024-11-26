@@ -30,7 +30,11 @@ class HouseholdSelfServiceController(BaseUserController):
     @router.get("/self/recipes/{recipe_slug}", response_model=HouseholdRecipeSummary)
     def get_household_recipe(self, recipe_slug: str):
         """Returns recipe data for the current household"""
-        return self.service.get_household_recipe(recipe_slug)
+        response = self.service.get_household_recipe(recipe_slug)
+        if not response:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Recipe not found")
+
+        return response
 
     @router.get("/members", response_model=PaginationBase[UserOut])
     def get_household_members(self, q: PaginationQuery = Depends()):
