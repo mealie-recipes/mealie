@@ -51,8 +51,6 @@
             <v-text-field
               v-model="newMealdate"
               :label="$t('general.date')"
-              :hint="$t('recipe.date-format-hint')"
-              persistent-hint
               :prepend-icon="$globals.icons.calendar"
               v-bind="attrs"
               readonly
