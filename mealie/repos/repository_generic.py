@@ -337,7 +337,9 @@ class RepositoryGeneric(Generic[Schema, Model]):
             items=[eff_schema.model_validate(s) for s in data],
         )
 
-    def add_pagination_to_query(self, query: Select, pagination: PaginationQuery) -> tuple[Select, int, int]:
+    def add_pagination_to_query(
+        self, query: Select, pagination: PaginationQuery, column_aliases: dict[str, str] | None = None
+    ) -> tuple[Select, int, int]:
         """
         Adds pagination data to an existing query.
 
@@ -350,7 +352,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         if pagination.query_filter:
             try:
                 query_filter_builder = QueryFilterBuilder(pagination.query_filter)
-                query = query_filter_builder.filter_query(query, model=self.model)
+                query = query_filter_builder.filter_query(query, model=self.model, column_aliases=column_aliases)
 
             except ValueError as e:
                 self.logger.error(e)

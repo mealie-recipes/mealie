@@ -97,6 +97,44 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         additional_ids = self.session.execute(sa.select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
 
+    def _add_last_made_column(self, query: sa.Select, column_name: str = "_effective_last_made") -> sa.Select:
+        if any(column["name"] == column_name for column in query.column_descriptions):
+            return query
+
+        user_household_subquery = sa.select(User.household_id).where(User.id == self.user_id).scalar_subquery()
+        last_made_subquery = (
+            sa.select(HouseholdToRecipe.last_made)
+            .where(
+                HouseholdToRecipe.recipe_id == self.model.id,
+                HouseholdToRecipe.household_id == user_household_subquery,
+            )
+            .correlate(self.model)
+            .scalar_subquery()
+        )
+
+        return query.add_columns(last_made_subquery.label(column_name))
+
+    def _add_rating_column(self, query: sa.Select, column_name: str = "_effective_rating") -> sa.Select:
+        if any(column["name"] == column_name for column in query.column_descriptions):
+            return query
+
+        return query.add_columns(
+            sa.case(
+                (
+                    sa.exists().where(
+                        UserToRecipe.recipe_id == self.model.id,
+                        UserToRecipe.user_id == self.user_id,
+                        UserToRecipe.rating is not None,
+                        UserToRecipe.rating > 0,
+                    ),
+                    sa.select(sa.func.max(UserToRecipe.rating))
+                    .where(UserToRecipe.recipe_id == self.model.id, UserToRecipe.user_id == self.user_id)
+                    .scalar_subquery(),
+                ),
+                else_=sa.case((self.model.rating == 0, None), else_=self.model.rating),
+            ).label(column_name)
+        )
+
     def _add_last_made_ordering_to_query(
         self, query: sa.Select, order_dir: OrderDirection, order_by_null: OrderByNullPosition | None
     ) -> sa.Select:
@@ -113,7 +151,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         )
 
         effective_last_made_column_name = "_effective_last_made"
-        query = query.add_columns(HouseholdToRecipe.last_made.label(effective_last_made_column_name))
+        query = self._add_last_made_column(query, effective_last_made_column_name)
 
         order_attr = effective_last_made_column_name
         if order_dir is OrderDirection.asc:
@@ -137,22 +175,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         """
 
         effective_rating_column_name = "_effective_rating"
-        query = query.add_columns(
-            sa.case(
-                (
-                    sa.exists().where(
-                        UserToRecipe.recipe_id == self.model.id,
-                        UserToRecipe.user_id == self.user_id,
-                        UserToRecipe.rating is not None,
-                        UserToRecipe.rating > 0,
-                    ),
-                    sa.select(sa.func.max(UserToRecipe.rating))
-                    .where(UserToRecipe.recipe_id == self.model.id, UserToRecipe.user_id == self.user_id)
-                    .scalar_subquery(),
-                ),
-                else_=sa.case((self.model.rating == 0, None), else_=self.model.rating),
-            ).label(effective_rating_column_name)
-        )
+        query = self._add_rating_column(query, effective_rating_column_name)
 
         order_attr = effective_rating_column_name
         if order_dir is OrderDirection.asc:
@@ -241,7 +264,19 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             # default ordering if not searching
             pagination_result.order_by = "created_at"
 
-        q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
+        # Custom joins for user-specific relationships
+        if self.user_id:
+            column_aliases = {
+                "last_made": "_effective_last_made",
+                "rating": "_effective_rating",
+            }
+            self._add_last_made_column(q, column_aliases["last_made"])
+            self._add_rating_column(q, column_aliases["rating"])
+
+        else:
+            column_aliases = None
+
+        q, count, total_pages = self.add_pagination_to_query(q, pagination_result, column_aliases)
 
         # Apply options late, so they do not get used for counting
         q = q.options(*RecipeSummary.loader_options())
