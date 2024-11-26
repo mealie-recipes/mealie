@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta, timezone
 
+from dateutil.parser import parse as parse_dt
 from fastapi.testclient import TestClient
 from pydantic import UUID4
 
@@ -17,7 +18,7 @@ def test_no_mealplans():
     create_mealplan_timeline_events()
 
 
-def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser):
+def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
     recipe_name = random_string(length=25)
     response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=unique_user.token)
     assert response.status_code == 201
@@ -65,7 +66,7 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser):
     response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
     new_recipe_data: dict = response.json()
     recipe = RecipeSummary.model_validate(new_recipe_data)
-    assert recipe.last_made.date() == datetime.now(timezone.utc).date()  # type: ignore
+    assert recipe.last_made and recipe.last_made.date() == datetime.now(timezone.utc).date()
 
     # make sure nothing else was updated
     for data in [original_recipe_data, new_recipe_data]:
@@ -84,6 +85,19 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser):
         assert old == new
 
     assert original_recipe_data == new_recipe_data
+
+    # make sure the user's last made date was updated
+    response = api_client.get(api_routes.households_self_recipes_recipe_slug(recipe_name), headers=unique_user.token)
+    assert response.status_code == 200
+    response_json = response.json()
+    assert response_json["lastMade"]
+    assert parse_dt(response_json["lastMade"]).date() == datetime.now(timezone.utc).date()
+
+    # make sure the other user's last made date was not updated
+    response = api_client.get(api_routes.households_self_recipes_recipe_slug(recipe_name), headers=h2_user.token)
+    assert response.status_code == 200
+    response_json = response.json()
+    assert response_json["lastMade"] is None
 
 
 def test_new_mealplan_event_duplicates(api_client: TestClient, unique_user: TestUser):
