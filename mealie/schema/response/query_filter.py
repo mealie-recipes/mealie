@@ -287,7 +287,7 @@ class QueryFilterBuilder:
         mapper: Mapper
         model_attr: InstrumentedAttribute | None = None
 
-        attribute_chain = attr_string.split(".")
+        attribute_chain = decamelize(attr_string).split(".")
         if not attribute_chain:
             raise ValueError("invalid query string: attribute name cannot be empty")
 
