@@ -64,6 +64,7 @@ export interface CreateIngredientFood {
   } | null;
   labelId?: string | null;
   aliases?: CreateIngredientFoodAlias[];
+  householdsWithIngredientFood?: string[];
 }
 export interface CreateIngredientFoodAlias {
   name: string;
@@ -134,8 +135,8 @@ export interface IngredientFood {
   } | null;
   labelId?: string | null;
   aliases?: IngredientFoodAlias[];
-  label?: MultiPurposeLabelSummary | null;
   householdsWithIngredientFood?: string[];
+  label?: MultiPurposeLabelSummary | null;
   createdAt?: string | null;
   updatedAt?: string | null;
 }
@@ -201,16 +202,8 @@ export interface Nutrition {
 }
 export interface ParsedIngredient {
   input?: string | null;
-  confidence?: IngredientConfidence1;
+  confidence?: IngredientConfidence;
   ingredient: RecipeIngredient;
-}
-export interface IngredientConfidence1 {
-  average?: number | null;
-  comment?: number | null;
-  name?: number | null;
-  unit?: number | null;
-  quantity?: number | null;
-  food?: number | null;
 }
 export interface RecipeIngredient {
   quantity?: number | null;
@@ -440,9 +433,9 @@ export interface RecipeToolOut {
 }
 export interface RecipeToolResponse {
   name: string;
+  householdsWithTool?: string[];
   id: string;
   slug: string;
-  householdsWithTool?: string[];
   recipes?: RecipeSummary[];
 }
 export interface RecipeToolSave {
@@ -463,6 +456,7 @@ export interface SaveIngredientFood {
   } | null;
   labelId?: string | null;
   aliases?: CreateIngredientFoodAlias[];
+  householdsWithIngredientFood?: string[];
   groupId: string;
 }
 export interface SaveIngredientUnit {

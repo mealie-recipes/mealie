@@ -359,8 +359,8 @@ export interface IngredientFood {
   } | null;
   labelId?: string | null;
   aliases?: IngredientFoodAlias[];
-  label?: MultiPurposeLabelSummary | null;
   householdsWithIngredientFood?: string[];
+  label?: MultiPurposeLabelSummary | null;
   createdAt?: string | null;
   updatedAt?: string | null;
 }
@@ -384,6 +384,7 @@ export interface CreateIngredientFood {
   } | null;
   labelId?: string | null;
   aliases?: CreateIngredientFoodAlias[];
+  householdsWithIngredientFood?: string[];
   [k: string]: unknown;
 }
 export interface CreateIngredientFoodAlias {
@@ -610,7 +611,7 @@ export interface RecipeTool {
   id: string;
   name: string;
   slug: string;
-  onHand?: boolean;
+  householdsWithTool?: string[];
   [k: string]: unknown;
 }
 export interface ShoppingListRemoveRecipeParams {
