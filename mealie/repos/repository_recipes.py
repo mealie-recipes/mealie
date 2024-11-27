@@ -29,6 +29,9 @@ from mealie.schema.response.pagination import (
 from ..db.models._model_base import SqlAlchemyBase
 from .repository_generic import HouseholdRepositoryGeneric
 
+EFFECTIVE_LAST_MADE_COLNAME = "_effective_last_made"
+EFFECTIVE_RATING_COLNAME = "_effective_rating"
+
 
 class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
     user_id: UUID4 | None = None
@@ -97,7 +100,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         additional_ids = self.session.execute(sa.select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
 
-    def _add_last_made_column(self, query: sa.Select, column_name: str = "_effective_last_made") -> sa.Select:
+    def _add_last_made_column(self, query: sa.Select, column_name: str = EFFECTIVE_LAST_MADE_COLNAME) -> sa.Select:
         if any(column["name"] == column_name for column in query.column_descriptions):
             return query
 
@@ -114,7 +117,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
 
         return query.add_columns(effective_last_made.label(column_name))
 
-    def _add_rating_column(self, query: sa.Select, column_name: str = "_effective_rating") -> sa.Select:
+    def _add_rating_column(self, query: sa.Select, column_name: str = EFFECTIVE_RATING_COLNAME) -> sa.Select:
         if any(column["name"] == column_name for column in query.column_descriptions):
             return query
 
@@ -154,7 +157,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             ),
         )
 
-        effective_last_made_column_name = "_effective_last_made"
+        effective_last_made_column_name = EFFECTIVE_LAST_MADE_COLNAME
         query = self._add_last_made_column(query, effective_last_made_column_name)
 
         order_attr = effective_last_made_column_name
@@ -178,7 +181,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         falling back to the recipe's rating if it doesn't
         """
 
-        effective_rating_column_name = "_effective_rating"
+        effective_rating_column_name = EFFECTIVE_RATING_COLNAME
         query = self._add_rating_column(query, effective_rating_column_name)
 
         order_attr = effective_rating_column_name
@@ -271,8 +274,8 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         # Custom joins for user-specific relationships
         if self.user_id:
             column_aliases = {
-                "last_made": "_effective_last_made",
-                "rating": "_effective_rating",
+                "last_made": EFFECTIVE_LAST_MADE_COLNAME,
+                "rating": EFFECTIVE_RATING_COLNAME,
             }
             q = self._add_last_made_column(q, column_aliases["last_made"])
             q = self._add_rating_column(q, column_aliases["rating"])
