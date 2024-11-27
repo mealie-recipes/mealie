@@ -8,7 +8,7 @@ from typing import Any, Generic, TypeVar
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
-from sqlalchemy import Select, case, delete, func, nulls_first, nulls_last, select
+from sqlalchemy import ColumnElement, Select, case, delete, func, nulls_first, nulls_last, select
 from sqlalchemy.orm import InstrumentedAttribute
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
@@ -62,6 +62,10 @@ class RepositoryGeneric(Generic[Schema, Model]):
     @property
     def household_id(self) -> UUID4 | None:
         return self._household_id
+
+    @property
+    def column_aliases(self) -> dict[str, ColumnElement]:
+        return {}
 
     def _random_seed(self) -> str:
         return str(datetime.now(tz=timezone.utc))
@@ -337,9 +341,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
             items=[eff_schema.model_validate(s) for s in data],
         )
 
-    def add_pagination_to_query(
-        self, query: Select, pagination: PaginationQuery, column_aliases: dict[str, str] | None = None
-    ) -> tuple[Select, int, int]:
+    def add_pagination_to_query(self, query: Select, pagination: PaginationQuery) -> tuple[Select, int, int]:
         """
         Adds pagination data to an existing query.
 
@@ -352,7 +354,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         if pagination.query_filter:
             try:
                 query_filter_builder = QueryFilterBuilder(pagination.query_filter)
-                query = query_filter_builder.filter_query(query, model=self.model, column_aliases=column_aliases)
+                query = query_filter_builder.filter_query(query, model=self.model, column_aliases=self.column_aliases)
 
             except ValueError as e:
                 self.logger.error(e)
@@ -390,6 +392,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
         order_dir: OrderDirection,
         order_by_null: OrderByNullPosition | None,
     ) -> Select:
+        order_attr = self.column_aliases.get(order_attr.key, order_attr)
+
         # queries handle uppercase and lowercase differently, which is undesirable
         if isinstance(order_attr.type, sqltypes.String):
             order_attr = func.lower(order_attr)

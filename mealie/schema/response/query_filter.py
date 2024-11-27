@@ -378,7 +378,7 @@ class QueryFilterBuilder:
     ) -> sa.Select:
         """
         Filters a query based on the parsed filter string.
-        If you need to filter on a custom column name (e.g. a computed property), you can supply column aliases
+        If you need to filter on a custom column expression (e.g. a computed property), you can supply column aliases
         """
         column_aliases = column_aliases or {}
 

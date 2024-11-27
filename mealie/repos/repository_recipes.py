@@ -7,7 +7,6 @@ import sqlalchemy as sa
 from pydantic import UUID4
 from slugify import slugify
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import InstrumentedAttribute
 from typing_extensions import Self
 
 from mealie.db.models.household import Household, HouseholdToRecipe
@@ -20,11 +19,7 @@ from mealie.db.models.users import User, UserToRecipe
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipeCategory, RecipePagination, RecipeSummary
-from mealie.schema.response.pagination import (
-    OrderByNullPosition,
-    OrderDirection,
-    PaginationQuery,
-)
+from mealie.schema.response.pagination import PaginationQuery
 
 from ..db.models._model_base import SqlAlchemyBase
 from .repository_generic import HouseholdRepositoryGeneric
@@ -33,10 +28,57 @@ from .repository_generic import HouseholdRepositoryGeneric
 class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
     user_id: UUID4 | None = None
 
+    @property
+    def column_aliases(self):
+        if not self.user_id:
+            return {}
+
+        return {
+            "last_made": self._get_last_made_col_alias(),
+            "rating": self._get_rating_col_alias(),
+        }
+
     def by_user(self: Self, user_id: UUID4) -> Self:
         """Add a user_id to the repo, which will be used to handle recipe ratings and other user-specific data"""
         self.user_id = user_id
         return self
+
+    def _get_last_made_col_alias(self) -> sa.ColumnElement | None:
+        """Computed last_made which uses `HouseholdToRecipe.last_made` for the user's household, otherwise None"""
+
+        user_household_subquery = sa.select(User.household_id).where(User.id == self.user_id).scalar_subquery()
+        return (
+            sa.select(HouseholdToRecipe.last_made)
+            .where(
+                HouseholdToRecipe.recipe_id == self.model.id,
+                HouseholdToRecipe.household_id == user_household_subquery,
+            )
+            .correlate(self.model)
+            .scalar_subquery()
+        )
+
+    def _get_rating_col_alias(self) -> sa.ColumnElement | None:
+        """Computed rating which uses the user's rating if it exists, otherwise falling back to the recipe's rating"""
+
+        effective_rating = sa.case(
+            (
+                sa.exists().where(
+                    UserToRecipe.recipe_id == self.model.id,
+                    UserToRecipe.user_id == self.user_id,
+                    UserToRecipe.rating != None,  # noqa E711
+                    UserToRecipe.rating > 0,
+                ),
+                sa.select(sa.func.max(UserToRecipe.rating))
+                .where(UserToRecipe.recipe_id == self.model.id, UserToRecipe.user_id == self.user_id)
+                .correlate(self.model)
+                .scalar_subquery(),
+            ),
+            else_=sa.case(
+                (self.model.rating == 0, None),
+                else_=self.model.rating,
+            ),
+        )
+        return sa.cast(effective_rating, sa.Float)
 
     def create(self, document: Recipe) -> Recipe:  # type: ignore
         max_retries = 10
@@ -97,109 +139,6 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         additional_ids = self.session.execute(sa.select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
 
-    def _get_last_made_col(self) -> sa.ColumnElement:
-        user_household_subquery = sa.select(User.household_id).where(User.id == self.user_id).scalar_subquery()
-
-        return (
-            sa.select(HouseholdToRecipe.last_made)
-            .where(
-                HouseholdToRecipe.recipe_id == self.model.id,
-                HouseholdToRecipe.household_id == user_household_subquery,
-            )
-            .correlate(self.model)
-            .scalar_subquery()
-        )
-
-    def _get_rating_col(self) -> sa.Select:
-        effective_rating = sa.case(
-            (
-                sa.exists().where(
-                    UserToRecipe.recipe_id == self.model.id,
-                    UserToRecipe.user_id == self.user_id,
-                    UserToRecipe.rating != None,  # noqa E711
-                    UserToRecipe.rating > 0,
-                ),
-                sa.select(sa.func.max(UserToRecipe.rating))
-                .where(UserToRecipe.recipe_id == self.model.id, UserToRecipe.user_id == self.user_id)
-                .correlate(self.model)
-                .scalar_subquery(),
-            ),
-            else_=sa.case(
-                (self.model.rating == 0, None),
-                else_=self.model.rating,
-            ),
-        )
-        return sa.cast(effective_rating, sa.Float)
-
-    def _add_last_made_ordering_to_query(
-        self, query: sa.Select, order_dir: OrderDirection, order_by_null: OrderByNullPosition | None
-    ) -> sa.Select:
-        """
-        Sort by the user's household last_made date, otherwise falling back to null
-        """
-        user_household_subquery = sa.select(User.household_id).where(User.id == self.user_id).scalar_subquery()
-        query = query.outerjoin(
-            HouseholdToRecipe,
-            sa.and_(
-                HouseholdToRecipe.recipe_id == self.model.id,
-                HouseholdToRecipe.household_id == user_household_subquery,
-            ),
-        )
-
-        order_attr = self._get_last_made_col()
-        if order_dir is OrderDirection.asc:
-            order_attr = sa.asc(order_attr)
-        elif order_dir is OrderDirection.desc:
-            order_attr = sa.desc(order_attr)
-
-        if order_by_null is OrderByNullPosition.first:
-            order_attr = sa.nulls_first(order_attr)
-        else:
-            order_attr = sa.nulls_last(order_attr)
-
-        return query.order_by(order_attr)
-
-    def _add_rating_ordering_to_query(
-        self, query: sa.Select, order_dir: OrderDirection, order_by_null: OrderByNullPosition | None
-    ) -> sa.Select:
-        """
-        Calculate the effictive rating for the user by using the user's rating if it exists,
-        falling back to the recipe's rating if it doesn't
-        """
-
-        order_attr = self._get_rating_col()
-        if order_dir is OrderDirection.asc:
-            order_attr = sa.asc(order_attr)
-        elif order_dir is OrderDirection.desc:
-            order_attr = sa.desc(order_attr)
-
-        if order_by_null is OrderByNullPosition.first:
-            order_attr = sa.nulls_first(order_attr)
-        else:
-            order_attr = sa.nulls_last(order_attr)
-
-        return query.order_by(order_attr)
-
-    def add_order_attr_to_query(
-        self,
-        query: sa.Select,
-        order_attr: InstrumentedAttribute,
-        order_dir: OrderDirection,
-        order_by_null: OrderByNullPosition | None,
-    ) -> sa.Select:
-        """Special handling for ordering recipes by rating and other user-specific data"""
-        column_name = order_attr.key
-        if not self.user_id:
-            return super().add_order_attr_to_query(query, order_attr, order_dir, order_by_null)
-
-        match column_name:
-            case "last_made":
-                return self._add_last_made_ordering_to_query(query, order_dir, order_by_null)
-            case "rating":
-                return self._add_rating_ordering_to_query(query, order_dir, order_by_null)
-            case _:
-                return super().add_order_attr_to_query(query, order_attr, order_dir, order_by_null)
-
     def page_all(  # type: ignore
         self,
         pagination: PaginationQuery,
@@ -254,17 +193,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             # default ordering if not searching
             pagination_result.order_by = "created_at"
 
-        # Custom joins for user-specific relationships
-        if self.user_id:
-            column_aliases = {
-                "last_made": self._get_last_made_col(),
-                "rating": self._get_rating_col(),
-            }
-
-        else:
-            column_aliases = None
-
-        q, count, total_pages = self.add_pagination_to_query(q, pagination_result, column_aliases)
+        q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
 
         # Apply options late, so they do not get used for counting
         q = q.options(*RecipeSummary.loader_options())
