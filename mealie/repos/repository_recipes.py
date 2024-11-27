@@ -270,8 +270,8 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                 "last_made": "_effective_last_made",
                 "rating": "_effective_rating",
             }
-            self._add_last_made_column(q, column_aliases["last_made"])
-            self._add_rating_column(q, column_aliases["rating"])
+            q = self._add_last_made_column(q, column_aliases["last_made"])
+            q = self._add_rating_column(q, column_aliases["rating"])
 
         else:
             column_aliases = None

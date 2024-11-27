@@ -6,10 +6,10 @@ from enum import Enum
 from typing import Any, TypeVar, cast
 from uuid import UUID
 
+import sqlalchemy as sa
 from dateutil import parser as date_parser
 from dateutil.parser import ParserError
 from humps import decamelize
-from sqlalchemy import ColumnElement, Select, and_, inspect, literal_column, or_
 from sqlalchemy.ext.associationproxy import AssociationProxyInstance
 from sqlalchemy.orm import InstrumentedAttribute, Mapper
 from sqlalchemy.sql import sqltypes
@@ -251,17 +251,19 @@ class QueryFilterBuilder:
         return f"<<{joined}>>"
 
     @classmethod
-    def _consolidate_group(cls, group: list[ColumnElement], logical_operators: deque[LogicalOperator]) -> ColumnElement:
-        consolidated_group_builder: ColumnElement | None = None
+    def _consolidate_group(
+        cls, group: list[sa.ColumnElement], logical_operators: deque[LogicalOperator]
+    ) -> sa.ColumnElement:
+        consolidated_group_builder: sa.ColumnElement | None = None
         for i, element in enumerate(reversed(group)):
             if not i:
                 consolidated_group_builder = element
             else:
                 operator = logical_operators.pop()
                 if operator is LogicalOperator.AND:
-                    consolidated_group_builder = and_(consolidated_group_builder, element)
+                    consolidated_group_builder = sa.and_(consolidated_group_builder, element)
                 elif operator is LogicalOperator.OR:
-                    consolidated_group_builder = or_(consolidated_group_builder, element)
+                    consolidated_group_builder = sa.or_(consolidated_group_builder, element)
                 else:
                     raise ValueError(f"invalid logical operator {operator}")
 
@@ -270,8 +272,8 @@ class QueryFilterBuilder:
 
     @classmethod
     def get_model_and_model_attr_from_attr_string(
-        cls, attr_string: str, model: type[Model], *, query: Select | None = None
-    ) -> tuple[SqlAlchemyBase, InstrumentedAttribute, Select | None]:
+        cls, attr_string: str, model: type[Model], *, query: sa.Select | None = None
+    ) -> tuple[SqlAlchemyBase, InstrumentedAttribute, sa.Select | None]:
         """
         Take an attribute string and traverse a database model and its relationships to get the desired
         model and model attribute. Optionally provide a query to apply the necessary table joins.
@@ -306,7 +308,7 @@ class QueryFilterBuilder:
                     if query is not None:
                         query = query.join(model_attr, isouter=True)
 
-                    mapper = inspect(current_model)
+                    mapper = sa.inspect(current_model)
                     relationship = mapper.relationships[proxied_attribute_link]
                     current_model = relationship.mapper.class_
                     model_attr = getattr(current_model, next_attribute_link)
@@ -318,7 +320,7 @@ class QueryFilterBuilder:
                 if query is not None:
                     query = query.join(model_attr, isouter=True)
 
-                mapper = inspect(current_model)
+                mapper = sa.inspect(current_model)
                 relationship = mapper.relationships[attribute_link]
                 current_model = relationship.mapper.class_
 
@@ -333,7 +335,7 @@ class QueryFilterBuilder:
     @staticmethod
     def _get_filter_element(
         component: QueryFilterBuilderComponent, model, model_attr, model_attr_type
-    ) -> ColumnElement:
+    ) -> sa.ColumnElement:
         # Keywords
         if component.relationship is RelationalKeyword.IS:
             element = model_attr.is_(component.validate(model_attr_type))
@@ -345,9 +347,9 @@ class QueryFilterBuilder:
             element = model_attr.not_in(component.validate(model_attr_type))
         elif component.relationship is RelationalKeyword.CONTAINS_ALL:
             primary_model_attr: InstrumentedAttribute = getattr(model, component.attribute_name.split(".")[0])
-            element = and_()
+            element = sa.and_()
             for v in component.validate(model_attr_type):
-                element = and_(element, primary_model_attr.any(model_attr == v))
+                element = sa.and_(element, primary_model_attr.any(model_attr == v))
         elif component.relationship is RelationalKeyword.LIKE:
             element = model_attr.like(component.validate(model_attr_type))
         elif component.relationship is RelationalKeyword.NOT_LIKE:
@@ -371,7 +373,9 @@ class QueryFilterBuilder:
 
         return element
 
-    def filter_query(self, query: Select, model: type[Model], column_aliases: dict[str, str] | None = None) -> Select:
+    def filter_query(
+        self, query: sa.Select, model: type[Model], column_aliases: dict[str, str] | None = None
+    ) -> sa.Select:
         """
         Filters a query based on the parsed filter string.
         If you need to filter on a custom column name (e.g. a computed property), you can supply column aliases, e.g.:
@@ -394,8 +398,8 @@ class QueryFilterBuilder:
             attr_model_map[i] = nested_model
 
         # build query filter
-        partial_group: list[ColumnElement] = []
-        partial_group_stack: deque[list[ColumnElement]] = deque()
+        partial_group: list[sa.ColumnElement] = []
+        partial_group_stack: deque[list[sa.ColumnElement]] = deque()
         logical_operator_stack: deque[LogicalOperator] = deque()
         for i, component in enumerate(self.filter_components):
             if component == self.l_group_sep:
@@ -421,7 +425,7 @@ class QueryFilterBuilder:
 
                 # substitute column alias for a literal column
                 if column_alias := column_aliases.get(base_attribute_name):
-                    model_attr = literal_column(column_alias)
+                    model_attr = sa.cast(sa.literal_column(column_alias), model_attr_type)
 
                 element = self._get_filter_element(component, model, model_attr, model_attr_type)
                 partial_group.append(element)
