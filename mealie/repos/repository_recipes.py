@@ -112,6 +112,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                 HouseholdToRecipe.recipe_id == self.model.id,
                 HouseholdToRecipe.household_id == user_household_subquery,
             )
+            .correlate(self.model)
             .scalar_subquery()
         )
 
@@ -131,6 +132,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                 ),
                 sa.select(sa.func.max(UserToRecipe.rating))
                 .where(UserToRecipe.recipe_id == self.model.id, UserToRecipe.user_id == self.user_id)
+                .correlate(self.model)
                 .scalar_subquery(),
             ),
             else_=sa.case(
