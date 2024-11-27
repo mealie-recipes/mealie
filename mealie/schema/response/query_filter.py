@@ -374,14 +374,11 @@ class QueryFilterBuilder:
         return element
 
     def filter_query(
-        self, query: sa.Select, model: type[Model], column_aliases: dict[str, str] | None = None
+        self, query: sa.Select, model: type[Model], column_aliases: dict[str, sa.ColumnElement] | None = None
     ) -> sa.Select:
         """
         Filters a query based on the parsed filter string.
-        If you need to filter on a custom column name (e.g. a computed property), you can supply column aliases, e.g.:
-        `{"rating": "custom_rating_column"}`
-
-        Custom column names must be manuallyadded/joined to the query.
+        If you need to filter on a custom column name (e.g. a computed property), you can supply column aliases
         """
         column_aliases = column_aliases or {}
 
@@ -422,8 +419,8 @@ class QueryFilterBuilder:
                 base_attribute_name = component.attribute_name.split(".")[-1]
                 model_attr = getattr(attr_model_map[i], base_attribute_name)
 
-                if column_alias := column_aliases.get(base_attribute_name):
-                    model_attr = sa.column(column_alias)
+                if (column_alias := column_aliases.get(base_attribute_name)) is not None:
+                    model_attr = column_alias
 
                 element = self._get_filter_element(component, model, model_attr, model_attr.type)
                 partial_group.append(element)
