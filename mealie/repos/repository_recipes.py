@@ -102,38 +102,42 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             return query
 
         user_household_subquery = sa.select(User.household_id).where(User.id == self.user_id).scalar_subquery()
-        last_made_subquery = (
+
+        effective_last_made = (
             sa.select(HouseholdToRecipe.last_made)
             .where(
                 HouseholdToRecipe.recipe_id == self.model.id,
                 HouseholdToRecipe.household_id == user_household_subquery,
             )
-            .correlate(self.model)
             .scalar_subquery()
         )
 
-        return query.add_columns(last_made_subquery.label(column_name))
+        return query.add_columns(effective_last_made.label(column_name))
 
     def _add_rating_column(self, query: sa.Select, column_name: str = "_effective_rating") -> sa.Select:
         if any(column["name"] == column_name for column in query.column_descriptions):
             return query
 
-        return query.add_columns(
-            sa.case(
-                (
-                    sa.exists().where(
-                        UserToRecipe.recipe_id == self.model.id,
-                        UserToRecipe.user_id == self.user_id,
-                        UserToRecipe.rating is not None,
-                        UserToRecipe.rating > 0,
-                    ),
-                    sa.select(sa.func.max(UserToRecipe.rating))
-                    .where(UserToRecipe.recipe_id == self.model.id, UserToRecipe.user_id == self.user_id)
-                    .scalar_subquery(),
+        effective_rating = sa.case(
+            (
+                sa.exists().where(
+                    UserToRecipe.recipe_id == self.model.id,
+                    UserToRecipe.user_id == self.user_id,
+                    UserToRecipe.rating != None,  # noqa E711
+                    UserToRecipe.rating > 0,
                 ),
-                else_=sa.case((self.model.rating == 0, None), else_=self.model.rating),
-            ).label(column_name)
+                sa.select(sa.func.max(UserToRecipe.rating))
+                .where(UserToRecipe.recipe_id == self.model.id, UserToRecipe.user_id == self.user_id)
+                .scalar_subquery(),
+            ),
+            else_=sa.case(
+                (self.model.rating == 0, None),
+                else_=self.model.rating,
+            ),
         )
+
+        effective_rating = sa.cast(effective_rating, sa.Float)
+        return query.add_columns(effective_rating.label(column_name))
 
     def _add_last_made_ordering_to_query(
         self, query: sa.Select, order_dir: OrderDirection, order_by_null: OrderByNullPosition | None

@@ -421,13 +421,11 @@ class QueryFilterBuilder:
                 component = cast(QueryFilterBuilderComponent, component)
                 base_attribute_name = component.attribute_name.split(".")[-1]
                 model_attr = getattr(attr_model_map[i], base_attribute_name)
-                model_attr_type = model_attr.type
 
-                # substitute column alias for a literal column
                 if column_alias := column_aliases.get(base_attribute_name):
-                    model_attr = sa.cast(sa.literal_column(column_alias), model_attr_type)
+                    model_attr = sa.column(column_alias)
 
-                element = self._get_filter_element(component, model, model_attr, model_attr_type)
+                element = self._get_filter_element(component, model, model_attr, model_attr.type)
                 partial_group.append(element)
 
         # combine the completed groups into one filter
