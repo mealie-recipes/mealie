@@ -41,6 +41,10 @@ export default defineComponent({
       } as RecipeToolWithOnHand
     )));
 
+    async function deleteOne(id: string | number) {
+      await toolStore.actions.deleteOne(id);
+    }
+
     async function updateOne(tool: RecipeToolWithOnHand) {
       if (userHousehold.value) {
         if (tool.onHand && !tool.householdsWithTool?.includes(userHousehold.value)) {
@@ -59,7 +63,7 @@ export default defineComponent({
     return {
       dialog,
       tools,
-      deleteOne: toolStore.actions.deleteOne,
+      deleteOne,
       updateOne,
     };
   },

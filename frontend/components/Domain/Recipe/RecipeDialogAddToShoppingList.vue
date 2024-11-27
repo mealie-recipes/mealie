@@ -247,7 +247,6 @@ export default defineComponent({
         }
 
         const shoppingListIngredients: ShoppingListIngredient[] = recipe.recipeIngredient.map((ing) => {
-          // @ts-expect-error householdsWithIngredientFood will either be a string array or undefined
           const householdsWithFood = (ing.food?.householdsWithIngredientFood || []) as string[];
           return {
             checked: !householdsWithFood.includes(userHousehold.value),
@@ -277,7 +276,6 @@ export default defineComponent({
           }
 
           // Store the on-hand ingredients for later
-          // @ts-expect-error householdsWithIngredientFood will either be a string array or undefined
           const householdsWithFood = (ing.ingredient.food?.householdsWithIngredientFood || []) as string[];
           if (householdsWithFood.includes(userHousehold.value)) {
             onHandIngs.push(ing);
