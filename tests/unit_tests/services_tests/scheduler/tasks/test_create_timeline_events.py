@@ -4,10 +4,10 @@ from dateutil.parser import parse as parse_dt
 from fastapi.testclient import TestClient
 from pydantic import UUID4
 
+from mealie.schema.household.household import HouseholdRecipeSummary
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
-from mealie.schema.recipe.recipe import RecipeSummary
+from mealie.schema.recipe.recipe import RecipeLastMade, RecipeSummary
 from mealie.services.scheduler.tasks.create_timeline_events import create_mealplan_timeline_events
-from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -205,7 +205,7 @@ def test_new_mealplan_events_with_multiple_recipes(api_client: TestClient, uniqu
         assert len(response_json["items"]) == target_count
 
 
-def test_preserve_future_made_date(api_client: TestClient, unique_user: TestUser):
+def test_preserve_future_made_date(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
     recipe_name = random_string(length=25)
     response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=unique_user.token)
     assert response.status_code == 201
@@ -215,11 +215,21 @@ def test_preserve_future_made_date(api_client: TestClient, unique_user: TestUser
     recipe_id = str(recipe.id)
 
     future_dt = datetime.now(timezone.utc) + timedelta(days=random_int(1, 10))
-    recipe.last_made = future_dt
-    response = api_client.put(
-        api_routes.recipes_slug(recipe.slug), json=utils.jsonify(recipe), headers=unique_user.token
+    response = api_client.patch(
+        api_routes.recipes_slug_last_made(recipe.slug),
+        data=RecipeLastMade(timestamp=future_dt).model_dump_json(),
+        headers=unique_user.token,
     )
     assert response.status_code == 200
+
+    # verify the last made date was updated only on unique_user
+    response = api_client.get(api_routes.households_self_recipes_recipe_slug(recipe.slug), headers=unique_user.token)
+    household_recipe = HouseholdRecipeSummary.model_validate(response.json())
+    assert household_recipe.last_made == future_dt
+
+    response = api_client.get(api_routes.households_self_recipes_recipe_slug(recipe.slug), headers=h2_user.token)
+    household_recipe = HouseholdRecipeSummary.model_validate(response.json())
+    assert household_recipe.last_made is None
 
     new_plan = CreatePlanEntry(
         date=datetime.now(timezone.utc).date(), entry_type="dinner", recipe_id=recipe_id
@@ -230,9 +240,14 @@ def test_preserve_future_made_date(api_client: TestClient, unique_user: TestUser
     response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
     assert response.status_code == 201
 
-    # run the task and make sure the recipe's last made date was not updated
+    # run the task and make sure the recipe's last made date was not updated for either user
     create_mealplan_timeline_events()
 
-    response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
-    recipe = RecipeSummary.model_validate(response.json())
-    assert recipe.last_made == future_dt
+    response = api_client.get(api_routes.households_self_recipes_recipe_slug(recipe.slug), headers=unique_user.token)
+    assert response.status_code == 200
+    household_recipe = HouseholdRecipeSummary.model_validate(response.json())
+    assert household_recipe.last_made == future_dt
+
+    response = api_client.get(api_routes.households_self_recipes_recipe_slug(recipe.slug), headers=h2_user.token)
+    household_recipe = HouseholdRecipeSummary.model_validate(response.json())
+    assert household_recipe.last_made is None
