@@ -247,7 +247,7 @@ export default defineComponent({
         }
 
         const shoppingListIngredients: ShoppingListIngredient[] = recipe.recipeIngredient.map((ing) => {
-          const householdsWithFood = (ing.food?.householdsWithIngredientFood || []) as string[];
+          const householdsWithFood = (ing.food?.householdsWithIngredientFood || []);
           return {
             checked: !householdsWithFood.includes(userHousehold.value),
             ingredient: ing,
@@ -276,7 +276,7 @@ export default defineComponent({
           }
 
           // Store the on-hand ingredients for later
-          const householdsWithFood = (ing.ingredient.food?.householdsWithIngredientFood || []) as string[];
+          const householdsWithFood = (ing.ingredient.food?.householdsWithIngredientFood || []);
           if (householdsWithFood.includes(userHousehold.value)) {
             onHandIngs.push(ing);
             return sections;
