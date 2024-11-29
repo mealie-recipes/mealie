@@ -531,7 +531,7 @@ export default defineComponent({
         state.recipesReady = true;
       },
       {
-        debounce: 1000,
+        debounce: 500,
       },
     );
 
