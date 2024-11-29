@@ -28,7 +28,7 @@
               color="secondary custom-transparent"
               class="mr-2 my-1"
             >
-              <v-checkbox :ripple="false" @click="handleCheckbox(item)">
+              <v-checkbox dark :ripple="false" @click="handleCheckbox(item)">
                 <template #label>
                   {{ organizer.getLabel(item.item) }}
                 </template>
