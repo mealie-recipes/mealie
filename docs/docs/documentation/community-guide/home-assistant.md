@@ -24,7 +24,7 @@ Make sure the url and port (`http://mealie:9000` ) matches your installation's a
 
 ```yaml
 rest:
-  - resource: "http://mealie:9000/api/groups/mealplans/today"
+  - resource: "http://mealie:9000/api/households/mealplans/today"
     method: GET
     headers:
       Authorization: Bearer <<API_TOKEN>>
