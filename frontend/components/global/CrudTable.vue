@@ -99,6 +99,8 @@ export interface TableHeaders {
   value: string;
   show: boolean;
   align?: string;
+  sortable?: boolean;
+  sort?: (a: any, b: any) => number;
 }
 
 export interface BulkAction {
