@@ -11,7 +11,6 @@
       <v-card outlined>
         <v-card-text>
           <v-select
-            v-if="groups"
             v-model="selectedGroupId"
             :items="groups"
             rounded
@@ -24,7 +23,6 @@
             :rules="[validators.required]"
           />
           <v-select
-            v-if="households"
             :disabled="!selectedGroupId"
             v-model="newUserData.household"
             :items="households"
