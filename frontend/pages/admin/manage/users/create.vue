@@ -25,6 +25,7 @@
           />
           <v-select
             v-if="households"
+            :disabled="!selectedGroupId"
             v-model="newUserData.household"
             :items="households"
             rounded
@@ -34,6 +35,8 @@
             :return-object="false"
             filled
             :label="$t('household.user-household')"
+            :hint="selectedGroupId ? '' : $tc('group.you-must-select-a-group-before-selecting-a-household')"
+            persistent-hint
             :rules="[validators.required]"
           />
           <AutoForm v-model="newUserData" :items="userForm" />
