@@ -23,8 +23,8 @@
             :rules="[validators.required]"
           />
           <v-select
-            :disabled="!selectedGroupId"
             v-model="newUserData.household"
+            :disabled="!selectedGroupId"
             :items="households"
             rounded
             class="rounded-lg"
