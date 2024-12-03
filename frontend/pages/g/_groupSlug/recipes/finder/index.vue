@@ -417,31 +417,41 @@ export default defineComponent({
     const selectedFoods = ref<IngredientFood[]>([]);
     function addFood(food: IngredientFood) {
       selectedFoods.value.push(food);
+      handleFoodUpdates();
     }
     function removeFood(food: IngredientFood) {
       selectedFoods.value = selectedFoods.value.filter((f) => f.id !== food.id);
+      handleFoodUpdates();
+    }
+    function handleFoodUpdates() {
+      selectedFoods.value.sort((a, b) => (a.pluralName || a.name).localeCompare(b.pluralName || b.name));
+      preferences.value.foodIds = selectedFoods.value.map((food) => food.id);
     }
     watch(
       () => selectedFoods.value,
       () => {
-        selectedFoods.value.sort((a, b) => (a.pluralName || a.name).localeCompare(b.pluralName || b.name));
-        preferences.value.foodIds = selectedFoods.value.map((food) => food.id);
-      }
+        handleFoodUpdates();
+      },
     )
 
     const toolStore = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
     const selectedTools = ref<RecipeTool[]>([]);
     function addTool(tool: RecipeTool) {
       selectedTools.value.push(tool);
+      handleToolUpdates();
     }
     function removeTool(tool: RecipeTool) {
       selectedTools.value = selectedTools.value.filter((t) => t.id !== tool.id);
+      handleToolUpdates();
+    }
+    function handleToolUpdates() {
+      selectedTools.value.sort((a, b) => a.name.localeCompare(b.name));
+      preferences.value.toolIds = selectedTools.value.map((tool) => tool.id);
     }
     watch(
       () => selectedTools.value,
       () => {
-        selectedTools.value.sort((a, b) => a.name.localeCompare(b.name));
-        preferences.value.toolIds = selectedTools.value.map((tool) => tool.id);
+        handleToolUpdates();
       }
     )
 
