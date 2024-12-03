@@ -24,6 +24,7 @@ from mealie.core.dependencies import (
     get_temporary_zip_path,
 )
 from mealie.pkgs import cache
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import controller
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
@@ -289,7 +290,11 @@ class RecipeController(BaseRecipeController):
         foods: list[UUID4] | None = Query(None),
         tools: list[UUID4] | None = Query(None),
     ) -> RecipeSuggestionResponse:
-        recipes = self.group_recipes.find_suggested_recipes(q, foods, tools)
+        group_recipes_by_user = get_repositories(
+            self.session, group_id=self.group_id, household_id=None
+        ).recipes.by_user(self.user.id)
+
+        recipes = group_recipes_by_user.find_suggested_recipes(q, foods, tools)
         response = RecipeSuggestionResponse(items=recipes)
         json_compatible_response = orjson.dumps(response.model_dump(by_alias=True))
 

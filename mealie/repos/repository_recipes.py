@@ -14,11 +14,11 @@ from typing_extensions import Self
 
 from mealie.db.models.household import Household, HouseholdToRecipe
 from mealie.db.models.recipe.category import Category
-from mealie.db.models.recipe.ingredient import IngredientFoodModel, RecipeIngredientModel
+from mealie.db.models.recipe.ingredient import RecipeIngredientModel, households_to_ingredient_foods
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tag import Tag
-from mealie.db.models.recipe.tool import Tool, recipes_to_tools
+from mealie.db.models.recipe.tool import Tool, households_to_tools, recipes_to_tools
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.db.models.users.users import User
 from mealie.schema.cookbook.cookbook import ReadCookBook
@@ -320,33 +320,34 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         if not params.order_by:
             params.order_by = "created_at"
 
-        food_ids_with_on_hand = list(set(food_ids or []))
-        tool_ids_with_on_hand = list(set(tool_ids or []))
+        user_food_ids = list(set(food_ids or []))
+        user_tool_ids = list(set(tool_ids or []))
 
         # preserve the original lists of ids before we add on_hand items
-        user_food_ids = food_ids_with_on_hand.copy()
-        user_tool_ids = tool_ids_with_on_hand.copy()
+        food_ids_with_on_hand = user_food_ids.copy()
+        tool_ids_with_on_hand = user_tool_ids.copy()
 
-        if params.include_foods_on_hand:
-            foods_on_hand_query = sa.select(IngredientFoodModel.id).filter(
-                IngredientFoodModel.on_hand == True,  # noqa: E712 - required for SQLAlchemy comparison
-                sa.not_(IngredientFoodModel.id.in_(food_ids_with_on_hand)),
+        if params.include_foods_on_hand and self.user_id:
+            foods_on_hand_query = (
+                sa.select(households_to_ingredient_foods.c.food_id)
+                .join(User, households_to_ingredient_foods.c.household_id == User.household_id)
+                .filter(
+                    sa.not_(households_to_ingredient_foods.c.food_id.in_(food_ids_with_on_hand)),
+                    User.id == self.user_id,
+                )
             )
-            if self.group_id:
-                foods_on_hand_query = foods_on_hand_query.filter(IngredientFoodModel.group_id == self.group_id)
-
             foods_on_hand = self.session.execute(foods_on_hand_query).scalars().all()
             food_ids_with_on_hand.extend(foods_on_hand)
-        if params.include_tools_on_hand:
-            tools_on_hand_query = sa.select(Tool.id).filter(
-                Tool.on_hand == True,  # noqa: E712 - required for SQLAlchemy comparison
-                sa.not_(
-                    Tool.id.in_(tool_ids_with_on_hand),
-                ),
-            )
-            if self.group_id:
-                tools_on_hand_query = tools_on_hand_query.filter(Tool.group_id == self.group_id)
 
+        if params.include_tools_on_hand and self.user_id:
+            tools_on_hand_query = (
+                sa.select(households_to_tools.c.tool_id)
+                .join(User, households_to_tools.c.household_id == User.household_id)
+                .filter(
+                    sa.not_(households_to_tools.c.tool_id.in_(tool_ids_with_on_hand)),
+                    User.id == self.user_id,
+                )
+            )
             tools_on_hand = self.session.execute(tools_on_hand_query).scalars().all()
             tool_ids_with_on_hand.extend(tools_on_hand)
 
