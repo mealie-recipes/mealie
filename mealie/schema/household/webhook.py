@@ -32,7 +32,7 @@ class CreateWebhook(MealieModel):
         type: datetime is treated as a value with a timezone
         """
         parser_funcs = [
-            lambda x: parse_datetime(x).astimezone(datetime.timezone.utc).time(),
+            lambda x: parse_datetime(x).astimezone(datetime.UTC).time(),
             parse_time,
         ]
 

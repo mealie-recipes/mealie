@@ -1,7 +1,7 @@
 import re as re
 from collections.abc import Sequence
 from random import randint
-from typing import cast
+from typing import Self, cast
 from uuid import UUID
 
 import sqlalchemy as sa
@@ -10,7 +10,6 @@ from pydantic import UUID4
 from slugify import slugify
 from sqlalchemy import orm
 from sqlalchemy.exc import IntegrityError
-from typing_extensions import Self
 
 from mealie.db.models.household.household import Household
 from mealie.db.models.recipe.category import Category

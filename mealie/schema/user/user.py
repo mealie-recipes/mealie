@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from typing import Annotated, Any, Generic, TypeVar
 from uuid import UUID
@@ -218,7 +218,7 @@ class PrivateUser(UserOut):
             return False
 
         lockout_expires_at = self.locked_at + timedelta(hours=get_app_settings().SECURITY_USER_LOCKOUT_TIME)
-        return lockout_expires_at > datetime.now(timezone.utc)
+        return lockout_expires_at > datetime.now(UTC)
 
     def directory(self) -> Path:
         return PrivateUser.get_directory(self.id)

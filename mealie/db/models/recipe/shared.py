@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import TYPE_CHECKING
 from uuid import uuid4
 
@@ -15,7 +15,7 @@ if TYPE_CHECKING:
 
 
 def defaut_expires_at_time() -> datetime:
-    return datetime.now(timezone.utc) + timedelta(days=30)
+    return datetime.now(UTC) + timedelta(days=30)
 
 
 class RecipeShareTokenModel(SqlAlchemyBase, BaseMixins):
