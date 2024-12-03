@@ -1,0 +1,76 @@
+# October 2024 Survey
+
+It's been a while since a Mealie survey was done, and the community was much smaller back then. So much has changed in 2024, and we wanted to get a gauge on the community's thoughts.
+Our v2.0 release gave us a platform to ask people to give us a few minutes to tell us their thoughts.
+
+A massive thanks to everyone who took the time to fill this survey in. We had 525 respondents! We're overwhelmed with the support.
+
+Also a thanks to ChristianB-F from our Discord community for putting the following images together, and to everyone who has taken time to raise either an issue or pull request on our GitHub repository!
+
+For each question, we've created a GitHub discussion and we'd invite you to share any interesting insights or thoughts you take from the survey results!
+If you see a specific idea that resonates with you, please check if there's already a feature request, but if not please do raise one and add your perspective.
+
+The questions (bar question 1) that are free text are on separate pages you'll need to click into, as there's just too much content to include on this page.
+
+## Question 1: Mealie Version (pre-v2) (free text, mandatory)
+The responses to this were so varied and not overly informative/indicative of anything, so we've decided not to publish them - both to save space and your time.
+
+## Question 2: Database type? (single select)
+[GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4640)
+
+![Question 2](Question2.png)
+
+## Question 3: How long have you been using Mealie? (single select, mandatory)
+[GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4641)
+
+![Question 3](Question3.png)
+
+## Question 4: Please tick all that apply (multiple choice)
+[GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4642)
+
+![Question 4](Question4.png)
+
+## Question 5: How many active users does your Mealie instance have? (single select, mandatory)
+[GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4643)
+
+![Question 5](Question5.png)
+
+## Question 6: How many active groups does your Mealie instance have? (single select, mandatory)
+[GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4644)
+
+![Question 6](Question6.png)
+
+## Question 7: Do you access Mealie on a mobile? Using your browser or with it installed as an app (a Progressive Web App/PWA)? (multiple select, mandatory)
+[GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4645)
+
+![Question 7](Question7.png)
+
+## Question 8: Please select all the features you actively/regularly use, or consider important (multiple select)
+[GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4646)
+
+![Question 8](Question8.png)
+
+## Question 9: Any suggestions for how to improve Shopping Lists?
+[GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4647)
+
+[Question 9](q9.md)
+
+## Question 10: Any suggestions for how to improve the Meal Planner?
+[GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4648)
+
+[Question 10](q10.md)
+
+## Question 11: Any suggestions for how to improve the Recipe Timeline?
+[GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4649)
+
+[Question 11](q11.md)
+
+## Question 12: Any suggestions for how to improve the Recipes functionality?
+[GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4650)
+
+[Question 12](q12.md)
+
+## Question 13: Any other suggestions or feedback you have for us?
+[GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4651)
+
+[Question 13](q13.md)
