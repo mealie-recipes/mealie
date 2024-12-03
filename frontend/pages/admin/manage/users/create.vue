@@ -11,7 +11,6 @@
       <v-card outlined>
         <v-card-text>
           <v-select
-            v-if="groups"
             v-model="selectedGroupId"
             :items="groups"
             rounded
@@ -24,8 +23,8 @@
             :rules="[validators.required]"
           />
           <v-select
-            v-if="households"
             v-model="newUserData.household"
+            :disabled="!selectedGroupId"
             :items="households"
             rounded
             class="rounded-lg"
@@ -34,6 +33,8 @@
             :return-object="false"
             filled
             :label="$t('household.user-household')"
+            :hint="selectedGroupId ? '' : $tc('group.you-must-select-a-group-before-selecting-a-household')"
+            persistent-hint
             :rules="[validators.required]"
           />
           <AutoForm v-model="newUserData" :items="userForm" />

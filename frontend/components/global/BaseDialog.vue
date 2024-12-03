@@ -45,11 +45,13 @@
             </v-btn>
             <v-spacer></v-spacer>
 
+            <slot name="custom-card-action"></slot>
             <BaseButton v-if="$listeners.delete" delete secondary @click="deleteEvent" />
             <BaseButton
               v-if="$listeners.confirm"
               :color="color"
               type="submit"
+              :disabled="submitDisabled"
               @click="
                 $emit('confirm');
                 dialog = false;
@@ -60,8 +62,12 @@
               </template>
               {{ $t("general.confirm") }}
             </BaseButton>
-            <slot name="custom-card-action"></slot>
-            <BaseButton v-if="$listeners.submit" type="submit" :disabled="submitDisabled" @click="submitEvent">
+            <BaseButton
+              v-if="$listeners.submit"
+              type="submit"
+              :disabled="submitDisabled"
+              @click="submitEvent"
+            >
               {{ submitText }}
               <template v-if="submitIcon" #icon>
                 {{ submitIcon }}

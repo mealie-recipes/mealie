@@ -22,10 +22,10 @@ from mealie.services import urls
 from mealie.services.event_bus_service.event_types import EventOperation, EventRecipeTimelineEventData, EventTypes
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 
-events_router = UserAPIRouter(route_class=MealieCrudRoute, prefix="/timeline/events")
+router = UserAPIRouter(route_class=MealieCrudRoute, prefix="/timeline/events")
 
 
-@controller(events_router)
+@controller(router)
 class RecipeTimelineEventsController(BaseCrudController):
     @cached_property
     def repo(self):
@@ -43,17 +43,17 @@ class RecipeTimelineEventsController(BaseCrudController):
             self.registered_exceptions,
         )
 
-    @events_router.get("", response_model=RecipeTimelineEventPagination)
+    @router.get("", response_model=RecipeTimelineEventPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
         response = self.repo.page_all(
             pagination=q,
             override=RecipeTimelineEventOut,
         )
 
-        response.set_pagination_guides(events_router.url_path_for("get_all"), q.model_dump())
+        response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
-    @events_router.post("", response_model=RecipeTimelineEventOut, status_code=201)
+    @router.post("", response_model=RecipeTimelineEventOut, status_code=201)
     def create_one(self, data: RecipeTimelineEventIn):
         # if the user id is not specified, use the currently-authenticated user
         data.user_id = data.user_id or self.user.id
@@ -81,11 +81,11 @@ class RecipeTimelineEventsController(BaseCrudController):
 
         return event
 
-    @events_router.get("/{item_id}", response_model=RecipeTimelineEventOut)
+    @router.get("/{item_id}", response_model=RecipeTimelineEventOut)
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
 
-    @events_router.put("/{item_id}", response_model=RecipeTimelineEventOut)
+    @router.put("/{item_id}", response_model=RecipeTimelineEventOut)
     def update_one(self, item_id: UUID4, data: RecipeTimelineEventUpdate):
         event = self.mixins.patch_one(data, item_id)
         recipe = self.group_recipes.get_one(event.recipe_id, "id")
@@ -106,7 +106,7 @@ class RecipeTimelineEventsController(BaseCrudController):
 
         return event
 
-    @events_router.delete("/{item_id}", response_model=RecipeTimelineEventOut)
+    @router.delete("/{item_id}", response_model=RecipeTimelineEventOut)
     def delete_one(self, item_id: UUID4):
         event = self.mixins.delete_one(item_id)
         if event.image_dir.exists():
@@ -136,7 +136,7 @@ class RecipeTimelineEventsController(BaseCrudController):
     # ==================================================================================================================
     # Image and Assets
 
-    @events_router.put("/{item_id}/image", response_model=UpdateImageResponse)
+    @router.put("/{item_id}/image", response_model=UpdateImageResponse)
     def update_event_image(self, item_id: UUID4, image: bytes = File(...), extension: str = Form(...)):
         event = self.mixins.get_one(item_id)
         data_service = RecipeDataService(event.recipe_id)
