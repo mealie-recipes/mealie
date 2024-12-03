@@ -276,7 +276,8 @@
     "admin-group-management": "Admin Group Management",
     "admin-group-management-text": "Changes to this group will be reflected immediately.",
     "group-id-value": "Group Id: {0}",
-    "total-households": "Total Households"
+    "total-households": "Total Households",
+    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
   },
   "household": {
     "household": "Household",
