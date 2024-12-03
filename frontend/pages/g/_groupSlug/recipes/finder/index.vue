@@ -220,7 +220,7 @@
             </v-row>
           </v-container>
         </v-col>
-        <v-col :cols="useMobile ? 12 : 9" style="max-height: 70vh; overflow-y: auto">
+        <v-col :cols="useMobile ? 12 : 9" :style="useMobile ? '' : 'max-height: 70vh; overflow-y: auto'">
           <v-container
             v-if="recipeSuggestions.readyToMake.length || recipeSuggestions.missingItems.length"
             class="ma-0 pa-0"
