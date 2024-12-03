@@ -369,7 +369,7 @@ export default defineComponent({
         includeFoodsOnHand: preferences.value.includeFoodsOnHand,
         includeToolsOnHand: preferences.value.includeToolsOnHand,
         queryFilter: preferences.value.queryFilter,
-        limit: 10,
+        limit: 20,
       },
     });
 
