@@ -17,7 +17,7 @@ RUN yarn generate
 ###############################################
 # Base Image - Python
 ###############################################
-FROM python:3.10-slim as python-base
+FROM python:3.12-slim as python-base
 
 ENV MEALIE_HOME="/app"
 
