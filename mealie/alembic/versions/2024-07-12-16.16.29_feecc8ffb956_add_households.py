@@ -12,11 +12,11 @@ from typing import Any
 from uuid import uuid4
 
 import sqlalchemy as sa
+from alembic import op
 from slugify import slugify
 from sqlalchemy import orm
 
 import mealie.db.migration_types
-from alembic import op
 from mealie.core.config import get_app_settings
 
 # revision identifiers, used by Alembic.

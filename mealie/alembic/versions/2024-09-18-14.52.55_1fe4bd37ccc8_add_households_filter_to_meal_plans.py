@@ -7,9 +7,9 @@ Create Date: 2024-09-18 14:52:55.831540
 """
 
 import sqlalchemy as sa
+from alembic import op
 
 import mealie.db.migration_types
-from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "1fe4bd37ccc8"

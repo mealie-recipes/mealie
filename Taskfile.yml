@@ -151,7 +151,7 @@ tasks:
   py:migrate:
     desc: generates a new database migration file e.g. task py:migrate -- "add new column"
     cmds:
-      - poetry run alembic revision --autogenerate -m "{{ .CLI_ARGS }}"
+      - poetry run alembic --config mealie/alembic/alembic.ini revision --autogenerate -m "{{ .CLI_ARGS }}"
       - task: py:format
 
   ui:build:

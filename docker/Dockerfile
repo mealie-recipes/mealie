@@ -109,10 +109,6 @@ COPY --from=crfpp /usr/local/bin/crf_test /usr/local/bin/crf_test
 COPY ./mealie $MEALIE_HOME/mealie
 COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME/
 
-# Alembic
-COPY ./alembic $MEALIE_HOME/alembic
-COPY ./alembic.ini $MEALIE_HOME/
-
 # venv already has runtime deps installed we get a quicker install
 WORKDIR $MEALIE_HOME
 RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --only main

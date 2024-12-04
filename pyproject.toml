@@ -158,8 +158,8 @@ select = [
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["E402", "E501"]
-"alembic/versions/2022*" = ["E501"]
-"alembic/versions/2023*" = ["E501"]
+"mealie/alembic/versions/2022*" = ["E501", "I001"]
+"mealie/alembic/versions/2023*" = ["E501", "I001"]
 "dev/scripts/all_recipes_stress_test.py" = ["E501"]
 "ldap_provider.py" = ["UP032"]
 "tests/conftest.py" = ["E402"]
