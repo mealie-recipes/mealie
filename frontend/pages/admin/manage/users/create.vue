@@ -38,6 +38,9 @@
             :rules="[validators.required]"
           />
           <AutoForm v-model="newUserData" :items="userForm" />
+
+          <small v-if="formHasErrors" class="error--text">{{$t('page.form-validation-error')}}</small>
+
         </v-card-text>
       </v-card>
       <div class="d-flex pa-2">
@@ -55,6 +58,7 @@ import { useAdminHouseholds } from "~/composables/use-households";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
 import { VForm } from "~/types/vuetify";
+
 
 export default defineComponent({
   layout: "admin",
@@ -74,10 +78,15 @@ export default defineComponent({
     const selectedGroupId = ref<string>("");
     const households = useHouseholdsInGroup(selectedGroupId);
 
+    const formHasErrors = computed(() => {
+      return state.hasValidationErrors;
+    });
+
     const selectedGroup = computed(() => {
       return groups.value?.find((group) => group.id === selectedGroupId.value);
     });
     const state = reactive({
+      hasValidationErrors: false,
       newUserData: {
         username: "",
         fullName: "",
@@ -98,8 +107,13 @@ export default defineComponent({
       state.newUserData.household = "";
     });
 
+
     async function handleSubmit() {
-      if (!refNewUserForm.value?.validate()) return;
+      // set to false to hide before re-showing
+      state.hasValidationErrors = false;
+      state.hasValidationErrors = !refNewUserForm.value?.validate();
+      if (state.hasValidationErrors)
+        return;
 
       const { response } = await adminApi.users.createOne(state.newUserData);
 
@@ -117,6 +131,7 @@ export default defineComponent({
       selectedGroupId,
       households,
       validators,
+      formHasErrors
     };
   },
 });

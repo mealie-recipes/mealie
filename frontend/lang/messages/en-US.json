@@ -457,7 +457,8 @@
     "pages-update-failed": "Pages update failed",
     "pages-updated": "Pages updated",
     "404-not-found": "404 Not Found",
-    "an-error-occurred": "An error occurred"
+    "an-error-occurred": "An error occurred",
+    "form-validation-error":"One or more required fields contain errors"
   },
   "recipe": {
     "add-key": "Add Key",
