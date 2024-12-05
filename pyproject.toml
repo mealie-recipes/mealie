@@ -138,6 +138,9 @@ exclude = [
 # Assume Python 3.12.
 target-version = "py312"
 
+[tool.ruff.lint.isort]
+known-third-party = ["alembic"]
+
 [tool.ruff.lint]
 # Enable Pyflakes `E` and `F` codes by default.
 ignore = ["F403", "TID252", "B008"]

@@ -3,11 +3,11 @@ from collections.abc import Callable
 from pathlib import Path
 from time import sleep
 
-from sqlalchemy import engine, orm, text
-
 from alembic import command, config, script
 from alembic.config import Config
 from alembic.runtime import migration
+from sqlalchemy import engine, orm, text
+
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
 from mealie.db.db_setup import session_context
