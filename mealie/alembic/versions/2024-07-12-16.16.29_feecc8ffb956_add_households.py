@@ -6,7 +6,7 @@ Create Date: 2024-07-12 16:16:29.973929
 
 """
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from textwrap import dedent
 from typing import Any
 from uuid import uuid4
@@ -89,7 +89,7 @@ def dedupe_cookbook_slugs():
 def create_household(session: orm.Session, group_id: str) -> str:
     # create/insert household
     household_id = generate_id()
-    timestamp = datetime.now(timezone.utc).isoformat()
+    timestamp = datetime.now(UTC).isoformat()
     household_data = {
         "id": household_id,
         "name": settings.DEFAULT_HOUSEHOLD,
