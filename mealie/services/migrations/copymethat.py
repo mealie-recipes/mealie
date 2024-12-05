@@ -1,6 +1,6 @@
 import tempfile
 import zipfile
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 from bs4 import BeautifulSoup
@@ -35,7 +35,7 @@ class CopyMeThatMigrator(BaseMigrator):
         self.name = "copymethat"
 
         self.key_aliases = [
-            MigrationAlias(key="last_made", alias="made_this", func=lambda x: datetime.now(timezone.utc)),
+            MigrationAlias(key="last_made", alias="made_this", func=lambda x: datetime.now(UTC)),
             MigrationAlias(key="notes", alias="recipeNotes"),
             MigrationAlias(key="orgURL", alias="original_link"),
             MigrationAlias(key="rating", alias="ratingValue"),

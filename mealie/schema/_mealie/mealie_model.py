@@ -2,16 +2,15 @@ from __future__ import annotations
 
 import re
 from collections.abc import Sequence
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
-from typing import ClassVar, Protocol, TypeVar
+from typing import ClassVar, Protocol, Self, TypeVar
 
 from humps.main import camelize
 from pydantic import UUID4, AliasChoices, BaseModel, ConfigDict, Field, model_validator
 from sqlalchemy import Select, desc, func, or_, text
 from sqlalchemy.orm import InstrumentedAttribute, Session
 from sqlalchemy.orm.interfaces import LoaderOption
-from typing_extensions import Self
 
 from mealie.db.models._model_base import SqlAlchemyBase
 
@@ -88,7 +87,7 @@ class MealieModel(BaseModel):
             if not isinstance(val, datetime):
                 continue
             if not val.tzinfo:
-                setattr(self, field, val.replace(tzinfo=timezone.utc))
+                setattr(self, field, val.replace(tzinfo=UTC))
 
         return self
 

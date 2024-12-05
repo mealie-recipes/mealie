@@ -27,7 +27,7 @@ orjson = "^3.8.0"
 psycopg2-binary = { version = "^2.9.1", optional = true }
 pydantic = "^2.6.1"
 pyhumps = "^3.5.3"
-python = "^3.10"
+python = "^3.12"
 python-dateutil = "^2.8.2"
 python-dotenv = "^1.0.0"
 python-ldap = "^3.3.1"
@@ -105,7 +105,7 @@ pgsql = ["psycopg2-binary"]
 follow_imports = "skip"
 ignore_missing_imports = true
 plugins = "pydantic.mypy"
-python_version = "3.10"
+python_version = "3.12"
 strict_optional = true
 
 [tool.ruff]
@@ -135,8 +135,8 @@ exclude = [
   "venv",
 ]
 
-# Assume Python 3.10.
-target-version = "py310"
+# Assume Python 3.12.
+target-version = "py312"
 
 [tool.ruff.lint]
 # Enable Pyflakes `E` and `F` codes by default.
@@ -158,8 +158,8 @@ select = [
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["E402", "E501"]
-"alembic/versions/2022*" = ["E501"]
-"alembic/versions/2023*" = ["E501"]
+"mealie/alembic/versions/2022*" = ["E501", "I001"]
+"mealie/alembic/versions/2023*" = ["E501", "I001"]
 "dev/scripts/all_recipes_stress_test.py" = ["E501"]
 "ldap_provider.py" = ["UP032"]
 "tests/conftest.py" = ["E402"]

@@ -220,7 +220,7 @@
             </v-row>
           </v-container>
         </v-col>
-        <v-col :cols="useMobile ? 12 : 9">
+        <v-col :cols="useMobile ? 12 : 9" :style="useMobile ? '' : 'max-height: 70vh; overflow-y: auto'">
           <v-container
             v-if="recipeSuggestions.readyToMake.length || recipeSuggestions.missingItems.length"
             class="ma-0 pa-0"
@@ -369,7 +369,7 @@ export default defineComponent({
         includeFoodsOnHand: preferences.value.includeFoodsOnHand,
         includeToolsOnHand: preferences.value.includeToolsOnHand,
         queryFilter: preferences.value.queryFilter,
-        limit: 10,
+        limit: 20,
       },
     });
 
@@ -417,31 +417,41 @@ export default defineComponent({
     const selectedFoods = ref<IngredientFood[]>([]);
     function addFood(food: IngredientFood) {
       selectedFoods.value.push(food);
+      handleFoodUpdates();
     }
     function removeFood(food: IngredientFood) {
       selectedFoods.value = selectedFoods.value.filter((f) => f.id !== food.id);
+      handleFoodUpdates();
+    }
+    function handleFoodUpdates() {
+      selectedFoods.value.sort((a, b) => (a.pluralName || a.name).localeCompare(b.pluralName || b.name));
+      preferences.value.foodIds = selectedFoods.value.map((food) => food.id);
     }
     watch(
       () => selectedFoods.value,
       () => {
-        selectedFoods.value.sort((a, b) => (a.pluralName || a.name).localeCompare(b.pluralName || b.name));
-        preferences.value.foodIds = selectedFoods.value.map((food) => food.id);
-      }
+        handleFoodUpdates();
+      },
     )
 
     const toolStore = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
     const selectedTools = ref<RecipeTool[]>([]);
     function addTool(tool: RecipeTool) {
       selectedTools.value.push(tool);
+      handleToolUpdates();
     }
     function removeTool(tool: RecipeTool) {
       selectedTools.value = selectedTools.value.filter((t) => t.id !== tool.id);
+      handleToolUpdates();
+    }
+    function handleToolUpdates() {
+      selectedTools.value.sort((a, b) => a.name.localeCompare(b.name));
+      preferences.value.toolIds = selectedTools.value.map((tool) => tool.id);
     }
     watch(
       () => selectedTools.value,
       () => {
-        selectedTools.value.sort((a, b) => a.name.localeCompare(b.name));
-        preferences.value.toolIds = selectedTools.value.map((tool) => tool.id);
+        handleToolUpdates();
       }
     )
 

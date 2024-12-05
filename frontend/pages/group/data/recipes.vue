@@ -136,12 +136,6 @@
       <v-card>
         <RecipeDataTable v-model="selected" :loading="loading" :recipes="allRecipes" :show-headers="headers" />
         <v-card-actions class="justify-end">
-          <BaseButton color="info">
-            <template #icon>
-              {{ $globals.icons.database }}
-            </template>
-            {{ $t('general.import') }}
-          </BaseButton>
           <BaseButton
             color="info"
             @click="

@@ -17,7 +17,7 @@ RUN yarn generate
 ###############################################
 # Base Image - Python
 ###############################################
-FROM python:3.10-slim as python-base
+FROM python:3.12-slim as python-base
 
 ENV MEALIE_HOME="/app"
 
@@ -108,10 +108,6 @@ COPY --from=crfpp /usr/local/bin/crf_test /usr/local/bin/crf_test
 # copy backend
 COPY ./mealie $MEALIE_HOME/mealie
 COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME/
-
-# Alembic
-COPY ./alembic $MEALIE_HOME/alembic
-COPY ./alembic.ini $MEALIE_HOME/
 
 # venv already has runtime deps installed we get a quicker install
 WORKDIR $MEALIE_HOME
