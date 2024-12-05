@@ -6,9 +6,9 @@ Create Date: ${create_date}
 
 """
 import sqlalchemy as sa
+from alembic import op
 
 import mealie.db.migration_types
-from alembic import op
 % if imports:
 ${imports}
 % endif

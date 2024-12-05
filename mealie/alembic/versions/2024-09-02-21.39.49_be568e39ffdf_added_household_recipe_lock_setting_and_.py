@@ -9,7 +9,6 @@ Create Date: 2024-09-02 21:39:49.210355
 from textwrap import dedent
 
 import sqlalchemy as sa
-
 from alembic import op
 
 # revision identifiers, used by Alembic.

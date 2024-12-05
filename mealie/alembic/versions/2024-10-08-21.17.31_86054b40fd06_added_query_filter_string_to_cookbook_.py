@@ -7,9 +7,9 @@ Create Date: 2024-10-08 21:17:31.601903
 """
 
 import sqlalchemy as sa
+from alembic import op
 from sqlalchemy import orm
 
-from alembic import op
 from mealie.db.models._model_utils import guid
 
 # revision identifiers, used by Alembic.

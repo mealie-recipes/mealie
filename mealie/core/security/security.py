@@ -1,5 +1,5 @@
 import secrets
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 import jwt
@@ -34,7 +34,7 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None) -> s
     to_encode = data.copy()
     expires_delta = expires_delta or timedelta(hours=settings.TOKEN_TIME)
 
-    expire = datetime.now(timezone.utc) + expires_delta
+    expire = datetime.now(UTC) + expires_delta
 
     to_encode["exp"] = expire
     return jwt.encode(to_encode, settings.SECRET, algorithm=ALGORITHM)

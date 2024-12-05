@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from enum import Enum
 from pathlib import Path
 from typing import Annotated
@@ -40,7 +40,7 @@ class RecipeTimelineEventIn(MealieModel):
     message: str | None = Field(None, alias="eventMessage")
     image: Annotated[TimelineEventImage | None, Field(validate_default=True)] = TimelineEventImage.does_not_have_image
 
-    timestamp: datetime = datetime.now(timezone.utc)
+    timestamp: datetime = datetime.now(UTC)
     model_config = ConfigDict(use_enum_values=True)
 
 

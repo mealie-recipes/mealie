@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from pydantic import UUID4
 
@@ -18,7 +18,7 @@ from mealie.services.event_bus_service.event_types import (
     EventWebhookData,
 )
 
-last_ran = datetime.now(timezone.utc)
+last_ran = datetime.now(UTC)
 
 
 def post_group_webhooks(
@@ -32,7 +32,7 @@ def post_group_webhooks(
     start_dt = start_dt or last_ran
 
     # end the query at the current time
-    last_ran = end_dt = datetime.now(timezone.utc)
+    last_ran = end_dt = datetime.now(UTC)
 
     if group_id is None:
         # publish the webhook event to each group's event bus
@@ -80,7 +80,7 @@ def post_group_webhooks(
 
 
 def post_single_webhook(webhook: ReadWebhook, message: str = "") -> None:
-    dt = datetime.min.replace(tzinfo=timezone.utc)
+    dt = datetime.min.replace(tzinfo=UTC)
     event_type = EventTypes.webhook_task
 
     event_document_data = EventWebhookData(

@@ -1,6 +1,11 @@
 <template>
   <div v-if="dialog">
     <BaseDialog v-if="shoppingListDialog && ready" v-model="dialog" :title="$t('recipe.add-to-list')" :icon="$globals.icons.cartCheck">
+    <v-container v-if="!shoppingListChoices.length">
+      <BasePageTitle>
+        <template #title>{{ $t('shopping-list.no-shopping-lists-found') }}</template>
+      </BasePageTitle>
+    </v-container>
       <v-card-text>
         <v-card
           v-for="list in shoppingListChoices"
