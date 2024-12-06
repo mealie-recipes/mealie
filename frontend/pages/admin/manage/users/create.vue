@@ -38,9 +38,6 @@
             :rules="[validators.required]"
           />
           <AutoForm v-model="newUserData" :items="userForm" />
-
-          <small v-if="formHasErrors" class="error--text">{{$t('page.form-validation-error')}}</small>
-
         </v-card-text>
       </v-card>
       <div class="d-flex pa-2">
@@ -51,14 +48,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useRouter, reactive, ref, toRefs, watch } from "@nuxtjs/composition-api";
+import { computed, defineComponent, useRouter, reactive, ref, toRefs, watch,useContext } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
 import { VForm } from "~/types/vuetify";
-
+import { alert } from "~/composables/use-toast";
 
 export default defineComponent({
   layout: "admin",
@@ -67,6 +64,7 @@ export default defineComponent({
     const { groups } = useGroups();
     const { useHouseholdsInGroup } = useAdminHouseholds();
     const router = useRouter();
+    const { i18n } = useContext();
 
     // ==============================================
     // New User Form
@@ -113,8 +111,10 @@ export default defineComponent({
       state.hasValidationErrors = false;
       state.hasValidationErrors = !refNewUserForm.value?.validate();
       if (state.hasValidationErrors)
-        return;
-
+      {
+          alert.error(i18n.tc("page.form-validation-error") as string)
+          return;
+      }
       const { response } = await adminApi.users.createOne(state.newUserData);
 
       if (response?.status === 201) {
