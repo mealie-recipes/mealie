@@ -80,8 +80,7 @@ export default defineComponent({
       return groups.value?.find((group) => group.id === selectedGroupId.value);
     });
     const state = reactive({
-      hasValidationErrors: false,
-      newUserData: {
+        newUserData: {
         username: "",
         fullName: "",
         email: "",
