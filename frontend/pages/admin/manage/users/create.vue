@@ -76,10 +76,6 @@ export default defineComponent({
     const selectedGroupId = ref<string>("");
     const households = useHouseholdsInGroup(selectedGroupId);
 
-    const formHasErrors = computed(() => {
-      return state.hasValidationErrors;
-    });
-
     const selectedGroup = computed(() => {
       return groups.value?.find((group) => group.id === selectedGroupId.value);
     });
@@ -107,10 +103,7 @@ export default defineComponent({
 
 
     async function handleSubmit() {
-      // set to false to hide before re-showing
-      state.hasValidationErrors = false;
-      state.hasValidationErrors = !refNewUserForm.value?.validate();
-      if (state.hasValidationErrors)
+      if (!refNewUserForm.value?.validate())
       {
           alert.error(i18n.tc("page.form-validation-error") as string)
           return;
@@ -130,8 +123,7 @@ export default defineComponent({
       groups,
       selectedGroupId,
       households,
-      validators,
-      formHasErrors
+      validators
     };
   },
 });
