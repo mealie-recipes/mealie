@@ -22,6 +22,8 @@ The responses to this were so varied and not overly informative/indicative of an
 
 This question was a single select and it was optional.
 
+Key insight: SQLite is the predominant database, but Postgres maintains an admirable share and must remain front of mind for any changes we make.
+
 [GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4640)
 
 ![Question 2](Question2.png)
@@ -29,6 +31,9 @@ This question was a single select and it was optional.
 ## How long have you been using Mealie?
 
 This question was a single select and it was mandatory.
+
+Key insight: Most users have been using Mealie less than a year, with another 25% in the 1-2 year range. These users will have seen a lot of change in the product over that time.
+Thanks to the long term users!
 
 [GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4641)
 
@@ -46,6 +51,8 @@ This question was multiple choice and it was optional.
 
 This question was a single select and it was mandatory.
 
+Key insight: ~85% of instances have 2 users or less. This is assumed to be a couple adults living together.
+
 [GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4643)
 
 ![Question 5](Question5.png)
@@ -53,6 +60,8 @@ This question was a single select and it was mandatory.
 ## How many active groups does your Mealie instance have?
 
 This question was a single select and it was mandatory.
+
+Key insight: Similar to the above question, one group being the most common backs the theory of one "family" using the Mealie instance.
 
 [GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4644)
 
