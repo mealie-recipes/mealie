@@ -12,6 +12,8 @@ If you see a specific idea that resonates with you, please check if there's alre
 
 The questions (bar question 1) that are free text are on separate pages you'll need to click into, as there's just too much content to include on this page.
 
+For the written response sections, we have removed some of the more indifferent responses (e.g. "N/A"), to save you reading time. If you'd like to see all the raw responses, they're in [this guthub commit](https://github.com/mealie-recipes/mealie/pull/4666/commits/1287bc1635d9c2560b10db3a92a0d6644bc81571).
+
 ## Mealie Version (pre-v2)
 
 This question was free text input and it was mandatory.
@@ -94,6 +96,9 @@ This question was a multiple select and it was optional.
 [Question 10](q10.md)
 
 ## Any suggestions for how to improve the Recipe Timeline?
+
+Key insight: Looks like a lot of people would be fine with this not existing, or at least being hidden.
+
 [GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4649)
 
 [Question 11](q11.md)
@@ -104,6 +109,9 @@ This question was a multiple select and it was optional.
 [Question 12](q12.md)
 
 ## Any other suggestions or feedback you have for us?
+
+There are so many kind words in this section in particular. Thanks so much, it means a lot to the whole team and all our contributors to see the impact Mealie has on people's lives!
+
 [GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4651)
 
 [Question 13](q13.md)
