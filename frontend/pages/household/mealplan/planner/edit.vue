@@ -13,6 +13,7 @@
       )"
       color="primary"
       :icon="$globals.icons.foods"
+      :submit-disabled="isCreateDisabled"
       @submit="
         if (newMeal.existing) {
           actions.updateOne(newMeal);
@@ -22,7 +23,6 @@
         resetDialog();
       "
       @close="resetDialog()"
-      :submitDisabled="isCreateDisabled"
     >
       <v-card-text>
         <v-menu
