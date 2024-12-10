@@ -161,6 +161,8 @@ recipes_create_zip = "/api/recipes/create/zip"
 """`/api/recipes/create/zip`"""
 recipes_exports = "/api/recipes/exports"
 """`/api/recipes/exports`"""
+recipes_suggestions = "/api/recipes/suggestions"
+"""`/api/recipes/suggestions`"""
 recipes_test_scrape_url = "/api/recipes/test-scrape-url"
 """`/api/recipes/test-scrape-url`"""
 recipes_timeline_events = "/api/recipes/timeline/events"
@@ -301,6 +303,11 @@ def explore_groups_group_slug_recipes(group_slug):
 def explore_groups_group_slug_recipes_recipe_slug(group_slug, recipe_slug):
     """`/api/explore/groups/{group_slug}/recipes/{recipe_slug}`"""
     return f"{prefix}/explore/groups/{group_slug}/recipes/{recipe_slug}"
+
+
+def explore_groups_group_slug_recipes_suggestions(group_slug):
+    """`/api/explore/groups/{group_slug}/recipes/suggestions`"""
+    return f"{prefix}/explore/groups/{group_slug}/recipes/suggestions"
 
 
 def foods_item_id(item_id):

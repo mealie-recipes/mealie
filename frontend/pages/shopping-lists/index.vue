@@ -21,6 +21,12 @@
       <BaseButton create @click="createDialog = true" />
     </v-container>
 
+    <v-container v-if="!shoppingListChoices.length">
+      <BasePageTitle>
+        <template #title>{{ $t('shopping-list.no-shopping-lists-found') }}</template>
+      </BasePageTitle>
+    </v-container>
+
     <section>
       <v-card
         v-for="list in shoppingListChoices"

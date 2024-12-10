@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from functools import cached_property
 
 from fastapi import APIRouter, BackgroundTasks, Depends
@@ -45,7 +45,7 @@ class ReadWebhookController(BaseUserController):
         """Manually re-fires all previously scheduled webhooks for today"""
 
         start_time = datetime.min.time()
-        start_dt = datetime.combine(datetime.now(timezone.utc).date(), start_time)
+        start_dt = datetime.combine(datetime.now(UTC).date(), start_time)
         post_group_webhooks(start_dt=start_dt, group_id=self.group.id, household_id=self.household.id)
 
     @router.get("/{item_id}", response_model=ReadWebhook)

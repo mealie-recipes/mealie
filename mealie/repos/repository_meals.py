@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from sqlalchemy import select
 
@@ -13,7 +13,7 @@ class RepositoryMeals(HouseholdRepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
         if not self.household_id:
             raise Exception("household_id not set")
 
-        today = datetime.now(tz=timezone.utc).date()
+        today = datetime.now(tz=UTC).date()
         stmt = select(GroupMealPlan).filter(
             GroupMealPlan.date == today, GroupMealPlan.household_id == self.household_id
         )

@@ -634,7 +634,8 @@ def test_pagination_order_by_multiple(unique_user: TestUser, order_direction: Or
 
     random.shuffle(abbreviations)
     random.shuffle(descriptions)
-    assert abbreviations != descriptions
+    while abbreviations == descriptions:
+        random.shuffle(descriptions)
 
     units_to_create: list[SaveIngredientUnit] = []
     for abbreviation in abbreviations:
@@ -694,7 +695,8 @@ def test_pagination_order_by_multiple_directions(
 
     random.shuffle(abbreviations)
     random.shuffle(descriptions)
-    assert abbreviations != descriptions
+    while abbreviations == descriptions:
+        random.shuffle(descriptions)
 
     units_to_create: list[SaveIngredientUnit] = []
     for abbreviation in abbreviations:
