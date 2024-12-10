@@ -290,6 +290,7 @@ import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabe
 import { useLocales } from "~/composables/use-locales";
 import { useFoodStore, useLabelStore } from "~/composables/store";
 import { VForm } from "~/types/vuetify";
+import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 
 export default defineComponent({
   components: { MultiPurposeLabel, RecipeDataAliasManagerDialog },
@@ -325,6 +326,11 @@ export default defineComponent({
         text: i18n.tc("shopping-list.label"),
         value: "label",
         show: true,
+        sort: (label1: MultiPurposeLabelOut | null, label2: MultiPurposeLabelOut | null) => {
+          const label1Name = label1?.name || "";
+          const label2Name = label2?.name || "";
+          return label1Name.localeCompare(label2Name);
+        },
       },
       {
         text: i18n.tc("tool.on-hand"),
