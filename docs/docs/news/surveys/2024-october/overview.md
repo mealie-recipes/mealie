@@ -1,18 +1,18 @@
 # October 2024 Survey
 
-It's been a while since a Mealie survey was done, and the community was much smaller back then. So much has changed in 2024, and we wanted to get a gauge on the community's thoughts.
-Our v2.0 release gave us a platform to ask people to give us a few minutes to tell us their thoughts.
+It's been a while since a Mealie survey was done, and the community was much smaller back then. So much has changed in 2024, and we wanted to gauge the community's thoughts.
+Our v2.0 release gave us a platform to ask people to take a few minutes to share their thoughts.
 
-A massive thanks to everyone who took the time to fill this survey in. We had 525 respondents! We're overwhelmed with the support.
+A massive thanks to everyone who took the time to fill out this survey. We had 525 respondents! We're overwhelmed with the support.
 
-Also a thanks to ChristianB-F from our Discord community for putting the following images together, and to everyone who has taken time to raise either an issue or pull request on our GitHub repository!
+Also, thanks to ChristianB-F from our Discord community for putting the following images together, and to everyone who has taken the time to raise either an issue or pull request on our GitHub repository!
 
-For each question, we've created a GitHub discussion and we'd invite you to share any interesting insights or thoughts you take from the survey results!
-If you see a specific idea that resonates with you, please check if there's already a feature request, but if not please do raise one and add your perspective.
+For each question, we've created a GitHub discussion and we invite you to share any interesting insights or thoughts you have from the survey results!
+If you see a specific idea that resonates with you, please check if there's already a feature request, and if not, please raise one and add your perspective.
 
 The questions (bar question 1) that are free text are on separate pages you'll need to click into, as there's just too much content to include on this page.
 
-For the written response sections, we have removed some of the more indifferent responses (e.g. "N/A"), to save you reading time. If you'd like to see all the raw responses, they're in [this guthub commit](https://github.com/mealie-recipes/mealie/pull/4666/commits/1287bc1635d9c2560b10db3a92a0d6644bc81571).
+For the written response sections, we have removed some of the more indifferent responses (e.g., "N/A") to save you reading time. If you'd like to see all the raw responses, they're in [this GitHub commit](https://github.com/mealie-recipes/mealie/pull/4666/commits/1287bc1635d9c2560b10db3a92a0d6644bc81571).
 
 ## Mealie Version (pre-v2)
 
@@ -53,7 +53,7 @@ This question was multiple choice and it was optional.
 
 This question was a single select and it was mandatory.
 
-Key insight: ~85% of instances have 2 users or less. This is assumed to be a couple adults living together.
+Key insight: ~85% of instances have 2 users or fewer. This is assumed to be a couple of adults living together.
 
 [GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4643)
 
