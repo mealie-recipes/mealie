@@ -89,6 +89,8 @@ Please select all the features you actively/regularly use, or consider important
 
 ## Suggestions/Feedback
 
+Some of you will spot feature suggestions that you know to already exist in Mealie. We'd love it if you could help us improve the documentation so more people can know about them! All pull requests are much appreciated. The [features](https://docs.mealie.io/documentation/getting-started/features/) page, or the [FAQ](https://docs.mealie.io/documentation/getting-started/faq/) could be appropriate places to add documentation.
+
 ### Shopping List Suggestions
 
 [GitHub Discussion](https://github.com/mealie-recipes/mealie/discussions/4647)
