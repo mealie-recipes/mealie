@@ -6,7 +6,7 @@ from mealie.services.email.email_senders import ABCEmailSender
 
 FAKE_ADDRESS = "my_secret_email@example.com"
 
-SUBJECTS = {"Mealie Forgot Password", "Invitation to join Mealie", "Mealie Test Email"}
+SUBJECTS = {"Arcane Recipes Forgot Password", "Invitation to join Arcane Recipes", "Arcane Recipes Test Email"}
 
 
 class TestEmailSender(ABCEmailSender):
