@@ -2358,20 +2358,20 @@ dev = ["argcomplete", "attrs (>=19.2)", "hypothesis (>=3.56)", "mock", "pygments
 
 [[package]]
 name = "pytest-asyncio"
-version = "0.24.0"
+version = "0.25.0"
 description = "Pytest support for asyncio"
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 files = [
-    {file = "pytest_asyncio-0.24.0-py3-none-any.whl", hash = "sha256:a811296ed596b69bf0b6f3dc40f83bcaf341b155a269052d82efa2b25ac7037b"},
-    {file = "pytest_asyncio-0.24.0.tar.gz", hash = "sha256:d081d828e576d85f875399194281e92bf8a68d60d72d1a2faf2feddb6c46b276"},
+    {file = "pytest_asyncio-0.25.0-py3-none-any.whl", hash = "sha256:db5432d18eac6b7e28b46dcd9b69921b55c3b1086e85febfe04e70b18d9e81b3"},
+    {file = "pytest_asyncio-0.25.0.tar.gz", hash = "sha256:8c0610303c9e0442a5db8604505fc0f545456ba1528824842b37b4a626cbf609"},
 ]
 
 [package.dependencies]
 pytest = ">=8.2,<9"
 
 [package.extras]
-docs = ["sphinx (>=5.3)", "sphinx-rtd-theme (>=1.0)"]
+docs = ["sphinx (>=5.3)", "sphinx-rtd-theme (>=1)"]
 testing = ["coverage (>=6.2)", "hypothesis (>=5.7.1)"]
 
 [[package]]
@@ -3413,4 +3413,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "70a06c4bc96fda6284e61a84db5770d969ea06e78caaa5860966b53768607929"
+content-hash = "f3d55a94c83be35bc1ff91044a10f63129dc788318b544fc0bb3a84b2fd82df5"
