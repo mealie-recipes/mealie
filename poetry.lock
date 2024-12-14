@@ -2646,13 +2646,13 @@ tests = ["html5lib", "pytest", "pytest-cov"]
 
 [[package]]
 name = "recipe-scrapers"
-version = "15.3.2"
+version = "15.3.3"
 description = "Python package, scraping recipes from all over the internet"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "recipe_scrapers-15.3.2-py3-none-any.whl", hash = "sha256:4fc361512b899fefbcf1426e769880e909edf4d4ab875fcb670a98f3ce8a7c21"},
-    {file = "recipe_scrapers-15.3.2.tar.gz", hash = "sha256:434dfee1ff5769f168f1bef979f89e17b6bb60b0501577971f54c13fc1809387"},
+    {file = "recipe_scrapers-15.3.3-py3-none-any.whl", hash = "sha256:e3092190ff81d79992bb3fd373c6d1ac7dff5d8be033d219ff6eb46bff8a37d3"},
+    {file = "recipe_scrapers-15.3.3.tar.gz", hash = "sha256:9bd41de3da0769eae6fa8a211a99db630fd283873eae6b518f51d27836c034f9"},
 ]
 
 [package.dependencies]
@@ -2661,8 +2661,12 @@ extruct = ">=0.17.0"
 isodate = ">=0.6.1"
 
 [package.extras]
-dev = ["coverage (>=7.4.4)", "importlib-metadata (>=4.6)", "types-beautifulsoup4 (>=4.12.0)"]
+all = ["recipe_scrapers[dev,docs,linters,online,tests]"]
+dev = ["recipe-scrapers[docs,linters,tests]"]
+docs = ["markdown-exec (>=1.10.0)", "mkdocs (>=1.6.1)", "mkdocs-material (>=9.5.48)", "mkdocstrings (>=0.27.0)", "mkdocstrings-python (>=1.12.2)"]
+linters = ["black (==24.10.0)", "flake8 (==7.1.1)", "mypy (==1.13.0)", "pep8-naming (==0.14.1)", "pre-commit (==4.0.1)", "types-beautifulsoup4", "types-requests"]
 online = ["requests (>=2.31.0)"]
+tests = ["coverage (>=7.6.9)", "importlib-metadata (>=4.6)", "unittest-parallel (>=1.7.0)"]
 
 [[package]]
 name = "regex"
@@ -3150,13 +3154,13 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "uvicorn"
-version = "0.32.1"
+version = "0.33.0"
 description = "The lightning-fast ASGI server."
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "uvicorn-0.32.1-py3-none-any.whl", hash = "sha256:82ad92fd58da0d12af7482ecdb5f2470a04c9c9a53ced65b9bbb4a205377602e"},
-    {file = "uvicorn-0.32.1.tar.gz", hash = "sha256:ee9519c246a72b1c084cea8d3b44ed6026e78a4a309cbedae9c37e4cb9fbb175"},
+    {file = "uvicorn-0.33.0-py3-none-any.whl", hash = "sha256:2c30de4aeea83661a520abab179b24084a0019c0c1bbe137e5409f741cbde5f8"},
+    {file = "uvicorn-0.33.0.tar.gz", hash = "sha256:3577119f82b7091cf4d3d4177bfda0bae4723ed92ab1439e8d779de880c9cc59"},
 ]
 
 [package.dependencies]
@@ -3413,4 +3417,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "f3d55a94c83be35bc1ff91044a10f63129dc788318b544fc0bb3a84b2fd82df5"
+content-hash = "c296bc3ebec55f60aaadd9fa6296c4ab38766bed868908d687b0507f504e3e9a"
