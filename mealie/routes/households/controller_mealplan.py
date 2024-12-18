@@ -1,6 +1,7 @@
 from datetime import date
 from functools import cached_property
 
+from dateutil.tz import tzlocal
 from fastapi import APIRouter, Depends, HTTPException
 
 from mealie.core.exceptions import mealie_registered_exceptions
@@ -115,7 +116,8 @@ class GroupMealplanController(BaseCrudController):
 
     @router.get("/today")
     def get_todays_meals(self):
-        return self.repo.get_today()
+        local_tz = tzlocal()
+        return self.repo.get_today(tz=local_tz)
 
     @router.post("/random", response_model=ReadPlanEntry)
     def create_random_meal(self, data: CreateRandomEntry):
