@@ -3,10 +3,19 @@
         "server-error": "Wystąpił nieoczekiwany błąd"
     },
     "recipe": {
-        "unique-name-error": "Nazwy przepisów muszą być unikalne",
+        "unique-name-error": "Nazwy przepisów muszą być unikatowe",
+        "recipe-created": "Recipe Created",
         "recipe-defaults": {
-            "ingredient-note": "1 Cup Flour",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "ingredient-note": "1 szklanka mąki",
+            "step-text": "Kroki przepisu, jak również inne pola na stronie przepisu obsługują składnię markdown.\n\n**Dodaj link**\n\n[Mój link](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Makes",
+            "serves": "Serves",
+            "serving": "Serving",
+            "servings": "Servings",
+            "yield": "Yield",
+            "yields": "Yields"
         }
     },
     "mealplan": {
@@ -24,17 +33,17 @@
     "exceptions": {
         "permission_denied": "Nie masz uprawnień do wykonania tej akcji",
         "no-entry-found": "Wskazany zasób jest niedostępny",
-        "integrity-error": "Błąd integralności bazy danych",
+        "integrity-error": "Błąd spójności bazy danych",
         "username-conflict-error": "Ta nazwa użytkownika jest już zajęta",
         "email-conflict-error": "Ten adres email już jest zajęty"
     },
     "notifications": {
-        "generic-created": "{name} został utworzony",
-        "generic-updated": "{name} został zaktualizowany",
-        "generic-created-with-url": "{name} został utworzony. {url}",
-        "generic-updated-with-url": "{name} został zaktualizowany. {url}",
-        "generic-duplicated": "{name} został zduplikowany",
-        "generic-deleted": "{name} został usunięty"
+        "generic-created": "Stworzono {name}",
+        "generic-updated": "Zaktualizowano {name}",
+        "generic-created-with-url": "Stworzono {name}, {url}",
+        "generic-updated-with-url": "Zaktualizowano {name}, {url}",
+        "generic-duplicated": "Zduplikowano {name}",
+        "generic-deleted": "Usunięto {name}"
     },
     "datetime": {
         "year": "rok|lat",
@@ -47,21 +56,21 @@
     },
     "emails": {
         "password": {
-            "subject": "Mealie Forgot Password",
-            "header_text": "Forgot Password",
-            "message_top": "You have requested to reset your password.",
-            "message_bottom": "Please click the button above to reset your password.",
-            "button_text": "Reset Password"
+            "subject": "Zapomniane hasło Mealie",
+            "header_text": "Zapomniane hasło",
+            "message_top": "Poproszono o zresetowanie hasła.",
+            "message_bottom": "Kliknij przycisk poniżej, aby zresetować swoje hasło.",
+            "button_text": "Zresetuj hasło"
         },
         "invitation": {
-            "subject": "Invitation to join Mealie",
-            "header_text": "You're Invited!",
-            "message_top": "You have been invited to join Mealie.",
-            "message_bottom": "Please click the button above to accept the invitation.",
-            "button_text": "Accept Invitation"
+            "subject": "Zaproszenie do Mealie",
+            "header_text": "Otrzymano zaproszenie!",
+            "message_top": "Zaproszenie dołączenia do Mealie.",
+            "message_bottom": "Kliknij powyższy przycisk, aby zaakceptować zaproszenie.",
+            "button_text": "Akceptuj zaproszenie"
         },
         "test": {
-            "subject": "Mealie Test Email",
+            "subject": "Email testowy Mealie",
             "header_text": "E-mail testowy",
             "message_top": "To jest e-mail testowy.",
             "message_bottom": "Kliknij przycisk powyżej, aby przetestować e-mail.",
