@@ -276,7 +276,8 @@
     "admin-group-management": "Skrbniško upravljanje skupine",
     "admin-group-management-text": "Spremembe v tej skupini se poznajo takoj.",
     "group-id-value": "ID skupine: {0}",
-    "total-households": "Skupaj gospodinjstev"
+    "total-households": "Skupaj gospodinjstev",
+    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
   },
   "household": {
     "household": "Gospodinjstvo",
@@ -517,6 +518,7 @@
     "save-recipe-before-use": "Shrani recept pred uporabo",
     "section-title": "Naslov odseka",
     "servings": "Porcija",
+    "serves-amount": "Serves {amount}",
     "share-recipe-message": "Rad bi delil moj {0} recept z vami.",
     "show-nutrition-values": "Prikaži hranilne vrednosti",
     "sodium-content": "Natrij",
@@ -545,6 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Napaka pri dodajanji recepta v jedilnik",
     "failed-to-add-to-list": "Dodajanje na seznam ni uspelo",
     "yield": "Donos",
+    "yields-amount-with-text": "Yields {amount} {text}",
+    "yield-text": "Yield Text",
     "quantity": "Količina",
     "choose-unit": "Izberite enoto",
     "press-enter-to-create": "Pritisnite enter da izdelate",
@@ -640,7 +644,9 @@
     "recipe-debugger-use-openai-description": "Za razčlenitev rezultatov uporabite OpenAI, namesto da se zanašate na knjižnico strgala. Ko ustvarjate recept prek URL-ja, se to izvede samodejno, če knjižnica strgala odpove, vendar ga lahko tukaj preizkusite ročno.",
     "debug": "Debug",
     "tree-view": "Drevesni prikaz",
+    "recipe-servings": "Recipe Servings",
     "recipe-yield": "Število porcij",
+    "recipe-yield-text": "Recipe Yield Text",
     "unit": "Enota",
     "upload-image": "Naloži sliko",
     "screen-awake": "Ohranjanje budnega zaslona",
@@ -662,7 +668,25 @@
       "missing-food": "Ustvari manjkajoče živilo: {food}",
       "no-food": "Ni živila"
     },
-    "reset-servings-count": "Ponastavi števec obrokov"
+    "reset-servings-count": "Ponastavi števec obrokov",
+    "not-linked-ingredients": "Additional Ingredients"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Recipe Finder",
+    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
+    "selected-ingredients": "Selected Ingredients",
+    "no-ingredients-selected": "No ingredients selected",
+    "missing": "Missing",
+    "no-recipes-found": "No recipes found",
+    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
+    "include-ingredients-on-hand": "Include Ingredients On Hand",
+    "include-tools-on-hand": "Include Tools On Hand",
+    "max-missing-ingredients": "Max Missing Ingredients",
+    "max-missing-tools": "Max Missing Tools",
+    "selected-tools": "Selected Tools",
+    "other-filters": "Other Filters",
+    "ready-to-make": "Ready to Make",
+    "almost-ready-to-make": "Almost Ready to Make"
   },
   "search": {
     "advanced-search": "Napredno iskanje",
@@ -866,7 +890,8 @@
     "you-are-offline-description": "V načinu brez povezave niso na voljo vse funkcije. Še vedno lahko dodajate, spreminjate in odstranjujete elemente, vendar ne boste mogli sinhronizirati svojih sprememb s strežnikom, dokler ne boste spet povezani.",
     "are-you-sure-you-want-to-check-all-items": "Ali res želite izbrati vse elemente?",
     "are-you-sure-you-want-to-uncheck-all-items": "Ali res ne želite izbrati vseh elementov?",
-    "are-you-sure-you-want-to-delete-checked-items": "Ali ste prepričani, da želite izbrisati vse izbrane elemente?"
+    "are-you-sure-you-want-to-delete-checked-items": "Ali ste prepričani, da želite izbrisati vse izbrane elemente?",
+    "no-shopping-lists-found": "No Shopping Lists Found"
   },
   "sidebar": {
     "all-recipes": "Vsi recepti",
@@ -1272,12 +1297,13 @@
     "debug-openai-services-description": "Uporabite to stran za odpravljanje napak v storitvah OpenAI. Tukaj lahko preizkusite svojo povezavo OpenAI in si ogledate rezultate. Če imate omogočene slikovne storitve, lahko zagotovite tudi sliko.",
     "run-test": "Zaženi test",
     "test-results": "Rezultati testa",
-    "group-delete-note": "Groups with users or households cannot be deleted",
-    "household-delete-note": "Households with users cannot be deleted"
+    "group-delete-note": "Skupine z uporabniki ali gospodinjstvi ne morejo biti izbrisane",
+    "household-delete-note": "Gospodinjstva z uporabniki ne morejo biti izbrisana"
   },
   "profile": {
     "welcome-user": "👋 Živjo, {0}!",
     "description": "Urejaj nastavitve profila, receptov in skupine.",
+    "invite-link": "Invite Link",
     "get-invite-link": "Povabi",
     "get-public-link": "Javna povezava",
     "account-summary": "Pregled uporabniškega računa",
@@ -1327,6 +1353,8 @@
   "cookbook": {
     "cookbooks": "Kuharske knjige",
     "description": "Kuharske knjige so še en način za organizacijo receptov z ustvarjanjem presekov receptov in značk. Ustvarjanje kuharske knjige bo dodalo povezavo v stranski meni, ki bo prikazala vse recepte z izbranimi značkami in kategorijami.",
+    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
+    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
     "public-cookbook": "Javna kuharska knjiga",
     "public-cookbook-description": "Javne kuharske knjige lahko deliš z zunanjimi uporabniki, prav tako bodo prikazane tudi na strani tvoje skupine.",
     "filter-options": "Nastavitve filtrov",
