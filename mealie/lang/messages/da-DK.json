@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Opskriftsnavnet er allerede i brug",
+        "recipe-created": "Recipe Created",
         "recipe-defaults": {
-            "ingredient-note": "1 Kop Mel",
+            "ingredient-note": "1 kop mel",
             "step-text": "Du kan bruge markdown kode i beskrivelser og andre felter i opskrifter.\n\n**Tilføj et link**\n\n[Mit link](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Makes",
+            "serves": "Serves",
+            "serving": "Serving",
+            "servings": "Servings",
+            "yield": "Yield",
+            "yields": "Yields"
         }
     },
     "mealplan": {
@@ -47,7 +56,7 @@
     },
     "emails": {
         "password": {
-            "subject": "Mealie Glemt Adgangskode",
+            "subject": "Mealie glemt adgangskode",
             "header_text": "Glemt adgangskode",
             "message_top": "Du har anmodet om at nulstille din adgangskode.",
             "message_bottom": "Klik på knappen ovenfor for at nulstille din adgangskode.",
