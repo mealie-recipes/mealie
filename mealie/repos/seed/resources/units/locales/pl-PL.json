@@ -39,7 +39,7 @@
         "name": "galon",
         "plural_name": "galony",
         "description": "",
-        "abbreviation": ""
+        "abbreviation": "galon"
     },
     "milliliter": {
         "name": "mililitr",
@@ -64,7 +64,7 @@
         "name": "uncja",
         "plural_name": "uncje",
         "description": "",
-        "abbreviation": ""
+        "abbreviation": "uncja"
     },
     "gram": {
         "name": "gram",
@@ -91,8 +91,8 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "domieszka",
-        "plural_name": "dashes",
+        "name": "szczypta",
+        "plural_name": "szczypty",
         "description": "",
         "abbreviation": ""
     },
