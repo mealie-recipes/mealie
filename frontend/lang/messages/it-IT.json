@@ -276,7 +276,8 @@
     "admin-group-management": "Gestione Gruppo Amministratore",
     "admin-group-management-text": "Le modifiche a questo gruppo si rifletteranno immediatamente.",
     "group-id-value": "Id Gruppo: {0}",
-    "total-households": "Famiglie Totali"
+    "total-households": "Famiglie Totali",
+    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
   },
   "household": {
     "household": "Famiglia",
@@ -517,6 +518,7 @@
     "save-recipe-before-use": "Salva la ricetta prima dell'uso",
     "section-title": "Titolo Sezione",
     "servings": "Portate",
+    "serves-amount": "Serves {amount}",
     "share-recipe-message": "Volevo condividere la mia {0} ricetta con te.",
     "show-nutrition-values": "Mostra Valori Nutrizionali",
     "sodium-content": "Sodio",
@@ -545,6 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Impossibile aggiungere la ricetta al piano alimentare",
     "failed-to-add-to-list": "Errore durante l'aggiunta alla lista",
     "yield": "Porzioni",
+    "yields-amount-with-text": "Yields {amount} {text}",
+    "yield-text": "Yield Text",
     "quantity": "Quantità",
     "choose-unit": "Scegli Unità",
     "press-enter-to-create": "Premi invio per creare",
@@ -640,7 +644,9 @@
     "recipe-debugger-use-openai-description": "Usa OpenAI per analizzare i risultati invece di affidarsi alla libreria scraper. Quando si crea una ricetta tramite URL, questo viene fatto automaticamente se la libreria scraper fallisce, ma è possibile testarlo manualmente qui.",
     "debug": "Debug",
     "tree-view": "Visualizzazione ad Albero",
+    "recipe-servings": "Recipe Servings",
     "recipe-yield": "Resa Ricetta",
+    "recipe-yield-text": "Recipe Yield Text",
     "unit": "Unità",
     "upload-image": "Carica immagine",
     "screen-awake": "Mantieni lo schermo acceso",
@@ -662,7 +668,25 @@
       "missing-food": "Crea cibo mancante: {food}",
       "no-food": "Nessun Alimento"
     },
-    "reset-servings-count": "Reset Servings Count"
+    "reset-servings-count": "Reset Servings Count",
+    "not-linked-ingredients": "Additional Ingredients"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Recipe Finder",
+    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
+    "selected-ingredients": "Selected Ingredients",
+    "no-ingredients-selected": "No ingredients selected",
+    "missing": "Missing",
+    "no-recipes-found": "No recipes found",
+    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
+    "include-ingredients-on-hand": "Include Ingredients On Hand",
+    "include-tools-on-hand": "Include Tools On Hand",
+    "max-missing-ingredients": "Max Missing Ingredients",
+    "max-missing-tools": "Max Missing Tools",
+    "selected-tools": "Selected Tools",
+    "other-filters": "Other Filters",
+    "ready-to-make": "Ready to Make",
+    "almost-ready-to-make": "Almost Ready to Make"
   },
   "search": {
     "advanced-search": "Ricerca Avanzata",
@@ -866,7 +890,8 @@
     "you-are-offline-description": "Non tutte le funzioni sono disponibili quando non sei in linea. Puoi ancora aggiungere, modificare e rimuovere elementi, ma non sarai in grado di sincronizzare le modifiche con il server fino a quando non sarai di nuovo in linea.",
     "are-you-sure-you-want-to-check-all-items": "Sei sicuro di voler tutti gli elementi?",
     "are-you-sure-you-want-to-uncheck-all-items": "Sei sicuro di voler deselezionare tutti gli elementi?",
-    "are-you-sure-you-want-to-delete-checked-items": "Sei sicuro di voler rimuovere tutti gli articoli selezionati?"
+    "are-you-sure-you-want-to-delete-checked-items": "Sei sicuro di voler rimuovere tutti gli articoli selezionati?",
+    "no-shopping-lists-found": "No Shopping Lists Found"
   },
   "sidebar": {
     "all-recipes": "Ricette",
@@ -1278,6 +1303,7 @@
   "profile": {
     "welcome-user": "👋 Benvenutǝ, {0}!",
     "description": "Gestisci il tuo profilo, le ricette e le impostazioni di gruppo.",
+    "invite-link": "Invite Link",
     "get-invite-link": "Ottieni Link Di Invito",
     "get-public-link": "Ottieni link pubblico",
     "account-summary": "Riepilogo Account",
@@ -1327,6 +1353,8 @@
   "cookbook": {
     "cookbooks": "Ricettari",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
+    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
     "public-cookbook": "Ricettario Pubblico",
     "public-cookbook-description": "I ricettari pubblici possono essere condivisi con gli utenti non-mealie e saranno visualizzati nella pagina dei gruppi.",
     "filter-options": "Opzioni Filtro",
@@ -1360,7 +1388,7 @@
       "is-not-one-of": "is not one of",
       "contains-all-of": "contains all of",
       "is-like": "is like",
-      "is-not-like": "is not like"
+      "is-not-like": "non è come"
     }
   }
 }
