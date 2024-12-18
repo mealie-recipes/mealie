@@ -1,31 +1,31 @@
 {
     "teaspoon": {
-        "name": "cucharadita/s de café",
-        "plural_name": "cucharillas de té",
+        "name": "cucharadita",
+        "plural_name": "cucharaditas",
         "description": "",
-        "abbreviation": "cucharadita"
+        "abbreviation": "cdita"
     },
     "tablespoon": {
-        "name": "cucharada/s sopera/s",
+        "name": "cucharada",
         "plural_name": "cucharadas",
         "description": "",
-        "abbreviation": "cs"
+        "abbreviation": "cda"
     },
     "cup": {
-        "name": "taza/s",
+        "name": "taza",
         "plural_name": "tazas",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "t"
     },
     "fluid-ounce": {
-        "name": "onzas líquidas",
+        "name": "onza líquida",
         "plural_name": "onzas líquidas",
         "description": "",
-        "abbreviation": "liq onz"
+        "abbreviation": "on liq"
     },
     "pint": {
-        "name": "pinta/s",
-        "plural_name": "pints",
+        "name": "pinta",
+        "plural_name": "pintas",
         "description": "",
         "abbreviation": "pt"
     },
@@ -92,7 +92,7 @@
     },
     "dash": {
         "name": "pizca",
-        "plural_name": "dashes",
+        "plural_name": "pizcas",
         "description": "",
         "abbreviation": ""
     },
@@ -104,7 +104,7 @@
     },
     "head": {
         "name": "cabeza/s",
-        "plural_name": "heads",
+        "plural_name": "cabezas",
         "description": "",
         "abbreviation": ""
     },
