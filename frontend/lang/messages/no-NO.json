@@ -182,7 +182,7 @@
     "date": "Dato",
     "id": "Id",
     "owner": "Eier",
-    "change-owner": "Change Owner",
+    "change-owner": "Bytt eier",
     "date-added": "Dato lagt til",
     "none": "Ingen",
     "run": "Kjør",
@@ -214,10 +214,10 @@
     "confirm-delete-generic-items": "Er du sikker på at du vil slette følgende elementer?",
     "organizers": "Organisatorer",
     "caution": "Forsiktig",
-    "show-advanced": "Show Advanced",
-    "add-field": "Add Field",
-    "date-created": "Date Created",
-    "date-updated": "Date Updated"
+    "show-advanced": "Vis avansert",
+    "add-field": "Legg til felt",
+    "date-created": "Opprettet dato",
+    "date-updated": "Dato oppdatert"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",
@@ -246,7 +246,7 @@
     "manage-members": "Administrer medlemmer",
     "manage-members-description": "Administrer rettighetene til medlemmene i ditt hushold. {manage} lar brukeren få tilgang til dataadministrasjonssiden. {invite} lar brukeren generere invitasjonslenker for andre brukere. Gruppeeiere kan ikke endre egne tillatelser.",
     "manage": "Administrer",
-    "manage-household": "Manage Household",
+    "manage-household": "Administrer husholdning",
     "invite": "Inviter",
     "looking-to-update-your-profile": "Ønsker du å oppdatere profilen din?",
     "default-recipe-preferences-description": "Dette er standardinnstillingene når en ny oppskrift blir opprettet i gruppen din. Disse kan endres for individuelle oppskrifter i oppskriftsmenyen.",
@@ -276,7 +276,8 @@
     "admin-group-management": "Gruppeadministrasjon",
     "admin-group-management-text": "Endringer i denne gruppen vil gjenspeiles umiddelbart.",
     "group-id-value": "Gruppe-ID: {0}",
-    "total-households": "Husholdninger totalt"
+    "total-households": "Husholdninger totalt",
+    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
   },
   "household": {
     "household": "Husholdning",
@@ -321,7 +322,7 @@
     "mealplan-update-failed": "Oppdatering av måltidsplan mislyktes",
     "mealplan-updated": "Måltidsplan oppdatert",
     "mealplan-households-description": "If no household is selected, recipes can be added from any household",
-    "any-category": "Any Category",
+    "any-category": "Enhver kategori",
     "any-tag": "Any Tag",
     "any-household": "Any Household",
     "no-meal-plan-defined-yet": "Ingen måltidsplan er definert ennå",
@@ -517,6 +518,7 @@
     "save-recipe-before-use": "Lagre oppskrift før bruk",
     "section-title": "Seksjonstittel",
     "servings": "Porsjoner",
+    "serves-amount": "Serves {amount}",
     "share-recipe-message": "Jeg ville dele min {0} oppskrift med deg.",
     "show-nutrition-values": "Vis ernæringsverdier",
     "sodium-content": "Natrium",
@@ -545,6 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Klarte ikke å legge til oppskrift i måltidsplan",
     "failed-to-add-to-list": "Klarte ikke å legge til oppskrift i listen",
     "yield": "Gir",
+    "yields-amount-with-text": "Yields {amount} {text}",
+    "yield-text": "Yield Text",
     "quantity": "Antall",
     "choose-unit": "Velg enhet",
     "press-enter-to-create": "Trykk Enter for å opprette",
@@ -640,7 +644,9 @@
     "recipe-debugger-use-openai-description": "Bruke OpenAI til å analysere resultatene i stedet for å basere seg på scraper-biblioteket. Når du oppretter en oppskrift via URL, blir dette gjort automatisk hvis scraper-biblioteket mislykkes, men du kan teste det manuelt her.",
     "debug": "Feilsøk",
     "tree-view": "Trevisning",
+    "recipe-servings": "Recipe Servings",
     "recipe-yield": "Utbytte av oppskrift",
+    "recipe-yield-text": "Recipe Yield Text",
     "unit": "Enhet",
     "upload-image": "Last opp bilde",
     "screen-awake": "Hold skjermen på",
@@ -662,7 +668,25 @@
       "missing-food": "Opprett manglende mat: {food}",
       "no-food": "Ingen matvarer"
     },
-    "reset-servings-count": "Reset Servings Count"
+    "reset-servings-count": "Reset Servings Count",
+    "not-linked-ingredients": "Additional Ingredients"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Recipe Finder",
+    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
+    "selected-ingredients": "Selected Ingredients",
+    "no-ingredients-selected": "No ingredients selected",
+    "missing": "Missing",
+    "no-recipes-found": "No recipes found",
+    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
+    "include-ingredients-on-hand": "Include Ingredients On Hand",
+    "include-tools-on-hand": "Include Tools On Hand",
+    "max-missing-ingredients": "Max Missing Ingredients",
+    "max-missing-tools": "Max Missing Tools",
+    "selected-tools": "Selected Tools",
+    "other-filters": "Other Filters",
+    "ready-to-make": "Ready to Make",
+    "almost-ready-to-make": "Almost Ready to Make"
   },
   "search": {
     "advanced-search": "Avansert søk",
@@ -866,7 +890,8 @@
     "you-are-offline-description": "Ikke alle funksjoner er tilgjengelige i frakoblet modus. Du kan fremdeles legge til, endre og fjerne elementer. men du vil ikke kunne synkronisere endringene dine med serveren før du er logget på igjen.",
     "are-you-sure-you-want-to-check-all-items": "Er du sikker på at du vil velge alle elementer?",
     "are-you-sure-you-want-to-uncheck-all-items": "Er du sikker på at du vil fjerne valg av alle elementer?",
-    "are-you-sure-you-want-to-delete-checked-items": "Er du sikker på at du vil slette alle valgte elementer?"
+    "are-you-sure-you-want-to-delete-checked-items": "Er du sikker på at du vil slette alle valgte elementer?",
+    "no-shopping-lists-found": "No Shopping Lists Found"
   },
   "sidebar": {
     "all-recipes": "Alle oppskrifter",
@@ -1278,6 +1303,7 @@
   "profile": {
     "welcome-user": "Velkommen, {0}!",
     "description": "Administrer din profil, oppskrifter og gruppeinnstillinger.",
+    "invite-link": "Invite Link",
     "get-invite-link": "Få invitasjonslenke",
     "get-public-link": "Få offentlig lenke",
     "account-summary": "Kontosammendrag",
@@ -1327,6 +1353,8 @@
   "cookbook": {
     "cookbooks": "Kokebøker",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
+    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
     "public-cookbook": "Offentlig kokebok",
     "public-cookbook-description": "Offentlige kokebøker kan deles med ikke-Mealie-brukere og vil bli vist på din gruppeside.",
     "filter-options": "Filteralternativer",
