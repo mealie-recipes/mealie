@@ -10,7 +10,7 @@
 	},
 	"apples": {
 		"name": "jablka",
-		"plural_name": "apples"
+		"plural_name": "jablka"
 	},
 	"artichoke": {
 		"name": "artyčok"
@@ -116,7 +116,7 @@
 	},
 	"carrot": {
 		"name": "mrkev",
-		"plural_name": "carrots"
+		"plural_name": "mrkve"
 	},
 	"caster-sugar": {
 		"name": "cukr krupice"
@@ -244,7 +244,7 @@
 	},
 	"eggs": {
 		"name": "vejce",
-		"plural_name": "eggs"
+		"plural_name": "vejce"
 	},
 	"endive": {
 		"name": "čekanka",
