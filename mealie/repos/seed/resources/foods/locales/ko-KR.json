@@ -6,11 +6,11 @@
 		"name": "alfalfa sprouts"
 	},
 	"anchovies": {
-		"name": "anchovies"
+		"name": "멸치"
 	},
 	"apples": {
-		"name": "apple",
-		"plural_name": "apples"
+		"name": "사과",
+		"plural_name": "사과들"
 	},
 	"artichoke": {
 		"name": "artichoke"
@@ -19,20 +19,20 @@
 		"name": "arugula"
 	},
 	"asparagus": {
-		"name": "asparagus"
+		"name": "아스파라거스"
 	},
 	"avocado": {
-		"name": "avocado",
-		"plural_name": "avocado"
+		"name": "아보카도",
+		"plural_name": "아보카도"
 	},
 	"bacon": {
-		"name": "bacon"
+		"name": "베이컨"
 	},
 	"baking-powder": {
-		"name": "baking powder"
+		"name": "베이킹 파우더"
 	},
 	"baking-soda": {
-		"name": "baking soda"
+		"name": "베이킹 소다"
 	},
 	"baking-sugar": {
 		"name": "baking sugar"
@@ -47,11 +47,11 @@
 		"name": "beans"
 	},
 	"bell-peppers": {
-		"name": "bell peppers",
-		"plural_name": "bell peppers"
+		"name": "피망",
+		"plural_name": "피망"
 	},
 	"blackberries": {
-		"name": "blackberries"
+		"name": "블랙 베리"
 	},
 	"bok-choy": {
 		"name": "bok choy"
@@ -60,7 +60,7 @@
 		"name": "brassicas"
 	},
 	"bread": {
-		"name": "bread"
+		"name": "빵"
 	},
 	"breadfruit": {
 		"name": "breadfruit"
@@ -69,7 +69,7 @@
 		"name": "broccoflower"
 	},
 	"broccoli": {
-		"name": "broccoli"
+		"name": "브로콜리"
 	},
 	"broccoli-rabe": {
 		"name": "broccoli rabe"
@@ -78,13 +78,13 @@
 		"name": "broccolini"
 	},
 	"brown-sugar": {
-		"name": "brown sugar"
+		"name": "흑설탕"
 	},
 	"brussels-sprouts": {
 		"name": "brussels sprouts"
 	},
 	"butter": {
-		"name": "butter"
+		"name": "버터"
 	},
 	"butternut-pumpkin": {
 		"name": "butternut pumpkin"
@@ -125,7 +125,7 @@
 		"name": "castor sugar"
 	},
 	"catfish": {
-		"name": "catfish"
+		"name": "메기"
 	},
 	"cauliflower": {
 		"name": "cauliflower",
