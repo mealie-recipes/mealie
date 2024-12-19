@@ -277,7 +277,7 @@
     "admin-group-management-text": "このグループへの変更はすぐに反映されます。",
     "group-id-value": "グループID: {0}",
     "total-households": "世帯数",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "世帯を選択する前にグループを選択する必要があります"
   },
   "household": {
     "household": "世帯",
@@ -518,7 +518,7 @@
     "save-recipe-before-use": "使用する前にレシピを保存する",
     "section-title": "手順のタイトル",
     "servings": "人前",
-    "serves-amount": "Serves {amount}",
+    "serves-amount": "役立つ {amount}",
     "share-recipe-message": "{0} レシピをあなたと共有したいと思っています。",
     "show-nutrition-values": "栄養価を表示",
     "sodium-content": "ナトリウム",
@@ -547,8 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "レシピを献立に追加する事に失敗しました。",
     "failed-to-add-to-list": "リストに追加できませんでした",
     "yield": "人分",
-    "yields-amount-with-text": "Yields {amount} {text}",
-    "yield-text": "Yield Text",
+    "yields-amount-with-text": "収益は{amount} {text}",
+    "yield-text": "収入テキスト",
     "quantity": "分量",
     "choose-unit": "単位を選択",
     "press-enter-to-create": "Enterキーを押して作成",
@@ -644,9 +644,9 @@
     "recipe-debugger-use-openai-description": "スクレーパーライブラリに依存するのではなく、結果を解析するためにOpenAIを使用してください。 URL経由でレシピを作成する場合は、スクレーパーライブラリが失敗した場合に自動的に行われますが、ここで手動でテストすることができます。",
     "debug": "デバッグ",
     "tree-view": "ツリービュー",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "レシピの分量",
     "recipe-yield": "レシピ収率",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "レシピ収量テキスト",
     "unit": "単位",
     "upload-image": "画像をアップロード",
     "screen-awake": "画面をスリープ状態にしない",
@@ -669,24 +669,24 @@
       "no-food": "食材はありません"
     },
     "reset-servings-count": "サービング数をリセット",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "追加の材料"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder",
-    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
-    "selected-ingredients": "Selected Ingredients",
-    "no-ingredients-selected": "No ingredients selected",
-    "missing": "Missing",
-    "no-recipes-found": "No recipes found",
-    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
-    "include-ingredients-on-hand": "Include Ingredients On Hand",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
-    "selected-tools": "Selected Tools",
-    "other-filters": "Other Filters",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "recipe-finder": "レシピ検索",
+    "recipe-finder-description": "手元にある材料に基づいてレシピを検索します。また、利用可能なツールでフィルタリングしたり、不足している材料やツールの最大数を設定したりすることもできます。",
+    "selected-ingredients": "選択された材料",
+    "no-ingredients-selected": "材料が選択されていません",
+    "missing": "見つかりません",
+    "no-recipes-found": "レシピが見つかりません",
+    "no-recipes-found-description": "検索に材料を追加するか、フィルターを調整してみてください",
+    "include-ingredients-on-hand": "手元にある材料を含める",
+    "include-tools-on-hand": "手元にあるツールを含める",
+    "max-missing-ingredients": "不足している材料の最大数",
+    "max-missing-tools": "不足しているツールの最大数",
+    "selected-tools": "選択されたツール",
+    "other-filters": "その他のフィルター",
+    "ready-to-make": "準備完了",
+    "almost-ready-to-make": "ほぼ準備完了"
   },
   "search": {
     "advanced-search": "詳細検索",
@@ -891,7 +891,7 @@
     "are-you-sure-you-want-to-check-all-items": "すべての項目をチェックしてもよろしいですか?",
     "are-you-sure-you-want-to-uncheck-all-items": "すべてのアイテムのチェックを外してもよろしいですか？",
     "are-you-sure-you-want-to-delete-checked-items": "チェックされた項目をすべて削除してもよろしいですか？",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "ショッピングリストが見つかりません"
   },
   "sidebar": {
     "all-recipes": "すべてのレシピ",
@@ -1303,7 +1303,7 @@
   "profile": {
     "welcome-user": "👋 ようこそ, {0}!",
     "description": "プロフィール、レシピ、グループ設定を管理します。",
-    "invite-link": "Invite Link",
+    "invite-link": "招待リンク",
     "get-invite-link": "招待リンクを取得",
     "get-public-link": "公開リンクを取得",
     "account-summary": "アカウントの概要",
@@ -1353,8 +1353,8 @@
   "cookbook": {
     "cookbooks": "料理本",
     "description": "料理本は、レシピのクロスセクション、オーガナイザー、その他のフィルターを作成してレシピを整理するもう 1 つの方法です。料理本を作成するとサイドバーにエントリが追加され、選択したフィルターが適用されたすべてのレシピが料理本に表示されます。",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
-    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
+    "hide-cookbooks-from-other-households": "他の世帯の料理本を隠す",
+    "hide-cookbooks-from-other-households-description": "有効にするとあなたの世帯の料理本だけがサイドバーに表示されます",
     "public-cookbook": "公開料理本",
     "public-cookbook-description": "公開料理本は非Mealieユーザーと共有でき、グループページに表示されます。",
     "filter-options": "フィルタオプション",
