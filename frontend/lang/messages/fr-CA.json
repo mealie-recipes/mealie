@@ -277,7 +277,7 @@
     "admin-group-management-text": "Les modifications apportées à ce groupe seront immédiatement prises en compte.",
     "group-id-value": "ID groupe : {0}",
     "total-households": "Nombre de foyers",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "Vous devez sélectionner un groupe avant de sélectionner un foyer"
   },
   "household": {
     "household": "Foyer",
@@ -518,7 +518,7 @@
     "save-recipe-before-use": "Enregistrez la recette avant utilisation",
     "section-title": "Titre de la section",
     "servings": "Portions",
-    "serves-amount": "Serves {amount}",
+    "serves-amount": "{amount} portions",
     "share-recipe-message": "Je voulais partager ma recette de {0} avec vous.",
     "show-nutrition-values": "Afficher les valeurs nutritionnelles",
     "sodium-content": "Sodium",
@@ -547,8 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Échec de l'ajout de la recette à la planification des repas",
     "failed-to-add-to-list": "Ajout dans la liste en échec",
     "yield": "Rendement",
-    "yields-amount-with-text": "Yields {amount} {text}",
-    "yield-text": "Yield Text",
+    "yields-amount-with-text": "Produit {amount} {text}",
+    "yield-text": "Unité",
     "quantity": "Quantité",
     "choose-unit": "Choisir une unité",
     "press-enter-to-create": "Clique sur Entrer pour créer",
@@ -644,9 +644,9 @@
     "recipe-debugger-use-openai-description": "Utilisez OpenAI pour analyser les résultats au lieu de la librairie d’extraction. Lors de la création d'une recette via une URL, cela se fait automatiquement si la librairie d’extraction échoue, mais vous pouvez le tester manuellement ici.",
     "debug": "Déboguer",
     "tree-view": "Vue en arborescence",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "Portions de la recette",
     "recipe-yield": "Nombre de parts",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "Unité",
     "unit": "Unité",
     "upload-image": "Ajouter une image",
     "screen-awake": "Garder l’écran allumé",
@@ -669,24 +669,24 @@
       "no-food": "Aucun aliment"
     },
     "reset-servings-count": "Réinitialiser le nombre de portions",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "Ingrédients supplémentaires"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder",
-    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
-    "selected-ingredients": "Selected Ingredients",
-    "no-ingredients-selected": "No ingredients selected",
-    "missing": "Missing",
-    "no-recipes-found": "No recipes found",
-    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
-    "include-ingredients-on-hand": "Include Ingredients On Hand",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
-    "selected-tools": "Selected Tools",
-    "other-filters": "Other Filters",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "recipe-finder": "Recherche de recette",
+    "recipe-finder-description": "Recherchez des recettes en fonction des ingrédients que vous avez à disposition. Vous pouvez également filtrer par ustensile disponible et définir un nombre maximum d'ingrédients ou d'ustensiles manquants.",
+    "selected-ingredients": "Ingrédients sélectionnés",
+    "no-ingredients-selected": "Aucun ingrédient sélectionné",
+    "missing": "Manquant",
+    "no-recipes-found": "Aucune recette trouvée",
+    "no-recipes-found-description": "Essayez d'ajouter plus d'ingrédients à votre recherche ou d'ajuster vos filtres",
+    "include-ingredients-on-hand": "Inclure les ingrédients à disposition",
+    "include-tools-on-hand": "Inclure les ustensiles à disposition",
+    "max-missing-ingredients": "Ingrédients manquants max",
+    "max-missing-tools": "Ustensiles manquants max",
+    "selected-tools": "Ustensiles sélectionnés",
+    "other-filters": "Autres filtres",
+    "ready-to-make": "Prêt à cuisiner",
+    "almost-ready-to-make": "Presque prêt à cuisiner"
   },
   "search": {
     "advanced-search": "Recherche avancée",
@@ -891,7 +891,7 @@
     "are-you-sure-you-want-to-check-all-items": "Voulez-vous vraiment sélectionner tous les éléments ?",
     "are-you-sure-you-want-to-uncheck-all-items": "Voulez-vous vraiment désélectionner tous les éléments ?",
     "are-you-sure-you-want-to-delete-checked-items": "Voulez-vous vraiment supprimer tous les éléments sélectionnés ?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "Aucune liste de courses trouvée"
   },
   "sidebar": {
     "all-recipes": "Les recettes",
@@ -1303,7 +1303,7 @@
   "profile": {
     "welcome-user": "👋 Bienvenue, {0}!",
     "description": "Gérez votre profil, les recettes et les paramètres de groupe.",
-    "invite-link": "Invite Link",
+    "invite-link": "Lien d'invitation",
     "get-invite-link": "Obtenir un lien d'invitation",
     "get-public-link": "Voir le lien public",
     "account-summary": "Aperçu du compte",
@@ -1353,8 +1353,8 @@
   "cookbook": {
     "cookbooks": "Livres de recettes",
     "description": "Les livres de recettes sont un autre moyen d’organiser des recettes en sélectionnant un ensemble précis de recettes, de classification et de filtres. La création d'un livre de recettes ajoute une entrée à la barre latérale et toutes les recettes avec les filtres choisies seront affichées dans le livre de recettes.",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
-    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
+    "hide-cookbooks-from-other-households": "Masquer les livres de cuisine des autres foyers",
+    "hide-cookbooks-from-other-households-description": "Lorsque cette option est activée, seuls les livres de cuisine de votre foyer apparaîtront dans la barre latérale",
     "public-cookbook": "Livre de recettes public",
     "public-cookbook-description": "Les livres de recettes publics peuvent être partagés avec des personnes qui n'ont pas Mealie et seront affichés sur la page de vos groupes.",
     "filter-options": "Options de filtres",
