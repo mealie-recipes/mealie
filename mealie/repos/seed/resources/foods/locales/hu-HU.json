@@ -572,7 +572,7 @@
 	},
 	"spaghetti-squash": {
 		"name": "spárgatök",
-		"plural_name": "spaghetti squashes"
+		"plural_name": "spárgatök"
 	},
 	"speck": {
 		"name": "speck sonka"
@@ -687,6 +687,6 @@
 	},
 	"zucchini": {
 		"name": "cukkini",
-		"plural_name": "zucchinis"
+		"plural_name": "cukkini"
 	}
 }
