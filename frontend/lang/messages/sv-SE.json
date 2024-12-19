@@ -277,7 +277,7 @@
     "admin-group-management-text": "Ändringar i denna grupp kommer att återspeglas omedelbart.",
     "group-id-value": "Grupp-Id: {0}",
     "total-households": "Totalt antal hushåll",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "Du måste välja en grupp innan du kan välja ett hushåll"
   },
   "household": {
     "household": "Hushåll",
@@ -518,7 +518,7 @@
     "save-recipe-before-use": "Spara recept innan användning",
     "section-title": "Avdelningens rubrik",
     "servings": "Portioner",
-    "serves-amount": "Serves {amount}",
+    "serves-amount": "{amount} portioner",
     "share-recipe-message": "Jag vill dela mitt {0} recept med dig.",
     "show-nutrition-values": "Visa näringsvärde",
     "sodium-content": "Natrium",
@@ -547,8 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Det gick inte att lägga till recept i måltidsplanen",
     "failed-to-add-to-list": "Misslyckades att lägga till listan",
     "yield": "Ger",
-    "yields-amount-with-text": "Yields {amount} {text}",
-    "yield-text": "Yield Text",
+    "yields-amount-with-text": "Ger {amount} {text}",
+    "yield-text": "Vad som ges",
     "quantity": "Antal",
     "choose-unit": "Välj enhet",
     "press-enter-to-create": "Tryck Enter för att skapa",
@@ -587,7 +587,7 @@
     "how-did-it-turn-out": "Hur blev rätten?",
     "user-made-this": "{user} lagade detta",
     "last-made-date": "Senast lagad {date}",
-    "api-extras-description": "Recept extras är en viktig funktion i Mealie's API. Med hjälp av dem kan du skapa anpassade JSON-nyckel/värdepar i ett recept, som du kan referera till från tredjepartsapplikationer. Du kan använda dessa nycklar för att tillhandahålla information, till exempel för att trigga automatiseringar eller anpassade meddelanden som ska vidarebefordras till önskad enhet.",
+    "api-extras-description": "Recept API-tillägg är en viktig funktion i Mealie's API. Med hjälp av dem kan du skapa anpassade JSON-nyckel/värdepar i ett recept, som du kan referera till från tredjepartsapplikationer. Du kan använda dessa nycklar för att tillhandahålla information, till exempel för att trigga automatiseringar eller anpassade meddelanden som ska vidarebefordras till önskad enhet.",
     "message-key": "Meddelandenyckel",
     "parse": "Läs in",
     "attach-images-hint": "Bifoga bilder genom att dra och släppa dem i redigeraren",
@@ -644,9 +644,9 @@
     "recipe-debugger-use-openai-description": "Använd OpenAI för att tolka resultaten istället för att förlita sig på skrapans bibliotek. När du skapar ett recept via URL görs detta automatiskt om skrapbiblioteket misslyckas, men du kan testa det manuellt här.",
     "debug": "Felsök",
     "tree-view": "Trädvy",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "Recept portioner",
     "recipe-yield": "Recept ger",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "Recept ger",
     "unit": "Måttenhet",
     "upload-image": "Ladda upp bild",
     "screen-awake": "Håll skärmen vaken",
@@ -656,7 +656,7 @@
     "parser": {
       "experimental-alert-text": "Mealie använder naturligt språk för att tolka enheter och livsmedel som behövs för dina recept. Denna funktion är experimentell och kanske inte alltid funkar som förväntat. Om du föredrar att inte använda de tolkade resultatet, kan du välja 'Avbryt' och förändringarna kommer då inte sparas.",
       "ingredient-parser": "Ingrediensanalysator",
-      "explanation": "För att använda ingrediensen parser, klicka på \"Parse All\" knappen för att starta processen. När de bearbetade ingredienserna är tillgängliga, kan du granska objekten och kontrollera att de tolkades korrekt. Modellens självförtroende poäng visas till höger om artikelns titel. Denna poäng är ett genomsnitt av alla individuella poäng och kanske inte alltid vara helt korrekt.",
+      "explanation": "För att använda ingrediensen parser, klicka på \"Analysera allt\" knappen för att starta processen. När de bearbetade ingredienserna är tillgängliga, kan du granska objekten och kontrollera att de tolkades korrekt. Modellens självförtroende poäng visas till höger om artikelns titel. Denna poäng är ett genomsnitt av alla individuella poäng och kanske inte alltid vara helt korrekt.",
       "alerts-explainer": "Varning kommer visas om en matchande ingrediens eller enhet hittas, men inte existerar i databasen.",
       "select-parser": "Välj tolk",
       "natural-language-processor": "Naturlig språkbehandlare",
@@ -668,25 +668,25 @@
       "missing-food": "Skapa saknad ingrediens: {food}",
       "no-food": "Ingen mat"
     },
-    "reset-servings-count": "Nollställ antal serveringar",
-    "not-linked-ingredients": "Additional Ingredients"
+    "reset-servings-count": "Nollställ antal portioner",
+    "not-linked-ingredients": "Ytterligare ingredienser"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder",
-    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
-    "selected-ingredients": "Selected Ingredients",
-    "no-ingredients-selected": "No ingredients selected",
-    "missing": "Missing",
-    "no-recipes-found": "No recipes found",
-    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
-    "include-ingredients-on-hand": "Include Ingredients On Hand",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
-    "selected-tools": "Selected Tools",
-    "other-filters": "Other Filters",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "recipe-finder": "Recept sökare",
+    "recipe-finder-description": "Sök efter recept baserat på ingredienser du har till hands. Du kan också filtrera efter verktyg du har tillgängliga, och ställa in ett maximalt antal saknade ingredienser eller verktyg.",
+    "selected-ingredients": "Valda ingredienser",
+    "no-ingredients-selected": "Inga ingredienser valda",
+    "missing": "Saknas",
+    "no-recipes-found": "Inga recept hittades",
+    "no-recipes-found-description": "Prova att lägga till fler ingredienser till din sökning eller justera dina filter",
+    "include-ingredients-on-hand": "Inkludera ingredienser som finns till hands",
+    "include-tools-on-hand": "Inkludera verktyg som finns till hands",
+    "max-missing-ingredients": "Max antal saknade ingredienser",
+    "max-missing-tools": "Max antal saknade verktyg",
+    "selected-tools": "Valda Verktyg",
+    "other-filters": "Flera filter",
+    "ready-to-make": "Redo att laga",
+    "almost-ready-to-make": "Nästan redo att lagas"
   },
   "search": {
     "advanced-search": "Avancerad sökning",
@@ -891,7 +891,7 @@
     "are-you-sure-you-want-to-check-all-items": "Är du säker på att du vill markera alla objekt?",
     "are-you-sure-you-want-to-uncheck-all-items": "Är du säker på att du vill avmarkera alla objekt?",
     "are-you-sure-you-want-to-delete-checked-items": "Är du säker på att du vill ta bort alla markerade objekt?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "Inga inköpslistor hittades"
   },
   "sidebar": {
     "all-recipes": "Recept",
@@ -1303,7 +1303,7 @@
   "profile": {
     "welcome-user": "👋 Välkommen, {0}!",
     "description": "Hantera dina profil, recept och gruppinställningar.",
-    "invite-link": "Invite Link",
+    "invite-link": "Inbjudningslänk",
     "get-invite-link": "Skapa inbjudningslänk",
     "get-public-link": "Få offentlig länk",
     "account-summary": "Kontosammanfattning",
@@ -1353,8 +1353,8 @@
   "cookbook": {
     "cookbooks": "Kokböcker",
     "description": "Kokböcker är ett annat sätt att organisera recept genom att skapa tvärsnitt av recept, organisatörer och andra filter. När du skapar en kokbok kommer den att lägga till en post i sidofältet och alla recept med de taggar och kategorier som valts kommer att visas i kokboken.",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
-    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
+    "hide-cookbooks-from-other-households": "Dölj kokböcker från andra hushåll",
+    "hide-cookbooks-from-other-households-description": "Endast kokböcker från ditt hushåll visas på sidofältet om denna ruta kryssas i",
     "public-cookbook": "Offentlig kokbok",
     "public-cookbook-description": "Offentliga kokböcker kan delas med icke-mealie användare och kommer att visas på din gruppsida.",
     "filter-options": "Filterinställningar",
