@@ -277,7 +277,7 @@
     "admin-group-management-text": "Οι αλλαγές σε αυτή την ομάδα θα αντικατοπτρίζονται αμέσως.",
     "group-id-value": "ID ομάδας: {0}",
     "total-households": "Σύνολο νοικοκυριών",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "Πρέπει να επιλέξετε μια ομάδα πριν επιλέξετε ένα νοικοκυριό"
   },
   "household": {
     "household": "Νοικοκυριό",
@@ -518,7 +518,7 @@
     "save-recipe-before-use": "Αποθήκευση συνταγής πριν τη χρήση",
     "section-title": "Τίτλος τμήματος",
     "servings": "Μερίδες",
-    "serves-amount": "Serves {amount}",
+    "serves-amount": "Μερίδες {amount}",
     "share-recipe-message": "Ήθελα να μοιραστώ την {0} συνταγή μου μαζί σας.",
     "show-nutrition-values": "Εμφάνιση Τιμών Διατροφής",
     "sodium-content": "Νάτριο",
@@ -547,8 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Αποτυχία προσθήκης συνταγής στο πρόγραμμα γευμάτων",
     "failed-to-add-to-list": "Αποτυχία προσθήκης στη λίστα",
     "yield": "Ποσότητα",
-    "yields-amount-with-text": "Yields {amount} {text}",
-    "yield-text": "Yield Text",
+    "yields-amount-with-text": "Ποσότητα {amount} {text}",
+    "yield-text": "Κείμενο ποσότητας",
     "quantity": "Ποσότητα",
     "choose-unit": "Επιλέξτε μονάδα",
     "press-enter-to-create": "Πατήστε Enter για δημιουργία",
@@ -644,9 +644,9 @@
     "recipe-debugger-use-openai-description": "Χρησιμοποιήστε το OpenAI για να αναλύσετε τα αποτελέσματα αντί να βασιστείτε στη βιβλιοθήκη του scraper. Κατά τη δημιουργία μιας συνταγής μέσω URL, αυτό γίνεται αυτόματα αν η βιβλιοθήκη του scraper αποτύχει, αλλά μπορείτε να την δοκιμάσετε χειροκίνητα εδώ.",
     "debug": "Εντ. σφαλμάτων",
     "tree-view": "Προβολή δέντρου",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "Μερίδες συνταγής",
     "recipe-yield": "Ποσότητα Συνταγής",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "Κείμενο ποσότητας συνταγής",
     "unit": "Μονάδα",
     "upload-image": "Ανέβασμα εικόνας",
     "screen-awake": "Διατήρηση ενεργής οθόνης",
@@ -669,24 +669,24 @@
       "no-food": "Χωρίς Τρόφιμο"
     },
     "reset-servings-count": "Επαναφορά μέτρησης μερίδων",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "Πρόσθετα συστατικά"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder",
-    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
-    "selected-ingredients": "Selected Ingredients",
-    "no-ingredients-selected": "No ingredients selected",
-    "missing": "Missing",
-    "no-recipes-found": "No recipes found",
-    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
-    "include-ingredients-on-hand": "Include Ingredients On Hand",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
-    "selected-tools": "Selected Tools",
-    "other-filters": "Other Filters",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "recipe-finder": "Εύρεση συνταγών",
+    "recipe-finder-description": "Αναζητήστε συνταγές με βάση τα συστατικά που έχετε στο χέρι. Μπορείτε επίσης να θέσετε φίλτρα με βάση τα εργαλεία που διαθέτετε και να ορίσετε έναν μέγιστο αριθμό συστατικών ή εργαλείων που λείπουν.",
+    "selected-ingredients": "Επιλεγμένα συστατικά",
+    "no-ingredients-selected": "Δεν επιλέχτηκαν συστατικά",
+    "missing": "Λείπει",
+    "no-recipes-found": "Δεν βρέθηκαν συνταγές",
+    "no-recipes-found-description": "Δοκιμάστε να προσθέσετε περισσότερα συστατικά στην αναζήτησή σας ή να προσαρμόσετε τα φίλτρα σας",
+    "include-ingredients-on-hand": "Συμπερίληψη συστατικών στο χέρι",
+    "include-tools-on-hand": "Συμπερίληψη εργαλείων στο χέρι",
+    "max-missing-ingredients": "Μέγιστος αριθμός συστατικών που λείπουν",
+    "max-missing-tools": "Μέγιστος αριθμός εργαλείων που λείπουν",
+    "selected-tools": "Επιλεγμένα εργαλεία",
+    "other-filters": "Αλλα φίλτρα",
+    "ready-to-make": "Ετοιμο για παρασκευή",
+    "almost-ready-to-make": "Σχεδόν έτοιμο για παρασκευή"
   },
   "search": {
     "advanced-search": "Σύνθετη Αναζήτηση",
@@ -891,7 +891,7 @@
     "are-you-sure-you-want-to-check-all-items": "Θέλετε σίγουρα να επιλέξετε όλα τα αντικείμενα;",
     "are-you-sure-you-want-to-uncheck-all-items": "Θέλετε σίγουρα να αποεπιλέξετε όλα τα αντικείμενα;",
     "are-you-sure-you-want-to-delete-checked-items": "Θέλετε σίγουρα να διαγράψετε όλα τα επιλεγμένα αντικείμενα;",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "Δεν βρέθηκαν λίστες αγορών"
   },
   "sidebar": {
     "all-recipes": "Συνταγές όλες",
@@ -1303,7 +1303,7 @@
   "profile": {
     "welcome-user": "👋 Καλώς ορίσατε, {0}!",
     "description": "Διαχειριστείτε το προφίλ σας, τις συνταγές και τις ρυθμίσεις ομάδας.",
-    "invite-link": "Invite Link",
+    "invite-link": "Σύνδεσμος πρόσκλησης",
     "get-invite-link": "Λήψη συνδέσμου πρόσκλησης",
     "get-public-link": "Λήψη δημόσιου συνδέσμου",
     "account-summary": "Σύνοψη λογαριασμού",
@@ -1353,8 +1353,8 @@
   "cookbook": {
     "cookbooks": "Βιβλία Μαγειρικής",
     "description": "Τα βιβλία μαγειρικής είναι ένας άλλος τρόπος για να οργανώσετε τις συνταγές δημιουργώντας τμήματα συνταγών, οργανωτών και άλλων φίλτρων. Η δημιουργία ενός βιβλίου μαγειρικής θα προσθέσει μια καταχώρηση στην πλευρική μπάρα και όλες οι συνταγές με τα φίλτρα που έχουν επιλεγεί θα εμφανιστούν στο βιβλίο μαγειρικών.",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
-    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
+    "hide-cookbooks-from-other-households": "Απόκρυψη Βιβλίων Μαγειρικής από άλλα νοικοκυριά",
+    "hide-cookbooks-from-other-households-description": "Οταν είναι ενεργοποιημένο, μόνο βιβλία μαγειρικής από το νοικοκυριό σας θα εμφανίζονται στην πλαϊνή μπάρα",
     "public-cookbook": "Δημόσιο Βιβλίο Μαγειρικής",
     "public-cookbook-description": "Τα δημόσια βιβλία μαγειρικής μπορούν να μοιραστούν με χρήστες εκτός του mealie και θα εμφανιστούν στη σελίδα των ομάδων σας.",
     "filter-options": "Επιλογές φίλτρου",
