@@ -277,7 +277,7 @@
     "admin-group-management-text": "Spremembe v tej skupini se poznajo takoj.",
     "group-id-value": "ID skupine: {0}",
     "total-households": "Skupaj gospodinjstev",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "Preden izberete gospodinjstvo, morate izbrati skupino"
   },
   "household": {
     "household": "Gospodinjstvo",
@@ -518,7 +518,7 @@
     "save-recipe-before-use": "Shrani recept pred uporabo",
     "section-title": "Naslov odseka",
     "servings": "Porcija",
-    "serves-amount": "Serves {amount}",
+    "serves-amount": "Obroki {amount}",
     "share-recipe-message": "Rad bi delil moj {0} recept z vami.",
     "show-nutrition-values": "Prikaži hranilne vrednosti",
     "sodium-content": "Natrij",
@@ -547,8 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Napaka pri dodajanji recepta v jedilnik",
     "failed-to-add-to-list": "Dodajanje na seznam ni uspelo",
     "yield": "Donos",
-    "yields-amount-with-text": "Yields {amount} {text}",
-    "yield-text": "Yield Text",
+    "yields-amount-with-text": "Donosi {amount} {text}",
+    "yield-text": "Besedilo donosa",
     "quantity": "Količina",
     "choose-unit": "Izberite enoto",
     "press-enter-to-create": "Pritisnite enter da izdelate",
@@ -644,9 +644,9 @@
     "recipe-debugger-use-openai-description": "Za razčlenitev rezultatov uporabite OpenAI, namesto da se zanašate na knjižnico strgala. Ko ustvarjate recept prek URL-ja, se to izvede samodejno, če knjižnica strgala odpove, vendar ga lahko tukaj preizkusite ročno.",
     "debug": "Debug",
     "tree-view": "Drevesni prikaz",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "Rocept obrokov",
     "recipe-yield": "Število porcij",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "Recept donosnega besedila",
     "unit": "Enota",
     "upload-image": "Naloži sliko",
     "screen-awake": "Ohranjanje budnega zaslona",
@@ -669,24 +669,24 @@
       "no-food": "Ni živila"
     },
     "reset-servings-count": "Ponastavi števec obrokov",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "Dodatne sestavine"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder",
-    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
-    "selected-ingredients": "Selected Ingredients",
-    "no-ingredients-selected": "No ingredients selected",
-    "missing": "Missing",
-    "no-recipes-found": "No recipes found",
-    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
-    "include-ingredients-on-hand": "Include Ingredients On Hand",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
-    "selected-tools": "Selected Tools",
-    "other-filters": "Other Filters",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "recipe-finder": "Iskalnik receptov",
+    "recipe-finder-description": "Poiščite recepte na podlagi sestavin, ki jih imate pri roki. Filtrirate lahko tudi po orodjih, ki jih imate na voljo, in nastavite največje število manjkajočih sestavin ali orodij.",
+    "selected-ingredients": "Izbrane sestavine",
+    "no-ingredients-selected": "Ni izbranih sestavin",
+    "missing": "manjka",
+    "no-recipes-found": "Ni receptov",
+    "no-recipes-found-description": "Poskusite iskanju dodati več sestavin ali prilagoditi filtre",
+    "include-ingredients-on-hand": "Vključite sestavine pri roki",
+    "include-tools-on-hand": "Vključite priročna orodja",
+    "max-missing-ingredients": "Največ manjkajočih sestavin",
+    "max-missing-tools": "Največ manjkajočih orodij",
+    "selected-tools": "Izbrana orodja",
+    "other-filters": "Drugi filtri",
+    "ready-to-make": "Pripravljen za izdelavo",
+    "almost-ready-to-make": "Skoraj pripravljeno za izdelavo"
   },
   "search": {
     "advanced-search": "Napredno iskanje",
@@ -891,7 +891,7 @@
     "are-you-sure-you-want-to-check-all-items": "Ali res želite izbrati vse elemente?",
     "are-you-sure-you-want-to-uncheck-all-items": "Ali res ne želite izbrati vseh elementov?",
     "are-you-sure-you-want-to-delete-checked-items": "Ali ste prepričani, da želite izbrisati vse izbrane elemente?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "Ni nakupovalnih seznamov"
   },
   "sidebar": {
     "all-recipes": "Vsi recepti",
@@ -1303,7 +1303,7 @@
   "profile": {
     "welcome-user": "👋 Živjo, {0}!",
     "description": "Urejaj nastavitve profila, receptov in skupine.",
-    "invite-link": "Invite Link",
+    "invite-link": "Povezava za povabilo",
     "get-invite-link": "Povabi",
     "get-public-link": "Javna povezava",
     "account-summary": "Pregled uporabniškega računa",
@@ -1353,8 +1353,8 @@
   "cookbook": {
     "cookbooks": "Kuharske knjige",
     "description": "Kuharske knjige so še en način za organizacijo receptov z ustvarjanjem presekov receptov in značk. Ustvarjanje kuharske knjige bo dodalo povezavo v stranski meni, ki bo prikazala vse recepte z izbranimi značkami in kategorijami.",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
-    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
+    "hide-cookbooks-from-other-households": "Skrij kuharske knjige pred drugimi gospodinjstvi",
+    "hide-cookbooks-from-other-households-description": "Ko je omogočeno, bodo na stranski vrstici prikazane samo kuharske knjige iz vašega gospodinjstva",
     "public-cookbook": "Javna kuharska knjiga",
     "public-cookbook-description": "Javne kuharske knjige lahko deliš z zunanjimi uporabniki, prav tako bodo prikazane tudi na strani tvoje skupine.",
     "filter-options": "Nastavitve filtrov",
