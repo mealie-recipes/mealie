@@ -277,7 +277,7 @@
     "admin-group-management-text": "Wijzigingen in deze groep zijn meteen zichtbaar.",
     "group-id-value": "Groeps-id: {0}",
     "total-households": "Totaal aantal huishoudens",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "Kies een groep voordat je een huishouden kiest"
   },
   "household": {
     "household": "Huishouden",
@@ -518,7 +518,7 @@
     "save-recipe-before-use": "Recept opslaan vóór gebruik",
     "section-title": "Sectietitel",
     "servings": "Porties",
-    "serves-amount": "Serves {amount}",
+    "serves-amount": "Genoeg voor {amount}",
     "share-recipe-message": "Ik wil mijn {0} recept met je delen.",
     "show-nutrition-values": "Toon voedingswaarden",
     "sodium-content": "Zout",
@@ -547,8 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Recept aan maaltijdplan toevoegen mislukt",
     "failed-to-add-to-list": "Toevoegen aan lijst mislukt",
     "yield": "Opbrengst",
-    "yields-amount-with-text": "Yields {amount} {text}",
-    "yield-text": "Yield Text",
+    "yields-amount-with-text": "Levert {amount} {text}",
+    "yield-text": "Opmerking over opbrengst",
     "quantity": "Hoeveelheid",
     "choose-unit": "Kies een eenheid",
     "press-enter-to-create": "Druk op Enter om aan te maken",
@@ -644,9 +644,9 @@
     "recipe-debugger-use-openai-description": "Gebruik OpenAI om de resultaten te verwerken in plaats van te vertrouwen op de scraper-bibliotheek. Bij het maken van een recept via een URL wordt dit automatisch gedaan als de scraper-bibliotheek mislukt, maar u kunt het hier handmatig testen.",
     "debug": "Debug",
     "tree-view": "Boomstructuurweergave",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "Recept porties",
     "recipe-yield": "Opbrengst van recept",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "Opbrengst van recept",
     "unit": "Eenheid",
     "upload-image": "Afbeelding uploaden",
     "screen-awake": "Scherm aan laten staan",
@@ -669,12 +669,12 @@
       "no-food": "Geen levensmiddel"
     },
     "reset-servings-count": "Zet de teller van aantal keer gegeten op nul",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "Extra ingrediënten"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder",
-    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
-    "selected-ingredients": "Selected Ingredients",
+    "recipe-finder": "Recept zoeker",
+    "recipe-finder-description": "Zoek naar recepten op basis van ingrediënten die je bij de hand hebt. Je kunt ook filteren op gereedschap dat je beschikbaar hebt en een maximum aantal ontbrekende ingrediënten of gereedschappen instellen.",
+    "selected-ingredients": "Gekozen ingrediënten",
     "no-ingredients-selected": "No ingredients selected",
     "missing": "Missing",
     "no-recipes-found": "No recipes found",
