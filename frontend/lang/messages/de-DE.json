@@ -23,7 +23,7 @@
     "support": "Unterstützen",
     "version": "Version",
     "unknown-version": "unbekannt",
-    "sponsor": "Unterstützen"
+    "sponsor": "Unterstützer"
   },
   "asset": {
     "assets": "Anhänge",
@@ -277,7 +277,7 @@
     "admin-group-management-text": "Änderungen an dieser Gruppe sind sofort wirksam.",
     "group-id-value": "Gruppen ID: {0}",
     "total-households": "Haushalte insgesamt",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "Sie müssen eine Gruppe auswählen, bevor Sie einen Haushalt auswählen"
   },
   "household": {
     "household": "Haushalt",
@@ -518,7 +518,7 @@
     "save-recipe-before-use": "Rezept vor Verwendung speichern",
     "section-title": "Titel des Abschnitts",
     "servings": "Portionen",
-    "serves-amount": "Serves {amount}",
+    "serves-amount": "{amount} Portionen",
     "share-recipe-message": "Ich möchte mein Rezept {0} mit dir teilen.",
     "show-nutrition-values": "Nährwerte anzeigen",
     "sodium-content": "Natrium",
@@ -547,8 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Fehler beim Hinzufügen des Rezepts zum Essensplan",
     "failed-to-add-to-list": "Fehler beim Hinzufügen zur Liste",
     "yield": "Portionsangabe",
-    "yields-amount-with-text": "Yields {amount} {text}",
-    "yield-text": "Yield Text",
+    "yields-amount-with-text": "Ergibt {amount} {text}",
+    "yield-text": "Ergibt Text",
     "quantity": "Menge",
     "choose-unit": "Einheit wählen",
     "press-enter-to-create": "Zum Erstellen Eingabetaste drücken",
@@ -644,9 +644,9 @@
     "recipe-debugger-use-openai-description": "Verwende OpenAI anstelle der Scraper-Bibliothek, um die Einträge zu parsen. Wenn du ein Rezept über dessen URL erstellst und der Versuch über die Scraper-Bibliothek fehlschlägt, passiert das automatisch. Aber du kannst es hier auch manuell testen.",
     "debug": "Debug",
     "tree-view": "Strukturierte Ansicht",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "Rezept Portionen",
     "recipe-yield": "Portionsangabe",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "Rezept ergibt Text",
     "unit": "Maßeinheit",
     "upload-image": "Bild hochladen",
     "screen-awake": "Bildschirm nicht abschalten",
@@ -669,24 +669,24 @@
       "no-food": "Kein Lebensmittel"
     },
     "reset-servings-count": "Portionen zurücksetzen",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "Zusätzliche Zutaten"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder",
-    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
-    "selected-ingredients": "Selected Ingredients",
-    "no-ingredients-selected": "No ingredients selected",
-    "missing": "Missing",
-    "no-recipes-found": "No recipes found",
-    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
-    "include-ingredients-on-hand": "Include Ingredients On Hand",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
-    "selected-tools": "Selected Tools",
-    "other-filters": "Other Filters",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "recipe-finder": "Rezept-Suche",
+    "recipe-finder-description": "Suche nach Rezepten basierend auf den Zutaten, die du zur Hand hast. Sie können auch nach verfügbaren Werkzeugen filtern und eine maximale Anzahl an fehlenden Zutaten oder Werkzeugen festlegen.",
+    "selected-ingredients": "Ausgewählte Zutaten",
+    "no-ingredients-selected": "Keine Zutaten ausgewählt",
+    "missing": "Fehlend",
+    "no-recipes-found": "Keine Rezepte gefunden",
+    "no-recipes-found-description": "Versuche mehr Zutaten zu deiner Suche hinzuzufügen oder deine Filter anzupassen",
+    "include-ingredients-on-hand": "Zutaten zu Hand einbeziehen",
+    "include-tools-on-hand": "Utensilien zur Hand einbeziehen",
+    "max-missing-ingredients": "Maximal fehlende Zutaten",
+    "max-missing-tools": "Maximal fehlende Utensilien",
+    "selected-tools": "Ausgewählte Utensilien",
+    "other-filters": "Andere Filter",
+    "ready-to-make": "Bereit zu Machen",
+    "almost-ready-to-make": "Fast bereit zu Machen"
   },
   "search": {
     "advanced-search": "Erweiterte Suche",
@@ -891,7 +891,7 @@
     "are-you-sure-you-want-to-check-all-items": "Bist du sicher, dass du alle Elemente markieren möchtest?",
     "are-you-sure-you-want-to-uncheck-all-items": "Bist du sicher, dass du die Auswahl aller Elemente aufheben möchtest?",
     "are-you-sure-you-want-to-delete-checked-items": "Bist du sicher, dass du alle ausgewählten Elemente löschen möchtest?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "Keine Einkaufslisten gefunden"
   },
   "sidebar": {
     "all-recipes": "Alle Rezepte",
@@ -1303,7 +1303,7 @@
   "profile": {
     "welcome-user": "👋 Willkommen, {0}!",
     "description": "Verwalte dein Profil, Rezepte und Gruppeneinstellungen.",
-    "invite-link": "Invite Link",
+    "invite-link": "Einladungslink",
     "get-invite-link": "Einladungslink erzeugen",
     "get-public-link": "Öffentlichen Link abrufen",
     "account-summary": "Kontoübersicht",
@@ -1353,8 +1353,8 @@
   "cookbook": {
     "cookbooks": "Kochbücher",
     "description": "Kochbücher sind ein weiterer Weg, Rezepte zu organisieren, indem man verschiedene Filter erstellt. Das Erstellen eines Kochbuchs fügt einen Eintrag zur Seitenleiste hinzu und alle Rezepte, die den gewählten Filtern zustimmen, werden in dem Kochbuch angezeigt.",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
-    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
+    "hide-cookbooks-from-other-households": "Kochbücher von anderen Haushalten ausblenden",
+    "hide-cookbooks-from-other-households-description": "Wenn aktiviert, werden nur Kochbücher deines Haushalts in der Seitenleiste angezeigt",
     "public-cookbook": "Öffentliches Kochbuch",
     "public-cookbook-description": "Öffentliche Kochbücher können mit Nicht-Mealie-Benutzern geteilt werden und werden auf deiner Gruppenseite angezeigt.",
     "filter-options": "Filteroptionen",
