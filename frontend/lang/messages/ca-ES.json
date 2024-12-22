@@ -43,7 +43,7 @@
     "category-deleted": "S'ha suprimit la categoria",
     "category-deletion-failed": "S'ha produït un error al eliminar la categoria",
     "category-filter": "Filtre per categoria",
-    "category-update-failed": "S'ha produït un error a l'actualitzar la categoria",
+    "category-update-failed": "S'ha produït un error en actualitzar la categoria",
     "category-updated": "S'ha actualitzat la categoria",
     "uncategorized-count": "{count} sense categoritzar",
     "create-a-category": "Crea una categoria",
@@ -51,7 +51,7 @@
     "category": "Categoria"
   },
   "events": {
-    "apprise-url": "URL de Apprise",
+    "apprise-url": "URL d'Apprise",
     "database": "Base de Dades",
     "delete-event": "Suprimiu l'esdeveniment",
     "event-delete-confirmation": "Està segur que vol suprimir aquest esdeveniment?",
@@ -227,8 +227,8 @@
     "create-group": "Crea un grup",
     "error-updating-group": "S’ha produït un error actualitzant el grup",
     "group": "Grup",
-    "group-deleted": "S'ha suprimir el grup",
-    "group-deletion-failed": "S'ha produït un error al suprimir el grup",
+    "group-deleted": "S'ha suprimit el grup",
+    "group-deletion-failed": "S'ha produït un error en suprimir el grup",
     "group-id-with-value": "Identificador del grup: {groupID}",
     "group-name": "Nom del grup",
     "group-not-found": "No s'ha trobat el grup",
