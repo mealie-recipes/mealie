@@ -5,49 +5,31 @@
         <RecipeScaleEditButton
           v-model.number="scaleValue"
           v-bind="attrs"
-          :recipe-yield="recipe.recipeYield"
-          :scaled-yield="scaledYield"
-          :basic-yield-num="basicYieldNum"
+          :recipe-servings="recipeServings"
           :edit-scale="!recipe.settings.disableAmount && !isEditMode"
           v-on="on"
         />
       </template>
       <span> {{ $t("recipe.edit-scale") }} </span>
     </v-tooltip>
-    <v-spacer></v-spacer>
-
-    <RecipeRating
-      v-if="landscape && $vuetify.breakpoint.smAndUp"
-      :key="recipe.slug"
-      v-model="recipe.rating"
-      :recipe-id="recipe.id"
-      :slug="recipe.slug"
-    />
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "@nuxtjs/composition-api";
+import { computed, defineComponent } from "@nuxtjs/composition-api";
 import RecipeScaleEditButton from "~/components/Domain/Recipe/RecipeScaleEditButton.vue";
-import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
 import { usePageState } from "~/composables/recipe-page/shared-state";
-import { useExtractRecipeYield, findMatch } from "~/composables/recipe-page/use-extract-recipe-yield";
 
 export default defineComponent({
   components: {
     RecipeScaleEditButton,
-    RecipeRating,
   },
   props: {
     recipe: {
       type: Object as () => NoUndefinedField<Recipe>,
       required: true,
-    },
-    landscape: {
-      type: Boolean,
-      default: false,
     },
     scale: {
       type: Number,
@@ -56,6 +38,10 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const { isEditMode } = usePageState(props.recipe.slug);
+
+    const recipeServings = computed<number>(() => {
+      return props.recipe.recipeServings || props.recipe.recipeYieldQuantity || 1;
+    });
 
     const scaleValue = computed<number>({
       get() {
@@ -66,17 +52,9 @@ export default defineComponent({
       },
     });
 
-    const scaledYield = computed(() => {
-      return useExtractRecipeYield(props.recipe.recipeYield, scaleValue.value);
-    });
-
-    const match = findMatch(props.recipe.recipeYield);
-    const basicYieldNum = ref<number |null>(match ? match[1] : null);
-
     return {
+      recipeServings,
       scaleValue,
-      scaledYield,
-      basicYieldNum,
       isEditMode,
     };
   },

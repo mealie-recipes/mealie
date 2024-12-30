@@ -48,3 +48,20 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+::v-deep table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+::v-deep th, ::v-deep td {
+  border: 1px solid;
+  padding: 8px;
+  text-align: left;
+}
+
+::v-deep th {
+  font-weight: bold;
+}
+</style>

@@ -555,8 +555,8 @@
 		"name": "σπόροι σουσαμιού"
 	},
 	"shallot": {
-		"name": "εσαλότ",
-		"plural_name": "shallots"
+		"name": "ασκαλώνιο",
+		"plural_name": "ασκαλώνια"
 	},
 	"skate": {
 		"name": "σαλάχι"
@@ -626,7 +626,7 @@
 	},
 	"taro": {
 		"name": "κολοκασία (εδώδιμος)",
-		"plural_name": "taroes"
+		"plural_name": "κολοκασίες (εδώδιμες)"
 	},
 	"teff": {
 		"name": "τεφ"
@@ -680,7 +680,7 @@
 	},
 	"yam": {
 		"name": "γιαμ",
-		"plural_name": "yams"
+		"plural_name": "γιαμ"
 	},
 	"yeast": {
 		"name": "μαγιά"

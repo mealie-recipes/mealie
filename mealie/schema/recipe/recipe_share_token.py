@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 from pydantic import UUID4, ConfigDict, Field
 from sqlalchemy.orm import selectinload
@@ -11,7 +11,7 @@ from .recipe import Recipe
 
 
 def defaut_expires_at_time() -> datetime:
-    return datetime.now(timezone.utc) + timedelta(days=30)
+    return datetime.now(UTC) + timedelta(days=30)
 
 
 class RecipeShareTokenCreate(MealieModel):

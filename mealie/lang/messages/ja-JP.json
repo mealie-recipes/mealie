@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "レシピ名が重複しています",
+        "recipe-created": "レシピが作成されました",
         "recipe-defaults": {
             "ingredient-note": "小麦粉1カップ",
             "step-text": "レシピの手順など、レシピページはmarkdown構文に対応しています\n\n例）\n[ミーリー](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "作成",
+            "serves": "サーブ",
+            "serving": "人前",
+            "servings": "人前",
+            "yield": "人分",
+            "yields": "人分"
         }
     },
     "mealplan": {

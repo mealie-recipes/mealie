@@ -3,7 +3,7 @@ import unicodedata
 
 from pydantic import BaseModel, ConfigDict
 
-from .._helpers import check_char, move_parens_to_end
+from ..parser_utils import check_char, move_parens_to_end
 
 
 class BruteParsedIngredient(BaseModel):

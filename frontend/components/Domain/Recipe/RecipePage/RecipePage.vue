@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container v-show="!isCookMode" key="recipe-page" :class="{ 'pa-0': $vuetify.breakpoint.smAndDown }">
-      <v-card  :flat="$vuetify.breakpoint.smAndDown" class="d-print-none">
+      <v-card :flat="$vuetify.breakpoint.smAndDown" class="d-print-none">
         <RecipePageHeader
           :recipe="recipe"
           :recipe-scale="scale"
@@ -21,10 +21,10 @@
             a significant amount of prop management. When we move to Vue 3 and have access to some of the newer API's the plan to update this
             data management and mutation system we're using.
           -->
+          <RecipePageInfoEditor v-if="isEditMode" :recipe="recipe" :landscape="landscape" />
           <RecipePageEditorToolbar v-if="isEditForm" :recipe="recipe" />
-          <RecipePageTitleContent :recipe="recipe" :landscape="landscape" />
           <RecipePageIngredientEditor v-if="isEditForm" :recipe="recipe" />
-          <RecipePageScale :recipe="recipe" :scale.sync="scale" :landscape="landscape" />
+          <RecipePageScale :recipe="recipe" :scale.sync="scale" />
 
           <!--
             This section contains the 2 column layout for the recipe steps and other content.
@@ -76,7 +76,7 @@
       <v-row  style="height: 100%;"  no-gutters class="overflow-hidden">
         <v-col  cols="12" sm="5" class="overflow-y-auto pl-4 pr-3 py-2" style="height: 100%;">
           <div class="d-flex align-center">
-            <RecipePageScale :recipe="recipe" :scale.sync="scale" :landscape="landscape" />
+            <RecipePageScale :recipe="recipe" :scale.sync="scale" />
           </div>
           <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="recipe" :scale="scale" :is-cook-mode="isCookMode" />
           <v-divider></v-divider>
@@ -95,7 +95,7 @@
     </v-sheet>
     <v-sheet v-show="isCookMode && hasLinkedIngredients">
       <div class="mt-2 px-2 px-md-4">
-        <RecipePageScale :recipe="recipe" :scale.sync="scale" :landscape="landscape"/>
+        <RecipePageScale :recipe="recipe" :scale.sync="scale"/>
       </div>
       <RecipePageInstructions
         v-model="recipe.recipeInstructions"
@@ -154,7 +154,7 @@ import RecipePageIngredientToolsView from "./RecipePageParts/RecipePageIngredien
 import RecipePageInstructions from "./RecipePageParts/RecipePageInstructions.vue";
 import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
-import RecipePageTitleContent from "./RecipePageParts/RecipePageTitleContent.vue";
+import RecipePageInfoEditor from "./RecipePageParts/RecipePageInfoEditor.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipePrintContainer from "~/components/Domain/Recipe/RecipePrintContainer.vue";
@@ -185,7 +185,7 @@ export default defineComponent({
     RecipePageHeader,
     RecipePrintContainer,
     RecipePageComments,
-    RecipePageTitleContent,
+    RecipePageInfoEditor,
     RecipePageEditorToolbar,
     RecipePageIngredientEditor,
     RecipePageOrganizers,
@@ -195,7 +195,7 @@ export default defineComponent({
     RecipeNotes,
     RecipePageInstructions,
     RecipePageFooter,
-    RecipeIngredients
+    RecipeIngredients,
   },
   props: {
     recipe: {

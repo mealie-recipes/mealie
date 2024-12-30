@@ -12,21 +12,16 @@ export type LogicalOperator = "AND" | "OR";
 export type RelationalKeyword = "IS" | "IS NOT" | "IN" | "NOT IN" | "CONTAINS ALL" | "LIKE" | "NOT LIKE";
 export type RelationalOperator = "=" | "<>" | ">" | "<" | ">=" | "<=";
 
-export interface Category {
-  id: string;
-  name: string;
-  slug: string;
-}
 export interface CreatePlanEntry {
   date: string;
-  entryType?: PlanEntryType & string;
+  entryType?: PlanEntryType;
   title?: string;
   text?: string;
   recipeId?: string | null;
 }
 export interface CreateRandomEntry {
   date: string;
-  entryType?: PlanEntryType & string;
+  entryType?: PlanEntryType;
 }
 export interface ListItem {
   title?: string | null;
@@ -35,18 +30,18 @@ export interface ListItem {
   checked?: boolean;
 }
 export interface PlanRulesCreate {
-  day?: PlanRulesDay & string;
-  entryType?: PlanRulesType & string;
-  queryFilterString: string;
+  day?: PlanRulesDay;
+  entryType?: PlanRulesType;
+  queryFilterString?: string;
 }
 export interface PlanRulesOut {
-  day?: PlanRulesDay & string;
-  entryType?: PlanRulesType & string;
-  queryFilterString: string;
+  day?: PlanRulesDay;
+  entryType?: PlanRulesType;
+  queryFilterString?: string;
   groupId: string;
   householdId: string;
   id: string;
-  queryFilter: QueryFilterJSON;
+  queryFilter?: QueryFilterJSON;
 }
 export interface QueryFilterJSON {
   parts?: QueryFilterJSONPart[];
@@ -61,21 +56,21 @@ export interface QueryFilterJSONPart {
   [k: string]: unknown;
 }
 export interface PlanRulesSave {
-  day?: PlanRulesDay & string;
-  entryType?: PlanRulesType & string;
-  queryFilterString: string;
+  day?: PlanRulesDay;
+  entryType?: PlanRulesType;
+  queryFilterString?: string;
   groupId: string;
   householdId: string;
 }
 export interface ReadPlanEntry {
   date: string;
-  entryType?: PlanEntryType & string;
+  entryType?: PlanEntryType;
   title?: string;
   text?: string;
   recipeId?: string | null;
   id: number;
   groupId: string;
-  userId?: string | null;
+  userId: string;
   householdId: string;
   recipe?: RecipeSummary | null;
 }
@@ -87,6 +82,8 @@ export interface RecipeSummary {
   name?: string | null;
   slug?: string;
   image?: unknown;
+  recipeServings?: number;
+  recipeYieldQuantity?: number;
   recipeYield?: string | null;
   totalTime?: string | null;
   prepTime?: string | null;
@@ -125,12 +122,12 @@ export interface RecipeTool {
 }
 export interface SavePlanEntry {
   date: string;
-  entryType?: PlanEntryType & string;
+  entryType?: PlanEntryType;
   title?: string;
   text?: string;
   recipeId?: string | null;
   groupId: string;
-  userId?: string | null;
+  userId: string;
 }
 export interface ShoppingListIn {
   name: string;
@@ -145,11 +142,11 @@ export interface ShoppingListOut {
 }
 export interface UpdatePlanEntry {
   date: string;
-  entryType?: PlanEntryType & string;
+  entryType?: PlanEntryType;
   title?: string;
   text?: string;
   recipeId?: string | null;
   id: number;
   groupId: string;
-  userId?: string | null;
+  userId: string;
 }

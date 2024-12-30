@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Τα ονόματα συνταγών πρέπει να είναι μοναδικά",
+        "recipe-created": "Η συνταγή δημιουργήθηκε",
         "recipe-defaults": {
             "ingredient-note": "1 Κούπα Αλεύρι",
             "step-text": "Βήματα συνταγής, καθώς και άλλα πεδία στη σύνταξη σήμανσης της σελίδας συνταγής.\n\n**Προσθήκη συνδέσμου**\n\n[Ο σύνδεσμος μου](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Παράγει",
+            "serves": "Μερίδες",
+            "serving": "Μερίδα",
+            "servings": "Μερίδες",
+            "yield": "Ποσότητα",
+            "yields": "Ποσότητα"
         }
     },
     "mealplan": {

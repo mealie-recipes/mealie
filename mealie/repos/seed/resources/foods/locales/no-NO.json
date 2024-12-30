@@ -9,8 +9,8 @@
 		"name": "ansjos"
 	},
 	"apples": {
-		"name": "epler",
-		"plural_name": "apples"
+		"name": "eple",
+		"plural_name": "epler"
 	},
 	"artichoke": {
 		"name": "artisjokk"
@@ -23,7 +23,7 @@
 	},
 	"avocado": {
 		"name": "avokado",
-		"plural_name": "avocado"
+		"plural_name": "avokadoer"
 	},
 	"bacon": {
 		"name": "bacon"
@@ -48,7 +48,7 @@
 	},
 	"bell-peppers": {
 		"name": "paprika",
-		"plural_name": "bell peppers"
+		"plural_name": "paprikaer"
 	},
 	"blackberries": {
 		"name": "bjørnebær"
@@ -94,7 +94,7 @@
 	},
 	"cabbage": {
 		"name": "kål",
-		"plural_name": "cabbages"
+		"plural_name": "kål"
 	},
 	"cactus-edible": {
 		"name": "kaktus, spiselig"
@@ -116,7 +116,7 @@
 	},
 	"carrot": {
 		"name": "gulrot",
-		"plural_name": "carrots"
+		"plural_name": "gulrøtter"
 	},
 	"caster-sugar": {
 		"name": "finmalt sukker"
@@ -129,7 +129,7 @@
 	},
 	"cauliflower": {
 		"name": "blomkål",
-		"plural_name": "cauliflowers"
+		"plural_name": "blomkål"
 	},
 	"cayenne-pepper": {
 		"name": "kayenne pepper"
@@ -154,7 +154,7 @@
 	},
 	"chilli-peppers": {
 		"name": "chilli Pepper",
-		"plural_name": "chilli peppers"
+		"plural_name": "chilli pepper"
 	},
 	"chinese-leaves": {
 		"name": "kinakål"
@@ -176,7 +176,7 @@
 	},
 	"coconut": {
 		"name": "kokosnøtt",
-		"plural_name": "coconuts"
+		"plural_name": "kokosnøtter"
 	},
 	"coconut-milk": {
 		"name": "kokosnøttmelk"
@@ -198,7 +198,7 @@
 	},
 	"corn": {
 		"name": "mais",
-		"plural_name": "corns"
+		"plural_name": "mais"
 	},
 	"corn-syrup": {
 		"name": "maissirup"
@@ -214,7 +214,7 @@
 	},
 	"cucumber": {
 		"name": "agurk",
-		"plural_name": "cucumbers"
+		"plural_name": "agurker"
 	},
 	"cumin": {
 		"name": "spisskummen"
@@ -240,11 +240,11 @@
 	},
 	"eggplant": {
 		"name": "aubergine",
-		"plural_name": "eggplants"
+		"plural_name": "auberginer"
 	},
 	"eggs": {
 		"name": "egg",
-		"plural_name": "eggs"
+		"plural_name": "egg"
 	},
 	"endive": {
 		"name": "endive",
@@ -292,7 +292,7 @@
 	},
 	"garlic": {
 		"name": "hvitløk",
-		"plural_name": "garlics"
+		"plural_name": "hvitløker"
 	},
 	"gem-squash": {
 		"name": "gem squash"
@@ -317,7 +317,7 @@
 	},
 	"green-onion": {
 		"name": "vårløk",
-		"plural_name": "green onions"
+		"plural_name": "grønne løker"
 	},
 	"heart-of-palm": {
 		"name": "palmehjerte",
@@ -355,7 +355,7 @@
 		"name": "jicama"
 	},
 	"kale": {
-		"name": "kale"
+		"name": "kål"
 	},
 	"kohlrabi": {
 		"name": "kålrabi"
@@ -368,7 +368,7 @@
 	},
 	"leek": {
 		"name": "purre",
-		"plural_name": "leeks"
+		"plural_name": "purrer"
 	},
 	"legumes": {
 		"name": "belgvekster"

@@ -1,5 +1,6 @@
 import re
-import unicodedata
+
+from mealie.services.parser_services.parser_utils import convert_vulgar_fractions_to_regular_fractions
 
 replace_abbreviations = {
     "cup": " cup ",
@@ -27,23 +28,6 @@ def replace_common_abbreviations(string: str) -> str:
 def remove_periods(string: str) -> str:
     """Removes periods not sournded by digets"""
     return re.sub(r"(?<!\d)\.(?!\d)", "", string)
-
-
-def replace_fraction_unicode(string: str):
-    # TODO: I'm not confident this works well enough for production needs some testing and/or refacorting
-    # TODO: Breaks on multiple unicode fractions
-    for c in string:
-        try:
-            name = unicodedata.name(c)
-        except ValueError:
-            continue
-        if name.startswith("VULGAR FRACTION"):
-            normalized = unicodedata.normalize("NFKC", c)
-            numerator, _, denominator = normalized.partition("⁄")  # _ = slash
-            text = f" {numerator}/{denominator}"
-            return string.replace(c, text).replace("  ", " ")
-
-    return string
 
 
 def wrap_or_clause(string: str):
@@ -75,7 +59,7 @@ def pre_process_string(string: str) -> str:
 
     """
     string = string.lower()
-    string = replace_fraction_unicode(string)
+    string = convert_vulgar_fractions_to_regular_fractions(string)
     string = remove_periods(string)
     string = replace_common_abbreviations(string)
 

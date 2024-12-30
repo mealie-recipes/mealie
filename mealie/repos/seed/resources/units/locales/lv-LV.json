@@ -1,140 +1,140 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
-        "plural_name": "teaspoons",
+        "name": "tējkarote",
+        "plural_name": "tējkarotes",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "tējk"
     },
     "tablespoon": {
-        "name": "tablespoon",
-        "plural_name": "tablespoons",
+        "name": "ēdamkarote",
+        "plural_name": "ēdamkarotes",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "ēdamk"
     },
     "cup": {
-        "name": "cup",
-        "plural_name": "cups",
+        "name": "krūze",
+        "plural_name": "krūzes",
         "description": "",
         "abbreviation": "c"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
-        "plural_name": "fluid ounces",
+        "name": "šķidruma unce",
+        "plural_name": "šķidruma unces",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "pint",
-        "plural_name": "pints",
+        "name": "pinte",
+        "plural_name": "pintes",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
-        "plural_name": "quarts",
+        "name": "ceturtdaļa",
+        "plural_name": "ceturtdaļas",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
-        "plural_name": "gallons",
+        "name": "galons",
+        "plural_name": "galoni",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
-        "plural_name": "milliliters",
+        "name": "mililitrs",
+        "plural_name": "mililitri",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
-        "plural_name": "liters",
+        "name": "litrs",
+        "plural_name": "litri",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
-        "plural_name": "pounds",
+        "name": "mārciņa",
+        "plural_name": "mārciņas",
         "description": "",
         "abbreviation": "lb",
         "plural_abbreviation": "lbs"
     },
     "ounce": {
-        "name": "ounce",
-        "plural_name": "ounces",
+        "name": "unce",
+        "plural_name": "unces",
         "description": "",
-        "abbreviation": "oz"
+        "abbreviation": "unce"
     },
     "gram": {
-        "name": "gram",
-        "plural_name": "grams",
+        "name": "grams",
+        "plural_name": "grami",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
-        "plural_name": "kilograms",
+        "name": "kilograms",
+        "plural_name": "kilogrami",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
-        "plural_name": "milligrams",
+        "name": "miligrams",
+        "plural_name": "miligrami",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
-        "plural_name": "splashes",
+        "name": "šļakatas",
+        "plural_name": "šļakatas",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
-        "plural_name": "dashes",
+        "name": "domuzīme",
+        "plural_name": "domuzīmes",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
-        "plural_name": "servings",
+        "name": "porcija",
+        "plural_name": "porcijas",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
-        "plural_name": "heads",
+        "name": "galva",
+        "plural_name": "galvas",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
-        "plural_name": "cloves",
+        "name": "krustnagliņa",
+        "plural_name": "krustnagliņas",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
-        "plural_name": "cans",
+        "name": "bundža",
+        "plural_name": "bundžas",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "ķekars",
+        "plural_name": "ķekari",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "iepakojums",
+        "plural_name": "iepakojumi",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "šķipsniņa",
+        "plural_name": "šķipsnas",
         "description": "",
         "abbreviation": ""
     }

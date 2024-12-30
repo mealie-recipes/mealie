@@ -136,12 +136,6 @@
       <v-card>
         <RecipeDataTable v-model="selected" :loading="loading" :recipes="allRecipes" :show-headers="headers" />
         <v-card-actions class="justify-end">
-          <BaseButton color="info">
-            <template #icon>
-              {{ $globals.icons.database }}
-            </template>
-            {{ $t('general.import') }}
-          </BaseButton>
           <BaseButton
             color="info"
             @click="
@@ -218,6 +212,8 @@ export default defineComponent({
       tags: true,
       tools: true,
       categories: true,
+      recipeServings: false,
+      recipeYieldQuantity: false,
       recipeYield: false,
       dateAdded: false,
     });
@@ -228,7 +224,9 @@ export default defineComponent({
       tags: i18n.t("tag.tags"),
       categories: i18n.t("recipe.categories"),
       tools: i18n.t("tool.tools"),
-      recipeYield: i18n.t("recipe.recipe-yield"),
+      recipeServings: i18n.t("recipe.recipe-servings"),
+      recipeYieldQuantity: i18n.t("recipe.recipe-yield"),
+      recipeYield: i18n.t("recipe.recipe-yield-text"),
       dateAdded: i18n.t("general.date-added"),
     };
 

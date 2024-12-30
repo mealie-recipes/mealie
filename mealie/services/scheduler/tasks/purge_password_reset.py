@@ -14,7 +14,7 @@ MAX_DAYS_OLD = 2
 def purge_password_reset_tokens():
     """Purges all events after x days"""
     logger.debug("purging password reset tokens")
-    limit = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(days=MAX_DAYS_OLD)
+    limit = datetime.datetime.now(datetime.UTC) - datetime.timedelta(days=MAX_DAYS_OLD)
 
     with session_context() as session:
         stmt = delete(PasswordResetModel).filter(PasswordResetModel.created_at <= limit)

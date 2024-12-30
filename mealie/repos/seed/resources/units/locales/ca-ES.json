@@ -1,31 +1,31 @@
 {
     "teaspoon": {
         "name": "culleradeta/es de cafè",
-        "plural_name": "teaspoons",
+        "plural_name": "culleradetes",
         "description": "",
         "abbreviation": "cdta"
     },
     "tablespoon": {
         "name": "cullerada/des sopera/es",
-        "plural_name": "tablespoons",
+        "plural_name": "cullerades",
         "description": "",
         "abbreviation": "c/s"
     },
     "cup": {
         "name": "tassa",
-        "plural_name": "cups",
+        "plural_name": "tasses",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "tasses"
     },
     "fluid-ounce": {
         "name": "unça líquida",
-        "plural_name": "fluid ounces",
+        "plural_name": "unces líquida",
         "description": "",
         "abbreviation": "cl"
     },
     "pint": {
         "name": "pinta",
-        "plural_name": "pints",
+        "plural_name": "pintes",
         "description": "",
         "abbreviation": "pt"
     },
@@ -37,32 +37,32 @@
     },
     "gallon": {
         "name": "galó/galons",
-        "plural_name": "gallons",
+        "plural_name": "galons",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
         "name": "mil·lilitre/s",
-        "plural_name": "milliliters",
+        "plural_name": "mil·lilitres",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "litre/s",
-        "plural_name": "liters",
+        "plural_name": "litres",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "lliura/es",
-        "plural_name": "pounds",
+        "plural_name": "lliures",
         "description": "",
         "abbreviation": "lb",
-        "plural_abbreviation": "lbs"
+        "plural_abbreviation": "lliures"
     },
     "ounce": {
         "name": "gotet/s",
-        "plural_name": "ounces",
+        "plural_name": "onces",
         "description": "",
         "abbreviation": "oz"
     },
@@ -74,67 +74,67 @@
     },
     "kilogram": {
         "name": "quilogram/s",
-        "plural_name": "kilograms",
+        "plural_name": "quilograms",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "mil·ligram/s",
-        "plural_name": "milligrams",
+        "plural_name": "mil·ligrams",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
         "name": "esquitxada",
-        "plural_name": "splashes",
+        "plural_name": "esquitxades",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "pessic",
-        "plural_name": "dashes",
+        "plural_name": "pessics",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "porció/ns",
-        "plural_name": "servings",
+        "plural_name": "porcions",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "cap(s)",
-        "plural_name": "heads",
+        "plural_name": "caps",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "dent/s",
-        "plural_name": "cloves",
+        "plural_name": "dents",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "llauna(es)",
-        "plural_name": "cans",
+        "plural_name": "llaunes",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "grapat",
+        "plural_name": "grapats",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "paquet",
+        "plural_name": "paquets",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "pessic",
+        "plural_name": "pessics",
         "description": "",
         "abbreviation": ""
     }

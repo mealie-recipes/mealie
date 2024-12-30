@@ -11,6 +11,7 @@ from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.make_dependable import make_dependable
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipeSummary
+from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery, RecipeSearchQuery
 
 router = APIRouter(prefix="/recipes")
@@ -86,6 +87,26 @@ class PublicRecipesController(BasePublicHouseholdExploreController):
         )
 
         json_compatible_response = orjson.dumps(pagination_response.model_dump(by_alias=True))
+
+        # Response is returned directly, to avoid validation and improve performance
+        return JSONBytes(content=json_compatible_response)
+
+    @router.get("/suggestions", response_model=RecipeSuggestionResponse)
+    def suggest_recipes(
+        self,
+        q: RecipeSuggestionQuery = Depends(make_dependable(RecipeSuggestionQuery)),
+        foods: list[UUID4] | None = Query(None),
+        tools: list[UUID4] | None = Query(None),
+    ) -> RecipeSuggestionResponse:
+        public_filter = "(household.preferences.privateHousehold = FALSE AND settings.public = TRUE)"
+        if q.query_filter:
+            q.query_filter = f"({q.query_filter}) AND {public_filter}"
+        else:
+            q.query_filter = public_filter
+
+        recipes = self.cross_household_recipes.find_suggested_recipes(q, foods, tools)
+        response = RecipeSuggestionResponse(items=recipes)
+        json_compatible_response = orjson.dumps(response.model_dump(by_alias=True))
 
         # Response is returned directly, to avoid validation and improve performance
         return JSONBytes(content=json_compatible_response)

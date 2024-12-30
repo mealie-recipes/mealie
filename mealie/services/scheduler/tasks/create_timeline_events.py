@@ -1,5 +1,6 @@
-from datetime import datetime, time, timedelta, timezone
+from datetime import UTC, datetime, time, timedelta
 
+from dateutil.tz import tzlocal
 from pydantic import UUID4
 from sqlalchemy.orm import Session
 
@@ -29,7 +30,8 @@ def _create_mealplan_timeline_events_for_household(
     recipes_to_update: dict[UUID4, RecipeSummary] = {}
     recipe_id_to_slug_map: dict[UUID4, str] = {}
 
-    mealplans = repos.meals.get_today()
+    local_tz = tzlocal()
+    mealplans = repos.meals.get_today(tz=local_tz)
     for mealplan in mealplans:
         if not (mealplan.recipe and mealplan.user_id):
             continue
@@ -45,7 +47,7 @@ def _create_mealplan_timeline_events_for_household(
         else:
             event_subject = f"{user.full_name} made this for {mealplan.entry_type.value}"
 
-        query_start_time = datetime.combine(datetime.now(timezone.utc).date(), time.min)
+        query_start_time = datetime.combine(datetime.now(UTC).date(), time.min)
         query_end_time = query_start_time + timedelta(days=1)
         query = PaginationQuery(
             query_filter=(
@@ -116,7 +118,7 @@ def _create_mealplan_timeline_events_for_group(event_time: datetime, session: Se
 
 
 def create_mealplan_timeline_events() -> None:
-    event_time = datetime.now(timezone.utc)
+    event_time = datetime.now(UTC)
 
     with session_context() as session:
         repos = get_repositories(session)

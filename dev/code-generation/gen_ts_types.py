@@ -1,3 +1,4 @@
+import re
 from pathlib import Path
 
 from jinja2 import Template
@@ -64,7 +65,112 @@ def generate_global_components_types() -> None:
 # Pydantic To Typescript Generator
 
 
-def generate_typescript_types() -> None:
+def generate_typescript_types() -> None:  # noqa: C901
+    def contains_number(s: str) -> bool:
+        return bool(re.search(r"\d", s))
+
+    def remove_numbers(s: str) -> str:
+        return re.sub(r"\d", "", s)
+
+    def extract_type_name(line: str) -> str:
+        # Looking for "export type EnumName = enumVal1 | enumVal2 | ..."
+        if not (line.startswith("export type") and "=" in line):
+            return ""
+
+        return line.split(" ")[2]
+
+    def extract_property_type_name(line: str) -> str:
+        # Looking for " fieldName: FieldType;" or " fieldName: FieldType & string;"
+        if not (line.startswith("  ") and ":" in line):
+            return ""
+
+        return line.split(":")[1].strip().split(";")[0]
+
+    def extract_interface_name(line: str) -> str:
+        # Looking for "export interface InterfaceName {"
+        if not (line.startswith("export interface") and "{" in line):
+            return ""
+
+        return line.split(" ")[2]
+
+    def is_comment_line(line: str) -> bool:
+        s = line.strip()
+        return s.startswith("/*") or s.startswith("*")
+
+    def clean_output_file(file: Path) -> None:
+        """
+        json2ts generates duplicate types off of our enums and appends a number to the end of the type name.
+        Our Python code (hopefully) doesn't have any duplicate enum names, or types with numbers in them,
+        so we can safely remove the numbers.
+
+        To do this, we read the output line-by-line and replace any type names that contain numbers with
+        the same type name, but without the numbers.
+
+        Note: the issue arrises from the JSON package json2ts, not the Python package pydantic2ts,
+        otherwise we could just fix pydantic2ts.
+        """
+
+        # First pass: build a map of type names to their numberless counterparts and lines to skip
+        replacement_map = {}
+        lines_to_skip = set()
+        wait_for_semicolon = False
+        wait_for_close_bracket = False
+        skip_comments = False
+        with open(file) as f:
+            for i, line in enumerate(f.readlines()):
+                if wait_for_semicolon:
+                    if ";" in line:
+                        wait_for_semicolon = False
+                    lines_to_skip.add(i)
+                    continue
+                if wait_for_close_bracket:
+                    if "}" in line:
+                        wait_for_close_bracket = False
+                    lines_to_skip.add(i)
+                    continue
+
+                if type_name := extract_type_name(line):
+                    if not contains_number(type_name):
+                        continue
+
+                    replacement_map[type_name] = remove_numbers(type_name)
+                    if ";" not in line:
+                        wait_for_semicolon = True
+                    lines_to_skip.add(i)
+
+                elif type_name := extract_interface_name(line):
+                    if not contains_number(type_name):
+                        continue
+
+                    replacement_map[type_name] = remove_numbers(type_name)
+                    if "}" not in line:
+                        wait_for_close_bracket = True
+                    lines_to_skip.add(i)
+
+                elif skip_comments and is_comment_line(line):
+                    lines_to_skip.add(i)
+
+                # we've passed the opening comments and empty line at the header
+                elif not skip_comments and not line.strip():
+                    skip_comments = True
+
+        # Second pass: rewrite or remove lines as needed.
+        # We have to do two passes here because definitions don't always appear in the same order as their usage.
+        lines = []
+        with open(file) as f:
+            for i, line in enumerate(f.readlines()):
+                if i in lines_to_skip:
+                    continue
+
+                if type_name := extract_property_type_name(line):
+                    if type_name in replacement_map:
+                        line = line.replace(type_name, replacement_map[type_name])
+
+                lines.append(line)
+
+        with open(file, "w") as f:
+            f.writelines(lines)
+
     def path_to_module(path: Path):
         str_path: str = str(path)
 
@@ -98,9 +204,10 @@ def generate_typescript_types() -> None:
         try:
             path_as_module = path_to_module(module)
             generate_typescript_defs(path_as_module, str(out_path), exclude=("MealieModel"))  # type: ignore
-        except Exception as e:
+            clean_output_file(out_path)
+        except Exception:
             failed_modules.append(module)
-            log.error(f"Module Error: {e}")
+            log.exception(f"Module Error: {module}")
 
     log.debug("\n📁 Skipped Directories:")
     for skipped_dir in skipped_dirs:

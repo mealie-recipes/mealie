@@ -6,16 +6,16 @@ Create Date: 2024-03-18 02:28:15.896959
 
 """
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from textwrap import dedent
 from typing import Any
 from uuid import uuid4
 
 import sqlalchemy as sa
+from alembic import op
 from sqlalchemy import orm
 
 import mealie.db.migration_types
-from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "d7c6efd2de42"
@@ -34,7 +34,7 @@ def new_user_rating(user_id: Any, recipe_id: Any, rating: float | None = None, i
     else:
         id = "%.32x" % uuid4().int  # noqa: UP031
 
-    now = datetime.now(timezone.utc).isoformat()
+    now = datetime.now(UTC).isoformat()
     return {
         "id": id,
         "user_id": user_id,

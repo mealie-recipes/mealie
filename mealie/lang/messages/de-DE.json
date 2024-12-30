@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Rezeptnamen müssen einzigartig sein",
+        "recipe-created": "Rezept erstellt",
         "recipe-defaults": {
             "ingredient-note": "250 g Mehl",
             "step-text": "Zubereitungs-Schritte und andere Felder der Rezeptseite unterstützen Markdown Syntax.\n\n**Füge einen Link hinzu**\n\n[Mein Link](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Ergibt",
+            "serves": "Reicht für",
+            "serving": "Portion",
+            "servings": "Portionen",
+            "yield": "Ergibt",
+            "yields": "Ergibt"
         }
     },
     "mealplan": {
@@ -54,7 +63,7 @@
             "button_text": "Passwort zurücksetzen"
         },
         "invitation": {
-            "subject": "Einladung zu Mealie",
+            "subject": "Einladung Mealie beizutreten",
             "header_text": "Du wurdest eingeladen!",
             "message_top": "Du wurdest eingeladen, bei Mealie dabei zu sein.",
             "message_bottom": "Bitte klicke auf den Button oben, um die Einladung anzunehmen.",

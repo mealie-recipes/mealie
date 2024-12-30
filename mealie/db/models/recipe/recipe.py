@@ -1,4 +1,4 @@
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
@@ -89,7 +89,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     cook_time: Mapped[str | None] = mapped_column(sa.String)
 
     recipe_yield: Mapped[str | None] = mapped_column(sa.String)
-    recipeCuisine: Mapped[str | None] = mapped_column(sa.String)
+    recipe_yield_quantity: Mapped[float] = mapped_column(sa.Float, index=True, default=0)
+    recipe_servings: Mapped[float] = mapped_column(sa.Float, index=True, default=0)
 
     assets: Mapped[list[RecipeAsset]] = orm.relationship("RecipeAsset", cascade="all, delete-orphan")
     nutrition: Mapped[Nutrition] = orm.relationship("Nutrition", uselist=False, cascade="all, delete-orphan")
@@ -131,7 +132,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     notes: Mapped[list[Note]] = orm.relationship("Note", cascade="all, delete-orphan")
     org_url: Mapped[str | None] = mapped_column(sa.String)
     extras: Mapped[list[ApiExtras]] = orm.relationship("ApiExtras", cascade="all, delete-orphan")
-    is_ocr_recipe: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
 
     # Time Stamp Properties
     date_added: Mapped[date | None] = mapped_column(sa.Date, default=get_utc_today)
@@ -166,6 +166,10 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             "timeline_events",
         },
     )
+
+    # Deprecated
+    recipeCuisine: Mapped[str | None] = mapped_column(sa.String)
+    is_ocr_recipe: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
 
     @validates("name")
     def validate_name(self, _, name):
@@ -203,7 +207,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         if notes:
             self.notes = [Note(**n) for n in notes]
 
-        self.date_updated = datetime.now(timezone.utc)
+        self.date_updated = datetime.now(UTC)
 
         # SQLAlchemy events do not seem to register things that are set during auto_init
         if name is not None:

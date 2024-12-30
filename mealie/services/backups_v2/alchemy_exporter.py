@@ -3,24 +3,22 @@ import os
 import uuid
 from logging import Logger
 from os import path
-from pathlib import Path
 from textwrap import dedent
 from typing import Any
 
+from alembic import command
+from alembic.config import Config
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from sqlalchemy import Connection, ForeignKey, ForeignKeyConstraint, MetaData, Table, create_engine, insert, text
 from sqlalchemy.engine import base
 from sqlalchemy.orm import sessionmaker
 
-from alembic import command
-from alembic.config import Config
 from mealie.db import init_db
 from mealie.db.fixes.fix_migration_data import fix_migration_data
+from mealie.db.init_db import ALEMBIC_DIR
 from mealie.db.models._model_utils.guid import GUID
 from mealie.services._base_service import BaseService
-
-PROJECT_DIR = Path(__file__).parent.parent.parent.parent
 
 
 class ForeignKeyDisabler:
@@ -193,15 +191,12 @@ class AlchemyExporter(BaseService):
         alembic_data = db_dump["alembic_version"]
         alembic_version = alembic_data[0]["version_num"]
 
-        alembic_cfg_path = os.getenv("ALEMBIC_CONFIG_FILE", default=str(PROJECT_DIR / "alembic.ini"))
+        alembic_cfg_path = os.getenv("ALEMBIC_CONFIG_FILE", default=str(ALEMBIC_DIR / "alembic.ini"))
 
         if not path.isfile(alembic_cfg_path):
             raise Exception("Provided alembic config path doesn't exist")
 
         alembic_cfg = Config(alembic_cfg_path)
-        # alembic's file resolver wants to use the "mealie" subdirectory when called from within the server package
-        # Just override this to use the correct migrations path
-        alembic_cfg.set_main_option("script_location", path.join(PROJECT_DIR, "alembic"))
         command.upgrade(alembic_cfg, alembic_version)
 
         del db_dump["alembic_version"]

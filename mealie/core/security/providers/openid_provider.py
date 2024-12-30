@@ -27,6 +27,11 @@ class OpenIDProvider(AuthProvider[UserInfo]):
             self._logger.error("[OIDC] No claims in the id_token")
             return None
 
+        # Log all claims for debugging
+        self._logger.debug("[OIDC] Received claims:")
+        for key, value in claims.items():
+            self._logger.debug("[OIDC]   %s: %s", key, value)
+
         if not self.required_claims.issubset(claims.keys()):
             self._logger.error(
                 "[OIDC] Required claims not present. Expected: %s Actual: %s",
@@ -34,6 +39,12 @@ class OpenIDProvider(AuthProvider[UserInfo]):
                 claims.keys(),
             )
             return None
+
+        # Check for empty required claims
+        for claim in self.required_claims:
+            if not claims.get(claim):
+                self._logger.error("[OIDC] Required claim '%s' is empty", claim)
+                return None
 
         repos = get_repositories(self.session, group_id=None, household_id=None)
 
@@ -63,12 +74,14 @@ class OpenIDProvider(AuthProvider[UserInfo]):
             try:
                 # some IdPs don't provide a username (looking at you Google), so if we don't have the claim,
                 # we'll create the user with whatever the USER_CLAIM is (default email)
-                username = claims.get("preferred_username", claims.get(settings.OIDC_USER_CLAIM))
+                username = claims.get(
+                    "preferred_username", claims.get("username", claims.get(settings.OIDC_USER_CLAIM))
+                )
                 user = repos.users.create(
                     {
                         "username": username,
                         "password": "OIDC",
-                        "full_name": claims.get("name"),
+                        "full_name": claims.get(settings.OIDC_NAME_CLAIM),
                         "email": claims.get("email"),
                         "admin": is_admin,
                         "auth_method": AuthMethod.OIDC,
@@ -96,7 +109,7 @@ class OpenIDProvider(AuthProvider[UserInfo]):
     def required_claims(self):
         settings = get_app_settings()
 
-        claims = {"name", "email", settings.OIDC_USER_CLAIM}
+        claims = {settings.OIDC_NAME_CLAIM, "email", settings.OIDC_USER_CLAIM}
         if settings.OIDC_REQUIRES_GROUP_CLAIM:
             claims.add(settings.OIDC_GROUPS_CLAIM)
         return claims

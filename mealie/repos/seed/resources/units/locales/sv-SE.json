@@ -86,13 +86,13 @@
     },
     "splash": {
         "name": "skvätt",
-        "plural_name": "stänk",
+        "plural_name": "skvättar",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "stänk",
-        "plural_name": "dashes",
+        "plural_name": "stänk",
         "description": "",
         "abbreviation": ""
     },

@@ -43,7 +43,7 @@ class Exporter(BaseService):
             name="Data Export",
             size=pretty_size(export_path.stat().st_size),
             filename=export_path.name,
-            expires=datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(days=1),
+            expires=datetime.datetime.now(datetime.UTC) + datetime.timedelta(days=1),
         )
 
         db.group_exports.create(group_data_export)

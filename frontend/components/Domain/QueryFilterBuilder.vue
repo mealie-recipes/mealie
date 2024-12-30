@@ -253,7 +253,7 @@
       </v-container>
     </v-card-text>
     <v-card-actions>
-      <v-container fluid class="d-flex justify-end pa-0">
+      <v-container fluid class="d-flex justify-end pa-0 mx-2">
         <v-checkbox
           v-model="showAdvanced"
           hide-details
@@ -431,6 +431,7 @@ export default defineComponent({
         state.qfValid = !!qf;
 
         context.emit("input", qf || undefined);
+        context.emit("inputJSON", qf ? buildQueryFilterJSON() : undefined);
       },
       {
         deep: true
@@ -541,6 +542,32 @@ export default defineComponent({
       initializeFields();
     } catch (error) {
       initFieldsError(`Error initializing fields: ${(error || "").toString()}`);
+    }
+
+    function buildQueryFilterJSON(): QueryFilterJSON {
+      const parts = fields.value.map((field) => {
+        const part: QueryFilterJSONPart = {
+          attributeName: field.name,
+          leftParenthesis: field.leftParenthesis,
+          rightParenthesis: field.rightParenthesis,
+          logicalOperator: field.logicalOperator?.value,
+          relationalOperator: field.relationalOperatorValue?.value,
+        };
+
+        if (field.fieldOptions?.length || isOrganizerType(field.type)) {
+          part.value = field.values.map((value) => value.toString());
+        } else if (field.type === "boolean") {
+          part.value = field.value ? "true" : "false";
+        } else {
+          part.value = (field.value || "").toString();
+        }
+
+        return part;
+      });
+
+      const qfJSON = { parts } as QueryFilterJSON;
+      console.debug(`Built query filter JSON: ${JSON.stringify(qfJSON)}`);
+      return qfJSON;
     }
 
 

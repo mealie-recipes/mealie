@@ -2,7 +2,7 @@ import contextlib
 import json
 from abc import ABC, abstractmethod
 from collections.abc import Generator
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import cast
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
@@ -163,8 +163,8 @@ class WebhookEventListener(EventListenerBase):
         with self.ensure_session() as session:
             stmt = select(GroupWebhooksModel).where(
                 GroupWebhooksModel.enabled == True,  # noqa: E712 - required for SQLAlchemy comparison
-                GroupWebhooksModel.scheduled_time > start_dt.astimezone(timezone.utc).time(),
-                GroupWebhooksModel.scheduled_time <= end_dt.astimezone(timezone.utc).time(),
+                GroupWebhooksModel.scheduled_time > start_dt.astimezone(UTC).time(),
+                GroupWebhooksModel.scheduled_time <= end_dt.astimezone(UTC).time(),
                 GroupWebhooksModel.group_id == self.group_id,
                 GroupWebhooksModel.household_id == self.household_id,
             )

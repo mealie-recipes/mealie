@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Les noms de recette doivent être uniques",
+        "recipe-created": "Recette créée",
         "recipe-defaults": {
             "ingredient-note": "100 g de farine",
             "step-text": "Les étapes de la recette ainsi que les autres champs de la page de recette supportent la syntaxe markdown.\n\n**Ajouter un lien**\n\n[Mon lien](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Fait",
+            "serves": "Pour",
+            "serving": "Portion",
+            "servings": "Portions",
+            "yield": "Quantité",
+            "yields": "Produit"
         }
     },
     "mealplan": {

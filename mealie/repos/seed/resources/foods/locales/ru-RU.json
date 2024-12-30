@@ -10,7 +10,7 @@
 	},
 	"apples": {
 		"name": "яблоки",
-		"plural_name": "apples"
+		"plural_name": "яблоки"
 	},
 	"artichoke": {
 		"name": "артишок"
@@ -23,7 +23,7 @@
 	},
 	"avocado": {
 		"name": "авокадо",
-		"plural_name": "avocado"
+		"plural_name": "авокадо"
 	},
 	"bacon": {
 		"name": "бекон"
@@ -48,7 +48,7 @@
 	},
 	"bell-peppers": {
 		"name": "болгарский перец",
-		"plural_name": "bell peppers"
+		"plural_name": "болгарский перец"
 	},
 	"blackberries": {
 		"name": "ежевика"
@@ -94,7 +94,7 @@
 	},
 	"cabbage": {
 		"name": "капуста",
-		"plural_name": "cabbages"
+		"plural_name": "капуста"
 	},
 	"cactus-edible": {
 		"name": "кактус, съедобный"
@@ -116,7 +116,7 @@
 	},
 	"carrot": {
 		"name": "морковь",
-		"plural_name": "carrots"
+		"plural_name": "морковь"
 	},
 	"caster-sugar": {
 		"name": "мелкозернистый сахар"
@@ -129,7 +129,7 @@
 	},
 	"cauliflower": {
 		"name": "цветная капуста",
-		"plural_name": "cauliflowers"
+		"plural_name": "цветная капуста"
 	},
 	"cayenne-pepper": {
 		"name": "кайенский перец"
@@ -154,7 +154,7 @@
 	},
 	"chilli-peppers": {
 		"name": "перец чили",
-		"plural_name": "chilli peppers"
+		"plural_name": "перец чили"
 	},
 	"chinese-leaves": {
 		"name": "китайская капуста"
@@ -176,7 +176,7 @@
 	},
 	"coconut": {
 		"name": "кокос",
-		"plural_name": "coconuts"
+		"plural_name": "кокосы"
 	},
 	"coconut-milk": {
 		"name": "кокосовое молоко"
@@ -198,7 +198,7 @@
 	},
 	"corn": {
 		"name": "кукуруза",
-		"plural_name": "corns"
+		"plural_name": "кукуруза"
 	},
 	"corn-syrup": {
 		"name": "кукурузный сироп"
@@ -214,14 +214,14 @@
 	},
 	"cucumber": {
 		"name": "огурцы",
-		"plural_name": "cucumbers"
+		"plural_name": "огурцы"
 	},
 	"cumin": {
 		"name": "зира"
 	},
 	"daikon": {
 		"name": "дайкон",
-		"plural_name": "daikons"
+		"plural_name": "дайкон"
 	},
 	"dairy-products-and-dairy-substitutes": {
 		"name": "молочные продукты и заменители молочных продуктов"
@@ -240,11 +240,11 @@
 	},
 	"eggplant": {
 		"name": "баклажан",
-		"plural_name": "eggplants"
+		"plural_name": "баклажаны"
 	},
 	"eggs": {
 		"name": "яйца",
-		"plural_name": "eggs"
+		"plural_name": "яйца"
 	},
 	"endive": {
 		"name": "эндивий",
@@ -292,7 +292,7 @@
 	},
 	"garlic": {
 		"name": "чеснок",
-		"plural_name": "garlics"
+		"plural_name": "чеснок"
 	},
 	"gem-squash": {
 		"name": "тыква Драгоценный камень"
@@ -317,7 +317,7 @@
 	},
 	"green-onion": {
 		"name": "зеленый лук",
-		"plural_name": "green onions"
+		"plural_name": "зелёный лук"
 	},
 	"heart-of-palm": {
 		"name": "сердцевина пальмы",
@@ -368,7 +368,7 @@
 	},
 	"leek": {
 		"name": "лук-порей",
-		"plural_name": "leeks"
+		"plural_name": "лук-порей"
 	},
 	"legumes": {
 		"name": "бобовые"
@@ -403,7 +403,7 @@
 	},
 	"mushroom": {
 		"name": "грибы",
-		"plural_name": "mushrooms"
+		"plural_name": "грибы"
 	},
 	"mussels": {
 		"name": "мидии"
@@ -425,7 +425,7 @@
 	},
 	"octopuses": {
 		"name": "осьминоги",
-		"plural_name": "octopuses"
+		"plural_name": "осьминоги"
 	},
 	"oils": {
 		"name": "масла"
@@ -450,7 +450,7 @@
 	},
 	"oranges": {
 		"name": "апельсины",
-		"plural_name": "oranges"
+		"plural_name": "апельсины"
 	},
 	"oregano": {
 		"name": "душица"
@@ -473,18 +473,18 @@
 	},
 	"pear": {
 		"name": "груша",
-		"plural_name": "pears"
+		"plural_name": "груши"
 	},
 	"peas": {
 		"name": "горох"
 	},
 	"pepper": {
 		"name": "перец",
-		"plural_name": "peppers"
+		"plural_name": "перцы"
 	},
 	"pineapple": {
 		"name": "ананас",
-		"plural_name": "pineapples"
+		"plural_name": "ананасы"
 	},
 	"plantain": {
 		"name": "плантан",
@@ -495,7 +495,7 @@
 	},
 	"potato": {
 		"name": "картофель",
-		"plural_name": "potatoes"
+		"plural_name": "картофель"
 	},
 	"poultry": {
 		"name": "мясо птицы"
@@ -505,7 +505,7 @@
 	},
 	"pumpkin": {
 		"name": "тыква",
-		"plural_name": "pumpkins"
+		"plural_name": "тыквы"
 	},
 	"pumpkin-seeds": {
 		"name": "семена тыквы"
@@ -633,7 +633,7 @@
 	},
 	"tomato": {
 		"name": "помидор",
-		"plural_name": "tomatoes"
+		"plural_name": "помидоры"
 	},
 	"trout": {
 		"name": "форель"
@@ -670,7 +670,7 @@
 	},
 	"white-mushroom": {
 		"name": "белый гриб",
-		"plural_name": "white mushrooms"
+		"plural_name": "белые грибы"
 	},
 	"white-sugar": {
 		"name": "рафинад"

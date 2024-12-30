@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Receptnamn måste vara unika",
+        "recipe-created": "Recept skapat",
         "recipe-defaults": {
             "ingredient-note": "1 kopp mjöl",
             "step-text": "Receptsteg samt andra fält i receptsidan stöder markdown syntax.\n\n**Lägg till en länk**\n\n[Min länk](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Makes",
+            "serves": "Serves",
+            "serving": "Portion",
+            "servings": "Portioner",
+            "yield": "Ger",
+            "yields": "Ger"
         }
     },
     "mealplan": {
