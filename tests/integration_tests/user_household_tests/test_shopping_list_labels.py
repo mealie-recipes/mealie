@@ -99,7 +99,7 @@ def test_new_label_creates_list_labels_in_all_households(
 
 
 def test_seed_label_creates_list_labels(api_client: TestClient, unique_user: TestUser):
-    CREATED_LABELS = 21
+    CREATED_LABELS = 32
     database = unique_user.repos
 
     # create a list with some labels
