@@ -19,7 +19,7 @@
     },
     "fluid-ounce": {
         "name": "centilitre",
-        "plural_name": "onces liquides",
+        "plural_name": "centilitres",
         "description": "",
         "abbreviation": "cL"
     },
