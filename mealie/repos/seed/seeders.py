@@ -3,12 +3,12 @@ import pathlib
 from collections.abc import Generator
 from functools import cached_property
 
-from mealie.schema.labels import MultiPurposeLabelSave
+from mealie.schema.labels import MultiPurposeLabelOut, MultiPurposeLabelSave
 from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood, SaveIngredientUnit
 from mealie.services.group_services.labels_service import MultiPurposeLabelService
 
 from ._abstract_seeder import AbstractSeeder
-from .resources import foods, labels, units
+from .resources import foods, units
 
 
 class MultiPurposeLabelSeeder(AbstractSeeder):
@@ -17,20 +17,17 @@ class MultiPurposeLabelSeeder(AbstractSeeder):
         return MultiPurposeLabelService(self.repos)
 
     def get_file(self, locale: str | None = None) -> pathlib.Path:
-        locale_path = self.resources / "labels" / "locales" / f"{locale}.json"
-        return locale_path if locale_path.exists() else labels.en_US
+        # Get the labels from the foods seed file now
+        locale_path = self.resources / "foods" / "locales" / f"{locale}.json"
+        return locale_path if locale_path.exists() else foods.en_US
 
     def load_data(self, locale: str | None = None) -> Generator[MultiPurposeLabelSave, None, None]:
         file = self.get_file(locale)
 
-        seen_label_names = set()
-        for label in json.loads(file.read_text(encoding="utf-8")):
-            if label["name"] in seen_label_names:
-                continue
-
-            seen_label_names.add(label["name"])
+        label_names = set(json.loads(file.read_text(encoding="utf-8")).keys())
+        for label in label_names:
             yield MultiPurposeLabelSave(
-                name=label["name"],
+                name=label,
                 group_id=self.repos.group_id,
             )
 
@@ -80,21 +77,28 @@ class IngredientFoodsSeeder(AbstractSeeder):
         locale_path = self.resources / "foods" / "locales" / f"{locale}.json"
         return locale_path if locale_path.exists() else foods.en_US
 
+    def get_label(self, value: str) -> MultiPurposeLabelOut | None:
+        return self.repos.group_multi_purpose_labels.get_one(value, "name")
+
     def load_data(self, locale: str | None = None) -> Generator[SaveIngredientFood, None, None]:
         file = self.get_file(locale)
 
         seed_foods_names = set()
-        for food in json.loads(file.read_text(encoding="utf-8")).values():
-            if food["name"] in seed_foods_names:
-                continue
+        for label, value in json.loads(file.read_text(encoding="utf-8")).items():
+            label_out = self.get_label(label)
 
-            seed_foods_names.add(food["name"])
-            yield SaveIngredientFood(
-                group_id=self.repos.group_id,
-                name=food["name"],
-                plural_name=food.get("plural_name"),
-                description="",
-            )
+            for food in value["foods"]:
+                if food["name"] in seed_foods_names:
+                    continue
+
+                seed_foods_names.add(food["name"])
+                yield SaveIngredientFood(
+                    group_id=self.repos.group_id,
+                    name=food["name"],
+                    plural_name=food["pluralName"],
+                    description="",
+                    label_id=label_out.id if label_out and label_out.id else None,
+                )
 
     def seed(self, locale: str | None = None) -> None:
         self.logger.info("Seeding Ingredient Foods")
