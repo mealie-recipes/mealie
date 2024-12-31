@@ -4,7 +4,12 @@ from collections.abc import Generator
 from functools import cached_property
 
 from mealie.schema.labels import MultiPurposeLabelOut, MultiPurposeLabelSave
-from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood, SaveIngredientUnit
+from mealie.schema.recipe.recipe_ingredient import (
+    IngredientFood,
+    IngredientUnit,
+    SaveIngredientFood,
+    SaveIngredientUnit,
+)
 from mealie.services.group_services.labels_service import MultiPurposeLabelService
 
 from ._abstract_seeder import AbstractSeeder
@@ -21,11 +26,17 @@ class MultiPurposeLabelSeeder(AbstractSeeder):
         locale_path = self.resources / "foods" / "locales" / f"{locale}.json"
         return locale_path if locale_path.exists() else foods.en_US
 
+    def get_all_labels(self) -> list[MultiPurposeLabelOut]:
+        return self.repos.group_multi_purpose_labels.get_all()
+
     def load_data(self, locale: str | None = None) -> Generator[MultiPurposeLabelSave, None, None]:
         file = self.get_file(locale)
 
-        label_names = set(json.loads(file.read_text(encoding="utf-8")).keys())
-        for label in label_names:
+        current_label_names = {label.name for label in self.get_all_labels()}
+        seed_label_names = set(json.loads(file.read_text(encoding="utf-8")).keys())
+        # only seed new labels
+        to_seed_labels = seed_label_names - current_label_names
+        for label in to_seed_labels:
             yield MultiPurposeLabelSave(
                 name=label,
                 group_id=self.repos.group_id,
@@ -45,10 +56,13 @@ class IngredientUnitsSeeder(AbstractSeeder):
         locale_path = self.resources / "units" / "locales" / f"{locale}.json"
         return locale_path if locale_path.exists() else units.en_US
 
+    def get_all_units(self) -> list[IngredientUnit]:
+        return self.repos.ingredient_units.get_all()
+
     def load_data(self, locale: str | None = None) -> Generator[SaveIngredientUnit, None, None]:
         file = self.get_file(locale)
 
-        seen_unit_names = set()
+        seen_unit_names = {unit.name for unit in self.get_all_units()}
         for unit in json.loads(file.read_text(encoding="utf-8")).values():
             if unit["name"] in seen_unit_names:
                 continue
@@ -80,14 +94,19 @@ class IngredientFoodsSeeder(AbstractSeeder):
     def get_label(self, value: str) -> MultiPurposeLabelOut | None:
         return self.repos.group_multi_purpose_labels.get_one(value, "name")
 
+    def get_all_foods(self) -> list[IngredientFood]:
+        return self.repos.ingredient_foods.get_all()
+
     def load_data(self, locale: str | None = None) -> Generator[SaveIngredientFood, None, None]:
         file = self.get_file(locale)
 
-        seed_foods_names = set()
+        # get all current unique foods
+        seed_foods_names = {food.name for food in self.get_all_foods()}
         for label, value in json.loads(file.read_text(encoding="utf-8")).items():
             label_out = self.get_label(label)
 
             for food in value["foods"]:
+                # don't seed foods that already exist, matched on food name
                 if food["name"] in seed_foods_names:
                     continue
 
