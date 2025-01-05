@@ -357,7 +357,7 @@
     "for-type-meal-types": "per {0} tipi di pasto",
     "meal-plan-rules": "Regole del piano alimentare",
     "new-rule": "Nuova regola",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "Si possono creare regole per la selezione automatica delle ricette per i piani alimentari. Queste regole vengono utilizzate dal server per determinare l'insieme casuale di ricette da cui prelevare quando si creano i piani. Si noti che se le regole hanno gli stessi vincoli giorno/tipo, i filtri delle regole verranno uniti. In pratica, non è necessario creare regole duplicate, ma è comunque possibile farlo.",
     "new-rule-description": "Quando si crea una nuova regola per un piano alimentare è possibile limitare la sua applicazione ad un giorno specifico della settimana e/o un tipo specifico di pasto. Per applicare una regola a tutti i giorni o a tutti i tipi di pasto, è possibile impostare la regola a \"Qualsiasi\", applicandola a tutti i possibili valori per il tipo di giorno e/o di pasto.",
     "recipe-rules": "Regole per le ricette",
     "applies-to-all-days": "Si applica a ogni giorno",
@@ -518,7 +518,7 @@
     "save-recipe-before-use": "Salva la ricetta prima dell'uso",
     "section-title": "Titolo Sezione",
     "servings": "Portate",
-    "serves-amount": "Serves {amount}",
+    "serves-amount": "Porzioni {amount}",
     "share-recipe-message": "Volevo condividere la mia {0} ricetta con te.",
     "show-nutrition-values": "Mostra Valori Nutrizionali",
     "sodium-content": "Sodio",
@@ -627,7 +627,7 @@
     "import-from-html-or-json": "Import from HTML or JSON",
     "import-from-html-or-json-description": "Import a single recipe from raw HTML or JSON. This is useful if you have a recipe from a site that Mealie can't scrape normally, or from some other external source.",
     "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
-    "json-editor": "JSON Editor",
+    "json-editor": "Editor JSON",
     "zip-files-must-have-been-exported-from-mealie": "I file .zip devono essere stati esportati da Mealie",
     "create-a-recipe-by-uploading-a-scan": "Crea una ricetta caricando una scansione.",
     "upload-a-png-image-from-a-recipe-book": "Carica un'immagine png da un libro di ricette",
@@ -672,7 +672,7 @@
     "not-linked-ingredients": "Ingredienti Aggiuntivi"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder",
+    "recipe-finder": "Trova ricette",
     "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
     "selected-ingredients": "Seleziona ingredienti",
     "no-ingredients-selected": "Nessun ingrediente selezionato",
@@ -685,8 +685,8 @@
     "max-missing-tools": "Massimo Strumenti Mancanti",
     "selected-tools": "Strumenti Selezionati",
     "other-filters": "Altri filtri",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "ready-to-make": "Pronto da fare",
+    "almost-ready-to-make": "Quasi pronto da fare"
   },
   "search": {
     "advanced-search": "Ricerca Avanzata",
@@ -891,7 +891,7 @@
     "are-you-sure-you-want-to-check-all-items": "Sei sicuro di voler tutti gli elementi?",
     "are-you-sure-you-want-to-uncheck-all-items": "Sei sicuro di voler deselezionare tutti gli elementi?",
     "are-you-sure-you-want-to-delete-checked-items": "Sei sicuro di voler rimuovere tutti gli articoli selezionati?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "Nessuna lista della spesa trovata"
   },
   "sidebar": {
     "all-recipes": "Ricette",
@@ -1297,13 +1297,13 @@
     "debug-openai-services-description": "Usa questa pagina per fare debug dei servizi OpenAI. Puoi testare la tua connessione OpenAI e vedere i risultati qui. Se si dispone di servizi di immagine abilitati, è anche possibile fornire un'immagine.",
     "run-test": "Esegui test",
     "test-results": "Risultati dei test",
-    "group-delete-note": "Groups with users or households cannot be deleted",
+    "group-delete-note": "I gruppi con utenti o famiglie non possono essere eliminati",
     "household-delete-note": "Households with users cannot be deleted"
   },
   "profile": {
     "welcome-user": "👋 Benvenutǝ, {0}!",
     "description": "Gestisci il tuo profilo, le ricette e le impostazioni di gruppo.",
-    "invite-link": "Invite Link",
+    "invite-link": "Collegamento d'invito",
     "get-invite-link": "Ottieni Link Di Invito",
     "get-public-link": "Ottieni link pubblico",
     "account-summary": "Riepilogo Account",
@@ -1370,24 +1370,24 @@
   },
   "query-filter": {
     "logical-operators": {
-      "and": "AND",
-      "or": "OR"
+      "and": "E",
+      "or": "O"
     },
     "relational-operators": {
-      "equals": "equals",
-      "does-not-equal": "does not equal",
-      "is-greater-than": "is greater than",
-      "is-greater-than-or-equal-to": "is greater than or equal to",
-      "is-less-than": "is less than",
-      "is-less-than-or-equal-to": "is less than or equal to"
+      "equals": "è uguale",
+      "does-not-equal": "è diverso",
+      "is-greater-than": "è maggiore di",
+      "is-greater-than-or-equal-to": "è maggiore o uguale di",
+      "is-less-than": "è minore di",
+      "is-less-than-or-equal-to": "è minore o uguale di"
     },
     "relational-keywords": {
-      "is": "is",
-      "is-not": "is not",
-      "is-one-of": "is one of",
-      "is-not-one-of": "is not one of",
-      "contains-all-of": "contains all of",
-      "is-like": "is like",
+      "is": "è",
+      "is-not": "non è",
+      "is-one-of": "è uno di",
+      "is-not-one-of": "non è uno di",
+      "contains-all-of": "contiene tutti i",
+      "is-like": "è simile",
       "is-not-like": "non è come"
     }
   }
