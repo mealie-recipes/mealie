@@ -10,12 +10,12 @@
             "step-text": "I passaggi della ricetta e altri campi nella pagina delle ricette supportano la sintassi markdown.\n\n**Aggiungi un link**\n\n[Il mio Link](https://demo.mealie.io)"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
-            "yield": "Yield",
-            "yields": "Yields"
+            "makes": "Rende",
+            "serves": "Serve",
+            "serving": "Portata",
+            "servings": "Portate",
+            "yield": "Porzione",
+            "yields": "Porzioni"
         }
     },
     "mealplan": {
