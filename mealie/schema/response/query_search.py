@@ -16,7 +16,7 @@ class SearchFilter:
     3. remove special characters from each non-literal search string
     """
 
-    punctuation = "!\#$%&()*+,-./:;<=>?@[\\]^_`{|}~"  # string.punctuation with ' & " removed
+    punctuation = r"!\#$%&()*+,-./:;<=>?@[\\]^_`{|}~"  # string.punctuation with ' & " removed
     quoted_regex = re.compile(r"""(["'])(?:(?=(\\?))\2.)*?\1""")
     remove_quotes_regex = re.compile(r"""['"](.*)['"]""")
 

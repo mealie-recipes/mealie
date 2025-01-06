@@ -257,7 +257,7 @@
     "enable-public-access": "Povolit veřejný přístup",
     "enable-public-access-description": "Ve výchozím nastavení nastavit recepty skupiny jako veřejné a umožněte návštěvníkům prohlížet recepty bez přihlášení",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Povolit uživatelům mimo vaši skupinu vidět vaše recepty",
-    "allow-users-outside-of-your-group-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your group or with a pre-generated private link",
+    "allow-users-outside-of-your-group-to-see-your-recipes-description": "Pokud je tato možnost povolena, můžete použít veřejný odkaz pro sdílení konkrétních receptů bez autorizace uživatele. Pokud je tato možnost vypnutá, můžete sdílet recepty pouze s uživateli, kteří jsou ve vaší skupině, nebo s předem vygenerovaným soukromým odkazem",
     "show-nutrition-information": "Zobrazit nutriční informace",
     "show-nutrition-information-description": "When enabled the nutrition information will be shown on the recipe if available. If there is no nutrition information available, the nutrition information will not be shown",
     "show-recipe-assets": "Zobrazit položky receptu",

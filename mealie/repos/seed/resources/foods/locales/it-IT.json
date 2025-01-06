@@ -48,7 +48,7 @@
 	},
 	"bell-peppers": {
 		"name": "peperoni",
-		"plural_name": "bell peppers"
+		"plural_name": "peperoni"
 	},
 	"blackberries": {
 		"name": "more"
@@ -176,7 +176,7 @@
 	},
 	"coconut": {
 		"name": "cocco",
-		"plural_name": "coconuts"
+		"plural_name": "noci di cocco"
 	},
 	"coconut-milk": {
 		"name": "latte di cocco"
@@ -214,14 +214,14 @@
 	},
 	"cucumber": {
 		"name": "cetriolo",
-		"plural_name": "cucumbers"
+		"plural_name": "cetrioli"
 	},
 	"cumin": {
 		"name": "cumino"
 	},
 	"daikon": {
 		"name": "daikon",
-		"plural_name": "daikons"
+		"plural_name": "daikon"
 	},
 	"dairy-products-and-dairy-substitutes": {
 		"name": "latticini e sostituti dei latticini"
@@ -240,7 +240,7 @@
 	},
 	"eggplant": {
 		"name": "melanzana",
-		"plural_name": "eggplants"
+		"plural_name": "melanzane"
 	},
 	"eggs": {
 		"name": "uova",
@@ -317,11 +317,11 @@
 	},
 	"green-onion": {
 		"name": "cipolla verde",
-		"plural_name": "green onions"
+		"plural_name": "cipolle verdi"
 	},
 	"heart-of-palm": {
 		"name": "cuore di palma",
-		"plural_name": "heart of palms"
+		"plural_name": "cuori di palma"
 	},
 	"hemp": {
 		"name": "canapa"
@@ -368,7 +368,7 @@
 	},
 	"leek": {
 		"name": "porro",
-		"plural_name": "leeks"
+		"plural_name": "porri"
 	},
 	"legumes": {
 		"name": "legumi"
@@ -384,7 +384,7 @@
 	},
 	"liver": {
 		"name": "fegato",
-		"plural_name": "livers"
+		"plural_name": "fegatini"
 	},
 	"maize": {
 		"name": "mais"
@@ -403,7 +403,7 @@
 	},
 	"mushroom": {
 		"name": "fungo",
-		"plural_name": "mushrooms"
+		"plural_name": "funghi"
 	},
 	"mussels": {
 		"name": "cozze"
@@ -425,7 +425,7 @@
 	},
 	"octopuses": {
 		"name": "polpi",
-		"plural_name": "octopuses"
+		"plural_name": "polpi"
 	},
 	"oils": {
 		"name": "oli"
@@ -512,7 +512,7 @@
 	},
 	"radish": {
 		"name": "ravanello",
-		"plural_name": "radishes"
+		"plural_name": "ravanelli"
 	},
 	"raw-sugar": {
 		"name": "zucchero grezzo"
@@ -556,7 +556,7 @@
 	},
 	"shallot": {
 		"name": "scalogno",
-		"plural_name": "shallots"
+		"plural_name": "scalogni"
 	},
 	"skate": {
 		"name": "razza"
@@ -572,7 +572,7 @@
 	},
 	"spaghetti-squash": {
 		"name": "zucca spaghetti",
-		"plural_name": "spaghetti squashes"
+		"plural_name": "zucche spaghetti"
 	},
 	"speck": {
 		"name": "speck"
@@ -585,11 +585,11 @@
 	},
 	"spring-onion": {
 		"name": "cipolla verde",
-		"plural_name": "spring onions"
+		"plural_name": "cipollotti"
 	},
 	"squash": {
 		"name": "zucca",
-		"plural_name": "squashes"
+		"plural_name": "zucche"
 	},
 	"squash-family": {
 		"name": "cucurbitaceae"
@@ -626,21 +626,21 @@
 	},
 	"taro": {
 		"name": "taro",
-		"plural_name": "taroes"
+		"plural_name": "tari"
 	},
 	"teff": {
-		"name": "teff"
+		"name": "tef"
 	},
 	"tomato": {
 		"name": "pomodoro",
-		"plural_name": "tomatoes"
+		"plural_name": "pomodori"
 	},
 	"trout": {
 		"name": "trota"
 	},
 	"tubers": {
 		"name": "tuberi",
-		"plural_name": "tubers"
+		"plural_name": "tuberi"
 	},
 	"tuna": {
 		"name": "tonno"
@@ -650,7 +650,7 @@
 	},
 	"turnip": {
 		"name": "rapa",
-		"plural_name": "turnips"
+		"plural_name": "rape"
 	},
 	"unrefined-sugar": {
 		"name": "zucchero non raffinato"
@@ -666,11 +666,11 @@
 	},
 	"watermelon": {
 		"name": "anguria",
-		"plural_name": "watermelons"
+		"plural_name": "angurie"
 	},
 	"white-mushroom": {
 		"name": "fungo bianco",
-		"plural_name": "white mushrooms"
+		"plural_name": "funghi bianchi"
 	},
 	"white-sugar": {
 		"name": "zucchero bianco"
@@ -680,13 +680,13 @@
 	},
 	"yam": {
 		"name": "igname",
-		"plural_name": "yams"
+		"plural_name": "patate dolci"
 	},
 	"yeast": {
 		"name": "lievito"
 	},
 	"zucchini": {
 		"name": "zucchine",
-		"plural_name": "zucchinis"
+		"plural_name": "zucchine"
 	}
 }

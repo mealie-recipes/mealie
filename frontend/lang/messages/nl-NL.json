@@ -675,18 +675,18 @@
     "recipe-finder": "Recept zoeker",
     "recipe-finder-description": "Zoek naar recepten op basis van ingrediënten die je bij de hand hebt. Je kunt ook filteren op gereedschap dat je beschikbaar hebt en een maximum aantal ontbrekende ingrediënten of gereedschappen instellen.",
     "selected-ingredients": "Gekozen ingrediënten",
-    "no-ingredients-selected": "No ingredients selected",
-    "missing": "Missing",
-    "no-recipes-found": "No recipes found",
-    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
-    "include-ingredients-on-hand": "Include Ingredients On Hand",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
-    "selected-tools": "Selected Tools",
-    "other-filters": "Other Filters",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "no-ingredients-selected": "Geen ingrediënten geselecteerd",
+    "missing": "Ontbrekend",
+    "no-recipes-found": "Geen recepten gevonden",
+    "no-recipes-found-description": "Probeer meer ingrediënten toe te voegen aan uw zoekopdracht of pas uw filters aan",
+    "include-ingredients-on-hand": "Inclusief ingrediënten in huis",
+    "include-tools-on-hand": "Inclusief keukengerei in huis",
+    "max-missing-ingredients": "Maximum ontbrekende ingrediënten",
+    "max-missing-tools": "Maximum ontbrekend keukengerei",
+    "selected-tools": "Geselecteerd keukengerei",
+    "other-filters": "Overige filters",
+    "ready-to-make": "Klaar om te maken",
+    "almost-ready-to-make": "Bijna klaar om te maken"
   },
   "search": {
     "advanced-search": "Geavanceerd zoeken",
@@ -725,7 +725,7 @@
       "import-summary": "Samenvatting importeren",
       "partial-backup": "Gedeeltelijke back-up",
       "unable-to-delete-backup": "Kan back-up niet verwijderen.",
-      "experimental-description": "Back-ups zijn een complete kopie van de database en de data map. Je kunt geen keuze maken wat wel of niet in de reservekopie zit. Het is een kopie van Mealie van dat moment. Je kunt de back-up gebruiken om data te importeren of exporteren. Of om de hele site op een andere plek te bewaren.",
+      "experimental-description": "Back-ups zijn een complete kopie van de database en de data map. Je kunt niet kiezen wat wel of niet in de reservekopie zit. Het is een kopie van Mealie van dat moment. Je kunt de back-up gebruiken om data te importeren of exporteren. Of om de hele site op een andere plek te bewaren.",
       "backup-restore": "Back-up maken/terugzetten",
       "back-restore-description": "Het terugzetten van deze back-up overschrijft alle huidige gegevens in je database en in de gegevensmap. {cannot-be-undone} Als het terugzetten is gelukt wordt je afgemeld.",
       "cannot-be-undone": "Deze actie kan niet ongedaan worden gemaakt – gebruik met voorzichtigheid.",
@@ -891,7 +891,7 @@
     "are-you-sure-you-want-to-check-all-items": "Weet je zeker dat je alle items wilt selecteren?",
     "are-you-sure-you-want-to-uncheck-all-items": "Weet je zeker dat je alle items wilt deselecteren?",
     "are-you-sure-you-want-to-delete-checked-items": "Weet je zeker dat je de geselecteerde items wilt verwijderen?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "Geen boodschappenlijsten gevonden"
   },
   "sidebar": {
     "all-recipes": "Alle Recepten",
@@ -1303,7 +1303,7 @@
   "profile": {
     "welcome-user": "👋 Welkom, {0}!",
     "description": "Beheer je profiel, recepten en groepsinstellingen.",
-    "invite-link": "Invite Link",
+    "invite-link": "Uitnodigingslink",
     "get-invite-link": "Krijg uitnodigingslink",
     "get-public-link": "Openbare link krijgen",
     "account-summary": "Accountoverzicht",
@@ -1353,8 +1353,8 @@
   "cookbook": {
     "cookbooks": "Kookboeken",
     "description": "Kookboeken zijn een andere manier om recepten te organiseren door verzamelingen van recepten, organisatoren en andere filters te maken. Het maken van een kookboek voegt een item toe aan de zijbalk. Alle recepten met de gekozen filters worden in het kookboek getoond.",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
-    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
+    "hide-cookbooks-from-other-households": "Verberg kookboeken van andere huishoudens",
+    "hide-cookbooks-from-other-households-description": "Wanneer ingeschakeld, worden alleen kookboeken van uw huishouden op de zijbalk weergegeven",
     "public-cookbook": "Openbaar kookboek",
     "public-cookbook-description": "Openbare kookboeken kunnen worden gedeeld met niet-Mealie-gebruikers en zullen worden weergegeven op jouw groepspagina.",
     "filter-options": "Filteropties",

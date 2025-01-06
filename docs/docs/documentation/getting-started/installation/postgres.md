@@ -45,6 +45,7 @@ services:
     environment:
       POSTGRES_PASSWORD: mealie
       POSTGRES_USER: mealie
+      PGUSER: mealie
     healthcheck:
       test: ["CMD", "pg_isready"]
       interval: 30s
