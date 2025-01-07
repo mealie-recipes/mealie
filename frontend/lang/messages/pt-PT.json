@@ -277,7 +277,7 @@
     "admin-group-management-text": "As alterações a este grupo serão aplicadas imediatamente.",
     "group-id-value": "ID do Grupo: {0}",
     "total-households": "Total de Lares",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "Tens de selecionar um grupo antes de selecionar uma casa"
   },
   "household": {
     "household": "Casa",
@@ -518,7 +518,7 @@
     "save-recipe-before-use": "Guardar receita antes de usar",
     "section-title": "Título da secção",
     "servings": "Porções",
-    "serves-amount": "Serves {amount}",
+    "serves-amount": "Serve {amount}",
     "share-recipe-message": "Eu queria partilhar a minha {0} receita consigo.",
     "show-nutrition-values": "Mostrar valores nutricionais",
     "sodium-content": "Sódio",
@@ -547,8 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Erro ao adicionar receita ao plano de refeições",
     "failed-to-add-to-list": "Erro ao adicionar à lista",
     "yield": "Rendimento",
-    "yields-amount-with-text": "Yields {amount} {text}",
-    "yield-text": "Yield Text",
+    "yields-amount-with-text": "Rendimentos {amount} {text}",
+    "yield-text": "Rendimento Texto",
     "quantity": "Quantidade",
     "choose-unit": "Escolha uma unidade",
     "press-enter-to-create": "Prima 'Enter' para criar",
@@ -644,9 +644,9 @@
     "recipe-debugger-use-openai-description": "Utilize o OpenAI para analisar os resultados em vez de depender da biblioteca de scrapers. Ao criar uma receita através de um URL, isto é feito automaticamente se a biblioteca de scrapers falhar, mas pode testá-la manualmente aqui.",
     "debug": "Depurar",
     "tree-view": "Vista em árvore",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "Porções por receita",
     "recipe-yield": "Rendimento da receita",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "Rendimento da Receita Texto",
     "unit": "Unidade",
     "upload-image": "Carregar imagem",
     "screen-awake": "Manter ecrã ligado",
@@ -669,24 +669,24 @@
       "no-food": "Nenhum Ingrediente"
     },
     "reset-servings-count": "Reiniciar Contador de Doses",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "Ingredientes Adicionais"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder",
-    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
-    "selected-ingredients": "Selected Ingredients",
-    "no-ingredients-selected": "No ingredients selected",
-    "missing": "Missing",
-    "no-recipes-found": "No recipes found",
-    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
-    "include-ingredients-on-hand": "Include Ingredients On Hand",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
-    "selected-tools": "Selected Tools",
-    "other-filters": "Other Filters",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "recipe-finder": "Localizador de Receitas",
+    "recipe-finder-description": "Procure receitas com base nos ingredientes que tem em mãos. Pode também filtrar pelas ferramentas disponíveis e definir um número máximo de ingredientes ou ferramentas ausentes.",
+    "selected-ingredients": "Ingredientes Selecionados",
+    "no-ingredients-selected": "Nenhum ingrediente selecionado",
+    "missing": "Em falta",
+    "no-recipes-found": "Nenhuma receita encontrada",
+    "no-recipes-found-description": "Experimente adicionar mais ingredientes à sua pesquisa ou ajustar os seus filtros",
+    "include-ingredients-on-hand": "Incluir ingredientes disponíveis",
+    "include-tools-on-hand": "Incluir ferramentas disponíveis",
+    "max-missing-ingredients": "Máximo de ingredientes em falta",
+    "max-missing-tools": "Máximo de ferramentas em falta",
+    "selected-tools": "Ferramentas selecionadas",
+    "other-filters": "Outros filtros",
+    "ready-to-make": "Pronto para fazer",
+    "almost-ready-to-make": "Quase Pronto para fazer"
   },
   "search": {
     "advanced-search": "Pesquisa Avançada",
@@ -891,7 +891,7 @@
     "are-you-sure-you-want-to-check-all-items": "Tem a certeza de que pretende selecionar todos os itens?",
     "are-you-sure-you-want-to-uncheck-all-items": "Tem a certeza de que pretende desmarcar todos os itens?",
     "are-you-sure-you-want-to-delete-checked-items": "Tem a certeza de que pretende eliminar todos os itens selecionados?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "Nenhuma lista de compras encontrada"
   },
   "sidebar": {
     "all-recipes": "Todas as Receitas",
@@ -1303,7 +1303,7 @@
   "profile": {
     "welcome-user": "👋 Bem-vindo, {0}!",
     "description": "Gira o seu perfil, receitas e definições de grupo.",
-    "invite-link": "Invite Link",
+    "invite-link": "Link de convite",
     "get-invite-link": "Obter ligação de convite",
     "get-public-link": "Obter ligação pública",
     "account-summary": "Resumo da conta",
@@ -1353,8 +1353,8 @@
   "cookbook": {
     "cookbooks": "Livros de Receitas",
     "description": "Os livros de receitas são outra forma de organizar as receitas, criando secções cruzadas de receitas, organizadores e outros filtros. A criação de um livro de receitas adicionará uma entrada à barra lateral e todas as receitas com os filtros selecionados serão apresentadas no livro de receitas.",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
-    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
+    "hide-cookbooks-from-other-households": "Ocultar livros de receitas de outras famílias",
+    "hide-cookbooks-from-other-households-description": "Quando ativado, apenas os livros de receitas da sua família aparecerão na barra lateral",
     "public-cookbook": "Livro de Receitas público",
     "public-cookbook-description": "Os Livros de Receitas públicos podem ser partilhados com utilizadores não registados e serão exibidos na sua página de grupos.",
     "filter-options": "Opções de Filtro",
