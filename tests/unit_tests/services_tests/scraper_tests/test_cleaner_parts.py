@@ -538,6 +538,24 @@ nutrition_test_cases = (
         },
     ),
     CleanerCase(
+        test_id="calories as int",
+        input={
+            "calories": 100,
+        },
+        expected={
+            "calories": "100",
+        },
+    ),
+    CleanerCase(
+        test_id="calories as float",
+        input={
+            "calories": 100.0,
+        },
+        expected={
+            "calories": "100.0",
+        },
+    ),
+    CleanerCase(
         test_id="invalid keys get removed",
         input={
             "calories": "100mg",
