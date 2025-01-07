@@ -20,20 +20,6 @@
 
  -->
 
-## What type of PR is this?
-
-_(REQUIRED)_
-
-<!--
-  Delete any of the following that do not apply:
- -->
-
-- feature
-- bug
-- documentation
-- cleanup
-- dev (Internal development)
-
 ## What this PR does / why we need it:
 
 _(REQUIRED)_
