@@ -120,7 +120,8 @@ def clean_image(image: str | list | dict | None = None, default: str = "no image
         case str(image):
             return [image]
         case [str(_), *_]:
-            return [x for x in image if x]  # Only return non-null strings in list
+            # Only return non-null strings in list
+            return [x for x in image if x]
         case [{"url": str(_)}, *_]:
             return [x["url"] for x in image if "url" in x]
         case {"url": str(image)}:
@@ -128,7 +129,10 @@ def clean_image(image: str | list | dict | None = None, default: str = "no image
         case [{"@id": str(_)}, *_]:
             return [x["@id"] for x in image if "@id" in x]
         case _:
-            logger.exception(f"Unexpected type for image: {type(image)}, {image}")
+            logger.exception(
+                f"Unexpected type for image: {
+                             type(image)}, {image}"
+            )
             return [default]
 
 
@@ -223,7 +227,10 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
                 )
             )
         case _:
-            raise TypeError(f"Unexpected type for instructions: {type(steps_object)}, {steps_object}")
+            raise TypeError(
+                f"Unexpected type for instructions: {
+                            type(steps_object)}, {steps_object}"
+            )
 
 
 def _sanitize_instruction_text(line: str | dict) -> str:
@@ -283,7 +290,10 @@ def clean_ingredients(ingredients: list | str | None, default: list | None = Non
         case str(ingredients):
             return [clean_string(ingredient) for ingredient in ingredients.splitlines() if ingredient.strip()]
         case _:
-            raise TypeError(f"Unexpected type for ingredients: {type(ingredients)}, {ingredients}")
+            raise TypeError(
+                f"Unexpected type for ingredients: {
+                            type(ingredients)}, {ingredients}"
+            )
 
 
 def clean_int(val: str | int | None, min: int | None = None, max: int | None = None):
@@ -521,7 +531,10 @@ def clean_categories(category: str | list) -> list[str]:
             #
             return [cat["name"] for cat in category if "name" in cat]
         case _:
-            raise TypeError(f"Unexpected type for category: {type(category)}, {category}")
+            raise TypeError(
+                f"Unexpected type for category: {
+                            type(category)}, {category}"
+            )
 
 
 def clean_tags(data: str | list[str]) -> list[str]:
@@ -569,5 +582,11 @@ def clean_nutrition(nutrition: dict | None) -> dict[str, str]:
             if isinstance(val, str) and "m" not in val and "g" in val:
                 with contextlib.suppress(AttributeError, TypeError):
                     output_nutrition[key] = str(float(output_nutrition[key]) * 1000)
+
+    for key in ["calories"]:
+        if val := nutrition.get(key, None):
+            if isinstance(val, int | float):
+                with contextlib.suppress(AttributeError, TypeError):
+                    output_nutrition[key] = str(val)
 
     return output_nutrition
