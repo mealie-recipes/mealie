@@ -84,6 +84,16 @@ docker exec -it mealie bash
 python /app/mealie/scripts/reset_locked_users.py
 ```
 
+## How can I reset admin privileges for my account?
+
+If you've lost admin privileges and no other admin can restore them, you can use the Command Line Interface (CLI) to grant admin access.
+
+```shell
+docker exec -it mealie bash
+
+python /app/mealie/scripts/make_admin.py
+```
+
 ## How can I change my password?
 
 You can change your password by going to the user profile page and clicking the "Change Password" button. Alternatively you can use the following script to change your password via the CLI if you are locked out of your account.
