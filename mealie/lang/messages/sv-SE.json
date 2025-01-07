@@ -10,8 +10,8 @@
             "step-text": "Receptsteg samt andra fält i receptsidan stöder markdown syntax.\n\n**Lägg till en länk**\n\n[Min länk](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
+            "makes": "Portioner",
+            "serves": "Portioner",
             "serving": "Portion",
             "servings": "Portioner",
             "yield": "Ger",
