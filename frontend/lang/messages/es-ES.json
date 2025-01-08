@@ -570,13 +570,6 @@
     "increase-scale-label": "Aumentar escala en 1",
     "locked": "Bloqueada",
     "public-link": "Enlace público",
-    "timer": {
-      "kitchen-timer": "Temporizador de cocina",
-      "start-timer": "Iniciar Temporizador",
-      "pause-timer": "Pausar Temporizador",
-      "resume-timer": "Reanudar Temporizador",
-      "stop-timer": "Detener temporizador"
-    },
     "edit-timeline-event": "Editar evento en la cronología",
     "timeline": "Cronología",
     "timeline-is-empty": "Aún no hay nada en la línea de tiempo. ¡Intenta hacer esta receta!",
