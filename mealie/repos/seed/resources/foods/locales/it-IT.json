@@ -248,7 +248,7 @@
 	},
 	"endive": {
 		"name": "cicoria",
-		"plural_name": "endives"
+		"plural_name": "indivia"
 	},
 	"fats": {
 		"name": "grassi"
@@ -261,7 +261,7 @@
 	},
 	"fiddlehead-fern": {
 		"name": "germogli di felce",
-		"plural_name": "fiddlehead ferns"
+		"plural_name": "germogli di felce"
 	},
 	"fish": {
 		"name": "pesce"
@@ -295,7 +295,7 @@
 		"plural_name": "agli"
 	},
 	"gem-squash": {
-		"name": "gem squash"
+		"name": "zucca gemma"
 	},
 	"ghee": {
 		"name": "ghi"
@@ -469,7 +469,7 @@
 	},
 	"parsnip": {
 		"name": "pastinaca",
-		"plural_name": "parsnips"
+		"plural_name": "pastinache"
 	},
 	"pear": {
 		"name": "pera",
@@ -488,7 +488,7 @@
 	},
 	"plantain": {
 		"name": "platano",
-		"plural_name": "plantains"
+		"plural_name": "platani"
 	},
 	"poppy-seeds": {
 		"name": "semi di papavero"
@@ -602,7 +602,7 @@
 	},
 	"sunchoke": {
 		"name": "topinambur",
-		"plural_name": "sunchokes"
+		"plural_name": "topinambur"
 	},
 	"sunflower-seeds": {
 		"name": "semi di girasole"
@@ -616,13 +616,13 @@
 	},
 	"sweetcorn": {
 		"name": "mais dolce",
-		"plural_name": "sweetcorns"
+		"plural_name": "mais dolce"
 	},
 	"sweeteners": {
 		"name": "dolcificanti"
 	},
 	"tahini": {
-		"name": "tahini"
+		"name": "tahina"
 	},
 	"taro": {
 		"name": "taro",
