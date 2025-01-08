@@ -570,13 +570,6 @@
     "increase-scale-label": "Skála növelése 1-gyel",
     "locked": "Zárolt",
     "public-link": "Nyilvános link",
-    "timer": {
-      "kitchen-timer": "Konyhai időzítő",
-      "start-timer": "Időzítő elindítása",
-      "pause-timer": "Időzítő megállítása",
-      "resume-timer": "Időzítő folytatása",
-      "stop-timer": "Időzítő leállítása"
-    },
     "edit-timeline-event": "Idővonal-esemény szerkesztése",
     "timeline": "Idővonal",
     "timeline-is-empty": "Az idővonalon még semmi sincs. Próbálja meg elkészíteni ezt a receptet!",
