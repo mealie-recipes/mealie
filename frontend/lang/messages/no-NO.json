@@ -570,13 +570,6 @@
     "increase-scale-label": "Øk skala med 1",
     "locked": "Låst",
     "public-link": "Offentlig lenke",
-    "timer": {
-      "kitchen-timer": "Kjøkkentimer",
-      "start-timer": "Start nedtelling",
-      "pause-timer": "Pause nedtelling",
-      "resume-timer": "Fortsett nedtelling",
-      "stop-timer": "Stopp nedtelling"
-    },
     "edit-timeline-event": "Endre tidslinjehendelser",
     "timeline": "Tidslinje",
     "timeline-is-empty": "Ingenting på tidslinjen ennå. Prøv å lage denne oppskriften!",
