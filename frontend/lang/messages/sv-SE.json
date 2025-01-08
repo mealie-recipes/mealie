@@ -570,13 +570,6 @@
     "increase-scale-label": "Skala upp med 1",
     "locked": "Låst",
     "public-link": "Publik länk",
-    "timer": {
-      "kitchen-timer": "Kökstimer",
-      "start-timer": "Starta Timer",
-      "pause-timer": "Pausa Timer",
-      "resume-timer": "Återuppta Timer",
-      "stop-timer": "Stoppa Timer"
-    },
     "edit-timeline-event": "Redigera tidslinjehändelse",
     "timeline": "Tidslinje",
     "timeline-is-empty": "Inget på tidslinjen än. Försök att göra detta recept!",
