@@ -570,13 +570,6 @@
     "increase-scale-label": "Multiplica",
     "locked": "Bloquejat",
     "public-link": "Enllaç públic",
-    "timer": {
-      "kitchen-timer": "Temporitzador de cuina",
-      "start-timer": "Iniciar temporitzador",
-      "pause-timer": "Pausa el temporitzador",
-      "resume-timer": "Reprèn el temporitzador",
-      "stop-timer": "Atura el temporitzador"
-    },
     "edit-timeline-event": "Edita l'esdeveniment de la cronologia",
     "timeline": "Cronologia",
     "timeline-is-empty": "Encara no hi ha res a la cronologia. Prova de fer aquesta recepta!",
