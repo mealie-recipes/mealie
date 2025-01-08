@@ -570,13 +570,6 @@
     "increase-scale-label": "Ölçeği 1 artır",
     "locked": "Kilitli",
     "public-link": "Genel bağlantı",
-    "timer": {
-      "kitchen-timer": "Mutfak Saati",
-      "start-timer": "Zamanlayıcıyı Başlat",
-      "pause-timer": "Zamanlayıcıyı Duraklat",
-      "resume-timer": "Zamanlayıcıyı Sürdür",
-      "stop-timer": "Zamanlayıcıyı Durdur"
-    },
     "edit-timeline-event": "Zaman Çizelgesi Etkinliğini Düzenle",
     "timeline": "Zaman çizelgesi",
     "timeline-is-empty": "Zaman çizelgesinde henüz bir şey yok. Bu tarifi yapmayı deneyin!",
