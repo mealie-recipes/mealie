@@ -570,13 +570,6 @@
     "increase-scale-label": "Forøg skala med 1",
     "locked": "Låst",
     "public-link": "Offentligt link",
-    "timer": {
-      "kitchen-timer": "Køkken Ur",
-      "start-timer": "Start timer",
-      "pause-timer": "Sæt timer på pause",
-      "resume-timer": "Genoptag Timer",
-      "stop-timer": "Stop timer"
-    },
     "edit-timeline-event": "Rediger tidslinjebegivenhed",
     "timeline": "Tidslinje",
     "timeline-is-empty": "Intet på tidslinjen endnu. Prøv at lave denne opskrift!",
