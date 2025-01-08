@@ -570,13 +570,6 @@
     "increase-scale-label": "Increase Scale by 1",
     "locked": "잠김",
     "public-link": "Public Link",
-    "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "타이머 시작",
-      "pause-timer": "타이머 일시 정지",
-      "resume-timer": "타이머 재개",
-      "stop-timer": "타이머 정지"
-    },
     "edit-timeline-event": "Edit Timeline Event",
     "timeline": "타임라인",
     "timeline-is-empty": "Nothing on the timeline yet. Try making this recipe!",
