@@ -570,13 +570,6 @@
     "increase-scale-label": "העלה קנה מידה ב-1",
     "locked": "נעול",
     "public-link": "כתובת פומבית",
-    "timer": {
-      "kitchen-timer": "טיימר למטבח",
-      "start-timer": "התחל את הטיימר",
-      "pause-timer": "השהה את הטיימר",
-      "resume-timer": "המשך את הטיימר",
-      "stop-timer": "עצור את הטיימר"
-    },
     "edit-timeline-event": "עריכת אירוע ציר זמן",
     "timeline": "ציר זמן",
     "timeline-is-empty": "אין כלום בציר הזמן. נסה לעשות את המתכון הזה!",
