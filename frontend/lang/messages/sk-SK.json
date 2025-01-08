@@ -570,13 +570,6 @@
     "increase-scale-label": "Zvýšiť škálovanie o 1",
     "locked": "Zamknuté",
     "public-link": "Verejný odkaz",
-    "timer": {
-      "kitchen-timer": "Kuchynský časovač",
-      "start-timer": "Spustiť časovač",
-      "pause-timer": "Pozastaviť časovač",
-      "resume-timer": "Znova spustiť časovač",
-      "stop-timer": "Zastaviť časovač"
-    },
     "edit-timeline-event": "Upraviť udalosť na časovej osi",
     "timeline": "Časová os",
     "timeline-is-empty": "Na časovej osi zatiaľ nič nie je. Skúste pripraviť tento recept!",
