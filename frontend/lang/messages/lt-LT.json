@@ -570,13 +570,6 @@
     "increase-scale-label": "Padidinti mastelį 1 k.",
     "locked": "Užrakinta",
     "public-link": "Vieša nuoroda",
-    "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
-    },
     "edit-timeline-event": "Redaguoti laiko juostos įvykį",
     "timeline": "Laiko juosta",
     "timeline-is-empty": "Laiko juosta tuščia. Pabandykit pagaminti šį receptą!",
