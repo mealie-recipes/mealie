@@ -570,13 +570,6 @@
     "increase-scale-label": "Povećaj skaliranje za 1",
     "locked": "Zaključano",
     "public-link": "Javni Link",
-    "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
-    },
     "edit-timeline-event": "Uredi Događaj Vremenske Crte",
     "timeline": "Vremenska Crta",
     "timeline-is-empty": "Još nema ništa na vremenskoj crti. Pokušajte napraviti ovaj recept!",
