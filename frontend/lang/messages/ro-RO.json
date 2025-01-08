@@ -570,13 +570,6 @@
     "increase-scale-label": "Crește scara cu 1",
     "locked": "Blocat",
     "public-link": "Link public",
-    "timer": {
-      "kitchen-timer": "Cronometru bucătărie",
-      "start-timer": "Pornește cronometrul",
-      "pause-timer": "Pauză cronometru",
-      "resume-timer": "Reluați cronometrul",
-      "stop-timer": "Oprește Cronometrul"
-    },
     "edit-timeline-event": "Modifică Evenimentul din Cronologie",
     "timeline": "Cronologie",
     "timeline-is-empty": "Nimic în timeline deocamdată. Încearcă să gătești o rețeta!",
