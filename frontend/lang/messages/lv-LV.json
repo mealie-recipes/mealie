@@ -570,13 +570,6 @@
     "increase-scale-label": "Palieliniet skalu par 1",
     "locked": "Bloķēts",
     "public-link": "Publiskā saite",
-    "timer": {
-      "kitchen-timer": "Virtuves taimeris",
-      "start-timer": "Sākuma taimeris",
-      "pause-timer": "Pauzes taimeris",
-      "resume-timer": "Atjaunot taimeri",
-      "stop-timer": "Apturēšanas taimeris"
-    },
     "edit-timeline-event": "Laika skalas notikuma rediģēšana",
     "timeline": "Laika skala",
     "timeline-is-empty": "Pagaidām nekas laika skalā. Mēģiniet pagatavot šo recepti!",
