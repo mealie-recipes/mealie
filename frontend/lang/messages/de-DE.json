@@ -570,13 +570,6 @@
     "increase-scale-label": "Maßstab um 1 erhöhen",
     "locked": "Gesperrt",
     "public-link": "Öffentlicher Link",
-    "timer": {
-      "kitchen-timer": "Küchenwecker",
-      "start-timer": "Wecker starten",
-      "pause-timer": "Wecker pausieren",
-      "resume-timer": "Wecker fortsetzen",
-      "stop-timer": "Wecker stoppen"
-    },
     "edit-timeline-event": "Zeitstrahl-Ereignis bearbeiten",
     "timeline": "Zeitstrahl",
     "timeline-is-empty": "Noch nichts auf dem Zeitstrahl. Probier dieses Rezept aus!",
