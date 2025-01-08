@@ -570,13 +570,6 @@
     "increase-scale-label": "Increase Scale by 1",
     "locked": "Locked",
     "public-link": "Public Link",
-    "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
-    },
     "edit-timeline-event": "Уреди догађај на временској линији",
     "timeline": "Временска линија",
     "timeline-is-empty": "Још увек нема ништа на временској линији. Покушајте направити овај рецепт!",
