@@ -570,13 +570,6 @@
     "increase-scale-label": "Suurenna mittakaavaa yhdellä",
     "locked": "Lukittu",
     "public-link": "Julkinen Linkki",
-    "timer": {
-      "kitchen-timer": "Munakello",
-      "start-timer": "Käynnistä ajastin",
-      "pause-timer": "Keskeytä ajastin",
-      "resume-timer": "Jatka ajastusta",
-      "stop-timer": "Pysäytä ajastin"
-    },
     "edit-timeline-event": "Muokkaa Aikajanan Tapahtumaa",
     "timeline": "Aikajana",
     "timeline-is-empty": "Aikajana on tyhjä. Tee resepti.",
