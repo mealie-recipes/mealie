@@ -570,13 +570,6 @@
     "increase-scale-label": "スケールを 1 ずつ増やす",
     "locked": "ロック済み",
     "public-link": "公開リンク",
-    "timer": {
-      "kitchen-timer": "キッチンタイマー",
-      "start-timer": "タイマー開始",
-      "pause-timer": "タイマーを一時停止",
-      "resume-timer": "タイマーを再開",
-      "stop-timer": "タイマーを停止"
-    },
     "edit-timeline-event": "タイムラインイベントの編集",
     "timeline": "タイムライン",
     "timeline-is-empty": "タイムラインにはまだ何もありません。レシピを作ってみてください！",
