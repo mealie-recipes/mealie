@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Recipe 이름은 고유해야 합니다",
+        "recipe-created": "Recipe Created",
         "recipe-defaults": {
             "ingredient-note": "밀가루 1컵",
             "step-text": "Recipe 단계는 물론 recipe 페이지의 다른 필드도 Markdown 문법을 지원합니다.\n\n**Add a link**\n\n[\b나의 링크](https://demo.mealie.io)"
+        },
+        "servings-text": {
+            "makes": "Makes",
+            "serves": "Serves",
+            "serving": "Serving",
+            "servings": "Servings",
+            "yield": "Yield",
+            "yields": "Yields"
         }
     },
     "mealplan": {

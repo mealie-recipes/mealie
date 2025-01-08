@@ -94,7 +94,7 @@
 	},
 	"cabbage": {
 		"name": "káposzta",
-		"plural_name": "cabbages"
+		"plural_name": "káposzta"
 	},
 	"cactus-edible": {
 		"name": "kaktusz"
@@ -116,7 +116,7 @@
 	},
 	"carrot": {
 		"name": "sárgarépa",
-		"plural_name": "carrots"
+		"plural_name": "sárgarépa"
 	},
 	"caster-sugar": {
 		"name": "porcukor"
@@ -129,7 +129,7 @@
 	},
 	"cauliflower": {
 		"name": "karfiol",
-		"plural_name": "cauliflowers"
+		"plural_name": "karfiol"
 	},
 	"cayenne-pepper": {
 		"name": "cayenne-bors"
@@ -154,7 +154,7 @@
 	},
 	"chilli-peppers": {
 		"name": "csili paprika",
-		"plural_name": "chilli peppers"
+		"plural_name": "csili paprika"
 	},
 	"chinese-leaves": {
 		"name": "kínai kel"
@@ -176,7 +176,7 @@
 	},
 	"coconut": {
 		"name": "kókuszdió",
-		"plural_name": "coconuts"
+		"plural_name": "kókuszdió"
 	},
 	"coconut-milk": {
 		"name": "kókusztej"
@@ -198,7 +198,7 @@
 	},
 	"corn": {
 		"name": "kukorica",
-		"plural_name": "corns"
+		"plural_name": "kukorica"
 	},
 	"corn-syrup": {
 		"name": "kukoricaszirup"
@@ -214,14 +214,14 @@
 	},
 	"cucumber": {
 		"name": "uborka",
-		"plural_name": "cucumbers"
+		"plural_name": "uborka"
 	},
 	"cumin": {
 		"name": "kömény"
 	},
 	"daikon": {
 		"name": "jégcsapretek",
-		"plural_name": "daikons"
+		"plural_name": "jégcsapretek"
 	},
 	"dairy-products-and-dairy-substitutes": {
 		"name": "tejtermékek és helyetesítők"
@@ -240,15 +240,15 @@
 	},
 	"eggplant": {
 		"name": "padlizsán",
-		"plural_name": "eggplants"
+		"plural_name": "padlizsán"
 	},
 	"eggs": {
 		"name": "tojás",
-		"plural_name": "eggs"
+		"plural_name": "tojás"
 	},
 	"endive": {
 		"name": "endívia",
-		"plural_name": "endives"
+		"plural_name": "endívia"
 	},
 	"fats": {
 		"name": "zsírok"
@@ -292,7 +292,7 @@
 	},
 	"garlic": {
 		"name": "fokhagyma",
-		"plural_name": "garlics"
+		"plural_name": "fokhagyma"
 	},
 	"gem-squash": {
 		"name": "drágakő tök"
@@ -317,7 +317,7 @@
 	},
 	"green-onion": {
 		"name": "zöld hagyma",
-		"plural_name": "green onions"
+		"plural_name": "zöld hagyma"
 	},
 	"heart-of-palm": {
 		"name": "pálma szíve",
@@ -368,7 +368,7 @@
 	},
 	"leek": {
 		"name": "póréhagyma",
-		"plural_name": "leeks"
+		"plural_name": "póréhagyma"
 	},
 	"legumes": {
 		"name": "hüvelyesek"
@@ -384,7 +384,7 @@
 	},
 	"liver": {
 		"name": "máj",
-		"plural_name": "livers"
+		"plural_name": "máj"
 	},
 	"maize": {
 		"name": "csemegekukorica"
@@ -403,7 +403,7 @@
 	},
 	"mushroom": {
 		"name": "gomba",
-		"plural_name": "mushrooms"
+		"plural_name": "gomba"
 	},
 	"mussels": {
 		"name": "kagyló"
@@ -425,7 +425,7 @@
 	},
 	"octopuses": {
 		"name": "polip",
-		"plural_name": "octopuses"
+		"plural_name": "polip"
 	},
 	"oils": {
 		"name": "olajok"
@@ -450,7 +450,7 @@
 	},
 	"oranges": {
 		"name": "narancs",
-		"plural_name": "oranges"
+		"plural_name": "narancs"
 	},
 	"oregano": {
 		"name": "oregánó"
@@ -469,33 +469,33 @@
 	},
 	"parsnip": {
 		"name": "paszternák",
-		"plural_name": "parsnips"
+		"plural_name": "paszternák"
 	},
 	"pear": {
 		"name": "körte",
-		"plural_name": "pears"
+		"plural_name": "körte"
 	},
 	"peas": {
 		"name": "borsó"
 	},
 	"pepper": {
 		"name": "bors",
-		"plural_name": "peppers"
+		"plural_name": "bors"
 	},
 	"pineapple": {
 		"name": "ananász",
-		"plural_name": "pineapples"
+		"plural_name": "ananász"
 	},
 	"plantain": {
 		"name": "főzőbanán",
-		"plural_name": "plantains"
+		"plural_name": "főzőbanán"
 	},
 	"poppy-seeds": {
 		"name": "mák"
 	},
 	"potato": {
 		"name": "burgonya",
-		"plural_name": "potatoes"
+		"plural_name": "burgonyák"
 	},
 	"poultry": {
 		"name": "baromfi"
@@ -505,14 +505,14 @@
 	},
 	"pumpkin": {
 		"name": "tök",
-		"plural_name": "pumpkins"
+		"plural_name": "tök"
 	},
 	"pumpkin-seeds": {
 		"name": "tökmag"
 	},
 	"radish": {
 		"name": "retek",
-		"plural_name": "radishes"
+		"plural_name": "retek"
 	},
 	"raw-sugar": {
 		"name": "barna cukor"
@@ -556,7 +556,7 @@
 	},
 	"shallot": {
 		"name": "mogyoróhagyma",
-		"plural_name": "shallots"
+		"plural_name": "mogyoróhagyma"
 	},
 	"skate": {
 		"name": "rája"
@@ -572,7 +572,7 @@
 	},
 	"spaghetti-squash": {
 		"name": "spárgatök",
-		"plural_name": "spaghetti squashes"
+		"plural_name": "spárgatök"
 	},
 	"speck": {
 		"name": "speck sonka"
@@ -585,7 +585,7 @@
 	},
 	"spring-onion": {
 		"name": "újhagyma",
-		"plural_name": "spring onions"
+		"plural_name": "újhagyma"
 	},
 	"squash": {
 		"name": "tök",
@@ -612,7 +612,7 @@
 	},
 	"sweet-potato": {
 		"name": "édesburgonya",
-		"plural_name": "sweet potatoes"
+		"plural_name": "édesburgonya"
 	},
 	"sweetcorn": {
 		"name": "csemegekukorica",
@@ -633,14 +633,14 @@
 	},
 	"tomato": {
 		"name": "paradicsom",
-		"plural_name": "tomatoes"
+		"plural_name": "paradicsom"
 	},
 	"trout": {
 		"name": "pisztráng"
 	},
 	"tubers": {
 		"name": "gumók",
-		"plural_name": "tubers"
+		"plural_name": "gumók"
 	},
 	"tuna": {
 		"name": "tonhal"
@@ -666,7 +666,7 @@
 	},
 	"watermelon": {
 		"name": "görögdinnye",
-		"plural_name": "watermelons"
+		"plural_name": "görögdinnye"
 	},
 	"white-mushroom": {
 		"name": "fehér gomba",
@@ -680,13 +680,13 @@
 	},
 	"yam": {
 		"name": "jamgyökér",
-		"plural_name": "yams"
+		"plural_name": "jamgyökér"
 	},
 	"yeast": {
 		"name": "élesztő"
 	},
 	"zucchini": {
 		"name": "cukkini",
-		"plural_name": "zucchinis"
+		"plural_name": "cukkini"
 	}
 }

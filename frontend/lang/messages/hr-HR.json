@@ -276,7 +276,8 @@
     "admin-group-management": "Upravljanje Grupom od strane Administratora",
     "admin-group-management-text": "Promjene u ovoj grupi će se odmah odraziti.",
     "group-id-value": "Id grupe: {0}",
-    "total-households": "Total Households"
+    "total-households": "Total Households",
+    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
   },
   "household": {
     "household": "Household",
@@ -517,6 +518,7 @@
     "save-recipe-before-use": "Spasi recept prije upotrebe",
     "section-title": "Naslov Odjeljka",
     "servings": "Porcije",
+    "serves-amount": "Serves {amount}",
     "share-recipe-message": "Želio/željela bih podijeliti svoj recept {0} s tobom.",
     "show-nutrition-values": "Prikaži Nutritivne Vrijednosti",
     "sodium-content": "Sol",
@@ -545,6 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Nije uspjelo dodavanje recepta u plan obroka",
     "failed-to-add-to-list": "Failed to add to list",
     "yield": "Konačna Količina",
+    "yields-amount-with-text": "Yields {amount} {text}",
+    "yield-text": "Yield Text",
     "quantity": "Količina",
     "choose-unit": "Odaberi Jedinicu",
     "press-enter-to-create": "Pritisni Enter za Kreiranje",
@@ -566,13 +570,6 @@
     "increase-scale-label": "Povećaj skaliranje za 1",
     "locked": "Zaključano",
     "public-link": "Javni Link",
-    "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
-    },
     "edit-timeline-event": "Uredi Događaj Vremenske Crte",
     "timeline": "Vremenska Crta",
     "timeline-is-empty": "Još nema ništa na vremenskoj crti. Pokušajte napraviti ovaj recept!",
@@ -640,7 +637,9 @@
     "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Ispravljanje grešaka",
     "tree-view": "Prikaz Stabla",
+    "recipe-servings": "Recipe Servings",
     "recipe-yield": "Konačna Količina Recepta",
+    "recipe-yield-text": "Recipe Yield Text",
     "unit": "Jedinica",
     "upload-image": "Učitavanje Slike",
     "screen-awake": "Keep Screen Awake",
@@ -662,7 +661,25 @@
       "missing-food": "Create missing food: {food}",
       "no-food": "No Food"
     },
-    "reset-servings-count": "Reset Servings Count"
+    "reset-servings-count": "Reset Servings Count",
+    "not-linked-ingredients": "Additional Ingredients"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Recipe Finder",
+    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
+    "selected-ingredients": "Selected Ingredients",
+    "no-ingredients-selected": "No ingredients selected",
+    "missing": "Missing",
+    "no-recipes-found": "No recipes found",
+    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
+    "include-ingredients-on-hand": "Include Ingredients On Hand",
+    "include-tools-on-hand": "Include Tools On Hand",
+    "max-missing-ingredients": "Max Missing Ingredients",
+    "max-missing-tools": "Max Missing Tools",
+    "selected-tools": "Selected Tools",
+    "other-filters": "Other Filters",
+    "ready-to-make": "Ready to Make",
+    "almost-ready-to-make": "Almost Ready to Make"
   },
   "search": {
     "advanced-search": "Napredno Pretraživanje",
@@ -866,7 +883,8 @@
     "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
+    "no-shopping-lists-found": "No Shopping Lists Found"
   },
   "sidebar": {
     "all-recipes": "Svi Recepti",
@@ -1278,6 +1296,7 @@
   "profile": {
     "welcome-user": "👋 Welcome, {0}!",
     "description": "Upravljajte svojim profilom, receptima i postavkama grupa.",
+    "invite-link": "Invite Link",
     "get-invite-link": "Zatražite Poveznicu Pozivnice",
     "get-public-link": "Get Public Link",
     "account-summary": "Zbirni Prikaz Računa",
@@ -1327,6 +1346,8 @@
   "cookbook": {
     "cookbooks": "Zbirka recepata",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
+    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
     "public-cookbook": "Javna zbirka recepata",
     "public-cookbook-description": "Javne zbirke recepata mogu se dijeliti s korisnicima koji nisu Mealie korisnici i bit će prikazane na stranici vaše grupe.",
     "filter-options": "Opcije filtra",

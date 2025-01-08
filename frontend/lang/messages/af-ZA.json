@@ -276,7 +276,8 @@
     "admin-group-management": "Admin groepbestuur",
     "admin-group-management-text": "Veranderinge aan hierdie groep sal onmiddellik weerspieël word.",
     "group-id-value": "Groep-Id: {0}",
-    "total-households": "Total Households"
+    "total-households": "Total Households",
+    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
   },
   "household": {
     "household": "Household",
@@ -517,6 +518,7 @@
     "save-recipe-before-use": "Stoor resep voor gebruik",
     "section-title": "Afdeling titel",
     "servings": "Porsies",
+    "serves-amount": "Serves {amount}",
     "share-recipe-message": "Ek wou my {0}-resep met jou deel.",
     "show-nutrition-values": "Wys voedingswaardes",
     "sodium-content": "Natrium",
@@ -545,6 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Kon nie resep by maaltydplan voeg nie",
     "failed-to-add-to-list": "Failed to add to list",
     "yield": "Resultaat",
+    "yields-amount-with-text": "Yields {amount} {text}",
+    "yield-text": "Yield Text",
     "quantity": "Hoeveelheid",
     "choose-unit": "Kies 'n eenheid",
     "press-enter-to-create": "Druk Enter om te skep",
@@ -566,13 +570,6 @@
     "increase-scale-label": "Verhoog skaal met 1",
     "locked": "Gesluit",
     "public-link": "Openbare skakel",
-    "timer": {
-      "kitchen-timer": "Kombuis timer",
-      "start-timer": "Begin die kombuis timer",
-      "pause-timer": "Onderbreek die kombuis timer",
-      "resume-timer": "Hervat kombuis timer",
-      "stop-timer": "Stop die kombuis timer"
-    },
     "edit-timeline-event": "Wysig tydlyn gebeurtenis",
     "timeline": "Tydlyn",
     "timeline-is-empty": "Nog niks op die tydlyn nie. Probeer hierdie resep maak!",
@@ -640,7 +637,9 @@
     "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debug",
     "tree-view": "Boomstruktuur",
+    "recipe-servings": "Recipe Servings",
     "recipe-yield": "Resep opbrengs",
+    "recipe-yield-text": "Recipe Yield Text",
     "unit": "Eenheid",
     "upload-image": "Laai prent",
     "screen-awake": "Hou die skerm aan",
@@ -662,7 +661,25 @@
       "missing-food": "Create missing food: {food}",
       "no-food": "No Food"
     },
-    "reset-servings-count": "Reset Servings Count"
+    "reset-servings-count": "Reset Servings Count",
+    "not-linked-ingredients": "Additional Ingredients"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Recipe Finder",
+    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
+    "selected-ingredients": "Selected Ingredients",
+    "no-ingredients-selected": "No ingredients selected",
+    "missing": "Missing",
+    "no-recipes-found": "No recipes found",
+    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
+    "include-ingredients-on-hand": "Include Ingredients On Hand",
+    "include-tools-on-hand": "Include Tools On Hand",
+    "max-missing-ingredients": "Max Missing Ingredients",
+    "max-missing-tools": "Max Missing Tools",
+    "selected-tools": "Selected Tools",
+    "other-filters": "Other Filters",
+    "ready-to-make": "Ready to Make",
+    "almost-ready-to-make": "Almost Ready to Make"
   },
   "search": {
     "advanced-search": "Gevorderde soek",
@@ -866,7 +883,8 @@
     "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
+    "no-shopping-lists-found": "No Shopping Lists Found"
   },
   "sidebar": {
     "all-recipes": "Alle resepte",
@@ -1278,6 +1296,7 @@
   "profile": {
     "welcome-user": "👋 Welcome, {0}!",
     "description": "Bestuur jou profiel, resepte en groepverstellings.",
+    "invite-link": "Invite Link",
     "get-invite-link": "Kry uitnodigingskakel",
     "get-public-link": "Kry openbare skakel",
     "account-summary": "Rekeningopsomming",
@@ -1327,6 +1346,8 @@
   "cookbook": {
     "cookbooks": "Kookboeke",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
+    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
     "public-cookbook": "Openbare kookboek",
     "public-cookbook-description": "Publieke kookboeke kan met nie-mealie-gebruikers gedeel word en sal op jou groepbladsy verskyn.",
     "filter-options": "Filter opsies",

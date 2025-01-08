@@ -13,6 +13,7 @@
       )"
       color="primary"
       :icon="$globals.icons.foods"
+      :submit-disabled="isCreateDisabled"
       @submit="
         if (newMeal.existing) {
           actions.updateOne(newMeal);

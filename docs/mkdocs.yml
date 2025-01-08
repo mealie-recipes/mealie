@@ -104,3 +104,7 @@ nav:
           - Migration Guide: "contributors/developers-guide/migration-guide.md"
       - Guides:
           - Improving Ingredient Parser: "contributors/guides/ingredient-parser.md"
+
+  - News:
+      - Surveys:
+          - October 2024: "news/surveys/2024-october/overview.md"

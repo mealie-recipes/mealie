@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Gatavot"
     },
     {
-        "name": "Grains"
+        "name": "Labība"
     },
     {
-        "name": "Fruits"
+        "name": "Augļi"
     },
     {
-        "name": "Vegetables"
+        "name": "Dārzeņi"
     },
     {
-        "name": "Meat"
+        "name": "Gaļa"
     },
     {
-        "name": "Seafood"
+        "name": "Jūras veltes"
     },
     {
-        "name": "Beverages"
+        "name": "Dzērieni"
     },
     {
-        "name": "Baked Goods"
+        "name": "Ceptas preces"
     },
     {
-        "name": "Canned Goods"
+        "name": "Konservētas preces"
     },
     {
-        "name": "Condiments"
+        "name": "Garšvielas"
     },
     {
-        "name": "Confectionary"
+        "name": "Konditorejas izstrādājumi"
     },
     {
-        "name": "Dairy Products"
+        "name": "Piena produkti"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Saldēti pārtikas produkti"
     },
     {
-        "name": "Health Foods"
+        "name": "Veselīga pārtika"
     },
     {
-        "name": "Household"
+        "name": "Mājsaimniecība"
     },
     {
-        "name": "Meat Products"
+        "name": "Gaļas produkti"
     },
     {
-        "name": "Snacks"
+        "name": "Uzkodas"
     },
     {
-        "name": "Spices"
+        "name": "Garšvielas"
     },
     {
-        "name": "Sweets"
+        "name": "Saldumi"
     },
     {
-        "name": "Alcohol"
+        "name": "Alkohols"
     },
     {
-        "name": "Other"
+        "name": "Cits"
     }
 ]

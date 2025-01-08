@@ -36,7 +36,7 @@ class RepositoryCookbooks(HouseholdRepositoryGeneric[ReadCookBook, CookBook]):
             data = SaveCookBook(**data)
 
         new_slug = slugify(data.name)
-        if not (data.slug and re.match(f"^({new_slug})(-\d+)?$", data.slug)):
+        if not (data.slug and re.match(rf"^({new_slug})(-\d+)?$", data.slug)):
             data.slug = new_slug
 
         max_retries = 10

@@ -11,7 +11,7 @@
       :logged-in="isOwnGroup"
       :open="isEditMode"
       :recipe-id="recipe.id"
-      class="ml-auto mt-n8 pb-4"
+      class="ml-auto mt-n2 pb-4"
       @close="setMode(PageMode.VIEW)"
       @json="toggleEditMode()"
       @edit="setMode(PageMode.EDIT)"

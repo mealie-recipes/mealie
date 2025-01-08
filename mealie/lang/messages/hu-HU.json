@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "A receptek neveinek egyedi értéknek kell lenniük",
+        "recipe-created": "Recept létrehozva",
         "recipe-defaults": {
             "ingredient-note": "1 csésze liszt",
             "step-text": "A recept lépései és a receptoldal egyéb mezői támogatják a markdown szintaxist.\n\n**Hivatkozás hozzáadása**\n\n[Saját link](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Makes",
+            "serves": "Serves",
+            "serving": "Adag",
+            "servings": "Adag",
+            "yield": "Yield",
+            "yields": "Yields"
         }
     },
     "mealplan": {

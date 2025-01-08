@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Receptų pavadinimai turi būti unikalūs",
+        "recipe-created": "Recipe Created",
         "recipe-defaults": {
             "ingredient-note": "1 Cup Flour",
             "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Makes",
+            "serves": "Serves",
+            "serving": "Serving",
+            "servings": "Servings",
+            "yield": "Yield",
+            "yields": "Yields"
         }
     },
     "mealplan": {

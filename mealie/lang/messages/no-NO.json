@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Oppskriftsnavn må være unike",
+        "recipe-created": "Recipe Created",
         "recipe-defaults": {
             "ingredient-note": "1 kopp mel",
             "step-text": "Steg i oppskrifter og andre felter på siden støtter markdown syntax.\n\n**Legg til en link**\n\n[Min link](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Makes",
+            "serves": "Serves",
+            "serving": "Serving",
+            "servings": "Servings",
+            "yield": "Yield",
+            "yields": "Yields"
         }
     },
     "mealplan": {

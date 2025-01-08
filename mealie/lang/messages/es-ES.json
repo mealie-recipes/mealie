@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "El nombre de la receta debe ser único",
+        "recipe-created": "Recipe Created",
         "recipe-defaults": {
             "ingredient-note": "1 Taza de harina",
             "step-text": "Los pasos de receta, así como otros campos en la página de recetas, soportan sintaxis Markdown.\n\n**Agregar un enlace**\n\n[Mi Enlace](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Makes",
+            "serves": "Serves",
+            "serving": "Serving",
+            "servings": "Servings",
+            "yield": "Yield",
+            "yields": "Yields"
         }
     },
     "mealplan": {

@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Tarif adları benzersiz olmalıdır",
+        "recipe-created": "Tarif oluşturuldu",
         "recipe-defaults": {
             "ingredient-note": "1 Bardak Un",
             "step-text": "Tarif sayfasındaki tarif adımlarının yanı sıra diğer alanlar da markdown destekler.\n\n**Bağlantı ekle**\n\n[Bağlantım](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Makes",
+            "serves": "Serves",
+            "serving": "Serving",
+            "servings": "Servings",
+            "yield": "Yield",
+            "yields": "Yields"
         }
     },
     "mealplan": {

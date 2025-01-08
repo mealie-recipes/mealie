@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "שמות מתכונים חייבים להיות ייחודיים",
+        "recipe-created": "מתכון נוצר",
         "recipe-defaults": {
             "ingredient-note": "כוס קמח",
             "step-text": "שלבי המתכון, כמו גם שדות אחרים בעמוד המתכון, תומכים בתחביר markdown.\n\n**הוספת קישור**\n\n[הקישור שלי](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Makes",
+            "serves": "Serves",
+            "serving": "Serving",
+            "servings": "Servings",
+            "yield": "Yield",
+            "yields": "Yields"
         }
     },
     "mealplan": {

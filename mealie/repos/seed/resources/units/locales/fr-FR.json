@@ -19,7 +19,7 @@
     },
     "fluid-ounce": {
         "name": "centilitre",
-        "plural_name": "onces liquides",
+        "plural_name": "centilitres",
         "description": "",
         "abbreviation": "cL"
     },
@@ -97,7 +97,7 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "part",
+        "name": "portion",
         "plural_name": "portions",
         "description": "",
         "abbreviation": ""
