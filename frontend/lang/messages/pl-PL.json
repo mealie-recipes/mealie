@@ -570,13 +570,6 @@
     "increase-scale-label": "Zwiększ Skalę o 1",
     "locked": "Zablokowany",
     "public-link": "Link publiczny",
-    "timer": {
-      "kitchen-timer": "Minutnik",
-      "start-timer": "Włącz minutnik",
-      "pause-timer": "Zatrzymaj minutnik",
-      "resume-timer": "Wznów minutnik",
-      "stop-timer": "Zatrzymaj minutnik"
-    },
     "edit-timeline-event": "Edytuj zdarzenie osi czasu",
     "timeline": "Oś czasu",
     "timeline-is-empty": "Nie ma jeszcze nic na osi czasu. Spróbuj przygotować ten przepis!",
