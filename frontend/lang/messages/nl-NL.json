@@ -570,13 +570,6 @@
     "increase-scale-label": "Verhoog de schaal met 1",
     "locked": "Vergrendeld",
     "public-link": "Openbare link",
-    "timer": {
-      "kitchen-timer": "Kookwekker",
-      "start-timer": "Kookwekker starten",
-      "pause-timer": "Kookwekker pauzeren",
-      "resume-timer": "Kookwekker hervatten",
-      "stop-timer": "Kookwekker stoppen"
-    },
     "edit-timeline-event": "Bewerk tijdlijngebeurtenis",
     "timeline": "Tijdlijn",
     "timeline-is-empty": "Nog niets op de tijdlijn. Probeer dit recept te maken!",
