@@ -570,13 +570,6 @@
     "increase-scale-label": "Zvišaj merilo za 1",
     "locked": "Zaklenjeno",
     "public-link": "Javna povezava",
-    "timer": {
-      "kitchen-timer": "Kuhinjski časovnik",
-      "start-timer": "Zaženi časovnik",
-      "pause-timer": "Ustavi časovnik",
-      "resume-timer": "Nadaljuj časovnik",
-      "stop-timer": "Ustavi časovnik"
-    },
     "edit-timeline-event": "Uredi dogodek na časovnici",
     "timeline": "Časovnica",
     "timeline-is-empty": "Zaenkrat je časovnica prazna. Poskusi tale recept!",
