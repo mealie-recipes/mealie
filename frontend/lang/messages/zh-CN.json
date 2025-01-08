@@ -570,13 +570,6 @@
     "increase-scale-label": "加1倍",
     "locked": "已锁定",
     "public-link": "公开链接",
-    "timer": {
-      "kitchen-timer": "厨房计时器",
-      "start-timer": "开始计时",
-      "pause-timer": "暂停计时",
-      "resume-timer": "继续计时",
-      "stop-timer": "终止计时"
-    },
     "edit-timeline-event": "编辑时间轴事件",
     "timeline": "时间轴",
     "timeline-is-empty": "时间轴还空空如也，试着先去制作一个食谱吧！",
