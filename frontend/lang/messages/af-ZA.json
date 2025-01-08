@@ -570,13 +570,6 @@
     "increase-scale-label": "Verhoog skaal met 1",
     "locked": "Gesluit",
     "public-link": "Openbare skakel",
-    "timer": {
-      "kitchen-timer": "Kombuis timer",
-      "start-timer": "Begin die kombuis timer",
-      "pause-timer": "Onderbreek die kombuis timer",
-      "resume-timer": "Hervat kombuis timer",
-      "stop-timer": "Stop die kombuis timer"
-    },
     "edit-timeline-event": "Wysig tydlyn gebeurtenis",
     "timeline": "Tydlyn",
     "timeline-is-empty": "Nog niks op die tydlyn nie. Probeer hierdie resep maak!",
