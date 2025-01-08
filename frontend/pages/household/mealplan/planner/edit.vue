@@ -22,7 +22,6 @@
         }
         resetDialog();
       "
-      :submit-disabled="isCreateDisabled"
       @close="resetDialog()"
     >
       <v-card-text>
