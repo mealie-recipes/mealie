@@ -570,13 +570,6 @@
     "increase-scale-label": "Augmenter l’échelle de 1",
     "locked": "Verrouillé",
     "public-link": "Lien public",
-    "timer": {
-      "kitchen-timer": "Minuteur",
-      "start-timer": "Démarrer le minuteur",
-      "pause-timer": "Mettre en pause le minuteur",
-      "resume-timer": "Reprendre le minuteur",
-      "stop-timer": "Arrêter le minuteur"
-    },
     "edit-timeline-event": "Modifier l’événement dans l’historique",
     "timeline": "Historique",
     "timeline-is-empty": "Pas encore d’historique. Essayez de cuisiner cette recette !",
