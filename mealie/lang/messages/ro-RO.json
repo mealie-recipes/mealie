@@ -4,18 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Numele rețetei trebuie să fie unic",
-        "recipe-created": "Recipe Created",
+        "recipe-created": "Rețetă creată",
         "recipe-defaults": {
-            "ingredient-note": "1 Cup Flour",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "ingredient-note": "1 Cană de Făină",
+            "step-text": "Pașii rețetei precum și alte domenii din sintaxa markdown de pe pagina de rețetă.\n\n**Adăugați un link**\n\n[Link-ul meu](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
-            "yield": "Yield",
-            "yields": "Yields"
+            "makes": "Creează",
+            "serves": "Servește",
+            "serving": "Porție",
+            "servings": "Porții",
+            "yield": "Recoltă",
+            "yields": "Producţii"
         }
     },
     "mealplan": {
@@ -46,35 +46,35 @@
         "generic-deleted": "{name} a fost șters"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "year": "an|ani",
+        "day": "zi|zile",
+        "hour": "oră|ore",
+        "minute": "minut|minute",
+        "second": "secundă|secunde",
+        "millisecond": "milisecundă|milisecunde",
+        "microsecond": "microsecundă|microsecunde"
     },
     "emails": {
         "password": {
-            "subject": "Mealie Forgot Password",
-            "header_text": "Forgot Password",
-            "message_top": "You have requested to reset your password.",
-            "message_bottom": "Please click the button above to reset your password.",
-            "button_text": "Reset Password"
+            "subject": "Mealie Parolă Uitată",
+            "header_text": "Am uitat parola",
+            "message_top": "Ai solicitat resetarea parolei.",
+            "message_bottom": "Vă rugăm să faceţi clic pe butonul de mai sus pentru a reseta parola.",
+            "button_text": "Resetare parolă"
         },
         "invitation": {
-            "subject": "Invitation to join Mealie",
-            "header_text": "You're Invited!",
-            "message_top": "You have been invited to join Mealie.",
-            "message_bottom": "Please click the button above to accept the invitation.",
-            "button_text": "Accept Invitation"
+            "subject": "Invitație de a te alătura Mealie",
+            "header_text": "Ești invitat!",
+            "message_top": "Ai fost invitat să te alături lui Mealie.",
+            "message_bottom": "Vă rugăm să faceţi clic pe butonul de mai sus pentru a accepta invitaţia.",
+            "button_text": "Acceptă invitația"
         },
         "test": {
-            "subject": "Mealie Test Email",
-            "header_text": "Test Email",
-            "message_top": "This is a test email.",
-            "message_bottom": "Please click the button above to test the email.",
-            "button_text": "Open Mealie"
+            "subject": "E-mail test Mealie",
+            "header_text": "Email de test",
+            "message_top": "Acesta este un e-mail de test.",
+            "message_bottom": "Vă rugăm să faceţi clic pe butonul de mai sus pentru a testa e-mailul.",
+            "button_text": "Deschide Mealie"
         }
     }
 }
