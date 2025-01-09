@@ -277,7 +277,7 @@
     "admin-group-management-text": "A csoporthoz tartozó változtatások azonnal megjelennek.",
     "group-id-value": "Csoport azonosító: {0}",
     "total-households": "Háztartások száma",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "A háztartás kiválasztása előtt ki kell választania egy csoportot"
   },
   "household": {
     "household": "Háztartás",
@@ -518,7 +518,7 @@
     "save-recipe-before-use": "Recept mentése használat előtt",
     "section-title": "Szakasz címe",
     "servings": "Adag",
-    "serves-amount": "Serves {amount}",
+    "serves-amount": "Adag {amount}",
     "share-recipe-message": "Szeretném megossztani veled a {0} receptemet.",
     "show-nutrition-values": "Tápértékek megjelenítése",
     "sodium-content": "Nátrium",
@@ -662,24 +662,24 @@
       "no-food": "Élelmiszer nélküli"
     },
     "reset-servings-count": "Adagok számának visszaállítása",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "Kiegészítő hozzávalók"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder",
-    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
-    "selected-ingredients": "Selected Ingredients",
-    "no-ingredients-selected": "No ingredients selected",
-    "missing": "Missing",
-    "no-recipes-found": "No recipes found",
-    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
-    "include-ingredients-on-hand": "Include Ingredients On Hand",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
-    "selected-tools": "Selected Tools",
-    "other-filters": "Other Filters",
+    "recipe-finder": "Receptkereső",
+    "recipe-finder-description": "Keressen recepteket a kéznél lévő összetevők alapján. A rendelkezésre álló eszközök alapján is szűrhet, és beállíthatja a hiányzó összetevők vagy eszközök maximális számát.",
+    "selected-ingredients": "Kiválasztott összetevők",
+    "no-ingredients-selected": "Nincsenek kiválasztott összetevők",
+    "missing": "Hiányzó",
+    "no-recipes-found": "Nem található recept",
+    "no-recipes-found-description": "Próbáljon meg több összetevőt hozzáadni a kereséshez, vagy állítsa be a szűrőket",
+    "include-ingredients-on-hand": "Beleértve a kéznél lévő összetevőket",
+    "include-tools-on-hand": "Beleértve a kéznél lévő eszközöket",
+    "max-missing-ingredients": "Maximálisan hiányzó összetevők száma",
+    "max-missing-tools": "Maximálisan hiányzó eszközök száma",
+    "selected-tools": "Kiválasztott eszközök",
+    "other-filters": "További szűrők",
     "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "almost-ready-to-make": "Majdnem készen áll"
   },
   "search": {
     "advanced-search": "Részletes keresés",
@@ -884,7 +884,7 @@
     "are-you-sure-you-want-to-check-all-items": "Biztos, hogy minden elemet be akar jelölni?",
     "are-you-sure-you-want-to-uncheck-all-items": "Biztos, hogy minden elem kijelölését visszavonja?",
     "are-you-sure-you-want-to-delete-checked-items": "Biztosan törölni akarja az összes bejelölt elemet?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "Nem találhatók bevásárlólisták"
   },
   "sidebar": {
     "all-recipes": "Minden recept",
@@ -1296,7 +1296,7 @@
   "profile": {
     "welcome-user": "👋 Üdvözöljük, {0}!",
     "description": "Profiljának, receptjeinek és csoportbeállításainak kezelése.",
-    "invite-link": "Invite Link",
+    "invite-link": "Meghívó link",
     "get-invite-link": "Meghívó link beszerzése",
     "get-public-link": "Nyilvánon link beszerzése",
     "account-summary": "Fiók áttekintése",
@@ -1326,7 +1326,7 @@
     "notifiers-description": "Állítson be olyan e-mail és push-értesítéseket, amelyek meghatározott események esetén lépnek működésbe.",
     "manage-data": "Adatok kezelése",
     "manage-data-description": "Az Ön Mealie adatainak kezelése: alapanyagok, mértékegységek, kategóriák, címkék, stb.",
-    "data-migrations": "Adat migráció",
+    "data-migrations": "Adatmigráció",
     "data-migrations-description": "Migrálja meglévő adatait más alkalmazásokból, például Nextcloud Recipes vagy Chowdown.",
     "email-sent": "E-mail elküldve",
     "error-sending-email": "Hiba történt az e-Mail küldésénél",
@@ -1341,13 +1341,13 @@
     "manage-members": "Tagok Kezelése",
     "manage-webhooks": "Webhookok kezelése",
     "manage-notifiers": "Értesítések kezelése",
-    "manage-data-migrations": "Adatok migrációjának kezelése"
+    "manage-data-migrations": "Adatmigráció kezelése"
   },
   "cookbook": {
     "cookbooks": "Szakácskönyvek",
     "description": "A szakácskönyvek egy másik módja a receptek rendszerezésének a receptek, szervezők és egyéb szűrők keresztmetszeteinek létrehozásával. Egy szakácskönyv létrehozása egy bejegyzést ad az oldalsávhoz, és a kiválasztott szűrőkkel rendelkező összes recept megjelenik a szakácskönyvben.",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
-    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
+    "hide-cookbooks-from-other-households": "Szakácskönyvek elrejtése más háztartásoktól",
+    "hide-cookbooks-from-other-households-description": "Ha engedélyezve van, csak az Ön háztartásának szakácskönyvei jelennek meg az oldalsávban",
     "public-cookbook": "Nyilvános szakácskönyv",
     "public-cookbook-description": "A nyilvános szakácskönyvek megoszthatók a nem mealie felhasználókkal, és megjelennek a csoportod oldalán.",
     "filter-options": "Szűrési beállítások",
