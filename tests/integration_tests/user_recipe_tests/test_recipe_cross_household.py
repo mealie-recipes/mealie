@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pytest
 from fastapi.testclient import TestClient
@@ -242,7 +242,7 @@ def test_user_can_update_last_made_on_other_household(
     assert recipe["id"] == str(h2_recipe_id)
     old_last_made = recipe["lastMade"]
 
-    now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    now = datetime.now(UTC).isoformat().replace("+00:00", "Z")
     response = api_client.patch(
         api_routes.recipes_slug_last_made(h2_recipe_slug), json={"timestamp": now}, headers=unique_user.token
     )

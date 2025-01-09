@@ -1,7 +1,7 @@
 import random
 import time
 from collections import defaultdict
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from random import randint
 from urllib.parse import parse_qsl, urlsplit
 
@@ -238,7 +238,7 @@ def test_pagination_filter_null(unique_user: TestUser):
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             name=random_string(),
-            last_made=datetime.now(timezone.utc),
+            last_made=datetime.now(UTC),
         )
     )
 
@@ -626,7 +626,7 @@ def test_pagination_filter_datetimes(
 )
 def test_pagination_order_by_multiple(unique_user: TestUser, order_direction: OrderDirection):
     database = unique_user.repos
-    current_time = datetime.now(timezone.utc)
+    current_time = datetime.now(UTC)
 
     alphabet = ["a", "b", "c", "d", "e"]
     abbreviations = alphabet.copy()
@@ -687,7 +687,7 @@ def test_pagination_order_by_multiple_directions(
     unique_user: TestUser, order_by_str: str, order_direction: OrderDirection
 ):
     database = unique_user.repos
-    current_time = datetime.now(timezone.utc)
+    current_time = datetime.now(UTC)
 
     alphabet = ["a", "b", "c", "d", "e"]
     abbreviations = alphabet.copy()
@@ -735,7 +735,7 @@ def test_pagination_order_by_multiple_directions(
 )
 def test_pagination_order_by_nested_model(unique_user: TestUser, order_direction: OrderDirection):
     database = unique_user.repos
-    current_time = datetime.now(timezone.utc)
+    current_time = datetime.now(UTC)
 
     alphabet = ["a", "b", "c", "d", "e"]
     labels = database.group_multi_purpose_labels.create_many(
@@ -766,7 +766,7 @@ def test_pagination_order_by_nested_model(unique_user: TestUser, order_direction
 
 def test_pagination_order_by_doesnt_filter(unique_user: TestUser):
     database = unique_user.repos
-    current_time = datetime.now(timezone.utc)
+    current_time = datetime.now(UTC)
 
     label = database.group_multi_purpose_labels.create(
         MultiPurposeLabelSave(name=random_string(), group_id=unique_user.group_id)
@@ -810,7 +810,7 @@ def test_pagination_order_by_nulls(
     unique_user: TestUser, null_position: OrderByNullPosition, order_direction: OrderDirection
 ):
     database = unique_user.repos
-    current_time = datetime.now(timezone.utc)
+    current_time = datetime.now(UTC)
 
     label = database.group_multi_purpose_labels.create(
         MultiPurposeLabelSave(name=random_string(), group_id=unique_user.group_id)
@@ -916,7 +916,7 @@ def test_pagination_shopping_list_items_with_labels(unique_user: TestUser):
 
 
 def test_pagination_filter_dates(api_client: TestClient, unique_user: TestUser):
-    today = datetime.now(timezone.utc).date()
+    today = datetime.now(UTC).date()
 
     yesterday = today - timedelta(days=1)
     tomorrow = today + timedelta(days=1)

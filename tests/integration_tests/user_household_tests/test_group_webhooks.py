@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pytest
 from fastapi.testclient import TestClient
@@ -14,7 +14,7 @@ def webhook_data():
         "name": "Test-Name",
         "url": "https://my-fake-url.com",
         "time": "00:00",
-        "scheduledTime": datetime.now(timezone.utc),
+        "scheduledTime": datetime.now(UTC),
     }
 
 
@@ -41,7 +41,7 @@ def test_read_webhook(api_client: TestClient, unique_user: TestUser, webhook_dat
     assert webhook["id"] == item_id
     assert webhook["name"] == webhook_data["name"]
     assert webhook["url"] == webhook_data["url"]
-    assert webhook["scheduledTime"] == str(webhook_data["scheduledTime"].astimezone(timezone.utc).time())
+    assert webhook["scheduledTime"] == str(webhook_data["scheduledTime"].astimezone(UTC).time())
     assert webhook["enabled"] == webhook_data["enabled"]
 
 

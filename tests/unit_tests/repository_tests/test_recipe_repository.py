@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import cast
 from uuid import UUID
 
@@ -340,12 +340,12 @@ def test_recipe_repo_pagination_by_categories(unique_user: TestUser):
         page=1,
         per_page=-1,
         order_by="random",
-        pagination_seed=str(datetime.now(timezone.utc)),
+        pagination_seed=str(datetime.now(UTC)),
         order_direction=OrderDirection.asc,
     )
     random_ordered = []
     for _ in range(5):
-        pagination_query.pagination_seed = str(datetime.now(timezone.utc))
+        pagination_query.pagination_seed = str(datetime.now(UTC))
         random_ordered.append(database.recipes.page_all(pagination_query, categories=[category_slug]).items)
     assert not all(i == random_ordered[0] for i in random_ordered)
 
@@ -437,12 +437,12 @@ def test_recipe_repo_pagination_by_tags(unique_user: TestUser):
         page=1,
         per_page=-1,
         order_by="random",
-        pagination_seed=str(datetime.now(timezone.utc)),
+        pagination_seed=str(datetime.now(UTC)),
         order_direction=OrderDirection.asc,
     )
     random_ordered = []
     for _ in range(5):
-        pagination_query.pagination_seed = str(datetime.now(timezone.utc))
+        pagination_query.pagination_seed = str(datetime.now(UTC))
         random_ordered.append(database.recipes.page_all(pagination_query, tags=[tag_slug]).items)
     assert len(random_ordered[0]) == 15
     assert not all(i == random_ordered[0] for i in random_ordered)
@@ -534,12 +534,12 @@ def test_recipe_repo_pagination_by_tools(unique_user: TestUser):
         page=1,
         per_page=-1,
         order_by="random",
-        pagination_seed=str(datetime.now(timezone.utc)),
+        pagination_seed=str(datetime.now(UTC)),
         order_direction=OrderDirection.asc,
     )
     random_ordered = []
     for _ in range(5):
-        pagination_query.pagination_seed = str(datetime.now(timezone.utc))
+        pagination_query.pagination_seed = str(datetime.now(UTC))
         random_ordered.append(database.recipes.page_all(pagination_query, tools=[tool_id]).items)
     assert len(random_ordered[0]) == 15
     assert not all(i == random_ordered[0] for i in random_ordered)
@@ -619,12 +619,12 @@ def test_recipe_repo_pagination_by_foods(unique_user: TestUser):
         page=1,
         per_page=-1,
         order_by="random",
-        pagination_seed=str(datetime.now(timezone.utc)),
+        pagination_seed=str(datetime.now(UTC)),
         order_direction=OrderDirection.asc,
     )
     random_ordered = []
     for _ in range(5):
-        pagination_query.pagination_seed = str(datetime.now(timezone.utc))
+        pagination_query.pagination_seed = str(datetime.now(UTC))
         random_ordered.append(database.recipes.page_all(pagination_query, foods=[food_id]).items)
     assert len(random_ordered[0]) == 15
     assert not all(i == random_ordered[0] for i in random_ordered)
@@ -696,12 +696,12 @@ def test_random_order_recipe_search(
         page=1,
         per_page=-1,
         order_by="random",
-        pagination_seed=str(datetime.now(timezone.utc)),
+        pagination_seed=str(datetime.now(UTC)),
         order_direction=OrderDirection.asc,
     )
     random_ordered = []
     for _ in range(5):
-        pagination.pagination_seed = str(datetime.now(timezone.utc))
+        pagination.pagination_seed = str(datetime.now(UTC))
         random_ordered.append(repo.page_all(pagination, search="soup").items)
     assert not all(i == random_ordered[0] for i in random_ordered)
 
@@ -713,7 +713,7 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
 
     recipes: list[Recipe] = []
     for i in range(3):
-        slug = f"recipe-{i+1}-{random_string(5)}"
+        slug = f"recipe-{i + 1}-{random_string(5)}"
         recipes.append(
             repo.create(
                 Recipe(
