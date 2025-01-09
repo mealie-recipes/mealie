@@ -650,7 +650,7 @@
 	},
 	"turnip": {
 		"name": "fehér répa",
-		"plural_name": "turnips"
+		"plural_name": "fehérrépa"
 	},
 	"unrefined-sugar": {
 		"name": "finomitatlan cukor"
@@ -670,7 +670,7 @@
 	},
 	"white-mushroom": {
 		"name": "fehér gomba",
-		"plural_name": "white mushrooms"
+		"plural_name": "fehér gomba"
 	},
 	"white-sugar": {
 		"name": "fehér cukor"
