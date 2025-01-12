@@ -33,7 +33,8 @@ class MultiPurposeLabelSeeder(AbstractSeeder):
         file = self.get_file(locale)
 
         current_label_names = {label.name for label in self.get_all_labels()}
-        seed_label_names = set(json.loads(file.read_text(encoding="utf-8")).keys())
+        # load from the foods locale file and remove any empty strings
+        seed_label_names = set(filter(None, json.loads(file.read_text(encoding="utf-8")).keys()))  # type: set[str]
         # only seed new labels
         to_seed_labels = seed_label_names - current_label_names
         for label in to_seed_labels:
@@ -101,21 +102,20 @@ class IngredientFoodsSeeder(AbstractSeeder):
         file = self.get_file(locale)
 
         # get all current unique foods
-        seed_foods_names = {food.name for food in self.get_all_foods()}
-        for label, value in json.loads(file.read_text(encoding="utf-8")).items():
+        seen_foods_names = {food.name for food in self.get_all_foods()}
+        for label, values in json.loads(file.read_text(encoding="utf-8")).items():
             label_out = self.get_label(label)
 
-            for food in value["foods"]:
-                # don't seed foods that already exist, matched on food name
-                if food["name"] in seed_foods_names:
+            for food_name, attributes in values["foods"].items():
+                if food_name in seen_foods_names:
                     continue
 
-                seed_foods_names.add(food["name"])
+                seen_foods_names.add(food_name)
                 yield SaveIngredientFood(
                     group_id=self.repos.group_id,
-                    name=food["name"],
-                    plural_name=food["pluralName"],
-                    description="",
+                    name=attributes["name"],
+                    plural_name=attributes.get("plural_name"),
+                    description="",  # description expected to be empty string by UnitFoodBase class
                     label_id=label_out.id if label_out and label_out.id else None,
                 )
 
