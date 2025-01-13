@@ -4,7 +4,7 @@
     },
     "recipe": {
         "unique-name-error": "Opskriftsnavnet er allerede i brug",
-        "recipe-created": "Recipe Created",
+        "recipe-created": "Opskrift oprettet",
         "recipe-defaults": {
             "ingredient-note": "1 kop mel",
             "step-text": "Du kan bruge markdown kode i beskrivelser og andre felter i opskrifter.\n\n**Tilføj et link**\n\n[Mit link](https://demo.mealie.io)\n"
@@ -12,8 +12,8 @@
         "servings-text": {
             "makes": "Makes",
             "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
+            "serving": "Servering",
+            "servings": "Portioner",
             "yield": "Yield",
             "yields": "Yields"
         }

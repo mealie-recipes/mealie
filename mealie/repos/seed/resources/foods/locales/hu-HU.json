@@ -261,7 +261,7 @@
 	},
 	"fiddlehead-fern": {
 		"name": "hegedűfej páfrány",
-		"plural_name": "fiddlehead ferns"
+		"plural_name": "hegedűfej páfrányok"
 	},
 	"fish": {
 		"name": "hal"
@@ -321,7 +321,7 @@
 	},
 	"heart-of-palm": {
 		"name": "pálma szíve",
-		"plural_name": "heart of palms"
+		"plural_name": "pálmák szívei"
 	},
 	"hemp": {
 		"name": "kender"
@@ -333,11 +333,11 @@
 		"name": "méz"
 	},
 	"isomalt": {
-		"name": "isomalt"
+		"name": "izomalt"
 	},
 	"jackfruit": {
 		"name": "jákafa",
-		"plural_name": "jackfruits"
+		"plural_name": "jákafák"
 	},
 	"jaggery": {
 		"name": "nádcukor"
@@ -543,7 +543,7 @@
 	},
 	"scallion": {
 		"name": "zöldhagyma",
-		"plural_name": "scallions"
+		"plural_name": "zöldhagymák"
 	},
 	"seafood": {
 		"name": "tenger gyümölcsei"
@@ -589,7 +589,7 @@
 	},
 	"squash": {
 		"name": "tök",
-		"plural_name": "squashes"
+		"plural_name": "tökök"
 	},
 	"squash-family": {
 		"name": "tökfélék"
@@ -602,7 +602,7 @@
 	},
 	"sunchoke": {
 		"name": "csicsóka",
-		"plural_name": "sunchokes"
+		"plural_name": "csicsókák"
 	},
 	"sunflower-seeds": {
 		"name": "napraforgómag"
@@ -616,7 +616,7 @@
 	},
 	"sweetcorn": {
 		"name": "csemegekukorica",
-		"plural_name": "sweetcorns"
+		"plural_name": "csemegekukorica"
 	},
 	"sweeteners": {
 		"name": "édesítőszerek"
@@ -626,7 +626,7 @@
 	},
 	"taro": {
 		"name": "taró",
-		"plural_name": "taroes"
+		"plural_name": "tarók"
 	},
 	"teff": {
 		"name": "egynyári fürtfű"
@@ -650,7 +650,7 @@
 	},
 	"turnip": {
 		"name": "fehér répa",
-		"plural_name": "turnips"
+		"plural_name": "fehérrépa"
 	},
 	"unrefined-sugar": {
 		"name": "finomitatlan cukor"
@@ -670,7 +670,7 @@
 	},
 	"white-mushroom": {
 		"name": "fehér gomba",
-		"plural_name": "white mushrooms"
+		"plural_name": "fehér gomba"
 	},
 	"white-sugar": {
 		"name": "fehér cukor"
