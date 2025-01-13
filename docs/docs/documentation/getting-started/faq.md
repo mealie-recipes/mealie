@@ -1,7 +1,3 @@
----
-hide:
-  - toc
----
 
 # Frequently Asked Questions
 
