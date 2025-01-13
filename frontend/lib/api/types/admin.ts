@@ -161,7 +161,7 @@ export interface RecipeTool {
   id: string;
   name: string;
   slug: string;
-  onHand?: boolean;
+  householdsWithTool?: string[];
   [k: string]: unknown;
 }
 export interface CustomPageImport {

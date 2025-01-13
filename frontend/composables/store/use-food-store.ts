@@ -13,7 +13,6 @@ export const useFoodData = function () {
     name: "",
     description: "",
     labelId: undefined,
-    onHand: false,
   });
 }
 

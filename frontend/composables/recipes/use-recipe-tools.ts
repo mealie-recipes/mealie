@@ -9,7 +9,6 @@ export const useTools = function (eager = true) {
     id: "",
     name: "",
     slug: "",
-    onHand: false,
   });
 
   const api = useUserApi();

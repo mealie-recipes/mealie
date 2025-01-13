@@ -138,6 +138,9 @@ exclude = [
 # Assume Python 3.12.
 target-version = "py312"
 
+[tool.ruff.lint.isort]
+known-third-party = ["alembic"]
+
 [tool.ruff.lint]
 # Enable Pyflakes `E` and `F` codes by default.
 ignore = ["F403", "TID252", "B008"]
@@ -158,8 +161,7 @@ select = [
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["E402", "E501"]
-"mealie/alembic/versions/2022*" = ["E501", "I001"]
-"mealie/alembic/versions/2023*" = ["E501", "I001"]
+"mealie/alembic/versions/*" = ["E501", "I001"]
 "dev/scripts/all_recipes_stress_test.py" = ["E501"]
 "ldap_provider.py" = ["UP032"]
 "tests/conftest.py" = ["E402"]

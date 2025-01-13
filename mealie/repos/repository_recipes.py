@@ -11,25 +11,22 @@ from slugify import slugify
 from sqlalchemy import orm
 from sqlalchemy.exc import IntegrityError
 
-from mealie.db.models.household.household import Household
+from mealie.db.models.household import Household, HouseholdToRecipe
 from mealie.db.models.recipe.category import Category
-from mealie.db.models.recipe.ingredient import IngredientFoodModel, RecipeIngredientModel
+from mealie.db.models.recipe.ingredient import RecipeIngredientModel, households_to_ingredient_foods
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tag import Tag
-from mealie.db.models.recipe.tool import Tool, recipes_to_tools
+from mealie.db.models.recipe.tool import Tool, households_to_tools, recipes_to_tools
 from mealie.db.models.users.user_to_recipe import UserToRecipe
+from mealie.db.models.users.users import User
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipeCategory, RecipePagination, RecipeSummary
 from mealie.schema.recipe.recipe_ingredient import IngredientFood
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponseItem
 from mealie.schema.recipe.recipe_tool import RecipeToolOut
-from mealie.schema.response.pagination import (
-    OrderByNullPosition,
-    OrderDirection,
-    PaginationQuery,
-)
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.query_filter import QueryFilterBuilder
 
 from ..db.models._model_base import SqlAlchemyBase
@@ -39,10 +36,57 @@ from .repository_generic import HouseholdRepositoryGeneric
 class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
     user_id: UUID4 | None = None
 
+    @property
+    def column_aliases(self):
+        if not self.user_id:
+            return {}
+
+        return {
+            "last_made": self._get_last_made_col_alias(),
+            "rating": self._get_rating_col_alias(),
+        }
+
     def by_user(self: Self, user_id: UUID4) -> Self:
-        """Add a user_id to the repo, which will be used to handle recipe ratings"""
+        """Add a user_id to the repo, which will be used to handle recipe ratings and other user-specific data"""
         self.user_id = user_id
         return self
+
+    def _get_last_made_col_alias(self) -> sa.ColumnElement | None:
+        """Computed last_made which uses `HouseholdToRecipe.last_made` for the user's household, otherwise None"""
+
+        user_household_subquery = sa.select(User.household_id).where(User.id == self.user_id).scalar_subquery()
+        return (
+            sa.select(HouseholdToRecipe.last_made)
+            .where(
+                HouseholdToRecipe.recipe_id == self.model.id,
+                HouseholdToRecipe.household_id == user_household_subquery,
+            )
+            .correlate(self.model)
+            .scalar_subquery()
+        )
+
+    def _get_rating_col_alias(self) -> sa.ColumnElement | None:
+        """Computed rating which uses the user's rating if it exists, otherwise falling back to the recipe's rating"""
+
+        effective_rating = sa.case(
+            (
+                sa.exists().where(
+                    UserToRecipe.recipe_id == self.model.id,
+                    UserToRecipe.user_id == self.user_id,
+                    UserToRecipe.rating != None,  # noqa E711
+                    UserToRecipe.rating > 0,
+                ),
+                sa.select(sa.func.max(UserToRecipe.rating))
+                .where(UserToRecipe.recipe_id == self.model.id, UserToRecipe.user_id == self.user_id)
+                .correlate(self.model)
+                .scalar_subquery(),
+            ),
+            else_=sa.case(
+                (self.model.rating == 0, None),
+                else_=self.model.rating,
+            ),
+        )
+        return sa.cast(effective_rating, sa.Float)
 
     def create(self, document: Recipe) -> Recipe:  # type: ignore
         max_retries = 10
@@ -102,51 +146,6 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             return ids
         additional_ids = self.session.execute(sa.select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
-
-    def add_order_attr_to_query(
-        self,
-        query: sa.Select,
-        order_attr: orm.InstrumentedAttribute,
-        order_dir: OrderDirection,
-        order_by_null: OrderByNullPosition | None,
-    ) -> sa.Select:
-        """Special handling for ordering recipes by rating"""
-        column_name = order_attr.key
-        if column_name != "rating" or not self.user_id:
-            return super().add_order_attr_to_query(query, order_attr, order_dir, order_by_null)
-
-        # calculate the effictive rating for the user by using the user's rating if it exists,
-        # falling back to the recipe's rating if it doesn't
-        effective_rating_column_name = "_effective_rating"
-        query = query.add_columns(
-            sa.case(
-                (
-                    sa.exists().where(
-                        UserToRecipe.recipe_id == self.model.id,
-                        UserToRecipe.user_id == self.user_id,
-                        UserToRecipe.rating is not None,
-                        UserToRecipe.rating > 0,
-                    ),
-                    sa.select(sa.func.max(UserToRecipe.rating))
-                    .where(UserToRecipe.recipe_id == self.model.id, UserToRecipe.user_id == self.user_id)
-                    .scalar_subquery(),
-                ),
-                else_=sa.case((self.model.rating == 0, None), else_=self.model.rating),
-            ).label(effective_rating_column_name)
-        )
-
-        order_attr = effective_rating_column_name
-        if order_dir is OrderDirection.asc:
-            order_attr = sa.asc(order_attr)
-        elif order_dir is OrderDirection.desc:
-            order_attr = sa.desc(order_attr)
-
-        if order_by_null is OrderByNullPosition.first:
-            order_attr = sa.nulls_first(order_attr)
-        else:
-            order_attr = sa.nulls_last(order_attr)
-
-        return query.order_by(order_attr)
 
     def page_all(  # type: ignore
         self,
@@ -320,33 +319,34 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         if not params.order_by:
             params.order_by = "created_at"
 
-        food_ids_with_on_hand = list(set(food_ids or []))
-        tool_ids_with_on_hand = list(set(tool_ids or []))
+        user_food_ids = list(set(food_ids or []))
+        user_tool_ids = list(set(tool_ids or []))
 
         # preserve the original lists of ids before we add on_hand items
-        user_food_ids = food_ids_with_on_hand.copy()
-        user_tool_ids = tool_ids_with_on_hand.copy()
+        food_ids_with_on_hand = user_food_ids.copy()
+        tool_ids_with_on_hand = user_tool_ids.copy()
 
-        if params.include_foods_on_hand:
-            foods_on_hand_query = sa.select(IngredientFoodModel.id).filter(
-                IngredientFoodModel.on_hand == True,  # noqa: E712 - required for SQLAlchemy comparison
-                sa.not_(IngredientFoodModel.id.in_(food_ids_with_on_hand)),
+        if params.include_foods_on_hand and self.user_id:
+            foods_on_hand_query = (
+                sa.select(households_to_ingredient_foods.c.food_id)
+                .join(User, households_to_ingredient_foods.c.household_id == User.household_id)
+                .filter(
+                    sa.not_(households_to_ingredient_foods.c.food_id.in_(food_ids_with_on_hand)),
+                    User.id == self.user_id,
+                )
             )
-            if self.group_id:
-                foods_on_hand_query = foods_on_hand_query.filter(IngredientFoodModel.group_id == self.group_id)
-
             foods_on_hand = self.session.execute(foods_on_hand_query).scalars().all()
             food_ids_with_on_hand.extend(foods_on_hand)
-        if params.include_tools_on_hand:
-            tools_on_hand_query = sa.select(Tool.id).filter(
-                Tool.on_hand == True,  # noqa: E712 - required for SQLAlchemy comparison
-                sa.not_(
-                    Tool.id.in_(tool_ids_with_on_hand),
-                ),
-            )
-            if self.group_id:
-                tools_on_hand_query = tools_on_hand_query.filter(Tool.group_id == self.group_id)
 
+        if params.include_tools_on_hand and self.user_id:
+            tools_on_hand_query = (
+                sa.select(households_to_tools.c.tool_id)
+                .join(User, households_to_tools.c.household_id == User.household_id)
+                .filter(
+                    sa.not_(households_to_tools.c.tool_id.in_(tool_ids_with_on_hand)),
+                    User.id == self.user_id,
+                )
+            )
             tools_on_hand = self.session.execute(tools_on_hand_query).scalars().all()
             tool_ids_with_on_hand.extend(tools_on_hand)
 

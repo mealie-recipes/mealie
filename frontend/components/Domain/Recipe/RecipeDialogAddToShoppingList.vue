@@ -204,6 +204,10 @@ export default defineComponent({
       shoppingListShowAllToggled: false,
     });
 
+    const userHousehold = computed(() => {
+      return $auth.user?.householdSlug || "";
+    });
+
     const shoppingListChoices = computed(() => {
       return props.shoppingLists.filter((list) => preferences.value.viewAllLists || list.userId === $auth.user?.id);
     });
@@ -248,8 +252,9 @@ export default defineComponent({
         }
 
         const shoppingListIngredients: ShoppingListIngredient[] = recipe.recipeIngredient.map((ing) => {
+          const householdsWithFood = (ing.food?.householdsWithIngredientFood || []);
           return {
-            checked: !ing.food?.onHand,
+            checked: !householdsWithFood.includes(userHousehold.value),
             ingredient: ing,
             disableAmount: recipe.settings?.disableAmount || false,
           }
@@ -276,7 +281,8 @@ export default defineComponent({
           }
 
           // Store the on-hand ingredients for later
-          if (ing.ingredient.food?.onHand) {
+          const householdsWithFood = (ing.ingredient.food?.householdsWithIngredientFood || []);
+          if (householdsWithFood.includes(userHousehold.value)) {
             onHandIngs.push(ing);
             return sections;
           }

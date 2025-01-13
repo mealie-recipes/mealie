@@ -8,14 +8,14 @@
           </v-icon>
           <div v-if="large" class="text-small">
             <slot>
-              {{ small ? "" : waitingText }}
+              {{ (small || tiny) ? "" : waitingText }}
             </slot>
           </div>
         </div>
       </v-progress-circular>
       <div v-if="!large" class="text-small">
         <slot>
-          {{ small ? "" : waitingTextCalculated }}
+          {{ (small || tiny) ? "" : waitingTextCalculated }}
         </slot>
       </div>
     </div>
@@ -30,6 +30,10 @@ export default defineComponent({
     loading: {
       type: Boolean,
       default: true,
+    },
+    tiny: {
+      type: Boolean,
+      default: false,
     },
     small: {
       type: Boolean,
@@ -50,6 +54,13 @@ export default defineComponent({
   },
   setup(props) {
     const size = computed(() => {
+      if (props.tiny) {
+        return {
+          width: 2,
+          icon: 0,
+          size: 25,
+        };
+      }
       if (props.small) {
         return {
           width: 2,

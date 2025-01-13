@@ -53,7 +53,9 @@ class GroupMealplanController(BaseCrudController):
         """
 
         rules = self.repos.group_meal_plan_rules.get_rules(PlanRulesDay.from_date(plan_date), entry_type.value)
-        cross_household_recipes = get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
+        cross_household_recipes = get_repositories(
+            self.session, group_id=self.group_id, household_id=None
+        ).recipes.by_user(self.user.id)
 
         qf_string = " AND ".join([f"({rule.query_filter_string})" for rule in rules if rule.query_filter_string])
         recipes_data = cross_household_recipes.page_all(
