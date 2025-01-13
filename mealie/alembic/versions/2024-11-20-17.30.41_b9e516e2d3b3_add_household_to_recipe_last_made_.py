@@ -146,9 +146,7 @@ def migrate_tools_on_hand_to_household(session: orm.Session):
         for tool in tools:
             for household in households:
                 session.execute(
-                    sa.text(
-                        "INSERT INTO households_to_tools (household_id, tool_id)" "VALUES (:household_id, :tool_id)"
-                    ),
+                    sa.text("INSERT INTO households_to_tools (household_id, tool_id) VALUES (:household_id, :tool_id)"),
                     {
                         "household_id": GUID.convert_value_to_guid(household.id, dialect),
                         "tool_id": GUID.convert_value_to_guid(tool.id, dialect),
