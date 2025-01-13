@@ -277,7 +277,7 @@
     "admin-group-management-text": "Ændringer i denne gruppe vil træde i kraft øjeblikkeligt.",
     "group-id-value": "Gruppe-ID: {0}",
     "total-households": "Husholdninger i Alt",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "Du skal vælge en gruppe, før du vælger en husstand"
   },
   "household": {
     "household": "Husholdning",
@@ -665,21 +665,21 @@
     "not-linked-ingredients": "Additional Ingredients"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder",
+    "recipe-finder": "Opskrift Finder",
     "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
-    "selected-ingredients": "Selected Ingredients",
-    "no-ingredients-selected": "No ingredients selected",
-    "missing": "Missing",
-    "no-recipes-found": "No recipes found",
-    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
-    "include-ingredients-on-hand": "Include Ingredients On Hand",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
+    "selected-ingredients": "Valgte Ingredienser",
+    "no-ingredients-selected": "Ingen ingredienser valgt",
+    "missing": "Mangler",
+    "no-recipes-found": "Ingen opskrifter fundet",
+    "no-recipes-found-description": "Prøv at tilføje flere ingredienser til din søgning eller justere dine filtre",
+    "include-ingredients-on-hand": "Inkluder ingredienser du allerede har",
+    "include-tools-on-hand": "Inkluder værktøjer du allerede har",
+    "max-missing-ingredients": "Maksimum Manglende Ingredienser",
     "max-missing-tools": "Max Missing Tools",
     "selected-tools": "Selected Tools",
-    "other-filters": "Other Filters",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "other-filters": "Andre filtre",
+    "ready-to-make": "Klar til at lave",
+    "almost-ready-to-make": "Næsten klar til at lave"
   },
   "search": {
     "advanced-search": "Avanceret søgning",
@@ -884,7 +884,7 @@
     "are-you-sure-you-want-to-check-all-items": "Er du sikker på, at du vil markere alle elementer?",
     "are-you-sure-you-want-to-uncheck-all-items": "Er du sikker på, at du vil fjerne markeringen af alle elementer?",
     "are-you-sure-you-want-to-delete-checked-items": "Er du sikker på, at du vil sletter de valgte elementer?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "Ingen Indkøbslister fundet"
   },
   "sidebar": {
     "all-recipes": "Alle opskr.",
@@ -1296,7 +1296,7 @@
   "profile": {
     "welcome-user": "👋 Velkommen, {0}!",
     "description": "Administrer din profil, opskrifter og gruppeindstillinger.",
-    "invite-link": "Invite Link",
+    "invite-link": "Invitationslink",
     "get-invite-link": "Få Invitationslink",
     "get-public-link": "Offentligt link",
     "account-summary": "Kontooversigt",
@@ -1346,8 +1346,8 @@
   "cookbook": {
     "cookbooks": "Kogebøger",
     "description": "Kogebøger er en anden måde at organisere opskrifter ved at skabe tværsnit af opskrifter, arrangører, og andre filtre. Oprettelse af en kogebog vil tilføje et link i sidemenuen, og alle opskrifter med de valgte filtre vil blive vist i kogebogen.",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
-    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
+    "hide-cookbooks-from-other-households": "Skjul kogebøger fra andre husholdninger",
+    "hide-cookbooks-from-other-households-description": "Når aktiveret, kun kogebøger fra din husstand vises på sidepanelet",
     "public-cookbook": "Offentlig kogebog",
     "public-cookbook-description": "Offentlige kogebøger kan deles med personer, der ikke er oprettet som brugere i Mealie og vil blive vist på din gruppe side.",
     "filter-options": "Filtreringsindstillinger",

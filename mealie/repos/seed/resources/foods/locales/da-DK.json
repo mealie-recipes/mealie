@@ -106,7 +106,7 @@
 		"name": "rørsukker"
 	},
 	"cannabis": {
-		"name": "cannabis"
+		"name": "kanabis"
 	},
 	"capsicum": {
 		"name": "paprika"
@@ -240,7 +240,7 @@
 	},
 	"eggplant": {
 		"name": "aubergine",
-		"plural_name": "eggplants"
+		"plural_name": "aubergine"
 	},
 	"eggs": {
 		"name": "æg",
@@ -480,7 +480,7 @@
 	},
 	"pepper": {
 		"name": "peber",
-		"plural_name": "peppers"
+		"plural_name": "peberfrugter"
 	},
 	"pineapple": {
 		"name": "ananas",
@@ -589,7 +589,7 @@
 	},
 	"squash": {
 		"name": "squash",
-		"plural_name": "squashes"
+		"plural_name": "squash"
 	},
 	"squash-family": {
 		"name": "squashfamilien"
@@ -687,6 +687,6 @@
 	},
 	"zucchini": {
 		"name": "sommersquash",
-		"plural_name": "zucchinis"
+		"plural_name": "courgette"
 	}
 }

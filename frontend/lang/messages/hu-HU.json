@@ -637,7 +637,7 @@
     "recipe-debugger-use-openai-description": "Használja az OpenAI-t az eredmények elemzésére, ahelyett, hogy a scraper könyvtárra hagyatkozna. Ha URL-címen keresztül hoz létre receptet, ez automatikusan megtörténik, ha a scraper könyvtár nem működik, ám itt manuálisan is tesztelheti.",
     "debug": "Hibakeresés",
     "tree-view": "Fa nézet",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "Recept tálalások",
     "recipe-yield": "Adagonkénti információk",
     "recipe-yield-text": "Recipe Yield Text",
     "unit": "Mennyiségi egység",
@@ -678,7 +678,7 @@
     "max-missing-tools": "Maximálisan hiányzó eszközök száma",
     "selected-tools": "Kiválasztott eszközök",
     "other-filters": "További szűrők",
-    "ready-to-make": "Ready to Make",
+    "ready-to-make": "Előkészítve",
     "almost-ready-to-make": "Majdnem készen áll"
   },
   "search": {
