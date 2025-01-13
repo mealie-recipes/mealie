@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 from dateutil.parser import parse as parse_dt
 from fastapi.testclient import TestClient
@@ -35,10 +35,10 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser, h2_us
     response_json = response.json()
     initial_event_count = len(response_json["items"])
 
-    new_plan = CreatePlanEntry(
-        date=datetime.now(timezone.utc).date(), entry_type="dinner", recipe_id=recipe_id
-    ).model_dump(by_alias=True)
-    new_plan["date"] = datetime.now(timezone.utc).date().isoformat()
+    new_plan = CreatePlanEntry(date=datetime.now(UTC).date(), entry_type="dinner", recipe_id=recipe_id).model_dump(
+        by_alias=True
+    )
+    new_plan["date"] = datetime.now(UTC).date().isoformat()
     new_plan["recipeId"] = str(recipe_id)
 
     response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
@@ -66,7 +66,7 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser, h2_us
     response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
     new_recipe_data: dict = response.json()
     recipe = RecipeSummary.model_validate(new_recipe_data)
-    assert recipe.last_made and recipe.last_made.date() == datetime.now(timezone.utc).date()
+    assert recipe.last_made and recipe.last_made.date() == datetime.now(UTC).date()
 
     # make sure nothing else was updated
     for data in [original_recipe_data, new_recipe_data]:
@@ -91,7 +91,7 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser, h2_us
     assert response.status_code == 200
     response_json = response.json()
     assert response_json["lastMade"]
-    assert parse_dt(response_json["lastMade"]).date() == datetime.now(timezone.utc).date()
+    assert parse_dt(response_json["lastMade"]).date() == datetime.now(UTC).date()
 
     # make sure the other user's last made date was not updated
     response = api_client.get(api_routes.households_self_recipes_recipe_slug(recipe_name), headers=h2_user.token)
@@ -115,10 +115,10 @@ def test_new_mealplan_event_duplicates(api_client: TestClient, unique_user: Test
     response_json = response.json()
     initial_event_count = len(response_json["items"])
 
-    new_plan = CreatePlanEntry(
-        date=datetime.now(timezone.utc).date(), entry_type="dinner", recipe_id=recipe_id
-    ).model_dump(by_alias=True)
-    new_plan["date"] = datetime.now(timezone.utc).date().isoformat()
+    new_plan = CreatePlanEntry(date=datetime.now(UTC).date(), entry_type="dinner", recipe_id=recipe_id).model_dump(
+        by_alias=True
+    )
+    new_plan["date"] = datetime.now(UTC).date().isoformat()
     new_plan["recipeId"] = str(recipe_id)
 
     response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
@@ -162,9 +162,9 @@ def test_new_mealplan_events_with_multiple_recipes(api_client: TestClient, uniqu
         mealplan_count_by_recipe_id[recipe.id] = 0  # type: ignore
         for _ in range(random_int(1, 5)):
             new_plan = CreatePlanEntry(
-                date=datetime.now(timezone.utc).date(), entry_type="dinner", recipe_id=str(recipe.id)
+                date=datetime.now(UTC).date(), entry_type="dinner", recipe_id=str(recipe.id)
             ).model_dump(by_alias=True)
-            new_plan["date"] = datetime.now(timezone.utc).date().isoformat()
+            new_plan["date"] = datetime.now(UTC).date().isoformat()
             new_plan["recipeId"] = str(recipe.id)
 
             response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
@@ -214,7 +214,7 @@ def test_preserve_future_made_date(api_client: TestClient, unique_user: TestUser
     recipe = RecipeSummary.model_validate(response.json())
     recipe_id = str(recipe.id)
 
-    future_dt = datetime.now(timezone.utc) + timedelta(days=random_int(1, 10))
+    future_dt = datetime.now(UTC) + timedelta(days=random_int(1, 10))
     response = api_client.patch(
         api_routes.recipes_slug_last_made(recipe.slug),
         data=RecipeLastMade(timestamp=future_dt).model_dump_json(),
@@ -231,10 +231,10 @@ def test_preserve_future_made_date(api_client: TestClient, unique_user: TestUser
     household_recipe = HouseholdRecipeSummary.model_validate(response.json())
     assert household_recipe.last_made is None
 
-    new_plan = CreatePlanEntry(
-        date=datetime.now(timezone.utc).date(), entry_type="dinner", recipe_id=recipe_id
-    ).model_dump(by_alias=True)
-    new_plan["date"] = datetime.now(timezone.utc).date().isoformat()
+    new_plan = CreatePlanEntry(date=datetime.now(UTC).date(), entry_type="dinner", recipe_id=recipe_id).model_dump(
+        by_alias=True
+    )
+    new_plan["date"] = datetime.now(UTC).date().isoformat()
     new_plan["recipeId"] = str(recipe_id)
 
     response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)

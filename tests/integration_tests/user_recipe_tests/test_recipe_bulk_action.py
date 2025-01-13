@@ -6,7 +6,6 @@ import sqlalchemy
 from fastapi.testclient import TestClient
 
 from mealie.core.dependencies.dependencies import validate_file_token
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe_bulk_actions import ExportTypes
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from tests import utils
@@ -137,7 +136,7 @@ def test_bulk_export_recipes(api_client: TestClient, unique_user: TestUser, ten_
     assert validate_file_token(response_data["fileToken"]) == Path(export_path)
 
     # Use Export Token to download export
-    response = api_client.get(f'/api/utils/download?token={response_data["fileToken"]}')
+    response = api_client.get(f"/api/utils/download?token={response_data['fileToken']}")
 
     assert response.status_code == 200
 

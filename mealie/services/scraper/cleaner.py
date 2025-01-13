@@ -129,10 +129,7 @@ def clean_image(image: str | list | dict | None = None, default: str = "no image
         case [{"@id": str(_)}, *_]:
             return [x["@id"] for x in image if "@id" in x]
         case _:
-            logger.exception(
-                f"Unexpected type for image: {
-                             type(image)}, {image}"
-            )
+            logger.exception(f"Unexpected type for image: {type(image)}, {image}")
             return [default]
 
 
@@ -227,10 +224,7 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
                 )
             )
         case _:
-            raise TypeError(
-                f"Unexpected type for instructions: {
-                            type(steps_object)}, {steps_object}"
-            )
+            raise TypeError(f"Unexpected type for instructions: {type(steps_object)}, {steps_object}")
 
 
 def _sanitize_instruction_text(line: str | dict) -> str:
@@ -290,10 +284,7 @@ def clean_ingredients(ingredients: list | str | None, default: list | None = Non
         case str(ingredients):
             return [clean_string(ingredient) for ingredient in ingredients.splitlines() if ingredient.strip()]
         case _:
-            raise TypeError(
-                f"Unexpected type for ingredients: {
-                            type(ingredients)}, {ingredients}"
-            )
+            raise TypeError(f"Unexpected type for ingredients: {type(ingredients)}, {ingredients}")
 
 
 def clean_int(val: str | int | None, min: int | None = None, max: int | None = None):
@@ -531,10 +522,7 @@ def clean_categories(category: str | list) -> list[str]:
             #
             return [cat["name"] for cat in category if "name" in cat]
         case _:
-            raise TypeError(
-                f"Unexpected type for category: {
-                            type(category)}, {category}"
-            )
+            raise TypeError(f"Unexpected type for category: {type(category)}, {category}")
 
 
 def clean_tags(data: str | list[str]) -> list[str]:

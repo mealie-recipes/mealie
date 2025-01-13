@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 from dateutil.parser import parse as parse_dt
@@ -236,7 +236,7 @@ def test_user_can_update_last_made_on_other_household(
     assert h2_recipe and h2_recipe.id
     h2_recipe_slug = h2_recipe.slug
 
-    dt_1 = datetime.now(tz=timezone.utc)
+    dt_1 = datetime.now(tz=UTC)
     dt_2 = dt_1 + timedelta(days=2)
 
     # set last made for unique_user and make sure it only updates globally and for unique_user
