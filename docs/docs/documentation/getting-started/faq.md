@@ -33,6 +33,24 @@ Do the following for each recipe you want to intelligently handle ingredients.
 
 Scaling up this recipe or adding it to a Shopping List will now smartly take care of ingredient amounts and duplicate combinations.
 
+## How do I enable Nutrtional Values?
+Mealie can store Nutritional Information for Recipes. Please note that the values you enter are static for the recipe and no scaling is being done when channging Servings / Yield. 
+
+Do the following to enable Nutritional Values on individual Recipes, or to modify your Household Recipe Preferences
+
+### Show Nutritional Values on a Single Recipe
+1. Go to a recipe
+2. Click the Edit button/icon
+3. Click the Recipe Settings gear and select `Show Nutritional Values`
+4. Scroll down to manually fill out the Nutritional Values
+5. Save
+
+### Show Nutritional Values by default
+1. Click your username in the top left
+2. Click the 'Household Settings' button
+3. Under 'Household Recipe Preferences', click to select 'Show nutrition information'
+4. Click 'Update'
+   
 ## Is it safe to upgrade Mealie?
 
 Yes. If you are using the v1 branches (including beta), you can upgrade to the latest version of Mealie without performing a site Export/Restore. This process was required in previous versions of Mealie, however we've automated the database migration process to make it easier to upgrade. Note that if you were using the v0.5.x version, you CANNOT upgrade to the latest version automatically. You must follow the migration instructions in the documentation.
