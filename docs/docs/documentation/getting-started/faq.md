@@ -38,14 +38,14 @@ Mealie can store Nutritional Information for Recipes. Please note that the value
 
 Do the following to enable Nutritional Values on individual Recipes, or to modify your Household Recipe Preferences
 
-### Set up a Recipe to Show Nutritional Values
+### Show Nutritional Values on a Single Recipe
 1. Go to a recipe
 2. Click the Edit button/icon
 3. Click the Recipe Settings gear and select `Show Nutritional Values`
 4. Scroll down to manually fill out the Nutritional Values
 5. Save
 
-### Set up Household Recipe Preferences to Show Nutritional Values
+### Show Nutritional Values by default
 1. Click your username in the top left
 2. Click the 'Household Settings' button
 3. Under 'Household Recipe Preferences', click to select 'Show nutrition information'
