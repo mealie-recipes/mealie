@@ -33,8 +33,8 @@ Do the following for each recipe you want to intelligently handle ingredients.
 
 Scaling up this recipe or adding it to a Shopping List will now smartly take care of ingredient amounts and duplicate combinations.
 
-## How do I enable Nutrtional Values?
-Mealie can store Nutritional Information for Recipes. Please note that the values you enter are static for the recipe and no scaling is being done when channging Servings / Yield. 
+## How do I enable Nutritional Values?
+Mealie can store Nutritional Information for Recipes. Please note that the values you enter are static for the recipe and no scaling is being done when changing Servings / Yield. 
 
 Do the following to enable Nutritional Values on individual Recipes, or to modify your Household Recipe Preferences
 
