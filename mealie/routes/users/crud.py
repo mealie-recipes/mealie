@@ -106,19 +106,7 @@ class UserController(BaseUserController):
 
     @user_router.put("/{item_id}")
     def update_user(self, item_id: UUID4, new_data: UserBase):
-        assert_user_change_allowed(item_id, self.user)
-
-        if not self.user.admin and (new_data.admin or self.user.group != new_data.group):
-            # prevent a regular user from doing admin tasks on themself
-            raise HTTPException(
-                status.HTTP_403_FORBIDDEN, ErrorResponse.respond("User doesn't have permission to change group")
-            )
-
-        if self.user.id == item_id and self.user.admin and not new_data.admin:
-            # prevent an admin from demoting themself
-            raise HTTPException(
-                status.HTTP_403_FORBIDDEN, ErrorResponse.respond("User doesn't have permission to change group")
-            )
+        assert_user_change_allowed(item_id, self.user, new_data)
 
         try:
             self.repos.users.update(item_id, new_data.model_dump())
