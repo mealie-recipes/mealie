@@ -390,16 +390,16 @@
       "title": "مدير وصفة بابريكا"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+      "description-long": "يمكن لميلي استيراد الوصفات من تطبيق ميلي من إصدار قبل 1.0. يجب تصدير وصفاتك من نموذجك القديم، وتحميل المِلَفّ المضغوط أدناه. لاحظ أنه يمكن استيراد الوصفات فقط من التصدير.",
       "title": "ميلي إصدار قبل 1.0"
     },
     "tandoor": {
-      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
+      "description-long": "يمكن لميلي استيراد الوصفات من تندور. يجب تصدير بياناتك بالتنسيق \"الافتراضي\"، ثم يجب تحميل المِلَفّ المضغوط أدناه.",
       "title": "وصفات تاندور"
     },
     "recipe-data-migrations": "وصفة 2",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
+    "recipe-data-migrations-explanation": "يمكن نقل الوصفات من تطبيق آخر مدعوم إلى ميلي. هذه طريقة رائعة للبدء مع ميلي.",
+    "coming-from-another-application-or-an-even-older-version-of-mealie": "هل تأتي من تطبيق آخر أو حتى إصدار قديم من ميلي؟ يجب التحقق من عمليات الترحيل لمعرفة ما إذا كان يمكن استيراد بياناتك.",
     "choose-migration-type": "اختر نوع الترحيل",
     "tag-all-recipes": "وسم جميع الوصفات باستخدام علامة {tag-name}",
     "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
