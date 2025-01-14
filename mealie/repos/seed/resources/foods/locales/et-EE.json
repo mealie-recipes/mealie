@@ -1,90 +1,90 @@
 {
 	"acorn-squash": {
-		"name": "acorn squash"
+		"name": "tammetõru-kõrvits"
 	},
 	"alfalfa-sprouts": {
-		"name": "alfalfa sprouts"
+		"name": "lutserni idud"
 	},
 	"anchovies": {
-		"name": "anchovies"
+		"name": "anšoovised"
 	},
 	"apples": {
-		"name": "apple",
-		"plural_name": "apples"
+		"name": "õun",
+		"plural_name": "õunad"
 	},
 	"artichoke": {
-		"name": "artichoke"
+		"name": "artišokk"
 	},
 	"arugula": {
-		"name": "arugula"
+		"name": "rukola"
 	},
 	"asparagus": {
-		"name": "asparagus"
+		"name": "spargel"
 	},
 	"avocado": {
-		"name": "avocado",
-		"plural_name": "avocado"
+		"name": "avokaado",
+		"plural_name": "avokaado"
 	},
 	"bacon": {
-		"name": "bacon"
+		"name": "peekon"
 	},
 	"baking-powder": {
-		"name": "baking powder"
+		"name": "küpsetuspulber"
 	},
 	"baking-soda": {
-		"name": "baking soda"
+		"name": "söögisooda"
 	},
 	"baking-sugar": {
-		"name": "baking sugar"
+		"name": "küpsetussuhkur"
 	},
 	"bar-sugar": {
-		"name": "bar sugar"
+		"name": "batooni suhkur"
 	},
 	"basil": {
-		"name": "basil"
+		"name": "basiilik"
 	},
 	"beans": {
-		"name": "beans"
+		"name": "oad"
 	},
 	"bell-peppers": {
-		"name": "bell peppers",
-		"plural_name": "bell peppers"
+		"name": "paprika",
+		"plural_name": "paprikad"
 	},
 	"blackberries": {
-		"name": "blackberries"
+		"name": "põldmurakas"
 	},
 	"bok-choy": {
-		"name": "bok choy"
+		"name": "Hiina lehtnaeris (bok choy)"
 	},
 	"brassicas": {
-		"name": "brassicas"
+		"name": "rüps"
 	},
 	"bread": {
-		"name": "bread"
+		"name": "leib"
 	},
 	"breadfruit": {
-		"name": "breadfruit"
+		"name": "hõlmine leivapuu"
 	},
 	"broccoflower": {
-		"name": "broccoflower"
+		"name": "brokkolill"
 	},
 	"broccoli": {
-		"name": "broccoli"
+		"name": "spargelkapsas"
 	},
 	"broccoli-rabe": {
-		"name": "broccoli rabe"
+		"name": "rapini"
 	},
 	"broccolini": {
-		"name": "broccolini"
+		"name": "beebi brokkoli"
 	},
 	"brown-sugar": {
-		"name": "brown sugar"
+		"name": "pruun suhkur"
 	},
 	"brussels-sprouts": {
-		"name": "brussels sprouts"
+		"name": "Brüsseli kapsas"
 	},
 	"butter": {
-		"name": "butter"
+		"name": "või"
 	},
 	"butternut-pumpkin": {
 		"name": "butternut pumpkin"
@@ -93,20 +93,20 @@
 		"name": "butternut squash"
 	},
 	"cabbage": {
-		"name": "cabbage",
-		"plural_name": "cabbages"
+		"name": "kapsas",
+		"plural_name": "kapsad"
 	},
 	"cactus-edible": {
-		"name": "cactus, edible"
+		"name": "kaktus, söödav"
 	},
 	"calabrese": {
 		"name": "calabrese"
 	},
 	"cane-sugar": {
-		"name": "cane sugar"
+		"name": "roosuhkur"
 	},
 	"cannabis": {
-		"name": "cannabis"
+		"name": "kanep"
 	},
 	"capsicum": {
 		"name": "capsicum"
@@ -115,8 +115,8 @@
 		"name": "caraway"
 	},
 	"carrot": {
-		"name": "carrot",
-		"plural_name": "carrots"
+		"name": "porgand",
+		"plural_name": "porgandid"
 	},
 	"caster-sugar": {
 		"name": "caster sugar"
@@ -128,17 +128,17 @@
 		"name": "catfish"
 	},
 	"cauliflower": {
-		"name": "cauliflower",
-		"plural_name": "cauliflowers"
+		"name": "lillkapsas",
+		"plural_name": "lillkapsad"
 	},
 	"cayenne-pepper": {
-		"name": "cayenne pepper"
+		"name": "kajenni pipar"
 	},
 	"celeriac": {
-		"name": "celery root"
+		"name": "selleri juur"
 	},
 	"celery": {
-		"name": "celery"
+		"name": "seller"
 	},
 	"cereal-grains": {
 		"name": "cereal grains"
@@ -147,14 +147,14 @@
 		"name": "chard"
 	},
 	"cheese": {
-		"name": "cheese"
+		"name": "juust"
 	},
 	"chicory": {
 		"name": "chicory"
 	},
 	"chilli-peppers": {
-		"name": "chilli pepper",
-		"plural_name": "chilli peppers"
+		"name": "tšillipipar",
+		"plural_name": "tšillipiprad"
 	},
 	"chinese-leaves": {
 		"name": "chinese leaves"
@@ -163,29 +163,29 @@
 		"name": "chives"
 	},
 	"chocolate": {
-		"name": "chocolate"
+		"name": "šokolaad"
 	},
 	"cilantro": {
 		"name": "cilantro"
 	},
 	"cinnamon": {
-		"name": "cinnamon"
+		"name": "kaneel"
 	},
 	"clarified-butter": {
 		"name": "clarified butter"
 	},
 	"coconut": {
-		"name": "coconut",
-		"plural_name": "coconuts"
+		"name": "kookos",
+		"plural_name": "kookosed"
 	},
 	"coconut-milk": {
-		"name": "coconut milk"
+		"name": "kookospiip"
 	},
 	"cod": {
 		"name": "cod"
 	},
 	"coffee": {
-		"name": "coffee"
+		"name": "kohvi"
 	},
 	"collard-greens": {
 		"name": "collard greens"
@@ -194,14 +194,14 @@
 		"name": "confectioners' sugar"
 	},
 	"coriander": {
-		"name": "coriander"
+		"name": "koriander"
 	},
 	"corn": {
-		"name": "corn",
-		"plural_name": "corns"
+		"name": "mais",
+		"plural_name": "maisid"
 	},
 	"corn-syrup": {
-		"name": "corn syrup"
+		"name": "maisisiirup"
 	},
 	"cottonseed-oil": {
 		"name": "cottonseed oil"
@@ -213,8 +213,8 @@
 		"name": "cream of tartar"
 	},
 	"cucumber": {
-		"name": "cucumber",
-		"plural_name": "cucumbers"
+		"name": "kurk",
+		"plural_name": "kurgid"
 	},
 	"cumin": {
 		"name": "cumin"
