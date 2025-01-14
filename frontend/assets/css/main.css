@@ -48,3 +48,11 @@
 .v-card__title {
   word-break: normal !important;
 }
+
+.text-hide-overflow {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}

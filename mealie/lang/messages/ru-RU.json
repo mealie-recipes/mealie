@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Название рецепта должно быть уникальным",
+        "recipe-created": "Recipe Created",
         "recipe-defaults": {
             "ingredient-note": "1 Чашка муки",
             "step-text": "Шаги рецепта, как и другие поля на странице рецепта, поддерживают синтаксис Markdown.\n\n**Добавить ссылку**\n\n[Моя Ссылка](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Makes",
+            "serves": "Serves",
+            "serving": "Serving",
+            "servings": "Servings",
+            "yield": "Yield",
+            "yields": "Yields"
         }
     },
     "mealplan": {
@@ -15,7 +24,7 @@
     "user": {
         "user-updated": "Пользователь обновлен",
         "password-updated": "Пароль обновлен",
-        "invalid-current-password": "Неправильно введён текущий пароль",
+        "invalid-current-password": "Неправильный текущий пароль",
         "ldap-update-password-unavailable": "Не удается обновить пароль, пользователь контролируется LDAP"
     },
     "group": {

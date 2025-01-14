@@ -276,7 +276,8 @@
     "admin-group-management": "Beheerdergroep-beheer",
     "admin-group-management-text": "Wijzigingen in deze groep zijn meteen zichtbaar.",
     "group-id-value": "Groeps-id: {0}",
-    "total-households": "Totaal aantal huishoudens"
+    "total-households": "Totaal aantal huishoudens",
+    "you-must-select-a-group-before-selecting-a-household": "Kies een groep voordat je een huishouden kiest"
   },
   "household": {
     "household": "Huishouden",
@@ -297,8 +298,8 @@
     "household-recipe-preferences": "Receptvoorkeuren voor groep",
     "default-recipe-preferences-description": "Dit zijn de standaardinstellingen als er een nieuw recept in je groep wordt gemaakt. Deze kunnen worden gewijzigd voor individuele recepten in het menu recepteninstellingen.",
     "allow-users-outside-of-your-household-to-see-your-recipes": "Sta gebruikers buiten je groep toe om je recepten te zien",
-    "allow-users-outside-of-your-household-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your household or with a pre-generated private link",
-    "household-preferences": "Household Preferences"
+    "allow-users-outside-of-your-household-to-see-your-recipes-description": "Wanneer geactiveerd, kun je een recept delen met iedereen, zonder dat zij een account hebben. Als deze mogelijkheid is uitgeschakeld, kun je een recept alleen delen met mensen die in je huishouden zitten, of met een vooraf gemaakte privé-link",
+    "household-preferences": "Voorkeuren huishouden"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Maak een nieuw maaltijdplan",
@@ -517,6 +518,7 @@
     "save-recipe-before-use": "Recept opslaan vóór gebruik",
     "section-title": "Sectietitel",
     "servings": "Porties",
+    "serves-amount": "Genoeg voor {amount}",
     "share-recipe-message": "Ik wil mijn {0} recept met je delen.",
     "show-nutrition-values": "Toon voedingswaarden",
     "sodium-content": "Zout",
@@ -545,6 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Recept aan maaltijdplan toevoegen mislukt",
     "failed-to-add-to-list": "Toevoegen aan lijst mislukt",
     "yield": "Opbrengst",
+    "yields-amount-with-text": "Levert {amount} {text}",
+    "yield-text": "Opmerking over opbrengst",
     "quantity": "Hoeveelheid",
     "choose-unit": "Kies een eenheid",
     "press-enter-to-create": "Druk op Enter om aan te maken",
@@ -566,13 +570,6 @@
     "increase-scale-label": "Verhoog de schaal met 1",
     "locked": "Vergrendeld",
     "public-link": "Openbare link",
-    "timer": {
-      "kitchen-timer": "Kookwekker",
-      "start-timer": "Kookwekker starten",
-      "pause-timer": "Kookwekker pauzeren",
-      "resume-timer": "Kookwekker hervatten",
-      "stop-timer": "Kookwekker stoppen"
-    },
     "edit-timeline-event": "Bewerk tijdlijngebeurtenis",
     "timeline": "Tijdlijn",
     "timeline-is-empty": "Nog niets op de tijdlijn. Probeer dit recept te maken!",
@@ -640,7 +637,9 @@
     "recipe-debugger-use-openai-description": "Gebruik OpenAI om de resultaten te verwerken in plaats van te vertrouwen op de scraper-bibliotheek. Bij het maken van een recept via een URL wordt dit automatisch gedaan als de scraper-bibliotheek mislukt, maar u kunt het hier handmatig testen.",
     "debug": "Debug",
     "tree-view": "Boomstructuurweergave",
+    "recipe-servings": "Recept porties",
     "recipe-yield": "Opbrengst van recept",
+    "recipe-yield-text": "Opbrengst van recept",
     "unit": "Eenheid",
     "upload-image": "Afbeelding uploaden",
     "screen-awake": "Scherm aan laten staan",
@@ -662,7 +661,25 @@
       "missing-food": "Ontbrekend levensmiddel maken: {food}",
       "no-food": "Geen levensmiddel"
     },
-    "reset-servings-count": "Zet de teller van aantal keer gegeten op nul"
+    "reset-servings-count": "Zet de teller van aantal keer gegeten op nul",
+    "not-linked-ingredients": "Extra ingrediënten"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Recept zoeker",
+    "recipe-finder-description": "Zoek naar recepten op basis van ingrediënten die je bij de hand hebt. Je kunt ook filteren op gereedschap dat je beschikbaar hebt en een maximum aantal ontbrekende ingrediënten of gereedschappen instellen.",
+    "selected-ingredients": "Gekozen ingrediënten",
+    "no-ingredients-selected": "Geen ingrediënten geselecteerd",
+    "missing": "Ontbrekend",
+    "no-recipes-found": "Geen recepten gevonden",
+    "no-recipes-found-description": "Probeer meer ingrediënten toe te voegen aan uw zoekopdracht of pas uw filters aan",
+    "include-ingredients-on-hand": "Inclusief ingrediënten in huis",
+    "include-tools-on-hand": "Inclusief keukengerei in huis",
+    "max-missing-ingredients": "Maximum ontbrekende ingrediënten",
+    "max-missing-tools": "Maximum ontbrekend keukengerei",
+    "selected-tools": "Geselecteerd keukengerei",
+    "other-filters": "Overige filters",
+    "ready-to-make": "Klaar om te maken",
+    "almost-ready-to-make": "Bijna klaar om te maken"
   },
   "search": {
     "advanced-search": "Geavanceerd zoeken",
@@ -701,7 +718,7 @@
       "import-summary": "Samenvatting importeren",
       "partial-backup": "Gedeeltelijke back-up",
       "unable-to-delete-backup": "Kan back-up niet verwijderen.",
-      "experimental-description": "Back-ups zijn een complete kopie van de database en de data map. Je kunt geen keuze maken wat wel of niet in de reservekopie zit. Het is een kopie van Mealie van dat moment. Je kunt de back-up gebruiken om data te importeren of exporteren. Of om de hele site op een andere plek te bewaren.",
+      "experimental-description": "Back-ups zijn een complete kopie van de database en de data map. Je kunt niet kiezen wat wel of niet in de reservekopie zit. Het is een kopie van Mealie van dat moment. Je kunt de back-up gebruiken om data te importeren of exporteren. Of om de hele site op een andere plek te bewaren.",
       "backup-restore": "Back-up maken/terugzetten",
       "back-restore-description": "Het terugzetten van deze back-up overschrijft alle huidige gegevens in je database en in de gegevensmap. {cannot-be-undone} Als het terugzetten is gelukt wordt je afgemeld.",
       "cannot-be-undone": "Deze actie kan niet ongedaan worden gemaakt – gebruik met voorzichtigheid.",
@@ -866,7 +883,8 @@
     "you-are-offline-description": "Je kunt niet alles doen als je offline bent. Je kunt wel dingen toevoegen, veranderen of weghalen. Maar we verwerken je aanpassingen pas als je weer online bent.",
     "are-you-sure-you-want-to-check-all-items": "Weet je zeker dat je alle items wilt selecteren?",
     "are-you-sure-you-want-to-uncheck-all-items": "Weet je zeker dat je alle items wilt deselecteren?",
-    "are-you-sure-you-want-to-delete-checked-items": "Weet je zeker dat je de geselecteerde items wilt verwijderen?"
+    "are-you-sure-you-want-to-delete-checked-items": "Weet je zeker dat je de geselecteerde items wilt verwijderen?",
+    "no-shopping-lists-found": "Geen boodschappenlijsten gevonden"
   },
   "sidebar": {
     "all-recipes": "Alle Recepten",
@@ -1278,14 +1296,15 @@
   "profile": {
     "welcome-user": "👋 Welkom, {0}!",
     "description": "Beheer je profiel, recepten en groepsinstellingen.",
+    "invite-link": "Uitnodigingslink",
     "get-invite-link": "Krijg uitnodigingslink",
     "get-public-link": "Openbare link krijgen",
     "account-summary": "Accountoverzicht",
     "account-summary-description": "Hier is een samenvatting van jouw groep.",
     "group-statistics": "Groepsstatistieken",
     "group-statistics-description": "Jouw groepsstatistieken bieden inzicht in hoe je Mealie gebruikt.",
-    "household-statistics": "Household Statistics",
-    "household-statistics-description": "Your Household Statistics provide some insight how you're using Mealie.",
+    "household-statistics": "Statistieken huishouden",
+    "household-statistics-description": "De statistieken van je huishouden bieden inzicht in hoe je Mealie gebruikt.",
     "storage-capacity": "Opslagcapaciteit",
     "storage-capacity-description": "Jouw opslagcapaciteit is een berekening van de afbeeldingen en bijlagen die je hebt geüpload.",
     "personal": "Persoonlijk",
@@ -1295,13 +1314,13 @@
     "api-tokens-description": "Beheer je API-tokens voor toegang vanuit externe applicaties.",
     "group-description": "Deze items worden gedeeld binnen je groep. Het bewerken van een van deze items zal het voor de hele groep veranderen!",
     "group-settings": "Groepsinstellingen",
-    "group-settings-description": "Manage your common group settings, like privacy settings.",
-    "household-description": "These items are shared within your household. Editing one of them will change it for the whole household!",
-    "household-settings": "Household Settings",
-    "household-settings-description": "Manage your household settings, like mealplan and privacy settings.",
+    "group-settings-description": "Beheer je groepsinstellingen, zoals privacyinstellingen.",
+    "household-description": "Deze items worden gedeeld binnen je huishouden. Het bewerken van één van deze items zal het voor het hele huishouden veranderen!",
+    "household-settings": "Instellingen huishouden",
+    "household-settings-description": "Beheer de instellingen van je huishouden, zoals je maaltijdplan en privacyinstellingen.",
     "cookbooks-description": "Beheer een verzameling receptcategorieën en genereer hier pagina's voor.",
     "members": "Leden",
-    "members-description": "See who's in your household and manage their permissions.",
+    "members-description": "Bekijk wie er in je huishouden zit en beheer hun rechten.",
     "webhooks-description": "Stel webhooks in die worden geactiveerd op dagen dat je een maaltijdplan hebt gepland.",
     "notifiers": "Melders",
     "notifiers-description": "Stel e-mail en push-meldingen in die worden getriggerd bij specifieke gebeurtenissen.",
@@ -1327,6 +1346,8 @@
   "cookbook": {
     "cookbooks": "Kookboeken",
     "description": "Kookboeken zijn een andere manier om recepten te organiseren door verzamelingen van recepten, organisatoren en andere filters te maken. Het maken van een kookboek voegt een item toe aan de zijbalk. Alle recepten met de gekozen filters worden in het kookboek getoond.",
+    "hide-cookbooks-from-other-households": "Verberg kookboeken van andere huishoudens",
+    "hide-cookbooks-from-other-households-description": "Wanneer ingeschakeld, worden alleen kookboeken van uw huishouden op de zijbalk weergegeven",
     "public-cookbook": "Openbaar kookboek",
     "public-cookbook-description": "Openbare kookboeken kunnen worden gedeeld met niet-Mealie-gebruikers en zullen worden weergegeven op jouw groepspagina.",
     "filter-options": "Filteropties",
@@ -1336,7 +1357,7 @@
     "require-all-tools": "Vereis al het keukengerei",
     "cookbook-name": "Naam van het kookboek",
     "cookbook-with-name": "Kookboek {0}",
-    "household-cookbook-name": "{0} Cookbook {1}",
+    "household-cookbook-name": "{0} Kookboek {1}",
     "create-a-cookbook": "Maak een kookboek",
     "cookbook": "Kookboek"
   },

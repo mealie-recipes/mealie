@@ -2,13 +2,13 @@ from __future__ import annotations
 
 import random
 from collections.abc import Iterable
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from math import ceil
 from typing import Any, Generic, TypeVar
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
-from sqlalchemy import Select, case, delete, func, nulls_first, nulls_last, select
+from sqlalchemy import ColumnElement, Select, case, delete, func, nulls_first, nulls_last, select
 from sqlalchemy.orm import InstrumentedAttribute
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
@@ -16,7 +16,13 @@ from sqlalchemy.sql import sqltypes
 from mealie.core.root_logger import get_logger
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.schema._mealie import MealieModel
-from mealie.schema.response.pagination import OrderByNullPosition, OrderDirection, PaginationBase, PaginationQuery
+from mealie.schema.response.pagination import (
+    OrderByNullPosition,
+    OrderDirection,
+    PaginationBase,
+    PaginationQuery,
+    RequestQuery,
+)
 from mealie.schema.response.query_filter import QueryFilterBuilder
 from mealie.schema.response.query_search import SearchFilter
 
@@ -63,8 +69,12 @@ class RepositoryGeneric(Generic[Schema, Model]):
     def household_id(self) -> UUID4 | None:
         return self._household_id
 
+    @property
+    def column_aliases(self) -> dict[str, ColumnElement]:
+        return {}
+
     def _random_seed(self) -> str:
-        return str(datetime.now(tz=timezone.utc))
+        return str(datetime.now(tz=UTC))
 
     def _log_exception(self, e: Exception) -> None:
         self.logger.error(f"Error processing query for Repo model={self.model.__name__} schema={self.schema.__name__}")
@@ -350,7 +360,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         if pagination.query_filter:
             try:
                 query_filter_builder = QueryFilterBuilder(pagination.query_filter)
-                query = query_filter_builder.filter_query(query, model=self.model)
+                query = query_filter_builder.filter_query(query, model=self.model, column_aliases=self.column_aliases)
 
             except ValueError as e:
                 self.logger.error(e)
@@ -388,6 +398,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
         order_dir: OrderDirection,
         order_by_null: OrderByNullPosition | None,
     ) -> Select:
+        order_attr = self.column_aliases.get(order_attr.key, order_attr)
+
         # queries handle uppercase and lowercase differently, which is undesirable
         if isinstance(order_attr.type, sqltypes.String):
             order_attr = func.lower(order_attr)
@@ -404,11 +416,11 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
         return query.order_by(order_attr)
 
-    def add_order_by_to_query(self, query: Select, pagination: PaginationQuery) -> Select:
-        if not pagination.order_by:
+    def add_order_by_to_query(self, query: Select, request_query: RequestQuery) -> Select:
+        if not request_query.order_by:
             return query
 
-        elif pagination.order_by == "random":
+        elif request_query.order_by == "random":
             # randomize outside of database, since not all db's can set random seeds
             # this solution is db-independent & stable to paging
             temp_query = query.with_only_columns(self.model.id)
@@ -417,14 +429,14 @@ class RepositoryGeneric(Generic[Schema, Model]):
                 return query
 
             order = list(range(len(allids)))
-            random.seed(pagination.pagination_seed)
+            random.seed(request_query.pagination_seed)
             random.shuffle(order)
             random_dict = dict(zip(allids, order, strict=True))
             case_stmt = case(random_dict, value=self.model.id)
             return query.order_by(case_stmt)
 
         else:
-            for order_by_val in pagination.order_by.split(","):
+            for order_by_val in request_query.order_by.split(","):
                 try:
                     order_by_val = order_by_val.strip()
                     if ":" in order_by_val:
@@ -432,20 +444,20 @@ class RepositoryGeneric(Generic[Schema, Model]):
                         order_dir = OrderDirection(order_dir_val)
                     else:
                         order_by = order_by_val
-                        order_dir = pagination.order_direction
+                        order_dir = request_query.order_direction
 
                     _, order_attr, query = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
                         order_by, self.model, query=query
                     )
 
                     query = self.add_order_attr_to_query(
-                        query, order_attr, order_dir, pagination.order_by_null_position
+                        query, order_attr, order_dir, request_query.order_by_null_position
                     )
 
                 except ValueError as e:
                     raise HTTPException(
                         status_code=400,
-                        detail=f'Invalid order_by statement "{pagination.order_by}": "{order_by_val}" is invalid',
+                        detail=f'Invalid order_by statement "{request_query.order_by}": "{order_by_val}" is invalid',
                     ) from e
 
             return query

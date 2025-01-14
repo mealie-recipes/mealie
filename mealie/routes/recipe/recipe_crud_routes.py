@@ -1,8 +1,6 @@
 from collections import defaultdict
-from functools import cached_property
-from shutil import copyfileobj, rmtree
+from shutil import copyfileobj
 from uuid import UUID
-from zipfile import ZipFile
 
 import orjson
 import sqlalchemy
@@ -18,30 +16,20 @@ from fastapi import (
     status,
 )
 from fastapi.datastructures import UploadFile
-from fastapi.responses import JSONResponse
-from pydantic import UUID4, BaseModel, Field
+from pydantic import UUID4
 from slugify import slugify
-from starlette.background import BackgroundTask
-from starlette.responses import FileResponse
 
 from mealie.core import exceptions
 from mealie.core.dependencies import (
-    get_temporary_path,
     get_temporary_zip_path,
-    validate_recipe_token,
 )
-from mealie.core.security import create_recipe_slug_token
-from mealie.db.models.household.cookbook import CookBook
 from mealie.pkgs import cache
 from mealie.repos.all_repositories import get_repositories
-from mealie.repos.repository_generic import RepositoryGeneric
-from mealie.repos.repository_recipes import RepositoryRecipes
-from mealie.routes._base import BaseCrudController, controller
-from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base import controller
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.make_dependable import make_dependable
-from mealie.schema.recipe import Recipe, RecipeImageTypes, ScrapeRecipe, ScrapeRecipeData
+from mealie.schema.recipe import Recipe, ScrapeRecipe, ScrapeRecipeData
 from mealie.schema.recipe.recipe import (
     CreateRecipe,
     CreateRecipeByUrlBulk,
@@ -50,9 +38,9 @@ from mealie.schema.recipe.recipe import (
 )
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
+from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse
 from mealie.schema.recipe.request_helpers import (
     RecipeDuplicate,
-    RecipeZipTokenResponse,
     UpdateImageResponse,
 )
 from mealie.schema.response import PaginationBase, PaginationQuery
@@ -71,8 +59,6 @@ from mealie.services.recipe.recipe_data_service import (
     NotAnImageError,
     RecipeDataService,
 )
-from mealie.services.recipe.recipe_service import RecipeService
-from mealie.services.recipe.template_service import TemplateService
 from mealie.services.scraper.recipe_bulk_scraper import RecipeBulkScraperService
 from mealie.services.scraper.scraped_extras import ScraperContext
 from mealie.services.scraper.scraper import create_from_html
@@ -82,99 +68,7 @@ from mealie.services.scraper.scraper_strategies import (
     RecipeScraperPackage,
 )
 
-
-class JSONBytes(JSONResponse):
-    """
-    JSONBytes overrides the render method to return the bytes instead of a string.
-    You can use this when you want to use orjson and bypass the jsonable_encoder
-    """
-
-    media_type = "application/json"
-
-    def render(self, content: bytes) -> bytes:
-        return content
-
-
-class BaseRecipeController(BaseCrudController):
-    @cached_property
-    def recipes(self) -> RepositoryRecipes:
-        return self.repos.recipes
-
-    @cached_property
-    def group_recipes(self) -> RepositoryRecipes:
-        return get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
-
-    @cached_property
-    def group_cookbooks(self) -> RepositoryGeneric[ReadCookBook, CookBook]:
-        return get_repositories(self.session, group_id=self.group_id, household_id=None).cookbooks
-
-    @cached_property
-    def service(self) -> RecipeService:
-        return RecipeService(self.repos, self.user, self.household, translator=self.translator)
-
-    @cached_property
-    def mixins(self):
-        return HttpRepo[CreateRecipe, Recipe, Recipe](self.recipes, self.logger)
-
-
-class FormatResponse(BaseModel):
-    jjson: list[str] = Field(..., alias="json")
-    zip: list[str]
-    jinja2: list[str]
-
-
-router_exports = UserAPIRouter(prefix="/recipes")
-
-
-@controller(router_exports)
-class RecipeExportController(BaseRecipeController):
-    # ==================================================================================================================
-    # Export Operations
-
-    @router_exports.get("/exports", response_model=FormatResponse)
-    def get_recipe_formats_and_templates(self):
-        return TemplateService().templates
-
-    @router_exports.post("/{slug}/exports", response_model=RecipeZipTokenResponse)
-    def get_recipe_zip_token(self, slug: str):
-        """Generates a recipe zip token to be used to download a recipe as a zip file"""
-        return RecipeZipTokenResponse(token=create_recipe_slug_token(slug))
-
-    @router_exports.get("/{slug}/exports", response_class=FileResponse)
-    def get_recipe_as_format(self, slug: str, template_name: str):
-        """
-        ## Parameters
-        `template_name`: The name of the template to use to use in the exports listed. Template type will automatically
-        be set on the backend. Because of this, it's important that your templates have unique names. See available
-        names and formats in the /api/recipes/exports endpoint.
-
-        """
-        with get_temporary_path(auto_unlink=False) as temp_path:
-            recipe = self.mixins.get_one(slug)
-            file = self.service.render_template(recipe, temp_path, template_name)
-            return FileResponse(file, background=BackgroundTask(rmtree, temp_path))
-
-    @router_exports.get("/{slug}/exports/zip")
-    def get_recipe_as_zip(self, slug: str, token: str):
-        """Get a Recipe and Its Original Image as a Zip File"""
-        with get_temporary_zip_path(auto_unlink=False) as temp_path:
-            validated_slug = validate_recipe_token(token)
-
-            if validated_slug != slug:
-                raise HTTPException(status_code=400, detail="Invalid Slug")
-
-            recipe: Recipe = self.mixins.get_one(validated_slug)
-            image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
-            with ZipFile(temp_path, "w") as myzip:
-                myzip.writestr(f"{slug}.json", recipe.model_dump_json())
-
-                if image_asset.is_file():
-                    myzip.write(image_asset, arcname=image_asset.name)
-
-            return FileResponse(
-                temp_path, filename=f"{recipe.slug}.zip", background=BackgroundTask(temp_path.unlink, missing_ok=True)
-            )
-
+from ._base import BaseRecipeController, JSONBytes
 
 router = UserAPIRouter(prefix="/recipes", route_class=MealieCrudRoute)
 
@@ -359,8 +253,9 @@ class RecipeController(BaseRecipeController):
             if cookbook_data is None:
                 raise HTTPException(status_code=404, detail="cookbook not found")
 
-        # We use "group_recipes" here so we can return all recipes regardless of household. The query filter can include
-        # a household_id to filter by household. We use the "by_user" so we can sort favorites correctly.
+        # We use "group_recipes" here so we can return all recipes regardless of household. The query filter can
+        # include a household_id to filter by household.
+        # We use "by_user" so we can sort favorites and other user-specific data correctly.
         pagination_response = self.group_recipes.by_user(self.user.id).page_all(
             pagination=q,
             cookbook=cookbook_data,
@@ -384,6 +279,24 @@ class RecipeController(BaseRecipeController):
         )
 
         json_compatible_response = orjson.dumps(pagination_response.model_dump(by_alias=True))
+
+        # Response is returned directly, to avoid validation and improve performance
+        return JSONBytes(content=json_compatible_response)
+
+    @router.get("/suggestions", response_model=RecipeSuggestionResponse)
+    def suggest_recipes(
+        self,
+        q: RecipeSuggestionQuery = Depends(make_dependable(RecipeSuggestionQuery)),
+        foods: list[UUID4] | None = Query(None),
+        tools: list[UUID4] | None = Query(None),
+    ) -> RecipeSuggestionResponse:
+        group_recipes_by_user = get_repositories(
+            self.session, group_id=self.group_id, household_id=None
+        ).recipes.by_user(self.user.id)
+
+        recipes = group_recipes_by_user.find_suggested_recipes(q, foods, tools)
+        response = RecipeSuggestionResponse(items=recipes)
+        json_compatible_response = orjson.dumps(response.model_dump(by_alias=True))
 
         # Response is returned directly, to avoid validation and improve performance
         return JSONBytes(content=json_compatible_response)

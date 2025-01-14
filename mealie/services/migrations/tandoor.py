@@ -112,7 +112,7 @@ class TandoorMigrator(BaseMigrator):
             recipes_as_dicts: list[dict] = []
             for i, recipe_zip_file in enumerate(source_dir.glob("*.zip")):
                 try:
-                    recipe_dir = str(source_dir.joinpath(f"recipe_{i+1}"))
+                    recipe_dir = str(source_dir.joinpath(f"recipe_{i + 1}"))
                     os.makedirs(recipe_dir)
 
                     with zipfile.ZipFile(recipe_zip_file) as recipe_zip:

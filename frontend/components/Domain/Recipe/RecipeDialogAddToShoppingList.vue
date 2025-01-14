@@ -1,6 +1,11 @@
 <template>
   <div v-if="dialog">
     <BaseDialog v-if="shoppingListDialog && ready" v-model="dialog" :title="$t('recipe.add-to-list')" :icon="$globals.icons.cartCheck">
+    <v-container v-if="!shoppingListChoices.length">
+      <BasePageTitle>
+        <template #title>{{ $t('shopping-list.no-shopping-lists-found') }}</template>
+      </BasePageTitle>
+    </v-container>
       <v-card-text>
         <v-card
           v-for="list in shoppingListChoices"
@@ -199,6 +204,10 @@ export default defineComponent({
       shoppingListShowAllToggled: false,
     });
 
+    const userHousehold = computed(() => {
+      return $auth.user?.householdSlug || "";
+    });
+
     const shoppingListChoices = computed(() => {
       return props.shoppingLists.filter((list) => preferences.value.viewAllLists || list.userId === $auth.user?.id);
     });
@@ -243,8 +252,9 @@ export default defineComponent({
         }
 
         const shoppingListIngredients: ShoppingListIngredient[] = recipe.recipeIngredient.map((ing) => {
+          const householdsWithFood = (ing.food?.householdsWithIngredientFood || []);
           return {
-            checked: !ing.food?.onHand,
+            checked: !householdsWithFood.includes(userHousehold.value),
             ingredient: ing,
             disableAmount: recipe.settings?.disableAmount || false,
           }
@@ -271,7 +281,8 @@ export default defineComponent({
           }
 
           // Store the on-hand ingredients for later
-          if (ing.ingredient.food?.onHand) {
+          const householdsWithFood = (ing.ingredient.food?.householdsWithIngredientFood || []);
+          if (householdsWithFood.includes(userHousehold.value)) {
             onHandIngs.push(ing);
             return sections;
           }

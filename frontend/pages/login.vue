@@ -44,6 +44,7 @@
             filled
             rounded
             autofocus
+            autocomplete="username"
             class="rounded-lg"
             name="login"
             :label="$t('user.email-or-username')"
@@ -56,6 +57,7 @@
             :append-icon="passwordIcon"
             filled
             rounded
+            autocomplete="current-password"
             class="rounded-lg"
             name="password"
             :label="$t('user.password')"

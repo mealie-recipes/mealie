@@ -3,19 +3,19 @@
         "name": "çay kaşığı",
         "plural_name": "çay kaşığı",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "çk"
     },
     "tablespoon": {
         "name": "yemek kaşığı",
         "plural_name": "yemek kaşığı",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "yk"
     },
     "cup": {
         "name": "su bardağı",
         "plural_name": "su bardağı",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "sb"
     },
     "fluid-ounce": {
         "name": "sıvı ons",

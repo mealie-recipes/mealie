@@ -1,0 +1,80 @@
+{
+    "generic": {
+        "server-error": "Ilmnes ootamatu tõrge "
+    },
+    "recipe": {
+        "unique-name-error": "Retseptide nimed peavad olema unikaalsed",
+        "recipe-created": "Retsept loodud",
+        "recipe-defaults": {
+            "ingredient-note": "1 tass jahu",
+            "step-text": "Retsepti sammud nagu ka teised väljad retsepti lehed toetavad Markdown-i süntaksit\n\n** Lisa link **\n[Minu link](https://demo.mealie.io)"
+        },
+        "servings-text": {
+            "makes": "Teeb",
+            "serves": "Jätkub",
+            "serving": "Protsion",
+            "servings": "Portsioneid",
+            "yield": "Saagikus",
+            "yields": "Annab saagiks"
+        }
+    },
+    "mealplan": {
+        "no-recipes-match-your-rules": "Ükski retsept ei vasta sinu reeglitele"
+    },
+    "user": {
+        "user-updated": "Kasutaja uuendatud",
+        "password-updated": "Salasõna uuendatud",
+        "invalid-current-password": "Mittesobiv praegune salasõna",
+        "ldap-update-password-unavailable": "Ei saanud uuendada salasõna, kasutajat kontrollib LDAP"
+    },
+    "group": {
+        "report-deleted": "Raport kustutatud."
+    },
+    "exceptions": {
+        "permission_denied": "Sul puuduvad selle toimingu tegemiseks õigused",
+        "no-entry-found": "Soovitud ressurssi ei leitud",
+        "integrity-error": "Tõrge andmebaasi terviklikkuses",
+        "username-conflict-error": "See kasutajanimi on juba kasutusel",
+        "email-conflict-error": "See e-maili aadress on juba kasutuses"
+    },
+    "notifications": {
+        "generic-created": "{name} loodud",
+        "generic-updated": "{name} uuendatud",
+        "generic-created-with-url": "{name} loodud, {url}",
+        "generic-updated-with-url": "{name} uuendatud, {url}",
+        "generic-duplicated": "{name} on duplitseeritud",
+        "generic-deleted": "{name} kustutatud"
+    },
+    "datetime": {
+        "year": "aasta|aastad",
+        "day": "päev|päevad",
+        "hour": "tund|tunnid",
+        "minute": "minut|minutid",
+        "second": "sekund|sekundid",
+        "millisecond": "millisekund|millisekundid",
+        "microsecond": "mikrosekund|mikrosekundid"
+    },
+    "emails": {
+        "password": {
+            "subject": "Mealie salasõna unustatud",
+            "header_text": "Unustasid salasõna",
+            "message_top": "Oled palunud salasõna lähtestamist",
+            "message_bottom": "Kliki alloleval nupul, et lähtestada oma salasõna",
+            "button_text": "Lähtesta salasõna"
+        },
+        "invitation": {
+            "subject": "Kutse Mealiega liitumiseks",
+            "header_text": "Said kutse!",
+            "message_top": "Sind on kutsutud liituma Mealiega.",
+            "message_bottom": "Palun vajuta allolevat nuppu, et võtta vastu kutse.",
+            "button_text": "Võta kutse vastu"
+        },
+        "test": {
+            "subject": "Mealie test-email",
+            "header_text": "Test-email",
+            "message_top": "See on test-email",
+            "message_bottom": "Palun vajuta allolevat nuppu, et testida emaili.",
+            "button_text": "Ava Mealie"
+        }
+    }
+}

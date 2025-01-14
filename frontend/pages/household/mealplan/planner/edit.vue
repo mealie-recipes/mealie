@@ -13,6 +13,7 @@
       )"
       color="primary"
       :icon="$globals.icons.foods"
+      :submit-disabled="isCreateDisabled"
       @submit="
         if (newMeal.existing) {
           actions.updateOne(newMeal);
@@ -70,9 +71,10 @@
             item-text="name"
             item-value="id"
             :return-object="false"
+            :rules="[requiredRule]"
           />
           <template v-else>
-            <v-text-field v-model="newMeal.title" :label="$t('meal-plan.meal-title')" />
+            <v-text-field v-model="newMeal.title" :rules="[requiredRule]" :label="$t('meal-plan.meal-title')" />
             <v-textarea v-model="newMeal.text" rows="2" :label="$t('meal-plan.meal-note')" />
           </template>
         </v-card-text>
@@ -253,6 +255,7 @@ export default defineComponent({
     const api = useUserApi();
     const { $auth } = useContext();
     const { household } = useHouseholdSelf();
+    const requiredRule = (value: any) => !!value || "Required."
 
     const state = ref({
       dialog: false,
@@ -315,6 +318,14 @@ export default defineComponent({
       userId: $auth.user?.id || "",
     });
 
+    const isCreateDisabled = computed(() => {
+      if (dialog.note) {
+        return !newMeal.title.trim();
+      }
+      return !newMeal.recipeId;
+    });
+
+
     function openDialog(date: Date) {
       newMeal.date = format(date, "yyyy-MM-dd");
       state.value.dialog = true;
@@ -373,6 +384,8 @@ export default defineComponent({
       onMoveCallback,
       planTypeOptions,
       getEntryTypeText,
+      requiredRule,
+      isCreateDisabled,
 
       // Dialog
       dialog,

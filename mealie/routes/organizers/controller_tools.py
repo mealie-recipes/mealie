@@ -46,6 +46,7 @@ class RecipeToolController(BaseUserController):
 
     @router.put("/{item_id}", response_model=RecipeTool)
     def update_one(self, item_id: UUID4, data: RecipeToolCreate):
+        data = mapper.cast(data, RecipeToolSave, group_id=self.group_id)
         return self.mixins.update_one(data, item_id)
 
     @router.delete("/{item_id}", response_model=RecipeTool)

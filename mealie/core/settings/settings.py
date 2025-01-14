@@ -1,7 +1,7 @@
 import logging
 import os
 import secrets
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Annotated, Any, NamedTuple
 
@@ -160,7 +160,7 @@ class AppSettings(AppLoggingSettings):
         local_tz = tzlocal()
         now = datetime.now(local_tz)
         local_time = now.replace(hour=local_hour, minute=local_minute)
-        utc_time = local_time.astimezone(timezone.utc)
+        utc_time = local_time.astimezone(UTC)
 
         self.logger.debug(f"Local time: {local_hour}:{local_minute} | UTC time: {utc_time.hour}:{utc_time.minute}")
         return ScheduleTime(utc_time.hour, utc_time.minute)

@@ -276,7 +276,8 @@
     "admin-group-management": "Yönetici Grup Yönetimi",
     "admin-group-management-text": "Bu gruptaki değişiklikler hemen yansıtılacaktır.",
     "group-id-value": "Grup Kimliği: {0}",
-    "total-households": "Toplam Hane Halkı"
+    "total-households": "Toplam Hane Halkı",
+    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
   },
   "household": {
     "household": "Ev Halkı",
@@ -517,6 +518,7 @@
     "save-recipe-before-use": "Kullanmadan önce tarifi kaydedin",
     "section-title": "Bölüm başlığı",
     "servings": "Porsiyon",
+    "serves-amount": "Serves {amount}",
     "share-recipe-message": "{0} tarifimi sizlerle paylaşmak istedim.",
     "show-nutrition-values": "Besin Değerlerini Göster",
     "sodium-content": "Sodyum",
@@ -545,6 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Tarif yemek planına eklerken hata oluştu",
     "failed-to-add-to-list": "Listeye eklenemedi",
     "yield": "Verim",
+    "yields-amount-with-text": "Yields {amount} {text}",
+    "yield-text": "Yield Text",
     "quantity": "Miktar",
     "choose-unit": "Birim Seçin",
     "press-enter-to-create": "Oluşturmak İçin Enter'a Basın",
@@ -566,13 +570,6 @@
     "increase-scale-label": "Ölçeği 1 artır",
     "locked": "Kilitli",
     "public-link": "Genel bağlantı",
-    "timer": {
-      "kitchen-timer": "Mutfak Saati",
-      "start-timer": "Zamanlayıcıyı Başlat",
-      "pause-timer": "Zamanlayıcıyı Duraklat",
-      "resume-timer": "Zamanlayıcıyı Sürdür",
-      "stop-timer": "Zamanlayıcıyı Durdur"
-    },
     "edit-timeline-event": "Zaman Çizelgesi Etkinliğini Düzenle",
     "timeline": "Zaman çizelgesi",
     "timeline-is-empty": "Zaman çizelgesinde henüz bir şey yok. Bu tarifi yapmayı deneyin!",
@@ -640,7 +637,9 @@
     "recipe-debugger-use-openai-description": "Sonuçları ayrıştırmak için kazıyıcı kitaplığına güvenmek yerine OpenAI'yi kullanın. URL aracılığıyla bir tarif oluştururken, kazıyıcı kitaplığı başarısız olursa bu otomatik olarak yapılır, ancak burada manuel olarak test edebilirsiniz.",
     "debug": "Hata ayıklama",
     "tree-view": "Ağaç Görünümü",
+    "recipe-servings": "Recipe Servings",
     "recipe-yield": "Tarif Verimi",
+    "recipe-yield-text": "Recipe Yield Text",
     "unit": "Birim",
     "upload-image": "Resim yükleyin",
     "screen-awake": "Ekranı Açık Tut",
@@ -662,7 +661,25 @@
       "missing-food": "Eksik gıdayı oluştur: {food}",
       "no-food": "Gıda yok"
     },
-    "reset-servings-count": "Reset Servings Count"
+    "reset-servings-count": "Reset Servings Count",
+    "not-linked-ingredients": "Additional Ingredients"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Recipe Finder",
+    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
+    "selected-ingredients": "Selected Ingredients",
+    "no-ingredients-selected": "No ingredients selected",
+    "missing": "Missing",
+    "no-recipes-found": "No recipes found",
+    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
+    "include-ingredients-on-hand": "Include Ingredients On Hand",
+    "include-tools-on-hand": "Include Tools On Hand",
+    "max-missing-ingredients": "Max Missing Ingredients",
+    "max-missing-tools": "Max Missing Tools",
+    "selected-tools": "Selected Tools",
+    "other-filters": "Other Filters",
+    "ready-to-make": "Ready to Make",
+    "almost-ready-to-make": "Almost Ready to Make"
   },
   "search": {
     "advanced-search": "Gelişmiş Arama",
@@ -866,7 +883,8 @@
     "you-are-offline-description": "Çevrimdışıyken tüm özellikler kullanılamaz. Öğeleri hâlâ ekleyebilir, değiştirebilir ve kaldırabilirsiniz ancak tekrar çevrimiçi olana kadar değişikliklerinizi sunucuyla eşitleyemezsiniz.",
     "are-you-sure-you-want-to-check-all-items": "Tüm öğeleri işaretlemek istediğinizden emin misiniz?",
     "are-you-sure-you-want-to-uncheck-all-items": "Tüm öğelerden işaretleri kaldırmak istediğinize emin misiniz?",
-    "are-you-sure-you-want-to-delete-checked-items": "İşaretlenmiş tüm öğeleri silmek istediğinizden emin misiniz?"
+    "are-you-sure-you-want-to-delete-checked-items": "İşaretlenmiş tüm öğeleri silmek istediğinizden emin misiniz?",
+    "no-shopping-lists-found": "No Shopping Lists Found"
   },
   "sidebar": {
     "all-recipes": "Tüm Tarifler",
@@ -1278,6 +1296,7 @@
   "profile": {
     "welcome-user": "👋 Hoşgeldin, {0}!",
     "description": "Profilinizi, tariflerinizi ve grup ayarlarınızı yönetin.",
+    "invite-link": "Invite Link",
     "get-invite-link": "Davet Bağlantısı Al",
     "get-public-link": "Herkese açık bağlantıyı al",
     "account-summary": "Hesap Özeti",
@@ -1327,6 +1346,8 @@
   "cookbook": {
     "cookbooks": "Tarif Kitapları",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
+    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
     "public-cookbook": "Herkese Açık Tarif Kitabı",
     "public-cookbook-description": "Herkese Açık Tarif Kitapları, mealie kullanıcısı olmayanlarla paylaşılabilir ve grup sayfanızda görüntülenir.",
     "filter-options": "Filtre Seçenekleri",

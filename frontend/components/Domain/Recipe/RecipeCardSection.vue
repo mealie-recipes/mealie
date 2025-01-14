@@ -82,6 +82,8 @@
                 :image="recipe.image"
                 :tags="recipe.tags"
                 :recipe-id="recipe.id"
+
+                 v-on="$listeners"
               />
             </v-lazy>
           </v-col>
@@ -105,6 +107,8 @@
                 :image="recipe.image"
                 :tags="recipe.tags"
                 :recipe-id="recipe.id"
+
+                v-on="$listeners"
               />
             </v-lazy>
           </v-col>
@@ -295,6 +299,7 @@ export default defineComponent({
         loading.value = false;
       }, useAsyncKey());
     }, 500);
+
 
     function sortRecipes(sortType: string) {
       if (state.sortLoading || loading.value) {

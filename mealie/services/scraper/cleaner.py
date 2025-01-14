@@ -120,7 +120,8 @@ def clean_image(image: str | list | dict | None = None, default: str = "no image
         case str(image):
             return [image]
         case [str(_), *_]:
-            return [x for x in image if x]  # Only return non-null strings in list
+            # Only return non-null strings in list
+            return [x for x in image if x]
         case [{"url": str(_)}, *_]:
             return [x["url"] for x in image if "url" in x]
         case {"url": str(image)}:
@@ -569,5 +570,11 @@ def clean_nutrition(nutrition: dict | None) -> dict[str, str]:
             if isinstance(val, str) and "m" not in val and "g" in val:
                 with contextlib.suppress(AttributeError, TypeError):
                     output_nutrition[key] = str(float(output_nutrition[key]) * 1000)
+
+    for key in ["calories"]:
+        if val := nutrition.get(key, None):
+            if isinstance(val, int | float):
+                with contextlib.suppress(AttributeError, TypeError):
+                    output_nutrition[key] = str(val)
 
     return output_nutrition

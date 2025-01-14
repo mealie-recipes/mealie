@@ -248,7 +248,7 @@
 	},
 	"endive": {
 		"name": "endiv",
-		"plural_name": "endives"
+		"plural_name": "endiver"
 	},
 	"fats": {
 		"name": "fetter"
@@ -384,7 +384,7 @@
 	},
 	"liver": {
 		"name": "lever",
-		"plural_name": "livers"
+		"plural_name": "levrar"
 	},
 	"maize": {
 		"name": "majs"
@@ -480,7 +480,7 @@
 	},
 	"pepper": {
 		"name": "peppar",
-		"plural_name": "peppers"
+		"plural_name": "paprikor"
 	},
 	"pineapple": {
 		"name": "ananas",
@@ -575,7 +575,7 @@
 		"plural_name": "spaghetti squashes"
 	},
 	"speck": {
-		"name": "speck"
+		"name": "fläsk"
 	},
 	"spices": {
 		"name": "kryddor"

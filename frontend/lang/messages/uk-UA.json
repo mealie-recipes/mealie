@@ -276,7 +276,8 @@
     "admin-group-management": "Керування Групами Адміністратора",
     "admin-group-management-text": "Зміни до цієї групи будуть відображені негайно.",
     "group-id-value": "Id групи: {0}",
-    "total-households": "Всього сімей"
+    "total-households": "Всього сімей",
+    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
   },
   "household": {
     "household": "Сімʼя",
@@ -517,6 +518,7 @@
     "save-recipe-before-use": "Зберегти рецепт перед використанням",
     "section-title": "Назва розділу",
     "servings": "Порції",
+    "serves-amount": "Serves {amount}",
     "share-recipe-message": "Я хотів би поділитися з тобою своїм рецептом {0}.",
     "show-nutrition-values": "Показати харчову цінність",
     "sodium-content": "Натрій",
@@ -545,6 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Не вдалося додати рецепт до плану харчування",
     "failed-to-add-to-list": "Не вдалося додати до списку",
     "yield": "Вихід",
+    "yields-amount-with-text": "Yields {amount} {text}",
+    "yield-text": "Yield Text",
     "quantity": "Кількість",
     "choose-unit": "Виберіть одиниці вимірювання",
     "press-enter-to-create": "Натисніть Enter, щоб створити",
@@ -566,13 +570,6 @@
     "increase-scale-label": "Збільшити масштабування на 1",
     "locked": "Заблоковано",
     "public-link": "Публічне посилання",
-    "timer": {
-      "kitchen-timer": "Кухонний таймер",
-      "start-timer": "Запустити таймер",
-      "pause-timer": "Призупинити таймер",
-      "resume-timer": "Відновити таймер",
-      "stop-timer": "Зупинити таймер"
-    },
     "edit-timeline-event": "Редагувати подію хронології",
     "timeline": "Хронологія",
     "timeline-is-empty": "Хронологія порожня. Спробуйте зробити цей рецепт!",
@@ -640,7 +637,9 @@
     "recipe-debugger-use-openai-description": "Використовуйте OpenAI для аналізу результатів замість використання бібліотеки парсера. Під час створення рецепта через URL це робиться автоматично, якщо бібліотека парсера не впоралася, але ви можете перевірити це тут вручну.",
     "debug": "Дебажити",
     "tree-view": "У вигляді дерева",
+    "recipe-servings": "Recipe Servings",
     "recipe-yield": "Вихід рецепту",
+    "recipe-yield-text": "Recipe Yield Text",
     "unit": "Одиниця виміру",
     "upload-image": "Вивантажити зображення",
     "screen-awake": "Тримати екран активним",
@@ -662,7 +661,25 @@
       "missing-food": "Створити відсутню їжу: {food}",
       "no-food": "Немає їжі"
     },
-    "reset-servings-count": "Скинути кількість порцій"
+    "reset-servings-count": "Скинути кількість порцій",
+    "not-linked-ingredients": "Additional Ingredients"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Recipe Finder",
+    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
+    "selected-ingredients": "Selected Ingredients",
+    "no-ingredients-selected": "No ingredients selected",
+    "missing": "Missing",
+    "no-recipes-found": "No recipes found",
+    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
+    "include-ingredients-on-hand": "Include Ingredients On Hand",
+    "include-tools-on-hand": "Include Tools On Hand",
+    "max-missing-ingredients": "Max Missing Ingredients",
+    "max-missing-tools": "Max Missing Tools",
+    "selected-tools": "Selected Tools",
+    "other-filters": "Other Filters",
+    "ready-to-make": "Ready to Make",
+    "almost-ready-to-make": "Almost Ready to Make"
   },
   "search": {
     "advanced-search": "Розширений пошук",
@@ -866,7 +883,8 @@
     "you-are-offline-description": "Не всі функції доступні без мережі. Ви все ще можете додавати, змінювати та видаляти елементи, але не зможете синхронізувати зміни на сервер, поки під'єднаєтесь до мережі.",
     "are-you-sure-you-want-to-check-all-items": "Ви впевнені, що хочете відмітити всі елементи?",
     "are-you-sure-you-want-to-uncheck-all-items": "Ви впевнені, що хочете зняти відмітку з усіх елементів?",
-    "are-you-sure-you-want-to-delete-checked-items": "Ви впевнені, що хочете видалити всі відмічені елементи?"
+    "are-you-sure-you-want-to-delete-checked-items": "Ви впевнені, що хочете видалити всі відмічені елементи?",
+    "no-shopping-lists-found": "No Shopping Lists Found"
   },
   "sidebar": {
     "all-recipes": "Всі рецепти",
@@ -1278,6 +1296,7 @@
   "profile": {
     "welcome-user": "👋 Ласкаво просимо, {0}!",
     "description": "Керування вашим профілем, рецептами та налаштуваннями групи.",
+    "invite-link": "Invite Link",
     "get-invite-link": "Отримати посилання-запрошення",
     "get-public-link": "Отримати публічне посилання",
     "account-summary": "Аккаунт",
@@ -1327,6 +1346,8 @@
   "cookbook": {
     "cookbooks": "Кулінарні книги",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
+    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
     "public-cookbook": "Публічна кулінарна книга",
     "public-cookbook-description": "Публічними кулінарними книгами можна поділитися з будь-ким, і вони будуть відображатися на сторінці вашої групи.",
     "filter-options": "Параметри фільтра",

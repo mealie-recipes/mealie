@@ -4,11 +4,18 @@
       <div>
         <v-menu v-model="menu" :disabled="!canEditScale" offset-y top nudge-top="6" :close-on-content-click="false">
           <template #activator="{ on, attrs }">
-            <v-card class="pa-1 px-2" dark color="secondary darken-1" small v-bind="attrs" v-on="on">
-              <v-icon small class="mr-2">{{ $globals.icons.edit }}</v-icon>
+            <v-card
+              class="pa-1 px-2"
+              dark
+              color="secondary darken-1"
+              small
+              v-bind="attrs"
+              :style="{ cursor: canEditScale ? '' : 'default' }"
+              v-on="on"
+            >
+              <v-icon v-if="canEditScale" small class="mr-2">{{ $globals.icons.edit }}</v-icon>
               <!-- eslint-disable-next-line vue/no-v-html -->
               <span v-html="yieldDisplay"></span>
-
             </v-card>
           </template>
           <v-card min-width="300px">

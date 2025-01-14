@@ -1,5 +1,5 @@
 import abc
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from typing import Generic, TypeVar
 
 import jwt
@@ -45,7 +45,7 @@ class AuthProvider(Generic[T], metaclass=abc.ABCMeta):
         to_encode = data.copy()
         expires_delta = expires_delta or timedelta(hours=settings.TOKEN_TIME)
 
-        expire = datetime.now(timezone.utc) + expires_delta
+        expire = datetime.now(UTC) + expires_delta
 
         to_encode["exp"] = expire
         to_encode["iss"] = ISS

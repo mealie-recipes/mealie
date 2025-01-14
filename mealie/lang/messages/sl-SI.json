@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Ime recepta mora biti unikatno",
+        "recipe-created": "Recept ustvarjen",
         "recipe-defaults": {
             "ingredient-note": "skodelica moke",
             "step-text": "Postopek priprave recepta, kot tudi druga polja v receptu podpirajo markdown sintakso.\n\n**Dodaj povezavo**\n\n[Moja povezava](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Naredi",
+            "serves": "Postrezi",
+            "serving": "Postrežba",
+            "servings": "Obroki",
+            "yield": "donos",
+            "yields": "donosi"
         }
     },
     "mealplan": {

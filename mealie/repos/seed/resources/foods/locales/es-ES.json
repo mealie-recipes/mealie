@@ -1,6 +1,6 @@
 {
 	"acorn-squash": {
-		"name": "calabaza cabello de ángel"
+		"name": "calabaza bellota"
 	},
 	"alfalfa-sprouts": {
 		"name": "brotes de alfalfa"
@@ -9,7 +9,7 @@
 		"name": "anchoas"
 	},
 	"apples": {
-		"name": "manzanas",
+		"name": "manzana",
 		"plural_name": "manzanas"
 	},
 	"artichoke": {
@@ -220,8 +220,8 @@
 		"name": "comino"
 	},
 	"daikon": {
-		"name": "daikon",
-		"plural_name": "daikons"
+		"name": "rábano japonés",
+		"plural_name": "rábanos japoneses"
 	},
 	"dairy-products-and-dairy-substitutes": {
 		"name": "productos lácteos y sustitutos de lácteos"
@@ -243,12 +243,12 @@
 		"plural_name": "berenjenas"
 	},
 	"eggs": {
-		"name": "huevos",
+		"name": "huevo",
 		"plural_name": "huevos"
 	},
 	"endive": {
 		"name": "endibia",
-		"plural_name": "endives"
+		"plural_name": "endivias"
 	},
 	"fats": {
 		"name": "grasas"
@@ -261,7 +261,7 @@
 	},
 	"fiddlehead-fern": {
 		"name": "brotes de helecho",
-		"plural_name": "fiddlehead ferns"
+		"plural_name": "brotes de helecho"
 	},
 	"fish": {
 		"name": "pescado"
@@ -285,7 +285,7 @@
 		"name": "fructosa"
 	},
 	"ful": {
-		"name": "ful"
+		"name": "haba"
 	},
 	"garam-masala": {
 		"name": "garam masala"
@@ -321,7 +321,7 @@
 	},
 	"heart-of-palm": {
 		"name": "palmito",
-		"plural_name": "heart of palms"
+		"plural_name": "palmitos"
 	},
 	"hemp": {
 		"name": "cáñamo"
@@ -469,7 +469,7 @@
 	},
 	"parsnip": {
 		"name": "chirivía",
-		"plural_name": "parsnips"
+		"plural_name": "chirivías"
 	},
 	"pear": {
 		"name": "pera",
@@ -572,7 +572,7 @@
 	},
 	"spaghetti-squash": {
 		"name": "calabaza espagueti",
-		"plural_name": "spaghetti squashes"
+		"plural_name": "calabaza espagueti"
 	},
 	"speck": {
 		"name": "speck (jamón)"
@@ -585,7 +585,7 @@
 	},
 	"spring-onion": {
 		"name": "cebolleta",
-		"plural_name": "spring onions"
+		"plural_name": "cebollino"
 	},
 	"squash": {
 		"name": "calabaza dulce",
@@ -602,7 +602,7 @@
 	},
 	"sunchoke": {
 		"name": "girasol de Canadá",
-		"plural_name": "sunchokes"
+		"plural_name": "tupinambo"
 	},
 	"sunflower-seeds": {
 		"name": "pipas de girasol"
@@ -640,7 +640,7 @@
 	},
 	"tubers": {
 		"name": "tubérculos",
-		"plural_name": "tubers"
+		"plural_name": "tubérculos"
 	},
 	"tuna": {
 		"name": "atún"
@@ -650,7 +650,7 @@
 	},
 	"turnip": {
 		"name": "nabo",
-		"plural_name": "turnips"
+		"plural_name": "nabos"
 	},
 	"unrefined-sugar": {
 		"name": "azúcar sin refinar"
@@ -670,7 +670,7 @@
 	},
 	"white-mushroom": {
 		"name": "champiñón blanco",
-		"plural_name": "white mushrooms"
+		"plural_name": "champiñones blancos"
 	},
 	"white-sugar": {
 		"name": "azúcar blanco"
@@ -680,13 +680,13 @@
 	},
 	"yam": {
 		"name": "ñame",
-		"plural_name": "yams"
+		"plural_name": "ñames"
 	},
 	"yeast": {
 		"name": "levadura"
 	},
 	"zucchini": {
 		"name": "calabacín",
-		"plural_name": "zucchinis"
+		"plural_name": "calabacines"
 	}
 }

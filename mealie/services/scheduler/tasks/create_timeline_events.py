@@ -1,10 +1,12 @@
-from datetime import datetime, time, timedelta, timezone
+from datetime import UTC, datetime, time, timedelta
 
+from dateutil.tz import tzlocal
 from pydantic import UUID4
 from sqlalchemy.orm import Session
 
 from mealie.db.db_setup import session_context
 from mealie.repos.all_repositories import get_repositories
+from mealie.schema.household.household import HouseholdRecipeUpdate
 from mealie.schema.meal_plan.new_meal import PlanEntryType
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
@@ -17,19 +19,22 @@ from mealie.services.event_bus_service.event_types import (
     EventRecipeTimelineEventData,
     EventTypes,
 )
+from mealie.services.household_services.household_service import HouseholdService
 
 
 def _create_mealplan_timeline_events_for_household(
     event_time: datetime, session: Session, group_id: UUID4, household_id: UUID4
 ) -> None:
     repos = get_repositories(session, group_id=group_id, household_id=household_id)
+    household_service = HouseholdService(group_id, household_id, repos)
     event_bus_service = EventBusService(session=session)
 
     timeline_events_to_create: list[RecipeTimelineEventCreate] = []
     recipes_to_update: dict[UUID4, RecipeSummary] = {}
     recipe_id_to_slug_map: dict[UUID4, str] = {}
 
-    mealplans = repos.meals.get_today()
+    local_tz = tzlocal()
+    mealplans = repos.meals.get_today(tz=local_tz)
     for mealplan in mealplans:
         if not (mealplan.recipe and mealplan.user_id):
             continue
@@ -45,7 +50,7 @@ def _create_mealplan_timeline_events_for_household(
         else:
             event_subject = f"{user.full_name} made this for {mealplan.entry_type.value}"
 
-        query_start_time = datetime.combine(datetime.now(timezone.utc).date(), time.min)
+        query_start_time = datetime.combine(datetime.now(UTC).date(), time.min)
         query_end_time = query_start_time + timedelta(days=1)
         query = PaginationQuery(
             query_filter=(
@@ -62,7 +67,8 @@ def _create_mealplan_timeline_events_for_household(
             continue
 
         # bump up the last made date
-        last_made = mealplan.recipe.last_made
+        household_to_recipe = household_service.get_household_recipe(mealplan.recipe.slug)
+        last_made = household_to_recipe.last_made if household_to_recipe else None
         if (not last_made or last_made.date() < event_time.date()) and mealplan.recipe_id not in recipes_to_update:
             recipes_to_update[mealplan.recipe_id] = mealplan.recipe
 
@@ -97,6 +103,7 @@ def _create_mealplan_timeline_events_for_household(
         )
 
     for recipe in recipes_to_update.values():
+        household_service.set_household_recipe(recipe.slug, HouseholdRecipeUpdate(last_made=event_time))
         repos.recipes.patch(recipe.slug, {"last_made": event_time})
         event_bus_service.dispatch(
             integration_id=DEFAULT_INTEGRATION_ID,
@@ -116,7 +123,7 @@ def _create_mealplan_timeline_events_for_group(event_time: datetime, session: Se
 
 
 def create_mealplan_timeline_events() -> None:
-    event_time = datetime.now(timezone.utc)
+    event_time = datetime.now(UTC)
 
     with session_context() as session:
         repos = get_repositories(session)

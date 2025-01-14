@@ -276,7 +276,8 @@
     "admin-group-management": "Administration des groupes",
     "admin-group-management-text": "Les modifications apportées à ce groupe seront immédiatement prises en compte.",
     "group-id-value": "ID groupe : {0}",
-    "total-households": "Nombre de foyers"
+    "total-households": "Nombre de foyers",
+    "you-must-select-a-group-before-selecting-a-household": "Vous devez sélectionner un groupe avant de sélectionner un foyer"
   },
   "household": {
     "household": "Foyer",
@@ -347,7 +348,7 @@
     "meal-note": "Note du repas",
     "note-only": "Note uniquement",
     "random-meal": "Repas aléatoire",
-    "random-dinner": "Dîner aléatoire",
+    "random-dinner": "Souper aléatoire",
     "random-side": "Accompagnement aléatoire",
     "this-rule-will-apply": "Cette règle s'appliquera {dayCriteria} {mealTypeCriteria}.",
     "to-all-days": "à tous les jours",
@@ -513,10 +514,11 @@
     "recipe-updated": "Recette mise à jour",
     "remove-from-favorites": "Supprimer des favoris",
     "remove-section": "Supprimer une section",
-    "saturated-fat-content": "Acides gras saturés",
+    "saturated-fat-content": "Gras saturés",
     "save-recipe-before-use": "Enregistrez la recette avant utilisation",
     "section-title": "Titre de la section",
     "servings": "Portions",
+    "serves-amount": "{amount} portions",
     "share-recipe-message": "Je voulais partager ma recette de {0} avec vous.",
     "show-nutrition-values": "Afficher les valeurs nutritionnelles",
     "sodium-content": "Sodium",
@@ -524,9 +526,9 @@
     "sugar-content": "Sucres",
     "title": "Titre",
     "total-time": "Temps total",
-    "trans-fat-content": "Acides gras trans",
+    "trans-fat-content": "Gras trans",
     "unable-to-delete-recipe": "Impossible de supprimer la recette",
-    "unsaturated-fat-content": "Acides gras insaturés",
+    "unsaturated-fat-content": "Gras insaturés",
     "no-recipe": "Pas de recette",
     "locked-by-owner": "Verrouillé par le propriétaire",
     "join-the-conversation": "Rejoindre la conversation",
@@ -545,6 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Échec de l'ajout de la recette à la planification des repas",
     "failed-to-add-to-list": "Ajout dans la liste en échec",
     "yield": "Rendement",
+    "yields-amount-with-text": "Produit {amount} {text}",
+    "yield-text": "Unité",
     "quantity": "Quantité",
     "choose-unit": "Choisir une unité",
     "press-enter-to-create": "Clique sur Entrer pour créer",
@@ -566,13 +570,6 @@
     "increase-scale-label": "Augmenter l'échelle de 1",
     "locked": "Verrouillé",
     "public-link": "Lien public",
-    "timer": {
-      "kitchen-timer": "Minuteur",
-      "start-timer": "Démarrer le minuteur",
-      "pause-timer": "Mettre en pause le minuteur",
-      "resume-timer": "Reprendre le minuteur",
-      "stop-timer": "Arrêter le minuteur"
-    },
     "edit-timeline-event": "Modifier l’événement dans l’historique",
     "timeline": "Historique",
     "timeline-is-empty": "Pas encore d’historique. Essayez de cuisiner cette recette !",
@@ -640,7 +637,9 @@
     "recipe-debugger-use-openai-description": "Utilisez OpenAI pour analyser les résultats au lieu de la librairie d’extraction. Lors de la création d'une recette via une URL, cela se fait automatiquement si la librairie d’extraction échoue, mais vous pouvez le tester manuellement ici.",
     "debug": "Déboguer",
     "tree-view": "Vue en arborescence",
+    "recipe-servings": "Portions de la recette",
     "recipe-yield": "Nombre de parts",
+    "recipe-yield-text": "Unité",
     "unit": "Unité",
     "upload-image": "Ajouter une image",
     "screen-awake": "Garder l’écran allumé",
@@ -662,7 +661,25 @@
       "missing-food": "Créer un aliment manquant : {food}",
       "no-food": "Aucun aliment"
     },
-    "reset-servings-count": "Réinitialiser le nombre de portions"
+    "reset-servings-count": "Réinitialiser le nombre de portions",
+    "not-linked-ingredients": "Ingrédients supplémentaires"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Recherche de recette",
+    "recipe-finder-description": "Recherchez des recettes en fonction des ingrédients que vous avez à disposition. Vous pouvez également filtrer par ustensile disponible et définir un nombre maximum d'ingrédients ou d'ustensiles manquants.",
+    "selected-ingredients": "Ingrédients sélectionnés",
+    "no-ingredients-selected": "Aucun ingrédient sélectionné",
+    "missing": "Manquant",
+    "no-recipes-found": "Aucune recette trouvée",
+    "no-recipes-found-description": "Essayez d'ajouter plus d'ingrédients à votre recherche ou d'ajuster vos filtres",
+    "include-ingredients-on-hand": "Inclure les ingrédients à disposition",
+    "include-tools-on-hand": "Inclure les ustensiles à disposition",
+    "max-missing-ingredients": "Ingrédients manquants max",
+    "max-missing-tools": "Ustensiles manquants max",
+    "selected-tools": "Ustensiles sélectionnés",
+    "other-filters": "Autres filtres",
+    "ready-to-make": "Prêt à cuisiner",
+    "almost-ready-to-make": "Presque prêt à cuisiner"
   },
   "search": {
     "advanced-search": "Recherche avancée",
@@ -866,7 +883,8 @@
     "you-are-offline-description": "Certaines fonctionnalités ne sont pas disponibles lorsque vous êtes hors-ligne. Vous pouvez toujours ajouter, modifier et supprimer des éléments, mais il ne sera pas possible de synchroniser les changements avec le serveur tant que vous ne serez pas en ligne.",
     "are-you-sure-you-want-to-check-all-items": "Voulez-vous vraiment sélectionner tous les éléments ?",
     "are-you-sure-you-want-to-uncheck-all-items": "Voulez-vous vraiment désélectionner tous les éléments ?",
-    "are-you-sure-you-want-to-delete-checked-items": "Voulez-vous vraiment supprimer tous les éléments sélectionnés ?"
+    "are-you-sure-you-want-to-delete-checked-items": "Voulez-vous vraiment supprimer tous les éléments sélectionnés ?",
+    "no-shopping-lists-found": "Aucune liste de courses trouvée"
   },
   "sidebar": {
     "all-recipes": "Les recettes",
@@ -1272,12 +1290,13 @@
     "debug-openai-services-description": "Utilisez cette page pour déboguer les services OpenAI. Vous pouvez tester votre connexion OpenAI et voir les résultats ici. Si vous avez activé les services d'image, vous pouvez également fournir une image.",
     "run-test": "Lancer le test",
     "test-results": "Résultats du test",
-    "group-delete-note": "Groups with users or households cannot be deleted",
-    "household-delete-note": "Households with users cannot be deleted"
+    "group-delete-note": "Les groupes avec des utilisateurs ou des foyers ne peuvent être supprimés",
+    "household-delete-note": "Les foyers avec des utilisateurs ne peuvent être supprimés"
   },
   "profile": {
     "welcome-user": "👋 Bienvenue, {0}!",
     "description": "Gérez votre profil, les recettes et les paramètres de groupe.",
+    "invite-link": "Lien d'invitation",
     "get-invite-link": "Obtenir un lien d'invitation",
     "get-public-link": "Voir le lien public",
     "account-summary": "Aperçu du compte",
@@ -1327,6 +1346,8 @@
   "cookbook": {
     "cookbooks": "Livres de recettes",
     "description": "Les livres de recettes sont un autre moyen d’organiser des recettes en sélectionnant un ensemble précis de recettes, de classification et de filtres. La création d'un livre de recettes ajoute une entrée à la barre latérale et toutes les recettes avec les filtres choisies seront affichées dans le livre de recettes.",
+    "hide-cookbooks-from-other-households": "Masquer les livres de cuisine des autres foyers",
+    "hide-cookbooks-from-other-households-description": "Lorsque cette option est activée, seuls les livres de cuisine de votre foyer apparaîtront dans la barre latérale",
     "public-cookbook": "Livre de recettes public",
     "public-cookbook-description": "Les livres de recettes publics peuvent être partagés avec des personnes qui n'ont pas Mealie et seront affichés sur la page de vos groupes.",
     "filter-options": "Options de filtres",
@@ -1346,21 +1367,21 @@
       "or": "OU"
     },
     "relational-operators": {
-      "equals": "equals",
-      "does-not-equal": "does not equal",
-      "is-greater-than": "is greater than",
-      "is-greater-than-or-equal-to": "is greater than or equal to",
-      "is-less-than": "is less than",
-      "is-less-than-or-equal-to": "is less than or equal to"
+      "equals": "égal",
+      "does-not-equal": "n'est pas égal",
+      "is-greater-than": "est supérieur à",
+      "is-greater-than-or-equal-to": "est supérieur ou égal à",
+      "is-less-than": "est inférieure à",
+      "is-less-than-or-equal-to": "est inférieur ou égal à"
     },
     "relational-keywords": {
-      "is": "is",
-      "is-not": "is not",
-      "is-one-of": "is one of",
-      "is-not-one-of": "is not one of",
-      "contains-all-of": "contains all of",
-      "is-like": "is like",
-      "is-not-like": "is not like"
+      "is": "est",
+      "is-not": "n'est pas",
+      "is-one-of": "fait partie de",
+      "is-not-one-of": "ne fait pas partie de",
+      "contains-all-of": "contient tous les",
+      "is-like": "est similaire à",
+      "is-not-like": "n'est pas similaire à"
     }
   }
 }

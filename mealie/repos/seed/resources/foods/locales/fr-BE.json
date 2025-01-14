@@ -48,7 +48,7 @@
 	},
 	"bell-peppers": {
 		"name": "poivrons",
-		"plural_name": "bell peppers"
+		"plural_name": "poivrons"
 	},
 	"blackberries": {
 		"name": "mûres"
@@ -100,7 +100,7 @@
 		"name": "cactus"
 	},
 	"calabrese": {
-		"name": "calabrese"
+		"name": "brocoli calabrese"
 	},
 	"cane-sugar": {
 		"name": "sucre de canne"
@@ -154,7 +154,7 @@
 	},
 	"chilli-peppers": {
 		"name": "piment",
-		"plural_name": "chilli peppers"
+		"plural_name": "piments"
 	},
 	"chinese-leaves": {
 		"name": "chou chinois"
@@ -176,7 +176,7 @@
 	},
 	"coconut": {
 		"name": "noix de coco",
-		"plural_name": "coconuts"
+		"plural_name": "noix de coco"
 	},
 	"coconut-milk": {
 		"name": "lait de coco"
@@ -198,7 +198,7 @@
 	},
 	"corn": {
 		"name": "maïs",
-		"plural_name": "corns"
+		"plural_name": "maïs"
 	},
 	"corn-syrup": {
 		"name": "sirop de maïs"
@@ -214,14 +214,14 @@
 	},
 	"cucumber": {
 		"name": "concombre",
-		"plural_name": "cucumbers"
+		"plural_name": "concombres"
 	},
 	"cumin": {
 		"name": "cumin"
 	},
 	"daikon": {
 		"name": "radis blanc",
-		"plural_name": "daikons"
+		"plural_name": "radis blancs"
 	},
 	"dairy-products-and-dairy-substitutes": {
 		"name": "produits laitiers et substituts laitiers"
@@ -261,7 +261,7 @@
 	},
 	"fiddlehead-fern": {
 		"name": "crosse de fougère",
-		"plural_name": "fiddlehead ferns"
+		"plural_name": "crosses de fougères"
 	},
 	"fish": {
 		"name": "poisson"
@@ -292,7 +292,7 @@
 	},
 	"garlic": {
 		"name": "ail",
-		"plural_name": "garlics"
+		"plural_name": "gousses d'ails"
 	},
 	"gem-squash": {
 		"name": "courge gem squash"
@@ -317,11 +317,11 @@
 	},
 	"green-onion": {
 		"name": "oignon vert",
-		"plural_name": "green onions"
+		"plural_name": "oignons verts"
 	},
 	"heart-of-palm": {
 		"name": "cœur de palmier",
-		"plural_name": "heart of palms"
+		"plural_name": "cœurs de palmiers"
 	},
 	"hemp": {
 		"name": "chanvre"
@@ -337,7 +337,7 @@
 	},
 	"jackfruit": {
 		"name": "pomme jacque",
-		"plural_name": "jackfruits"
+		"plural_name": "pommes jaques"
 	},
 	"jaggery": {
 		"name": "gur"
@@ -361,14 +361,14 @@
 		"name": "chou-rave"
 	},
 	"kumara": {
-		"name": "kumara"
+		"name": "patate douce"
 	},
 	"leavening-agents": {
 		"name": "levure"
 	},
 	"leek": {
 		"name": "poireau",
-		"plural_name": "leeks"
+		"plural_name": "poireaux"
 	},
 	"legumes": {
 		"name": "légumineuses"
@@ -384,7 +384,7 @@
 	},
 	"liver": {
 		"name": "foie",
-		"plural_name": "livers"
+		"plural_name": "foies"
 	},
 	"maize": {
 		"name": "maïs"
@@ -403,7 +403,7 @@
 	},
 	"mushroom": {
 		"name": "champignon",
-		"plural_name": "mushrooms"
+		"plural_name": "champignons"
 	},
 	"mussels": {
 		"name": "moules"
@@ -425,7 +425,7 @@
 	},
 	"octopuses": {
 		"name": "poulpe",
-		"plural_name": "octopuses"
+		"plural_name": "poulpes"
 	},
 	"oils": {
 		"name": "huiles"
@@ -469,33 +469,33 @@
 	},
 	"parsnip": {
 		"name": "panais",
-		"plural_name": "parsnips"
+		"plural_name": "panais"
 	},
 	"pear": {
 		"name": "poire",
-		"plural_name": "pears"
+		"plural_name": "poires"
 	},
 	"peas": {
 		"name": "pois"
 	},
 	"pepper": {
 		"name": "poivre",
-		"plural_name": "peppers"
+		"plural_name": "poivrons"
 	},
 	"pineapple": {
 		"name": "ananas",
-		"plural_name": "pineapples"
+		"plural_name": "ananas"
 	},
 	"plantain": {
-		"name": "plantain",
-		"plural_name": "plantains"
+		"name": "banane plantain",
+		"plural_name": "bananes plantains"
 	},
 	"poppy-seeds": {
 		"name": "graines de pavot"
 	},
 	"potato": {
 		"name": "patate",
-		"plural_name": "potatoes"
+		"plural_name": "pommes de terre"
 	},
 	"poultry": {
 		"name": "volaille"
@@ -505,14 +505,14 @@
 	},
 	"pumpkin": {
 		"name": "citrouille",
-		"plural_name": "pumpkins"
+		"plural_name": "citrouilles"
 	},
 	"pumpkin-seeds": {
 		"name": "graines de courge"
 	},
 	"radish": {
 		"name": "radis",
-		"plural_name": "radishes"
+		"plural_name": "radis"
 	},
 	"raw-sugar": {
 		"name": "sucre brut"
@@ -543,7 +543,7 @@
 	},
 	"scallion": {
 		"name": "échalote",
-		"plural_name": "scallions"
+		"plural_name": "cébettes"
 	},
 	"seafood": {
 		"name": "produits de la mer"
@@ -556,7 +556,7 @@
 	},
 	"shallot": {
 		"name": "échalote",
-		"plural_name": "shallots"
+		"plural_name": "échalotes"
 	},
 	"skate": {
 		"name": "raie"
@@ -572,10 +572,10 @@
 	},
 	"spaghetti-squash": {
 		"name": "courge spaghetti",
-		"plural_name": "spaghetti squashes"
+		"plural_name": "courges spaghettis"
 	},
 	"speck": {
-		"name": "speck"
+		"name": "lard"
 	},
 	"spices": {
 		"name": "épices"
@@ -585,11 +585,11 @@
 	},
 	"spring-onion": {
 		"name": "oignons de printemps",
-		"plural_name": "spring onions"
+		"plural_name": "oignons nouveaux"
 	},
 	"squash": {
 		"name": "courges",
-		"plural_name": "squashes"
+		"plural_name": "courges"
 	},
 	"squash-family": {
 		"name": "famille des courges"
@@ -602,7 +602,7 @@
 	},
 	"sunchoke": {
 		"name": "topinambours",
-		"plural_name": "sunchokes"
+		"plural_name": "topinambours"
 	},
 	"sunflower-seeds": {
 		"name": "graines de tournesol"
@@ -612,11 +612,11 @@
 	},
 	"sweet-potato": {
 		"name": "patate douce",
-		"plural_name": "sweet potatoes"
+		"plural_name": "patates douces"
 	},
 	"sweetcorn": {
 		"name": "maïs doux",
-		"plural_name": "sweetcorns"
+		"plural_name": "maïs doux"
 	},
 	"sweeteners": {
 		"name": "édulcorant"
@@ -626,21 +626,21 @@
 	},
 	"taro": {
 		"name": "taro",
-		"plural_name": "taroes"
+		"plural_name": "taros"
 	},
 	"teff": {
 		"name": "teff"
 	},
 	"tomato": {
 		"name": "tomate",
-		"plural_name": "tomatoes"
+		"plural_name": "tomates"
 	},
 	"trout": {
 		"name": "truite"
 	},
 	"tubers": {
 		"name": "tubercules",
-		"plural_name": "tubers"
+		"plural_name": "tubercules"
 	},
 	"tuna": {
 		"name": "thon"
@@ -650,7 +650,7 @@
 	},
 	"turnip": {
 		"name": "navet",
-		"plural_name": "turnips"
+		"plural_name": "navets"
 	},
 	"unrefined-sugar": {
 		"name": "sucre non raffiné"
@@ -666,11 +666,11 @@
 	},
 	"watermelon": {
 		"name": "pastèque",
-		"plural_name": "watermelons"
+		"plural_name": "pastèques"
 	},
 	"white-mushroom": {
 		"name": "champignon blanc",
-		"plural_name": "white mushrooms"
+		"plural_name": "champignons blancs"
 	},
 	"white-sugar": {
 		"name": "sucre blanc"
@@ -680,13 +680,13 @@
 	},
 	"yam": {
 		"name": "igname sauvage",
-		"plural_name": "yams"
+		"plural_name": "ignames"
 	},
 	"yeast": {
 		"name": "levure"
 	},
 	"zucchini": {
 		"name": "courgette",
-		"plural_name": "zucchinis"
+		"plural_name": "courgettes"
 	}
 }

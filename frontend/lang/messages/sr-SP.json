@@ -276,7 +276,8 @@
     "admin-group-management": "Управљање администраторском групом",
     "admin-group-management-text": "Промене у овој групи биће одмах видљиве.",
     "group-id-value": "Group Id: {0}",
-    "total-households": "Total Households"
+    "total-households": "Total Households",
+    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
   },
   "household": {
     "household": "Household",
@@ -517,6 +518,7 @@
     "save-recipe-before-use": "Save recipe before use",
     "section-title": "Section Title",
     "servings": "Servings",
+    "serves-amount": "Serves {amount}",
     "share-recipe-message": "I wanted to share my {0} recipe with you.",
     "show-nutrition-values": "Show Nutrition Values",
     "sodium-content": "Sodium",
@@ -545,6 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Неуспешно додавање рецепта у јеловник",
     "failed-to-add-to-list": "Failed to add to list",
     "yield": "Yield",
+    "yields-amount-with-text": "Yields {amount} {text}",
+    "yield-text": "Yield Text",
     "quantity": "Quantity",
     "choose-unit": "Choose Unit",
     "press-enter-to-create": "Притисни Ентер да направиш",
@@ -566,13 +570,6 @@
     "increase-scale-label": "Increase Scale by 1",
     "locked": "Locked",
     "public-link": "Public Link",
-    "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
-    },
     "edit-timeline-event": "Уреди догађај на временској линији",
     "timeline": "Временска линија",
     "timeline-is-empty": "Још увек нема ништа на временској линији. Покушајте направити овај рецепт!",
@@ -640,7 +637,9 @@
     "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debug",
     "tree-view": "Tree View",
+    "recipe-servings": "Recipe Servings",
     "recipe-yield": "Recipe Yield",
+    "recipe-yield-text": "Recipe Yield Text",
     "unit": "Unit",
     "upload-image": "Upload image",
     "screen-awake": "Keep Screen Awake",
@@ -662,7 +661,25 @@
       "missing-food": "Create missing food: {food}",
       "no-food": "No Food"
     },
-    "reset-servings-count": "Reset Servings Count"
+    "reset-servings-count": "Reset Servings Count",
+    "not-linked-ingredients": "Additional Ingredients"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Recipe Finder",
+    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
+    "selected-ingredients": "Selected Ingredients",
+    "no-ingredients-selected": "No ingredients selected",
+    "missing": "Missing",
+    "no-recipes-found": "No recipes found",
+    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
+    "include-ingredients-on-hand": "Include Ingredients On Hand",
+    "include-tools-on-hand": "Include Tools On Hand",
+    "max-missing-ingredients": "Max Missing Ingredients",
+    "max-missing-tools": "Max Missing Tools",
+    "selected-tools": "Selected Tools",
+    "other-filters": "Other Filters",
+    "ready-to-make": "Ready to Make",
+    "almost-ready-to-make": "Almost Ready to Make"
   },
   "search": {
     "advanced-search": "Напредна претрага",
@@ -866,7 +883,8 @@
     "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
+    "no-shopping-lists-found": "No Shopping Lists Found"
   },
   "sidebar": {
     "all-recipes": "All Recipes",
@@ -1278,6 +1296,7 @@
   "profile": {
     "welcome-user": "👋 Welcome, {0}!",
     "description": "Manage your profile, recipes, and group settings.",
+    "invite-link": "Invite Link",
     "get-invite-link": "Get Invite Link",
     "get-public-link": "Get Public Link",
     "account-summary": "Account Summary",
@@ -1327,6 +1346,8 @@
   "cookbook": {
     "cookbooks": "Кувари",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
+    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
     "public-cookbook": "Јавни кувар",
     "public-cookbook-description": "Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.",
     "filter-options": "Опције филтера",

@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Името на рецептата трябва да е уникално",
+        "recipe-created": "Recipe Created",
         "recipe-defaults": {
             "ingredient-note": "1 чаша брашно",
             "step-text": "Стъпките на рецептата, както и други полета в страницата с рецепти поддържат синтаксис за маркиране.\n\n **Добавяне на връзка**\n\n [Моята връзка](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Makes",
+            "serves": "Serves",
+            "serving": "Serving",
+            "servings": "Servings",
+            "yield": "Yield",
+            "yields": "Yields"
         }
     },
     "mealplan": {

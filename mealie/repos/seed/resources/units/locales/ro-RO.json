@@ -1,140 +1,140 @@
 {
     "teaspoon": {
-        "name": "linguriţă",
-        "plural_name": "teaspoons",
+        "name": "linguriță",
+        "plural_name": "lingurițe",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "lț"
     },
     "tablespoon": {
         "name": "lingură",
-        "plural_name": "tablespoons",
+        "plural_name": "linguri",
         "description": "",
         "abbreviation": "tbsp"
     },
     "cup": {
-        "name": "cup",
-        "plural_name": "cups",
+        "name": "cană",
+        "plural_name": "căni",
         "description": "",
         "abbreviation": "c"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
-        "plural_name": "fluid ounces",
+        "name": "uncie fluidă",
+        "plural_name": "uncii fluide",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
         "name": "halbă",
-        "plural_name": "pints",
+        "plural_name": "halbă",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
         "name": "quart",
-        "plural_name": "quarts",
+        "plural_name": "sferturi de galon",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
         "name": "galon",
-        "plural_name": "gallons",
+        "plural_name": "galoane",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
         "name": "mililitru",
-        "plural_name": "milliliters",
+        "plural_name": "mililitri",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "litru",
-        "plural_name": "liters",
+        "plural_name": "litri",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "livră",
-        "plural_name": "pounds",
+        "plural_name": "livre",
         "description": "",
         "abbreviation": "lb",
-        "plural_abbreviation": "lbs"
+        "plural_abbreviation": "lb"
     },
     "ounce": {
         "name": "uncie",
-        "plural_name": "ounces",
+        "plural_name": "uncii",
         "description": "",
         "abbreviation": "uncii"
     },
     "gram": {
         "name": "gram",
-        "plural_name": "grams",
+        "plural_name": "grame",
         "description": "",
         "abbreviation": "h"
     },
     "kilogram": {
         "name": "kilogram",
-        "plural_name": "kilograms",
+        "plural_name": "kilograme",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "miligram",
-        "plural_name": "milligrams",
+        "plural_name": "miligrame",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
-        "plural_name": "splashes",
+        "name": "strop",
+        "plural_name": "stropi",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
-        "plural_name": "dashes",
+        "name": "linie",
+        "plural_name": "linii",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
-        "plural_name": "servings",
+        "name": "porție",
+        "plural_name": "porții",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
-        "plural_name": "heads",
+        "name": "căpățână",
+        "plural_name": "căpățâni",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
-        "plural_name": "cloves",
+        "name": "cățel",
+        "plural_name": "căței",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "cutie",
-        "plural_name": "cans",
+        "plural_name": "cutii",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "legătură",
+        "plural_name": "legături",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "pachet",
+        "plural_name": "pachete",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "praf",
+        "plural_name": "prafuri",
         "description": "",
         "abbreviation": ""
     }

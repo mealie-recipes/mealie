@@ -38,7 +38,7 @@
               <SafeMarkdown :source="description" />
             </v-list-item-subtitle>
             <div class="d-flex flex-wrap justify-start ma-0">
-              <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" url-prefix="tags" />
+              <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" url-prefix="tags" v-on="$listeners" />
             </div>
             <div class="d-flex flex-wrap justify-end align-center">
               <slot name="actions">

@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from mealie.schema.household.group_shopping_list import ShoppingListItemCreate, ShoppingListItemOut, ShoppingListSave
 from mealie.services.scheduler.tasks.delete_old_checked_shopping_list_items import (
@@ -44,7 +44,7 @@ def test_cleanup(unique_user: TestUser):
     for item in unchecked_items + checked_items:
         assert item in shopping_list.list_items
 
-    checked_items.sort(key=lambda x: x.updated_at or datetime.now(timezone.utc), reverse=True)
+    checked_items.sort(key=lambda x: x.updated_at or datetime.now(UTC), reverse=True)
     expected_kept_items = unchecked_items + checked_items[:MAX_CHECKED_ITEMS]
     expected_deleted_items = checked_items[MAX_CHECKED_ITEMS:]
 

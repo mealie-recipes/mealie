@@ -1,7 +1,7 @@
 import json
 import os
 import shutil
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from shutil import copytree, rmtree
 from typing import Any
@@ -19,7 +19,7 @@ from mealie.pkgs import cache
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
-from mealie.schema.household.household import HouseholdInDB
+from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeUpdate
 from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
@@ -30,6 +30,7 @@ from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreat
 from mealie.schema.recipe.request_helpers import RecipeDuplicate
 from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
+from mealie.services.household_services.household_service import HouseholdService
 from mealie.services.openai import OpenAIDataInjection, OpenAILocalImage, OpenAIService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper import cleaner
@@ -173,6 +174,7 @@ class RecipeService(RecipeServiceBase):
                 data.settings = RecipeSettings()
 
         rating_input = data.rating
+        data.last_made = None
         new_recipe = self.repos.recipes.create(data)
 
         # convert rating into user rating
@@ -192,7 +194,7 @@ class RecipeService(RecipeServiceBase):
             recipe_id=new_recipe.id,
             subject=self.t("recipe.recipe-created"),
             event_type=TimelineEventType.system,
-            timestamp=new_recipe.created_at or datetime.now(timezone.utc),
+            timestamp=new_recipe.created_at or datetime.now(UTC),
         )
 
         self.repos.recipe_timeline_events.create(timeline_event_data)
@@ -342,6 +344,7 @@ class RecipeService(RecipeServiceBase):
             if old_recipe.recipe_ingredient is None
             else list(map(copy_recipe_ingredient, old_recipe.recipe_ingredient))
         )
+        new_recipe.last_made = None
 
         new_recipe = self._recipe_creation_factory(new_name, additional_attrs=new_recipe.model_dump())
 
@@ -413,8 +416,11 @@ class RecipeService(RecipeServiceBase):
     def update_last_made(self, slug_or_id: str | UUID, timestamp: datetime) -> Recipe:
         # we bypass the pre update check since any user can update a recipe's last made date, even if it's locked,
         # or if the user belongs to a different household
-        recipe = self.get_one(slug_or_id)
-        return self.group_recipes.patch(recipe.slug, {"last_made": timestamp})
+
+        household_service = HouseholdService(self.user.group_id, self.user.household_id, self.repos)
+        household_service.set_household_recipe(slug_or_id, HouseholdRecipeUpdate(last_made=timestamp))
+
+        return self.get_one(slug_or_id)
 
     def delete_one(self, slug_or_id: str | UUID) -> Recipe:
         recipe = self.get_one(slug_or_id)

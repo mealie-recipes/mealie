@@ -19,7 +19,7 @@
     },
     "fluid-ounce": {
         "name": "væskeunse",
-        "plural_name": "flytende ounces",
+        "plural_name": "flytende unser",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -37,7 +37,7 @@
     },
     "gallon": {
         "name": "gallon",
-        "plural_name": "gallon",
+        "plural_name": "gallones",
         "description": "",
         "abbreviation": "gal"
     },
@@ -62,7 +62,7 @@
     },
     "ounce": {
         "name": "unse",
-        "plural_name": "ounce",
+        "plural_name": "ounces\n",
         "description": "",
         "abbreviation": "oz"
     },
@@ -92,7 +92,7 @@
     },
     "dash": {
         "name": "klype",
-        "plural_name": "dæsjer",
+        "plural_name": "klyper",
         "description": "",
         "abbreviation": ""
     },

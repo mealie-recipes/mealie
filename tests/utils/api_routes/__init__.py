@@ -161,6 +161,8 @@ recipes_create_zip = "/api/recipes/create/zip"
 """`/api/recipes/create/zip`"""
 recipes_exports = "/api/recipes/exports"
 """`/api/recipes/exports`"""
+recipes_suggestions = "/api/recipes/suggestions"
+"""`/api/recipes/suggestions`"""
 recipes_test_scrape_url = "/api/recipes/test-scrape-url"
 """`/api/recipes/test-scrape-url`"""
 recipes_timeline_events = "/api/recipes/timeline/events"
@@ -303,6 +305,11 @@ def explore_groups_group_slug_recipes_recipe_slug(group_slug, recipe_slug):
     return f"{prefix}/explore/groups/{group_slug}/recipes/{recipe_slug}"
 
 
+def explore_groups_group_slug_recipes_suggestions(group_slug):
+    """`/api/explore/groups/{group_slug}/recipes/suggestions`"""
+    return f"{prefix}/explore/groups/{group_slug}/recipes/suggestions"
+
+
 def foods_item_id(item_id):
     """`/api/foods/{item_id}`"""
     return f"{prefix}/foods/{item_id}"
@@ -361,6 +368,11 @@ def households_recipe_actions_item_id(item_id):
 def households_recipe_actions_item_id_trigger_recipe_slug(item_id, recipe_slug):
     """`/api/households/recipe-actions/{item_id}/trigger/{recipe_slug}`"""
     return f"{prefix}/households/recipe-actions/{item_id}/trigger/{recipe_slug}"
+
+
+def households_self_recipes_recipe_slug(recipe_slug):
+    """`/api/households/self/recipes/{recipe_slug}`"""
+    return f"{prefix}/households/self/recipes/{recipe_slug}"
 
 
 def households_shopping_items_item_id(item_id):

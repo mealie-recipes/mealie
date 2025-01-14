@@ -48,6 +48,7 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.details
 extra_css:
   - assets/stylesheets/custom.css
 extra_javascript:
@@ -104,3 +105,7 @@ nav:
           - Migration Guide: "contributors/developers-guide/migration-guide.md"
       - Guides:
           - Improving Ingredient Parser: "contributors/guides/ingredient-parser.md"
+
+  - News:
+      - Surveys:
+          - October 2024: "news/surveys/2024-october/overview.md"

@@ -7,9 +7,9 @@ Create Date: 2024-10-23 15:50:59.888793
 """
 
 import sqlalchemy as sa
+from alembic import op
 from sqlalchemy import orm
 
-from alembic import op
 from mealie.db.models._model_utils.guid import GUID
 from mealie.services.scraper.cleaner import clean_yield
 
