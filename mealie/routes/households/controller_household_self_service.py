@@ -77,7 +77,7 @@ class HouseholdSelfServiceController(BaseUserController):
             raise HTTPException(status.HTTP_403_FORBIDDEN, detail="User is not a member of this household")
 
         if target_user.id == self.user.id:
-            raise HTTPException(status.HTTP_403_FORBIDDEN, detail="Cannot change your own permissions")
+            raise HTTPException(status.HTTP_403_FORBIDDEN, detail="User is not allowed to change their own permissions")
 
         target_user.can_invite = permissions.can_invite
         target_user.can_manage = permissions.can_manage

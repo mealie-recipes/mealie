@@ -12,13 +12,13 @@ def assert_user_change_allowed(user_id: UUID4, current_user: PrivateUser, new_da
     if not current_user.admin:
         if current_user.id != user_id:
             # User is trying to edit another user
-            raise HTTPException(status.HTTP_403_FORBIDDEN, ErrorResponse.respond("Users cannot edit other users"))
+            raise HTTPException(status.HTTP_403_FORBIDDEN, ErrorResponse.respond("User cannot edit other users"))
 
         if any(getattr(current_user, p) != getattr(new_data, p) for p in permissions):
             # User is trying to change their own permissions
             raise HTTPException(
                 status.HTTP_403_FORBIDDEN,
-                ErrorResponse.respond("User doesn't have permission to change their permissions"),
+                ErrorResponse.respond("User cannot change their own permissions"),
             )
 
         if current_user.group != new_data.group:
