@@ -65,16 +65,30 @@
 
     ### When would I use Linked Ingredients in a Recipe?
 
-    Mealie can link ingredients to specific steps in a recipe. Ingredients are a key component to a recipe and knowing when to use / add them to a recipe is important in the cooking process. 
+    Mealie allows you to link ingredients to specific steps in a recipe, ensuring you know exactly when to add each ingredient during the cooking process.
 
     #### Link Ingredients to Steps in a Recipe
     1. Go to a recipe
     2. Click the Edit button/icon
     3. Scroll down to the step you want to link ingredients to
     4. Click the ellipsis button next to the step and click 'Link Ingredients'
-    5. Check off the Ingredient(s) that you want to link to that step. 
-    6. Optionally, click 'Next step' to continue linking remaining ingredients to steps, or click 'Save' to Finish.
-    7. Click 'Save' on the Recipe. 
+    5. Check off the Ingredient(s) that you want to link to that step
+    6. Optionally, click 'Next step' to continue linking remaining ingredients to steps, or click 'Save' to Finish
+    7. Click 'Save' on the Recipe
+
+    You can optionally link the same ingredient to multiple steps, which is useful for prepping an ingredient in one step and using it in another.
+
+??? question "Should I setup Email / What is Email used for?"
+
+    ### Should I setup Email / What is Email used for?
+
+    Mealie uses email to send account invites and password resets. If you don't use these features, you don't need to set up email.
+
+    Email settings can be adjusted via environment variables on the backend container:
+
+    - [Backend Config](./installation/backend-config.md)
+
+    Note that many email providers (e.g., Gmail, Outlook) are disabling SMTP Auth and requiring Modern Auth, which Mealie currently does not support. You may need to use an SMTP relay or third-party SMTP provider, such as SMTP2GO.
     
 ??? question "What is fuzzy search and how do I use it?"
 
