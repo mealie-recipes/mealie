@@ -227,7 +227,7 @@
 
 ??? question "How can I use Mealie externally?"
 
-    **How can I use Mealie externally**
+    ### How can I use Mealie externally
 
     Exposing Mealie or any service to the internet can pose significant security risks. Before proceeding, carefully evaluate the potential impacts on your system. Due to the unique nature of each network, we cannot provide specific steps for your setup. 
 
@@ -261,7 +261,7 @@
 
 ??? question "Why setup Email?"
 
-    **Why setup Email?**
+    ### Why setup Email?
 
     Mealie uses email to send account invites and password resets. If you don't use these features, you don't need to set up email. There are also other methods to perform these actions that do not require the setup of Email. 
 
