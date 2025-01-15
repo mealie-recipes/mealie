@@ -240,7 +240,7 @@
 
     ### How can I use Mealie externally?
 
-    By default, Mealie is accessible only on the local network where it is set up. If you want to access it externally, there are several methods with examples listed below, each with its own security considerations. Choose the option that best suits your network's needs. Since every network is unique, we cannot provide specific steps for this process and encourage you to seek further assistance on our Discord.
+    By default, Mealie is accessible only on the local network where it is set up. Certain features, such as Shopping Lists, are helpful to access when you are not on your local network. If you want to access Mealie externally, there are several methods with examples listed below, each with its own security considerations. Choose the option that best suits your network's needs. Since every network is unique, we cannot provide specific steps for this process and encourage you to seek further assistance on our Discord.
 
     1. Reverse Proxy Tunnel (e.g., Nginx, Cloudflare Zero Tunnel Network Access)
     2. VPN
