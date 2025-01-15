@@ -402,7 +402,7 @@
     "coming-from-another-application-or-an-even-older-version-of-mealie": "هل تأتي من تطبيق آخر أو حتى إصدار قديم من ميلي؟ يجب التحقق من عمليات الترحيل لمعرفة ما إذا كان يمكن استيراد بياناتك.",
     "choose-migration-type": "اختر نوع الترحيل",
     "tag-all-recipes": "وسم جميع الوصفات باستخدام علامة {tag-name}",
-    "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+    "nextcloud-text": "يمكن استيراد الوصفات السحابية من مِلَفّ مضغوط Zip يحتوي على البيانات المخزنة في Nextcloud. راجع بنية مجلد المثال أدناه للتأكد من أن وصفاتك قابلة للاستيراد.",
     "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "وصفة 1",
     "recipe-2": "وصفة 2",
