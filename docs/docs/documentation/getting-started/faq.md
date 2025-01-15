@@ -63,11 +63,12 @@
 
 ??? question "Why Link Ingredients to a Recipe Step?"
 
-    **Why Link Ingredients to a Recipe Step?**
+    ### Why Link Ingredients to a Recipe Step?
 
     Mealie allows you to link ingredients to specific steps in a recipe, ensuring you know exactly when to add each ingredient during the cooking process.
 
-    #### Link Ingredients to Steps in a Recipe
+    **Link Ingredients to Steps in a Recipe**
+    
     1. Go to a recipe
     2. Click the Edit button/icon
     3. Scroll down to the step you want to link ingredients to
