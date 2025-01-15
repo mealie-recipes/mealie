@@ -1,140 +1,140 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
-        "plural_name": "teaspoons",
+        "name": "teelusikas",
+        "plural_name": "teelusikad",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "tl"
     },
     "tablespoon": {
-        "name": "tablespoon",
-        "plural_name": "tablespoons",
+        "name": "supilusikas",
+        "plural_name": "supilusikad",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "sl"
     },
     "cup": {
-        "name": "cup",
-        "plural_name": "cups",
+        "name": "tass",
+        "plural_name": "tassid",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "tassi"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
-        "plural_name": "fluid ounces",
+        "name": "vedelikuunts",
+        "plural_name": "vedelikuuntsi",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
         "name": "pint",
-        "plural_name": "pints",
+        "plural_name": "pinti",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
-        "plural_name": "quarts",
+        "name": "kvart",
+        "plural_name": "kvarti",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
         "name": "gallon",
-        "plural_name": "gallons",
+        "plural_name": "gallonit",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
-        "plural_name": "milliliters",
+        "name": "milliliiter",
+        "plural_name": "milliliitrit",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
-        "plural_name": "liters",
+        "name": "liiter",
+        "plural_name": "liitrit",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
-        "plural_name": "pounds",
+        "name": "nael",
+        "plural_name": "naela",
         "description": "",
         "abbreviation": "lb",
         "plural_abbreviation": "lbs"
     },
     "ounce": {
-        "name": "ounce",
-        "plural_name": "ounces",
+        "name": "unts",
+        "plural_name": "untsi",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "gram",
-        "plural_name": "grams",
+        "name": "gramm",
+        "plural_name": "grammi",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
-        "plural_name": "kilograms",
+        "name": "kilogramm",
+        "plural_name": "kilogrammi",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
-        "plural_name": "milligrams",
+        "name": "milligramm",
+        "plural_name": "milligrammi",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
-        "plural_name": "splashes",
+        "name": "tilk",
+        "plural_name": "tilkka",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
-        "plural_name": "dashes",
+        "name": "näpuotsatäis",
+        "plural_name": "näpuotsatäit",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
-        "plural_name": "servings",
+        "name": "portsjon",
+        "plural_name": "portsjonit",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
-        "plural_name": "heads",
+        "name": "pea",
+        "plural_name": "pead",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
-        "plural_name": "cloves",
+        "name": "küüs",
+        "plural_name": "küünt",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
-        "plural_name": "cans",
+        "name": "purk",
+        "plural_name": "purki",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "kimp",
+        "plural_name": "kimpu",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "pakk",
+        "plural_name": "pakki",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "näpuotsatäis",
+        "plural_name": "näpuotsatäit",
         "description": "",
         "abbreviation": ""
     }
