@@ -61,9 +61,9 @@
     4. Click 'Update'
 
 
-??? question "When would I use Linked Ingredients in a Recipe?"
+??? question "Why Link Ingredients to a Recipe Step?"
 
-    ### When would I use Linked Ingredients in a Recipe?
+    **Why Link Ingredients to a Recipe Step?**
 
     Mealie allows you to link ingredients to specific steps in a recipe, ensuring you know exactly when to add each ingredient during the cooking process.
 
@@ -77,18 +77,6 @@
     7. Click 'Save' on the Recipe
 
     You can optionally link the same ingredient to multiple steps, which is useful for prepping an ingredient in one step and using it in another.
-
-??? question "Should I setup Email / What is Email used for?"
-
-    ### Should I setup Email / What is Email used for?
-
-    Mealie uses email to send account invites and password resets. If you don't use these features, you don't need to set up email.
-
-    Email settings can be adjusted via environment variables on the backend container:
-
-    - [Backend Config](./installation/backend-config.md)
-
-    Note that many email providers (e.g., Gmail, Outlook) are disabling SMTP Auth and requiring Modern Auth, which Mealie currently does not support. You may need to use an SMTP relay or third-party SMTP provider, such as SMTP2GO.
     
 ??? question "What is fuzzy search and how do I use it?"
 
@@ -238,13 +226,11 @@
 
 ??? question "How can I use Mealie externally?"
 
-    ### How can I use Mealie externally?
+    **How can I use Mealie externally**
 
-    By default, Mealie is accessible only on the local network where it is set up. Certain features, such as Shopping Lists, are helpful to access when you are not on your local network. If you want to access Mealie externally, there are several methods with examples listed below, each with its own security considerations. Choose the option that best suits your network's needs. Since every network is unique, we cannot provide specific steps for this process and encourage you to seek further assistance on our Discord.
+    Exposing Mealie or any service to the internet can pose significant security risks. Before proceeding, carefully evaluate the potential impacts on your system. Due to the unique nature of each network, we cannot provide specific steps for your setup. 
 
-    1. Reverse Proxy Tunnel (e.g., Nginx, Cloudflare Zero Tunnel Network Access)
-    2. VPN
-    3. Port Forwarding (Note: Exposing internal devices directly to the internet poses a security risk. This method is not recommended without additional safeguards or security measures in place.)
+    There is a community guide available for one way to potentially set this up, and you could reach out on Discord for further discussion on what may be best for your network.
 
 
 ??? question "Can I use fail2ban with Mealie?"
@@ -270,6 +256,19 @@
 
 
 ## Technical Considerations
+
+
+??? question "Why setup Email?"
+
+    **Why setup Email?**
+
+    Mealie uses email to send account invites and password resets. If you don't use these features, you don't need to set up email. There are also other methods to perform these actions that do not require the setup of Email. 
+
+    Email settings can be adjusted via environment variables on the backend container:
+
+    - [Backend Config](./installation/backend-config.md)
+
+    Note that many email providers (e.g., Gmail, Outlook) are disabling SMTP Auth and requiring Modern Auth, which Mealie currently does not support. You may need to use an SMTP relay or third-party SMTP provider, such as SMTP2GO.
 
 ??? question "Why an API?"
 
