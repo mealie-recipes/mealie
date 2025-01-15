@@ -17,24 +17,19 @@
         <v-container>
           <v-row>
             <v-col cols="3" class="text-left">
-              <ButtonLink :to="`/shopping-lists?disableRedirect=true`" :text="$tc('general.back')" :icon="$globals.icons.backArrow" />
+              <ButtonLink :to="`/shopping-lists?disableRedirect=true`" :text="$tc('shopping-list.all-lists')" :icon="$globals.icons.backArrow" />
             </v-col>
-            <v-col cols="6" class="d-flex justify-center">
+            <v-col cols="6" class="d-none d-lg-flex justify-center">
               <v-img max-height="100" max-width="100" :src="require('~/static/svgs/shopping-cart.svg')"></v-img>
             </v-col>
             <v-col class="d-flex justify-end">
               <div class="d-flex justify-end mb-4 mt-2">
-                <v-btn-group dense>
-                  <v-btn text @click="openDeleteChecked()">
-                    <v-icon color="error">
-                      {{ $globals.icons.delete }}
-                    </v-icon>
-                  </v-btn>
+                <v-row>
                   <v-menu offset-y>
                     <template #activator="{ on, attrs }">
                       <v-btn text v-bind="attrs" v-on="on">
                         <v-icon>
-                          {{ $globals.icons.dotsVertical }}
+                          {{ $globals.icons.contentCopy }}
                         </v-icon>
                       </v-btn>
                     </template>
@@ -51,57 +46,43 @@
                         </v-icon>
                         <v-list-item-title>{{ $t("shopping-list.copy-as-markdown") }}</v-list-item-title>
                       </v-list-item>
-                      <v-list-item @click="openUncheckAll()">
-                        <v-icon left>
-                          {{ $globals.icons.checkboxBlankOutline }}
-                        </v-icon>
-                        <v-list-item-title>{{ $t("shopping-list.uncheck-all-items") }}</v-list-item-title>
-                      </v-list-item>
-                      <v-list-item @click="openCheckAll()">
-                        <v-icon left>
-                          {{ $globals.icons.checkboxOutline }}
-                        </v-icon>
-                        <v-list-item-title>{{ $t("shopping-list.check-all-items") }}</v-list-item-title>
-                      </v-list-item>
-                      <v-menu open-on-hover offset-x>
-                        <template #activator="{ on: menu, attrs }">
-                          <v-list-item v-bind="attrs" v-on="menu">
-                            <v-list-item-icon>
-                              <v-icon>{{ $globals.icons.dotsVertical }}</v-icon>
-                            </v-list-item-icon>
-                            <v-list-item-title>{{ "More" }}</v-list-item-title>
-                          </v-list-item>
-                        </template>
-                        <v-list>
-                          <v-list-item @click="sortByLabels()">
-                            <v-icon left>
-                              {{ $globals.icons.tags }}
-                            </v-icon>
-                            <v-list-item-title>{{ $t("shopping-list.toggle-label-sort") }}</v-list-item-title>
-                          </v-list-item>
-                          <v-list-item v-if="preferences.viewByLabel" @click="toggleReorderLabelsDialog()">
-                            <v-icon left>
-                              {{ $globals.icons.tags }}
-                            </v-icon>
-                            <v-list-item-title>{{ $t("shopping-list.reorder-labels") }}</v-list-item-title>
-                          </v-list-item>
-                          <v-list-item :to="`/group/data/labels`">
-                            <v-icon left>
-                              {{ $globals.icons.tags }}
-                            </v-icon>
-                            <v-list-item-title>{{ $t("shopping-list.manage-labels") }}</v-list-item-title>
-                          </v-list-item>
-                          <v-list-item @click="toggleSettingsDialog()">
-                            <v-icon left>
-                              {{ $globals.icons.cog }}
-                            </v-icon>
-                            <v-list-item-title>{{ $t('general.settings') }}</v-list-item-title>
-                          </v-list-item>
-                        </v-list>
-                      </v-menu>
                     </v-list>
                   </v-menu>
-                </v-btn-group>
+                  <v-btn text @click="openCheckAll()">
+                    <v-icon>
+                      {{ $globals.icons.checkboxOutline }}
+                    </v-icon>
+                  </v-btn>
+                  <v-menu offset-y>
+                    <template #activator="{ on, attrs }">
+                      <v-btn text v-bind="attrs" v-on="on">
+                        <v-icon>
+                          {{ $globals.icons.dotsVertical }}
+                        </v-icon>
+                      </v-btn>
+                    </template>
+                    <v-list>
+                      <v-list-item @click="sortByLabels()">
+                        <v-icon left>
+                          {{ $globals.icons.tags }}
+                        </v-icon>
+                        <v-list-item-title>{{ $t("shopping-list.toggle-label-sort") }}</v-list-item-title>
+                      </v-list-item>
+                      <v-list-item v-if="preferences.viewByLabel" @click="toggleReorderLabelsDialog()">
+                        <v-icon left>
+                          {{ $globals.icons.tags }}
+                        </v-icon>
+                        <v-list-item-title>{{ $t("shopping-list.reorder-labels") }}</v-list-item-title>
+                      </v-list-item>
+                      <v-list-item :to="`/group/data/labels`">
+                        <v-icon left>
+                          {{ $globals.icons.tags }}
+                        </v-icon>
+                        <v-list-item-title>{{ $t("shopping-list.manage-labels") }}</v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                </v-row>
               </div>
             </v-col>
           </v-row>
@@ -201,27 +182,6 @@
         </v-card>
       </BaseDialog>
 
-      <!-- Settings -->
-      <BaseDialog
-        v-model="settingsDialog"
-        :icon="$globals.icons.cog"
-        :title="$t('general.settings')"
-        @confirm="updateSettings"
-      >
-        <v-container>
-          <v-form>
-            <v-select
-              v-model="currentUserId"
-              :items="allUsers"
-              item-text="fullName"
-              item-value="id"
-              :label="$t('general.owner')"
-              :prepend-icon="$globals.icons.user"
-            />
-          </v-form>
-        </v-container>
-      </BaseDialog>
-
       <!-- Create Item -->
       <div v-if="createEditorOpen">
         <ShoppingListItemEditor
@@ -241,14 +201,36 @@
 
       <!-- Checked Items -->
       <div v-if="listItems.checked && listItems.checked.length > 0" class="mt-6">
-        <button @click="toggleShowChecked()">
-          <span>
-            <v-icon>
-              {{ showChecked ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
-            </v-icon>
-          </span>
-          {{ $tc('shopping-list.items-checked-count', listItems.checked ? listItems.checked.length : 0) }}
-        </button>
+        <div class="d-flex">
+          <div class="flex-grow-1">
+            <button @click="toggleShowChecked()">
+              <span>
+                <v-icon>
+                  {{ showChecked ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
+                </v-icon>
+              </span>
+              {{ $tc('shopping-list.items-checked-count', listItems.checked ? listItems.checked.length : 0) }}
+            </button>
+          </div>
+          <div class="justify-end mt-n2">
+            <BaseButtonGroup
+                :buttons="[
+                  {
+                    icon: $globals.icons.checkboxBlankOutline,
+                    text: $tc('shopping-list.uncheck-all-items'),
+                    event: 'uncheck',
+                  },
+                  {
+                    icon: $globals.icons.delete,
+                    text: $tc('shopping-list.delete-checked'),
+                    event: 'delete',
+                  },
+                ]"
+                @uncheck="openUncheckAll"
+                @delete="openDeleteChecked"
+              />
+            </div>
+        </div>
         <v-divider class="my-4"></v-divider>
         <v-expand-transition>
           <div v-show="showChecked">
@@ -314,7 +296,6 @@ import { useUserApi } from "~/composables/api";
 import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurposeLabelSection.vue"
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
 import { ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/household";
-import { UserOut } from "~/lib/api/types/user";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
@@ -350,7 +331,6 @@ export default defineComponent({
 
     const edit = ref(false);
     const reorderLabelsDialog = ref(false);
-    const settingsDialog = ref(false);
     const preserveItemOrder = ref(false);
 
     const route = useRoute();
@@ -676,13 +656,6 @@ export default defineComponent({
       loadingCounter.value += 1
       reorderLabelsDialog.value = !reorderLabelsDialog.value
       localLabels.value = shoppingList.value?.labelSettings
-    }
-
-    async function toggleSettingsDialog() {
-      if (!settingsDialog.value) {
-        await fetchAllUsers();
-      }
-      settingsDialog.value = !settingsDialog.value;
     }
 
     function updateLabelOrder(labelSettings: ShoppingListMultiPurposeLabelOut[]) {
@@ -1064,39 +1037,6 @@ export default defineComponent({
       refresh();
     }
 
-    // ===============================================================
-    // Shopping List Settings
-
-    const allUsers = ref<UserOut[]>([]);
-    const currentUserId = ref<string | undefined>();
-    async function fetchAllUsers() {
-      const { data } = await userApi.households.fetchMembers();
-      if (!data) {
-        return;
-      }
-
-      // update current user
-      allUsers.value = data.items.sort((a, b) => ((a.fullName || "") < (b.fullName || "") ? -1 : 1));
-      currentUserId.value = shoppingList.value?.userId;
-    }
-
-    async function updateSettings() {
-      if (!shoppingList.value || !currentUserId.value) {
-        return;
-      }
-
-      loadingCounter.value += 1;
-      const { data } = await userApi.shopping.lists.updateOne(
-        shoppingList.value.id,
-        {...shoppingList.value, userId: currentUserId.value},
-      );
-      loadingCounter.value -= 1;
-
-      if (data) {
-        refresh();
-      }
-    }
-
     return {
       ...toRefs(state),
       addRecipeReferenceToList,
@@ -1123,8 +1063,6 @@ export default defineComponent({
       removeRecipeReferenceToList,
       reorderLabelsDialog,
       toggleReorderLabelsDialog,
-      settingsDialog,
-      toggleSettingsDialog,
       localLabels,
       updateLabelOrder,
       cancelLabelOrder,
@@ -1144,9 +1082,6 @@ export default defineComponent({
       updateIndexUncheckedByLabel,
       allUnits,
       allFoods,
-      allUsers,
-      currentUserId,
-      updateSettings,
       getTextColor,
     };
   },

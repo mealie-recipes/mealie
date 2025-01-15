@@ -6,6 +6,27 @@
       </v-card-text>
     </BaseDialog>
 
+    <!-- Settings -->
+    <BaseDialog
+        v-model="settingsDialog"
+        :icon="$globals.icons.cog"
+        :title="$t('general.settings')"
+        @confirm="updateSettings"
+      >
+        <v-container>
+          <v-form>
+            <v-select
+              v-model="currentUserId"
+              :items="allUsers"
+              item-text="fullName"
+              item-value="id"
+              :label="$t('general.owner')"
+              :prepend-icon="$globals.icons.user"
+            />
+          </v-form>
+        </v-container>
+      </BaseDialog>
+
     <BaseDialog v-model="deleteDialog" :title="$tc('general.confirm')" color="error" @confirm="deleteOne">
       <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-delete-this-item') }}</v-card-text>
     </BaseDialog>
@@ -38,26 +59,34 @@
           <v-icon left>
             {{ $globals.icons.cartCheck }}
           </v-icon>
-          {{ list.name }}
-          <v-btn class="ml-auto" icon @click.prevent="openDelete(list.id)">
-            <v-icon>
-              {{ $globals.icons.delete }}
-            </v-icon>
-          </v-btn>
+          <div class="flex-grow-1">
+            {{ list.name }}
+          </div>
+          <div class="d-flex justify-end">
+            <v-btn icon @click.prevent="toggleSettingsDialog(list)">
+              <v-icon>
+                {{ $globals.icons.user }}
+              </v-icon>
+            </v-btn>
+            <v-btn icon @click.prevent="openDelete(list.id)">
+              <v-icon>
+                {{ $globals.icons.delete }}
+              </v-icon>
+            </v-btn>
+          </div>
         </v-card-title>
       </v-card>
     </section>
-    <div class="d-flex justify-end mt-10">
-      <ButtonLink :to="`/group/data/labels`" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags" />
-    </div>
   </v-container>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, useAsync, useContext, reactive, ref, toRefs, useRoute, useRouter, watch } from "@nuxtjs/composition-api";
+import { ShoppingListOut } from "~/lib/api/types/household";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
+import { UserOut } from "~/lib/api/types/user";
 
 export default defineComponent({
   middleware: "auth",
@@ -71,6 +100,7 @@ export default defineComponent({
     const overrideDisableRedirect = ref(false);
     const disableRedirect = computed(() => route.value.query.disableRedirect === "true" || overrideDisableRedirect.value);
     const preferences = useShoppingListPreferences();
+    const settingsDialog = ref(false);
 
     const state = reactive({
       createName: "",
@@ -79,6 +109,7 @@ export default defineComponent({
       deleteTarget: "",
     });
 
+    const shoppingList = ref<ShoppingListOut | null>(null);
     const shoppingLists = useAsync(async () => {
       return await fetchShoppingLists();
     }, useAsyncKey());
@@ -136,6 +167,45 @@ export default defineComponent({
       }
     }
 
+    async function toggleSettingsDialog(list: ShoppingListOut) {
+      if (!settingsDialog.value) {
+        shoppingList.value = list;
+        await fetchAllUsers();
+      }
+      settingsDialog.value = !settingsDialog.value;
+    }
+
+    // ===============================================================
+    // Shopping List Settings
+
+    const allUsers = ref<UserOut[]>([]);
+    const currentUserId = ref<string | undefined>();
+    async function fetchAllUsers() {
+      const { data } = await userApi.households.fetchMembers();
+      if (!data) {
+        return;
+      }
+
+      // update current user
+      allUsers.value = data.items.sort((a, b) => ((a.fullName || "") < (b.fullName || "") ? -1 : 1));
+      currentUserId.value = shoppingList.value?.userId;
+    }
+
+    async function updateSettings() {
+      if (!shoppingList.value || !currentUserId.value) {
+        return;
+      }
+
+      const { data } = await userApi.shopping.lists.updateOne(
+        shoppingList.value.id,
+        {...shoppingList.value, userId: currentUserId.value},
+      );
+
+      if (data) {
+        refresh();
+      }
+    }
+
     function openDelete(id: string) {
       state.deleteDialog = true;
       state.deleteTarget = id;
@@ -155,6 +225,11 @@ export default defineComponent({
       preferences,
       shoppingListChoices,
       createOne,
+      settingsDialog,
+      toggleSettingsDialog,
+      allUsers,
+      currentUserId,
+      updateSettings,
       deleteOne,
       openDelete,
     };
