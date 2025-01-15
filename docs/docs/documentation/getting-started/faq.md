@@ -236,6 +236,17 @@
 
 ## Security and Maintenance
 
+??? question "How can I use Mealie externally?"
+
+    ### How can I use Mealie externally?
+
+    By default, Mealie is accessible only on the local network where it is set up. If you want to access it externally, there are several methods with examples listed below, each with its own security considerations. Choose the option that best suits your network's needs. Since every network is unique, we cannot provide specific steps for this process and encourage you to seek further assistance on our Discord.
+
+    1. Reverse Proxy Tunnel (e.g., Nginx, Cloudflare Zero Tunnel Network Access)
+    2. VPN
+    3. Port Forwarding (Note: Exposing internal devices directly to the internet poses a security risk. This method is not recommended without additional safeguards or security measures in place.)
+
+
 ??? question "Can I use fail2ban with Mealie?"
 
     ### Can I use fail2ban with Mealie?
