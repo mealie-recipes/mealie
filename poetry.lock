@@ -2650,13 +2650,13 @@ tests = ["html5lib", "pytest", "pytest-cov"]
 
 [[package]]
 name = "recipe-scrapers"
-version = "15.3.3"
+version = "15.4.0"
 description = "Python package, scraping recipes from all over the internet"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "recipe_scrapers-15.3.3-py3-none-any.whl", hash = "sha256:e3092190ff81d79992bb3fd373c6d1ac7dff5d8be033d219ff6eb46bff8a37d3"},
-    {file = "recipe_scrapers-15.3.3.tar.gz", hash = "sha256:9bd41de3da0769eae6fa8a211a99db630fd283873eae6b518f51d27836c034f9"},
+    {file = "recipe_scrapers-15.4.0-py3-none-any.whl", hash = "sha256:58d3d60e19d91f43c540496e942bfb4ca244e0de02fe2156edd552226477634f"},
+    {file = "recipe_scrapers-15.4.0.tar.gz", hash = "sha256:1587016ce651d259bd51ef693277e7584720ce380ebea6a5bf526094f9fe99f7"},
 ]
 
 [package.dependencies]
@@ -2668,9 +2668,9 @@ isodate = ">=0.6.1"
 all = ["recipe_scrapers[dev,docs,linters,online,tests]"]
 dev = ["recipe-scrapers[docs,linters,tests]"]
 docs = ["markdown-exec (>=1.10.0)", "mkdocs (>=1.6.1)", "mkdocs-material (>=9.5.48)", "mkdocstrings (>=0.27.0)", "mkdocstrings-python (>=1.12.2)"]
-linters = ["black (==24.10.0)", "flake8 (==7.1.1)", "mypy (==1.13.0)", "pep8-naming (==0.14.1)", "pre-commit (==4.0.1)", "types-beautifulsoup4", "types-requests"]
+linters = ["black (==24.10.0)", "flake8 (==7.1.1)", "mypy (==1.14.0)", "pep8-naming (==0.14.1)", "pre-commit (==4.0.1)", "types-beautifulsoup4", "types-requests"]
 online = ["requests (>=2.31.0)"]
-tests = ["coverage (>=7.6.9)", "importlib-metadata (>=4.6)", "unittest-parallel (>=1.7.0)"]
+tests = ["coverage (>=7.6.9)", "unittest-parallel (>=1.7.0)"]
 
 [[package]]
 name = "regex"
