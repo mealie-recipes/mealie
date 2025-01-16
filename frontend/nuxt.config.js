@@ -370,6 +370,7 @@ export default {
       dir: "auto",
       name: "Mealie",
       short_name: "Mealie",
+      crossorigin: "use-credentials",
       id: "mealie",
       description: "Mealie is a recipe management and meal planning app",
       theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",

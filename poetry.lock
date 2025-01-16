@@ -32,13 +32,13 @@ tz = ["backports.zoneinfo"]
 
 [[package]]
 name = "aniso8601"
-version = "9.0.1"
+version = "10.0.0"
 description = "A library for parsing ISO 8601 strings."
 optional = false
 python-versions = "*"
 files = [
-    {file = "aniso8601-9.0.1-py2.py3-none-any.whl", hash = "sha256:1d2b7ef82963909e93c4f24ce48d4de9e66009a21bf1c1e1c85bdd0812fe412f"},
-    {file = "aniso8601-9.0.1.tar.gz", hash = "sha256:72e3117667eedf66951bb2d93f4296a56b94b078a8a95905a052611fb3f1b973"},
+    {file = "aniso8601-10.0.0-py2.py3-none-any.whl", hash = "sha256:3c943422efaa0229ebd2b0d7d223effb5e7c89e24d2267ebe76c61a2d8e290cb"},
+    {file = "aniso8601-10.0.0.tar.gz", hash = "sha256:ff1d0fc2346688c62c0151547136ac30e322896ed8af316ef7602c47da9426cf"},
 ]
 
 [package.extras]
@@ -3421,4 +3421,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "1561f8552de2253187d19299bb098f0ab53b1def90a0fa121a3cba379d5b0da8"
+content-hash = "9b9bb87e23f58b14a1d010aeca8093f52df30d794ee5a5028f853dbb8ba883f6"
