@@ -88,14 +88,21 @@ export default defineComponent({
     }
 
     const state = ref({
-      range: [fmtYYYYMMDD(new Date()), fmtYYYYMMDD(addDays(new Date(), adjustForToday(numberOfDays.value)))] as [string, string],
-      start: new Date(),
+      range: [],
       picker: false,
-      end: addDays(new Date(), adjustForToday(numberOfDays.value)),
     });
 
     const firstDayOfWeek = computed(() => {
       return household.value?.preferences?.firstDayOfWeek || 0;
+    });
+
+    const firstDayOfCurrentWeek = computed(() => {
+      const today = new Date();
+      let difference = today.getDay() - firstDayOfWeek.value;
+      if (difference < 0) {
+        difference = 7 + difference;
+      }
+      return addDays(today,  -difference);
     });
 
     const weekRange = computed(() => {
@@ -110,8 +117,8 @@ export default defineComponent({
         };
       }
       return {
-        start: new Date(),
-        end: addDays(new Date(), adjustForToday(numberOfDays.value)),
+        start: firstDayOfCurrentWeek.value,
+        end: addDays(firstDayOfCurrentWeek.value, adjustForToday(numberOfDays.value)),
       };
     });
 
