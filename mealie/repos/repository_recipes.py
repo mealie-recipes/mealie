@@ -206,6 +206,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         # Apply options late, so they do not get used for counting
         q = q.options(*RecipeSummary.loader_options())
         try:
+            self.logger.debug(f"Recipe Pagination Query: {pagination_result}")
             data = self.session.execute(q).scalars().unique().all()
         except Exception as e:
             self._log_exception(e)
