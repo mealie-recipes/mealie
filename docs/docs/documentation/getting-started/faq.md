@@ -8,7 +8,8 @@
     ### How do I enable "smart" ingredient handling?
 
     You might have noticed that scaling up a recipe or making a shopping list doesn't by default handle the ingredients in a way you might expect. Depending on your settings, scaling up might yield things like `2 1 cup broth` instead of `2 cup broth`. And, making shopping lists from recipes that have shared ingredients can yield multiple lines of the same ingredient. **But**, Mealie has a mechanism to intelligently handle ingredients and make your day better. How?
-    #### Set up your Foods and Units
+
+    <p style="font-size: 0.75rem; font-weight: 500;">Set up your Foods and Units</p>
     Do the following just **once**. Doing this applies to your whole group, so be careful.
 
     1. Click on your name in the upper left corner to get to your settings
@@ -20,7 +21,8 @@
 
     Initial seeding of Units is pretty complete, but there are many Foods in the world. You'll probably find that you need to add Foods to the database during parsing for the first several recipes. Once you have a well-populated Food database, there are API routes to parse ingredients automatically in bulk. But this is not a good idea without a very complete set of Foods.
 
-    #### Set up Recipes to use Foods and Units
+    <p style="font-size: 0.75rem; font-weight: 500;">Set up Recipes to use Foods and Units</p>
+
     Do the following for each recipe you want to intelligently handle ingredients.
 
     1. Go to a recipe
@@ -47,14 +49,16 @@
 
     Do the following to enable Nutritional Values on individual Recipes, or to modify your Household Recipe Preferences
 
-    #### Show Nutritional Values on a Single Recipe
+    **Show Nutritional Values on a Single Recipe**
+
     1. Go to a recipe
     2. Click the Edit button/icon
     3. Click the Recipe Settings gear and select `Show Nutritional Values`
     4. Scroll down to manually fill out the Nutritional Values
     5. Save
 
-    #### Show Nutritional Values by default
+    **Show Nutritional Values by default**
+
     1. Click your username in the top left
     2. Click the 'Household Settings' button
     3. Under 'Household Recipe Preferences', click to select 'Show nutrition information'

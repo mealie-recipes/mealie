@@ -276,7 +276,7 @@ export default defineComponent({
       delete: {
         title: i18n.tc("general.delete"),
         icon: $globals.icons.delete,
-        color: "error",
+        color: undefined,
         event: "delete",
         isPublic: false,
       },
@@ -383,7 +383,10 @@ export default defineComponent({
     }
 
     async function deleteRecipe() {
-      await api.recipes.deleteOne(props.slug);
+      const { data } = await api.recipes.deleteOne(props.slug);
+      if (data?.slug) {
+        router.push(`/g/${groupSlug.value}`);
+      }
       context.emit("delete", props.slug);
     }
 

@@ -4,7 +4,7 @@
     },
     "recipe": {
         "unique-name-error": "Názvy receptů musí být jedinečné",
-        "recipe-created": "Recipe Created",
+        "recipe-created": "Recept byl vytvořen",
         "recipe-defaults": {
             "ingredient-note": "1 hrnek mouky",
             "step-text": "Kroky receptu stejně jako další pole v receptu podporují markdown syntaxi.\n\n**Přidat odkaz**\n\n[Můj odkaz](https://demo.mealie.io)\n"
@@ -12,8 +12,8 @@
         "servings-text": {
             "makes": "Makes",
             "serves": "Porce",
-            "serving": "Serving",
-            "servings": "Servings",
+            "serving": "Porce",
+            "servings": "Porcí",
             "yield": "Yield",
             "yields": "Yields"
         }
