@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Toode"
     },
     {
-        "name": "Grains"
+        "name": "Teraviljad"
     },
     {
-        "name": "Fruits"
+        "name": "Puuviljad"
     },
     {
-        "name": "Vegetables"
+        "name": "Köögiviljad"
     },
     {
-        "name": "Meat"
+        "name": "Liha"
     },
     {
-        "name": "Seafood"
+        "name": "Mereannid"
     },
     {
-        "name": "Beverages"
+        "name": "Joogid"
     },
     {
-        "name": "Baked Goods"
+        "name": "Küpsetised"
     },
     {
-        "name": "Canned Goods"
+        "name": "Konservid"
     },
     {
-        "name": "Condiments"
+        "name": "Maitseained"
     },
     {
-        "name": "Confectionary"
+        "name": "Kondiitritooted"
     },
     {
-        "name": "Dairy Products"
+        "name": "Piimatooted"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Sügavkülmutatud toidud"
     },
     {
-        "name": "Health Foods"
+        "name": "Tervisetoidud"
     },
     {
-        "name": "Household"
+        "name": "Leibkond"
     },
     {
-        "name": "Meat Products"
+        "name": "Lihatooted"
     },
     {
-        "name": "Snacks"
+        "name": "Snäkid"
     },
     {
-        "name": "Spices"
+        "name": "Vürtsid"
     },
     {
-        "name": "Sweets"
+        "name": "Maiustused"
     },
     {
-        "name": "Alcohol"
+        "name": "Alkohol"
     },
     {
-        "name": "Other"
+        "name": "Muu"
     }
 ]

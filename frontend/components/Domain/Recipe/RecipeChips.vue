@@ -9,7 +9,8 @@
       color="accent"
       :small="small"
       dark
-      :to="`${baseRecipeRoute}?${urlPrefix}=${category.id}`"
+
+      @click.prevent="() => $emit('item-selected', category, urlPrefix)"
     >
       {{ truncateText(category.name) }}
     </v-chip>

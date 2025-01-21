@@ -43,6 +43,7 @@ def test_create_comment(api_client: TestClient, unique_recipe: Recipe, unique_us
     assert response_data["recipeId"] == str(unique_recipe.id)
     assert response_data["text"] == create_data["text"]
     assert response_data["userId"] == str(unique_user.user_id)
+    assert response_data["user"]["fullName"] == unique_user.full_name
 
     # Check for Proper Association
     response = api_client.get(api_routes.recipes_slug_comments(unique_recipe.slug), headers=unique_user.token)

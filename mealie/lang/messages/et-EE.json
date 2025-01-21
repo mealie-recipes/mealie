@@ -1,80 +1,80 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Ilmnes ootamatu tõrge "
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique",
-        "recipe-created": "Recipe Created",
+        "unique-name-error": "Retseptide nimed peavad olema unikaalsed",
+        "recipe-created": "Retsept loodud",
         "recipe-defaults": {
-            "ingredient-note": "1 Cup Flour",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "ingredient-note": "1 tass jahu",
+            "step-text": "Retsepti sammud nagu ka teised väljad retsepti lehed toetavad Markdown-i süntaksit\n\n** Lisa link **\n[Minu link](https://demo.mealie.io)"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
-            "yield": "Yield",
-            "yields": "Yields"
+            "makes": "Teeb",
+            "serves": "Jätkub",
+            "serving": "Protsion",
+            "servings": "Portsioneid",
+            "yield": "Saagikus",
+            "yields": "Annab saagiks"
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Ükski retsept ei vasta sinu reeglitele"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "Kasutaja uuendatud",
+        "password-updated": "Salasõna uuendatud",
+        "invalid-current-password": "Mittesobiv praegune salasõna",
+        "ldap-update-password-unavailable": "Ei saanud uuendada salasõna, kasutajat kontrollib LDAP"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Raport kustutatud."
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "permission_denied": "Sul puuduvad selle toimingu tegemiseks õigused",
+        "no-entry-found": "Soovitud ressurssi ei leitud",
+        "integrity-error": "Tõrge andmebaasi terviklikkuses",
+        "username-conflict-error": "See kasutajanimi on juba kasutusel",
+        "email-conflict-error": "See e-maili aadress on juba kasutuses"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} loodud",
+        "generic-updated": "{name} uuendatud",
+        "generic-created-with-url": "{name} loodud, {url}",
+        "generic-updated-with-url": "{name} uuendatud, {url}",
+        "generic-duplicated": "{name} on duplitseeritud",
+        "generic-deleted": "{name} kustutatud"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "year": "aasta|aastad",
+        "day": "päev|päevad",
+        "hour": "tund|tunnid",
+        "minute": "minut|minutid",
+        "second": "sekund|sekundid",
+        "millisecond": "millisekund|millisekundid",
+        "microsecond": "mikrosekund|mikrosekundid"
     },
     "emails": {
         "password": {
-            "subject": "Mealie Forgot Password",
-            "header_text": "Forgot Password",
-            "message_top": "You have requested to reset your password.",
-            "message_bottom": "Please click the button above to reset your password.",
-            "button_text": "Reset Password"
+            "subject": "Mealie salasõna unustatud",
+            "header_text": "Unustasid salasõna",
+            "message_top": "Oled palunud salasõna lähtestamist",
+            "message_bottom": "Kliki alloleval nupul, et lähtestada oma salasõna",
+            "button_text": "Lähtesta salasõna"
         },
         "invitation": {
-            "subject": "Invitation to join Mealie",
-            "header_text": "You're Invited!",
-            "message_top": "You have been invited to join Mealie.",
-            "message_bottom": "Please click the button above to accept the invitation.",
-            "button_text": "Accept Invitation"
+            "subject": "Kutse Mealiega liitumiseks",
+            "header_text": "Said kutse!",
+            "message_top": "Sind on kutsutud liituma Mealiega.",
+            "message_bottom": "Palun vajuta allolevat nuppu, et võtta vastu kutse.",
+            "button_text": "Võta kutse vastu"
         },
         "test": {
-            "subject": "Mealie Test Email",
-            "header_text": "Test Email",
-            "message_top": "This is a test email.",
-            "message_bottom": "Please click the button above to test the email.",
-            "button_text": "Open Mealie"
+            "subject": "Mealie test-email",
+            "header_text": "Test-email",
+            "message_top": "See on test-email",
+            "message_bottom": "Palun vajuta allolevat nuppu, et testida emaili.",
+            "button_text": "Ava Mealie"
         }
     }
 }

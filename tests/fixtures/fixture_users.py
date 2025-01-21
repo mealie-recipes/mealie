@@ -45,6 +45,7 @@ def build_unique_user(session: Session, group: str, api_client: TestClient) -> u
         user_id=user_id,
         email=user_data.get("email"),
         username=user_data.get("username"),
+        full_name=user_data.get("fullName"),
         password=registration.password,
         token=token,
         repos=get_repositories(session, group_id=group_id, household_id=household_id),
@@ -108,6 +109,7 @@ def h2_user(session: Session, admin_token, api_client: TestClient, unique_user: 
             token=token,
             email=user_data["email"],
             username=user_data["username"],
+            full_name=user_data["fullName"],
             password=user_data["password"],
             repos=get_repositories(session, group_id=group_id, household_id=household_id),
         )
@@ -165,6 +167,7 @@ def g2_user(session: Session, admin_token, api_client: TestClient):
             token=token,
             email=create_data["email"],  # type: ignore
             username=create_data.get("username"),  # type: ignore
+            full_name=create_data.get("fullName"),  # type: ignore
             password=create_data.get("password"),  # type: ignore
             repos=get_repositories(session, group_id=group_id, household_id=household_id),
         )
@@ -203,6 +206,7 @@ def _unique_user(session: Session, api_client: TestClient):
             user_id=user_id,
             email=user_data.get("email"),
             username=user_data.get("username"),
+            full_name=user_data.get("fullName"),
             password=registration.password,
             token=token,
             repos=get_repositories(session, group_id=group_id, household_id=household_id),
@@ -281,6 +285,7 @@ def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generat
                 _household_id=household_id,
                 user_id=user_id,
                 username=user_data.get("username"),
+                full_name=user_data.get("fullName"),
                 email=user_data.get("email"),
                 password="useruser",
                 token=token,
