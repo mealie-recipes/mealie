@@ -110,3 +110,12 @@ def test_recipe_share_tokens_delete_one(api_client: TestClient, unique_user: Tes
     token = database.recipe_share_tokens.get_one(token.id)
 
     assert token is None
+
+
+def test_share_recipe_from_different_group(api_client: TestClient, unique_user: TestUser, g2_user: TestUser, slug: str):
+    database = unique_user.repos
+    recipe = database.recipes.get_one(slug)
+    assert recipe
+
+    response = api_client.post(api_routes.shared_recipes, json={"recipeId": str(recipe.id)}, headers=g2_user.token)
+    assert response.status_code == 404
