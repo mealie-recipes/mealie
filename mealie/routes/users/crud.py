@@ -46,13 +46,6 @@ class AdminUserController(BaseAdminController):
 
     @admin_router.delete("/{item_id}")
     def delete_user(self, item_id: UUID4):
-        """Removes a user from the database. Must be the current user or a super user"""
-
-        assert_user_change_allowed(item_id, self.user, self.user)
-
-        if item_id == 1:  # TODO: identify super_user
-            raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="SUPER_USER")
-
         self.mixins.delete_one(item_id)
 
 
