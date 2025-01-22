@@ -118,4 +118,4 @@ def test_share_recipe_from_different_group(api_client: TestClient, unique_user: 
     assert recipe
 
     response = api_client.post(api_routes.shared_recipes, json={"recipeId": str(recipe.id)}, headers=g2_user.token)
-    assert response.status_code == 403
+    assert response.status_code == 404

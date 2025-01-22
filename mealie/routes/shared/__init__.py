@@ -32,9 +32,9 @@ class RecipeSharedController(BaseUserController):
     @router.post("", response_model=RecipeShareToken, status_code=201)
     def create_one(self, data: RecipeShareTokenCreate) -> RecipeShareToken:
         # check if recipe group id is the same as the user group id
-        recipe = self.repos.recipes.get_one(data.recipe_id)
+        recipe = self.repos.recipes.get_one(data.recipe_id, "id")
         if recipe is None or recipe.group_id != self.group_id:
-            raise HTTPException(status_code=403, detail="Recipe does not belong to user's group")
+            raise HTTPException(status_code=404, detail="Recipe not found in your group")
 
         save_data = RecipeShareTokenSave(**data.model_dump(), group_id=self.group_id)
         return self.mixins.create_one(save_data)
