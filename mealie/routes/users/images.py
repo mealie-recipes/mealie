@@ -23,7 +23,7 @@ class UserImageController(BaseUserController):
     ):
         """Updates a User Image"""
         with get_temporary_path() as temp_path:
-            assert_user_change_allowed(id, self.user)
+            assert_user_change_allowed(id, self.user, self.user)
             temp_img = temp_path.joinpath(profile.filename)
 
             with temp_img.open("wb") as buffer:
