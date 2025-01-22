@@ -349,7 +349,7 @@
     "note-only": "Pouze poznámka",
     "random-meal": "Náhodné jídlo",
     "random-dinner": "Náhodná večeře",
-    "random-side": "Random Side",
+    "random-side": "Náhodná příloha",
     "this-rule-will-apply": "Toto pravidlo se použije {dayCriteria} {mealTypeCriteria}.",
     "to-all-days": "na všechny dny",
     "on-days": "on {0}s",
@@ -1059,14 +1059,14 @@
       "food-label": "Označení jídla",
       "edit-food": "Upravit jídlo",
       "food-data": "Data jídla",
-      "example-food-singular": "ex: Onion",
-      "example-food-plural": "ex: Onions",
+      "example-food-singular": "např.: Brambora",
+      "example-food-plural": "např.: Brambory",
       "label-overwrite-warning": "Toto přiřadí vybraný štítek všem vybraným jídlům a může přepsat stávající štítky.",
       "on-hand-checkbox-label": "Nastavením tohoto příznaku bude tato potravina při přidávání receptu do nákupního seznamu ve výchozím nastavení odškrtnuta."
     },
     "units": {
       "seed-dialog-text": "Naplnit databázi s běžnými jednotkami používanými ve vašem jazyce.",
-      "combine-unit-description": "Combining the selected units will merge the Source Unit and Target Unit into a single unit. The {source-unit-will-be-deleted} and all of the references to the Source Unit will be updated to point to the Target Unit.",
+      "combine-unit-description": "Zkombinování zvolených jednotek spojí zdrojovou a cílovou jednotku do jedné. {source-unit-will-be-deleted} a všechny odkazy na ni budou upraveny na cílovou jednotku.",
       "combine-unit": "Kombinovaná jednotka",
       "source-unit": "Zdrojová jednotka",
       "target-unit": "Cílová jednotka",
@@ -1081,10 +1081,10 @@
       "unit-data": "Data jednotky",
       "use-abbv": "Používat zkratky",
       "fraction": "Zlomek",
-      "example-unit-singular": "ex: Tablespoon",
-      "example-unit-plural": "ex: Tablespoons",
-      "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-singular": "např.: Čajová lžička",
+      "example-unit-plural": "např.: Čajové lžičky",
+      "example-unit-abbreviation-singular": "např.: čl",
+      "example-unit-abbreviation-plural": "např.: čl"
     },
     "labels": {
       "seed-dialog-text": "Naplnit databázi s běžnými popisky používanými ve vašem jazyce.",
@@ -1296,7 +1296,7 @@
   "profile": {
     "welcome-user": "👋 Vítejte, {0}!",
     "description": "Spravujte svůj profil, recepty a nastavení skupiny.",
-    "invite-link": "Invite Link",
+    "invite-link": "Odkaz pozvánky",
     "get-invite-link": "Získat odkaz na pozvánku",
     "get-public-link": "Získat veřejný odkaz",
     "account-summary": "Přehled účtu",
@@ -1346,7 +1346,7 @@
   "cookbook": {
     "cookbooks": "Kuchařky",
     "description": "Kuchařky jsou dalším způsobem, jak uspořádat recepty vytvořením průřezů receptů, organizátorů a dalších filtrů. Vytvořením kuchařky se přidá položka na postranní panel a v kuchařce se zobrazí všechny recepty s vybranými filtry.",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
+    "hide-cookbooks-from-other-households": "Skrýt kuchařky ostatních domácností",
     "hide-cookbooks-from-other-households-description": "Pokud je povoleno, objeví se na postranním panelu pouze kuchařské knihy z vaší domácnosti",
     "public-cookbook": "Veřejná kuchařka",
     "public-cookbook-description": "Veřejné kuchařky mohou být sdíleny s neregistrovanými uživateli a budou zobrazeny na stránce vaší skupiny.",

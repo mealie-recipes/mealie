@@ -15,7 +15,7 @@
         "name": "šálek",
         "plural_name": "šálků",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "š"
     },
     "fluid-ounce": {
         "name": "dutá unce",
@@ -31,7 +31,7 @@
     },
     "quart": {
         "name": "čtvrtka",
-        "plural_name": "quarts",
+        "plural_name": "čtvrtky",
         "description": "",
         "abbreviation": "čtvrtka"
     },
@@ -92,7 +92,7 @@
     },
     "dash": {
         "name": "špetka",
-        "plural_name": "dashes",
+        "plural_name": "špetky",
         "description": "",
         "abbreviation": ""
     },
@@ -127,8 +127,8 @@
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "balení",
+        "plural_name": "balení",
         "description": "",
         "abbreviation": ""
     },

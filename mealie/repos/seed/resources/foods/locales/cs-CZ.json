@@ -48,7 +48,7 @@
 	},
 	"bell-peppers": {
 		"name": "papriky",
-		"plural_name": "bell peppers"
+		"plural_name": "papriky"
 	},
 	"blackberries": {
 		"name": "ostružiny"
@@ -260,8 +260,8 @@
 		"name": "kapradiny"
 	},
 	"fiddlehead-fern": {
-		"name": "fiddlehead fern",
-		"plural_name": "fiddlehead ferns"
+		"name": "kapradina",
+		"plural_name": "kapradiny"
 	},
 	"fish": {
 		"name": "ryba"
