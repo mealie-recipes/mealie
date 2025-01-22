@@ -41,3 +41,8 @@ def assert_user_change_allowed(user_id: UUID4, current_user: PrivateUser, new_da
             raise HTTPException(
                 status.HTTP_403_FORBIDDEN, ErrorResponse.respond("Admins can't change their own permissions")
             )
+
+    else:
+        raise HTTPException(
+            status.HTTP_403_FORBIDDEN, ErrorResponse.respond("Use the Admins endpoint to update other users")
+        )
