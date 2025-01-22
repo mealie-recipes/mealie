@@ -4,7 +4,7 @@ from pydantic import UUID4
 from mealie.schema.response.responses import ErrorResponse
 from mealie.schema.user.user import PrivateUser, UserBase
 
-permission_attrs = ["can_invite", "can_manage", "can_manage_household", "can_organize", "advanced", "admin"]
+permission_attrs = ["can_invite", "can_manage", "can_manage_household", "can_organize", "admin"]
 
 
 def _assert_non_admin_user_change_allowed(user_id: UUID4, current_user: PrivateUser, new_data: UserBase):
