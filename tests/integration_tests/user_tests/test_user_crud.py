@@ -106,7 +106,7 @@ def test_admin_updates(api_client: TestClient, admin_user: TestUser, unique_user
     assert response.status_code == 403
 
     # admin updating their own permissions
-    permissions = ["canInvite", "canManage", "canManageHousehold", "canOrganize", "advanced", "admin"]
+    permissions = ["canInvite", "canManage", "canManageHousehold", "canOrganize", "admin"]
     for permission in permissions:
         tmp_user = admin.copy()
         tmp_user[permission] = not admin[permission]
