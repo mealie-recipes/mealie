@@ -85,3 +85,30 @@ def test_user_update(api_client: TestClient, unique_user: TestUser, admin_user: 
     tmp_user["household"] = random_string()
     response = api_client.put(api_routes.users_item_id(unique_user.user_id), json=tmp_user, headers=unique_user.token)
     assert response.status_code == 403
+
+
+def test_admin_updates(api_client: TestClient, admin_user: TestUser, unique_user: TestUser):
+    response = api_client.get(api_routes.users_item_id(unique_user.user_id), headers=admin_user.token)
+    user = response.json()
+    response = api_client.get(api_routes.users_item_id(admin_user.user_id), headers=admin_user.token)
+    admin = response.json()
+
+    # admin updating themselves
+    tmp_user = admin.copy()
+    tmp_user["fullName"] = random_string()
+    response = api_client.put(api_routes.users_item_id(admin_user.user_id), json=tmp_user, headers=admin_user.token)
+    assert response.status_code == 200
+
+    # admin updating another user via the normal user route
+    tmp_user = user.copy()
+    tmp_user["fullName"] = random_string()
+    response = api_client.put(api_routes.users_item_id(unique_user.user_id), json=tmp_user, headers=admin_user.token)
+    assert response.status_code == 403
+
+    # admin updating their own permissions
+    permissions = ["canInvite", "canManage", "canManageHousehold", "canOrganize", "advanced", "admin"]
+    for permission in permissions:
+        tmp_user = admin.copy()
+        tmp_user[permission] = not admin[permission]
+        response = api_client.put(api_routes.users_item_id(admin_user.user_id), json=tmp_user, headers=admin_user.token)
+        assert response.status_code == 403
