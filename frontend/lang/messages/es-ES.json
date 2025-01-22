@@ -277,7 +277,7 @@
     "admin-group-management-text": "Los cambios en este grupo se reflejarán inmediatamente.",
     "group-id-value": "Id del Grupo: {0}",
     "total-households": "Total de Casas",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "Debe seleccionar un grupo antes de seleccionar un hogar"
   },
   "household": {
     "household": "Casa",
@@ -518,7 +518,7 @@
     "save-recipe-before-use": "Guardar la receta antes de usar",
     "section-title": "Título de la sección",
     "servings": "Porciones",
-    "serves-amount": "Serves {amount}",
+    "serves-amount": "Personas {amount}",
     "share-recipe-message": "Quería compartir mi receta {0} contigo.",
     "show-nutrition-values": "Mostrar valores nutricionales",
     "sodium-content": "Sodio",
@@ -547,8 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Error al añadir receta al menú",
     "failed-to-add-to-list": "No se pudo agregar a la lista",
     "yield": "Raciones",
-    "yields-amount-with-text": "Yields {amount} {text}",
-    "yield-text": "Yield Text",
+    "yields-amount-with-text": "Raciones {amount} {text}",
+    "yield-text": "Texto de raciones",
     "quantity": "Cantidad",
     "choose-unit": "Elija unidad",
     "press-enter-to-create": "Presione Intro para crear",
@@ -637,9 +637,9 @@
     "recipe-debugger-use-openai-description": "Utilice OpenAI para analizar los resultados en lugar de depender de la biblioteca de analizadores. Cuando se crea una receta a través de la URL, esto se hace automáticamente si la biblioteca del analizador falla, pero puede probarla manualmente aquí.",
     "debug": "Depuración",
     "tree-view": "Vista en árbol",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "Cantidad de personas",
     "recipe-yield": "Porciones",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "Texto de raciones totales",
     "unit": "Unidades",
     "upload-image": "Subir imagen",
     "screen-awake": "Mantener la pantalla encendida",
@@ -662,24 +662,24 @@
       "no-food": "Sin Comida"
     },
     "reset-servings-count": "Restablecer contador de porciones",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "Ingredientes adicionales"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder",
-    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
+    "recipe-finder": "Buscador de recetas",
+    "recipe-finder-description": "Busca recetas basadas en los ingredientes que tengas disponibles. También puede filtrar por utensilios disponibles, y establecer un número máximo de ingredientes o herramientas que faltan.",
     "selected-ingredients": "Ingredientes seleccionados",
     "no-ingredients-selected": "Ningún ingrediente seleccionado",
-    "missing": "Missing",
+    "missing": "Faltan",
     "no-recipes-found": "No se encontraron recetas",
     "no-recipes-found-description": "Intenta añadir más ingredientes a tu búsqueda o ajustar tus filtros",
     "include-ingredients-on-hand": "Incluye ingredientes a mano",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
-    "selected-tools": "Selected Tools",
-    "other-filters": "Other Filters",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "include-tools-on-hand": "Incluye utensilios disponibles",
+    "max-missing-ingredients": "Máximo de ingredientes que faltan",
+    "max-missing-tools": "Máximo de utensilios que faltan",
+    "selected-tools": "Utensilios seleccionados",
+    "other-filters": "Otros filtros",
+    "ready-to-make": "Listo para hacer",
+    "almost-ready-to-make": "Casi listo para hacer"
   },
   "search": {
     "advanced-search": "Búsqueda avanzada",
@@ -884,7 +884,7 @@
     "are-you-sure-you-want-to-check-all-items": "¿Seguro que quieres seleccionar todos los elementos?",
     "are-you-sure-you-want-to-uncheck-all-items": "¿Seguro que quieres de-seleccionar todos los elementos?",
     "are-you-sure-you-want-to-delete-checked-items": "¿Está seguro que deseas eliminar los elementos seleccionados?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "No hay listas de la compra"
   },
   "sidebar": {
     "all-recipes": "Recetas",
@@ -1296,7 +1296,7 @@
   "profile": {
     "welcome-user": "👋 ¡Bienvenido, {0}!",
     "description": "Administra tu perfil, recetas y ajustes de grupo.",
-    "invite-link": "Invite Link",
+    "invite-link": "Link de invitación",
     "get-invite-link": "Obtener enlace de invitación",
     "get-public-link": "Obtener enlace público",
     "account-summary": "Información de la cuenta",
@@ -1346,7 +1346,7 @@
   "cookbook": {
     "cookbooks": "Recetarios",
     "description": "Los recetarios son otra forma de organizar recetas creando secciones cruzadas de recetas y etiquetas. Crear un recetario añadirá una entrada a la barra lateral y todas las recetas con las etiquetas y categorías elegidas se mostrarán en el recetario.",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
+    "hide-cookbooks-from-other-households": "Ocultar libros de cocina de otros grupos/hogares",
     "hide-cookbooks-from-other-households-description": "Cuando esté habilitado, sólo los libros de cocina de su hogar aparecerán en la barra lateral",
     "public-cookbook": "Recetario público",
     "public-cookbook-description": "Los recetarios públicos se pueden compartir con usuarios externos y se mostrarán en su página de grupos.",
