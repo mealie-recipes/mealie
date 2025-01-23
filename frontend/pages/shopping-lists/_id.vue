@@ -23,67 +23,62 @@
               <v-img max-height="100" max-width="100" :src="require('~/static/svgs/shopping-cart.svg')"></v-img>
             </v-col>
             <v-col class="d-flex justify-end">
-              <div class="d-flex justify-end mb-4 mt-2">
-                <v-row>
-                  <v-menu offset-y>
-                    <template #activator="{ on, attrs }">
-                      <v-btn text v-bind="attrs" v-on="on">
-                        <v-icon>
-                          {{ $globals.icons.contentCopy }}
-                        </v-icon>
-                      </v-btn>
-                    </template>
-                    <v-list>
-                      <v-list-item @click="copyListItems('plain')">
-                        <v-icon left>
-                          {{ $globals.icons.contentCopy }}
-                        </v-icon>
-                        <v-list-item-title>{{ $t("shopping-list.copy-as-text") }}</v-list-item-title>
-                      </v-list-item>
-                      <v-list-item @click="copyListItems('markdown')">
-                        <v-icon left>
-                          {{ $globals.icons.contentCopy }}
-                        </v-icon>
-                        <v-list-item-title>{{ $t("shopping-list.copy-as-markdown") }}</v-list-item-title>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-                  <v-btn text @click="openCheckAll()">
-                    <v-icon>
-                      {{ $globals.icons.checkboxOutline }}
-                    </v-icon>
-                  </v-btn>
-                  <v-menu offset-y>
-                    <template #activator="{ on, attrs }">
-                      <v-btn text v-bind="attrs" v-on="on">
-                        <v-icon>
-                          {{ $globals.icons.dotsVertical }}
-                        </v-icon>
-                      </v-btn>
-                    </template>
-                    <v-list>
-                      <v-list-item @click="sortByLabels()">
-                        <v-icon left>
-                          {{ $globals.icons.tags }}
-                        </v-icon>
-                        <v-list-item-title>{{ $t("shopping-list.toggle-label-sort") }}</v-list-item-title>
-                      </v-list-item>
-                      <v-list-item v-if="preferences.viewByLabel" @click="toggleReorderLabelsDialog()">
-                        <v-icon left>
-                          {{ $globals.icons.tags }}
-                        </v-icon>
-                        <v-list-item-title>{{ $t("shopping-list.reorder-labels") }}</v-list-item-title>
-                      </v-list-item>
-                      <v-list-item :to="`/group/data/labels`">
-                        <v-icon left>
-                          {{ $globals.icons.tags }}
-                        </v-icon>
-                        <v-list-item-title>{{ $t("shopping-list.manage-labels") }}</v-list-item-title>
-                      </v-list-item>
-                    </v-list>
-                  </v-menu>
-                </v-row>
-              </div>
+              <BaseButtonGroup
+                :buttons="[
+                  {
+                    icon: $globals.icons.contentCopy,
+                    text: '',
+                    event: 'edit',
+                    children: [
+                      {
+                        icon: $globals.icons.contentCopy,
+                        text: $tc('shopping-list.copy-as-text'),
+                        event: 'copy-plain',
+                      },
+                      {
+                        icon: $globals.icons.contentCopy,
+                        text: $tc('shopping-list.copy-as-markdown'),
+                        event: 'copy-markdown',
+                      },
+                    ],
+                  },
+                  {
+                    icon: $globals.icons.checkboxOutline,
+                    text: $tc('shopping-list.check-all-items'),
+                    event: 'check',
+                  },
+                  {
+                    icon: $globals.icons.dotsVertical,
+                    text: '',
+                    event: 'three-dot',
+                    children: [
+                      {
+                        icon: $globals.icons.tags,
+                        text: $tc('shopping-list.toggle-label-sort'),
+                        event: 'sort-by-labels',
+                      },
+                      {
+                        icon: $globals.icons.tags,
+                        text: $tc('shopping-list.reorder-labels'),
+                        event: 'reorder-labels',
+                      },
+                      {
+                        icon: $globals.icons.tags,
+                        text: $tc('shopping-list.manage-labels'),
+                        event: 'manage-labels',
+                      },
+                    ],
+                  },
+                ]"
+                @edit="edit = true"
+                @three-dot="threeDot = true"
+                @check="openCheckAll"
+                @sort-by-labels="sortByLabels"
+                @copy-plain="copyListItems('plain')"
+                @copy-markdown="copyListItems('markdown')"
+                @reorder-labels="toggleReorderLabelsDialog()"
+                @manage-labels="$router.push(`/group/data/labels`)"
+              />
             </v-col>
           </v-row>
         </v-container>
@@ -330,6 +325,7 @@ export default defineComponent({
     const userApi = useUserApi();
 
     const edit = ref(false);
+    const threeDot = ref(false);
     const reorderLabelsDialog = ref(false);
     const preserveItemOrder = ref(false);
 
@@ -1052,6 +1048,7 @@ export default defineComponent({
       openDeleteChecked,
       deleteListItem,
       edit,
+      threeDot,
       getLabelColor,
       groupSlug,
       itemsByLabel,

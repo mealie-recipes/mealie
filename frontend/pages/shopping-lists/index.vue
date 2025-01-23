@@ -11,12 +11,12 @@
         v-model="settingsDialog"
         :icon="$globals.icons.cog"
         :title="$t('general.settings')"
-        @confirm="updateSettings"
+        @confirm="updateOwner"
       >
         <v-container>
           <v-form>
             <v-select
-              v-model="currentUserId"
+              v-model="updateUserId"
               :items="allUsers"
               item-text="fullName"
               item-value="id"
@@ -179,7 +179,7 @@ export default defineComponent({
     // Shopping List Settings
 
     const allUsers = ref<UserOut[]>([]);
-    const currentUserId = ref<string | undefined>();
+    const updateUserId = ref<string | undefined>();
     async function fetchAllUsers() {
       const { data } = await userApi.households.fetchMembers();
       if (!data) {
@@ -188,17 +188,25 @@ export default defineComponent({
 
       // update current user
       allUsers.value = data.items.sort((a, b) => ((a.fullName || "") < (b.fullName || "") ? -1 : 1));
-      currentUserId.value = shoppingList.value?.userId;
+      updateUserId.value = shoppingList.value?.userId;
     }
 
-    async function updateSettings() {
-      if (!shoppingList.value || !currentUserId.value) {
+    async function updateOwner() {
+      if (!shoppingList.value || !updateUserId.value) {
         return;
       }
-
+      // user has not changed, so we should not update
+      if (shoppingList.value.userId === updateUserId.value) {
+        return;
+      }
+      // get full list, so the move does not delete shopping list items
+      const { data: fullList } = await userApi.shopping.lists.getOne(shoppingList.value.id);
+      if (!fullList) {
+        return;
+      }
       const { data } = await userApi.shopping.lists.updateOne(
         shoppingList.value.id,
-        {...shoppingList.value, userId: currentUserId.value},
+        {...fullList, userId: updateUserId.value},
       );
 
       if (data) {
@@ -228,8 +236,8 @@ export default defineComponent({
       settingsDialog,
       toggleSettingsDialog,
       allUsers,
-      currentUserId,
-      updateSettings,
+      updateUserId,
+      updateOwner,
       deleteOne,
       openDelete,
     };
