@@ -8,9 +8,9 @@
 
     <!-- Settings -->
     <BaseDialog
-        v-model="settingsDialog"
-        :icon="$globals.icons.cog"
-        :title="$t('general.settings')"
+        v-model="ownerDialog"
+        :icon="$globals.icons.admin"
+        :title="$t('user.edit-user')"
         @confirm="updateOwner"
       >
         <v-container>
@@ -63,7 +63,7 @@
             {{ list.name }}
           </div>
           <div class="d-flex justify-end">
-            <v-btn icon @click.prevent="toggleSettingsDialog(list)">
+            <v-btn icon @click.prevent="toggleOwnerDialog(list)">
               <v-icon>
                 {{ $globals.icons.user }}
               </v-icon>
@@ -100,16 +100,16 @@ export default defineComponent({
     const overrideDisableRedirect = ref(false);
     const disableRedirect = computed(() => route.value.query.disableRedirect === "true" || overrideDisableRedirect.value);
     const preferences = useShoppingListPreferences();
-    const settingsDialog = ref(false);
 
     const state = reactive({
       createName: "",
       createDialog: false,
       deleteDialog: false,
       deleteTarget: "",
+      ownerDialog: false,
+      ownerTarget: ref<ShoppingListOut | null>(null),
     });
 
-    const shoppingList = ref<ShoppingListOut | null>(null);
     const shoppingLists = useAsync(async () => {
       return await fetchShoppingLists();
     }, useAsyncKey());
@@ -167,16 +167,16 @@ export default defineComponent({
       }
     }
 
-    async function toggleSettingsDialog(list: ShoppingListOut) {
-      if (!settingsDialog.value) {
-        shoppingList.value = list;
+    async function toggleOwnerDialog(list: ShoppingListOut) {
+      if (!state.ownerDialog) {
+        state.ownerTarget = list;
         await fetchAllUsers();
       }
-      settingsDialog.value = !settingsDialog.value;
+      state.ownerDialog = !state.ownerDialog;
     }
 
     // ===============================================================
-    // Shopping List Settings
+    // Shopping List Edit User/Owner
 
     const allUsers = ref<UserOut[]>([]);
     const updateUserId = ref<string | undefined>();
@@ -188,24 +188,24 @@ export default defineComponent({
 
       // update current user
       allUsers.value = data.items.sort((a, b) => ((a.fullName || "") < (b.fullName || "") ? -1 : 1));
-      updateUserId.value = shoppingList.value?.userId;
+      updateUserId.value = state.ownerTarget?.userId;
     }
 
     async function updateOwner() {
-      if (!shoppingList.value || !updateUserId.value) {
+      if (!state.ownerTarget || !updateUserId.value) {
         return;
       }
       // user has not changed, so we should not update
-      if (shoppingList.value.userId === updateUserId.value) {
+      if (state.ownerTarget.userId === updateUserId.value) {
         return;
       }
       // get full list, so the move does not delete shopping list items
-      const { data: fullList } = await userApi.shopping.lists.getOne(shoppingList.value.id);
+      const { data: fullList } = await userApi.shopping.lists.getOne(state.ownerTarget.id);
       if (!fullList) {
         return;
       }
       const { data } = await userApi.shopping.lists.updateOne(
-        shoppingList.value.id,
+        state.ownerTarget.id,
         {...fullList, userId: updateUserId.value},
       );
 
@@ -233,8 +233,7 @@ export default defineComponent({
       preferences,
       shoppingListChoices,
       createOne,
-      settingsDialog,
-      toggleSettingsDialog,
+      toggleOwnerDialog,
       allUsers,
       updateUserId,
       updateOwner,
