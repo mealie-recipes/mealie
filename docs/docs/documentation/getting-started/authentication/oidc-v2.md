@@ -52,6 +52,8 @@ Before you can start using OIDC Authentication, you must first configure a new c
 
 Take the client id and your discovery URL and update your environment variables to include the required OIDC variables described in [Installation - Backend Configuration](../installation/backend-config.md#openid-connect-oidc).
 
+You might also want to set ALLOW_PASSWORD_LOGIN to false, to hide the username+password inputs, if you want to allow logins only via OIDC.
+
 ### Groups
 
 There are two (optional) [environment variables](../installation/backend-config.md#openid-connect-oidc) that can control which of the users in your IdP can log in to Mealie and what permissions they will have. Keep in mind that these groups **do not necessarily correspond to groups in Mealie**. The groups claim is configurable via the `OIDC_GROUPS_CLAIM` environment variable. The groups should be **defined in your IdP** and be returned in the configured claim value.
