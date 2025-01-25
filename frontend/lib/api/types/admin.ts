@@ -10,6 +10,7 @@ export interface AdminAboutInfo {
   version: string;
   demoStatus: boolean;
   allowSignup: boolean;
+  allowPasswordLogin: boolean;
   defaultGroupSlug?: string | null;
   defaultHouseholdSlug?: string | null;
   enableOidc: boolean;
@@ -41,6 +42,7 @@ export interface AppInfo {
   version: string;
   demoStatus: boolean;
   allowSignup: boolean;
+  allowPasswordLogin: boolean;
   defaultGroupSlug?: string | null;
   defaultHouseholdSlug?: string | null;
   enableOidc: boolean;
