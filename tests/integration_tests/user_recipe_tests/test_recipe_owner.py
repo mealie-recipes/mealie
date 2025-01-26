@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from fastapi.testclient import TestClient
 
@@ -106,7 +106,7 @@ def test_user_update_last_made(api_client: TestClient, user_tuple: list[TestUser
     response = api_client.put(api_routes.recipes + f"/{recipe_name}", json=recipe, headers=usr_1.token)
 
     # User 2 should be able to update the last made timestamp
-    last_made_json = {"timestamp": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")}
+    last_made_json = {"timestamp": datetime.now(UTC).isoformat().replace("+00:00", "Z")}
     response = api_client.patch(
         api_routes.recipes_slug_last_made(recipe_name), json=last_made_json, headers=usr_2.token
     )

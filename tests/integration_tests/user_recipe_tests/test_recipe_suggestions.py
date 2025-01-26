@@ -14,14 +14,32 @@ from tests.utils.fixture_schemas import TestUser
 
 
 def create_food(user: TestUser, on_hand: bool = False):
+    if on_hand:
+        household = user.repos.households.get_by_slug_or_id(user.household_id)
+        assert household
+        households = [household.slug]
+    else:
+        households = []
+
     return user.repos.ingredient_foods.create(
-        SaveIngredientFood(id=uuid4(), name=random_string(), group_id=user.group_id, on_hand=on_hand)
+        SaveIngredientFood(
+            id=uuid4(), name=random_string(), group_id=user.group_id, households_with_ingredient_food=households
+        )
     )
 
 
 def create_tool(user: TestUser, on_hand: bool = False):
+    if on_hand:
+        household = user.repos.households.get_by_slug_or_id(user.household_id)
+        assert household
+        households = [household.slug]
+    else:
+        households = []
+
     return user.repos.tools.create(
-        RecipeToolSave(id=uuid4(), name=random_string(), group_id=user.group_id, on_hand=on_hand)
+        RecipeToolSave(
+            id=uuid4(), name=random_string(), group_id=user.group_id, on_hand=on_hand, households_with_tool=households
+        )
     )
 
 
@@ -568,7 +586,7 @@ def test_include_cross_household_recipes(api_client: TestClient, unique_user: Te
     try:
         response = api_client.get(
             api_routes.recipes_suggestions,
-            params={"maxMissingFoods": 0, "foods": [str(known_food.id)], "includeCrossHousehold": True},
+            params={"maxMissingFoods": 0, "foods": [str(known_food.id)]},
             headers=h2_user.token,
         )
         response.raise_for_status()
@@ -579,3 +597,61 @@ def test_include_cross_household_recipes(api_client: TestClient, unique_user: Te
     finally:
         unique_user.repos.recipes.delete(recipe.slug)
         h2_user.repos.recipes.delete(other_recipe.slug)
+
+
+def test_respect_cross_household_on_hand_food(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+    on_hand_food = create_food(unique_user, on_hand=True)  # only on-hand for unique_user
+    other_food = create_food(unique_user)
+
+    recipe = create_recipe(unique_user, foods=[on_hand_food, other_food])
+    try:
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={"maxMissingFoods": 0, "foods": [str(other_food.id)]},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+        data = response.json()
+        assert len(data["items"]) == 1
+        assert data["items"][0]["recipe"]["id"] == str(recipe.id)
+
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={"maxMissingFoods": 0, "foods": [str(other_food.id)]},
+            headers=h2_user.token,
+        )
+        response.raise_for_status()
+        data = response.json()
+        assert len(data["items"]) == 0
+
+    finally:
+        unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_respect_cross_household_on_hand_tool(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+    on_hand_tool = create_tool(unique_user, on_hand=True)  # only on-hand for unique_user
+    other_tool = create_tool(unique_user)
+
+    recipe = create_recipe(unique_user, tools=[on_hand_tool, other_tool])
+    try:
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={"maxMissingTools": 0, "tools": [str(other_tool.id)]},
+            headers=unique_user.token,
+        )
+        response.raise_for_status()
+        data = response.json()
+        assert len(data["items"]) == 1
+        assert data["items"][0]["recipe"]["id"] == str(recipe.id)
+
+        response = api_client.get(
+            api_routes.recipes_suggestions,
+            params={"maxMissingTools": 0, "tools": [str(other_tool.id)]},
+            headers=h2_user.token,
+        )
+        response.raise_for_status()
+        data = response.json()
+        assert len(data["items"]) == 0
+
+    finally:
+        unique_user.repos.recipes.delete(recipe.slug)

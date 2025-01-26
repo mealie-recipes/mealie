@@ -518,7 +518,7 @@
     "save-recipe-before-use": "Zapisz przepis przed użyciem",
     "section-title": "Tytuł rozdziału",
     "servings": "Porcje",
-    "serves-amount": "{amount} porcji",
+    "serves-amount": "Porcje {amount}",
     "share-recipe-message": "Chcę podzielić się z Tobą moim przepisem na {0}.",
     "show-nutrition-values": "Pokaż wartości odżywcze",
     "sodium-content": "Sód",

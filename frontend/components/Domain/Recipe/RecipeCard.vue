@@ -7,7 +7,7 @@
         :elevation="hover ? 12 : 2"
         :to="recipeRoute"
         :min-height="imageHeight + 75"
-        @click="$emit('click')"
+        @click.self="$emit('click')"
       >
         <RecipeCardImage
           :icon-size="imageHeight"
@@ -39,7 +39,7 @@
 
             <RecipeRating class="pb-1" :value="rating" :recipe-id="recipeId" :slug="slug" :small="true" />
             <v-spacer></v-spacer>
-            <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" url-prefix="tags" />
+            <RecipeChips :truncate="true" :items="tags" :title="false" :limit="2" :small="true" url-prefix="tags" v-on="$listeners" />
 
             <!-- If we're not logged-in, no items display, so we hide this menu -->
             <RecipeContextMenu

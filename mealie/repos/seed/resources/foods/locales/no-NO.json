@@ -403,7 +403,7 @@
 	},
 	"mushroom": {
 		"name": "sopp",
-		"plural_name": "mushrooms"
+		"plural_name": "sopper"
 	},
 	"mussels": {
 		"name": "blåskjell"
@@ -450,7 +450,7 @@
 	},
 	"oranges": {
 		"name": "appelsin",
-		"plural_name": "oranges"
+		"plural_name": "appelsiner"
 	},
 	"oregano": {
 		"name": "oregano"
@@ -462,7 +462,7 @@
 		"name": "panch phoron"
 	},
 	"paprika": {
-		"name": "paprika"
+		"name": "paprikakrydder"
 	},
 	"parsley": {
 		"name": "persille"
@@ -473,7 +473,7 @@
 	},
 	"pear": {
 		"name": "pære",
-		"plural_name": "pears"
+		"plural_name": "pærer"
 	},
 	"peas": {
 		"name": "erter"
@@ -484,18 +484,18 @@
 	},
 	"pineapple": {
 		"name": "ananas",
-		"plural_name": "pineapples"
+		"plural_name": "ananaser"
 	},
 	"plantain": {
 		"name": "kokebanan",
-		"plural_name": "plantains"
+		"plural_name": "kokebananer"
 	},
 	"poppy-seeds": {
 		"name": "valmuefrø"
 	},
 	"potato": {
 		"name": "potet",
-		"plural_name": "potatoes"
+		"plural_name": "poteter"
 	},
 	"poultry": {
 		"name": "fjærfe"
@@ -505,14 +505,14 @@
 	},
 	"pumpkin": {
 		"name": "gresskar",
-		"plural_name": "pumpkins"
+		"plural_name": "gresskar"
 	},
 	"pumpkin-seeds": {
 		"name": "gresskarfrø"
 	},
 	"radish": {
 		"name": "reddik",
-		"plural_name": "radishes"
+		"plural_name": "reddiker"
 	},
 	"raw-sugar": {
 		"name": "brunt sukker"
@@ -585,11 +585,11 @@
 	},
 	"spring-onion": {
 		"name": "vårløk",
-		"plural_name": "spring onions"
+		"plural_name": "vårløker"
 	},
 	"squash": {
 		"name": "squash",
-		"plural_name": "squashes"
+		"plural_name": "squash"
 	},
 	"squash-family": {
 		"name": "squash familien"
@@ -612,11 +612,11 @@
 	},
 	"sweet-potato": {
 		"name": "søtpotet",
-		"plural_name": "sweet potatoes"
+		"plural_name": "søtpoteter"
 	},
 	"sweetcorn": {
 		"name": "sukkermais",
-		"plural_name": "sweetcorns"
+		"plural_name": "sukkermais"
 	},
 	"sweeteners": {
 		"name": "søtningsmiddel"
@@ -633,7 +633,7 @@
 	},
 	"tomato": {
 		"name": "tomat",
-		"plural_name": "tomatoes"
+		"plural_name": "tomater"
 	},
 	"trout": {
 		"name": "ørret"
@@ -650,7 +650,7 @@
 	},
 	"turnip": {
 		"name": "nepe",
-		"plural_name": "turnips"
+		"plural_name": "neper"
 	},
 	"unrefined-sugar": {
 		"name": "uraffinert sukker"
@@ -666,11 +666,11 @@
 	},
 	"watermelon": {
 		"name": "vannmelon",
-		"plural_name": "watermelons"
+		"plural_name": "vannmeloner"
 	},
 	"white-mushroom": {
-		"name": "sjampinjonger",
-		"plural_name": "white mushrooms"
+		"name": "sjampinjong",
+		"plural_name": "sjampinjonger"
 	},
 	"white-sugar": {
 		"name": "sukker"

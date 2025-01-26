@@ -7,7 +7,7 @@ from typing import ClassVar
 from uuid import UUID, uuid4
 
 from pydantic import UUID4, ConfigDict, Field, field_validator, model_validator
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.recipe import IngredientFoodModel
@@ -37,7 +37,6 @@ class UnitFoodBase(MealieModel):
     plural_name: str | None = None
     description: str = ""
     extras: dict | None = {}
-    on_hand: bool = False
 
     @field_validator("id", mode="before")
     def convert_empty_id_to_none(cls, v):
@@ -67,6 +66,7 @@ class IngredientFoodAlias(CreateIngredientFoodAlias):
 class CreateIngredientFood(UnitFoodBase):
     label_id: UUID4 | None = None
     aliases: list[CreateIngredientFoodAlias] = []
+    households_with_ingredient_food: list[str] = []
 
 
 class SaveIngredientFood(CreateIngredientFood):
@@ -91,9 +91,23 @@ class IngredientFood(CreateIngredientFood):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [
+            selectinload(IngredientFoodModel.households_with_ingredient_food),
             joinedload(IngredientFoodModel.extras),
             joinedload(IngredientFoodModel.label),
         ]
+
+    @field_validator("households_with_ingredient_food", mode="before")
+    def convert_households_to_slugs(cls, v):
+        if not v:
+            return []
+
+        try:
+            return [household.slug for household in v]
+        except AttributeError:
+            return v
+
+    def is_on_hand(self, household_slug: str) -> bool:
+        return household_slug in self.households_with_tool
 
 
 class IngredientFoodPagination(PaginationBase):

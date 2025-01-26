@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 
@@ -65,7 +65,7 @@ def test_lock_unlocker_user(unique_user: TestUser) -> None:
     assert not unlocked_user.is_locked
 
     # Sanity check that the is_locked property is working
-    user.locked_at = datetime.now(timezone.utc) - timedelta(days=2)
+    user.locked_at = datetime.now(UTC) - timedelta(days=2)
     assert not user.is_locked
 
 
@@ -98,7 +98,7 @@ def test_reset_locked_users(unique_user: TestUser, use_task: bool) -> None:
     assert user.login_attemps == 5
 
     # Test that the locked user is unlocked by reset
-    user.locked_at = datetime.now(timezone.utc) - timedelta(days=2)
+    user.locked_at = datetime.now(UTC) - timedelta(days=2)
     database.users.update(user.id, user)
     if use_task:
         unlocked = locked_user_reset()

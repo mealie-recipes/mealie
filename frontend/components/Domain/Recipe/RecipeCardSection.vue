@@ -82,6 +82,8 @@
                 :image="recipe.image"
                 :tags="recipe.tags"
                 :recipe-id="recipe.id"
+
+                 v-on="$listeners"
               />
             </v-lazy>
           </v-col>
@@ -105,6 +107,8 @@
                 :image="recipe.image"
                 :tags="recipe.tags"
                 :recipe-id="recipe.id"
+
+                v-on="$listeners"
               />
             </v-lazy>
           </v-col>
@@ -215,16 +219,20 @@ export default defineComponent({
     const router = useRouter();
 
     const queryFilter = computed(() => {
-      const orderBy = props.query?.orderBy || preferences.value.orderBy;
-      const orderByFilter = preferences.value.filterNull && orderBy ? `${orderBy} IS NOT NULL` : null;
+      return props.query.queryFilter || null;
 
-      if (props.query.queryFilter && orderByFilter) {
-        return `(${props.query.queryFilter}) AND ${orderByFilter}`;
-      } else if (props.query.queryFilter) {
-        return props.query.queryFilter;
-      } else {
-        return orderByFilter;
-      }
+      // TODO: allow user to filter out null values when ordering by a value that may be null (such as lastMade)
+
+      // const orderBy = props.query?.orderBy || preferences.value.orderBy;
+      // const orderByFilter = preferences.value.filterNull && orderBy ? `${orderBy} IS NOT NULL` : null;
+
+      // if (props.query.queryFilter && orderByFilter) {
+      //   return `(${props.query.queryFilter}) AND ${orderByFilter}`;
+      // } else if (props.query.queryFilter) {
+      //   return props.query.queryFilter;
+      // } else {
+      //   return orderByFilter;
+      // }
     });
 
     async function fetchRecipes(pageCount = 1) {
@@ -295,6 +303,7 @@ export default defineComponent({
         loading.value = false;
       }, useAsyncKey());
     }, 500);
+
 
     function sortRecipes(sortType: string) {
       if (state.sortLoading || loading.value) {

@@ -109,11 +109,6 @@
       <template #button-row>
         <BaseButton create @click="state.createDialog = true">{{ $t("general.create") }}</BaseButton>
       </template>
-      <template #item.onHand="{ item }">
-        <v-icon :color="item.onHand ? 'success' : undefined">
-          {{ item.onHand ? $globals.icons.check : $globals.icons.close }}
-        </v-icon>
-      </template>
     </CrudTable>
   </div>
 </template>

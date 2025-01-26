@@ -14,7 +14,7 @@
           :show-add="true"
           selector-type="categories"
         />
-        <RecipeChips v-else :items="recipe.recipeCategory" />
+        <RecipeChips v-else :items="recipe.recipeCategory" v-on="$listeners" />
       </v-card-text>
     </v-card>
 
@@ -32,7 +32,7 @@
           :show-add="true"
           selector-type="tags"
         />
-        <RecipeChips v-else :items="recipe.tags" url-prefix="tags" />
+        <RecipeChips v-else :items="recipe.tags" url-prefix="tags" v-on="$listeners" />
       </v-card-text>
     </v-card>
 
@@ -41,7 +41,7 @@
       <v-card-title class="py-2"> {{ $t('tool.required-tools') }} </v-card-title>
       <v-divider class="mx-2" />
       <v-card-text class="pt-0">
-        <RecipeOrganizerSelector v-model="recipe.tools" selector-type="tools" />
+        <RecipeOrganizerSelector v-model="recipe.tools" selector-type="tools" v-on="$listeners" />
       </v-card-text>
     </v-card>
 
@@ -81,6 +81,8 @@ export default defineComponent({
   setup(props) {
     const { user } = usePageUser();
     const { isEditForm } = usePageState(props.recipe.slug);
+
+
 
     return {
       isEditForm,
