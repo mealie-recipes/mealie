@@ -234,7 +234,7 @@ export default defineComponent({
 
     onUnmounted(async () => {
       const isSame = JSON.stringify(props.recipe) === JSON.stringify(originalRecipe.value);
-      if (isEditMode.value && !isSame && props.recipe?.slug !== undefined) {
+      if (!isSame && props.recipe?.slug !== undefined) {
         const save = window.confirm(
           i18n.tc("general.unsaved-changes"),
           );
@@ -274,7 +274,8 @@ export default defineComponent({
       const { data } = await api.recipes.updateOne(props.recipe.slug, props.recipe);
       setMode(PageMode.VIEW);
       if (data?.slug) {
-        router.push(`/g/${groupSlug.value}/r/` + data.slug);
+        Object.assign(originalRecipe.value, props.recipe);
+        router.push(`/g/${groupSlug.value}/r/${data.slug}`);
       }
     }
 
