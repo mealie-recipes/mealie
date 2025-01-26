@@ -5,7 +5,7 @@
         <v-icon v-if="title" large left>
           {{ displayTitleIcon }}
         </v-icon>
-        <v-toolbar-title class="headline"> {{ title }} </v-toolbar-title>
+        <v-toolbar-title class="headline"> {{ title }} ({{ recipes.length }})</v-toolbar-title>
       </slot>
       <v-spacer></v-spacer>
       <v-btn :icon="$vuetify.breakpoint.xsOnly" text :disabled="recipes.length === 0" @click="navigateRandom">
