@@ -22,14 +22,15 @@
             :items="availableParsers"
           />
         </div>
-      </BaseCardSectionTitle>
 
-      <div class="d-flex mt-n3 mb-4 justify-end" style="gap: 5px">
-        <BaseButton cancel class="mr-auto" @click="$router.go(-1)"></BaseButton>
         <BaseButton color="info" :disabled="parserLoading" @click="fetchParsed">
           <template #icon> {{ $globals.icons.foods }}</template>
           {{ $tc("recipe.parser.parse-all") }}
         </BaseButton>
+      </BaseCardSectionTitle>
+
+      <div class="d-flex mt-n3 mb-4 justify-end" style="position: sticky; top: 65px; z-index: 2;">
+        <BaseButton cancel class="mr-auto" @click="$router.go(-1)"></BaseButton>
         <BaseButton save :disabled="parserLoading" @click="saveAll" />
       </div>
 
