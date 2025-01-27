@@ -72,22 +72,26 @@
                 {{ ing.input }}
                 <v-card-actions>
                   <v-spacer />
-                  <BaseButton
-                    v-if="errors[index].unitError && errors[index].unitErrorMessage !== ''"
-                    color="warning"
-                    small
-                    @click="createUnit(ing.ingredient.unit, index)"
-                  >
-                    {{ errors[index].unitErrorMessage }}
-                  </BaseButton>
-                  <BaseButton
-                    v-if="errors[index].foodError && errors[index].foodErrorMessage !== ''"
-                    color="warning"
-                    small
-                    @click="createFood(ing.ingredient.food, index)"
-                  >
-                    {{ errors[index].foodErrorMessage }}
-                  </BaseButton>
+                  <ul style="list-style-type: none;">
+                    <li v-if="errors[index].unitError && errors[index].unitErrorMessage !== ''">
+                      <BaseButton
+                        color="warning"
+                        small
+                        @click="createUnit(ing.ingredient.unit, index)"
+                      >
+                        {{ errors[index].unitErrorMessage }}
+                      </BaseButton>
+                    </li>
+                    <li v-if="errors[index].foodError && errors[index].foodErrorMessage !== ''">
+                      <BaseButton
+                        color="warning"
+                        small
+                        @click="createFood(ing.ingredient.food, index)"
+                      >
+                        {{ errors[index].foodErrorMessage }}
+                      </BaseButton>
+                    </li>
+                  </ul>
                 </v-card-actions>
               </v-expansion-panel-content>
             </v-expansion-panel>
