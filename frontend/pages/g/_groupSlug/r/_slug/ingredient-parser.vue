@@ -21,12 +21,12 @@
             btn-class="mx-2 mb-4"
             :items="availableParsers"
           />
-        </div>
 
-        <BaseButton color="info" :disabled="parserLoading" @click="fetchParsed">
-          <template #icon> {{ $globals.icons.foods }}</template>
-          {{ $tc("recipe.parser.parse-all") }}
-        </BaseButton>
+          <BaseButton color="info" class="mb-4" :disabled="parserLoading" @click="fetchParsed">
+            <template #icon> {{ $globals.icons.foods }}</template>
+            {{ $tc("recipe.parser.parse-all") }}
+          </BaseButton>
+        </div>
       </BaseCardSectionTitle>
 
       <div class="d-flex mt-n3 mb-4 justify-end" style="position: sticky; top: 65px; z-index: 2;">
