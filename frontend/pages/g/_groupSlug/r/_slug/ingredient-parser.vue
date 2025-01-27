@@ -30,7 +30,7 @@
       </BaseCardSectionTitle>
 
       <div class="d-flex mt-n3 mb-4 justify-end" style="position: sticky; top: 65px; z-index: 2;">
-        <BaseButton cancel class="mr-auto" @click="$router.go(-1)"></BaseButton>
+        <BaseButton cancel @click="$router.go(-1)"></BaseButton>
         <BaseButton save :disabled="parserLoading" @click="saveAll" />
       </div>
 
