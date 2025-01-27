@@ -1,6 +1,25 @@
 <template>
   <div>
     <h2 class="mb-4">{{ $t("recipe.ingredients") }}</h2>
+    <v-tooltip top color="accent">
+      <template #activator="{ on, attrs }">
+        <span v-on="on">
+          <BaseButton
+            class="mb-1"
+            :disabled="recipe.settings.disableAmount || hasFoodOrUnit"
+            color="accent"
+            :to="`/g/${groupSlug}/r/${recipe.slug}/ingredient-parser`"
+            v-bind="attrs"
+          >
+            <template #icon>
+              {{ $globals.icons.foods }}
+            </template>
+            {{ $t('recipe.parse') }}
+          </BaseButton>
+        </span>
+      </template>
+      <span>{{ parserToolTip }}</span>
+    </v-tooltip>
     <draggable
       v-if="recipe.recipeIngredient.length > 0"
       v-model="recipe.recipeIngredient"
@@ -31,25 +50,6 @@
     </draggable>
     <v-skeleton-loader v-else boilerplate elevation="2" type="list-item"> </v-skeleton-loader>
     <div class="d-flex flex-wrap justify-center justify-sm-end mt-3">
-      <v-tooltip top color="accent">
-        <template #activator="{ on, attrs }">
-          <span v-on="on">
-            <BaseButton
-              class="mb-1"
-              :disabled="recipe.settings.disableAmount || hasFoodOrUnit"
-              color="accent"
-              :to="`/g/${groupSlug}/r/${recipe.slug}/ingredient-parser`"
-              v-bind="attrs"
-            >
-              <template #icon>
-                {{ $globals.icons.foods }}
-              </template>
-              {{ $t('recipe.parse') }}
-            </BaseButton>
-          </span>
-        </template>
-        <span>{{ parserToolTip }}</span>
-      </v-tooltip>
       <RecipeDialogBulkAdd class="mx-1 mb-1" @bulk-data="addIngredient" />
       <BaseButton class="mb-1" @click="addIngredient" > {{ $t("general.add") }} </BaseButton>
     </div>
