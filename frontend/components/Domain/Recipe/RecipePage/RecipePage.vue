@@ -1,5 +1,20 @@
 <template>
   <div>
+    <v-snackbar
+      v-model="snackbar"
+      :timeout="0"
+      top
+    >
+      {{ snackbarText }}
+      <template #action="{ attrs }">
+        <v-btn text v-bind="attrs" @click="discardChanges">
+          {{ discardText }}
+        </v-btn>
+        <v-btn color="primary" text v-bind="attrs" @click="saveRecipe">
+          {{ saveText }}
+        </v-btn>
+      </template>
+    </v-snackbar>
     <v-container v-show="!isCookMode" key="recipe-page" :class="{ 'pa-0': $vuetify.breakpoint.smAndDown }">
       <v-card :flat="$vuetify.breakpoint.smAndDown" class="d-print-none">
         <RecipePageHeader
@@ -204,7 +219,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { $auth } = useContext();
+    const { $auth, $vuetify, i18n } = useContext();
     const route = useRoute();
     const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
     const { isOwnGroup } = useLoggedInState();
@@ -267,14 +282,14 @@ export default defineComponent({
     });
 
     /** =============================================================
-     * Recipe Save Delete
+     * Recipe Save Delete Cancel
      */
 
     async function saveRecipe() {
       const { data } = await api.recipes.updateOne(props.recipe.slug, props.recipe);
       setMode(PageMode.VIEW);
       if (data?.slug) {
-        Object.assign(originalRecipe.value, props.recipe);
+        originalRecipe.value = deepCopy(props.recipe);
         router.push(`/g/${groupSlug.value}/r/${data.slug}`);
       }
     }
@@ -286,10 +301,17 @@ export default defineComponent({
       }
     }
 
+    function discardChanges() {
+      Object.assign(props.recipe, originalRecipe.value);
+    }
+
+    const snackbar = computed(() => {
+      return JSON.stringify(props.recipe) !== JSON.stringify(originalRecipe.value) && pageMode.value !== PageMode.EDIT;
+    })
+
     /** =============================================================
      * View Preferences
      */
-    const { $vuetify, i18n } = useContext();
 
     const landscape = computed(() => {
       const preferLandscape = props.recipe.settings.landscapeView;
@@ -348,7 +370,10 @@ export default defineComponent({
       scale: ref(1),
       EDITOR_OPTIONS,
       landscape,
-
+      snackbar,
+      snackbarText: i18n.tc("general.unsaved-changes"),
+      saveText: i18n.tc("general.save"),
+      discardText: i18n.tc("general.cancel"),
       pageMode,
       editMode,
       PageMode,
@@ -360,6 +385,7 @@ export default defineComponent({
       toggleCookMode,
       saveRecipe,
       deleteRecipe,
+      discardChanges,
       addStep,
       hasLinkedIngredients,
       notLinkedIngredients,
