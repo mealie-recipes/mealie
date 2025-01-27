@@ -72,26 +72,24 @@
                 {{ ing.input }}
                 <v-card-actions>
                   <v-spacer />
-                  <ul style="list-style-type: none;">
-                    <li v-if="errors[index].unitError && errors[index].unitErrorMessage !== ''">
-                      <BaseButton
-                        color="warning"
-                        small
-                        @click="createUnit(ing.ingredient.unit, index)"
-                      >
-                        {{ errors[index].unitErrorMessage }}
-                      </BaseButton>
-                    </li>
-                    <li v-if="errors[index].foodError && errors[index].foodErrorMessage !== ''">
-                      <BaseButton
-                        color="warning"
-                        small
-                        @click="createFood(ing.ingredient.food, index)"
-                      >
-                        {{ errors[index].foodErrorMessage }}
-                      </BaseButton>
-                    </li>
-                  </ul>
+                  <BaseButton
+                    v-if="errors[index].unitError && errors[index].unitErrorMessage !== ''"
+                    :title=errors[index].unitErrorMessage
+                    color="warning"
+                    small
+                    @click="createUnit(ing.ingredient.unit, index)"
+                  >
+                    {{ errors[index].unit }}
+                  </BaseButton>
+                  <BaseButton
+                    v-if="errors[index].foodError && errors[index].foodErrorMessage !== ''"
+                    :title=errors[index].foodErrorMessage
+                    color="warning"
+                    small
+                    @click="createFood(ing.ingredient.food, index)"
+                  >
+                    {{ errors[index].food }}
+                  </BaseButton>
                 </v-card-actions>
               </v-expansion-panel-content>
             </v-expansion-panel>
@@ -101,7 +99,12 @@
     </v-container>
   </v-container>
 </template>
-
+<style lang="css">
+.v-card__actions {
+  flex-wrap: wrap;
+  overflow: truncate;
+}
+</style>
 <script lang="ts">
 import { computed, defineComponent, ref, useContext, useRoute, useRouter, watch } from "@nuxtjs/composition-api";
 import { invoke, until } from "@vueuse/core";
@@ -191,20 +194,23 @@ export default defineComponent({
       const unitError = !checkForUnit(ing.ingredient.unit);
       const foodError = !checkForFood(ing.ingredient.food);
 
+      let unit = "";
+      let food = "";
+
       let unitErrorMessage = "";
       let foodErrorMessage = "";
 
       if (unitError || foodError) {
         if (unitError) {
           if (ing?.ingredient?.unit?.name) {
-            const unit = ing.ingredient.unit.name || i18n.tc("recipe.parser.no-unit");
+            unit = ing.ingredient.unit.name || i18n.tc("recipe.parser.no-unit");
             unitErrorMessage = i18n.t("recipe.parser.missing-unit", { unit }).toString();
           }
         }
 
         if (foodError) {
           if (ing?.ingredient?.food?.name) {
-            const food = ing.ingredient.food.name || i18n.tc("recipe.parser.no-food");
+            food = ing.ingredient.food.name || i18n.tc("recipe.parser.no-food");
             foodErrorMessage = i18n.t("recipe.parser.missing-food", { food }).toString();
           }
         }
@@ -214,8 +220,10 @@ export default defineComponent({
       return {
         ingredientIndex: index,
         unitError,
+        unit,
         unitErrorMessage,
         foodError,
+        food,
         foodErrorMessage,
       } as Error;
     }
