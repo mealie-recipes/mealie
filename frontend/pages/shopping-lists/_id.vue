@@ -17,10 +17,68 @@
         <v-container>
           <v-row>
             <v-col cols="3" class="text-left">
-              <ButtonLink :to="`/shopping-lists?disableRedirect=true`" :text="$tc('general.back')" :icon="$globals.icons.backArrow" />
+              <ButtonLink :to="`/shopping-lists?disableRedirect=true`" :text="$tc('shopping-list.all-lists')" :icon="$globals.icons.backArrow" />
             </v-col>
-            <v-col cols="6" class="d-flex justify-center">
+            <v-col cols="6" class="d-none d-lg-flex justify-center">
               <v-img max-height="100" max-width="100" :src="require('~/static/svgs/shopping-cart.svg')"></v-img>
+            </v-col>
+            <v-col class="d-flex justify-end">
+              <BaseButtonGroup
+                :buttons="[
+                  {
+                    icon: $globals.icons.contentCopy,
+                    text: '',
+                    event: 'edit',
+                    children: [
+                      {
+                        icon: $globals.icons.contentCopy,
+                        text: $tc('shopping-list.copy-as-text'),
+                        event: 'copy-plain',
+                      },
+                      {
+                        icon: $globals.icons.contentCopy,
+                        text: $tc('shopping-list.copy-as-markdown'),
+                        event: 'copy-markdown',
+                      },
+                    ],
+                  },
+                  {
+                    icon: $globals.icons.checkboxOutline,
+                    text: $tc('shopping-list.check-all-items'),
+                    event: 'check',
+                  },
+                  {
+                    icon: $globals.icons.dotsVertical,
+                    text: '',
+                    event: 'three-dot',
+                    children: [
+                      {
+                        icon: $globals.icons.tags,
+                        text: $tc('shopping-list.toggle-label-sort'),
+                        event: 'sort-by-labels',
+                      },
+                      {
+                        icon: $globals.icons.tags,
+                        text: $tc('shopping-list.reorder-labels'),
+                        event: 'reorder-labels',
+                      },
+                      {
+                        icon: $globals.icons.tags,
+                        text: $tc('shopping-list.manage-labels'),
+                        event: 'manage-labels',
+                      },
+                    ],
+                  },
+                ]"
+                @edit="edit = true"
+                @three-dot="threeDot = true"
+                @check="openCheckAll"
+                @sort-by-labels="sortByLabels"
+                @copy-plain="copyListItems('plain')"
+                @copy-markdown="copyListItems('markdown')"
+                @reorder-labels="toggleReorderLabelsDialog()"
+                @manage-labels="$router.push(`/group/data/labels`)"
+              />
             </v-col>
           </v-row>
         </v-container>
@@ -119,27 +177,6 @@
         </v-card>
       </BaseDialog>
 
-      <!-- Settings -->
-      <BaseDialog
-        v-model="settingsDialog"
-        :icon="$globals.icons.cog"
-        :title="$t('general.settings')"
-        @confirm="updateSettings"
-      >
-        <v-container>
-          <v-form>
-            <v-select
-              v-model="currentUserId"
-              :items="allUsers"
-              item-text="fullName"
-              item-value="id"
-              :label="$t('general.owner')"
-              :prepend-icon="$globals.icons.user"
-            />
-          </v-form>
-        </v-container>
-      </BaseDialog>
-
       <!-- Create Item -->
       <div v-if="createEditorOpen">
         <ShoppingListItemEditor
@@ -154,78 +191,41 @@
         />
       </div>
       <div v-else class="mt-4 d-flex justify-end">
-        <BaseButton
-          v-if="preferences.viewByLabel" edit class="mr-2"
-          :disabled="$nuxt.isOffline"
-          @click="toggleReorderLabelsDialog">
-          <template #icon> {{ $globals.icons.tags }} </template>
-          {{ $t('shopping-list.reorder-labels') }}
-        </BaseButton>
         <BaseButton create @click="createEditorOpen = true" > {{ $t('general.add') }} </BaseButton>
-      </div>
-
-      <!-- Action Bar -->
-      <div class="d-flex justify-end mb-4 mt-2">
-        <BaseButtonGroup
-          :buttons="[
-            {
-              icon: $globals.icons.contentCopy,
-              text: '',
-              event: 'edit',
-              children: [
-                {
-                  icon: $globals.icons.contentCopy,
-                  text: $tc('shopping-list.copy-as-text'),
-                  event: 'copy-plain',
-                },
-                {
-                  icon: $globals.icons.contentCopy,
-                  text: $tc('shopping-list.copy-as-markdown'),
-                  event: 'copy-markdown',
-                },
-              ],
-            },
-            {
-              icon: $globals.icons.delete,
-              text: $tc('shopping-list.delete-checked'),
-              event: 'delete',
-            },
-            {
-              icon: $globals.icons.tags,
-              text: $tc('shopping-list.toggle-label-sort'),
-              event: 'sort-by-labels',
-            },
-            {
-              icon: $globals.icons.checkboxBlankOutline,
-              text: $tc('shopping-list.uncheck-all-items'),
-              event: 'uncheck',
-            },
-            {
-              icon: $globals.icons.checkboxOutline,
-              text: $tc('shopping-list.check-all-items'),
-              event: 'check',
-            },
-          ]"
-          @edit="edit = true"
-          @delete="openDeleteChecked"
-          @uncheck="openUncheckAll"
-          @check="openCheckAll"
-          @sort-by-labels="sortByLabels"
-          @copy-plain="copyListItems('plain')"
-          @copy-markdown="copyListItems('markdown')"
-        />
       </div>
 
       <!-- Checked Items -->
       <div v-if="listItems.checked && listItems.checked.length > 0" class="mt-6">
-        <button @click="toggleShowChecked()">
-          <span>
-            <v-icon>
-              {{ showChecked ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
-            </v-icon>
-          </span>
-          {{ $tc('shopping-list.items-checked-count', listItems.checked ? listItems.checked.length : 0) }}
-        </button>
+        <div class="d-flex">
+          <div class="flex-grow-1">
+            <button @click="toggleShowChecked()">
+              <span>
+                <v-icon>
+                  {{ showChecked ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
+                </v-icon>
+              </span>
+              {{ $tc('shopping-list.items-checked-count', listItems.checked ? listItems.checked.length : 0) }}
+            </button>
+          </div>
+          <div class="justify-end mt-n2">
+            <BaseButtonGroup
+                :buttons="[
+                  {
+                    icon: $globals.icons.checkboxBlankOutline,
+                    text: $tc('shopping-list.uncheck-all-items'),
+                    event: 'uncheck',
+                  },
+                  {
+                    icon: $globals.icons.delete,
+                    text: $tc('shopping-list.delete-checked'),
+                    event: 'delete',
+                  },
+                ]"
+                @uncheck="openUncheckAll"
+                @delete="openDeleteChecked"
+              />
+            </div>
+        </div>
         <v-divider class="my-4"></v-divider>
         <v-expand-transition>
           <div v-show="showChecked">
@@ -277,29 +277,6 @@
         </RecipeList>
       </section>
     </v-lazy>
-
-    <v-lazy>
-      <div class="d-flex justify-end">
-        <BaseButton
-          edit
-          :disabled="$nuxt.isOffline"
-          @click="toggleSettingsDialog"
-        >
-          <template #icon> {{ $globals.icons.cog }} </template>
-          {{ $t('general.settings') }}
-        </BaseButton>
-      </div>
-    </v-lazy>
-
-    <v-lazy>
-      <div v-if="$nuxt.isOnline" class="d-flex justify-end mt-10">
-        <ButtonLink
-          :to="`/group/data/labels`"
-          :text="$tc('shopping-list.manage-labels')"
-          :icon="$globals.icons.tags"
-        />
-      </div>
-    </v-lazy>
     <WakelockSwitch/>
   </v-container>
 </template>
@@ -314,7 +291,6 @@ import { useUserApi } from "~/composables/api";
 import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurposeLabelSection.vue"
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
 import { ShoppingListItemOut, ShoppingListMultiPurposeLabelOut, ShoppingListOut } from "~/lib/api/types/household";
-import { UserOut } from "~/lib/api/types/user";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
@@ -349,8 +325,8 @@ export default defineComponent({
     const userApi = useUserApi();
 
     const edit = ref(false);
+    const threeDot = ref(false);
     const reorderLabelsDialog = ref(false);
-    const settingsDialog = ref(false);
     const preserveItemOrder = ref(false);
 
     const route = useRoute();
@@ -676,13 +652,6 @@ export default defineComponent({
       loadingCounter.value += 1
       reorderLabelsDialog.value = !reorderLabelsDialog.value
       localLabels.value = shoppingList.value?.labelSettings
-    }
-
-    async function toggleSettingsDialog() {
-      if (!settingsDialog.value) {
-        await fetchAllUsers();
-      }
-      settingsDialog.value = !settingsDialog.value;
     }
 
     function updateLabelOrder(labelSettings: ShoppingListMultiPurposeLabelOut[]) {
@@ -1064,39 +1033,6 @@ export default defineComponent({
       refresh();
     }
 
-    // ===============================================================
-    // Shopping List Settings
-
-    const allUsers = ref<UserOut[]>([]);
-    const currentUserId = ref<string | undefined>();
-    async function fetchAllUsers() {
-      const { data } = await userApi.households.fetchMembers();
-      if (!data) {
-        return;
-      }
-
-      // update current user
-      allUsers.value = data.items.sort((a, b) => ((a.fullName || "") < (b.fullName || "") ? -1 : 1));
-      currentUserId.value = shoppingList.value?.userId;
-    }
-
-    async function updateSettings() {
-      if (!shoppingList.value || !currentUserId.value) {
-        return;
-      }
-
-      loadingCounter.value += 1;
-      const { data } = await userApi.shopping.lists.updateOne(
-        shoppingList.value.id,
-        {...shoppingList.value, userId: currentUserId.value},
-      );
-      loadingCounter.value -= 1;
-
-      if (data) {
-        refresh();
-      }
-    }
-
     return {
       ...toRefs(state),
       addRecipeReferenceToList,
@@ -1112,6 +1048,7 @@ export default defineComponent({
       openDeleteChecked,
       deleteListItem,
       edit,
+      threeDot,
       getLabelColor,
       groupSlug,
       itemsByLabel,
@@ -1123,8 +1060,6 @@ export default defineComponent({
       removeRecipeReferenceToList,
       reorderLabelsDialog,
       toggleReorderLabelsDialog,
-      settingsDialog,
-      toggleSettingsDialog,
       localLabels,
       updateLabelOrder,
       cancelLabelOrder,
@@ -1144,9 +1079,6 @@ export default defineComponent({
       updateIndexUncheckedByLabel,
       allUnits,
       allFoods,
-      allUsers,
-      currentUserId,
-      updateSettings,
       getTextColor,
     };
   },

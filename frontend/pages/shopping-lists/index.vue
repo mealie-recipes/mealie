@@ -6,6 +6,27 @@
       </v-card-text>
     </BaseDialog>
 
+    <!-- Settings -->
+    <BaseDialog
+        v-model="ownerDialog"
+        :icon="$globals.icons.admin"
+        :title="$t('user.edit-user')"
+        @confirm="updateOwner"
+      >
+        <v-container>
+          <v-form>
+            <v-select
+              v-model="updateUserId"
+              :items="allUsers"
+              item-text="fullName"
+              item-value="id"
+              :label="$t('general.owner')"
+              :prepend-icon="$globals.icons.user"
+            />
+          </v-form>
+        </v-container>
+      </BaseDialog>
+
     <BaseDialog v-model="deleteDialog" :title="$tc('general.confirm')" color="error" @confirm="deleteOne">
       <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-delete-this-item') }}</v-card-text>
     </BaseDialog>
@@ -38,26 +59,34 @@
           <v-icon left>
             {{ $globals.icons.cartCheck }}
           </v-icon>
-          {{ list.name }}
-          <v-btn class="ml-auto" icon @click.prevent="openDelete(list.id)">
-            <v-icon>
-              {{ $globals.icons.delete }}
-            </v-icon>
-          </v-btn>
+          <div class="flex-grow-1">
+            {{ list.name }}
+          </div>
+          <div class="d-flex justify-end">
+            <v-btn icon @click.prevent="toggleOwnerDialog(list)">
+              <v-icon>
+                {{ $globals.icons.user }}
+              </v-icon>
+            </v-btn>
+            <v-btn icon @click.prevent="openDelete(list.id)">
+              <v-icon>
+                {{ $globals.icons.delete }}
+              </v-icon>
+            </v-btn>
+          </div>
         </v-card-title>
       </v-card>
     </section>
-    <div class="d-flex justify-end mt-10">
-      <ButtonLink :to="`/group/data/labels`" :text="$tc('shopping-list.manage-labels')" :icon="$globals.icons.tags" />
-    </div>
   </v-container>
 </template>
 
 <script lang="ts">
 import { computed, defineComponent, useAsync, useContext, reactive, ref, toRefs, useRoute, useRouter, watch } from "@nuxtjs/composition-api";
+import { ShoppingListOut } from "~/lib/api/types/household";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
+import { UserOut } from "~/lib/api/types/user";
 
 export default defineComponent({
   middleware: "auth",
@@ -77,6 +106,8 @@ export default defineComponent({
       createDialog: false,
       deleteDialog: false,
       deleteTarget: "",
+      ownerDialog: false,
+      ownerTarget: ref<ShoppingListOut | null>(null),
     });
 
     const shoppingLists = useAsync(async () => {
@@ -136,6 +167,53 @@ export default defineComponent({
       }
     }
 
+    async function toggleOwnerDialog(list: ShoppingListOut) {
+      if (!state.ownerDialog) {
+        state.ownerTarget = list;
+        await fetchAllUsers();
+      }
+      state.ownerDialog = !state.ownerDialog;
+    }
+
+    // ===============================================================
+    // Shopping List Edit User/Owner
+
+    const allUsers = ref<UserOut[]>([]);
+    const updateUserId = ref<string | undefined>();
+    async function fetchAllUsers() {
+      const { data } = await userApi.households.fetchMembers();
+      if (!data) {
+        return;
+      }
+
+      // update current user
+      allUsers.value = data.items.sort((a, b) => ((a.fullName || "") < (b.fullName || "") ? -1 : 1));
+      updateUserId.value = state.ownerTarget?.userId;
+    }
+
+    async function updateOwner() {
+      if (!state.ownerTarget || !updateUserId.value) {
+        return;
+      }
+      // user has not changed, so we should not update
+      if (state.ownerTarget.userId === updateUserId.value) {
+        return;
+      }
+      // get full list, so the move does not delete shopping list items
+      const { data: fullList } = await userApi.shopping.lists.getOne(state.ownerTarget.id);
+      if (!fullList) {
+        return;
+      }
+      const { data } = await userApi.shopping.lists.updateOne(
+        state.ownerTarget.id,
+        {...fullList, userId: updateUserId.value},
+      );
+
+      if (data) {
+        refresh();
+      }
+    }
+
     function openDelete(id: string) {
       state.deleteDialog = true;
       state.deleteTarget = id;
@@ -155,6 +233,10 @@ export default defineComponent({
       preferences,
       shoppingListChoices,
       createOne,
+      toggleOwnerDialog,
+      allUsers,
+      updateUserId,
+      updateOwner,
       deleteOne,
       openDelete,
     };
