@@ -2,7 +2,7 @@ import { useAsync, useRouter, ref } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useUserApi } from "~/composables/api";
-import { Recipe } from "~/lib/api/types/recipe";
+import { OrderByNullPosition, Recipe } from "~/lib/api/types/recipe";
 import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 
 export const allRecipes = ref<Recipe[]>([]);
@@ -11,12 +11,14 @@ export const recentRecipes = ref<Recipe[]>([]);
 function getParams(
   orderBy: string | null = null,
   orderDirection = "desc",
+  orderByNullPosition: OrderByNullPosition | null = null,
   query: RecipeSearchQuery | null = null,
   queryFilter: string | null = null
 ) {
   return {
     orderBy,
     orderDirection,
+    orderByNullPosition,
     paginationSeed: query?._searchSeed, // propagate searchSeed to stabilize random order pagination
     searchSeed: query?._searchSeed, // unused, but pass it along for completeness of data
     search: query?.search,
@@ -31,7 +33,6 @@ function getParams(
     foods: query?.foods,
     requireAllFoods: query?.requireAllFoods,
     queryFilter,
-    orderByNullPosition: query?.orderByNullPosition,
   };
 };
 
@@ -48,6 +49,7 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
     perPage: number,
     orderBy: string | null = null,
     orderDirection = "desc",
+    orderByNullPosition: OrderByNullPosition | null = null,
     query: RecipeSearchQuery | null = null,
     queryFilter: string | null = null,
   ) {
@@ -55,7 +57,7 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
     const { data, error } = await api.recipes.getAll(
       page,
       perPage,
-      getParams(orderBy, orderDirection, query, queryFilter),
+      getParams(orderBy, orderDirection, orderByNullPosition, query, queryFilter),
     );
 
     if (error?.response?.status === 404) {
