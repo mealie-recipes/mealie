@@ -202,6 +202,16 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             pagination_result.order_by = "created_at"
 
         q, count, total_pages = self.add_pagination_to_query(q, pagination_result)
+        if pagination_result.order_by == "last_made":  # fix order of null for postgres
+            last_made_column = self.column_aliases.get("last_made", RecipeModel.last_made)
+            # Clear the existing ORDER BY
+            q = q.order_by(None)
+            if pagination_result.order_direction == "asc":
+                # Nulls at the top when ascending
+                q = q.order_by(last_made_column.asc().nulls_first())
+            else:
+                # Nulls at the bottom when descending
+                q = q.order_by(last_made_column.desc().nulls_last())
 
         # Apply options late, so they do not get used for counting
         q = q.options(*RecipeSummary.loader_options())
