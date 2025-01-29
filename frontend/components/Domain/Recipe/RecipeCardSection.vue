@@ -237,7 +237,7 @@ export default defineComponent({
 
     async function fetchRecipes(pageCount = 1) {
       const orderDir = props.query?.orderDirection || preferences.value.orderDirection;
-      const orderByNull = orderDir === "asc" ? "first" : "last";
+      const orderByNullPosition = orderDir === "asc" ? "first" : "last";
       return await fetchMore(
         page.value,
         perPage * pageCount,
