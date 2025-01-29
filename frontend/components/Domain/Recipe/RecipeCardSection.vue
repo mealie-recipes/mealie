@@ -236,12 +236,18 @@ export default defineComponent({
     });
 
     async function fetchRecipes(pageCount = 1) {
+      const orderDir = props.query?.orderDirection || preferences.value.orderDirection;
+      const orderByNull = orderDir === "asc" ? "first" : "last";
       return await fetchMore(
         page.value,
         perPage * pageCount,
         props.query?.orderBy || preferences.value.orderBy,
-        props.query?.orderDirection || preferences.value.orderDirection,
-        props.query,
+        orderDir,
+        {
+          ...props.query,
+          // Pass the null-position to the backend
+          orderByNullPosition: orderByNull,
+        },
         // we use a computed queryFilter to filter out recipes that have a null value for the property we're sorting by
         queryFilter.value
       );

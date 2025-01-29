@@ -86,6 +86,8 @@ export type RecipeSearchQuery = {
   orderBy?: string;
 
   _searchSeed?: string;
+
+  orderByNullPosition?: "first" | "last";
 };
 
 export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {

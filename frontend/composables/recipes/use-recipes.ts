@@ -31,6 +31,7 @@ function getParams(
     foods: query?.foods,
     requireAllFoods: query?.requireAllFoods,
     queryFilter,
+    orderByNullPosition: query?.orderByNullPosition,
   };
 };
 
