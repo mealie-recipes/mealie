@@ -91,7 +91,7 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
   }
 
   async function getRandom(query: RecipeSearchQuery | null = null, queryFilter: string | null = null) {
-    const { data } = await api.recipes.getAll(1, 1, getParams("random", "desc", query, queryFilter));
+    const { data } = await api.recipes.getAll(1, 1, getParams("random", "desc", null, query, queryFilter));
     if (data?.items.length) {
       return data.items[0];
     }
