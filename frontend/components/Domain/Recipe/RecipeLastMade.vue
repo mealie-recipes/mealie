@@ -103,14 +103,15 @@
           label
           :small="$vuetify.breakpoint.smAndDown"
           color="accent custom-transparent"
-          class="ma-1 pa-3"
+          class="ma-1 pa-3 hover-editable"
               v-bind="attrs"
+              style="position: relative;"
               v-on="on"
         >
           <v-icon left>
             {{ $globals.icons.calendar }}
           </v-icon>
-            <div v-if="lastMadeReady">
+            <div v-if="lastMadeReady" class="last-made-text">
                 {{ $t('recipe.last-made-date', {
                   date: lastMade
                     ? new Date(lastMade).toLocaleDateString($i18n.locale)
@@ -120,6 +121,12 @@
             <div v-else>
               <AppLoader tiny />
             </div>
+            <div class="edit-last-made-text">
+              {{ $t("general.edit") }}
+            </div>
+            <v-icon class="pencil-icon" small>
+            mdi-pencil
+          </v-icon>
         </v-chip>
           </template>
 
@@ -343,3 +350,53 @@ export default defineComponent({
   },
 });
 </script>
+<style scoped>
+.hover-editable {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+}
+
+/* Default state: Show last-made text, hide edit message */
+.last-made-text {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+
+/* Edit message: Centered inside the chip */
+.edit-last-made-text {
+  position: absolute;
+  width: 100%;
+  text-align: center; /* Center horizontally */
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Hide last-made text & show edit message on hover */
+.hover-editable:hover .last-made-text {
+  opacity: 0;
+}
+
+.hover-editable:hover .edit-last-made-text {
+  opacity: 1;
+}
+
+/* Position the pencil icon */
+.pencil-icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Show pencil on hover */
+.hover-editable:hover .pencil-icon {
+  opacity: 1;
+}
+</style>
