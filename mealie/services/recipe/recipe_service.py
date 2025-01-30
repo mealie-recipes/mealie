@@ -413,12 +413,14 @@ class RecipeService(RecipeServiceBase):
         self.check_assets(new_data, recipe.slug)
         return new_data
 
-    def update_last_made(self, slug_or_id: str | UUID, timestamp: datetime) -> Recipe:
+    def update_last_made(self, slug_or_id: str | UUID, timestamp: datetime | None) -> Recipe:
         # we bypass the pre update check since any user can update a recipe's last made date, even if it's locked,
         # or if the user belongs to a different household
 
         household_service = HouseholdService(self.user.group_id, self.user.household_id, self.repos)
-        household_service.set_household_recipe(slug_or_id, HouseholdRecipeUpdate(last_made=timestamp))
+        household_service.set_household_recipe(
+            slug_or_id, HouseholdRecipeUpdate(last_made=timestamp if timestamp is not None else None)
+        )
 
         return self.get_one(slug_or_id)
 

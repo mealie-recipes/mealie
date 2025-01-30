@@ -459,7 +459,8 @@ class RecipeController(BaseRecipeController):
         """Update a recipe's last made timestamp"""
 
         try:
-            recipe = self.service.update_last_made(slug, data.timestamp)
+            # If timestamp is None, update with None
+            recipe = self.service.update_last_made(slug, data.timestamp if data.timestamp is not None else None)
         except Exception as e:
             self.handle_exceptions(e)
 

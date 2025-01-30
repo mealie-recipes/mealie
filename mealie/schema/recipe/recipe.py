@@ -369,7 +369,7 @@ class Recipe(RecipeSummary):
 
 
 class RecipeLastMade(BaseModel):
-    timestamp: datetime.datetime
+    timestamp: datetime.datetime | None  # Allows None
 
 
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient  # noqa: E402
