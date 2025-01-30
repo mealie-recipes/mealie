@@ -7,7 +7,7 @@
         :title="$tc('recipe.made-this')"
         :submit-text="$tc('recipe.add-to-timeline')"
         @submit="createTimelineEvent"
-      >
+        >
         <v-card-text>
           <v-form ref="domMadeThisForm">
             <v-textarea
@@ -87,7 +87,6 @@
         </v-card-text>
       </BaseDialog>
     </div>
-
     <div>
       <div class="d-flex justify-center flex-wrap">
         <!-- Wrap the chip in a v-menu so we can pick a date or set never -->
@@ -100,28 +99,28 @@
           min-width="auto"
         >
           <template #activator="{ on, attrs }">
-            <v-chip
-              label
-              :small="$vuetify.breakpoint.smAndDown"
-              color="accent custom-transparent"
-              class="ma-1 pa-3"
+        <v-chip
+          label
+          :small="$vuetify.breakpoint.smAndDown"
+          color="accent custom-transparent"
+          class="ma-1 pa-3"
               v-bind="attrs"
               v-on="on"
-            >
-              <v-icon left>
-                {{ $globals.icons.calendar }}
-              </v-icon>
-              <div v-if="lastMadeReady">
+        >
+          <v-icon left>
+            {{ $globals.icons.calendar }}
+          </v-icon>
+            <div v-if="lastMadeReady">
                 {{ $t('recipe.last-made-date', {
                   date: lastMade
                     ? new Date(lastMade).toLocaleDateString($i18n.locale)
                     : $t("general.never")
                 }) }}
-              </div>
-              <div v-else>
-                <AppLoader tiny />
-              </div>
-            </v-chip>
+            </div>
+            <div v-else>
+              <AppLoader tiny />
+            </div>
+        </v-chip>
           </template>
 
           <!-- Date picker to change lastMade -->
@@ -183,7 +182,6 @@ export default defineComponent({
     const newTimelineEventImagePreviewUrl = ref<string>();
     const newTimelineEventTimestamp = ref<string>();
 
-    // Last made
     const lastMade = ref(props.recipe.lastMade);
     const lastMadeReady = ref(false);
     // NEW: Toggle for menu, plus the date picker's local state
@@ -191,13 +189,13 @@ export default defineComponent({
     const lastMadeEdit = ref("");
 
     onMounted(async () => {
-      // Same existing logic
       if (!$auth.user?.householdSlug) {
         lastMade.value = props.recipe.lastMade;
       } else {
         const { data } = await userApi.households.getCurrentUserHouseholdRecipe(props.recipe.slug || "");
         lastMade.value = data?.lastMade;
       }
+
       lastMadeReady.value = true;
 
       // If lastMade exists, init the date picker to that date, else set to 'today'
@@ -206,7 +204,7 @@ export default defineComponent({
         : new Date().toISOString().substring(0, 10);
     });
 
-    // Keep the existing whenever for madeThisDialog
+
     whenever(
       () => madeThisDialog.value,
       () => {
@@ -219,7 +217,6 @@ export default defineComponent({
       }
     );
 
-    // Decide the first day of week from household preferences
     const firstDayOfWeek = computed(() => {
       return household.value?.preferences?.firstDayOfWeek || 0;
     });
@@ -249,19 +246,19 @@ export default defineComponent({
       newTimelineEventImageName.value = "";
       newTimelineEventImagePreviewUrl.value = undefined;
     }
+
     function uploadImage(fileObject: File) {
       newTimelineEventImage.value = fileObject;
       newTimelineEventImageName.value = fileObject.name;
       newTimelineEventImagePreviewUrl.value = URL.createObjectURL(fileObject);
     }
+
     function updateUploadedImage(fileObject: Blob) {
       newTimelineEventImage.value = fileObject;
       newTimelineEventImagePreviewUrl.value = URL.createObjectURL(fileObject);
     }
 
-    const state = reactive({ datePickerMenu: false });
-
-    // "I made this" form submission
+    const state = reactive({datePickerMenu: false});
     async function createTimelineEvent() {
       if (
         !(
@@ -273,45 +270,39 @@ export default defineComponent({
         return;
       }
 
-      newTimelineEvent.value.recipeId = props.recipe.id;
-      // @ts-expect-error - TS doesn't like the $auth user attribute
-      newTimelineEvent.value.subject = i18n.t("recipe.user-made-this", {
-        user: $auth.user.fullName,
-      });
+      newTimelineEvent.value.recipeId = props.recipe.id
+      // @ts-expect-error - TS doesn't like the $auth global user attribute
+      newTimelineEvent.value.subject = i18n.t("recipe.user-made-this", { user: $auth.user.fullName })
 
-      // Set time to end of day
-      newTimelineEvent.value.timestamp = new Date(
-        newTimelineEventTimestamp.value + "T23:59:59"
-      ).toISOString();
+      // the user only selects the date, so we set the time to end of day local time
+      // we choose the end of day so it always comes after "new recipe" events
+      newTimelineEvent.value.timestamp = new Date(newTimelineEventTimestamp.value + "T23:59:59").toISOString();
 
       const eventResponse = await userApi.recipes.createTimelineEvent(
         newTimelineEvent.value
       );
       const newEvent = eventResponse.data;
 
-      // Update last made if it's after the current lastMade
+      // we also update the recipe's last made value
       if (!lastMade.value || newTimelineEvent.value.timestamp > lastMade.value) {
         lastMade.value = newTimelineEvent.value.timestamp;
-        await userApi.recipes.updateLastMade(
-          props.recipe.slug,
-          newTimelineEvent.value.timestamp
-        );
+        await userApi.recipes.updateLastMade(props.recipe.slug,  newTimelineEvent.value.timestamp);
       }
 
-      // Update the image, if provided
+      // update the image, if provided
       if (newTimelineEventImage.value && newEvent) {
         const imageResponse = await userApi.recipes.updateTimelineEventImage(
           newEvent.id,
           newTimelineEventImage.value,
-          newTimelineEventImageName.value
+          newTimelineEventImageName.value,
         );
         if (imageResponse.data) {
-          // @ts-ignore
+          // @ts-ignore the image response data will always match a value of TimelineEventImage
           newEvent.image = imageResponse.data.image;
         }
       }
 
-      // Reset form
+      // reset form
       newTimelineEvent.value.eventMessage = "";
       newTimelineEvent.value.timestamp = undefined;
       clearImage();
@@ -322,7 +313,6 @@ export default defineComponent({
     }
 
     return {
-      // The original reactive datePickerMenu from your snippet
       ...toRefs(state),
 
       // Refs for the "I made this" dialog
@@ -333,7 +323,6 @@ export default defineComponent({
       newTimelineEventImage,
       newTimelineEventImageName,
       newTimelineEventImagePreviewUrl,
-
       // Computed
       firstDayOfWeek,
 
