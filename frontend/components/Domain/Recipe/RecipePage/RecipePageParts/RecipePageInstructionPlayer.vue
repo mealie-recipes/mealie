@@ -1,9 +1,12 @@
 <template>
-    <span class="v-btn__content">
-        <i v-if="!playing" aria-hidden="true" class="v-icon notranslate mdi mdi-play theme--dark" @click.stop="play"></i>
-        <i v-if="playing" aria-hidden="true" class="v-icon notranslate mdi mdi-pause theme--dark" @click.stop="pause"></i>
-        <i v-if="playing" aria-hidden="true" class="v-icon notranslate mdi mdi-pause theme--dark" @click.stop="resume"></i>
-    </span>
+    <div v-if="ttsSupported" class="v-btn__content">
+        <i v-if="canPlay" aria-hidden="true" class="v-icon notranslate mdi mdi-play theme--dark" @click.stop="play"></i>
+        <i v-if="canPause" aria-hidden="true" class="v-icon notranslate mdi mdi-pause theme--dark" @click.stop="pause"></i>
+        <i v-if="canResume" aria-hidden="true" class="v-icon notranslate mdi mdi-play theme--dark" @click.stop="resume"></i>
+        <i v-if="canStartAgain" aria-hidden="true" class="v-icon notranslate mdi mdi-restart theme--dark" @click.stop="play"></i>
+
+        <small @click.stop="pauseOrResume">{{ currentSentence }}</small>
+    </div>
 </template>
 
 <script lang="ts">
@@ -20,7 +23,9 @@ export default defineComponent({
   },
   setup() {
     onUnmounted(() => {
-        speechSynthesis.stop();
+        if (speechSynthesis) {
+            speechSynthesis.cancel();
+        }
     });
   },
   data() {
@@ -28,19 +33,57 @@ export default defineComponent({
         playing: false,
         played: false,
         paused: false,
-        utterance: null,
+        utterance: SpeechSynthesisUtterance,
         currentIndex: 0
     }
   },
+  computed: {
+    ttsSupported() {
+        return !!speechSynthesis;
+    },
+    canPlay() {
+        return !this.playing && !this.paused;
+    },
+    canPause() {
+        return this.playing && !this.paused;
+    },
+    canResume() {
+        return !this.playing && this.paused;
+    },
+    canStartAgain() {
+        return this.playing || this.paused;
+    },
+    nextIndex() {
+        // TODO: i18n stopwords in sync with the browser's implementation? Assumes . and ! are boundaries, may not be true for all languages.
+        const match = this.step.text.slice(this.currentIndex).search(/[\.\!]/)
+        if (match === -1) {
+            return this.currentIndex;
+        }
+        return this.currentIndex + match;
+    },
+    currentSentence() {
+        if (this.playing || this.paused) {
+            return this.step.text.slice(this.currentIndex, this.nextIndex);
+        }
+        return "";
+    }
+  },
   methods: {
+    pauseOrResume() {
+        if (this.paused) {
+            this.resume();
+        } else {
+            this.pause();
+        }
+    },
     play() {
         const self = this;
         if (this.utterance && this.playing) {
             speechSynthesis.cancel();
         }
 
-        this.utterance = new SpeechSynthesisUtterance(this.step.text);
-        this.utterance.onstart = (event) => {
+        const utterance = new SpeechSynthesisUtterance(this.step.text);
+        utterance.onstart = (event) => {
             self.playing = true;
             self.played = false;
             self.paused = false;
@@ -48,26 +91,26 @@ export default defineComponent({
 
             console.debug("Now playing: " + this.step.text);
         };
-        this.utterance.onend = () => {
+        utterance.onend = () => {
             self.playing = false;
             self.played = true;
             self.paused = false;
-            // self.$emit("playing", false);
+            self.$emit("ttscompleted", true);
 
             console.debug("Playback complete");
         };
 
-        this.utterance.onpause = () => {
+        utterance.onpause = () => {
             self.playing = false;
             self.paused = true;
         };
 
-        this.utterance.onresume = () => {
+        utterance.onresume = () => {
             self.playing = true;
             self.paused = false;
         };
 
-        this.utterance.onboundary = (event) => {
+        utterance.onboundary = (event) => {
             // Update the start of the current sentence.
             if (event.name === "sentence") {
                 self.currentIndex = event.charIndex;
@@ -78,13 +121,20 @@ export default defineComponent({
         //     console.log("mark")
         //     console.log(event)
         // };
-        this.utterance.onerror = (event) => {
-            console.error("Error in playback")
-            console.debug(event)
+        utterance.onerror = (event) => {
+            if (event.error == "interrupted") {
+                this.playing = false;
+                this.played = false;
+                this.paused = false;
+            } else {
+                console.error("Error in playback")
+                console.debug(event);
+            }
         };
 
-        speechSynthesis.speak(this.utterance);
-        return true;
+        speechSynthesis.speak(utterance);
+
+        this.utterance = utterance;
     },
     pause() {
         speechSynthesis.pause();

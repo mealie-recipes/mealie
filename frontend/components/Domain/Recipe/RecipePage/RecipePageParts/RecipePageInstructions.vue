@@ -122,6 +122,7 @@
               :ripple="false"
               @click="toggleDisabled(index)"
             >
+              <!-- TODO: Should a ttscompleted event mark the step 'done'? Or auto scroll? -->
               <v-card-title :class="{ 'pb-0': !isChecked(index) }">
                 <v-text-field
                   v-if="isEditForm"
