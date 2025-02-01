@@ -84,6 +84,7 @@ export type RecipeSearchQuery = {
   page?: number;
   perPage?: number;
   orderBy?: string;
+  orderByNullPosition?: "first" | "last";
 
   _searchSeed?: string;
 };
