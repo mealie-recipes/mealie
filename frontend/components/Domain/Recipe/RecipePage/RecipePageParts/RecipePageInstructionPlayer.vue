@@ -43,12 +43,14 @@ export default defineComponent({
         this.utterance = new SpeechSynthesisUtterance(this.step.text);
         this.utterance.onstart = (event) => {
             self.playing = true;
+            self.played = false;
             // self.$emit("playing", true); // TODO: Consider if this event should bubble or a proxy of it should.
 
             console.debug("Now playing: " + this.step.text);
         };
         this.utterance.onend = () => {
             self.playing = false;
+            self.played = true;
             // self.$emit("playing", false);
 
             console.debug("Playback complete");
