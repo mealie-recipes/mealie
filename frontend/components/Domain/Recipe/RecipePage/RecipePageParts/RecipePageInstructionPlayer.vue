@@ -78,9 +78,7 @@ export default defineComponent({
     },
     play() {
         const self = this;
-        if (this.utterance && this.playing) {
-            speechSynthesis.cancel();
-        }
+        speechSynthesis.cancel();
 
         const utterance = new SpeechSynthesisUtterance(this.step.text);
         utterance.onstart = (event) => {
