@@ -55,7 +55,7 @@ export default defineComponent({
     },
     nextIndex() {
         // TODO: i18n stopwords in sync with the browser's implementation? Assumes . and ! are boundaries, may not be true for all languages.
-        const match = this.step.text.slice(this.currentIndex).search(/[\.\!]/)
+        const match = this.step.text.slice(this.currentIndex).search(/[.!]/)
         if (match === -1) {
             return this.currentIndex;
         }
@@ -120,7 +120,7 @@ export default defineComponent({
         //     console.log(event)
         // };
         utterance.onerror = (event) => {
-            if (event.error == "interrupted") {
+            if (event.error === "interrupted") {
                 this.playing = false;
                 this.played = false;
                 this.paused = false;
