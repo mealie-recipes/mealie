@@ -4,7 +4,7 @@
     },
     "recipe": {
         "unique-name-error": "Название рецепта должно быть уникальным",
-        "recipe-created": "Recipe Created",
+        "recipe-created": "Рецепт создан",
         "recipe-defaults": {
             "ingredient-note": "1 Чашка муки",
             "step-text": "Шаги рецепта, как и другие поля на странице рецепта, поддерживают синтаксис Markdown.\n\n**Добавить ссылку**\n\n[Моя Ссылка](https://demo.mealie.io)\n"
@@ -12,8 +12,8 @@
         "servings-text": {
             "makes": "Makes",
             "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
+            "serving": "Порция",
+            "servings": "Порции",
             "yield": "Yield",
             "yields": "Yields"
         }

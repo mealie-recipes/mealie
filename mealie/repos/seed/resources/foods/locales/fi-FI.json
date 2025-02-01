@@ -317,7 +317,7 @@
 	},
 	"green-onion": {
 		"name": "vihreä sipuli",
-		"plural_name": "green onions"
+		"plural_name": "vihreää sipulia"
 	},
 	"heart-of-palm": {
 		"name": "palmun sydän",
@@ -484,7 +484,7 @@
 	},
 	"pineapple": {
 		"name": "ananas",
-		"plural_name": "pineapples"
+		"plural_name": "ananasta"
 	},
 	"plantain": {
 		"name": "keittobanaani",
@@ -505,7 +505,7 @@
 	},
 	"pumpkin": {
 		"name": "kurpitsa",
-		"plural_name": "pumpkins"
+		"plural_name": "kurpitsaa"
 	},
 	"pumpkin-seeds": {
 		"name": "kurpitsansiemen"
