@@ -1,7 +1,8 @@
 <template>
     <span class="v-btn__content">
-        <i v-if="!playing.value" aria-hidden="true" class="v-icon notranslate mdi mdi-play theme--dark" @click.stop="play"></i>
-        <i v-if="playing.value" aria-hidden="true" class="v-icon notranslate mdi mdi-pause theme--dark" @click.stop="pause"></i>
+        <i v-if="!playing" aria-hidden="true" class="v-icon notranslate mdi mdi-play theme--dark" @click.stop="play"></i>
+        <i v-if="playing" aria-hidden="true" class="v-icon notranslate mdi mdi-pause theme--dark" @click.stop="pause"></i>
+        <i v-if="playing" aria-hidden="true" class="v-icon notranslate mdi mdi-pause theme--dark" @click.stop="resume"></i>
     </span>
 </template>
 
@@ -26,11 +27,9 @@ export default defineComponent({
     return {
         playing: false,
         played: false,
+        paused: false,
         utterance: null,
-        currentIndex: {
-            type: Number,
-            default: 0
-        }
+        currentIndex: 0
     }
   },
   methods: {
@@ -44,6 +43,7 @@ export default defineComponent({
         this.utterance.onstart = (event) => {
             self.playing = true;
             self.played = false;
+            self.paused = false;
             // self.$emit("playing", true); // TODO: Consider if this event should bubble or a proxy of it should.
 
             console.debug("Now playing: " + this.step.text);
@@ -51,6 +51,7 @@ export default defineComponent({
         this.utterance.onend = () => {
             self.playing = false;
             self.played = true;
+            self.paused = false;
             // self.$emit("playing", false);
 
             console.debug("Playback complete");
@@ -58,10 +59,12 @@ export default defineComponent({
 
         this.utterance.onpause = () => {
             self.playing = false;
+            self.paused = true;
         };
 
         this.utterance.onresume = () => {
             self.playing = true;
+            self.paused = false;
         };
 
         this.utterance.onboundary = (event) => {
@@ -84,8 +87,10 @@ export default defineComponent({
         return true;
     },
     pause() {
-        console.log("Stop playing");
         speechSynthesis.pause();
+    },
+    resume() {
+        speechSynthesis.resume();
     }
   }
 });
