@@ -1,759 +1,692 @@
 {
-    "": {
-        "foods": {
-            "acorn-squash": {
-                "name": "どんぐりかぼちゃ"
-            },
-            "alfalfa-sprouts": {
-                "name": "アルファルファもやし"
-            },
-            "anchovies": {
-                "name": "アンチョビ"
-            },
-            "apples": {
-                "name": "りんご",
-                "plural_name": "りんご"
-            },
-            "artichoke": {
-                "name": "アーティチョーク"
-            },
-            "arugula": {
-                "name": "ルッコラ"
-            },
-            "asparagus": {
-                "name": "アスパラガス"
-            },
-            "avocado": {
-                "name": "アボカド",
-                "plural_name": "アボカド"
-            },
-            "bacon": {
-                "name": "ベーコン"
-            },
-            "baking-powder": {
-                "name": "ベーキングパウダー"
-            },
-            "baking-soda": {
-                "name": "重曹"
-            },
-            "baking-sugar": {
-                "name": "ベーキングシュガー"
-            },
-            "bar-sugar": {
-                "name": "棒砂糖"
-            },
-            "basil": {
-                "name": "バジル"
-            },
-            "beans": {
-                "name": "豆"
-            },
-            "bell-peppers": {
-                "name": "ピーマン",
-                "plural_name": "ピーマン"
-            },
-            "blackberries": {
-                "name": "ブラックベリー"
-            },
-            "bok-choy": {
-                "name": "チンゲンサイ"
-            },
-            "brassicas": {
-                "name": "アブラナ属"
-            },
-            "bread": {
-                "name": "パン"
-            },
-            "breadfruit": {
-                "name": "パンノキ"
-            },
-            "broccoflower": {
-                "name": "ブロッコフラワー"
-            },
-            "broccoli": {
-                "name": "ブロッコリー"
-            },
-            "broccoli-rabe": {
-                "name": "ブロッコリーラーブ"
-            },
-            "broccolini": {
-                "name": "スティックセニョール"
-            },
-            "brown-sugar": {
-                "name": "黒砂糖"
-            },
-            "brussels-sprouts": {
-                "name": "芽キャベツ"
-            },
-            "butter": {
-                "name": "バター"
-            },
-            "butternut-pumpkin": {
-                "name": "バターナッツ・スクワッシュ"
-            },
-            "butternut-squash": {
-                "name": "バターナッツ・スクワッシュ"
-            },
-            "cabbage": {
-                "name": "キャベツ",
-                "plural_name": "キャベツ"
-            },
-            "cactus-edible": {
-                "name": "食用サボテン"
-            },
-            "calabrese": {
-                "name": "カラブレーゼ"
-            },
-            "cane-sugar": {
-                "name": "甘庶糖"
-            },
-            "cannabis": {
-                "name": "大麻"
-            },
-            "capsicum": {
-                "name": "トウガラシ"
-            },
-            "caraway": {
-                "name": "キャラウェイ"
-            },
-            "carrot": {
-                "name": "人参",
-                "plural_name": "人参"
-            },
-            "caster-sugar": {
-                "name": "微粒子グラニュー糖"
-            },
-            "castor-sugar": {
-                "name": "微粒子グラニュー糖"
-            },
-            "catfish": {
-                "name": "ナマズ"
-            },
-            "cauliflower": {
-                "name": "カリフラワー",
-                "plural_name": "カリフラワー"
-            },
-            "cayenne-pepper": {
-                "name": "カイエンペッパー"
-            },
-            "celeriac": {
-                "name": "セルリアック"
-            },
-            "celery": {
-                "name": "セロリ"
-            },
-            "cereal-grains": {
-                "name": "穀物"
-            },
-            "chard": {
-                "name": "フダンソウ"
-            },
-            "cheese": {
-                "name": "チーズ"
-            },
-            "chicory": {
-                "name": "チコリー"
-            },
-            "chilli-peppers": {
-                "name": "チリペッパー",
-                "plural_name": "唐辛子"
-            },
-            "chinese-leaves": {
-                "name": "白菜"
-            },
-            "chives": {
-                "name": "浅葱"
-            },
-            "chocolate": {
-                "name": "チョコレート"
-            },
-            "cilantro": {
-                "name": "コリアンダー"
-            },
-            "cinnamon": {
-                "name": "シナモン"
-            },
-            "clarified-butter": {
-                "name": "澄ましバター"
-            },
-            "coconut": {
-                "name": "ココナッツ",
-                "plural_name": "ココナッツ"
-            },
-            "coconut-milk": {
-                "name": "ココナッツミルク"
-            },
-            "cod": {
-                "name": "タラ"
-            },
-            "coffee": {
-                "name": "コーヒー"
-            },
-            "collard-greens": {
-                "name": "カラードグリーン"
-            },
-            "confectioners-sugar": {
-                "name": "粉糖"
-            },
-            "coriander": {
-                "name": "コリアンダー"
-            },
-            "corn": {
-                "name": "トウモロコシ",
-                "plural_name": "トウモロコシ"
-            },
-            "corn-syrup": {
-                "name": "コーンシロップ"
-            },
-            "cottonseed-oil": {
-                "name": "綿実油"
-            },
-            "courgette": {
-                "name": "ズッキーニ"
-            },
-            "cream-of-tartar": {
-                "name": "ケレモル"
-            },
-            "cucumber": {
-                "name": "きゅうり",
-                "plural_name": "きゅうり"
-            },
-            "cumin": {
-                "name": "クミン"
-            },
-            "daikon": {
-                "name": "大根",
-                "plural_name": "大根"
-            },
-            "dairy-products-and-dairy-substitutes": {
-                "name": "乳製品および乳製品代替品"
-            },
-            "dandelion": {
-                "name": "タンポポ"
-            },
-            "demerara-sugar": {
-                "name": "デメララ砂糖"
-            },
-            "dough": {
-                "name": "生地"
-            },
-            "edible-cactus": {
-                "name": "食用サボテン"
-            },
-            "eggplant": {
-                "name": "茄子",
-                "plural_name": "茄子"
-            },
-            "eggs": {
-                "name": "卵",
-                "plural_name": "卵"
-            },
-            "endive": {
-                "name": "エンダイブ",
-                "plural_name": "エンダイブ"
-            },
-            "fats": {
-                "name": "脂質"
-            },
-            "fava-beans": {
-                "name": "そら豆"
-            },
-            "fiddlehead": {
-                "name": "ワラビ"
-            },
-            "fiddlehead-fern": {
-                "name": "ゼンマイ",
-                "plural_name": "フィドルヘッド"
-            },
-            "fish": {
-                "name": "魚"
-            },
-            "five-spice-powder": {
-                "name": "五香粉"
-            },
-            "flour": {
-                "name": "小麦粉"
-            },
-            "frisee": {
-                "name": "エンダイブ"
-            },
-            "fructose": {
-                "name": "果糖"
-            },
-            "fruit": {
-                "name": "果物"
-            },
-            "fruit-sugar": {
-                "name": "果糖"
-            },
-            "ful": {
-                "name": "そら豆"
-            },
-            "garam-masala": {
-                "name": "ガラムマサラ"
-            },
-            "garlic": {
-                "name": "ニンニク",
-                "plural_name": "ニンニク"
-            },
-            "gem-squash": {
-                "name": "ジェムスカッシュ"
-            },
-            "ghee": {
-                "name": "ギー"
-            },
-            "giblets": {
-                "name": "ジブレッツ"
-            },
-            "ginger": {
-                "name": "ショウガ"
-            },
-            "grains": {
-                "name": "穀物"
-            },
-            "granulated-sugar": {
-                "name": "グラニュー糖"
-            },
-            "grape-seed-oil": {
-                "name": "グレープシードオイル"
-            },
-            "green-onion": {
-                "name": "ネギ",
-                "plural_name": "ネギ"
-            },
-            "heart-of-palm": {
-                "name": "ハート・オブ・パーム",
-                "plural_name": "ハート・オブ・パーム"
-            },
-            "hemp": {
-                "name": "ヘンプ"
-            },
-            "herbs": {
-                "name": "ハーブ"
-            },
-            "honey": {
-                "name": "蜂蜜"
-            },
-            "isomalt": {
-                "name": "イソマルト"
-            },
-            "jackfruit": {
-                "name": "パラミツ",
-                "plural_name": "パラミツ"
-            },
-            "jaggery": {
-                "name": "ジャグリー"
-            },
-            "jams": {
-                "name": "ジャム"
-            },
-            "jellies": {
-                "name": "ジェリー"
-            },
-            "jerusalem-artichoke": {
-                "name": "キクイモ"
-            },
-            "jicama": {
-                "name": "ヒカマ"
-            },
-            "kale": {
-                "name": "ケール"
-            },
-            "kohlrabi": {
-                "name": "コールラビ"
-            },
-            "kumara": {
-                "name": "サツマイモ"
-            },
-            "leavening-agents": {
-                "name": "膨張剤"
-            },
-            "leek": {
-                "name": "ねぎ",
-                "plural_name": "セイヨウネギ"
-            },
-            "legumes": {
-                "name": "マメ"
-            },
-            "lemongrass": {
-                "name": "レモングラス"
-            },
-            "lentils": {
-                "name": "レンズ豆"
-            },
-            "lettuce": {
-                "name": "レタス"
-            },
-            "liver": {
-                "name": "レバー",
-                "plural_name": "レバー"
-            },
-            "maize": {
-                "name": "トウモロコシ"
-            },
-            "maple-syrup": {
-                "name": "メープルシロップ"
-            },
-            "meat": {
-                "name": "肉"
-            },
-            "milk": {
-                "name": "牛乳"
-            },
-            "mortadella": {
-                "name": "モルタデッラ"
-            },
-            "mushroom": {
-                "name": "キノコ",
-                "plural_name": "キノコ"
-            },
-            "mussels": {
-                "name": "ムール貝"
-            },
-            "nanaimo-bar-mix": {
-                "name": "ナナイモ・バー・ミックス"
-            },
-            "nori": {
-                "name": "のり"
-            },
-            "nutmeg": {
-                "name": "ナツメグ"
-            },
-            "nutritional-yeast-flakes": {
-                "name": "ナショナルイーストフレーク"
-            },
-            "nuts": {
-                "name": "ナッツ"
-            },
-            "octopuses": {
-                "name": "タコ",
-                "plural_name": "タコ"
-            },
-            "oils": {
-                "name": "油"
-            },
-            "okra": {
-                "name": "オクラ"
-            },
-            "olive": {
-                "name": "オリーブ"
-            },
-            "olive-oil": {
-                "name": "オリーブ油"
-            },
-            "onion": {
-                "name": "玉ねぎ"
-            },
-            "onion-family": {
-                "name": "タマネギの仲間"
-            },
-            "orange-blossom-water": {
-                "name": "オレンジの花の水"
-            },
-            "oranges": {
-                "name": "オレンジ",
-                "plural_name": "オレンジ"
-            },
-            "oregano": {
-                "name": "オレガノ"
-            },
-            "oysters": {
-                "name": "牡蠣"
-            },
-            "panch-puran": {
-                "name": "パンチフォロン"
-            },
-            "paprika": {
-                "name": "パプリカ"
-            },
-            "parsley": {
-                "name": "パセリ"
-            },
-            "parsnip": {
-                "name": "パースニプ",
-                "plural_name": "パースニップ"
-            },
-            "pear": {
-                "name": "ナシ",
-                "plural_name": "ナシ"
-            },
-            "peas": {
-                "name": "豆"
-            },
-            "pepper": {
-                "name": "コショウ",
-                "plural_name": "コショウ"
-            },
-            "pineapple": {
-                "name": "パイナップル",
-                "plural_name": "パイナップル"
-            },
-            "plantain": {
-                "name": "プランテン",
-                "plural_name": "プランテン"
-            },
-            "poppy-seeds": {
-                "name": "ケシの種"
-            },
-            "potato": {
-                "name": "ジャガイモ",
-                "plural_name": "ジャガイモ"
-            },
-            "poultry": {
-                "name": "鶏肉"
-            },
-            "powdered-sugar": {
-                "name": "粉糖"
-            },
-            "pumpkin": {
-                "name": "カボチャ",
-                "plural_name": "ペポかぼちゃ"
-            },
-            "pumpkin-seeds": {
-                "name": "かぼちゃの種"
-            },
-            "radish": {
-                "name": "大根",
-                "plural_name": "ハツカダイコン"
-            },
-            "raw-sugar": {
-                "name": "生の砂糖"
-            },
-            "refined-sugar": {
-                "name": "精製糖"
-            },
-            "rice": {
-                "name": "米"
-            },
-            "rice-flour": {
-                "name": "米粉"
-            },
-            "rock-sugar": {
-                "name": "氷砂糖"
-            },
-            "rum": {
-                "name": "ラム酒"
-            },
-            "salmon": {
-                "name": "鮭"
-            },
-            "salt": {
-                "name": "塩"
-            },
-            "salt-cod": {
-                "name": "塩タラ"
-            },
-            "scallion": {
-                "name": "シャロット",
-                "plural_name": "シャロット"
-            },
-            "seafood": {
-                "name": "シーフード"
-            },
-            "seeds": {
-                "name": "種"
-            },
-            "sesame-seeds": {
-                "name": "ゴマの種"
-            },
-            "shallot": {
-                "name": "エシャロット",
-                "plural_name": "エシャロット"
-            },
-            "skate": {
-                "name": "ガンギエイ"
-            },
-            "soda": {
-                "name": "ソーダ"
-            },
-            "soda-baking": {
-                "name": "ソーダ、ベーキング"
-            },
-            "soybean": {
-                "name": "大豆"
-            },
-            "spaghetti-squash": {
-                "name": "スパゲッティスカッシュ",
-                "plural_name": "キンシウリ"
-            },
-            "speck": {
-                "name": "スペック"
-            },
-            "spices": {
-                "name": "香辛料"
-            },
-            "spinach": {
-                "name": "ほうれん草"
-            },
-            "spring-onion": {
-                "name": "ネギ",
-                "plural_name": "葉タマネギ"
-            },
-            "squash": {
-                "name": "カボチャ",
-                "plural_name": "カボチャ"
-            },
-            "squash-family": {
-                "name": "カボチャの仲間"
-            },
-            "stockfish": {
-                "name": "ストックフィッシュ"
-            },
-            "sugar": {
-                "name": "砂糖"
-            },
-            "sunchoke": {
-                "name": "キクイモ",
-                "plural_name": "キクイモ"
-            },
-            "sunflower-seeds": {
-                "name": "ヒマワリの種"
-            },
-            "superfine-sugar": {
-                "name": "上白糖"
-            },
-            "sweet-potato": {
-                "name": "サツマイモ",
-                "plural_name": "サツマイモ"
-            },
-            "sweetcorn": {
-                "name": "スイートコーン",
-                "plural_name": "スイートコーン"
-            },
-            "sweeteners": {
-                "name": "甘味料"
-            },
-            "tahini": {
-                "name": "タヒニ"
-            },
-            "taro": {
-                "name": "タロ芋",
-                "plural_name": "タロイモ"
-            },
-            "teff": {
-                "name": "テフ"
-            },
-            "tomato": {
-                "name": "トマト",
-                "plural_name": "トマト"
-            },
-            "trout": {
-                "name": "マス"
-            },
-            "tubers": {
-                "name": "球根",
-                "plural_name": "塊茎"
-            },
-            "tuna": {
-                "name": "マグロ"
-            },
-            "turbanado-sugar": {
-                "name": "中白糖"
-            },
-            "turnip": {
-                "name": "カブ",
-                "plural_name": "カブ"
-            },
-            "unrefined-sugar": {
-                "name": "粗製糖"
-            },
-            "vanilla": {
-                "name": "バニラ"
-            },
-            "vegetables": {
-                "name": "野菜"
-            },
-            "watercress": {
-                "name": "クレソン"
-            },
-            "watermelon": {
-                "name": "スイカ",
-                "plural_name": "スイカ"
-            },
-            "white-mushroom": {
-                "name": "マッシュルーム",
-                "plural_name": "マッシュルーム"
-            },
-            "white-sugar": {
-                "name": "白砂糖"
-            },
-            "xanthan-gum": {
-                "name": "キサンタンガム"
-            },
-            "yam": {
-                "name": "ヤムイモ",
-                "plural_name": "ヤムイモ"
-            },
-            "yeast": {
-                "name": "イースト"
-            },
-            "zucchini": {
-                "name": "ズッキーニ",
-                "plural_name": "ズッキーニ"
-            }
-        }
-    },
-    "青果物": {
-        "foods": {}
-    },
-    "穀物": {
-        "foods": {}
-    },
-    "果物": {
-        "foods": {}
-    },
-    "野菜": {
-        "foods": {}
-    },
-    "肉": {
-        "foods": {}
-    },
-    "魚介類": {
-        "foods": {}
-    },
-    "飲料": {
-        "foods": {}
-    },
-    "焼き物": {
-        "foods": {}
-    },
-    "缶詰": {
-        "foods": {}
-    },
-    "調味料": {
-        "foods": {}
-    },
-    "砂糖菓子": {
-        "foods": {}
-    },
-    "乳製品": {
-        "foods": {}
-    },
-    "冷凍食品": {
-        "foods": {}
-    },
-    "健康食品": {
-        "foods": {}
-    },
-    "家庭": {
-        "foods": {}
-    },
-    "食肉製品": {
-        "foods": {}
-    },
-    "おやつ": {
-        "foods": {}
-    },
-    "香辛料": {
-        "foods": {}
-    },
-    "お菓子": {
-        "foods": {}
-    },
-    "お酒": {
-        "foods": {}
-    },
-    "その他": {
-        "foods": {}
-    }
+	"acorn-squash": {
+		"name": "どんぐりかぼちゃ"
+	},
+	"alfalfa-sprouts": {
+		"name": "アルファルファもやし"
+	},
+	"anchovies": {
+		"name": "アンチョビ"
+	},
+	"apples": {
+		"name": "りんご",
+		"plural_name": "りんご"
+	},
+	"artichoke": {
+		"name": "アーティチョーク"
+	},
+	"arugula": {
+		"name": "ルッコラ"
+	},
+	"asparagus": {
+		"name": "アスパラガス"
+	},
+	"avocado": {
+		"name": "アボカド",
+		"plural_name": "アボカド"
+	},
+	"bacon": {
+		"name": "ベーコン"
+	},
+	"baking-powder": {
+		"name": "ベーキングパウダー"
+	},
+	"baking-soda": {
+		"name": "重曹"
+	},
+	"baking-sugar": {
+		"name": "ベーキングシュガー"
+	},
+	"bar-sugar": {
+		"name": "棒砂糖"
+	},
+	"basil": {
+		"name": "バジル"
+	},
+	"beans": {
+		"name": "豆"
+	},
+	"bell-peppers": {
+		"name": "ピーマン",
+		"plural_name": "ピーマン"
+	},
+	"blackberries": {
+		"name": "ブラックベリー"
+	},
+	"bok-choy": {
+		"name": "チンゲンサイ"
+	},
+	"brassicas": {
+		"name": "アブラナ属"
+	},
+	"bread": {
+		"name": "パン"
+	},
+	"breadfruit": {
+		"name": "パンノキ"
+	},
+	"broccoflower": {
+		"name": "ブロッコフラワー"
+	},
+	"broccoli": {
+		"name": "ブロッコリー"
+	},
+	"broccoli-rabe": {
+		"name": "ブロッコリーラーブ"
+	},
+	"broccolini": {
+		"name": "スティックセニョール"
+	},
+	"brown-sugar": {
+		"name": "黒砂糖"
+	},
+	"brussels-sprouts": {
+		"name": "芽キャベツ"
+	},
+	"butter": {
+		"name": "バター"
+	},
+	"butternut-pumpkin": {
+		"name": "バターナッツ・スクワッシュ"
+	},
+	"butternut-squash": {
+		"name": "バターナッツ・スクワッシュ"
+	},
+	"cabbage": {
+		"name": "キャベツ",
+		"plural_name": "キャベツ"
+	},
+	"cactus-edible": {
+		"name": "食用サボテン"
+	},
+	"calabrese": {
+		"name": "カラブレーゼ"
+	},
+	"cane-sugar": {
+		"name": "甘庶糖"
+	},
+	"cannabis": {
+		"name": "大麻"
+	},
+	"capsicum": {
+		"name": "トウガラシ"
+	},
+	"caraway": {
+		"name": "キャラウェイ"
+	},
+	"carrot": {
+		"name": "人参",
+		"plural_name": "人参"
+	},
+	"caster-sugar": {
+		"name": "微粒子グラニュー糖"
+	},
+	"castor-sugar": {
+		"name": "微粒子グラニュー糖"
+	},
+	"catfish": {
+		"name": "ナマズ"
+	},
+	"cauliflower": {
+		"name": "カリフラワー",
+		"plural_name": "カリフラワー"
+	},
+	"cayenne-pepper": {
+		"name": "カイエンペッパー"
+	},
+	"celeriac": {
+		"name": "セルリアック"
+	},
+	"celery": {
+		"name": "セロリ"
+	},
+	"cereal-grains": {
+		"name": "穀物"
+	},
+	"chard": {
+		"name": "フダンソウ"
+	},
+	"cheese": {
+		"name": "チーズ"
+	},
+	"chicory": {
+		"name": "チコリー"
+	},
+	"chilli-peppers": {
+		"name": "チリペッパー",
+		"plural_name": "唐辛子"
+	},
+	"chinese-leaves": {
+		"name": "白菜"
+	},
+	"chives": {
+		"name": "浅葱"
+	},
+	"chocolate": {
+		"name": "チョコレート"
+	},
+	"cilantro": {
+		"name": "コリアンダー"
+	},
+	"cinnamon": {
+		"name": "シナモン"
+	},
+	"clarified-butter": {
+		"name": "澄ましバター"
+	},
+	"coconut": {
+		"name": "ココナッツ",
+		"plural_name": "ココナッツ"
+	},
+	"coconut-milk": {
+		"name": "ココナッツミルク"
+	},
+	"cod": {
+		"name": "タラ"
+	},
+	"coffee": {
+		"name": "コーヒー"
+	},
+	"collard-greens": {
+		"name": "カラードグリーン"
+	},
+	"confectioners-sugar": {
+		"name": "粉糖"
+	},
+	"coriander": {
+		"name": "コリアンダー"
+	},
+	"corn": {
+		"name": "トウモロコシ",
+		"plural_name": "トウモロコシ"
+	},
+	"corn-syrup": {
+		"name": "コーンシロップ"
+	},
+	"cottonseed-oil": {
+		"name": "綿実油"
+	},
+	"courgette": {
+		"name": "ズッキーニ"
+	},
+	"cream-of-tartar": {
+		"name": "ケレモル"
+	},
+	"cucumber": {
+		"name": "きゅうり",
+		"plural_name": "きゅうり"
+	},
+	"cumin": {
+		"name": "クミン"
+	},
+	"daikon": {
+		"name": "大根",
+		"plural_name": "大根"
+	},
+	"dairy-products-and-dairy-substitutes": {
+		"name": "乳製品および乳製品代替品"
+	},
+	"dandelion": {
+		"name": "タンポポ"
+	},
+	"demerara-sugar": {
+		"name": "デメララ砂糖"
+	},
+	"dough": {
+		"name": "生地"
+	},
+	"edible-cactus": {
+		"name": "食用サボテン"
+	},
+	"eggplant": {
+		"name": "茄子",
+		"plural_name": "茄子"
+	},
+	"eggs": {
+		"name": "卵",
+		"plural_name": "卵"
+	},
+	"endive": {
+		"name": "エンダイブ",
+		"plural_name": "エンダイブ"
+	},
+	"fats": {
+		"name": "脂質"
+	},
+	"fava-beans": {
+		"name": "そら豆"
+	},
+	"fiddlehead": {
+		"name": "ワラビ"
+	},
+	"fiddlehead-fern": {
+		"name": "ゼンマイ",
+		"plural_name": "フィドルヘッド"
+	},
+	"fish": {
+		"name": "魚"
+	},
+	"five-spice-powder": {
+		"name": "五香粉"
+	},
+	"flour": {
+		"name": "小麦粉"
+	},
+	"frisee": {
+		"name": "エンダイブ"
+	},
+	"fructose": {
+		"name": "果糖"
+	},
+	"fruit": {
+		"name": "果物"
+	},
+	"fruit-sugar": {
+		"name": "果糖"
+	},
+	"ful": {
+		"name": "そら豆"
+	},
+	"garam-masala": {
+		"name": "ガラムマサラ"
+	},
+	"garlic": {
+		"name": "ニンニク",
+		"plural_name": "ニンニク"
+	},
+	"gem-squash": {
+		"name": "ジェムスカッシュ"
+	},
+	"ghee": {
+		"name": "ギー"
+	},
+	"giblets": {
+		"name": "ジブレッツ"
+	},
+	"ginger": {
+		"name": "ショウガ"
+	},
+	"grains": {
+		"name": "穀物"
+	},
+	"granulated-sugar": {
+		"name": "グラニュー糖"
+	},
+	"grape-seed-oil": {
+		"name": "グレープシードオイル"
+	},
+	"green-onion": {
+		"name": "ネギ",
+		"plural_name": "ネギ"
+	},
+	"heart-of-palm": {
+		"name": "ハート・オブ・パーム",
+		"plural_name": "ハート・オブ・パーム"
+	},
+	"hemp": {
+		"name": "ヘンプ"
+	},
+	"herbs": {
+		"name": "ハーブ"
+	},
+	"honey": {
+		"name": "蜂蜜"
+	},
+	"isomalt": {
+		"name": "イソマルト"
+	},
+	"jackfruit": {
+		"name": "パラミツ",
+		"plural_name": "パラミツ"
+	},
+	"jaggery": {
+		"name": "ジャグリー"
+	},
+	"jams": {
+		"name": "ジャム"
+	},
+	"jellies": {
+		"name": "ジェリー"
+	},
+	"jerusalem-artichoke": {
+		"name": "キクイモ"
+	},
+	"jicama": {
+		"name": "ヒカマ"
+	},
+	"kale": {
+		"name": "ケール"
+	},
+	"kohlrabi": {
+		"name": "コールラビ"
+	},
+	"kumara": {
+		"name": "サツマイモ"
+	},
+	"leavening-agents": {
+		"name": "膨張剤"
+	},
+	"leek": {
+		"name": "ねぎ",
+		"plural_name": "セイヨウネギ"
+	},
+	"legumes": {
+		"name": "マメ"
+	},
+	"lemongrass": {
+		"name": "レモングラス"
+	},
+	"lentils": {
+		"name": "レンズ豆"
+	},
+	"lettuce": {
+		"name": "レタス"
+	},
+	"liver": {
+		"name": "レバー",
+		"plural_name": "レバー"
+	},
+	"maize": {
+		"name": "トウモロコシ"
+	},
+	"maple-syrup": {
+		"name": "メープルシロップ"
+	},
+	"meat": {
+		"name": "肉"
+	},
+	"milk": {
+		"name": "牛乳"
+	},
+	"mortadella": {
+		"name": "モルタデッラ"
+	},
+	"mushroom": {
+		"name": "キノコ",
+		"plural_name": "キノコ"
+	},
+	"mussels": {
+		"name": "ムール貝"
+	},
+	"nanaimo-bar-mix": {
+		"name": "ナナイモ・バー・ミックス"
+	},
+	"nori": {
+		"name": "のり"
+	},
+	"nutmeg": {
+		"name": "ナツメグ"
+	},
+	"nutritional-yeast-flakes": {
+		"name": "ナショナルイーストフレーク"
+	},
+	"nuts": {
+		"name": "ナッツ"
+	},
+	"octopuses": {
+		"name": "タコ",
+		"plural_name": "タコ"
+	},
+	"oils": {
+		"name": "油"
+	},
+	"okra": {
+		"name": "オクラ"
+	},
+	"olive": {
+		"name": "オリーブ"
+	},
+	"olive-oil": {
+		"name": "オリーブ油"
+	},
+	"onion": {
+		"name": "玉ねぎ"
+	},
+	"onion-family": {
+		"name": "タマネギの仲間"
+	},
+	"orange-blossom-water": {
+		"name": "オレンジの花の水"
+	},
+	"oranges": {
+		"name": "オレンジ",
+		"plural_name": "オレンジ"
+	},
+	"oregano": {
+		"name": "オレガノ"
+	},
+	"oysters": {
+		"name": "牡蠣"
+	},
+	"panch-puran": {
+		"name": "パンチフォロン"
+	},
+	"paprika": {
+		"name": "パプリカ"
+	},
+	"parsley": {
+		"name": "パセリ"
+	},
+	"parsnip": {
+		"name": "パースニプ",
+		"plural_name": "パースニップ"
+	},
+	"pear": {
+		"name": "ナシ",
+		"plural_name": "ナシ"
+	},
+	"peas": {
+		"name": "豆"
+	},
+	"pepper": {
+		"name": "コショウ",
+		"plural_name": "コショウ"
+	},
+	"pineapple": {
+		"name": "パイナップル",
+		"plural_name": "パイナップル"
+	},
+	"plantain": {
+		"name": "プランテン",
+		"plural_name": "プランテン"
+	},
+	"poppy-seeds": {
+		"name": "ケシの種"
+	},
+	"potato": {
+		"name": "ジャガイモ",
+		"plural_name": "ジャガイモ"
+	},
+	"poultry": {
+		"name": "鶏肉"
+	},
+	"powdered-sugar": {
+		"name": "粉糖"
+	},
+	"pumpkin": {
+		"name": "カボチャ",
+		"plural_name": "ペポかぼちゃ"
+	},
+	"pumpkin-seeds": {
+		"name": "かぼちゃの種"
+	},
+	"radish": {
+		"name": "大根",
+		"plural_name": "ハツカダイコン"
+	},
+	"raw-sugar": {
+		"name": "生の砂糖"
+	},
+	"refined-sugar": {
+		"name": "精製糖"
+	},
+	"rice": {
+		"name": "米"
+	},
+	"rice-flour": {
+		"name": "米粉"
+	},
+	"rock-sugar": {
+		"name": "氷砂糖"
+	},
+	"rum": {
+		"name": "ラム酒"
+	},
+	"salmon": {
+		"name": "鮭"
+	},
+	"salt": {
+		"name": "塩"
+	},
+	"salt-cod": {
+		"name": "塩タラ"
+	},
+	"scallion": {
+		"name": "シャロット",
+		"plural_name": "シャロット"
+	},
+	"seafood": {
+		"name": "シーフード"
+	},
+	"seeds": {
+		"name": "種"
+	},
+	"sesame-seeds": {
+		"name": "ゴマの種"
+	},
+	"shallot": {
+		"name": "エシャロット",
+		"plural_name": "エシャロット"
+	},
+	"skate": {
+		"name": "ガンギエイ"
+	},
+	"soda": {
+		"name": "ソーダ"
+	},
+	"soda-baking": {
+		"name": "ソーダ、ベーキング"
+	},
+	"soybean": {
+		"name": "大豆"
+	},
+	"spaghetti-squash": {
+		"name": "スパゲッティスカッシュ",
+		"plural_name": "キンシウリ"
+	},
+	"speck": {
+		"name": "スペック"
+	},
+	"spices": {
+		"name": "香辛料"
+	},
+	"spinach": {
+		"name": "ほうれん草"
+	},
+	"spring-onion": {
+		"name": "ネギ",
+		"plural_name": "葉タマネギ"
+	},
+	"squash": {
+		"name": "カボチャ",
+		"plural_name": "カボチャ"
+	},
+	"squash-family": {
+		"name": "カボチャの仲間"
+	},
+	"stockfish": {
+		"name": "ストックフィッシュ"
+	},
+	"sugar": {
+		"name": "砂糖"
+	},
+	"sunchoke": {
+		"name": "キクイモ",
+		"plural_name": "キクイモ"
+	},
+	"sunflower-seeds": {
+		"name": "ヒマワリの種"
+	},
+	"superfine-sugar": {
+		"name": "上白糖"
+	},
+	"sweet-potato": {
+		"name": "サツマイモ",
+		"plural_name": "サツマイモ"
+	},
+	"sweetcorn": {
+		"name": "スイートコーン",
+		"plural_name": "スイートコーン"
+	},
+	"sweeteners": {
+		"name": "甘味料"
+	},
+	"tahini": {
+		"name": "タヒニ"
+	},
+	"taro": {
+		"name": "タロ芋",
+		"plural_name": "タロイモ"
+	},
+	"teff": {
+		"name": "テフ"
+	},
+	"tomato": {
+		"name": "トマト",
+		"plural_name": "トマト"
+	},
+	"trout": {
+		"name": "マス"
+	},
+	"tubers": {
+		"name": "球根",
+		"plural_name": "塊茎"
+	},
+	"tuna": {
+		"name": "マグロ"
+	},
+	"turbanado-sugar": {
+		"name": "中白糖"
+	},
+	"turnip": {
+		"name": "カブ",
+		"plural_name": "カブ"
+	},
+	"unrefined-sugar": {
+		"name": "粗製糖"
+	},
+	"vanilla": {
+		"name": "バニラ"
+	},
+	"vegetables": {
+		"name": "野菜"
+	},
+	"watercress": {
+		"name": "クレソン"
+	},
+	"watermelon": {
+		"name": "スイカ",
+		"plural_name": "スイカ"
+	},
+	"white-mushroom": {
+		"name": "マッシュルーム",
+		"plural_name": "マッシュルーム"
+	},
+	"white-sugar": {
+		"name": "白砂糖"
+	},
+	"xanthan-gum": {
+		"name": "キサンタンガム"
+	},
+	"yam": {
+		"name": "ヤムイモ",
+		"plural_name": "ヤムイモ"
+	},
+	"yeast": {
+		"name": "イースト"
+	},
+	"zucchini": {
+		"name": "ズッキーニ",
+		"plural_name": "ズッキーニ"
+	}
 }
