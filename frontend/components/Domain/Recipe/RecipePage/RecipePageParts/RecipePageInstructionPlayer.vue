@@ -77,41 +77,40 @@ export default defineComponent({
         }
     },
     play() {
-        const self = this;
         speechSynthesis.cancel();
 
         const utterance = new SpeechSynthesisUtterance(this.step.text);
         utterance.onstart = (event) => {
-            self.playing = true;
-            self.played = false;
-            self.paused = false;
-            // self.$emit("playing", true); // TODO: Consider if this event should bubble or a proxy of it should.
+            this.playing = true;
+            this.played = false;
+            this.paused = false;
+            // this.$emit("playing", true); // TODO: Consider if this event should bubble or a proxy of it should.
 
             console.debug("Now playing: " + this.step.text);
         };
         utterance.onend = () => {
-            self.playing = false;
-            self.played = true;
-            self.paused = false;
-            self.$emit("ttscompleted", true);
+            this.playing = false;
+            this.played = true;
+            this.paused = false;
+            this.$emit("ttscompleted", true);
 
             console.debug("Playback complete");
         };
 
         utterance.onpause = () => {
-            self.playing = false;
-            self.paused = true;
+            this.playing = false;
+            this.paused = true;
         };
 
         utterance.onresume = () => {
-            self.playing = true;
-            self.paused = false;
+            this.playing = true;
+            this.paused = false;
         };
 
         utterance.onboundary = (event) => {
             // Update the start of the current sentence.
             if (event.name === "sentence") {
-                self.currentIndex = event.charIndex;
+                this.currentIndex = event.charIndex;
             }
         };
         // TODO: Evaluate the usefulness of this event.
