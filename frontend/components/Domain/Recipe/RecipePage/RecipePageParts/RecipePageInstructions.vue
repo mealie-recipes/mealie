@@ -266,6 +266,7 @@
                       <v-divider v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0 && $vuetify.breakpoint.smAndUp" vertical ></v-divider>
                       <v-col>
                         <SafeMarkdown class="markdown" :source="step.text" />
+                        <RecipePageInstructionPlayer  v-if="isCookMode" :step="step" />
                       </v-col>
                     </v-row>
                   </v-card-text>
@@ -303,6 +304,7 @@ import { useExtractIngredientReferences } from "~/composables/recipe-page/use-ex
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
+import RecipePageInstructionPlayer from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInstructionPlayer.vue";
 interface MergerHistory {
   target: number;
   source: number;
@@ -315,7 +317,8 @@ export default defineComponent({
     draggable,
     RecipeIngredientHtml,
     DropZone,
-    RecipeIngredients
+    RecipeIngredients,
+    RecipePageInstructionPlayer
   },
   props: {
     value: {
