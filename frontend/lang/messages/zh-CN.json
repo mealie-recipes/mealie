@@ -1050,8 +1050,8 @@
     "foods": {
       "merge-dialog-text": "此操作将把“待合并食物”和“目标食物”合并为一个食物（即“目标食物”）。 “待合并食物”将会被删除 ，之前所有对“待合并食物”的引用都会指向“目标食物”。",
       "merge-food-example": "正在将{food1}合并到{food2}",
-      "seed-dialog-text": "基于你的本地语言，将一些常见食物添加到数据库。（会有200多种常见食物被添加到你的数据库。食物名称由开源社区志愿者翻译。）",
-      "seed-dialog-warning": "你的数据库中已经存在一些数据。此操作不会处理一些可能存在重复的条目，你需要手动管理它们。",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "合并食品",
       "source-food": "待合并食物",
       "target-food": "目标食物",
