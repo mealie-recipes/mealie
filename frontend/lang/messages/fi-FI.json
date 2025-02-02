@@ -23,7 +23,7 @@
     "support": "Tuki",
     "version": "Versio",
     "unknown-version": "tuntematon",
-    "sponsor": "Yhteistyökumppani"
+    "sponsor": "Sponsori"
   },
   "asset": {
     "assets": "Liitteet",
@@ -72,7 +72,7 @@
     "enable-notifier": "Ota ilmoittaja käyttöön",
     "what-events": "Mistä tapahtumista tulisi ilmoittaa?",
     "user-events": "Käyttäjän tapahtumat",
-    "mealplan-events": "Ateriasuunnittelun tapahtumat",
+    "mealplan-events": "Ateriasuunnitelman Tapahtumat",
     "when-a-user-in-your-group-creates-a-new-mealplan": "Kun ryhmäsi käyttäjä tekee ateriasuunnitelman",
     "shopping-list-events": "Ostoslistatapahtumat",
     "cookbook-events": "Keittokirjatapahtumat",
@@ -532,7 +532,7 @@
     "no-recipe": "Ei reseptiä",
     "locked-by-owner": "Omistajan lukitsema",
     "join-the-conversation": "Liity keskusteluun",
-    "add-recipe-to-mealplan": "Lisää resepti ateriasuunnitelmaan",
+    "add-recipe-to-mealplan": "Lisää resepti Ateriasuunnitelmaan",
     "entry-type": "Merkinnän tyyppi",
     "date-format-hint": "KK/PP/VVVV-muoto",
     "date-format-hint-yyyy-mm-dd": "VVVV-KK-PP-muoto",
@@ -661,7 +661,7 @@
       "missing-food": "Luo puuttuva ruoka: {food}",
       "no-food": "Ei ruokaa"
     },
-    "reset-servings-count": "Reset Servings Count",
+    "reset-servings-count": "Palauta Annoksien Määrä",
     "not-linked-ingredients": "Additional Ingredients"
   },
   "recipe-finder": {
@@ -981,7 +981,7 @@
     "register": "Rekisteröidy",
     "reset-password": "Palauta salasana",
     "sign-in": "Kirjaudu",
-    "total-mealplans": "Ateriasuunnitelmia",
+    "total-mealplans": "Ateriasuunnitelma Yhteensä",
     "total-users": "Käyttäjien määrä",
     "upload-photo": "Tuo kuva",
     "use-8-characters-or-more-for-your-password": "Salasanan pituuden on oltava vähintään kahdeksan merkkiä",
@@ -1030,7 +1030,7 @@
     "administrator": "Ylläpitäjä",
     "user-can-invite-other-to-group": "Käyttäjä voi kutsua muita ryhmään",
     "user-can-manage-group": "Käyttäjä voi hallita ryhmää",
-    "user-can-manage-household": "User can manage household",
+    "user-can-manage-household": "Käyttäjä voi hallita kotitaloutta",
     "user-can-organize-group-data": "Käyttäjä voi järjestellä ryhmän tietoja",
     "enable-advanced-features": "Salli edistyneemmät ominaisuudet",
     "it-looks-like-this-is-your-first-time-logging-in": "Tämä vaikuttaa olevan ensimmäinen kirjautumisesi.",
@@ -1296,7 +1296,7 @@
   "profile": {
     "welcome-user": "👋 Tervetuloa, {0}!",
     "description": "Hallitse profiiliasi, reseptejäsi ja ryhmäasetuksiasi.",
-    "invite-link": "Invite Link",
+    "invite-link": "",
     "get-invite-link": "Hanki Kutsulinkki",
     "get-public-link": "Julkinen linkki",
     "account-summary": "Tilin Yhteenveto",
