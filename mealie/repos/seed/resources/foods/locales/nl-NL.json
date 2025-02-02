@@ -3,13 +3,13 @@
 		"name": "eikelpompoen"
 	},
 	"alfalfa-sprouts": {
-		"name": "kiemgroente"
+		"name": "kiemgroenten"
 	},
 	"anchovies": {
 		"name": "ansjovis"
 	},
 	"apples": {
-		"name": "appels",
+		"name": "appel",
 		"plural_name": "appels"
 	},
 	"artichoke": {
@@ -35,7 +35,7 @@
 		"name": "baksoda"
 	},
 	"baking-sugar": {
-		"name": "bak suiker"
+		"name": "poedersuiker"
 	},
 	"bar-sugar": {
 		"name": "rietsuiker"
@@ -48,10 +48,10 @@
 	},
 	"bell-peppers": {
 		"name": "paprika",
-		"plural_name": "paprika"
+		"plural_name": "paprikas"
 	},
 	"blackberries": {
-		"name": "braambessen"
+		"name": "zwarte bessen"
 	},
 	"bok-choy": {
 		"name": "paksoi"
@@ -87,10 +87,10 @@
 		"name": "boter"
 	},
 	"butternut-pumpkin": {
-		"name": "butternut pompoen"
+		"name": "flespompoen"
 	},
 	"butternut-squash": {
-		"name": "butternut pompoen"
+		"name": "flespompoen"
 	},
 	"cabbage": {
 		"name": "kool",
@@ -402,61 +402,61 @@
 		"name": "mortadella"
 	},
 	"mushroom": {
-		"name": "paddestoel",
-		"plural_name": "paddenstoelen"
+		"name": "mushroom",
+		"plural_name": "mushrooms"
 	},
 	"mussels": {
-		"name": "mosselen"
+		"name": "mussels"
 	},
 	"nanaimo-bar-mix": {
-		"name": "nanaimo barmix"
+		"name": "nanaimo bar mix"
 	},
 	"nori": {
 		"name": "nori"
 	},
 	"nutmeg": {
-		"name": "nootmuskaat"
+		"name": "nutmeg"
 	},
 	"nutritional-yeast-flakes": {
-		"name": "gistvlokken"
+		"name": "nutritional yeast flakes"
 	},
 	"nuts": {
-		"name": "noten"
+		"name": "nuts"
 	},
 	"octopuses": {
-		"name": "octopussen",
-		"plural_name": "octopussen"
+		"name": "octopus",
+		"plural_name": "octopuses"
 	},
 	"oils": {
-		"name": "oliën"
+		"name": "oils"
 	},
 	"okra": {
 		"name": "okra"
 	},
 	"olive": {
-		"name": "olijf"
+		"name": "olive"
 	},
 	"olive-oil": {
-		"name": "olijfolie"
+		"name": "olive oil"
 	},
 	"onion": {
-		"name": "ui"
+		"name": "onion"
 	},
 	"onion-family": {
-		"name": "uien familie"
+		"name": "onion family"
 	},
 	"orange-blossom-water": {
-		"name": "sinaasappelbloesem"
+		"name": "orange blossom water"
 	},
 	"oranges": {
-		"name": "sinaasappel",
-		"plural_name": "sinaasappels"
+		"name": "orange",
+		"plural_name": "oranges"
 	},
 	"oregano": {
 		"name": "oregano"
 	},
 	"oysters": {
-		"name": "oester"
+		"name": "oysters"
 	},
 	"panch-puran": {
 		"name": "panch puran"
@@ -465,69 +465,69 @@
 		"name": "paprika"
 	},
 	"parsley": {
-		"name": "peterselie"
+		"name": "parsley"
 	},
 	"parsnip": {
-		"name": "pastinaak",
-		"plural_name": "pastinaken"
+		"name": "parsnip",
+		"plural_name": "parsnips"
 	},
 	"pear": {
-		"name": "peer",
-		"plural_name": "peren"
+		"name": "pear",
+		"plural_name": "pears"
 	},
 	"peas": {
-		"name": "erwten"
+		"name": "peas"
 	},
 	"pepper": {
-		"name": "peper",
-		"plural_name": "pepers"
+		"name": "pepper",
+		"plural_name": "peppers"
 	},
 	"pineapple": {
-		"name": "ananas",
-		"plural_name": "ananassen"
+		"name": "pineapple",
+		"plural_name": "pineapples"
 	},
 	"plantain": {
-		"name": "bakbanaan",
-		"plural_name": "bakbananen"
+		"name": "plantain",
+		"plural_name": "plantains"
 	},
 	"poppy-seeds": {
-		"name": "papaver zaden"
+		"name": "poppy seeds"
 	},
 	"potato": {
-		"name": "aardappel",
-		"plural_name": "aardappelen"
+		"name": "potato",
+		"plural_name": "potatoes"
 	},
 	"poultry": {
-		"name": "gevogelte"
+		"name": "poultry"
 	},
 	"powdered-sugar": {
-		"name": "poedersuiker"
+		"name": "powdered sugar"
 	},
 	"pumpkin": {
-		"name": "pompoen",
-		"plural_name": "pompoenen"
+		"name": "pumpkin",
+		"plural_name": "pumpkins"
 	},
 	"pumpkin-seeds": {
-		"name": "pompoenpitten"
+		"name": "pumpkin seeds"
 	},
 	"radish": {
-		"name": "radijs",
-		"plural_name": "radijsjes"
+		"name": "radish",
+		"plural_name": "radishes"
 	},
 	"raw-sugar": {
-		"name": "ruwe suiker"
+		"name": "raw sugar"
 	},
 	"refined-sugar": {
-		"name": "gerafineerde suiker"
+		"name": "refined sugar"
 	},
 	"rice": {
-		"name": "rijst"
+		"name": "rice"
 	},
 	"rice-flour": {
-		"name": "rijstbloem"
+		"name": "rice flour"
 	},
 	"rock-sugar": {
-		"name": "kandijsuiker"
+		"name": "rock sugar"
 	},
 	"rum": {
 		"name": "rum"
