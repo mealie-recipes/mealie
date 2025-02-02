@@ -1050,8 +1050,8 @@
     "foods": {
       "merge-dialog-text": "צירוף של המאכלים שנבחרו יאחד את אוכל המקור ואוכל היעד לפריט אוכל אחד. אוכל המקור ימחק וכל ההפניות / הייחוסים אליו יעודכנו ויופנו לאוכל היעד.",
       "merge-food-example": "ממזג את {food1} לתוך {food2}",
-      "seed-dialog-text": "אכלס את מסד הנתונים עם אוכל בהתבסס על השפה המקומית שלך. הפעולה תיצור +200 מאכלים נפוצים שיכולים לשמש לארגון מסד הנתונים. מאכלים מתורגמים על ידי מאמצי הקהילה.",
-      "seed-dialog-warning": "מסד הנתונים שלך כבר מכיל מספר פריטים. פעולה זו אינה מטפלת בכפילויות, יהיה צורך לפתור זאת באופן ידני.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "שילוב אוכל",
       "source-food": "אוכל מקור",
       "target-food": "אוכל יעד",
