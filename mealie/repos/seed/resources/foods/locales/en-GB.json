@@ -16,14 +16,14 @@
 		"name": "artichoke"
 	},
 	"arugula": {
-		"name": "rocket"
+		"name": "arugula"
 	},
 	"asparagus": {
 		"name": "asparagus"
 	},
 	"avocado": {
 		"name": "avocado",
-		"plural_name": "avocados"
+		"plural_name": "avocado"
 	},
 	"bacon": {
 		"name": "bacon"
@@ -32,7 +32,7 @@
 		"name": "baking powder"
 	},
 	"baking-soda": {
-		"name": "bicarbonate of soda"
+		"name": "baking soda"
 	},
 	"baking-sugar": {
 		"name": "baking sugar"
@@ -47,14 +47,14 @@
 		"name": "beans"
 	},
 	"bell-peppers": {
-		"name": "bell pepper",
+		"name": "bell peppers",
 		"plural_name": "bell peppers"
 	},
 	"blackberries": {
 		"name": "blackberries"
 	},
 	"bok-choy": {
-		"name": "pak choi"
+		"name": "bok choy"
 	},
 	"brassicas": {
 		"name": "brassicas"
@@ -75,13 +75,13 @@
 		"name": "broccoli rabe"
 	},
 	"broccolini": {
-		"name": "Tender-stem broccoli"
+		"name": "broccolini"
 	},
 	"brown-sugar": {
 		"name": "brown sugar"
 	},
 	"brussels-sprouts": {
-		"name": "brussel sprouts"
+		"name": "brussels sprouts"
 	},
 	"butter": {
 		"name": "butter"
@@ -122,7 +122,7 @@
 		"name": "caster sugar"
 	},
 	"castor-sugar": {
-		"name": "caster sugar"
+		"name": "castor sugar"
 	},
 	"catfish": {
 		"name": "catfish"
@@ -220,7 +220,7 @@
 		"name": "cumin"
 	},
 	"daikon": {
-		"name": "diakon",
+		"name": "daikon",
 		"plural_name": "daikons"
 	},
 	"dairy-products-and-dairy-substitutes": {
@@ -239,7 +239,7 @@
 		"name": "edible cactus"
 	},
 	"eggplant": {
-		"name": "aubergine",
+		"name": "eggplant",
 		"plural_name": "eggplants"
 	},
 	"eggs": {
@@ -254,7 +254,7 @@
 		"name": "fats"
 	},
 	"fava-beans": {
-		"name": "broad beans"
+		"name": "fava beans"
 	},
 	"fiddlehead": {
 		"name": "fiddlehead"
@@ -307,7 +307,7 @@
 		"name": "ginger"
 	},
 	"grains": {
-		"name": "grain"
+		"name": "grains"
 	},
 	"granulated-sugar": {
 		"name": "granulated sugar"
@@ -343,7 +343,7 @@
 		"name": "jaggery"
 	},
 	"jams": {
-		"name": "jam"
+		"name": "jams"
 	},
 	"jellies": {
 		"name": "jellies"
@@ -456,7 +456,7 @@
 		"name": "oregano"
 	},
 	"oysters": {
-		"name": "oyster"
+		"name": "oysters"
 	},
 	"panch-puran": {
 		"name": "panch puran"
@@ -542,7 +542,7 @@
 		"name": "salt cod"
 	},
 	"scallion": {
-		"name": "spring onion",
+		"name": "scallion",
 		"plural_name": "scallions"
 	},
 	"seafood": {
@@ -565,10 +565,10 @@
 		"name": "soda"
 	},
 	"soda-baking": {
-		"name": "bicarbonate of soda"
+		"name": "soda, baking"
 	},
 	"soybean": {
-		"name": "soya beans"
+		"name": "soybean"
 	},
 	"spaghetti-squash": {
 		"name": "spaghetti squash",
