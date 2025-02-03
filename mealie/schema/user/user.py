@@ -31,7 +31,6 @@ class LongLiveTokenIn(MealieModel):
 
 
 class LongLiveTokenOut(MealieModel):
-    token: str
     name: str
     id: int
     created_at: datetime | None = None
@@ -40,6 +39,12 @@ class LongLiveTokenOut(MealieModel):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [joinedload(LongLiveToken.user)]
+
+
+class LongLiveTokenCreateResponse(LongLiveTokenOut):
+    """Should ONLY be used when creating a new token, as the token field is sensitive"""
+
+    token: str
 
 
 class CreateToken(LongLiveTokenIn):
