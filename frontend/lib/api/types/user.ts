@@ -93,6 +93,12 @@ export interface GroupSummary {
   slug: string;
   preferences?: ReadGroupPreferences | null;
 }
+export interface LongLiveTokenCreateResponse {
+  name: string;
+  id: number;
+  createdAt?: string | null;
+  token: string;
+}
 export interface LongLiveTokenIn {
   name: string;
   integrationId?: string;
@@ -130,7 +136,6 @@ export interface PrivateUser {
   lockedAt?: string | null;
 }
 export interface LongLiveTokenOut {
-  token: string;
   name: string;
   id: number;
   createdAt?: string | null;
