@@ -1,140 +1,140 @@
 {
     "teaspoon": {
-        "name": "teelusikka",
-        "plural_name": "teaspoons",
+        "name": "teelusikallinen",
+        "plural_name": "teelusikallista",
         "description": "",
         "abbreviation": "tl"
     },
     "tablespoon": {
-        "name": "ruokalusikka",
-        "plural_name": "tablespoons",
+        "name": "ruokalusikallinen",
+        "plural_name": "ruokalusikallista",
         "description": "",
         "abbreviation": "rkl"
     },
     "cup": {
-        "name": "kuppi",
-        "plural_name": "kuppia",
+        "name": "kupillinen",
+        "plural_name": "kupillista",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "k"
     },
     "fluid-ounce": {
         "name": "nesteunssi",
-        "plural_name": "fluid ounces",
+        "plural_name": "nesteunssia",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "tuoppi",
-        "plural_name": "pints",
+        "name": "pintti",
+        "plural_name": "pinttiä",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "kvartti",
-        "plural_name": "quarts",
+        "name": "vartti",
+        "plural_name": "varttia",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
         "name": "gallona",
-        "plural_name": "gallons",
+        "plural_name": "gallonaa",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
         "name": "millilitra",
-        "plural_name": "milliliters",
+        "plural_name": "millilitraa",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "litra",
-        "plural_name": "liters",
+        "plural_name": "litraa",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "pauna",
-        "plural_name": "pounds",
+        "plural_name": "paunaa",
         "description": "",
         "abbreviation": "lb",
         "plural_abbreviation": "lbs"
     },
     "ounce": {
         "name": "unssi",
-        "plural_name": "ounces",
+        "plural_name": "unssia",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
         "name": "gramma",
-        "plural_name": "grams",
+        "plural_name": "grammaa",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilogramma",
-        "plural_name": "kilograms",
+        "plural_name": "kilogrammaa",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "milligramma",
-        "plural_name": "milligrams",
+        "plural_name": "milligrammaa",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
         "name": "tilkka",
-        "plural_name": "splashes",
+        "plural_name": "tilkkaa",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "ripaus",
-        "plural_name": "dashes",
+        "plural_name": "ripausta",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "annos",
-        "plural_name": "servings",
+        "plural_name": "annosta",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "pää",
-        "plural_name": "heads",
+        "plural_name": "päätä",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "kynsi",
-        "plural_name": "cloves",
+        "plural_name": "kynttä",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "tölkki",
-        "plural_name": "cans",
+        "name": "tölkillinen",
+        "plural_name": "tölkillistä",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "nippu",
+        "plural_name": "nippua",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "pakkaus",
+        "plural_name": "pakkausta",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "hyppysellinen",
+        "plural_name": "hyppysellistä",
         "description": "",
         "abbreviation": ""
     }
