@@ -85,12 +85,13 @@ nav:
           - OpenID Connect: "documentation/getting-started/authentication/oidc-v2.md"
 
       - Community Guides:
+          - Bring API without internet exposure: "documentation/community-guide/bring-api.md"
+          - Automate Backups with n8n: "documentation/community-guide/n8n-backup-automation.md"
+          - Bulk Url Import: "documentation/community-guide/bulk-url-import.md"
+          - Home Assistant: "documentation/community-guide/home-assistant.md"
+          - Import Bookmarklet: "documentation/community-guide/import-recipe-bookmarklet.md"
           - iOS Shortcuts: "documentation/community-guide/ios.md"
           - Reverse Proxy (SWAG): "documentation/community-guide/swag.md"
-          - Home Assistant: "documentation/community-guide/home-assistant.md"
-          - Bulk Url Import: "documentation/community-guide/bulk-url-import.md"
-          - Import Bookmarklet: "documentation/community-guide/import-recipe-bookmarklet.md"
-          - Automate Backups with n8n: "documentation/community-guide/n8n-backup-automation.md"
 
   - API Reference: "api/redoc.md"
 
