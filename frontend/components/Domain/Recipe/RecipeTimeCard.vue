@@ -9,7 +9,7 @@
         <p class="my-0"><span class="font-weight-bold">{{ validateTotalTime.name }}</span><br>{{ validateTotalTime.value }}</p>
       </v-row>
     </div>
-    <v-divider v-if="validateTotalTime" class="my-2" />
+    <v-divider v-if="validateTotalTime && (validatePrepTime || validatePerformTime)" class="my-2" />
     <!-- Prep Time & Perform Time -->
     <div v-if="validatePrepTime || validatePerformTime" class="time-card-flex mx-auto">
       <v-row no-gutters class="d-flex justify-center align-center" style="font-size: larger; width: 100%;">
