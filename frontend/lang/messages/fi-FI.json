@@ -277,7 +277,7 @@
     "admin-group-management-text": "Muutokset tähän ryhmään tulevat näkymään välittömästi.",
     "group-id-value": "Ryhmän tunniste: {0}",
     "total-households": "Kotitaloudet Yhteensä",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "Sinun tulee valita ryhmä ennen kuin valitset kotitalouden"
   },
   "household": {
     "household": "Kotitalous",
@@ -518,7 +518,7 @@
     "save-recipe-before-use": "Tallenna resepti ennen käyttöä",
     "section-title": "Osion otsikko",
     "servings": "Annokset",
-    "serves-amount": "Serves {amount}",
+    "serves-amount": "{amount} annosta",
     "share-recipe-message": "Halusin jakaa reseptin {0} kanssasi.",
     "show-nutrition-values": "Näytä ravintoarvot",
     "sodium-content": "Natrium",
@@ -546,9 +546,9 @@
     "failed-to-add-recipes-to-list": "Luetteloon lisääminen epäonnistui",
     "failed-to-add-recipe-to-mealplan": "Reseptiä ei voitu lisätä ateriasuunnitelmaan",
     "failed-to-add-to-list": "Luetteloon lisääminen epäonnistui",
-    "yield": "Sato",
-    "yields-amount-with-text": "Yields {amount} {text}",
-    "yield-text": "Yield Text",
+    "yield": "Tuotto",
+    "yields-amount-with-text": "Tuottaa {amount} {text}",
+    "yield-text": "Tuotosteksti",
     "quantity": "Määrä",
     "choose-unit": "Valitse Yksikkö",
     "press-enter-to-create": "Luo painamalla Enter",
@@ -637,9 +637,9 @@
     "recipe-debugger-use-openai-description": "Käytä OpenAI:ta kaavinkirjaston sijaan tulosten jäsentämiseen. Luodessa reseptiä URL:n kautta tämä tehdään ilman eri kysymystä, kun kaavinkirjasto ei toimi, mutta voit kokeilla sitä tässä manuaalisesti.",
     "debug": "Vianhaku",
     "tree-view": "Puunäkymä",
-    "recipe-servings": "Recipe Servings",
-    "recipe-yield": "Reseptin tekijä",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-servings": "Reseptin annokset",
+    "recipe-yield": "Reseptin tuotto",
+    "recipe-yield-text": "Reseptin tuotosteksti",
     "unit": "Yksikkö",
     "upload-image": "Lataa kuva",
     "screen-awake": "Pidä näyttö aina päällä",
@@ -662,24 +662,24 @@
       "no-food": "Ei ruokaa"
     },
     "reset-servings-count": "Palauta Annoksien Määrä",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "Muut ainesosat"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder",
-    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
-    "selected-ingredients": "Selected Ingredients",
-    "no-ingredients-selected": "No ingredients selected",
-    "missing": "Missing",
-    "no-recipes-found": "No recipes found",
-    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
-    "include-ingredients-on-hand": "Include Ingredients On Hand",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
-    "selected-tools": "Selected Tools",
-    "other-filters": "Other Filters",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "recipe-finder": "Reseptin etsijä",
+    "recipe-finder-description": "Etsi sopivia reseptejä saatavilla olevien ainesosien perusteella. Voit myös suodattaa tulokset saatavilla olevien ruoanvalmistusvälineiden perusteella, ja asettaa enimmäismäärän puuttuvia ainesosia tai välineitä.",
+    "selected-ingredients": "Valitut ainesosat",
+    "no-ingredients-selected": "Ei valittuja ainesosia",
+    "missing": "Puuttuu",
+    "no-recipes-found": "Reseptejä ei löytynyt",
+    "no-recipes-found-description": "Kokeile lisätä enemmän ainesosia hakuun tai säätää suodattimia",
+    "include-ingredients-on-hand": "Sisällytä saatavilla olevat ainesosat",
+    "include-tools-on-hand": "Sisällytä saatavilla olevat välineet",
+    "max-missing-ingredients": "Puuttuvien ainesten enimmäismäärä",
+    "max-missing-tools": "Puuttuvien välineiden enimmäismäärä",
+    "selected-tools": "Valitut välineet",
+    "other-filters": "Muut suodattimet",
+    "ready-to-make": "Valmis tekemään",
+    "almost-ready-to-make": "Melkein valmis tekemään"
   },
   "search": {
     "advanced-search": "Tarkennettu haku",
@@ -690,7 +690,7 @@
     "or": "Tai",
     "has-any": "On Mikä Tahansa",
     "has-all": "On Kaikki",
-    "clear-selection": "Clear Selection",
+    "clear-selection": "Tyhjennä valinnat",
     "results": "Tulokset",
     "search": "Hae",
     "search-mealie": "Hae Mealiestä (paina /)",
@@ -884,7 +884,7 @@
     "are-you-sure-you-want-to-check-all-items": "Haluatko varmasti valita kaikki kohteet?",
     "are-you-sure-you-want-to-uncheck-all-items": "Haluatko varmasti poistaa kaikki valinnat?",
     "are-you-sure-you-want-to-delete-checked-items": "Haluatko varmasti poistaa kaikki valitut kohteet?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "Ostoslistoja ei löytynyt"
   },
   "sidebar": {
     "all-recipes": "Reseptit",
@@ -1213,7 +1213,7 @@
         "result": "Valittu teksti tulee näkymään aiemmin valitun kentän sisällä."
       },
       "pan-and-zoom-mode": "Kääntö- ja zoomaustila",
-      "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
+      "pan-and-zoom-desc": "Valitse panorointi ja zoomaus klikkaamalla kuvaketta. Tämä tila mahdollistaa zoomauksen kuvan sisällä ja liikkumisen niin, että isojen kuvien käyttö on helpompaa.",
       "split-text-mode": "Jaa tekstitila",
       "split-modes": {
         "line-mode": "Rivitila (oletus)",
@@ -1232,37 +1232,37 @@
       "summary-title": "Yhteenveto",
       "button-label-get-summary": "Hae Yhteenveto",
       "button-label-open-details": "Tiedot",
-      "info-description-data-dir-size": "Datahakemiston Koko",
+      "info-description-data-dir-size": "Datahakemiston koko",
       "info-description-log-file-size": "Lokitiedoston Koko",
-      "info-description-cleanable-directories": "Siivottavat Hakemistot",
-      "info-description-cleanable-images": "Siivottavat Kuvat",
+      "info-description-cleanable-directories": "Siivottavat hakemistot",
+      "info-description-cleanable-images": "Siivottavat kuvat",
       "storage": {
-        "title-temporary-directory": "Väliaikainen Hakemisto (.temp)",
+        "title-temporary-directory": "Väliaikainen hakemisto (.temp)",
         "title-backups-directory": "Varmuuskopiointihakemisto (varmuuskopiot)",
-        "title-groups-directory": "Ryhmien Hakemisto (ryhmät)",
+        "title-groups-directory": "Ryhmien hakemisto (ryhmät)",
         "title-recipes-directory": "Reseptihakemisto (reseptit)",
         "title-user-directory": "Käyttäjähakemisto (käyttäjä)"
       },
       "action-delete-log-files-name": "Poista Lokitiedostot",
       "action-delete-log-files-description": "Poistaa kaikki lokitiedostot",
-      "action-clean-directories-name": "Puhdista Hakemistot",
+      "action-clean-directories-name": "Puhdista hakemistot",
       "action-clean-directories-description": "Poistaa kaikki reseptikansiot, jotka eivät ole kelvollisia UUID-koodeja",
       "action-clean-temporary-files-name": "Poista väliaikaiset tiedostot",
       "action-clean-temporary-files-description": "Poistaa kaikki tiedostot ja kansiot .temp kansiosta",
-      "action-clean-images-name": "Puhdista Kuvat",
+      "action-clean-images-name": "Puhdista kuvat",
       "action-clean-images-description": "Poistaa kaikki kuvat, jotka eivät pääty .webp",
-      "actions-description": "Maintenance actions are {destructive_in_bold} and should be used with caution. Performing any of these actions is {irreversible_in_bold}.",
-      "actions-description-destructive": "lopullinen",
-      "actions-description-irreversible": "peruuttamaton",
+      "actions-description": "Huoltotoimenpiteet ovat {destructive_in_bold} ja niitä tulisi käyttää varoen. Kaikkien näiden toimenpiteiden suorittaminen on {irreversible_in_bold}.",
+      "actions-description-destructive": "tuhoisia",
+      "actions-description-irreversible": "peruuttamatonta",
       "logs-action-refresh": "Päivitä lokit",
       "logs-page-title": "Mealie- Lokit",
-      "logs-tail-lines-label": "Tail Lines"
+      "logs-tail-lines-label": "Loppurivit"
     },
     "mainentance": {
       "actions-title": "Toiminnot"
     },
     "ingredients-natural-language-processor": "Ingredients Natural Language Processor",
-    "ingredients-natural-language-processor-explanation": "Mealie uses Conditional Random Fields (CRFs) for parsing and processing ingredients. The model used for ingredients is based off a data set of over 100,000 ingredients from a dataset compiled by the New York Times. Note that as the model is trained in English only, you may have varied results when using the model in other languages. This page is a playground for testing the model.",
+    "ingredients-natural-language-processor-explanation": "Mealie käyttää Conditional Random Fields (CRF) ainesosien jäsentämiseen ja prosessointiin. Ainesosien osalta käytetty malli perustuu yli 100000 ainesosan aineistoon New York Timesin kokoamasta aineistosta. Huomaa, että koska malli on koulutettu vain englanniksi, mallilla voi olla vaihtelevia tuloksia, kun käytät mallia muilla kielillä. Tämä sivu on mallin testaamiseen tarkoitettu leikkipaikka.",
     "ingredients-natural-language-processor-explanation-2": "Se ei ole täydellinen, mutta se tuottaa hyviä tuloksia yleensä ja on hyvä lähtökohta manuaalisesti jäsentää ainesosia yksittäisiin kenttiin. Vaihtoehtoisesti voit myös käyttää Brute-prosessori, joka käyttää kuvion täsmäystekniikkaa tunnistamaan ainesosia.",
     "nlp": "NLP",
     "brute": "Brute",
@@ -1279,19 +1279,19 @@
     "setup": {
       "first-time-setup": "Ensiasetukset",
       "welcome-to-mealie-get-started": "Tervetuloa Mealieen! Aloitetaan",
-      "already-set-up-bring-to-homepage": "I'm already set up, just bring me to the homepage",
-      "common-settings-for-new-sites": "Here are some common settings for new sites",
-      "setup-complete": "Setup Complete!",
+      "already-set-up-bring-to-homepage": "Olen jo valmis, vie minut kotisivulle",
+      "common-settings-for-new-sites": "Tässä muutamia yleisiä asetuksia uusille sivustoille",
+      "setup-complete": "Asennus valmis.",
       "here-are-a-few-things-to-help-you-get-started": "Näillä muutamilla asioilla pääset alkuun",
       "restore-from-v1-backup": "Onko sinulla varmuuskopio aiemmasta Mealie v1 -instanssista? Palauta se tästä.",
       "manage-profile-or-get-invite-link": "Hallitse profiiliasi tai hanki kutsulinkki muille."
     },
-    "debug-openai-services": "Debug OpenAI Services",
-    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
-    "run-test": "Run Test",
-    "test-results": "Test Results",
-    "group-delete-note": "Groups with users or households cannot be deleted",
-    "household-delete-note": "Households with users cannot be deleted"
+    "debug-openai-services": "Debuggaa OpenAI-palveluita",
+    "debug-openai-services-description": "Käytä tätä sivua OpenAI-palveluiden debuggaamiseen. Voit testata OpenAI-yhteytesi ja nähdä tulokset täällä. Jos kuvapalvelut ovat käytössä, voit myös antaa kuvan.",
+    "run-test": "Suorita testi",
+    "test-results": "Testitulokset",
+    "group-delete-note": "Ryhmiä, joilla on käyttäjiä tai kotitalouksia, ei voi poistaa",
+    "household-delete-note": "Kotitalouksia, joissa on käyttäjiä, ei voi poistaa"
   },
   "profile": {
     "welcome-user": "👋 Tervetuloa, {0}!",
@@ -1345,9 +1345,9 @@
   },
   "cookbook": {
     "cookbooks": "Keittokirjat",
-    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
-    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
+    "description": "Keittokirjat ovat toinen tapa järjestää reseptejä luomalla poikkileikkauksia resepteistä, järjestäjistä, sekä muista suodattimista. Keittokirjan luominen lisää merkinnän sivupalkkiin, ja kaikki reseptit näkyvät keittokirjassa valittujen suodatinten mukaisesti.",
+    "hide-cookbooks-from-other-households": "Piilota keittokirjat muista kotitalouksista",
+    "hide-cookbooks-from-other-households-description": "Kun käytössä, sivupalkissa näkyy vain oman kotitaloutesi keittokirjoja",
     "public-cookbook": "Julkinen Keittokirja",
     "public-cookbook-description": "Julkisia keittokirjoja voidaan jakaa ei-Mealien käyttäjille, ja ne näkyvät ryhmäsi sivulla.",
     "filter-options": "Suodatuksen asetukset",
@@ -1363,25 +1363,25 @@
   },
   "query-filter": {
     "logical-operators": {
-      "and": "AND",
-      "or": "OR"
+      "and": "JA",
+      "or": "TAI"
     },
     "relational-operators": {
-      "equals": "equals",
-      "does-not-equal": "does not equal",
-      "is-greater-than": "is greater than",
-      "is-greater-than-or-equal-to": "is greater than or equal to",
-      "is-less-than": "is less than",
-      "is-less-than-or-equal-to": "is less than or equal to"
+      "equals": "on yhtä kuin",
+      "does-not-equal": "ei ole yhtä kuin",
+      "is-greater-than": "on suurempi kuin",
+      "is-greater-than-or-equal-to": "on suurempi tai yhtäsuuri kuin",
+      "is-less-than": "on vähemmän kuin",
+      "is-less-than-or-equal-to": "on vähemmän tai yhtäsuuri kuin"
     },
     "relational-keywords": {
-      "is": "is",
-      "is-not": "is not",
-      "is-one-of": "is one of",
-      "is-not-one-of": "is not one of",
-      "contains-all-of": "contains all of",
-      "is-like": "is like",
-      "is-not-like": "is not like"
+      "is": "on",
+      "is-not": "ei ole",
+      "is-one-of": "on yksi näistä",
+      "is-not-one-of": "ei ole yksi näistä",
+      "contains-all-of": "sisältää kaikki nämä",
+      "is-like": "on kuin",
+      "is-not-like": "ei ole kuin"
     }
   }
 }
