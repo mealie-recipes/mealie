@@ -104,13 +104,13 @@
     },
     "head": {
         "name": "cabeça",
-        "plural_name": "heads",
+        "plural_name": "cabeças",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "cravo",
-        "plural_name": "cloves",
+        "plural_name": "cravos",
         "description": "",
         "abbreviation": ""
     },
@@ -127,8 +127,8 @@
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "pacote",
+        "plural_name": "pacotes",
         "description": "",
         "abbreviation": ""
     },

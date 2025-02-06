@@ -4,7 +4,7 @@
     },
     "recipe": {
         "unique-name-error": "Nomes de receitas devem ser únicos",
-        "recipe-created": "Recipe Created",
+        "recipe-created": "Receita criada",
         "recipe-defaults": {
             "ingredient-note": "1 Xícara de Farinha",
             "step-text": "Passos das receitas, assim como outros campos na página da receita, suportam sintaxe \"markdown\".\n\n**Adicione um link**\n\n[Meu Link](https://demo.mealie.io)\n"
@@ -12,8 +12,8 @@
         "servings-text": {
             "makes": "Makes",
             "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
+            "serving": "Porção",
+            "servings": "Porções",
             "yield": "Yield",
             "yields": "Yields"
         }
