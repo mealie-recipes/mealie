@@ -14,7 +14,7 @@
           </v-card-title>
           <v-divider class="my-2" />
           <SafeMarkdown :source="recipe.description" />
-          <v-divider />
+          <v-divider v-if="recipe.description" />
           <v-container class="d-flex flex-row flex-wrap justify-center align-center">
             <div class="mx-5">
               <v-row no-gutters class="mb-1">
@@ -38,7 +38,6 @@
             </div>
             <div class="mx-5">
               <RecipeTimeCard
-                stacked
                 container-class="d-flex flex-wrap justify-center"
                 :prep-time="recipe.prepTime"
                 :total-time="recipe.totalTime"

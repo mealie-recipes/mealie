@@ -1,41 +1,33 @@
-<template>
-  <div v-if="stacked">
-    <v-container>
-      <v-row v-for="(time, index) in allTimes" :key="`${index}-stacked`" no-gutters>
-        <v-col cols="12" :class="containerClass">
-          <v-chip
-            :small="$vuetify.breakpoint.smAndDown"
-            label
-            :color="color"
-            class="ma-1"
-          >
-            <v-icon left>
-              {{ $globals.icons.clockOutline }}
-            </v-icon>
-            {{ time.name }} |
-            {{ time.value }}
-          </v-chip>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
-  <div v-else>
-    <v-container :class="containerClass">
-      <v-chip
-        v-for="(time, index) in allTimes"
-        :key="index"
-        :small="$vuetify.breakpoint.smAndDown"
-        label
-        :color="color"
-        class="ma-1"
-      >
-        <v-icon left>
+<template v-if="showCards">
+  <div class="text-center">
+    <!-- Total Time -->
+    <div v-if="validateTotalTime" class="time-card-flex mx-auto">
+      <v-row no-gutters class="d-flex flex-wrap align-center" style="font-size: larger;">
+        <v-icon large class="mr-2" color="primary">
           {{ $globals.icons.clockOutline }}
         </v-icon>
-        {{ time.name }} |
-        {{ time.value }}
-      </v-chip>
-    </v-container>
+        {{ validateTotalTime.name }} <br> {{ validateTotalTime.value }}
+      </v-row>
+    </div>
+    <v-divider v-if="validateTotalTime" class="my-2" />
+    <!-- Prep Time & Perform Time -->
+    <div v-if="validatePrepTime || validatePerformTime" class="time-card-flex mx-auto">
+      <v-row no-gutters class="d-flex justify-center" style="font-size: larger; width: 100%;">
+        <template v-if="validatePrepTime">
+          <v-icon class="mr-2" color="primary">
+            {{ $globals.icons.knfife }}
+          </v-icon>
+          {{ validatePrepTime.name }} <br> {{ validatePrepTime.value }}
+        </template>
+        <v-divider v-if="validatePrepTime && validatePerformTime" vertical class="mx-4" />
+        <template v-if="validatePerformTime">
+          <v-icon class="mr-2" color="primary">
+            {{ $globals.icons.potSteam }}
+          </v-icon>
+          {{ validatePerformTime.name }} <br> {{ validatePerformTime.value }}
+        </template>
+      </v-row>
+    </div>
   </div>
 </template>
 
@@ -44,10 +36,6 @@ import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 
 export default defineComponent({
   props: {
-    stacked: {
-      type: Boolean,
-      default: false,
-    },
     prepTime: {
       type: String,
       default: null,
@@ -92,13 +80,11 @@ export default defineComponent({
       return !isEmpty(props.performTime) ? { name: i18n.t("recipe.perform-time"), value: props.performTime } : null;
     });
 
-    const allTimes = computed(() => {
-      return [validateTotalTime.value, validatePrepTime.value, validatePerformTime.value].filter((x) => x !== null);
-    });
-
     return {
       showCards,
-      allTimes,
+      validateTotalTime,
+      validatePrepTime,
+      validatePerformTime,
     };
   },
 });
