@@ -146,7 +146,8 @@ import {
   mdiFileCabinet,
   mdiSilverwareForkKnife,
   mdiCodeTags,
-  mdiKnife
+  mdiKnife,
+  mdiCookie
 } from "@mdi/js";
 
 export const icons = {
@@ -273,6 +274,7 @@ export const icons = {
   zip: mdiFolderZipOutline,
   undo: mdiUndo,
   knfife: mdiKnife,
+  bread: mdiCookie,
 
   // Crud
   backArrow: mdiArrowLeftBoldOutline,
