@@ -1,16 +1,20 @@
 <template>
-  <div v-if="scaledAmountDisplay" class="d-flex align-center">
+  <div v-if="scaledAmount" class="d-flex align-center">
     <v-row no-gutters class="d-flex flex-wrap align-center" style="font-size: larger;">
       <v-icon x-large left color="primary">
         {{ $globals.icons.bread }}
       </v-icon>
-      <p class="my-0"><span class="font-weight-bold">{{ $i18n.tc("recipe.yield") }}</span><br>{{ scaledAmountDisplay }} {{ text }}</p>
+      <p class="my-0">
+        <span class="font-weight-bold">{{ $i18n.tc("recipe.yield") }}</span><br>
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <span v-html="scaledAmount"></span> {{ text }}
+      </p>
     </v-row>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent, computed } from "@nuxtjs/composition-api";
 import DOMPurify from "dompurify";
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
@@ -42,11 +46,14 @@ export default defineComponent({
       });
     }
 
-    const { scaledAmountDisplay } = useScaledAmount(props.yieldQuantity, props.scale);
+    const scaledAmount = computed(() => {
+      const {scaledAmountDisplay} =  useScaledAmount(props.yieldQuantity, props.scale);
+      return scaledAmountDisplay;
+    });
     const text = sanitizeHTML(props.yield);
 
     return {
-      scaledAmountDisplay,
+      scaledAmount,
       text,
     };
   },
