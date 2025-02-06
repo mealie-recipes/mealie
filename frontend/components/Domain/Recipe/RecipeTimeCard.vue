@@ -3,28 +3,28 @@
     <!-- Total Time -->
     <div v-if="validateTotalTime" class="time-card-flex mx-auto">
       <v-row no-gutters class="d-flex flex-wrap align-center" style="font-size: larger;">
-        <v-icon x-large class="mr-2" color="primary">
+        <v-icon x-large left color="primary">
           {{ $globals.icons.clockOutline }}
         </v-icon>
-        <p class="my-0"><span class="primary--text font-weight-bold">{{ validateTotalTime.name }}</span><br>{{ validateTotalTime.value }}</p>
+        <p class="my-0"><span class="font-weight-bold">{{ validateTotalTime.name }}</span><br>{{ validateTotalTime.value }}</p>
       </v-row>
     </div>
     <v-divider v-if="validateTotalTime" class="my-2" />
     <!-- Prep Time & Perform Time -->
     <div v-if="validatePrepTime || validatePerformTime" class="time-card-flex mx-auto">
-      <v-row no-gutters class="d-flex justify-center" style="font-size: larger; width: 100%;">
+      <v-row no-gutters class="d-flex justify-center align-center" style="font-size: larger; width: 100%;">
         <template v-if="validatePrepTime">
-          <v-icon larger class="mr-2" color="primary">
+          <v-icon large left color="primary">
             {{ $globals.icons.knfife }}
           </v-icon>
-          <p class="my-0"><span class="primary--text font-weight-bold">{{ validatePrepTime.name }}</span><br>{{ validatePrepTime.value }}</p>
+          <p class="my-0"><span class="font-weight-bold">{{ validatePrepTime.name }}</span><br>{{ validatePrepTime.value }}</p>
         </template>
         <v-divider v-if="validatePrepTime && validatePerformTime" vertical class="mx-4" />
         <template v-if="validatePerformTime">
-          <v-icon larger class="mr-2" color="primary">
+          <v-icon large left color="primary">
             {{ $globals.icons.potSteam }}
           </v-icon>
-          <p class="my-0"><span class="primary--text font-weight-bold">{{ validatePerformTime.name }}</span><br>{{ validatePerformTime.value }}</p>
+          <p class="my-0"><span class="font-weight-bold">{{ validatePerformTime.name }}</span><br>{{ validatePerformTime.value }}</p>
         </template>
       </v-row>
     </div>
