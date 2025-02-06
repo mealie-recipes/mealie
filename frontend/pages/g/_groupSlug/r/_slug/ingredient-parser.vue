@@ -99,12 +99,6 @@
     </v-container>
   </v-container>
 </template>
-<style lang="css">
-.v-card__actions {
-  flex-wrap: wrap;
-  overflow: truncate;
-}
-</style>
 <script lang="ts">
 import { computed, defineComponent, ref, useContext, useRoute, useRouter, watch } from "@nuxtjs/composition-api";
 import { invoke, until } from "@vueuse/core";
@@ -412,3 +406,9 @@ export default defineComponent({
   },
 });
 </script>
+<style lang="css">
+.v-card__actions {
+  flex-wrap: wrap;
+  overflow: truncate;
+}
+</style>
