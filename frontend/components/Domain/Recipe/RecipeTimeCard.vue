@@ -3,10 +3,10 @@
     <!-- Total Time -->
     <div v-if="validateTotalTime" class="time-card-flex mx-auto">
       <v-row no-gutters class="d-flex flex-wrap align-center" style="font-size: larger;">
-        <v-icon large class="mr-2" color="primary">
+        <v-icon x-large class="mr-2" color="primary">
           {{ $globals.icons.clockOutline }}
         </v-icon>
-        {{ validateTotalTime.name }} <br> {{ validateTotalTime.value }}
+        <p class="my-0"><span class="primary--text font-weight-bold">{{ validateTotalTime.name }}</span><br>{{ validateTotalTime.value }}</p>
       </v-row>
     </div>
     <v-divider v-if="validateTotalTime" class="my-2" />
@@ -14,17 +14,17 @@
     <div v-if="validatePrepTime || validatePerformTime" class="time-card-flex mx-auto">
       <v-row no-gutters class="d-flex justify-center" style="font-size: larger; width: 100%;">
         <template v-if="validatePrepTime">
-          <v-icon class="mr-2" color="primary">
+          <v-icon larger class="mr-2" color="primary">
             {{ $globals.icons.knfife }}
           </v-icon>
-          {{ validatePrepTime.name }} <br> {{ validatePrepTime.value }}
+          <p class="my-0"><span class="primary--text font-weight-bold">{{ validatePrepTime.name }}</span><br>{{ validatePrepTime.value }}</p>
         </template>
         <v-divider v-if="validatePrepTime && validatePerformTime" vertical class="mx-4" />
         <template v-if="validatePerformTime">
-          <v-icon class="mr-2" color="primary">
+          <v-icon larger class="mr-2" color="primary">
             {{ $globals.icons.potSteam }}
           </v-icon>
-          {{ validatePerformTime.name }} <br> {{ validatePerformTime.value }}
+          <p class="my-0"><span class="primary--text font-weight-bold">{{ validatePerformTime.name }}</span><br>{{ validatePerformTime.value }}</p>
         </template>
       </v-row>
     </div>
