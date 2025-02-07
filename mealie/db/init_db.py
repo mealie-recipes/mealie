@@ -69,16 +69,16 @@ def db_is_at_head(alembic_cfg: config.Config) -> bool:
 def safe_try(func: Callable):
     try:
         func()
-    except Exception as e:
-        logger.error(f"Error calling '{func.__name__}': {e}")
+    except Exception:
+        logger.exception(f"Error calling '{func.__name__}'")
 
 
 def connect(session: orm.Session) -> bool:
     try:
         session.execute(text("SELECT 1"))
         return True
-    except Exception as e:
-        logger.error(f"Error connecting to database: {e}")
+    except Exception:
+        logger.exception("Error connecting to database")
         return False
 
 
