@@ -23,8 +23,8 @@ class RecipeInstruction(SqlAlchemyBase):
     recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
     position: Mapped[int | None] = mapped_column(Integer, index=True)
     type: Mapped[str | None] = mapped_column(String, default="")
-    title: Mapped[str | None] = mapped_column(String)  # This is the section title!!!
-    text: Mapped[str | None] = mapped_column(String, index=True)
+    title: Mapped[str | None] = mapped_column(String)  # This is the section title
+    text: Mapped[str | None] = mapped_column(String)
     summary: Mapped[str | None] = mapped_column(String)
 
     ingredient_references: Mapped[list[RecipeIngredientRefLink]] = orm.relationship(
