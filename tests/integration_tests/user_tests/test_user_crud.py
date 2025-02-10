@@ -88,9 +88,11 @@ def test_user_update(api_client: TestClient, unique_user: TestUser, admin_user: 
 
 
 def test_admin_updates(api_client: TestClient, admin_user: TestUser, unique_user: TestUser):
-    response = api_client.get(api_routes.users_item_id(unique_user.user_id), headers=admin_user.token)
+    response = api_client.get(api_routes.admin_users_item_id(unique_user.user_id), headers=admin_user.token)
+    assert response.status_code == 200
     user = response.json()
-    response = api_client.get(api_routes.users_item_id(admin_user.user_id), headers=admin_user.token)
+
+    response = api_client.get(api_routes.admin_users_item_id(admin_user.user_id), headers=admin_user.token)
     admin = response.json()
 
     # admin updating themselves
