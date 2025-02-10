@@ -24,7 +24,7 @@ def test_api_token_private(api_client: TestClient, admin_token):
     response = api_client.post(api_routes.users_api_tokens, json={"name": "Test API Token"}, headers=admin_token)
     assert response.status_code == 201
 
-    response = api_client.get(api_routes.users, headers=admin_token, params={"perPage": -1})
+    response = api_client.get(api_routes.admin_users, headers=admin_token, params={"perPage": -1})
     assert response.status_code == 200
     for user in response.json()["items"]:
         for user_token in user["tokens"] or []:
@@ -39,7 +39,7 @@ def test_api_token_private(api_client: TestClient, admin_token):
 
 
 def test_use_token(api_client: TestClient, long_live_token):
-    response = api_client.get(api_routes.users, headers=long_live_token)
+    response = api_client.get(api_routes.admin_users, headers=long_live_token)
 
     assert response.status_code == 200
 
