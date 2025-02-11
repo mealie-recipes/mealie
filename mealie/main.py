@@ -6,7 +6,7 @@ from mealie.core.logger.config import log_config
 
 def main():
     uvicorn.run(
-        "app:app",
+        "mealie.app:app",
         host=settings.API_HOST,
         port=settings.API_PORT,
         log_level=settings.LOG_LEVEL.lower(),

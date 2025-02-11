@@ -6,7 +6,7 @@
 .idea
 .vscode
 
-__pycache__/
+**/__pycache__/
 *.py[cod]
 *$py.class
 *.so
@@ -25,9 +25,11 @@ venv
 
 */node_modules
 */dist
+/dist/
 */data/db
 */mealie/test
 */mealie/.temp
+/mealie/frontend/
 
 model.crfmodel
 

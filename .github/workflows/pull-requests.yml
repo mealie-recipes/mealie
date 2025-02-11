@@ -19,7 +19,7 @@ jobs:
     uses: ./.github/workflows/partial-backend.yml
 
   frontend-tests:
-    name: "Frontend and End-to-End Tests"
+    name: "Frontend Tests"
     uses: ./.github/workflows/partial-frontend.yml
 
   container-scanning:
