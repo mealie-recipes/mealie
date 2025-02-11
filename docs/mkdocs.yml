@@ -99,6 +99,7 @@ nav:
       - Non-Code: "contributors/non-coders.md"
       - Translating: "contributors/translating.md"
       - Developers Guide:
+          - Building Packages: "contributors/developers-guide/building-packages.md"
           - Code Contributions: "contributors/developers-guide/code-contributions.md"
           - Dev Getting Started: "contributors/developers-guide/starting-dev-server.md"
           - Database Changes: "contributors/developers-guide/database-changes.md"
