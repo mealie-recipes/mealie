@@ -482,6 +482,85 @@ def test_shopping_lists_add_recipe_with_merge(
     assert all([found_item_1, found_item_2, found_duplicate_item])
 
 
+def test_shopping_lists_add_recipes_with_merge(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_lists: list[ShoppingListOut],
+):
+    shopping_list = random.choice(shopping_lists)
+
+    # build two recipes that share an ingredient
+    recipes: list[Recipe] = []
+    common_note = random_string()
+    for _ in range(2):
+        response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
+        recipe_slug = utils.assert_deserialize(response, 201)
+
+        response = api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token)
+        recipe_data = utils.assert_deserialize(response, 200)
+
+        ingredient_unique = {"quantity": 1, "note": random_string()}
+        ingredient_duplicate = {"quantity": 1, "note": common_note}
+
+        recipe_data["recipeIngredient"] = [ingredient_unique, ingredient_duplicate]
+        response = api_client.put(
+            f"{api_routes.recipes}/{recipe_slug}",
+            json=recipe_data,
+            headers=unique_user.token,
+        )
+        utils.assert_deserialize(response, 200)
+
+        recipe = Recipe.model_validate_json(
+            api_client.get(f"{api_routes.recipes}/{recipe_slug}", headers=unique_user.token).content
+        )
+        assert recipe.id
+        assert len(recipe.recipe_ingredient) == 2
+        recipes.append(recipe)
+
+    # add the recipes to the list and make sure there are only five list items, and their quantities/refs are correct
+    response = api_client.post(
+        api_routes.households_shopping_lists_item_id_recipe(shopping_list.id),
+        json=utils.jsonify([ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id).model_dump() for recipe in recipes]),
+        headers=unique_user.token,
+    )
+
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    shopping_list_out = ShoppingListOut.model_validate(utils.assert_deserialize(response, 200))
+
+    assert len(shopping_list_out.list_items) == 3
+
+    found_recipe_1_item = False
+    found_recipe_2_item = False
+    found_duplicate_item = False
+    for list_item in shopping_list_out.list_items:
+        if list_item.note == common_note:
+            assert list_item.quantity == 2
+            assert len(list_item.recipe_references) == 2
+            assert {ref.recipe_id for ref in list_item.recipe_references} == {recipe.id for recipe in recipes}
+            found_duplicate_item = True
+
+        else:
+            assert len(list_item.recipe_references) == 1
+            assert list_item.quantity == 1
+            if list_item.note == recipes[0].recipe_ingredient[0].note:
+                assert list_item.recipe_references[0].recipe_id == recipes[0].id
+                found_recipe_1_item = True
+            elif list_item.note == recipes[1].recipe_ingredient[0].note:
+                assert list_item.recipe_references[0].recipe_id == recipes[1].id
+                found_recipe_2_item = True
+            else:
+                raise Exception("Unexpected item")
+
+        for ref in list_item.recipe_references:
+            assert ref.recipe_scale == 1
+            assert ref.recipe_quantity == 1
+
+    assert all([found_recipe_1_item, found_recipe_2_item, found_duplicate_item])
+
+
 def test_shopping_list_add_recipe_scale(
     api_client: TestClient,
     unique_user: TestUser,
