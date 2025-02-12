@@ -136,11 +136,11 @@ class ShoppingListService:
         consolidated_create_items: list[ShoppingListItemCreate] = []
         for create_item in create_items:
             merged = False
-            for filtered_item in consolidated_create_items:
+            for i, filtered_item in enumerate(consolidated_create_items):
                 if not self.can_merge(create_item, filtered_item):
                     continue
 
-                filtered_item = self.merge_items(create_item, filtered_item).cast(ShoppingListItemCreate)
+                consolidated_create_items[i] = self.merge_items(create_item, filtered_item).cast(ShoppingListItemCreate)
                 merged = True
                 break
 
@@ -208,11 +208,11 @@ class ShoppingListService:
             seen_update_ids.add(update_item.id)
 
             merged = False
-            for filtered_item in consolidated_update_items:
+            for i, filtered_item in enumerate(consolidated_update_items):
                 if not self.can_merge(update_item, filtered_item):
                     continue
 
-                filtered_item = self.merge_items(update_item, filtered_item).cast(
+                consolidated_update_items[i] = self.merge_items(update_item, filtered_item).cast(
                     ShoppingListItemUpdateBulk, id=filtered_item.id
                 )
                 delete_items.add(update_item.id)
