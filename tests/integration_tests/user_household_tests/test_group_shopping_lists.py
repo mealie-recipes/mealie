@@ -3,6 +3,7 @@ import random
 from fastapi.testclient import TestClient
 
 from mealie.schema.household.group_shopping_list import (
+    ShoppingListAddRecipeParamsBulk,
     ShoppingListItemOut,
     ShoppingListItemUpdate,
     ShoppingListItemUpdateBulk,
@@ -171,6 +172,78 @@ def test_shopping_lists_add_recipe(
     assert refs[0]["recipeQuantity"] == 2
 
 
+def test_shopping_lists_add_recipes(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_lists: list[ShoppingListOut],
+    recipes_ingredient_only: list[Recipe],
+):
+    sample_list = random.choice(shopping_lists)
+    recipes = recipes_ingredient_only
+    all_ingredients = [ingredient for recipe in recipes for ingredient in recipe.recipe_ingredient]
+
+    recipes_post_data = utils.jsonify(
+        [ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id).model_dump() for recipe in recipes]
+    )
+    response = api_client.post(
+        api_routes.households_shopping_lists_item_id_recipe(sample_list.id),
+        json=recipes_post_data,
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    # get list and verify items against ingredients
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
+    assert len(as_json["listItems"]) == len(all_ingredients)
+
+    known_ingredients = {ingredient.note: ingredient for ingredient in all_ingredients}
+    for item in as_json["listItems"]:
+        assert item["note"] in known_ingredients
+
+        ingredient = known_ingredients[item["note"]]
+        assert item["quantity"] == (ingredient.quantity or 0)
+
+    # check recipe reference was added with quantity 1
+    refs = as_json["recipeReferences"]
+    assert len(refs) == len(recipes)
+    refs_by_id = {ref["recipeId"]: ref for ref in refs}
+    for recipe in recipes:
+        assert str(recipe.id) in refs_by_id
+        assert refs_by_id[str(recipe.id)]["recipeQuantity"] == 1
+
+    # add the recipes again and check the resulting items
+    response = api_client.post(
+        api_routes.households_shopping_lists_item_id_recipe(sample_list.id),
+        json=recipes_post_data,
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
+    assert len(as_json["listItems"]) == len(all_ingredients)
+
+    for item in as_json["listItems"]:
+        assert item["note"] in known_ingredients
+
+        ingredient = known_ingredients[item["note"]]
+        assert item["quantity"] == (ingredient.quantity or 0) * 2
+
+    refs = as_json["recipeReferences"]
+    assert len(refs) == len(recipes)
+    refs_by_id = {ref["recipeId"]: ref for ref in refs}
+    for recipe in recipes:
+        assert str(recipe.id) in refs_by_id
+        assert refs_by_id[str(recipe.id)]["recipeQuantity"] == 2
+
+
 def test_shopping_lists_add_one_with_zero_quantity(
     api_client: TestClient,
     unique_user: TestUser,
@@ -209,7 +282,8 @@ def test_shopping_lists_add_one_with_zero_quantity(
 
     # add the recipe to the list and make sure there are three list items
     response = api_client.post(
-        api_routes.households_shopping_lists_item_id_recipe_recipe_id(shopping_list.id, recipe.id),
+        api_routes.households_shopping_lists_item_id_recipe(shopping_list.id),
+        json=utils.jsonify([ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id).model_dump()]),
         headers=unique_user.token,
     )
 
@@ -242,16 +316,19 @@ def test_shopping_lists_add_custom_recipe_items(
     recipe = recipe_ingredient_only
 
     response = api_client.post(
-        api_routes.households_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        api_routes.households_shopping_lists_item_id_recipe(sample_list.id),
+        json=utils.jsonify([ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id).model_dump()]),
         headers=unique_user.token,
     )
     assert response.status_code == 200
 
     custom_items = random.sample(recipe_ingredient_only.recipe_ingredient, k=3)
     response = api_client.post(
-        api_routes.households_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        api_routes.households_shopping_lists_item_id_recipe(sample_list.id),
+        json=utils.jsonify(
+            [ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id, recipe_ingredients=custom_items).model_dump()]
+        ),
         headers=unique_user.token,
-        json={"recipeIngredients": utils.jsonify(custom_items)},
     )
     assert response.status_code == 200
 
@@ -291,7 +368,8 @@ def test_shopping_list_ref_removes_itself(
     # add a recipe to a list, then check off all recipe items and make sure the recipe ref is deleted
     recipe = recipe_ingredient_only
     response = api_client.post(
-        api_routes.households_shopping_lists_item_id_recipe_recipe_id(shopping_list.id, recipe.id),
+        api_routes.households_shopping_lists_item_id_recipe(shopping_list.id),
+        json=utils.jsonify([ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id).model_dump()]),
         headers=unique_user.token,
     )
     utils.assert_deserialize(response, 200)
@@ -365,7 +443,8 @@ def test_shopping_lists_add_recipe_with_merge(
 
     # add the recipe to the list and make sure there are only three list items, and their quantities/refs are correct
     response = api_client.post(
-        api_routes.households_shopping_lists_item_id_recipe_recipe_id(shopping_list.id, recipe.id),
+        api_routes.households_shopping_lists_item_id_recipe(shopping_list.id),
+        json=utils.jsonify([ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id).model_dump()]),
         headers=unique_user.token,
     )
 
@@ -413,7 +492,8 @@ def test_shopping_list_add_recipe_scale(
     recipe = recipe_ingredient_only
 
     response = api_client.post(
-        api_routes.households_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        api_routes.households_shopping_lists_item_id_recipe(sample_list.id),
+        json=utils.jsonify([ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id).model_dump()]),
         headers=unique_user.token,
     )
 
@@ -440,10 +520,12 @@ def test_shopping_list_add_recipe_scale(
         assert refs[0]["recipeScale"] == 1
 
     recipe_scale = round(random.uniform(1, 10), 5)
-    payload = {"recipeIncrementQuantity": recipe_scale}
+    payload = utils.jsonify(
+        [ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id, recipe_increment_quantity=recipe_scale).model_dump()]
+    )
 
     response = api_client.post(
-        api_routes.households_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        api_routes.households_shopping_lists_item_id_recipe(sample_list.id),
         headers=unique_user.token,
         json=payload,
     )
@@ -476,9 +558,11 @@ def test_shopping_lists_remove_recipe(
     recipe = recipe_ingredient_only
 
     # add two instances of the recipe
-    payload = {"recipeIncrementQuantity": 2}
+    payload = utils.jsonify(
+        [ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id, recipe_increment_quantity=2).model_dump()]
+    )
     response = api_client.post(
-        api_routes.households_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        api_routes.households_shopping_lists_item_id_recipe(sample_list.id),
         json=payload,
         headers=unique_user.token,
     )
@@ -539,7 +623,8 @@ def test_shopping_lists_remove_recipe_multiple_quantity(
 
     for _ in range(3):
         response = api_client.post(
-            api_routes.households_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+            api_routes.households_shopping_lists_item_id_recipe(sample_list.id),
+            json=utils.jsonify([ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id).model_dump()]),
             headers=unique_user.token,
         )
         assert response.status_code == 200
@@ -592,11 +677,17 @@ def test_shopping_list_remove_recipe_scale(
     recipe = recipe_ingredient_only
 
     recipe_initital_scale = 100
-    payload: dict = {"recipeIncrementQuantity": recipe_initital_scale}
+    payload = utils.jsonify(
+        [
+            ShoppingListAddRecipeParamsBulk(
+                recipe_id=recipe.id, recipe_increment_quantity=recipe_initital_scale
+            ).model_dump()
+        ]
+    )
 
     # first add a bunch of quantity to the list
     response = api_client.post(
-        api_routes.households_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        api_routes.households_shopping_lists_item_id_recipe(sample_list.id),
         headers=unique_user.token,
         json=payload,
     )
@@ -657,11 +748,13 @@ def test_recipe_decrement_max(
     recipe = recipe_ingredient_only
 
     recipe_scale = 10
-    payload = {"recipeIncrementQuantity": recipe_scale}
+    payload = utils.jsonify(
+        [ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id, recipe_increment_quantity=recipe_scale).model_dump()]
+    )
 
     # first add a bunch of quantity to the list
     response = api_client.post(
-        api_routes.households_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        api_routes.households_shopping_lists_item_id_recipe(sample_list.id),
         headers=unique_user.token,
         json=payload,
     )
@@ -757,13 +850,15 @@ def test_recipe_manipulation_with_zero_quantities(
 
     # add the recipe to the list twice and make sure the quantity is still zero
     response = api_client.post(
-        api_routes.households_shopping_lists_item_id_recipe_recipe_id(shopping_list.id, recipe.id),
+        api_routes.households_shopping_lists_item_id_recipe(shopping_list.id),
+        json=utils.jsonify([ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id).model_dump()]),
         headers=unique_user.token,
     )
     utils.assert_deserialize(response, 200)
 
     response = api_client.post(
-        api_routes.households_shopping_lists_item_id_recipe_recipe_id(shopping_list.id, recipe.id),
+        api_routes.households_shopping_lists_item_id_recipe(shopping_list.id),
+        json=utils.jsonify([ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id).model_dump()]),
         headers=unique_user.token,
     )
     utils.assert_deserialize(response, 200)
