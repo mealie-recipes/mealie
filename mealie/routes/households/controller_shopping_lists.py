@@ -254,7 +254,7 @@ class ShoppingListController(BaseCrudController):
         return updated_list
 
     @router.post("/{item_id}/recipe", response_model=ShoppingListOut)
-    def add_recipe_ingredients_to_list(self, item_id: UUID4, data: ShoppingListAddRecipeParamsBulk):
+    def add_recipe_ingredients_to_list(self, item_id: UUID4, data: list[ShoppingListAddRecipeParamsBulk]):
         shopping_list, items = self.service.add_recipe_ingredients_to_list(item_id, data)
 
         publish_list_item_events(self.publish_event, items)
@@ -268,7 +268,7 @@ class ShoppingListController(BaseCrudController):
         # TODO: remove this function in the future
 
         data = data or ShoppingListAddRecipeParams(recipe_increment_quantity=1)
-        bulk_data = data.cast(ShoppingListAddRecipeParamsBulk, recipe_id=recipe_id)
+        bulk_data = [data.cast(ShoppingListAddRecipeParamsBulk, recipe_id=recipe_id)]
         return self.add_recipe_ingredients_to_list(item_id, bulk_data)
 
     @router.post("/{item_id}/recipe/{recipe_id}/delete", response_model=ShoppingListOut)

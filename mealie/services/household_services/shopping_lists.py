@@ -5,7 +5,7 @@ from pydantic import UUID4
 from mealie.core.exceptions import UnexpectedNone
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.group_shopping_list import (
-    ShoppingListAddRecipeParams,
+    ShoppingListAddRecipeParamsBulk,
     ShoppingListCreate,
     ShoppingListItemBase,
     ShoppingListItemCreate,
@@ -374,7 +374,7 @@ class ShoppingListService:
     def add_recipe_ingredients_to_list(
         self,
         list_id: UUID4,
-        recipe_items: list[ShoppingListAddRecipeParams],
+        recipe_items: list[ShoppingListAddRecipeParamsBulk],
     ) -> tuple[ShoppingListOut, ShoppingListItemsCollectionOut]:
         """
         Adds recipe ingredients to a list
