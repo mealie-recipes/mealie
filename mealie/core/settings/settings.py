@@ -12,6 +12,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 from mealie.core.settings.themes import Theme
 
 from .db_providers import AbstractDBProvider, db_provider_factory
+from .static import PACKAGE_DIR
 
 
 class ScheduleTime(NamedTuple):
@@ -109,7 +110,7 @@ class AppSettings(AppLoggingSettings):
     BASE_URL: str = "http://localhost:8080"
     """trailing slashes are trimmed (ex. `http://localhost:8080/` becomes ``http://localhost:8080`)"""
 
-    STATIC_FILES: str = ""
+    STATIC_FILES: str = str(PACKAGE_DIR / "frontend")
     """path to static files directory (ex. `mealie/dist`)"""
 
     IS_DEMO: bool = False
