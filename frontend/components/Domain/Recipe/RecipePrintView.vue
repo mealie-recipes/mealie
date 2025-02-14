@@ -34,6 +34,7 @@
               :prep-time="recipe.prepTime"
               :total-time="recipe.totalTime"
               :perform-time="recipe.performTime"
+              small
               color="white"
             />
             <v-card-text v-if="preferences.showDescription" class="px-0">

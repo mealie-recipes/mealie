@@ -2,8 +2,8 @@
   <div class="text-center">
     <!-- Total Time -->
     <div v-if="validateTotalTime" class="time-card-flex mx-auto">
-      <v-row no-gutters class="d-flex flex-wrap align-center" style="font-size: larger;">
-        <v-icon x-large left color="primary">
+      <v-row no-gutters class="d-flex flex-wrap align-center" :style="fontSize">
+        <v-icon :x-large="!small" left color="primary">
           {{ $globals.icons.clockOutline }}
         </v-icon>
         <p class="my-0"><span class="font-weight-bold">{{ validateTotalTime.name }}</span><br>{{ validateTotalTime.value }}</p>
@@ -12,16 +12,16 @@
     <v-divider v-if="validateTotalTime && (validatePrepTime || validatePerformTime)" class="my-2" />
     <!-- Prep Time & Perform Time -->
     <div v-if="validatePrepTime || validatePerformTime" class="time-card-flex mx-auto">
-      <v-row no-gutters class="d-flex justify-center align-center" style="font-size: larger; width: 100%;">
+      <v-row no-gutters class="d-flex justify-center align-center" style="width: 100%;" :style="fontSize">
         <template v-if="validatePrepTime">
-          <v-icon large left color="primary">
+          <v-icon :large="!small" :dense="small" left color="primary">
             {{ $globals.icons.knfife }}
           </v-icon>
           <p class="my-0"><span class="font-weight-bold">{{ validatePrepTime.name }}</span><br>{{ validatePrepTime.value }}</p>
         </template>
         <v-divider v-if="validatePrepTime && validatePerformTime" vertical class="mx-4" />
         <template v-if="validatePerformTime">
-          <v-icon large left color="primary">
+          <v-icon :large="!small" :dense="small" left color="primary">
             {{ $globals.icons.potSteam }}
           </v-icon>
           <p class="my-0"><span class="font-weight-bold">{{ validatePerformTime.name }}</span><br>{{ validatePerformTime.value }}</p>
@@ -52,9 +52,9 @@ export default defineComponent({
       type: String,
       default: "accent custom-transparent"
     },
-    containerClass: {
-      type: String,
-      default: undefined,
+    small: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props) {
@@ -80,11 +80,16 @@ export default defineComponent({
       return !isEmpty(props.performTime) ? { name: i18n.t("recipe.perform-time"), value: props.performTime } : null;
     });
 
+    const fontSize = computed(() => {
+      return props.small ? { fontSize: "smaller" } : { fontSize: "larger" };
+    });
+
     return {
       showCards,
       validateTotalTime,
       validatePrepTime,
       validatePerformTime,
+      fontSize,
     };
   },
 });
