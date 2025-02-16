@@ -122,6 +122,17 @@ def test_share_recipe_from_different_group(api_client: TestClient, unique_user: 
     assert response.status_code == 404
 
 
+def test_share_recipe_from_different_household(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser, slug: str
+):
+    database = unique_user.repos
+    recipe = database.recipes.get_one(slug)
+    assert recipe
+
+    response = api_client.post(api_routes.shared_recipes, json={"recipeId": str(recipe.id)}, headers=h2_user.token)
+    assert response.status_code == 201
+
+
 def test_get_recipe_from_token(api_client: TestClient, unique_user: TestUser, slug: str):
     database = unique_user.repos
     recipe = database.recipes.get_one(slug)
