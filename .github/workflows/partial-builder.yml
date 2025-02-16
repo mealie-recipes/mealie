@@ -16,7 +16,14 @@ on:
         required: true
 
 jobs:
+  build-package:
+    name: "Build Python package"
+    uses: ./.github/workflows/partial-package.yml
+    with:
+      tag: ${{ inputs.tag }}
+
   publish:
+    needs: build-package
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -35,11 +42,13 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Override __init__.py
-        run: |
-          echo "__version__ = \"${{ inputs.tag }}\"" > ./mealie/__init__.py
-
       - uses: depot/setup-action@v1
+
+      - name: Retrieve Python package
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-dist
+          path: dist
 
       - name: Build and push Docker image, via Depot.dev
         uses: depot/build-push-action@v1
@@ -47,6 +56,8 @@ jobs:
           project: srzjb6mhzm
           file: ./docker/Dockerfile
           context: .
+          build-contexts: |
+            packages=dist
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |

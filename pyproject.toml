@@ -4,9 +4,13 @@ description = "A Recipe Manager"
 license = "AGPL"
 name = "mealie"
 version = "2.6.0"
+include = [
+    # Explicit include to override .gitignore when packaging the frontend
+    { path = "mealie/frontend/**/*", format = ["sdist", "wheel"] }
+]
 
 [tool.poetry.scripts]
-start = "mealie.app:main"
+mealie = "mealie.main:main"
 
 [tool.poetry.dependencies]
 Jinja2 = "^3.1.2"

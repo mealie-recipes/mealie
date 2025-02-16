@@ -41,14 +41,25 @@ tasks:
   setup:ui:
     desc: setup frontend dependencies
     dir: frontend
+    run: once
     cmds:
       - yarn install
+    sources:
+      - package.json
+      - yarn.lock
+    generates:
+      - node_modules/**
 
   setup:py:
     desc: setup python dependencies
+    run: once
     cmds:
       - poetry install --with main,dev,postgres
       - poetry run pre-commit install
+    sources:
+      - poetry.lock
+      - pyproject.toml
+      - .pre-commit-config.yaml
 
   setup:model:
     desc: setup nlp model
@@ -131,6 +142,63 @@ tasks:
       - poetry run coverage html
       - open htmlcov/index.html
 
+  py:package:copy-frontend:
+    desc: copy the frontend files into the Python package
+    internal: true
+    deps:
+      - ui:generate
+    cmds:
+      - rm -rf mealie/frontend
+      - cp -a frontend/dist mealie/frontend
+    sources:
+      - frontend/dist/**
+    generates:
+      - mealie/frontend/**
+
+  py:package:generate-requirements:
+    desc: Generate requirements file to pin all packages, effectively a "pip freeze" before installation begins
+    internal: true
+    cmds:
+      - poetry export -n --only=main --extras=pgsql --output=dist/requirements.txt
+      # Include mealie in the requirements, hashing the package that was just built to ensure it's the one installed
+      - echo "mealie[pgsql]=={{.MEALIE_VERSION}} \\" >> dist/requirements.txt
+      - poetry run pip hash dist/mealie-{{.MEALIE_VERSION}}-py3-none-any.whl | tail -n1 | tr -d '\n' >> dist/requirements.txt
+      - echo " \\" >> dist/requirements.txt
+      - poetry run pip hash dist/mealie-{{.MEALIE_VERSION}}.tar.gz | tail -n1 >> dist/requirements.txt
+    vars:
+      MEALIE_VERSION:
+         sh: poetry version --short
+    sources:
+      - poetry.lock
+      - pyproject.toml
+      - dist/mealie-*.whl
+      - dist/mealie-*.tar.gz
+    generates:
+      - dist/requirements.txt
+
+  py:package:deps-parallel:
+    desc: Run py:package dependencies in parallel
+    internal: true
+    deps:
+      - setup:py
+      - py:package:copy-frontend
+
+  py:package:deps:
+    desc: Dependencies of py:package, skippable by setting SKIP_PACKAGE_DEPS=true
+    internal: true
+    cmds:
+      - task: py:package:deps-parallel
+    status:
+      - '{{ .SKIP_PACKAGE_DEPS | default "false"}}'
+
+  py:package:
+    desc: builds Python packages (sdist and wheel) in top-level dist directory
+    deps:
+      - py:package:deps
+    cmds:
+      - poetry build -n --output=dist
+      - task: py:package:generate-requirements
+
   py:
     desc: runs the backend server
     cmds:
@@ -160,6 +228,14 @@ tasks:
     cmds:
       - yarn build
 
+  ui:generate:
+    desc: generates a static version of the frontend in frontend/dist
+    dir: frontend
+    deps:
+      - setup:ui
+    cmds:
+      - yarn generate
+
   ui:lint:
     desc: runs the frontend linter
     dir: frontend
@@ -183,6 +259,16 @@ tasks:
     dir: frontend
     cmds:
       - yarn run dev
+
+  docker:build-from-package:
+    desc: Builds the Docker image from the existing Python package in dist/
+    deps:
+       - py:package
+    cmds:
+       - docker build --tag mealie:dev --file docker/Dockerfile --build-arg COMMIT={{.GIT_COMMIT}} --build-context packages=dist .
+    vars:
+      GIT_COMMIT:
+        sh: git rev-parse HEAD
 
   docker:prod:
     desc: builds and runs the production docker image locally
