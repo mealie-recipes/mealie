@@ -32,7 +32,7 @@ init() {
     cd /app
 
     # Activate our virtual environment here
-    . /opt/pysetup/.venv/bin/activate
+    . /opt/mealie/bin/activate
 }
 
 load_secrets() {
@@ -79,4 +79,4 @@ load_secrets
 # Start API
 HOST_IP=`/sbin/ip route|awk '/default/ { print $3 }'`
 
-exec python /app/mealie/main.py
+exec mealie

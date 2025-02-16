@@ -139,6 +139,9 @@ Below is a list of all valid merge fields:
 - ${id}
 - ${slug}
 - ${url}
+- ${servings}
+- ${yieldQuantity}
+- ${yieldText}
 
 To add, modify, or delete Recipe Actions, visit the Data Management page (more on that below).
 

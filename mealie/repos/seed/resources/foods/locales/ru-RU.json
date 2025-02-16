@@ -261,7 +261,7 @@
 	},
 	"fiddlehead-fern": {
 		"name": "побеги папоротника",
-		"plural_name": "fiddlehead ferns"
+		"plural_name": "побеги папоротника"
 	},
 	"fish": {
 		"name": "рыба"
@@ -337,7 +337,7 @@
 	},
 	"jackfruit": {
 		"name": "джекфрут",
-		"plural_name": "jackfruits"
+		"plural_name": "джекфрут"
 	},
 	"jaggery": {
 		"name": "джаггери"
@@ -469,7 +469,7 @@
 	},
 	"parsnip": {
 		"name": "пастернак",
-		"plural_name": "parsnips"
+		"plural_name": "пастернак"
 	},
 	"pear": {
 		"name": "груша",
@@ -512,7 +512,7 @@
 	},
 	"radish": {
 		"name": "редис",
-		"plural_name": "radishes"
+		"plural_name": "редис"
 	},
 	"raw-sugar": {
 		"name": "нерафинированный сахар"
@@ -585,11 +585,11 @@
 	},
 	"spring-onion": {
 		"name": "зелёный лук",
-		"plural_name": "spring onions"
+		"plural_name": "зелёный лук"
 	},
 	"squash": {
 		"name": "тыква",
-		"plural_name": "squashes"
+		"plural_name": "кабачки"
 	},
 	"squash-family": {
 		"name": "тыквы"
@@ -640,7 +640,7 @@
 	},
 	"tubers": {
 		"name": "клубни",
-		"plural_name": "tubers"
+		"plural_name": "клубни"
 	},
 	"tuna": {
 		"name": "тунец"
@@ -650,7 +650,7 @@
 	},
 	"turnip": {
 		"name": "репа",
-		"plural_name": "turnips"
+		"plural_name": "репа"
 	},
 	"unrefined-sugar": {
 		"name": "нерафинированный сахар"
@@ -666,7 +666,7 @@
 	},
 	"watermelon": {
 		"name": "арбуз",
-		"plural_name": "watermelons"
+		"plural_name": "арбузы"
 	},
 	"white-mushroom": {
 		"name": "белый гриб",
@@ -687,6 +687,6 @@
 	},
 	"zucchini": {
 		"name": "цуккини",
-		"plural_name": "zucchinis"
+		"plural_name": "цуккини"
 	}
 }
