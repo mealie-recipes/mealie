@@ -45,7 +45,7 @@
     "category-filter": "Kategorifilter",
     "category-update-failed": "Kategori gick inte att uppdatera",
     "category-updated": "Kategori uppdaterad",
-    "uncategorized-count": "Ingen Kategori {count}",
+    "uncategorized-count": "Utan kategori {count}",
     "create-a-category": "Skapa kategori",
     "category-name": "Kategorinamn",
     "category": "Kategori"
