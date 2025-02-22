@@ -195,19 +195,18 @@ typecheck = ["mypy"]
 
 [[package]]
 name = "beautifulsoup4"
-version = "4.13.3"
+version = "4.12.3"
 description = "Screen-scraping library"
 optional = false
-python-versions = ">=3.7.0"
+python-versions = ">=3.6.0"
 groups = ["main"]
 files = [
-    {file = "beautifulsoup4-4.13.3-py3-none-any.whl", hash = "sha256:99045d7d3f08f91f0d656bc9b7efbae189426cd913d830294a15eefa0ea4df16"},
-    {file = "beautifulsoup4-4.13.3.tar.gz", hash = "sha256:1bd32405dacc920b42b83ba01644747ed77456a65760e285fbc47633ceddaf8b"},
+    {file = "beautifulsoup4-4.12.3-py3-none-any.whl", hash = "sha256:b80878c9f40111313e55da8ba20bdba06d8fa3969fc68304167741bbf9e082ed"},
+    {file = "beautifulsoup4-4.12.3.tar.gz", hash = "sha256:74e3d1928edc070d21748185c46e3fb33490f22f52a3addee9aee0f4f7781051"},
 ]
 
 [package.dependencies]
 soupsieve = ">1.2"
-typing-extensions = ">=4.0.0"
 
 [package.extras]
 cchardet = ["cchardet"]
@@ -2751,18 +2750,18 @@ orjson = ["orjson (>=3.9.14,<4)"]
 
 [[package]]
 name = "recipe-scrapers"
-version = "15.4.0"
+version = "15.5.0"
 description = "Python package, scraping recipes from all over the internet"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "recipe_scrapers-15.4.0-py3-none-any.whl", hash = "sha256:58d3d60e19d91f43c540496e942bfb4ca244e0de02fe2156edd552226477634f"},
-    {file = "recipe_scrapers-15.4.0.tar.gz", hash = "sha256:1587016ce651d259bd51ef693277e7584720ce380ebea6a5bf526094f9fe99f7"},
+    {file = "recipe_scrapers-15.5.0-py3-none-any.whl", hash = "sha256:8a3048883a6c0ec3268aa818f1971fd9bdf3b5d5aa77ccb5c9c3a21cffd25578"},
+    {file = "recipe_scrapers-15.5.0.tar.gz", hash = "sha256:e897b3e14adfecc60336e39020fd4a64033785f0645111acea2f4a7852662b51"},
 ]
 
 [package.dependencies]
-beautifulsoup4 = ">=4.12.3"
+beautifulsoup4 = ">=4.12.3,<4.13.0"
 extruct = ">=0.17.0"
 isodate = ">=0.6.1"
 
