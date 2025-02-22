@@ -2750,18 +2750,18 @@ orjson = ["orjson (>=3.9.14,<4)"]
 
 [[package]]
 name = "recipe-scrapers"
-version = "15.5.0"
+version = "15.5.1"
 description = "Python package, scraping recipes from all over the internet"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "recipe_scrapers-15.5.0-py3-none-any.whl", hash = "sha256:8a3048883a6c0ec3268aa818f1971fd9bdf3b5d5aa77ccb5c9c3a21cffd25578"},
-    {file = "recipe_scrapers-15.5.0.tar.gz", hash = "sha256:e897b3e14adfecc60336e39020fd4a64033785f0645111acea2f4a7852662b51"},
+    {file = "recipe_scrapers-15.5.1-py3-none-any.whl", hash = "sha256:e178295e2e57cd33f9624b5527eac5dbf65cdc2e206ee0cdec2619eea789a462"},
+    {file = "recipe_scrapers-15.5.1.tar.gz", hash = "sha256:40c4681210cfe77b2c6d9f1c48f28fdfeadad7323db5c2c7631f3976202c1f6e"},
 ]
 
 [package.dependencies]
-beautifulsoup4 = ">=4.12.3,<4.13.0"
+beautifulsoup4 = ">=4.12.3"
 extruct = ">=0.17.0"
 isodate = ">=0.6.1"
 
