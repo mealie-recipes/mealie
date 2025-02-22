@@ -23,6 +23,7 @@ from . import cleaner
 from .user_agents_manager import get_user_agents_manager
 
 SCRAPER_TIMEOUT = 15
+logger = get_logger()
 
 
 class ForceTimeoutException(Exception):
@@ -37,14 +38,18 @@ async def safe_scrape_html(url: str) -> str:
     """
     user_agents = get_user_agents_manager().user_agents
 
+    logger.debug(f"Scraping URL: {url}")
     async with AsyncClient(transport=safehttp.AsyncSafeTransport()) as client:
         for user_agent in user_agents:
+            logger.debug(f'Trying User-Agent: "{user_agent}"')
+
             response: Response | None = None
             html_bytes = b""
             async with client.stream(
                 "GET", url, timeout=SCRAPER_TIMEOUT, headers={"User-Agent": user_agent}, follow_redirects=True
             ) as resp:
                 if resp.status_code == status.HTTP_403_FORBIDDEN:
+                    logger.debug(f'403 Forbidden with User-Agent: "{user_agent}"')
                     continue
 
                 start_time = time.time()
