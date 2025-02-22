@@ -26,7 +26,7 @@ async def gather_with_concurrency(n, *coros, ignore_exceptions=False):
 
 
 async def largest_content_len(urls: list[str]) -> tuple[str, int]:
-    user_agent = get_user_agents_manager().user_agents[0]
+    user_agent_manager = get_user_agents_manager()
 
     largest_url = ""
     largest_len = 0
@@ -34,7 +34,7 @@ async def largest_content_len(urls: list[str]) -> tuple[str, int]:
     max_concurrency = 10
 
     async def do(client: AsyncClient, url: str) -> Response:
-        return await client.head(url, headers={"User-Agent": user_agent})
+        return await client.head(url, headers=user_agent_manager.get_scrape_headers())
 
     async with AsyncClient(transport=safehttp.AsyncSafeTransport()) as client:
         tasks = [do(client, url) for url in urls]

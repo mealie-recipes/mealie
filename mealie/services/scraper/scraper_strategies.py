@@ -36,17 +36,21 @@ async def safe_scrape_html(url: str) -> str:
     if the request takes longer than 15 seconds. This is used to mitigate
     DDOS attacks from users providing a url with arbitrary large content.
     """
-    user_agents = get_user_agents_manager().user_agents
+    user_agents_manager = get_user_agents_manager()
 
     logger.debug(f"Scraping URL: {url}")
     async with AsyncClient(transport=safehttp.AsyncSafeTransport()) as client:
-        for user_agent in user_agents:
+        for user_agent in user_agents_manager.user_agents:
             logger.debug(f'Trying User-Agent: "{user_agent}"')
 
             response: Response | None = None
             html_bytes = b""
             async with client.stream(
-                "GET", url, timeout=SCRAPER_TIMEOUT, headers={"User-Agent": user_agent}, follow_redirects=True
+                "GET",
+                url,
+                timeout=SCRAPER_TIMEOUT,
+                headers=user_agents_manager.get_scrape_headers(user_agent),
+                follow_redirects=True,
             ) as resp:
                 if resp.status_code == status.HTTP_403_FORBIDDEN:
                     logger.debug(f'403 Forbidden with User-Agent: "{user_agent}"')
