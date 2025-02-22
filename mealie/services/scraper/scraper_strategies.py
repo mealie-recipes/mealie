@@ -6,7 +6,7 @@ from typing import Any
 import bs4
 import extruct
 from fastapi import HTTPException, status
-from httpx import AsyncClient
+from httpx import AsyncClient, Response
 from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, scrape_html
 from slugify import slugify
 from w3lib.html import get_base_url
@@ -20,14 +20,7 @@ from mealie.services.openai import OpenAIService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
-
-try:
-    from recipe_scrapers._abstract import HEADERS
-
-    _FIREFOX_UA = HEADERS["User-Agent"]
-except (ImportError, KeyError):
-    _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/128.0"
-
+from .user_agents_manager import get_user_agents_manager
 
 SCRAPER_TIMEOUT = 15
 
@@ -42,32 +35,42 @@ async def safe_scrape_html(url: str) -> str:
     if the request takes longer than 15 seconds. This is used to mitigate
     DDOS attacks from users providing a url with arbitrary large content.
     """
+    user_agents = get_user_agents_manager().user_agents
+
     async with AsyncClient(transport=safehttp.AsyncSafeTransport()) as client:
-        html_bytes = b""
-        async with client.stream(
-            "GET", url, timeout=SCRAPER_TIMEOUT, headers={"User-Agent": _FIREFOX_UA}, follow_redirects=True
-        ) as resp:
-            start_time = time.time()
+        for user_agent in user_agents:
+            response: Response | None = None
+            html_bytes = b""
+            async with client.stream(
+                "GET", url, timeout=SCRAPER_TIMEOUT, headers={"User-Agent": user_agent}, follow_redirects=True
+            ) as resp:
+                if resp.status_code == status.HTTP_403_FORBIDDEN:
+                    continue
 
-            async for chunk in resp.aiter_bytes(chunk_size=1024):
-                html_bytes += chunk
+                start_time = time.time()
 
-                if time.time() - start_time > SCRAPER_TIMEOUT:
-                    raise ForceTimeoutException()
+                async for chunk in resp.aiter_bytes(chunk_size=1024):
+                    html_bytes += chunk
+
+                    if time.time() - start_time > SCRAPER_TIMEOUT:
+                        raise ForceTimeoutException()
+
+                response = resp
+                break
+
+        if not (response and html_bytes):
+            return ""
 
         # =====================================
         # Copied from requests text property
 
         # Try charset from content-type
         content = None
-        encoding = resp.encoding
-
-        if not html_bytes:
-            return ""
+        encoding = response.encoding
 
         # Fallback to auto-detected encoding.
         if encoding is None:
-            encoding = resp.apparent_encoding
+            encoding = response.apparent_encoding
 
         # Decode unicode from given encoding.
         try:
