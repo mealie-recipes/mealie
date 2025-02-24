@@ -18,7 +18,9 @@ class SqlAlchemyBase(DeclarativeBase):
 
     @classmethod
     def normalize(cls, val: str) -> str:
-        return unidecode(val).lower().strip()
+        # We cap the length to 255 to prevent indexes from being too long; see:
+        # https://www.postgresql.org/docs/current/btree.html
+        return unidecode(val).lower().strip()[:255]
 
 
 class BaseMixins:
