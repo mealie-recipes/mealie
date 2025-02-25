@@ -4,9 +4,13 @@ description = "A Recipe Manager"
 license = "AGPL"
 name = "mealie"
 version = "2.6.0"
+include = [
+    # Explicit include to override .gitignore when packaging the frontend
+    { path = "mealie/frontend/**/*", format = ["sdist", "wheel"] }
+]
 
 [tool.poetry.scripts]
-start = "mealie.app:main"
+mealie = "mealie.main:main"
 
 [tool.poetry.dependencies]
 Jinja2 = "^3.1.2"
@@ -47,7 +51,7 @@ paho-mqtt = "^1.6.1"
 pydantic-settings = "^2.1.0"
 pillow-heif = "^0.21.0"
 pyjwt = "^2.8.0"
-openai = "^1.27.0"
+openai = "^1.63.0"
 typing-extensions = "^4.12.2"
 itsdangerous = "^2.2.0"
 
