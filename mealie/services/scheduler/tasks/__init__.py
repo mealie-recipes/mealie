@@ -1,6 +1,7 @@
 from .create_timeline_events import create_mealplan_timeline_events
 from .delete_old_checked_shopping_list_items import delete_old_checked_list_items
 from .post_webhooks import post_group_webhooks
+from .purge_expired_share_tokens import purge_expired_tokens
 from .purge_group_exports import purge_group_data_exports
 from .purge_password_reset import purge_password_reset_tokens
 from .purge_registration import purge_group_registration
@@ -10,6 +11,7 @@ __all__ = [
     "create_mealplan_timeline_events",
     "delete_old_checked_list_items",
     "post_group_webhooks",
+    "purge_expired_tokens",
     "purge_password_reset_tokens",
     "purge_group_data_exports",
     "purge_group_registration",

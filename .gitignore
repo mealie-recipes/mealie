@@ -52,7 +52,7 @@ pnpm-debug.log*
 env/
 build/
 develop-eggs/
-
+/dist/
 downloads/
 eggs/
 .eggs/
@@ -65,6 +65,9 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+# frontend copied into Python module for packaging purposes
+/mealie/frontend/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
