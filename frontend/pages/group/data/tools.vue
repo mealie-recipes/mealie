@@ -101,14 +101,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, reactive, ref, useContext } from "@nuxtjs/composition-api";
 import { validators } from "~/composables/use-validators";
 import { useToolStore, useToolData } from "~/composables/store";
-import { RecipeTool } from "~/lib/api/types/admin";
+import { RecipeTool } from "~/lib/api/types/recipe";
+
+interface RecipeToolWithOnHand extends RecipeTool {
+  onHand: boolean;
+}
 
 export default defineComponent({
   setup() {
-    const { i18n } = useContext();
+    const { $auth, i18n } = useContext();
     const tableConfig = {
       hideColumns: true,
       canExport: true,
@@ -138,27 +142,38 @@ export default defineComponent({
       bulkDeleteDialog: false,
     });
 
+    const userHousehold = computed(() => $auth.user?.householdSlug || "");
     const toolData = useToolData();
     const toolStore = useToolStore();
+    const tools = computed(() => toolStore.store.value.map((tools) => {
+      const onHand = tools.householdsWithTool?.includes(userHousehold.value) || false;
+      return { ...tools, onHand } as RecipeToolWithOnHand;
+    }));
 
 
     // ============================================================
-    // Create Tag
+    // Create Tool
 
     async function createTool() {
+      if (toolData.data.onHand) {
+        toolData.data.householdsWithTool = [userHousehold.value];
+      } else {
+        toolData.data.householdsWithTool = [];
+      }
+
       // @ts-ignore - only property really required is the name and onHand (RecipeOrganizerPage)
-      await toolStore.actions.createOne({ name: toolData.data.name, onHand: toolData.data.onHand });
+      await toolStore.actions.createOne({ name: toolData.data.name, householdsWithTool: toolData.data.householdsWithTool });
       toolData.reset();
       state.createDialog = false;
     }
 
 
     // ============================================================
-    // Edit Tag
+    // Edit Tool
 
-    const editTarget = ref<RecipeTool | null>(null);
+    const editTarget = ref<RecipeToolWithOnHand | null>(null);
 
-    function editEventHandler(item: RecipeTool) {
+    function editEventHandler(item: RecipeToolWithOnHand) {
       state.editDialog = true;
       editTarget.value = item;
     }
@@ -167,17 +182,29 @@ export default defineComponent({
       if (!editTarget.value) {
         return;
       }
+      if (editTarget.value.onHand && !editTarget.value.householdsWithTool?.includes(userHousehold.value)) {
+        if (!editTarget.value.householdsWithTool) {
+          editTarget.value.householdsWithTool = [userHousehold.value];
+        } else {
+          editTarget.value.householdsWithTool.push(userHousehold.value);
+        }
+      } else if (!editTarget.value.onHand && editTarget.value.householdsWithTool?.includes(userHousehold.value)) {
+        editTarget.value.householdsWithTool = editTarget.value.householdsWithTool.filter(
+          (household) => household !== userHousehold.value
+        );
+      }
+
       await toolStore.actions.updateOne(editTarget.value);
       state.editDialog = false;
     }
 
 
     // ============================================================
-    // Delete Tag
+    // Delete Tool
 
-    const deleteTarget = ref<RecipeTool | null>(null);
+    const deleteTarget = ref<RecipeToolWithOnHand | null>(null);
 
-    function deleteEventHandler(item: RecipeTool) {
+    function deleteEventHandler(item: RecipeToolWithOnHand) {
       state.deleteDialog = true;
       deleteTarget.value = item;
     }
@@ -191,10 +218,10 @@ export default defineComponent({
     }
 
     // ============================================================
-    // Bulk Delete Tag
+    // Bulk Delete Tool
 
-    const bulkDeleteTarget = ref<RecipeTool[]>([]);
-    function bulkDeleteEventHandler(selection: RecipeTool[]) {
+    const bulkDeleteTarget = ref<RecipeToolWithOnHand[]>([]);
+    function bulkDeleteEventHandler(selection: RecipeToolWithOnHand[]) {
       bulkDeleteTarget.value = selection;
       state.bulkDeleteDialog = true;
     }
@@ -210,7 +237,7 @@ export default defineComponent({
       state,
       tableConfig,
       tableHeaders,
-      tools: toolStore.store,
+      tools,
       validators,
 
       // create

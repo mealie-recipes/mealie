@@ -182,7 +182,7 @@
     "date": "Data",
     "id": "Id",
     "owner": "Dono",
-    "change-owner": "Change Owner",
+    "change-owner": "Mudar Proprietario",
     "date-added": "Engadida o",
     "none": "Nada",
     "run": "Executar",
@@ -214,10 +214,10 @@
     "confirm-delete-generic-items": "Estás seguro de que queres eliminar os seguintes elementos?",
     "organizers": "Organizadores",
     "caution": "Coidado",
-    "show-advanced": "Show Advanced",
-    "add-field": "Add Field",
+    "show-advanced": "Mostrar Avanzadas",
+    "add-field": "Adicionar Campo",
     "date-created": "Date Created",
-    "date-updated": "Date Updated"
+    "date-updated": "Data de Atualización"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Estás seguro de que queres eliminar <b>{groupName}<b/>?",
@@ -276,7 +276,8 @@
     "admin-group-management": "Xestión do Grupo de Administración",
     "admin-group-management-text": "Os cambios neste grupo reflectiranse inmediatamente.",
     "group-id-value": "Id do grupo: {0}",
-    "total-households": "Casas totais"
+    "total-households": "Casas totais",
+    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
   },
   "household": {
     "household": "Casa",
@@ -294,11 +295,11 @@
     "private-household-description": "Setting your household to private will disable all public view options. This overrides any individual public view settings",
     "lock-recipe-edits-from-other-households": "Lock recipe edits from other households",
     "lock-recipe-edits-from-other-households-description": "When enabled only users in your household can edit recipes created by your household",
-    "household-recipe-preferences": "Household Recipe Preferences",
+    "household-recipe-preferences": "Preferencias de receitas da casa",
     "default-recipe-preferences-description": "These are the default settings when a new recipe is created in your household. These can be changed for individual recipes in the recipe settings menu.",
     "allow-users-outside-of-your-household-to-see-your-recipes": "Allow users outside of your household to see your recipes",
     "allow-users-outside-of-your-household-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your household or with a pre-generated private link",
-    "household-preferences": "Household Preferences"
+    "household-preferences": "Preferencias da Casa"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Crea un Novo Menú",
@@ -321,9 +322,9 @@
     "mealplan-update-failed": "Produciuse un erro na actualización do menú",
     "mealplan-updated": "Menú Actualizado",
     "mealplan-households-description": "If no household is selected, recipes can be added from any household",
-    "any-category": "Any Category",
-    "any-tag": "Any Tag",
-    "any-household": "Any Household",
+    "any-category": "Calquer Categoria",
+    "any-tag": "Calquer Etiqueta",
+    "any-household": "Calquer Casa",
     "no-meal-plan-defined-yet": "Aínda non se definiu ningún menú",
     "no-meal-planned-for-today": "Non hai ningunha comida prevista para hoxe",
     "numberOfDays-hint": "Número de días ao cargar a páxina",
@@ -394,7 +395,7 @@
     },
     "tandoor": {
       "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
-      "title": "Tandoor Recipes"
+      "title": "Receitas do Tandoor"
     },
     "recipe-data-migrations": "Recipe Data Migrations",
     "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
@@ -403,8 +404,8 @@
     "tag-all-recipes": "Tag all recipes with {tag-name} tag",
     "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
     "chowdown-text": "Mealie admite de forma nativa o formato do repositorio de chowdown. Descarga o repositorio de códigos como ficheiro .zip e cárgao a continuación.",
-    "recipe-1": "Recipe 1",
-    "recipe-2": "Recipe 2",
+    "recipe-1": "Receita 1",
+    "recipe-2": "Receita 2",
     "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
     "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
     "plantoeat": {
@@ -423,15 +424,15 @@
   "new-recipe": {
     "bulk-add": "Bulk Add",
     "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
-    "error-title": "Looks Like We Couldn't Find Anything",
-    "from-url": "Import a Recipe",
-    "github-issues": "GitHub Issues",
+    "error-title": "Parece que non conseguimos encontrar nada",
+    "from-url": "Importar unha Receita",
+    "github-issues": "Problemas no GitHub",
     "google-ld-json-info": "Google ld+json Info",
-    "must-be-a-valid-url": "Must be a Valid URL",
-    "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Paste in your recipe data. Each line will be treated as an item in a list",
-    "recipe-markup-specification": "Recipe Markup Specification",
-    "recipe-url": "Recipe URL",
-    "recipe-html-or-json": "Recipe HTML or JSON",
+    "must-be-a-valid-url": "Precisa ser un URL válido",
+    "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Pegue os datos da sua receita. Cada liña será tratada como un item nunha lista",
+    "recipe-markup-specification": "Especificación Markup da Receita",
+    "recipe-url": "URL da Receita",
+    "recipe-html-or-json": "Receita en HTML ou JSON",
     "upload-a-recipe": "Upload a Recipe",
     "upload-individual-zip-file": "Upload an individual .zip file exported from another Mealie instance.",
     "url-form-hint": "Copy and paste a link from your favorite recipe website",
@@ -439,13 +440,13 @@
     "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
     "trim-prefix-description": "Trim first character from each line",
     "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
-    "import-by-url": "Import a recipe by URL",
+    "import-by-url": "Importar unha receita por URL",
     "create-manually": "Create a recipe manually",
     "make-recipe-image": "Make this the recipe image"
   },
   "page": {
-    "404-page-not-found": "404 Page not found",
-    "all-recipes": "All Recipes",
+    "404-page-not-found": "404 Páxina non encontrada",
+    "all-recipes": "Todas as receitas",
     "new-page-created": "New page created",
     "page": "Páxina",
     "page-creation-failed": "Produciuse un erro ao creala páxina",
@@ -466,7 +467,7 @@
     "calories-suffix": "calorías",
     "carbohydrate-content": "Carbohidratos",
     "categories": "Categorías",
-    "cholesterol-content": "Cholesterol",
+    "cholesterol-content": "Colesterol",
     "comment-action": "Comentar",
     "comment": "Comentario",
     "comments": "Comentarios",
@@ -517,6 +518,7 @@
     "save-recipe-before-use": "Garda a receita antes de usala",
     "section-title": "Título da Sección",
     "servings": "Porcións",
+    "serves-amount": "Serves {amount}",
     "share-recipe-message": "Quería compartir a miña receita de {0} contigo.",
     "show-nutrition-values": "Mostrar Valores Nutricionais",
     "sodium-content": "Sodio",
@@ -533,7 +535,7 @@
     "add-recipe-to-mealplan": "Add Recipe to Mealplan",
     "entry-type": "Entry Type",
     "date-format-hint": "Formato MM/DD/YYYY",
-    "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
+    "date-format-hint-yyyy-mm-dd": "Formato AAAA-MM-DD",
     "add-to-list": "Add to List",
     "add-to-plan": "Add to Plan",
     "add-to-timeline": "Add to Timeline",
@@ -545,11 +547,13 @@
     "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
     "failed-to-add-to-list": "Failed to add to list",
     "yield": "Yield",
+    "yields-amount-with-text": "Yields {amount} {text}",
+    "yield-text": "Yield Text",
     "quantity": "Quantity",
     "choose-unit": "Choose Unit",
     "press-enter-to-create": "Press Enter to Create",
     "choose-food": "Choose Food",
-    "notes": "Notes",
+    "notes": "Notas",
     "toggle-section": "Toggle Section",
     "see-original-text": "See Original Text",
     "original-text-with-value": "Original Text: {originalText}",
@@ -566,13 +570,6 @@
     "increase-scale-label": "Increase Scale by 1",
     "locked": "Locked",
     "public-link": "Public Link",
-    "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
-    },
     "edit-timeline-event": "Edit Timeline Event",
     "timeline": "Timeline",
     "timeline-is-empty": "Nothing on the timeline yet. Try making this recipe!",
@@ -640,7 +637,9 @@
     "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debug",
     "tree-view": "Tree View",
+    "recipe-servings": "Recipe Servings",
     "recipe-yield": "Recipe Yield",
+    "recipe-yield-text": "Recipe Yield Text",
     "unit": "Unit",
     "upload-image": "Upload image",
     "screen-awake": "Keep Screen Awake",
@@ -662,7 +661,25 @@
       "missing-food": "Create missing food: {food}",
       "no-food": "No Food"
     },
-    "reset-servings-count": "Reset Servings Count"
+    "reset-servings-count": "Reset Servings Count",
+    "not-linked-ingredients": "Additional Ingredients"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Recipe Finder",
+    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
+    "selected-ingredients": "Selected Ingredients",
+    "no-ingredients-selected": "No ingredients selected",
+    "missing": "Missing",
+    "no-recipes-found": "No recipes found",
+    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
+    "include-ingredients-on-hand": "Include Ingredients On Hand",
+    "include-tools-on-hand": "Include Tools On Hand",
+    "max-missing-ingredients": "Max Missing Ingredients",
+    "max-missing-tools": "Max Missing Tools",
+    "selected-tools": "Selected Tools",
+    "other-filters": "Other Filters",
+    "ready-to-make": "Ready to Make",
+    "almost-ready-to-make": "Almost Ready to Make"
   },
   "search": {
     "advanced-search": "Advanced Search",
@@ -866,7 +883,8 @@
     "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
+    "no-shopping-lists-found": "No Shopping Lists Found"
   },
   "sidebar": {
     "all-recipes": "All Recipes",
@@ -1176,8 +1194,8 @@
     "demo_password": "Password: {password}"
   },
   "ocr-editor": {
-    "ocr-editor": "Ocr editor",
-    "toolbar": "Toolbar",
+    "ocr-editor": "Editor OCR",
+    "toolbar": "Barra de ferramentas",
     "selection-mode": "Selection mode",
     "pan-and-zoom-picture": "Pan and zoom picture",
     "split-text": "Split text",
@@ -1185,7 +1203,7 @@
     "split-by-block": "Split by text block",
     "flatten": "Flatten regardless of original formating",
     "help": {
-      "help": "Help",
+      "help": "Axuda",
       "mouse-modes": "Mouse modes",
       "selection-mode": "Selection Mode (default)",
       "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
@@ -1278,6 +1296,7 @@
   "profile": {
     "welcome-user": "👋 Welcome, {0}!",
     "description": "Manage your profile, recipes, and group settings.",
+    "invite-link": "Invite Link",
     "get-invite-link": "Get Invite Link",
     "get-public-link": "Get Public Link",
     "account-summary": "Account Summary",
@@ -1327,6 +1346,8 @@
   "cookbook": {
     "cookbooks": "Cookbooks",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
+    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
     "public-cookbook": "Public Cookbook",
     "public-cookbook-description": "Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.",
     "filter-options": "Filter Options",

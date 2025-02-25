@@ -276,7 +276,8 @@
     "admin-group-management": "Spravovanie administrátorskej skupiny",
     "admin-group-management-text": "Zmeny týkajúce sa tejto skupiny budú vykonané okamžite.",
     "group-id-value": "Id skupiny: {0}",
-    "total-households": "Total Households"
+    "total-households": "Total Households",
+    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
   },
   "household": {
     "household": "Household",
@@ -517,6 +518,7 @@
     "save-recipe-before-use": "Uložiť recept pred použitím",
     "section-title": "Názov sekcie",
     "servings": "Porcie",
+    "serves-amount": "Serves {amount}",
     "share-recipe-message": "Chcel by som sa s tebou podeliť o recept na {0}.",
     "show-nutrition-values": "Ukáž nutričné hodnoty",
     "sodium-content": "Sodík",
@@ -545,6 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Pridanie receptu do stravovacieho plánu zlyhalo",
     "failed-to-add-to-list": "Pridanie do zoznamu zlyhalo",
     "yield": "Počet porcií",
+    "yields-amount-with-text": "Yields {amount} {text}",
+    "yield-text": "Yield Text",
     "quantity": "Množstvo",
     "choose-unit": "Vyberte jednotku",
     "press-enter-to-create": "Stlačte Enter pre vytvorenie",
@@ -566,13 +570,6 @@
     "increase-scale-label": "Zvýšiť škálovanie o 1",
     "locked": "Zamknuté",
     "public-link": "Verejný odkaz",
-    "timer": {
-      "kitchen-timer": "Kuchynský časovač",
-      "start-timer": "Spustiť časovač",
-      "pause-timer": "Pozastaviť časovač",
-      "resume-timer": "Znova spustiť časovač",
-      "stop-timer": "Zastaviť časovač"
-    },
     "edit-timeline-event": "Upraviť udalosť na časovej osi",
     "timeline": "Časová os",
     "timeline-is-empty": "Na časovej osi zatiaľ nič nie je. Skúste pripraviť tento recept!",
@@ -640,7 +637,9 @@
     "recipe-debugger-use-openai-description": "Použite OpenAI na analýzu výsledkov namiesto spoliehania sa na knižnicu scraper. Pri vytváraní receptu cez URL sa to vykoná automaticky, ak knižnica scraper zlyhá, ale tu to môžete otestovať manuálne.",
     "debug": "Debugovať",
     "tree-view": "Stromový pohľad",
+    "recipe-servings": "Recipe Servings",
     "recipe-yield": "Počet porcií",
+    "recipe-yield-text": "Recipe Yield Text",
     "unit": "Jednotka",
     "upload-image": "Nahrať obrázok",
     "screen-awake": "Ponechať obrazovku stále zapnutú",
@@ -662,7 +661,25 @@
       "missing-food": "Vytvoriť chýbajúcu surovinu: {food}",
       "no-food": "Žiadne suroviny"
     },
-    "reset-servings-count": "Reset Servings Count"
+    "reset-servings-count": "Reset Servings Count",
+    "not-linked-ingredients": "Additional Ingredients"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Recipe Finder",
+    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
+    "selected-ingredients": "Selected Ingredients",
+    "no-ingredients-selected": "No ingredients selected",
+    "missing": "Missing",
+    "no-recipes-found": "No recipes found",
+    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
+    "include-ingredients-on-hand": "Include Ingredients On Hand",
+    "include-tools-on-hand": "Include Tools On Hand",
+    "max-missing-ingredients": "Max Missing Ingredients",
+    "max-missing-tools": "Max Missing Tools",
+    "selected-tools": "Selected Tools",
+    "other-filters": "Other Filters",
+    "ready-to-make": "Ready to Make",
+    "almost-ready-to-make": "Almost Ready to Make"
   },
   "search": {
     "advanced-search": "Rozšírené vyhľadávanie",
@@ -866,7 +883,8 @@
     "you-are-offline-description": "V režime offline nie sú dostupné všetky funkcie. Stále môžete pridávať, upravovať a odstraňovať položky, ale nebudete môcť synchronizovať svoje zmeny so serverom, kým nebudete opäť online.",
     "are-you-sure-you-want-to-check-all-items": "Naozaj chcete označiť všetky položky?",
     "are-you-sure-you-want-to-uncheck-all-items": "Naozaj chcete zrušiť označenie všetkých položiek?",
-    "are-you-sure-you-want-to-delete-checked-items": "Naozaj chcete odstrániť všetky označené položky?"
+    "are-you-sure-you-want-to-delete-checked-items": "Naozaj chcete odstrániť všetky označené položky?",
+    "no-shopping-lists-found": "No Shopping Lists Found"
   },
   "sidebar": {
     "all-recipes": "Všetky recepty",
@@ -1278,6 +1296,7 @@
   "profile": {
     "welcome-user": "👋 Vitajte, {0}!",
     "description": "Spravujte svoj profil, recepty a nastavenia skupín.",
+    "invite-link": "Invite Link",
     "get-invite-link": "Odkaz s pozvánkou",
     "get-public-link": "Vytvoriť verejný odkaz",
     "account-summary": "Zhrnutie účtu",
@@ -1327,6 +1346,8 @@
   "cookbook": {
     "cookbooks": "Kuchárky",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
+    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
     "public-cookbook": "Verejná kuchárka",
     "public-cookbook-description": "Verejné kuchárky je možné zdielať s užívateľmi mimo Mealie a budú zobrazené na stránke vašej skupiny.",
     "filter-options": "Možnosti filtrovania",

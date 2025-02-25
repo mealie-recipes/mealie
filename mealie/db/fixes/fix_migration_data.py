@@ -51,7 +51,7 @@ def fix_dangling_refs(session: Session):
 
             if result.rowcount:
                 logger.info(
-                    f'Reassigned {result.rowcount} {"row" if result.rowcount == 1 else "rows"} '
+                    f"Reassigned {result.rowcount} {'row' if result.rowcount == 1 else 'rows'} "
                     f'in "{table_name}" table to default user ({default_user.id})'
                 )
 
@@ -63,7 +63,7 @@ def fix_dangling_refs(session: Session):
 
         if result.rowcount:
             logger.info(
-                f'Deleted {result.rowcount} {"row" if result.rowcount == 1 else "rows"} '
+                f"Deleted {result.rowcount} {'row' if result.rowcount == 1 else 'rows'} "
                 f'in "{table_name}" table with invalid user ids'
             )
 

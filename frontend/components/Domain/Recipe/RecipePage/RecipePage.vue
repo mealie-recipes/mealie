@@ -35,7 +35,7 @@
             -->
             <v-col v-if="!isCookMode || isEditForm" cols="12" sm="12" md="4" lg="4">
               <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="recipe" :scale="scale" />
-              <RecipePageOrganizers v-if="$vuetify.breakpoint.mdAndUp" :recipe="recipe" />
+              <RecipePageOrganizers v-if="$vuetify.breakpoint.mdAndUp" :recipe="recipe" @item-selected="chipClicked" />
             </v-col>
             <v-divider v-if="$vuetify.breakpoint.mdAndUp && !isCookMode" class="my-divider" :vertical="true" />
 
@@ -166,7 +166,7 @@ import {
   usePageUser,
 } from "~/composables/recipe-page/shared-state";
 import { NoUndefinedField } from "~/lib/api/types/non-generated";
-import { Recipe } from "~/lib/api/types/recipe";
+import { Recipe, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
@@ -329,6 +329,17 @@ export default defineComponent({
      */
     const { user } = usePageUser();
 
+    /** =============================================================
+     * RecipeChip Clicked
+     */
+
+    function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: string) {
+      if (!item.id) {
+        return;
+      }
+      router.push(`/g/${groupSlug.value}?${itemType}=${item.id}`);
+    }
+
     return {
       user,
       isOwnGroup,
@@ -350,7 +361,8 @@ export default defineComponent({
       deleteRecipe,
       addStep,
       hasLinkedIngredients,
-      notLinkedIngredients
+      notLinkedIngredients,
+      chipClicked,
     };
   },
   head: {},

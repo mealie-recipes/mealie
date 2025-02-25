@@ -96,7 +96,12 @@
           <v-icon left>
             {{ $globals.icons.calendar }}
           </v-icon>
-            {{ $t('recipe.last-made-date', { date: value ? new Date(value).toLocaleDateString($i18n.locale) : $t("general.never") } ) }}
+            <div v-if="lastMadeReady">
+              {{ $t('recipe.last-made-date', { date: lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $t("general.never") } ) }}
+            </div>
+            <div v-else>
+              <AppLoader tiny />
+            </div>
         </v-chip>
       </div>
       <div class="d-flex justify-center flex-wrap mt-1">
@@ -110,7 +115,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
+import { computed, defineComponent, onMounted, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
 import { whenever } from "@vueuse/core";
 import { VForm } from "~/types/vuetify";
 import { useUserApi } from "~/composables/api";
@@ -119,10 +124,6 @@ import { Recipe, RecipeTimelineEventIn } from "~/lib/api/types/recipe";
 
 export default defineComponent({
   props: {
-    value: {
-      type: String,
-      default: null,
-    },
     recipe: {
       type: Object as () => Recipe,
       required: true,
@@ -145,6 +146,20 @@ export default defineComponent({
     const newTimelineEventImageName = ref<string>("");
     const newTimelineEventImagePreviewUrl = ref<string>();
     const newTimelineEventTimestamp = ref<string>();
+
+    const lastMade = ref(props.recipe.lastMade);
+    const lastMadeReady = ref(false);
+    onMounted(async () => {
+      if (!$auth.user?.householdSlug) {
+        lastMade.value = props.recipe.lastMade;
+      } else {
+        const { data } = await userApi.households.getCurrentUserHouseholdRecipe(props.recipe.slug || "");
+        lastMade.value = data?.lastMade;
+      }
+
+      lastMadeReady.value = true;
+    });
+
 
     whenever(
       () => madeThisDialog.value,
@@ -195,11 +210,9 @@ export default defineComponent({
       const newEvent = eventResponse.data;
 
       // we also update the recipe's last made value
-      if (!props.value || newTimelineEvent.value.timestamp > props.value) {
+      if (!lastMade.value || newTimelineEvent.value.timestamp > lastMade.value) {
+        lastMade.value = newTimelineEvent.value.timestamp;
         await userApi.recipes.updateLastMade(props.recipe.slug,  newTimelineEvent.value.timestamp);
-
-        // update recipe in parent so the user can see it
-        context.emit("input", newTimelineEvent.value.timestamp);
       }
 
       // update the image, if provided
@@ -234,6 +247,8 @@ export default defineComponent({
       newTimelineEventImage,
       newTimelineEventImagePreviewUrl,
       newTimelineEventTimestamp,
+      lastMade,
+      lastMadeReady,
       createTimelineEvent,
       clearImage,
       uploadImage,

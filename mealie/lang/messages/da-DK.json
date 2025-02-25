@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Opskriftsnavnet er allerede i brug",
+        "recipe-created": "Opskrift oprettet",
         "recipe-defaults": {
-            "ingredient-note": "1 Kop Mel",
+            "ingredient-note": "1 kop mel",
             "step-text": "Du kan bruge markdown kode i beskrivelser og andre felter i opskrifter.\n\n**Tilføj et link**\n\n[Mit link](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Makes",
+            "serves": "Serves",
+            "serving": "Servering",
+            "servings": "Portioner",
+            "yield": "Yield",
+            "yields": "Yields"
         }
     },
     "mealplan": {
@@ -33,7 +42,7 @@
         "generic-updated": "{name} blev opdateret",
         "generic-created-with-url": "{name} er oprettet, {url}",
         "generic-updated-with-url": "{name} er blevet opdateret, {url}",
-        "generic-duplicated": "{name} er blevet dublikeret",
+        "generic-duplicated": "{name} er blevet duplikeret",
         "generic-deleted": "{name} er blevet slettet"
     },
     "datetime": {
@@ -47,11 +56,11 @@
     },
     "emails": {
         "password": {
-            "subject": "Mealie Glemt Adgangskode",
+            "subject": "Mealie glemt adgangskode",
             "header_text": "Glemt adgangskode",
             "message_top": "Du har anmodet om at nulstille din adgangskode.",
             "message_bottom": "Klik på knappen ovenfor for at nulstille din adgangskode.",
-            "button_text": "Nulstil adgangskoden"
+            "button_text": "Nulstil adgangskode"
         },
         "invitation": {
             "subject": "Invitation til at deltage i Mealie",

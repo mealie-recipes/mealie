@@ -121,7 +121,7 @@
     "loading": "Kraunasi",
     "loading-events": "Užkrovimo įvykiai",
     "loading-recipe": "Receptai kraunasi...",
-    "loading-ocr-data": "Loading OCR data...",
+    "loading-ocr-data": "Įkeliami OCR duomenys...",
     "loading-recipes": "Receptai kraunasi",
     "message": "Pranešimas",
     "monday": "Pirmadienis",
@@ -210,14 +210,14 @@
     "upload-file": "Įkelti failą",
     "created-on-date": "Sukurta: {0}",
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
-    "clipboard-copy-failure": "Failed to copy to the clipboard.",
+    "clipboard-copy-failure": "Nepavyko nukopijuoti į iškarpinę.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
     "organizers": "Organizers",
     "caution": "Caution",
-    "show-advanced": "Show Advanced",
-    "add-field": "Add Field",
-    "date-created": "Date Created",
-    "date-updated": "Date Updated"
+    "show-advanced": "Rodyti plačiau",
+    "add-field": "Pridėti lauką",
+    "date-created": "Sukūrimo data",
+    "date-updated": "Atnaujinimo data"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ar tikrai norite ištrinti <b>{groupName}<b/>?",
@@ -276,7 +276,8 @@
     "admin-group-management": "Administravimo grupės valdymas",
     "admin-group-management-text": "Pakeitimai šiai grupei pritaikomi iš karto.",
     "group-id-value": "Grupės ID: {0}",
-    "total-households": "Total Households"
+    "total-households": "Total Households",
+    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
   },
   "household": {
     "household": "Household",
@@ -321,7 +322,7 @@
     "mealplan-update-failed": "Mitybos plano atnaujinti nepavyko",
     "mealplan-updated": "Mitybos planas atnaujintas",
     "mealplan-households-description": "If no household is selected, recipes can be added from any household",
-    "any-category": "Any Category",
+    "any-category": "Bet kuri kategorija",
     "any-tag": "Any Tag",
     "any-household": "Any Household",
     "no-meal-plan-defined-yet": "Nėra nustatytų mitybos planų",
@@ -517,6 +518,7 @@
     "save-recipe-before-use": "Prieš naudodami išsaugokite receptą",
     "section-title": "Skilties pavadinimas",
     "servings": "Porcijos",
+    "serves-amount": "Serves {amount}",
     "share-recipe-message": "Noriu pasidalinti savo receptu {0} su jumis.",
     "show-nutrition-values": "Rodyti maistinę vertę",
     "sodium-content": "Natris",
@@ -545,6 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Nepavyko pridėti recepto prie mitybos plano",
     "failed-to-add-to-list": "Failed to add to list",
     "yield": "Išeiga",
+    "yields-amount-with-text": "Yields {amount} {text}",
+    "yield-text": "Yield Text",
     "quantity": "Kiekis",
     "choose-unit": "Pasirinkite vienetą",
     "press-enter-to-create": "Paspauskite 'Enter', norėdami sukurti",
@@ -566,13 +570,6 @@
     "increase-scale-label": "Padidinti mastelį 1 k.",
     "locked": "Užrakinta",
     "public-link": "Vieša nuoroda",
-    "timer": {
-      "kitchen-timer": "Kitchen Timer",
-      "start-timer": "Start Timer",
-      "pause-timer": "Pause Timer",
-      "resume-timer": "Resume Timer",
-      "stop-timer": "Stop Timer"
-    },
     "edit-timeline-event": "Redaguoti laiko juostos įvykį",
     "timeline": "Laiko juosta",
     "timeline-is-empty": "Laiko juosta tuščia. Pabandykit pagaminti šį receptą!",
@@ -640,7 +637,9 @@
     "recipe-debugger-use-openai-description": "Naudokite 'OpenAI', kad išanalizuoti rezultatus, o ne pasikliauti tinklalapių duomenų rinkiklio įrankiu. Kuriant receptą naudojant URL, tai padaroma automatiškai, jei duomenų rinkiklio įrankiui nepavyksta apdoroti rezultatų, tačiau čia jį galite išbandyti rankiniu būdu.",
     "debug": "Šalinti klaidas",
     "tree-view": "Medžio struktūra",
+    "recipe-servings": "Recipe Servings",
     "recipe-yield": "Recepto išeiga",
+    "recipe-yield-text": "Recipe Yield Text",
     "unit": "Vienetas",
     "upload-image": "Įkelti nuotrauką",
     "screen-awake": "Keep Screen Awake",
@@ -662,7 +661,25 @@
       "missing-food": "Create missing food: {food}",
       "no-food": "No Food"
     },
-    "reset-servings-count": "Reset Servings Count"
+    "reset-servings-count": "Reset Servings Count",
+    "not-linked-ingredients": "Additional Ingredients"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Recipe Finder",
+    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
+    "selected-ingredients": "Selected Ingredients",
+    "no-ingredients-selected": "No ingredients selected",
+    "missing": "Missing",
+    "no-recipes-found": "No recipes found",
+    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
+    "include-ingredients-on-hand": "Include Ingredients On Hand",
+    "include-tools-on-hand": "Include Tools On Hand",
+    "max-missing-ingredients": "Max Missing Ingredients",
+    "max-missing-tools": "Max Missing Tools",
+    "selected-tools": "Selected Tools",
+    "other-filters": "Other Filters",
+    "ready-to-make": "Ready to Make",
+    "almost-ready-to-make": "Almost Ready to Make"
   },
   "search": {
     "advanced-search": "Išplėstinė paieška",
@@ -866,7 +883,8 @@
     "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
-    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?"
+    "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
+    "no-shopping-lists-found": "No Shopping Lists Found"
   },
   "sidebar": {
     "all-recipes": "Visi receptai",
@@ -1278,6 +1296,7 @@
   "profile": {
     "welcome-user": "👋 Welcome, {0}!",
     "description": "Valdykite savo profilį, receptus ir grupių nustatymus.",
+    "invite-link": "Invite Link",
     "get-invite-link": "Gauti pakvietimo nuorodą",
     "get-public-link": "Get Public Link",
     "account-summary": "Paskyros apžvalga",
@@ -1327,6 +1346,8 @@
   "cookbook": {
     "cookbooks": "Receptų knygos",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
+    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
     "public-cookbook": "Vieša receptų knyga",
     "public-cookbook-description": "Viešos receptų knygos gali būti bendrinamos su Mealie paskyros neturinčiais naudotojais ir bus rodomos jūsų grupių puslapyje.",
     "filter-options": "Filtro parinktys",

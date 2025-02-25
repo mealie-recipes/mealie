@@ -8,15 +8,20 @@ from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
 
 from mealie.db.models._model_base import SqlAlchemyBase
-from mealie.db.models.household.household import Household
+from mealie.db.models.household import Household, HouseholdToRecipe
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.users import User
-from mealie.repos.repository_generic import GroupRepositoryGeneric
-from mealie.schema.household.household import HouseholdCreate, HouseholdInDB, UpdateHousehold
-from mealie.schema.household.household_statistics import HouseholdStatistics
+from mealie.repos.repository_generic import GroupRepositoryGeneric, HouseholdRepositoryGeneric
+from mealie.schema.household import (
+    HouseholdCreate,
+    HouseholdInDB,
+    HouseholdRecipeOut,
+    HouseholdStatistics,
+    UpdateHousehold,
+)
 
 
 class RepositoryHousehold(GroupRepositoryGeneric[HouseholdInDB, Household]):
@@ -101,3 +106,15 @@ class RepositoryHousehold(GroupRepositoryGeneric[HouseholdInDB, Household]):
             total_tags=model_count(Tag, filter_household=False),
             total_tools=model_count(Tool, filter_household=False),
         )
+
+
+class RepositoryHouseholdRecipes(HouseholdRepositoryGeneric[HouseholdRecipeOut, HouseholdToRecipe]):
+    def get_by_recipe(self, recipe_id: UUID4) -> HouseholdRecipeOut | None:
+        if not self.household_id:
+            raise Exception("household_id not set")
+
+        stmt = select(HouseholdToRecipe).filter(
+            HouseholdToRecipe.household_id == self.household_id, HouseholdToRecipe.recipe_id == recipe_id
+        )
+        result = self.session.execute(stmt).scalars().one_or_none()
+        return None if result is None else self.schema.model_validate(result)

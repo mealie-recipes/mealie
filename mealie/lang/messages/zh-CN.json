@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "食谱名称必须唯一",
+        "recipe-created": "Recipe Created",
         "recipe-defaults": {
             "ingredient-note": "1杯面粉",
             "step-text": "食谱步骤以及食谱页面的其他字段支持markdown语法。\n\n**添加一个链接**\n\n[我的链接](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Makes",
+            "serves": "Serves",
+            "serving": "Serving",
+            "servings": "Servings",
+            "yield": "Yield",
+            "yields": "Yields"
         }
     },
     "mealplan": {

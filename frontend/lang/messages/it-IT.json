@@ -182,7 +182,7 @@
     "date": "Data",
     "id": "Id",
     "owner": "Proprietario",
-    "change-owner": "Change Owner",
+    "change-owner": "Cambia Proprietario",
     "date-added": "Data Aggiunta",
     "none": "Nessuno",
     "run": "Avvia",
@@ -214,10 +214,10 @@
     "confirm-delete-generic-items": "Sei sicuro di voler eliminare i seguenti elementi?",
     "organizers": "Organizzatori",
     "caution": "Attenzione",
-    "show-advanced": "Show Advanced",
-    "add-field": "Add Field",
-    "date-created": "Date Created",
-    "date-updated": "Date Updated"
+    "show-advanced": "Mostra Avanzate",
+    "add-field": "Aggiungi campo",
+    "date-created": "Data di Creazione",
+    "date-updated": "Data di aggiornamento"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
@@ -276,7 +276,8 @@
     "admin-group-management": "Gestione Gruppo Amministratore",
     "admin-group-management-text": "Le modifiche a questo gruppo si rifletteranno immediatamente.",
     "group-id-value": "Id Gruppo: {0}",
-    "total-households": "Famiglie Totali"
+    "total-households": "Famiglie Totali",
+    "you-must-select-a-group-before-selecting-a-household": "Devi selezionare un gruppo prima di selezionare una famiglia"
   },
   "household": {
     "household": "Famiglia",
@@ -356,7 +357,7 @@
     "for-type-meal-types": "per {0} tipi di pasto",
     "meal-plan-rules": "Regole del piano alimentare",
     "new-rule": "Nuova regola",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "Si possono creare regole per la selezione automatica delle ricette per i piani alimentari. Queste regole vengono utilizzate dal server per determinare l'insieme casuale di ricette da cui prelevare quando si creano i piani. Si noti che se le regole hanno gli stessi vincoli giorno/tipo, i filtri delle regole verranno uniti. In pratica, non è necessario creare regole duplicate, ma è comunque possibile farlo.",
     "new-rule-description": "Quando si crea una nuova regola per un piano alimentare è possibile limitare la sua applicazione ad un giorno specifico della settimana e/o un tipo specifico di pasto. Per applicare una regola a tutti i giorni o a tutti i tipi di pasto, è possibile impostare la regola a \"Qualsiasi\", applicandola a tutti i possibili valori per il tipo di giorno e/o di pasto.",
     "recipe-rules": "Regole per le ricette",
     "applies-to-all-days": "Si applica a ogni giorno",
@@ -466,7 +467,7 @@
     "calories-suffix": "calorie",
     "carbohydrate-content": "Carboidrati",
     "categories": "Categorie",
-    "cholesterol-content": "Cholesterol",
+    "cholesterol-content": "Colesterolo",
     "comment-action": "Commento",
     "comment": "Commento",
     "comments": "Commenti",
@@ -513,10 +514,11 @@
     "recipe-updated": "Ricetta aggiornata",
     "remove-from-favorites": "Rimuovi dai Preferiti",
     "remove-section": "Rimuovi Sezione",
-    "saturated-fat-content": "Saturated fat",
+    "saturated-fat-content": "Grassi saturi",
     "save-recipe-before-use": "Salva la ricetta prima dell'uso",
     "section-title": "Titolo Sezione",
-    "servings": "Portate",
+    "servings": "Porzioni",
+    "serves-amount": "Porzioni {amount}",
     "share-recipe-message": "Volevo condividere la mia {0} ricetta con te.",
     "show-nutrition-values": "Mostra Valori Nutrizionali",
     "sodium-content": "Sodio",
@@ -524,9 +526,9 @@
     "sugar-content": "Zuccheri",
     "title": "Titolo",
     "total-time": "Tempo Totale",
-    "trans-fat-content": "Trans-fat",
+    "trans-fat-content": "Grassi trans",
     "unable-to-delete-recipe": "Impossibile eliminare ricetta",
-    "unsaturated-fat-content": "Unsaturated fat",
+    "unsaturated-fat-content": "Grassi insaturi",
     "no-recipe": "Nessuna Ricetta",
     "locked-by-owner": "Bloccato dal Proprietario",
     "join-the-conversation": "Unisciti alla conversazione",
@@ -544,7 +546,9 @@
     "failed-to-add-recipes-to-list": "Impossibile aggiungere la ricetta alla lista",
     "failed-to-add-recipe-to-mealplan": "Impossibile aggiungere la ricetta al piano alimentare",
     "failed-to-add-to-list": "Errore durante l'aggiunta alla lista",
-    "yield": "Porzioni",
+    "yield": "Quantità prodotta",
+    "yields-amount-with-text": "Quantità prodotta: {amount} {text}",
+    "yield-text": "Unità della quantità prodotta",
     "quantity": "Quantità",
     "choose-unit": "Scegli Unità",
     "press-enter-to-create": "Premi invio per creare",
@@ -566,13 +570,6 @@
     "increase-scale-label": "Aumenta la scala di 1",
     "locked": "Bloccato",
     "public-link": "Link Pubblico",
-    "timer": {
-      "kitchen-timer": "Contaminuti da cucina",
-      "start-timer": "Avvia timer",
-      "pause-timer": "Metti in pausa il contaminuti",
-      "resume-timer": "Riprendi il contaminuti",
-      "stop-timer": "Arresta il Timer"
-    },
     "edit-timeline-event": "Modifica evento sulla linea temporale",
     "timeline": "Linea temporale",
     "timeline-is-empty": "Niente sulla linea temporale. Prova a fare questa ricetta!",
@@ -615,15 +612,15 @@
     "scrape-recipe-have-a-lot-of-recipes": "Hai un sacco di ricette che vuoi importare contemporaneamente?",
     "scrape-recipe-suggest-bulk-importer": "Prova l'importatore massivo",
     "scrape-recipe-have-raw-html-or-json-data": "Hai dei dati grezzi HTML o JSON?",
-    "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "È possibile importare direttamente dai dati grezzi",
     "import-original-keywords-as-tags": "Importa parole chiave originali come tag",
     "stay-in-edit-mode": "Rimani in modalità Modifica",
     "import-from-zip": "Importa da Zip",
     "import-from-zip-description": "Importa una singola ricetta esportata da un'altra istanza di Mealie.",
-    "import-from-html-or-json": "Import from HTML or JSON",
-    "import-from-html-or-json-description": "Import a single recipe from raw HTML or JSON. This is useful if you have a recipe from a site that Mealie can't scrape normally, or from some other external source.",
-    "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
-    "json-editor": "JSON Editor",
+    "import-from-html-or-json": "Importa da HTML o JSON",
+    "import-from-html-or-json-description": "Importa una singola ricetta da HTML o JSON grezzi. Utile se si ha una ricetta proveniente da siti da cui solitamente Mealie non riesce a importare, o da qualche altra fonte esterna.",
+    "json-import-format-description-colon": "Per importare tramite JSON, deve essere in un formato valido:",
+    "json-editor": "Editor JSON",
     "zip-files-must-have-been-exported-from-mealie": "I file .zip devono essere stati esportati da Mealie",
     "create-a-recipe-by-uploading-a-scan": "Crea una ricetta caricando una scansione.",
     "upload-a-png-image-from-a-recipe-book": "Carica un'immagine png da un libro di ricette",
@@ -640,7 +637,9 @@
     "recipe-debugger-use-openai-description": "Usa OpenAI per analizzare i risultati invece di affidarsi alla libreria scraper. Quando si crea una ricetta tramite URL, questo viene fatto automaticamente se la libreria scraper fallisce, ma è possibile testarlo manualmente qui.",
     "debug": "Debug",
     "tree-view": "Visualizzazione ad Albero",
+    "recipe-servings": "Porzioni ricetta",
     "recipe-yield": "Resa Ricetta",
+    "recipe-yield-text": "Testo del rendimento ricetta",
     "unit": "Unità",
     "upload-image": "Carica immagine",
     "screen-awake": "Mantieni lo schermo acceso",
@@ -662,7 +661,25 @@
       "missing-food": "Crea cibo mancante: {food}",
       "no-food": "Nessun Alimento"
     },
-    "reset-servings-count": "Reset Servings Count"
+    "reset-servings-count": "Reimposta conteggio porzioni",
+    "not-linked-ingredients": "Ingredienti Aggiuntivi"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Trova ricette",
+    "recipe-finder-description": "Cerca ricette in base agli ingredienti a portata di mano. Si può anche filtrare in base agli utensili che si ha a disposizione e impostare un numero massimo d'ingredienti o utensili mancanti.",
+    "selected-ingredients": "Seleziona ingredienti",
+    "no-ingredients-selected": "Nessun ingrediente selezionato",
+    "missing": "Mancante",
+    "no-recipes-found": "Nessuna ricetta trovata",
+    "no-recipes-found-description": "Prova ad aggiungere altri ingredienti alla tua ricerca o a regolare i tuoi filtri",
+    "include-ingredients-on-hand": "Includi ingredienti a mano",
+    "include-tools-on-hand": "Includi strumenti a mano",
+    "max-missing-ingredients": "Max Ingredienti Mancanti",
+    "max-missing-tools": "Massimo Strumenti Mancanti",
+    "selected-tools": "Strumenti Selezionati",
+    "other-filters": "Altri filtri",
+    "ready-to-make": "Pronto da fare",
+    "almost-ready-to-make": "Quasi pronto da fare"
   },
   "search": {
     "advanced-search": "Ricerca Avanzata",
@@ -866,7 +883,8 @@
     "you-are-offline-description": "Non tutte le funzioni sono disponibili quando non sei in linea. Puoi ancora aggiungere, modificare e rimuovere elementi, ma non sarai in grado di sincronizzare le modifiche con il server fino a quando non sarai di nuovo in linea.",
     "are-you-sure-you-want-to-check-all-items": "Sei sicuro di voler tutti gli elementi?",
     "are-you-sure-you-want-to-uncheck-all-items": "Sei sicuro di voler deselezionare tutti gli elementi?",
-    "are-you-sure-you-want-to-delete-checked-items": "Sei sicuro di voler rimuovere tutti gli articoli selezionati?"
+    "are-you-sure-you-want-to-delete-checked-items": "Sei sicuro di voler rimuovere tutti gli articoli selezionati?",
+    "no-shopping-lists-found": "Nessuna lista della spesa trovata"
   },
   "sidebar": {
     "all-recipes": "Ricette",
@@ -1272,12 +1290,13 @@
     "debug-openai-services-description": "Usa questa pagina per fare debug dei servizi OpenAI. Puoi testare la tua connessione OpenAI e vedere i risultati qui. Se si dispone di servizi di immagine abilitati, è anche possibile fornire un'immagine.",
     "run-test": "Esegui test",
     "test-results": "Risultati dei test",
-    "group-delete-note": "Groups with users or households cannot be deleted",
-    "household-delete-note": "Households with users cannot be deleted"
+    "group-delete-note": "I gruppi con utenti o famiglie non possono essere eliminati",
+    "household-delete-note": "Le famiglie con utenti non possono essere eliminate"
   },
   "profile": {
     "welcome-user": "👋 Benvenutǝ, {0}!",
     "description": "Gestisci il tuo profilo, le ricette e le impostazioni di gruppo.",
+    "invite-link": "Collegamento d'invito",
     "get-invite-link": "Ottieni Link Di Invito",
     "get-public-link": "Ottieni link pubblico",
     "account-summary": "Riepilogo Account",
@@ -1326,7 +1345,9 @@
   },
   "cookbook": {
     "cookbooks": "Ricettari",
-    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "description": "I libri di cucina sono un altro modo per organizzare le ricette creando insiemi di ricette, ordinamenti e altri filtri. La creazione di un libro di cucina aggiungerà una voce alla barra laterale e tutte le ricette con i filtri scelti verranno visualizzate nel libro di cucina.",
+    "hide-cookbooks-from-other-households": "Nascondi i libri di cucina delle altre famiglie",
+    "hide-cookbooks-from-other-households-description": "Se abilitata, nella barra laterale appariranno solo libri di cucina della propria famiglia",
     "public-cookbook": "Ricettario Pubblico",
     "public-cookbook-description": "I ricettari pubblici possono essere condivisi con gli utenti non-mealie e saranno visualizzati nella pagina dei gruppi.",
     "filter-options": "Opzioni Filtro",
@@ -1342,25 +1363,25 @@
   },
   "query-filter": {
     "logical-operators": {
-      "and": "AND",
-      "or": "OR"
+      "and": "E",
+      "or": "O"
     },
     "relational-operators": {
-      "equals": "equals",
-      "does-not-equal": "does not equal",
-      "is-greater-than": "is greater than",
-      "is-greater-than-or-equal-to": "is greater than or equal to",
-      "is-less-than": "is less than",
-      "is-less-than-or-equal-to": "is less than or equal to"
+      "equals": "è uguale",
+      "does-not-equal": "è diverso",
+      "is-greater-than": "è maggiore di",
+      "is-greater-than-or-equal-to": "è maggiore o uguale di",
+      "is-less-than": "è minore di",
+      "is-less-than-or-equal-to": "è minore o uguale di"
     },
     "relational-keywords": {
-      "is": "is",
-      "is-not": "is not",
-      "is-one-of": "is one of",
-      "is-not-one-of": "is not one of",
-      "contains-all-of": "contains all of",
-      "is-like": "is like",
-      "is-not-like": "is not like"
+      "is": "è",
+      "is-not": "non è",
+      "is-one-of": "è uno di",
+      "is-not-one-of": "non è uno di",
+      "contains-all-of": "contiene tutti i",
+      "is-like": "è simile",
+      "is-not-like": "non è come"
     }
   }
 }

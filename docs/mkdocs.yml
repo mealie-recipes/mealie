@@ -48,6 +48,7 @@ markdown_extensions:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.details
 extra_css:
   - assets/stylesheets/custom.css
 extra_javascript:
@@ -84,12 +85,13 @@ nav:
           - OpenID Connect: "documentation/getting-started/authentication/oidc-v2.md"
 
       - Community Guides:
+          - Bring API without internet exposure: "documentation/community-guide/bring-api.md"
+          - Automate Backups with n8n: "documentation/community-guide/n8n-backup-automation.md"
+          - Bulk Url Import: "documentation/community-guide/bulk-url-import.md"
+          - Home Assistant: "documentation/community-guide/home-assistant.md"
+          - Import Bookmarklet: "documentation/community-guide/import-recipe-bookmarklet.md"
           - iOS Shortcuts: "documentation/community-guide/ios.md"
           - Reverse Proxy (SWAG): "documentation/community-guide/swag.md"
-          - Home Assistant: "documentation/community-guide/home-assistant.md"
-          - Bulk Url Import: "documentation/community-guide/bulk-url-import.md"
-          - Import Bookmarklet: "documentation/community-guide/import-recipe-bookmarklet.md"
-          - Automate Backups with n8n: "documentation/community-guide/n8n-backup-automation.md"
 
   - API Reference: "api/redoc.md"
 
@@ -97,6 +99,7 @@ nav:
       - Non-Code: "contributors/non-coders.md"
       - Translating: "contributors/translating.md"
       - Developers Guide:
+          - Building Packages: "contributors/developers-guide/building-packages.md"
           - Code Contributions: "contributors/developers-guide/code-contributions.md"
           - Dev Getting Started: "contributors/developers-guide/starting-dev-server.md"
           - Database Changes: "contributors/developers-guide/database-changes.md"
@@ -104,3 +107,7 @@ nav:
           - Migration Guide: "contributors/developers-guide/migration-guide.md"
       - Guides:
           - Improving Ingredient Parser: "contributors/guides/ingredient-parser.md"
+
+  - News:
+      - Surveys:
+          - October 2024: "news/surveys/2024-october/overview.md"

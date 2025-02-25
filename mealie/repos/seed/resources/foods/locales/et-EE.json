@@ -1,0 +1,692 @@
+{
+	"acorn-squash": {
+		"name": "tammetõru-kõrvits"
+	},
+	"alfalfa-sprouts": {
+		"name": "lutserni idud"
+	},
+	"anchovies": {
+		"name": "anšoovised"
+	},
+	"apples": {
+		"name": "õun",
+		"plural_name": "õunad"
+	},
+	"artichoke": {
+		"name": "artišokk"
+	},
+	"arugula": {
+		"name": "rukola"
+	},
+	"asparagus": {
+		"name": "spargel"
+	},
+	"avocado": {
+		"name": "avokaado",
+		"plural_name": "avokaado"
+	},
+	"bacon": {
+		"name": "peekon"
+	},
+	"baking-powder": {
+		"name": "küpsetuspulber"
+	},
+	"baking-soda": {
+		"name": "söögisooda"
+	},
+	"baking-sugar": {
+		"name": "küpsetussuhkur"
+	},
+	"bar-sugar": {
+		"name": "batooni suhkur"
+	},
+	"basil": {
+		"name": "basiilik"
+	},
+	"beans": {
+		"name": "oad"
+	},
+	"bell-peppers": {
+		"name": "paprika",
+		"plural_name": "paprikad"
+	},
+	"blackberries": {
+		"name": "põldmurakas"
+	},
+	"bok-choy": {
+		"name": "Hiina lehtnaeris (bok choy)"
+	},
+	"brassicas": {
+		"name": "rüps"
+	},
+	"bread": {
+		"name": "leib"
+	},
+	"breadfruit": {
+		"name": "hõlmine leivapuu"
+	},
+	"broccoflower": {
+		"name": "brokkolill"
+	},
+	"broccoli": {
+		"name": "spargelkapsas"
+	},
+	"broccoli-rabe": {
+		"name": "rapini"
+	},
+	"broccolini": {
+		"name": "beebi brokkoli"
+	},
+	"brown-sugar": {
+		"name": "pruun suhkur"
+	},
+	"brussels-sprouts": {
+		"name": "Brüsseli kapsas"
+	},
+	"butter": {
+		"name": "või"
+	},
+	"butternut-pumpkin": {
+		"name": "kürbis"
+	},
+	"butternut-squash": {
+		"name": "suvikõrvits"
+	},
+	"cabbage": {
+		"name": "kapsas",
+		"plural_name": "kapsad"
+	},
+	"cactus-edible": {
+		"name": "kaktus, söödav"
+	},
+	"calabrese": {
+		"name": "calabrese"
+	},
+	"cane-sugar": {
+		"name": "roosuhkur"
+	},
+	"cannabis": {
+		"name": "kanep"
+	},
+	"capsicum": {
+		"name": "paprika"
+	},
+	"caraway": {
+		"name": "köömes"
+	},
+	"carrot": {
+		"name": "porgand",
+		"plural_name": "porgandid"
+	},
+	"caster-sugar": {
+		"name": "caster suhkur"
+	},
+	"castor-sugar": {
+		"name": "castor suhkur"
+	},
+	"catfish": {
+		"name": "sägaline"
+	},
+	"cauliflower": {
+		"name": "lillkapsas",
+		"plural_name": "lillkapsad"
+	},
+	"cayenne-pepper": {
+		"name": "kajenni pipar"
+	},
+	"celeriac": {
+		"name": "selleri juur"
+	},
+	"celery": {
+		"name": "seller"
+	},
+	"cereal-grains": {
+		"name": "teravilja terad"
+	},
+	"chard": {
+		"name": "mangold"
+	},
+	"cheese": {
+		"name": "juust"
+	},
+	"chicory": {
+		"name": "harilik sigur"
+	},
+	"chilli-peppers": {
+		"name": "tšillipipar",
+		"plural_name": "tšillipiprad"
+	},
+	"chinese-leaves": {
+		"name": "Hiina kapsas"
+	},
+	"chives": {
+		"name": "murulauk"
+	},
+	"chocolate": {
+		"name": "šokolaad"
+	},
+	"cilantro": {
+		"name": "koriander"
+	},
+	"cinnamon": {
+		"name": "kaneel"
+	},
+	"clarified-butter": {
+		"name": "selitatud või"
+	},
+	"coconut": {
+		"name": "kookos",
+		"plural_name": "kookosed"
+	},
+	"coconut-milk": {
+		"name": "kookospiip"
+	},
+	"cod": {
+		"name": "tursk"
+	},
+	"coffee": {
+		"name": "kohvi"
+	},
+	"collard-greens": {
+		"name": "lehtkapsas"
+	},
+	"confectioners-sugar": {
+		"name": "tuhksuhkur"
+	},
+	"coriander": {
+		"name": "koriander"
+	},
+	"corn": {
+		"name": "mais",
+		"plural_name": "maisid"
+	},
+	"corn-syrup": {
+		"name": "maisisiirup"
+	},
+	"cottonseed-oil": {
+		"name": "puuvillaseemeõli"
+	},
+	"courgette": {
+		"name": "suvikõrvits"
+	},
+	"cream-of-tartar": {
+		"name": "\nkaaliumvesiniktartraat "
+	},
+	"cucumber": {
+		"name": "kurk",
+		"plural_name": "kurgid"
+	},
+	"cumin": {
+		"name": "köömned"
+	},
+	"daikon": {
+		"name": "jaapani redis",
+		"plural_name": "jaapani redised"
+	},
+	"dairy-products-and-dairy-substitutes": {
+		"name": "piimatooted ja piima asendajad"
+	},
+	"dandelion": {
+		"name": "võilill"
+	},
+	"demerara-sugar": {
+		"name": "fariinsuhkur"
+	},
+	"dough": {
+		"name": "tainas"
+	},
+	"edible-cactus": {
+		"name": "söödav kaktus"
+	},
+	"eggplant": {
+		"name": "baklažaan",
+		"plural_name": "baklažaani"
+	},
+	"eggs": {
+		"name": "muna",
+		"plural_name": "mune"
+	},
+	"endive": {
+		"name": "endiivia",
+		"plural_name": "endiiviat"
+	},
+	"fats": {
+		"name": "rasvad"
+	},
+	"fava-beans": {
+		"name": "põlduba"
+	},
+	"fiddlehead": {
+		"name": "viiulpea"
+	},
+	"fiddlehead-fern": {
+		"name": "viiulpea roheline",
+		"plural_name": "viiulpea rohelised"
+	},
+	"fish": {
+		"name": "kala"
+	},
+	"five-spice-powder": {
+		"name": "viievürtsipulber"
+	},
+	"flour": {
+		"name": "jahu"
+	},
+	"frisee": {
+		"name": "endiiviasigur"
+	},
+	"fructose": {
+		"name": "fruktoos"
+	},
+	"fruit": {
+		"name": "puuvili"
+	},
+	"fruit-sugar": {
+		"name": "puuviljasuhkur"
+	},
+	"ful": {
+		"name": " fūl"
+	},
+	"garam-masala": {
+		"name": "garam masala"
+	},
+	"garlic": {
+		"name": "küüslauk",
+		"plural_name": "küüslauku"
+	},
+	"gem-squash": {
+		"name": "kalliskivikõrvits"
+	},
+	"ghee": {
+		"name": "ghee"
+	},
+	"giblets": {
+		"name": "rups"
+	},
+	"ginger": {
+		"name": "ingver"
+	},
+	"grains": {
+		"name": "teraviljad"
+	},
+	"granulated-sugar": {
+		"name": "granuleeritud suhkur"
+	},
+	"grape-seed-oil": {
+		"name": "viinamarjaõli"
+	},
+	"green-onion": {
+		"name": "roheline sibul",
+		"plural_name": "rohelist sibulat"
+	},
+	"heart-of-palm": {
+		"name": "palmisüda",
+		"plural_name": "palmisüdant"
+	},
+	"hemp": {
+		"name": "kanep"
+	},
+	"herbs": {
+		"name": "maitsetaimed"
+	},
+	"honey": {
+		"name": "mesi"
+	},
+	"isomalt": {
+		"name": "isomalt"
+	},
+	"jackfruit": {
+		"name": "viigumari",
+		"plural_name": "viigimarja"
+	},
+	"jaggery": {
+		"name": "roosuhkur"
+	},
+	"jams": {
+		"name": "moosid"
+	},
+	"jellies": {
+		"name": "tarretised"
+	},
+	"jerusalem-artichoke": {
+		"name": "jeruusalemma artišokk"
+	},
+	"jicama": {
+		"name": "söödav ubajuur"
+	},
+	"kale": {
+		"name": "lehtkapsas"
+	},
+	"kohlrabi": {
+		"name": "nuikapsas"
+	},
+	"kumara": {
+		"name": "bataat"
+	},
+	"leavening-agents": {
+		"name": "kergitusaine"
+	},
+	"leek": {
+		"name": "porrulauk",
+		"plural_name": "porrulauku"
+	},
+	"legumes": {
+		"name": "kaunviljad"
+	},
+	"lemongrass": {
+		"name": "sidrunhein"
+	},
+	"lentils": {
+		"name": "läätsed"
+	},
+	"lettuce": {
+		"name": "aedsalat"
+	},
+	"liver": {
+		"name": "maks",
+		"plural_name": "maksa"
+	},
+	"maize": {
+		"name": "mais"
+	},
+	"maple-syrup": {
+		"name": "vahtrasiirup"
+	},
+	"meat": {
+		"name": "liha"
+	},
+	"milk": {
+		"name": "piim"
+	},
+	"mortadella": {
+		"name": "mortadella"
+	},
+	"mushroom": {
+		"name": "seen",
+		"plural_name": "seent"
+	},
+	"mussels": {
+		"name": "rannakarp"
+	},
+	"nanaimo-bar-mix": {
+		"name": "nanaimo baari segu"
+	},
+	"nori": {
+		"name": "norileht"
+	},
+	"nutmeg": {
+		"name": "muskaat"
+	},
+	"nutritional-yeast-flakes": {
+		"name": "toitvad pärmihelbed"
+	},
+	"nuts": {
+		"name": "pähklid"
+	},
+	"octopuses": {
+		"name": "kaheksajalg",
+		"plural_name": "kaheksajalad"
+	},
+	"oils": {
+		"name": "õlid"
+	},
+	"okra": {
+		"name": "muskushibisk (okra)"
+	},
+	"olive": {
+		"name": "oliiv"
+	},
+	"olive-oil": {
+		"name": "oliiviõli"
+	},
+	"onion": {
+		"name": "sibul"
+	},
+	"onion-family": {
+		"name": "sibulalised"
+	},
+	"orange-blossom-water": {
+		"name": "apelsiniõie vesi"
+	},
+	"oranges": {
+		"name": "apelsin",
+		"plural_name": "apelsinid"
+	},
+	"oregano": {
+		"name": "oregaano"
+	},
+	"oysters": {
+		"name": "austrid"
+	},
+	"panch-puran": {
+		"name": "Pānch Phoron"
+	},
+	"paprika": {
+		"name": "punapipar"
+	},
+	"parsley": {
+		"name": "petersell"
+	},
+	"parsnip": {
+		"name": "pastinaak",
+		"plural_name": "pastinaaki"
+	},
+	"pear": {
+		"name": "pirn",
+		"plural_name": "pirni"
+	},
+	"peas": {
+		"name": "hernes"
+	},
+	"pepper": {
+		"name": "pipar",
+		"plural_name": "pipart"
+	},
+	"pineapple": {
+		"name": "ananass",
+		"plural_name": "ananassi"
+	},
+	"plantain": {
+		"name": "praebanaan",
+		"plural_name": "praebanaani"
+	},
+	"poppy-seeds": {
+		"name": "mooniseemned"
+	},
+	"potato": {
+		"name": "kartul",
+		"plural_name": "kartulit"
+	},
+	"poultry": {
+		"name": "linnuliha"
+	},
+	"powdered-sugar": {
+		"name": "tuhksuhkur"
+	},
+	"pumpkin": {
+		"name": "kõrvits",
+		"plural_name": "kõrvitsat"
+	},
+	"pumpkin-seeds": {
+		"name": "kõrvitsaseemned"
+	},
+	"radish": {
+		"name": "redis",
+		"plural_name": "redist"
+	},
+	"raw-sugar": {
+		"name": "pruunsuhkur"
+	},
+	"refined-sugar": {
+		"name": "rafineeritud suhkur"
+	},
+	"rice": {
+		"name": "riis"
+	},
+	"rice-flour": {
+		"name": "riisijahu"
+	},
+	"rock-sugar": {
+		"name": "kivisuhkur"
+	},
+	"rum": {
+		"name": "rumm"
+	},
+	"salmon": {
+		"name": "lõhe"
+	},
+	"salt": {
+		"name": "sool"
+	},
+	"salt-cod": {
+		"name": "soolatursk"
+	},
+	"scallion": {
+		"name": "roheline sibul",
+		"plural_name": "rohelised sibulad"
+	},
+	"seafood": {
+		"name": "mereannid"
+	},
+	"seeds": {
+		"name": "seemned"
+	},
+	"sesame-seeds": {
+		"name": "seesamiseemned"
+	},
+	"shallot": {
+		"name": "šalottsibul",
+		"plural_name": "šalottsibulad"
+	},
+	"skate": {
+		"name": "raikala"
+	},
+	"soda": {
+		"name": "sooda"
+	},
+	"soda-baking": {
+		"name": "söögisooda"
+	},
+	"soybean": {
+		"name": "sojauba"
+	},
+	"spaghetti-squash": {
+		"name": "taimsed spagetid",
+		"plural_name": "taimsed spagetid"
+	},
+	"speck": {
+		"name": "soolaliha"
+	},
+	"spices": {
+		"name": "vürtsid"
+	},
+	"spinach": {
+		"name": "spinat"
+	},
+	"spring-onion": {
+		"name": "roheline sibul",
+		"plural_name": "rohelised sibulad"
+	},
+	"squash": {
+		"name": "kabatšokk",
+		"plural_name": "kabatšokid"
+	},
+	"squash-family": {
+		"name": "kõrvitsalised"
+	},
+	"stockfish": {
+		"name": "kuivatatud kala"
+	},
+	"sugar": {
+		"name": "suhkur"
+	},
+	"sunchoke": {
+		"name": "maapirn",
+		"plural_name": "maapirni"
+	},
+	"sunflower-seeds": {
+		"name": "päevalilleseemned"
+	},
+	"superfine-sugar": {
+		"name": "tuhksuhkur"
+	},
+	"sweet-potato": {
+		"name": "bataat",
+		"plural_name": "bataadid"
+	},
+	"sweetcorn": {
+		"name": "suhkrumais",
+		"plural_name": "suhkrumaisid"
+	},
+	"sweeteners": {
+		"name": "magusained"
+	},
+	"tahini": {
+		"name": "tahhiini"
+	},
+	"taro": {
+		"name": "tarokk",
+		"plural_name": "tarokid"
+	},
+	"teff": {
+		"name": "teff"
+	},
+	"tomato": {
+		"name": "tomat",
+		"plural_name": "tomatid"
+	},
+	"trout": {
+		"name": "forell"
+	},
+	"tubers": {
+		"name": "mugul",
+		"plural_name": "mugulad"
+	},
+	"tuna": {
+		"name": "tuunikala"
+	},
+	"turbanado-sugar": {
+		"name": "Naturaalne pruunsuhkur"
+	},
+	"turnip": {
+		"name": "naeris",
+		"plural_name": "naerid"
+	},
+	"unrefined-sugar": {
+		"name": "rafineerimata suhkur"
+	},
+	"vanilla": {
+		"name": "vanilje"
+	},
+	"vegetables": {
+		"name": "Köögiviljad"
+	},
+	"watercress": {
+		"name": "Ürt-allikkerss"
+	},
+	"watermelon": {
+		"name": "arbuus",
+		"plural_name": "arbuusid"
+	},
+	"white-mushroom": {
+		"name": "valge seen",
+		"plural_name": "valged seened"
+	},
+	"white-sugar": {
+		"name": "valge suhkur"
+	},
+	"xanthan-gum": {
+		"name": "ksantaankummi kiudaine"
+	},
+	"yam": {
+		"name": "jamss",
+		"plural_name": "jamssid"
+	},
+	"yeast": {
+		"name": "pärm"
+	},
+	"zucchini": {
+		"name": "suvikõrvits",
+		"plural_name": "suvikõrvitsad"
+	}
+}

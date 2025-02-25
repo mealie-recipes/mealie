@@ -1,4 +1,4 @@
-name: Backend Test/Lint
+name: Backend Lint and Test
 
 on:
   workflow_call:

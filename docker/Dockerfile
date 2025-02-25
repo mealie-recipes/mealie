@@ -1,8 +1,11 @@
-FROM node:16 as builder
+###############################################
+# Frontend Build
+###############################################
+FROM node:16 AS frontend-builder
 
-WORKDIR /app
+WORKDIR /frontend
 
-COPY ./frontend .
+COPY frontend .
 
 RUN yarn install \
     --prefer-offline \
@@ -26,14 +29,10 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=off \
     PIP_DISABLE_PIP_VERSION_CHECK=on \
     PIP_DEFAULT_TIMEOUT=100 \
-    POETRY_HOME="/opt/poetry" \
-    POETRY_VIRTUALENVS_IN_PROJECT=true \
-    POETRY_NO_INTERACTION=1 \
-    PYSETUP_PATH="/opt/pysetup" \
-    VENV_PATH="/opt/pysetup/.venv"
+    VENV_PATH="/opt/mealie"
 
-# prepend poetry and venv to path
-ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
+# prepend venv to path
+ENV PATH="$VENV_PATH/bin:$PATH"
 
 # create user account
 RUN useradd -u 911 -U -d $MEALIE_HOME -s /bin/bash abc \
@@ -41,31 +40,81 @@ RUN useradd -u 911 -U -d $MEALIE_HOME -s /bin/bash abc \
     && mkdir $MEALIE_HOME
 
 ###############################################
-# Builder Image
+# Backend Package Build
 ###############################################
-FROM python-base as builder-base
+FROM python-base AS backend-builder
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     curl \
+    && rm -rf /var/lib/apt/lists/*
+
+ENV POETRY_HOME="/opt/poetry" \
+    POETRY_NO_INTERACTION=1
+
+# prepend poetry to path
+ENV PATH="$POETRY_HOME/bin:$PATH"
+
+# install poetry - respects $POETRY_VERSION & $POETRY_HOME
+ENV POETRY_VERSION=2.0.1
+RUN curl -sSL https://install.python-poetry.org | python3 -
+
+# install poetry plugins needed to build the package
+RUN poetry self add "poetry-plugin-export>=1.9"
+
+WORKDIR /mealie
+
+# copy project files here to ensure they will be cached.
+COPY poetry.lock pyproject.toml ./
+COPY mealie ./mealie
+
+# Copy frontend to package it into the wheel
+COPY --from=frontend-builder /frontend/dist ./mealie/frontend
+
+# Build the source and binary package
+RUN poetry build --output=dist
+
+# Create the requirements file, which is used to install the built package and
+# its pinned dependencies later. mealie is included to ensure the built one is
+# what's installed.
+RUN export MEALIE_VERSION=$(poetry version --short) \
+    && poetry export --only=main --extras=pgsql --output=dist/requirements.txt \
+    && echo "mealie[pgsql]==$MEALIE_VERSION \\" >> dist/requirements.txt \
+    && poetry run pip hash dist/mealie-$MEALIE_VERSION-py3-none-any.whl | tail -n1 | tr -d '\n' >> dist/requirements.txt \
+    && echo " \\" >> dist/requirements.txt \
+    && poetry run pip hash dist/mealie-$MEALIE_VERSION.tar.gz | tail -n1 >> dist/requirements.txt
+
+###############################################
+# Package Container
+# Only role is to hold the packages, or be overriden by a --build-context flag.
+###############################################
+FROM scratch AS packages
+COPY --from=backend-builder /mealie/dist /
+
+###############################################
+# Python Virtual Environment Build
+###############################################
+# Install packages required to build the venv, in parallel to building the wheel
+FROM python-base AS venv-builder-base
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
     build-essential \
     libpq-dev \
     libwebp-dev \
     # LDAP Dependencies
     libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1 \
-    && rm -rf /var/lib/apt/lists/* \
-    && pip install -U --no-cache-dir pip
+    && rm -rf /var/lib/apt/lists/*
+RUN python3 -m venv --upgrade-deps $VENV_PATH
 
-# install poetry - respects $POETRY_VERSION & $POETRY_HOME
-ENV POETRY_VERSION=1.3.1
-RUN curl -sSL https://install.python-poetry.org | python3 -
+# Install the wheel and all dependencies into the venv
+FROM venv-builder-base AS venv-builder
 
-# copy project requirement files here to ensure they will be cached.
-WORKDIR $PYSETUP_PATH
-COPY ./poetry.lock ./pyproject.toml ./
+# Copy built package (wheel) and its dependency requirements
+COPY --from=packages * /dist/
 
-# install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
-RUN poetry install -E pgsql --only main
+# Install the wheel with exact versions of dependencies into the venv
+RUN . $VENV_PATH/bin/activate \
+    && pip install --require-hashes -r /dist/requirements.txt --find-links /dist
 
 ###############################################
 # CRFPP Image
@@ -96,39 +145,25 @@ RUN apt-get update \
 # create directory used for Docker Secrets
 RUN mkdir -p /run/secrets
 
-# copying poetry and venv into image
-COPY --from=builder-base $POETRY_HOME $POETRY_HOME
-COPY --from=builder-base $PYSETUP_PATH $PYSETUP_PATH
-
+# copy CRF++ and add it to the library path
 ENV LD_LIBRARY_PATH=/usr/local/lib
 COPY --from=crfpp /usr/local/lib/ /usr/local/lib
 COPY --from=crfpp /usr/local/bin/crf_learn /usr/local/bin/crf_learn
 COPY --from=crfpp /usr/local/bin/crf_test /usr/local/bin/crf_test
 
-# copy backend
-COPY ./mealie $MEALIE_HOME/mealie
-COPY ./poetry.lock ./pyproject.toml $MEALIE_HOME/
+# Copy venv into image. It contains a fully-installed mealie backend and frontend.
+COPY --from=venv-builder $VENV_PATH $VENV_PATH
 
-# venv already has runtime deps installed we get a quicker install
-WORKDIR $MEALIE_HOME
-RUN . $VENV_PATH/bin/activate && poetry install -E pgsql --only main
-WORKDIR /
 
 # Grab CRF++ Model Release
-RUN python $MEALIE_HOME/mealie/scripts/install_model.py
+RUN python -m mealie.scripts.install_model
 
 VOLUME [ "$MEALIE_HOME/data/" ]
 ENV APP_PORT=9000
 
 EXPOSE ${APP_PORT}
 
-HEALTHCHECK CMD python $MEALIE_HOME/mealie/scripts/healthcheck.py || exit 1
-
-# ----------------------------------
-# Copy Frontend
-
-ENV STATIC_FILES=/spa/static
-COPY --from=builder /app/dist  ${STATIC_FILES}
+HEALTHCHECK CMD python -m mealie.scripts.healthcheck || exit 1
 
 ENV HOST 0.0.0.0
 

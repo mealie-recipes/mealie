@@ -27,6 +27,11 @@ class OpenIDProvider(AuthProvider[UserInfo]):
             self._logger.error("[OIDC] No claims in the id_token")
             return None
 
+        # Log all claims for debugging
+        self._logger.debug("[OIDC] Received claims:")
+        for key, value in claims.items():
+            self._logger.debug("[OIDC]   %s: %s", key, value)
+
         if not self.required_claims.issubset(claims.keys()):
             self._logger.error(
                 "[OIDC] Required claims not present. Expected: %s Actual: %s",
@@ -34,6 +39,12 @@ class OpenIDProvider(AuthProvider[UserInfo]):
                 claims.keys(),
             )
             return None
+
+        # Check for empty required claims
+        for claim in self.required_claims:
+            if not claims.get(claim):
+                self._logger.error("[OIDC] Required claim '%s' is empty", claim)
+                return None
 
         repos = get_repositories(self.session, group_id=None, household_id=None)
 

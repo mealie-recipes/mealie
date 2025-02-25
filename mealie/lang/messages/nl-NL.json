@@ -4,9 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Receptnamen moeten uniek zijn",
+        "recipe-created": "Recept aangemaakt op",
         "recipe-defaults": {
             "ingredient-note": "250 gram bloem",
             "step-text": "Receptstappen en andere velden op de receptpagina ondersteunen Markdown syntaxis.\n\n**Voeg een link toe**\n\n[Mijn Link](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Maakt",
+            "serves": "Porties",
+            "serving": "Portie",
+            "servings": "Porties",
+            "yield": "Opbrengst",
+            "yields": "Opbrengsten"
         }
     },
     "mealplan": {

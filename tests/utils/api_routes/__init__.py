@@ -370,6 +370,11 @@ def households_recipe_actions_item_id_trigger_recipe_slug(item_id, recipe_slug):
     return f"{prefix}/households/recipe-actions/{item_id}/trigger/{recipe_slug}"
 
 
+def households_self_recipes_recipe_slug(recipe_slug):
+    """`/api/households/self/recipes/{recipe_slug}`"""
+    return f"{prefix}/households/self/recipes/{recipe_slug}"
+
+
 def households_shopping_items_item_id(item_id):
     """`/api/households/shopping/items/{item_id}`"""
     return f"{prefix}/households/shopping/items/{item_id}"

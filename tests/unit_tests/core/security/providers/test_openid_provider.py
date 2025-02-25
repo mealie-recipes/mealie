@@ -1,5 +1,6 @@
 import pytest
 from pytest import MonkeyPatch, Session
+import logging
 
 from mealie.core.config import get_app_settings
 from mealie.core.security.providers.openid_provider import OpenIDProvider
@@ -16,6 +17,18 @@ def test_no_claims():
 
 def test_empty_claims():
     auth_provider = OpenIDProvider(None, {})
+
+    assert auth_provider.authenticate() is None
+
+
+def test_empty_required_claims():
+    data = {
+        "preferred_username": "dude1",
+        "email": "",  # Empty required claim
+        "name": "Firstname Lastname",
+        "groups": ["mealie_user"],
+    }
+    auth_provider = OpenIDProvider(None, data)
 
     assert auth_provider.authenticate() is None
 
@@ -162,3 +175,19 @@ def test_ldap_user_creation_invalid_group_or_household(
         assert user is not None
     else:
         assert user is None
+
+
+def test_claims_logging(caplog, session: Session):
+    caplog.set_level(logging.DEBUG)
+    data = {
+        "preferred_username": "testuser",
+        "email": "test@example.com",
+        "name": "Test User",
+        "groups": ["mealie_user"],
+    }
+    auth_provider = OpenIDProvider(session, data)
+    auth_provider.authenticate()
+
+    # Verify that all claims are logged
+    for key, value in data.items():
+        assert f"{key}: {value}" in caplog.text

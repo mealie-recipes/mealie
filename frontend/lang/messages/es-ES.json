@@ -276,7 +276,8 @@
     "admin-group-management": "Gestión del grupo administrador",
     "admin-group-management-text": "Los cambios en este grupo se reflejarán inmediatamente.",
     "group-id-value": "Id del Grupo: {0}",
-    "total-households": "Total de Casas"
+    "total-households": "Total de Casas",
+    "you-must-select-a-group-before-selecting-a-household": "Debe seleccionar un grupo antes de seleccionar un hogar"
   },
   "household": {
     "household": "Casa",
@@ -331,8 +332,8 @@
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Sólo las recetas con estas categorías se utilizarán en los menús",
     "planner": "Planificador",
     "quick-week": "Plan rápido",
-    "side": "Guarnición",
-    "sides": "Guarniciones",
+    "side": "Segundo plato",
+    "sides": "Segundos platos",
     "start-date": "Fecha de Inicio",
     "rule-day": "Regla para día",
     "meal-type": "Tipo de comida",
@@ -348,7 +349,7 @@
     "note-only": "Solo notas",
     "random-meal": "Comida aleatoria",
     "random-dinner": "Cena al azar",
-    "random-side": "Lado Aleatorio",
+    "random-side": "Segundo plato aleatorio",
     "this-rule-will-apply": "Esta regla se aplicará {dayCriteria} {mealTypeCriteria}.",
     "to-all-days": "a todos los días",
     "on-days": "en {0}s",
@@ -468,7 +469,7 @@
     "categories": "Categorías",
     "cholesterol-content": "Colesterol",
     "comment-action": "Comentar",
-    "comment": "Comentar",
+    "comment": "Comentario",
     "comments": "Comentarios",
     "delete-confirmation": "¿Estás seguro de eliminar esta receta?",
     "delete-recipe": "Borrar receta",
@@ -517,6 +518,7 @@
     "save-recipe-before-use": "Guardar la receta antes de usar",
     "section-title": "Título de la sección",
     "servings": "Porciones",
+    "serves-amount": "Personas {amount}",
     "share-recipe-message": "Quería compartir mi receta {0} contigo.",
     "show-nutrition-values": "Mostrar valores nutricionales",
     "sodium-content": "Sodio",
@@ -545,6 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Error al añadir receta al menú",
     "failed-to-add-to-list": "No se pudo agregar a la lista",
     "yield": "Raciones",
+    "yields-amount-with-text": "Raciones {amount} {text}",
+    "yield-text": "Texto de raciones",
     "quantity": "Cantidad",
     "choose-unit": "Elija unidad",
     "press-enter-to-create": "Presione Intro para crear",
@@ -566,13 +570,6 @@
     "increase-scale-label": "Aumentar escala en 1",
     "locked": "Bloqueada",
     "public-link": "Enlace público",
-    "timer": {
-      "kitchen-timer": "Temporizador de cocina",
-      "start-timer": "Iniciar Temporizador",
-      "pause-timer": "Pausar Temporizador",
-      "resume-timer": "Reanudar Temporizador",
-      "stop-timer": "Detener temporizador"
-    },
     "edit-timeline-event": "Editar evento en la cronología",
     "timeline": "Cronología",
     "timeline-is-empty": "Aún no hay nada en la línea de tiempo. ¡Intenta hacer esta receta!",
@@ -640,7 +637,9 @@
     "recipe-debugger-use-openai-description": "Utilice OpenAI para analizar los resultados en lugar de depender de la biblioteca de analizadores. Cuando se crea una receta a través de la URL, esto se hace automáticamente si la biblioteca del analizador falla, pero puede probarla manualmente aquí.",
     "debug": "Depuración",
     "tree-view": "Vista en árbol",
+    "recipe-servings": "Cantidad de personas",
     "recipe-yield": "Porciones",
+    "recipe-yield-text": "Texto de raciones totales",
     "unit": "Unidades",
     "upload-image": "Subir imagen",
     "screen-awake": "Mantener la pantalla encendida",
@@ -662,7 +661,25 @@
       "missing-food": "Crear comida faltante: {food}",
       "no-food": "Sin Comida"
     },
-    "reset-servings-count": "Restablecer contador de porciones"
+    "reset-servings-count": "Restablecer contador de porciones",
+    "not-linked-ingredients": "Ingredientes adicionales"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Buscador de recetas",
+    "recipe-finder-description": "Busca recetas basadas en los ingredientes que tengas disponibles. También puede filtrar por utensilios disponibles, y establecer un número máximo de ingredientes o herramientas que faltan.",
+    "selected-ingredients": "Ingredientes seleccionados",
+    "no-ingredients-selected": "Ningún ingrediente seleccionado",
+    "missing": "Faltan",
+    "no-recipes-found": "No se encontraron recetas",
+    "no-recipes-found-description": "Intenta añadir más ingredientes a tu búsqueda o ajustar tus filtros",
+    "include-ingredients-on-hand": "Incluye ingredientes a mano",
+    "include-tools-on-hand": "Incluye utensilios disponibles",
+    "max-missing-ingredients": "Máximo de ingredientes que faltan",
+    "max-missing-tools": "Máximo de utensilios que faltan",
+    "selected-tools": "Utensilios seleccionados",
+    "other-filters": "Otros filtros",
+    "ready-to-make": "Listo para hacer",
+    "almost-ready-to-make": "Casi listo para hacer"
   },
   "search": {
     "advanced-search": "Búsqueda avanzada",
@@ -866,14 +883,15 @@
     "you-are-offline-description": "No todas las características están disponibles mientras esté fuera de línea. Todavía puedes añadir, modificar y eliminar elementos, pero no podrá sincronizar sus cambios en el servidor hasta que vuelva a estar en línea.",
     "are-you-sure-you-want-to-check-all-items": "¿Seguro que quieres seleccionar todos los elementos?",
     "are-you-sure-you-want-to-uncheck-all-items": "¿Seguro que quieres de-seleccionar todos los elementos?",
-    "are-you-sure-you-want-to-delete-checked-items": "¿Está seguro que deseas eliminar los elementos seleccionados?"
+    "are-you-sure-you-want-to-delete-checked-items": "¿Está seguro que deseas eliminar los elementos seleccionados?",
+    "no-shopping-lists-found": "No hay listas de la compra"
   },
   "sidebar": {
     "all-recipes": "Recetas",
     "backups": "Copias de Seguridad",
     "categories": "Categorías",
     "cookbooks": "Recetarios",
-    "dashboard": "Consola",
+    "dashboard": "Panel de control",
     "home-page": "Inicio",
     "manage-users": "Usuarios",
     "migrations": "Migraciones",
@@ -1278,6 +1296,7 @@
   "profile": {
     "welcome-user": "👋 ¡Bienvenido, {0}!",
     "description": "Administra tu perfil, recetas y ajustes de grupo.",
+    "invite-link": "Link de invitación",
     "get-invite-link": "Obtener enlace de invitación",
     "get-public-link": "Obtener enlace público",
     "account-summary": "Información de la cuenta",
@@ -1327,6 +1346,8 @@
   "cookbook": {
     "cookbooks": "Recetarios",
     "description": "Los recetarios son otra forma de organizar recetas creando secciones cruzadas de recetas y etiquetas. Crear un recetario añadirá una entrada a la barra lateral y todas las recetas con las etiquetas y categorías elegidas se mostrarán en el recetario.",
+    "hide-cookbooks-from-other-households": "Ocultar libros de cocina de otros grupos/hogares",
+    "hide-cookbooks-from-other-households-description": "Cuando esté habilitado, sólo los libros de cocina de su hogar aparecerán en la barra lateral",
     "public-cookbook": "Recetario público",
     "public-cookbook-description": "Los recetarios públicos se pueden compartir con usuarios externos y se mostrarán en su página de grupos.",
     "filter-options": "Opciones de filtro",

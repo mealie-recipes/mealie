@@ -34,12 +34,6 @@
         </v-tooltip>
       </div>
 
-      <RecipeTimerMenu
-        fab
-        color="info"
-        class="ml-1"
-      />
-
       <RecipeContextMenu
         show-print
         :menu-top="false"
@@ -53,7 +47,6 @@
         :recipe-id="recipe.id"
         :recipe-scale="recipeScale"
         :use-items="{
-          delete: false,
           edit: false,
           download: loggedIn,
           duplicate: loggedIn,
@@ -63,6 +56,7 @@
           printPreferences: true,
           share: loggedIn,
           recipeActions: true,
+          delete: loggedIn,
         }"
         class="ml-1"
         @print="$emit('print')"
@@ -88,7 +82,6 @@
 import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
-import RecipeTimerMenu from "./RecipeTimerMenu.vue";
 import RecipeTimelineBadge from "./RecipeTimelineBadge.vue";
 import { Recipe } from "~/lib/api/types/recipe";
 
@@ -98,7 +91,7 @@ const CLOSE_EVENT = "close";
 const JSON_EVENT = "json";
 
 export default defineComponent({
-  components: { RecipeContextMenu, RecipeFavoriteBadge, RecipeTimerMenu, RecipeTimelineBadge },
+  components: { RecipeContextMenu, RecipeFavoriteBadge, RecipeTimelineBadge },
   props: {
     recipe: {
       required: true,

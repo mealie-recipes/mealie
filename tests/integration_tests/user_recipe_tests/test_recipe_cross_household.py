@@ -1,6 +1,7 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
+from dateutil.parser import parse as parse_dt
 from fastapi.testclient import TestClient
 
 from mealie.schema.cookbook.cookbook import SaveCookBook
@@ -233,28 +234,50 @@ def test_user_can_update_last_made_on_other_household(
     assert response.status_code == 201
     h2_recipe = h2_user.repos.recipes.get_one(response.json())
     assert h2_recipe and h2_recipe.id
-    h2_recipe_id = h2_recipe.id
     h2_recipe_slug = h2_recipe.slug
 
-    response = api_client.get(api_routes.recipes_slug(h2_recipe_slug), headers=unique_user.token)
-    assert response.status_code == 200
-    recipe = response.json()
-    assert recipe["id"] == str(h2_recipe_id)
-    old_last_made = recipe["lastMade"]
+    dt_1 = datetime.now(tz=UTC)
+    dt_2 = dt_1 + timedelta(days=2)
 
-    now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    # set last made for unique_user and make sure it only updates globally and for unique_user
     response = api_client.patch(
-        api_routes.recipes_slug_last_made(h2_recipe_slug), json={"timestamp": now}, headers=unique_user.token
+        api_routes.recipes_slug_last_made(h2_recipe.slug),
+        json={"timestamp": dt_2.isoformat()},
+        headers=unique_user.token,
     )
     assert response.status_code == 200
-
-    # confirm the last made date was updated
-    response = api_client.get(api_routes.recipes_slug(h2_recipe_slug), headers=unique_user.token)
+    response = api_client.get(api_routes.households_self_recipes_recipe_slug(h2_recipe_slug), headers=unique_user.token)
     assert response.status_code == 200
-    recipe = response.json()
-    assert recipe["id"] == str(h2_recipe_id)
-    new_last_made = recipe["lastMade"]
-    assert new_last_made == now != old_last_made
+    assert (last_made_json := response.json()["lastMade"])
+    assert parse_dt(last_made_json) == dt_2
+
+    response = api_client.get(api_routes.households_self_recipes_recipe_slug(h2_recipe_slug), headers=h2_user.token)
+    assert response.status_code == 200
+    assert response.json()["lastMade"] is None
+
+    recipe = h2_user.repos.recipes.get_one(h2_recipe_slug)
+    assert recipe
+    assert recipe.last_made == dt_2
+
+    # set last made for h2_user and make sure it only updates globally and for h2_user
+    response = api_client.patch(
+        api_routes.recipes_slug_last_made(h2_recipe.slug), json={"timestamp": dt_1.isoformat()}, headers=h2_user.token
+    )
+    assert response.status_code == 200
+    response = api_client.get(api_routes.households_self_recipes_recipe_slug(h2_recipe_slug), headers=h2_user.token)
+    assert response.status_code == 200
+    assert (last_made_json := response.json()["lastMade"])
+    assert parse_dt(last_made_json) == dt_1
+
+    response = api_client.get(api_routes.households_self_recipes_recipe_slug(h2_recipe_slug), headers=unique_user.token)
+    assert response.status_code == 200
+    assert (last_made_json := response.json()["lastMade"])
+    assert parse_dt(last_made_json) == dt_2
+
+    # this shouldn't have updated since dt_2 is newer than dt_1
+    recipe = h2_user.repos.recipes.get_one(h2_recipe_slug)
+    assert recipe
+    assert recipe.last_made == dt_2
 
 
 def test_cookbook_recipes_includes_all_households(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):

@@ -4,13 +4,22 @@
     },
     "recipe": {
         "unique-name-error": "El nom de la recepta ha de ser únic",
+        "recipe-created": "Recepta creada",
         "recipe-defaults": {
             "ingredient-note": "1 tassa de farina",
             "step-text": "Passos de recepta i altres camps són compatibles amb sintaxi markdown.\n\n**Afegir un enllaç**\n\n[El meu enllaç](https://demo.mealie.io)\n"
+        },
+        "servings-text": {
+            "makes": "Crea",
+            "serves": "Serveis",
+            "serving": "Servint",
+            "servings": "Serveis",
+            "yield": "Ració",
+            "yields": "Racions"
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Cap recepta coincideix amb les teues regles"
+        "no-recipes-match-your-rules": "Cap recepta coincideix amb les teves regles"
     },
     "user": {
         "user-updated": "S'ha actualitzat l'usuari",
@@ -47,24 +56,24 @@
     },
     "emails": {
         "password": {
-            "subject": "Mealie Contrassenya Oblidada",
-            "header_text": "Contrassenya Oblidada",
-            "message_top": "Has demanat restablir la teva contrassenya.",
-            "message_bottom": "Siusplau clica al botó de sobre per restablir la teva contrassenya.",
-            "button_text": "Restablir contrassenya"
+            "subject": "Contrasenya de Mealie Oblidada",
+            "header_text": "Contrasenya Oblidada",
+            "message_top": "Has demanat restablir la teva contrasenya.",
+            "message_bottom": "Si us plau, clica al botó de sobre per restablir la teva contrasenya.",
+            "button_text": "Restablir contrasenya"
         },
         "invitation": {
             "subject": "Invitació a unir-te a Mealie",
             "header_text": "Has estat convidat!",
             "message_top": "Has estat convidat a unir-te a Mealie.",
-            "message_bottom": "Siusplau clica al botó de sobre per acceptar la invitació.",
+            "message_bottom": "Si us plau, clica al botó de sobre per acceptar la invitació.",
             "button_text": "Acceptar invitació"
         },
         "test": {
-            "subject": "Mealie correu electrònic de prova",
+            "subject": "Correu electrònic de prova de Mealie",
             "header_text": "Correu electrònic de prova",
             "message_top": "Això és un correu electrònic de prova.",
-            "message_bottom": "Siusplau clica al botó de sobre per provar el correu electrònic.",
+            "message_bottom": "Si us plau, fes clic al botó de sobre per provar el correu electrònic.",
             "button_text": "Obre Mealie"
         }
     }

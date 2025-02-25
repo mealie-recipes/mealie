@@ -3,37 +3,37 @@
         "name": "Produce"
     },
     {
-        "name": "Grains"
+        "name": "곡물"
     },
     {
-        "name": "Fruits"
+        "name": "과일류"
     },
     {
-        "name": "Vegetables"
+        "name": "채소"
     },
     {
-        "name": "Meat"
+        "name": "육류"
     },
     {
-        "name": "Seafood"
+        "name": "해산물"
     },
     {
-        "name": "Beverages"
+        "name": "음료"
     },
     {
-        "name": "Baked Goods"
+        "name": "제빵 음식"
     },
     {
         "name": "Canned Goods"
     },
     {
-        "name": "Condiments"
+        "name": "조미료"
     },
     {
         "name": "Confectionary"
     },
     {
-        "name": "Dairy Products"
+        "name": "유제품"
     },
     {
         "name": "Frozen Foods"
@@ -48,18 +48,18 @@
         "name": "Meat Products"
     },
     {
-        "name": "Snacks"
+        "name": "간식"
     },
     {
-        "name": "Spices"
+        "name": "조미료"
     },
     {
         "name": "Sweets"
     },
     {
-        "name": "Alcohol"
+        "name": "주류"
     },
     {
-        "name": "Other"
+        "name": "기타"
     }
 ]

@@ -3,8 +3,15 @@ on:
   workflow_call:
 
 jobs:
+  build-package:
+    name: "Build Python package"
+    uses: ./.github/workflows/partial-package.yml
+    with:
+      tag: e2e
+
   test:
     timeout-minutes: 60
+    needs: build-package
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -18,11 +25,18 @@ jobs:
         cache-dependency-path: ./tests/e2e/yarn.lock
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
+    - name: Retrieve Python package
+      uses: actions/download-artifact@v4
+      with:
+        name: backend-dist
+        path: dist
     - name: Build Image
       uses: docker/build-push-action@v5
       with:
         file: ./docker/Dockerfile
         context: .
+        build-contexts: |
+          packages=dist
         push: false
         load: true
         tags: mealie:e2e

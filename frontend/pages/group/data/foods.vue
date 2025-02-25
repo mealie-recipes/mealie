@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Merge Dialog -->
-    <BaseDialog v-model="mergeDialog" :icon="$globals.icons.foods" :title="$t('data-pages.foods.combine-food')" @confirm="mergeFoods">
+    <BaseDialog v-model="mergeDialog" :icon="$globals.icons.foods" :title="$tc('data-pages.foods.combine-food')" @confirm="mergeFoods">
       <v-card-text>
         <div>
           {{ $t("data-pages.foods.merge-dialog-text") }}
@@ -58,7 +58,7 @@
     <BaseDialog
       v-model="createDialog"
       :icon="$globals.icons.foods"
-      :title="$t('data-pages.foods.create-food')"
+      :title="$tc('data-pages.foods.create-food')"
       :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
       @submit="createFood"
@@ -111,7 +111,7 @@
     <BaseDialog
       v-model="editDialog"
       :icon="$globals.icons.foods"
-      :title="$t('data-pages.foods.edit-food')"
+      :title="$tc('data-pages.foods.edit-food')"
       :submit-icon="$globals.icons.save"
       :submit-text="$tc('general.save')"
       @submit="editSaveFood"
@@ -196,7 +196,7 @@
       </v-card-text>
     </BaseDialog>
 
-    <!-- Bulk Asign Labels Dialog -->
+    <!-- Bulk Assign Labels Dialog -->
     <BaseDialog
       v-model="bulkAssignLabelDialog"
       :title="$tc('data-pages.labels.assign-label')"
@@ -292,11 +292,20 @@ import { useFoodStore, useLabelStore } from "~/composables/store";
 import { VForm } from "~/types/vuetify";
 import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 
+interface CreateIngredientFoodWithOnHand extends CreateIngredientFood {
+  onHand: boolean;
+  householdsWithIngredientFood: string[];
+}
+
+interface IngredientFoodWithOnHand extends IngredientFood {
+  onHand: boolean;
+}
+
 export default defineComponent({
   components: { MultiPurposeLabel, RecipeDataAliasManagerDialog },
   setup() {
     const userApi = useUserApi();
-    const { i18n } = useContext();
+    const { $auth, i18n } = useContext();
     const tableConfig = {
       hideColumns: true,
       canExport: true,
@@ -352,15 +361,22 @@ export default defineComponent({
       }
     }
 
+    const userHousehold = computed(() => $auth.user?.householdSlug || "");
     const foodStore = useFoodStore();
+    const foods = computed(() => foodStore.store.value.map((food) => {
+      const onHand = food.householdsWithIngredientFood?.includes(userHousehold.value) || false;
+      return { ...food, onHand } as IngredientFoodWithOnHand;
+    }));
 
     // ===============================================================
     // Food Creator
 
     const domNewFoodForm = ref<VForm>();
     const createDialog = ref(false);
-    const createTarget = ref<CreateIngredientFood>({
+    const createTarget = ref<CreateIngredientFoodWithOnHand>({
       name: "",
+      onHand: false,
+      householdsWithIngredientFood: [],
     });
 
     function createEventHandler() {
@@ -372,6 +388,10 @@ export default defineComponent({
         return;
       }
 
+      if (createTarget.value.onHand) {
+        createTarget.value.householdsWithIngredientFood = [userHousehold.value];
+      }
+
       // @ts-expect-error the createOne function erroneously expects an id because it uses the IngredientFood type
       await foodStore.actions.createOne(createTarget.value);
       createDialog.value = false;
@@ -379,6 +399,8 @@ export default defineComponent({
       domNewFoodForm.value?.reset();
       createTarget.value = {
         name: "",
+        onHand: false,
+        householdsWithIngredientFood: [],
       };
     }
 
@@ -386,16 +408,28 @@ export default defineComponent({
     // Food Editor
 
     const editDialog = ref(false);
-    const editTarget = ref<IngredientFood | null>(null);
+    const editTarget = ref<IngredientFoodWithOnHand | null>(null);
 
-    function editEventHandler(item: IngredientFood) {
+    function editEventHandler(item: IngredientFoodWithOnHand) {
       editTarget.value = item;
+      editTarget.value.onHand = item.householdsWithIngredientFood?.includes(userHousehold.value) || false;
       editDialog.value = true;
     }
 
     async function editSaveFood() {
       if (!editTarget.value) {
         return;
+      }
+      if (editTarget.value.onHand && !editTarget.value.householdsWithIngredientFood?.includes(userHousehold.value)) {
+        if (!editTarget.value.householdsWithIngredientFood) {
+          editTarget.value.householdsWithIngredientFood = [userHousehold.value];
+        } else {
+          editTarget.value.householdsWithIngredientFood.push(userHousehold.value);
+        }
+      } else if (!editTarget.value.onHand && editTarget.value.householdsWithIngredientFood?.includes(userHousehold.value)) {
+        editTarget.value.householdsWithIngredientFood = editTarget.value.householdsWithIngredientFood.filter(
+          (household) => household !== userHousehold.value
+        );
       }
 
       await foodStore.actions.updateOne(editTarget.value);
@@ -406,8 +440,8 @@ export default defineComponent({
     // Food Delete
 
     const deleteDialog = ref(false);
-    const deleteTarget = ref<IngredientFood | null>(null);
-    function deleteEventHandler(item: IngredientFood) {
+    const deleteTarget = ref<IngredientFoodWithOnHand | null>(null);
+    function deleteEventHandler(item: IngredientFoodWithOnHand) {
       deleteTarget.value = item;
       deleteDialog.value = true;
     }
@@ -421,9 +455,9 @@ export default defineComponent({
     }
 
     const bulkDeleteDialog = ref(false);
-    const bulkDeleteTarget = ref<IngredientFood[]>([]);
+    const bulkDeleteTarget = ref<IngredientFoodWithOnHand[]>([]);
 
-    function bulkDeleteEventHandler(selection: IngredientFood[]) {
+    function bulkDeleteEventHandler(selection: IngredientFoodWithOnHand[]) {
       bulkDeleteTarget.value = selection;
       bulkDeleteDialog.value = true;
     }
@@ -455,8 +489,8 @@ export default defineComponent({
     // Merge Foods
 
     const mergeDialog = ref(false);
-    const fromFood = ref<IngredientFood | null>(null);
-    const toFood = ref<IngredientFood | null>(null);
+    const fromFood = ref<IngredientFoodWithOnHand | null>(null);
+    const toFood = ref<IngredientFoodWithOnHand | null>(null);
 
     const canMerge = computed(() => {
       return fromFood.value && toFood.value && fromFood.value.id !== toFood.value.id;
@@ -506,10 +540,10 @@ export default defineComponent({
     // ============================================================
     // Bulk Assign Labels
     const bulkAssignLabelDialog = ref(false);
-    const bulkAssignTarget = ref<IngredientFood[]>([]);
+    const bulkAssignTarget = ref<IngredientFoodWithOnHand[]>([]);
     const bulkAssignLabelId = ref<string | undefined>();
 
-    function bulkAssignEventHandler(selection: IngredientFood[]) {
+    function bulkAssignEventHandler(selection: IngredientFoodWithOnHand[]) {
       bulkAssignTarget.value = selection;
       bulkAssignLabelDialog.value = true;
     }
@@ -530,7 +564,7 @@ export default defineComponent({
     return {
       tableConfig,
       tableHeaders,
-      foods: foodStore.store,
+      foods,
       allLabels,
       validators,
       formatDate,

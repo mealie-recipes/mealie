@@ -19,7 +19,7 @@
     },
     "fluid-ounce": {
         "name": "centilitre",
-        "plural_name": "onces liquides",
+        "plural_name": "centilitres",
         "description": "",
         "abbreviation": "cL"
     },
@@ -91,20 +91,20 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "1/8 de cuillère à café",
-        "plural_name": "1/8 de cuillères à café",
+        "name": "goutte",
+        "plural_name": "gouttes",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
-        "name": "part",
+        "name": "portion",
         "plural_name": "portions",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "tête",
-        "plural_name": "têtes",
+        "name": "personne",
+        "plural_name": "personnes",
         "description": "",
         "abbreviation": ""
     },

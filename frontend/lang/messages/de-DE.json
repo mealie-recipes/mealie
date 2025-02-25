@@ -23,7 +23,7 @@
     "support": "Unterstützen",
     "version": "Version",
     "unknown-version": "unbekannt",
-    "sponsor": "Unterstützen"
+    "sponsor": "Unterstützer"
   },
   "asset": {
     "assets": "Anhänge",
@@ -276,7 +276,8 @@
     "admin-group-management": "Administrator Gruppenverwaltung",
     "admin-group-management-text": "Änderungen an dieser Gruppe sind sofort wirksam.",
     "group-id-value": "Gruppen ID: {0}",
-    "total-households": "Haushalte insgesamt"
+    "total-households": "Haushalte insgesamt",
+    "you-must-select-a-group-before-selecting-a-household": "Sie müssen eine Gruppe auswählen, bevor Sie einen Haushalt auswählen"
   },
   "household": {
     "household": "Haushalt",
@@ -356,7 +357,7 @@
     "for-type-meal-types": "für {0}",
     "meal-plan-rules": "Essensplan Regeln",
     "new-rule": "Neue Regel",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "Du kannst Regeln für die automatische Auswahl von Rezepten für deine Speisepläne erstellen. Diese Regeln werden vom Server benutzt, um den Pool an zufälligen Rezepten zu erstellen, aus denen beim Erstellen des Speiseplans gewählt werden kann. In der Praxis ist es nicht nötig, doppelte Regeln zu erstellen, aber es ist möglich.",
     "new-rule-description": "Wenn du eine neue Regel für einen Essensplan erstellst, kannst du die Regel für einen bestimmten Wochentag und/oder eine bestimmte Mahlzeit einschränken. Um eine Regel auf alle Tage oder alle Mahlzeiten anzuwenden, kannst du die Regel auf \"Alle\" setzen, damit sämtliche Tage und/oder Mahlzeiten berücksichtigt werden.",
     "recipe-rules": "Rezeptregeln",
     "applies-to-all-days": "Gilt an allen Tagen",
@@ -517,6 +518,7 @@
     "save-recipe-before-use": "Rezept vor Verwendung speichern",
     "section-title": "Titel des Abschnitts",
     "servings": "Portionen",
+    "serves-amount": "{amount} Portionen",
     "share-recipe-message": "Ich möchte mein Rezept {0} mit dir teilen.",
     "show-nutrition-values": "Nährwerte anzeigen",
     "sodium-content": "Natrium",
@@ -524,7 +526,7 @@
     "sugar-content": "Zucker",
     "title": "Titel",
     "total-time": "Gesamtzeit",
-    "trans-fat-content": "Trans-fat",
+    "trans-fat-content": "Trans-Fettsäuren",
     "unable-to-delete-recipe": "Rezept kann nicht gelöscht werden",
     "unsaturated-fat-content": "Ungesättigte Fettsäuren",
     "no-recipe": "Kein Rezept",
@@ -545,6 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "Fehler beim Hinzufügen des Rezepts zum Essensplan",
     "failed-to-add-to-list": "Fehler beim Hinzufügen zur Liste",
     "yield": "Portionsangabe",
+    "yields-amount-with-text": "Ergibt {amount} {text}",
+    "yield-text": "Ergibt Text",
     "quantity": "Menge",
     "choose-unit": "Einheit wählen",
     "press-enter-to-create": "Zum Erstellen Eingabetaste drücken",
@@ -566,13 +570,6 @@
     "increase-scale-label": "Maßstab um 1 erhöhen",
     "locked": "Gesperrt",
     "public-link": "Öffentlicher Link",
-    "timer": {
-      "kitchen-timer": "Küchenwecker",
-      "start-timer": "Wecker starten",
-      "pause-timer": "Wecker pausieren",
-      "resume-timer": "Wecker fortsetzen",
-      "stop-timer": "Wecker stoppen"
-    },
     "edit-timeline-event": "Zeitstrahl-Ereignis bearbeiten",
     "timeline": "Zeitstrahl",
     "timeline-is-empty": "Noch nichts auf dem Zeitstrahl. Probier dieses Rezept aus!",
@@ -614,15 +611,15 @@
     "scrape-recipe-description": "Importiere ein Rezept mit der URL. Gib die URL für die Seite an, die du importieren möchtest und Mealie wird versuchen, das Rezept von dieser Seite einzulesen und deiner Sammlung hinzuzufügen.",
     "scrape-recipe-have-a-lot-of-recipes": "Hast Du viele Rezepte, die Du auf einmal einlesen willst?",
     "scrape-recipe-suggest-bulk-importer": "Probiere den Massenimporter aus",
-    "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
-    "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
+    "scrape-recipe-have-raw-html-or-json-data": "Hast du Roh-HTML oder JSON Daten?",
+    "scrape-recipe-you-can-import-from-raw-data-directly": "Du kannst direkt von Rohdaten importieren",
     "import-original-keywords-as-tags": "Importiere ursprüngliche Stichwörter als Schlagwörter",
     "stay-in-edit-mode": "Im Bearbeitungsmodus bleiben",
     "import-from-zip": "Von Zip importieren",
     "import-from-zip-description": "Importiere ein einzelnes Rezept, das von einer anderen Mealie-Instanz exportiert wurde.",
-    "import-from-html-or-json": "Import from HTML or JSON",
-    "import-from-html-or-json-description": "Import a single recipe from raw HTML or JSON. This is useful if you have a recipe from a site that Mealie can't scrape normally, or from some other external source.",
-    "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
+    "import-from-html-or-json": "Aus HTML oder JSON importieren",
+    "import-from-html-or-json-description": "Importiere eine einzelne Datei aus Roh-HTML oder JSON. Das ist nützlich, wenn du ein Rezept von einer Seite, die Mealie nicht scrapen kann, oder von einer externen Quelle hast.",
+    "json-import-format-description-colon": "Um mit JSON zu importieren, muss die Datei in einem gültigen Format vorliegen:",
     "json-editor": "JSON Editor",
     "zip-files-must-have-been-exported-from-mealie": ".zip Dateien müssen aus Mealie exportiert worden sein",
     "create-a-recipe-by-uploading-a-scan": "Erstelle ein Rezept durch Hochladen eines Scans.",
@@ -640,7 +637,9 @@
     "recipe-debugger-use-openai-description": "Verwende OpenAI anstelle der Scraper-Bibliothek, um die Einträge zu parsen. Wenn du ein Rezept über dessen URL erstellst und der Versuch über die Scraper-Bibliothek fehlschlägt, passiert das automatisch. Aber du kannst es hier auch manuell testen.",
     "debug": "Debug",
     "tree-view": "Strukturierte Ansicht",
+    "recipe-servings": "Rezept Portionen",
     "recipe-yield": "Portionsangabe",
+    "recipe-yield-text": "Rezept ergibt Text",
     "unit": "Maßeinheit",
     "upload-image": "Bild hochladen",
     "screen-awake": "Bildschirm nicht abschalten",
@@ -662,7 +661,25 @@
       "missing-food": "Fehlendes Lebensmittel erstellen: {food}",
       "no-food": "Kein Lebensmittel"
     },
-    "reset-servings-count": "Portionen zurücksetzen"
+    "reset-servings-count": "Portionen zurücksetzen",
+    "not-linked-ingredients": "Zusätzliche Zutaten"
+  },
+  "recipe-finder": {
+    "recipe-finder": "Rezept-Suche",
+    "recipe-finder-description": "Suche nach Rezepten basierend auf den Zutaten, die du zur Hand hast. Sie können auch nach verfügbaren Werkzeugen filtern und eine maximale Anzahl an fehlenden Zutaten oder Werkzeugen festlegen.",
+    "selected-ingredients": "Ausgewählte Zutaten",
+    "no-ingredients-selected": "Keine Zutaten ausgewählt",
+    "missing": "Fehlend",
+    "no-recipes-found": "Keine Rezepte gefunden",
+    "no-recipes-found-description": "Versuche mehr Zutaten zu deiner Suche hinzuzufügen oder deine Filter anzupassen",
+    "include-ingredients-on-hand": "Zutaten zu Hand einbeziehen",
+    "include-tools-on-hand": "Utensilien zur Hand einbeziehen",
+    "max-missing-ingredients": "Maximal fehlende Zutaten",
+    "max-missing-tools": "Maximal fehlende Utensilien",
+    "selected-tools": "Ausgewählte Utensilien",
+    "other-filters": "Andere Filter",
+    "ready-to-make": "Bereit zu Machen",
+    "almost-ready-to-make": "Fast bereit zu Machen"
   },
   "search": {
     "advanced-search": "Erweiterte Suche",
@@ -673,7 +690,7 @@
     "or": "Oder",
     "has-any": "Irgendeines enthalten",
     "has-all": "Alle enthalten",
-    "clear-selection": "Clear Selection",
+    "clear-selection": "Auswahl aufheben",
     "results": "Ergebnisse",
     "search": "Suchen",
     "search-mealie": "Mealie durchsuchen (/ drücken)",
@@ -866,7 +883,8 @@
     "you-are-offline-description": "Nicht alle Funktionen sind offline verfügbar. Du kannst weiterhin Einträge hinzufügen, ändern und entfernen, aber Änderungen werden erst dann mit dem Server synchronisiert, wenn du wieder online bist.",
     "are-you-sure-you-want-to-check-all-items": "Bist du sicher, dass du alle Elemente markieren möchtest?",
     "are-you-sure-you-want-to-uncheck-all-items": "Bist du sicher, dass du die Auswahl aller Elemente aufheben möchtest?",
-    "are-you-sure-you-want-to-delete-checked-items": "Bist du sicher, dass du alle ausgewählten Elemente löschen möchtest?"
+    "are-you-sure-you-want-to-delete-checked-items": "Bist du sicher, dass du alle ausgewählten Elemente löschen möchtest?",
+    "no-shopping-lists-found": "Keine Einkaufslisten gefunden"
   },
   "sidebar": {
     "all-recipes": "Alle Rezepte",
@@ -1268,16 +1286,17 @@
       "restore-from-v1-backup": "Hast du ein Backup von einer früheren v1 Instanz von Mealie? Hier kannst du es wiederherstellen.",
       "manage-profile-or-get-invite-link": "Verwalte dein eigenes Profil oder erstelle einen Einladungslink, den du an andere weitergeben kannst."
     },
-    "debug-openai-services": "Debug OpenAI Services",
-    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
-    "run-test": "Run Test",
-    "test-results": "Test Results",
-    "group-delete-note": "Groups with users or households cannot be deleted",
-    "household-delete-note": "Households with users cannot be deleted"
+    "debug-openai-services": "OpenAI Services debuggen",
+    "debug-openai-services-description": "",
+    "run-test": "Test durchführen",
+    "test-results": "Testergebnisse",
+    "group-delete-note": "Gruppen mit Benutzern oder Haushalten können nicht gelöscht werden",
+    "household-delete-note": "Haushalte mit Benutzern können nicht gelöscht werden"
   },
   "profile": {
     "welcome-user": "👋 Willkommen, {0}!",
     "description": "Verwalte dein Profil, Rezepte und Gruppeneinstellungen.",
+    "invite-link": "Einladungslink",
     "get-invite-link": "Einladungslink erzeugen",
     "get-public-link": "Öffentlichen Link abrufen",
     "account-summary": "Kontoübersicht",
@@ -1326,7 +1345,9 @@
   },
   "cookbook": {
     "cookbooks": "Kochbücher",
-    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "description": "Kochbücher sind ein weiterer Weg, Rezepte zu organisieren, indem man verschiedene Filter erstellt. Das Erstellen eines Kochbuchs fügt einen Eintrag zur Seitenleiste hinzu und alle Rezepte, die den gewählten Filtern zustimmen, werden in dem Kochbuch angezeigt.",
+    "hide-cookbooks-from-other-households": "Kochbücher von anderen Haushalten ausblenden",
+    "hide-cookbooks-from-other-households-description": "Wenn aktiviert, werden nur Kochbücher deines Haushalts in der Seitenleiste angezeigt",
     "public-cookbook": "Öffentliches Kochbuch",
     "public-cookbook-description": "Öffentliche Kochbücher können mit Nicht-Mealie-Benutzern geteilt werden und werden auf deiner Gruppenseite angezeigt.",
     "filter-options": "Filteroptionen",
@@ -1342,16 +1363,16 @@
   },
   "query-filter": {
     "logical-operators": {
-      "and": "AND",
-      "or": "OR"
+      "and": "UND",
+      "or": "ODER"
     },
     "relational-operators": {
-      "equals": "equals",
-      "does-not-equal": "does not equal",
-      "is-greater-than": "is greater than",
-      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "equals": "ist gleich",
+      "does-not-equal": "ist ungleich",
+      "is-greater-than": "ist größer als",
+      "is-greater-than-or-equal-to": "ist größer gleich",
       "is-less-than": "ist weniger als",
-      "is-less-than-or-equal-to": "is less than or equal to"
+      "is-less-than-or-equal-to": "ist kleiner gleich"
     },
     "relational-keywords": {
       "is": "ist",

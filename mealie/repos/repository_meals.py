@@ -9,11 +9,11 @@ from .repository_generic import HouseholdRepositoryGeneric
 
 
 class RepositoryMeals(HouseholdRepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
-    def get_today(self) -> list[ReadPlanEntry]:
+    def get_today(self, tz=UTC) -> list[ReadPlanEntry]:
         if not self.household_id:
             raise Exception("household_id not set")
 
-        today = datetime.now(tz=UTC).date()
+        today = datetime.now(tz=tz).date()
         stmt = select(GroupMealPlan).filter(
             GroupMealPlan.date == today, GroupMealPlan.household_id == self.household_id
         )

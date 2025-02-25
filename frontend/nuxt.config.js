@@ -370,6 +370,7 @@ export default {
       dir: "auto",
       name: "Mealie",
       short_name: "Mealie",
+      crossorigin: "use-credentials",
       id: "mealie",
       description: "Mealie is a recipe management and meal planning app",
       theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
@@ -531,17 +532,6 @@ export default {
         ["@babel/plugin-proposal-private-property-in-object", { loose: true }],
         // ["@nuxtjs/composition-api/dist/babel-plugin"],
       ],
-    },
-    // audio file support
-    // https://v2.nuxt.com/docs/features/configuration/#extend-webpack-to-load-audio-files
-    extend(config, ctx) {
-      config.module.rules.push({
-        test: /\.(ogg|mp3|wav|mpe?g)$/i,
-        loader: 'file-loader',
-        options: {
-          name: '[path][name].[ext]'
-        }
-      })
     },
     transpile: process.env.NODE_ENV !== "production" ? [/@vue[\\/]composition-api/] : null,
   },
