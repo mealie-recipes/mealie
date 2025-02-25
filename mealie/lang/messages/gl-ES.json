@@ -4,10 +4,10 @@
     },
     "recipe": {
         "unique-name-error": "Os nomes de receitas deven ser únicos",
-        "recipe-created": "Recipe Created",
+        "recipe-created": "Receita creada",
         "recipe-defaults": {
             "ingredient-note": "1 Cup Flour",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "step-text": "Os pasos da receita, como outros campos na páxina da receita, suportan a sintaxe markdown.\n\n**Adicionar un link**\n\n[Meu link](https://demo.mealie.io)\n"
         },
         "servings-text": {
             "makes": "Makes",
@@ -33,16 +33,16 @@
     "exceptions": {
         "permission_denied": "You do not have permission to perform this action",
         "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
+        "integrity-error": "Erro de integridade da base de datos",
         "username-conflict-error": "Este nome de usuario xa está en uso",
         "email-conflict-error": "This email is already in use"
     },
     "notifications": {
-        "generic-created": "{name} was created",
+        "generic-created": "{name} creado",
         "generic-updated": "{name} atualizado",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
+        "generic-created-with-url": "{name} foi creado, {url}",
+        "generic-updated-with-url": "{name} foi atualizado, {url}",
+        "generic-duplicated": "{name} foi duplicado",
         "generic-deleted": "{name} has been deleted"
     },
     "datetime": {
@@ -51,8 +51,8 @@
         "hour": "hora|horas",
         "minute": "minuto|minutos",
         "second": "segundo|segundos",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "millisecond": "milisegundo|milisegundos",
+        "microsecond": "microsegundo|microsegundos"
     },
     "emails": {
         "password": {
