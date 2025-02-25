@@ -88,22 +88,20 @@
     <div>
       <div v-if="lastMadeReady" class="d-flex justify-center flex-wrap">
         <v-row no-gutters class="d-flex flex-wrap align-center" style="font-size: larger;">
-          <v-icon x-large left color="primary">
-            {{ $globals.icons.calendar }}
-          </v-icon>
-          <p class="my-0"><span class="font-weight-bold">{{ $tc("general.last-made") }}</span><br>{{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $tc("general.never") }}</p>
           <v-tooltip bottom>
             <template #activator="{ on, attrs }">
               <v-btn
-                fab
-                x-small
-                color="success"
-                class="ml-2"
+                rounded
+                outlined
+                x-large
+                color="primary"
                 v-bind="attrs"
                 v-on="on"
                 @click="madeThisDialog = true"
               >
-                <v-icon>{{ $globals.icons.create }}</v-icon>
+                <v-icon left large>{{ $globals.icons.calendar }}</v-icon>
+                {{ $tc("general.last-made") }} <br>{{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $tc("general.never") }}
+                <v-icon right large>{{ $globals.icons.createAlt }}</v-icon>
               </v-btn>
             </template>
             <span>{{ $tc("recipe.made-this") }}</span>
