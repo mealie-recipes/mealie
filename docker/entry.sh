@@ -35,8 +35,46 @@ init() {
     . /opt/mealie/bin/activate
 }
 
+load_secrets() {
+    # Each of these environment variables will support a `_FILE` suffix that allows
+    # for setting the environment variable through the Docker Compose secret
+    # pattern.
+    local -a secret_supported_vars=(
+        "POSTGRES_USER"
+        "POSTGRES_PASSWORD"
+        "POSTGRES_SERVER"
+        "POSTGRES_PORT"
+        "POSTGRES_DB"
+        "POSTGRES_URL_OVERRIDE"
+
+        "SMTP_HOST"
+        "SMTP_PORT"
+        "SMTP_USER"
+        "SMTP_PASSWORD"
+
+        "LDAP_SERVER_URL"
+        "LDAP_QUERY_PASSWORD"
+
+        "OIDC_CONFIGURATION_URL"
+        "OIDC_CLIENT_ID"
+        "OIDC_CLIENT_SECRET"
+
+        "OPENAI_BASE_URL"
+        "OPENAI_API_KEY"
+    )
+
+    # If any secrets are set, prefer them over base environment variables.
+    for var in "${secret_supported_vars[@]}"; do
+        file_var="${var}_FILE"
+        if [ -n "${!file_var}" ]; then
+            export "$var=$(<"${!file_var}")"
+        fi
+    done
+}
+
 change_user
 init
+load_secrets
 
 # Start API
 HOST_IP=`/sbin/ip route|awk '/default/ { print $3 }'`

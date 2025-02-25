@@ -69,16 +69,16 @@ def db_is_at_head(alembic_cfg: config.Config) -> bool:
 def safe_try(func: Callable):
     try:
         func()
-    except Exception as e:
-        logger.error(f"Error calling '{func.__name__}': {e}")
+    except Exception:
+        logger.exception(f"Error calling '{func.__name__}'")
 
 
 def connect(session: orm.Session) -> bool:
     try:
         session.execute(text("SELECT 1"))
         return True
-    except Exception as e:
-        logger.error(f"Error connecting to database: {e}")
+    except Exception:
+        logger.exception("Error connecting to database")
         return False
 
 
@@ -106,23 +106,27 @@ def main():
         if not os.path.isfile(alembic_cfg_path):
             raise Exception("Provided alembic config path doesn't exist")
 
+        run_fixes = False
         alembic_cfg = Config(alembic_cfg_path)
         if db_is_at_head(alembic_cfg):
             logger.debug("Migration not needed.")
         else:
             logger.info("Migration needed. Performing migration...")
             command.upgrade(alembic_cfg, "head")
+            run_fixes = True
 
         if session.get_bind().name == "postgresql":  # needed for fuzzy search and fast GIN text indices
             session.execute(text("CREATE EXTENSION IF NOT EXISTS pg_trgm;"))
 
         db = get_repositories(session, group_id=None, household_id=None)
-        safe_try(lambda: fix_migration_data(session))
-        safe_try(lambda: fix_slug_food_names(db))
-        safe_try(lambda: fix_group_with_no_name(session))
 
         if db.users.get_all():
             logger.debug("Database exists")
+            if run_fixes:
+                safe_try(lambda: fix_migration_data(session))
+                safe_try(lambda: fix_slug_food_names(db))
+                safe_try(lambda: fix_group_with_no_name(session))
+
         else:
             logger.info("Database contains no users, initializing...")
             init_db(session)

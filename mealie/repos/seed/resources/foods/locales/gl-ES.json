@@ -6,17 +6,17 @@
 		"name": "alfalfa sprouts"
 	},
 	"anchovies": {
-		"name": "anchovies"
+		"name": "anchoas"
 	},
 	"apples": {
-		"name": "apple",
-		"plural_name": "apples"
+		"name": "mazá",
+		"plural_name": "mazás"
 	},
 	"artichoke": {
-		"name": "artichoke"
+		"name": "alcachofa"
 	},
 	"arugula": {
-		"name": "arugula"
+		"name": "rúcula"
 	},
 	"asparagus": {
 		"name": "asparagus"
@@ -84,7 +84,7 @@
 		"name": "brussels sprouts"
 	},
 	"butter": {
-		"name": "butter"
+		"name": "manteiga"
 	},
 	"butternut-pumpkin": {
 		"name": "butternut pumpkin"
@@ -115,8 +115,8 @@
 		"name": "caraway"
 	},
 	"carrot": {
-		"name": "carrot",
-		"plural_name": "carrots"
+		"name": "cenoura",
+		"plural_name": "cenouras"
 	},
 	"caster-sugar": {
 		"name": "caster sugar"
@@ -176,7 +176,7 @@
 	},
 	"coconut": {
 		"name": "coco",
-		"plural_name": "coconuts"
+		"plural_name": "cocos"
 	},
 	"coconut-milk": {
 		"name": "leite de coco"
@@ -194,7 +194,7 @@
 		"name": "confectioners' sugar"
 	},
 	"coriander": {
-		"name": "coriander"
+		"name": "coentro"
 	},
 	"corn": {
 		"name": "millo",
@@ -213,7 +213,7 @@
 		"name": "cream of tartar"
 	},
 	"cucumber": {
-		"name": "pepino",
+		"name": "cogombro",
 		"plural_name": "cucumbers"
 	},
 	"cumin": {
@@ -243,8 +243,8 @@
 		"plural_name": "eggplants"
 	},
 	"eggs": {
-		"name": "ovos",
-		"plural_name": "eggs"
+		"name": "ovo",
+		"plural_name": "ovos"
 	},
 	"endive": {
 		"name": "endive",
@@ -291,14 +291,14 @@
 		"name": "garam masala"
 	},
 	"garlic": {
-		"name": "garlic",
-		"plural_name": "garlics"
+		"name": "allo",
+		"plural_name": "allos"
 	},
 	"gem-squash": {
 		"name": "gem squash"
 	},
 	"ghee": {
-		"name": "ghee"
+		"name": "manteiga ghee"
 	},
 	"giblets": {
 		"name": "giblets"
@@ -330,7 +330,7 @@
 		"name": "herbs"
 	},
 	"honey": {
-		"name": "honey"
+		"name": "mel"
 	},
 	"isomalt": {
 		"name": "isomalt"
@@ -393,7 +393,7 @@
 		"name": "maple syrup"
 	},
 	"meat": {
-		"name": "meat"
+		"name": "carne"
 	},
 	"milk": {
 		"name": "leite"
@@ -440,7 +440,7 @@
 		"name": "olive oil"
 	},
 	"onion": {
-		"name": "onion"
+		"name": "cebola"
 	},
 	"onion-family": {
 		"name": "onion family"
@@ -524,7 +524,7 @@
 		"name": "arroz"
 	},
 	"rice-flour": {
-		"name": "rice flour"
+		"name": "fariña de arroz"
 	},
 	"rock-sugar": {
 		"name": "rock sugar"
@@ -536,7 +536,7 @@
 		"name": "salmón"
 	},
 	"salt": {
-		"name": "salt"
+		"name": "sal"
 	},
 	"salt-cod": {
 		"name": "bacallau en salgadura"
@@ -546,7 +546,7 @@
 		"plural_name": "scallions"
 	},
 	"seafood": {
-		"name": "seafood"
+		"name": "marisco"
 	},
 	"seeds": {
 		"name": "seeds"
@@ -633,7 +633,7 @@
 	},
 	"tomato": {
 		"name": "tomate",
-		"plural_name": "tomatoes"
+		"plural_name": "tomates"
 	},
 	"trout": {
 		"name": "troita"
