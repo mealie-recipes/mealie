@@ -4,16 +4,16 @@
     },
     "recipe": {
         "unique-name-error": "Назва рецепту повинна бути унікальною",
-        "recipe-created": "Recipe Created",
+        "recipe-created": "Рецепт створено",
         "recipe-defaults": {
             "ingredient-note": "Стакан борошна",
-            "step-text": "Кроки рецептів, так само як і інші поля сторінки, підтримують синтаксис markdown.\n\n**Додати посилання**\n\n[Mоє посилання](https://demo.mealie.io)\n"
+            "step-text": "Кроки рецептів, так само як і інші поля сторінки, підтримують синтаксис markdown.\n\n**Додати посилання**\n\n[Моє посилання](https://demo.mealie.io)\n"
         },
         "servings-text": {
             "makes": "Makes",
             "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
+            "serving": "Порція",
+            "servings": "Порції",
             "yield": "Yield",
             "yields": "Yields"
         }

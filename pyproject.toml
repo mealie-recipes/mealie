@@ -51,7 +51,7 @@ paho-mqtt = "^1.6.1"
 pydantic-settings = "^2.1.0"
 pillow-heif = "^0.21.0"
 pyjwt = "^2.8.0"
-openai = "^1.27.0"
+openai = "^1.63.0"
 typing-extensions = "^4.12.2"
 itsdangerous = "^2.2.0"
 
