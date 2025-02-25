@@ -3,11 +3,11 @@
         "name": "teaspoon",
         "plural_name": "teaspoons",
         "description": "",
-        "abbreviation": "culleradiña"
+        "abbreviation": "culleriña"
     },
     "tablespoon": {
-        "name": "tablespoon",
-        "plural_name": "tablespoons",
+        "name": "culler de sopa",
+        "plural_name": "culleres de sopa",
         "description": "",
         "abbreviation": "culleradas sopeiras"
     },
@@ -36,33 +36,33 @@
         "abbreviation": "qt"
     },
     "gallon": {
-        "name": "gallon",
-        "plural_name": "gallons",
+        "name": "galón",
+        "plural_name": "galóns",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
-        "plural_name": "milliliters",
+        "name": "mililitro",
+        "plural_name": "mililitros",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
-        "plural_name": "liters",
+        "name": "litro",
+        "plural_name": "litros",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
-        "plural_name": "pounds",
+        "name": "libra",
+        "plural_name": "libras",
         "description": "",
         "abbreviation": "lb",
         "plural_abbreviation": "lbs"
     },
     "ounce": {
-        "name": "ounce",
-        "plural_name": "ounces",
+        "name": "onza",
+        "plural_name": "onzas",
         "description": "",
         "abbreviation": "oz"
     },

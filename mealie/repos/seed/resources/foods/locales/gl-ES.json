@@ -19,7 +19,7 @@
 		"name": "rúcula"
 	},
 	"asparagus": {
-		"name": "asparagus"
+		"name": "espárragos"
 	},
 	"avocado": {
 		"name": "avocado",
@@ -29,7 +29,7 @@
 		"name": "bacon"
 	},
 	"baking-powder": {
-		"name": "baking powder"
+		"name": "fermento en po"
 	},
 	"baking-soda": {
 		"name": "baking soda"
@@ -51,7 +51,7 @@
 		"plural_name": "bell peppers"
 	},
 	"blackberries": {
-		"name": "blackberries"
+		"name": "amoras"
 	},
 	"bok-choy": {
 		"name": "bok choy"
@@ -60,7 +60,7 @@
 		"name": "brassicas"
 	},
 	"bread": {
-		"name": "bread"
+		"name": "pan"
 	},
 	"breadfruit": {
 		"name": "breadfruit"
@@ -93,8 +93,8 @@
 		"name": "butternut squash"
 	},
 	"cabbage": {
-		"name": "cabbage",
-		"plural_name": "cabbages"
+		"name": "repolo",
+		"plural_name": "repolos"
 	},
 	"cactus-edible": {
 		"name": "cactus, edible"
@@ -144,7 +144,7 @@
 		"name": "cereal grains"
 	},
 	"chard": {
-		"name": "chard"
+		"name": "acelga"
 	},
 	"cheese": {
 		"name": "queixo"
@@ -383,8 +383,8 @@
 		"name": "lettuce"
 	},
 	"liver": {
-		"name": "liver",
-		"plural_name": "livers"
+		"name": "fígado",
+		"plural_name": "figados"
 	},
 	"maize": {
 		"name": "maize"
@@ -399,14 +399,14 @@
 		"name": "leite"
 	},
 	"mortadella": {
-		"name": "mortadella"
+		"name": "mortadela"
 	},
 	"mushroom": {
-		"name": "mushroom",
-		"plural_name": "mushrooms"
+		"name": "cogumelo",
+		"plural_name": "cogumelos"
 	},
 	"mussels": {
-		"name": "mussels"
+		"name": "mexillón"
 	},
 	"nanaimo-bar-mix": {
 		"name": "nanaimo bar mix"
@@ -424,8 +424,8 @@
 		"name": "nuts"
 	},
 	"octopuses": {
-		"name": "octopus",
-		"plural_name": "octopuses"
+		"name": "polbo",
+		"plural_name": "polbos"
 	},
 	"oils": {
 		"name": "oils"
@@ -450,13 +450,13 @@
 	},
 	"oranges": {
 		"name": "laranxas",
-		"plural_name": "oranges"
+		"plural_name": "laranxas"
 	},
 	"oregano": {
 		"name": "oregano"
 	},
 	"oysters": {
-		"name": "oysters"
+		"name": "ostras"
 	},
 	"panch-puran": {
 		"name": "panch puran"
@@ -473,13 +473,13 @@
 	},
 	"pear": {
 		"name": "pera",
-		"plural_name": "pears"
+		"plural_name": "peras"
 	},
 	"peas": {
 		"name": "peas"
 	},
 	"pepper": {
-		"name": "pepper",
+		"name": "",
 		"plural_name": "peppers"
 	},
 	"pineapple": {
@@ -491,11 +491,11 @@
 		"plural_name": "plantains"
 	},
 	"poppy-seeds": {
-		"name": "poppy seeds"
+		"name": "sementes de papoula"
 	},
 	"potato": {
-		"name": "potato",
-		"plural_name": "potatoes"
+		"name": "pataca",
+		"plural_name": "patacas"
 	},
 	"poultry": {
 		"name": "poultry"
@@ -549,7 +549,7 @@
 		"name": "marisco"
 	},
 	"seeds": {
-		"name": "seeds"
+		"name": "sementes"
 	},
 	"sesame-seeds": {
 		"name": "sesame seeds"
