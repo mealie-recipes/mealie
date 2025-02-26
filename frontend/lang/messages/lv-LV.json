@@ -579,7 +579,6 @@
     "made-this": "Es to pagatavoju",
     "how-did-it-turn-out": "Kā tas izrādījās?",
     "user-made-this": "{user}izdarīja šo",
-    "last-made-date": "Pēdējo reizi izgatavots {date}",
     "api-extras-description": "Recepšu ekstras ir galvenā Mealie API iezīme. Tie ļauj jums izveidot pielāgotus JSON atslēgu/vērtību pārus receptē, lai atsaucotos no trešo pušu lietojumprogrammām. Varat izmantot šos taustiņus, lai sniegtu informāciju, piemēram, aktivizētu automatizāciju vai pielāgotus ziņojumus, lai tos pārsūtītu uz vēlamo ierīci.",
     "message-key": "Ziņojuma atslēga",
     "parse": "Parsēšana",
