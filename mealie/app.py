@@ -124,6 +124,7 @@ register_debug_handler(app)
 
 async def start_scheduler():
     SchedulerRegistry.register_daily(
+        tasks.purge_expired_tokens,
         tasks.purge_group_registration,
         tasks.purge_password_reset_tokens,
         tasks.purge_group_data_exports,

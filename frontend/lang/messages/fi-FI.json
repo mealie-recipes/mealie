@@ -579,7 +579,6 @@
     "made-this": "Tein tämän",
     "how-did-it-turn-out": "Miten se onnistui?",
     "user-made-this": "{user} teki tämän",
-    "last-made-date": "Viimeksi valmistettu {date}",
     "api-extras-description": "Reseptiekstrat ovat Mealien API:n tärkeä ominaisuus. Niiden avulla voidaan luoda mukautettuja JSON-avain/arvo-pareja reseptin sisällä viitaten kolmannen osapuolen sovelluksiin. Näitä avaimia voi käyttää tiedon antamiseksi, esimerkiksi automaattisen toiminnon tai mukautetun viestin käynnistämiseksi haluamaasi laitteeseen.",
     "message-key": "Viestiavain",
     "parse": "Jäsennä",

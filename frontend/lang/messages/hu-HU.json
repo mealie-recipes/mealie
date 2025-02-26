@@ -579,7 +579,6 @@
     "made-this": "Elkészítettem ezt",
     "how-did-it-turn-out": "Hogyan sikerült?",
     "user-made-this": "ezt {user} készítette el",
-    "last-made-date": "Utoljára elkészítve {date}",
     "api-extras-description": "A receptek extrái a Mealie API egyik legfontosabb szolgáltatása. Lehetővé teszik, hogy egyéni JSON kulcs/érték párokat hozzon létre egy receptben, amelyekre harmadik féltől származó alkalmazásokból hivatkozhat. Ezeket a kulcsokat információszolgáltatásra használhatja, például automatizmusok vagy egyéni üzenetek indítására, amelyeket a kívánt eszközre küldhet.",
     "message-key": "Üzenetkulcs",
     "parse": "Előkészítés",

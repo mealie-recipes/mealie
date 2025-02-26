@@ -579,7 +579,6 @@
     "made-this": "Jeg har laget dette",
     "how-did-it-turn-out": "Hvordan ble det?",
     "user-made-this": "{user} har laget dette",
-    "last-made-date": "Sist laget {date}",
     "api-extras-description": "Ekstramaterialer til oppskrifter er en viktig funksjon i Mealie API-en. De lar deg opprette egendefinerte JSON-nøkkel/verdi-par innenfor en oppskrift for å referere fra tredjepartsapplikasjoner. Du kan bruke disse nøklene til å gi informasjon for eksempel for å utløse automatiseringer eller egendefinerte meldinger som skal videreformidles til ønsket enhet.",
     "message-key": "Meldingsnøkkel",
     "parse": "Analyser",

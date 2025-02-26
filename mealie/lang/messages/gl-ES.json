@@ -1,13 +1,13 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Ocorreu un erro inesperado"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique",
-        "recipe-created": "Recipe Created",
+        "unique-name-error": "Os nomes de receitas deven ser únicos",
+        "recipe-created": "Receita creada",
         "recipe-defaults": {
             "ingredient-note": "1 Cup Flour",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "step-text": "Os pasos da receita, como outros campos na páxina da receita, suportan a sintaxe markdown.\n\n**Adicionar un link**\n\n[Meu link](https://demo.mealie.io)\n"
         },
         "servings-text": {
             "makes": "Makes",
@@ -33,26 +33,26 @@
     "exceptions": {
         "permission_denied": "You do not have permission to perform this action",
         "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
+        "integrity-error": "Erro de integridade da base de datos",
+        "username-conflict-error": "Este nome de usuario xa está en uso",
         "email-conflict-error": "This email is already in use"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
+        "generic-created": "{name} creado",
+        "generic-updated": "{name} atualizado",
+        "generic-created-with-url": "{name} foi creado, {url}",
+        "generic-updated-with-url": "{name} foi atualizado, {url}",
+        "generic-duplicated": "{name} foi duplicado",
         "generic-deleted": "{name} has been deleted"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "year": "ano|anos",
+        "day": "dia|dias",
+        "hour": "hora|horas",
+        "minute": "minuto|minutos",
+        "second": "segundo|segundos",
+        "millisecond": "milisegundo|milisegundos",
+        "microsecond": "microsegundo|microsegundos"
     },
     "emails": {
         "password": {
@@ -67,14 +67,14 @@
             "header_text": "You're Invited!",
             "message_top": "You have been invited to join Mealie.",
             "message_bottom": "Please click the button above to accept the invitation.",
-            "button_text": "Accept Invitation"
+            "button_text": "Aceptar Convite"
         },
         "test": {
             "subject": "Mealie Test Email",
             "header_text": "Test Email",
             "message_top": "This is a test email.",
             "message_bottom": "Please click the button above to test the email.",
-            "button_text": "Open Mealie"
+            "button_text": "Abrir o Mealie"
         }
     }
 }

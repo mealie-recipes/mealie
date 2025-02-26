@@ -579,7 +579,6 @@
     "made-this": "Toto jsem uvařil",
     "how-did-it-turn-out": "Jak to dopadlo?",
     "user-made-this": "{user} udělal toto",
-    "last-made-date": "Naposledy uvařeno {date}",
     "api-extras-description": "Recepty jsou klíčovým rysem rozhraní pro API Mealie. Umožňují vytvářet vlastní klíče/hodnoty JSON v rámci receptu pro odkazy na aplikace třetích stran. Tyto klíče můžete použít pro poskytnutí informací, například pro aktivaci automatizace nebo vlastních zpráv pro přenos do požadovaného zařízení.",
     "message-key": "Klíč zprávy",
     "parse": "Analyzovat",

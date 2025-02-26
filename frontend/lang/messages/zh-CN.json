@@ -579,7 +579,6 @@
     "made-this": "我做了这道菜",
     "how-did-it-turn-out": "成品怎么样?",
     "user-made-this": "{user}做了",
-    "last-made-date": "上次制作于{date}",
     "api-extras-description": "食谱扩展是Mealie API的关键功能之一。它允许你在食谱中添加自定义JSON键值对，以供第三方程序使用。你可以利用这些键提供信息，实现更多功能，例如触发自动化，或转发自定义信息到指定的设备上。",
     "message-key": "键名",
     "parse": "自动解析",

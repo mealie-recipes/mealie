@@ -86,29 +86,27 @@
       </BaseDialog>
     </div>
     <div>
-      <div class="d-flex justify-center flex-wrap">
-        <v-chip
-          label
-          :small="$vuetify.breakpoint.smAndDown"
-          color="accent custom-transparent"
-          class="ma-1 pa-3"
-        >
-          <v-icon left>
-            {{ $globals.icons.calendar }}
-          </v-icon>
-            <div v-if="lastMadeReady">
-              {{ $t('recipe.last-made-date', { date: lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $t("general.never") } ) }}
-            </div>
-            <div v-else>
-              <AppLoader tiny />
-            </div>
-        </v-chip>
-      </div>
-      <div class="d-flex justify-center flex-wrap mt-1">
-        <BaseButton :small="$vuetify.breakpoint.smAndDown" @click="madeThisDialog = true">
-          <template #icon> {{ $globals.icons.chefHat }} </template>
-          {{ $t('recipe.made-this') }}
-        </BaseButton>
+      <div v-if="lastMadeReady" class="d-flex justify-center flex-wrap">
+        <v-row no-gutters class="d-flex flex-wrap align-center" style="font-size: larger;">
+          <v-tooltip bottom>
+            <template #activator="{ on, attrs }">
+              <v-btn
+                rounded
+                outlined
+                x-large
+                color="primary"
+                v-bind="attrs"
+                v-on="on"
+                @click="madeThisDialog = true"
+              >
+                <v-icon left large>{{ $globals.icons.calendar }}</v-icon>
+                <span class="text--secondary" style="letter-spacing: normal;"><b>{{ $tc("general.last-made") }}</b><br>{{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $tc("general.never") }}</span>
+                <v-icon right large>{{ $globals.icons.createAlt }}</v-icon>
+              </v-btn>
+            </template>
+            <span>{{ $tc("recipe.made-this") }}</span>
+          </v-tooltip>
+        </v-row>
       </div>
     </div>
   </div>

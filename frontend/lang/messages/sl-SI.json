@@ -579,7 +579,6 @@
     "made-this": "Naredil sem to",
     "how-did-it-turn-out": "Kako se je izkazalo?",
     "user-made-this": "{user} je tole pripravil/a",
-    "last-made-date": "Nazadnje pripravljen {date}",
     "api-extras-description": "Dodatni podatki za recepte so ključna funkcionalnost Mealie APIja. Omogočajo ustvarjanje lastnih JSON ključ / vrednost parov v okviru recepta, da lahko do njih dostopajo zunanje aplikacije. Te ključe lahko uporabiš za posredovanje informacij, na primer za sprožanje avtomatike ali sporočanje prilagojenih sporočil na poljubno napravo.",
     "message-key": "Ključ sporočila",
     "parse": "Razloči",

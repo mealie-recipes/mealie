@@ -91,8 +91,8 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "1/8 de cuillère à café",
-        "plural_name": "1/8 de cuillères à café",
+        "name": "goutte",
+        "plural_name": "gouttes",
         "description": "",
         "abbreviation": ""
     },
@@ -103,8 +103,8 @@
         "abbreviation": ""
     },
     "head": {
-        "name": "tête",
-        "plural_name": "têtes",
+        "name": "personne",
+        "plural_name": "personnes",
         "description": "",
         "abbreviation": ""
     },

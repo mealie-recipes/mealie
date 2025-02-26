@@ -579,7 +579,6 @@
     "made-this": "Ho he fet",
     "how-did-it-turn-out": "Com ha sortit?",
     "user-made-this": "{user} ha fet això",
-    "last-made-date": "Última vegada feta {date}",
     "api-extras-description": "Els extres de receptes són una funcionalitat clau de l'API de Mealie. Permeten crear parells clau/valor JSON personalitzats dins una recepta, per referenciar-los des d'aplicacions de tercers. Pots emprar aquestes claus per proveir informació, per exemple per a desencadenar automatitzacions o missatges personlitzats per a propagar al teu dispositiu desitjat.",
     "message-key": "Clau del missatge",
     "parse": "Analitzar",
