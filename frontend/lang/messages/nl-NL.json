@@ -579,7 +579,6 @@
     "made-this": "Ik heb dit gemaakt",
     "how-did-it-turn-out": "Hoe was je gerecht?",
     "user-made-this": "{user} heeft dit gemaakt",
-    "last-made-date": "Laatst gemaakt op {date}",
     "api-extras-description": "Extra's bij recepten zijn een belangrijke functie van de Mealie API. Hiermee kun je aangepaste JSON key/value paren maken bij een recept om naar te verwijzen vanuit applicaties van derden. Je kunt deze sleutels gebruiken om extra informatie te bieden, bijvoorbeeld om automatisering aan te sturen of aangepaste berichten naar je gewenste apparaat te laten versturen.",
     "message-key": "Berichtsleutel",
     "parse": "Ontleed",

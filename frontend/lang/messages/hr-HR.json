@@ -579,7 +579,6 @@
     "made-this": "Napravio/la sam ovo",
     "how-did-it-turn-out": "Kako je ispalo?",
     "user-made-this": "{user} je napravio/la ovo",
-    "last-made-date": "Zadnji put napravljeno {date}",
     "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Ključ poruke",
     "parse": "Razluči (parsiraj)",

@@ -579,7 +579,6 @@
     "made-this": "Toto som uvaril",
     "how-did-it-turn-out": "Ako to dopadlo?",
     "user-made-this": "{user} toto uvaril/-a",
-    "last-made-date": "Posledne pripravené {date}",
     "api-extras-description": "API dolnky receptov sú kľúčovou funkcionalitou Mealie API. Umožňujú užívateľom vytvárať vlastné JSON páry kľúč/hodnota v rámci receptu, a využiť v aplikáciách tretích strán. Údaje uložené pod jednotlivými kľúčmi je možné využiť napríklad ako spúšťač automatizovaných procesov, či pri zasielaní vlastných správ do vami zvolených zariadení.",
     "message-key": "Kľúč správy",
     "parse": "Analyzovať",

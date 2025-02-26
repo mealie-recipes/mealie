@@ -579,7 +579,6 @@
     "made-this": "L'Ho Preparato",
     "how-did-it-turn-out": "Come è venuto?",
     "user-made-this": "{user} l'ha preparato",
-    "last-made-date": "Ultima Preparazione {date}",
     "api-extras-description": "Le opzioni extra delle ricette sono una caratteristica fondamentale dell'API Mealie. Consentono di creare json personalizzati con coppie di chiavi/valore all'interno di una ricetta a cui fare riferimento tramite applicazioni terze. È possibile utilizzare queste chiavi per inserire informazioni, per esempio per attivare automazioni oppure per inoltrare messaggi personalizzati al dispositivo desiderato.",
     "message-key": "Chiave Messaggio",
     "parse": "Analizza",

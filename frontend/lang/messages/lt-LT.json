@@ -579,7 +579,6 @@
     "made-this": "Aš tai gaminau",
     "how-did-it-turn-out": "Kaip tai pavyko?",
     "user-made-this": "{user} gamino šį patiekalą",
-    "last-made-date": "Paskutinį kartą gaminta {date}",
     "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Žinutės raktas",
     "parse": "Nuskaityti",

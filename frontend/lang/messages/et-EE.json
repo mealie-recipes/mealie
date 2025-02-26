@@ -579,7 +579,6 @@
     "made-this": "Olen seda valmistanud",
     "how-did-it-turn-out": "Kuidas tuli see välja?",
     "user-made-this": "{user} on seda valmistanud",
-    "last-made-date": "Viimati valmistatud: {date}",
     "api-extras-description": "Retsepti väljavõtted on Meali API oluline funktsioon. Neid saab kasutada kohandatud JSON-võtme/väärtuse paaride loomiseks retseptis, et viidata kolmandate osapoolte rakendustele. Neid klahve saab kasutada teabe edastamiseks, näiteks automaatse toimingu või kohandatud sõnumi käivitamiseks teie valitud seadmele.",
     "message-key": "Sõnumi võti",
     "parse": "Analüüsi",

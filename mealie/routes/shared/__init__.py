@@ -3,6 +3,7 @@ from functools import cached_property
 from fastapi import HTTPException
 from pydantic import UUID4
 
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import UserAPIRouter
@@ -32,7 +33,8 @@ class RecipeSharedController(BaseUserController):
     @router.post("", response_model=RecipeShareToken, status_code=201)
     def create_one(self, data: RecipeShareTokenCreate) -> RecipeShareToken:
         # check if recipe group id is the same as the user group id
-        recipe = self.repos.recipes.get_one(data.recipe_id, "id")
+        group_repos = get_repositories(self.repos.session, group_id=self.group_id, household_id=None)
+        recipe = group_repos.recipes.get_one(data.recipe_id, "id")
         if recipe is None or recipe.group_id != self.group_id:
             raise HTTPException(status_code=404, detail="Recipe not found in your group")
 
