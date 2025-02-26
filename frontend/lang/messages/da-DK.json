@@ -579,7 +579,6 @@
     "made-this": "Jeg har lavet denne",
     "how-did-it-turn-out": "Hvordan blev det?",
     "user-made-this": "{user} lavede denne",
-    "last-made-date": "Sidst tilberedt den {date}",
     "api-extras-description": "Opskrifter ekstra er en central feature i Mealie API. De giver dig mulighed for at oprette brugerdefinerede JSON nøgle / værdi par inden for en opskrift, at henvise til fra 3. parts applikationer. Du kan bruge disse nøgler til at give oplysninger, for eksempel til at udløse automatiseringer eller brugerdefinerede beskeder til at videresende til din ønskede enhed.",
     "message-key": "Beskednøgle",
     "parse": "Behandl data",
