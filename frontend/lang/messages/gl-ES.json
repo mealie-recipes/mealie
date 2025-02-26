@@ -579,7 +579,6 @@
     "made-this": "I Made This",
     "how-did-it-turn-out": "How did it turn out?",
     "user-made-this": "{user} fixo isto",
-    "last-made-date": "Feito por Última Vez {date}",
     "api-extras-description": "Os extras de receitas son unha característica clave da API de Mealie. Permítenche crear pares de clave/valor JSON personalizados dentro dunha receita, para facer referencia desde aplicacións de terceiros. Podes usar estas teclas para proporcionar información, por exemplo, para activar automatizacións ou mensaxes personalizadas para transmitir ao dispositivo que desexes.",
     "message-key": "Message Key",
     "parse": "Parse",
