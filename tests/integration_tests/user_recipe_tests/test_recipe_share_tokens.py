@@ -1,4 +1,5 @@
 from collections.abc import Generator
+from datetime import UTC, datetime, timedelta
 
 import pytest
 import sqlalchemy
@@ -119,3 +120,52 @@ def test_share_recipe_from_different_group(api_client: TestClient, unique_user: 
 
     response = api_client.post(api_routes.shared_recipes, json={"recipeId": str(recipe.id)}, headers=g2_user.token)
     assert response.status_code == 404
+
+
+def test_share_recipe_from_different_household(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser, slug: str
+):
+    database = unique_user.repos
+    recipe = database.recipes.get_one(slug)
+    assert recipe
+
+    response = api_client.post(api_routes.shared_recipes, json={"recipeId": str(recipe.id)}, headers=h2_user.token)
+    assert response.status_code == 201
+
+
+def test_get_recipe_from_token(api_client: TestClient, unique_user: TestUser, slug: str):
+    database = unique_user.repos
+    recipe = database.recipes.get_one(slug)
+    assert recipe
+
+    token = database.recipe_share_tokens.create(
+        RecipeShareTokenSave(recipe_id=recipe.id, group_id=unique_user.group_id)
+    )
+
+    response = api_client.get(api_routes.recipes_shared_token_id(token.id))
+    assert response.status_code == 200
+
+    response_data = response.json()
+    assert response_data["id"] == str(recipe.id)
+
+
+def test_get_recipe_from_expired_token_deletes_token_and_returns_404(
+    api_client: TestClient, unique_user: TestUser, slug: str
+):
+    database = unique_user.repos
+    recipe = database.recipes.get_one(slug)
+    assert recipe
+
+    token = database.recipe_share_tokens.create(
+        RecipeShareTokenSave(
+            recipe_id=recipe.id, group_id=unique_user.group_id, expiresAt=datetime.now(UTC) - timedelta(minutes=1)
+        )
+    )
+    fetch_token = database.recipe_share_tokens.get_one(token.id)
+    assert fetch_token
+
+    response = api_client.get(api_routes.recipes_shared_token_id(token.id), headers=unique_user.token)
+    assert response.status_code == 404
+
+    fetch_token = database.recipe_share_tokens.get_one(token.id)
+    assert fetch_token is None

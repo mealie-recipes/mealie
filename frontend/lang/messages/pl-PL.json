@@ -579,7 +579,6 @@
     "made-this": "Ugotowałem to",
     "how-did-it-turn-out": "Jak się to udało?",
     "user-made-this": "{user} ugotował(a) to",
-    "last-made-date": "Ostatnio ugotowano {date}",
     "api-extras-description": "Dodatki w przepisach są kluczową cechą API Mealie. Pozwalają na tworzenie niestandardowych par kluczy/wartości JSON w przepisie do odwoływania się przez zewnętrzne aplikacje. Możesz użyć tych kluczy do wyzwalania automatyzacji lub przekazywania niestandardowych wiadomości do twoich wybranych urządzeń.",
     "message-key": "Klucz Wiadomości",
     "parse": "Analizuj",

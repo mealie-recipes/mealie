@@ -579,7 +579,6 @@
     "made-this": "Am făcut asta",
     "how-did-it-turn-out": "Cum a ieșit?",
     "user-made-this": "{user} a făcut asta",
-    "last-made-date": "Ultima preparare {date}",
     "api-extras-description": "Recipes extras sunt o caracteristică cheie a API-ului Mealie. Îți permit să creezi perechi personalizate de cheie/valoare JSON într-o rețetă, ca să faci referire la aplicații terțe. Puteți utiliza aceste chei pentru a furniza informații, de exemplu pentru a declanșa automatizări sau mesaje personalizate pentru a transmite dispozitivul dorit.",
     "message-key": "Cheie mesaj",
     "parse": "Parsează",

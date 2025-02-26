@@ -18,6 +18,10 @@ class RecipeShareTokenCreate(MealieModel):
     recipe_id: UUID4
     expires_at: datetime = Field(default_factory=defaut_expires_at_time)
 
+    @property
+    def is_expired(self) -> bool:
+        return self.expires_at < datetime.now(UTC)
+
 
 class RecipeShareTokenSave(RecipeShareTokenCreate):
     group_id: UUID4

@@ -30,12 +30,17 @@
                 <span v-html="recipeYield"></span>
               </v-chip>
             </div>
-            <RecipeTimeCard
-              :prep-time="recipe.prepTime"
-              :total-time="recipe.totalTime"
-              :perform-time="recipe.performTime"
-              color="white"
-            />
+            <v-row class="d-flex justify-start">
+              <RecipeTimeCard
+                :prep-time="recipe.prepTime"
+                :total-time="recipe.totalTime"
+                :perform-time="recipe.performTime"
+                small
+                color="white"
+                class="ml-4"
+              />
+            </v-row>
+
             <v-card-text v-if="preferences.showDescription" class="px-0">
               <SafeMarkdown :source="recipe.description" />
             </v-card-text>
