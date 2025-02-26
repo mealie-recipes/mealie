@@ -579,7 +579,6 @@
     "made-this": "Bunu ben yaptım",
     "how-did-it-turn-out": "Nasıl oldu?",
     "user-made-this": "{user} bunu yaptı",
-    "last-made-date": "En Son {date} Yapıldı",
     "api-extras-description": "Tarif ekstraları Mealie API'nin önemli bir özelliğidir. Üçüncü taraf uygulamalardan referans almak üzere bir tarif içinde özel JSON anahtar/değer çiftleri oluşturmanıza olanak tanır. Bu tuşları, örneğin otomasyonları tetiklemek veya istediğiniz cihaza iletilecek özel mesajları bilgi sağlamak için kullanabilirsiniz.",
     "message-key": "İleti Anahtarı",
     "parse": "Ayrıştırma",
