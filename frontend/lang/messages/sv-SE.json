@@ -579,7 +579,6 @@
     "made-this": "Jag lagade den här",
     "how-did-it-turn-out": "Hur blev rätten?",
     "user-made-this": "{user} lagade detta",
-    "last-made-date": "Senast lagad {date}",
     "api-extras-description": "Recept API-tillägg är en viktig funktion i Mealie's API. Med hjälp av dem kan du skapa anpassade JSON-nyckel/värdepar i ett recept, som du kan referera till från tredjepartsapplikationer. Du kan använda dessa nycklar för att tillhandahålla information, till exempel för att trigga automatiseringar eller anpassade meddelanden som ska vidarebefordras till önskad enhet.",
     "message-key": "Meddelandenyckel",
     "parse": "Läs in",
