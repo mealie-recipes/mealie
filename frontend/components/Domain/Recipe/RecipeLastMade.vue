@@ -100,7 +100,7 @@
                 @click="madeThisDialog = true"
               >
                 <v-icon left large>{{ $globals.icons.calendar }}</v-icon>
-                {{ $tc("general.last-made") }} <br>{{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $tc("general.never") }}
+                <span class="text--secondary" style="letter-spacing: normal;"><b>{{ $tc("general.last-made") }}</b><br>{{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $tc("general.never") }}</span>
                 <v-icon right large>{{ $globals.icons.createAlt }}</v-icon>
               </v-btn>
             </template>
