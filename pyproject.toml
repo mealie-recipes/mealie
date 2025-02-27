@@ -3,7 +3,7 @@ authors = ["Hayden <hay-kot@pm.me>"]
 description = "A Recipe Manager"
 license = "AGPL"
 name = "mealie"
-version = "2.6.0"
+version = "2.7.0"
 include = [
     # Explicit include to override .gitignore when packaging the frontend
     { path = "mealie/frontend/**/*", format = ["sdist", "wheel"] }
