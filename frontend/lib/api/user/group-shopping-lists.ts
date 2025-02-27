@@ -1,5 +1,4 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { RecipeIngredient } from "../types/recipe";
 import { ApiRequestInstance } from "~/lib/api/types/non-generated";
 import {
   ShoppingListAddRecipeParamsBulk,
