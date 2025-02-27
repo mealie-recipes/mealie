@@ -12,15 +12,19 @@
     <v-divider v-if="validateTotalTime && (validatePrepTime || validatePerformTime)" class="my-2" />
     <!-- Prep Time & Perform Time -->
     <div v-if="validatePrepTime || validatePerformTime" class="time-card-flex mx-auto">
-      <v-row no-gutters class="d-flex justify-center align-center" style="width: 100%;" :style="fontSize">
-        <div v-if="validatePrepTime" class="d-flex flex-no-wrap">
+      <v-row
+        no-gutters
+        class="d-flex justify-center align-center" :class="{'flex-column': $vuetify.breakpoint.smAndDown}"
+        style="width: 100%;" :style="fontSize"
+      >
+        <div v-if="validatePrepTime" class="d-flex flex-no-wrap my-1">
           <v-icon :large="!small" :dense="small" left color="primary">
             {{ $globals.icons.knfife }}
           </v-icon>
           <p class="my-0"><span class="font-weight-bold">{{ validatePrepTime.name }}</span><br>{{ validatePrepTime.value }}</p>
         </div>
         <v-divider v-if="validatePrepTime && validatePerformTime" vertical class="mx-4" />
-        <div v-if="validatePerformTime" class="d-flex flex-no-wrap">
+        <div v-if="validatePerformTime" class="d-flex flex-no-wrap my-1">
           <v-icon :large="!small" :dense="small" left color="primary">
             {{ $globals.icons.potSteam }}
           </v-icon>
