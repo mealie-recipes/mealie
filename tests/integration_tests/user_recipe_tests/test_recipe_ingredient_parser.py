@@ -24,14 +24,20 @@ nlp_test_ingredients = [
     TestIngredient("2 tablespoons (30ml) vegetable oil ", 2, "tablespoon", "vegetable oil", ""),
     TestIngredient("2 teaspoons salt (to taste) ", 2, "teaspoon", "salt", "to taste"),
     TestIngredient("2 cups chicken broth or beef broth ", 2, "cup", "chicken broth", ""),
+    TestIngredient("1/2 cup", 0.5, "cup", "", ""),
 ]
 
 
 def assert_ingredient(api_response: dict, test_ingredient: TestIngredient):
-    assert api_response["ingredient"]["quantity"] == pytest.approx(test_ingredient.quantity)
-    assert api_response["ingredient"]["unit"]["name"] == test_ingredient.unit
-    assert api_response["ingredient"]["food"]["name"] == test_ingredient.food
-    assert api_response["ingredient"]["note"] == test_ingredient.comments
+    response_quantity = api_response["ingredient"]["quantity"]
+    response_unit = api_response["ingredient"]["unit"]["name"] if api_response["ingredient"]["unit"] else ""
+    response_food = api_response["ingredient"]["food"]["name"] if api_response["ingredient"]["food"] else ""
+    response_note = api_response["ingredient"]["note"]
+
+    assert response_quantity == pytest.approx(test_ingredient.quantity)
+    assert response_unit == test_ingredient.unit
+    assert response_food == test_ingredient.food
+    assert response_note == test_ingredient.comments
 
 
 @pytest.mark.parametrize("test_ingredient", nlp_test_ingredients)
