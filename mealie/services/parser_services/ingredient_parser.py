@@ -1,3 +1,5 @@
+from fractions import Fraction
+
 from ingredient_parser import parse_ingredient
 from ingredient_parser.dataclasses import CompositeIngredientAmount, IngredientAmount
 from ingredient_parser.dataclasses import ParsedIngredient as IngredientParserParsedIngredient
@@ -54,7 +56,9 @@ class NLPParser(ABCIngredientParser):
     @staticmethod
     def _extract_amount(ingredient: IngredientParserParsedIngredient) -> IngredientAmount:
         if not (ingredient_amounts := ingredient.amount):
-            return IngredientAmount(quantity=0, quantity_max=0, unit="", text="", confidence=0, starting_index=-1)
+            return IngredientAmount(
+                quantity=Fraction(0), quantity_max=Fraction(0), unit="", text="", confidence=0, starting_index=-1
+            )
 
         ingredient_amount = ingredient_amounts[0]
         if isinstance(ingredient_amount, CompositeIngredientAmount):
@@ -67,12 +71,15 @@ class NLPParser(ABCIngredientParser):
         confidence = ingredient_amount.confidence
 
         if isinstance(ingredient_amount.quantity, str):
-            return extract_quantity_from_string(ingredient_amount.quantity)[0], confidence
+            qty = extract_quantity_from_string(ingredient_amount.quantity)[0]
         else:
             try:
-                return float(ingredient_amount.quantity), confidence
+                qty = float(ingredient_amount.quantity)
             except ValueError:
-                return 0, 0
+                qty = 0
+                confidence = 0
+
+        return qty, confidence
 
     @staticmethod
     def _extract_unit(ingredient_amount: IngredientAmount) -> tuple[str, float]:
@@ -82,8 +89,13 @@ class NLPParser(ABCIngredientParser):
 
     @staticmethod
     def _extract_food(ingredient: IngredientParserParsedIngredient) -> tuple[str, float]:
-        confidence = ingredient.name.confidence if ingredient.name else 0
-        food = str(ingredient.name.text) if ingredient.name else ""
+        if not ingredient.name:
+            return "", 0
+
+        ingredient_name = ingredient.name[0]
+        confidence = ingredient_name.confidence
+        food = ingredient_name.text
+
         return food, confidence
 
     @staticmethod
