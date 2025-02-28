@@ -8,7 +8,7 @@ from tests.utils.fixture_schemas import TestUser
 
 nlp_test_ingredients = [
     TestIngredient("½ cup all-purpose flour", 0.5, "cup", "all-purpose flour", ""),
-    TestIngredient("1 ½ teaspoons ground black pepper", 1.5, "teaspoon", "ground black pepper", ""),
+    TestIngredient("1 ½ teaspoons ground black pepper", 1.5, "teaspoon", "black pepper", "ground"),
     TestIngredient("⅔ cup unsweetened flaked coconut", 0.667, "cup", "unsweetened flaked coconut", ""),
     TestIngredient("⅓ cup panko bread crumbs", 0.333, "cup", "panko bread crumbs", ""),
     TestIngredient("1/8 cup all-purpose flour", 0.125, "cup", "all-purpose flour", ""),
@@ -23,6 +23,7 @@ nlp_test_ingredients = [
     ),
     TestIngredient("2 tablespoons (30ml) vegetable oil ", 2, "tablespoon", "vegetable oil", ""),
     TestIngredient("2 teaspoons salt (to taste) ", 2, "teaspoon", "salt", "to taste"),
+    TestIngredient("2 cups chicken broth or beef broth ", 2, "cup", "chicken broth", ""),
 ]
 
 
