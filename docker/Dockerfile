@@ -117,13 +117,6 @@ RUN . $VENV_PATH/bin/activate \
     && pip install --require-hashes -r /dist/requirements.txt --find-links /dist
 
 ###############################################
-# CRFPP Image
-###############################################
-FROM hkotel/crfpp as crfpp
-
-RUN echo "crfpp-container"
-
-###############################################
 # Production Image
 ###############################################
 FROM python-base as production
@@ -145,18 +138,8 @@ RUN apt-get update \
 # create directory used for Docker Secrets
 RUN mkdir -p /run/secrets
 
-# copy CRF++ and add it to the library path
-ENV LD_LIBRARY_PATH=/usr/local/lib
-COPY --from=crfpp /usr/local/lib/ /usr/local/lib
-COPY --from=crfpp /usr/local/bin/crf_learn /usr/local/bin/crf_learn
-COPY --from=crfpp /usr/local/bin/crf_test /usr/local/bin/crf_test
-
 # Copy venv into image. It contains a fully-installed mealie backend and frontend.
 COPY --from=venv-builder $VENV_PATH $VENV_PATH
-
-
-# Grab CRF++ Model Release
-RUN python -m mealie.scripts.install_model
 
 VOLUME [ "$MEALIE_HOME/data/" ]
 ENV APP_PORT=9000
