@@ -15,9 +15,9 @@
           <v-divider class="my-2" />
           <SafeMarkdown :source="recipe.description" />
           <v-divider v-if="recipe.description" />
-          <v-container class="d-flex flex-row flex-wrap justify-center align-center">
+          <v-container class="d-flex flex-row flex-wrap justify-center">
             <div class="mx-6">
-              <v-row no-gutters class="mb-1">
+              <v-row no-gutters>
                 <v-col v-if="recipe.recipeYieldQuantity || recipe.recipeYield" cols="12" class="d-flex flex-wrap justify-center">
                   <RecipeYield
                     :yield-quantity="recipe.recipeYieldQuantity"

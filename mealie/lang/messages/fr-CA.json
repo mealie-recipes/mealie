@@ -11,11 +11,11 @@
         },
         "servings-text": {
             "makes": "Fait",
-            "serves": "Pour",
+            "serves": "Sert",
             "serving": "Portion",
             "servings": "Portions",
-            "yield": "Quantité",
-            "yields": "Produit"
+            "yield": "Rendement",
+            "yields": "Rendements"
         }
     },
     "mealplan": {

@@ -6,7 +6,6 @@ import pytest
 from fastapi.testclient import TestClient
 from pydantic import UUID4
 
-from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.group_shopping_list import ShoppingListItemOut, ShoppingListOut
 from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood
 from tests import utils

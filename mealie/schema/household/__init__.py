@@ -20,6 +20,7 @@ from .group_recipe_action import (
 )
 from .group_shopping_list import (
     ShoppingListAddRecipeParams,
+    ShoppingListAddRecipeParamsBulk,
     ShoppingListCreate,
     ShoppingListItemBase,
     ShoppingListItemCreate,
@@ -113,6 +114,7 @@ __all__ = [
     "ReadInviteToken",
     "SaveInviteToken",
     "ShoppingListAddRecipeParams",
+    "ShoppingListAddRecipeParamsBulk",
     "ShoppingListCreate",
     "ShoppingListItemBase",
     "ShoppingListItemCreate",
