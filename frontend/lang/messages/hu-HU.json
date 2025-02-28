@@ -646,7 +646,6 @@
     "nextStep": "Következő lépés",
     "recipe-actions": "Receptekkel kapcsolatos tevékenységek",
     "parser": {
-      "experimental-alert-text": "A Mealie természetes nyelvi feldolgozást használ a recept összetevőinek elemzésére, az egységek és az élelmiszerelemek létrehozására. Ez a funkció kísérleti jellegű, és előfordulhat, hogy nem mindig működik az elvárt módon. Ha nem szeretné használni az elemzett eredményeket, válassza a 'Mégse' lehetőséget, és a módosítások nem kerülnek mentésre.",
       "ingredient-parser": "Hozzávaló elemző",
       "explanation": "A hozzávalók elemzőjének használatához kattintson a 'Parse All' gombra a folyamat elindításához. Amint a feldolgozott hozzávalók elérhetővé válnak, áttekintheti az elemeket, és ellenőrizheti, hogy azok helyesen lettek-e elemezve. A modell megbízhatósági pontszáma az elem címének jobb oldalán jelenik meg. Ez a pontszám az összes egyéni pontszám átlaga, és nem biztos, hogy mindig teljesen pontos.",
       "alerts-explainer": "Figyelmeztetések jelennek meg, ha talál egy megfelelő élelmiszert vagy egységet, de az nem létezik az adatbázisban.",
