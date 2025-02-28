@@ -646,7 +646,6 @@
     "nextStep": "Neste trinn",
     "recipe-actions": "Oppskriftshandlinger",
     "parser": {
-      "experimental-alert-text": "Mealie bruker naturlig språkbehandling til å analysere og lage enheter og matvarer til oppskriftsingrediensene dine. Denne funksjonen er eksperimentell og fungerer kanskje ikke som forventet. Hvis du foretrekker ikke å bruke de foreslåtte resultatene, kan du velge 'Avbryt', og endringene dine vil ikke bli lagret.",
       "ingredient-parser": "Ingrediens-analyserer",
       "explanation": "For å bruke ingrediens-forslag, klikk på 'Analyser alle' for å starte prosessen. Når de prosesserte ingrediensene er tilgjengelige, kan du se gjennom elementene og kontrollere at de er sjekket korrekt. Modellens tillitsverdi vises på høyre side av elementet. Denne scoren er et gjennomsnitt av alle de individuelle poengene og alltid er ikke helt nøyaktige.",
       "alerts-explainer": "Varsler vil bli vist dersom en matchende matvare eller enhet blir funnet, men ikke finnes i databasen.",
