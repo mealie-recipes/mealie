@@ -646,7 +646,6 @@
     "nextStep": "Naslednji korak",
     "recipe-actions": "Opravila na receptu",
     "parser": {
-      "experimental-alert-text": "Mealie uporablja procesiranje naravnega jezika za razčlenjevanje in ustvarjanje živil in enot v seznamu sestavin. Ta storitev je eksperimentalna in včasih ne deluje kot pričakovano. Če dobljenega rezultata ne želiš uporabiti, izberi 'Prekliči' in tvoje spremembe ne bodo shranjene.",
       "ingredient-parser": "Razčlenjevalnik sestavin",
       "explanation": "Če želiš uporabiti razčlenjevalnik sestavin, izberi 'Razčleni vse', da pričneš s postopkom. Ko bodo sestavine na voljo, lahko pregledaš podatke in preveriš, če so bili pravilno razčlenjeni. Stopnja zaupanja je prikazana desno od podatka. Ta vrednost je povprečje vseh posameznih vrednosti in ni nujno popolnoma natančna.",
       "alerts-explainer": "Opozorila bodo prikazana v primeru, da obstaja ujemajoče živilo ali enota, ampak še ne obstaja v podatkovni bazi.",

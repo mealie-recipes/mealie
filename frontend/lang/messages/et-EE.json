@@ -646,7 +646,6 @@
     "nextStep": "Järgmine samm",
     "recipe-actions": "Retsepti toimingud",
     "parser": {
-      "experimental-alert-text": "Mealie kasutab teie retseptide koostisosade analüüsimiseks ja ühikute ja tarvikute loomiseks loomulikku keeletöötlust. See funktsioon on katseline ja ei pruugi alati ootuspäraselt töötada. Kui te neid struktureeritud tulemusi ei soovi, võite vajutada nuppu \"Tühista\" ja teie muudatusi ei salvestata.",
       "ingredient-parser": "Koostisosade analüüser",
       "explanation": "Koostisosade sorteerimise tööriista kasutamiseks vajutage nuppu \"Sordi kõik\". Kui koostisosad on saadaval, saate üksused üle vaadata ja kontrollida, kas analüüsimine õnnestus. Mudeli usaldusväärtus on loetletud üksuse nimest paremal. See väärtus on üksikute väärtuste keskmine ja ei ole alati väga täpne.",
       "alerts-explainer": "Teile antakse märku, kui leitakse sobiv toit või üksus, kuid seda pole andmebaasis olemas.",

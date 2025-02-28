@@ -646,7 +646,6 @@
     "nextStep": "Nästa steg",
     "recipe-actions": "Recept åtgärder",
     "parser": {
-      "experimental-alert-text": "Mealie använder naturligt språk för att tolka enheter och livsmedel som behövs för dina recept. Denna funktion är experimentell och kanske inte alltid funkar som förväntat. Om du föredrar att inte använda de tolkade resultatet, kan du välja 'Avbryt' och förändringarna kommer då inte sparas.",
       "ingredient-parser": "Ingrediensanalysator",
       "explanation": "För att använda ingrediensen parser, klicka på \"Analysera allt\" knappen för att starta processen. När de bearbetade ingredienserna är tillgängliga, kan du granska objekten och kontrollera att de tolkades korrekt. Modellens självförtroende poäng visas till höger om artikelns titel. Denna poäng är ett genomsnitt av alla individuella poäng och kanske inte alltid vara helt korrekt.",
       "alerts-explainer": "Varning kommer visas om en matchande ingrediens eller enhet hittas, men inte existerar i databasen.",

@@ -646,7 +646,6 @@
     "nextStep": "Seuraava askel",
     "recipe-actions": "Reseptin toiminnot",
     "parser": {
-      "experimental-alert-text": "Mealie käyttää luonnollisen kielen prosessointia jäsentääkseen ja luodakseen yksiköitä ja tarvikkeita reseptiesi ainesosille. Ominaisuus on kokeellinen, eikä välttämättä toimi aina odotetulla tavalla. Jos et halua näitä jäsennettyjä tuloksia, voit painaa \"Peruuta\", ja muutoksiasi ei tallenneta.",
       "ingredient-parser": "Ainesosan jäsentäjä",
       "explanation": "Paina \"Jäsennä kaikki\" -painiketta käyttääksesi ainesosien jäsennystyökalua. Kun ainesosat ovat saatavilla, voit tarkastella kohteita ja varmistaa, että jäsennys onnistui. Mallin luottamusarvo mainitaan kohteen nimen oikealla puolella. Tämä arvo on yksittäisten arvojen keskiarvo, eikä se ole aina kovin tarkka.",
       "alerts-explainer": "Ohjelmisto hälyttää, mikäli jokin sopiva ruoka tai yksikkö löytyy, mutta sitä ei ole olemassa tietokannassa.",

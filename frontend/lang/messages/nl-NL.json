@@ -646,7 +646,6 @@
     "nextStep": "Volgende stap",
     "recipe-actions": "Acties met recepten ",
     "parser": {
-      "experimental-alert-text": "Mealie gebruikt natuurlijke taalverwerking om te ontleden en maakt eenheden en levensmiddelen voor de ingrediënten van je recept. Deze functie is experimenteel en werkt misschien niet altijd zoals verwacht. Als je liever niet de bewerkte resultaten gebruikt, kan je 'Annuleren' selecterenl de wijzigingen worden dan niet opgeslagen.",
       "ingredient-parser": "Ingrediëntenontleder",
       "explanation": "Om de ingrediëntenontleder te gebruiken, klik op de knop 'Alles ontleden' om het proces te starten. Zodra de verwerkte ingrediënten beschikbaar zijn, kan je de items bekijken en controleren of ze correct verwerkt zijn. De vertrouwensscore van het model wordt weergegeven aan de rechterkant van de titel van het item. Deze score is een gemiddelde van alle afzonderlijke scores en is mogelijk niet altijd volledig.",
       "alerts-explainer": "Waarschuwingen zullen worden getoond als er een overeenkomend levensmiddel of eenheid is gevonden, dat nog niet bestaat in de database.",

@@ -646,7 +646,6 @@
     "nextStep": "Pasul următor",
     "recipe-actions": "Acțiuni rețetă",
     "parser": {
-      "experimental-alert-text": "Mealie foloseşte procesarea limbajului natural pentru a prelucra şi crea unităţi şi alimente pentru ingredientele reţetei. Această funcție este experimentală și este posibil să nu funcționeze întotdeauna conform așteptărilor. Dacă preferați să nu utilizați rezultatele analizate, puteți selecta 'Cancel' și modificările dvs. nu vor fi salvate.",
       "ingredient-parser": "Analizator de ingrediente",
       "explanation": "Pentru a utiliza analizatorul ingredientelor, faceți clic pe butonul „Analiză tot” pentru a începe procesul. Odată ce ingredientele procesate sunt disponibile, puteți revizui articolele și verifica dacă acestea au fost analizate corect. Scorul de încredere al modelului este afișat în dreapta titlului articolului. Acest scor este o medie a tuturor scorurilor individuale și este posibil să nu fie întotdeauna complet exact.",
       "alerts-explainer": "Vor fi afișate alerte in cazul in care un aliment sau o unitate au fost găsite, dar nu exista in baza de date.",

@@ -646,7 +646,6 @@
     "nextStep": "Næste trin",
     "recipe-actions": "Opskriftshandlinger",
     "parser": {
-      "experimental-alert-text": "Mealie bruger natural language processing til at behandle og oprette relevante måleenheder og fødrerevarer som ingredienser i dine opskrifter. Denne funktion er eksperimentel og fungerer måske ikke altid som forventet. Hvis du foretrækker ikke at bruge de fortolkede resultater, kan du vælge 'Annullér' og dine ændringer vil ikke blive gemt.",
       "ingredient-parser": "Ingrediensfortolker",
       "explanation": "For at bruge ingrediensfortolkeren, skal du klikke på knappen 'Fortolk alt' for at starte behandlingen. Når relevante ingredienser er identificeret, kan du gennemgå dem og kontrollere, at de blev korrekt identificeret. Modellens konfidensscore vises til højre for ingrediensens titel. Denne score er et gennemsnit af alle de enkelte scorer og er måske ikke altid helt præcis.",
       "alerts-explainer": "En advarsel vil blive vist, hvis en identificeret fødevare eller måleenhed ikke findes i databasen.",

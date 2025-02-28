@@ -646,7 +646,6 @@
     "nextStep": "Następny krok",
     "recipe-actions": "Akcje przepisów",
     "parser": {
-      "experimental-alert-text": "Mączka używa naturalnego przetwarzania języka, aby analizować i tworzyć jednostki oraz artykuły żywnościowe dla twoich składników. Ta funkcja jest eksperymentalna i nie zawsze działa zgodnie z oczekiwaniami. Jeśli wolisz nie używać zanalizowanych wyników, możesz wybrać 'Anuluj', a zmiany nie zostaną zapisane.",
       "ingredient-parser": "Parser składników",
       "explanation": "Aby użyć analizatora składników, kliknij przycisk \"Przeanalizuj wszystko\", aby rozpocząć proces. Gdy przetworzone składniki będą dostępne, możesz przejrzeć elementy i sprawdzić, czy zostały one poprawnie przetworzone. Wskaźnik zaufania modelu jest wyświetlany po prawej stronie tytułu elementu. Ten wynik jest średnią wszystkich wyników i nie zawsze będzie dokładny.",
       "alerts-explainer": "Powiadomienia będą wyświetlane, jeśli zostanie znaleziona pasująca żywność lub jednostka, ale nie istnieje w bazie danych.",
