@@ -646,7 +646,6 @@
     "nextStep": "다음 단계",
     "recipe-actions": "Recipe Actions",
     "parser": {
-      "experimental-alert-text": "Mealie uses natural language processing to parse and create units and food items for your recipe ingredients. This feature is experimental and may not always work as expected. If you prefer not to use the parsed results, you can select 'Cancel' and your changes will not be saved.",
       "ingredient-parser": "Ingredient Parser",
       "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
       "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
