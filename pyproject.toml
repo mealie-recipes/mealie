@@ -31,7 +31,7 @@ orjson = "^3.8.0"
 psycopg2-binary = { version = "^2.9.1", optional = true }
 pydantic = "^2.6.1"
 pyhumps = "^3.5.3"
-python = ">=3.12,<3.13"
+python = ">=3.13,<3.14"
 python-dateutil = "^2.8.2"
 python-dotenv = "^1.0.0"
 python-ldap = "^3.3.1"
