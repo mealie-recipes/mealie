@@ -1,7 +1,7 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
-        "plural_name": "teaspoons",
+        "name": "culler de té",
+        "plural_name": "culleres de té",
         "description": "",
         "abbreviation": "culleriña"
     },
@@ -12,8 +12,8 @@
         "abbreviation": "culleradas sopeiras"
     },
     "cup": {
-        "name": "taza",
-        "plural_name": "cups",
+        "name": "cunca",
+        "plural_name": "cuncas",
         "description": "",
         "abbreviation": "c"
     },
