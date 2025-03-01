@@ -216,7 +216,7 @@
     "caution": "Coidado",
     "show-advanced": "Mostrar Avanzadas",
     "add-field": "Adicionar Campo",
-    "date-created": "Date Created",
+    "date-created": "Data de Creación",
     "date-updated": "Data de Atualización"
   },
   "group": {
@@ -423,7 +423,7 @@
   },
   "new-recipe": {
     "bulk-add": "Bulk Add",
-    "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
+    "error-details": "Somente sites que conteñan ld+json ou microdata poden ser importados pola Mealie. Os principais sites de receitas suportan esta estrutura de datos. Se o seu site non pode ser importado, mas hai datos json no log, coloque unha cuestión no github co URL e os datos.",
     "error-title": "Parece que non conseguimos encontrar nada",
     "from-url": "Importar unha Receita",
     "github-issues": "Problemas no GitHub",
@@ -441,7 +441,7 @@
     "trim-prefix-description": "Trim first character from each line",
     "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
     "import-by-url": "Importar unha receita por URL",
-    "create-manually": "Create a recipe manually",
+    "create-manually": "Cree unha receita manualmente",
     "make-recipe-image": "Make this the recipe image"
   },
   "page": {
