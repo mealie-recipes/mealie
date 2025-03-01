@@ -32,7 +32,7 @@
 		"name": "fermento en po"
 	},
 	"baking-soda": {
-		"name": "baking soda"
+		"name": "bicarbonato de sodio"
 	},
 	"baking-sugar": {
 		"name": "baking sugar"
@@ -44,7 +44,7 @@
 		"name": "basil"
 	},
 	"beans": {
-		"name": "beans"
+		"name": "feixóns"
 	},
 	"bell-peppers": {
 		"name": "bell peppers",
@@ -69,7 +69,7 @@
 		"name": "broccoflower"
 	},
 	"broccoli": {
-		"name": "broccoli"
+		"name": "brócolis"
 	},
 	"broccoli-rabe": {
 		"name": "broccoli rabe"
@@ -78,7 +78,7 @@
 		"name": "broccolini"
 	},
 	"brown-sugar": {
-		"name": "brown sugar"
+		"name": "azucre mascavado"
 	},
 	"brussels-sprouts": {
 		"name": "brussels sprouts"
@@ -106,7 +106,7 @@
 		"name": "cane sugar"
 	},
 	"cannabis": {
-		"name": "cannabis"
+		"name": "canábis"
 	},
 	"capsicum": {
 		"name": "capsicum"
@@ -141,7 +141,7 @@
 		"name": "celery"
 	},
 	"cereal-grains": {
-		"name": "cereal grains"
+		"name": "graos de cereal"
 	},
 	"chard": {
 		"name": "acelga"
@@ -150,7 +150,7 @@
 		"name": "queixo"
 	},
 	"chicory": {
-		"name": "chicory"
+		"name": "chicoria"
 	},
 	"chilli-peppers": {
 		"name": "chilli pepper",
@@ -160,7 +160,7 @@
 		"name": "chinese leaves"
 	},
 	"chives": {
-		"name": "chives"
+		"name": "ceboliño"
 	},
 	"chocolate": {
 		"name": "chocolate"
@@ -188,7 +188,7 @@
 		"name": "café"
 	},
 	"collard-greens": {
-		"name": "collard greens"
+		"name": "berzas"
 	},
 	"confectioners-sugar": {
 		"name": "confectioners' sugar"
@@ -198,7 +198,7 @@
 	},
 	"corn": {
 		"name": "millo",
-		"plural_name": "corns"
+		"plural_name": "millos"
 	},
 	"corn-syrup": {
 		"name": "xarope de millo"
