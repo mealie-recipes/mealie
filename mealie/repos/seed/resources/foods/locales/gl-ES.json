@@ -449,7 +449,7 @@
 		"name": "orange blossom water"
 	},
 	"oranges": {
-		"name": "laranxas",
+		"name": "laranxa",
 		"plural_name": "laranxas"
 	},
 	"oregano": {
@@ -588,45 +588,45 @@
 		"plural_name": "spring onions"
 	},
 	"squash": {
-		"name": "squash",
-		"plural_name": "squashes"
+		"name": "cabaza",
+		"plural_name": "cabazas"
 	},
 	"squash-family": {
-		"name": "squash family"
+		"name": "família das cabazas"
 	},
 	"stockfish": {
-		"name": "stockfish"
+		"name": "bacallau seco ao ar"
 	},
 	"sugar": {
-		"name": "sugar"
+		"name": "azucre"
 	},
 	"sunchoke": {
-		"name": "sunchoke",
-		"plural_name": "sunchokes"
+		"name": "tupinambo",
+		"plural_name": "tupinambos"
 	},
 	"sunflower-seeds": {
-		"name": "sunflower seeds"
+		"name": "sementes de xirasol"
 	},
 	"superfine-sugar": {
-		"name": "superfine sugar"
+		"name": "azucre superfino"
 	},
 	"sweet-potato": {
-		"name": "sweet potato",
-		"plural_name": "sweet potatoes"
+		"name": "pataca-doce",
+		"plural_name": "patacas-doces"
 	},
 	"sweetcorn": {
-		"name": "sweetcorn",
-		"plural_name": "sweetcorns"
+		"name": "millo doce",
+		"plural_name": "millos doces"
 	},
 	"sweeteners": {
-		"name": "sweeteners"
+		"name": "adozantes"
 	},
 	"tahini": {
-		"name": "tahini"
+		"name": "tahine"
 	},
 	"taro": {
 		"name": "taro",
-		"plural_name": "taroes"
+		"plural_name": "taros"
 	},
 	"teff": {
 		"name": "teff"
@@ -639,54 +639,54 @@
 		"name": "troita"
 	},
 	"tubers": {
-		"name": "tuber",
-		"plural_name": "tubers"
+		"name": "tubérculo",
+		"plural_name": "tubérculos"
 	},
 	"tuna": {
 		"name": "bonito"
 	},
 	"turbanado-sugar": {
-		"name": "turbanado sugar"
+		"name": "azucre turbinado"
 	},
 	"turnip": {
-		"name": "turnip",
-		"plural_name": "turnips"
+		"name": "nabo",
+		"plural_name": "nabos"
 	},
 	"unrefined-sugar": {
-		"name": "unrefined sugar"
+		"name": "azucre non refinado"
 	},
 	"vanilla": {
-		"name": "vanilla"
+		"name": "vainilla"
 	},
 	"vegetables": {
-		"name": "vegetables"
+		"name": "legumes / verduras"
 	},
 	"watercress": {
-		"name": "watercress"
+		"name": "agrión"
 	},
 	"watermelon": {
-		"name": "watermelon",
-		"plural_name": "watermelons"
+		"name": "sandia",
+		"plural_name": "sandias"
 	},
 	"white-mushroom": {
-		"name": "white mushroom",
-		"plural_name": "white mushrooms"
+		"name": "cogumelo branco",
+		"plural_name": "cogumelos brancos"
 	},
 	"white-sugar": {
-		"name": "white sugar"
+		"name": "azucre branco"
 	},
 	"xanthan-gum": {
-		"name": "xanthan gum"
+		"name": "goma xantana"
 	},
 	"yam": {
-		"name": "yam",
-		"plural_name": "yams"
+		"name": "iñame",
+		"plural_name": "iñames"
 	},
 	"yeast": {
-		"name": "yeast"
+		"name": "fermento"
 	},
 	"zucchini": {
-		"name": "zucchini",
-		"plural_name": "zucchinis"
+		"name": "cabaciña",
+		"plural_name": "cabaciñas"
 	}
 }
