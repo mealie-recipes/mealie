@@ -6,7 +6,7 @@
         "unique-name-error": "Os nomes de receitas deven ser únicos",
         "recipe-created": "Receita creada",
         "recipe-defaults": {
-            "ingredient-note": "1 Cup Flour",
+            "ingredient-note": "1 Cunca de Fariña",
             "step-text": "Os pasos da receita, como outros campos na páxina da receita, suportan a sintaxe markdown.\n\n**Adicionar un link**\n\n[Meu link](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,7 +19,7 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Nengunha receita corresponde às suas regras"
     },
     "user": {
         "user-updated": "User updated",
