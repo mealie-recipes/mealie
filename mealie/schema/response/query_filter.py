@@ -180,6 +180,9 @@ class QueryFilterBuilderComponent:
             if v is None:
                 continue
 
+            if isinstance(model_attr_type, sqltypes.String):
+                sanitized_values[i] = v.lower()
+
             if self.relationship is RelationalKeyword.LIKE or self.relationship is RelationalKeyword.NOT_LIKE:
                 if not isinstance(model_attr_type, sqltypes.String):
                     raise ValueError(
@@ -336,6 +339,9 @@ class QueryFilterBuilder:
     def _get_filter_element(
         component: QueryFilterBuilderComponent, model, model_attr, model_attr_type
     ) -> sa.ColumnElement:
+        if isinstance(model_attr_type, sqltypes.String):
+            model_attr = sa.func.lower(model_attr)
+
         # Keywords
         if component.relationship is RelationalKeyword.IS:
             element = model_attr.is_(component.validate(model_attr_type))
