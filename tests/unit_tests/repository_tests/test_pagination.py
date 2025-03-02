@@ -230,10 +230,13 @@ def test_pagination_filter_string_case_insensitive(
     upper_unit = units_repo.create(
         SaveIngredientUnit(name="mIxEd-CaSe uNiT", group_id=units_repo.group_id, use_abbreviation=True)
     )
-    query = PaginationQuery(page=1, per_page=-1, query_filter=f'name="{upper_unit.name.lower()}"')
-    unit_results = units_repo.page_all(query).items
-    assert len(unit_results) == 1
-    assert unit_results[0].id == upper_unit.id
+    try:
+        query = PaginationQuery(page=1, per_page=-1, query_filter=f'name="{upper_unit.name.lower()}"')
+        unit_results = units_repo.page_all(query).items
+        assert len(unit_results) == 1
+        assert unit_results[0].id == upper_unit.id
+    finally:
+        units_repo.delete(upper_unit.id)
 
 
 def test_pagination_filter_null(unique_user: TestUser):
