@@ -230,7 +230,7 @@
 		"name": "dente de león"
 	},
 	"demerara-sugar": {
-		"name": "demerara sugar"
+		"name": "azucre demerara"
 	},
 	"dough": {
 		"name": "masa"
@@ -247,14 +247,14 @@
 		"plural_name": "ovos"
 	},
 	"endive": {
-		"name": "endive",
-		"plural_name": "endives"
+		"name": "endivia",
+		"plural_name": "endivias"
 	},
 	"fats": {
 		"name": "graxas"
 	},
 	"fava-beans": {
-		"name": "fava beans"
+		"name": "favas"
 	},
 	"fiddlehead": {
 		"name": "fiddlehead"
@@ -282,7 +282,7 @@
 		"name": "froita"
 	},
 	"fruit-sugar": {
-		"name": "fruit sugar"
+		"name": "frutose"
 	},
 	"ful": {
 		"name": "ful"
@@ -301,13 +301,13 @@
 		"name": "manteiga ghee"
 	},
 	"giblets": {
-		"name": "giblets"
+		"name": "miúdos"
 	},
 	"ginger": {
-		"name": "ginger"
+		"name": "xenxibre"
 	},
 	"grains": {
-		"name": "grains"
+		"name": "graos"
 	},
 	"granulated-sugar": {
 		"name": "granulated sugar"
