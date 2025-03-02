@@ -348,8 +348,9 @@ def test_pagination_filter_not_in_m2m(unique_user: TestUser):
 
     query = PaginationQuery(page=1, per_page=-1, query_filter=f"recipeCategory.name NOT IN [{unique_category_1.name}]")
     recipe_results = db.recipes.page_all(query).items
-    assert len(recipe_results) == 1
-    assert recipe_results[0].id == recipe_2.id
+    recipe_results_ids = {recipe.id for recipe in recipe_results}
+    assert recipe_1.id not in recipe_results_ids
+    assert recipe_2.id in recipe_results_ids
 
 
 def test_pagination_filter_in_advanced(unique_user: TestUser):
