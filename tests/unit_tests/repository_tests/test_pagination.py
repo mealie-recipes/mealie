@@ -353,6 +353,31 @@ def test_pagination_filter_not_in_m2m(unique_user: TestUser):
     assert recipe_2.id in recipe_results_ids
 
 
+def test_pagination_filter_not_in_includes_null(unique_user: TestUser):
+    db = unique_user.repos
+    unique_category_1, unique_category_2, shared_category = (
+        db.categories.create(CategorySave(group_id=unique_user.group_id, name=random_string(10))) for _ in range(3)
+    )
+    recipe_1, recipe_2, recipe_3 = (
+        db.recipes.create(Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string()))
+        for _ in range(3)
+    )
+
+    recipe_1.recipe_category = [unique_category_1, shared_category]
+    recipe_2.recipe_category = [unique_category_2, shared_category]
+    db.recipes.update(recipe_1.slug, recipe_1)
+    db.recipes.update(recipe_2.slug, recipe_2)
+
+    query = PaginationQuery(page=1, per_page=-1, query_filter=f"recipeCategory.name NOT IN [{unique_category_1.name}]")
+    recipe_results = db.recipes.page_all(query).items
+    recipe_results_ids = {recipe.id for recipe in recipe_results}
+    assert recipe_1.id not in recipe_results_ids
+    assert recipe_2.id in recipe_results_ids
+
+    # this recipe has no categories, and therefore should be included in the results
+    assert recipe_3.id in recipe_results_ids
+
+
 def test_pagination_filter_in_advanced(unique_user: TestUser):
     database = unique_user.repos
     slug1, slug2 = (random_string(10) for _ in range(2))
