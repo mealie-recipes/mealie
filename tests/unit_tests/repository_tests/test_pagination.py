@@ -289,7 +289,7 @@ def test_pagination_filter_in(query_units: tuple[RepositoryUnit, IngredientUnit,
     assert unit_2.id in result_ids
     assert unit_3.id not in result_ids
 
-    query = PaginationQuery(page=1, per_page=-1, query_filter=f"name NOT IN [{unit_1.name}, {unit_2.name}]")
+    query = PaginationQuery(page=1, per_page=-1, query_filter=f'name IN ["{unit_3.name}"]')
     unit_results = units_repo.page_all(query).items
 
     result_ids = {unit.id for unit in unit_results}
@@ -297,7 +297,11 @@ def test_pagination_filter_in(query_units: tuple[RepositoryUnit, IngredientUnit,
     assert unit_2.id not in result_ids
     assert unit_3.id in result_ids
 
-    query = PaginationQuery(page=1, per_page=-1, query_filter=f'name IN ["{unit_3.name}"]')
+
+def test_pagination_filter_not_in(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+    units_repo, unit_1, unit_2, unit_3 = query_units
+
+    query = PaginationQuery(page=1, per_page=-1, query_filter=f"name NOT IN [{unit_1.name}, {unit_2.name}]")
     unit_results = units_repo.page_all(query).items
 
     result_ids = {unit.id for unit in unit_results}
