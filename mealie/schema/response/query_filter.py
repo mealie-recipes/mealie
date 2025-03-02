@@ -334,7 +334,11 @@ class QueryFilterBuilder:
 
     @staticmethod
     def _get_filter_element(
-        component: QueryFilterBuilderComponent, model, model_attr, model_attr_type
+        query: sa.Select,
+        component: QueryFilterBuilderComponent,
+        model: type[Model],
+        model_attr: InstrumentedAttribute,
+        model_attr_type: Any,
     ) -> sa.ColumnElement:
         # Keywords
         if component.relationship is RelationalKeyword.IS:
@@ -344,7 +348,13 @@ class QueryFilterBuilder:
         elif component.relationship is RelationalKeyword.IN:
             element = model_attr.in_(component.validate(model_attr_type))
         elif component.relationship is RelationalKeyword.NOT_IN:
-            element = model_attr.not_in(component.validate(model_attr_type))
+            vals = component.validate(model_attr_type)
+            if model_attr.parent.entity != model:
+                subq = query.with_only_columns(model.id).where(model_attr.in_(vals))
+                element = sa.not_(model.id.in_(subq))
+            else:
+                element = sa.not_(model_attr.in_(vals))
+
         elif component.relationship is RelationalKeyword.CONTAINS_ALL:
             primary_model_attr: InstrumentedAttribute = getattr(model, component.attribute_name.split(".")[0])
             element = sa.and_()
@@ -422,7 +432,7 @@ class QueryFilterBuilder:
                 if (column_alias := column_aliases.get(base_attribute_name)) is not None:
                     model_attr = column_alias
 
-                element = self._get_filter_element(component, model, model_attr, model_attr.type)
+                element = self._get_filter_element(query, component, model, model_attr, model_attr.type)
                 partial_group.append(element)
 
         # combine the completed groups into one filter
