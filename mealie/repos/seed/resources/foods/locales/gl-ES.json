@@ -214,10 +214,10 @@
 	},
 	"cucumber": {
 		"name": "cogombro",
-		"plural_name": "cucumbers"
+		"plural_name": "cogombros"
 	},
 	"cumin": {
-		"name": "cumin"
+		"name": "comiño"
 	},
 	"daikon": {
 		"name": "daikon",
@@ -316,8 +316,8 @@
 		"name": "grape seed oil"
 	},
 	"green-onion": {
-		"name": "green onion",
-		"plural_name": "green onions"
+		"name": "ceboliña",
+		"plural_name": "ceboliñas"
 	},
 	"heart-of-palm": {
 		"name": "heart of palm",
@@ -367,30 +367,30 @@
 		"name": "leavening agents"
 	},
 	"leek": {
-		"name": "leek",
-		"plural_name": "leeks"
+		"name": "porro",
+		"plural_name": "porros"
 	},
 	"legumes": {
-		"name": "legumes"
+		"name": "leguminosas"
 	},
 	"lemongrass": {
 		"name": "lemongrass"
 	},
 	"lentils": {
-		"name": "lentils"
+		"name": "lentellas"
 	},
 	"lettuce": {
-		"name": "lettuce"
+		"name": "leituga"
 	},
 	"liver": {
 		"name": "fígado",
 		"plural_name": "figados"
 	},
 	"maize": {
-		"name": "maize"
+		"name": "millo"
 	},
 	"maple-syrup": {
-		"name": "maple syrup"
+		"name": "xarope de pradairo"
 	},
 	"meat": {
 		"name": "carne"
@@ -415,13 +415,13 @@
 		"name": "nori"
 	},
 	"nutmeg": {
-		"name": "nutmeg"
+		"name": "noz-moscada"
 	},
 	"nutritional-yeast-flakes": {
 		"name": "nutritional yeast flakes"
 	},
 	"nuts": {
-		"name": "nuts"
+		"name": "froitos secos"
 	},
 	"octopuses": {
 		"name": "polbo",
@@ -431,7 +431,7 @@
 		"name": "oils"
 	},
 	"okra": {
-		"name": "okra"
+		"name": "quiabo"
 	},
 	"olive": {
 		"name": "olive"
@@ -453,7 +453,7 @@
 		"plural_name": "laranxas"
 	},
 	"oregano": {
-		"name": "oregano"
+		"name": "ourego"
 	},
 	"oysters": {
 		"name": "ostras"
