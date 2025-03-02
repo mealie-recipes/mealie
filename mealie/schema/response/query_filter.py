@@ -351,9 +351,9 @@ class QueryFilterBuilder:
             for v in component.validate(model_attr_type):
                 element = sa.and_(element, primary_model_attr.any(model_attr == v))
         elif component.relationship is RelationalKeyword.LIKE:
-            element = model_attr.like(component.validate(model_attr_type))
+            element = model_attr.ilike(component.validate(model_attr_type))
         elif component.relationship is RelationalKeyword.NOT_LIKE:
-            element = model_attr.not_like(component.validate(model_attr_type))
+            element = model_attr.not_ilike(component.validate(model_attr_type))
 
         # Operators
         elif component.relationship is RelationalOperator.EQ:
