@@ -70,10 +70,10 @@
             "button_text": "Aceptar Convite"
         },
         "test": {
-            "subject": "Mealie Test Email",
-            "header_text": "Test Email",
-            "message_top": "This is a test email.",
-            "message_bottom": "Please click the button above to test the email.",
+            "subject": "Email de Prova do Mealie",
+            "header_text": "Email de Prova",
+            "message_top": "Este é un email de prova.",
+            "message_bottom": "Clique no botón acima para provar o email.",
             "button_text": "Abrir o Mealie"
         }
     }
