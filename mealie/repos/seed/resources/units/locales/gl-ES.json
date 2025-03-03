@@ -1,7 +1,7 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
-        "plural_name": "teaspoons",
+        "name": "culler de té",
+        "plural_name": "culleres de té",
         "description": "",
         "abbreviation": "culleriña"
     },
@@ -12,14 +12,14 @@
         "abbreviation": "culleradas sopeiras"
     },
     "cup": {
-        "name": "taza",
-        "plural_name": "cups",
+        "name": "cunca",
+        "plural_name": "cuncas",
         "description": "",
         "abbreviation": "c"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
-        "plural_name": "fluid ounces",
+        "name": "onza fluida",
+        "plural_name": "onzas fluidas",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -67,20 +67,20 @@
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "gram",
-        "plural_name": "grams",
+        "name": "gramo",
+        "plural_name": "gramos",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
-        "plural_name": "kilograms",
+        "name": "quilogramo",
+        "plural_name": "quilogramos",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
-        "plural_name": "milligrams",
+        "name": "miligramo",
+        "plural_name": "miligramos",
         "description": "",
         "abbreviation": "mg"
     },
@@ -97,14 +97,14 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
-        "plural_name": "servings",
+        "name": "porción",
+        "plural_name": "porcions",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
-        "plural_name": "heads",
+        "name": "cabeza",
+        "plural_name": "cabezas",
         "description": "",
         "abbreviation": ""
     },
@@ -121,20 +121,20 @@
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "manchea",
+        "plural_name": "mancheas",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "embalaxe",
+        "plural_name": "embalaxes",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "areiña",
+        "plural_name": "areiñas",
         "description": "",
         "abbreviation": ""
     }
