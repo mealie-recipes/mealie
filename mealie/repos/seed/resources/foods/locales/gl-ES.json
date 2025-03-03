@@ -295,7 +295,7 @@
 		"plural_name": "allos"
 	},
 	"gem-squash": {
-		"name": "gem squash"
+		"name": "cabaza gem squash"
 	},
 	"ghee": {
 		"name": "manteiga ghee"
@@ -310,49 +310,49 @@
 		"name": "graos"
 	},
 	"granulated-sugar": {
-		"name": "granulated sugar"
+		"name": "azucre granulado"
 	},
 	"grape-seed-oil": {
-		"name": "grape seed oil"
+		"name": "aceite de semente de uva"
 	},
 	"green-onion": {
 		"name": "ceboliña",
 		"plural_name": "ceboliñas"
 	},
 	"heart-of-palm": {
-		"name": "heart of palm",
-		"plural_name": "heart of palms"
+		"name": "palmito",
+		"plural_name": "palmitos"
 	},
 	"hemp": {
-		"name": "hemp"
+		"name": "cáñamo"
 	},
 	"herbs": {
-		"name": "herbs"
+		"name": "herbas"
 	},
 	"honey": {
 		"name": "mel"
 	},
 	"isomalt": {
-		"name": "isomalt"
+		"name": "isomalte"
 	},
 	"jackfruit": {
 		"name": "jackfruit",
 		"plural_name": "jackfruits"
 	},
 	"jaggery": {
-		"name": "jaggery"
+		"name": "azucre mascavo"
 	},
 	"jams": {
-		"name": "jams"
+		"name": "xeleas"
 	},
 	"jellies": {
-		"name": "jellies"
+		"name": "xelatinas"
 	},
 	"jerusalem-artichoke": {
-		"name": "jerusalem artichoke"
+		"name": "alcachofa de xerusalén"
 	},
 	"jicama": {
-		"name": "jicama"
+		"name": "xícama"
 	},
 	"kale": {
 		"name": "kale"
@@ -584,8 +584,8 @@
 		"name": "espinaca"
 	},
 	"spring-onion": {
-		"name": "spring onion",
-		"plural_name": "spring onions"
+		"name": "ceboliña",
+		"plural_name": "ceboliñas"
 	},
 	"squash": {
 		"name": "cabaza",
