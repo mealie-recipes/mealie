@@ -465,22 +465,22 @@
 		"name": "paprika"
 	},
 	"parsley": {
-		"name": "parsley"
+		"name": "perexil"
 	},
 	"parsnip": {
-		"name": "parsnip",
-		"plural_name": "parsnips"
+		"name": "charouvia",
+		"plural_name": "charouvias"
 	},
 	"pear": {
 		"name": "pera",
 		"plural_name": "peras"
 	},
 	"peas": {
-		"name": "peas"
+		"name": "chícharos"
 	},
 	"pepper": {
 		"name": "",
-		"plural_name": "peppers"
+		"plural_name": "pimentos"
 	},
 	"pineapple": {
 		"name": "ananás",
@@ -498,7 +498,7 @@
 		"plural_name": "patacas"
 	},
 	"poultry": {
-		"name": "poultry"
+		"name": "carne de aves"
 	},
 	"powdered-sugar": {
 		"name": "azucre en po"
