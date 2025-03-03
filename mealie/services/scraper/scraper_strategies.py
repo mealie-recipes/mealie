@@ -200,7 +200,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
             slug="",
             image=try_get_default(None, "image", None, cleaner.clean_image),
             description=try_get_default(None, "description", "", cleaner.clean_string),
-            nutrition=try_get_default(None, "nutrition", None, cleaner.clean_nutrition),
+            nutrition=try_get_default(scraped_data.nutrients, "nutrition", None, cleaner.clean_nutrition),
             recipe_yield=try_get_default(scraped_data.yields, "recipeYield", "1", cleaner.clean_string),
             recipe_ingredient=try_get_default(
                 scraped_data.ingredients,
