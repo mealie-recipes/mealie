@@ -253,7 +253,7 @@
     "default-recipe-preferences": "Preferencias de Receitas Predeterminadas",
     "group-preferences": "Preferencias do Grupo",
     "private-group": "Grupo Privado",
-    "private-group-description": "Setting your group to private will disable all public view options. This overrides any individual public view settings",
+    "private-group-description": "Definir o seu grupo como privado, desativará todas as opcións de visualización pública. Isto substitui calquer definición individual de visualización pública",
     "enable-public-access": "Habilitar o Acceso Público",
     "enable-public-access-description": "Fai que as receitas do grupo sexan públicas de forma predeterminada e permita que os visitantes vexan receitas sen iniciar sesión",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Permite que os usuarios alleos ao teu grupo vexan as túas receitas",
@@ -648,18 +648,18 @@
     "parser": {
       "ingredient-parser": "Analizador de Ingredientes",
       "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
-      "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
+      "alerts-explainer": "Serán mostradas alertas se se encontra un alimento ou unidade correspondente, mas que non exista na base de datos.",
       "select-parser": "Seleccione Analizador",
       "natural-language-processor": "Procesador de Linguaxen Natural",
       "brute-parser": "Analizador Bruto",
       "openai-parser": "Analizador OpenAI",
       "parse-all": "Analisar todo",
       "no-unit": "Sen unidades",
-      "missing-unit": "Create missing unit: {unit}",
-      "missing-food": "Create missing food: {food}",
+      "missing-unit": "Crear a unidade que falta: {unit}",
+      "missing-food": "Crear a comida que falta: {food}",
       "no-food": "Sen Comida"
     },
-    "reset-servings-count": "Reset Servings Count",
+    "reset-servings-count": "Reiniciar Contador de Porcións",
     "not-linked-ingredients": "Ingredientes Adicionais"
   },
   "recipe-finder": {
