@@ -73,7 +73,7 @@
     "what-events": "A que eventos debería subscribirse este notificador?",
     "user-events": "Eventos de Usuario",
     "mealplan-events": "Eventos do Menú",
-    "when-a-user-in-your-group-creates-a-new-mealplan": "Cando un usuario do teu grupo crea un novo plan de comidas",
+    "when-a-user-in-your-group-creates-a-new-mealplan": "Cando un usuario do teu grupo crea un novo menú",
     "shopping-list-events": "Eventos da Lista da Compra",
     "cookbook-events": "Eventos de Libros de Cociña",
     "tag-events": "Eventos de Etiquetas",
@@ -386,35 +386,35 @@
       "title": "Xestor de Receitas Copy Me That"
     },
     "paprika": {
-      "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-      "title": "Paprika Recipe Manager"
+      "description-long": "O Mealie pode importar receitas da aplicación Paprika. Exporte as suas receitas do Paprika, renomee a extensión de exportación para . zip e carguea abaixo.",
+      "title": "Xestor de receitas Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+      "description-long": "O Mealie pode importar receitas de versións anteriores à v1.0. Exporte as suas receitas na instancia antiga e cargue o ficheiro zip abaixo. Note que só se poden importar receitas da exportación.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
-      "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
+      "description-long": "O Mealie pode importar receitas do Tandoor. Exporte os seus datos no formato \"Padrón\" e despois cargue o . zip abaixo.",
       "title": "Receitas do Tandoor"
     },
-    "recipe-data-migrations": "Recipe Data Migrations",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
-    "choose-migration-type": "Choose Migration Type",
-    "tag-all-recipes": "Tag all recipes with {tag-name} tag",
-    "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+    "recipe-data-migrations": "Migracións de Datos de Receita",
+    "recipe-data-migrations-explanation": "As receitas poden ser migradas desde outra aplicación compatível a Mealie. Esta é unha boa forma de comezar a usar o Mealie.",
+    "coming-from-another-application-or-an-even-older-version-of-mealie": "Ven de outra aplicación ou de unha versión ainda mais antiga do Mealie? Verifique as migracións e vexa se os seus datos poden ser importados.",
+    "choose-migration-type": "Escolla o tipo de migración",
+    "tag-all-recipes": "Marcar todas as receitas coa etiqueta {tag-name}",
+    "nextcloud-text": "As receitas do Nextcloud poden ser importadas dun ficheiro zip que contén os datos almacenados no Nextcloud. Vexa abaixo o exemplo de estrutura de cartafoles para garantir que as suas receitas podan ser importadas.",
     "chowdown-text": "Mealie admite de forma nativa o formato do repositorio de chowdown. Descarga o repositorio de códigos como ficheiro .zip e cárgao a continuación.",
     "recipe-1": "Receita 1",
     "recipe-2": "Receita 2",
-    "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+    "paprika-text": "O Mealie pode importar receitas da aplicación Paprika. Exporte as suas receitas do Paprika, renomee a extensión de exportación a . zip e carguea abaixo.",
+    "mealie-text": "O Mealie pode importar receitas de versións anteriores à v1.0. Exporte as suas receitas na instancia antiga e cargue o ficheiro zip abaixo. Note que só se poden importar receitas da exportación.",
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie pode importar receitas de Plan to Eat."
     },
     "myrecipebox": {
       "title": "My Recipe Box",
-      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
+      "description-long": "O Mealie pode importar receitas de My Recipe Box. Exporte as suas receitas no formato CSV e despois cargue o ficheiro . csv abaixo."
     },
     "recipekeeper": {
       "title": "Garda Receitas",
@@ -532,7 +532,7 @@
     "no-recipe": "Sen Receita",
     "locked-by-owner": "Bloqueado polo Propietario",
     "join-the-conversation": "Únete á Conversa",
-    "add-recipe-to-mealplan": "Adicionar receita ao Plan de Refeccions",
+    "add-recipe-to-mealplan": "Adicionar receita ao Menú",
     "entry-type": "Tipo de Rexistro",
     "date-format-hint": "Formato MM/DD/YYYY",
     "date-format-hint-yyyy-mm-dd": "Formato AAAA-MM-DD",
@@ -542,9 +542,9 @@
     "recipe-added-to-list": "Receita adicionada à lista",
     "recipes-added-to-list": "Receitas adicionadas à lista",
     "successfully-added-to-list": "Adicionado à lista con éxito",
-    "recipe-added-to-mealplan": "Receita adicionada ao plan de refeccións",
+    "recipe-added-to-mealplan": "Receita adicionada ao menú",
     "failed-to-add-recipes-to-list": "Erro ao adicionar a receita à lista",
-    "failed-to-add-recipe-to-mealplan": "Erro ao adicionar receita ao plan de refeccións",
+    "failed-to-add-recipe-to-mealplan": "Erro ao adicionar receita ao menú",
     "failed-to-add-to-list": "Erro ao adicionar à lista",
     "yield": "Yield",
     "yields-amount-with-text": "Yields {amount} {text}",
@@ -612,7 +612,7 @@
     "scrape-recipe-suggest-bulk-importer": "Prove o importador en masa",
     "scrape-recipe-have-raw-html-or-json-data": "Ten datos HTML ou JSON en bruto?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "É posível importar diretamente a partir de datos en bruto",
-    "import-original-keywords-as-tags": "Import original keywords as tags",
+    "import-original-keywords-as-tags": "Importar palavras-chave orixinais como etiquetas",
     "stay-in-edit-mode": "Permanecer no modo de edición",
     "import-from-zip": "Importar de Zip",
     "import-from-zip-description": "Importar unha única receita exportada de outra instancia Mealie.",
@@ -629,12 +629,12 @@
     "bulk-imports": "Importacións en masa",
     "bulk-import-process-has-started": "Proceso de importación en masa iniciado",
     "bulk-import-process-has-failed": "Erro no proceso de importación en masa",
-    "report-deletion-failed": "Report deletion failed",
+    "report-deletion-failed": "Erro ao eliminar relatorio",
     "recipe-debugger": "Depurador de Receitas",
     "recipe-debugger-description": "Grab the URL of the recipe you want to debug and paste it here. The URL will be scraped by the recipe scraper and the results will be displayed. If you don't see any data returned, the site you are trying to scrape is not supported by Mealie or its scraper library.",
     "use-openai": "Utilizar OpenAI",
     "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
-    "debug": "Debug",
+    "debug": "Depurar",
     "tree-view": "Vista en árvore",
     "recipe-servings": "Porcións por receita",
     "recipe-yield": "Recipe Yield",
@@ -708,7 +708,7 @@
       "backup-deleted": "Backup eliminado",
       "restore-success": "Restore successful",
       "restore-fail": "Restore failed. Check your server logs for more details",
-      "backup-tag": "Backup Tag",
+      "backup-tag": "Etiqueta de Backup",
       "create-heading": "Crea Unha Copia de Seguridade",
       "delete-backup": "Delete Backup",
       "error-creating-backup-see-log-file": "Error Creating Backup. See Log File",
@@ -1134,7 +1134,7 @@
       "category-data": "Datos de Categoria"
     },
     "tags": {
-      "new-tag": "Nova etiqueta",
+      "new-tag": "Nova Etiqueta",
       "edit-tag": "Editar Etiqueta",
       "tag-data": "Datos de Etiqueta"
     },
@@ -1351,7 +1351,7 @@
     "filter-options": "Filter Options",
     "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
     "require-all-categories": "Require All Categories",
-    "require-all-tags": "Require All Tags",
+    "require-all-tags": "Require Todas as Etiquetas",
     "require-all-tools": "Require All Tools",
     "cookbook-name": "Cookbook Name",
     "cookbook-with-name": "Cookbook {0}",
