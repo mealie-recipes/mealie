@@ -1,9 +1,9 @@
 {
 	"acorn-squash": {
-		"name": "acorn squash"
+		"name": "cabaza de landra"
 	},
 	"alfalfa-sprouts": {
-		"name": "alfalfa sprouts"
+		"name": "brotes de alfafa"
 	},
 	"anchovies": {
 		"name": "anchoas"
@@ -22,8 +22,8 @@
 		"name": "espárragos"
 	},
 	"avocado": {
-		"name": "avocado",
-		"plural_name": "avocado"
+		"name": "aguacate",
+		"plural_name": "aguacates"
 	},
 	"bacon": {
 		"name": "bacon"
@@ -35,26 +35,26 @@
 		"name": "bicarbonato de sodio"
 	},
 	"baking-sugar": {
-		"name": "baking sugar"
+		"name": "azucre moi fino"
 	},
 	"bar-sugar": {
-		"name": "bar sugar"
+		"name": "azucre en po"
 	},
 	"basil": {
-		"name": "basil"
+		"name": "alfábega"
 	},
 	"beans": {
 		"name": "feixóns"
 	},
 	"bell-peppers": {
-		"name": "bell peppers",
-		"plural_name": "bell peppers"
+		"name": "pimento",
+		"plural_name": "pimentos"
 	},
 	"blackberries": {
 		"name": "amoras"
 	},
 	"bok-choy": {
-		"name": "bok choy"
+		"name": "col chinesa"
 	},
 	"brassicas": {
 		"name": "brassicas"
