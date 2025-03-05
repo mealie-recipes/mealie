@@ -277,7 +277,7 @@
     "admin-group-management-text": "对本群组的更改将被立即应用。",
     "group-id-value": "群组ID：{0}",
     "total-households": "Total Households",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "你必须先选择一个组才能选择一个家庭"
   },
   "household": {
     "household": "Household",
@@ -288,8 +288,8 @@
     "household-group": "Household Group",
     "household-management": "Household Management",
     "manage-households": "Manage Households",
-    "admin-household-management": "Admin Household Management",
-    "admin-household-management-text": "Changes to this household will be reflected immediately.",
+    "admin-household-management": "家庭管理员选项",
+    "admin-household-management-text": "对家庭的更改将立即生效。",
     "household-id-value": "Household Id: {0}",
     "private-household": "Private Household",
     "private-household-description": "Setting your household to private will disable all public view options. This overrides any individual public view settings",
