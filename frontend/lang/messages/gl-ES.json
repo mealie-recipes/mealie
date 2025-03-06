@@ -803,7 +803,7 @@
     },
     "webhooks": {
       "test-webhooks": "Webhooks de Prova",
-      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at",
+      "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Os URLs listados abaixo receberán webhooks que conteñen os datos da receita para o menú no dia marcado. Atualmente, os webhooks serán executados en",
       "webhook-url": "URL do Webhook",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
