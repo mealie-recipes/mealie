@@ -808,14 +808,14 @@
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
       "webhook-name": "Nome do Webhook",
-      "description": "The webhooks defined below will be executed when a meal is defined for the day. At the scheduled time the webhooks will be sent with the data from the recipe that is scheduled for the day. Note that webhook execution is not exact. The webhooks are executed on a 5 minutes interval so the webhooks will be executed within 5 +/- minutes of the scheduled."
+      "description": "Os webhooks definidos abaixo serán executados cando se defina unha comida para o dia. À hora programada, os webhooks serán enviados cos datos da receita que está programada para o dia. Note que a execución do webhook non é exacta. Os webhooks son executados nun intervalo de 5 minutos, polo que serán executados nun intervalo de +/- 5 minutos en relación à hora programada."
     },
     "bug-report": "Informe de Erros",
     "bug-report-information": "Use this information to report a bug. Providing details of your instance to developers is the best way to get your issues resolved quickly.",
     "tracker": "Rastreador",
     "configuration": "Configuración",
     "docker-volume": "Volume do Docker",
-    "docker-volume-help": "Mealie requires that the frontend container and the backend share the same docker volume or storage. This ensures that the frontend container can properly access the images and assets stored on disk.",
+    "docker-volume-help": "O Mealie require que o contedor do frontend e do backend compartan o mesmo volume ou almacenamento do docker. Isso garante que o contedor do frontend pode aceder corretamente às imaxens e recursos almacenados no disco.",
     "volumes-are-misconfigured": "Os volumes están mal configurados.",
     "volumes-are-configured-correctly": "Os volumes están configurados corretamente.",
     "status-unknown-try-running-a-validation": "Estado descoñecido. Tente executar unha validación.",
@@ -830,7 +830,7 @@
     "general-about": "Información Xeral",
     "application-version": "Versión da Aplicación",
     "application-version-error-text": "A túa versión actual ({0}) non coincide coa última versión. Considera actualizar á última versión ({1}).",
-    "mealie-is-up-to-date": "Mealie is up to date",
+    "mealie-is-up-to-date": "Mealie está atualizado",
     "secure-site": "Sitio Seguro",
     "secure-site-error-text": "Serve via localhost or secure with https. Clipboard and additional browser APIs may not work.",
     "secure-site-success-text": "Accédese ao sitio por localhost ou https",
@@ -1040,7 +1040,7 @@
   "language-dialog": {
     "translated": "translated",
     "choose-language": "Choose Language",
-    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
+    "select-description": "Escolla o idioma para o Mealie. Esta opción só se aplica a ti e non a outros usuarios.",
     "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
     "read-the-docs": "Read the docs"
   },
@@ -1151,9 +1151,9 @@
     "create-a-new-group": "Crear un Novo Grupo",
     "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
     "group-details": "Detalles do Grupo",
-    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
+    "group-details-description": "Antes de crear unha conta é necesario crear un grupo. Será o único membro do seu grupo, mas poderá convidar outros mais tarde. Os membros do seu grupo poden compartir menús, listas de compras, receitas e moito mais!",
     "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
+    "use-seed-data-description": "O Mealie ven cunha coleción de Alimentos, Unidades e Rótulos que poden ser usados para preencher o seu grupo con dados úteis para organizar as suas receitas.",
     "account-details": "Detalles da Conta"
   },
   "validation": {
@@ -1253,7 +1253,7 @@
       "actions-description-destructive": "destrutivas",
       "actions-description-irreversible": "irreversible",
       "logs-action-refresh": "Refresh Logs",
-      "logs-page-title": "Mealie Logs",
+      "logs-page-title": "Rexistros do Mealie",
       "logs-tail-lines-label": "Tail Lines"
     },
     "mainentance": {
@@ -1300,9 +1300,9 @@
     "account-summary": "Resumo da Conta",
     "account-summary-description": "Aqui está un resumo das informacións do seu grupo.",
     "group-statistics": "Estatísticas do Grupo",
-    "group-statistics-description": "Your Group Statistics provide some insight how you're using Mealie.",
+    "group-statistics-description": "A Estatísticas do seu Grupo proporcionan algunhas informacióna sobre como usa o Mealie.",
     "household-statistics": "Estatísticas da Casa",
-    "household-statistics-description": "Your Household Statistics provide some insight how you're using Mealie.",
+    "household-statistics-description": "As Estatísticas da Casa proporcionan algunhas informacións sobre como utiliza o Mealie.",
     "storage-capacity": "Capacidade de Almacenamento",
     "storage-capacity-description": "A sua capacidade de almacenamento é un cálculo das imaxens e itens que cargou.",
     "personal": "Persoal",
@@ -1347,7 +1347,7 @@
     "hide-cookbooks-from-other-households": "Ocultar libros de receitas de outras familias",
     "hide-cookbooks-from-other-households-description": "Cando esté ativado, somente os libros de receitas da sua familia aparecerán na barra lateral",
     "public-cookbook": "Public Cookbook",
-    "public-cookbook-description": "Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.",
+    "public-cookbook-description": "Os Libros de Receitas públicos poden ser compartidos con usuarios non rexistrados e serán mostrados na sua páxina de grupos.",
     "filter-options": "Filter Options",
     "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
     "require-all-categories": "Require All Categories",
