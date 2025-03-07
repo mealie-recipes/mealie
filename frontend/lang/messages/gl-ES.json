@@ -1149,7 +1149,7 @@
     "registration-success": "Rexistrado con Éxito",
     "join-a-group": "Xuntarse a un grupo",
     "create-a-new-group": "Crear un Novo Grupo",
-    "provide-registration-token-description": "Please provide the registration token associated with the group that you'd like to join. You'll need to obtain this from an existing group member.",
+    "provide-registration-token-description": "Por favor, proporcione o token de rexistro asociado ao grupo ao que gostaria de unir. Precisará obtelo dun membro existente do grupo.",
     "group-details": "Detalles do Grupo",
     "group-details-description": "Antes de crear unha conta é necesario crear un grupo. Será o único membro do seu grupo, mas poderá convidar outros mais tarde. Os membros do seu grupo poden compartir menús, listas de compras, receitas e moito mais!",
     "use-seed-data": "Utilizar datos xerados",
@@ -1170,7 +1170,7 @@
   },
   "recipe-share": {
     "expiration-date": "Data de Validade",
-    "share-recipe": "Share Recipe",
+    "share-recipe": "Compartir receita",
     "default-30-days": "30 Dias por Defeito",
     "expires-at": "Expira en",
     "recipe-link-copied-message": "Link da receita copiado para a área de transferencia"
@@ -1187,55 +1187,55 @@
     "preview-markdown-button-label": "Pré-visualizar Markdown"
   },
   "demo": {
-    "info_message_with_version": "This is a Demo for version: {version}",
-    "demo_username": "Username: {username}",
-    "demo_password": "Password: {password}"
+    "info_message_with_version": "Esta é unha Demonstración para a versión: {version}",
+    "demo_username": "Nome do usuario: {username}",
+    "demo_password": "Seña: {password}"
   },
   "ocr-editor": {
     "ocr-editor": "Editor OCR",
     "toolbar": "Barra de ferramentas",
-    "selection-mode": "Selection mode",
-    "pan-and-zoom-picture": "Pan and zoom picture",
-    "split-text": "Split text",
-    "preserve-line-breaks": "Preserve original line breaks",
-    "split-by-block": "Split by text block",
-    "flatten": "Flatten regardless of original formating",
+    "selection-mode": "Modo de seleción",
+    "pan-and-zoom-picture": "Mover e ampliar imaxen",
+    "split-text": "Dividir texto",
+    "preserve-line-breaks": "Preservar quebra de liña orixinais",
+    "split-by-block": "Dividir por bloque de texto",
+    "flatten": "Nivelar independentemente do formato orixinal",
     "help": {
       "help": "Axuda",
-      "mouse-modes": "Mouse modes",
-      "selection-mode": "Selection Mode (default)",
-      "selection-mode-desc": "The selection mode is the main mode that can be used to enter data:",
+      "mouse-modes": "Modos do rato",
+      "selection-mode": "Modo de Seleción (padrón)",
+      "selection-mode-desc": "O modo de seleción é o modo principal disponível para inserir dados:",
       "selection-mode-steps": {
-        "draw": "Draw a rectangle on the text you want to select.",
-        "click": "Click on any field on the right and then click back on the rectangle above the image.",
-        "result": "The selected text will appear inside the previously selected field."
+        "draw": "Deseñe un retángulo no texto que desexa selecionar.",
+        "click": "Clique en calquer campo à direita e despois clique novamente no retángulo acima da imaxen.",
+        "result": "O texto selecionado aparecerá no campo selecionado anteriormente."
       },
-      "pan-and-zoom-mode": "Pan and Zoom Mode",
-      "pan-and-zoom-desc": "Select pan and zoom by clicking the icon. This mode allows to zoom inside the image and move around to make using big images easier.",
-      "split-text-mode": "Split Text modes",
+      "pan-and-zoom-mode": "Modo de Mover e Ampliar",
+      "pan-and-zoom-desc": "Selecione mover e ampliar, clicando no icone. Este modo permite ampliar a imaxen e movela, para facilitar a utilización de imaxens grandes.",
+      "split-text-mode": "Modos de Dividir Texto",
       "split-modes": {
-        "line-mode": "Line mode (default)",
+        "line-mode": "Mode de Liña (padrón)",
         "line-mode-desc": "No modo de liña, o texto será propagado mantendo as quebras de liña orixinais. Este modo é útil cando se usa o adicionar en masa nunha lista de ingredientes en que cada ingrediente é unha liña.",
-        "block-mode": "Block mode",
+        "block-mode": "Modo de bloque",
         "block-mode-desc": "No modo de bloque, o texto será dividido en bloques. Este modo é útil cando se adiciona instrucións en masa que son habitualmente escritas en parágrafos.",
-        "flat-mode": "Flat mode",
-        "flat-mode-desc": "In flat mode, the text will be added to the selected recipe field with no line breaks."
+        "flat-mode": "Modo plano",
+        "flat-mode-desc": "No modo plano, o texto será adicionado no campo selecionado da receita sen quebras de liña."
       }
     }
   },
   "admin": {
     "maintenance": {
-      "storage-details": "Storage Details",
+      "storage-details": "Detalles de almacenamento",
       "page-title": "Mantemento do Sitio",
       "summary-title": "Sumario",
       "button-label-get-summary": "Obter un Resumo",
       "button-label-open-details": "Detalles",
       "info-description-data-dir-size": "Tamaño do Directorio de Datos",
-      "info-description-log-file-size": "Log File Size",
+      "info-description-log-file-size": "Tamaño do Ficheiro de Rexistro",
       "info-description-cleanable-directories": "Directorios Eliminables",
       "info-description-cleanable-images": "Imaxes Eliminables",
       "storage": {
-        "title-temporary-directory": "Temporary Directory (.temp)",
+        "title-temporary-directory": "Diretorio temporario (.temp)",
         "title-backups-directory": "Directorio de Copias de Seguridade (copias de seguridade)",
         "title-groups-directory": "Groups Directory (groups)",
         "title-recipes-directory": "Recipes Directory (recipes)",
