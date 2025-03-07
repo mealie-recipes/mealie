@@ -1041,8 +1041,8 @@
     "translated": "traducido",
     "choose-language": "Escolla o idioma",
     "select-description": "Escolla o idioma para o Mealie. Esta opción só se aplica a ti e non a outros usuarios.",
-    "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
-    "read-the-docs": "Read the docs"
+    "how-to-contribute-description": "Hai algunha cousa por traducir, mal traducida ou o seu idioma non consta na lista? {read-the-docs-link} sobre como contribuir!",
+    "read-the-docs": "Lea os documentos"
   },
   "data-pages": {
     "foods": {
