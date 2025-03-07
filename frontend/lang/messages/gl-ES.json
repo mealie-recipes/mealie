@@ -1030,16 +1030,16 @@
     "user-can-manage-group": "O usuario pode xestionar o grupo",
     "user-can-manage-household": "O usuario pode xestionar a casa",
     "user-can-organize-group-data": "O usuario pode organizar datos do grupo",
-    "enable-advanced-features": "Enable advanced features",
-    "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
-    "forgot-password": "Forgot Password",
-    "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
-    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
+    "enable-advanced-features": "Habilitar recursos avanzados",
+    "it-looks-like-this-is-your-first-time-logging-in": "Parece que este é o seu primeiro login.",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Non quer voltar a ver isto? Non se esqueza de alterar o seu email nas suas definicións de usuario!",
+    "forgot-password": "Esquecin a miña seña",
+    "forgot-password-text": "Por favor, dixite o seu enderezo de email para enviarmos un link para redefinir a sua seña.",
+    "changes-reflected-immediately": "As alteracións deste usuario serán aplicadas imediatamente."
   },
   "language-dialog": {
-    "translated": "translated",
-    "choose-language": "Choose Language",
+    "translated": "traducido",
+    "choose-language": "Escolla o idioma",
     "select-description": "Escolla o idioma para o Mealie. Esta opción só se aplica a ti e non a outros usuarios.",
     "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
     "read-the-docs": "Read the docs"
