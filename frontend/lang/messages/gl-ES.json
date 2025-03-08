@@ -188,7 +188,7 @@
     "run": "Executar",
     "menu": "Menú",
     "a-name-is-required": "Requírese un Nome",
-    "delete-with-name": "Delete {name}",
+    "delete-with-name": "Eliminar {name}",
     "confirm-delete-generic-with-name": "Estás seguro de que queres eliminar este {name}?",
     "confirm-delete-own-admin-account": "Ten en conta que estás tentando eliminar a túa propia conta de administrador. Esta acción non se pode desfacer e eliminarase permanentemente a túa conta?",
     "organizer": "Organizador",
@@ -372,7 +372,7 @@
     "previous-migrations": "Migracións Anteriores",
     "recipe-migration": "Migración de Receitas",
     "chowdown": {
-      "description": "Migra os datos dende Chowdown",
+      "description": "Migra os datos desde Chowdown",
       "description-long": "Mealie admite de forma nativa o formato do repositorio de chowdown. Descarga o repositorio de códigos como ficheiro .zip e cárgao a continuación.",
       "title": "Chowdown"
     },
@@ -417,7 +417,7 @@
       "description-long": "O Mealie pode importar receitas de My Recipe Box. Exporte as suas receitas no formato CSV e despois cargue o ficheiro . csv abaixo."
     },
     "recipekeeper": {
-      "title": "Garda Receitas",
+      "title": "Recipe Keeper",
       "description-long": "Mealie pode importar receitas do Garda Receitas. Exporta as túas receitas en formato zip e, a continuación, carga o ficheiro .zip abaixo."
     }
   },
@@ -534,7 +534,7 @@
     "join-the-conversation": "Únete á Conversa",
     "add-recipe-to-mealplan": "Adicionar receita ao Menú",
     "entry-type": "Tipo de Rexistro",
-    "date-format-hint": "Formato MM/DD/YYYY",
+    "date-format-hint": "Formato MM/DD/AAAA",
     "date-format-hint-yyyy-mm-dd": "Formato AAAA-MM-DD",
     "add-to-list": "Adicionar à Lista",
     "add-to-plan": "Adicionar ao Plan",
