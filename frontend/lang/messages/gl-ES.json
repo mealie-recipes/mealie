@@ -882,11 +882,11 @@
     "are-you-sure-you-want-to-check-all-items": "Ten a certeza de que pretende selecionar todos os itens?",
     "are-you-sure-you-want-to-uncheck-all-items": "Ten a certeza de que pretende desmarcar todos os itens?",
     "are-you-sure-you-want-to-delete-checked-items": "Ten a certeza de que pretende eliminar todos os itens selecionados?",
-    "no-shopping-lists-found": ""
+    "no-shopping-lists-found": "Nengunha Lista de Compras Encontrada"
   },
   "sidebar": {
     "all-recipes": "Todas as Receitas",
-    "backups": "Copias de seguridade",
+    "backups": "Copias de Seguridade",
     "categories": "Categorias",
     "cookbooks": "Libros de Receitas",
     "dashboard": "Panel de control",
@@ -1147,7 +1147,7 @@
   "user-registration": {
     "user-registration": "Rexistro de Usuario",
     "registration-success": "Rexistrado con Éxito",
-    "join-a-group": "Xuntarse a un grupo",
+    "join-a-group": "Xuntarse a un Grupo",
     "create-a-new-group": "Crear un Novo Grupo",
     "provide-registration-token-description": "Por favor, proporcione o token de rexistro asociado ao grupo ao que gostaria de unir. Precisará obtelo dun membro existente do grupo.",
     "group-details": "Detalles do Grupo",
