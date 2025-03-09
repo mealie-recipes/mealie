@@ -9,7 +9,7 @@
 		"name": "acciughe"
 	},
 	"apples": {
-		"name": "mele",
+		"name": "mela",
 		"plural_name": "mele"
 	},
 	"artichoke": {
@@ -44,10 +44,10 @@
 		"name": "basilico"
 	},
 	"beans": {
-		"name": "faglioli"
+		"name": "fagioli"
 	},
 	"bell-peppers": {
-		"name": "peperoni",
+		"name": "peperone",
 		"plural_name": "peperoni"
 	},
 	"blackberries": {
@@ -78,7 +78,7 @@
 		"name": "broccoletto"
 	},
 	"brown-sugar": {
-		"name": "zucchero bruno"
+		"name": "zucchero di canna"
 	},
 	"brussels-sprouts": {
 		"name": "cavoletti di Bruxelles"
@@ -154,7 +154,7 @@
 	},
 	"chilli-peppers": {
 		"name": "peperoncino",
-		"plural_name": "peperoncino"
+		"plural_name": "peperoncini"
 	},
 	"chinese-leaves": {
 		"name": "cavolo di pechino"
@@ -175,7 +175,7 @@
 		"name": "burro chiarificato"
 	},
 	"coconut": {
-		"name": "cocco",
+		"name": "noce di cocco",
 		"plural_name": "noci di cocco"
 	},
 	"coconut-milk": {
