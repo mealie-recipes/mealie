@@ -5,6 +5,7 @@ import os
 from abc import ABC, abstractmethod
 from pathlib import Path
 from textwrap import dedent
+from typing import Any
 
 from openai import NOT_GIVEN, AsyncOpenAI
 from openai.types.chat import ChatCompletion
@@ -136,7 +137,11 @@ class OpenAIService(BaseService):
         return "\n".join(content_parts)
 
     async def _get_raw_response(
-        self, prompt: str, content: list[dict], temperature=0.2, force_json_response=True
+        self,
+        prompt: str,
+        content: list[dict],
+        temperature=0.2,
+        response_format: BaseModel | dict[str, Any] | None = None,
     ) -> ChatCompletion:
         client = self.get_client()
         return await client.chat.completions.create(
@@ -152,7 +157,7 @@ class OpenAIService(BaseService):
             ],
             model=self.model,
             temperature=temperature,
-            response_format={"type": "json_object"} if force_json_response else NOT_GIVEN,
+            response_format=response_format or NOT_GIVEN,
         )
 
     async def get_response(
@@ -162,7 +167,7 @@ class OpenAIService(BaseService):
         *,
         images: list[OpenAIImageBase] | None = None,
         temperature=0.2,
-        force_json_response=True,
+        response_format: BaseModel | dict[str, Any] | None = None,
     ) -> str | None:
         """Send data to OpenAI and return the response message content"""
         if images and not self.enable_image_services:
@@ -174,7 +179,7 @@ class OpenAIService(BaseService):
             for image in images or []:
                 user_messages.append(image.build_message())
 
-            response = await self._get_raw_response(prompt, user_messages, temperature, force_json_response)
+            response = await self._get_raw_response(prompt, user_messages, temperature, response_format)
             if not response.choices:
                 return None
             return response.choices[0].message.content

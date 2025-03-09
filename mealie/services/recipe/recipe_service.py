@@ -497,7 +497,10 @@ class OpenAIRecipeService(RecipeServiceBase):
 
         try:
             response = await openai_service.get_response(
-                prompt, message, images=openai_images, force_json_response=True
+                prompt,
+                message,
+                images=openai_images,
+                response_format=OpenAIRecipe,
             )
         except Exception as e:
             raise Exception("Failed to call OpenAI services") from e

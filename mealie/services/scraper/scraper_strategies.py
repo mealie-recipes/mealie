@@ -338,7 +338,11 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
             service = OpenAIService()
             prompt = service.get_prompt("recipes.scrape-recipe")
 
-            response_json = await service.get_response(prompt, text, force_json_response=True)
+            response_json = await service.get_response(
+                prompt,
+                text,
+                response_format={"type": "json_object"},
+            )
             if not response_json:
                 raise Exception("OpenAI did not return any data")
 

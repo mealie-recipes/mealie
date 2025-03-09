@@ -77,7 +77,13 @@ class OpenAIParser(ABCIngredientParser):
         tasks: list[Awaitable[str | None]] = []
         for ingredient_chunk in ingredient_chunks:
             message = json.dumps(ingredient_chunk, separators=(",", ":"))
-            tasks.append(service.get_response(prompt, message, force_json_response=True))
+            tasks.append(
+                service.get_response(
+                    prompt,
+                    message,
+                    response_format=OpenAIIngredients,
+                )
+            )
 
         # re-combine chunks into one response
         try:

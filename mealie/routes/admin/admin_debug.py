@@ -39,9 +39,7 @@ class AdminDebugController(BaseAdminController):
                 if local_images:
                     message = f"{message} Here is an image to test with:"
 
-                response = await openai_service.get_response(
-                    prompt, message, images=local_images, force_json_response=False
-                )
+                response = await openai_service.get_response(prompt, message, images=local_images)
                 return DebugResponse(success=True, response=f'OpenAI is working. Response: "{response}"')
 
             except Exception as e:
