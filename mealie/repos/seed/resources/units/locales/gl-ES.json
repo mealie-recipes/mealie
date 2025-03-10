@@ -24,14 +24,14 @@
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "pint",
-        "plural_name": "pints",
+        "name": "pinta",
+        "plural_name": "pintas",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
-        "plural_name": "quarts",
+        "name": "cuarto",
+        "plural_name": "cuartos",
         "description": "",
         "abbreviation": "qt"
     },

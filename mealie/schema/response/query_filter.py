@@ -180,6 +180,9 @@ class QueryFilterBuilderComponent:
             if v is None:
                 continue
 
+            if isinstance(model_attr_type, sqltypes.String):
+                sanitized_values[i] = v.lower()
+
             if self.relationship is RelationalKeyword.LIKE or self.relationship is RelationalKeyword.NOT_LIKE:
                 if not isinstance(model_attr_type, sqltypes.String):
                     raise ValueError(
@@ -340,6 +343,9 @@ class QueryFilterBuilder:
         model_attr: InstrumentedAttribute,
         model_attr_type: Any,
     ) -> sa.ColumnElement:
+        if isinstance(model_attr_type, sqltypes.String):
+            model_attr = sa.func.lower(model_attr)
+
         # Keywords
         if component.relationship is RelationalKeyword.IS:
             element = model_attr.is_(component.validate(model_attr_type))
@@ -361,9 +367,9 @@ class QueryFilterBuilder:
             for v in component.validate(model_attr_type):
                 element = sa.and_(element, primary_model_attr.any(model_attr == v))
         elif component.relationship is RelationalKeyword.LIKE:
-            element = model_attr.like(component.validate(model_attr_type))
+            element = model_attr.ilike(component.validate(model_attr_type))
         elif component.relationship is RelationalKeyword.NOT_LIKE:
-            element = model_attr.not_like(component.validate(model_attr_type))
+            element = model_attr.not_ilike(component.validate(model_attr_type))
 
         # Operators
         elif component.relationship is RelationalOperator.EQ:

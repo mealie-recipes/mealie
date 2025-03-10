@@ -127,7 +127,7 @@
     "monday": "周一",
     "name": "名称",
     "new": "新建",
-    "never": "永不",
+    "never": "尚无",
     "no": "否",
     "no-recipe-found": "未找到食谱",
     "ok": "好的",
@@ -244,7 +244,7 @@
       "keep-my-recipes-private-description": "将您的群组和所有食谱默认设置为私人可见。您可以随时更改此设置"
     },
     "manage-members": "管理成员",
-    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access the data-management page, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
+    "manage-members-description": "管理你家庭中成员的权限。 {manage} 表示允许用户访问数据管理页面， {invite} 表示允许用户生成链接邀请其他用户。 群组所有者不能更改自己的权限。",
     "manage": "管理",
     "manage-household": "Manage Household",
     "invite": "邀请",
@@ -277,7 +277,7 @@
     "admin-group-management-text": "对本群组的更改将被立即应用。",
     "group-id-value": "群组ID：{0}",
     "total-households": "Total Households",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "你必须先选择一个组才能选择一个家庭"
   },
   "household": {
     "household": "Household",
@@ -288,8 +288,8 @@
     "household-group": "Household Group",
     "household-management": "Household Management",
     "manage-households": "Manage Households",
-    "admin-household-management": "Admin Household Management",
-    "admin-household-management-text": "Changes to this household will be reflected immediately.",
+    "admin-household-management": "家庭管理员选项",
+    "admin-household-management-text": "对家庭的更改将立即生效。",
     "household-id-value": "Household Id: {0}",
     "private-household": "Private Household",
     "private-household-description": "Setting your household to private will disable all public view options. This overrides any individual public view settings",
@@ -1305,7 +1305,7 @@
     "household-statistics-description": "Your Household Statistics provide some insight how you're using Mealie.",
     "storage-capacity": "总储存容量",
     "storage-capacity-description": "你的存储容量基于你上传的图片和资源计算得出。",
-    "personal": "个人设置",
+    "personal": "个人",
     "personal-description": "这些是你的个人设置。此处的更改不影响同组其他用户。",
     "user-settings": "个人资料",
     "user-settings-description": "管理偏好、更换密码或邮箱",
