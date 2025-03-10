@@ -12,8 +12,8 @@
         "servings-text": {
             "makes": "Makes",
             "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
+            "serving": "Porción",
+            "servings": "Porcións",
             "yield": "Yield",
             "yields": "Yields"
         }
@@ -22,20 +22,20 @@
         "no-recipes-match-your-rules": "Nengunha receita corresponde às suas regras"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "Usuario atualizado",
+        "password-updated": "Seña atualizada",
+        "invalid-current-password": "Seña atual inválida",
+        "ldap-update-password-unavailable": "Imposível atualizar a seña, o usuario é controlado por LDAP"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Relatorio eliminado."
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "no-entry-found": "The requested resource was not found",
+        "permission_denied": "Non ten permisos para efetuar esta ación",
+        "no-entry-found": "O recurso solicitado non foi encontrado",
         "integrity-error": "Erro de integridade da base de datos",
         "username-conflict-error": "Este nome de usuario xa está en uso",
-        "email-conflict-error": "This email is already in use"
+        "email-conflict-error": "Este e-mail xa está a ser utilizado"
     },
     "notifications": {
         "generic-created": "{name} creado",
@@ -43,7 +43,7 @@
         "generic-created-with-url": "{name} foi creado, {url}",
         "generic-updated-with-url": "{name} foi atualizado, {url}",
         "generic-duplicated": "{name} foi duplicado",
-        "generic-deleted": "{name} has been deleted"
+        "generic-deleted": "{name} foi eliminado"
     },
     "datetime": {
         "year": "ano|anos",
@@ -56,24 +56,24 @@
     },
     "emails": {
         "password": {
-            "subject": "Mealie Forgot Password",
-            "header_text": "Forgot Password",
-            "message_top": "You have requested to reset your password.",
-            "message_bottom": "Please click the button above to reset your password.",
-            "button_text": "Reset Password"
+            "subject": "Mealie Esqueceuse da Seña",
+            "header_text": "Esquecin a miña senha",
+            "message_top": "Solicitou a reposición da sua seña.",
+            "message_bottom": "Clique no boton acima para redefinir a sua seña.",
+            "button_text": "Redefinir Seña"
         },
         "invitation": {
-            "subject": "Invitation to join Mealie",
-            "header_text": "You're Invited!",
-            "message_top": "You have been invited to join Mealie.",
-            "message_bottom": "Please click the button above to accept the invitation.",
+            "subject": "Convite para aderirse ao Mealie",
+            "header_text": "Está convidado!",
+            "message_top": "Foi convidado para aderirse ao Mealie.",
+            "message_bottom": "Clique no botón acima para aceptar o convite.",
             "button_text": "Aceptar Convite"
         },
         "test": {
-            "subject": "Mealie Test Email",
-            "header_text": "Test Email",
-            "message_top": "This is a test email.",
-            "message_bottom": "Please click the button above to test the email.",
+            "subject": "Email de Prova do Mealie",
+            "header_text": "Email de Prova",
+            "message_top": "Este é un email de prova.",
+            "message_bottom": "Clique no botón acima para provar o email.",
             "button_text": "Abrir o Mealie"
         }
     }
