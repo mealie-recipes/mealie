@@ -335,16 +335,24 @@ class QueryFilterBuilder:
 
         return current_model, model_attr, query
 
-    @staticmethod
+    @classmethod
+    def _transform_model_attr(cls, model_attr: InstrumentedAttribute, model_attr_type: Any) -> InstrumentedAttribute:
+        if isinstance(model_attr_type, sqltypes.String):
+            model_attr = sa.func.lower(model_attr)
+
+        return model_attr
+
+    @classmethod
     def _get_filter_element(
+        cls,
         query: sa.Select,
         component: QueryFilterBuilderComponent,
         model: type[Model],
         model_attr: InstrumentedAttribute,
         model_attr_type: Any,
     ) -> sa.ColumnElement:
-        if isinstance(model_attr_type, sqltypes.String):
-            model_attr = sa.func.lower(model_attr)
+        original_model_attr = model_attr
+        model_attr = cls._transform_model_attr(model_attr, model_attr_type)
 
         # Keywords
         if component.relationship is RelationalKeyword.IS:
@@ -355,7 +363,7 @@ class QueryFilterBuilder:
             element = model_attr.in_(component.validate(model_attr_type))
         elif component.relationship is RelationalKeyword.NOT_IN:
             vals = component.validate(model_attr_type)
-            if model_attr.parent.entity != model:
+            if original_model_attr.parent.entity != model:
                 subq = query.with_only_columns(model.id).where(model_attr.in_(vals))
                 element = sa.not_(model.id.in_(subq))
             else:
