@@ -61,26 +61,11 @@ tasks:
       - pyproject.toml
       - .pre-commit-config.yaml
 
-  setup:model:
-    desc: setup nlp model
-    vars:
-      MODEL_URL: https://github.com/mealie-recipes/nlp-model/releases/download/v1.0.0/model.crfmodel
-      OUTPUT: ./mealie/services/parser_services/crfpp/model.crfmodel
-    sources:
-      # using pyproject.toml as the dependency since this should only ever need to run once
-      # during setup. There is perhaps a better way to do this.
-      - ./pyproject.toml
-    generates:
-      - ./mealie/services/parser_services/crfpp/model.crfmodel
-    cmds:
-      - curl -L0 {{ .MODEL_URL }} --output {{ .OUTPUT }}
-
   setup:
     desc: setup all dependencies
     deps:
       - setup:ui
       - setup:py
-      - setup:model
 
   dev:generate:
     desc: run code generators

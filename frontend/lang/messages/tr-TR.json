@@ -646,7 +646,6 @@
     "nextStep": "Sonraki adım",
     "recipe-actions": "Tarif İşlemleri",
     "parser": {
-      "experimental-alert-text": "Mealie, tarif malzemeleriniz için birimleri ve yiyecek öğelerini ayrıştırıp oluşturmak için doğal dil işlemeyi kullanır. Bu özellik deneyseldir ve her zaman beklendiği gibi çalışmayabilir. Ayrıştırılan sonuçları kullanmamayı tercih ederseniz 'İptal'i seçebilirsiniz; değişiklikleriniz kaydedilmeyecektir.",
       "ingredient-parser": "Malzeme Ayrıştırıcı",
       "explanation": "Malzeme ayrıştırıcıyı kullanmak için işlemi başlatmak üzere 'Tümünü Ayrıştır' düğmesine tıklayın. İşlenmiş malzemeler mevcut olduğunda öğeleri inceleyebilir ve bunların doğru şekilde ayrıştırıldığını doğrulayabilirsiniz. Modelin güven puanı öğe başlığının sağında görüntülenir. Bu puan, tüm bireysel puanların ortalamasıdır ve her zaman tam olarak doğru olmayabilir.",
       "alerts-explainer": "Eşleşen bir gıda veya birim bulunursa fakat veritabanında mevcut değilse uyarılar görüntülenecektir.",

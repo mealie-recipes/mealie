@@ -646,7 +646,6 @@
     "nextStep": "Nākamais solis",
     "recipe-actions": "Recepšu darbības",
     "parser": {
-      "experimental-alert-text": "Mealie izmanto dabiskās valodas apstrādi, lai parsētu un izveidotu vienības un pārtikas produktus jūsu receptes sastāvdaļām. Šī funkcija ir eksperimentāla un ne vienmēr var darboties, kā paredzēts. Ja nevēlaties izmantot parsētos rezultātus, varat izvēlēties “Atcelt”, un jūsu izmaiņas netiks saglabātas.",
       "ingredient-parser": "Sastāvdaļu parsētājs",
       "explanation": "Lai izmantotu sastāvdaļu parsētāju, noklikšķiniet uz pogas “Parsēt visu”, lai sāktu procesu. Kad apstrādātās sastāvdaļas ir pieejamas, varat pārskatīt preces un pārbaudīt, vai tie ir pareizi parsēti. Modeļa ticamības rādītājs tiek parādīts labajā pusē no vienuma nosaukuma. Šis rādītājs ir visu individuālo punktu vidējais rādītājs, un tas ne vienmēr var būt pilnīgi precīzs.",
       "alerts-explainer": "Brīdinājumi tiks parādīti, ja tiks atrasts atbilstošs pārtikas produkts vai vienība, bet datu bāzē tā nepastāv.",

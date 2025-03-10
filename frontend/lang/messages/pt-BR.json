@@ -646,7 +646,6 @@
     "nextStep": "Próximo passo",
     "recipe-actions": "Ações de Receita",
     "parser": {
-      "experimental-alert-text": "Mealie usa processamento de linguagem natural para analisar e criar unidades e itens de comida para seus ingredientes. Esse recurso é experimental e pode não funcionar como esperado. Se preferir não usar os resultados analisados, selecione \"Cancelar\" e suas mudanças não serão salvas.",
       "ingredient-parser": "Analisador de Ingredientes",
       "explanation": "Para usar o analisador de ingredientes, clique no botão \"Analisar Tudo\" para iniciar o processo. Assim que os ingredientes processados estiverem disponíveis, você pode revisá-los e verificar se foram analisados corretamente. A pontuação de confiança do modelo estará à direita do título do item. Essa pontuação é uma média de todas as pontuações individuais e podem não ser precisas.",
       "alerts-explainer": "Avisos serão exibidos se uma comida, ou unidade, for encontrada, mas não existir no banco de dados.",

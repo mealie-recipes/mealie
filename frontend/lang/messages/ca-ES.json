@@ -646,7 +646,6 @@
     "nextStep": "Següent pas",
     "recipe-actions": "Accions de la Recepta",
     "parser": {
-      "experimental-alert-text": "Mealie fa servir processament de llenguatge natural per processar i crear unitats i elements de menjar pels ingredients de la teva recepta. Aquesta funcionalitat és experimental i pot no funcionar com s'espera. Si prefereixes no fer servir els resultats processats, pots seleccionar \"Cancel·la\" i els canvis no es guardaran.",
       "ingredient-parser": "Processador d'ingredients",
       "explanation": "Per fer servir el processador d'aliments, clica el botó \"Processa tot\" per començar el procés. Un cop els ingredients processats estiguin disponibles, pots revisar-los per comprovar que s'hagin processat degudament. La confiança del model és mostrada a la dreta del títol de l'element. Aquesta puntuació es la mitja de totes les puntuacions individuals i pot no ser del tot precisa.",
       "alerts-explainer": "Es mostraran alertes si un menjar o unitat coincident es troben però no existeixen a la base de dades.",

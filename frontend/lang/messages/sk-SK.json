@@ -646,7 +646,6 @@
     "nextStep": "Ďalší krok",
     "recipe-actions": "Akcie s receptom",
     "parser": {
-      "experimental-alert-text": "Mealie používa spracovanie prirodzeného jazyka na analýzu a vytváranie jednotiek a potravín pre ingrediencie vášho receptu. Táto funkcia je experimentálna a nemusí vždy fungovať podľa očakávania. Ak nechcete použiť analyzované výsledky, môžete vybrať možnosť „Zrušiť“ a vaše zmeny sa neuložia.",
       "ingredient-parser": "Parser ingrediencií",
       "explanation": "Ak chcete použiť parser ingrediencií, kliknutím na tlačidlo „Spracovať všetko“ spustite proces parsovania. Keď budú spracované ingrediencie k dispozícii, môžete položky skontrolovať a overiť, či boli správne analyzované. Skóre spoľahlivosti modelu sa zobrazuje napravo od názvu položky. Toto skóre je priemerom všetkých individuálnych skóre a nemusí byť vždy úplne presné.",
       "alerts-explainer": "Upozornenia sa zobrazia, ak sa nájde zodpovedajúce jedlo alebo jednotka, ktoré v databáze ešte neexistuje.",

@@ -9,6 +9,7 @@ from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema.household.group_shopping_list import (
     ShoppingListAddRecipeParams,
+    ShoppingListAddRecipeParamsBulk,
     ShoppingListCreate,
     ShoppingListItemCreate,
     ShoppingListItemOut,
@@ -252,16 +253,23 @@ class ShoppingListController(BaseCrudController):
 
         return updated_list
 
-    @router.post("/{item_id}/recipe/{recipe_id}", response_model=ShoppingListOut)
-    def add_recipe_ingredients_to_list(
-        self, item_id: UUID4, recipe_id: UUID4, data: ShoppingListAddRecipeParams | None = None
-    ):
-        shopping_list, items = self.service.add_recipe_ingredients_to_list(
-            item_id, recipe_id, data.recipe_increment_quantity if data else 1, data.recipe_ingredients if data else None
-        )
+    @router.post("/{item_id}/recipe", response_model=ShoppingListOut)
+    def add_recipe_ingredients_to_list(self, item_id: UUID4, data: list[ShoppingListAddRecipeParamsBulk]):
+        shopping_list, items = self.service.add_recipe_ingredients_to_list(item_id, data)
 
         publish_list_item_events(self.publish_event, items)
         return shopping_list
+
+    @router.post("/{item_id}/recipe/{recipe_id}", response_model=ShoppingListOut, deprecated=True)
+    def add_single_recipe_ingredients_to_list(
+        self, item_id: UUID4, recipe_id: UUID4, data: ShoppingListAddRecipeParams | None = None
+    ):
+        # Compatibility function for old API
+        # TODO: remove this function in the future
+
+        data = data or ShoppingListAddRecipeParams(recipe_increment_quantity=1)
+        bulk_data = [data.cast(ShoppingListAddRecipeParamsBulk, recipe_id=recipe_id)]
+        return self.add_recipe_ingredients_to_list(item_id, bulk_data)
 
     @router.post("/{item_id}/recipe/{recipe_id}/delete", response_model=ShoppingListOut)
     def remove_recipe_ingredients_from_list(

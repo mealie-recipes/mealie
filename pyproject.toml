@@ -3,7 +3,7 @@ authors = ["Hayden <hay-kot@pm.me>"]
 description = "A Recipe Manager"
 license = "AGPL"
 name = "mealie"
-version = "2.6.0"
+version = "2.7.1"
 include = [
     # Explicit include to override .gitignore when packaging the frontend
     { path = "mealie/frontend/**/*", format = ["sdist", "wheel"] }
@@ -31,7 +31,7 @@ orjson = "^3.8.0"
 psycopg2-binary = { version = "^2.9.1", optional = true }
 pydantic = "^2.6.1"
 pyhumps = "^3.5.3"
-python = "^3.12"
+python = ">=3.12,<3.13"
 python-dateutil = "^2.8.2"
 python-dotenv = "^1.0.0"
 python-ldap = "^3.3.1"
@@ -54,6 +54,7 @@ pyjwt = "^2.8.0"
 openai = "^1.63.0"
 typing-extensions = "^4.12.2"
 itsdangerous = "^2.2.0"
+ingredient-parser-nlp = "^2.0.0"
 
 [tool.poetry.group.postgres.dependencies]
 psycopg2-binary = { version = "^2.9.1" }

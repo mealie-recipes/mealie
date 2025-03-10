@@ -189,18 +189,18 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
         cook_time = try_get_default(
             None, "performTime", None, cleaner.clean_time, translator=self.translator
-        ) or try_get_default(None, "cookTime", None, cleaner.clean_time, translator=self.translator)
+        ) or try_get_default(scraped_data.cook_time, "cookTime", None, cleaner.clean_time, translator=self.translator)
 
         extras = ScrapedExtras()
 
-        extras.set_tags(try_get_default(None, "keywords", "", cleaner.clean_tags))
+        extras.set_tags(try_get_default(scraped_data.keywords, "keywords", "", cleaner.clean_tags))
 
         recipe = Recipe(
             name=try_get_default(scraped_data.title, "name", "No Name Found", cleaner.clean_string),
             slug="",
-            image=try_get_default(None, "image", None, cleaner.clean_image),
-            description=try_get_default(None, "description", "", cleaner.clean_string),
-            nutrition=try_get_default(None, "nutrition", None, cleaner.clean_nutrition),
+            image=try_get_default(scraped_data.image, "image", None, cleaner.clean_image),
+            description=try_get_default(scraped_data.description, "description", "", cleaner.clean_string),
+            nutrition=try_get_default(scraped_data.nutrients, "nutrition", None, cleaner.clean_nutrition),
             recipe_yield=try_get_default(scraped_data.yields, "recipeYield", "1", cleaner.clean_string),
             recipe_ingredient=try_get_default(
                 scraped_data.ingredients,
@@ -209,8 +209,12 @@ class RecipeScraperPackage(ABCScraperStrategy):
                 cleaner.clean_ingredients,
             ),
             recipe_instructions=get_instructions(),
-            total_time=try_get_default(None, "totalTime", None, cleaner.clean_time, translator=self.translator),
-            prep_time=try_get_default(None, "prepTime", None, cleaner.clean_time, translator=self.translator),
+            total_time=try_get_default(
+                scraped_data.total_time, "totalTime", None, cleaner.clean_time, translator=self.translator
+            ),
+            prep_time=try_get_default(
+                scraped_data.prep_time, "prepTime", None, cleaner.clean_time, translator=self.translator
+            ),
             perform_time=cook_time,
             org_url=url or try_get_default(None, "url", None, cleaner.clean_string),
         )
