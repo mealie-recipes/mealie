@@ -1,16 +1,16 @@
 {
 	"acorn-squash": {
-		"name": "acorn squash"
+		"name": "قرع البلوط"
 	},
 	"alfalfa-sprouts": {
-		"name": "alfalfa sprouts"
+		"name": "براعم البرسيم/الألفالفا"
 	},
 	"anchovies": {
-		"name": "anchovies"
+		"name": "سمك الأنشُوفَة"
 	},
 	"apples": {
-		"name": "تفاح",
-		"plural_name": "apples"
+		"name": "تفاحة",
+		"plural_name": "تفاح"
 	},
 	"artichoke": {
 		"name": "خرشوف"
@@ -19,20 +19,20 @@
 		"name": "جرجير"
 	},
 	"asparagus": {
-		"name": "asparagus"
+		"name": "هليون"
 	},
 	"avocado": {
-		"name": "اﻷفوكادو",
-		"plural_name": "avocado"
+		"name": "أفوكادو",
+		"plural_name": "أفوكادو"
 	},
 	"bacon": {
-		"name": "bacon"
+		"name": "لحم مقدد"
 	},
 	"baking-powder": {
 		"name": "مسحوق الخبز"
 	},
 	"baking-soda": {
-		"name": "baking soda"
+		"name": "صودا الخَبز"
 	},
 	"baking-sugar": {
 		"name": "سكر الخبز"
@@ -41,20 +41,20 @@
 		"name": "bar sugar"
 	},
 	"basil": {
-		"name": "ريحان"
+		"name": "رَيْحَان"
 	},
 	"beans": {
-		"name": "beans"
+		"name": "فاصوليا"
 	},
 	"bell-peppers": {
-		"name": "bell peppers",
-		"plural_name": "bell peppers"
+		"name": "فلفل حلو",
+		"plural_name": "كرنب بروكسل"
 	},
 	"blackberries": {
 		"name": "توت الأسود"
 	},
 	"bok-choy": {
-		"name": "bok choy"
+		"name": "الملفوف الصيني"
 	},
 	"brassicas": {
 		"name": "brassicas"
@@ -63,7 +63,7 @@
 		"name": "خبز"
 	},
 	"breadfruit": {
-		"name": "ثمرة الخبز"
+		"name": "فاكهة الخبز"
 	},
 	"broccoflower": {
 		"name": "بروكلي"
@@ -87,49 +87,49 @@
 		"name": "زبدة"
 	},
 	"butternut-pumpkin": {
-		"name": "butternut pumpkin"
+		"name": "قرع الجوز"
 	},
 	"butternut-squash": {
 		"name": "butternut squash"
 	},
 	"cabbage": {
 		"name": "كرنب",
-		"plural_name": "cabbages"
+		"plural_name": "كرنب"
 	},
 	"cactus-edible": {
-		"name": "cactus, edible"
+		"name": "صبّار، قابل للأكل"
 	},
 	"calabrese": {
 		"name": "كالابريس"
 	},
 	"cane-sugar": {
-		"name": "cane sugar"
+		"name": "سكر قصب"
 	},
 	"cannabis": {
 		"name": "القنب"
 	},
 	"capsicum": {
-		"name": "capsicum"
+		"name": "فليفله"
 	},
 	"caraway": {
-		"name": "caraway"
+		"name": "كراوية"
 	},
 	"carrot": {
-		"name": "جزر",
-		"plural_name": "carrots"
+		"name": "جَزرة",
+		"plural_name": "جَزر"
 	},
 	"caster-sugar": {
-		"name": "caster sugar"
+		"name": "سكر ناعم"
 	},
 	"castor-sugar": {
-		"name": "castor sugar"
+		"name": "سكر ناعم"
 	},
 	"catfish": {
-		"name": "catfish"
+		"name": "سمك السلور/القط"
 	},
 	"cauliflower": {
 		"name": "قرنبيط",
-		"plural_name": "cauliflowers"
+		"plural_name": "قرنبيط"
 	},
 	"cayenne-pepper": {
 		"name": "فلفل الكايين"
@@ -251,7 +251,7 @@
 		"plural_name": "endives"
 	},
 	"fats": {
-		"name": "fats"
+		"name": "الدهون"
 	},
 	"fava-beans": {
 		"name": "fava beans"
@@ -316,8 +316,8 @@
 		"name": "grape seed oil"
 	},
 	"green-onion": {
-		"name": "green onion",
-		"plural_name": "green onions"
+		"name": "بصل أخضر",
+		"plural_name": "بصل أخضر"
 	},
 	"heart-of-palm": {
 		"name": "heart of palm",
@@ -330,7 +330,7 @@
 		"name": "أعشاب"
 	},
 	"honey": {
-		"name": "honey"
+		"name": "عسل"
 	},
 	"isomalt": {
 		"name": "isomalt"
@@ -343,7 +343,7 @@
 		"name": "jaggery"
 	},
 	"jams": {
-		"name": "jams"
+		"name": "مربى"
 	},
 	"jellies": {
 		"name": "jellies"
@@ -403,7 +403,7 @@
 	},
 	"mushroom": {
 		"name": "فطر",
-		"plural_name": "mushrooms"
+		"plural_name": "فطر"
 	},
 	"mussels": {
 		"name": "بلح البحر"
@@ -421,11 +421,11 @@
 		"name": "nutritional yeast flakes"
 	},
 	"nuts": {
-		"name": "nuts"
+		"name": "مكسرات"
 	},
 	"octopuses": {
-		"name": "octopus",
-		"plural_name": "octopuses"
+		"name": "أُخْطُبوط",
+		"plural_name": "أُخْطُبوطات"
 	},
 	"oils": {
 		"name": "زيوت"
@@ -450,7 +450,7 @@
 	},
 	"oranges": {
 		"name": "برتقال",
-		"plural_name": "oranges"
+		"plural_name": "برتقال"
 	},
 	"oregano": {
 		"name": "توابل اوريجانو"
@@ -476,15 +476,15 @@
 		"plural_name": "pears"
 	},
 	"peas": {
-		"name": "peas"
+		"name": "بازيلاء"
 	},
 	"pepper": {
 		"name": "فلفل",
-		"plural_name": "peppers"
+		"plural_name": "فلفل"
 	},
 	"pineapple": {
 		"name": "أناناس",
-		"plural_name": "pineapples"
+		"plural_name": "أناناس"
 	},
 	"plantain": {
 		"name": "plantain",
@@ -494,8 +494,8 @@
 		"name": "بذور الخشخاش"
 	},
 	"potato": {
-		"name": "potato",
-		"plural_name": "potatoes"
+		"name": "بطاطس",
+		"plural_name": "بطاطس"
 	},
 	"poultry": {
 		"name": "دواجن"
@@ -504,15 +504,15 @@
 		"name": "سكر مسحوق"
 	},
 	"pumpkin": {
-		"name": "pumpkin",
-		"plural_name": "pumpkins"
+		"name": "يقطين",
+		"plural_name": "يقطين"
 	},
 	"pumpkin-seeds": {
-		"name": "pumpkin seeds"
+		"name": "بذور اليقطين"
 	},
 	"radish": {
-		"name": "radish",
-		"plural_name": "radishes"
+		"name": "فجل",
+		"plural_name": "فجل"
 	},
 	"raw-sugar": {
 		"name": "السكر الخام"
@@ -562,7 +562,7 @@
 		"name": "skate"
 	},
 	"soda": {
-		"name": "soda"
+		"name": "صودا"
 	},
 	"soda-baking": {
 		"name": "soda, baking"
@@ -578,10 +578,10 @@
 		"name": "speck"
 	},
 	"spices": {
-		"name": "spices"
+		"name": "توابل"
 	},
 	"spinach": {
-		"name": "spinach"
+		"name": "سبانخ"
 	},
 	"spring-onion": {
 		"name": "البصل الأخضر",
@@ -611,8 +611,8 @@
 		"name": "superfine sugar"
 	},
 	"sweet-potato": {
-		"name": "sweet potato",
-		"plural_name": "sweet potatoes"
+		"name": "بطاطا حلوة",
+		"plural_name": "بطاطا حلوة"
 	},
 	"sweetcorn": {
 		"name": "sweetcorn",
@@ -633,7 +633,7 @@
 	},
 	"tomato": {
 		"name": "طماطم",
-		"plural_name": "tomatoes"
+		"plural_name": "طماطم"
 	},
 	"trout": {
 		"name": "سمك السلمون المرقط"
@@ -656,7 +656,7 @@
 		"name": "unrefined sugar"
 	},
 	"vanilla": {
-		"name": "vanilla"
+		"name": "فانيليا"
 	},
 	"vegetables": {
 		"name": "vegetables"
