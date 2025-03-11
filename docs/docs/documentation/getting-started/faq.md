@@ -174,7 +174,7 @@
     ```shell
     docker exec -it mealie bash
 
-    python /app/mealie/scripts/change_password.py
+    python /opt/mealie/lib/python3.12/site-packages/mealie/scripts/change_password.py
     ```
 
 
