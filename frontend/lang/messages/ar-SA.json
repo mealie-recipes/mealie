@@ -667,7 +667,7 @@
     "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
     "selected-ingredients": "Selected Ingredients",
     "no-ingredients-selected": "No ingredients selected",
-    "missing": "Missing",
+    "missing": "مفقود",
     "no-recipes-found": "No recipes found",
     "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
     "include-ingredients-on-hand": "Include Ingredients On Hand",
