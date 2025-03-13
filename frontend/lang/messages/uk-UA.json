@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Об'єднання вибраних продуктів об'єднає вихідний продукт та цільовий продукт до одного продукту. Вихідний продукт буде видалений і всі посилання на вихідний продукт будуть посилатися на цільовий продукт.",
       "merge-food-example": "Об'єднання {food1} в {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create ~2700 common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You already have some items in your database. A new item will not be added if an item with the same name already exists.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Об'єднати продукти",
       "source-food": "Вихідний продукт",
       "target-food": "Цільовий продукт",
