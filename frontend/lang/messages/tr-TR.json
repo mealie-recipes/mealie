@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Seçilen gıdaların birleştirilmesi, kaynak gıdayı ve hedef gıdayı tek bir gıdada birleştirecektir. Kaynak gıda silinecek ve kaynak gıdaya yapılan tüm referanslar, hedef gıdayı işaret edecek şekilde güncellenecektir.",
       "merge-food-example": "{food1}, {food2} ile birleştiriliyor",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create ~2700 common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You already have some items in your database. A new item will not be added if an item with the same name already exists.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Gıdaları Birleştir",
       "source-food": "Kaynak Gıda",
       "target-food": "Hedef Gıda",
