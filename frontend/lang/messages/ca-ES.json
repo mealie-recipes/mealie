@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Combinant els aliments seleccionats, es fusionaran els dos aliments en un. El primer aliment serà eliminat i totes les referències s'actualitzaran a l'aliment resultant.",
       "merge-food-example": "Combinant {food1} i {food2}",
-      "seed-dialog-text": "Afegeix a la base de dades els noms dels aliments en el vostre idioma. Açò crearà més de 200 aliments comuns per a què pugueu organitzar la vostra base de dades. Els noms dels aliments han estat traduïts gràcies a l'esforç de la comunitat.",
-      "seed-dialog-warning": "Ja teniu algunes dades a la vostra base. Aquesta acció no tindrà en compte duplicats i haureu d'eliminar-los manualment.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create ~2700 common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You already have some items in your database. A new item will not be added if an item with the same name already exists.",
       "combine-food": "Combinar Aliment",
       "source-food": "Aliment d'Origen",
       "target-food": "Aliment de Destí",
