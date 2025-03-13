@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Zkombinování zvolených potravin způsobí smazání zdrojové potraviny a veškeré odkazy na ni budou přesměrovány do cílové potraviny.",
       "merge-food-example": "Sloučení {food1} do {food2}",
-      "seed-dialog-text": "Naplňte databázi potravinami z vašeho jazyka. Tímto vytvoříte přes 200 běžných potravin, které můžete použít k organizaci vaší databáze. Potravny jsou přeloženy skrze komunitní úsilí.",
-      "seed-dialog-warning": "Již v databázi máte nějaká data. Tato akce neodstraní duplicity, budete je muset odstranit ručně.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create ~2700 common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You already have some items in your database. A new item will not be added if an item with the same name already exists.",
       "combine-food": "Kombinovat jídlo",
       "source-food": "Zdrojové jídlo",
       "target-food": "Cílové jídlo",
