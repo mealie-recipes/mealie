@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Združitev izbranih živil bo združila izvorno živilo in ciljno živilo v eno samo živilo. Izvorno živilo bo izbrisano in vse povezave na izvorno živilo, bodo po novem kazale na ciljno živilo.",
       "merge-food-example": "Združujem {food1} v {food2}",
-      "seed-dialog-text": "Napolni podatkovno bazo s jedmi, ki izvirajo iz vašega lokalnega jezika. To bo kreiralo 200+ običajnih jedi, ki se lahko uporabijo za organizacijo vaše podatkovne baze. Jedi so prevedene s pomočjo skupnosti.",
-      "seed-dialog-warning": "Nekatere elemente že imate v podatkovni bazi. To opravilo ne bo upoštevalo dvojnikov in jih boste morali sami ročno upravljati.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create ~2700 common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You already have some items in your database. A new item will not be added if an item with the same name already exists.",
       "combine-food": "Združi živila",
       "source-food": "Izvorno živilo",
       "target-food": "Ciljno živilo",
