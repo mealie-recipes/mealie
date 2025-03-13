@@ -2638,14 +2638,14 @@ tests = ["coverage[toml] (==5.0.4)", "pytest (>=6.0.0,<7.0.0)"]
 
 [[package]]
 name = "pylint"
-version = "3.3.4"
+version = "3.3.5"
 description = "python code static checker"
 optional = false
 python-versions = ">=3.9.0"
 groups = ["dev"]
 files = [
-    {file = "pylint-3.3.4-py3-none-any.whl", hash = "sha256:289e6a1eb27b453b08436478391a48cd53bb0efb824873f949e709350f3de018"},
-    {file = "pylint-3.3.4.tar.gz", hash = "sha256:74ae7a38b177e69a9b525d0794bd8183820bfa7eb68cc1bee6e8ed22a42be4ce"},
+    {file = "pylint-3.3.5-py3-none-any.whl", hash = "sha256:7cb170929a371238530b2eeea09f5f28236d106b70308c3d46a9c0cf11634633"},
+    {file = "pylint-3.3.5.tar.gz", hash = "sha256:38d0f784644ed493d91f76b5333a0e370a1c1bc97c22068a77523b4bf1e82c31"},
 ]
 
 [package.dependencies]
@@ -3104,14 +3104,14 @@ orjson = ["orjson (>=3.9.14,<4)"]
 
 [[package]]
 name = "recipe-scrapers"
-version = "15.5.1"
+version = "15.6.0"
 description = "Python package, scraping recipes from all over the internet"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "recipe_scrapers-15.5.1-py3-none-any.whl", hash = "sha256:e178295e2e57cd33f9624b5527eac5dbf65cdc2e206ee0cdec2619eea789a462"},
-    {file = "recipe_scrapers-15.5.1.tar.gz", hash = "sha256:40c4681210cfe77b2c6d9f1c48f28fdfeadad7323db5c2c7631f3976202c1f6e"},
+    {file = "recipe_scrapers-15.6.0-py3-none-any.whl", hash = "sha256:d9949b69ce99de7030e18135c6ade73a5d65fa023308d86b1284807bb9a7ac17"},
+    {file = "recipe_scrapers-15.6.0.tar.gz", hash = "sha256:e0e18542de8564cd925850e49fa14de1ed4fa1479eea41e9a846a8ca6e145c13"},
 ]
 
 [package.dependencies]
