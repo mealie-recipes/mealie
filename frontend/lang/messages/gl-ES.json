@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Combinar os alimentos selecionados xuntará o alimento de orixen e o alimento de destino nun único alimento. O alimento de orixen será eliminado, e todas as referencias a este, serán atualizadas para apuntar para o alimento de destino.",
       "merge-food-example": "A xuntar {food1} con {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create ~2700 common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You already have some items in your database. A new item will not be added if an item with the same name already exists.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Combinar Alimentos",
       "source-food": "Alimento de Orixen",
       "target-food": "Alimento de Destino",
