@@ -12,7 +12,7 @@ def test_seed_invalid_locale(api_client: TestClient, unique_user: TestUser):
 
 
 def test_seed_foods(api_client: TestClient, unique_user: TestUser):
-    CREATED_FOODS = 2687
+    CREATED_FOODS = 214
     database = unique_user.repos
 
     # Check that the foods was created
@@ -44,7 +44,7 @@ def test_seed_units(api_client: TestClient, unique_user: TestUser):
 
 
 def test_seed_labels(api_client: TestClient, unique_user: TestUser):
-    CREATED_LABELS = 32
+    CREATED_LABELS = 21
     database = unique_user.repos
 
     # Check that the foods was created
