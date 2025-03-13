@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Valitud toitude kombineerimine ühendab koostisained ja keskendub ühele roale. Lähtetoidud eemaldatakse ja kõik viited lähtetoidule värskendatakse, et osutada sihttoidule.",
       "merge-food-example": "{food1} liitmine {food2}-ga",
-      "seed-dialog-text": "Lisage roogasid andmebaasi kohalikus keeles. See loob üle 200 levinud tooraine, mida saab kasutada andmebaasi korrastamiseks. Tooraineid tõlgitakse kogukonna tegevuste kaudu.",
-      "seed-dialog-warning": "Teie andmebaasis on juba mõned üksused. See funktsioon ei sobi duplikaatidega, peate neid käsitsi redigeerima.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create ~2700 common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You already have some items in your database. A new item will not be added if an item with the same name already exists.",
       "combine-food": "Liida toidud",
       "source-food": "Lähtetoid",
       "target-food": "Sihttoit",
