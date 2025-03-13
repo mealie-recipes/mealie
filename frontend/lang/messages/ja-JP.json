@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "選択した食品を組み合わせると、ソース食品とターゲット食品が1つの食品に統合されます。 ソース食品は削除され、ソース食品への参照のすべてがターゲット食品を指し示すように更新されます。",
       "merge-food-example": "{food1} を {food2} に統合",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create ~2700 common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You already have some items in your database. A new item will not be added if an item with the same name already exists.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "食品を組み合わせる",
       "source-food": "元の食品",
       "target-food": "ターゲットの食品",
