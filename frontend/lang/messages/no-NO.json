@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Ved å kombinere de valgte matvarene vil de bli slått sammen til én matvare. Den første matvaren vil bli slettet, og alle referanser til denne vil bli oppdatert til å peke til den nye matvaren.",
       "merge-food-example": "Slår sammen {food1} til {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create ~2700 common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You already have some items in your database. A new item will not be added if an item with the same name already exists.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Kombiner matvarer",
       "source-food": "Kilde for matvare",
       "target-food": "Mål for matvare",
