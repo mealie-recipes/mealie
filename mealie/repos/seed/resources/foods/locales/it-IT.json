@@ -32,7 +32,7 @@
 		"name": "baking powder"
 	},
 	"baking-soda": {
-		"name": "baking soda"
+		"name": "bicarbonato di sodio"
 	},
 	"baking-sugar": {
 		"name": "baking sugar"
@@ -41,7 +41,7 @@
 		"name": "bar sugar"
 	},
 	"basil": {
-		"name": "basil"
+		"name": "basilico"
 	},
 	"beans": {
 		"name": "fagioli"
@@ -51,7 +51,7 @@
 		"plural_name": "peperoni"
 	},
 	"blackberries": {
-		"name": "blackberries"
+		"name": "more"
 	},
 	"bok-choy": {
 		"name": "bok choy"
@@ -63,25 +63,25 @@
 		"name": "pane"
 	},
 	"breadfruit": {
-		"name": "breadfruit"
+		"name": "frutto del pane"
 	},
 	"broccoflower": {
-		"name": "broccoflower"
+		"name": "cavolfiore verde"
 	},
 	"broccoli": {
 		"name": "broccoli"
 	},
 	"broccoli-rabe": {
-		"name": "broccoli rabe"
+		"name": "friarielli"
 	},
 	"broccolini": {
-		"name": "broccolini"
+		"name": "broccoletto"
 	},
 	"brown-sugar": {
-		"name": "brown sugar"
+		"name": "zucchero bruno"
 	},
 	"brussels-sprouts": {
-		"name": "brussels sprouts"
+		"name": "cavoletti di Bruxelles"
 	},
 	"butter": {
 		"name": "burro"
@@ -97,7 +97,7 @@
 		"plural_name": "cavoli"
 	},
 	"cactus-edible": {
-		"name": "cactus, edible"
+		"name": "cactus, commestibile"
 	},
 	"calabrese": {
 		"name": "calabrese"
@@ -116,7 +116,7 @@
 	},
 	"carrot": {
 		"name": "carota",
-		"plural_name": "carrots"
+		"plural_name": "carote"
 	},
 	"caster-sugar": {
 		"name": "caster sugar"
@@ -132,29 +132,29 @@
 		"plural_name": "cavolfiori"
 	},
 	"cayenne-pepper": {
-		"name": "cayenne pepper"
+		"name": "pepe di Caienna"
 	},
 	"celeriac": {
-		"name": "celery root"
+		"name": "sedano rapa"
 	},
 	"celery": {
-		"name": "celery"
+		"name": "sedano"
 	},
 	"cereal-grains": {
-		"name": "cereal grains"
+		"name": "cereali"
 	},
 	"chard": {
-		"name": "chard"
+		"name": "bietola"
 	},
 	"cheese": {
-		"name": "cheese"
+		"name": "formaggio"
 	},
 	"chicory": {
-		"name": "chicory"
+		"name": "cicoria"
 	},
 	"chilli-peppers": {
-		"name": "chilli pepper",
-		"plural_name": "chilli peppers"
+		"name": "peperoncino",
+		"plural_name": "peperoncini"
 	},
 	"chinese-leaves": {
 		"name": "chinese leaves"
@@ -163,41 +163,41 @@
 		"name": "chives"
 	},
 	"chocolate": {
-		"name": "chocolate"
+		"name": "cioccolato"
 	},
 	"cilantro": {
-		"name": "cilantro"
+		"name": "coriandolo"
 	},
 	"cinnamon": {
-		"name": "cinnamon"
+		"name": "cannella"
 	},
 	"clarified-butter": {
-		"name": "clarified butter"
+		"name": "burro chiarificato"
 	},
 	"coconut": {
-		"name": "coconut",
-		"plural_name": "coconuts"
+		"name": "noce di cocco",
+		"plural_name": "noci di cocco"
 	},
 	"coconut-milk": {
-		"name": "coconut milk"
+		"name": "latte di cocco"
 	},
 	"cod": {
-		"name": "cod"
+		"name": "merluzzo"
 	},
 	"coffee": {
-		"name": "coffee"
+		"name": "caffè"
 	},
 	"collard-greens": {
-		"name": "collard greens"
+		"name": "cavolo nero"
 	},
 	"confectioners-sugar": {
 		"name": "confectioners' sugar"
 	},
 	"coriander": {
-		"name": "coriander"
+		"name": "coriandolo"
 	},
 	"corn": {
-		"name": "corn",
+		"name": "granoturco",
 		"plural_name": "corns"
 	},
 	"corn-syrup": {
@@ -468,7 +468,7 @@
 		"name": "prezzemolo"
 	},
 	"parsnip": {
-		"name": "parsnip",
+		"name": "pastinaca",
 		"plural_name": "parsnips"
 	},
 	"pear": {
