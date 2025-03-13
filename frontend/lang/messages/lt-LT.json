@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Pasirinktų produktų sujungimas apibendrins pirminį ir antrinį produktus į vieną produktą. Pirminis produktas bus ištrintas, o visi jo panaudojimai bus pakeisti antriniu produktu.",
       "merge-food-example": "Sujungiama {food1} su {food2}",
-      "seed-dialog-text": "Pradėkite pildyti duomenų bazę produktų pavadinimais savo vietine kalba. Bus sukurta apie 200 dažniausių produktų, kuriuos galėsite panaudoti savo duomenų bazės tvarkymui. Produktų pavadinimai verčiami bendruomenės pastangomis.",
-      "seed-dialog-warning": "Kai kuriuos elementus jau turite savo duomenų bazėje. Šis veiksmas nesutvarkys dublikatų, turėsite juos tvarkyti rankiniu būdu.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create ~2700 common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You already have some items in your database. A new item will not be added if an item with the same name already exists.",
       "combine-food": "Sujungti produktus",
       "source-food": "Pirminis produktas",
       "target-food": "Antrinis produktas",
