@@ -1048,7 +1048,7 @@
     "foods": {
       "merge-dialog-text": "Combinando gli alimenti selezionati, l'alimento di origine e l'alimento di destinazione verranno uniti in un unico alimento. L'alimento di origine verrà eliminato e tutti i riferimenti all'alimento di origine verranno aggiornati per puntare all'alimento di destinazione.",
       "merge-food-example": "Unione di {food1} in {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-text": "Inizializzare il database con alimenti della propria lingua locale. Ciò creerà oltre 200 alimenti comuni che potranno essere usati per organizzare il proprio database. Gli alimenti vengono tradotti grazie al contributo della comunità degli utenti.",
       "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Combina Alimenti",
       "source-food": "Alimento di Origine",
