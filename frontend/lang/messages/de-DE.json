@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Zusammenführen der ausgewählten Lebensmittel führt diese zusammen in ein einzelnes Lebensmittel. Die Ausgangslebensmittel werden gelöscht und alle Verweise werden auf das zusammengeführte Lebensmittel angepasst.",
       "merge-food-example": "{food1} wird zu {food2} zusammengeführt",
-      "seed-dialog-text": "Füllen Sie die Datenbank mit Lebensmitteln in Ihrer Landessprache. So entstehen ~2700 gängige Lebensmittel, die zur Organisation Ihrer Datenbank verwendet werden können. Die Lebensmittel werden in Gemeinschaftsarbeit übersetzt.",
-      "seed-dialog-warning": "Sie haben bereits einige Elemente in Ihrer Datenbank. Ein neuer Eintrag wird nicht hinzugefügt, wenn ein Element mit dem gleichen Namen bereits existiert.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Lebensmittel zusammenführen",
       "source-food": "Quell-Lebensmittel",
       "target-food": "Ziel-Lebensmittel",
