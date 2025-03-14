@@ -9,58 +9,58 @@
 		"name": "anchovies"
 	},
 	"apples": {
-		"name": "apple",
-		"plural_name": "apples"
+		"name": "alma",
+		"plural_name": "alma"
 	},
 	"artichoke": {
-		"name": "artichoke"
+		"name": "articsóka"
 	},
 	"arugula": {
 		"name": "arugula"
 	},
 	"asparagus": {
-		"name": "asparagus"
+		"name": "spárga"
 	},
 	"avocado": {
-		"name": "avocado",
-		"plural_name": "avocado"
+		"name": "avokádó",
+		"plural_name": "avokádó"
 	},
 	"bacon": {
-		"name": "bacon"
+		"name": "szalonna"
 	},
 	"baking-powder": {
-		"name": "baking powder"
+		"name": "sütőpor"
 	},
 	"baking-soda": {
-		"name": "baking soda"
+		"name": "szódabikarbóna"
 	},
 	"baking-sugar": {
 		"name": "baking sugar"
 	},
 	"bar-sugar": {
-		"name": "bar sugar"
+		"name": "cukorrúd"
 	},
 	"basil": {
-		"name": "basil"
+		"name": "bazsalikom"
 	},
 	"beans": {
-		"name": "beans"
+		"name": "bab"
 	},
 	"bell-peppers": {
-		"name": "bell peppers",
-		"plural_name": "bell peppers"
+		"name": "kaliforniai paprika",
+		"plural_name": "kaliforniai paprika"
 	},
 	"blackberries": {
-		"name": "blackberries"
+		"name": "szeder"
 	},
 	"bok-choy": {
-		"name": "bok choy"
+		"name": "bordáskel"
 	},
 	"brassicas": {
 		"name": "brassicas"
 	},
 	"bread": {
-		"name": "bread"
+		"name": "kenyér"
 	},
 	"breadfruit": {
 		"name": "breadfruit"
@@ -69,7 +69,7 @@
 		"name": "broccoflower"
 	},
 	"broccoli": {
-		"name": "broccoli"
+		"name": "brokkoli"
 	},
 	"broccoli-rabe": {
 		"name": "broccoli rabe"
@@ -78,64 +78,64 @@
 		"name": "broccolini"
 	},
 	"brown-sugar": {
-		"name": "brown sugar"
+		"name": "barna cukor"
 	},
 	"brussels-sprouts": {
-		"name": "brussels sprouts"
+		"name": "kelbimbó"
 	},
 	"butter": {
-		"name": "butter"
+		"name": "vaj"
 	},
 	"butternut-pumpkin": {
-		"name": "butternut pumpkin"
+		"name": "pézsmatök"
 	},
 	"butternut-squash": {
-		"name": "butternut squash"
+		"name": "vajtök"
 	},
 	"cabbage": {
-		"name": "cabbage",
-		"plural_name": "cabbages"
+		"name": "káposzta",
+		"plural_name": "káposzta"
 	},
 	"cactus-edible": {
-		"name": "cactus, edible"
+		"name": "kaktusz"
 	},
 	"calabrese": {
 		"name": "calabrese"
 	},
 	"cane-sugar": {
-		"name": "cane sugar"
+		"name": "nádcukor"
 	},
 	"cannabis": {
-		"name": "cannabis"
+		"name": "kannabisz"
 	},
 	"capsicum": {
-		"name": "capsicum"
+		"name": "paprika"
 	},
 	"caraway": {
-		"name": "caraway"
+		"name": "fűszerkömény"
 	},
 	"carrot": {
-		"name": "carrot",
-		"plural_name": "carrots"
+		"name": "sárgarépa",
+		"plural_name": "sárgarépa"
 	},
 	"caster-sugar": {
-		"name": "caster sugar"
+		"name": "porcukor"
 	},
 	"castor-sugar": {
-		"name": "castor sugar"
+		"name": "porcukor"
 	},
 	"catfish": {
-		"name": "catfish"
+		"name": "harcsa"
 	},
 	"cauliflower": {
-		"name": "cauliflower",
-		"plural_name": "cauliflowers"
+		"name": "karfiol",
+		"plural_name": "karfiol"
 	},
 	"cayenne-pepper": {
-		"name": "cayenne pepper"
+		"name": "cayenne-bors"
 	},
 	"celeriac": {
-		"name": "celery root"
+		"name": "zeller"
 	},
 	"celery": {
 		"name": "celery"
@@ -243,18 +243,18 @@
 		"plural_name": "eggplants"
 	},
 	"eggs": {
-		"name": "egg",
-		"plural_name": "eggs"
+		"name": "tojás",
+		"plural_name": "tojás"
 	},
 	"endive": {
-		"name": "endive",
-		"plural_name": "endives"
+		"name": "endívia",
+		"plural_name": "endívia"
 	},
 	"fats": {
-		"name": "fats"
+		"name": "zsírok"
 	},
 	"fava-beans": {
-		"name": "fava beans"
+		"name": "lóbab"
 	},
 	"fiddlehead": {
 		"name": "fiddlehead"
@@ -264,25 +264,25 @@
 		"plural_name": "fiddlehead ferns"
 	},
 	"fish": {
-		"name": "fish"
+		"name": "hal"
 	},
 	"five-spice-powder": {
-		"name": "five spice powder"
+		"name": "ötfűszer keverék"
 	},
 	"flour": {
-		"name": "flour"
+		"name": "liszt"
 	},
 	"frisee": {
 		"name": "frisee"
 	},
 	"fructose": {
-		"name": "fructose"
+		"name": "fruktóz"
 	},
 	"fruit": {
-		"name": "fruit"
+		"name": "gyümölcs"
 	},
 	"fruit-sugar": {
-		"name": "fruit sugar"
+		"name": "gyümölcscukor"
 	},
 	"ful": {
 		"name": "ful"
@@ -291,29 +291,29 @@
 		"name": "garam masala"
 	},
 	"garlic": {
-		"name": "garlic",
-		"plural_name": "garlics"
+		"name": "fokhagyma",
+		"plural_name": "fokhagyma"
 	},
 	"gem-squash": {
 		"name": "gem squash"
 	},
 	"ghee": {
-		"name": "ghee"
+		"name": "ghi"
 	},
 	"giblets": {
-		"name": "giblets"
+		"name": "szárnyas aprólék"
 	},
 	"ginger": {
-		"name": "ginger"
+		"name": "gyömbér"
 	},
 	"grains": {
-		"name": "grains"
+		"name": "gabonafélék"
 	},
 	"granulated-sugar": {
-		"name": "granulated sugar"
+		"name": "cukor"
 	},
 	"grape-seed-oil": {
-		"name": "grape seed oil"
+		"name": "szőlőmagolaj"
 	},
 	"green-onion": {
 		"name": "green onion",
@@ -324,7 +324,7 @@
 		"plural_name": "heart of palms"
 	},
 	"hemp": {
-		"name": "hemp"
+		"name": "kender"
 	},
 	"herbs": {
 		"name": "herbs"
