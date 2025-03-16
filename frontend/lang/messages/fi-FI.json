@@ -720,7 +720,7 @@
       "backup-restore": "Varmuuskopion palautus",
       "back-restore-description": "Tämän varmuuskopion palauttaminen korvaa kaikki tietokannassasi ja tietokannassasi olevat tiedot ja korvaa ne tämän varmuuskopion sisällöllä. {cannot-be-undone} Jos palautus onnistuu, sinut kirjataan ulos.",
       "cannot-be-undone": "Tätä toimintoa ei voi kumota - käytä varoen.",
-      "postgresql-note": "Jos käytät PostGreSQL-tietokantaa, ole hyvä ja tarkista {backup-restore-process} ennen palauttamista.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "varmuuskopiointi/palautus prosessi dokumentaatiossa",
       "irreversible-acknowledgment": "Ymmärrän, että tämä toiminta on peruuttamatonta ja voi aiheuttaa tietojen häviämistä",
       "restore-backup": "Palauta varmuuskopio"
