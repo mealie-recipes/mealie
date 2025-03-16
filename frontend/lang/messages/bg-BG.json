@@ -720,7 +720,7 @@
       "backup-restore": "Възстановяване на резервно копие",
       "back-restore-description": "Възстановяването на това резервно копие ще презапише цялата текуща информация във Вашата база данни и директорията с данни, и ще ги замени със съдържанието от резервното копие. {cannot-be-undone} Ако възстановяването е успешно ще бъдете отписан от системата.",
       "cannot-be-undone": "Това действие не може да бъде отменено - използвайте с внимание.",
-      "postgresql-note": "Ако използвате PostGreSQL, моля прегледайте {backup-restore-process} преди възстановяването.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "процес за резервно копие/възстановяване в документацията",
       "irreversible-acknowledgment": "Разбирам, че това действие е невъзвращаемо, разрушително и може да доведе до загуба на данни",
       "restore-backup": "Възстановяване на резервно копие"
