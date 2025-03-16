@@ -720,7 +720,7 @@
       "backup-restore": "Restaurar Copia de Seguridad",
       "back-restore-description": "Restaurar esta copia de seguridad sobrescribirá todos los datos actuales de su base de datos y del directorio de datos y los sustituirá por el contenido de esta copia. {cannot-be-undone} Si la restauración se realiza correctamente, se cerrará su sesión.",
       "cannot-be-undone": "Esta acción no se puede deshacer, use con precaución.",
-      "postgresql-note": "Si estás usando PostGreSQL, por favor revisa el {backup-restore-process} antes de restaurar.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "copia de seguridad/proceso de restauración en la documentación",
       "irreversible-acknowledgment": "Entiendo que esta acción es irreversible, destructiva y puede causar pérdida de datos",
       "restore-backup": "Restaurar copia de seguridad"
