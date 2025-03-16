@@ -720,7 +720,7 @@
       "backup-restore": "Back-up maken/terugzetten",
       "back-restore-description": "Het terugzetten van deze back-up overschrijft alle huidige gegevens in je database en in de gegevensmap. {cannot-be-undone} Als het terugzetten is gelukt wordt je afgemeld.",
       "cannot-be-undone": "Deze actie kan niet ongedaan worden gemaakt – gebruik met voorzichtigheid.",
-      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
+      "postgresql-note": "Gebruik je PostgreSQL? Lees dan eerst de {backup-restore-process} voordat je herstelt.",
       "backup-restore-process-in-the-documentation": "backup/herstel proces in de documentatie",
       "irreversible-acknowledgment": "Ik begrijp dat deze actie onomkeerbaar en destructief is en gegevensverlies kan veroorzaken",
       "restore-backup": "Back-up terugzetten"
