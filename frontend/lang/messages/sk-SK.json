@@ -720,7 +720,7 @@
       "backup-restore": "Uložiť zálohu",
       "back-restore-description": "Obnovenie tejto zálohy prepíše všetky aktuálne údaje vo vašej databáze a dáta v dátovom adresári a nahradí ich obsahom tejto zálohy. {cannot-be-undone} Po úspešnom obnovení budete odhlásený.",
       "cannot-be-undone": "Túto akciu nie je možné vrátiť späť - používajte s rozvahou.",
-      "postgresql-note": "Ak používate PostGreSQL, prosím, skontrolujte {backup-restore-process} pred samotným obnovením.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "proces zálohovania/obnovenia v dokumentácii",
       "irreversible-acknowledgment": "Rozumiem, že táto akcia je nevratná, deštruktívna a môže spôsobiť stratu dát",
       "restore-backup": "Obnoviť zálohu"
