@@ -720,7 +720,7 @@
       "backup-restore": "Gjenoppretting av sikkerhetskopi",
       "back-restore-description": "Gjenoppretting av denne sikkerhetskopien vil overskrive alle gjeldende data i databasen og i datamappen og erstatte dem med innholdet i denne sikkerhetskopien. {cannot-be-undone} Hvis gjenopprettingen er vellykket, vil du bli logget ut.",
       "cannot-be-undone": "Denne handlingen kan ikke angres – bruk med forsiktighet.",
-      "postgresql-note": "Hvis du bruker PostGreSQL, vennligst gå igjennom {backup-restore-process} før du gjenoppretter.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "sikkerhetskopiering/gjenoppretting prosess i dokumentasjonen",
       "irreversible-acknowledgment": "Jeg forstår at denne handlingen er irreversibel, destruktiv og kan føre til tap av data",
       "restore-backup": "Gjenopprett sikkerhetskopi"
