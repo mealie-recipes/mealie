@@ -720,7 +720,7 @@
       "backup-restore": "Yedekleme Geri Yükleme",
       "back-restore-description": "Bu yedeği geri yüklemek, veritabanınızdaki ve veri dizinindeki tüm mevcut verilerin üzerine yazacak ve bunları bu yedeğin içeriğiyle değiştirecektir. {cannot-be-undone} Geri yükleme başarılı olursa oturumunuz kapatılacaktır.",
       "cannot-be-undone": "Bu işlem geri alınamaz - dikkatli kullanın.",
-      "postgresql-note": "Eğer PostGreSQL kullanıyorsanız, geri yüklemeden önce lütfen {backup-restore-process} gözden geçirin.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "belgelerdeki yedekleme/geri yükleme işlemini",
       "irreversible-acknowledgment": "Bu işlemin geri döndürülemez, yıkıcı ve veri kaybına neden olabileceğini anlıyorum",
       "restore-backup": "Yedeği Geri Yükle"
