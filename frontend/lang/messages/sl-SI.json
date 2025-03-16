@@ -720,7 +720,7 @@
       "backup-restore": "Obnovitev varnostne kopije",
       "back-restore-description": "Obnavljanje varnostne kopije bo prepisalo trenutne podatke v podatkovni zbirki in v podatkovni mapi in jih zamenjalo s podatki v tej varnostni kopiji. {cannot-be-undone} Če je obnavljanje varnostne kopije uspešno, te bo sistem na koncu izpisal iz tvojega uporabniškega računa.",
       "cannot-be-undone": "Te akcije ni mogoče razveljaviti - uporabljaj previdno.",
-      "postgresql-note": "Če uporabljaš PostGreSQL, preveri {backup-restore-process} preden pričneš z obnavljanje varnostne kopije.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "postopek ustvarjanja in obnavljanja varnostne kopije v dokumentaciji",
       "irreversible-acknowledgment": "Razumem, da tega ukaza ni mogoče razveljaviti in da lahko povzroči izgubo podatkov",
       "restore-backup": "Obnovi varnostno kopijo"
