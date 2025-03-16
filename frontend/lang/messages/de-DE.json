@@ -720,7 +720,7 @@
       "backup-restore": "Wiederherstellen aus Sicherung",
       "back-restore-description": "Das Wiederherstellen dieser Sicherung wird alle vorhandenen Daten in deiner Datenbank und im Datenverzeichnis überschreiben und durch den Inhalt dieser Sicherung ersetzen. {cannot-be-undone} Wenn die Wiederherstellung erfolgreich war, wirst du abgemeldet.",
       "cannot-be-undone": "Diese Aktion kann nicht rückgängig gemacht werden - verwende sie mit Vorsicht.",
-      "postgresql-note": "Wenn du PostGreSQL verwendest, überprüfe bitte den {backup-restore-process} vor der Wiederherstellung.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "Sichern- und Wiederherstellen-Prozess in der Dokumentation",
       "irreversible-acknowledgment": "Ich verstehe, dass diese Maßnahme unumkehrbar und destruktiv ist und Datenverlust verursachen kann",
       "restore-backup": "Sicherung wiederherstellen"
