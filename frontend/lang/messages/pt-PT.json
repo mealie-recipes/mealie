@@ -720,7 +720,7 @@
       "backup-restore": "Restaurar backup",
       "back-restore-description": "Restaurar este backup irá apagar todos os dados atuais da sua base de dados e da pasta de dados e substituí-los pelo conteúdo deste backup. {cannot-be-undone} Se o restauro for bem-sucedido, a sua sessão será encerrada.",
       "cannot-be-undone": "Esta acção não pode ser desfeita - use com prudência.",
-      "postgresql-note": "Se estiver a usar PostGreSQL, por favor reveja o {backup-restore-process} antes de restaurar.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "processo de backup/restauro na documentação",
       "irreversible-acknowledgment": "Eu entendo que esta ação é irreversível, destrutiva e pode causar perda de dados",
       "restore-backup": "Restaurar Backup"
