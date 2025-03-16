@@ -720,7 +720,7 @@
       "backup-restore": "Taasta tagavarakoopiast",
       "back-restore-description": "Selle varukoopia taastamisel kirjutatakse üle kõik teie andmebaasis ja andmebaasihalduris olevad andmed ning asendatakse need selle varukoopia sisuga. {cannot-be-undone} Kui taastamine õnnestub, logitakse teid välja.",
       "cannot-be-undone": "Seda tegevust ei saa tagasi võtta - kasuta ettevaatusega.",
-      "postgresql-note": "Kui sa kasutad PostGreSQL-i, palun vaata {backup-restore-process} enne taastamist.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "varundamise/taastamise protsessi dokumentatsioonis",
       "irreversible-acknowledgment": "Ma saan aru, et seda tegevust ei ole võimalik tagasi võtta, on destruktiivne, ning võib põhjustada andmekadu",
       "restore-backup": "Taasta tagavarakoopiast"
