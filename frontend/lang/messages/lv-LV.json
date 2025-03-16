@@ -720,7 +720,7 @@
       "backup-restore": "Dublēšanas atjaunošana",
       "back-restore-description": "Atjaunojot šo dublējumu, tiks pārrakstīti visi pašreizējie dati jūsu datu bāzē un datu direktorijā un aizstāti tos ar šīs dublējuma saturu. {cannot-be-undone}Ja atjaunošana būs veiksmīga, jūs izrakstīsities.",
       "cannot-be-undone": "Šo darbību nevar atsaukt - lietojiet piesardzīgi.",
-      "postgresql-note": "Ja izmantojat PostgreSQL, lūdzu, pārskatiet to {backup-restore-process} pirms atjaunošanas.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "dublēšanas/atjaunošanas process dokumentācijā",
       "irreversible-acknowledgment": "Es saprotu, ka šī darbība ir neatgriezeniska, destruktīva un var izraisīt datu zudumu",
       "restore-backup": "Atjaunot backup"
