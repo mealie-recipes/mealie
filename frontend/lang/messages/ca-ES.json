@@ -720,7 +720,7 @@
       "backup-restore": "Restaura la còpia de seguretat",
       "back-restore-description": "Restaurar aquesta còpia de seguretat sobreescriurà totes les dades actuals de la teva base de dades i qualsevol directori i els substituirà amb el contingut d'aquesta còpia de seguretat. {cannot-be-undone} Si la restauració es duu a terme correctament, se us tancarà la sessió.",
       "cannot-be-undone": "Aquesta acció no es pot desfer. Utilitza-la amb precaució.",
-      "postgresql-note": "Si estàs fent servir PostGresSQL, si us plau, revisa el {backup-restore-process} abans de fer la restauració.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "el procés de còpia de seguretat i restauració es troba a la documentació",
       "irreversible-acknowledgment": "Entenc que aquesta acció és irreversible, destructiva i pot ocasionar la pèrdua de dades",
       "restore-backup": "Restaura la còpia de seguretat"
