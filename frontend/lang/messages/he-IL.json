@@ -720,7 +720,7 @@
       "backup-restore": "גיבוי / שחזור",
       "back-restore-description": "שחזור מגיבוי זה ידרוס את המידע הקיים במסד הנתונים ובספריות האתר ויחליף אותם בזה הקיים בגיבוי. {cannot-be-undone} אם השחזור יצליח, המשתמש ינותק מהמערכת.",
       "cannot-be-undone": "פעולה זו לא בלתי הפיכה - השתמש בזהירות.",
-      "postgresql-note": "אם PostGreSQL בשימוש, בדוק את ה-{backup-restore-process} לפני שחזור.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "תהליך גיבוי או שחזור במדריכים",
       "irreversible-acknowledgment": "אני מבין שהפעולה לא הפיכה, הרסנית ויכולה לגרום לאיבוד מידע",
       "restore-backup": "שחזר גיבוי"
