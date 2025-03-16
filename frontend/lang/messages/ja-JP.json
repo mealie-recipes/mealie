@@ -720,7 +720,7 @@
       "backup-restore": "バックアップと復元",
       "back-restore-description": "このバックアップを復元すると、データベースとデータディレクトリ内のすべての現在のデータが上書きされ、このバックアップの内容に置き換えられます。 {cannot-be-undone} 復元が成功するとログアウトされます。",
       "cannot-be-undone": "この操作は元に戻せません - 注意してください。",
-      "postgresql-note": "PostGreSQLを使用している場合は、復元する前に {backup-restore-process} を確認してください。",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "ドキュメント内のバックアップ/復元プロセス",
       "irreversible-acknowledgment": "このアクションは不可逆的で破壊的で、データ損失を引き起こす可能性があることを理解しています",
       "restore-backup": "バックアップから復元"
