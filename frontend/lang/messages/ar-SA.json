@@ -413,8 +413,8 @@
       "description-long": "Mealie can import recipies from Plan to Eat."
     },
     "myrecipebox": {
-      "title": "My Recipe Box",
-      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
+      "title": "صندوق وصفاتي",
+      "description-long": ""
     },
     "recipekeeper": {
       "title": "مدير الوصفة",
