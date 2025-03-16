@@ -720,7 +720,7 @@
       "backup-restore": "Herlaai vanaf back-up",
       "back-restore-description": "Die herstel van hierdie back-up sal alle huidige data in jou databasis en in die data-lêergids oorskryf. {cannot-be-undone} As die herstel suksesvol was, sal jy afgemeld word.",
       "cannot-be-undone": "Hierdie aksie kan nie ongedaan gemaak word nie - gebruik met omsigtigheid.",
-      "postgresql-note": "Gebruik jy PostGreSQL? Lees asseblief eers die {backup-restore-process} voordat jy dit herstel.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "backup/herstelproses in die dokumentasie",
       "irreversible-acknowledgment": "Ek verstaan ​​dat hierdie aksie onomkeerbaar en vernietigend is en dataverlies kan veroorsaak",
       "restore-backup": "Herlaai back-up"
