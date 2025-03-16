@@ -90,4 +90,4 @@ class OpenAIIngredient(OpenAIBase):
 
 
 class OpenAIIngredients(OpenAIBase):
-    ingredients: list[OpenAIIngredient] = []
+    ingredients: list[OpenAIIngredient]

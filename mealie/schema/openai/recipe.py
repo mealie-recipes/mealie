@@ -116,7 +116,7 @@ class OpenAIRecipe(OpenAIBase):
     )
 
     recipe_yield: str | None = Field(
-        None,
+        ...,
         description=dedent(
             """
             The yield of the recipe. For instance, if the recipe makes 12 cookies, the yield is "12 cookies".
@@ -128,7 +128,7 @@ class OpenAIRecipe(OpenAIBase):
     )
 
     total_time: str | None = Field(
-        None,
+        ...,
         description=dedent(
             """
             The total time it takes to make the recipe. This should be a string that describes a duration of time,
@@ -141,7 +141,7 @@ class OpenAIRecipe(OpenAIBase):
     )
 
     prep_time: str | None = Field(
-        None,
+        ...,
         description=dedent(
             """
             The time it takes to prepare the recipe. This should be a string that describes a duration of time,
@@ -154,7 +154,7 @@ class OpenAIRecipe(OpenAIBase):
     )
 
     perform_time: str | None = Field(
-        None,
+        ...,
         description=dedent(
             """
             The time it takes to cook the recipe. This should be a string that describes a duration of time,
@@ -168,7 +168,7 @@ class OpenAIRecipe(OpenAIBase):
     )
 
     ingredients: list[OpenAIRecipeIngredient] = Field(
-        [],
+        ...,
         description=dedent(
             """
             A list of ingredients used in the recipe. Ingredients should be inserted in the order they appear in the
@@ -181,7 +181,7 @@ class OpenAIRecipe(OpenAIBase):
     )
 
     instructions: list[OpenAIRecipeInstruction] = Field(
-        [],
+        ...,
         description=dedent(
             """
             A list of ingredients used in the recipe. Ingredients should be inserted in the order they appear in the
@@ -195,7 +195,7 @@ class OpenAIRecipe(OpenAIBase):
     )
 
     notes: list[OpenAIRecipeNotes] = Field(
-        [],
+        ...,
         description=dedent(
             """
             A list of notes found in the recipe. Notes should be inserted in the order they appear in the recipe.

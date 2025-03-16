@@ -144,7 +144,7 @@ class OpenAIService(BaseService):
         response_format: BaseModel | dict[str, Any] | None = None,
     ) -> ChatCompletion:
         client = self.get_client()
-        return await client.chat.completions.create(
+        return await client.beta.chat.completions.parse(
             messages=[
                 {
                     "role": "system",
