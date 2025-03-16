@@ -720,7 +720,7 @@
       "backup-restore": "Restaurare backup",
       "back-restore-description": "Restaurarea acestui backup va suprascrie toate datele curente din baza de date și din folderul de date și le va înlocui cu conținutul acestei copii de rezervă. {cannot-be-undone} Dacă restaurarea are succes, vei fi deconectat.",
       "cannot-be-undone": "Această acțiune nu poate fi anulată - utilizează cu prudență.",
-      "postgresql-note": "Dacă utilizezi PostGreSQL, te rog să verifici {backup-restore-process} înainte de a restaura.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "procesul de backup/restaurare în documentație",
       "irreversible-acknowledgment": "Înțeleg că această acțiune este ireversibilă, distructivă și poate provoca pierderea datelor",
       "restore-backup": "Restaurează backup"
