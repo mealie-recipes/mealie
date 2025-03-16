@@ -720,7 +720,7 @@
       "backup-restore": "Restauração de Backup",
       "back-restore-description": "Restaurar este backup substituirá todos os dados atuais no seu banco de dados e no diretório de dados e os substituirá pelo conteúdo deste backup. {cannot-be-undone} Se a restauração for bem-sucedida, você será desconectado.",
       "cannot-be-undone": "Esta ação não pode ser desfeita - use com cautela.",
-      "postgresql-note": "Se você estiver usando o PostGreSQL, por favor, revise o {backup-restore-process} antes de restaurar.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "fazer backup/restauração do processo na documentação",
       "irreversible-acknowledgment": "Eu entendo que esta ação é irreversível, destrutiva e pode causar perda de dados",
       "restore-backup": "Restaurar Backup"
