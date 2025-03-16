@@ -720,7 +720,7 @@
       "backup-restore": "Atkurti iš atsarginės kopijos",
       "back-restore-description": "Atkūrimas ištrina visus šiuo metu duomenų bazėje ir duomenų archyve esančius duomenis ir perrašo juos į duomenis iš atsarginės kopijos. {cannot-be-undone} Jei atkūrimas bus sėkmingas, būsite atjungti nuo savo paskyros.",
       "cannot-be-undone": "Atsargiai - šis veiksmas negrįžtamas.",
-      "postgresql-note": "Jei naudojate PostgreSQL, prašome peržiūrėti {backup-restore-process} prieš atkuriant.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "atsarginio kopijavimo/atkūrimo procesą dokumentacijoje",
       "irreversible-acknowledgment": "Suprantu, jog šis veiksmas bus neatstatomas, destruktyvus ir gali sukelti duomenų praradimus",
       "restore-backup": "Atkurti iš atsarginės kopijos"
