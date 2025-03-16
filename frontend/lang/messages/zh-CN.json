@@ -720,7 +720,7 @@
       "backup-restore": "备份恢复",
       "back-restore-description": "恢复该备份将覆盖当前数据库和数据文件夹的数据。 {cannot-be-undone} 若恢复成功，你需要重新登录。",
       "cannot-be-undone": "该操作无法撤销，请谨慎使用！",
-      "postgresql-note": "若你正在使用postgresql，请在备份前阅读 {backup-restore-process}",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "文档中的备份/恢复流程",
       "irreversible-acknowledgment": "我已悉知该操作是不可逆的、有破坏性的，并可能造成数据丢失",
       "restore-backup": "恢复备份"
