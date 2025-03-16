@@ -720,7 +720,7 @@
       "backup-restore": "Backup / gendannelse",
       "back-restore-description": "Gendannelse af denne sikkerhedskopi vil overskrive alle de aktuelle data i din database og i datamappen og erstatte dem med indholdet af denne sikkerhedskopi. {cannot-be-undone} Hvis gendannelsen lykkes, vil du blive logget ud.",
       "cannot-be-undone": "Denne handling kan ikke fortrydes - brug med forsigtighed.",
-      "postgresql-note": "Hvis du bruger PostgreSQL, så gennemse venligst {backup-restore-process} før du gendanner.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "backup/restoreproces i dokumentationen",
       "irreversible-acknowledgment": "Jeg forstår, at denne handling er irreversibel, destruktiv og kan forårsage tab af data",
       "restore-backup": "Gendan sikkerhedskopi"
