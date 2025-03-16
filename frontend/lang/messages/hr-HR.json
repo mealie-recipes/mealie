@@ -720,7 +720,7 @@
       "backup-restore": "Sigurnosno kopiranje/vraćanje",
       "back-restore-description": "Vraćanje ove sigurnosne kopije će prepisati sve trenutne podatke u vašoj bazi podataka i direktoriju podataka i zamijeniti ih sadržajem ove sigurnosne kopije. Ova radnja je {ne-može-se-povratiti}. Ako se vraćanje uspješno izvrši, bit ćete odjavljeni iz sustava.",
       "cannot-be-undone": "Ova radnja ne može se poništiti - koristite je oprezno.",
-      "postgresql-note": "Ako koristite PostGreSQL, molim pregledajte {backup-restore-process} prije obnove.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "postupak sigurnosne kopije/obnove opisan je u dokumentaciji",
       "irreversible-acknowledgment": "Razumijem da je ova radnja nepovratna, destruktivna i može uzrokovati gubitak podataka",
       "restore-backup": "Vrati sigurnosnu kopiju"
