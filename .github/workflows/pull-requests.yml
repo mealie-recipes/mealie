@@ -48,7 +48,7 @@ jobs:
       # https://github.com/orgs/community/discussions/76409#discussioncomment-8131390
       id-token: write
     name: Build Pull Request Docker Image
-    if: ${{ github.event.label.name == 'build-image' }}
+    if: contains(github.event.pull_request.labels.*.name, 'build-image')
     uses: ./.github/workflows/partial-builder.yml
     with:
       tag: "pr-${{ github.event.number }}"
