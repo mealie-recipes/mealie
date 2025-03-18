@@ -720,7 +720,7 @@
       "backup-restore": "Uložiť zálohu",
       "back-restore-description": "Obnovenie tejto zálohy prepíše všetky aktuálne údaje vo vašej databáze a dáta v dátovom adresári a nahradí ich obsahom tejto zálohy. {cannot-be-undone} Po úspešnom obnovení budete odhlásený.",
       "cannot-be-undone": "Túto akciu nie je možné vrátiť späť - používajte s rozvahou.",
-      "postgresql-note": "Ak používate PostGreSQL, prosím, skontrolujte {backup-restore-process} pred samotným obnovením.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "proces zálohovania/obnovenia v dokumentácii",
       "irreversible-acknowledgment": "Rozumiem, že táto akcia je nevratná, deštruktívna a môže spôsobiť stratu dát",
       "restore-backup": "Obnoviť zálohu"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Kombináciou vybraných potravín sa zdrojové jedlo a cieľové jedlo zlúčia do jedného jedla. Zdrojové jedlo bude vymazané a všetky odkazy na zdrojové jedlo budú aktualizované tak, aby ukazovali na cieľové jedlo.",
       "merge-food-example": "Zlučujem {food1} do {food2}",
-      "seed-dialog-text": "Naplniť databázu jedlom na základe vášho lokálneho jazyku. Tým sa vytvorí viac ako 200 bežných potravín, ktoré možno použiť na usporiadanie databázy. Jedlá sa prekladajú prostredníctvom úsilia komunity.",
-      "seed-dialog-warning": "V databáze už máte nejaké položky. Táto akcia nezjednotí duplikáty, budete ich musieť spravovať manuálne.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Kombinované jedlo",
       "source-food": "Zdrojové jedlo",
       "target-food": "Cieľové jedlo",

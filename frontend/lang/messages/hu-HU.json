@@ -720,7 +720,7 @@
       "backup-restore": "Biztonsági Mentés/Visszaállítás",
       "back-restore-description": "A biztonsági mentés visszaállítása felülírja az adatbázisban és az adatkönyvtárban lévő összes aktuális adatot, és a biztonsági mentés tartalmával helyettesíti azokat. {cannot-be-undone} Ha a visszaállítás sikeres, akkor a rendszer kilépteti Önt.",
       "cannot-be-undone": "Ezt a műveletet visszavonható - óvatosan használja.",
-      "postgresql-note": "Ha PostGreSQL-t használ, kérjük, a visszaállítás előtt tekintse át a {backup-restore-process}-t.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "biztonsági mentés/visszaállítás folyamata a dokumentációban",
       "irreversible-acknowledgment": "Tudomásul veszem, hogy ez a művelet visszafordíthatatlan, helyrehozhatatlan, és adatvesztéssel járhat",
       "restore-backup": "Biztonsági mentés visszaállítása"

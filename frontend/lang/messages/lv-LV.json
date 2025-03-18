@@ -720,7 +720,7 @@
       "backup-restore": "Dublēšanas atjaunošana",
       "back-restore-description": "Atjaunojot šo dublējumu, tiks pārrakstīti visi pašreizējie dati jūsu datu bāzē un datu direktorijā un aizstāti tos ar šīs dublējuma saturu. {cannot-be-undone}Ja atjaunošana būs veiksmīga, jūs izrakstīsities.",
       "cannot-be-undone": "Šo darbību nevar atsaukt - lietojiet piesardzīgi.",
-      "postgresql-note": "Ja izmantojat PostgreSQL, lūdzu, pārskatiet to {backup-restore-process} pirms atjaunošanas.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "dublēšanas/atjaunošanas process dokumentācijā",
       "irreversible-acknowledgment": "Es saprotu, ka šī darbība ir neatgriezeniska, destruktīva un var izraisīt datu zudumu",
       "restore-backup": "Atjaunot backup"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Izvēlēto pārtikas produktu apvienošana apvienos avota pārtiku un mērķa pārtiku vienā ēdienā. Avota barība tiks svītrota, un visas atsauces uz avota pārtiku tiks atjauninātas, lai norādītu uz mērķa pārtiku.",
       "merge-food-example": "Apvienošanās {food1} {food2}",
-      "seed-dialog-text": "Sēdziet datu bāzi ar pārtikas produktiem, pamatojoties uz jūsu vietējo valodu. Tādējādi tiks izveidoti vairāk nekā 200 izplatīti pārtikas produkti, kurus var izmantot datu bāzes sakārtošanai. Pārtika tiek tulkota ar kopienas centieniem.",
-      "seed-dialog-warning": "Jūsu datu bāzē jau ir daži vienumi. Šī darbība nesaskaņos dublikātus, jums tie būs jāpārvalda manuāli.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Apvienojiet ēdienu",
       "source-food": "Pārtikas avots",
       "target-food": "Mērķa pārtika",

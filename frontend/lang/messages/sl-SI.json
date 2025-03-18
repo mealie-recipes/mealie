@@ -720,7 +720,7 @@
       "backup-restore": "Obnovitev varnostne kopije",
       "back-restore-description": "Obnavljanje varnostne kopije bo prepisalo trenutne podatke v podatkovni zbirki in v podatkovni mapi in jih zamenjalo s podatki v tej varnostni kopiji. {cannot-be-undone} Če je obnavljanje varnostne kopije uspešno, te bo sistem na koncu izpisal iz tvojega uporabniškega računa.",
       "cannot-be-undone": "Te akcije ni mogoče razveljaviti - uporabljaj previdno.",
-      "postgresql-note": "Če uporabljaš PostGreSQL, preveri {backup-restore-process} preden pričneš z obnavljanje varnostne kopije.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "postopek ustvarjanja in obnavljanja varnostne kopije v dokumentaciji",
       "irreversible-acknowledgment": "Razumem, da tega ukaza ni mogoče razveljaviti in da lahko povzroči izgubo podatkov",
       "restore-backup": "Obnovi varnostno kopijo"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Združitev izbranih živil bo združila izvorno živilo in ciljno živilo v eno samo živilo. Izvorno živilo bo izbrisano in vse povezave na izvorno živilo, bodo po novem kazale na ciljno živilo.",
       "merge-food-example": "Združujem {food1} v {food2}",
-      "seed-dialog-text": "Napolni podatkovno bazo s jedmi, ki izvirajo iz vašega lokalnega jezika. To bo kreiralo 200+ običajnih jedi, ki se lahko uporabijo za organizacijo vaše podatkovne baze. Jedi so prevedene s pomočjo skupnosti.",
-      "seed-dialog-warning": "Nekatere elemente že imate v podatkovni bazi. To opravilo ne bo upoštevalo dvojnikov in jih boste morali sami ročno upravljati.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Združi živila",
       "source-food": "Izvorno živilo",
       "target-food": "Ciljno živilo",

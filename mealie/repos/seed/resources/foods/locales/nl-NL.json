@@ -1,279 +1,279 @@
 {
 	"acorn-squash": {
-		"name": "eikelpompoen"
+		"name": "acorn squash"
 	},
 	"alfalfa-sprouts": {
-		"name": "kiemgroente"
+		"name": "alfalfa sprouts"
 	},
 	"anchovies": {
-		"name": "ansjovis"
+		"name": "anchovies"
 	},
 	"apples": {
-		"name": "appels",
-		"plural_name": "appels"
+		"name": "apple",
+		"plural_name": "apples"
 	},
 	"artichoke": {
-		"name": "artisjok"
+		"name": "artichoke"
 	},
 	"arugula": {
-		"name": "rucola"
+		"name": "arugula"
 	},
 	"asparagus": {
-		"name": "asperge"
+		"name": "asparagus"
 	},
 	"avocado": {
 		"name": "avocado",
 		"plural_name": "avocado"
 	},
 	"bacon": {
-		"name": "spek"
+		"name": "bacon"
 	},
 	"baking-powder": {
-		"name": "bakpoeder"
+		"name": "baking powder"
 	},
 	"baking-soda": {
-		"name": "baksoda"
+		"name": "baking soda"
 	},
 	"baking-sugar": {
-		"name": "bak suiker"
+		"name": "baking sugar"
 	},
 	"bar-sugar": {
-		"name": "rietsuiker"
+		"name": "bar sugar"
 	},
 	"basil": {
-		"name": "basilicum"
+		"name": "basil"
 	},
 	"beans": {
-		"name": "bonen"
+		"name": "beans"
 	},
 	"bell-peppers": {
-		"name": "paprika",
-		"plural_name": "paprika"
+		"name": "bell peppers",
+		"plural_name": "bell peppers"
 	},
 	"blackberries": {
-		"name": "braambessen"
+		"name": "blackberries"
 	},
 	"bok-choy": {
-		"name": "paksoi"
+		"name": "bok choy"
 	},
 	"brassicas": {
-		"name": "kool"
+		"name": "brassicas"
 	},
 	"bread": {
-		"name": "brood"
+		"name": "bread"
 	},
 	"breadfruit": {
-		"name": "broodvruchten"
+		"name": "breadfruit"
 	},
 	"broccoflower": {
-		"name": "romanesco"
+		"name": "broccoflower"
 	},
 	"broccoli": {
 		"name": "broccoli"
 	},
 	"broccoli-rabe": {
-		"name": "rapini"
+		"name": "broccoli rabe"
 	},
 	"broccolini": {
 		"name": "broccolini"
 	},
 	"brown-sugar": {
-		"name": "bruine suiker"
+		"name": "brown sugar"
 	},
 	"brussels-sprouts": {
-		"name": "spruiten"
+		"name": "brussels sprouts"
 	},
 	"butter": {
-		"name": "boter"
+		"name": "butter"
 	},
 	"butternut-pumpkin": {
-		"name": "butternut pompoen"
+		"name": "butternut pumpkin"
 	},
 	"butternut-squash": {
-		"name": "butternut pompoen"
+		"name": "butternut squash"
 	},
 	"cabbage": {
-		"name": "kool",
-		"plural_name": "kolen"
+		"name": "cabbage",
+		"plural_name": "cabbages"
 	},
 	"cactus-edible": {
-		"name": "cactus, eetbaar"
+		"name": "cactus, edible"
 	},
 	"calabrese": {
 		"name": "calabrese"
 	},
 	"cane-sugar": {
-		"name": "rietsuiker"
+		"name": "cane sugar"
 	},
 	"cannabis": {
 		"name": "cannabis"
 	},
 	"capsicum": {
-		"name": "paprika"
+		"name": "capsicum"
 	},
 	"caraway": {
-		"name": "karwij"
+		"name": "caraway"
 	},
 	"carrot": {
-		"name": "wortel",
-		"plural_name": "wortels"
+		"name": "carrot",
+		"plural_name": "carrots"
 	},
 	"caster-sugar": {
-		"name": "basterdsuiker"
+		"name": "caster sugar"
 	},
 	"castor-sugar": {
-		"name": "basterdsuiker"
+		"name": "castor sugar"
 	},
 	"catfish": {
-		"name": "meerval"
+		"name": "catfish"
 	},
 	"cauliflower": {
-		"name": "bloemkool",
-		"plural_name": "bloemkolen"
+		"name": "cauliflower",
+		"plural_name": "cauliflowers"
 	},
 	"cayenne-pepper": {
-		"name": "cayenne peper"
+		"name": "cayenne pepper"
 	},
 	"celeriac": {
-		"name": "knolselder"
+		"name": "celery root"
 	},
 	"celery": {
-		"name": "selderij"
+		"name": "celery"
 	},
 	"cereal-grains": {
-		"name": "ontbijtgranen"
+		"name": "cereal grains"
 	},
 	"chard": {
-		"name": "snijbiet"
+		"name": "chard"
 	},
 	"cheese": {
-		"name": "kaas"
+		"name": "cheese"
 	},
 	"chicory": {
-		"name": "witlof"
+		"name": "chicory"
 	},
 	"chilli-peppers": {
-		"name": "chili peper",
-		"plural_name": "chili pepers"
+		"name": "chilli pepper",
+		"plural_name": "chilli peppers"
 	},
 	"chinese-leaves": {
-		"name": "chinese kool"
+		"name": "chinese leaves"
 	},
 	"chives": {
-		"name": "bieslook"
+		"name": "chives"
 	},
 	"chocolate": {
-		"name": "chocolade"
+		"name": "chocolate"
 	},
 	"cilantro": {
-		"name": "koriander"
+		"name": "cilantro"
 	},
 	"cinnamon": {
-		"name": "kaneel"
+		"name": "cinnamon"
 	},
 	"clarified-butter": {
-		"name": "geklaarde boter"
+		"name": "clarified butter"
 	},
 	"coconut": {
-		"name": "kokosnoot",
-		"plural_name": "kokosnoten"
+		"name": "coconut",
+		"plural_name": "coconuts"
 	},
 	"coconut-milk": {
-		"name": "kokosmelk"
+		"name": "coconut milk"
 	},
 	"cod": {
-		"name": "kabeljauw"
+		"name": "cod"
 	},
 	"coffee": {
-		"name": "koffie"
+		"name": "coffee"
 	},
 	"collard-greens": {
-		"name": "galicische kool"
+		"name": "collard greens"
 	},
 	"confectioners-sugar": {
-		"name": "poedersuiker"
+		"name": "confectioners' sugar"
 	},
 	"coriander": {
-		"name": "koriander"
+		"name": "coriander"
 	},
 	"corn": {
-		"name": "maïs",
-		"plural_name": "maïs"
+		"name": "corn",
+		"plural_name": "corns"
 	},
 	"corn-syrup": {
-		"name": "maisstroop"
+		"name": "corn syrup"
 	},
 	"cottonseed-oil": {
-		"name": "katoenzaadolie"
+		"name": "cottonseed oil"
 	},
 	"courgette": {
 		"name": "courgette"
 	},
 	"cream-of-tartar": {
-		"name": "wijnsteen"
+		"name": "cream of tartar"
 	},
 	"cucumber": {
-		"name": "komkommer",
-		"plural_name": "komkommers"
+		"name": "cucumber",
+		"plural_name": "cucumbers"
 	},
 	"cumin": {
-		"name": "komijn"
+		"name": "cumin"
 	},
 	"daikon": {
-		"name": "witte rammenas",
-		"plural_name": "witte rammenassen"
+		"name": "daikon",
+		"plural_name": "daikons"
 	},
 	"dairy-products-and-dairy-substitutes": {
-		"name": "zuivelproducten en zuivelvervangers"
+		"name": "dairy products and dairy substitutes"
 	},
 	"dandelion": {
-		"name": "paardenbloem"
+		"name": "dandelion"
 	},
 	"demerara-sugar": {
-		"name": "demerara suiker"
+		"name": "demerara sugar"
 	},
 	"dough": {
-		"name": "deeg"
+		"name": "dough"
 	},
 	"edible-cactus": {
-		"name": "eetbare cactus"
+		"name": "edible cactus"
 	},
 	"eggplant": {
-		"name": "aubergine",
-		"plural_name": "aubergines"
+		"name": "eggplant",
+		"plural_name": "eggplants"
 	},
 	"eggs": {
-		"name": "eieren",
-		"plural_name": "eieren"
+		"name": "egg",
+		"plural_name": "eggs"
 	},
 	"endive": {
-		"name": "andijvie",
-		"plural_name": "andijvie"
+		"name": "endive",
+		"plural_name": "endives"
 	},
 	"fats": {
-		"name": "vetten"
+		"name": "fats"
 	},
 	"fava-beans": {
-		"name": "tuinbonen"
+		"name": "fava beans"
 	},
 	"fiddlehead": {
-		"name": "varenkrul"
+		"name": "fiddlehead"
 	},
 	"fiddlehead-fern": {
-		"name": "varenkrul",
-		"plural_name": "varenkrul"
+		"name": "fiddlehead fern",
+		"plural_name": "fiddlehead ferns"
 	},
 	"fish": {
-		"name": "vis"
+		"name": "fish"
 	},
 	"five-spice-powder": {
-		"name": "vijfkruidenpoeder"
+		"name": "five spice powder"
 	},
 	"flour": {
-		"name": "bloem"
+		"name": "flour"
 	},
 	"frisee": {
-		"name": "krulandijvie"
+		"name": "frisee"
 	},
 	"fructose": {
 		"name": "fructose"
@@ -282,55 +282,55 @@
 		"name": "fruit"
 	},
 	"fruit-sugar": {
-		"name": "fruit suiker"
+		"name": "fruit sugar"
 	},
 	"ful": {
-		"name": "peul"
+		"name": "ful"
 	},
 	"garam-masala": {
 		"name": "garam masala"
 	},
 	"garlic": {
-		"name": "knoflook",
-		"plural_name": "knoflook"
+		"name": "garlic",
+		"plural_name": "garlics"
 	},
 	"gem-squash": {
-		"name": "citroenpompoen"
+		"name": "gem squash"
 	},
 	"ghee": {
-		"name": "geklaarde boter"
+		"name": "ghee"
 	},
 	"giblets": {
-		"name": "kip-ingewanden"
+		"name": "giblets"
 	},
 	"ginger": {
-		"name": "gember"
+		"name": "ginger"
 	},
 	"grains": {
-		"name": "granen"
+		"name": "grains"
 	},
 	"granulated-sugar": {
-		"name": "kristalsuiker"
+		"name": "granulated sugar"
 	},
 	"grape-seed-oil": {
-		"name": "druivenpitolie"
+		"name": "grape seed oil"
 	},
 	"green-onion": {
-		"name": "groene ui",
-		"plural_name": "groene uien"
+		"name": "green onion",
+		"plural_name": "green onions"
 	},
 	"heart-of-palm": {
-		"name": "hart van palm",
-		"plural_name": "hart van palm"
+		"name": "heart of palm",
+		"plural_name": "heart of palms"
 	},
 	"hemp": {
-		"name": "hennep"
+		"name": "hemp"
 	},
 	"herbs": {
-		"name": "kruiden"
+		"name": "herbs"
 	},
 	"honey": {
-		"name": "honing"
+		"name": "honey"
 	},
 	"isomalt": {
 		"name": "isomalt"
@@ -343,120 +343,120 @@
 		"name": "jaggery"
 	},
 	"jams": {
-		"name": "confituur"
+		"name": "jams"
 	},
 	"jellies": {
-		"name": "geleien"
+		"name": "jellies"
 	},
 	"jerusalem-artichoke": {
-		"name": "aardpeer"
+		"name": "jerusalem artichoke"
 	},
 	"jicama": {
-		"name": "yamboon"
+		"name": "jicama"
 	},
 	"kale": {
-		"name": "boerenkool"
+		"name": "kale"
 	},
 	"kohlrabi": {
-		"name": "koolrabi"
+		"name": "kohlrabi"
 	},
 	"kumara": {
-		"name": "zoete aardappel"
+		"name": "kumara"
 	},
 	"leavening-agents": {
-		"name": "rijsmiddelen"
+		"name": "leavening agents"
 	},
 	"leek": {
-		"name": "prei",
-		"plural_name": "preien"
+		"name": "leek",
+		"plural_name": "leeks"
 	},
 	"legumes": {
-		"name": "peulvruchten"
+		"name": "legumes"
 	},
 	"lemongrass": {
-		"name": "citroengras"
+		"name": "lemongrass"
 	},
 	"lentils": {
-		"name": "linzen"
+		"name": "lentils"
 	},
 	"lettuce": {
-		"name": "sla"
+		"name": "lettuce"
 	},
 	"liver": {
-		"name": "lever",
-		"plural_name": "levers"
+		"name": "liver",
+		"plural_name": "livers"
 	},
 	"maize": {
-		"name": "maïs"
+		"name": "maize"
 	},
 	"maple-syrup": {
-		"name": "ahornsiroop"
+		"name": "maple syrup"
 	},
 	"meat": {
-		"name": "vlees"
+		"name": "meat"
 	},
 	"milk": {
-		"name": "melk"
+		"name": "milk"
 	},
 	"mortadella": {
 		"name": "mortadella"
 	},
 	"mushroom": {
-		"name": "paddestoel",
-		"plural_name": "paddenstoelen"
+		"name": "mushroom",
+		"plural_name": "mushrooms"
 	},
 	"mussels": {
-		"name": "mosselen"
+		"name": "mussels"
 	},
 	"nanaimo-bar-mix": {
-		"name": "nanaimo barmix"
+		"name": "nanaimo bar mix"
 	},
 	"nori": {
 		"name": "nori"
 	},
 	"nutmeg": {
-		"name": "nootmuskaat"
+		"name": "nutmeg"
 	},
 	"nutritional-yeast-flakes": {
-		"name": "gistvlokken"
+		"name": "nutritional yeast flakes"
 	},
 	"nuts": {
-		"name": "noten"
+		"name": "nuts"
 	},
 	"octopuses": {
-		"name": "octopussen",
-		"plural_name": "octopussen"
+		"name": "octopus",
+		"plural_name": "octopuses"
 	},
 	"oils": {
-		"name": "oliën"
+		"name": "oils"
 	},
 	"okra": {
 		"name": "okra"
 	},
 	"olive": {
-		"name": "olijf"
+		"name": "olive"
 	},
 	"olive-oil": {
-		"name": "olijfolie"
+		"name": "olive oil"
 	},
 	"onion": {
-		"name": "ui"
+		"name": "onion"
 	},
 	"onion-family": {
-		"name": "uien familie"
+		"name": "onion family"
 	},
 	"orange-blossom-water": {
-		"name": "sinaasappelbloesem"
+		"name": "orange blossom water"
 	},
 	"oranges": {
-		"name": "sinaasappel",
-		"plural_name": "sinaasappels"
+		"name": "orange",
+		"plural_name": "oranges"
 	},
 	"oregano": {
 		"name": "oregano"
 	},
 	"oysters": {
-		"name": "oester"
+		"name": "oysters"
 	},
 	"panch-puran": {
 		"name": "panch puran"
@@ -465,228 +465,228 @@
 		"name": "paprika"
 	},
 	"parsley": {
-		"name": "peterselie"
+		"name": "parsley"
 	},
 	"parsnip": {
-		"name": "pastinaak",
-		"plural_name": "pastinaken"
+		"name": "parsnip",
+		"plural_name": "parsnips"
 	},
 	"pear": {
-		"name": "peer",
-		"plural_name": "peren"
+		"name": "pear",
+		"plural_name": "pears"
 	},
 	"peas": {
-		"name": "erwten"
+		"name": "peas"
 	},
 	"pepper": {
-		"name": "peper",
-		"plural_name": "pepers"
+		"name": "pepper",
+		"plural_name": "peppers"
 	},
 	"pineapple": {
-		"name": "ananas",
-		"plural_name": "ananassen"
+		"name": "pineapple",
+		"plural_name": "pineapples"
 	},
 	"plantain": {
-		"name": "bakbanaan",
-		"plural_name": "bakbananen"
+		"name": "plantain",
+		"plural_name": "plantains"
 	},
 	"poppy-seeds": {
-		"name": "papaver zaden"
+		"name": "poppy seeds"
 	},
 	"potato": {
-		"name": "aardappel",
-		"plural_name": "aardappelen"
+		"name": "potato",
+		"plural_name": "potatoes"
 	},
 	"poultry": {
-		"name": "gevogelte"
+		"name": "poultry"
 	},
 	"powdered-sugar": {
-		"name": "poedersuiker"
+		"name": "powdered sugar"
 	},
 	"pumpkin": {
-		"name": "pompoen",
-		"plural_name": "pompoenen"
+		"name": "pumpkin",
+		"plural_name": "pumpkins"
 	},
 	"pumpkin-seeds": {
-		"name": "pompoenpitten"
+		"name": "pumpkin seeds"
 	},
 	"radish": {
-		"name": "radijs",
-		"plural_name": "radijsjes"
+		"name": "radish",
+		"plural_name": "radishes"
 	},
 	"raw-sugar": {
-		"name": "ruwe suiker"
+		"name": "raw sugar"
 	},
 	"refined-sugar": {
-		"name": "gerafineerde suiker"
+		"name": "refined sugar"
 	},
 	"rice": {
-		"name": "rijst"
+		"name": "rice"
 	},
 	"rice-flour": {
-		"name": "rijstbloem"
+		"name": "rice flour"
 	},
 	"rock-sugar": {
-		"name": "kandijsuiker"
+		"name": "rock sugar"
 	},
 	"rum": {
 		"name": "rum"
 	},
 	"salmon": {
-		"name": "zalm"
+		"name": "salmon"
 	},
 	"salt": {
-		"name": "zout"
+		"name": "salt"
 	},
 	"salt-cod": {
-		"name": "gezoute kabeljauw"
+		"name": "salt cod"
 	},
 	"scallion": {
-		"name": "lente-ui",
-		"plural_name": "lente-uien"
+		"name": "scallion",
+		"plural_name": "scallions"
 	},
 	"seafood": {
-		"name": "zeevruchten"
+		"name": "seafood"
 	},
 	"seeds": {
-		"name": "zaden"
+		"name": "seeds"
 	},
 	"sesame-seeds": {
-		"name": "sesamzaad"
+		"name": "sesame seeds"
 	},
 	"shallot": {
-		"name": "sjalotte",
-		"plural_name": "sjalotjes"
+		"name": "shallot",
+		"plural_name": "shallots"
 	},
 	"skate": {
-		"name": "rog"
+		"name": "skate"
 	},
 	"soda": {
-		"name": "bruiswater"
+		"name": "soda"
 	},
 	"soda-baking": {
-		"name": "soda, bakken"
+		"name": "soda, baking"
 	},
 	"soybean": {
-		"name": "sojaboon"
+		"name": "soybean"
 	},
 	"spaghetti-squash": {
-		"name": "spaghetti pompoen",
-		"plural_name": "spaghetti pompoenen"
+		"name": "spaghetti squash",
+		"plural_name": "spaghetti squashes"
 	},
 	"speck": {
-		"name": "spek"
+		"name": "speck"
 	},
 	"spices": {
-		"name": "kruiden"
+		"name": "spices"
 	},
 	"spinach": {
-		"name": "spinazie"
+		"name": "spinach"
 	},
 	"spring-onion": {
-		"name": "lente-ui",
-		"plural_name": "lente-uitjes"
+		"name": "spring onion",
+		"plural_name": "spring onions"
 	},
 	"squash": {
-		"name": "pompoen",
-		"plural_name": "pompoenen"
+		"name": "squash",
+		"plural_name": "squashes"
 	},
 	"squash-family": {
-		"name": "pompoen familie"
+		"name": "squash family"
 	},
 	"stockfish": {
-		"name": "stokvis"
+		"name": "stockfish"
 	},
 	"sugar": {
-		"name": "suiker"
+		"name": "sugar"
 	},
 	"sunchoke": {
-		"name": "aardpeer",
-		"plural_name": "aardperen"
+		"name": "sunchoke",
+		"plural_name": "sunchokes"
 	},
 	"sunflower-seeds": {
-		"name": "zonnebloempitten"
+		"name": "sunflower seeds"
 	},
 	"superfine-sugar": {
-		"name": "superfijne suiker"
+		"name": "superfine sugar"
 	},
 	"sweet-potato": {
-		"name": "zoete aardappel",
-		"plural_name": "zoete aardappelen"
+		"name": "sweet potato",
+		"plural_name": "sweet potatoes"
 	},
 	"sweetcorn": {
-		"name": "zoete maïs",
-		"plural_name": "zoete maïs"
+		"name": "sweetcorn",
+		"plural_name": "sweetcorns"
 	},
 	"sweeteners": {
-		"name": "zoetstoffen"
+		"name": "sweeteners"
 	},
 	"tahini": {
-		"name": "tahin"
+		"name": "tahini"
 	},
 	"taro": {
 		"name": "taro",
 		"plural_name": "taroes"
 	},
 	"teff": {
-		"name": "abessijns liefdegras"
+		"name": "teff"
 	},
 	"tomato": {
-		"name": "tomaat",
-		"plural_name": "tomaten"
+		"name": "tomato",
+		"plural_name": "tomatoes"
 	},
 	"trout": {
-		"name": "forel"
+		"name": "trout"
 	},
 	"tubers": {
-		"name": "knolgewassen",
-		"plural_name": "knolgewassen"
+		"name": "tuber",
+		"plural_name": "tubers"
 	},
 	"tuna": {
-		"name": "tonijn"
+		"name": "tuna"
 	},
 	"turbanado-sugar": {
-		"name": "natuurlijke bruine suiker"
+		"name": "turbanado sugar"
 	},
 	"turnip": {
-		"name": "knolraap",
-		"plural_name": "knolrapen"
+		"name": "turnip",
+		"plural_name": "turnips"
 	},
 	"unrefined-sugar": {
-		"name": "ongerafineerde suiker"
+		"name": "unrefined sugar"
 	},
 	"vanilla": {
-		"name": "vanille"
+		"name": "vanilla"
 	},
 	"vegetables": {
-		"name": "groenten"
+		"name": "vegetables"
 	},
 	"watercress": {
-		"name": "waterkers"
+		"name": "watercress"
 	},
 	"watermelon": {
-		"name": "watermeloen",
-		"plural_name": "watermeloenen"
+		"name": "watermelon",
+		"plural_name": "watermelons"
 	},
 	"white-mushroom": {
-		"name": "witte paddenstoel",
-		"plural_name": "witte paddenstoelen"
+		"name": "white mushroom",
+		"plural_name": "white mushrooms"
 	},
 	"white-sugar": {
-		"name": "witte suiker"
+		"name": "white sugar"
 	},
 	"xanthan-gum": {
-		"name": "xanthaangom"
+		"name": "xanthan gum"
 	},
 	"yam": {
-		"name": "yamswortel",
-		"plural_name": "yamswortels"
+		"name": "yam",
+		"plural_name": "yams"
 	},
 	"yeast": {
-		"name": "gist"
+		"name": "yeast"
 	},
 	"zucchini": {
-		"name": "courgette",
-		"plural_name": "courgettes"
+		"name": "zucchini",
+		"plural_name": "zucchinis"
 	}
 }

@@ -240,7 +240,7 @@
 	},
 	"eggplant": {
 		"name": "aubergine",
-		"plural_name": "aubergine"
+		"plural_name": "auberginer"
 	},
 	"eggs": {
 		"name": "æg",
@@ -248,7 +248,7 @@
 	},
 	"endive": {
 		"name": "endive",
-		"plural_name": "endives"
+		"plural_name": "endive"
 	},
 	"fats": {
 		"name": "fedt"
@@ -260,8 +260,8 @@
 		"name": "bispestav"
 	},
 	"fiddlehead-fern": {
-		"name": "fiddlehead bregne",
-		"plural_name": "fiddlehead ferns"
+		"name": "bregne",
+		"plural_name": "bregner"
 	},
 	"fish": {
 		"name": "fisk"
@@ -321,7 +321,7 @@
 	},
 	"heart-of-palm": {
 		"name": "palmehjerte",
-		"plural_name": "heart of palms"
+		"plural_name": "palmehjerter"
 	},
 	"hemp": {
 		"name": "hamp"
@@ -337,7 +337,7 @@
 	},
 	"jackfruit": {
 		"name": "jackfrugt",
-		"plural_name": "jackfruits"
+		"plural_name": "jackfrugter"
 	},
 	"jaggery": {
 		"name": "jaggery"
@@ -368,7 +368,7 @@
 	},
 	"leek": {
 		"name": "porre",
-		"plural_name": "porre"
+		"plural_name": "porrer"
 	},
 	"legumes": {
 		"name": "bælgplante"
@@ -402,14 +402,14 @@
 		"name": "mortadella"
 	},
 	"mushroom": {
-		"name": "svamp",
+		"name": "svampe",
 		"plural_name": "svampe"
 	},
 	"mussels": {
-		"name": "musling"
+		"name": "muslinger"
 	},
 	"nanaimo-bar-mix": {
-		"name": "nanaimo barmix"
+		"name": "blanding af nanaimo bar"
 	},
 	"nori": {
 		"name": "tank"
@@ -424,7 +424,7 @@
 		"name": "nødder"
 	},
 	"octopuses": {
-		"name": "ottearmede blæksprutter",
+		"name": "blæksprutte",
 		"plural_name": "blæksprutter"
 	},
 	"oils": {
@@ -446,10 +446,10 @@
 		"name": "løgfamilien"
 	},
 	"orange-blossom-water": {
-		"name": "orangeblossomvand"
+		"name": "orange blossom water"
 	},
 	"oranges": {
-		"name": "appelsiner",
+		"name": "appelsin",
 		"plural_name": "appelsiner"
 	},
 	"oregano": {
@@ -469,7 +469,7 @@
 	},
 	"parsnip": {
 		"name": "pastinak",
-		"plural_name": "pastinak"
+		"plural_name": "pastinakker"
 	},
 	"pear": {
 		"name": "pære",
@@ -479,7 +479,7 @@
 		"name": "ærter"
 	},
 	"pepper": {
-		"name": "peber",
+		"name": "peberfrugt",
 		"plural_name": "peberfrugter"
 	},
 	"pineapple": {
@@ -488,7 +488,7 @@
 	},
 	"plantain": {
 		"name": "madbanan",
-		"plural_name": "plantains"
+		"plural_name": "madbananer"
 	},
 	"poppy-seeds": {
 		"name": "birkes"
@@ -521,7 +521,7 @@
 		"name": "raffineret sukker"
 	},
 	"rice": {
-		"name": "ri"
+		"name": "ris"
 	},
 	"rice-flour": {
 		"name": "rismel"
@@ -543,7 +543,7 @@
 	},
 	"scallion": {
 		"name": "forårsløg",
-		"plural_name": "scallions"
+		"plural_name": "forårsløg"
 	},
 	"seafood": {
 		"name": "fisk og skaldyr"
@@ -571,11 +571,11 @@
 		"name": "sojabønne"
 	},
 	"spaghetti-squash": {
-		"name": "spaghettisquash",
-		"plural_name": "spaghettisquash"
+		"name": "spaghetti squash",
+		"plural_name": "spaghetti squash"
 	},
 	"speck": {
-		"name": "speck"
+		"name": "fedt"
 	},
 	"spices": {
 		"name": "krydderier"
@@ -602,7 +602,7 @@
 	},
 	"sunchoke": {
 		"name": "jordskok",
-		"plural_name": "sunchokes"
+		"plural_name": "jordskokker"
 	},
 	"sunflower-seeds": {
 		"name": "solsikkefrø"
@@ -615,8 +615,8 @@
 		"plural_name": "søde kartofler"
 	},
 	"sweetcorn": {
-		"name": "søde majs",
-		"plural_name": "sukkermajs"
+		"name": "majskolbe",
+		"plural_name": "majskolber"
 	},
 	"sweeteners": {
 		"name": "sødemiddel"
@@ -640,7 +640,7 @@
 	},
 	"tubers": {
 		"name": "knold",
-		"plural_name": "tubers"
+		"plural_name": "knolde"
 	},
 	"tuna": {
 		"name": "tun"
@@ -670,7 +670,7 @@
 	},
 	"white-mushroom": {
 		"name": "champignon",
-		"plural_name": "hvide svampe"
+		"plural_name": "champignoner"
 	},
 	"white-sugar": {
 		"name": "hvidt sukker"
@@ -680,13 +680,13 @@
 	},
 	"yam": {
 		"name": "yam",
-		"plural_name": "yams"
+		"plural_name": "syltetøj"
 	},
 	"yeast": {
 		"name": "gær"
 	},
 	"zucchini": {
-		"name": "sommersquash",
-		"plural_name": "courgette"
+		"name": "squash",
+		"plural_name": "squash"
 	}
 }

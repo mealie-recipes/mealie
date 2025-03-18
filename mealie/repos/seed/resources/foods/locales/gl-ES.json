@@ -153,8 +153,8 @@
 		"name": "chicoria"
 	},
 	"chilli-peppers": {
-		"name": "chilli pepper",
-		"plural_name": "chilli peppers"
+		"name": "pimento picante",
+		"plural_name": "pimentos picantes"
 	},
 	"chinese-leaves": {
 		"name": "col chinesa"
@@ -276,7 +276,7 @@
 		"name": "chicoria"
 	},
 	"fructose": {
-		"name": "frutosa"
+		"name": "frutose"
 	},
 	"fruit": {
 		"name": "froita"
@@ -374,7 +374,7 @@
 		"name": "leguminosas"
 	},
 	"lemongrass": {
-		"name": "lemongrass"
+		"name": "citronela"
 	},
 	"lentils": {
 		"name": "lentellas"
@@ -479,7 +479,7 @@
 		"name": "chícharos"
 	},
 	"pepper": {
-		"name": "",
+		"name": "pimenta",
 		"plural_name": "pimentos"
 	},
 	"pineapple": {

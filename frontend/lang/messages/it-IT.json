@@ -720,7 +720,7 @@
       "backup-restore": "Ripristina backup",
       "back-restore-description": "Il ripristino di questo backup sovrascriverà tutti i dati correnti nel database e nella directory dei dati e li sostituirà con il contenuto di questo backup. {cannot-be-undone} Se il ripristino avrà successo, sarai disconnesso.",
       "cannot-be-undone": "Questa azione non può essere annullata - usa con cautela.",
-      "postgresql-note": "Se stai utilizzando PostGreSQL, controlla il {backup-restore-process} prima di ripristinarlo.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "processo di backup/restore nella documentazione",
       "irreversible-acknowledgment": "Capisco che questa azione è irreversibile, distruttiva e può causare la perdita di dati",
       "restore-backup": "Ripristina Backup"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Combinando gli alimenti selezionati, l'alimento di origine e l'alimento di destinazione verranno uniti in un unico alimento. L'alimento di origine verrà eliminato e tutti i riferimenti all'alimento di origine verranno aggiornati per puntare all'alimento di destinazione.",
       "merge-food-example": "Unione di {food1} in {food2}",
-      "seed-dialog-text": "Inizializza il database con alimenti in base alla tua lingua locale. Questo creerà oltre 200 alimenti comuni che possono essere utilizzati per organizzare il tuo database. Gli alimenti sono tradotti grazie al contributo della comunità di utenti.",
-      "seed-dialog-warning": "Hai già alcuni elementi nel tuo database. Questa azione non riconcilierà i duplicati, dovrai gestirli manualmente.",
+      "seed-dialog-text": "Inizializzare il database con alimenti della propria lingua locale. Ciò creerà oltre 200 alimenti comuni che potranno essere usati per organizzare il proprio database. Gli alimenti vengono tradotti grazie al contributo della comunità degli utenti.",
+      "seed-dialog-warning": "Ci sono già alcuni elementi nel database. Questa azione non unificherà i duplicati, bisognerà gestirli manualmente.",
       "combine-food": "Combina Alimenti",
       "source-food": "Alimento di Origine",
       "target-food": "Alimento di Destinazione",

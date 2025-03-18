@@ -720,7 +720,7 @@
       "backup-restore": "Varmuuskopion palautus",
       "back-restore-description": "Tämän varmuuskopion palauttaminen korvaa kaikki tietokannassasi ja tietokannassasi olevat tiedot ja korvaa ne tämän varmuuskopion sisällöllä. {cannot-be-undone} Jos palautus onnistuu, sinut kirjataan ulos.",
       "cannot-be-undone": "Tätä toimintoa ei voi kumota - käytä varoen.",
-      "postgresql-note": "Jos käytät PostGreSQL-tietokantaa, ole hyvä ja tarkista {backup-restore-process} ennen palauttamista.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "varmuuskopiointi/palautus prosessi dokumentaatiossa",
       "irreversible-acknowledgment": "Ymmärrän, että tämä toiminta on peruuttamatonta ja voi aiheuttaa tietojen häviämistä",
       "restore-backup": "Palauta varmuuskopio"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Valittujen elintarvikkeiden yhdistäminen yhdistää raaka-aineet ja kohdistaa ne yhteen ainoaan ruokaan. Lähde-elintarvikkeet poistetaan, ja kaikki viittaukset lähtöelintarvikkeeseen saatetaan ajan tasalle niin, että ne osoittavat kohteena olevan elintarvikkeen.",
       "merge-food-example": "Yhdistä {food1} ja {food2} yhdeksi",
-      "seed-dialog-text": "Lisää tietokantaan paikallisen kielen mukaisia ruokia. Tämä luo yli 200 yleistä raaka-ainetta, joita voidaan käyttää tietokannan järjestämiseen. Raaka-aineet käännetään yhteisön toiminnan kautta.",
-      "seed-dialog-warning": "Sinulla on jo joitakin kohteita tietokannassasi. Tämä toiminto ei sovi yhteen kaksoiskappaleita, sinun täytyy muokata niitä manuaalisesti.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Yhdistä Ruoka",
       "source-food": "Ruuan alkuperä",
       "target-food": "Kohderuoka",

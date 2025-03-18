@@ -10,12 +10,12 @@
             "step-text": "Os pasos da receita, como outros campos na páxina da receita, suportan a sintaxe markdown.\n\n**Adicionar un link**\n\n[Meu link](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
+            "makes": "Fai",
+            "serves": "Serve",
             "serving": "Porción",
             "servings": "Porcións",
-            "yield": "Yield",
-            "yields": "Yields"
+            "yield": "Rendimento",
+            "yields": "Rendimentos"
         }
     },
     "mealplan": {
@@ -57,7 +57,7 @@
     "emails": {
         "password": {
             "subject": "Mealie Esqueceuse da Seña",
-            "header_text": "Esquecin a miña senha",
+            "header_text": "Esquecin a miña seña",
             "message_top": "Solicitou a reposición da sua seña.",
             "message_bottom": "Clique no boton acima para redefinir a sua seña.",
             "button_text": "Redefinir Seña"

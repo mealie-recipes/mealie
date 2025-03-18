@@ -636,9 +636,9 @@
     "recipe-debugger-use-openai-description": "Brug OpenAI til at fortolke resultaterne i stedet for at stole på scraper biblioteket. Når du opretter en opskrift via URL, gøres dette automatisk, hvis skraberbiblioteket fejler, men du kan teste det manuelt her.",
     "debug": "Fejlsøgning",
     "tree-view": "Træ visning",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "Opskrift Servinger",
     "recipe-yield": "Udbytte af opskrift",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "Portioner",
     "unit": "Enhed",
     "upload-image": "Upload billede",
     "screen-awake": "Hold skærmen tændt",
@@ -660,7 +660,7 @@
       "no-food": "Ingen fødevarer"
     },
     "reset-servings-count": "Nulstil antal serveringer",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "Yderligere ingredienser"
   },
   "recipe-finder": {
     "recipe-finder": "Opskriftssøger",
@@ -720,7 +720,7 @@
       "backup-restore": "Backup / gendannelse",
       "back-restore-description": "Gendannelse af denne sikkerhedskopi vil overskrive alle de aktuelle data i din database og i datamappen og erstatte dem med indholdet af denne sikkerhedskopi. {cannot-be-undone} Hvis gendannelsen lykkes, vil du blive logget ud.",
       "cannot-be-undone": "Denne handling kan ikke fortrydes - brug med forsigtighed.",
-      "postgresql-note": "Hvis du bruger PostgreSQL, så gennemse venligst {backup-restore-process} før du gendanner.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "backup/restoreproces i dokumentationen",
       "irreversible-acknowledgment": "Jeg forstår, at denne handling er irreversibel, destruktiv og kan forårsage tab af data",
       "restore-backup": "Gendan sikkerhedskopi"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Ved at kombinere de udvalgte fødevarer vil de to valgte fødevarer blive til en enkelt fødevare. Kildefødevaren vil blive slettet, og alle henvisninger til kildefødevaren vil blive opdateret til at pege på målfødevaren.",
       "merge-food-example": "Samler {food1} med {food2}",
-      "seed-dialog-text": "Opret fødevarer i dit sprog. Dette vil oprette 200 + almindelige fødevarer, der kan bruges til i dine opskrifter. Fødevarer er oversat via en fællesskabsindsats.",
-      "seed-dialog-warning": "Du har allerede nogle elementer i din database. Denne handling vil ikke samle dubletter, så du må håndtere dem manuelt efterfølgende.",
+      "seed-dialog-text": "Tilføj standard fødevarer på dansk i databasen. Dette vil oprette mere en 200 af de mest anvendte fødevarer, der kan bruges til at organisere din database. Fødevarer er oversat via en fællesskabsindsats.",
+      "seed-dialog-warning": "Du har allerede nogle elementer i din database. Denne handling vil ikke undgå dubletter, så du må håndtere dem manuelt efterfølgende.",
       "combine-food": "Kombiner fødevarer",
       "source-food": "Kilde for fødevarer",
       "target-food": "Mål for fødevarer",
