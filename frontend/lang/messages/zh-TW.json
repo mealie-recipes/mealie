@@ -720,7 +720,7 @@
       "backup-restore": "Backup Restore",
       "back-restore-description": "Restoring this backup will overwrite all the current data in your database and in the data directory and replace them with the contents of this backup. {cannot-be-undone} If the restoration is successful, you will be logged out.",
       "cannot-be-undone": "This action cannot be undone - use with caution.",
-      "postgresql-note": "If you are using PostGreSQL, please review the {backup-restore-process} prior to restoring.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "backup/restore process in the documentation",
       "irreversible-acknowledgment": "I understand that this action is irreversible, destructive and may cause data loss",
       "restore-backup": "Restore Backup"

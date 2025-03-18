@@ -720,7 +720,7 @@
       "backup-restore": "Restaurar backup",
       "back-restore-description": "Restaurar este backup irá apagar todos os dados atuais da sua base de dados e da pasta de dados e substituí-los pelo conteúdo deste backup. {cannot-be-undone} Se o restauro for bem-sucedido, a sua sessão será encerrada.",
       "cannot-be-undone": "Esta acção não pode ser desfeita - use com prudência.",
-      "postgresql-note": "Se estiver a usar PostGreSQL, por favor reveja o {backup-restore-process} antes de restaurar.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "processo de backup/restauro na documentação",
       "irreversible-acknowledgment": "Eu entendo que esta ação é irreversível, destrutiva e pode causar perda de dados",
       "restore-backup": "Restaurar Backup"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Combinar os alimentos selecionados irá juntar o alimento de origem e o alimento alvo num alimento único. O alimento de origem será eliminado e todas as referências a este serão atualizadas para apontar para o alimento alvo.",
       "merge-food-example": "A juntar {food1} com {food2}",
-      "seed-dialog-text": "Popule a base de dados com alimentos no seu idioma local. Isto irá criar 200+ alimentos comuns que podem ser usados para organizar a sua base de dados. Os alimentos são traduzidos por via do esforço da comunidade.",
-      "seed-dialog-warning": "Já tem alguns itens na sua base de dados. Esta ação não vai reconciliar duplicados. Terá de os gerir manualmente.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Combinar Alimentos",
       "source-food": "Alimento de Origem",
       "target-food": "Alimento Alvo",

@@ -46,7 +46,7 @@
     "category-update-failed": "Actualizarea categoriei a eșuat",
     "category-updated": "Categorie actualizată",
     "uncategorized-count": "Necategorizate {count}",
-    "create-a-category": "Creați o categorie",
+    "create-a-category": "Creează o categorie",
     "category-name": "Nume categorie",
     "category": "Categorie"
   },
@@ -720,7 +720,7 @@
       "backup-restore": "Restaurare backup",
       "back-restore-description": "Restaurarea acestui backup va suprascrie toate datele curente din baza de date și din folderul de date și le va înlocui cu conținutul acestei copii de rezervă. {cannot-be-undone} Dacă restaurarea are succes, vei fi deconectat.",
       "cannot-be-undone": "Această acțiune nu poate fi anulată - utilizează cu prudență.",
-      "postgresql-note": "Dacă utilizezi PostGreSQL, te rog să verifici {backup-restore-process} înainte de a restaura.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "procesul de backup/restaurare în documentație",
       "irreversible-acknowledgment": "Înțeleg că această acțiune este ireversibilă, distructivă și poate provoca pierderea datelor",
       "restore-backup": "Restaurează backup"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Combinarea alimentelor selectate va fuziona alimentul sursă și alimentul țintă într-un singur aliment. Alimentul sursă va fi șters, iar toate referințele către alimentul sursă vor fi actualizate pentru a indica alimentul țintă.",
       "merge-food-example": "Combinarea {food1} în {food2}",
-      "seed-dialog-text": "Populează baza de date cu alimente în funcție de limba ta locală. Aceasta va crea peste 200 de alimente comune care pot fi utilizate pentru a organiza baza de date. Alimentele sunt traduse printr-un efort comunitar.",
-      "seed-dialog-warning": "Aveți deja unele elemente în baza dvs. de date. Această acțiune nu va reconcilia duplicatele, va trebui să le gestionați manual.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Combină mâncarea",
       "source-food": "Sursa de mâncare",
       "target-food": "Mâncare țintită",

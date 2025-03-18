@@ -720,7 +720,7 @@
       "backup-restore": "备份恢复",
       "back-restore-description": "恢复该备份将覆盖当前数据库和数据文件夹的数据。 {cannot-be-undone} 若恢复成功，你需要重新登录。",
       "cannot-be-undone": "该操作无法撤销，请谨慎使用！",
-      "postgresql-note": "若你正在使用postgresql，请在备份前阅读 {backup-restore-process}",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "文档中的备份/恢复流程",
       "irreversible-acknowledgment": "我已悉知该操作是不可逆的、有破坏性的，并可能造成数据丢失",
       "restore-backup": "恢复备份"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "此操作将把“待合并食物”和“目标食物”合并为一个食物（即“目标食物”）。 “待合并食物”将会被删除 ，之前所有对“待合并食物”的引用都会指向“目标食物”。",
       "merge-food-example": "正在将{food1}合并到{food2}",
-      "seed-dialog-text": "基于你的本地语言，将一些常见食物添加到数据库。（会有200多种常见食物被添加到你的数据库。食物名称由开源社区志愿者翻译。）",
-      "seed-dialog-warning": "你的数据库中已经存在一些数据。此操作不会处理一些可能存在重复的条目，你需要手动管理它们。",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "合并食品",
       "source-food": "待合并食物",
       "target-food": "目标食物",

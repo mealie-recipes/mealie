@@ -720,7 +720,7 @@
       "backup-restore": "Återställ backup",
       "back-restore-description": "Återställning av den här backuppen kommer att skriva över all information i databasen och datakatalogen och ersätta allt med innehållet i nackuppen. {cannot-be-undone} Om återställningen går bra kommer du att loggas ut.",
       "cannot-be-undone": "Denna åtgärd kan inte ångras - använd med försiktighet.",
-      "postgresql-note": "Om du använder PostGreSQL, vänligen granska {backup-restore-process} innan du återställer.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "säkerhetskopiering/återställning i dokumentationen",
       "irreversible-acknowledgment": "Jag förstår att denna åtgärd är oåterkallelig, destruktiv och kan orsaka dataförlust",
       "restore-backup": "Återställ säkerhetskopia"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Kombinera valda livsmedel kommer att slå samman de valda livsmedlen till ett livsmedel. Ursprungslivsmedlet kommer att raderas och alla hänvisningar till detta kommer att uppdateras för att peka på det kombinerade livsmedlet.",
       "merge-food-example": "Slå ihop {food1} till {food2}",
-      "seed-dialog-text": "Fyll databasen med livsmedel baserade på ditt språk. Detta kommer att skapa 200+ vanliga livsmedel som kan användas för att organisera din databas. Livsmedlen översätts via ett gemenskapsinsats.",
-      "seed-dialog-warning": "Du har redan några objekt i din databas. Denna åtgärd kommer inte att förena dubbletter, du kommer att behöva hantera dem manuellt.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Kombinera mat",
       "source-food": "Matens källa",
       "target-food": "Matens mål",

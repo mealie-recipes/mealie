@@ -720,7 +720,7 @@
       "backup-restore": "Atkurti iš atsarginės kopijos",
       "back-restore-description": "Atkūrimas ištrina visus šiuo metu duomenų bazėje ir duomenų archyve esančius duomenis ir perrašo juos į duomenis iš atsarginės kopijos. {cannot-be-undone} Jei atkūrimas bus sėkmingas, būsite atjungti nuo savo paskyros.",
       "cannot-be-undone": "Atsargiai - šis veiksmas negrįžtamas.",
-      "postgresql-note": "Jei naudojate PostgreSQL, prašome peržiūrėti {backup-restore-process} prieš atkuriant.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "atsarginio kopijavimo/atkūrimo procesą dokumentacijoje",
       "irreversible-acknowledgment": "Suprantu, jog šis veiksmas bus neatstatomas, destruktyvus ir gali sukelti duomenų praradimus",
       "restore-backup": "Atkurti iš atsarginės kopijos"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Pasirinktų produktų sujungimas apibendrins pirminį ir antrinį produktus į vieną produktą. Pirminis produktas bus ištrintas, o visi jo panaudojimai bus pakeisti antriniu produktu.",
       "merge-food-example": "Sujungiama {food1} su {food2}",
-      "seed-dialog-text": "Pradėkite pildyti duomenų bazę produktų pavadinimais savo vietine kalba. Bus sukurta apie 200 dažniausių produktų, kuriuos galėsite panaudoti savo duomenų bazės tvarkymui. Produktų pavadinimai verčiami bendruomenės pastangomis.",
-      "seed-dialog-warning": "Kai kuriuos elementus jau turite savo duomenų bazėje. Šis veiksmas nesutvarkys dublikatų, turėsite juos tvarkyti rankiniu būdu.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Sujungti produktus",
       "source-food": "Pirminis produktas",
       "target-food": "Antrinis produktas",

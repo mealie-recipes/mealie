@@ -720,7 +720,7 @@
       "backup-restore": "Obnova zálohy",
       "back-restore-description": "Obnovení této zálohy přepíše všechna aktuální data ve vaší databázi a v datovém adresáři a nahradí je obsahem této zálohy. {cannot-be-undone} Pokud je obnovení úspěšné, budete odhlášeni.",
       "cannot-be-undone": "Tuto akci nelze vrátit zpět - používejte ji s opatrností.",
-      "postgresql-note": "Pokud používáte PostgreSQL, před obnovením si prosím přečtete {backup-restore-process}.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "proces zálohy/obnovení v dokumentaci",
       "irreversible-acknowledgment": "Beru na vědomí, že tato akce je nevratná, destruktivní a může způsobit ztrátu dat",
       "restore-backup": "Obnovit zálohu"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Zkombinování zvolených potravin způsobí smazání zdrojové potraviny a veškeré odkazy na ni budou přesměrovány do cílové potraviny.",
       "merge-food-example": "Sloučení {food1} do {food2}",
-      "seed-dialog-text": "Naplňte databázi potravinami z vašeho jazyka. Tímto vytvoříte přes 200 běžných potravin, které můžete použít k organizaci vaší databáze. Potravny jsou přeloženy skrze komunitní úsilí.",
-      "seed-dialog-warning": "Již v databázi máte nějaká data. Tato akce neodstraní duplicity, budete je muset odstranit ručně.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Kombinovat jídlo",
       "source-food": "Zdrojové jídlo",
       "target-food": "Cílové jídlo",
