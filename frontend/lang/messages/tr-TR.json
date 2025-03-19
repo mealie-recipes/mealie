@@ -720,7 +720,7 @@
       "backup-restore": "Yedekleme Geri Yükleme",
       "back-restore-description": "Bu yedeği geri yüklemek, veritabanınızdaki ve veri dizinindeki tüm mevcut verilerin üzerine yazacak ve bunları bu yedeğin içeriğiyle değiştirecektir. {cannot-be-undone} Geri yükleme başarılı olursa oturumunuz kapatılacaktır.",
       "cannot-be-undone": "Bu işlem geri alınamaz - dikkatli kullanın.",
-      "postgresql-note": "Eğer PostGreSQL kullanıyorsanız, geri yüklemeden önce lütfen {backup-restore-process} gözden geçirin.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "belgelerdeki yedekleme/geri yükleme işlemini",
       "irreversible-acknowledgment": "Bu işlemin geri döndürülemez, yıkıcı ve veri kaybına neden olabileceğini anlıyorum",
       "restore-backup": "Yedeği Geri Yükle"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Seçilen gıdaların birleştirilmesi, kaynak gıdayı ve hedef gıdayı tek bir gıdada birleştirecektir. Kaynak gıda silinecek ve kaynak gıdaya yapılan tüm referanslar, hedef gıdayı işaret edecek şekilde güncellenecektir.",
       "merge-food-example": "{food1}, {food2} ile birleştiriliyor",
-      "seed-dialog-text": "Veritabanını yerel dilinize göre gıdalarla tohumlayın. Bu, veritabanınızı düzenlemek için kullanılabilecek 200'den fazla yaygın gıda yaratacaktır. Gıdalar topluluk çabasıyla çevrilmektedir.",
-      "seed-dialog-warning": "Veritabanınızda zaten bazı öğeler var. Bu eylem kopyaları uzlaştırmaz; bunları manuel olarak yönetmeniz gerekir.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Gıdaları Birleştir",
       "source-food": "Kaynak Gıda",
       "target-food": "Hedef Gıda",

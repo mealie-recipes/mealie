@@ -720,7 +720,7 @@
       "backup-restore": "גיבוי / שחזור",
       "back-restore-description": "שחזור מגיבוי זה ידרוס את המידע הקיים במסד הנתונים ובספריות האתר ויחליף אותם בזה הקיים בגיבוי. {cannot-be-undone} אם השחזור יצליח, המשתמש ינותק מהמערכת.",
       "cannot-be-undone": "פעולה זו לא בלתי הפיכה - השתמש בזהירות.",
-      "postgresql-note": "אם PostGreSQL בשימוש, בדוק את ה-{backup-restore-process} לפני שחזור.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "תהליך גיבוי או שחזור במדריכים",
       "irreversible-acknowledgment": "אני מבין שהפעולה לא הפיכה, הרסנית ויכולה לגרום לאיבוד מידע",
       "restore-backup": "שחזר גיבוי"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "צירוף של המאכלים שנבחרו יאחד את אוכל המקור ואוכל היעד לפריט אוכל אחד. אוכל המקור ימחק וכל ההפניות / הייחוסים אליו יעודכנו ויופנו לאוכל היעד.",
       "merge-food-example": "ממזג את {food1} לתוך {food2}",
-      "seed-dialog-text": "אכלס את מסד הנתונים עם אוכל בהתבסס על השפה המקומית שלך. הפעולה תיצור +200 מאכלים נפוצים שיכולים לשמש לארגון מסד הנתונים. מאכלים מתורגמים על ידי מאמצי הקהילה.",
-      "seed-dialog-warning": "מסד הנתונים שלך כבר מכיל מספר פריטים. פעולה זו אינה מטפלת בכפילויות, יהיה צורך לפתור זאת באופן ידני.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "שילוב אוכל",
       "source-food": "אוכל מקור",
       "target-food": "אוכל יעד",

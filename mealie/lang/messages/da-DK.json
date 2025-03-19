@@ -10,12 +10,12 @@
             "step-text": "Du kan bruge markdown kode i beskrivelser og andre felter i opskrifter.\n\n**Tilføj et link**\n\n[Mit link](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
+            "makes": "Udgør",
+            "serves": "Portioner",
             "serving": "Servering",
             "servings": "Portioner",
-            "yield": "Yield",
-            "yields": "Yields"
+            "yield": "Portioner",
+            "yields": "Portioner"
         }
     },
     "mealplan": {

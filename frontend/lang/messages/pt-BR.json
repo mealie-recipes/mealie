@@ -720,7 +720,7 @@
       "backup-restore": "Restauração de Backup",
       "back-restore-description": "Restaurar este backup substituirá todos os dados atuais no seu banco de dados e no diretório de dados e os substituirá pelo conteúdo deste backup. {cannot-be-undone} Se a restauração for bem-sucedida, você será desconectado.",
       "cannot-be-undone": "Esta ação não pode ser desfeita - use com cautela.",
-      "postgresql-note": "Se você estiver usando o PostGreSQL, por favor, revise o {backup-restore-process} antes de restaurar.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "fazer backup/restauração do processo na documentação",
       "irreversible-acknowledgment": "Eu entendo que esta ação é irreversível, destrutiva e pode causar perda de dados",
       "restore-backup": "Restaurar Backup"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "A combinação dos alimentos seleccionados irá fundir a fonte de alimentos e almejar os alimentos num único alimento. O alimento de origem será eliminado e todas as referências ao alimento de origem serão actualizadas de modo a indicar os alimentos visados.",
       "merge-food-example": "Mesclando {food1} em {food2}",
-      "seed-dialog-text": "Semente a base de dados com alimentos baseado no seu idioma local. Isso criará mais de 200 alimentos comuns que podem ser usados para organizar sua base de dados. Os alimentos são traduzidos através de um esforço comunitário.",
-      "seed-dialog-warning": "Você já tem alguns itens no seu banco de dados. Esta ação não irá reconciliar duplicados, você terá que gerenciá-los manualmente.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Mesclar Comida",
       "source-food": "Comida original",
       "target-food": "Comida alvo",

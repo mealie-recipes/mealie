@@ -720,7 +720,7 @@
       "backup-restore": "Възстановяване на резервно копие",
       "back-restore-description": "Възстановяването на това резервно копие ще презапише цялата текуща информация във Вашата база данни и директорията с данни, и ще ги замени със съдържанието от резервното копие. {cannot-be-undone} Ако възстановяването е успешно ще бъдете отписан от системата.",
       "cannot-be-undone": "Това действие не може да бъде отменено - използвайте с внимание.",
-      "postgresql-note": "Ако използвате PostGreSQL, моля прегледайте {backup-restore-process} преди възстановяването.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "процес за резервно копие/възстановяване в документацията",
       "irreversible-acknowledgment": "Разбирам, че това действие е невъзвращаемо, разрушително и може да доведе до загуба на данни",
       "restore-backup": "Възстановяване на резервно копие"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Комбинирането на избраните храни ще обедини изходната храна и целевата храна в една единствена храна. Изходната храна ще бъде изтрита и всички препратки към изходната храна ще бъдат актуализирани, за да сочат към целевата храна.",
       "merge-food-example": "Обединяване на {food1} с {food2}",
-      "seed-dialog-text": "Изтеглете базата данни с продукти на вашия местен език. Ще бъдат заредени 200+ продукта, които да използвате за организиране на вашата база данни. Имената на продуктите се превеждат от общността.",
-      "seed-dialog-warning": "Вече имате някои елементи във Вашата база данни. Това действие няма да съгласува дубликати, ще трябва да ги управлявате ръчно.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Комбинирай Храни",
       "source-food": "Изходна храна",
       "target-food": "Целева храна",

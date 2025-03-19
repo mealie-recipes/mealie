@@ -1,692 +1,692 @@
 {
 	"acorn-squash": {
-		"name": "гарбуз акорн"
+		"name": "acorn squash"
 	},
 	"alfalfa-sprouts": {
-		"name": "люцерна"
+		"name": "alfalfa sprouts"
 	},
 	"anchovies": {
-		"name": "анчоуси"
+		"name": "anchovies"
 	},
 	"apples": {
-		"name": "яблуки",
-		"plural_name": "яблука"
+		"name": "apple",
+		"plural_name": "apples"
 	},
 	"artichoke": {
-		"name": "артишок"
+		"name": "artichoke"
 	},
 	"arugula": {
-		"name": "рукола"
+		"name": "arugula"
 	},
 	"asparagus": {
-		"name": "спаржа"
+		"name": "asparagus"
 	},
 	"avocado": {
-		"name": "авокадо",
-		"plural_name": "авокадо"
+		"name": "avocado",
+		"plural_name": "avocado"
 	},
 	"bacon": {
-		"name": "бекон"
+		"name": "bacon"
 	},
 	"baking-powder": {
-		"name": "харчовий розпушувач"
+		"name": "baking powder"
 	},
 	"baking-soda": {
-		"name": "столова сода"
+		"name": "baking soda"
 	},
 	"baking-sugar": {
-		"name": "цукрова пудра"
+		"name": "baking sugar"
 	},
 	"bar-sugar": {
-		"name": "цукрова пудра"
+		"name": "bar sugar"
 	},
 	"basil": {
-		"name": "базилік"
+		"name": "basil"
 	},
 	"beans": {
-		"name": "боби"
+		"name": "beans"
 	},
 	"bell-peppers": {
-		"name": "солодкий перець",
-		"plural_name": "болгарський перець"
+		"name": "bell peppers",
+		"plural_name": "bell peppers"
 	},
 	"blackberries": {
-		"name": "ожина"
+		"name": "blackberries"
 	},
 	"bok-choy": {
-		"name": "пак чой"
+		"name": "bok choy"
 	},
 	"brassicas": {
-		"name": "капуста"
+		"name": "brassicas"
 	},
 	"bread": {
-		"name": "хліб"
+		"name": "bread"
 	},
 	"breadfruit": {
-		"name": "плоди хлібного дерева"
+		"name": "breadfruit"
 	},
 	"broccoflower": {
-		"name": "брокофлауер"
+		"name": "broccoflower"
 	},
 	"broccoli": {
-		"name": "брокколі"
+		"name": "broccoli"
 	},
 	"broccoli-rabe": {
-		"name": "рапіні"
+		"name": "broccoli rabe"
 	},
 	"broccolini": {
-		"name": "брокколіні"
+		"name": "broccolini"
 	},
 	"brown-sugar": {
-		"name": "коричневий цукор"
+		"name": "brown sugar"
 	},
 	"brussels-sprouts": {
-		"name": "брюссельська капуста"
+		"name": "brussels sprouts"
 	},
 	"butter": {
-		"name": "вершкове масло"
+		"name": "butter"
 	},
 	"butternut-pumpkin": {
-		"name": "мускатний гарбуз"
+		"name": "butternut pumpkin"
 	},
 	"butternut-squash": {
-		"name": "мускатний гарбуз"
+		"name": "butternut squash"
 	},
 	"cabbage": {
-		"name": "капуста",
-		"plural_name": "капуста"
+		"name": "cabbage",
+		"plural_name": "cabbages"
 	},
 	"cactus-edible": {
-		"name": "кактус"
+		"name": "cactus, edible"
 	},
 	"calabrese": {
-		"name": "броколі"
+		"name": "calabrese"
 	},
 	"cane-sugar": {
-		"name": "тростинний цукор"
+		"name": "cane sugar"
 	},
 	"cannabis": {
-		"name": "канабіс"
+		"name": "cannabis"
 	},
 	"capsicum": {
-		"name": "перці"
+		"name": "capsicum"
 	},
 	"caraway": {
-		"name": "кмин"
+		"name": "caraway"
 	},
 	"carrot": {
-		"name": "морква",
-		"plural_name": "морква"
+		"name": "carrot",
+		"plural_name": "carrots"
 	},
 	"caster-sugar": {
-		"name": "цукрова пудра"
+		"name": "caster sugar"
 	},
 	"castor-sugar": {
-		"name": "цукрова пудра"
+		"name": "castor sugar"
 	},
 	"catfish": {
-		"name": "сом"
+		"name": "catfish"
 	},
 	"cauliflower": {
-		"name": "цвітна капуста",
-		"plural_name": "цвітна капуста"
+		"name": "cauliflower",
+		"plural_name": "cauliflowers"
 	},
 	"cayenne-pepper": {
-		"name": "каєнський перець"
+		"name": "cayenne pepper"
 	},
 	"celeriac": {
-		"name": "корінь селери"
+		"name": "celery root"
 	},
 	"celery": {
-		"name": "селера"
+		"name": "celery"
 	},
 	"cereal-grains": {
-		"name": "висівки"
+		"name": "cereal grains"
 	},
 	"chard": {
-		"name": "мангольд"
+		"name": "chard"
 	},
 	"cheese": {
-		"name": "сир"
+		"name": "cheese"
 	},
 	"chicory": {
-		"name": "цикорій"
+		"name": "chicory"
 	},
 	"chilli-peppers": {
-		"name": "перець чилі",
-		"plural_name": "перець чилі"
+		"name": "chilli pepper",
+		"plural_name": "chilli peppers"
 	},
 	"chinese-leaves": {
-		"name": "китайська капуста"
+		"name": "chinese leaves"
 	},
 	"chives": {
-		"name": "цибуля-трибулька"
+		"name": "chives"
 	},
 	"chocolate": {
-		"name": "шоколад"
+		"name": "chocolate"
 	},
 	"cilantro": {
-		"name": "коріандр"
+		"name": "cilantro"
 	},
 	"cinnamon": {
-		"name": "кориця"
+		"name": "cinnamon"
 	},
 	"clarified-butter": {
-		"name": "пряжене масло"
+		"name": "clarified butter"
 	},
 	"coconut": {
-		"name": "кокос",
-		"plural_name": "кокоси"
+		"name": "coconut",
+		"plural_name": "coconuts"
 	},
 	"coconut-milk": {
-		"name": "кокосове молоко"
+		"name": "coconut milk"
 	},
 	"cod": {
-		"name": "тріска"
+		"name": "cod"
 	},
 	"coffee": {
-		"name": "кава"
+		"name": "coffee"
 	},
 	"collard-greens": {
-		"name": "капуста коллард"
+		"name": "collard greens"
 	},
 	"confectioners-sugar": {
-		"name": "кондитерський цукор"
+		"name": "confectioners' sugar"
 	},
 	"coriander": {
-		"name": "коріандр"
+		"name": "coriander"
 	},
 	"corn": {
-		"name": "кукурудза",
-		"plural_name": "кукурудза"
+		"name": "corn",
+		"plural_name": "corns"
 	},
 	"corn-syrup": {
-		"name": "кукурудзяний сироп"
+		"name": "corn syrup"
 	},
 	"cottonseed-oil": {
-		"name": "бавовняна олія"
+		"name": "cottonseed oil"
 	},
 	"courgette": {
-		"name": "кабачок"
+		"name": "courgette"
 	},
 	"cream-of-tartar": {
-		"name": "винний камінь"
+		"name": "cream of tartar"
 	},
 	"cucumber": {
-		"name": "огірок",
-		"plural_name": "огірки"
+		"name": "cucumber",
+		"plural_name": "cucumbers"
 	},
 	"cumin": {
-		"name": "кумин"
+		"name": "cumin"
 	},
 	"daikon": {
-		"name": "дайкон",
-		"plural_name": "дайкони"
+		"name": "daikon",
+		"plural_name": "daikons"
 	},
 	"dairy-products-and-dairy-substitutes": {
-		"name": "молочні продукти та молочні замінники"
+		"name": "dairy products and dairy substitutes"
 	},
 	"dandelion": {
-		"name": "кульбаба"
+		"name": "dandelion"
 	},
 	"demerara-sugar": {
-		"name": "демерара"
+		"name": "demerara sugar"
 	},
 	"dough": {
-		"name": "тісто"
+		"name": "dough"
 	},
 	"edible-cactus": {
-		"name": "кактус"
+		"name": "edible cactus"
 	},
 	"eggplant": {
-		"name": "баклажан",
-		"plural_name": "баклажани"
+		"name": "eggplant",
+		"plural_name": "eggplants"
 	},
 	"eggs": {
-		"name": "яйця",
-		"plural_name": "яйця"
+		"name": "egg",
+		"plural_name": "eggs"
 	},
 	"endive": {
-		"name": "ендивій (салатний цикорій)",
-		"plural_name": "салатний цикорій"
+		"name": "endive",
+		"plural_name": "endives"
 	},
 	"fats": {
-		"name": "жири"
+		"name": "fats"
 	},
 	"fava-beans": {
-		"name": "біб кінський"
+		"name": "fava beans"
 	},
 	"fiddlehead": {
-		"name": "рахіси папороті"
+		"name": "fiddlehead"
 	},
 	"fiddlehead-fern": {
-		"name": "рахіс папороті",
-		"plural_name": "рахіси папороті"
+		"name": "fiddlehead fern",
+		"plural_name": "fiddlehead ferns"
 	},
 	"fish": {
-		"name": "риба"
+		"name": "fish"
 	},
 	"five-spice-powder": {
-		"name": "5 спецій"
+		"name": "five spice powder"
 	},
 	"flour": {
-		"name": "борошно"
+		"name": "flour"
 	},
 	"frisee": {
-		"name": "салат фрізе"
+		"name": "frisee"
 	},
 	"fructose": {
-		"name": "фруктоза"
+		"name": "fructose"
 	},
 	"fruit": {
-		"name": "фрукт"
+		"name": "fruit"
 	},
 	"fruit-sugar": {
-		"name": "фруктоза"
+		"name": "fruit sugar"
 	},
 	"ful": {
-		"name": "фул"
+		"name": "ful"
 	},
 	"garam-masala": {
-		"name": "гарам масала"
+		"name": "garam masala"
 	},
 	"garlic": {
-		"name": "часник",
-		"plural_name": "часник"
+		"name": "garlic",
+		"plural_name": "garlics"
 	},
 	"gem-squash": {
-		"name": "гарбуз \"джем\""
+		"name": "gem squash"
 	},
 	"ghee": {
-		"name": "гхі"
+		"name": "ghee"
 	},
 	"giblets": {
-		"name": "пташині тельбухи"
+		"name": "giblets"
 	},
 	"ginger": {
-		"name": "імбир"
+		"name": "ginger"
 	},
 	"grains": {
-		"name": "зерна"
+		"name": "grains"
 	},
 	"granulated-sugar": {
-		"name": "гранульований цукор"
+		"name": "granulated sugar"
 	},
 	"grape-seed-oil": {
-		"name": "олія з виноградних кісточок"
+		"name": "grape seed oil"
 	},
 	"green-onion": {
-		"name": "зелена цибуля",
-		"plural_name": "зелена цибуля"
+		"name": "green onion",
+		"plural_name": "green onions"
 	},
 	"heart-of-palm": {
-		"name": "серцевина пальми",
-		"plural_name": "серцевина пальми"
+		"name": "heart of palm",
+		"plural_name": "heart of palms"
 	},
 	"hemp": {
-		"name": "коноплі"
+		"name": "hemp"
 	},
 	"herbs": {
-		"name": "трави"
+		"name": "herbs"
 	},
 	"honey": {
-		"name": "мед"
+		"name": "honey"
 	},
 	"isomalt": {
-		"name": "ізомальт"
+		"name": "isomalt"
 	},
 	"jackfruit": {
-		"name": "джекфрут",
-		"plural_name": "джекфрукти"
+		"name": "jackfruit",
+		"plural_name": "jackfruits"
 	},
 	"jaggery": {
-		"name": "цукор джаггері"
+		"name": "jaggery"
 	},
 	"jams": {
-		"name": "джеми"
+		"name": "jams"
 	},
 	"jellies": {
-		"name": "желе"
+		"name": "jellies"
 	},
 	"jerusalem-artichoke": {
-		"name": "топінамбур"
+		"name": "jerusalem artichoke"
 	},
 	"jicama": {
-		"name": "хікама"
+		"name": "jicama"
 	},
 	"kale": {
-		"name": "капуста кейл"
+		"name": "kale"
 	},
 	"kohlrabi": {
-		"name": "кольрабі"
+		"name": "kohlrabi"
 	},
 	"kumara": {
-		"name": "батат"
+		"name": "kumara"
 	},
 	"leavening-agents": {
-		"name": "харчовий розпушувач"
+		"name": "leavening agents"
 	},
 	"leek": {
-		"name": "цибуля-порей",
-		"plural_name": "цибуля-порей"
+		"name": "leek",
+		"plural_name": "leeks"
 	},
 	"legumes": {
-		"name": "бобові"
+		"name": "legumes"
 	},
 	"lemongrass": {
-		"name": "лемонграс"
+		"name": "lemongrass"
 	},
 	"lentils": {
-		"name": "сочевиця"
+		"name": "lentils"
 	},
 	"lettuce": {
-		"name": "салат"
+		"name": "lettuce"
 	},
 	"liver": {
-		"name": "печінка",
-		"plural_name": "печінки"
+		"name": "liver",
+		"plural_name": "livers"
 	},
 	"maize": {
-		"name": "маіс"
+		"name": "maize"
 	},
 	"maple-syrup": {
-		"name": "кленовий сироп"
+		"name": "maple syrup"
 	},
 	"meat": {
-		"name": "м’ясо"
+		"name": "meat"
 	},
 	"milk": {
-		"name": "молоко"
+		"name": "milk"
 	},
 	"mortadella": {
-		"name": "мортадела"
+		"name": "mortadella"
 	},
 	"mushroom": {
-		"name": "гриби",
-		"plural_name": "гриби"
+		"name": "mushroom",
+		"plural_name": "mushrooms"
 	},
 	"mussels": {
-		"name": "мідії"
+		"name": "mussels"
 	},
 	"nanaimo-bar-mix": {
-		"name": "суміш для тістечок \"Нанаімо\""
+		"name": "nanaimo bar mix"
 	},
 	"nori": {
-		"name": "норі"
+		"name": "nori"
 	},
 	"nutmeg": {
-		"name": "мускатний горіх"
+		"name": "nutmeg"
 	},
 	"nutritional-yeast-flakes": {
-		"name": "харчові дріжджі"
+		"name": "nutritional yeast flakes"
 	},
 	"nuts": {
-		"name": "горіхи"
+		"name": "nuts"
 	},
 	"octopuses": {
-		"name": "восьминоги",
-		"plural_name": "восьминоги"
+		"name": "octopus",
+		"plural_name": "octopuses"
 	},
 	"oils": {
-		"name": "олії"
+		"name": "oils"
 	},
 	"okra": {
-		"name": "бамія"
+		"name": "okra"
 	},
 	"olive": {
-		"name": "оливка"
+		"name": "olive"
 	},
 	"olive-oil": {
-		"name": "оливкова олія"
+		"name": "olive oil"
 	},
 	"onion": {
-		"name": "цибуля"
+		"name": "onion"
 	},
 	"onion-family": {
-		"name": "цибулеві"
+		"name": "onion family"
 	},
 	"orange-blossom-water": {
-		"name": "апельсинова квіткова вода"
+		"name": "orange blossom water"
 	},
 	"oranges": {
-		"name": "апельсини",
-		"plural_name": "апельсини"
+		"name": "orange",
+		"plural_name": "oranges"
 	},
 	"oregano": {
-		"name": "орегано"
+		"name": "oregano"
 	},
 	"oysters": {
-		"name": "устриці"
+		"name": "oysters"
 	},
 	"panch-puran": {
-		"name": "спеціі Панч Пурeн"
+		"name": "panch puran"
 	},
 	"paprika": {
-		"name": "паприка"
+		"name": "paprika"
 	},
 	"parsley": {
-		"name": "петрушка"
+		"name": "parsley"
 	},
 	"parsnip": {
-		"name": "пастернак",
-		"plural_name": "пастернаки"
+		"name": "parsnip",
+		"plural_name": "parsnips"
 	},
 	"pear": {
-		"name": "груша",
-		"plural_name": "груші"
+		"name": "pear",
+		"plural_name": "pears"
 	},
 	"peas": {
-		"name": "горох"
+		"name": "peas"
 	},
 	"pepper": {
-		"name": "перець",
-		"plural_name": "перці"
+		"name": "pepper",
+		"plural_name": "peppers"
 	},
 	"pineapple": {
-		"name": "ананас",
-		"plural_name": "ананаси"
+		"name": "pineapple",
+		"plural_name": "pineapples"
 	},
 	"plantain": {
-		"name": "плантан",
-		"plural_name": "плантани"
+		"name": "plantain",
+		"plural_name": "plantains"
 	},
 	"poppy-seeds": {
-		"name": "макове насіння"
+		"name": "poppy seeds"
 	},
 	"potato": {
-		"name": "картопля",
-		"plural_name": "картоплини"
+		"name": "potato",
+		"plural_name": "potatoes"
 	},
 	"poultry": {
-		"name": "птиця"
+		"name": "poultry"
 	},
 	"powdered-sugar": {
-		"name": "цукрова пудра"
+		"name": "powdered sugar"
 	},
 	"pumpkin": {
-		"name": "гарбуз",
-		"plural_name": "гарбузи"
+		"name": "pumpkin",
+		"plural_name": "pumpkins"
 	},
 	"pumpkin-seeds": {
-		"name": "гарбузове насіння"
+		"name": "pumpkin seeds"
 	},
 	"radish": {
-		"name": "редис",
-		"plural_name": "редиски"
+		"name": "radish",
+		"plural_name": "radishes"
 	},
 	"raw-sugar": {
-		"name": "цукор сирець"
+		"name": "raw sugar"
 	},
 	"refined-sugar": {
-		"name": "рафінований цукор"
+		"name": "refined sugar"
 	},
 	"rice": {
-		"name": "рис"
+		"name": "rice"
 	},
 	"rice-flour": {
-		"name": "рисове борошно"
+		"name": "rice flour"
 	},
 	"rock-sugar": {
-		"name": "кандований цукор"
+		"name": "rock sugar"
 	},
 	"rum": {
-		"name": "ром"
+		"name": "rum"
 	},
 	"salmon": {
-		"name": "лосось"
+		"name": "salmon"
 	},
 	"salt": {
-		"name": "сіль"
+		"name": "salt"
 	},
 	"salt-cod": {
-		"name": "солона тріска"
+		"name": "salt cod"
 	},
 	"scallion": {
-		"name": "зелена цибуля",
-		"plural_name": "зелена цибуля"
+		"name": "scallion",
+		"plural_name": "scallions"
 	},
 	"seafood": {
-		"name": "морепродукти"
+		"name": "seafood"
 	},
 	"seeds": {
-		"name": "насіння"
+		"name": "seeds"
 	},
 	"sesame-seeds": {
-		"name": "насіння кунжуту"
+		"name": "sesame seeds"
 	},
 	"shallot": {
-		"name": "цибуля шалот",
-		"plural_name": "цибуля шалот"
+		"name": "shallot",
+		"plural_name": "shallots"
 	},
 	"skate": {
-		"name": "скат"
+		"name": "skate"
 	},
 	"soda": {
-		"name": "сода"
+		"name": "soda"
 	},
 	"soda-baking": {
-		"name": "харчова сода"
+		"name": "soda, baking"
 	},
 	"soybean": {
-		"name": "соєві боби"
+		"name": "soybean"
 	},
 	"spaghetti-squash": {
-		"name": "гарбуз спагеті",
-		"plural_name": "гарбуз спагеті"
+		"name": "spaghetti squash",
+		"plural_name": "spaghetti squashes"
 	},
 	"speck": {
-		"name": "шпек"
+		"name": "speck"
 	},
 	"spices": {
-		"name": "спеції"
+		"name": "spices"
 	},
 	"spinach": {
-		"name": "шпинат"
+		"name": "spinach"
 	},
 	"spring-onion": {
-		"name": "зелена цибуля",
-		"plural_name": "зелена цибуля"
+		"name": "spring onion",
+		"plural_name": "spring onions"
 	},
 	"squash": {
-		"name": "гарбуз",
-		"plural_name": "гарбузи"
+		"name": "squash",
+		"plural_name": "squashes"
 	},
 	"squash-family": {
-		"name": "гарбузові"
+		"name": "squash family"
 	},
 	"stockfish": {
-		"name": "в'ялена риба"
+		"name": "stockfish"
 	},
 	"sugar": {
-		"name": "цукор"
+		"name": "sugar"
 	},
 	"sunchoke": {
-		"name": "топінамбур",
-		"plural_name": "топінамбури"
+		"name": "sunchoke",
+		"plural_name": "sunchokes"
 	},
 	"sunflower-seeds": {
-		"name": "насіння соняшника"
+		"name": "sunflower seeds"
 	},
 	"superfine-sugar": {
-		"name": "цукрова пудра"
+		"name": "superfine sugar"
 	},
 	"sweet-potato": {
-		"name": "батат",
-		"plural_name": "батати"
+		"name": "sweet potato",
+		"plural_name": "sweet potatoes"
 	},
 	"sweetcorn": {
-		"name": "солодка кукурудза",
-		"plural_name": "солодка кукурудза"
+		"name": "sweetcorn",
+		"plural_name": "sweetcorns"
 	},
 	"sweeteners": {
-		"name": "підсолоджувачі"
+		"name": "sweeteners"
 	},
 	"tahini": {
-		"name": "тахіні"
+		"name": "tahini"
 	},
 	"taro": {
-		"name": "таро",
-		"plural_name": "таро"
+		"name": "taro",
+		"plural_name": "taroes"
 	},
 	"teff": {
-		"name": "тефф"
+		"name": "teff"
 	},
 	"tomato": {
-		"name": "помідор",
-		"plural_name": "помідори"
+		"name": "tomato",
+		"plural_name": "tomatoes"
 	},
 	"trout": {
-		"name": "форель"
+		"name": "trout"
 	},
 	"tubers": {
-		"name": "бульби",
-		"plural_name": "бульби"
+		"name": "tuber",
+		"plural_name": "tubers"
 	},
 	"tuna": {
-		"name": "тунець"
+		"name": "tuna"
 	},
 	"turbanado-sugar": {
-		"name": "цукор турбінадо"
+		"name": "turbanado sugar"
 	},
 	"turnip": {
-		"name": "ріпа",
-		"plural_name": "ріпи"
+		"name": "turnip",
+		"plural_name": "turnips"
 	},
 	"unrefined-sugar": {
-		"name": "нерафінований цукор"
+		"name": "unrefined sugar"
 	},
 	"vanilla": {
-		"name": "ваніль"
+		"name": "vanilla"
 	},
 	"vegetables": {
-		"name": "овочі"
+		"name": "vegetables"
 	},
 	"watercress": {
-		"name": "настурція лікарська"
+		"name": "watercress"
 	},
 	"watermelon": {
-		"name": "кавун",
-		"plural_name": "кавуни"
+		"name": "watermelon",
+		"plural_name": "watermelons"
 	},
 	"white-mushroom": {
-		"name": "білий гриб",
-		"plural_name": "білі гриби"
+		"name": "white mushroom",
+		"plural_name": "white mushrooms"
 	},
 	"white-sugar": {
-		"name": "білий цукор"
+		"name": "white sugar"
 	},
 	"xanthan-gum": {
-		"name": "ксантанова камедь"
+		"name": "xanthan gum"
 	},
 	"yam": {
-		"name": "ямс",
-		"plural_name": "ямс"
+		"name": "yam",
+		"plural_name": "yams"
 	},
 	"yeast": {
-		"name": "дріжджі"
+		"name": "yeast"
 	},
 	"zucchini": {
-		"name": "цукіні",
-		"plural_name": "цукіні"
+		"name": "zucchini",
+		"plural_name": "zucchinis"
 	}
 }

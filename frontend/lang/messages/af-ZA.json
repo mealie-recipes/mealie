@@ -720,7 +720,7 @@
       "backup-restore": "Herlaai vanaf back-up",
       "back-restore-description": "Die herstel van hierdie back-up sal alle huidige data in jou databasis en in die data-lêergids oorskryf. {cannot-be-undone} As die herstel suksesvol was, sal jy afgemeld word.",
       "cannot-be-undone": "Hierdie aksie kan nie ongedaan gemaak word nie - gebruik met omsigtigheid.",
-      "postgresql-note": "Gebruik jy PostGreSQL? Lees asseblief eers die {backup-restore-process} voordat jy dit herstel.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "backup/herstelproses in die dokumentasie",
       "irreversible-acknowledgment": "Ek verstaan ​​dat hierdie aksie onomkeerbaar en vernietigend is en dataverlies kan veroorsaak",
       "restore-backup": "Herlaai back-up"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Die kombinasie van die geselekteerde kosse sal die oorspronklike kos en die nuwe kos kombineer. Die oorspronklike kos sal verwyder word en alle verwysings sal opgedateer word om na die nuwe kos te wys.",
       "merge-food-example": "Voeg {food1} saam met {food2}",
-      "seed-dialog-text": "Vul die databasis met kosse in jou taal. Dit skep 200+ algemene kosse wat jy in jou databasis kan gebruik. Die vertalings word deur 'n gemeenskap verskaf.",
-      "seed-dialog-warning": "Jy het reeds 'n paar items in jou databasis. Hierdie aksie sal nie duplikate versoen nie, jy sal dit met die hand moet bestuur.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Kombineer kos",
       "source-food": "Bron voedsel",
       "target-food": "Teiken voedsel",

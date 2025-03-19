@@ -720,7 +720,7 @@
       "backup-restore": "Restaurar Copia de Seguridad",
       "back-restore-description": "Restaurar esta copia de seguridad sobrescribirá todos los datos actuales de su base de datos y del directorio de datos y los sustituirá por el contenido de esta copia. {cannot-be-undone} Si la restauración se realiza correctamente, se cerrará su sesión.",
       "cannot-be-undone": "Esta acción no se puede deshacer, use con precaución.",
-      "postgresql-note": "Si estás usando PostGreSQL, por favor revisa el {backup-restore-process} antes de restaurar.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "copia de seguridad/proceso de restauración en la documentación",
       "irreversible-acknowledgment": "Entiendo que esta acción es irreversible, destructiva y puede causar pérdida de datos",
       "restore-backup": "Restaurar copia de seguridad"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Combinar los alimentos seleccionados fusionará el alimento origen y destinatario en un solo alimento. El alimento origen será eliminado y todas las referencias a él serán actualizadas para apuntar al nuevo alimento.",
       "merge-food-example": "Fusionando {food1} con {food2}",
-      "seed-dialog-text": "Añade a la base de datos ejemplos de alimentos basados en su idioma local. Esto creará más de 200 alimentos comunes que se pueden utilizar para organizar su base de datos. Los alimentos se traducen a través de un esfuerzo comunitario.",
-      "seed-dialog-warning": "Ya tiene algunos elementos en tu base de datos. Esta acción no reconciliará duplicados, tendrá que gestionarlos manualmente.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Combinar Alimentos",
       "source-food": "Fuente de Alimento",
       "target-food": "Alimentos objetivo",

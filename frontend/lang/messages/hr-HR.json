@@ -720,7 +720,7 @@
       "backup-restore": "Sigurnosno kopiranje/vraćanje",
       "back-restore-description": "Vraćanje ove sigurnosne kopije će prepisati sve trenutne podatke u vašoj bazi podataka i direktoriju podataka i zamijeniti ih sadržajem ove sigurnosne kopije. Ova radnja je {ne-može-se-povratiti}. Ako se vraćanje uspješno izvrši, bit ćete odjavljeni iz sustava.",
       "cannot-be-undone": "Ova radnja ne može se poništiti - koristite je oprezno.",
-      "postgresql-note": "Ako koristite PostGreSQL, molim pregledajte {backup-restore-process} prije obnove.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "postupak sigurnosne kopije/obnove opisan je u dokumentaciji",
       "irreversible-acknowledgment": "Razumijem da je ova radnja nepovratna, destruktivna i može uzrokovati gubitak podataka",
       "restore-backup": "Vrati sigurnosnu kopiju"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Spajanje odabrane hrane će spojiti izvornu hranu i ciljanu hranu u jednu hranu. Izvorna hrana će biti izbrisana, a sve reference na izvornu hranu će biti ažurirane kako bi pokazivale na ciljanu hranu.",
       "merge-food-example": "Spajanje {food1} u {food2}",
-      "seed-dialog-text": "Držite bazu podataka sa hranom na temelju vašeg lokalnog jezika. Time će se stvoriti 200+ uobičajenih namirnica koje se mogu koristiti za organiziranje vaše baze podataka. Prijevodi namirnica se ostvaruju kroz zajednički napor.",
-      "seed-dialog-warning": "Već imate neke stavke u svojoj bazi podataka. Ova radnja neće pomiriti duplikate, morat ćete ih ručno korigirati.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Kombiniraj Hranu",
       "source-food": "Izvor Hrane",
       "target-food": "Ciljana Namirnica",

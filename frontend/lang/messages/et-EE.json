@@ -720,7 +720,7 @@
       "backup-restore": "Taasta tagavarakoopiast",
       "back-restore-description": "Selle varukoopia taastamisel kirjutatakse üle kõik teie andmebaasis ja andmebaasihalduris olevad andmed ning asendatakse need selle varukoopia sisuga. {cannot-be-undone} Kui taastamine õnnestub, logitakse teid välja.",
       "cannot-be-undone": "Seda tegevust ei saa tagasi võtta - kasuta ettevaatusega.",
-      "postgresql-note": "Kui sa kasutad PostGreSQL-i, palun vaata {backup-restore-process} enne taastamist.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "varundamise/taastamise protsessi dokumentatsioonis",
       "irreversible-acknowledgment": "Ma saan aru, et seda tegevust ei ole võimalik tagasi võtta, on destruktiivne, ning võib põhjustada andmekadu",
       "restore-backup": "Taasta tagavarakoopiast"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Valitud toitude kombineerimine ühendab koostisained ja keskendub ühele roale. Lähtetoidud eemaldatakse ja kõik viited lähtetoidule värskendatakse, et osutada sihttoidule.",
       "merge-food-example": "{food1} liitmine {food2}-ga",
-      "seed-dialog-text": "Lisage roogasid andmebaasi kohalikus keeles. See loob üle 200 levinud tooraine, mida saab kasutada andmebaasi korrastamiseks. Tooraineid tõlgitakse kogukonna tegevuste kaudu.",
-      "seed-dialog-warning": "Teie andmebaasis on juba mõned üksused. See funktsioon ei sobi duplikaatidega, peate neid käsitsi redigeerima.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Liida toidud",
       "source-food": "Lähtetoid",
       "target-food": "Sihttoit",

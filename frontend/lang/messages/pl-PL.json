@@ -720,7 +720,7 @@
       "backup-restore": "Przywróć kopie",
       "back-restore-description": "Przywracanie tej kopii zapasowej nadpisze wszystkie aktualne dane w bazie danych i w katalogu danych i zastąpi je zawartością tej kopii zapasowej. {cannot-be-undone} Jeśli przywrócenie zakończy się pomyślnie, zostaniesz wylogowany.",
       "cannot-be-undone": "Tej czynności nie można cofnąć - należy zachować ostrożność.",
-      "postgresql-note": "Jeśli używasz PostGreSQL, sprawdź {backup-restore-process} przed przywróceniem.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "proces tworzenia kopii zapasowej/przywracania w dokumentacji",
       "irreversible-acknowledgment": "Rozumiem, że ta operacja jest nieodwracalna, destrukcyjna i może spowodować utratę danych",
       "restore-backup": "Przywróć kopie"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Połączenie wybranej żywności połączy źródło żywności i żywność docelową w pojedynczą żywność. Źródło żywności zostanie usunięte, a wszystkie odniesienia do źródłowej żywności zostaną zaktualizowane tak, aby wskazywały na docelową żywność.",
       "merge-food-example": "Scalanie {food1} do {food2}",
-      "seed-dialog-text": "Wypełnij bazę daniami na podstawie wybranego lokalnego języka. Akcja ta stworzy ponad 200 zwyczajowych potraw które mogą zostać użyte do organizacji Twojej bazy. Potrawy tłumaczone są przez wysiłek społeczeństwa.",
-      "seed-dialog-warning": "Posiadasz już wartości w bazie. Rozwiązanie problemu z duplikatami leżeć będzie w gestii użytkownika.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Połącz Żywność",
       "source-food": "Żywność Źródłowa",
       "target-food": "Żywność Docelowa",

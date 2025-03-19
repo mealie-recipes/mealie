@@ -3,690 +3,690 @@
 		"name": "βελανίδι σκουός"
 	},
 	"alfalfa-sprouts": {
-		"name": "φύτρα σπόρων αλφάλφα"
+		"name": "alfalfa sprouts"
 	},
 	"anchovies": {
-		"name": "αντζούγιες"
+		"name": "anchovies"
 	},
 	"apples": {
-		"name": "μήλα",
-		"plural_name": "μήλα"
+		"name": "apple",
+		"plural_name": "apples"
 	},
 	"artichoke": {
-		"name": "αγκινάρα"
+		"name": "artichoke"
 	},
 	"arugula": {
-		"name": "ρόκα"
+		"name": "arugula"
 	},
 	"asparagus": {
-		"name": "σπαράγγι"
+		"name": "asparagus"
 	},
 	"avocado": {
-		"name": "αβοκάντο",
-		"plural_name": "αβοκάντο"
+		"name": "avocado",
+		"plural_name": "avocado"
 	},
 	"bacon": {
-		"name": "μπέικον"
+		"name": "bacon"
 	},
 	"baking-powder": {
-		"name": "μπέικιν πάουντερ"
+		"name": "baking powder"
 	},
 	"baking-soda": {
-		"name": "μαγειρική σόδα"
+		"name": "baking soda"
 	},
 	"baking-sugar": {
-		"name": "μαγειρική ζάχαρη"
+		"name": "baking sugar"
 	},
 	"bar-sugar": {
-		"name": "μπάρα ζάχαρης"
+		"name": "bar sugar"
 	},
 	"basil": {
-		"name": "βασιλικός"
+		"name": "basil"
 	},
 	"beans": {
-		"name": "φασόλια"
+		"name": "beans"
 	},
 	"bell-peppers": {
-		"name": "πιπεριές",
-		"plural_name": "πιπεριές"
+		"name": "bell peppers",
+		"plural_name": "bell peppers"
 	},
 	"blackberries": {
-		"name": "βατόμουρα"
+		"name": "blackberries"
 	},
 	"bok-choy": {
-		"name": "μποκ τσόι"
+		"name": "bok choy"
 	},
 	"brassicas": {
-		"name": "μπράσικες"
+		"name": "brassicas"
 	},
 	"bread": {
-		"name": "ψωμί"
+		"name": "bread"
 	},
 	"breadfruit": {
-		"name": "αρτόκαρπος"
+		"name": "breadfruit"
 	},
 	"broccoflower": {
-		"name": "ρομανέσκο"
+		"name": "broccoflower"
 	},
 	"broccoli": {
-		"name": "μπρόκολο"
+		"name": "broccoli"
 	},
 	"broccoli-rabe": {
-		"name": "ραπίνι"
+		"name": "broccoli rabe"
 	},
 	"broccolini": {
-		"name": "μπροκολίνι"
+		"name": "broccolini"
 	},
 	"brown-sugar": {
-		"name": "καστανή ζάχαρη"
+		"name": "brown sugar"
 	},
 	"brussels-sprouts": {
-		"name": "λαχανάκια Βρυξελλών"
+		"name": "brussels sprouts"
 	},
 	"butter": {
-		"name": "βούτυρο"
+		"name": "butter"
 	},
 	"butternut-pumpkin": {
-		"name": "κολοκύθα βουτυράτη"
+		"name": "butternut pumpkin"
 	},
 	"butternut-squash": {
-		"name": "κολοκύθα βουτυράτη"
+		"name": "butternut squash"
 	},
 	"cabbage": {
-		"name": "λάχανο",
-		"plural_name": "λάχανα"
+		"name": "cabbage",
+		"plural_name": "cabbages"
 	},
 	"cactus-edible": {
-		"name": "κάκτος, βρώσιμος"
+		"name": "cactus, edible"
 	},
 	"calabrese": {
 		"name": "calabrese"
 	},
 	"cane-sugar": {
-		"name": "ζάχαρη ζαχαροκαλάμου"
+		"name": "cane sugar"
 	},
 	"cannabis": {
-		"name": "κάνναβη"
+		"name": "cannabis"
 	},
 	"capsicum": {
-		"name": "καψικόν"
+		"name": "capsicum"
 	},
 	"caraway": {
-		"name": "άγριο κύμινο"
+		"name": "caraway"
 	},
 	"carrot": {
-		"name": "καρότο",
-		"plural_name": "καρότα"
+		"name": "carrot",
+		"plural_name": "carrots"
 	},
 	"caster-sugar": {
-		"name": "άχνη ζάχαρη"
+		"name": "caster sugar"
 	},
 	"castor-sugar": {
 		"name": "castor sugar"
 	},
 	"catfish": {
-		"name": "γατόψαρο"
+		"name": "catfish"
 	},
 	"cauliflower": {
-		"name": "κουνουπίδι",
-		"plural_name": "κουνουπίδια"
+		"name": "cauliflower",
+		"plural_name": "cauliflowers"
 	},
 	"cayenne-pepper": {
-		"name": "πιπέρι καγιέν"
+		"name": "cayenne pepper"
 	},
 	"celeriac": {
-		"name": "σέλινο"
+		"name": "celery root"
 	},
 	"celery": {
-		"name": "σέλινο"
+		"name": "celery"
 	},
 	"cereal-grains": {
-		"name": "πίτουρο δημητριακών"
+		"name": "cereal grains"
 	},
 	"chard": {
-		"name": "σέσκουλο"
+		"name": "chard"
 	},
 	"cheese": {
-		"name": "τυρί"
+		"name": "cheese"
 	},
 	"chicory": {
-		"name": "ραδίκι"
+		"name": "chicory"
 	},
 	"chilli-peppers": {
-		"name": "πιπεριές τσίλι",
-		"plural_name": "πιπεριές τσίλι"
+		"name": "chilli pepper",
+		"plural_name": "chilli peppers"
 	},
 	"chinese-leaves": {
-		"name": "κινέζικα φύλλα"
+		"name": "chinese leaves"
 	},
 	"chives": {
-		"name": "σχοινόπρασο"
+		"name": "chives"
 	},
 	"chocolate": {
-		"name": "σοκολάτα"
+		"name": "chocolate"
 	},
 	"cilantro": {
-		"name": "κόλιανδρος"
+		"name": "cilantro"
 	},
 	"cinnamon": {
-		"name": "κανέλα"
+		"name": "cinnamon"
 	},
 	"clarified-butter": {
-		"name": "διαυγές βούτυρο"
+		"name": "clarified butter"
 	},
 	"coconut": {
-		"name": "καρύδα",
-		"plural_name": "καρύδες"
+		"name": "coconut",
+		"plural_name": "coconuts"
 	},
 	"coconut-milk": {
-		"name": "γάλα καρύδας"
+		"name": "coconut milk"
 	},
 	"cod": {
-		"name": "μπακαλιάρος"
+		"name": "cod"
 	},
 	"coffee": {
-		"name": "καφές"
+		"name": "coffee"
 	},
 	"collard-greens": {
-		"name": "λαχανίδες"
+		"name": "collard greens"
 	},
 	"confectioners-sugar": {
-		"name": "ζάχαρη άχνη"
+		"name": "confectioners' sugar"
 	},
 	"coriander": {
-		"name": "κόλιανδρος"
+		"name": "coriander"
 	},
 	"corn": {
-		"name": "καλαμπόκι",
-		"plural_name": "καλαμπόκια"
+		"name": "corn",
+		"plural_name": "corns"
 	},
 	"corn-syrup": {
-		"name": "σιρόπι καλαμποκιού"
+		"name": "corn syrup"
 	},
 	"cottonseed-oil": {
-		"name": "βαμβακέλαιο"
+		"name": "cottonseed oil"
 	},
 	"courgette": {
-		"name": "κολοκυθάκι"
+		"name": "courgette"
 	},
 	"cream-of-tartar": {
-		"name": "κρέμα ταρτάρ"
+		"name": "cream of tartar"
 	},
 	"cucumber": {
-		"name": "αγγούρι",
-		"plural_name": "αγγούρια"
+		"name": "cucumber",
+		"plural_name": "cucumbers"
 	},
 	"cumin": {
-		"name": "κύμινο"
+		"name": "cumin"
 	},
 	"daikon": {
-		"name": "νταϊκόν",
-		"plural_name": "νταϊκόν"
+		"name": "daikon",
+		"plural_name": "daikons"
 	},
 	"dairy-products-and-dairy-substitutes": {
-		"name": "γαλακτοκομικά και υποκατάστατα γαλακτοκομικών"
+		"name": "dairy products and dairy substitutes"
 	},
 	"dandelion": {
-		"name": "πικραλίδα"
+		"name": "dandelion"
 	},
 	"demerara-sugar": {
-		"name": "ζάχαρη demerara"
+		"name": "demerara sugar"
 	},
 	"dough": {
-		"name": "ζυμάρι"
+		"name": "dough"
 	},
 	"edible-cactus": {
-		"name": "κάκτος που τρώγεται"
+		"name": "edible cactus"
 	},
 	"eggplant": {
-		"name": "μελιτζάνα",
-		"plural_name": "μελιτζάνες"
+		"name": "eggplant",
+		"plural_name": "eggplants"
 	},
 	"eggs": {
-		"name": "αβγά",
-		"plural_name": "αβγά"
+		"name": "egg",
+		"plural_name": "eggs"
 	},
 	"endive": {
-		"name": "αντίδι",
-		"plural_name": "αντίδια"
+		"name": "endive",
+		"plural_name": "endives"
 	},
 	"fats": {
-		"name": "λιπαρά"
+		"name": "fats"
 	},
 	"fava-beans": {
-		"name": "κουκιά"
+		"name": "fava beans"
 	},
 	"fiddlehead": {
-		"name": "βλαστάρια φτέρης"
+		"name": "fiddlehead"
 	},
 	"fiddlehead-fern": {
 		"name": "fiddlehead fern",
 		"plural_name": "fiddlehead ferns"
 	},
 	"fish": {
-		"name": "ψάρι"
+		"name": "fish"
 	},
 	"five-spice-powder": {
-		"name": "σκόνη πέντε μπαχαρικών"
+		"name": "five spice powder"
 	},
 	"flour": {
-		"name": "αλεύρι"
+		"name": "flour"
 	},
 	"frisee": {
-		"name": "κατσαρό αντίδι"
+		"name": "frisee"
 	},
 	"fructose": {
-		"name": "φρουκτόζη"
+		"name": "fructose"
 	},
 	"fruit": {
-		"name": "φρούτο"
+		"name": "fruit"
 	},
 	"fruit-sugar": {
-		"name": "ζάχαρη φρούτων"
+		"name": "fruit sugar"
 	},
 	"ful": {
 		"name": "ful"
 	},
 	"garam-masala": {
-		"name": "γκαράμ μασάλα"
+		"name": "garam masala"
 	},
 	"garlic": {
-		"name": "σκόρδο",
-		"plural_name": "σκόρδα"
+		"name": "garlic",
+		"plural_name": "garlics"
 	},
 	"gem-squash": {
 		"name": "gem squash"
 	},
 	"ghee": {
-		"name": "γκι (βούτυρο)"
+		"name": "ghee"
 	},
 	"giblets": {
-		"name": "εντόσθια πουλερικών"
+		"name": "giblets"
 	},
 	"ginger": {
-		"name": "τζίντζερ"
+		"name": "ginger"
 	},
 	"grains": {
-		"name": "σιτηρά"
+		"name": "grains"
 	},
 	"granulated-sugar": {
-		"name": "ζάχαρη σε κόκκους"
+		"name": "granulated sugar"
 	},
 	"grape-seed-oil": {
-		"name": "έλαιο από σταφύλια"
+		"name": "grape seed oil"
 	},
 	"green-onion": {
-		"name": "πράσινο κρεμμύδι",
-		"plural_name": "πράσινα κρεμμύδια"
+		"name": "green onion",
+		"plural_name": "green onions"
 	},
 	"heart-of-palm": {
-		"name": "καρδιά φοίνικα",
-		"plural_name": "καρδιές φοινίκων"
+		"name": "heart of palm",
+		"plural_name": "heart of palms"
 	},
 	"hemp": {
-		"name": "βιομηχανική κάνναβη"
+		"name": "hemp"
 	},
 	"herbs": {
-		"name": "βότανα"
+		"name": "herbs"
 	},
 	"honey": {
-		"name": "μέλι"
+		"name": "honey"
 	},
 	"isomalt": {
-		"name": "ισομαλτόζη"
+		"name": "isomalt"
 	},
 	"jackfruit": {
-		"name": "τζάκφρουτ",
-		"plural_name": "τζάκφρουτ"
+		"name": "jackfruit",
+		"plural_name": "jackfruits"
 	},
 	"jaggery": {
-		"name": "ζάχαρη jaggery"
+		"name": "jaggery"
 	},
 	"jams": {
-		"name": "μαρμελάδα"
+		"name": "jams"
 	},
 	"jellies": {
-		"name": "ζελέδες"
+		"name": "jellies"
 	},
 	"jerusalem-artichoke": {
-		"name": "αγκινάρα της Ιερουσαλήμ"
+		"name": "jerusalem artichoke"
 	},
 	"jicama": {
-		"name": "χίκαμα"
+		"name": "jicama"
 	},
 	"kale": {
-		"name": "λαχανίδα"
+		"name": "kale"
 	},
 	"kohlrabi": {
-		"name": "λαχανόριζα"
+		"name": "kohlrabi"
 	},
 	"kumara": {
-		"name": "κούμαρα"
+		"name": "kumara"
 	},
 	"leavening-agents": {
-		"name": "διογκωτικά"
+		"name": "leavening agents"
 	},
 	"leek": {
-		"name": "πράσο",
-		"plural_name": "πράσα"
+		"name": "leek",
+		"plural_name": "leeks"
 	},
 	"legumes": {
-		"name": "όσπρια"
+		"name": "legumes"
 	},
 	"lemongrass": {
-		"name": "λεμονόχορτο"
+		"name": "lemongrass"
 	},
 	"lentils": {
-		"name": "φακές"
+		"name": "lentils"
 	},
 	"lettuce": {
-		"name": "μαρούλι"
+		"name": "lettuce"
 	},
 	"liver": {
-		"name": "συκώτι",
-		"plural_name": "συκώτια"
+		"name": "liver",
+		"plural_name": "livers"
 	},
 	"maize": {
-		"name": "καλαμπόκι"
+		"name": "maize"
 	},
 	"maple-syrup": {
-		"name": "σιρόπι σφενδάμου"
+		"name": "maple syrup"
 	},
 	"meat": {
-		"name": "κρέας"
+		"name": "meat"
 	},
 	"milk": {
-		"name": "γάλα"
+		"name": "milk"
 	},
 	"mortadella": {
-		"name": "μορταδέλα"
+		"name": "mortadella"
 	},
 	"mushroom": {
-		"name": "μανιτάρι",
-		"plural_name": "μανιτάρια"
+		"name": "mushroom",
+		"plural_name": "mushrooms"
 	},
 	"mussels": {
-		"name": "μύδια"
+		"name": "mussels"
 	},
 	"nanaimo-bar-mix": {
-		"name": "μείγμα μπάρας nanaimo"
+		"name": "nanaimo bar mix"
 	},
 	"nori": {
-		"name": "νόρι"
+		"name": "nori"
 	},
 	"nutmeg": {
-		"name": "μοσχοκάρυδο"
+		"name": "nutmeg"
 	},
 	"nutritional-yeast-flakes": {
-		"name": "νιφάδες μαγιάς"
+		"name": "nutritional yeast flakes"
 	},
 	"nuts": {
-		"name": "ξηροί καρποί"
+		"name": "nuts"
 	},
 	"octopuses": {
-		"name": "χταπόδια",
-		"plural_name": "χταπόδια"
+		"name": "octopus",
+		"plural_name": "octopuses"
 	},
 	"oils": {
-		"name": "λάδια"
+		"name": "oils"
 	},
 	"okra": {
-		"name": "μπάμια"
+		"name": "okra"
 	},
 	"olive": {
-		"name": "ελιά"
+		"name": "olive"
 	},
 	"olive-oil": {
-		"name": "ελαιόλαδο"
+		"name": "olive oil"
 	},
 	"onion": {
-		"name": "κρεμμύδι"
+		"name": "onion"
 	},
 	"onion-family": {
-		"name": "κρεμμυδοειδή"
+		"name": "onion family"
 	},
 	"orange-blossom-water": {
-		"name": "νερό από άνθη πορτοκαλιάς"
+		"name": "orange blossom water"
 	},
 	"oranges": {
-		"name": "πορτοκάλι",
-		"plural_name": "πορτοκάλια"
+		"name": "orange",
+		"plural_name": "oranges"
 	},
 	"oregano": {
-		"name": "ρίγανη"
+		"name": "oregano"
 	},
 	"oysters": {
-		"name": "στρείδια"
+		"name": "oysters"
 	},
 	"panch-puran": {
 		"name": "panch puran"
 	},
 	"paprika": {
-		"name": "πάπρικα"
+		"name": "paprika"
 	},
 	"parsley": {
-		"name": "μαϊντανός"
+		"name": "parsley"
 	},
 	"parsnip": {
-		"name": "παστινάκι",
-		"plural_name": "παστινάκια"
+		"name": "parsnip",
+		"plural_name": "parsnips"
 	},
 	"pear": {
-		"name": "αχλάδι",
-		"plural_name": "αχλάδια"
+		"name": "pear",
+		"plural_name": "pears"
 	},
 	"peas": {
-		"name": "αρακάς"
+		"name": "peas"
 	},
 	"pepper": {
-		"name": "πιπέρι",
-		"plural_name": "πιπεριές"
+		"name": "pepper",
+		"plural_name": "peppers"
 	},
 	"pineapple": {
-		"name": "ανανάς",
-		"plural_name": "ανανάδες"
+		"name": "pineapple",
+		"plural_name": "pineapples"
 	},
 	"plantain": {
-		"name": "μπανάνες Αντιλλών",
-		"plural_name": "μπανάνες Αντιλλών"
+		"name": "plantain",
+		"plural_name": "plantains"
 	},
 	"poppy-seeds": {
-		"name": "παπαρουνόσπορος"
+		"name": "poppy seeds"
 	},
 	"potato": {
-		"name": "πατάτα",
-		"plural_name": "πατάτες"
+		"name": "potato",
+		"plural_name": "potatoes"
 	},
 	"poultry": {
-		"name": "πουλερικά"
+		"name": "poultry"
 	},
 	"powdered-sugar": {
-		"name": "ζάχαρη άχνη"
+		"name": "powdered sugar"
 	},
 	"pumpkin": {
-		"name": "κολοκύθα",
-		"plural_name": "κολοκύθες"
+		"name": "pumpkin",
+		"plural_name": "pumpkins"
 	},
 	"pumpkin-seeds": {
-		"name": "σπόροι κολοκύθας"
+		"name": "pumpkin seeds"
 	},
 	"radish": {
-		"name": "ραπανάκι",
-		"plural_name": "ραπανάκια"
+		"name": "radish",
+		"plural_name": "radishes"
 	},
 	"raw-sugar": {
-		"name": "ακατέργαστη ζάχαρη"
+		"name": "raw sugar"
 	},
 	"refined-sugar": {
-		"name": "ραφιναρισμένη ζάχαρη"
+		"name": "refined sugar"
 	},
 	"rice": {
-		"name": "ρύζι"
+		"name": "rice"
 	},
 	"rice-flour": {
-		"name": "ρυζάλευρο"
+		"name": "rice flour"
 	},
 	"rock-sugar": {
-		"name": "κύβοι ζάχαρης"
+		"name": "rock sugar"
 	},
 	"rum": {
-		"name": "ρούμι"
+		"name": "rum"
 	},
 	"salmon": {
-		"name": "σολομός"
+		"name": "salmon"
 	},
 	"salt": {
-		"name": "αλάτι"
+		"name": "salt"
 	},
 	"salt-cod": {
-		"name": "αλατισμένος μπακαλιάρος"
+		"name": "salt cod"
 	},
 	"scallion": {
-		"name": "φρέσκο κρεμμυδάκι",
-		"plural_name": "φρέσκα κρεμμυδάκια"
+		"name": "scallion",
+		"plural_name": "scallions"
 	},
 	"seafood": {
-		"name": "θαλασσινά"
+		"name": "seafood"
 	},
 	"seeds": {
-		"name": "σπόροι"
+		"name": "seeds"
 	},
 	"sesame-seeds": {
-		"name": "σπόροι σουσαμιού"
+		"name": "sesame seeds"
 	},
 	"shallot": {
-		"name": "ασκαλώνιο",
-		"plural_name": "ασκαλώνια"
+		"name": "shallot",
+		"plural_name": "shallots"
 	},
 	"skate": {
-		"name": "σαλάχι"
+		"name": "skate"
 	},
 	"soda": {
-		"name": "σόδα"
+		"name": "soda"
 	},
 	"soda-baking": {
-		"name": "σόδα, μπέικιν"
+		"name": "soda, baking"
 	},
 	"soybean": {
-		"name": "σόγια"
+		"name": "soybean"
 	},
 	"spaghetti-squash": {
-		"name": "μακαρόνια κολοκύθας",
-		"plural_name": "μακαρόνια κολοκύθας"
+		"name": "spaghetti squash",
+		"plural_name": "spaghetti squashes"
 	},
 	"speck": {
-		"name": "σπεκ"
+		"name": "speck"
 	},
 	"spices": {
-		"name": "μπαχαρικά"
+		"name": "spices"
 	},
 	"spinach": {
-		"name": "σπανάκι"
+		"name": "spinach"
 	},
 	"spring-onion": {
-		"name": "φρέσκο κρεμμυδάκι",
-		"plural_name": "φρέσκα κρεμμυδάκια"
+		"name": "spring onion",
+		"plural_name": "spring onions"
 	},
 	"squash": {
-		"name": "κολοκύθα",
-		"plural_name": "κολοκύθες"
+		"name": "squash",
+		"plural_name": "squashes"
 	},
 	"squash-family": {
-		"name": "κολοκυθοειδή"
+		"name": "squash family"
 	},
 	"stockfish": {
-		"name": "ξηρός μπακαλάος"
+		"name": "stockfish"
 	},
 	"sugar": {
-		"name": "ζάχαρη"
+		"name": "sugar"
 	},
 	"sunchoke": {
-		"name": "τοπιναμπούρ",
-		"plural_name": "τοπιναμπούρ"
+		"name": "sunchoke",
+		"plural_name": "sunchokes"
 	},
 	"sunflower-seeds": {
-		"name": "σπόροι ηλίανθου"
+		"name": "sunflower seeds"
 	},
 	"superfine-sugar": {
-		"name": "υπερλεπτή ζάχαρη"
+		"name": "superfine sugar"
 	},
 	"sweet-potato": {
-		"name": "γλυκοπατάτα",
-		"plural_name": "γλυκοπατάτες"
+		"name": "sweet potato",
+		"plural_name": "sweet potatoes"
 	},
 	"sweetcorn": {
-		"name": "γλυκο καλαμποκι",
-		"plural_name": "γλυκά καλαμπόκια"
+		"name": "sweetcorn",
+		"plural_name": "sweetcorns"
 	},
 	"sweeteners": {
-		"name": "γλυκαντικά"
+		"name": "sweeteners"
 	},
 	"tahini": {
-		"name": "ταχίνι"
+		"name": "tahini"
 	},
 	"taro": {
-		"name": "κολοκασία (εδώδιμος)",
-		"plural_name": "κολοκασίες (εδώδιμες)"
+		"name": "taro",
+		"plural_name": "taroes"
 	},
 	"teff": {
-		"name": "τεφ"
+		"name": "teff"
 	},
 	"tomato": {
-		"name": "ντομάτα",
-		"plural_name": "ντομάτες"
+		"name": "tomato",
+		"plural_name": "tomatoes"
 	},
 	"trout": {
-		"name": "πέστροφα"
+		"name": "trout"
 	},
 	"tubers": {
-		"name": "κόνδυλοι",
-		"plural_name": "κόνδυλοι"
+		"name": "tuber",
+		"plural_name": "tubers"
 	},
 	"tuna": {
-		"name": "τόνος"
+		"name": "tuna"
 	},
 	"turbanado-sugar": {
 		"name": "turbanado sugar"
 	},
 	"turnip": {
-		"name": "γογγύλι",
-		"plural_name": "γογγύλια"
+		"name": "turnip",
+		"plural_name": "turnips"
 	},
 	"unrefined-sugar": {
-		"name": "αραφινάριστη ζάχαρη"
+		"name": "unrefined sugar"
 	},
 	"vanilla": {
-		"name": "βανίλια"
+		"name": "vanilla"
 	},
 	"vegetables": {
-		"name": "λαχανικά"
+		"name": "vegetables"
 	},
 	"watercress": {
-		"name": "νεροκάρδαμο"
+		"name": "watercress"
 	},
 	"watermelon": {
-		"name": "καρπούζι",
-		"plural_name": "καρπούζια"
+		"name": "watermelon",
+		"plural_name": "watermelons"
 	},
 	"white-mushroom": {
-		"name": "λευκό μανιτάρι",
-		"plural_name": "λευκά μανιτάρια"
+		"name": "white mushroom",
+		"plural_name": "white mushrooms"
 	},
 	"white-sugar": {
-		"name": "λευκή ζάχαρη"
+		"name": "white sugar"
 	},
 	"xanthan-gum": {
-		"name": "ξανθάνη"
+		"name": "xanthan gum"
 	},
 	"yam": {
-		"name": "γιαμ",
-		"plural_name": "γιαμ"
+		"name": "yam",
+		"plural_name": "yams"
 	},
 	"yeast": {
-		"name": "μαγιά"
+		"name": "yeast"
 	},
 	"zucchini": {
-		"name": "κολοκύθι",
-		"plural_name": "κολοκύθια"
+		"name": "zucchini",
+		"plural_name": "zucchinis"
 	}
 }
