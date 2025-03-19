@@ -3,15 +3,8 @@ on:
   workflow_call:
 
 jobs:
-  build-package:
-    name: "Build Python package"
-    uses: ./.github/workflows/partial-package.yml
-    with:
-      tag: e2e
-
   test:
     timeout-minutes: 60
-    needs: build-package
     runs-on: ubuntu-latest
     defaults:
       run:
