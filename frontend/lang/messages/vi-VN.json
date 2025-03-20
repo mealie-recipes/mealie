@@ -15,7 +15,7 @@
     "docs": "Docs",
     "download-log": "Download Log",
     "download-recipe-json": "Last Scraped JSON",
-    "github": "Github",
+    "github": "GitHub",
     "log-lines": "Log Lines",
     "not-demo": "Not Demo",
     "portfolio": "Portfolio",
@@ -579,7 +579,6 @@
     "made-this": "I Made This",
     "how-did-it-turn-out": "How did it turn out?",
     "user-made-this": "{user} made this",
-    "last-made-date": "Last Made {date}",
     "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Message Key",
     "parse": "Parse",
@@ -647,7 +646,6 @@
     "nextStep": "Next step",
     "recipe-actions": "Recipe Actions",
     "parser": {
-      "experimental-alert-text": "Mealie uses natural language processing to parse and create units and food items for your recipe ingredients. This feature is experimental and may not always work as expected. If you prefer not to use the parsed results, you can select 'Cancel' and your changes will not be saved.",
       "ingredient-parser": "Ingredient Parser",
       "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
       "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
@@ -722,7 +720,7 @@
       "backup-restore": "Backup Restore",
       "back-restore-description": "Restoring this backup will overwrite all the current data in your database and in the data directory and replace them with the contents of this backup. {cannot-be-undone} If the restoration is successful, you will be logged out.",
       "cannot-be-undone": "This action cannot be undone - use with caution.",
-      "postgresql-note": "If you are using PostGreSQL, please review the {backup-restore-process} prior to restoring.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "backup/restore process in the documentation",
       "irreversible-acknowledgment": "I understand that this action is irreversible, destructive and may cause data loss",
       "restore-backup": "Restore Backup"

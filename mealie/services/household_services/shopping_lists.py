@@ -5,6 +5,7 @@ from pydantic import UUID4
 from mealie.core.exceptions import UnexpectedNone
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.group_shopping_list import (
+    ShoppingListAddRecipeParamsBulk,
     ShoppingListCreate,
     ShoppingListItemBase,
     ShoppingListItemCreate,
@@ -135,11 +136,11 @@ class ShoppingListService:
         consolidated_create_items: list[ShoppingListItemCreate] = []
         for create_item in create_items:
             merged = False
-            for filtered_item in consolidated_create_items:
+            for i, filtered_item in enumerate(consolidated_create_items):
                 if not self.can_merge(create_item, filtered_item):
                     continue
 
-                filtered_item = self.merge_items(create_item, filtered_item).cast(ShoppingListItemCreate)
+                consolidated_create_items[i] = self.merge_items(create_item, filtered_item).cast(ShoppingListItemCreate)
                 merged = True
                 break
 
@@ -207,11 +208,11 @@ class ShoppingListService:
             seen_update_ids.add(update_item.id)
 
             merged = False
-            for filtered_item in consolidated_update_items:
+            for i, filtered_item in enumerate(consolidated_update_items):
                 if not self.can_merge(update_item, filtered_item):
                     continue
 
-                filtered_item = self.merge_items(update_item, filtered_item).cast(
+                consolidated_update_items[i] = self.merge_items(update_item, filtered_item).cast(
                     ShoppingListItemUpdateBulk, id=filtered_item.id
                 )
                 delete_items.add(update_item.id)
@@ -373,38 +374,43 @@ class ShoppingListService:
     def add_recipe_ingredients_to_list(
         self,
         list_id: UUID4,
-        recipe_id: UUID4,
-        recipe_increment: float = 1,
-        recipe_ingredients: list[RecipeIngredient] | None = None,
+        recipe_items: list[ShoppingListAddRecipeParamsBulk],
     ) -> tuple[ShoppingListOut, ShoppingListItemsCollectionOut]:
         """
-        Adds a recipe's ingredients to a list
+        Adds recipe ingredients to a list
 
         Returns a tuple of:
         - Updated Shopping List
         - Impacted Shopping List Items
         """
 
-        items_to_create = self.get_shopping_list_items_from_recipe(
-            list_id, recipe_id, recipe_increment, recipe_ingredients
-        )
+        items_to_create = [
+            item
+            for recipe in recipe_items
+            for item in self.get_shopping_list_items_from_recipe(
+                list_id, recipe.recipe_id, recipe.recipe_increment_quantity, recipe.recipe_ingredients
+            )
+        ]
         item_changes = self.bulk_create_items(items_to_create)
-
         updated_list = cast(ShoppingListOut, self.shopping_lists.get_one(list_id))
 
-        ref_merged = False
-        for ref in updated_list.recipe_references:
-            if ref.recipe_id != recipe_id:
-                continue
+        # update list-level recipe references
+        for recipe in recipe_items:
+            ref_merged = False
+            for ref in updated_list.recipe_references:
+                if ref.recipe_id != recipe.recipe_id:
+                    continue
 
-            ref.recipe_quantity += recipe_increment
-            ref_merged = True
-            break
+                ref.recipe_quantity += recipe.recipe_increment_quantity
+                ref_merged = True
+                break
 
-        if not ref_merged:
-            updated_list.recipe_references.append(
-                ShoppingListItemRecipeRefCreate(recipe_id=recipe_id, recipe_quantity=recipe_increment)  # type: ignore
-            )
+            if not ref_merged:
+                updated_list.recipe_references.append(
+                    ShoppingListItemRecipeRefCreate(
+                        recipe_id=recipe.recipe_id, recipe_quantity=recipe.recipe_increment_quantity
+                    )
+                )
 
         updated_list = self.shopping_lists.update(updated_list.id, updated_list)
         return updated_list, item_changes

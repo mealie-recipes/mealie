@@ -216,6 +216,29 @@ def test_pagination_filter_basic(query_units: tuple[RepositoryUnit, IngredientUn
     assert unit_results[0].id == unit_2.id
 
 
+def test_pagination_filter_string_case_insensitive(
+    query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit],
+):
+    units_repo, *units = query_units
+    target_unit = random.choice(units)
+
+    query = PaginationQuery(page=1, per_page=-1, query_filter=f'name="{target_unit.name.upper()}"')
+    unit_results = units_repo.page_all(query).items
+    assert len(unit_results) == 1
+    assert unit_results[0].id == target_unit.id
+
+    upper_unit = units_repo.create(
+        SaveIngredientUnit(name="mIxEd-CaSe uNiT", group_id=units_repo.group_id, use_abbreviation=True)
+    )
+    try:
+        query = PaginationQuery(page=1, per_page=-1, query_filter=f'name="{upper_unit.name.lower()}"')
+        unit_results = units_repo.page_all(query).items
+        assert len(unit_results) == 1
+        assert unit_results[0].id == upper_unit.id
+    finally:
+        units_repo.delete(upper_unit.id)
+
+
 def test_pagination_filter_null(unique_user: TestUser):
     database = unique_user.repos
     recipe_not_made_1 = database.recipes.create(
@@ -289,6 +312,18 @@ def test_pagination_filter_in(query_units: tuple[RepositoryUnit, IngredientUnit,
     assert unit_2.id in result_ids
     assert unit_3.id not in result_ids
 
+    query = PaginationQuery(page=1, per_page=-1, query_filter=f'name IN ["{unit_3.name}"]')
+    unit_results = units_repo.page_all(query).items
+
+    result_ids = {unit.id for unit in unit_results}
+    assert unit_1.id not in result_ids
+    assert unit_2.id not in result_ids
+    assert unit_3.id in result_ids
+
+
+def test_pagination_filter_not_in(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
+    units_repo, unit_1, unit_2, unit_3 = query_units
+
     query = PaginationQuery(page=1, per_page=-1, query_filter=f"name NOT IN [{unit_1.name}, {unit_2.name}]")
     unit_results = units_repo.page_all(query).items
 
@@ -297,13 +332,73 @@ def test_pagination_filter_in(query_units: tuple[RepositoryUnit, IngredientUnit,
     assert unit_2.id not in result_ids
     assert unit_3.id in result_ids
 
-    query = PaginationQuery(page=1, per_page=-1, query_filter=f'name IN ["{unit_3.name}"]')
-    unit_results = units_repo.page_all(query).items
 
-    result_ids = {unit.id for unit in unit_results}
-    assert unit_1.id not in result_ids
-    assert unit_2.id not in result_ids
-    assert unit_3.id in result_ids
+def test_pagination_filter_in_m2m(unique_user: TestUser):
+    db = unique_user.repos
+    unique_category_1, unique_category_2, shared_category = (
+        db.categories.create(CategorySave(group_id=unique_user.group_id, name=random_string(10))) for _ in range(3)
+    )
+    recipe_1, recipe_2 = (
+        db.recipes.create(Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string()))
+        for _ in range(2)
+    )
+
+    recipe_1.recipe_category = [unique_category_1, shared_category]
+    recipe_2.recipe_category = [unique_category_2, shared_category]
+    db.recipes.update(recipe_1.slug, recipe_1)
+    db.recipes.update(recipe_2.slug, recipe_2)
+
+    query = PaginationQuery(page=1, per_page=-1, query_filter=f"recipeCategory.name IN [{shared_category.name}]")
+    recipe_results = db.recipes.page_all(query).items
+    assert len(recipe_results) == 2
+    assert {recipe.id for recipe in recipe_results} == {recipe_1.id, recipe_2.id}
+
+
+def test_pagination_filter_not_in_m2m(unique_user: TestUser):
+    db = unique_user.repos
+    unique_category_1, unique_category_2, shared_category = (
+        db.categories.create(CategorySave(group_id=unique_user.group_id, name=random_string(10))) for _ in range(3)
+    )
+    recipe_1, recipe_2 = (
+        db.recipes.create(Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string()))
+        for _ in range(2)
+    )
+
+    recipe_1.recipe_category = [unique_category_1, shared_category]
+    recipe_2.recipe_category = [unique_category_2, shared_category]
+    db.recipes.update(recipe_1.slug, recipe_1)
+    db.recipes.update(recipe_2.slug, recipe_2)
+
+    query = PaginationQuery(page=1, per_page=-1, query_filter=f"recipeCategory.name NOT IN [{unique_category_1.name}]")
+    recipe_results = db.recipes.page_all(query).items
+    recipe_results_ids = {recipe.id for recipe in recipe_results}
+    assert recipe_1.id not in recipe_results_ids
+    assert recipe_2.id in recipe_results_ids
+
+
+def test_pagination_filter_not_in_includes_null(unique_user: TestUser):
+    db = unique_user.repos
+    unique_category_1, unique_category_2, shared_category = (
+        db.categories.create(CategorySave(group_id=unique_user.group_id, name=random_string(10))) for _ in range(3)
+    )
+    recipe_1, recipe_2, recipe_3 = (
+        db.recipes.create(Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string()))
+        for _ in range(3)
+    )
+
+    recipe_1.recipe_category = [unique_category_1, shared_category]
+    recipe_2.recipe_category = [unique_category_2, shared_category]
+    db.recipes.update(recipe_1.slug, recipe_1)
+    db.recipes.update(recipe_2.slug, recipe_2)
+
+    query = PaginationQuery(page=1, per_page=-1, query_filter=f"recipeCategory.name NOT IN [{unique_category_1.name}]")
+    recipe_results = db.recipes.page_all(query).items
+    recipe_results_ids = {recipe.id for recipe in recipe_results}
+    assert recipe_1.id not in recipe_results_ids
+    assert recipe_2.id in recipe_results_ids
+
+    # this recipe has no categories, and therefore should be included in the results
+    assert recipe_3.id in recipe_results_ids
 
 
 def test_pagination_filter_in_advanced(unique_user: TestUser):
@@ -423,6 +518,18 @@ def test_pagination_filter_like(query_units: tuple[RepositoryUnit, IngredientUni
     assert unit_1.id not in result_ids
     assert unit_2.id in result_ids
     assert unit_3.id in result_ids
+
+
+def test_pagination_filter_like_case_insensitive(
+    query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit],
+):
+    units_repo, unit_1, *_ = query_units
+
+    query = PaginationQuery(page=1, per_page=-1, query_filter=r'name LIKE "%EST UNIT 1%"')
+    unit_results = units_repo.page_all(query).items
+
+    assert len(unit_results) == 1
+    assert unit_results[0].id == unit_1.id
 
 
 def test_pagination_filter_keyword_namespace_conflict(unique_user: TestUser):

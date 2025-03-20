@@ -3,13 +3,13 @@
 		"name": "želodova buča"
 	},
 	"alfalfa-sprouts": {
-		"name": "alfalfa kalčki"
+		"name": "kalčki lucerne"
 	},
 	"anchovies": {
-		"name": "inčuni"
+		"name": "sardoni"
 	},
 	"apples": {
-		"name": "jabolka",
+		"name": "jabolko",
 		"plural_name": "jabolka"
 	},
 	"artichoke": {
@@ -176,7 +176,7 @@
 	},
 	"coconut": {
 		"name": "kokos",
-		"plural_name": "kokos"
+		"plural_name": "kokosi"
 	},
 	"coconut-milk": {
 		"name": "kokosovo mleko"
@@ -188,7 +188,7 @@
 		"name": "kava"
 	},
 	"collard-greens": {
-		"name": "ovratnik"
+		"name": "kodrolistnati ohrovt"
 	},
 	"confectioners-sugar": {
 		"name": "slaščičarski sladkor"
@@ -207,21 +207,21 @@
 		"name": "bombažno olje"
 	},
 	"courgette": {
-		"name": "bučke"
+		"name": "bučka"
 	},
 	"cream-of-tartar": {
 		"name": "tatarska omaka"
 	},
 	"cucumber": {
-		"name": "kumare",
+		"name": "kumara",
 		"plural_name": "kumare"
 	},
 	"cumin": {
 		"name": "kumina"
 	},
 	"daikon": {
-		"name": "daikon redkev",
-		"plural_name": "daikon redkev"
+		"name": "japonska redkev",
+		"plural_name": "japonske redkve"
 	},
 	"dairy-products-and-dairy-substitutes": {
 		"name": "mlečni izdelki in mlečni nadomestki"
@@ -240,15 +240,15 @@
 	},
 	"eggplant": {
 		"name": "jajčevec",
-		"plural_name": "jajčevec"
+		"plural_name": "jajčevci"
 	},
 	"eggs": {
-		"name": "jajca",
+		"name": "jajce",
 		"plural_name": "jajca"
 	},
 	"endive": {
 		"name": "endivija",
-		"plural_name": "endivija"
+		"plural_name": "endivije"
 	},
 	"fats": {
 		"name": "maščobe"
@@ -267,7 +267,7 @@
 		"name": "ribe"
 	},
 	"five-spice-powder": {
-		"name": "pet začimb v prahu"
+		"name": "mešanica petih začimb"
 	},
 	"flour": {
 		"name": "moka"
@@ -336,8 +336,8 @@
 		"name": "izomalt"
 	},
 	"jackfruit": {
-		"name": "nangka",
-		"plural_name": "nangka"
+		"name": "kruhovec",
+		"plural_name": "kruhovec"
 	},
 	"jaggery": {
 		"name": "trsni sladkor"
@@ -349,7 +349,7 @@
 		"name": "želeji"
 	},
 	"jerusalem-artichoke": {
-		"name": "jerozalemska artičoka"
+		"name": "jeruzalemska artičoka"
 	},
 	"jicama": {
 		"name": "jicama"
@@ -361,7 +361,7 @@
 		"name": "kolerabe"
 	},
 	"kumara": {
-		"name": "kumara"
+		"name": "sladek krompir"
 	},
 	"leavening-agents": {
 		"name": "kvas"
@@ -377,7 +377,7 @@
 		"name": "limonina trava"
 	},
 	"lentils": {
-		"name": "lentils"
+		"name": "leča"
 	},
 	"lettuce": {
 		"name": "solata"
@@ -424,7 +424,7 @@
 		"name": "oreščki"
 	},
 	"octopuses": {
-		"name": "hobotnice",
+		"name": "hobotnica",
 		"plural_name": "hobotnice"
 	},
 	"oils": {
@@ -434,7 +434,7 @@
 		"name": "jedilni oslez"
 	},
 	"olive": {
-		"name": "olive"
+		"name": "oliva"
 	},
 	"olive-oil": {
 		"name": "olivno olje"
@@ -443,13 +443,13 @@
 		"name": "čebula"
 	},
 	"onion-family": {
-		"name": "družina čebul"
+		"name": "čebule"
 	},
 	"orange-blossom-water": {
 		"name": "voda pomarančnih cvetov"
 	},
 	"oranges": {
-		"name": "pomaranče",
+		"name": "pomaranča",
 		"plural_name": "pomaranče"
 	},
 	"oregano": {
@@ -484,7 +484,7 @@
 	},
 	"pineapple": {
 		"name": "ananas",
-		"plural_name": "ananas"
+		"plural_name": "ananasi"
 	},
 	"plantain": {
 		"name": "trpotec",
@@ -505,14 +505,14 @@
 	},
 	"pumpkin": {
 		"name": "buča",
-		"plural_name": "buča"
+		"plural_name": "buče"
 	},
 	"pumpkin-seeds": {
 		"name": "bučna semena"
 	},
 	"radish": {
 		"name": "redkev",
-		"plural_name": "redkev"
+		"plural_name": "redkve"
 	},
 	"raw-sugar": {
 		"name": "surovi sladkor"
@@ -542,7 +542,7 @@
 		"name": "slana trska"
 	},
 	"scallion": {
-		"name": "česen",
+		"name": "mlada čebula",
 		"plural_name": "mlada čebula"
 	},
 	"seafood": {
@@ -571,7 +571,7 @@
 		"name": "soja"
 	},
 	"spaghetti-squash": {
-		"name": "špageti buča",
+		"name": "buča špagetarica",
 		"plural_name": "buča špagetarica"
 	},
 	"speck": {
@@ -589,13 +589,13 @@
 	},
 	"squash": {
 		"name": "buča",
-		"plural_name": "buča"
+		"plural_name": "buče"
 	},
 	"squash-family": {
-		"name": "družina buč"
+		"name": "bučevka"
 	},
 	"stockfish": {
-		"name": "stock riba"
+		"name": "polenovka"
 	},
 	"sugar": {
 		"name": "sladkor"
@@ -633,7 +633,7 @@
 	},
 	"tomato": {
 		"name": "paradižnik",
-		"plural_name": "paradižnik"
+		"plural_name": "paradižniki"
 	},
 	"trout": {
 		"name": "postrv"
@@ -650,7 +650,7 @@
 	},
 	"turnip": {
 		"name": "repa",
-		"plural_name": "repa"
+		"plural_name": "repe"
 	},
 	"unrefined-sugar": {
 		"name": "nerafiniran sladkor"
@@ -666,10 +666,10 @@
 	},
 	"watermelon": {
 		"name": "lubenica",
-		"plural_name": "lubenica"
+		"plural_name": "lubenice"
 	},
 	"white-mushroom": {
-		"name": "bele gobe",
+		"name": "bela goba",
 		"plural_name": "bele gobe"
 	},
 	"white-sugar": {
@@ -680,7 +680,7 @@
 	},
 	"yam": {
 		"name": "marmelada",
-		"plural_name": "marmelada"
+		"plural_name": "marmelade"
 	},
 	"yeast": {
 		"name": "kvas"

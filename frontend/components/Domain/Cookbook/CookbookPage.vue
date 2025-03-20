@@ -104,9 +104,12 @@
         }
         const response = await actions.updateOne(editTarget.value);
 
-        // if name changed, redirect to new slug
         if (response?.slug && book.value?.slug !== response?.slug) {
+          // if name changed, redirect to new slug
           router.push(`/g/${route.value.params.groupSlug}/cookbooks/${response?.slug}`);
+        } else {
+          // otherwise reload the page, since the recipe criteria changed
+          router.go(0);
         }
         dialogStates.edit = false;
         editTarget.value = null;

@@ -10,12 +10,12 @@
             "step-text": "Du kan bruge markdown kode i beskrivelser og andre felter i opskrifter.\n\n**Tilføj et link**\n\n[Mit link](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
+            "makes": "Udgør",
+            "serves": "Portioner",
             "serving": "Servering",
             "servings": "Portioner",
-            "yield": "Yield",
-            "yields": "Yields"
+            "yield": "Portioner",
+            "yields": "Portioner"
         }
     },
     "mealplan": {
@@ -42,7 +42,7 @@
         "generic-updated": "{name} blev opdateret",
         "generic-created-with-url": "{name} er oprettet, {url}",
         "generic-updated-with-url": "{name} er blevet opdateret, {url}",
-        "generic-duplicated": "{name} er blevet dublikeret",
+        "generic-duplicated": "{name} er blevet duplikeret",
         "generic-deleted": "{name} er blevet slettet"
     },
     "datetime": {
@@ -60,7 +60,7 @@
             "header_text": "Glemt adgangskode",
             "message_top": "Du har anmodet om at nulstille din adgangskode.",
             "message_bottom": "Klik på knappen ovenfor for at nulstille din adgangskode.",
-            "button_text": "Nulstil adgangskoden"
+            "button_text": "Nulstil adgangskode"
         },
         "invitation": {
             "subject": "Invitation til at deltage i Mealie",

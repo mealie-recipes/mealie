@@ -73,8 +73,8 @@
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogam",
-        "plural_name": "kilogam",
+        "name": "kilogram",
+        "plural_name": "kilogram",
         "description": "",
         "abbreviation": "kg"
     },
@@ -97,7 +97,7 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "servering",
+        "name": "portion",
         "plural_name": "portioner",
         "description": "",
         "abbreviation": ""
