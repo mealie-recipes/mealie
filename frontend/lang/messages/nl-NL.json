@@ -1049,7 +1049,7 @@
       "merge-dialog-text": "Het combineren van de geselecteerde levensmiddelen zal het oorspronkelijke levensmiddel en het nieuwe levensmiddel samenvoegen. Het oorspronkelijke levensmiddel zal worden verwijderd en alle referenties worden aangepast, zodat ze naar het nieuwe levensmiddel verwijzen.",
       "merge-food-example": "{food1} samenvoegen met {food2}",
       "seed-dialog-text": "Vul de database met levensmiddelen in jouw taal. Dit maakt meer dan 200 veelvoorkomende levensmiddelen aan die je in jouw database kan gebruiken. De vertalingen zijn verzorgd door een gemeenschap.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
+      "seed-dialog-warning": "Je hebt al enkele artikelen in je database. Deze actie zal duplicaten niet met elkaar in overeenstemming brengen, je zult ze handmatig moeten beheren.",
       "combine-food": "Combineer levensmiddelen",
       "source-food": "Bron-levensmiddelen",
       "target-food": "Doel-levensmiddel",
