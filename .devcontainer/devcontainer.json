@@ -48,7 +48,7 @@
   ],
   // Use 'onCreateCommand' to run commands at the end of container creation.
   // Use 'postCreateCommand' to run commands after the container is created.
-  "onCreateCommand": "sudo chown -R vscode:vscode /workspaces/mealie/frontend/node_modules && task setup",
+  "onCreateCommand": "sudo chown -R vscode:vscode /workspaces/mealie/frontend/node_modules /home/vscode/commandhistory && task setup",
   // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
   "remoteUser": "vscode",
   "features": {

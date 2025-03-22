@@ -291,6 +291,7 @@ export interface UserBase {
   id: string;
   username?: string | null;
   admin: boolean;
+  fullName?: string | null;
 }
 export interface RecipeCategoryResponse {
   name: string;

@@ -579,7 +579,6 @@
     "made-this": "Ugotowałem to",
     "how-did-it-turn-out": "Jak się to udało?",
     "user-made-this": "{user} ugotował(a) to",
-    "last-made-date": "Ostatnio ugotowano {date}",
     "api-extras-description": "Dodatki w przepisach są kluczową cechą API Mealie. Pozwalają na tworzenie niestandardowych par kluczy/wartości JSON w przepisie do odwoływania się przez zewnętrzne aplikacje. Możesz użyć tych kluczy do wyzwalania automatyzacji lub przekazywania niestandardowych wiadomości do twoich wybranych urządzeń.",
     "message-key": "Klucz Wiadomości",
     "parse": "Analizuj",
@@ -637,9 +636,9 @@
     "recipe-debugger-use-openai-description": "Użyj OpenAI, aby dynamicznie analizować przepisy zamiast polegać na bibliotece scraperów. Podczas tworzenia przepisu za pomocą adresu URL jest to wykonywane automatycznie, jeśli scraperowi nie uda się przetworzyć przepisu, ale możesz przetestować go ręcznie tutaj.",
     "debug": "Debuguj",
     "tree-view": "Widok drzewa",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "Ilość porcji",
     "recipe-yield": "Wydajność przepisu",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "Tekst pola przepisu",
     "unit": "Jednostka",
     "upload-image": "Prześlij obraz",
     "screen-awake": "Pozostaw ekran włączony",
@@ -647,7 +646,6 @@
     "nextStep": "Następny krok",
     "recipe-actions": "Akcje przepisów",
     "parser": {
-      "experimental-alert-text": "Mączka używa naturalnego przetwarzania języka, aby analizować i tworzyć jednostki oraz artykuły żywnościowe dla twoich składników. Ta funkcja jest eksperymentalna i nie zawsze działa zgodnie z oczekiwaniami. Jeśli wolisz nie używać zanalizowanych wyników, możesz wybrać 'Anuluj', a zmiany nie zostaną zapisane.",
       "ingredient-parser": "Parser składników",
       "explanation": "Aby użyć analizatora składników, kliknij przycisk \"Przeanalizuj wszystko\", aby rozpocząć proces. Gdy przetworzone składniki będą dostępne, możesz przejrzeć elementy i sprawdzić, czy zostały one poprawnie przetworzone. Wskaźnik zaufania modelu jest wyświetlany po prawej stronie tytułu elementu. Ten wynik jest średnią wszystkich wyników i nie zawsze będzie dokładny.",
       "alerts-explainer": "Powiadomienia będą wyświetlane, jeśli zostanie znaleziona pasująca żywność lub jednostka, ale nie istnieje w bazie danych.",
@@ -669,7 +667,7 @@
     "recipe-finder-description": "Wyszukuj przepisy na podstawie składników, które masz pod ręką. Możesz również filtrować według dostępnych narzędzi oraz ustawić maksymalną liczbę brakujących składników lub przyborów kuchennych.",
     "selected-ingredients": "Wybrany składnik",
     "no-ingredients-selected": "Nie wybrano żadnych składników",
-    "missing": "Missing",
+    "missing": "Brakujący",
     "no-recipes-found": "Nie znaleziono przepisów",
     "no-recipes-found-description": "Spróbuj dodać więcej składników do wyszukiwania lub dostosować filtry",
     "include-ingredients-on-hand": "Uwzględnij składniki dostępne pod ręką",
@@ -678,8 +676,8 @@
     "max-missing-tools": "Maks. ilość brakujących przyborów kuchennych",
     "selected-tools": "Wybrane przybory kuchenne",
     "other-filters": "Inne filtry",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "ready-to-make": "Gotowe do użycia",
+    "almost-ready-to-make": "Prawie gotowe do użycia"
   },
   "search": {
     "advanced-search": "Wyszukiwanie zaawansowane",
@@ -722,7 +720,7 @@
       "backup-restore": "Przywróć kopie",
       "back-restore-description": "Przywracanie tej kopii zapasowej nadpisze wszystkie aktualne dane w bazie danych i w katalogu danych i zastąpi je zawartością tej kopii zapasowej. {cannot-be-undone} Jeśli przywrócenie zakończy się pomyślnie, zostaniesz wylogowany.",
       "cannot-be-undone": "Tej czynności nie można cofnąć - należy zachować ostrożność.",
-      "postgresql-note": "Jeśli używasz PostGreSQL, sprawdź {backup-restore-process} przed przywróceniem.",
+      "postgresql-note": "Jeśli używasz PostgreSQL, sprawdź {backup-restore-process} przed przywróceniem.",
       "backup-restore-process-in-the-documentation": "proces tworzenia kopii zapasowej/przywracania w dokumentacji",
       "irreversible-acknowledgment": "Rozumiem, że ta operacja jest nieodwracalna, destrukcyjna i może spowodować utratę danych",
       "restore-backup": "Przywróć kopie"
@@ -1050,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Połączenie wybranej żywności połączy źródło żywności i żywność docelową w pojedynczą żywność. Źródło żywności zostanie usunięte, a wszystkie odniesienia do źródłowej żywności zostaną zaktualizowane tak, aby wskazywały na docelową żywność.",
       "merge-food-example": "Scalanie {food1} do {food2}",
-      "seed-dialog-text": "Wypełnij bazę daniami na podstawie wybranego lokalnego języka. Akcja ta stworzy ponad 200 zwyczajowych potraw które mogą zostać użyte do organizacji Twojej bazy. Potrawy tłumaczone są przez wysiłek społeczeństwa.",
-      "seed-dialog-warning": "Posiadasz już wartości w bazie. Rozwiązanie problemu z duplikatami leżeć będzie w gestii użytkownika.",
+      "seed-dialog-text": "Wypełnij bazę danych produktami spożywczymi na podstawie twojego lokalnego języka. Dzięki temu utworzysz ponad 200 popularnych produktów spożywczych, które można wykorzystać do zorganizowania bazy danych. Produkty spożywcze są tłumaczone dzięki wysiłkom społeczności.",
+      "seed-dialog-warning": "W twojej bazie danych znajdują się już niektóre pozycje. Ta akcja nie usunie duplikatów, więc będziesz musiał zarządzać nimi ręcznie.",
       "combine-food": "Połącz Żywność",
       "source-food": "Żywność Źródłowa",
       "target-food": "Żywność Docelowa",
@@ -1115,9 +1113,9 @@
       "source-unit-will-be-deleted": "Jednostka źródłowa zostanie usunięta"
     },
     "recipe-actions": {
-      "recipe-actions-data": "Recipe Actions Data",
+      "recipe-actions-data": "Dane akcji przepisu",
       "new-recipe-action": "",
-      "edit-recipe-action": "Edit Recipe Action",
+      "edit-recipe-action": "Edycja akcji przepisu",
       "action-type": "Typ akcji"
     },
     "create-alias": "Utwórz alias",

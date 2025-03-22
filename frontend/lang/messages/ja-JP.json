@@ -579,7 +579,6 @@
     "made-this": "これを作りました",
     "how-did-it-turn-out": "どうなりましたか？",
     "user-made-this": "{user} がこれを作りました",
-    "last-made-date": "最後は {date} に作りました",
     "api-extras-description": "レシピの追加機能はMealie APIの主な機能です。 サードパーティアプリから参照するために、レシピ内にカスタムJSONキー/値のペアを作成することができます。 これらのキーを使用して情報を提供することができます。例えば、自動化をトリガーしたり、カスタムメッセージをお使いのデバイスにリレーするなどです。",
     "message-key": "メッセージキー",
     "parse": "解析",
@@ -647,7 +646,6 @@
     "nextStep": "次のステップ",
     "recipe-actions": "レシピ操作",
     "parser": {
-      "experimental-alert-text": "Mealieは、自然言語処理を使用して、レシピ成分のための単位や食品を解析し、作成します。 この機能は実験的であり、常に期待どおりに動作するとは限りません。 解析結果を使用したくない場合は、「キャンセル」を選択することができ、変更内容は保存されません。",
       "ingredient-parser": "Ingredient Parser",
       "explanation": "Ingredient Parserを使用するには、「すべて解析」ボタンをクリックしてプロセスを開始します。 処理された原材料が利用可能になったら、項目を確認し、それらが正しく解析されたことを確認できます。 アイテムタイトルの右側にモデルの信頼度が表示されます。 このスコアは、すべての個々のスコアの平均であり、常に完全に正確であるとは限りません。",
       "alerts-explainer": "一致する食品または単位が見つかってもデータベースに存在しない場合は、アラートが表示されます。",
@@ -722,7 +720,7 @@
       "backup-restore": "バックアップと復元",
       "back-restore-description": "このバックアップを復元すると、データベースとデータディレクトリ内のすべての現在のデータが上書きされ、このバックアップの内容に置き換えられます。 {cannot-be-undone} 復元が成功するとログアウトされます。",
       "cannot-be-undone": "この操作は元に戻せません - 注意してください。",
-      "postgresql-note": "PostGreSQLを使用している場合は、復元する前に {backup-restore-process} を確認してください。",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "ドキュメント内のバックアップ/復元プロセス",
       "irreversible-acknowledgment": "このアクションは不可逆的で破壊的で、データ損失を引き起こす可能性があることを理解しています",
       "restore-backup": "バックアップから復元"
@@ -1050,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "選択した食品を組み合わせると、ソース食品とターゲット食品が1つの食品に統合されます。 ソース食品は削除され、ソース食品への参照のすべてがターゲット食品を指し示すように更新されます。",
       "merge-food-example": "{food1} を {food2} に統合",
-      "seed-dialog-text": "あなたの地元の言語に基づいた食品をデータベースにシードします。これにより、データベースの整理に使用できる200以上の一般的な食品が作成されます。食品はコミュニティの取り組みによって翻訳されます。",
-      "seed-dialog-warning": "あなたのデータベースにはすでにいくつかの項目があります。このアクションは重複を照合しませんので、手動で管理する必要があります。",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "食品を組み合わせる",
       "source-food": "元の食品",
       "target-food": "ターゲットの食品",

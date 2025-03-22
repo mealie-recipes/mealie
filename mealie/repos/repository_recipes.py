@@ -1,5 +1,5 @@
 import re as re
-from collections.abc import Sequence
+from collections.abc import Iterable, Sequence
 from random import randint
 from typing import Self, cast
 from uuid import UUID
@@ -102,6 +102,51 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
 
                 if i >= max_retries:
                     raise
+
+    def _delete_recipe(self, recipe: RecipeModel) -> Recipe:
+        recipe_as_model = self.schema.model_validate(recipe)
+
+        # first remove UserToRecipe entries so we don't run into stale data errors
+        try:
+            user_to_recipe_delete_query = sa.delete(UserToRecipe).where(UserToRecipe.recipe_id == recipe.id)
+            self.session.execute(user_to_recipe_delete_query)
+            self.session.commit()
+        except Exception:
+            self.session.rollback()
+            raise
+
+        # remove the recipe
+        try:
+            self.session.delete(recipe)
+            self.session.commit()
+        except Exception:
+            self.session.rollback()
+            raise
+
+        return recipe_as_model
+
+    def delete(self, value, match_key: str | None = None) -> Recipe:
+        match_key = match_key or self.primary_key
+        recipe_in_db = self._query_one(value, match_key)
+        return self._delete_recipe(recipe_in_db)
+
+    def delete_many(self, values: Iterable) -> list[Recipe]:
+        query = self._query().filter(self.model.id.in_(values))
+        recipes_in_db = self.session.execute(query).unique().scalars().all()
+        results: list[Recipe] = []
+
+        # we create a delete statement for each row
+        # we don't delete the whole query in one statement because postgres doesn't cascade correctly
+        for recipe_in_db in recipes_in_db:
+            results.append(self._delete_recipe(recipe_in_db))
+
+        try:
+            self.session.commit()
+        except Exception as e:
+            self.session.rollback()
+            raise e
+
+        return results
 
     def update_image(self, slug: str, _: str | None = None) -> int:
         entry: RecipeModel = self._query_one(match_value=slug)

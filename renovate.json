@@ -8,5 +8,8 @@
   ],
   "addLabels": [
     "dependencies"
+  ],
+  "ignoreDeps": [
+    "python"
   ]
 }

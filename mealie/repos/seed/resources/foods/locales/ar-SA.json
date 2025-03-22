@@ -9,39 +9,39 @@
 		"name": "anchovies"
 	},
 	"apples": {
-		"name": "تفاح",
+		"name": "apple",
 		"plural_name": "apples"
 	},
 	"artichoke": {
-		"name": "خرشوف"
+		"name": "artichoke"
 	},
 	"arugula": {
-		"name": "جرجير"
+		"name": "arugula"
 	},
 	"asparagus": {
 		"name": "asparagus"
 	},
 	"avocado": {
-		"name": "اﻷفوكادو",
+		"name": "avocado",
 		"plural_name": "avocado"
 	},
 	"bacon": {
 		"name": "bacon"
 	},
 	"baking-powder": {
-		"name": "مسحوق الخبز"
+		"name": "baking powder"
 	},
 	"baking-soda": {
 		"name": "baking soda"
 	},
 	"baking-sugar": {
-		"name": "سكر الخبز"
+		"name": "baking sugar"
 	},
 	"bar-sugar": {
 		"name": "bar sugar"
 	},
 	"basil": {
-		"name": "ريحان"
+		"name": "basil"
 	},
 	"beans": {
 		"name": "beans"
@@ -51,7 +51,7 @@
 		"plural_name": "bell peppers"
 	},
 	"blackberries": {
-		"name": "توت الأسود"
+		"name": "blackberries"
 	},
 	"bok-choy": {
 		"name": "bok choy"
@@ -60,31 +60,31 @@
 		"name": "brassicas"
 	},
 	"bread": {
-		"name": "خبز"
+		"name": "bread"
 	},
 	"breadfruit": {
-		"name": "ثمرة الخبز"
+		"name": "breadfruit"
 	},
 	"broccoflower": {
-		"name": "بروكلي"
+		"name": "broccoflower"
 	},
 	"broccoli": {
-		"name": "بروكلي"
+		"name": "broccoli"
 	},
 	"broccoli-rabe": {
-		"name": "ربيع البروكلي"
+		"name": "broccoli rabe"
 	},
 	"broccolini": {
-		"name": "بروكوليني"
+		"name": "broccolini"
 	},
 	"brown-sugar": {
-		"name": "سكر بني"
+		"name": "brown sugar"
 	},
 	"brussels-sprouts": {
 		"name": "brussels sprouts"
 	},
 	"butter": {
-		"name": "زبدة"
+		"name": "butter"
 	},
 	"butternut-pumpkin": {
 		"name": "butternut pumpkin"
@@ -93,20 +93,20 @@
 		"name": "butternut squash"
 	},
 	"cabbage": {
-		"name": "كرنب",
+		"name": "cabbage",
 		"plural_name": "cabbages"
 	},
 	"cactus-edible": {
 		"name": "cactus, edible"
 	},
 	"calabrese": {
-		"name": "كالابريس"
+		"name": "calabrese"
 	},
 	"cane-sugar": {
 		"name": "cane sugar"
 	},
 	"cannabis": {
-		"name": "القنب"
+		"name": "cannabis"
 	},
 	"capsicum": {
 		"name": "capsicum"
@@ -115,7 +115,7 @@
 		"name": "caraway"
 	},
 	"carrot": {
-		"name": "جزر",
+		"name": "carrot",
 		"plural_name": "carrots"
 	},
 	"caster-sugar": {
@@ -128,17 +128,17 @@
 		"name": "catfish"
 	},
 	"cauliflower": {
-		"name": "قرنبيط",
+		"name": "cauliflower",
 		"plural_name": "cauliflowers"
 	},
 	"cayenne-pepper": {
-		"name": "فلفل الكايين"
+		"name": "cayenne pepper"
 	},
 	"celeriac": {
 		"name": "celery root"
 	},
 	"celery": {
-		"name": "كرفس"
+		"name": "celery"
 	},
 	"cereal-grains": {
 		"name": "cereal grains"
@@ -147,7 +147,7 @@
 		"name": "chard"
 	},
 	"cheese": {
-		"name": "جبن"
+		"name": "cheese"
 	},
 	"chicory": {
 		"name": "chicory"
@@ -163,29 +163,29 @@
 		"name": "chives"
 	},
 	"chocolate": {
-		"name": "بالشوكولاتة"
+		"name": "chocolate"
 	},
 	"cilantro": {
-		"name": "كزبرة"
+		"name": "cilantro"
 	},
 	"cinnamon": {
-		"name": "قرفة"
+		"name": "cinnamon"
 	},
 	"clarified-butter": {
 		"name": "clarified butter"
 	},
 	"coconut": {
-		"name": "جوز الهند",
+		"name": "coconut",
 		"plural_name": "coconuts"
 	},
 	"coconut-milk": {
-		"name": "حليب جوز الهند"
+		"name": "coconut milk"
 	},
 	"cod": {
 		"name": "cod"
 	},
 	"coffee": {
-		"name": "قهوة"
+		"name": "coffee"
 	},
 	"collard-greens": {
 		"name": "collard greens"
@@ -194,10 +194,10 @@
 		"name": "confectioners' sugar"
 	},
 	"coriander": {
-		"name": "كزبرة"
+		"name": "coriander"
 	},
 	"corn": {
-		"name": "ذرة",
+		"name": "corn",
 		"plural_name": "corns"
 	},
 	"corn-syrup": {
@@ -213,11 +213,11 @@
 		"name": "cream of tartar"
 	},
 	"cucumber": {
-		"name": "خيار",
+		"name": "cucumber",
 		"plural_name": "cucumbers"
 	},
 	"cumin": {
-		"name": "كمون"
+		"name": "cumin"
 	},
 	"daikon": {
 		"name": "daikon",
@@ -239,11 +239,11 @@
 		"name": "edible cactus"
 	},
 	"eggplant": {
-		"name": "باذنجان",
+		"name": "eggplant",
 		"plural_name": "eggplants"
 	},
 	"eggs": {
-		"name": "بيض",
+		"name": "egg",
 		"plural_name": "eggs"
 	},
 	"endive": {
@@ -264,13 +264,13 @@
 		"plural_name": "fiddlehead ferns"
 	},
 	"fish": {
-		"name": "سَمَكٌ"
+		"name": "fish"
 	},
 	"five-spice-powder": {
-		"name": "مسحوق التوابل 5"
+		"name": "five spice powder"
 	},
 	"flour": {
-		"name": "دقيق"
+		"name": "flour"
 	},
 	"frisee": {
 		"name": "frisee"
@@ -279,7 +279,7 @@
 		"name": "fructose"
 	},
 	"fruit": {
-		"name": "فاكهة"
+		"name": "fruit"
 	},
 	"fruit-sugar": {
 		"name": "fruit sugar"
@@ -291,7 +291,7 @@
 		"name": "garam masala"
 	},
 	"garlic": {
-		"name": "ثوم",
+		"name": "garlic",
 		"plural_name": "garlics"
 	},
 	"gem-squash": {
@@ -324,10 +324,10 @@
 		"plural_name": "heart of palms"
 	},
 	"hemp": {
-		"name": "hemp"
+		"name": "قنب والعياذ بالله"
 	},
 	"herbs": {
-		"name": "أعشاب"
+		"name": "herbs"
 	},
 	"honey": {
 		"name": "honey"
@@ -380,10 +380,10 @@
 		"name": "lentils"
 	},
 	"lettuce": {
-		"name": "خس"
+		"name": "lettuce"
 	},
 	"liver": {
-		"name": "كبد",
+		"name": "liver",
 		"plural_name": "livers"
 	},
 	"maize": {
@@ -393,20 +393,20 @@
 		"name": "maple syrup"
 	},
 	"meat": {
-		"name": "لحم"
+		"name": "meat"
 	},
 	"milk": {
-		"name": "حليب"
+		"name": "milk"
 	},
 	"mortadella": {
-		"name": "الموتادلا"
+		"name": "mortadella"
 	},
 	"mushroom": {
-		"name": "فطر",
+		"name": "mushroom",
 		"plural_name": "mushrooms"
 	},
 	"mussels": {
-		"name": "بلح البحر"
+		"name": "mussels"
 	},
 	"nanaimo-bar-mix": {
 		"name": "nanaimo bar mix"
@@ -428,35 +428,35 @@
 		"plural_name": "octopuses"
 	},
 	"oils": {
-		"name": "زيوت"
+		"name": "oils"
 	},
 	"okra": {
 		"name": "okra"
 	},
 	"olive": {
-		"name": "زيتون"
+		"name": "olive"
 	},
 	"olive-oil": {
-		"name": "زيت الزيتون"
+		"name": "olive oil"
 	},
 	"onion": {
-		"name": "بصل"
+		"name": "onion"
 	},
 	"onion-family": {
-		"name": "عائلة البصل"
+		"name": "onion family"
 	},
 	"orange-blossom-water": {
 		"name": "orange blossom water"
 	},
 	"oranges": {
-		"name": "برتقال",
+		"name": "orange",
 		"plural_name": "oranges"
 	},
 	"oregano": {
-		"name": "توابل اوريجانو"
+		"name": "oregano"
 	},
 	"oysters": {
-		"name": "محار"
+		"name": "oysters"
 	},
 	"panch-puran": {
 		"name": "panch puran"
@@ -472,18 +472,18 @@
 		"plural_name": "parsnips"
 	},
 	"pear": {
-		"name": "كمثرى",
+		"name": "pear",
 		"plural_name": "pears"
 	},
 	"peas": {
 		"name": "peas"
 	},
 	"pepper": {
-		"name": "فلفل",
+		"name": "pepper",
 		"plural_name": "peppers"
 	},
 	"pineapple": {
-		"name": "أناناس",
+		"name": "pineapple",
 		"plural_name": "pineapples"
 	},
 	"plantain": {
@@ -491,17 +491,17 @@
 		"plural_name": "plantains"
 	},
 	"poppy-seeds": {
-		"name": "بذور الخشخاش"
+		"name": "poppy seeds"
 	},
 	"potato": {
 		"name": "potato",
 		"plural_name": "potatoes"
 	},
 	"poultry": {
-		"name": "دواجن"
+		"name": "poultry"
 	},
 	"powdered-sugar": {
-		"name": "سكر مسحوق"
+		"name": "powdered sugar"
 	},
 	"pumpkin": {
 		"name": "pumpkin",
@@ -515,16 +515,16 @@
 		"plural_name": "radishes"
 	},
 	"raw-sugar": {
-		"name": "السكر الخام"
+		"name": "raw sugar"
 	},
 	"refined-sugar": {
 		"name": "refined sugar"
 	},
 	"rice": {
-		"name": "أرز"
+		"name": "rice"
 	},
 	"rice-flour": {
-		"name": "دقيق الأرز"
+		"name": "rice flour"
 	},
 	"rock-sugar": {
 		"name": "rock sugar"
@@ -533,10 +533,10 @@
 		"name": "rum"
 	},
 	"salmon": {
-		"name": "سمك السالمون"
+		"name": "salmon"
 	},
 	"salt": {
-		"name": "ملح"
+		"name": "salt"
 	},
 	"salt-cod": {
 		"name": "salt cod"
@@ -546,13 +546,13 @@
 		"plural_name": "scallions"
 	},
 	"seafood": {
-		"name": "المأكولات البحرية"
+		"name": "seafood"
 	},
 	"seeds": {
-		"name": "بذور"
+		"name": "seeds"
 	},
 	"sesame-seeds": {
-		"name": "بذور السمسم"
+		"name": "sesame seeds"
 	},
 	"shallot": {
 		"name": "shallot",
@@ -584,7 +584,7 @@
 		"name": "spinach"
 	},
 	"spring-onion": {
-		"name": "البصل الأخضر",
+		"name": "spring onion",
 		"plural_name": "spring onions"
 	},
 	"squash": {
@@ -605,7 +605,7 @@
 		"plural_name": "sunchokes"
 	},
 	"sunflower-seeds": {
-		"name": "بذور عباد الشمس"
+		"name": "sunflower seeds"
 	},
 	"superfine-sugar": {
 		"name": "superfine sugar"
@@ -632,18 +632,18 @@
 		"name": "teff"
 	},
 	"tomato": {
-		"name": "طماطم",
+		"name": "tomato",
 		"plural_name": "tomatoes"
 	},
 	"trout": {
-		"name": "سمك السلمون المرقط"
+		"name": "trout"
 	},
 	"tubers": {
 		"name": "tuber",
 		"plural_name": "tubers"
 	},
 	"tuna": {
-		"name": "تونة"
+		"name": "tuna"
 	},
 	"turbanado-sugar": {
 		"name": "turbanado sugar"
@@ -669,7 +669,7 @@
 		"plural_name": "watermelons"
 	},
 	"white-mushroom": {
-		"name": "الفطر الأبيض",
+		"name": "white mushroom",
 		"plural_name": "white mushrooms"
 	},
 	"white-sugar": {

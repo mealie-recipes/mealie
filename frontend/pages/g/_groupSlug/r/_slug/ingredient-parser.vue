@@ -1,13 +1,6 @@
 <template>
   <v-container v-if="recipe">
     <v-container>
-      <v-alert dismissible border="left" colored-border type="warning" elevation="2" :icon="$globals.icons.alert">
-        <b>{{ $tc("banner-experimental.title") }}</b>
-        <div>
-          {{ $tc("recipe.parser.experimental-alert-text") }}
-        </div>
-      </v-alert>
-
       <BaseCardSectionTitle :title="$tc('recipe.parser.ingredient-parser')">
         <div class="mt-4">{{ $tc("recipe.parser.explanation") }}</div>
 

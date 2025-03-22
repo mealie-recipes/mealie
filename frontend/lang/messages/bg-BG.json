@@ -579,7 +579,6 @@
     "made-this": "Сготвих рецептата",
     "how-did-it-turn-out": "Как се получи?",
     "user-made-this": "{user} направи това",
-    "last-made-date": "Последно приготвена на {date}",
     "api-extras-description": "Екстрите за рецепти са ключова характеристика на Mealie API. Те Ви позволяват да създавате персонализирани JSON двойки ключ/стойност в рамките на рецепта, за да ги препращате към други приложения. Можете да използвате тези ключове, за да предоставите информация за задействане на автоматизация или персонализирани съобщения, за препращане към желаното от Вас устройство.",
     "message-key": "Ключ на съобщението",
     "parse": "Анализирай",
@@ -647,7 +646,6 @@
     "nextStep": "Следваща стъпка",
     "recipe-actions": "Recipe Actions",
     "parser": {
-      "experimental-alert-text": "Mealie uses natural language processing to parse and create units and food items for your recipe ingredients. This feature is experimental and may not always work as expected. If you prefer not to use the parsed results, you can select 'Cancel' and your changes will not be saved.",
       "ingredient-parser": "Ingredient Parser",
       "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
       "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
@@ -722,7 +720,7 @@
       "backup-restore": "Възстановяване на резервно копие",
       "back-restore-description": "Възстановяването на това резервно копие ще презапише цялата текуща информация във Вашата база данни и директорията с данни, и ще ги замени със съдържанието от резервното копие. {cannot-be-undone} Ако възстановяването е успешно ще бъдете отписан от системата.",
       "cannot-be-undone": "Това действие не може да бъде отменено - използвайте с внимание.",
-      "postgresql-note": "Ако използвате PostGreSQL, моля прегледайте {backup-restore-process} преди възстановяването.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "процес за резервно копие/възстановяване в документацията",
       "irreversible-acknowledgment": "Разбирам, че това действие е невъзвращаемо, разрушително и може да доведе до загуба на данни",
       "restore-backup": "Възстановяване на резервно копие"
@@ -1050,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Комбинирането на избраните храни ще обедини изходната храна и целевата храна в една единствена храна. Изходната храна ще бъде изтрита и всички препратки към изходната храна ще бъдат актуализирани, за да сочат към целевата храна.",
       "merge-food-example": "Обединяване на {food1} с {food2}",
-      "seed-dialog-text": "Изтеглете базата данни с продукти на вашия местен език. Ще бъдат заредени 200+ продукта, които да използвате за организиране на вашата база данни. Имената на продуктите се превеждат от общността.",
-      "seed-dialog-warning": "Вече имате някои елементи във Вашата база данни. Това действие няма да съгласува дубликати, ще трябва да ги управлявате ръчно.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Комбинирай Храни",
       "source-food": "Изходна храна",
       "target-food": "Целева храна",

@@ -391,6 +391,11 @@ export interface CreateIngredientFoodAlias {
   name: string;
   [k: string]: unknown;
 }
+export interface ShoppingListAddRecipeParamsBulk {
+  recipeIncrementQuantity?: number;
+  recipeIngredients?: RecipeIngredient[] | null;
+  recipeId: string;
+}
 export interface ShoppingListCreate {
   name?: string | null;
   extras?: {

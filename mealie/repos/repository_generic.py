@@ -250,7 +250,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         match_key = match_key or self.primary_key
 
         result = self._query_one(value, match_key)
-        results_as_model = self.schema.model_validate(result)
+        result_as_model = self.schema.model_validate(result)
 
         try:
             self.session.delete(result)
@@ -259,10 +259,10 @@ class RepositoryGeneric(Generic[Schema, Model]):
             self.session.rollback()
             raise e
 
-        return results_as_model
+        return result_as_model
 
-    def delete_many(self, values: Iterable) -> Schema:
-        query = self._query().filter(self.model.id.in_(values))  # type: ignore
+    def delete_many(self, values: Iterable) -> list[Schema]:
+        query = self._query().filter(self.model.id.in_(values))
         results = self.session.execute(query).unique().scalars().all()
         results_as_model = [self.schema.model_validate(result) for result in results]
 
@@ -277,7 +277,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
             self.session.rollback()
             raise e
 
-        return results_as_model  # type: ignore
+        return results_as_model
 
     def delete_all(self) -> None:
         delete(self.model)

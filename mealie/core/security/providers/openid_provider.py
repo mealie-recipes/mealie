@@ -5,6 +5,7 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
+from mealie.core.exceptions import MissingClaimException
 from mealie.core.security.providers.auth_provider import AuthProvider
 from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
@@ -25,7 +26,7 @@ class OpenIDProvider(AuthProvider[UserInfo]):
         claims = self.data
         if not claims:
             self._logger.error("[OIDC] No claims in the id_token")
-            return None
+            raise MissingClaimException()
 
         # Log all claims for debugging
         self._logger.debug("[OIDC] Received claims:")
@@ -38,13 +39,13 @@ class OpenIDProvider(AuthProvider[UserInfo]):
                 self.required_claims,
                 claims.keys(),
             )
-            return None
+            raise MissingClaimException()
 
         # Check for empty required claims
         for claim in self.required_claims:
             if not claims.get(claim):
                 self._logger.error("[OIDC] Required claim '%s' is empty", claim)
-                return None
+                raise MissingClaimException()
 
         repos = get_repositories(self.session, group_id=None, household_id=None)
 

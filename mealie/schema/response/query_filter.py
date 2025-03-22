@@ -180,6 +180,9 @@ class QueryFilterBuilderComponent:
             if v is None:
                 continue
 
+            if isinstance(model_attr_type, sqltypes.String):
+                sanitized_values[i] = v.lower()
+
             if self.relationship is RelationalKeyword.LIKE or self.relationship is RelationalKeyword.NOT_LIKE:
                 if not isinstance(model_attr_type, sqltypes.String):
                     raise ValueError(
@@ -332,10 +335,25 @@ class QueryFilterBuilder:
 
         return current_model, model_attr, query
 
-    @staticmethod
+    @classmethod
+    def _transform_model_attr(cls, model_attr: InstrumentedAttribute, model_attr_type: Any) -> InstrumentedAttribute:
+        if isinstance(model_attr_type, sqltypes.String):
+            model_attr = sa.func.lower(model_attr)
+
+        return model_attr
+
+    @classmethod
     def _get_filter_element(
-        component: QueryFilterBuilderComponent, model, model_attr, model_attr_type
+        cls,
+        query: sa.Select,
+        component: QueryFilterBuilderComponent,
+        model: type[Model],
+        model_attr: InstrumentedAttribute,
+        model_attr_type: Any,
     ) -> sa.ColumnElement:
+        original_model_attr = model_attr
+        model_attr = cls._transform_model_attr(model_attr, model_attr_type)
+
         # Keywords
         if component.relationship is RelationalKeyword.IS:
             element = model_attr.is_(component.validate(model_attr_type))
@@ -344,16 +362,22 @@ class QueryFilterBuilder:
         elif component.relationship is RelationalKeyword.IN:
             element = model_attr.in_(component.validate(model_attr_type))
         elif component.relationship is RelationalKeyword.NOT_IN:
-            element = model_attr.not_in(component.validate(model_attr_type))
+            vals = component.validate(model_attr_type)
+            if original_model_attr.parent.entity != model:
+                subq = query.with_only_columns(model.id).where(model_attr.in_(vals))
+                element = sa.not_(model.id.in_(subq))
+            else:
+                element = sa.not_(model_attr.in_(vals))
+
         elif component.relationship is RelationalKeyword.CONTAINS_ALL:
             primary_model_attr: InstrumentedAttribute = getattr(model, component.attribute_name.split(".")[0])
             element = sa.and_()
             for v in component.validate(model_attr_type):
                 element = sa.and_(element, primary_model_attr.any(model_attr == v))
         elif component.relationship is RelationalKeyword.LIKE:
-            element = model_attr.like(component.validate(model_attr_type))
+            element = model_attr.ilike(component.validate(model_attr_type))
         elif component.relationship is RelationalKeyword.NOT_LIKE:
-            element = model_attr.not_like(component.validate(model_attr_type))
+            element = model_attr.not_ilike(component.validate(model_attr_type))
 
         # Operators
         elif component.relationship is RelationalOperator.EQ:
@@ -422,7 +446,7 @@ class QueryFilterBuilder:
                 if (column_alias := column_aliases.get(base_attribute_name)) is not None:
                     model_attr = column_alias
 
-                element = self._get_filter_element(component, model, model_attr, model_attr.type)
+                element = self._get_filter_element(query, component, model, model_attr, model_attr.type)
                 partial_group.append(element)
 
         # combine the completed groups into one filter
