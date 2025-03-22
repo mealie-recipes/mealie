@@ -84,7 +84,7 @@
 		"name": "růžičková kapusta"
 	},
 	"butter": {
-		"name": "butter"
+		"name": "máslo"
 	},
 	"butternut-pumpkin": {
 		"name": "butternut pumpkin"
@@ -494,24 +494,24 @@
 		"name": "poppy seeds"
 	},
 	"potato": {
-		"name": "potato",
-		"plural_name": "potatoes"
+		"name": "brambora",
+		"plural_name": "brambory"
 	},
 	"poultry": {
 		"name": "poultry"
 	},
 	"powdered-sugar": {
-		"name": "powdered sugar"
+		"name": "moučkový cukr"
 	},
 	"pumpkin": {
-		"name": "pumpkin",
-		"plural_name": "pumpkins"
+		"name": "dýně",
+		"plural_name": "dýní"
 	},
 	"pumpkin-seeds": {
-		"name": "pumpkin seeds"
+		"name": "dýňová semínka"
 	},
 	"radish": {
-		"name": "radish",
+		"name": "ředkev",
 		"plural_name": "radishes"
 	},
 	"raw-sugar": {
@@ -521,10 +521,10 @@
 		"name": "refined sugar"
 	},
 	"rice": {
-		"name": "rice"
+		"name": "rýže"
 	},
 	"rice-flour": {
-		"name": "rice flour"
+		"name": "rýžová mouka"
 	},
 	"rock-sugar": {
 		"name": "rock sugar"
@@ -533,10 +533,10 @@
 		"name": "rum"
 	},
 	"salmon": {
-		"name": "salmon"
+		"name": "losos"
 	},
 	"salt": {
-		"name": "salt"
+		"name": "sůl"
 	},
 	"salt-cod": {
 		"name": "salt cod"
@@ -546,17 +546,17 @@
 		"plural_name": "scallions"
 	},
 	"seafood": {
-		"name": "seafood"
+		"name": "mořské plody"
 	},
 	"seeds": {
-		"name": "seeds"
+		"name": "semínka"
 	},
 	"sesame-seeds": {
-		"name": "sesame seeds"
+		"name": "sezamová semínka"
 	},
 	"shallot": {
-		"name": "shallot",
-		"plural_name": "shallots"
+		"name": "šalotka",
+		"plural_name": "šalotky"
 	},
 	"skate": {
 		"name": "skate"
@@ -565,10 +565,10 @@
 		"name": "soda"
 	},
 	"soda-baking": {
-		"name": "soda, baking"
+		"name": "soda, na pečení"
 	},
 	"soybean": {
-		"name": "soybean"
+		"name": "sójové boby"
 	},
 	"spaghetti-squash": {
 		"name": "spaghetti squash",
@@ -578,14 +578,14 @@
 		"name": "speck"
 	},
 	"spices": {
-		"name": "spices"
+		"name": "koření"
 	},
 	"spinach": {
 		"name": "spinach"
 	},
 	"spring-onion": {
-		"name": "spring onion",
-		"plural_name": "spring onions"
+		"name": "jarní cibulka",
+		"plural_name": "jarní cibulky"
 	},
 	"squash": {
 		"name": "squash",
@@ -598,21 +598,21 @@
 		"name": "stockfish"
 	},
 	"sugar": {
-		"name": "sugar"
+		"name": "cukr"
 	},
 	"sunchoke": {
 		"name": "sunchoke",
 		"plural_name": "sunchokes"
 	},
 	"sunflower-seeds": {
-		"name": "sunflower seeds"
+		"name": "slunečnicová semínka"
 	},
 	"superfine-sugar": {
 		"name": "superfine sugar"
 	},
 	"sweet-potato": {
-		"name": "sweet potato",
-		"plural_name": "sweet potatoes"
+		"name": "batát",
+		"plural_name": "batáty"
 	},
 	"sweetcorn": {
 		"name": "sweetcorn",
@@ -632,8 +632,8 @@
 		"name": "teff"
 	},
 	"tomato": {
-		"name": "tomato",
-		"plural_name": "tomatoes"
+		"name": "rajče",
+		"plural_name": "rajčata"
 	},
 	"trout": {
 		"name": "trout"
@@ -649,44 +649,44 @@
 		"name": "turbanado sugar"
 	},
 	"turnip": {
-		"name": "turnip",
-		"plural_name": "turnips"
+		"name": "tuřín",
+		"plural_name": "tuříny"
 	},
 	"unrefined-sugar": {
 		"name": "unrefined sugar"
 	},
 	"vanilla": {
-		"name": "vanilla"
+		"name": "vanilka"
 	},
 	"vegetables": {
-		"name": "vegetables"
+		"name": "zelenina"
 	},
 	"watercress": {
 		"name": "watercress"
 	},
 	"watermelon": {
-		"name": "watermelon",
-		"plural_name": "watermelons"
+		"name": "vodní meloun",
+		"plural_name": "vodní melouny"
 	},
 	"white-mushroom": {
 		"name": "white mushroom",
 		"plural_name": "white mushrooms"
 	},
 	"white-sugar": {
-		"name": "white sugar"
+		"name": "bílý cukr"
 	},
 	"xanthan-gum": {
-		"name": "xanthan gum"
+		"name": "xanthanová guma"
 	},
 	"yam": {
 		"name": "yam",
 		"plural_name": "yams"
 	},
 	"yeast": {
-		"name": "yeast"
+		"name": "droždí"
 	},
 	"zucchini": {
-		"name": "zucchini",
-		"plural_name": "zucchinis"
+		"name": "cuketa",
+		"plural_name": "cukety"
 	}
 }
