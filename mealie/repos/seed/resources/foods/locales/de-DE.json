@@ -16,7 +16,7 @@
 		"name": "Artischocke"
 	},
 	"arugula": {
-		"name": "arugula"
+		"name": "Rucola"
 	},
 	"asparagus": {
 		"name": "Spargel"
@@ -54,7 +54,7 @@
 		"name": "Brombeeren"
 	},
 	"bok-choy": {
-		"name": "bok choy"
+		"name": "Pak Choi"
 	},
 	"brassicas": {
 		"name": "brassicas"
@@ -251,7 +251,7 @@
 		"plural_name": "endives"
 	},
 	"fats": {
-		"name": "fats"
+		"name": "Fette"
 	},
 	"fava-beans": {
 		"name": "fava beans"
@@ -273,16 +273,16 @@
 		"name": "Mehl"
 	},
 	"frisee": {
-		"name": "frisee"
+		"name": "Frisée"
 	},
 	"fructose": {
-		"name": "fructose"
+		"name": "Fruktose"
 	},
 	"fruit": {
-		"name": "fruit"
+		"name": "Obst"
 	},
 	"fruit-sugar": {
-		"name": "fruit sugar"
+		"name": "Fruchtzucker"
 	},
 	"ful": {
 		"name": "ful"
@@ -371,7 +371,7 @@
 		"plural_name": "Lauchstangen"
 	},
 	"legumes": {
-		"name": "legumes"
+		"name": "Hülsenfrüchte"
 	},
 	"lemongrass": {
 		"name": "Zitronengras"
@@ -384,7 +384,7 @@
 	},
 	"liver": {
 		"name": "Leber",
-		"plural_name": "livers"
+		"plural_name": "Lebern"
 	},
 	"maize": {
 		"name": "maize"
@@ -402,11 +402,11 @@
 		"name": "Mortadella"
 	},
 	"mushroom": {
-		"name": "mushroom",
-		"plural_name": "mushrooms"
+		"name": "Pilz",
+		"plural_name": "Pilze"
 	},
 	"mussels": {
-		"name": "mussels"
+		"name": "Muscheln"
 	},
 	"nanaimo-bar-mix": {
 		"name": "nanaimo bar mix"
@@ -431,7 +431,7 @@
 		"name": "Öle"
 	},
 	"okra": {
-		"name": "okra"
+		"name": "Okra"
 	},
 	"olive": {
 		"name": "Olive"
@@ -479,12 +479,12 @@
 		"name": "Erbsen"
 	},
 	"pepper": {
-		"name": "pepper",
+		"name": "Pfeffer",
 		"plural_name": "peppers"
 	},
 	"pineapple": {
-		"name": "pineapple",
-		"plural_name": "pineapples"
+		"name": "Ananas",
+		"plural_name": "Ananas"
 	},
 	"plantain": {
 		"name": "plantain",
@@ -494,21 +494,21 @@
 		"name": "poppy seeds"
 	},
 	"potato": {
-		"name": "potato",
-		"plural_name": "potatoes"
+		"name": "Kartoffel",
+		"plural_name": "Kartoffeln"
 	},
 	"poultry": {
-		"name": "poultry"
+		"name": "Geflügel"
 	},
 	"powdered-sugar": {
-		"name": "powdered sugar"
+		"name": "Puderzucker"
 	},
 	"pumpkin": {
-		"name": "pumpkin",
-		"plural_name": "pumpkins"
+		"name": "Kürbis",
+		"plural_name": "Kürbisse"
 	},
 	"pumpkin-seeds": {
-		"name": "pumpkin seeds"
+		"name": "Kürbiskerne"
 	},
 	"radish": {
 		"name": "radish",
@@ -521,10 +521,10 @@
 		"name": "refined sugar"
 	},
 	"rice": {
-		"name": "rice"
+		"name": "Reis"
 	},
 	"rice-flour": {
-		"name": "rice flour"
+		"name": "Reismehl"
 	},
 	"rock-sugar": {
 		"name": "rock sugar"
@@ -666,7 +666,7 @@
 	},
 	"watermelon": {
 		"name": "watermelon",
-		"plural_name": "watermelons"
+		"plural_name": "Wassermelonen"
 	},
 	"white-mushroom": {
 		"name": "white mushroom",
@@ -683,10 +683,10 @@
 		"plural_name": "yams"
 	},
 	"yeast": {
-		"name": "yeast"
+		"name": "Hefe"
 	},
 	"zucchini": {
-		"name": "zucchini",
+		"name": "Zucchini",
 		"plural_name": "zucchinis"
 	}
 }
