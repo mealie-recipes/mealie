@@ -112,7 +112,7 @@
 		"name": "capsicum"
 	},
 	"caraway": {
-		"name": "caraway"
+		"name": "Kümmel"
 	},
 	"carrot": {
 		"name": "Karotte",
@@ -247,8 +247,8 @@
 		"plural_name": "Eier"
 	},
 	"endive": {
-		"name": "endive",
-		"plural_name": "endives"
+		"name": "Endiviensalat",
+		"plural_name": "Endiviensalat"
 	},
 	"fats": {
 		"name": "Fette"
@@ -301,7 +301,7 @@
 		"name": "Ghee"
 	},
 	"giblets": {
-		"name": "giblets"
+		"name": "Innereien"
 	},
 	"ginger": {
 		"name": "Ingwer"
@@ -313,7 +313,7 @@
 		"name": "granulated sugar"
 	},
 	"grape-seed-oil": {
-		"name": "grape seed oil"
+		"name": "Traubenkernöl"
 	},
 	"green-onion": {
 		"name": "Frühlingszwiebel",
@@ -364,7 +364,7 @@
 		"name": "kumara"
 	},
 	"leavening-agents": {
-		"name": "leavening agents"
+		"name": "Backtriebmittel"
 	},
 	"leek": {
 		"name": "Lauchstange",
@@ -390,7 +390,7 @@
 		"name": "maize"
 	},
 	"maple-syrup": {
-		"name": "maple syrup"
+		"name": "Ahornsirup"
 	},
 	"meat": {
 		"name": "Fleisch"
@@ -418,7 +418,7 @@
 		"name": "Muskatnuss"
 	},
 	"nutritional-yeast-flakes": {
-		"name": "nutritional yeast flakes"
+		"name": "Hefeflocken"
 	},
 	"nuts": {
 		"name": "Nüsse"
@@ -487,11 +487,11 @@
 		"plural_name": "Ananas"
 	},
 	"plantain": {
-		"name": "plantain",
-		"plural_name": "plantains"
+		"name": "Kochbanane",
+		"plural_name": "Kochbananen"
 	},
 	"poppy-seeds": {
-		"name": "poppy seeds"
+		"name": "Mohnsamen"
 	},
 	"potato": {
 		"name": "Kartoffel",
@@ -511,8 +511,8 @@
 		"name": "Kürbiskerne"
 	},
 	"radish": {
-		"name": "radish",
-		"plural_name": "radishes"
+		"name": "Rettich",
+		"plural_name": "Rettiche"
 	},
 	"raw-sugar": {
 		"name": "raw sugar"
@@ -565,10 +565,10 @@
 		"name": "soda"
 	},
 	"soda-baking": {
-		"name": "soda, baking"
+		"name": "Backnatron"
 	},
 	"soybean": {
-		"name": "soybean"
+		"name": "Sojabohne"
 	},
 	"spaghetti-squash": {
 		"name": "Spaghettikürbis",
@@ -619,10 +619,10 @@
 		"plural_name": "Zuckermais"
 	},
 	"sweeteners": {
-		"name": "sweeteners"
+		"name": "Süßungsmittel"
 	},
 	"tahini": {
-		"name": "tahini"
+		"name": "Tahini"
 	},
 	"taro": {
 		"name": "taro",
@@ -656,16 +656,16 @@
 		"name": "unrefined sugar"
 	},
 	"vanilla": {
-		"name": "vanilla"
+		"name": "Vanille"
 	},
 	"vegetables": {
-		"name": "vegetables"
+		"name": "Gemüse"
 	},
 	"watercress": {
 		"name": "watercress"
 	},
 	"watermelon": {
-		"name": "watermelon",
+		"name": "Wassermelone",
 		"plural_name": "Wassermelonen"
 	},
 	"white-mushroom": {
@@ -673,7 +673,7 @@
 		"plural_name": "white mushrooms"
 	},
 	"white-sugar": {
-		"name": "white sugar"
+		"name": "weißer Zucker"
 	},
 	"xanthan-gum": {
 		"name": "xanthan gum"
@@ -687,6 +687,6 @@
 	},
 	"zucchini": {
 		"name": "Zucchini",
-		"plural_name": "zucchinis"
+		"plural_name": "Zucchinis"
 	}
 }
