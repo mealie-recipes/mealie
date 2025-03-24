@@ -6,24 +6,24 @@
 		"name": "alfalfa sprouts"
 	},
 	"anchovies": {
-		"name": "anchovies"
+		"name": "anchovas"
 	},
 	"apples": {
 		"name": "maçã",
 		"plural_name": "maçãs"
 	},
 	"artichoke": {
-		"name": "artichoke"
+		"name": "alcachofra"
 	},
 	"arugula": {
-		"name": "arugula"
+		"name": "rúcula"
 	},
 	"asparagus": {
 		"name": "aspargo"
 	},
 	"avocado": {
 		"name": "avocado",
-		"plural_name": "avocado"
+		"plural_name": "avocados"
 	},
 	"bacon": {
 		"name": "bacon"
@@ -66,7 +66,7 @@
 		"name": "breadfruit"
 	},
 	"broccoflower": {
-		"name": "broccoflower"
+		"name": "brócolis romanesco"
 	},
 	"broccoli": {
 		"name": "brócolis"
@@ -78,7 +78,7 @@
 		"name": "broccolini"
 	},
 	"brown-sugar": {
-		"name": "brown sugar"
+		"name": "açúcar mascavo"
 	},
 	"brussels-sprouts": {
 		"name": "brussels sprouts"
@@ -93,11 +93,11 @@
 		"name": "butternut squash"
 	},
 	"cabbage": {
-		"name": "cabbage",
-		"plural_name": "cabbages"
+		"name": "repolho",
+		"plural_name": "repolhos"
 	},
 	"cactus-edible": {
-		"name": "cactus, edible"
+		"name": "cacto, comestível"
 	},
 	"calabrese": {
 		"name": "calabresa"
@@ -129,7 +129,7 @@
 	},
 	"cauliflower": {
 		"name": "couve-flor",
-		"plural_name": "cauliflowers"
+		"plural_name": "couves-flores"
 	},
 	"cayenne-pepper": {
 		"name": "cayenne pepper"
@@ -160,13 +160,13 @@
 		"name": "chinese leaves"
 	},
 	"chives": {
-		"name": "chives"
+		"name": "cebolinha"
 	},
 	"chocolate": {
 		"name": "chocolate"
 	},
 	"cilantro": {
-		"name": "cilantro"
+		"name": "coentro"
 	},
 	"cinnamon": {
 		"name": "canela"
@@ -182,7 +182,7 @@
 		"name": "leite de coco"
 	},
 	"cod": {
-		"name": "cod"
+		"name": "bacalhau"
 	},
 	"coffee": {
 		"name": "café"
@@ -239,8 +239,8 @@
 		"name": "edible cactus"
 	},
 	"eggplant": {
-		"name": "eggplant",
-		"plural_name": "eggplants"
+		"name": "berinjela",
+		"plural_name": "berinjelas"
 	},
 	"eggs": {
 		"name": "ovo",
@@ -324,38 +324,38 @@
 		"plural_name": "heart of palms"
 	},
 	"hemp": {
-		"name": "hemp"
+		"name": "cânhamo"
 	},
 	"herbs": {
-		"name": "herbs"
+		"name": "ervas"
 	},
 	"honey": {
-		"name": "honey"
+		"name": "mel"
 	},
 	"isomalt": {
 		"name": "isomalt"
 	},
 	"jackfruit": {
-		"name": "jackfruit",
-		"plural_name": "jackfruits"
+		"name": "jacá",
+		"plural_name": "jacás"
 	},
 	"jaggery": {
 		"name": "jaggery"
 	},
 	"jams": {
-		"name": "jams"
+		"name": "geléias"
 	},
 	"jellies": {
 		"name": "jellies"
 	},
 	"jerusalem-artichoke": {
-		"name": "jerusalem artichoke"
+		"name": "alcachofra de Jerusalém"
 	},
 	"jicama": {
 		"name": "jicama"
 	},
 	"kale": {
-		"name": "kale"
+		"name": "couve"
 	},
 	"kohlrabi": {
 		"name": "kohlrabi"
@@ -367,8 +367,8 @@
 		"name": "leavening agents"
 	},
 	"leek": {
-		"name": "leek",
-		"plural_name": "leeks"
+		"name": "alho-poró",
+		"plural_name": "alhos-porós"
 	},
 	"legumes": {
 		"name": "legumes"
@@ -468,12 +468,12 @@
 		"name": "parsley"
 	},
 	"parsnip": {
-		"name": "parsnip",
-		"plural_name": "parsnips"
+		"name": "chirivia",
+		"plural_name": "chirivias"
 	},
 	"pear": {
 		"name": "pêra",
-		"plural_name": "pears"
+		"plural_name": "peras"
 	},
 	"peas": {
 		"name": "peas"
@@ -491,7 +491,7 @@
 		"plural_name": "plantains"
 	},
 	"poppy-seeds": {
-		"name": "poppy seeds"
+		"name": "sementes de papoula"
 	},
 	"potato": {
 		"name": "batata",
@@ -552,7 +552,7 @@
 		"name": "sementes"
 	},
 	"sesame-seeds": {
-		"name": "sesame seeds"
+		"name": "sementes de gergelim"
 	},
 	"shallot": {
 		"name": "shallot",
