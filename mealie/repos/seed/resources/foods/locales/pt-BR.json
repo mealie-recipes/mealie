@@ -72,7 +72,7 @@
 		"name": "brócolis"
 	},
 	"broccoli-rabe": {
-		"name": "broccoli rabe"
+		"name": "rapini"
 	},
 	"broccolini": {
 		"name": "broccolini"
@@ -153,11 +153,11 @@
 		"name": "chicory"
 	},
 	"chilli-peppers": {
-		"name": "chilli pepper",
-		"plural_name": "chilli peppers"
+		"name": "pimenta chili",
+		"plural_name": "pimentas chili"
 	},
 	"chinese-leaves": {
-		"name": "chinese leaves"
+		"name": "couve-china"
 	},
 	"chives": {
 		"name": "cebolinha"
@@ -227,10 +227,10 @@
 		"name": "dairy products and dairy substitutes"
 	},
 	"dandelion": {
-		"name": "dandelion"
+		"name": "dente-de-leão"
 	},
 	"demerara-sugar": {
-		"name": "demerara sugar"
+		"name": "açúcar demerara"
 	},
 	"dough": {
 		"name": "dough"
@@ -316,8 +316,8 @@
 		"name": "grape seed oil"
 	},
 	"green-onion": {
-		"name": "green onion",
-		"plural_name": "green onions"
+		"name": "cebolinha",
+		"plural_name": "cebolinhas"
 	},
 	"heart-of-palm": {
 		"name": "heart of palm",
@@ -333,7 +333,7 @@
 		"name": "mel"
 	},
 	"isomalt": {
-		"name": "isomalt"
+		"name": "açúcar isomalte"
 	},
 	"jackfruit": {
 		"name": "jacá",
@@ -377,7 +377,7 @@
 		"name": "lemongrass"
 	},
 	"lentils": {
-		"name": "lentils"
+		"name": "lentilhas"
 	},
 	"lettuce": {
 		"name": "alface"
@@ -581,7 +581,7 @@
 		"name": "spices"
 	},
 	"spinach": {
-		"name": "spinach"
+		"name": "espinafre"
 	},
 	"spring-onion": {
 		"name": "spring onion",
@@ -601,11 +601,11 @@
 		"name": "açúcar"
 	},
 	"sunchoke": {
-		"name": "sunchoke",
-		"plural_name": "sunchokes"
+		"name": "alcachofra de Jerusalém",
+		"plural_name": "alcachofras de Jerusalém"
 	},
 	"sunflower-seeds": {
-		"name": "sunflower seeds"
+		"name": "sementes de girassol"
 	},
 	"superfine-sugar": {
 		"name": "superfine sugar"
@@ -636,11 +636,11 @@
 		"plural_name": "tomates"
 	},
 	"trout": {
-		"name": "trout"
+		"name": "truta"
 	},
 	"tubers": {
-		"name": "tuber",
-		"plural_name": "tubers"
+		"name": "tubérculo",
+		"plural_name": "tubérculos"
 	},
 	"tuna": {
 		"name": "atum"
@@ -649,11 +649,11 @@
 		"name": "turbanado sugar"
 	},
 	"turnip": {
-		"name": "turnip",
-		"plural_name": "turnips"
+		"name": "nabo",
+		"plural_name": "nabos"
 	},
 	"unrefined-sugar": {
-		"name": "unrefined sugar"
+		"name": "açúcar não refinado"
 	},
 	"vanilla": {
 		"name": "baunilha"
@@ -676,7 +676,7 @@
 		"name": "açúcar"
 	},
 	"xanthan-gum": {
-		"name": "xanthan gum"
+		"name": "goma xantana"
 	},
 	"yam": {
 		"name": "inhame",
