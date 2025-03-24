@@ -19,7 +19,7 @@
 		"name": "arugula"
 	},
 	"asparagus": {
-		"name": "asparagus"
+		"name": "aspargo"
 	},
 	"avocado": {
 		"name": "avocado",
@@ -100,7 +100,7 @@
 		"name": "cactus, edible"
 	},
 	"calabrese": {
-		"name": "calabrese"
+		"name": "calabresa"
 	},
 	"cane-sugar": {
 		"name": "cane sugar"
@@ -128,7 +128,7 @@
 		"name": "catfish"
 	},
 	"cauliflower": {
-		"name": "cauliflower",
+		"name": "couve-flor",
 		"plural_name": "cauliflowers"
 	},
 	"cayenne-pepper": {
@@ -147,7 +147,7 @@
 		"name": "chard"
 	},
 	"cheese": {
-		"name": "cheese"
+		"name": "queijo"
 	},
 	"chicory": {
 		"name": "chicory"
@@ -380,30 +380,30 @@
 		"name": "lentils"
 	},
 	"lettuce": {
-		"name": "lettuce"
+		"name": "alface"
 	},
 	"liver": {
-		"name": "liver",
-		"plural_name": "livers"
+		"name": "fígado",
+		"plural_name": "fígados"
 	},
 	"maize": {
 		"name": "maize"
 	},
 	"maple-syrup": {
-		"name": "maple syrup"
+		"name": "xarope de bordo"
 	},
 	"meat": {
-		"name": "meat"
+		"name": "carne"
 	},
 	"milk": {
-		"name": "milk"
+		"name": "leite"
 	},
 	"mortadella": {
-		"name": "mortadella"
+		"name": "mortadela"
 	},
 	"mushroom": {
-		"name": "mushroom",
-		"plural_name": "mushrooms"
+		"name": "cogumelo",
+		"plural_name": "cogumelos"
 	},
 	"mussels": {
 		"name": "mussels"
@@ -421,11 +421,11 @@
 		"name": "nutritional yeast flakes"
 	},
 	"nuts": {
-		"name": "nuts"
+		"name": "nozes"
 	},
 	"octopuses": {
-		"name": "octopus",
-		"plural_name": "octopuses"
+		"name": "polvo",
+		"plural_name": "polvos"
 	},
 	"oils": {
 		"name": "oils"
@@ -434,7 +434,7 @@
 		"name": "okra"
 	},
 	"olive": {
-		"name": "olive"
+		"name": "azeitona"
 	},
 	"olive-oil": {
 		"name": "azeite de oliva"
@@ -643,7 +643,7 @@
 		"plural_name": "tubers"
 	},
 	"tuna": {
-		"name": "tuna"
+		"name": "atum"
 	},
 	"turbanado-sugar": {
 		"name": "turbanado sugar"
