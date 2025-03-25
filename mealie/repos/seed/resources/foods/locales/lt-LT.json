@@ -3,36 +3,36 @@
 		"name": "acorn squash"
 	},
 	"alfalfa-sprouts": {
-		"name": "liucernos daigai"
+		"name": "alfalfa sprouts"
 	},
 	"anchovies": {
-		"name": "ančiuviai"
+		"name": "anchovies"
 	},
 	"apples": {
-		"name": "obuoliai",
+		"name": "apple",
 		"plural_name": "apples"
 	},
 	"artichoke": {
-		"name": "artišokas"
+		"name": "artichoke"
 	},
 	"arugula": {
-		"name": "gražgarstė"
+		"name": "arugula"
 	},
 	"asparagus": {
-		"name": "smidrai"
+		"name": "asparagus"
 	},
 	"avocado": {
-		"name": "avokadas",
+		"name": "avocado",
 		"plural_name": "avocado"
 	},
 	"bacon": {
-		"name": "šoninė"
+		"name": "bacon"
 	},
 	"baking-powder": {
-		"name": "kepimo milteliai"
+		"name": "baking powder"
 	},
 	"baking-soda": {
-		"name": "kepimo milteliai"
+		"name": "baking soda"
 	},
 	"baking-sugar": {
 		"name": "baking sugar"
@@ -41,35 +41,35 @@
 		"name": "bar sugar"
 	},
 	"basil": {
-		"name": "bazilikas"
+		"name": "basil"
 	},
 	"beans": {
-		"name": "pupelės"
+		"name": "beans"
 	},
 	"bell-peppers": {
-		"name": "paprikos",
+		"name": "bell peppers",
 		"plural_name": "bell peppers"
 	},
 	"blackberries": {
-		"name": "gervuogės"
+		"name": "blackberries"
 	},
 	"bok-choy": {
-		"name": "kininiai bastučiai"
+		"name": "bok choy"
 	},
 	"brassicas": {
-		"name": "kopūstinės daržovės"
+		"name": "brassicas"
 	},
 	"bread": {
-		"name": "duona"
+		"name": "bread"
 	},
 	"breadfruit": {
-		"name": "duonvaisis"
+		"name": "breadfruit"
 	},
 	"broccoflower": {
 		"name": "broccoflower"
 	},
 	"broccoli": {
-		"name": "brokolis"
+		"name": "broccoli"
 	},
 	"broccoli-rabe": {
 		"name": "broccoli rabe"
@@ -78,211 +78,211 @@
 		"name": "broccolini"
 	},
 	"brown-sugar": {
-		"name": "rudasis cukrus"
+		"name": "brown sugar"
 	},
 	"brussels-sprouts": {
-		"name": "briuselio kopūstai"
+		"name": "brussels sprouts"
 	},
 	"butter": {
-		"name": "sviestas"
+		"name": "butter"
 	},
 	"butternut-pumpkin": {
-		"name": "muskusinis moliūgas"
+		"name": "butternut pumpkin"
 	},
 	"butternut-squash": {
-		"name": "sviestinis moliūgas"
+		"name": "butternut squash"
 	},
 	"cabbage": {
-		"name": "kopūstas",
+		"name": "cabbage",
 		"plural_name": "cabbages"
 	},
 	"cactus-edible": {
-		"name": "opuncija"
+		"name": "cactus, edible"
 	},
 	"calabrese": {
 		"name": "calabrese"
 	},
 	"cane-sugar": {
-		"name": "cukranendrių cukrus"
+		"name": "cane sugar"
 	},
 	"cannabis": {
-		"name": "kanapės"
+		"name": "cannabis"
 	},
 	"capsicum": {
-		"name": "paprikos"
+		"name": "capsicum"
 	},
 	"caraway": {
-		"name": "kmynai"
+		"name": "caraway"
 	},
 	"carrot": {
-		"name": "morka",
+		"name": "carrot",
 		"plural_name": "carrots"
 	},
 	"caster-sugar": {
-		"name": "smulkusis cukrus"
+		"name": "caster sugar"
 	},
 	"castor-sugar": {
 		"name": "castor sugar"
 	},
 	"catfish": {
-		"name": "šamas"
+		"name": "catfish"
 	},
 	"cauliflower": {
-		"name": "žiedinis kopūstas",
+		"name": "cauliflower",
 		"plural_name": "cauliflowers"
 	},
 	"cayenne-pepper": {
-		"name": "kajeno pipirai"
+		"name": "cayenne pepper"
 	},
 	"celeriac": {
-		"name": "saliero šaknis"
+		"name": "celery root"
 	},
 	"celery": {
-		"name": "salieras"
+		"name": "celery"
 	},
 	"cereal-grains": {
-		"name": "kruopos"
+		"name": "cereal grains"
 	},
 	"chard": {
-		"name": "burokėlių lapai"
+		"name": "chard"
 	},
 	"cheese": {
-		"name": "sūris"
+		"name": "cheese"
 	},
 	"chicory": {
-		"name": "cikorija"
+		"name": "chicory"
 	},
 	"chilli-peppers": {
-		"name": "aitriosios paprikos",
+		"name": "chilli pepper",
 		"plural_name": "chilli peppers"
 	},
 	"chinese-leaves": {
-		"name": "kininis kopūstas"
+		"name": "chinese leaves"
 	},
 	"chives": {
-		"name": "svogūnų laiškai"
+		"name": "chives"
 	},
 	"chocolate": {
-		"name": "šokoladas"
+		"name": "chocolate"
 	},
 	"cilantro": {
-		"name": "kalendra"
+		"name": "cilantro"
 	},
 	"cinnamon": {
-		"name": "cinamonas"
+		"name": "cinnamon"
 	},
 	"clarified-butter": {
-		"name": "lydytas sviestas"
+		"name": "clarified butter"
 	},
 	"coconut": {
-		"name": "kokosas",
+		"name": "coconut",
 		"plural_name": "coconuts"
 	},
 	"coconut-milk": {
-		"name": "kokosų pienas"
+		"name": "coconut milk"
 	},
 	"cod": {
-		"name": "menkė"
+		"name": "cod"
 	},
 	"coffee": {
-		"name": "kava"
+		"name": "coffee"
 	},
 	"collard-greens": {
-		"name": "lapiniai kopūstai"
+		"name": "collard greens"
 	},
 	"confectioners-sugar": {
-		"name": "cukraus pudra"
+		"name": "confectioners' sugar"
 	},
 	"coriander": {
-		"name": "kalendra"
+		"name": "coriander"
 	},
 	"corn": {
-		"name": "kukurūzai",
+		"name": "corn",
 		"plural_name": "corns"
 	},
 	"corn-syrup": {
-		"name": "kukurūzų sirupas"
+		"name": "corn syrup"
 	},
 	"cottonseed-oil": {
-		"name": "medvilnės aliejus"
+		"name": "cottonseed oil"
 	},
 	"courgette": {
-		"name": "cukinija"
+		"name": "courgette"
 	},
 	"cream-of-tartar": {
-		"name": "vyno akmuo"
+		"name": "cream of tartar"
 	},
 	"cucumber": {
-		"name": "agurkas",
+		"name": "cucumber",
 		"plural_name": "cucumbers"
 	},
 	"cumin": {
-		"name": "kuminas"
+		"name": "cumin"
 	},
 	"daikon": {
-		"name": "ridikas",
+		"name": "daikon",
 		"plural_name": "daikons"
 	},
 	"dairy-products-and-dairy-substitutes": {
-		"name": "pieno produktai ir pieno pakaitalai"
+		"name": "dairy products and dairy substitutes"
 	},
 	"dandelion": {
-		"name": "pienė"
+		"name": "dandelion"
 	},
 	"demerara-sugar": {
-		"name": "cukranendrių cukrus \"Demerara\""
+		"name": "demerara sugar"
 	},
 	"dough": {
-		"name": "tešla"
+		"name": "dough"
 	},
 	"edible-cactus": {
-		"name": "opuncija"
+		"name": "edible cactus"
 	},
 	"eggplant": {
-		"name": "baklažanas",
+		"name": "eggplant",
 		"plural_name": "eggplants"
 	},
 	"eggs": {
-		"name": "kiaušiniai",
+		"name": "egg",
 		"plural_name": "eggs"
 	},
 	"endive": {
-		"name": "trūkažolė",
+		"name": "endive",
 		"plural_name": "endives"
 	},
 	"fats": {
-		"name": "riebalai"
+		"name": "fats"
 	},
 	"fava-beans": {
-		"name": "pupos"
+		"name": "fava beans"
 	},
 	"fiddlehead": {
-		"name": "paparčių ūgliai"
+		"name": "fiddlehead"
 	},
 	"fiddlehead-fern": {
-		"name": "papartis",
+		"name": "fiddlehead fern",
 		"plural_name": "fiddlehead ferns"
 	},
 	"fish": {
-		"name": "žuvis"
+		"name": "fish"
 	},
 	"five-spice-powder": {
-		"name": "penkių prieskonių mišinys"
+		"name": "five spice powder"
 	},
 	"flour": {
-		"name": "miltai"
+		"name": "flour"
 	},
 	"frisee": {
-		"name": "lapinės salotos"
+		"name": "frisee"
 	},
 	"fructose": {
-		"name": "fruktozė"
+		"name": "fructose"
 	},
 	"fruit": {
-		"name": "vaisius"
+		"name": "fruit"
 	},
 	"fruit-sugar": {
-		"name": "fruktozė"
+		"name": "fruit sugar"
 	},
 	"ful": {
 		"name": "ful"
@@ -291,32 +291,32 @@
 		"name": "garam masala"
 	},
 	"garlic": {
-		"name": "česnakas",
+		"name": "garlic",
 		"plural_name": "garlics"
 	},
 	"gem-squash": {
-		"name": "apvaliosios cukinijos"
+		"name": "gem squash"
 	},
 	"ghee": {
-		"name": "lydytas/ghee sviestas"
+		"name": "ghee"
 	},
 	"giblets": {
-		"name": "viduriai"
+		"name": "giblets"
 	},
 	"ginger": {
-		"name": "imbieras"
+		"name": "ginger"
 	},
 	"grains": {
-		"name": "grūdai"
+		"name": "grains"
 	},
 	"granulated-sugar": {
-		"name": "cukrus"
+		"name": "granulated sugar"
 	},
 	"grape-seed-oil": {
-		"name": "vynuogių kauliukų aliejus"
+		"name": "grape seed oil"
 	},
 	"green-onion": {
-		"name": "laiškiniai svogūnai",
+		"name": "green onion",
 		"plural_name": "green onions"
 	},
 	"heart-of-palm": {
@@ -324,369 +324,369 @@
 		"plural_name": "heart of palms"
 	},
 	"hemp": {
-		"name": "kanapės"
+		"name": "hemp"
 	},
 	"herbs": {
-		"name": "žolelės"
+		"name": "herbs"
 	},
 	"honey": {
-		"name": "medus"
+		"name": "honey"
 	},
 	"isomalt": {
-		"name": "izomaltas"
+		"name": "isomalt"
 	},
 	"jackfruit": {
-		"name": "duonvaisis",
+		"name": "jackfruit",
 		"plural_name": "jackfruits"
 	},
 	"jaggery": {
-		"name": "cukranendrių cukrus \"Jaggery\""
+		"name": "jaggery"
 	},
 	"jams": {
-		"name": "uogienės"
+		"name": "jams"
 	},
 	"jellies": {
-		"name": "drebučiai"
+		"name": "jellies"
 	},
 	"jerusalem-artichoke": {
-		"name": "topinambas"
+		"name": "jerusalem artichoke"
 	},
 	"jicama": {
-		"name": "ropinė gumbapupė"
+		"name": "jicama"
 	},
 	"kale": {
-		"name": "lapiniai kopūstai"
+		"name": "kale"
 	},
 	"kohlrabi": {
-		"name": "kaliaropė"
+		"name": "kohlrabi"
 	},
 	"kumara": {
-		"name": "batatas"
+		"name": "kumara"
 	},
 	"leavening-agents": {
-		"name": "kildinimo medžiagos"
+		"name": "leavening agents"
 	},
 	"leek": {
-		"name": "poras",
+		"name": "leek",
 		"plural_name": "leeks"
 	},
 	"legumes": {
-		"name": "ankštinės daržovės"
+		"name": "legumes"
 	},
 	"lemongrass": {
-		"name": "citrinžolė"
+		"name": "lemongrass"
 	},
 	"lentils": {
-		"name": "lęšiai"
+		"name": "lentils"
 	},
 	"lettuce": {
-		"name": "salotos"
+		"name": "lettuce"
 	},
 	"liver": {
-		"name": "kepenys",
+		"name": "liver",
 		"plural_name": "livers"
 	},
 	"maize": {
-		"name": "kukurūzai"
+		"name": "maize"
 	},
 	"maple-syrup": {
-		"name": "klevų sirupas"
+		"name": "maple syrup"
 	},
 	"meat": {
-		"name": "mėsa"
+		"name": "meat"
 	},
 	"milk": {
-		"name": "pienas"
+		"name": "milk"
 	},
 	"mortadella": {
-		"name": "itališka dešra \"Mortadella\""
+		"name": "mortadella"
 	},
 	"mushroom": {
-		"name": "grybai",
+		"name": "mushroom",
 		"plural_name": "mushrooms"
 	},
 	"mussels": {
-		"name": "midijos"
+		"name": "mussels"
 	},
 	"nanaimo-bar-mix": {
 		"name": "nanaimo bar mix"
 	},
 	"nori": {
-		"name": "jūros dumblių lapai"
+		"name": "nori"
 	},
 	"nutmeg": {
-		"name": "muskato riešutas"
+		"name": "nutmeg"
 	},
 	"nutritional-yeast-flakes": {
-		"name": "maistinių mielių dribsniai"
+		"name": "nutritional yeast flakes"
 	},
 	"nuts": {
-		"name": "riešutai"
+		"name": "nuts"
 	},
 	"octopuses": {
-		"name": "aštuonkojai",
+		"name": "octopus",
 		"plural_name": "octopuses"
 	},
 	"oils": {
-		"name": "aliejai"
+		"name": "oils"
 	},
 	"okra": {
 		"name": "okra"
 	},
 	"olive": {
-		"name": "alyvuogė"
+		"name": "olive"
 	},
 	"olive-oil": {
-		"name": "alyvuogių aliejus"
+		"name": "olive oil"
 	},
 	"onion": {
-		"name": "svogūnas"
+		"name": "onion"
 	},
 	"onion-family": {
-		"name": "svogūnų šeima"
+		"name": "onion family"
 	},
 	"orange-blossom-water": {
-		"name": "apelsinų žiedų vanduo"
+		"name": "orange blossom water"
 	},
 	"oranges": {
-		"name": "apelsinai",
+		"name": "orange",
 		"plural_name": "oranges"
 	},
 	"oregano": {
-		"name": "raudonėlis"
+		"name": "oregano"
 	},
 	"oysters": {
-		"name": "austrės"
+		"name": "oysters"
 	},
 	"panch-puran": {
-		"name": "prieskonių mišinys \"Panch Puran\""
+		"name": "panch puran"
 	},
 	"paprika": {
 		"name": "paprika"
 	},
 	"parsley": {
-		"name": "petražolės"
+		"name": "parsley"
 	},
 	"parsnip": {
-		"name": "pastarnokas",
+		"name": "parsnip",
 		"plural_name": "parsnips"
 	},
 	"pear": {
-		"name": "kriaušė",
+		"name": "pear",
 		"plural_name": "pears"
 	},
 	"peas": {
-		"name": "žirniai"
+		"name": "peas"
 	},
 	"pepper": {
-		"name": "pipiras",
+		"name": "pepper",
 		"plural_name": "peppers"
 	},
 	"pineapple": {
-		"name": "ananasas",
+		"name": "pineapple",
 		"plural_name": "pineapples"
 	},
 	"plantain": {
-		"name": "mažieji bananai",
+		"name": "plantain",
 		"plural_name": "plantains"
 	},
 	"poppy-seeds": {
-		"name": "aguonos"
+		"name": "poppy seeds"
 	},
 	"potato": {
-		"name": "bulvė",
+		"name": "potato",
 		"plural_name": "potatoes"
 	},
 	"poultry": {
-		"name": "paukštiena"
+		"name": "poultry"
 	},
 	"powdered-sugar": {
-		"name": "cukraus pudra"
+		"name": "powdered sugar"
 	},
 	"pumpkin": {
-		"name": "moliūgas",
+		"name": "pumpkin",
 		"plural_name": "pumpkins"
 	},
 	"pumpkin-seeds": {
-		"name": "moliūgų sėklos"
+		"name": "pumpkin seeds"
 	},
 	"radish": {
-		"name": "ridikėlis",
+		"name": "radish",
 		"plural_name": "radishes"
 	},
 	"raw-sugar": {
-		"name": "nerafinuotas cukrus"
+		"name": "raw sugar"
 	},
 	"refined-sugar": {
-		"name": "rafinuotas cukrus"
+		"name": "refined sugar"
 	},
 	"rice": {
-		"name": "ryžiai"
+		"name": "rice"
 	},
 	"rice-flour": {
-		"name": "ryžių miltai"
+		"name": "rice flour"
 	},
 	"rock-sugar": {
-		"name": "stambiakristalis cukrus"
+		"name": "rock sugar"
 	},
 	"rum": {
-		"name": "romas"
+		"name": "rum"
 	},
 	"salmon": {
-		"name": "lašiša"
+		"name": "salmon"
 	},
 	"salt": {
-		"name": "druska"
+		"name": "salt"
 	},
 	"salt-cod": {
-		"name": "sūdyta menkė"
+		"name": "salt cod"
 	},
 	"scallion": {
-		"name": "laiškinis svogūnas",
+		"name": "scallion",
 		"plural_name": "scallions"
 	},
 	"seafood": {
-		"name": "jūros gėrybės"
+		"name": "seafood"
 	},
 	"seeds": {
-		"name": "sėklos"
+		"name": "seeds"
 	},
 	"sesame-seeds": {
-		"name": "sezamo sėklos"
+		"name": "sesame seeds"
 	},
 	"shallot": {
-		"name": "šalotiniai svogūnai",
+		"name": "shallot",
 		"plural_name": "shallots"
 	},
 	"skate": {
-		"name": "raja"
+		"name": "skate"
 	},
 	"soda": {
 		"name": "soda"
 	},
 	"soda-baking": {
-		"name": "kepimo milteliai"
+		"name": "soda, baking"
 	},
 	"soybean": {
-		"name": "sojos pupelės"
+		"name": "soybean"
 	},
 	"spaghetti-squash": {
-		"name": "spagetinis moliūgas",
+		"name": "spaghetti squash",
 		"plural_name": "spaghetti squashes"
 	},
 	"speck": {
-		"name": "itališkas \"Speck\" kumpis"
+		"name": "speck"
 	},
 	"spices": {
-		"name": "prieskoniai"
+		"name": "spices"
 	},
 	"spinach": {
-		"name": "špinatai"
+		"name": "spinach"
 	},
 	"spring-onion": {
-		"name": "svogūnų laiškai",
+		"name": "spring onion",
 		"plural_name": "spring onions"
 	},
 	"squash": {
-		"name": "moliūgas",
+		"name": "squash",
 		"plural_name": "squashes"
 	},
 	"squash-family": {
 		"name": "squash family"
 	},
 	"stockfish": {
-		"name": "džiovinta žuvis"
+		"name": "stockfish"
 	},
 	"sugar": {
-		"name": "cukrus"
+		"name": "sugar"
 	},
 	"sunchoke": {
-		"name": "topinambas",
+		"name": "sunchoke",
 		"plural_name": "sunchokes"
 	},
 	"sunflower-seeds": {
-		"name": "saulėgrąžų sėklos"
+		"name": "sunflower seeds"
 	},
 	"superfine-sugar": {
 		"name": "superfine sugar"
 	},
 	"sweet-potato": {
-		"name": "batatas",
+		"name": "sweet potato",
 		"plural_name": "sweet potatoes"
 	},
 	"sweetcorn": {
-		"name": "saldusis kukurūzas",
+		"name": "sweetcorn",
 		"plural_name": "sweetcorns"
 	},
 	"sweeteners": {
-		"name": "saldikliai"
+		"name": "sweeteners"
 	},
 	"tahini": {
-		"name": "sezamų pasta"
+		"name": "tahini"
 	},
 	"taro": {
-		"name": "taras",
+		"name": "taro",
 		"plural_name": "taroes"
 	},
 	"teff": {
 		"name": "teff"
 	},
 	"tomato": {
-		"name": "pomidoras",
+		"name": "tomato",
 		"plural_name": "tomatoes"
 	},
 	"trout": {
-		"name": "upėtakis"
+		"name": "trout"
 	},
 	"tubers": {
-		"name": "šakniavaisiai",
+		"name": "tuber",
 		"plural_name": "tubers"
 	},
 	"tuna": {
-		"name": "tunas"
+		"name": "tuna"
 	},
 	"turbanado-sugar": {
-		"name": "cukranendrių cukrus \"Turbinado\""
+		"name": "turbanado sugar"
 	},
 	"turnip": {
-		"name": "ropė",
+		"name": "turnip",
 		"plural_name": "turnips"
 	},
 	"unrefined-sugar": {
-		"name": "nerafinuotas cukrus"
+		"name": "unrefined sugar"
 	},
 	"vanilla": {
-		"name": "vanilė"
+		"name": "vanilla"
 	},
 	"vegetables": {
-		"name": "daržovės"
+		"name": "vegetables"
 	},
 	"watercress": {
-		"name": "rėžiukas"
+		"name": "watercress"
 	},
 	"watermelon": {
-		"name": "arbūzas",
+		"name": "watermelon",
 		"plural_name": "watermelons"
 	},
 	"white-mushroom": {
-		"name": "pievagrybiai",
+		"name": "white mushroom",
 		"plural_name": "white mushrooms"
 	},
 	"white-sugar": {
-		"name": "baltasis cukrus"
+		"name": "white sugar"
 	},
 	"xanthan-gum": {
-		"name": "ksantano derva"
+		"name": "xanthan gum"
 	},
 	"yam": {
-		"name": "dioskorėja",
+		"name": "yam",
 		"plural_name": "yams"
 	},
 	"yeast": {
-		"name": "mielės"
+		"name": "yeast"
 	},
 	"zucchini": {
-		"name": "cukinijos",
+		"name": "zucchini",
 		"plural_name": "zucchinis"
 	}
 }

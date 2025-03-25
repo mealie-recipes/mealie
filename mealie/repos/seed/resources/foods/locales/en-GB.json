@@ -16,14 +16,14 @@
 		"name": "artichoke"
 	},
 	"arugula": {
-		"name": "rocket"
+		"name": "arugula"
 	},
 	"asparagus": {
 		"name": "asparagus"
 	},
 	"avocado": {
 		"name": "avocado",
-		"plural_name": "avocados"
+		"plural_name": "avocado"
 	},
 	"bacon": {
 		"name": "bacon"
@@ -32,7 +32,7 @@
 		"name": "baking powder"
 	},
 	"baking-soda": {
-		"name": "bicarbonate of soda"
+		"name": "baking soda"
 	},
 	"baking-sugar": {
 		"name": "baking sugar"
@@ -54,7 +54,7 @@
 		"name": "blackberries"
 	},
 	"bok-choy": {
-		"name": "pak choi"
+		"name": "bok choy"
 	},
 	"brassicas": {
 		"name": "brassicas"
@@ -75,13 +75,13 @@
 		"name": "broccoli rabe"
 	},
 	"broccolini": {
-		"name": "Tender-stem broccoli"
+		"name": "broccolini"
 	},
 	"brown-sugar": {
 		"name": "brown sugar"
 	},
 	"brussels-sprouts": {
-		"name": "brussel sprouts"
+		"name": "brussels sprouts"
 	},
 	"butter": {
 		"name": "butter"
@@ -122,14 +122,14 @@
 		"name": "caster sugar"
 	},
 	"castor-sugar": {
-		"name": "caster sugar"
+		"name": "castor sugar"
 	},
 	"catfish": {
 		"name": "catfish"
 	},
 	"cauliflower": {
 		"name": "cauliflower",
-		"plural_name": "cauliflowers"
+		"plural_name": "cauliflower"
 	},
 	"cayenne-pepper": {
 		"name": "cayenne pepper"
@@ -166,7 +166,7 @@
 		"name": "chocolate"
 	},
 	"cilantro": {
-		"name": "cilantro"
+		"name": "coriander"
 	},
 	"cinnamon": {
 		"name": "cinnamon"
@@ -220,7 +220,7 @@
 		"name": "cumin"
 	},
 	"daikon": {
-		"name": "diakon",
+		"name": "daikon",
 		"plural_name": "daikons"
 	},
 	"dairy-products-and-dairy-substitutes": {
@@ -239,8 +239,8 @@
 		"name": "edible cactus"
 	},
 	"eggplant": {
-		"name": "aubergine",
-		"plural_name": "eggplants"
+		"name": "eggplant",
+		"plural_name": "aubergines"
 	},
 	"eggs": {
 		"name": "egg",
@@ -254,7 +254,7 @@
 		"name": "fats"
 	},
 	"fava-beans": {
-		"name": "broad beans"
+		"name": "fava beans"
 	},
 	"fiddlehead": {
 		"name": "fiddlehead"
@@ -292,7 +292,7 @@
 	},
 	"garlic": {
 		"name": "garlic",
-		"plural_name": "garlics"
+		"plural_name": "garlic"
 	},
 	"gem-squash": {
 		"name": "gem squash"
@@ -307,7 +307,7 @@
 		"name": "ginger"
 	},
 	"grains": {
-		"name": "grain"
+		"name": "grains"
 	},
 	"granulated-sugar": {
 		"name": "granulated sugar"
@@ -316,8 +316,8 @@
 		"name": "grape seed oil"
 	},
 	"green-onion": {
-		"name": "green onion",
-		"plural_name": "green onions"
+		"name": "spring onion",
+		"plural_name": "spring onions"
 	},
 	"heart-of-palm": {
 		"name": "heart of palm",
@@ -343,7 +343,7 @@
 		"name": "jaggery"
 	},
 	"jams": {
-		"name": "jam"
+		"name": "jams"
 	},
 	"jellies": {
 		"name": "jellies"
@@ -456,7 +456,7 @@
 		"name": "oregano"
 	},
 	"oysters": {
-		"name": "oyster"
+		"name": "oysters"
 	},
 	"panch-puran": {
 		"name": "panch puran"
@@ -543,7 +543,7 @@
 	},
 	"scallion": {
 		"name": "spring onion",
-		"plural_name": "scallions"
+		"plural_name": "sprint onions"
 	},
 	"seafood": {
 		"name": "seafood"
@@ -565,10 +565,10 @@
 		"name": "soda"
 	},
 	"soda-baking": {
-		"name": "bicarbonate of soda"
+		"name": "soda, baking"
 	},
 	"soybean": {
-		"name": "soya beans"
+		"name": "soybean"
 	},
 	"spaghetti-squash": {
 		"name": "spaghetti squash",
@@ -679,14 +679,14 @@
 		"name": "xanthan gum"
 	},
 	"yam": {
-		"name": "yam",
-		"plural_name": "yams"
+		"name": "sweet potato",
+		"plural_name": "sweet potatoes"
 	},
 	"yeast": {
 		"name": "yeast"
 	},
 	"zucchini": {
-		"name": "zucchini",
-		"plural_name": "zucchinis"
+		"name": "courgette",
+		"plural_name": "courgettes"
 	}
 }

@@ -6,61 +6,61 @@
 		"name": "alfalfa sprouts"
 	},
 	"anchovies": {
-		"name": "鯷魚"
+		"name": "anchovies"
 	},
 	"apples": {
-		"name": "蘋果",
+		"name": "apple",
 		"plural_name": "apples"
 	},
 	"artichoke": {
-		"name": "菜薊"
+		"name": "artichoke"
 	},
 	"arugula": {
 		"name": "arugula"
 	},
 	"asparagus": {
-		"name": "蘆筍"
+		"name": "asparagus"
 	},
 	"avocado": {
-		"name": "酪梨",
+		"name": "avocado",
 		"plural_name": "avocado"
 	},
 	"bacon": {
-		"name": "培根"
+		"name": "bacon"
 	},
 	"baking-powder": {
 		"name": "baking powder"
 	},
 	"baking-soda": {
-		"name": "小蘇打粉"
+		"name": "baking soda"
 	},
 	"baking-sugar": {
-		"name": "烘焙糖"
+		"name": "baking sugar"
 	},
 	"bar-sugar": {
-		"name": "方糖"
+		"name": "bar sugar"
 	},
 	"basil": {
-		"name": "羅勒"
+		"name": "basil"
 	},
 	"beans": {
-		"name": "豆子"
+		"name": "beans"
 	},
 	"bell-peppers": {
-		"name": "甜椒",
+		"name": "bell peppers",
 		"plural_name": "bell peppers"
 	},
 	"blackberries": {
-		"name": "黑莓"
+		"name": "blackberries"
 	},
 	"bok-choy": {
-		"name": "青江菜"
+		"name": "bok choy"
 	},
 	"brassicas": {
 		"name": "brassicas"
 	},
 	"bread": {
-		"name": "麵包"
+		"name": "bread"
 	},
 	"breadfruit": {
 		"name": "breadfruit"
@@ -69,22 +69,22 @@
 		"name": "broccoflower"
 	},
 	"broccoli": {
-		"name": "花椰菜"
+		"name": "broccoli"
 	},
 	"broccoli-rabe": {
 		"name": "broccoli rabe"
 	},
 	"broccolini": {
-		"name": "綠色花椰菜"
+		"name": "broccolini"
 	},
 	"brown-sugar": {
-		"name": "紅糖"
+		"name": "brown sugar"
 	},
 	"brussels-sprouts": {
-		"name": "球芽甘藍"
+		"name": "brussels sprouts"
 	},
 	"butter": {
-		"name": "奶油"
+		"name": "butter"
 	},
 	"butternut-pumpkin": {
 		"name": "butternut pumpkin"
@@ -93,7 +93,7 @@
 		"name": "butternut squash"
 	},
 	"cabbage": {
-		"name": "高麗菜",
+		"name": "cabbage",
 		"plural_name": "cabbages"
 	},
 	"cactus-edible": {
@@ -103,10 +103,10 @@
 		"name": "calabrese"
 	},
 	"cane-sugar": {
-		"name": "蔗糖"
+		"name": "cane sugar"
 	},
 	"cannabis": {
-		"name": "大麻"
+		"name": "cannabis"
 	},
 	"capsicum": {
 		"name": "capsicum"
@@ -115,20 +115,20 @@
 		"name": "caraway"
 	},
 	"carrot": {
-		"name": "胡蘿蔔",
+		"name": "carrot",
 		"plural_name": "carrots"
 	},
 	"caster-sugar": {
 		"name": "caster sugar"
 	},
 	"castor-sugar": {
-		"name": "細砂白糖"
+		"name": "castor sugar"
 	},
 	"catfish": {
-		"name": "鯰魚"
+		"name": "catfish"
 	},
 	"cauliflower": {
-		"name": "白花菜",
+		"name": "cauliflower",
 		"plural_name": "cauliflowers"
 	},
 	"cayenne-pepper": {
@@ -138,7 +138,7 @@
 		"name": "celery root"
 	},
 	"celery": {
-		"name": "西芹"
+		"name": "celery"
 	},
 	"cereal-grains": {
 		"name": "cereal grains"
@@ -147,13 +147,13 @@
 		"name": "chard"
 	},
 	"cheese": {
-		"name": "起司"
+		"name": "cheese"
 	},
 	"chicory": {
 		"name": "chicory"
 	},
 	"chilli-peppers": {
-		"name": "辣椒",
+		"name": "chilli pepper",
 		"plural_name": "chilli peppers"
 	},
 	"chinese-leaves": {
@@ -163,29 +163,29 @@
 		"name": "chives"
 	},
 	"chocolate": {
-		"name": "巧克力"
+		"name": "chocolate"
 	},
 	"cilantro": {
-		"name": "香菜"
+		"name": "cilantro"
 	},
 	"cinnamon": {
-		"name": "肉桂"
+		"name": "cinnamon"
 	},
 	"clarified-butter": {
 		"name": "clarified butter"
 	},
 	"coconut": {
-		"name": "椰子",
+		"name": "coconut",
 		"plural_name": "coconuts"
 	},
 	"coconut-milk": {
-		"name": "椰奶"
+		"name": "coconut milk"
 	},
 	"cod": {
-		"name": "鱈魚"
+		"name": "cod"
 	},
 	"coffee": {
-		"name": "咖啡"
+		"name": "coffee"
 	},
 	"collard-greens": {
 		"name": "collard greens"
@@ -194,17 +194,17 @@
 		"name": "confectioners' sugar"
 	},
 	"coriander": {
-		"name": "香菜"
+		"name": "coriander"
 	},
 	"corn": {
-		"name": "玉米",
+		"name": "corn",
 		"plural_name": "corns"
 	},
 	"corn-syrup": {
-		"name": "玉米糖漿"
+		"name": "corn syrup"
 	},
 	"cottonseed-oil": {
-		"name": "棉籽油"
+		"name": "cottonseed oil"
 	},
 	"courgette": {
 		"name": "courgette"
@@ -213,37 +213,37 @@
 		"name": "cream of tartar"
 	},
 	"cucumber": {
-		"name": "黃瓜",
+		"name": "cucumber",
 		"plural_name": "cucumbers"
 	},
 	"cumin": {
-		"name": "孜然"
+		"name": "cumin"
 	},
 	"daikon": {
-		"name": "白蘿蔔",
+		"name": "daikon",
 		"plural_name": "daikons"
 	},
 	"dairy-products-and-dairy-substitutes": {
 		"name": "dairy products and dairy substitutes"
 	},
 	"dandelion": {
-		"name": "蒲公英"
+		"name": "dandelion"
 	},
 	"demerara-sugar": {
 		"name": "demerara sugar"
 	},
 	"dough": {
-		"name": "麵團"
+		"name": "dough"
 	},
 	"edible-cactus": {
 		"name": "edible cactus"
 	},
 	"eggplant": {
-		"name": "茄子",
+		"name": "eggplant",
 		"plural_name": "eggplants"
 	},
 	"eggs": {
-		"name": "蛋",
+		"name": "egg",
 		"plural_name": "eggs"
 	},
 	"endive": {
@@ -251,7 +251,7 @@
 		"plural_name": "endives"
 	},
 	"fats": {
-		"name": "脂肪"
+		"name": "fats"
 	},
 	"fava-beans": {
 		"name": "fava beans"
@@ -264,13 +264,13 @@
 		"plural_name": "fiddlehead ferns"
 	},
 	"fish": {
-		"name": "魚"
+		"name": "fish"
 	},
 	"five-spice-powder": {
-		"name": "五香粉"
+		"name": "five spice powder"
 	},
 	"flour": {
-		"name": "麵粉"
+		"name": "flour"
 	},
 	"frisee": {
 		"name": "frisee"
@@ -279,10 +279,10 @@
 		"name": "fructose"
 	},
 	"fruit": {
-		"name": "水果"
+		"name": "fruit"
 	},
 	"fruit-sugar": {
-		"name": "果糖"
+		"name": "fruit sugar"
 	},
 	"ful": {
 		"name": "ful"
@@ -291,7 +291,7 @@
 		"name": "garam masala"
 	},
 	"garlic": {
-		"name": "大蒜",
+		"name": "garlic",
 		"plural_name": "garlics"
 	},
 	"gem-squash": {
@@ -301,22 +301,22 @@
 		"name": "ghee"
 	},
 	"giblets": {
-		"name": "內臟"
+		"name": "giblets"
 	},
 	"ginger": {
-		"name": "薑"
+		"name": "ginger"
 	},
 	"grains": {
-		"name": "穀物"
+		"name": "grains"
 	},
 	"granulated-sugar": {
 		"name": "granulated sugar"
 	},
 	"grape-seed-oil": {
-		"name": "葡萄籽油"
+		"name": "grape seed oil"
 	},
 	"green-onion": {
-		"name": "蔥",
+		"name": "green onion",
 		"plural_name": "green onions"
 	},
 	"heart-of-palm": {
@@ -324,29 +324,29 @@
 		"plural_name": "heart of palms"
 	},
 	"hemp": {
-		"name": "大麻"
+		"name": "hemp"
 	},
 	"herbs": {
 		"name": "herbs"
 	},
 	"honey": {
-		"name": "蜂蜜"
+		"name": "honey"
 	},
 	"isomalt": {
 		"name": "isomalt"
 	},
 	"jackfruit": {
-		"name": "菠蘿蜜",
+		"name": "jackfruit",
 		"plural_name": "jackfruits"
 	},
 	"jaggery": {
 		"name": "jaggery"
 	},
 	"jams": {
-		"name": "果醬"
+		"name": "jams"
 	},
 	"jellies": {
-		"name": "果凍"
+		"name": "jellies"
 	},
 	"jerusalem-artichoke": {
 		"name": "jerusalem artichoke"
@@ -380,33 +380,33 @@
 		"name": "lentils"
 	},
 	"lettuce": {
-		"name": "萵苣"
+		"name": "lettuce"
 	},
 	"liver": {
-		"name": "肝臟",
+		"name": "liver",
 		"plural_name": "livers"
 	},
 	"maize": {
 		"name": "maize"
 	},
 	"maple-syrup": {
-		"name": "楓糖漿"
+		"name": "maple syrup"
 	},
 	"meat": {
-		"name": "肉類"
+		"name": "meat"
 	},
 	"milk": {
-		"name": "牛奶"
+		"name": "milk"
 	},
 	"mortadella": {
 		"name": "mortadella"
 	},
 	"mushroom": {
-		"name": "蘑菇",
+		"name": "mushroom",
 		"plural_name": "mushrooms"
 	},
 	"mussels": {
-		"name": "淡菜"
+		"name": "mussels"
 	},
 	"nanaimo-bar-mix": {
 		"name": "nanaimo bar mix"
@@ -421,26 +421,26 @@
 		"name": "nutritional yeast flakes"
 	},
 	"nuts": {
-		"name": "堅果"
+		"name": "nuts"
 	},
 	"octopuses": {
-		"name": "章魚",
+		"name": "octopus",
 		"plural_name": "octopuses"
 	},
 	"oils": {
-		"name": "油"
+		"name": "oils"
 	},
 	"okra": {
-		"name": "秋葵"
+		"name": "okra"
 	},
 	"olive": {
-		"name": "橄欖"
+		"name": "olive"
 	},
 	"olive-oil": {
-		"name": "橄欖油"
+		"name": "olive oil"
 	},
 	"onion": {
-		"name": "洋葱"
+		"name": "onion"
 	},
 	"onion-family": {
 		"name": "onion family"
@@ -449,14 +449,14 @@
 		"name": "orange blossom water"
 	},
 	"oranges": {
-		"name": "橙",
+		"name": "orange",
 		"plural_name": "oranges"
 	},
 	"oregano": {
 		"name": "oregano"
 	},
 	"oysters": {
-		"name": "牡蠣"
+		"name": "oysters"
 	},
 	"panch-puran": {
 		"name": "panch puran"
@@ -465,110 +465,110 @@
 		"name": "paprika"
 	},
 	"parsley": {
-		"name": "香芹"
+		"name": "parsley"
 	},
 	"parsnip": {
 		"name": "parsnip",
 		"plural_name": "parsnips"
 	},
 	"pear": {
-		"name": "梨子",
+		"name": "pear",
 		"plural_name": "pears"
 	},
 	"peas": {
 		"name": "peas"
 	},
 	"pepper": {
-		"name": "胡椒",
+		"name": "pepper",
 		"plural_name": "peppers"
 	},
 	"pineapple": {
-		"name": "鳳梨",
+		"name": "pineapple",
 		"plural_name": "pineapples"
 	},
 	"plantain": {
-		"name": "芭蕉",
+		"name": "plantain",
 		"plural_name": "plantains"
 	},
 	"poppy-seeds": {
-		"name": "罌粟子"
+		"name": "poppy seeds"
 	},
 	"potato": {
-		"name": "馬鈴薯",
+		"name": "potato",
 		"plural_name": "potatoes"
 	},
 	"poultry": {
-		"name": "家禽"
+		"name": "poultry"
 	},
 	"powdered-sugar": {
-		"name": "糖粉"
+		"name": "powdered sugar"
 	},
 	"pumpkin": {
-		"name": "南瓜",
+		"name": "pumpkin",
 		"plural_name": "pumpkins"
 	},
 	"pumpkin-seeds": {
-		"name": "南瓜子"
+		"name": "pumpkin seeds"
 	},
 	"radish": {
-		"name": "蘿蔔",
+		"name": "radish",
 		"plural_name": "radishes"
 	},
 	"raw-sugar": {
-		"name": "粗糖"
+		"name": "raw sugar"
 	},
 	"refined-sugar": {
-		"name": "精糖"
+		"name": "refined sugar"
 	},
 	"rice": {
-		"name": "米飯"
+		"name": "rice"
 	},
 	"rice-flour": {
-		"name": "米粉"
+		"name": "rice flour"
 	},
 	"rock-sugar": {
 		"name": "rock sugar"
 	},
 	"rum": {
-		"name": "萊姆酒"
+		"name": "rum"
 	},
 	"salmon": {
-		"name": "鮭魚"
+		"name": "salmon"
 	},
 	"salt": {
-		"name": "鹽"
+		"name": "salt"
 	},
 	"salt-cod": {
 		"name": "salt cod"
 	},
 	"scallion": {
-		"name": "青蔥",
+		"name": "scallion",
 		"plural_name": "scallions"
 	},
 	"seafood": {
-		"name": "海鮮"
+		"name": "seafood"
 	},
 	"seeds": {
-		"name": "種子"
+		"name": "seeds"
 	},
 	"sesame-seeds": {
-		"name": "芝麻"
+		"name": "sesame seeds"
 	},
 	"shallot": {
-		"name": "紅蔥頭",
+		"name": "shallot",
 		"plural_name": "shallots"
 	},
 	"skate": {
 		"name": "skate"
 	},
 	"soda": {
-		"name": "汽水"
+		"name": "soda"
 	},
 	"soda-baking": {
-		"name": "小蘇打粉"
+		"name": "soda, baking"
 	},
 	"soybean": {
-		"name": "黃豆"
+		"name": "soybean"
 	},
 	"spaghetti-squash": {
 		"name": "spaghetti squash",
@@ -578,10 +578,10 @@
 		"name": "speck"
 	},
 	"spices": {
-		"name": "香料"
+		"name": "spices"
 	},
 	"spinach": {
-		"name": "菠菜"
+		"name": "spinach"
 	},
 	"spring-onion": {
 		"name": "spring onion",
@@ -598,24 +598,24 @@
 		"name": "stockfish"
 	},
 	"sugar": {
-		"name": "糖"
+		"name": "sugar"
 	},
 	"sunchoke": {
 		"name": "sunchoke",
 		"plural_name": "sunchokes"
 	},
 	"sunflower-seeds": {
-		"name": "瓜子"
+		"name": "sunflower seeds"
 	},
 	"superfine-sugar": {
 		"name": "superfine sugar"
 	},
 	"sweet-potato": {
-		"name": "地瓜",
+		"name": "sweet potato",
 		"plural_name": "sweet potatoes"
 	},
 	"sweetcorn": {
-		"name": "甜玉米",
+		"name": "sweetcorn",
 		"plural_name": "sweetcorns"
 	},
 	"sweeteners": {
@@ -625,25 +625,25 @@
 		"name": "tahini"
 	},
 	"taro": {
-		"name": "芋頭",
+		"name": "taro",
 		"plural_name": "taroes"
 	},
 	"teff": {
 		"name": "teff"
 	},
 	"tomato": {
-		"name": "蕃茄",
+		"name": "tomato",
 		"plural_name": "tomatoes"
 	},
 	"trout": {
-		"name": "鱒魚"
+		"name": "trout"
 	},
 	"tubers": {
 		"name": "tuber",
 		"plural_name": "tubers"
 	},
 	"tuna": {
-		"name": "鮪魚"
+		"name": "tuna"
 	},
 	"turbanado-sugar": {
 		"name": "turbanado sugar"
@@ -656,24 +656,24 @@
 		"name": "unrefined sugar"
 	},
 	"vanilla": {
-		"name": "香草"
+		"name": "vanilla"
 	},
 	"vegetables": {
-		"name": "蔬菜"
+		"name": "vegetables"
 	},
 	"watercress": {
 		"name": "watercress"
 	},
 	"watermelon": {
-		"name": "西瓜",
+		"name": "watermelon",
 		"plural_name": "watermelons"
 	},
 	"white-mushroom": {
-		"name": "白蘑菇",
+		"name": "white mushroom",
 		"plural_name": "white mushrooms"
 	},
 	"white-sugar": {
-		"name": "白糖"
+		"name": "white sugar"
 	},
 	"xanthan-gum": {
 		"name": "xanthan gum"
@@ -683,7 +683,7 @@
 		"plural_name": "yams"
 	},
 	"yeast": {
-		"name": "酵母"
+		"name": "yeast"
 	},
 	"zucchini": {
 		"name": "zucchini",

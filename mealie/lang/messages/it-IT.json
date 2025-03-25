@@ -3,7 +3,7 @@
         "server-error": "Si è verificato un errore inaspettato"
     },
     "recipe": {
-        "unique-name-error": "I nomi delle ricette devono essere unici",
+        "unique-name-error": "I nomi delle ricette devono essere univoci",
         "recipe-created": "Ricetta Creata",
         "recipe-defaults": {
             "ingredient-note": "1 Tazza Di Farina",

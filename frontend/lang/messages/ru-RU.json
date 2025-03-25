@@ -720,7 +720,7 @@
       "backup-restore": "Восстановление резервной копии",
       "back-restore-description": "Восстановление этой резервной копии перезапишет все текущие данные в вашей базе данных и в каталоге данных и заменит их содержимым этой резервной копии. {cannot-be-undone} при успешном восстановлении вы выйдете из системы.",
       "cannot-be-undone": "Это действие нельзя отменить, используйте с осторожностью.",
-      "postgresql-note": "Если вы используете PostGreSQL, пожалуйста, просмотрите {backup-restore-process} перед восстановлением.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "процесс резервного копирования/восстановления в документации",
       "irreversible-acknowledgment": "Я понимаю, что это действие является необратимым, разрушительным и может привести к потере данных",
       "restore-backup": "Восстановить резервную копию"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Сочетание выбранных продуктов позволит объединить первый и второй продукт в один. Первый продукт будет удалён, и все ссылки на него будут указывать на второй продукт.",
       "merge-food-example": "Объединение {food1} в {food2}",
-      "seed-dialog-text": "Заполняет базу данных с продуктами на основе локального языка. Это добавит 200+ типичных продуктов, которые могут быть использованы для организации вашей базы данных. Продукты переводятся с помощью усилий сообщества.",
-      "seed-dialog-warning": "У вас уже есть некоторые элементы в базе данных. Это действие не позволит удалить дубликаты, вам придется проверить их вручную.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Объединить продукты",
       "source-food": "Первый продукт",
       "target-food": "Второй продукт",

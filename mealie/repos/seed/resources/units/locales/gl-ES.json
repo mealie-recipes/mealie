@@ -85,14 +85,14 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
-        "plural_name": "splashes",
+        "name": "fio",
+        "plural_name": "fios",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
-        "plural_name": "dashes",
+        "name": "areiña",
+        "plural_name": "areiñas",
         "description": "",
         "abbreviation": ""
     },
