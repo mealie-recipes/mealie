@@ -9,8 +9,8 @@
 		"name": "anchovies"
 	},
 	"apples": {
-		"name": "apple",
-		"plural_name": "apples"
+		"name": "eple",
+		"plural_name": "epler"
 	},
 	"artichoke": {
 		"name": "artichoke"
@@ -22,20 +22,20 @@
 		"name": "asparagus"
 	},
 	"avocado": {
-		"name": "avocado",
-		"plural_name": "avocado"
+		"name": "avakado",
+		"plural_name": "avakado"
 	},
 	"bacon": {
 		"name": "bacon"
 	},
 	"baking-powder": {
-		"name": "baking powder"
+		"name": "bakepulver"
 	},
 	"baking-soda": {
-		"name": "baking soda"
+		"name": "natron"
 	},
 	"baking-sugar": {
-		"name": "baking sugar"
+		"name": "melis"
 	},
 	"bar-sugar": {
 		"name": "bar sugar"
@@ -60,7 +60,7 @@
 		"name": "brassicas"
 	},
 	"bread": {
-		"name": "bread"
+		"name": "brød"
 	},
 	"breadfruit": {
 		"name": "breadfruit"
@@ -197,7 +197,7 @@
 		"name": "coriander"
 	},
 	"corn": {
-		"name": "corn",
+		"name": "mais",
 		"plural_name": "corns"
 	},
 	"corn-syrup": {

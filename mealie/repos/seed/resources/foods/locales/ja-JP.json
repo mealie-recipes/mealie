@@ -9,8 +9,8 @@
 		"name": "anchovies"
 	},
 	"apples": {
-		"name": "apple",
-		"plural_name": "apples"
+		"name": "りんご",
+		"plural_name": "りんご"
 	},
 	"artichoke": {
 		"name": "artichoke"
@@ -22,8 +22,8 @@
 		"name": "asparagus"
 	},
 	"avocado": {
-		"name": "avocado",
-		"plural_name": "avocado"
+		"name": "アボカド",
+		"plural_name": "アボカド"
 	},
 	"bacon": {
 		"name": "bacon"
@@ -41,7 +41,7 @@
 		"name": "bar sugar"
 	},
 	"basil": {
-		"name": "basil"
+		"name": "バジル"
 	},
 	"beans": {
 		"name": "beans"
@@ -69,7 +69,7 @@
 		"name": "broccoflower"
 	},
 	"broccoli": {
-		"name": "broccoli"
+		"name": "ブロッコリー"
 	},
 	"broccoli-rabe": {
 		"name": "broccoli rabe"
@@ -84,7 +84,7 @@
 		"name": "brussels sprouts"
 	},
 	"butter": {
-		"name": "butter"
+		"name": "バター"
 	},
 	"butternut-pumpkin": {
 		"name": "butternut pumpkin"
@@ -93,8 +93,8 @@
 		"name": "butternut squash"
 	},
 	"cabbage": {
-		"name": "cabbage",
-		"plural_name": "cabbages"
+		"name": "キャベツ",
+		"plural_name": "キャベツ"
 	},
 	"cactus-edible": {
 		"name": "cactus, edible"
@@ -115,7 +115,7 @@
 		"name": "caraway"
 	},
 	"carrot": {
-		"name": "carrot",
+		"name": "人参",
 		"plural_name": "carrots"
 	},
 	"caster-sugar": {
@@ -169,23 +169,23 @@
 		"name": "cilantro"
 	},
 	"cinnamon": {
-		"name": "cinnamon"
+		"name": "シナモン"
 	},
 	"clarified-butter": {
 		"name": "clarified butter"
 	},
 	"coconut": {
-		"name": "coconut",
-		"plural_name": "coconuts"
+		"name": "ココナッツ",
+		"plural_name": "ココナッツ"
 	},
 	"coconut-milk": {
-		"name": "coconut milk"
+		"name": "ココナッツミルク"
 	},
 	"cod": {
 		"name": "cod"
 	},
 	"coffee": {
-		"name": "coffee"
+		"name": "コーヒー"
 	},
 	"collard-greens": {
 		"name": "collard greens"
@@ -220,8 +220,8 @@
 		"name": "cumin"
 	},
 	"daikon": {
-		"name": "daikon",
-		"plural_name": "daikons"
+		"name": "大根",
+		"plural_name": "大根"
 	},
 	"dairy-products-and-dairy-substitutes": {
 		"name": "dairy products and dairy substitutes"
@@ -233,7 +233,7 @@
 		"name": "demerara sugar"
 	},
 	"dough": {
-		"name": "dough"
+		"name": "生地"
 	},
 	"edible-cactus": {
 		"name": "edible cactus"
@@ -243,8 +243,8 @@
 		"plural_name": "eggplants"
 	},
 	"eggs": {
-		"name": "egg",
-		"plural_name": "eggs"
+		"name": "卵",
+		"plural_name": "卵"
 	},
 	"endive": {
 		"name": "endive",
@@ -291,8 +291,8 @@
 		"name": "garam masala"
 	},
 	"garlic": {
-		"name": "garlic",
-		"plural_name": "garlics"
+		"name": "ニンニク",
+		"plural_name": "ニンニク"
 	},
 	"gem-squash": {
 		"name": "gem squash"
@@ -330,7 +330,7 @@
 		"name": "herbs"
 	},
 	"honey": {
-		"name": "honey"
+		"name": "蜂蜜"
 	},
 	"isomalt": {
 		"name": "isomalt"
@@ -380,7 +380,7 @@
 		"name": "lentils"
 	},
 	"lettuce": {
-		"name": "lettuce"
+		"name": "レタス"
 	},
 	"liver": {
 		"name": "liver",
@@ -396,14 +396,14 @@
 		"name": "meat"
 	},
 	"milk": {
-		"name": "milk"
+		"name": "牛乳"
 	},
 	"mortadella": {
 		"name": "mortadella"
 	},
 	"mushroom": {
-		"name": "mushroom",
-		"plural_name": "mushrooms"
+		"name": "キノコ",
+		"plural_name": "キノコ"
 	},
 	"mussels": {
 		"name": "mussels"
@@ -434,13 +434,13 @@
 		"name": "okra"
 	},
 	"olive": {
-		"name": "olive"
+		"name": "オリーブ"
 	},
 	"olive-oil": {
-		"name": "olive oil"
+		"name": "オリーブオイル"
 	},
 	"onion": {
-		"name": "onion"
+		"name": "玉ねぎ"
 	},
 	"onion-family": {
 		"name": "onion family"
@@ -453,7 +453,7 @@
 		"plural_name": "oranges"
 	},
 	"oregano": {
-		"name": "oregano"
+		"name": "オレガノ"
 	},
 	"oysters": {
 		"name": "oysters"
@@ -465,7 +465,7 @@
 		"name": "paprika"
 	},
 	"parsley": {
-		"name": "parsley"
+		"name": "パセリ"
 	},
 	"parsnip": {
 		"name": "parsnip",
@@ -632,8 +632,8 @@
 		"name": "teff"
 	},
 	"tomato": {
-		"name": "tomato",
-		"plural_name": "tomatoes"
+		"name": "トマト",
+		"plural_name": "トマト"
 	},
 	"trout": {
 		"name": "trout"

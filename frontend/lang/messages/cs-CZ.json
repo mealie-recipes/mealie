@@ -352,7 +352,7 @@
     "random-side": "Náhodná příloha",
     "this-rule-will-apply": "Toto pravidlo se použije {dayCriteria} {mealTypeCriteria}.",
     "to-all-days": "na všechny dny",
-    "on-days": "on {0}s",
+    "on-days": "každé {0}",
     "for-all-meal-types": "pro všechny druhy jídel",
     "for-type-meal-types": "pro {0} druhy jídel",
     "meal-plan-rules": "Pravidla tvůrce jídelníčků",
@@ -547,7 +547,7 @@
     "failed-to-add-recipe-to-mealplan": "Přidání receptu do jídelníčku selhalo",
     "failed-to-add-to-list": "Přidání do seznamu se nezdařilo",
     "yield": "Úroda",
-    "yields-amount-with-text": "Yields {amount} {text}",
+    "yields-amount-with-text": "Pro {amount} {text}",
     "yield-text": "Yield Text",
     "quantity": "Množství",
     "choose-unit": "Vybrat jednotku",
@@ -676,8 +676,8 @@
     "max-missing-tools": "Maximální počet chybějících nástrojů",
     "selected-tools": "Vybrané nástroje",
     "other-filters": "Jiné filtry",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "ready-to-make": "Připraveno",
+    "almost-ready-to-make": "Téměř připraveno"
   },
   "search": {
     "advanced-search": "Pokročilé vyhledávání",
@@ -720,7 +720,7 @@
       "backup-restore": "Obnova zálohy",
       "back-restore-description": "Obnovení této zálohy přepíše všechna aktuální data ve vaší databázi a v datovém adresáři a nahradí je obsahem této zálohy. {cannot-be-undone} Pokud je obnovení úspěšné, budete odhlášeni.",
       "cannot-be-undone": "Tuto akci nelze vrátit zpět - používejte ji s opatrností.",
-      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
+      "postgresql-note": "Pokud používáte PostgreSQL, prosím zkontrolujte {backup-restore-process} před obnovou.",
       "backup-restore-process-in-the-documentation": "proces zálohy/obnovení v dokumentaci",
       "irreversible-acknowledgment": "Beru na vědomí, že tato akce je nevratná, destruktivní a může způsobit ztrátu dat",
       "restore-backup": "Obnovit zálohu"
@@ -808,7 +808,7 @@
       "webhooks-caps": "WEBHOOKY",
       "webhooks": "Webhooky",
       "webhook-name": "Název webhooku",
-      "description": "The webhooks defined below will be executed when a meal is defined for the day. At the scheduled time the webhooks will be sent with the data from the recipe that is scheduled for the day. Note that webhook execution is not exact. The webhooks are executed on a 5 minutes interval so the webhooks will be executed within 5 +/- minutes of the scheduled."
+      "description": "Webhooks definované níže budou vykonány, když bude pro daný den definováno jídlo. V plánovaném čase budou webhooks odeslány s daty z receptu, který je naplánován na daný den. Vezměte prosím na vědomí, že vykonání webhooku není přesné. Webhooks jsou vykonávány v intervalech po 5 minutách, takže budou vykonány v rozmezí 5 +/- minut od plánovaného času."
     },
     "bug-report": "Chybové hlášení",
     "bug-report-information": "Použijte tyto informace k nahlášení chyby. Poskytnutí podrobností vaší instance vývojářům je nejlepší způsob, jak rychle vyřešit vaše problémy.",
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Zkombinování zvolených potravin způsobí smazání zdrojové potraviny a veškeré odkazy na ni budou přesměrovány do cílové potraviny.",
       "merge-food-example": "Sloučení {food1} do {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
+      "seed-dialog-text": "Naplňte databázi potravinami z vašeho jazyka. Tímto vytvoříte přes 200 běžných potravin, které můžete použít k organizaci vaší databáze. Potravny jsou přeloženy skrze komunitní úsilí.",
+      "seed-dialog-warning": "Již v databázi máte nějaká data. Tato akce neodstraní duplicity, budete je muset odstranit ručně.",
       "combine-food": "Kombinovat jídlo",
       "source-food": "Zdrojové jídlo",
       "target-food": "Cílové jídlo",
@@ -1267,7 +1267,7 @@
     "openai": "OpenAI",
     "show-individual-confidence": "Zobrazit individuální důvěru",
     "ingredient-text": "Text přísady",
-    "average-confident": "{0} Confident",
+    "average-confident": "{0} Důvěra",
     "try-an-example": "Vyzkoušejte příklad",
     "parser": "Analyzátor",
     "background-tasks": "Úlohy na pozadí",

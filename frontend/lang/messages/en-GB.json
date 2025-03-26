@@ -298,7 +298,7 @@
     "household-recipe-preferences": "Household Recipe Preferences",
     "default-recipe-preferences-description": "These are the default settings when a new recipe is created in your household. These can be change for individual recipe sin the recipe settings menu.",
     "allow-users-outside-of-your-household-to-see-your-recipes": "Allow users outside your household to see your recipes",
-    "allow-users-outside-of-your-household-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your household or with a pre-generated private link",
+    "allow-users-outside-of-your-household-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorising the user. When disabled, you can only share recipes with users who are in your household or with a pre-generated private link",
     "household-preferences": "Household Preferences"
   },
   "meal-plan": {
@@ -386,7 +386,7 @@
       "title": "Copy Me That Recipe Manager"
     },
     "paprika": {
-      "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
+      "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from Paprika, rename the export extension to .zip and upload it below.",
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
@@ -406,11 +406,11 @@
     "chowdown-text": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
     "recipe-1": "Recipe 1",
     "recipe-2": "Recipe 2",
-    "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
+    "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from Paprika, rename the export extension to .zip and upload it below.",
     "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "Mealie can import recipes from Plan to Eat."
     },
     "myrecipebox": {
       "title": "My Recipe Box",
@@ -423,7 +423,7 @@
   },
   "new-recipe": {
     "bulk-add": "Bulk Add",
-    "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
+    "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a GitHub issue with the URL and data.",
     "error-title": "Looks Like We Couldn't Find Anything",
     "from-url": "Import a Recipe",
     "github-issues": "GitHub Issues",
@@ -542,9 +542,9 @@
     "recipe-added-to-list": "Recipe added to list",
     "recipes-added-to-list": "Recipes added to list",
     "successfully-added-to-list": "Successfully added to list",
-    "recipe-added-to-mealplan": "Recipe added to mealplan",
+    "recipe-added-to-mealplan": "Recipe added to meal plan",
     "failed-to-add-recipes-to-list": "Failed to add recipe to list",
-    "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
+    "failed-to-add-recipe-to-mealplan": "Failed to add recipe to meal plan",
     "failed-to-add-to-list": "Failed to add to list",
     "yield": "Yield",
     "yields-amount-with-text": "Yields {amount} {text}",
@@ -648,7 +648,7 @@
     "parser": {
       "ingredient-parser": "Ingredient Parser",
       "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
-      "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
+      "alerts-explainer": "Alerts will be displayed if a matching food or unit is found but does not exist in the database.",
       "select-parser": "Select Parser",
       "natural-language-processor": "Natural Language Processor",
       "brute-parser": "Brute Parser",
@@ -808,7 +808,7 @@
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
       "webhook-name": "Webhook Name",
-      "description": "The webhooks defined below will be executed when a meal is defined for the day. At the scheduled time the webhooks will be sent with the data from the recipe that is scheduled for the day. Note that webhook execution is not exact. The webhooks are executed on a 5 minutes interval so the webhooks will be executed within 5 +/- minutes of the scheduled."
+      "description": "The webhooks defined below will be executed when a meal is defined for the day. At the scheduled time the webhooks will be sent with the data from the recipe that is scheduled for the day. Note that webhook execution is not exact. The webhooks are executed on a 5 minutes interval so the webhooks will be executed within 5 +/- minutes of the schedule."
     },
     "bug-report": "Bug Report",
     "bug-report-information": "Use this information to report a bug. Providing details of your instance to developers is the best way to get your issues resolved quickly.",
@@ -1029,10 +1029,10 @@
     "user-can-invite-other-to-group": "User can invite others to group",
     "user-can-manage-group": "User can manage group",
     "user-can-manage-household": "User can manage household",
-    "user-can-organize-group-data": "User can organize group data",
+    "user-can-organize-group-data": "User can organise group data",
     "enable-advanced-features": "Enable advanced features",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
-    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
+    "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this any more? Be sure to change your email in your user settings!",
     "forgot-password": "Forgot Password",
     "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
     "changes-reflected-immediately": "Changes to this user will be reflected immediately."
