@@ -357,7 +357,7 @@
     "for-type-meal-types": "for {0} måltidstyper",
     "meal-plan-rules": "Regler for måltidsplan",
     "new-rule": "Ny regel",
-    "meal-plan-rules-description": "You can create rules for auto selecting recipes for your meal plans. These rules are used by the server to determine the random pool of recipes to select from when creating meal plans. Note that if rules have the same day/type constraints then the rule filters will be merged. In practice, it's unnecessary to create duplicate rules, but it's possible to do so.",
+    "meal-plan-rules-description": "Du kan lage regler for automatisk valg av oppskrifter for måltidsplanene dine. Disse reglene brukes av serveren til å bestemme den tilfeldige oppskriften du kan velge mellom når du lager måltidsplaner. Merk at hvis regler har samme dag/type-begrensninger, vil regelfiltrene slås sammen. I praksis er det unødvendig å lage dupliserte regler, men det er mulig å gjøre det.",
     "new-rule-description": "Ved opprettelse av en ny regel for en måltidsplan kan du begrense regelen til å gjelde for en bestemt ukedag og/eller en bestemt type måltid. For å ta i bruk en regen alle dager eller alle måltider kan du sette regelen til \"Enhver\" som gjelder for alle mulige verdier for dag- og/eller måltidstyper.",
     "recipe-rules": "Regler for oppskrifter",
     "applies-to-all-days": "Gjelder for alle dager",
@@ -1048,7 +1048,7 @@
     "foods": {
       "merge-dialog-text": "Ved å kombinere de valgte matvarene vil de bli slått sammen til én matvare. Den første matvaren vil bli slettet, og alle referanser til denne vil bli oppdatert til å peke til den nye matvaren.",
       "merge-food-example": "Slår sammen {food1} til {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-text": "Sett inn matvarer basert på ditt lokale språk i databasen. Dette vil lage 200+ vanlige matvarer som kan brukes til å organisere databasen din. Mat blir oversatt via fellesinnsats.",
       "seed-dialog-warning": "Du har allerede noen elementer i databasen din. Denne handlingen vil ikke slå sammen duplikater, du må håndtere dem manuelt.",
       "combine-food": "Kombiner matvarer",
       "source-food": "Kilde for matvare",
