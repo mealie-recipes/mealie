@@ -220,8 +220,8 @@
 		"name": "spisskummen"
 	},
 	"daikon": {
-		"name": "daikon",
-		"plural_name": "daikons"
+		"name": "daikon-reddik",
+		"plural_name": "daikon-reddiker"
 	},
 	"dairy-products-and-dairy-substitutes": {
 		"name": "meieriprodukter og melkeerstatninger"
@@ -236,7 +236,7 @@
 		"name": "deig"
 	},
 	"edible-cactus": {
-		"name": "edible cactus"
+		"name": "spiselig kaktus"
 	},
 	"eggplant": {
 		"name": "aubergine",
@@ -247,8 +247,8 @@
 		"plural_name": "egg"
 	},
 	"endive": {
-		"name": "endive",
-		"plural_name": "endives"
+		"name": "sikori",
+		"plural_name": "sikori"
 	},
 	"fats": {
 		"name": "fett"
@@ -257,7 +257,7 @@
 		"name": "favabønne"
 	},
 	"fiddlehead": {
-		"name": "fiddlehead"
+		"name": "felehode"
 	},
 	"fiddlehead-fern": {
 		"name": "fiddlehead fern",
@@ -267,7 +267,7 @@
 		"name": "fisk"
 	},
 	"five-spice-powder": {
-		"name": "five spice powder"
+		"name": "femkrydder"
 	},
 	"flour": {
 		"name": "mel"
@@ -301,7 +301,7 @@
 		"name": "ghi"
 	},
 	"giblets": {
-		"name": "giblets"
+		"name": "innmat av fugl"
 	},
 	"ginger": {
 		"name": "ingefær"
@@ -316,15 +316,15 @@
 		"name": "druekjerneolje"
 	},
 	"green-onion": {
-		"name": "green onion",
-		"plural_name": "green onions"
+		"name": "vårløk",
+		"plural_name": "vårløk"
 	},
 	"heart-of-palm": {
 		"name": "palmehjerte",
 		"plural_name": "palmehjerte"
 	},
 	"hemp": {
-		"name": "hemp"
+		"name": "hamp"
 	},
 	"herbs": {
 		"name": "urter"
@@ -336,8 +336,8 @@
 		"name": "isomalt"
 	},
 	"jackfruit": {
-		"name": "jackfruit",
-		"plural_name": "jackfruits"
+		"name": "jackfrukt",
+		"plural_name": "jackfrukter"
 	},
 	"jaggery": {
 		"name": "jaggery"
@@ -364,7 +364,7 @@
 		"name": "kumara"
 	},
 	"leavening-agents": {
-		"name": "leavening agents"
+		"name": "hevemiddel"
 	},
 	"leek": {
 		"name": "purre",
@@ -446,7 +446,7 @@
 		"name": "onion family"
 	},
 	"orange-blossom-water": {
-		"name": "orange blossom water"
+		"name": "appelsinblomstvann"
 	},
 	"oranges": {
 		"name": "appelsin",
@@ -542,7 +542,7 @@
 		"name": "salt torsk"
 	},
 	"scallion": {
-		"name": "scallion",
+		"name": "vårløk",
 		"plural_name": "scallions"
 	},
 	"seafood": {
@@ -639,8 +639,8 @@
 		"name": "ørret"
 	},
 	"tubers": {
-		"name": "tuber",
-		"plural_name": "tubers"
+		"name": "knoll",
+		"plural_name": "knoller"
 	},
 	"tuna": {
 		"name": "tunfisk"
@@ -676,7 +676,7 @@
 		"name": "sukker"
 	},
 	"xanthan-gum": {
-		"name": "xanthan gum"
+		"name": "xanthangummi"
 	},
 	"yam": {
 		"name": "yam",
