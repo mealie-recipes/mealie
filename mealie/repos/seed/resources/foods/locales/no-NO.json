@@ -1,6 +1,6 @@
 {
 	"acorn-squash": {
-		"name": "acorn squash"
+		"name": "vintersquash"
 	},
 	"alfalfa-sprouts": {
 		"name": "alfalfaspirer"
@@ -90,7 +90,7 @@
 		"name": "flaskegresskar"
 	},
 	"butternut-squash": {
-		"name": "butternut squash"
+		"name": "flaskegresskar"
 	},
 	"cabbage": {
 		"name": "kål",
@@ -188,7 +188,7 @@
 		"name": "kaffe"
 	},
 	"collard-greens": {
-		"name": "collard greens"
+		"name": "grønnkål"
 	},
 	"confectioners-sugar": {
 		"name": "melis"
@@ -204,7 +204,7 @@
 		"name": "maissirup"
 	},
 	"cottonseed-oil": {
-		"name": "cottonseed oil"
+		"name": "bomullsfrøolje"
 	},
 	"courgette": {
 		"name": "squash"
@@ -273,7 +273,7 @@
 		"name": "mel"
 	},
 	"frisee": {
-		"name": "frisee"
+		"name": "friséesalat"
 	},
 	"fructose": {
 		"name": "fruktose"
@@ -459,7 +459,7 @@
 		"name": "østers"
 	},
 	"panch-puran": {
-		"name": "panch puran"
+		"name": "panch phoron"
 	},
 	"paprika": {
 		"name": "paprikapulver"
@@ -515,7 +515,7 @@
 		"plural_name": "reddiker"
 	},
 	"raw-sugar": {
-		"name": "raw sugar"
+		"name": "brunt sukker"
 	},
 	"refined-sugar": {
 		"name": "raffinert sukker"
@@ -543,7 +543,7 @@
 	},
 	"scallion": {
 		"name": "vårløk",
-		"plural_name": "scallions"
+		"plural_name": "vårløk"
 	},
 	"seafood": {
 		"name": "sjømat"
@@ -588,11 +588,11 @@
 		"plural_name": "vårløker"
 	},
 	"squash": {
-		"name": "squash",
-		"plural_name": "squashes"
+		"name": "gresskar",
+		"plural_name": "gresskar"
 	},
 	"squash-family": {
-		"name": "squash family"
+		"name": "gresskarfamilien"
 	},
 	"stockfish": {
 		"name": "tørrfisk"
@@ -601,8 +601,8 @@
 		"name": "sukker"
 	},
 	"sunchoke": {
-		"name": "sunchoke",
-		"plural_name": "sunchokes"
+		"name": "jordskokk",
+		"plural_name": "jordskokker"
 	},
 	"sunflower-seeds": {
 		"name": "solsikkefrø"
