@@ -3,10 +3,10 @@
 		"name": "acorn squash"
 	},
 	"alfalfa-sprouts": {
-		"name": "alfalfa sprouts"
+		"name": "alfalfaspirer"
 	},
 	"anchovies": {
-		"name": "anchovies"
+		"name": "ansjos"
 	},
 	"apples": {
 		"name": "eple",
@@ -16,7 +16,7 @@
 		"name": "artisjokk"
 	},
 	"arugula": {
-		"name": "arugula"
+		"name": "ruccola"
 	},
 	"asparagus": {
 		"name": "asparges"
@@ -57,7 +57,7 @@
 		"name": "pak choi"
 	},
 	"brassicas": {
-		"name": "brassicas"
+		"name": "kålslekta"
 	},
 	"bread": {
 		"name": "brød"
@@ -72,7 +72,7 @@
 		"name": "brokkoli"
 	},
 	"broccoli-rabe": {
-		"name": "broccoli rabe"
+		"name": "rapini"
 	},
 	"broccolini": {
 		"name": "brokkolini"
@@ -129,7 +129,7 @@
 	},
 	"cauliflower": {
 		"name": "blomkål",
-		"plural_name": "cauliflowers"
+		"plural_name": "blomkål"
 	},
 	"cayenne-pepper": {
 		"name": "kayenne pepper"
@@ -191,7 +191,7 @@
 		"name": "collard greens"
 	},
 	"confectioners-sugar": {
-		"name": "confectioners' sugar"
+		"name": "melis"
 	},
 	"coriander": {
 		"name": "koriander"
