@@ -151,6 +151,24 @@
         </div>
       </div>
 
+      <!-- Create Item -->
+      <div v-if="createEditorOpen">
+        <ShoppingListItemEditor
+          v-model="createListItemData"
+          class="my-4"
+          :labels="allLabels || []"
+          :units="allUnits || []"
+          :foods="allFoods || []"
+          :allow-delete="false"
+          @delete="createEditorOpen = false"
+          @cancel="createEditorOpen = false"
+          @save="createListItem"
+        />
+      </div>
+      <div v-else class="d-flex justify-end">
+        <BaseButton create @click="createEditorOpen = true" > {{ $t('general.add') }} </BaseButton>
+      </div>
+
       <!-- Reorder Labels -->
       <BaseDialog
         v-model="reorderLabelsDialog"
@@ -176,23 +194,6 @@
           </draggable>
         </v-card>
       </BaseDialog>
-
-      <!-- Create Item -->
-      <div v-if="createEditorOpen">
-        <ShoppingListItemEditor
-          v-model="createListItemData"
-          class="my-4"
-          :labels="allLabels || []"
-          :units="allUnits || []"
-          :foods="allFoods || []"
-          @delete="createEditorOpen = false"
-          @cancel="createEditorOpen = false"
-          @save="createListItem"
-        />
-      </div>
-      <div v-else class="mt-4 d-flex justify-end">
-        <BaseButton create @click="createEditorOpen = true" > {{ $t('general.add') }} </BaseButton>
-      </div>
 
       <!-- Checked Items -->
       <div v-if="listItems.checked && listItems.checked.length > 0" class="mt-6">
@@ -833,7 +834,7 @@ export default defineComponent({
 
       loadingCounter.value += 1;
       recipeReferenceLoading.value = true;
-      const { data } = await userApi.shopping.lists.addRecipe(shoppingList.value.id, recipeId);
+      const { data } = await userApi.shopping.lists.addRecipes(shoppingList.value.id, [{ recipeId }]);
       recipeReferenceLoading.value = false;
       loadingCounter.value -= 1;
 

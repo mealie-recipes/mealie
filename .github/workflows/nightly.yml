@@ -18,13 +18,19 @@ concurrency:
 jobs:
   backend-tests:
     name: "Backend Server Tests"
-    uses: ./.github/workflows/partial-backend.yml
+    uses: ./.github/workflows/test-backend.yml
 
   frontend-tests:
     name: "Frontend Tests"
-    uses: ./.github/workflows/partial-frontend.yml
+    uses: ./.github/workflows/test-frontend.yml
 
-  build-release:
+  build-package:
+    name: Build Package
+    uses: ./.github/workflows/build-package.yml
+    with:
+      tag: nightly
+
+  publish:
     permissions:
       contents: read
       packages: write
@@ -35,10 +41,11 @@ jobs:
       id-token: write
     name: Build Tagged Release
     if: github.repository == 'mealie-recipes/mealie'
-    uses: ./.github/workflows/partial-builder.yml
+    uses: ./.github/workflows/publish.yml
     needs:
       - frontend-tests
       - backend-tests
+      - build-package
     with:
       tag: nightly
     secrets:
@@ -49,7 +56,7 @@ jobs:
     name: Notify Discord
     if: github.repository == 'mealie-recipes/mealie'
     needs:
-      - build-release
+      - publish
     runs-on: ubuntu-latest
     steps:
       - name: Discord notification

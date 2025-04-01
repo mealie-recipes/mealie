@@ -1,7 +1,7 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { RecipeIngredient } from "../types/recipe";
 import { ApiRequestInstance } from "~/lib/api/types/non-generated";
 import {
+  ShoppingListAddRecipeParamsBulk,
   ShoppingListCreate,
   ShoppingListItemCreate,
   ShoppingListItemOut,
@@ -16,7 +16,7 @@ const prefix = "/api";
 const routes = {
   shoppingLists: `${prefix}/households/shopping/lists`,
   shoppingListsId: (id: string) => `${prefix}/households/shopping/lists/${id}`,
-  shoppingListIdAddRecipe: (id: string, recipeId: string) => `${prefix}/households/shopping/lists/${id}/recipe/${recipeId}`,
+  shoppingListIdAddRecipe: (id: string) => `${prefix}/households/shopping/lists/${id}/recipe`,
   shoppingListIdRemoveRecipe: (id: string, recipeId: string) => `${prefix}/households/shopping/lists/${id}/recipe/${recipeId}/delete`,
   shoppingListIdUpdateLabelSettings: (id: string) => `${prefix}/households/shopping/lists/${id}/label-settings`,
 
@@ -29,8 +29,8 @@ export class ShoppingListsApi extends BaseCRUDAPI<ShoppingListCreate, ShoppingLi
   baseRoute = routes.shoppingLists;
   itemRoute = routes.shoppingListsId;
 
-  async addRecipe(itemId: string, recipeId: string, recipeIncrementQuantity = 1, recipeIngredients: RecipeIngredient[] | null = null) {
-    return await this.requests.post(routes.shoppingListIdAddRecipe(itemId, recipeId), { recipeIncrementQuantity, recipeIngredients });
+  async addRecipes(itemId: string, data: ShoppingListAddRecipeParamsBulk[]) {
+    return await this.requests.post(routes.shoppingListIdAddRecipe(itemId), data);
   }
 
   async removeRecipe(itemId: string, recipeId: string, recipeDecrementQuantity = 1) {

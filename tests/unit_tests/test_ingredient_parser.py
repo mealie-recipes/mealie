@@ -1,8 +1,7 @@
 import asyncio
 import json
-import shutil
 from dataclasses import dataclass
-from fractions import Fraction
+from typing import cast
 
 import pytest
 from pydantic import UUID4
@@ -12,6 +11,7 @@ from mealie.db.db_setup import session_context
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.openai.recipe_ingredient import OpenAIIngredient, OpenAIIngredients
+from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFood,
     CreateIngredientFoodAlias,
@@ -27,11 +27,8 @@ from mealie.schema.recipe.recipe_ingredient import (
 from mealie.schema.user.user import GroupBase
 from mealie.services.openai import OpenAIService
 from mealie.services.parser_services import RegisteredParser, get_parser
-from mealie.services.parser_services.crfpp.processor import (
-    CRFIngredient,
-    convert_list_to_crf_model,
-)
 from tests.utils.factories import random_int, random_string
+from tests.utils.fixture_schemas import TestUser
 
 
 @dataclass
@@ -41,10 +38,6 @@ class TestIngredient:
     unit: str
     food: str
     comments: str
-
-
-def crf_exists() -> bool:
-    return shutil.which("crf_test") is not None
 
 
 def build_parsed_ing(food: str | None, unit: str | None) -> ParsedIngredient:
@@ -132,32 +125,6 @@ def parsed_ingredient_data(
     )
 
     return foods, units
-
-
-# TODO - add more robust test cases
-test_ingredients = [
-    TestIngredient("½ cup all-purpose flour", 0.5, "cup", "all-purpose flour", ""),
-    TestIngredient("1 ½ teaspoons ground black pepper", 1.5, "teaspoon", "black pepper", "ground"),
-    TestIngredient("⅔ cup unsweetened flaked coconut", 0.667, "cup", "coconut", "unsweetened flaked"),
-    TestIngredient("⅓ cup panko bread crumbs", 0.333, "cup", "panko bread crumbs", ""),
-    # Small Fraction Tests - PR #1369
-    # Reported error is was for 1/8 - new lowest expected threshold is 1/32
-    TestIngredient("1/8 cup all-purpose flour", 0.125, "cup", "all-purpose flour", ""),
-    TestIngredient("1/32 cup all-purpose flour", 0.031, "cup", "all-purpose flour", ""),
-]
-
-
-@pytest.mark.skipif(not crf_exists(), reason="CRF++ not installed")
-def test_nlp_parser() -> None:
-    models: list[CRFIngredient] = convert_list_to_crf_model([x.input for x in test_ingredients])
-
-    # Iterate over models and test_ingredients to gather
-    for model, test_ingredient in zip(models, test_ingredients, strict=False):
-        assert round(float(sum(Fraction(s) for s in model.qty.split())), 3) == pytest.approx(test_ingredient.quantity)
-
-        assert model.comment == test_ingredient.comments
-        assert model.name == test_ingredient.food
-        assert model.unit == test_ingredient.unit
 
 
 @pytest.mark.parametrize(
@@ -484,3 +451,52 @@ def test_openai_parser(
         assert len(parsed) == ingredient_count
         for input, output in zip(inputs, parsed, strict=True):
             assert output.input == input
+
+
+def test_openai_parser_sanitize_output(
+    unique_local_group_id: UUID4,
+    unique_user: TestUser,
+    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
+    monkeypatch: pytest.MonkeyPatch,
+):
+    async def mock_get_response(self, prompt: str, message: str, *args, **kwargs) -> str | None:
+        data = OpenAIIngredients(
+            ingredients=[
+                OpenAIIngredient(
+                    input="there is a null character here: \x00",
+                    confidence=1,
+                    quantity=random_int(0, 10),
+                    unit="",
+                    food="there is a null character here: \x00",
+                    note="",
+                )
+            ]
+        )
+        return data.model_dump_json()
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    with session_context() as session:
+        loop = asyncio.get_event_loop()
+        parser = get_parser(RegisteredParser.openai, unique_local_group_id, session)
+
+        parsed = loop.run_until_complete(parser.parse([""]))
+        assert len(parsed) == 1
+        parsed_ing = cast(ParsedIngredient, parsed[0])
+        assert parsed_ing.input
+        assert "\x00" not in parsed_ing.input
+
+        # Make sure we can create a recipe with this ingredient
+        assert isinstance(parsed_ing.ingredient.food, CreateIngredientFood)
+        food = unique_user.repos.ingredient_foods.create(
+            parsed_ing.ingredient.food.cast(SaveIngredientFood, group_id=unique_user.group_id)
+        )
+        parsed_ing.ingredient.food = food
+        unique_user.repos.recipes.create(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                recipe_ingredient=[parsed_ing.ingredient],
+            )
+        )

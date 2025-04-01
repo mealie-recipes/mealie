@@ -16,19 +16,15 @@ jobs:
 
   backend-tests:
     name: "Backend Server Tests"
-    uses: ./.github/workflows/partial-backend.yml
+    uses: ./.github/workflows/test-backend.yml
 
   frontend-tests:
     name: "Frontend Tests"
-    uses: ./.github/workflows/partial-frontend.yml
+    uses: ./.github/workflows/test-frontend.yml
 
   container-scanning:
     name: "Trivy Container Scanning"
     uses: ./.github/workflows/partial-trivy-container-scanning.yml
-
-  end-to-end:
-    name: "End-to-End Tests"
-    uses: ./.github/workflows/e2e.yml
 
   code-ql:
     name: "CodeQL"
@@ -37,3 +33,33 @@ jobs:
       actions: read
       contents: read
       security-events: write
+
+  build-package:
+    name: "Build Python package"
+    uses: ./.github/workflows/build-package.yml
+    with:
+      tag: e2e
+
+  end-to-end:
+    name: "End-to-End Tests"
+    needs: build-package
+    uses: ./.github/workflows/e2e.yml
+
+  publish-image:
+    name: "Publish PR Image"
+    if: contains(github.event.pull_request.labels.*.name, 'build-image')
+    permissions:
+      contents: read
+      packages: write
+      # The id-token write permission is needed to connect to Depot.dev
+      # as part of the partial-builder.yml action. It needs to be declared
+      # in the parent action, as noted here:
+      # https://github.com/orgs/community/discussions/76409#discussioncomment-8131390
+      id-token: write
+    needs: build-package
+    uses: ./.github/workflows/publish.yml
+    with:
+      tag: pr-${{ github.event.pull_request.number }}
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}

@@ -579,7 +579,6 @@
     "made-this": "Ich hab's gemacht",
     "how-did-it-turn-out": "Wie ist es geworden?",
     "user-made-this": "{user} hat's gemacht",
-    "last-made-date": "Zuletzt gemacht {date}",
     "api-extras-description": "Rezepte-Extras sind ein Hauptmerkmal der Mealie API. Sie ermöglichen es dir, benutzerdefinierte JSON Key-Value-Paare zu einem Rezept zu erstellen, um Drittanbieter-Anwendungen zu steuern. Du kannst diese dazu verwenden, um Automatisierungen auszulösen oder benutzerdefinierte Nachrichten an bestimmte Geräte zu senden.",
     "message-key": "Nachrichten-Schlüssel",
     "parse": "Parsen",
@@ -647,7 +646,6 @@
     "nextStep": "Nächster Schritt",
     "recipe-actions": "Rezept-Aktionen",
     "parser": {
-      "experimental-alert-text": "Mealie verwendet natürliche Sprachverarbeitung (NLP), um Einheiten und Lebensmittel für deine Zutatenliste zu parsen. Diese Funktion ist experimentell und funktioniert möglicherweise nicht immer wie sie sollte. Wenn du die Parser-Ergebnisse nicht verwenden möchtest, wähle 'Abbrechen' und deine Änderungen werden nicht gespeichert.",
       "ingredient-parser": "Zutaten-Parser",
       "explanation": "Um den Zutaten-Parser zu verwenden, klicke auf den Button 'Alles parsen', um den Vorgang zu starten. Nachdem die Zutaten analysiert worden sind, kannst du überprüfen, ob die Einträge korrekt erkannt wurden. Der vom Modell errechnete Zuverlässigkeitswert wird rechts neben der Zutat angezeigt. Diese Angabe ist ein Durchschnitt der Einzelwerte und möglicherweise nicht immer ganz korrekt.",
       "alerts-explainer": "Es werden Warnungen angezeigt, wenn ein passendes Lebensmittel oder eine Einheit gefunden wurde, aber in der Datenbank nicht vorhanden ist.",
@@ -722,7 +720,7 @@
       "backup-restore": "Wiederherstellen aus Sicherung",
       "back-restore-description": "Das Wiederherstellen dieser Sicherung wird alle vorhandenen Daten in deiner Datenbank und im Datenverzeichnis überschreiben und durch den Inhalt dieser Sicherung ersetzen. {cannot-be-undone} Wenn die Wiederherstellung erfolgreich war, wirst du abgemeldet.",
       "cannot-be-undone": "Diese Aktion kann nicht rückgängig gemacht werden - verwende sie mit Vorsicht.",
-      "postgresql-note": "Wenn du PostGreSQL verwendest, überprüfe bitte den {backup-restore-process} vor der Wiederherstellung.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "Sichern- und Wiederherstellen-Prozess in der Dokumentation",
       "irreversible-acknowledgment": "Ich verstehe, dass diese Maßnahme unumkehrbar und destruktiv ist und Datenverlust verursachen kann",
       "restore-backup": "Sicherung wiederherstellen"
@@ -1050,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Zusammenführen der ausgewählten Lebensmittel führt diese zusammen in ein einzelnes Lebensmittel. Die Ausgangslebensmittel werden gelöscht und alle Verweise werden auf das zusammengeführte Lebensmittel angepasst.",
       "merge-food-example": "{food1} wird zu {food2} zusammengeführt",
-      "seed-dialog-text": "Füllt die Datenbank mit Lebensmitteln basierend auf deiner Landessprache. Dadurch werden mehr als 200 gängige Lebensmittel eingetragen, die verwendet werden können, um die Datenbank zu organisieren. Die Speisen werden über eine Gemeinschaftsleistung übersetzt.",
-      "seed-dialog-warning": "Du hast bereits einige Elemente in deiner Datenbank. Diese Aktion wird Duplikate nicht ausgleichen, du musst sie manuell verwalten.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Lebensmittel zusammenführen",
       "source-food": "Quell-Lebensmittel",
       "target-food": "Ziel-Lebensmittel",

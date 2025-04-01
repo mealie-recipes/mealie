@@ -3,13 +3,13 @@
 		"name": "eikelpompoen"
 	},
 	"alfalfa-sprouts": {
-		"name": "kiemgroente"
+		"name": "alfalfa kiemgroenten"
 	},
 	"anchovies": {
-		"name": "ansjovis"
+		"name": "ansjovisfilet"
 	},
 	"apples": {
-		"name": "appels",
+		"name": "appel",
 		"plural_name": "appels"
 	},
 	"artichoke": {
@@ -19,26 +19,26 @@
 		"name": "rucola"
 	},
 	"asparagus": {
-		"name": "asperge"
+		"name": "asperges"
 	},
 	"avocado": {
 		"name": "avocado",
 		"plural_name": "avocado"
 	},
 	"bacon": {
-		"name": "spek"
+		"name": "spek\nontbijtspek\nbacon"
 	},
 	"baking-powder": {
 		"name": "bakpoeder"
 	},
 	"baking-soda": {
-		"name": "baksoda"
+		"name": "natriumbicarbonaat\nzuiveringszout"
 	},
 	"baking-sugar": {
-		"name": "bak suiker"
+		"name": "witte suiker"
 	},
 	"bar-sugar": {
-		"name": "rietsuiker"
+		"name": "bar sugar"
 	},
 	"basil": {
 		"name": "basilicum"
@@ -47,23 +47,23 @@
 		"name": "bonen"
 	},
 	"bell-peppers": {
-		"name": "paprika",
-		"plural_name": "paprika"
+		"name": "paprikas",
+		"plural_name": "paprikas"
 	},
 	"blackberries": {
-		"name": "braambessen"
+		"name": "zwarte bessen"
 	},
 	"bok-choy": {
 		"name": "paksoi"
 	},
 	"brassicas": {
-		"name": "kool"
+		"name": "brassicas"
 	},
 	"bread": {
 		"name": "brood"
 	},
 	"breadfruit": {
-		"name": "broodvruchten"
+		"name": "broodvrucht"
 	},
 	"broccoflower": {
 		"name": "romanesco"
@@ -72,7 +72,7 @@
 		"name": "broccoli"
 	},
 	"broccoli-rabe": {
-		"name": "rapini"
+		"name": "broccoli rabe"
 	},
 	"broccolini": {
 		"name": "broccolini"
@@ -87,10 +87,10 @@
 		"name": "boter"
 	},
 	"butternut-pumpkin": {
-		"name": "butternut pompoen"
+		"name": "flespompoen"
 	},
 	"butternut-squash": {
-		"name": "butternut pompoen"
+		"name": "flespompoen"
 	},
 	"cabbage": {
 		"name": "kool",
@@ -122,7 +122,7 @@
 		"name": "basterdsuiker"
 	},
 	"castor-sugar": {
-		"name": "basterdsuiker"
+		"name": "castor sugar"
 	},
 	"catfish": {
 		"name": "meerval"
@@ -243,7 +243,7 @@
 		"plural_name": "aubergines"
 	},
 	"eggs": {
-		"name": "eieren",
+		"name": "ei",
 		"plural_name": "eieren"
 	},
 	"endive": {
@@ -260,8 +260,8 @@
 		"name": "varenkrul"
 	},
 	"fiddlehead-fern": {
-		"name": "varenkrul",
-		"plural_name": "varenkrul"
+		"name": "fiddlehead fern",
+		"plural_name": "fiddlehead ferns"
 	},
 	"fish": {
 		"name": "vis"
@@ -285,7 +285,7 @@
 		"name": "fruit suiker"
 	},
 	"ful": {
-		"name": "peul"
+		"name": "ful"
 	},
 	"garam-masala": {
 		"name": "garam masala"
@@ -295,7 +295,7 @@
 		"plural_name": "knoflook"
 	},
 	"gem-squash": {
-		"name": "citroenpompoen"
+		"name": "gem squash"
 	},
 	"ghee": {
 		"name": "geklaarde boter"
@@ -320,8 +320,8 @@
 		"plural_name": "groene uien"
 	},
 	"heart-of-palm": {
-		"name": "hart van palm",
-		"plural_name": "hart van palm"
+		"name": "palmhart",
+		"plural_name": "palmharten"
 	},
 	"hemp": {
 		"name": "hennep"
@@ -418,14 +418,14 @@
 		"name": "nootmuskaat"
 	},
 	"nutritional-yeast-flakes": {
-		"name": "gistvlokken"
+		"name": "edelgistvlokken"
 	},
 	"nuts": {
 		"name": "noten"
 	},
 	"octopuses": {
-		"name": "octopussen",
-		"plural_name": "octopussen"
+		"name": "inktvis",
+		"plural_name": "inktvissen"
 	},
 	"oils": {
 		"name": "oliën"
@@ -446,7 +446,7 @@
 		"name": "uien familie"
 	},
 	"orange-blossom-water": {
-		"name": "sinaasappelbloesem"
+		"name": "oranjebloesemwater"
 	},
 	"oranges": {
 		"name": "sinaasappel",
@@ -456,7 +456,7 @@
 		"name": "oregano"
 	},
 	"oysters": {
-		"name": "oester"
+		"name": "oesters"
 	},
 	"panch-puran": {
 		"name": "panch puran"
@@ -629,7 +629,7 @@
 		"plural_name": "taroes"
 	},
 	"teff": {
-		"name": "abessijns liefdegras"
+		"name": "teff"
 	},
 	"tomato": {
 		"name": "tomaat",

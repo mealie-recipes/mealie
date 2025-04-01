@@ -31,6 +31,4 @@ venv
 */mealie/.temp
 /mealie/frontend/
 
-model.crfmodel
-
 crowdin.yml

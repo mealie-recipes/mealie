@@ -35,7 +35,7 @@ Mealie has a robust and flexible recipe organization system with a few different
 
 #### Categories
 
-Categories are the overarching organizer for recipes. You can assign as many categories as you'd like to a recipe, but we recommend that you try to limit the categories you assign to a recipe to one or two. This helps keep categories as focused as possible while still allowing you to find recipes that are related to each other. For example, you might assign a recipe to the category **Breakfast**, **Lunch**, **Dinner**, or **Side**.
+Categories are the overarching organizer for recipes. You can assign as many categories as you'd like to a recipe, but we recommend that you try to limit the categories you assign to a recipe to one or two. This helps keep categories as focused as possible while still allowing you to find recipes that are related to each other. For example, you might assign a recipe to the category **Breakfast**, **Lunch**, **Dinner**, **Side**, or **Drinks**.
 
 [Categories Demo](https://demo.mealie.io/g/home/recipes/categories){ .md-button .md-button--primary }
 
@@ -84,7 +84,30 @@ The meal planner has the concept of plan rules. These offer a flexible way to us
 
 The shopping lists feature is a great way to keep track of what you need to buy for your next meal. You can add items directly to the shopping list or link a recipe and all of it's ingredients to track meals during the week.
 
+Managing shopping lists can be done from the Sidebar > Shopping Lists. 
 
+Here you will be able to:
+- See items already on the Shopping List
+- See linked recipes with ingredients
+    - Toggling via the 'Pot' icon will show you the linked recipe, allowing you to click to access it. 
+- Check off an item
+- Add / Change / Remove / Sort Items via the grid icon
+    - Be sure if you are modifying an ingredient to click the 'Save' icon.
+- Add / Change / Remove / Sort Labels
+    - 'No Label' will always be on the top, others can be Reordered via the 'Reorder Labels' button
+
+!!! tip
+    If you accidentally checked off an item, you can uncheck it by expanding 'items checked' and unchecking it. This will add it back to the Shopping List.
+
+!!! tip
+    You can use Labels to categorize your ingredients. You may want to Label by Food Type (Frozen, Fresh, etc), by Store, Tool, Recipe, or more. Play around with this to see what works best for you.
+    
+!!! tip
+    You can toggle 'Food' on items so that if you add multiple of the same food / ingredient, Mealie will automatically combine them together. Do this by editing an item in the Shopping List and clicking the 'Apple' icon. If you then have recipes that contain "1 | cup | cheese" and "2 | cup | cheese" this would be combined to show "3 cups of cheese."
+
+[See FAQ for more information](../getting-started/faq.md)
+
+    
 [Shopping List Demo](https://demo.mealie.io/shopping-lists){ .md-button .md-button--primary }
 
 ## Integrations
@@ -94,9 +117,9 @@ Mealie is designed to integrate with many different external services. There are
 ### Notifiers
 
 Notifiers are event-driven notifications sent when specific actions are performed within Mealie. Some actions include:
-- creating a recipe
-- adding items to a shopping list
-- creating a new mealplan
+- Creating / Updating a recipe
+- Adding items to a shopping list
+- Creating a new mealplan
 
 Notifiers use the [Apprise library](https://github.com/caronc/apprise/wiki), which integrates with a large number of notification services. In addition, certain custom notifiers send basic event data to the consumer (e.g. the `id` of the resource). These include:
 
