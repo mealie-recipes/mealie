@@ -292,7 +292,7 @@
     "admin-household-management-text": "Endringer i denne husholdningen vil umiddelbart gjelde.",
     "household-id-value": "Husholdningens id: {0}",
     "private-household": "Privat husholdning",
-    "private-household-description": "Setting your household to private will disable all public view options. This overrides any individual public view settings",
+    "private-household-description": "Når du setter husholdningen din til privat, vil alle offentlige visningsalternativer tilbakestilles til standardverdiene. Dette overskriver envher individuell offentlig visningsinnstilling",
     "lock-recipe-edits-from-other-households": "Lås redigering av oppskrifter fra andre husholdninger",
     "lock-recipe-edits-from-other-households-description": "Når dette er aktivert kan bare brukere i husholdningen din redigere oppskrifter laget av husholdningen din",
     "household-recipe-preferences": "Husholdningenes oppskriftsinnstillinger",
