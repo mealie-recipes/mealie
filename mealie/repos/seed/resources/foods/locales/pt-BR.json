@@ -29,7 +29,7 @@
 		"name": "bacon"
 	},
 	"baking-powder": {
-		"name": "baking powder"
+		"name": "fermento em pó"
 	},
 	"baking-soda": {
 		"name": "bicarbonato de sódio"
@@ -38,7 +38,7 @@
 		"name": "açúcar de confeiteiro"
 	},
 	"bar-sugar": {
-		"name": "bar sugar"
+		"name": "barra de açúcar"
 	},
 	"basil": {
 		"name": "basil"
@@ -47,17 +47,17 @@
 		"name": "feijão"
 	},
 	"bell-peppers": {
-		"name": "bell peppers",
-		"plural_name": "bell peppers"
+		"name": "pimentão",
+		"plural_name": "pimentões"
 	},
 	"blackberries": {
 		"name": "amora"
 	},
 	"bok-choy": {
-		"name": "bok choy"
+		"name": "acelga chinesa"
 	},
 	"brassicas": {
-		"name": "brassicas"
+		"name": "brássicas"
 	},
 	"bread": {
 		"name": "pão"
@@ -75,7 +75,7 @@
 		"name": "rapini"
 	},
 	"broccolini": {
-		"name": "broccolini"
+		"name": "brócolis bebê"
 	},
 	"brown-sugar": {
 		"name": "açúcar mascavo"
@@ -103,7 +103,7 @@
 		"name": "calabresa"
 	},
 	"cane-sugar": {
-		"name": "cane sugar"
+		"name": "cana de açúcar"
 	},
 	"cannabis": {
 		"name": "maconha"
