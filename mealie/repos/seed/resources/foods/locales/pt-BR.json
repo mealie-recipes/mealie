@@ -1,6 +1,6 @@
 {
 	"acorn-squash": {
-		"name": "acorn squash"
+		"name": "abóbora-bolota"
 	},
 	"alfalfa-sprouts": {
 		"name": "broto de alfafa"
@@ -132,7 +132,7 @@
 		"plural_name": "couves-flores"
 	},
 	"cayenne-pepper": {
-		"name": "cayenne pepper"
+		"name": "pimenta caiena"
 	},
 	"celeriac": {
 		"name": "aipo-rábano"
@@ -188,13 +188,13 @@
 		"name": "café"
 	},
 	"collard-greens": {
-		"name": "collard greens"
+		"name": "couve-galega"
 	},
 	"confectioners-sugar": {
 		"name": "açúcar de confeiteiro"
 	},
 	"coriander": {
-		"name": "coriander"
+		"name": "coentro"
 	},
 	"corn": {
 		"name": "milho",
@@ -224,7 +224,7 @@
 		"plural_name": "rabanetes brancos"
 	},
 	"dairy-products-and-dairy-substitutes": {
-		"name": "dairy products and dairy substitutes"
+		"name": "produtos lácteos e substitutos de leite"
 	},
 	"dandelion": {
 		"name": "dente-de-leão"
@@ -267,7 +267,7 @@
 		"name": "peixe"
 	},
 	"five-spice-powder": {
-		"name": "five spice powder"
+		"name": "cinco-perfumes-chineses"
 	},
 	"flour": {
 		"name": "farinha"
@@ -295,13 +295,13 @@
 		"plural_name": "alhos"
 	},
 	"gem-squash": {
-		"name": "gem squash"
+		"name": "abóbora coroa"
 	},
 	"ghee": {
-		"name": "ghee"
+		"name": "manteiga ghee"
 	},
 	"giblets": {
-		"name": "giblets"
+		"name": "miúdos de aves"
 	},
 	"ginger": {
 		"name": "gengibre"
@@ -320,7 +320,7 @@
 		"plural_name": "cebolinhas"
 	},
 	"heart-of-palm": {
-		"name": "heart of palm",
+		"name": "palmito",
 		"plural_name": "palmito"
 	},
 	"hemp": {
@@ -358,13 +358,13 @@
 		"name": "couve"
 	},
 	"kohlrabi": {
-		"name": "kohlrabi"
+		"name": "couve-rábano"
 	},
 	"kumara": {
 		"name": "batata doce kumara"
 	},
 	"leavening-agents": {
-		"name": "leavening agents"
+		"name": "fermentos"
 	},
 	"leek": {
 		"name": "alho-poró",
@@ -409,7 +409,7 @@
 		"name": "mexilhões"
 	},
 	"nanaimo-bar-mix": {
-		"name": "nanaimo bar mix"
+		"name": "mix de barra de nanaimo"
 	},
 	"nori": {
 		"name": "alga nori"
@@ -418,7 +418,7 @@
 		"name": "noz-moscada"
 	},
 	"nutritional-yeast-flakes": {
-		"name": "nutritional yeast flakes"
+		"name": "levedura nutricional em flocos"
 	},
 	"nuts": {
 		"name": "nozes"
@@ -431,7 +431,7 @@
 		"name": "óleo"
 	},
 	"okra": {
-		"name": "okra"
+		"name": "quiabo"
 	},
 	"olive": {
 		"name": "azeitona"
@@ -446,7 +446,7 @@
 		"name": "cebolas"
 	},
 	"orange-blossom-water": {
-		"name": "orange blossom water"
+		"name": "água-de-flor-de-laranjeira"
 	},
 	"oranges": {
 		"name": "laranja",
@@ -459,7 +459,7 @@
 		"name": "ostras"
 	},
 	"panch-puran": {
-		"name": "panch puran"
+		"name": "panch phoron"
 	},
 	"paprika": {
 		"name": "páprica"
