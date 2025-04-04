@@ -198,7 +198,7 @@
 	},
 	"corn": {
 		"name": "granoturco",
-		"plural_name": "corns"
+		"plural_name": "mais"
 	},
 	"corn-syrup": {
 		"name": "corn syrup"
@@ -217,14 +217,14 @@
 		"plural_name": "cetrioli"
 	},
 	"cumin": {
-		"name": "cumin"
+		"name": "cumino"
 	},
 	"daikon": {
 		"name": "daikon",
 		"plural_name": "daikons"
 	},
 	"dairy-products-and-dairy-substitutes": {
-		"name": "dairy products and dairy substitutes"
+		"name": "latticini e sostituti dei latticini"
 	},
 	"dandelion": {
 		"name": "tarassaco"
@@ -236,7 +236,7 @@
 		"name": "impasto"
 	},
 	"edible-cactus": {
-		"name": "edible cactus"
+		"name": "cactus edibile"
 	},
 	"eggplant": {
 		"name": "melanzana",
@@ -324,16 +324,16 @@
 		"plural_name": "heart of palms"
 	},
 	"hemp": {
-		"name": "hemp"
+		"name": "canapa"
 	},
 	"herbs": {
-		"name": "herbs"
+		"name": "erbe aromatiche"
 	},
 	"honey": {
 		"name": "miele"
 	},
 	"isomalt": {
-		"name": "isomalt"
+		"name": "isomaltosio"
 	},
 	"jackfruit": {
 		"name": "jackfruit",
@@ -343,10 +343,10 @@
 		"name": "jaggery"
 	},
 	"jams": {
-		"name": "jams"
+		"name": "marmellate"
 	},
 	"jellies": {
-		"name": "jellies"
+		"name": "gelatine"
 	},
 	"jerusalem-artichoke": {
 		"name": "jerusalem artichoke"
@@ -367,14 +367,14 @@
 		"name": "leavening agents"
 	},
 	"leek": {
-		"name": "leek",
-		"plural_name": "leeks"
+		"name": "porro",
+		"plural_name": "porri"
 	},
 	"legumes": {
 		"name": "legumi"
 	},
 	"lemongrass": {
-		"name": "lemongrass"
+		"name": "citronella"
 	},
 	"lentils": {
 		"name": "lenticchie"
@@ -431,7 +431,7 @@
 		"name": "oli"
 	},
 	"okra": {
-		"name": "okra"
+		"name": "ocra"
 	},
 	"olive": {
 		"name": "oliva"
@@ -546,17 +546,17 @@
 		"plural_name": "scallions"
 	},
 	"seafood": {
-		"name": "seafood"
+		"name": "frutti di mare"
 	},
 	"seeds": {
-		"name": "seeds"
+		"name": "semi"
 	},
 	"sesame-seeds": {
-		"name": "sesame seeds"
+		"name": "semi di sesamo"
 	},
 	"shallot": {
-		"name": "shallot",
-		"plural_name": "shallots"
+		"name": "scalogno",
+		"plural_name": "scalogni"
 	},
 	"skate": {
 		"name": "skate"
@@ -565,10 +565,10 @@
 		"name": "soda"
 	},
 	"soda-baking": {
-		"name": "soda, baking"
+		"name": "bicarbonato di sodio"
 	},
 	"soybean": {
-		"name": "soybean"
+		"name": "soia"
 	},
 	"spaghetti-squash": {
 		"name": "spaghetti squash",
@@ -581,7 +581,7 @@
 		"name": "spezie"
 	},
 	"spinach": {
-		"name": "spinach"
+		"name": "spinaci"
 	},
 	"spring-onion": {
 		"name": "spring onion",
@@ -670,10 +670,10 @@
 	},
 	"white-mushroom": {
 		"name": "fungo bianco",
-		"plural_name": "white mushrooms"
+		"plural_name": "funghi bianchi"
 	},
 	"white-sugar": {
-		"name": "white sugar"
+		"name": "zucchero bianco"
 	},
 	"xanthan-gum": {
 		"name": "xanthan gum"
@@ -683,10 +683,10 @@
 		"plural_name": "yams"
 	},
 	"yeast": {
-		"name": "yeast"
+		"name": "lievito"
 	},
 	"zucchini": {
 		"name": "zucchini",
-		"plural_name": "zucchinis"
+		"plural_name": "zucchine"
 	}
 }
