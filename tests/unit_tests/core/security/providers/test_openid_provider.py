@@ -1,8 +1,10 @@
-import pytest
-from pytest import MonkeyPatch, Session
 import logging
 
+import pytest
+from pytest import MonkeyPatch, Session
+
 from mealie.core.config import get_app_settings
+from mealie.core.exceptions import MissingClaimException
 from mealie.core.security.providers.openid_provider import OpenIDProvider
 from mealie.repos.all_repositories import get_repositories
 from tests.utils.factories import random_email, random_string
@@ -12,13 +14,15 @@ from tests.utils.fixture_schemas import TestUser
 def test_no_claims():
     auth_provider = OpenIDProvider(None, None)
 
-    assert auth_provider.authenticate() is None
+    with pytest.raises(MissingClaimException):
+        auth_provider.authenticate()
 
 
 def test_empty_claims():
     auth_provider = OpenIDProvider(None, {})
 
-    assert auth_provider.authenticate() is None
+    with pytest.raises(MissingClaimException):
+        auth_provider.authenticate()
 
 
 def test_empty_required_claims():
@@ -30,14 +34,16 @@ def test_empty_required_claims():
     }
     auth_provider = OpenIDProvider(None, data)
 
-    assert auth_provider.authenticate() is None
+    with pytest.raises(MissingClaimException):
+        auth_provider.authenticate()
 
 
 def test_missing_claims():
     data = {"preferred_username": "dude1"}
     auth_provider = OpenIDProvider(None, data)
 
-    assert auth_provider.authenticate() is None
+    with pytest.raises(MissingClaimException):
+        auth_provider.authenticate()
 
 
 def test_missing_groups_claim(monkeypatch: MonkeyPatch):
@@ -51,7 +57,8 @@ def test_missing_groups_claim(monkeypatch: MonkeyPatch):
     }
     auth_provider = OpenIDProvider(None, data)
 
-    assert auth_provider.authenticate() is None
+    with pytest.raises(MissingClaimException):
+        auth_provider.authenticate()
 
 
 def test_missing_user_group(monkeypatch: MonkeyPatch):

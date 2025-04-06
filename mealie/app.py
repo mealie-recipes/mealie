@@ -1,3 +1,12 @@
+import re
+import warnings
+
+# pyrdfa3 is no longer being updated and has docstrings that emit syntax warnings
+warnings.filterwarnings(
+    "ignore", module=".*pyRdfa", category=SyntaxWarning, message=re.escape("invalid escape sequence '\\-'")
+)
+
+# ruff: noqa: E402
 from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
 
@@ -115,6 +124,7 @@ register_debug_handler(app)
 
 async def start_scheduler():
     SchedulerRegistry.register_daily(
+        tasks.purge_expired_tokens,
         tasks.purge_group_registration,
         tasks.purge_password_reset_tokens,
         tasks.purge_group_data_exports,

@@ -390,6 +390,11 @@ def households_shopping_lists_item_id_label_settings(item_id):
     return f"{prefix}/households/shopping/lists/{item_id}/label-settings"
 
 
+def households_shopping_lists_item_id_recipe(item_id):
+    """`/api/households/shopping/lists/{item_id}/recipe`"""
+    return f"{prefix}/households/shopping/lists/{item_id}/recipe"
+
+
 def households_shopping_lists_item_id_recipe_recipe_id(item_id, recipe_id):
     """`/api/households/shopping/lists/{item_id}/recipe/{recipe_id}`"""
     return f"{prefix}/households/shopping/lists/{item_id}/recipe/{recipe_id}"

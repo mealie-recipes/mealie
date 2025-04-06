@@ -31,7 +31,7 @@
     },
     "quart": {
         "name": "quart",
-        "plural_name": "quarts",
+        "plural_name": "quart",
         "description": "",
         "abbreviation": "qt"
     },

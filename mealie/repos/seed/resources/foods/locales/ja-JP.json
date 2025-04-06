@@ -3,7 +3,7 @@
 		"name": "どんぐりかぼちゃ"
 	},
 	"alfalfa-sprouts": {
-		"name": "アルファルファもやし"
+		"name": "アルファルファスプラウト"
 	},
 	"anchovies": {
 		"name": "アンチョビ"
@@ -109,7 +109,7 @@
 		"name": "大麻"
 	},
 	"capsicum": {
-		"name": "トウガラシ"
+		"name": "トウガラシ属"
 	},
 	"caraway": {
 		"name": "キャラウェイ"
@@ -119,10 +119,10 @@
 		"plural_name": "人参"
 	},
 	"caster-sugar": {
-		"name": "微粒子グラニュー糖"
+		"name": "上白糖"
 	},
 	"castor-sugar": {
-		"name": "微粒子グラニュー糖"
+		"name": "上白糖"
 	},
 	"catfish": {
 		"name": "ナマズ"
@@ -153,7 +153,7 @@
 		"name": "チコリー"
 	},
 	"chilli-peppers": {
-		"name": "チリペッパー",
+		"name": "唐辛子",
 		"plural_name": "唐辛子"
 	},
 	"chinese-leaves": {
@@ -368,7 +368,7 @@
 	},
 	"leek": {
 		"name": "ねぎ",
-		"plural_name": "セイヨウネギ"
+		"plural_name": "ねぎ"
 	},
 	"legumes": {
 		"name": "マメ"
@@ -418,7 +418,7 @@
 		"name": "ナツメグ"
 	},
 	"nutritional-yeast-flakes": {
-		"name": "ナショナルイーストフレーク"
+		"name": "ニュートリショナル・イースト"
 	},
 	"nuts": {
 		"name": "ナッツ"
@@ -437,7 +437,7 @@
 		"name": "オリーブ"
 	},
 	"olive-oil": {
-		"name": "オリーブ油"
+		"name": "オリーブオイル"
 	},
 	"onion": {
 		"name": "玉ねぎ"
@@ -446,7 +446,7 @@
 		"name": "タマネギの仲間"
 	},
 	"orange-blossom-water": {
-		"name": "オレンジの花の水"
+		"name": "オレンジ花水"
 	},
 	"oranges": {
 		"name": "オレンジ",
@@ -472,8 +472,8 @@
 		"plural_name": "パースニップ"
 	},
 	"pear": {
-		"name": "ナシ",
-		"plural_name": "ナシ"
+		"name": "梨",
+		"plural_name": "梨"
 	},
 	"peas": {
 		"name": "豆"
@@ -498,24 +498,24 @@
 		"plural_name": "ジャガイモ"
 	},
 	"poultry": {
-		"name": "鶏肉"
+		"name": "家禽"
 	},
 	"powdered-sugar": {
 		"name": "粉糖"
 	},
 	"pumpkin": {
 		"name": "カボチャ",
-		"plural_name": "ペポかぼちゃ"
+		"plural_name": "カボチャ"
 	},
 	"pumpkin-seeds": {
 		"name": "かぼちゃの種"
 	},
 	"radish": {
 		"name": "大根",
-		"plural_name": "ハツカダイコン"
+		"plural_name": "大根"
 	},
 	"raw-sugar": {
-		"name": "生の砂糖"
+		"name": "生砂糖"
 	},
 	"refined-sugar": {
 		"name": "精製糖"
@@ -572,7 +572,7 @@
 	},
 	"spaghetti-squash": {
 		"name": "スパゲッティスカッシュ",
-		"plural_name": "キンシウリ"
+		"plural_name": "スパゲッティスカッシュ"
 	},
 	"speck": {
 		"name": "スペック"
@@ -625,7 +625,7 @@
 		"name": "タヒニ"
 	},
 	"taro": {
-		"name": "タロ芋",
+		"name": "タロイモ",
 		"plural_name": "タロイモ"
 	},
 	"teff": {
@@ -639,7 +639,7 @@
 		"name": "マス"
 	},
 	"tubers": {
-		"name": "球根",
+		"name": "塊茎",
 		"plural_name": "塊茎"
 	},
 	"tuna": {

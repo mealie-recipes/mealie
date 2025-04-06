@@ -292,5 +292,9 @@ class ShoppingListAddRecipeParams(MealieModel):
     """optionally override which ingredients are added from the recipe"""
 
 
+class ShoppingListAddRecipeParamsBulk(ShoppingListAddRecipeParams):
+    recipe_id: UUID4
+
+
 class ShoppingListRemoveRecipeParams(MealieModel):
     recipe_decrement_quantity: float = 1

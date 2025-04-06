@@ -148,7 +148,7 @@
     ```shell
     docker exec -it mealie bash
 
-    python /app/mealie/scripts/reset_locked_users.py
+    python /opt/mealie/lib64/python3.12/site-packages/mealie/scripts/reset_locked_users.py
     ```
 
 
@@ -161,7 +161,7 @@
     ```shell
     docker exec -it mealie bash
 
-    python /app/mealie/scripts/make_admin.py
+    python /opt/mealie/lib64/python3.12/site-packages/mealie/scripts/make_admin.py
     ```
 
 
@@ -174,7 +174,7 @@
     ```shell
     docker exec -it mealie bash
 
-    python /app/mealie/scripts/change_password.py
+    python /opt/mealie/lib64/python3.12/site-packages/mealie/scripts/change_password.py
     ```
 
 
