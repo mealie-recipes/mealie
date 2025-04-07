@@ -1,9 +1,9 @@
 !!! info
   This guide was submitted by a community member. Find something wrong? Submit a PR to get it fixed!
 
-An easy way to add recipes to Mealie from an Apple device is via an Apple Shortcut. This is a short guide to install an configure a shortcut able to add recipes via a link or image. 
+An easy way to add recipes to Mealie from an Apple device is via an Apple Shortcut. This is a short guide to install an configure a shortcut able to add recipes via a link or image(s). 
 
-*Note: if adding via an image make sure to enable [Mealie's openai integration](https://docs.mealie.io/documentation/getting-started/installation/open-ai/)*
+*Note: if adding via images make sure to enable [Mealie's openai integration](https://docs.mealie.io/documentation/getting-started/installation/open-ai/)*
 
 ## Javascript can only be run via Shortcuts on the Safari browser on MacOS and iOS. If you do not use Safari you may skip this section
 Some sites have begun blocking AI scraping bots, inadvertently blocking the recipe scraping library Mealie uses as well. To circumvent this, the shortcut uses javascript to capture the raw html loaded in the browser and sends that to mealie when possible.
