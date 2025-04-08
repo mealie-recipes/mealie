@@ -63,7 +63,7 @@
 		"name": "bread"
 	},
 	"breadfruit": {
-		"name": "breadfruit"
+		"name": ""
 	},
 	"broccoflower": {
 		"name": "broccoflower"
@@ -78,7 +78,7 @@
 		"name": "broccolini"
 	},
 	"brown-sugar": {
-		"name": "brown sugar"
+		"name": "Cassonade"
 	},
 	"brussels-sprouts": {
 		"name": "brussels sprouts"
@@ -135,7 +135,7 @@
 		"name": "cayenne pepper"
 	},
 	"celeriac": {
-		"name": "celery root"
+		"name": "ccccccccéleri"
 	},
 	"celery": {
 		"name": "celery"
@@ -244,7 +244,7 @@
 	},
 	"eggs": {
 		"name": "egg",
-		"plural_name": "eggs"
+		"plural_name": "Œufs"
 	},
 	"endive": {
 		"name": "endive",
