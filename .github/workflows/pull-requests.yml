@@ -47,7 +47,7 @@ jobs:
 
   publish-image:
     name: "Publish PR Image"
-    if: contains(github.event.pull_request.labels.*.name, 'build-image')
+    if: contains(github.event.pull_request.labels.*.name, 'build-image') && github.repository == 'mealie-recipes/mealie'
     permissions:
       contents: read
       packages: write
