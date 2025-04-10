@@ -9,11 +9,15 @@ on:
       tags:
         required: false
         type: string
+      dockerhub:
+        required: false
+        type: boolean
+        default: true
     secrets:
       DOCKERHUB_USERNAME:
-        required: true
+        required: false
       DOCKERHUB_TOKEN:
-        required: true
+        required: false
 
 jobs:
   publish:
@@ -30,6 +34,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Log in to the Container registry (dockerhub)
+        if: inputs.dockerhub
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -43,6 +48,25 @@ jobs:
           name: backend-dist
           path: dist
 
+      - name: Set Docker tags
+        env:
+          GHCR_TAG: ghcr.io/${{ github.repository }}:${{ inputs.tag }}
+          DOCKERHUB_TAG: hkotel/mealie:${{ inputs.tag }}
+        id: docker_tags
+        run: |
+
+          if [ "${{ inputs.dockerhub }}" = "true" ]; then
+            TAGS="${GHCR_TAG},${DOCKERHUB_TAG}"
+          else
+            TAGS="${GHCR_TAG}"
+          fi
+
+          if [ -n "${{ inputs.tags }}" ]; then
+            TAGS="$TAGS,${{ inputs.tags }}"
+          fi
+
+          echo "tags=$TAGS" >> $GITHUB_OUTPUT
+
       - name: Build and push Docker image, via Depot.dev
         uses: depot/build-push-action@v1
         with:
@@ -53,9 +77,6 @@ jobs:
             packages=dist
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: |
-            hkotel/mealie:${{ inputs.tag }}
-            ghcr.io/${{ github.repository }}:${{ inputs.tag }}
-            ${{ inputs.tags }}
+          tags: ${{ steps.docker_tags.outputs.tags }}
           build-args: |
             COMMIT=${{ github.sha }}
