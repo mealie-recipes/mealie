@@ -720,7 +720,7 @@
       "backup-restore": "Ripristina backup",
       "back-restore-description": "Il ripristino di questo backup sovrascriverà tutti i dati correnti nel database e nella directory dei dati e li sostituirà con il contenuto di questo backup. {cannot-be-undone} Se il ripristino avrà successo, sarai disconnesso.",
       "cannot-be-undone": "Questa azione non può essere annullata - usa con cautela.",
-      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
+      "postgresql-note": "Se stai utilizzando PostgreSQL, controlla il {backup-restore-process} prima di ripristinarlo.",
       "backup-restore-process-in-the-documentation": "processo di backup/restore nella documentazione",
       "irreversible-acknowledgment": "Capisco che questa azione è irreversibile, distruttiva e può causare la perdita di dati",
       "restore-backup": "Ripristina Backup"
