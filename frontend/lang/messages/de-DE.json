@@ -720,7 +720,7 @@
       "backup-restore": "Wiederherstellen aus Sicherung",
       "back-restore-description": "Das Wiederherstellen dieser Sicherung wird alle vorhandenen Daten in deiner Datenbank und im Datenverzeichnis überschreiben und durch den Inhalt dieser Sicherung ersetzen. {cannot-be-undone} Wenn die Wiederherstellung erfolgreich war, wirst du abgemeldet.",
       "cannot-be-undone": "Diese Aktion kann nicht rückgängig gemacht werden - verwende sie mit Vorsicht.",
-      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
+      "postgresql-note": "Falls Sie PostgreSQL verwenden, überprüfen Sie bitte den {backup-restore-process} vor dem Wiederherstellen",
       "backup-restore-process-in-the-documentation": "Sichern- und Wiederherstellen-Prozess in der Dokumentation",
       "irreversible-acknowledgment": "Ich verstehe, dass diese Maßnahme unumkehrbar und destruktiv ist und Datenverlust verursachen kann",
       "restore-backup": "Sicherung wiederherstellen"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Zusammenführen der ausgewählten Lebensmittel führt diese zusammen in ein einzelnes Lebensmittel. Die Ausgangslebensmittel werden gelöscht und alle Verweise werden auf das zusammengeführte Lebensmittel angepasst.",
       "merge-food-example": "{food1} wird zu {food2} zusammengeführt",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
+      "seed-dialog-text": "Füllt die Datenbank mit Lebensmitteln basierend auf deiner Landessprache. Hierdurch werden mehr als 200 gängige Lebensmittel eingetragen, die verwendet werden können, um die Datenbank zu organisieren. Die Lebensmittel werden von der Community übersetzt.",
+      "seed-dialog-warning": "Sie haben bereits einige Einträge in der Datenbank. Diese Aktion wird Doppelungen nicht berücksichtigen. Sie müssen diese selbst beheben.",
       "combine-food": "Lebensmittel zusammenführen",
       "source-food": "Quell-Lebensmittel",
       "target-food": "Ziel-Lebensmittel",
