@@ -934,13 +934,14 @@ lxml = "*"
 
 [[package]]
 name = "html2text"
-version = "2024.2.26"
+version = "2025.4.15"
 description = "Turn HTML into equivalent Markdown-structured text."
 optional = false
-python-versions = ">=3.8"
+python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "html2text-2024.2.26.tar.gz", hash = "sha256:05f8e367d15aaabc96415376776cdd11afd5127a77fce6e36afc60c563ca2c32"},
+    {file = "html2text-2025.4.15-py3-none-any.whl", hash = "sha256:00569167ffdab3d7767a4cdf589b7f57e777a5ed28d12907d8c58769ec734acc"},
+    {file = "html2text-2025.4.15.tar.gz", hash = "sha256:948a645f8f0bc3abe7fd587019a2197a12436cd73d0d4908af95bfc8da337588"},
 ]
 
 [[package]]
@@ -3923,4 +3924,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<3.13"
-content-hash = "bcd321970cfa272611b25e477ceb5e4c94626ff605807bfcaf6e4f33dd12b3a6"
+content-hash = "d3a15e25572e69988681ed78fc6d45ae25121095f5e9d08a687a587fa5f0a690"
