@@ -8,7 +8,7 @@
     "database-type": "Databastyp",
     "database-url": "Databas URL",
     "default-group": "Standardgrupp",
-    "default-household": "Standard hushåll",
+    "default-household": "Standardhushåll",
     "demo": "Demo",
     "demo-status": "Demoläge",
     "development": "Utveckling",
@@ -663,7 +663,7 @@
     "not-linked-ingredients": "Ytterligare ingredienser"
   },
   "recipe-finder": {
-    "recipe-finder": "Recept sökare",
+    "recipe-finder": "Sök recept",
     "recipe-finder-description": "Sök efter recept baserat på ingredienser du har till hands. Du kan också filtrera efter verktyg du har tillgängliga, och ställa in ett maximalt antal saknade ingredienser eller verktyg.",
     "selected-ingredients": "Valda ingredienser",
     "no-ingredients-selected": "Inga ingredienser valda",
@@ -1324,7 +1324,7 @@
     "notifiers-description": "Setup email and push notifications that trigger on specific events.",
     "manage-data": "Hantera data",
     "manage-data-description": "Hantera din Mealie data; Livsmedel, Enheter, Kategorier, Taggar och mer.",
-    "data-migrations": "Data migreringar",
+    "data-migrations": "Datamigreringar",
     "data-migrations-description": "Migrera befintliga data från andra program som Nextcloud Recipes och Chowdown.",
     "email-sent": "E-post skickades",
     "error-sending-email": "Fel vid sändning av e-post",
