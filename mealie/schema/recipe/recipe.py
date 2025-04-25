@@ -38,6 +38,7 @@ app_dirs = get_app_dirs()
 
 class RecipeTag(MealieModel):
     id: UUID4 | None = None
+    group_id: UUID4 | None = None
     name: str
     slug: str
 
