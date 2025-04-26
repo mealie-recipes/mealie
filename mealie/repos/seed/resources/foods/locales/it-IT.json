@@ -54,7 +54,7 @@
 		"name": "more"
 	},
 	"bok-choy": {
-		"name": "bok choy"
+		"name": "cavolo cinese"
 	},
 	"brassicas": {
 		"name": "brassicas"
@@ -160,7 +160,7 @@
 		"name": "chinese leaves"
 	},
 	"chives": {
-		"name": "chives"
+		"name": "erba cipollina"
 	},
 	"chocolate": {
 		"name": "cioccolato"
@@ -201,7 +201,7 @@
 		"plural_name": "mais"
 	},
 	"corn-syrup": {
-		"name": "corn syrup"
+		"name": "sciroppo di mais"
 	},
 	"cottonseed-oil": {
 		"name": "cottonseed oil"
@@ -247,8 +247,8 @@
 		"plural_name": "uova"
 	},
 	"endive": {
-		"name": "endive",
-		"plural_name": "endives"
+		"name": "indivia",
+		"plural_name": "indivia"
 	},
 	"fats": {
 		"name": "grassi"
@@ -292,7 +292,7 @@
 	},
 	"garlic": {
 		"name": "aglio",
-		"plural_name": "garlics"
+		"plural_name": "agli"
 	},
 	"gem-squash": {
 		"name": "gem squash"
@@ -480,15 +480,15 @@
 	},
 	"pepper": {
 		"name": "pepe",
-		"plural_name": "peppers"
+		"plural_name": "peperoni"
 	},
 	"pineapple": {
 		"name": "ananas",
 		"plural_name": "ananas"
 	},
 	"plantain": {
-		"name": "plantain",
-		"plural_name": "plantains"
+		"name": "platano",
+		"plural_name": "platani"
 	},
 	"poppy-seeds": {
 		"name": "semi di papavero"
@@ -498,27 +498,27 @@
 		"plural_name": "patate"
 	},
 	"poultry": {
-		"name": "poultry"
+		"name": "pollame"
 	},
 	"powdered-sugar": {
 		"name": "powdered sugar"
 	},
 	"pumpkin": {
 		"name": "zucca",
-		"plural_name": "pumpkins"
+		"plural_name": "zucche"
 	},
 	"pumpkin-seeds": {
-		"name": "pumpkin seeds"
+		"name": "semi di zucca"
 	},
 	"radish": {
-		"name": "radish",
-		"plural_name": "radishes"
+		"name": "ravanello",
+		"plural_name": "ravanelli"
 	},
 	"raw-sugar": {
 		"name": "raw sugar"
 	},
 	"refined-sugar": {
-		"name": "refined sugar"
+		"name": "zucchero raffinato"
 	},
 	"rice": {
 		"name": "riso"
@@ -527,16 +527,16 @@
 		"name": "farina di riso"
 	},
 	"rock-sugar": {
-		"name": "rock sugar"
+		"name": "cristalli di zucchero"
 	},
 	"rum": {
 		"name": "rum"
 	},
 	"salmon": {
-		"name": "salmon"
+		"name": "salmone"
 	},
 	"salt": {
-		"name": "salt"
+		"name": "sale"
 	},
 	"salt-cod": {
 		"name": "salt cod"
@@ -686,7 +686,7 @@
 		"name": "lievito"
 	},
 	"zucchini": {
-		"name": "zucchini",
+		"name": "zucchino",
 		"plural_name": "zucchine"
 	}
 }
