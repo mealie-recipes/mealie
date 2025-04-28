@@ -8,7 +8,7 @@
     "database-type": "Typ databázy",
     "database-url": "Link databázy",
     "default-group": "Predvolená skupina",
-    "default-household": "Default Household",
+    "default-household": "Predvolená domácnosť",
     "demo": "Demo",
     "demo-status": "Demo Stav",
     "development": "Vývoj",
@@ -182,7 +182,7 @@
     "date": "Dátum",
     "id": "Id",
     "owner": "Vlastník",
-    "change-owner": "Change Owner",
+    "change-owner": "Zmeniť vlastníka",
     "date-added": "Dátum pridania",
     "none": "Žiadny",
     "run": "Spustiť",
@@ -214,10 +214,10 @@
     "confirm-delete-generic-items": "Ste si istý, že chcete odstrániť nasledujúce položky?",
     "organizers": "Organizéry",
     "caution": "Výstraha",
-    "show-advanced": "Show Advanced",
-    "add-field": "Add Field",
-    "date-created": "Date Created",
-    "date-updated": "Date Updated"
+    "show-advanced": "Zobraziť pokročilé",
+    "add-field": "Pridať pole",
+    "date-created": "Dátum vytvorenia",
+    "date-updated": "Dátum aktualizácie"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Naozaj chcete odstrániť <b>{groupName}<b/>?",
@@ -244,16 +244,16 @@
       "keep-my-recipes-private-description": "Nastaví vašu skupinu a všetky predvolené nastavenia receptov na súkromné. Neskôr to môžete kedykoľvek zmeniť."
     },
     "manage-members": "Spravovať členov",
-    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access the data-management page, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
+    "manage-members-description": "Spravovať povolenia členov vo vašej domácnosti. {manage} umožňuje používateľovi prístup ku správe údajov a {invite} umožňuje používateľovi generovať odkazy s pozvánkami pre iných užívateľov. Správcovia skupín nemôžu meniť svoje vlastné povolenia.",
     "manage": "Spravovať",
-    "manage-household": "Manage Household",
+    "manage-household": "Spravovať domácnosť",
     "invite": "Pozvať",
     "looking-to-update-your-profile": "Želáte si aktualizovať váš profil?",
     "default-recipe-preferences-description": "Toto sú predvolené nastavenia pre novovytvorené recepty vo vašej skupine. Na individuálnej úrovni ich možno zmeniť v ponuke nastavení konkrétneho receptu.",
     "default-recipe-preferences": "Predvolené nastavenia receptu",
     "group-preferences": "Nastavenia skupiny",
     "private-group": "Súkromná skupina",
-    "private-group-description": "Setting your group to private will disable all public view options. This overrides any individual public view settings",
+    "private-group-description": "Nastavením vašej skupiny ako súkromnej vypnete všetky možnosti pre prístup zvonku. Toto nastavenie má väčšiu prioritu ako akékoľvek individuálne nastavenie prístupu",
     "enable-public-access": "Povoliť verejný prístup",
     "enable-public-access-description": "Nastaviť skupinové recepty ako verejné a umožniť hosťom ich zobrazenie bez nutnosti prihlásenia",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Povoliť užívateľom mimo vašej skupiny čítať vaše recepty",
@@ -284,10 +284,10 @@
     "households": "Households",
     "user-household": "User Household",
     "create-household": "Create Household",
-    "household-name": "Household Name",
-    "household-group": "Household Group",
+    "household-name": "Názov domácnosti",
+    "household-group": "Skupina domácnosti",
     "household-management": "Household Management",
-    "manage-households": "Manage Households",
+    "manage-households": "Spravovať domácnosti",
     "admin-household-management": "Admin Household Management",
     "admin-household-management-text": "Changes to this household will be reflected immediately.",
     "household-id-value": "Household Id: {0}",
@@ -518,7 +518,7 @@
     "save-recipe-before-use": "Uložiť recept pred použitím",
     "section-title": "Názov sekcie",
     "servings": "Porcie",
-    "serves-amount": "Serves {amount}",
+    "serves-amount": "{amount} porcie",
     "share-recipe-message": "Chcel by som sa s tebou podeliť o recept na {0}.",
     "show-nutrition-values": "Ukáž nutričné hodnoty",
     "sodium-content": "Sodík",
@@ -663,18 +663,18 @@
     "not-linked-ingredients": "Additional Ingredients"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder",
-    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
-    "selected-ingredients": "Selected Ingredients",
-    "no-ingredients-selected": "No ingredients selected",
-    "missing": "Missing",
-    "no-recipes-found": "No recipes found",
+    "recipe-finder": "Hľadač receptov",
+    "recipe-finder-description": "Hľadajte recepty podľa surovín, ktoré máte poruke. Vo filtroch môžete tiež vybrať náčinie, ktoré máte k dispozícii a vybrať maximálne množstvo chýbajúcich ingrediencií alebo nástrojov.",
+    "selected-ingredients": "Vybrané suroviny",
+    "no-ingredients-selected": "Nevybrali ste žiadne suroviny",
+    "missing": "Chýbajúce",
+    "no-recipes-found": "Nenašli sa žiadne recepty",
     "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
     "include-ingredients-on-hand": "Include Ingredients On Hand",
-    "include-tools-on-hand": "Include Tools On Hand",
+    "include-tools-on-hand": "Zahrnúť náčinie poruke",
     "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
-    "selected-tools": "Selected Tools",
+    "max-missing-tools": "Max. chýbajúceho náčinia",
+    "selected-tools": "Vybrané náčinie",
     "other-filters": "Other Filters",
     "ready-to-make": "Ready to Make",
     "almost-ready-to-make": "Almost Ready to Make"
@@ -882,7 +882,7 @@
     "are-you-sure-you-want-to-check-all-items": "Naozaj chcete označiť všetky položky?",
     "are-you-sure-you-want-to-uncheck-all-items": "Naozaj chcete zrušiť označenie všetkých položiek?",
     "are-you-sure-you-want-to-delete-checked-items": "Naozaj chcete odstrániť všetky označené položky?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "Nenašli sa žiadne nákupné zoznamy"
   },
   "sidebar": {
     "all-recipes": "Všetky recepty",
@@ -937,7 +937,7 @@
     "create-new-tool": "Vytvoriť nové náčinie",
     "on-hand-checkbox-label": "Zobraz ako \"K dispozícii\" (Checked)",
     "required-tools": "Potrebné nástroje",
-    "tool": "Nástroj"
+    "tool": "Náčinie"
   },
   "user": {
     "admin": "Administrátor",
@@ -1141,7 +1141,7 @@
     "tools": {
       "new-tool": "Nový nástroj",
       "edit-tool": "Upraviť nástroj",
-      "tool-data": "Údaje nástroja"
+      "tool-data": "Údaje náčinia"
     }
   },
   "user-registration": {
@@ -1352,34 +1352,34 @@
     "filter-options-description": "Ak je zvolená možnosť vyžadovať všetky, kuchárka bude obsahovať iba recepty, ktoré majú všetky zvolené položky. Toto pravidlo sa aplikuje pre každú podskupinu podmienok a nie na prienik vybraných položiek.",
     "require-all-categories": "Vyžadovať všetky kategórie",
     "require-all-tags": "Vyžadovať všetky štítky",
-    "require-all-tools": "Vyžadovať všetky nástroje",
+    "require-all-tools": "Vyžadovať všetko náčinie",
     "cookbook-name": "Názov kuchárky",
     "cookbook-with-name": "Kuchárka {0}",
-    "household-cookbook-name": "{0} Cookbook {1}",
+    "household-cookbook-name": "{0} Kuchárka {1}",
     "create-a-cookbook": "Vytvoriť kuchárku",
     "cookbook": "Kuchárka"
   },
   "query-filter": {
     "logical-operators": {
-      "and": "AND",
-      "or": "OR"
+      "and": "A",
+      "or": "ALEBO"
     },
     "relational-operators": {
-      "equals": "equals",
-      "does-not-equal": "does not equal",
-      "is-greater-than": "is greater than",
-      "is-greater-than-or-equal-to": "is greater than or equal to",
-      "is-less-than": "is less than",
-      "is-less-than-or-equal-to": "is less than or equal to"
+      "equals": "rovná sa",
+      "does-not-equal": "nerovná sa",
+      "is-greater-than": "je väčšie ako",
+      "is-greater-than-or-equal-to": "je väčšie alebo rovné",
+      "is-less-than": "je menšie ako",
+      "is-less-than-or-equal-to": "je menšie alebo rovné"
     },
     "relational-keywords": {
-      "is": "is",
-      "is-not": "is not",
-      "is-one-of": "is one of",
-      "is-not-one-of": "is not one of",
-      "contains-all-of": "contains all of",
-      "is-like": "is like",
-      "is-not-like": "is not like"
+      "is": "je",
+      "is-not": "nie je",
+      "is-one-of": "je jedným z",
+      "is-not-one-of": "nie je jedným z",
+      "contains-all-of": "obsahuje všetky",
+      "is-like": "je ako",
+      "is-not-like": "nie je ako"
     }
   }
 }
