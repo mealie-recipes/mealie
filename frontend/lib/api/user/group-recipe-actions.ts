@@ -6,14 +6,14 @@ const prefix = "/api";
 const routes = {
     groupRecipeActions: `${prefix}/households/recipe-actions`,
     groupRecipeActionsId: (id: string | number) => `${prefix}/households/recipe-actions/${id}`,
-    groupRecipeActionsIdTriggerRecipeSlug: (id: string | number, recipeSlug: string) => `${prefix}/households/recipe-actions/${id}/trigger/${recipeSlug}`,
+    groupRecipeActionsIdTriggerRecipeSlug: (id: string | number, recipeSlug: string, scaledAmount: number) => `${prefix}/households/recipe-actions/${id}/trigger/${recipeSlug}/${scaledAmount}`,
   };
 
   export class GroupRecipeActionsAPI extends BaseCRUDAPI<CreateGroupRecipeAction, GroupRecipeActionOut> {
     baseRoute = routes.groupRecipeActions;
     itemRoute = routes.groupRecipeActionsId;
 
-    async triggerAction(id: string | number, recipeSlug: string) {
-      return await this.requests.post(routes.groupRecipeActionsIdTriggerRecipeSlug(id, recipeSlug), {});
+    async triggerAction(id: string | number, recipeSlug: string, scaledAmount: number) {
+      return await this.requests.post(routes.groupRecipeActionsIdTriggerRecipeSlug(id, recipeSlug, scaledAmount), {});
     }
   }

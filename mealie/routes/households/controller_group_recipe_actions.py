@@ -67,8 +67,8 @@ class GroupRecipeActionController(BaseUserController):
     # ==================================================================================================================
     # Actions
 
-    @router.post("/{item_id}/trigger/{recipe_slug}", status_code=202)
-    def trigger_action(self, item_id: UUID4, recipe_slug: str, bg_tasks: BackgroundTasks) -> None:
+    @router.post("/{item_id}/trigger/{recipe_slug}/{scaled_amount}", status_code=202)
+    def trigger_action(self, item_id: UUID4, recipe_slug: str, scaled_amount: float, bg_tasks: BackgroundTasks) -> None:
         recipe_action = self.repos.group_recipe_actions.get_one(item_id)
         if not recipe_action:
             raise HTTPException(
@@ -93,6 +93,7 @@ class GroupRecipeActionController(BaseUserController):
                 detail=ErrorResponse.respond(message="Not found."),
             ) from e
 
+        recipe.scaled_amount = scaled_amount
         payload = GroupRecipeActionPayload(action=recipe_action, content=recipe)
         bg_tasks.add_task(
             task_action,

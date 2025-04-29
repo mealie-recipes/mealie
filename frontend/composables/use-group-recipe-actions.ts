@@ -4,6 +4,7 @@ import { useUserApi } from "~/composables/api";
 import { GroupRecipeActionOut, GroupRecipeActionType } from "~/lib/api/types/household";
 import { RequestResponse } from "~/lib/api/types/non-generated";
 import { Recipe } from "~/lib/api/types/recipe";
+import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
 const groupRecipeActions = ref<GroupRecipeActionOut[] | null>(null);
 const loading = ref(false);
@@ -69,7 +70,7 @@ export const useGroupRecipeActions = function (
         window.open(url, "_blank")?.focus();
         return;
       case "post":
-        return await api.groupRecipeActions.triggerAction(action.id, recipe.slug || "");
+        return await api.groupRecipeActions.triggerAction(action.id, recipe.slug || "", useScaledAmount(recipe.recipeServings || 1, recipeScale).scaledAmount);
       default:
         break;
     }
