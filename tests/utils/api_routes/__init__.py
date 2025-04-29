@@ -365,9 +365,9 @@ def households_recipe_actions_item_id(item_id):
     return f"{prefix}/households/recipe-actions/{item_id}"
 
 
-def households_recipe_actions_item_id_trigger_recipe_slug(item_id, recipe_slug, servings, yield_quantity):
-    """`/api/households/recipe-actions/{item_id}/trigger/{recipe_slug}/{servings}/{yield_quantity}`"""
-    return f"{prefix}/households/recipe-actions/{item_id}/trigger/{recipe_slug}/{servings}/{yield_quantity}"
+def households_recipe_actions_item_id_trigger_recipe_slug(item_id, recipe_slug):
+    """`/api/households/recipe-actions/{item_id}/trigger/{recipe_slug}`"""
+    return f"{prefix}/households/recipe-actions/{item_id}/trigger/{recipe_slug}"
 
 
 def households_self_recipes_recipe_slug(recipe_slug):

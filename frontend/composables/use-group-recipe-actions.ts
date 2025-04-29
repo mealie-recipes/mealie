@@ -46,7 +46,10 @@ export const useGroupRecipeActions = function (
     return groupRecipeActions.value;
   });
 
-  function parseRecipeActionUrl(url: string, recipe: Recipe, recipeServings: number, recipeYieldQuantity: number): string {
+  function parseRecipeActionUrl(url: string, recipe: Recipe, recipeScale: number): string {
+    const recipeServings = (recipe.recipeServings || 1) * recipeScale;
+    const recipeYieldQuantity = (recipe.recipeYieldQuantity || 1) * recipeScale;
+
     /* eslint-disable no-template-curly-in-string */
     return url
       .replace("${url}", window.location.href)
@@ -59,28 +62,18 @@ export const useGroupRecipeActions = function (
   };
 
   async function execute(action: GroupRecipeActionOut, recipe: Recipe, recipeScale: number): Promise<void | RequestResponse<unknown>> {
-    const [recipeServings, recipeYieldQuantity] = calculateRecipeServingsAndYieldQuantity(recipe, recipeScale);
-    const url = parseRecipeActionUrl(action.url, recipe, recipeServings, recipeYieldQuantity);
+    const url = parseRecipeActionUrl(action.url, recipe, recipeScale);
 
     switch (action.actionType) {
       case "link":
         window.open(url, "_blank")?.focus();
         return;
       case "post":
-        return await api.groupRecipeActions.triggerAction(
-          action.id,
-          recipe.slug || "",
-          recipeServings,
-          recipeYieldQuantity
-        );
+        return await api.groupRecipeActions.triggerAction(action.id, recipe.slug || "");
       default:
         break;
     }
   };
-
-  function calculateRecipeServingsAndYieldQuantity(recipe: Recipe, recipeScale: number): [number, number] {
-    return [(recipe.recipeServings || 1) * recipeScale, (recipe.recipeYieldQuantity || 1) * recipeScale];
-  }
 
   if (!groupRecipeActions.value && !loading.value) {
     refreshGroupRecipeActions();
