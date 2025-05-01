@@ -6,33 +6,33 @@
 		"name": "alfalfa sprouts"
 	},
 	"anchovies": {
-		"name": "anchovies"
+		"name": "anjoviksia"
 	},
 	"apples": {
-		"name": "apple",
-		"plural_name": "apples"
+		"name": "omena",
+		"plural_name": "omenaa"
 	},
 	"artichoke": {
-		"name": "artichoke"
+		"name": "artisokka"
 	},
 	"arugula": {
 		"name": "arugula"
 	},
 	"asparagus": {
-		"name": "asparagus"
+		"name": "parsaa"
 	},
 	"avocado": {
-		"name": "avocado",
-		"plural_name": "avocado"
+		"name": "avokado",
+		"plural_name": "avokadoa"
 	},
 	"bacon": {
-		"name": "bacon"
+		"name": "pekonia"
 	},
 	"baking-powder": {
-		"name": "baking powder"
+		"name": "leivinjauhetta"
 	},
 	"baking-soda": {
-		"name": "baking soda"
+		"name": "ruokasoodaa"
 	},
 	"baking-sugar": {
 		"name": "baking sugar"
@@ -41,26 +41,26 @@
 		"name": "bar sugar"
 	},
 	"basil": {
-		"name": "basil"
+		"name": "basilikaa"
 	},
 	"beans": {
-		"name": "beans"
+		"name": "papuja"
 	},
 	"bell-peppers": {
-		"name": "bell peppers",
-		"plural_name": "bell peppers"
+		"name": "paprika",
+		"plural_name": "paprikaa"
 	},
 	"blackberries": {
-		"name": "blackberries"
+		"name": "karhunvatukoita"
 	},
 	"bok-choy": {
-		"name": "bok choy"
+		"name": "paksoita"
 	},
 	"brassicas": {
 		"name": "brassicas"
 	},
 	"bread": {
-		"name": "bread"
+		"name": "leipää"
 	},
 	"breadfruit": {
 		"name": "breadfruit"
@@ -69,22 +69,22 @@
 		"name": "broccoflower"
 	},
 	"broccoli": {
-		"name": "broccoli"
+		"name": "parsakaalia"
 	},
 	"broccoli-rabe": {
-		"name": "broccoli rabe"
+		"name": "varsiparsakaalia"
 	},
 	"broccolini": {
 		"name": "broccolini"
 	},
 	"brown-sugar": {
-		"name": "brown sugar"
+		"name": "fariinisokeria"
 	},
 	"brussels-sprouts": {
-		"name": "brussels sprouts"
+		"name": "ruusukaaleja"
 	},
 	"butter": {
-		"name": "butter"
+		"name": "voita"
 	},
 	"butternut-pumpkin": {
 		"name": "butternut pumpkin"
@@ -93,8 +93,8 @@
 		"name": "butternut squash"
 	},
 	"cabbage": {
-		"name": "cabbage",
-		"plural_name": "cabbages"
+		"name": "kaali",
+		"plural_name": "kaalia"
 	},
 	"cactus-edible": {
 		"name": "cactus, edible"
@@ -103,20 +103,20 @@
 		"name": "calabrese"
 	},
 	"cane-sugar": {
-		"name": "cane sugar"
+		"name": "ruokosokeria"
 	},
 	"cannabis": {
-		"name": "cannabis"
+		"name": "kannabista"
 	},
 	"capsicum": {
-		"name": "capsicum"
+		"name": "paprikaa"
 	},
 	"caraway": {
-		"name": "caraway"
+		"name": "kuminaa"
 	},
 	"carrot": {
-		"name": "carrot",
-		"plural_name": "carrots"
+		"name": "porkkana",
+		"plural_name": "porkkanaa"
 	},
 	"caster-sugar": {
 		"name": "caster sugar"
@@ -125,14 +125,14 @@
 		"name": "castor sugar"
 	},
 	"catfish": {
-		"name": "catfish"
+		"name": "monnia"
 	},
 	"cauliflower": {
-		"name": "cauliflower",
-		"plural_name": "cauliflowers"
+		"name": "kukkakaali",
+		"plural_name": "kukkakaalia"
 	},
 	"cayenne-pepper": {
-		"name": "cayenne pepper"
+		"name": "cayenne-pippuria"
 	},
 	"celeriac": {
 		"name": "celery root"
@@ -233,25 +233,25 @@
 		"name": "demerara sugar"
 	},
 	"dough": {
-		"name": "dough"
+		"name": "taikina"
 	},
 	"edible-cactus": {
 		"name": "edible cactus"
 	},
 	"eggplant": {
-		"name": "eggplant",
-		"plural_name": "eggplants"
+		"name": "munakoiso",
+		"plural_name": "munakoisoa"
 	},
 	"eggs": {
-		"name": "egg",
-		"plural_name": "eggs"
+		"name": "kananmuna",
+		"plural_name": "kananmunaa"
 	},
 	"endive": {
-		"name": "endive",
-		"plural_name": "endives"
+		"name": "endiivi",
+		"plural_name": "endiiviä"
 	},
 	"fats": {
-		"name": "fats"
+		"name": "rasvat"
 	},
 	"fava-beans": {
 		"name": "fava beans"
