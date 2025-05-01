@@ -1,6 +1,6 @@
 {
 	"acorn-squash": {
-		"name": "acorn squash"
+		"name": "žaluďová tekvica"
 	},
 	"alfalfa-sprouts": {
 		"name": "alfalfa sprouts"
@@ -13,45 +13,45 @@
 		"plural_name": "apples"
 	},
 	"artichoke": {
-		"name": "artichoke"
+		"name": "artičoka"
 	},
 	"arugula": {
-		"name": "arugula"
+		"name": "rukola"
 	},
 	"asparagus": {
 		"name": "asparagus"
 	},
 	"avocado": {
 		"name": "avocado",
-		"plural_name": "avocado"
+		"plural_name": "avokádo"
 	},
 	"bacon": {
-		"name": "bacon"
+		"name": "slanina"
 	},
 	"baking-powder": {
-		"name": "baking powder"
+		"name": "prášok do pečiva"
 	},
 	"baking-soda": {
-		"name": "baking soda"
+		"name": "sóda bikarbóna"
 	},
 	"baking-sugar": {
-		"name": "baking sugar"
+		"name": "kryštálový cukor"
 	},
 	"bar-sugar": {
-		"name": "bar sugar"
+		"name": "kryštálový cukor"
 	},
 	"basil": {
-		"name": "basil"
+		"name": "bazalka"
 	},
 	"beans": {
-		"name": "beans"
+		"name": "fazuľa"
 	},
 	"bell-peppers": {
-		"name": "bell peppers",
-		"plural_name": "bell peppers"
+		"name": "paprika",
+		"plural_name": "paprika"
 	},
 	"blackberries": {
-		"name": "blackberries"
+		"name": "černice"
 	},
 	"bok-choy": {
 		"name": "bok choy"
@@ -69,7 +69,7 @@
 		"name": "broccoflower"
 	},
 	"broccoli": {
-		"name": "broccoli"
+		"name": "brokolica"
 	},
 	"broccoli-rabe": {
 		"name": "broccoli rabe"
@@ -112,11 +112,11 @@
 		"name": "capsicum"
 	},
 	"caraway": {
-		"name": "caraway"
+		"name": "rasca"
 	},
 	"carrot": {
 		"name": "carrot",
-		"plural_name": "carrots"
+		"plural_name": "mrkva"
 	},
 	"caster-sugar": {
 		"name": "caster sugar"
@@ -125,10 +125,10 @@
 		"name": "castor sugar"
 	},
 	"catfish": {
-		"name": "catfish"
+		"name": "sumec"
 	},
 	"cauliflower": {
-		"name": "cauliflower",
+		"name": "karfiol",
 		"plural_name": "cauliflowers"
 	},
 	"cayenne-pepper": {
