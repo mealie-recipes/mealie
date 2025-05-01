@@ -432,7 +432,7 @@
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Vložte údaje z vášho receptu. Každý riadok sa považuje za samostatnú položku v zozname",
     "recipe-markup-specification": "Nastavenie značkovania receptov",
     "recipe-url": "URL adresa receptu",
-    "recipe-html-or-json": "Recipe HTML or JSON",
+    "recipe-html-or-json": "Recept v HTML alebo JSONe",
     "upload-a-recipe": "Nahrať recept",
     "upload-individual-zip-file": "Nahrať súbor .zip exportovaný z inej Mealie inštalácie.",
     "url-form-hint": "Okopírujte a zložte odkaz z vašej obľúbenej webstránky",
@@ -660,7 +660,7 @@
       "no-food": "Žiadne suroviny"
     },
     "reset-servings-count": "Reset Servings Count",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "Ďalšie suroviny"
   },
   "recipe-finder": {
     "recipe-finder": "Hľadač receptov",
@@ -670,7 +670,7 @@
     "missing": "Chýbajúce",
     "no-recipes-found": "Nenašli sa žiadne recepty",
     "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
-    "include-ingredients-on-hand": "Include Ingredients On Hand",
+    "include-ingredients-on-hand": "Zahrnúť suroviny už k dispozícii",
     "include-tools-on-hand": "Zahrnúť náčinie poruke",
     "max-missing-ingredients": "Maximálny počet chýbajúcich ingrediencií",
     "max-missing-tools": "Max. chýbajúceho náčinia",
@@ -1287,14 +1287,14 @@
     "debug-openai-services": "Ladiť služby OpenAI",
     "debug-openai-services-description": "Použite túto stránku na ladenie služieb OpenAI. Môžete tu otestovať pripojenie k OpenAI a skontrolovať výsledky. Ak máte zapnutú službu obrázkov, môžete tiež nahrať obrázok.",
     "run-test": "Spustiť test",
-    "test-results": "Test Results",
+    "test-results": "Výsledky testu",
     "group-delete-note": "Groups with users or households cannot be deleted",
     "household-delete-note": "Households with users cannot be deleted"
   },
   "profile": {
     "welcome-user": "👋 Vitajte, {0}!",
     "description": "Spravujte svoj profil, recepty a nastavenia skupín.",
-    "invite-link": "Invite Link",
+    "invite-link": "Odkaz s pozvánkou",
     "get-invite-link": "Odkaz s pozvánkou",
     "get-public-link": "Vytvoriť verejný odkaz",
     "account-summary": "Zhrnutie účtu",
