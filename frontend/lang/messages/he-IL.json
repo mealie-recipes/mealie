@@ -15,7 +15,7 @@
     "docs": "תיעוד",
     "download-log": "הורדת לוגים",
     "download-recipe-json": "ה-JSON האחרון שנקרא",
-    "github": "GitHub",
+    "github": "גיטהאב",
     "log-lines": "שורות לוג",
     "not-demo": "לא בהדגמה",
     "portfolio": "תיק עבודות",
@@ -277,7 +277,7 @@
     "admin-group-management-text": "שינויים לקבוצה זו ישתקפו מיידית.",
     "group-id-value": "מזהה קבוצה: {0}",
     "total-households": "סך כל משקי בית",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "חובה לבחור קבוצה לפני בחירת משק בית"
   },
   "household": {
     "household": "משק בית",
@@ -518,7 +518,7 @@
     "save-recipe-before-use": "שמירת מתכון לפני שימוש",
     "section-title": "כותרת המקטע",
     "servings": "מנות",
-    "serves-amount": "Serves {amount}",
+    "serves-amount": "מנות {amount}",
     "share-recipe-message": "רציתי לשתף את המתכון {0} איתך.",
     "show-nutrition-values": "הצגת ערכים תזונתיים",
     "sodium-content": "נתרן",
@@ -547,8 +547,8 @@
     "failed-to-add-recipe-to-mealplan": "הוספת מתכון לתכנון ארוחות נכשלה",
     "failed-to-add-to-list": "כשלון בהוספה לרשימה",
     "yield": "תשואה",
-    "yields-amount-with-text": "Yields {amount} {text}",
-    "yield-text": "Yield Text",
+    "yields-amount-with-text": "כמות {amount} {text}",
+    "yield-text": "שדה כמות",
     "quantity": "כמות",
     "choose-unit": "בחירת יחידת מידה",
     "press-enter-to-create": "הקש Enter כדי להוסיף",
@@ -636,9 +636,9 @@
     "recipe-debugger-use-openai-description": "ניתן להשתמש ב-OpenAI כדי לפענח את התוצאות במקום להסתמך על ספריית הסריקה. כאשר מייצרים מתכון באמצעות כתובת, זה נעשה אוטומטית אם ספריית הסריקה נכשלת, אך ניתן לבדוק זאת ידנית כאן.",
     "debug": "ניפוי שגיאות",
     "tree-view": "תצוגת עץ",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "מנות למתכון",
     "recipe-yield": "תשואת מתכון",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "שדה מנות למתכון",
     "unit": "יחידה",
     "upload-image": "העלה תמונה",
     "screen-awake": "השאר את המסך פעיל",
@@ -660,24 +660,24 @@
       "no-food": "אין אוכל"
     },
     "reset-servings-count": "איפוס מספר המנות",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "מרכיבים נוספים"
   },
   "recipe-finder": {
-    "recipe-finder": "Recipe Finder",
-    "recipe-finder-description": "Search for recipes based on ingredients you have on hand. You can also filter by tools you have available, and set a maximum number of missing ingredients or tools.",
-    "selected-ingredients": "Selected Ingredients",
-    "no-ingredients-selected": "No ingredients selected",
-    "missing": "Missing",
-    "no-recipes-found": "No recipes found",
-    "no-recipes-found-description": "Try adding more ingredients to your search or adjusting your filters",
-    "include-ingredients-on-hand": "Include Ingredients On Hand",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
-    "selected-tools": "Selected Tools",
-    "other-filters": "Other Filters",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "recipe-finder": "מצא מתכון",
+    "recipe-finder-description": "חפשו מתכונים לפי המצרכים שיש לכם בבית. תוכלו גם לסנן לפי הכלים שברשותכם, ולקבוע את מספר המצרכים או הכלים החסרים המותר.",
+    "selected-ingredients": "מרכיבים שנבחרו",
+    "no-ingredients-selected": "לא נבחרו מרכיבים",
+    "missing": "חסרים",
+    "no-recipes-found": "לא נמצאו מתכונים",
+    "no-recipes-found-description": "אפשר לנסות להוסיף עוד מצרכים או לשנות את הסינון כדי למצוא יותר תוצאות",
+    "include-ingredients-on-hand": "כלול מצרכים זמינים",
+    "include-tools-on-hand": "כלול כלים זמינים",
+    "max-missing-ingredients": "מקסימום מרכיבים חסרים",
+    "max-missing-tools": "מקסימום כלים חסרים",
+    "selected-tools": "כלים נבחרים",
+    "other-filters": "מסננים אחרים",
+    "ready-to-make": "מוכן להכנה",
+    "almost-ready-to-make": "כמעט מוכן להכנה"
   },
   "search": {
     "advanced-search": "חיפוש מתקדם",
@@ -720,7 +720,7 @@
       "backup-restore": "גיבוי / שחזור",
       "back-restore-description": "שחזור מגיבוי זה ידרוס את המידע הקיים במסד הנתונים ובספריות האתר ויחליף אותם בזה הקיים בגיבוי. {cannot-be-undone} אם השחזור יצליח, המשתמש ינותק מהמערכת.",
       "cannot-be-undone": "פעולה זו לא בלתי הפיכה - השתמש בזהירות.",
-      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
+      "postgresql-note": "אם PostgreSQLבשימוש, בדוק את ה {backup-restore-process} לפני שחזור.",
       "backup-restore-process-in-the-documentation": "תהליך גיבוי או שחזור במדריכים",
       "irreversible-acknowledgment": "אני מבין שהפעולה לא הפיכה, הרסנית ויכולה לגרום לאיבוד מידע",
       "restore-backup": "שחזר גיבוי"
@@ -882,7 +882,7 @@
     "are-you-sure-you-want-to-check-all-items": "לסמן את כל הפריטים?",
     "are-you-sure-you-want-to-uncheck-all-items": "לבטל את סימון כל הפריטים?",
     "are-you-sure-you-want-to-delete-checked-items": "למחוק את כל הפריטים המסומנים?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "לא נמצאה רשימת קניות"
   },
   "sidebar": {
     "all-recipes": "כל המתכונים",
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "צירוף של המאכלים שנבחרו יאחד את אוכל המקור ואוכל היעד לפריט אוכל אחד. אוכל המקור ימחק וכל ההפניות / הייחוסים אליו יעודכנו ויופנו לאוכל היעד.",
       "merge-food-example": "ממזג את {food1} לתוך {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
+      "seed-dialog-text": "אכלס את מסד הנתונים עם אוכל בהתבסס על השפה המקומית שלך. הפעולה תיצור +200 מאכלים נפוצים שיכולים לשמש לארגון מסד הנתונים. מאכלים מתורגמים על ידי מאמצי הקהילה.",
+      "seed-dialog-warning": "מסד הנתונים שלך כבר מכיל מספר פריטים. פעולה זו אינה מטפלת בכפילויות, יהיה צורך לפתור זאת באופן ידני.",
       "combine-food": "שילוב אוכל",
       "source-food": "אוכל מקור",
       "target-food": "אוכל יעד",
@@ -1294,7 +1294,7 @@
   "profile": {
     "welcome-user": "👋 שלום, {0}!",
     "description": "ניהול פרופיל, מתכונים והגדרות קבוצה.",
-    "invite-link": "Invite Link",
+    "invite-link": "קישור הזמנה",
     "get-invite-link": "קבלת קישור להזמנה",
     "get-public-link": "כתובת פומבית",
     "account-summary": "פירוט משתמש",
@@ -1344,8 +1344,8 @@
   "cookbook": {
     "cookbooks": "ספרי בישול",
     "description": "ספרי בישול הם דרך נוספת לסידור מתכונים על ידי חיתוך של מתכונים, מארגנים, ומסננים נוספים. יצירת ספר בישול תוסיף רשומה לתפריט הצדדי וכל המתכונים שעונים לסינון יוצגו באופן אוטומטי.",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
-    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
+    "hide-cookbooks-from-other-households": "הסתרת ספר מתכונים ממשקי בית אחרים",
+    "hide-cookbooks-from-other-households-description": "כאשר האפשרות מופעלת, רק ספרי בישול ממשק הבית שלך יופיעו בסרגל הצד",
     "public-cookbook": "ספר בישול פומבי",
     "public-cookbook-description": "ספרי בישול ניתנים לשיתוף עם משתמשים מחוץ ל-Mealie ויופיעו בתוך עמוד הקבוצות.",
     "filter-options": "אפשרויות סינון",
