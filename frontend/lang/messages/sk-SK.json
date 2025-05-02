@@ -267,7 +267,7 @@
     "disable-users-from-commenting-on-recipes": "Vypnúť používateľom možnosť pridávania komentárov pod recepty",
     "disable-users-from-commenting-on-recipes-description": "Skryje komentáre na stránke receptu a deaktivuje možnosť komentovania",
     "disable-organizing-recipe-ingredients-by-units-and-food": "Vypnúť zoradenie surovín podľa jednotiek a názvu",
-    "disable-organizing-recipe-ingredients-by-units-and-food-description": "Hides the Food, Unit, and Amount fields for ingredients and treats ingredients as plain text fields",
+    "disable-organizing-recipe-ingredients-by-units-and-food-description": "Skryje pole Potravina, Jednotka a Množstvo surovín a suroviny považuje za textové polia",
     "general-preferences": "Všeobecné nastavenia",
     "group-recipe-preferences": "Nastavenia receptu v rámci skupiny",
     "report": "Report",
@@ -277,7 +277,7 @@
     "admin-group-management-text": "Zmeny týkajúce sa tejto skupiny budú vykonané okamžite.",
     "group-id-value": "Id skupiny: {0}",
     "total-households": "Domácností celkom",
-    "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household"
+    "you-must-select-a-group-before-selecting-a-household": "Pred výberom domácnosti musíte vybrať skupinu"
   },
   "household": {
     "household": "Domácnosť",
@@ -297,9 +297,9 @@
     "lock-recipe-edits-from-other-households-description": "Ak je zapnuté, recepty vytvorené vašou domácnosťou budú môcť upravovať iba používatelia vašej domácnosti",
     "household-recipe-preferences": "Predvoľby receptov pre domácnosť",
     "default-recipe-preferences-description": "Toto sú predvolené nastavenia pre novovytvorené recepty vo vašej domácnosti. Na individuálnej úrovni ich možno zmeniť v ponuke nastavení konkrétneho receptu.",
-    "allow-users-outside-of-your-household-to-see-your-recipes": "Allow users outside of your household to see your recipes",
-    "allow-users-outside-of-your-household-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your household or with a pre-generated private link",
-    "household-preferences": "Household Preferences"
+    "allow-users-outside-of-your-household-to-see-your-recipes": "Povoliť používateľom mimo vašej domácnosti čítať vaše recepty",
+    "allow-users-outside-of-your-household-to-see-your-recipes-description": "Ak je zapnuté, môžete zdieľať vybrané recepty prostredníctvom verejne dostupných odkazov bez nutnosti autorizácie používateľa. Pri vypnutej voľbe je možné recepty zdieľať len s užívateľmi vo vašej domácnosti alebo prostredníctvom pred-generovaných súkromných odkazov",
+    "household-preferences": "Predvoľby domácnosti"
   },
   "meal-plan": {
     "create-a-new-meal-plan": "Vytvoriť nový jedálniček",
@@ -321,7 +321,7 @@
     "mealplan-settings": "Nastavenia jedálnička",
     "mealplan-update-failed": "Aktualizácia jedálnička zlyhala",
     "mealplan-updated": "Jedálniček aktualizovaný",
-    "mealplan-households-description": "If no household is selected, recipes can be added from any household",
+    "mealplan-households-description": "Ak nie je zvolená žiadna domácnosť, je možné pridať recepty z akejkoľvek domácnosti",
     "any-category": "Ľubovoľná kategória",
     "any-tag": "Ľubovoľný štítok",
     "any-household": "Ľubovoľná domácnosť",
