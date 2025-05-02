@@ -33,7 +33,7 @@
     "new-asset": "Nová príloha",
     "pdf": "PDF",
     "recipe": "Recept",
-    "show-assets": "Ukáž prílohy",
+    "show-assets": "Zobrazovať prílohy",
     "error-submitting-form": "Chyba pri odosielaní formulára"
   },
   "category": {
@@ -486,8 +486,8 @@
     "ingredients": "Suroviny",
     "insert-ingredient": "Vložiť prísadu",
     "insert-section": "Vložiť sekciu",
-    "insert-above": "Vložte vyššie",
-    "insert-below": "Vložte nižšie",
+    "insert-above": "Vložiť nad",
+    "insert-below": "Vložiť pod",
     "instructions": "Postup",
     "key-name-required": "Názov kľúča je povinným údajom",
     "landscape-view-coming-soon": "Orientácia na šírku (čoskoro)",
@@ -520,7 +520,7 @@
     "servings": "Porcie",
     "serves-amount": "{amount} porcie",
     "share-recipe-message": "Chcel by som sa s tebou podeliť o recept na {0}.",
-    "show-nutrition-values": "Ukáž nutričné hodnoty",
+    "show-nutrition-values": "Zobrazovať výživové hodnoty",
     "sodium-content": "Sodík",
     "step-index": "Krok: {step}",
     "sugar-content": "Cukry",
@@ -631,7 +631,7 @@
     "bulk-import-process-has-failed": "Hromadný import zlyhal",
     "report-deletion-failed": "Vymazanie reportov zlyhalo",
     "recipe-debugger": "Debugger receptov",
-    "recipe-debugger-description": "Vezmite URL odkaz receptu, ktorý chcete opraviť a vložte ju sem. Recept bude stiahnutý z URL odkazu pomocou scrapera receptov a zobrazí sa výsledok sťahovania. V prípade, ak nevidíte žiadne zobrazené dáta, stránka z URL odkazu nie je podporovaná Mealie alebo jej scrapovacou knižnicou.",
+    "recipe-debugger-description": "Vezmite URL adresu receptu, ktorý chcete opraviť a vložte ju sem. Recept bude stiahnutý z URL adresy pomocou scrapera receptov a zobrazí sa výsledok sťahovania. V prípade, ak nevidíte žiadne zobrazené dáta, stránka z URL odkazu nie je podporovaná Mealie alebo jej scrapovacou knižnicou.",
     "use-openai": "Použite OpenAI",
     "recipe-debugger-use-openai-description": "Použite OpenAI na analýzu výsledkov namiesto spoliehania sa na knižnicu scraper. Pri vytváraní receptu cez URL sa to vykoná automaticky, ak knižnica scraper zlyhá, ale tu to môžete otestovať manuálne.",
     "debug": "Ladiť",
@@ -659,7 +659,7 @@
       "missing-food": "Vytvoriť chýbajúcu surovinu: {food}",
       "no-food": "Žiadne suroviny"
     },
-    "reset-servings-count": "Reset Servings Count",
+    "reset-servings-count": "Resetovať počet porcií",
     "not-linked-ingredients": "Ďalšie suroviny"
   },
   "recipe-finder": {
@@ -1314,7 +1314,7 @@
     "group-settings": "Nastavenia skupiny",
     "group-settings-description": "Manage your common group settings, like privacy settings.",
     "household-description": "These items are shared within your household. Editing one of them will change it for the whole household!",
-    "household-settings": "Household Settings",
+    "household-settings": "Nastavenia domácnosti",
     "household-settings-description": "Manage your household settings, like mealplan and privacy settings.",
     "cookbooks-description": "Spravovať súbor kategórií receptov a generovať pre ne stránky.",
     "members": "Členovia",
