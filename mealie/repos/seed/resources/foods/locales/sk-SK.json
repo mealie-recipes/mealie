@@ -9,8 +9,8 @@
 		"name": "anchovies"
 	},
 	"apples": {
-		"name": "apple",
-		"plural_name": "apples"
+		"name": "jablko",
+		"plural_name": "jablká"
 	},
 	"artichoke": {
 		"name": "artičoka"
@@ -19,10 +19,10 @@
 		"name": "rukola"
 	},
 	"asparagus": {
-		"name": "asparagus"
+		"name": "špargľa"
 	},
 	"avocado": {
-		"name": "avocado",
+		"name": "avokádo",
 		"plural_name": "avokádo"
 	},
 	"bacon": {
@@ -60,7 +60,7 @@
 		"name": "brassicas"
 	},
 	"bread": {
-		"name": "bread"
+		"name": "chlieb"
 	},
 	"breadfruit": {
 		"name": "breadfruit"
@@ -84,7 +84,7 @@
 		"name": "brussels sprouts"
 	},
 	"butter": {
-		"name": "butter"
+		"name": "maslo"
 	},
 	"butternut-pumpkin": {
 		"name": "butternut pumpkin"
@@ -93,7 +93,7 @@
 		"name": "butternut squash"
 	},
 	"cabbage": {
-		"name": "cabbage",
+		"name": "kapusta",
 		"plural_name": "cabbages"
 	},
 	"cactus-edible": {
@@ -103,7 +103,7 @@
 		"name": "calabrese"
 	},
 	"cane-sugar": {
-		"name": "cane sugar"
+		"name": "trstinový cukor"
 	},
 	"cannabis": {
 		"name": "cannabis"
