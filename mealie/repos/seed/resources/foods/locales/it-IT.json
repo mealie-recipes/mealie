@@ -35,7 +35,7 @@
 		"name": "bicarbonato di sodio"
 	},
 	"baking-sugar": {
-		"name": "baking sugar"
+		"name": "zucchero fino"
 	},
 	"bar-sugar": {
 		"name": "bar sugar"
@@ -57,7 +57,7 @@
 		"name": "cavolo cinese"
 	},
 	"brassicas": {
-		"name": "brassicas"
+		"name": "brassica"
 	},
 	"bread": {
 		"name": "pane"
@@ -87,10 +87,10 @@
 		"name": "burro"
 	},
 	"butternut-pumpkin": {
-		"name": "butternut pumpkin"
+		"name": "zucca butternut"
 	},
 	"butternut-squash": {
-		"name": "butternut squash"
+		"name": "zucca butternut"
 	},
 	"cabbage": {
 		"name": "cavolo",
@@ -100,7 +100,7 @@
 		"name": "cactus, commestibile"
 	},
 	"calabrese": {
-		"name": "calabrese"
+		"name": "broccolo calabrese"
 	},
 	"cane-sugar": {
 		"name": "zucchero di canna"
@@ -112,17 +112,17 @@
 		"name": "peperoncino"
 	},
 	"caraway": {
-		"name": "caraway"
+		"name": "cumino dei prati"
 	},
 	"carrot": {
 		"name": "carota",
 		"plural_name": "carote"
 	},
 	"caster-sugar": {
-		"name": "caster sugar"
+		"name": "zucchero semolato"
 	},
 	"castor-sugar": {
-		"name": "castor sugar"
+		"name": "zucchero semolato"
 	},
 	"catfish": {
 		"name": "pesce gatto"
@@ -157,7 +157,7 @@
 		"plural_name": "peperoncini"
 	},
 	"chinese-leaves": {
-		"name": "chinese leaves"
+		"name": "cavolo cinese"
 	},
 	"chives": {
 		"name": "erba cipollina"
@@ -191,7 +191,7 @@
 		"name": "cavolo nero"
 	},
 	"confectioners-sugar": {
-		"name": "confectioners' sugar"
+		"name": "zucchero a velo"
 	},
 	"coriander": {
 		"name": "coriandolo"
@@ -204,13 +204,13 @@
 		"name": "sciroppo di mais"
 	},
 	"cottonseed-oil": {
-		"name": "cottonseed oil"
+		"name": "olio di semi di cotone"
 	},
 	"courgette": {
-		"name": "courgette"
+		"name": "zucchina"
 	},
 	"cream-of-tartar": {
-		"name": "cream of tartar"
+		"name": "cremor tartaro"
 	},
 	"cucumber": {
 		"name": "cetriolo",
