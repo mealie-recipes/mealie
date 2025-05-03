@@ -239,12 +239,12 @@
 		"name": "edible cactus"
 	},
 	"eggplant": {
-		"name": "eggplant",
-		"plural_name": "eggplants"
+		"name": "bakłażan",
+		"plural_name": "bakłażany"
 	},
 	"eggs": {
-		"name": "egg",
-		"plural_name": "eggs"
+		"name": "jajko",
+		"plural_name": "jajka"
 	},
 	"endive": {
 		"name": "endive",
@@ -264,13 +264,13 @@
 		"plural_name": "fiddlehead ferns"
 	},
 	"fish": {
-		"name": "fish"
+		"name": "ryba"
 	},
 	"five-spice-powder": {
 		"name": "five spice powder"
 	},
 	"flour": {
-		"name": "flour"
+		"name": "mąka"
 	},
 	"frisee": {
 		"name": "frisee"
@@ -421,7 +421,7 @@
 		"name": "nutritional yeast flakes"
 	},
 	"nuts": {
-		"name": "nuts"
+		"name": "orzechy"
 	},
 	"octopuses": {
 		"name": "octopus",
@@ -437,10 +437,10 @@
 		"name": "olive"
 	},
 	"olive-oil": {
-		"name": "olive oil"
+		"name": "oliwa z oliwek"
 	},
 	"onion": {
-		"name": "onion"
+		"name": "cebula"
 	},
 	"onion-family": {
 		"name": "onion family"
@@ -449,8 +449,8 @@
 		"name": "orange blossom water"
 	},
 	"oranges": {
-		"name": "orange",
-		"plural_name": "oranges"
+		"name": "pomarańcza",
+		"plural_name": "pomarańcze"
 	},
 	"oregano": {
 		"name": "oregano"
@@ -465,14 +465,14 @@
 		"name": "paprika"
 	},
 	"parsley": {
-		"name": "parsley"
+		"name": "pietruszka"
 	},
 	"parsnip": {
 		"name": "parsnip",
 		"plural_name": "parsnips"
 	},
 	"pear": {
-		"name": "pear",
+		"name": "gruszka",
 		"plural_name": "gruszki"
 	},
 	"peas": {
@@ -498,7 +498,7 @@
 		"plural_name": "ziemniaki"
 	},
 	"poultry": {
-		"name": "poultry"
+		"name": "drób"
 	},
 	"powdered-sugar": {
 		"name": "powdered sugar"
@@ -581,7 +581,7 @@
 		"name": "spices"
 	},
 	"spinach": {
-		"name": "spinach"
+		"name": "szpinak"
 	},
 	"spring-onion": {
 		"name": "spring onion",
@@ -598,7 +598,7 @@
 		"name": "stockfish"
 	},
 	"sugar": {
-		"name": "sugar"
+		"name": "cukier"
 	},
 	"sunchoke": {
 		"name": "sunchoke",
@@ -656,7 +656,7 @@
 		"name": "unrefined sugar"
 	},
 	"vanilla": {
-		"name": "vanilla"
+		"name": "wanilia"
 	},
 	"vegetables": {
 		"name": "vegetables"
@@ -665,8 +665,8 @@
 		"name": "watercress"
 	},
 	"watermelon": {
-		"name": "watermelon",
-		"plural_name": "watermelons"
+		"name": "arbuz",
+		"plural_name": "arbuzy"
 	},
 	"white-mushroom": {
 		"name": "white mushroom",
@@ -683,10 +683,10 @@
 		"plural_name": "yams"
 	},
 	"yeast": {
-		"name": "yeast"
+		"name": "drożdże"
 	},
 	"zucchini": {
-		"name": "zucchini",
-		"plural_name": "zucchinis"
+		"name": "cukinia",
+		"plural_name": "cukinie"
 	}
 }
