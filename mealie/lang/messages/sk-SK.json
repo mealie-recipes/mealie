@@ -10,7 +10,7 @@
             "step-text": "Kroky receptu, ako aj ďalšie polia na stránke receptu podporujú markdown syntax.\n\n**Pridanie odkazu**\n\n[Môj odkaz](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
+            "makes": "Porcie",
             "serves": "Porcie",
             "serving": "Porcia",
             "servings": "Porcie",
