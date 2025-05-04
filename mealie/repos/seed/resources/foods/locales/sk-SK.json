@@ -456,66 +456,66 @@
 		"name": "oregano"
 	},
 	"oysters": {
-		"name": "oysters"
+		"name": "ustrice"
 	},
 	"panch-puran": {
-		"name": "panch puran"
+		"name": "panch phoron (zmes semien)"
 	},
 	"paprika": {
 		"name": "paprika"
 	},
 	"parsley": {
-		"name": "parsley"
+		"name": "petržlen"
 	},
 	"parsnip": {
-		"name": "parsnip",
-		"plural_name": "parsnips"
+		"name": "paštrnák",
+		"plural_name": "paštrnáky"
 	},
 	"pear": {
-		"name": "pear",
-		"plural_name": "pears"
+		"name": "hruška",
+		"plural_name": "hrušky"
 	},
 	"peas": {
-		"name": "peas"
+		"name": "hrášok"
 	},
 	"pepper": {
-		"name": "pepper",
-		"plural_name": "peppers"
+		"name": "čierne korenie",
+		"plural_name": "čierne korenie"
 	},
 	"pineapple": {
-		"name": "pineapple",
-		"plural_name": "pineapples"
+		"name": "ananás",
+		"plural_name": "ananásy"
 	},
 	"plantain": {
-		"name": "plantain",
-		"plural_name": "plantains"
+		"name": "plantain (zeleninový banán)",
+		"plural_name": "plantainy (zeleninové banány)"
 	},
 	"poppy-seeds": {
-		"name": "poppy seeds"
+		"name": "mak"
 	},
 	"potato": {
-		"name": "potato",
-		"plural_name": "potatoes"
+		"name": "zemiak",
+		"plural_name": "zemiaky"
 	},
 	"poultry": {
-		"name": "poultry"
+		"name": "hydina"
 	},
 	"powdered-sugar": {
-		"name": "powdered sugar"
+		"name": "práškový cukor"
 	},
 	"pumpkin": {
-		"name": "pumpkin",
-		"plural_name": "pumpkins"
+		"name": "tekvica",
+		"plural_name": "tekvice"
 	},
 	"pumpkin-seeds": {
-		"name": "pumpkin seeds"
+		"name": "tekvicové semienka"
 	},
 	"radish": {
-		"name": "radish",
-		"plural_name": "radishes"
+		"name": "reďkovka",
+		"plural_name": "reďkovky"
 	},
 	"raw-sugar": {
-		"name": "raw sugar"
+		"name": "surový cukor"
 	},
 	"refined-sugar": {
 		"name": "rafinovaný cukor"
