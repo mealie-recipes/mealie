@@ -720,7 +720,7 @@
       "backup-restore": "Uložiť zálohu",
       "back-restore-description": "Obnovenie tejto zálohy prepíše všetky aktuálne údaje vo vašej databáze a dáta v dátovom adresári a nahradí ich obsahom tejto zálohy. {cannot-be-undone} Po úspešnom obnovení budete odhlásený.",
       "cannot-be-undone": "Túto akciu nie je možné vrátiť späť - používajte s rozvahou.",
-      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
+      "postgresql-note": "Ak používate PostgreSQL, prosím, skontrolujte {backup-restore-process} pred samotným obnovením.",
       "backup-restore-process-in-the-documentation": "proces zálohovania/obnovenia v dokumentácii",
       "irreversible-acknowledgment": "Rozumiem, že táto akcia je nevratná, deštruktívna a môže spôsobiť stratu dát",
       "restore-backup": "Obnoviť zálohu"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Kombináciou vybraných potravín sa zdrojové jedlo a cieľové jedlo zlúčia do jedného jedla. Zdrojové jedlo bude vymazané a všetky odkazy na zdrojové jedlo budú aktualizované tak, aby ukazovali na cieľové jedlo.",
       "merge-food-example": "Zlučujem {food1} do {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
+      "seed-dialog-text": "Naplňte databázu potravinami vo vašom jazyku. Tým vytvoríte viac ako 200 bežných potravín, ktoré môžete použiť na organizovanie vašej databáze. Potraviny sú preložené vďaka úsiliu komunity.",
+      "seed-dialog-warning": "V databáze už máte nejaké údaje. Táto akcia neodstráni duplicitné položky, budete ich musieť odstrániť ručne.",
       "combine-food": "Kombinované jedlo",
       "source-food": "Zdrojové jedlo",
       "target-food": "Cieľové jedlo",
@@ -1288,8 +1288,8 @@
     "debug-openai-services-description": "Použite túto stránku na ladenie služieb OpenAI. Môžete tu otestovať pripojenie k OpenAI a skontrolovať výsledky. Ak máte zapnutú službu obrázkov, môžete tiež nahrať obrázok.",
     "run-test": "Spustiť test",
     "test-results": "Výsledky testu",
-    "group-delete-note": "Groups with users or households cannot be deleted",
-    "household-delete-note": "Households with users cannot be deleted"
+    "group-delete-note": "Skupiny obsahujúce používateľov alebo domácnosti nie je možné odstrániť",
+    "household-delete-note": "Domácnosti obsahujúce používateľov nie je možné odstrániť"
   },
   "profile": {
     "welcome-user": "👋 Vitajte, {0}!",
@@ -1312,10 +1312,10 @@
     "api-tokens-description": "Spravujte svoje API tokeny pre prístup z externých aplikácií.",
     "group-description": "Tieto položky sú zdieľané v rámci vašej skupiny. Zmena ktorejkoľvek z nich sa prejaví v celej skupine!",
     "group-settings": "Nastavenia skupiny",
-    "group-settings-description": "Manage your common group settings, like privacy settings.",
-    "household-description": "These items are shared within your household. Editing one of them will change it for the whole household!",
+    "group-settings-description": "Spravujte bežné nastavenia vašej skupiny ako napríklad nastavenie súkromia.",
+    "household-description": "Tieto položky sú zdieľané v rámci vašej domácnosti. Úprava ktorejkoľvek z nich ju zmení pre celú domácnosť!",
     "household-settings": "Nastavenia domácnosti",
-    "household-settings-description": "Manage your household settings, like mealplan and privacy settings.",
+    "household-settings-description": "Spravujte nastavenia vašej domácnosti ako napríklad jedálniček, či nastavenie súkromia.",
     "cookbooks-description": "Spravovať súbor kategórií receptov a generovať pre ne stránky.",
     "members": "Členovia",
     "members-description": "Skontrolujte, kto je členom vašej domácnosti a spravujte ich oprávnenia.",
@@ -1344,8 +1344,8 @@
   "cookbook": {
     "cookbooks": "Kuchárky",
     "description": "Kuchárky sú ďalší spôsob, ako si organizovať recepty vytváraním prienikov skupín receptov, organizérov a ďalších filtrov. Vytvorením kuchárky pridáte novú položku na bočnú lištu a v kuchárke sa zobrazia všetky recepty, ktoré zodpovedajú vybraným filtrom.",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
-    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
+    "hide-cookbooks-from-other-households": "Skryť kuchárky ostatných domácností",
+    "hide-cookbooks-from-other-households-description": "Ak je zapnuté, na bočnej lište sa budú zobrazovať iba kuchárky z vašej domácnosti",
     "public-cookbook": "Verejná kuchárka",
     "public-cookbook-description": "Verejné kuchárky je možné zdieľať s používateľmi mimo Mealie a budú zobrazené na stránke vašej skupiny.",
     "filter-options": "Možnosti filtrovania",
