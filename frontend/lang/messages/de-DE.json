@@ -20,7 +20,7 @@
     "not-demo": "Keine Demo",
     "portfolio": "Portfolio",
     "production": "Produktivumgebung",
-    "support": "Unterstützen",
+    "support": "Unterstützung",
     "version": "Version",
     "unknown-version": "unbekannt",
     "sponsor": "Unterstützer"
@@ -190,7 +190,7 @@
     "a-name-is-required": "Ein Name wird benötigt",
     "delete-with-name": "{name} löschen",
     "confirm-delete-generic-with-name": "Bist du dir sicher, dass du dies löschen möchtest?",
-    "confirm-delete-own-admin-account": "Bitte beachte, dass du versuchst, dein eigenes Administrator-Konto zu löschen! Diese Aktion kann nicht rückgängig gemacht werden und wird dein Konto dauerhaft löschen!",
+    "confirm-delete-own-admin-account": "Bitte beachte, dass du versuchst, dein eigenes Administrator-Konto zu löschen! Diese Aktion kann nicht rückgängig gemacht werden und wird dein Konto dauerhaft löschen?",
     "organizer": "Organisator",
     "transfer": "Übertragen",
     "copy": "Kopieren",
@@ -383,7 +383,7 @@
     },
     "copymethat": {
       "description-long": "Mealie kann Rezepte aus Copy Me That importieren. Exportiere deine Rezepte im HTML-Format und lade dann unten die .zip Datei hoch.",
-      "title": "Copy Me That Rezept-Manager"
+      "title": "Kopiere mir diesen Rezept-Manager"
     },
     "paprika": {
       "description-long": "Mealie kann Rezepte aus der Paprika-App importieren. Exportiere deine Rezepte in Paprika, ändere die Endung der Export-Datei in .zip und lade sie unten hoch.",
@@ -418,7 +418,7 @@
     },
     "recipekeeper": {
       "title": "Recipe Keeper",
-      "description-long": "Mealie kann Rezepte von Recipe Keeper importieren. Exportiere deine Rezepte im ZIP-Format und lade dann unten die .zip Datei hoch.\n"
+      "description-long": "Mealie kann Rezepte von Recipe Keeper importieren. Exportiere deine Rezepte im ZIP-Format und lade dann unten die .zip Datei hoch."
     }
   },
   "new-recipe": {
@@ -535,7 +535,7 @@
     "add-recipe-to-mealplan": "Rezept zum Essensplan hinzufügen",
     "entry-type": "Mahlzeit",
     "date-format-hint": "Schreibweise MM/TT/JJJJ",
-    "date-format-hint-yyyy-mm-dd": "JJJ-MM-TT Format",
+    "date-format-hint-yyyy-mm-dd": "JJJJ-MM-TT Format",
     "add-to-list": "Zur Einkaufsliste hinzufügen",
     "add-to-plan": "Zum Essensplan hinzufügen",
     "add-to-timeline": "Zum Zeitstrahl hinzufügen",
@@ -650,7 +650,7 @@
       "explanation": "Um den Zutaten-Parser zu verwenden, klicke auf den Button 'Alles parsen', um den Vorgang zu starten. Nachdem die Zutaten analysiert worden sind, kannst du überprüfen, ob die Einträge korrekt erkannt wurden. Der vom Modell errechnete Zuverlässigkeitswert wird rechts neben der Zutat angezeigt. Diese Angabe ist ein Durchschnitt der Einzelwerte und möglicherweise nicht immer ganz korrekt.",
       "alerts-explainer": "Es werden Warnungen angezeigt, wenn ein passendes Lebensmittel oder eine Einheit gefunden wurde, aber in der Datenbank nicht vorhanden ist.",
       "select-parser": "Parser auswählen",
-      "natural-language-processor": "Natürliche Sprachverarbeitung (NLP)",
+      "natural-language-processor": "Natürliche Sprachverarbeitung",
       "brute-parser": "Brute Parser",
       "openai-parser": "OpenAI Parser",
       "parse-all": "Alles parsen",
@@ -720,7 +720,7 @@
       "backup-restore": "Wiederherstellen aus Sicherung",
       "back-restore-description": "Das Wiederherstellen dieser Sicherung wird alle vorhandenen Daten in deiner Datenbank und im Datenverzeichnis überschreiben und durch den Inhalt dieser Sicherung ersetzen. {cannot-be-undone} Wenn die Wiederherstellung erfolgreich war, wirst du abgemeldet.",
       "cannot-be-undone": "Diese Aktion kann nicht rückgängig gemacht werden - verwende sie mit Vorsicht.",
-      "postgresql-note": "Falls Sie PostgreSQL verwenden, überprüfen Sie bitte den {backup-restore-process} vor dem Wiederherstellen",
+      "postgresql-note": "Falls Sie PostgreSQL verwenden, überprüfen Sie bitte den {backup-restore-process} vor dem Wiederherstellen.",
       "backup-restore-process-in-the-documentation": "Sichern- und Wiederherstellen-Prozess in der Dokumentation",
       "irreversible-acknowledgment": "Ich verstehe, dass diese Maßnahme unumkehrbar und destruktiv ist und Datenverlust verursachen kann",
       "restore-backup": "Sicherung wiederherstellen"
@@ -860,22 +860,22 @@
     "shopping-lists": "Einkaufslisten",
     "food": "Lebensmittel",
     "note": "Notiz",
-    "label": "Etikett",
-    "save-label": "Etikett speichern",
+    "label": "Kategorie",
+    "save-label": "Kategorie speichern",
     "linked-item-warning": "Dieser Eintrag ist mit einem oder mehreren Rezepten verknüpft. Das Ändern der Einheiten oder Lebensmittel führt zu unerwarteten Ergebnissen, wenn das Rezept von dieser Einkaufsliste entfernt oder hinzugefügt wird.",
     "toggle-food": "Lebensmittel-Eingabe umschalten",
-    "manage-labels": "Etiketten verwalten",
+    "manage-labels": "Kategorien verwalten",
     "are-you-sure-you-want-to-delete-this-item": "Möchtest du diesen Eintrag wirklich löschen?",
     "copy-as-text": "Als Text kopieren",
     "copy-as-markdown": "Als Markdown kopieren",
     "delete-checked": "Erledigte löschen",
-    "toggle-label-sort": "Sortierung nach Etikett umschalten",
-    "reorder-labels": "Etiketten umsortieren",
+    "toggle-label-sort": "Sortierung nach Kategorie umschalten",
+    "reorder-labels": "Kategorien umsortieren",
     "uncheck-all-items": "Alle Einträge zurücksetzen",
     "check-all-items": "Alle Einträge auswählen",
     "linked-recipes-count": "Kein verknüpftes Rezept|Ein verknüpftes Rezept|{count} verknüpfte Rezepte",
     "items-checked-count": "Kein Eintrag erledigt|Ein Eintrag erledigt|{count} Einträge erledigt",
-    "no-label": "Kein Etikett",
+    "no-label": "Keine Kategorie",
     "completed-on": "Erledigt am {date}",
     "you-are-offline": "Keine Verbindung zum Internet",
     "you-are-offline-description": "Nicht alle Funktionen sind offline verfügbar. Du kannst weiterhin Einträge hinzufügen, ändern und entfernen, aber Änderungen werden erst dann mit dem Server synchronisiert, wenn du wieder online bist.",
@@ -1054,12 +1054,12 @@
       "source-food": "Quell-Lebensmittel",
       "target-food": "Ziel-Lebensmittel",
       "create-food": "Lebensmittel erstellen",
-      "food-label": "Lebensmittel Etikett",
+      "food-label": "Lebensmittel Kategorie",
       "edit-food": "Lebensmittel bearbeiten",
       "food-data": "Lebensmitteldaten",
       "example-food-singular": "z.B. Zwiebel",
       "example-food-plural": "z.B. Zwiebeln",
-      "label-overwrite-warning": "Hiermit wird das ausgewählte Etikett allen ausgewählten Lebensmitteln zugewiesen und möglicherweise bestehende Etiketten werden überschrieben.",
+      "label-overwrite-warning": "Hiermit wird die ausgewählte Kategorie allen ausgewählten Lebensmitteln zugewiesen und möglicherweise bestehende Kategorien werden überschrieben.",
       "on-hand-checkbox-label": "Mit dieser Markierung wird dieses Lebensmittel standardmäßig deaktiviert, wenn ein Rezept einer Einkaufsliste hinzugefügt wird."
     },
     "units": {
@@ -1081,15 +1081,15 @@
       "fraction": "Bruchzahl",
       "example-unit-singular": "z.B. gehäufter Teelöffel",
       "example-unit-plural": "z.B. gehäufte Teelöffel",
-      "example-unit-abbreviation-singular": "z.B. geh. TL",
-      "example-unit-abbreviation-plural": "z.B. geh. TL"
+      "example-unit-abbreviation-singular": "z.B. EL",
+      "example-unit-abbreviation-plural": "z.B. EL"
     },
     "labels": {
-      "seed-dialog-text": "Füllt die Datenbank mit gängigen Etiketten basierend auf deiner Sprache.",
-      "edit-label": "Etikett bearbeiten",
-      "new-label": "Neues Etikett",
-      "labels": "Etiketten",
-      "assign-label": "Etikett zuweisen"
+      "seed-dialog-text": "Füllt die Datenbank mit gängigen Kategorien basierend auf deiner Sprache.",
+      "edit-label": "Kategorie bearbeiten",
+      "new-label": "Neue Kategorie",
+      "labels": "Kategorien",
+      "assign-label": "Kategorie zuweisen"
     },
     "recipes": {
       "purge-exports": "Exporte bereinigen",
@@ -1153,7 +1153,7 @@
     "group-details": "Gruppendetails",
     "group-details-description": "Bevor du ein Konto erstellst, musst du eine Gruppe erstellen. Deine Gruppe wird nur dich enthalten, aber du kannst andere später einladen. Mitglieder in deiner Gruppe können Essenspläne, Einkaufslisten, Rezepte und vieles mehr teilen!",
     "use-seed-data": "Musterdaten",
-    "use-seed-data-description": "Mealie enthält eine Sammlung von Lebensmitteln, Maßeinheiten und Etiketten, die verwendet werden können, um deine Gruppe mit hilfreichen Daten für die Organisation deiner Rezepte zu füllen.",
+    "use-seed-data-description": "Mealie enthält eine Sammlung von Lebensmitteln, Maßeinheiten und Kategorien, die verwendet werden können, um deine Gruppe mit hilfreichen Daten für die Organisation deiner Rezepte zu füllen.",
     "account-details": "Kontoinformationen"
   },
   "validation": {
@@ -1276,7 +1276,7 @@
     "tasks": "Aufgaben",
     "setup": {
       "first-time-setup": "Erstmalige Einrichtung",
-      "welcome-to-mealie-get-started": "Willkommen bei Mealie! Los geht's",
+      "welcome-to-mealie-get-started": "Willkommen bei Mealie! Lass uns loslegen",
       "already-set-up-bring-to-homepage": "Ich habe schon alles eingerichtet, bring mich zur Startseite",
       "common-settings-for-new-sites": "Hier sind einige allgemeine Einstellungen für neue Seiten",
       "setup-complete": "Einrichtung abgeschlossen!",
@@ -1285,7 +1285,7 @@
       "manage-profile-or-get-invite-link": "Verwalte dein eigenes Profil oder erstelle einen Einladungslink, den du an andere weitergeben kannst."
     },
     "debug-openai-services": "OpenAI Services debuggen",
-    "debug-openai-services-description": "",
+    "debug-openai-services-description": "Benutzen Sie diese Seite, um OpenAI-Dienste zu debuggen. Sie können Ihre OpenAI-Verbindung testen und die Ergebnisse hier sehen. Wenn Sie Bilddienste aktiviert haben, können Sie auch ein Bild angeben.",
     "run-test": "Test durchführen",
     "test-results": "Testergebnisse",
     "group-delete-note": "Gruppen mit Benutzern oder Haushalten können nicht gelöscht werden",

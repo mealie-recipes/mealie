@@ -35,7 +35,7 @@
 		"name": "bicarbonato di sodio"
 	},
 	"baking-sugar": {
-		"name": "baking sugar"
+		"name": "zucchero fino"
 	},
 	"bar-sugar": {
 		"name": "bar sugar"
@@ -57,13 +57,13 @@
 		"name": "cavolo cinese"
 	},
 	"brassicas": {
-		"name": "brassicas"
+		"name": "brassicacee"
 	},
 	"bread": {
 		"name": "pane"
 	},
 	"breadfruit": {
-		"name": "frutto del pane"
+		"name": "frutto dell'albero del pane"
 	},
 	"broccoflower": {
 		"name": "cavolfiore verde"
@@ -87,10 +87,10 @@
 		"name": "burro"
 	},
 	"butternut-pumpkin": {
-		"name": "butternut pumpkin"
+		"name": "zucca butternut"
 	},
 	"butternut-squash": {
-		"name": "butternut squash"
+		"name": "zucca butternut"
 	},
 	"cabbage": {
 		"name": "cavolo",
@@ -100,7 +100,7 @@
 		"name": "cactus, commestibile"
 	},
 	"calabrese": {
-		"name": "calabrese"
+		"name": "broccolo calabrese"
 	},
 	"cane-sugar": {
 		"name": "zucchero di canna"
@@ -112,17 +112,17 @@
 		"name": "peperoncino"
 	},
 	"caraway": {
-		"name": "caraway"
+		"name": "cumino dei prati"
 	},
 	"carrot": {
 		"name": "carota",
 		"plural_name": "carote"
 	},
 	"caster-sugar": {
-		"name": "caster sugar"
+		"name": "zucchero semolato"
 	},
 	"castor-sugar": {
-		"name": "castor sugar"
+		"name": "zucchero semolato"
 	},
 	"catfish": {
 		"name": "pesce gatto"
@@ -157,7 +157,7 @@
 		"plural_name": "peperoncini"
 	},
 	"chinese-leaves": {
-		"name": "chinese leaves"
+		"name": "cavolo cinese"
 	},
 	"chives": {
 		"name": "erba cipollina"
@@ -191,7 +191,7 @@
 		"name": "cavolo nero"
 	},
 	"confectioners-sugar": {
-		"name": "confectioners' sugar"
+		"name": "zucchero a velo"
 	},
 	"coriander": {
 		"name": "coriandolo"
@@ -204,13 +204,13 @@
 		"name": "sciroppo di mais"
 	},
 	"cottonseed-oil": {
-		"name": "cottonseed oil"
+		"name": "olio di semi di cotone"
 	},
 	"courgette": {
-		"name": "courgette"
+		"name": "zucchina"
 	},
 	"cream-of-tartar": {
-		"name": "cream of tartar"
+		"name": "cremor tartaro"
 	},
 	"cucumber": {
 		"name": "cetriolo",
@@ -221,7 +221,7 @@
 	},
 	"daikon": {
 		"name": "daikon",
-		"plural_name": "daikons"
+		"plural_name": "daikon"
 	},
 	"dairy-products-and-dairy-substitutes": {
 		"name": "latticini e sostituti dei latticini"
@@ -230,7 +230,7 @@
 		"name": "tarassaco"
 	},
 	"demerara-sugar": {
-		"name": "demerara sugar"
+		"name": "zucchero grezzo di canna"
 	},
 	"dough": {
 		"name": "impasto"
@@ -257,23 +257,23 @@
 		"name": "fave"
 	},
 	"fiddlehead": {
-		"name": "fiddlehead"
+		"name": "testa di violino"
 	},
 	"fiddlehead-fern": {
-		"name": "fiddlehead fern",
-		"plural_name": "fiddlehead ferns"
+		"name": "felce testa di viollino",
+		"plural_name": "teste di violino"
 	},
 	"fish": {
 		"name": "pesce"
 	},
 	"five-spice-powder": {
-		"name": "five spice powder"
+		"name": "polvere cinque spezie"
 	},
 	"flour": {
 		"name": "farina"
 	},
 	"frisee": {
-		"name": "frisee"
+		"name": "indivia riccia"
 	},
 	"fructose": {
 		"name": "fruttosio"
@@ -282,7 +282,7 @@
 		"name": "frutta"
 	},
 	"fruit-sugar": {
-		"name": "fruit sugar"
+		"name": "fruttosio"
 	},
 	"ful": {
 		"name": "ful"
@@ -295,33 +295,33 @@
 		"plural_name": "agli"
 	},
 	"gem-squash": {
-		"name": "gem squash"
+		"name": "zucca gemma"
 	},
 	"ghee": {
-		"name": "ghee"
+		"name": "ghī"
 	},
 	"giblets": {
-		"name": "giblets"
+		"name": "frattaglie"
 	},
 	"ginger": {
 		"name": "zenzero"
 	},
 	"grains": {
-		"name": "grains"
+		"name": "cereali"
 	},
 	"granulated-sugar": {
-		"name": "granulated sugar"
+		"name": "zucchero bianco"
 	},
 	"grape-seed-oil": {
-		"name": "grape seed oil"
+		"name": "olio di semi di uva"
 	},
 	"green-onion": {
-		"name": "green onion",
-		"plural_name": "green onions"
+		"name": "cipollotto",
+		"plural_name": "cipollotti"
 	},
 	"heart-of-palm": {
-		"name": "heart of palm",
-		"plural_name": "heart of palms"
+		"name": "cuore di palma",
+		"plural_name": "cuori di palma"
 	},
 	"hemp": {
 		"name": "canapa"
@@ -337,7 +337,7 @@
 	},
 	"jackfruit": {
 		"name": "jackfruit",
-		"plural_name": "jackfruits"
+		"plural_name": "jackfruit"
 	},
 	"jaggery": {
 		"name": "jaggery"
@@ -349,22 +349,22 @@
 		"name": "gelatine"
 	},
 	"jerusalem-artichoke": {
-		"name": "jerusalem artichoke"
+		"name": "topinambur"
 	},
 	"jicama": {
-		"name": "jicama"
+		"name": "patata messicana"
 	},
 	"kale": {
-		"name": "kale"
+		"name": "cavolo riccio"
 	},
 	"kohlrabi": {
-		"name": "kohlrabi"
+		"name": "cavolo rapa"
 	},
 	"kumara": {
 		"name": "kumara"
 	},
 	"leavening-agents": {
-		"name": "leavening agents"
+		"name": "agenti lievitanti"
 	},
 	"leek": {
 		"name": "porro",
@@ -387,7 +387,7 @@
 		"plural_name": "fegatini"
 	},
 	"maize": {
-		"name": "maize"
+		"name": "mais"
 	},
 	"maple-syrup": {
 		"name": "sciroppo d'acero"
@@ -409,7 +409,7 @@
 		"name": "cozze"
 	},
 	"nanaimo-bar-mix": {
-		"name": "nanaimo bar mix"
+		"name": "miscela per barrette nanaimo"
 	},
 	"nori": {
 		"name": "alga nori"
@@ -418,10 +418,10 @@
 		"name": "noce moscata"
 	},
 	"nutritional-yeast-flakes": {
-		"name": "nutritional yeast flakes"
+		"name": "lievito alimentare in scaglie"
 	},
 	"nuts": {
-		"name": "nuts"
+		"name": "frutta a guscio"
 	},
 	"octopuses": {
 		"name": "polpo",
@@ -443,10 +443,10 @@
 		"name": "cipolla"
 	},
 	"onion-family": {
-		"name": "onion family"
+		"name": "famiglia delle cipolle"
 	},
 	"orange-blossom-water": {
-		"name": "orange blossom water"
+		"name": "acqua di fiori d'arancio"
 	},
 	"oranges": {
 		"name": "arancia",
@@ -469,7 +469,7 @@
 	},
 	"parsnip": {
 		"name": "pastinaca",
-		"plural_name": "parsnips"
+		"plural_name": "pastinache"
 	},
 	"pear": {
 		"name": "pera",
