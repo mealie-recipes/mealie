@@ -3100,14 +3100,14 @@ orjson = ["orjson (>=3.9.14,<4)"]
 
 [[package]]
 name = "recipe-scrapers"
-version = "15.6.0"
+version = "15.7.1"
 description = "Python package, scraping recipes from all over the internet"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "recipe_scrapers-15.6.0-py3-none-any.whl", hash = "sha256:d9949b69ce99de7030e18135c6ade73a5d65fa023308d86b1284807bb9a7ac17"},
-    {file = "recipe_scrapers-15.6.0.tar.gz", hash = "sha256:e0e18542de8564cd925850e49fa14de1ed4fa1479eea41e9a846a8ca6e145c13"},
+    {file = "recipe_scrapers-15.7.1-py3-none-any.whl", hash = "sha256:f5131c3c9ce7c7a261ffe25514334c2b86b911fc3e53935c91cf7dd420b80855"},
+    {file = "recipe_scrapers-15.7.1.tar.gz", hash = "sha256:7657a743994712fdb1f7ff463891e593a55c6f9597be4e64425dcadd3b9aa75f"},
 ]
 
 [package.dependencies]
