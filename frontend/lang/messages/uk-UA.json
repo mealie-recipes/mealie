@@ -636,7 +636,7 @@
     "recipe-debugger-use-openai-description": "Використовуйте OpenAI для аналізу результатів замість використання бібліотеки парсера. Під час створення рецепта через URL це робиться автоматично, якщо бібліотека парсера не впоралася, але ви можете перевірити це тут вручну.",
     "debug": "Дебажити",
     "tree-view": "У вигляді дерева",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "Налаштування рецепта",
     "recipe-yield": "Вихід рецепту",
     "recipe-yield-text": "Recipe Yield Text",
     "unit": "Одиниця виміру",
