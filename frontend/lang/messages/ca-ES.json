@@ -720,7 +720,7 @@
       "backup-restore": "Restaura la còpia de seguretat",
       "back-restore-description": "Restaurar aquesta còpia de seguretat sobreescriurà totes les dades actuals de la teva base de dades i qualsevol directori i els substituirà amb el contingut d'aquesta còpia de seguretat. {cannot-be-undone} Si la restauració es duu a terme correctament, se us tancarà la sessió.",
       "cannot-be-undone": "Aquesta acció no es pot desfer. Utilitza-la amb precaució.",
-      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
+      "postgresql-note": "Si estàs fent servir PostGresSQL, si us plau, revisa el {backup-restore-process} abans de fer la restauració.",
       "backup-restore-process-in-the-documentation": "el procés de còpia de seguretat i restauració es troba a la documentació",
       "irreversible-acknowledgment": "Entenc que aquesta acció és irreversible, destructiva i pot ocasionar la pèrdua de dades",
       "restore-backup": "Restaura la còpia de seguretat"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Combinant els aliments seleccionats, es fusionaran els dos aliments en un. El primer aliment serà eliminat i totes les referències s'actualitzaran a l'aliment resultant.",
       "merge-food-example": "Combinant {food1} i {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
+      "seed-dialog-text": "Afegeix a la base de dades els noms dels aliments en el vostre idioma. Açò crearà més de 200 aliments comuns per a què pugueu organitzar la vostra base de dades. Els noms dels aliments han estat traduïts gràcies a l'esforç de la comunitat.",
+      "seed-dialog-warning": "Ja teniu algunes dades a la vostra base. Aquesta acció no tindrà en compte duplicats i haureu d'eliminar-los manualment.",
       "combine-food": "Combinar Aliment",
       "source-food": "Aliment d'Origen",
       "target-food": "Aliment de Destí",

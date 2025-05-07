@@ -9,49 +9,49 @@
 		"name": "anchovies"
 	},
 	"apples": {
-		"name": "apple",
-		"plural_name": "apples"
+		"name": "jablko",
+		"plural_name": "jablka"
 	},
 	"artichoke": {
-		"name": "artichoke"
+		"name": "artyčok"
 	},
 	"arugula": {
-		"name": "arugula"
+		"name": "rukola"
 	},
 	"asparagus": {
-		"name": "asparagus"
+		"name": "chřest"
 	},
 	"avocado": {
-		"name": "avocado",
-		"plural_name": "avocado"
+		"name": "avokádo",
+		"plural_name": "avokáda"
 	},
 	"bacon": {
-		"name": "bacon"
+		"name": "slanina"
 	},
 	"baking-powder": {
-		"name": "baking powder"
+		"name": "prášek na pečení"
 	},
 	"baking-soda": {
-		"name": "baking soda"
+		"name": "pekařská soda"
 	},
 	"baking-sugar": {
-		"name": "baking sugar"
+		"name": "cukr na pečení"
 	},
 	"bar-sugar": {
 		"name": "bar sugar"
 	},
 	"basil": {
-		"name": "basil"
+		"name": "bazalka"
 	},
 	"beans": {
-		"name": "beans"
+		"name": "fazole"
 	},
 	"bell-peppers": {
-		"name": "bell peppers",
-		"plural_name": "bell peppers"
+		"name": "papriky",
+		"plural_name": "papriky"
 	},
 	"blackberries": {
-		"name": "blackberries"
+		"name": "ostružiny"
 	},
 	"bok-choy": {
 		"name": "bok choy"
@@ -60,7 +60,7 @@
 		"name": "brassicas"
 	},
 	"bread": {
-		"name": "bread"
+		"name": "chléb"
 	},
 	"breadfruit": {
 		"name": "breadfruit"
@@ -69,7 +69,7 @@
 		"name": "broccoflower"
 	},
 	"broccoli": {
-		"name": "broccoli"
+		"name": "brokolice"
 	},
 	"broccoli-rabe": {
 		"name": "broccoli rabe"
@@ -78,13 +78,13 @@
 		"name": "broccolini"
 	},
 	"brown-sugar": {
-		"name": "brown sugar"
+		"name": "hnědý cukr"
 	},
 	"brussels-sprouts": {
-		"name": "brussels sprouts"
+		"name": "růžičková kapusta"
 	},
 	"butter": {
-		"name": "butter"
+		"name": "máslo"
 	},
 	"butternut-pumpkin": {
 		"name": "butternut pumpkin"
@@ -93,20 +93,20 @@
 		"name": "butternut squash"
 	},
 	"cabbage": {
-		"name": "cabbage",
-		"plural_name": "cabbages"
+		"name": "zelí",
+		"plural_name": "zelí"
 	},
 	"cactus-edible": {
-		"name": "cactus, edible"
+		"name": "kaktus, jedlý"
 	},
 	"calabrese": {
 		"name": "calabrese"
 	},
 	"cane-sugar": {
-		"name": "cane sugar"
+		"name": "třtinový cukr"
 	},
 	"cannabis": {
-		"name": "cannabis"
+		"name": "konopí"
 	},
 	"capsicum": {
 		"name": "capsicum"
@@ -115,8 +115,8 @@
 		"name": "caraway"
 	},
 	"carrot": {
-		"name": "carrot",
-		"plural_name": "carrots"
+		"name": "mrkev",
+		"plural_name": "mrkve"
 	},
 	"caster-sugar": {
 		"name": "caster sugar"
@@ -125,14 +125,14 @@
 		"name": "castor sugar"
 	},
 	"catfish": {
-		"name": "catfish"
+		"name": "sumec"
 	},
 	"cauliflower": {
-		"name": "cauliflower",
-		"plural_name": "cauliflowers"
+		"name": "květák",
+		"plural_name": "květáky"
 	},
 	"cayenne-pepper": {
-		"name": "cayenne pepper"
+		"name": "kayenský pepř"
 	},
 	"celeriac": {
 		"name": "celery root"
@@ -147,45 +147,45 @@
 		"name": "chard"
 	},
 	"cheese": {
-		"name": "cheese"
+		"name": "sýr"
 	},
 	"chicory": {
 		"name": "chicory"
 	},
 	"chilli-peppers": {
-		"name": "chilli pepper",
-		"plural_name": "chilli peppers"
+		"name": "paprička chilli",
+		"plural_name": "papričky chilli"
 	},
 	"chinese-leaves": {
 		"name": "chinese leaves"
 	},
 	"chives": {
-		"name": "chives"
+		"name": "pažitka"
 	},
 	"chocolate": {
-		"name": "chocolate"
+		"name": "čokoláda"
 	},
 	"cilantro": {
-		"name": "cilantro"
+		"name": "koriandr"
 	},
 	"cinnamon": {
-		"name": "cinnamon"
+		"name": "skořice"
 	},
 	"clarified-butter": {
-		"name": "clarified butter"
+		"name": "přepuštěné máslo"
 	},
 	"coconut": {
-		"name": "coconut",
-		"plural_name": "coconuts"
+		"name": "kokos",
+		"plural_name": "kokosy"
 	},
 	"coconut-milk": {
-		"name": "coconut milk"
+		"name": "kokosové mléko"
 	},
 	"cod": {
-		"name": "cod"
+		"name": "treska"
 	},
 	"coffee": {
-		"name": "coffee"
+		"name": "káva"
 	},
 	"collard-greens": {
 		"name": "collard greens"
@@ -194,17 +194,17 @@
 		"name": "confectioners' sugar"
 	},
 	"coriander": {
-		"name": "coriander"
+		"name": "koriandr"
 	},
 	"corn": {
-		"name": "corn",
-		"plural_name": "corns"
+		"name": "kukuřice",
+		"plural_name": "kukuřice"
 	},
 	"corn-syrup": {
-		"name": "corn syrup"
+		"name": "kukuřičný sirup"
 	},
 	"cottonseed-oil": {
-		"name": "cottonseed oil"
+		"name": "bavlníkový olej"
 	},
 	"courgette": {
 		"name": "courgette"
@@ -213,45 +213,45 @@
 		"name": "cream of tartar"
 	},
 	"cucumber": {
-		"name": "cucumber",
-		"plural_name": "cucumbers"
+		"name": "okurka",
+		"plural_name": "okurky"
 	},
 	"cumin": {
-		"name": "cumin"
+		"name": "kmín"
 	},
 	"daikon": {
 		"name": "daikon",
 		"plural_name": "daikons"
 	},
 	"dairy-products-and-dairy-substitutes": {
-		"name": "dairy products and dairy substitutes"
+		"name": "mléčné výrobky a mléčné náhražky"
 	},
 	"dandelion": {
-		"name": "dandelion"
+		"name": "pampeliška"
 	},
 	"demerara-sugar": {
 		"name": "demerara sugar"
 	},
 	"dough": {
-		"name": "dough"
+		"name": "těsto"
 	},
 	"edible-cactus": {
-		"name": "edible cactus"
+		"name": "jedlý kaktus"
 	},
 	"eggplant": {
-		"name": "eggplant",
-		"plural_name": "eggplants"
+		"name": "lilek",
+		"plural_name": "lilky"
 	},
 	"eggs": {
-		"name": "egg",
-		"plural_name": "eggs"
+		"name": "vejce",
+		"plural_name": "vejce"
 	},
 	"endive": {
-		"name": "endive",
-		"plural_name": "endives"
+		"name": "čekanka",
+		"plural_name": "čekanky"
 	},
 	"fats": {
-		"name": "fats"
+		"name": "tuky"
 	},
 	"fava-beans": {
 		"name": "fava beans"
@@ -264,22 +264,22 @@
 		"plural_name": "fiddlehead ferns"
 	},
 	"fish": {
-		"name": "fish"
+		"name": "ryba"
 	},
 	"five-spice-powder": {
 		"name": "five spice powder"
 	},
 	"flour": {
-		"name": "flour"
+		"name": "mouka"
 	},
 	"frisee": {
 		"name": "frisee"
 	},
 	"fructose": {
-		"name": "fructose"
+		"name": "fruktóza"
 	},
 	"fruit": {
-		"name": "fruit"
+		"name": "ovoce"
 	},
 	"fruit-sugar": {
 		"name": "fruit sugar"
@@ -291,8 +291,8 @@
 		"name": "garam masala"
 	},
 	"garlic": {
-		"name": "garlic",
-		"plural_name": "garlics"
+		"name": "česnek",
+		"plural_name": "česneky"
 	},
 	"gem-squash": {
 		"name": "gem squash"
@@ -304,20 +304,20 @@
 		"name": "giblets"
 	},
 	"ginger": {
-		"name": "ginger"
+		"name": "zázvor"
 	},
 	"grains": {
-		"name": "grains"
+		"name": "zrna"
 	},
 	"granulated-sugar": {
-		"name": "granulated sugar"
+		"name": "cukr krystal"
 	},
 	"grape-seed-oil": {
 		"name": "grape seed oil"
 	},
 	"green-onion": {
-		"name": "green onion",
-		"plural_name": "green onions"
+		"name": "jarní cibulka",
+		"plural_name": "jarní cibulky"
 	},
 	"heart-of-palm": {
 		"name": "heart of palm",
@@ -327,10 +327,10 @@
 		"name": "hemp"
 	},
 	"herbs": {
-		"name": "herbs"
+		"name": "bylinky"
 	},
 	"honey": {
-		"name": "honey"
+		"name": "med"
 	},
 	"isomalt": {
 		"name": "isomalt"
@@ -367,43 +367,43 @@
 		"name": "leavening agents"
 	},
 	"leek": {
-		"name": "leek",
-		"plural_name": "leeks"
+		"name": "pórek",
+		"plural_name": "pórky"
 	},
 	"legumes": {
 		"name": "legumes"
 	},
 	"lemongrass": {
-		"name": "lemongrass"
+		"name": "citronová tráva"
 	},
 	"lentils": {
-		"name": "lentils"
+		"name": "čočka"
 	},
 	"lettuce": {
-		"name": "lettuce"
+		"name": "hlávkový salát"
 	},
 	"liver": {
-		"name": "liver",
-		"plural_name": "livers"
+		"name": "játra",
+		"plural_name": "játra"
 	},
 	"maize": {
 		"name": "maize"
 	},
 	"maple-syrup": {
-		"name": "maple syrup"
+		"name": "javorový syrup"
 	},
 	"meat": {
-		"name": "meat"
+		"name": "maso"
 	},
 	"milk": {
-		"name": "milk"
+		"name": "mléko"
 	},
 	"mortadella": {
 		"name": "mortadella"
 	},
 	"mushroom": {
-		"name": "mushroom",
-		"plural_name": "mushrooms"
+		"name": "houba",
+		"plural_name": "houby"
 	},
 	"mussels": {
 		"name": "mussels"
@@ -415,32 +415,32 @@
 		"name": "nori"
 	},
 	"nutmeg": {
-		"name": "nutmeg"
+		"name": "muškátový oříšek"
 	},
 	"nutritional-yeast-flakes": {
 		"name": "nutritional yeast flakes"
 	},
 	"nuts": {
-		"name": "nuts"
+		"name": "ořechy"
 	},
 	"octopuses": {
-		"name": "octopus",
-		"plural_name": "octopuses"
+		"name": "chobotnice",
+		"plural_name": "chobotnice"
 	},
 	"oils": {
-		"name": "oils"
+		"name": "oleje"
 	},
 	"okra": {
 		"name": "okra"
 	},
 	"olive": {
-		"name": "olive"
+		"name": "olivy"
 	},
 	"olive-oil": {
-		"name": "olive oil"
+		"name": "olivový olej"
 	},
 	"onion": {
-		"name": "onion"
+		"name": "cibule"
 	},
 	"onion-family": {
 		"name": "onion family"
@@ -449,14 +449,14 @@
 		"name": "orange blossom water"
 	},
 	"oranges": {
-		"name": "orange",
-		"plural_name": "oranges"
+		"name": "pomeranč",
+		"plural_name": "pomeranče"
 	},
 	"oregano": {
-		"name": "oregano"
+		"name": "oregáno"
 	},
 	"oysters": {
-		"name": "oysters"
+		"name": "ústřice"
 	},
 	"panch-puran": {
 		"name": "panch puran"
@@ -465,26 +465,26 @@
 		"name": "paprika"
 	},
 	"parsley": {
-		"name": "parsley"
+		"name": "petržel"
 	},
 	"parsnip": {
 		"name": "parsnip",
 		"plural_name": "parsnips"
 	},
 	"pear": {
-		"name": "pear",
-		"plural_name": "pears"
+		"name": "hruška",
+		"plural_name": "hrušky"
 	},
 	"peas": {
-		"name": "peas"
+		"name": "hrášek"
 	},
 	"pepper": {
 		"name": "pepper",
 		"plural_name": "peppers"
 	},
 	"pineapple": {
-		"name": "pineapple",
-		"plural_name": "pineapples"
+		"name": "ananas",
+		"plural_name": "ananasy"
 	},
 	"plantain": {
 		"name": "plantain",
@@ -494,24 +494,24 @@
 		"name": "poppy seeds"
 	},
 	"potato": {
-		"name": "potato",
-		"plural_name": "potatoes"
+		"name": "brambora",
+		"plural_name": "brambory"
 	},
 	"poultry": {
 		"name": "poultry"
 	},
 	"powdered-sugar": {
-		"name": "powdered sugar"
+		"name": "moučkový cukr"
 	},
 	"pumpkin": {
-		"name": "pumpkin",
-		"plural_name": "pumpkins"
+		"name": "dýně",
+		"plural_name": "dýní"
 	},
 	"pumpkin-seeds": {
-		"name": "pumpkin seeds"
+		"name": "dýňová semínka"
 	},
 	"radish": {
-		"name": "radish",
+		"name": "ředkev",
 		"plural_name": "radishes"
 	},
 	"raw-sugar": {
@@ -521,10 +521,10 @@
 		"name": "refined sugar"
 	},
 	"rice": {
-		"name": "rice"
+		"name": "rýže"
 	},
 	"rice-flour": {
-		"name": "rice flour"
+		"name": "rýžová mouka"
 	},
 	"rock-sugar": {
 		"name": "rock sugar"
@@ -533,10 +533,10 @@
 		"name": "rum"
 	},
 	"salmon": {
-		"name": "salmon"
+		"name": "losos"
 	},
 	"salt": {
-		"name": "salt"
+		"name": "sůl"
 	},
 	"salt-cod": {
 		"name": "salt cod"
@@ -546,17 +546,17 @@
 		"plural_name": "scallions"
 	},
 	"seafood": {
-		"name": "seafood"
+		"name": "mořské plody"
 	},
 	"seeds": {
-		"name": "seeds"
+		"name": "semínka"
 	},
 	"sesame-seeds": {
-		"name": "sesame seeds"
+		"name": "sezamová semínka"
 	},
 	"shallot": {
-		"name": "shallot",
-		"plural_name": "shallots"
+		"name": "šalotka",
+		"plural_name": "šalotky"
 	},
 	"skate": {
 		"name": "skate"
@@ -565,10 +565,10 @@
 		"name": "soda"
 	},
 	"soda-baking": {
-		"name": "soda, baking"
+		"name": "soda, na pečení"
 	},
 	"soybean": {
-		"name": "soybean"
+		"name": "sójové boby"
 	},
 	"spaghetti-squash": {
 		"name": "spaghetti squash",
@@ -578,14 +578,14 @@
 		"name": "speck"
 	},
 	"spices": {
-		"name": "spices"
+		"name": "koření"
 	},
 	"spinach": {
 		"name": "spinach"
 	},
 	"spring-onion": {
-		"name": "spring onion",
-		"plural_name": "spring onions"
+		"name": "jarní cibulka",
+		"plural_name": "jarní cibulky"
 	},
 	"squash": {
 		"name": "squash",
@@ -598,21 +598,21 @@
 		"name": "stockfish"
 	},
 	"sugar": {
-		"name": "sugar"
+		"name": "cukr"
 	},
 	"sunchoke": {
 		"name": "sunchoke",
 		"plural_name": "sunchokes"
 	},
 	"sunflower-seeds": {
-		"name": "sunflower seeds"
+		"name": "slunečnicová semínka"
 	},
 	"superfine-sugar": {
 		"name": "superfine sugar"
 	},
 	"sweet-potato": {
-		"name": "sweet potato",
-		"plural_name": "sweet potatoes"
+		"name": "batát",
+		"plural_name": "batáty"
 	},
 	"sweetcorn": {
 		"name": "sweetcorn",
@@ -632,8 +632,8 @@
 		"name": "teff"
 	},
 	"tomato": {
-		"name": "tomato",
-		"plural_name": "tomatoes"
+		"name": "rajče",
+		"plural_name": "rajčata"
 	},
 	"trout": {
 		"name": "trout"
@@ -649,44 +649,44 @@
 		"name": "turbanado sugar"
 	},
 	"turnip": {
-		"name": "turnip",
-		"plural_name": "turnips"
+		"name": "tuřín",
+		"plural_name": "tuříny"
 	},
 	"unrefined-sugar": {
 		"name": "unrefined sugar"
 	},
 	"vanilla": {
-		"name": "vanilla"
+		"name": "vanilka"
 	},
 	"vegetables": {
-		"name": "vegetables"
+		"name": "zelenina"
 	},
 	"watercress": {
 		"name": "watercress"
 	},
 	"watermelon": {
-		"name": "watermelon",
-		"plural_name": "watermelons"
+		"name": "vodní meloun",
+		"plural_name": "vodní melouny"
 	},
 	"white-mushroom": {
 		"name": "white mushroom",
 		"plural_name": "white mushrooms"
 	},
 	"white-sugar": {
-		"name": "white sugar"
+		"name": "bílý cukr"
 	},
 	"xanthan-gum": {
-		"name": "xanthan gum"
+		"name": "xanthanová guma"
 	},
 	"yam": {
 		"name": "yam",
 		"plural_name": "yams"
 	},
 	"yeast": {
-		"name": "yeast"
+		"name": "droždí"
 	},
 	"zucchini": {
-		"name": "zucchini",
-		"plural_name": "zucchinis"
+		"name": "cuketa",
+		"plural_name": "cukety"
 	}
 }

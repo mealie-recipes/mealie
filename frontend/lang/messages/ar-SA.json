@@ -410,7 +410,7 @@
     "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
     "plantoeat": {
       "title": "خِطَّة تناول الطعام",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "يمكن لمالي أن تستورد الوصفات من Plan to Eat."
     },
     "myrecipebox": {
       "title": "صندوق وصفاتي",
@@ -418,7 +418,7 @@
     },
     "recipekeeper": {
       "title": "مدير الوصفة",
-      "description-long": "Mealie can import recipes from Recipe Keeper. Export your recipes in zip format, then upload the .zip file below."
+      "description-long": "يمكن لـ Mealie استيراد الوصفات من وكيل الوصفات. قم بتصدير وصفاتك بتنسيق zip ، ثم قم بتحميل ملف zip أدناه."
     }
   },
   "new-recipe": {
@@ -544,10 +544,10 @@
     "successfully-added-to-list": "Successfully added to list",
     "recipe-added-to-mealplan": "Recipe added to mealplan",
     "failed-to-add-recipes-to-list": "Failed to add recipe to list",
-    "failed-to-add-recipe-to-mealplan": "Failed to add recipe to mealplan",
-    "failed-to-add-to-list": "Failed to add to list",
-    "yield": "Yield",
-    "yields-amount-with-text": "Yields {amount} {text}",
+    "failed-to-add-recipe-to-mealplan": "فشل في إضافة الوصفة إلى خطة الوجبة",
+    "failed-to-add-to-list": "فشل في الإضافة إلى القائمة",
+    "yield": "العائد",
+    "yields-amount-with-text": "العائد {amount} {text}",
     "yield-text": "Yield Text",
     "quantity": "الكَمّيَّة",
     "choose-unit": "اختر الوحدة",
@@ -822,7 +822,7 @@
     "validate": "Validate",
     "email-configuration-status": "Email Configuration Status",
     "email-configured": "Email Configured",
-    "email-test-results": "Email Test Results",
+    "email-test-results": "نتائج الايميل",
     "ready": "جاهز",
     "not-ready": "Not Ready - Check Environmental Variables",
     "succeeded": "نجحت العملية",

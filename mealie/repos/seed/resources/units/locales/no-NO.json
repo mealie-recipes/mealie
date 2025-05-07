@@ -62,7 +62,7 @@
     },
     "ounce": {
         "name": "unse",
-        "plural_name": "ounces\n",
+        "plural_name": "ounces\nunser",
         "description": "",
         "abbreviation": "oz"
     },

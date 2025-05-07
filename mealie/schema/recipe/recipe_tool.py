@@ -17,6 +17,7 @@ class RecipeToolSave(RecipeToolCreate):
 
 class RecipeToolOut(RecipeToolCreate):
     id: UUID4
+    group_id: UUID4
     slug: str
 
     model_config = ConfigDict(from_attributes=True)
