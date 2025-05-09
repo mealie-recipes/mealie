@@ -753,53 +753,6 @@ typing-extensions = "*"
 test = ["pytest", "pytest-cov", "pytest-mpl", "pytest-subtests"]
 
 [[package]]
-name = "floret"
-version = "0.10.5"
-description = "floret Python bindings"
-optional = false
-python-versions = "*"
-groups = ["main"]
-files = [
-    {file = "floret-0.10.5-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:50c2f950dbfffd6ff32525a4dc902cff94c9530d68bc14b6a7d27e363ffaf8df"},
-    {file = "floret-0.10.5-cp310-cp310-macosx_11_0_x86_64.whl", hash = "sha256:f3d78f7a0da75a7d6481db1a6b6d5c495caa558f52fcaa7800b05b013518732f"},
-    {file = "floret-0.10.5-cp310-cp310-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:f70107549c9811a3d36d7ad184ee2eb69800d5fd652ed09e7ec9e9b51b82ab9a"},
-    {file = "floret-0.10.5-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:1a6dc625a66f3fe4fa2976585cb33f90584f58995197325ac179a01a3faa4fea"},
-    {file = "floret-0.10.5-cp310-cp310-win_amd64.whl", hash = "sha256:009a80bd3d92915c02d2c2cc985fc602fa6ccb9e012a9d17b77a0d9baeb14dc2"},
-    {file = "floret-0.10.5-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:9b7b9a6aaf807a0ed0a0d3615206b67f46b56f52a94dcdc50d7412b40b76418a"},
-    {file = "floret-0.10.5-cp311-cp311-macosx_11_0_x86_64.whl", hash = "sha256:1a6c7cec76c545a181f1b4987988871dba8fd5966b760b66f7e79f4c4565ef94"},
-    {file = "floret-0.10.5-cp311-cp311-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:17d12b5e195a1220b9b173647ba215cb680fd82f5f5f9e68a34a9dc16c27d491"},
-    {file = "floret-0.10.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:237e2eeee54147bf893aef8b1297631f53127b888c2978b1957d9a96af9b769c"},
-    {file = "floret-0.10.5-cp311-cp311-win_amd64.whl", hash = "sha256:020317dac154caff1e03cdb8dd1e5d013cb0749d5913e264834017386f905655"},
-    {file = "floret-0.10.5-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:87bb2d7a44c6ac2572ca4aeed6a7780f184c2cebe67a6cf3e3b8d3005da360b4"},
-    {file = "floret-0.10.5-cp312-cp312-macosx_11_0_x86_64.whl", hash = "sha256:96de360cf7f93f21e28641f74c309e3207ceab3856b2cf4867f9135788f02115"},
-    {file = "floret-0.10.5-cp312-cp312-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:7c3d1d189fd12f75bc2f4229a5fd4f6eb333f598063609ff050c6a1296568e98"},
-    {file = "floret-0.10.5-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:dfea32120951b8781c318e5ee9847eb9895ff7a18dd49c5d466ad8951589a0f5"},
-    {file = "floret-0.10.5-cp312-cp312-win_amd64.whl", hash = "sha256:e074b9e731504191e366f5f21f2f419a2dc3194d6d17ef26ced7edceefac3f79"},
-    {file = "floret-0.10.5-cp36-cp36m-macosx_10_16_x86_64.whl", hash = "sha256:c2ba155ce1dd704c0424fa2ce0118ffde4418ee3785d7dbeda3a1a0e13f009ac"},
-    {file = "floret-0.10.5-cp36-cp36m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:e9a905fe7e46e48634835681256afa3e296b6b7350c1939c70e73c221f009d99"},
-    {file = "floret-0.10.5-cp36-cp36m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:994993a16675c33eeec561f32b2233dff8e39267c426a510c01158612fbde4b8"},
-    {file = "floret-0.10.5-cp36-cp36m-win_amd64.whl", hash = "sha256:7ea662bab1db425c07a969a0efc41747e05daf50fe24fffeb7661360961ce44f"},
-    {file = "floret-0.10.5-cp37-cp37m-macosx_10_16_x86_64.whl", hash = "sha256:088006325cba178fd725745ea2d935985723f7bc40762bbbd9e518188774de40"},
-    {file = "floret-0.10.5-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:b438963856a4903732309a3319f0681806a3bf084651354daa5b3265f4c64380"},
-    {file = "floret-0.10.5-cp37-cp37m-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:a29128c874c3c453729e89783f667d62235d609c926c644f3d48503fed93ff61"},
-    {file = "floret-0.10.5-cp37-cp37m-win_amd64.whl", hash = "sha256:b5b58fac25bab7b513e350a122270ed5637da6179a98e36939f934d82385ac6b"},
-    {file = "floret-0.10.5-cp38-cp38-macosx_10_16_x86_64.whl", hash = "sha256:63c649375187e3ae5fa7921527f6c44eedba618ab9d2b4047d05a1d501e93dd4"},
-    {file = "floret-0.10.5-cp38-cp38-macosx_11_0_arm64.whl", hash = "sha256:f213a01af2bd9f1f151cd633d35f8561341214c8c4a3828c6dbad170e846c605"},
-    {file = "floret-0.10.5-cp38-cp38-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:a8486d383a077f4b41f78293d29a81afeee0f7fc4865b8cf39b218ff2135afa9"},
-    {file = "floret-0.10.5-cp38-cp38-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:101620e4b94e671b45b7c1e7c3c532cf45b3e37561c8e3b656d451c13e0a6f3a"},
-    {file = "floret-0.10.5-cp38-cp38-win_amd64.whl", hash = "sha256:217dc18c3cbd2491c2c49fc7cfb9b55eb94af19930bbef65f24037e28af59ea8"},
-    {file = "floret-0.10.5-cp39-cp39-macosx_11_0_arm64.whl", hash = "sha256:620bc8218a8586f56f2ddcc9e21657cdefa03c255d9e85a0f0cd2346ef1acc56"},
-    {file = "floret-0.10.5-cp39-cp39-macosx_11_0_x86_64.whl", hash = "sha256:c24db59a80883e15361c3c23c16f9f50bb5df47cec5a5253510e1cff97e49970"},
-    {file = "floret-0.10.5-cp39-cp39-manylinux_2_17_aarch64.manylinux2014_aarch64.whl", hash = "sha256:7d8efe2add424b711ff6021f670498e9e0298dd92131553e52570558ec8b4c7c"},
-    {file = "floret-0.10.5-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:3e1920a658a709f1366d0536d0e848b1bfb1370d16126480dc670ddd52626773"},
-    {file = "floret-0.10.5-cp39-cp39-win_amd64.whl", hash = "sha256:1f777dddfb4c2de9eec60bda92a1c4d4aea811a4d566ffe28ec4f56dacaaf139"},
-    {file = "floret-0.10.5.tar.gz", hash = "sha256:8a94654a87b3335499cd4d14532a6f947a8cc14bd3e28044d7ccf06e99084156"},
-]
-
-[package.dependencies]
-numpy = "*"
-
-[[package]]
 name = "freezegun"
 version = "1.5.1"
 description = "Let your Python tests travel through time"
@@ -1098,19 +1051,19 @@ files = [
 
 [[package]]
 name = "ingredient-parser-nlp"
-version = "2.0.0"
+version = "2.1.0"
 description = "A Python package to parse structured information from recipe ingredient sentences"
 optional = false
 python-versions = "<3.14,>=3.10"
 groups = ["main"]
 files = [
-    {file = "ingredient_parser_nlp-2.0.0-py3-none-any.whl", hash = "sha256:d027d2bb2648b9ec512582bd18cc9374aacef47dc2736b350061f34fba99d80f"},
-    {file = "ingredient_parser_nlp-2.0.0.tar.gz", hash = "sha256:f1dfe810e89e6c9522b2052902359f92030d5f078b7da9f09dea67044b447f3f"},
+    {file = "ingredient_parser_nlp-2.1.0-py3-none-any.whl", hash = "sha256:b987cc8c3e4561ad5828d1529a0d973690c75b731f5a06619e72deeb78b904cc"},
+    {file = "ingredient_parser_nlp-2.1.0.tar.gz", hash = "sha256:bd2edfd09ea4ecd9f12c2326aab36a61e1518e3bc96abd6946ada0fd2929e2ed"},
 ]
 
 [package.dependencies]
-floret = "*"
 nltk = ">=3.9.1"
+numpy = "*"
 pint = ">=0.24.4"
 python-crfsuite = "*"
 
