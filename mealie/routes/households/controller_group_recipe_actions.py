@@ -93,11 +93,11 @@ class GroupRecipeActionController(BaseUserController):
                 detail=ErrorResponse.respond(message="Not found."),
             ) from e
 
-        recipe.scaled_amount = scaled_amount
-        payload = GroupRecipeActionPayload(action=recipe_action, content=recipe)
+        payload = GroupRecipeActionPayload(action=recipe_action, content=recipe).model_dump()
+        payload["scaled_amount"] = scaled_amount
         bg_tasks.add_task(
             task_action,
             url=recipe_action.url,
-            json=jsonable_encoder(payload.model_dump()),
+            json=jsonable_encoder(payload),
             timeout=15,
         )
