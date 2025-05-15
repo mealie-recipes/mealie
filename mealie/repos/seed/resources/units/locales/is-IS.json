@@ -1,21 +1,21 @@
 {
     "teaspoon": {
-        "name": "teaspoon",
-        "plural_name": "teaspoons",
+        "name": "teskeið",
+        "plural_name": "teskeiðar",
         "description": "",
-        "abbreviation": "tsp"
+        "abbreviation": "tsk"
     },
     "tablespoon": {
-        "name": "tablespoon",
-        "plural_name": "tablespoons",
+        "name": "matskeið",
+        "plural_name": "matskeiðar",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "msk"
     },
     "cup": {
-        "name": "cup",
-        "plural_name": "cups",
+        "name": "bolli",
+        "plural_name": "bollar",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "b"
     },
     "fluid-ounce": {
         "name": "fluid ounce",
