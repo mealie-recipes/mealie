@@ -1051,20 +1051,20 @@ files = [
 
 [[package]]
 name = "ingredient-parser-nlp"
-version = "2.1.0"
+version = "2.1.1"
 description = "A Python package to parse structured information from recipe ingredient sentences"
 optional = false
 python-versions = "<3.14,>=3.10"
 groups = ["main"]
 files = [
-    {file = "ingredient_parser_nlp-2.1.0-py3-none-any.whl", hash = "sha256:b987cc8c3e4561ad5828d1529a0d973690c75b731f5a06619e72deeb78b904cc"},
-    {file = "ingredient_parser_nlp-2.1.0.tar.gz", hash = "sha256:bd2edfd09ea4ecd9f12c2326aab36a61e1518e3bc96abd6946ada0fd2929e2ed"},
+    {file = "ingredient_parser_nlp-2.1.1-py3-none-any.whl", hash = "sha256:e09f73b28d2805d33f5523b84a304225bf62ebdca47560aa8e6c7176442ef6b6"},
+    {file = "ingredient_parser_nlp-2.1.1.tar.gz", hash = "sha256:e7070b849d05395006b6a27923304b01ed4da04b53a82047c5ddddf1bbfe1fc7"},
 ]
 
 [package.dependencies]
 nltk = ">=3.9.1"
 numpy = "*"
-pint = ">=0.24.4"
+pint = "0.24.4"
 python-crfsuite = "*"
 
 [[package]]
