@@ -9,7 +9,7 @@
 		"name": "анчоусы"
 	},
 	"apples": {
-		"name": "apple",
+		"name": "яблоки",
 		"plural_name": "яблоки"
 	},
 	"artichoke": {
@@ -57,13 +57,13 @@
 		"name": "bok choy"
 	},
 	"brassicas": {
-		"name": "brassicas"
+		"name": "капуста"
 	},
 	"bread": {
 		"name": "хлеб"
 	},
 	"breadfruit": {
-		"name": "breadfruit"
+		"name": "плод хлебного дерева"
 	},
 	"broccoflower": {
 		"name": "broccoflower"
@@ -81,7 +81,7 @@
 		"name": "коричневый сахар"
 	},
 	"brussels-sprouts": {
-		"name": "brussels sprouts"
+		"name": "брюссельская капуста"
 	},
 	"butter": {
 		"name": "сливочное масло"
@@ -109,7 +109,7 @@
 		"name": "конопля"
 	},
 	"capsicum": {
-		"name": "capsicum"
+		"name": "стручковый перец"
 	},
 	"caraway": {
 		"name": "тмин"
@@ -122,29 +122,29 @@
 		"name": "мелкозернистый сахар"
 	},
 	"castor-sugar": {
-		"name": "castor sugar"
+		"name": "сахарная пудра"
 	},
 	"catfish": {
 		"name": "сом"
 	},
 	"cauliflower": {
-		"name": "cauliflower",
-		"plural_name": "cauliflowers"
+		"name": "цветная капуста",
+		"plural_name": "цветная капуста"
 	},
 	"cayenne-pepper": {
-		"name": "cayenne pepper"
+		"name": "кайенский перец"
 	},
 	"celeriac": {
-		"name": "celery root"
+		"name": "корень сельдерея"
 	},
 	"celery": {
-		"name": "celery"
+		"name": "сельдерей"
 	},
 	"cereal-grains": {
-		"name": "cereal grains"
+		"name": "злаковое зерно"
 	},
 	"chard": {
-		"name": "chard"
+		"name": "мангольд"
 	},
 	"cheese": {
 		"name": "сыр"
@@ -166,7 +166,7 @@
 		"name": "шоколад"
 	},
 	"cilantro": {
-		"name": "cilantro"
+		"name": "кинза"
 	},
 	"cinnamon": {
 		"name": "корица"
@@ -188,17 +188,17 @@
 		"name": "кофе"
 	},
 	"collard-greens": {
-		"name": "collard greens"
+		"name": "листовая капуста"
 	},
 	"confectioners-sugar": {
-		"name": "confectioners' sugar"
+		"name": "кондитерский сахар"
 	},
 	"coriander": {
-		"name": "coriander"
+		"name": "кориандр"
 	},
 	"corn": {
 		"name": "кукуруза",
-		"plural_name": "corns"
+		"plural_name": "кукуруза"
 	},
 	"corn-syrup": {
 		"name": "кукурузный сироп"
@@ -207,7 +207,7 @@
 		"name": ""
 	},
 	"courgette": {
-		"name": "courgette"
+		"name": "цукини"
 	},
 	"cream-of-tartar": {
 		"name": "cream of tartar"
@@ -220,14 +220,14 @@
 		"name": "cumin"
 	},
 	"daikon": {
-		"name": "daikon",
-		"plural_name": "daikons"
+		"name": "дайкон",
+		"plural_name": "дайкон"
 	},
 	"dairy-products-and-dairy-substitutes": {
-		"name": "dairy products and dairy substitutes"
+		"name": "молочные продукты и их заменители"
 	},
 	"dandelion": {
-		"name": "dandelion"
+		"name": "одуванчик"
 	},
 	"demerara-sugar": {
 		"name": "demerara sugar"
@@ -236,7 +236,7 @@
 		"name": "тесто"
 	},
 	"edible-cactus": {
-		"name": "edible cactus"
+		"name": "съедобный кактус"
 	},
 	"eggplant": {
 		"name": "баклажан",
@@ -267,7 +267,7 @@
 		"name": "рыба"
 	},
 	"five-spice-powder": {
-		"name": "five spice powder"
+		"name": "фруктоза"
 	},
 	"flour": {
 		"name": "мука"
@@ -276,7 +276,7 @@
 		"name": "frisee"
 	},
 	"fructose": {
-		"name": "fructose"
+		"name": "фруктоза"
 	},
 	"fruit": {
 		"name": "фрукт"
@@ -307,13 +307,13 @@
 		"name": "имбирь"
 	},
 	"grains": {
-		"name": "grains"
+		"name": "крупы"
 	},
 	"granulated-sugar": {
 		"name": "гранулированный сахар"
 	},
 	"grape-seed-oil": {
-		"name": "grape seed oil"
+		"name": "масло из семян винограда"
 	},
 	"green-onion": {
 		"name": "зеленый лук",
@@ -324,7 +324,7 @@
 		"plural_name": "heart of palms"
 	},
 	"hemp": {
-		"name": "hemp"
+		"name": "конопля"
 	},
 	"herbs": {
 		"name": "травы"
@@ -336,11 +336,11 @@
 		"name": "изомальт"
 	},
 	"jackfruit": {
-		"name": "jackfruit",
-		"plural_name": "jackfruits"
+		"name": "джекфрут",
+		"plural_name": "джекфрут"
 	},
 	"jaggery": {
-		"name": "jaggery"
+		"name": "пальмовый сахар"
 	},
 	"jams": {
 		"name": "джем"
@@ -355,7 +355,7 @@
 		"name": "jicama"
 	},
 	"kale": {
-		"name": "kale"
+		"name": "капуста"
 	},
 	"kohlrabi": {
 		"name": "kohlrabi"
@@ -364,7 +364,7 @@
 		"name": "kumara"
 	},
 	"leavening-agents": {
-		"name": "leavening agents"
+		"name": "разрыхлитель"
 	},
 	"leek": {
 		"name": "лук-порей",
@@ -377,10 +377,10 @@
 		"name": "лемонграсс"
 	},
 	"lentils": {
-		"name": "lentils"
+		"name": "чечевица"
 	},
 	"lettuce": {
-		"name": "lettuce"
+		"name": "салат"
 	},
 	"liver": {
 		"name": "печень",
@@ -390,7 +390,7 @@
 		"name": "maize"
 	},
 	"maple-syrup": {
-		"name": "maple syrup"
+		"name": "кленовый сироп"
 	},
 	"meat": {
 		"name": "мясо"
@@ -412,32 +412,32 @@
 		"name": "nanaimo bar mix"
 	},
 	"nori": {
-		"name": "nori"
+		"name": "нори"
 	},
 	"nutmeg": {
-		"name": "nutmeg"
+		"name": "мускат"
 	},
 	"nutritional-yeast-flakes": {
-		"name": "nutritional yeast flakes"
+		"name": "пищевые дрожжи"
 	},
 	"nuts": {
-		"name": "nuts"
+		"name": "орехи"
 	},
 	"octopuses": {
-		"name": "octopus",
-		"plural_name": "octopuses"
+		"name": "осьминог",
+		"plural_name": "осьминоги"
 	},
 	"oils": {
-		"name": "oils"
+		"name": "масла"
 	},
 	"okra": {
 		"name": "okra"
 	},
 	"olive": {
-		"name": "olive"
+		"name": "оливка"
 	},
 	"olive-oil": {
-		"name": "olive oil"
+		"name": "оливковое масло"
 	},
 	"onion": {
 		"name": "лук"
@@ -491,14 +491,14 @@
 		"plural_name": "plantains"
 	},
 	"poppy-seeds": {
-		"name": "poppy seeds"
+		"name": "семена мака"
 	},
 	"potato": {
 		"name": "картофель",
 		"plural_name": "картофель"
 	},
 	"poultry": {
-		"name": "poultry"
+		"name": "мясо птицы"
 	},
 	"powdered-sugar": {
 		"name": "сахарная пудра"
@@ -539,7 +539,7 @@
 		"name": "соль"
 	},
 	"salt-cod": {
-		"name": "salt cod"
+		"name": "вяленая треска"
 	},
 	"scallion": {
 		"name": "scallion",
@@ -568,24 +568,24 @@
 		"name": "пищевая сода"
 	},
 	"soybean": {
-		"name": "soybean"
+		"name": "соевые бобы"
 	},
 	"spaghetti-squash": {
 		"name": "spaghetti squash",
 		"plural_name": "spaghetti squashes"
 	},
 	"speck": {
-		"name": "speck"
+		"name": "шпик"
 	},
 	"spices": {
-		"name": "spices"
+		"name": "специи"
 	},
 	"spinach": {
-		"name": "spinach"
+		"name": "шпинат"
 	},
 	"spring-onion": {
-		"name": "spring onion",
-		"plural_name": "spring onions"
+		"name": "зелёный лук",
+		"plural_name": "зелёный лук"
 	},
 	"squash": {
 		"name": "squash",
@@ -595,62 +595,62 @@
 		"name": "squash family"
 	},
 	"stockfish": {
-		"name": "stockfish"
+		"name": "вяленая рыба"
 	},
 	"sugar": {
-		"name": "sugar"
+		"name": "сахар"
 	},
 	"sunchoke": {
-		"name": "sunchoke",
-		"plural_name": "sunchokes"
+		"name": "топинамбур",
+		"plural_name": "топинамбур"
 	},
 	"sunflower-seeds": {
-		"name": "sunflower seeds"
+		"name": "семена подсолнечника"
 	},
 	"superfine-sugar": {
 		"name": "superfine sugar"
 	},
 	"sweet-potato": {
-		"name": "sweet potato",
-		"plural_name": "sweet potatoes"
+		"name": "сладкий картофель",
+		"plural_name": "сладкий картофель"
 	},
 	"sweetcorn": {
 		"name": "sweetcorn",
 		"plural_name": "sweetcorns"
 	},
 	"sweeteners": {
-		"name": "sweeteners"
+		"name": "подсластители"
 	},
 	"tahini": {
-		"name": "tahini"
+		"name": "тахини"
 	},
 	"taro": {
-		"name": "taro",
-		"plural_name": "taroes"
+		"name": "таро",
+		"plural_name": "таро"
 	},
 	"teff": {
 		"name": "teff"
 	},
 	"tomato": {
-		"name": "tomato",
-		"plural_name": "tomatoes"
+		"name": "помидор",
+		"plural_name": "помидоры"
 	},
 	"trout": {
-		"name": "trout"
+		"name": "форель"
 	},
 	"tubers": {
-		"name": "tuber",
-		"plural_name": "tubers"
+		"name": "клубень",
+		"plural_name": "клубни"
 	},
 	"tuna": {
-		"name": "tuna"
+		"name": "тунец"
 	},
 	"turbanado-sugar": {
 		"name": "turbanado sugar"
 	},
 	"turnip": {
-		"name": "turnip",
-		"plural_name": "turnips"
+		"name": "репа",
+		"plural_name": "репа"
 	},
 	"unrefined-sugar": {
 		"name": "нерафинированный сахар"
@@ -679,11 +679,11 @@
 		"name": "ксантановая камедь"
 	},
 	"yam": {
-		"name": "yam",
-		"plural_name": "yams"
+		"name": "батат",
+		"plural_name": "батат"
 	},
 	"yeast": {
-		"name": "yeast"
+		"name": "дрожжи"
 	},
 	"zucchini": {
 		"name": "цуккини",
