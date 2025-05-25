@@ -171,8 +171,9 @@ def test_group_recipe_actions_trigger_post(
         recipe_slug = recipe.slug
 
     response = api_client.post(
-        api_routes.households_recipe_actions_item_id_trigger_recipe_slug(action_id, recipe_slug, 1.0),
+        api_routes.households_recipe_actions_item_id_trigger_recipe_slug(action_id, recipe_slug),
         headers=unique_user.token,
+        json={"scaled_amount": 1.0},
     )
 
     if missing_action or missing_recipe:
@@ -187,8 +188,9 @@ def test_group_recipe_actions_trigger_invalid_type(api_client: TestClient, uniqu
     recipe = unique_user.repos.recipes.create(new_recipe(unique_user))
 
     response = api_client.post(
-        api_routes.households_recipe_actions_item_id_trigger_recipe_slug(recipe_action.id, recipe.id, 1.0),
+        api_routes.households_recipe_actions_item_id_trigger_recipe_slug(recipe_action.id, recipe.id),
         headers=unique_user.token,
+        json={"scaled_amount": 1.0},
     )
 
     assert response.status_code == 400
