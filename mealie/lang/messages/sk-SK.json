@@ -4,28 +4,28 @@
     },
     "recipe": {
         "unique-name-error": "Názov receptu musí byť unikátny",
-        "recipe-created": "Recipe Created",
+        "recipe-created": "Recept bol vytvorený",
         "recipe-defaults": {
             "ingredient-note": "1 šálka múky",
             "step-text": "Kroky receptu, ako aj ďalšie polia na stránke receptu podporujú markdown syntax.\n\n**Pridanie odkazu**\n\n[Môj odkaz](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
-            "yield": "Yield",
-            "yields": "Yields"
+            "makes": "Porcie",
+            "serves": "Porcie",
+            "serving": "Porcia",
+            "servings": "Porcie",
+            "yield": "Množstvo",
+            "yields": "Počet porcií"
         }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Vaše pravidlá nespĺňa žiadny recept"
     },
     "user": {
-        "user-updated": "Užívateľ bol aktualizovaný",
+        "user-updated": "Používateľ bol aktualizovaný",
         "password-updated": "Heslo bolo aktualizované",
         "invalid-current-password": "Aktuálne heslo neplatné",
-        "ldap-update-password-unavailable": "Aktualizácia hesla nie je možná, užívateľ je spravovaný LDAP"
+        "ldap-update-password-unavailable": "Aktualizácia hesla nie je možná, používateľ je spravovaný v LDAPe"
     },
     "group": {
         "report-deleted": "Report bol odstránený."
@@ -34,7 +34,7 @@
         "permission_denied": "Nemáte povolenie na vykonanie tejto akcie",
         "no-entry-found": "404 - Požadovaná stránka nebola nájdená",
         "integrity-error": "Chyba integrity databázy",
-        "username-conflict-error": "Toto užívateľské meno je už obsadené",
+        "username-conflict-error": "Toto meno používateľa je už obsadené",
         "email-conflict-error": "Tento e-mail sa už používa"
     },
     "notifications": {

@@ -90,7 +90,7 @@ nav:
           - Bulk Url Import: "documentation/community-guide/bulk-url-import.md"
           - Home Assistant: "documentation/community-guide/home-assistant.md"
           - Import Bookmarklet: "documentation/community-guide/import-recipe-bookmarklet.md"
-          - iOS Shortcuts: "documentation/community-guide/ios.md"
+          - iOS Shortcut: "documentation/community-guide/ios-shortcut.md"
           - Reverse Proxy (SWAG): "documentation/community-guide/swag.md"
 
   - API Reference: "api/redoc.md"

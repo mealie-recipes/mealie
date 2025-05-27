@@ -38,7 +38,7 @@
 		"name": "witte suiker"
 	},
 	"bar-sugar": {
-		"name": "bar sugar"
+		"name": "rietsuiker"
 	},
 	"basil": {
 		"name": "basilicum"
@@ -57,7 +57,7 @@
 		"name": "paksoi"
 	},
 	"brassicas": {
-		"name": "brassicas"
+		"name": "kool"
 	},
 	"bread": {
 		"name": "brood"
@@ -72,7 +72,7 @@
 		"name": "broccoli"
 	},
 	"broccoli-rabe": {
-		"name": "broccoli rabe"
+		"name": "rapini"
 	},
 	"broccolini": {
 		"name": "broccolini"
@@ -122,7 +122,7 @@
 		"name": "basterdsuiker"
 	},
 	"castor-sugar": {
-		"name": "castor sugar"
+		"name": "basterdsuiker"
 	},
 	"catfish": {
 		"name": "meerval"
@@ -260,8 +260,8 @@
 		"name": "varenkrul"
 	},
 	"fiddlehead-fern": {
-		"name": "fiddlehead fern",
-		"plural_name": "fiddlehead ferns"
+		"name": "varenkrul",
+		"plural_name": "varenkrullen"
 	},
 	"fish": {
 		"name": "vis"
@@ -285,7 +285,7 @@
 		"name": "fruit suiker"
 	},
 	"ful": {
-		"name": "ful"
+		"name": "peul"
 	},
 	"garam-masala": {
 		"name": "garam masala"
@@ -295,7 +295,7 @@
 		"plural_name": "knoflook"
 	},
 	"gem-squash": {
-		"name": "gem squash"
+		"name": "citroenpompoen"
 	},
 	"ghee": {
 		"name": "geklaarde boter"
@@ -629,7 +629,7 @@
 		"plural_name": "taroes"
 	},
 	"teff": {
-		"name": "teff"
+		"name": "abessijns liefdegras"
 	},
 	"tomato": {
 		"name": "tomaat",

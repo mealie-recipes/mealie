@@ -16,6 +16,7 @@ class CategorySave(CategoryIn):
 
 class CategoryBase(CategoryIn):
     id: UUID4
+    group_id: UUID4 | None = None
     slug: str
     model_config = ConfigDict(from_attributes=True)
 
