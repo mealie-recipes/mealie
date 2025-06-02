@@ -63,16 +63,16 @@
 		"name": "kenyér"
 	},
 	"breadfruit": {
-		"name": "breadfruit"
+		"name": "kenyérfa"
 	},
 	"broccoflower": {
-		"name": "broccoflower"
+		"name": "brokkoli"
 	},
 	"broccoli": {
 		"name": "brokkoli"
 	},
 	"broccoli-rabe": {
-		"name": "broccoli rabe"
+		"name": "rapini"
 	},
 	"broccolini": {
 		"name": "broccolini"
@@ -138,54 +138,54 @@
 		"name": "zeller"
 	},
 	"celery": {
-		"name": "celery"
+		"name": "zeller"
 	},
 	"cereal-grains": {
-		"name": "cereal grains"
+		"name": "darált zeller"
 	},
 	"chard": {
-		"name": "chard"
+		"name": "mángold"
 	},
 	"cheese": {
-		"name": "cheese"
+		"name": "sajt"
 	},
 	"chicory": {
-		"name": "chicory"
+		"name": "katáng"
 	},
 	"chilli-peppers": {
-		"name": "chilli pepper",
-		"plural_name": "chilli peppers"
+		"name": "chili paprika",
+		"plural_name": "chili paprikák"
 	},
 	"chinese-leaves": {
-		"name": "chinese leaves"
+		"name": "kínai kel"
 	},
 	"chives": {
-		"name": "chives"
+		"name": "metélőhagyma"
 	},
 	"chocolate": {
-		"name": "chocolate"
+		"name": "csoki"
 	},
 	"cilantro": {
 		"name": "cilantro"
 	},
 	"cinnamon": {
-		"name": "cinnamon"
+		"name": "fahéj"
 	},
 	"clarified-butter": {
-		"name": "clarified butter"
+		"name": "tisztított vaj"
 	},
 	"coconut": {
-		"name": "coconut",
-		"plural_name": "coconuts"
+		"name": "kókusz",
+		"plural_name": "kókuszok"
 	},
 	"coconut-milk": {
-		"name": "coconut milk"
+		"name": "kókusztej"
 	},
 	"cod": {
-		"name": "cod"
+		"name": "tőkehal"
 	},
 	"coffee": {
-		"name": "coffee"
+		"name": "kávé"
 	},
 	"collard-greens": {
 		"name": "collard greens"
