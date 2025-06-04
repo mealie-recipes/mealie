@@ -22,8 +22,8 @@
 		"name": "asparges"
 	},
 	"avocado": {
-		"name": "avakado",
-		"plural_name": "avakado"
+		"name": "avokado",
+		"plural_name": "avokadoer"
 	},
 	"bacon": {
 		"name": "bacon"
@@ -38,7 +38,7 @@
 		"name": "melis"
 	},
 	"bar-sugar": {
-		"name": "bar sugar"
+		"name": "bar sukker"
 	},
 	"basil": {
 		"name": "basilikum"
@@ -141,7 +141,7 @@
 		"name": "selleri"
 	},
 	"cereal-grains": {
-		"name": "cereal grains"
+		"name": "frokostblandinger"
 	},
 	"chard": {
 		"name": "bladbete"
@@ -157,7 +157,7 @@
 		"plural_name": "chilli peppers"
 	},
 	"chinese-leaves": {
-		"name": "chinese leaves"
+		"name": "kinesiske blader"
 	},
 	"chives": {
 		"name": "gressløk"
@@ -198,7 +198,7 @@
 	},
 	"corn": {
 		"name": "mais",
-		"plural_name": "corns"
+		"plural_name": "korn"
 	},
 	"corn-syrup": {
 		"name": "maissirup"
@@ -210,7 +210,7 @@
 		"name": "squash"
 	},
 	"cream-of-tartar": {
-		"name": "cream of tartar"
+		"name": "krem av tartar"
 	},
 	"cucumber": {
 		"name": "agurk",
@@ -260,8 +260,8 @@
 		"name": "felehode"
 	},
 	"fiddlehead-fern": {
-		"name": "fiddlehead fern",
-		"plural_name": "fiddlehead ferns"
+		"name": "felehodebregne",
+		"plural_name": "felehodebregner"
 	},
 	"fish": {
 		"name": "fisk"
@@ -343,10 +343,10 @@
 		"name": "jaggery"
 	},
 	"jams": {
-		"name": "jams"
+		"name": "syltetøyer"
 	},
 	"jellies": {
-		"name": "jellies"
+		"name": "geléer"
 	},
 	"jerusalem-artichoke": {
 		"name": "jordskokk"
@@ -387,7 +387,7 @@
 		"plural_name": "lever"
 	},
 	"maize": {
-		"name": "maize"
+		"name": "mais"
 	},
 	"maple-syrup": {
 		"name": "lønnesirup"
@@ -409,7 +409,7 @@
 		"name": "blåskjell"
 	},
 	"nanaimo-bar-mix": {
-		"name": "nanaimo bar mix"
+		"name": "nanaimo barmiks"
 	},
 	"nori": {
 		"name": "nori"
@@ -418,7 +418,7 @@
 		"name": "muskat"
 	},
 	"nutritional-yeast-flakes": {
-		"name": "nutritional yeast flakes"
+		"name": "næringsgjærflakk"
 	},
 	"nuts": {
 		"name": "nøtter"
@@ -443,7 +443,7 @@
 		"name": "løk"
 	},
 	"onion-family": {
-		"name": "onion family"
+		"name": "løk familie"
 	},
 	"orange-blossom-water": {
 		"name": "appelsinblomstvann"
@@ -527,7 +527,7 @@
 		"name": "rismel"
 	},
 	"rock-sugar": {
-		"name": "rock sugar"
+		"name": "steinsukker"
 	},
 	"rum": {
 		"name": "rom"
@@ -615,11 +615,11 @@
 		"plural_name": "søtpoteter"
 	},
 	"sweetcorn": {
-		"name": "sweetcorn",
-		"plural_name": "sweetcorns"
+		"name": "Søtkorn ",
+		"plural_name": "søtkorn"
 	},
 	"sweeteners": {
-		"name": "sweeteners"
+		"name": "søtningsmiddeller"
 	},
 	"tahini": {
 		"name": "tahini"
@@ -646,7 +646,7 @@
 		"name": "tunfisk"
 	},
 	"turbanado-sugar": {
-		"name": "turbanado sugar"
+		"name": "turbinado sukker"
 	},
 	"turnip": {
 		"name": "nepe",
@@ -679,8 +679,8 @@
 		"name": "xanthangummi"
 	},
 	"yam": {
-		"name": "yam",
-		"plural_name": "yams"
+		"name": "syltetøy",
+		"plural_name": "syltetøyer"
 	},
 	"yeast": {
 		"name": "gjær"
