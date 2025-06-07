@@ -43,13 +43,13 @@
     },
     "milliliter": {
         "name": "milliliter",
-        "plural_name": "milliliters",
+        "plural_name": "milliliter",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "liter",
-        "plural_name": "liters",
+        "plural_name": "liter",
         "description": "",
         "abbreviation": "l"
     },
@@ -74,13 +74,13 @@
     },
     "kilogram": {
         "name": "kilogram",
-        "plural_name": "kilogrammen",
+        "plural_name": "kilogram",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "milligram",
-        "plural_name": "milligrammen",
+        "plural_name": "milligram",
         "description": "",
         "abbreviation": "mg"
     },
