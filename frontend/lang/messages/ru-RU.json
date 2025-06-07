@@ -196,7 +196,7 @@
     "copy": "Копировать",
     "color": "Цвет",
     "timestamp": "Время",
-    "last-made": "Последний раз сделано",
+    "last-made": "Последнее приготовление",
     "learn-more": "Подробнее",
     "this-feature-is-currently-inactive": "Эта функция в настоящее время неактивна",
     "clipboard-not-supported": "Буфер обмена не поддерживается",
@@ -212,7 +212,7 @@
     "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?",
     "clipboard-copy-failure": "Не удалось скопировать текст.",
     "confirm-delete-generic-items": "Вы уверены, что хотите удалить следующие элементы?",
-    "organizers": "Организаторы",
+    "organizers": "Органайзеры",
     "caution": "Внимание",
     "show-advanced": "Показать расширенные",
     "add-field": "Добавить поле",
@@ -293,7 +293,7 @@
     "household-id-value": "Id домохозяйства: {0}",
     "private-household": "Частное домохозяйство",
     "private-household-description": "Setting your household to private will disable all public view options. This overrides any individual public view settings",
-    "lock-recipe-edits-from-other-households": "Lock recipe edits from other households",
+    "lock-recipe-edits-from-other-households": "Заблокировать изменения рецепта от других домохозяйств",
     "lock-recipe-edits-from-other-households-description": "When enabled only users in your household can edit recipes created by your household",
     "household-recipe-preferences": "Household Recipe Preferences",
     "default-recipe-preferences-description": "These are the default settings when a new recipe is created in your household. These can be changed for individual recipes in the recipe settings menu.",
@@ -369,15 +369,15 @@
     "new-migration": "Новая миграция",
     "no-file-selected": "Файл не выбран",
     "no-migration-data-available": "Данные о миграции отсутствуют",
-    "previous-migrations": "Предыдущие миграции",
+    "previous-migrations": "Предыдущие переносы",
     "recipe-migration": "Миграция рецепта",
     "chowdown": {
-      "description": "Миграция данных из Chowdown",
+      "description": "Перенос данных из Chowdown",
       "description-long": "Mealie поддерживает формат chowdown репозитория. Загрузите хранилище кода в формате .zip и загрузите его ниже.",
       "title": "Chowdown"
     },
     "nextcloud": {
-      "description": "Миграция данных из Nextcloud Cookbook",
+      "description": "Перенос данных из Nextcloud Cookbook",
       "description-long": "Рецепты Nextcloud могут быть импортированы из zip-файла c данными из Nextcloud. Смотрите пример структуры папок ниже, чтобы убедиться, что ваши рецепты могут быть импортированы.",
       "title": "Nextcloud Cookbook"
     },
@@ -397,10 +397,10 @@
       "description-long": "Mealie может импортировать рецепты из Tandoor. Экспортируйте ваши данные в формате «По умолчанию», затем загрузите .zip ниже.",
       "title": "Рецепты Tandoor"
     },
-    "recipe-data-migrations": "Миграция данных рецепта",
+    "recipe-data-migrations": "Перенос данных рецептов",
     "recipe-data-migrations-explanation": "Рецепты могут быть перенесены из другого поддерживаемого приложения в Mealie. Это отличный способ начать работу с Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Переходите из другого приложения или с более поздней версии Mealie? Проверьте \"миграции\", чтобы убедиться, что ваши данные могут быть перенесены.",
-    "choose-migration-type": "Выберите тип миграции",
+    "choose-migration-type": "Выберите тип переноса",
     "tag-all-recipes": "Отметить все рецепты тегом {tag-name}",
     "nextcloud-text": "Рецепты Nextcloud могут быть импортированы из zip-файла c данными из Nextcloud. Смотрите пример структуры папок ниже, чтобы убедиться, что ваши рецепты могут быть импортированы.",
     "chowdown-text": "Mealie нативно поддерживает формат репозитория chowdown. Скачайте репозиторий кода в виде .zip файла и загрузите его ниже.",
@@ -414,11 +414,11 @@
     },
     "myrecipebox": {
       "title": "Мой ящик с рецептами",
-      "description-long": "Mealie не может импортировать рецепты из My Recipe Box. Экспортируйте ваши рецепты в формате CSV, а затем загрузите .csv ниже."
+      "description-long": "Mealie может импортировать рецепты из My Recipe Box. Экспортируйте ваши рецепты в формате CSV, а затем загрузите .csv ниже."
     },
     "recipekeeper": {
       "title": "Хранитель рецептов",
-      "description-long": "Mealie не может импортировать рецепты из Recipe Keeper. Экспортируйте ваши рецепты в формате zip, а затем загрузите .zip ниже."
+      "description-long": "Mealie может импортировать рецепты из Recipe Keeper. Экспортируйте ваши рецепты в формате zip, а затем загрузите .zip ниже."
     }
   },
   "new-recipe": {
@@ -537,7 +537,7 @@
     "date-format-hint": "ДД/ММ/ГГГГ формат",
     "date-format-hint-yyyy-mm-dd": "ГГГГ-ММ-ДД формат",
     "add-to-list": "Добавить в список",
-    "add-to-plan": "Добавить к плану",
+    "add-to-plan": "Добавить в план",
     "add-to-timeline": "Добавить в историю",
     "recipe-added-to-list": "Рецепт добавлен в список",
     "recipes-added-to-list": "Рецепты добавлены в список",
@@ -574,11 +574,11 @@
     "timeline": "История",
     "timeline-is-empty": "В истории пока ничего нет. Попробуйте сделать этот рецепт!",
     "timeline-no-events-found-try-adjusting-filters": "События не найдены. Проверьте фильтры поиска.",
-    "group-global-timeline": "{groupName} глобальная история",
+    "group-global-timeline": "Глобальная история {groupName}",
     "open-timeline": "Открыть историю",
-    "made-this": "Я сделал это",
+    "made-this": "Я приготовил это",
     "how-did-it-turn-out": "Что получилось?",
-    "user-made-this": "{user} сделал это",
+    "user-made-this": "{user} приготовил это",
     "api-extras-description": "Дополнения к рецептам являются ключевым элементом Mealie API. Они позволяют создавать пользовательские пары json ключ/значение в рецепте для ссылания на другие приложения. Вы можете использовать эти ключи, чтобы сохранить нужную информацию, например, для автоматизаций или уведомлений на ваши устройства.",
     "message-key": "Ключ сообщения",
     "parse": "Обработать",
@@ -676,8 +676,8 @@
     "max-missing-tools": "Максимальное количество отсутствующих инструментов",
     "selected-tools": "Выбранные инструменты",
     "other-filters": "Другие фильтры",
-    "ready-to-make": "Готово к созданию",
-    "almost-ready-to-make": "Почти готово к созданию"
+    "ready-to-make": "Готово к приготовлению",
+    "almost-ready-to-make": "Почти готово к приготовлению"
   },
   "search": {
     "advanced-search": "Расширенный поиск",
@@ -688,7 +688,7 @@
     "or": "Или",
     "has-any": "Включает любое",
     "has-all": "Включает все",
-    "clear-selection": "Очистить выделение",
+    "clear-selection": "Снять выделение",
     "results": "Результаты",
     "search": "Поиск",
     "search-mealie": "Поиск Mealie (нажмите /)",
@@ -1295,7 +1295,7 @@
     "welcome-user": "👋 Добро пожаловать, {0}!",
     "description": "Управление настройками профиля, рецептов и группы.",
     "invite-link": "Ссылка-приглашение",
-    "get-invite-link": "Получить ссылку для приглашения",
+    "get-invite-link": "Получить пригласительную ссылку",
     "get-public-link": "Получить публичную ссылку",
     "account-summary": "Cведения об учетной записи",
     "account-summary-description": "Вот сводка информации о вашей группе.",
@@ -1318,19 +1318,19 @@
     "household-settings-description": "Управляйте настройками вашего домохозяйства, такими как настройки плана питания и конфиденциальности.",
     "cookbooks-description": "Управление коллекцией категорий рецептов и созданием страниц для них.",
     "members": "Участники",
-    "members-description": "See who's in your household and manage their permissions.",
+    "members-description": "Узнайте, кто состоит в вашем домохозяйстве и управляйте их правами.",
     "webhooks-description": "Setup webhooks that trigger on days that you have have mealplan scheduled.",
     "notifiers": "Уведомления",
     "notifiers-description": "Setup email and push notifications that trigger on specific events.",
     "manage-data": "Настройки хранилища данных",
-    "manage-data-description": "Manage your Mealie data; Foods, Units, Categories, Tags and more.",
+    "manage-data-description": "Управляйте вашими данными в Mealie: продукты, единицы измерения, категории, теги и многое другое.",
     "data-migrations": "Перенос данных",
-    "data-migrations-description": "Migrate your existing data from other applications like Nextcloud Recipes and Chowdown.",
+    "data-migrations-description": "Перенесите ваши существующие данные из других приложений, таких как Nextcloud Recipes и Chowdown.",
     "email-sent": "Отправленные письма",
     "error-sending-email": "Ошибка при отправке письма",
     "personal-information": "Личные данные",
     "preferences": "Настройки",
-    "show-advanced-description": "Показать расширенные функции (API ключи, Webhook'и, и управление данными)",
+    "show-advanced-description": "Показать продвинутые возможности (API-ключи, Webhook'и, а также управление данными)",
     "back-to-profile": "Вернуться к профилю",
     "looking-for-privacy-settings": "Ищете настройки приватности?",
     "manage-your-api-tokens": "Управление API-токенами",
@@ -1339,12 +1339,12 @@
     "manage-members": "Настройки пользователей",
     "manage-webhooks": "Настройки Webhook'ов",
     "manage-notifiers": "Настройки уведомлений",
-    "manage-data-migrations": "Настройка миграций данных"
+    "manage-data-migrations": "Настройка переноса данных"
   },
   "cookbook": {
     "cookbooks": "Книги рецептов",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
-    "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
+    "hide-cookbooks-from-other-households": "Скрыть книги рецептов от других домохозяйств",
     "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
     "public-cookbook": "Публичные книги рецептов",
     "public-cookbook-description": "Публичными книгами рецептов можно делиться с людьми без аккаунта в Mealie, и они будут отображаться на странице вашей группы.",
@@ -1355,14 +1355,14 @@
     "require-all-tools": "Требовать все инструменты",
     "cookbook-name": "Название книги рецептов",
     "cookbook-with-name": "Книга рецептов {0}",
-    "household-cookbook-name": "{0} Cookbook {1}",
+    "household-cookbook-name": "Книга рецептов {0} {1}",
     "create-a-cookbook": "Создать книгу рецептов",
     "cookbook": "Книга рецептов"
   },
   "query-filter": {
     "logical-operators": {
-      "and": "AND",
-      "or": "OR"
+      "and": "И",
+      "or": "ИЛИ"
     },
     "relational-operators": {
       "equals": "equals",
