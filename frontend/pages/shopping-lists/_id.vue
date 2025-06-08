@@ -878,10 +878,9 @@ export default defineComponent({
 
         // make sure the item is at the end of the list with the other checked items
         item.position = shoppingList.value.listItems.length;
-
-        // set a temporary updatedAt timestamp prior to refresh so it appears at the top of the checked items
-        item.updatedAt = new Date().toISOString();
       }
+      // set a temporary updatedAt timestamp prior to refresh so it appears at the top of the checked items
+      item.updatedAt = new Date().toISOString();
 
       // make updates reflect immediately
       if (shoppingList.value.listItems) {

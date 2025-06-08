@@ -89,9 +89,31 @@ export function useShoppingListItemActions(shoppingListId: string) {
     return true;
   }
 
+  function mergeListItemsByLatest(
+    list1: ShoppingListItemOut[],
+    list2: ShoppingListItemOut[]
+  ) {
+    const mergedList = [...list1];
+    list2.forEach((list2Item) => {
+      const confictingItem = mergedList.find((item) => item.id === list2Item.id)
+      if (confictingItem &&
+        list2Item.updatedAt && confictingItem.updatedAt &&
+        list2Item.updatedAt > confictingItem.updatedAt) {
+        mergedList.splice(mergedList.indexOf(confictingItem), 1, list2Item)
+      } else if (!confictingItem) {
+        mergedList.push(list2Item)
+      }
+    })
+    return mergedList
+  }
+
   async function getList() {
     const response = await api.shopping.lists.getOne(shoppingListId);
-    return response.data;
+    if (response.data) {
+      const createAndUpdateQueues = mergeListItemsByLatest(queue.update, queue.create);
+      response.data.listItems = mergeListItemsByLatest(response.data.listItems ?? [], createAndUpdateQueues);
+    }
+    return response.data
   }
 
   function createItem(item: ShoppingListItemOut) {
@@ -188,7 +210,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
   }
 
   async function process() {
-    if(queueEmpty.value) {
+    if (queueEmpty.value) {
       queue.lastUpdate = Date.now();
       return;
     }
