@@ -69,7 +69,7 @@ class GroupRecipeActionController(BaseUserController):
 
     @router.post("/{item_id}/trigger/{recipe_slug}", status_code=202)
     def trigger_action(
-        self, item_id: UUID4, recipe_slug: str, bg_tasks: BackgroundTasks, scaled_amount: float = Body(..., embed=True)
+        self, item_id: UUID4, recipe_slug: str, bg_tasks: BackgroundTasks, scaled_amount: float = Body(1, embed=True)
     ) -> None:
         recipe_action = self.repos.group_recipe_actions.get_one(item_id)
         if not recipe_action:
