@@ -109,7 +109,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
 
   async function getList() {
     const response = await api.shopping.lists.getOne(shoppingListId);
-    if (response.data) {
+    if (window.$nuxt.isOffline && response.data) {
       const createAndUpdateQueues = mergeListItemsByLatest(queue.update, queue.create);
       response.data.listItems = mergeListItemsByLatest(response.data.listItems ?? [], createAndUpdateQueues);
     }
