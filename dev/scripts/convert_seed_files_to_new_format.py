@@ -49,6 +49,11 @@ def transform_foods(locale: str):
     with open(locale_path, encoding="utf-8") as infile:
         data = json.load(infile)
 
+    first_value = next(iter(data.values()))
+    if isinstance(first_value, dict) and "foods" in first_value:
+        # Locale is already in the new format, skipping transformation
+        return
+
     transformed_data = {"": {"foods": dict(data.items())}}
 
     # Seeding for labels now pulls from the foods file and parses the labels from there (as top-level keys),
