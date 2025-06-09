@@ -95,12 +95,12 @@ export function useShoppingListItemActions(shoppingListId: string) {
   ) {
     const mergedList = [...list1];
     list2.forEach((list2Item) => {
-      const confictingItem = mergedList.find((item) => item.id === list2Item.id)
-      if (confictingItem &&
-        list2Item.updatedAt && confictingItem.updatedAt &&
-        list2Item.updatedAt > confictingItem.updatedAt) {
-        mergedList.splice(mergedList.indexOf(confictingItem), 1, list2Item)
-      } else if (!confictingItem) {
+      const conflictingItem = mergedList.find((item) => item.id === list2Item.id)
+      if (conflictingItem &&
+        list2Item.updatedAt && conflictingItem.updatedAt &&
+        list2Item.updatedAt > conflictingItem.updatedAt) {
+        mergedList.splice(mergedList.indexOf(conflictingItem), 1, list2Item)
+      } else if (!conflictingItem) {
         mergedList.push(list2Item)
       }
     })
