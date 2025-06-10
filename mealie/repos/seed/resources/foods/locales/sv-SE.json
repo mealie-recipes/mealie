@@ -3,67 +3,67 @@
 		"name": "acorn squash"
 	},
 	"alfalfa-sprouts": {
-		"name": "alfalfa sprouts"
+		"name": "alfalfagroddar"
 	},
 	"anchovies": {
-		"name": "anchovies"
+		"name": "ansjovis"
 	},
 	"apples": {
-		"name": "apple",
-		"plural_name": "apples"
+		"name": "äpple",
+		"plural_name": "äpplen"
 	},
 	"artichoke": {
-		"name": "artichoke"
+		"name": "kronärtskocka"
 	},
 	"arugula": {
-		"name": "arugula"
+		"name": "ruccola"
 	},
 	"asparagus": {
-		"name": "asparagus"
+		"name": "sparris"
 	},
 	"avocado": {
-		"name": "avocado",
-		"plural_name": "avocado"
+		"name": "avokado",
+		"plural_name": "avokado"
 	},
 	"bacon": {
 		"name": "bacon"
 	},
 	"baking-powder": {
-		"name": "baking powder"
+		"name": "bakpulver"
 	},
 	"baking-soda": {
-		"name": "baking soda"
+		"name": "bikarbonat"
 	},
 	"baking-sugar": {
-		"name": "baking sugar"
+		"name": "florsocker"
 	},
 	"bar-sugar": {
 		"name": "bar sugar"
 	},
 	"basil": {
-		"name": "basil"
+		"name": "basilika"
 	},
 	"beans": {
-		"name": "beans"
+		"name": "bönor"
 	},
 	"bell-peppers": {
-		"name": "bell peppers",
-		"plural_name": "bell peppers"
+		"name": "paprika",
+		"plural_name": "paprika"
 	},
 	"blackberries": {
-		"name": "blackberries"
+		"name": "björnbär"
 	},
 	"bok-choy": {
 		"name": "bok choy"
 	},
 	"brassicas": {
-		"name": "brassicas"
+		"name": "kål"
 	},
 	"bread": {
-		"name": "bread"
+		"name": "bröd"
 	},
 	"breadfruit": {
-		"name": "breadfruit"
+		"name": "brödfrukt"
 	},
 	"broccoflower": {
 		"name": "broccoflower"
@@ -81,29 +81,29 @@
 		"name": "brown sugar"
 	},
 	"brussels-sprouts": {
-		"name": "brussels sprouts"
+		"name": "brysselkål"
 	},
 	"butter": {
-		"name": "butter"
+		"name": "smör"
 	},
 	"butternut-pumpkin": {
-		"name": "butternut pumpkin"
+		"name": "butternut pumpa"
 	},
 	"butternut-squash": {
 		"name": "butternut squash"
 	},
 	"cabbage": {
-		"name": "cabbage",
+		"name": "vitkål",
 		"plural_name": "cabbages"
 	},
 	"cactus-edible": {
-		"name": "cactus, edible"
+		"name": "kaktus, ätbar"
 	},
 	"calabrese": {
 		"name": "calabrese"
 	},
 	"cane-sugar": {
-		"name": "cane sugar"
+		"name": "socker från sockerrör"
 	},
 	"cannabis": {
 		"name": "cannabis"
@@ -115,36 +115,36 @@
 		"name": "caraway"
 	},
 	"carrot": {
-		"name": "carrot",
-		"plural_name": "carrots"
+		"name": "morot",
+		"plural_name": "morötter"
 	},
 	"caster-sugar": {
-		"name": "caster sugar"
+		"name": "strösocker"
 	},
 	"castor-sugar": {
-		"name": "castor sugar"
+		"name": "strösocker"
 	},
 	"catfish": {
 		"name": "catfish"
 	},
 	"cauliflower": {
-		"name": "cauliflower",
-		"plural_name": "cauliflowers"
+		"name": "blomkål",
+		"plural_name": "blomkål"
 	},
 	"cayenne-pepper": {
-		"name": "cayenne pepper"
+		"name": "cayennepeppar"
 	},
 	"celeriac": {
-		"name": "celery root"
+		"name": "selleri rot"
 	},
 	"celery": {
-		"name": "celery"
+		"name": "selleri"
 	},
 	"cereal-grains": {
 		"name": "cereal grains"
 	},
 	"chard": {
-		"name": "chard"
+		"name": "mangold"
 	},
 	"cheese": {
 		"name": "cheese"
@@ -153,7 +153,7 @@
 		"name": "chicory"
 	},
 	"chilli-peppers": {
-		"name": "chilli pepper",
+		"name": "chilipeppar",
 		"plural_name": "chilli peppers"
 	},
 	"chinese-leaves": {
@@ -239,7 +239,7 @@
 		"name": "edible cactus"
 	},
 	"eggplant": {
-		"name": "eggplant",
+		"name": "äggplanta",
 		"plural_name": "eggplants"
 	},
 	"eggs": {
@@ -291,7 +291,7 @@
 		"name": "garam masala"
 	},
 	"garlic": {
-		"name": "garlic",
+		"name": "vitlök",
 		"plural_name": "garlics"
 	},
 	"gem-squash": {
@@ -304,7 +304,7 @@
 		"name": "giblets"
 	},
 	"ginger": {
-		"name": "ginger"
+		"name": "ingefära"
 	},
 	"grains": {
 		"name": "grains"
