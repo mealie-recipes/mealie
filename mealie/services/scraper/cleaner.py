@@ -2,6 +2,7 @@ import contextlib
 import functools
 import html
 import json
+import numbers
 import operator
 import re
 import typing
@@ -412,6 +413,9 @@ def clean_time(time_entry: str | timedelta | None, translator: Translator) -> No
         return None
 
     match time_entry:
+        case numbers.Number:
+            time_delta = timedelta(minutes=time_entry)
+            return pretty_print_timedelta(time_delta, translator)
         case str(time_entry):
             if not time_entry.strip():
                 return None
