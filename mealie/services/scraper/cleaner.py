@@ -416,7 +416,7 @@ def clean_time(time_entry: str | timedelta | N | None, translator: Translator) -
         return None
 
     match time_entry:
-        case numbers.Number:
+        case numbers.Number():
             time_delta = timedelta(minutes=time_entry)
             return pretty_print_timedelta(time_delta, translator)
         case str(time_entry):
@@ -438,7 +438,9 @@ def clean_time(time_entry: str | timedelta | N | None, translator: Translator) -
             # TODO: Not sure what to do here
             return str(time_entry)
         case _:
-            logger.warning("[SCRAPER] Unexpected type or structure for variable time_entry")
+            logger.warning(
+                "[SCRAPER] Unexpected type(%s) or structure for variable time_entry: %s", type(time_entry), time_entry
+            )
             return None
 
 
