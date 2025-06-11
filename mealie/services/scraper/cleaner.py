@@ -402,6 +402,7 @@ def clean_time(time_entry: str | timedelta | int | float | None, translator: Tra
         - `"PT1H30M"` - returns "1 hour 30 minutes"
         - `timedelta(hours=1, minutes=30)` - returns "1 hour 30 minutes"
         - `{"minValue": "PT1H30M"}` - returns "1 hour 30 minutes"
+        - `30` - as a `int` or `float` assumed to be in minutes, returns "30 minutes"
 
     Raises:
         TypeError: if the type is not supported a TypeError is raised
