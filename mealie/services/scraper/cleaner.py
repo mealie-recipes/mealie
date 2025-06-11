@@ -35,6 +35,9 @@ MATCH_MULTI_SPACE = re.compile(r" +")
 MATCH_ERRONEOUS_WHITE_SPACE = re.compile(r"\n\s*\n")
 """ Matches multiple new lines and removes erroneous white space """
 
+N = typing.TypeVar("N", bound=numbers.Number)
+""" Reusable TypeVar for refrencing inhereters of Number """
+
 
 def clean(recipe_data: Recipe | dict, translator: Translator, url=None) -> Recipe:
     """Main entrypoint to clean a recipe extracted from the web
@@ -393,7 +396,7 @@ def clean_yield(yields: str | list[str] | None) -> tuple[float, float, str]:
     return servings_qty, yld_qty, yld_str
 
 
-def clean_time(time_entry: str | timedelta | None, translator: Translator) -> None | str:
+def clean_time(time_entry: str | timedelta | N | None, translator: Translator) -> None | str:
     """_summary_
 
     Supported Structures:
