@@ -125,7 +125,7 @@
 		"name": "strösocker"
 	},
 	"catfish": {
-		"name": "catfish"
+		"name": "havskatt"
 	},
 	"cauliflower": {
 		"name": "blomkål",
@@ -243,8 +243,8 @@
 		"plural_name": "äggplantor"
 	},
 	"eggs": {
-		"name": "egg",
-		"plural_name": "eggs"
+		"name": "ägg",
+		"plural_name": "ägg"
 	},
 	"endive": {
 		"name": "endive",
@@ -264,13 +264,13 @@
 		"plural_name": "fiddlehead ferns"
 	},
 	"fish": {
-		"name": "fish"
+		"name": "fisk"
 	},
 	"five-spice-powder": {
 		"name": "five spice powder"
 	},
 	"flour": {
-		"name": "flour"
+		"name": "mjöl"
 	},
 	"frisee": {
 		"name": "frisee"
@@ -279,7 +279,7 @@
 		"name": "fructose"
 	},
 	"fruit": {
-		"name": "fruit"
+		"name": "frukt"
 	},
 	"fruit-sugar": {
 		"name": "fruit sugar"
@@ -292,7 +292,7 @@
 	},
 	"garlic": {
 		"name": "vitlök",
-		"plural_name": "garlics"
+		"plural_name": "vitlökar"
 	},
 	"gem-squash": {
 		"name": "gem squash"
@@ -310,10 +310,10 @@
 		"name": "grains"
 	},
 	"granulated-sugar": {
-		"name": "granulated sugar"
+		"name": "strösocker"
 	},
 	"grape-seed-oil": {
-		"name": "grape seed oil"
+		"name": "druvkärneolja"
 	},
 	"green-onion": {
 		"name": "green onion",
@@ -504,7 +504,7 @@
 		"name": "powdered sugar"
 	},
 	"pumpkin": {
-		"name": "pumpkin",
+		"name": "pumpa",
 		"plural_name": "pumpkins"
 	},
 	"pumpkin-seeds": {
