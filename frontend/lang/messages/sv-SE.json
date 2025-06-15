@@ -357,9 +357,9 @@
     "for-type-meal-types": "för {0} måltidstyper",
     "meal-plan-rules": "Regler för måltidsplan",
     "new-rule": "Ny Regel",
-    "meal-plan-rules-description": "Du kan skapa regler för att automatisk väja recept för din måltidsplanerare. Dessa regler används av servern för att bestämma den slumpmässiga poolen av recept att välja från när du skapar måltidsplaner. Observera att om reglerna har samma dag/typ-begränsningar så kommer kategorierna av reglerna att slås samman. I praktiken är det onödigt att skapa dubbla regler, men det går att göra det.",
+    "meal-plan-rules-description": "Du kan skapa regler för att automatisk välja recept för din måltidsplanerare. Dessa regler används av servern för att bestämma den slumpmässiga poolen av recept att välja från när du skapar måltidsplaner. Observera att om reglerna har samma dag/typ-begränsningar så kommer kategorierna av reglerna att slås samman. I praktiken är det onödigt att skapa dubbla regler, men det går att göra det.",
     "new-rule-description": "När du skapar en ny regel för en måltidsplan kan du begränsa regeln för en viss veckodag och/eller en viss typ av måltid. För att tillämpa en regel på alla dagar eller alla måltidstyper kan du ställa in regeln till \"Any\" som kommer att tillämpa den på alla möjliga värden för dagen och/eller måltidstypen.",
-    "recipe-rules": "Recept regler",
+    "recipe-rules": "Receptregler",
     "applies-to-all-days": "Gäller för alla dagar",
     "applies-on-days": "Gäller på {0}s",
     "meal-plan-settings": "Inställningar för måltidsplanering"
