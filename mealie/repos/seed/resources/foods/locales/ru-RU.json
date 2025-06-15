@@ -1,9 +1,9 @@
 {
 	"acorn-squash": {
-		"name": "acorn squash"
+		"name": "желудёвая тыква"
 	},
 	"alfalfa-sprouts": {
-		"name": "alfalfa sprouts"
+		"name": "ростки люцерны"
 	},
 	"anchovies": {
 		"name": "анчоусы"
@@ -66,7 +66,7 @@
 		"name": "плод хлебного дерева"
 	},
 	"broccoflower": {
-		"name": "broccoflower"
+		"name": "романеско"
 	},
 	"broccoli": {
 		"name": "брокколи"
@@ -116,7 +116,7 @@
 	},
 	"carrot": {
 		"name": "морковь",
-		"plural_name": ""
+		"plural_name": "морковь"
 	},
 	"caster-sugar": {
 		"name": "мелкозернистый сахар"
@@ -210,14 +210,14 @@
 		"name": "цукини"
 	},
 	"cream-of-tartar": {
-		"name": "cream of tartar"
+		"name": "винный камень"
 	},
 	"cucumber": {
 		"name": "огурец",
 		"plural_name": "огурцы"
 	},
 	"cumin": {
-		"name": "cumin"
+		"name": "зира"
 	},
 	"daikon": {
 		"name": "дайкон",
@@ -247,7 +247,7 @@
 		"plural_name": "яйца"
 	},
 	"endive": {
-		"name": "endive",
+		"name": "эндивий",
 		"plural_name": "endives"
 	},
 	"fats": {
@@ -273,7 +273,7 @@
 		"name": "мука"
 	},
 	"frisee": {
-		"name": "frisee"
+		"name": "курчавый эндивий"
 	},
 	"fructose": {
 		"name": "фруктоза"
@@ -282,13 +282,13 @@
 		"name": "фрукт"
 	},
 	"fruit-sugar": {
-		"name": "fruit sugar"
+		"name": "фруктоза"
 	},
 	"ful": {
-		"name": "ful"
+		"name": "фул медамес"
 	},
 	"garam-masala": {
-		"name": "garam masala"
+		"name": "гарам масала"
 	},
 	"garlic": {
 		"name": "чеснок",
@@ -298,10 +298,10 @@
 		"name": "gem squash"
 	},
 	"ghee": {
-		"name": "ghee"
+		"name": "гхи"
 	},
 	"giblets": {
-		"name": "giblets"
+		"name": "потроха"
 	},
 	"ginger": {
 		"name": "имбирь"
@@ -320,8 +320,8 @@
 		"plural_name": "зелёный лук"
 	},
 	"heart-of-palm": {
-		"name": "heart of palm",
-		"plural_name": "heart of palms"
+		"name": "сердцевина пальмы",
+		"plural_name": "сердцевины пальмы"
 	},
 	"hemp": {
 		"name": "конопля"
@@ -352,16 +352,16 @@
 		"name": "топинамбур"
 	},
 	"jicama": {
-		"name": "jicama"
+		"name": "хикама"
 	},
 	"kale": {
 		"name": "капуста"
 	},
 	"kohlrabi": {
-		"name": "kohlrabi"
+		"name": "кольраби"
 	},
 	"kumara": {
-		"name": "kumara"
+		"name": "батат"
 	},
 	"leavening-agents": {
 		"name": "разрыхлитель"
@@ -387,7 +387,7 @@
 		"plural_name": "печень"
 	},
 	"maize": {
-		"name": "maize"
+		"name": "маис"
 	},
 	"maple-syrup": {
 		"name": "кленовый сироп"
@@ -431,7 +431,7 @@
 		"name": "масла"
 	},
 	"okra": {
-		"name": "okra"
+		"name": "абельмош"
 	},
 	"olive": {
 		"name": "оливка"
@@ -487,8 +487,8 @@
 		"plural_name": "ананасы"
 	},
 	"plantain": {
-		"name": "plantain",
-		"plural_name": "plantains"
+		"name": "плантан",
+		"plural_name": "плантаны"
 	},
 	"poppy-seeds": {
 		"name": "семена мака"
@@ -518,7 +518,7 @@
 		"name": "нерафинированный сахар"
 	},
 	"refined-sugar": {
-		"name": "refined sugar"
+		"name": "рафинированный сахар"
 	},
 	"rice": {
 		"name": "рис"
@@ -542,8 +542,8 @@
 		"name": "вяленая треска"
 	},
 	"scallion": {
-		"name": "scallion",
-		"plural_name": "scallions"
+		"name": "зелёный лук",
+		"plural_name": "зелёный лук"
 	},
 	"seafood": {
 		"name": "морепродукты"
@@ -555,8 +555,8 @@
 		"name": "семена кунжута"
 	},
 	"shallot": {
-		"name": "shallot",
-		"plural_name": "shallots"
+		"name": "лук-шалот",
+		"plural_name": "лук-шалот"
 	},
 	"skate": {
 		"name": "скат"
@@ -588,8 +588,8 @@
 		"plural_name": "зелёный лук"
 	},
 	"squash": {
-		"name": "squash",
-		"plural_name": "squashes"
+		"name": "кабачок",
+		"plural_name": "кабачки"
 	},
 	"squash-family": {
 		"name": "squash family"
@@ -629,7 +629,7 @@
 		"plural_name": "таро"
 	},
 	"teff": {
-		"name": "teff"
+		"name": "теф"
 	},
 	"tomato": {
 		"name": "помидор",
@@ -662,7 +662,7 @@
 		"name": "овощи"
 	},
 	"watercress": {
-		"name": "watercress"
+		"name": "жеруха"
 	},
 	"watermelon": {
 		"name": "арбуз",
