@@ -72,13 +72,13 @@
 		"name": "broccoli"
 	},
 	"broccoli-rabe": {
-		"name": "broccoli rabe"
+		"name": "rapini"
 	},
 	"broccolini": {
-		"name": "broccolini"
+		"name": "bellaverde"
 	},
 	"brown-sugar": {
-		"name": "brown sugar"
+		"name": "farinsocker"
 	},
 	"brussels-sprouts": {
 		"name": "brysselkål"
@@ -109,7 +109,7 @@
 		"name": "cannabis"
 	},
 	"capsicum": {
-		"name": "capsicum"
+		"name": "paprika"
 	},
 	"caraway": {
 		"name": "caraway"
@@ -141,7 +141,7 @@
 		"name": "selleri"
 	},
 	"cereal-grains": {
-		"name": "cereal grains"
+		"name": "spannmål"
 	},
 	"chard": {
 		"name": "mangold"
