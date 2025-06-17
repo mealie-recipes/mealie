@@ -1,6 +1,6 @@
 {
 	"acorn-squash": {
-		"name": "acorn squash"
+		"name": "vintersquash"
 	},
 	"alfalfa-sprouts": {
 		"name": "alfalfagroddar"
@@ -54,7 +54,7 @@
 		"name": "björnbär"
 	},
 	"bok-choy": {
-		"name": "bok choy"
+		"name": "pak choi"
 	},
 	"brassicas": {
 		"name": "kål"
@@ -66,7 +66,7 @@
 		"name": "brödfrukt"
 	},
 	"broccoflower": {
-		"name": "broccoflower"
+		"name": "romanesco"
 	},
 	"broccoli": {
 		"name": "broccoli"
@@ -94,7 +94,7 @@
 	},
 	"cabbage": {
 		"name": "vitkål",
-		"plural_name": "cabbages"
+		"plural_name": "kål"
 	},
 	"cactus-edible": {
 		"name": "kaktus, ätbar"
@@ -112,7 +112,7 @@
 		"name": "paprika"
 	},
 	"caraway": {
-		"name": "caraway"
+		"name": "kummin"
 	},
 	"carrot": {
 		"name": "morot",
@@ -147,20 +147,20 @@
 		"name": "mangold"
 	},
 	"cheese": {
-		"name": "cheese"
+		"name": "ost"
 	},
 	"chicory": {
-		"name": "chicory"
+		"name": "cikoria"
 	},
 	"chilli-peppers": {
 		"name": "chilipeppar",
-		"plural_name": "chilli peppers"
+		"plural_name": "chilipeppar"
 	},
 	"chinese-leaves": {
-		"name": "chinese leaves"
+		"name": "kinakål"
 	},
 	"chives": {
-		"name": "chives"
+		"name": "gräslök"
 	},
 	"chocolate": {
 		"name": "choklad"
@@ -188,10 +188,10 @@
 		"name": "kaffe"
 	},
 	"collard-greens": {
-		"name": "collard greens"
+		"name": "grönkål"
 	},
 	"confectioners-sugar": {
-		"name": "confectioners' sugar"
+		"name": "florsocker"
 	},
 	"coriander": {
 		"name": "koriander"
@@ -207,10 +207,10 @@
 		"name": "bomullsfröolja"
 	},
 	"courgette": {
-		"name": "courgette"
+		"name": "zucchini"
 	},
 	"cream-of-tartar": {
-		"name": "cream of tartar"
+		"name": "vinsten"
 	},
 	"cucumber": {
 		"name": "gurka",
@@ -230,7 +230,7 @@
 		"name": "maskros"
 	},
 	"demerara-sugar": {
-		"name": "demerara sugar"
+		"name": "rörsocker"
 	},
 	"dough": {
 		"name": "deg"
@@ -248,41 +248,41 @@
 	},
 	"endive": {
 		"name": "endive",
-		"plural_name": "endives"
+		"plural_name": "endiver"
 	},
 	"fats": {
-		"name": "fats"
+		"name": "fetter"
 	},
 	"fava-beans": {
-		"name": "fava beans"
+		"name": "favabönor"
 	},
 	"fiddlehead": {
-		"name": "fiddlehead"
+		"name": "strutbräken"
 	},
 	"fiddlehead-fern": {
-		"name": "fiddlehead fern",
-		"plural_name": "fiddlehead ferns"
+		"name": "strutbräken",
+		"plural_name": "strutbräken"
 	},
 	"fish": {
 		"name": "fisk"
 	},
 	"five-spice-powder": {
-		"name": "five spice powder"
+		"name": "fem kryddor"
 	},
 	"flour": {
 		"name": "mjöl"
 	},
 	"frisee": {
-		"name": "frisee"
+		"name": "frisée"
 	},
 	"fructose": {
-		"name": "fructose"
+		"name": "fruktos"
 	},
 	"fruit": {
 		"name": "frukt"
 	},
 	"fruit-sugar": {
-		"name": "fruit sugar"
+		"name": "fruktsocker"
 	},
 	"ful": {
 		"name": "ful"
@@ -431,7 +431,7 @@
 		"name": "oljor"
 	},
 	"okra": {
-		"name": "okra"
+		"name": "ockra"
 	},
 	"olive": {
 		"name": "oliv"
@@ -456,7 +456,7 @@
 		"name": "oregano"
 	},
 	"oysters": {
-		"name": "oysters"
+		"name": "ostron"
 	},
 	"panch-puran": {
 		"name": "panch puran"
@@ -483,8 +483,8 @@
 		"plural_name": "peppers"
 	},
 	"pineapple": {
-		"name": "pineapple",
-		"plural_name": "pineapples"
+		"name": "ananas",
+		"plural_name": "ananaser"
 	},
 	"plantain": {
 		"name": "plantain",
@@ -494,7 +494,7 @@
 		"name": "poppy seeds"
 	},
 	"potato": {
-		"name": "potato",
+		"name": "potatis",
 		"plural_name": "potatisar"
 	},
 	"poultry": {
@@ -508,32 +508,32 @@
 		"plural_name": "pumpkins"
 	},
 	"pumpkin-seeds": {
-		"name": "pumpkin seeds"
+		"name": "pumpakärnor"
 	},
 	"radish": {
-		"name": "radish",
-		"plural_name": "radishes"
+		"name": "rädisa",
+		"plural_name": "rädisor"
 	},
 	"raw-sugar": {
-		"name": "raw sugar"
+		"name": "råsocker"
 	},
 	"refined-sugar": {
-		"name": "refined sugar"
+		"name": "raffinerat socker"
 	},
 	"rice": {
-		"name": "rice"
+		"name": "ris"
 	},
 	"rice-flour": {
-		"name": "rice flour"
+		"name": "rismjöl"
 	},
 	"rock-sugar": {
 		"name": "rock sugar"
 	},
 	"rum": {
-		"name": "rum"
+		"name": "rom"
 	},
 	"salmon": {
-		"name": "salmon"
+		"name": "lax"
 	},
 	"salt": {
 		"name": "salt"
@@ -565,7 +565,7 @@
 		"name": "soda"
 	},
 	"soda-baking": {
-		"name": "soda, baking"
+		"name": "bakpulver"
 	},
 	"soybean": {
 		"name": "sojaböna"
