@@ -23,7 +23,7 @@
 	},
 	"avocado": {
 		"name": "avocado",
-		"plural_name": "avocado"
+		"plural_name": "avocados"
 	},
 	"bacon": {
 		"name": "spek\nontbijtspek\nbacon"
@@ -47,7 +47,7 @@
 		"name": "bonen"
 	},
 	"bell-peppers": {
-		"name": "paprikas",
+		"name": "paprika",
 		"plural_name": "paprikas"
 	},
 	"blackberries": {
@@ -132,10 +132,10 @@
 		"plural_name": "bloemkolen"
 	},
 	"cayenne-pepper": {
-		"name": "cayenne peper"
+		"name": "cayennepeper"
 	},
 	"celeriac": {
-		"name": "knolselder"
+		"name": "knolselderij"
 	},
 	"celery": {
 		"name": "selderij"
@@ -153,8 +153,8 @@
 		"name": "witlof"
 	},
 	"chilli-peppers": {
-		"name": "chili peper",
-		"plural_name": "chili pepers"
+		"name": "chilipeper",
+		"plural_name": "chilipepers"
 	},
 	"chinese-leaves": {
 		"name": "chinese kool"
@@ -201,7 +201,7 @@
 		"plural_name": "maïs"
 	},
 	"corn-syrup": {
-		"name": "maisstroop"
+		"name": "maïsstroop"
 	},
 	"cottonseed-oil": {
 		"name": "katoenzaadolie"
@@ -282,7 +282,7 @@
 		"name": "fruit"
 	},
 	"fruit-sugar": {
-		"name": "fruit suiker"
+		"name": "fruitsuiker"
 	},
 	"ful": {
 		"name": "peul"
@@ -402,7 +402,7 @@
 		"name": "mortadella"
 	},
 	"mushroom": {
-		"name": "paddestoel",
+		"name": "paddenstoel",
 		"plural_name": "paddenstoelen"
 	},
 	"mussels": {
@@ -443,7 +443,7 @@
 		"name": "ui"
 	},
 	"onion-family": {
-		"name": "uien familie"
+		"name": "uienfamilie"
 	},
 	"orange-blossom-water": {
 		"name": "oranjebloesemwater"
@@ -491,7 +491,7 @@
 		"plural_name": "bakbananen"
 	},
 	"poppy-seeds": {
-		"name": "papaver zaden"
+		"name": "papaverzaden"
 	},
 	"potato": {
 		"name": "aardappel",
@@ -518,7 +518,7 @@
 		"name": "ruwe suiker"
 	},
 	"refined-sugar": {
-		"name": "gerafineerde suiker"
+		"name": "geraffineerde suiker"
 	},
 	"rice": {
 		"name": "rijst"
@@ -539,7 +539,7 @@
 		"name": "zout"
 	},
 	"salt-cod": {
-		"name": "gezoute kabeljauw"
+		"name": "gezouten kabeljauw"
 	},
 	"scallion": {
 		"name": "lente-ui",
@@ -555,7 +555,7 @@
 		"name": "sesamzaad"
 	},
 	"shallot": {
-		"name": "sjalotte",
+		"name": "sjalot",
 		"plural_name": "sjalotjes"
 	},
 	"skate": {
@@ -571,8 +571,8 @@
 		"name": "sojaboon"
 	},
 	"spaghetti-squash": {
-		"name": "spaghetti pompoen",
-		"plural_name": "spaghetti pompoenen"
+		"name": "spaghettipompoen",
+		"plural_name": "spaghettipompoenen"
 	},
 	"speck": {
 		"name": "spek"
@@ -585,14 +585,14 @@
 	},
 	"spring-onion": {
 		"name": "lente-ui",
-		"plural_name": "lente-uitjes"
+		"plural_name": "lente-uien"
 	},
 	"squash": {
 		"name": "pompoen",
 		"plural_name": "pompoenen"
 	},
 	"squash-family": {
-		"name": "pompoen familie"
+		"name": "pompoenfamilie"
 	},
 	"stockfish": {
 		"name": "stokvis"
@@ -626,7 +626,7 @@
 	},
 	"taro": {
 		"name": "taro",
-		"plural_name": "taroes"
+		"plural_name": "taros"
 	},
 	"teff": {
 		"name": "abessijns liefdegras"
@@ -639,7 +639,7 @@
 		"name": "forel"
 	},
 	"tubers": {
-		"name": "knolgewassen",
+		"name": "knolgewas",
 		"plural_name": "knolgewassen"
 	},
 	"tuna": {
@@ -653,7 +653,7 @@
 		"plural_name": "knolrapen"
 	},
 	"unrefined-sugar": {
-		"name": "ongerafineerde suiker"
+		"name": "ongeraffineerde suiker"
 	},
 	"vanilla": {
 		"name": "vanille"

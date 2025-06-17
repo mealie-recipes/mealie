@@ -45,13 +45,13 @@
     "category-filter": "Kategória szűrő",
     "category-update-failed": "Kategória frissítése sikertelen",
     "category-updated": "Kategória frissítve",
-    "uncategorized-count": "Kategórizálatlan {count}",
+    "uncategorized-count": "Kategorizálatlan {count}",
     "create-a-category": "Kategória létrehozása",
     "category-name": "Kategória név",
     "category": "Kategória"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "Apprise cím (URL)",
     "database": "Adatbázis",
     "delete-event": "Esemény törlése",
     "event-delete-confirmation": "Biztosan törölni szeretné ezt az eseményt?",
@@ -638,7 +638,7 @@
     "tree-view": "Fa nézet",
     "recipe-servings": "Recept tálalások",
     "recipe-yield": "Adagonkénti információk",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "Recept Késleltetés szöveg",
     "unit": "Mennyiségi egység",
     "upload-image": "Kép feltöltése",
     "screen-awake": "Képernyő ébren tartása",
@@ -720,7 +720,7 @@
       "backup-restore": "Biztonsági Mentés/Visszaállítás",
       "back-restore-description": "A biztonsági mentés visszaállítása felülírja az adatbázisban és az adatkönyvtárban lévő összes aktuális adatot, és a biztonsági mentés tartalmával helyettesíti azokat. {cannot-be-undone} Ha a visszaállítás sikeres, akkor a rendszer kilépteti Önt.",
       "cannot-be-undone": "Ezt a műveletet visszavonható - óvatosan használja.",
-      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
+      "postgresql-note": "Ha PostgreSQL-t használ, kérjük, a visszaállítás előtt tekintse át a {backup-restore-process}-t.",
       "backup-restore-process-in-the-documentation": "biztonsági mentés/visszaállítás folyamata a dokumentációban",
       "irreversible-acknowledgment": "Tudomásul veszem, hogy ez a művelet visszafordíthatatlan, helyrehozhatatlan, és adatvesztéssel járhat",
       "restore-backup": "Biztonsági mentés visszaállítása"
