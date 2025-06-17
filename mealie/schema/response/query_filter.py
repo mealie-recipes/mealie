@@ -173,7 +173,7 @@ class QueryFilterBuilderComponent:
         if not isinstance(self.value, list):
             sanitized_values = [self.value]
         else:
-            sanitized_values = self.value
+            sanitized_values = list(self.value)
 
         for i, v in enumerate(sanitized_values):
             # always allow querying for null values

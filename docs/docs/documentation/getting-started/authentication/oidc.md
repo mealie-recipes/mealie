@@ -36,6 +36,10 @@ Before you can start using OIDC Authentication, you must first configure a new c
         http://localhost:9091/login
         https://mealie.example.com/login
 
+    If you are hosting Mealie behind a reverse proxy (nginx, Caddy, ...) to terminate TLS, make sure to start Mealie's Gunicorn server
+    with `--forwarded-allow-ips=<ip-of-proxy>`, otherwise the `X-Forwarded-*` headers will be ignored and the generated OIDC redirect
+    URI will use the wrong scheme (http instead of https). This will lead to authentication errors with strict OIDC providers.
+
 3. Configure origins
 
     If your identity provider enforces CORS on any endpoints, you will need to specify your Mealie URL as an Allowed Origin.

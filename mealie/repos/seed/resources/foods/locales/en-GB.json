@@ -47,7 +47,7 @@
 		"name": "beans"
 	},
 	"bell-peppers": {
-		"name": "bell peppers",
+		"name": "bell pepper",
 		"plural_name": "bell peppers"
 	},
 	"blackberries": {
@@ -129,7 +129,7 @@
 	},
 	"cauliflower": {
 		"name": "cauliflower",
-		"plural_name": "cauliflowers"
+		"plural_name": "cauliflower"
 	},
 	"cayenne-pepper": {
 		"name": "cayenne pepper"
@@ -166,7 +166,7 @@
 		"name": "chocolate"
 	},
 	"cilantro": {
-		"name": "cilantro"
+		"name": "coriander"
 	},
 	"cinnamon": {
 		"name": "cinnamon"
@@ -240,7 +240,7 @@
 	},
 	"eggplant": {
 		"name": "eggplant",
-		"plural_name": "eggplants"
+		"plural_name": "aubergines"
 	},
 	"eggs": {
 		"name": "egg",
@@ -292,7 +292,7 @@
 	},
 	"garlic": {
 		"name": "garlic",
-		"plural_name": "garlics"
+		"plural_name": "garlic"
 	},
 	"gem-squash": {
 		"name": "gem squash"
@@ -316,8 +316,8 @@
 		"name": "grape seed oil"
 	},
 	"green-onion": {
-		"name": "green onion",
-		"plural_name": "green onions"
+		"name": "spring onion",
+		"plural_name": "spring onions"
 	},
 	"heart-of-palm": {
 		"name": "heart of palm",
@@ -542,8 +542,8 @@
 		"name": "salt cod"
 	},
 	"scallion": {
-		"name": "scallion",
-		"plural_name": "scallions"
+		"name": "spring onion",
+		"plural_name": "sprint onions"
 	},
 	"seafood": {
 		"name": "seafood"
@@ -679,14 +679,14 @@
 		"name": "xanthan gum"
 	},
 	"yam": {
-		"name": "yam",
-		"plural_name": "yams"
+		"name": "sweet potato",
+		"plural_name": "sweet potatoes"
 	},
 	"yeast": {
 		"name": "yeast"
 	},
 	"zucchini": {
-		"name": "zucchini",
-		"plural_name": "zucchinis"
+		"name": "courgette",
+		"plural_name": "courgettes"
 	}
 }

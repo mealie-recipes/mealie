@@ -46,5 +46,5 @@ class RecipeSharedController(BaseUserController):
         return self.mixins.get_one(item_id)
 
     @router.delete("/{item_id}")
-    def delete_one(self, item_id: UUID4 | None = None) -> None:
+    def delete_one(self, item_id: UUID4) -> None:
         return self.mixins.delete_one(item_id)

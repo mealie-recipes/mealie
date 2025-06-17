@@ -18,7 +18,7 @@
         "abbreviation": "כוסות"
     },
     "fluid-ounce": {
-        "name": "אונקיה נוזלית",
+        "name": "אונקיית נוזל",
         "plural_name": "אונקיות נוזליות",
         "description": "",
         "abbreviation": "אונקיות נוזליות"
@@ -36,7 +36,7 @@
         "abbreviation": "קוארטים"
     },
     "gallon": {
-        "name": "גלון",
+        "name": "גָּלוֹן",
         "plural_name": "גלונים",
         "description": "",
         "abbreviation": "גלונים"

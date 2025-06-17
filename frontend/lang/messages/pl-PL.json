@@ -636,9 +636,9 @@
     "recipe-debugger-use-openai-description": "Użyj OpenAI, aby dynamicznie analizować przepisy zamiast polegać na bibliotece scraperów. Podczas tworzenia przepisu za pomocą adresu URL jest to wykonywane automatycznie, jeśli scraperowi nie uda się przetworzyć przepisu, ale możesz przetestować go ręcznie tutaj.",
     "debug": "Debuguj",
     "tree-view": "Widok drzewa",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "Ilość porcji",
     "recipe-yield": "Wydajność przepisu",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "Tekst pola przepisu",
     "unit": "Jednostka",
     "upload-image": "Prześlij obraz",
     "screen-awake": "Pozostaw ekran włączony",
@@ -667,7 +667,7 @@
     "recipe-finder-description": "Wyszukuj przepisy na podstawie składników, które masz pod ręką. Możesz również filtrować według dostępnych narzędzi oraz ustawić maksymalną liczbę brakujących składników lub przyborów kuchennych.",
     "selected-ingredients": "Wybrany składnik",
     "no-ingredients-selected": "Nie wybrano żadnych składników",
-    "missing": "Missing",
+    "missing": "Brakujący",
     "no-recipes-found": "Nie znaleziono przepisów",
     "no-recipes-found-description": "Spróbuj dodać więcej składników do wyszukiwania lub dostosować filtry",
     "include-ingredients-on-hand": "Uwzględnij składniki dostępne pod ręką",
@@ -676,8 +676,8 @@
     "max-missing-tools": "Maks. ilość brakujących przyborów kuchennych",
     "selected-tools": "Wybrane przybory kuchenne",
     "other-filters": "Inne filtry",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "ready-to-make": "Gotowe do użycia",
+    "almost-ready-to-make": "Prawie gotowe do użycia"
   },
   "search": {
     "advanced-search": "Wyszukiwanie zaawansowane",
@@ -720,7 +720,7 @@
       "backup-restore": "Przywróć kopie",
       "back-restore-description": "Przywracanie tej kopii zapasowej nadpisze wszystkie aktualne dane w bazie danych i w katalogu danych i zastąpi je zawartością tej kopii zapasowej. {cannot-be-undone} Jeśli przywrócenie zakończy się pomyślnie, zostaniesz wylogowany.",
       "cannot-be-undone": "Tej czynności nie można cofnąć - należy zachować ostrożność.",
-      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
+      "postgresql-note": "Jeśli używasz PostgreSQL, sprawdź {backup-restore-process} przed przywróceniem.",
       "backup-restore-process-in-the-documentation": "proces tworzenia kopii zapasowej/przywracania w dokumentacji",
       "irreversible-acknowledgment": "Rozumiem, że ta operacja jest nieodwracalna, destrukcyjna i może spowodować utratę danych",
       "restore-backup": "Przywróć kopie"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "Połączenie wybranej żywności połączy źródło żywności i żywność docelową w pojedynczą żywność. Źródło żywności zostanie usunięte, a wszystkie odniesienia do źródłowej żywności zostaną zaktualizowane tak, aby wskazywały na docelową żywność.",
       "merge-food-example": "Scalanie {food1} do {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
+      "seed-dialog-text": "Wypełnij bazę danych produktami spożywczymi na podstawie twojego lokalnego języka. Dzięki temu utworzysz ponad 200 popularnych produktów spożywczych, które można wykorzystać do zorganizowania bazy danych. Produkty spożywcze są tłumaczone dzięki wysiłkom społeczności.",
+      "seed-dialog-warning": "W twojej bazie danych znajdują się już niektóre pozycje. Ta akcja nie usunie duplikatów, więc będziesz musiał zarządzać nimi ręcznie.",
       "combine-food": "Połącz Żywność",
       "source-food": "Żywność Źródłowa",
       "target-food": "Żywność Docelowa",
@@ -1113,9 +1113,9 @@
       "source-unit-will-be-deleted": "Jednostka źródłowa zostanie usunięta"
     },
     "recipe-actions": {
-      "recipe-actions-data": "Recipe Actions Data",
+      "recipe-actions-data": "Dane akcji przepisu",
       "new-recipe-action": "",
-      "edit-recipe-action": "Edit Recipe Action",
+      "edit-recipe-action": "Edycja akcji przepisu",
       "action-type": "Typ akcji"
     },
     "create-alias": "Utwórz alias",

@@ -42,7 +42,7 @@
         "generic-updated": "{name} was updated",
         "generic-created-with-url": "{name} has been created, {url}",
         "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicates",
+        "generic-duplicated": "{name} has been duplicated",
         "generic-deleted": "{name} has been deleted"
     },
     "datetime": {
@@ -51,7 +51,7 @@
         "hour": "hour|hours",
         "minute": "minute|minutes",
         "second": "second|seconds",
-        "millisecond": "milliecond|milliseconds",
+        "millisecond": "millisecond|milliseconds",
         "microsecond": "microsecond|microseconds"
     },
     "emails": {

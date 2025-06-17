@@ -155,7 +155,7 @@ def parse_iso8601_duration(time: str | None) -> str:
             return time
 
     # TODO: make singular and plural translatable
-    time_part_map = {
+    time_part_map: dict[str, dict] = {
         "days": {"singular": "day", "plural": "days"},
         "hours": {"singular": "hour", "plural": "hours"},
         "minutes": {"singular": "minute", "plural": "minutes"},

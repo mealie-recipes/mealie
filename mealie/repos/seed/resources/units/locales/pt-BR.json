@@ -19,13 +19,13 @@
     },
     "fluid-ounce": {
         "name": "onça fluida",
-        "plural_name": "fluid ounces",
+        "plural_name": "onças fluidas",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
         "name": "pint",
-        "plural_name": "pints",
+        "plural_name": "pintas",
         "description": "",
         "abbreviation": "pt"
     },
@@ -58,11 +58,11 @@
         "plural_name": "libras",
         "description": "",
         "abbreviation": "lb",
-        "plural_abbreviation": "lbs"
+        "plural_abbreviation": "libras"
     },
     "ounce": {
         "name": "onça",
-        "plural_name": "ounces",
+        "plural_name": "onças",
         "description": "",
         "abbreviation": "oz"
     },

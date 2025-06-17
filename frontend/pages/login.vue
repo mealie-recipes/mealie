@@ -39,6 +39,7 @@
       <v-card-text>
         <v-form @submit.prevent="authenticate">
           <v-text-field
+            v-if="allowPasswordLogin"
             v-model="form.email"
             :prepend-inner-icon="$globals.icons.email"
             filled
@@ -51,6 +52,7 @@
             type="text"
           />
           <v-text-field
+            v-if="allowPasswordLogin"
             id="password"
             v-model="form.password"
             :prepend-inner-icon="$globals.icons.lock"
@@ -64,8 +66,8 @@
             :type="inputType"
             @click:append="togglePasswordShow"
           />
-          <v-checkbox v-model="form.remember" class="ml-2 mt-n2" :label="$t('user.remember-me')"></v-checkbox>
-          <v-card-actions class="justify-center pt-0">
+          <v-checkbox v-if="allowPasswordLogin" v-model="form.remember" class="ml-2 mt-n2" :label="$t('user.remember-me')"></v-checkbox>
+          <v-card-actions v-if="allowPasswordLogin" class="justify-center pt-0">
             <div class="max-button">
               <v-btn :loading="loggingIn" :disabled="oidcLoggingIn" color="primary" type="submit" large rounded class="rounded-xl" block>
                 {{ $t("user.login") }}
@@ -73,7 +75,7 @@
             </div>
           </v-card-actions>
 
-          <div v-if="allowOidc" class="d-flex my-4 justify-center align-center" width="80%">
+          <div v-if="allowOidc && allowPasswordLogin" class="d-flex my-4 justify-center align-center" width="80%">
             <v-divider class="div-width"/>
             <span
                 class="absolute px-2"
@@ -95,9 +97,9 @@
         </v-form>
       </v-card-text>
       <v-card-actions class="d-flex justify-center flex-column flex-sm-row">
-        <v-btn v-if="allowSignup" text to="/register"> {{ $t("user.register") }} </v-btn>
+        <v-btn v-if="allowSignup && allowPasswordLogin" text to="/register"> {{ $t("user.register") }} </v-btn>
         <v-btn v-else text disabled> {{ $t("user.invite-only") }} </v-btn>
-        <v-btn class="mr-auto" text to="/forgot-password"> {{ $t("user.reset-password") }} </v-btn>
+        <v-btn v-if="allowPasswordLogin" class="mr-auto" text to="/forgot-password"> {{ $t("user.reset-password") }} </v-btn>
       </v-card-actions>
 
       <v-card-text class="d-flex justify-center flex-column flex-sm-row">
@@ -191,7 +193,9 @@ export default defineComponent({
     const allowSignup = computed(() => appInfo.value?.allowSignup || false);
     const allowOidc = computed(() => appInfo.value?.enableOidc || false);
     const oidcRedirect = computed(() => appInfo.value?.oidcRedirect || false);
-    const oidcProviderName = computed(() => appInfo.value?.oidcProviderName || "OAuth")
+    const oidcProviderName = computed(() => appInfo.value?.oidcProviderName || "OAuth");
+    const allowPasswordLogin = computed(() => appInfo.value?.allowPasswordLogin ?? true);
+
 
     whenever(
         () => allowOidc.value && oidcRedirect.value && !isCallback() && !isDirectLogin() && !$auth.check().valid,
@@ -271,6 +275,7 @@ export default defineComponent({
       form,
       loggingIn,
       allowSignup,
+      allowPasswordLogin,
       allowOidc,
       authenticate,
       oidcAuthenticate,

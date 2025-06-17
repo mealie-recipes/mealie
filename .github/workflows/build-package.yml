@@ -1,4 +1,4 @@
-name: Package build
+name: Build Package
 
 on:
   workflow_call:

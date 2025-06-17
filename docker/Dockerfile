@@ -141,6 +141,11 @@ RUN mkdir -p /run/secrets
 # Copy venv into image. It contains a fully-installed mealie backend and frontend.
 COPY --from=venv-builder $VENV_PATH $VENV_PATH
 
+# install nltk data for the ingredient parser
+ENV NLTK_DATA="/nltk_data/"
+RUN mkdir -p $NLTK_DATA
+RUN python -m nltk.downloader -d $NLTK_DATA averaged_perceptron_tagger_eng
+
 VOLUME [ "$MEALIE_HOME/data/" ]
 ENV APP_PORT=9000
 

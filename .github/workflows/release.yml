@@ -7,13 +7,19 @@ on:
 jobs:
   backend-tests:
     name: "Backend Server Tests"
-    uses: ./.github/workflows/partial-backend.yml
+    uses: ./.github/workflows/test-backend.yml
 
   frontend-tests:
     name: "Frontend Tests"
-    uses: ./.github/workflows/partial-frontend.yml
+    uses: ./.github/workflows/test-frontend.yml
 
-  build-release:
+  build-package:
+    name: Build Package
+    uses: ./.github/workflows/build-package.yml
+    with:
+      tag: release
+
+  publish:
     permissions:
       contents: read
       packages: write
@@ -23,10 +29,11 @@ jobs:
       # https://github.com/orgs/community/discussions/76409#discussioncomment-8131390
       id-token: write
     name: Build Tagged Release
-    uses: ./.github/workflows/partial-builder.yml
+    uses: ./.github/workflows/publish.yml
     needs:
       - backend-tests
       - frontend-tests
+      - build-package
     with:
       tag: ${{ github.event.release.tag_name }}
       tags: |
@@ -39,7 +46,7 @@ jobs:
   notify-discord:
     name: Notify Discord
     needs:
-      - build-release
+      - publish
     runs-on: ubuntu-latest
     steps:
       - name: Discord notification
@@ -52,7 +59,7 @@ jobs:
   update-image-tags:
     name: Update image tag in sample docker-compose files
     needs:
-      - build-release
+      - publish
     runs-on: ubuntu-latest
     permissions:
       contents: write

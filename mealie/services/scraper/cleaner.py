@@ -2,6 +2,7 @@ import contextlib
 import functools
 import html
 import json
+import numbers
 import operator
 import re
 import typing
@@ -392,7 +393,7 @@ def clean_yield(yields: str | list[str] | None) -> tuple[float, float, str]:
     return servings_qty, yld_qty, yld_str
 
 
-def clean_time(time_entry: str | timedelta | None, translator: Translator) -> None | str:
+def clean_time(time_entry: str | timedelta | int | float | None, translator: Translator) -> None | str:
     """_summary_
 
     Supported Structures:
@@ -401,6 +402,7 @@ def clean_time(time_entry: str | timedelta | None, translator: Translator) -> No
         - `"PT1H30M"` - returns "1 hour 30 minutes"
         - `timedelta(hours=1, minutes=30)` - returns "1 hour 30 minutes"
         - `{"minValue": "PT1H30M"}` - returns "1 hour 30 minutes"
+        - `30` - as a `int` or `float` assumed to be in minutes, returns "30 minutes"
 
     Raises:
         TypeError: if the type is not supported a TypeError is raised
@@ -412,6 +414,10 @@ def clean_time(time_entry: str | timedelta | None, translator: Translator) -> No
         return None
 
     match time_entry:
+        case numbers.Number():
+            # type checked by case statement
+            time_delta = timedelta(minutes=time_entry)  # type: ignore
+            return pretty_print_timedelta(time_delta, translator)
         case str(time_entry):
             if not time_entry.strip():
                 return None
@@ -431,7 +437,9 @@ def clean_time(time_entry: str | timedelta | None, translator: Translator) -> No
             # TODO: Not sure what to do here
             return str(time_entry)
         case _:
-            logger.warning("[SCRAPER] Unexpected type or structure for variable time_entry")
+            logger.warning(
+                "[SCRAPER] Unexpected type(%s) or structure for variable time_entry: %s", type(time_entry), time_entry
+            )
             return None
 
 

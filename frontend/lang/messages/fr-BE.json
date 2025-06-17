@@ -720,7 +720,7 @@
       "backup-restore": "Restaurer la sauvegarde",
       "back-restore-description": "La restauration de cette sauvegarde écrasera toutes les données actuelles dans votre base de données et dans le répertoire de données et les remplacera par le contenu de cette sauvegarde. {cannot-be-undone} Si la restauration est réussie, vous serez déconnecté.",
       "cannot-be-undone": "Cette action ne peut pas être annulée - à utiliser avec prudence.",
-      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
+      "postgresql-note": "Si vous utilisez PostgreSQL, veuillez consulter le {backup-restore-process} avant la restauration.",
       "backup-restore-process-in-the-documentation": "processus de sauvegarde/restauration dans la documentation",
       "irreversible-acknowledgment": "Je comprends que cette action est irréversible, destructrice et peut entraîner une perte de données",
       "restore-backup": "Restaurer une sauvegarde"
@@ -1048,8 +1048,8 @@
     "foods": {
       "merge-dialog-text": "La combinaison des aliments sélectionnés fusionnera l’aliment source et l’aliment cible en un seul aliment. L’aliment source sera supprimé et toutes les références à l’aliment source seront mises à jour pour pointer vers l’aliment cible.",
       "merge-food-example": "Fusion de {food1} dans {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
+      "seed-dialog-text": "Initialisez la base de données avec des aliments basés sur votre langue locale. Cela permettra de créer plus de 200 aliments communs qui pourront être utilisés pour organiser votre base de données. Les aliments sont traduits grâce à un effort communautaire.",
+      "seed-dialog-warning": "Vous avez déjà des éléments dans votre base de données. Cette action ne fusionnera pas les doublons, vous devrez les gérer manuellement.",
       "combine-food": "Combiner les aliments",
       "source-food": "Aliment source",
       "target-food": "Aliment cible",
