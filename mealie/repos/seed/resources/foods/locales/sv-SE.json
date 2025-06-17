@@ -295,19 +295,19 @@
 		"plural_name": "vitlökar"
 	},
 	"gem-squash": {
-		"name": "gem squash"
+		"name": "gem sqash"
 	},
 	"ghee": {
 		"name": "ghee"
 	},
 	"giblets": {
-		"name": "giblets"
+		"name": "krås"
 	},
 	"ginger": {
 		"name": "ingefära"
 	},
 	"grains": {
-		"name": "grains"
+		"name": "korn"
 	},
 	"granulated-sugar": {
 		"name": "strösocker"
@@ -316,8 +316,8 @@
 		"name": "druvkärneolja"
 	},
 	"green-onion": {
-		"name": "green onion",
-		"plural_name": "green onions"
+		"name": "salladslök",
+		"plural_name": "salladslökar"
 	},
 	"heart-of-palm": {
 		"name": "palmhjärta",
@@ -340,7 +340,7 @@
 		"plural_name": "jackfrukter"
 	},
 	"jaggery": {
-		"name": "jaggery"
+		"name": "indiskt råsocker"
 	},
 	"jams": {
 		"name": "sylt"
@@ -352,10 +352,10 @@
 		"name": "jordärtskocka"
 	},
 	"jicama": {
-		"name": "jicama"
+		"name": "jamsbönrot"
 	},
 	"kale": {
-		"name": "kale"
+		"name": "grönkål"
 	},
 	"kohlrabi": {
 		"name": "kålrabbi"
@@ -371,7 +371,7 @@
 		"plural_name": "purjolökar"
 	},
 	"legumes": {
-		"name": "legumes"
+		"name": "legymer"
 	},
 	"lemongrass": {
 		"name": "citrongräs"
@@ -459,46 +459,46 @@
 		"name": "ostron"
 	},
 	"panch-puran": {
-		"name": "panch puran"
+		"name": "panch phoron"
 	},
 	"paprika": {
 		"name": "paprika"
 	},
 	"parsley": {
-		"name": "parsley"
+		"name": "persilja"
 	},
 	"parsnip": {
-		"name": "parsnip",
-		"plural_name": "parsnips"
+		"name": "palsternacka",
+		"plural_name": "palsternackor"
 	},
 	"pear": {
-		"name": "pear",
-		"plural_name": "pears"
+		"name": "päron",
+		"plural_name": "päron"
 	},
 	"peas": {
-		"name": "peas"
+		"name": "ärtor"
 	},
 	"pepper": {
-		"name": "pepper",
-		"plural_name": "peppers"
+		"name": "paprika",
+		"plural_name": "paprikor"
 	},
 	"pineapple": {
 		"name": "ananas",
 		"plural_name": "ananaser"
 	},
 	"plantain": {
-		"name": "plantain",
-		"plural_name": "plantains"
+		"name": "groblad",
+		"plural_name": "groblad"
 	},
 	"poppy-seeds": {
-		"name": "poppy seeds"
+		"name": "vallmofrö"
 	},
 	"potato": {
 		"name": "potatis",
 		"plural_name": "potatisar"
 	},
 	"poultry": {
-		"name": "poultry"
+		"name": "fjäderfä"
 	},
 	"powdered-sugar": {
 		"name": "powdered sugar"
