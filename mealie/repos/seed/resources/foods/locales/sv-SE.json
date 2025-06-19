@@ -38,7 +38,7 @@
 		"name": "florsocker"
 	},
 	"bar-sugar": {
-		"name": "bar sugar"
+		"name": "barsocker"
 	},
 	"basil": {
 		"name": "basilika"
@@ -285,7 +285,7 @@
 		"name": "fruktsocker"
 	},
 	"ful": {
-		"name": "ful"
+		"name": "fava"
 	},
 	"garam-masala": {
 		"name": "garam masala"
@@ -361,7 +361,7 @@
 		"name": "kålrabbi"
 	},
 	"kumara": {
-		"name": "kumara"
+		"name": "sötpotatis"
 	},
 	"leavening-agents": {
 		"name": "jäsmedel"
@@ -501,11 +501,11 @@
 		"name": "fjäderfä"
 	},
 	"powdered-sugar": {
-		"name": "powdered sugar"
+		"name": "florsocker"
 	},
 	"pumpkin": {
 		"name": "pumpa",
-		"plural_name": "pumpkins"
+		"plural_name": "pumpa"
 	},
 	"pumpkin-seeds": {
 		"name": "pumpakärnor"
@@ -527,7 +527,7 @@
 		"name": "rismjöl"
 	},
 	"rock-sugar": {
-		"name": "rock sugar"
+		"name": "bröstsocker"
 	},
 	"rum": {
 		"name": "rom"
@@ -539,27 +539,27 @@
 		"name": "salt"
 	},
 	"salt-cod": {
-		"name": "salt cod"
+		"name": "salt torsk"
 	},
 	"scallion": {
-		"name": "scallion",
-		"plural_name": "scallions"
+		"name": "vårlök",
+		"plural_name": "vårlökar"
 	},
 	"seafood": {
-		"name": "seafood"
+		"name": "skaldjur"
 	},
 	"seeds": {
-		"name": "seeds"
+		"name": "frön"
 	},
 	"sesame-seeds": {
-		"name": "sesame seeds"
+		"name": "sesamfrön"
 	},
 	"shallot": {
-		"name": "shallot",
-		"plural_name": "shallots"
+		"name": "schalottenlök",
+		"plural_name": "schalottenlökar"
 	},
 	"skate": {
-		"name": "skate"
+		"name": "rocka"
 	},
 	"soda": {
 		"name": "soda"
@@ -571,11 +571,11 @@
 		"name": "sojaböna"
 	},
 	"spaghetti-squash": {
-		"name": "spaghetti squash",
-		"plural_name": "spaghetti squashes"
+		"name": "spaghettipumpa",
+		"plural_name": "spaghettipumpor"
 	},
 	"speck": {
-		"name": "speck"
+		"name": "späck"
 	},
 	"spices": {
 		"name": "kryddor"
@@ -589,104 +589,104 @@
 	},
 	"squash": {
 		"name": "squash",
-		"plural_name": "squashes"
+		"plural_name": "squash"
 	},
 	"squash-family": {
-		"name": "squash family"
+		"name": "squashfamilj"
 	},
 	"stockfish": {
-		"name": "stockfish"
+		"name": "osaltad fisk"
 	},
 	"sugar": {
 		"name": "socker"
 	},
 	"sunchoke": {
-		"name": "sunchoke",
-		"plural_name": "sunchokes"
+		"name": "jordärtskocka",
+		"plural_name": "jordärtskockor"
 	},
 	"sunflower-seeds": {
-		"name": "sunflower seeds"
+		"name": "solrosfrön"
 	},
 	"superfine-sugar": {
-		"name": "superfine sugar"
+		"name": "finkornigt strösocker"
 	},
 	"sweet-potato": {
-		"name": "sweet potato",
-		"plural_name": "sweet potatoes"
+		"name": "sötpotatis",
+		"plural_name": "sötpotatisar"
 	},
 	"sweetcorn": {
-		"name": "sweetcorn",
-		"plural_name": "sweetcorns"
+		"name": "sötmajs",
+		"plural_name": "sötmajs"
 	},
 	"sweeteners": {
-		"name": "sweeteners"
+		"name": "sötningsmedel"
 	},
 	"tahini": {
 		"name": "tahini"
 	},
 	"taro": {
 		"name": "taro",
-		"plural_name": "taroes"
+		"plural_name": "taro"
 	},
 	"teff": {
 		"name": "teff"
 	},
 	"tomato": {
-		"name": "tomato",
-		"plural_name": "tomatoes"
+		"name": "tomat",
+		"plural_name": "tomater"
 	},
 	"trout": {
-		"name": "trout"
+		"name": "forell"
 	},
 	"tubers": {
-		"name": "tuber",
-		"plural_name": "tubers"
+		"name": "knöl",
+		"plural_name": "knölar"
 	},
 	"tuna": {
-		"name": "tuna"
+		"name": "tonfisk"
 	},
 	"turbanado-sugar": {
-		"name": "turbanado sugar"
+		"name": "rörsocker"
 	},
 	"turnip": {
-		"name": "turnip",
-		"plural_name": "turnips"
+		"name": "rova",
+		"plural_name": "rovor"
 	},
 	"unrefined-sugar": {
-		"name": "unrefined sugar"
+		"name": "oraffinerat socker"
 	},
 	"vanilla": {
-		"name": "vanilla"
+		"name": "vanilj"
 	},
 	"vegetables": {
-		"name": "vegetables"
+		"name": "grönsaker"
 	},
 	"watercress": {
-		"name": "watercress"
+		"name": "vattenkrasse"
 	},
 	"watermelon": {
-		"name": "watermelon",
-		"plural_name": "watermelons"
+		"name": "vattenmelon",
+		"plural_name": "vattenmeloner"
 	},
 	"white-mushroom": {
-		"name": "white mushroom",
-		"plural_name": "white mushrooms"
+		"name": "champinjon",
+		"plural_name": "champinjoner"
 	},
 	"white-sugar": {
-		"name": "white sugar"
+		"name": "strösocker"
 	},
 	"xanthan-gum": {
-		"name": "xanthan gum"
+		"name": "xantangummi"
 	},
 	"yam": {
-		"name": "yam",
-		"plural_name": "yams"
+		"name": "jam",
+		"plural_name": "jams"
 	},
 	"yeast": {
-		"name": "yeast"
+		"name": "jäst"
 	},
 	"zucchini": {
 		"name": "zucchini",
-		"plural_name": "zucchinis"
+		"plural_name": "zucchini"
 	}
 }
