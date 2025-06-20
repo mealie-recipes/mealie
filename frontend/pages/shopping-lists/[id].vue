@@ -41,7 +41,9 @@
         <v-container>
           <v-row>
             <v-col
-              cols="3"
+              cols="12"
+              sm="4"
+              md="3"
               class="text-left"
             >
               <ButtonLink
@@ -51,8 +53,10 @@
               />
             </v-col>
             <v-col
-              cols="6"
-              class="d-none d-lg-flex justify-center"
+              cols="12"
+              sm="4"
+              md="6"
+              class="d-none d-sm-flex justify-center"
             >
               <v-img
                 max-height="100"
