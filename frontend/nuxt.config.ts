@@ -67,7 +67,7 @@ export default defineNuxtConfig({
     viewTransition: true,
   },
 
-  css: ["~/assets/css/main.css", "~/assets/style-overrides.scss"],
+  css: ["~/assets/css/main.css", "~/assets/css/fonts.css", "~/assets/style-overrides.scss"],
 
   runtimeConfig: {
     sessionPassword: process.env.SESSION_PASSWORD || "password-with-at-least-32-characters",
@@ -172,7 +172,7 @@ export default defineNuxtConfig({
 
   googleFonts: {
     fontsPath: "/assets/fonts",
-    download: true,
+    download: false, // Disable automatic downloading
     families: {
       Roboto: [100, 300, 400, 500, 700, 900],
     },
