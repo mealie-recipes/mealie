@@ -20,5 +20,3 @@ const i18n = useI18n();
 
 const pwStrength = usePasswordStrength(modelValue, i18n);
 </script>
-
-<style
