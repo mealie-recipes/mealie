@@ -1361,14 +1361,14 @@
   },
   "query-filter": {
     "logical-operators": {
-      "and": "AND",
-      "or": "OR"
+      "and": "VE",
+      "or": "VEYA"
     },
     "relational-operators": {
-      "equals": "equals",
-      "does-not-equal": "does not equal",
-      "is-greater-than": "is greater than",
-      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "equals": "eşittir",
+      "does-not-equal": "eşit değildir",
+      "is-greater-than": "daha büyük",
+      "is-greater-than-or-equal-to": "daha büyük veya eşit",
       "is-less-than": "is less than",
       "is-less-than-or-equal-to": "is less than or equal to"
     },
