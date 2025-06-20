@@ -251,6 +251,12 @@ export default defineNuxtComponent({
       layout: "admin",
     });
 
+    // For some reason the layout is not set automatically, so we set it here,
+    // even though it's defined above in the page meta.
+    onMounted(() => {
+      setPageLayout("admin");
+    });
+
     const { $globals } = useNuxtApp();
     const i18n = useI18n();
 
