@@ -5,6 +5,7 @@
       v-model="state.createDialog"
       :title="$t('data-pages.recipe-actions.new-recipe-action')"
       :icon="$globals.icons.primary"
+      can-submit
       @submit="createAction"
     >
       <v-card-text>
@@ -35,15 +36,22 @@
       v-model="state.editDialog"
       :icon="$globals.icons.primary"
       :title="$t('data-pages.recipe-actions.edit-recipe-action')"
-      :submit-text="$tc('general.save')"
+      :submit-text="$t('general.save')"
+      can-submit
       @submit="editSaveAction"
     >
       <v-card-text v-if="editTarget">
         <div class="mt-4">
-          <v-text-field v-model="editTarget.title" :label="$t('general.title')"/>
+          <v-text-field
+            v-model="editTarget.title"
+            :label="$t('general.title')"
+          />
         </div>
         <div class="mt-4">
-          <v-text-field v-model="editTarget.url" :label="$t('general.url')"/>
+          <v-text-field
+            v-model="editTarget.url"
+            :label="$t('general.url')"
+          />
         </div>
         <div class="mt-4">
           <v-select
@@ -58,14 +66,20 @@
     <!-- Delete Dialog -->
     <BaseDialog
       v-model="state.deleteDialog"
-      :title="$tc('general.confirm')"
+      :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
+      can-confirm
       @confirm="deleteAction"
     >
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
-        <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.title }}</p>
+        <p
+          v-if="deleteTarget"
+          class="mt-4 ml-4"
+        >
+          {{ deleteTarget.title }}
+        </p>
       </v-card-text>
     </BaseDialog>
 
@@ -73,20 +87,25 @@
     <BaseDialog
       v-model="state.bulkDeleteDialog"
       width="650px"
-      :title="$tc('general.confirm')"
+      :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
+      can-confirm
       @confirm="deleteSelected"
     >
       <v-card-text>
-        <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
-        <v-card outlined>
-          <v-virtual-scroll height="400" item-height="25" :items="bulkDeleteTarget">
+        <p class="h4">
+          {{ $t('general.confirm-delete-generic-items') }}
+        </p>
+        <v-card variant="outlined">
+          <v-virtual-scroll
+            height="400"
+            item-height="25"
+            :items="bulkDeleteTarget"
+          >
             <template #default="{ item }">
               <v-list-item class="pb-2">
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.name }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
               </v-list-item>
             </template>
           </v-virtual-scroll>
@@ -95,33 +114,42 @@
     </BaseDialog>
 
     <!-- Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.primary" section :title="$tc('data-pages.recipe-actions.recipe-actions-data')"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle
+      :icon="$globals.icons.primary"
+      section
+      :title="$t('data-pages.recipe-actions.recipe-actions-data')"
+    />
     <CrudTable
+      v-model:headers="tableHeaders"
       :table-config="tableConfig"
-      :headers.sync="tableHeaders"
       :data="actions || []"
-      :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
+      :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
       initial-sort="title"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
       @delete-selected="bulkDeleteEventHandler"
     >
       <template #button-row>
-        <BaseButton create @click="state.createDialog = true">{{ $t("general.create") }}</BaseButton>
+        <BaseButton
+          create
+          @click="state.createDialog = true"
+        >
+          {{ $t("general.create") }}
+        </BaseButton>
       </template>
     </CrudTable>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, useContext } from "@nuxtjs/composition-api";
 import { validators } from "~/composables/use-validators";
 import { useGroupRecipeActions, useGroupRecipeActionData } from "~/composables/use-group-recipe-actions";
-import { GroupRecipeActionOut } from "~/lib/api/types/household";
+import type { GroupRecipeActionOut } from "~/lib/api/types/household";
 
-export default defineComponent({
+export default defineNuxtComponent({
   setup() {
-    const { i18n } = useContext();
+    const i18n = useI18n();
+
     const tableConfig = {
       hideColumns: true,
       canExport: true,
@@ -136,6 +164,7 @@ export default defineComponent({
         text: i18n.t("general.title"),
         value: "title",
         show: true,
+        sortable: true,
       },
       {
         text: i18n.t("general.url"),
@@ -146,6 +175,7 @@ export default defineComponent({
         text: i18n.t("data-pages.recipe-actions.action-type"),
         value: "actionType",
         show: true,
+        sortable: true,
       },
     ];
 
@@ -158,23 +188,20 @@ export default defineComponent({
 
     const actionData = useGroupRecipeActionData();
     const actionStore = useGroupRecipeActions(null, null);
-    const actionTypeOptions = ["link", "post"]
-
+    const actionTypeOptions = ["link", "post"];
 
     // ============================================================
     // Create Action
 
     async function createAction() {
-      // @ts-ignore groupId isn't required
       await actionStore.actions.createOne({
         actionType: actionData.data.actionType,
         title: actionData.data.title,
         url: actionData.data.url,
-      });
+      } as GroupRecipeActionOut);
       actionData.reset();
       state.createDialog = false;
     }
-
 
     // ============================================================
     // Edit Action
@@ -193,7 +220,6 @@ export default defineComponent({
       await actionStore.actions.updateOne(editTarget.value);
       state.editDialog = false;
     }
-
 
     // ============================================================
     // Delete Action

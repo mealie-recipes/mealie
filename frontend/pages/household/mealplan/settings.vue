@@ -2,35 +2,54 @@
   <v-container class="md-container">
     <BasePageTitle divider>
       <template #header>
-        <v-img max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')"></v-img>
+        <v-img
+          width="100%"
+          max-height="100"
+          max-width="100"
+          :src="require('~/static/svgs/manage-cookbooks.svg')"
+        />
       </template>
-      <template #title> {{ $t('meal-plan.meal-plan-rules') }} </template>
+      <template #title>
+        {{ $t('meal-plan.meal-plan-rules') }}
+      </template>
       {{ $t('meal-plan.meal-plan-rules-description') }}
     </BasePageTitle>
 
     <v-card>
-      <v-card-title class="headline"> {{ $t('meal-plan.new-rule') }} </v-card-title>
-      <v-divider class="mx-2"></v-divider>
+      <v-card-title class="headline">
+        {{ $t('meal-plan.new-rule') }}
+      </v-card-title>
+      <v-divider class="mx-2" />
       <v-card-text>
         {{ $t('meal-plan.new-rule-description') }}
 
         <GroupMealPlanRuleForm
           :key="createDataFormKey"
+          v-model:day="createData.day"
+          v-model:entry-type="createData.entryType"
+          v-model:query-filter-string="createData.queryFilterString"
           class="mt-2"
-          :day.sync="createData.day"
-          :entry-type.sync="createData.entryType"
-          :query-filter-string.sync="createData.queryFilterString"
         />
       </v-card-text>
       <v-card-actions class="justify-end">
-        <BaseButton create :disabled="!createData.queryFilterString" @click="createRule" />
+        <BaseButton
+          create
+          :disabled="!createData.queryFilterString"
+          @click="createRule"
+        />
       </v-card-actions>
     </v-card>
 
     <section>
-      <BaseCardSectionTitle class="mt-10" :title="$tc('meal-plan.recipe-rules')" />
+      <BaseCardSectionTitle
+        class="mt-10"
+        :title="$t('meal-plan.recipe-rules')"
+      />
       <div>
-        <div v-for="(rule, idx) in allRules" :key="rule.id">
+        <div
+          v-for="(rule, idx) in allRules"
+          :key="rule.id"
+        >
           <v-card class="my-2 left-border">
             <v-card-title class="headline pb-1">
               {{ rule.day === "unset" ? $t('meal-plan.applies-to-all-days') : $t('meal-plan.applies-on-days', [rule.day]) }}
@@ -40,12 +59,12 @@
                   :buttons="[
                     {
                       icon: $globals.icons.edit,
-                      text: $tc('general.edit'),
+                      text: $t('general.edit'),
                       event: 'edit',
                     },
                     {
                       icon: $globals.icons.delete,
-                      text: $tc('general.delete'),
+                      text: $t('general.delete'),
                       event: 'delete',
                     },
                   ]"
@@ -57,36 +76,53 @@
             <v-card-text>
               <template v-if="!editState[rule.id]">
                 <div v-if="rule.categories">
-                  <h4 class="py-1">{{ $t("category.categories") }}:</h4>
-                  <RecipeChips v-if="rule.categories.length" :items="rule.categories" small class="pb-3" />
+                  <h4 class="py-1">
+                    {{ $t("category.categories") }}:
+                  </h4>
+                  <RecipeChips
+                    v-if="rule.categories.length"
+                    :items="rule.categories"
+                    small
+                    class="pb-3"
+                  />
                   <v-card-text
                     v-else
                     label
                     class="ma-0 px-0 pt-0 pb-3"
                     text-color="accent"
-                    small
+                    size="small"
                     dark
                   >
-                    {{ $tc("meal-plan.any-category") }}
+                    {{ $t("meal-plan.any-category") }}
                   </v-card-text>
                 </div>
 
                 <div v-if="rule.tags">
-                  <h4 class="py-1">{{ $t("tag.tags") }}:</h4>
-                  <RecipeChips v-if="rule.tags.length" :items="rule.tags" url-prefix="tags" small class="pb-3" />
+                  <h4 class="py-1">
+                    {{ $t("tag.tags") }}:
+                  </h4>
+                  <RecipeChips
+                    v-if="rule.tags.length"
+                    :items="rule.tags"
+                    url-prefix="tags"
+                    small
+                    class="pb-3"
+                  />
                   <v-card-text
                     v-else
                     label
                     class="ma-0 px-0 pt-0 pb-3"
                     text-color="accent"
-                    small
+                    size="small"
                     dark
                   >
-                    {{ $tc("meal-plan.any-tag") }}
+                    {{ $t("meal-plan.any-tag") }}
                   </v-card-text>
                 </div>
                 <div v-if="rule.households">
-                  <h4 class="py-1">{{ $t("household.households") }}:</h4>
+                  <h4 class="py-1">
+                    {{ $t("household.households") }}:
+                  </h4>
                   <div v-if="rule.households.length">
                     <v-chip
                       v-for="household in rule.households"
@@ -94,7 +130,7 @@
                       label
                       class="ma-1"
                       color="accent"
-                      small
+                      size="small"
                       dark
                     >
                       {{ household.name }}
@@ -105,22 +141,26 @@
                     label
                     class="ma-0 px-0 pt-0 pb-3"
                     text-color="accent"
-                    small
+                    size="small"
                     dark
                   >
-                    {{ $tc("meal-plan.any-household") }}
+                    {{ $t("meal-plan.any-household") }}
                   </v-card-text>
                 </div>
               </template>
               <template v-else>
                 <GroupMealPlanRuleForm
-                  :day.sync="allRules[idx].day"
-                  :entry-type.sync="allRules[idx].entryType"
-                  :query-filter-string.sync="allRules[idx].queryFilterString"
+                  v-model:day="allRules[idx].day"
+                  v-model:entry-type="allRules[idx].entryType"
+                  v-model:query-filter-string="allRules[idx].queryFilterString"
                   :query-filter="allRules[idx].queryFilter"
                 />
                 <div class="d-flex justify-end">
-                  <BaseButton update :disabled="!allRules[idx].queryFilterString" @click="updateRule(rule)" />
+                  <BaseButton
+                    update
+                    :disabled="!allRules[idx].queryFilterString"
+                    @click="updateRule(rule)"
+                  />
                 </div>
               </template>
             </v-card-text>
@@ -132,27 +172,31 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useAsync } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-import { PlanRulesCreate, PlanRulesOut } from "~/lib/api/types/meal-plan";
+import type { PlanRulesCreate, PlanRulesOut } from "~/lib/api/types/meal-plan";
 import GroupMealPlanRuleForm from "~/components/Domain/Household/GroupMealPlanRuleForm.vue";
 import { useAsyncKey } from "~/composables/use-utils";
 import RecipeChips from "~/components/Domain/Recipe/RecipeChips.vue";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     GroupMealPlanRuleForm,
     RecipeChips,
   },
-  middleware: ["auth"],
+  middleware: ["sidebase-auth"],
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
   },
   setup() {
     const api = useUserApi();
+    const i18n = useI18n();
+
+    useSeoMeta({
+      title: i18n.t("meal-plan.meal-plan-settings"),
+    });
 
     // ======================================================
     // Manage All
@@ -172,9 +216,9 @@ export default defineComponent({
       }
     }
 
-    useAsync(async () => {
+    useAsyncData(useAsyncKey(), async () => {
       await refreshAll();
-    }, useAsyncKey());
+    });
 
     // ======================================================
     // Creating Rules
@@ -223,11 +267,6 @@ export default defineComponent({
       editState,
       updateRule,
       toggleEditState,
-    };
-  },
-  head() {
-    return {
-      title: this.$tc("meal-plan.meal-plan-settings"),
     };
   },
 });

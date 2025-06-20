@@ -1,6 +1,5 @@
-import { useAsync, ref } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-import { UserIn, UserOut } from "~/lib/api/types/user";
+import type { UserIn, UserOut } from "~/lib/api/types/user";
 
 /*
 TODO: Potentially combine useAllUsers and useUser by delaying the get all users functionality
@@ -10,38 +9,16 @@ to control whether the object is substantiated... but some of the others rely on
 
 export const useAllUsers = function () {
   const api = useUserApi();
-  const loading = ref(false);
-
-  function getAllUsers() {
-    loading.value = true;
-    const asyncKey = String(Date.now());
-    const allUsers = useAsync(async () => {
-      const { data } = await api.users.getAll();
-      if (data) {
-        return data.items;
-      } else {
-        return null;
-      }
-    }, asyncKey);
-
-    loading.value = false;
-    return allUsers;
-  }
-
-  async function refreshAllUsers() {
-    loading.value = true;
+  const asyncKey = String(Date.now());
+  const { data: users, refresh: refreshAllUsers } = useLazyAsyncData(asyncKey, async () => {
     const { data } = await api.users.getAll();
-
     if (data) {
-      users.value = data.items;
-    } else {
-      users.value = null;
+      return data.items;
     }
-
-    loading.value = false;
-  }
-
-  const users = getAllUsers();
+    else {
+      return null;
+    }
+  });
 
   return { users, refreshAllUsers };
 };
@@ -52,10 +29,10 @@ export const useUser = function (refreshFunc: CallableFunction | null = null) {
 
   function getUser(id: string) {
     loading.value = true;
-    const user = useAsync(async () => {
+    const user = useAsyncData(id, async () => {
       const { data } = await api.users.getOne(id);
       return data;
-    }, id);
+    });
 
     loading.value = false;
     return user;

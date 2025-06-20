@@ -44,3 +44,4 @@ class GroupRecipeActionPagination(PaginationBase):
 class GroupRecipeActionPayload(MealieModel):
     action: GroupRecipeActionOut
     content: Any
+    scaled_amount: float

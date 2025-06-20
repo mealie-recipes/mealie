@@ -1,5 +1,5 @@
 export function useNavigationWarning() {
-    return { activateNavigationWarning, deactivateNavigationWarning };
+  return { activateNavigationWarning, deactivateNavigationWarning };
 }
 
 /**
@@ -9,12 +9,12 @@ export function useNavigationWarning() {
  * or closing the tab.
  */
 const activateNavigationWarning = () => {
-    window.onbeforeunload = () => true;
-}
+  window.onbeforeunload = () => true;
+};
 
 /**
  * Disables the warning when navigating to a page
  */
 const deactivateNavigationWarning = () => {
-    window.onbeforeunload = null;
-}
+  window.onbeforeunload = null;
+};

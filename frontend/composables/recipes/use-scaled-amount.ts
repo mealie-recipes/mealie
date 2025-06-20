@@ -11,11 +11,11 @@ function formatQuantity(val: number): string {
   const fraction = frac(val, 10, true);
 
   if (fraction[0] !== undefined && fraction[0] > 0) {
-      valString += fraction[0];
+    valString += fraction[0];
   }
 
   if (fraction[1] > 0) {
-      valString += `<sup>${fraction[1]}</sup><span>&frasl;</span><sub>${fraction[2]}</sub>`;
+    valString += `<sup>${fraction[1]}</sup><span>&frasl;</span><sub>${fraction[2]}</sub>`;
   }
 
   return valString.trim();

@@ -27,7 +27,8 @@ export function route(rest: string, params: Record<string, QueryValue> | null = 
         for (const item of value) {
           url.searchParams.append(key, String(item));
         }
-      } else {
+      }
+      else {
         url.searchParams.append(key, String(value));
       }
     }

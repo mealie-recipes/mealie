@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../../base/base-clients";
-import { RecipeShareToken, RecipeShareTokenCreate } from "~/lib/api/types/recipe";
+import type { RecipeShareToken, RecipeShareTokenCreate } from "~/lib/api/types/recipe";
 
 const prefix = "/api";
 

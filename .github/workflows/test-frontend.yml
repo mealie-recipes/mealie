@@ -14,7 +14,7 @@ jobs:
       - name: Setup node env 🏗
         uses: actions/setup-node@v4.0.0
         with:
-          node-version: 16
+          node-version: 20
           check-latest: true
 
       - name: Get yarn cache directory path 🛠
@@ -32,6 +32,10 @@ jobs:
 
       - name: Install dependencies 👨🏻‍💻
         run: yarn
+        working-directory: "frontend"
+
+      - name: Prepare nuxt 🚀
+        run: yarn nuxt prepare
         working-directory: "frontend"
 
       - name: Run linter 👀

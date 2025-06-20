@@ -14,13 +14,16 @@ function frac(x: number, D: number, mixed: boolean) {
           d1 += d2;
           n1 += n2;
           d2 = D + 1;
-        } else if (d1 > d2) d2 = D + 1;
+        }
+        else if (d1 > d2) d2 = D + 1;
         else d1 = D + 1;
         break;
-      } else if (x < m) {
+      }
+      else if (x < m) {
         n2 = n1 + n2;
         d2 = d1 + d2;
-      } else {
+      }
+      else {
         n1 = n1 + n2;
         d1 = d1 + d2;
       }
@@ -58,7 +61,8 @@ function cont(x: number, D: number, mixed: boolean) {
     if (Q_1 > D) {
       Q = Q_2;
       P = P_2;
-    } else {
+    }
+    else {
       Q = Q_1;
       P = P_1;
     }

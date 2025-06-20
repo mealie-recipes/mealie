@@ -1,16 +1,8 @@
 <template>
   <v-container class="mx-0 my-3 pa">
     <v-row>
-      <v-col
-        v-for="(day, index) in plan"
-        :key="index"
-        cols="12"
-        sm="12"
-        md="4"
-        lg="4"
-        xl="2"
-        class="col-borders my-1 d-flex flex-column"
-      >
+      <v-col v-for="(day, index) in plan" :key="index" cols="12" sm="12" md="4" lg="4" xl="2"
+        class="col-borders my-1 d-flex flex-column">
         <v-card class="mb-2 border-left-primary rounded-sm px-2">
           <v-container class="px-0">
             <v-row no-gutters style="width: 100%;">
@@ -27,23 +19,19 @@
         </v-card>
         <div v-for="section in day.sections" :key="section.title">
           <div class="py-2 d-flex flex-column">
-            <div class="primary" style="width: 50px; height: 2.5px"></div>
+            <div class="primary" style="width: 50px; height: 2.5px" />
             <p class="text-overline my-0">
               {{ section.title }}
             </p>
           </div>
 
-          <RecipeCardMobile
-            v-for="mealplan in section.meals"
-            :key="mealplan.id"
-            :recipe-id="mealplan.recipe ? mealplan.recipe.id : ''"
-            class="mb-2"
-            :rating="mealplan.recipe ? mealplan.recipe.rating : 0"
-            :slug="mealplan.recipe ? mealplan.recipe.slug : mealplan.title"
-            :description="mealplan.recipe ? mealplan.recipe.description : mealplan.text"
-            :name="mealplan.recipe ? mealplan.recipe.name : mealplan.title"
-            :tags="mealplan.recipe ? mealplan.recipe.tags : []"
-          />
+          <RecipeCardMobile v-for="mealplan in section.meals" :key="mealplan.id"
+            :recipe-id="mealplan.recipe ? mealplan.recipe.id! : ''" class="mb-2"
+            :rating="mealplan.recipe ? mealplan.recipe.rating! : 0"
+            :slug="mealplan.recipe ? mealplan.recipe.slug! : mealplan.title!"
+            :description="mealplan.recipe ? mealplan.recipe.description! : mealplan.text!"
+            :name="mealplan.recipe ? mealplan.recipe.name! : mealplan.title!"
+            :tags="mealplan.recipe ? mealplan.recipe.tags! : []" />
         </div>
       </v-col>
     </v-row>
@@ -51,14 +39,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
-import { MealsByDate } from "./types";
-import { ReadPlanEntry } from "~/lib/api/types/meal-plan";
+import type { MealsByDate } from "./types";
+import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 import GroupMealPlanDayContextMenu from "~/components/Domain/Household/GroupMealPlanDayContextMenu.vue";
 import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
-import { RecipeSummary } from "~/lib/api/types/recipe";
+import type { RecipeSummary } from "~/lib/api/types/recipe";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     GroupMealPlanDayContextMenu,
     RecipeCardMobile,
@@ -81,17 +68,17 @@ export default defineComponent({
       recipes: RecipeSummary[];
     };
 
-  const { i18n } = useContext();
+    const i18n = useI18n();
 
     const plan = computed<Days[]>(() => {
       return props.mealplans.reduce((acc, day) => {
         const out: Days = {
           date: day.date,
           sections: [
-            { title: i18n.tc("meal-plan.breakfast"), meals: [] },
-            { title: i18n.tc("meal-plan.lunch"), meals: [] },
-            { title: i18n.tc("meal-plan.dinner"), meals: [] },
-            { title: i18n.tc("meal-plan.side"), meals: [] },
+            { title: i18n.t("meal-plan.breakfast"), meals: [] },
+            { title: i18n.t("meal-plan.lunch"), meals: [] },
+            { title: i18n.t("meal-plan.dinner"), meals: [] },
+            { title: i18n.t("meal-plan.side"), meals: [] },
           ],
           recipes: [],
         };
@@ -99,11 +86,14 @@ export default defineComponent({
         for (const meal of day.meals) {
           if (meal.entryType === "breakfast") {
             out.sections[0].meals.push(meal);
-          } else if (meal.entryType === "lunch") {
+          }
+          else if (meal.entryType === "lunch") {
             out.sections[1].meals.push(meal);
-          } else if (meal.entryType === "dinner") {
+          }
+          else if (meal.entryType === "dinner") {
             out.sections[2].meals.push(meal);
-          } else if (meal.entryType === "side") {
+          }
+          else if (meal.entryType === "side") {
             out.sections[3].meals.push(meal);
           }
 
@@ -113,7 +103,7 @@ export default defineComponent({
         }
 
         // Drop empty sections
-        out.sections = out.sections.filter((section) => section.meals.length > 0);
+        out.sections = out.sections.filter(section => section.meals.length > 0);
 
         acc.push(out);
 

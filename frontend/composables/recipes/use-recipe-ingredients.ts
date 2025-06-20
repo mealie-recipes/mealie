@@ -1,6 +1,7 @@
 import DOMPurify from "isomorphic-dompurify";
 import { useFraction } from "./use-fraction";
-import { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit, RecipeIngredient } from "~/lib/api/types/recipe";
+
 const { frac } = useFraction();
 
 export function sanitizeIngredientHTML(rawHtml: string) {
@@ -47,7 +48,7 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
 
   const { quantity, food, unit, note } = ingredient;
   const usePluralUnit = quantity !== undefined && ((quantity || 0) * scale > 1 || (quantity || 0) * scale === 0);
-  const usePluralFood = (!quantity) || quantity * scale > 1
+  const usePluralFood = (!quantity) || quantity * scale > 1;
 
   let returnQty = "";
 
@@ -55,16 +56,17 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
   if (quantity && Number(quantity) !== 0) {
     if (unit && !unit.fraction) {
       returnQty = Number((quantity * scale).toPrecision(3)).toString();
-    } else {
+    }
+    else {
       const fraction = frac(quantity * scale, 10, true);
       if (fraction[0] !== undefined && fraction[0] > 0) {
         returnQty += fraction[0];
       }
 
       if (fraction[1] > 0) {
-        returnQty += includeFormating ?
-          `<sup>${fraction[1]}</sup><span>&frasl;</span><sub>${fraction[2]}</sub>` :
-          ` ${fraction[1]}/${fraction[2]}`;
+        returnQty += includeFormating
+          ? `<sup>${fraction[1]}</sup><span>&frasl;</span><sub>${fraction[2]}</sub>`
+          : ` ${fraction[1]}/${fraction[2]}`;
       }
     }
   }

@@ -1,9 +1,8 @@
-import { useAsync, ref, Ref, useContext } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "./use-utils";
 import { usePublicExploreApi } from "./api/api-client";
 import { useHouseholdSelf } from "./use-households";
 import { useUserApi } from "~/composables/api";
-import { ReadCookBook, UpdateCookBook } from "~/lib/api/types/cookbook";
+import type { ReadCookBook, UpdateCookBook } from "~/lib/api/types/cookbook";
 
 let cookbookStore: Ref<ReadCookBook[] | null> | null = null;
 
@@ -12,11 +11,11 @@ export const useCookbook = function (publicGroupSlug: string | null = null) {
     // passing the group slug switches to using the public API
     const api = publicGroupSlug ? usePublicExploreApi(publicGroupSlug).explore : useUserApi();
 
-    const units = useAsync(async () => {
+    const { data: units } = useAsyncData(useAsyncKey(), async () => {
       const { data } = await api.cookbooks.getOne(id);
 
       return data;
-    }, useAsyncKey());
+    });
 
     return units;
   }
@@ -31,15 +30,16 @@ export const usePublicCookbooks = function (groupSlug: string) {
   const actions = {
     getAll() {
       loading.value = true;
-      const units = useAsync(async () => {
+      const { data: units } = useAsyncData(useAsyncKey(), async () => {
         const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc" });
 
         if (data) {
           return data.items;
-        } else {
+        }
+        else {
           return null;
         }
-      }, useAsyncKey());
+      });
 
       loading.value = false;
       return units;
@@ -64,27 +64,28 @@ export const usePublicCookbooks = function (groupSlug: string) {
   }
 
   return { cookbooks: cookbookStore, actions };
-}
+};
 
 export const useCookbooks = function () {
   const api = useUserApi();
   const { household } = useHouseholdSelf();
   const loading = ref(false);
 
-  const { i18n } = useContext();
+  const i18n = useI18n();
 
   const actions = {
     getAll() {
       loading.value = true;
-      const units = useAsync(async () => {
+      const { data: units } = useAsyncData(useAsyncKey(), async () => {
         const { data } = await api.cookbooks.getAll(1, -1, { orderBy: "position", orderDirection: "asc" });
 
         if (data) {
           return data.items;
-        } else {
+        }
+        else {
           return null;
         }
-      }, useAsyncKey());
+      });
 
       loading.value = false;
       return units;
@@ -108,7 +109,8 @@ export const useCookbooks = function () {
       });
       if (data && cookbookStore?.value) {
         cookbookStore.value.push(data);
-      } else {
+      }
+      else {
         this.refreshAll();
       }
 

@@ -1,6 +1,5 @@
-import { ref, Ref } from "@nuxtjs/composition-api";
 import { useData, useStore } from "../partials/use-store-factory";
-import { IngredientUnit } from "~/lib/api/types/recipe";
+import type { IngredientUnit } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 
 const store: Ref<IngredientUnit[]> = ref([]);
@@ -14,9 +13,9 @@ export const useUnitData = function () {
     abbreviation: "",
     description: "",
   });
-}
+};
 
 export const useUnitStore = function () {
   const api = useUserApi();
   return useStore<IngredientUnit>(store, loading, api.units);
-}
+};

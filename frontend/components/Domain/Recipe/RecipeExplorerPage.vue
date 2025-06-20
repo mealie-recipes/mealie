@@ -1,16 +1,22 @@
 <template>
-  <v-container fluid class="pa-0">
-    <div class="search-container py-8">
-      <form class="search-box pa-2" @submit.prevent="search">
-        <div class="d-flex justify-center my-2">
+  <v-container
+    fluid
+    class="pa-0"
+  >
+    <div class="search-container pb-8">
+      <form
+        class="search-box pa-2"
+        @submit.prevent="search"
+      >
+        <div class="d-flex justify-center mb-2">
           <v-text-field
             ref="input"
             v-model="state.search"
-            outlined
+            variant="outlined"
             hide-details
             clearable
             color="primary"
-            :placeholder="$tc('search.search-placeholder')"
+            :placeholder="$t('search.search-placeholder')"
             :prepend-inner-icon="$globals.icons.search"
             @keyup.enter="hideKeyboard"
           />
@@ -20,134 +26,184 @@
           <SearchFilter
             v-if="categories"
             v-model="selectedCategories"
-            :require-all.sync="state.requireAllCategories"
+            v-model:require-all="state.requireAllCategories"
             :items="categories"
           >
-            <v-icon left>
+            <v-icon start>
               {{ $globals.icons.categories }}
             </v-icon>
             {{ $t("category.categories") }}
           </SearchFilter>
 
           <!-- Tag Filter -->
-          <SearchFilter v-if="tags" v-model="selectedTags" :require-all.sync="state.requireAllTags" :items="tags">
-            <v-icon left>
+          <SearchFilter
+            v-if="tags"
+            v-model="selectedTags"
+            v-model:require-all="state.requireAllTags"
+            :items="tags"
+          >
+            <v-icon start>
               {{ $globals.icons.tags }}
             </v-icon>
             {{ $t("tag.tags") }}
           </SearchFilter>
 
           <!-- Tool Filter -->
-          <SearchFilter v-if="tools" v-model="selectedTools" :require-all.sync="state.requireAllTools" :items="tools">
-            <v-icon left>
+          <SearchFilter
+            v-if="tools"
+            v-model="selectedTools"
+            v-model:require-all="state.requireAllTools"
+            :items="tools"
+          >
+            <v-icon start>
               {{ $globals.icons.potSteam }}
             </v-icon>
             {{ $t("tool.tools") }}
           </SearchFilter>
 
           <!-- Food Filter -->
-          <SearchFilter v-if="foods" v-model="selectedFoods" :require-all.sync="state.requireAllFoods" :items="foods">
-            <v-icon left>
+          <SearchFilter
+            v-if="foods"
+            v-model="selectedFoods"
+            v-model:require-all="state.requireAllFoods"
+            :items="foods"
+          >
+            <v-icon start>
               {{ $globals.icons.foods }}
             </v-icon>
             {{ $t("general.foods") }}
           </SearchFilter>
 
           <!-- Household Filter -->
-          <SearchFilter v-if="households.length > 1" v-model="selectedHouseholds" :items="households" radio>
-            <v-icon left>
+          <SearchFilter
+            v-if="households.length > 1"
+            v-model="selectedHouseholds"
+            :items="households"
+            radio
+          >
+            <v-icon start>
               {{ $globals.icons.household }}
             </v-icon>
             {{ $t("household.households") }}
           </SearchFilter>
 
           <!-- Sort Options -->
-          <v-menu offset-y nudge-bottom="3">
-            <template #activator="{ on, attrs }">
-              <v-btn class="ml-auto" small color="accent" v-bind="attrs" v-on="on">
-                <v-icon :left="!$vuetify.breakpoint.xsOnly">
+          <v-menu
+            offset-y
+            nudge-bottom="3"
+          >
+            <template #activator="{ props }">
+              <v-btn
+                class="ml-auto"
+                size="small"
+                color="accent"
+                v-bind="props"
+              >
+                <v-icon :start="!$vuetify.display.xs">
                   {{ state.orderDirection === "asc" ? $globals.icons.sortAscending : $globals.icons.sortDescending }}
                 </v-icon>
-                {{ $vuetify.breakpoint.xsOnly ? null : sortText }}
+                {{ $vuetify.display.xs ? null : sortText }}
               </v-btn>
             </template>
             <v-card>
               <v-list>
-                <v-list-item @click="toggleOrderDirection()">
-                  <v-icon left>
-                    {{
-                      state.orderDirection === "asc" ?
-                      $globals.icons.sortDescending : $globals.icons.sortAscending
-                    }}
-                  </v-icon>
-                  <v-list-item-title>
-                    {{ state.orderDirection === "asc" ? $tc("general.sort-descending") : $tc("general.sort-ascending") }}
-                  </v-list-item-title>
-                </v-list-item>
+                <v-list-item
+                  slim
+                  density="comfortable"
+                  :prepend-icon="state.orderDirection === 'asc' ? $globals.icons.sortDescending : $globals.icons.sortAscending"
+                  :title="state.orderDirection === 'asc' ? $t('general.sort-descending') : $t('general.sort-ascending')"
+                  @click="toggleOrderDirection()"
+                />
                 <v-divider />
                 <v-list-item
                   v-for="v in sortable"
                   :key="v.name"
-                  :input-value="state.orderBy === v.value"
+                  :active="state.orderBy === v.value"
+                  slim
+                  density="comfortable"
+                  :prepend-icon="v.icon"
+                  :title="v.name"
                   @click="state.orderBy = v.value"
-                >
-                  <v-icon left>
-                    {{ v.icon }}
-                  </v-icon>
-                  <v-list-item-title>{{ v.name }}</v-list-item-title>
-                </v-list-item>
+                />
               </v-list>
             </v-card>
           </v-menu>
 
           <!-- Settings -->
-          <v-menu offset-y bottom left nudge-bottom="3" :close-on-content-click="false">
-            <template #activator="{ on, attrs }">
-              <v-btn small color="accent" dark v-bind="attrs" v-on="on">
-                <v-icon small>
+          <v-menu
+            offset-y
+            bottom
+            start
+            nudge-bottom="3"
+            :close-on-content-click="false"
+          >
+            <template #activator="{ props }">
+              <v-btn
+                size="small"
+                color="accent"
+                dark
+                v-bind="props"
+              >
+                <v-icon size="small">
                   {{ $globals.icons.cog }}
                 </v-icon>
               </v-btn>
             </template>
             <v-card>
               <v-card-text>
-                <v-switch v-model="state.auto" :label="$t('search.auto-search')" single-line></v-switch>
-                <v-btn block color="primary" @click="reset">
-                  {{ $tc("general.reset") }}
+                <v-switch
+                  v-model="state.auto"
+                  :label="$t('search.auto-search')"
+                  single-line
+                />
+                <v-btn
+                  block
+                  color="primary"
+                  @click="reset"
+                >
+                  {{ $t("general.reset") }}
                 </v-btn>
               </v-card-text>
             </v-card>
           </v-menu>
         </div>
-        <div v-if="!state.auto" class="search-button-container">
-          <v-btn x-large color="primary" type="submit" block>
-            <v-icon left>
+        <div
+          v-if="!state.auto"
+          class="search-button-container"
+        >
+          <v-btn
+            size="x-large"
+            color="primary"
+            type="submit"
+            block
+          >
+            <v-icon start>
               {{ $globals.icons.search }}
             </v-icon>
-            {{ $tc("search.search") }}
+            {{ $t("search.search") }}
           </v-btn>
         </div>
       </form>
     </div>
-    <v-divider></v-divider>
+    <v-divider />
     <v-container class="mt-6 px-md-6">
       <RecipeCardSection
         v-if="state.ready"
         class="mt-n5"
         :icon="$globals.icons.silverwareForkKnife"
-        :title="$tc('general.recipes')"
+        :title="$t('general.recipes')"
         :recipes="recipes"
         :query="passedQueryWithSeed"
+        disable-sort
         @item-selected="filterItems"
-        @replaceRecipes="replaceRecipes"
-        @appendRecipes="appendRecipes"
+        @replace-recipes="replaceRecipes"
+        @append-recipes="appendRecipes"
       />
     </v-container>
   </v-container>
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, useRouter, onMounted, useContext, computed, Ref, useRoute, watch } from "@nuxtjs/composition-api";
 import { watchDebounced } from "@vueuse/shared";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
@@ -165,17 +221,19 @@ import {
 } from "~/composables/store";
 import { useUserSearchQuerySession } from "~/composables/use-users/preferences";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
-import { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useLazyRecipes } from "~/composables/recipes";
-import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
-import { HouseholdSummary } from "~/lib/api/types/household";
+import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
+import type { HouseholdSummary } from "~/lib/api/types/household";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { SearchFilter, RecipeCardSection },
   setup() {
     const router = useRouter();
-    const { $auth, $globals, i18n } = useContext();
+    const i18n = useI18n();
+    const $auth = useMealieAuth();
+    const { $globals } = useNuxtApp();
 
     const { isOwnGroup } = useLoggedInState();
     const state = ref({
@@ -193,7 +251,7 @@ export default defineComponent({
     });
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
     const searchQuerySession = useUserSearchQuerySession();
 
     const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
@@ -236,9 +294,9 @@ export default defineComponent({
     const passedQueryWithSeed = computed(() => {
       return {
         ...passedQuery.value,
-        _searchSeed: Date.now().toString()
+        _searchSeed: Date.now().toString(),
       };
-    })
+    });
 
     const queryDefaults = {
       search: "",
@@ -248,7 +306,7 @@ export default defineComponent({
       requireAllTags: false,
       requireAllTools: false,
       requireAllFoods: false,
-    }
+    };
 
     function reset() {
       state.value.search = queryDefaults.search;
@@ -271,11 +329,11 @@ export default defineComponent({
 
     function toIDArray(array: { id: string }[]) {
       // we sort the array to make sure the query is always the same
-      return array.map((item) => item.id).sort();
+      return array.map(item => item.id).sort();
     }
 
     function hideKeyboard() {
-      input.value.blur()
+      input.value.blur();
     }
 
     const input: Ref<any> = ref(null);
@@ -306,7 +364,7 @@ export default defineComponent({
           requireAllTools: passedQuery.value.requireAllTools ? "true" : undefined,
           requireAllFoods: passedQuery.value.requireAllFoods ? "true" : undefined,
         },
-      }
+      };
       await router.push({ query });
       searchQuerySession.value.recipe = JSON.stringify(query);
     }
@@ -314,7 +372,7 @@ export default defineComponent({
     function waitUntilAndExecute(
       condition: () => boolean,
       callback: () => void,
-      opts = { timeout: 2000, interval: 500 }
+      opts = { timeout: 2000, interval: 500 },
     ): Promise<void> {
       return new Promise((resolve, reject) => {
         const state = {
@@ -341,7 +399,7 @@ export default defineComponent({
     }
 
     const sortText = computed(() => {
-      const sort = sortable.find((s) => s.value === state.value.orderBy);
+      const sort = sortable.find(s => s.value === state.value.orderBy);
       if (!sort) return "";
       return `${sort.name}`;
     });
@@ -349,103 +407,112 @@ export default defineComponent({
     const sortable = [
       {
         icon: $globals.icons.orderAlphabeticalAscending,
-        name: i18n.tc("general.sort-alphabetically"),
+        name: i18n.t("general.sort-alphabetically"),
         value: "name",
       },
       {
         icon: $globals.icons.newBox,
-        name: i18n.tc("general.created"),
+        name: i18n.t("general.created"),
         value: "created_at",
       },
       {
         icon: $globals.icons.chefHat,
-        name: i18n.tc("general.last-made"),
+        name: i18n.t("general.last-made"),
         value: "last_made",
       },
       {
         icon: $globals.icons.star,
-        name: i18n.tc("general.rating"),
+        name: i18n.t("general.rating"),
         value: "rating",
       },
       {
         icon: $globals.icons.update,
-        name: i18n.tc("general.updated"),
+        name: i18n.t("general.updated"),
         value: "updated_at",
       },
       {
         icon: $globals.icons.diceMultiple,
-        name: i18n.tc("general.random"),
+        name: i18n.t("general.random"),
         value: "random",
       },
     ];
 
     watch(
-      () => route.value.query,
+      () => route.query,
       () => {
-        if (!Object.keys(route.value.query).length) {
+        if (!Object.keys(route.query).length) {
           reset();
         }
-      }
-    )
+      },
+    );
 
     function filterItems(item: RecipeCategory | RecipeTag | RecipeTool, urlPrefix: string) {
       if (urlPrefix === "categories") {
-        const result = categories.store.value.filter((category) => (category.id as string).includes(item.id as string));
+        const result = categories.store.value.filter(category => (category.id as string).includes(item.id as string));
         selectedCategories.value = result as NoUndefinedField<RecipeTag>[];
-      } else if (urlPrefix === "tags") {
-        const result = tags.store.value.filter((tag) => (tag.id as string).includes(item.id as string));
+      }
+      else if (urlPrefix === "tags") {
+        const result = tags.store.value.filter(tag => (tag.id as string).includes(item.id as string));
         selectedTags.value = result as NoUndefinedField<RecipeTag>[];
-      } else if (urlPrefix === "tools") {
-        const result = tools.store.value.filter((tool) => (tool.id ).includes(item.id || "" ));
+      }
+      else if (urlPrefix === "tools") {
+        const result = tools.store.value.filter(tool => (tool.id).includes(item.id || ""));
         selectedTags.value = result as NoUndefinedField<RecipeTag>[];
       }
     }
 
     async function hydrateSearch() {
-      const query = router.currentRoute.query;
+      const query = router.currentRoute.value.query;
       if (query.auto?.length) {
         state.value.auto = query.auto === "true";
       }
 
       if (query.search?.length) {
         state.value.search = query.search as string;
-      } else {
+      }
+      else {
         state.value.search = queryDefaults.search;
       }
 
       if (query.orderBy?.length) {
         state.value.orderBy = query.orderBy as string;
-      } else {
+      }
+      else {
         state.value.orderBy = queryDefaults.orderBy;
       }
 
       if (query.orderDirection?.length) {
         state.value.orderDirection = query.orderDirection as "asc" | "desc";
-      } else {
+      }
+      else {
         state.value.orderDirection = queryDefaults.orderDirection;
       }
 
       if (query.requireAllCategories?.length) {
         state.value.requireAllCategories = query.requireAllCategories === "true";
-      } else {
+      }
+      else {
         state.value.requireAllCategories = queryDefaults.requireAllCategories;
       }
 
       if (query.requireAllTags?.length) {
         state.value.requireAllTags = query.requireAllTags === "true";
-      } else {
+      }
+      else {
         state.value.requireAllTags = queryDefaults.requireAllTags;
       }
 
       if (query.requireAllTools?.length) {
         state.value.requireAllTools = query.requireAllTools === "true";
-      } else {
+      }
+      else {
         state.value.requireAllTools = queryDefaults.requireAllTools;
       }
 
       if (query.requireAllFoods?.length) {
         state.value.requireAllFoods = query.requireAllFoods === "true";
-      } else {
+      }
+      else {
         state.value.requireAllFoods = queryDefaults.requireAllFoods;
       }
 
@@ -456,15 +523,16 @@ export default defineComponent({
           waitUntilAndExecute(
             () => categories.store.value.length > 0,
             () => {
-              const result = categories.store.value.filter((item) =>
-                (query.categories as string[]).includes(item.id as string)
+              const result = categories.store.value.filter(item =>
+                (query.categories as string[]).includes(item.id as string),
               );
 
               selectedCategories.value = result as NoUndefinedField<RecipeCategory>[];
-            }
-          )
+            },
+          ),
         );
-      } else {
+      }
+      else {
         selectedCategories.value = [];
       }
 
@@ -473,12 +541,13 @@ export default defineComponent({
           waitUntilAndExecute(
             () => tags.store.value.length > 0,
             () => {
-              const result = tags.store.value.filter((item) => (query.tags as string[]).includes(item.id as string));
+              const result = tags.store.value.filter(item => (query.tags as string[]).includes(item.id as string));
               selectedTags.value = result as NoUndefinedField<RecipeTag>[];
-            }
-          )
+            },
+          ),
         );
-      } else {
+      }
+      else {
         selectedTags.value = [];
       }
 
@@ -487,12 +556,13 @@ export default defineComponent({
           waitUntilAndExecute(
             () => tools.store.value.length > 0,
             () => {
-              const result = tools.store.value.filter((item) => (query.tools as string[]).includes(item.id));
+              const result = tools.store.value.filter(item => (query.tools as string[]).includes(item.id));
               selectedTools.value = result as NoUndefinedField<RecipeTool>[];
-            }
-          )
+            },
+          ),
         );
-      } else {
+      }
+      else {
         selectedTools.value = [];
       }
 
@@ -506,12 +576,13 @@ export default defineComponent({
               return false;
             },
             () => {
-              const result = foods.store.value?.filter((item) => (query.foods as string[]).includes(item.id));
+              const result = foods.store.value?.filter(item => (query.foods as string[]).includes(item.id));
               selectedFoods.value = result ?? [];
-            }
-          )
+            },
+          ),
         );
-      } else {
+      }
+      else {
         selectedFoods.value = [];
       }
 
@@ -525,12 +596,13 @@ export default defineComponent({
               return false;
             },
             () => {
-              const result = households.store.value?.filter((item) => (query.households as string[]).includes(item.id));
+              const result = households.store.value?.filter(item => (query.households as string[]).includes(item.id));
               selectedHouseholds.value = result as NoUndefinedField<HouseholdSummary>[] ?? [];
-            }
-          )
+            },
+          ),
         );
-      } else {
+      }
+      else {
         selectedHouseholds.value = [];
       }
 
@@ -539,11 +611,12 @@ export default defineComponent({
 
     onMounted(async () => {
       // restore the user's last search query
-      if (searchQuerySession.value.recipe && !(Object.keys(route.value.query).length > 0)) {
+      if (searchQuerySession.value.recipe && !(Object.keys(route.query).length > 0)) {
         try {
           const query = JSON.parse(searchQuerySession.value.recipe);
           await router.replace({ query });
-        } catch (error) {
+        }
+        catch {
           searchQuerySession.value.recipe = "";
           router.replace({ query: {} });
         }
@@ -576,7 +649,7 @@ export default defineComponent({
       },
       {
         debounce: 500,
-      }
+      },
     );
 
     return {
@@ -610,7 +683,6 @@ export default defineComponent({
       filterItems,
     };
   },
-  head: {},
 });
 </script>
 

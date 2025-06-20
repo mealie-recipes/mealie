@@ -1,22 +1,22 @@
 <template>
-  <VJsoneditor
-    :value="value"
-    :height="height"
-    :options="options"
-    :attrs="$attrs"
-    @input="$emit('input', $event)"
-  ></VJsoneditor>
+  <JsonEditorVue
+    :model-value="modelValue"
+    v-bind="$attrs"
+    :style="{ height }"
+    :stringified="false"
+    @change="onChange"
+  />
 </template>
 
 <script lang="ts">
-// @ts-ignore v-jsoneditor has no types
-import VJsoneditor from "v-jsoneditor";
-import { defineComponent } from "@nuxtjs/composition-api";
+import { defineComponent } from "vue";
+import JsonEditorVue from "json-editor-vue";
 
 export default defineComponent({
-  components: { VJsoneditor },
+  name: "RecipeJsonEditor",
+  components: { JsonEditorVue },
   props: {
-    value: {
+    modelValue: {
       type: Object,
       default: () => ({}),
     },
@@ -24,10 +24,34 @@ export default defineComponent({
       type: String,
       default: "1500px",
     },
-    options: {
-      type: Object,
-      default: () => ({}),
-    },
+  },
+  emits: ["update:modelValue"],
+  setup(_, { emit }) {
+    function parseEvent(event: any): object {
+      if (!event) {
+        return {};
+      }
+      try {
+        if (event.json) {
+          return event.json;
+        }
+        else if (event.text) {
+          return JSON.parse(event.text);
+        }
+        else {
+          return event;
+        }
+      }
+      catch {
+        return {};
+      }
+    }
+    function onChange(event: any) {
+      emit("update:modelValue", parseEvent(event));
+    }
+    return {
+      onChange,
+    };
   },
 });
 </script>

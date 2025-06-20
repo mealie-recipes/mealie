@@ -17,11 +17,11 @@
 }
 
 .theme--dark.v-application {
-  background-color: var(--v-background-base, #1e1e1e) !important;
+  background-color: rgb(var(--v-theme-background, 30, 30, 30)) !important;
 }
 
 .theme--dark.v-navigation-drawer {
-  background-color: var(--v-background-base, #1e1e1e) !important;
+  background-color: rgb(var(--v-theme-background, 30, 30, 30)) !important;
 }
 
 .theme--dark.v-card {
@@ -29,11 +29,11 @@
 }
 
 .left-border {
-  border-left: 5px solid var(--v-primary-base) !important;
+  border-left: 5px solid rgb(var(--v-theme-primary)) !important;
 }
 
 .left-warning-border {
-  border-left: 5px solid var(--v-warning-base) !important;
+  border-left: 5px solid rgb(var(--v-theme-warning)) !important;
 }
 
 .handle {
@@ -55,4 +55,12 @@
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
+}
+
+a {
+  color: rgb(var(--v-theme-primary));
+}
+
+.fill-height {
+  min-height: 100vh;
 }

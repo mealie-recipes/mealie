@@ -15,28 +15,31 @@ const routes = {
 };
 
 export class PublicCategoriesApi extends BaseCRUDAPIReadOnly<RecipeCategory> {
-    baseRoute = routes.categoriesGroupSlug(this.groupSlug);
-    itemRoute = (itemId: string | number) => routes.categoriesGroupSlugCategoryId(this.groupSlug, itemId);
-
-    constructor(requests: ApiRequestInstance, private readonly groupSlug: string) {
-        super(requests);
+    constructor(requests: ApiRequestInstance, groupSlug: string) {
+        super(
+            requests,
+            routes.categoriesGroupSlug(groupSlug),
+            (itemId: string | number) => routes.categoriesGroupSlugCategoryId(groupSlug, itemId)
+        );
     }
 }
 
 export class PublicTagsApi extends BaseCRUDAPIReadOnly<RecipeTag> {
-    baseRoute = routes.tagsGroupSlug(this.groupSlug);
-    itemRoute = (itemId: string | number) => routes.tagsGroupSlugTagId(this.groupSlug, itemId);
-
-    constructor(requests: ApiRequestInstance, private readonly groupSlug: string) {
-        super(requests);
+    constructor(requests: ApiRequestInstance, groupSlug: string) {
+        super(
+            requests,
+            routes.tagsGroupSlug(groupSlug),
+            (itemId: string | number) => routes.tagsGroupSlugTagId(groupSlug, itemId)
+        );
     }
 }
 
 export class PublicToolsApi extends BaseCRUDAPIReadOnly<RecipeTool> {
-    baseRoute = routes.toolsGroupSlug(this.groupSlug);
-    itemRoute = (itemId: string | number) => routes.toolsGroupSlugToolId(this.groupSlug, itemId);
-
-    constructor(requests: ApiRequestInstance, private readonly groupSlug: string) {
-        super(requests);
+    constructor(requests: ApiRequestInstance, groupSlug: string) {
+        super(
+            requests,
+            routes.toolsGroupSlug(groupSlug),
+            (itemId: string | number) => routes.toolsGroupSlugToolId(groupSlug, itemId)
+        );
     }
 }

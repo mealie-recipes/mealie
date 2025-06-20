@@ -1,5 +1,4 @@
-import { computed, useContext } from "@nuxtjs/composition-api";
-import { TimelineEventType } from "~/lib/api/types/recipe";
+import type { TimelineEventType } from "~/lib/api/types/recipe";
 
 export interface TimelineEventTypeData {
   value: TimelineEventType;
@@ -8,22 +7,23 @@ export interface TimelineEventTypeData {
 }
 
 export const useTimelineEventTypes = () => {
-  const { $globals, i18n } = useContext();
+  const i18n = useI18n();
+  const { $globals } = useNuxtApp();
   const eventTypeOptions = computed<TimelineEventTypeData[]>(() => {
     return [
       {
         value: "comment",
-        label: i18n.tc("recipe.comment"),
+        label: i18n.t("recipe.comment"),
         icon: $globals.icons.commentTextMultiple,
       },
       {
         value: "info",
-        label: i18n.tc("settings.theme.info"),
+        label: i18n.t("settings.theme.info"),
         icon: $globals.icons.informationVariant,
       },
       {
         value: "system",
-        label: i18n.tc("general.system"),
+        label: i18n.t("general.system"),
         icon: $globals.icons.cog,
       },
     ];
@@ -31,5 +31,5 @@ export const useTimelineEventTypes = () => {
 
   return {
     eventTypeOptions,
-  }
-}
+  };
+};

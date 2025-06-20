@@ -4,71 +4,107 @@
       <v-card-title class="py-2">
         {{ $t("asset.assets") }}
       </v-card-title>
-      <v-divider class="mx-2"></v-divider>
-      <v-list v-if="value.length > 0" :flat="!edit">
-        <v-list-item v-for="(item, i) in value" :key="i">
-          <v-list-item-icon class="ma-auto">
-            <v-tooltip bottom>
-              <template #activator="{ on, attrs }">
-                <v-icon v-bind="attrs" v-on="on">
-                  {{ getIconDefinition(item.icon).icon }}
-                </v-icon>
-              </template>
-              <span>{{ getIconDefinition(item.icon).title }}</span>
-            </v-tooltip>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title class="pl-2">
-              {{ item.name }}
-            </v-list-item-title>
-          </v-list-item-content>
+      <v-divider class="mx-2" />
+      <v-list
+        v-if="value.length > 0"
+        :flat="!edit"
+      >
+        <v-list-item
+          v-for="(item, i) in value"
+          :key="i"
+        >
+          <template #prepend>
+            <div class="ma-auto">
+              <v-tooltip bottom>
+                <template #activator="{ props }">
+                  <v-icon v-bind="props">
+                    {{ getIconDefinition(item.icon).icon }}
+                  </v-icon>
+                </template>
+                <span>{{ getIconDefinition(item.icon).title }}</span>
+              </v-tooltip>
+            </div>
+          </template>
+          <v-list-item-title class="pl-2">
+            {{ item.name }}
+          </v-list-item-title>
           <v-list-item-action>
-            <v-btn v-if="!edit" color="primary" icon :href="assetURL(item.fileName)" target="_blank" top>
+            <v-btn
+              v-if="!edit"
+              color="primary"
+              icon
+              :href="assetURL(item.fileName ?? '')"
+              target="_blank"
+              top
+            >
               <v-icon> {{ $globals.icons.download }} </v-icon>
             </v-btn>
             <div v-else>
-              <v-btn color="error" icon top @click="value.splice(i, 1)">
+              <v-btn
+                color="error"
+                icon
+                top
+                @click="value.splice(i, 1)"
+              >
                 <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
-              <AppButtonCopy color="" :copy-text="assetEmbed(item.fileName)" />
+              <AppButtonCopy
+                color=""
+                :copy-text="assetEmbed(item.fileName ?? '')"
+              />
             </div>
           </v-list-item-action>
         </v-list-item>
       </v-list>
     </v-card>
     <div class="d-flex ml-auto mt-2">
-      <v-spacer></v-spacer>
+      <v-spacer />
       <BaseDialog
         v-model="state.newAssetDialog"
-        :title="$tc('asset.new-asset')"
+        :title="$t('asset.new-asset')"
         :icon="getIconDefinition(state.newAsset.icon).icon"
+        can-submit
         @submit="addAsset"
       >
         <template #activator>
-          <BaseButton v-if="edit" small create @click="state.newAssetDialog = true" />
+          <BaseButton
+            v-if="edit"
+            size="small"
+            create
+            @click="state.newAssetDialog = true"
+          />
         </template>
         <v-card-text class="pt-4">
-          <v-text-field v-model="state.newAsset.name" dense :label="$t('general.name')"></v-text-field>
+          <v-text-field
+            v-model="state.newAsset.name"
+            density="compact"
+            :label="$t('general.name')"
+          />
           <div class="d-flex justify-space-between">
             <v-select
               v-model="state.newAsset.icon"
-              dense
+              density="compact"
               :prepend-icon="getIconDefinition(state.newAsset.icon).icon"
               :items="iconOptions"
-              item-text="title"
+              item-title="title"
               item-value="name"
               class="mr-2"
             >
               <template #item="{ item }">
-                <v-list-item-avatar>
+                <v-avatar>
                   <v-icon class="mr-auto">
-                    {{ item.icon }}
+                    {{ item.raw.icon }}
                   </v-icon>
-                </v-list-item-avatar>
+                </v-avatar>
                 {{ item.title }}
               </template>
             </v-select>
-            <AppButtonUpload :post="false" file-name="file" :text-btn="false" @uploaded="setFileObject" />
+            <AppButtonUpload
+              :post="false"
+              file-name="file"
+              :text-btn="false"
+              @uploaded="setFileObject"
+            />
           </div>
           {{ state.fileObject.name }}
         </v-card-text>
@@ -78,13 +114,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, useContext } from "@nuxtjs/composition-api";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
-import { detectServerBaseUrl } from "~/composables/use-utils";
-import { RecipeAsset } from "~/lib/api/types/recipe";
+import type { RecipeAsset } from "~/lib/api/types/recipe";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     slug: {
       type: String,
@@ -94,7 +128,7 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    value: {
+    modelValue: {
       type: Array as () => RecipeAsset[],
       required: true,
     },
@@ -103,6 +137,7 @@ export default defineComponent({
       default: true,
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     const api = useUserApi();
 
@@ -115,7 +150,8 @@ export default defineComponent({
       },
     });
 
-    const { $globals, i18n, req } = useContext();
+    const i18n = useI18n();
+    const { $globals } = useNuxtApp();
 
     const iconOptions = [
       {
@@ -145,10 +181,10 @@ export default defineComponent({
       },
     ];
 
-    const serverBase = detectServerBaseUrl(req);
+    const serverBase = useRequestURL().origin;
 
     function getIconDefinition(icon: string) {
-      return iconOptions.find((item) => item.name === icon) || iconOptions[0];
+      return iconOptions.find(item => item.name === icon) || iconOptions[0];
     }
 
     const { recipeAssetPath } = useStaticRoutes();
@@ -181,7 +217,7 @@ export default defineComponent({
         extension: state.fileObject.name.split(".").pop() || "",
       });
 
-      context.emit("input", [...props.value, data]);
+      context.emit("update:modelValue", [...props.modelValue, data]);
       state.newAsset = { name: "", icon: "mdi-file" };
       state.fileObject = {} as File;
     }

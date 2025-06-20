@@ -1,62 +1,61 @@
 <template>
   <v-autocomplete
     v-model="selected"
+    v-bind="inputAttrs"
+    v-model:search="searchInput"
     :items="storeItem"
-    :value="value"
     :label="label"
     chips
-    deletable-chips
-    item-text="name"
+    closable-chips
+    item-title="name"
     multiple
+    variant="underlined"
     :prepend-inner-icon="icon"
+    :append-icon="$globals.icons.create"
     return-object
-    v-bind="inputAttrs"
     auto-select-first
-    :search-input.sync="searchInput"
     class="pa-0"
-    @change="resetSearchInput"
+    @update:model-value="resetSearchInput"
+    @click:append="dialog = true"
   >
-    <template #selection="data">
+    <template #chip="{ item, index }">
       <v-chip
-        :key="data.index"
+        :key="index"
         class="ma-1"
-        :input-value="data.selected"
-        small
-        close
-        label
         color="accent"
-        dark
-        @click:close="removeByIndex(data.index)"
+        variant="flat"
+        label
+
+        closable
+        @click:close="removeByIndex(index)"
       >
-        {{ data.item.name || data.item }}
+        {{ item.value }}
       </v-chip>
     </template>
-    <template v-if="showAdd" #append-outer>
-      <v-btn icon @click="dialog = true">
-        <v-icon>
-          {{ $globals.icons.create }}
-        </v-icon>
-      </v-btn>
-      <RecipeOrganizerDialog v-model="dialog" :item-type="selectorType" @created-item="appendCreated" />
+
+    <template
+      v-if="showAdd"
+      #append
+    >
+      <RecipeOrganizerDialog
+        v-model="dialog"
+        :item-type="selectorType"
+        @created-item="appendCreated"
+      />
     </template>
   </v-autocomplete>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext, computed, onMounted } from "@nuxtjs/composition-api";
-import RecipeOrganizerDialog from "./RecipeOrganizerDialog.vue";
-import { IngredientFood, RecipeCategory, RecipeTag } from "~/lib/api/types/recipe";
-import { RecipeTool } from "~/lib/api/types/admin";
+import type { IngredientFood, RecipeCategory, RecipeTag } from "~/lib/api/types/recipe";
+import type { RecipeTool } from "~/lib/api/types/admin";
+import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
+import type { HouseholdSummary } from "~/lib/api/types/household";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
-import { Organizer, RecipeOrganizer } from "~/lib/api/types/non-generated";
-import { HouseholdSummary } from "~/lib/api/types/household";
 
-export default defineComponent({
-  components: {
-    RecipeOrganizerDialog,
-  },
+export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Array as () => (
         | HouseholdSummary
         | RecipeTag
@@ -95,12 +94,13 @@ export default defineComponent({
       default: true,
     },
   },
+  emits: ["update:modelValue"],
 
   setup(props, context) {
     const selected = computed({
-      get: () => props.value,
+      get: () => props.modelValue,
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 
@@ -110,7 +110,8 @@ export default defineComponent({
       }
     });
 
-    const { $globals, i18n } = useContext();
+    const i18n = useI18n();
+    const { $globals } = useNuxtApp();
 
     const label = computed(() => {
       if (!props.showLabel) {
@@ -168,11 +169,11 @@ export default defineComponent({
     const store = computed(() => {
       const { store } = storeMap[props.selectorType];
       return store.value;
-    })
+    });
 
     const items = computed(() => {
       if (!props.returnObject) {
-        return store.value.map((item) => item.name);
+        return store.value.map(item => item.name);
       }
       return store.value;
     });

@@ -3,65 +3,127 @@
     <BasePageTitle divider>
       <template #header>
         <div class="d-flex flex-column align-center justify-center">
-          <UserAvatar :tooltip="false" size="96" :user-id="$auth.user.id" />
+          <UserAvatar
+            :tooltip="false"
+            size="96"
+            :user-id="userCopy.id!"
+          />
           <AppButtonUpload
             class="my-1"
             file-name="profile"
             accept="image/*"
-            :url="`/api/users/${$auth.user.id}/image`"
-            @uploaded="$auth.fetchUser()"
+            :url="`/api/users/${userCopy.id}/image`"
+            @uploaded="$auth.refresh()"
           />
         </div>
       </template>
-      <template #title> {{ $t("profile.user-settings") }} </template>
+      <template #title>
+        {{ $t("profile.user-settings") }}
+      </template>
     </BasePageTitle>
 
     <section class="mt-5">
       <ToggleState tag="article">
         <template #activator="{ toggle, state }">
-          <v-btn v-if="!state" color="info" class="mt-2 mb-n3" @click="toggle">
-            <v-icon left>{{ $globals.icons.lock }}</v-icon>
+          <v-btn
+            v-if="!state"
+            color="info"
+            class="mt-2 mb-n3"
+            @click="toggle"
+          >
+            <v-icon start>
+              {{ $globals.icons.lock }}
+            </v-icon>
             {{ $t("settings.change-password") }}
           </v-btn>
-          <v-btn v-else color="info" class="mt-2 mb-n3" @click="toggle">
-            <v-icon left>{{ $globals.icons.user }}</v-icon>
+          <v-btn
+            v-else
+            color="info"
+            class="mt-2 mb-n3"
+            @click="toggle"
+          >
+            <v-icon start>
+              {{ $globals.icons.user }}
+            </v-icon>
             {{ $t("settings.profile") }}
           </v-btn>
         </template>
         <template #default="{ state }">
-          <v-slide-x-transition leave-absolute hide-on-leave>
-            <div v-if="!state" key="personal-info">
-              <BaseCardSectionTitle class="mt-10" :title="$tc('profile.personal-information')"> </BaseCardSectionTitle>
-              <v-card tag="article" outlined>
+          <v-slide-x-transition
+            leave-absolute
+            hide-on-leave
+          >
+            <div
+              v-if="!state"
+              key="personal-info"
+            >
+              <BaseCardSectionTitle
+                class="mt-10"
+                :title="$t('profile.personal-information')"
+              />
+              <v-card
+                tag="article"
+                variant="outlined"
+                style="border-color: lightgrey;"
+              >
                 <v-card-text class="pb-0">
                   <v-form ref="userUpdate">
-                    <v-text-field v-model="userCopy.username" :label="$t('user.username')" required validate-on-blur>
-                    </v-text-field>
-                    <v-text-field v-model="userCopy.fullName" :label="$t('user.full-name')" required validate-on-blur>
-                    </v-text-field>
-                    <v-text-field v-model="userCopy.email" :label="$t('user.email')" validate-on-blur required>
-                    </v-text-field>
+                    <v-text-field
+                      v-model="userCopy.username"
+                      :label="$t('user.username')"
+                      required
+                      validate-on="blur"
+                      density="comfortable"
+                      variant="underlined"
+                    />
+                    <v-text-field
+                      v-model="userCopy.fullName"
+                      :label="$t('user.full-name')"
+                      required
+                      validate-on="blur"
+                      density="comfortable"
+                      variant="underlined"
+                    />
+                    <v-text-field
+                      v-model="userCopy.email"
+                      :label="$t('user.email')"
+                      validate-on="blur"
+                      required
+                      density="comfortable"
+                      variant="underlined"
+                    />
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <BaseButton update @click="updateUser" />
+                  <v-spacer />
+                  <BaseButton
+                    update
+                    @click="updateUser"
+                  />
                 </v-card-actions>
               </v-card>
             </div>
-            <div v-else key="change-password">
-              <BaseCardSectionTitle class="mt-10" :title="$tc('settings.change-password')"> </BaseCardSectionTitle>
-              <v-card outlined>
+            <div
+              v-else
+              key="change-password"
+            >
+              <BaseCardSectionTitle
+                class="mt-10"
+                :title="$t('settings.change-password')"
+              />
+              <v-card variant="outlined">
                 <v-card-text class="pb-0">
                   <v-form ref="passChange">
                     <v-text-field
                       v-model="password.current"
                       :prepend-icon="$globals.icons.lock"
                       :label="$t('user.current-password')"
-                      validate-on-blur
+                      validate-on="blur"
                       :type="showPassword ? 'text' : 'password'"
                       :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
                       :rules="[validators.minLength(1)]"
+                      density="comfortable"
+                      variant="underlined"
                       @click:append="showPassword = !showPassword"
                     />
                     <v-text-field
@@ -71,6 +133,8 @@
                       :type="showPassword ? 'text' : 'password'"
                       :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
                       :rules="[validators.minLength(8)]"
+                      density="comfortable"
+                      variant="underlined"
                       @click:append="showPassword = !showPassword"
                     />
                     <v-text-field
@@ -78,16 +142,18 @@
                       :prepend-icon="$globals.icons.lock"
                       :label="$t('user.confirm-password')"
                       :rules="[password.newOne === password.newTwo || $t('user.password-must-match')]"
-                      validate-on-blur
+                      validate-on="blur"
                       :type="showPassword ? 'text' : 'password'"
                       :append-icon="showPassword ? $globals.icons.eye : $globals.icons.eyeOff"
+                      density="comfortable"
+                      variant="underlined"
                       @click:append="showPassword = !showPassword"
                     />
                     <UserPasswordStrength :value="password.newOne" />
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
-                  <v-spacer></v-spacer>
+                  <v-spacer />
                   <BaseButton
                     update
                     :disabled="!passwordsMatch || password.current.length < 0"
@@ -101,17 +167,31 @@
       </ToggleState>
     </section>
     <section>
-      <BaseCardSectionTitle class="mt-10" :title="$tc('profile.preferences')"> </BaseCardSectionTitle>
+      <BaseCardSectionTitle
+        class="mt-10"
+        :title="$t('profile.preferences')"
+      />
       <v-checkbox
         v-model="userCopy.advanced"
         class="mt-n4"
         :label="$t('profile.show-advanced-description')"
+        color="primary"
         @change="updateUser"
-      ></v-checkbox>
-      <nuxt-link class="mt-5 d-flex flex-column justify-center text-center" :to="`/group`"> {{ $t('profile.looking-for-privacy-settings') }} </nuxt-link>
+      />
+      <nuxt-link
+        class="mt-5 d-flex flex-column justify-center text-center"
+        :to="`/group`"
+      > {{
+        $t('profile.looking-for-privacy-settings') }} </nuxt-link>
       <div class="d-flex flex-wrap justify-center mt-5">
-        <v-btn outlined class="rounded-xl my-1 mx-1" :to="`/user/profile`" nuxt exact>
-          <v-icon left>
+        <v-btn
+          variant="outlined"
+          class="rounded-xl my-1 mx-1"
+          :to="`/user/profile`"
+          nuxt
+          exact
+        >
+          <v-icon start>
             {{ $globals.icons.backArrow }}
           </v-icon>
           {{ $t('profile.back-to-profile') }}
@@ -122,23 +202,26 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive, defineComponent, computed, useContext, watch, toRefs } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
-import { VForm } from "~/types/vuetify";
-import { UserOut } from "~/lib/api/types/user";
 import UserPasswordStrength from "~/components/Domain/User/UserPasswordStrength.vue";
 import { validators } from "~/composables/use-validators";
+import type { VForm } from "~/types/auto-forms";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     UserAvatar,
     UserPasswordStrength,
   },
-  middleware: "auth",
+  middleware: "sidebase-auth",
   setup() {
-    const { $auth } = useContext();
-    const user = computed(() => $auth.user as unknown as UserOut);
+    const i18n = useI18n();
+    const $auth = useMealieAuth();
+    const user = computed(() => $auth.user.value);
+
+    useSeoMeta({
+      title: i18n.t("settings.profile"),
+    });
 
     watch(user, () => {
       userCopy.value = { ...user.value };
@@ -158,9 +241,10 @@ export default defineComponent({
     const passwordsMatch = computed(() => password.newOne === password.newTwo && password.newOne.length > 0);
 
     async function updateUser() {
+      if (!userCopy.value?.id) return;
       const { response } = await api.users.updateOne(userCopy.value.id, userCopy.value);
       if (response?.status === 200) {
-        $auth.fetchUser();
+        $auth.refresh();
       }
     }
 
@@ -194,11 +278,7 @@ export default defineComponent({
       domUpdatePassword,
       passwordsMatch,
       validators,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("settings.profile") as string,
+      $auth,
     };
   },
 });

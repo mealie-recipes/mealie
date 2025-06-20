@@ -7,25 +7,29 @@
       'mt-8': section,
     }"
   >
-    <v-card-title class="headline pl-0 py-0">
-      <v-icon v-if="icon !== ''" left>
+    <v-card-title class="text-h5 pl-0 py-0" style="font-weight: normal;">
+      <v-icon
+        v-if="icon"
+        start
+      >
         {{ icon }}
       </v-icon>
       {{ title }}
     </v-card-title>
-    <v-card-text v-if="$slots.default" class="pt-2 pl-0">
+    <v-card-text
+      v-if="$slots.default"
+      class="pt-2 pl-0"
+    >
       <p class="pb-0 mb-0">
         <slot />
       </p>
     </v-card-text>
-    <v-divider class="mb-3"></v-divider>
+    <v-divider class="mb-3" />
   </v-card>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
-
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     title: {
       type: String,

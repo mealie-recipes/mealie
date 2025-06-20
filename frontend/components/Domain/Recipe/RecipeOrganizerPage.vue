@@ -1,6 +1,9 @@
 <template>
   <div v-if="items">
-    <RecipeOrganizerDialog v-model="dialogs.organizer" :item-type="itemType" />
+    <RecipeOrganizerDialog
+      v-model="dialogs.organizer"
+      :item-type="itemType"
+    />
 
     <BaseDialog
       v-if="deleteTarget"
@@ -8,18 +11,34 @@
       :title="$t('general.delete-with-name', { name: $t(translationKey) })"
       color="error"
       :icon="$globals.icons.alertCircle"
+      can-confirm
       @confirm="deleteOne()"
     >
       <v-card-text>
-<p>{{ $t("general.confirm-delete-generic-with-name", { name: $t(translationKey) }) }}</p>
-        <p class="mt-4 mb-0 ml-4">{{ deleteTarget.name }}</p>
+        <p>{{ $t("general.confirm-delete-generic-with-name", { name: $t(translationKey) }) }}</p>
+        <p class="mt-4 mb-0 ml-4">
+          {{ deleteTarget.name }}
+        </p>
       </v-card-text>
     </BaseDialog>
 
-    <BaseDialog v-if="updateTarget" v-model="dialogs.update" :title="$t('general.update')" @confirm="updateOne()">
+    <BaseDialog
+      v-if="updateTarget"
+      v-model="dialogs.update"
+      :title="$t('general.update')"
+      can-confirm
+      @confirm="updateOne()"
+    >
       <v-card-text>
-        <v-text-field v-model="updateTarget.name" :label="$t('general.name')"> </v-text-field>
-        <v-checkbox v-if="itemType === Organizer.Tool" v-model="updateTarget.onHand" :label="$t('tool.on-hand')"></v-checkbox>
+        <v-text-field
+          v-model="updateTarget.name"
+          :label="$t('general.name')"
+        />
+        <v-checkbox
+          v-if="itemType === Organizer.Tool"
+          v-model="updateTarget.onHand"
+          :label="$t('tool.on-hand')"
+        />
       </v-card-text>
     </BaseDialog>
 
@@ -27,32 +46,61 @@
       <v-col>
         <v-text-field
           v-model="searchString"
-          outlined
+          variant="outlined"
           autofocus
           color="primary accent-3"
           :placeholder="$t('search.search-placeholder')"
           :prepend-inner-icon="$globals.icons.search"
           clearable
-        >
-        </v-text-field>
+        />
       </v-col>
     </v-row>
 
-    <v-app-bar color="transparent" flat class="mt-n1 rounded align-center">
-      <v-icon large left>
+    <v-app-bar
+      color="transparent"
+      flat
+      class="mt-n1 rounded align-center px-4 position-relative w-100 left-0 top-0"
+    >
+      <v-icon
+        size="large"
+        start
+      >
         {{ icon }}
       </v-icon>
       <v-toolbar-title class="headline">
-        <slot name="title"> </slot>
+        <slot name="title" />
       </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <BaseButton create @click="dialogs.organizer = true" />
+      <v-spacer />
+      <BaseButton
+        create
+        @click="dialogs.organizer = true"
+      />
     </v-app-bar>
-    <section v-for="(itms, key, idx) in itemsSorted" :key="'header' + idx" :class="idx === 1 ? null : 'my-4'">
-      <BaseCardSectionTitle v-if="isTitle(key)" :title="key" />
+    <section
+      v-for="(itms, key, idx) in itemsSorted"
+      :key="'header' + idx"
+      :class="idx === 1 ? null : 'my-4'"
+    >
+      <BaseCardSectionTitle
+        v-if="isTitle(key)"
+        :title="key"
+      />
       <v-row>
-        <v-col v-for="(item, index) in itms" :key="'cat' + index" cols="12" :sm="12" :md="6" :lg="4" :xl="3">
-          <v-card v-if="item" class="left-border" hover :to="`/g/${groupSlug}?${itemType}=${item.id}`">
+        <v-col
+          v-for="(item, index) in itms"
+          :key="'cat' + index"
+          cols="12"
+          :sm="12"
+          :md="6"
+          :lg="4"
+          :xl="3"
+        >
+          <v-card
+            v-if="item"
+            class="left-border"
+            hover
+            :to="`/g/${groupSlug}?${itemType}=${item.id}`"
+          >
             <v-card-actions>
               <v-icon>
                 {{ icon }}
@@ -60,7 +108,7 @@
               <v-card-title class="py-1">
                 {{ item.name }}
               </v-card-title>
-              <v-spacer></v-spacer>
+              <v-spacer />
               <ContextMenu
                 :items="[presets.delete, presets.edit]"
                 @delete="confirmDelete(item)"
@@ -76,10 +124,10 @@
 
 <script lang="ts">
 import Fuse from "fuse.js";
-import { defineComponent, computed, ref, reactive, useContext, useRoute } from "@nuxtjs/composition-api";
+
 import { useContextPresets } from "~/composables/use-context-presents";
 import RecipeOrganizerDialog from "~/components/Domain/Recipe/RecipeOrganizerDialog.vue";
-import { Organizer, RecipeOrganizer } from "~/lib/api/types/non-generated";
+import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
 import { useRouteQuery } from "~/composables/use-router";
 import { deepCopy } from "~/composables/use-utils";
 
@@ -90,7 +138,7 @@ interface GenericItem {
   onHand: boolean;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     RecipeOrganizerDialog,
   },
@@ -108,6 +156,7 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ["update", "delete"],
   setup(props, { emit }) {
     const state = reactive({
       // Search Options
@@ -124,9 +173,9 @@ export default defineComponent({
       },
     });
 
-    const { $auth } = useContext();
+    const $auth = useMealieAuth();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user?.value?.groupSlug || "");
 
     // =================================================================
     // Context Menu
@@ -141,11 +190,11 @@ export default defineComponent({
 
     const translationKey = computed<string>(() => {
       const typeMap = {
-        "categories": "category.category",
-        "tags": "tag.tag",
-        "tools": "tool.tool",
-        "foods": "shopping-list.food",
-        "households": "household.household",
+        categories: "category.category",
+        tags: "tag.tag",
+        tools: "tool.tool",
+        foods: "shopping-list.food",
+        households: "household.household",
       };
       return typeMap[props.itemType] || "";
     });
@@ -193,7 +242,7 @@ export default defineComponent({
         return props.items;
       }
       const result = fuse.value.search(searchString.value.trim() as string);
-      return result.map((x) => x.item);
+      return result.map(x => x.item);
     });
 
     // =================================================================
@@ -206,7 +255,7 @@ export default defineComponent({
         return byLetter;
       }
 
-      fuzzyItems.value
+      [...fuzzyItems.value]
         .sort((a, b) => a.name.localeCompare(b.name))
         .forEach((item) => {
           const letter = item.name[0].toUpperCase();
@@ -240,7 +289,5 @@ export default defineComponent({
       translationKey,
     };
   },
-  // Needed for useMeta
-  head: {},
 });
 </script>

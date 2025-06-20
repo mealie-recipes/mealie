@@ -13,11 +13,12 @@ const routes = {
 };
 
 export class PublicRecipeApi extends BaseCRUDAPIReadOnly<Recipe> {
-  baseRoute = routes.recipesGroupSlug(this.groupSlug);
-  itemRoute = (itemId: string | number) => routes.recipesGroupSlugRecipeSlug(this.groupSlug, itemId);
-
   constructor(requests: ApiRequestInstance, private readonly groupSlug: string) {
-    super(requests);
+    super(
+      requests,
+      routes.recipesGroupSlug(groupSlug),
+      (itemId: string | number) => routes.recipesGroupSlugRecipeSlug(groupSlug, itemId)
+    );
   }
 
   async search(rsq: RecipeSearchQuery) {
@@ -26,7 +27,7 @@ export class PublicRecipeApi extends BaseCRUDAPIReadOnly<Recipe> {
 
   async getSuggestions(q: RecipeSuggestionQuery, foods: string[] | null = null, tools: string[]| null = null) {
     return await this.requests.get<RecipeSuggestionResponse>(
-      route(`${this.baseRoute}/suggestions`, { ...q, foods, tools })
+      route(`${routes.recipesGroupSlug(this.groupSlug)}/suggestions`, { ...q, foods, tools })
     );
   }
 }

@@ -1,6 +1,5 @@
-import { computed, useContext } from "@nuxtjs/composition-api";
-import { Organizer, RecipeOrganizer } from "~/lib/api/types/non-generated";
-import { LogicalOperator, RelationalKeyword, RelationalOperator } from "~/lib/api/types/response";
+import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
+import type { LogicalOperator, RelationalKeyword, RelationalOperator } from "~/lib/api/types/response";
 
 export interface FieldLogicalOperator {
   label: string;
@@ -60,16 +59,16 @@ export interface Field extends FieldDefinition {
 }
 
 export function useQueryFilterBuilder() {
-  const { i18n } = useContext();
+  const i18n = useI18n();
 
   const logOps = computed<Record<LogicalOperator, FieldLogicalOperator>>(() => {
     const AND = {
-      label: i18n.tc("query-filter.logical-operators.and"),
+      label: i18n.t("query-filter.logical-operators.and"),
       value: "AND",
     } as FieldLogicalOperator;
 
     const OR = {
-      label: i18n.tc("query-filter.logical-operators.or"),
+      label: i18n.t("query-filter.logical-operators.or"),
       value: "OR",
     } as FieldLogicalOperator;
 
@@ -81,71 +80,70 @@ export function useQueryFilterBuilder() {
 
   const relOps = computed<Record<RelationalKeyword | RelationalOperator, FieldRelationalOperator>>(() => {
     const EQ = {
-      label: i18n.tc("query-filter.relational-operators.equals"),
+      label: i18n.t("query-filter.relational-operators.equals"),
       value: "=",
     } as FieldRelationalOperator;
 
     const NOT_EQ = {
-      label: i18n.tc("query-filter.relational-operators.does-not-equal"),
+      label: i18n.t("query-filter.relational-operators.does-not-equal"),
       value: "<>",
     } as FieldRelationalOperator;
 
     const GT = {
-      label: i18n.tc("query-filter.relational-operators.is-greater-than"),
+      label: i18n.t("query-filter.relational-operators.is-greater-than"),
       value: ">",
     } as FieldRelationalOperator;
 
     const GTE = {
-      label: i18n.tc("query-filter.relational-operators.is-greater-than-or-equal-to"),
+      label: i18n.t("query-filter.relational-operators.is-greater-than-or-equal-to"),
       value: ">=",
     } as FieldRelationalOperator;
 
     const LT = {
-      label: i18n.tc("query-filter.relational-operators.is-less-than"),
+      label: i18n.t("query-filter.relational-operators.is-less-than"),
       value: "<",
     } as FieldRelationalOperator;
 
     const LTE = {
-      label: i18n.tc("query-filter.relational-operators.is-less-than-or-equal-to"),
+      label: i18n.t("query-filter.relational-operators.is-less-than-or-equal-to"),
       value: "<=",
     } as FieldRelationalOperator;
 
     const IS = {
-      label: i18n.tc("query-filter.relational-keywords.is"),
+      label: i18n.t("query-filter.relational-keywords.is"),
       value: "IS",
     } as FieldRelationalOperator;
 
     const IS_NOT = {
-      label: i18n.tc("query-filter.relational-keywords.is-not"),
+      label: i18n.t("query-filter.relational-keywords.is-not"),
       value: "IS NOT",
     } as FieldRelationalOperator;
 
     const IN = {
-      label: i18n.tc("query-filter.relational-keywords.is-one-of"),
+      label: i18n.t("query-filter.relational-keywords.is-one-of"),
       value: "IN",
     } as FieldRelationalOperator;
 
     const NOT_IN = {
-      label: i18n.tc("query-filter.relational-keywords.is-not-one-of"),
+      label: i18n.t("query-filter.relational-keywords.is-not-one-of"),
       value: "NOT IN",
     } as FieldRelationalOperator;
 
     const CONTAINS_ALL = {
-      label: i18n.tc("query-filter.relational-keywords.contains-all-of"),
+      label: i18n.t("query-filter.relational-keywords.contains-all-of"),
       value: "CONTAINS ALL",
     } as FieldRelationalOperator;
 
     const LIKE = {
-      label: i18n.tc("query-filter.relational-keywords.is-like"),
+      label: i18n.t("query-filter.relational-keywords.is-like"),
       value: "LIKE",
     } as FieldRelationalOperator;
 
     const NOT_LIKE = {
-      label: i18n.tc("query-filter.relational-keywords.is-not-like"),
+      label: i18n.t("query-filter.relational-keywords.is-not-like"),
       value: "NOT LIKE",
     } as FieldRelationalOperator;
 
-    /* eslint-disable object-shorthand */
     return {
       "=": EQ,
       "<>": NOT_EQ,
@@ -161,22 +159,20 @@ export function useQueryFilterBuilder() {
       "LIKE": LIKE,
       "NOT LIKE": NOT_LIKE,
     };
-    /* eslint-enable object-shorthand */
   });
 
   function isOrganizerType(type: FieldType): type is Organizer {
     return (
-      type === Organizer.Category ||
-      type === Organizer.Tag ||
-      type === Organizer.Tool ||
-      type === Organizer.Food ||
-      type === Organizer.Household
+      type === Organizer.Category
+      || type === Organizer.Tag
+      || type === Organizer.Tool
+      || type === Organizer.Food
+      || type === Organizer.Household
     );
   };
 
   function getFieldFromFieldDef(field: Field | FieldDefinition, resetValue = false): Field {
-    /* eslint-disable dot-notation */
-    const updatedField = {logicalOperator: logOps.value.AND, ...field} as Field;
+    const updatedField = { logicalOperator: logOps.value.AND, ...field } as Field;
     let operatorOptions: FieldRelationalOperator[];
     if (updatedField.fieldOptions?.length || isOrganizerType(updatedField.type)) {
       operatorOptions = [
@@ -184,7 +180,8 @@ export function useQueryFilterBuilder() {
         relOps.value["NOT IN"],
         relOps.value["CONTAINS ALL"],
       ];
-    } else {
+    }
+    else {
       switch (updatedField.type) {
         case "string":
           operatorOptions = [
@@ -209,7 +206,7 @@ export function useQueryFilterBuilder() {
           break;
         case "date":
           operatorOptions = [
-          relOps.value["="],
+            relOps.value["="],
             relOps.value["<>"],
             relOps.value[">"],
             relOps.value[">="],
@@ -230,14 +227,14 @@ export function useQueryFilterBuilder() {
       updatedField.value = "";
       updatedField.values = [];
       updatedField.organizers = [];
-    } else {
+    }
+    else {
       updatedField.value = updatedField.value || "";
       updatedField.values = updatedField.values || [];
       updatedField.organizers = updatedField.organizers || [];
     }
 
     return updatedField;
-    /* eslint-enable dot-notation */
   };
 
   function buildQueryFilterString(fields: Field[], useParenthesis: boolean): string {
@@ -261,13 +258,15 @@ export function useQueryFilterBuilder() {
 
       if (field.label) {
         parts.push(field.name);
-      } else {
+      }
+      else {
         isValid = false;
       }
 
       if (field.relationalOperatorValue) {
         parts.push(field.relationalOperatorValue.value);
-      } else if (field.type !== "boolean") {
+      }
+      else if (field.type !== "boolean") {
         isValid = false;
       }
 
@@ -275,23 +274,29 @@ export function useQueryFilterBuilder() {
         if (field.values?.length) {
           let val: string;
           if (field.type === "string" || field.type === "date" || isOrganizerType(field.type)) {
-            val = field.values.map((value) => `"${value.toString()}"`).join(",");
-          } else {
+            val = field.values.map(value => `"${value.toString()}"`).join(",");
+          }
+          else {
             val = field.values.join(",");
           }
           parts.push(`[${val}]`);
-        } else {
+        }
+        else {
           isValid = false;
         }
-      } else if (field.value) {
+      }
+      else if (field.value) {
         if (field.type === "string" || field.type === "date") {
           parts.push(`"${field.value.toString()}"`);
-        } else {
+        }
+        else {
           parts.push(field.value.toString());
         }
-      } else if (field.type === "boolean") {
+      }
+      else if (field.type === "boolean") {
         parts.push("false");
-      } else {
+      }
+      else {
         isValid = false;
       }
 

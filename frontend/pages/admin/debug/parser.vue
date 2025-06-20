@@ -10,43 +10,86 @@
       </BaseCardSectionTitle>
 
       <div class="d-flex align-center justify-center justify-md-start flex-wrap">
-        <v-btn-toggle v-model="parser" dense mandatory @change="processIngredient">
-          <v-btn value="nlp"> {{ $t('admin.nlp') }} </v-btn>
-          <v-btn value="brute"> {{ $t('admin.brute') }} </v-btn>
-          <v-btn value="openai"> {{ $t('admin.openai') }} </v-btn>
+        <v-btn-toggle
+          v-model="parser"
+          density="compact"
+          mandatory="force"
+          @change="processIngredient"
+        >
+          <v-btn value="nlp">
+            {{ $t('admin.nlp') }}
+          </v-btn>
+          <v-btn value="brute">
+            {{ $t('admin.brute') }}
+          </v-btn>
+          <v-btn value="openai">
+            {{ $t('admin.openai') }}
+          </v-btn>
         </v-btn-toggle>
-
-        <v-checkbox v-model="showConfidence" class="ml-5" :label="$t('admin.show-individual-confidence')"></v-checkbox>
+        <v-spacer />
+        <v-checkbox
+          v-model="showConfidence"
+          class="ml-5"
+          :label="$t('admin.show-individual-confidence')"
+          hide-details
+        />
       </div>
 
       <v-card flat>
         <v-card-text>
-          <v-text-field v-model="ingredient" :label="$t('admin.ingredient-text')"> </v-text-field>
+          <v-text-field
+            v-model="ingredient"
+            :label="$t('admin.ingredient-text')"
+          />
         </v-card-text>
         <v-card-actions>
-          <BaseButton class="ml-auto" @click="processIngredient">
-            <template #icon> {{ $globals.icons.check }}</template>
+          <BaseButton
+            class="ml-auto"
+            @click="processIngredient"
+          >
+            <template #icon>
+              {{ $globals.icons.check }}
+            </template>
             {{ $t("general.submit") }}
           </BaseButton>
         </v-card-actions>
       </v-card>
     </v-container>
     <v-container v-if="results">
-      <div v-if="parser !== 'brute' && getConfidence('average')" class="d-flex">
-        <v-chip dark :color="getColor('average')" class="mx-auto mb-2">
+      <div
+        v-if="parser !== 'brute' && getConfidence('average')"
+        class="d-flex"
+      >
+        <v-chip
+          dark
+          :color="getColor('average')"
+          class="mx-auto mb-2"
+        >
           {{ $t('admin.average-confident', [getConfidence("average")]) }}
         </v-chip>
       </div>
-      <div class="d-flex justify-center flex-wrap" style="gap: 1.5rem">
+      <div
+        class="d-flex justify-center flex-wrap"
+        style="gap: 1.5rem"
+      >
         <template v-for="(prop, index) in properties">
-          <div v-if="prop.value" :key="index" class="flex-grow-1">
+          <div
+            v-if="prop.value"
+            :key="index"
+            class="flex-grow-1"
+          >
             <v-card min-width="200px">
               <v-card-title> {{ prop.value }} </v-card-title>
               <v-card-text>
                 {{ prop.subtitle }}
               </v-card-text>
             </v-card>
-            <v-chip v-if="prop.confidence && showConfidence" dark :color="prop.color" class="mt-2">
+            <v-chip
+              v-if="prop.confidence && showConfidence"
+              dark
+              :color="prop.color!"
+              class="mt-2"
+            >
               {{ $t('admin.average-confident', [prop.confidence]) }}
             </v-chip>
           </div>
@@ -55,7 +98,13 @@
     </v-container>
     <v-container class="narrow-container">
       <v-card-title> {{ $t('admin.try-an-example') }} </v-card-title>
-      <v-card v-for="(text, idx) in tryText" :key="idx" class="my-2" hover @click="processTryText(text)">
+      <v-card
+        v-for="(text, idx) in tryText"
+        :key="idx"
+        class="my-2"
+        hover
+        @click="processTryText(text)"
+      >
         <v-card-text> {{ text }} </v-card-text>
       </v-card>
     </v-container>
@@ -63,17 +112,19 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
-import { IngredientConfidence } from "~/lib/api/types/recipe";
-import { Parser } from "~/lib/api/user/recipes/recipe";
+import type { IngredientConfidence } from "~/lib/api/types/recipe";
+import type { Parser } from "~/lib/api/user/recipes/recipe";
 
 type ConfidenceAttribute = "average" | "comment" | "name" | "unit" | "quantity" | "food";
 
-export default defineComponent({
-  layout: "admin",
+export default defineNuxtComponent({
   setup() {
+    definePageMeta({
+      layout: "admin",
+    });
+
     const api = useUserApi();
 
     const state = reactive({
@@ -83,7 +134,12 @@ export default defineComponent({
       parser: "nlp" as Parser,
     });
 
-    const { i18n } = useContext();
+    const i18n = useI18n();
+
+    // Set page title
+    useSeoMeta({
+      title: i18n.t("admin.parser"),
+    });
 
     const confidence = ref<IngredientConfidence>({});
 
@@ -96,9 +152,11 @@ export default defineComponent({
       // Set color based off range
       if (p_as_num > 75) {
         return "success";
-      } else if (p_as_num > 60) {
+      }
+      else if (p_as_num > 60) {
         return "warning";
-      } else {
+      }
+      else {
         return "error";
       }
     }
@@ -109,8 +167,8 @@ export default defineComponent({
       }
 
       const property = confidence.value[attribute];
-      if (property !== undefined) {
-        return `${(property * 100).toFixed(0)}%`;
+      if (property !== undefined && property !== null) {
+        return `${(+property * 100).toFixed(0)}%`;
       }
       return undefined;
     }
@@ -154,15 +212,14 @@ export default defineComponent({
           const color = getColor(property);
           const confidence = getConfidence(property);
           if (color) {
-            // @ts-ignore See above
             properties[property].color = color;
           }
           if (confidence) {
-            // @ts-ignore See above
             properties[property].confidence = confidence;
           }
         });
-      } else {
+      }
+      else {
         alert.error(i18n.t("events.something-went-wrong") as string);
         state.results = false;
       }
@@ -208,11 +265,6 @@ export default defineComponent({
       properties,
       processTryText,
       processIngredient,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("admin.parser"),
     };
   },
 });

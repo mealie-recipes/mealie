@@ -1,14 +1,24 @@
 <template>
-  <v-container fill-height fluid class="d-flex justify-center align-center">
-    <v-card color="background d-flex flex-column align-center" flat width="600px">
-      <v-card-title class="headline justify-center"> {{ $t("user.reset-password") }} </v-card-title>
+  <v-container
+    fill-height
+    fluid
+    class="d-flex justify-center align-center"
+  >
+    <v-card
+      color="background d-flex flex-column align-center"
+      flat
+      width="600px"
+    >
+      <v-card-title class="text-h5 justify-center">
+        {{ $t("user.reset-password") }}
+      </v-card-title>
       <BaseDivider />
       <v-card-text>
         <v-form @submit.prevent="requestLink()">
           <v-text-field
             v-model="email"
             :prepend-icon="$globals.icons.email"
-            filled
+            variant="filled"
             rounded
             autofocus
             class="rounded-lg"
@@ -18,7 +28,7 @@
           />
           <v-text-field
             v-model="password"
-            filled
+            variant="filled"
             rounded
             class="rounded-lg"
             :prepend-icon="$globals.icons.lock"
@@ -29,9 +39,9 @@
           />
           <v-text-field
             v-model="passwordConfirm"
-            filled
+            variant="filled"
             rounded
-            validate-on-blur
+            validate-on="blur"
             class="rounded-lg"
             :prepend-icon="$globals.icons.lock"
             name="password"
@@ -39,7 +49,9 @@
             type="password"
             :rules="[validators.required, passwordMatch]"
           />
-          <p class="text-center">{{ $t("user.please-enter-password") }}</p>
+          <p class="text-center">
+            {{ $t("user.please-enter-password") }}
+          </p>
           <v-card-actions class="justify-center">
             <div class="max-button">
               <v-btn
@@ -47,12 +59,12 @@
                 color="primary"
                 :disabled="token === ''"
                 type="submit"
-                large
+                size="large"
                 rounded
                 class="rounded-xl"
                 block
               >
-                <v-icon left>
+                <v-icon start>
                   {{ $globals.icons.lock }}
                 </v-icon>
                 {{ token === "" ? "Token Required" : $t("user.reset-password") }}
@@ -61,21 +73,29 @@
           </v-card-actions>
         </v-form>
       </v-card-text>
-      <v-btn class="mx-auto" text nuxt to="/login"> {{ $t("user.login") }} </v-btn>
+      <v-btn
+        class="mx-auto"
+        variant="text"
+        to="/login"
+      >
+        {{ $t("user.login") }}
+      </v-btn>
     </v-card>
   </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { validators } from "@/composables/use-validators";
 import { useRouteQuery } from "~/composables/use-router";
-export default defineComponent({
-  layout: "basic",
 
+export default defineNuxtComponent({
   setup() {
+    definePageMeta({
+      layout: "basic",
+    });
+
     const state = reactive({
       email: "",
       password: "",
@@ -84,8 +104,13 @@ export default defineComponent({
       error: false,
     });
 
-    const { i18n } = useContext();
-    const passwordMatch = () => state.password === state.passwordConfirm || i18n.tc("user.password-must-match");
+    const i18n = useI18n();
+    const passwordMatch = () => state.password === state.passwordConfirm || i18n.t("user.password-must-match");
+
+    // Set page title
+    useSeoMeta({
+      title: i18n.t("user.login"),
+    });
 
     // ===================
     // Token Getter
@@ -109,11 +134,12 @@ export default defineComponent({
       if (response?.status === 200) {
         state.loading = false;
         state.error = false;
-        alert.success(i18n.tc("user.password-updated"));
-      } else {
+        alert.success(i18n.t("user.password-updated"));
+      }
+      else {
         state.loading = false;
         state.error = true;
-        alert.error(i18n.tc("events.something-went-wrong"));
+        alert.error(i18n.t("events.something-went-wrong"));
       }
     }
 
@@ -123,12 +149,6 @@ export default defineComponent({
       requestLink,
       validators,
       ...toRefs(state),
-    };
-  },
-
-  head() {
-    return {
-      title: this.$t("user.login") as string,
     };
   },
 });

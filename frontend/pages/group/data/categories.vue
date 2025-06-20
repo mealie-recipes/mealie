@@ -5,6 +5,7 @@
       v-model="state.createDialog"
       :title="$t('data-pages.categories.new-category')"
       :icon="$globals.icons.categories"
+      can-submit
       @submit="createCategory"
     >
       <v-card-text>
@@ -14,10 +15,9 @@
             autofocus
             :label="$t('general.name')"
             :rules="[validators.required]"
-          ></v-text-field>
+          />
         </v-form>
       </v-card-text>
-
     </BaseDialog>
 
     <!-- Edit Dialog -->
@@ -25,12 +25,16 @@
       v-model="state.editDialog"
       :icon="$globals.icons.categories"
       :title="$t('data-pages.categories.edit-category')"
-      :submit-text="$tc('general.save')"
+      :submit-text="$t('general.save')"
+      can-submit
       @submit="editSaveCategory"
     >
       <v-card-text v-if="editTarget">
         <div class="mt-4">
-          <v-text-field v-model="editTarget.name" :label="$t('general.name')"> </v-text-field>
+          <v-text-field
+            v-model="editTarget.name"
+            :label="$t('general.name')"
+          />
         </div>
       </v-card-text>
     </BaseDialog>
@@ -38,14 +42,20 @@
     <!-- Delete Dialog -->
     <BaseDialog
       v-model="state.deleteDialog"
-      :title="$tc('general.confirm')"
+      :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
+      can-confirm
       @confirm="deleteCategory"
     >
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
-        <p v-if="deleteTarget" class="mt-4 ml-4">{{ deleteTarget.name }}</p>
+        <p
+          v-if="deleteTarget"
+          class="mt-4 ml-4"
+        >
+          {{ deleteTarget.name }}
+        </p>
       </v-card-text>
     </BaseDialog>
 
@@ -53,20 +63,25 @@
     <BaseDialog
       v-model="state.bulkDeleteDialog"
       width="650px"
-      :title="$tc('general.confirm')"
+      :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
+      can-confirm
       @confirm="deleteSelected"
     >
       <v-card-text>
-        <p class="h4">{{ $t('general.confirm-delete-generic-items') }}</p>
-        <v-card outlined>
-          <v-virtual-scroll height="400" item-height="25" :items="bulkDeleteTarget">
+        <p class="h4">
+          {{ $t('general.confirm-delete-generic-items') }}
+        </p>
+        <v-card variant="outlined">
+          <v-virtual-scroll
+            height="400"
+            item-height="25"
+            :items="bulkDeleteTarget"
+          >
             <template #default="{ item }">
               <v-list-item class="pb-2">
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.name }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
               </v-list-item>
             </template>
           </v-virtual-scroll>
@@ -75,33 +90,41 @@
     </BaseDialog>
 
     <!-- Data Table -->
-    <BaseCardSectionTitle :icon="$globals.icons.categories" section :title="$tc('data-pages.categories.category-data')"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle
+      :icon="$globals.icons.categories"
+      section
+      :title="$t('data-pages.categories.category-data')"
+    />
     <CrudTable
+      v-model:headers="tableHeaders"
       :table-config="tableConfig"
-      :headers.sync="tableHeaders"
       :data="categories || []"
-      :bulk-actions="[{icon: $globals.icons.delete, text: $tc('general.delete'), event: 'delete-selected'}]"
+      :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
       initial-sort="name"
       @delete-one="deleteEventHandler"
       @edit-one="editEventHandler"
       @delete-selected="bulkDeleteEventHandler"
     >
       <template #button-row>
-        <BaseButton create @click="state.createDialog = true">{{ $t("general.create") }}</BaseButton>
+        <BaseButton
+          create
+          @click="state.createDialog = true"
+        >
+          {{ $t("general.create") }}
+        </BaseButton>
       </template>
     </CrudTable>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, useContext } from "@nuxtjs/composition-api";
 import { validators } from "~/composables/use-validators";
 import { useCategoryStore, useCategoryData } from "~/composables/store";
-import { RecipeCategory } from "~/lib/api/types/recipe";
+import type { RecipeCategory } from "~/lib/api/types/recipe";
 
-export default defineComponent({
+export default defineNuxtComponent({
   setup() {
-    const { i18n } = useContext();
+    const i18n = useI18n();
     const tableConfig = {
       hideColumns: true,
       canExport: true,
@@ -116,6 +139,7 @@ export default defineComponent({
         text: i18n.t("general.name"),
         value: "name",
         show: true,
+        sortable: true,
       },
     ];
 
@@ -128,17 +152,17 @@ export default defineComponent({
     const categoryData = useCategoryData();
     const categoryStore = useCategoryStore();
 
-
     // ============================================================
     // Create Category
 
     async function createCategory() {
-      // @ts-ignore - only property really required is the name (RecipeOrganizerPage)
-      await categoryStore.actions.createOne({ name: categoryData.data.name });
+      await categoryStore.actions.createOne({
+        name: categoryData.data.name,
+        slug: "",
+      });
       categoryData.reset();
       state.createDialog = false;
     }
-
 
     // ============================================================
     // Edit Category
@@ -157,7 +181,6 @@ export default defineComponent({
       await categoryStore.actions.updateOne(editTarget.value);
       state.editDialog = false;
     }
-
 
     // ============================================================
     // Delete Category

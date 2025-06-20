@@ -1,22 +1,44 @@
 <template>
-  <v-text-field v-model="inputVal" :label="$t('general.color')">
+  <v-text-field
+    v-model="inputVal"
+    :label="$t('general.color')"
+  >
     <template #prepend>
-      <v-btn class="elevation-0" small height="30px" width="30px" :color="inputVal || 'grey'" @click="setRandomHex">
+      <v-btn
+        class="elevation-0"
+        size="small"
+        height="30px"
+        width="30px"
+        :color="inputVal || 'grey'"
+        @click="setRandomHex"
+      >
         <v-icon color="white">
           {{ $globals.icons.refreshCircle }}
         </v-icon>
       </v-btn>
     </template>
     <template #append>
-      <v-menu v-model="menu" left nudge-left="30" nudge-top="20" :close-on-content-click="false">
-        <template #activator="{ on }">
-          <v-icon v-on="on">
+      <v-menu
+        v-model="menu"
+        start
+        nudge-left="30"
+        nudge-top="20"
+        :close-on-content-click="false"
+      >
+        <template #activator="{ props }">
+          <v-icon v-bind="props">
             {{ $globals.icons.formatColorFill }}
           </v-icon>
         </template>
         <v-card>
           <v-card-text class="pa-0">
-            <v-color-picker v-model="inputVal" flat hide-inputs show-swatches swatches-max-height="200" />
+            <v-color-picker
+              v-model="inputVal"
+              flat
+              hide-inputs
+              show-swatches
+              swatches-max-height="200"
+            />
           </v-card-text>
         </v-card>
       </v-menu>
@@ -25,24 +47,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from "@nuxtjs/composition-api";
-
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: String,
       required: true,
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     const menu = ref(false);
 
     const inputVal = computed({
       get: () => {
-        return props.value;
+        return props.modelValue;
       },
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 

@@ -1,19 +1,18 @@
-import { ref, reactive, Ref } from "@nuxtjs/composition-api";
 import { useReadOnlyActions, useStoreActions } from "./use-actions-factory";
-import { BoundT } from "./types";
-import { BaseCRUDAPI, BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
-import { QueryValue } from "~/lib/api/base/route";
+import type { BoundT } from "./types";
+import type { BaseCRUDAPI, BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
+import type { QueryValue } from "~/lib/api/base/route";
 
-export const useData = function<T extends BoundT>(defaultObject: T) {
+export const useData = function <T extends BoundT>(defaultObject: T) {
   const data = reactive({ ...defaultObject });
   function reset() {
     Object.assign(data, defaultObject);
   };
 
   return { data, reset };
-}
+};
 
-export const useReadOnlyStore = function<T extends BoundT>(
+export const useReadOnlyStore = function <T extends BoundT>(
   store: Ref<T[]>,
   loading: Ref<boolean>,
   api: BaseCRUDAPIReadOnly<T>,
@@ -36,9 +35,9 @@ export const useReadOnlyStore = function<T extends BoundT>(
   }
 
   return { store, actions };
-}
+};
 
-export const useStore = function<T extends BoundT>(
+export const useStore = function <T extends BoundT>(
   store: Ref<T[]>,
   loading: Ref<boolean>,
   api: BaseCRUDAPI<unknown, T, unknown>,
@@ -61,4 +60,4 @@ export const useStore = function<T extends BoundT>(
   }
 
   return { store, actions };
-}
+};

@@ -1,9 +1,19 @@
 <template>
   <div class="text-center">
-    <v-menu v-model="menu" offset-y top nudge-top="6" :close-on-content-click="false">
-      <template #activator="{ on, attrs }">
-        <v-btn color="accent" dark v-bind="attrs" v-on="on">
-          <v-icon left>
+    <v-menu
+      v-model="menu"
+      offset-y
+      top
+      nudge-top="6"
+      :close-on-content-click="false"
+    >
+      <template #activator="{ props }">
+        <v-btn
+          color="accent"
+          dark
+          v-bind="props"
+        >
+          <v-icon start>
             {{ $globals.icons.fileImage }}
           </v-icon>
           {{ $t("general.image") }}
@@ -25,9 +35,21 @@
         </v-card-title>
         <v-card-text class="mt-n5">
           <div>
-            <v-text-field v-model="url" :label="$t('general.url')" class="pt-5" clearable :messages="messages">
+            <v-text-field
+              v-model="url"
+              :label="$t('general.url')"
+              class="pt-5"
+              clearable
+              :messages="messages"
+            >
               <template #append-outer>
-                <v-btn class="ml-2" color="primary" :loading="loading" :disabled="!slug" @click="getImageFromURL">
+                <v-btn
+                  class="ml-2"
+                  color="primary"
+                  :loading="loading"
+                  :disabled="!slug"
+                  @click="getImageFromURL"
+                >
                   {{ $t("general.get") }}
                 </v-btn>
               </template>
@@ -40,13 +62,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 
 const REFRESH_EVENT = "refresh";
 const UPLOAD_EVENT = "upload";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     slug: {
       type: String,
@@ -58,7 +79,7 @@ export default defineComponent({
       url: "",
       loading: false,
       menu: false,
-    })
+    });
 
     function uploadImage(fileObject: File) {
       context.emit(UPLOAD_EVENT, fileObject);
@@ -75,7 +96,7 @@ export default defineComponent({
       state.menu = false;
     }
 
-    const { i18n } = useContext();
+    const i18n = useI18n();
     const messages = props.slug ? [""] : [i18n.t("recipe.save-recipe-before-use")];
 
     return {
