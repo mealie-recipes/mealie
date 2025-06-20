@@ -23,13 +23,13 @@
 	},
 	"avocado": {
 		"name": "avocado",
-		"plural_name": "avocado"
+		"plural_name": "avokado"
 	},
 	"bacon": {
-		"name": "bacon"
+		"name": "domuz pastırması"
 	},
 	"baking-powder": {
-		"name": "baking powder"
+		"name": "kabartma tozu"
 	},
 	"baking-soda": {
 		"name": "baking soda"
@@ -60,7 +60,7 @@
 		"name": "brassicas"
 	},
 	"bread": {
-		"name": "bread"
+		"name": "ekmek"
 	},
 	"breadfruit": {
 		"name": "breadfruit"
@@ -69,7 +69,7 @@
 		"name": "broccoflower"
 	},
 	"broccoli": {
-		"name": "broccoli"
+		"name": "brokoli"
 	},
 	"broccoli-rabe": {
 		"name": "broccoli rabe"
@@ -78,13 +78,13 @@
 		"name": "broccolini"
 	},
 	"brown-sugar": {
-		"name": "brown sugar"
+		"name": "esmer şeker"
 	},
 	"brussels-sprouts": {
-		"name": "brussels sprouts"
+		"name": "brüksel lahanası"
 	},
 	"butter": {
-		"name": "butter"
+		"name": "tereyağı"
 	},
 	"butternut-pumpkin": {
 		"name": "butternut pumpkin"
@@ -93,8 +93,8 @@
 		"name": "butternut squash"
 	},
 	"cabbage": {
-		"name": "cabbage",
-		"plural_name": "cabbages"
+		"name": "lahana",
+		"plural_name": "lahana"
 	},
 	"cactus-edible": {
 		"name": "cactus, edible"
@@ -106,17 +106,17 @@
 		"name": "cane sugar"
 	},
 	"cannabis": {
-		"name": "cannabis"
+		"name": "kenevir"
 	},
 	"capsicum": {
-		"name": "capsicum"
+		"name": "kırmızı biber"
 	},
 	"caraway": {
-		"name": "caraway"
+		"name": "kimyon"
 	},
 	"carrot": {
-		"name": "carrot",
-		"plural_name": "carrots"
+		"name": "havuç",
+		"plural_name": "havuç"
 	},
 	"caster-sugar": {
 		"name": "caster sugar"
@@ -138,32 +138,32 @@
 		"name": "celery root"
 	},
 	"celery": {
-		"name": "celery"
+		"name": "kereviz"
 	},
 	"cereal-grains": {
-		"name": "cereal grains"
+		"name": "tam taneli tahıl"
 	},
 	"chard": {
-		"name": "chard"
+		"name": "pazı"
 	},
 	"cheese": {
-		"name": "cheese"
+		"name": "peynir"
 	},
 	"chicory": {
-		"name": "chicory"
+		"name": "hindiba"
 	},
 	"chilli-peppers": {
-		"name": "chilli pepper",
+		"name": "acı biber",
 		"plural_name": "chilli peppers"
 	},
 	"chinese-leaves": {
 		"name": "chinese leaves"
 	},
 	"chives": {
-		"name": "chives"
+		"name": "frenk soğanı"
 	},
 	"chocolate": {
-		"name": "chocolate"
+		"name": "çikolata"
 	},
 	"cilantro": {
 		"name": "cilantro"
@@ -185,7 +185,7 @@
 		"name": "cod"
 	},
 	"coffee": {
-		"name": "coffee"
+		"name": "kahve"
 	},
 	"collard-greens": {
 		"name": "collard greens"
