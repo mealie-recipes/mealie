@@ -52,7 +52,7 @@
           @click:append-inner="pwFields.togglePasswordShow"
         />
 
-        <UserPasswordStrength :value="credentials.password1.value" />
+        <UserPasswordStrength v-model="credentials.password1.value" />
 
         <v-text-field
           v-model="credentials.password2.value"
