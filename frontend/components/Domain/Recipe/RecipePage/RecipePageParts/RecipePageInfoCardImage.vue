@@ -3,6 +3,8 @@
     :key="imageKey"
     :max-width="maxWidth"
     min-height="50"
+    cover
+    width="100%"
     :height="hideImage ? undefined : imageHeight"
     :src="recipeImageUrl"
     class="d-print-none"
@@ -11,13 +13,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, useContext, watch } from "@nuxtjs/composition-api";
-import { useStaticRoutes, useUserApi  } from "~/composables/api";
-import { HouseholdSummary } from "~/lib/api/types/household";
+import { useStaticRoutes, useUserApi } from "~/composables/api";
+import type { HouseholdSummary } from "~/lib/api/types/household";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
-import { Recipe } from "~/lib/api/types/recipe";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
-export default defineComponent({
+import type { Recipe } from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
+
+export default defineNuxtComponent({
   props: {
     recipe: {
       type: Object as () => NoUndefinedField<Recipe>,
@@ -29,7 +31,7 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { $vuetify } = useContext();
+    const { $vuetify } = useNuxtApp();
     const { recipeImage } = useStaticRoutes();
     const { imageKey } = usePageState(props.recipe.slug);
     const { user } = usePageUser();
@@ -44,7 +46,7 @@ export default defineComponent({
 
     const hideImage = ref(false);
     const imageHeight = computed(() => {
-      return $vuetify.breakpoint.xs ? "200" : "400";
+      return $vuetify.display.xs.value ? "200" : "400";
     });
 
     const recipeImageUrl = computed(() => {
@@ -55,7 +57,7 @@ export default defineComponent({
       () => recipeImageUrl.value,
       () => {
         hideImage.value = false;
-      }
+      },
     );
 
     return {
@@ -64,6 +66,6 @@ export default defineComponent({
       hideImage,
       imageHeight,
     };
-  }
+  },
 });
 </script>

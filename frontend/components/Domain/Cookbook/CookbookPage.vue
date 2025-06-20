@@ -7,44 +7,59 @@
       width="100%"
       max-width="1100px"
       :icon="$globals.icons.pages"
-      :title="$tc('general.edit')"
+      :title="$t('general.edit')"
       :submit-icon="$globals.icons.save"
-      :submit-text="$tc('general.save')"
+      :submit-text="$t('general.save')"
       :submit-disabled="!editTarget.queryFilterString"
+      can-submit
       @submit="editCookbook"
     >
       <v-card-text>
-        <CookbookEditor :cookbook="editTarget" :actions="actions" />
+        <CookbookEditor
+          v-model="editTarget"
+          :actions="actions"
+        />
       </v-card-text>
     </BaseDialog>
 
-    <!-- Page -->
-    <v-container v-if="book" fluid>
-      <v-app-bar color="transparent" flat class="mt-n1">
-        <v-icon large left> {{ $globals.icons.pages }} </v-icon>
-        <v-toolbar-title class="headline"> {{ book.name }} </v-toolbar-title>
-        <v-spacer></v-spacer>
-        <BaseButton
-          v-if="canEdit"
-          class="mx-1"
-          :edit="true"
-          @click="handleEditCookbook"
-        />
-      </v-app-bar>
-      <v-card flat>
-        <v-card-text class="py-0">
+    <v-container
+      v-if="book"
+      fluid
+      class="py-0 my-0"
+    >
+      <v-sheet
+        color="transparent"
+        class="d-flex flex-column w-100 pa-0 ma-0"
+        elevation="0"
+      >
+        <div class="d-flex align-center w-100 mb-2">
+          <v-icon size="large" class="mr-3">
+            {{ $globals.icons.pages }}
+          </v-icon>
+          <v-toolbar-title class="headline mb-0">
+            {{ book.name }}
+          </v-toolbar-title>
+          <v-spacer />
+          <BaseButton
+            v-if="canEdit"
+            class="mx-1"
+            :edit="true"
+            @click="handleEditCookbook"
+          />
+        </div>
+        <div v-if="book.description" class="subtitle-1 text-grey-lighten-1 mb-2">
           {{ book.description }}
-        </v-card-text>
-      </v-card>
+        </div>
+      </v-sheet>
 
       <v-container class="pa-0">
         <RecipeCardSection
           class="mb-5 mx-1"
           :recipes="recipes"
           :query="{ cookbook: slug }"
-          @sortRecipes="assignSorted"
-          @replaceRecipes="replaceRecipes"
-          @appendRecipes="appendRecipes"
+          @sort-recipes="assignSorted"
+          @replace-recipes="replaceRecipes"
+          @append-recipes="appendRecipes"
           @delete="removeRecipe"
         />
       </v-container>
@@ -52,92 +67,89 @@
   </div>
 </template>
 
-  <script lang="ts">
-  import { computed, defineComponent, useRoute, ref, useContext, useMeta, reactive, useRouter } from "@nuxtjs/composition-api";
-  import { useLazyRecipes } from "~/composables/recipes";
-  import RecipeCardSection from "@/components/Domain/Recipe/RecipeCardSection.vue";
-  import { useCookbook, useCookbooks } from "~/composables/use-group-cookbooks";
-  import { useLoggedInState } from "~/composables/use-logged-in-state";
-  import { RecipeCookBook } from "~/lib/api/types/cookbook";
-  import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
+<script lang="ts">
+import { useLazyRecipes } from "~/composables/recipes";
+import RecipeCardSection from "@/components/Domain/Recipe/RecipeCardSection.vue";
+import { useCookbook, useCookbooks } from "~/composables/use-group-cookbooks";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
+import type { RecipeCookBook } from "~/lib/api/types/cookbook";
+import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
 
-  export default defineComponent({
-    components: { RecipeCardSection, CookbookEditor },
-    setup() {
-      const { $auth } = useContext();
-      const { isOwnGroup } = useLoggedInState();
+export default defineNuxtComponent({
+  components: { RecipeCardSection, CookbookEditor },
+  setup() {
+    const $auth = useMealieAuth();
+    const { isOwnGroup } = useLoggedInState();
 
-      const route = useRoute();
-      const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const route = useRoute();
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
-      const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
-      const slug = route.value.params.slug;
-      const { getOne } = useCookbook(isOwnGroup.value ? null : groupSlug.value);
-      const { actions } = useCookbooks();
-      const router = useRouter();
+    const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
+    const slug = route.params.slug as string;
+    const { getOne } = useCookbook(isOwnGroup.value ? null : groupSlug.value);
+    const { actions } = useCookbooks();
+    const router = useRouter();
 
-      const tab = ref(null);
-      const book = getOne(slug);
+    const tab = ref(null);
+    const book = getOne(slug);
 
-      const isOwnHousehold = computed(() => {
-        if (!($auth.user && book.value?.householdId)) {
-          return false;
-        }
-
-        return $auth.user.householdId === book.value.householdId;
-      })
-      const canEdit = computed(() => isOwnGroup.value && isOwnHousehold.value);
-
-      const dialogStates = reactive({
-        edit: false,
-      });
-
-      const editTarget = ref<RecipeCookBook | null>(null);
-      function handleEditCookbook() {
-        dialogStates.edit = true;
-        editTarget.value = book.value;
+    const isOwnHousehold = computed(() => {
+      if (!($auth.user.value && book.value?.householdId)) {
+        return false;
       }
 
-      async function editCookbook() {
-        if (!editTarget.value) {
-          return;
-        }
-        const response = await actions.updateOne(editTarget.value);
+      return $auth.user.value.householdId === book.value.householdId;
+    });
+    const canEdit = computed(() => isOwnGroup.value && isOwnHousehold.value);
 
-        if (response?.slug && book.value?.slug !== response?.slug) {
-          // if name changed, redirect to new slug
-          router.push(`/g/${route.value.params.groupSlug}/cookbooks/${response?.slug}`);
-        } else {
-          // otherwise reload the page, since the recipe criteria changed
-          router.go(0);
-        }
-        dialogStates.edit = false;
-        editTarget.value = null;
+    const dialogStates = reactive({
+      edit: false,
+    });
+
+    const editTarget = ref<RecipeCookBook | null>(null);
+    function handleEditCookbook() {
+      dialogStates.edit = true;
+      editTarget.value = book.value;
+    }
+
+    async function editCookbook() {
+      if (!editTarget.value) {
+        return;
       }
+      const response = await actions.updateOne(editTarget.value);
 
-      useMeta(() => {
-        return {
-          title: book?.value?.name || "Cookbook",
-        };
-      });
+      if (response?.slug && book.value?.slug !== response?.slug) {
+        // if name changed, redirect to new slug
+        router.push(`/g/${route.params.groupSlug}/cookbooks/${response?.slug}`);
+      }
+      else {
+        // otherwise reload the page, since the recipe criteria changed
+        router.go(0);
+      }
+      dialogStates.edit = false;
+      editTarget.value = null;
+    }
 
-      return {
-        book,
-        slug,
-        tab,
-        appendRecipes,
-        assignSorted,
-        recipes,
-        removeRecipe,
-        replaceRecipes,
-        canEdit,
-        dialogStates,
-        editTarget,
-        handleEditCookbook,
-        editCookbook,
-        actions,
-      };
-    },
-    head: {}, // Must include for useMeta
-  });
-  </script>
+    useSeoMeta({
+      title: book?.value?.name || "Cookbook",
+    });
+
+    return {
+      book,
+      slug,
+      tab,
+      appendRecipes,
+      assignSorted,
+      recipes,
+      removeRecipe,
+      replaceRecipes,
+      canEdit,
+      dialogStates,
+      editTarget,
+      handleEditCookbook,
+      editCookbook,
+      actions,
+    };
+  },
+});
+</script>

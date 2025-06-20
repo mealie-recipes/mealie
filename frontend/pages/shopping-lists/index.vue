@@ -1,50 +1,87 @@
 <template>
-  <v-container v-if="shoppingListChoices && ready" class="narrow-container">
-    <BaseDialog v-model="createDialog" :title="$tc('shopping-list.create-shopping-list')" @submit="createOne">
+  <v-container
+    v-if="shoppingListChoices && ready"
+    class="narrow-container"
+  >
+    <BaseDialog
+      v-model="createDialog"
+      :title="$t('shopping-list.create-shopping-list')"
+      can-submit
+      @submit="createOne"
+    >
       <v-card-text>
-        <v-text-field v-model="createName" autofocus :label="$t('shopping-list.new-list')"> </v-text-field>
+        <v-text-field
+          v-model="createName"
+          autofocus
+          :label="$t('shopping-list.new-list')"
+        />
       </v-card-text>
     </BaseDialog>
 
     <!-- Settings -->
     <BaseDialog
-        v-model="ownerDialog"
-        :icon="$globals.icons.admin"
-        :title="$t('user.edit-user')"
-        @confirm="updateOwner"
-      >
-        <v-container>
-          <v-form>
-            <v-select
-              v-model="updateUserId"
-              :items="allUsers"
-              item-text="fullName"
-              item-value="id"
-              :label="$t('general.owner')"
-              :prepend-icon="$globals.icons.user"
-            />
-          </v-form>
-        </v-container>
-      </BaseDialog>
+      v-model="ownerDialog"
+      :icon="$globals.icons.admin"
+      :title="$t('user.edit-user')"
+      can-confirm
+      @confirm="updateOwner"
+    >
+      <v-container>
+        <v-form>
+          <v-select
+            v-model="updateUserId"
+            :items="allUsers"
+            item-title="fullName"
+            item-value="id"
+            :label="$t('general.owner')"
+            :prepend-icon="$globals.icons.user"
+          />
+        </v-form>
+      </v-container>
+    </BaseDialog>
 
-    <BaseDialog v-model="deleteDialog" :title="$tc('general.confirm')" color="error" @confirm="deleteOne">
+    <BaseDialog
+      v-model="deleteDialog"
+      :title="$t('general.confirm')"
+      color="error"
+      can-confirm
+      @confirm="deleteOne"
+    >
       <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-delete-this-item') }}</v-card-text>
     </BaseDialog>
     <BasePageTitle divider>
       <template #header>
-        <v-img max-height="100" max-width="100" :src="require('~/static/svgs/shopping-cart.svg')"></v-img>
+        <v-img
+          width="100%"
+          max-height="100"
+          max-width="100"
+          :src="require('~/static/svgs/shopping-cart.svg')"
+        />
       </template>
-      <template #title>{{ $t('shopping-list.shopping-lists') }}</template>
+      <template #title>
+        {{ $t('shopping-list.shopping-lists') }}
+      </template>
     </BasePageTitle>
 
-    <v-container class="d-flex justify-end px-0 pt-0 pb-4">
-      <v-checkbox v-model="preferences.viewAllLists" hide-details :label="$tc('general.show-all')" class="my-auto mr-4" />
-      <BaseButton create @click="createDialog = true" />
+    <v-container class="d-flex align-center justify-end px-0 pt-0 pb-4">
+      <v-checkbox
+        v-model="preferences.viewAllLists"
+        hide-details
+        :label="$t('general.show-all')"
+        class="my-0 mr-4"
+      />
+      <BaseButton
+        create
+        class="my-0"
+        @click="createDialog = true"
+      />
     </v-container>
 
     <v-container v-if="!shoppingListChoices.length">
       <BasePageTitle>
-        <template #title>{{ $t('shopping-list.no-shopping-lists-found') }}</template>
+        <template #title>
+          {{ $t('shopping-list.no-shopping-lists-found') }}
+        </template>
       </BasePageTitle>
     </v-container>
 
@@ -55,50 +92,60 @@
         class="my-2 left-border"
         :to="`/shopping-lists/${list.id}`"
       >
-        <v-card-title>
-          <v-icon left>
-            {{ $globals.icons.cartCheck }}
+      <v-card-title class="d-flex align-center">
+        <v-icon class="mr-2">
+          {{ $globals.icons.cartCheck }}
+        </v-icon>
+        <span class="flex-grow-1">
+          {{ list.name }}
+        </span>
+        <v-btn
+          icon
+          variant="plain"
+          @click.prevent="toggleOwnerDialog(list)"
+        >
+          <v-icon>
+            {{ $globals.icons.user }}
           </v-icon>
-          <div class="flex-grow-1">
-            {{ list.name }}
-          </div>
-          <div class="d-flex justify-end">
-            <v-btn icon @click.prevent="toggleOwnerDialog(list)">
-              <v-icon>
-                {{ $globals.icons.user }}
-              </v-icon>
-            </v-btn>
-            <v-btn icon @click.prevent="openDelete(list.id)">
-              <v-icon>
-                {{ $globals.icons.delete }}
-              </v-icon>
-            </v-btn>
-          </div>
-        </v-card-title>
+        </v-btn>
+        <v-btn
+          icon
+          variant="plain"
+          @click.prevent="openDelete(list.id)"
+        >
+          <v-icon>
+            {{ $globals.icons.delete }}
+          </v-icon>
+        </v-btn>
+      </v-card-title>
       </v-card>
     </section>
   </v-container>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useAsync, useContext, reactive, ref, toRefs, useRoute, useRouter, watch } from "@nuxtjs/composition-api";
-import { ShoppingListOut } from "~/lib/api/types/household";
+import type { ShoppingListOut } from "~/lib/api/types/household";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
-import { UserOut } from "~/lib/api/types/user";
+import type { UserOut } from "~/lib/api/types/user";
 
-export default defineComponent({
-  middleware: "auth",
+export default defineNuxtComponent({
+  middleware: "sidebase-auth",
   setup() {
-    const { $auth } = useContext();
+    const $auth = useMealieAuth();
+    const i18n = useI18n();
     const ready = ref(false);
     const userApi = useUserApi();
     const route = useRoute();
-    const router = useRouter();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+
+    useSeoMeta({
+      title: i18n.t("shopping-list.shopping-list"),
+    });
+
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
     const overrideDisableRedirect = ref(false);
-    const disableRedirect = computed(() => route.value.query.disableRedirect === "true" || overrideDisableRedirect.value);
+    const disableRedirect = computed(() => route.query.disableRedirect === "true" || overrideDisableRedirect.value);
     const preferences = useShoppingListPreferences();
 
     const state = reactive({
@@ -110,16 +157,16 @@ export default defineComponent({
       ownerTarget: ref<ShoppingListOut | null>(null),
     });
 
-    const shoppingLists = useAsync(async () => {
+    const { data: shoppingLists } = useAsyncData(useAsyncKey(), async () => {
       return await fetchShoppingLists();
-    }, useAsyncKey());
+    });
 
     const shoppingListChoices = computed(() => {
       if (!shoppingLists.value) {
         return [];
       }
 
-      return shoppingLists.value.filter((list) => preferences.value.viewAllLists || list.userId === $auth.user?.id);
+      return shoppingLists.value.filter(list => preferences.value.viewAllLists || list.userId === $auth.user.value?.id);
     });
 
     // This has to appear before the shoppingListChoices watcher, otherwise that runs first and the redirect is not disabled
@@ -134,8 +181,9 @@ export default defineComponent({
       () => shoppingListChoices,
       () => {
         if (!disableRedirect.value && shoppingListChoices.value.length === 1) {
-          router.push(`/shopping-lists/${shoppingListChoices.value[0].id}`);
-        } else {
+          navigateTo(`/shopping-lists/${shoppingListChoices.value[0].id}`);
+        }
+        else {
           ready.value = true;
         }
       },
@@ -206,7 +254,7 @@ export default defineComponent({
       }
       const { data } = await userApi.shopping.lists.updateOne(
         state.ownerTarget.id,
-        {...fullList, userId: updateUserId.value},
+        { ...fullList, userId: updateUserId.value },
       );
 
       if (data) {
@@ -239,11 +287,6 @@ export default defineComponent({
       updateOwner,
       deleteOne,
       openDelete,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("shopping-list.shopping-list") as string,
     };
   },
 });

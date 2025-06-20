@@ -1,6 +1,10 @@
 <template>
   <div>
-    <BaseDialog v-model="dialog" :title="$t('recipe-share.share-recipe')" :icon="$globals.icons.link">
+    <BaseDialog
+      v-model="dialog"
+      :title="$t('recipe-share.share-recipe')"
+      :icon="$globals.icons.link"
+    >
       <v-card-text>
         <v-menu
           v-model="datePickerMenu"
@@ -10,68 +14,94 @@
           max-width="290px"
           min-width="auto"
         >
-          <template #activator="{ on, attrs }">
+          <template #activator="{ props }">
             <v-text-field
-              v-model="expirationDate"
+              v-model="expirationDateString"
               :label="$t('recipe-share.expiration-date')"
               :hint="$t('recipe-share.default-30-days')"
               persistent-hint
               :prepend-icon="$globals.icons.calendar"
-              v-bind="attrs"
+              v-bind="props"
               readonly
-              v-on="on"
-            ></v-text-field>
+            />
           </template>
           <v-date-picker
             v-model="expirationDate"
-            no-title
+            hide-header
             :first-day-of-week="firstDayOfWeek"
             :local="$i18n.locale"
-            @input="datePickerMenu = false"
+            @update:model-value="datePickerMenu = false"
           />
         </v-menu>
       </v-card-text>
       <v-card-actions class="justify-end">
-        <BaseButton small @click="createNewToken"> {{ $t("general.new") }}</BaseButton>
+        <BaseButton
+          size="small"
+          @click="createNewToken"
+        >
+          {{ $t("general.new") }}
+        </BaseButton>
       </v-card-actions>
 
-      <v-list-item v-for="token in tokens" :key="token.id" @click="shareRecipe(token.id)">
-        <v-list-item-avatar color="grey">
-          <v-icon dark class="pa-2"> {{ $globals.icons.link }} </v-icon>
-        </v-list-item-avatar>
+      <v-list-item
+        v-for="token in tokens"
+        :key="token.id"
+        class="px-2"
+        style="padding-top: 8px; padding-bottom: 8px;"
+        @click="shareRecipe(token.id)"
+      >
+        <div class="d-flex align-center" style="width: 100%;">
+          <v-avatar color="grey">
+            <v-icon>
+              {{ $globals.icons.link }}
+            </v-icon>
+          </v-avatar>
 
-        <v-list-item-content>
-          <v-list-item-title> {{ $t("recipe-share.expires-at") }} </v-list-item-title>
+          <div class="pl-3 flex-grow-1">
+            <v-list-item-title>
+              {{ $t("recipe-share.expires-at") }}
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              {{ $d(new Date(token.expiresAt!), "long") }}
+            </v-list-item-subtitle>
+          </div>
 
-          <v-list-item-subtitle>{{ $d(new Date(token.expiresAt), "long") }}</v-list-item-subtitle>
-        </v-list-item-content>
-
-        <v-list-item-action>
-          <v-btn icon @click.stop="deleteToken(token.id)">
-            <v-icon color="error lighten-1"> {{ $globals.icons.delete }} </v-icon>
+          <v-btn
+            icon
+            variant="text"
+            class="ml-2"
+            @click.stop="deleteToken(token.id)"
+          >
+            <v-icon color="error-lighten-1">
+              {{ $globals.icons.delete }}
+            </v-icon>
           </v-btn>
-        </v-list-item-action>
-        <v-list-item-action>
-          <v-btn icon @click.stop="copyTokenLink(token.id)">
-            <v-icon color="info lighten-1"> {{ $globals.icons.contentCopy }} </v-icon>
+          <v-btn
+            icon
+            variant="text"
+            class="ml-2"
+            @click.stop="copyTokenLink(token.id)"
+          >
+            <v-icon color="info-lighten-1">
+              {{ $globals.icons.contentCopy }}
+            </v-icon>
           </v-btn>
-        </v-list-item-action>
+        </div>
       </v-list-item>
     </BaseDialog>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, toRefs, reactive, useContext, useRoute } from "@nuxtjs/composition-api";
 import { useClipboard, useShare, whenever } from "@vueuse/core";
-import { RecipeShareToken } from "~/lib/api/types/recipe";
+import type { RecipeShareToken } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { alert } from "~/composables/use-toast";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
@@ -84,38 +114,43 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     // V-Model Support
     const dialog = computed({
       get: () => {
-        return props.value;
+        return props.modelValue;
       },
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 
     const state = reactive({
       datePickerMenu: false,
-      expirationDate: "",
+      expirationDate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000),
       tokens: [] as RecipeShareToken[],
     });
 
+    const expirationDateString = computed(() => {
+      return state.expirationDate.toISOString().substring(0, 10);
+    });
+
     whenever(
-      () => props.value,
+      () => props.modelValue,
       () => {
         // Set expiration date to today + 30 Days
         const today = new Date();
-        const expirationDate = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
-        state.expirationDate = expirationDate.toISOString().substring(0, 10);
+        state.expirationDate = new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000);
         refreshTokens();
-      }
+      },
     );
 
-    const { $auth, i18n } = useContext();
+    const i18n = useI18n();
+    const $auth = useMealieAuth();
     const { household } = useHouseholdSelf();
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
     const firstDayOfWeek = computed(() => {
       return household.value?.preferences?.firstDayOfWeek || 0;
@@ -128,11 +163,9 @@ export default defineComponent({
 
     async function createNewToken() {
       // Convert expiration date to timestamp
-      const expirationDate = new Date(state.expirationDate);
-
       const { data } = await userApi.recipes.share.createOne({
         recipeId: props.recipeId,
-        expiresAt: expirationDate.toISOString(),
+        expiresAt: state.expirationDate.toISOString(),
       });
 
       if (data) {
@@ -142,7 +175,7 @@ export default defineComponent({
 
     async function deleteToken(id: string) {
       await userApi.recipes.share.deleteOne(id);
-      state.tokens = state.tokens.filter((token) => token.id !== id);
+      state.tokens = state.tokens.filter(token => token.id !== id);
     }
 
     async function refreshTokens() {
@@ -187,13 +220,15 @@ export default defineComponent({
           url: getTokenLink(token),
           text: getRecipeText() as string,
         });
-      } else {
+      }
+      else {
         await copyTokenLink(token);
       }
     }
 
     return {
       ...toRefs(state),
+      expirationDateString,
       dialog,
       createNewToken,
       deleteToken,

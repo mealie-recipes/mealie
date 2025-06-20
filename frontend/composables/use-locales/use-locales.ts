@@ -1,38 +1,28 @@
-import { computed, useContext } from "@nuxtjs/composition-api";
+import type { LocaleObject } from "@nuxtjs/i18n";
 import { LOCALES } from "./available-locales";
 
 export const useLocales = () => {
-  const { i18n, $vuetify } = useContext();
+  const i18n = useI18n();
 
-  function getLocale(value: string) {
-    const currentLocale = LOCALES.filter((locale) => locale.value === value);
-    return currentLocale.length ? currentLocale[0] : null;
-  }
+  const { isRtl } = useRtl();
+  const { current: vuetifyLocale } = useLocale();
 
-  const locale = computed<string>({
-    get() {
-      // dirty hack
-      $vuetify.lang.current = i18n.locale;
-      const currentLocale = getLocale(i18n.locale);
-      if (currentLocale) {
-        $vuetify.rtl = currentLocale.dir === "rtl";
-      }
-
-      return i18n.locale;
-    },
+  const locale = computed<LocaleObject["code"]>({
+    get: () => i18n.locale.value,
     set(value) {
       i18n.setLocale(value);
-
-      // this does not persist after window reload :-(
-      $vuetify.lang.current = value;
-      const currentLocale = getLocale(value);
-      if (currentLocale) {
-        $vuetify.rtl = currentLocale.dir === "rtl";
-      }
-
-      // Reload the page to update the language - not all strings are reactive
-      window.location.reload();
     },
+  });
+  // auto update vuetify locale
+  watch(locale, (lc) => {
+    vuetifyLocale.value = lc;
+  });
+  // auto update rtl
+  watch(vuetifyLocale, (vl) => {
+    const currentLocale = LOCALES.find(lc => lc.value === vl);
+    if (currentLocale) {
+      isRtl.value = currentLocale.dir === "rtl";
+    }
   });
 
   return {

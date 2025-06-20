@@ -5,31 +5,30 @@
     :label="label"
     :hint="description"
     :persistent-hint="!!description"
-    item-text="name"
+    item-title="name"
     :multiple="multiselect"
     :prepend-inner-icon="$globals.icons.household"
     return-object
   >
-    <template #selection="data">
+    <template #chip="data">
       <v-chip
         :key="data.index"
         class="ma-1"
-        :input-value="data.selected"
-        small
-        close
+        :input-value="data.item"
+        size="small"
+        closable
         label
         color="accent"
         dark
         @click:close="removeByIndex(data.index)"
       >
-        {{ data.item.name || data.item }}
+        {{ data.item.raw.name || data.item }}
       </v-chip>
     </template>
   </v-select>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, useContext } from "@nuxtjs/composition-api";
 import { useHouseholdStore } from "~/composables/store/use-household-store";
 
 interface HouseholdLike {
@@ -37,9 +36,9 @@ interface HouseholdLike {
   name: string;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Array as () => HouseholdLike[],
       required: true,
     },
@@ -52,11 +51,12 @@ export default defineComponent({
       default: "",
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     const selected = computed({
-      get: () => props.value,
+      get: () => props.modelValue,
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 
@@ -66,9 +66,9 @@ export default defineComponent({
       }
     });
 
-    const { i18n } = useContext();
+    const i18n = useI18n();
     const label = computed(
-      () => props.multiselect ? i18n.tc("household.households") : i18n.tc("household.household")
+      () => props.multiselect ? i18n.t("household.households") : i18n.t("household.household"),
     );
 
     const { store: households } = useHouseholdStore();

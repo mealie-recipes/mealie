@@ -1,20 +1,51 @@
 <template>
   <div v-if="value && value.length > 0">
-    <div v-if="!isCookMode" class="d-flex justify-start" >
-      <h2 class="mb-2 mt-1">{{ $t("recipe.ingredients") }}</h2>
-      <AppButtonCopy btn-class="ml-auto" :copy-text="ingredientCopyText" />
+    <div
+      v-if="!isCookMode"
+      class="d-flex justify-start"
+    >
+      <h2 class="mt-1 text-h5 font-weight-medium opacity-80">
+        {{ $t("recipe.ingredients") }}
+      </h2>
+      <AppButtonCopy
+        btn-class="ml-auto"
+        :copy-text="ingredientCopyText"
+      />
     </div>
     <div>
-      <div v-for="(ingredient, index) in value" :key="'ingredient' + index">
+      <div
+        v-for="(ingredient, index) in value"
+        :key="'ingredient' + index"
+      >
         <template v-if="!isCookMode">
-          <h3 v-if="showTitleEditor[index]" class="mt-2">{{ ingredient.title }}</h3>
-          <v-divider v-if="showTitleEditor[index]"></v-divider>
+          <h3
+            v-if="showTitleEditor[index]"
+            class="mt-2"
+          >
+            {{ ingredient.title }}
+          </h3>
+          <v-divider v-if="showTitleEditor[index]" />
         </template>
-        <v-list-item dense @click.stop="toggleChecked(index)">
-          <v-checkbox hide-details :value="checked[index]" class="pt-0 my-auto py-auto" color="secondary" />
-          <v-list-item-content :key="ingredient.quantity">
-            <RecipeIngredientListItem :ingredient="ingredient" :disable-amount="disableAmount" :scale="scale" />
-          </v-list-item-content>
+        <v-list-item
+          density="compact"
+          @click.stop="toggleChecked(index)"
+        >
+          <template #prepend>
+            <v-checkbox
+              v-model="checked[index]"
+              hide-details
+              class="pt-0 my-auto py-auto"
+              color="secondary"
+              density="comfortable"
+            />
+          </template>
+          <v-list-item-title>
+            <RecipeIngredientListItem
+              :ingredient="ingredient"
+              :disable-amount="disableAmount"
+              :scale="scale"
+            />
+          </v-list-item-title>
         </v-list-item>
       </div>
     </div>
@@ -22,12 +53,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs } from "@nuxtjs/composition-api";
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import { parseIngredientText } from "~/composables/recipes";
-import { RecipeIngredient } from "~/lib/api/types/recipe";
+import type { RecipeIngredient } from "~/lib/api/types/recipe";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { RecipeIngredientListItem },
   props: {
     value: {
@@ -45,7 +75,7 @@ export default defineComponent({
     isCookMode: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   setup(props) {
     function validateTitle(title?: string) {
@@ -54,7 +84,7 @@ export default defineComponent({
 
     const state = reactive({
       checked: props.value.map(() => false),
-      showTitleEditor: computed(() => props.value.map((x) => validateTitle(x.title))),
+      showTitleEditor: computed(() => props.value.map(x => validateTitle(x.title))),
     });
 
     const ingredientCopyText = computed(() => {

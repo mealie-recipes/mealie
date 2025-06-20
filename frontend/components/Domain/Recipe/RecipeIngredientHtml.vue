@@ -1,12 +1,12 @@
 <template>
   <!-- eslint-disable-next-line vue/no-v-html -->
-  <div v-html="safeMarkup"></div>
+  <div v-html="safeMarkup" />
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
 import { sanitizeIngredientHTML } from "~/composables/recipes/use-recipe-ingredients";
-export default defineComponent({
+
+export default defineNuxtComponent({
   props: {
     markup: {
       type: String,
@@ -17,7 +17,7 @@ export default defineComponent({
     const safeMarkup = computed(() => sanitizeIngredientHTML(props.markup));
     return {
       safeMarkup,
-    }
-  }
+    };
+  },
 });
 </script>

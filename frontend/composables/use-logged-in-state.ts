@@ -1,17 +1,16 @@
-import { computed, useContext, useRoute } from "@nuxtjs/composition-api";
-
 export const useLoggedInState = function () {
-  const { $auth } = useContext();
+  const $auth = useMealieAuth();
   const route = useRoute();
 
-  const loggedIn = computed(() => $auth.loggedIn);
+  const loggedIn = computed(() => $auth.loggedIn.value);
   const isOwnGroup = computed(() => {
-    if (!route.value.params.groupSlug) {
+    if (!route.params.groupSlug) {
       return loggedIn.value;
-    } else {
-      return loggedIn.value && $auth.user?.groupSlug === route.value.params.groupSlug;
+    }
+    else {
+      return loggedIn.value && $auth.user.value?.groupSlug === route.params.groupSlug;
     }
   });
 
   return { loggedIn, isOwnGroup };
-}
+};

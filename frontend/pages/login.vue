@@ -1,33 +1,60 @@
 <template>
   <v-container
-    fill-height
     fluid
-    class="d-flex justify-center align-center flex-column"
+    class="d-flex justify-center align-center flex-column fill-height"
     :class="{
-      'bg-off-white': !$vuetify.theme.dark && !isDark,
+      'bg-off-white': !$vuetify.theme.current.dark && !isDark,
     }"
   >
-    <v-alert v-if="isFirstLogin" class="my-4" type="info" icon="mdi-information">
+    <v-alert
+      v-if="isFirstLogin"
+      class="my-4"
+      type="info"
+      :icon="$globals.icons.information"
+      :style="{ flex: 'none' }"
+    >
       <div>
         <p class="mb-3">
-          {{ $tc('user.it-looks-like-this-is-your-first-time-logging-in')}}
+          {{ $t('user.it-looks-like-this-is-your-first-time-logging-in') }}
         </p>
-        <p class="mb-1"><strong>{{ $tc('user.username') }}:</strong> changeme@example.com</p>
-        <p class="mb-3"><strong>{{  $tc('user.password') }}:</strong> MyPassword</p>
+        <p class="mb-1">
+          <strong>{{ $t('user.username') }}:</strong> changeme@example.com
+        </p>
+        <p class="mb-3">
+          <strong>{{ $t('user.password') }}:</strong> MyPassword
+        </p>
         <p>
-          {{  $tc('user.dont-want-to-see-this-anymore-be-sure-to-change-your-email') }}
+          {{ $t('user.dont-want-to-see-this-anymore-be-sure-to-change-your-email') }}
         </p>
       </div>
     </v-alert>
-    <v-card tag="section" class="d-flex flex-column align-center" width="600px">
-      <v-toolbar width="100%" color="primary" class="d-flex justify-center mb-4" dark>
-        <v-toolbar-title class="headline text-h4"> Mealie </v-toolbar-title>
+    <v-card
+      tag="section"
+      class="d-flex flex-column align-center w-100"
+      max-width="600"
+    >
+      <v-toolbar
+        color="primary"
+        class="d-flex justify-center mb-4"
+        dark
+      >
+        <v-toolbar-title class="text-h4 text-center">
+          Mealie
+        </v-toolbar-title>
       </v-toolbar>
 
       <div class="icon-container">
-        <v-divider class="icon-divider"></v-divider>
-        <v-avatar class="pa-2 icon-avatar" color="primary" size="100">
-          <svg class="icon-white" style="width: 100px; height: 100px" viewBox="0 0 24 24">
+        <v-divider class="icon-divider" />
+        <v-avatar
+          class="pa-2 icon-avatar"
+          color="primary"
+          size="100"
+        >
+          <svg
+            class="icon-white"
+            style="width: 100px; height: 100px"
+            viewBox="0 0 24 24"
+          >
             <path
               d="M8.1,13.34L3.91,9.16C2.35,7.59 2.35,5.06 3.91,3.5L10.93,10.5L8.1,13.34M13.41,13L20.29,19.88L18.88,21.29L12,14.41L5.12,21.29L3.71,19.88L13.36,10.22L13.16,10C12.38,9.23 12.38,7.97 13.16,7.19L17.5,2.82L18.43,3.74L15.19,7L16.15,7.94L19.39,4.69L20.31,5.61L17.06,8.85L18,9.81L21.26,6.56L22.18,7.5L17.81,11.84C17.03,12.62 15.77,12.62 15,11.84L14.78,11.64L13.41,13Z"
             />
@@ -35,18 +62,20 @@
         </v-avatar>
       </div>
 
-      <v-card-title class="headline justify-center pb-3"> {{ $t('user.sign-in') }} </v-card-title>
-      <v-card-text>
+      <v-card-title class="text-h5 justify-center pb-3">
+        {{ $t('user.sign-in') }}
+      </v-card-title>
+      <v-card-text class="w-100">
         <v-form @submit.prevent="authenticate">
           <v-text-field
             v-if="allowPasswordLogin"
             v-model="form.email"
             :prepend-inner-icon="$globals.icons.email"
-            filled
-            rounded
+            variant="solo-filled"
+            flat
+            width="100%"
             autofocus
             autocomplete="username"
-            class="rounded-lg"
             name="login"
             :label="$t('user.email-or-username')"
             type="text"
@@ -56,50 +85,99 @@
             id="password"
             v-model="form.password"
             :prepend-inner-icon="$globals.icons.lock"
-            :append-icon="passwordIcon"
-            filled
-            rounded
+            :append-inner-icon="passwordIcon"
+            variant="solo-filled"
+            flat
             autocomplete="current-password"
-            class="rounded-lg"
             name="password"
             :label="$t('user.password')"
             :type="inputType"
-            @click:append="togglePasswordShow"
+            @click:append-inner="togglePasswordShow"
           />
-          <v-checkbox v-if="allowPasswordLogin" v-model="form.remember" class="ml-2 mt-n2" :label="$t('user.remember-me')"></v-checkbox>
+          <v-checkbox
+            v-if="allowPasswordLogin"
+            v-model="form.remember"
+            class="ml-2 mt-n2"
+            :label="$t('user.remember-me')"
+          />
           <v-card-actions v-if="allowPasswordLogin" class="justify-center pt-0">
             <div class="max-button">
-              <v-btn :loading="loggingIn" :disabled="oidcLoggingIn" color="primary" type="submit" large rounded class="rounded-xl" block>
+              <v-btn
+                :loading="loggingIn"
+                :disabled="oidcLoggingIn"
+                variant="elevated"
+                color="primary"
+                type="submit"
+                size="large"
+                rounded
+                class="rounded-xl"
+                block
+              >
                 {{ $t("user.login") }}
               </v-btn>
             </div>
           </v-card-actions>
 
-          <div v-if="allowOidc && allowPasswordLogin" class="d-flex my-4 justify-center align-center" width="80%">
-            <v-divider class="div-width"/>
+          <div
+            v-if="allowOidc && allowPasswordLogin"
+            class="d-flex my-4 justify-center align-center"
+            width="80%"
+          >
+            <v-divider class="div-width" />
             <span
-                class="absolute px-2"
-                :class="{
-                    'bg-white': !$vuetify.theme.dark && !isDark,
-                    'bg-background': $vuetify.theme.dark || isDark,
-                }"
+              class="absolute px-2"
+              :class="{
+                'bg-white': !$vuetify.theme.current.dark && !isDark,
+                'bg-grey-darken-4': $vuetify.theme.current.dark || isDark,
+              }"
             >
-                {{ $t("user.or") }}
+              {{ $t("user.or") }}
             </span>
           </div>
-          <v-card-actions v-if="allowOidc" class="justify-center">
-          <div class="max-button">
-            <v-btn :loading="oidcLoggingIn" color="primary" large rounded class="rounded-xl" block @click.native="() => oidcAuthenticate()">
+          <v-card-actions
+            v-if="allowOidc"
+            class="justify-center"
+          >
+            <div class="max-button">
+              <v-btn
+                :loading="oidcLoggingIn"
+                color="primary"
+                size="large"
+                variant="elevated"
+                rounded
+                class="rounded-xl"
+                block
+                @click="() => oidcAuthenticate()"
+              >
                 {{ $t("user.login-oidc") }} {{ oidcProviderName }}
-            </v-btn>
-          </div>
-        </v-card-actions>
+              </v-btn>
+            </div>
+          </v-card-actions>
         </v-form>
       </v-card-text>
       <v-card-actions class="d-flex justify-center flex-column flex-sm-row">
-        <v-btn v-if="allowSignup && allowPasswordLogin" text to="/register"> {{ $t("user.register") }} </v-btn>
-        <v-btn v-else text disabled> {{ $t("user.invite-only") }} </v-btn>
-        <v-btn v-if="allowPasswordLogin" class="mr-auto" text to="/forgot-password"> {{ $t("user.reset-password") }} </v-btn>
+        <v-btn
+          v-if="allowSignup && allowPasswordLogin"
+          variant="text"
+          to="/register"
+        >
+          {{ $t("user.register") }}
+        </v-btn>
+        <v-btn
+          v-else
+          variant="text"
+          disabled
+        >
+          {{ $t("user.invite-only") }}
+        </v-btn>
+        <v-btn
+          v-if="allowPasswordLogin"
+          class="mr-auto"
+          variant="text"
+          to="/forgot-password"
+        >
+          {{ $t("user.reset-password") }}
+        </v-btn>
       </v-card-actions>
 
       <v-card-text class="d-flex justify-center flex-column flex-sm-row">
@@ -124,8 +202,12 @@
           :key="link.text"
           class="text-center"
         >
-          <v-btn text :href="link.href" target="_blank">
-            <v-icon left>
+          <v-btn
+            variant="text"
+            :href="link.href"
+            target="_blank"
+          >
+            <v-icon start>
               {{ link.icon }}
             </v-icon>
             {{ link.text }}
@@ -137,27 +219,33 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext, computed, reactive, useRouter, useAsync, onBeforeMount } from "@nuxtjs/composition-api";
 import { useDark, whenever } from "@vueuse/core";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useAppInfo } from "~/composables/api";
 import { usePasswordField } from "~/composables/use-passwords";
 import { alert } from "~/composables/use-toast";
 import { useAsyncKey } from "~/composables/use-utils";
-import { AppStartupInfo } from "~/lib/api/types/admin";
+import type { AppStartupInfo } from "~/lib/api/types/admin";
 
-export default defineComponent({
-  layout: "blank",
-
+export default defineNuxtComponent({
   setup() {
+    definePageMeta({
+      layout: "blank",
+    });
     const isDark = useDark();
 
     const router = useRouter();
-    const { $auth, i18n, $axios } = useContext();
+    const i18n = useI18n();
+    const $auth = useMealieAuth();
+    const { $axios } = useNuxtApp();
     const { loggedIn } = useLoggedInState();
-    const groupSlug = computed(() => $auth.user?.groupSlug);
+    const groupSlug = computed(() => $auth.user.value?.groupSlug);
     const isDemo = ref(false);
     const isFirstLogin = ref(false);
+
+    useSeoMeta({
+      title: i18n.t("user.login"),
+    });
 
     const form = reactive({
       email: "",
@@ -165,18 +253,19 @@ export default defineComponent({
       remember: false,
     });
 
-    useAsync(async () => {
+    useAsyncData(useAsyncKey(), async () => {
       const data = await $axios.get<AppStartupInfo>("/api/app/about/startup-info");
       isDemo.value = data.data.isDemo;
       isFirstLogin.value = data.data.isFirstLogin;
-    }, useAsyncKey());
+    });
 
     whenever(
       () => loggedIn.value && groupSlug.value,
       () => {
-        if (!isDemo.value && isFirstLogin.value && $auth.user?.admin) {
+        if (!isDemo.value && isFirstLogin.value && $auth.user.value?.admin) {
           router.push("/admin/setup");
-        } else {
+        }
+        else {
           router.push(`/g/${groupSlug.value || ""}`);
         }
       },
@@ -184,7 +273,7 @@ export default defineComponent({
     );
 
     const loggingIn = ref(false);
-    const oidcLoggingIn = ref(false)
+    const oidcLoggingIn = ref(false);
 
     const appInfo = useAppInfo();
 
@@ -196,47 +285,49 @@ export default defineComponent({
     const oidcProviderName = computed(() => appInfo.value?.oidcProviderName || "OAuth");
     const allowPasswordLogin = computed(() => appInfo.value?.allowPasswordLogin ?? true);
 
-
     whenever(
-        () => allowOidc.value && oidcRedirect.value && !isCallback() && !isDirectLogin() && !$auth.check().valid,
-        () => oidcAuthenticate(),
-        {immediate: true}
-    )
+      () => allowOidc.value && oidcRedirect.value && !isCallback() && !isDirectLogin() /* && !$auth.check().valid */,
+      () => oidcAuthenticate(),
+      { immediate: true },
+    );
 
     onBeforeMount(async () => {
-        if (isCallback()) {
-            await oidcAuthenticate(true)
-        }
-    })
+      if (isCallback()) {
+        await oidcAuthenticate(true);
+      }
+    });
 
     function isCallback() {
-        const params = new URLSearchParams(window.location.search)
-        return params.has("code") || params.has("error")
+      const params = new URLSearchParams(window.location.search);
+      return params.has("code") || params.has("error");
     }
 
     function isDirectLogin() {
-        const params = new URLSearchParams(window.location.search)
-        return params.has("direct") && params.get("direct") === "1"
+      const params = new URLSearchParams(window.location.search);
+      return params.has("direct") && params.get("direct") === "1";
     }
 
     async function oidcAuthenticate(callback = false) {
-        if (callback) {
-            oidcLoggingIn.value = true
-            try {
-                await $auth.loginWith("oidc", { params: new URLSearchParams(window.location.search)})
-            } catch (error) {
-                await router.replace("/login?direct=1")
-                alertOnError(error)
-            }
-            oidcLoggingIn.value = false
-        } else {
-            window.location.replace("/api/auth/oauth") // start the redirect process
+      if (callback) {
+        oidcLoggingIn.value = true;
+        try {
+          await $auth.oauthSignIn();
+          window.location.href = "/"; // Reload the app to get the new user
         }
+        catch (error) {
+          await router.replace("/login?direct=1");
+          alertOnError(error);
+        }
+        oidcLoggingIn.value = false;
+      }
+      else {
+        navigateTo("/api/auth/oauth", { external: true }); // start the redirect process
+      }
     }
 
     async function authenticate() {
       if (form.email.length === 0 || form.password.length === 0) {
-        alert.error(i18n.t("user.please-enter-your-email-and-password") as string);
+        alert.error(i18n.t("user.please-enter-your-email-and-password"));
         return;
       }
 
@@ -247,27 +338,30 @@ export default defineComponent({
       formData.append("remember_me", String(form.remember));
 
       try {
-        await $auth.loginWith("local", { data: formData });
-      } catch (error) {
-        alertOnError(error)
+        await $auth.signIn(formData, { redirect: false });
+        window.location.href = "/"; // Reload the app to get the new user
+      }
+      catch (error) {
+        console.log(error);
+        alertOnError(error);
       }
       loggingIn.value = false;
     }
 
     function alertOnError(error: any) {
-        // TODO Check if error is an AxiosError, but isAxiosError is not working right now
-        // See https://github.com/nuxt-community/axios-module/issues/550
-        // Import $axios from useContext()
-        // if ($axios.isAxiosError(error) && error.response?.status === 401) {
-        // @ts-ignore- see above
-        if (error.response?.status === 401) {
-          alert.error(i18n.t("user.invalid-credentials") as string);
-          // @ts-ignore - see above
-        } else if (error.response?.status === 423) {
-          alert.error(i18n.t("user.account-locked-please-try-again-later") as string);
-        } else {
-          alert.error(i18n.t("events.something-went-wrong") as string);
-        }
+      // TODO Check if error is an AxiosError, but isAxiosError is not working right now
+      // See https://github.com/nuxt-community/axios-module/issues/550
+      // Import $axios from useContext()
+      // if ($axios.isAxiosError(error) && error.response?.status === 401) {
+      if (error.response?.status === 401) {
+        alert.error(i18n.t("user.invalid-credentials"));
+      }
+      else if (error.response?.status === 423) {
+        alert.error(i18n.t("user.account-locked-please-try-again-later"));
+      }
+      else {
+        alert.error(i18n.t("events.something-went-wrong"));
+      }
     }
 
     return {
@@ -284,13 +378,7 @@ export default defineComponent({
       passwordIcon,
       inputType,
       togglePasswordShow,
-      isFirstLogin
-    };
-  },
-
-  head() {
-    return {
-      title: this.$t("user.login") as string,
+      isFirstLogin,
     };
   },
 });
@@ -299,10 +387,6 @@ export default defineComponent({
 <style lang="css">
 .max-button {
   width: 300px;
-}
-
-.icon-primary {
-  fill: var(--v-primary-base);
 }
 
 .icon-white {
@@ -333,18 +417,14 @@ export default defineComponent({
 }
 
 .absolute {
-    position: absolute;
+  position: absolute;
 }
 
 .div-width {
-    max-width: 75%;
-}
-
-.bg-background {
-    background-color: #1e1e1e;
+  max-width: 75%;
 }
 
 .bg-white {
-    background-color: #fff;
+  background-color: #fff;
 }
 </style>

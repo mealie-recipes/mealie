@@ -156,12 +156,13 @@ PROJECT_DIR = Path(__file__).parent.parent.parent
 
 datetime_dir = PROJECT_DIR / "frontend" / "lang" / "dateTimeFormats"
 locales_dir = PROJECT_DIR / "frontend" / "lang" / "messages"
-nuxt_config = PROJECT_DIR / "frontend" / "nuxt.config.js"
+nuxt_config = PROJECT_DIR / "frontend" / "nuxt.config.ts"
+i18n_config = PROJECT_DIR / "frontend" / "i18n.config.ts"
 reg_valid = PROJECT_DIR / "mealie" / "schema" / "_mealie" / "validators.py"
 
 """
 This snippet walks the message and dat locales directories and generates the import information
-for the nuxt.config.js file and automatically injects it into the nuxt.config.js file. Note that
+for the nuxt.config.ts file and automatically injects it into the nuxt.config.ts file. Note that
 the code generation ID is hardcoded into the script and required in the nuxt config.
 """
 
@@ -173,12 +174,12 @@ def inject_nuxt_values():
 
     all_langs = []
     for match in locales_dir.glob("*.json"):
-        lang_string = f'{{ code: "{match.stem}", file: "{match.name}" }},'
+        lang_string = f'{{ code: "{match.stem}", file: "{match.name.replace(".json", ".ts")}" }},'
         all_langs.append(lang_string)
 
     log.debug(f"injecting locales into nuxt config -> {nuxt_config}")
     inject_inline(nuxt_config, CodeKeys.nuxt_local_messages, all_langs)
-    inject_inline(nuxt_config, CodeKeys.nuxt_local_dates, all_date_locales)
+    inject_inline(i18n_config, CodeKeys.nuxt_local_dates, all_date_locales)
 
 
 def inject_registration_validation_values():

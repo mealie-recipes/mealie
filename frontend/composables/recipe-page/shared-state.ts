@@ -1,5 +1,4 @@
-import { computed, ComputedRef, ref, Ref, useContext } from "@nuxtjs/composition-api";
-import { UserOut } from "~/lib/api/types/user";
+import type { UserOut } from "~/lib/api/types/user";
 import { useNavigationWarning } from "~/composables/use-navigation-warning";
 
 export enum PageMode {
@@ -30,20 +29,20 @@ interface PageState {
   editMode: ComputedRef<EditorMode>;
 
   /**
-   * true is the page is in edit mode and the edit mode is in form mode.
-   */
+	 * true is the page is in edit mode and the edit mode is in form mode.
+	 */
   isEditForm: ComputedRef<boolean>;
   /**
-   * true is the page is in edit mode and the edit mode is in json mode.
-   */
+	 * true is the page is in edit mode and the edit mode is in json mode.
+	 */
   isEditJSON: ComputedRef<boolean>;
   /**
-   * true is the page is in view mode.
-   */
+	 * true is the page is in view mode.
+	 */
   isEditMode: ComputedRef<boolean>;
   /**
-   * true is the page is in cook mode.
-   */
+	 * true is the page is in cook mode.
+	 */
   isCookMode: ComputedRef<boolean>;
 
   setMode: (v: PageMode) => void;
@@ -96,7 +95,8 @@ function pageState({ slugRef, pageModeRef, editModeRef, imageKey }: PageRefs): P
         setEditMode(EditorMode.FORM);
       }
       deactivateNavigationWarning();
-    } else if (toMode === PageMode.EDIT) {
+    }
+    else if (toMode === PageMode.EDIT) {
       activateNavigationWarning();
     }
 
@@ -142,6 +142,7 @@ export function usePageState(slug: string): PageState {
 }
 
 export function clearPageState(slug: string) {
+  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
   delete memo[slug];
 }
 
@@ -151,9 +152,9 @@ export function clearPageState(slug: string) {
  * object with all properties set to their zero value is returned.
  */
 export function usePageUser(): { user: UserOut } {
-  const { $auth } = useContext();
+  const $auth = useMealieAuth();
 
-  if (!$auth.user) {
+  if (!$auth.user.value) {
     return {
       user: {
         id: "",
@@ -169,5 +170,5 @@ export function usePageUser(): { user: UserOut } {
     };
   }
 
-  return { user: $auth.user };
+  return { user: $auth.user.value };
 }

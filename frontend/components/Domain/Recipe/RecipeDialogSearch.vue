@@ -1,37 +1,61 @@
 <template>
   <div>
-    <slot v-bind="{ open, close }"> </slot>
-    <v-dialog v-model="dialog" max-width="988px" content-class="top-dialog" :scrollable="false">
-      <v-app-bar sticky dark color="primary lighten-1" :rounded="!$vuetify.breakpoint.xs">
+    <slot v-bind="{ open, close }" />
+    <v-dialog
+      v-model="dialog"
+      max-width="988px"
+      content-class="top-dialog"
+      :scrollable="false"
+    >
+      <v-app-bar
+        sticky
+        dark
+        color="primary-lighten-1 top-0 position-relative left-0"
+        :rounded="!$vuetify.display.xs"
+      >
         <v-text-field
           id="arrow-search"
           v-model="search.query.value"
           autofocus
-          solo
+          variant="solo-filled"
           flat
           autocomplete="off"
-          background-color="primary lighten-1"
+          bg-color="primary-lighten-1"
           color="white"
-          dense
+          density="compact"
           class="mx-2 arrow-search"
           hide-details
           single-line
           :placeholder="$t('search.search')"
           :prepend-inner-icon="$globals.icons.search"
-        ></v-text-field>
+        />
 
-        <v-btn v-if="$vuetify.breakpoint.xs" x-small fab light @click="dialog = false">
+        <v-btn
+          v-if="$vuetify.display.xs"
+          size="x-small"
+          class="rounded-circle"
+          light
+          @click="dialog = false"
+        >
           <v-icon>
             {{ $globals.icons.close }}
           </v-icon>
         </v-btn>
       </v-app-bar>
-      <v-card class="mt-1 pa-1 scroll" max-height="700px" relative :loading="loading">
+      <v-card
+        class="position-relative mt-1 pa-1 scroll"
+        max-height="700px"
+        relative
+        :loading="loading"
+      >
         <v-card-actions>
           <div class="mr-auto">
             {{ $t("search.results") }}
           </div>
-          <router-link :to="advancedSearchUrl"> {{ $t("search.advanced-search") }} </router-link>
+          <!-- <router-link
+            :to="advancedSearchUrl"
+            class="text-primary"
+          > {{ $t("search.advanced-search") }} </router-link> -->
         </v-card-actions>
 
         <RecipeCardMobile
@@ -39,13 +63,13 @@
           :key="index"
           :tabindex="index"
           class="ma-1 arrow-nav"
-          :name="recipe.name"
-          :description="recipe.description || ''"
-          :slug="recipe.slug"
-          :rating="recipe.rating"
+          :name="recipe.name ?? ''"
+          :description="recipe.description ?? ''"
+          :slug="recipe.slug ?? ''"
+          :rating="recipe.rating ?? 0"
           :image="recipe.image"
-          :recipe-id="recipe.id"
-          v-on="$listeners.selected ? { selected: () => handleSelect(recipe) } : {}"
+          :recipe-id="recipe.id ?? ''"
+          v-bind="$attrs.selected ? { selected: () => handleSelect(recipe) } : {}"
         />
       </v-card>
     </v-dialog>
@@ -53,21 +77,21 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, toRefs, reactive, ref, watch, useContext, useRoute } from "@nuxtjs/composition-api";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import { RecipeSummary } from "~/lib/api/types/recipe";
+import type { RecipeSummary } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 import { usePublicExploreApi } from "~/composables/api/api-client";
+
 const SELECTED_EVENT = "selected";
-export default defineComponent({
+export default defineNuxtComponent({
   components: {
     RecipeCardMobile,
   },
 
   setup(_, context) {
-    const { $auth } = useContext();
+    const $auth = useMealieAuth();
     const state = reactive({
       loading: false,
       selectedIndex: -1,
@@ -110,13 +134,16 @@ export default defineComponent({
       if (e.key === "Enter") {
         console.log(document.activeElement);
         // (document.activeElement as HTMLElement).click();
-      } else if (e.key === "ArrowUp") {
+      }
+      else if (e.key === "ArrowUp") {
         e.preventDefault();
         state.selectedIndex--;
-      } else if (e.key === "ArrowDown") {
+      }
+      else if (e.key === "ArrowDown") {
         e.preventDefault();
         state.selectedIndex++;
-      } else {
+      }
+      else {
         return;
       }
       selectRecipe();
@@ -125,14 +152,15 @@ export default defineComponent({
     watch(dialog, (val) => {
       if (!val) {
         document.removeEventListener("keyup", onUpDown);
-      } else {
+      }
+      else {
         document.addEventListener("keyup", onUpDown);
       }
     });
 
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
     const route = useRoute();
-    const advancedSearchUrl = computed(() => `/g/${groupSlug.value}`)
+    const advancedSearchUrl = computed(() => `/g/${groupSlug.value}`);
     watch(route, close);
 
     function open() {

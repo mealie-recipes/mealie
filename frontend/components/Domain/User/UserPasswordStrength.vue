@@ -13,19 +13,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRef, useContext } from "@nuxtjs/composition-api";
 import { usePasswordStrength } from "~/composables/use-passwords";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: String,
       default: "",
     },
   },
   setup(props) {
-    const asRef = toRef(props, "value");
-    const { i18n } = useContext();
+    const asRef = toRef(props, "modelValue");
+    const i18n = useI18n();
 
     const pwStrength = usePasswordStrength(asRef, i18n);
 

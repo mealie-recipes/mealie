@@ -1,50 +1,63 @@
 <template>
   <BaseDialog
     v-model="inviteDialog"
-    :title="$tc('profile.get-invite-link')"
+    :title="$t('profile.get-invite-link')"
     :icon="$globals.icons.accountPlusOutline"
-    color="primary">
+    color="primary"
+  >
     <v-container>
       <v-form class="mt-5">
         <v-select
           v-if="groups && groups.length"
           v-model="selectedGroup"
           :items="groups"
-          item-text="name"
+          item-title="name"
           item-value="id"
           :return-object="false"
-          filled
-          :label="$tc('group.user-group')"
-          :rules="[validators.required]" />
+          variant="filled"
+          :label="$t('group.user-group')"
+          :rules="[validators.required]"
+        />
         <v-select
           v-if="households && households.length"
           v-model="selectedHousehold"
           :items="filteredHouseholds"
-          item-text="name" item-value="id"
-          :return-object="false" filled
-          :label="$tc('household.user-household')"
-          :rules="[validators.required]" />
+          item-title="name"
+          item-value="id"
+          :return-object="false"
+          variant="filled"
+          :label="$t('household.user-household')"
+          :rules="[validators.required]"
+        />
         <v-row>
           <v-col cols="9">
             <v-text-field
-              :label="$tc('profile.invite-link')"
-              type="text" readonly filled
-              :value="generatedSignupLink" />
+              :label="$t('profile.invite-link')"
+              type="text"
+              readonly
+              variant="filled"
+              :value="generatedSignupLink"
+            />
           </v-col>
-          <v-col cols="3" class="pl-1 mt-3">
+          <v-col
+            cols="3"
+            class="pl-1 mt-3"
+          >
             <AppButtonCopy
               :icon="false"
               color="info"
               :copy-text="generatedSignupLink"
-              :disabled="generatedSignupLink" />
+              :disabled="generatedSignupLink"
+            />
           </v-col>
         </v-row>
         <v-text-field
           v-model="sendTo"
           :label="$t('user.email')"
           :rules="[validators.email]"
-          outlined
-          @keydown.enter="sendInvite" />
+          variant="outlined"
+          @keydown.enter="sendInvite"
+        />
       </v-form>
     </v-container>
     <template #custom-card-action>
@@ -52,15 +65,15 @@
         :disabled="!validEmail"
         :loading="loading"
         :icon="$globals.icons.email"
-        @click="sendInvite">
-          {{ $t("group.invite") }}
+        @click="sendInvite"
+      >
+        {{ $t("group.invite") }}
       </BaseButton>
     </template>
   </BaseDialog>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext, ref, toRefs, reactive } from "@nuxtjs/composition-api";
 import { watchEffect } from "vue";
 import { useUserApi } from "@/composables/api";
 import BaseDialog from "~/components/global/BaseDialog.vue";
@@ -68,12 +81,12 @@ import AppButtonCopy from "~/components/global/AppButtonCopy.vue";
 import BaseButton from "~/components/global/BaseButton.vue";
 import { validators } from "~/composables/use-validators";
 import { alert } from "~/composables/use-toast";
-import { GroupInDB } from "~/lib/api/types/user";
-import { HouseholdInDB } from "~/lib/api/types/household";
+import type { GroupInDB } from "~/lib/api/types/user";
+import type { HouseholdInDB } from "~/lib/api/types/household";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
 
-export default defineComponent({
+export default defineNuxtComponent({
   name: "UserInviteDialog",
   components: {
     BaseDialog,
@@ -81,15 +94,17 @@ export default defineComponent({
     BaseButton,
   },
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
-    const { $auth, i18n } = useContext();
+    const i18n = useI18n();
+    const $auth = useMealieAuth();
 
-    const isAdmin = computed(() => $auth.user?.admin);
+    const isAdmin = computed(() => $auth.user.value?.admin);
     const token = ref("");
     const selectedGroup = ref<string | null>(null);
     const selectedHousehold = ref<string | null>(null);
@@ -98,7 +113,7 @@ export default defineComponent({
     const api = useUserApi();
 
     const fetchGroupsAndHouseholds = () => {
-      if (isAdmin) {
+      if (isAdmin.value) {
         const groupsResponse = useGroups();
         const householdsResponse = useAdminHouseholds();
         watchEffect(() => {
@@ -110,10 +125,10 @@ export default defineComponent({
 
     const inviteDialog = computed<boolean>({
       get() {
-        return props.value;
+        return props.modelValue;
       },
       set(val) {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 
@@ -156,9 +171,10 @@ export default defineComponent({
       });
 
       if (data && data.success) {
-        alert.success(i18n.tc("profile.email-sent"));
-      } else {
-        alert.error(i18n.tc("profile.error-sending-email"));
+        alert.success(i18n.t("profile.email-sent"));
+      }
+      else {
+        alert.error(i18n.t("profile.error-sending-email"));
       }
       state.loading = false;
       inviteDialog.value = false;
@@ -191,10 +207,11 @@ export default defineComponent({
       households,
       fetchGroupsAndHouseholds,
       ...toRefs(state),
+      isAdmin,
     };
   },
   watch: {
-    value: {
+    modelValue: {
       immediate: false,
       handler(val) {
         if (val && !this.isAdmin) {

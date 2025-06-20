@@ -1,33 +1,37 @@
 <template>
   <v-toolbar
-    rounded
-    height="0"
     class="fixed-bar mt-0"
-    color="rgb(255, 0, 0, 0.0)"
-    flat
-    style="z-index: 2; position: sticky"
+    style="z-index: 2; position: sticky; background: transparent; box-shadow: none;"
+    density="compact"
+    elevation="0"
   >
-    <BaseDialog
-      v-model="deleteDialog"
-      :title="$tc('recipe.delete-recipe')"
-      color="error"
-      :icon="$globals.icons.alertCircle"
-      @confirm="emitDelete()"
-    >
+    <BaseDialog v-model="deleteDialog" :title="$t('recipe.delete-recipe')" color="error"
+      :icon="$globals.icons.alertCircle" can-confirm @confirm="emitDelete()">
       <v-card-text>
         {{ $t("recipe.delete-confirmation") }}
       </v-card-text>
     </BaseDialog>
 
-    <v-spacer></v-spacer>
+    <v-spacer />
     <div v-if="!open" class="custom-btn-group ma-1">
-      <RecipeFavoriteBadge v-if="loggedIn" class="ml-1" color="info" button-style :recipe-id="recipe.id" show-always />
-      <RecipeTimelineBadge v-if="loggedIn" button-style class="ml-1" :slug="recipe.slug" :recipe-name="recipe.name" />
+      <RecipeFavoriteBadge v-if="loggedIn" color="info" button-style :recipe-id="recipe.id!" show-always />
+      <RecipeTimelineBadge v-if="loggedIn" class="ml-1" color="info" button-style :slug="recipe.slug" :recipe-name="recipe.name!" />
       <div v-if="loggedIn">
         <v-tooltip v-if="canEdit" bottom color="info">
-          <template #activator="{ on, attrs }">
-            <v-btn fab small class="ml-1" color="info" v-bind="attrs" v-on="on" @click="$emit('edit', true)">
-              <v-icon> {{ $globals.icons.edit }} </v-icon>
+          <template #activator="{ props }">
+            <v-btn
+              icon
+              variant="flat"
+              rounded="circle"
+              size="small"
+              color="info"
+              class="ml-1"
+              v-bind="props"
+              @click="$emit('edit', true)"
+            >
+              <v-icon size="x-large">
+                {{ $globals.icons.edit }}
+              </v-icon>
             </v-btn>
           </template>
           <span>{{ $t("general.edit") }}</span>
@@ -37,14 +41,14 @@
       <RecipeContextMenu
         show-print
         :menu-top="false"
-        :name="recipe.name"
-        :slug="recipe.slug"
+        :name="recipe.name!"
+        :slug="recipe.slug!"
         :menu-icon="$globals.icons.dotsVertical"
         fab
         color="info"
         :card-menu="false"
         :recipe="recipe"
-        :recipe-id="recipe.id"
+        :recipe-id="recipe.id!"
         :recipe-scale="recipeScale"
         :use-items="{
           edit: false,
@@ -66,31 +70,33 @@
       <v-btn
         v-for="(btn, index) in editorButtons"
         :key="index"
-        :fab="$vuetify.breakpoint.xs"
-        :small="$vuetify.breakpoint.xs"
+        :class="{ 'rounded-circle': $vuetify.display.xs }"
+        :size="$vuetify.display.xs ? 'small' : undefined"
         :color="btn.color"
+        variant="elevated"
         @click="emitHandler(btn.event)"
       >
-        <v-icon :left="!$vuetify.breakpoint.xs">{{ btn.icon }}</v-icon>
-        {{ $vuetify.breakpoint.xs ? "" : btn.text }}
+        <v-icon :left="!$vuetify.display.xs">
+          {{ btn.icon }}
+        </v-icon>
+        {{ $vuetify.display.xs ? "" : btn.text }}
       </v-btn>
     </div>
   </v-toolbar>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeTimelineBadge from "./RecipeTimelineBadge.vue";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { Recipe } from "~/lib/api/types/recipe";
 
 const SAVE_EVENT = "save";
 const DELETE_EVENT = "delete";
 const CLOSE_EVENT = "close";
 const JSON_EVENT = "json";
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { RecipeContextMenu, RecipeFavoriteBadge, RecipeTimelineBadge },
   props: {
     recipe: {
@@ -126,10 +132,12 @@ export default defineComponent({
       default: false,
     },
   },
+  emits: ["print", "input", "delete", "close", "edit"],
   setup(_, context) {
     const deleteDialog = ref(false);
 
-    const { i18n, $globals } = useContext();
+    const i18n = useI18n();
+    const { $globals } = useNuxtApp();
     const editorButtons = [
       {
         text: i18n.t("general.delete"),
@@ -209,9 +217,13 @@ export default defineComponent({
 
 .fixed-bar {
   position: sticky;
-  position: -webkit-sticky; /* for Safari */
   top: 4.5em;
   z-index: 2;
+  background: transparent !important;
+  box-shadow: none !important;
+  min-height: 0 !important;
+  height: 48px;
+  padding: 0 8px;
 }
 
 .fixed-bar-mobile {

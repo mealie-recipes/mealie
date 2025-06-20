@@ -1,6 +1,6 @@
-import { ReadPlanEntry } from "~/lib/api/types/meal-plan";
+import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 
 export type MealsByDate = {
   date: Date;
-  meals: ReadPlanEntry[]
-}
+  meals: ReadPlanEntry[];
+};

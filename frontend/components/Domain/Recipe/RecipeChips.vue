@@ -1,13 +1,19 @@
 <template>
   <div v-if="items.length > 0">
-    <h2 v-if="title" class="mt-4">{{ title }}</h2>
+    <h2
+      v-if="title"
+      class="mt-4"
+    >
+      {{ title }}
+    </h2>
     <v-chip
       v-for="category in items.slice(0, limit)"
       :key="category.name"
       label
       class="ma-1"
       color="accent"
-      :small="small"
+      variant="flat"
+      :size="small ? 'small' : 'default'"
       dark
 
       @click.prevent="() => $emit('item-selected', category, urlPrefix)"
@@ -18,12 +24,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext, useRoute } from "@nuxtjs/composition-api";
-import { RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 
 export type UrlPrefixParam = "tags" | "categories" | "tools";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     truncate: {
       type: Boolean,
@@ -54,13 +59,14 @@ export default defineComponent({
       default: null,
     },
   },
+  emits: ["item-selected"],
   setup(props) {
-    const { $auth } = useContext();
+    const $auth = useMealieAuth();
 
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "")
+    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
     const baseRecipeRoute = computed<string>(() => {
-      return `/g/${groupSlug.value}`
+      return `/g/${groupSlug.value}`;
     });
 
     function truncateText(text: string, length = 20, clamp = "...") {

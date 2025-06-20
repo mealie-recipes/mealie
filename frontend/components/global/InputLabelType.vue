@@ -3,22 +3,27 @@
     ref="autocompleteRef"
     v-model="itemVal"
     v-bind="$attrs"
-    :search-input.sync="searchInput"
-    item-text="name"
+    v-model:search="searchInput"
+    item-title="name"
     return-object
     :items="items"
     :prepend-icon="icon || $globals.icons.tags"
     auto-select-first
     clearable
+    color="primary"
     hide-details
     @keyup.enter="emitCreate"
   >
-    <template v-if="$listeners.create" #no-data>
-      <div class="caption text-center pb-2">{{ $t("recipe.press-enter-to-create") }}</div>
-    </template>
-    <template v-if="$listeners.create" #append-item>
+    <template
+      v-if="create"
+      #append-item
+    >
       <div class="px-2">
-        <BaseButton block small @click="emitCreate"></BaseButton>
+        <BaseButton
+          block
+          size="small"
+          @click="emitCreate"
+        />
       </div>
     </template>
   </v-autocomplete>
@@ -44,13 +49,13 @@
  * Both the ID and Item can be synced. The item can be synced using the v-model syntax and the itemId can be synced
  * using the .sync syntax `item-id.sync="item.labelId"`
  */
-import { computed, defineComponent, ref } from "@nuxtjs/composition-api";
-import { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
-import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 
-export default defineComponent({
+import type { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
+import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
+
+export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Object as () => MultiPurposeLabelSummary | IngredientFood | IngredientUnit,
       required: false,
       default: () => {
@@ -70,7 +75,12 @@ export default defineComponent({
       required: false,
       default: undefined,
     },
+    create: {
+      type: Boolean,
+      default: false,
+    },
   },
+  emits: ["update:modelValue", "update:item-id", "create"],
   setup(props, context) {
     const autocompleteRef = ref<HTMLInputElement>();
     const searchInput = ref("");
@@ -85,11 +95,16 @@ export default defineComponent({
 
     const itemVal = computed({
       get: () => {
-        return props.value;
+        try {
+          return Object.keys(props.modelValue).length !== 0 ? props.modelValue : null;
+        }
+        catch {
+          return null;
+        }
       },
       set: (val) => {
         itemIdVal.value = val?.id || undefined;
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 

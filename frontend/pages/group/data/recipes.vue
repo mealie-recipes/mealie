@@ -6,6 +6,7 @@
       :title="$t('data-pages.recipes.purge-exports')"
       color="error"
       :icon="$globals.icons.alertCircle"
+      can-confirm
       @confirm="purgeExports()"
     >
       <v-card-text> {{ $t('data-pages.recipes.are-you-sure-you-want-to-delete-all-export-data') }} </v-card-text>
@@ -19,65 +20,91 @@
       :icon="dialog.icon"
       :title="dialog.title"
       :submit-text="$t('general.submit')"
+      can-submit
       @submit="dialog.callback"
     >
       <v-card-text v-if="dialog.mode == MODES.tag">
-        <RecipeOrganizerSelector v-model="toSetTags" selector-type="tags" />
+        <RecipeOrganizerSelector
+          v-model="toSetTags"
+          selector-type="tags"
+        />
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.category">
-        <RecipeOrganizerSelector v-model="toSetCategories" selector-type="categories" />
+        <RecipeOrganizerSelector
+          v-model="toSetCategories"
+          selector-type="categories"
+        />
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.delete">
-        <p class="h4">{{ $t('data-pages.recipes.confirm-delete-recipes') }}</p>
-        <v-card outlined>
-          <v-virtual-scroll height="400" item-height="25" :items="selected">
+        <p class="h4">
+          {{ $t('data-pages.recipes.confirm-delete-recipes') }}
+        </p>
+        <v-card variant="outlined">
+          <v-virtual-scroll
+            height="400"
+            item-height="25"
+            :items="selected"
+          >
             <template #default="{ item }">
               <v-list-item class="pb-2">
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.name }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
               </v-list-item>
             </template>
           </v-virtual-scroll>
         </v-card>
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.export">
-        <p class="h4">{{ $t('data-pages.recipes.the-following-recipes-selected-length-will-be-exported', [selected.length]) }}</p>
-        <v-card outlined>
-          <v-virtual-scroll height="400" item-height="25" :items="selected">
+        <p class="h4">
+          {{ $t('data-pages.recipes.the-following-recipes-selected-length-will-be-exported',
+                [selected.length]) }}
+        </p>
+        <v-card variant="outlined">
+          <v-virtual-scroll
+            height="400"
+            item-height="25"
+            :items="selected"
+          >
             <template #default="{ item }">
               <v-list-item class="pb-2">
-                <v-list-item-content>
-                  <v-list-item-title>{{ item.name }}</v-list-item-title>
-                </v-list-item-content>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
               </v-list-item>
             </template>
           </v-virtual-scroll>
         </v-card>
       </v-card-text>
-      <v-card-text v-else-if="dialog.mode == MODES.updateSettings" class="px-12">
+      <v-card-text
+        v-else-if="dialog.mode == MODES.updateSettings"
+        class="px-12"
+      >
         <p>{{ $t('data-pages.recipes.settings-chosen-explanation') }}</p>
         <div class="mx-auto">
           <RecipeSettingsSwitches v-model="recipeSettings" />
         </div>
         <p class="text-center mb-0">
-          <i>{{ $tc('data-pages.recipes.selected-length-recipe-s-settings-will-be-updated', selected.length) }}</i>
+          <i>{{ $t('data-pages.recipes.selected-length-recipe-s-settings-will-be-updated', selected.length) }}</i>
         </p>
       </v-card-text>
       <v-card-text v-else-if="dialog.mode == MODES.changeOwner">
         <v-select
           v-model="selectedOwner"
           :items="allUsers"
-          item-text="fullName"
+          item-title="fullName"
           item-value="id"
-          :label="$tc('general.owner')"
+          :label="$t('general.owner')"
           hide-details
         >
           <template #prepend>
-            <UserAvatar :user-id="selectedOwner" :tooltip="false" />
+            <UserAvatar
+              :user-id="selectedOwner"
+              :tooltip="false"
+            />
           </template>
         </v-select>
-        <v-card-text v-if="selectedOwnerHousehold" class="d-flex" style="align-items: flex-end;">
+        <v-card-text
+          v-if="selectedOwnerHousehold"
+          class="d-flex"
+          style="align-items: flex-end;"
+        >
           <v-icon>{{ $globals.icons.household }}</v-icon>
           <span class="pl-1">{{ selectedOwnerHousehold.name }}</span>
         </v-card-text>
@@ -85,14 +112,28 @@
     </BaseDialog>
     <section>
       <!-- Recipe Data Table -->
-      <BaseCardSectionTitle :icon="$globals.icons.primary" :title="$tc('data-pages.recipes.recipe-data')">
+      <BaseCardSectionTitle
+        :icon="$globals.icons.primary"
+        :title="$t('data-pages.recipes.recipe-data')"
+      >
         {{ $t('data-pages.recipes.recipe-data-description') }}
       </BaseCardSectionTitle>
       <v-card-actions class="mt-n5 mb-1">
-        <v-menu offset-y bottom nudge-bottom="6" :close-on-content-click="false">
-          <template #activator="{ on, attrs }">
-            <v-btn color="accent" class="mr-2" dark v-bind="attrs" v-on="on">
-              <v-icon left>
+        <v-menu
+          offset-y
+          bottom
+          nudge-bottom="6"
+          :close-on-content-click="false"
+        >
+          <template #activator="{ props }">
+            <v-btn
+              color="accent"
+              class="mr-2"
+              variant="elevated"
+              dark
+              v-bind="props"
+            >
+              <v-icon start>
                 {{ $globals.icons.cog }}
               </v-icon>
               {{ $t('data-pages.columns') }}
@@ -102,18 +143,18 @@
             <v-card-title class="py-2">
               <div>{{ $t('data-pages.recipes.recipe-columns') }}</div>
             </v-card-title>
-            <v-divider class="mx-2"></v-divider>
+            <v-divider class="mx-2" />
             <v-card-text class="mt-n5">
               <v-checkbox
                 v-for="(_, key) in headers"
                 :key="key"
                 v-model="headers[key]"
-                dense
+                density="compact"
                 flat
                 inset
                 :label="headerLabels[key]"
                 hide-details
-              ></v-checkbox>
+              />
             </v-card-text>
           </v-card>
         </v-menu>
@@ -121,6 +162,7 @@
           :disabled="selected.length < 1"
           mode="event"
           color="info"
+          variant="elevated"
           :items="actions"
           @export-selected="openDialog(MODES.export)"
           @tag-selected="openDialog(MODES.tag)"
@@ -128,13 +170,23 @@
           @delete-selected="openDialog(MODES.delete)"
           @update-settings="openDialog(MODES.updateSettings)"
           @change-owner="openDialog(MODES.changeOwner)"
-        >
-        </BaseOverflowButton>
+        />
 
-        <p v-if="selected.length > 0" class="text-caption my-auto ml-5">{{ $tc('general.selected-count', selected.length) }}</p>
+        <p
+          v-if="selected.length > 0"
+          class="text-caption my-auto ml-5"
+        >
+          {{ $t('general.selected-count', selected.length)
+          }}
+        </p>
       </v-card-actions>
       <v-card>
-        <RecipeDataTable v-model="selected" :loading="loading" :recipes="allRecipes" :show-headers="headers" />
+        <RecipeDataTable
+          v-model="selected"
+          :loading="loading"
+          :recipes="allRecipes"
+          :show-headers="headers"
+        />
         <v-card-actions class="justify-end">
           <BaseButton
             color="info"
@@ -154,11 +206,18 @@
 
     <section class="mt-10">
       <!-- Data Table -->
-      <BaseCardSectionTitle :icon="$globals.icons.database" section :title="$tc('data-pages.recipes.data-exports')">
+      <BaseCardSectionTitle
+        :icon="$globals.icons.database"
+        section
+        :title="$t('data-pages.recipes.data-exports')"
+      >
         {{ $t('data-pages.recipes.data-exports-description') }}
       </BaseCardSectionTitle>
       <v-card-actions class="mt-n5 mb-1">
-        <BaseButton delete @click="purgeExportsDialog = true"> </BaseButton>
+        <BaseButton
+          delete
+          @click="purgeExportsDialog = true"
+        />
       </v-card-actions>
       <v-card>
         <GroupExportData :exports="groupExports" />
@@ -168,15 +227,14 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, ref, useContext, onMounted } from "@nuxtjs/composition-api";
 import RecipeDataTable from "~/components/Domain/Recipe/RecipeDataTable.vue";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { useUserApi } from "~/composables/api";
 import { useRecipes, allRecipes } from "~/composables/recipes";
-import { Recipe, RecipeSettings } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeSettings } from "~/lib/api/types/recipe";
 import GroupExportData from "~/components/Domain/Group/GroupExportData.vue";
-import { GroupDataExport } from "~/lib/api/types/group";
-import { MenuItem } from "~/components/global/BaseOverflowButton.vue";
+import type { GroupDataExport } from "~/lib/api/types/group";
+import type { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 import RecipeSettingsSwitches from "~/components/Domain/Recipe/RecipeSettingsSwitches.vue";
 import { useUserStore } from "~/composables/store/use-user-store";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
@@ -191,12 +249,19 @@ enum MODES {
   changeOwner = "changeOwner",
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   components: { RecipeDataTable, RecipeOrganizerSelector, GroupExportData, RecipeSettingsSwitches, UserAvatar },
   scrollToTop: true,
   setup() {
-    const { $auth, $globals, i18n } = useContext();
-    const { getAllRecipes, refreshRecipes } = useRecipes(true, true, false, `householdId=${$auth.user?.householdId || ""}`);
+    const i18n = useI18n();
+    const $auth = useMealieAuth();
+    const { $globals } = useNuxtApp();
+
+    useSeoMeta({
+      title: i18n.t("data-pages.recipes.recipe-data"),
+    });
+
+    const { getAllRecipes, refreshRecipes } = useRecipes(true, true, false, `householdId=${$auth.user.value?.householdId || ""}`);
     const selected = ref<Recipe[]>([]);
 
     function resetAll() {
@@ -233,32 +298,32 @@ export default defineComponent({
     const actions: MenuItem[] = [
       {
         icon: $globals.icons.database,
-        text: i18n.tc("export.export"),
+        text: i18n.t("export.export"),
         event: "export-selected",
       },
       {
         icon: $globals.icons.tags,
-        text: i18n.tc("data-pages.recipes.tag"),
+        text: i18n.t("data-pages.recipes.tag"),
         event: "tag-selected",
       },
       {
         icon: $globals.icons.categories,
-        text: i18n.tc("data-pages.recipes.categorize"),
+        text: i18n.t("data-pages.recipes.categorize"),
         event: "categorize-selected",
       },
       {
         icon: $globals.icons.cog,
-        text: i18n.tc("data-pages.recipes.update-settings"),
+        text: i18n.t("data-pages.recipes.update-settings"),
         event: "update-settings",
       },
       {
         icon: $globals.icons.user,
-        text: i18n.tc("general.change-owner"),
+        text: i18n.t("general.change-owner"),
         event: "change-owner",
       },
       {
         icon: $globals.icons.delete,
-        text: i18n.tc("general.delete"),
+        text: i18n.t("general.delete"),
         event: "delete-selected",
       },
     ];
@@ -366,7 +431,7 @@ export default defineComponent({
     }
 
     async function changeOwner() {
-      if(!selected.value.length || !selectedOwner.value) {
+      if (!selected.value.length || !selectedOwner.value) {
         return;
       }
 
@@ -398,12 +463,12 @@ export default defineComponent({
 
     function openDialog(mode: MODES) {
       const titles: Record<MODES, string> = {
-        [MODES.tag]: i18n.tc("data-pages.recipes.tag-recipes"),
-        [MODES.category]: i18n.tc("data-pages.recipes.categorize-recipes"),
-        [MODES.export]: i18n.tc("data-pages.recipes.export-recipes"),
-        [MODES.delete]: i18n.tc("data-pages.recipes.delete-recipes"),
-        [MODES.updateSettings]: i18n.tc("data-pages.recipes.update-settings"),
-        [MODES.changeOwner]: i18n.tc("general.change-owner"),
+        [MODES.tag]: i18n.t("data-pages.recipes.tag-recipes"),
+        [MODES.category]: i18n.t("data-pages.recipes.categorize-recipes"),
+        [MODES.export]: i18n.t("data-pages.recipes.export-recipes"),
+        [MODES.delete]: i18n.t("data-pages.recipes.delete-recipes"),
+        [MODES.updateSettings]: i18n.t("data-pages.recipes.update-settings"),
+        [MODES.changeOwner]: i18n.t("general.change-owner"),
       };
 
       const callbacks: Record<MODES, () => Promise<void>> = {
@@ -435,16 +500,16 @@ export default defineComponent({
     const { store: households } = useHouseholdStore();
     const selectedOwner = ref("");
     const selectedOwnerHousehold = computed(() => {
-      if(!selectedOwner.value) {
+      if (!selectedOwner.value) {
         return null;
       }
 
-      const owner = allUsers.value.find((u) => u.id === selectedOwner.value);
+      const owner = allUsers.value.find(u => u.id === selectedOwner.value);
       if (!owner) {
         return null;
       };
 
-      return households.value.find((h) => h.id === owner.householdId);
+      return households.value.find(h => h.id === owner.householdId);
     });
 
     return {
@@ -474,10 +539,11 @@ export default defineComponent({
       selectedOwnerHousehold,
     };
   },
-  head() {
-    return {
-      title: this.$tc("data-pages.recipes.recipe-data"),
-    };
-  },
 });
 </script>
+
+<style>
+.v-btn--disabled {
+  opacity: 0.5 !important;
+}
+</style>

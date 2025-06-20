@@ -1,4 +1,3 @@
-// @ts-ignore missing color types
 import Color from "@sphinxxxx/color-conversion";
 
 const LIGHT_COLOR = "white";
@@ -32,7 +31,8 @@ export function getTextColor(bgColor: string | undefined): string {
     });
     const L = 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
     return L > ACCESSIBILITY_THRESHOLD ? DARK_COLOR : LIGHT_COLOR;
-  } catch (error) {
+  }
+  catch (error) {
     console.warn(error);
     return DARK_COLOR;
   }

@@ -24,7 +24,7 @@ import { MultiPurposeLabelsApi } from "./user/group-multiple-purpose-labels";
 import { GroupEventNotifierApi } from "./user/group-event-notifier";
 import { MealPlanRulesApi } from "./user/group-mealplan-rules";
 import { GroupDataSeederApi } from "./user/group-seeder";
-import { ApiRequestInstance } from "~/lib/api/types/non-generated";
+import type { ApiRequestInstance } from "~/lib/api/types/non-generated";
 
 export class UserApiClient {
   public recipes: RecipeAPI;

@@ -2,108 +2,146 @@
   <v-app dark>
     <TheSnackbar />
 
+    <AppHeader>
+      <v-btn
+        icon
+        @click.stop="sidebar = !sidebar"
+      >
+        <v-icon> {{ $globals.icons.menu }}</v-icon>
+      </v-btn>
+    </AppHeader>
+
     <AppSidebar
       v-model="sidebar"
       absolute
       :top-link="topLinks"
       :secondary-links="cookbookLinks || []"
-      :bottom-links="isAdmin ? bottomLinks : []"
+      :bottom-links="bottomLinks"
     >
-      <v-menu offset-y nudge-bottom="5" close-delay="50" nudge-right="15">
-        <template #activator="{ on, attrs }">
-          <v-btn v-if="isOwnGroup" rounded large class="ml-2 mt-3" v-bind="attrs" v-on="on">
-            <v-icon left large color="primary">
+      <v-menu
+        offset-y
+        nudge-bottom="5"
+        close-delay="50"
+        nudge-right="15"
+      >
+        <template #activator="{ props }">
+          <v-btn
+            v-if="isOwnGroup"
+            rounded
+            size="large"
+            class="ml-2 mt-3"
+            v-bind="props"
+            variant="elevated"
+            elevation="2"
+            :color="$vuetify.theme.current.dark ? 'background-lighten-1' : 'background-darken-1'"
+          >
+            <v-icon
+              start
+              size="large"
+              color="primary"
+            >
               {{ $globals.icons.createAlt }}
             </v-icon>
             {{ $t("general.create") }}
           </v-btn>
         </template>
-        <v-list dense class="my-0 py-0">
+        <v-list
+          density="comfortable"
+          class="mb-0 mt-1 py-0"
+          variant="flat"
+        >
           <template v-for="(item, index) in createLinks">
-            <div v-if="!item.hide" :key="item.title">
-              <v-divider v-if="item.insertDivider" :key="index" class="mx-2"></v-divider>
-              <v-list-item v-if="!item.restricted || isOwnGroup" :key="item.title" :to="item.to" exact>
-                <v-list-item-avatar>
-                  <v-icon>
-                    {{ item.icon }}
-                  </v-icon>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                  <v-list-item-title>
-                    {{ item.title }}
-                  </v-list-item-title>
-                  <v-list-item-subtitle v-if="item.subtitle">
-                    {{ item.subtitle }}
-                  </v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
+            <div
+              v-if="!item.hide"
+              :key="item.title"
+            >
+              <v-divider
+                v-if="item.insertDivider"
+                :key="index"
+                class="mx-2"
+              />
+              <v-list-item
+                v-if="!item.restricted || isOwnGroup"
+                :key="item.title"
+                :to="item.to"
+                exact
+                class="my-1"
+              >
+                <template #prepend>
+                  <v-icon
+                    size="40"
+                    :icon="item.icon"
+                  />
+                </template>
+                <v-list-item-title class="font-weight-medium" style="font-size: small;">
+                  {{ item.title }}
+                </v-list-item-title>
+                <v-list-item-subtitle class="font-weight-medium" style="font-size: small;">
+                  {{ item.subtitle }}
+                </v-list-item-subtitle>
+            </v-list-item>
             </div>
           </template>
         </v-list>
       </v-menu>
       <template #bottom>
         <v-list-item @click.stop="languageDialog = true">
-          <v-list-item-icon>
+          <template #prepend>
             <v-icon>{{ $globals.icons.translate }}</v-icon>
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>{{ $t("sidebar.language") }}</v-list-item-title>
-            <LanguageDialog v-model="languageDialog" />
-          </v-list-item-content>
+          </template>
+          <v-list-item-title>{{ $t("sidebar.language") }}</v-list-item-title>
+          <LanguageDialog v-model="languageDialog" />
         </v-list-item>
         <v-list-item @click="toggleDark">
-          <v-list-item-icon>
+          <template #prepend>
             <v-icon>
-              {{ $vuetify.theme.dark ? $globals.icons.weatherSunny : $globals.icons.weatherNight }}
+              {{ $vuetify.theme.current.dark ? $globals.icons.weatherSunny : $globals.icons.weatherNight }}
             </v-icon>
-          </v-list-item-icon>
+          </template>
           <v-list-item-title>
-            {{ $vuetify.theme.dark ? $t("settings.theme.light-mode") : $t("settings.theme.dark-mode") }}
+            {{ $vuetify.theme.current.dark ? $t("settings.theme.light-mode") : $t("settings.theme.dark-mode") }}
           </v-list-item-title>
         </v-list-item>
       </template>
     </AppSidebar>
-
-    <AppHeader>
-      <v-btn icon @click.stop="sidebar = !sidebar">
-        <v-icon> {{ $globals.icons.menu }}</v-icon>
-      </v-btn>
-    </AppHeader>
-    <v-main>
+    <v-main class="pt-16">
       <v-scroll-x-transition>
-        <Nuxt />
+        <div>
+          <NuxtPage />
+        </div>
       </v-scroll-x-transition>
     </v-main>
   </v-app>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref, useContext, useRoute } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import AppHeader from "@/components/Layout/LayoutParts/AppHeader.vue";
-import AppSidebar from "@/components/Layout/LayoutParts/AppSidebar.vue";
-import { SideBarLink } from "~/types/application-types";
-import LanguageDialog from "~/components/global/LanguageDialog.vue";
-import TheSnackbar from "@/components/Layout/LayoutParts/TheSnackbar.vue";
+import type { SideBarLink } from "~/types/application-types";
 import { useAppInfo } from "~/composables/api";
 import { useCookbooks, usePublicCookbooks } from "~/composables/use-group-cookbooks";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
 import { useHouseholdStore, usePublicHouseholdStore } from "~/composables/store/use-household-store";
 import { useToggleDarkMode } from "~/composables/use-utils";
-import { ReadCookBook } from "~/lib/api/types/cookbook";
-import { HouseholdSummary } from "~/lib/api/types/household";
+import type { ReadCookBook } from "~/lib/api/types/cookbook";
+import type { HouseholdSummary } from "~/lib/api/types/household";
 
-
-export default defineComponent({
-  components: { AppHeader, AppSidebar, LanguageDialog, TheSnackbar },
+export default defineNuxtComponent({
   setup() {
-    const { $globals, $auth, $vuetify, i18n } = useContext();
+    const i18n = useI18n();
+    const { $globals, $vuetify } = useNuxtApp();
+    const $auth = useMealieAuth();
     const { isOwnGroup } = useLoggedInState();
 
-    const isAdmin = computed(() => $auth.user?.admin);
+    const isAdmin = computed(() => $auth.user.value?.admin);
     const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
-    const { cookbooks } = isOwnGroup.value ? useCookbooks() : usePublicCookbooks(groupSlug.value || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+
+    const loggedInCookbooks = useCookbooks();
+    const publicCookbooks = usePublicCookbooks(groupSlug.value || "");
+    const cookbooks = computed(() =>
+      isOwnGroup.value ? loggedInCookbooks.cookbooks.value : publicCookbooks.cookbooks.value,
+    );
+
     const cookbookPreferences = useCookbookPreferences();
     const { store: households } = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value || "");
 
@@ -121,10 +159,9 @@ export default defineComponent({
 
     const languageDialog = ref<boolean>(false);
 
-    const sidebar = ref<boolean | null>(null);
-
+    const sidebar = ref<boolean>(false);
     onMounted(() => {
-      sidebar.value = !$vuetify.breakpoint.md;
+      sidebar.value = $vuetify.display.mdAndUp.value;
     });
 
     function cookbookAsLink(cookbook: ReadCookBook): SideBarLink {
@@ -137,16 +174,17 @@ export default defineComponent({
       };
     }
 
-    const currentUserHouseholdId = computed(() => $auth.user?.householdId);
+    const currentUserHouseholdId = computed(() => $auth.user.value?.householdId);
     const cookbookLinks = computed<SideBarLink[]>(() => {
-      if (!cookbooks.value) {
+      if (!cookbooks.value || !households.value) {
         return [];
       }
-      cookbooks.value.sort((a, b) => (a.position || 0) - (b.position || 0));
+
+      const sortedCookbooks = [...cookbooks.value].sort((a, b) => (a.position || 0) - (b.position || 0));
 
       const ownLinks: SideBarLink[] = [];
       const links: SideBarLink[] = [];
-      const cookbooksByHousehold = cookbooks.value.reduce((acc, cookbook) => {
+      const cookbooksByHousehold = sortedCookbooks.reduce((acc, cookbook) => {
         const householdName = householdsById.value[cookbook.householdId]?.name || "";
         if (!acc[householdName]) {
           acc[householdName] = [];
@@ -156,9 +194,13 @@ export default defineComponent({
       }, {} as Record<string, ReadCookBook[]>);
 
       Object.entries(cookbooksByHousehold).forEach(([householdName, cookbooks]) => {
+        if (!cookbooks.length) {
+          return;
+        }
         if (cookbooks[0].householdId === currentUserHouseholdId.value) {
           ownLinks.push(...cookbooks.map(cookbookAsLink));
-        } else {
+        }
+        else {
           links.push({
             key: householdName,
             icon: $globals.icons.book,
@@ -170,19 +212,20 @@ export default defineComponent({
       });
 
       links.sort((a, b) => a.title.localeCompare(b.title));
-      if ($auth.user && cookbookPreferences.value.hideOtherHouseholds) {
+      if ($auth.user.value && cookbookPreferences.value.hideOtherHouseholds) {
         return ownLinks;
-      } else {
+      }
+      else {
         return [...ownLinks, ...links];
       }
     });
 
-    const createLinks = computed<SideBarLink[]>(() => [
+    const createLinks = computed(() => [
       {
         insertDivider: false,
         icon: $globals.icons.link,
-        title: i18n.tc("general.import"),
-        subtitle: i18n.tc("new-recipe.import-by-url"),
+        title: i18n.t("general.import"),
+        subtitle: i18n.t("new-recipe.import-by-url"),
         to: `/g/${groupSlug.value}/r/create/url`,
         restricted: true,
         hide: false,
@@ -190,8 +233,8 @@ export default defineComponent({
       {
         insertDivider: false,
         icon: $globals.icons.fileImage,
-        title: i18n.tc("recipe.create-from-image"),
-        subtitle: i18n.tc("recipe.create-recipe-from-an-image"),
+        title: i18n.t("recipe.create-from-image"),
+        subtitle: i18n.t("recipe.create-recipe-from-an-image"),
         to: `/g/${groupSlug.value}/r/create/image`,
         restricted: true,
         hide: !showImageImport.value,
@@ -199,81 +242,85 @@ export default defineComponent({
       {
         insertDivider: true,
         icon: $globals.icons.edit,
-        title: i18n.tc("general.create"),
-        subtitle: i18n.tc("new-recipe.create-manually"),
+        title: i18n.t("general.create"),
+        subtitle: i18n.t("new-recipe.create-manually"),
         to: `/g/${groupSlug.value}/r/create/new`,
         restricted: true,
         hide: false,
       },
     ]);
 
-    const bottomLinks = computed<SideBarLink[]>(() => [
-      {
-        icon: $globals.icons.cog,
-        title: i18n.tc("general.settings"),
-        to: "/admin/site-settings",
-        restricted: true,
-      },
-    ]);
+    const bottomLinks = computed<SideBarLink[]>(() =>
+      isAdmin.value
+        ? [
+            {
+              icon: $globals.icons.cog,
+              title: i18n.t("general.settings"),
+              to: "/admin/site-settings",
+              restricted: true,
+            },
+          ]
+        : [],
+    );
 
     const topLinks = computed<SideBarLink[]>(() => [
       {
         icon: $globals.icons.silverwareForkKnife,
         to: `/g/${groupSlug.value}`,
-        title: i18n.tc("general.recipes"),
+        title: i18n.t("general.recipes"),
         restricted: false,
       },
       {
         icon: $globals.icons.search,
         to: `/g/${groupSlug.value}/recipes/finder`,
-        title: i18n.tc("recipe-finder.recipe-finder"),
+        title: i18n.t("recipe-finder.recipe-finder"),
         restricted: false,
       },
       {
         icon: $globals.icons.calendarMultiselect,
-        title: i18n.tc("meal-plan.meal-planner"),
+        title: i18n.t("meal-plan.meal-planner"),
         to: "/household/mealplan/planner/view",
         restricted: true,
       },
       {
         icon: $globals.icons.formatListCheck,
-        title: i18n.tc("shopping-list.shopping-lists"),
+        title: i18n.t("shopping-list.shopping-lists"),
         to: "/shopping-lists",
         restricted: true,
       },
       {
         icon: $globals.icons.timelineText,
-        title: i18n.tc("recipe.timeline"),
+        title: i18n.t("recipe.timeline"),
         to: `/g/${groupSlug.value}/recipes/timeline`,
         restricted: true,
       },
       {
         icon: $globals.icons.book,
         to: `/g/${groupSlug.value}/cookbooks`,
-        title: i18n.tc("cookbook.cookbooks"),
+        title: i18n.t("cookbook.cookbooks"),
         restricted: true,
       },
       {
         icon: $globals.icons.organizers,
-        title: i18n.tc("general.organizers"),
+        title: i18n.t("general.organizers"),
         restricted: true,
         children: [
           {
             icon: $globals.icons.categories,
             to: `/g/${groupSlug.value}/recipes/categories`,
-            title: i18n.tc("sidebar.categories"),
+            title: i18n.t("sidebar.categories"),
             restricted: true,
           },
           {
             icon: $globals.icons.tags,
             to: `/g/${groupSlug.value}/recipes/tags`,
-            title: i18n.tc("sidebar.tags"),
+            title: i18n.t("sidebar.tags"),
             restricted: true,
           },
           {
             icon: $globals.icons.potSteam,
             to: `/g/${groupSlug.value}/recipes/tools`,
-            title: i18n.tc("tool.tools"),
+            title: i18n.t("tool.tools"),
             restricted: true,
           },
         ],
@@ -286,7 +333,6 @@ export default defineComponent({
       createLinks,
       bottomLinks,
       topLinks,
-      isAdmin,
       isOwnGroup,
       languageDialog,
       toggleDark,

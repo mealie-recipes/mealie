@@ -5,19 +5,22 @@
     item-key="id"
     class="elevation-0"
     :items-per-page="50"
-    @click:row="handleRowClick"
+    @click:row="($event, { item }) => handleRowClick(item)"
   >
-    <template #item.category="{ item }">
+    <template #[`item.category`]="{ item }">
       {{ capitalize(item.category) }}
     </template>
-    <template #item.timestamp="{ item }">
-      {{ $d(Date.parse(item.timestamp), "long") }}
+    <template #[`item.timestamp`]="{ item }">
+      {{ $d(Date.parse(item.timestamp!), "long") }}
     </template>
-    <template #item.status="{ item }">
-      {{ capitalize(item.status) }}
+    <template #[`item.status`]="{ item }">
+      {{ capitalize(item.status!) }}
     </template>
-    <template #item.actions="{ item }">
-      <v-btn icon @click.stop="deleteReport(item.id)">
+    <template #[`item.actions`]="{ item }">
+      <v-btn
+        icon
+        @click.stop="deleteReport(item.id)"
+      >
         <v-icon>{{ $globals.icons.delete }}</v-icon>
       </v-btn>
     </template>
@@ -25,27 +28,27 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, useRouter } from "@nuxtjs/composition-api";
-import { ReportSummary } from "~/lib/api/types/reports";
+import type { ReportSummary } from "~/lib/api/types/reports";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     items: {
       required: true,
       type: Array as () => Array<ReportSummary>,
     },
   },
+  emits: ["delete"],
 
   setup(_, context) {
-    const { i18n } = useContext();
+    const i18n = useI18n();
     const router = useRouter();
 
     const headers = [
-      { text: i18n.t("category.category"), value: "category" },
-      { text: i18n.t("general.name"), value: "name" },
-      { text: i18n.t("general.timestamp"), value: "timestamp" },
-      { text: i18n.t("general.status"), value: "status" },
-      { text: i18n.t("general.delete"), value: "actions" },
+      { title: i18n.t("category.category"), value: "category", key: "category" },
+      { title: i18n.t("general.name"), value: "name", key: "name" },
+      { title: i18n.t("general.timestamp"), value: "timestamp", key: "timestamp" },
+      { title: i18n.t("general.status"), value: "status", key: "status" },
+      { title: i18n.t("general.delete"), value: "actions", key: "actions" },
     ];
 
     function handleRowClick(item: ReportSummary) {

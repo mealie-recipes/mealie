@@ -2,16 +2,32 @@
   <v-container class="narrow-container">
     <BasePageTitle divider>
       <template #header>
-        <v-img max-height="200px" max-width="200px" :src="require('~/static/svgs/manage-api-tokens.svg')"></v-img>
+        <v-img
+          width="100%"
+          max-height="200px"
+          max-width="200px"
+          :src="require('~/static/svgs/manage-api-tokens.svg')"
+        />
       </template>
-      <template #title> {{ $tc("settings.token.api-tokens") }} </template>
-      {{ $tc('settings.token.you-have-token-count', user.tokens.length) }}
+      <template #title>
+        {{ $t("settings.token.api-tokens") }}
+      </template>
+      {{ $t('settings.token.you-have-token-count', user.tokens!.length) }}
     </BasePageTitle>
     <section class="d-flex justify-center">
-      <v-card class="mt-4" width="500px">
+      <v-card
+        class="mt-4"
+        width="500px"
+      >
         <v-card-text>
-          <v-form ref="domNewTokenForm" @submit.prevent>
-            <v-text-field v-model="name" :label="$t('settings.token.token-name')"> </v-text-field>
+          <v-form
+            ref="domNewTokenForm"
+            @submit.prevent
+          >
+            <v-text-field
+              v-model="name"
+              :label="$t('settings.token.token-name')"
+            />
           </v-form>
 
           <template v-if="createdToken != ''">
@@ -21,40 +37,68 @@
               :label="$t('settings.token.api-token')"
               readonly
               rows="3"
-            >
-            </v-textarea>
-            <v-subheader class="text-center">
+            />
+            <v-list-subheader class="text-center">
               {{
                 $t(
-                  "settings.token.copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again"
+                  "settings.token.copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again",
                 )
               }}
-            </v-subheader>
+            </v-list-subheader>
           </template>
         </v-card-text>
         <v-card-actions>
-          <BaseButton v-if="createdToken" cancel @click="resetCreate()"> {{ $t('general.close') }} </BaseButton>
-          <v-spacer></v-spacer>
-          <AppButtonCopy v-if="createdToken" :icon="false" color="info" :copy-text="createdToken"> </AppButtonCopy>
-          <BaseButton v-else key="generate-button" :disabled="name == ''" @click="createToken(name)">
+          <BaseButton
+            v-if="createdToken"
+            cancel
+            @click="resetCreate()"
+          >
+            {{ $t('general.close') }}
+          </BaseButton>
+          <v-spacer />
+          <AppButtonCopy
+            v-if="createdToken"
+            :icon="false"
+            color="info"
+            :copy-text="createdToken"
+          />
+          <BaseButton
+            v-else
+            key="generate-button"
+            :disabled="name == ''"
+            @click="createToken(name)"
+          >
             {{ $t('settings.token.generate') }}
           </BaseButton>
         </v-card-actions>
       </v-card>
     </section>
-    <BaseCardSectionTitle class="mt-10" :title="$tc('settings.token.active-tokens')"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle
+      class="mt-10"
+      :title="$t('settings.token.active-tokens')"
+    />
     <section class="d-flex flex-column">
-      <div v-for="(token, index) in $auth.user.tokens" :key="index">
-        <v-card outlined class="mb-2">
+      <div
+        v-for="(token, index) in user.tokens"
+        :key="index"
+      >
+        <v-card
+          variant="outlined"
+          class="mb-2"
+        >
           <v-list-item>
-            <v-list-item-content>
-              <v-list-item-title>
-                {{ token.name }}
-              </v-list-item-title>
-              <v-list-item-subtitle> {{ $t('general.created-on-date', [$d(new Date(token.createdAt))]) }} </v-list-item-subtitle>
-            </v-list-item-content>
+            <v-list-item-title>
+              {{ token.name }}
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              {{ $t('general.created-on-date', [$d(new Date(token.createdAt!))]) }}
+            </v-list-item-subtitle>
             <v-list-item-action>
-              <BaseButton delete small @click="deleteToken(token.id)"></BaseButton>
+              <BaseButton
+                delete
+                small
+                @click="deleteToken(token.id)"
+              />
             </v-list-item-action>
           </v-list-item>
         </v-card>
@@ -64,17 +108,21 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext, ref } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-import { VForm } from "~/types/vuetify";
+import type { VForm } from "~/types/auto-forms";
 
-export default defineComponent({
-  middleware: ["auth", "advanced-only"],
+export default defineNuxtComponent({
+  middleware: ["sidebase-auth", "advanced-only"],
   setup() {
-    const nuxtContext = useContext();
+    const i18n = useI18n();
+    const $auth = useMealieAuth();
+
+    useSeoMeta({
+      title: i18n.t("settings.token.api-tokens"),
+    });
 
     const user = computed(() => {
-      return nuxtContext.$auth.user;
+      return $auth.user.value;
     });
 
     const api = useUserApi();
@@ -89,7 +137,7 @@ export default defineComponent({
       createdToken.value = "";
       loading.value = false;
       name.value = "";
-      nuxtContext.$auth.fetchUser();
+      $auth.refresh();
     }
 
     async function createToken(name: string) {
@@ -114,16 +162,11 @@ export default defineComponent({
 
     async function deleteToken(id: number) {
       const { data } = await api.users.deleteAPIToken(id);
-      nuxtContext.$auth.fetchUser();
+      $auth.refresh();
       return data;
     }
 
     return { createToken, deleteToken, createdToken, loading, name, user, resetCreate };
-  },
-  head() {
-    return {
-      title: this.$t("settings.token.api-tokens") as string,
-    };
   },
 });
 </script>

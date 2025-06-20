@@ -7,21 +7,24 @@
     class="elevation-0"
     @click:row="downloadData"
   >
-    <template #item.expires="{ item }">
+    <template #[`item.expires`]="{ item }">
       {{ getTimeToExpire(item.expires) }}
     </template>
-    <template #item.actions="{ item }">
-      <BaseButton download small :download-url="`/api/recipes/bulk-actions/export/download?path=${item.path}`">
-      </BaseButton>
+    <template #[`item.actions`]="{ item }">
+      <BaseButton
+        download
+        size="small"
+        :download-url="`/api/recipes/bulk-actions/export/download?path=${item.path}`"
+      />
     </template>
   </v-data-table>
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext } from "@nuxtjs/composition-api";
 import { parseISO, formatDistanceToNow } from "date-fns";
-import { GroupDataExport } from "~/lib/api/types/group";
-export default defineComponent({
+import type { GroupDataExport } from "~/lib/api/types/group";
+
+export default defineNuxtComponent({
   props: {
     exports: {
       type: Array as () => GroupDataExport[],
@@ -29,14 +32,14 @@ export default defineComponent({
     },
   },
   setup() {
-    const { i18n } = useContext();
+    const i18n = useI18n();
 
     const headers = [
-      { text: i18n.t("export.export"), value: "name" },
-      { text: i18n.t("export.file-name"), value: "filename" },
-      { text: i18n.t("export.size"), value: "size" },
-      { text: i18n.t("export.link-expires"), value: "expires" },
-      { text: "", value: "actions" },
+      { title: i18n.t("export.export"), value: "name" },
+      { title: i18n.t("export.file-name"), value: "filename" },
+      { title: i18n.t("export.size"), value: "size" },
+      { title: i18n.t("export.link-expires"), value: "expires" },
+      { title: "", value: "actions" },
     ];
 
     function getTimeToExpire(timeString: string) {

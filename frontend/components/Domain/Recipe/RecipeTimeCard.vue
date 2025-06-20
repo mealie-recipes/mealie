@@ -1,34 +1,77 @@
 <template v-if="showCards">
   <div class="text-center">
     <!-- Total Time -->
-    <div v-if="validateTotalTime" class="time-card-flex mx-auto">
-      <v-row no-gutters class="d-flex flex-no-wrap align-center " :style="fontSize">
-        <v-icon :x-large="!small" left color="primary">
-          {{ $globals.icons.clockOutline }}
-        </v-icon>
-        <p class="my-0"><span class="font-weight-bold">{{ validateTotalTime.name }}</span><br>{{ validateTotalTime.value }}</p>
-      </v-row>
-    </div>
-    <v-divider v-if="validateTotalTime && (validatePrepTime || validatePerformTime)" class="my-2" />
-    <!-- Prep Time & Perform Time -->
-    <div v-if="validatePrepTime || validatePerformTime" class="time-card-flex mx-auto">
+    <div
+      v-if="validateTotalTime"
+      class="time-card-flex mx-auto"
+    >
       <v-row
         no-gutters
-        class="d-flex justify-center align-center" :class="{'flex-column': $vuetify.breakpoint.smAndDown}"
-        style="width: 100%;" :style="fontSize"
+        class="d-flex flex-no-wrap align-center"
+        :style="fontSize"
       >
-        <div v-if="validatePrepTime" class="d-flex flex-no-wrap my-1">
-          <v-icon :large="!small" :dense="small" left color="primary">
+        <v-icon
+          :x-large="!small"
+          start
+          color="primary"
+        >
+          {{ $globals.icons.clockOutline }}
+        </v-icon>
+        <p class="my-0">
+          <span class="font-weight-bold opacity-80">{{ validateTotalTime.name }}</span><br>{{ validateTotalTime.value }}
+        </p>
+      </v-row>
+    </div>
+    <v-divider
+      v-if="validateTotalTime && (validatePrepTime || validatePerformTime)"
+      class="my-2"
+    />
+    <!-- Prep Time & Perform Time -->
+    <div
+      v-if="validatePrepTime || validatePerformTime"
+      class="time-card-flex mx-auto"
+    >
+      <v-row
+        no-gutters
+        class="d-flex justify-center align-center"
+        :class="{ 'flex-column': $vuetify.display.smAndDown }"
+        style="width: 100%;"
+        :style="fontSize"
+      >
+        <div
+          v-if="validatePrepTime"
+          class="d-flex flex-no-wrap my-1 align-center"
+        >
+          <v-icon
+            :size="small ? 'small' : 'large'"
+            left
+            color="primary"
+          >
             {{ $globals.icons.knfife }}
           </v-icon>
-          <p class="my-0"><span class="font-weight-bold">{{ validatePrepTime.name }}</span><br>{{ validatePrepTime.value }}</p>
+          <p class="my-0">
+            <span class="font-weight-bold opacity-80">{{ validatePrepTime.name }}</span><br>{{ validatePrepTime.value }}
+          </p>
         </div>
-        <v-divider v-if="validatePrepTime && validatePerformTime" vertical class="mx-4" />
-        <div v-if="validatePerformTime" class="d-flex flex-no-wrap my-1">
-          <v-icon :large="!small" :dense="small" left color="primary">
+        <v-divider
+          v-if="validatePrepTime && validatePerformTime"
+          vertical
+          class="mx-4"
+        />
+        <div
+          v-if="validatePerformTime"
+          class="d-flex flex-no-wrap my-1 align-center"
+        >
+          <v-icon
+            :size="small ? 'small' : 'large'"
+            left
+            color="primary"
+          >
             {{ $globals.icons.potSteam }}
           </v-icon>
-          <p class="my-0"><span class="font-weight-bold">{{ validatePerformTime.name }}</span><br>{{ validatePerformTime.value }}</p>
+          <p class="my-0">
+            <span class="font-weight-bold opacity-80">{{ validatePerformTime.name }}</span><br>{{ validatePerformTime.value }}
+          </p>
         </div>
       </v-row>
     </div>
@@ -36,9 +79,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
-
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     prepTime: {
       type: String,
@@ -54,7 +95,7 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: "accent custom-transparent"
+      default: "accent custom-transparent",
     },
     small: {
       type: Boolean,
@@ -62,14 +103,14 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { i18n } = useContext();
+    const i18n = useI18n();
 
     function isEmpty(str: string | null) {
       return !str || str.length === 0;
     }
 
     const showCards = computed(() => {
-      return [props.prepTime, props.totalTime, props.performTime].some((x) => !isEmpty(x));
+      return [props.prepTime, props.totalTime, props.performTime].some(x => !isEmpty(x));
     });
 
     const validateTotalTime = computed(() => {

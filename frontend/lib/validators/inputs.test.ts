@@ -1,5 +1,6 @@
 import { expect, test } from "vitest";
 import { required, email, whitespace, url, minLength, maxLength } from "./inputs";
+
 export { scorePassword } from "./password";
 
 test("validator required", () => {

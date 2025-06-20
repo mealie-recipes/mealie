@@ -4,11 +4,16 @@
       v-model="createDialog"
       :title="$t('group.create-group')"
       :icon="$globals.icons.group"
+      can-submit
       @submit="createGroup(createGroupForm.data)"
     >
-      <template #activator> </template>
+      <template #activator />
       <v-card-text>
-        <AutoForm v-model="createGroupForm.data" :update-mode="updateMode" :items="createGroupForm.items" />
+        <AutoForm
+          v-model="createGroupForm.data"
+          :update-mode="updateMode"
+          :items="createGroupForm.items"
+        />
       </v-card-text>
     </BaseDialog>
 
@@ -16,18 +21,25 @@
       v-model="confirmDialog"
       :title="$t('general.confirm')"
       color="error"
+      can-confirm
       @confirm="deleteGroup(deleteTarget)"
     >
-      <template #activator> </template>
+      <template #activator />
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
       </v-card-text>
     </BaseDialog>
 
-    <BaseCardSectionTitle :title="$tc('group.group-management')"> </BaseCardSectionTitle>
+    <BaseCardSectionTitle :title="$t('group.group-management')" />
     <section>
-      <v-toolbar flat color="transparent" class="justify-between">
-        <BaseButton @click="openDialog"> {{ $t("general.create") }} </BaseButton>
+      <v-toolbar
+        flat
+        color="transparent"
+        class="justify-between"
+      >
+        <BaseButton @click="openDialog">
+          {{ $t("general.create") }}
+        </BaseButton>
       </v-toolbar>
 
       <v-data-table
@@ -38,26 +50,30 @@
         hide-default-footer
         disable-pagination
         :search="search"
-        @click:row="handleRowClick"
+        @click:row="($event, { item }) => handleRowClick(item)"
       >
-        <template #item.households="{ item }">
-          {{ item.households.length }}
+        <template #[`item.households`]="{ item }">
+          {{ item.households!.length }}
         </template>
-        <template #item.users="{ item }">
-          {{ item.users.length }}
+        <template #[`item.users`]="{ item }">
+          {{ item.users!.length }}
         </template>
-        <template #item.actions="{ item }">
-          <v-tooltip bottom :disabled="!(item && (item.households.length > 0 || item.users.length > 0))">
-            <template #activator="{ on, attrs }">
-              <div v-bind="attrs" v-on="on" >
+        <template #[`item.actions`]="{ item }">
+          <v-tooltip
+            bottom
+            :disabled="!(item && (item.households!.length > 0 || item.users!.length > 0))"
+          >
+            <template #activator="{ props }">
+              <div v-bind="props">
                 <v-btn
-                  :disabled="item && (item.households.length > 0 || item.users.length > 0)"
+                  :disabled="item && (item.households!.length > 0 || item.users!.length > 0)"
                   class="mr-1"
                   icon
                   color="error"
+                  variant="text"
                   @click.stop="
                     confirmDialog = true;
-                    deleteTarget = item.id;
+                    deleteTarget = +item.id;
                   "
                 >
                   <v-icon>
@@ -66,25 +82,33 @@
                 </v-btn>
               </div>
             </template>
-            <span>{{ $tc("admin.group-delete-note") }}</span>
+            <span>{{ $t("admin.group-delete-note") }}</span>
           </v-tooltip>
         </template>
       </v-data-table>
-      <v-divider></v-divider>
+      <v-divider />
     </section>
   </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, useContext, useRouter } from "@nuxtjs/composition-api";
 import { fieldTypes } from "~/composables/forms";
 import { useGroups } from "~/composables/use-groups";
-import { GroupInDB } from "~/lib/api/types/user";
+import type { GroupInDB } from "~/lib/api/types/user";
 
-export default defineComponent({
-  layout: "admin",
+export default defineNuxtComponent({
   setup() {
-    const { i18n } = useContext();
+    definePageMeta({
+      layout: "admin",
+    });
+
+    const i18n = useI18n();
+
+    // Set page title
+    useSeoMeta({
+      title: i18n.t("group.manage-groups"),
+    });
+
     const { groups, refreshAllGroups, deleteGroup, createGroup } = useGroups();
 
     const state = reactive({
@@ -94,15 +118,15 @@ export default defineComponent({
       search: "",
       headers: [
         {
-          text: i18n.t("group.group"),
+          title: i18n.t("group.group"),
           align: "start",
           sortable: false,
           value: "id",
         },
-        { text: i18n.t("general.name"), value: "name" },
-        { text: i18n.t("group.total-households"), value: "households" },
-        { text: i18n.t("user.total-users"), value: "users" },
-        { text: i18n.t("general.delete"), value: "actions" },
+        { title: i18n.t("general.name"), value: "name" },
+        { title: i18n.t("group.total-households"), value: "households" },
+        { title: i18n.t("user.total-users"), value: "users" },
+        { title: i18n.t("general.delete"), value: "actions" },
       ],
       updateMode: false,
       createGroupForm: {
@@ -125,17 +149,15 @@ export default defineComponent({
       state.createGroupForm.data.name = "";
     }
 
-    const router = useRouter();
-
     function handleRowClick(item: GroupInDB) {
-      router.push(`/admin/manage/groups/${item.id}`);
+      navigateTo(`/admin/manage/groups/${item.id}`);
     }
 
     return { ...toRefs(state), groups, refreshAllGroups, deleteGroup, createGroup, openDialog, handleRowClick };
   },
   head() {
     return {
-      title: this.$t("group.manage-groups") as string,
+      title: useI18n().t("group.manage-groups"),
     };
   },
 });

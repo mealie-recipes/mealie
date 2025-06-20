@@ -1,6 +1,5 @@
-import { ref, Ref, useContext } from "@nuxtjs/composition-api";
 import { useAsyncValidator } from "~/composables/use-validators";
-import { VForm } from "~/types/vuetify";
+import type { VForm } from "~/types/vuetify";
 import { usePublicApi } from "~/composables/api/api-client";
 
 const domAccountForm = ref<VForm | null>(null);
@@ -12,7 +11,8 @@ const password2 = ref("");
 const advancedOptions = ref(false);
 
 export const useUserRegistrationForm = () => {
-  const { i18n } = useContext();
+  const i18n = useI18n();
+
   function safeValidate(form: Ref<VForm | null>) {
     if (form.value && form.value.validate) {
       return form.value.validate();
@@ -29,15 +29,15 @@ export const useUserRegistrationForm = () => {
   const { validate: validateUsername, valid: validUsername } = useAsyncValidator(
     username,
     (v: string) => publicApi.validators.username(v),
-    i18n.tc("validation.username-is-taken"),
-    usernameErrorMessages
+    i18n.t("validation.username-is-taken"),
+    usernameErrorMessages,
   );
   const emailErrorMessages = ref<string[]>([]);
   const { validate: validateEmail, valid: validEmail } = useAsyncValidator(
     email,
     (v: string) => publicApi.validators.email(v),
-    i18n.tc("validation.email-is-taken"),
-    emailErrorMessages
+    i18n.t("validation.email-is-taken"),
+    emailErrorMessages,
   );
   const accountDetails = {
     username,
@@ -60,7 +60,7 @@ export const useUserRegistrationForm = () => {
   };
   // ================================================================
   // Provide Credentials
-  const passwordMatch = () => password1.value === password2.value || i18n.tc("user.password-must-match");
+  const passwordMatch = () => password1.value === password2.value || i18n.t("user.password-must-match");
   const credentials = {
     password1,
     password2,
@@ -68,7 +68,7 @@ export const useUserRegistrationForm = () => {
     reset: () => {
       credentials.password1.value = "";
       credentials.password2.value = "";
-    }
+    },
   };
 
   return {

@@ -1,6 +1,5 @@
-import { useAsync, ref } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-import { GroupBase, GroupSummary } from "~/lib/api/types/user";
+import type { GroupBase, GroupSummary } from "~/lib/api/types/user";
 
 const groupSelfRef = ref<GroupSummary | null>(null);
 const loading = ref(false);
@@ -50,15 +49,16 @@ export const useGroups = function () {
   function getAllGroups() {
     loading.value = true;
     const asyncKey = String(Date.now());
-    const groups = useAsync(async () => {
-      const { data } = await api.groups.getAll(1, -1, {orderBy: "name", orderDirection: "asc"});;
+    const { data: groups } = useAsyncData(asyncKey, async () => {
+      const { data } = await api.groups.getAll(1, -1, { orderBy: "name", orderDirection: "asc" }); ;
 
       if (data) {
         return data.items;
-      } else {
+      }
+      else {
         return null;
       }
-    }, asyncKey);
+    });
 
     loading.value = false;
     return groups;
@@ -66,11 +66,12 @@ export const useGroups = function () {
 
   async function refreshAllGroups() {
     loading.value = true;
-    const { data } = await api.groups.getAll(1, -1, {orderBy: "name", orderDirection: "asc"});;
+    const { data } = await api.groups.getAll(1, -1, { orderBy: "name", orderDirection: "asc" }); ;
 
     if (data) {
       groups.value = data.items;
-    } else {
+    }
+    else {
       groups.value = null;
     }
 

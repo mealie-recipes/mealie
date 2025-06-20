@@ -1,8 +1,7 @@
-import { Ref, useAsync } from "@nuxtjs/composition-api";
 import { useAsyncKey } from "../use-utils";
-import { BoundT } from "./types";
-import { BaseCRUDAPI, BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
-import { QueryValue } from "~/lib/api/base/route";
+import type { BoundT } from "./types";
+import type { BaseCRUDAPI, BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
+import type { QueryValue } from "~/lib/api/base/route";
 
 interface ReadOnlyStoreActions<T extends BoundT> {
   getAll(page?: number, perPage?: number, params?: any): Ref<T[] | null>;
@@ -15,7 +14,6 @@ interface StoreActions<T extends BoundT> extends ReadOnlyStoreActions<T> {
   deleteOne(id: string | number): Promise<T | null>;
 }
 
-
 /**
  * useReadOnlyActions is a factory function that returns a set of methods
  * that can be reused to manage the state of a data store without using
@@ -25,14 +23,14 @@ interface StoreActions<T extends BoundT> extends ReadOnlyStoreActions<T> {
 export function useReadOnlyActions<T extends BoundT>(
   api: BaseCRUDAPIReadOnly<T>,
   allRef: Ref<T[] | null> | null,
-  loading: Ref<boolean>
+  loading: Ref<boolean>,
 ): ReadOnlyStoreActions<T> {
   function getAll(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
     params.orderBy ??= "name";
     params.orderDirection ??= "asc";
 
     loading.value = true;
-    const allItems = useAsync(async () => {
+    const allItems = useAsyncData(useAsyncKey(), async () => {
       const { data } = await api.getAll(page, perPage, params);
       loading.value = false;
 
@@ -42,10 +40,11 @@ export function useReadOnlyActions<T extends BoundT>(
 
       if (data) {
         return data.items ?? [];
-      } else {
+      }
+      else {
         return [];
       }
-    }, useAsyncKey());
+    });
 
     return allItems;
   }
@@ -79,14 +78,14 @@ export function useReadOnlyActions<T extends BoundT>(
 export function useStoreActions<T extends BoundT>(
   api: BaseCRUDAPI<unknown, T, unknown>,
   allRef: Ref<T[] | null> | null,
-  loading: Ref<boolean>
+  loading: Ref<boolean>,
 ): StoreActions<T> {
   function getAll(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
     params.orderBy ??= "name";
     params.orderDirection ??= "asc";
 
     loading.value = true;
-    const allItems = useAsync(async () => {
+    const allItems = useAsyncData(useAsyncKey(), async () => {
       const { data } = await api.getAll(page, perPage, params);
       loading.value = false;
 
@@ -96,10 +95,11 @@ export function useStoreActions<T extends BoundT>(
 
       if (data) {
         return data.items ?? [];
-      } else {
+      }
+      else {
         return [];
       }
-    }, useAsyncKey());
+    });
 
     return allItems;
   }
@@ -123,7 +123,8 @@ export function useStoreActions<T extends BoundT>(
     const { data } = await api.createOne(createData);
     if (data && allRef?.value) {
       allRef.value.push(data);
-    } else {
+    }
+    else {
       await refresh();
     }
     loading.value = false;
