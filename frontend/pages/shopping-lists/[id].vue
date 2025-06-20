@@ -41,9 +41,6 @@
         <v-container>
           <v-row>
             <v-col
-              cols="12"
-              sm="4"
-              md="3"
               class="text-left"
             >
               <ButtonLink
@@ -53,9 +50,8 @@
               />
             </v-col>
             <v-col
-              cols="12"
-              sm="4"
-              md="6"
+              v-if="mdAndUp"
+              cols="6"
               class="d-none d-sm-flex justify-center"
             >
               <v-img
@@ -438,6 +434,7 @@ export default defineNuxtComponent({
   },
   // middleware: "sidebase-auth",
   setup() {
+    const { mdAndUp } = useDisplay();
     const i18n = useI18n();
     const $auth = useMealieAuth();
     const preferences = useShoppingListPreferences();
@@ -1255,6 +1252,7 @@ export default defineNuxtComponent({
       allFoods,
       getTextColor,
       isOffline,
+      mdAndUp,
     };
   },
 });
