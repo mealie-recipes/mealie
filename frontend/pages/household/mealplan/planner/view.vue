@@ -38,82 +38,68 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import type { MealsByDate } from "./types";
 import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 import GroupMealPlanDayContextMenu from "~/components/Domain/Household/GroupMealPlanDayContextMenu.vue";
 import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
 import type { RecipeSummary } from "~/lib/api/types/recipe";
 
-export default defineNuxtComponent({
-  components: {
-    GroupMealPlanDayContextMenu,
-    RecipeCardMobile,
-  },
-  props: {
-    mealplans: {
-      type: Array as () => MealsByDate[],
-      required: true,
-    },
-  },
-  setup(props) {
-    type DaySection = {
-      title: string;
-      meals: ReadPlanEntry[];
+const props = defineProps<{
+  mealplans: MealsByDate[];
+}>();
+
+type DaySection = {
+  title: string;
+  meals: ReadPlanEntry[];
+};
+
+type Days = {
+  date: Date;
+  sections: DaySection[];
+  recipes: RecipeSummary[];
+};
+
+const i18n = useI18n();
+
+const plan = computed<Days[]>(() => {
+  return props.mealplans.reduce((acc, day) => {
+    const out: Days = {
+      date: day.date,
+      sections: [
+        { title: i18n.t("meal-plan.breakfast"), meals: [] },
+        { title: i18n.t("meal-plan.lunch"), meals: [] },
+        { title: i18n.t("meal-plan.dinner"), meals: [] },
+        { title: i18n.t("meal-plan.side"), meals: [] },
+      ],
+      recipes: [],
     };
 
-    type Days = {
-      date: Date;
-      sections: DaySection[];
-      recipes: RecipeSummary[];
-    };
+    for (const meal of day.meals) {
+      if (meal.entryType === "breakfast") {
+        out.sections[0].meals.push(meal);
+      }
+      else if (meal.entryType === "lunch") {
+        out.sections[1].meals.push(meal);
+      }
+      else if (meal.entryType === "dinner") {
+        out.sections[2].meals.push(meal);
+      }
+      else if (meal.entryType === "side") {
+        out.sections[3].meals.push(meal);
+      }
 
-    const i18n = useI18n();
+      if (meal.recipe) {
+        out.recipes.push(meal.recipe);
+      }
+    }
 
-    const plan = computed<Days[]>(() => {
-      return props.mealplans.reduce((acc, day) => {
-        const out: Days = {
-          date: day.date,
-          sections: [
-            { title: i18n.t("meal-plan.breakfast"), meals: [] },
-            { title: i18n.t("meal-plan.lunch"), meals: [] },
-            { title: i18n.t("meal-plan.dinner"), meals: [] },
-            { title: i18n.t("meal-plan.side"), meals: [] },
-          ],
-          recipes: [],
-        };
+    // Drop empty sections
+    out.sections = out.sections.filter(section => section.meals.length > 0);
 
-        for (const meal of day.meals) {
-          if (meal.entryType === "breakfast") {
-            out.sections[0].meals.push(meal);
-          }
-          else if (meal.entryType === "lunch") {
-            out.sections[1].meals.push(meal);
-          }
-          else if (meal.entryType === "dinner") {
-            out.sections[2].meals.push(meal);
-          }
-          else if (meal.entryType === "side") {
-            out.sections[3].meals.push(meal);
-          }
+    acc.push(out);
 
-          if (meal.recipe) {
-            out.recipes.push(meal.recipe);
-          }
-        }
-
-        // Drop empty sections
-        out.sections = out.sections.filter(section => section.meals.length > 0);
-
-        acc.push(out);
-
-        return acc;
-      }, [] as Days[]);
-    });
-
-    return {
-      plan,
-    };
-  },
+    return acc;
+  }, [] as Days[]);
 });
 </script>
