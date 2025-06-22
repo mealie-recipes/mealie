@@ -4,14 +4,14 @@
       <v-col v-for="(day, index) in plan" :key="index" cols="12" sm="12" md="4" lg="4" xl="2"
         class="col-borders my-1 d-flex flex-column">
         <v-card class="mb-2 border-left-primary rounded-sm px-2">
-          <v-container class="px-0">
+          <v-container class="px-0 d-flex align-center" height="56px">
             <v-row no-gutters style="width: 100%;">
-              <v-col cols="10">
-                <p class="pl-2 my-1">
-                  {{ $d(day.date, "short") }}
-                </p>
-              </v-col>
-              <v-col class="d-flex justify-top" cols="2">
+                <v-col cols="10" class="d-flex align-center">
+                  <p class="pl-2 my-1">
+                    {{ $d(day.date, "short") }}
+                  </p>
+                </v-col>
+              <v-col class="d-flex align-center" cols="2">
                 <GroupMealPlanDayContextMenu v-if="day.recipes.length" :recipes="day.recipes" />
               </v-col>
             </v-row>
