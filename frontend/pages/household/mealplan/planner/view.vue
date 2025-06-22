@@ -6,11 +6,11 @@
         <v-card class="mb-2 border-left-primary rounded-sm px-2">
           <v-container class="px-0 d-flex align-center" height="56px">
             <v-row no-gutters style="width: 100%;">
-                <v-col cols="10" class="d-flex align-center">
-                  <p class="pl-2 my-1">
-                    {{ $d(day.date, "short") }}
-                  </p>
-                </v-col>
+              <v-col cols="10" class="d-flex align-center">
+                <p class="pl-2 my-1">
+                  {{ $d(day.date, "short") }}
+                </p>
+              </v-col>
               <v-col class="d-flex align-center" cols="2">
                 <GroupMealPlanDayContextMenu v-if="day.recipes.length" :recipes="day.recipes" />
               </v-col>
