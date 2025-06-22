@@ -356,8 +356,9 @@
   </section>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 import RecipeIngredientHtml from "../../RecipeIngredientHtml.vue";
 import type { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
 import { parseIngredientText } from "~/composables/recipes";
@@ -376,443 +377,345 @@ interface MergerHistory {
   sourceText: string;
 }
 
-export default defineNuxtComponent({
-  components: {
-    VueDraggable,
-    RecipeIngredientHtml,
-    DropZone,
-    RecipeIngredients,
+const instructionList = defineModel<RecipeStep[]>("modelValue", { required: true, default: () => [] });
+const assets = defineModel<RecipeAsset[]>("assets", { required: true, default: () => [] });
+
+const props = defineProps({
+  recipe: {
+    type: Object as () => NoUndefinedField<Recipe>,
+    required: true,
   },
-  props: {
-    modelValue: {
-      type: Array as () => RecipeStep[],
-      required: false,
-      default: () => [],
-    },
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
-    assets: {
-      type: Array as () => RecipeAsset[],
-      required: true,
-    },
-    scale: {
-      type: Number,
-      default: 1,
-    },
-  },
-  emits: ["update:modelValue", "click-instruction-field", "update:assets"],
-
-  setup(props, context) {
-    const i18n = useI18n();
-    const BASE_URL = useRequestURL().origin;
-
-    const { isCookMode, toggleCookMode, isEditForm } = usePageState(props.recipe.slug);
-
-    const state = reactive({
-      dialog: false,
-      disabledSteps: [] as number[],
-      unusedIngredients: [] as RecipeIngredient[],
-      usedIngredients: [] as RecipeIngredient[],
-    });
-
-    const showTitleEditor = ref<{ [key: string]: boolean }>({});
-
-    const actionEvents = [
-      {
-        text: i18n.t("recipe.toggle-section") as string,
-        event: "toggle-section",
-      },
-      {
-        text: i18n.t("recipe.link-ingredients") as string,
-        event: "link-ingredients",
-      },
-      {
-        text: i18n.t("recipe.merge-above") as string,
-        event: "merge-above",
-      },
-    ];
-
-    // ===============================================================
-    // UI State Helpers
-
-    function hasSectionTitle(title: string | undefined) {
-      return !(title === null || title === "" || title === undefined);
-    }
-
-    watch(props.modelValue, (v) => {
-      state.disabledSteps = [];
-
-      v.forEach((element: RecipeStep) => {
-        if (element.id !== undefined) {
-          showTitleEditor.value[element.id!] = hasSectionTitle(element.title!);
-        }
-      });
-    });
-
-    const showCookMode = ref(false);
-
-    // Eliminate state with an eager call to watcher?
-    onMounted(() => {
-      props.modelValue.forEach((element: RecipeStep) => {
-        if (element.id !== undefined) {
-          showTitleEditor.value[element.id!] = hasSectionTitle(element.title!);
-        }
-
-        // showCookMode.value = false;
-        if (showCookMode.value === false && element.ingredientReferences && element.ingredientReferences.length > 0) {
-          showCookMode.value = true;
-        }
-
-        showTitleEditor.value = { ...showTitleEditor.value };
-      });
-    });
-
-    function toggleDisabled(stepIndex: number) {
-      if (isEditForm.value) {
-        return;
-      }
-      if (state.disabledSteps.includes(stepIndex)) {
-        const index = state.disabledSteps.indexOf(stepIndex);
-        if (index !== -1) {
-          state.disabledSteps.splice(index, 1);
-        }
-      }
-      else {
-        state.disabledSteps.push(stepIndex);
-      }
-    }
-
-    function isChecked(stepIndex: number) {
-      if (state.disabledSteps.includes(stepIndex) && !isEditForm.value) {
-        return "disabled-card";
-      }
-    }
-
-    function toggleShowTitle(id?: string) {
-      if (!id) {
-        return;
-      }
-
-      showTitleEditor.value[id] = !showTitleEditor.value[id];
-
-      const temp = { ...showTitleEditor.value };
-      showTitleEditor.value = temp;
-    }
-
-    const instructionList = ref<RecipeStep[]>([...props.modelValue]);
-
-    watch(
-      () => props.modelValue,
-      (newVal) => {
-        instructionList.value = [...newVal];
-      },
-      { deep: true },
-    );
-
-    function onDragEnd() {
-      context.emit("update:modelValue", [...instructionList.value]);
-      drag.value = false;
-    }
-
-    // ===============================================================
-    // Ingredient Linker
-    const activeRefs = ref<string[]>([]);
-    const activeIndex = ref(0);
-    const activeText = ref("");
-
-    function openDialog(idx: number, text: string, refs?: IngredientReferences[]) {
-      if (!refs) {
-        instructionList.value[idx].ingredientReferences = [];
-        refs = props.modelValue[idx].ingredientReferences as IngredientReferences[];
-      }
-
-      setUsedIngredients();
-      activeText.value = text;
-      activeIndex.value = idx;
-      state.dialog = true;
-      activeRefs.value = refs.map(ref => ref.referenceId ?? "");
-    }
-
-    const availableNextStep = computed(() => activeIndex.value < props.modelValue.length - 1);
-
-    function setIngredientIds() {
-      const instruction = props.modelValue[activeIndex.value];
-      instruction.ingredientReferences = activeRefs.value.map((ref) => {
-        return {
-          referenceId: ref,
-        };
-      });
-
-      // Update the visibility of the cook mode button
-      showCookMode.value = false;
-      props.modelValue.forEach((element) => {
-        if (showCookMode.value === false && element.ingredientReferences && element.ingredientReferences.length > 0) {
-          showCookMode.value = true;
-        }
-      });
-      state.dialog = false;
-    }
-
-    function saveAndOpenNextLinkIngredients() {
-      const currentStepIndex = activeIndex.value;
-
-      if (!availableNextStep.value) {
-        return; // no next step, the button calling this function should not be shown
-      }
-
-      setIngredientIds();
-      const nextStep = props.modelValue[currentStepIndex + 1];
-      // close dialog before opening to reset the scroll position
-      nextTick(() => openDialog(currentStepIndex + 1, nextStep.text, nextStep.ingredientReferences));
-    }
-
-    function setUsedIngredients() {
-      const usedRefs: { [key: string]: boolean } = {};
-
-      props.modelValue.forEach((element) => {
-        element.ingredientReferences?.forEach((ref) => {
-          if (ref.referenceId !== undefined) {
-            usedRefs[ref.referenceId!] = true;
-          }
-        });
-      });
-
-      state.usedIngredients = props.recipe.recipeIngredient.filter((ing) => {
-        return ing.referenceId !== undefined && ing.referenceId in usedRefs;
-      });
-
-      state.unusedIngredients = props.recipe.recipeIngredient.filter((ing) => {
-        return !(ing.referenceId !== undefined && ing.referenceId in usedRefs);
-      });
-    }
-
-    function autoSetReferences() {
-      useExtractIngredientReferences(
-        props.recipe.recipeIngredient,
-        activeRefs.value,
-        activeText.value,
-        props.recipe.settings.disableAmount,
-      ).forEach((ingredient: string) => activeRefs.value.push(ingredient));
-    }
-
-    const ingredientLookup = computed(() => {
-      const results: { [key: string]: RecipeIngredient } = {};
-      return props.recipe.recipeIngredient.reduce((prev, ing) => {
-        if (ing.referenceId === undefined) {
-          return prev;
-        }
-        prev[ing.referenceId] = ing;
-        return prev;
-      }, results);
-    });
-
-    function getIngredientByRefId(refId: string | undefined) {
-      if (refId === undefined) {
-        return "";
-      }
-
-      const ing = ingredientLookup.value[refId];
-      if (!ing) return "";
-      return parseIngredientText(ing, props.recipe.settings.disableAmount, props.scale);
-    }
-
-    // ===============================================================
-    // Instruction Merger
-    const mergeHistory = ref<MergerHistory[]>([]);
-
-    function mergeAbove(target: number, source: number) {
-      if (target < 0) {
-        return;
-      }
-
-      mergeHistory.value.push({
-        target,
-        source,
-        targetText: props.modelValue[target].text,
-        sourceText: props.modelValue[source].text,
-      });
-
-      instructionList.value[target].text += " " + props.modelValue[source].text;
-      instructionList.value.splice(source, 1);
-    }
-
-    function undoMerge(event: KeyboardEvent) {
-      if (event.ctrlKey && event.code === "KeyZ") {
-        if (!(mergeHistory.value?.length > 0)) {
-          return;
-        }
-
-        const lastMerge = mergeHistory.value.pop();
-        if (!lastMerge) {
-          return;
-        }
-
-        instructionList.value[lastMerge.target].text = lastMerge.targetText;
-        instructionList.value.splice(lastMerge.source, 0, {
-          id: uuid4(),
-          title: "",
-          text: lastMerge.sourceText,
-          ingredientReferences: [],
-        });
-      }
-    }
-
-    function moveTo(dest: string, source: number) {
-      if (dest === "top") {
-        instructionList.value.unshift(instructionList.value.splice(source, 1)[0]);
-      }
-      else {
-        instructionList.value.push(instructionList.value.splice(source, 1)[0]);
-      }
-    }
-
-    function insert(dest: number) {
-      instructionList.value.splice(dest, 0, { id: uuid4(), text: "", title: "", ingredientReferences: [] });
-    }
-
-    const previewStates = ref<boolean[]>([]);
-
-    function togglePreviewState(index: number) {
-      const temp = [...previewStates.value];
-      temp[index] = !temp[index];
-      previewStates.value = temp;
-    }
-
-    function toggleCollapseSection(index: number) {
-      const sectionSteps: number[] = [];
-
-      for (let i = index; i < instructionList.value.length; i++) {
-        if (!(i === index) && hasSectionTitle(instructionList.value[i].title!)) {
-          break;
-        }
-        else {
-          sectionSteps.push(i);
-        }
-      }
-
-      const allCollapsed = sectionSteps.every(idx => state.disabledSteps.includes(idx));
-
-      if (allCollapsed) {
-        state.disabledSteps = state.disabledSteps.filter(idx => !sectionSteps.includes(idx));
-      }
-      else {
-        state.disabledSteps = [...state.disabledSteps, ...sectionSteps];
-      }
-    }
-
-    const drag = ref(false);
-
-    // ===============================================================
-    // Image Uploader
-    const api = useUserApi();
-    const { recipeAssetPath } = useStaticRoutes();
-
-    const imageUploadMode = ref(false);
-
-    function toggleDragMode() {
-      console.log("Toggling Drag Mode");
-      imageUploadMode.value = !imageUploadMode.value;
-    }
-
-    onMounted(() => {
-      if (props.assets === undefined) {
-        context.emit("update:assets", []);
-      }
-    });
-
-    const loadingStates = ref<{ [key: number]: boolean }>({});
-
-    async function handleImageDrop(index: number, files: File[]) {
-      if (!files) {
-        return;
-      }
-
-      // Check if the file is an image
-      const file = files[0];
-      if (!file || !file.type.startsWith("image/")) {
-        return;
-      }
-
-      loadingStates.value[index] = true;
-
-      const { data } = await api.recipes.createAsset(props.recipe.slug, {
-        name: file.name,
-        icon: "mdi-file-image",
-        file,
-        extension: file.name.split(".").pop() || "",
-      });
-
-      loadingStates.value[index] = false;
-
-      if (!data) {
-        return; // TODO: Handle error
-      }
-
-      context.emit("update:assets", [...props.assets, data]);
-      const assetUrl = BASE_URL + recipeAssetPath(props.recipe.id, data.fileName as string);
-      const text = `<img src="${assetUrl}" height="100%" width="100%"/>`;
-      instructionList.value[index].text += text;
-    }
-
-    function openImageUpload(index: number) {
-      const input = document.createElement("input");
-      input.type = "file";
-      input.accept = "image/*";
-      input.onchange = async () => {
-        if (input.files) {
-          await handleImageDrop(index, Array.from(input.files));
-          input.remove();
-        }
-      };
-      input.click();
-    }
-
-    const breakpoint = useDisplay();
-
-    return {
-      // Image Uploader
-      toggleDragMode,
-      handleImageDrop,
-      imageUploadMode,
-      openImageUpload,
-      loadingStates,
-
-      // Rest
-      onDragEnd,
-      drag,
-      togglePreviewState,
-      toggleCollapseSection,
-      previewStates,
-      ...toRefs(state),
-      actionEvents,
-      activeRefs,
-      activeText,
-      getIngredientByRefId,
-      showTitleEditor,
-      mergeAbove,
-      moveTo,
-      openDialog,
-      setIngredientIds,
-      availableNextStep,
-      saveAndOpenNextLinkIngredients,
-      undoMerge,
-      toggleDisabled,
-      isChecked,
-      toggleShowTitle,
-      instructionList,
-      autoSetReferences,
-      parseIngredientText,
-      toggleCookMode,
-      showCookMode,
-      isCookMode,
-      isEditForm,
-      insert,
-      breakpoint,
-    };
+  scale: {
+    type: Number,
+    default: 1,
   },
 });
+
+const emit = defineEmits(["click-instruction-field", "update:assets"]);
+
+const BASE_URL = useRequestURL().origin;
+
+const { isCookMode, toggleCookMode, isEditForm } = usePageState(props.recipe.slug);
+
+const dialog = ref(false);
+const disabledSteps = ref<number[]>([]);
+const unusedIngredients = ref<RecipeIngredient[]>([]);
+const usedIngredients = ref<RecipeIngredient[]>([]);
+
+const showTitleEditor = ref<{ [key: string]: boolean }>({});
+
+// ===============================================================
+// UI State Helpers
+
+function hasSectionTitle(title: string | undefined) {
+  return !(title === null || title === "" || title === undefined);
+}
+
+watch(instructionList, (v) => {
+  disabledSteps.value = [];
+
+  v.forEach((element: RecipeStep) => {
+    if (element.id !== undefined) {
+      showTitleEditor.value[element.id!] = hasSectionTitle(element.title!);
+    }
+  });
+}, { deep: true });
+
+const showCookMode = ref(false);
+
+onMounted(() => {
+  instructionList.value.forEach((element: RecipeStep) => {
+    if (element.id !== undefined) {
+      showTitleEditor.value[element.id!] = hasSectionTitle(element.title!);
+    }
+
+    if (showCookMode.value === false && element.ingredientReferences && element.ingredientReferences.length > 0) {
+      showCookMode.value = true;
+    }
+
+    showTitleEditor.value = { ...showTitleEditor.value };
+  });
+
+  if (assets.value === undefined) {
+    emit("update:assets", []);
+  }
+});
+
+function toggleDisabled(stepIndex: number) {
+  if (isEditForm.value) {
+    return;
+  }
+  if (disabledSteps.value.includes(stepIndex)) {
+    const index = disabledSteps.value.indexOf(stepIndex);
+    if (index !== -1) {
+      disabledSteps.value.splice(index, 1);
+    }
+  }
+  else {
+    disabledSteps.value.push(stepIndex);
+  }
+}
+
+function isChecked(stepIndex: number) {
+  if (disabledSteps.value.includes(stepIndex) && !isEditForm.value) {
+    return "disabled-card";
+  }
+}
+
+function toggleShowTitle(id?: string) {
+  if (!id) {
+    return;
+  }
+
+  showTitleEditor.value[id] = !showTitleEditor.value[id];
+
+  const temp = { ...showTitleEditor.value };
+  showTitleEditor.value = temp;
+}
+
+function onDragEnd() {
+  drag.value = false;
+}
+
+// ===============================================================
+// Ingredient Linker
+const activeRefs = ref<string[]>([]);
+const activeIndex = ref(0);
+const activeText = ref("");
+
+function openDialog(idx: number, text: string, refs?: IngredientReferences[]) {
+  if (!refs) {
+    instructionList.value[idx].ingredientReferences = [];
+    refs = instructionList.value[idx].ingredientReferences as IngredientReferences[];
+  }
+
+  setUsedIngredients();
+  activeText.value = text;
+  activeIndex.value = idx;
+  dialog.value = true;
+  activeRefs.value = refs.map(ref => ref.referenceId ?? "");
+}
+
+const availableNextStep = computed(() => activeIndex.value < instructionList.value.length - 1);
+
+function setIngredientIds() {
+  const instruction = instructionList.value[activeIndex.value];
+  instruction.ingredientReferences = activeRefs.value.map((ref) => {
+    return {
+      referenceId: ref,
+    };
+  });
+
+  // Update the visibility of the cook mode button
+  showCookMode.value = false;
+  instructionList.value.forEach((element) => {
+    if (showCookMode.value === false && element.ingredientReferences && element.ingredientReferences.length > 0) {
+      showCookMode.value = true;
+    }
+  });
+  dialog.value = false;
+}
+
+function saveAndOpenNextLinkIngredients() {
+  const currentStepIndex = activeIndex.value;
+
+  if (!availableNextStep.value) {
+    return; // no next step, the button calling this function should not be shown
+  }
+
+  setIngredientIds();
+  const nextStep = instructionList.value[currentStepIndex + 1];
+  // close dialog before opening to reset the scroll position
+  nextTick(() => openDialog(currentStepIndex + 1, nextStep.text, nextStep.ingredientReferences));
+}
+
+function setUsedIngredients() {
+  const usedRefs: { [key: string]: boolean } = {};
+
+  instructionList.value.forEach((element) => {
+    element.ingredientReferences?.forEach((ref) => {
+      if (ref.referenceId !== undefined) {
+        usedRefs[ref.referenceId!] = true;
+      }
+    });
+  });
+
+  usedIngredients.value = props.recipe.recipeIngredient.filter((ing) => {
+    return ing.referenceId !== undefined && ing.referenceId in usedRefs;
+  });
+
+  unusedIngredients.value = props.recipe.recipeIngredient.filter((ing) => {
+    return !(ing.referenceId !== undefined && ing.referenceId in usedRefs);
+  });
+}
+
+function autoSetReferences() {
+  useExtractIngredientReferences(
+    props.recipe.recipeIngredient,
+    activeRefs.value,
+    activeText.value,
+    props.recipe.settings.disableAmount,
+  ).forEach((ingredient: string) => activeRefs.value.push(ingredient));
+}
+
+const ingredientLookup = computed(() => {
+  const results: { [key: string]: RecipeIngredient } = {};
+  return props.recipe.recipeIngredient.reduce((prev, ing) => {
+    if (ing.referenceId === undefined) {
+      return prev;
+    }
+    prev[ing.referenceId] = ing;
+    return prev;
+  }, results);
+});
+
+function getIngredientByRefId(refId: string | undefined) {
+  if (refId === undefined) {
+    return "";
+  }
+
+  const ing = ingredientLookup.value[refId];
+  if (!ing) return "";
+  return parseIngredientText(ing, props.recipe.settings.disableAmount, props.scale);
+}
+
+// ===============================================================
+// Instruction Merger
+const mergeHistory = ref<MergerHistory[]>([]);
+
+function mergeAbove(target: number, source: number) {
+  if (target < 0) {
+    return;
+  }
+
+  mergeHistory.value.push({
+    target,
+    source,
+    targetText: instructionList.value[target].text,
+    sourceText: instructionList.value[source].text,
+  });
+
+  instructionList.value[target].text += " " + instructionList.value[source].text;
+  instructionList.value.splice(source, 1);
+}
+
+function undoMerge(event: KeyboardEvent) {
+  if (event.ctrlKey && event.code === "KeyZ") {
+    if (!(mergeHistory.value?.length > 0)) {
+      return;
+    }
+
+    const lastMerge = mergeHistory.value.pop();
+    if (!lastMerge) {
+      return;
+    }
+
+    instructionList.value[lastMerge.target].text = lastMerge.targetText;
+    instructionList.value.splice(lastMerge.source, 0, {
+      id: uuid4(),
+      title: "",
+      text: lastMerge.sourceText,
+      ingredientReferences: [],
+    });
+  }
+}
+
+function moveTo(dest: string, source: number) {
+  if (dest === "top") {
+    instructionList.value.unshift(instructionList.value.splice(source, 1)[0]);
+  }
+  else {
+    instructionList.value.push(instructionList.value.splice(source, 1)[0]);
+  }
+}
+
+function insert(dest: number) {
+  instructionList.value.splice(dest, 0, { id: uuid4(), text: "", title: "", ingredientReferences: [] });
+}
+
+const previewStates = ref<boolean[]>([]);
+
+function togglePreviewState(index: number) {
+  const temp = [...previewStates.value];
+  temp[index] = !temp[index];
+  previewStates.value = temp;
+}
+
+function toggleCollapseSection(index: number) {
+  const sectionSteps: number[] = [];
+
+  for (let i = index; i < instructionList.value.length; i++) {
+    if (!(i === index) && hasSectionTitle(instructionList.value[i].title!)) {
+      break;
+    }
+    else {
+      sectionSteps.push(i);
+    }
+  }
+
+  const allCollapsed = sectionSteps.every(idx => disabledSteps.value.includes(idx));
+
+  if (allCollapsed) {
+    disabledSteps.value = disabledSteps.value.filter(idx => !sectionSteps.includes(idx));
+  }
+  else {
+    disabledSteps.value = [...disabledSteps.value, ...sectionSteps];
+  }
+}
+
+const drag = ref(false);
+
+// ===============================================================
+// Image Uploader
+const api = useUserApi();
+const { recipeAssetPath } = useStaticRoutes();
+
+const loadingStates = ref<{ [key: number]: boolean }>({});
+
+async function handleImageDrop(index: number, files: File[]) {
+  if (!files) {
+    return;
+  }
+
+  // Check if the file is an image
+  const file = files[0];
+  if (!file || !file.type.startsWith("image/")) {
+    return;
+  }
+
+  loadingStates.value[index] = true;
+
+  const { data } = await api.recipes.createAsset(props.recipe.slug, {
+    name: file.name,
+    icon: "mdi-file-image",
+    file,
+    extension: file.name.split(".").pop() || "",
+  });
+
+  loadingStates.value[index] = false;
+
+  if (!data) {
+    return; // TODO: Handle error
+  }
+
+  emit("update:assets", [...assets.value, data]);
+  const assetUrl = BASE_URL + recipeAssetPath(props.recipe.id, data.fileName as string);
+  const text = `<img src="${assetUrl}" height="100%" width="100%"/>`;
+  instructionList.value[index].text += text;
+}
+
+function openImageUpload(index: number) {
+  const input = document.createElement("input");
+  input.type = "file";
+  input.accept = "image/*";
+  input.onchange = async () => {
+    if (input.files) {
+      await handleImageDrop(index, Array.from(input.files));
+      input.remove();
+    }
+  };
+  input.click();
+}
 </script>
 
 <style lang="css" scoped>
