@@ -4,7 +4,7 @@ import re
 from collections.abc import Sequence
 from datetime import UTC, datetime
 from enum import Enum
-from typing import ClassVar, Protocol, Self, TypeVar
+from typing import ClassVar, Protocol, Self
 
 from humps.main import camelize
 from pydantic import UUID4, AliasChoices, BaseModel, ConfigDict, Field, model_validator
@@ -13,8 +13,6 @@ from sqlalchemy.orm import InstrumentedAttribute, Session
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models._model_base import SqlAlchemyBase
-
-T = TypeVar("T", bound=BaseModel)
 
 HOUR_ONLY_TZ_PATTERN = re.compile(r"[+-]\d{2}$")
 
@@ -56,7 +54,7 @@ class MealieModel(BaseModel):
 
     @model_validator(mode="before")
     @classmethod
-    def fix_hour_only_tz(cls, data: T) -> T:
+    def fix_hour_only_tz[T: BaseModel](cls, data: T) -> T:
         """
         Fixes datetimes with timezones that only have the hour portion.
 
@@ -91,7 +89,7 @@ class MealieModel(BaseModel):
 
         return self
 
-    def cast(self, cls: type[T], **kwargs) -> T:
+    def cast[T: BaseModel](self, cls: type[T], **kwargs) -> T:
         """
         Cast the current model to another with additional arguments. Useful for
         transforming DTOs into models that are saved to a database
@@ -100,7 +98,7 @@ class MealieModel(BaseModel):
         create_data.update(kwargs or {})
         return cls(**create_data)
 
-    def map_to(self, dest: T) -> T:
+    def map_to[T: BaseModel](self, dest: T) -> T:
         """
         Map matching values from the current model to another model. Model returned
         for method chaining.
@@ -121,7 +119,7 @@ class MealieModel(BaseModel):
             if field in self.model_fields:
                 setattr(self, field, getattr(src, field))
 
-    def merge(self, src: T, replace_null=False):
+    def merge[T: BaseModel](self, src: T, replace_null=False):
         """
         Replace matching values from another instance to the current instance.
         """
