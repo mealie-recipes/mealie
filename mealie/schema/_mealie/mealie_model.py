@@ -80,7 +80,7 @@ class MealieModel(BaseModel):
         Adds UTC timezone information to all datetimes in the model.
         The server stores everything in UTC without timezone info.
         """
-        for field in self.model_fields:
+        for field in self.__class__.model_fields:
             val = getattr(self, field)
             if not isinstance(val, datetime):
                 continue
@@ -94,7 +94,9 @@ class MealieModel(BaseModel):
         Cast the current model to another with additional arguments. Useful for
         transforming DTOs into models that are saved to a database
         """
-        create_data = {field: getattr(self, field) for field in self.model_fields if field in cls.model_fields}
+        create_data = {
+            field: getattr(self, field) for field in self.__class__.model_fields if field in cls.model_fields
+        }
         create_data.update(kwargs or {})
         return cls(**create_data)
 
@@ -104,8 +106,8 @@ class MealieModel(BaseModel):
         for method chaining.
         """
 
-        for field in self.model_fields:
-            if field in dest.model_fields:
+        for field in self.__class__.model_fields:
+            if field in dest.__class__.model_fields:
                 setattr(dest, field, getattr(self, field))
 
         return dest
@@ -115,8 +117,8 @@ class MealieModel(BaseModel):
         Map matching values from another model to the current model.
         """
 
-        for field in src.model_fields:
-            if field in self.model_fields:
+        for field in src.__class__.model_fields:
+            if field in self.__class__.model_fields:
                 setattr(self, field, getattr(src, field))
 
     def merge[T: BaseModel](self, src: T, replace_null=False):
@@ -124,9 +126,9 @@ class MealieModel(BaseModel):
         Replace matching values from another instance to the current instance.
         """
 
-        for field in src.model_fields:
+        for field in src.__class__.model_fields:
             val = getattr(src, field)
-            if field in self.model_fields and (val is not None or replace_null):
+            if field in self.__class__.model_fields and (val is not None or replace_null):
                 setattr(self, field, val)
 
     @classmethod
