@@ -1,7 +1,10 @@
+// TODO: this should be a part of use-cookbook-store, which does mostly the same thing but only for reads
+
 import { useAsyncKey } from "./use-utils";
 import { usePublicExploreApi } from "./api/api-client";
 import { useHouseholdSelf } from "./use-households";
 import { useUserApi } from "~/composables/api";
+import { useCookbookStore } from "~/composables/store/use-cookbook-store";
 import type { ReadCookBook, UpdateCookBook } from "~/lib/api/types/cookbook";
 
 let cookbookStore: Ref<ReadCookBook[] | null> | null = null;
@@ -70,6 +73,7 @@ export const useCookbooks = function () {
   const api = useUserApi();
   const { household } = useHouseholdSelf();
   const loading = ref(false);
+  const cookbookStoreSidebar = useCookbookStore();
 
   const i18n = useI18n();
 
@@ -96,6 +100,9 @@ export const useCookbooks = function () {
 
       if (data && data.items && cookbookStore) {
         cookbookStore.value = data.items;
+
+        // The sidebar uses a different store, so we need to refresh it too
+        cookbookStoreSidebar.store.value = data.items;
       }
 
       loading.value = false;
