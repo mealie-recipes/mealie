@@ -119,8 +119,8 @@
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { SideBarLink } from "~/types/application-types";
 import { useAppInfo } from "~/composables/api";
-import { useCookbooks, usePublicCookbooks } from "~/composables/use-group-cookbooks";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
+import { useCookbookStore, usePublicCookbookStore } from "~/composables/store/use-cookbook-store";
 import { useHouseholdStore, usePublicHouseholdStore } from "~/composables/store/use-household-store";
 import { useToggleDarkMode } from "~/composables/use-utils";
 import type { ReadCookBook } from "~/lib/api/types/cookbook";
@@ -136,9 +136,15 @@ export default defineNuxtComponent({
     const isAdmin = computed(() => $auth.user.value?.admin);
     const route = useRoute();
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
-    const { cookbooks } = isOwnGroup.value ? useCookbooks() : usePublicCookbooks(groupSlug.value || "");
 
     const cookbookPreferences = useCookbookPreferences();
+    const { store: cookbooks, actions: cookbooksActions } = isOwnGroup.value ? useCookbookStore() : usePublicCookbookStore(groupSlug.value || "");
+    onMounted(() => {
+      if (!cookbooks.value.length) {
+        cookbooksActions.refresh();
+      }
+    });
+
     const { store: households } = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value || "");
 
     const householdsById = computed(() => {
@@ -172,10 +178,6 @@ export default defineNuxtComponent({
 
     const currentUserHouseholdId = computed(() => $auth.user.value?.householdId);
     const cookbookLinks = computed<SideBarLink[]>(() => {
-      if (!cookbooks.value || !households.value) {
-        return [];
-      }
-
       const sortedCookbooks = [...cookbooks.value].sort((a, b) => (a.position || 0) - (b.position || 0));
 
       const ownLinks: SideBarLink[] = [];
