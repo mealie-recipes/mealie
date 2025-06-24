@@ -138,7 +138,14 @@ export default defineNuxtComponent({
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
     const cookbookPreferences = useCookbookPreferences();
-    const { store: cookbooks } = isOwnGroup.value ? useCookbookStore() : usePublicCookbookStore(groupSlug.value || "");
+    const { store: cookbooks, actions: cookbooksActions } = isOwnGroup.value ? useCookbookStore() : usePublicCookbookStore(groupSlug.value || "");
+    onMounted(() => {
+      if (!cookbooks.value.length) {
+        cookbooksActions.refresh();
+        console.log("test");
+      }
+    });
+
     const { store: households } = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value || "");
 
     const householdsById = computed(() => {
@@ -172,10 +179,6 @@ export default defineNuxtComponent({
 
     const currentUserHouseholdId = computed(() => $auth.user.value?.householdId);
     const cookbookLinks = computed<SideBarLink[]>(() => {
-      if (!cookbooks.value || !households.value) {
-        return [];
-      }
-
       const sortedCookbooks = [...cookbooks.value].sort((a, b) => (a.position || 0) - (b.position || 0));
 
       const ownLinks: SideBarLink[] = [];
