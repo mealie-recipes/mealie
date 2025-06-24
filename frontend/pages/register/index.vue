@@ -78,7 +78,7 @@
                 dark
                 hover
                 width="300px"
-                @click="initial.joinGroup"
+                @click="initial.createGroup"
               >
                 <v-card-title class="d-flex align-center justify-center py-3">
                   <v-icon
