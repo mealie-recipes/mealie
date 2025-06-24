@@ -142,7 +142,6 @@ export default defineNuxtComponent({
     onMounted(() => {
       if (!cookbooks.value.length) {
         cookbooksActions.refresh();
-        console.log("test");
       }
     });
 
