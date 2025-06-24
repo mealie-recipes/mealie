@@ -139,7 +139,7 @@
 
 <script lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
-import { useCookbooks } from "@/composables/use-group-cookbooks";
+import { useCookbookStore } from "~/composables/store/use-cookbook-store";
 import { useHouseholdSelf } from "@/composables/use-households";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
 import type { ReadCookBook } from "~/lib/api/types/cookbook";
@@ -162,7 +162,7 @@ export default defineNuxtComponent({
     });
 
     const $auth = useMealieAuth();
-    const { cookbooks: allCookbooks, actions } = useCookbooks();
+    const { store: allCookbooks, actions } = useCookbookStore();
 
     // Make a local reactive copy of myCookbooks
     const myCookbooks = ref<ReadCookBook[]>([]);
