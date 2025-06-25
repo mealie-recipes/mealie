@@ -17,21 +17,19 @@
         <v-form @submit.prevent="requestLink()">
           <v-text-field
             v-model="email"
-            :prepend-icon="$globals.icons.email"
-            variant="filled"
-            rounded
+            :prepend-inner-icon="$globals.icons.email"
+            variant="solo-filled"
+            flat
             autofocus
-            class="rounded-lg"
             name="login"
             :label="$t('user.email')"
             type="text"
           />
           <v-text-field
             v-model="password"
-            variant="filled"
-            rounded
-            class="rounded-lg"
-            :prepend-icon="$globals.icons.lock"
+            variant="solo-filled"
+            flat
+            :prepend-inner-icon="$globals.icons.lock"
             name="password"
             :label="$t('user.password')"
             type="password"
@@ -39,11 +37,10 @@
           />
           <v-text-field
             v-model="passwordConfirm"
-            variant="filled"
-            rounded
+            variant="solo-filled"
+            flat
             validate-on="blur"
-            class="rounded-lg"
-            :prepend-icon="$globals.icons.lock"
+            :prepend-inner-icon="$globals.icons.lock"
             name="password"
             :label="$t('user.confirm-password')"
             type="password"

@@ -9,7 +9,7 @@
     closable-chips
     item-title="name"
     multiple
-    variant="underlined"
+    variant="outlined"
     :prepend-inner-icon="icon"
     :append-icon="$globals.icons.create"
     return-object

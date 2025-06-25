@@ -17,10 +17,9 @@
         <v-form @submit.prevent="requestLink()">
           <v-text-field
             v-model="email"
-            variant="filled"
-            rounded
-            autofocus
-            class="rounded-lg"
+            :prepend-inner-icon="$globals.icons.email"
+            variant="solo-filled"
+            flat            autofocus
             name="login"
             :label="$t('user.email')"
             type="text"
