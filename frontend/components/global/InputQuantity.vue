@@ -10,7 +10,6 @@
       :min="min"
       :max="max"
       type="number"
-      class="rounded-xl"
       size="small"
       variant="plain"
     />

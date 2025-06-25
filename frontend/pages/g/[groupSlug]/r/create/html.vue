@@ -61,7 +61,6 @@
         <div style="width: 250px">
           <BaseButton
             :disabled="!newRecipeData"
-            large
             rounded
             block
             type="submit"

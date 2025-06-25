@@ -24,8 +24,7 @@
 
     <v-container
       v-if="book"
-      fluid
-      class="py-0 my-0"
+      class="my-0"
     >
       <v-sheet
         color="transparent"
@@ -33,13 +32,12 @@
         elevation="0"
       >
         <div class="d-flex align-center w-100 mb-2">
+          <v-toolbar-title class="headline mb-0">
           <v-icon size="large" class="mr-3">
             {{ $globals.icons.pages }}
           </v-icon>
-          <v-toolbar-title class="headline mb-0">
             {{ book.name }}
           </v-toolbar-title>
-          <v-spacer />
           <BaseButton
             v-if="canEdit"
             class="mx-1"

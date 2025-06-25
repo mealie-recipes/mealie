@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-start align-top py-2">
+  <div class="d-flex justify-start align-top flex-wrap py-2">
     <RecipeImageUploadBtn
       class="my-1"
       :slug="recipe.slug"
@@ -19,6 +19,7 @@
     >
       <v-select
         v-model="recipe.userId"
+        max-width="100"
         :items="allUsers"
         item-title="fullName"
         item-value="id"
@@ -43,8 +44,8 @@
         <v-icon>{{ $globals.icons.household }}</v-icon>
         <span class="pl-1">{{ ownerHousehold.name }}</span>
       </v-card-text>
-    </v-container>
-  </div>
+  </v-container>
+</div>
 </template>
 
 <script setup lang="ts">

@@ -10,6 +10,7 @@
     <v-card-title class="text-h5 pl-0 py-0" style="font-weight: normal;">
       <v-icon
         v-if="icon"
+        size="small"
         start
       >
         {{ icon }}
@@ -24,7 +25,7 @@
         <slot />
       </p>
     </v-card-text>
-    <v-divider class="mb-3" />
+    <v-divider class="mt-1 mb-3" />
   </v-card>
 </template>
 
