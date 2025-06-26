@@ -150,7 +150,7 @@ export default defineNuxtComponent({
 
       state.loading = true;
       const translateLanguage = shouldTranslate.value ? i18n.locale : undefined;
-      const { data, error } = await api.recipes.createOneFromImage(uploadedImage.value, uploadedImageName.value, translateLanguage);
+      const { data, error } = await api.recipes.createOneFromImage(uploadedImage.value, uploadedImageName.value, translateLanguage?.value);
       if (error || !data) {
         alert.error(i18n.t("events.something-went-wrong"));
         state.loading = false;
