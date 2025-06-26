@@ -1,6 +1,5 @@
 import abc
 from datetime import UTC, datetime, timedelta
-from typing import Generic, TypeVar
 
 import jwt
 from sqlalchemy.orm.session import Session
@@ -13,10 +12,8 @@ ALGORITHM = "HS256"
 ISS = "mealie"
 remember_me_duration = timedelta(days=14)
 
-T = TypeVar("T")
 
-
-class AuthProvider(Generic[T], metaclass=abc.ABCMeta):
+class AuthProvider[T](metaclass=abc.ABCMeta):
     """Base Authentication Provider interface"""
 
     def __init__(self, session: Session, data: T) -> None:
