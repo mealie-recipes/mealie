@@ -69,22 +69,22 @@ export default defineNuxtComponent({
     const i18n = useI18n();
 
     const MEAL_TYPE_OPTIONS = [
-      { text: i18n.t("meal-plan.breakfast"), value: "breakfast" },
-      { text: i18n.t("meal-plan.lunch"), value: "lunch" },
-      { text: i18n.t("meal-plan.dinner"), value: "dinner" },
-      { text: i18n.t("meal-plan.side"), value: "side" },
-      { text: i18n.t("meal-plan.type-any"), value: "unset" },
+      { title: i18n.t("meal-plan.breakfast"), value: "breakfast" },
+      { title: i18n.t("meal-plan.lunch"), value: "lunch" },
+      { title: i18n.t("meal-plan.dinner"), value: "dinner" },
+      { title: i18n.t("meal-plan.side"), value: "side" },
+      { title: i18n.t("meal-plan.type-any"), value: "unset" },
     ];
 
     const MEAL_DAY_OPTIONS = [
-      { text: i18n.t("general.monday"), value: "monday" },
-      { text: i18n.t("general.tuesday"), value: "tuesday" },
-      { text: i18n.t("general.wednesday"), value: "wednesday" },
-      { text: i18n.t("general.thursday"), value: "thursday" },
-      { text: i18n.t("general.friday"), value: "friday" },
-      { text: i18n.t("general.saturday"), value: "saturday" },
-      { text: i18n.t("general.sunday"), value: "sunday" },
-      { text: i18n.t("meal-plan.day-any"), value: "unset" },
+      { title: i18n.t("general.monday"), value: "monday" },
+      { title: i18n.t("general.tuesday"), value: "tuesday" },
+      { title: i18n.t("general.wednesday"), value: "wednesday" },
+      { title: i18n.t("general.thursday"), value: "thursday" },
+      { title: i18n.t("general.friday"), value: "friday" },
+      { title: i18n.t("general.saturday"), value: "saturday" },
+      { title: i18n.t("general.sunday"), value: "sunday" },
+      { title: i18n.t("meal-plan.day-any"), value: "unset" },
     ];
 
     const inputDay = computed({
