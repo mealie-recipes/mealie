@@ -29,6 +29,7 @@
         <v-list-item
           density="compact"
           @click.stop="toggleChecked(index)"
+          class="pa-0"
         >
           <template #prepend>
             <v-checkbox

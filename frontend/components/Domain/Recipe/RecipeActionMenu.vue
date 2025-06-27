@@ -74,6 +74,7 @@
         :size="$vuetify.display.xs ? 'small' : undefined"
         :color="btn.color"
         variant="elevated"
+        :icon="$vuetify.display.xs"
         @click="emitHandler(btn.event)"
       >
         <v-icon :left="!$vuetify.display.xs">
