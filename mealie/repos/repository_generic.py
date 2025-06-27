@@ -4,7 +4,7 @@ import random
 from collections.abc import Iterable
 from datetime import UTC, datetime
 from math import ceil
-from typing import Any, Generic, TypeVar
+from typing import Any
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
@@ -28,18 +28,13 @@ from mealie.schema.response.query_search import SearchFilter
 
 from ._utils import NOT_SET, NotSet
 
-Schema = TypeVar("Schema", bound=MealieModel)
-Model = TypeVar("Model", bound=SqlAlchemyBase)
 
-T = TypeVar("T", bound="RepositoryGeneric")
-
-
-class RepositoryGeneric(Generic[Schema, Model]):
+class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
     """A Generic BaseAccess Model method to perform common operations on the database
 
     Args:
-        Generic ([Schema]): Represents the Pydantic Model
-        Generic ([Model]): Represents the SqlAlchemyModel Model
+        Schema: Represents the Pydantic Model
+        Model: Represents the SqlAlchemyModel Model
     """
 
     session: Session
@@ -467,7 +462,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         return search_filter.filter_query_by_search(query, schema, self.model)
 
 
-class GroupRepositoryGeneric(RepositoryGeneric[Schema, Model]):
+class GroupRepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase](RepositoryGeneric[Schema, Model]):
     def __init__(
         self,
         session: Session,
@@ -483,7 +478,7 @@ class GroupRepositoryGeneric(RepositoryGeneric[Schema, Model]):
         self._group_id = group_id if group_id else None
 
 
-class HouseholdRepositoryGeneric(RepositoryGeneric[Schema, Model]):
+class HouseholdRepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase](RepositoryGeneric[Schema, Model]):
     def __init__(
         self,
         session: Session,

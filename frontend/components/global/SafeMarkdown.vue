@@ -1,12 +1,11 @@
 <template>
-  <MDC
-    :value="value"
-    tag="article"
-  />
+<!-- eslint-disable-next-line vue/no-v-html is safe here because all HTML is sanitized with DOMPurify in setup() -->
+<div v-html="value" />
 </template>
 
 <script lang="ts">
 import DOMPurify from "isomorphic-dompurify";
+import { marked } from "marked";
 
 export default defineNuxtComponent({
   props: {
@@ -40,7 +39,8 @@ export default defineNuxtComponent({
     }
 
     const value = computed(() => {
-      return sanitizeMarkdown(props.source) || "";
+      const rawHtml = marked.parse(props.source || "", { async: false });
+      return sanitizeMarkdown(rawHtml);
     });
 
     return {
@@ -56,7 +56,8 @@ export default defineNuxtComponent({
   width: 100%;
 }
 
-:deep(th, td) {
+:deep(th),
+:deep(td) {
   border: 1px solid;
   padding: 8px;
   text-align: left;
@@ -64,5 +65,11 @@ export default defineNuxtComponent({
 
 :deep(th) {
   font-weight: bold;
+}
+
+:deep(ul),
+:deep(ol) {
+  margin: 8px 0;
+  padding-left: 20px;
 }
 </style>

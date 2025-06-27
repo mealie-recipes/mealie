@@ -7,8 +7,7 @@ export default defineNuxtPlugin(() => {
     baseURL: "/", // api calls already pass with /api
     timeout: 10000,
     headers: {
-      "Content-Type": "application/json",
-      "Authorization": "Bearer " + useCookie(tokenName).value,
+      Authorization: "Bearer " + useCookie(tokenName).value,
     },
     withCredentials: true,
   });

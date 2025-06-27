@@ -13,7 +13,6 @@ export default defineNuxtConfig({
     "@sidebase/nuxt-auth",
     "@nuxtjs/google-fonts",
     "vuetify-nuxt-module",
-    "@nuxtjs/mdc",
     "@nuxt/eslint",
   ],
   ssr: false,
