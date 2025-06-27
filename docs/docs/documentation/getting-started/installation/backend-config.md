@@ -156,8 +156,6 @@ Setting the following environmental variables will change the theme of the front
 
 ### Docker Secrets
 
-### Docker Secrets
-
 > <super>&dagger;</super> Starting in version `2.4.2`, any environment variable in the preceding lists with a dagger
 > symbol next to them support the Docker Compose secrets pattern, below.
 [Docker Compose secrets][docker-secrets] can be used to secure sensitive information regarding the Mealie implementation
