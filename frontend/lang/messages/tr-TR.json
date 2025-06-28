@@ -596,12 +596,13 @@
     "create-recipe-description": "Sıfırdan yeni bir tarif oluşturun.",
     "create-recipes": "Tarif Oluştur",
     "import-with-zip": ".zip ile içe aktar",
-    "create-recipe-from-an-image": "Görüntüden yemek tarifi oluştur",
-    "create-recipe-from-an-image-description": "Bir görsel yükleyerek yemek tarifi oluşturun. Mealie, yapay zekâ kullanarak görseldeki bilgileri çekip yemek tarifini oluşturmaya çalışacaktır.",
+    "create-recipe-from-an-image": "Create Recipe from Images",
+    "create-recipe-from-an-image-description": "Create a recipe by uploading images of the recipe text. Mealie will attempt to extract the text from the images using AI and create a new recipe from it.",
     "crop-and-rotate-the-image": "Resmi sadece yazılar gözükecek şekilde kesin ve döndürün, ayrıca doğru yönde durduğuna emin olun.",
-    "create-from-image": "Görselden Oluştur",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Tarifi kendi dilime çevir",
     "please-wait-image-procesing": "Görsel işlenirken lütfen bekleyin. Bu, biraz zaman alabilir.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Toplu URL İçe Aktarma",
     "debug-scraper": "Veri Kazıma Hata Ayıklayıcı",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "İsim vererek bir tarif oluşturun. Tüm tariflerin benzersiz isimleri olması gerekiyor.",
@@ -660,7 +661,10 @@
       "no-food": "Gıda yok"
     },
     "reset-servings-count": "Reset Servings Count",
-    "not-linked-ingredients": "Ek Malzemeler"
+    "not-linked-ingredients": "Ek Malzemeler",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Tarif Bulucu",
