@@ -1,25 +1,25 @@
 {
 	"acorn-squash": {
-		"name": "acorn squash"
+		"name": "橡果南瓜"
 	},
 	"alfalfa-sprouts": {
-		"name": "alfalfa sprouts"
+		"name": "紫花苜蓿芽"
 	},
 	"anchovies": {
-		"name": "anchovies"
+		"name": "凤尾鱼"
 	},
 	"apples": {
 		"name": "苹果",
 		"plural_name": "苹果"
 	},
 	"artichoke": {
-		"name": "artichoke"
+		"name": "洋蓟"
 	},
 	"arugula": {
-		"name": "arugula"
+		"name": "芝麻菜"
 	},
 	"asparagus": {
-		"name": "asparagus"
+		"name": "芦笋"
 	},
 	"avocado": {
 		"name": "牛油果",
@@ -29,10 +29,10 @@
 		"name": "培根"
 	},
 	"baking-powder": {
-		"name": "baking powder"
+		"name": "发酵粉"
 	},
 	"baking-soda": {
-		"name": "baking soda"
+		"name": "烘焙用小苏打"
 	},
 	"baking-sugar": {
 		"name": "baking sugar"
@@ -147,13 +147,13 @@
 		"name": "chard"
 	},
 	"cheese": {
-		"name": "奶酪"
+		"name": "芝士"
 	},
 	"chicory": {
 		"name": "chicory"
 	},
 	"chilli-peppers": {
-		"name": "chilli pepper",
+		"name": "辣椒",
 		"plural_name": "chilli peppers"
 	},
 	"chinese-leaves": {
@@ -182,7 +182,7 @@
 		"name": "椰奶"
 	},
 	"cod": {
-		"name": "cod"
+		"name": "鳕鱼"
 	},
 	"coffee": {
 		"name": "咖啡"
@@ -194,7 +194,7 @@
 		"name": "confectioners' sugar"
 	},
 	"coriander": {
-		"name": "coriander"
+		"name": "香菜"
 	},
 	"corn": {
 		"name": "corn",
@@ -602,34 +602,34 @@
 	},
 	"sunchoke": {
 		"name": "sunchoke",
-		"plural_name": "sunchokes"
+		"plural_name": "洋姜"
 	},
 	"sunflower-seeds": {
-		"name": "sunflower seeds"
+		"name": "瓜子"
 	},
 	"superfine-sugar": {
-		"name": "superfine sugar"
+		"name": "特细砂糖"
 	},
 	"sweet-potato": {
-		"name": "sweet potato",
-		"plural_name": "sweet potatoes"
+		"name": "红薯",
+		"plural_name": "红薯"
 	},
 	"sweetcorn": {
-		"name": "sweetcorn",
-		"plural_name": "sweetcorns"
+		"name": "甜玉米",
+		"plural_name": "甜玉米"
 	},
 	"sweeteners": {
-		"name": "sweeteners"
+		"name": "甜味剂"
 	},
 	"tahini": {
-		"name": "tahini"
+		"name": "中东白芝麻酱"
 	},
 	"taro": {
-		"name": "taro",
-		"plural_name": "taroes"
+		"name": "芋头",
+		"plural_name": "芋头"
 	},
 	"teff": {
-		"name": "teff"
+		"name": "苔麸"
 	},
 	"tomato": {
 		"name": "番茄",
@@ -639,8 +639,8 @@
 		"name": "鳟鱼"
 	},
 	"tubers": {
-		"name": "tuber",
-		"plural_name": "tubers"
+		"name": "块茎",
+		"plural_name": "块茎"
 	},
 	"tuna": {
 		"name": "金枪鱼"
