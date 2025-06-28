@@ -596,12 +596,13 @@
     "create-recipe-description": "Crear unha receita en branco.",
     "create-recipes": "Crear Receitas",
     "import-with-zip": "Importar con .zip",
-    "create-recipe-from-an-image": "Crear receita a partir dunha imaxen",
-    "create-recipe-from-an-image-description": "Cree unha receita cargando unha imaxen da mesma. O Mealie tentará extrair o texto da imaxen utilizando IA e creará unha receita a partir da mesma.",
+    "create-recipe-from-an-image": "Create Recipe from Images",
+    "create-recipe-from-an-image-description": "Create a recipe by uploading images of the recipe text. Mealie will attempt to extract the text from the images using AI and create a new recipe from it.",
     "crop-and-rotate-the-image": "Recorte e vire a imaxen de modo a que só o texto sexa visível e na orientación correta.",
-    "create-from-image": "Crear a partir da imaxen",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Traducir a receita para a miña língua",
     "please-wait-image-procesing": "Por favor agarde, a imaxen está sendo procesada. Isto pode levar algun tempo.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Importación de URL en Masa",
     "debug-scraper": "Depurar Scraper",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Cree unha receita introducindo o nome. Todas as receitas deven ter nomes únicos.",
@@ -660,7 +661,10 @@
       "no-food": "Sen Comida"
     },
     "reset-servings-count": "Reiniciar Contador de Porcións",
-    "not-linked-ingredients": "Ingredientes Adicionais"
+    "not-linked-ingredients": "Ingredientes Adicionais",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Localizador de Receitas",
