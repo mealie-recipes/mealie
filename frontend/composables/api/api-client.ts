@@ -1,16 +1,17 @@
-import type { AxiosInstance, AxiosResponse } from "axios";
+import type { AxiosInstance, AxiosResponse, AxiosRequestConfig } from "axios";
 import type { ApiRequestInstance, RequestResponse } from "~/lib/api/types/non-generated";
 import { AdminAPI, PublicApi, UserApi } from "~/lib/api";
 import { PublicExploreApi } from "~/lib/api/client-public";
 
 const request = {
   async safe<T, U>(
-    funcCall: (url: string, data: U) => Promise<AxiosResponse<T>>,
+    funcCall: (url: string, data: U, config?: AxiosRequestConfig) => Promise<AxiosResponse<T>>,
     url: string,
     data: U,
+    config?: AxiosRequestConfig,
   ): Promise<RequestResponse<T>> {
     let error = null;
-    const response = await funcCall(url, data).catch(function (e) {
+    const response = await funcCall(url, data, config).catch(function (e) {
       console.log(e);
       // Insert Generic Error Handling Here
       error = e;
@@ -22,9 +23,9 @@ const request = {
 
 function getRequests(axiosInstance: AxiosInstance): ApiRequestInstance {
   return {
-    async get<T>(url: string, params = {}): Promise<RequestResponse<T>> {
+    async get<T>(url: string, params = {}, config?: AxiosRequestConfig): Promise<RequestResponse<T>> {
       let error = null;
-      const response = await axiosInstance.get<T>(url, params).catch((e) => {
+      const response = await axiosInstance.get<T>(url, { ...config, params }).catch((e) => {
         error = e;
       });
       if (response != null) {
@@ -33,20 +34,20 @@ function getRequests(axiosInstance: AxiosInstance): ApiRequestInstance {
       return { response: null, error, data: null };
     },
 
-    async post<T, U>(url: string, data: U) {
-      return await request.safe<T, U>(axiosInstance.post, url, data);
+    async post<T, U>(url: string, data: U, config?: AxiosRequestConfig) {
+      return await request.safe<T, U>(axiosInstance.post, url, data, config);
     },
 
-    async put<T, U = T>(url: string, data: U) {
-      return await request.safe<T, U>(axiosInstance.put, url, data);
+    async put<T, U = T>(url: string, data: U, config?: AxiosRequestConfig) {
+      return await request.safe<T, U>(axiosInstance.put, url, data, config);
     },
 
-    async patch<T, U = Partial<T>>(url: string, data: U) {
-      return await request.safe<T, U>(axiosInstance.patch, url, data);
+    async patch<T, U = Partial<T>>(url: string, data: U, config?: AxiosRequestConfig) {
+      return await request.safe<T, U>(axiosInstance.patch, url, data, config);
     },
 
-    async delete<T>(url: string) {
-      return await request.safe<T, undefined>(axiosInstance.delete, url, undefined);
+    async delete<T>(url: string, config?: AxiosRequestConfig) {
+      return await request.safe<T, undefined>(axiosInstance.delete, url, undefined, config);
     },
   };
 }

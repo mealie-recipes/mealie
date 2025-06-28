@@ -13,17 +13,16 @@
               url="none"
               file-name="images"
               accept="image/*"
-              :text="$t('recipe.upload-image')"
+              :text="uploadedImages.length ? $t('recipe.upload-more-images') : $t('recipe.upload-images')"
               :text-btn="false"
               :post="false"
-              @uploaded="uploadImage"
+              :multiple="true"
+              @uploaded="uploadImages"
             />
-
             <div v-if="uploadedImages.length > 0" class="mt-3">
               <p class="my-2">
                 {{ $t("recipe.crop-and-rotate-the-image") }}
               </p>
-
               <v-row>
                 <v-col
                   v-for="(imageUrl, index) in uploadedImagesPreviewUrls"
@@ -46,7 +45,7 @@
             </div>
           </v-container>
         </v-card-text>
-        <v-card-actions v-if="uploadedImages.length > 0">
+        <v-card-actions v-if="uploadedImages.length">
           <div class="w-100 d-flex flex-column align-center">
             <p style="width: 250px">
               <BaseButton rounded block type="submit" :loading="loading" />
@@ -60,7 +59,11 @@
               />
             </p>
             <p v-if="loading" class="mb-0">
-              {{ $t("recipe.please-wait-image-procesing") }}
+              {{
+                uploadedImages.length > 1
+                  ? $t("recipe.please-wait-images-processing")
+                  : $t("recipe.please-wait-image-procesing")
+              }}
             </p>
           </div>
         </v-card-actions>
@@ -92,10 +95,13 @@ export default defineNuxtComponent({
     const uploadedImagesPreviewUrls = ref<string[]>([]);
     const shouldTranslate = ref(true);
 
-    function uploadImage(fileObject: File) {
-      uploadedImages.value = [...uploadedImages.value, fileObject];
-      uploadedImageNames.value = [...uploadedImageNames.value, fileObject.name];
-      uploadedImagesPreviewUrls.value = [...uploadedImagesPreviewUrls.value, URL.createObjectURL(fileObject)];
+    function uploadImages(files: File[]) {
+      uploadedImages.value = [...uploadedImages.value, ...files];
+      uploadedImageNames.value = [...uploadedImageNames.value, ...files.map(file => file.name)];
+      uploadedImagesPreviewUrls.value = [
+        ...uploadedImagesPreviewUrls.value,
+        ...files.map(file => URL.createObjectURL(file)),
+      ];
     }
 
     function clearImage(index: number) {
@@ -133,7 +139,7 @@ export default defineNuxtComponent({
       uploadedImages,
       uploadedImagesPreviewUrls,
       shouldTranslate,
-      uploadImage,
+      uploadImages,
       clearImage,
       createRecipe,
       updateUploadedImage,

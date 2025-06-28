@@ -231,7 +231,7 @@ export default defineNuxtComponent({
       {
         insertDivider: false,
         icon: $globals.icons.fileImage,
-        title: i18n.t("recipe.create-from-image"),
+        title: i18n.t("recipe.create-from-images"),
         subtitle: i18n.t("recipe.create-recipe-from-an-image"),
         to: `/g/${groupSlug.value}/r/create/image`,
         restricted: true,
