@@ -15,7 +15,7 @@
       </template>
       {{ $t('migration.recipe-data-migrations-explanation') }}
     </BasePageTitle>
-    <v-container class="px-0">
+    <v-container :class="$vuetify.display.smAndDown ? 'px-0': ''">
       <BaseCardSectionTitle :title="$t('migration.new-migration')" />
       <v-card
         variant="outlined"
@@ -84,7 +84,7 @@
         </v-card-actions>
       </v-card>
     </v-container>
-    <v-container class="px-0">
+    <v-container class="$vuetify.display.smAndDown ? 'px-0': ''">
       <BaseCardSectionTitle :title="$t('migration.previous-migrations')" />
       <ReportTable
         :items="reports"

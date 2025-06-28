@@ -19,7 +19,8 @@
             v-model="email"
             :prepend-inner-icon="$globals.icons.email"
             variant="solo-filled"
-            flat            autofocus
+            flat
+            autofocus
             name="login"
             :label="$t('user.email')"
             type="text"
