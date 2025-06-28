@@ -9,7 +9,7 @@
           @click="$emit('delete')"
         />
         <v-spacer />
-        <v-menu offset-y>
+        <v-menu offset-y :close-on-content-click="false">
           <template #activator="{ props }">
             <v-btn color="info" v-bind="props" :icon="$globals.icons.edit" />
           </template>
