@@ -246,4 +246,4 @@ export const LOCALES = [
     progress: 90,
     dir: "ltr",
   },
-]
+];

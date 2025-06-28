@@ -1,41 +1,29 @@
 <template>
   <div>
-    <BaseDialog
-      v-model="dialog"
-      :title="$t('data-pages.manage-aliases')"
-      :icon="$globals.icons.edit"
-      :submit-icon="$globals.icons.check"
-      :submit-text="$tc('general.confirm')"
-      @submit="saveAliases"
-      @cancel="$emit('cancel')"
-    >
+    <BaseDialog v-model="dialog" :title="$t('data-pages.manage-aliases')" :icon="$globals.icons.edit"
+      :submit-icon="$globals.icons.check" :submit-text="$t('general.confirm')" can-submit @submit="saveAliases"
+      @cancel="$emit('cancel')">
       <v-card-text>
         <v-container>
           <v-row v-for="alias, i in aliases" :key="i">
             <v-col cols="10">
-              <v-text-field
-                v-model="alias.name"
-                :label="$t('general.name')"
-                :rules="[validators.required]"
-              />
+              <v-text-field v-model="alias.name" :label="$t('general.name')" :rules="[validators.required]" />
             </v-col>
             <v-col cols="2">
-              <BaseButtonGroup
-                :buttons="[
-                  {
-                    icon: $globals.icons.delete,
-                    text: $tc('general.delete'),
-                    event: 'delete'
-                  }
-                ]"
-                @delete="deleteAlias(i)"
-              />
+              <BaseButtonGroup :buttons="[
+                {
+                  icon: $globals.icons.delete,
+                  text: $t('general.delete'),
+                  event: 'delete',
+                },
+              ]" @delete="deleteAlias(i)" />
             </v-col>
           </v-row>
         </v-container>
       </v-card-text>
       <template #custom-card-action>
-        <BaseButton edit @click="createAlias">{{ $t('data-pages.create-alias') }}
+        <BaseButton edit @click="createAlias">
+          {{ $t('data-pages.create-alias') }}
           <template #icon>
             {{ $globals.icons.create }}
           </template>
@@ -46,18 +34,17 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from "@nuxtjs/composition-api";
 import { whenever } from "@vueuse/core";
 import { validators } from "~/composables/use-validators";
-import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
+import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 
 export interface GenericAlias {
   name: string;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
@@ -66,21 +53,22 @@ export default defineComponent({
       required: true,
     },
   },
+  emits: ["submit", "update:modelValue", "cancel"],
   setup(props, context) {
     // V-Model Support
     const dialog = computed({
       get: () => {
-        return props.value;
+        return props.modelValue;
       },
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 
     function createAlias() {
       aliases.value.push({
-        "name": "",
-      })
+        name: "",
+      });
     }
 
     function deleteAlias(index: number) {
@@ -97,11 +85,11 @@ export default defineComponent({
 
     initAliases();
     whenever(
-      () => props.value,
+      () => props.modelValue,
       () => {
         initAliases();
       },
-    )
+    );
 
     function saveAliases() {
       const seenAliasNames: string[] = [];
@@ -111,9 +99,7 @@ export default defineComponent({
           !alias.name
           || alias.name === props.data.name
           || alias.name === props.data.pluralName
-          // @ts-ignore only applies to units
           || alias.name === props.data.abbreviation
-          // @ts-ignore only applies to units
           || alias.name === props.data.pluralAbbreviation
           || seenAliasNames.includes(alias.name)
         ) {
@@ -122,7 +108,7 @@ export default defineComponent({
 
         keepAliases.push(alias);
         seenAliasNames.push(alias.name);
-      })
+      });
 
       aliases.value = keepAliases;
       context.emit("submit", keepAliases);
@@ -135,7 +121,7 @@ export default defineComponent({
       deleteAlias,
       saveAliases,
       validators,
-    }
+    };
   },
 });
 </script>

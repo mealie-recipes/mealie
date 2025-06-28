@@ -1,11 +1,13 @@
 <template>
-  <v-divider :width="width" :class="color" :style="`border-width: ${thickness} !important`" />
+  <v-divider
+    :width="width"
+    :class="color"
+    :style="`border-width: ${thickness} !important`"
+  />
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
-
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     width: {
       type: String,

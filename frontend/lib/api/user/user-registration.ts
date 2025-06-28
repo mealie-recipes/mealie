@@ -1,5 +1,5 @@
 import { BaseAPI } from "../base/base-clients";
-import { CreateUserRegistration } from "~/lib/api/types/user";
+import type { CreateUserRegistration } from "~/lib/api/types/user";
 
 const prefix = "/api";
 

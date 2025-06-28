@@ -1,6 +1,6 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { ApiRequestInstance } from "~/lib/api/types/non-generated";
-import {
+import type { ApiRequestInstance } from "~/lib/api/types/non-generated";
+import type {
   ShoppingListAddRecipeParamsBulk,
   ShoppingListCreate,
   ShoppingListItemCreate,

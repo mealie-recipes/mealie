@@ -1,5 +1,4 @@
 from abc import ABC, abstractmethod
-from typing import TypeVar
 
 from pydantic import UUID4, BaseModel
 from rapidfuzz import fuzz, process
@@ -16,8 +15,6 @@ from mealie.schema.recipe.recipe_ingredient import (
     ParsedIngredient,
 )
 from mealie.schema.response.pagination import PaginationQuery
-
-T = TypeVar("T", bound=BaseModel)
 
 
 class DataMatcher:
@@ -83,7 +80,9 @@ class DataMatcher:
         return self._units_by_alias
 
     @classmethod
-    def find_match(cls, match_value: str, *, store_map: dict[str, T], fuzzy_match_threshold: int = 0) -> T | None:
+    def find_match[T: BaseModel](
+        cls, match_value: str, *, store_map: dict[str, T], fuzzy_match_threshold: int = 0
+    ) -> T | None:
         # check for literal matches
         if match_value in store_map:
             return store_map[match_value]

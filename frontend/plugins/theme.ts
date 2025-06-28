@@ -1,5 +1,3 @@
-import { Plugin } from "@nuxt/types";
-
 export interface ThemeConfig {
   lightPrimary: string;
   lightAccent: string;
@@ -26,39 +24,53 @@ async function fetchTheme(): Promise<ThemeConfig | undefined> {
     const response = await fetch(route);
     const data = await response.json();
     return data as ThemeConfig;
-  } catch (error) {
+  }
+  catch {
     return undefined;
   }
 }
 
-const themePlugin: Plugin =  async ({ $vuetify, $config }) => {
-  let theme = __cachedTheme;
-  if (!theme) {
-    theme = await fetchTheme();
-    __cachedTheme = theme;
-  }
-
-  if (theme) {
-    $vuetify.theme.themes.light.primary = theme.lightPrimary;
-    $vuetify.theme.themes.light.accent = theme.lightAccent;
-    $vuetify.theme.themes.light.secondary = theme.lightSecondary;
-    $vuetify.theme.themes.light.success = theme.lightSuccess;
-    $vuetify.theme.themes.light.info = theme.lightInfo;
-    $vuetify.theme.themes.light.warning = theme.lightWarning;
-    $vuetify.theme.themes.light.error = theme.lightError;
-
-    $vuetify.theme.themes.dark.primary = theme.darkPrimary;
-    $vuetify.theme.themes.dark.accent = theme.darkAccent;
-    $vuetify.theme.themes.dark.secondary = theme.darkSecondary;
-    $vuetify.theme.themes.dark.success = theme.darkSuccess;
-    $vuetify.theme.themes.dark.info = theme.darkInfo;
-    $vuetify.theme.themes.dark.warning = theme.darkWarning;
-    $vuetify.theme.themes.dark.error = theme.darkError;
-  }
-
-  if ($config.useDark) {
-    $vuetify.theme.dark = true;
-  }
-};
-
-export default themePlugin;
+export default defineNuxtPlugin(async (nuxtApp) => {
+  nuxtApp.hook("vuetify:before-create", async ({ vuetifyOptions }) => {
+    let theme = __cachedTheme;
+    if (!theme) {
+      theme = await fetchTheme();
+      __cachedTheme = theme;
+    }
+    vuetifyOptions.theme = {
+      defaultTheme: nuxtApp.$config.public.useDark ? "dark" : "light",
+      variations: {
+        colors: ["primary", "accent", "secondary", "success", "info", "warning", "error", "background"],
+        lighten: 3,
+        darken: 3,
+      },
+      themes: {
+        dark: {
+          dark: true,
+          colors: {
+            primary: theme?.lightPrimary ?? "#E58325",
+            accent: theme?.lightAccent ?? "#007A99",
+            secondary: theme?.lightSecondary ?? "#973542",
+            success: theme?.lightSuccess ?? "#43A047",
+            info: theme?.lightInfo ?? "#1976d2",
+            warning: theme?.lightWarning ?? "#FF6D00",
+            error: theme?.lightError ?? "#EF5350",
+            background: "#1E1E1E",
+          },
+        },
+        light: {
+          dark: false,
+          colors: {
+            primary: theme?.darkPrimary ?? "#E58325",
+            accent: theme?.darkAccent ?? "#007A99",
+            secondary: theme?.darkSecondary ?? "#973542",
+            success: theme?.darkSuccess ?? "#43A047",
+            info: theme?.darkInfo ?? "#1976d2",
+            warning: theme?.darkWarning ?? "#FF6D00",
+            error: theme?.darkError ?? "#EF5350",
+          },
+        },
+      },
+    };
+  });
+});

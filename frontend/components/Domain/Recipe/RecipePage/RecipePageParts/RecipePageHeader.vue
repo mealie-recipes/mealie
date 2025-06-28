@@ -1,6 +1,10 @@
 <template>
   <div>
-    <RecipePageInfoCard :recipe="recipe" :recipe-scale="recipeScale" :landscape="landscape" />
+    <RecipePageInfoCard
+      :recipe="recipe"
+      :recipe-scale="recipeScale"
+      :landscape="landscape"
+    />
     <v-divider />
     <RecipeActionMenu
       :recipe="recipe"
@@ -11,7 +15,7 @@
       :logged-in="isOwnGroup"
       :open="isEditMode"
       :recipe-id="recipe.id"
-      class="ml-auto mt-n2 pb-4"
+      class="ml-auto mt-n7 pb-4"
       @close="setMode(PageMode.VIEW)"
       @json="toggleEditMode()"
       @edit="setMode(PageMode.EDIT)"
@@ -23,17 +27,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext, computed, ref, watch } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useRecipePermissions } from "~/composables/recipes";
 import RecipePageInfoCard from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInfoCard.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
-import { useStaticRoutes, useUserApi  } from "~/composables/api";
-import { HouseholdSummary } from "~/lib/api/types/household";
-import { Recipe } from "~/lib/api/types/recipe";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
+import { useStaticRoutes, useUserApi } from "~/composables/api";
+import type { HouseholdSummary } from "~/lib/api/types/household";
+import type { Recipe } from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { usePageState, usePageUser, PageMode, EditorMode } from "~/composables/recipe-page/shared-state";
-export default defineComponent({
+
+export default defineNuxtComponent({
   components: {
     RecipePageInfoCard,
     RecipeActionMenu,
@@ -52,8 +56,9 @@ export default defineComponent({
       default: false,
     },
   },
+  emits: ["save", "delete"],
   setup(props) {
-    const { $vuetify } = useContext();
+    const { $vuetify } = useNuxtApp();
     const { recipeImage } = useStaticRoutes();
     const { imageKey, pageMode, editMode, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
     const { user } = usePageUser();
@@ -74,7 +79,7 @@ export default defineComponent({
 
     const hideImage = ref(false);
     const imageHeight = computed(() => {
-      return $vuetify.breakpoint.xs ? "200" : "400";
+      return $vuetify.display.xs.value ? "200" : "400";
     });
 
     const recipeImageUrl = computed(() => {
@@ -85,7 +90,7 @@ export default defineComponent({
       () => recipeImageUrl.value,
       () => {
         hideImage.value = false;
-      }
+      },
     );
 
     return {

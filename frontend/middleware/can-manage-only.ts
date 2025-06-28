@@ -1,12 +1,8 @@
-interface CanManageRedirectParams {
-  $auth: any
-  redirect: (path: string) => void
-}
-export default function ({ $auth, redirect }: CanManageRedirectParams) {
+export default defineNuxtRouteMiddleware(() => {
+  const { user } = useMealieAuth();
   // If the user is not allowed to manage group settings redirect to the home page
-  console.log($auth.user)
-  if (!$auth.user.canManage) {
+  if (!user.value?.canManage) {
     console.warn("User is not allowed to manage group settings");
-    return redirect("/")
+    navigateTo("/");
   }
-}
+});

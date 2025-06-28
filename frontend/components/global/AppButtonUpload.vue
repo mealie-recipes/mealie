@@ -1,9 +1,24 @@
 <template>
   <v-form ref="file">
-    <input ref="uploader" class="d-none" type="file" :accept="accept" @change="onFileChanged" />
+    <input
+      ref="uploader"
+      class="d-none"
+      type="file"
+      :accept="accept"
+      @change="onFileChanged"
+    >
     <slot v-bind="{ isSelecting, onButtonClick }">
-      <v-btn :loading="isSelecting" :small="small" :color="color" :text="textBtn" :disabled="disabled" @click="onButtonClick">
-        <v-icon left> {{ effIcon }}</v-icon>
+      <v-btn
+        :loading="isSelecting"
+        :small="small"
+        :color="color"
+        :variant="textBtn ? 'text' : 'elevated'"
+        :disabled="disabled"
+        @click="onButtonClick"
+      >
+        <v-icon start>
+          {{ effIcon }}
+        </v-icon>
         {{ text ? text : defaultText }}
       </v-btn>
     </slot>
@@ -11,12 +26,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 
 const UPLOAD_EVENT = "uploaded";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     small: {
       type: Boolean,
@@ -57,14 +71,15 @@ export default defineComponent({
     disabled: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   setup(props, context) {
     const file = ref<File | null>(null);
     const uploader = ref<HTMLInputElement | null>(null);
     const isSelecting = ref(false);
 
-    const { i18n, $globals } = useContext();
+    const i18n = useI18n();
+    const { $globals } = useNuxtApp();
     const effIcon = props.icon ? props.icon : $globals.icons.upload;
 
     const defaultText = i18n.t("general.upload");
@@ -82,11 +97,15 @@ export default defineComponent({
 
         const formData = new FormData();
         formData.append(props.fileName, file.value);
-
-        const response = await api.upload.file(props.url, formData);
-
-        if (response) {
-          context.emit(UPLOAD_EVENT, response);
+        try {
+          const response = await api.upload.file(props.url, formData);
+          if (response) {
+            context.emit(UPLOAD_EVENT, response);
+          }
+        }
+        catch (e) {
+          console.error(e);
+          context.emit(UPLOAD_EVENT, null);
         }
         isSelecting.value = false;
       }
@@ -107,7 +126,7 @@ export default defineComponent({
         () => {
           isSelecting.value = false;
         },
-        { once: true }
+        { once: true },
       );
       uploader.value?.click();
     }

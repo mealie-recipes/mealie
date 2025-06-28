@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import {
+import type {
   ChangePassword,
   DeleteTokenResponse,
   LongLiveTokenIn,

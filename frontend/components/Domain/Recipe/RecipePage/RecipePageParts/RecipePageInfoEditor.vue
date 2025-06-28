@@ -5,103 +5,117 @@
       class="my-3"
       :label="$t('recipe.recipe-name')"
       :rules="[validators.required]"
+      density="compact"
+      variant="underlined"
     />
     <v-container class="ma-0 pa-0">
       <v-row>
         <v-col cols="3">
           <v-text-field
-            v-model="recipeServings"
+            :model-value="recipeServings"
             type="number"
             :min="0"
             hide-spin-buttons
-            dense
+            density="compact"
             :label="$t('recipe.servings')"
-            @input="validateInput($event, 'recipeServings')"
+            variant="underlined"
+            @update:model-value="validateInput($event, 'recipeServings')"
           />
         </v-col>
         <v-col cols="3">
           <v-text-field
-            v-model="recipeYieldQuantity"
+            :model-value="recipeYieldQuantity"
             type="number"
             :min="0"
             hide-spin-buttons
-            dense
+            density="compact"
             :label="$t('recipe.yield')"
-            @input="validateInput($event, 'recipeYieldQuantity')"
+            variant="underlined"
+            @update:model-value="validateInput($event, 'recipeYieldQuantity')"
           />
         </v-col>
         <v-col cols="6">
           <v-text-field
-          v-model="recipe.recipeYield"
-          dense
-          :label="$t('recipe.yield-text')"
-        />
+            v-model="recipe.recipeYield"
+            density="compact"
+            :label="$t('recipe.yield-text')"
+            variant="underlined"
+          />
         </v-col>
       </v-row>
     </v-container>
 
-    <div class="d-flex flex-wrap" style="gap: 1rem">
-      <v-text-field v-model="recipe.totalTime" :label="$t('recipe.total-time')" />
-      <v-text-field v-model="recipe.prepTime" :label="$t('recipe.prep-time')" />
-      <v-text-field v-model="recipe.performTime" :label="$t('recipe.perform-time')" />
+    <div
+      class="d-flex flex-wrap"
+      style="gap: 1rem"
+    >
+      <v-text-field
+        v-model="recipe.totalTime"
+        :label="$t('recipe.total-time')"
+        density="compact"
+        variant="underlined"
+      />
+      <v-text-field
+        v-model="recipe.prepTime"
+        :label="$t('recipe.prep-time')"
+        density="compact"
+        variant="underlined"
+      />
+      <v-text-field
+        v-model="recipe.performTime"
+        :label="$t('recipe.perform-time')"
+        density="compact"
+        variant="underlined"
+      />
     </div>
-    <v-textarea v-model="recipe.description" auto-grow min-height="100" :label="$t('recipe.description')" />
+    <v-textarea
+      v-model="recipe.description"
+      auto-grow
+      min-height="100"
+      :label="$t('recipe.description')"
+      density="compact"
+      variant="underlined"
+    />
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+<script setup lang="ts">
 import { validators } from "~/composables/use-validators";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { Recipe } from "~/lib/api/types/recipe";
 
-export default defineComponent({
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
+const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
+
+const recipeServings = computed<number>({
+  get() {
+    return recipe.value.recipeServings;
   },
-  setup(props) {
-    const recipeServings = computed<number>({
-      get() {
-        return props.recipe.recipeServings;
-      },
-      set(val) {
-        validateInput(val.toString(), "recipeServings");
-      },
-    });
-
-    const recipeYieldQuantity = computed<number>({
-      get() {
-        return props.recipe.recipeYieldQuantity;
-      },
-      set(val) {
-        validateInput(val.toString(), "recipeYieldQuantity");
-      },
-    });
-
-    function validateInput(value: string | null, property: "recipeServings" | "recipeYieldQuantity") {
-      if (!value) {
-        props.recipe[property] = 0;
-        return;
-      }
-
-      const number = parseFloat(value.replace(/[^0-9.]/g, ""));
-      if (isNaN(number) || number <= 0) {
-        props.recipe[property] = 0;
-        return;
-      }
-
-      props.recipe[property] = number;
-    }
-
-    return {
-      validators,
-      recipeServings,
-      recipeYieldQuantity,
-      validateInput,
-    };
+  set(val) {
+    validateInput(val.toString(), "recipeServings");
   },
 });
+
+const recipeYieldQuantity = computed<number>({
+  get() {
+    return recipe.value.recipeYieldQuantity;
+  },
+  set(val) {
+    validateInput(val.toString(), "recipeYieldQuantity");
+  },
+});
+
+function validateInput(value: string | null, property: "recipeServings" | "recipeYieldQuantity") {
+  if (!value) {
+    recipe.value[property] = 0;
+    return;
+  }
+
+  const number = parseFloat(value.replace(/[^0-9.]/g, ""));
+  if (isNaN(number) || number <= 0) {
+    recipe.value[property] = 0;
+    return;
+  }
+
+  recipe.value[property] = number;
+}
 </script>

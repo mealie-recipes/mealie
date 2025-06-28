@@ -66,6 +66,7 @@ import {
   mdiAlert,
   mdiCheckboxMarkedCircle,
   mdiInformation,
+  mdiInformationOutline,
   mdiInformationVariant,
   mdiBellAlert,
   mdiRefreshCircle,
@@ -105,6 +106,7 @@ import {
   mdiCalendarWeekBegin,
   mdiOpenInNew,
   mdiCheck,
+  mdiCheckBold,
   mdiBroom,
   mdiCartCheck,
   mdiArrowLeftBold,
@@ -147,7 +149,7 @@ import {
   mdiSilverwareForkKnife,
   mdiCodeTags,
   mdiKnife,
-  mdiCookie
+  mdiCookie,
 } from "@mdi/js";
 
 export const icons = {
@@ -181,6 +183,7 @@ export const icons = {
   calendarWeekBegin: mdiCalendarWeekBegin,
   cartCheck: mdiCartCheck,
   check: mdiCheck,
+  checkBold: mdiCheckBold,
   checkboxBlankOutline: mdiCheckboxBlankOutline,
   checkboxOutline: mdiCheckboxOutline,
   checkboxMarkedCircle: mdiCheckboxMarkedCircle,
@@ -228,6 +231,7 @@ export const icons = {
   household: mdiHomeAccount,
   import: mdiImport,
   information: mdiInformation,
+  informationOutline: mdiInformationOutline,
   informationVariant: mdiInformationVariant,
   link: mdiLink,
   lock: mdiLock,

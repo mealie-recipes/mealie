@@ -1,18 +1,19 @@
 <template>
   <v-btn
     :color="color || btnAttrs.color"
-    :small="small"
+    :size="small ? 'small' : 'default'"
     :x-small="xSmall"
     :loading="loading"
     :disabled="disabled"
-    :outlined="btnStyle.outlined"
-    :text="btnStyle.text"
+    :variant="disabled ? 'tonal' : btnStyle.outlined ? 'outlined' : btnStyle.text ? 'text' : 'elevated'"
     :to="to"
     v-bind="$attrs"
-    v-on="$listeners"
     @click="download ? downloadFile() : undefined"
   >
-    <v-icon v-if="!iconRight" left>
+    <v-icon
+      v-if="!iconRight"
+      start
+    >
       <slot name="icon">
         {{ icon || btnAttrs.icon }}
       </slot>
@@ -20,7 +21,10 @@
     <slot name="default">
       {{ text || btnAttrs.text }}
     </slot>
-    <v-icon v-if="iconRight" right>
+    <v-icon
+      v-if="iconRight"
+      end
+    >
       <slot name="icon">
         {{ icon || btnAttrs.icon }}
       </slot>
@@ -29,10 +33,9 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 
-export default defineComponent({
+export default defineNuxtComponent({
   name: "BaseButton",
   props: {
     // Types
@@ -117,7 +120,8 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { $globals, i18n } = useContext();
+    const i18n = useI18n();
+    const { $globals } = useNuxtApp();
     const buttonOptions = {
       create: {
         text: i18n.t("general.create"),
@@ -159,15 +163,20 @@ export default defineComponent({
     const btnAttrs = computed(() => {
       if (props.delete) {
         return buttonOptions.delete;
-      } else if (props.update) {
+      }
+      else if (props.update) {
         return buttonOptions.update;
-      } else if (props.edit) {
+      }
+      else if (props.edit) {
         return buttonOptions.edit;
-      } else if (props.cancel) {
+      }
+      else if (props.cancel) {
         return buttonOptions.cancel;
-      } else if (props.save) {
+      }
+      else if (props.save) {
         return buttonOptions.save;
-      } else if (props.download) {
+      }
+      else if (props.download) {
         return buttonOptions.download;
       }
       return buttonOptions.create;
@@ -191,7 +200,8 @@ export default defineComponent({
     const btnStyle = computed(() => {
       if (props.secondary) {
         return buttonStyles.secondary;
-      } else if (props.minor || props.cancel) {
+      }
+      else if (props.minor || props.cancel) {
         return buttonStyles.minor;
       }
       return buttonStyles.defaults;

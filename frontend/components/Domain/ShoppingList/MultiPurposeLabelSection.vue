@@ -6,12 +6,24 @@
           {{ $globals.icons.tags }}
         </v-icon>
       </span>
-      {{ value.label.name }}
+      {{ modelValue.label.name }}
     </div>
-    <div style="min-width: 72px" class="ml-auto text-right">
-      <v-menu offset-x left min-width="125px">
-        <template #activator="{ on, attrs }">
-          <v-btn small class="ml-2 handle" icon v-bind="attrs" v-on="on">
+    <div
+      style="min-width: 72px"
+      class="ml-auto text-right"
+    >
+      <v-menu
+        offset-x
+        start
+        min-width="125px"
+      >
+        <template #activator="{ props }">
+          <v-btn
+            size="small"
+            class="ml-2 handle"
+            icon
+            v-bind="props"
+          >
             <v-icon>
               {{ $globals.icons.arrowUpDown }}
             </v-icon>
@@ -23,22 +35,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
-import { ShoppingListMultiPurposeLabelOut } from "~/lib/api/types/household";
+import type { ShoppingListMultiPurposeLabelOut } from "~/lib/api/types/household";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Object as () => ShoppingListMultiPurposeLabelOut,
       required: true,
     },
     useColor: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   setup(props, context) {
-    const labelColor = ref<string | undefined>(props.useColor ? props.value.label.color : undefined);
+    const labelColor = ref<string | undefined>(props.useColor ? props.modelValue.label.color : undefined);
 
     function contextHandler(event: string) {
       context.emit(event);

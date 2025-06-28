@@ -1,6 +1,6 @@
-import { Recipe } from "../types/recipe";
-import { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
-import { QueryValue, route } from "~/lib/api/base/route";
+import type { Recipe } from "../types/recipe";
+import type { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
+import { type QueryValue, route } from "~/lib/api/base/route";
 
 export interface CrudAPIInterface {
   requests: ApiRequestInstance;
@@ -23,8 +23,26 @@ export abstract class BaseAPI {
 export abstract class BaseCRUDAPIReadOnly<ReadType>
   extends BaseAPI
   implements CrudAPIInterface {
-  abstract baseRoute: (string);
-  abstract itemRoute(itemId: string | number): string;
+  public baseRoute: string;
+  public itemRouteFn: (itemId: string | number) => string;
+
+  constructor(
+    requests: ApiRequestInstance,
+    baseRoute: string,
+    itemRoute: (itemId: string | number) => string,
+  ) {
+    super(requests);
+    this.baseRoute = baseRoute;
+    this.itemRouteFn = itemRoute;
+  }
+
+  get baseRouteValue() {
+    return this.baseRoute;
+  }
+
+  itemRoute(itemId: string | number): string {
+    return this.itemRouteFn(itemId);
+  }
 
   async getAll(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
     params = Object.fromEntries(Object.entries(params).filter(([_, v]) => v !== null && v !== undefined));

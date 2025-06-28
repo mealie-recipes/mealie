@@ -5,35 +5,54 @@
         v-if="isEditForm"
         v-model="recipe.orgURL"
         class="mt-10"
+        variant="underlined"
         :label="$t('recipe.original-url')"
-      ></v-text-field>
+      />
       <v-btn
         v-else-if="recipe.orgURL && !isCookMode"
-        dense
-        small
         :hover="false"
-        type="label"
         :ripple="false"
-        elevation="0"
+        variant="flat"
         :href="recipe.orgURL"
-        color="secondary darken-1"
+        color="secondary-darken-1"
         target="_blank"
-        class="rounded-sm mr-n2"
+        class="mr-n2"
+        size="small"
       >
         {{ $t("recipe.original-url") }}
       </v-btn>
     </v-card-actions>
     <AdvancedOnly>
-      <v-card v-if="isEditForm" flat class="mb-2 mx-n2">
-        <v-card-title> {{ $t('recipe.api-extras') }} </v-card-title>
-        <v-divider class="ml-4"></v-divider>
+      <v-card
+        v-if="isEditForm"
+        flat
+        class="mb-2 mx-n2"
+      >
+        <v-card-title class="text-h5 font-weight-medium opacity-80">
+{{ $t('recipe.api-extras') }}
+</v-card-title>
+        <v-divider class="ml-4" />
         <v-card-text>
           {{ $t('recipe.api-extras-description') }}
-          <v-row v-for="(_, key) in recipe.extras" :key="key" class="mt-1">
+          <v-row
+            v-for="(_, key) in recipe.extras"
+            :key="key"
+            class="mt-1"
+          >
             <v-col style="max-width: 400px;">
-              <v-text-field v-model="recipe.extras[key]" dense :label="key">
+              <v-text-field
+                v-model="recipe.extras[key]"
+                density="compact"
+                variant="underlined"
+                :label="key"
+              >
                 <template #prepend>
-                  <v-btn color="error" icon class="mt-n4" @click="removeApiExtra(key)">
+                  <v-btn
+                    color="error"
+                    icon
+                    class="mt-n4"
+                    @click="removeApiExtra(key)"
+                  >
                     <v-icon> {{ $globals.icons.delete }} </v-icon>
                   </v-btn>
                 </template>
@@ -43,69 +62,58 @@
         </v-card-text>
         <v-card-actions class="d-flex ml-2 mt-n3">
           <div>
-            <v-text-field v-model="apiNewKey" :label="$t('recipe.message-key')"></v-text-field>
+            <v-text-field
+              v-model="apiNewKey"
+              min-width="200px"
+              :label="$t('recipe.message-key')"
+              variant="underlined"
+            />
           </div>
-          <BaseButton create small class="ml-5" @click="createApiExtra" />
+          <BaseButton
+            create
+            size="small"
+            class="ml-5"
+            @click="createApiExtra"
+          />
         </v-card-actions>
       </v-card>
     </AdvancedOnly>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
+<script setup lang="ts">
 import { usePageState } from "~/composables/recipe-page/shared-state";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
-import { Recipe } from "~/lib/api/types/recipe";
-export default defineComponent({
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
-  },
-  setup(props) {
-    const { isEditForm, isCookMode } = usePageState(props.recipe.slug);
-    const apiNewKey = ref("");
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { Recipe } from "~/lib/api/types/recipe";
 
-    function createApiExtra() {
-      if (!props.recipe) {
-        return;
-      }
+const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
+const { isEditForm, isCookMode } = usePageState(recipe.value.slug);
+const apiNewKey = ref("");
 
-      if (!props.recipe.extras) {
-        props.recipe.extras = {};
-      }
+function createApiExtra() {
+  if (!recipe.value) {
+    return;
+  }
+  if (!recipe.value.extras) {
+    recipe.value.extras = {};
+  }
+  // check for duplicate keys
+  if (Object.keys(recipe.value.extras).includes(apiNewKey.value)) {
+    return;
+  }
+  recipe.value.extras[apiNewKey.value] = "";
+  apiNewKey.value = "";
+}
 
-      // check for duplicate keys
-      if (Object.keys(props.recipe.extras).includes(apiNewKey.value)) {
-        return;
-      }
-
-      props.recipe.extras[apiNewKey.value] = "";
-
-      apiNewKey.value = "";
-    }
-
-    function removeApiExtra(key: string | number) {
-      if (!props.recipe) {
-        return;
-      }
-
-      if (!props.recipe.extras) {
-        return;
-      }
-
-      delete props.recipe.extras[key];
-      props.recipe.extras = { ...props.recipe.extras };
-    }
-    return {
-      removeApiExtra,
-      createApiExtra,
-      apiNewKey,
-      isEditForm,
-      isCookMode,
-    };
-  },
-});
+function removeApiExtra(key: string | number) {
+  if (!recipe.value) {
+    return;
+  }
+  if (!recipe.value.extras) {
+    return;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+  delete recipe.value.extras[key];
+  recipe.value.extras = { ...recipe.value.extras };
+}
 </script>

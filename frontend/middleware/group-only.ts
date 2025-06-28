@@ -1,12 +1,7 @@
-interface GroupOnlyRedirectParams {
-  $auth: any
-  route: any
-  redirect: (path: string) => void
-}
-
-export default function ({ $auth, route, redirect }: GroupOnlyRedirectParams) {
+export default defineNuxtRouteMiddleware((to) => {
+  const { user } = useMealieAuth();
   // this can only be used for routes that have a groupSlug parameter (e.g. /g/:groupSlug/...)
-  if (route.params.groupSlug !== $auth.user.groupSlug) {
-    redirect("/")
+  if (to.params.groupSlug !== user.value?.groupSlug) {
+    navigateTo("/");
   }
-}
+});

@@ -1,5 +1,11 @@
 <template>
-  <v-chip v-bind="$attrs" label :color="label.color || undefined" :text-color="textColor">
+  <v-chip
+    v-bind="$attrs"
+    label
+    variant="flat"
+    :color="label.color || undefined"
+    :text-color="textColor"
+  >
     <span style="max-width: 100%; overflow: hidden; text-overflow: ellipsis;">
       {{ label.name }}
     </span>
@@ -7,12 +13,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
 import { getTextColor } from "~/composables/use-text-color";
-import { MultiPurposeLabelSummary } from "~/lib/api/types/recipe";
+import type { MultiPurposeLabelSummary } from "~/lib/api/types/recipe";
 
-
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     label: {
       type: Object as () => MultiPurposeLabelSummary,

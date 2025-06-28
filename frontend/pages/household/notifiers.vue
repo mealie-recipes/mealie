@@ -3,65 +3,138 @@
     <BaseDialog
       v-model="deleteDialog"
       color="error"
-      :title="$tc('general.confirm')"
+      :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
+      can-confirm
       @confirm="deleteNotifier(deleteTargetId)"
     >
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
       </v-card-text>
     </BaseDialog>
-    <BaseDialog v-model="createDialog" :title="$t('events.new-notification')" @submit="createNewNotifier">
+    <BaseDialog
+      v-model="createDialog"
+      :title="$t('events.new-notification')"
+      can-submit
+      @submit="createNewNotifier"
+    >
       <v-card-text>
-        <v-text-field v-model="createNotifierData.name" :label="$t('general.name')"></v-text-field>
-        <v-text-field v-model="createNotifierData.appriseUrl" :label="$t('events.apprise-url')"></v-text-field>
+        <v-text-field
+          v-model="createNotifierData.name"
+          :label="$t('general.name')"
+        />
+        <v-text-field
+          v-model="createNotifierData.appriseUrl"
+          :label="$t('events.apprise-url')"
+        />
       </v-card-text>
     </BaseDialog>
 
     <BasePageTitle divider>
       <template #header>
-        <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-notifiers.svg')"></v-img>
+        <v-img
+          width="100%"
+          max-height="125"
+          max-width="125"
+          :src="require('~/static/svgs/manage-notifiers.svg')"
+        />
       </template>
-      <template #title> {{ $t("events.event-notifiers") }} </template>
+      <template #title>
+        {{ $t("events.event-notifiers") }}
+      </template>
       {{ $t("events.new-notification-form-description") }}
 
       <div class="mt-3 d-flex flex-wrap justify-space-between mx-n2">
-        <a href="https://github.com/caronc/apprise/wiki" target="_blanks" class="mx-2"> Apprise </a>
-        <a href="https://github.com/caronc/apprise/wiki/Notify_gotify" target="_blanks" class="mx-2"> Gotify </a>
-        <a href="https://github.com/caronc/apprise/wiki/Notify_discord" target="_blanks" class="mx-2"> Discord </a>
-        <a href="https://github.com/caronc/apprise/wiki/Notify_homeassistant" target="_blanks" class="mx-2"> Home Assistant </a>
-        <a href="https://github.com/caronc/apprise/wiki/Notify_matrix" target="_blanks" class="mx-2"> Matrix </a>
-        <a href="https://github.com/caronc/apprise/wiki/Notify_pushover" target="_blanks" class="mx-2"> Pushover </a>
+        <a
+          href="https://github.com/caronc/apprise/wiki"
+          target="_blanks"
+          class="mx-2"
+        > Apprise </a>
+        <a
+          href="https://github.com/caronc/apprise/wiki/Notify_gotify"
+          target="_blanks"
+          class="mx-2"
+        > Gotify </a>
+        <a
+          href="https://github.com/caronc/apprise/wiki/Notify_discord"
+          target="_blanks"
+          class="mx-2"
+        > Discord </a>
+        <a
+          href="https://github.com/caronc/apprise/wiki/Notify_homeassistant"
+          target="_blanks"
+          class="mx-2"
+        > Home
+          Assistant
+        </a>
+        <a
+          href="https://github.com/caronc/apprise/wiki/Notify_matrix"
+          target="_blanks"
+          class="mx-2"
+        > Matrix </a>
+        <a
+          href="https://github.com/caronc/apprise/wiki/Notify_pushover"
+          target="_blanks"
+          class="mx-2"
+        > Pushover </a>
       </div>
     </BasePageTitle>
 
-    <BaseButton create @click="createDialog = true" />
-    <v-expansion-panels v-if="notifiers" class="mt-2">
-      <v-expansion-panel v-for="(notifier, index) in notifiers" :key="index" class="my-2 left-border rounded">
-        <v-expansion-panel-header disable-icon-rotate class="headline">
+    <BaseButton
+      create
+      @click="createDialog = true"
+    />
+    <v-expansion-panels
+      v-if="notifiers"
+      class="mt-2"
+    >
+      <v-expansion-panel
+        v-for="(notifier, index) in notifiers"
+        :key="index"
+        class="my-2 left-border rounded"
+      >
+        <v-expansion-panel-title
+          disable-icon-rotate
+          class="headline"
+        >
           <div class="d-flex align-center">
             {{ notifier.name }}
           </div>
           <template #actions>
-            <v-btn icon class="ml-2">
+            <v-btn
+              icon
+              class="ml-2"
+            >
               <v-icon>
                 {{ $globals.icons.edit }}
               </v-icon>
             </v-btn>
           </template>
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
-          <v-text-field v-model="notifiers[index].name" :label="$t('general.name')"></v-text-field>
+        </v-expansion-panel-title>
+        <v-expansion-panel-text>
+          <v-text-field
+            v-model="notifiers[index].name"
+            :label="$t('general.name')"
+          />
           <v-text-field
             v-model="notifiers[index].appriseUrl"
             :label="$t('events.apprise-url-skipped-if-blank')"
-          ></v-text-field>
-          <v-checkbox v-model="notifiers[index].enabled" :label="$t('events.enable-notifier')" dense></v-checkbox>
+          />
+          <v-checkbox
+            v-model="notifiers[index].enabled"
+            :label="$t('events.enable-notifier')"
+            density="compact"
+          />
 
-          <v-divider></v-divider>
-          <p class="pt-4">{{ $t("events.what-events") }}</p>
+          <v-divider />
+          <p class="pt-4">
+            {{ $t("events.what-events") }}
+          </p>
           <div class="notifier-options">
-            <section v-for="sec in optionsSections" :key="sec.id">
+            <section
+              v-for="sec in optionsSections"
+              :key="sec.id"
+            >
               <h4>
                 {{ sec.text }}
               </h4>
@@ -70,28 +143,28 @@
                 :key="opt.key"
                 v-model="notifiers[index].options[opt.key]"
                 hide-details
-                dense
+                density="compact"
                 :label="opt.text"
               />
             </section>
           </div>
           <v-card-actions class="py-0">
-            <v-spacer></v-spacer>
+            <v-spacer />
             <BaseButtonGroup
               :buttons="[
                 {
                   icon: $globals.icons.delete,
-                  text: $tc('general.delete'),
+                  text: $t('general.delete'),
                   event: 'delete',
                 },
                 {
                   icon: $globals.icons.testTube,
-                  text: $tc('general.test'),
+                  text: $t('general.test'),
                   event: 'test',
                 },
                 {
                   icon: $globals.icons.save,
-                  text: $tc('general.save'),
+                  text: $t('general.save'),
                   event: 'save',
                 },
               ]"
@@ -100,22 +173,21 @@
               @test="testNotifier(notifier)"
             />
           </v-card-actions>
-        </v-expansion-panel-content>
+        </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
   </v-container>
 </template>
+
 <script lang="ts">
-import { defineComponent, useAsync, reactive, useContext, toRefs } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
-import { GroupEventNotifierCreate, GroupEventNotifierOut } from "~/lib/api/types/household";
+import type { GroupEventNotifierCreate, GroupEventNotifierOut } from "~/lib/api/types/household";
 
 interface OptionKey {
   text: string;
   key: keyof GroupEventNotifierOut["options"];
 }
-
 
 interface OptionSection {
   id: number;
@@ -123,10 +195,15 @@ interface OptionSection {
   options: OptionKey[];
 }
 
-export default defineComponent({
-  middleware: ["auth", "advanced-only"],
+export default defineNuxtComponent({
+  middleware: ["sidebase-auth", "advanced-only"],
   setup() {
     const api = useUserApi();
+    const i18n = useI18n();
+
+    useSeoMeta({
+      title: i18n.t("profile.notifiers"),
+    });
 
     const state = reactive({
       deleteDialog: false,
@@ -134,10 +211,10 @@ export default defineComponent({
       deleteTargetId: "",
     });
 
-    const notifiers = useAsync(async () => {
+    const { data: notifiers } = useAsyncData(useAsyncKey(), async () => {
       const { data } = await api.groupEventNotifier.getAll();
       return data?.items;
-    }, useAsyncKey());
+    });
 
     async function refreshNotifiers() {
       const { data } = await api.groupEventNotifier.getAll();
@@ -177,12 +254,11 @@ export default defineComponent({
 
     // ===============================================================
     // Options Definitions
-    const { i18n } = useContext();
 
     const optionsSections: OptionSection[] = [
       {
         id: 1,
-        text: i18n.tc("events.recipe-events"),
+        text: i18n.t("events.recipe-events"),
         options: [
           {
             text: i18n.t("general.create") as string,
@@ -200,27 +276,27 @@ export default defineComponent({
       },
       {
         id: 2,
-        text: i18n.tc("events.user-events"),
+        text: i18n.t("events.user-events"),
         options: [
           {
-            text: i18n.tc("events.when-a-new-user-joins-your-group"),
+            text: i18n.t("events.when-a-new-user-joins-your-group"),
             key: "userSignup",
           },
         ],
       },
       {
         id: 3,
-        text: i18n.tc("events.mealplan-events"),
+        text: i18n.t("events.mealplan-events"),
         options: [
           {
-            text: i18n.tc("events.when-a-user-in-your-group-creates-a-new-mealplan"),
+            text: i18n.t("events.when-a-user-in-your-group-creates-a-new-mealplan"),
             key: "mealplanEntryCreated",
           },
         ],
       },
       {
         id: 4,
-        text: i18n.tc("events.shopping-list-events"),
+        text: i18n.t("events.shopping-list-events"),
         options: [
           {
             text: i18n.t("general.create") as string,
@@ -238,7 +314,7 @@ export default defineComponent({
       },
       {
         id: 5,
-        text: i18n.tc("events.cookbook-events"),
+        text: i18n.t("events.cookbook-events"),
         options: [
           {
             text: i18n.t("general.create") as string,
@@ -256,7 +332,7 @@ export default defineComponent({
       },
       {
         id: 6,
-        text: i18n.tc("events.tag-events"),
+        text: i18n.t("events.tag-events"),
         options: [
           {
             text: i18n.t("general.create") as string,
@@ -274,7 +350,7 @@ export default defineComponent({
       },
       {
         id: 7,
-        text: i18n.tc("events.category-events"),
+        text: i18n.t("events.category-events"),
         options: [
           {
             text: i18n.t("general.create") as string,
@@ -302,11 +378,6 @@ export default defineComponent({
       testNotifier,
       saveNotifier,
       createNewNotifier,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("profile.notifiers"),
     };
   },
 });

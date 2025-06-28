@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { CreateIngredientFood, IngredientFood } from "~/lib/api/types/recipe";
+import type { CreateIngredientFood, IngredientFood } from "~/lib/api/types/recipe";
 
 const prefix = "/api";
 
@@ -14,7 +14,6 @@ export class FoodAPI extends BaseCRUDAPI<CreateIngredientFood, IngredientFood> {
   itemRoute = routes.foodsFood;
 
   merge(fromId: string, toId: string) {
-    // @ts-ignore TODO: fix this
     return this.requests.put<IngredientFood>(routes.merge, { fromFood: fromId, toFood: toId });
   }
 }

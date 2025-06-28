@@ -2,23 +2,34 @@
   <v-container class="narrow-container">
     <BasePageTitle class="mb-2">
       <template #header>
-        <v-img max-height="125" max-width="125" :src="require('~/static/svgs/manage-profile.svg')"></v-img>
+        <v-img
+          width="100%"
+          max-height="125"
+          max-width="125"
+          :src="require('~/static/svgs/manage-profile.svg')"
+        />
       </template>
-      <template #title> {{ $t('user.admin-user-creation') }} </template>
+      <template #title>
+        {{ $t('user.admin-user-creation') }}
+      </template>
     </BasePageTitle>
-    <AppToolbar back> </AppToolbar>
-    <v-form ref="refNewUserForm" @submit.prevent="handleSubmit">
-      <v-card outlined>
+    <AppToolbar back />
+    <v-form
+      ref="refNewUserForm"
+      @submit.prevent="handleSubmit"
+    >
+      <v-card variant="outlined">
         <v-card-text>
           <v-select
+            v-if="groups"
             v-model="selectedGroupId"
             :items="groups"
             rounded
             class="rounded-lg"
-            item-text="name"
+            item-title="name"
             item-value="id"
             :return-object="false"
-            filled
+            variant="filled"
             :label="$t('group.user-group')"
             :rules="[validators.required]"
           />
@@ -28,37 +39,46 @@
             :items="households"
             rounded
             class="rounded-lg"
-            item-text="name"
+            item-title="name"
             item-value="name"
             :return-object="false"
-            filled
+            variant="filled"
             :label="$t('household.user-household')"
-            :hint="selectedGroupId ? '' : $tc('group.you-must-select-a-group-before-selecting-a-household')"
+            :hint="selectedGroupId ? '' : $t('group.you-must-select-a-group-before-selecting-a-household')"
             persistent-hint
             :rules="[validators.required]"
           />
-          <AutoForm v-model="newUserData" :items="userForm" />
+          <AutoForm
+            v-model="newUserData"
+            :items="userForm"
+          />
         </v-card-text>
       </v-card>
       <div class="d-flex pa-2">
-        <BaseButton type="submit" class="ml-auto"></BaseButton>
+        <BaseButton
+          type="submit"
+          class="ml-auto"
+        />
       </div>
     </v-form>
   </v-container>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useRouter, reactive, ref, toRefs, watch } from "@nuxtjs/composition-api";
 import { useAdminApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
 import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
-import { VForm } from "~/types/vuetify";
+import type { UserIn } from "~/lib/api/types/user";
+import type { VForm } from "~/types/auto-forms";
 
-export default defineComponent({
-  layout: "admin",
+export default defineNuxtComponent({
   setup() {
+    definePageMeta({
+      layout: "admin",
+    });
+
     const { userForm } = useUserForm();
     const { groups } = useGroups();
     const { useHouseholdsInGroup } = useAdminHouseholds();
@@ -75,7 +95,7 @@ export default defineComponent({
     const households = useHouseholdsInGroup(selectedGroupId);
 
     const selectedGroup = computed(() => {
-      return groups.value?.find((group) => group.id === selectedGroupId.value);
+      return groups.value?.find(group => group.id === selectedGroupId.value);
     });
     const state = reactive({
       newUserData: {
@@ -101,7 +121,7 @@ export default defineComponent({
     async function handleSubmit() {
       if (!refNewUserForm.value?.validate()) return;
 
-      const { response } = await adminApi.users.createOne(state.newUserData);
+      const { response } = await adminApi.users.createOne(state.newUserData as UserIn);
 
       if (response?.status === 201) {
         router.push("/admin/manage/users");

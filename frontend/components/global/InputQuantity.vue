@@ -1,5 +1,8 @@
 <template>
-  <div class="d-flex align-center" style="max-width: 60px">
+  <div
+    class="d-flex align-center"
+    style="max-width: 60px"
+  >
     <v-text-field
       v-model.number="quantity"
       hide-details
@@ -8,17 +11,14 @@
       :max="max"
       type="number"
       class="rounded-xl"
-      small
-      text
-    >
-    </v-text-field>
+      size="small"
+      variant="plain"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
-
-export default defineComponent({
+export default defineNuxtComponent({
   name: "VInputNumber",
   props: {
     min: {
@@ -37,18 +37,19 @@ export default defineComponent({
       type: Number,
       default: 1,
     },
-    value: {
+    modelValue: {
       type: Number,
       default: 0,
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     const quantity = computed({
       get: () => {
-        return Number(props.value);
+        return Number(props.modelValue);
       },
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 

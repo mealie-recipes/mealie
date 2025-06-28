@@ -1,5 +1,5 @@
 import { BaseAPI } from "../base/base-clients";
-import { AdminAboutInfo, CheckAppConfig } from "~/lib/api/types/admin";
+import type { AdminAboutInfo, CheckAppConfig } from "~/lib/api/types/admin";
 
 const prefix = "/api";
 
