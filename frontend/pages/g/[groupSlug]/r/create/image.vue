@@ -7,61 +7,47 @@
         </v-card-title>
         <v-card-text>
           <p>{{ $t("recipe.create-recipe-from-an-image-description") }}</p>
-          <v-container class="pa-0">
-            <v-row>
-              <v-col cols="auto" align-self="center">
-                <AppButtonUpload
-                  class="ml-auto"
-                  url="none"
-                  file-name="images"
-                  accept="image/*"
-                  :text="$t('recipe.upload-image')"
-                  :text-btn="false"
-                  :post="false"
-                  @uploaded="uploadImage"
-                />
-              </v-col>
-              <v-spacer />
-            </v-row>
+          <v-container class="px-0">
+            <AppButtonUpload
+              class="ml-auto"
+              url="none"
+              file-name="images"
+              accept="image/*"
+              :text="$t('recipe.upload-image')"
+              :text-btn="false"
+              :post="false"
+              @uploaded="uploadImage"
+            />
 
             <div v-if="uploadedImages.length > 0" class="mt-3">
-              <v-row>
-                <v-col cols="12" class="pb-0">
-                  <v-card-text class="pa-0">
-                    <p class="mb-0">
-                      {{ $t("recipe.crop-and-rotate-the-image") }}
-                    </p>
-                  </v-card-text>
-                </v-col>
-              </v-row>
-              <v-row style="max-width: 600px">
-                <v-spacer />
-                <v-col v-for="(imageUrl, index) in uploadedImagesPreviewUrls" :key="index" cols="12">
-                  <v-row>
-                    <v-col cols="auto" align-self="center">
-                      <ImageCropper
-                        :img="imageUrl"
-                        cropper-height="100%"
-                        cropper-width="100%"
-                        @save="(croppedImage) => updateUploadedImage(index, croppedImage)"
-                      />
+              <p class="my-2">
+                {{ $t("recipe.crop-and-rotate-the-image") }}
+              </p>
 
-                      <v-btn color="error" @click="() => clearImage(index)">
-                        <v-icon start>
-                          {{ $globals.icons.close }}
-                        </v-icon>
-                        {{ $t("recipe.remove-image") }}
-                      </v-btn>
-                    </v-col>
-                  </v-row>
+              <v-row>
+                <v-col
+                  v-for="(imageUrl, index) in uploadedImagesPreviewUrls"
+                  :key="index"
+                  cols="12"
+                  sm="6"
+                  lg="4"
+                  xl="3"
+                >
+                  <ImageCropper
+                    :img="imageUrl"
+                    cropper-height="100%"
+                    cropper-width="100%"
+                    class="mt-4"
+                    @save="(croppedImage) => updateUploadedImage(index, croppedImage)"
+                    @delete="clearImage(index)"
+                  />
                 </v-col>
-                <v-spacer />
               </v-row>
             </div>
           </v-container>
         </v-card-text>
         <v-card-actions v-if="uploadedImages.length > 0">
-          <div>
+          <div class="w-100 d-flex flex-column align-center">
             <p style="width: 250px">
               <BaseButton rounded block type="submit" :loading="loading" />
             </p>

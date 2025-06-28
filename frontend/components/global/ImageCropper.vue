@@ -1,48 +1,51 @@
 <template>
-  <v-container class="pa-0">
-    <v-row no-gutters>
-      <v-col
-        cols="8"
-        align-self="center"
-      >
-        <Cropper
-          ref="cropper"
-          class="cropper"
-          :src="img"
-          :default-size="defaultSize"
-          :style="`height: ${cropperHeight}; width: ${cropperWidth};`"
+  <v-card class="ma-0 pt-2" :elevation="4">
+    <v-card-text>
+      <!-- Controls Row (Menu) -->
+      <v-row class="mb-2 mx-1">
+        <v-btn
+          color="error"
+          :icon="$globals.icons.delete"
+          @click="$emit('delete')"
         />
-      </v-col>
-      <v-spacer />
-      <v-col
-        cols="2"
-        align-self="center"
-      >
-        <v-container class="pa-0 mx-0">
-          <v-row
-            v-for="(row, keyRow) in controls"
-            :key="keyRow"
-          >
-            <v-col
-              v-for="(control, keyControl) in row"
-              :key="keyControl"
-              :cols="12 / row.length"
-              class="py-2 mx-0"
-              style="display: flex; align-items: center; justify-content: center;"
-            >
-              <v-btn
-                icon
-                :color="control.color"
-                @click="control.callback()"
-              >
-                <v-icon> {{ control.icon }} </v-icon>
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-col>
-    </v-row>
-  </v-container>
+        <v-spacer />
+        <v-menu offset-y>
+          <template #activator="{ props }">
+            <v-btn color="info" v-bind="props" :icon="$globals.icons.edit" />
+          </template>
+          <v-list>
+            <template v-for="(row, keyRow) in controls" :key="keyRow">
+              <v-list-item-group>
+                <v-list-item
+                  v-for="(control, keyControl) in row"
+                  :key="keyControl"
+                  @click="control.callback()"
+                >
+                  <v-list-item-icon>
+                    <v-icon :color="control.color">
+                      {{ control.icon }}
+                    </v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <!-- Optionally, you can add a label here if you want -->
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list-item-group>
+            </template>
+          </v-list>
+        </v-menu>
+      </v-row>
+
+      <!-- Image Row -->
+      <Cropper
+        ref="cropper"
+        class="cropper"
+        :src="img"
+        :default-size="defaultSize"
+        :style="`height: ${cropperHeight}; width: ${cropperWidth};`"
+      />
+    </v-card-text>
+  </v-card>
 </template>
 
 <script lang="ts">
@@ -65,9 +68,9 @@ export default defineNuxtComponent({
       default: undefined,
     },
   },
-  emits: ["save"],
+  emits: ["save", "delete"],
   setup(_, context) {
-    const cropper = ref<Cropper>();
+    const cropper = ref<any>();
     const { $globals } = useNuxtApp();
 
     interface Control {
@@ -153,7 +156,6 @@ export default defineNuxtComponent({
   },
 
   methods: {
-    // @ts-expect-error https://advanced-cropper.github.io/vue-advanced-cropper/guides/advanced-recipes.html
     defaultSize({ imageSize, visibleArea }) {
       return {
         width: (visibleArea || imageSize).width,
