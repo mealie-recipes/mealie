@@ -59,7 +59,7 @@
     <v-app-bar
       color="transparent"
       flat
-      class="mt-n1 rounded align-center px-4 position-relative w-100 left-0 top-0"
+      class="mt-n1 rounded align-center position-relative w-100 left-0 top-0"
     >
       <v-icon
         size="large"

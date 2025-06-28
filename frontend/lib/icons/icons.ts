@@ -150,6 +150,7 @@ import {
   mdiCodeTags,
   mdiKnife,
   mdiCookie,
+  mdiBellPlus,
 } from "@mdi/js";
 
 export const icons = {
@@ -174,6 +175,7 @@ export const icons = {
   arrowUpDown: mdiDrag,
   backupRestore: mdiBackupRestore,
   bellAlert: mdiBellAlert,
+  bellPlus: mdiBellPlus,
   broom: mdiBroom,
   calendar: mdiCalendar,
   calendarMinus: mdiCalendarMinus,

@@ -17,9 +17,10 @@
     <section class="d-flex justify-center">
       <v-card
         class="mt-4"
-        width="500px"
+        width="100%"
+        flat
       >
-        <v-card-text>
+        <v-card-text class="px-0">
           <v-form
             ref="domNewTokenForm"
             @submit.prevent
@@ -38,16 +39,16 @@
               readonly
               rows="3"
             />
-            <v-list-subheader class="text-center">
+            <p>
               {{
                 $t(
                   "settings.token.copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again",
                 )
               }}
-            </v-list-subheader>
+            </p>
           </template>
         </v-card-text>
-        <v-card-actions>
+        <v-card-actions class="px-0">
           <BaseButton
             v-if="createdToken"
             cancel
@@ -78,14 +79,11 @@
       :title="$t('settings.token.active-tokens')"
     />
     <section class="d-flex flex-column">
+      <v-list>
       <div
         v-for="(token, index) in user.tokens"
         :key="index"
       >
-        <v-card
-          variant="outlined"
-          class="mb-2"
-        >
           <v-list-item>
             <v-list-item-title>
               {{ token.name }}
@@ -93,16 +91,17 @@
             <v-list-item-subtitle>
               {{ $t('general.created-on-date', [$d(new Date(token.createdAt!))]) }}
             </v-list-item-subtitle>
-            <v-list-item-action>
+            <template #append>
               <BaseButton
                 delete
                 small
                 @click="deleteToken(token.id)"
               />
-            </v-list-item-action>
+            </template>
           </v-list-item>
-        </v-card>
-      </div>
+          <v-divider class="mx-2 my-2" />
+        </div>
+      </v-list>
     </section>
   </v-container>
 </template>

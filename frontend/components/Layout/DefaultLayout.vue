@@ -105,7 +105,7 @@
         </v-list-item>
       </template>
     </AppSidebar>
-    <v-main class="pt-16">
+    <v-main class="pt-12">
       <v-scroll-x-transition>
         <div>
           <NuxtPage />

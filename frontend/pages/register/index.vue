@@ -47,7 +47,7 @@
       <!-- Form Container -->
       <div class="d-flex justify-center grow items-center my-4">
         <template v-if="state.ctx.state === States.Initial">
-          <div width="600px">
+          <v-container>
             <v-card-title class="text-h5 my-4 mb-5 pb-0 text-center">
               {{ $t("user-registration.user-registration") }}
             </v-card-title>
@@ -60,7 +60,7 @@
                 color="primary"
                 dark
                 hover
-                width="300px"
+                width="320px"
                 @click="initial.joinGroup"
               >
                 <v-card-title class="d-flex align-center justify-center py-3">
@@ -77,7 +77,7 @@
                 color="primary"
                 dark
                 hover
-                width="300px"
+                width="320px"
                 @click="initial.createGroup"
               >
                 <v-card-title class="d-flex align-center justify-center py-3">
@@ -92,7 +92,7 @@
                 </v-card-title>
               </v-card>
             </div>
-          </div>
+          </v-container>
         </template>
 
         <template v-else-if="state.ctx.state === States.ProvideToken">
@@ -333,9 +333,7 @@ import type { VForm } from "~/types/auto-forms";
 
 const inputAttrs = {
   variant: "filled",
-  rounded: true,
   validateOnBlur: true,
-  class: "rounded-lg",
 };
 
 export default defineNuxtComponent({

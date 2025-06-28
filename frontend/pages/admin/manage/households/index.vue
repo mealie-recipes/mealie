@@ -12,8 +12,6 @@
             v-if="groups"
             v-model="createHouseholdForm.data.groupId"
             :items="groups"
-            rounded
-            class="rounded-lg"
             item-title="name"
             item-value="id"
             :return-object="false"

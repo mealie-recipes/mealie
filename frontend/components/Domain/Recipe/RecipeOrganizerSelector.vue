@@ -9,9 +9,9 @@
     closable-chips
     item-title="name"
     multiple
-    variant="underlined"
+    :variant="variant"
     :prepend-inner-icon="icon"
-    :append-icon="$globals.icons.create"
+    :append-icon="showAdd ? $globals.icons.create : undefined"
     return-object
     auto-select-first
     class="pa-0"
@@ -92,6 +92,10 @@ export default defineNuxtComponent({
     showIcon: {
       type: Boolean,
       default: true,
+    },
+    variant: {
+      type: String as () => "filled" | "underlined" | "outlined" | "plain" | "solo" | "solo-inverted" | "solo-filled",
+      default: "outlined",
     },
   },
   emits: ["update:modelValue"],

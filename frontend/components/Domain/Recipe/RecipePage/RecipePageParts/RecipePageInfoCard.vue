@@ -11,15 +11,17 @@
         class="d-flex flex-column justify-center align-center"
       >
         <v-card-text class="w-100">
-          <v-card-title class="text-h5 font-weight-regular pa-0 d-flex flex-column align-center justify-center opacity-80">
+          <div class="d-flex flex-column align-center">
+          <v-card-title class="text-h5 font-weight-regular pa-0 text-wrap text-center opacity-80">
             {{ recipe.name }}
-            <RecipeRating
+          </v-card-title>
+          <RecipeRating
               :key="recipe.slug"
               :value="recipe.rating"
               :recipe-id="recipe.id"
               :slug="recipe.slug"
             />
-          </v-card-title>
+          </div>
           <v-divider class="my-2" />
           <SafeMarkdown :source="recipe.description" class="my-3" />
           <v-divider v-if="recipe.description" />
@@ -52,7 +54,7 @@
                 </v-col>
               </v-row>
             </div>
-            <div class="mx-6">
+            <div v-if="recipe.prepTime || recipe.totalTime || recipe.performTime" class="mx-6">
               <RecipeTimeCard
                 container-class="d-flex flex-wrap justify-center"
                 :prep-time="recipe.prepTime"

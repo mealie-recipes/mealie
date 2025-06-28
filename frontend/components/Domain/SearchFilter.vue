@@ -125,6 +125,7 @@
             <v-alert
               type="info"
               :text="$t('search.no-results')"
+              class="mb-0"
             />
           </div>
         </v-card-text>

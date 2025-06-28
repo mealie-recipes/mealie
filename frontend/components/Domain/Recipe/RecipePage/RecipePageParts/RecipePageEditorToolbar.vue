@@ -1,31 +1,28 @@
 <template>
-  <div class="d-flex justify-start align-top py-2">
+  <div class="d-flex justify-start align-top flex-wrap">
     <RecipeImageUploadBtn
-      class="my-1"
+      class="my-2"
       :slug="recipe.slug"
       @upload="uploadImage"
       @refresh="imageKey++"
     />
     <RecipeSettingsMenu
       v-model="recipe.settings"
-      class="my-1 mx-1"
+      class="my-2 mx-1"
       :is-owner="recipe.userId == user.id"
       @upload="uploadImage"
     />
     <v-spacer />
-    <v-container
-      class="py-0"
-      style="width: 40%;"
-    >
       <v-select
         v-model="recipe.userId"
+        class="my-2"
+        max-width="300"
         :items="allUsers"
-        item-title="fullName"
-        item-value="id"
+        :item-props="itemsProps"
         :label="$t('general.owner')"
-        hide-details
         :disabled="!canEditOwner"
-        variant="underlined"
+        variant="outlined"
+        density="compact"
       >
         <template #prepend>
           <UserAvatar
@@ -34,17 +31,7 @@
           />
         </template>
       </v-select>
-      <v-card-text
-        v-if="ownerHousehold"
-        class="pa-0 d-flex"
-        style="align-items: flex-end;"
-      >
-        <v-spacer />
-        <v-icon>{{ $globals.icons.household }}</v-icon>
-        <span class="pl-1">{{ ownerHousehold.name }}</span>
-      </v-card-text>
-    </v-container>
-  </div>
+</div>
 </template>
 
 <script setup lang="ts">
@@ -71,13 +58,15 @@ const canEditOwner = computed(() => {
 
 const { store: allUsers } = useUserStore();
 const { store: households } = useHouseholdStore();
-const ownerHousehold = computed(() => {
-  const owner = allUsers.value.find(u => u.id === recipe.value.userId);
-  if (!owner) {
-    return null;
-  }
-  return households.value.find(h => h.id === owner.householdId);
-});
+
+function itemsProps(item: any) {
+  const owner = allUsers.value.find(u => u.id === item.id);
+  return {
+    value: item.id,
+    title: item.fullName,
+    subtitle: owner ? households.value.find(h => h.id === owner.householdId)?.name || "" : "",
+  };
+}
 
 async function uploadImage(fileObject: File) {
   if (!recipe.value || !recipe.value.slug) {

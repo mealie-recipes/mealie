@@ -189,6 +189,7 @@
                 :show-add="false"
                 :show-label="false"
                 :show-icon="false"
+                variant="underlined"
                 @update:model-value="setOrganizerValues(field, index, $event)"
               />
               <RecipeOrganizerSelector
@@ -198,6 +199,7 @@
                 :show-add="false"
                 :show-label="false"
                 :show-icon="false"
+                variant="underlined"
                 @update:model-value="setOrganizerValues(field, index, $event)"
               />
               <RecipeOrganizerSelector
@@ -207,6 +209,7 @@
                 :show-add="false"
                 :show-label="false"
                 :show-icon="false"
+                variant="underlined"
                 @update:model-value="setOrganizerValues(field, index, $event)"
               />
               <RecipeOrganizerSelector
@@ -216,6 +219,7 @@
                 :show-add="false"
                 :show-label="false"
                 :show-icon="false"
+                variant="underlined"
                 @update:model-value="setOrganizerValues(field, index, $event)"
               />
               <RecipeOrganizerSelector
@@ -225,6 +229,7 @@
                 :show-add="false"
                 :show-label="false"
                 :show-icon="false"
+                variant="underlined"
                 @update:model-value="setOrganizerValues(field, index, $event)"
               />
             </v-col>
