@@ -596,12 +596,13 @@
     "create-recipe-description": "Создать новый рецепт с нуля.",
     "create-recipes": "Создать Рецепт",
     "import-with-zip": "Импорт из .zip",
-    "create-recipe-from-an-image": "Создать рецепт из изображения",
-    "create-recipe-from-an-image-description": "Создайте рецепт, загрузив изображение. Mealie попытается извлечь текст из изображения с помощью ИИ и создать рецепт из него.",
+    "create-recipe-from-an-image": "Create Recipe from Images",
+    "create-recipe-from-an-image-description": "Create a recipe by uploading images of the recipe text. Mealie will attempt to extract the text from the images using AI and create a new recipe from it.",
     "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
-    "create-from-image": "Создать из изображения",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Перевести рецепт на мой язык",
     "please-wait-image-procesing": "Подождите, идет обработка изображения.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Массовый импорт по URL",
     "debug-scraper": "Отладка сканирования",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Создайте рецепт, указав имя. Все рецепты должны иметь уникальные имена.",
@@ -660,7 +661,10 @@
       "no-food": "Нет еды"
     },
     "reset-servings-count": "Сбросить количество порций",
-    "not-linked-ingredients": "Дополнительные ингредиенты"
+    "not-linked-ingredients": "Дополнительные ингредиенты",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Поиск рецептов",
