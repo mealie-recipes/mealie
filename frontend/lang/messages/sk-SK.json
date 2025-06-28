@@ -596,12 +596,13 @@
     "create-recipe-description": "Vytvoriť nový recept od začiatku.",
     "create-recipes": "Vytvoriť recept",
     "import-with-zip": "Importovať .zip súbor",
-    "create-recipe-from-an-image": "Vytvoriť recept z obrázka",
-    "create-recipe-from-an-image-description": "Vytvoriť recept nahraním fotografie jedla. Mealie sa pokúsi previesť obrázok na text pomocou AI a vytvorí k nemu recept.",
+    "create-recipe-from-an-image": "Create Recipe from Images",
+    "create-recipe-from-an-image-description": "Create a recipe by uploading images of the recipe text. Mealie will attempt to extract the text from the images using AI and create a new recipe from it.",
     "crop-and-rotate-the-image": "Orežte a otočte obrázok tak, aby bol viditeľný iba text a aby mal správnu orientáciu.",
-    "create-from-image": "Vytvoriť z obrázka",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Preložiť recept do môjho jazyka",
     "please-wait-image-procesing": "Čakajte, prosím. Obrázok sa spracováva. Môže to chvíľku trvať.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Hromadný URL import",
     "debug-scraper": "Ladiť scraper",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Vytvoriť recept zadaním názvu. Všetky recepty musia mať jedinečné názvy.",
@@ -660,7 +661,10 @@
       "no-food": "Žiadne suroviny"
     },
     "reset-servings-count": "Resetovať počet porcií",
-    "not-linked-ingredients": "Ďalšie suroviny"
+    "not-linked-ingredients": "Ďalšie suroviny",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Hľadač receptov",
