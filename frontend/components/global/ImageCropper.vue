@@ -6,12 +6,13 @@
         <v-btn
           color="error"
           :icon="$globals.icons.delete"
+          :disabled="submitted"
           @click="$emit('delete')"
         />
         <v-spacer />
         <v-menu offset-y :close-on-content-click="false">
           <template #activator="{ props }">
-            <v-btn color="info" v-bind="props" :icon="$globals.icons.edit" />
+            <v-btn color="info" v-bind="props" :icon="$globals.icons.edit" :disabled="submitted" />
           </template>
           <v-list>
             <template v-for="(row, keyRow) in controls" :key="keyRow">
@@ -19,16 +20,12 @@
                 <v-list-item
                   v-for="(control, keyControl) in row"
                   :key="keyControl"
+                  :disabled="submitted"
                   @click="control.callback()"
                 >
                   <v-list-item-icon>
-                    <v-icon :color="control.color">
-                      {{ control.icon }}
-                    </v-icon>
+                    <v-icon :color="control.color" :icon="control.icon" />
                   </v-list-item-icon>
-                  <v-list-item-content>
-                    <!-- Optionally, you can add a label here if you want -->
-                  </v-list-item-content>
                 </v-list-item>
               </v-list-item-group>
             </template>
@@ -66,6 +63,10 @@ export default defineNuxtComponent({
     cropperWidth: {
       type: String,
       default: undefined,
+    },
+    submitted: {
+      type: Boolean,
+      default: false,
     },
   },
   emits: ["save", "delete"],

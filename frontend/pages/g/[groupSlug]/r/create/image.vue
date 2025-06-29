@@ -36,6 +36,7 @@
                     :img="imageUrl"
                     cropper-height="100%"
                     cropper-width="100%"
+                    :submitted="loading"
                     class="mt-4"
                     @save="(croppedImage) => updateUploadedImage(index, croppedImage)"
                     @delete="clearImage(index)"
@@ -130,6 +131,7 @@ export default defineNuxtComponent({
     }
 
     function updateUploadedImage(index: number, croppedImage: Blob) {
+      console.log("Cropped image:", croppedImage);
       uploadedImages.value[index] = croppedImage;
     }
 
