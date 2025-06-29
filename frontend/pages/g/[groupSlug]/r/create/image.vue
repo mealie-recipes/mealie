@@ -131,8 +131,8 @@ export default defineNuxtComponent({
     }
 
     function updateUploadedImage(index: number, croppedImage: Blob) {
-      console.log("Cropped image:", croppedImage);
       uploadedImages.value[index] = croppedImage;
+      uploadedImagesPreviewUrls.value[index] = URL.createObjectURL(croppedImage);
     }
 
     return {
