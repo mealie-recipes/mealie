@@ -1,5 +1,6 @@
 <template>
   <v-app dark>
+    <NuxtPwaManifest />
     <TheSnackbar />
 
     <v-banner

@@ -2,7 +2,7 @@
   <div>
     <BasePageTitle
       v-if="groupName"
-      class="bg-grey-darken-4 mt-n4 pt-8"
+      class="mt-n4 pt-8"
     >
       <template #header>
         <v-img

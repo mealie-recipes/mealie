@@ -17,7 +17,7 @@
           id="arrow-search"
           v-model="search.query.value"
           autofocus
-          variant="solo-filled"
+          variant="solo"
           flat
           autocomplete="off"
           bg-color="primary-lighten-1"

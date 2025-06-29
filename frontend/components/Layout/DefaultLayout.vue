@@ -1,5 +1,6 @@
 <template>
   <v-app dark>
+    <NuxtPwaManifest />
     <TheSnackbar />
 
     <AppHeader>
@@ -104,7 +105,7 @@
         </v-list-item>
       </template>
     </AppSidebar>
-    <v-main class="pt-16">
+    <v-main class="pt-12">
       <v-scroll-x-transition>
         <div>
           <NuxtPage />
@@ -118,8 +119,8 @@
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { SideBarLink } from "~/types/application-types";
 import { useAppInfo } from "~/composables/api";
-import { useCookbooks, usePublicCookbooks } from "~/composables/use-group-cookbooks";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
+import { useCookbookStore, usePublicCookbookStore } from "~/composables/store/use-cookbook-store";
 import { useHouseholdStore, usePublicHouseholdStore } from "~/composables/store/use-household-store";
 import { useToggleDarkMode } from "~/composables/use-utils";
 import type { ReadCookBook } from "~/lib/api/types/cookbook";
@@ -136,13 +137,14 @@ export default defineNuxtComponent({
     const route = useRoute();
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
-    const loggedInCookbooks = useCookbooks();
-    const publicCookbooks = usePublicCookbooks(groupSlug.value || "");
-    const cookbooks = computed(() =>
-      isOwnGroup.value ? loggedInCookbooks.cookbooks.value : publicCookbooks.cookbooks.value,
-    );
-
     const cookbookPreferences = useCookbookPreferences();
+    const { store: cookbooks, actions: cookbooksActions } = isOwnGroup.value ? useCookbookStore() : usePublicCookbookStore(groupSlug.value || "");
+    onMounted(() => {
+      if (!cookbooks.value.length) {
+        cookbooksActions.refresh();
+      }
+    });
+
     const { store: households } = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value || "");
 
     const householdsById = computed(() => {
@@ -176,10 +178,6 @@ export default defineNuxtComponent({
 
     const currentUserHouseholdId = computed(() => $auth.user.value?.householdId);
     const cookbookLinks = computed<SideBarLink[]>(() => {
-      if (!cookbooks.value || !households.value) {
-        return [];
-      }
-
       const sortedCookbooks = [...cookbooks.value].sort((a, b) => (a.position || 0) - (b.position || 0));
 
       const ownLinks: SideBarLink[] = [];
@@ -233,7 +231,7 @@ export default defineNuxtComponent({
       {
         insertDivider: false,
         icon: $globals.icons.fileImage,
-        title: i18n.t("recipe.create-from-image"),
+        title: i18n.t("recipe.create-from-images"),
         subtitle: i18n.t("recipe.create-recipe-from-an-image"),
         to: `/g/${groupSlug.value}/r/create/image`,
         restricted: true,

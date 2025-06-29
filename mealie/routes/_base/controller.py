@@ -6,20 +6,18 @@ See their repository for details -> https://github.com/dmontagu/fastapi-utils
 
 import inspect
 from collections.abc import Callable
-from typing import Any, ClassVar, ForwardRef, TypeVar, cast, get_origin, get_type_hints
+from typing import Any, ClassVar, ForwardRef, cast, get_origin, get_type_hints
 
 from fastapi import APIRouter, Depends
 from fastapi.routing import APIRoute
 from starlette.routing import Route, WebSocketRoute
-
-T = TypeVar("T")
 
 CBV_CLASS_KEY = "__cbv_class__"
 INCLUDE_INIT_PARAMS_KEY = "__include_init_params__"
 RETURN_TYPES_FUNC_KEY = "__return_types_func__"
 
 
-def controller(router: APIRouter, *urls: str) -> Callable[[type[T]], type[T]]:
+def controller[T](router: APIRouter, *urls: str) -> Callable[[type[T]], type[T]]:
     """
     This function returns a decorator that converts the decorated into a class-based view for the provided router.
     Any methods of the decorated class that are decorated as endpoints using the router provided to this function
@@ -36,7 +34,7 @@ def controller(router: APIRouter, *urls: str) -> Callable[[type[T]], type[T]]:
     return decorator
 
 
-def _cbv(router: APIRouter, cls: type[T], *urls: str, instance: Any | None = None) -> type[T]:
+def _cbv[T](router: APIRouter, cls: type[T], *urls: str, instance: Any | None = None) -> type[T]:
     """
     Replaces any methods of the provided class `cls` that are endpoints of routes in `router` with updated
     function calls that will properly inject an instance of `cls`.

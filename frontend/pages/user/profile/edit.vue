@@ -149,7 +149,7 @@
                       variant="underlined"
                       @click:append="showPassword = !showPassword"
                     />
-                    <UserPasswordStrength :value="password.newOne" />
+                    <UserPasswordStrength v-model="password.newOne" />
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
