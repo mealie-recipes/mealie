@@ -10,6 +10,14 @@
           @click="$emit('delete')"
         />
         <v-spacer />
+        <v-btn
+          v-if="changed"
+          class="mr-2"
+          color="success"
+          :icon="$globals.icons.save"
+          :disabled="submitted"
+          @click="() => save()"
+        />
         <v-menu offset-y :close-on-content-click="false">
           <template #activator="{ props }">
             <v-btn color="info" v-bind="props" :icon="$globals.icons.edit" :disabled="submitted" />
@@ -40,6 +48,8 @@
         :src="img"
         :default-size="defaultSize"
         :style="`height: ${cropperHeight}; width: ${cropperWidth};`"
+        @change="changed = changed + 1"
+        @ready="changed = -1"
       />
     </v-card-text>
   </v-card>
@@ -72,6 +82,7 @@ export default defineNuxtComponent({
   emits: ["save", "delete"],
   setup(_, context) {
     const cropper = ref<any>();
+    const changed = ref(0);
     const { $globals } = useNuxtApp();
 
     interface Control {
@@ -105,41 +116,32 @@ export default defineNuxtComponent({
           callback: () => rotate(90),
         },
       ],
-      [
-        {
-          color: "success",
-          icon: $globals.icons.save,
-          callback: () => save(),
-        },
-      ],
     ]);
 
     function flip(hortizontal: boolean, vertical?: boolean) {
       if (!cropper.value) {
         return;
       }
-
       cropper.value.flip(hortizontal, vertical);
+      changed.value = changed.value + 1;
     }
 
     function rotate(angle: number) {
       if (!cropper.value) {
         return;
       }
-
       cropper.value.rotate(angle);
+      changed.value = changed.value + 1;
     }
 
     function save() {
       if (!cropper.value) {
         return;
       }
-
       const { canvas } = cropper.value.getResult();
       if (!canvas) {
         return;
       }
-
       canvas.toBlob((blob) => {
         if (blob) {
           context.emit("save", blob);
@@ -153,6 +155,7 @@ export default defineNuxtComponent({
       flip,
       rotate,
       save,
+      changed,
     };
   },
 
