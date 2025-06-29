@@ -1,15 +1,12 @@
-import { useContext } from "@nuxtjs/composition-api";
-import { detectServerBaseUrl } from "../use-utils";
-
 function UnknownToString(ukn: string | unknown) {
   return typeof ukn === "string" ? ukn : "";
 }
 
 export const useStaticRoutes = () => {
-  const { $config, req } = useContext();
-  const serverBase = detectServerBaseUrl(req);
+  const { $config } = useNuxtApp();
+  const serverBase = useRequestURL().origin;
 
-  const prefix = `${$config.SUB_PATH as string}/api`.replace("//", "/");
+  const prefix = `${$config.public.SUB_PATH}/api`.replace("//", "/");
 
   const fullBase = serverBase + prefix;
 
@@ -20,13 +17,13 @@ export const useStaticRoutes = () => {
 
   function recipeSmallImage(recipeId: string, version: string | unknown = "", key: string | number = 1) {
     return `${fullBase}/media/recipes/${recipeId}/images/min-original.webp?rnd=${key}&version=${UnknownToString(
-      version
+      version,
     )}`;
   }
 
   function recipeTinyImage(recipeId: string, version: string | unknown = "", key: string | number = 1) {
     return `${fullBase}/media/recipes/${recipeId}/images/tiny-original.webp?rnd=${key}&version=${UnknownToString(
-      version
+      version,
     )}`;
   }
 

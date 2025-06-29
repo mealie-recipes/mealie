@@ -1,5 +1,3 @@
-import { reactive } from "@nuxtjs/composition-api";
-
 export enum States {
   Initial,
   ProvideToken,

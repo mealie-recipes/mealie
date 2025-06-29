@@ -1,5 +1,5 @@
 import { BaseAPI } from "../base/base-clients";
-import { DebugResponse } from "~/lib/api/types/admin";
+import type { DebugResponse } from "~/lib/api/types/admin";
 
 const prefix = "/api";
 

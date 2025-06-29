@@ -1,16 +1,22 @@
 <template>
-  <v-btn x-small :href="href" color="primary" target="_blank">
-    <v-icon left small>
+  <v-btn
+    size="x-small"
+    :href="href"
+    color="primary"
+    target="_blank"
+  >
+    <v-icon
+      start
+      size="small"
+    >
       {{ $globals.icons.folderOutline }}
     </v-icon>
-    {{ $tc("about.docs") }}
+    {{ $t("about.docs") }}
   </v-btn>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
-
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     link: {
       type: String,

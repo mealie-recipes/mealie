@@ -1,19 +1,17 @@
 <template>
-  <div scoped-slot></div>
+  <div scoped-slot />
 </template>
 
 <script lang="ts">
-import { defineComponent, useContext } from "@nuxtjs/composition-api";
-
 /**
  * Renderless component that only renders if the user is logged in.
  * and has advanced options toggled.
  */
-export default defineComponent({
+export default defineNuxtComponent({
   setup(_, ctx) {
-    const { $auth } = useContext();
+    const $auth = useMealieAuth();
 
-    const r = $auth?.user?.advanced || false;
+    const r = $auth.user.value?.advanced || false;
 
     return () => {
       return r ? ctx.slots.default?.() : null;

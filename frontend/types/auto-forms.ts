@@ -1,3 +1,5 @@
+import type { VForm as VuetifyForm } from "vuetify/components/VForm";
+
 type FormFieldType = "text" | "textarea" | "list" | "select" | "object" | "boolean" | "color" | "password";
 
 export interface FormSelectOption {
@@ -19,3 +21,5 @@ export interface FormField {
 }
 
 export type AutoFormItems = FormField[];
+
+export type VForm = InstanceType<typeof VuetifyForm>;

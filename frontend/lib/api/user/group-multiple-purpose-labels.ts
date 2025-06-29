@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { MultiPurposeLabelCreate, MultiPurposeLabelOut, MultiPurposeLabelUpdate } from "~/lib/api/types/labels";
+import type { MultiPurposeLabelCreate, MultiPurposeLabelOut, MultiPurposeLabelUpdate } from "~/lib/api/types/labels";
 
 const prefix = "/api";
 

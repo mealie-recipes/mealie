@@ -1,7 +1,7 @@
 from functools import cached_property
 
 import requests
-from fastapi import APIRouter, BackgroundTasks, Depends, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, Body, Depends, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from pydantic import UUID4
 
@@ -68,7 +68,9 @@ class GroupRecipeActionController(BaseUserController):
     # Actions
 
     @router.post("/{item_id}/trigger/{recipe_slug}", status_code=202)
-    def trigger_action(self, item_id: UUID4, recipe_slug: str, bg_tasks: BackgroundTasks) -> None:
+    def trigger_action(
+        self, item_id: UUID4, recipe_slug: str, bg_tasks: BackgroundTasks, scaled_amount: float = Body(1, embed=True)
+    ) -> None:
         recipe_action = self.repos.group_recipe_actions.get_one(item_id)
         if not recipe_action:
             raise HTTPException(
@@ -93,7 +95,7 @@ class GroupRecipeActionController(BaseUserController):
                 detail=ErrorResponse.respond(message="Not found."),
             ) from e
 
-        payload = GroupRecipeActionPayload(action=recipe_action, content=recipe)
+        payload = GroupRecipeActionPayload(action=recipe_action, content=recipe, scaled_amount=scaled_amount)
         bg_tasks.add_task(
             task_action,
             url=recipe_action.url,

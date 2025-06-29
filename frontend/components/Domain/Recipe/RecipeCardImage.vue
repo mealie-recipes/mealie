@@ -2,6 +2,7 @@
   <v-img
     v-if="!fallBackImage"
     :height="height"
+    cover
     min-height="125"
     max-height="fill-height"
     :src="getImage(recipeId)"
@@ -9,21 +10,28 @@
     @load="fallBackImage = false"
     @error="fallBackImage = true"
   >
-    <slot> </slot>
+    <slot />
   </v-img>
-  <div v-else class="icon-slot" @click="$emit('click')">
-    <v-icon color="primary" class="icon-position" :size="iconSize">
+  <div
+    v-else
+    class="icon-slot"
+    @click="$emit('click')"
+  >
+    <v-icon
+      color="primary"
+      class="icon-position"
+      :size="iconSize"
+    >
       {{ $globals.icons.primary }}
     </v-icon>
-    <slot> </slot>
+    <slot />
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from "@nuxtjs/composition-api";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     tiny: {
       type: Boolean,
@@ -55,9 +63,10 @@ export default defineComponent({
     },
     height: {
       type: [Number, String],
-      default: "fill-height",
+      default: "100%",
     },
   },
+  emits: ["click"],
   setup(props) {
     const api = useUserApi();
 
@@ -75,7 +84,7 @@ export default defineComponent({
       () => props.recipeId,
       () => {
         fallBackImage.value = false;
-      }
+      },
     );
 
     function getImage(recipeId: string) {

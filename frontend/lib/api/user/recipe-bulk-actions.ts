@@ -1,10 +1,10 @@
 import { BaseAPI } from "../base/base-clients";
-import { AssignCategories, AssignSettings, AssignTags, DeleteRecipes, ExportRecipes } from "~/lib/api/types/recipe";
-import { GroupDataExport } from "~/lib/api/types/group";
+import type { AssignCategories, AssignSettings, AssignTags, DeleteRecipes, ExportRecipes } from "~/lib/api/types/recipe";
+import type { GroupDataExport } from "~/lib/api/types/group";
 
 // Many bulk actions return nothing
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface BulkActionResponse {}
+
+type BulkActionResponse = object;
 
 const prefix = "/api";
 

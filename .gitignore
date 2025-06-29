@@ -10,6 +10,9 @@ docs/site/
 *temp/*
 .secret
 frontend/dist/
+frontend/.output/*
+frontend/.yarn/*
+frontend/.yarnrc.yml
 
 dev/code-generation/generated/*
 dev/data/mealie.db-journal
@@ -164,3 +167,5 @@ dev/code-generation/openapi.json
 
 .run/
 .task/*
+.dev.env
+frontend/eslint.config.deprecated.js

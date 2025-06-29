@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card outlined>
+    <v-card variant="outlined">
       <v-card-text class="pb-3 pt-1">
         <div v-if="listItem.isFood" class="d-md-flex align-center mb-2" style="gap: 20px">
           <div>
@@ -8,26 +8,27 @@
           </div>
           <InputLabelType
             v-model="listItem.unit"
+            v-model:item-id="listItem.unitId!"
             :items="units"
-            :item-id.sync="listItem.unitId"
             :label="$t('general.units')"
             :icon="$globals.icons.units"
+            create
             @create="createAssignUnit"
           />
           <InputLabelType
             v-model="listItem.food"
+            v-model:item-id="listItem.foodId!"
             :items="foods"
-            :item-id.sync="listItem.foodId"
             :label="$t('shopping-list.food')"
             :icon="$globals.icons.foods"
+            create
             @create="createAssignFood"
           />
-
         </div>
         <div class="d-md-flex align-center" style="gap: 20px">
           <div v-if="!listItem.isFood">
-              <InputQuantity v-model="listItem.quantity" />
-            </div>
+            <InputQuantity v-model="listItem.quantity" />
+          </div>
           <v-textarea
             v-model="listItem.note"
             hide-details
@@ -36,17 +37,17 @@
             auto-grow
             autofocus
             @keypress="handleNoteKeyPress"
-          ></v-textarea>
+          />
         </div>
         <div class="d-flex flex-wrap align-end" style="gap: 20px">
           <div class="d-flex align-end">
-
             <div style="max-width: 300px" class="mt-3 mr-auto">
               <InputLabelType
                 v-model="listItem.label"
+                v-model:item-id="listItem.labelId!"
                 :items="labels"
-                :item-id.sync="listItem.labelId"
                 :label="$t('shopping-list.label')"
+                width="250"
               />
             </div>
 
@@ -54,11 +55,11 @@
               v-if="listItem.recipeReferences && listItem.recipeReferences.length > 0"
               open-on-hover
               offset-y
-              left
+              start
               top
             >
-              <template #activator="{ on, attrs }">
-                <v-icon class="mt-auto" icon v-bind="attrs" color="warning" v-on="on">
+              <template #activator="{ props }">
+                <v-icon class="mt-auto" :icon="$globals.icons.alert" v-bind="props" color="warning">
                   {{ $globals.icons.alert }}
                 </v-icon>
               </template>
@@ -71,10 +72,10 @@
           </div>
           <BaseButton
             v-if="listItem.labelId && listItem.food && listItem.labelId !== listItem.food.labelId"
-            small
+            size="small"
             color="info"
             :icon="$globals.icons.tagArrowRight"
-            :text="$tc('shopping-list.save-label')"
+            :text="$t('shopping-list.save-label')"
             class="mt-2 align-items-flex-start"
             @click="assignLabelToFood"
           />
@@ -84,11 +85,15 @@
       <v-card-actions class="ma-0 pt-0 pb-1 justify-end">
         <BaseButtonGroup
           :buttons="[
-            ...(allowDelete ? [{
-              icon: $globals.icons.delete,
-              text: $t('general.delete'),
-              event: 'delete',
-            }] : []),
+            ...(allowDelete
+              ? [
+                  {
+                    icon: $globals.icons.delete,
+                    text: $t('general.delete'),
+                    event: 'delete',
+                  },
+                ]
+              : []),
             {
               icon: $globals.icons.close,
               text: $t('general.cancel'),
@@ -116,15 +121,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, watch } from "@nuxtjs/composition-api";
-import { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/household";
-import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
-import { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
+import type { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/household";
+import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
+import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Object as () => ShoppingListItemCreate | ShoppingListItemOut,
       required: true,
     },
@@ -146,6 +150,7 @@ export default defineComponent({
       default: true,
     },
   },
+  emits: ["update:modelValue", "save", "cancel", "delete"],
   setup(props, context) {
     const foodStore = useFoodStore();
     const foodData = useFoodData();
@@ -155,25 +160,25 @@ export default defineComponent({
 
     const listItem = computed({
       get: () => {
-        return props.value;
+        return props.modelValue;
       },
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
 
     watch(
-      () => props.value.food,
+      () => props.modelValue.food,
       (newFood) => {
-        // @ts-ignore our logic already assumes there's a label attribute, even if TS doesn't think there is
         listItem.value.label = newFood?.label || null;
         listItem.value.labelId = listItem.value.label?.id || null;
-      }
+      },
     );
 
     async function createAssignFood(val: string) {
       // keep UI reactive
-      listItem.value.food ? listItem.value.food.name = val : listItem.value.food = { name: val };
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      listItem.value.food ? (listItem.value.food.name = val) : (listItem.value.food = { name: val });
 
       foodData.data.name = val;
       const newFood = await foodStore.actions.createOne(foodData.data);
@@ -186,7 +191,8 @@ export default defineComponent({
 
     async function createAssignUnit(val: string) {
       // keep UI reactive
-      listItem.value.unit ? listItem.value.unit.name = val : listItem.value.unit = { name: val };
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+      listItem.value.unit ? (listItem.value.unit.name = val) : (listItem.value.unit = { name: val });
 
       unitData.data.name = val;
       const newUnit = await unitStore.actions.createOne(unitData.data);
@@ -203,7 +209,6 @@ export default defineComponent({
       }
 
       listItem.value.food.labelId = listItem.value.labelId;
-      // @ts-ignore the food will have an id, even though TS says it might not
       await foodStore.actions.updateOne(listItem.value.food);
     }
 
@@ -222,6 +227,6 @@ export default defineComponent({
         this.$emit("save");
       }
     },
-  }
+  },
 });
 </script>

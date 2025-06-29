@@ -11,10 +11,11 @@ const routes = {
 };
 
 export class PublicFoodsApi extends BaseCRUDAPIReadOnly<IngredientFood> {
-    baseRoute = routes.foodsGroupSlug(this.groupSlug);
-    itemRoute = (itemId: string | number) => routes.foodsGroupSlugFoodId(this.groupSlug, itemId);
-
-    constructor(requests: ApiRequestInstance, private readonly groupSlug: string) {
-        super(requests);
+    constructor(requests: ApiRequestInstance, groupSlug: string) {
+        super(
+            requests,
+            routes.foodsGroupSlug(groupSlug),
+            (itemId: string | number) => routes.foodsGroupSlugFoodId(groupSlug, itemId)
+        );
     }
 }

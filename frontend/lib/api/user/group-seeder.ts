@@ -1,6 +1,6 @@
 import { BaseAPI } from "../base/base-clients";
-import { SuccessResponse } from "~/lib/api/types/response";
-import { SeederConfig } from "~/lib/api/types/group";
+import type { SuccessResponse } from "~/lib/api/types/response";
+import type { SeederConfig } from "~/lib/api/types/group";
 
 const prefix = "/api";
 

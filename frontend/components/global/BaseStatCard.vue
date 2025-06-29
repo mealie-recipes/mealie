@@ -1,5 +1,9 @@
 <template>
-  <v-card v-bind="$attrs" :class="classes" class="v-card--material pa-3">
+  <v-card
+    v-bind="$attrs"
+    :class="classes"
+    class="v-card--material pa-3"
+  >
     <div class="d-flex grow flex-wrap">
       <slot name="avatar">
         <v-sheet
@@ -10,12 +14,24 @@
           class="text-start v-card--material__heading mb-n6 mt-n10 pa-7"
           dark
         >
-          <v-icon v-if="icon" size="40"> {{ icon }} </v-icon>
-          <div v-if="text" class="headline font-weight-thin" v-text="text" />
+          <v-icon
+            v-if="icon"
+            size="40"
+          >
+            {{ icon }}
+          </v-icon>
+          <div
+            v-if="text"
+            class="headline font-weight-thin"
+            v-text="text"
+          />
         </v-sheet>
       </slot>
 
-      <div v-if="$slots['after-heading']" class="ml-auto">
+      <div
+        v-if="$slots['after-heading']"
+        class="ml-auto"
+      >
         <slot name="after-heading" />
       </div>
     </div>
@@ -31,7 +47,10 @@
     </template>
 
     <template v-if="$slots.bottom">
-      <v-divider v-if="!$slots.actions" class="mt-2" />
+      <v-divider
+        v-if="!$slots.actions"
+        class="mt-2"
+      />
 
       <div class="pb-0">
         <slot name="bottom" />
@@ -41,9 +60,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
-
-export default defineComponent({
+export default defineNuxtComponent({
   name: "MaterialCard",
 
   props: {
@@ -73,14 +90,13 @@ export default defineComponent({
     },
   },
   setup() {
-    const { $vuetify } = useContext();
-
+    const { $vuetify } = useNuxtApp();
     const hasHeading = computed(() => false);
     const hasAltHeading = computed(() => false);
     const classes = computed(() => {
       return {
         "v-card--material--has-heading": hasHeading,
-        "mt-3": $vuetify.breakpoint.name === "xs" || $vuetify.breakpoint.name === "sm",
+        "mt-3": $vuetify.display.name.value === "xs" || $vuetify.display.name.value === "sm",
       };
     });
 

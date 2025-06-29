@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { GroupEventNotifierCreate, GroupEventNotifierOut, GroupEventNotifierUpdate } from "~/lib/api/types/household";
+import type { GroupEventNotifierCreate, GroupEventNotifierOut, GroupEventNotifierUpdate } from "~/lib/api/types/household";
 
 const prefix = "/api";
 

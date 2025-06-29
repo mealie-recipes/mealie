@@ -1,17 +1,16 @@
-import { ref, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-import { UserRatingSummary } from "~/lib/api/types/user";
+import type { UserRatingSummary } from "~/lib/api/types/user";
 
 const userRatings = ref<UserRatingSummary[]>([]);
 const loading = ref(false);
 const ready = ref(false);
 
 export const useUserSelfRatings = function () {
-  const { $auth } = useContext();
+  const $auth = useMealieAuth();
   const api = useUserApi();
 
   async function refreshUserRatings() {
-    if (!$auth.user || loading.value) {
+    if (!$auth.user.value || loading.value) {
       return;
     }
 
@@ -24,7 +23,7 @@ export const useUserSelfRatings = function () {
 
   async function setRating(slug: string, rating: number | null, isFavorite: boolean | null) {
     loading.value = true;
-    const userId = $auth.user?.id || "";
+    const userId = $auth.user.value?.id || "";
     await api.users.setRating(userId, slug, rating, isFavorite);
     loading.value = false;
     await refreshUserRatings();
@@ -39,5 +38,5 @@ export const useUserSelfRatings = function () {
     refreshUserRatings,
     setRating,
     ready,
-  }
-}
+  };
+};

@@ -1,6 +1,5 @@
-import { ref, Ref } from "@nuxtjs/composition-api";
 import { useData, useReadOnlyStore, useStore } from "../partials/use-store-factory";
-import { RecipeTool } from "~/lib/api/types/recipe";
+import type { RecipeTool } from "~/lib/api/types/recipe";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
 
 interface RecipeToolWithOnHand extends RecipeTool {
@@ -19,14 +18,14 @@ export const useToolData = function () {
     onHand: false,
     householdsWithTool: [],
   });
-}
+};
 
 export const useToolStore = function () {
   const api = useUserApi();
   return useStore<RecipeTool>(store, loading, api.tools);
-}
+};
 
 export const usePublicToolStore = function (groupSlug: string) {
   const api = usePublicExploreApi(groupSlug).explore;
   return useReadOnlyStore<RecipeTool>(store, publicLoading, api.tools);
-}
+};

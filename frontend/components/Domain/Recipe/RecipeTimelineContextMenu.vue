@@ -2,58 +2,69 @@
   <div class="text-center">
     <BaseDialog
       v-model="recipeEventEditDialog"
-      :title="$tc('recipe.edit-timeline-event')"
+      :title="$t('recipe.edit-timeline-event')"
       :icon="$globals.icons.edit"
-      :submit-text="$tc('general.save')"
-      @submit="$emit('update')"
+      can-submit
+      :submit-text="$t('general.save')"
+      @submit="submitEdit"
     >
-    <v-card-text>
-      <v-form ref="domMadeThisForm">
-        <v-text-field
-          v-model="event.subject"
-          :label="$tc('general.subject')"
-        />
-        <v-textarea
-          v-model="event.eventMessage"
-          :label="$tc('general.message')"
-          rows="4"
-        />
-      </v-form>
-    </v-card-text>
+      <v-card-text>
+        <v-form ref="domEditEventForm">
+          <v-text-field v-model="localEvent.subject" :label="$t('general.subject')" />
+          <v-textarea v-model="localEvent.eventMessage" :label="$t('general.message')" rows="4" />
+        </v-form>
+      </v-card-text>
     </BaseDialog>
+
     <BaseDialog
       v-model="recipeEventDeleteDialog"
-      :title="$tc('events.delete-event')"
+      :title="$t('events.delete-event')"
       color="error"
       :icon="$globals.icons.alertCircle"
+      can-confirm
       @confirm="$emit('delete')"
     >
       <v-card-text>
-        {{ $t("events.event-delete-confirmation") }}
+        {{ $t('events.event-delete-confirmation') }}
       </v-card-text>
     </BaseDialog>
+
     <v-menu
       offset-y
-      left
-      :bottom="!menuTop"
-      :nudge-bottom="!menuTop ? '5' : '0'"
-      :top="menuTop"
-      :nudge-top="menuTop ? '5' : '0'"
+      start
+      :bottom="!props.menuTop"
+      :nudge-bottom="!props.menuTop ? '5' : '0'"
+      :top="props.menuTop"
+      :nudge-top="props.menuTop ? '5' : '0'"
       allow-overflow
       close-delay="125"
-      :open-on-hover="!useMobileFormat"
+      :open-on-hover="!props.useMobileFormat"
       content-class="d-print-none"
     >
-      <template #activator="{ on, attrs }">
-        <v-btn :fab="fab" :x-small="fab" :elevation="elevation" :color="color" :icon="!fab" v-bind="attrs" v-on="on" @click.prevent>
+      <template #activator="{ props: btnProps }">
+        <v-btn
+          :class="{ 'rounded-circle': props.fab }"
+          :x-small="props.fab"
+          :elevation="props.elevation ?? undefined"
+          :color="props.color"
+          :icon="!props.fab"
+          v-bind="btnProps"
+          @click.prevent
+        >
           <v-icon>{{ icon }}</v-icon>
         </v-btn>
       </template>
-      <v-list dense>
-        <v-list-item v-for="(item, index) in menuItems" :key="index" @click="contextMenuEventHandler(item.event)">
-          <v-list-item-icon>
-            <v-icon :color="item.color"> {{ item.icon }} </v-icon>
-          </v-list-item-icon>
+      <v-list density="compact">
+        <v-list-item
+          v-for="(item, index) in menuItems"
+          :key="index"
+          @click="contextMenuEventHandler(item.event)"
+        >
+          <template #prepend>
+            <v-icon :color="item.color">
+              {{ item.icon }}
+            </v-icon>
+          </template>
           <v-list-item-title>{{ item.title }}</v-list-item-title>
         </v-list-item>
       </v-list>
@@ -61,10 +72,9 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, reactive, ref, toRefs, useContext } from "@nuxtjs/composition-api";
-import { VForm } from "~/types/vuetify";
-import { RecipeTimelineEventOut } from "~/lib/api/types/recipe";
+<script lang="ts" setup>
+import { useI18n, useNuxtApp } from "#imports";
+import type { RecipeTimelineEventOut } from "~/lib/api/types/recipe";
 
 export interface TimelineContextMenuIncludes {
   edit: boolean;
@@ -78,129 +88,90 @@ export interface ContextMenuItem {
   event: string;
 }
 
-export default defineComponent({
-  props: {
-    useItems: {
-      type: Object as () => TimelineContextMenuIncludes,
-      default: () => ({
-        edit: true,
-        delete: true,
-      }),
-    },
-    // Append items are added at the end of the useItems list
-    appendItems: {
-      type: Array as () => ContextMenuItem[],
-      default: () => [],
-    },
-    // Append items are added at the beginning of the useItems list
-    leadingItems: {
-      type: Array as () => ContextMenuItem[],
-      default: () => [],
-    },
-    menuTop: {
-      type: Boolean,
-      default: true,
-    },
-    fab: {
-      type: Boolean,
-      default: false,
-    },
-    elevation: {
-      type: Number,
-      default: null
-    },
-    color: {
-      type: String,
-      default: "primary",
-    },
-    event: {
-      type: Object as () => RecipeTimelineEventOut,
-      required: true,
-    },
-    menuIcon: {
-      type: String,
-      default: null,
-    },
-    useMobileFormat: {
-      type: Boolean,
-      default: true,
-    }
+const props = defineProps<{
+  useItems?: TimelineContextMenuIncludes;
+  appendItems?: ContextMenuItem[];
+  leadingItems?: ContextMenuItem[];
+  menuTop?: boolean;
+  fab?: boolean;
+  elevation?: number | null;
+  color?: string;
+  event: RecipeTimelineEventOut;
+  menuIcon?: string | null;
+  useMobileFormat?: boolean;
+}>();
+
+const emit = defineEmits(["delete", "update"]);
+
+const domEditEventForm = ref();
+const recipeEventEditDialog = ref(false);
+const recipeEventDeleteDialog = ref(false);
+const loading = ref(false);
+
+const i18n = useI18n();
+const { $globals } = useNuxtApp();
+
+const defaultItems: { [key: string]: ContextMenuItem } = {
+  edit: {
+    title: i18n.t("general.edit"),
+    icon: $globals.icons.edit,
+    color: undefined,
+    event: "edit",
   },
-  setup(props, context) {
-    const domEditEventForm = ref<VForm>();
-    const state = reactive({
-      recipeEventEditDialog: false,
-      recipeEventDeleteDialog: false,
-      loading: false,
-      menuItems: [] as ContextMenuItem[],
-    });
-
-    const { i18n, $globals } = useContext();
-
-    // ===========================================================================
-    // Context Menu Setup
-
-    const defaultItems: { [key: string]: ContextMenuItem } = {
-      edit: {
-        title: i18n.tc("general.edit"),
-        icon: $globals.icons.edit,
-        color: undefined,
-        event: "edit",
-      },
-      delete: {
-        title: i18n.tc("general.delete"),
-        icon: $globals.icons.delete,
-        color: "error",
-        event: "delete",
-      },
-    };
-
-    // Get Default Menu Items Specified in Props
-    for (const [key, value] of Object.entries(props.useItems)) {
-      if (value) {
-        const item = defaultItems[key];
-        if (item) {
-          state.menuItems.push(item);
-        }
-      }
-    }
-
-    // Add Leading and Appending Items
-    state.menuItems = [...state.menuItems, ...props.leadingItems, ...props.appendItems];
-
-    const icon = props.menuIcon || $globals.icons.dotsVertical;
-
-    // ===========================================================================
-    // Context Menu Event Handler
-
-    const eventHandlers: { [key: string]: () => void | Promise<any> } = {
-      edit: () => {
-        state.recipeEventEditDialog = true;
-      },
-      delete: () => {
-        state.recipeEventDeleteDialog = true;
-      },
-    };
-
-    function contextMenuEventHandler(eventKey: string) {
-      const handler = eventHandlers[eventKey];
-
-      if (handler && typeof handler === "function") {
-        handler();
-        state.loading = false;
-        return;
-      }
-
-      context.emit(eventKey);
-      state.loading = false;
-    }
-
-    return {
-      ...toRefs(state),
-      contextMenuEventHandler,
-      domEditEventForm,
-      icon,
-    };
+  delete: {
+    title: i18n.t("general.delete"),
+    icon: $globals.icons.delete,
+    color: "error",
+    event: "delete",
   },
+};
+
+const menuItems = computed(() => {
+  const items: ContextMenuItem[] = [];
+  const useItems = props.useItems ?? { edit: true, delete: true };
+  for (const [key, value] of Object.entries(useItems)) {
+    if (value) {
+      const item = defaultItems[key];
+      if (item) items.push(item);
+    }
+  }
+  return [
+    ...items,
+    ...(props.leadingItems ?? []),
+    ...(props.appendItems ?? []),
+  ];
 });
+
+const icon = computed(() => props.menuIcon || $globals.icons.dotsVertical);
+
+const localEvent = ref({ ...props.event });
+watch(() => props.event, (val) => {
+  localEvent.value = { ...val };
+});
+
+function openEditDialog() {
+  localEvent.value = { ...props.event };
+  recipeEventEditDialog.value = true;
+}
+function openDeleteDialog() {
+  recipeEventDeleteDialog.value = true;
+}
+function contextMenuEventHandler(eventKey: string) {
+  if (eventKey === "edit") {
+    openEditDialog();
+    loading.value = false;
+    return;
+  }
+  if (eventKey === "delete") {
+    openDeleteDialog();
+    loading.value = false;
+    return;
+  }
+  emit(eventKey as "delete" | "update");
+  loading.value = false;
+}
+function submitEdit() {
+  emit("update", { ...localEvent.value });
+  recipeEventEditDialog.value = false;
+}
 </script>

@@ -4,23 +4,42 @@
       <v-card-title class="pt-2 pb-0">
         {{ $t("recipe.nutrition") }}
       </v-card-title>
-      <v-divider class="mx-2 my-1"></v-divider>
+      <v-divider class="mx-2 my-1" />
       <v-card-text v-if="edit">
-        <div v-for="(item, key, index) in value" :key="index">
+        <div
+          v-for="(item, key, index) in modelValue"
+          :key="index"
+        >
           <v-text-field
-dense :value="value[key]" :label="labels[key].label" :suffix="labels[key].suffix" type="number"
-            autocomplete="off" @input="updateValue(key, $event)"></v-text-field>
+            density="compact"
+            :model-value="modelValue[key]"
+            :label="labels[key].label"
+            :suffix="labels[key].suffix"
+            type="number"
+            autocomplete="off"
+            @update:model-value="updateValue(key, $event)"
+          />
         </div>
       </v-card-text>
-      <v-list v-if="showViewer" dense class="mt-0 pt-0">
-        <v-list-item v-for="(item, key, index) in renderedList" :key="index" style="min-height: 25px" dense>
-          <v-list-item-content>
+      <v-list
+        v-if="showViewer"
+        density="compact"
+        class="mt-0 pt-0"
+      >
+        <v-list-item
+          v-for="(item, key, index) in renderedList"
+          :key="index"
+          style="min-height: 25px"
+        >
+          <div>
             <v-list-item-title class="pl-4 caption flex row">
               <div>{{ item.label }}</div>
-              <div class="ml-auto mr-1">{{ item.value }}</div>
+              <div class="ml-auto mr-1">
+                {{ item.value }}
+              </div>
               <div>{{ item.suffix }}</div>
             </v-list-item-title>
-          </v-list-item-content>
+          </div>
         </v-list-item>
       </v-list>
     </v-card>
@@ -28,13 +47,13 @@ dense :value="value[key]" :label="labels[key].label" :suffix="labels[key].suffix
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
 import { useNutritionLabels } from "~/composables/recipes";
-import { Nutrition } from "~/lib/api/types/recipe";
-import { NutritionLabelType } from "~/composables/recipes/use-recipe-nutrition";
-export default defineComponent({
+import type { Nutrition } from "~/lib/api/types/recipe";
+import type { NutritionLabelType } from "~/composables/recipes/use-recipe-nutrition";
+
+export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Object as () => Nutrition,
       required: true,
     },
@@ -43,12 +62,13 @@ export default defineComponent({
       default: true,
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     const { labels } = useNutritionLabels();
     const valueNotNull = computed(() => {
       let key: keyof Nutrition;
-      for (key in props.value) {
-        if (props.value[key] !== null) {
+      for (key in props.modelValue) {
+        if (props.modelValue[key] !== null) {
           return true;
         }
       }
@@ -58,16 +78,16 @@ export default defineComponent({
     const showViewer = computed(() => !props.edit && valueNotNull.value);
 
     function updateValue(key: number | string, event: Event) {
-      context.emit("input", { ...props.value, [key]: event });
+      context.emit("update:modelValue", { ...props.modelValue, [key]: event });
     }
 
     // Build a new list that only contains nutritional information that has a value
     const renderedList = computed(() => {
       return Object.entries(labels).reduce((item: NutritionLabelType, [key, label]) => {
-        if (props.value[key]?.trim()) {
+        if (props.modelValue[key]?.trim()) {
           item[key] = {
             ...label,
-            value: props.value[key],
+            value: props.modelValue[key],
           };
         }
         return item;

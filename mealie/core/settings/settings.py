@@ -449,7 +449,7 @@ class AppSettings(AppLoggingSettings):
 def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:
     """
     app_settings_constructor is a factory function that returns an AppSettings object. It is used to inject the
-    required dependencies into the AppSettings object and nested child objects. AppSettings should not be substantiated
+    required dependencies into the AppSettings object and nested child objects. AppSettings should not be instantiated
     directly, but rather through this factory function.
     """
     secret_settings = {

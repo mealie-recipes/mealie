@@ -1,11 +1,10 @@
-import { computed, reactive, watch } from "@nuxtjs/composition-api";
-import { useLocalStorage } from "@vueuse/core";
+import { useLocalStorage, useOnline } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
-import { ShoppingListItemOut, ShoppingListOut } from "~/lib/api/types/household";
-import { RequestResponse } from "~/lib/api/types/non-generated";
+import type { ShoppingListItemOut, ShoppingListOut } from "~/lib/api/types/household";
+import type { RequestResponse } from "~/lib/api/types/non-generated";
 
 const localStorageKey = "shopping-list-queue";
-const queueTimeout = 5 * 60 * 1000;  // 5 minutes
+const queueTimeout = 5 * 60 * 1000; // 5 minutes
 
 type ItemQueueType = "create" | "update" | "delete";
 
@@ -22,6 +21,7 @@ interface Storage {
 }
 
 export function useShoppingListItemActions(shoppingListId: string) {
+  const isOnline = useOnline();
   const api = useUserApi();
   const storage = useLocalStorage(localStorageKey, {} as Storage, { deep: true });
   const queue = reactive(getQueue());
@@ -30,17 +30,17 @@ export function useShoppingListItemActions(shoppingListId: string) {
     queue.lastUpdate = Date.now();
   }
 
-  storage.value[shoppingListId] = { ...queue }
+  storage.value[shoppingListId] = { ...queue };
   watch(
     () => queue,
     (value) => {
-      storage.value[shoppingListId] = { ...value }
+      storage.value[shoppingListId] = { ...value };
     },
     {
       deep: true,
       immediate: true,
     },
-  )
+  );
 
   function isValidQueueObject(obj: any): obj is ShoppingListQueue {
     if (typeof obj !== "object" || obj === null) {
@@ -53,7 +53,7 @@ export function useShoppingListItemActions(shoppingListId: string) {
     }
 
     const arraysValid = Array.isArray(obj.create) && Array.isArray(obj.update) && Array.isArray(obj.delete);
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+
     const lastUpdateValid = typeof obj.lastUpdate === "number" && !isNaN(new Date(obj.lastUpdate).getTime());
 
     return arraysValid && lastUpdateValid;
@@ -70,10 +70,12 @@ export function useShoppingListItemActions(shoppingListId: string) {
       if (!isValidQueueObject(fetchedQueue)) {
         console.log("Invalid queue object in local storage; resetting queue.");
         return createEmptyQueue();
-      } else {
+      }
+      else {
         return fetchedQueue;
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.log("Error validating queue object in local storage; resetting queue.", error);
       return createEmptyQueue();
     }
@@ -91,29 +93,30 @@ export function useShoppingListItemActions(shoppingListId: string) {
 
   function mergeListItemsByLatest(
     list1: ShoppingListItemOut[],
-    list2: ShoppingListItemOut[]
+    list2: ShoppingListItemOut[],
   ) {
     const mergedList = [...list1];
     list2.forEach((list2Item) => {
-      const conflictingItem = mergedList.find((item) => item.id === list2Item.id)
-      if (conflictingItem &&
-        list2Item.updatedAt && conflictingItem.updatedAt &&
-        list2Item.updatedAt > conflictingItem.updatedAt) {
-        mergedList.splice(mergedList.indexOf(conflictingItem), 1, list2Item)
-      } else if (!conflictingItem) {
-        mergedList.push(list2Item)
+      const conflictingItem = mergedList.find(item => item.id === list2Item.id);
+      if (conflictingItem
+        && list2Item.updatedAt && conflictingItem.updatedAt
+        && list2Item.updatedAt > conflictingItem.updatedAt) {
+        mergedList.splice(mergedList.indexOf(conflictingItem), 1, list2Item);
       }
-    })
-    return mergedList
+      else if (!conflictingItem) {
+        mergedList.push(list2Item);
+      }
+    });
+    return mergedList;
   }
 
   async function getList() {
     const response = await api.shopping.lists.getOne(shoppingListId);
-    if (window.$nuxt.isOffline && response.data) {
+    if (!isOnline.value && response.data) {
       const createAndUpdateQueues = mergeListItemsByLatest(queue.update, queue.create);
       response.data.listItems = mergeListItemsByLatest(response.data.listItems ?? [], createAndUpdateQueues);
     }
-    return response.data
+    return response.data;
   }
 
   function createItem(item: ShoppingListItemOut) {
@@ -174,8 +177,8 @@ export function useShoppingListItemActions(shoppingListId: string) {
   }
 
   /**
-   * Processes the queue items and returns whether the processing was successful.
-   */
+	 * Processes the queue items and returns whether the processing was successful.
+	 */
   async function processQueueItems(
     action: (items: ShoppingListItemOut[]) => Promise<RequestResponse<any>>,
     itemQueueType: ItemQueueType,
@@ -186,7 +189,8 @@ export function useShoppingListItemActions(shoppingListId: string) {
       if (!queueItems.length) {
         return true;
       }
-    } catch (error) {
+    }
+    catch (error) {
       console.log(`Error fetching queue items of type ${itemQueueType}:`, error);
       clearQueueItems(itemQueueType);
       return false;
@@ -196,11 +200,12 @@ export function useShoppingListItemActions(shoppingListId: string) {
       const itemsToProcess = [...queueItems];
       await action(itemsToProcess)
         .then(() => {
-          if (window.$nuxt.isOnline) {
+          if (isOnline.value) {
             clearQueueItems(itemQueueType, itemsToProcess.map(item => item.id));
           }
         });
-    } catch (error) {
+    }
+    catch (error) {
       console.log(`Error processing queue items of type ${itemQueueType}:`, error);
       clearQueueItems(itemQueueType);
       return false;
@@ -224,13 +229,13 @@ export function useShoppingListItemActions(shoppingListId: string) {
     // We send each bulk request one at a time, since the backend may merge items
     // "failures" here refers to an actual error, rather than failing to reach the backend
     let failures = 0;
-    if (!(await processQueueItems((items) => api.shopping.items.deleteMany(items), "delete"))) failures++;
-    if (!(await processQueueItems((items) => api.shopping.items.updateMany(items), "update"))) failures++;
-    if (!(await processQueueItems((items) => api.shopping.items.createMany(items), "create"))) failures++;
+    if (!(await processQueueItems(items => api.shopping.items.deleteMany(items), "delete"))) failures++;
+    if (!(await processQueueItems(items => api.shopping.items.updateMany(items), "update"))) failures++;
+    if (!(await processQueueItems(items => api.shopping.items.createMany(items), "create"))) failures++;
 
     // If we're online, or the queue is empty, the queue is fully processed, so we're up to date
     // Otherwise, if all three queue processes failed, we've already reset the queue, so we need to reset the date
-    if (window.$nuxt.isOnline || queueEmpty.value || failures === 3) {
+    if (isOnline.value || queueEmpty.value || failures === 3) {
       queue.lastUpdate = Date.now();
     }
   }
