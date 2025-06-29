@@ -18,11 +18,11 @@
           :disabled="submitted"
           @click="() => save()"
         />
-        <v-menu offset-y :close-on-content-click="false">
+        <v-menu offset-y :close-on-content-click="false" location="bottom center">
           <template #activator="{ props }">
             <v-btn color="info" v-bind="props" :icon="$globals.icons.edit" :disabled="submitted" />
           </template>
-          <v-list>
+          <v-list class="mt-1">
             <template v-for="(row, keyRow) in controls" :key="keyRow">
               <v-list-item-group>
                 <v-list-item
