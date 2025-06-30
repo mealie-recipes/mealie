@@ -54,12 +54,11 @@ function getRequests(axiosInstance: AxiosInstance): ApiRequestInstance {
 }
 
 export const useRequests = function (i18n?: Composer): ApiRequestInstance {
+  const { $axios } = useNuxtApp();
   if (!i18n) {
-    // Note: this only works in setup()
+    // Only works in a setup block
     i18n = useI18n();
   }
-
-  const { $axios } = useNuxtApp();
 
   $axios.defaults.headers.common["Accept-Language"] = i18n.locale.value;
 
