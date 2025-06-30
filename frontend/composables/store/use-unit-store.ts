@@ -1,6 +1,7 @@
 import { useData, useStore } from "../partials/use-store-factory";
 import type { IngredientUnit } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
+import type { Composer } from "vue-i18n";
 
 const store: Ref<IngredientUnit[]> = ref([]);
 const loading = ref(false);
@@ -15,7 +16,7 @@ export const useUnitData = function () {
   });
 };
 
-export const useUnitStore = function () {
-  const api = useUserApi();
+export const useUnitStore = function (i18n?: Composer) {
+  const api = useUserApi(i18n);
   return useStore<IngredientUnit>(store, loading, api.units);
 };
