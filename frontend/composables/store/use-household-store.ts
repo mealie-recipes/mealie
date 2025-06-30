@@ -1,6 +1,7 @@
 import { useReadOnlyStore } from "../partials/use-store-factory";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
+import type { Composer } from "vue-i18n";
 
 const store: Ref<HouseholdSummary[]> = ref([]);
 const loading = ref(false);
@@ -11,7 +12,7 @@ export const useHouseholdStore = function () {
   return useReadOnlyStore<HouseholdSummary>(store, loading, api.households);
 };
 
-export const usePublicHouseholdStore = function (groupSlug: string) {
-  const api = usePublicExploreApi(groupSlug).explore;
+export const usePublicHouseholdStore = function (groupSlug: string, i18n?: Composer) {
+  const api = usePublicExploreApi(groupSlug, i18n).explore;
   return useReadOnlyStore<HouseholdSummary>(store, publicLoading, api.households);
 };

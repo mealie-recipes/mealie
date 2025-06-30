@@ -138,14 +138,32 @@ export default defineNuxtComponent({
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
     const cookbookPreferences = useCookbookPreferences();
-    const { store: cookbooks, actions: cookbooksActions } = isOwnGroup.value ? useCookbookStore() : usePublicCookbookStore(groupSlug.value || "");
-    onMounted(() => {
-      if (!cookbooks.value.length) {
-        cookbooksActions.refresh();
-      }
-    });
 
-    const { store: households } = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value || "");
+    function useStoreWithRefresh<T>(getStore: () => { store: Ref<T[]>; actions: { refresh: () => void } }) {
+      const { store, actions } = getStore();
+      if (!store.value.length) {
+        actions.refresh();
+      }
+      return store.value;
+    }
+
+    const cookbooks = computed(() => {
+      if (isOwnGroup.value) {
+        return useStoreWithRefresh(() => useCookbookStore());
+      } else if (groupSlug.value) {
+        return useStoreWithRefresh(() => usePublicCookbookStore(groupSlug.value, i18n));
+      }
+      return [];
+    })
+
+    const households = computed(() => {
+      if (isOwnGroup.value) {
+        return useStoreWithRefresh(() => useHouseholdStore());
+      } else if (groupSlug.value) {
+        return useStoreWithRefresh(() => usePublicHouseholdStore(groupSlug.value, i18n));
+      }
+      return [];
+    });
 
     const householdsById = computed(() => {
       return households.value.reduce((acc, household) => {
