@@ -65,18 +65,18 @@ export const useRequests = function (i18n?: Composer): ApiRequestInstance {
   return getRequests($axios);
 };
 
-export const useAdminApi = function (): AdminAPI {
-  const requests = useRequests();
+export const useAdminApi = function (i18n?: Composer): AdminAPI {
+  const requests = useRequests(i18n);
   return new AdminAPI(requests);
 };
 
-export const useUserApi = function (): UserApi {
-  const requests = useRequests();
+export const useUserApi = function (i18n?: Composer): UserApi {
+  const requests = useRequests(i18n);
   return new UserApi(requests);
 };
 
-export const usePublicApi = function (): PublicApi {
-  const requests = useRequests();
+export const usePublicApi = function (i18n?: Composer): PublicApi {
+  const requests = useRequests(i18n);
   return new PublicApi(requests);
 };
 
