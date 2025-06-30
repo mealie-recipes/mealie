@@ -7,62 +7,47 @@
         </v-card-title>
         <v-card-text>
           <p>{{ $t("recipe.create-recipe-from-an-image-description") }}</p>
-          <v-container class="pa-0">
-            <v-row>
-              <v-col cols="auto" align-self="center">
-                <AppButtonUpload
-                  class="ml-auto"
-                  url="none"
-                  file-name="images"
-                  accept="image/*"
-                  :text="uploadedImages.length ? $t('recipe.upload-more-images') : $t('recipe.upload-images')"
-                  :text-btn="false"
-                  :post="false"
-                  :multiple="true"
-                  @uploaded="uploadImages"
-                />
-              </v-col>
-              <v-spacer />
-            </v-row>
-
-            <div v-if="uploadedImages.length" class="mt-3">
+          <v-container class="px-0">
+            <AppButtonUpload
+              class="ml-auto"
+              url="none"
+              file-name="images"
+              accept="image/*"
+              :text="uploadedImages.length ? $t('recipe.upload-more-images') : $t('recipe.upload-images')"
+              :text-btn="false"
+              :post="false"
+              :multiple="true"
+              @uploaded="uploadImages"
+            />
+            <div v-if="uploadedImages.length > 0" class="mt-3">
+              <p class="my-2">
+                {{ $t("recipe.crop-and-rotate-the-image") }}
+              </p>
               <v-row>
-                <v-col cols="12" class="pb-0">
-                  <v-card-text class="pa-0">
-                    <p class="mb-0">
-                      {{ $t("recipe.crop-and-rotate-the-image") }}
-                    </p>
-                  </v-card-text>
+                <v-col
+                  v-for="(imageUrl, index) in uploadedImagesPreviewUrls"
+                  :key="index"
+                  cols="12"
+                  sm="6"
+                  lg="4"
+                  xl="3"
+                >
+                  <ImageCropper
+                    :img="imageUrl"
+                    cropper-height="100%"
+                    cropper-width="100%"
+                    :submitted="loading"
+                    class="mt-4"
+                    @save="(croppedImage) => updateUploadedImage(index, croppedImage)"
+                    @delete="clearImage(index)"
+                  />
                 </v-col>
-              </v-row>
-              <v-row style="max-width: 600px">
-                <v-spacer />
-                <v-col v-for="(imageUrl, index) in uploadedImagesPreviewUrls" :key="index" cols="12">
-                  <v-row>
-                    <v-col cols="auto" align-self="center">
-                      <ImageCropper
-                        :img="imageUrl"
-                        cropper-height="100%"
-                        cropper-width="100%"
-                        @save="(croppedImage) => updateUploadedImage(index, croppedImage)"
-                      />
-
-                      <v-btn color="error" @click="() => clearImage(index)">
-                        <v-icon start>
-                          {{ $globals.icons.close }}
-                        </v-icon>
-                        {{ $t("recipe.remove-image") }}
-                      </v-btn>
-                    </v-col>
-                  </v-row>
-                </v-col>
-                <v-spacer />
               </v-row>
             </div>
           </v-container>
         </v-card-text>
         <v-card-actions v-if="uploadedImages.length">
-          <div>
+          <div class="w-100 d-flex flex-column align-center">
             <p style="width: 250px">
               <BaseButton rounded block type="submit" :loading="loading" />
             </p>
@@ -147,6 +132,7 @@ export default defineNuxtComponent({
 
     function updateUploadedImage(index: number, croppedImage: Blob) {
       uploadedImages.value[index] = croppedImage;
+      uploadedImagesPreviewUrls.value[index] = URL.createObjectURL(croppedImage);
     }
 
     return {

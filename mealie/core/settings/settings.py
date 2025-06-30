@@ -408,7 +408,7 @@ class AppSettings(AppLoggingSettings):
         description = None
         if not self.OPENAI_API_KEY:
             description = "OPENAI_API_KEY is not set"
-        elif self.OPENAI_MODEL:
+        elif not self.OPENAI_MODEL:
             description = "OPENAI_MODEL is not set"
 
         return FeatureDetails(
