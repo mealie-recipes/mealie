@@ -1,101 +1,104 @@
 <template>
+  <!-- Wrap v-hover with a div to provide a proper DOM element for the transition -->
   <v-lazy>
-    <v-hover
-      v-slot="{ isHovering, props }"
-      :open-delay="50"
-    >
-      <v-card
-        v-bind="props"
-        :class="{ 'on-hover': isHovering }"
-        :style="{ cursor }"
-        :elevation="isHovering ? 12 : 2"
-        :to="recipeRoute"
-        :min-height="imageHeight + 75"
-        @click.self="$emit('click')"
+    <div>
+      <v-hover
+        v-slot="{ isHovering, props }"
+        :open-delay="50"
       >
-        <RecipeCardImage
-          :icon-size="imageHeight"
-          :height="imageHeight"
-          :slug="slug"
-          :recipe-id="recipeId"
-          size="small"
-          :image-version="image"
+        <v-card
+          v-bind="props"
+          :class="{ 'on-hover': isHovering }"
+          :style="{ cursor }"
+          :elevation="isHovering ? 12 : 2"
+          :to="recipeRoute"
+          :min-height="imageHeight + 75"
+          @click.self="$emit('click')"
         >
-          <v-expand-transition v-if="description">
-            <div
-              v-if="isHovering"
-              class="d-flex transition-fast-in-fast-out bg-secondary v-card--reveal"
-              style="height: 100%"
-            >
-              <v-card-text class="v-card--text-show white--text">
-                <div class="descriptionWrapper">
-                  <SafeMarkdown :source="description" />
-                </div>
-              </v-card-text>
-            </div>
-          </v-expand-transition>
-        </RecipeCardImage>
-        <v-card-title class="mb-n3 px-4">
-          <div class="headerClass">
-            {{ name }}
-          </div>
-        </v-card-title>
-
-        <slot name="actions">
-          <v-card-actions
-            v-if="showRecipeContent"
-            class="px-1"
+          <RecipeCardImage
+            :icon-size="imageHeight"
+            :height="imageHeight"
+            :slug="slug"
+            :recipe-id="recipeId"
+            size="small"
+            :image-version="image"
           >
-            <RecipeFavoriteBadge
-              v-if="isOwnGroup"
-              class="absolute"
-              :recipe-id="recipeId"
-              show-always
-            />
-            <div v-else class="px-1" /> <!-- Empty div to keep the layout consistent -->
+            <v-expand-transition v-if="description">
+              <div
+                v-if="isHovering"
+                class="d-flex transition-fast-in-fast-out bg-secondary v-card--reveal"
+                style="height: 100%"
+              >
+                <v-card-text class="v-card--text-show white--text">
+                  <div class="descriptionWrapper">
+                    <SafeMarkdown :source="description" />
+                  </div>
+                </v-card-text>
+              </div>
+            </v-expand-transition>
+          </RecipeCardImage>
+          <v-card-title class="mb-n3 px-4">
+            <div class="headerClass">
+              {{ name }}
+            </div>
+          </v-card-title>
 
-            <RecipeRating
-              class="ml-n2"
-              :value="rating"
-              :recipe-id="recipeId"
-              :slug="slug"
-              small
-            />
-            <v-spacer />
-            <RecipeChips
-              :truncate="true"
-              :items="tags"
-              :title="false"
-              :limit="2"
-              small
-              url-prefix="tags"
-              v-bind="$attrs"
-            />
+          <slot name="actions">
+            <v-card-actions
+              v-if="showRecipeContent"
+              class="px-1"
+            >
+              <RecipeFavoriteBadge
+                v-if="isOwnGroup"
+                class="absolute"
+                :recipe-id="recipeId"
+                show-always
+              />
+              <div v-else class="px-1" /> <!-- Empty div to keep the layout consistent -->
 
-            <!-- If we're not logged-in, no items display, so we hide this menu -->
-            <RecipeContextMenu
-              v-if="isOwnGroup"
-              color="grey-darken-2"
-              :slug="slug"
-              :name="name"
-              :recipe-id="recipeId"
-              :use-items="{
-                delete: false,
-                edit: false,
-                download: true,
-                mealplanner: true,
-                shoppingList: true,
-                print: false,
-                printPreferences: false,
-                share: true,
-              }"
-              @delete="$emit('delete', slug)"
-            />
-          </v-card-actions>
-        </slot>
-        <slot />
-      </v-card>
-    </v-hover>
+              <RecipeRating
+                class="ml-n2"
+                :value="rating"
+                :recipe-id="recipeId"
+                :slug="slug"
+                small
+              />
+              <v-spacer />
+              <RecipeChips
+                :truncate="true"
+                :items="tags"
+                :title="false"
+                :limit="2"
+                small
+                url-prefix="tags"
+                v-bind="$attrs"
+              />
+
+              <!-- If we're not logged-in, no items display, so we hide this menu -->
+              <RecipeContextMenu
+                v-if="isOwnGroup"
+                color="grey-darken-2"
+                :slug="slug"
+                :name="name"
+                :recipe-id="recipeId"
+                :use-items="{
+                  delete: false,
+                  edit: false,
+                  download: true,
+                  mealplanner: true,
+                  shoppingList: true,
+                  print: false,
+                  printPreferences: false,
+                  share: true,
+                }"
+                @delete="$emit('delete', slug)"
+              />
+            </v-card-actions>
+          </slot>
+          <slot />
+        </v-card>
+      </v-hover>
+    </div>
   </v-lazy>
 </template>
 

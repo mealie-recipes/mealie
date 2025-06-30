@@ -1,52 +1,17 @@
-from fastapi import Depends, HTTPException, status
+from fastapi import HTTPException, status
 from pydantic import UUID4
 
 from mealie.core.security import hash_password
 from mealie.core.security.providers.credentials_provider import CredentialsProvider
 from mealie.db.models.users.users import AuthMethod
-from mealie.routes._base import BaseAdminController, BaseUserController, controller
-from mealie.routes._base.mixins import HttpRepo
-from mealie.routes._base.routers import AdminAPIRouter, UserAPIRouter
+from mealie.routes._base import BaseUserController, controller
+from mealie.routes._base.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.response import ErrorResponse, SuccessResponse
-from mealie.schema.response.pagination import PaginationQuery
-from mealie.schema.user import ChangePassword, UserBase, UserIn, UserOut
-from mealie.schema.user.user import UserPagination, UserRatings, UserRatingSummary
+from mealie.schema.user import ChangePassword, UserBase, UserOut
+from mealie.schema.user.user import UserRatings, UserRatingSummary
 
 user_router = UserAPIRouter(prefix="/users", tags=["Users: CRUD"])
-admin_router = AdminAPIRouter(prefix="/users", tags=["Users: Admin CRUD"])
-
-
-@controller(admin_router)
-class AdminUserController(BaseAdminController):
-    @property
-    def mixins(self) -> HttpRepo:
-        return HttpRepo[UserIn, UserOut, UserBase](self.repos.users, self.logger)
-
-    @admin_router.get("", response_model=UserPagination)
-    def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):
-        """Returns all users from all groups"""
-
-        response = self.repos.users.page_all(
-            pagination=q,
-            override=UserOut,
-        )
-
-        response.set_pagination_guides(admin_router.url_path_for("get_all"), q.model_dump())
-        return response
-
-    @admin_router.post("", response_model=UserOut, status_code=201)
-    def create_user(self, new_user: UserIn):
-        new_user.password = hash_password(new_user.password)
-        return self.mixins.create_one(new_user)
-
-    @admin_router.get("/{item_id}", response_model=UserOut)
-    def get_user(self, item_id: UUID4):
-        return self.mixins.get_one(item_id)
-
-    @admin_router.delete("/{item_id}")
-    def delete_user(self, item_id: UUID4):
-        self.mixins.delete_one(item_id)
 
 
 @controller(user_router)
