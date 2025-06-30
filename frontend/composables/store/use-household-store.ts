@@ -1,7 +1,7 @@
+import type { Composer } from "vue-i18n";
 import { useReadOnlyStore } from "../partials/use-store-factory";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
-import type { Composer } from "vue-i18n";
 
 const store: Ref<HouseholdSummary[]> = ref([]);
 const loading = ref(false);

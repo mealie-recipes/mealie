@@ -1,7 +1,7 @@
+import type { Composer } from "vue-i18n";
 import { useReadOnlyStore, useStore } from "../partials/use-store-factory";
 import type { RecipeCookBook } from "~/lib/api/types/cookbook";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
-import type { Composer } from "vue-i18n";
 
 const store: Ref<RecipeCookBook[]> = ref([]);
 const loading = ref(false);

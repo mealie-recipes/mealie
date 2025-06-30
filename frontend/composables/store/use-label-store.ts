@@ -1,7 +1,7 @@
+import type { Composer } from "vue-i18n";
 import { useData, useStore } from "../partials/use-store-factory";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import { useUserApi } from "~/composables/api";
-import type { Composer } from "vue-i18n";
 
 const store: Ref<MultiPurposeLabelOut[]> = ref([]);
 const loading = ref(false);

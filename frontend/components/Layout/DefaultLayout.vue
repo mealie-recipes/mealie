@@ -141,15 +141,17 @@ export default defineNuxtComponent({
 
     function getStoreData<T>(
       ownGroupStoreFn: (i18n: any) => { store: Ref<T[]>; actions: { refresh: () => void } },
-      publicStoreFn: (groupSlug: string, i18n: any) => { store: Ref<T[]>; actions: { refresh: () => void } }
+      publicStoreFn: (groupSlug: string, i18n: any) => { store: Ref<T[]>; actions: { refresh: () => void } },
     ): T[] {
       let store;
 
       if (isOwnGroup.value) {
         store = ownGroupStoreFn(i18n);
-      } else if (groupSlug.value) {
+      }
+      else if (groupSlug.value) {
         store = publicStoreFn(groupSlug.value, i18n);
-      } else {
+      }
+      else {
         return [];
       }
 

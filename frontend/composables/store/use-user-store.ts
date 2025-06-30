@@ -1,8 +1,8 @@
+import type { Composer } from "vue-i18n";
 import { useReadOnlyStore } from "../partials/use-store-factory";
 import { useRequests } from "../api/api-client";
 import type { UserSummary } from "~/lib/api/types/user";
 import { BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
-import type { Composer } from "vue-i18n";
 
 const store: Ref<UserSummary[]> = ref([]);
 const loading = ref(false);
