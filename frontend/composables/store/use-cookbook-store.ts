@@ -7,8 +7,8 @@ const store: Ref<RecipeCookBook[]> = ref([]);
 const loading = ref(false);
 const publicLoading = ref(false);
 
-export const useCookbookStore = function () {
-  const api = useUserApi();
+export const useCookbookStore = function (i18n?: Composer) {
+  const api = useUserApi(i18n);
   return useStore<RecipeCookBook>(store, loading, api.cookbooks);
 };
 

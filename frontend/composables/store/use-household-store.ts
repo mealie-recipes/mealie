@@ -7,8 +7,8 @@ const store: Ref<HouseholdSummary[]> = ref([]);
 const loading = ref(false);
 const publicLoading = ref(false);
 
-export const useHouseholdStore = function () {
-  const api = useUserApi();
+export const useHouseholdStore = function (i18n?: Composer) {
+  const api = useUserApi(i18n);
   return useReadOnlyStore<HouseholdSummary>(store, loading, api.households);
 };
 
