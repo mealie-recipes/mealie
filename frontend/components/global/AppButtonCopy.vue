@@ -2,7 +2,6 @@
   <v-tooltip
     ref="copyToolTip"
     v-model="show"
-    :color="copied? 'success-lighten-1' : 'red-lighten-1'"
     top
     :open-on-hover="false"
     :open-on-click="true"
@@ -25,10 +24,7 @@
       </v-btn>
     </template>
     <span v-if="!isSupported || copiedSuccess !== null">
-      <v-icon
-        start
-        dark
-      >
+      <v-icon start>
         {{ $globals.icons.clipboardCheck }}
       </v-icon>
       <slot v-if="!isSupported"> {{ $t("general.your-browser-does-not-support-clipboard") }} </slot>
@@ -84,7 +80,7 @@ export default defineNuxtComponent({
       show.value = true;
       setTimeout(() => {
         show.value = false;
-      }, 2000);
+      }, 3000);
     }
 
     return {
