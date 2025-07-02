@@ -184,8 +184,9 @@ class OpenAIRecipe(OpenAIBase):
         [],
         description=dedent(
             """
-            A list of ingredients used in the recipe. Ingredients should be inserted in the order they appear in the
-            recipe. If the recipe has no ingredients, you should return an empty list.
+            A list of instructions for the recipe. Each instruction should represent one step in the recipe,
+            and should be inserted in the order they appear in the recipe. If the recipe has no instructions,
+            you should return an empty list.
 
             Often times, but not always, instructions are separated by line breaks and/or separated by paragraphs.
             Use these as a guide to separate instructions. They also may be separated by numbers or words, such as

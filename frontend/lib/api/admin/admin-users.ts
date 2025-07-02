@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { ForgotPassword, PasswordResetToken, UnlockResults, UserIn, UserOut } from "~/lib/api/types/user";
+import type { ForgotPassword, PasswordResetToken, UnlockResults, UserIn, UserOut } from "~/lib/api/types/user";
 
 const prefix = "/api";
 

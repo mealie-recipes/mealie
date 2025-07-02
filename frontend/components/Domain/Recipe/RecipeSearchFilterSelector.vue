@@ -1,18 +1,18 @@
 <template>
   <div class="d-flex justify-center align-center">
-    <v-btn-toggle v-model="selected" tile group color="primary accent-3" mandatory @change="emitMulti">
-      <v-btn small :value="false">
+    <v-btn-toggle v-model="selected" tile group color="primary accent-3" mandatory="force" @change="emitMulti">
+      <v-btn size="small" :value="false">
         {{ $t("search.include") }}
       </v-btn>
-      <v-btn small :value="true">
+      <v-btn size="small" :value="true">
         {{ $t("search.exclude") }}
       </v-btn>
     </v-btn-toggle>
-    <v-btn-toggle v-model="match" tile group color="primary accent-3" mandatory @change="emitMulti">
-      <v-btn small :value="false" class="text-uppercase">
+    <v-btn-toggle v-model="match" tile group color="primary accent-3" mandatory="force" @change="emitMulti">
+      <v-btn size="small" :value="false" class="text-uppercase">
         {{ $t("search.and") }}
       </v-btn>
-      <v-btn small :value="true" class="text-uppercase">
+      <v-btn size="small" :value="true" class="text-uppercase">
         {{ $t("search.or") }}
       </v-btn>
     </v-btn-toggle>
@@ -20,17 +20,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
-
 type SelectionValue = "include" | "exclude" | "any";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: String as () => SelectionValue,
       default: "include",
     },
   },
+  emits: ["update:modelValue", "update"],
   data() {
     return {
       selected: false,
@@ -39,7 +38,7 @@ export default defineComponent({
   },
   methods: {
     emitChange() {
-      this.$emit("input", this.selected);
+      this.$emit("update:modelValue", this.selected);
     },
     emitMulti() {
       const updateData = {

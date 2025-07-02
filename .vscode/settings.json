@@ -18,6 +18,7 @@
     "source.organizeImports": "never"
   },
   "editor.formatOnSave": true,
+  "eslint.useFlatConfig": true,
   "eslint.workingDirectories": [
     "./frontend"
   ],

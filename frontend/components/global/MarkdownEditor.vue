@@ -1,11 +1,14 @@
 <template>
   <div>
-    <div v-if="displayPreview" class="d-flex justify-end">
+    <div
+      v-if="displayPreview"
+      class="d-flex justify-end"
+    >
       <BaseButtonGroup
         :buttons="[
           {
             icon: previewState ? $globals.icons.edit : $globals.icons.eye,
-            text: previewState ? $tc('general.edit') : $tc('markdown-editor.preview-markdown-button-label'),
+            text: previewState ? $t('general.edit') : $t('markdown-editor.preview-markdown-button-label'),
             event: 'toggle',
           },
         ]"
@@ -19,20 +22,22 @@
       :class="label == '' ? '' : 'mt-5'"
       :label="label"
       auto-grow
-      dense
+      density="compact"
       rows="4"
+      variant="underlined"
     />
-    <SafeMarkdown v-else :source="value" />
+    <SafeMarkdown
+      v-else
+      :source="modelValue"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from "@nuxtjs/composition-api";
-
-export default defineComponent({
+export default defineNuxtComponent({
   name: "MarkdownEditor",
   props: {
-    value: {
+    modelValue: {
       type: String,
       required: true,
     },
@@ -53,6 +58,7 @@ export default defineComponent({
       default: () => ({}),
     },
   },
+  emits: ["update:modelValue", "input:preview"],
   setup(props, context) {
     const fallbackPreview = ref(false);
     const previewState = computed({
@@ -62,7 +68,8 @@ export default defineComponent({
       set: (val) => {
         if (props.preview) {
           context.emit("input:preview", val);
-        } else {
+        }
+        else {
           fallbackPreview.value = val;
         }
       },
@@ -70,10 +77,10 @@ export default defineComponent({
 
     const inputVal = computed({
       get: () => {
-        return props.value;
+        return props.modelValue;
       },
       set: (val) => {
-        context.emit("input", val);
+        context.emit("update:modelValue", val);
       },
     });
     return {

@@ -1,8 +1,8 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { PaginationData } from "../types/non-generated";
-import { QueryValue } from "../base/route";
-import { GroupBase, GroupInDB, GroupSummary, UserSummary } from "~/lib/api/types/user";
-import {
+import type { PaginationData } from "../types/non-generated";
+import type { QueryValue } from "../base/route";
+import type { GroupBase, GroupInDB, GroupSummary, UserSummary } from "~/lib/api/types/user";
+import type {
   GroupAdminUpdate,
   GroupStorage,
   ReadGroupPreferences,

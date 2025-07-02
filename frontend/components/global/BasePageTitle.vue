@@ -1,26 +1,29 @@
 <template>
   <div class="mt-4">
     <section class="d-flex flex-column align-center">
-      <slot name="header"></slot>
-      <h2 class="headline">
-        <slot name="title"> 👋 Here's a Title </slot>
+      <slot name="header" />
+      <h2 class="text-h5">
+        <slot name="title">
+          👋 Here's a Title
+        </slot>
       </h2>
 
       <h3 class="subtitle-1">
-        <slot> </slot>
+        <slot />
       </h3>
     </section>
     <section class="d-flex">
-      <slot name="content"></slot>
+      <slot name="content" />
     </section>
-    <v-divider v-if="divider" class="my-4"></v-divider>
+    <v-divider
+      v-if="divider"
+      class="my-4"
+    />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
-
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     divider: {
       type: Boolean,
@@ -29,3 +32,11 @@ export default defineComponent({
   },
 });
 </script>
+
+<style scoped>
+.subtitle-1 {
+  font-size: 1rem;
+  font-weight: normal;
+  color: var(--v-text-caption);
+}
+</style>

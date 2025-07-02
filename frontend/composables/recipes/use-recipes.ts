@@ -1,9 +1,9 @@
-import { useAsync, useRouter, ref } from "@nuxtjs/composition-api";
+import { ref } from "vue";
 import { useAsyncKey } from "../use-utils";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useUserApi } from "~/composables/api";
-import { OrderByNullPosition, Recipe } from "~/lib/api/types/recipe";
-import { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
+import type { OrderByNullPosition, Recipe } from "~/lib/api/types/recipe";
+import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 
 export const allRecipes = ref<Recipe[]>([]);
 export const recentRecipes = ref<Recipe[]>([]);
@@ -13,7 +13,7 @@ function getParams(
   orderDirection = "desc",
   orderByNullPosition: OrderByNullPosition | null = null,
   query: RecipeSearchQuery | null = null,
-  queryFilter: string | null = null
+  queryFilter: string | null = null,
 ) {
   return {
     orderBy,
@@ -53,7 +53,6 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
     query: RecipeSearchQuery | null = null,
     queryFilter: string | null = null,
   ) {
-
     const { data, error } = await api.recipes.getAll(
       page,
       perPage,
@@ -113,7 +112,7 @@ export const useRecipes = (
   fetchRecipes = true,
   loadFood = false,
   queryFilter: string | null = null,
-  publicGroupSlug: string | null = null
+  publicGroupSlug: string | null = null,
 ) => {
   const api = publicGroupSlug ? usePublicExploreApi(publicGroupSlug).explore : useUserApi();
 
@@ -125,7 +124,8 @@ export const useRecipes = (
         page: 1,
         perPage: -1,
       };
-    } else {
+    }
+    else {
       return {
         recipes: recentRecipes,
         page: 1,
@@ -142,9 +142,9 @@ export const useRecipes = (
   }
 
   function getAllRecipes() {
-    useAsync(async () => {
+    useAsyncData(useAsyncKey(), async () => {
       await refreshRecipes();
-    }, useAsyncKey());
+    });
   }
 
   function assignSorted(val: Array<Recipe>) {

@@ -1,10 +1,16 @@
 <template>
   <BannerWarning
-    :title="$tc('banner-experimental.title')"
-    :description="$tc('banner-experimental.description')"
+    :title="$t('banner-experimental.title')"
+    :description="$t('banner-experimental.description')"
   >
-    <template v-if="issue" #default>
-      <a :href="issue" target="_blank">{{ $t("banner-experimental.issue-link-text") }}</a>
+    <template
+      v-if="issue"
+      #default
+    >
+      <a
+        :href="issue"
+        target="_blank"
+      >{{ $t("banner-experimental.issue-link-text") }}</a>
     </template>
   </BannerWarning>
 </template>

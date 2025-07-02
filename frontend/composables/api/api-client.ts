@@ -1,18 +1,17 @@
-import { AxiosResponse } from "axios";
-import { useContext } from "@nuxtjs/composition-api";
-import type { NuxtAxiosInstance } from "@nuxtjs/axios";
-import { ApiRequestInstance, RequestResponse } from "~/lib/api/types/non-generated";
+import type { AxiosInstance, AxiosResponse, AxiosRequestConfig } from "axios";
+import type { ApiRequestInstance, RequestResponse } from "~/lib/api/types/non-generated";
 import { AdminAPI, PublicApi, UserApi } from "~/lib/api";
 import { PublicExploreApi } from "~/lib/api/client-public";
 
 const request = {
   async safe<T, U>(
-    funcCall: (url: string, data: U) => Promise<AxiosResponse<T>>,
+    funcCall: (url: string, data: U, config?: AxiosRequestConfig) => Promise<AxiosResponse<T>>,
     url: string,
-    data: U
+    data: U,
+    config?: AxiosRequestConfig,
   ): Promise<RequestResponse<T>> {
     let error = null;
-    const response = await funcCall(url, data).catch(function (e) {
+    const response = await funcCall(url, data, config).catch(function (e) {
       console.log(e);
       // Insert Generic Error Handling Here
       error = e;
@@ -22,11 +21,11 @@ const request = {
   },
 };
 
-function getRequests(axiosInstance: NuxtAxiosInstance): ApiRequestInstance {
+function getRequests(axiosInstance: AxiosInstance): ApiRequestInstance {
   return {
-    async get<T>(url: string, params = {}): Promise<RequestResponse<T>> {
+    async get<T>(url: string, params = {}, config?: AxiosRequestConfig): Promise<RequestResponse<T>> {
       let error = null;
-      const response = await axiosInstance.get<T>(url, params).catch((e) => {
+      const response = await axiosInstance.get<T>(url, { ...config, params }).catch((e) => {
         error = e;
       });
       if (response != null) {
@@ -35,32 +34,29 @@ function getRequests(axiosInstance: NuxtAxiosInstance): ApiRequestInstance {
       return { response: null, error, data: null };
     },
 
-    async post<T, U>(url: string, data: U) {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      return await request.safe<T, U>(axiosInstance.post, url, data);
+    async post<T, U>(url: string, data: U, config?: AxiosRequestConfig) {
+      return await request.safe<T, U>(axiosInstance.post, url, data, config);
     },
 
-    async put<T, U = T>(url: string, data: U) {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      return await request.safe<T, U>(axiosInstance.put, url, data);
+    async put<T, U = T>(url: string, data: U, config?: AxiosRequestConfig) {
+      return await request.safe<T, U>(axiosInstance.put, url, data, config);
     },
 
-    async patch<T, U = Partial<T>>(url: string, data: U) {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      return await request.safe<T, U>(axiosInstance.patch, url, data);
+    async patch<T, U = Partial<T>>(url: string, data: U, config?: AxiosRequestConfig) {
+      return await request.safe<T, U>(axiosInstance.patch, url, data, config);
     },
 
-    async delete<T>(url: string) {
-      // eslint-disable-next-line @typescript-eslint/unbound-method
-      return await request.safe<T, undefined>(axiosInstance.delete, url, undefined);
+    async delete<T>(url: string, config?: AxiosRequestConfig) {
+      return await request.safe<T, undefined>(axiosInstance.delete, url, undefined, config);
     },
   };
 }
 
 export const useRequests = function (): ApiRequestInstance {
-  const { $axios, i18n } = useContext();
+  const i18n = useI18n();
+  const { $axios } = useNuxtApp();
 
-  $axios.setHeader("Accept-Language", i18n.locale);
+  $axios.defaults.headers.common["Accept-Language"] = i18n.locale.value;
 
   return getRequests($axios);
 };
@@ -83,4 +79,4 @@ export const usePublicApi = function (): PublicApi {
 export const usePublicExploreApi = function (groupSlug: string): PublicExploreApi {
   const requests = useRequests();
   return new PublicExploreApi(requests, groupSlug);
-}
+};

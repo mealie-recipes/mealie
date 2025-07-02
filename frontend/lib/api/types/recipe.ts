@@ -226,7 +226,7 @@ export interface Recipe {
   groupId?: string;
   name?: string | null;
   slug?: string;
-  image?: unknown;
+  image?: string;
   recipeServings?: number;
   recipeYieldQuantity?: number;
   recipeYield?: string | null;
@@ -512,7 +512,7 @@ export interface ScrapeRecipeTest {
   url: string;
   useOpenAI?: boolean;
 }
-export interface SlugResponse {}
+export interface SlugResponse { }
 export interface TagIn {
   name: string;
 }

@@ -5,11 +5,9 @@ test('password login', async ({ page }) => {
     const password = "MyPassword"
     const name = "Change Me"
 
-    await page.goto('http://localhost:9000/login');
-    await page.getByLabel('Email or Username').click();
-    await page.getByLabel('Email or Username').fill(username);
-    await page.locator('div').filter({ hasText: /^Password$/ }).nth(3).click();
-    await page.getByLabel('Password').fill(password);
+    await page.goto('/login');
+    await page.getByLabel('Email or Username', { exact: true }).fill(username);
+    await page.getByLabel('Password', { exact: true }).fill(password);
     await page.getByRole('button', { name: 'Login', exact: true }).click();
     // skip admin setup page
     await page.getByRole('link', { name: "I'm already set up, just bring me to the homepage" }).click();
@@ -21,12 +19,11 @@ test('ldap login', async ({ page }) => {
     const password = "bender"
     const name = "Bender Bending Rodríguez"
 
-    await page.goto('http://localhost:9000/login');
-    await page.getByLabel('Email or Username').click();
-    await page.getByLabel('Email or Username').fill(username);
-    await page.locator('div').filter({ hasText: /^Password$/ }).nth(3).click();
-    await page.getByLabel('Password').fill(password);
+    await page.goto('/login');
+    await page.getByLabel('Email or Username', { exact: true }).fill(username);
+    await page.getByLabel('Password', { exact: true }).fill(password);
     await page.getByRole('button', { name: 'Login', exact: true }).click();
+    await expect(page).toHaveURL(/\/g\/home/);
     await expect(page.getByRole('navigation')).toContainText(name);
     await expect(page.getByRole('link', { name: 'Settings' })).not.toBeVisible();
 });
@@ -36,11 +33,9 @@ test('ldap admin login', async ({ page }) => {
     const password = "professor"
     const name = "Hubert J. Farnsworth"
 
-    await page.goto('http://localhost:9000/login');
-    await page.getByLabel('Email or Username').click();
-    await page.getByLabel('Email or Username').fill(username);
-    await page.locator('div').filter({ hasText: /^Password$/ }).nth(3).click();
-    await page.getByLabel('Password').fill(password);
+    await page.goto('/login');
+    await page.getByLabel('Email or Username', { exact: true }).fill(username);
+    await page.getByLabel('Password', { exact: true }).fill(password);
     await page.getByRole('button', { name: 'Login', exact: true }).click();
     // skip admin setup page
     await page.getByRole('link', { name: "I'm already set up, just bring me to the homepage" }).click();
@@ -59,11 +54,12 @@ test('oidc initial login', async ({ page }) => {
         "groups": ["user"]
     }
 
-    await page.goto('http://localhost:9000/login');
+    await page.goto('/login');
     await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
+    await expect(page).toHaveURL(/\/g\/home/);
     await expect(page.getByRole('navigation')).toContainText(name);
     await expect(page.getByRole('link', { name: 'Settings' })).not.toBeVisible();
 });
@@ -79,12 +75,12 @@ test('oidc login with user not in propery group', async ({ page }) => {
         "groups": []
     }
 
-    await page.goto('http://localhost:9000/login');
+    await page.goto('/login');
     await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
-    await expect(page).toHaveURL(/.*\/login\/?\?direct=1/)
+    await expect(page).toHaveURL(/\/login\?direct=1/);
     await expect(page.getByRole('button', { name: 'Login with OAuth' })).toBeVisible()
 });
 
@@ -99,20 +95,21 @@ test('oidc sequential login', async ({ page }) => {
         "groups": ["user"]
     }
 
-    await page.goto('http://localhost:9000/login');
+    await page.goto('/login');
     await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
+    await expect(page).toHaveURL(/\/g\/home/, { timeout: 15000 });
     await expect(page.getByRole('navigation')).toContainText(name);
     await page.getByRole('button', { name: 'Logout' }).click();
 
-    await page.goto('http://localhost:9000/login');
+    await expect(page).toHaveURL(/\/login\?direct=1/);
     await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
-    await expect(page.getByRole('navigation')).toContainText(name);
+    await expect(page.getByRole('navigation')).toContainText(name, { timeout: 15000 });
 });
 
 test('settings page verify oidc', async ({ page }) => {
@@ -126,7 +123,7 @@ test('settings page verify oidc', async ({ page }) => {
         "groups": ["user"]
     }
 
-    await page.goto('http://localhost:9000/login');
+    await page.goto('/login');
     await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
@@ -134,18 +131,20 @@ test('settings page verify oidc', async ({ page }) => {
     await expect(page.getByRole('navigation')).toContainText(name);
     await page.getByRole('button', { name: 'Logout' }).click();
 
-    await page.goto('http://localhost:9000/login');
+    await expect(page).toHaveURL(/\/login\?direct=1/);
     await page.getByLabel('Email or Username').click();
     await page.getByLabel('Email or Username').fill('changeme@example.com');
-    await page.getByLabel('Password').click();
-    await page.getByLabel('Password').fill('MyPassword');
+    await page.getByLabel('Password', { exact: true }).click();
+    await page.getByLabel('Password', { exact: true }).fill('MyPassword');
     await page.getByRole('button', { name: 'Login', exact: true }).click();
     // skip admin setup page
+    await expect(page).toHaveURL(/\/admin\/setup/, { timeout: 15000 });
     await page.getByRole('link', { name: "I'm already set up, just bring me to the homepage" }).click();
-    await page.getByRole('link', { name: 'Settings' }).click();
-    await page.getByRole('link', { name: 'Users' }).click();
+    await expect(page).toHaveURL(/\/g\/home/);
+    // validate user settings
+    await page.goto('/admin/manage/users');
     await page.getByRole('cell', { name: username, exact: true }).click();
-    await expect(page.getByText('Permissions Administrator')).toBeVisible();
+    await expect(page.getByText('Administrator')).toBeVisible();
 });
 
 test('oidc admin user', async ({ page }) => {
@@ -159,12 +158,13 @@ test('oidc admin user', async ({ page }) => {
         "groups": ["user", "admin"]
     }
 
-    await page.goto('http://localhost:9000/login');
+    await page.goto('/login');
     await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
     // skip admin setup page
+    await expect(page).toHaveURL(/\/admin\/setup/, { timeout: 15000 });
     await page.getByRole('link', { name: "I'm already set up, just bring me to the homepage" }).click();
     await expect(page.getByRole('navigation')).toContainText(name);
     await expect(page.getByRole('link', { name: 'Settings' })).toBeVisible();

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
-from typing import TYPE_CHECKING, TypeVar
+from typing import TYPE_CHECKING
 
 from pydantic import BaseModel
 from slugify import slugify
@@ -12,8 +12,6 @@ from mealie.schema.recipe import RecipeCategory
 from mealie.schema.recipe.recipe import RecipeTag
 from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagOut, TagSave
 
-T = TypeVar("T", bound=BaseModel)
-
 if TYPE_CHECKING:
     from mealie.repos.repository_generic import RepositoryGeneric
 
@@ -23,7 +21,7 @@ class DatabaseMigrationHelpers:
         self.session = session
         self.db = db
 
-    def _get_or_set_generic(
+    def _get_or_set_generic[T: BaseModel](
         self, accessor: RepositoryGeneric, items: Iterable[str], create_model: type[T], out_model: type[T]
     ) -> list[T]:
         """

@@ -1,36 +1,58 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" width="500">
+    <v-dialog
+      v-model="dialog"
+      width="500"
+    >
       <v-card>
-        <v-app-bar dense dark color="primary mb-2">
-          <v-icon large left class="mt-1">
-            {{ itemType === Organizer.Tool ? $globals.icons.potSteam :
-              itemType === Organizer.Category ? $globals.icons.categories :
-              $globals.icons.tags }}
+        <v-app-bar
+          density="compact"
+          dark
+          color="primary mb-2 position-relative left-0 top-0 w-100 pl-3"
+        >
+          <v-icon
+            size="large"
+            start
+            class="mt-1"
+          >
+            {{ itemType === Organizer.Tool ? $globals.icons.potSteam
+              : itemType === Organizer.Category ? $globals.icons.categories
+                : $globals.icons.tags }}
           </v-icon>
 
           <v-toolbar-title class="headline">
             {{ properties.title }}
           </v-toolbar-title>
 
-          <v-spacer></v-spacer>
+          <v-spacer />
         </v-app-bar>
-        <v-card-title> </v-card-title>
+        <v-card-title />
         <v-form @submit.prevent="select">
           <v-card-text>
             <v-text-field
               v-model="name"
-              dense
+              density="compact"
               :label="properties.label"
               :rules="[rules.required]"
               autofocus
-            ></v-text-field>
-            <v-checkbox v-if="itemType === Organizer.Tool" v-model="onHand" :label="$t('tool.on-hand')"></v-checkbox>
+            />
+            <v-checkbox
+              v-if="itemType === Organizer.Tool"
+              v-model="onHand"
+              :label="$t('tool.on-hand')"
+            />
           </v-card-text>
           <v-card-actions>
-            <BaseButton cancel @click="dialog = false" />
-            <v-spacer></v-spacer>
-            <BaseButton type="submit" create :disabled="!name" />
+            <BaseButton
+              cancel
+              @click="dialog = false"
+            />
+            <v-spacer />
+            <BaseButton
+              type="submit"
+              create
+              :disabled="!name"
+            />
           </v-card-actions>
         </v-form>
       </v-card>
@@ -39,16 +61,15 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, reactive, toRefs, useContext, watch } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 import { useCategoryStore, useTagStore, useToolStore } from "~/composables/store";
-import { RecipeOrganizer, Organizer } from "~/lib/api/types/non-generated";
+import { type RecipeOrganizer, Organizer } from "~/lib/api/types/non-generated";
 
 const CREATED_ITEM_EVENT = "created-item";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
@@ -65,8 +86,9 @@ export default defineComponent({
       default: "category",
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
-    const { i18n } = useContext();
+    const i18n = useI18n();
 
     const state = reactive({
       name: "",
@@ -75,18 +97,18 @@ export default defineComponent({
 
     const dialog = computed({
       get() {
-        return props.value;
+        return props.modelValue;
       },
       set(value) {
-        context.emit("input", value);
+        context.emit("update:modelValue", value);
       },
     });
 
     watch(
-      () => props.value,
+      () => props.modelValue,
       (val: boolean) => {
         if (!val) state.name = "";
-      }
+      },
     );
 
     const userApi = useUserApi();
@@ -135,7 +157,7 @@ export default defineComponent({
         await store.actions.createOne({ ...state });
       }
 
-      const newItem = store.store.value.find((item) => item.name === state.name);
+      const newItem = store.store.value.find(item => item.name === state.name);
 
       context.emit(CREATED_ITEM_EVENT, newItem);
       dialog.value = false;

@@ -1,19 +1,36 @@
 <template>
-  <div class="mx-auto my-3 justify-center" style="display: flex;">
+  <div
+    class="mx-auto my-3 justify-center"
+    style="display: flex;"
+  >
     <div style="display: inline;">
-      <v-progress-circular :width="size.width" :size="size.size" color="primary lighten-2" indeterminate>
+      <v-progress-circular
+        :width="size.width"
+        :size="size.size"
+        color="primary-lighten-2"
+        indeterminate
+      >
         <div class="text-center">
-          <v-icon :size="size.icon" color="primary lighten-2">
+          <v-icon
+            :size="size.icon"
+            color="primary-lighten-2"
+          >
             {{ $globals.icons.primary }}
           </v-icon>
-          <div v-if="large" class="text-small">
+          <div
+            v-if="large"
+            class="text-small"
+          >
             <slot>
               {{ (small || tiny) ? "" : waitingText }}
             </slot>
           </div>
         </div>
       </v-progress-circular>
-      <div v-if="!large" class="text-small">
+      <div
+        v-if="!large"
+        class="text-small"
+      >
         <slot>
           {{ (small || tiny) ? "" : waitingTextCalculated }}
         </slot>
@@ -23,9 +40,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
-
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     loading: {
       type: Boolean,
@@ -50,7 +65,7 @@ export default defineComponent({
     waitingText: {
       type: String,
       default: undefined,
-    }
+    },
   },
   setup(props) {
     const size = computed(() => {
@@ -67,7 +82,8 @@ export default defineComponent({
           icon: 30,
           size: 50,
         };
-      } else if (props.large) {
+      }
+      else if (props.large) {
         return {
           width: 4,
           icon: 120,
@@ -81,7 +97,7 @@ export default defineComponent({
       };
     });
 
-    const { i18n } = useContext();
+    const i18n = useI18n();
     const waitingTextCalculated = props.waitingText == null ? i18n.t("general.loading-recipes") : props.waitingText;
 
     return {

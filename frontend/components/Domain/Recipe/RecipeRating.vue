@@ -1,31 +1,30 @@
 <template>
   <div @click.prevent>
     <!-- User Rating -->
-    <v-hover v-slot="{ hover }">
-      <v-rating
-        v-if="isOwnGroup && (userRating || hover || !ratingsLoaded)"
-        :value="userRating"
-        color="secondary"
-        background-color="secondary lighten-3"
+    <v-hover v-slot="{ isHovering, props }">
+      <v-rating v-if="isOwnGroup && (userRating || isHovering || !ratingsLoaded)"
+        v-bind="props"
+        :model-value="userRating"
+        active-color="secondary"
+        color="secondary-lighten-3"
         length="5"
-        :dense="small ? true : undefined"
-        :size="small ? 15 : undefined"
+        :density="small ? 'compact' : 'default'"
+        :size="small ? 'x-small' : undefined"
         hover
         clearable
-        @input="updateRating"
+        @update:model-value="updateRating(+$event)"
         @click="updateRating"
       />
       <!-- Group Rating -->
-      <v-rating
-        v-else
-        :value="groupRating"
+      <v-rating v-else
+        v-bind="props"
+        :model-value="groupRating"
         :half-increments="true"
-        :readonly="true"
-        color="grey darken-1"
-        background-color="secondary lighten-3"
+        active-color="grey-darken-1"
+        color="secondary-lighten-3"
         length="5"
-        :dense="small ? true : undefined"
-        :size="small ? 15 : undefined"
+        :density="small ? 'compact' : 'default'"
+        :size="small ? 'x-small' : undefined"
         hover
       />
     </v-hover>
@@ -33,10 +32,10 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref, watch } from "@nuxtjs/composition-api";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserSelfRatings } from "~/composables/use-users";
-export default defineComponent({
+
+export default defineNuxtComponent({
   props: {
     emitOnly: {
       type: Boolean,
@@ -50,7 +49,7 @@ export default defineComponent({
       type: String,
       default: "",
     },
-    value: {
+    modelValue: {
       type: Number,
       default: 0,
     },
@@ -59,12 +58,13 @@ export default defineComponent({
       default: false,
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     const { isOwnGroup } = useLoggedInState();
     const { userRatings, setRating, ready: ratingsLoaded } = useUserSelfRatings();
 
     const userRating = computed(() => {
-      return userRatings.value.find((r) => r.recipeId === props.recipeId)?.rating;
+      return userRatings.value.find(r => r.recipeId === props.recipeId)?.rating ?? undefined;
     });
 
     // if a user unsets their rating, we don't want to fall back to the group rating since it's out of sync
@@ -76,13 +76,13 @@ export default defineComponent({
           hideGroupRating.value = true;
         }
       },
-    )
+    );
 
     const groupRating = computed(() => {
-      return hideGroupRating.value ? 0 : props.value;
+      return hideGroupRating.value ? 0 : props.modelValue;
     });
 
-    function updateRating(val: number | null) {
+    function updateRating(val?: number) {
       if (!isOwnGroup.value) {
         return;
       }
@@ -90,7 +90,7 @@ export default defineComponent({
       if (!props.emitOnly) {
         setRating(props.slug, val || 0, null);
       }
-      context.emit("input", val);
+      context.emit("update:modelValue", val);
     }
 
     return {

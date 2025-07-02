@@ -1,6 +1,6 @@
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
-from typing import Annotated, Any, Generic, TypeVar
+from typing import Annotated, Any
 from uuid import UUID
 
 from pydantic import UUID4, BaseModel, ConfigDict, Field, StringConstraints, field_validator
@@ -20,7 +20,6 @@ from mealie.schema.response.pagination import PaginationBase
 from ...db.models.group import Group
 from ..recipe import CategoryBase
 
-DataT = TypeVar("DataT", bound=BaseModel)
 DEFAULT_INTEGRATION_ID = "generic"
 settings = get_app_settings()
 
@@ -102,7 +101,7 @@ class UserRatingOut(UserRatingCreate):
         ]
 
 
-class UserRatings(BaseModel, Generic[DataT]):
+class UserRatings[DataT: BaseModel](BaseModel):
     ratings: list[DataT]
 
 

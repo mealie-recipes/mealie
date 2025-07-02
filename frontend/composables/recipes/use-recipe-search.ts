@@ -1,8 +1,7 @@
-import { Ref, ref } from "@nuxtjs/composition-api";
 import { watchDebounced } from "@vueuse/core";
-import { UserApi } from "~/lib/api";
-import { ExploreApi } from "~/lib/api/public/explore";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { UserApi } from "~/lib/api";
+import type { ExploreApi } from "~/lib/api/public/explore";
+import type { Recipe } from "~/lib/api/types/recipe";
 
 export interface UseRecipeSearchReturn {
   query: Ref<string>;
@@ -54,7 +53,7 @@ export function useRecipeSearch(api: UserApi | ExploreApi): UseRecipeSearchRetur
     async (term: string) => {
       await searchRecipes(term);
     },
-    { debounce: 500 }
+    { debounce: 500 },
   );
 
   async function trigger() {

@@ -11,10 +11,11 @@ const routes = {
 };
 
 export class PublicHouseholdApi extends BaseCRUDAPIReadOnly<HouseholdSummary> {
-  baseRoute = routes.householdsGroupSlug(this.groupSlug);
-  itemRoute = (itemId: string | number) => routes.householdsGroupSlugHouseholdSlug(this.groupSlug, itemId);
-
-  constructor(requests: ApiRequestInstance, private readonly groupSlug: string) {
-    super(requests);
+  constructor(requests: ApiRequestInstance, groupSlug: string) {
+    super(
+      requests,
+      routes.householdsGroupSlug(groupSlug),
+      (itemId: string | number) => routes.householdsGroupSlugHouseholdSlug(groupSlug, itemId)
+    );
   }
 }

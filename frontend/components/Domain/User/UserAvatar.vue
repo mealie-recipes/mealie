@@ -4,12 +4,29 @@
     :disabled="!user || !tooltip"
     right
   >
-    <template #activator="{ on, attrs }">
-      <v-list-item-avatar v-if="list" v-bind="attrs" v-on="on">
-        <v-img :src="imageURL" :alt="userId" @load="error = false" @error="error = true"> </v-img>
-      </v-list-item-avatar>
-      <v-avatar v-else :size="size" v-bind="attrs" v-on="on">
-        <v-img :src="imageURL" :alt="userId" @load="error = false" @error="error = true"> </v-img>
+    <template #activator="{ props }">
+      <v-avatar
+        v-if="list"
+        v-bind="props"
+      >
+        <v-img
+          :src="imageURL"
+          :alt="userId"
+          @load="error = false"
+          @error="error = true"
+        />
+      </v-avatar>
+      <v-avatar
+        v-else
+        :size="size"
+        v-bind="props"
+      >
+        <v-img
+          :src="imageURL"
+          :alt="userId"
+          @load="error = false"
+          @error="error = true"
+        />
       </v-avatar>
     </template>
     <span v-if="user">
@@ -19,11 +36,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, toRefs, reactive, useContext, computed } from "@nuxtjs/composition-api";
 import { useUserStore } from "~/composables/store/use-user-store";
-import { UserOut } from "~/lib/api/types/user";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     userId: {
       type: String,
@@ -40,22 +55,22 @@ export default defineComponent({
     tooltip: {
       type: Boolean,
       default: true,
-    }
+    },
   },
   setup(props) {
     const state = reactive({
       error: false,
     });
 
-    const { $auth } = useContext();
+    const $auth = useMealieAuth();
     const { store: users } = useUserStore();
     const user = computed(() => {
-      return users.value.find((user) => user.id === props.userId);
-    })
+      return users.value.find(user => user.id === props.userId);
+    });
 
     const imageURL = computed(() => {
-      // TODO Setup correct user type for $auth.user
-      const authUser = $auth.user as unknown as UserOut | null;
+      // Note: $auth.user is a ref now
+      const authUser = $auth.user.value;
       const key = authUser?.cacheKey ?? "";
       return `/api/media/users/${props.userId}/profile.webp?cacheKey=${key}`;
     });

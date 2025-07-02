@@ -1,27 +1,44 @@
 <template>
   <div>
     <v-card-text>
-      <v-switch v-model="webhookCopy.enabled" :label="$t('general.enabled')"></v-switch>
-      <v-text-field v-model="webhookCopy.name" :label="$t('settings.webhooks.webhook-name')"></v-text-field>
-      <v-text-field v-model="webhookCopy.url" :label="$t('settings.webhooks.webhook-url')"></v-text-field>
-      <v-time-picker v-model="scheduledTime" class="elevation-2" ampm-in-title format="ampm"></v-time-picker>
+      <v-switch
+        v-model="webhookCopy.enabled"
+        color="primary"
+        :label="$t('general.enabled')"
+      />
+      <v-text-field
+        v-model="webhookCopy.name"
+        :label="$t('settings.webhooks.webhook-name')"
+        variant="underlined"
+      />
+      <v-text-field
+        v-model="webhookCopy.url"
+        :label="$t('settings.webhooks.webhook-url')"
+        variant="underlined"
+      />
+      <v-time-picker
+        v-model="scheduledTime"
+        class="elevation-2"
+        ampm-in-title
+        format="ampm"
+      />
     </v-card-text>
     <v-card-actions class="py-0 justify-end">
       <BaseButtonGroup
         :buttons="[
           {
             icon: $globals.icons.delete,
-            text: $tc('general.delete'),
+            text: $t('general.delete'),
             event: 'delete',
           },
           {
             icon: $globals.icons.testTube,
-            text: $tc('general.test'),
+            text: $t('general.test'),
             event: 'test',
           },
           {
             icon: $globals.icons.save,
-            text: $tc('general.save'),
+            text: $t('general.save'),
             event: 'save',
           },
         ]"
@@ -34,11 +51,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref } from "@nuxtjs/composition-api";
-import { ReadWebhook } from "~/lib/api/types/household";
+import type { ReadWebhook } from "~/lib/api/types/household";
 import { timeLocalToUTC, timeUTCToLocal } from "~/composables/use-group-webhooks";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     webhook: {
       type: Object as () => ReadWebhook,
@@ -47,6 +63,7 @@ export default defineComponent({
   },
   emits: ["delete", "save", "test"],
   setup(props, { emit }) {
+    const i18n = useI18n();
     const itemUTC = ref<string>(props.webhook.scheduledTime);
     const itemLocal = ref<string>(timeUTCToLocal(props.webhook.scheduledTime));
 
@@ -67,17 +84,17 @@ export default defineComponent({
       emit("save", webhookCopy.value);
     }
 
+    // Set page title using useSeoMeta
+    useSeoMeta({
+      title: i18n.t("settings.webhooks.webhooks"),
+    });
+
     return {
       webhookCopy,
       scheduledTime,
       handleSave,
       itemUTC,
       itemLocal,
-    };
-  },
-  head() {
-    return {
-      title: this.$t("settings.webhooks.webhooks") as string,
     };
   },
 });
