@@ -69,7 +69,8 @@
       :style="maxHeight ? `max-height: ${maxHeight}; overflow-y: auto;` : ''"
     >
       <v-timeline
-        :dense="$vuetify.display.smAndDown"
+        :density="$vuetify.display.smAndDown ? ($vuetify.display.xs ? 'compact' : 'comfortable') : undefined"
+        justify="center"
         class="timeline"
       >
         <RecipeTimelineItem
@@ -78,6 +79,7 @@
           :event="event"
           :recipe="recipes.get(event.recipeId)"
           :show-recipe-cards="showRecipeCards"
+          :width="$vuetify.display.smAndDown ? '100%' : undefined"
           @update="updateTimelineEvent(index)"
           @delete="deleteTimelineEvent(index)"
         />

@@ -1,4 +1,4 @@
-import { useUserApi } from "~/composables/api";
+import { useAdminApi } from "~/composables/api";
 import type { UserIn, UserOut } from "~/lib/api/types/user";
 
 /*
@@ -8,7 +8,7 @@ to control whether the object is substantiated... but some of the others rely on
 */
 
 export const useAllUsers = function () {
-  const api = useUserApi();
+  const api = useAdminApi();
   const asyncKey = String(Date.now());
   const { data: users, refresh: refreshAllUsers } = useLazyAsyncData(asyncKey, async () => {
     const { data } = await api.users.getAll();
@@ -24,7 +24,7 @@ export const useAllUsers = function () {
 };
 
 export const useUser = function (refreshFunc: CallableFunction | null = null) {
-  const api = useUserApi();
+  const api = useAdminApi();
   const loading = ref(false);
 
   function getUser(id: string) {

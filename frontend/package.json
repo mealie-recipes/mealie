@@ -41,7 +41,6 @@
     "vuetify-nuxt-module": "0.18.3"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.26.8",
     "@nuxt/types": "^2.18.1",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
@@ -54,7 +53,6 @@
     "eslint-plugin-nuxt": "^4.0.0",
     "eslint-plugin-prettier": "^5.2.3",
     "eslint-plugin-vue": "^9.32.0",
-    "eslint-plugin-vuetify": "^2.5.1",
     "lint-staged": "^15.4.3",
     "prettier": "^3.5.2",
     "sass-embedded": "^1.85.1",
