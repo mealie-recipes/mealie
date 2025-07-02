@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     "@vite-pwa/nuxt",
     "@nuxtjs/i18n",
     "@sidebase/nuxt-auth",
-    "@nuxtjs/google-fonts",
+    "@nuxt/fonts",
     "vuetify-nuxt-module",
     "@nuxt/eslint",
   ],
@@ -66,7 +66,7 @@ export default defineNuxtConfig({
     viewTransition: true,
   },
 
-  css: ["~/assets/css/main.css", "~/assets/css/fonts.css", "~/assets/style-overrides.scss"],
+  css: ["~/assets/main.css", "~/assets/style-overrides.scss"],
 
   runtimeConfig: {
     sessionPassword: process.env.SESSION_PASSWORD || "password-with-at-least-32-characters",
@@ -168,12 +168,11 @@ export default defineNuxtConfig({
       },
     },
   },
-
-  googleFonts: {
-    fontsPath: "/assets/fonts",
-    download: false, // Disable automatic downloading
-    families: {
-      Roboto: [100, 300, 400, 500, 700, 900],
+  fonts: {
+    defaults: {
+      weights: ["100 900"],
+      styles: ["normal", "italic"],
+      subsets: ["cyrillic-ext", "cyrillic", "greek-ext", "greek", "vietnamese", "latin-ext", "latin"],
     },
   },
   /* auth: {
