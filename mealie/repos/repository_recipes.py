@@ -7,7 +7,6 @@ from uuid import UUID
 import sqlalchemy as sa
 from fastapi import HTTPException
 from pydantic import UUID4
-from slugify import slugify
 from sqlalchemy import orm
 from sqlalchemy.exc import IntegrityError
 
@@ -22,7 +21,7 @@ from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.db.models.users.users import User
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
-from mealie.schema.recipe.recipe import RecipeCategory, RecipePagination, RecipeSummary
+from mealie.schema.recipe.recipe import RecipeCategory, RecipePagination, RecipeSummary, create_recipe_slug
 from mealie.schema.recipe.recipe_ingredient import IngredientFood
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponseItem
 from mealie.schema.recipe.recipe_tool import RecipeToolOut
@@ -98,7 +97,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             except IntegrityError:
                 self.session.rollback()
                 document.name = f"{original_name} ({i})"
-                document.slug = slugify(document.name)
+                document.slug = create_recipe_slug(document.name)
 
                 if i >= max_retries:
                     raise
