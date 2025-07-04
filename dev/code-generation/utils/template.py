@@ -1,5 +1,4 @@
 import logging
-import re
 import subprocess
 from dataclasses import dataclass
 from pathlib import Path
@@ -47,12 +46,21 @@ class CodeSlicer:
 
     def push_line(self, string: str) -> None:
         self._next_line = self._next_line or self.start + 1
-        self.text.insert(self._next_line, self.indentation or "" + string + "\n")
+        self.text.insert(self._next_line, (self.indentation or "") + string + "\n")
         self._next_line += 1
 
 
-def get_indentation_of_string(line: str, comment_char: str = "//|#") -> str:
-    return re.sub(rf"{comment_char}.*", "", line).removesuffix("\n")
+def get_indentation_of_string(line: str) -> str:
+    # Extract everything before the comment
+    if "//" in line:
+        indentation = line.split("//")[0]
+    elif "#" in line:
+        indentation = line.split("#")[0]
+    else:
+        indentation = line
+
+    # Keep only the whitespace, remove any non-whitespace characters
+    return "".join(c for c in indentation if c.isspace())
 
 
 def find_start_end(file_text: list[str], gen_id: str) -> tuple[int, int, str | None]:
