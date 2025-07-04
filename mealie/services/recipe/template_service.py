@@ -61,7 +61,7 @@ class TemplateService(BaseService):
         Args:
             t_type (TemplateType): The type of template to render
             recipe (Recipe): The recipe to render
-            template (str): The template to render **Required for Jinja2 Templates**
+            template (str): The template to render
         """
         t_type = self.template_type(template)
 
