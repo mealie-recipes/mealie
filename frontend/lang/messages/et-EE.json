@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Retsepti loomine pildist",
     "create-recipe-from-an-image-description": "Retsepti loomiseks lae üles selle pilt. Mealie üritab ekstraheerida pildil oleva teksti ning luua retsepti sellest kasutades AI-d.",
     "crop-and-rotate-the-image": "Kärpige ja pöörake pilti nii, et ainult tekst oleks nähtaval ja see oleks suunatud ülespoole.",
-    "create-from-image": "Pildist loomine",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Tõlgi retsept minu keelde",
     "please-wait-image-procesing": "Palun oota, pilti töödeldakse veel. See võib võtta veidi aega.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Hulgiimport URL-ist",
     "debug-scraper": "Otsige Scraperis probleeme",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Loo retsept selle nime kasutades. Igal retseptil peab olema unikaalne nimi",
@@ -660,7 +661,10 @@
       "no-food": "Toit puudub"
     },
     "reset-servings-count": "Lähtesta portsionite arv",
-    "not-linked-ingredients": "Lisa-koostisosad"
+    "not-linked-ingredients": "Lisa-koostisosad",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Retsepti otsing",
