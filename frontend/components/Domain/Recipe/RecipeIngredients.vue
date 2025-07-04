@@ -28,6 +28,7 @@
         </template>
         <v-list-item
           density="compact"
+          class="pa-0"
           @click.stop="toggleChecked(index)"
         >
           <template #prepend>

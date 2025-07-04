@@ -4,7 +4,7 @@ import re
 from collections.abc import Sequence
 from datetime import UTC, datetime
 from enum import Enum
-from typing import ClassVar, Protocol, Self, TypeVar
+from typing import ClassVar, Protocol, Self
 
 from humps.main import camelize
 from pydantic import UUID4, AliasChoices, BaseModel, ConfigDict, Field, model_validator
@@ -13,8 +13,6 @@ from sqlalchemy.orm import InstrumentedAttribute, Session
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models._model_base import SqlAlchemyBase
-
-T = TypeVar("T", bound=BaseModel)
 
 HOUR_ONLY_TZ_PATTERN = re.compile(r"[+-]\d{2}$")
 
@@ -56,7 +54,7 @@ class MealieModel(BaseModel):
 
     @model_validator(mode="before")
     @classmethod
-    def fix_hour_only_tz(cls, data: T) -> T:
+    def fix_hour_only_tz[T: BaseModel](cls, data: T) -> T:
         """
         Fixes datetimes with timezones that only have the hour portion.
 
@@ -82,7 +80,7 @@ class MealieModel(BaseModel):
         Adds UTC timezone information to all datetimes in the model.
         The server stores everything in UTC without timezone info.
         """
-        for field in self.model_fields:
+        for field in self.__class__.model_fields:
             val = getattr(self, field)
             if not isinstance(val, datetime):
                 continue
@@ -91,23 +89,25 @@ class MealieModel(BaseModel):
 
         return self
 
-    def cast(self, cls: type[T], **kwargs) -> T:
+    def cast[T: BaseModel](self, cls: type[T], **kwargs) -> T:
         """
         Cast the current model to another with additional arguments. Useful for
         transforming DTOs into models that are saved to a database
         """
-        create_data = {field: getattr(self, field) for field in self.model_fields if field in cls.model_fields}
+        create_data = {
+            field: getattr(self, field) for field in self.__class__.model_fields if field in cls.model_fields
+        }
         create_data.update(kwargs or {})
         return cls(**create_data)
 
-    def map_to(self, dest: T) -> T:
+    def map_to[T: BaseModel](self, dest: T) -> T:
         """
         Map matching values from the current model to another model. Model returned
         for method chaining.
         """
 
-        for field in self.model_fields:
-            if field in dest.model_fields:
+        for field in self.__class__.model_fields:
+            if field in dest.__class__.model_fields:
                 setattr(dest, field, getattr(self, field))
 
         return dest
@@ -117,18 +117,18 @@ class MealieModel(BaseModel):
         Map matching values from another model to the current model.
         """
 
-        for field in src.model_fields:
-            if field in self.model_fields:
+        for field in src.__class__.model_fields:
+            if field in self.__class__.model_fields:
                 setattr(self, field, getattr(src, field))
 
-    def merge(self, src: T, replace_null=False):
+    def merge[T: BaseModel](self, src: T, replace_null=False):
         """
         Replace matching values from another instance to the current instance.
         """
 
-        for field in src.model_fields:
+        for field in src.__class__.model_fields:
             val = getattr(src, field)
-            if field in self.model_fields and (val is not None or replace_null):
+            if field in self.__class__.model_fields and (val is not None or replace_null):
                 setattr(self, field, val)
 
     @classmethod

@@ -141,6 +141,9 @@ export default defineNuxtComponent({
 </script>
 
 <style scoped>
+.text-center {
+  font-size: smaller;
+}
 .time-card-flex {
   width: fit-content;
 }

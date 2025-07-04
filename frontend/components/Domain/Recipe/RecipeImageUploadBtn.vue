@@ -42,7 +42,7 @@
               clearable
               :messages="messages"
             >
-              <template #append-outer>
+              <template #append>
                 <v-btn
                   class="ml-2"
                   color="primary"

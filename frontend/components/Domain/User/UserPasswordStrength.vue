@@ -3,8 +3,8 @@
     <div style="flex-basis: 500px">
       <strong> {{ $t("user.password-strength", { strength: pwStrength.strength.value }) }}</strong>
       <v-progress-linear
-        :value="pwStrength.score.value"
-        class="rounded-lg"
+        v-model="pwStrength.score.value"
+        rounded
         :color="pwStrength.color.value"
         height="15"
       />
@@ -12,27 +12,11 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { usePasswordStrength } from "~/composables/use-passwords";
 
-export default defineNuxtComponent({
-  props: {
-    modelValue: {
-      type: String,
-      default: "",
-    },
-  },
-  setup(props) {
-    const asRef = toRef(props, "modelValue");
-    const i18n = useI18n();
+const modelValue = defineModel<string>({ default: "" });
+const i18n = useI18n();
 
-    const pwStrength = usePasswordStrength(asRef, i18n);
-
-    return {
-      pwStrength,
-    };
-  },
-});
+const pwStrength = usePasswordStrength(modelValue, i18n);
 </script>
-
-<style scoped></style>

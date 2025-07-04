@@ -60,7 +60,7 @@
         {{ $t('tool.required-tools') }}
       </v-card-title>
       <v-divider class="mx-2" />
-      <v-card-text class="pt-0">
+      <v-card-text>
         <RecipeOrganizerSelector
           v-model="recipe.tools"
           selector-type="tools"

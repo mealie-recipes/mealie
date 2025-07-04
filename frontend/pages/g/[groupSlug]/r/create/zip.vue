@@ -25,7 +25,6 @@
         <div style="width: 250px">
           <BaseButton
             :disabled="newRecipeZip === null"
-            large
             rounded
             block
             :loading="loading"

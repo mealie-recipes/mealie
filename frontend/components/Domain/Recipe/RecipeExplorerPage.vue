@@ -1,7 +1,7 @@
 <template>
   <v-container
     fluid
-    class="pa-0"
+    class="px-0"
   >
     <div class="search-container pb-8">
       <form

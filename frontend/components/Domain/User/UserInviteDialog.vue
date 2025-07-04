@@ -32,11 +32,11 @@
         <v-row>
           <v-col cols="9">
             <v-text-field
+              v-model="generatedSignupLink"
               :label="$t('profile.invite-link')"
               type="text"
               readonly
               variant="filled"
-              :value="generatedSignupLink"
             />
           </v-col>
           <v-col

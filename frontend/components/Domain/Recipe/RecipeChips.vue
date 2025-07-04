@@ -10,7 +10,7 @@
       v-for="category in items.slice(0, limit)"
       :key="category.name"
       label
-      class="ma-1"
+      class="mr-1 mt-1"
       color="accent"
       variant="flat"
       :size="small ? 'small' : 'default'"

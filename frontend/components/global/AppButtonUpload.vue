@@ -1,10 +1,11 @@
 <template>
-  <v-form ref="file">
+  <v-form ref="files">
     <input
       ref="uploader"
       class="d-none"
       type="file"
       :accept="accept"
+      :multiple="multiple"
       @change="onFileChanged"
     >
     <slot v-bind="{ isSelecting, onButtonClick }">
@@ -72,9 +73,13 @@ export default defineNuxtComponent({
       type: Boolean,
       default: false,
     },
+    multiple: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, context) {
-    const file = ref<File | null>(null);
+    const files = ref<File[]>([]);
     const uploader = ref<HTMLInputElement | null>(null);
     const isSelecting = ref(false);
 
@@ -86,35 +91,52 @@ export default defineNuxtComponent({
 
     const api = useUserApi();
     async function upload() {
-      if (file.value != null) {
-        isSelecting.value = true;
-
-        if (!props.post) {
-          context.emit(UPLOAD_EVENT, file.value);
-          isSelecting.value = false;
-          return;
-        }
-
-        const formData = new FormData();
-        formData.append(props.fileName, file.value);
-        try {
-          const response = await api.upload.file(props.url, formData);
-          if (response) {
-            context.emit(UPLOAD_EVENT, response);
-          }
-        }
-        catch (e) {
-          console.error(e);
-          context.emit(UPLOAD_EVENT, null);
-        }
-        isSelecting.value = false;
+      if (files.value.length === 0) {
+        return;
       }
+
+      isSelecting.value = true;
+
+      if (!props.post) {
+        // NOTE: To preserve behaviour for other parents of this component,
+        // we emit a single File if !props.multiple.
+        context.emit(UPLOAD_EVENT, props.multiple ? files.value : files.value[0]);
+        isSelecting.value = false;
+        return;
+      }
+
+      // WARN: My change is only for !props.post.
+      // I have not added support for multiple files in the API.
+      // Existing call-sites never passed the `multiple` prop,
+      // so this case will only be hit if the prop is set to true.
+      if (props.multiple && files.value.length > 1) {
+        console.warn("Multiple file uploads are not supported by the API.");
+        return;
+      }
+
+      const file = files.value[0];
+      const formData = new FormData();
+      formData.append(props.fileName, file);
+
+      try {
+        const response = await api.upload.file(props.url, formData);
+        if (response) {
+          context.emit(UPLOAD_EVENT, response);
+        }
+      }
+      catch (e) {
+        console.error(e);
+        context.emit(UPLOAD_EVENT, null);
+      }
+
+      isSelecting.value = false;
     }
 
     function onFileChanged(e: Event) {
       const target = e.target as HTMLInputElement;
-      if (target.files !== null && target.files.length > 0 && file.value !== null) {
-        file.value = target.files[0];
+
+      if (target.files !== null && target.files.length > 0) {
+        files.value = Array.from(target.files);
         upload();
       }
     }
@@ -132,7 +154,7 @@ export default defineNuxtComponent({
     }
 
     return {
-      file,
+      files,
       uploader,
       isSelecting,
       effIcon,

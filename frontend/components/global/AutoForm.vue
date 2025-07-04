@@ -10,7 +10,6 @@
       <v-col
         v-for="(inputField, index) in items"
         :key="index"
-        class="py-0"
         cols="12"
         sm="12"
       >
@@ -75,7 +74,6 @@
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
           variant="solo-filled"
           flat
-          class="rounded-lg"
           rows="3"
           auto-grow
           density="comfortable"
@@ -95,7 +93,6 @@
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
           variant="solo-filled"
           flat
-          class="rounded-lg"
           :prepend-icon="inputField.icons ? modelValue[inputField.varName] : null"
           :label="inputField.label"
           :name="inputField.varName"

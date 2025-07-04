@@ -15,6 +15,7 @@
     <BaseDialog
       v-model="createDialog"
       :title="$t('events.new-notification')"
+      :icon="$globals.icons.bellPlus"
       can-submit
       @submit="createNewNotifier"
     >
@@ -95,7 +96,7 @@
       >
         <v-expansion-panel-title
           disable-icon-rotate
-          class="headline"
+          class="text-h6"
         >
           <div class="d-flex align-center">
             {{ notifier.name }}
@@ -103,6 +104,7 @@
           <template #actions>
             <v-btn
               icon
+              flat
               class="ml-2"
             >
               <v-icon>

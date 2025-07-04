@@ -1,4 +1,4 @@
-import type { AxiosResponse } from "axios";
+import type { AxiosRequestConfig, AxiosResponse } from "axios";
 
 export type NoUndefinedField<T> = { [P in keyof T]-?: NoUndefinedField<NonNullable<T[P]>> };
 
@@ -9,11 +9,11 @@ export interface RequestResponse<T> {
 }
 
 export interface ApiRequestInstance {
-  get<T>(url: string, data?: unknown): Promise<RequestResponse<T>>;
-  post<T>(url: string, data: unknown): Promise<RequestResponse<T>>;
-  put<T, U = T>(url: string, data: U): Promise<RequestResponse<T>>;
-  patch<T, U = Partial<T>>(url: string, data: U): Promise<RequestResponse<T>>;
-  delete<T>(url: string): Promise<RequestResponse<T>>;
+  get<T>(url: string, data?: unknown, config?: AxiosRequestConfig): Promise<RequestResponse<T>>;
+  post<T>(url: string, data: unknown, config?: AxiosRequestConfig): Promise<RequestResponse<T>>;
+  put<T, U = T>(url: string, data: U, config?: AxiosRequestConfig): Promise<RequestResponse<T>>;
+  patch<T, U = Partial<T>>(url: string, data: U, config?: AxiosRequestConfig): Promise<RequestResponse<T>>;
+  delete<T>(url: string, config?: AxiosRequestConfig): Promise<RequestResponse<T>>;
 }
 
 export interface PaginationData<T> {

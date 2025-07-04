@@ -80,7 +80,7 @@ export default defineNuxtComponent({
       },
       {
         icon: $globals.icons.fileImage,
-        text: i18n.t("recipe.create-from-image"),
+        text: i18n.t("recipe.create-from-images"),
         value: "image",
         hide: !enableOpenAIImages.value,
       },

@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 from collections import deque
 from enum import Enum
-from typing import Any, TypeVar, cast
+from typing import Any, cast
 from uuid import UUID
 
 import sqlalchemy as sa
@@ -18,8 +18,6 @@ from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.db.models._model_utils.datetime import NaiveDateTime
 from mealie.db.models._model_utils.guid import GUID
 from mealie.schema._mealie.mealie_model import MealieModel
-
-Model = TypeVar("Model", bound=SqlAlchemyBase)
 
 
 class RelationalKeyword(Enum):
@@ -274,7 +272,7 @@ class QueryFilterBuilder:
                 return consolidated_group_builder.self_group()
 
     @classmethod
-    def get_model_and_model_attr_from_attr_string(
+    def get_model_and_model_attr_from_attr_string[Model: SqlAlchemyBase](
         cls, attr_string: str, model: type[Model], *, query: sa.Select | None = None
     ) -> tuple[SqlAlchemyBase, InstrumentedAttribute, sa.Select | None]:
         """
@@ -343,7 +341,7 @@ class QueryFilterBuilder:
         return model_attr
 
     @classmethod
-    def _get_filter_element(
+    def _get_filter_element[Model: SqlAlchemyBase](
         cls,
         query: sa.Select,
         component: QueryFilterBuilderComponent,
@@ -397,7 +395,7 @@ class QueryFilterBuilder:
 
         return element
 
-    def filter_query(
+    def filter_query[Model: SqlAlchemyBase](
         self, query: sa.Select, model: type[Model], column_aliases: dict[str, sa.ColumnElement] | None = None
     ) -> sa.Select:
         """
