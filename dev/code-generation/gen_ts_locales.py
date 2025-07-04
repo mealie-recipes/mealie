@@ -23,8 +23,6 @@ class LocaleData:
 
 
 LOCALE_DATA: dict[str, LocaleData] = {
-    "en-US": LocaleData(name="American English"),
-    "en-GB": LocaleData(name="British English"),
     "af-ZA": LocaleData(name="Afrikaans (Afrikaans)"),
     "ar-SA": LocaleData(name="العربية (Arabic)", dir="rtl"),
     "ca-ES": LocaleData(name="Català (Catalan)"),
@@ -32,10 +30,12 @@ LOCALE_DATA: dict[str, LocaleData] = {
     "da-DK": LocaleData(name="Dansk (Danish)"),
     "de-DE": LocaleData(name="Deutsch (German)"),
     "el-GR": LocaleData(name="Ελληνικά (Greek)"),
+    "en-GB": LocaleData(name="British English"),
+    "en-US": LocaleData(name="American English"),
     "es-ES": LocaleData(name="Español (Spanish)"),
     "fi-FI": LocaleData(name="Suomi (Finnish)"),
-    "fr-FR": LocaleData(name="Français (French)"),
     "fr-BE": LocaleData(name="Belge (Belgian)"),
+    "fr-FR": LocaleData(name="Français (French)"),
     "gl-ES": LocaleData(name="Galego (Galician)"),
     "he-IL": LocaleData(name="עברית (Hebrew)", dir="rtl"),
     "hr-HR": LocaleData(name="Hrvatski (Croatian)"),
