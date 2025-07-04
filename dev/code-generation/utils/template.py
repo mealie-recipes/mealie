@@ -35,7 +35,7 @@ class CodeSlicer:
     start: int
     end: int
 
-    indentation: str
+    indentation: str | None
     text: list[str]
 
     _next_line = None
@@ -47,7 +47,7 @@ class CodeSlicer:
 
     def push_line(self, string: str) -> None:
         self._next_line = self._next_line or self.start + 1
-        self.text.insert(self._next_line, self.indentation + string + "\n")
+        self.text.insert(self._next_line, self.indentation or "" + string + "\n")
         self._next_line += 1
 
 
@@ -55,7 +55,7 @@ def get_indentation_of_string(line: str, comment_char: str = "//|#") -> str:
     return re.sub(rf"{comment_char}.*", "", line).removesuffix("\n")
 
 
-def find_start_end(file_text: list[str], gen_id: str) -> tuple[int, int, str]:
+def find_start_end(file_text: list[str], gen_id: str) -> tuple[int, int, str | None]:
     start = None
     end = None
     indentation = None
