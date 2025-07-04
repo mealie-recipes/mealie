@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Create Recipe from an Image",
     "create-recipe-from-an-image-description": "Create a recipe by uploading an image of it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
     "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
-    "create-from-image": "Create from Image",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Translate the recipe into my language",
     "please-wait-image-procesing": "Please wait, the image is processing. This may take some time.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Импортиране на рецепти от линк",
     "debug-scraper": "Отстраняване на грешки на скрейпъра",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Добави рецепта като предоставиш име. Всички рецепти трябва да имат уникални имена.",
@@ -660,7 +661,10 @@
       "no-food": "No Food"
     },
     "reset-servings-count": "Reset Servings Count",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "Additional Ingredients",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
