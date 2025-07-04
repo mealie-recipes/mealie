@@ -1,16 +1,16 @@
 <template>
-  <div v-if="value.length > 0 || edit">
+  <div v-if="modelValue.length > 0 || edit">
     <v-card class="mt-4">
       <v-card-title class="py-2">
         {{ $t("asset.assets") }}
       </v-card-title>
       <v-divider class="mx-2" />
       <v-list
-        v-if="value.length > 0"
+        v-if="modelValue.length > 0"
         :flat="!edit"
       >
         <v-list-item
-          v-for="(item, i) in value"
+          v-for="(item, i) in modelValue"
           :key="i"
         >
           <template #prepend>
@@ -44,7 +44,7 @@
                 color="error"
                 icon
                 top
-                @click="value.splice(i, 1)"
+                @click="modelValue.splice(i, 1)"
               >
                 <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
