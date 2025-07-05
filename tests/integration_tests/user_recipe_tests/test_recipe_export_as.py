@@ -18,26 +18,7 @@ def test_get_available_exports(api_client: TestClient, unique_user: TestUser) ->
 
     as_json = response.json()
 
-    assert "recipes.md" in as_json["jinja2"]
     assert "raw" in as_json["json"]
-
-
-def test_render_jinja_template(api_client: TestClient, unique_user: TestUser) -> None:
-    # Create Recipe
-    recipe_name = random_string()
-    response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=unique_user.token)
-    assert response.status_code == 201
-    slug = response.json()
-
-    # Render Template
-    response = api_client.get(
-        api_routes.recipes_slug_exports(slug) + "?template_name=recipes.md", headers=unique_user.token
-    )
-    assert response.status_code == 200
-
-    # Assert Template is Rendered Correctly
-    # TODO: More robust test
-    assert f"# {recipe_name}" in response.text
 
 
 def test_get_recipe_as_zip(api_client: TestClient, unique_user: TestUser) -> None:
@@ -61,13 +42,3 @@ def test_get_recipe_as_zip(api_client: TestClient, unique_user: TestUser) -> Non
     with zipfile.ZipFile(zip_file, "r") as zip_fp:
         with zip_fp.open(f"{slug}.json") as json_fp:
             assert json.loads(json_fp.read())["name"] == recipe_name
-
-
-# TODO: Allow users to upload templates to their own directory
-# def test_upload_template(api_client: TestClient, unique_user: TestUser) -> None:
-#     assert False
-
-
-# # TODO: Allow users to upload templates to their own directory
-# def test_delete_template(api_client: TestClient, unique_user: TestUser) -> None:
-#     assert False

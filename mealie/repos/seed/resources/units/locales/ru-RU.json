@@ -3,13 +3,13 @@
         "name": "чайная ложка",
         "plural_name": "чайные ложки",
         "description": "",
-        "abbreviation": "ч. ложек"
+        "abbreviation": "ч. л."
     },
     "tablespoon": {
         "name": "столовая ложка",
         "plural_name": "столовые ложки",
         "description": "",
-        "abbreviation": "ст. ложек"
+        "abbreviation": "ст. л."
     },
     "cup": {
         "name": "чашка",
@@ -39,7 +39,7 @@
         "name": "галлон",
         "plural_name": "галлоны",
         "description": "",
-        "abbreviation": "гал"
+        "abbreviation": "гал."
     },
     "milliliter": {
         "name": "миллилитр",
@@ -92,7 +92,7 @@
     },
     "dash": {
         "name": "щепотка",
-        "plural_name": "",
+        "plural_name": "щепотки",
         "description": "",
         "abbreviation": ""
     },

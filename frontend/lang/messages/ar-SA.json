@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "إنشاء وصفة عن طريق صورة",
     "create-recipe-from-an-image-description": "Create a recipe by uploading an image of it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
     "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
-    "create-from-image": "إنشاء عن طريق صورة",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Translate the recipe into my language",
     "please-wait-image-procesing": "Please wait, the image is processing. This may take some time.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "الاستيراد باستخدام أكثر من URL ",
     "debug-scraper": "تصحيح أخطاء المحلل\n",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Create a recipe by providing the name. All recipes must have unique names.",
@@ -660,7 +661,10 @@
       "no-food": "لا يوجد طعام"
     },
     "reset-servings-count": "إعادة تعيين عدد الحصص",
-    "not-linked-ingredients": "مكونات إضافية"
+    "not-linked-ingredients": "مكونات إضافية",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "البحث عن الوصفات",
