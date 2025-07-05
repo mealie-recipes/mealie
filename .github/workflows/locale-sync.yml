@@ -1,0 +1,114 @@
+name: Automatic Locale Sync
+
+on:
+  schedule:
+    # Run every Sunday at 2 AM UTC
+    - cron: "0 2 * * 0"
+  workflow_dispatch:
+    # Allow manual triggering from the GitHub UI
+
+permissions:
+  contents: write # To checkout, commit, and push changes
+  pull-requests: write # To create pull requests
+
+jobs:
+  sync-locales:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Check venv cache
+        id: cache-validate
+        if: steps.cached-poetry-dependencies.outputs.cache-hit == 'true'
+        run: |
+          echo "import fastapi;print('venv good?')" > test.py && poetry run python test.py && echo "cache-hit-success=true" >> $GITHUB_OUTPUT
+          rm test.py
+        continue-on-error: true
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install libsasl2-dev libldap2-dev libssl-dev
+          poetry install
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+
+      - name: Run locale generation
+        run: |
+          cd dev/code-generation
+          poetry run python main.py locales
+        env:
+          CROWDIN_API_KEY: ${{ secrets.CROWDIN_API_KEY }}
+
+      - name: Check for changes
+        id: changes
+        run: |
+          if git diff --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and create PR
+        if: steps.changes.outputs.has_changes == 'true'
+        run: |
+          # Configure git
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+
+          # Use the current branch as the base
+          BASE_BRANCH="${{ github.ref_name }}"
+          echo "Using base branch: $BASE_BRANCH"
+
+          # Create a new branch from the base branch
+          BRANCH_NAME="auto-locale-sync-$(date +%Y%m%d-%H%M%S)"
+          git checkout -b "$BRANCH_NAME"
+
+          # Add and commit changes
+          git add .
+          git commit -m "chore: automatic locale sync"
+
+          # Push the branch
+          git push origin "$BRANCH_NAME"
+
+          sleep 2
+
+          # Create PR using GitHub CLI with explicit repository
+          gh pr create \
+            --repo "${{ github.repository }}" \
+            --title "chore: automatic locale sync" \
+            --base "$BASE_BRANCH" \
+            --head "$BRANCH_NAME" \
+            --body "## Summary
+
+          Automatically generated locale updates from the weekly sync job.
+
+          ## Changes
+          - Updated frontend locale files
+          - Generated from latest translation sources" \
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: No changes detected
+        if: steps.changes.outputs.has_changes == 'false'
+        run: echo "No locale changes detected, skipping PR creation"
