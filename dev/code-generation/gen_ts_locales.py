@@ -1,3 +1,4 @@
+import os
 import pathlib
 from dataclasses import dataclass
 from pathlib import Path
@@ -13,7 +14,7 @@ from mealie.schema._mealie import MealieModel
 
 BASE = pathlib.Path(__file__).parent.parent.parent
 
-API_KEY = dotenv.get_key(BASE / ".env", "CROWDIN_API_KEY")
+API_KEY = dotenv.get_key(BASE / ".env", "CROWDIN_API_KEY") or os.environ.get("CROWDIN_API_KEY", "")
 
 
 @dataclass
