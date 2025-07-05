@@ -105,11 +105,7 @@ jobs:
 
           ## Changes
           - Updated frontend locale files
-          - Generated from latest translation sources
-
-          ## Test plan
-          - [ ] Verify locale files are properly formatted
-          - [ ] Test that translations load correctly in the frontend" \
+          - Generated from latest translation sources" \
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
