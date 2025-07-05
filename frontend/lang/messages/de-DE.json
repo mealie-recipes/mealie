@@ -602,7 +602,7 @@
     "create-from-images": "Create from Images",
     "should-translate-description": "Übersetze das Rezept in meine Sprache",
     "please-wait-image-procesing": "Warte bitte, das Bild wird gerade bearbeitet. Dies kann einige Zeit dauern.",
-    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
+    "please-wait-images-processing": "Bitte warten, die Bilder werden verarbeitet. Dies kann einige Zeit dauern.",
     "bulk-url-import": "URL Massenimport",
     "debug-scraper": "Debug Scraper",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Erstelle ein Rezept, indem du den Namen angibst. Alle Rezepte müssen eindeutige Namen haben.",
@@ -662,9 +662,9 @@
     },
     "reset-servings-count": "Portionen zurücksetzen",
     "not-linked-ingredients": "Zusätzliche Zutaten",
-    "upload-another-image": "Upload another image",
-    "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-another-image": "Weiteres Bild hochladen",
+    "upload-images": "Bilder hochladen",
+    "upload-more-images": "Weitere Bilder hochladen"
   },
   "recipe-finder": {
     "recipe-finder": "Rezept-Suche",
