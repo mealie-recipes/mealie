@@ -3,9 +3,13 @@ name: Automatic Locale Sync
 on:
   schedule:
     # Run every Sunday at 2 AM UTC
-    - cron: '0 2 * * 0'
+    - cron: "0 2 * * 0"
   workflow_dispatch:
     # Allow manual triggering from the GitHub UI
+
+permissions:
+  contents: write # To checkout, commit, and push changes
+  pull-requests: write # To create pull requests
 
 jobs:
   sync-locales:
@@ -19,7 +23,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
       - name: Install Poetry
         uses: snok/install-poetry@v1
