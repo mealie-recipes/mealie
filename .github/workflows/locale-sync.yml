@@ -87,6 +87,8 @@ jobs:
           # Push the branch
           git push origin "$BRANCH_NAME"
 
+          sleep 2
+
           # Create PR using GitHub CLI
           gh pr create --title "chore: automatic locale sync" --body "## Summary
 
