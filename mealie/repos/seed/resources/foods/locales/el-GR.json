@@ -4,14 +4,14 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic",
-                "plural_name": "garlics"
+                "name": "σκόρδο",
+                "plural_name": "σκόρδα"
             },
             "onion": {
                 "aliases": [],
                 "description": "",
-                "name": "onion",
-                "plural_name": "onions"
+                "name": "κρεμμύδι",
+                "plural_name": "κρεμμύδια"
             },
             "bell pepper": {
                 "aliases": [],
@@ -16299,8 +16299,8 @@
             "maltodextrin": {
                 "aliases": [],
                 "description": "",
-                "name": "maltodextrin",
-                "plural_name": "maltodextrins"
+                "name": "μαλτοδεξτρίνη",
+                "plural_name": "μαλτοδεξτρίνες"
             }
         }
     }
