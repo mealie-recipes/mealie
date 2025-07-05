@@ -1,4 +1,5 @@
 import shutil
+from uuid import uuid4
 
 from fastapi import File, HTTPException, UploadFile, status
 from pydantic import UUID4
@@ -24,7 +25,10 @@ class UserImageController(BaseUserController):
         """Updates a User Image"""
         with get_temporary_path() as temp_path:
             assert_user_change_allowed(id, self.user, self.user)
-            temp_img = temp_path.joinpath(profile.filename)
+
+            # use a generated uuid and ignore the filename so we don't
+            # need to worry about sanitizing user inputs.
+            temp_img = temp_path.joinpath(str(uuid4()))
 
             with temp_img.open("wb") as buffer:
                 shutil.copyfileobj(profile.file, buffer)
