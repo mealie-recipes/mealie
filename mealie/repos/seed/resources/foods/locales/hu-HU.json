@@ -29,25 +29,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "scallion",
-                "plural_name": "scallions"
+                "plural_name": "zöldhagyma"
             },
             "zucchini": {
                 "aliases": [],
                 "description": "",
-                "name": "zucchini",
-                "plural_name": "zucchinis"
+                "name": "cukkini",
+                "plural_name": "cukkini"
             },
             "potato": {
                 "aliases": [],
                 "description": "",
-                "name": "potato",
-                "plural_name": "potatoes"
+                "name": "burgonya",
+                "plural_name": "burgonya"
             },
             "red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "red onion",
-                "plural_name": "red onions"
+                "name": "vöröshagyma",
+                "plural_name": "vöröshagyma"
             },
             "yellow onion": {
                 "aliases": [],
@@ -58,26 +58,26 @@
             "celery": {
                 "aliases": [],
                 "description": "",
-                "name": "celery",
-                "plural_name": "celeries"
+                "name": "zeller",
+                "plural_name": "zeller"
             },
             "jalapeno": {
                 "aliases": [],
                 "description": "",
                 "name": "jalapeno",
-                "plural_name": "jalapenoes"
+                "plural_name": "jalapeno"
             },
             "avocado": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado",
-                "plural_name": "avocados"
+                "name": "avokádó",
+                "plural_name": "avokádó"
             },
             "shallot": {
                 "aliases": [],
                 "description": "",
-                "name": "shallot",
-                "plural_name": "shallots"
+                "name": "mogyoróhagyma",
+                "plural_name": "mogyoróhagyma"
             },
             "cherry tomato": {
                 "aliases": [],
@@ -88,20 +88,20 @@
             "cucumber": {
                 "aliases": [],
                 "description": "",
-                "name": "cucumber",
-                "plural_name": "cucumbers"
+                "name": "uborka",
+                "plural_name": "uborka"
             },
             "spinach": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach",
-                "plural_name": "spinaches"
+                "name": "spenót",
+                "plural_name": "spenót"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet corn",
-                "plural_name": "sweet corns"
+                "name": "csemegekukorica",
+                "plural_name": "csemegekukorica"
             },
             "chile pepper": {
                 "aliases": [
@@ -114,14 +114,14 @@
             "sweet potato": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet potato",
-                "plural_name": "sweet potatoes"
+                "name": "édesburgonya",
+                "plural_name": "édesburgonya"
             },
             "broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli",
-                "plural_name": "broccolis"
+                "name": "brokkoli",
+                "plural_name": "brokkoli"
             },
             "heart of palm": {
                 "aliases": [],
@@ -144,13 +144,13 @@
             "cauliflower": {
                 "aliases": [],
                 "description": "",
-                "name": "cauliflower",
-                "plural_name": "cauliflowers"
+                "name": "karfiol",
+                "plural_name": "karfiol"
             },
             "cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "cabbage",
+                "name": "káposzta",
                 "plural_name": "cabbages"
             },
             "asparagu": {
