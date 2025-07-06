@@ -82,7 +82,7 @@
                 :name="name"
                 :recipe-id="recipeId"
                 :use-items="{
-                  delete: false,
+                  delete: true,
                   edit: false,
                   download: true,
                   mealplanner: true,

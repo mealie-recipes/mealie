@@ -103,7 +103,7 @@
                 :recipe-id="recipeId"
                 class="ml-auto"
                 :use-items="{
-                  delete: false,
+                  delete: true,
                   edit: false,
                   download: true,
                   mealplanner: true,
