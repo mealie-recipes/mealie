@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Ustvari recept iz slike",
     "create-recipe-from-an-image-description": "Ustvarite recept tako, da naložite njegovo sliko. Mealie bo s pomočjo umetne inteligence poskušal izluščiti besedilo iz slike in iz njega ustvariti recept.",
     "crop-and-rotate-the-image": "Obrežite in zasukajte sliko, tako da bo vidno samo besedilo in da bo v pravilnem položaju.",
-    "create-from-image": "Ustvari iz slike",
+    "create-from-images": "Ustvari iz slik",
     "should-translate-description": "Prevedi recept v moj jezik",
     "please-wait-image-procesing": "Počakajte, slika je v obdelavi. To lahko traja nekaj časa.",
+    "please-wait-images-processing": "Počakajte, slike se obdelujejo. To lahko traja nekaj časa.",
     "bulk-url-import": "Masovno uvozi preko URLja",
     "debug-scraper": "Odpravljanje težav s strgalnikom",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Ustvari recept z izbranim imenom. Vsi recepti morajo imeti unikatna imena.",
@@ -660,7 +661,10 @@
       "no-food": "Ni živila"
     },
     "reset-servings-count": "Ponastavi števec obrokov",
-    "not-linked-ingredients": "Dodatne sestavine"
+    "not-linked-ingredients": "Dodatne sestavine",
+    "upload-another-image": "Naloži drugo sliko",
+    "upload-images": "Naloži slike",
+    "upload-more-images": "Naloži več slik"
   },
   "recipe-finder": {
     "recipe-finder": "Iskalnik receptov",

@@ -323,8 +323,8 @@
     "mealplan-updated": "Måltidsplan oppdatert",
     "mealplan-households-description": "Hvis ingen husholdning er valgt, kan oppskrifter legges til fra hvilken som helst husholdning",
     "any-category": "Enhver kategori",
-    "any-tag": "Any Tag",
-    "any-household": "Any Household",
+    "any-tag": "Hvilken som helst emne",
+    "any-household": "Hvilken som helst husholdning",
     "no-meal-plan-defined-yet": "Ingen måltidsplan er definert ennå",
     "no-meal-planned-for-today": "Ingen måltid planlagt i dag",
     "numberOfDays-hint": "Antall dager på sideinnlasting",
@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Opprett oppskrift fra et bilde",
     "create-recipe-from-an-image-description": "Opprett en oppskrift ved å laste opp et bilde av den. Mealie vil forsøke å hente ut teksten fra bildet ved bruk av AI, og lage en ny oppskrift.",
     "crop-and-rotate-the-image": "Beskjær og roter bildet slik at bare teksten er synlig, og at det er i riktig retning.",
-    "create-from-image": "Opprett fra bilde",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Oversett oppskriften til mitt språk",
     "please-wait-image-procesing": "Vent litt, bildet blir prosessert. Dette kan ta litt tid.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Importer flere nettadresser",
     "debug-scraper": "Feilsøk skraper",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Opprett en oppskrift ved å angi navnet. Alle oppskrifter må ha unike navn.",
@@ -660,7 +661,10 @@
       "no-food": "Ingen matvarer"
     },
     "reset-servings-count": "Nullstill antall porsjoner",
-    "not-linked-ingredients": "Tilleggsingredienser"
+    "not-linked-ingredients": "Tilleggsingredienser",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Oppskriftsfinner",

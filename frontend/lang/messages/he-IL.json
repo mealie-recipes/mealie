@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "יצירת מתכון מתמונה",
     "create-recipe-from-an-image-description": "יצירת מתכון ע\"י העלאת תמונה שלו. Mealie תנסה לחלץ את הטקסט מהתמונה באמצעות AI ותייצר ממנו מתכון.",
     "crop-and-rotate-the-image": "נא לחתוך ולסובב את התמונה כך שרואים רק את הטקסט, והוא בכיוון הנכון.",
-    "create-from-image": "יצירה מתמונה",
+    "create-from-images": "Create from Images",
     "should-translate-description": "תרגום המתכון לשפה שלי",
     "please-wait-image-procesing": "נה להמתין, התמונה עוברת עיבוץ. זה יכול לקחת זמן.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "ייבוא מספר לינקים",
     "debug-scraper": "סורק לניפוי שגיאות",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "יצירת מתכון באמצעות שם. כל שמות המתכונים צריכים להיות שונים.",
@@ -660,7 +661,10 @@
       "no-food": "אין אוכל"
     },
     "reset-servings-count": "איפוס מספר המנות",
-    "not-linked-ingredients": "מרכיבים נוספים"
+    "not-linked-ingredients": "מרכיבים נוספים",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "מצא מתכון",
