@@ -597,12 +597,13 @@
     "create-recipe-description": "Create a new recipe from scratch.",
     "create-recipes": "Create Recipes",
     "import-with-zip": "Import with .zip",
-    "create-recipe-from-an-image": "Create Recipe from an Image",
-    "create-recipe-from-an-image-description": "Create a recipe by uploading an image of it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
+    "create-recipe-from-an-image": "Create Recipe from Images",
+    "create-recipe-from-an-image-description": "Create a recipe by uploading images of the recipe text. Mealie will attempt to extract the text from the images using AI and create a new recipe from it.",
     "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
-    "create-from-image": "Create from Image",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Translate the recipe into my language",
     "please-wait-image-procesing": "Please wait, the image is processing. This may take some time.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Bulk URL Import",
     "debug-scraper": "Debug Scraper",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Create a recipe by providing the name. All recipes must have unique names.",
@@ -661,7 +662,10 @@
       "no-food": "No Food"
     },
     "reset-servings-count": "Reset Servings Count",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "Additional Ingredients",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
@@ -1049,8 +1053,8 @@
     "foods": {
       "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
       "merge-food-example": "Merging {food1} into {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
-      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create ~2700 common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You already have some items in your database. A new item will not be added if an item with the same name already exists.",
       "combine-food": "Combine Food",
       "source-food": "Source Food",
       "target-food": "Target Food",

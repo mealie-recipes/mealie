@@ -10,7 +10,7 @@
           style="margin-bottom: 4rem"
           dark
         >
-          <v-toolbar-title class="headline text-h4">
+          <v-toolbar-title class="headline text-h4 text-center mx-0">
             Mealie
           </v-toolbar-title>
         </v-toolbar>

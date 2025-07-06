@@ -15,12 +15,13 @@
           v-for="(tool, index) in recipe.tools"
           :key="index"
           density="compact"
+          class="px-1"
         >
           <template #prepend>
             <v-checkbox
               v-model="recipeTools[index].onHand"
               hide-details
-              class="pt-0 my-auto py-auto"
+              class="pt-0 py-auto"
               color="secondary"
               density="compact"
               @change="updateTool(index)"

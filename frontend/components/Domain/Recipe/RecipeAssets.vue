@@ -1,23 +1,23 @@
 <template>
-  <div v-if="value.length > 0 || edit">
+  <div v-if="model.length > 0 || edit">
     <v-card class="mt-4">
       <v-card-title class="py-2">
         {{ $t("asset.assets") }}
       </v-card-title>
       <v-divider class="mx-2" />
       <v-list
-        v-if="value.length > 0"
+        v-if="model.length > 0"
         :flat="!edit"
       >
         <v-list-item
-          v-for="(item, i) in value"
+          v-for="(item, i) in model"
           :key="i"
         >
           <template #prepend>
             <div class="ma-auto">
               <v-tooltip bottom>
-                <template #activator="{ props }">
-                  <v-icon v-bind="props">
+                <template #activator="{ props: tooltipProps }">
+                  <v-icon v-bind="tooltipProps">
                     {{ getIconDefinition(item.icon).icon }}
                   </v-icon>
                 </template>
@@ -44,7 +44,7 @@
                 color="error"
                 icon
                 top
-                @click="value.splice(i, 1)"
+                @click="model.splice(i, 1)"
               >
                 <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
@@ -113,124 +113,109 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import type { RecipeAsset } from "~/lib/api/types/recipe";
 
-export default defineNuxtComponent({
-  props: {
-    slug: {
-      type: String,
-      required: true,
-    },
-    recipeId: {
-      type: String,
-      required: true,
-    },
-    modelValue: {
-      type: Array as () => RecipeAsset[],
-      required: true,
-    },
-    edit: {
-      type: Boolean,
-      default: true,
-    },
+const props = defineProps({
+  slug: {
+    type: String,
+    required: true,
   },
-  emits: ["update:modelValue"],
-  setup(props, context) {
-    const api = useUserApi();
-
-    const state = reactive({
-      newAssetDialog: false,
-      fileObject: {} as File,
-      newAsset: {
-        name: "",
-        icon: "mdi-file",
-      },
-    });
-
-    const i18n = useI18n();
-    const { $globals } = useNuxtApp();
-
-    const iconOptions = [
-      {
-        name: "mdi-file",
-        title: i18n.t("asset.file"),
-        icon: $globals.icons.file,
-      },
-      {
-        name: "mdi-file-pdf-box",
-        title: i18n.t("asset.pdf"),
-        icon: $globals.icons.filePDF,
-      },
-      {
-        name: "mdi-file-image",
-        title: i18n.t("asset.image"),
-        icon: $globals.icons.fileImage,
-      },
-      {
-        name: "mdi-code-json",
-        title: i18n.t("asset.code"),
-        icon: $globals.icons.codeJson,
-      },
-      {
-        name: "mdi-silverware-fork-knife",
-        title: i18n.t("asset.recipe"),
-        icon: $globals.icons.primary,
-      },
-    ];
-
-    const serverBase = useRequestURL().origin;
-
-    function getIconDefinition(icon: string) {
-      return iconOptions.find(item => item.name === icon) || iconOptions[0];
-    }
-
-    const { recipeAssetPath } = useStaticRoutes();
-    function assetURL(assetName: string) {
-      return recipeAssetPath(props.recipeId, assetName);
-    }
-
-    function assetEmbed(name: string) {
-      return `<img src="${serverBase}${assetURL(name)}" height="100%" width="100%"> </img>`;
-    }
-
-    function setFileObject(fileObject: File) {
-      state.fileObject = fileObject;
-    }
-
-    function validFields() {
-      return state.newAsset.name.length > 0 && state.fileObject.name.length > 0;
-    }
-
-    async function addAsset() {
-      if (!validFields()) {
-        alert.error(i18n.t("asset.error-submitting-form") as string);
-        return;
-      }
-
-      const { data } = await api.recipes.createAsset(props.slug, {
-        name: state.newAsset.name,
-        icon: state.newAsset.icon,
-        file: state.fileObject,
-        extension: state.fileObject.name.split(".").pop() || "",
-      });
-
-      context.emit("update:modelValue", [...props.modelValue, data]);
-      state.newAsset = { name: "", icon: "mdi-file" };
-      state.fileObject = {} as File;
-    }
-
-    return {
-      state,
-      addAsset,
-      assetURL,
-      assetEmbed,
-      getIconDefinition,
-      iconOptions,
-      setFileObject,
-    };
+  recipeId: {
+    type: String,
+    required: true,
+  },
+  edit: {
+    type: Boolean,
+    default: true,
   },
 });
+
+const model = defineModel<RecipeAsset[]>({ required: true });
+
+const api = useUserApi();
+
+const state = reactive({
+  newAssetDialog: false,
+  fileObject: {} as File,
+  newAsset: {
+    name: "",
+    icon: "mdi-file",
+  },
+});
+
+const i18n = useI18n();
+const { $globals } = useNuxtApp();
+
+const iconOptions = [
+  {
+    name: "mdi-file",
+    title: i18n.t("asset.file"),
+    icon: $globals.icons.file,
+  },
+  {
+    name: "mdi-file-pdf-box",
+    title: i18n.t("asset.pdf"),
+    icon: $globals.icons.filePDF,
+  },
+  {
+    name: "mdi-file-image",
+    title: i18n.t("asset.image"),
+    icon: $globals.icons.fileImage,
+  },
+  {
+    name: "mdi-code-json",
+    title: i18n.t("asset.code"),
+    icon: $globals.icons.codeJson,
+  },
+  {
+    name: "mdi-silverware-fork-knife",
+    title: i18n.t("asset.recipe"),
+    icon: $globals.icons.primary,
+  },
+];
+
+const serverBase = useRequestURL().origin;
+
+function getIconDefinition(icon: string) {
+  return iconOptions.find(item => item.name === icon) || iconOptions[0];
+}
+
+const { recipeAssetPath } = useStaticRoutes();
+function assetURL(assetName: string) {
+  return recipeAssetPath(props.recipeId, assetName);
+}
+
+function assetEmbed(name: string) {
+  return `<img src="${serverBase}${assetURL(name)}" height="100%" width="100%"> </img>`;
+}
+
+function setFileObject(fileObject: File) {
+  state.fileObject = fileObject;
+}
+
+function validFields() {
+  return state.newAsset.name.length > 0 && state.fileObject.name.length > 0;
+}
+
+async function addAsset() {
+  if (!validFields()) {
+    alert.error(i18n.t("asset.error-submitting-form") as string);
+    return;
+  }
+
+  const { data } = await api.recipes.createAsset(props.slug, {
+    name: state.newAsset.name,
+    icon: state.newAsset.icon,
+    file: state.fileObject,
+    extension: state.fileObject.name.split(".").pop() || "",
+  });
+  if (data) {
+    model.value = [...model.value, data];
+  }
+  state.newAsset = { name: "", icon: "mdi-file" };
+  state.fileObject = {} as File;
+}
 </script>

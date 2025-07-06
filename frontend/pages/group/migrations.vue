@@ -15,11 +15,12 @@
       </template>
       {{ $t('migration.recipe-data-migrations-explanation') }}
     </BasePageTitle>
-    <v-container>
+    <v-container :class="$vuetify.display.smAndDown ? 'px-0': ''">
       <BaseCardSectionTitle :title="$t('migration.new-migration')" />
       <v-card
         variant="outlined"
         :loading="loading"
+        style="border-color: lightgrey;"
       >
         <v-card-title> {{ $t('migration.choose-migration-type') }} </v-card-title>
         <v-card-text
@@ -83,7 +84,7 @@
         </v-card-actions>
       </v-card>
     </v-container>
-    <v-container>
+    <v-container class="$vuetify.display.smAndDown ? 'px-0': ''">
       <BaseCardSectionTitle :title="$t('migration.previous-migrations')" />
       <ReportTable
         :items="reports"

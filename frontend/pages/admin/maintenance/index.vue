@@ -26,7 +26,7 @@
 
     <section>
       <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.wrench" :title="$t('admin.maintenance.summary-title')" />
-      <div class="mb-6 ml-2 d-flex" style="gap: 0.3rem">
+      <div class="mb-6 d-flex" style="gap: 0.3rem">
         <BaseButton color="info" @click="getSummary">
           <template #icon>
             {{ $globals.icons.tools }}
@@ -40,7 +40,7 @@
           {{ $t("admin.maintenance.button-label-open-details") }}
         </BaseButton>
       </div>
-      <v-card class="ma-2" :loading="state.fetchingInfo">
+      <v-card class="" :loading="state.fetchingInfo">
         <template v-for="(value, idx) in info" :key="`item-${idx}`">
           <v-list-item>
             <v-list-item-title class="py-2">
@@ -67,21 +67,23 @@
           </template>
         </i18n-t>
       </BaseCardSectionTitle>
-      <v-card class="ma-2" :loading="state.actionLoading">
+      <v-card class="ma-0" flat :loading="state.actionLoading">
         <template v-for="(action, idx) in actions" :key="`item-${idx}`">
-          <v-list-item class="py-1">
+          <v-list-item class="py-2 px-0">
             <v-list-item-title>
               <div>{{ action.name }}</div>
               <v-list-item-subtitle class="wrap-word">
                 {{ action.subtitle }}
               </v-list-item-subtitle>
             </v-list-item-title>
-            <BaseButton color="info" @click="action.handler">
+            <template #append>
+              <BaseButton color="info" @click="action.handler">
               <template #icon>
                 {{ $globals.icons.robot }}
               </template>
               {{ $t("general.run") }}
             </BaseButton>
+            </template>
           </v-list-item>
           <v-divider class="mx-2" />
         </template>

@@ -29,7 +29,6 @@
           <v-toolbar-title class="headline">
             {{ title }}
           </v-toolbar-title>
-          <v-spacer />
         </v-toolbar>
         <v-progress-linear
           v-if="loading"

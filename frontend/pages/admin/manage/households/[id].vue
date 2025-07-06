@@ -33,7 +33,6 @@
             :items="groups"
             variant="solo-filled"
             flat
-            class="rounded-lg"
             item-title="name"
             item-value="id"
             :return-object="false"

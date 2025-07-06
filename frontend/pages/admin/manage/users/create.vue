@@ -24,8 +24,6 @@
             v-if="groups"
             v-model="selectedGroupId"
             :items="groups"
-            rounded
-            class="rounded-lg"
             item-title="name"
             item-value="id"
             :return-object="false"
@@ -37,8 +35,6 @@
             v-model="newUserData.household"
             :disabled="!selectedGroupId"
             :items="households"
-            rounded
-            class="rounded-lg"
             item-title="name"
             item-value="name"
             :return-object="false"

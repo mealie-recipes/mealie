@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container v-show="!isCookMode" key="recipe-page" class="pt-0" :class="{ 'pa-0': $vuetify.display.smAndDown.value }">
+    <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown.value }">
       <v-card :flat="$vuetify.display.smAndDown.value" class="d-print-none">
         <RecipePageHeader
           :recipe="recipe"
@@ -87,11 +87,10 @@
       />
       <RecipePrintContainer :recipe="recipe" :scale="scale" />
     </v-container>
-    <!-- Cook mode displayes two columns with ingredients and instructions side by side, each being scrolled individually, allowing to view both at the same timer -->
+    <!-- Cook mode displayes two columns with ingredients and instructions side by side, each being scrolled individually, allowing to view both at the same time -->
     <v-sheet
       v-show="isCookMode && !hasLinkedIngredients"
       key="cookmode"
-      :style="{ height: $vuetify.display.smAndUp ? 'calc(100vh - 48px)' : '' }"
     >
       <!-- the calc is to account for the toolbar a more dynamic solution could be needed  -->
       <v-row style="height: 100%" no-gutters class="overflow-hidden">
@@ -107,7 +106,12 @@
           />
           <v-divider />
         </v-col>
-        <v-col class="overflow-y-auto py-2" style="height: 100%" cols="12" sm="7">
+        <v-col class="overflow-y-auto"
+        :class="$vuetify.display.smAndDown.value ? 'py-2': 'py-6'"
+        style="height: 100%" cols="12" sm="7">
+          <h2 class="text-h5 px-4 font-weight-medium opacity-80">
+            {{ $t('recipe.instructions') }}
+          </h2>
           <RecipePageInstructions
             v-model="recipe.recipeInstructions"
             v-model:assets="recipe.assets"

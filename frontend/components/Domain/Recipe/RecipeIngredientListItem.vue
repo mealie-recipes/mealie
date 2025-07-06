@@ -1,5 +1,5 @@
 <template>
-  <div class="ma-0 pa-0 text-subtitle-1 dense-markdown ingredient-item">
+  <div class="text-subtitle-1 dense-markdown ingredient-item">
     <SafeMarkdown
       v-if="parsedIng.quantity"
       class="d-inline"

@@ -7,7 +7,7 @@
       <v-card-text>
         {{ $t('recipe.recipe-bulk-importer-description') }}
       </v-card-text>
-    </div>
+    <div class="px-4">
     <section class="mt-2">
       <v-row
         v-for="(_, idx) in bulkUrls"
@@ -54,6 +54,7 @@
             cols="12"
             xs="12"
             sm="6"
+            class="py-0"
           >
             <RecipeOrganizerSelector
               v-model="bulkUrls[idx].categories"
@@ -73,6 +74,7 @@
             cols="12"
             xs="12"
             sm="6"
+            class="pt-0 pb-4"
           >
             <RecipeOrganizerSelector
               v-model="bulkUrls[idx].tags"
@@ -90,8 +92,9 @@
           </v-col>
         </template>
       </v-row>
-      <v-card-actions class="justify-end flex-wrap mb-1">
+      <v-card-actions class="justify-end flex-wrap mt-3 pa-0">
         <BaseButton
+          class="mt-1 pr-4"
           delete
           @click="
             bulkUrls = [];
@@ -117,23 +120,26 @@
           @bulk-data="assignUrls"
         />
       </v-card-actions>
-      <div class="px-1">
+      <div class="px-0">
         <v-checkbox
           v-model="showCatTags"
           hide-details
           :label="$t('recipe.set-categories-and-tags')"
         />
       </div>
-      <v-card-actions class="justify-end">
+      <v-card-actions class="justify-center">
+        <div style="width: 250px">
         <BaseButton
           :disabled="bulkUrls.length === 0 || lockBulkImport"
+          rounded
+          block
           @click="bulkCreate"
         >
           <template #icon>
             {{ $globals.icons.check }}
           </template>
-          {{ $t('general.submit') }}
         </BaseButton>
+        </div>
       </v-card-actions>
     </section>
     <section class="mt-12">
@@ -144,6 +150,8 @@
       />
     </section>
   </div>
+  </div>
+</div>
 </template>
 
 <script lang="ts">

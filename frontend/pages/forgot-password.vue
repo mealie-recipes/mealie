@@ -17,10 +17,10 @@
         <v-form @submit.prevent="requestLink()">
           <v-text-field
             v-model="email"
-            variant="filled"
-            rounded
+            :prepend-inner-icon="$globals.icons.email"
+            variant="solo-filled"
+            flat
             autofocus
-            class="rounded-lg"
             name="login"
             :label="$t('user.email')"
             type="text"
