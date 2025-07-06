@@ -338,3 +338,102 @@ def test_get_mealplan_with_rules_households_filter_includes_any_households(
         assert response.json()["recipe"]["slug"] == recipe.slug
     finally:
         unique_user.repos.group_meal_plan_rules.delete(rule.id)
+
+
+def test_create_mealplan_snack_entry_type(api_client: TestClient, unique_user: TestUser):
+    """Test creating a meal plan with snack entry type"""
+    title = random_string(length=25)
+    text = random_string(length=25)
+    new_plan = CreatePlanEntry(date=datetime.now(UTC).date(), entry_type="snack", title=title, text=text).model_dump()
+    new_plan["date"] = datetime.now(UTC).date().strftime("%Y-%m-%d")
+
+    response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
+
+    assert response.status_code == 201
+    response_json = response.json()
+    assert response_json["entryType"] == "snack"
+    assert response_json["title"] == title
+    assert response_json["text"] == text
+
+
+def test_create_mealplan_snack_with_recipe(api_client: TestClient, unique_user: TestUser):
+    """Test creating a meal plan with snack entry type and recipe"""
+    recipe_name = random_string(length=25)
+    response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=unique_user.token)
+    assert response.status_code == 201
+
+    response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
+    recipe = response.json()
+    recipe_id = recipe["id"]
+
+    new_plan = CreatePlanEntry(date=datetime.now(UTC).date(), entry_type="snack", recipe_id=recipe_id).model_dump(
+        by_alias=True
+    )
+    new_plan["date"] = datetime.now(UTC).date().strftime("%Y-%m-%d")
+    new_plan["recipeId"] = str(recipe_id)
+
+    response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
+    response_json = response.json()
+    assert response.status_code == 201
+    assert response_json["entryType"] == "snack"
+    assert response_json["recipe"]["slug"] == recipe_name
+
+
+def test_get_mealplan_with_snack_rules(api_client: TestClient, unique_user: TestUser):
+    """Test meal plan rules filtering with snack entry type"""
+    tag = unique_user.repos.tags.create(TagSave(name=random_string(), group_id=unique_user.group_id))
+    recipe = create_recipe(unique_user, tags=[tag])
+    [create_recipe(unique_user) for _ in range(5)]
+
+    rule = create_rule(
+        unique_user,
+        day=PlanRulesDay.saturday,
+        entry_type=PlanRulesType.snack,
+        tags=[tag],
+    )
+
+    try:
+        payload = {"date": "2023-02-25", "entryType": "snack"}
+        response = api_client.post(api_routes.households_mealplans_random, json=payload, headers=unique_user.token)
+        assert response.status_code == 200
+        recipe_data = response.json()["recipe"]
+        assert recipe_data["tags"][0]["name"] == tag.name
+        assert recipe_data["slug"] == recipe.slug
+    finally:
+        unique_user.repos.group_meal_plan_rules.delete(rule.id)
+
+
+def test_mixed_entry_types_including_snack(api_client: TestClient, unique_user: TestUser):
+    """Test creating meal plans with various entry types including snack"""
+    entry_types = ["breakfast", "lunch", "dinner", "side", "snack"]
+    created_plans = []
+
+    for entry_type in entry_types:
+        new_plan = CreatePlanEntry(
+            date=datetime.now(UTC).date(),
+            entry_type=entry_type,
+            title=f"{entry_type} plan",
+            text=f"This is a {entry_type} plan",
+        ).model_dump()
+        new_plan["date"] = datetime.now(UTC).date().strftime("%Y-%m-%d")
+
+        response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
+        assert response.status_code == 201
+
+        response_json = response.json()
+        assert response_json["entryType"] == entry_type
+        created_plans.append(response_json)
+
+    # Verify all plans were created with correct entry types
+    response = api_client.get(
+        api_routes.households_mealplans, headers=unique_user.token, params={"page": 1, "perPage": -1}
+    )
+    assert response.status_code == 200
+
+    all_plans = response.json()["items"]
+    created_entry_types = [
+        plan["entryType"] for plan in all_plans if plan["date"] == datetime.now(UTC).date().strftime("%Y-%m-%d")
+    ]
+
+    for entry_type in entry_types:
+        assert entry_type in created_entry_types
