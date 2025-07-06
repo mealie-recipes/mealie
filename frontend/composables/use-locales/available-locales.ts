@@ -45,7 +45,7 @@ export const LOCALES = [
   {
     name: "Slovenščina (Slovenian)",
     value: "sl-SI",
-    progress: 37,
+    progress: 39,
     dir: "ltr",
   },
   {
@@ -93,7 +93,7 @@ export const LOCALES = [
   {
     name: "Nederlands (Dutch)",
     value: "nl-NL",
-    progress: 37,
+    progress: 39,
     dir: "ltr",
   },
   {
@@ -213,7 +213,7 @@ export const LOCALES = [
   {
     name: "Deutsch (German)",
     value: "de-DE",
-    progress: 37,
+    progress: 39,
     dir: "ltr",
   },
   {
