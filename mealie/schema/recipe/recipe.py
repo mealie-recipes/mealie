@@ -36,6 +36,22 @@ from .recipe_step import RecipeStep
 app_dirs = get_app_dirs()
 
 
+def create_recipe_slug(name: str, max_length: int = 250) -> str:
+    """Generate a slug from a recipe name, truncating to a reasonable length.
+
+    Args:
+        name: The recipe name to create a slug from
+        max_length: Maximum length for the slug (default: 250)
+
+    Returns:
+        A truncated slug string
+    """
+    generated_slug = slugify(name)
+    if len(generated_slug) > max_length:
+        generated_slug = generated_slug[:max_length]
+    return generated_slug
+
+
 class RecipeTag(MealieModel):
     id: UUID4 | None = None
     group_id: UUID4 | None = None
@@ -229,7 +245,7 @@ class Recipe(RecipeSummary):
         if not info.data.get("name"):
             return slug
 
-        return slugify(info.data["name"])
+        return create_recipe_slug(info.data["name"])
 
     @field_validator("recipe_ingredient", mode="before")
     def validate_ingredients(recipe_ingredient):

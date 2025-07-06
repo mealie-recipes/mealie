@@ -357,9 +357,9 @@
     "for-type-meal-types": "för {0} måltidstyper",
     "meal-plan-rules": "Regler för måltidsplan",
     "new-rule": "Ny Regel",
-    "meal-plan-rules-description": "Du kan skapa regler för att automatisk väja recept för din måltidsplanerare. Dessa regler används av servern för att bestämma den slumpmässiga poolen av recept att välja från när du skapar måltidsplaner. Observera att om reglerna har samma dag/typ-begränsningar så kommer kategorierna av reglerna att slås samman. I praktiken är det onödigt att skapa dubbla regler, men det går att göra det.",
+    "meal-plan-rules-description": "Du kan skapa regler för att automatisk välja recept för din måltidsplanerare. Dessa regler används av servern för att bestämma den slumpmässiga poolen av recept att välja från när du skapar måltidsplaner. Observera att om reglerna har samma dag/typ-begränsningar så kommer kategorierna av reglerna att slås samman. I praktiken är det onödigt att skapa dubbla regler, men det går att göra det.",
     "new-rule-description": "När du skapar en ny regel för en måltidsplan kan du begränsa regeln för en viss veckodag och/eller en viss typ av måltid. För att tillämpa en regel på alla dagar eller alla måltidstyper kan du ställa in regeln till \"Any\" som kommer att tillämpa den på alla möjliga värden för dagen och/eller måltidstypen.",
-    "recipe-rules": "Recept regler",
+    "recipe-rules": "Receptregler",
     "applies-to-all-days": "Gäller för alla dagar",
     "applies-on-days": "Gäller på {0}s",
     "meal-plan-settings": "Inställningar för måltidsplanering"
@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Skapa recept från en bild",
     "create-recipe-from-an-image-description": "Skapa ett recept genom att ladda upp en bild på det. Mealie kommer att försöka extrahera texten från bilden med hjälp av AI och skapa ett recept från det.",
     "crop-and-rotate-the-image": "Beskär och rotera bilden så att endast texten är synlig och den är åt rätt håll.",
-    "create-from-image": "Skapa från bild",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Översätt receptet till mitt språk",
     "please-wait-image-procesing": "Vänligen vänta, bilden bearbetas. Detta kan ta lite tid.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Massimport från URL",
     "debug-scraper": "Felsökningsskrapa",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Skapa ett recept genom att ange namnet. Alla recept måste ha unika namn.",
@@ -660,7 +661,10 @@
       "no-food": "Ingen mat"
     },
     "reset-servings-count": "Nollställ antal portioner",
-    "not-linked-ingredients": "Ytterligare ingredienser"
+    "not-linked-ingredients": "Ytterligare ingredienser",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Sök recept",
@@ -720,7 +724,7 @@
       "backup-restore": "Återställ backup",
       "back-restore-description": "Återställning av den här backuppen kommer att skriva över all information i databasen och datakatalogen och ersätta allt med innehållet i nackuppen. {cannot-be-undone} Om återställningen går bra kommer du att loggas ut.",
       "cannot-be-undone": "Denna åtgärd kan inte ångras - använd med försiktighet.",
-      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
+      "postgresql-note": "Om du använder PostGreSQL, vänligen granska {backup-restore-process} innan du återställer.",
       "backup-restore-process-in-the-documentation": "säkerhetskopiering/återställning i dokumentationen",
       "irreversible-acknowledgment": "Jag förstår att denna åtgärd är oåterkallelig, destruktiv och kan orsaka dataförlust",
       "restore-backup": "Återställ säkerhetskopia"

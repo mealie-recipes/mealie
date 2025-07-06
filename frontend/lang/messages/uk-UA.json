@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Створити рецепт з зображення",
     "create-recipe-from-an-image-description": "Створити рецепт, завантаживши його зображення. Mealie спробує витягти текст з зображення за допомогою ШІ та створити рецепт з нього.",
     "crop-and-rotate-the-image": "Обріжте і поверніть зображення так, щоб було видно лише текст в правильній орієнтації.",
-    "create-from-image": "Створити з зображення",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Перекласти рецепт моєю мовою",
     "please-wait-image-procesing": "Будь ласка, зачекайте, зображення обробляється. Це може зайняти деякий час.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Масовий URL імпорт",
     "debug-scraper": "Дебажити розпізнавач",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Створіть рецепт, надавши назву. Усі рецепти повинні мати унікальні назви.",
@@ -660,7 +661,10 @@
       "no-food": "Немає їжі"
     },
     "reset-servings-count": "Скинути кількість порцій",
-    "not-linked-ingredients": "Додаткові продукти"
+    "not-linked-ingredients": "Додаткові продукти",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Шукач рецептів",

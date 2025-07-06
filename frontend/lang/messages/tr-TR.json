@@ -2,7 +2,7 @@
   "about": {
     "about": "Hakkında",
     "about-mealie": "Mealie hakkında",
-    "api-docs": "API Dokümentasyonu",
+    "api-docs": "API Dokümantasyonu",
     "api-port": "API Portu",
     "application-mode": "Uygulama Modu",
     "database-type": "Veritabanı Türü",
@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Görüntüden yemek tarifi oluştur",
     "create-recipe-from-an-image-description": "Bir görsel yükleyerek yemek tarifi oluşturun. Mealie, yapay zekâ kullanarak görseldeki bilgileri çekip yemek tarifini oluşturmaya çalışacaktır.",
     "crop-and-rotate-the-image": "Resmi sadece yazılar gözükecek şekilde kesin ve döndürün, ayrıca doğru yönde durduğuna emin olun.",
-    "create-from-image": "Görselden Oluştur",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Tarifi kendi dilime çevir",
     "please-wait-image-procesing": "Görsel işlenirken lütfen bekleyin. Bu, biraz zaman alabilir.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Toplu URL İçe Aktarma",
     "debug-scraper": "Veri Kazıma Hata Ayıklayıcı",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "İsim vererek bir tarif oluşturun. Tüm tariflerin benzersiz isimleri olması gerekiyor.",
@@ -660,7 +661,10 @@
       "no-food": "Gıda yok"
     },
     "reset-servings-count": "Reset Servings Count",
-    "not-linked-ingredients": "Ek Malzemeler"
+    "not-linked-ingredients": "Ek Malzemeler",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Tarif Bulucu",
@@ -1361,14 +1365,14 @@
   },
   "query-filter": {
     "logical-operators": {
-      "and": "AND",
-      "or": "OR"
+      "and": "VE",
+      "or": "VEYA"
     },
     "relational-operators": {
-      "equals": "equals",
-      "does-not-equal": "does not equal",
-      "is-greater-than": "is greater than",
-      "is-greater-than-or-equal-to": "is greater than or equal to",
+      "equals": "eşittir",
+      "does-not-equal": "eşit değildir",
+      "is-greater-than": "daha büyük",
+      "is-greater-than-or-equal-to": "daha büyük veya eşit",
       "is-less-than": "is less than",
       "is-less-than-or-equal-to": "is less than or equal to"
     },

@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Maak recept van de tekst op een afbeelding",
     "create-recipe-from-an-image-description": "Maak een recept door een afbeelding ervan te uploaden. Mealie probeert de tekst met behulp van AI uit de afbeelding te halen en er een recept uit te maken.",
     "crop-and-rotate-the-image": "Snijd de afbeelding bij zodat alleen tekst zichtbaar is. En draai t plaatje zodat het leesbaar is.",
-    "create-from-image": "Maken vanuit afbeelding",
+    "create-from-images": "Maak recept van een afbeelding",
     "should-translate-description": "Vertaal het recept in mijn taal",
     "please-wait-image-procesing": "Even wachten. Mealie verwerkt de afbeelding. Dit kan even duren.",
+    "please-wait-images-processing": "Even wachten. Mealie verwerkt de afbeelding. Dit kan even duren.",
     "bulk-url-import": "URL-import in bulk",
     "debug-scraper": "Debug Scraper",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Maak een recept door het een naam te geven. Alle recepten moeten unieke namen hebben.",
@@ -660,7 +661,10 @@
       "no-food": "Geen levensmiddel"
     },
     "reset-servings-count": "Zet de teller van aantal keer gegeten op nul",
-    "not-linked-ingredients": "Extra ingrediënten"
+    "not-linked-ingredients": "Extra ingrediënten",
+    "upload-another-image": "Een andere afbeelding uploaden",
+    "upload-images": "Afbeelding uploaden",
+    "upload-more-images": "Meer afbeeldingen uploaden"
   },
   "recipe-finder": {
     "recipe-finder": "Recept zoeker",

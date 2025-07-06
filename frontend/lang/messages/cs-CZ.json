@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Vytvořit recept z obrázku",
     "create-recipe-from-an-image-description": "Vytvořte recept nahráním obrázku. Mealie se pokusí z obrázku extrahovat text pomocí AI a vytvořit z něj recept.",
     "crop-and-rotate-the-image": "Oříznout a otočit obrázek tak, aby byl viditelný pouze text a aby byl ve správné orientaci.",
-    "create-from-image": "Vytvořit z obrázku",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Přeložit recept do mého jazyka",
     "please-wait-image-procesing": "Počkejte prosím, obrázek se zpracovává. Může to chvíli trvat.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Hromadný import adres URL",
     "debug-scraper": "Ladící Scraper",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Vytvořte recept zadáním názvu. Všechny recepty musí mít jedinečná jména.",
@@ -660,7 +661,10 @@
       "no-food": "Žádné jídlo"
     },
     "reset-servings-count": "Resetovat počet porcí",
-    "not-linked-ingredients": "Další ingredience"
+    "not-linked-ingredients": "Další ingredience",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Vyhledávač receptů",
