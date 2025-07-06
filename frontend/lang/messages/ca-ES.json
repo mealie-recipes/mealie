@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Crear una recepta a partir d'una imatge",
     "create-recipe-from-an-image-description": "Crear una recepta pujant una imatge d'ella. Mealie intentarà extreure el text de la imatge mitjançant IA i crear-ne la recepta.",
     "crop-and-rotate-the-image": "Retalla i rota la imatge, per tal que només el text sigui visible, i estigui orientat correctament.",
-    "create-from-image": "Crear des d'una imatge",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Tradueix la recepta a la meva llengua",
     "please-wait-image-procesing": "Si us plau, esperi, la imatge s'està processant. Això pot tardar un temps.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Importació d'URL en massa",
     "debug-scraper": "Rastrejador de depuració",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crea la recepta proporcionant-ne un nom. Totes les receptes han de tenir un nom únic.",
@@ -660,7 +661,10 @@
       "no-food": "Sense menjar"
     },
     "reset-servings-count": "Reiniciar racions servides",
-    "not-linked-ingredients": "Ingredients addicionals"
+    "not-linked-ingredients": "Ingredients addicionals",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Cercador de receptes",

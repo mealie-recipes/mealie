@@ -32,7 +32,6 @@ class JSONBytes(JSONResponse):
 class FormatResponse(BaseModel):
     jjson: list[str] = Field(..., alias="json")
     zip: list[str]
-    jinja2: list[str]
 
 
 class BaseRecipeController(BaseCrudController):

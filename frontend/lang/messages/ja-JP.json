@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "画像からレシピを作成",
     "create-recipe-from-an-image-description": "画像をアップロードしてレシピを作成します。 Mealieは、AIを使用して画像からテキストを抽出し、そこからレシピを作成しようとします。",
     "crop-and-rotate-the-image": "テキストのみが表示され、正しい方向になるように画像をトリミングして回転します。",
-    "create-from-image": "画像から作成",
+    "create-from-images": "Create from Images",
     "should-translate-description": "レシピを自分の言語に翻訳",
     "please-wait-image-procesing": "しばらくお待ちください。画像は処理中です。時間がかかる場合があります。",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "URL 一括インポート",
     "debug-scraper": "デバッグスクレーパー",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "名前を指定してレシピを作成します。すべてのレシピには固有の名前が必要です。",
@@ -660,7 +661,10 @@
       "no-food": "食材はありません"
     },
     "reset-servings-count": "サービング数をリセット",
-    "not-linked-ingredients": "追加の材料"
+    "not-linked-ingredients": "追加の材料",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "レシピ検索",

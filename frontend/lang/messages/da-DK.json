@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Opret opskrift fra et billede",
     "create-recipe-from-an-image-description": "Opret en opskrift ved at overføre et billede af den. Mealie vil forsøge at udtrække teksten fra billedet med AI og oprette en opskrift fra det.",
     "crop-and-rotate-the-image": "Beskær og roter billedet, så kun teksten er synlig, og det vises i den rigtige retning.",
-    "create-from-image": "Opret fra billede",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Oversæt opskriften til mit sprog",
     "please-wait-image-procesing": "Vent venligst, billedet behandles. Dette kan tage lidt tid.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Import fra flere URL-adresser",
     "debug-scraper": "Fejlsøg indlæser",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Opret en opskrift ved at angive navnet. Alle opskrifter skal have unikke navne.",
@@ -660,7 +661,10 @@
       "no-food": "Ingen fødevarer"
     },
     "reset-servings-count": "Nulstil antal serveringer",
-    "not-linked-ingredients": "Yderligere ingredienser"
+    "not-linked-ingredients": "Yderligere ingredienser",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Opskriftssøger",

@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Creează o rețetă dintr-o imagine",
     "create-recipe-from-an-image-description": "Creează o rețetă prin încărcarea unei imagini a acesteia. Mealie va încerca să extragă textul din imagine folosind AI și să creeze o rețetă din el.",
     "crop-and-rotate-the-image": "Decupați și rotiți imaginea astfel încât numai textul să fie vizibil, iar orientarea să fie corectă.",
-    "create-from-image": "Creează din Imagine",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Tradu rețeta în limba mea",
     "please-wait-image-procesing": "Te rog așteaptă, imaginea este procesata. Acest lucru poate dura ceva timp.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Import URL în bulk",
     "debug-scraper": "Depanare funcție Importare",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Creează o rețetă furnizând numele. Toate rețetele trebuie să aibă nume unice.",
@@ -660,7 +661,10 @@
       "no-food": "Niciun aliment"
     },
     "reset-servings-count": "Resetează numărul de serviri",
-    "not-linked-ingredients": "Ingrediente suplimentare"
+    "not-linked-ingredients": "Ingrediente suplimentare",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Căutător de rețete",
