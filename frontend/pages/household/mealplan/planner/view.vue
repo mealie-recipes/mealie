@@ -79,6 +79,7 @@ export default defineNuxtComponent({
             { title: i18n.t("meal-plan.lunch"), meals: [] },
             { title: i18n.t("meal-plan.dinner"), meals: [] },
             { title: i18n.t("meal-plan.side"), meals: [] },
+            { title: i18n.t("meal-plan.snack"), meals: [] },
           ],
           recipes: [],
         };
@@ -95,6 +96,9 @@ export default defineNuxtComponent({
           }
           else if (meal.entryType === "side") {
             out.sections[3].meals.push(meal);
+          }
+          else if (meal.entryType === "snack") {
+            out.sections[4].meals.push(meal);
           }
 
           if (meal.recipe) {

@@ -7,7 +7,7 @@
 
 import type { HouseholdSummary } from "./household";
 
-export type PlanEntryType = "breakfast" | "lunch" | "dinner" | "side";
+export type PlanEntryType = "breakfast" | "lunch" | "dinner" | "side" | "snack";
 export type PlanRulesDay = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday" | "unset";
 export type PlanRulesType = "breakfast" | "lunch" | "dinner" | "side" | "unset";
 export type LogicalOperator = "AND" | "OR";
