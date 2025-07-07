@@ -139,31 +139,47 @@ export default defineNuxtComponent({
 
     const cookbookPreferences = useCookbookPreferences();
 
-    function getStoreData<T>(
-      ownGroupStoreFn: (i18n: any) => { store: Ref<T[]>; actions: { refresh: () => void } },
-      publicStoreFn: (groupSlug: string, i18n: any) => { store: Ref<T[]>; actions: { refresh: () => void } },
-    ): T[] {
-      let store;
+    const ownCookbookStore = useCookbookStore(i18n);
+    const ownHouseholdStore = useHouseholdStore(i18n);
 
-      if (isOwnGroup.value) {
-        store = ownGroupStoreFn(i18n);
-      }
-      else if (groupSlug.value) {
-        store = publicStoreFn(groupSlug.value, i18n);
-      }
-      else {
-        return [];
-      }
+    const publicCookbookStoreCache = ref<Record<string, ReturnType<typeof usePublicCookbookStore>>>({});
+    const publicHouseholdStoreCache = ref<Record<string, ReturnType<typeof usePublicHouseholdStore>>>({});
 
-      if (!store.store.value.length) {
-        store.actions.refresh();
+    function getPublicCookbookStore(slug: string) {
+      if (!publicCookbookStoreCache.value[slug]) {
+        publicCookbookStoreCache.value[slug] = usePublicCookbookStore(slug, i18n);
       }
-
-      return store.store.value;
+      return publicCookbookStoreCache.value[slug];
     }
 
-    const cookbooks = computed(() => getStoreData(useCookbookStore, usePublicCookbookStore));
-    const households = computed(() => getStoreData(useHouseholdStore, usePublicHouseholdStore));
+    function getPublicHouseholdStore(slug: string) {
+      if (!publicHouseholdStoreCache.value[slug]) {
+        publicHouseholdStoreCache.value[slug] = usePublicHouseholdStore(slug, i18n);
+      }
+      return publicHouseholdStoreCache.value[slug];
+    }
+
+    const cookbooks = computed(() => {
+      if (isOwnGroup.value) {
+        return ownCookbookStore.store.value;
+      }
+      else if (groupSlug.value) {
+        const publicStore = getPublicCookbookStore(groupSlug.value);
+        return unref(publicStore.store);
+      }
+      return [];
+    });
+
+    const households = computed(() => {
+      if (isOwnGroup.value) {
+        return ownHouseholdStore.store.value;
+      }
+      else if (groupSlug.value) {
+        const publicStore = getPublicHouseholdStore(groupSlug.value);
+        return unref(publicStore.store);
+      }
+      return [];
+    });
 
     const householdsById = computed(() => {
       return households.value.reduce((acc, household) => {
@@ -196,6 +212,10 @@ export default defineNuxtComponent({
 
     const currentUserHouseholdId = computed(() => $auth.user.value?.householdId);
     const cookbookLinks = computed<SideBarLink[]>(() => {
+      if (!cookbooks.value?.length) {
+        return [];
+      }
+
       const sortedCookbooks = [...cookbooks.value].sort((a, b) => (a.position || 0) - (b.position || 0));
 
       const ownLinks: SideBarLink[] = [];
