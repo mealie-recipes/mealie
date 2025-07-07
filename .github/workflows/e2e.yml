@@ -44,6 +44,22 @@ jobs:
       run: yarn playwright install --with-deps
     - name: Check test environment
       run: docker ps
+    - name: Wait for application to be ready
+      run: |
+        echo "Waiting for Mealie to be ready..."
+        for i in {1..60}; do
+          if curl -f http://localhost:9000/login/ >/dev/null 2>&1; then
+            echo "Mealie is ready!"
+            break
+          fi
+          if [ $i -eq 60 ]; then
+            echo "Timeout waiting for Mealie to be ready"
+            docker logs mealie
+            exit 1
+          fi
+          echo "Attempt $i/60: Mealie not ready yet, waiting 2 seconds..."
+          sleep 2
+        done
     - name: Run Playwright tests
       run: yarn playwright test
     - name: Destroy Test Environment
