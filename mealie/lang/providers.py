@@ -13,7 +13,7 @@ TRANSLATIONS = CWD / "messages"
 
 class Translator(Protocol):
     @abstractmethod
-    def t(self, key, default=None, **kwargs):
+    def t(self, key, default=None, **kwargs) -> str:
         pass
 
 

@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Izveidojiet recepti no attēla",
     "create-recipe-from-an-image-description": "Izveidojiet recepti, augšupielādējot tās attēlu. Mealie mēģinās iegūt tekstu no attēla, izmantojot AI, un no tā izveidot recepti.",
     "crop-and-rotate-the-image": "Apgrieziet un pagrieziet attēlu tā, lai būtu redzams tikai teksts un tas būtu pareizajā orientācijā.",
-    "create-from-image": "Izveidot no attēla",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Tulkojiet recepti manā valodā",
     "please-wait-image-procesing": "Lūdzu, pagaidiet, attēls tiek apstrādāts. Tas var aizņemt kādu laiku.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Lielapjoma URL importēšana",
     "debug-scraper": "Atkļūdošanas skrāpis",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Izveidojiet recepti, norādot nosaukumu. Visām receptēm jābūt unikāliem nosaukumiem.",
@@ -660,7 +661,10 @@
       "no-food": "Nav pārtikas"
     },
     "reset-servings-count": "Atiestatīt porciju skaitu",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "Additional Ingredients",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",

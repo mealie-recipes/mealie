@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Luo resepti kuvasta",
     "create-recipe-from-an-image-description": "Luo resepti tuomalla siitä kuva. Mealie pyrkii poimimaan tekstin kuvasta tekoälyllä ja luomaan siitä reseptin.",
     "crop-and-rotate-the-image": "Rajaa ja kierrä kuvaa niin, että vain teksti näkyy, ja että se on oikein päin.",
-    "create-from-image": "Luo kuvasta",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Käännä resepti kielelleni",
     "please-wait-image-procesing": "Odota, että kuva käsitellään. Tämä voi kestää hetken.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Massa tuonti URL-osoitteesta",
     "debug-scraper": "Etsi ongelmia Scraperista",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Luo resepti antamalla nimi. Kaikilla resepteillä on oltava yksilölliset nimet.",
@@ -660,7 +661,10 @@
       "no-food": "Ei ruokaa"
     },
     "reset-servings-count": "Palauta Annoksien Määrä",
-    "not-linked-ingredients": "Muut ainesosat"
+    "not-linked-ingredients": "Muut ainesosat",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Reseptin etsijä",

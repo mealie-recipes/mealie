@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Recept készítése képről",
     "create-recipe-from-an-image-description": "Hozzon létre egy receptet egy kép feltöltésével. A Mealie megpróbálja a kép szövegét mesterséges intelligencia segítségével kinyerni, és létrehozni belőle a receptet.",
     "crop-and-rotate-the-image": "Vágja ki és forgassa el a képet úgy, hogy csak a szöveg legyen látható, és megfelelő tájolásban legyen.",
-    "create-from-image": "Létrehozás képről",
+    "create-from-images": "Létrehozás képekről",
     "should-translate-description": "Fordítsa le a receptet a saját nyelvemre",
     "please-wait-image-procesing": "Kérjük várjon, a kép feldolgozása folyamatban van. Ez eltarthat egy ideig.",
+    "please-wait-images-processing": "Kérjük várjon, a képek feldolgozása folyamatban van. Ez eltarthat egy ideig.",
     "bulk-url-import": "Tömeges URL importálás",
     "debug-scraper": "Hibakeresés az adatkinyerőben",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Hozzon létre egy receptet a név megadásával. Minden receptnek egyedi névvel kell rendelkeznie.",
@@ -660,7 +661,10 @@
       "no-food": "Élelmiszer nélküli"
     },
     "reset-servings-count": "Adagok számának visszaállítása",
-    "not-linked-ingredients": "Kiegészítő hozzávalók"
+    "not-linked-ingredients": "Kiegészítő hozzávalók",
+    "upload-another-image": "Másik kép feltöltése",
+    "upload-images": "Képek feltöltése",
+    "upload-more-images": "További képek feltöltése"
   },
   "recipe-finder": {
     "recipe-finder": "Receptkereső",
