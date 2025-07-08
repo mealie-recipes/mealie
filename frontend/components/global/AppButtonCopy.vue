@@ -2,7 +2,6 @@
   <v-tooltip
     ref="copyToolTip"
     v-model="show"
-    :color="copied? 'success-lighten-1' : 'red-lighten-1'"
     top
     :open-on-hover="false"
     :open-on-click="true"
@@ -24,15 +23,12 @@
         {{ icon ? "" : $t("general.copy") }}
       </v-btn>
     </template>
-    <span>
-      <v-icon
-        start
-        dark
-      >
+    <span v-if="!isSupported || copiedSuccess !== null">
+      <v-icon start>
         {{ $globals.icons.clipboardCheck }}
       </v-icon>
       <slot v-if="!isSupported"> {{ $t("general.your-browser-does-not-support-clipboard") }} </slot>
-      <slot v-else> {{ copied ? $t("general.copied_message") : $t("general.clipboard-copy-failure") }} </slot>
+      <slot v-else> {{ copiedSuccess ? $t("general.copied_message") : $t("general.clipboard-copy-failure") }} </slot>
     </span>
   </v-tooltip>
 </template>
@@ -63,19 +59,18 @@ export default defineNuxtComponent({
     const { copy, copied, isSupported } = useClipboard();
     const show = ref(false);
     const copyToolTip = ref<VTooltip | null>(null);
-
-    function toggleBlur() {
-      copyToolTip.value?.deactivate();
-    }
+    const copiedSuccess = ref<boolean | null>(null);
 
     async function textToClipboard() {
       if (isSupported.value) {
         await copy(props.copyText);
         if (copied.value) {
-          console.log(`Copied\n${props.copyText}`);
+          copiedSuccess.value = true;
+          console.info(`Copied\n${props.copyText}`);
         }
         else {
-          console.warn("Copy failed: ", copied.value);
+          copiedSuccess.value = false;
+          console.error("Copy failed: ", copied.value);
         }
       }
       else {
@@ -84,8 +79,8 @@ export default defineNuxtComponent({
 
       show.value = true;
       setTimeout(() => {
-        toggleBlur();
-      }, 500);
+        show.value = false;
+      }, 3000);
     }
 
     return {
@@ -94,6 +89,7 @@ export default defineNuxtComponent({
       textToClipboard,
       copied,
       isSupported,
+      copiedSuccess,
     };
   },
 });

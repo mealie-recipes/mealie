@@ -76,7 +76,7 @@ export const LOCALES = [{% for locale in locales %}
     progress: {{ locale.progress }},
     dir: "{{ locale.dir }}",
   },{% endfor %}
-]
+];
 
 """
 
