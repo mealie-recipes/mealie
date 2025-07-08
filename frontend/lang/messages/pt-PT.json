@@ -599,9 +599,10 @@
     "create-recipe-from-an-image": "Criar receita a partir de uma imagem",
     "create-recipe-from-an-image-description": "Crie uma receita carregando uma imagem da mesma. O Mealie tentará extrair o texto da imagem utilizando IA e criará uma receita a partir da mesma.",
     "crop-and-rotate-the-image": "Recorte e rode a imagem de modo a que apenas o texto seja visível e esteja na orientação correta.",
-    "create-from-image": "Criar a partir de imagem",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Traduzir a receita para a minha língua",
     "please-wait-image-procesing": "Aguarde, a imagem está a ser processada. Isto pode demorar algum tempo.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Importação de URL em bloco",
     "debug-scraper": "Depurar Scraper",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crie uma receita fornecendo o nome. Todas as receitas devem ter nomes únicos.",
@@ -660,7 +661,10 @@
       "no-food": "Nenhum Ingrediente"
     },
     "reset-servings-count": "Reiniciar Contador de Doses",
-    "not-linked-ingredients": "Ingredientes Adicionais"
+    "not-linked-ingredients": "Ingredientes Adicionais",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images"
   },
   "recipe-finder": {
     "recipe-finder": "Localizador de Receitas",

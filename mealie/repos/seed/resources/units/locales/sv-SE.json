@@ -19,7 +19,7 @@
     },
     "fluid-ounce": {
         "name": "fluid ounce",
-        "plural_name": "fluid ounces",
+        "plural_name": "flytande ounces",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -55,7 +55,7 @@
     },
     "pound": {
         "name": "pund",
-        "plural_name": "pounds",
+        "plural_name": "pund",
         "description": "",
         "abbreviation": "lb",
         "plural_abbreviation": "lbs"
