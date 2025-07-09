@@ -404,8 +404,7 @@ class RecipeService(RecipeServiceBase):
         return new_data
 
     def patch_one(self, slug_or_id: str | UUID, patch_data: Recipe) -> Recipe:
-        recipe: Recipe | None = self._pre_update_check(slug_or_id, patch_data)
-        recipe = self.get_one(slug_or_id)
+        recipe: Recipe = self._pre_update_check(slug_or_id, patch_data)
 
         new_data = self.group_recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
 

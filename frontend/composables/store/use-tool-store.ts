@@ -1,3 +1,4 @@
+import type { Composer } from "vue-i18n";
 import { useData, useReadOnlyStore, useStore } from "../partials/use-store-factory";
 import type { RecipeTool } from "~/lib/api/types/recipe";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
@@ -20,12 +21,12 @@ export const useToolData = function () {
   });
 };
 
-export const useToolStore = function () {
-  const api = useUserApi();
+export const useToolStore = function (i18n?: Composer) {
+  const api = useUserApi(i18n);
   return useStore<RecipeTool>(store, loading, api.tools);
 };
 
-export const usePublicToolStore = function (groupSlug: string) {
-  const api = usePublicExploreApi(groupSlug).explore;
+export const usePublicToolStore = function (groupSlug: string, i18n?: Composer) {
+  const api = usePublicExploreApi(groupSlug, i18n).explore;
   return useReadOnlyStore<RecipeTool>(store, publicLoading, api.tools);
 };

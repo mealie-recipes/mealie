@@ -17,6 +17,7 @@
             :suffix="labels[key].suffix"
             type="number"
             autocomplete="off"
+            variant="underlined"
             @update:model-value="updateValue(key, $event)"
           />
         </div>
@@ -31,15 +32,13 @@
           :key="index"
           style="min-height: 25px"
         >
-          <div>
-            <v-list-item-title class="pl-4 caption flex row">
-              <div>{{ item.label }}</div>
-              <div class="ml-auto mr-1">
-                {{ item.value }}
-              </div>
-              <div>{{ item.suffix }}</div>
-            </v-list-item-title>
-          </div>
+          <v-list-item-title class="pl-2 d-flex">
+            <div>{{ item.label }}</div>
+            <div class="ml-auto mr-1">
+              {{ item.value }}
+            </div>
+            <div>{{ item.suffix }}</div>
+          </v-list-item-title>
         </v-list-item>
       </v-list>
     </v-card>
