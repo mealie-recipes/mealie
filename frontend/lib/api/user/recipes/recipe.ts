@@ -219,10 +219,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
 
   async getAllTimelineEvents(page = 1, perPage = -1, params = {} as any) {
     return await this.requests.get<PaginationData<RecipeTimelineEventOut>>(
-      routes.recipesTimelineEvent,
-      {
-        params: { page, perPage, ...params },
-      },
+      routes.recipesTimelineEvent, { page, perPage, ...params },
     );
   }
 
