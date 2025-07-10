@@ -707,7 +707,7 @@ export default defineNuxtComponent({
         }
       });
       if (hasChanged) {
-        updateListItems();
+        updateUncheckedListItems();
       }
     }
 
@@ -727,7 +727,9 @@ export default defineNuxtComponent({
         }
       });
       if (hasChanged) {
-        updateListItems();
+        listItems.unchecked = [...listItems.unchecked, ...listItems.checked];
+        listItems.checked = [];
+        updateUncheckedListItems();
       }
     }
 
@@ -1051,8 +1053,13 @@ export default defineNuxtComponent({
           .sort(sortCheckedItems);
       }
 
+      // Update the item if it's checked, otherwise updateUncheckedListItems will handle it
+      if (item.checked) {
+        shoppingListItemActions.updateItem(item);
+      }
+
       updateListItemOrder();
-      updateListItems();
+      updateUncheckedListItems();
     }
 
     function deleteListItem(item: ShoppingListItemOut) {
@@ -1144,7 +1151,7 @@ export default defineNuxtComponent({
       // since the user has manually reordered the list, we should preserve this order
       preserveItemOrder.value = true;
 
-      updateListItems();
+      updateUncheckedListItems();
     }
 
     function updateIndexUncheckedByLabel(labelName: string, labeledUncheckedItems: ShoppingListItemOut[]) {
@@ -1167,7 +1174,7 @@ export default defineNuxtComponent({
       // save changes
       listItems.unchecked = allUncheckedItems;
       listItems.checked = shoppingList.value?.listItems?.filter(item => item.checked) || [];
-      updateListItems();
+      updateUncheckedListItems();
     }
 
     function deleteListItems(items: ShoppingListItemOut[]) {
@@ -1187,27 +1194,23 @@ export default defineNuxtComponent({
       refresh();
     }
 
-    function updateListItems() {
+    function updateUncheckedListItems() {
       if (!shoppingList.value?.listItems) {
         return;
       }
 
-      // Set Position
-      shoppingList.value.listItems = listItems.unchecked.concat(listItems.checked).map((itm: ShoppingListItemOut, idx: number) => {
-        itm.position = idx;
-        return itm;
-      });
-
-      shoppingList.value.listItems.forEach((item) => {
+      // Set position for unchecked items
+      listItems.unchecked.forEach((item: ShoppingListItemOut, idx: number) => {
+        item.position = idx;
         shoppingListItemActions.updateItem(item);
       });
+
       refresh();
     }
 
     return {
       ...toRefs(state),
       addRecipeReferenceToList,
-      updateListItems,
       allLabels,
       contextMenu,
       contextMenuAction,
