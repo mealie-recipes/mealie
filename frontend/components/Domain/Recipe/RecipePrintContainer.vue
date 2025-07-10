@@ -42,6 +42,8 @@ export default defineNuxtComponent({
 
   .v-main {
     display: block;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   .v-main__wrap {
