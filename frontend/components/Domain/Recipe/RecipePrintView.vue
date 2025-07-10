@@ -23,18 +23,17 @@
               </v-icon>
               {{ recipe.name }}
             </v-card-title>
-            <div v-if="recipeYield"
-                 class="d-flex justify-space-between align-center px-4 pb-2"
+            <div
+              v-if="recipeYield"
+              class="d-flex justify-space-between align-center pb-6"
             >
-              <v-chip :size="$vuetify.display.smAndDown ? 'small' : undefined"
-                      label
-              >
+              <div>
                 <v-icon start>
                   {{ $globals.icons.potSteam }}
                 </v-icon>
                 <!-- eslint-disable-next-line vue/no-v-html -->
                 <span v-html="recipeYield" />
-              </v-chip>
+              </div>
             </div>
             <v-row class="d-flex justify-start">
               <RecipeTimeCard :prep-time="recipe.prepTime"
