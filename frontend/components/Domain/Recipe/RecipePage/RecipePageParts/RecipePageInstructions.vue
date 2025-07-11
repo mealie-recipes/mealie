@@ -37,7 +37,7 @@
             class="mb-n2 mt-n2"
           >
             <template #label>
-              <RecipeIngredientHtml :markup="parseIngredientText(ing, recipe.settings.disableAmount)" />
+              <RecipeIngredientHtml :markup="parseIngredientText(ing)" />
             </template>
           </v-checkbox>
 
@@ -53,7 +53,7 @@
               class="mb-n2 mt-n2"
             >
               <template #label>
-                <RecipeIngredientHtml :markup="parseIngredientText(ing, recipe.settings.disableAmount)" />
+                <RecipeIngredientHtml :markup="parseIngredientText(ing)" />
               </template>
             </v-checkbox>
           </template>
@@ -554,7 +554,6 @@ function autoSetReferences() {
     props.recipe.recipeIngredient,
     activeRefs.value,
     activeText.value,
-    props.recipe.settings.disableAmount,
   ).forEach((ingredient: string) => activeRefs.value.push(ingredient));
 }
 
@@ -576,7 +575,7 @@ function getIngredientByRefId(refId: string | undefined) {
 
   const ing = ingredientLookup.value[refId];
   if (!ing) return "";
-  return parseIngredientText(ing, props.recipe.settings.disableAmount, props.scale);
+  return parseIngredientText(ing, props.scale);
 }
 
 // ===============================================================

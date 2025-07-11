@@ -49,7 +49,7 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const parsedIng = computed(() => {
-      return useParsedIngredientText(props.ingredient, props.disableAmount, props.scale);
+      return useParsedIngredientText(props.ingredient, props.scale);
     });
 
     return {

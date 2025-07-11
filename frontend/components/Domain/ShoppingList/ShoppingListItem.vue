@@ -19,10 +19,7 @@
         >
           <template #label>
             <div :class="listItem.checked ? 'strike-through' : ''">
-              <RecipeIngredientListItem
-                :ingredient="listItem"
-                :disable-amount="!(listItem.isFood || listItem.quantity !== 1)"
-              />
+              <RecipeIngredientListItem :ingredient="listItem" />
             </div>
           </template>
         </v-checkbox>
@@ -170,7 +167,6 @@
       @save="save"
       @cancel="toggleEdit(false)"
       @delete="$emit('delete')"
-      @toggle-foods="localListItem.isFood = !localListItem.isFood"
     />
   </div>
 </template>

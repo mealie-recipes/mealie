@@ -331,7 +331,7 @@ export default defineNuxtComponent({
     });
 
     function parseText(ingredient: RecipeIngredient) {
-      return parseIngredientText(ingredient, props.recipe.settings?.disableAmount || false, props.scale);
+      return parseIngredientText(ingredient, props.scale);
     }
 
     return {
