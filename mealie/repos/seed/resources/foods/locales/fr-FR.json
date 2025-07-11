@@ -4,26 +4,26 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic",
+                "name": "ail",
                 "plural_name": "garlics"
             },
             "onion": {
                 "aliases": [],
                 "description": "",
-                "name": "onion",
-                "plural_name": "onions"
+                "name": "oignon",
+                "plural_name": "oignons"
             },
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "bell pepper",
-                "plural_name": "bell peppers"
+                "name": "poivron",
+                "plural_name": "poivrons"
             },
             "carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "carrot",
-                "plural_name": "carrots"
+                "name": "carotte",
+                "plural_name": "carottes"
             },
             "scallion": {
                 "aliases": [],
@@ -34,31 +34,31 @@
             "zucchini": {
                 "aliases": [],
                 "description": "",
-                "name": "zucchini",
-                "plural_name": "zucchinis"
+                "name": "courgette",
+                "plural_name": "courgettes"
             },
             "potato": {
                 "aliases": [],
                 "description": "",
-                "name": "potato",
-                "plural_name": "potatoes"
+                "name": "pomme de terre",
+                "plural_name": "pommes de terre"
             },
             "red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "red onion",
-                "plural_name": "red onions"
+                "name": "oignon rouge",
+                "plural_name": "oignons rouge"
             },
             "yellow onion": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow onion",
+                "name": "oignon jaune",
                 "plural_name": "yellow onions"
             },
             "celery": {
                 "aliases": [],
                 "description": "",
-                "name": "celery",
+                "name": "céleri",
                 "plural_name": "celeries"
             },
             "jalapeno": {
@@ -88,8 +88,8 @@
             "cucumber": {
                 "aliases": [],
                 "description": "",
-                "name": "cucumber",
-                "plural_name": "cucumbers"
+                "name": "concombre",
+                "plural_name": "concombres"
             },
             "spinach": {
                 "aliases": [],
@@ -150,7 +150,7 @@
             "cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "cabbage",
+                "name": "chou",
                 "plural_name": "cabbages"
             },
             "asparagu": {
@@ -180,19 +180,19 @@
             "eggplant": {
                 "aliases": [],
                 "description": "",
-                "name": "eggplant",
-                "plural_name": "eggplants"
+                "name": "aubergine",
+                "plural_name": "aubergines"
             },
             "lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "lettuce",
-                "plural_name": "lettuces"
+                "name": "laitue",
+                "plural_name": "laitues"
             },
             "butternut squash": {
                 "aliases": [],
                 "description": "",
-                "name": "butternut squash",
+                "name": "courge butternut",
                 "plural_name": "butternut squashes"
             },
             "romaine": {
@@ -204,13 +204,13 @@
             "beetroot": {
                 "aliases": [],
                 "description": "",
-                "name": "beetroot",
-                "plural_name": "beetroots"
+                "name": "betterave",
+                "plural_name": "betteraves"
             },
             "brussels sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "brussels sprout",
+                "name": "chou de Bruxelles",
                 "plural_name": "brussels sprouts"
             },
             "fennel": {
@@ -228,20 +228,20 @@
             "radish": {
                 "aliases": [],
                 "description": "",
-                "name": "radish",
+                "name": "radis",
                 "plural_name": "radishes"
             },
             "red cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "red cabbage",
-                "plural_name": "red cabbages"
+                "name": "chou rouge",
+                "plural_name": "choux rouge"
             },
             "artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke",
-                "plural_name": "artichokes"
+                "name": "artichaut",
+                "plural_name": "artichauts"
             },
             "new potato": {
                 "aliases": [],
@@ -267,8 +267,8 @@
             "parsnip": {
                 "aliases": [],
                 "description": "",
-                "name": "parsnip",
-                "plural_name": "parsnips"
+                "name": "panais",
+                "plural_name": "panais"
             },
             "baby carrot": {
                 "aliases": [],
@@ -389,8 +389,8 @@
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "navet",
+                "plural_name": "navets"
             },
             "thai chile pepper": {
                 "aliases": [],
