@@ -205,7 +205,5 @@ def test_ingredient_display(
         expected_components.append(note)
 
     expected_display_value = " ".join(c for c in expected_components if c)
-    ingredient = RecipeIngredient(
-        quantity=quantity, unit=unit, food=food, note=note, use_food=use_food, disable_amount=not use_food
-    )
+    ingredient = RecipeIngredient(quantity=quantity, unit=unit, food=food, note=note, use_food=use_food)
     assert ingredient.display == expected_display_value

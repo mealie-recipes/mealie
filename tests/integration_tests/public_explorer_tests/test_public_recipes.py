@@ -377,7 +377,6 @@ def test_get_suggested_recipes(
         SaveIngredientFood(id=uuid4(), name=random_string(), group_id=unique_user.group_id)
     )
     random_recipe.recipe_ingredient = [RecipeIngredient(food_id=known_food.id, food=known_food)]
-    random_recipe.settings.disable_amount = False
     database.recipes.update(random_recipe.slug, random_recipe)
 
     ## Try to find suggested recipes
