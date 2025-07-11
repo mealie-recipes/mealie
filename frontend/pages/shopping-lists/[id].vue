@@ -764,20 +764,6 @@ export default defineNuxtComponent({
       { title: i18n.t("general.delete"), action: contextActions.delete },
     ];
 
-    function contextMenuAction(action: string, item: ShoppingListItemOut, idx: number) {
-      if (!shoppingList.value?.listItems) {
-        return;
-      }
-
-      switch (action) {
-        case contextActions.delete:
-          shoppingList.value.listItems = shoppingList.value?.listItems.filter(itm => itm.id !== item.id);
-          break;
-        default:
-          break;
-      }
-    }
-
     // =====================================
     // Labels, Units, Foods
     // TODO: Extract to Composable
@@ -1207,7 +1193,6 @@ export default defineNuxtComponent({
       addRecipeReferenceToList,
       allLabels,
       contextMenu,
-      contextMenuAction,
       copyListItems,
       createEditorOpen,
       createListItem,
