@@ -4,7 +4,7 @@
       v-if="!isEditMode"
       v-model.number="scaleValue"
       :recipe-servings="recipeServings"
-      :edit-scale="!isEditMode"
+      :edit-scale="hasFoodOrUnit && !isEditMode"
     />
   </div>
 </template>
@@ -37,6 +37,17 @@ export default defineNuxtComponent({
       return props.recipe.recipeServings || props.recipe.recipeYieldQuantity || 1;
     });
 
+    const hasFoodOrUnit = computed(() => {
+      if (props.recipe.recipeIngredient) {
+        for (const ingredient of props.recipe.recipeIngredient) {
+          if (ingredient.food || ingredient.unit) {
+            return true;
+          }
+        }
+      }
+      return false;
+    });
+
     const scaleValue = computed<number>({
       get() {
         return props.scale;
@@ -50,6 +61,7 @@ export default defineNuxtComponent({
       recipeServings,
       scaleValue,
       isEditMode,
+      hasFoodOrUnit,
     };
   },
 });
