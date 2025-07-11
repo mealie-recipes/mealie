@@ -152,7 +152,7 @@ class IngredientUnit(CreateIngredientUnit):
 
 
 class RecipeIngredientBase(MealieModel):
-    quantity: NoneFloat = 1
+    quantity: NoneFloat = 0
     unit: IngredientUnit | CreateIngredientUnit | None = None
     food: IngredientFood | CreateIngredientFood | None = None
     note: str | None = ""
