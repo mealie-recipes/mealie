@@ -4,7 +4,7 @@
       v-if="!isEditMode"
       v-model.number="scaleValue"
       :recipe-servings="recipeServings"
-      :edit-scale="!recipe.settings.disableAmount && !isEditMode"
+      :edit-scale="!isEditMode"
     />
   </div>
 </template>

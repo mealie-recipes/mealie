@@ -758,12 +758,10 @@ export default defineNuxtComponent({
 
     const contextActions = {
       delete: "delete",
-      setIngredient: "setIngredient",
     };
 
     const contextMenu = [
       { title: i18n.t("general.delete"), action: contextActions.delete },
-      { title: i18n.t("recipe.ingredient"), action: contextActions.setIngredient },
     ];
 
     function contextMenuAction(action: string, item: ShoppingListItemOut, idx: number) {
@@ -774,9 +772,6 @@ export default defineNuxtComponent({
       switch (action) {
         case contextActions.delete:
           shoppingList.value.listItems = shoppingList.value?.listItems.filter(itm => itm.id !== item.id);
-          break;
-        case contextActions.setIngredient:
-          shoppingList.value.listItems[idx].isFood = !shoppingList.value.listItems[idx].isFood;
           break;
         default:
           break;
@@ -897,7 +892,7 @@ export default defineNuxtComponent({
       shoppingList.value.listItems.forEach((item) => {
         const key = item.checked
           ? checkedItemKey
-          : item.isFood && item.food?.name
+          : item.food?.name
             ? item.food.name
             : item.note || "";
 
@@ -1083,13 +1078,12 @@ export default defineNuxtComponent({
     const createEditorOpen = ref(false);
     const createListItemData = ref<ShoppingListItemOut>(listItemFactory());
 
-    function listItemFactory(isFood = false): ShoppingListItemOut {
+    function listItemFactory(): ShoppingListItemOut {
       return {
         id: uuid4(),
         shoppingListId: id,
         checked: false,
         position: shoppingList.value?.listItems?.length || 1,
-        isFood,
         quantity: 0,
         note: "",
         labelId: undefined,
@@ -1140,7 +1134,7 @@ export default defineNuxtComponent({
         shoppingList.value.listItems.push(createListItemData.value);
         updateListItemOrder();
       }
-      createListItemData.value = listItemFactory(createListItemData.value.isFood || false);
+      createListItemData.value = listItemFactory();
       refresh();
     }
 

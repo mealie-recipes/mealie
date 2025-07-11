@@ -87,11 +87,6 @@ export default defineNuxtComponent({
 		    label: i18n.t("group.disable-users-from-commenting-on-recipes"),
 		    description: i18n.t("group.disable-users-from-commenting-on-recipes-description"),
 		  },
-		  {
-		    key: "recipeDisableAmount",
-		    label: i18n.t("group.disable-organizing-recipe-ingredients-by-units-and-food"),
-		    description: i18n.t("group.disable-organizing-recipe-ingredients-by-units-and-food-description"),
-		  },
 		];
 
 		const allDays = [
