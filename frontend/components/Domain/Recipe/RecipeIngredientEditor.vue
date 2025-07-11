@@ -18,6 +18,30 @@
     >
       <v-col
         sm="12"
+        md="2"
+        cols="12"
+        class="flex-grow-0 flex-shrink-0"
+      >
+        <v-text-field
+          v-model="model.quantity"
+          variant="solo"
+          hide-details
+          density="compact"
+          type="number"
+          :placeholder="$t('recipe.quantity')"
+          @keypress="quantityFilter"
+        >
+          <template #prepend>
+            <v-icon
+              class="mr-n1 handle"
+            >
+              {{ $globals.icons.arrowUpDown }}
+            </v-icon>
+          </template>
+        </v-text-field>
+      </v-col>
+      <v-col
+        sm="12"
         md="3"
         cols="12"
       >
