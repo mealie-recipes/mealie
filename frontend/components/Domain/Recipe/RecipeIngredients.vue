@@ -43,7 +43,6 @@
           <v-list-item-title>
             <RecipeIngredientListItem
               :ingredient="ingredient"
-              :disable-amount="disableAmount"
               :scale="scale"
             />
           </v-list-item-title>
@@ -64,10 +63,6 @@ export default defineNuxtComponent({
     value: {
       type: Array as () => RecipeIngredient[],
       default: () => [],
-    },
-    disableAmount: {
-      type: Boolean,
-      default: false,
     },
     scale: {
       type: Number,
@@ -99,7 +94,7 @@ export default defineNuxtComponent({
           components.push(`[${ingredient.title}]`);
         }
 
-        components.push(parseIngredientText(ingredient, props.disableAmount, props.scale, false));
+        components.push(parseIngredientText(ingredient, props.scale, false));
       });
 
       return components.join("\n");

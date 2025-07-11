@@ -140,7 +140,6 @@
                   <div :key="ingredientData.ingredient.quantity">
                     <RecipeIngredientListItem
                       :ingredient="ingredientData.ingredient"
-                      :disable-amount="ingredientData.disableAmount"
                       :scale="recipeSection.recipeScale"
                     />
                   </div>
@@ -188,7 +187,6 @@ export interface RecipeWithScale extends Recipe {
 export interface ShoppingListIngredient {
   checked: boolean;
   ingredient: RecipeIngredient;
-  disableAmount: boolean;
 }
 
 export interface ShoppingListIngredientSection {
@@ -299,7 +297,6 @@ export default defineNuxtComponent({
           return {
             checked: !householdsWithFood.includes(userHousehold.value),
             ingredient: ing,
-            disableAmount: recipe.settings?.disableAmount || false,
           };
         });
 

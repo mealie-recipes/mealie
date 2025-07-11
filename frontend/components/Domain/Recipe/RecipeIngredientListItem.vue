@@ -38,10 +38,6 @@ export default defineNuxtComponent({
       type: Object as () => RecipeIngredient,
       required: true,
     },
-    disableAmount: {
-      type: Boolean,
-      default: false,
-    },
     scale: {
       type: Number,
       default: 1,

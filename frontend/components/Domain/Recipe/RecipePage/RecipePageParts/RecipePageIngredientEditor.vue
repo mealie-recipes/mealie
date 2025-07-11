@@ -27,7 +27,6 @@
           :key="ingredient.referenceId"
           v-model="recipe.recipeIngredient[index]"
           class="list-group-item"
-          :disable-amount="recipe.settings.disableAmount"
           @delete="recipe.recipeIngredient.splice(index, 1)"
           @insert-above="insertNewIngredient(index)"
           @insert-below="insertNewIngredient(index + 1)"

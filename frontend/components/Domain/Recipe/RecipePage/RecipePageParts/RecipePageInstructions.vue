@@ -325,7 +325,6 @@
                               return step.ingredientReferences.map((ref) => ref.referenceId).includes(ing.referenceId || '')
                             })"
                             :scale="scale"
-                            :disable-amount="recipe.settings.disableAmount"
                             :is-cook-mode="isCookMode"
                           />
                         </div>
