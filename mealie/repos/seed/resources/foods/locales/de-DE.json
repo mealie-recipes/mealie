@@ -595,8 +595,8 @@
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli slaw",
-                "plural_name": "broccoli slaws"
+                "name": "Brokkolisalat",
+                "plural_name": "Brokkolisalate"
             },
             "arbol chile pepper": {
                 "aliases": [],
@@ -1182,55 +1182,55 @@
                 "aliases": [],
                 "description": "",
                 "name": "Pluot",
-                "plural_name": "pluots"
+                "plural_name": "Pluots"
             },
             "soursop": {
                 "aliases": [],
                 "description": "",
-                "name": "soursop",
-                "plural_name": "soursops"
+                "name": "Stachelannone",
+                "plural_name": "Stachelannonen"
             },
             "hog plum": {
                 "aliases": [],
                 "description": "",
-                "name": "hog plum",
+                "name": "Mombinpflaumen",
                 "plural_name": "Mombinpflaume"
             },
             "bergamot orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bergamot orange",
-                "plural_name": "bergamot oranges"
+                "name": "Bergamotte",
+                "plural_name": "Bergamotten"
             },
             "luo han guo": {
                 "aliases": [],
                 "description": "",
-                "name": "luo han guo",
-                "plural_name": "luo han guos"
+                "name": "Mönchsfrucht",
+                "plural_name": "Mönchsfrüchte"
             },
             "mamey": {
                 "aliases": [],
                 "description": "",
-                "name": "mamey",
-                "plural_name": "mameys"
+                "name": "Mammiapfel",
+                "plural_name": "Mammiäpfel"
             },
             "sapote": {
                 "aliases": [],
                 "description": "",
-                "name": "sapote",
-                "plural_name": "sapotes"
+                "name": "Sapote",
+                "plural_name": "Sapote"
             },
             "green ume plum": {
                 "aliases": [],
                 "description": "",
-                "name": "green ume plum",
-                "plural_name": "green ume plums"
+                "name": "Japanische Pflaume",
+                "plural_name": "Japanische Pflaumen"
             },
             "kiwano": {
                 "aliases": [],
                 "description": "",
-                "name": "kiwano",
-                "plural_name": "kiwanoes"
+                "name": "Horngurke",
+                "plural_name": "Horngurken"
             }
         }
     },
@@ -1419,13 +1419,13 @@
             "puffball": {
                 "aliases": [],
                 "description": "",
-                "name": "puffball",
-                "plural_name": "puffballs"
+                "name": "Riesenbovist",
+                "plural_name": "Riesenboviste"
             },
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungu",
+                "name": "",
                 "plural_name": "honey fungus"
             },
             "caesar's mushroom": {
@@ -1471,8 +1471,8 @@
             "cranberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry",
-                "plural_name": "cranberries"
+                "name": "Cranberry",
+                "plural_name": "Cranberries"
             },
             "cherry": {
                 "aliases": [],
@@ -1483,7 +1483,7 @@
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
+                "name": "Brombeere",
                 "plural_name": "Brombeeren"
             },
             "berry mix": {
@@ -1495,8 +1495,8 @@
             "maraschino cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "maraschino cherry",
-                "plural_name": "maraschino cherries"
+                "name": "maraschino Kirsche",
+                "plural_name": "maraschino Kirschen"
             },
             "dried cherry": {
                 "aliases": [],
@@ -1507,8 +1507,8 @@
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "Wacholderbeere",
+                "plural_name": "Wacholderbeeren"
             },
             "sour cherry": {
                 "aliases": [],
@@ -1519,8 +1519,8 @@
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
-                "plural_name": "goji berries"
+                "name": "Goji-Beere",
+                "plural_name": "Goji-Beeren"
             },
             "dried blueberry": {
                 "aliases": [],
@@ -1561,8 +1561,8 @@
             "mulberry": {
                 "aliases": [],
                 "description": "",
-                "name": "mulberry",
-                "plural_name": "mulberries"
+                "name": "Maulbeere",
+                "plural_name": "Maulbeeren"
             },
             "acai berry": {
                 "aliases": [],
@@ -1597,8 +1597,8 @@
             "huckleberry": {
                 "aliases": [],
                 "description": "",
-                "name": "huckleberry",
-                "plural_name": "huckleberries"
+                "name": "Heidelbeere",
+                "plural_name": "Heidelbeeren"
             },
             "dried elderberry": {
                 "aliases": [],
@@ -1615,8 +1615,8 @@
             "dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried berry",
-                "plural_name": "dried berries"
+                "name": "getrocknete Beere",
+                "plural_name": "getrocknete Beeren"
             },
             "sea buckthorn": {
                 "aliases": [],
@@ -1663,8 +1663,8 @@
             "aronia berry": {
                 "aliases": [],
                 "description": "",
-                "name": "aronia berry",
-                "plural_name": "aronia berries"
+                "name": "Apfelbeere",
+                "plural_name": "Apfelbeeren"
             },
             "chokeberry": {
                 "aliases": [],
@@ -1681,8 +1681,8 @@
             "blackcurrant leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "blackcurrant leaf",
-                "plural_name": "blackcurrant leaves"
+                "name": "Schwarzes Johannisbeerblatt",
+                "plural_name": "Schwarze Johannisbeerblätter"
             },
             "haskap berry": {
                 "aliases": [],
@@ -1745,8 +1745,8 @@
             "pine nut": {
                 "aliases": [],
                 "description": "",
-                "name": "pine nut",
-                "plural_name": "pine nuts"
+                "name": "Pinienkern",
+                "plural_name": "Pinienkerne"
             },
             "pistachio": {
                 "aliases": [],
@@ -1776,7 +1776,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "slivered almond",
-                "plural_name": "slivered almonds"
+                "plural_name": "Mandelstifte"
             },
             "pumpkin seed": {
                 "aliases": [],
@@ -1853,8 +1853,8 @@
             "onion seed": {
                 "aliases": [],
                 "description": "",
-                "name": "onion seed",
-                "plural_name": "onion seeds"
+                "name": "Zwiebelsamen",
+                "plural_name": "Zwiebelsamen"
             },
             "watermelon seed": {
                 "aliases": [],
@@ -1871,8 +1871,8 @@
             "melon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "melon seed",
-                "plural_name": "melon seeds"
+                "name": "Melonensamen",
+                "plural_name": "Melonensamen"
             },
             "lotus seed": {
                 "aliases": [],
@@ -1895,8 +1895,8 @@
             "basil seed": {
                 "aliases": [],
                 "description": "",
-                "name": "basil seed",
-                "plural_name": "basil seeds"
+                "name": "Basilikumsamen",
+                "plural_name": "Basilikumsamen"
             },
             "candlenut": {
                 "aliases": [],
@@ -1907,8 +1907,8 @@
             "peanut brittle": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut brittle",
-                "plural_name": "peanut brittles"
+                "name": "Erdnusskrokant",
+                "plural_name": "Erdnusskrokant"
             },
             "jackfruit seed": {
                 "aliases": [],
