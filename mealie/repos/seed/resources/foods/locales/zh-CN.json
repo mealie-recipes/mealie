@@ -4,14 +4,14 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic",
-                "plural_name": "garlics"
+                "name": "大蒜",
+                "plural_name": "大蒜"
             },
             "onion": {
                 "aliases": [],
                 "description": "",
-                "name": "onion",
-                "plural_name": "onions"
+                "name": "洋葱",
+                "plural_name": "洋葱"
             },
             "bell pepper": {
                 "aliases": [],
@@ -22,8 +22,8 @@
             "carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "carrot",
-                "plural_name": "carrots"
+                "name": "胡萝卜",
+                "plural_name": "胡萝卜"
             },
             "scallion": {
                 "aliases": [],
@@ -34,14 +34,14 @@
             "zucchini": {
                 "aliases": [],
                 "description": "",
-                "name": "zucchini",
-                "plural_name": "zucchinis"
+                "name": "西葫芦",
+                "plural_name": "西葫芦"
             },
             "potato": {
                 "aliases": [],
                 "description": "",
-                "name": "potato",
-                "plural_name": "potatoes"
+                "name": "土豆",
+                "plural_name": "土豆"
             },
             "red onion": {
                 "aliases": [],
@@ -70,14 +70,14 @@
             "avocado": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado",
-                "plural_name": "avocados"
+                "name": "牛油果",
+                "plural_name": "牛油果"
             },
             "shallot": {
                 "aliases": [],
                 "description": "",
-                "name": "shallot",
-                "plural_name": "shallots"
+                "name": "红葱头",
+                "plural_name": "红葱头"
             },
             "cherry tomato": {
                 "aliases": [],
@@ -88,20 +88,20 @@
             "cucumber": {
                 "aliases": [],
                 "description": "",
-                "name": "cucumber",
-                "plural_name": "cucumbers"
+                "name": "黄瓜",
+                "plural_name": "黄瓜"
             },
             "spinach": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach",
-                "plural_name": "spinaches"
+                "name": "菠菜",
+                "plural_name": "菠菜"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet corn",
-                "plural_name": "sweet corns"
+                "name": "甜玉米",
+                "plural_name": "甜玉米"
             },
             "chile pepper": {
                 "aliases": [
@@ -114,14 +114,14 @@
             "sweet potato": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet potato",
-                "plural_name": "sweet potatoes"
+                "name": "红薯",
+                "plural_name": "红薯"
             },
             "broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli",
-                "plural_name": "broccolis"
+                "name": "西兰花",
+                "plural_name": "西兰花"
             },
             "heart of palm": {
                 "aliases": [],
@@ -138,14 +138,14 @@
             "pumpkin": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin",
-                "plural_name": "pumpkins"
+                "name": "南瓜",
+                "plural_name": "南瓜"
             },
             "cauliflower": {
                 "aliases": [],
                 "description": "",
-                "name": "cauliflower",
-                "plural_name": "cauliflowers"
+                "name": "菜花",
+                "plural_name": "菜花"
             },
             "cabbage": {
                 "aliases": [],
@@ -162,14 +162,14 @@
             "kale": {
                 "aliases": [],
                 "description": "",
-                "name": "kale",
-                "plural_name": "kales"
+                "name": "羽衣甘蓝",
+                "plural_name": "羽衣甘蓝"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
-                "name": "arugula",
-                "plural_name": "arugulas"
+                "name": "芝麻菜",
+                "plural_name": "芝麻菜"
             },
             "leek": {
                 "aliases": [],
@@ -180,14 +180,14 @@
             "eggplant": {
                 "aliases": [],
                 "description": "",
-                "name": "eggplant",
-                "plural_name": "eggplants"
+                "name": "茄子",
+                "plural_name": "茄子"
             },
             "lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "lettuce",
-                "plural_name": "lettuces"
+                "name": "生菜",
+                "plural_name": "生菜"
             },
             "butternut squash": {
                 "aliases": [],
@@ -5855,8 +5855,8 @@
             "garlic powder": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic powder",
-                "plural_name": "garlic powders"
+                "name": "大蒜粉",
+                "plural_name": "大蒜粉"
             },
             "oregano": {
                 "aliases": [],
@@ -6017,8 +6017,8 @@
             "white pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "white pepper",
-                "plural_name": "white peppers"
+                "name": "白胡椒",
+                "plural_name": "白胡椒"
             },
             "curry leaf": {
                 "aliases": [],
@@ -7106,8 +7106,8 @@
             "himalayan salt": {
                 "aliases": [],
                 "description": "",
-                "name": "himalayan salt",
-                "plural_name": "himalayan salts"
+                "name": "喜马拉雅盐",
+                "plural_name": "喜马拉雅盐"
             },
             "lemon & pepper seasoning": {
                 "aliases": [],
@@ -10640,8 +10640,8 @@
             "vegetable oil": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable oil",
-                "plural_name": "vegetable oils"
+                "name": "植物油",
+                "plural_name": "植物油"
             },
             "extra virgin olive oil": {
                 "aliases": [],
@@ -13192,8 +13192,8 @@
             "black pepper sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "black pepper sauce",
-                "plural_name": "black pepper sauces"
+                "name": "黑椒酱",
+                "plural_name": "黑椒酱"
             },
             "char siu sauce": {
                 "aliases": [],
