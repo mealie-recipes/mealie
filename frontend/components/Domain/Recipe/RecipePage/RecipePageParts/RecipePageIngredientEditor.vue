@@ -1,9 +1,14 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
   <div>
-    <h2 class="mb-4 text-h5 font-weight-medium opacity-80">
-      {{ $t("recipe.ingredients") }}
-    </h2>
+    <div class="mb-4">
+      <h2 class="mb-4 text-h5 font-weight-medium opacity-80">
+        {{ $t("recipe.ingredients") }}
+      </h2>
+      <BannerWarning v-if="!hasFoodOrUnit">
+        {{ $t("recipe.ingredients-not-parsed-description", { parse: $t('recipe.parse') }) }}
+      </BannerWarning>
+    </div>
     <VueDraggable
       v-if="recipe.recipeIngredient.length > 0"
       v-model="recipe.recipeIngredient"
