@@ -130,19 +130,23 @@
                       .ingredients[i]
                       .checked"
                 >
-                  <v-checkbox
-                    hide-details
-                    :model-value="ingredientData.checked"
-                    class="pt-0 my-auto py-auto"
-                    color="secondary"
-                    density="compact"
-                  />
-                  <div :key="ingredientData.ingredient.quantity">
-                    <RecipeIngredientListItem
-                      :ingredient="ingredientData.ingredient"
-                      :scale="recipeSection.recipeScale"
-                    />
-                  </div>
+                  <v-container class="pa-0 ma-0">
+                    <v-row no-gutters>
+                      <v-checkbox
+                        hide-details
+                        :model-value="ingredientData.checked"
+                        class="pt-0 my-auto py-auto mr-2"
+                        color="secondary"
+                        density="compact"
+                      />
+                      <div :key="ingredientData.ingredient.quantity" class="pa-auto my-auto">
+                        <RecipeIngredientListItem
+                          :ingredient="ingredientData.ingredient"
+                          :scale="recipeSection.recipeScale"
+                        />
+                      </div>
+                    </v-row>
+                  </v-container>
                 </v-list-item>
               </div>
             </div>
