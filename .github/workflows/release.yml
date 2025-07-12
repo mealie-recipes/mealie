@@ -17,7 +17,7 @@ jobs:
     name: Build Package
     uses: ./.github/workflows/build-package.yml
     with:
-      tag: release
+      tag: ${{ github.event.release.tag_name }}
 
   publish:
     permissions:
