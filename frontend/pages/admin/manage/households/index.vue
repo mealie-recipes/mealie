@@ -1,5 +1,7 @@
 <template>
   <v-container fluid>
+{{ groups?.length }}
+
     <BaseDialog
       v-model="createDialog"
       :title="$t('household.create-household')"
@@ -14,7 +16,6 @@
             :items="groups"
             item-title="name"
             item-value="id"
-            :return-object="false"
             variant="filled"
             :label="$t('household.household-group')"
             :rules="[validators.required]"
@@ -131,6 +132,7 @@ useSeoMeta({
 
 const { groups } = useGroups();
 const { households, deleteHousehold, createHousehold } = useAdminHouseholds();
+
 const refNewHouseholdForm = ref<VForm | null>(null);
 
 const createDialog = ref(false);
