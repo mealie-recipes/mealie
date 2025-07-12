@@ -30,7 +30,7 @@
             :rules="[validators.required]"
           />
           <v-select
-            v-model="state.newUserData.household"
+            v-model="newUserData.household"
             :disabled="!selectedGroup"
             :items="households"
             item-title="name"
@@ -42,7 +42,7 @@
             :rules="[validators.required]"
           />
           <AutoForm
-            v-model="state.newUserData"
+            v-model="newUserData"
             :items="userForm"
           />
         </v-card-text>
@@ -78,27 +78,25 @@ const adminApi = useAdminApi();
 const selectedGroup = ref<GroupInDB | undefined>(undefined);
 const households = computed(() => selectedGroup.value?.households || []);
 
-const state = reactive({
-  newUserData: {
-    username: "",
-    fullName: "",
-    email: "",
-    admin: false,
-    group: computed(() => selectedGroup.value?.name || ""),
-    household: "",
-    advanced: false,
-    canInvite: false,
-    canManage: false,
-    canOrganize: false,
-    password: "",
-    authMethod: "Mealie",
-  },
+const newUserData = ref({
+  username: "",
+  fullName: "",
+  email: "",
+  admin: false,
+  group: computed(() => selectedGroup.value?.name || ""),
+  household: "",
+  advanced: false,
+  canInvite: false,
+  canManage: false,
+  canOrganize: false,
+  password: "",
+  authMethod: "Mealie",
 });
 
 async function handleSubmit() {
   if (!refNewUserForm.value?.validate()) return;
 
-  const { response } = await adminApi.users.createOne(state.newUserData as UserIn);
+  const { response } = await adminApi.users.createOne(newUserData.value as UserIn);
 
   if (response?.status === 201) {
     router.push("/admin/manage/users");
