@@ -42,7 +42,7 @@
         color="info"
         variant="elevated"
         :items="bulkActions"
-        v-bind="bulkActionListener"
+        v-on="bulkActionListener"
       />
       <slot name="button-row" />
     </v-card-actions>
@@ -55,7 +55,7 @@
     </div>
     <v-data-table
       v-model="selected"
-      item-key="id"
+      return-object
       :headers="activeHeaders"
       :show-select="bulkActions.length > 0"
       :sort-by="sortBy"
