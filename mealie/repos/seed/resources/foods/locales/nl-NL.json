@@ -584,7 +584,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "anaheim peper",
-                "plural_name": "anaheim peppers"
+                "plural_name": "anaheim pepers"
             },
             "cres": {
                 "aliases": [],
@@ -1091,20 +1091,20 @@
             "physali": {
                 "aliases": [],
                 "description": "",
-                "name": "physali",
-                "plural_name": "physalis"
+                "name": "ananaskers",
+                "plural_name": "ananaskersen"
             },
             "tamarillo": {
                 "aliases": [],
                 "description": "",
                 "name": "tamarillo",
-                "plural_name": "tamarilloes"
+                "plural_name": "tamarillo's"
             },
             "ice-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "ice-apple",
-                "plural_name": "ice-apples"
+                "name": "ijsappel",
+                "plural_name": "ijsappels"
             },
             "longan": {
                 "aliases": [],
@@ -1115,98 +1115,98 @@
             "finger lime": {
                 "aliases": [],
                 "description": "",
-                "name": "finger lime",
-                "plural_name": "finger limes"
+                "name": "citroenkaviaar",
+                "plural_name": "citroenkaviaar"
             },
             "bitter orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bitter orange",
-                "plural_name": "bitter oranges"
+                "name": "bittersinaasappel",
+                "plural_name": "bittersinaasappels"
             },
             "feijoa": {
                 "aliases": [],
                 "description": "",
-                "name": "feijoa",
-                "plural_name": "feijoas"
+                "name": "ananasguave",
+                "plural_name": "ananasguaves"
             },
             "dried persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried persimmon",
-                "plural_name": "dried persimmons"
+                "name": "gedroogde kakivrucht",
+                "plural_name": "gedroogde kakivruchten"
             },
             "rambutan": {
                 "aliases": [],
                 "description": "",
-                "name": "rambutan",
-                "plural_name": "rambutans"
+                "name": "ramboetan",
+                "plural_name": "ramboetans"
             },
             "rose apple": {
                 "aliases": [],
                 "description": "",
-                "name": "rose apple",
-                "plural_name": "rose apples"
+                "name": "rozenappel",
+                "plural_name": "rozenappels"
             },
             "dried orange slice": {
                 "aliases": [],
                 "description": "",
-                "name": "dried orange slice",
-                "plural_name": "dried orange slices"
+                "name": "gedroogd sinaasappel partje",
+                "plural_name": "gedroogdesinaasappel partjes"
             },
             "loquat": {
                 "aliases": [],
                 "description": "",
-                "name": "loquat",
-                "plural_name": "loquats"
+                "name": "japanse pruim",
+                "plural_name": "japanse pruimen"
             },
             "crabapple": {
                 "aliases": [],
                 "description": "",
-                "name": "crabapple",
-                "plural_name": "crabapples"
+                "name": "wilde appel",
+                "plural_name": "wilde appels"
             },
             "fig leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "fig leaf",
-                "plural_name": "fig leaves"
+                "name": "vijgenblad",
+                "plural_name": "vijgenbladeren"
             },
             "freeze-dried pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried pineapple",
-                "plural_name": "freeze-dried pineapples"
+                "name": "gevriesdroogde ananas",
+                "plural_name": "gevriesdroogde ananas"
             },
             "pluot": {
                 "aliases": [],
                 "description": "",
-                "name": "pluot",
-                "plural_name": "pluots"
+                "name": "pruim-abrikoos",
+                "plural_name": "pruim-abrikozen"
             },
             "soursop": {
                 "aliases": [],
                 "description": "",
-                "name": "soursop",
-                "plural_name": "soursops"
+                "name": "zuurzak",
+                "plural_name": "zuurzakken"
             },
             "hog plum": {
                 "aliases": [],
                 "description": "",
-                "name": "hog plum",
-                "plural_name": "hog plums"
+                "name": "varkenspruim",
+                "plural_name": "varkenspruimen"
             },
             "bergamot orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bergamot orange",
-                "plural_name": "bergamot oranges"
+                "name": "bergamot",
+                "plural_name": "bergamotten"
             },
             "luo han guo": {
                 "aliases": [],
                 "description": "",
-                "name": "luo han guo",
-                "plural_name": "luo han guos"
+                "name": "monniksfruit",
+                "plural_name": "monniksfruit"
             },
             "mamey": {
                 "aliases": [],
@@ -1223,14 +1223,14 @@
             "green ume plum": {
                 "aliases": [],
                 "description": "",
-                "name": "green ume plum",
-                "plural_name": "green ume plums"
+                "name": "groene ume pruim",
+                "plural_name": "groene ume pruimen"
             },
             "kiwano": {
                 "aliases": [],
                 "description": "",
-                "name": "kiwano",
-                "plural_name": "kiwanoes"
+                "name": "hoornmeloen",
+                "plural_name": "hoornmeloenen"
             }
         }
     },
@@ -1239,68 +1239,68 @@
             "button mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "button mushroom",
-                "plural_name": "button mushrooms"
+                "name": "champignon",
+                "plural_name": "champignons"
             },
             "shiitake mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shiitake mushroom",
-                "plural_name": "shiitake mushrooms"
+                "name": "shiitake",
+                "plural_name": "shiitakes"
             },
             "portobello mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "portobello mushroom",
-                "plural_name": "portobello mushrooms"
+                "name": "portobello",
+                "plural_name": "portobello's"
             },
             "wild mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "wild mushroom",
-                "plural_name": "wild mushrooms"
+                "name": "wilde paddenstoel",
+                "plural_name": "wilde paddenstoelen"
             },
             "porcini": {
                 "aliases": [],
                 "description": "",
-                "name": "porcini",
-                "plural_name": "porcinis"
+                "name": "eekhoorntjesbrood",
+                "plural_name": "eekhoorntjesbrood"
             },
             "mixed mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed mushroom",
-                "plural_name": "mixed mushrooms"
+                "name": "gemengde paddenstoelen",
+                "plural_name": "gemengde paddenstoelen"
             },
             "oyster mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "oyster mushroom",
-                "plural_name": "oyster mushrooms"
+                "name": "oesterzwam",
+                "plural_name": "oesterzwammen"
             },
             "chestnut mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut mushroom",
-                "plural_name": "chestnut mushrooms"
+                "name": "kastanje champignon",
+                "plural_name": "kastanje champignons"
             },
             "enoki mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "enoki mushroom",
-                "plural_name": "enoki mushrooms"
+                "name": "enoki-paddenstoel",
+                "plural_name": "enoki-paddenstoeltjes"
             },
             "black fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "black fungu",
-                "plural_name": "black fungus"
+                "name": "boomoor",
+                "plural_name": "boomoren"
             },
             "black truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "black truffle",
-                "plural_name": "black truffles"
+                "name": "zwarte truffel",
+                "plural_name": "zwarte truffels"
             },
             "morel mushroom": {
                 "aliases": [],
@@ -1365,61 +1365,61 @@
             "pioppini": {
                 "aliases": [],
                 "description": "",
-                "name": "pioppini",
-                "plural_name": "pioppinis"
+                "name": "pioppino-zwam",
+                "plural_name": "pioppino-zwammen"
             },
             "snow fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "snow fungu",
-                "plural_name": "snow fungus"
+                "name": "sneeuwzwam",
+                "plural_name": "sneeuwzwammen"
             },
             "white beech mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "white beech mushroom",
-                "plural_name": "white beech mushrooms"
+                "name": "witte beukenzwam",
+                "plural_name": "witte beukenzwammen"
             },
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletu",
-                "plural_name": "boletus"
+                "name": "boleet",
+                "plural_name": "boleten"
             },
             "huitlacoche": {
                 "aliases": [],
                 "description": "",
-                "name": "huitlacoche",
-                "plural_name": "huitlacoches"
+                "name": "maïsbrand",
+                "plural_name": "maïsbrand"
             },
             "matsutake": {
                 "aliases": [],
                 "description": "",
-                "name": "matsutake",
-                "plural_name": "matsutakes"
+                "name": "pijnboomzwam",
+                "plural_name": "pijnboomzwammen"
             },
             "nameko": {
                 "aliases": [],
                 "description": "",
-                "name": "nameko",
-                "plural_name": "namekoes"
+                "name": "bundelzwam",
+                "plural_name": "bundelzwammen"
             },
             "djon djon mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "djon djon mushroom",
-                "plural_name": "djon djon mushrooms"
+                "name": "zwarte trompetzwam",
+                "plural_name": "zwarte trompetzwammen"
             },
             "mixed asian mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed asian mushroom",
-                "plural_name": "mixed asian mushrooms"
+                "name": "gemengde aziatische paddenstoelen",
+                "plural_name": "gemengde aziatische paddenstoelen"
             },
             "puffball": {
                 "aliases": [],
                 "description": "",
-                "name": "puffball",
+                "name": "bovist",
                 "plural_name": "puffballs"
             },
             "honey fungu": {
@@ -1453,98 +1453,98 @@
             "strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry",
-                "plural_name": "strawberries"
+                "name": "aardbei",
+                "plural_name": "aardbeien"
             },
             "blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry",
-                "plural_name": "blueberries"
+                "name": "bosbes",
+                "plural_name": "bosbessen"
             },
             "raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry",
-                "plural_name": "raspberries"
+                "name": "framboos",
+                "plural_name": "frambozen"
             },
             "cranberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry",
-                "plural_name": "cranberries"
+                "name": "veenbes",
+                "plural_name": "veenbessen"
             },
             "cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry",
-                "plural_name": "cherries"
+                "name": "kers",
+                "plural_name": "kersen"
             },
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
-                "plural_name": "blackberries"
+                "name": "braam",
+                "plural_name": "bramen"
             },
             "berry mix": {
                 "aliases": [],
                 "description": "",
-                "name": "berry mix",
-                "plural_name": "berry mixes"
+                "name": "gemengde bessen",
+                "plural_name": "gemengde bessen"
             },
             "maraschino cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "maraschino cherry",
-                "plural_name": "maraschino cherries"
+                "name": "maraschino kers",
+                "plural_name": "maraschino kersen"
             },
             "dried cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cherry",
-                "plural_name": "dried cherries"
+                "name": "gedroogde kers",
+                "plural_name": "gedroogde kersen"
             },
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "jeneverbes",
+                "plural_name": "jeneverbessen"
             },
             "sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cherry",
-                "plural_name": "sour cherries"
+                "name": "zure kers",
+                "plural_name": "zure kersen"
             },
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
-                "plural_name": "goji berries"
+                "name": "goji bes",
+                "plural_name": "goji bessen"
             },
             "dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried blueberry",
-                "plural_name": "dried blueberries"
+                "name": "gedroogde bosbes",
+                "plural_name": "gedroogde bosbessen"
             },
             "freeze-dried strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried strawberry",
-                "plural_name": "freeze-dried strawberries"
+                "name": "gevriesdroogde aardbei",
+                "plural_name": "gevriesdroogde aardbeien"
             },
             "gooseberry": {
                 "aliases": [],
                 "description": "",
-                "name": "gooseberry",
-                "plural_name": "gooseberries"
+                "name": "kruisbes",
+                "plural_name": "kruisbessen"
             },
             "freeze-dried raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried raspberry",
-                "plural_name": "freeze-dried raspberries"
+                "name": "gevriesdroogde framboos",
+                "plural_name": "gevriesdroogde frambozen"
             },
             "lingonberry": {
                 "aliases": [],
@@ -1640,19 +1640,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "hawthorn",
-                "plural_name": "hawthorns"
+                "plural_name": "meidoorns"
             },
             "boysenberry": {
                 "aliases": [],
                 "description": "",
-                "name": "boysenberry",
-                "plural_name": "boysenberries"
+                "name": "wilde braam",
+                "plural_name": "wilde bramen"
             },
             "cloudberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cloudberry",
-                "plural_name": "cloudberries"
+                "name": "kruipbraam",
+                "plural_name": "kruipbramen"
             },
             "freeze-dried berry": {
                 "aliases": [],
@@ -1715,20 +1715,20 @@
             "walnut": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut",
-                "plural_name": "walnuts"
+                "name": "walnoot",
+                "plural_name": "walnoten"
             },
             "pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "pecan",
-                "plural_name": "pecans"
+                "name": "pecannoot",
+                "plural_name": "pecannoten"
             },
             "almond": {
                 "aliases": [],
                 "description": "",
-                "name": "almond",
-                "plural_name": "almonds"
+                "name": "amandel",
+                "plural_name": "amandelen"
             },
             "sesame seed": {
                 "aliases": [],
@@ -1739,8 +1739,8 @@
             "cashew": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew",
-                "plural_name": "cashews"
+                "name": "cashewnoot",
+                "plural_name": "cashewnoten"
             },
             "pine nut": {
                 "aliases": [],
@@ -1751,14 +1751,14 @@
             "pistachio": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio",
-                "plural_name": "pistachios"
+                "name": "pistachenoot",
+                "plural_name": "pistachenoten"
             },
             "peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut",
-                "plural_name": "peanuts"
+                "name": "pinda",
+                "plural_name": "pinda's"
             },
             "chia": {
                 "aliases": [],
@@ -1811,8 +1811,8 @@
             "roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted peanut",
-                "plural_name": "roasted peanuts"
+                "name": "geroosterde pinda",
+                "plural_name": "geroosterde pinda's"
             },
             "chopped nut": {
                 "aliases": [],
