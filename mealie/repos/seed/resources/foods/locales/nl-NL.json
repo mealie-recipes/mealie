@@ -1871,8 +1871,8 @@
             "melon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "melon seed",
-                "plural_name": "melon seeds"
+                "name": "meloenzaad",
+                "plural_name": "meloen zaden"
             },
             "lotus seed": {
                 "aliases": [],
@@ -2027,7 +2027,7 @@
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
+                "name": "kaas",
                 "plural_name": "cheeses"
             },
             "mozzarella": {
@@ -4529,7 +4529,7 @@
             "goose": {
                 "aliases": [],
                 "description": "",
-                "name": "goose",
+                "name": "gans",
                 "plural_name": "geese"
             },
             "turkey pepperoni": {
