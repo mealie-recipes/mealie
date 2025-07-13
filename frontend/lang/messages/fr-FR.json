@@ -599,7 +599,7 @@
     "create-recipe-from-an-image": "Créer une recette à partir d’une image",
     "create-recipe-from-an-image-description": "Créez une recette en téléchargeant une image de celle-ci. Mealie utilisera l’IA pour tenter d’extraire le texte et de créer une recette.",
     "crop-and-rotate-the-image": "Rogner et pivoter l’image pour que seul le texte soit visible, et qu’il soit dans la bonne orientation.",
-    "create-from-images": "Create from Images",
+    "create-from-images": "Créer à partir d’images",
     "should-translate-description": "Traduire la recette dans ma langue",
     "please-wait-image-procesing": "Veuillez patienter, l’image est en cours de traitement. Cela peut prendre du temps.",
     "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
