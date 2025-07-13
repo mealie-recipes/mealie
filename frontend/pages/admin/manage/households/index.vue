@@ -14,7 +14,6 @@
             :items="groups"
             item-title="name"
             item-value="id"
-            :return-object="false"
             variant="filled"
             :label="$t('household.household-group')"
             :rules="[validators.required]"
@@ -94,10 +93,7 @@
                   icon
                   color="error"
                   variant="text"
-                  @click.stop="
-                    confirmDialog = true;
-                    deleteTarget = +item.id;
-                  "
+                  @click.stop="confirmDialog = true; deleteTarget = item.id"
                 >
                   <v-icon>
                     {{ $globals.icons.delete }}
@@ -114,7 +110,7 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { fieldTypes } from "~/composables/forms";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
@@ -122,92 +118,73 @@ import { validators } from "~/composables/use-validators";
 import type { HouseholdInDB } from "~/lib/api/types/household";
 import type { VForm } from "~/types/auto-forms";
 
-export default defineNuxtComponent({
-  setup() {
-    definePageMeta({
-      layout: "admin",
-    });
+definePageMeta({
+  layout: "admin",
+});
 
-    const i18n = useI18n();
+const i18n = useI18n();
 
-    // Set page title
-    useSeoMeta({
-      title: i18n.t("household.manage-households"),
-    });
+useSeoMeta({
+  title: i18n.t("household.manage-households"),
+});
 
-    const { groups } = useGroups();
-    const { households, refreshAllHouseholds, deleteHousehold, createHousehold } = useAdminHouseholds();
-    const refNewHouseholdForm = ref<VForm | null>(null);
+const { groups } = useGroups();
+const { households, deleteHousehold, createHousehold } = useAdminHouseholds();
 
-    const state = reactive({
-      createDialog: false,
-      confirmDialog: false,
-      loading: false,
-      deleteTarget: 0,
-      search: "",
-      headers: [
-        {
-          title: i18n.t("household.household"),
-          align: "start",
-          sortable: false,
-          value: "id",
-        },
-        { title: i18n.t("general.name"), value: "name" },
-        { title: i18n.t("group.group"), value: "group" },
-        { title: i18n.t("user.total-users"), value: "users" },
-        { title: i18n.t("user.webhooks-enabled"), value: "webhookEnable" },
-        { title: i18n.t("general.delete"), value: "actions" },
-      ],
-      updateMode: false,
-      createHouseholdForm: {
-        items: [
-          {
-            label: i18n.t("household.household-name"),
-            varName: "name",
-            type: fieldTypes.TEXT,
-            rules: ["required"],
-          },
-        ],
-        data: {
-          groupId: "",
-          name: "",
-        },
-      },
-    });
+const refNewHouseholdForm = ref<VForm | null>(null);
 
-    function openDialog() {
-      state.createDialog = true;
-      state.createHouseholdForm.data.name = "";
-      state.createHouseholdForm.data.groupId = "";
-    }
+const createDialog = ref(false);
+const confirmDialog = ref(false);
+const deleteTarget = ref<string>("");
+const search = ref("");
+const updateMode = ref(false);
 
-    const router = useRouter();
+const headers = [
+  {
+    title: i18n.t("household.household"),
+    align: "start",
+    sortable: false,
+    value: "id",
+  },
+  { title: i18n.t("general.name"), value: "name" },
+  { title: i18n.t("group.group"), value: "group" },
+  { title: i18n.t("user.total-users"), value: "users" },
+  { title: i18n.t("user.webhooks-enabled"), value: "webhookEnable" },
+  { title: i18n.t("general.delete"), value: "actions" },
+];
 
-    function handleRowClick(item: HouseholdInDB) {
-      router.push(`/admin/manage/households/${item.id}`);
-    }
-
-    async function handleCreateSubmit() {
-      if (!refNewHouseholdForm.value?.validate()) {
-        return;
-      }
-
-      state.createDialog = false;
-      await createHousehold(state.createHouseholdForm.data);
-    }
-
-    return {
-      ...toRefs(state),
-      refNewHouseholdForm,
-      groups,
-      households,
-      validators,
-      refreshAllHouseholds,
-      deleteHousehold,
-      handleCreateSubmit,
-      openDialog,
-      handleRowClick,
-    };
+const createHouseholdForm = reactive({
+  items: [
+    {
+      label: i18n.t("household.household-name"),
+      varName: "name",
+      type: fieldTypes.TEXT,
+      rules: ["required"],
+    },
+  ],
+  data: {
+    groupId: "",
+    name: "",
   },
 });
+
+function openDialog() {
+  createDialog.value = true;
+  createHouseholdForm.data.name = "";
+  createHouseholdForm.data.groupId = "";
+}
+
+const router = useRouter();
+
+function handleRowClick(item: HouseholdInDB) {
+  router.push(`/admin/manage/households/${item.id}`);
+}
+
+async function handleCreateSubmit() {
+  if (!refNewHouseholdForm.value?.validate()) {
+    return;
+  }
+  createDialog.value = false;
+  await createHousehold(createHouseholdForm.data);
+}
 </script>

@@ -45,28 +45,11 @@ export const useGroupSelf = function () {
 export const useGroups = function () {
   const api = useUserApi();
   const loading = ref(false);
+  const groups = ref<GroupSummary[] | null>(null);
 
-  function getAllGroups() {
+  async function getAllGroups() {
     loading.value = true;
-    const asyncKey = String(Date.now());
-    const { data: groups } = useAsyncData(asyncKey, async () => {
-      const { data } = await api.groups.getAll(1, -1, { orderBy: "name", orderDirection: "asc" }); ;
-
-      if (data) {
-        return data.items;
-      }
-      else {
-        return null;
-      }
-    });
-
-    loading.value = false;
-    return groups;
-  }
-
-  async function refreshAllGroups() {
-    loading.value = true;
-    const { data } = await api.groups.getAll(1, -1, { orderBy: "name", orderDirection: "asc" }); ;
+    const { data } = await api.groups.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
 
     if (data) {
       groups.value = data.items;
@@ -78,11 +61,15 @@ export const useGroups = function () {
     loading.value = false;
   }
 
+  async function refreshAllGroups() {
+    await getAllGroups();
+  }
+
   async function deleteGroup(id: string | number) {
     loading.value = true;
     const { data } = await api.groups.deleteOne(id);
     loading.value = false;
-    refreshAllGroups();
+    await refreshAllGroups();
     return data;
   }
 
@@ -93,9 +80,13 @@ export const useGroups = function () {
     if (data && groups.value) {
       groups.value.push(data);
     }
+    loading.value = false;
   }
 
-  const groups = getAllGroups();
+  // Initialize data on first call
+  if (!groups.value) {
+    getAllGroups();
+  }
 
   return { groups, getAllGroups, refreshAllGroups, deleteGroup, createGroup };
 };
