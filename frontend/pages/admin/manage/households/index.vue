@@ -1,7 +1,5 @@
 <template>
   <v-container fluid>
-{{ groups?.length }}
-
     <BaseDialog
       v-model="createDialog"
       :title="$t('household.create-household')"

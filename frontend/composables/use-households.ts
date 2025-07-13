@@ -103,7 +103,7 @@ export const useAdminHouseholds = function () {
   return {
     households,
     useHouseholdsInGroup,
-    getAllGroups: getAllHouseholds,
+    getAllHouseholds,
     refreshAllHouseholds,
     deleteHousehold,
     createHousehold,
