@@ -86,6 +86,7 @@ import {
   mdiLogout,
   mdiContentCopy,
   mdiClipboardCheck,
+  mdiClipboard,
   mdiCloudUpload,
   mdiDatabase,
   mdiGithub,
@@ -191,6 +192,7 @@ export const icons = {
   checkboxMarkedCircle: mdiCheckboxMarkedCircle,
   chefHat: mdiChefHat,
   clipboardCheck: mdiClipboardCheck,
+  clipboard: mdiClipboard,
   clockOutline: mdiClockTimeFourOutline,
   codeBraces: mdiCodeJson,
   codeJson: mdiCodeJson,
@@ -322,5 +324,4 @@ export const icons = {
   preserveLines: mdiText,
   preserveBlocks: mdiTextBoxOutline,
   flatten: mdiMinus,
-
 };
