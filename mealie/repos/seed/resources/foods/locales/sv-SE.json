@@ -71,7 +71,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "avokado",
-                "plural_name": "avokado"
+                "plural_name": "avokador"
             },
             "shallot": {
                 "aliases": [],
@@ -105,7 +105,7 @@
             },
             "chile pepper": {
                 "aliases": [
-                    "paprika"
+                    "spanskpeppar"
                 ],
                 "description": "",
                 "name": "chilipeppar",
@@ -151,43 +151,43 @@
                 "aliases": [],
                 "description": "",
                 "name": "vitkål",
-                "plural_name": "cabbages"
+                "plural_name": "kål"
             },
             "asparagu": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagu",
-                "plural_name": "asparagus"
+                "name": "sparris",
+                "plural_name": "sparris"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
-                "name": "kale",
-                "plural_name": "kales"
+                "name": "grönkål",
+                "plural_name": "grönkål"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
-                "name": "arugula",
-                "plural_name": "arugulas"
+                "name": "ruccola",
+                "plural_name": "ruccola"
             },
             "leek": {
                 "aliases": [],
                 "description": "",
-                "name": "leek",
-                "plural_name": "leeks"
+                "name": "purjolök",
+                "plural_name": "purjolökar"
             },
             "eggplant": {
                 "aliases": [],
                 "description": "",
-                "name": "eggplant",
-                "plural_name": "eggplants"
+                "name": "aubergine",
+                "plural_name": "auberginer"
             },
             "lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "lettuce",
-                "plural_name": "lettuces"
+                "name": "sallad",
+                "plural_name": "sallad"
             },
             "butternut squash": {
                 "aliases": [],
@@ -198,44 +198,44 @@
             "romaine": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine",
-                "plural_name": "romaines"
+                "name": "romansallad",
+                "plural_name": "romansallad"
             },
             "beetroot": {
                 "aliases": [],
                 "description": "",
-                "name": "beetroot",
-                "plural_name": "beetroots"
+                "name": "rödbeta",
+                "plural_name": "rödbetor"
             },
             "brussels sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "brussels sprout",
-                "plural_name": "brussels sprouts"
+                "name": "brysselkål",
+                "plural_name": "brysselkål"
             },
             "fennel": {
                 "aliases": [],
                 "description": "",
-                "name": "fennel",
-                "plural_name": "fennels"
+                "name": "fänkål",
+                "plural_name": "fänkål"
             },
             "sun dried tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "sun dried tomato",
-                "plural_name": "sun dried tomatoes"
+                "name": "soltorkad tomat",
+                "plural_name": "soltorkade tomater"
             },
             "radish": {
                 "aliases": [],
                 "description": "",
-                "name": "radish",
-                "plural_name": "radishes"
+                "name": "rädisa",
+                "plural_name": "rädisor"
             },
             "red cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "red cabbage",
-                "plural_name": "red cabbages"
+                "name": "rödkål",
+                "plural_name": "rödkål"
             },
             "artichoke": {
                 "aliases": [],
@@ -268,7 +268,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "palsternacka",
-                "plural_name": "parsnips"
+                "plural_name": "palsternackor"
             },
             "baby carrot": {
                 "aliases": [],
@@ -279,8 +279,8 @@
             "mixed vegetable": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetable",
-                "plural_name": "mixed vegetables"
+                "name": "blandade grönsaker",
+                "plural_name": "blandade grönsaker"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -297,7 +297,7 @@
             "serrano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano pepper",
+                "name": "serranochili",
                 "plural_name": "serranochili"
             },
             "cayenne pepper": {
@@ -346,7 +346,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pimiento",
-                "plural_name": "pimiento"
+                "plural_name": "pimientos"
             },
             "spaghetti squash": {
                 "aliases": [],
@@ -357,8 +357,8 @@
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "smörsallad",
-                "plural_name": "smörsallader"
+                "name": "huvudsallad",
+                "plural_name": "huvudsallad"
             },
             "hash brown": {
                 "aliases": [],
@@ -368,7 +368,7 @@
             },
             "napa cabbage": {
                 "aliases": [
-                    "kinakål"
+                    "kinakålsblad"
                 ],
                 "description": "",
                 "name": "kinakål",
