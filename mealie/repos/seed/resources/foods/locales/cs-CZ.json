@@ -247,7 +247,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "new potato",
-                "plural_name": ""
+                "plural_name": "nové brambory"
             },
             "summer squash": {
                 "aliases": [
@@ -333,8 +333,8 @@
             "horseradish": {
                 "aliases": [],
                 "description": "",
-                "name": "horseradish",
-                "plural_name": "horseradishes"
+                "name": "křen",
+                "plural_name": "křen"
             },
             "chard": {
                 "aliases": [],
@@ -407,8 +407,8 @@
             "okra": {
                 "aliases": [],
                 "description": "",
-                "name": "okra",
-                "plural_name": "okra"
+                "name": "ibiškovec",
+                "plural_name": "ibiškovec"
             },
             "acorn squash": {
                 "aliases": [],
@@ -613,8 +613,8 @@
             "pea shoot": {
                 "aliases": [],
                 "description": "",
-                "name": "pea shoot",
-                "plural_name": "pea shoots"
+                "name": "hrášek",
+                "plural_name": "hrách"
             },
             "alfalfa": {
                 "aliases": [],
@@ -707,8 +707,8 @@
             "pear": {
                 "aliases": [],
                 "description": "",
-                "name": "pear",
-                "plural_name": "pears"
+                "name": "hruška",
+                "plural_name": "hrušky"
             },
             "grape": {
                 "aliases": [],
@@ -725,14 +725,14 @@
             "watermelon": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon",
-                "plural_name": "watermelons"
+                "name": "vodní meloun",
+                "plural_name": "vodní melouny"
             },
             "rhubarb": {
                 "aliases": [],
                 "description": "",
-                "name": "rhubarb",
-                "plural_name": "rhubarbs"
+                "name": "rebarbora",
+                "plural_name": "rebarbora"
             },
             "dried apricot": {
                 "aliases": [],
@@ -743,8 +743,8 @@
             "kiwi": {
                 "aliases": [],
                 "description": "",
-                "name": "kiwi",
-                "plural_name": "kiwis"
+                "name": "kivi",
+                "plural_name": "kiwi"
             },
             "grapefruit": {
                 "aliases": [],
@@ -755,14 +755,14 @@
             "plum": {
                 "aliases": [],
                 "description": "",
-                "name": "plum",
-                "plural_name": "plums"
+                "name": "švestka",
+                "plural_name": "švestky"
             },
             "fig": {
                 "aliases": [],
                 "description": "",
-                "name": "fig",
-                "plural_name": "figs"
+                "name": "fík",
+                "plural_name": "fíky"
             },
             "apricot": {
                 "aliases": [],
@@ -1383,8 +1383,8 @@
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletu",
-                "plural_name": "boletus"
+                "name": "hříb",
+                "plural_name": "hřiby"
             },
             "huitlacoche": {
                 "aliases": [],
@@ -2040,13 +2040,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "feta",
-                "plural_name": "fetas"
+                "plural_name": "feta"
             },
             "ricotta": {
                 "aliases": [],
                 "description": "",
                 "name": "ricotta",
-                "plural_name": "ricottas"
+                "plural_name": "ricotta"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
@@ -2069,8 +2069,8 @@
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheeses"
+                "name": "kozí sýr",
+                "plural_name": "kozí sýry"
             },
             "fresh mozzarella": {
                 "aliases": [],
@@ -2111,8 +2111,8 @@
             "american cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "american cheese",
-                "plural_name": "american cheeses"
+                "name": "americký sýr",
+                "plural_name": "americké sýry"
             },
             "provolone": {
                 "aliases": [],
@@ -2183,8 +2183,8 @@
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheeses"
+                "name": "uzený sýr",
+                "plural_name": "uzené sýry"
             },
             "halloumi": {
                 "aliases": [],
@@ -2243,7 +2243,7 @@
             "grana-padano": {
                 "aliases": [],
                 "description": "",
-                "name": "grana-padano",
+                "name": "grana padano",
                 "plural_name": "grana-padanoes"
             },
             "muenster": {
@@ -2717,7 +2717,7 @@
             "creme fraiche": {
                 "aliases": [],
                 "description": "",
-                "name": "creme fraiche",
+                "name": "crème fraîche",
                 "plural_name": "creme fraiches"
             },
             "frosting": {
@@ -2735,7 +2735,7 @@
             "curd": {
                 "aliases": [],
                 "description": "",
-                "name": "curd",
+                "name": "tvaroh",
                 "plural_name": "curds"
             },
             "thickened cream": {
@@ -2771,7 +2771,7 @@
             "kefir": {
                 "aliases": [],
                 "description": "",
-                "name": "kefir",
+                "name": "kefír",
                 "plural_name": "kefír"
             },
             "sherbet": {
@@ -2849,7 +2849,7 @@
             "goat milk": {
                 "aliases": [],
                 "description": "",
-                "name": "goat milk",
+                "name": "kozí mléko",
                 "plural_name": "goat milks"
             },
             "cheese curd": {
@@ -2879,7 +2879,7 @@
             "duck egg": {
                 "aliases": [],
                 "description": "",
-                "name": "duck egg",
+                "name": "kachní vejce",
                 "plural_name": "duck eggs"
             },
             "salted egg": {
@@ -3017,7 +3017,7 @@
             "tvorog": {
                 "aliases": [],
                 "description": "",
-                "name": "tvorog",
+                "name": "tvaroh",
                 "plural_name": "tvorogs"
             },
             "chocolate milk powder": {
@@ -3739,7 +3739,7 @@
             "bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "bacon",
+                "name": "slanina",
                 "plural_name": "bacons"
             },
             "chopped bacon": {
@@ -3751,7 +3751,7 @@
             "ground beef": {
                 "aliases": [],
                 "description": "",
-                "name": "ground beef",
+                "name": "mleté hovězí",
                 "plural_name": "ground beefs"
             },
             "beef steak": {
@@ -3763,7 +3763,7 @@
             "ham": {
                 "aliases": [],
                 "description": "",
-                "name": "ham",
+                "name": "šunka",
                 "plural_name": "hams"
             },
             "pork chop": {
@@ -3787,7 +3787,7 @@
             "prosciutto": {
                 "aliases": [],
                 "description": "",
-                "name": "prosciutto",
+                "name": "pršut",
                 "plural_name": "prosciuttoes"
             },
             "sausage": {
@@ -3853,8 +3853,8 @@
             "pork rib": {
                 "aliases": [],
                 "description": "",
-                "name": "pork rib",
-                "plural_name": "pork ribs"
+                "name": "vepřové žebro",
+                "plural_name": "vepřové žebra"
             },
             "smoked sausage": {
                 "aliases": [],
@@ -3919,7 +3919,7 @@
             "pork belly": {
                 "aliases": [],
                 "description": "",
-                "name": "pork belly",
+                "name": "vepřový bok",
                 "plural_name": "pork bellies"
             },
             "andouille": {
@@ -4033,7 +4033,7 @@
             "mutton": {
                 "aliases": [],
                 "description": "",
-                "name": "mutton",
+                "name": "skopové",
                 "plural_name": "muttons"
             },
             "ham steak": {
@@ -4081,8 +4081,8 @@
             "rabbit": {
                 "aliases": [],
                 "description": "",
-                "name": "rabbit",
-                "plural_name": "rabbits"
+                "name": "králík",
+                "plural_name": "králíci"
             },
             "pork cutlet": {
                 "aliases": [],
@@ -4171,8 +4171,8 @@
             "beef liver": {
                 "aliases": [],
                 "description": "",
-                "name": "beef liver",
-                "plural_name": "beef livers"
+                "name": "hovězí játra",
+                "plural_name": "hovězí játra"
             },
             "pastrami": {
                 "aliases": [],
@@ -4439,14 +4439,14 @@
             "duck": {
                 "aliases": [],
                 "description": "",
-                "name": "duck",
-                "plural_name": "ducks"
+                "name": "kachna",
+                "plural_name": "kachny"
             },
             "duck breast": {
                 "aliases": [],
                 "description": "",
-                "name": "duck breast",
-                "plural_name": "duck breasts"
+                "name": "kachní prso",
+                "plural_name": "kachní prsa"
             },
             "boneless chicken": {
                 "aliases": [],
@@ -4481,7 +4481,7 @@
             "turkey meat": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey meat",
+                "name": "krůtí maso",
                 "plural_name": "turkey meats"
             },
             "chicken quarter": {
@@ -4499,13 +4499,13 @@
             "quail": {
                 "aliases": [],
                 "description": "",
-                "name": "quail",
-                "plural_name": "quails"
+                "name": "křepelka",
+                "plural_name": "křepelky"
             },
             "smoked turkey sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked turkey sausage",
+                "name": "uzená krůtí klobása",
                 "plural_name": "smoked turkey sausages"
             },
             "smoked chicken": {
@@ -4530,7 +4530,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "goose",
-                "plural_name": "geese"
+                "plural_name": "husy"
             },
             "turkey pepperoni": {
                 "aliases": [],
@@ -4637,8 +4637,8 @@
             "ostrich": {
                 "aliases": [],
                 "description": "",
-                "name": "ostrich",
-                "plural_name": "ostriches"
+                "name": "pštros",
+                "plural_name": "pštrosi"
             },
             "popcorn chicken": {
                 "aliases": [],
@@ -7299,7 +7299,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "msg",
-                "plural_name": "msgs"
+                "plural_name": "mgs"
             },
             "teriyaki marinade": {
                 "aliases": [],
@@ -7424,8 +7424,8 @@
             "truffle salt": {
                 "aliases": [],
                 "description": "",
-                "name": "truffle salt",
-                "plural_name": "truffle salts"
+                "name": "lanýžová sůl",
+                "plural_name": "lanýžové soli"
             },
             "biryani masala": {
                 "aliases": [],
@@ -7650,22 +7650,22 @@
             "flour": {
                 "aliases": [],
                 "description": "",
-                "name": "flour",
-                "plural_name": "flours"
+                "name": "mouka",
+                "plural_name": "mouky"
             },
             "vanilla extract": {
                 "aliases": [
-                    "vanilla",
-                    "vanillas"
+                    "vanilka",
+                    "vanilky"
                 ],
                 "description": "",
-                "name": "vanilla extract",
-                "plural_name": "vanilla extracts"
+                "name": "vanilkový extrakt",
+                "plural_name": "vanilové extrakty"
             },
             "baking powder": {
                 "aliases": [],
                 "description": "",
-                "name": "baking powder",
+                "name": "prášek na pečení",
                 "plural_name": "baking powders"
             },
             "baking soda": {
@@ -7677,14 +7677,14 @@
             "cornstarch": {
                 "aliases": [],
                 "description": "",
-                "name": "cornstarch",
-                "plural_name": "cornstarches"
+                "name": "kukuřičný škrob",
+                "plural_name": "kukuřičné škroby"
             },
             "yeast": {
                 "aliases": [],
                 "description": "",
-                "name": "yeast",
-                "plural_name": "yeasts"
+                "name": "droždí",
+                "plural_name": "droždí"
             },
             "chocolate chip": {
                 "aliases": [],
@@ -7709,8 +7709,8 @@
             "almond flour": {
                 "aliases": [],
                 "description": "",
-                "name": "almond flour",
-                "plural_name": "almond flours"
+                "name": "mandlová mouka",
+                "plural_name": "mandlové mouky"
             },
             "self-raising flour": {
                 "aliases": [],
@@ -7769,8 +7769,8 @@
             "corn flour": {
                 "aliases": [],
                 "description": "",
-                "name": "corn flour",
-                "plural_name": "corn flours"
+                "name": "kukuřičná mouka",
+                "plural_name": "kukuřičné mouky"
             },
             "cream of tartar": {
                 "aliases": [],
@@ -7908,8 +7908,8 @@
             "potato starch": {
                 "aliases": [],
                 "description": "",
-                "name": "potato starch",
-                "plural_name": "potato starches"
+                "name": "bramborový škrob",
+                "plural_name": "bramborové škroby"
             },
             "jello": {
                 "aliases": [],
@@ -8130,8 +8130,8 @@
             "citric acid": {
                 "aliases": [],
                 "description": "",
-                "name": "citric acid",
-                "plural_name": "citric acids"
+                "name": "kyselina citronová",
+                "plural_name": "kyseliny citronové"
             },
             "coconut chip": {
                 "aliases": [],
@@ -8290,7 +8290,7 @@
             "pizza dough": {
                 "aliases": [],
                 "description": "",
-                "name": "pizza dough",
+                "name": "těsto na pizzu",
                 "plural_name": "pizza doughs"
             },
             "phyllo": {
@@ -8540,8 +8540,8 @@
             "rice": {
                 "aliases": [],
                 "description": "",
-                "name": "rice",
-                "plural_name": "rices"
+                "name": "rýže",
+                "plural_name": "rýže"
             },
             "Rice Krispie Cereal": {
                 "aliases": [
@@ -8555,19 +8555,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "quinoa",
-                "plural_name": "quinoas"
+                "plural_name": "quinoa"
             },
             "basmati rice": {
                 "aliases": [],
                 "description": "",
-                "name": "basmati rice",
-                "plural_name": "basmati rices"
+                "name": "rýže Basmati",
+                "plural_name": "rýže Basmati"
             },
             "brown rice": {
                 "aliases": [],
                 "description": "",
-                "name": "brown rice",
-                "plural_name": "brown rices"
+                "name": "hnědá rýže",
+                "plural_name": "hnědá rýže"
             },
             "quick-cooking oat": {
                 "aliases": [],
@@ -8614,14 +8614,14 @@
             "jasmine rice": {
                 "aliases": [],
                 "description": "",
-                "name": "jasmine rice",
-                "plural_name": "jasmine rices"
+                "name": "jasminová rýže",
+                "plural_name": "jasminová rýže"
             },
             "polenta": {
                 "aliases": [],
                 "description": "",
                 "name": "polenta",
-                "plural_name": "polentas"
+                "plural_name": "polenty"
             },
             "granola cereal": {
                 "aliases": [],
@@ -8633,7 +8633,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bulgur",
-                "plural_name": "bulgurs"
+                "plural_name": "bulgur"
             },
             "pearl barley": {
                 "aliases": [],
@@ -8650,8 +8650,8 @@
             "barley": {
                 "aliases": [],
                 "description": "",
-                "name": "barley",
-                "plural_name": "barleys"
+                "name": "ječmen",
+                "plural_name": "ječmen"
             },
             "wheat germ": {
                 "aliases": [],
@@ -15635,8 +15635,8 @@
             "decaf coffee": {
                 "aliases": [],
                 "description": "",
-                "name": "decaf coffee",
-                "plural_name": "decaf coffees"
+                "name": "káva bez kofeinu",
+                "plural_name": "kávy bez kofeinu"
             },
             "pumpkin spice coffee": {
                 "aliases": [],
@@ -15648,7 +15648,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pepsi",
-                "plural_name": "pepsis"
+                "plural_name": "pepsi"
             },
             "cherry soda": {
                 "aliases": [],
@@ -15659,7 +15659,7 @@
             "peppermint tea": {
                 "aliases": [],
                 "description": "",
-                "name": "peppermint tea",
+                "name": "mátový čaj",
                 "plural_name": "peppermint teas"
             },
             "sports drink": {
@@ -15759,8 +15759,8 @@
             "rum extract": {
                 "aliases": [],
                 "description": "",
-                "name": "rum extract",
-                "plural_name": "rum extracts"
+                "name": "rumové aroma",
+                "plural_name": "rumové aroma"
             },
             "maple extract": {
                 "aliases": [],
@@ -16071,7 +16071,7 @@
             "cbd oil": {
                 "aliases": [],
                 "description": "",
-                "name": "cbd oil",
+                "name": "cbd olej",
                 "plural_name": "cbd oils"
             },
             "chlorella": {
@@ -16083,7 +16083,7 @@
             "fish oil": {
                 "aliases": [],
                 "description": "",
-                "name": "fish oil",
+                "name": "rybí tuk",
                 "plural_name": "fish oils"
             },
             "lime essential oil": {
@@ -16120,13 +16120,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "vitamin e",
-                "plural_name": "vitamin es"
+                "plural_name": "vitaminy e"
             },
             "wine yeast": {
                 "aliases": [],
                 "description": "",
-                "name": "wine yeast",
-                "plural_name": "wine yeasts"
+                "name": "vinné kvasnice",
+                "plural_name": "vinné kvasnice"
             },
             "barley gras": {
                 "aliases": [],
@@ -16155,8 +16155,8 @@
             "vitamin d": {
                 "aliases": [],
                 "description": "",
-                "name": "vitamin d",
-                "plural_name": "vitamin ds"
+                "name": "vitamín d",
+                "plural_name": "vitamíny d"
             },
             "calcium lactate": {
                 "aliases": [],
