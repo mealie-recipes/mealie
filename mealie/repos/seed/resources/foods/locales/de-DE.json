@@ -3609,7 +3609,7 @@
             "soy-free butter": {
                 "aliases": [],
                 "description": "",
-                "name": "soy-free butter",
+                "name": "sojafreie Butter",
                 "plural_name": "soy-free butter"
             },
             "tofurky": {
@@ -3663,8 +3663,8 @@
             "protein drink": {
                 "aliases": [],
                 "description": "",
-                "name": "protein drink",
-                "plural_name": "protein drinks"
+                "name": "Proteingetränk",
+                "plural_name": "Proteingetränke"
             },
             "macadamia milk": {
                 "aliases": [],
