@@ -3520,7 +3520,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Ahorn Mandelbutter",
-                "plural_name": "maple almond butter"
+                "plural_name": "Ahorn Mandelbutter"
             },
             "vegan meatball": {
                 "aliases": [],
@@ -3543,13 +3543,13 @@
             "soy milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "soy milk powder",
-                "plural_name": "soy milk powders"
+                "name": "Soja-Milchpulver",
+                "plural_name": "Soja-Milchpulver"
             },
             "vegan cream cheese frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan cream cheese frosting",
+                "name": "Veganer Frischkäse",
                 "plural_name": "vegan cream cheese frostings"
             },
             "coconut manna": {
@@ -3670,7 +3670,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Macadamia-Milch",
-                "plural_name": "macadamia milks"
+                "plural_name": "Macadamia-Milch"
             },
             "vegan taco meat": {
                 "aliases": [],
@@ -3859,8 +3859,8 @@
             "smoked sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked sausage",
-                "plural_name": "smoked sausages"
+                "name": "Geräucherte Wurst",
+                "plural_name": "Geräucherte Würste"
             },
             "breakfast sausage": {
                 "aliases": [],
@@ -4033,8 +4033,8 @@
             "mutton": {
                 "aliases": [],
                 "description": "",
-                "name": "mutton",
-                "plural_name": "muttons"
+                "name": "Hammelfleisch",
+                "plural_name": "Hammelfleisch"
             },
             "ham steak": {
                 "aliases": [],
@@ -4231,8 +4231,8 @@
             "blood sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "blood sausage",
-                "plural_name": "blood sausages"
+                "name": "Blutwurst",
+                "plural_name": "Blutwürste"
             },
             "dried beef": {
                 "aliases": [],
