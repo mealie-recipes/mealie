@@ -3561,14 +3561,14 @@
             "falafel mix": {
                 "aliases": [],
                 "description": "",
-                "name": "falafel mix",
-                "plural_name": "falafel mixes"
+                "name": "Falafelmischung",
+                "plural_name": "Falafelmischungen"
             },
             "ready-made falafel": {
                 "aliases": [],
                 "description": "",
-                "name": "ready-made falafel",
-                "plural_name": "ready-made falafels"
+                "name": "Fertigfalafel",
+                "plural_name": "Fertigfalafel"
             },
             "vegan gravy": {
                 "aliases": [],
@@ -3687,8 +3687,8 @@
             "vegan yogurt starter": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan yogurt starter",
-                "plural_name": "vegan yogurt starters"
+                "name": "vegane Joghurtkultur",
+                "plural_name": "vegane Joghurtkulturen"
             },
             "banana milk": {
                 "aliases": [],
@@ -3711,8 +3711,8 @@
             "vegan starter culture": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan starter culture",
-                "plural_name": "vegan starter cultures"
+                "name": "vegane Starterkultur",
+                "plural_name": "vegan Starterkulturen"
             },
             "walnut milk": {
                 "aliases": [],
@@ -3781,14 +3781,14 @@
             "pork loin": {
                 "aliases": [],
                 "description": "",
-                "name": "pork loin",
-                "plural_name": "pork loins"
+                "name": "Schweinerücken",
+                "plural_name": "Schweinerücken"
             },
             "prosciutto": {
                 "aliases": [],
                 "description": "",
                 "name": "Schinken",
-                "plural_name": "prosciuttoes"
+                "plural_name": "(Roh-)schinken"
             },
             "sausage": {
                 "aliases": [],
@@ -3799,8 +3799,8 @@
             "beef roast": {
                 "aliases": [],
                 "description": "",
-                "name": "beef roast",
-                "plural_name": "beef roasts"
+                "name": "Rinderbraten",
+                "plural_name": "Rinderbraten"
             },
             "ground pork": {
                 "aliases": [],
@@ -3811,8 +3811,8 @@
             "beef stew meat": {
                 "aliases": [],
                 "description": "",
-                "name": "beef stew meat",
-                "plural_name": "beef stew meats"
+                "name": "Rindergulasch",
+                "plural_name": "Rindergulasch"
             },
             "pepperoni": {
                 "aliases": [],
@@ -3835,8 +3835,8 @@
             "pork fillet": {
                 "aliases": [],
                 "description": "",
-                "name": "pork fillet",
-                "plural_name": "pork fillets"
+                "name": "Schweinefilet",
+                "plural_name": "Schweinefilets"
             },
             "pork shoulder": {
                 "aliases": [],
