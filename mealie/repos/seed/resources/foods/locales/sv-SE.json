@@ -240,18 +240,18 @@
             "artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke",
-                "plural_name": "artichokes"
+                "name": "jordärtskocka",
+                "plural_name": "jordärtskockor"
             },
             "new potato": {
                 "aliases": [],
                 "description": "",
-                "name": "new potato",
-                "plural_name": "new potatoes"
+                "name": "färskpotatis",
+                "plural_name": "färskpotatisar"
             },
             "summer squash": {
                 "aliases": [
-                    "courgette",
+                    "squash",
                     "gem squash"
                 ],
                 "description": "",
@@ -273,8 +273,8 @@
             "baby carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "baby carrot",
-                "plural_name": "baby carrots"
+                "name": "minimorot",
+                "plural_name": "minimorötter"
             },
             "mixed vegetable": {
                 "aliases": [],
@@ -479,8 +479,8 @@
             "habanero pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "habanero pepper",
-                "plural_name": "habanero peppers"
+                "name": "habanero",
+                "plural_name": "habanero"
             },
             "corn husk": {
                 "aliases": [
@@ -672,7 +672,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ananas",
-                "plural_name": "ananser"
+                "plural_name": "ananaser"
             },
             "mango": {
                 "aliases": [],
@@ -2694,7 +2694,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "half and half",
-                "plural_name": "half and halves"
+                "plural_name": "2"
             },
             "sweetened condensed milk": {
                 "aliases": [],
@@ -4373,7 +4373,7 @@
             "whole chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "whole chicken",
+                "name": "hel kyckling",
                 "plural_name": "hela kycklingar"
             },
             "whole turkey": {
