@@ -5855,13 +5855,13 @@
             "garlic powder": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic powder",
+                "name": "alho em pó",
                 "plural_name": "garlic powders"
             },
             "oregano": {
                 "aliases": [],
                 "description": "",
-                "name": "oregano",
+                "name": "orégano",
                 "plural_name": "oreganos"
             },
             "nutmeg": {
@@ -5885,7 +5885,7 @@
             "paprika": {
                 "aliases": [],
                 "description": "",
-                "name": "paprika",
+                "name": "páprica",
                 "plural_name": "paprikas"
             },
             "cayenne": {
@@ -5921,7 +5921,7 @@
             "onion powder": {
                 "aliases": [],
                 "description": "",
-                "name": "onion powder",
+                "name": "cebola em pó",
                 "plural_name": "onion powders"
             },
             "ginger powder": {
@@ -6423,7 +6423,7 @@
             "sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "sugar",
+                "name": "açúcar",
                 "plural_name": "sugars"
             },
             "brown sugar": {
@@ -6431,7 +6431,7 @@
                     "turbinado sugar"
                 ],
                 "description": "",
-                "name": "brown sugar",
+                "name": "açúcar mascavo",
                 "plural_name": "brown sugars"
             },
             "confectioners sugar": {
@@ -6440,7 +6440,7 @@
                     "icing sugar"
                 ],
                 "description": "",
-                "name": "confectioners sugar",
+                "name": "açúcar de confeiteiro",
                 "plural_name": "confectioners sugars"
             },
             "bar sugar": {
@@ -6454,7 +6454,7 @@
             "maple syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "maple syrup",
+                "name": "xarope de bordo",
                 "plural_name": "maple syrups"
             },
             "corn syrup": {
@@ -7650,22 +7650,22 @@
             "flour": {
                 "aliases": [],
                 "description": "",
-                "name": "flour",
+                "name": "farinha",
                 "plural_name": "flours"
             },
             "vanilla extract": {
                 "aliases": [
-                    "vanilla",
+                    "baunilha",
                     "vanillas"
                 ],
                 "description": "",
-                "name": "vanilla extract",
+                "name": "extrato de baunilha",
                 "plural_name": "vanilla extracts"
             },
             "baking powder": {
                 "aliases": [],
                 "description": "",
-                "name": "baking powder",
+                "name": "fermento em pó",
                 "plural_name": "baking powders"
             },
             "baking soda": {
@@ -7677,7 +7677,7 @@
             "cornstarch": {
                 "aliases": [],
                 "description": "",
-                "name": "cornstarch",
+                "name": "amido de milho",
                 "plural_name": "cornstarches"
             },
             "yeast": {
@@ -7689,8 +7689,8 @@
             "chocolate chip": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate chip",
-                "plural_name": "chocolate chips"
+                "name": "gota de chocolate",
+                "plural_name": "gotas de chocolate"
             },
             "dark chocolate chip": {
                 "aliases": [],
@@ -7809,7 +7809,7 @@
             "gluten-free flour": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free flour",
+                "name": "farinha sem glúten",
                 "plural_name": "gluten-free flours"
             },
             "rice flour": {
