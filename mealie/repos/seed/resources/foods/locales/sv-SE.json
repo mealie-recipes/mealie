@@ -4349,14 +4349,14 @@
             "chicken breast": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken breast",
-                "plural_name": "chicken breasts"
+                "name": "kycklingbröst",
+                "plural_name": "kycklingbröst"
             },
             "chicken thigh": {
                 "aliases": [],
                 "description": "",
                 "name": "kycklinglår",
-                "plural_name": "chicken thighs"
+                "plural_name": "kycklinglår"
             },
             "cooked chicken": {
                 "aliases": [],
@@ -4385,8 +4385,8 @@
             "chicken leg": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken leg",
-                "plural_name": "chicken legs"
+                "name": "kycklingben",
+                "plural_name": "kycklingben"
             },
             "chicken wing": {
                 "aliases": [],
@@ -4404,7 +4404,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kycklingfärs",
-                "plural_name": "ground chickens"
+                "plural_name": "kycklingfärs"
             },
             "rotisserie chicken": {
                 "aliases": [],
@@ -4427,8 +4427,8 @@
             "chicken sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken sausage",
-                "plural_name": "chicken sausages"
+                "name": "kycklingkorv",
+                "plural_name": "kycklingkorvar"
             },
             "turkey bacon": {
                 "aliases": [],
@@ -4553,8 +4553,8 @@
             "chicken bone": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken bone",
-                "plural_name": "chicken bones"
+                "name": "ben från kyckling",
+                "plural_name": "ben från kyckling"
             },
             "turkey meatball": {
                 "aliases": [],
@@ -4661,14 +4661,14 @@
             "chicken foot": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken foot",
-                "plural_name": "chicken feet"
+                "name": "kycklingfot",
+                "plural_name": "kycklingfötter"
             },
             "pulled chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "pulled chicken",
-                "plural_name": "pulled chickens"
+                "name": "pullad kyckling",
+                "plural_name": "pullade kycklingar"
             },
             "deli chicken": {
                 "aliases": [],
@@ -4721,8 +4721,8 @@
             "chicken meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken meatball",
-                "plural_name": "chicken meatballs"
+                "name": "kycklingköttbulle",
+                "plural_name": "kycklingköttbullar"
             },
             "duck liver": {
                 "aliases": [],
@@ -13310,8 +13310,8 @@
             "chicken broth": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken broth",
-                "plural_name": "chicken broths"
+                "name": "kycklingfond",
+                "plural_name": "kycklingfond"
             },
             "vegetable broth": {
                 "aliases": [],
@@ -13322,8 +13322,8 @@
             "chicken stock": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken stock",
-                "plural_name": "chicken stocks"
+                "name": "kycklingbuljong",
+                "plural_name": "kycklingbuljong"
             },
             "beef broth": {
                 "aliases": [],
@@ -13418,8 +13418,8 @@
             "chicken soup": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken soup",
-                "plural_name": "chicken soups"
+                "name": "kycklingsoppa",
+                "plural_name": "kycklingsoppor"
             },
             "veal stock": {
                 "aliases": [],
@@ -13430,8 +13430,8 @@
             "chicken bone broth": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken bone broth",
-                "plural_name": "chicken bone broths"
+                "name": "fond på kycklingben",
+                "plural_name": "fond på kycklingben"
             },
             "turkey stock": {
                 "aliases": [],
@@ -13598,8 +13598,8 @@
             "vegan chicken broth": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan chicken broth",
-                "plural_name": "vegan chicken broths"
+                "name": "vegansk kycklingfond",
+                "plural_name": "vegansk kycklingfond"
             },
             "cream of asparagus": {
                 "aliases": [],
@@ -13826,8 +13826,8 @@
             "chicken and mushroom soup": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken and mushroom soup",
-                "plural_name": "chicken and mushroom soups"
+                "name": "kyckling- och svampsoppa",
+                "plural_name": "kyckling- och svampsoppor"
             },
             "chili beef soup": {
                 "aliases": [],
