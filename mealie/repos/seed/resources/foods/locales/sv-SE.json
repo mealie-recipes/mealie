@@ -499,8 +499,8 @@
             "french-fried onion": {
                 "aliases": [],
                 "description": "",
-                "name": "french-fried onion",
-                "plural_name": "french-fried onions"
+                "name": "friterad lök",
+                "plural_name": "friterad lök"
             },
             "daikon": {
                 "aliases": [],
@@ -530,7 +530,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "belgian endive",
-                "plural_name": "belgian endives"
+                "plural_name": "belgisk endiv"
             },
             "yam": {
                 "aliases": [],
@@ -572,7 +572,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "delicata squash",
-                "plural_name": "delicata squashes"
+                "plural_name": "delicata squash"
             },
             "frisee": {
                 "aliases": [],
@@ -822,13 +822,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "nectarine",
-                "plural_name": "nectarines"
+                "plural_name": "nektariner"
             },
             "dried fig": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fig",
-                "plural_name": "dried figs"
+                "name": "torkade fikon",
+                "plural_name": "torkade fikon"
             },
             "chestnut": {
                 "aliases": [],
@@ -881,14 +881,14 @@
             "dried mango": {
                 "aliases": [],
                 "description": "",
-                "name": "dried mango",
-                "plural_name": "dried mangoes"
+                "name": "torkad mango",
+                "plural_name": "torkade mango"
             },
             "dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apple",
-                "plural_name": "dried apples"
+                "name": "torkade äpplen",
+                "plural_name": "torkade äpplen"
             },
             "quince": {
                 "aliases": [],
@@ -900,7 +900,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "guava",
-                "plural_name": "guavas"
+                "plural_name": "guavor"
             },
             "banana chip": {
                 "aliases": [],
@@ -954,7 +954,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kaffir lime",
-                "plural_name": "kaffir limes"
+                "plural_name": "kaffirlimes"
             },
             "star fruit": {
                 "aliases": [],
@@ -13316,8 +13316,8 @@
             "vegetable broth": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable broth",
-                "plural_name": "vegetable broths"
+                "name": "grönsaksfond",
+                "plural_name": "grönsaksfonder"
             },
             "chicken stock": {
                 "aliases": [],
@@ -13328,14 +13328,14 @@
             "beef broth": {
                 "aliases": [],
                 "description": "",
-                "name": "beef broth",
-                "plural_name": "beef broths"
+                "name": "oxfond",
+                "plural_name": "oxfonder"
             },
             "beef stock": {
                 "aliases": [],
                 "description": "",
-                "name": "beef stock",
-                "plural_name": "beef stocks"
+                "name": "nötbuljong",
+                "plural_name": "nötbuljonger"
             },
             "cream of mushroom": {
                 "aliases": [],
@@ -13346,8 +13346,8 @@
             "bouillon cube": {
                 "aliases": [],
                 "description": "",
-                "name": "bouillon cube",
-                "plural_name": "bouillon cubes"
+                "name": "buljongtärning",
+                "plural_name": "buljongtärningar"
             },
             "cream of chicken": {
                 "aliases": [],
@@ -13370,8 +13370,8 @@
             "fish stock": {
                 "aliases": [],
                 "description": "",
-                "name": "fish stock",
-                "plural_name": "fish stocks"
+                "name": "fiskbuljong",
+                "plural_name": "fiskbuljonger"
             },
             "cream of celery": {
                 "aliases": [],
@@ -13400,8 +13400,8 @@
             "bone broth": {
                 "aliases": [],
                 "description": "",
-                "name": "bone broth",
-                "plural_name": "bone broths"
+                "name": "benfond",
+                "plural_name": "benfonder"
             },
             "dashi": {
                 "aliases": [],
@@ -13424,8 +13424,8 @@
             "veal stock": {
                 "aliases": [],
                 "description": "",
-                "name": "veal stock",
-                "plural_name": "veal stocks"
+                "name": "kalvbuljong",
+                "plural_name": "kalvbuljonger"
             },
             "chicken bone broth": {
                 "aliases": [],
@@ -13436,20 +13436,20 @@
             "turkey stock": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey stock",
-                "plural_name": "turkey stocks"
+                "name": "kalkonbuljong",
+                "plural_name": "kalkonbuljonger"
             },
             "lamb stock": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb stock",
-                "plural_name": "lamb stocks"
+                "name": "lammbuljong",
+                "plural_name": "lammbuljonger"
             },
             "turkey broth": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey broth",
-                "plural_name": "turkey broths"
+                "name": "kalkonfond",
+                "plural_name": "kalkonfonder"
             },
             "beef consommé": {
                 "aliases": [],
@@ -13478,14 +13478,14 @@
             "seafood stock": {
                 "aliases": [],
                 "description": "",
-                "name": "seafood stock",
-                "plural_name": "seafood stocks"
+                "name": "skaldjursbuljong",
+                "plural_name": "skaldjursbuljonger"
             },
             "mushroom broth": {
                 "aliases": [],
                 "description": "",
-                "name": "mushroom broth",
-                "plural_name": "mushroom broths"
+                "name": "svampfond",
+                "plural_name": "svampfonder"
             },
             "vegetable soup": {
                 "aliases": [],
@@ -13586,8 +13586,8 @@
             "duck stock": {
                 "aliases": [],
                 "description": "",
-                "name": "duck stock",
-                "plural_name": "duck stocks"
+                "name": "ankbuljong",
+                "plural_name": "ankbuljonger"
             },
             "clam broth": {
                 "aliases": [],
@@ -13610,8 +13610,8 @@
             "pork broth": {
                 "aliases": [],
                 "description": "",
-                "name": "pork broth",
-                "plural_name": "pork broths"
+                "name": "fläskfond",
+                "plural_name": "fläskfonder"
             },
             "beefy mushroom soup": {
                 "aliases": [],
@@ -13640,14 +13640,14 @@
             "ham stock": {
                 "aliases": [],
                 "description": "",
-                "name": "ham stock",
-                "plural_name": "ham stocks"
+                "name": "skinkbuljong",
+                "plural_name": "skinkbuljonger"
             },
             "lentil soup": {
                 "aliases": [],
                 "description": "",
-                "name": "lentil soup",
-                "plural_name": "lentil soups"
+                "name": "linssoppa",
+                "plural_name": "linssoppor"
             },
             "cream of shrimp soup": {
                 "aliases": [],
@@ -13658,8 +13658,8 @@
             "veal broth": {
                 "aliases": [],
                 "description": "",
-                "name": "veal broth",
-                "plural_name": "veal broths"
+                "name": "kalvfond",
+                "plural_name": "kalvfonder"
             },
             "vegetable beef soup": {
                 "aliases": [],
@@ -13712,14 +13712,14 @@
             "turkey bone broth": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey bone broth",
-                "plural_name": "turkey bone broths"
+                "name": "fond på kalkonben",
+                "plural_name": "fonder på kalkonben"
             },
             "anchovy stock": {
                 "aliases": [],
                 "description": "",
-                "name": "anchovy stock",
-                "plural_name": "anchovy stocks"
+                "name": "anjovisbuljong",
+                "plural_name": "anjovisbuljonger"
             },
             "cream of chicken soup mix:": {
                 "aliases": [],
@@ -13736,8 +13736,8 @@
             "lamb broth": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb broth",
-                "plural_name": "lamb broths"
+                "name": "lammfond",
+                "plural_name": "lammfonder"
             },
             "minestrone": {
                 "aliases": [],
@@ -13760,8 +13760,8 @@
             "venison stock": {
                 "aliases": [],
                 "description": "",
-                "name": "venison stock",
-                "plural_name": "venison stocks"
+                "name": "viltbuljong",
+                "plural_name": "viltbuljonger"
             },
             "beef stock paste": {
                 "aliases": [],
