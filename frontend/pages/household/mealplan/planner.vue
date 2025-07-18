@@ -115,15 +115,11 @@ export default defineNuxtComponent({
     const weekRange = computed(() => {
       const sorted = [...state.value.range].sort((a, b) => a.getTime() - b.getTime());
 
-      if (sorted.length === 2) {
-        return {
-          start: sorted[0],
-          end: sorted[1],
-        };
-        // return {
-        //   start: parseYYYYMMDD(sorted[0]),
-        //   end: parseYYYYMMDD(sorted[1]),
-        // };
+      const start = sorted[0];
+      const end = sorted[sorted.length - 1];
+
+      if (start && end) {
+        return { start, end };
       }
       return {
         start: new Date(),
