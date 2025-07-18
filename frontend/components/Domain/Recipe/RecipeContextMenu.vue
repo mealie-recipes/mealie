@@ -277,8 +277,8 @@ export default defineNuxtComponent({
     const newMealdateString = computed(() => {
       // Format the date to YYYY-MM-DD in the same timezone as newMealdate
       const year = state.newMealdate.getFullYear();
-      const month = String(state.newMealdate.getMonth() + 1).padStart(2, '0');
-      const day = String(state.newMealdate.getDate()).padStart(2, '0');
+      const month = String(state.newMealdate.getMonth() + 1).padStart(2, "0");
+      const day = String(state.newMealdate.getDate()).padStart(2, "0");
       return `${year}-${month}-${day}`;
     });
 
