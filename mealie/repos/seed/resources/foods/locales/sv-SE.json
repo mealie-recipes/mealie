@@ -3740,19 +3740,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "bacon",
-                "plural_name": "bacons"
+                "plural_name": "bacon"
             },
             "chopped bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "chopped bacon",
-                "plural_name": "chopped bacons"
+                "name": "tärnat bacon",
+                "plural_name": "tärnat bacon"
             },
             "ground beef": {
                 "aliases": [],
                 "description": "",
                 "name": "nötfärs",
-                "plural_name": "ground beefs"
+                "plural_name": "nötfärs"
             },
             "beef steak": {
                 "aliases": [],
@@ -3764,13 +3764,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "skinka",
-                "plural_name": "hams"
+                "plural_name": "skinkor"
             },
             "pork chop": {
                 "aliases": [],
                 "description": "",
-                "name": "pork chop",
-                "plural_name": "pork chops"
+                "name": "fläskkotlett",
+                "plural_name": "fläskkotletter"
             },
             "sweet italian sausage": {
                 "aliases": [],
@@ -3781,20 +3781,20 @@
             "pork loin": {
                 "aliases": [],
                 "description": "",
-                "name": "pork loin",
-                "plural_name": "pork loins"
+                "name": "kotlettrad",
+                "plural_name": "kotlettrader"
             },
             "prosciutto": {
                 "aliases": [],
                 "description": "",
                 "name": "prosciutto",
-                "plural_name": "prosciuttoes"
+                "plural_name": "prosciutto"
             },
             "sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage",
-                "plural_name": "sausages"
+                "name": "korv",
+                "plural_name": "korvar"
             },
             "beef roast": {
                 "aliases": [],
@@ -3806,7 +3806,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fläskfärs",
-                "plural_name": "ground porks"
+                "plural_name": "fläskfärs"
             },
             "beef stew meat": {
                 "aliases": [],
@@ -3824,7 +3824,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chorizo",
-                "plural_name": "chorizoes"
+                "plural_name": "chorizo"
             },
             "pancetta": {
                 "aliases": [],
@@ -3835,7 +3835,7 @@
             "pork fillet": {
                 "aliases": [],
                 "description": "",
-                "name": "pork fillet",
+                "name": "fläskfilé",
                 "plural_name": "pork fillets"
             },
             "pork shoulder": {
@@ -3871,20 +3871,20 @@
             "hot dog": {
                 "aliases": [],
                 "description": "",
-                "name": "hot dog",
-                "plural_name": "hot dogs"
+                "name": "varmkorv",
+                "plural_name": "varmkorvar"
             },
             "beef sirloin": {
                 "aliases": [],
                 "description": "",
-                "name": "beef sirloin",
-                "plural_name": "beef sirloins"
+                "name": "ryggbiff",
+                "plural_name": "ryggbiffar"
             },
             "salami": {
                 "aliases": [],
                 "description": "",
                 "name": "salami",
-                "plural_name": "salamis"
+                "plural_name": "salami"
             },
             "brisket": {
                 "aliases": [],
@@ -3901,8 +3901,8 @@
             "leg of lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "leg of lamb",
-                "plural_name": "leg of lamb"
+                "name": "lammstek",
+                "plural_name": "lammstekar"
             },
             "beef short rib": {
                 "aliases": [],
@@ -3919,8 +3919,8 @@
             "pork belly": {
                 "aliases": [],
                 "description": "",
-                "name": "pork belly",
-                "plural_name": "pork bellies"
+                "name": "fläsksida",
+                "plural_name": "fläsksidor"
             },
             "andouille": {
                 "aliases": [],
@@ -3997,8 +3997,8 @@
             "lamb chop": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb chop",
-                "plural_name": "lamb chops"
+                "name": "lammkotlett",
+                "plural_name": "lammkotletter"
             },
             "bone-in ham": {
                 "aliases": [],
@@ -4058,7 +4058,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pulled pork",
-                "plural_name": "pulled porks"
+                "plural_name": "pulled pork"
             },
             "ham hock": {
                 "aliases": [],
@@ -4069,14 +4069,14 @@
             "frozen meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen meatball",
-                "plural_name": "frozen meatballs"
+                "name": "fryst köttbulle",
+                "plural_name": "frysta köttbullar"
             },
             "mixed ground meat": {
                 "aliases": [],
                 "description": "",
                 "name": "blandfärs",
-                "plural_name": "mixed ground meats"
+                "plural_name": "blandfärs"
             },
             "rabbit": {
                 "aliases": [],
