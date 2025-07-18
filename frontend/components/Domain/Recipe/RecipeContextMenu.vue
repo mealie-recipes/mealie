@@ -125,11 +125,6 @@
         </v-list-item>
         <div v-if="useItems.recipeActions && recipeActions && recipeActions.length">
           <v-divider />
-          <v-list-item disabled>
-            <v-list-item-title>
-              {{ $t("recipe.recipe-actions") }}
-            </v-list-item-title>
-          </v-list-item>
           <v-list-item
             v-for="(action, index) in recipeActions"
             :key="index"
@@ -137,7 +132,7 @@
           >
             <template #prepend>
               <v-icon color="undefined">
-                {{ $globals.icons.primary }}
+                {{ $globals.icons.linkVariantPlus }}
               </v-icon>
             </template>
             <v-list-item-title>
