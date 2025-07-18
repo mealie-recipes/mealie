@@ -32,7 +32,6 @@
         <v-card-text>
           <v-text-field
             v-model="numberOfDays"
-            class="mt-0 pt-0"
             type="number"
             :label="$t('meal-plan.numberOfDays-label')"
             :hint="$t('meal-plan.numberOfDays-hint')"
