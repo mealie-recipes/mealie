@@ -15007,8 +15007,8 @@
             "plum wine": {
                 "aliases": [],
                 "description": "",
-                "name": "plum wine",
-                "plural_name": "plum wines"
+                "name": "vin de prune",
+                "plural_name": "vins de prune"
             },
             "pisco": {
                 "aliases": [],
@@ -15074,7 +15074,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rhum agricole",
-                "plural_name": "rhum agricoles"
+                "plural_name": "rhums agricoles"
             },
             "armagnac": {
                 "aliases": [],
@@ -15101,14 +15101,14 @@
             "orange juice": {
                 "aliases": [],
                 "description": "",
-                "name": "orange juice",
-                "plural_name": "orange juices"
+                "name": "jus d'orange",
+                "plural_name": "jus d'orange"
             },
             "coffee": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee",
-                "plural_name": "coffees"
+                "name": "café",
+                "plural_name": "cafés"
             },
             "club soda": {
                 "aliases": [],
@@ -15125,32 +15125,32 @@
             "pineapple juice": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple juice",
-                "plural_name": "pineapple juices"
+                "name": "jus d'ananas",
+                "plural_name": "jus d'ananas"
             },
             "apple juice": {
                 "aliases": [],
                 "description": "",
-                "name": "apple juice",
-                "plural_name": "apple juices"
+                "name": "jus de pomme",
+                "plural_name": "jus de pomme"
             },
             "tea": {
                 "aliases": [],
                 "description": "",
-                "name": "tea",
-                "plural_name": "teas"
+                "name": "thé",
+                "plural_name": "thés"
             },
             "cranberry juice": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry juice",
-                "plural_name": "cranberry juices"
+                "name": "jus de canneberge",
+                "plural_name": "jus de canneberge"
             },
             "tomato juice": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato juice",
-                "plural_name": "tomato juices"
+                "name": "jus de tomate",
+                "plural_name": "jus de tomate"
             },
             "coconut water": {
                 "aliases": [],
@@ -15215,8 +15215,8 @@
             "cream of coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of coconut",
-                "plural_name": "cream of coconut"
+                "name": "crème de noix de coco",
+                "plural_name": "crèmes de noix de coco"
             },
             "sprite": {
                 "aliases": [],
@@ -15227,8 +15227,8 @@
             "green tea": {
                 "aliases": [],
                 "description": "",
-                "name": "green tea",
-                "plural_name": "green teas"
+                "name": "thé vert",
+                "plural_name": "thés verts"
             },
             "lemonade concentrate": {
                 "aliases": [],
@@ -15239,8 +15239,8 @@
             "chai tea": {
                 "aliases": [],
                 "description": "",
-                "name": "chai tea",
-                "plural_name": "chai teas"
+                "name": "thé chaï",
+                "plural_name": "thés chaï"
             },
             "root beer": {
                 "aliases": [],
@@ -15281,32 +15281,32 @@
             "hibiscu": {
                 "aliases": [],
                 "description": "",
-                "name": "hibiscu",
+                "name": "hibiscus",
                 "plural_name": "hibiscus"
             },
             "tea leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "tea leaf",
-                "plural_name": "tea leaves"
+                "name": "feuille de thé",
+                "plural_name": "feuilles de thé"
             },
             "grape juice": {
                 "aliases": [],
                 "description": "",
-                "name": "grape juice",
-                "plural_name": "grape juices"
+                "name": "jus de raisin",
+                "plural_name": "jus de raisin"
             },
             "cherry juice": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry juice",
-                "plural_name": "cherry juices"
+                "name": "jus de cerise",
+                "plural_name": "jus de cerise"
             },
             "carrot juice": {
                 "aliases": [],
                 "description": "",
-                "name": "carrot juice",
-                "plural_name": "carrot juices"
+                "name": "jus de carotte",
+                "plural_name": "jus de carotte"
             },
             "limeade concentrate": {
                 "aliases": [],
@@ -15323,14 +15323,14 @@
             "white grape juice": {
                 "aliases": [],
                 "description": "",
-                "name": "white grape juice",
-                "plural_name": "white grape juices"
+                "name": "jus de raisin blanc",
+                "plural_name": "jus de raisin blanc"
             },
             "watermelon juice": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon juice",
-                "plural_name": "watermelon juices"
+                "name": "jus de pastèque",
+                "plural_name": "jus de pastèque"
             },
             "tangerine juice": {
                 "aliases": [],
@@ -15341,14 +15341,14 @@
             "fruit juice": {
                 "aliases": [],
                 "description": "",
-                "name": "fruit juice",
-                "plural_name": "fruit juices"
+                "name": "jus de fruits",
+                "plural_name": "jus de fruits"
             },
             "passion-fruit juice": {
                 "aliases": [],
                 "description": "",
-                "name": "passion-fruit juice",
-                "plural_name": "passion-fruit juices"
+                "name": "jus de fruit de la passion",
+                "plural_name": "jus de fruit de la passion"
             },
             "iced tea": {
                 "aliases": [],
@@ -15449,8 +15449,8 @@
             "rooibos tea": {
                 "aliases": [],
                 "description": "",
-                "name": "rooibos tea",
-                "plural_name": "rooibos teas"
+                "name": "thé rooibos",
+                "plural_name": "thés rooibos"
             },
             "lime soda": {
                 "aliases": [],
@@ -15461,8 +15461,8 @@
             "raspberry juice": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry juice",
-                "plural_name": "raspberry juices"
+                "name": "jus de framboise",
+                "plural_name": "jus de framboise"
             },
             "guava juice": {
                 "aliases": [],
@@ -15473,8 +15473,8 @@
             "jasmine tea": {
                 "aliases": [],
                 "description": "",
-                "name": "jasmine tea",
-                "plural_name": "jasmine teas"
+                "name": "thé au jasmin",
+                "plural_name": "thés au jasmin"
             },
             "clamato": {
                 "aliases": [],
@@ -15485,8 +15485,8 @@
             "strawberry juice": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry juice",
-                "plural_name": "strawberry juices"
+                "name": "jus de fraise",
+                "plural_name": "jus de fraise"
             },
             "iced coffee concentrate": {
                 "aliases": [],
@@ -15497,20 +15497,20 @@
             "green tea leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "green tea leaf",
-                "plural_name": "green tea leaves"
+                "name": "feuille de thé vert",
+                "plural_name": "feuilles de thé vert"
             },
             "beetroot juice": {
                 "aliases": [],
                 "description": "",
-                "name": "beetroot juice",
-                "plural_name": "beetroot juices"
+                "name": "jus de betterave",
+                "plural_name": "jus de betterave"
             },
             "blueberry juice": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry juice",
-                "plural_name": "blueberry juices"
+                "name": "jus de myrtille",
+                "plural_name": "jus de myrtille"
             },
             "lemonade mix": {
                 "aliases": [],
@@ -15521,8 +15521,8 @@
             "rose syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "rose syrup",
-                "plural_name": "rose syrups"
+                "name": "sirop de rose",
+                "plural_name": "sirops de rose"
             },
             "v8 juice": {
                 "aliases": [],
@@ -15539,20 +15539,20 @@
             "aloe vera juice": {
                 "aliases": [],
                 "description": "",
-                "name": "aloe vera juice",
-                "plural_name": "aloe vera juices"
+                "name": "jus d'aloe vera",
+                "plural_name": "jus d'aloe vera"
             },
             "white tea": {
                 "aliases": [],
                 "description": "",
-                "name": "white tea",
-                "plural_name": "white teas"
+                "name": "thé blanc",
+                "plural_name": "thés blancs"
             },
             "juice blend": {
                 "aliases": [],
                 "description": "",
-                "name": "juice blend",
-                "plural_name": "juice blends"
+                "name": "mélange de jus",
+                "plural_name": "mélanges de jus"
             },
             "prune juice": {
                 "aliases": [],
@@ -15747,8 +15747,8 @@
             "rose water": {
                 "aliases": [],
                 "description": "",
-                "name": "rose water",
-                "plural_name": "rose waters"
+                "name": "eau de rose",
+                "plural_name": "eaux de rose"
             },
             "orange extract": {
                 "aliases": [],
@@ -15771,8 +15771,8 @@
             "collagen": {
                 "aliases": [],
                 "description": "",
-                "name": "collagen",
-                "plural_name": "collagens"
+                "name": "collagène",
+                "plural_name": "collagènes"
             },
             "chocolate protein powder": {
                 "aliases": [],
@@ -15819,14 +15819,14 @@
             "spirulina": {
                 "aliases": [],
                 "description": "",
-                "name": "spirulina",
-                "plural_name": "spirulinas"
+                "name": "spiruline",
+                "plural_name": "spirulines"
             },
             "coffee extract": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee extract",
-                "plural_name": "coffee extracts"
+                "name": "extrait de café",
+                "plural_name": "extraits de café"
             },
             "brewer's yeast": {
                 "aliases": [],
