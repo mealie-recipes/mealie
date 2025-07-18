@@ -5,7 +5,6 @@
       :close-on-content-click="false"
       transition="scale-transition"
       offset-y
-      max-width="290px"
       min-width="auto"
     >
       <template #activator="{ props }">
@@ -20,29 +19,27 @@
           {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
         </v-btn>
       </template>
-      <v-date-picker
-        v-model="state.range"
-        hide-header
-        :multiple="'range'"
-        :first-day-of-week="firstDayOfWeek"
-        :local="$i18n.locale"
-      >
-        <v-text-field
-          v-model="numberOfDays"
-          type="number"
-          :label="$t('meal-plan.numberOfDays-label')"
-          :hint="$t('meal-plan.numberOfDays-hint')"
-          persistent-hint
+
+      <v-card>
+        <v-date-picker
+          v-model="state.range"
+          hide-header
+          :multiple="'range'"
+          :first-day-of-week="firstDayOfWeek"
+          :local="$i18n.locale"
         />
-        <v-spacer />
-        <v-btn
-          variant="text"
-          color="primary"
-          @click="state.picker = false"
-        >
-          {{ $t("general.ok") }}
-        </v-btn>
-      </v-date-picker>
+
+        <v-card-text>
+          <v-text-field
+            v-model="numberOfDays"
+            class="mt-0 pt-0"
+            type="number"
+            :label="$t('meal-plan.numberOfDays-label')"
+            :hint="$t('meal-plan.numberOfDays-hint')"
+            persistent-hint
+          />
+        </v-card-text>
+      </v-card>
     </v-menu>
 
     <div class="d-flex flex-wrap align-center justify-space-between mb-2">
