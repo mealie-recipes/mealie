@@ -1,11 +1,5 @@
 import time
 
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
-
-
 class AuthCache:
     def __init__(self, threshold=500, default_timeout=300):
         self.default_timeout = default_timeout
@@ -34,14 +28,14 @@ class AuthCache:
         try:
             expires, value = self._cache[key]
             if expires == 0 or expires > time.time():
-                return pickle.loads(value)
-        except (KeyError, pickle.PickleError):
+                return value
+        except KeyError:
             return None
 
     async def set(self, key, value, timeout=None):
         expires = self._normalize_timeout(timeout)
         self._prune()
-        self._cache[key] = (expires, pickle.dumps(value, pickle.HIGHEST_PROTOCOL))
+        self._cache[key] = (expires, value)
         return True
 
     async def delete(self, key):

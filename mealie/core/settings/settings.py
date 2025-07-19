@@ -338,7 +338,6 @@ class AppSettings(AppLoggingSettings):
     OIDC_GROUPS_CLAIM: str | None = "groups"
     OIDC_SCOPES_OVERRIDE: str | None = None
     OIDC_TLS_CACERTFILE: str | None = None
-    OIDC_USE_AUTH_CACHE: bool = False
 
     @property
     def OIDC_REQUIRES_GROUP_CLAIM(self) -> bool:

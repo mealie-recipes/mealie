@@ -29,10 +29,7 @@ remember_me_duration = timedelta(days=14)
 
 settings = get_app_settings()
 if settings.OIDC_READY:
-    cache = None
-    if settings.OIDC_USE_AUTH_CACHE:
-        cache = AuthCache()
-    oauth = OAuth(cache=cache)
+    oauth = OAuth(cache=AuthCache())
     scope = None
     if settings.OIDC_SCOPES_OVERRIDE:
         scope = settings.OIDC_SCOPES_OVERRIDE
