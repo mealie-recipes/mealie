@@ -1420,7 +1420,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bovist",
-                "plural_name": "puffballs"
+                "plural_name": "bovisten"
             },
             "honey fungu": {
                 "aliases": [],
@@ -1443,8 +1443,8 @@
             "lion’s mane mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "lion’s mane mushroom",
-                "plural_name": "lion’s mane mushrooms"
+                "name": "pruikzwam",
+                "plural_name": "pruikzwammen"
             }
         }
     },
@@ -1483,8 +1483,8 @@
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "braam",
-                "plural_name": "bramen"
+                "name": "braambes",
+                "plural_name": "braambessen"
             },
             "berry mix": {
                 "aliases": [],
@@ -1555,20 +1555,20 @@
             "canned sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sour cherry",
-                "plural_name": "canned sour cherries"
+                "name": "zure kers in blik",
+                "plural_name": "zure kersen in blik"
             },
             "mulberry": {
                 "aliases": [],
                 "description": "",
-                "name": "mulberry",
-                "plural_name": "mulberries"
+                "name": "moerbei",
+                "plural_name": "moerbeien"
             },
             "acai berry": {
                 "aliases": [],
                 "description": "",
-                "name": "acai berry",
-                "plural_name": "acai berries"
+                "name": "açai",
+                "plural_name": "açai"
             },
             "canned cherry": {
                 "aliases": [],
@@ -1609,8 +1609,8 @@
             "barberry": {
                 "aliases": [],
                 "description": "",
-                "name": "barberry",
-                "plural_name": "barberries"
+                "name": "zuurbes",
+                "plural_name": "zuurbessen"
             },
             "dried berry": {
                 "aliases": [],
@@ -1621,8 +1621,8 @@
             "sea buckthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "sea buckthorn",
-                "plural_name": "sea buckthorns"
+                "name": "duindoorn",
+                "plural_name": "duindoorns"
             },
             "saskatoon berry": {
                 "aliases": [],
@@ -1639,7 +1639,7 @@
             "hawthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "hawthorn",
+                "name": "meidoorn",
                 "plural_name": "meidoorns"
             },
             "boysenberry": {
@@ -1663,50 +1663,50 @@
             "aronia berry": {
                 "aliases": [],
                 "description": "",
-                "name": "aronia berry",
-                "plural_name": "aronia berries"
+                "name": "appelbes",
+                "plural_name": "appelbessen"
             },
             "chokeberry": {
                 "aliases": [],
                 "description": "",
-                "name": "chokeberry",
-                "plural_name": "chokeberries"
+                "name": "appelbes",
+                "plural_name": "appelbessen"
             },
             "loganberry": {
                 "aliases": [],
                 "description": "",
-                "name": "loganberry",
-                "plural_name": "loganberries"
+                "name": "loganbes",
+                "plural_name": "loganbessen"
             },
             "blackcurrant leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "blackcurrant leaf",
-                "plural_name": "blackcurrant leaves"
+                "name": "zwarte bes blad",
+                "plural_name": "zwarte bes bladeren"
             },
             "haskap berry": {
                 "aliases": [],
                 "description": "",
-                "name": "haskap berry",
-                "plural_name": "haskap berries"
+                "name": "honingbes",
+                "plural_name": "honingbessen"
             },
             "dewberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dewberry",
-                "plural_name": "dewberries"
+                "name": "dauwbraam",
+                "plural_name": "dauwbramen"
             },
             "sloe berry": {
                 "aliases": [],
                 "description": "",
-                "name": "sloe berry",
-                "plural_name": "sloe berries"
+                "name": "sleedoorn",
+                "plural_name": "sleedoorns"
             },
             "oregon grape": {
                 "aliases": [],
                 "description": "",
-                "name": "oregon grape",
-                "plural_name": "oregon grapes"
+                "name": "mahoniebes",
+                "plural_name": "mahoniebessen"
             }
         }
     },
@@ -1805,8 +1805,8 @@
             "macadamia": {
                 "aliases": [],
                 "description": "",
-                "name": "macadamia",
-                "plural_name": "macadamias"
+                "name": "macadamianoot",
+                "plural_name": "macadamianoten"
             },
             "roasted peanut": {
                 "aliases": [],
@@ -1817,8 +1817,8 @@
             "chopped nut": {
                 "aliases": [],
                 "description": "",
-                "name": "chopped nut",
-                "plural_name": "chopped nuts"
+                "name": "gehakte noot",
+                "plural_name": "gehakte noten"
             },
             "hemp heart": {
                 "aliases": [],
@@ -1841,8 +1841,8 @@
             "brazil nut": {
                 "aliases": [],
                 "description": "",
-                "name": "brazil nut",
-                "plural_name": "brazil nuts"
+                "name": "paranoot",
+                "plural_name": "paranoten"
             },
             "mixed seed": {
                 "aliases": [],
@@ -1895,8 +1895,8 @@
             "basil seed": {
                 "aliases": [],
                 "description": "",
-                "name": "basil seed",
-                "plural_name": "basil seeds"
+                "name": "basilicumzaad",
+                "plural_name": "basilicum zaden"
             },
             "candlenut": {
                 "aliases": [],
@@ -1961,8 +1961,8 @@
             "palm seed": {
                 "aliases": [],
                 "description": "",
-                "name": "palm seed",
-                "plural_name": "palm seeds"
+                "name": "palmzaad",
+                "plural_name": "palmzaden"
             },
             "ginkgo nut": {
                 "aliases": [],
@@ -2001,16 +2001,16 @@
             "parmesan": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan",
-                "plural_name": "parmesans"
+                "name": "parmezaan",
+                "plural_name": "parmezaan"
             },
             "cheddar cheese": {
                 "aliases": [
                     "cheddars"
                 ],
                 "description": "",
-                "name": "cheddar kaas",
-                "plural_name": "cheddar kazen"
+                "name": "cheddar",
+                "plural_name": "cheddars"
             },
             "cream cheese": {
                 "aliases": [],
@@ -2063,8 +2063,8 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheeses"
+                "name": "blauwe kaas",
+                "plural_name": "blauwe kazen"
             },
             "goat cheese": {
                 "aliases": [],
@@ -2159,8 +2159,8 @@
             "quark": {
                 "aliases": [],
                 "description": "",
-                "name": "quark",
-                "plural_name": "quarks"
+                "name": "kwark",
+                "plural_name": "kwarken"
             },
             "gouda": {
                 "aliases": [],
