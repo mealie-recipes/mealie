@@ -1,5 +1,6 @@
 import time
 
+
 class AuthCache:
     def __init__(self, threshold=500, default_timeout=300):
         self.default_timeout = default_timeout
