@@ -4,26 +4,26 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic",
+                "name": "czosnek",
                 "plural_name": "garlics"
             },
             "onion": {
                 "aliases": [],
                 "description": "",
-                "name": "onion",
-                "plural_name": "onions"
+                "name": "cebula",
+                "plural_name": "cebule"
             },
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "bell pepper",
+                "name": "papryka słodka",
                 "plural_name": "bell peppers"
             },
             "carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "carrot",
-                "plural_name": "carrots"
+                "name": "marchew",
+                "plural_name": "marchewki"
             },
             "scallion": {
                 "aliases": [],
@@ -34,20 +34,20 @@
             "zucchini": {
                 "aliases": [],
                 "description": "",
-                "name": "zucchini",
+                "name": "cukinia",
                 "plural_name": "zucchinis"
             },
             "potato": {
                 "aliases": [],
                 "description": "",
-                "name": "potato",
-                "plural_name": "potatoes"
+                "name": "ziemniak",
+                "plural_name": "ziemniaki"
             },
             "red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "red onion",
-                "plural_name": "red onions"
+                "name": "czerwona cebula",
+                "plural_name": "czerwone cebule"
             },
             "yellow onion": {
                 "aliases": [],
@@ -70,13 +70,13 @@
             "avocado": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado",
+                "name": "awokado",
                 "plural_name": "avocados"
             },
             "shallot": {
                 "aliases": [],
                 "description": "",
-                "name": "shallot",
+                "name": "szalotka",
                 "plural_name": "shallots"
             },
             "cherry tomato": {
@@ -88,14 +88,14 @@
             "cucumber": {
                 "aliases": [],
                 "description": "",
-                "name": "cucumber",
-                "plural_name": "cucumbers"
+                "name": "ogórek",
+                "plural_name": "ogórki"
             },
             "spinach": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach",
-                "plural_name": "spinaches"
+                "name": "szpinak",
+                "plural_name": "szpinak"
             },
             "sweet corn": {
                 "aliases": [],
