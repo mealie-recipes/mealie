@@ -269,13 +269,17 @@ export default defineNuxtComponent({
       recipeName: props.name,
       loading: false,
       menuItems: [] as ContextMenuItem[],
-      newMealdate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000),
+      newMealdate: new Date(),
       newMealType: "dinner" as PlanEntryType,
       pickerMenu: false,
     });
 
     const newMealdateString = computed(() => {
-      return state.newMealdate.toISOString().substring(0, 10);
+      // Format the date to YYYY-MM-DD in the same timezone as newMealdate
+      const year = state.newMealdate.getFullYear();
+      const month = String(state.newMealdate.getMonth() + 1).padStart(2, "0");
+      const day = String(state.newMealdate.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
     });
 
     const i18n = useI18n();
