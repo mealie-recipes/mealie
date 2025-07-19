@@ -41,7 +41,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "aardappel",
-                "plural_name": "aardappelen"
+                "plural_name": "aardappels"
             },
             "red onion": {
                 "aliases": [],
@@ -65,7 +65,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "jalapeño",
-                "plural_name": "jalapenoes"
+                "plural_name": "jalapenos"
             },
             "avocado": {
                 "aliases": [],
@@ -77,7 +77,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sjalot",
-                "plural_name": "sjalotjes"
+                "plural_name": "sjaloten"
             },
             "cherry tomato": {
                 "aliases": [],
@@ -100,22 +100,22 @@
             "sweet corn": {
                 "aliases": [],
                 "description": "",
-                "name": "zoete maïs",
-                "plural_name": "zoete maïs"
+                "name": "suikermaïs",
+                "plural_name": "suikermaïs"
             },
             "chile pepper": {
                 "aliases": [
                     "paprika"
                 ],
                 "description": "",
-                "name": "chili peper",
+                "name": "chilipeper",
                 "plural_name": "chilipepers"
             },
             "sweet potato": {
                 "aliases": [],
                 "description": "",
                 "name": "zoete aardappel",
-                "plural_name": "zoete aardappelen"
+                "plural_name": "zoete aardappels"
             },
             "broccoli": {
                 "aliases": [],
@@ -363,8 +363,8 @@
             "hash brown": {
                 "aliases": [],
                 "description": "",
-                "name": "gehakte aardappel",
-                "plural_name": "gehakte aardappels"
+                "name": "hash brown",
+                "plural_name": "hash browns"
             },
             "napa cabbage": {
                 "aliases": [
@@ -535,8 +535,8 @@
             "yam": {
                 "aliases": [],
                 "description": "",
-                "name": "yamswortel",
-                "plural_name": "yamswortel"
+                "name": "yam",
+                "plural_name": "yams"
             },
             "ancho chile pepper": {
                 "aliases": [],
@@ -608,19 +608,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "gele biet",
-                "plural_name": "gele biet"
+                "plural_name": "gele bieten"
             },
             "pea shoot": {
                 "aliases": [],
                 "description": "",
-                "name": "erwtenspruit",
+                "name": "erwtenscheut",
                 "plural_name": "erwtenspruiten"
             },
             "alfalfa": {
                 "aliases": [],
                 "description": "",
-                "name": "luzerne",
-                "plural_name": "luzerne"
+                "name": "alfalfa",
+                "plural_name": "alfalfa"
             }
         }
     },
@@ -737,8 +737,8 @@
             "dried apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "droge abrikoos",
-                "plural_name": "droge abrikoos"
+                "name": "gedroogde abrikoos",
+                "plural_name": "gedroogde abrikozen"
             },
             "kiwi": {
                 "aliases": [],
@@ -749,8 +749,8 @@
             "grapefruit": {
                 "aliases": [],
                 "description": "",
-                "name": "grapefruit",
-                "plural_name": "grapefruits"
+                "name": "pompelmoes",
+                "plural_name": "pompelmoezen"
             },
             "plum": {
                 "aliases": [],
@@ -773,8 +773,8 @@
             "currant": {
                 "aliases": [],
                 "description": "",
-                "name": "zwarte bes",
-                "plural_name": "rode bessen"
+                "name": "bes",
+                "plural_name": "bessen"
             },
             "mandarin": {
                 "aliases": [],
@@ -1549,8 +1549,8 @@
             "lingonberry": {
                 "aliases": [],
                 "description": "",
-                "name": "lingonberry",
-                "plural_name": "lingonberries"
+                "name": "rode bosbes",
+                "plural_name": "rode bosbessen"
             },
             "canned sour cherry": {
                 "aliases": [],
@@ -1585,14 +1585,14 @@
             "elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "elderberry",
-                "plural_name": "elderberries"
+                "name": "vlierbes",
+                "plural_name": "vlierbessen"
             },
             "freeze-dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried blueberry",
-                "plural_name": "freeze-dried blueberries"
+                "name": "gevriesdroogde blauwe bes",
+                "plural_name": "gevriesdroogde blauwe bessen"
             },
             "huckleberry": {
                 "aliases": [],
@@ -1603,8 +1603,8 @@
             "dried elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried elderberry",
-                "plural_name": "dried elderberries"
+                "name": "gedroogde vlierbes",
+                "plural_name": "gedroogde vlierbessen"
             },
             "barberry": {
                 "aliases": [],
@@ -1615,8 +1615,8 @@
             "dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried berry",
-                "plural_name": "dried berries"
+                "name": "gedroogde bes",
+                "plural_name": "gedroogde bessen"
             },
             "sea buckthorn": {
                 "aliases": [],
@@ -1633,8 +1633,8 @@
             "rosehip": {
                 "aliases": [],
                 "description": "",
-                "name": "rosehip",
-                "plural_name": "rosehips"
+                "name": "rozenbottel",
+                "plural_name": "rozenbottels"
             },
             "hawthorn": {
                 "aliases": [],
@@ -1657,8 +1657,8 @@
             "freeze-dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried berry",
-                "plural_name": "freeze-dried berries"
+                "name": "gevriesdroogde bes",
+                "plural_name": "gevriesdroogde bessen"
             },
             "aronia berry": {
                 "aliases": [],
@@ -1733,8 +1733,8 @@
             "sesame seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame seed",
-                "plural_name": "sesame seeds"
+                "name": "sesamzaad",
+                "plural_name": "sesam zaadjes"
             },
             "cashew": {
                 "aliases": [],
@@ -1745,8 +1745,8 @@
             "pine nut": {
                 "aliases": [],
                 "description": "",
-                "name": "pine nut",
-                "plural_name": "pine nuts"
+                "name": "pijnboompit",
+                "plural_name": "pijnboompitjes"
             },
             "pistachio": {
                 "aliases": [],
@@ -1764,43 +1764,43 @@
                 "aliases": [],
                 "description": "",
                 "name": "chia",
-                "plural_name": "chias"
+                "plural_name": "chia's"
             },
             "flax": {
                 "aliases": [],
                 "description": "",
-                "name": "flax",
-                "plural_name": "flaxes"
+                "name": "lijnzaad",
+                "plural_name": "lijnzaadjes"
             },
             "slivered almond": {
                 "aliases": [],
                 "description": "",
-                "name": "slivered almond",
-                "plural_name": "slivered almonds"
+                "name": "geschaafde amandel",
+                "plural_name": "geschaafde amandelen"
             },
             "pumpkin seed": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin seed",
-                "plural_name": "pumpkin seeds"
+                "name": "pompoenpit",
+                "plural_name": "pompoenpitten"
             },
             "hazelnut": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut",
-                "plural_name": "hazelnuts"
+                "name": "hazelnoot",
+                "plural_name": "hazelnoten"
             },
             "poppy seed": {
                 "aliases": [],
                 "description": "",
-                "name": "poppy seed",
-                "plural_name": "poppy seeds"
+                "name": "maanzaad",
+                "plural_name": "maanzaadjes"
             },
             "sunflower seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower seed",
-                "plural_name": "sunflower seeds"
+                "name": "zonnebloempit",
+                "plural_name": "zonnebloempitten"
             },
             "macadamia": {
                 "aliases": [],
@@ -1835,8 +1835,8 @@
             "mixed nut": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed nut",
-                "plural_name": "mixed nuts"
+                "name": "gemengde noot",
+                "plural_name": "gemengde noten"
             },
             "brazil nut": {
                 "aliases": [],
@@ -1847,8 +1847,8 @@
             "mixed seed": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed seed",
-                "plural_name": "mixed seeds"
+                "name": "gemengd zaad",
+                "plural_name": "gemengde zaden"
             },
             "onion seed": {
                 "aliases": [],
@@ -2009,44 +2009,44 @@
                     "cheddars"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheeses"
+                "name": "cheddar kaas",
+                "plural_name": "cheddar kazen"
             },
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheeses"
+                "name": "roomkaas",
+                "plural_name": "roomkazen"
             },
             "sharp cheddar": {
                 "aliases": [],
                 "description": "",
-                "name": "sharp cheddar",
-                "plural_name": "sharp cheddars"
+                "name": "scherpe cheddar",
+                "plural_name": "scherpe cheddars"
             },
             "cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "kaas",
-                "plural_name": "cheeses"
+                "plural_name": "kazen"
             },
             "mozzarella": {
                 "aliases": [],
                 "description": "",
                 "name": "mozzarella",
-                "plural_name": "mozzarellas"
+                "plural_name": "mozzarella's"
             },
             "feta": {
                 "aliases": [],
                 "description": "",
                 "name": "feta",
-                "plural_name": "fetas"
+                "plural_name": "feta's"
             },
             "ricotta": {
                 "aliases": [],
                 "description": "",
                 "name": "ricotta",
-                "plural_name": "ricottas"
+                "plural_name": "ricotta's"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
@@ -2069,14 +2069,14 @@
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheeses"
+                "name": "geitenkaas",
+                "plural_name": "geitenkazen"
             },
             "fresh mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella",
-                "plural_name": "fresh mozzarellas"
+                "name": "verse mozzarella",
+                "plural_name": "verse mozzarella's"
             },
             "swiss cheese": {
                 "aliases": [],
@@ -2327,13 +2327,13 @@
             "cheese powder": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese powder",
+                "name": "kaaspoeder",
                 "plural_name": "cheese powders"
             },
             "fromage blanc": {
                 "aliases": [],
                 "description": "",
-                "name": "fromage blanc",
+                "name": "kwark",
                 "plural_name": "fromage blancs"
             },
             "asadero": {
