@@ -71,13 +71,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "avakado",
-                "plural_name": "avocados"
+                "plural_name": "avokadoer"
             },
             "shallot": {
                 "aliases": [],
                 "description": "",
                 "name": "sjalottløk",
-                "plural_name": "shallots"
+                "plural_name": "sjalottløk"
             },
             "cherry tomato": {
                 "aliases": [],
@@ -144,13 +144,13 @@
             "cauliflower": {
                 "aliases": [],
                 "description": "",
-                "name": "cauliflower",
+                "name": "blomkål",
                 "plural_name": "cauliflowers"
             },
             "cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "cabbage",
+                "name": "kål",
                 "plural_name": "cabbages"
             },
             "asparagu": {
@@ -180,13 +180,13 @@
             "eggplant": {
                 "aliases": [],
                 "description": "",
-                "name": "eggplant",
+                "name": "aubergine",
                 "plural_name": "eggplants"
             },
             "lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "lettuce",
+                "name": "salat",
                 "plural_name": "lettuces"
             },
             "butternut squash": {
@@ -229,7 +229,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "radish",
-                "plural_name": "radishes"
+                "plural_name": "reddiker"
             },
             "red cabbage": {
                 "aliases": [],
@@ -328,7 +328,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "potetmos",
-                "plural_name": "mashed potatoes"
+                "plural_name": "potetmos"
             },
             "horseradish": {
                 "aliases": [],
@@ -363,8 +363,8 @@
             "hash brown": {
                 "aliases": [],
                 "description": "",
-                "name": "hash brown",
-                "plural_name": "hash browns"
+                "name": "røstipotet",
+                "plural_name": "røstipoteter"
             },
             "napa cabbage": {
                 "aliases": [
@@ -636,7 +636,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sitron",
-                "plural_name": "lemons"
+                "plural_name": "sitroner"
             },
             "lime": {
                 "aliases": [],
@@ -665,14 +665,14 @@
             "raisin": {
                 "aliases": [],
                 "description": "",
-                "name": "raisin",
-                "plural_name": "raisins"
+                "name": "rosin",
+                "plural_name": "rosiner"
             },
             "pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple",
-                "plural_name": "pineapples"
+                "name": "ananas",
+                "plural_name": "ananaser"
             },
             "mango": {
                 "aliases": [],
@@ -731,7 +731,7 @@
             "rhubarb": {
                 "aliases": [],
                 "description": "",
-                "name": "rhubarb",
+                "name": "rabarbra",
                 "plural_name": "rhubarbs"
             },
             "dried apricot": {
@@ -785,8 +785,8 @@
             "prune": {
                 "aliases": [],
                 "description": "",
-                "name": "prune",
-                "plural_name": "prunes"
+                "name": "sviske",
+                "plural_name": "svisker"
             },
             "cantaloupe": {
                 "aliases": [],
@@ -1715,8 +1715,8 @@
             "walnut": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut",
-                "plural_name": "walnuts"
+                "name": "valnøtt",
+                "plural_name": "valnøtter"
             },
             "pecan": {
                 "aliases": [],
@@ -1727,14 +1727,14 @@
             "almond": {
                 "aliases": [],
                 "description": "",
-                "name": "almond",
+                "name": "mandel",
                 "plural_name": "almonds"
             },
             "sesame seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame seed",
-                "plural_name": "sesame seeds"
+                "name": "sesamfrø",
+                "plural_name": "sesamfrø"
             },
             "cashew": {
                 "aliases": [],
@@ -1781,26 +1781,26 @@
             "pumpkin seed": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin seed",
+                "name": "gresskarfrø",
                 "plural_name": "pumpkin seeds"
             },
             "hazelnut": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut",
+                "name": "hasselnøtt",
                 "plural_name": "hazelnuts"
             },
             "poppy seed": {
                 "aliases": [],
                 "description": "",
-                "name": "poppy seed",
-                "plural_name": "poppy seeds"
+                "name": "valmuefrø",
+                "plural_name": "valmuefrø"
             },
             "sunflower seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower seed",
-                "plural_name": "sunflower seeds"
+                "name": "solsikkefrø",
+                "plural_name": "solsikkefrø"
             },
             "macadamia": {
                 "aliases": [],
@@ -2009,7 +2009,7 @@
                     "cheddars"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
+                "name": "cheddarost",
                 "plural_name": "cheddar cheeses"
             },
             "cream cheese": {
