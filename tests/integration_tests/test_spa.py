@@ -201,13 +201,7 @@ async def test_spa_service_shared_recipe_with_meta_invalid_data(unique_user: Tes
         ("<a href='javascript:alert(\"XSS\")'>Click me</a>", ["<a", 'javascript:alert("XSS")']),
     ],
 )
-@pytest.mark.asyncio
-async def test_spa_escapes_malicious_recipe_data(
-    unique_user: TestUser, malicious_content: str, malicious_strings: list[str]
-):
-    group = unique_user.repos.groups.get_by_slug_or_id(unique_user.group_id)
-    assert group
-
+def test_spa_escapes_malicious_recipe_data(unique_user: TestUser, malicious_content: str, malicious_strings: list[str]):
     recipe = Recipe(
         user_id=unique_user.user_id,
         group_id=unique_user.group_id,
@@ -218,6 +212,6 @@ async def test_spa_escapes_malicious_recipe_data(
         settings=RecipeSettings(),
     )
 
-    response = spa.content_with_meta(group.slug, recipe)
+    response = spa.content_with_meta(unique_user.group_id, recipe)
     for string in malicious_strings:
         assert string not in response
