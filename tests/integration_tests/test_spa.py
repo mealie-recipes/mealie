@@ -2,7 +2,7 @@ import pytest
 from bs4 import BeautifulSoup
 
 from mealie.routes import spa
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import Recipe, RecipeSettings
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_share_token import RecipeShareTokenSave
 from tests import data as test_data
@@ -201,15 +201,22 @@ async def test_spa_service_shared_recipe_with_meta_invalid_data(unique_user: Tes
         ("<a href='javascript:alert(\"XSS\")'>Click me</a>", ["<a", 'javascript:alert("XSS")']),
     ],
 )
-def test_spa_escapes_malicious_recipe_data(unique_user: TestUser, malicious_content: str, malicious_strings: list[str]):
+@pytest.mark.asyncio
+async def test_spa_escapes_malicious_recipe_data(
+    unique_user: TestUser, malicious_content: str, malicious_strings: list[str]
+):
     group = unique_user.repos.groups.get_by_slug_or_id(unique_user.group_id)
     assert group
 
-    recipe = create_recipe(unique_user)
-    recipe.name = malicious_content
-    recipe.description = malicious_content
-    recipe.image = malicious_content
-    recipe.notes = [RecipeNote(title=malicious_content, text=malicious_content)]
+    recipe = Recipe(
+        user_id=unique_user.user_id,
+        group_id=unique_user.group_id,
+        name=malicious_content,
+        description=malicious_content,
+        image=malicious_content,
+        notes=[RecipeNote(title=malicious_content, text=malicious_content)],
+        settings=RecipeSettings(),
+    )
 
     response = spa.content_with_meta(group.slug, recipe)
     for string in malicious_strings:
