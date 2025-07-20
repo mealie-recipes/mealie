@@ -16,6 +16,6 @@ export class AdminDebugAPI extends BaseAPI {
       formData.append("extension", fileName.split(".").pop() ?? "");
     }
 
-    return await this.requests.post<DebugResponse>(routes.openai, formData);
+    return await this.requests.post<DebugResponse>(routes.openai, formData, { timeout: undefined });
   }
 }
