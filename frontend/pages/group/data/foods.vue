@@ -126,7 +126,7 @@
     <!-- Alias Sub-Dialog -->
     <RecipeDataAliasManagerDialog
       v-if="editTarget"
-      :value="aliasManagerDialog"
+      v-model="aliasManagerDialog"
       :data="editTarget"
       @submit="updateFoodAlias"
       @cancel="aliasManagerDialog = false"
@@ -540,6 +540,7 @@ export default defineNuxtComponent({
 
     const aliasManagerDialog = ref(false);
     function aliasManagerEventHandler() {
+      console.log("Opening alias manager dialog");
       aliasManagerDialog.value = true;
     }
 
