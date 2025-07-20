@@ -9,6 +9,7 @@
     :items-per-page="15"
     class="elevation-0"
     :loading="loading"
+    return-object
   >
     <template #[`item.name`]="{ item }">
       <a
