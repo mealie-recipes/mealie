@@ -288,7 +288,7 @@
     "household-group": "Группа домохозяйства",
     "household-management": "Управление домохозяйствами",
     "manage-households": "Управление Домами",
-    "admin-household-management": "Admin Household Management",
+    "admin-household-management": "Управление Домохозяйством",
     "admin-household-management-text": "Изменения в данном домохозяйстве будут отражены немедленно.",
     "household-id-value": "Id домохозяйства: {0}",
     "private-household": "Частное домохозяйство",
@@ -298,7 +298,7 @@
     "household-recipe-preferences": "Предпочтения для рецептов домашнего хозяйства",
     "default-recipe-preferences-description": "Это настройки по умолчанию, когда в вашем домашнем хозяйстве создается новый рецепт. Они могут быть изменены для отдельных рецептов в меню настроек рецепта.",
     "allow-users-outside-of-your-household-to-see-your-recipes": "Разрешить пользователям вне вашего домохозяйства видеть ваши рецепты",
-    "allow-users-outside-of-your-household-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your household or with a pre-generated private link",
+    "allow-users-outside-of-your-household-to-see-your-recipes-description": "При включении данной функции, вы можете делиться публичной ссылкой на данный рецепт, чтобы поделиться им с людьми без аккаунта. Если функция выключена — поделиться рецептом можно только с пользователями внутри вашего домохозяйства или по предварительно сгенерированной приватной ссылке",
     "household-preferences": "Параметры домохозяйства"
   },
   "meal-plan": {

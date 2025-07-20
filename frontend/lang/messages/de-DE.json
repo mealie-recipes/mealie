@@ -1005,7 +1005,7 @@
     "webhooks-enabled": "Webhooks aktiviert",
     "you-are-not-allowed-to-create-a-user": "Du bist nicht berechtigt, einen Benutzer anzulegen",
     "you-are-not-allowed-to-delete-this-user": "Du bist nicht berechtigt, diesen Benutzer zu entfernen",
-    "enable-advanced-content": "Erweiterten Inhalt aktivieren",
+    "enable-advanced-content": "Erweiterte Inhalte aktivieren",
     "enable-advanced-content-description": "Aktiviert zusätzliche Funktionen wie Rezept-Skalierung, API-Schlüssel, Webhooks und Datenverwaltung. Keine Sorge, das kann später noch geändert werden.",
     "favorite-recipes": "Favoriten",
     "email-or-username": "E-Mail oder Benutzername",

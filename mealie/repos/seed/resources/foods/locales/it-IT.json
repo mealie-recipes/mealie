@@ -4,98 +4,98 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic",
-                "plural_name": "garlics"
+                "name": "aglio",
+                "plural_name": "agli"
             },
             "onion": {
                 "aliases": [],
                 "description": "",
-                "name": "onion",
-                "plural_name": "onions"
+                "name": "cipolla",
+                "plural_name": "cipolle"
             },
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "bell pepper",
-                "plural_name": "bell peppers"
+                "name": "peperone",
+                "plural_name": "peperoni"
             },
             "carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "carrot",
-                "plural_name": "carrots"
+                "name": "carota",
+                "plural_name": "carote"
             },
             "scallion": {
                 "aliases": [],
                 "description": "",
-                "name": "scallion",
-                "plural_name": "scallions"
+                "name": "cipollotto",
+                "plural_name": "cipollotti"
             },
             "zucchini": {
                 "aliases": [],
                 "description": "",
-                "name": "zucchini",
-                "plural_name": "zucchinis"
+                "name": "zucchino",
+                "plural_name": "zucchini"
             },
             "potato": {
                 "aliases": [],
                 "description": "",
-                "name": "potato",
-                "plural_name": "potatoes"
+                "name": "patata",
+                "plural_name": "patate"
             },
             "red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "red onion",
-                "plural_name": "red onions"
+                "name": "cipolla rossa",
+                "plural_name": "cipolle rosse"
             },
             "yellow onion": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow onion",
-                "plural_name": "yellow onions"
+                "name": "cipolla gialla",
+                "plural_name": "cipolle gialle"
             },
             "celery": {
                 "aliases": [],
                 "description": "",
-                "name": "celery",
-                "plural_name": "celeries"
+                "name": "sedano",
+                "plural_name": "sedani"
             },
             "jalapeno": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeno",
-                "plural_name": "jalapenoes"
+                "name": "jalapeño",
+                "plural_name": "jalapeño"
             },
             "avocado": {
                 "aliases": [],
                 "description": "",
                 "name": "avocado",
-                "plural_name": "avocados"
+                "plural_name": "avocado"
             },
             "shallot": {
                 "aliases": [],
                 "description": "",
-                "name": "shallot",
-                "plural_name": "shallots"
+                "name": "scalogno",
+                "plural_name": "scalogni"
             },
             "cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry tomato",
-                "plural_name": "cherry tomatoes"
+                "name": "pomodorino",
+                "plural_name": "pomodorini"
             },
             "cucumber": {
                 "aliases": [],
                 "description": "",
-                "name": "cucumber",
-                "plural_name": "cucumbers"
+                "name": "cetriolo",
+                "plural_name": "cetrioli"
             },
             "spinach": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach",
-                "plural_name": "spinaches"
+                "name": "spinaci",
+                "plural_name": "spinaci"
             },
             "sweet corn": {
                 "aliases": [],
@@ -108,26 +108,26 @@
                     "capsicum"
                 ],
                 "description": "",
-                "name": "chile pepper",
-                "plural_name": "chile peppers"
+                "name": "peperoncino",
+                "plural_name": "peperoncini"
             },
             "sweet potato": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet potato",
-                "plural_name": "sweet potatoes"
+                "name": "patata dolce",
+                "plural_name": "patate dolci"
             },
             "broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli",
-                "plural_name": "broccolis"
+                "name": "broccolo",
+                "plural_name": "broccoli"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
-                "name": "heart of palm",
-                "plural_name": "heart of palms"
+                "name": "cuore di palma",
+                "plural_name": "cuori di palma"
             },
             "baby green": {
                 "aliases": [],
@@ -138,19 +138,19 @@
             "pumpkin": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin",
-                "plural_name": "pumpkins"
+                "name": "zucca",
+                "plural_name": "zucche"
             },
             "cauliflower": {
                 "aliases": [],
                 "description": "",
-                "name": "cauliflower",
-                "plural_name": "cauliflowers"
+                "name": "cavolfiore",
+                "plural_name": "cavolfiori"
             },
             "cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "cabbage",
+                "name": "cavolo",
                 "plural_name": "cabbages"
             },
             "asparagu": {

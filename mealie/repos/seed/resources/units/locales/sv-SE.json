@@ -18,8 +18,8 @@
         "abbreviation": "c"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
-        "plural_name": "flytande ounces",
+        "name": "vätskeuns",
+        "plural_name": "vätskeuns",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -122,7 +122,7 @@
     },
     "bunch": {
         "name": "bunt",
-        "plural_name": "buntar",
+        "plural_name": "knippen",
         "description": "",
         "abbreviation": ""
     },

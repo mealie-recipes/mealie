@@ -4,7 +4,7 @@
     <BaseDialog
       v-model="state.createDialog"
       :title="$t('data-pages.recipe-actions.new-recipe-action')"
-      :icon="$globals.icons.primary"
+      :icon="$globals.icons.linkVariantPlus"
       can-submit
       @submit="createAction"
     >
@@ -34,7 +34,7 @@
     <!-- Edit Dialog -->
     <BaseDialog
       v-model="state.editDialog"
-      :icon="$globals.icons.primary"
+      :icon="$globals.icons.linkVariantPlus"
       :title="$t('data-pages.recipe-actions.edit-recipe-action')"
       :submit-text="$t('general.save')"
       can-submit
@@ -115,7 +115,7 @@
 
     <!-- Data Table -->
     <BaseCardSectionTitle
-      :icon="$globals.icons.primary"
+      :icon="$globals.icons.linkVariantPlus"
       section
       :title="$t('data-pages.recipe-actions.recipe-actions-data')"
     />
