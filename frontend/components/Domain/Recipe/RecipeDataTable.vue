@@ -3,7 +3,7 @@
     v-model="selected"
     item-key="id"
     show-select
-    :sort-by="[{ key: 'dateAdded', order: 'desc' }]"
+    :sort-by="sortBy"
     :headers="headers"
     :items="recipes"
     :items-per-page="15"
@@ -117,7 +117,7 @@ export default defineNuxtComponent({
       },
     },
   },
-  emits: ["click"],
+  emits: ["click", "update:modelValue"],
   setup(props, context) {
     const i18n = useI18n();
     const $auth = useMealieAuth();
@@ -127,6 +127,9 @@ export default defineNuxtComponent({
       get: () => props.modelValue,
       set: value => context.emit(INPUT_EVENT, value),
     });
+
+    // Initialize sort state with default sorting by dateAdded descending
+    const sortBy = ref([{ key: "dateAdded", order: "desc" }]);
 
     const headers = computed(() => {
       const hdrs: Array<{ title: string; value: string; align?: string; sortable?: boolean }> = [];
@@ -206,6 +209,7 @@ export default defineNuxtComponent({
 
     return {
       selected,
+      sortBy,
       groupSlug,
       headers,
       formatDate,
