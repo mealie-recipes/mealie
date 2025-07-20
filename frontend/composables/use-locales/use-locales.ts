@@ -3,7 +3,7 @@ import { LOCALES } from "./available-locales";
 
 export const useLocales = () => {
   const i18n = useI18n();
-  const { current: vuetifyLocale, isRtl } = useLocale();
+  const { current: vuetifyLocale } = useLocale();
 
   const locale = computed<LocaleObject["code"]>({
     get: () => i18n.locale.value,
@@ -11,21 +11,20 @@ export const useLocales = () => {
       i18n.setLocale(value);
     },
   });
+
+  function updateLocale(lc: LocaleObject["code"]) {
+    vuetifyLocale.value = lc;
+  }
+
   // auto update vuetify locale
   watch(locale, (lc) => {
-    vuetifyLocale.value = lc;
-    const currentLocale = LOCALES.find(lc => lc.value === vuetifyLocale.value);
-    if (currentLocale) {
-      isRtl.value = currentLocale.dir === "rtl";
-    }
-
-    useHead({
-      htmlAttrs: {
-        lang: lc,
-        dir: isRtl.value ? "rtl" : "ltr",
-      },
-    })
+    updateLocale(lc);
   });
+
+  // set initial locale
+  if (i18n.locale.value) {
+    updateLocale(i18n.locale.value);
+  };
 
   return {
     locale,
