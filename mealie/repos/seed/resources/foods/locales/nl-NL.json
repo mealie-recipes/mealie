@@ -2765,8 +2765,8 @@
             "chocolate frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate frosting",
-                "plural_name": "chocolate frostings"
+                "name": "chocolade glazuur",
+                "plural_name": "chocolade glazuren"
             },
             "kefir": {
                 "aliases": [],
@@ -2783,8 +2783,8 @@
             "chocolate milk": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk",
-                "plural_name": "chocolate milks"
+                "name": "chocolade melk",
+                "plural_name": "chocolade melk"
             },
             "liquid egg substitute": {
                 "aliases": [],
@@ -2849,8 +2849,8 @@
             "goat milk": {
                 "aliases": [],
                 "description": "",
-                "name": "goat milk",
-                "plural_name": "goat milks"
+                "name": "geitenmelk",
+                "plural_name": "geitenmelk"
             },
             "cheese curd": {
                 "aliases": [],
@@ -2861,8 +2861,8 @@
             "sour milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sour milk",
-                "plural_name": "sour milks"
+                "name": "zure melk",
+                "plural_name": "zure melk"
             },
             "ganache": {
                 "aliases": [],
@@ -2879,14 +2879,14 @@
             "duck egg": {
                 "aliases": [],
                 "description": "",
-                "name": "duck egg",
-                "plural_name": "duck eggs"
+                "name": "eendenei",
+                "plural_name": "eendeneieren"
             },
             "salted egg": {
                 "aliases": [],
                 "description": "",
-                "name": "salted egg",
-                "plural_name": "salted eggs"
+                "name": "gezout ei",
+                "plural_name": "gezoute eieren"
             },
             "skyr": {
                 "aliases": [],
@@ -3077,8 +3077,8 @@
             "sheep milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep milk",
-                "plural_name": "sheep milks"
+                "name": "schapenmelk",
+                "plural_name": "schapenmelk"
             },
             "starter culture": {
                 "aliases": [],
@@ -3095,8 +3095,8 @@
             "ostrich egg": {
                 "aliases": [],
                 "description": "",
-                "name": "ostrich egg",
-                "plural_name": "ostrich eggs"
+                "name": "struisvogelei",
+                "plural_name": "struisvogeleieren"
             },
             "vanilla milk": {
                 "aliases": [],
@@ -3135,14 +3135,14 @@
             "coconut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut milk",
-                "plural_name": "coconut milks"
+                "name": "kokosmelk",
+                "plural_name": "kokosmelk"
             },
             "almond milk": {
                 "aliases": [],
                 "description": "",
-                "name": "almond milk",
-                "plural_name": "almond milks"
+                "name": "amandelmelk",
+                "plural_name": "amandelmelk"
             },
             "almond butter": {
                 "aliases": [],
@@ -3177,8 +3177,8 @@
             "soy milk": {
                 "aliases": [],
                 "description": "",
-                "name": "soy milk",
-                "plural_name": "soy milks"
+                "name": "sojamelk",
+                "plural_name": "sojamelk"
             },
             "extra firm tofu": {
                 "aliases": [],
