@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 
 from mealie.routes import spa
 from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_share_token import RecipeShareTokenSave
 from tests import data as test_data
 from tests.utils.factories import random_string
@@ -189,3 +190,27 @@ async def test_spa_service_shared_recipe_with_meta_invalid_data(unique_user: Tes
 
     response = await spa.serve_shared_recipe_with_meta(group.slug, random_string(), session=unique_user.repos.session)
     assert response.status_code == 404
+
+
+@pytest.mark.parametrize(
+    "malicious_content, malicious_strings",
+    [
+        ("<script>alert('XSS');</script>", ["<script>", "alert('XSS')"]),
+        ("<img src=x onerror=alert('XSS')>", ["<img", "onerror=alert('XSS')"]),
+        ("<div onmouseover=alert('XSS')>Hover me</div>", ["<div", "onmouseover=alert('XSS')"]),
+        ("<a href='javascript:alert(\"XSS\")'>Click me</a>", ["<a", 'javascript:alert("XSS")']),
+    ],
+)
+def test_spa_escapes_malicious_recipe_data(unique_user: TestUser, malicious_content: str, malicious_strings: list[str]):
+    group = unique_user.repos.groups.get_by_slug_or_id(unique_user.group_id)
+    assert group
+
+    recipe = create_recipe(unique_user)
+    recipe.name = malicious_content
+    recipe.description = malicious_content
+    recipe.image = malicious_content
+    recipe.notes = [RecipeNote(title=malicious_content, text=malicious_content)]
+
+    response = spa.content_with_meta(group.slug, recipe)
+    for string in malicious_strings:
+        assert string not in response
