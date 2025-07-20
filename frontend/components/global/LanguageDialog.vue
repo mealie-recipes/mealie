@@ -7,13 +7,14 @@
     <v-card-text>
       {{ $t("language-dialog.select-description") }}
       <v-autocomplete
-        v-model="locale"
+        v-model="selectedLocale"
         :items="locales"
         item-title="name"
+        item-value="value"
         class="my-3"
         hide-details
         variant="outlined"
-        offset
+        @update:model-value="onLocaleSelect"
       >
         <template #item="{ item, props }">
           <div
@@ -59,6 +60,14 @@ export default defineNuxtComponent({
     });
 
     const { locales: LOCALES, locale, i18n } = useLocales();
+
+    const selectedLocale = ref(locale.value);
+    const onLocaleSelect = (value: string) => {
+      if (value && locales.some(l => l.value === value)) {
+        locale.value = value as any;
+      }
+    };
+
     watch(locale, () => {
       dialog.value = false; // Close dialog when locale changes
     });
@@ -72,6 +81,8 @@ export default defineNuxtComponent({
       i18n,
       locales,
       locale,
+      selectedLocale,
+      onLocaleSelect,
     };
   },
 });
