@@ -1901,8 +1901,8 @@
             "candlenut": {
                 "aliases": [],
                 "description": "",
-                "name": "candlenut",
-                "plural_name": "candlenuts"
+                "name": "kemirinoot",
+                "plural_name": "kemirinoten"
             },
             "peanut brittle": {
                 "aliases": [],
@@ -1919,14 +1919,14 @@
             "honey-roasted almond": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted almond",
-                "plural_name": "honey-roasted almonds"
+                "name": "geroosterde amandel met honing",
+                "plural_name": "geroosterde amandels met honing"
             },
             "toasted nut": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted nut",
-                "plural_name": "toasted nuts"
+                "name": "geroosterde noot",
+                "plural_name": "geroosterde noten"
             },
             "chironji": {
                 "aliases": [],
@@ -1937,8 +1937,8 @@
             "honey-roasted pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted pecan",
-                "plural_name": "honey-roasted pecans"
+                "name": "geroosterde pecannoot met honing",
+                "plural_name": "geroosterde pecannoten met honing"
             },
             "tigernut": {
                 "aliases": [],
@@ -2088,13 +2088,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "pecorino",
-                "plural_name": "pecorinoes"
+                "plural_name": "pecorino's"
             },
             "gruyere": {
                 "aliases": [],
                 "description": "",
-                "name": "gruyere",
-                "plural_name": "gruyeres"
+                "name": "gruyère",
+                "plural_name": "gruyères"
             },
             "mascarpone": {
                 "aliases": [],
@@ -2190,7 +2190,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "halloumi",
-                "plural_name": "halloumis"
+                "plural_name": "halloumi's"
             },
             "chevre": {
                 "aliases": [],
@@ -2226,7 +2226,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "burrata",
-                "plural_name": "burratas"
+                "plural_name": "burrata's"
             },
             "havarti": {
                 "aliases": [],
@@ -2243,8 +2243,8 @@
             "grana-padano": {
                 "aliases": [],
                 "description": "",
-                "name": "grana-padano",
-                "plural_name": "grana-padanoes"
+                "name": "grana padano",
+                "plural_name": "grana padano's"
             },
             "muenster": {
                 "aliases": [],
@@ -2328,7 +2328,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kaaspoeder",
-                "plural_name": "cheese powders"
+                "plural_name": "kaaspoeders"
             },
             "fromage blanc": {
                 "aliases": [],
@@ -2406,7 +2406,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "comté",
-                "plural_name": "comtés"
+                "plural_name": "comté's"
             },
             "graviera": {
                 "aliases": [],
@@ -2424,7 +2424,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "scamorza",
-                "plural_name": "scamorzas"
+                "plural_name": "scamorza's"
             },
             "cambozola": {
                 "aliases": [],
@@ -2613,20 +2613,20 @@
             "butter": {
                 "aliases": [],
                 "description": "",
-                "name": "butter",
-                "plural_name": "butter"
+                "name": "boter",
+                "plural_name": "boters"
             },
             "egg": {
                 "aliases": [],
                 "description": "",
-                "name": "egg",
-                "plural_name": "eggs"
+                "name": "ei",
+                "plural_name": "eieren"
             },
             "milk": {
                 "aliases": [],
                 "description": "",
-                "name": "milk",
-                "plural_name": "milks"
+                "name": "melk",
+                "plural_name": "melk"
             },
             "heavy cream": {
                 "aliases": [],
@@ -2637,8 +2637,8 @@
             "sour cream": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cream",
-                "plural_name": "sour creams"
+                "name": "zure room",
+                "plural_name": "zure room"
             },
             "buttermilk": {
                 "aliases": [],
@@ -2649,26 +2649,26 @@
             "yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt",
-                "plural_name": "yogurts"
+                "name": "yoghurt",
+                "plural_name": "yoghurts"
             },
             "greek yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "greek yogurt",
-                "plural_name": "greek yogurts"
+                "name": "griekse yoghurt",
+                "plural_name": "griekse yoghurts"
             },
             "cream": {
                 "aliases": [],
                 "description": "",
-                "name": "cream",
-                "plural_name": "creams"
+                "name": "room",
+                "plural_name": "room"
             },
             "whipped cream": {
                 "aliases": [],
                 "description": "",
-                "name": "whipped cream",
-                "plural_name": "whipped creams"
+                "name": "slagroom",
+                "plural_name": "slagroom"
             },
             "ghee": {
                 "aliases": [
@@ -2687,8 +2687,8 @@
             "condensed milk": {
                 "aliases": [],
                 "description": "",
-                "name": "condensed milk",
-                "plural_name": "condensed milks"
+                "name": "gecondenseerde melk",
+                "plural_name": "gecondenseerde melk"
             },
             "half and half": {
                 "aliases": [],
@@ -2705,8 +2705,8 @@
             "ice cream": {
                 "aliases": [],
                 "description": "",
-                "name": "ice cream",
-                "plural_name": "ice creams"
+                "name": "roomijs",
+                "plural_name": "roomijsjes"
             },
             "margarine": {
                 "aliases": [],
@@ -2717,20 +2717,20 @@
             "creme fraiche": {
                 "aliases": [],
                 "description": "",
-                "name": "creme fraiche",
-                "plural_name": "creme fraiches"
+                "name": "crème fraîche",
+                "plural_name": "crème fraîches"
             },
             "frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "frosting",
-                "plural_name": "frostings"
+                "name": "glazuur",
+                "plural_name": "glazuren"
             },
             "milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "milk powder",
-                "plural_name": "milk powders"
+                "name": "melkpoeder",
+                "plural_name": "melkpoeders"
             },
             "curd": {
                 "aliases": [],
