@@ -540,7 +540,6 @@ export default defineNuxtComponent({
 
     const aliasManagerDialog = ref(false);
     function aliasManagerEventHandler() {
-      console.log("Opening alias manager dialog");
       aliasManagerDialog.value = true;
     }
 
