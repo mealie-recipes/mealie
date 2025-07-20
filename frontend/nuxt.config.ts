@@ -175,68 +175,6 @@ export default defineNuxtConfig({
       subsets: ["cyrillic-ext", "cyrillic", "greek-ext", "greek", "vietnamese", "latin-ext", "latin"],
     },
   },
-  /* auth: {
-    redirect: {
-      login: "/login",
-      logout: "/login",
-      callback: "/login",
-      home: "/",
-    },
-    cookie: {
-      prefix: "mealie.auth.",
-      options: {
-        expires: 7,
-        path: "/",
-      },
-    },
-    rewriteRedirects: false,
-    // Options
-    strategies: {
-      local: {
-        resetOnError: true,
-        token: {
-          property: "access_token",
-          global: true,
-          // required: true,
-          // type: 'Bearer'
-        },
-        user: {
-          property: "",
-          autoFetch: true,
-        },
-        endpoints: {
-          login: {
-            url: "api/auth/token",
-            method: "post",
-            propertyName: "access_token",
-          },
-          refresh: { url: "api/auth/refresh", method: "post" },
-          logout: { url: "api/auth/logout", method: "post" },
-          user: { url: "api/users/self", method: "get" },
-        },
-      },
-      oidc: {
-        scheme: "local",
-        resetOnError: true,
-        token: {
-          property: "access_token",
-          global: true,
-        },
-        user: {
-          property: "",
-          autoFetch: true,
-        },
-        endpoints: {
-          login: {
-            url: "api/auth/oauth/callback",
-            method: "get",
-          },
-          logout: { url: "api/auth/logout", method: "post" },
-          user: { url: "api/users/self", method: "get" },
-        },
-      },
-    },
-  }, */
 
   i18n: {
     locales: [
