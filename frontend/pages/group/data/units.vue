@@ -19,30 +19,16 @@
           v-model="fromUnit"
           return-object
           :items="store"
-          item-title="id"
+          item-title="name"
           :label="$t('data-pages.units.source-unit')"
-        >
-          <template #chip="{ item }">
-            {{ item.raw.name }}
-          </template>
-          <template #item="{ item }">
-            {{ item.raw.name }}
-          </template>
-        </v-autocomplete>
+        />
         <v-autocomplete
           v-model="toUnit"
           return-object
           :items="store"
-          item-title="id"
+          item-title="name"
           :label="$t('data-pages.units.target-unit')"
-        >
-          <template #chip="{ item }">
-            {{ item.raw.name }}
-          </template>
-          <template #item="{ item }">
-            {{ item.raw.name }}
-          </template>
-        </v-autocomplete>
+        />
 
         <template v-if="canMerge && fromUnit && toUnit">
           <div class="text-center">
