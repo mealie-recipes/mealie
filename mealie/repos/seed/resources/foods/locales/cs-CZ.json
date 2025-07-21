@@ -46,20 +46,20 @@
             "red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "red onion",
-                "plural_name": "Červená cibule"
+                "name": "červená cibule",
+                "plural_name": "červené cibule"
             },
             "yellow onion": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow onion",
+                "name": "žlutá cibule",
                 "plural_name": "yellow onions"
             },
             "celery": {
                 "aliases": [],
                 "description": "",
                 "name": "celer",
-                "plural_name": "Celery"
+                "plural_name": "celery"
             },
             "jalapeno": {
                 "aliases": [],
@@ -76,8 +76,8 @@
             "shallot": {
                 "aliases": [],
                 "description": "",
-                "name": "shallot",
-                "plural_name": "shallots"
+                "name": "šalotka",
+                "plural_name": "šalotky"
             },
             "cherry tomato": {
                 "aliases": [],
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "špenát",
-                "plural_name": "spinaches"
+                "plural_name": "špenát"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet corn",
-                "plural_name": "sweet corns"
+                "name": "sladká kukuřice",
+                "plural_name": "sladké kukuřice"
             },
             "chile pepper": {
                 "aliases": [
@@ -228,14 +228,14 @@
             "radish": {
                 "aliases": [],
                 "description": "",
-                "name": "radish",
-                "plural_name": "radishes"
+                "name": "ředkvička",
+                "plural_name": "ředkvičky"
             },
             "red cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "red cabbage",
-                "plural_name": "red cabbages"
+                "name": "červené zelí",
+                "plural_name": "červené zelí"
             },
             "artichoke": {
                 "aliases": [],

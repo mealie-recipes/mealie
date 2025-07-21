@@ -4,62 +4,62 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic",
-                "plural_name": "garlics"
+                "name": "hvidløg",
+                "plural_name": "hvidløg"
             },
             "onion": {
                 "aliases": [],
                 "description": "",
-                "name": "onion",
-                "plural_name": "onions"
+                "name": "løg",
+                "plural_name": "løg"
             },
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "bell pepper",
-                "plural_name": "bell peppers"
+                "name": "peberfrugt",
+                "plural_name": "peberfrugter"
             },
             "carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "carrot",
-                "plural_name": "carrots"
+                "name": "gulerod",
+                "plural_name": "gulerødder"
             },
             "scallion": {
                 "aliases": [],
                 "description": "",
-                "name": "scallion",
-                "plural_name": "scallions"
+                "name": "forårsløg",
+                "plural_name": "forårsløg"
             },
             "zucchini": {
                 "aliases": [],
                 "description": "",
-                "name": "zucchini",
-                "plural_name": "zucchinis"
+                "name": "squash",
+                "plural_name": "squash"
             },
             "potato": {
                 "aliases": [],
                 "description": "",
-                "name": "potato",
-                "plural_name": "potatoes"
+                "name": "kartoffel",
+                "plural_name": "kartofler"
             },
             "red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "red onion",
-                "plural_name": "red onions"
+                "name": "rødløg",
+                "plural_name": "rødløg"
             },
             "yellow onion": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow onion",
-                "plural_name": "yellow onions"
+                "name": "løg",
+                "plural_name": "løg"
             },
             "celery": {
                 "aliases": [],
                 "description": "",
-                "name": "celery",
-                "plural_name": "celeries"
+                "name": "selleri",
+                "plural_name": "selleri"
             },
             "jalapeno": {
                 "aliases": [],
@@ -70,64 +70,64 @@
             "avocado": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado",
-                "plural_name": "avocados"
+                "name": "avokado",
+                "plural_name": "avokadoer"
             },
             "shallot": {
                 "aliases": [],
                 "description": "",
-                "name": "shallot",
-                "plural_name": "shallots"
+                "name": "skalotteløg",
+                "plural_name": "skalotteløg"
             },
             "cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry tomato",
-                "plural_name": "cherry tomatoes"
+                "name": "cherrytomat",
+                "plural_name": "cherrytomater"
             },
             "cucumber": {
                 "aliases": [],
                 "description": "",
-                "name": "cucumber",
-                "plural_name": "cucumbers"
+                "name": "agurk",
+                "plural_name": "agurker"
             },
             "spinach": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach",
-                "plural_name": "spinaches"
+                "name": "spinat",
+                "plural_name": "spinat"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet corn",
-                "plural_name": "sweet corns"
+                "name": "sød majs",
+                "plural_name": "sød majs"
             },
             "chile pepper": {
                 "aliases": [
                     "capsicum"
                 ],
                 "description": "",
-                "name": "chile pepper",
-                "plural_name": "chile peppers"
+                "name": "chilipeber",
+                "plural_name": "chilipeber"
             },
             "sweet potato": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet potato",
-                "plural_name": "sweet potatoes"
+                "name": "sød kartoffel",
+                "plural_name": "søde kartofler"
             },
             "broccoli": {
                 "aliases": [],
                 "description": "",
                 "name": "broccoli",
-                "plural_name": "broccolis"
+                "plural_name": "broccoli"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
-                "name": "heart of palm",
-                "plural_name": "heart of palms"
+                "name": "palmehjerte",
+                "plural_name": "palmehjerter"
             },
             "baby green": {
                 "aliases": [],
@@ -274,13 +274,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "baby carrot",
-                "plural_name": "baby carrots"
+                "plural_name": "babygulerødder"
             },
             "mixed vegetable": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetable",
-                "plural_name": "mixed vegetables"
+                "name": "blandede grøntsager",
+                "plural_name": "blandede grøntsager"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -303,38 +303,38 @@
             "cayenne pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "cayenne pepper",
-                "plural_name": "cayenne peppers"
+                "name": "cayennepeber",
+                "plural_name": "cayennepeber"
             },
             "green tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "green tomato",
-                "plural_name": "green tomatoes"
+                "name": "grøn tomat",
+                "plural_name": "grønne tomater"
             },
             "watercress": {
                 "aliases": [],
                 "description": "",
-                "name": "watercress",
-                "plural_name": "watercress"
+                "name": "brøndkarse",
+                "plural_name": "brøndkarse"
             },
             "iceberg": {
                 "aliases": [],
                 "description": "",
                 "name": "iceberg",
-                "plural_name": "icebergs"
+                "plural_name": "iceberg"
             },
             "mashed potato": {
                 "aliases": [],
                 "description": "",
-                "name": "mashed potato",
-                "plural_name": "mashed potatoes"
+                "name": "kartoffelmos",
+                "plural_name": "kartoffelmos"
             },
             "horseradish": {
                 "aliases": [],
                 "description": "",
-                "name": "horseradish",
-                "plural_name": "horseradishes"
+                "name": "peberrod",
+                "plural_name": "peberrod"
             },
             "chard": {
                 "aliases": [],
@@ -383,14 +383,14 @@
             "water chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "water chestnut",
-                "plural_name": "water chestnuts"
+                "name": "vand kastanje",
+                "plural_name": "vand kastanjer"
             },
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "majroe",
+                "plural_name": "majroer"
             },
             "thai chile pepper": {
                 "aliases": [],
@@ -401,8 +401,8 @@
             "bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "bok choy",
-                "plural_name": "bok choy"
+                "name": "pak choi",
+                "plural_name": "pak choi"
             },
             "okra": {
                 "aliases": [],
@@ -419,8 +419,8 @@
             "corn cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn cob",
-                "plural_name": "corn cobs"
+                "name": "majskolbe",
+                "plural_name": "majskolber"
             },
             "radicchio": {
                 "aliases": [],
@@ -505,14 +505,14 @@
             "daikon": {
                 "aliases": [],
                 "description": "",
-                "name": "daikon",
-                "plural_name": "daikons"
+                "name": "kinaradise",
+                "plural_name": "kinaradiser"
             },
             "baby corn": {
                 "aliases": [],
                 "description": "",
-                "name": "baby corn",
-                "plural_name": "baby corns"
+                "name": "babymajs",
+                "plural_name": "babymajs"
             },
             "broccoli rabe": {
                 "aliases": [],
@@ -577,8 +577,8 @@
             "frisee": {
                 "aliases": [],
                 "description": "",
-                "name": "frisee",
-                "plural_name": "frisees"
+                "name": "friséesalat",
+                "plural_name": "friséesalat"
             },
             "anaheim pepper": {
                 "aliases": [],
@@ -613,8 +613,8 @@
             "pea shoot": {
                 "aliases": [],
                 "description": "",
-                "name": "pea shoot",
-                "plural_name": "pea shoots"
+                "name": "ærteskud",
+                "plural_name": "ærteskud"
             },
             "alfalfa": {
                 "aliases": [],
@@ -628,26 +628,26 @@
         "foods": {
             "tomato": {
                 "aliases": [],
-                "description": "Yes they are a fruit",
-                "name": "tomato",
-                "plural_name": "tomatoes"
+                "description": "Ja de er en frugt",
+                "name": "tomat",
+                "plural_name": "tomater"
             },
             "lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon",
-                "plural_name": "lemons"
+                "name": "citron",
+                "plural_name": "citroner"
             },
             "lime": {
                 "aliases": [],
                 "description": "",
-                "name": "lime",
-                "plural_name": "limes"
+                "name": "limefrugt",
+                "plural_name": "limefrugter"
             },
             "apple": {
                 "aliases": [],
                 "description": "",
-                "name": "apple",
+                "name": "æble",
                 "plural_name": "apples"
             },
             "banana": {
@@ -696,7 +696,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "coconut",
-                "plural_name": "coconuts"
+                "plural_name": "kokosnødder"
             },
             "craisin": {
                 "aliases": [],
@@ -707,80 +707,80 @@
             "pear": {
                 "aliases": [],
                 "description": "",
-                "name": "pear",
-                "plural_name": "pears"
+                "name": "pære",
+                "plural_name": "pærer"
             },
             "grape": {
                 "aliases": [],
                 "description": "",
-                "name": "grape",
-                "plural_name": "grapes"
+                "name": "drue",
+                "plural_name": "vindruer"
             },
             "pomegranate": {
                 "aliases": [],
                 "description": "",
-                "name": "pomegranate",
+                "name": "granatæble",
                 "plural_name": "pomegranates"
             },
             "watermelon": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon",
-                "plural_name": "watermelons"
+                "name": "vandmelon",
+                "plural_name": "vandmeloner"
             },
             "rhubarb": {
                 "aliases": [],
                 "description": "",
-                "name": "rhubarb",
-                "plural_name": "rhubarbs"
+                "name": "rabarber",
+                "plural_name": "rabarber"
             },
             "dried apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apricot",
-                "plural_name": "dried apricots"
+                "name": "tørret abrikos",
+                "plural_name": "tørrede abrikoser"
             },
             "kiwi": {
                 "aliases": [],
                 "description": "",
-                "name": "kiwi",
-                "plural_name": "kiwis"
+                "name": "kiwifrugt",
+                "plural_name": "kiwifrugter"
             },
             "grapefruit": {
                 "aliases": [],
                 "description": "",
-                "name": "grapefruit",
-                "plural_name": "grapefruits"
+                "name": "grapefrugt",
+                "plural_name": "grapefrugter"
             },
             "plum": {
                 "aliases": [],
                 "description": "",
-                "name": "plum",
-                "plural_name": "plums"
+                "name": "blomme",
+                "plural_name": "blommer"
             },
             "fig": {
                 "aliases": [],
                 "description": "",
-                "name": "fig",
-                "plural_name": "figs"
+                "name": "figne",
+                "plural_name": "figner"
             },
             "apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "apricot",
-                "plural_name": "apricots"
+                "name": "abrikos",
+                "plural_name": "abrikoser"
             },
             "currant": {
                 "aliases": [],
                 "description": "",
-                "name": "currant",
-                "plural_name": "currants"
+                "name": "solbær",
+                "plural_name": "solbær"
             },
             "mandarin": {
                 "aliases": [],
                 "description": "",
                 "name": "mandarin",
-                "plural_name": "mandarins"
+                "plural_name": "mandariner"
             },
             "prune": {
                 "aliases": [],
