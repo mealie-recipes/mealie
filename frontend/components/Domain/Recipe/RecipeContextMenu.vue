@@ -125,25 +125,20 @@
         </v-list-item>
         <div v-if="useItems.recipeActions && recipeActions && recipeActions.length">
           <v-divider />
-          <v-list-group @click.stop>
-            <template #activator="{ props }">
-              <v-list-item-title v-bind="props">
-                {{ $t("recipe.recipe-actions") }}
-              </v-list-item-title>
+          <v-list-item
+            v-for="(action, index) in recipeActions"
+            :key="index"
+            @click="executeRecipeAction(action)"
+          >
+            <template #prepend>
+              <v-icon color="undefined">
+                {{ $globals.icons.linkVariantPlus }}
+              </v-icon>
             </template>
-            <v-list density="compact" class="ma-0 pa-0">
-              <v-list-item
-                v-for="(action, index) in recipeActions"
-                :key="index"
-                class="pl-6"
-                @click="executeRecipeAction(action)"
-              >
-                <v-list-item-title>
-                  {{ action.title }}
-                </v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-list-group>
+            <v-list-item-title>
+              {{ action.title }}
+            </v-list-item-title>
+          </v-list-item>
         </div>
       </v-list>
     </v-menu>

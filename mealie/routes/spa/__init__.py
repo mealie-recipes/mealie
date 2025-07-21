@@ -1,6 +1,8 @@
+import html
 import json
 import pathlib
 from dataclasses import dataclass
+from typing import Any
 
 from bs4 import BeautifulSoup
 from fastapi import Depends, FastAPI, Response
@@ -24,6 +26,9 @@ class MetaTag:
     property_name: str
     content: str
 
+    def __post_init__(self):
+        self.content = escape(self.content)  # escape HTML to prevent XSS attacks
+
 
 class SPAStaticFiles(StaticFiles):
     async def get_response(self, path: str, scope):
@@ -40,6 +45,17 @@ class SPAStaticFiles(StaticFiles):
 
 __app_settings = get_app_settings()
 __contents = ""
+
+
+def escape(content: Any) -> Any:
+    if isinstance(content, str):
+        return html.escape(content)
+    elif isinstance(content, list | tuple | set):
+        return [escape(item) for item in content]
+    elif isinstance(content, dict):
+        return {escape(k): escape(v) for k, v in content.items()}
+    else:
+        return content
 
 
 def inject_meta(contents: str, tags: list[MetaTag]) -> str:
@@ -80,15 +96,13 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
     # Inject meta tags
     recipe_url = f"{__app_settings.BASE_URL}/g/{group_slug}/r/{recipe.slug}"
     if recipe.image:
-        image_url = (
-            f"{__app_settings.BASE_URL}/api/media/recipes/{recipe.id}/images/original.webp?version={recipe.image}"
-        )
+        image_url = f"{__app_settings.BASE_URL}/api/media/recipes/{recipe.id}/images/original.webp?version={escape(recipe.image)}"
     else:
         image_url = "https://raw.githubusercontent.com/mealie-recipes/mealie/9571816ac4eed5beacfc0abf6c03eff1427fd0eb/frontend/static/icons/android-chrome-512x512.png"
 
     ingredients: list[str] = []
     if recipe.settings.disable_amount:  # type: ignore
-        ingredients = [i.note for i in recipe.recipe_ingredient if i.note]
+        ingredients = [escape(i.note) for i in recipe.recipe_ingredient if i.note]
 
     else:
         for ing in recipe.recipe_ingredient:
@@ -102,25 +116,30 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
             if ing.note:
                 s += f"{ing.note}"
 
-            ingredients.append(s)
+            ingredients.append(escape(s))
 
     nutrition: dict[str, str | None] = recipe.nutrition.model_dump(by_alias=True) if recipe.nutrition else {}
+    for k, v in nutrition.items():
+        if v:
+            nutrition[k] = escape(v)
 
-    as_schema_org = {
+    as_schema_org: dict[str, Any] = {
         "@context": "https://schema.org",
         "@type": "Recipe",
-        "name": recipe.name,
-        "description": recipe.description,
+        "name": escape(recipe.name),
+        "description": escape(recipe.description),
         "image": [image_url],
         "datePublished": recipe.created_at,
-        "prepTime": recipe.prep_time,
-        "cookTime": recipe.cook_time,
-        "totalTime": recipe.total_time,
-        "recipeYield": recipe.recipe_yield_display,
+        "prepTime": escape(recipe.prep_time),
+        "cookTime": escape(recipe.cook_time),
+        "totalTime": escape(recipe.total_time),
+        "recipeYield": escape(recipe.recipe_yield_display),
         "recipeIngredient": ingredients,
-        "recipeInstructions": [i.text for i in recipe.recipe_instructions] if recipe.recipe_instructions else [],
-        "recipeCategory": [c.name for c in recipe.recipe_category] if recipe.recipe_category else [],
-        "keywords": [t.name for t in recipe.tags] if recipe.tags else [],
+        "recipeInstructions": [escape(i.text) for i in recipe.recipe_instructions]
+        if recipe.recipe_instructions
+        else [],
+        "recipeCategory": [escape(c.name) for c in recipe.recipe_category] if recipe.recipe_category else [],
+        "keywords": [escape(t.name) for t in recipe.tags] if recipe.tags else [],
         "nutrition": nutrition,
     }
 
