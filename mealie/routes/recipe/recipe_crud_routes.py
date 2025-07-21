@@ -541,7 +541,6 @@ class RecipeController(BaseRecipeController):
         file: UploadFile = File(...),
     ):
         """Upload a file to store as a recipe asset"""
-        self.repos.household_id = None
         if "." in extension:
             extension = extension.split(".")[-1]
 
