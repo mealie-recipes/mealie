@@ -105,7 +105,7 @@
             },
             "chile pepper": {
                 "aliases": [
-                    "capsicum"
+                    "peberfrugt"
                 ],
                 "description": "",
                 "name": "chilipeber",
@@ -138,38 +138,38 @@
             "pumpkin": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin",
-                "plural_name": "pumpkins"
+                "name": "græskar",
+                "plural_name": "græskar"
             },
             "cauliflower": {
                 "aliases": [],
                 "description": "",
-                "name": "cauliflower",
-                "plural_name": "cauliflowers"
+                "name": "blomkål",
+                "plural_name": "blomkålshoveder"
             },
             "cabbage": {
                 "aliases": [],
                 "description": "",
                 "name": "cabbage",
-                "plural_name": "cabbages"
+                "plural_name": "kålhoveder"
             },
             "asparagu": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagu",
-                "plural_name": "asparagus"
+                "name": "asparges",
+                "plural_name": "asparges"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
-                "name": "kale",
-                "plural_name": "kales"
+                "name": "grønkål",
+                "plural_name": "grønkål"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
-                "name": "arugula",
-                "plural_name": "arugulas"
+                "name": "rucola",
+                "plural_name": "rucola"
             },
             "leek": {
                 "aliases": [],

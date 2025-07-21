@@ -303,14 +303,14 @@
             "cayenne pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "cayenne pepper",
-                "plural_name": "cayenne peppers"
+                "name": "кайенский перец",
+                "plural_name": "кайенский перец"
             },
             "green tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "green tomato",
-                "plural_name": "green tomatoes"
+                "name": "зелёный томат",
+                "plural_name": "зелёные томаты"
             },
             "watercress": {
                 "aliases": [],
@@ -321,76 +321,76 @@
             "iceberg": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg",
-                "plural_name": "icebergs"
+                "name": "салат айсберг",
+                "plural_name": "салат айсберг"
             },
             "mashed potato": {
                 "aliases": [],
                 "description": "",
-                "name": "mashed potato",
-                "plural_name": "mashed potatoes"
+                "name": "картофельное пюре",
+                "plural_name": "картофельное пюре"
             },
             "horseradish": {
                 "aliases": [],
                 "description": "",
-                "name": "horseradish",
-                "plural_name": "horseradishes"
+                "name": "хрен",
+                "plural_name": "хрен"
             },
             "chard": {
                 "aliases": [],
                 "description": "",
-                "name": "chard",
-                "plural_name": "chards"
+                "name": "мангольд",
+                "plural_name": "мангольд"
             },
             "pimiento": {
                 "aliases": [],
                 "description": "",
-                "name": "pimiento",
-                "plural_name": "pimientoes"
+                "name": "пимиенто",
+                "plural_name": "пимиенто"
             },
             "spaghetti squash": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti squash",
-                "plural_name": "spaghetti squashes"
+                "name": "тыква-спагетти",
+                "plural_name": "тыква-спагетти"
             },
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter lettuce",
-                "plural_name": "butter lettuces"
+                "name": "баттерхед",
+                "plural_name": "баттерхед"
             },
             "hash brown": {
                 "aliases": [],
                 "description": "",
-                "name": "hash brown",
-                "plural_name": "hash browns"
+                "name": "хашбраун",
+                "plural_name": "хашбраун"
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "китайские листья"
                 ],
                 "description": "",
-                "name": "napa cabbage",
-                "plural_name": "napa cabbages"
+                "name": "пекинская капуста",
+                "plural_name": "пекинская капуста"
             },
             "celeriac": {
                 "aliases": [],
                 "description": "",
-                "name": "celeriac",
-                "plural_name": "celeriacs"
+                "name": "корень сельдерея",
+                "plural_name": "корень сельдерея"
             },
             "water chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "water chestnut",
-                "plural_name": "water chestnuts"
+                "name": "болотница сладкая",
+                "plural_name": "болотница сладкая"
             },
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "репа",
+                "plural_name": "репа"
             },
             "thai chile pepper": {
                 "aliases": [],
