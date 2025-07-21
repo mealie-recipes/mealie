@@ -523,12 +523,12 @@ class RecipeController(BaseRecipeController):
 
     @router.put("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
     def update_recipe_image(self, slug: str, image: bytes = File(...), extension: str = Form(...)):
-        self.repos.household_id = None
-        recipe = self.mixins.get_one(slug)
+        group_recipes = get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
+        recipe = group_recipes.get_one(slug)
         data_service = RecipeDataService(recipe.id)
         data_service.write_image(image, extension)
 
-        new_version = self.recipes.update_image(slug, extension)
+        new_version = self.group_recipes.update_image(slug, extension)
         return UpdateImageResponse(image=new_version)
 
     @router.post("/{slug}/assets", response_model=RecipeAsset, tags=["Recipe: Images and Assets"])
@@ -552,7 +552,8 @@ class RecipeController(BaseRecipeController):
         file_name = f"{file_slug}.{extension}"
         asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
 
-        recipe = self.mixins.get_one(slug)
+        group_recipes = get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
+        recipe = group_recipes.get_one(slug)
 
         dest = recipe.asset_dir / file_name
 
@@ -571,6 +572,6 @@ class RecipeController(BaseRecipeController):
 
         recipe.assets.append(asset_in)
 
-        self.mixins.update_one(recipe, slug)
+        group_recipes.update_image(slug)
 
         return asset_in
