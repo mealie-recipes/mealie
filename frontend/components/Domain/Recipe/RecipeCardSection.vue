@@ -414,15 +414,8 @@ export default defineNuxtComponent({
       loading.value = false;
     }
 
-    const seededQuery = computed(() => {
-      return {
-        ...props.query,
-        _searchSeed: Date.now().toString(),
-      };
-    });
-
     async function navigateRandom() {
-      const recipe = await getRandom(seededQuery.value, queryFilter.value);
+      const recipe = await getRandom(props.query, queryFilter.value);
       if (!recipe?.slug) {
         return;
       }
