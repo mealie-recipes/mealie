@@ -599,10 +599,10 @@
     "create-recipe-from-an-image": "Opret opskrift fra et billede",
     "create-recipe-from-an-image-description": "Opret en opskrift ved at overføre et billede af den. Mealie vil forsøge at udtrække teksten fra billedet med AI og oprette en opskrift fra det.",
     "crop-and-rotate-the-image": "Beskær og roter billedet, så kun teksten er synlig, og det vises i den rigtige retning.",
-    "create-from-images": "Create from Images",
+    "create-from-images": "Opret fra billede",
     "should-translate-description": "Oversæt opskriften til mit sprog",
     "please-wait-image-procesing": "Vent venligst, billedet behandles. Dette kan tage lidt tid.",
-    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
+    "please-wait-images-processing": "Vent venligst, billedet behandles. Dette kan tage lidt tid.",
     "bulk-url-import": "Import fra flere URL-adresser",
     "debug-scraper": "Fejlsøg indlæser",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Opret en opskrift ved at angive navnet. Alle opskrifter skal have unikke navne.",
@@ -662,9 +662,9 @@
     },
     "reset-servings-count": "Nulstil antal serveringer",
     "not-linked-ingredients": "Yderligere ingredienser",
-    "upload-another-image": "Upload another image",
-    "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-another-image": "Upload et andet billede",
+    "upload-images": "Upload billeder",
+    "upload-more-images": "Upload flere billeder"
   },
   "recipe-finder": {
     "recipe-finder": "Opskriftssøger",
@@ -724,7 +724,7 @@
       "backup-restore": "Backup / gendannelse",
       "back-restore-description": "Gendannelse af denne sikkerhedskopi vil overskrive alle de aktuelle data i din database og i datamappen og erstatte dem med indholdet af denne sikkerhedskopi. {cannot-be-undone} Hvis gendannelsen lykkes, vil du blive logget ud.",
       "cannot-be-undone": "Denne handling kan ikke fortrydes - brug med forsigtighed.",
-      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
+      "postgresql-note": "Hvis du bruger PostgreSQL, så gennemse venligst {backup-restore-process} før du gendanner.",
       "backup-restore-process-in-the-documentation": "backup/restoreproces i dokumentationen",
       "irreversible-acknowledgment": "Jeg forstår, at denne handling er irreversibel, destruktiv og kan forårsage tab af data",
       "restore-backup": "Gendan sikkerhedskopi"
