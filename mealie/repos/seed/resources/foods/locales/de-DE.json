@@ -6215,7 +6215,7 @@
             "dried chili": {
                 "aliases": [],
                 "description": "",
-                "name": "dried chili",
+                "name": "Getrocknete Chili",
                 "plural_name": "dried chilies"
             },
             "black cardamom": {
@@ -6245,8 +6245,8 @@
             "hot paprika": {
                 "aliases": [],
                 "description": "",
-                "name": "hot paprika",
-                "plural_name": "hot paprikas"
+                "name": "Scharfe Paprika",
+                "plural_name": "Scharfe Paprikas"
             },
             "lemon thyme": {
                 "aliases": [],
@@ -6371,14 +6371,14 @@
             "vietnamese mint": {
                 "aliases": [],
                 "description": "",
-                "name": "vietnamese mint",
+                "name": "Vietnamesische Minze",
                 "plural_name": "vietnamese mints"
             },
             "dried orange peel": {
                 "aliases": [],
                 "description": "",
-                "name": "dried orange peel",
-                "plural_name": "dried orange peels"
+                "name": "Getrocknete Orangenscheiben",
+                "plural_name": "Getrocknete Orangenscheiben"
             },
             "espelette pepper": {
                 "aliases": [],
@@ -6868,7 +6868,7 @@
             "mango syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "mango syrup",
+                "name": "Mango Sirup",
                 "plural_name": "mango syrups"
             },
             "malt syrup": {
@@ -7000,7 +7000,7 @@
             "chocolate sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate sugar",
+                "name": "Schokoladenzucker",
                 "plural_name": "chocolate sugars"
             },
             "flavored syrup": {
@@ -7118,7 +7118,7 @@
             "liquid smoke": {
                 "aliases": [],
                 "description": "",
-                "name": "liquid smoke",
+                "name": "flüssiger Rauch",
                 "plural_name": "liquid smokes"
             },
             "poultry seasoning": {
@@ -7665,7 +7665,7 @@
             "baking powder": {
                 "aliases": [],
                 "description": "",
-                "name": "baking powder",
+                "name": "Backpulver",
                 "plural_name": "baking powders"
             },
             "baking soda": {
@@ -7739,7 +7739,7 @@
             "gelatin": {
                 "aliases": [],
                 "description": "",
-                "name": "gelatin",
+                "name": "Gelatine",
                 "plural_name": "gelatins"
             },
             "pastry flour": {
@@ -15647,19 +15647,19 @@
             "pepsi": {
                 "aliases": [],
                 "description": "",
-                "name": "pepsi",
-                "plural_name": "pepsis"
+                "name": "Pepsi",
+                "plural_name": "Pepsis"
             },
             "cherry soda": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry soda",
-                "plural_name": "cherry sodas"
+                "name": "Kirschlimonade",
+                "plural_name": "Kirschlimonaden"
             },
             "peppermint tea": {
                 "aliases": [],
                 "description": "",
-                "name": "peppermint tea",
+                "name": "Pfefferminztee",
                 "plural_name": "peppermint teas"
             },
             "sports drink": {
@@ -15729,8 +15729,8 @@
             "protein powder": {
                 "aliases": [],
                 "description": "",
-                "name": "protein powder",
-                "plural_name": "protein powders"
+                "name": "Proteinpulver",
+                "plural_name": "Proteinpulver"
             },
             "lemon extract": {
                 "aliases": [],
@@ -16155,7 +16155,7 @@
             "vitamin d": {
                 "aliases": [],
                 "description": "",
-                "name": "vitamin d",
+                "name": "Vitamin D",
                 "plural_name": "vitamin ds"
             },
             "calcium lactate": {
@@ -16233,7 +16233,7 @@
             "thc": {
                 "aliases": [],
                 "description": "",
-                "name": "thc",
+                "name": "THC",
                 "plural_name": "thcs"
             },
             "berry powder": {
@@ -16299,7 +16299,7 @@
             "maltodextrin": {
                 "aliases": [],
                 "description": "",
-                "name": "maltodextrin",
+                "name": "Maltodextrin",
                 "plural_name": "maltodextrins"
             }
         }
