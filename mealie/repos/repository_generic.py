@@ -83,12 +83,11 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         else:
             return q
 
-    def _filter_builder(self, **kwargs) -> dict[str, Any]:
+    def _filter_builder(self, skip_household: bool = False, **kwargs) -> dict[str, Any]:
         dct = {}
-
         if self.group_id:
             dct["group_id"] = self.group_id
-        if self.household_id:
+        if self.household_id and not skip_household:
             dct["household_id"] = self.household_id
 
         return {**dct, **kwargs}
@@ -134,7 +133,9 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         result = self.session.execute(q).unique().scalars().all()
         return [eff_schema.model_validate(x) for x in result]
 
-    def _query_one(self, match_value: str | int | UUID4, match_key: str | None = None) -> Model:
+    def _query_one(
+        self, match_value: str | int | UUID4, match_key: str | None = None, skip_household: bool = False
+    ) -> Model:
         """
         Query the sql database for one item an return the sql alchemy model
         object. If no match key is provided the primary_key attribute will be used.
@@ -142,11 +143,16 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         if match_key is None:
             match_key = self.primary_key
 
-        fltr = self._filter_builder(**{match_key: match_value})
+        fltr = self._filter_builder(**{match_key: match_value}, skip_household=skip_household)
         return self.session.execute(self._query().filter_by(**fltr)).unique().scalars().one()
 
     def get_one(
-        self, value: str | int | UUID4, key: str | None = None, any_case=False, override_schema=None
+        self,
+        value: str | int | UUID4,
+        key: str | None = None,
+        any_case=False,
+        override_schema=None,
+        skip_household: str = False,
     ) -> Schema | None:
         key = key or self.primary_key
         eff_schema = override_schema or self.schema
@@ -155,9 +161,11 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
 
         if any_case:
             search_attr = getattr(self.model, key)
-            q = q.where(func.lower(search_attr) == str(value).lower()).filter_by(**self._filter_builder())
+            q = q.where(func.lower(search_attr) == str(value).lower()).filter_by(
+                **self._filter_builder(skip_household=skip_household)
+            )
         else:
-            q = q.filter_by(**self._filter_builder(**{key: value}))
+            q = q.filter_by(**self._filter_builder(**{key: value}, skip_household=skip_household))
 
         result = self.session.execute(q).unique().scalars().one_or_none()
 
@@ -195,7 +203,9 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
 
         return [self.schema.model_validate(x) for x in new_documents]
 
-    def update(self, match_value: str | int | UUID4, new_data: dict | BaseModel) -> Schema:
+    def update(
+        self, match_value: str | int | UUID4, new_data: dict | BaseModel, skip_household: bool = False
+    ) -> Schema:
         """Update a database entry.
         Args:
             session (Session): Database Session
@@ -207,7 +217,7 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         """
         new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
 
-        entry = self._query_one(match_value=match_value)
+        entry = self._query_one(match_value=match_value, skip_household=skip_household)
         entry.update(session=self.session, **new_data)
 
         self.session.commit()

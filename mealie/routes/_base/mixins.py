@@ -73,8 +73,8 @@ class HttpRepo[C: BaseModel, R: BaseModel, U: BaseModel]:
 
         return item
 
-    def get_one(self, item_id: int | str | UUID4, key: str | None = None) -> R:
-        item = self.repo.get_one(item_id, key)
+    def get_one(self, item_id: int | str | UUID4, key: str | None = None, skip_household: bool = False) -> R:
+        item = self.repo.get_one(item_id, key, skip_household=skip_household)
 
         if not item:
             raise HTTPException(
@@ -84,8 +84,8 @@ class HttpRepo[C: BaseModel, R: BaseModel, U: BaseModel]:
 
         return item
 
-    def update_one(self, data: U, item_id: int | str | UUID4) -> R:
-        item = self.repo.get_one(item_id)
+    def update_one(self, data: U, item_id: int | str | UUID4, skip_household: bool = False) -> R:
+        item = self.repo.get_one(item_id, skip_household=skip_household)
 
         if not item:
             raise HTTPException(
@@ -94,7 +94,7 @@ class HttpRepo[C: BaseModel, R: BaseModel, U: BaseModel]:
             )
 
         try:
-            item = self.repo.update(item_id, data)  # type: ignore
+            item = self.repo.update(item_id, data, skip_household=skip_household)  # type: ignore
         except Exception as ex:
             self.handle_exception(ex)
 
