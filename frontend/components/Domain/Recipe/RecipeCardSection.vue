@@ -417,7 +417,7 @@ export default defineNuxtComponent({
     const seededQuery = computed(() => {
       return {
         ...props.query,
-        _searchSeed: Date.now().toString()
+        _searchSeed: Date.now().toString(),
       };
     });
 
