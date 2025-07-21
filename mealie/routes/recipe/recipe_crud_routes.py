@@ -523,7 +523,8 @@ class RecipeController(BaseRecipeController):
 
     @router.put("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
     def update_recipe_image(self, slug: str, image: bytes = File(...), extension: str = Form(...)):
-        recipe = self.mixins.get_one(slug, skip_household=True)
+        self.repos.household_id = None
+        recipe = self.mixins.get_one(slug)
         data_service = RecipeDataService(recipe.id)
         data_service.write_image(image, extension)
 
@@ -540,7 +541,7 @@ class RecipeController(BaseRecipeController):
         file: UploadFile = File(...),
     ):
         """Upload a file to store as a recipe asset"""
-        skip_household = True
+        self.repos.household_id = None
         if "." in extension:
             extension = extension.split(".")[-1]
 
@@ -551,7 +552,7 @@ class RecipeController(BaseRecipeController):
         file_name = f"{file_slug}.{extension}"
         asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
 
-        recipe = self.mixins.get_one(slug, skip_household=skip_household)
+        recipe = self.mixins.get_one(slug)
 
         dest = recipe.asset_dir / file_name
 
@@ -568,9 +569,8 @@ class RecipeController(BaseRecipeController):
         if not dest.is_file():
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        recipe = self.mixins.get_one(slug, skip_household=skip_household)
         recipe.assets.append(asset_in)
 
-        self.mixins.update_one(recipe, slug, skip_household=skip_household)
+        self.mixins.update_one(recipe, slug)
 
         return asset_in
