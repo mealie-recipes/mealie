@@ -571,6 +571,6 @@ class RecipeController(BaseRecipeController):
 
         recipe.assets.append(asset_in)
 
-        group_recipes.update_image(slug)
+        group_recipes.update(slug, recipe)
 
         return asset_in
