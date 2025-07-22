@@ -47,7 +47,7 @@ export default defineComponent({
         emit("update:modelValue", parseEvent(event));
       }
       catch (e) {
-        console.log("JSON parsing failed: ", e)
+        console.log("JSON parsing failed: ", e);
       }
     }
     return {
