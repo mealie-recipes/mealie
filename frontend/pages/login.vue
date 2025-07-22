@@ -17,17 +17,21 @@
         <p class="mb-3">
           {{ $t('user.it-looks-like-this-is-your-first-time-logging-in') }}
         </p>
-        <p class="mb-1">
-          <strong>{{ $t('user.username') }}:</strong> changeme@example.com
-          <v-icon start size="smaller" @click="copy('email')">
-            {{ $globals.icons.clipboard }}
-          </v-icon>
+        <p class="mb-1 d-flex justify-start">
+          <strong>{{ $t('user.username') }}:</strong>&nbsp;changeme@example.com
+          <AppButtonCopy
+            copy-text="changeme@example.com"
+            color="info"
+            btn-class="ml-auto h-auto mr-2"
+          />
         </p>
-        <p class="mb-3">
-          <strong>{{ $t('user.password') }}:</strong> MyPassword
-          <v-icon start size="smaller" @click="copy('password')">
-            {{ $globals.icons.clipboard }}
-          </v-icon>
+        <p class="mb-3 d-flex justify-start">
+          <strong>{{ $t('user.password') }}: </strong>&nbsp;MyPassword
+          <AppButtonCopy
+            copy-text="MyPassword"
+            color="info"
+            btn-class="ml-auto h-auto mr-2"
+          />
         </p>
         <p>
           {{ $t('user.dont-want-to-see-this-anymore-be-sure-to-change-your-email') }}
@@ -331,22 +335,6 @@ export default defineNuxtComponent({
       }
     }
 
-    async function copy(thingToCopy: "email" | "password") {
-      try {
-        if (thingToCopy === "email") {
-          await navigator.clipboard.writeText("changeme@example.com");
-          form.email = "changeme@example.com";
-        }
-        else {
-          await navigator.clipboard.writeText("MyPassword");
-          form.password = "MyPassword";
-        }
-      }
-      catch (err) {
-        console.log(err);
-      }
-    };
-
     async function authenticate() {
       if (form.email.length === 0 || form.password.length === 0) {
         alert.error(i18n.t("user.please-enter-your-email-and-password"));
@@ -398,7 +386,6 @@ export default defineNuxtComponent({
       oidcProviderName,
       oidcLoggingIn,
       passwordIcon,
-      copy,
       inputType,
       togglePasswordShow,
       isFirstLogin,
