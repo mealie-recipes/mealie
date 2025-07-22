@@ -4237,7 +4237,7 @@
             "dried beef": {
                 "aliases": [],
                 "description": "",
-                "name": "dried beef",
+                "name": "Getrocknetes Rindfleisch",
                 "plural_name": "dried beefs"
             },
             "gammon joint": {
@@ -4511,8 +4511,8 @@
             "smoked chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked chicken",
-                "plural_name": "smoked chickens"
+                "name": "Geräuchertes Hähnchen",
+                "plural_name": "Geräucherte Hähnchen"
             },
             "turkey leg": {
                 "aliases": [],
@@ -4631,8 +4631,8 @@
             "crispy chicken strip": {
                 "aliases": [],
                 "description": "",
-                "name": "crispy chicken strip",
-                "plural_name": "crispy chicken strips"
+                "name": "Knuspriger Hühnerstreifen",
+                "plural_name": "Knusprige Hühnerstreifen"
             },
             "ostrich": {
                 "aliases": [],
@@ -5999,8 +5999,8 @@
             "cracked pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "cracked pepper",
-                "plural_name": "cracked peppers"
+                "name": "Gemahlener Pfeffer",
+                "plural_name": "Gemahlener Pfeffer"
             },
             "peppercorn": {
                 "aliases": [],
@@ -6209,20 +6209,20 @@
             "black mustard seed": {
                 "aliases": [],
                 "description": "",
-                "name": "black mustard seed",
-                "plural_name": "black mustard seeds"
+                "name": "Schwarzer Senfsamen",
+                "plural_name": "Schwarze Senfsamen"
             },
             "dried chili": {
                 "aliases": [],
                 "description": "",
                 "name": "Getrocknete Chili",
-                "plural_name": "dried chilies"
+                "plural_name": "Getrocknete Chilis"
             },
             "black cardamom": {
                 "aliases": [],
                 "description": "",
-                "name": "black cardamom",
-                "plural_name": "black cardamoms"
+                "name": "Schwarzer Kardamom",
+                "plural_name": "Schwarzer Kardamom"
             },
             "saffron strand": {
                 "aliases": [],
@@ -6269,8 +6269,8 @@
             "dried cilantro": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cilantro",
-                "plural_name": "dried cilantros"
+                "name": "Getrockneter Koriander",
+                "plural_name": "Getrockneter Koriander"
             },
             "lemon balm": {
                 "aliases": [],
@@ -6281,26 +6281,26 @@
             "dill seed": {
                 "aliases": [],
                 "description": "",
-                "name": "dill seed",
-                "plural_name": "dill seeds"
+                "name": "Dill Samen",
+                "plural_name": "Dill Samen"
             },
             "green peppercorn": {
                 "aliases": [],
                 "description": "",
-                "name": "green peppercorn",
-                "plural_name": "green peppercorns"
+                "name": "Grünes Pfefferkorn",
+                "plural_name": "Grüne Pfefferkörner"
             },
             "aleppo pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "aleppo pepper",
-                "plural_name": "aleppo peppers"
+                "name": "Aleppo Chili",
+                "plural_name": "Aleppo Chilis"
             },
             "wasabi powder": {
                 "aliases": [],
                 "description": "",
-                "name": "wasabi powder",
-                "plural_name": "wasabi powders"
+                "name": "Wasabi Pulver",
+                "plural_name": "Wasabi Pulver"
             },
             "achiote seed": {
                 "aliases": [],
@@ -6359,8 +6359,8 @@
             "black cumin": {
                 "aliases": [],
                 "description": "",
-                "name": "black cumin",
-                "plural_name": "black cumins"
+                "name": "Schwarzkümmel",
+                "plural_name": "Schwarzkümmel"
             },
             "anardana": {
                 "aliases": [],
@@ -6372,7 +6372,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Vietnamesische Minze",
-                "plural_name": "vietnamese mints"
+                "plural_name": "Vietnamesische Minze"
             },
             "dried orange peel": {
                 "aliases": [],
@@ -7040,8 +7040,8 @@
             "italian seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "italian seasoning",
-                "plural_name": "italian seasonings"
+                "name": "Italienische Kräuter",
+                "plural_name": "Italienische Kräuter"
             },
             "ranch dressing packet": {
                 "aliases": [],
@@ -7106,8 +7106,8 @@
             "himalayan salt": {
                 "aliases": [],
                 "description": "",
-                "name": "himalayan salt",
-                "plural_name": "himalayan salts"
+                "name": "Himalaya Salz",
+                "plural_name": "Himalaya Salz"
             },
             "lemon & pepper seasoning": {
                 "aliases": [],
@@ -7136,8 +7136,8 @@
             "red curry": {
                 "aliases": [],
                 "description": "",
-                "name": "red curry",
-                "plural_name": "red curries"
+                "name": "Rote Currypaste",
+                "plural_name": "Rote Currypaste"
             },
             "old bay seasoning": {
                 "aliases": [],
@@ -7196,8 +7196,8 @@
             "green curry": {
                 "aliases": [],
                 "description": "",
-                "name": "green curry",
-                "plural_name": "green curries"
+                "name": "Grüne Currypaste",
+                "plural_name": "Grüne Currypaste"
             },
             "barbecue seasoning": {
                 "aliases": [],
@@ -7226,8 +7226,8 @@
             "all-purpose seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "all-purpose seasoning",
-                "plural_name": "all-purpose seasonings"
+                "name": "Allzweck Gewürz",
+                "plural_name": "Allzweck Gewürze"
             },
             "seafood seasoning": {
                 "aliases": [],
@@ -7298,8 +7298,8 @@
             "msg": {
                 "aliases": [],
                 "description": "",
-                "name": "msg",
-                "plural_name": "msgs"
+                "name": "Glutamat",
+                "plural_name": "Glutamat"
             },
             "teriyaki marinade": {
                 "aliases": [],
@@ -7322,8 +7322,8 @@
             "smoked salt": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked salt",
-                "plural_name": "smoked salts"
+                "name": "Räuchersalz",
+                "plural_name": "Räuchersalz"
             },
             "dash seasoning": {
                 "aliases": [],
@@ -7655,11 +7655,11 @@
             },
             "vanilla extract": {
                 "aliases": [
-                    "vanilla",
+                    "Vanille",
                     "vanillas"
                 ],
                 "description": "",
-                "name": "vanilla extract",
+                "name": "Vanille Extrakt",
                 "plural_name": "vanilla extracts"
             },
             "baking powder": {
@@ -8004,8 +8004,8 @@
             "coffee bean": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee bean",
-                "plural_name": "coffee beans"
+                "name": "Kaffeebohne",
+                "plural_name": "Kaffeebohnen"
             },
             "toffee bit": {
                 "aliases": [],
@@ -9110,8 +9110,8 @@
             "black bean": {
                 "aliases": [],
                 "description": "",
-                "name": "black bean",
-                "plural_name": "black beans"
+                "name": "Schwarze Bohne",
+                "plural_name": "Schwarze Bohnen"
             },
             "kidney bean": {
                 "aliases": [],
@@ -10078,14 +10078,14 @@
             "tortilla chip": {
                 "aliases": [],
                 "description": "",
-                "name": "tortilla chip",
-                "plural_name": "tortilla chips"
+                "name": "Tortilla Chip",
+                "plural_name": "Tortilla Chips"
             },
             "pita": {
                 "aliases": [],
                 "description": "",
-                "name": "pita",
-                "plural_name": "pitas"
+                "name": "Pita Brot",
+                "plural_name": "Pita Brote"
             },
             "pretzel": {
                 "aliases": [],
@@ -10186,8 +10186,8 @@
             "taco shell": {
                 "aliases": [],
                 "description": "",
-                "name": "taco shell",
-                "plural_name": "taco shells"
+                "name": "Taco Schale",
+                "plural_name": "Taco Schalen"
             },
             "tater tot": {
                 "aliases": [],
