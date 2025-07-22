@@ -151,6 +151,7 @@ import {
   mdiKnife,
   mdiCookie,
   mdiBellPlus,
+  mdiLinkVariantPlus,
 } from "@mdi/js";
 
 export const icons = {
@@ -236,6 +237,7 @@ export const icons = {
   informationOutline: mdiInformationOutline,
   informationVariant: mdiInformationVariant,
   link: mdiLink,
+  linkVariantPlus: mdiLinkVariantPlus,
   lock: mdiLock,
   logout: mdiLogout,
   menu: mdiMenu,

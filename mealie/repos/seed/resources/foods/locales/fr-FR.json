@@ -511,14 +511,14 @@
             "baby corn": {
                 "aliases": [],
                 "description": "",
-                "name": "baby corn",
-                "plural_name": "baby corns"
+                "name": "bébé maïs",
+                "plural_name": "bébés maïs"
             },
             "broccoli rabe": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli rabe",
-                "plural_name": "broccoli rabes"
+                "name": "brocoli-rave",
+                "plural_name": "brocoli-raves"
             },
             "rutabaga": {
                 "aliases": [],
@@ -577,8 +577,8 @@
             "frisee": {
                 "aliases": [],
                 "description": "",
-                "name": "frisee",
-                "plural_name": "frisees"
+                "name": "frisée",
+                "plural_name": "frisées"
             },
             "anaheim pepper": {
                 "aliases": [],
@@ -1257,8 +1257,8 @@
             "wild mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "wild mushroom",
-                "plural_name": "wild mushrooms"
+                "name": "champignon sauvage",
+                "plural_name": "champignons sauvages"
             },
             "porcini": {
                 "aliases": [],
