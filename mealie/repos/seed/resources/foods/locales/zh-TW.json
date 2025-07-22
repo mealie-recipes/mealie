@@ -4,8 +4,8 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic",
-                "plural_name": "garlics"
+                "name": "大蒜",
+                "plural_name": "大蒜"
             },
             "onion": {
                 "aliases": [],
@@ -138,7 +138,7 @@
             "pumpkin": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin",
+                "name": "南瓜",
                 "plural_name": "pumpkins"
             },
             "cauliflower": {
