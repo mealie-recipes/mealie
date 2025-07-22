@@ -4165,20 +4165,20 @@
             "raw chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "raw chorizo",
-                "plural_name": "raw chorizoes"
+                "name": "צוריסו נא",
+                "plural_name": "צוריסוים נאים"
             },
             "beef liver": {
                 "aliases": [],
                 "description": "",
-                "name": "beef liver",
-                "plural_name": "beef livers"
+                "name": "כבד בקר",
+                "plural_name": "כבדי בקר"
             },
             "pastrami": {
                 "aliases": [],
                 "description": "",
-                "name": "pastrami",
-                "plural_name": "pastramis"
+                "name": "פסטרמה",
+                "plural_name": "פסטרמה"
             },
             "cocktail sausage": {
                 "aliases": [],
@@ -4327,8 +4327,8 @@
             "beef shoulder": {
                 "aliases": [],
                 "description": "",
-                "name": "beef shoulder",
-                "plural_name": "beef shoulders"
+                "name": "כתף בקר",
+                "plural_name": "כתפי בקר"
             },
             "steak tip": {
                 "aliases": [],
@@ -4373,26 +4373,26 @@
             "whole chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "whole chicken",
-                "plural_name": "whole chickens"
+                "name": "עוף שלם",
+                "plural_name": "עופות שלמים"
             },
             "whole turkey": {
                 "aliases": [],
                 "description": "",
-                "name": "whole turkey",
-                "plural_name": "whole turkeys"
+                "name": "הודו שלם",
+                "plural_name": "הודו שלמים"
             },
             "chicken leg": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken leg",
-                "plural_name": "chicken legs"
+                "name": "רגל עוף",
+                "plural_name": "רגלי עוף"
             },
             "chicken wing": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken wing",
-                "plural_name": "chicken wings"
+                "name": "כנף עוף",
+                "plural_name": "כנפי עוף"
             },
             "turkey breast": {
                 "aliases": [],
@@ -4445,20 +4445,20 @@
             "duck breast": {
                 "aliases": [],
                 "description": "",
-                "name": "duck breast",
-                "plural_name": "duck breasts"
+                "name": "חזה ברווז",
+                "plural_name": "חזה ברווז"
             },
             "boneless chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "boneless chicken",
-                "plural_name": "boneless chickens"
+                "name": "פרגית",
+                "plural_name": "פרגיות"
             },
             "chicken liver": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken liver",
-                "plural_name": "chicken livers"
+                "name": "כבד עוף",
+                "plural_name": "כבדי עוף"
             },
             "cornish hen": {
                 "aliases": [],
@@ -4481,14 +4481,14 @@
             "turkey meat": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey meat",
-                "plural_name": "turkey meats"
+                "name": "בשר הודו",
+                "plural_name": "בשר הודו"
             },
             "chicken quarter": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken quarter",
-                "plural_name": "chicken quarters"
+                "name": "רבע עוף",
+                "plural_name": "רבעי עוף"
             },
             "ground turkey sausage": {
                 "aliases": [],
@@ -4511,8 +4511,8 @@
             "smoked chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked chicken",
-                "plural_name": "smoked chickens"
+                "name": "עוף מעושן",
+                "plural_name": "עופות מעושנים"
             },
             "turkey leg": {
                 "aliases": [],
@@ -4529,8 +4529,8 @@
             "goose": {
                 "aliases": [],
                 "description": "",
-                "name": "goose",
-                "plural_name": "geese"
+                "name": "אווז",
+                "plural_name": "אווזים"
             },
             "turkey pepperoni": {
                 "aliases": [],
