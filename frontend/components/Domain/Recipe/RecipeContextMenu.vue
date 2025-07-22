@@ -12,7 +12,12 @@
       @confirm="deleteRecipe()"
     >
       <v-card-text>
-        {{ $t("recipe.delete-confirmation") }}
+        <template v-if="isAdminAndNotOwner">
+          {{ $t("recipe.admin-delete-confirmation") }}
+        </template>
+        <template v-else>
+          {{ $t("recipe.delete-confirmation") }}
+        </template>
       </v-card-text>
     </BaseDialog>
     <BaseDialog
@@ -359,16 +364,6 @@ export default defineNuxtComponent({
       },
     };
 
-    // Get Default Menu Items Specified in Props
-    for (const [key, value] of Object.entries(props.useItems)) {
-      if (value) {
-        const item = defaultItems[key];
-        if (item && (item.isPublic || isOwnGroup.value)) {
-          state.menuItems.push(item);
-        }
-      }
-    }
-
     // Add leading and Appending Items
     state.menuItems = [...state.menuItems, ...props.leadingItems, ...props.appendItems];
 
@@ -382,6 +377,30 @@ export default defineNuxtComponent({
     const recipeRefWithScale = computed(() =>
       recipeRef.value ? { scale: props.recipeScale, ...recipeRef.value } : undefined,
     );
+    const isAdminAndNotOwner = computed(() => {
+      return (
+        $auth.user.value?.admin
+        && $auth.user.value?.id !== recipeRef.value?.userId
+      );
+    });
+    const canDelete = computed(() => {
+      const user = $auth.user.value;
+      const recipe = recipeRef.value;
+      return user && recipe && (user.admin || user.id === recipe.userId);
+    });
+
+    // Get Default Menu Items Specified in Props
+    for (const [key, value] of Object.entries(props.useItems)) {
+      if (!value) continue;
+
+      // Skip delete if not allowed
+      if (key === "delete" && !canDelete.value) continue;
+
+      const item = defaultItems[key];
+      if (item && (item.isPublic || isOwnGroup.value)) {
+        state.menuItems.push(item);
+      }
+    }
 
     async function getShoppingLists() {
       const { data } = await api.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
@@ -521,6 +540,8 @@ export default defineNuxtComponent({
       icon,
       planTypeOptions,
       firstDayOfWeek,
+      isAdminAndNotOwner,
+      canDelete,
     };
   },
 });
