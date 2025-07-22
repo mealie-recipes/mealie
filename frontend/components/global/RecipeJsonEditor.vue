@@ -31,23 +31,24 @@ export default defineComponent({
       if (!event) {
         return {};
       }
-      try {
-        if (event.json) {
-          return event.json;
-        }
-        else if (event.text) {
-          return JSON.parse(event.text);
-        }
-        else {
-          return event;
-        }
+
+      if (event.json) {
+        return event.json;
       }
-      catch {
-        return {};
+      else if (event.text) {
+        return JSON.parse(event.text);
+      }
+      else {
+        return event;
       }
     }
     function onChange(event: any) {
-      emit("update:modelValue", parseEvent(event));
+      try {
+        emit("update:modelValue", parseEvent(event));
+      }
+      catch (e) {
+        console.log("JSON parsing failed: ", e)
+      }
     }
     return {
       onChange,
