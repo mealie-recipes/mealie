@@ -300,8 +300,8 @@ export default defineNuxtComponent({
 
     const queryDefaults = {
       search: "",
-      orderBy: "created_at",
-      orderDirection: "desc" as "asc" | "desc",
+      orderBy: "name",
+      orderDirection: "asc",
       requireAllCategories: false,
       requireAllTags: false,
       requireAllTools: false,
