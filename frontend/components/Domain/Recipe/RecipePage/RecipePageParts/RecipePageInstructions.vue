@@ -34,7 +34,6 @@
             :key="ing.referenceId"
             v-model="activeRefs"
             :value="ing.referenceId"
-            class="mb-n2 mt-n2"
           >
             <template #label>
               <RecipeIngredientHtml :markup="parseIngredientText(ing, recipe.settings.disableAmount)" />
@@ -50,7 +49,6 @@
               :key="ing.referenceId"
               v-model="activeRefs"
               :value="ing.referenceId"
-              class="mb-n2 mt-n2"
             >
               <template #label>
                 <RecipeIngredientHtml :markup="parseIngredientText(ing, recipe.settings.disableAmount)" />
