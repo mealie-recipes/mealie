@@ -374,7 +374,7 @@ class RecipeController(BaseRecipeController):
         If you wish to update parts of the recipe only, use a PATCH request to this route
         """
         try:
-            recipe = self.service.update_one(slug, data, strict=True)
+            recipe = self.service.update_one(slug, data)
         except Exception as e:
             self.handle_exceptions(e)
 
@@ -399,7 +399,7 @@ class RecipeController(BaseRecipeController):
             lambda: defaultdict(list)
         )
         for recipe in data:
-            r = self.service.update_one(recipe.id, recipe, strict=True)  # type: ignore
+            r = self.service.update_one(recipe.id, recipe)  # type: ignore
             updated_by_group_and_household[r.group_id][r.household_id].append(r)
 
         all_updated: list[Recipe] = []

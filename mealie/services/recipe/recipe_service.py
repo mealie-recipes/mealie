@@ -402,15 +402,15 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
-    def update_one(self, slug_or_id: str | UUID, update_data: Recipe, strict: bool) -> Recipe:
-        recipe = self._pre_update_check(slug_or_id, update_data, strict)
+    def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
+        recipe = self._pre_update_check(slug_or_id, update_data, True)
 
         new_data = self.group_recipes.update(recipe.slug, update_data)
         self.check_assets(new_data, recipe.slug)
         return new_data
 
     def patch_one(self, slug_or_id: str | UUID, patch_data: Recipe) -> Recipe:
-        recipe: Recipe = self._pre_update_check(slug_or_id, patch_data)
+        recipe: Recipe = self._pre_update_check(slug_or_id, patch_data, False)
 
         new_data = self.group_recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
 
