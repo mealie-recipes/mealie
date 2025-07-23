@@ -47,8 +47,10 @@ class UserLockedOut(Exception): ...
 
 class MissingClaimException(Exception): ...
 
+
 class IncompleteData(Exception):
     """
     This exception is raised when a user sends incomplete data to the API
     """
+
     pass

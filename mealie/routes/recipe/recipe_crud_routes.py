@@ -86,7 +86,10 @@ class RecipeController(BaseRecipeController):
             raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No Entry Found"))
         elif thrownType == exceptions.IncompleteData:
             self.logger.error("Incomplete data provided to API route")
-            raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Some data were missing on the body of this API request"))
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond(message="Some data were missing on the body of this API request"),
+            )
         elif thrownType == sqlalchemy.exc.IntegrityError:
             self.logger.error("SQL Integrity Error on recipe controller action")
             raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Recipe already exists"))
@@ -364,11 +367,11 @@ class RecipeController(BaseRecipeController):
     @router.put("/{slug}")
     def update_one(self, slug: str, data: Recipe):
         """
-            Updates a recipe by existing slug and data.
+        Updates a recipe by existing slug and data.
 
-            Requires all the fields of the recipe to be passed in the body
+        Requires all the fields of the recipe to be passed in the body
 
-            If you wish to update parts of the recipe only, use a PATCH request to this route
+        If you wish to update parts of the recipe only, use a PATCH request to this route
         """
         try:
             recipe = self.service.update_one(slug, data, strict=True)
