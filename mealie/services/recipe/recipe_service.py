@@ -36,6 +36,7 @@ from mealie.services.scraper import cleaner
 
 from .template_service import TemplateService
 
+POSSIBLE_NONE_FIELDS = [ "image" ]
 
 class RecipeServiceBase(BaseService):
     def __init__(self, repos: AllRepositories, user: PrivateUser, household: HouseholdInDB, translator: Translator):
@@ -387,6 +388,9 @@ class RecipeService(RecipeServiceBase):
 
         if strict:
             for field in new_data.__class__.model_fields:
+                if field in POSSIBLE_NONE_FIELDS:
+                    continue
+
                 if getattr(new_data, field) is None:
                     raise exceptions.IncompleteData(f"Incomplete recipe, missing {field}")
 
