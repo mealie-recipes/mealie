@@ -84,6 +84,9 @@ class RecipeController(BaseRecipeController):
         elif thrownType == exceptions.NoEntryFound:
             self.logger.error("No Entry Found on recipe controller action")
             raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No Entry Found"))
+        elif thrownType == exceptions.IncompleteData:
+            self.logger.error("Incomplete data provided to API route")
+            raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Some data were missing on the body of this API request"))
         elif thrownType == sqlalchemy.exc.IntegrityError:
             self.logger.error("SQL Integrity Error on recipe controller action")
             raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Recipe already exists"))
@@ -360,9 +363,15 @@ class RecipeController(BaseRecipeController):
 
     @router.put("/{slug}")
     def update_one(self, slug: str, data: Recipe):
-        """Updates a recipe by existing slug and data."""
+        """
+            Updates a recipe by existing slug and data.
+
+            Requires all the fields of the recipe to be passed in the body
+
+            If you wish to update parts of the recipe only, use a PATCH request to this route
+        """
         try:
-            recipe = self.service.update_one(slug, data)
+            recipe = self.service.update_one(slug, data, strict=True)
         except Exception as e:
             self.handle_exceptions(e)
 
@@ -387,7 +396,7 @@ class RecipeController(BaseRecipeController):
             lambda: defaultdict(list)
         )
         for recipe in data:
-            r = self.service.update_one(recipe.id, recipe)  # type: ignore
+            r = self.service.update_one(recipe.id, recipe, strict=True)  # type: ignore
             updated_by_group_and_household[r.group_id][r.household_id].append(r)
 
         all_updated: list[Recipe] = []

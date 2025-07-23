@@ -364,7 +364,7 @@ class RecipeService(RecipeServiceBase):
 
         return new_recipe
 
-    def _pre_update_check(self, slug_or_id: str | UUID, new_data: Recipe) -> Recipe:
+    def _pre_update_check(self, slug_or_id: str | UUID, new_data: Recipe, strict: bool) -> Recipe:
         """
         gets the recipe from the database and performs a check to see if the user can update the recipe.
         If the user can't update the recipe, an exception is raised.
@@ -377,12 +377,18 @@ class RecipeService(RecipeServiceBase):
         Args:
             slug_or_id (str | UUID): recipe slug or id
             new_data (Recipe): the new recipe data
+            strict: if the data provided must contain ALL fields, or can be incomplete
 
         Raises:
             exceptions.PermissionDenied (403)
         """
 
         recipe = self.get_one(slug_or_id)
+
+        if strict:
+            for field in new_data.__class__.model_fields:
+                if getattr(new_data, field) is None:
+                    raise exceptions.IncompleteData("Incomplete recipe")
 
         if recipe is None or recipe.settings is None:
             raise exceptions.NoEntryFound("Recipe not found.")
@@ -396,8 +402,8 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
-    def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
-        recipe = self._pre_update_check(slug_or_id, update_data)
+    def update_one(self, slug_or_id: str | UUID, update_data: Recipe, strict: bool) -> Recipe:
+        recipe = self._pre_update_check(slug_or_id, update_data, strict)
 
         new_data = self.group_recipes.update(recipe.slug, update_data)
         self.check_assets(new_data, recipe.slug)
