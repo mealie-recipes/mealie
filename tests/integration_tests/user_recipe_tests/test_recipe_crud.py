@@ -470,6 +470,11 @@ def test_read_update(
     assert response.status_code == 200
     assert json.loads(response.text).get("slug") == recipe_data.expected_slug
 
+    recipe_incomplete = recipe.copy()
+    del recipe_incomplete["notes"]
+    response = api_client.put(recipe_url, json=utils.jsonify(recipe_incomplete), headers=unique_user.token)
+    assert response.status_code == 400
+
     response = api_client.get(recipe_url, headers=unique_user.token)
     assert response.status_code == 200
     recipe = json.loads(response.text)

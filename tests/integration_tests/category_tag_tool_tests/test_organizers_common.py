@@ -175,7 +175,7 @@ def test_organizer_association(
     ]
 
     # Update Recipe
-    response = api_client.put(api_routes.recipes_slug(slug), json=as_json, headers=unique_user.token)
+    response = api_client.patch(api_routes.recipes_slug(slug), json=as_json, headers=unique_user.token)
     assert response.status_code == 200
 
     # Get Recipe Data
@@ -223,7 +223,7 @@ def test_organizer_get_by_slug(
             {"id": item["id"], "group_id": unique_user.group_id, "name": item["name"], "slug": item["slug"]}
         ]
 
-        response = api_client.put(api_routes.recipes_slug(slug), json=as_json, headers=unique_user.token)
+        response = api_client.patch(api_routes.recipes_slug(slug), json=as_json, headers=unique_user.token)
         assert response.status_code == 200
 
     # Get Organizer by Slug
