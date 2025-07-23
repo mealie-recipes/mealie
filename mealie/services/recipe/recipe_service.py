@@ -388,7 +388,7 @@ class RecipeService(RecipeServiceBase):
         if strict:
             for field in new_data.__class__.model_fields:
                 if getattr(new_data, field) is None:
-                    raise exceptions.IncompleteData("Incomplete recipe")
+                    raise exceptions.IncompleteData(f"Incomplete recipe, missing {field}")
 
         if recipe is None or recipe.settings is None:
             raise exceptions.NoEntryFound("Recipe not found.")

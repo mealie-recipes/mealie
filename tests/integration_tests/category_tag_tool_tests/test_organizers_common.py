@@ -109,6 +109,7 @@ def test_organizer_update(
             item[key] = update_data[key]
 
     response = api_client.put(route.item(item_id), json=item, headers=unique_user.token)
+    print(response)
     assert response.status_code == 200
 
     response = api_client.get(route.item(item_id), headers=unique_user.token)
