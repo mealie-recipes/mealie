@@ -52,5 +52,6 @@ class IncompleteData(Exception):
     """
     This exception is raised when a user sends incomplete data to the API
     """
-
-    pass
+    def __init__(self, missing, *args, **kwargs):
+        Exception.__init__(*args, **kwargs):
+        self.missing = missing
