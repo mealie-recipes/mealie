@@ -54,5 +54,5 @@ class IncompleteData(Exception):
     """
 
     def __init__(self, missing, *args, **kwargs):
-        Exception.__init__(*args, **kwargs)
-        self.missing = missing
+        Exception.__init__(self, *args, **kwargs)
+        self.__context__["missing"] = missing
