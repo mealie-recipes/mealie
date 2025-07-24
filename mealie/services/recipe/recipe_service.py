@@ -36,7 +36,15 @@ from mealie.services.scraper import cleaner
 
 from .template_service import TemplateService
 
-POSSIBLE_NONE_FIELDS = ["image", "recipe_yield"]
+MANDATORY_FIELDS = [
+    "name",
+    "user_id",
+    "household_id",
+    "group_id",
+    "tags",
+    "recipe_ingredient",
+    "recipe_instructions",
+]
 
 
 class RecipeServiceBase(BaseService):
@@ -140,6 +148,7 @@ class RecipeService(RecipeServiceBase):
         if not additional_attrs.get("recipe_instructions"):
             additional_attrs["recipe_instructions"] = [RecipeStep(text=self.t("recipe.recipe-defaults.step-text"))]
 
+        assert all(f in additional_attrs for f in MANDATORY_FIELDS)
         return Recipe(**additional_attrs)
 
     def get_one(self, slug_or_id: str | UUID) -> Recipe:
@@ -389,10 +398,7 @@ class RecipeService(RecipeServiceBase):
 
         if strict:
             for field in new_data.__class__.model_fields:
-                if field in POSSIBLE_NONE_FIELDS:
-                    continue
-
-                if getattr(new_data, field) is None:
+                if field in MANDATORY_FIELDS and getattr(new_data, field) is None:
                     raise exceptions.IncompleteData("Incomplete recipe", field)
 
         if recipe is None or recipe.settings is None:
