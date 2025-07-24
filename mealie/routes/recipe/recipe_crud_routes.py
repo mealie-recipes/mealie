@@ -85,10 +85,11 @@ class RecipeController(BaseRecipeController):
             self.logger.error("No Entry Found on recipe controller action")
             raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No Entry Found"))
         elif thrownType == exceptions.IncompleteData:
-            self.logger.error("Incomplete data provided to API route:", ex.missing)
+            missing = ex.__context__["missing"]
+            self.logger.error("Incomplete data provided to API route:", missing)
             raise HTTPException(
                 status_code=400,
-                detail=ErrorResponse.respond(message=f"Field '{ex.missing}' missing on the body of this API request"),
+                detail=ErrorResponse.respond(message=f"Field '{missing}' missing on the body of this API request"),
             )
         elif thrownType == sqlalchemy.exc.IntegrityError:
             self.logger.error("SQL Integrity Error on recipe controller action")
