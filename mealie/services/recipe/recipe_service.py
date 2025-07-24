@@ -41,7 +41,6 @@ MANDATORY_FIELDS = [
     "user_id",
     "household_id",
     "group_id",
-    "tags",
     "recipe_ingredient",
     "recipe_instructions",
 ]
