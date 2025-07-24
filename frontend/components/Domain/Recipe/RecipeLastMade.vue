@@ -3,6 +3,7 @@
     <div>
       <BaseDialog
         v-model="madeThisDialog"
+        :loading="madeThisFormLoading"
         :icon="$globals.icons.chefHat"
         :title="$t('recipe.made-this')"
         :submit-text="$t('recipe.add-to-timeline')"
@@ -196,11 +197,13 @@ export default defineNuxtComponent({
       newTimelineEventImagePreviewUrl.value = URL.createObjectURL(fileObject);
     }
 
-    const state = reactive({ datePickerMenu: false });
+    const state = reactive({ datePickerMenu: false, madeThisFormLoading: false });
     async function createTimelineEvent() {
       if (!(newTimelineEventTimestampString.value && props.recipe?.id && props.recipe?.slug)) {
         return;
       }
+
+      state.madeThisFormLoading = true;
 
       newTimelineEvent.value.recipeId = props.recipe.id;
       // Note: $auth.user is now a ref
@@ -236,6 +239,7 @@ export default defineNuxtComponent({
       newTimelineEvent.value.timestamp = undefined;
       clearImage();
       madeThisDialog.value = false;
+      state.madeThisFormLoading = false;
       domMadeThisForm.value?.reset();
 
       context.emit("eventCreated", newEvent);
