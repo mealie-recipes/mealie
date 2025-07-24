@@ -251,7 +251,7 @@
             },
             "summer squash": {
                 "aliases": [
-                    "courgette",
+                    "קישוא",
                     "דלעת פנינה"
                 ],
                 "description": "",
@@ -368,7 +368,7 @@
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "עלים סינים"
                 ],
                 "description": "",
                 "name": "כרוב סיני",
@@ -484,7 +484,7 @@
             },
             "corn husk": {
                 "aliases": [
-                    "maize"
+                    "תירס"
                 ],
                 "description": "",
                 "name": "קליפת תירס",
@@ -1365,8 +1365,8 @@
             "pioppini": {
                 "aliases": [],
                 "description": "",
-                "name": "pioppini",
-                "plural_name": "pioppinis"
+                "name": "פטריית פיופיני",
+                "plural_name": "פטריות פיופיני"
             },
             "snow fungu": {
                 "aliases": [],
@@ -1425,26 +1425,26 @@
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungu",
-                "plural_name": "honey fungus"
+                "name": "פטריית דבש",
+                "plural_name": "פטריות דבש"
             },
             "caesar's mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "caesar's mushroom",
-                "plural_name": "caesar's mushrooms"
+                "name": "פטריית קיסר",
+                "plural_name": "פטריות קיסר"
             },
             "candy cap mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "candy cap mushroom",
-                "plural_name": "candy cap mushrooms"
+                "name": "פטריית קנדי קאפ",
+                "plural_name": "פטריות קנדי קאפ"
             },
             "lion’s mane mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "lion’s mane mushroom",
-                "plural_name": "lion’s mane mushrooms"
+                "name": "פטריית רעמת האריה",
+                "plural_name": "פטריות רעמת האריה"
             }
         }
     },
@@ -1453,26 +1453,26 @@
             "strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry",
-                "plural_name": "strawberries"
+                "name": "תות שדה",
+                "plural_name": "תותי שדה"
             },
             "blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry",
-                "plural_name": "blueberries"
+                "name": "אוכמנית",
+                "plural_name": "אוכמניות"
             },
             "raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry",
-                "plural_name": "raspberries"
+                "name": "פטל",
+                "plural_name": "פטל"
             },
             "cranberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry",
-                "plural_name": "cranberries"
+                "name": "חמוצית",
+                "plural_name": "חמוציות"
             },
             "cherry": {
                 "aliases": [],
@@ -1483,20 +1483,20 @@
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
-                "plural_name": "blackberries"
+                "name": "אוסנה",
+                "plural_name": "אוסניות"
             },
             "berry mix": {
                 "aliases": [],
                 "description": "",
-                "name": "berry mix",
-                "plural_name": "berry mixes"
+                "name": "תערובת פירות יער",
+                "plural_name": "תערובות פירות יער"
             },
             "maraschino cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "maraschino cherry",
-                "plural_name": "maraschino cherries"
+                "name": "דובדבן מרסקינו",
+                "plural_name": "דובדבני מרסקינו"
             },
             "dried cherry": {
                 "aliases": [],
@@ -1507,206 +1507,206 @@
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "ערער",
+                "plural_name": "ערערים"
             },
             "sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cherry",
-                "plural_name": "sour cherries"
+                "name": "דובדבן חמוץ",
+                "plural_name": "דובדבנים חמוצים"
             },
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
-                "plural_name": "goji berries"
+                "name": "גוג'י ברי",
+                "plural_name": "גוג'י ברי"
             },
             "dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried blueberry",
-                "plural_name": "dried blueberries"
+                "name": "אוכמנית מיובשת",
+                "plural_name": "אוכמניות מיובשות"
             },
             "freeze-dried strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried strawberry",
-                "plural_name": "freeze-dried strawberries"
+                "name": "תות שדה מיובש בהקפאה",
+                "plural_name": "תותי שדה מיובשים בהקפאה"
             },
             "gooseberry": {
                 "aliases": [],
                 "description": "",
-                "name": "gooseberry",
-                "plural_name": "gooseberries"
+                "name": "דומדמנית",
+                "plural_name": "דומדמניות"
             },
             "freeze-dried raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried raspberry",
-                "plural_name": "freeze-dried raspberries"
+                "name": "פטל מיובש בהקפאה",
+                "plural_name": "פטל מיובש בהקפאה"
             },
             "lingonberry": {
                 "aliases": [],
                 "description": "",
-                "name": "lingonberry",
-                "plural_name": "lingonberries"
+                "name": "לינגון ברי",
+                "plural_name": "לינגון ברי"
             },
             "canned sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sour cherry",
-                "plural_name": "canned sour cherries"
+                "name": "דובדבן חמוץ משומר",
+                "plural_name": "דובדבנים חמוצים משומרים"
             },
             "mulberry": {
                 "aliases": [],
                 "description": "",
-                "name": "mulberry",
-                "plural_name": "mulberries"
+                "name": "תות עץ",
+                "plural_name": "תותי עץ"
             },
             "acai berry": {
                 "aliases": [],
                 "description": "",
-                "name": "acai berry",
-                "plural_name": "acai berries"
+                "name": "אסאי",
+                "plural_name": "אסאי"
             },
             "canned cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cherry",
-                "plural_name": "canned cherries"
+                "name": "דובדבן משומר",
+                "plural_name": "דובדבנים משומרים"
             },
             "amla": {
                 "aliases": [],
                 "description": "",
-                "name": "amla",
-                "plural_name": "amlas"
+                "name": "אמלה",
+                "plural_name": "אמלה"
             },
             "elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "elderberry",
-                "plural_name": "elderberries"
+                "name": "סמבוק",
+                "plural_name": "סמבוקים"
             },
             "freeze-dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried blueberry",
-                "plural_name": "freeze-dried blueberries"
+                "name": "אוכמנית מיובשת בהקפאה",
+                "plural_name": "אוכמניות מיובשות בהקפאה"
             },
             "huckleberry": {
                 "aliases": [],
                 "description": "",
-                "name": "huckleberry",
-                "plural_name": "huckleberries"
+                "name": "הקלברי",
+                "plural_name": "הקלברי"
             },
             "dried elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried elderberry",
-                "plural_name": "dried elderberries"
+                "name": "סמבוק מיובש",
+                "plural_name": "סמבוקים מיובשים"
             },
             "barberry": {
                 "aliases": [],
                 "description": "",
-                "name": "barberry",
-                "plural_name": "barberries"
+                "name": "ברברית",
+                "plural_name": "ברבריות"
             },
             "dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried berry",
-                "plural_name": "dried berries"
+                "name": "פרי יער מיובש",
+                "plural_name": "פירות יער מיובשים"
             },
             "sea buckthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "sea buckthorn",
-                "plural_name": "sea buckthorns"
+                "name": "אוכמנית הים",
+                "plural_name": "אוכמניות הים"
             },
             "saskatoon berry": {
                 "aliases": [],
                 "description": "",
-                "name": "saskatoon berry",
-                "plural_name": "saskatoon berries"
+                "name": "סאסקאטון ברי",
+                "plural_name": "סאסקאטון ברי"
             },
             "rosehip": {
                 "aliases": [],
                 "description": "",
-                "name": "rosehip",
-                "plural_name": "rosehips"
+                "name": "ורד הבר",
+                "plural_name": "ורדי הבר"
             },
             "hawthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "hawthorn",
-                "plural_name": "hawthorns"
+                "name": "עוזרר",
+                "plural_name": "עוזרר"
             },
             "boysenberry": {
                 "aliases": [],
                 "description": "",
-                "name": "boysenberry",
-                "plural_name": "boysenberries"
+                "name": "בויזנברי",
+                "plural_name": "בויזנברי"
             },
             "cloudberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cloudberry",
-                "plural_name": "cloudberries"
+                "name": "עננת",
+                "plural_name": "עננות"
             },
             "freeze-dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried berry",
-                "plural_name": "freeze-dried berries"
+                "name": "פרי יער מיובש בהקפאה",
+                "plural_name": "פירות יער מיובשים בהקפאה"
             },
             "aronia berry": {
                 "aliases": [],
                 "description": "",
-                "name": "aronia berry",
-                "plural_name": "aronia berries"
+                "name": "ארוניה",
+                "plural_name": "ארוניה"
             },
             "chokeberry": {
                 "aliases": [],
                 "description": "",
-                "name": "chokeberry",
-                "plural_name": "chokeberries"
+                "name": "צ'וקברי",
+                "plural_name": "צ'וקברי"
             },
             "loganberry": {
                 "aliases": [],
                 "description": "",
-                "name": "loganberry",
-                "plural_name": "loganberries"
+                "name": "לוגן ברי",
+                "plural_name": "לוגן ברי"
             },
             "blackcurrant leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "blackcurrant leaf",
-                "plural_name": "blackcurrant leaves"
+                "name": "עלה דומדמנית שחורה",
+                "plural_name": "עלים דומדמנית שחורה"
             },
             "haskap berry": {
                 "aliases": [],
                 "description": "",
-                "name": "haskap berry",
-                "plural_name": "haskap berries"
+                "name": "הסקאפ ברי",
+                "plural_name": "הסקאפ ברי"
             },
             "dewberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dewberry",
-                "plural_name": "dewberries"
+                "name": "דיו ברי",
+                "plural_name": "דיו ברי"
             },
             "sloe berry": {
                 "aliases": [],
                 "description": "",
-                "name": "sloe berry",
-                "plural_name": "sloe berries"
+                "name": "שזיף קרסייה",
+                "plural_name": "שזיפי קרסייה"
             },
             "oregon grape": {
                 "aliases": [],
                 "description": "",
-                "name": "oregon grape",
-                "plural_name": "oregon grapes"
+                "name": "ענב אורגון",
+                "plural_name": "ענבי אורגון"
             }
         }
     },
@@ -1823,86 +1823,86 @@
             "hemp heart": {
                 "aliases": [],
                 "description": "",
-                "name": "hemp heart",
-                "plural_name": "hemp hearts"
+                "name": "לבבות המפ",
+                "plural_name": "לבבות המפ"
             },
             "nigella seed": {
                 "aliases": [],
                 "description": "",
-                "name": "nigella seed",
-                "plural_name": "nigella seeds"
+                "name": "קצח",
+                "plural_name": "זרעי קצח"
             },
             "mixed nut": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed nut",
-                "plural_name": "mixed nuts"
+                "name": "תערובת אגוזים",
+                "plural_name": "תערובת אגוזים"
             },
             "brazil nut": {
                 "aliases": [],
                 "description": "",
-                "name": "brazil nut",
-                "plural_name": "brazil nuts"
+                "name": "אגוז ברזיל",
+                "plural_name": "אגוזי ברזיל"
             },
             "mixed seed": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed seed",
-                "plural_name": "mixed seeds"
+                "name": "תערובת זרעים",
+                "plural_name": "תערובת זרעים"
             },
             "onion seed": {
                 "aliases": [],
                 "description": "",
-                "name": "onion seed",
-                "plural_name": "onion seeds"
+                "name": "זרע בצל",
+                "plural_name": "זרעי בצל"
             },
             "watermelon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon seed",
-                "plural_name": "watermelon seeds"
+                "name": "גרעין אבטיח",
+                "plural_name": "גרעיני אבטיח"
             },
             "honey-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted peanut",
-                "plural_name": "honey-roasted peanuts"
+                "name": "בוטן קלוי בדבש",
+                "plural_name": "בוטנים קלויים בדבש"
             },
             "melon seed": {
                 "aliases": [],
                 "description": "",
                 "name": "גרעין מלון",
-                "plural_name": "גרעיני מלונים"
+                "plural_name": "גרעיני מלון"
             },
             "lotus seed": {
                 "aliases": [],
                 "description": "",
-                "name": "lotus seed",
-                "plural_name": "lotus seeds"
+                "name": "זרע לוטוס",
+                "plural_name": "זרעי לוטוס"
             },
             "white chia": {
                 "aliases": [],
                 "description": "",
-                "name": "white chia",
-                "plural_name": "white chias"
+                "name": "צ'יה לבנה",
+                "plural_name": "צ'יה לבנה"
             },
             "trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "trail mix",
-                "plural_name": "trail mixes"
+                "name": "תערובת פיצוחים",
+                "plural_name": "תערובות פיצוחים"
             },
             "basil seed": {
                 "aliases": [],
                 "description": "",
-                "name": "basil seed",
-                "plural_name": "basil seeds"
+                "name": "זרע בזיליקום",
+                "plural_name": "זרעי בזיליקום"
             },
             "candlenut": {
                 "aliases": [],
                 "description": "",
-                "name": "candlenut",
-                "plural_name": "candlenuts"
+                "name": "אגוז נר",
+                "plural_name": "אגוזי נר"
             },
             "peanut brittle": {
                 "aliases": [],
@@ -1913,80 +1913,80 @@
             "jackfruit seed": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit seed",
-                "plural_name": "jackfruit seeds"
+                "name": "גרעין ג'ק פרוט",
+                "plural_name": "גרעיני ג'ק פרוט"
             },
             "honey-roasted almond": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted almond",
-                "plural_name": "honey-roasted almonds"
+                "name": "שקד קלוי בדבש",
+                "plural_name": "שקדים קלויים בדבש"
             },
             "toasted nut": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted nut",
-                "plural_name": "toasted nuts"
+                "name": "אגוז קלוי",
+                "plural_name": "אגוזים קלויים"
             },
             "chironji": {
                 "aliases": [],
                 "description": "",
-                "name": "chironji",
-                "plural_name": "chironjis"
+                "name": "צ'ירונג'י",
+                "plural_name": "צ'ירונג'י"
             },
             "honey-roasted pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted pecan",
-                "plural_name": "honey-roasted pecans"
+                "name": "פקאן קלוי בדבש",
+                "plural_name": "פקאנים קלויים בדבש"
             },
             "tigernut": {
                 "aliases": [],
                 "description": "",
-                "name": "tigernut",
-                "plural_name": "tigernuts"
+                "name": "גומא נאכל (אגוז נמר)",
+                "plural_name": "גומא נאכל (אגוז נמר)"
             },
             "sunflower sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower sprout",
-                "plural_name": "sunflower sprouts"
+                "name": "ניצני חמניות",
+                "plural_name": "ניצני חמניות"
             },
             "apricot kernel": {
                 "aliases": [],
                 "description": "",
-                "name": "apricot kernel",
-                "plural_name": "apricot kernels"
+                "name": "גרעין משמש",
+                "plural_name": "גרעיני משמש"
             },
             "palm seed": {
                 "aliases": [],
                 "description": "",
-                "name": "palm seed",
-                "plural_name": "palm seeds"
+                "name": "זרע דקל",
+                "plural_name": "זרעי דקל"
             },
             "ginkgo nut": {
                 "aliases": [],
                 "description": "",
-                "name": "ginkgo nut",
-                "plural_name": "ginkgo nuts"
+                "name": "אגוז גינקו",
+                "plural_name": "אגוזי גינקו"
             },
             "keto trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "keto trail mix",
-                "plural_name": "keto trail mixes"
+                "name": "תערובת פיצוחים קטו",
+                "plural_name": "תערובת פיצוחים קטו"
             },
             "wattleseed": {
                 "aliases": [],
                 "description": "",
-                "name": "wattleseed",
-                "plural_name": "wattleseeds"
+                "name": "זרע אקציה",
+                "plural_name": "זרעי אקציה"
             },
             "barùka": {
                 "aliases": [],
                 "description": "",
-                "name": "barùka",
-                "plural_name": "barùkas"
+                "name": "אגוז ברוקה",
+                "plural_name": "אגוזי ברוקה"
             },
             "indian almond": {
                 "aliases": [],
@@ -2001,8 +2001,8 @@
             "parmesan": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan",
-                "plural_name": "parmesans"
+                "name": "פרמזן",
+                "plural_name": "פרמזן"
             },
             "cheddar cheese": {
                 "aliases": [
@@ -2015,14 +2015,14 @@
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheeses"
+                "name": "גבינת שמנת",
+                "plural_name": "גבינות שמנת"
             },
             "sharp cheddar": {
                 "aliases": [],
                 "description": "",
-                "name": "sharp cheddar",
-                "plural_name": "sharp cheddars"
+                "name": "צ'דר חריפה",
+                "plural_name": "צ'דר חריפות"
             },
             "cheese": {
                 "aliases": [],
@@ -2051,32 +2051,32 @@
             "cheddar-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheddar-jack cheese",
-                "plural_name": "cheddar-jack cheeses"
+                "name": "צ'דר-ג'ק",
+                "plural_name": "צ'דר-ג'ק"
             },
             "monterey jack": {
                 "aliases": [],
                 "description": "",
-                "name": "monterey jack",
-                "plural_name": "monterey jacks"
+                "name": "מונטריי ג'ק",
+                "plural_name": "מונטריי ג'ק"
             },
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheeses"
+                "name": "גבינה כחולה",
+                "plural_name": "גבינות כחולות"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheeses"
+                "name": "גבינת עזים",
+                "plural_name": "גבינות עזים"
             },
             "fresh mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella",
-                "plural_name": "fresh mozzarellas"
+                "name": "מוצרלה טרייה",
+                "plural_name": "מוצרלות טריות"
             },
             "swiss cheese": {
                 "aliases": [],
@@ -2093,8 +2093,8 @@
             "gruyere": {
                 "aliases": [],
                 "description": "",
-                "name": "gruyere",
-                "plural_name": "gruyeres"
+                "name": "גרוייר",
+                "plural_name": "גרוייר"
             },
             "mascarpone": {
                 "aliases": [],
@@ -2117,20 +2117,20 @@
             "provolone": {
                 "aliases": [],
                 "description": "",
-                "name": "provolone",
-                "plural_name": "provolones"
+                "name": "פרובולונה",
+                "plural_name": "פרובולונה"
             },
             "mexican cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican cheese blend",
-                "plural_name": "mexican cheese blends"
+                "name": "תערובת גבינות מקסיקנית",
+                "plural_name": "תערובות גבינות מקסיקניות"
             },
             "pepper jack": {
                 "aliases": [],
                 "description": "",
-                "name": "pepper jack",
-                "plural_name": "pepper jacks"
+                "name": "פפר ג'ק",
+                "plural_name": "פפר ג'ק"
             },
             "brie": {
                 "aliases": [],
@@ -2147,20 +2147,20 @@
             "fontina": {
                 "aliases": [],
                 "description": "",
-                "name": "fontina",
-                "plural_name": "fontinas"
+                "name": "פונטינה",
+                "plural_name": "פונטינה"
             },
             "queso fresco": {
                 "aliases": [],
                 "description": "",
-                "name": "queso fresco",
-                "plural_name": "queso frescoes"
+                "name": "קסו פרסקו",
+                "plural_name": "קסו פרסקו"
             },
             "quark": {
                 "aliases": [],
                 "description": "",
-                "name": "quark",
-                "plural_name": "quarks"
+                "name": "קוורק",
+                "plural_name": "קוורק"
             },
             "gouda": {
                 "aliases": [],
@@ -2171,440 +2171,440 @@
             "cotija": {
                 "aliases": [],
                 "description": "",
-                "name": "cotija",
-                "plural_name": "cotijas"
+                "name": "קוטיחה",
+                "plural_name": "קוטיחה"
             },
             "asiago": {
                 "aliases": [],
                 "description": "",
-                "name": "asiago",
-                "plural_name": "asiagoes"
+                "name": "אסיאגו",
+                "plural_name": "אסיאגו"
             },
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheeses"
+                "name": "גבינה מעושנת",
+                "plural_name": "גבינות מעושנות"
             },
             "halloumi": {
                 "aliases": [],
                 "description": "",
-                "name": "halloumi",
-                "plural_name": "halloumis"
+                "name": "חלומי",
+                "plural_name": "חלומי"
             },
             "chevre": {
                 "aliases": [],
                 "description": "",
-                "name": "chevre",
-                "plural_name": "chevres"
+                "name": "שבר",
+                "plural_name": "שבר"
             },
             "manchego": {
                 "aliases": [],
                 "description": "",
-                "name": "manchego",
-                "plural_name": "manchegoes"
+                "name": "מנצ'גו",
+                "plural_name": "מנצ'גו"
             },
             "italian cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "italian cheese blend",
-                "plural_name": "italian cheese blends"
+                "name": "תערובת גבינות איטלקית",
+                "plural_name": "תערובות גבינות איטלקיות"
             },
             "neufchatel": {
                 "aliases": [],
                 "description": "",
-                "name": "neufchatel",
-                "plural_name": "neufchatels"
+                "name": "נויפשאטל",
+                "plural_name": "נויפשאטל"
             },
             "herb cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "herb cream cheese",
-                "plural_name": "herb cream cheeses"
+                "name": "גבינת שמנת עם עשבי תיבול",
+                "plural_name": "גבינות שמנת עם עשבי תיבול"
             },
             "burrata": {
                 "aliases": [],
                 "description": "",
-                "name": "burrata",
-                "plural_name": "burratas"
+                "name": "בוראטה",
+                "plural_name": "בוראטה"
             },
             "havarti": {
                 "aliases": [],
                 "description": "",
-                "name": "havarti",
-                "plural_name": "havartis"
+                "name": "הווארטי",
+                "plural_name": "הווארטי"
             },
             "colby": {
                 "aliases": [],
                 "description": "",
-                "name": "colby",
-                "plural_name": "colbies"
+                "name": "גבינת קולבי",
+                "plural_name": "גבינות קולבי"
             },
             "grana-padano": {
                 "aliases": [],
                 "description": "",
-                "name": "grana-padano",
-                "plural_name": "grana-padanoes"
+                "name": "גרנה פדנו",
+                "plural_name": "גרנה פדנו"
             },
             "muenster": {
                 "aliases": [],
                 "description": "",
-                "name": "muenster",
-                "plural_name": "muensters"
+                "name": "מינסטר",
+                "plural_name": "מינסטרים"
             },
             "string cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "string cheese",
-                "plural_name": "string cheeses"
+                "name": "גבינת חוטים",
+                "plural_name": "גבינות חוטים"
             },
             "camembert": {
                 "aliases": [],
                 "description": "",
-                "name": "camembert",
-                "plural_name": "camemberts"
+                "name": "קממבר",
+                "plural_name": "קממבר"
             },
             "soft cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "soft cheese",
-                "plural_name": "soft cheeses"
+                "name": "גבינה רכה",
+                "plural_name": "גבינות רכות"
             },
             "stilton": {
                 "aliases": [],
                 "description": "",
-                "name": "stilton",
-                "plural_name": "stiltons"
+                "name": "סטילטון",
+                "plural_name": "סטילטונים"
             },
             "raclette": {
                 "aliases": [],
                 "description": "",
-                "name": "raclette",
-                "plural_name": "raclettes"
+                "name": "רקלט",
+                "plural_name": "רקלטים"
             },
             "colby-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "colby-jack cheese",
-                "plural_name": "colby-jack cheeses"
+                "name": "קולבי-ג'ק",
+                "plural_name": "קולבי-ג'ק"
             },
             "jarlsberg cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "jarlsberg cheese",
-                "plural_name": "jarlsberg cheeses"
+                "name": "ירלסברג",
+                "plural_name": "ירלסברג"
             },
             "taleggio": {
                 "aliases": [],
                 "description": "",
-                "name": "taleggio",
-                "plural_name": "taleggios"
+                "name": "טלג'יו",
+                "plural_name": "טלג'יו"
             },
             "oaxaca": {
                 "aliases": [],
                 "description": "",
-                "name": "oaxaca",
-                "plural_name": "oaxacas"
+                "name": "אואקסקה",
+                "plural_name": "אואקסקות"
             },
             "labneh": {
                 "aliases": [],
                 "description": "",
-                "name": "labneh",
-                "plural_name": "labnehs"
+                "name": "לבנה",
+                "plural_name": "לבנות"
             },
             "edam": {
                 "aliases": [],
                 "description": "",
-                "name": "edam",
-                "plural_name": "edams"
+                "name": "עדאם",
+                "plural_name": "עדאם"
             },
             "creamy cheese wedge": {
                 "aliases": [],
                 "description": "",
-                "name": "creamy cheese wedge",
-                "plural_name": "creamy cheese wedges"
+                "name": "גבינת שמנת משולשת",
+                "plural_name": "גבינות שמנת משולשות"
             },
             "cheese powder": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese powder",
-                "plural_name": "cheese powders"
+                "name": "אבקת גבינה",
+                "plural_name": "אבקת גבינה"
             },
             "fromage blanc": {
                 "aliases": [],
                 "description": "",
-                "name": "fromage blanc",
-                "plural_name": "fromage blancs"
+                "name": "פרומאז' בלאן",
+                "plural_name": "פרומאז' בלאן"
             },
             "asadero": {
                 "aliases": [],
                 "description": "",
-                "name": "asadero",
-                "plural_name": "asaderoes"
+                "name": "אסדרו",
+                "plural_name": "אסדרו"
             },
             "marble cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "marble cheese",
-                "plural_name": "marble cheeses"
+                "name": "גבינה שיש",
+                "plural_name": "גבינות שיש"
             },
             "leicester": {
                 "aliases": [],
                 "description": "",
-                "name": "leicester",
-                "plural_name": "leicesters"
+                "name": "לסטר",
+                "plural_name": "לסטרים"
             },
             "kefalotyri": {
                 "aliases": [],
                 "description": "",
-                "name": "kefalotyri",
-                "plural_name": "kefalotyris"
+                "name": "קפאלוטירי",
+                "plural_name": "קפאלוטירי"
             },
             "mizithra": {
                 "aliases": [],
                 "description": "",
-                "name": "mizithra",
-                "plural_name": "mizithras"
+                "name": "מיזיתר",
+                "plural_name": "מיזיתר"
             },
             "lancashire": {
                 "aliases": [],
                 "description": "",
-                "name": "lancashire",
-                "plural_name": "lancashires"
+                "name": "לנקשייר",
+                "plural_name": "לנקשיירים"
             },
             "kasseri": {
                 "aliases": [],
                 "description": "",
-                "name": "kasseri",
-                "plural_name": "kasseris"
+                "name": "קסרי",
+                "plural_name": "קסרי"
             },
             "babybel": {
                 "aliases": [],
                 "description": "",
-                "name": "babybel",
-                "plural_name": "babybels"
+                "name": "בייביבל",
+                "plural_name": "בייביבל"
             },
             "panela cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "panela cheese",
-                "plural_name": "panela cheeses"
+                "name": "גבינת פנלה",
+                "plural_name": "גבינות פנלה"
             },
             "longhorn": {
                 "aliases": [],
                 "description": "",
-                "name": "longhorn",
-                "plural_name": "longhorns"
+                "name": "לונגהורן",
+                "plural_name": "לונגהורן"
             },
             "seasoned feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "seasoned feta cheese",
-                "plural_name": "seasoned feta cheeses"
+                "name": "פטה מתובלת",
+                "plural_name": "פטות מתובלות"
             },
             "comté": {
                 "aliases": [],
                 "description": "",
-                "name": "comté",
-                "plural_name": "comtés"
+                "name": "קומטה",
+                "plural_name": "קומטה"
             },
             "graviera": {
                 "aliases": [],
                 "description": "",
-                "name": "graviera",
-                "plural_name": "gravieras"
+                "name": "גרווירה",
+                "plural_name": "גרווירה"
             },
             "wensleydale": {
                 "aliases": [],
                 "description": "",
-                "name": "wensleydale",
-                "plural_name": "wensleydales"
+                "name": "ונסלידייל",
+                "plural_name": "ונסלידייל"
             },
             "scamorza": {
                 "aliases": [],
                 "description": "",
-                "name": "scamorza",
-                "plural_name": "scamorzas"
+                "name": "סקמורצה",
+                "plural_name": "סקמורצה"
             },
             "cambozola": {
                 "aliases": [],
                 "description": "",
-                "name": "cambozola",
-                "plural_name": "cambozolas"
+                "name": "קמבוצולה",
+                "plural_name": "קמבוצולה"
             },
             "cheshire cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheshire cheese",
-                "plural_name": "cheshire cheeses"
+                "name": "גבינת צ'שייר",
+                "plural_name": "גבינות צ'שייר"
             },
             "anthotyro": {
                 "aliases": [],
                 "description": "",
-                "name": "anthotyro",
-                "plural_name": "anthotyros"
+                "name": "אנתוטירו",
+                "plural_name": "אנתוטירו"
             },
             "chenna": {
                 "aliases": [],
                 "description": "",
-                "name": "chenna",
-                "plural_name": "chennas"
+                "name": "צ'נה",
+                "plural_name": "צ'נה"
             },
             "hard goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "hard goat cheese",
-                "plural_name": "hard goat cheeses"
+                "name": "גבינת עזים קשה",
+                "plural_name": "גבינות עזים קשות"
             },
             "kashkaval": {
                 "aliases": [],
                 "description": "",
-                "name": "kashkaval",
-                "plural_name": "kashkavals"
+                "name": "קשקבל",
+                "plural_name": "קשקבלים"
             },
             "sheep cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep cheese",
-                "plural_name": "sheep cheeses"
+                "name": "גבינת כבשים",
+                "plural_name": "גבינות כבשים"
             },
             "amul cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "amul cheese",
-                "plural_name": "amul cheeses"
+                "name": "גבינת אמול",
+                "plural_name": "גבינות אמול"
             },
             "reblochon": {
                 "aliases": [],
                 "description": "",
-                "name": "reblochon",
-                "plural_name": "reblochons"
+                "name": "רבלושון",
+                "plural_name": "רבלושון"
             },
             "robiola": {
                 "aliases": [],
                 "description": "",
-                "name": "robiola",
-                "plural_name": "robiolas"
+                "name": "רוביולה",
+                "plural_name": "רוביולה"
             },
             "brick cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "brick cheese",
-                "plural_name": "brick cheeses"
+                "name": "גבינת בריק",
+                "plural_name": "גבינות בריק"
             },
             "quick-melt cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "quick-melt cheese",
-                "plural_name": "quick-melt cheeses"
+                "name": "גבינה נמסה מהירה",
+                "plural_name": "גבינות נמסות מהירות"
             },
             "farmer's cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "farmer's cheese",
-                "plural_name": "farmer's cheeses"
+                "name": "גבינת איכרים",
+                "plural_name": "גבינות איכרים"
             },
             "manouri": {
                 "aliases": [],
                 "description": "",
-                "name": "manouri",
-                "plural_name": "manouris"
+                "name": "מאנורי",
+                "plural_name": "מאנורי"
             },
             "mimolette": {
                 "aliases": [],
                 "description": "",
-                "name": "mimolette",
-                "plural_name": "mimolettes"
+                "name": "מימולט",
+                "plural_name": "מימולט"
             },
             "queso quesadilla": {
                 "aliases": [],
                 "description": "",
-                "name": "queso quesadilla",
-                "plural_name": "queso quesadillas"
+                "name": "קסו קסדיה",
+                "plural_name": "קסו קסדיה"
             },
             "caciocavallo": {
                 "aliases": [],
                 "description": "",
-                "name": "caciocavallo",
-                "plural_name": "caciocavalloes"
+                "name": "קצ'וקוואלו",
+                "plural_name": "קצ'וקוואלו"
             },
             "requeijão": {
                 "aliases": [],
                 "description": "",
-                "name": "requeijão",
-                "plural_name": "requeijãoes"
+                "name": "רקייג'או",
+                "plural_name": "רקייג'או"
             },
             "vacherin": {
                 "aliases": [],
                 "description": "",
-                "name": "vacherin",
-                "plural_name": "vacherins"
+                "name": "ואשרן",
+                "plural_name": "ואשרן"
             },
             "brown cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "brown cheese",
-                "plural_name": "brown cheeses"
+                "name": "גבינה חומה",
+                "plural_name": "גבינות חומות"
             },
             "gloucester": {
                 "aliases": [],
                 "description": "",
-                "name": "gloucester",
-                "plural_name": "gloucesters"
+                "name": "גלוסטר",
+                "plural_name": "גלוסטרים"
             },
             "port salut": {
                 "aliases": [],
                 "description": "",
-                "name": "port salut",
-                "plural_name": "port saluts"
+                "name": "פורט סלוט",
+                "plural_name": "פורט סלוט"
             },
             "derby cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "derby cheese",
-                "plural_name": "derby cheeses"
+                "name": "גבינת דרבי",
+                "plural_name": "גבינות דרבי"
             },
             "fontal": {
                 "aliases": [],
                 "description": "",
-                "name": "fontal",
-                "plural_name": "fontals"
+                "name": "פונטל",
+                "plural_name": "פונטל"
             },
             "salad cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "salad cheese",
-                "plural_name": "salad cheeses"
+                "name": "גבינת סלט",
+                "plural_name": "גבינות סלט"
             },
             "truffle cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "truffle cheese",
-                "plural_name": "truffle cheeses"
+                "name": "גבינת כמהין",
+                "plural_name": "גבינות כמהין"
             },
             "epoisses cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "epoisses cheese",
-                "plural_name": "epoisses cheeses"
+                "name": "אפואס",
+                "plural_name": "אפואס"
             },
             "maasdam": {
                 "aliases": [],
                 "description": "",
-                "name": "maasdam",
-                "plural_name": "maasdams"
+                "name": "מאסדם",
+                "plural_name": "מאסדם"
             },
             "petit-suisse": {
                 "aliases": [],
                 "description": "",
-                "name": "petit-suisse",
-                "plural_name": "petit-suisses"
+                "name": "פטיט סוויס",
+                "plural_name": "פטיט סוויס"
             },
             "sbrinz": {
                 "aliases": [],
                 "description": "",
-                "name": "sbrinz",
-                "plural_name": "sbrinzzes"
+                "name": "סברינץ",
+                "plural_name": "סברינץ"
             }
         }
     },
@@ -2613,20 +2613,20 @@
             "butter": {
                 "aliases": [],
                 "description": "",
-                "name": "butter",
-                "plural_name": "butter"
+                "name": "חמאה",
+                "plural_name": "חמאות"
             },
             "egg": {
                 "aliases": [],
                 "description": "",
-                "name": "egg",
-                "plural_name": "eggs"
+                "name": "ביצה",
+                "plural_name": "ביצים"
             },
             "milk": {
                 "aliases": [],
                 "description": "",
-                "name": "milk",
-                "plural_name": "milks"
+                "name": "חלב",
+                "plural_name": "חלב"
             },
             "heavy cream": {
                 "aliases": [],
@@ -2637,8 +2637,8 @@
             "sour cream": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cream",
-                "plural_name": "sour creams"
+                "name": "שמנת חמוצה",
+                "plural_name": "שמנות חמוצות"
             },
             "buttermilk": {
                 "aliases": [],
@@ -2649,26 +2649,26 @@
             "yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt",
-                "plural_name": "yogurts"
+                "name": "יוגורט",
+                "plural_name": "יוגורטים"
             },
             "greek yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "greek yogurt",
-                "plural_name": "greek yogurts"
+                "name": "יוגורט יווני",
+                "plural_name": "יוגורטים יוונים"
             },
             "cream": {
                 "aliases": [],
                 "description": "",
-                "name": "cream",
-                "plural_name": "creams"
+                "name": "קרם",
+                "plural_name": "קרמים"
             },
             "whipped cream": {
                 "aliases": [],
                 "description": "",
-                "name": "whipped cream",
-                "plural_name": "whipped creams"
+                "name": "קצפת",
+                "plural_name": "קצפות"
             },
             "ghee": {
                 "aliases": [
@@ -2765,8 +2765,8 @@
             "chocolate frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate frosting",
-                "plural_name": "chocolate frostings"
+                "name": "ציפוי שוקולד",
+                "plural_name": "ציפויי שוקולד"
             },
             "kefir": {
                 "aliases": [],
@@ -2849,8 +2849,8 @@
             "goat milk": {
                 "aliases": [],
                 "description": "",
-                "name": "goat milk",
-                "plural_name": "goat milks"
+                "name": "חלב עזים",
+                "plural_name": "חלב עזים"
             },
             "cheese curd": {
                 "aliases": [],
@@ -2880,13 +2880,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "ביצת ברווז",
-                "plural_name": "duck eggs"
+                "plural_name": "ביצי ברווז"
             },
             "salted egg": {
                 "aliases": [],
                 "description": "",
-                "name": "salted egg",
-                "plural_name": "salted eggs"
+                "name": "ביצה משומרת",
+                "plural_name": "ביצים משומרות"
             },
             "skyr": {
                 "aliases": [],
@@ -2975,8 +2975,8 @@
             "goat butter": {
                 "aliases": [],
                 "description": "",
-                "name": "goat butter",
-                "plural_name": "goat butter"
+                "name": "חמאת עזים",
+                "plural_name": "חמאת עזים"
             },
             "century egg": {
                 "aliases": [],
@@ -2993,8 +2993,8 @@
             "goat yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "goat yogurt",
-                "plural_name": "goat yogurts"
+                "name": "יוגורט עזים",
+                "plural_name": "יוגורטי עזים"
             },
             "dahi": {
                 "aliases": [],
@@ -3023,8 +3023,8 @@
             "chocolate milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk powder",
-                "plural_name": "chocolate milk powders"
+                "name": "אבקת שוקו",
+                "plural_name": "אבקת שוקו"
             },
             "liquid rennet": {
                 "aliases": [],
@@ -4349,20 +4349,20 @@
             "chicken breast": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken breast",
-                "plural_name": "chicken breasts"
+                "name": "חזה עוף",
+                "plural_name": "חזה עוף"
             },
             "chicken thigh": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken thigh",
-                "plural_name": "chicken thighs"
+                "name": "ירך עוף",
+                "plural_name": "ירכי עוף"
             },
             "cooked chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "cooked chicken",
-                "plural_name": "cooked chickens"
+                "name": "עוף מבושל",
+                "plural_name": "עופות מבושלים"
             },
             "ground turkey": {
                 "aliases": [],
@@ -4409,8 +4409,8 @@
             "rotisserie chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "rotisserie chicken",
-                "plural_name": "rotisserie chickens"
+                "name": "עוף רוטיסרי",
+                "plural_name": "עופות רוטיסרי"
             },
             "chicken tender": {
                 "aliases": [],
@@ -4427,8 +4427,8 @@
             "chicken sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken sausage",
-                "plural_name": "chicken sausages"
+                "name": "נקניקיית עוף",
+                "plural_name": "נקניקיות עוף"
             },
             "turkey bacon": {
                 "aliases": [],
@@ -4553,8 +4553,8 @@
             "chicken bone": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken bone",
-                "plural_name": "chicken bones"
+                "name": "עצם עוף",
+                "plural_name": "עצמות עוף"
             },
             "turkey meatball": {
                 "aliases": [],
@@ -4613,8 +4613,8 @@
             "chicken gizzard": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken gizzard",
-                "plural_name": "chicken gizzards"
+                "name": "קורקבן עוף",
+                "plural_name": "קורקבני עוף"
             },
             "smoked turkey leg": {
                 "aliases": [],
@@ -4817,8 +4817,8 @@
             "chicken kebab": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken kebab",
-                "plural_name": "chicken kebabs"
+                "name": "קבב עוף",
+                "plural_name": "קבבי עוף"
             },
             "chicken ham": {
                 "aliases": [],
@@ -4835,8 +4835,8 @@
             "chicken chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken chorizo",
-                "plural_name": "chicken chorizoes"
+                "name": "צוריסו עוף",
+                "plural_name": "צוריסו עוף"
             },
             "chicken frame": {
                 "aliases": [],
@@ -4871,8 +4871,8 @@
             "chicken rib": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken rib",
-                "plural_name": "chicken ribs"
+                "name": "צלע עוף",
+                "plural_name": "צלעות עוף"
             },
             "turkey tail": {
                 "aliases": [],
@@ -6526,8 +6526,8 @@
             "chocolate syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate syrup",
-                "plural_name": "chocolate syrups"
+                "name": "סירופ שוקולד",
+                "plural_name": "סירופי שוקולד"
             },
             "jaggery": {
                 "aliases": [],
@@ -6814,8 +6814,8 @@
             "white chocolate sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "white chocolate sauce",
-                "plural_name": "white chocolate sauces"
+                "name": "רוטב שוקולד לבן",
+                "plural_name": "רטבי שוקולד לבן"
             },
             "pumpkin spice syrup": {
                 "aliases": [],
@@ -6904,8 +6904,8 @@
             "dark chocolate syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "dark chocolate syrup",
-                "plural_name": "dark chocolate syrups"
+                "name": "סירופ שוקולד מריר",
+                "plural_name": "סירופי שוקולד מריר"
             },
             "inulin": {
                 "aliases": [],
@@ -7695,8 +7695,8 @@
             "dark chocolate chip": {
                 "aliases": [],
                 "description": "",
-                "name": "dark chocolate chip",
-                "plural_name": "dark chocolate chips"
+                "name": "שבב שוקולד מריר",
+                "plural_name": "שבבי שוקולד מריר"
             },
             "whole-wheat flour": {
                 "aliases": [
@@ -7902,8 +7902,8 @@
             "chocolate cake mix": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate cake mix",
-                "plural_name": "chocolate cake mixes"
+                "name": "תערובת עוגת שוקולד",
+                "plural_name": "תערובת עוגת שוקולד"
             },
             "potato starch": {
                 "aliases": [],
@@ -8884,8 +8884,8 @@
             "whole-grain oat": {
                 "aliases": [],
                 "description": "",
-                "name": "whole-grain oat",
-                "plural_name": "whole-grain oats"
+                "name": "שיבולת שועל מלאה",
+                "plural_name": "שיבולת שועל מלאה"
             },
             "puffed quinoa": {
                 "aliases": [],
@@ -10026,8 +10026,8 @@
             "bread": {
                 "aliases": [],
                 "description": "",
-                "name": "bread",
-                "plural_name": "breads"
+                "name": "לחם",
+                "plural_name": "לחמים"
             }
         }
     },
@@ -13878,8 +13878,8 @@
             "dark chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "dark chocolate",
-                "plural_name": "dark chocolates"
+                "name": "שקולד מריר",
+                "plural_name": "שוקולדים מרירים"
             },
             "dark cocoa": {
                 "aliases": [],
@@ -13890,8 +13890,8 @@
             "chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate",
-                "plural_name": "chocolates"
+                "name": "שוקולד",
+                "plural_name": "שוקולדים"
             },
             "graham cracker": {
                 "aliases": [],
@@ -13902,8 +13902,8 @@
             "baking chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "baking chocolate",
-                "plural_name": "baking chocolates"
+                "name": "שוקולד לאפייה",
+                "plural_name": "שוקולד לאפייה"
             },
             "marshmallow": {
                 "aliases": [],
@@ -13926,8 +13926,8 @@
             "white chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "white chocolate",
-                "plural_name": "white chocolates"
+                "name": "שוקולד לבן",
+                "plural_name": "שוקולד לבן"
             },
             "oreo": {
                 "aliases": [],
@@ -13938,8 +13938,8 @@
             "chocolate hazelnut spread": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate hazelnut spread",
-                "plural_name": "chocolate hazelnut spreads"
+                "name": "ממרח שוקולד אגוזי לוז",
+                "plural_name": "ממרחי שוקולד אגוזי לוז"
             },
             "instant pudding": {
                 "aliases": [],
