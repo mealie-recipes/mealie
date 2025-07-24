@@ -471,7 +471,7 @@ def test_read_update(
     assert json.loads(response.text).get("slug") == recipe_data.expected_slug
 
     recipe_incomplete = recipe.copy()
-    del recipe_incomplete["notes"]
+    del recipe_incomplete["group_id"]
     response = api_client.put(recipe_url, json=utils.jsonify(recipe_incomplete), headers=unique_user.token)
     assert response.status_code == 400
 
