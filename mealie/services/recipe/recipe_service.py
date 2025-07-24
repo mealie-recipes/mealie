@@ -36,7 +36,7 @@ from mealie.services.scraper import cleaner
 
 from .template_service import TemplateService
 
-POSSIBLE_NONE_FIELDS = ["image"]
+POSSIBLE_NONE_FIELDS = ["image", "recipe_yield"]
 
 
 class RecipeServiceBase(BaseService):
