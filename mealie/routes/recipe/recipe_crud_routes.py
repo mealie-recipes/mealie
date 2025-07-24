@@ -85,8 +85,7 @@ class RecipeController(BaseRecipeController):
             self.logger.error("No Entry Found on recipe controller action")
             raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No Entry Found"))
         elif thrownType == exceptions.IncompleteData:
-            assert isinstance(ex.__context__, exceptions.IncompleteData)
-            missing = ex.__context__.missing
+            missing = ex.args[-1]
             self.logger.error("Incomplete data provided to API route:", missing)
             raise HTTPException(
                 status_code=400,
