@@ -393,7 +393,7 @@ class RecipeService(RecipeServiceBase):
                     continue
 
                 if getattr(new_data, field) is None:
-                    raise exceptions.IncompleteData("Incomplete recipe", missing=field)
+                    raise exceptions.IncompleteData(missing, "Incomplete recipe")
 
         if recipe is None or recipe.settings is None:
             raise exceptions.NoEntryFound("Recipe not found.")
