@@ -4487,8 +4487,8 @@
             "chicken quarter": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken quarter",
-                "plural_name": "chicken quarters"
+                "name": "Hähnchenschenkel",
+                "plural_name": "Hähnchenschenkel"
             },
             "ground turkey sausage": {
                 "aliases": [],
@@ -4680,7 +4680,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "geräucherte Entenbrust",
-                "plural_name": "smoked duck breasts"
+                "plural_name": "geräucherte Entenbrüste"
             },
             "pigeon": {
                 "aliases": [],
@@ -4691,8 +4691,8 @@
             "wild game bird": {
                 "aliases": [],
                 "description": "",
-                "name": "wild game bird",
-                "plural_name": "wild game birds"
+                "name": "Wildgeflügel",
+                "plural_name": "Wildgeflügel"
             },
             "turkey liver": {
                 "aliases": [],
@@ -4823,8 +4823,8 @@
             "chicken ham": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken ham",
-                "plural_name": "chicken hams"
+                "name": "Hühnerschinken",
+                "plural_name": "Hühnerschinken"
             },
             "duck neck": {
                 "aliases": [],
@@ -6197,8 +6197,8 @@
             "mace": {
                 "aliases": [],
                 "description": "",
-                "name": "mace",
-                "plural_name": "maces"
+                "name": "Macis",
+                "plural_name": "Macis"
             },
             "mango powder": {
                 "aliases": [],
@@ -11156,8 +11156,8 @@
             "champagne vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "champagne vinegar",
-                "plural_name": "champagne vinegars"
+                "name": "Champagneressig",
+                "plural_name": "Champagneressige"
             },
             "vinaigrette dressing": {
                 "aliases": [],
@@ -11318,8 +11318,8 @@
             "champagne vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "champagne vinaigrette",
-                "plural_name": "champagne vinaigrettes"
+                "name": "Champagner-Vinaigrette",
+                "plural_name": "Champagner-Vinaigrettes"
             },
             "sun-dried tomato vinaigrette": {
                 "aliases": [],
@@ -11940,8 +11940,8 @@
             "chamoy": {
                 "aliases": [],
                 "description": "",
-                "name": "chamoy",
-                "plural_name": "chamoys"
+                "name": "Chamoy",
+                "plural_name": "Chamoys"
             },
             "lime pickle": {
                 "aliases": [],
@@ -13276,8 +13276,8 @@
             "nuoc cham": {
                 "aliases": [],
                 "description": "",
-                "name": "nuoc cham",
-                "plural_name": "nuoc chams"
+                "name": "Nuoc Cham",
+                "plural_name": "Nuoc Chams"
             },
             "white clam sauce": {
                 "aliases": [],
@@ -13640,8 +13640,8 @@
             "ham stock": {
                 "aliases": [],
                 "description": "",
-                "name": "ham stock",
-                "plural_name": "ham stocks"
+                "name": "Schinkenbrühe",
+                "plural_name": "Schinkenbrühen"
             },
             "lentil soup": {
                 "aliases": [],
@@ -15407,8 +15407,8 @@
             "chamomile tea": {
                 "aliases": [],
                 "description": "",
-                "name": "chamomile tea",
-                "plural_name": "chamomile teas"
+                "name": "Kamillentee",
+                "plural_name": "Kamillentees"
             },
             "pear juice": {
                 "aliases": [],
@@ -16245,8 +16245,8 @@
             "champagne yeast": {
                 "aliases": [],
                 "description": "",
-                "name": "champagne yeast",
-                "plural_name": "champagne yeasts"
+                "name": "Champagnerhefe",
+                "plural_name": "Champagnerhefen"
             },
             "maqui": {
                 "aliases": [],
