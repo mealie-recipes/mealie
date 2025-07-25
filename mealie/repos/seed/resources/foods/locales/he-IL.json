@@ -4003,164 +4003,164 @@
             "bone-in ham": {
                 "aliases": [],
                 "description": "",
-                "name": "bone-in ham",
-                "plural_name": "bone-in hams"
+                "name": "פסטרמה עם עצם",
+                "plural_name": "פסטרמות עם עצם"
             },
             "pork butt": {
                 "aliases": [],
                 "description": "",
-                "name": "pork butt",
-                "plural_name": "pork butts"
+                "name": "כתף אחורית חזיר",
+                "plural_name": "כתפיים אחוריות חזיר"
             },
             "canadian bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "canadian bacon",
-                "plural_name": "canadian bacons"
+                "name": "בייקון קנדי",
+                "plural_name": "בייקון קנדי"
             },
             "beef sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "beef sausage",
-                "plural_name": "beef sausages"
+                "name": "נקניק בקר",
+                "plural_name": "נקניקי בקר"
             },
             "lamb shank": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb shank",
-                "plural_name": "lamb shanks"
+                "name": "שוק כבש",
+                "plural_name": "שוקי כבש"
             },
             "mutton": {
                 "aliases": [],
                 "description": "",
-                "name": "mutton",
-                "plural_name": "muttons"
+                "name": "כבש בוגר",
+                "plural_name": "כבשים בוגרים"
             },
             "ham steak": {
                 "aliases": [],
                 "description": "",
-                "name": "ham steak",
-                "plural_name": "ham steaks"
+                "name": "סטייק חזיר",
+                "plural_name": "סטייקים חזיר"
             },
             "venison": {
                 "aliases": [],
                 "description": "",
-                "name": "venison",
-                "plural_name": "venisons"
+                "name": "בשר צבי",
+                "plural_name": "בשרי צבי"
             },
             "bratwurst": {
                 "aliases": [],
                 "description": "",
-                "name": "bratwurst",
-                "plural_name": "bratwursts"
+                "name": "בראטוורסט",
+                "plural_name": "בראטוורסטים"
             },
             "pulled pork": {
                 "aliases": [],
                 "description": "",
-                "name": "pulled pork",
-                "plural_name": "pulled porks"
+                "name": "חזיר מפורק",
+                "plural_name": "חזיר מפורק"
             },
             "ham hock": {
                 "aliases": [],
                 "description": "",
-                "name": "ham hock",
-                "plural_name": "ham hocks"
+                "name": "עצם חזיר",
+                "plural_name": "עצמות חזיר"
             },
             "frozen meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen meatball",
-                "plural_name": "frozen meatballs"
+                "name": "קציצת בשר קפואה",
+                "plural_name": "קציצות בשר קפואות"
             },
             "mixed ground meat": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed ground meat",
-                "plural_name": "mixed ground meats"
+                "name": "בשר טחון מעורב",
+                "plural_name": "בשר טחון מעורב"
             },
             "rabbit": {
                 "aliases": [],
                 "description": "",
-                "name": "rabbit",
-                "plural_name": "rabbits"
+                "name": "ארנב",
+                "plural_name": "ארנבים"
             },
             "pork cutlet": {
                 "aliases": [],
                 "description": "",
-                "name": "pork cutlet",
-                "plural_name": "pork cutlets"
+                "name": "שניצל חזיר",
+                "plural_name": "שניצלים חזיר"
             },
             "veal cutlet": {
                 "aliases": [],
                 "description": "",
-                "name": "veal cutlet",
-                "plural_name": "veal cutlets"
+                "name": "שניצל עגל",
+                "plural_name": "שניצלים עגל"
             },
             "soup bone": {
                 "aliases": [],
                 "description": "",
-                "name": "soup bone",
-                "plural_name": "soup bones"
+                "name": "עצם למרק",
+                "plural_name": "עצמות למרק"
             },
             "lamb loin": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb loin",
-                "plural_name": "lamb loins"
+                "name": "סינטה כבש",
+                "plural_name": "סינטות כבש"
             },
             "pork steak": {
                 "aliases": [],
                 "description": "",
-                "name": "pork steak",
-                "plural_name": "pork steaks"
+                "name": "סטייק חזיר",
+                "plural_name": "סטייקים חזיר"
             },
             "mexican chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican chorizo",
-                "plural_name": "mexican chorizoes"
+                "name": "צ'וריסו מקסיקני",
+                "plural_name": "צ'וריסוים מקסיקניים"
             },
             "rack of lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "rack of lamb",
-                "plural_name": "rack of lamb"
+                "name": "צלעות טלה",
+                "plural_name": "צלעות טלה"
             },
             "pork back rib": {
                 "aliases": [],
                 "description": "",
-                "name": "pork back rib",
-                "plural_name": "pork back ribs"
+                "name": "צלע גב חזיר",
+                "plural_name": "צלעות גב חזיר"
             },
             "country style rib": {
                 "aliases": [],
                 "description": "",
-                "name": "country style rib",
-                "plural_name": "country style ribs"
+                "name": "צלע בסגנון כפרי",
+                "plural_name": "צלעות בסגנון כפרי"
             },
             "black forest ham": {
                 "aliases": [],
                 "description": "",
-                "name": "black forest ham",
-                "plural_name": "black forest hams"
+                "name": "חזיר יער שחור",
+                "plural_name": "חזירי יער שחור"
             },
             "oxtail": {
                 "aliases": [],
                 "description": "",
-                "name": "oxtail",
-                "plural_name": "oxtails"
+                "name": "זנב שור",
+                "plural_name": "זנבות שור"
             },
             "smoked ham hock": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked ham hock",
-                "plural_name": "smoked ham hocks"
+                "name": "עצם חזיר מעושנת",
+                "plural_name": "עצמות חזיר מעושנות"
             },
             "serrano ham": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano ham",
-                "plural_name": "serrano hams"
+                "name": "פסטרמה סראנו",
+                "plural_name": "פסטרמות סראנו"
             },
             "raw chorizo": {
                 "aliases": [],
@@ -4183,146 +4183,146 @@
             "cocktail sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "cocktail sausage",
-                "plural_name": "cocktail sausages"
+                "name": "נקניק קוקטייל",
+                "plural_name": "נקניקי קוקטייל"
             },
             "hard salami": {
                 "aliases": [],
                 "description": "",
-                "name": "hard salami",
-                "plural_name": "hard salamis"
+                "name": "סלמי קשה",
+                "plural_name": "סלמי קשים"
             },
             "back bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "back bacon",
-                "plural_name": "back bacons"
+                "name": "בייקון גב",
+                "plural_name": "בייקון גב"
             },
             "salt pork": {
                 "aliases": [],
                 "description": "",
-                "name": "salt pork",
-                "plural_name": "salt porks"
+                "name": "חזיר מומלח",
+                "plural_name": "חזיר מומלח"
             },
             "veal shank": {
                 "aliases": [],
                 "description": "",
-                "name": "veal shank",
-                "plural_name": "veal shanks"
+                "name": "שוק עגל",
+                "plural_name": "שוקי עגל"
             },
             "ground venison": {
                 "aliases": [],
                 "description": "",
-                "name": "ground venison",
-                "plural_name": "ground venisons"
+                "name": "בשר צבי טחון",
+                "plural_name": "בשרי צבי טחונים"
             },
             "beef shank": {
                 "aliases": [],
                 "description": "",
-                "name": "beef shank",
-                "plural_name": "beef shanks"
+                "name": "שוק בקר",
+                "plural_name": "שוקי בקר"
             },
             "lap cheong": {
                 "aliases": [],
                 "description": "",
-                "name": "lap cheong",
-                "plural_name": "lap cheongs"
+                "name": "נקניק סיני (לאפ צ'ונג)",
+                "plural_name": "נקניקים סיניים (לאפ צ'ונג)"
             },
             "blood sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "blood sausage",
-                "plural_name": "blood sausages"
+                "name": "נקניק דם",
+                "plural_name": "נקניקי דם"
             },
             "dried beef": {
                 "aliases": [],
                 "description": "",
-                "name": "dried beef",
-                "plural_name": "dried beefs"
+                "name": "בשר בקר מיובש",
+                "plural_name": "בשרי בקר מיובשים"
             },
             "gammon joint": {
                 "aliases": [],
                 "description": "",
-                "name": "gammon joint",
-                "plural_name": "gammon joints"
+                "name": "נתח חזיר מעושן",
+                "plural_name": "נתחי חזיר מעושנים"
             },
             "boneless beef short rib": {
                 "aliases": [],
                 "description": "",
-                "name": "boneless beef short rib",
-                "plural_name": "boneless beef short ribs"
+                "name": "צלעות קצרות בקר ללא עצם",
+                "plural_name": "צלעות קצרות בקר ללא עצם"
             },
             "country ham": {
                 "aliases": [],
                 "description": "",
-                "name": "country ham",
-                "plural_name": "country hams"
+                "name": "פסטרמה כפרית",
+                "plural_name": "פסטרמות כפריות"
             },
             "boneless ham": {
                 "aliases": [],
                 "description": "",
-                "name": "boneless ham",
-                "plural_name": "boneless hams"
+                "name": "פסטרמה ללא עצם",
+                "plural_name": "פסטרמות ללא עצם"
             },
             "mortadella": {
                 "aliases": [],
                 "description": "",
-                "name": "mortadella",
-                "plural_name": "mortadellas"
+                "name": "מורטדלה",
+                "plural_name": "מורטדלות"
             },
             "ground bison": {
                 "aliases": [],
                 "description": "",
-                "name": "ground bison",
-                "plural_name": "ground bisons"
+                "name": "ביזון טחון",
+                "plural_name": "ביזונים טחונים"
             },
             "fresh sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh sausage",
-                "plural_name": "fresh sausages"
+                "name": "נקניק טרי",
+                "plural_name": "נקניקים טריים"
             },
             "bologna": {
                 "aliases": [],
                 "description": "",
-                "name": "bologna",
-                "plural_name": "bolognas"
+                "name": "בולוניה",
+                "plural_name": "בולוניות"
             },
             "burger patty": {
                 "aliases": [],
                 "description": "",
-                "name": "burger patty",
-                "plural_name": "burger patties"
+                "name": "קציצת המבורגר",
+                "plural_name": "קציצות המבורגר"
             },
             "smoked pork chop": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked pork chop",
-                "plural_name": "smoked pork chops"
+                "name": "צלע חזיר מעושנת",
+                "plural_name": "צלעות חזיר מעושנות"
             },
             "lamb neck": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb neck",
-                "plural_name": "lamb necks"
+                "name": "צוואר כבש",
+                "plural_name": "צווארי כבש"
             },
             "sausage patty": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage patty",
-                "plural_name": "sausage patties"
+                "name": "קציצת נקניק",
+                "plural_name": "קציצות נקניק"
             },
             "beef suet": {
                 "aliases": [],
                 "description": "",
-                "name": "beef suet",
-                "plural_name": "beef suets"
+                "name": "שומן בקר",
+                "plural_name": "שומני בקר"
             },
             "veal roast": {
                 "aliases": [],
                 "description": "",
-                "name": "veal roast",
-                "plural_name": "veal roasts"
+                "name": "עגל לצלייה",
+                "plural_name": "עגלים לצלייה"
             },
             "beef shoulder": {
                 "aliases": [],
@@ -4333,14 +4333,14 @@
             "steak tip": {
                 "aliases": [],
                 "description": "",
-                "name": "steak tip",
-                "plural_name": "steak tips"
+                "name": "קצה סטייק",
+                "plural_name": "קצות סטייק"
             },
             "veal chop": {
                 "aliases": [],
                 "description": "",
-                "name": "veal chop",
-                "plural_name": "veal chops"
+                "name": "צלע עגל",
+                "plural_name": "צלעות עגל"
             }
         }
     },
