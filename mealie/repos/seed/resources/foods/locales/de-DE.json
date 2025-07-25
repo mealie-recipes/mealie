@@ -4739,7 +4739,7 @@
             "smoked turkey wing": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked turkey wing",
+                "name": "geräucherte Putenflügel",
                 "plural_name": "smoked turkey wings"
             },
             "chicken curry-cut": {
@@ -4817,7 +4817,7 @@
             "chicken kebab": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken kebab",
+                "name": "Hühnerkebab",
                 "plural_name": "chicken kebabs"
             },
             "chicken ham": {
