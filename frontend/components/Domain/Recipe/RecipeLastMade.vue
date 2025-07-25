@@ -232,7 +232,8 @@ export default defineNuxtComponent({
         if (!newEvent) {
           throw new Error("No event created");
         }
-      } catch (error) {
+      }
+      catch (error) {
         console.error("Failed to create timeline event:", error);
         alert.error(i18n.t("recipe.failed-to-add-to-timeline"));
         resetMadeThisForm();
@@ -244,7 +245,8 @@ export default defineNuxtComponent({
         try {
           lastMade.value = newTimelineEvent.value.timestamp;
           await userApi.recipes.updateLastMade(props.recipe.slug, newTimelineEvent.value.timestamp);
-        } catch (error) {
+        }
+        catch (error) {
           console.error("Failed to update last made date:", error);
           alert.error(i18n.t("recipe.failed-to-update-recipe"));
         }
@@ -262,7 +264,8 @@ export default defineNuxtComponent({
           if (imageResponse.data) {
             newEvent.image = imageResponse.data.image;
           }
-        } catch (error) {
+        }
+        catch (error) {
           imageError = true;
           console.error("Failed to upload image for timeline event:", error);
         }
@@ -270,7 +273,8 @@ export default defineNuxtComponent({
 
       if (imageError) {
         alert.error(i18n.t("recipe.added-to-timeline-but-failed-to-add-image"));
-      } else {
+      }
+      else {
         alert.success(i18n.t("recipe.added-to-timeline"));
       }
 
