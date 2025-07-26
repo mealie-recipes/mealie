@@ -523,8 +523,8 @@
             "rutabaga": {
                 "aliases": [],
                 "description": "",
-                "name": "rutabaga",
-                "plural_name": "rutabagas"
+                "name": "kålrot",
+                "plural_name": "kålrötter"
             },
             "belgian endive": {
                 "aliases": [],
@@ -547,7 +547,7 @@
             "microgreen": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreen",
+                "name": "mikrogrönsak",
                 "plural_name": "mikrogrönt"
             },
             "boston lettuce": {
@@ -1211,8 +1211,8 @@
             "mamey": {
                 "aliases": [],
                 "description": "",
-                "name": "mamey",
-                "plural_name": "mameys"
+                "name": "mameyäpple",
+                "plural_name": "mameyäpplen"
             },
             "sapote": {
                 "aliases": [],
@@ -1293,8 +1293,8 @@
             "black fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "black fungu",
-                "plural_name": "black fungus"
+                "name": "svart träskinnsvamp",
+                "plural_name": "svart träskinnsvampar"
             },
             "black truffle": {
                 "aliases": [],
@@ -1311,14 +1311,14 @@
             "field mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "field mushroom",
-                "plural_name": "field mushrooms"
+                "name": "champinjon",
+                "plural_name": "champinjoner"
             },
             "king oyster mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "king oyster mushroom",
-                "plural_name": "king oyster mushrooms"
+                "name": "kungsostronsvamp",
+                "plural_name": "kungsostronsvampar"
             },
             "shimeji mushroom": {
                 "aliases": [],
@@ -1359,8 +1359,8 @@
             "white fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "white fungu",
-                "plural_name": "white fungus"
+                "name": "snösvamp",
+                "plural_name": "snösvampar"
             },
             "pioppini": {
                 "aliases": [],
@@ -1383,14 +1383,14 @@
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletu",
-                "plural_name": "boletus"
+                "name": "stensopp",
+                "plural_name": "stensoppar"
             },
             "huitlacoche": {
                 "aliases": [],
                 "description": "",
-                "name": "huitlacoche",
-                "plural_name": "huitlacoches"
+                "name": "majsräka",
+                "plural_name": "majsräkor"
             },
             "matsutake": {
                 "aliases": [],
@@ -1401,50 +1401,50 @@
             "nameko": {
                 "aliases": [],
                 "description": "",
-                "name": "nameko",
-                "plural_name": "namekoes"
+                "name": "namekosvamp",
+                "plural_name": "namekosvampar"
             },
             "djon djon mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "djon djon mushroom",
-                "plural_name": "djon djon mushrooms"
+                "name": "djon djon-svamp",
+                "plural_name": "djon djon-svampar"
             },
             "mixed asian mushroom": {
                 "aliases": [],
                 "description": "",
                 "name": "blandad asiatisk svamp",
-                "plural_name": "mixed asian mushrooms"
+                "plural_name": "blandad asiatisk svamp"
             },
             "puffball": {
                 "aliases": [],
                 "description": "",
-                "name": "puffball",
-                "plural_name": "puffballs"
+                "name": "röksvamp",
+                "plural_name": "röksvampar"
             },
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungu",
-                "plural_name": "honey fungus"
+                "name": "honungsskivling",
+                "plural_name": "honungsskivlingar"
             },
             "caesar's mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "caesar's mushroom",
-                "plural_name": "caesar's mushrooms"
+                "name": "kejsarskivling",
+                "plural_name": "kejsarskivlingar"
             },
             "candy cap mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "candy cap mushroom",
-                "plural_name": "candy cap mushrooms"
+                "name": "",
+                "plural_name": "kamferriskor"
             },
             "lion’s mane mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "lion’s mane mushroom",
-                "plural_name": "lion’s mane mushrooms"
+                "name": "lejonman-svamp",
+                "plural_name": "lejonman-svampar"
             }
         }
     },
@@ -1579,8 +1579,8 @@
             "amla": {
                 "aliases": [],
                 "description": "",
-                "name": "amla",
-                "plural_name": "amlas"
+                "name": "indisk krusbär",
+                "plural_name": "indiska krusbär"
             },
             "elderberry": {
                 "aliases": [],
@@ -1663,20 +1663,20 @@
             "aronia berry": {
                 "aliases": [],
                 "description": "",
-                "name": "aronia berry",
-                "plural_name": "aronia berries"
+                "name": "aroniabär",
+                "plural_name": "aroniabär"
             },
             "chokeberry": {
                 "aliases": [],
                 "description": "",
-                "name": "chokeberry",
-                "plural_name": "chokeberries"
+                "name": "aroniabär",
+                "plural_name": "aroniabär"
             },
             "loganberry": {
                 "aliases": [],
                 "description": "",
-                "name": "loganberry",
-                "plural_name": "loganberries"
+                "name": "loganbär",
+                "plural_name": "loganbär"
             },
             "blackcurrant leaf": {
                 "aliases": [],
@@ -1687,8 +1687,8 @@
             "haskap berry": {
                 "aliases": [],
                 "description": "",
-                "name": "haskap berry",
-                "plural_name": "haskap berries"
+                "name": "blåbärstry",
+                "plural_name": "blåbärstry"
             },
             "dewberry": {
                 "aliases": [],
@@ -1775,8 +1775,8 @@
             "slivered almond": {
                 "aliases": [],
                 "description": "",
-                "name": "slivered almond",
-                "plural_name": "slivered almonds"
+                "name": "skållad strimlad mandel",
+                "plural_name": "skållad estrimlade mandlar"
             },
             "pumpkin seed": {
                 "aliases": [],
