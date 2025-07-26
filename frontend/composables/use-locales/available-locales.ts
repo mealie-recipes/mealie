@@ -57,7 +57,7 @@ export const LOCALES = [
   {
     name: "Pусский (Russian)",
     value: "ru-RU",
-    progress: 35,
+    progress: 37,
     dir: "ltr",
   },
   {
@@ -189,7 +189,7 @@ export const LOCALES = [
   {
     name: "Español (Spanish)",
     value: "es-ES",
-    progress: 37,
+    progress: 40,
     dir: "ltr",
   },
   {
@@ -213,19 +213,19 @@ export const LOCALES = [
   {
     name: "Deutsch (German)",
     value: "de-DE",
-    progress: 61,
+    progress: 63,
     dir: "ltr",
   },
   {
     name: "Dansk (Danish)",
     value: "da-DK",
-    progress: 37,
+    progress: 38,
     dir: "ltr",
   },
   {
     name: "Čeština (Czech)",
     value: "cs-CZ",
-    progress: 39,
+    progress: 40,
     dir: "ltr",
   },
   {

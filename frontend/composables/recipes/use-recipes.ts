@@ -90,6 +90,8 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
   }
 
   async function getRandom(query: RecipeSearchQuery | null = null, queryFilter: string | null = null) {
+    query = query || {};
+    query._searchSeed = query._searchSeed || Date.now().toString();
     const { data } = await api.recipes.getAll(1, 1, getParams("random", "desc", null, query, queryFilter));
     if (data?.items.length) {
       return data.items[0];

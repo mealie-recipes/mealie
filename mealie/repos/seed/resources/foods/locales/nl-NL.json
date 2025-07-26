@@ -1425,20 +1425,20 @@
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungu",
-                "plural_name": "honey fungus"
+                "name": "honingzwam",
+                "plural_name": "honingzwammen"
             },
             "caesar's mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "caesar's mushroom",
-                "plural_name": "caesar's mushrooms"
+                "name": "keizersamaniet",
+                "plural_name": "keizersamanieten"
             },
             "candy cap mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "candy cap mushroom",
-                "plural_name": "candy cap mushrooms"
+                "name": "kruidige melkzwam",
+                "plural_name": "kruidige melkzwammen"
             },
             "lion’s mane mushroom": {
                 "aliases": [],
@@ -1579,7 +1579,7 @@
             "amla": {
                 "aliases": [],
                 "description": "",
-                "name": "amla",
+                "name": "Indiase kruisbes",
                 "plural_name": "indiase kruisbessen"
             },
             "elderberry": {
@@ -1597,8 +1597,8 @@
             "huckleberry": {
                 "aliases": [],
                 "description": "",
-                "name": "huckleberry",
-                "plural_name": "huckleberries"
+                "name": "bosbes",
+                "plural_name": "bosbessen"
             },
             "dried elderberry": {
                 "aliases": [],
@@ -1823,8 +1823,8 @@
             "hemp heart": {
                 "aliases": [],
                 "description": "",
-                "name": "hemp heart",
-                "plural_name": "hemp hearts"
+                "name": "gepeld hennepzaad",
+                "plural_name": "gepelde hennepzaden"
             },
             "nigella seed": {
                 "aliases": [],
@@ -1859,8 +1859,8 @@
             "watermelon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon seed",
-                "plural_name": "watermelon seeds"
+                "name": "watermeloen pit",
+                "plural_name": "watermeloen pitten"
             },
             "honey-roasted peanut": {
                 "aliases": [],
@@ -1913,8 +1913,8 @@
             "jackfruit seed": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit seed",
-                "plural_name": "jackfruit seeds"
+                "name": "jackfruit zaad",
+                "plural_name": "jackfruit zaden"
             },
             "honey-roasted almond": {
                 "aliases": [],
@@ -2183,8 +2183,8 @@
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheeses"
+                "name": "gerookte kaas",
+                "plural_name": "gerookte kazen"
             },
             "halloumi": {
                 "aliases": [],
@@ -2643,8 +2643,8 @@
             "buttermilk": {
                 "aliases": [],
                 "description": "",
-                "name": "buttermilk",
-                "plural_name": "buttermilks"
+                "name": "karnemelk",
+                "plural_name": "karnemelk"
             },
             "yogurt": {
                 "aliases": [],
@@ -2672,7 +2672,7 @@
             },
             "ghee": {
                 "aliases": [
-                    "clarified butter"
+                    "geklaarde boter"
                 ],
                 "description": "",
                 "name": "ghee",
