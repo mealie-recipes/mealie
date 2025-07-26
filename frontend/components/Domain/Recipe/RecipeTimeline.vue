@@ -243,8 +243,8 @@ export default defineNuxtComponent({
     };
 
     async function getRecipes(recipeIds: string[]): Promise<Recipe[]> {
-      const qf = "id IN [" + recipeIds.map((id) => `"${id}"`).join(", ") + "]";
-      const { data } = await api.recipes.getAll(1, -1, { queryFilter: qf })
+      const qf = "id IN [" + recipeIds.map(id => `"${id}"`).join(", ") + "]";
+      const { data } = await api.recipes.getAll(1, -1, { queryFilter: qf });
       return data?.items || [];
     };
 

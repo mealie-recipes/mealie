@@ -5,7 +5,7 @@
         :ripple="false"
         :class="[
           isFlat ? 'mx-auto flat' : 'mx-auto',
-          { 'disable-highlight': disableHighlight }
+          { 'disable-highlight': disableHighlight },
         ]"
         :style="{ cursor }"
         hover
