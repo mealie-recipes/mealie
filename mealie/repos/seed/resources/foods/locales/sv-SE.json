@@ -9498,26 +9498,26 @@
             "spaghetti": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti",
-                "plural_name": "spaghettis"
+                "name": "spagetti",
+                "plural_name": "spagetti"
             },
             "macaroni": {
                 "aliases": [],
                 "description": "",
-                "name": "macaroni",
-                "plural_name": "macaronis"
+                "name": "makaron",
+                "plural_name": "makaroner"
             },
             "egg noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "egg noodle",
-                "plural_name": "egg noodles"
+                "name": "äggnudel",
+                "plural_name": "äggnudlar"
             },
             "spiral pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "spiral pasta",
-                "plural_name": "spiral pastas"
+                "name": "pastaskruv",
+                "plural_name": "pastaskruvar"
             },
             "lasagna noodle": {
                 "aliases": [
@@ -9548,20 +9548,20 @@
             "pasta shell": {
                 "aliases": [],
                 "description": "",
-                "name": "pasta shell",
-                "plural_name": "pasta shells"
+                "name": "pastasnäcka",
+                "plural_name": "pastasnäckor"
             },
             "bow-tie pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "bow-tie pasta",
-                "plural_name": "bow-tie pastas"
+                "name": "pastafjäril",
+                "plural_name": "pastafjärilar"
             },
             "noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "noodle",
-                "plural_name": "noodles"
+                "name": "nudel",
+                "plural_name": "nudlar"
             },
             "tortellini": {
                 "aliases": [],
@@ -9578,8 +9578,8 @@
             "rice noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "rice noodle",
-                "plural_name": "rice noodles"
+                "name": "risnudel",
+                "plural_name": "risnudlar"
             },
             "rigatoni": {
                 "aliases": [],
@@ -9680,14 +9680,14 @@
             "glass noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "glass noodle",
-                "plural_name": "glass noodles"
+                "name": "glasnudel",
+                "plural_name": "glasnudlar"
             },
             "gluten-free pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free pasta",
-                "plural_name": "gluten-free pastas"
+                "name": "glutenfri pasta",
+                "plural_name": "glutenfri pasta"
             },
             "mac 'n cheese": {
                 "aliases": [],
@@ -9698,8 +9698,8 @@
             "penne rigate": {
                 "aliases": [],
                 "description": "",
-                "name": "penne rigate",
-                "plural_name": "penne rigates"
+                "name": "pastapenna",
+                "plural_name": "pastapennor"
             },
             "manicotti": {
                 "aliases": [],
@@ -9764,8 +9764,8 @@
             "sweet potato noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet potato noodle",
-                "plural_name": "sweet potato noodles"
+                "name": "sötpotatisnudel",
+                "plural_name": "sötpotatisnudlar"
             },
             "acini di pepe": {
                 "aliases": [],
@@ -9986,8 +9986,8 @@
             "bean pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "bean pasta",
-                "plural_name": "bean pastas"
+                "name": "bönpasta",
+                "plural_name": "bönpasta"
             },
             "bean sheet": {
                 "aliases": [],
@@ -10026,8 +10026,8 @@
             "bread": {
                 "aliases": [],
                 "description": "",
-                "name": "bread",
-                "plural_name": "breads"
+                "name": "bröd",
+                "plural_name": "bröd"
             }
         }
     },
@@ -10036,8 +10036,8 @@
             "bread crumb": {
                 "aliases": [],
                 "description": "",
-                "name": "bread crumb",
-                "plural_name": "bread crumbs"
+                "name": "brödsmula",
+                "plural_name": "brödsmulor"
             },
             "panko": {
                 "aliases": [],
@@ -10048,20 +10048,20 @@
             "flour tortilla": {
                 "aliases": [],
                 "description": "",
-                "name": "flour tortilla",
-                "plural_name": "flour tortillas"
+                "name": "vetetortilla",
+                "plural_name": "vetetortilla"
             },
             "almond flour tortilla": {
                 "aliases": [],
                 "description": "",
-                "name": "almond flour tortilla",
-                "plural_name": "almond flour tortillas"
+                "name": "mandeltortilla",
+                "plural_name": "mandeltortilla"
             },
             "corn tortilla": {
                 "aliases": [],
                 "description": "",
-                "name": "corn tortilla",
-                "plural_name": "corn tortillas"
+                "name": "majstortilla",
+                "plural_name": "majstortilla"
             },
             "cracker": {
                 "aliases": [],
@@ -10073,19 +10073,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "baguette",
-                "plural_name": "baguettes"
+                "plural_name": "baguetter"
             },
             "tortilla chip": {
                 "aliases": [],
                 "description": "",
-                "name": "tortilla chip",
-                "plural_name": "tortilla chips"
+                "name": "tortillachip",
+                "plural_name": "tortillachips"
             },
             "pita": {
                 "aliases": [],
                 "description": "",
-                "name": "pita",
-                "plural_name": "pitas"
+                "name": "pitabröd",
+                "plural_name": "pitabröd"
             },
             "pretzel": {
                 "aliases": [],
@@ -10096,20 +10096,20 @@
             "sourdough bread": {
                 "aliases": [],
                 "description": "",
-                "name": "sourdough bread",
-                "plural_name": "sourdough breads"
+                "name": "surdegsbröd",
+                "plural_name": "surdegsbröd"
             },
             "rustic italian bread": {
                 "aliases": [],
                 "description": "",
-                "name": "rustic italian bread",
-                "plural_name": "rustic italian breads"
+                "name": "rustikt italienskt bröd",
+                "plural_name": "rustikt italienskt bröd"
             },
             "popcorn": {
                 "aliases": [],
                 "description": "",
                 "name": "popcorn",
-                "plural_name": "popcorns"
+                "plural_name": "popcorn"
             },
             "crouton": {
                 "aliases": [],
@@ -10186,8 +10186,8 @@
             "taco shell": {
                 "aliases": [],
                 "description": "",
-                "name": "taco shell",
-                "plural_name": "taco shells"
+                "name": "tacoskal",
+                "plural_name": "tacoskal"
             },
             "tater tot": {
                 "aliases": [],
@@ -10199,25 +10199,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "bagel",
-                "plural_name": "bagels"
+                "plural_name": "baglar"
             },
             "corn chip": {
                 "aliases": [],
                 "description": "",
-                "name": "corn chip",
-                "plural_name": "corn chips"
+                "name": "majschip",
+                "plural_name": "majschips"
             },
             "unpopped popcorn": {
                 "aliases": [],
                 "description": "",
-                "name": "unpopped popcorn",
-                "plural_name": "unpopped popcorns"
+                "name": "opoppade popcorn",
+                "plural_name": "opoppade popcorn"
             },
             "croissant": {
                 "aliases": [],
                 "description": "",
                 "name": "croissant",
-                "plural_name": "croissants"
+                "plural_name": "croissant"
             },
             "pork rind": {
                 "aliases": [],
@@ -10252,8 +10252,8 @@
             "gluten free bread": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten free bread",
-                "plural_name": "gluten free breads"
+                "name": "glutenfritt bröd",
+                "plural_name": "glutenfritt bröd"
             },
             "potato bread": {
                 "aliases": [],
@@ -10270,14 +10270,14 @@
             "breadstick": {
                 "aliases": [],
                 "description": "",
-                "name": "breadstick",
-                "plural_name": "breadsticks"
+                "name": "brödpinne",
+                "plural_name": "brödpinnar"
             },
             "focaccia": {
                 "aliases": [],
                 "description": "",
                 "name": "focaccia",
-                "plural_name": "focaccias"
+                "plural_name": "focaccia"
             },
             "gluten-free bread crumb": {
                 "aliases": [],
@@ -10306,8 +10306,8 @@
             "garlic bread": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic bread",
-                "plural_name": "garlic breads"
+                "name": "vitlöksbröd",
+                "plural_name": "vitlöksbröd"
             },
             "yeast extract spread": {
                 "aliases": [],
@@ -10438,8 +10438,8 @@
             "low-carb wrap": {
                 "aliases": [],
                 "description": "",
-                "name": "low-carb wrap",
-                "plural_name": "low-carb wraps"
+                "name": "lågkaloriwrap",
+                "plural_name": "lågkaloriwrap"
             },
             "frozen onion ring": {
                 "aliases": [],
@@ -10510,8 +10510,8 @@
             "chocolate muffin": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate muffin",
-                "plural_name": "chocolate muffins"
+                "name": "chokladmuffin",
+                "plural_name": "chokladmuffins"
             },
             "milk bread": {
                 "aliases": [],
@@ -10582,8 +10582,8 @@
             "gluten free pita": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten free pita",
-                "plural_name": "gluten free pitas"
+                "name": "glutenfritt pitabröd",
+                "plural_name": "glutenfritt pitabröd"
             },
             "ready-made arepa": {
                 "aliases": [],
@@ -10634,8 +10634,8 @@
             "olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "olive oil",
-                "plural_name": "olive oils"
+                "name": "olivolja",
+                "plural_name": "olivoljor"
             },
             "vegetable oil": {
                 "aliases": [],
