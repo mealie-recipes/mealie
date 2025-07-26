@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hvitløk",
-                "plural_name": "garlics"
+                "plural_name": "hvitløk"
             },
             "onion": {
                 "aliases": [],
@@ -16,8 +16,8 @@
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "bell pepper",
-                "plural_name": "bell peppers"
+                "name": "paprika",
+                "plural_name": "paprikaer"
             },
             "carrot": {
                 "aliases": [],
@@ -28,14 +28,14 @@
             "scallion": {
                 "aliases": [],
                 "description": "",
-                "name": "scallion",
-                "plural_name": "scallions"
+                "name": "vårløk",
+                "plural_name": "vårløk"
             },
             "zucchini": {
                 "aliases": [],
                 "description": "",
-                "name": "zucchini",
-                "plural_name": "zucchinis"
+                "name": "squash",
+                "plural_name": "squash"
             },
             "potato": {
                 "aliases": [],
@@ -52,8 +52,8 @@
             "yellow onion": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow onion",
-                "plural_name": "yellow onions"
+                "name": "gul løk",
+                "plural_name": "gul løk"
             },
             "celery": {
                 "aliases": [],
@@ -65,7 +65,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "jalapeno",
-                "plural_name": "jalapenoes"
+                "plural_name": "jalapenoer"
             },
             "avocado": {
                 "aliases": [],
@@ -82,8 +82,8 @@
             "cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry tomato",
-                "plural_name": "cherry tomatoes"
+                "name": "cherrytomat",
+                "plural_name": "cherrytomater"
             },
             "cucumber": {
                 "aliases": [],
@@ -95,12 +95,12 @@
                 "aliases": [],
                 "description": "",
                 "name": "spinat",
-                "plural_name": "spinaches"
+                "plural_name": "spinat"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet corn",
+                "name": "søtmais",
                 "plural_name": "sweet corns"
             },
             "chile pepper": {
@@ -108,26 +108,26 @@
                     "chilipepper"
                 ],
                 "description": "",
-                "name": "chile pepper",
-                "plural_name": "chile peppers"
+                "name": "chilipepper",
+                "plural_name": "chilipepper"
             },
             "sweet potato": {
                 "aliases": [],
                 "description": "",
                 "name": "søtpotet",
-                "plural_name": "sweet potatoes"
+                "plural_name": "søtpoteter"
             },
             "broccoli": {
                 "aliases": [],
                 "description": "",
                 "name": "brokkoli",
-                "plural_name": "broccolis"
+                "plural_name": "brokkoli"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
-                "name": "heart of palm",
-                "plural_name": "heart of palms"
+                "name": "palmehjerte",
+                "plural_name": "palmehjerte"
             },
             "baby green": {
                 "aliases": [],
