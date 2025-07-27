@@ -2,7 +2,7 @@ import time
 
 
 class AuthCache:
-    def __init__(self, threshold=500, default_timeout=300):
+    def __init__(self, threshold: int = 500, default_timeout: int = 300):
         self.default_timeout = default_timeout
         self._cache = {}
         self.clear = self._cache.clear
@@ -18,14 +18,14 @@ class AuthCache:
             for key in toremove:
                 self._cache.pop(key, None)
 
-    def _normalize_timeout(self, timeout):
+    def _normalize_timeout(self, timeout: int):
         if timeout is None:
             timeout = self.default_timeout
         if timeout > 0:
             timeout = time.time() + timeout
         return timeout
 
-    async def get(self, key):
+    async def get(self, key: str):
         try:
             expires, value = self._cache[key]
             if expires == 0 or expires > time.time():
@@ -33,16 +33,16 @@ class AuthCache:
         except KeyError:
             return None
 
-    async def set(self, key, value, timeout=None):
+    async def set(self, key: str, value: any, timeout: int = None):
         expires = self._normalize_timeout(timeout)
         self._prune()
         self._cache[key] = (expires, value)
         return True
 
-    async def delete(self, key):
+    async def delete(self, key: str):
         return self._cache.pop(key, None) is not None
 
-    async def has(self, key):
+    async def has(self, key: str):
         try:
             expires, value = self._cache[key]
             return expires == 0 or expires > time.time()
