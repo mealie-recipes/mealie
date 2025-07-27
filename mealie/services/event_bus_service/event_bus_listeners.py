@@ -148,15 +148,23 @@ class WebhookEventListener(EventListenerBase):
 
     def publish_to_subscribers(self, event: Event, subscribers: list[ReadWebhook]) -> None:
         with self.ensure_repos(self.group_id, self.household_id) as repos:
-            if event.document_data.document_type == EventDocumentType.mealplan:
-                webhook_data = cast(EventWebhookData, event.document_data)
-                meal_repo = repos.meals
-                meal_data = meal_repo.get_meals_by_date_range(
-                    webhook_data.webhook_start_dt, webhook_data.webhook_end_dt
-                )
-                if meal_data:
-                    webhook_data.webhook_body = meal_data
-                    self.publisher.publish(event, [webhook.url for webhook in subscribers])
+            webhook_data = cast(EventWebhookData, event.document_data)
+            webhook_data.webhook_body = None
+
+            match event.document_data.document_type:
+                case EventDocumentType.mealplan:
+                    meal_repo = repos.meals
+                    meal_data = meal_repo.get_meals_by_date_range(
+                        webhook_data.webhook_start_dt, webhook_data.webhook_end_dt
+                    )
+                    webhook_data.webhook_body = meal_data or None
+                case _:
+                    if event.event_type is EventTypes.test_message:
+                        webhook_data.webhook_body = "Test message"
+
+            # Only publish to subscribers if we have a webhook body to send
+            if webhook_data.webhook_body:
+                self.publisher.publish(event, [webhook.url for webhook in subscribers])
 
     def get_scheduled_webhooks(self, start_dt: datetime, end_dt: datetime) -> list[ReadWebhook]:
         """Fetches all scheduled webhooks from the database"""
