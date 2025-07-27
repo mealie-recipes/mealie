@@ -160,10 +160,10 @@ class WebhookEventListener(EventListenerBase):
                     webhook_data.webhook_body = meal_data or None
                 case _:
                     if event.event_type is EventTypes.test_message:
-                        webhook_data.webhook_body = "Test message"
+                        webhook_data.webhook_body = []
 
             # Only publish to subscribers if we have a webhook body to send
-            if webhook_data.webhook_body:
+            if webhook_data.webhook_body is not None:
                 self.publisher.publish(event, [webhook.url for webhook in subscribers])
 
     def get_scheduled_webhooks(self, start_dt: datetime, end_dt: datetime) -> list[ReadWebhook]:
