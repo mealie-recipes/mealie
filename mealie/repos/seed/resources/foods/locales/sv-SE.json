@@ -8540,8 +8540,8 @@
             "rice": {
                 "aliases": [],
                 "description": "",
-                "name": "rice",
-                "plural_name": "rices"
+                "name": "ris",
+                "plural_name": "ris"
             },
             "Rice Krispie Cereal": {
                 "aliases": [
@@ -8555,13 +8555,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "quinoa",
-                "plural_name": "quinoas"
+                "plural_name": "quinoa"
             },
             "basmati rice": {
                 "aliases": [],
                 "description": "",
-                "name": "basmati rice",
-                "plural_name": "basmati rices"
+                "name": "basmatiris",
+                "plural_name": "basmatiris"
             },
             "brown rice": {
                 "aliases": [],
@@ -8578,26 +8578,26 @@
             "breakfast cereal": {
                 "aliases": [],
                 "description": "",
-                "name": "breakfast cereal",
-                "plural_name": "breakfast cereals"
+                "name": "frukostflinga",
+                "plural_name": "frukostflingor"
             },
             "risotto rice": {
                 "aliases": [],
                 "description": "",
-                "name": "risotto rice",
-                "plural_name": "risotto rices"
+                "name": "risottoris",
+                "plural_name": "risottoris"
             },
             "couscou": {
                 "aliases": [],
                 "description": "",
-                "name": "couscou",
+                "name": "couscous",
                 "plural_name": "couscous"
             },
             "rice cereal": {
                 "aliases": [],
                 "description": "",
-                "name": "rice cereal",
-                "plural_name": "rice cereals"
+                "name": "risflinga",
+                "plural_name": "risflingor"
             },
             "wild rice": {
                 "aliases": [],
@@ -8614,14 +8614,14 @@
             "jasmine rice": {
                 "aliases": [],
                 "description": "",
-                "name": "jasmine rice",
-                "plural_name": "jasmine rices"
+                "name": "jasminris",
+                "plural_name": "jasminris"
             },
             "polenta": {
                 "aliases": [],
                 "description": "",
                 "name": "polenta",
-                "plural_name": "polentas"
+                "plural_name": "polenta"
             },
             "granola cereal": {
                 "aliases": [],
@@ -8633,7 +8633,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bulgur",
-                "plural_name": "bulgurs"
+                "plural_name": "bulgur"
             },
             "pearl barley": {
                 "aliases": [],
@@ -8686,8 +8686,8 @@
             "sushi rice": {
                 "aliases": [],
                 "description": "",
-                "name": "sushi rice",
-                "plural_name": "sushi rices"
+                "name": "sushiris",
+                "plural_name": "sushiris"
             },
             "glutinous rice": {
                 "aliases": [],
@@ -8764,8 +8764,8 @@
             "muesli": {
                 "aliases": [],
                 "description": "",
-                "name": "muesli",
-                "plural_name": "mueslis"
+                "name": "müsli",
+                "plural_name": "müsli"
             },
             "amaranth": {
                 "aliases": [],
@@ -8812,8 +8812,8 @@
             "paella rice": {
                 "aliases": [],
                 "description": "",
-                "name": "paella rice",
-                "plural_name": "paella rices"
+                "name": "paellaris",
+                "plural_name": "paellaris"
             },
             "sorghum": {
                 "aliases": [],
@@ -8986,8 +8986,8 @@
             "gluten-free breakfast cereal": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free breakfast cereal",
-                "plural_name": "gluten-free breakfast cereals"
+                "name": "glutenfri frukostflinga",
+                "plural_name": "glutenfria frukostflingor"
             },
             "puffed amaranth": {
                 "aliases": [],
@@ -9092,8 +9092,8 @@
             "pea": {
                 "aliases": [],
                 "description": "",
-                "name": "pea",
-                "plural_name": "peas"
+                "name": "ärta",
+                "plural_name": "ärtor"
             },
             "green bean": {
                 "aliases": [],
@@ -9104,8 +9104,8 @@
             "chickpea": {
                 "aliases": [],
                 "description": "",
-                "name": "chickpea",
-                "plural_name": "chickpeas"
+                "name": "kikärta",
+                "plural_name": "kikärtor"
             },
             "black bean": {
                 "aliases": [],
@@ -9116,20 +9116,20 @@
             "kidney bean": {
                 "aliases": [],
                 "description": "",
-                "name": "kidney bean",
-                "plural_name": "kidney beans"
+                "name": "kidneyböna",
+                "plural_name": "kidneybönor"
             },
             "white bean": {
                 "aliases": [],
                 "description": "",
-                "name": "white bean",
-                "plural_name": "white beans"
+                "name": "vit böna",
+                "plural_name": "vita bönor"
             },
             "lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "lentil",
-                "plural_name": "lentils"
+                "name": "lins",
+                "plural_name": "linser"
             },
             "pinto bean": {
                 "aliases": [],
@@ -9152,8 +9152,8 @@
             "red lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "red lentil",
-                "plural_name": "red lentils"
+                "name": "röd lins",
+                "plural_name": "röda linser"
             },
             "cannellini bean": {
                 "aliases": [],
@@ -9170,14 +9170,14 @@
             "edamame": {
                 "aliases": [],
                 "description": "",
-                "name": "edamame",
-                "plural_name": "edamames"
+                "name": "edamameböna",
+                "plural_name": "edamamebönor"
             },
             "green lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "green lentil",
-                "plural_name": "green lentils"
+                "name": "grön lins",
+                "plural_name": "gröna linser"
             },
             "urad dal": {
                 "aliases": [],
@@ -9188,8 +9188,8 @@
             "lima bean": {
                 "aliases": [],
                 "description": "",
-                "name": "lima bean",
-                "plural_name": "lima beans"
+                "name": "limaböna",
+                "plural_name": "limabönor"
             },
             "chana dal": {
                 "aliases": [],
@@ -9296,8 +9296,8 @@
             "yellow lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow lentil",
-                "plural_name": "yellow lentils"
+                "name": "gul lins",
+                "plural_name": "gula linser"
             },
             "mixed bean": {
                 "aliases": [],
@@ -9428,8 +9428,8 @@
             "golden wax bean": {
                 "aliases": [],
                 "description": "",
-                "name": "golden wax bean",
-                "plural_name": "golden wax beans"
+                "name": "gul vaxböna",
+                "plural_name": "gula vaxbönor"
             },
             "moth bean": {
                 "aliases": [],
@@ -9782,8 +9782,8 @@
             "instant noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "instant noodle",
-                "plural_name": "instant noodles"
+                "name": "snabbnudel",
+                "plural_name": "snabbnudlar"
             },
             "somen noodle": {
                 "aliases": [],
@@ -10042,8 +10042,8 @@
             "panko": {
                 "aliases": [],
                 "description": "",
-                "name": "panko",
-                "plural_name": "pankoes"
+                "name": "pankosmula",
+                "plural_name": "pankosmulor"
             },
             "flour tortilla": {
                 "aliases": [],
@@ -10114,14 +10114,14 @@
             "crouton": {
                 "aliases": [],
                 "description": "",
-                "name": "crouton",
-                "plural_name": "croutons"
+                "name": "krutong",
+                "plural_name": "krutonger"
             },
             "whole-wheat tortilla": {
                 "aliases": [],
                 "description": "",
-                "name": "whole-wheat tortilla",
-                "plural_name": "whole-wheat tortillas"
+                "name": "fullkornstortilla",
+                "plural_name": "fullkornstortilla"
             },
             "english muffin": {
                 "aliases": [],
@@ -10144,8 +10144,8 @@
             "rye bread": {
                 "aliases": [],
                 "description": "",
-                "name": "rye bread",
-                "plural_name": "rye breads"
+                "name": "rågbröd",
+                "plural_name": "rågbröd"
             },
             "flatbread": {
                 "aliases": [],
@@ -10156,14 +10156,14 @@
             "dry-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "dry-roasted peanut",
-                "plural_name": "dry-roasted peanuts"
+                "name": "torrostad jordnöt",
+                "plural_name": "torrostade jordnötter"
             },
             "potato chip": {
                 "aliases": [],
                 "description": "",
-                "name": "potato chip",
-                "plural_name": "potato chips"
+                "name": "potatischips",
+                "plural_name": "potatischips"
             },
             "naan": {
                 "aliases": [],
@@ -10282,8 +10282,8 @@
             "gluten-free bread crumb": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free bread crumb",
-                "plural_name": "gluten-free bread crumbs"
+                "name": "glutenfri brödsmula",
+                "plural_name": "glutenfria brödsmulor"
             },
             "tostada shell": {
                 "aliases": [],
@@ -10336,8 +10336,8 @@
             "rice cake": {
                 "aliases": [],
                 "description": "",
-                "name": "rice cake",
-                "plural_name": "rice cakes"
+                "name": "riskaka",
+                "plural_name": "riskakor"
             },
             "panettone": {
                 "aliases": [],
@@ -10348,8 +10348,8 @@
             "sweet potato fry": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet potato fry",
-                "plural_name": "sweet potato fries"
+                "name": "sötpotatispommes",
+                "plural_name": "sötpotatispommes"
             },
             "sev": {
                 "aliases": [],
