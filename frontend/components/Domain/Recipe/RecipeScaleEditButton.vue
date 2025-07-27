@@ -71,7 +71,7 @@
                   :min="0"
                   variant="underlined"
                   hide-spin-buttons
-                  @update:model-value="recalculateScale(yieldQuantityEditorValue)"
+                  @update:model-value="recalculateScale(parseFloat($event) || 0)"
                 />
                 <v-tooltip
                   end
