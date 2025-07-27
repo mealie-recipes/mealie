@@ -158,7 +158,8 @@ class WebhookEventListener(EventListenerBase):
                     webhook_data.webhook_body = meal_data or None
                 case _:
                     if event.event_type is EventTypes.test_message:
-                        webhook_data.webhook_body = []
+                        # make sure the webhook has a valid body so it gets sent
+                        webhook_data.webhook_body = webhook_data.webhook_body or []
 
             # Only publish to subscribers if we have a webhook body to send
             if webhook_data.webhook_body is not None:
