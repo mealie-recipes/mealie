@@ -149,8 +149,6 @@ class WebhookEventListener(EventListenerBase):
     def publish_to_subscribers(self, event: Event, subscribers: list[ReadWebhook]) -> None:
         with self.ensure_repos(self.group_id, self.household_id) as repos:
             webhook_data = cast(EventWebhookData, event.document_data)
-            webhook_data.webhook_body = None
-
             match event.document_data.document_type:
                 case EventDocumentType.mealplan:
                     meal_repo = repos.meals
