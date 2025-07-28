@@ -53,6 +53,7 @@
         <v-row :class="useMobileFormat ? 'py-3 mx-0' : 'py-3 mx-0'" style="max-width: 100%">
           <v-col align-self="center" class="pa-0">
             <RecipeCardMobile
+              disable-highlight
               :vertical="useMobileFormat"
               :name="recipe.name"
               :slug="recipe.slug"

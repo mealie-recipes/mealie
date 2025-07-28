@@ -29,33 +29,31 @@
             {{ activeText }}
           </p>
           <v-divider class="mb-4" />
-          <v-checkbox
+          <v-checkbox-btn
             v-for="ing in unusedIngredients"
             :key="ing.referenceId"
             v-model="activeRefs"
             :value="ing.referenceId"
-            class="mb-n2 mt-n2"
           >
             <template #label>
               <RecipeIngredientHtml :markup="parseIngredientText(ing, recipe.settings.disableAmount)" />
             </template>
-          </v-checkbox>
+          </v-checkbox-btn>
 
           <template v-if="usedIngredients.length > 0">
             <h4 class="py-3 ml-1">
               {{ $t("recipe.linked-to-other-step") }}
             </h4>
-            <v-checkbox
+            <v-checkbox-btn
               v-for="ing in usedIngredients"
               :key="ing.referenceId"
               v-model="activeRefs"
               :value="ing.referenceId"
-              class="mb-n2 mt-n2"
             >
               <template #label>
                 <RecipeIngredientHtml :markup="parseIngredientText(ing, recipe.settings.disableAmount)" />
               </template>
-            </v-checkbox>
+            </v-checkbox-btn>
           </template>
         </v-card-text>
 
