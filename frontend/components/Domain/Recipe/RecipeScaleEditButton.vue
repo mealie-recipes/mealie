@@ -81,6 +81,7 @@
                     <v-btn
                       v-bind="props"
                       icon
+                      flat
                       class="mx-1"
                       size="small"
                       @click="scale = 1"
