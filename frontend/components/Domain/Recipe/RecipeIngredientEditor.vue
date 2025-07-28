@@ -65,9 +65,9 @@
         >
           <template #prepend>
             <v-tooltip v-if="unitError" location="bottom">
-              <template #activator="{ props }">
+              <template #activator="{ props: unitTooltipProps }">
                 <v-icon
-                  v-bind="props"
+                  v-bind="unitTooltipProps"
                   class="ml-2 mr-n3"
                   color="primary"
                 >
@@ -122,9 +122,9 @@
         >
           <template #prepend>
             <v-tooltip v-if="foodError" location="bottom">
-              <template #activator="{ props }">
+              <template #activator="{ props: foodTooltipProps }">
                 <v-icon
-                  v-bind="props"
+                  v-bind="foodTooltipProps"
                   class="ml-2 mr-n3"
                   color="primary"
                 >
@@ -215,7 +215,7 @@ import type { RecipeIngredient } from "~/lib/api/types/recipe";
 // defineModel replaces modelValue prop
 const model = defineModel<RecipeIngredient>({ required: true });
 
-const props = defineProps({
+defineProps({
   disableAmount: {
     type: Boolean,
     default: false,
