@@ -63,6 +63,22 @@
           clearable
           @keyup.enter="handleUnitEnter"
         >
+          <template #prepend>
+            <v-tooltip v-if="unitError" bottom>
+              <template #activator="{ props }">
+                <v-icon
+                  v-bind="props"
+                  class="ml-2 mr-n3"
+                  color="primary"
+                >
+                  {{ $globals.icons.alert }}
+                </v-icon>
+              </template>
+              <span v-if="unitErrorTooltip">
+                {{ unitErrorTooltip }}
+              </span>
+            </v-tooltip>
+          </template>
           <template #no-data>
             <div class="caption text-center pb-2">
               {{ $t("recipe.press-enter-to-create") }}
@@ -104,6 +120,22 @@
           clearable
           @keyup.enter="handleFoodEnter"
         >
+          <template #prepend>
+            <v-tooltip v-if="foodError" bottom>
+              <template #activator="{ props }">
+                <v-icon
+                  v-bind="props"
+                  class="ml-2 mr-n3"
+                  color="primary"
+                >
+                  {{ $globals.icons.alert }}
+                </v-icon>
+              </template>
+              <span v-if="foodErrorTooltip">
+                {{ foodErrorTooltip }}
+              </span>
+            </v-tooltip>
+          </template>
           <template #no-data>
             <div class="caption text-center pb-2">
               {{ $t("recipe.press-enter-to-create") }}
@@ -187,6 +219,22 @@ const props = defineProps({
   disableAmount: {
     type: Boolean,
     default: false,
+  },
+  unitError: {
+    type: Boolean,
+    default: false,
+  },
+  unitErrorTooltip: {
+    type: String,
+    default: "",
+  },
+  foodError: {
+    type: Boolean,
+    default: false,
+  },
+  foodErrorTooltip: {
+    type: String,
+    default: "",
   },
 });
 

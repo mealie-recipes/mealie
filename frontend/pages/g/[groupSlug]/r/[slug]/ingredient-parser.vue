@@ -103,6 +103,10 @@
                 <RecipeIngredientEditor
                   v-model="parsedIng[index].ingredient"
                   allow-insert-ingredient
+                  :unit-error="errors[index].unitError && errors[index].unitErrorMessage !== ''"
+                  :unit-error-tooltip="$t('recipe.parser.this-unit-could-not-be-parsed-automatically')"
+                  :food-error="errors[index].foodError && errors[index].foodErrorMessage !== ''"
+                  :food-error-tooltip="$t('recipe.parser.this-food-could-not-be-parsed-automatically')"
                   @insert-above="insertIngredient(index)"
                   @insert-below="insertIngredient(index + 1)"
                   @delete="deleteIngredient(index)"
