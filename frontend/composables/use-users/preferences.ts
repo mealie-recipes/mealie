@@ -96,8 +96,8 @@ export function useUserSortPreferences(): Ref<UserRecipePreferences> {
   const fromStorage = useLocalStorage(
     "recipe-section-preferences",
     {
-      orderBy: "name",
-      orderDirection: "asc",
+      orderBy: "created_at",
+      orderDirection: "desc",
       filterNull: false,
       sortIcon: $globals.icons.sortAlphabeticalAscending,
       useMobileCards: false,

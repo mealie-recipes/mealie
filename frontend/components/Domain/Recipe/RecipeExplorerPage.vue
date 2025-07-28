@@ -123,7 +123,7 @@
                   density="comfortable"
                   :prepend-icon="v.icon"
                   :title="v.name"
-                  @click="state.orderBy = v.value"
+                  @click="setOrderBy(v.value)"
                 />
               </v-list>
             </v-card>
@@ -219,7 +219,7 @@ import {
   useToolStore,
   usePublicToolStore,
 } from "~/composables/store";
-import { useUserSearchQuerySession } from "~/composables/use-users/preferences";
+import { useUserSearchQuerySession, useUserSortPreferences } from "~/composables/use-users/preferences";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
@@ -253,6 +253,15 @@ export default defineNuxtComponent({
     const route = useRoute();
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
     const searchQuerySession = useUserSearchQuerySession();
+    const sortPreferences = useUserSortPreferences();
+
+    watch(() => state.value.orderBy, (newValue) => {
+      sortPreferences.value.orderBy = newValue;
+    });
+
+    watch(() => state.value.orderDirection, (newValue) => {
+      sortPreferences.value.orderDirection = newValue;
+    });
 
     const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
     const categories = isOwnGroup.value ? useCategoryStore() : usePublicCategoryStore(groupSlug.value);
@@ -325,6 +334,12 @@ export default defineNuxtComponent({
 
     function toggleOrderDirection() {
       state.value.orderDirection = state.value.orderDirection === "asc" ? "desc" : "asc";
+      sortPreferences.value.orderDirection = state.value.orderDirection;
+    }
+
+    function setOrderBy(value: string) {
+      state.value.orderBy = value;
+      sortPreferences.value.orderBy = value;
     }
 
     function toIDArray(array: { id: string }[]) {
@@ -623,6 +638,13 @@ export default defineNuxtComponent({
       }
 
       await hydrateSearch();
+      if (!route.query.orderBy) {
+        state.value.orderBy = sortPreferences.value.orderBy;
+      }
+      if (!route.query.orderDirection) {
+        state.value.orderDirection = sortPreferences.value.orderDirection as "asc" | "desc";
+      }
+
       await search();
       state.value.ready = true;
     });
@@ -665,6 +687,7 @@ export default defineNuxtComponent({
 
       sortable,
       toggleOrderDirection,
+      setOrderBy,
       hideKeyboard,
       input,
 
