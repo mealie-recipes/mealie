@@ -8,24 +8,26 @@
       class="flex-nowrap align-center"
     >
       <v-col :cols="itemLabelCols">
-        <v-checkbox
-          v-model="listItem.checked"
-          class="mt-0"
-          color="null"
-          hide-details
-          density="compact"
-          :label="listItem.note!"
-          @change="$emit('checked', listItem)"
-        >
-          <template #label>
-            <div :class="listItem.checked ? 'strike-through' : ''">
-              <RecipeIngredientListItem
-                :ingredient="listItem"
-                :disable-amount="!(listItem.isFood || listItem.quantity !== 1)"
-              />
-            </div>
-          </template>
-        </v-checkbox>
+        <div class="d-flex align-center flex-nowrap">
+          <v-checkbox
+            v-model="listItem.checked"
+            hide-details
+            density="compact"
+            class="mt-0"
+            color="null"
+            @change="$emit('checked', listItem)"
+          />
+          <div
+            class="ml-2 text-truncate"
+            :class="listItem.checked ? 'strike-through' : ''"
+            style="min-width: 0;"
+          >
+            <RecipeIngredientListItem
+              :ingredient="listItem"
+              :disable-amount="!(listItem.isFood || listItem.quantity !== 1)"
+            />
+          </div>
+        </div>
       </v-col>
       <v-spacer />
       <v-col
