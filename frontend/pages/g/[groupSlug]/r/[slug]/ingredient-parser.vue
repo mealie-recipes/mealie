@@ -103,7 +103,8 @@
                 <RecipeIngredientEditor
                   v-model="parsedIng[index].ingredient"
                   allow-insert-ingredient
-                  @insert-ingredient="insertIngredient(index)"
+                  @insert-above="insertIngredient(index)"
+                  @insert-below="insertIngredient(index + 1)"
                   @delete="deleteIngredient(index)"
                 />
                 {{ ing.input }}

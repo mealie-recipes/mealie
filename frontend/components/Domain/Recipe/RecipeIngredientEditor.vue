@@ -153,7 +153,6 @@
             @toggle-original="toggleOriginalText"
             @insert-above="$emit('insert-above')"
             @insert-below="$emit('insert-below')"
-            @insert-ingredient="$emit('insert-ingredient')"
             @delete="$emit('delete')"
           />
         </div>
@@ -189,17 +188,12 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  allowInsertIngredient: {
-    type: Boolean,
-    default: false,
-  },
 });
 
 defineEmits([
   "clickIngredientField",
   "insert-above",
   "insert-below",
-  "insert-ingredient",
   "delete",
 ]);
 
@@ -227,13 +221,6 @@ const contextMenuOptions = computed(() => {
       event: "insert-below",
     },
   ];
-
-  if (props.allowInsertIngredient) {
-    options.push({
-      text: i18n.t("recipe.insert-ingredient"),
-      event: "insert-ingredient",
-    });
-  }
 
   if (model.value.originalText) {
     options.push({
