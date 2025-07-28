@@ -14,7 +14,7 @@
             <v-tooltip
               v-if="canEditScale"
               size="small"
-              top
+              location="top"
               color="secondary-darken-1"
             >
               <template #activator="{ props: tooltipProps }">
@@ -74,7 +74,7 @@
                   @update:model-value="recalculateScale(parseFloat($event) || 0)"
                 />
                 <v-tooltip
-                  end
+                  location="end"
                   color="secondary-darken-1"
                 >
                   <template #activator="{ props }">

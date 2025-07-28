@@ -60,7 +60,7 @@
         </template>
         <template #[`item.actions`]="{ item }">
           <v-tooltip
-            bottom
+            location="bottom"
             :disabled="!(item && (item.households!.length > 0 || item.users!.length > 0))"
           >
             <template #activator="{ props }">

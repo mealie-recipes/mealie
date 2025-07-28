@@ -86,7 +86,7 @@
     <div>
       <div v-if="lastMadeReady" class="d-flex justify-center flex-wrap">
         <v-row no-gutters class="d-flex flex-wrap align-center" style="font-size: larger">
-          <v-tooltip bottom>
+          <v-tooltip location="bottom">
             <template #activator="{ props }">
               <v-btn
                 rounded

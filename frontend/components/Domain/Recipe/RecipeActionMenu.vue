@@ -17,7 +17,7 @@
       <RecipeFavoriteBadge v-if="loggedIn" color="info" button-style :recipe-id="recipe.id!" show-always />
       <RecipeTimelineBadge v-if="loggedIn" class="ml-1" color="info" button-style :slug="recipe.slug" :recipe-name="recipe.name!" />
       <div v-if="loggedIn">
-        <v-tooltip v-if="canEdit" bottom color="info">
+        <v-tooltip v-if="canEdit" location="bottom" color="info">
           <template #activator="{ props }">
             <v-btn
               icon

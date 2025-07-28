@@ -82,7 +82,7 @@
         </template>
         <template #[`item.actions`]="{ item }">
           <v-tooltip
-            bottom
+            location="bottom"
             :disabled="!(item && item.users!.length > 0)"
           >
             <template #activator="{ props }">
