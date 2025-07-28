@@ -3,6 +3,7 @@
     <div>
       <BaseDialog
         v-model="madeThisDialog"
+        :loading="madeThisFormLoading"
         :icon="$globals.icons.chefHat"
         :title="$t('recipe.made-this')"
         :submit-text="$t('recipe.add-to-timeline')"
@@ -119,8 +120,9 @@
 <script lang="ts">
 import { whenever } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
+import { alert } from "~/composables/use-toast";
 import { useHouseholdSelf } from "~/composables/use-households";
-import type { Recipe, RecipeTimelineEventIn } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeTimelineEventIn, RecipeTimelineEventOut } from "~/lib/api/types/recipe";
 import type { VForm } from "~/types/auto-forms";
 
 export default defineNuxtComponent({
@@ -196,11 +198,24 @@ export default defineNuxtComponent({
       newTimelineEventImagePreviewUrl.value = URL.createObjectURL(fileObject);
     }
 
-    const state = reactive({ datePickerMenu: false });
+    const state = reactive({ datePickerMenu: false, madeThisFormLoading: false });
+
+    function resetMadeThisForm() {
+      state.madeThisFormLoading = false;
+
+      newTimelineEvent.value.eventMessage = "";
+      newTimelineEvent.value.timestamp = undefined;
+      clearImage();
+      madeThisDialog.value = false;
+      domMadeThisForm.value?.reset();
+    }
+
     async function createTimelineEvent() {
       if (!(newTimelineEventTimestampString.value && props.recipe?.id && props.recipe?.slug)) {
         return;
       }
+
+      state.madeThisFormLoading = true;
 
       newTimelineEvent.value.recipeId = props.recipe.id;
       // Note: $auth.user is now a ref
@@ -210,34 +225,60 @@ export default defineNuxtComponent({
       // we choose the end of day so it always comes after "new recipe" events
       newTimelineEvent.value.timestamp = new Date(newTimelineEventTimestampString.value + "T23:59:59").toISOString();
 
-      const eventResponse = await userApi.recipes.createTimelineEvent(newTimelineEvent.value);
-      const newEvent = eventResponse.data;
+      let newEvent: RecipeTimelineEventOut | null = null;
+      try {
+        const eventResponse = await userApi.recipes.createTimelineEvent(newTimelineEvent.value);
+        newEvent = eventResponse.data;
+        if (!newEvent) {
+          throw new Error("No event created");
+        }
+      }
+      catch (error) {
+        console.error("Failed to create timeline event:", error);
+        alert.error(i18n.t("recipe.failed-to-add-to-timeline"));
+        resetMadeThisForm();
+        return;
+      }
 
       // we also update the recipe's last made value
       if (!lastMade.value || newTimelineEvent.value.timestamp > lastMade.value) {
-        lastMade.value = newTimelineEvent.value.timestamp;
-        await userApi.recipes.updateLastMade(props.recipe.slug, newTimelineEvent.value.timestamp);
-      }
-
-      // update the image, if provided
-      if (newTimelineEventImage.value && newEvent) {
-        const imageResponse = await userApi.recipes.updateTimelineEventImage(
-          newEvent.id,
-          newTimelineEventImage.value,
-          newTimelineEventImageName.value,
-        );
-        if (imageResponse.data) {
-          newEvent.image = imageResponse.data.image;
+        try {
+          lastMade.value = newTimelineEvent.value.timestamp;
+          await userApi.recipes.updateLastMade(props.recipe.slug, newTimelineEvent.value.timestamp);
+        }
+        catch (error) {
+          console.error("Failed to update last made date:", error);
+          alert.error(i18n.t("recipe.failed-to-update-recipe"));
         }
       }
 
-      // reset form
-      newTimelineEvent.value.eventMessage = "";
-      newTimelineEvent.value.timestamp = undefined;
-      clearImage();
-      madeThisDialog.value = false;
-      domMadeThisForm.value?.reset();
+      // update the image, if provided
+      let imageError = false;
+      if (newTimelineEventImage.value) {
+        try {
+          const imageResponse = await userApi.recipes.updateTimelineEventImage(
+            newEvent.id,
+            newTimelineEventImage.value,
+            newTimelineEventImageName.value,
+          );
+          if (imageResponse.data) {
+            newEvent.image = imageResponse.data.image;
+          }
+        }
+        catch (error) {
+          imageError = true;
+          console.error("Failed to upload image for timeline event:", error);
+        }
+      }
 
+      if (imageError) {
+        alert.error(i18n.t("recipe.added-to-timeline-but-failed-to-add-image"));
+      }
+      else {
+        alert.success(i18n.t("recipe.added-to-timeline"));
+      }
+
+      resetMadeThisForm();
       context.emit("eventCreated", newEvent);
     }
 

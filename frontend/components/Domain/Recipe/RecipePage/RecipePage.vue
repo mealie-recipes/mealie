@@ -81,7 +81,7 @@
       </v-card>
       <WakelockSwitch />
       <RecipePageComments
-        v-if="!recipe.settings.disableComments && !isEditForm && !isCookMode"
+        v-if="!recipe.settings?.disableComments && !isEditForm && !isCookMode"
         v-model="recipe"
         class="px-1 my-4 d-print-none"
       />
@@ -278,7 +278,7 @@ async function deleteRecipe() {
  * View Preferences
  */
 const landscape = computed(() => {
-  const preferLandscape = recipe.value.settings.landscapeView;
+  const preferLandscape = recipe.value.settings?.landscapeView;
   const smallScreen = !$vuetify.display.smAndUp.value;
 
   if (preferLandscape) {
