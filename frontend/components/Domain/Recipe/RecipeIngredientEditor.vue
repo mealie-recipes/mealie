@@ -64,7 +64,7 @@
           @keyup.enter="handleUnitEnter"
         >
           <template #prepend>
-            <v-tooltip v-if="unitError" bottom>
+            <v-tooltip v-if="unitError" location="bottom">
               <template #activator="{ props }">
                 <v-icon
                   v-bind="props"
@@ -121,7 +121,7 @@
           @keyup.enter="handleFoodEnter"
         >
           <template #prepend>
-            <v-tooltip v-if="foodError" bottom>
+            <v-tooltip v-if="foodError" location="bottom">
               <template #activator="{ props }">
                 <v-icon
                   v-bind="props"
