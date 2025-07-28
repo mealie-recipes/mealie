@@ -14515,8 +14515,8 @@
             "rum": {
                 "aliases": [],
                 "description": "",
-                "name": "rum",
-                "plural_name": "rums"
+                "name": "rhum",
+                "plural_name": "rhums"
             },
             "vodka": {
                 "aliases": [],
@@ -14581,8 +14581,8 @@
             "white rum": {
                 "aliases": [],
                 "description": "",
-                "name": "white rum",
-                "plural_name": "white rums"
+                "name": "rhum blanc",
+                "plural_name": "rhums blancs"
             },
             "coffee liqueur": {
                 "aliases": [],
