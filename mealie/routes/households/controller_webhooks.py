@@ -10,7 +10,7 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.household.webhook import CreateWebhook, ReadWebhook, SaveWebhook, WebhookPagination
 from mealie.schema.response.pagination import PaginationQuery
-from mealie.services.scheduler.tasks.post_webhooks import post_group_webhooks, post_single_webhook
+from mealie.services.scheduler.tasks.post_webhooks import post_group_webhooks, post_test_webhook
 
 router = APIRouter(prefix="/households/webhooks", tags=["Households: Webhooks"])
 
@@ -55,7 +55,7 @@ class ReadWebhookController(BaseUserController):
     @router.post("/{item_id}/test")
     def test_one(self, item_id: UUID4, bg_tasks: BackgroundTasks):
         webhook = self.mixins.get_one(item_id)
-        bg_tasks.add_task(post_single_webhook, webhook, "Test Webhook")
+        bg_tasks.add_task(post_test_webhook, webhook, "Test Webhook")
 
     @router.put("/{item_id}", response_model=ReadWebhook)
     def update_one(self, item_id: UUID4, data: CreateWebhook):

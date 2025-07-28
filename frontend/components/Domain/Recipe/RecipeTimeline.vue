@@ -242,28 +242,28 @@ export default defineNuxtComponent({
       alert.success(i18n.t("events.event-deleted") as string);
     };
 
-    async function getRecipe(recipeId: string): Promise<Recipe | null> {
-      const { data } = await api.recipes.getOne(recipeId);
-      return data;
+    async function getRecipes(recipeIds: string[]): Promise<Recipe[]> {
+      const qf = "id IN [" + recipeIds.map(id => `"${id}"`).join(", ") + "]";
+      const { data } = await api.recipes.getAll(1, -1, { queryFilter: qf });
+      return data?.items || [];
     };
 
     async function updateRecipes(events: RecipeTimelineEventOut[]) {
-      const recipePromises: Promise<Recipe | null>[] = [];
-      const seenRecipeIds: string[] = [];
+      const recipeIds: string[] = [];
       events.forEach((event) => {
-        if (seenRecipeIds.includes(event.recipeId) || recipes.has(event.recipeId)) {
+        if (recipeIds.includes(event.recipeId) || recipes.has(event.recipeId)) {
           return;
         }
 
-        seenRecipeIds.push(event.recipeId);
-        recipePromises.push(getRecipe(event.recipeId));
+        recipeIds.push(event.recipeId);
       });
 
-      const results = await Promise.all(recipePromises);
+      const results = await getRecipes(recipeIds);
       results.forEach((result) => {
-        if (result && result.id) {
-          recipes.set(result.id, result);
+        if (!result?.id) {
+          return;
         }
+        recipes.set(result.id, result);
       });
     }
 

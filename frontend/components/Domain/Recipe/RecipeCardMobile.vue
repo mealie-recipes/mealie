@@ -3,7 +3,10 @@
     <v-expand-transition>
       <v-card
         :ripple="false"
-        :class="isFlat ? 'mx-auto flat' : 'mx-auto'"
+        :class="[
+          isFlat ? 'mx-auto flat' : 'mx-auto',
+          { 'disable-highlight': disableHighlight },
+        ]"
         :style="{ cursor }"
         hover
         height="100%"
@@ -181,6 +184,10 @@ export default defineNuxtComponent({
       type: [Number],
       default: 150,
     },
+    disableHighlight: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ["selected", "delete"],
   setup(props) {
@@ -240,5 +247,9 @@ export default defineNuxtComponent({
 .theme--dark .flat {
   box-shadow: none !important;
   background-color: transparent !important;
+}
+
+.disable-highlight :deep(.v-card__overlay) {
+  opacity: 0 !important;
 }
 </style>
