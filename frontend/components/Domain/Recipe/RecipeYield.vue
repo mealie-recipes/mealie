@@ -34,7 +34,7 @@ export default defineNuxtComponent({
       type: Number,
       default: 0,
     },
-    yield: {
+    yieldText: {
       type: String,
       default: "",
     },
@@ -59,7 +59,7 @@ export default defineNuxtComponent({
       const { scaledAmountDisplay } = useScaledAmount(props.yieldQuantity, props.scale);
       return scaledAmountDisplay;
     });
-    const text = sanitizeHTML(props.yield);
+    const text = sanitizeHTML(props.yieldText);
 
     return {
       scaledAmount,

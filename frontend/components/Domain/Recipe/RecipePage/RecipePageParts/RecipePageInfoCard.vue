@@ -35,7 +35,7 @@
                 >
                   <RecipeYield
                     :yield-quantity="recipe.recipeYieldQuantity"
-                    :yield="recipe.recipeYield"
+                    :yield-text="recipe.recipeYield"
                     :scale="recipeScale"
                     class="mb-4"
                   />
