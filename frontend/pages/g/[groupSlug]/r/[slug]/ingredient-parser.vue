@@ -228,19 +228,19 @@ export default defineNuxtComponent({
       let unitErrorMessage = "";
       let foodErrorMessage = "";
 
-      if (unitError || foodError) {
-        if (unitError) {
-          if (ing?.ingredient?.unit?.name) {
-            const unit = ing.ingredient.unit.name || i18n.t("recipe.parser.no-unit");
-            unitErrorMessage = i18n.t("recipe.parser.missing-unit", { unit }).toString();
-          }
+      if (unitError) {
+        if (ing?.ingredient?.unit?.name) {
+          const unit = ing.ingredient.unit.name || i18n.t("recipe.parser.no-unit");
+          ing.ingredient.unit = undefined;
+          unitErrorMessage = i18n.t("recipe.parser.missing-unit", { unit }).toString();
         }
+      }
 
-        if (foodError) {
-          if (ing?.ingredient?.food?.name) {
-            const food = ing.ingredient.food.name || i18n.t("recipe.parser.no-food");
-            foodErrorMessage = i18n.t("recipe.parser.missing-food", { food }).toString();
-          }
+      if (foodError) {
+        if (ing?.ingredient?.food?.name) {
+          const food = ing.ingredient.food.name || i18n.t("recipe.parser.no-food");
+          ing.ingredient.food = undefined;
+          foodErrorMessage = i18n.t("recipe.parser.missing-food", { food }).toString();
         }
       }
       panels.value.push(index);
