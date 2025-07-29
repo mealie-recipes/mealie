@@ -79,12 +79,12 @@ def post_group_webhooks(
             )
 
 
-def post_single_webhook(webhook: ReadWebhook, message: str = "") -> None:
+def post_test_webhook(webhook: ReadWebhook, message: str = "") -> None:
     dt = datetime.min.replace(tzinfo=UTC)
-    event_type = EventTypes.webhook_task
+    event_type = EventTypes.test_message
 
     event_document_data = EventWebhookData(
-        document_type=EventDocumentType.mealplan,
+        document_type=EventDocumentType.generic,
         operation=EventOperation.info,
         webhook_start_dt=dt,
         webhook_end_dt=dt,

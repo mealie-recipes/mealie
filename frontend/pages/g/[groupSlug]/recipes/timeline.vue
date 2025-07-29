@@ -16,7 +16,10 @@
         {{ $t("recipe.group-global-timeline", { groupName }) }}
       </template>
     </BasePageTitle>
-    <v-sheet :class="$vuetify.display.smAndDown ? 'pa-0' : 'px-3 py-0'">
+    <v-sheet
+      :class="$vuetify.display.smAndDown ? 'pa-0' : 'px-3 py-0'"
+      style="background-color: transparent;"
+    >
       <RecipeTimeline
         v-if="queryFilter"
         v-model="ready"

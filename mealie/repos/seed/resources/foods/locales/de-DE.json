@@ -4135,8 +4135,8 @@
             "country style rib": {
                 "aliases": [],
                 "description": "",
-                "name": "country style rib",
-                "plural_name": "country style ribs"
+                "name": "Rippe nach Landhausart",
+                "plural_name": "Rippchen nach Landhausart"
             },
             "black forest ham": {
                 "aliases": [],
@@ -4189,8 +4189,8 @@
             "hard salami": {
                 "aliases": [],
                 "description": "",
-                "name": "hard salami",
-                "plural_name": "hard salamis"
+                "name": "Hartsalami",
+                "plural_name": "Hartsalamis"
             },
             "back bacon": {
                 "aliases": [],
@@ -4238,19 +4238,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Getrocknetes Rindfleisch",
-                "plural_name": "dried beefs"
+                "plural_name": "Trockenfleisch"
             },
             "gammon joint": {
                 "aliases": [],
                 "description": "",
-                "name": "gammon joint",
-                "plural_name": "gammon joints"
+                "name": "Geräucherter Schweineschinken",
+                "plural_name": "Geräucherte Schweineschinken"
             },
             "boneless beef short rib": {
                 "aliases": [],
                 "description": "",
-                "name": "boneless beef short rib",
-                "plural_name": "boneless beef short ribs"
+                "name": "Ausgelöste Rinderrippe",
+                "plural_name": "Ausgelöste Rinderrippchen"
             },
             "country ham": {
                 "aliases": [],
@@ -4505,8 +4505,8 @@
             "smoked turkey sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked turkey sausage",
-                "plural_name": "smoked turkey sausages"
+                "name": "Geräucherte Putenwurst",
+                "plural_name": "Geräucherte Putenwürste"
             },
             "smoked chicken": {
                 "aliases": [],
@@ -4739,7 +4739,7 @@
             "smoked turkey wing": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked turkey wing",
+                "name": "geräucherte Putenflügel",
                 "plural_name": "smoked turkey wings"
             },
             "chicken curry-cut": {
@@ -4817,7 +4817,7 @@
             "chicken kebab": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken kebab",
+                "name": "Hühnerkebab",
                 "plural_name": "chicken kebabs"
             },
             "chicken ham": {
@@ -6161,8 +6161,8 @@
             "aniseed": {
                 "aliases": [],
                 "description": "",
-                "name": "aniseed",
-                "plural_name": "aniseeds"
+                "name": "Anis",
+                "plural_name": "Anise"
             },
             "kaffir lime leaf": {
                 "aliases": [],
@@ -6257,7 +6257,7 @@
             "galangal": {
                 "aliases": [],
                 "description": "",
-                "name": "galangal",
+                "name": "Galgant",
                 "plural_name": "galangals"
             },
             "garlic flake": {
@@ -6389,7 +6389,7 @@
             "lemon verbena": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon verbena",
+                "name": "Zitronenverbe",
                 "plural_name": "lemon verbenas"
             },
             "raw stevia": {
@@ -7286,8 +7286,8 @@
             "pickling salt": {
                 "aliases": [],
                 "description": "",
-                "name": "pickling salt",
-                "plural_name": "pickling salts"
+                "name": "Pökelsalz",
+                "plural_name": "Pökelsalze"
             },
             "greek seasoning": {
                 "aliases": [],
