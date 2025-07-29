@@ -414,11 +414,6 @@ function setFieldValues(field: FieldWithId, index: number, values: FieldValue[])
   fields.value[index].values = values;
 }
 
-function setOrganizerValues(field: FieldWithId, index: number, values: OrganizerBase[]) {
-  setFieldValues(field, index, values.map(value => value.id.toString()));
-  fields.value[index].organizers = values;
-}
-
 function removeField(index: number) {
   fields.value.splice(index, 1);
   state.datePickers.splice(index, 1);
@@ -442,12 +437,10 @@ const fieldsUpdater = useDebounceFn((/* newFields: typeof fields.value */) => {
 
 watch(fields, fieldsUpdater, { deep: true });
 
-async function hydrateOrganizers(field: FieldWithId, index: number) {
+async function hydrateOrganizers(field: FieldWithId, _index: number) {
   if (!field.values?.length || !isOrganizerType(field.type)) {
     return;
   }
-
-  const newField = { ...field, organizers: [] as OrganizerBase[] };
 
   const { store, actions } = storeMap[field.type];
   if (!store.value.length) {
@@ -462,8 +455,9 @@ async function hydrateOrganizers(field: FieldWithId, index: number) {
     }
     return organizer;
   });
-  newField.organizers = organizers.filter(organizer => organizer !== undefined) as OrganizerBase[];
-  setOrganizerValues(newField, index, newField.organizers);
+
+  field.organizers = organizers.filter(organizer => organizer !== undefined) as OrganizerBase[];
+  return field;
 }
 
 function initFieldsError(error = "") {
@@ -477,14 +471,15 @@ function initFieldsError(error = "") {
   }
 }
 
-function initializeFields() {
+async function initializeFields() {
   if (!props.initialQueryFilter?.parts?.length) {
     return initFieldsError();
   }
 
   const initFields: FieldWithId[] = [];
   let error = false;
-  props.initialQueryFilter.parts.forEach((part: QueryFilterJSONPart, index: number) => {
+
+  for (const [index, part] of props.initialQueryFilter.parts.entries()) {
     const fieldDef = props.fieldDefs.find(fieldDef => fieldDef.name === part.attributeName);
     if (!fieldDef) {
       error = true;
@@ -517,7 +512,7 @@ function initializeFields() {
       }
 
       if (isOrganizerType(field.type)) {
-        hydrateOrganizers(field, index);
+        await hydrateOrganizers(field, index);
       }
     }
     else if (field.type === "boolean") {
@@ -548,7 +543,7 @@ function initializeFields() {
     }
 
     initFields.push(field);
-  });
+  }
 
   if (initFields.length && !error) {
     fields.value = initFields;
@@ -558,12 +553,15 @@ function initializeFields() {
   }
 }
 
-try {
-  initializeFields();
-}
-catch (error) {
-  initFieldsError(`Error initializing fields: ${(error || "").toString()}`);
-}
+(async () => {
+  try {
+    console.warn("Initializing fields with initial query filter");
+    await initializeFields();
+  }
+  catch (error) {
+    initFieldsError(`Error initializing fields: ${(error || "").toString()}`);
+  }
+})();
 
 function buildQueryFilterJSON(): QueryFilterJSON {
   const parts = fields.value.map((field) => {
