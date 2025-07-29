@@ -16,11 +16,11 @@
         :label="$t('settings.webhooks.webhook-url')"
         variant="underlined"
       />
-      <v-time-picker
+      <v-text-field
         v-model="scheduledTime"
-        class="elevation-2"
-        ampm-in-title
-        format="ampm"
+        type="time"
+        clearable
+        variant="underlined"
       />
     </v-card-text>
     <v-card-actions class="py-0 justify-end">
