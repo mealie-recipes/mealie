@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="scaledAmount"
+    v-if="yieldDisplay"
     class="d-flex align-center"
   >
     <v-row
@@ -18,7 +18,7 @@
       <p class="my-0 opacity-80">
         <span class="font-weight-bold">{{ $t("recipe.yield") }}</span><br>
         <!-- eslint-disable-next-line vue/no-v-html -->
-        <span v-html="scaledAmount" /> {{ text }}
+        <span v-html="yieldDisplay" />
       </p>
     </v-row>
   </div>
@@ -34,7 +34,7 @@ export default defineNuxtComponent({
       type: Number,
       default: 0,
     },
-    yield: {
+    yieldText: {
       type: String,
       default: "",
     },
@@ -55,15 +55,24 @@ export default defineNuxtComponent({
       });
     }
 
-    const scaledAmount = computed(() => {
+    const yieldDisplay = computed<string>(() => {
+      const components: string[] = [];
+
       const { scaledAmountDisplay } = useScaledAmount(props.yieldQuantity, props.scale);
-      return scaledAmountDisplay;
+      if (scaledAmountDisplay) {
+        components.push(scaledAmountDisplay);
+      }
+
+      const text = props.yieldText;
+      if (text) {
+        components.push(text);
+      }
+
+      return sanitizeHTML(components.join(" "));
     });
-    const text = sanitizeHTML(props.yield);
 
     return {
-      scaledAmount,
-      text,
+      yieldDisplay,
     };
   },
 });
