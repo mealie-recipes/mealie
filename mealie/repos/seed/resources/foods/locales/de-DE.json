@@ -6161,8 +6161,8 @@
             "aniseed": {
                 "aliases": [],
                 "description": "",
-                "name": "aniseed",
-                "plural_name": "aniseeds"
+                "name": "Anis",
+                "plural_name": "Anise"
             },
             "kaffir lime leaf": {
                 "aliases": [],
@@ -6257,7 +6257,7 @@
             "galangal": {
                 "aliases": [],
                 "description": "",
-                "name": "galangal",
+                "name": "Galgant",
                 "plural_name": "galangals"
             },
             "garlic flake": {
@@ -6389,7 +6389,7 @@
             "lemon verbena": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon verbena",
+                "name": "Zitronenverbe",
                 "plural_name": "lemon verbenas"
             },
             "raw stevia": {
@@ -7286,8 +7286,8 @@
             "pickling salt": {
                 "aliases": [],
                 "description": "",
-                "name": "pickling salt",
-                "plural_name": "pickling salts"
+                "name": "Pökelsalz",
+                "plural_name": "Pökelsalze"
             },
             "greek seasoning": {
                 "aliases": [],
