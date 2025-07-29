@@ -147,7 +147,7 @@
                 :model-value="field.value"
                 type="number"
                 variant="underlined"
-                @:model-value="setFieldValue(field, index, $event)"
+                @update:model-value="setFieldValue(field, index, $event)"
               />
               <v-checkbox
                 v-else-if="field.type === 'boolean'"
@@ -190,6 +190,7 @@
                 :show-label="false"
                 :show-icon="false"
                 variant="underlined"
+                @update:model-value="setFieldOrganizers(field, index, $event)"
               />
               <RecipeOrganizerSelector
                 v-else-if="field.type === Organizer.Tag"
@@ -199,6 +200,7 @@
                 :show-label="false"
                 :show-icon="false"
                 variant="underlined"
+                @update:model-value="setFieldOrganizers(field, index, $event)"
               />
               <RecipeOrganizerSelector
                 v-else-if="field.type === Organizer.Tool"
@@ -208,6 +210,7 @@
                 :show-label="false"
                 :show-icon="false"
                 variant="underlined"
+                @update:model-value="setFieldOrganizers(field, index, $event)"
               />
               <RecipeOrganizerSelector
                 v-else-if="field.type === Organizer.Food"
@@ -217,6 +220,7 @@
                 :show-label="false"
                 :show-icon="false"
                 variant="underlined"
+                @update:model-value="setFieldOrganizers(field, index, $event)"
               />
               <RecipeOrganizerSelector
                 v-else-if="field.type === Organizer.Household"
@@ -226,6 +230,7 @@
                 :show-label="false"
                 :show-icon="false"
                 variant="underlined"
+                @update:model-value="setFieldOrganizers(field, index, $event)"
               />
             </v-col>
             <!-- right parenthesis -->
@@ -412,6 +417,12 @@ function setFieldValue(field: FieldWithId, index: number, value: FieldValue) {
 
 function setFieldValues(field: FieldWithId, index: number, values: FieldValue[]) {
   fields.value[index].values = values;
+}
+
+function setFieldOrganizers(field: FieldWithId, index: number, organizers: OrganizerBase[]) {
+  fields.value[index].organizers = organizers;
+  // Sync the values array with the organizers array
+  fields.value[index].values = organizers.map(org => org.id?.toString() || "").filter(id => id);
 }
 
 function removeField(index: number) {

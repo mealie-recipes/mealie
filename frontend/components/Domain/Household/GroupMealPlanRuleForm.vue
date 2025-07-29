@@ -5,12 +5,12 @@
       style="gap: 10px"
     >
       <v-select
-        v-model="inputDay"
+        v-model="day"
         :items="MEAL_DAY_OPTIONS"
         :label="$t('meal-plan.rule-day')"
       />
       <v-select
-        v-model="inputEntryType"
+        v-model="entryType"
         :items="MEAL_TYPE_OPTIONS"
         :label="$t('meal-plan.meal-type')"
       />
@@ -19,15 +19,15 @@
     <div class="mb-5">
       <QueryFilterBuilder
         :field-defs="fieldDefs"
-        :initial-query-filter="queryFilter"
+        :initial-query-filter="props.queryFilter"
         @input="handleQueryFilterInput"
       />
     </div>
 
     <!-- TODO: proper pluralization of inputDay -->
     {{ $t('meal-plan.this-rule-will-apply', {
-      dayCriteria: inputDay === "unset" ? $t('meal-plan.to-all-days') : $t('meal-plan.on-days', [inputDay]),
-      mealTypeCriteria: inputEntryType === "unset" ? $t('meal-plan.for-all-meal-types') : $t('meal-plan.for-type-meal-types', [inputEntryType]),
+      dayCriteria: day === "unset" ? $t('meal-plan.to-all-days') : $t('meal-plan.on-days', [day]),
+      mealTypeCriteria: entryType === "unset" ? $t('meal-plan.for-all-meal-types') : $t('meal-plan.for-type-meal-types', [entryType]),
     }) }}
   </div>
 </template>
@@ -39,20 +39,17 @@ import { Organizer } from "~/lib/api/types/non-generated";
 import type { QueryFilterJSON } from "~/lib/api/types/response";
 
 interface Props {
-  day?: string;
-  entryType?: string;
-  queryFilterString?: string;
   queryFilter?: QueryFilterJSON | null;
   showHelp?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
-  day: "unset",
-  entryType: "unset",
-  queryFilterString: "",
   queryFilter: null,
   showHelp: false,
 });
-const emit = defineEmits(["update:day", "update:entry-type", "update:query-filter-string"]);
+
+const day = defineModel<string>("day", { default: "unset" });
+const entryType = defineModel<string>("entryType", { default: "unset" });
+const queryFilterString = defineModel<string>("queryFilterString", { default: "" });
 
 const i18n = useI18n();
 
@@ -75,35 +72,9 @@ const MEAL_DAY_OPTIONS = [
   { title: i18n.t("meal-plan.day-any"), value: "unset" },
 ];
 
-const inputDay = computed({
-  get: () => {
-    return props.day;
-  },
-  set: (val) => {
-    emit("update:day", val);
-  },
-});
-
-const inputEntryType = computed({
-  get: () => {
-    return props.entryType;
-  },
-  set: (val) => {
-    emit("update:entry-type", val);
-  },
-});
-
-const inputQueryFilterString = computed({
-  get: () => {
-    return props.queryFilterString;
-  },
-  set: (val) => {
-    emit("update:query-filter-string", val);
-  },
-});
-
 function handleQueryFilterInput(value: string | undefined) {
-  inputQueryFilterString.value = value || "";
+  console.warn("handleQueryFilterInput called with value:", value);
+  queryFilterString.value = value || "";
 }
 
 const fieldDefs: FieldDefinition[] = [
