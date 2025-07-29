@@ -553,15 +553,14 @@ async function initializeFields() {
   }
 }
 
-(async () => {
+onMounted(async () => {
   try {
-    console.warn("Initializing fields with initial query filter");
     await initializeFields();
   }
   catch (error) {
     initFieldsError(`Error initializing fields: ${(error || "").toString()}`);
   }
-})();
+});
 
 function buildQueryFilterJSON(): QueryFilterJSON {
   const parts = fields.value.map((field) => {
