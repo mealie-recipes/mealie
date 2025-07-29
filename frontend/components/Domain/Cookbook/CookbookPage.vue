@@ -17,7 +17,6 @@
       <v-card-text>
         <CookbookEditor
           v-model="editTarget"
-          :actions="actions"
         />
       </v-card-text>
     </BaseDialog>
