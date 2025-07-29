@@ -1,6 +1,6 @@
 <template>
   <v-tooltip
-    bottom
+    location="bottom"
     nudge-right="50"
     :color="buttonStyle ? 'info' : 'secondary'"
   >

@@ -163,14 +163,14 @@
                 max-width="290px"
                 min-width="auto"
               >
-                <template #activator="{ props }">
+                <template #activator="{ props: activatorProps }">
                   <v-text-field
                     v-model="field.value"
                     persistent-hint
                     :prepend-icon="$globals.icons.calendar"
                     variant="underlined"
                     color="primary"
-                    v-bind="props"
+                    v-bind="activatorProps"
                     readonly
                   />
                 </template>
@@ -184,53 +184,48 @@
               </v-menu>
               <RecipeOrganizerSelector
                 v-else-if="field.type === Organizer.Category"
-                :model-value="field.organizers"
+                v-model="field.organizers"
                 :selector-type="Organizer.Category"
                 :show-add="false"
                 :show-label="false"
                 :show-icon="false"
                 variant="underlined"
-                @update:model-value="setOrganizerValues(field, index, $event)"
               />
               <RecipeOrganizerSelector
                 v-else-if="field.type === Organizer.Tag"
-                :model-value="field.organizers"
+                v-model="field.organizers"
                 :selector-type="Organizer.Tag"
                 :show-add="false"
                 :show-label="false"
                 :show-icon="false"
                 variant="underlined"
-                @update:model-value="setOrganizerValues(field, index, $event)"
               />
               <RecipeOrganizerSelector
                 v-else-if="field.type === Organizer.Tool"
-                :model-value="field.organizers"
+                v-model="field.organizers"
                 :selector-type="Organizer.Tool"
                 :show-add="false"
                 :show-label="false"
                 :show-icon="false"
                 variant="underlined"
-                @update:model-value="setOrganizerValues(field, index, $event)"
               />
               <RecipeOrganizerSelector
                 v-else-if="field.type === Organizer.Food"
-                :model-value="field.organizers"
+                v-model="field.organizers"
                 :selector-type="Organizer.Food"
                 :show-add="false"
                 :show-label="false"
                 :show-icon="false"
                 variant="underlined"
-                @update:model-value="setOrganizerValues(field, index, $event)"
               />
               <RecipeOrganizerSelector
                 v-else-if="field.type === Organizer.Household"
-                :model-value="field.organizers"
+                v-model="field.organizers"
                 :selector-type="Organizer.Household"
                 :show-add="false"
                 :show-label="false"
                 :show-icon="false"
                 variant="underlined"
-                @update:model-value="setOrganizerValues(field, index, $event)"
               />
             </v-col>
             <!-- right parenthesis -->
@@ -297,7 +292,7 @@
   </v-card>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
 import { useDebounceFn } from "@vueuse/core";
 import { useHouseholdSelf } from "~/composables/use-households";
@@ -307,365 +302,338 @@ import type { LogicalOperator, QueryFilterJSON, QueryFilterJSONPart, RelationalK
 import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
 import { type Field, type FieldDefinition, type FieldValue, type OrganizerBase, useQueryFilterBuilder } from "~/composables/use-query-filter-builder";
 
-export default defineNuxtComponent({
-  components: {
-    VueDraggable,
-    RecipeOrganizerSelector,
+const props = defineProps({
+  fieldDefs: {
+    type: Array as () => FieldDefinition[],
+    required: true,
   },
-  props: {
-    fieldDefs: {
-      type: Array as () => FieldDefinition[],
-      required: true,
-    },
-    initialQueryFilter: {
-      type: Object as () => QueryFilterJSON | null,
-      default: null,
-    },
+  initialQueryFilter: {
+    type: Object as () => QueryFilterJSON | null,
+    default: null,
   },
-  emits: ["input", "inputJSON"],
-  setup(props, context) {
-    const { household } = useHouseholdSelf();
-    const { logOps, relOps, buildQueryFilterString, getFieldFromFieldDef, isOrganizerType } = useQueryFilterBuilder();
+});
 
-    const firstDayOfWeek = computed(() => {
-      return household.value?.preferences?.firstDayOfWeek || 0;
-    });
+const emit = defineEmits<{
+  (event: "input", value: string | undefined): void;
+  (event: "inputJSON", value: QueryFilterJSON | undefined): void;
+}>();
 
-    const state = reactive({
-      showAdvanced: false,
-      qfValid: false,
-      datePickers: [] as boolean[],
-      drag: false,
-    });
+const { household } = useHouseholdSelf();
+const { logOps, relOps, buildQueryFilterString, getFieldFromFieldDef, isOrganizerType } = useQueryFilterBuilder();
 
-    const storeMap = {
-      [Organizer.Category]: useCategoryStore(),
-      [Organizer.Tag]: useTagStore(),
-      [Organizer.Tool]: useToolStore(),
-      [Organizer.Food]: useFoodStore(),
-      [Organizer.Household]: useHouseholdStore(),
-    };
+const firstDayOfWeek = computed(() => {
+  return household.value?.preferences?.firstDayOfWeek || 0;
+});
 
-    function onDragEnd(event: any) {
-      state.drag = false;
+const state = reactive({
+  showAdvanced: false,
+  qfValid: false,
+  datePickers: [] as boolean[],
+  drag: false,
+});
+const { showAdvanced, datePickers, drag } = toRefs(state);
 
-      const oldIndex: number = event.oldIndex;
-      const newIndex: number = event.newIndex;
-      state.datePickers[oldIndex] = false;
-      state.datePickers[newIndex] = false;
+const storeMap = {
+  [Organizer.Category]: useCategoryStore(),
+  [Organizer.Tag]: useTagStore(),
+  [Organizer.Tool]: useToolStore(),
+  [Organizer.Food]: useFoodStore(),
+  [Organizer.Household]: useHouseholdStore(),
+};
+
+function onDragEnd(event: any) {
+  state.drag = false;
+
+  const oldIndex: number = event.oldIndex;
+  const newIndex: number = event.newIndex;
+  state.datePickers[oldIndex] = false;
+  state.datePickers[newIndex] = false;
+}
+
+// add id to fields to prevent reactivity issues
+type FieldWithId = Field & { id: number };
+const fields = ref<FieldWithId[]>([]);
+
+const uid = ref(1); // init uid to pass to fields
+function useUid() {
+  return uid.value++;
+}
+function addField(field: FieldDefinition) {
+  fields.value.push({
+    ...getFieldFromFieldDef(field),
+    id: useUid(),
+  });
+  state.datePickers.push(false);
+}
+
+function setField(index: number, fieldLabel: string) {
+  state.datePickers[index] = false;
+  const fieldDef = props.fieldDefs.find(fieldDef => fieldDef.label === fieldLabel);
+  if (!fieldDef) {
+    return;
+  }
+
+  const resetValue = (fieldDef.type !== fields.value[index].type) || (fieldDef.fieldOptions !== fields.value[index].fieldOptions);
+  const updatedField = { ...fields.value[index], ...fieldDef };
+
+  // we have to set this explicitly since it might be undefined
+  updatedField.fieldOptions = fieldDef.fieldOptions;
+
+  fields.value[index] = {
+    ...getFieldFromFieldDef(updatedField, resetValue),
+    id: fields.value[index].id, // keep the id
+  };
+}
+
+function setLeftParenthesisValue(field: FieldWithId, index: number, value: string) {
+  fields.value[index].leftParenthesis = value;
+}
+
+function setRightParenthesisValue(field: FieldWithId, index: number, value: string) {
+  fields.value[index].rightParenthesis = value;
+}
+
+function setLogicalOperatorValue(field: FieldWithId, index: number, value: LogicalOperator | undefined) {
+  if (!value) {
+    value = logOps.value.AND.value;
+  }
+
+  fields.value[index].logicalOperator = value ? logOps.value[value] : undefined;
+}
+
+function setRelationalOperatorValue(field: FieldWithId, index: number, value: RelationalKeyword | RelationalOperator) {
+  fields.value[index].relationalOperatorValue = relOps.value[value];
+}
+
+function setFieldValue(field: FieldWithId, index: number, value: FieldValue) {
+  state.datePickers[index] = false;
+  fields.value[index].value = value;
+}
+
+function setFieldValues(field: FieldWithId, index: number, values: FieldValue[]) {
+  fields.value[index].values = values;
+}
+
+function removeField(index: number) {
+  fields.value.splice(index, 1);
+  state.datePickers.splice(index, 1);
+}
+
+const fieldsUpdater = useDebounceFn((/* newFields: typeof fields.value */) => {
+  /* newFields.forEach((field, index) => {
+		const updatedField = getFieldFromFieldDef(field);
+		fields.value[index] = updatedField; // recursive!!!
+	}); */
+
+  const qf = buildQueryFilterString(fields.value, state.showAdvanced);
+  if (qf) {
+    console.debug(`Set query filter: ${qf}`);
+  }
+  state.qfValid = !!qf;
+
+  emit("input", qf || undefined);
+  emit("inputJSON", qf ? buildQueryFilterJSON() : undefined);
+}, 500);
+
+watch(fields, fieldsUpdater, { deep: true });
+
+async function hydrateOrganizers(field: FieldWithId, _index: number) {
+  if (!field.values?.length || !isOrganizerType(field.type)) {
+    return;
+  }
+
+  const { store, actions } = storeMap[field.type];
+  if (!store.value.length) {
+    await actions.refresh();
+  }
+
+  const organizers = field.values.map((value) => {
+    const organizer = store.value.find(item => item?.id?.toString() === value);
+    if (!organizer) {
+      console.error(`Could not find organizer with id ${value}`);
+      return undefined;
+    }
+    return organizer;
+  });
+
+  field.organizers = organizers.filter(organizer => organizer !== undefined) as OrganizerBase[];
+  return field;
+}
+
+function initFieldsError(error = "") {
+  if (error) {
+    console.error(error);
+  }
+
+  fields.value = [];
+  if (props.fieldDefs.length) {
+    addField(props.fieldDefs[0]);
+  }
+}
+
+async function initializeFields() {
+  if (!props.initialQueryFilter?.parts?.length) {
+    return initFieldsError();
+  }
+
+  const initFields: FieldWithId[] = [];
+  let error = false;
+
+  for (const [index, part] of props.initialQueryFilter.parts.entries()) {
+    const fieldDef = props.fieldDefs.find(fieldDef => fieldDef.name === part.attributeName);
+    if (!fieldDef) {
+      error = true;
+      return initFieldsError(`Invalid query filter; unknown attribute name "${part.attributeName || ""}"`);
     }
 
-		// add id to fields to prevent reactivity issues
-		type FieldWithId = Field & { id: number };
-		const fields = ref<FieldWithId[]>([]);
+    const field: FieldWithId = {
+      ...getFieldFromFieldDef(fieldDef),
+      id: useUid(),
+    };
+    field.leftParenthesis = part.leftParenthesis || field.leftParenthesis;
+    field.rightParenthesis = part.rightParenthesis || field.rightParenthesis;
+    field.logicalOperator = part.logicalOperator
+      ? logOps.value[part.logicalOperator]
+      : field.logicalOperator;
+    field.relationalOperatorValue = part.relationalOperator
+      ? relOps.value[part.relationalOperator]
+      : field.relationalOperatorValue;
 
-		const uid = ref(1); // init uid to pass to fields
-		function useUid() {
-		  return uid.value++;
-		}
-		function addField(field: FieldDefinition) {
-		  fields.value.push({
-		    ...getFieldFromFieldDef(field),
-		    id: useUid(),
-		  });
-		  state.datePickers.push(false);
-		};
+    if (field.leftParenthesis || field.rightParenthesis) {
+      state.showAdvanced = true;
+    }
 
-		function setField(index: number, fieldLabel: string) {
-		  state.datePickers[index] = false;
-		  const fieldDef = props.fieldDefs.find(fieldDef => fieldDef.label === fieldLabel);
-		  if (!fieldDef) {
-		    return;
-		  }
+    if (field.fieldOptions?.length || isOrganizerType(field.type)) {
+      if (typeof part.value === "string") {
+        field.values = part.value ? [part.value] : [];
+      }
+      else {
+        field.values = part.value || [];
+      }
 
-		  const resetValue = (fieldDef.type !== fields.value[index].type) || (fieldDef.fieldOptions !== fields.value[index].fieldOptions);
-		  const updatedField = { ...fields.value[index], ...fieldDef };
+      if (isOrganizerType(field.type)) {
+        await hydrateOrganizers(field, index);
+      }
+    }
+    else if (field.type === "boolean") {
+      const boolString = part.value || "false";
+      field.value = (
+        boolString[0].toLowerCase() === "t"
+        || boolString[0].toLowerCase() === "y"
+        || boolString[0] === "1"
+      );
+    }
+    else if (field.type === "number") {
+      field.value = Number(part.value as string || "0");
+      if (isNaN(field.value)) {
+        error = true;
+        return initFieldsError(`Invalid query filter; invalid number value "${(part.value || "").toString()}"`);
+      }
+    }
+    else if (field.type === "date") {
+      field.value = part.value as string || "";
+      const date = new Date(field.value);
+      if (isNaN(date.getTime())) {
+        error = true;
+        return initFieldsError(`Invalid query filter; invalid date value "${(part.value || "").toString()}"`);
+      }
+    }
+    else {
+      field.value = part.value as string || "";
+    }
 
-		  // we have to set this explicitly since it might be undefined
-		  updatedField.fieldOptions = fieldDef.fieldOptions;
+    initFields.push(field);
+  }
 
-		  fields.value[index] = {
-		    ...getFieldFromFieldDef(updatedField, resetValue),
-		    id: fields.value[index].id, // keep the id
-		  };
-		}
+  if (initFields.length && !error) {
+    fields.value = initFields;
+  }
+  else {
+    initFieldsError();
+  }
+}
 
-		function setLeftParenthesisValue(field: FieldWithId, index: number, value: string) {
-		  fields.value[index].leftParenthesis = value;
-		}
+onMounted(async () => {
+  try {
+    await initializeFields();
+  }
+  catch (error) {
+    initFieldsError(`Error initializing fields: ${(error || "").toString()}`);
+  }
+});
 
-		function setRightParenthesisValue(field: FieldWithId, index: number, value: string) {
-		  fields.value[index].rightParenthesis = value;
-		}
+function buildQueryFilterJSON(): QueryFilterJSON {
+  const parts = fields.value.map((field) => {
+    const part: QueryFilterJSONPart = {
+      attributeName: field.name,
+      leftParenthesis: field.leftParenthesis,
+      rightParenthesis: field.rightParenthesis,
+      logicalOperator: field.logicalOperator?.value,
+      relationalOperator: field.relationalOperatorValue?.value,
+    };
 
-		function setLogicalOperatorValue(field: FieldWithId, index: number, value: LogicalOperator | undefined) {
-		  if (!value) {
-		    value = logOps.value.AND.value;
-		  }
+    if (field.fieldOptions?.length || isOrganizerType(field.type)) {
+      part.value = field.values.map(value => value.toString());
+    }
+    else if (field.type === "boolean") {
+      part.value = field.value ? "true" : "false";
+    }
+    else {
+      part.value = (field.value || "").toString();
+    }
 
-		  fields.value[index].logicalOperator = value ? logOps.value[value] : undefined;
-		}
+    return part;
+  });
 
-		function setRelationalOperatorValue(field: FieldWithId, index: number, value: RelationalKeyword | RelationalOperator) {
-		  fields.value[index].relationalOperatorValue = relOps.value[value];
-		}
+  const qfJSON = { parts } as QueryFilterJSON;
+  console.debug(`Built query filter JSON: ${JSON.stringify(qfJSON)}`);
+  return qfJSON;
+}
 
-		function setFieldValue(field: FieldWithId, index: number, value: FieldValue) {
-		  state.datePickers[index] = false;
-		  fields.value[index].value = value;
-		}
-
-		function setFieldValues(field: FieldWithId, index: number, values: FieldValue[]) {
-		  fields.value[index].values = values;
-		}
-
-		function setOrganizerValues(field: FieldWithId, index: number, values: OrganizerBase[]) {
-		  setFieldValues(field, index, values.map(value => value.id.toString()));
-		  fields.value[index].organizers = values;
-		}
-
-		function removeField(index: number) {
-		  fields.value.splice(index, 1);
-		  state.datePickers.splice(index, 1);
-		};
-
-		const fieldsUpdater = useDebounceFn((/* newFields: typeof fields.value */) => {
-		  /* newFields.forEach((field, index) => {
-				const updatedField = getFieldFromFieldDef(field);
-				fields.value[index] = updatedField; // recursive!!!
-			}); */
-
-		  const qf = buildQueryFilterString(fields.value, state.showAdvanced);
-		  if (qf) {
-		    console.debug(`Set query filter: ${qf}`);
-		  }
-		  state.qfValid = !!qf;
-
-		  context.emit("input", qf || undefined);
-		  context.emit("inputJSON", qf ? buildQueryFilterJSON() : undefined);
-		}, 500);
-
-		watch(fields, fieldsUpdater, { deep: true });
-
-		async function hydrateOrganizers(field: FieldWithId, index: number) {
-		  if (!field.values?.length || !isOrganizerType(field.type)) {
-		    return;
-		  }
-
-		  field.organizers = [];
-
-		  const { store, actions } = storeMap[field.type];
-		  if (!store.value.length) {
-		    await actions.refresh();
-		  }
-
-		  const organizers = field.values.map((value) => {
-		    const organizer = store.value.find(item => item?.id?.toString() === value);
-		    if (!organizer) {
-		      console.error(`Could not find organizer with id ${value}`);
-		      return undefined;
-		    }
-		    return organizer;
-		  });
-		  field.organizers = organizers.filter(organizer => organizer !== undefined) as OrganizerBase[];
-		  setOrganizerValues(field, index, field.organizers);
-		}
-
-		function initFieldsError(error = "") {
-		  if (error) {
-		    console.error(error);
-		  }
-
-		  fields.value = [];
-		  if (props.fieldDefs.length) {
-		    addField(props.fieldDefs[0]);
-		  }
-		}
-
-		function initializeFields() {
-		  if (!props.initialQueryFilter?.parts?.length) {
-		    return initFieldsError();
-		  };
-
-		  const initFields: FieldWithId[] = [];
-		  let error = false;
-		  props.initialQueryFilter.parts.forEach((part: QueryFilterJSONPart, index: number) => {
-		    const fieldDef = props.fieldDefs.find(fieldDef => fieldDef.name === part.attributeName);
-		    if (!fieldDef) {
-		      error = true;
-		      return initFieldsError(`Invalid query filter; unknown attribute name "${part.attributeName || ""}"`);
-		    }
-
-		    const field: FieldWithId = {
-		      ...getFieldFromFieldDef(fieldDef),
-		      id: useUid(),
-		    };
-		    field.leftParenthesis = part.leftParenthesis || field.leftParenthesis;
-		    field.rightParenthesis = part.rightParenthesis || field.rightParenthesis;
-		    field.logicalOperator = part.logicalOperator
-		      ? logOps.value[part.logicalOperator]
-		      : field.logicalOperator;
-		    field.relationalOperatorValue = part.relationalOperator
-		      ? relOps.value[part.relationalOperator]
-		      : field.relationalOperatorValue;
-
-		    if (field.leftParenthesis || field.rightParenthesis) {
-		      state.showAdvanced = true;
-		    }
-
-		    if (field.fieldOptions?.length || isOrganizerType(field.type)) {
-		      if (typeof part.value === "string") {
-		        field.values = part.value ? [part.value] : [];
-		      }
-		      else {
-		        field.values = part.value || [];
-		      }
-
-		      if (isOrganizerType(field.type)) {
-		        hydrateOrganizers(field, index);
-		      }
-		    }
-		    else if (field.type === "boolean") {
-		      const boolString = part.value || "false";
-		      field.value = (
-		        boolString[0].toLowerCase() === "t"
-		        || boolString[0].toLowerCase() === "y"
-		        || boolString[0] === "1"
-		      );
-		    }
-		    else if (field.type === "number") {
-		      field.value = Number(part.value as string || "0");
-		      if (isNaN(field.value)) {
-		        error = true;
-		        return initFieldsError(`Invalid query filter; invalid number value "${(part.value || "").toString()}"`);
-		      }
-		    }
-		    else if (field.type === "date") {
-		      field.value = part.value as string || "";
-		      const date = new Date(field.value);
-		      if (isNaN(date.getTime())) {
-		        error = true;
-		        return initFieldsError(`Invalid query filter; invalid date value "${(part.value || "").toString()}"`);
-		      }
-		    }
-		    else {
-		      field.value = part.value as string || "";
-		    }
-
-		    initFields.push(field);
-		  });
-
-		  if (initFields.length && !error) {
-		    fields.value = initFields;
-		  }
-		  else {
-		    initFieldsError();
-		  }
-		};
-
-		try {
-		  initializeFields();
-		}
-		catch (error) {
-		  initFieldsError(`Error initializing fields: ${(error || "").toString()}`);
-		}
-
-		function buildQueryFilterJSON(): QueryFilterJSON {
-		  const parts = fields.value.map((field) => {
-		    const part: QueryFilterJSONPart = {
-		      attributeName: field.name,
-		      leftParenthesis: field.leftParenthesis,
-		      rightParenthesis: field.rightParenthesis,
-		      logicalOperator: field.logicalOperator?.value,
-		      relationalOperator: field.relationalOperatorValue?.value,
-		    };
-
-		    if (field.fieldOptions?.length || isOrganizerType(field.type)) {
-		      part.value = field.values.map(value => value.toString());
-		    }
-		    else if (field.type === "boolean") {
-		      part.value = field.value ? "true" : "false";
-		    }
-		    else {
-		      part.value = (field.value || "").toString();
-		    }
-
-		    return part;
-		  });
-
-		  const qfJSON = { parts } as QueryFilterJSON;
-		  console.debug(`Built query filter JSON: ${JSON.stringify(qfJSON)}`);
-		  return qfJSON;
-		}
-
-		const config = computed(() => {
-		  const baseColMaxWidth = 55;
-		  return {
-		    col: {
-		      class: "d-flex justify-center align-end field-col pa-1",
-		    },
-		    select: {
-		      textClass: "d-flex justify-center text-center",
-		    },
-		    items: {
-		      icon: {
-		        cols: 1,
-		        style: "width: fit-content;",
-		      },
-		      leftParens: {
-		        cols: state.showAdvanced ? 1 : 0,
-		        style: `min-width: ${state.showAdvanced ? baseColMaxWidth : 0}px;`,
-		      },
-		      logicalOperator: {
-		        cols: 1,
-		        style: `min-width: ${baseColMaxWidth}px;`,
-		      },
-		      fieldName: {
-		        cols: state.showAdvanced ? 2 : 3,
-		        style: `min-width: ${state.showAdvanced ? baseColMaxWidth * 2 : baseColMaxWidth * 3}px;`,
-		      },
-		      relationalOperator: {
-		        cols: 2,
-		        style: `min-width: ${baseColMaxWidth * 2}px;`,
-		      },
-		      fieldValue: {
-		        cols: state.showAdvanced ? 3 : 4,
-		        style: `min-width: ${state.showAdvanced ? baseColMaxWidth * 2 : baseColMaxWidth * 3}px;`,
-		      },
-		      rightParens: {
-		        cols: state.showAdvanced ? 1 : 0,
-		        style: `min-width: ${state.showAdvanced ? baseColMaxWidth : 0}px;`,
-		      },
-		      fieldActions: {
-		        cols: 1,
-		        style: `min-width: ${baseColMaxWidth}px;`,
-		      },
-		    },
-		  };
-		});
-
-		return {
-		  Organizer,
-		  ...toRefs(state),
-		  logOps,
-		  relOps,
-		  config,
-		  firstDayOfWeek,
-		  onDragEnd,
-		  // Fields
-		  fields,
-		  addField,
-		  setField,
-		  setLeftParenthesisValue,
-		  setRightParenthesisValue,
-		  setLogicalOperatorValue,
-		  setRelationalOperatorValue,
-		  setFieldValue,
-		  setFieldValues,
-		  setOrganizerValues,
-		  removeField,
-		};
-  },
+const config = computed(() => {
+  const baseColMaxWidth = 55;
+  return {
+    col: {
+      class: "d-flex justify-center align-end field-col pa-1",
+    },
+    select: {
+      textClass: "d-flex justify-center text-center",
+    },
+    items: {
+      icon: {
+        cols: 1,
+        style: "width: fit-content;",
+      },
+      leftParens: {
+        cols: state.showAdvanced ? 1 : 0,
+        style: `min-width: ${state.showAdvanced ? baseColMaxWidth : 0}px;`,
+      },
+      logicalOperator: {
+        cols: 1,
+        style: `min-width: ${baseColMaxWidth}px;`,
+      },
+      fieldName: {
+        cols: state.showAdvanced ? 2 : 3,
+        style: `min-width: ${state.showAdvanced ? baseColMaxWidth * 2 : baseColMaxWidth * 3}px;`,
+      },
+      relationalOperator: {
+        cols: 2,
+        style: `min-width: ${baseColMaxWidth * 2}px;`,
+      },
+      fieldValue: {
+        cols: state.showAdvanced ? 3 : 4,
+        style: `min-width: ${state.showAdvanced ? baseColMaxWidth * 2 : baseColMaxWidth * 3}px;`,
+      },
+      rightParens: {
+        cols: state.showAdvanced ? 1 : 0,
+        style: `min-width: ${state.showAdvanced ? baseColMaxWidth : 0}px;`,
+      },
+      fieldActions: {
+        cols: 1,
+        style: `min-width: ${baseColMaxWidth}px;`,
+      },
+    },
+  };
 });
 </script>
 

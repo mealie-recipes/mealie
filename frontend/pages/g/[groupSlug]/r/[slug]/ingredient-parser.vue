@@ -103,7 +103,12 @@
                 <RecipeIngredientEditor
                   v-model="parsedIng[index].ingredient"
                   allow-insert-ingredient
-                  @insert-ingredient="insertIngredient(index)"
+                  :unit-error="errors[index].unitError && errors[index].unitErrorMessage !== ''"
+                  :unit-error-tooltip="$t('recipe.parser.this-unit-could-not-be-parsed-automatically')"
+                  :food-error="errors[index].foodError && errors[index].foodErrorMessage !== ''"
+                  :food-error-tooltip="$t('recipe.parser.this-food-could-not-be-parsed-automatically')"
+                  @insert-above="insertIngredient(index)"
+                  @insert-below="insertIngredient(index + 1)"
                   @delete="deleteIngredient(index)"
                 />
                 {{ ing.input }}
@@ -113,7 +118,7 @@
                     v-if="errors[index].unitError && errors[index].unitErrorMessage !== ''"
                     color="warning"
                     size="small"
-                    @click="createUnit(ing.ingredient.unit!, index)"
+                    @click="createUnit(errors[index].unitName, index)"
                   >
                     {{ errors[index].unitErrorMessage }}
                   </BaseButton>
@@ -121,7 +126,7 @@
                     v-if="errors[index].foodError && errors[index].foodErrorMessage !== ''"
                     color="warning"
                     size="small"
-                    @click="createFood(ing.ingredient.food!, index)"
+                    @click="createFood(errors[index].foodName, index)"
                   >
                     {{ errors[index].foodErrorMessage }}
                   </BaseButton>
@@ -157,8 +162,10 @@ import type { Parser } from "~/lib/api/user/recipes/recipe";
 
 interface Error {
   ingredientIndex: number;
+  unitName: string;
   unitError: boolean;
   unitErrorMessage: string;
+  foodName: string;
   foodError: boolean;
   foodErrorMessage: string;
 }
@@ -224,30 +231,33 @@ export default defineNuxtComponent({
       const unitError = !checkForUnit(ing.ingredient.unit!);
       const foodError = !checkForFood(ing.ingredient.food!);
 
+      const unit = ing.ingredient.unit?.name || i18n.t("recipe.parser.no-unit");
+      const food = ing.ingredient.food?.name || i18n.t("recipe.parser.no-food");
+
       let unitErrorMessage = "";
       let foodErrorMessage = "";
 
-      if (unitError || foodError) {
-        if (unitError) {
-          if (ing?.ingredient?.unit?.name) {
-            const unit = ing.ingredient.unit.name || i18n.t("recipe.parser.no-unit");
-            unitErrorMessage = i18n.t("recipe.parser.missing-unit", { unit }).toString();
-          }
+      if (unitError) {
+        if (ing?.ingredient?.unit?.name) {
+          ing.ingredient.unit = undefined;
+          unitErrorMessage = i18n.t("recipe.parser.missing-unit", { unit }).toString();
         }
+      }
 
-        if (foodError) {
-          if (ing?.ingredient?.food?.name) {
-            const food = ing.ingredient.food.name || i18n.t("recipe.parser.no-food");
-            foodErrorMessage = i18n.t("recipe.parser.missing-food", { food }).toString();
-          }
+      if (foodError) {
+        if (ing?.ingredient?.food?.name) {
+          ing.ingredient.food = undefined;
+          foodErrorMessage = i18n.t("recipe.parser.missing-food", { food }).toString();
         }
       }
       panels.value.push(index);
 
       return {
         ingredientIndex: index,
+        unitName: unit,
         unitError,
         unitErrorMessage,
+        foodName: food,
         foodError,
         foodErrorMessage,
       } as Error;
@@ -320,24 +330,24 @@ export default defineNuxtComponent({
       return !!food?.id;
     }
 
-    async function createFood(food: CreateIngredientFood | undefined, index: number) {
-      if (!food) {
+    async function createFood(foodName: string, index: number) {
+      if (!foodName) {
         return;
       }
 
-      foodData.data.name = food.name;
+      foodData.data.name = foodName;
       parsedIng.value[index].ingredient.food = await foodStore.actions.createOne(foodData.data) || undefined;
       errors.value[index].foodError = false;
 
       foodData.reset();
     }
 
-    async function createUnit(unit: CreateIngredientUnit | undefined, index: number) {
-      if (!unit) {
+    async function createUnit(unitName: string | undefined, index: number) {
+      if (!unitName) {
         return;
       }
 
-      unitData.data.name = unit.name;
+      unitData.data.name = unitName;
       parsedIng.value[index].ingredient.unit = await unitStore.actions.createOne(unitData.data) || undefined;
       errors.value[index].unitError = false;
 

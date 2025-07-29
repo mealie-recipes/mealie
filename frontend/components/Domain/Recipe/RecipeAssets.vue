@@ -15,7 +15,7 @@
         >
           <template #prepend>
             <div class="ma-auto">
-              <v-tooltip bottom>
+              <v-tooltip location="bottom">
                 <template #activator="{ props: tooltipProps }">
                   <v-icon v-bind="tooltipProps">
                     {{ getIconDefinition(item.icon).icon }}
