@@ -6,7 +6,7 @@ import shutil
 import tempfile
 from collections.abc import Generator
 from pathlib import Path
-from uuid import uuid4
+from uuid import UUID, uuid4
 from zipfile import ZipFile
 
 import pytest
@@ -20,10 +20,12 @@ from recipe_scrapers.plugins import SchemaOrgFillPlugin
 from slugify import slugify
 
 from mealie.pkgs.safehttp.transport import AsyncSafeTransport
+from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.cookbook.cookbook import SaveCookBook
 from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary, RecipeTag
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from mealie.schema.recipe.recipe_notes import RecipeNote
+from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.recipe_scraper import DEFAULT_SCRAPER_STRATEGIES
@@ -947,3 +949,124 @@ def test_create_recipe_slug_length_validation(api_client: TestClient, unique_use
 
     response = api_client.get(api_routes.recipes_slug(created_slug), headers=unique_user.token)
     assert response.status_code == 200
+
+
+def test_admin_can_delete_locked_recipe_owned_by_another_user(
+    api_client: TestClient, unfiltered_database: AllRepositories, unique_user: TestUser, admin_user: TestUser
+):
+    slug = random_string(10)
+    unique_user.repos.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            settings=RecipeSettings(locked=True),
+        )
+    )
+
+    # Make sure admin belongs to same group/household as user
+    admin_data = unfiltered_database.users.get_one(admin_user.user_id)
+    assert admin_data
+    admin_data.group_id = UUID(unique_user.group_id)
+    admin_data.household_id = UUID(unique_user.household_id)
+    unfiltered_database.users.update(admin_user.user_id, admin_data)
+
+    response = api_client.delete(api_routes.recipes_slug(slug), headers=admin_user.token)
+    assert response.status_code == 200
+
+
+def test_admin_can_delete_locked_recipe_of_user_in_different_household(
+    api_client: TestClient, unfiltered_database: AllRepositories, unique_user: TestUser, admin_user: TestUser
+):
+    slug = random_string(10)
+    unique_user.repos.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            settings=RecipeSettings(locked=True),
+        )
+    )
+
+    # Make sure admin belongs to same group as user
+    admin_data = unfiltered_database.users.get_one(admin_user.user_id)
+    assert admin_data
+    admin_data.group_id = UUID(unique_user.group_id)
+    unfiltered_database.users.update(admin_user.user_id, admin_data)
+    assert admin_data.household_id != unique_user.household_id
+
+    response = api_client.delete(api_routes.recipes_slug(slug), headers=admin_user.token)
+    assert response.status_code == 200
+
+
+def test_user_can_delete_own_locked_recipe(api_client: TestClient, unique_user: TestUser):
+    slug = random_string(10)
+    unique_user.repos.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            settings=RecipeSettings(locked=True),
+        )
+    )
+
+    response = api_client.delete(api_routes.recipes_slug(slug), headers=unique_user.token)
+    assert response.status_code == 200
+
+
+def test_user_cannot_delete_locked_recipe_owned_by_another_user(api_client: TestClient, user_tuple: list[TestUser]):
+    slug = random_string(10)
+    unique_user, other_user = user_tuple
+
+    unique_user.repos.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            settings=RecipeSettings(locked=True),
+        )
+    )
+
+    response = api_client.delete(api_routes.recipes_slug(slug), headers=other_user.token)
+    assert response.status_code == 403
+
+
+def test_user_can_delete_own_household_recipe(
+    api_client: TestClient, unfiltered_database: AllRepositories, user_tuple: list[TestUser]
+):
+    slug = random_string(10)
+    unique_user, other_user = user_tuple
+    unique_user.repos.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            settings=RecipeSettings(locked=False),
+        )
+    )
+
+    # Make sure other_user belongs to same group/household as user
+    admin_data = unfiltered_database.users.get_one(other_user.user_id)
+    assert admin_data
+    admin_data.group_id = UUID(unique_user.group_id)
+    unfiltered_database.users.update(other_user.user_id, admin_data)
+    assert admin_data.household_id != unique_user.household_id
+
+    response = api_client.delete(api_routes.recipes_slug(slug), headers=other_user.token)
+    assert response.status_code == 200
+
+
+def test_user_cannot_delete_other_household_recipe(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+    slug = random_string(10)
+
+    unique_user.repos.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            settings=RecipeSettings(locked=False),
+        )
+    )
+
+    response = api_client.delete(api_routes.recipes_slug(slug), headers=h2_user.token)
+    assert response.status_code == 403
