@@ -1,6 +1,5 @@
 <template>
   <!-- Wrap v-hover with a div to provide a proper DOM element for the transition -->
-  <v-lazy>
     <div>
       <v-hover
         v-slot="{ isHovering, props }"
@@ -99,7 +98,6 @@
         </v-card>
       </v-hover>
     </div>
-  </v-lazy>
 </template>
 
 <script lang="ts">
