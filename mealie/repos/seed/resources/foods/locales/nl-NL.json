@@ -2453,20 +2453,20 @@
             "hard goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "hard goat cheese",
-                "plural_name": "hard goat cheeses"
+                "name": "harde geiten kaas",
+                "plural_name": "harde geiten kazen"
             },
             "kashkaval": {
                 "aliases": [],
                 "description": "",
                 "name": "kashkaval",
-                "plural_name": "kashkavals"
+                "plural_name": "schapen kaas"
             },
             "sheep cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep cheese",
-                "plural_name": "sheep cheeses"
+                "name": "schapen kaas",
+                "plural_name": "schapen kazen"
             },
             "amul cheese": {
                 "aliases": [],

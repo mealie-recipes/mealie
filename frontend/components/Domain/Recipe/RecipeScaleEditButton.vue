@@ -66,12 +66,12 @@
             <v-card-text class="mt-n5">
               <div class="mt-4 d-flex align-center">
                 <v-text-field
-                  :model-value="yieldQuantityEditorValue"
+                  :model-value="yieldQuantity"
                   type="number"
                   :min="0"
                   variant="underlined"
                   hide-spin-buttons
-                  @update:model-value="recalculateScale(yieldQuantityEditorValue)"
+                  @update:model-value="recalculateScale(parseFloat($event) || 0)"
                 />
                 <v-tooltip
                   end
@@ -81,6 +81,7 @@
                     <v-btn
                       v-bind="props"
                       icon
+                      flat
                       class="mx-1"
                       size="small"
                       @click="scale = 1"
@@ -178,21 +179,8 @@ export default defineNuxtComponent({
         : "";
     });
 
-    // only update yield quantity when the menu opens, so we don't override the user's input
-    const yieldQuantityEditorValue = ref(recipeYieldAmount.value.scaledAmount);
-    watch(
-      () => menu.value,
-      () => {
-        if (!menu.value) {
-          return;
-        }
-
-        yieldQuantityEditorValue.value = recipeYieldAmount.value.scaledAmount;
-      },
-    );
-
     const disableDecrement = computed(() => {
-      return recipeYieldAmount.value.scaledAmount <= 1;
+      return yieldQuantity.value <= 1;
     });
 
     return {
@@ -202,7 +190,6 @@ export default defineNuxtComponent({
       recalculateScale,
       yieldDisplay,
       yieldQuantity,
-      yieldQuantityEditorValue,
       disableDecrement,
     };
   },
