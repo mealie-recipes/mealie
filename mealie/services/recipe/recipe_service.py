@@ -64,6 +64,12 @@ class RecipeService(RecipeServiceBase):
             raise exceptions.NoEntryFound("Recipe not found.")
         return recipe
 
+    def can_delete(self, recipe: Recipe) -> bool:
+        if self.user.admin:
+            return True
+        else:
+            return self.can_update(recipe)
+
     def can_update(self, recipe: Recipe) -> bool:
         if recipe.settings is None:
             raise exceptions.UnexpectedNone("Recipe Settings is None")
@@ -423,7 +429,7 @@ class RecipeService(RecipeServiceBase):
     def delete_one(self, slug_or_id: str | UUID) -> Recipe:
         recipe = self.get_one(slug_or_id)
 
-        if not self.can_update(recipe):
+        if not self.can_delete(recipe):
             raise exceptions.PermissionDenied("You do not have permission to delete this recipe.")
 
         data = self.group_recipes.delete(recipe.id, "id")
