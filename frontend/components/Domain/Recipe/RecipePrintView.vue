@@ -222,7 +222,7 @@ export default defineNuxtComponent({
 
     const servingsDisplay = computed(() => {
       const { scaledAmountDisplay } = useScaledAmount(props.recipe.recipeYieldQuantity, props.scale);
-      return scaledAmountDisplay
+      return scaledAmountDisplay || props.recipe.recipeYield
         ? i18n.t("recipe.yields-amount-with-text", {
           amount: scaledAmountDisplay,
           text: props.recipe.recipeYield,

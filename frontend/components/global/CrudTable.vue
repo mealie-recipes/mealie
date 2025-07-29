@@ -22,10 +22,9 @@
         <v-card>
           <v-card-text>
             <v-checkbox
-              v-for="itemValue in headers"
+              v-for="itemValue in localHeaders"
               :key="itemValue.text + itemValue.show"
-              v-model="filteredHeaders"
-              :value="itemValue.value"
+              v-model="itemValue.show"
               density="compact"
               flat
               inset
@@ -172,12 +171,20 @@ export default defineNuxtComponent({
 
     // ===========================================================
     // Reactive Headers
+    // Create a local reactive copy of headers that we can modify
+    const localHeaders = ref([...props.headers]);
+
+    // Watch for changes in props.headers and update local copy
+    watch(() => props.headers, (newHeaders) => {
+      localHeaders.value = [...newHeaders];
+    }, { deep: true });
+
     const filteredHeaders = computed<string[]>(() => {
-      return props.headers.filter(header => header.show).map(header => header.value);
+      return localHeaders.value.filter(header => header.show).map(header => header.value);
     });
 
     const headersWithoutActions = computed(() =>
-      props.headers
+      localHeaders.value
         .filter(header => filteredHeaders.value.includes(header.value))
         .map(header => ({
           ...header,
@@ -214,6 +221,7 @@ export default defineNuxtComponent({
     return {
       sortBy,
       selected,
+      localHeaders,
       filteredHeaders,
       headersWithoutActions,
       activeHeaders,

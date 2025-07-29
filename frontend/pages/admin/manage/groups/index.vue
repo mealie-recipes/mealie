@@ -73,7 +73,7 @@
                   variant="text"
                   @click.stop="
                     confirmDialog = true;
-                    deleteTarget = +item.id;
+                    deleteTarget = item.id;
                   "
                 >
                   <v-icon>
@@ -114,7 +114,7 @@ export default defineNuxtComponent({
     const state = reactive({
       createDialog: false,
       confirmDialog: false,
-      deleteTarget: 0,
+      deleteTarget: "",
       search: "",
       headers: [
         {
