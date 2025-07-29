@@ -4135,8 +4135,8 @@
             "country style rib": {
                 "aliases": [],
                 "description": "",
-                "name": "country style rib",
-                "plural_name": "country style ribs"
+                "name": "Rippe nach Landhausart",
+                "plural_name": "Rippchen nach Landhausart"
             },
             "black forest ham": {
                 "aliases": [],
@@ -4189,8 +4189,8 @@
             "hard salami": {
                 "aliases": [],
                 "description": "",
-                "name": "hard salami",
-                "plural_name": "hard salamis"
+                "name": "Hartsalami",
+                "plural_name": "Hartsalamis"
             },
             "back bacon": {
                 "aliases": [],
@@ -4238,19 +4238,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Getrocknetes Rindfleisch",
-                "plural_name": "dried beefs"
+                "plural_name": "Trockenfleisch"
             },
             "gammon joint": {
                 "aliases": [],
                 "description": "",
-                "name": "gammon joint",
-                "plural_name": "gammon joints"
+                "name": "Geräucherter Schweineschinken",
+                "plural_name": "Geräucherte Schweineschinken"
             },
             "boneless beef short rib": {
                 "aliases": [],
                 "description": "",
-                "name": "boneless beef short rib",
-                "plural_name": "boneless beef short ribs"
+                "name": "Ausgelöste Rinderrippe",
+                "plural_name": "Ausgelöste Rinderrippchen"
             },
             "country ham": {
                 "aliases": [],
