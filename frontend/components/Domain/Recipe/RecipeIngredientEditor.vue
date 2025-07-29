@@ -68,7 +68,7 @@
               <template #activator="{ props: unitTooltipProps }">
                 <v-icon
                   v-bind="unitTooltipProps"
-                  class="ml-2 mr-n3"
+                  class="ml-2 mr-n3 opacity-100"
                   color="primary"
                 >
                   {{ $globals.icons.alert }}
@@ -125,7 +125,7 @@
               <template #activator="{ props: foodTooltipProps }">
                 <v-icon
                   v-bind="foodTooltipProps"
-                  class="ml-2 mr-n3"
+                  class="ml-2 mr-n3 opacity-100"
                   color="primary"
                 >
                   {{ $globals.icons.alert }}
