@@ -4469,8 +4469,8 @@
             "deli turkey": {
                 "aliases": [],
                 "description": "",
-                "name": "deli turkey",
-                "plural_name": "deli turkeys"
+                "name": "ד",
+                "plural_name": "ato"
             },
             "smoked turkey": {
                 "aliases": [],
@@ -5097,8 +5097,8 @@
             "herring": {
                 "aliases": [],
                 "description": "",
-                "name": "herring",
-                "plural_name": "herrings"
+                "name": "מליח (הרינג)",
+                "plural_name": "מליח (הרינג) "
             },
             "salmon roe": {
                 "aliases": [],
@@ -5355,8 +5355,8 @@
             "smoked herring": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked herring",
-                "plural_name": "smoked herrings"
+                "name": "מליח (הרינג) מעושן",
+                "plural_name": "מליח (הרינג) מעושן"
             },
             "whiting": {
                 "aliases": [],
@@ -5373,8 +5373,8 @@
             "shark meat": {
                 "aliases": [],
                 "description": "",
-                "name": "shark meat",
-                "plural_name": "shark meats"
+                "name": "בשר כריש",
+                "plural_name": "בשר כריש"
             },
             "garoupa": {
                 "aliases": [],
@@ -5397,14 +5397,14 @@
             "salt herring": {
                 "aliases": [],
                 "description": "",
-                "name": "salt herring",
-                "plural_name": "salt herrings"
+                "name": "מליח (הרינג) מלח",
+                "plural_name": "מליח (הרינג) מלח"
             },
             "soused herring": {
                 "aliases": [],
                 "description": "",
-                "name": "soused herring",
-                "plural_name": "soused herrings"
+                "name": "מליח (הרינג) במרינדה",
+                "plural_name": "מליח (הרינג) במרינדה"
             },
             "tinapa": {
                 "aliases": [],
@@ -5497,20 +5497,20 @@
             "shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "shrimp",
-                "plural_name": "shrimps"
+                "name": "חסילון (שרימפ)",
+                "plural_name": "חסילונים (שרמיפס)"
             },
             "octopuse": {
                 "aliases": [],
                 "description": "",
-                "name": "octopuse",
-                "plural_name": "octopi"
+                "name": "תמנון",
+                "plural_name": "תמנונים"
             },
             "prawn": {
                 "aliases": [],
                 "description": "",
-                "name": "prawn",
-                "plural_name": "prawns"
+                "name": "חסילון (שרימפ)",
+                "plural_name": "חסילונים (שרמיפס)"
             },
             "crab": {
                 "aliases": [],
@@ -5521,8 +5521,8 @@
             "scallop": {
                 "aliases": [],
                 "description": "",
-                "name": "scallop",
-                "plural_name": "scallops"
+                "name": "צדפה (סקאלופ)",
+                "plural_name": "צדפות (סקאלופ)"
             },
             "mussel": {
                 "aliases": [],
@@ -5539,8 +5539,8 @@
             "squid": {
                 "aliases": [],
                 "description": "",
-                "name": "squid",
-                "plural_name": "squids"
+                "name": "דיונון",
+                "plural_name": "דיונונים"
             },
             "nori": {
                 "aliases": [],
@@ -5557,8 +5557,8 @@
             "oyster": {
                 "aliases": [],
                 "description": "",
-                "name": "oyster",
-                "plural_name": "oysters"
+                "name": "צדפה (אוסטראה)",
+                "plural_name": "צדפות (אוסטראה)"
             },
             "lobster tail": {
                 "aliases": [],
@@ -5569,8 +5569,8 @@
             "crawfish": {
                 "aliases": [],
                 "description": "",
-                "name": "crawfish",
-                "plural_name": "crawfish"
+                "name": "סרטן נהרות",
+                "plural_name": "סרטני נהרות"
             },
             "octopu": {
                 "aliases": [],
@@ -5587,8 +5587,8 @@
             "dried shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "dried shrimp",
-                "plural_name": "dried shrimps"
+                "name": "חסילון (שרימפ) מיובש",
+                "plural_name": "חסילונים (שרימפ) מיובשים"
             },
             "bay scallop": {
                 "aliases": [],
@@ -5623,20 +5623,20 @@
             "mixed seafood": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed seafood",
-                "plural_name": "mixed seafoods"
+                "name": "תערובת מאכלי ים",
+                "plural_name": "תערובות מאכלי ים"
             },
             "baby squid": {
                 "aliases": [],
                 "description": "",
-                "name": "baby squid",
-                "plural_name": "baby squids"
+                "name": "דיונון צעיר",
+                "plural_name": "דיונונים צעירים"
             },
             "squid ink": {
                 "aliases": [],
                 "description": "",
-                "name": "squid ink",
-                "plural_name": "squid inks"
+                "name": "דיו דיונון",
+                "plural_name": "דיו דיונון"
             },
             "dried prawn": {
                 "aliases": [],
@@ -5659,8 +5659,8 @@
             "smoked oyster": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked oyster",
-                "plural_name": "smoked oysters"
+                "name": "צדפה (אוסטראה) מעושנת",
+                "plural_name": "צדפות (אוסטראה) מעושנות"
             },
             "kelp": {
                 "aliases": [],
@@ -5683,8 +5683,8 @@
             "salted shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "salted shrimp",
-                "plural_name": "salted shrimps"
+                "name": "חסילון (שרימפ) ממולח",
+                "plural_name": "חסילונים (שרימפ) ממולחים"
             },
             "yaki-nori": {
                 "aliases": [],
@@ -5749,8 +5749,8 @@
             "sea snail": {
                 "aliases": [],
                 "description": "",
-                "name": "sea snail",
-                "plural_name": "sea snails"
+                "name": "חלזון ים",
+                "plural_name": "חלזונות ים"
             },
             "aonori": {
                 "aliases": [],
@@ -6574,7 +6574,7 @@
             "salted caramel syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "salted caramel syrup",
+                "name": "סירופ קרמל מומלח",
                 "plural_name": "salted caramel syrups"
             },
             "sanding sugar": {
@@ -6592,8 +6592,8 @@
             "sucralose": {
                 "aliases": [],
                 "description": "",
-                "name": "sucralose",
-                "plural_name": "sucraloses"
+                "name": "סוכרלוז",
+                "plural_name": "סוכרלוז"
             },
             "monk fruit sweetener": {
                 "aliases": [],
@@ -6604,8 +6604,8 @@
             "maple sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "maple sugar",
-                "plural_name": "maple sugars"
+                "name": "סוכר מייפל",
+                "plural_name": "סוכרי מייפל"
             },
             "blackstrap molass": {
                 "aliases": [],
@@ -6658,8 +6658,8 @@
             "strawberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry syrup",
-                "plural_name": "strawberry syrups"
+                "name": "סירופ תות שדה",
+                "plural_name": "סירופי תות שדה"
             },
             "vanilla syrup": {
                 "aliases": [],
@@ -6670,8 +6670,8 @@
             "ginger syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger syrup",
-                "plural_name": "ginger syrups"
+                "name": "סירופ ג'ינג'ר",
+                "plural_name": "סירופי ג'ינג'ר"
             },
             "orgeat": {
                 "aliases": [],
@@ -6712,20 +6712,20 @@
             "date paste": {
                 "aliases": [],
                 "description": "",
-                "name": "date paste",
-                "plural_name": "date pastes"
+                "name": "ממרח תמרים",
+                "plural_name": "ממרחי תמרים"
             },
             "coconut syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut syrup",
-                "plural_name": "coconut syrups"
+                "name": "סירופ קוקוס",
+                "plural_name": "סירופי קוקוס"
             },
             "mint syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "mint syrup",
-                "plural_name": "mint syrups"
+                "name": "סירופ מנטה",
+                "plural_name": "סירופי מנטה"
             },
             "treacle": {
                 "aliases": [],
@@ -6748,14 +6748,14 @@
             "maple butter": {
                 "aliases": [],
                 "description": "",
-                "name": "maple butter",
-                "plural_name": "maple butter"
+                "name": "חמאת מייפל",
+                "plural_name": "חמאות מייפל"
             },
             "blueberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry syrup",
-                "plural_name": "blueberry syrups"
+                "name": "סירופ אוכמניות",
+                "plural_name": "סירופי אוכמניות"
             },
             "apple syrup": {
                 "aliases": [],
@@ -6790,14 +6790,14 @@
             "hibiscus syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "hibiscus syrup",
-                "plural_name": "hibiscus syrups"
+                "name": "סירופ היביסקוס",
+                "plural_name": "סירופי היביסקוס"
             },
             "lavender syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "lavender syrup",
-                "plural_name": "lavender syrups"
+                "name": "סירופ לוונדר",
+                "plural_name": "סירופי לוונדר"
             },
             "fresh sugar cane": {
                 "aliases": [],
@@ -6808,8 +6808,8 @@
             "hazelnut syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut syrup",
-                "plural_name": "hazelnut syrups"
+                "name": "סירופ אגוזי לוז",
+                "plural_name": "סירופי אגוזי לוז"
             },
             "white chocolate sauce": {
                 "aliases": [],
@@ -6826,8 +6826,8 @@
             "glycerine": {
                 "aliases": [],
                 "description": "",
-                "name": "glycerine",
-                "plural_name": "glycerines"
+                "name": "גליצרין",
+                "plural_name": "גליצרין"
             },
             "sorghum syrup": {
                 "aliases": [],
@@ -7058,8 +7058,8 @@
             "curry": {
                 "aliases": [],
                 "description": "",
-                "name": "curry",
-                "plural_name": "curries"
+                "name": "קארי",
+                "plural_name": "קארי"
             },
             "garam masala": {
                 "aliases": [],
@@ -7136,8 +7136,8 @@
             "red curry": {
                 "aliases": [],
                 "description": "",
-                "name": "red curry",
-                "plural_name": "red curries"
+                "name": "קארי אדום",
+                "plural_name": "קארי אדום"
             },
             "old bay seasoning": {
                 "aliases": [],
@@ -7214,14 +7214,14 @@
             "za'atar": {
                 "aliases": [],
                 "description": "",
-                "name": "za'atar",
-                "plural_name": "za'atars"
+                "name": "זעתר",
+                "plural_name": "זעתר"
             },
             "ras el hanout": {
                 "aliases": [],
                 "description": "",
-                "name": "ras el hanout",
-                "plural_name": "ras el hanouts"
+                "name": "ראס אל חנות",
+                "plural_name": "ראס אל חנות"
             },
             "all-purpose seasoning": {
                 "aliases": [],
@@ -7304,8 +7304,8 @@
             "teriyaki marinade": {
                 "aliases": [],
                 "description": "",
-                "name": "teriyaki marinade",
-                "plural_name": "teriyaki marinades"
+                "name": "מרינדת טריאקי",
+                "plural_name": "מרינדות טריאקי"
             },
             "adobo seasoning": {
                 "aliases": [],
@@ -7340,8 +7340,8 @@
             "hot curry": {
                 "aliases": [],
                 "description": "",
-                "name": "hot curry",
-                "plural_name": "hot curries"
+                "name": "קארי חריף",
+                "plural_name": "קארי חריף"
             },
             "salt-free seasoning": {
                 "aliases": [],
@@ -7655,12 +7655,12 @@
             },
             "vanilla extract": {
                 "aliases": [
-                    "vanilla",
-                    "vanillas"
+                    "וניל",
+                    "וניל"
                 ],
                 "description": "",
-                "name": "vanilla extract",
-                "plural_name": "vanilla extracts"
+                "name": "תמצית וניל",
+                "plural_name": "תמציות וניל"
             },
             "baking powder": {
                 "aliases": [],
@@ -7721,8 +7721,8 @@
             "shredded coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "shredded coconut",
-                "plural_name": "shredded coconuts"
+                "name": "קוקוס מגורד",
+                "plural_name": "קוקוסים מגורדים"
             },
             "cornmeal": {
                 "aliases": [],
@@ -7862,8 +7862,8 @@
             },
             "whole-wheat": {
                 "aliases": [
-                    "whole wheat",
-                    "whole wheats"
+                    "חיטה מלאה",
+                    "חיטות מלאות"
                 ],
                 "description": "",
                 "name": "חיטה מלאה",
@@ -7980,8 +7980,8 @@
             "pancake mix": {
                 "aliases": [],
                 "description": "",
-                "name": "pancake mix",
-                "plural_name": "pancake mixes"
+                "name": "תערובת לפנקייק",
+                "plural_name": "תערובות לפנקייק"
             },
             "refined flour": {
                 "aliases": [],
@@ -8124,14 +8124,14 @@
             "hazelnut flour": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut flour",
-                "plural_name": "hazelnut flours"
+                "name": "קמח אגוזי לוז",
+                "plural_name": "קמחי אגוזי לוז"
             },
             "citric acid": {
                 "aliases": [],
                 "description": "",
-                "name": "citric acid",
-                "plural_name": "citric acids"
+                "name": "מלח לימון",
+                "plural_name": "מלח לימון"
             },
             "coconut chip": {
                 "aliases": [],
@@ -9498,8 +9498,8 @@
             "spaghetti": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti",
-                "plural_name": "spaghettis"
+                "name": "ספגטי",
+                "plural_name": "ספגטי"
             },
             "macaroni": {
                 "aliases": [],
@@ -9516,22 +9516,22 @@
             "spiral pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "spiral pasta",
-                "plural_name": "spiral pastas"
+                "name": "פסטה ספירלית",
+                "plural_name": "פסטה ספירלית"
             },
             "lasagna noodle": {
                 "aliases": [
                     "לזניה"
                 ],
                 "description": "",
-                "name": "lasagna noodle",
-                "plural_name": "lasagna noodles"
+                "name": "איטריית לזניה",
+                "plural_name": "איטריות לזניה"
             },
             "linguine": {
                 "aliases": [],
                 "description": "",
-                "name": "linguine",
-                "plural_name": "linguines"
+                "name": "לינגוויני",
+                "plural_name": "לינגוויני"
             },
             "fettuccine": {
                 "aliases": [],
@@ -9554,8 +9554,8 @@
             "bow-tie pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "bow-tie pasta",
-                "plural_name": "bow-tie pastas"
+                "name": "פסטת פפיון (פרפר/פרפלה)",
+                "plural_name": "פסטת פפיון (פרפר/פרפלה)"
             },
             "noodle": {
                 "aliases": [],
@@ -9584,20 +9584,20 @@
             "rigatoni": {
                 "aliases": [],
                 "description": "",
-                "name": "rigatoni",
-                "plural_name": "rigatonis"
+                "name": "ריגטוני",
+                "plural_name": "ריגטוני"
             },
             "gnocchi": {
                 "aliases": [],
                 "description": "",
-                "name": "gnocchi",
-                "plural_name": "gnocchis"
+                "name": "גנוצ'י",
+                "plural_name": "גנוצ'י"
             },
             "angel hair pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "angel hair pasta",
-                "plural_name": "angel hair pastas"
+                "name": "פסטת שיער מלאך (קפליני די אנג'לו)",
+                "plural_name": "פסטת שיער מלאך (קפליני די אנג'לו)"
             },
             "ramen noodle": {
                 "aliases": [],
@@ -9608,14 +9608,14 @@
             "vermicelli": {
                 "aliases": [],
                 "description": "",
-                "name": "vermicelli",
-                "plural_name": "vermicellis"
+                "name": "ורמיצ'לי",
+                "plural_name": "ורמיצ'לי"
             },
             "tagliatelle": {
                 "aliases": [],
                 "description": "",
-                "name": "tagliatelle",
-                "plural_name": "tagliatelles"
+                "name": "טליאטלה",
+                "plural_name": "טליאטלה"
             },
             "soba noodle": {
                 "aliases": [],
@@ -9632,14 +9632,14 @@
             "ziti": {
                 "aliases": [],
                 "description": "",
-                "name": "ziti",
-                "plural_name": "zitis"
+                "name": "זיטי",
+                "plural_name": "זיטי"
             },
             "orecchiette": {
                 "aliases": [],
                 "description": "",
-                "name": "orecchiette",
-                "plural_name": "orecchiettes"
+                "name": "אוריקייטה",
+                "plural_name": "אוריקייטה"
             },
             "israeli couscou": {
                 "aliases": [],
@@ -9662,8 +9662,8 @@
             "ditalini": {
                 "aliases": [],
                 "description": "",
-                "name": "ditalini",
-                "plural_name": "ditalinis"
+                "name": "דיטליני",
+                "plural_name": "דיטליני"
             },
             "rice vermicelli": {
                 "aliases": [],
@@ -9674,8 +9674,8 @@
             "pappardelle": {
                 "aliases": [],
                 "description": "",
-                "name": "pappardelle",
-                "plural_name": "pappardelles"
+                "name": "פפרדלה",
+                "plural_name": "פפרדלה"
             },
             "glass noodle": {
                 "aliases": [],
@@ -9698,8 +9698,8 @@
             "penne rigate": {
                 "aliases": [],
                 "description": "",
-                "name": "penne rigate",
-                "plural_name": "penne rigates"
+                "name": "פנה ריגטה",
+                "plural_name": "פנה ריגטה"
             },
             "manicotti": {
                 "aliases": [],
@@ -9710,14 +9710,14 @@
             "bucatini": {
                 "aliases": [],
                 "description": "",
-                "name": "bucatini",
-                "plural_name": "bucatinis"
+                "name": "בוקטיני",
+                "plural_name": "בוקטיני"
             },
             "cannelloni": {
                 "aliases": [],
                 "description": "",
-                "name": "cannelloni",
-                "plural_name": "cannellonis"
+                "name": "קנלוני",
+                "plural_name": "קנלוני"
             },
             "thai rice noodle": {
                 "aliases": [],
@@ -9758,8 +9758,8 @@
             "soup pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "soup pasta",
-                "plural_name": "soup pastas"
+                "name": "מרק פסטה",
+                "plural_name": "מרקי פסטה"
             },
             "sweet potato noodle": {
                 "aliases": [],
@@ -10522,8 +10522,8 @@
             "popcorn shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "popcorn shrimp",
-                "plural_name": "popcorn shrimps"
+                "name": "פופקורן חסילונים (שרימפ)",
+                "plural_name": "פופקורן חסילונים (שרימפ)"
             },
             "prawn cracker": {
                 "aliases": [],
@@ -11306,8 +11306,8 @@
             "avocado oil mayonnaise": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado oil mayonnaise",
-                "plural_name": "avocado oil mayonnaises"
+                "name": "מיונז שמן אבוקדו",
+                "plural_name": "מיונז שמן אבוקדו"
             },
             "creamy balsamic dressing": {
                 "aliases": [],
@@ -11474,8 +11474,8 @@
             "avocado-lime dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado-lime dressing",
-                "plural_name": "avocado-lime dressings"
+                "name": "מטבל אבוקדו-ליים",
+                "plural_name": "מטבלי אבוקדו ליים"
             },
             "spicy vinegar": {
                 "aliases": [],
@@ -11562,8 +11562,8 @@
             "oyster sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "רוטב צדפות",
-                "plural_name": "רטבי צדפות"
+                "name": "רוטב צדפות (אוסטראה)",
+                "plural_name": "רטבי צדפות (אוסטראה)"
             },
             "chili sauce": {
                 "aliases": [],
@@ -11712,8 +11712,8 @@
             "shrimp paste": {
                 "aliases": [],
                 "description": "",
-                "name": "shrimp paste",
-                "plural_name": "shrimp pastes"
+                "name": "ממרח חסילונים (שרימפ)",
+                "plural_name": "ממרחי חסילונים (שרימפ)"
             },
             "picante sauce": {
                 "aliases": [],
@@ -12036,8 +12036,8 @@
             "shrimp sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "shrimp sauce",
-                "plural_name": "shrimp sauces"
+                "name": "רוטב חסילונים (שרימפ)",
+                "plural_name": "רטבי חסילונים (שרימפ)"
             },
             "sweet soybean paste": {
                 "aliases": [],
@@ -12054,8 +12054,8 @@
             "shrimp powder": {
                 "aliases": [],
                 "description": "",
-                "name": "shrimp powder",
-                "plural_name": "shrimp powders"
+                "name": "אבקת חסילונים (שרימפ)",
+                "plural_name": "אבקות חסילונים (שרימפ)"
             },
             "banana ketchup": {
                 "aliases": [],
@@ -12100,8 +12100,8 @@
             "canned tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned tomato",
-                "plural_name": "canned tomatoes"
+                "name": "עגבניות משומרות",
+                "plural_name": "עגבניות משומרות"
             },
             "caper": {
                 "aliases": [],
@@ -12226,8 +12226,8 @@
             "canned whole tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned whole tomato",
-                "plural_name": "canned whole tomatoes"
+                "name": "עגבניה משומרת שלמה",
+                "plural_name": "עגבניות משומרות שלמות"
             },
             "sweet pickle relish": {
                 "aliases": [],

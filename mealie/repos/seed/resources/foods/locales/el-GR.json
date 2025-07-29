@@ -216,8 +216,8 @@
             "fennel": {
                 "aliases": [],
                 "description": "",
-                "name": "fennel",
-                "plural_name": "fennels"
+                "name": "μάραθος",
+                "plural_name": "μάραθος"
             },
             "sun dried tomato": {
                 "aliases": [],
@@ -228,30 +228,30 @@
             "radish": {
                 "aliases": [],
                 "description": "",
-                "name": "radish",
-                "plural_name": "radishes"
+                "name": "ραπανάκι",
+                "plural_name": "ραπανάκια"
             },
             "red cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "red cabbage",
-                "plural_name": "red cabbages"
+                "name": "κόκκινο λάχανο",
+                "plural_name": "κόκκινα λάχανα"
             },
             "artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke",
-                "plural_name": "artichokes"
+                "name": "αγκινάρα",
+                "plural_name": "αγκινάρες"
             },
             "new potato": {
                 "aliases": [],
                 "description": "",
-                "name": "new potato",
-                "plural_name": "new potatoes"
+                "name": "φρέσια πατάτα",
+                "plural_name": "φρέσκες πατάτες"
             },
             "summer squash": {
                 "aliases": [
-                    "courgette",
+                    "κολοκυθάκι",
                     "gem squash"
                 ],
                 "description": "",
@@ -261,7 +261,7 @@
             "mixed green": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed green",
+                "name": "ανάμικτη πρασινάδα",
                 "plural_name": "ανάμικτη πρασινάδα"
             },
             "parsnip": {
@@ -273,14 +273,14 @@
             "baby carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "καρότο μπειμπι",
+                "name": "καρότο μπέιμπι",
                 "plural_name": "καρότα μπέιμπι"
             },
             "mixed vegetable": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetable",
-                "plural_name": "mixed vegetables"
+                "name": "μιξ λαχανικού",
+                "plural_name": "μιξ λαχανικών"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -291,8 +291,8 @@
             "sweet pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet pepper",
-                "plural_name": "sweet peppers"
+                "name": "γλυκιά πιπεριά",
+                "plural_name": "γλυκές πιπεριές "
             },
             "serrano pepper": {
                 "aliases": [],
@@ -1251,14 +1251,14 @@
             "portobello mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "portobello mushroom",
-                "plural_name": "portobello mushrooms"
+                "name": "μανιτάρι πορτομπέλο",
+                "plural_name": "μανιτάρια πορτομπέλο"
             },
             "wild mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "wild mushroom",
-                "plural_name": "wild mushrooms"
+                "name": "άγριο μανιτάρι",
+                "plural_name": "άγρια μανιτάρια "
             },
             "porcini": {
                 "aliases": [],
@@ -1269,8 +1269,8 @@
             "mixed mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed mushroom",
-                "plural_name": "mixed mushrooms"
+                "name": "μιξ μανιτάρι",
+                "plural_name": "μιξ μανιταριών"
             },
             "oyster mushroom": {
                 "aliases": [],
@@ -2009,14 +2009,14 @@
                     "cheddars"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheeses"
+                "name": "τυρί τσένταρ",
+                "plural_name": "τυριά τσένταρ"
             },
             "cream cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "cream cheese",
-                "plural_name": "cream cheeses"
+                "plural_name": "τυρί κρέμα"
             },
             "sharp cheddar": {
                 "aliases": [],
@@ -2027,20 +2027,20 @@
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheeses"
+                "name": "τυρί",
+                "plural_name": "τυριά"
             },
             "mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella",
-                "plural_name": "mozzarellas"
+                "name": "μοτσαρέλα",
+                "plural_name": "μοτσαρέλες"
             },
             "feta": {
                 "aliases": [],
                 "description": "",
-                "name": "feta",
-                "plural_name": "fetas"
+                "name": "φέτα",
+                "plural_name": "φέτες"
             },
             "ricotta": {
                 "aliases": [],
@@ -2063,32 +2063,32 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheeses"
+                "name": "ροκφόρ τυρί ",
+                "plural_name": "ροκφόρ τυριά"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheeses"
+                "name": "κατσικίσιο τυρί ",
+                "plural_name": "κατσικίσια τυριά"
             },
             "fresh mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella",
-                "plural_name": "fresh mozzarellas"
+                "name": "φρέσκια μοτσαρέλα",
+                "plural_name": "φρέσκιες μοτσαρέλες"
             },
             "swiss cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swiss cheese",
-                "plural_name": "swiss cheeses"
+                "name": "ελβετικό τυρί ",
+                "plural_name": "ελβετικά τυριά "
             },
             "pecorino": {
                 "aliases": [],
                 "description": "",
-                "name": "pecorino",
-                "plural_name": "pecorinoes"
+                "name": "πεκορίνο",
+                "plural_name": "πεκορίνο"
             },
             "gruyere": {
                 "aliases": [],
@@ -2099,8 +2099,8 @@
             "mascarpone": {
                 "aliases": [],
                 "description": "",
-                "name": "mascarpone",
-                "plural_name": "mascarpones"
+                "name": "μασκαρπόνε",
+                "plural_name": "μασκαρπόνε "
             },
             "cottage cheese": {
                 "aliases": [],
@@ -2118,7 +2118,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "provolone",
-                "plural_name": "provolones"
+                "plural_name": "provolone"
             },
             "mexican cheese blend": {
                 "aliases": [],
