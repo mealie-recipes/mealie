@@ -472,6 +472,7 @@
     "comment": "Komentarz",
     "comments": "Komentarze",
     "delete-confirmation": "Czy jesteś pewien, że chcesz usunąć ten przepis?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Usuń przepis",
     "description": "Opis",
     "disable-amount": "Wyłącz ilości składników",
@@ -662,6 +663,8 @@
       "no-unit": "Brak jednostki",
       "missing-unit": "Utwórz brakującą jednostkę: {unit}",
       "missing-food": "Utwórz brakującą potrawę: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Brak potrawy"
     },
     "reset-servings-count": "Zresetuj liczbę porcji",
