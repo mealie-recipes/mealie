@@ -472,6 +472,7 @@
     "comment": "הערה",
     "comments": "הערות",
     "delete-confirmation": "למחוק את המתכון הזה?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "מחיקת מתכון",
     "description": "תיאור",
     "disable-amount": "ביטול כמויות מרכיבים",
@@ -662,6 +663,8 @@
       "no-unit": "ללא יחידות",
       "missing-unit": "יצירת יחידה חסרה: {unit}",
       "missing-food": "יצירת אוכל חסר: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "אין אוכל"
     },
     "reset-servings-count": "איפוס מספר המנות",
