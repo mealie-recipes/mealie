@@ -18,7 +18,7 @@
       <RecipeTimelineBadge v-if="loggedIn" class="ml-1" color="info" button-style :slug="recipe.slug" :recipe-name="recipe.name!" />
       <div v-if="loggedIn">
         <v-tooltip v-if="canEdit" location="bottom" color="info">
-          <template #activator="{ props }">
+          <template #activator="{ props: tooltipProps }">
             <v-btn
               icon
               variant="flat"
@@ -26,7 +26,7 @@
               size="small"
               color="info"
               class="ml-1"
-              v-bind="props"
+              v-bind="tooltipProps"
               @click="$emit('edit', true)"
             >
               <v-icon size="x-large">
@@ -86,7 +86,7 @@
   </v-toolbar>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeTimelineBadge from "./RecipeTimelineBadge.vue";
@@ -97,103 +97,75 @@ const DELETE_EVENT = "delete";
 const CLOSE_EVENT = "close";
 const JSON_EVENT = "json";
 
-export default defineNuxtComponent({
-  components: { RecipeContextMenu, RecipeFavoriteBadge, RecipeTimelineBadge },
-  props: {
-    recipe: {
-      required: true,
-      type: Object as () => Recipe,
-    },
-    slug: {
-      required: true,
-      type: String,
-    },
-    recipeScale: {
-      type: Number,
-      default: 1,
-    },
-    open: {
-      required: true,
-      type: Boolean,
-    },
-    name: {
-      required: true,
-      type: String,
-    },
-    loggedIn: {
-      type: Boolean,
-      default: false,
-    },
-    recipeId: {
-      required: true,
-      type: String,
-    },
-    canEdit: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ["print", "input", "delete", "close", "edit"],
-  setup(_, context) {
-    const deleteDialog = ref(false);
-
-    const i18n = useI18n();
-    const { $globals } = useNuxtApp();
-    const editorButtons = [
-      {
-        text: i18n.t("general.delete"),
-        icon: $globals.icons.delete,
-        event: DELETE_EVENT,
-        color: "error",
-      },
-      {
-        text: i18n.t("general.json"),
-        icon: $globals.icons.codeBraces,
-        event: JSON_EVENT,
-        color: "accent",
-      },
-      {
-        text: i18n.t("general.close"),
-        icon: $globals.icons.close,
-        event: CLOSE_EVENT,
-        color: "",
-      },
-      {
-        text: i18n.t("general.save"),
-        icon: $globals.icons.save,
-        event: SAVE_EVENT,
-        color: "success",
-      },
-    ];
-
-    function emitHandler(event: string) {
-      switch (event) {
-        case CLOSE_EVENT:
-          context.emit(CLOSE_EVENT);
-          context.emit("input", false);
-          break;
-        case DELETE_EVENT:
-          deleteDialog.value = true;
-          break;
-        default:
-          context.emit(event);
-          break;
-      }
-    }
-
-    function emitDelete() {
-      context.emit(DELETE_EVENT);
-      context.emit("input", false);
-    }
-
-    return {
-      deleteDialog,
-      editorButtons,
-      emitHandler,
-      emitDelete,
-    };
-  },
+interface Props {
+  recipe: Recipe;
+  slug: string;
+  recipeScale?: number;
+  open: boolean;
+  name: string;
+  loggedIn?: boolean;
+  recipeId: string;
+  canEdit?: boolean;
+}
+withDefaults(defineProps<Props>(), {
+  recipeScale: 1,
+  loggedIn: false,
+  canEdit: false,
 });
+
+const emit = defineEmits(["print", "input", "delete", "close", "edit"]);
+
+const deleteDialog = ref(false);
+
+const i18n = useI18n();
+const { $globals } = useNuxtApp();
+
+const editorButtons = [
+  {
+    text: i18n.t("general.delete"),
+    icon: $globals.icons.delete,
+    event: DELETE_EVENT,
+    color: "error",
+  },
+  {
+    text: i18n.t("general.json"),
+    icon: $globals.icons.codeBraces,
+    event: JSON_EVENT,
+    color: "accent",
+  },
+  {
+    text: i18n.t("general.close"),
+    icon: $globals.icons.close,
+    event: CLOSE_EVENT,
+    color: "",
+  },
+  {
+    text: i18n.t("general.save"),
+    icon: $globals.icons.save,
+    event: SAVE_EVENT,
+    color: "success",
+  },
+];
+
+function emitHandler(event: string) {
+  switch (event) {
+    case CLOSE_EVENT:
+      emit("close");
+      emit("input", false);
+      break;
+    case DELETE_EVENT:
+      deleteDialog.value = true;
+      break;
+    default:
+      emit(event as any);
+      break;
+  }
+}
+
+function emitDelete() {
+  emit("delete");
+  emit("input", false);
+}
 </script>
 
 <style scoped>
