@@ -472,6 +472,7 @@
     "comment": "Comentario",
     "comments": "Comentarios",
     "delete-confirmation": "Estás seguro de que queres eliminar esta receita?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Eliminar Receita",
     "description": "Descrición",
     "disable-amount": "Desactivar as Cantidades de Ingredientes",
@@ -662,6 +663,8 @@
       "no-unit": "Sen unidades",
       "missing-unit": "Crear a unidade que falta: {unit}",
       "missing-food": "Crear a comida que falta: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Sen Comida"
     },
     "reset-servings-count": "Reiniciar Contador de Porcións",
