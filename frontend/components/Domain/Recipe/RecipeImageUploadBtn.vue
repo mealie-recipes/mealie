@@ -7,11 +7,11 @@
       nudge-top="6"
       :close-on-content-click="false"
     >
-      <template #activator="{ props }">
+      <template #activator="{ props: activatorProps }">
         <v-btn
           color="accent"
           dark
-          v-bind="props"
+          v-bind="activatorProps"
         >
           <v-icon start>
             {{ $globals.icons.fileImage }}
@@ -61,52 +61,42 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 
 const REFRESH_EVENT = "refresh";
 const UPLOAD_EVENT = "upload";
 
-export default defineNuxtComponent({
-  props: {
-    slug: {
-      type: String,
-      required: true,
-    },
-  },
-  setup(props, context) {
-    const state = reactive({
-      url: "",
-      loading: false,
-      menu: false,
-    });
+const props = defineProps<{ slug: string }>();
 
-    function uploadImage(fileObject: File) {
-      context.emit(UPLOAD_EVENT, fileObject);
-      state.menu = false;
-    }
+const emit = defineEmits<{
+  refresh: [];
+  upload: [fileObject: File];
+}>();
 
-    const api = useUserApi();
-    async function getImageFromURL() {
-      state.loading = true;
-      if (await api.recipes.updateImagebyURL(props.slug, state.url)) {
-        context.emit(REFRESH_EVENT);
-      }
-      state.loading = false;
-      state.menu = false;
-    }
+const url = ref("");
+const loading = ref(false);
+const menu = ref(false);
 
-    const i18n = useI18n();
-    const messages = props.slug ? [""] : [i18n.t("recipe.save-recipe-before-use")];
+function uploadImage(fileObject: File) {
+  emit(UPLOAD_EVENT, fileObject);
+  menu.value = false;
+}
 
-    return {
-      ...toRefs(state),
-      uploadImage,
-      getImageFromURL,
-      messages,
-    };
-  },
-});
+const api = useUserApi();
+async function getImageFromURL() {
+  loading.value = true;
+  if (await api.recipes.updateImagebyURL(props.slug, url.value)) {
+    emit(REFRESH_EVENT);
+  }
+  loading.value = false;
+  menu.value = false;
+}
+
+const i18n = useI18n();
+const messages = computed(() =>
+  props.slug ? [""] : [i18n.t("recipe.save-recipe-before-use")],
+);
 </script>
 
 <style lang="scss" scoped></style>
