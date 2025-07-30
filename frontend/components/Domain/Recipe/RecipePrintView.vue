@@ -166,7 +166,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import DOMPurify from "dompurify";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import { useStaticRoutes } from "~/composables/api";
@@ -188,167 +188,141 @@ type InstructionSection = {
   instructions: RecipeStep[];
 };
 
-export default defineNuxtComponent({
-  components: {
-    RecipeTimeCard,
-  },
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
-    scale: {
-      type: Number,
-      default: 1,
-    },
-    dense: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props) {
-    const i18n = useI18n();
-    const preferences = useUserPrintPreferences();
-    const { recipeImage } = useStaticRoutes();
-    const { imageKey } = usePageState(props.recipe.slug);
-    const { labels } = useNutritionLabels();
-
-    function sanitizeHTML(rawHtml: string) {
-      return DOMPurify.sanitize(rawHtml, {
-        USE_PROFILES: { html: true },
-        ALLOWED_TAGS: ["strong", "sup"],
-      });
-    }
-
-    const servingsDisplay = computed(() => {
-      const { scaledAmountDisplay } = useScaledAmount(props.recipe.recipeYieldQuantity, props.scale);
-      return scaledAmountDisplay || props.recipe.recipeYield
-        ? i18n.t("recipe.yields-amount-with-text", {
-          amount: scaledAmountDisplay,
-          text: props.recipe.recipeYield,
-        }) as string
-        : "";
-    });
-
-    const yieldDisplay = computed(() => {
-      const { scaledAmountDisplay } = useScaledAmount(props.recipe.recipeServings, props.scale);
-      return scaledAmountDisplay ? i18n.t("recipe.serves-amount", { amount: scaledAmountDisplay }) as string : "";
-    });
-
-    const recipeYield = computed(() => {
-      if (servingsDisplay.value && yieldDisplay.value) {
-        return sanitizeHTML(`${yieldDisplay.value}; ${servingsDisplay.value}`);
-      }
-      else {
-        return sanitizeHTML(yieldDisplay.value || servingsDisplay.value);
-      }
-    });
-
-    const recipeImageUrl = computed(() => {
-      return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
-    });
-
-    // Group ingredients by section so we can style them independently
-    const ingredientSections = computed<IngredientSection[]>(() => {
-      if (!props.recipe.recipeIngredient) {
-        return [];
-      }
-
-      return props.recipe.recipeIngredient.reduce((sections, ingredient) => {
-        // if title append new section to the end of the array
-        if (ingredient.title) {
-          sections.push({
-            sectionName: ingredient.title,
-            ingredients: [ingredient],
-          });
-
-          return sections;
-        }
-
-        // append new section if first
-        if (sections.length === 0) {
-          sections.push({
-            sectionName: "",
-            ingredients: [ingredient],
-          });
-
-          return sections;
-        }
-
-        // otherwise add ingredient to last section in the array
-        sections[sections.length - 1].ingredients.push(ingredient);
-        return sections;
-      }, [] as IngredientSection[]);
-    });
-
-    // Group instructions by section so we can style them independently
-    const instructionSections = computed<InstructionSection[]>(() => {
-      if (!props.recipe.recipeInstructions) {
-        return [];
-      }
-
-      return props.recipe.recipeInstructions.reduce((sections, step) => {
-        const offset = (() => {
-          if (sections.length === 0) {
-            return 0;
-          }
-
-          const lastOffset = sections[sections.length - 1].stepOffset;
-          const lastNumSteps = sections[sections.length - 1].instructions.length;
-          return lastOffset + lastNumSteps;
-        })();
-
-        // if title append new section to the end of the array
-        if (step.title) {
-          sections.push({
-            sectionName: step.title,
-            stepOffset: offset,
-            instructions: [step],
-          });
-
-          return sections;
-        }
-
-        // append if first element
-        if (sections.length === 0) {
-          sections.push({
-            sectionName: "",
-            stepOffset: offset,
-            instructions: [step],
-          });
-
-          return sections;
-        }
-
-        // otherwise add step to last section in the array
-        sections[sections.length - 1].instructions.push(step);
-        return sections;
-      }, [] as InstructionSection[]);
-    });
-
-    const hasNotes = computed(() => {
-      return props.recipe.notes && props.recipe.notes.length > 0;
-    });
-
-    function parseText(ingredient: RecipeIngredient) {
-      return parseIngredientText(ingredient, props.recipe.settings?.disableAmount || false, props.scale);
-    }
-
-    return {
-      labels,
-      hasNotes,
-      imageKey,
-      ImagePosition,
-      parseText,
-      parseIngredientText,
-      preferences,
-      recipeImageUrl,
-      recipeYield,
-      ingredientSections,
-      instructionSections,
-    };
-  },
+interface Props {
+  recipe: NoUndefinedField<Recipe>;
+  scale?: number;
+  dense?: boolean;
+}
+const props = withDefaults(defineProps<Props>(), {
+  scale: 1,
+  dense: false,
 });
+
+const i18n = useI18n();
+const preferences = useUserPrintPreferences();
+const { recipeImage } = useStaticRoutes();
+const { imageKey } = usePageState(props.recipe.slug);
+const { labels } = useNutritionLabels();
+
+function sanitizeHTML(rawHtml: string) {
+  return DOMPurify.sanitize(rawHtml, {
+    USE_PROFILES: { html: true },
+    ALLOWED_TAGS: ["strong", "sup"],
+  });
+}
+const servingsDisplay = computed(() => {
+  const { scaledAmountDisplay } = useScaledAmount(props.recipe.recipeYieldQuantity, props.scale);
+  return scaledAmountDisplay || props.recipe.recipeYield
+    ? i18n.t("recipe.yields-amount-with-text", {
+      amount: scaledAmountDisplay,
+      text: props.recipe.recipeYield,
+    }) as string
+    : "";
+});
+
+const yieldDisplay = computed(() => {
+  const { scaledAmountDisplay } = useScaledAmount(props.recipe.recipeServings, props.scale);
+  return scaledAmountDisplay ? i18n.t("recipe.serves-amount", { amount: scaledAmountDisplay }) as string : "";
+});
+
+const recipeYield = computed(() => {
+  if (servingsDisplay.value && yieldDisplay.value) {
+    return sanitizeHTML(`${yieldDisplay.value}; ${servingsDisplay.value}`);
+  }
+  else {
+    return sanitizeHTML(yieldDisplay.value || servingsDisplay.value);
+  }
+});
+
+const recipeImageUrl = computed(() => {
+  return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
+});
+
+// Group ingredients by section so we can style them independently
+const ingredientSections = computed<IngredientSection[]>(() => {
+  if (!props.recipe.recipeIngredient) {
+    return [];
+  }
+
+  return props.recipe.recipeIngredient.reduce((sections, ingredient) => {
+    // if title append new section to the end of the array
+    if (ingredient.title) {
+      sections.push({
+        sectionName: ingredient.title,
+        ingredients: [ingredient],
+      });
+
+      return sections;
+    }
+
+    // append new section if first
+    if (sections.length === 0) {
+      sections.push({
+        sectionName: "",
+        ingredients: [ingredient],
+      });
+
+      return sections;
+    }
+
+    // otherwise add ingredient to last section in the array
+    sections[sections.length - 1].ingredients.push(ingredient);
+    return sections;
+  }, [] as IngredientSection[]);
+});
+
+// Group instructions by section so we can style them independently
+const instructionSections = computed<InstructionSection[]>(() => {
+  if (!props.recipe.recipeInstructions) {
+    return [];
+  }
+
+  return props.recipe.recipeInstructions.reduce((sections, step) => {
+    const offset = (() => {
+      if (sections.length === 0) {
+        return 0;
+      }
+
+      const lastOffset = sections[sections.length - 1].stepOffset;
+      const lastNumSteps = sections[sections.length - 1].instructions.length;
+      return lastOffset + lastNumSteps;
+    })();
+
+    // if title append new section to the end of the array
+    if (step.title) {
+      sections.push({
+        sectionName: step.title,
+        stepOffset: offset,
+        instructions: [step],
+      });
+
+      return sections;
+    }
+
+    // append if first element
+    if (sections.length === 0) {
+      sections.push({
+        sectionName: "",
+        stepOffset: offset,
+        instructions: [step],
+      });
+
+      return sections;
+    }
+
+    // otherwise add step to last section in the array
+    sections[sections.length - 1].instructions.push(step);
+    return sections;
+  }, [] as InstructionSection[]);
+});
+
+const hasNotes = computed(() => {
+  return props.recipe.notes && props.recipe.notes.length > 0;
+});
+
+function parseText(ingredient: RecipeIngredient) {
+  return parseIngredientText(ingredient, props.recipe.settings?.disableAmount || false, props.scale);
+}
 </script>
 
 <style scoped>
