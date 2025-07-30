@@ -472,6 +472,7 @@
     "comment": "Kommentti",
     "comments": "Kommentit",
     "delete-confirmation": "Haluatko varmasti poistaa reseptin?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Poista resepti",
     "description": "Kuvaus",
     "disable-amount": "Poista ainesosien määrät käytöstä",
@@ -662,6 +663,8 @@
       "no-unit": "Ei yksikköä",
       "missing-unit": "Luo puuttuva yksikkö: {unit}",
       "missing-food": "Luo puuttuva ruoka: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Ei ruokaa"
     },
     "reset-servings-count": "Palauta Annoksien Määrä",
