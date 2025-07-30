@@ -91,7 +91,7 @@
   </v-timeline-item>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import RecipeTimelineContextMenu from "./RecipeTimelineContextMenu.vue";
 import { useStaticRoutes } from "~/composables/api";
@@ -100,96 +100,79 @@ import type { Recipe, RecipeTimelineEventOut } from "~/lib/api/types/recipe";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import SafeMarkdown from "~/components/global/SafeMarkdown.vue";
 
-export default defineNuxtComponent({
-  components: { RecipeCardMobile, RecipeTimelineContextMenu, UserAvatar, SafeMarkdown },
+interface Props {
+  event: RecipeTimelineEventOut;
+  recipe?: Recipe;
+  showRecipeCards?: boolean;
+}
 
-  props: {
-    event: {
-      type: Object as () => RecipeTimelineEventOut,
-      required: true,
-    },
-    recipe: {
-      type: Object as () => Recipe,
-      default: undefined,
-    },
-    showRecipeCards: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ["selected", "update", "delete"],
+const props = withDefaults(defineProps<Props>(), {
+  recipe: undefined,
+  showRecipeCards: false,
+});
 
-  setup(props) {
-    const { $vuetify, $globals } = useNuxtApp();
-    const { recipeTimelineEventImage } = useStaticRoutes();
-    const { eventTypeOptions } = useTimelineEventTypes();
-    const timelineEvents = ref([] as RecipeTimelineEventOut[]);
+defineEmits<{
+  selected: [];
+  update: [];
+  delete: [];
+}>();
 
-    const { user: currentUser } = useMealieAuth();
+const { $vuetify, $globals } = useNuxtApp();
+const { recipeTimelineEventImage } = useStaticRoutes();
+const { eventTypeOptions } = useTimelineEventTypes();
 
-    const route = useRoute();
-    const groupSlug = computed(() => (route.params.groupSlug as string) || currentUser?.value?.groupSlug || "");
+const { user: currentUser } = useMealieAuth();
 
-    const useMobileFormat = computed(() => {
-      return $vuetify.display.smAndDown.value;
-    });
+const route = useRoute();
+const groupSlug = computed(() => (route.params.groupSlug as string) || currentUser?.value?.groupSlug || "");
 
-    const attrs = computed(() => {
-      if (useMobileFormat.value) {
-        return {
-          class: "px-0",
-          small: false,
-          avatar: {
-            size: "30px",
-            class: "pr-0",
-          },
-          image: {
-            maxHeight: "250",
-            class: "my-3",
-          },
-        };
-      }
-      else {
-        return {
-          class: "px-3",
-          small: false,
-          avatar: {
-            size: "42px",
-            class: "",
-          },
-          image: {
-            maxHeight: "300",
-            class: "mb-5",
-          },
-        };
-      }
-    });
+const useMobileFormat = computed(() => {
+  return $vuetify.display.smAndDown.value;
+});
 
-    const icon = computed(() => {
-      const option = eventTypeOptions.value.find(option => option.value === props.event.eventType);
-      return option ? option.icon : $globals.icons.informationVariant;
-    });
-
-    const hideImage = ref(false);
-    const eventImageUrl = computed<string>(() => {
-      if (props.event.image !== "has image") {
-        return "";
-      }
-
-      return recipeTimelineEventImage(props.event.recipeId, props.event.id);
-    });
-
+const attrs = computed(() => {
+  if (useMobileFormat.value) {
     return {
-      attrs,
-      groupSlug,
-      icon,
-      eventImageUrl,
-      hideImage,
-      timelineEvents,
-      useMobileFormat,
-      currentUser,
+      class: "px-0",
+      small: false,
+      avatar: {
+        size: "30px",
+        class: "pr-0",
+      },
+      image: {
+        maxHeight: "250",
+        class: "my-3",
+      },
     };
-  },
+  }
+  else {
+    return {
+      class: "px-3",
+      small: false,
+      avatar: {
+        size: "42px",
+        class: "",
+      },
+      image: {
+        maxHeight: "300",
+        class: "mb-5",
+      },
+    };
+  }
+});
+
+const icon = computed(() => {
+  const option = eventTypeOptions.value.find(option => option.value === props.event.eventType);
+  return option ? option.icon : $globals.icons.informationVariant;
+});
+
+const hideImage = ref(false);
+const eventImageUrl = computed<string>(() => {
+  if (props.event.image !== "has image") {
+    return "";
+  }
+
+  return recipeTimelineEventImage(props.event.recipeId, props.event.id);
 });
 </script>
 
