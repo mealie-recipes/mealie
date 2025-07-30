@@ -52,10 +52,6 @@
           <div class="mr-auto">
             {{ $t("search.results") }}
           </div>
-          <!-- <router-link
-            :to="advancedSearchUrl"
-            class="text-primary"
-          > {{ $t("search.advanced-search") }} </router-link> -->
         </v-card-actions>
 
         <RecipeCardMobile
@@ -76,7 +72,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { RecipeSummary } from "~/lib/api/types/recipe";
@@ -85,114 +81,104 @@ import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 
 const SELECTED_EVENT = "selected";
-export default defineNuxtComponent({
-  components: {
-    RecipeCardMobile,
-  },
 
-  setup(_, context) {
-    const $auth = useMealieAuth();
-    const state = reactive({
-      loading: false,
-      selectedIndex: -1,
-    });
+// Define emits
+const emit = defineEmits<{
+  selected: [recipe: RecipeSummary];
+}>();
 
-    // ===========================================================================
-    // Dialog State Management
-    const dialog = ref(false);
+const $auth = useMealieAuth();
+const loading = ref(false);
+const selectedIndex = ref(-1);
 
-    // Reset or Grab Recipes on Change
-    watch(dialog, (val) => {
-      if (!val) {
-        search.query.value = "";
-        state.selectedIndex = -1;
-        search.data.value = [];
-      }
-    });
+// ===========================================================================
+// Dialog State Management
+const dialog = ref(false);
 
-    // ===========================================================================
-    // Event Handlers
+// Reset or Grab Recipes on Change
+watch(dialog, (val) => {
+  if (!val) {
+    search.query.value = "";
+    selectedIndex.value = -1;
+    search.data.value = [];
+  }
+});
 
-    function selectRecipe() {
-      const recipeCards = document.getElementsByClassName("arrow-nav");
-      if (recipeCards) {
-        if (state.selectedIndex < 0) {
-          state.selectedIndex = -1;
-          document.getElementById("arrow-search")?.focus();
-          return;
-        }
+// ===========================================================================
+// Event Handlers
 
-        if (state.selectedIndex >= recipeCards.length) {
-          state.selectedIndex = recipeCards.length - 1;
-        }
-
-        (recipeCards[state.selectedIndex] as HTMLElement).focus();
-      }
+function selectRecipe() {
+  const recipeCards = document.getElementsByClassName("arrow-nav");
+  if (recipeCards) {
+    if (selectedIndex.value < 0) {
+      selectedIndex.value = -1;
+      document.getElementById("arrow-search")?.focus();
+      return;
     }
 
-    function onUpDown(e: KeyboardEvent) {
-      if (e.key === "Enter") {
-        console.log(document.activeElement);
-        // (document.activeElement as HTMLElement).click();
-      }
-      else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        state.selectedIndex--;
-      }
-      else if (e.key === "ArrowDown") {
-        e.preventDefault();
-        state.selectedIndex++;
-      }
-      else {
-        return;
-      }
-      selectRecipe();
+    if (selectedIndex.value >= recipeCards.length) {
+      selectedIndex.value = recipeCards.length - 1;
     }
 
-    watch(dialog, (val) => {
-      if (!val) {
-        document.removeEventListener("keyup", onUpDown);
-      }
-      else {
-        document.addEventListener("keyup", onUpDown);
-      }
-    });
+    (recipeCards[selectedIndex.value] as HTMLElement).focus();
+  }
+}
 
-    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
-    const route = useRoute();
-    const advancedSearchUrl = computed(() => `/g/${groupSlug.value}`);
-    watch(route, close);
+function onUpDown(e: KeyboardEvent) {
+  if (e.key === "Enter") {
+    console.log(document.activeElement);
+    // (document.activeElement as HTMLElement).click();
+  }
+  else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    selectedIndex.value--;
+  }
+  else if (e.key === "ArrowDown") {
+    e.preventDefault();
+    selectedIndex.value++;
+  }
+  else {
+    return;
+  }
+  selectRecipe();
+}
 
-    function open() {
-      dialog.value = true;
-    }
-    function close() {
-      dialog.value = false;
-    }
+watch(dialog, (val) => {
+  if (!val) {
+    document.removeEventListener("keyup", onUpDown);
+  }
+  else {
+    document.addEventListener("keyup", onUpDown);
+  }
+});
 
-    // ===========================================================================
-    // Basic Search
-    const { isOwnGroup } = useLoggedInState();
-    const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
-    const search = useRecipeSearch(api);
+const route = useRoute();
+const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+watch(route, close);
 
-    // Select Handler
+function open() {
+  dialog.value = true;
+}
+function close() {
+  dialog.value = false;
+}
 
-    function handleSelect(recipe: RecipeSummary) {
-      close();
-      context.emit(SELECTED_EVENT, recipe);
-    }
+// ===========================================================================
+// Basic Search
+const { isOwnGroup } = useLoggedInState();
+const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
+const search = useRecipeSearch(api);
 
-    return {
-      ...toRefs(state),
-      advancedSearchUrl,
-      dialog,
-      open,
-      close,
-      handleSelect,
-      search,
-    };
-  },
+// Select Handler
+function handleSelect(recipe: RecipeSummary) {
+  close();
+  emit(SELECTED_EVENT, recipe);
+}
+
+// Expose functions to parent components
+defineExpose({
+  open,
+  close,
 });
 </script>
 
