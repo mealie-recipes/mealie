@@ -51,7 +51,7 @@
     <BaseDialog
       v-if="shoppingListIngredientDialog"
       v-model="dialog"
-      :title="selectedShoppingList ? selectedShoppingList.name : $t('recipe.add-to-list')"
+      :title="selectedShoppingList?.name || $t('recipe.add-to-list')"
       :icon="$globals.icons.cartCheck"
       width="70%"
       :submit-text="$t('recipe.add-to-list')"
@@ -137,7 +137,7 @@
                     color="secondary"
                     density="compact"
                   />
-                  <div :key="ingredientData.ingredient.quantity">
+                  <div :key="`${ingredientData.ingredient.quantity || 'no-qty'}-${i}`">
                     <RecipeIngredientListItem
                       :ingredient="ingredientData.ingredient"
                       :disable-amount="ingredientData.disableAmount"
@@ -172,7 +172,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { toRefs } from "@vueuse/core";
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import { useUserApi } from "~/composables/api";
@@ -203,240 +203,215 @@ export interface ShoppingListRecipeIngredientSection {
   ingredientSections: ShoppingListIngredientSection[];
 }
 
-export default defineNuxtComponent({
-  components: {
-    RecipeIngredientListItem,
+interface Props {
+  recipes?: RecipeWithScale[];
+  shoppingLists?: ShoppingListSummary[];
+}
+const props = withDefaults(defineProps<Props>(), {
+  recipes: undefined,
+  shoppingLists: () => [],
+});
+
+const dialog = defineModel<boolean>({ default: false });
+
+const i18n = useI18n();
+const $auth = useMealieAuth();
+const api = useUserApi();
+const preferences = useShoppingListPreferences();
+const ready = ref(false);
+
+const state = reactive({
+  shoppingListDialog: true,
+  shoppingListIngredientDialog: false,
+  shoppingListShowAllToggled: false,
+});
+
+const { shoppingListDialog, shoppingListIngredientDialog, shoppingListShowAllToggled: _shoppingListShowAllToggled } = toRefs(state);
+
+const userHousehold = computed(() => {
+  return $auth.user.value?.householdSlug || "";
+});
+
+const shoppingListChoices = computed(() => {
+  return props.shoppingLists.filter(list => preferences.value.viewAllLists || list.userId === $auth.user.value?.id);
+});
+
+const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);
+const selectedShoppingList = ref<ShoppingListSummary | null>(null);
+
+watchEffect(
+  () => {
+    if (shoppingListChoices.value.length === 1 && !state.shoppingListShowAllToggled) {
+      selectedShoppingList.value = shoppingListChoices.value[0];
+      openShoppingListIngredientDialog(selectedShoppingList.value);
+    }
+    else {
+      ready.value = true;
+    }
   },
-  props: {
-    modelValue: {
-      type: Boolean,
-      default: false,
-    },
-    recipes: {
-      type: Array as () => RecipeWithScale[],
-      default: undefined,
-    },
-    shoppingLists: {
-      type: Array as () => ShoppingListSummary[],
-      default: () => [],
-    },
-  },
-  emits: ["update:modelValue"],
-  setup(props, context) {
-    const i18n = useI18n();
-    const $auth = useMealieAuth();
-    const api = useUserApi();
-    const preferences = useShoppingListPreferences();
-    const ready = ref(false);
+);
 
-    // v-model support
-    const dialog = computed({
-      get: () => {
-        return props.modelValue;
-      },
-      set: (val) => {
-        context.emit("update:modelValue", val);
-        initState();
-      },
+watch(dialog, (val) => {
+  if (!val) {
+    initState();
+  }
+});
+
+async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
+  const recipeSectionMap = new Map<string, ShoppingListRecipeIngredientSection>();
+  for (const recipe of recipes) {
+    if (!recipe.slug) {
+      continue;
+    }
+
+    if (recipeSectionMap.has(recipe.slug)) {
+      const existingSection = recipeSectionMap.get(recipe.slug);
+      if (existingSection) {
+        existingSection.recipeScale += recipe.scale;
+      }
+      continue;
+    }
+
+    if (!(recipe.id && recipe.name && recipe.recipeIngredient)) {
+      const { data } = await api.recipes.getOne(recipe.slug);
+      if (!data?.recipeIngredient?.length) {
+        continue;
+      }
+      recipe.id = data.id || "";
+      recipe.name = data.name || "";
+      recipe.recipeIngredient = data.recipeIngredient;
+    }
+    else if (!recipe.recipeIngredient.length) {
+      continue;
+    }
+
+    const shoppingListIngredients: ShoppingListIngredient[] = recipe.recipeIngredient.map((ing) => {
+      const householdsWithFood = (ing.food?.householdsWithIngredientFood || []);
+      return {
+        checked: !householdsWithFood.includes(userHousehold.value),
+        ingredient: ing,
+        disableAmount: recipe.settings?.disableAmount || false,
+      };
     });
 
-    const state = reactive({
-      shoppingListDialog: true,
-      shoppingListIngredientDialog: false,
-      shoppingListShowAllToggled: false,
-    });
+    let currentTitle = "";
+    const onHandIngs: ShoppingListIngredient[] = [];
+    const shoppingListIngredientSections = shoppingListIngredients.reduce((sections, ing) => {
+      if (ing.ingredient.title) {
+        currentTitle = ing.ingredient.title;
+      }
 
-    const userHousehold = computed(() => {
-      return $auth.user.value?.householdSlug || "";
-    });
-
-    const shoppingListChoices = computed(() => {
-      return props.shoppingLists.filter(list => preferences.value.viewAllLists || list.userId === $auth.user.value?.id);
-    });
-
-    const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);
-    const selectedShoppingList = ref<ShoppingListSummary | null>(null);
-
-    watchEffect(
-      () => {
-        if (shoppingListChoices.value.length === 1 && !state.shoppingListShowAllToggled) {
-          selectedShoppingList.value = shoppingListChoices.value[0];
-          openShoppingListIngredientDialog(selectedShoppingList.value);
+      // If this is the first item in the section, create a new section
+      if (sections.length === 0 || currentTitle !== sections[sections.length - 1].sectionName) {
+        if (sections.length) {
+          // Add the on-hand ingredients to the previous section
+          sections[sections.length - 1].ingredients.push(...onHandIngs);
+          onHandIngs.length = 0;
         }
-        else {
-          ready.value = true;
+        sections.push({
+          sectionName: currentTitle,
+          ingredients: [],
+        });
+      }
+
+      // Store the on-hand ingredients for later
+      const householdsWithFood = (ing.ingredient.food?.householdsWithIngredientFood || []);
+      if (householdsWithFood.includes(userHousehold.value)) {
+        onHandIngs.push(ing);
+        return sections;
+      }
+
+      // Add the ingredient to previous section
+      sections[sections.length - 1].ingredients.push(ing);
+      return sections;
+    }, [] as ShoppingListIngredientSection[]);
+
+    // Add remaining on-hand ingredients to the previous section
+    shoppingListIngredientSections[shoppingListIngredientSections.length - 1].ingredients.push(...onHandIngs);
+
+    recipeSectionMap.set(recipe.slug, {
+      recipeId: recipe.id,
+      recipeName: recipe.name,
+      recipeScale: recipe.scale,
+      ingredientSections: shoppingListIngredientSections,
+    });
+  }
+
+  recipeIngredientSections.value = Array.from(recipeSectionMap.values());
+}
+
+function initState() {
+  state.shoppingListDialog = true;
+  state.shoppingListIngredientDialog = false;
+  state.shoppingListShowAllToggled = false;
+  recipeIngredientSections.value = [];
+  selectedShoppingList.value = null;
+}
+
+initState();
+
+async function openShoppingListIngredientDialog(list: ShoppingListSummary) {
+  if (!props.recipes?.length) {
+    return;
+  }
+
+  selectedShoppingList.value = list;
+  await consolidateRecipesIntoSections(props.recipes);
+  state.shoppingListDialog = false;
+  state.shoppingListIngredientDialog = true;
+}
+
+function setShowAllToggled() {
+  state.shoppingListShowAllToggled = true;
+}
+
+function bulkCheckIngredients(value = true) {
+  recipeIngredientSections.value.forEach((recipeSection) => {
+    recipeSection.ingredientSections.forEach((ingSection) => {
+      ingSection.ingredients.forEach((ing) => {
+        ing.checked = value;
+      });
+    });
+  });
+}
+
+async function addRecipesToList() {
+  if (!selectedShoppingList.value) {
+    return;
+  }
+
+  const recipeData: ShoppingListAddRecipeParamsBulk[] = [];
+  recipeIngredientSections.value.forEach((section) => {
+    const ingredients: RecipeIngredient[] = [];
+    section.ingredientSections.forEach((ingSection) => {
+      ingSection.ingredients.forEach((ing) => {
+        if (ing.checked) {
+          ingredients.push(ing.ingredient);
         }
+      });
+    });
+
+    if (!ingredients.length) {
+      return;
+    }
+
+    recipeData.push(
+      {
+        recipeId: section.recipeId,
+        recipeIncrementQuantity: section.recipeScale,
+        recipeIngredients: ingredients,
       },
     );
+  });
 
-    async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
-      const recipeSectionMap = new Map<string, ShoppingListRecipeIngredientSection>();
-      for (const recipe of recipes) {
-        if (!recipe.slug) {
-          continue;
-        }
+  const { error } = await api.shopping.lists.addRecipes(selectedShoppingList.value.id, recipeData);
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  error ? alert.error(i18n.t("recipe.failed-to-add-recipes-to-list")) : alert.success(i18n.t("recipe.successfully-added-to-list"));
 
-        if (recipeSectionMap.has(recipe.slug)) {
-          recipeSectionMap.get(recipe.slug).recipeScale += recipe.scale;
-          continue;
-        }
-
-        if (!(recipe.id && recipe.name && recipe.recipeIngredient)) {
-          const { data } = await api.recipes.getOne(recipe.slug);
-          if (!data?.recipeIngredient?.length) {
-            continue;
-          }
-          recipe.id = data.id || "";
-          recipe.name = data.name || "";
-          recipe.recipeIngredient = data.recipeIngredient;
-        }
-        else if (!recipe.recipeIngredient.length) {
-          continue;
-        }
-
-        const shoppingListIngredients: ShoppingListIngredient[] = recipe.recipeIngredient.map((ing) => {
-          const householdsWithFood = (ing.food?.householdsWithIngredientFood || []);
-          return {
-            checked: !householdsWithFood.includes(userHousehold.value),
-            ingredient: ing,
-            disableAmount: recipe.settings?.disableAmount || false,
-          };
-        });
-
-        let currentTitle = "";
-        const onHandIngs: ShoppingListIngredient[] = [];
-        const shoppingListIngredientSections = shoppingListIngredients.reduce((sections, ing) => {
-          if (ing.ingredient.title) {
-            currentTitle = ing.ingredient.title;
-          }
-
-          // If this is the first item in the section, create a new section
-          if (sections.length === 0 || currentTitle !== sections[sections.length - 1].sectionName) {
-            if (sections.length) {
-              // Add the on-hand ingredients to the previous section
-              sections[sections.length - 1].ingredients.push(...onHandIngs);
-              onHandIngs.length = 0;
-            }
-            sections.push({
-              sectionName: currentTitle,
-              ingredients: [],
-            });
-          }
-
-          // Store the on-hand ingredients for later
-          const householdsWithFood = (ing.ingredient.food?.householdsWithIngredientFood || []);
-          if (householdsWithFood.includes(userHousehold.value)) {
-            onHandIngs.push(ing);
-            return sections;
-          }
-
-          // Add the ingredient to previous section
-          sections[sections.length - 1].ingredients.push(ing);
-          return sections;
-        }, [] as ShoppingListIngredientSection[]);
-
-        // Add remaining on-hand ingredients to the previous section
-        shoppingListIngredientSections[shoppingListIngredientSections.length - 1].ingredients.push(...onHandIngs);
-
-        recipeSectionMap.set(recipe.slug, {
-          recipeId: recipe.id,
-          recipeName: recipe.name,
-          recipeScale: recipe.scale,
-          ingredientSections: shoppingListIngredientSections,
-        });
-      }
-
-      recipeIngredientSections.value = Array.from(recipeSectionMap.values());
-    }
-
-    function initState() {
-      state.shoppingListDialog = true;
-      state.shoppingListIngredientDialog = false;
-      state.shoppingListShowAllToggled = false;
-      recipeIngredientSections.value = [];
-      selectedShoppingList.value = null;
-    }
-
-    initState();
-
-    async function openShoppingListIngredientDialog(list: ShoppingListSummary) {
-      if (!props.recipes?.length) {
-        return;
-      }
-
-      selectedShoppingList.value = list;
-      await consolidateRecipesIntoSections(props.recipes);
-      state.shoppingListDialog = false;
-      state.shoppingListIngredientDialog = true;
-    }
-
-    function setShowAllToggled() {
-      state.shoppingListShowAllToggled = true;
-    }
-
-    function bulkCheckIngredients(value = true) {
-      recipeIngredientSections.value.forEach((recipeSection) => {
-        recipeSection.ingredientSections.forEach((ingSection) => {
-          ingSection.ingredients.forEach((ing) => {
-            ing.checked = value;
-          });
-        });
-      });
-    }
-
-    async function addRecipesToList() {
-      if (!selectedShoppingList.value) {
-        return;
-      }
-
-      const recipeData: ShoppingListAddRecipeParamsBulk[] = [];
-      recipeIngredientSections.value.forEach((section) => {
-        const ingredients: RecipeIngredient[] = [];
-        section.ingredientSections.forEach((ingSection) => {
-          ingSection.ingredients.forEach((ing) => {
-            if (ing.checked) {
-              ingredients.push(ing.ingredient);
-            }
-          });
-        });
-
-        if (!ingredients.length) {
-          return;
-        }
-
-        recipeData.push(
-          {
-            recipeId: section.recipeId,
-            recipeIncrementQuantity: section.recipeScale,
-            recipeIngredients: ingredients,
-          },
-        );
-      });
-
-      const { error } = await api.shopping.lists.addRecipes(selectedShoppingList.value.id, recipeData);
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      error ? alert.error(i18n.t("recipe.failed-to-add-recipes-to-list")) : alert.success(i18n.t("recipe.successfully-added-to-list"));
-
-      state.shoppingListDialog = false;
-      state.shoppingListIngredientDialog = false;
-      dialog.value = false;
-    }
-
-    return {
-      dialog,
-      preferences,
-      ready,
-      shoppingListChoices,
-      ...toRefs(state),
-      addRecipesToList,
-      bulkCheckIngredients,
-      openShoppingListIngredientDialog,
-      setShowAllToggled,
-      recipeIngredientSections,
-      selectedShoppingList,
-    };
-  },
-});
+  state.shoppingListDialog = false;
+  state.shoppingListIngredientDialog = false;
+  dialog.value = false;
+}
 </script>
 
 <style scoped lang="css">
