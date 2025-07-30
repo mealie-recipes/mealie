@@ -472,6 +472,7 @@
     "comment": "Opmerking",
     "comments": "Opmerkingen",
     "delete-confirmation": "Weet je zeker dat je dit recept wil verwijderen?",
+    "admin-delete-confirmation": "Je gaat een recept verwijderen dat niet door jou is gemaakt. Je gebruikt daarvoor de rechten van een hoofd beheerder. Weet je 't zeker?",
     "delete-recipe": "Recept verwijderen",
     "description": "Omschrijving",
     "disable-amount": "Ingrediënthoeveelheden uitschakelen",
@@ -662,6 +663,8 @@
       "no-unit": "Geen eenheid",
       "missing-unit": "Maak ontbrekende eenheid aan: {unit}",
       "missing-food": "Ontbrekend levensmiddel maken: {food}",
+      "this-unit-could-not-be-parsed-automatically": "Mealie kon deze meeteenheid niet automatisch verwerken",
+      "this-food-could-not-be-parsed-automatically": "Mealie kon dit soort voedsel niet automatisch verwerken",
       "no-food": "Geen levensmiddel"
     },
     "reset-servings-count": "Porties resetten",
