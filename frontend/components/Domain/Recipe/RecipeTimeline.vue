@@ -150,11 +150,6 @@ const eventTypeFilterState = computed(() => {
     };
   });
 });
-
-interface ScrollEvent extends Event {
-  target: HTMLInputElement;
-}
-
 const screenBuffer = 4;
 
 whenever(

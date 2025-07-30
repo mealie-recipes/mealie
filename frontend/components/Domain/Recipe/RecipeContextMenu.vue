@@ -55,12 +55,12 @@
           max-width="290px"
           min-width="auto"
         >
-          <template #activator="{ props }">
+          <template #activator="{ props: activatorProps }">
             <v-text-field
               v-model="newMealdateString"
               :label="$t('general.date')"
               :prepend-icon="$globals.icons.calendar"
-              v-bind="props"
+              v-bind="activatorProps"
               readonly
             />
           </template>
