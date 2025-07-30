@@ -472,6 +472,7 @@
     "comment": "Komentārs",
     "comments": "Komentāri",
     "delete-confirmation": "Vai esat pārliecināts, ka vēlaties izdzēst šo recepti?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Dzēst recepti",
     "description": "Apraksts",
     "disable-amount": "Atspējot sastāvdaļu daudzumu",
@@ -662,6 +663,8 @@
       "no-unit": "Nav vienības",
       "missing-unit": "Izveidot trūkstošo vienību: {unit}",
       "missing-food": "Izveidojiet trūkstošo ēdienu: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Nav pārtikas"
     },
     "reset-servings-count": "Atiestatīt porciju skaitu",
