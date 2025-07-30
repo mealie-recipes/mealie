@@ -472,6 +472,7 @@
     "comment": "Megjegyzés",
     "comments": "Megjegyzések",
     "delete-confirmation": "Biztosan törli ezt a receptet?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Recept törlése",
     "description": "Leírás",
     "disable-amount": "Hozzávalók mennyiségének letiltása",
@@ -662,6 +663,8 @@
       "no-unit": "Mértékegység nélkül",
       "missing-unit": "Hiányzó mértékegység létrehozása: {unit}",
       "missing-food": "Hiányzó élelmiszer létrehozása: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Élelmiszer nélküli"
     },
     "reset-servings-count": "Adagok számának visszaállítása",
