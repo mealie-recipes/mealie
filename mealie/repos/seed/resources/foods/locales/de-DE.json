@@ -6191,7 +6191,7 @@
             "mexican oregano": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican oregano",
+                "name": "mexikanischer Oregano",
                 "plural_name": "mexican oreganos"
             },
             "mace": {
@@ -10634,8 +10634,8 @@
             "olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "olive oil",
-                "plural_name": "olive oils"
+                "name": "Olivenöl",
+                "plural_name": "Olivenöle"
             },
             "vegetable oil": {
                 "aliases": [],
@@ -10646,8 +10646,8 @@
             "extra virgin olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "extra virgin olive oil",
-                "plural_name": "extra virgin olive oils"
+                "name": "natives Olivenöl extra",
+                "plural_name": "native Olivenöle extra"
             },
             "canola oil": {
                 "aliases": [],
@@ -10682,8 +10682,8 @@
             "sunflower oil": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower oil",
-                "plural_name": "sunflower oils"
+                "name": "Sonnenblumenöl",
+                "plural_name": "Sonnenblumenöle"
             },
             "avocado oil": {
                 "aliases": [],
@@ -10700,8 +10700,8 @@
             "peanut oil": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut oil",
-                "plural_name": "peanut oils"
+                "name": "Erdnussöl",
+                "plural_name": "Erdnussöle"
             },
             "grapeseed oil": {
                 "aliases": [
