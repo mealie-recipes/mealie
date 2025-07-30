@@ -76,7 +76,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
@@ -86,34 +86,15 @@ import RecipePageInfoCardImage from "~/components/Domain/Recipe/RecipePage/Recip
 import type { Recipe } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 
-export default defineNuxtComponent({
-  components: {
-    RecipeRating,
-    RecipeLastMade,
-    RecipeTimeCard,
-    RecipeYield,
-    RecipePageInfoCardImage,
-  },
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
-    recipeScale: {
-      type: Number,
-      default: 1,
-    },
-    landscape: {
-      type: Boolean,
-      required: true,
-    },
-  },
-  setup() {
-    const { isOwnGroup } = useLoggedInState();
+interface Props {
+  recipe: NoUndefinedField<Recipe>;
+  recipeScale?: number;
+  landscape: boolean;
+}
 
-    return {
-      isOwnGroup,
-    };
-  },
+withDefaults(defineProps<Props>(), {
+  recipeScale: 1,
 });
+
+const { isOwnGroup } = useLoggedInState();
 </script>
