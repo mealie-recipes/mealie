@@ -472,6 +472,7 @@
     "comment": "Kommentaar",
     "comments": "Kommentaarid",
     "delete-confirmation": "Kas sa oled kindel, et tahad seda retsepti kustutada?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Kustuta retsept",
     "description": "Kirjeldus",
     "disable-amount": "Deaktiveeri koostisosade kogused",
@@ -662,6 +663,8 @@
       "no-unit": "Ilma ühikuta",
       "missing-unit": "Loo puuduv ühik: {unit}",
       "missing-food": "Loo puuduv toit: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Toit puudub"
     },
     "reset-servings-count": "Lähtesta portsionite arv",
