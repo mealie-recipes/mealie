@@ -472,6 +472,7 @@
     "comment": "Kommentar",
     "comments": "Kommentarer",
     "delete-confirmation": "Er du sikker på at du vil slette denne oppskriften?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Slett oppskrift",
     "description": "Beskrivelse",
     "disable-amount": "Deaktiver ingrediensmengde",
@@ -662,6 +663,8 @@
       "no-unit": "Ingen enhet",
       "missing-unit": "Opprett manglende enhet: {unit}",
       "missing-food": "Opprett manglende mat: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Ingen matvarer"
     },
     "reset-servings-count": "Nullstill antall porsjoner",
