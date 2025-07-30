@@ -30,11 +30,11 @@
                     offset-y
                     max-width="290px"
                   >
-                    <template #activator="{ props }">
+                    <template #activator="{ props: activatorProps }">
                       <v-text-field
                         v-model="newTimelineEventTimestampString"
                         :prepend-icon="$globals.icons.calendar"
-                        v-bind="props"
+                        v-bind="activatorProps"
                         readonly
                       />
                     </template>
@@ -87,12 +87,12 @@
       <div v-if="lastMadeReady" class="d-flex justify-center flex-wrap">
         <v-row no-gutters class="d-flex flex-wrap align-center" style="font-size: larger">
           <v-tooltip location="bottom">
-            <template #activator="{ props }">
+            <template #activator="{ props: tooltipProps }">
               <v-btn
                 rounded
                 variant="outlined"
                 size="x-large"
-                v-bind="props"
+                v-bind="tooltipProps"
                 style="border-color: rgb(var(--v-theme-primary));"
                 @click="madeThisDialog = true"
               >
@@ -117,7 +117,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { whenever } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
@@ -125,180 +125,157 @@ import { useHouseholdSelf } from "~/composables/use-households";
 import type { Recipe, RecipeTimelineEventIn, RecipeTimelineEventOut } from "~/lib/api/types/recipe";
 import type { VForm } from "~/types/auto-forms";
 
-export default defineNuxtComponent({
-  props: {
-    recipe: {
-      type: Object as () => Recipe,
-      required: true,
-    },
-  },
-  emits: ["eventCreated"],
-  setup(props, context) {
-    const madeThisDialog = ref(false);
-    const userApi = useUserApi();
-    const { household } = useHouseholdSelf();
-    const i18n = useI18n();
-    const $auth = useMealieAuth();
-    const domMadeThisForm = ref<VForm>();
-    const newTimelineEvent = ref<RecipeTimelineEventIn>({
-      subject: "",
-      eventType: "comment",
-      eventMessage: "",
-      timestamp: undefined,
-      recipeId: props.recipe?.id || "",
-    });
-    const newTimelineEventImage = ref<Blob | File>();
-    const newTimelineEventImageName = ref<string>("");
-    const newTimelineEventImagePreviewUrl = ref<string>();
-    const newTimelineEventTimestamp = ref<Date>(new Date());
-    const newTimelineEventTimestampString = computed(() => {
-      return newTimelineEventTimestamp.value.toISOString().substring(0, 10);
-    });
+const props = defineProps<{ recipe: Recipe }>();
+const emit = defineEmits<{
+  eventCreated: [event: RecipeTimelineEventOut];
+}>();
 
-    const lastMade = ref(props.recipe.lastMade);
-    const lastMadeReady = ref(false);
-    onMounted(async () => {
-      if (!$auth.user?.value?.householdSlug) {
-        lastMade.value = props.recipe.lastMade;
-      }
-      else {
-        const { data } = await userApi.households.getCurrentUserHouseholdRecipe(props.recipe.slug || "");
-        lastMade.value = data?.lastMade;
-      }
-
-      lastMadeReady.value = true;
-    });
-
-    whenever(
-      () => madeThisDialog.value,
-      () => {
-        // Set timestamp to now
-        newTimelineEventTimestamp.value = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
-      },
-    );
-
-    const firstDayOfWeek = computed(() => {
-      return household.value?.preferences?.firstDayOfWeek || 0;
-    });
-
-    function clearImage() {
-      newTimelineEventImage.value = undefined;
-      newTimelineEventImageName.value = "";
-      newTimelineEventImagePreviewUrl.value = undefined;
-    }
-
-    function uploadImage(fileObject: File) {
-      newTimelineEventImage.value = fileObject;
-      newTimelineEventImageName.value = fileObject.name;
-      newTimelineEventImagePreviewUrl.value = URL.createObjectURL(fileObject);
-    }
-
-    function updateUploadedImage(fileObject: Blob) {
-      newTimelineEventImage.value = fileObject;
-      newTimelineEventImagePreviewUrl.value = URL.createObjectURL(fileObject);
-    }
-
-    const state = reactive({ datePickerMenu: false, madeThisFormLoading: false });
-
-    function resetMadeThisForm() {
-      state.madeThisFormLoading = false;
-
-      newTimelineEvent.value.eventMessage = "";
-      newTimelineEvent.value.timestamp = undefined;
-      clearImage();
-      madeThisDialog.value = false;
-      domMadeThisForm.value?.reset();
-    }
-
-    async function createTimelineEvent() {
-      if (!(newTimelineEventTimestampString.value && props.recipe?.id && props.recipe?.slug)) {
-        return;
-      }
-
-      state.madeThisFormLoading = true;
-
-      newTimelineEvent.value.recipeId = props.recipe.id;
-      // Note: $auth.user is now a ref
-      newTimelineEvent.value.subject = i18n.t("recipe.user-made-this", { user: $auth.user.value?.fullName });
-
-      // the user only selects the date, so we set the time to end of day local time
-      // we choose the end of day so it always comes after "new recipe" events
-      newTimelineEvent.value.timestamp = new Date(newTimelineEventTimestampString.value + "T23:59:59").toISOString();
-
-      let newEvent: RecipeTimelineEventOut | null = null;
-      try {
-        const eventResponse = await userApi.recipes.createTimelineEvent(newTimelineEvent.value);
-        newEvent = eventResponse.data;
-        if (!newEvent) {
-          throw new Error("No event created");
-        }
-      }
-      catch (error) {
-        console.error("Failed to create timeline event:", error);
-        alert.error(i18n.t("recipe.failed-to-add-to-timeline"));
-        resetMadeThisForm();
-        return;
-      }
-
-      // we also update the recipe's last made value
-      if (!lastMade.value || newTimelineEvent.value.timestamp > lastMade.value) {
-        try {
-          lastMade.value = newTimelineEvent.value.timestamp;
-          await userApi.recipes.updateLastMade(props.recipe.slug, newTimelineEvent.value.timestamp);
-        }
-        catch (error) {
-          console.error("Failed to update last made date:", error);
-          alert.error(i18n.t("recipe.failed-to-update-recipe"));
-        }
-      }
-
-      // update the image, if provided
-      let imageError = false;
-      if (newTimelineEventImage.value) {
-        try {
-          const imageResponse = await userApi.recipes.updateTimelineEventImage(
-            newEvent.id,
-            newTimelineEventImage.value,
-            newTimelineEventImageName.value,
-          );
-          if (imageResponse.data) {
-            newEvent.image = imageResponse.data.image;
-          }
-        }
-        catch (error) {
-          imageError = true;
-          console.error("Failed to upload image for timeline event:", error);
-        }
-      }
-
-      if (imageError) {
-        alert.error(i18n.t("recipe.added-to-timeline-but-failed-to-add-image"));
-      }
-      else {
-        alert.success(i18n.t("recipe.added-to-timeline"));
-      }
-
-      resetMadeThisForm();
-      context.emit("eventCreated", newEvent);
-    }
-
-    return {
-      ...toRefs(state),
-      domMadeThisForm,
-      madeThisDialog,
-      firstDayOfWeek,
-      newTimelineEvent,
-      newTimelineEventImage,
-      newTimelineEventImagePreviewUrl,
-      newTimelineEventTimestamp,
-      newTimelineEventTimestampString,
-      lastMade,
-      lastMadeReady,
-      createTimelineEvent,
-      clearImage,
-      uploadImage,
-      updateUploadedImage,
-    };
-  },
+const madeThisDialog = ref(false);
+const userApi = useUserApi();
+const { household } = useHouseholdSelf();
+const i18n = useI18n();
+const $auth = useMealieAuth();
+const domMadeThisForm = ref<VForm>();
+const newTimelineEvent = ref<RecipeTimelineEventIn>({
+  subject: "",
+  eventType: "comment",
+  eventMessage: "",
+  timestamp: undefined,
+  recipeId: props.recipe?.id || "",
 });
+const newTimelineEventImage = ref<Blob | File>();
+const newTimelineEventImageName = ref<string>("");
+const newTimelineEventImagePreviewUrl = ref<string>();
+const newTimelineEventTimestamp = ref<Date>(new Date());
+const newTimelineEventTimestampString = computed(() => {
+  return newTimelineEventTimestamp.value.toISOString().substring(0, 10);
+});
+
+const lastMade = ref(props.recipe.lastMade);
+const lastMadeReady = ref(false);
+onMounted(async () => {
+  if (!$auth.user?.value?.householdSlug) {
+    lastMade.value = props.recipe.lastMade;
+  }
+  else {
+    const { data } = await userApi.households.getCurrentUserHouseholdRecipe(props.recipe.slug || "");
+    lastMade.value = data?.lastMade;
+  }
+
+  lastMadeReady.value = true;
+});
+
+whenever(
+  () => madeThisDialog.value,
+  () => {
+    // Set timestamp to now
+    newTimelineEventTimestamp.value = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
+  },
+);
+
+const firstDayOfWeek = computed(() => {
+  return household.value?.preferences?.firstDayOfWeek || 0;
+});
+
+function clearImage() {
+  newTimelineEventImage.value = undefined;
+  newTimelineEventImageName.value = "";
+  newTimelineEventImagePreviewUrl.value = undefined;
+}
+
+function uploadImage(fileObject: File) {
+  newTimelineEventImage.value = fileObject;
+  newTimelineEventImageName.value = fileObject.name;
+  newTimelineEventImagePreviewUrl.value = URL.createObjectURL(fileObject);
+}
+
+function updateUploadedImage(fileObject: Blob) {
+  newTimelineEventImage.value = fileObject;
+  newTimelineEventImagePreviewUrl.value = URL.createObjectURL(fileObject);
+}
+
+const datePickerMenu = ref(false);
+const madeThisFormLoading = ref(false);
+
+function resetMadeThisForm() {
+  madeThisFormLoading.value = false;
+
+  newTimelineEvent.value.eventMessage = "";
+  newTimelineEvent.value.timestamp = undefined;
+  clearImage();
+  madeThisDialog.value = false;
+  domMadeThisForm.value?.reset();
+}
+
+async function createTimelineEvent() {
+  if (!(newTimelineEventTimestampString.value && props.recipe?.id && props.recipe?.slug)) {
+    return;
+  }
+
+  madeThisFormLoading.value = true;
+
+  newTimelineEvent.value.recipeId = props.recipe.id;
+  // Note: $auth.user is now a ref
+  newTimelineEvent.value.subject = i18n.t("recipe.user-made-this", { user: $auth.user.value?.fullName });
+
+  // the user only selects the date, so we set the time to end of day local time
+  // we choose the end of day so it always comes after "new recipe" events
+  newTimelineEvent.value.timestamp = new Date(newTimelineEventTimestampString.value + "T23:59:59").toISOString();
+
+  let newEvent: RecipeTimelineEventOut | null = null;
+  try {
+    const eventResponse = await userApi.recipes.createTimelineEvent(newTimelineEvent.value);
+    newEvent = eventResponse.data;
+    if (!newEvent) {
+      throw new Error("No event created");
+    }
+  }
+  catch (error) {
+    console.error("Failed to create timeline event:", error);
+    alert.error(i18n.t("recipe.failed-to-add-to-timeline"));
+    resetMadeThisForm();
+    return;
+  }
+
+  // we also update the recipe's last made value
+  if (!lastMade.value || newTimelineEvent.value.timestamp > lastMade.value) {
+    try {
+      lastMade.value = newTimelineEvent.value.timestamp;
+      await userApi.recipes.updateLastMade(props.recipe.slug, newTimelineEvent.value.timestamp);
+    }
+    catch (error) {
+      console.error("Failed to update last made date:", error);
+      alert.error(i18n.t("recipe.failed-to-update-recipe"));
+    }
+  }
+
+  // update the image, if provided
+  let imageError = false;
+  if (newTimelineEventImage.value) {
+    try {
+      const imageResponse = await userApi.recipes.updateTimelineEventImage(
+        newEvent.id,
+        newTimelineEventImage.value,
+        newTimelineEventImageName.value,
+      );
+      if (imageResponse.data) {
+        newEvent.image = imageResponse.data.image;
+      }
+    }
+    catch (error) {
+      imageError = true;
+      console.error("Failed to upload image for timeline event:", error);
+    }
+  }
+
+  if (imageError) {
+    alert.error(i18n.t("recipe.added-to-timeline-but-failed-to-add-image"));
+  }
+  else {
+    alert.success(i18n.t("recipe.added-to-timeline"));
+  }
+
+  resetMadeThisForm();
+  emit("eventCreated", newEvent);
+}
 </script>
