@@ -472,6 +472,7 @@
     "comment": "评论",
     "comments": "评论",
     "delete-confirmation": "您确定要删除此食谱吗？",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "删除食谱",
     "description": "描述",
     "disable-amount": "关闭显示成分数量",
@@ -662,6 +663,8 @@
       "no-unit": "没有计量单位",
       "missing-unit": "创建缺失的计量单位：{unit}",
       "missing-food": "创建缺失的食物：{food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "没有食物"
     },
     "reset-servings-count": "重置份量数量",
