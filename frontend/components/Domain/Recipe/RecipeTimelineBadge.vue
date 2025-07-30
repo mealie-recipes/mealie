@@ -4,7 +4,7 @@
     nudge-right="50"
     :color="buttonStyle ? 'info' : 'secondary'"
   >
-    <template #activator="{ props }">
+    <template #activator="{ props: activatorProps }">
       <v-btn
         icon
         :variant="buttonStyle ? 'flat' : undefined"
@@ -12,7 +12,7 @@
         size="small"
         :color="buttonStyle ? 'info' : 'secondary'"
         :fab="buttonStyle"
-        v-bind="{ ...props, ...$attrs }"
+        v-bind="{ ...activatorProps, ...$attrs }"
         @click.prevent="toggleTimeline"
       >
         <v-icon
@@ -39,48 +39,37 @@
   </v-tooltip>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import RecipeTimeline from "./RecipeTimeline.vue";
 
-export default defineNuxtComponent({
-  components: { RecipeTimeline },
+interface Props {
+  buttonStyle?: boolean;
+  slug?: string;
+  recipeName?: string;
+}
+const props = withDefaults(defineProps<Props>(), {
+  buttonStyle: false,
+  slug: "",
+  recipeName: "",
+});
 
-  props: {
-    buttonStyle: {
-      type: Boolean,
-      default: false,
-    },
-    slug: {
-      type: String,
-      default: "",
-    },
-    recipeName: {
-      type: String,
-      default: "",
-    },
-  },
+const i18n = useI18n();
+const { smAndDown } = useDisplay();
+const showTimeline = ref(false);
 
-  setup(props) {
-    const i18n = useI18n();
-    const { smAndDown } = useDisplay();
-    const showTimeline = ref(false);
-    function toggleTimeline() {
-      showTimeline.value = !showTimeline.value;
-    }
+function toggleTimeline() {
+  showTimeline.value = !showTimeline.value;
+}
 
-    const timelineAttrs = computed(() => {
-      let title = i18n.t("recipe.timeline");
-      if (smAndDown.value) {
-        title += ` – ${props.recipeName}`;
-      }
+const timelineAttrs = computed(() => {
+  let title = i18n.t("recipe.timeline");
+  if (smAndDown.value) {
+    title += ` – ${props.recipeName}`;
+  }
 
-      return {
-        title,
-        queryFilter: `recipe.slug="${props.slug}"`,
-      };
-    });
-
-    return { showTimeline, timelineAttrs, toggleTimeline };
-  },
+  return {
+    title,
+    queryFilter: `recipe.slug="${props.slug}"`,
+  };
 });
 </script>
