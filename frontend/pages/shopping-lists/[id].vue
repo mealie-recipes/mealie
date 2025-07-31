@@ -92,11 +92,6 @@
                     children: [
                       {
                         icon: $globals.icons.tags,
-                        text: $t('shopping-list.toggle-label-sort'),
-                        event: 'sort-by-labels',
-                      },
-                      {
-                        icon: $globals.icons.tags,
                         text: $t('shopping-list.reorder-labels'),
                         event: 'reorder-labels',
                       },
@@ -111,7 +106,6 @@
                 @edit="edit = true"
                 @three-dot="threeDot = true"
                 @check="openCheckAll"
-                @sort-by-labels="sortByLabels"
                 @copy-plain="copyListItems('plain')"
                 @copy-markdown="copyListItems('markdown')"
                 @reorder-labels="toggleReorderLabelsDialog()"
@@ -136,90 +130,56 @@
       v-if="!edit"
       class="py-2"
     >
-      <div v-if="!preferences.viewByLabel">
-        <VueDraggable
-          v-model="listItems.unchecked"
-          handle=".handle"
-          :delay="250"
-          :delay-on-touch-only="true"
-          @start="loadingCounter += 1"
-          @end="loadingCounter -= 1"
-          @update:model-value="updateIndexUnchecked"
+      <div
+        v-for="(value, key) in itemsByLabel"
+        :key="key"
+        class="pb-4"
+      >
+        <v-btn
+          :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'"
+          :style="{
+            'color': getTextColor(getLabelColor(value[0])),
+            'letter-spacing': 'normal',
+          }"
+          @click="toggleShowLabel(key.toString())"
         >
-          <v-lazy
-            v-for="(item, index) in listItems.unchecked"
-            :key="item.id"
-            class="my-2"
-          >
-            <ShoppingListItem
-              v-model="listItems.unchecked[index]"
-              class="my-2 my-sm-0"
-              :show-label="true"
-              :labels="allLabels || []"
-              :units="allUnits || []"
-              :foods="allFoods || []"
-              :recipes="recipeMap"
-              @checked="saveListItem"
-              @save="saveListItem"
-              @delete="deleteListItem(item)"
-            />
-          </v-lazy>
-        </VueDraggable>
-      </div>
-
-      <!-- View By Label -->
-      <div v-else>
-        <div
-          v-for="(value, key) in itemsByLabel"
-          :key="key"
-          class="pb-4"
-        >
-          <v-btn
-            :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'"
-            :style="{
-              'color': getTextColor(getLabelColor(value[0])),
-              'letter-spacing': 'normal',
-            }"
-            @click="toggleShowLabel(key.toString())"
-          >
-            <v-icon>
-              {{ labelOpenState[key] ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
-            </v-icon>
-            {{ key }}
-          </v-btn>
-          <v-divider />
-          <v-expand-transition>
-            <div v-if="labelOpenState[key]">
-              <VueDraggable
-                :model-value="value"
-                handle=".handle"
-                :delay="250"
-                :delay-on-touch-only="true"
-                @start="loadingCounter += 1"
-                @end="loadingCounter -= 1"
-                @update:model-value="updateIndexUncheckedByLabel(key.toString(), $event)"
+          <v-icon>
+            {{ labelOpenState[key] ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
+          </v-icon>
+          {{ key }}
+        </v-btn>
+        <v-divider />
+        <v-expand-transition>
+          <div v-if="labelOpenState[key]">
+            <VueDraggable
+              :model-value="value"
+              handle=".handle"
+              :delay="250"
+              :delay-on-touch-only="true"
+              @start="loadingCounter += 1"
+              @end="loadingCounter -= 1"
+              @update:model-value="updateIndexUncheckedByLabel(key.toString(), $event)"
+            >
+              <v-lazy
+                v-for="(item, index) in value"
+                :key="item.id"
+                class="ml-2 my-2"
               >
-                <v-lazy
-                  v-for="(item, index) in value"
-                  :key="item.id"
-                  class="ml-2 my-2"
-                >
-                  <ShoppingListItem
-                    v-model="value[index]"
-                    :show-label="false"
-                    :labels="allLabels || []"
-                    :units="allUnits || []"
-                    :foods="allFoods || []"
-                    :recipes="recipeMap"
-                    @checked="saveListItem"
-                    @save="saveListItem"
-                    @delete="deleteListItem(item)"
-                  />
-                </v-lazy>
-              </VueDraggable>
-            </div>
-          </v-expand-transition>
-        </div>
+                <ShoppingListItem
+                  v-model="value[index]"
+                  :show-label="false"
+                  :labels="allLabels || []"
+                  :units="allUnits || []"
+                  :foods="allFoods || []"
+                  :recipes="recipeMap"
+                  @checked="saveListItem"
+                  @save="saveListItem"
+                  @delete="deleteListItem(item)"
+                />
+              </v-lazy>
+            </VueDraggable>
+          </div>
+        </v-expand-transition>
       </div>
 
       <!-- Create Item -->
@@ -647,29 +607,19 @@ export default defineNuxtComponent({
     function copyListItems(copyType: CopyTypes) {
       const text: string[] = [];
 
-      if (preferences.value.viewByLabel) {
-        // if we're sorting by label, we want the copied text in subsections
-        Object.entries(itemsByLabel.value).forEach(([label, items], idx) => {
-          // for every group except the first, add a blank line
-          if (idx) {
-            text.push("");
-          }
+      // Copy text into subsections based on label
+      Object.entries(itemsByLabel.value).forEach(([label, items], idx) => {
+        // for every group except the first, add a blank line
+        if (idx) {
+          text.push("");
+        }
 
-          // add an appropriate heading for the label depending on the copy format
-          text.push(formatCopiedLabelHeading(copyType, label));
+        // add an appropriate heading for the label depending on the copy format
+        text.push(formatCopiedLabelHeading(copyType, label));
 
-          // now add the appropriately formatted list items with the given label
-          items.forEach(item => text.push(formatCopiedListItem(copyType, item)));
-        });
-      }
-      else {
-        // labels are toggled off, so just copy in the order they come in
-        const items = shoppingList.value?.listItems?.filter(item => !item.checked);
-
-        items?.forEach((item) => {
-          text.push(formatCopiedListItem(copyType, item));
-        });
-      }
+        // now add the appropriately formatted list items with the given label
+        items.forEach(item => text.push(formatCopiedListItem(copyType, item)));
+      });
 
       copy.copyPlain(text);
     }
@@ -799,10 +749,6 @@ export default defineNuxtComponent({
 
     function getLabelColor(item: ShoppingListItemOut | null) {
       return item?.label?.color;
-    }
-
-    function sortByLabels() {
-      preferences.value.viewByLabel = !preferences.value.viewByLabel;
     }
 
     function toggleReorderLabelsDialog() {
@@ -1148,16 +1094,6 @@ export default defineNuxtComponent({
       refresh();
     }
 
-    function updateIndexUnchecked(uncheckedItems: ShoppingListItemOut[]) {
-      listItems.unchecked = uncheckedItems;
-      listItems.checked = shoppingList.value?.listItems?.filter(item => item.checked) || [];
-
-      // since the user has manually reordered the list, we should preserve this order
-      preserveItemOrder.value = true;
-
-      updateUncheckedListItems();
-    }
-
     function updateIndexUncheckedByLabel(labelName: string, labeledUncheckedItems: ShoppingListItemOut[]) {
       if (!itemsByLabel.value[labelName]) {
         return;
@@ -1245,7 +1181,6 @@ export default defineNuxtComponent({
       saveListItem,
       shoppingList,
       showChecked,
-      sortByLabels,
       labelOpenState,
       toggleShowLabel,
       toggleShowChecked,
@@ -1253,7 +1188,6 @@ export default defineNuxtComponent({
       openUncheckAll,
       checkAll,
       openCheckAll,
-      updateIndexUnchecked,
       updateIndexUncheckedByLabel,
       allUnits,
       allFoods,
