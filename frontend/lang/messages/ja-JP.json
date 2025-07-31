@@ -472,6 +472,7 @@
     "comment": "コメント",
     "comments": "コメント",
     "delete-confirmation": "このレシピを削除しますか？",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "レシピを削除",
     "description": "説明",
     "disable-amount": "材料の量を無効にする",
@@ -662,6 +663,8 @@
       "no-unit": "単位がありません",
       "missing-unit": "欠けている単位を作成: {unit}",
       "missing-food": "欠けている食材を作成: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "食材はありません"
     },
     "reset-servings-count": "サービング数をリセット",

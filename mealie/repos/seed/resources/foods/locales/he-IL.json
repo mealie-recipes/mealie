@@ -4673,8 +4673,8 @@
             "deli chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "deli chicken",
-                "plural_name": "deli chickens"
+                "name": "פסטרמת עוף",
+                "plural_name": "פסטרמות עוף"
             },
             "smoked duck breast": {
                 "aliases": [],
@@ -4709,8 +4709,8 @@
             "duck confit": {
                 "aliases": [],
                 "description": "",
-                "name": "duck confit",
-                "plural_name": "duck confits"
+                "name": "קונפי ברווז",
+                "plural_name": "קונפי ברווז"
             },
             "roast duck": {
                 "aliases": [],
@@ -4799,8 +4799,8 @@
             "smoked turkey bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked turkey bacon",
-                "plural_name": "smoked turkey bacons"
+                "name": "בייקון הודו מעושן",
+                "plural_name": "בייקון הודו מעושן"
             },
             "chicken bacon": {
                 "aliases": [],
@@ -4865,8 +4865,8 @@
             "chicken patty": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken patty",
-                "plural_name": "chicken patties"
+                "name": "קציצת עוף",
+                "plural_name": "קציצות עוף"
             },
             "chicken rib": {
                 "aliases": [],
@@ -4883,8 +4883,8 @@
             "chicken milanesa": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken milanesa",
-                "plural_name": "chicken milanesas"
+                "name": "מילנסה עוף",
+                "plural_name": "מילנסות עוף"
             }
         }
     },
@@ -5031,14 +5031,14 @@
             "flounder": {
                 "aliases": [],
                 "description": "",
-                "name": "flounder",
-                "plural_name": "flounder"
+                "name": "פיונית (פלאונדר)",
+                "plural_name": "פיוניות (פלאונדר)"
             },
             "perch": {
                 "aliases": [],
                 "description": "",
-                "name": "perch",
-                "plural_name": "perches"
+                "name": "פרקה",
+                "plural_name": "פרקות"
             },
             "hake": {
                 "aliases": [],
@@ -5061,8 +5061,8 @@
             "smoked mackerel": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked mackerel",
-                "plural_name": "smoked mackerel"
+                "name": "מקרל מעושן",
+                "plural_name": "מקרל מעושן"
             },
             "sea bream": {
                 "aliases": [],
@@ -5079,20 +5079,20 @@
             "carp": {
                 "aliases": [],
                 "description": "",
-                "name": "carp",
-                "plural_name": "carp"
+                "name": "קרפיון",
+                "plural_name": "קרפיונים"
             },
             "cuttlefish": {
                 "aliases": [],
                 "description": "",
-                "name": "cuttlefish",
-                "plural_name": "cuttlefish"
+                "name": "דיונון",
+                "plural_name": "דיונונים"
             },
             "grouper": {
                 "aliases": [],
                 "description": "",
-                "name": "grouper",
-                "plural_name": "groupers"
+                "name": "דקר (לוקוס)",
+                "plural_name": "דקרים (לוקוס)"
             },
             "herring": {
                 "aliases": [],
@@ -5103,8 +5103,8 @@
             "salmon roe": {
                 "aliases": [],
                 "description": "",
-                "name": "salmon roe",
-                "plural_name": "salmon roes"
+                "name": "ביצי סלמון",
+                "plural_name": "ביצי סלמון"
             },
             "steelhead trout": {
                 "aliases": [],
@@ -5115,14 +5115,14 @@
             "roe": {
                 "aliases": [],
                 "description": "",
-                "name": "roe",
-                "plural_name": "roes"
+                "name": "ביצי דגים",
+                "plural_name": "ביצי דגים"
             },
             "barramundi": {
                 "aliases": [],
                 "description": "",
-                "name": "barramundi",
-                "plural_name": "barramundis"
+                "name": "ברמונדי",
+                "plural_name": "ברמונדים"
             },
             "black cod": {
                 "aliases": [],
@@ -5175,14 +5175,14 @@
             "eel": {
                 "aliases": [],
                 "description": "",
-                "name": "eel",
-                "plural_name": "eels"
+                "name": "צלופח",
+                "plural_name": "צלופחים"
             },
             "dried anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "dried anchovy",
-                "plural_name": "dried anchovies"
+                "name": "אנשובי מיובש",
+                "plural_name": "אנשובים מיובשים"
             },
             "arctic char": {
                 "aliases": [],
@@ -5193,8 +5193,8 @@
             "fresh anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh anchovy",
-                "plural_name": "fresh anchovies"
+                "name": "אנשובי טרי",
+                "plural_name": "אנשובים טריים"
             },
             "lemon sole": {
                 "aliases": [],
@@ -5217,8 +5217,8 @@
             "pike": {
                 "aliases": [],
                 "description": "",
-                "name": "pike",
-                "plural_name": "pikes"
+                "name": "זאב נהרות",
+                "plural_name": "זאבי נהרות"
             },
             "pickled herring": {
                 "aliases": [],
@@ -5265,32 +5265,32 @@
             "smoked eel": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked eel",
-                "plural_name": "smoked eels"
+                "name": "צלופח מעושן",
+                "plural_name": "צלופחים מעושנים"
             },
             "fish ball": {
                 "aliases": [],
                 "description": "",
-                "name": "fish ball",
-                "plural_name": "fish balls"
+                "name": "קציצת דגים",
+                "plural_name": "קציצות דגים"
             },
             "sturgeon": {
                 "aliases": [],
                 "description": "",
-                "name": "sturgeon",
-                "plural_name": "sturgeons"
+                "name": "חדקני",
+                "plural_name": "חדקניים"
             },
             "bluefish": {
                 "aliases": [],
                 "description": "",
-                "name": "bluefish",
-                "plural_name": "bluefish"
+                "name": "גומבר טורף",
+                "plural_name": "גומבר טורף"
             },
             "red mullet": {
                 "aliases": [],
                 "description": "",
-                "name": "red mullet",
-                "plural_name": "red mullets"
+                "name": "מולית אדומה (ברבוניה)",
+                "plural_name": "מולית אדומה (ברבוניה)"
             },
             "gurnard": {
                 "aliases": [],
@@ -5433,8 +5433,8 @@
             "mullet": {
                 "aliases": [],
                 "description": "",
-                "name": "mullet",
-                "plural_name": "mullets"
+                "name": "מולית",
+                "plural_name": "מולית"
             },
             "skipjack tuna": {
                 "aliases": [],
@@ -5445,26 +5445,26 @@
             "bottarga": {
                 "aliases": [],
                 "description": "",
-                "name": "bottarga",
-                "plural_name": "bottargas"
+                "name": "בוטרגה (אדמחוט)",
+                "plural_name": "בוטרגה (אדמחוט)"
             },
             "dried baby sardine": {
                 "aliases": [],
                 "description": "",
-                "name": "dried baby sardine",
-                "plural_name": "dried baby sardines"
+                "name": "סרדין צעיר מיובש",
+                "plural_name": "סדרינים צעירים מיובשים"
             },
             "marlin": {
                 "aliases": [],
                 "description": "",
-                "name": "marlin",
-                "plural_name": "marlins"
+                "name": "מפרשני",
+                "plural_name": "מפרשניים"
             },
             "threadfin": {
                 "aliases": [],
                 "description": "",
-                "name": "threadfin",
-                "plural_name": "threadfins"
+                "name": "פולינמי",
+                "plural_name": "פולינמים"
             },
             "tiny fish": {
                 "aliases": [],
@@ -5487,8 +5487,8 @@
             "bombay duck": {
                 "aliases": [],
                 "description": "",
-                "name": "bombay duck",
-                "plural_name": "bombay ducks"
+                "name": "בומלו (דג בומביי)",
+                "plural_name": "בומלו (דג בומביי)"
             }
         }
     },
@@ -6784,8 +6784,8 @@
             "cherry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry syrup",
-                "plural_name": "cherry syrups"
+                "name": "סירופ דובדבן",
+                "plural_name": "סירופי דובדבנים"
             },
             "hibiscus syrup": {
                 "aliases": [],
@@ -7628,8 +7628,8 @@
             "fish masala": {
                 "aliases": [],
                 "description": "",
-                "name": "fish masala",
-                "plural_name": "fish masalas"
+                "name": "מסאלה דגים",
+                "plural_name": "מסאלה דגים"
             },
             "fresh mixed herb": {
                 "aliases": [],
@@ -10312,8 +10312,8 @@
             "yeast extract spread": {
                 "aliases": [],
                 "description": "",
-                "name": "yeast extract spread",
-                "plural_name": "yeast extract spreads"
+                "name": "ממרח תמצית שמרים",
+                "plural_name": "ממרחי תמציות שמרים"
             },
             "challah": {
                 "aliases": [],
@@ -12436,8 +12436,8 @@
             "canned cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cherry tomato",
-                "plural_name": "canned cherry tomatoes"
+                "name": "עגבניית שרי משומרת",
+                "plural_name": "עגבניות שרי משומרות"
             },
             "bread & butter pickle": {
                 "aliases": [],
@@ -12664,8 +12664,8 @@
             "tomato confit": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato confit",
-                "plural_name": "tomato confits"
+                "name": "קונפי עגבניות",
+                "plural_name": "קונפי עגבניות"
             },
             "brandied cherry": {
                 "aliases": [],
@@ -13490,8 +13490,8 @@
             "vegetable soup": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable soup",
-                "plural_name": "vegetable soups"
+                "name": "מרק ירקות",
+                "plural_name": "מרקי ירקות"
             },
             "chicken noodle soup": {
                 "aliases": [],
@@ -15299,8 +15299,8 @@
             "cherry juice": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry juice",
-                "plural_name": "cherry juices"
+                "name": "מיץ דובדבנים",
+                "plural_name": "מיצי דובדבנים"
             },
             "carrot juice": {
                 "aliases": [],
@@ -15359,8 +15359,8 @@
             "kombucha": {
                 "aliases": [],
                 "description": "",
-                "name": "kombucha",
-                "plural_name": "kombuchas"
+                "name": "קומבוצ'ה",
+                "plural_name": "קומבוצ'ה"
             },
             "apricot juice": {
                 "aliases": [],
@@ -15371,8 +15371,8 @@
             "beet juice": {
                 "aliases": [],
                 "description": "",
-                "name": "beet juice",
-                "plural_name": "beet juices"
+                "name": "מיץ סלק",
+                "plural_name": "מיצי סלק"
             },
             "peach juice": {
                 "aliases": [],
@@ -15383,20 +15383,20 @@
             "orange soda": {
                 "aliases": [],
                 "description": "",
-                "name": "orange soda",
-                "plural_name": "orange sodas"
+                "name": "סודה תפוזים",
+                "plural_name": "סודה תפוזים"
             },
             "margarita mix": {
                 "aliases": [],
                 "description": "",
-                "name": "margarita mix",
-                "plural_name": "margarita mixes"
+                "name": "תערובת מרגריטה",
+                "plural_name": "תערובות מרגריטה"
             },
             "kool aid": {
                 "aliases": [],
                 "description": "",
-                "name": "kool aid",
-                "plural_name": "kool aids"
+                "name": "קול אייד",
+                "plural_name": "קול אייד"
             },
             "energy drink": {
                 "aliases": [],
@@ -15407,8 +15407,8 @@
             "chamomile tea": {
                 "aliases": [],
                 "description": "",
-                "name": "chamomile tea",
-                "plural_name": "chamomile teas"
+                "name": "תה קמומיל",
+                "plural_name": "תה קמומיל"
             },
             "pear juice": {
                 "aliases": [],
@@ -15437,14 +15437,14 @@
             "mountain dew": {
                 "aliases": [],
                 "description": "",
-                "name": "mountain dew",
-                "plural_name": "mountain dews"
+                "name": "מאונטיין דיו",
+                "plural_name": "מאונטיין דיו"
             },
             "grapefruit soda": {
                 "aliases": [],
                 "description": "",
-                "name": "grapefruit soda",
-                "plural_name": "grapefruit sodas"
+                "name": "סודה אשכוליות",
+                "plural_name": "סודה אשכוליות"
             },
             "rooibos tea": {
                 "aliases": [],
@@ -15473,8 +15473,8 @@
             "jasmine tea": {
                 "aliases": [],
                 "description": "",
-                "name": "jasmine tea",
-                "plural_name": "jasmine teas"
+                "name": "תה יסמין",
+                "plural_name": "תה ימסין"
             },
             "clamato": {
                 "aliases": [],
@@ -15503,8 +15503,8 @@
             "beetroot juice": {
                 "aliases": [],
                 "description": "",
-                "name": "beetroot juice",
-                "plural_name": "beetroot juices"
+                "name": "מיץ סלק",
+                "plural_name": "מיצי סלק"
             },
             "blueberry juice": {
                 "aliases": [],
@@ -15515,8 +15515,8 @@
             "lemonade mix": {
                 "aliases": [],
                 "description": "",
-                "name": "lemonade mix",
-                "plural_name": "lemonade mixes"
+                "name": "תערובת לימונדה",
+                "plural_name": "תערובות לימונדה"
             },
             "rose syrup": {
                 "aliases": [],
@@ -15557,8 +15557,8 @@
             "prune juice": {
                 "aliases": [],
                 "description": "",
-                "name": "prune juice",
-                "plural_name": "prune juices"
+                "name": "מיץ שזיפים מיובשים",
+                "plural_name": "מיצי שזיפים מיובשים"
             },
             "sparkling cider": {
                 "aliases": [],
@@ -15653,14 +15653,14 @@
             "cherry soda": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry soda",
-                "plural_name": "cherry sodas"
+                "name": "סודה דובדבן",
+                "plural_name": "סודה דובדבן"
             },
             "peppermint tea": {
                 "aliases": [],
                 "description": "",
-                "name": "peppermint tea",
-                "plural_name": "peppermint teas"
+                "name": "תה מנטה (נענע חריפה)",
+                "plural_name": "תה מנטה (נענע חריפה)"
             },
             "sports drink": {
                 "aliases": [],
@@ -15813,8 +15813,8 @@
             "maca powder": {
                 "aliases": [],
                 "description": "",
-                "name": "maca powder",
-                "plural_name": "maca powders"
+                "name": "אבקת מאקה",
+                "plural_name": "אבקות מאקה"
             },
             "spirulina": {
                 "aliases": [],

@@ -472,6 +472,7 @@
     "comment": "Kommentar",
     "comments": "Kommentarer",
     "delete-confirmation": "Är du säker på att du vill ta bort detta recept?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Radera recept",
     "description": "Beskrivning",
     "disable-amount": "Inaktivera ingredienser mängder",
@@ -662,6 +663,8 @@
       "no-unit": "Ingen enhet",
       "missing-unit": "Skapa saknad enhet: {unit}",
       "missing-food": "Skapa saknad ingrediens: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Ingen mat"
     },
     "reset-servings-count": "Nollställ antal portioner",

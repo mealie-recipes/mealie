@@ -472,6 +472,7 @@
     "comment": "Komentar",
     "comments": "Pripombe",
     "delete-confirmation": "Ali želite izbrisati ta recept?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Izbriši recept",
     "description": "Opis",
     "disable-amount": "Onemogoči prikaz količin sestavin",
@@ -662,6 +663,8 @@
       "no-unit": "Ni enote",
       "missing-unit": "Ustvari manjkajočo enoto: {unit}",
       "missing-food": "Ustvari manjkajoče živilo: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Ni živila"
     },
     "reset-servings-count": "Ponastavi števec obrokov",

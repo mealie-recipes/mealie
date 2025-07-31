@@ -2,7 +2,7 @@
   <v-tooltip
     v-if="userId"
     :disabled="!user || !tooltip"
-    right
+    location="end"
   >
     <template #activator="{ props }">
       <v-avatar

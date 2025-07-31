@@ -472,6 +472,7 @@
     "comment": "Коментар",
     "comments": "Коментарі",
     "delete-confirmation": "Ви впевнені, що хочете видалити цей рецепт?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Видалити рецепт",
     "description": "Опис",
     "disable-amount": "Сховати кількість інгредієнтів",
@@ -662,6 +663,8 @@
       "no-unit": "Без одиниці",
       "missing-unit": "Створити відсутню одиниці: {unit}",
       "missing-food": "Створити відсутню їжу: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Немає їжі"
     },
     "reset-servings-count": "Скинути кількість порцій",

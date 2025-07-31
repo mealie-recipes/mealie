@@ -472,6 +472,7 @@
     "comment": "Comentari",
     "comments": "Comentaris",
     "delete-confirmation": "Estàs segur que vols suprimir-la?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Suprimeix la recepta",
     "description": "Descripció",
     "disable-amount": "Oculta les quantitats",
@@ -662,6 +663,8 @@
       "no-unit": "Sense unitat",
       "missing-unit": "Crear unitat que manca: {unit}",
       "missing-food": "Crear menjar que manca: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Sense menjar"
     },
     "reset-servings-count": "Reiniciar racions servides",

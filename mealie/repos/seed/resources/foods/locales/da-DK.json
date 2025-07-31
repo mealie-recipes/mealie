@@ -150,7 +150,7 @@
             "cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "cabbage",
+                "name": "kål",
                 "plural_name": "kålhoveder"
             },
             "asparagu": {
@@ -174,26 +174,26 @@
             "leek": {
                 "aliases": [],
                 "description": "",
-                "name": "leek",
-                "plural_name": "leeks"
+                "name": "porre",
+                "plural_name": "porrer"
             },
             "eggplant": {
                 "aliases": [],
                 "description": "",
-                "name": "eggplant",
-                "plural_name": "eggplants"
+                "name": "aubergine",
+                "plural_name": "auberginer"
             },
             "lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "lettuce",
-                "plural_name": "lettuces"
+                "name": "salat",
+                "plural_name": "salat"
             },
             "butternut squash": {
                 "aliases": [],
                 "description": "",
                 "name": "butternut squash",
-                "plural_name": "butternut squashes"
+                "plural_name": "butternut squash"
             },
             "romaine": {
                 "aliases": [],
@@ -204,76 +204,76 @@
             "beetroot": {
                 "aliases": [],
                 "description": "",
-                "name": "beetroot",
-                "plural_name": "beetroots"
+                "name": "rødbede",
+                "plural_name": "rødbeder"
             },
             "brussels sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "brussels sprout",
-                "plural_name": "brussels sprouts"
+                "name": "rosenkål",
+                "plural_name": "rosenkål"
             },
             "fennel": {
                 "aliases": [],
                 "description": "",
-                "name": "fennel",
-                "plural_name": "fennels"
+                "name": "fennikel",
+                "plural_name": "fennikel"
             },
             "sun dried tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "sun dried tomato",
-                "plural_name": "sun dried tomatoes"
+                "name": "soltørret tomat",
+                "plural_name": "soltørret tomater"
             },
             "radish": {
                 "aliases": [],
                 "description": "",
-                "name": "radish",
-                "plural_name": "radishes"
+                "name": "radise",
+                "plural_name": "radiser"
             },
             "red cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "red cabbage",
-                "plural_name": "red cabbages"
+                "name": "rødkål",
+                "plural_name": "rødkål"
             },
             "artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke",
-                "plural_name": "artichokes"
+                "name": "artiskok",
+                "plural_name": "artiskokker"
             },
             "new potato": {
                 "aliases": [],
                 "description": "",
-                "name": "new potato",
-                "plural_name": "new potatoes"
+                "name": "nye kartofler",
+                "plural_name": "nye kartofler"
             },
             "summer squash": {
                 "aliases": [
-                    "courgette",
-                    "gem squash"
+                    "squash",
+                    "citron squash"
                 ],
                 "description": "",
-                "name": "summer squash",
-                "plural_name": "summer squashes"
+                "name": "sommer squash",
+                "plural_name": "sommer squash"
             },
             "mixed green": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed green",
-                "plural_name": "mixed greens"
+                "name": "blandet grønt",
+                "plural_name": "blandet grønt"
             },
             "parsnip": {
                 "aliases": [],
                 "description": "",
-                "name": "parsnip",
-                "plural_name": "parsnips"
+                "name": "pastinak",
+                "plural_name": "pastinakker"
             },
             "baby carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "baby carrot",
+                "name": "babygulerødder",
                 "plural_name": "babygulerødder"
             },
             "mixed vegetable": {
@@ -285,20 +285,20 @@
             "poblano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "poblano pepper",
-                "plural_name": "poblano peppers"
+                "name": "poblano peber",
+                "plural_name": "poblano peber"
             },
             "sweet pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet pepper",
-                "plural_name": "sweet peppers"
+                "name": "sød peberfrugt",
+                "plural_name": "søde peberfrugter"
             },
             "serrano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano pepper",
-                "plural_name": "serrano peppers"
+                "name": "serrano peber",
+                "plural_name": "serrano peberfrugter"
             },
             "cayenne pepper": {
                 "aliases": [],

@@ -472,6 +472,7 @@
     "comment": "Comment",
     "comments": "留言",
     "delete-confirmation": "您確定要刪除此食譜嗎？",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "刪除食譜",
     "description": "描述",
     "disable-amount": "停用成分數量",
@@ -662,6 +663,8 @@
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "No Food"
     },
     "reset-servings-count": "Reset Servings Count",

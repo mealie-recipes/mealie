@@ -472,6 +472,7 @@
     "comment": "Komentár",
     "comments": "Komentáre",
     "delete-confirmation": "Naozaj chcete odstrániť zvolený recept?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Odstrániť recept",
     "description": "Popis",
     "disable-amount": "Vypnúť množstvá surovín",
@@ -662,6 +663,8 @@
       "no-unit": "Bez jednotky",
       "missing-unit": "Vytvoriť chýbajúcu jednotku: {unit}",
       "missing-food": "Vytvoriť chýbajúcu surovinu: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Žiadne suroviny"
     },
     "reset-servings-count": "Resetovať počet porcií",

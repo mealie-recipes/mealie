@@ -2,7 +2,7 @@
   <v-tooltip
     ref="copyToolTip"
     v-model="show"
-    top
+    location="top"
     :open-on-hover="false"
     :open-on-click="true"
     close-delay="500"

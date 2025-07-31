@@ -46,7 +46,7 @@
     />
     <div class="d-flex flex-wrap justify-center justify-sm-end mt-3">
       <v-tooltip
-        top
+        location="top"
         color="accent"
       >
         <template #activator="{ props }">

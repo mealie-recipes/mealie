@@ -472,6 +472,7 @@
     "comment": "Коментар",
     "comments": "Коментари",
     "delete-confirmation": "Сигурни ли сте, че желаете да изтриете тази рецепта?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Изтрий рецептата",
     "description": "Описание",
     "disable-amount": "Изключи количествата за съставките",
@@ -662,6 +663,8 @@
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "No Food"
     },
     "reset-servings-count": "Reset Servings Count",

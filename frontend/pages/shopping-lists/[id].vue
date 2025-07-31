@@ -371,6 +371,8 @@
               <v-btn
                 v-if="recipe"
                 icon
+                flat
+                class="bg-transparent"
                 :disabled="isOffline"
                 @click.prevent="removeRecipeReferenceToList(recipe.id!)"
               >
@@ -386,6 +388,8 @@
               <v-btn
                 icon
                 :disabled="isOffline"
+                flat
+                class="bg-transparent"
                 @click.prevent="addRecipeReferenceToList(recipe.id!)"
               >
                 <v-icon color="grey-lighten-1">

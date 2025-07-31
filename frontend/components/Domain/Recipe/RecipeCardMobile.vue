@@ -126,7 +126,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeCardImage from "./RecipeCardImage.vue";
@@ -134,82 +134,44 @@ import RecipeRating from "./RecipeRating.vue";
 import RecipeChips from "./RecipeChips.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 
-export default defineNuxtComponent({
-  components: {
-    RecipeFavoriteBadge,
-    RecipeContextMenu,
-    RecipeRating,
-    RecipeCardImage,
-    RecipeChips,
-  },
-  props: {
-    name: {
-      type: String,
-      required: true,
-    },
-    slug: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      required: true,
-    },
-    rating: {
-      type: Number,
-      default: 0,
-    },
-    image: {
-      type: String,
-      required: false,
-      default: "abc123",
-    },
-    tags: {
-      type: Array,
-      default: () => [],
-    },
-    recipeId: {
-      type: String,
-      required: true,
-    },
-    vertical: {
-      type: Boolean,
-      default: false,
-    },
-    isFlat: {
-      type: Boolean,
-      default: false,
-    },
-    height: {
-      type: [Number],
-      default: 150,
-    },
-    disableHighlight: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ["selected", "delete"],
-  setup(props) {
-    const $auth = useMealieAuth();
-    const { isOwnGroup } = useLoggedInState();
-
-    const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
-    const showRecipeContent = computed(() => props.recipeId && props.slug);
-    const recipeRoute = computed<string>(() => {
-      return showRecipeContent.value ? `/g/${groupSlug.value}/r/${props.slug}` : "";
-    });
-    const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
-
-    return {
-      isOwnGroup,
-      recipeRoute,
-      showRecipeContent,
-      cursor,
-    };
-  },
+interface Props {
+  name: string;
+  slug: string;
+  description: string;
+  rating?: number;
+  image?: string;
+  tags?: Array<any>;
+  recipeId: string;
+  vertical?: boolean;
+  isFlat?: boolean;
+  height?: number;
+  disableHighlight?: boolean;
+}
+const props = withDefaults(defineProps<Props>(), {
+  rating: 0,
+  image: "abc123",
+  tags: () => [],
+  vertical: false,
+  isFlat: false,
+  height: 150,
+  disableHighlight: false,
 });
+
+defineEmits<{
+  selected: [];
+  delete: [slug: string];
+}>();
+
+const $auth = useMealieAuth();
+const { isOwnGroup } = useLoggedInState();
+
+const route = useRoute();
+const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
+const showRecipeContent = computed(() => props.recipeId && props.slug);
+const recipeRoute = computed<string>(() => {
+  return showRecipeContent.value ? `/g/${groupSlug.value}/r/${props.slug}` : "";
+});
+const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
 </script>
 
 <style scoped>

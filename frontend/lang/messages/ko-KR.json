@@ -472,6 +472,7 @@
     "comment": "댓글",
     "comments": "댓글",
     "delete-confirmation": "이 레시피를 정말 삭제하시겠습니까?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "레시피 삭제",
     "description": "설명",
     "disable-amount": "재료량 비활성화",
@@ -662,6 +663,8 @@
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "No Food"
     },
     "reset-servings-count": "Reset Servings Count",

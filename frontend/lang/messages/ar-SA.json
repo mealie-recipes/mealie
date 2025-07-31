@@ -472,6 +472,7 @@
     "comment": "أضف تعليق ",
     "comments": "التعليقات",
     "delete-confirmation": "هل انت متأكد من رغبتك بحذف هذه الوصفة؟",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "حذف الوصفة",
     "description": "الوصف",
     "disable-amount": "إيقاف إظهار كميات المكونات",
@@ -662,6 +663,8 @@
       "no-unit": "لا توجد وحدة",
       "missing-unit": "إنشاء وحدة مفقودة: {unit}",
       "missing-food": "إنشاء طعام مفقود: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "لا يوجد طعام"
     },
     "reset-servings-count": "إعادة تعيين عدد الحصص",

@@ -45,62 +45,48 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useNutritionLabels } from "~/composables/recipes";
 import type { Nutrition } from "~/lib/api/types/recipe";
 import type { NutritionLabelType } from "~/composables/recipes/use-recipe-nutrition";
 
-export default defineNuxtComponent({
-  props: {
-    modelValue: {
-      type: Object as () => Nutrition,
-      required: true,
-    },
-    edit: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  emits: ["update:modelValue"],
-  setup(props, context) {
-    const { labels } = useNutritionLabels();
-    const valueNotNull = computed(() => {
-      let key: keyof Nutrition;
-      for (key in props.modelValue) {
-        if (props.modelValue[key] !== null) {
-          return true;
-        }
-      }
-      return false;
-    });
+interface Props {
+  edit?: boolean;
+}
+const props = withDefaults(defineProps<Props>(), {
+  edit: true,
+});
 
-    const showViewer = computed(() => !props.edit && valueNotNull.value);
+const modelValue = defineModel<Nutrition>({ required: true });
 
-    function updateValue(key: number | string, event: Event) {
-      context.emit("update:modelValue", { ...props.modelValue, [key]: event });
+const { labels } = useNutritionLabels();
+const valueNotNull = computed(() => {
+  let key: keyof Nutrition;
+  for (key in modelValue.value) {
+    if (modelValue.value[key] !== null) {
+      return true;
     }
+  }
+  return false;
+});
 
-    // Build a new list that only contains nutritional information that has a value
-    const renderedList = computed(() => {
-      return Object.entries(labels).reduce((item: NutritionLabelType, [key, label]) => {
-        if (props.modelValue[key]?.trim()) {
-          item[key] = {
-            ...label,
-            value: props.modelValue[key],
-          };
-        }
-        return item;
-      }, {});
-    });
+const showViewer = computed(() => !props.edit && valueNotNull.value);
 
-    return {
-      labels,
-      valueNotNull,
-      showViewer,
-      updateValue,
-      renderedList,
-    };
-  },
+function updateValue(key: number | string, event: Event) {
+  modelValue.value = { ...modelValue.value, [key]: event };
+}
+
+// Build a new list that only contains nutritional information that has a value
+const renderedList = computed(() => {
+  return Object.entries(labels).reduce((item: NutritionLabelType, [key, label]) => {
+    if (modelValue.value[key]?.trim()) {
+      item[key] = {
+        ...label,
+        value: modelValue.value[key],
+      };
+    }
+    return item;
+  }, {});
 });
 </script>
 

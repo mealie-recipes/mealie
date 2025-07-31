@@ -56,7 +56,7 @@
                 open-delay="200"
                 transition="slide-x-reverse-transition"
                 density="compact"
-                right
+                location="end"
                 content-class="text-caption"
               >
                 <template #activator="{ props: tooltipProps }">

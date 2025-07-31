@@ -472,6 +472,7 @@
     "comment": "Yorum",
     "comments": "Yorumlar",
     "delete-confirmation": "Bu tarifi silmek istediğinizden emin misiniz?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Tarifi Sil",
     "description": "Açıklama",
     "disable-amount": "Malzeme Miktarlarını Devre Dışı Bırak",
@@ -662,6 +663,8 @@
       "no-unit": "Birim yok",
       "missing-unit": "Eksik birimi oluştur: {unit}",
       "missing-food": "Eksik gıdayı oluştur: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Gıda yok"
     },
     "reset-servings-count": "Reset Servings Count",
