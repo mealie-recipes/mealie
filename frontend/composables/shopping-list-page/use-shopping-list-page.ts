@@ -52,7 +52,7 @@ export function useShoppingListPage(listId: string) {
 
   const refresh = () => baseRefresh(updateListItemOrder);
 
-  // Initialize labels
+  // Initialize shopping list labels
   const labels = useShoppingListLabels(shoppingList);
 
   // Initialize copy functionality
@@ -164,8 +164,6 @@ export function useShoppingListPage(listId: string) {
   });
 
   return {
-    // State - flatten the dialog state for easier access
-    ...state.state,
     shoppingList,
     loadingCounter,
     recipeReferenceLoading,
@@ -179,13 +177,10 @@ export function useShoppingListPage(listId: string) {
     itemsByLabel,
     isOffline,
 
-    // Labels
+    // Sub-composables
+    ...state.state,
     ...labels,
-
-    // CRUD operations
     ...crud,
-
-    // Recipe management
     ...recipes,
 
     // Specialized functions

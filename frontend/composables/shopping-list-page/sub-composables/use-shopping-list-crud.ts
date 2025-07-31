@@ -77,7 +77,6 @@ export function useShoppingListCrud(
     refresh();
   }
 
-  // Individual item operations
   function saveListItem(item: ShoppingListItemOut) {
     if (!shoppingList.value) {
       return;

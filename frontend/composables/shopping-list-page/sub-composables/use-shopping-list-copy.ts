@@ -11,18 +11,12 @@ export function useShoppingListCopy() {
 
   function copyListItems(itemsByLabel: { [key: string]: ShoppingListItemOut[] }, copyType: CopyTypes) {
     const text: string[] = [];
-
-    // Copy text into subsections based on label
     Object.entries(itemsByLabel).forEach(([label, items], idx) => {
-      // for every group except the first, add a blank line
       if (idx) {
         text.push("");
       }
 
-      // add an appropriate heading for the label depending on the copy format
       text.push(formatCopiedLabelHeading(copyType, label));
-
-      // now add the appropriately formatted list items with the given label
       items.forEach(item => text.push(formatCopiedListItem(copyType, item)));
     });
 

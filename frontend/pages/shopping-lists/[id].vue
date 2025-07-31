@@ -398,10 +398,7 @@ export default defineNuxtComponent({
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
     const id = route.params.id as string;
 
-    // Use the main shopping list page composable
     const shoppingListPage = useShoppingListPage(id);
-
-    // Get stores for labels, units, and foods
     const { store: allLabels } = useLabelStore();
     const { store: allUnits } = useUnitStore();
     const { store: allFoods } = useFoodStore();
