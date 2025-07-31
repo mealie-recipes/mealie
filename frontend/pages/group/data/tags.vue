@@ -44,6 +44,7 @@
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
+      can-confirm
       @confirm="deleteTag"
     >
       <v-card-text>
@@ -64,6 +65,7 @@
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
+      can-confirm
       @confirm="deleteSelected"
     >
       <v-card-text>

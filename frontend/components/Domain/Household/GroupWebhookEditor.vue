@@ -16,11 +16,11 @@
         :label="$t('settings.webhooks.webhook-url')"
         variant="underlined"
       />
-      <v-time-picker
+      <v-text-field
         v-model="scheduledTime"
-        class="elevation-2"
-        ampm-in-title
-        format="ampm"
+        type="time"
+        clearable
+        variant="underlined"
       />
     </v-card-text>
     <v-card-actions class="py-0 justify-end">
@@ -50,52 +50,43 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { ReadWebhook } from "~/lib/api/types/household";
 import { timeLocalToUTC, timeUTCToLocal } from "~/composables/use-group-webhooks";
 
-export default defineNuxtComponent({
-  props: {
-    webhook: {
-      type: Object as () => ReadWebhook,
-      required: true,
-    },
+const props = defineProps<{
+  webhook: ReadWebhook;
+}>();
+
+const emit = defineEmits<{
+  delete: [id: string];
+  save: [webhook: ReadWebhook];
+  test: [id: string];
+}>();
+
+const i18n = useI18n();
+const itemUTC = ref<string>(props.webhook.scheduledTime);
+const itemLocal = ref<string>(timeUTCToLocal(props.webhook.scheduledTime));
+
+const scheduledTime = computed({
+  get() {
+    return itemLocal.value;
   },
-  emits: ["delete", "save", "test"],
-  setup(props, { emit }) {
-    const i18n = useI18n();
-    const itemUTC = ref<string>(props.webhook.scheduledTime);
-    const itemLocal = ref<string>(timeUTCToLocal(props.webhook.scheduledTime));
-
-    const scheduledTime = computed({
-      get() {
-        return itemLocal.value;
-      },
-      set(v: string) {
-        itemUTC.value = timeLocalToUTC(v);
-        itemLocal.value = v;
-      },
-    });
-
-    const webhookCopy = ref({ ...props.webhook });
-
-    function handleSave() {
-      webhookCopy.value.scheduledTime = itemLocal.value;
-      emit("save", webhookCopy.value);
-    }
-
-    // Set page title using useSeoMeta
-    useSeoMeta({
-      title: i18n.t("settings.webhooks.webhooks"),
-    });
-
-    return {
-      webhookCopy,
-      scheduledTime,
-      handleSave,
-      itemUTC,
-      itemLocal,
-    };
+  set(v: string) {
+    itemUTC.value = timeLocalToUTC(v);
+    itemLocal.value = v;
   },
+});
+
+const webhookCopy = ref({ ...props.webhook });
+
+function handleSave() {
+  webhookCopy.value.scheduledTime = itemLocal.value;
+  emit("save", webhookCopy.value);
+}
+
+// Set page title using useSeoMeta
+useSeoMeta({
+  title: i18n.t("settings.webhooks.webhooks"),
 });
 </script>

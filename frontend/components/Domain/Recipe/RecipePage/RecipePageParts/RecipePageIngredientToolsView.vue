@@ -36,7 +36,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { useToolStore } from "~/composables/store";
@@ -48,71 +48,52 @@ interface RecipeToolWithOnHand extends RecipeTool {
   onHand: boolean;
 }
 
-export default defineNuxtComponent({
-  components: {
-    RecipeIngredients,
-  },
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
-    scale: {
-      type: Number,
-      required: true,
-    },
-    isCookMode: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props) {
-    const { isOwnGroup } = useLoggedInState();
+interface Props {
+  recipe: NoUndefinedField<Recipe>;
+  scale: number;
+  isCookMode?: boolean;
+}
+const props = withDefaults(defineProps<Props>(), {
+  isCookMode: false,
+});
 
-    const toolStore = isOwnGroup.value ? useToolStore() : null;
-    const { user } = usePageUser();
-    const { isEditMode } = usePageState(props.recipe.slug);
+const { isOwnGroup } = useLoggedInState();
 
-    const recipeTools = computed(() => {
-      if (!(user.householdSlug && toolStore)) {
-        return props.recipe.tools.map(tool => ({ ...tool, onHand: false }) as RecipeToolWithOnHand);
-      }
-      else {
-        return props.recipe.tools.map((tool) => {
-          const onHand = tool.householdsWithTool?.includes(user.householdSlug) || false;
-          return { ...tool, onHand } as RecipeToolWithOnHand;
-        });
-      }
+const toolStore = isOwnGroup.value ? useToolStore() : null;
+const { user } = usePageUser();
+const { isEditMode } = usePageState(props.recipe.slug);
+
+const recipeTools = computed(() => {
+  if (!(user.householdSlug && toolStore)) {
+    return props.recipe.tools.map(tool => ({ ...tool, onHand: false }) as RecipeToolWithOnHand);
+  }
+  else {
+    return props.recipe.tools.map((tool) => {
+      const onHand = tool.householdsWithTool?.includes(user.householdSlug) || false;
+      return { ...tool, onHand } as RecipeToolWithOnHand;
     });
+  }
+});
 
-    function updateTool(index: number) {
-      if (user.id && user.householdSlug && toolStore) {
-        const tool = recipeTools.value[index];
-        if (tool.onHand && !tool.householdsWithTool?.includes(user.householdSlug)) {
-          if (!tool.householdsWithTool) {
-            tool.householdsWithTool = [user.householdSlug];
-          }
-          else {
-            tool.householdsWithTool.push(user.householdSlug);
-          }
-        }
-        else if (!tool.onHand && tool.householdsWithTool?.includes(user.householdSlug)) {
-          tool.householdsWithTool = tool.householdsWithTool.filter(household => household !== user.householdSlug);
-        }
-
-        toolStore.actions.updateOne(tool);
+function updateTool(index: number) {
+  if (user.id && user.householdSlug && toolStore) {
+    const tool = recipeTools.value[index];
+    if (tool.onHand && !tool.householdsWithTool?.includes(user.householdSlug)) {
+      if (!tool.householdsWithTool) {
+        tool.householdsWithTool = [user.householdSlug];
       }
       else {
-        console.log("no user, skipping server update");
+        tool.householdsWithTool.push(user.householdSlug);
       }
     }
+    else if (!tool.onHand && tool.householdsWithTool?.includes(user.householdSlug)) {
+      tool.householdsWithTool = tool.householdsWithTool.filter(household => household !== user.householdSlug);
+    }
 
-    return {
-      toolStore,
-      recipeTools,
-      isEditMode,
-      updateTool,
-    };
-  },
-});
+    toolStore.actions.updateOne(tool);
+  }
+  else {
+    console.log("no user, skipping server update");
+  }
+}
 </script>

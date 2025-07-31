@@ -82,7 +82,7 @@
             <BaseButton
               v-if="canSubmit"
               type="submit"
-              :disabled="submitDisabled"
+              :disabled="submitDisabled || loading"
               @click="submitEvent"
             >
               {{ submitText }}

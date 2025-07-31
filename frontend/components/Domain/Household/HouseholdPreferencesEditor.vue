@@ -41,106 +41,81 @@
 	</div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { ReadHouseholdPreferences } from "~/lib/api/types/household";
 
-export default defineNuxtComponent({
-  props: {
-    modelValue: {
-      type: Object,
-      required: true,
-    },
+const preferences = defineModel<ReadHouseholdPreferences>({ required: true });
+const i18n = useI18n();
+
+type Preference = {
+  key: keyof ReadHouseholdPreferences;
+  label: string;
+  description: string;
+};
+
+const recipePreferences: Preference[] = [
+  {
+    key: "recipePublic",
+    label: i18n.t("group.allow-users-outside-of-your-group-to-see-your-recipes"),
+    description: i18n.t("group.allow-users-outside-of-your-group-to-see-your-recipes-description"),
   },
-  emits: ["update:modelValue"],
-  setup(props, context) {
-    const i18n = useI18n();
-
-		type Preference = {
-		  key: keyof ReadHouseholdPreferences;
-		  label: string;
-		  description: string;
-		};
-
-		const recipePreferences: Preference[] = [
-		  {
-		    key: "recipePublic",
-		    label: i18n.t("group.allow-users-outside-of-your-group-to-see-your-recipes"),
-		    description: i18n.t("group.allow-users-outside-of-your-group-to-see-your-recipes-description"),
-		  },
-		  {
-		    key: "recipeShowNutrition",
-		    label: i18n.t("group.show-nutrition-information"),
-		    description: i18n.t("group.show-nutrition-information-description"),
-		  },
-		  {
-		    key: "recipeShowAssets",
-		    label: i18n.t("group.show-recipe-assets"),
-		    description: i18n.t("group.show-recipe-assets-description"),
-		  },
-		  {
-		    key: "recipeLandscapeView",
-		    label: i18n.t("group.default-to-landscape-view"),
-		    description: i18n.t("group.default-to-landscape-view-description"),
-		  },
-		  {
-		    key: "recipeDisableComments",
-		    label: i18n.t("group.disable-users-from-commenting-on-recipes"),
-		    description: i18n.t("group.disable-users-from-commenting-on-recipes-description"),
-		  },
-		  {
-		    key: "recipeDisableAmount",
-		    label: i18n.t("group.disable-organizing-recipe-ingredients-by-units-and-food"),
-		    description: i18n.t("group.disable-organizing-recipe-ingredients-by-units-and-food-description"),
-		  },
-		];
-
-		const allDays = [
-		  {
-		    name: i18n.t("general.sunday"),
-		    value: 0,
-		  },
-		  {
-		    name: i18n.t("general.monday"),
-		    value: 1,
-		  },
-		  {
-		    name: i18n.t("general.tuesday"),
-		    value: 2,
-		  },
-		  {
-		    name: i18n.t("general.wednesday"),
-		    value: 3,
-		  },
-		  {
-		    name: i18n.t("general.thursday"),
-		    value: 4,
-		  },
-		  {
-		    name: i18n.t("general.friday"),
-		    value: 5,
-		  },
-		  {
-		    name: i18n.t("general.saturday"),
-		    value: 6,
-		  },
-		];
-
-		const preferences = computed({
-		  get() {
-		    return props.modelValue;
-		  },
-		  set(val) {
-		    context.emit("update:modelValue", val);
-		  },
-		});
-
-		return {
-		  allDays,
-		  preferences,
-		  recipePreferences,
-		};
+  {
+    key: "recipeShowNutrition",
+    label: i18n.t("group.show-nutrition-information"),
+    description: i18n.t("group.show-nutrition-information-description"),
   },
-});
+  {
+    key: "recipeShowAssets",
+    label: i18n.t("group.show-recipe-assets"),
+    description: i18n.t("group.show-recipe-assets-description"),
+  },
+  {
+    key: "recipeLandscapeView",
+    label: i18n.t("group.default-to-landscape-view"),
+    description: i18n.t("group.default-to-landscape-view-description"),
+  },
+  {
+    key: "recipeDisableComments",
+    label: i18n.t("group.disable-users-from-commenting-on-recipes"),
+    description: i18n.t("group.disable-users-from-commenting-on-recipes-description"),
+  },
+  {
+    key: "recipeDisableAmount",
+    label: i18n.t("group.disable-organizing-recipe-ingredients-by-units-and-food"),
+    description: i18n.t("group.disable-organizing-recipe-ingredients-by-units-and-food-description"),
+  },
+];
+
+const allDays = [
+  {
+    name: i18n.t("general.sunday"),
+    value: 0,
+  },
+  {
+    name: i18n.t("general.monday"),
+    value: 1,
+  },
+  {
+    name: i18n.t("general.tuesday"),
+    value: 2,
+  },
+  {
+    name: i18n.t("general.wednesday"),
+    value: 3,
+  },
+  {
+    name: i18n.t("general.thursday"),
+    value: 4,
+  },
+  {
+    name: i18n.t("general.friday"),
+    value: 5,
+  },
+  {
+    name: i18n.t("general.saturday"),
+    value: 6,
+  },
+];
 </script>
 
 <style lang="css">
