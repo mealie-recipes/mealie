@@ -321,6 +321,8 @@ export default defineNuxtComponent({
       state.value.search = queryDefaults.search;
       state.value.orderBy = queryDefaults.orderBy;
       state.value.orderDirection = queryDefaults.orderDirection;
+      sortPreferences.value.orderBy = queryDefaults.orderBy;
+      sortPreferences.value.orderDirection = queryDefaults.orderDirection;
       state.value.requireAllCategories = queryDefaults.requireAllCategories;
       state.value.requireAllTags = queryDefaults.requireAllTags;
       state.value.requireAllTools = queryDefaults.requireAllTools;
@@ -371,8 +373,6 @@ export default defineNuxtComponent({
         ...{
           auto: state.value.auto ? undefined : "false",
           search: passedQuery.value.search === queryDefaults.search ? undefined : passedQuery.value.search,
-          orderBy: passedQuery.value.orderBy === queryDefaults.orderBy ? undefined : passedQuery.value.orderBy,
-          orderDirection: passedQuery.value.orderDirection === queryDefaults.orderDirection ? undefined : passedQuery.value.orderDirection,
           households: !passedQuery.value.households?.length || passedQuery.value.households?.length === households.store.value.length ? undefined : passedQuery.value.households,
           requireAllCategories: passedQuery.value.requireAllCategories ? "true" : undefined,
           requireAllTags: passedQuery.value.requireAllTags ? "true" : undefined,
@@ -489,19 +489,8 @@ export default defineNuxtComponent({
         state.value.search = queryDefaults.search;
       }
 
-      if (query.orderBy?.length) {
-        state.value.orderBy = query.orderBy as string;
-      }
-      else {
-        state.value.orderBy = queryDefaults.orderBy;
-      }
-
-      if (query.orderDirection?.length) {
-        state.value.orderDirection = query.orderDirection as "asc" | "desc";
-      }
-      else {
-        state.value.orderDirection = queryDefaults.orderDirection;
-      }
+      state.value.orderBy = sortPreferences.value.orderBy;
+      state.value.orderDirection = sortPreferences.value.orderDirection as "asc" | "desc";
 
       if (query.requireAllCategories?.length) {
         state.value.requireAllCategories = query.requireAllCategories === "true";
@@ -638,13 +627,6 @@ export default defineNuxtComponent({
       }
 
       await hydrateSearch();
-      if (!route.query.orderBy) {
-        state.value.orderBy = sortPreferences.value.orderBy;
-      }
-      if (!route.query.orderDirection) {
-        state.value.orderDirection = sortPreferences.value.orderDirection as "asc" | "desc";
-      }
-
       await search();
       state.value.ready = true;
     });
