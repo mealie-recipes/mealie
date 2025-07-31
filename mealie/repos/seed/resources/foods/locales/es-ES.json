@@ -1453,20 +1453,20 @@
             "strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry",
-                "plural_name": "strawberries"
+                "name": "fresa",
+                "plural_name": "fresas"
             },
             "blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry",
-                "plural_name": "blueberries"
+                "name": "arándano",
+                "plural_name": "arándanos"
             },
             "raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry",
-                "plural_name": "raspberries"
+                "name": "frambuesa",
+                "plural_name": "frambuesas"
             },
             "cranberry": {
                 "aliases": [],
@@ -1531,8 +1531,8 @@
             "freeze-dried strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried strawberry",
-                "plural_name": "freeze-dried strawberries"
+                "name": "fresa liofilizada",
+                "plural_name": "fresas liofilizada"
             },
             "gooseberry": {
                 "aliases": [],
@@ -1543,8 +1543,8 @@
             "freeze-dried raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried raspberry",
-                "plural_name": "freeze-dried raspberries"
+                "name": "frambuesa liofilizada",
+                "plural_name": "frambuesas liofilizada"
             },
             "lingonberry": {
                 "aliases": [],
@@ -1555,8 +1555,8 @@
             "canned sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sour cherry",
-                "plural_name": "canned sour cherries"
+                "name": "guinda enlatada",
+                "plural_name": "guindas enlatadas"
             },
             "mulberry": {
                 "aliases": [],
@@ -1591,8 +1591,8 @@
             "freeze-dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried blueberry",
-                "plural_name": "freeze-dried blueberries"
+                "name": "arándano liofilizado",
+                "plural_name": "arándanos liofilizados"
             },
             "huckleberry": {
                 "aliases": [],
@@ -1633,7 +1633,7 @@
             "rosehip": {
                 "aliases": [],
                 "description": "",
-                "name": "rosehip",
+                "name": "rosa mosqueta",
                 "plural_name": "rosehips"
             },
             "hawthorn": {
@@ -1715,8 +1715,8 @@
             "walnut": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut",
-                "plural_name": "walnuts"
+                "name": "nuez",
+                "plural_name": "nueces"
             },
             "pecan": {
                 "aliases": [],
@@ -1727,20 +1727,20 @@
             "almond": {
                 "aliases": [],
                 "description": "",
-                "name": "almond",
-                "plural_name": "almonds"
+                "name": "almendra",
+                "plural_name": "almendras"
             },
             "sesame seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame seed",
-                "plural_name": "sesame seeds"
+                "name": "semilla de sésamo",
+                "plural_name": "semillas de sésamo"
             },
             "cashew": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew",
-                "plural_name": "cashews"
+                "name": "castaña de cajú",
+                "plural_name": "castañas de cajú"
             },
             "pine nut": {
                 "aliases": [],
@@ -1751,26 +1751,26 @@
             "pistachio": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio",
-                "plural_name": "pistachios"
+                "name": "pistacho",
+                "plural_name": "pistachos"
             },
             "peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut",
-                "plural_name": "peanuts"
+                "name": "maní",
+                "plural_name": "maníes"
             },
             "chia": {
                 "aliases": [],
                 "description": "",
-                "name": "chia",
-                "plural_name": "chias"
+                "name": "chía",
+                "plural_name": "chías"
             },
             "flax": {
                 "aliases": [],
                 "description": "",
-                "name": "flax",
-                "plural_name": "flaxes"
+                "name": "linaza",
+                "plural_name": "linazas"
             },
             "slivered almond": {
                 "aliases": [],
@@ -1781,26 +1781,26 @@
             "pumpkin seed": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin seed",
-                "plural_name": "pumpkin seeds"
+                "name": "semilla de calabaza",
+                "plural_name": "semillas de calabaza"
             },
             "hazelnut": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut",
-                "plural_name": "hazelnuts"
+                "name": "avellana",
+                "plural_name": "avellanas"
             },
             "poppy seed": {
                 "aliases": [],
                 "description": "",
-                "name": "poppy seed",
-                "plural_name": "poppy seeds"
+                "name": "semilla de amapola",
+                "plural_name": "semillas de amapola"
             },
             "sunflower seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower seed",
-                "plural_name": "sunflower seeds"
+                "name": "semilla de girasol",
+                "plural_name": "semillas de girasol"
             },
             "macadamia": {
                 "aliases": [],
