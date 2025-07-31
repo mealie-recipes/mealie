@@ -12,7 +12,7 @@ import { useShoppingListRecipes } from "~/composables/shopping-list-page/sub-com
  */
 export function useShoppingListPage(listId: string) {
   // Initialize state
-  const state = useShoppingListState(listId);
+  const state = useShoppingListState();
   const {
     shoppingList,
     loadingCounter,
@@ -35,7 +35,8 @@ export function useShoppingListPage(listId: string) {
 
     if (!preserveItemOrder.value) {
       groupAndSortListItemsByFood(shoppingList.value);
-    } else {
+    }
+    else {
       sortListItems(shoppingList.value);
     }
 

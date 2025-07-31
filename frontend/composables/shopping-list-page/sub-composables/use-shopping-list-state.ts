@@ -3,7 +3,7 @@ import type { ShoppingListOut, ShoppingListItemOut } from "~/lib/api/types/house
 /**
  * Composable for managing shopping list state and reactive data
  */
-export function useShoppingListState(listId: string) {
+export function useShoppingListState() {
   const shoppingList = ref<ShoppingListOut | null>(null);
   const loadingCounter = ref(1);
   const recipeReferenceLoading = ref(false);
