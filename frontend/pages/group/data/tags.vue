@@ -26,6 +26,7 @@
       :icon="$globals.icons.tags"
       :title="$t('data-pages.tags.edit-tag')"
       :submit-text="$t('general.save')"
+      can-confirm
       @submit="editSaveTag"
     >
       <v-card-text v-if="editTarget">
