@@ -4,9 +4,9 @@
       v-model="dialog"
       width="800"
     >
-      <template #activator="{ props }">
+      <template #activator="{ props: activatorProps }">
         <BaseButton
-          v-bind="props"
+          v-bind="activatorProps"
           @click="inputText = inputTextProp"
         >
           {{ $t("new-recipe.bulk-add") }}
@@ -89,88 +89,75 @@
   </div>
 </template>
 
-<script lang="ts">
-export default defineNuxtComponent({
-  props: {
-    inputTextProp: {
-      type: String,
-      required: false,
-      default: "",
-    },
-  },
-  emits: ["bulk-data"],
-  setup(props, context) {
-    const state = reactive({
-      dialog: false,
-      inputText: props.inputTextProp,
-    });
-
-    function splitText() {
-      return state.inputText.split("\n").filter(line => !(line === "\n" || !line));
-    }
-
-    function removeFirstCharacter() {
-      state.inputText = splitText()
-        .map(line => line.substring(1))
-        .join("\n");
-    }
-
-    const numberedLineRegex = /\d+[.):] /gm;
-
-    function splitByNumberedLine() {
-      // Split inputText by numberedLineRegex
-      const matches = state.inputText.match(numberedLineRegex);
-
-      matches?.forEach((match, idx) => {
-        const replaceText = idx === 0 ? "" : "\n";
-        state.inputText = state.inputText.replace(match, replaceText);
-      });
-    }
-
-    function trimAllLines() {
-      const splitLines = splitText();
-
-      splitLines.forEach((element: string, index: number) => {
-        splitLines[index] = element.trim();
-      });
-
-      state.inputText = splitLines.join("\n");
-    }
-
-    function save() {
-      context.emit("bulk-data", splitText());
-      state.dialog = false;
-    }
-
-    const i18n = useI18n();
-
-    const utilities = [
-      {
-        id: "trim-whitespace",
-        description: i18n.t("new-recipe.trim-whitespace-description"),
-        action: trimAllLines,
-      },
-      {
-        id: "trim-prefix",
-        description: i18n.t("new-recipe.trim-prefix-description"),
-        action: removeFirstCharacter,
-      },
-      {
-        id: "split-by-numbered-line",
-        description: i18n.t("new-recipe.split-by-numbered-line-description"),
-        action: splitByNumberedLine,
-      },
-    ];
-
-    return {
-      utilities,
-      splitText,
-      trimAllLines,
-      removeFirstCharacter,
-      splitByNumberedLine,
-      save,
-      ...toRefs(state),
-    };
-  },
+<script setup lang="ts">
+interface Props {
+  inputTextProp?: string;
+}
+const props = withDefaults(defineProps<Props>(), {
+  inputTextProp: "",
 });
+
+const emit = defineEmits<{
+  "bulk-data": [data: string[]];
+}>();
+
+const dialog = ref(false);
+const inputText = ref(props.inputTextProp);
+
+function splitText() {
+  return inputText.value.split("\n").filter(line => !(line === "\n" || !line));
+}
+
+function removeFirstCharacter() {
+  inputText.value = splitText()
+    .map(line => line.substring(1))
+    .join("\n");
+}
+
+const numberedLineRegex = /\d+[.):] /gm;
+
+function splitByNumberedLine() {
+  // Split inputText by numberedLineRegex
+  const matches = inputText.value.match(numberedLineRegex);
+
+  matches?.forEach((match, idx) => {
+    const replaceText = idx === 0 ? "" : "\n";
+    inputText.value = inputText.value.replace(match, replaceText);
+  });
+}
+
+function trimAllLines() {
+  const splitLines = splitText();
+
+  splitLines.forEach((element: string, index: number) => {
+    splitLines[index] = element.trim();
+  });
+
+  inputText.value = splitLines.join("\n");
+}
+
+function save() {
+  emit("bulk-data", splitText());
+  dialog.value = false;
+}
+
+const i18n = useI18n();
+
+const utilities = [
+  {
+    id: "trim-whitespace",
+    description: i18n.t("new-recipe.trim-whitespace-description"),
+    action: trimAllLines,
+  },
+  {
+    id: "trim-prefix",
+    description: i18n.t("new-recipe.trim-prefix-description"),
+    action: removeFirstCharacter,
+  },
+  {
+    id: "split-by-numbered-line",
+    description: i18n.t("new-recipe.split-by-numbered-line-description"),
+    action: splitByNumberedLine,
+  },
+];
 </script>

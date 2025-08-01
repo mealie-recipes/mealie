@@ -37,7 +37,7 @@
             <RecipePageIngredientEditor v-if="isEditForm" v-model="recipe" />
           </div>
           <div>
-            <RecipePageScale v-model:scale="scale" :recipe="recipe" />
+            <RecipePageScale v-model="scale" :recipe="recipe" />
           </div>
 
           <!--
@@ -81,7 +81,7 @@
       </v-card>
       <WakelockSwitch />
       <RecipePageComments
-        v-if="!recipe.settings.disableComments && !isEditForm && !isCookMode"
+        v-if="!recipe.settings?.disableComments && !isEditForm && !isCookMode"
         v-model="recipe"
         class="px-1 my-4 d-print-none"
       />
@@ -96,7 +96,7 @@
       <v-row style="height: 100%" no-gutters class="overflow-hidden">
         <v-col cols="12" sm="5" class="overflow-y-auto pl-4 pr-3 py-2" style="height: 100%">
           <div class="d-flex align-center">
-            <RecipePageScale v-model:scale="scale" :recipe="recipe" />
+            <RecipePageScale v-model="scale" :recipe="recipe" />
           </div>
           <RecipePageIngredientToolsView
             v-if="!isEditForm"
@@ -124,7 +124,7 @@
     </v-sheet>
     <v-sheet v-show="isCookMode && hasLinkedIngredients">
       <div class="mt-2 px-2 px-md-4">
-        <RecipePageScale v-model:scale="scale" :recipe="recipe" />
+        <RecipePageScale v-model="scale" :recipe="recipe" />
       </div>
       <RecipePageInstructions
         v-model="recipe.recipeInstructions"
@@ -141,7 +141,6 @@
           <RecipeIngredients
             :value="notLinkedIngredients"
             :scale="scale"
-            :disable-amount="recipe.settings.disableAmount"
             :is-cook-mode="isCookMode"
           />
         </v-card>
@@ -278,7 +277,7 @@ async function deleteRecipe() {
  * View Preferences
  */
 const landscape = computed(() => {
-  const preferLandscape = recipe.value.settings.landscapeView;
+  const preferLandscape = recipe.value.settings?.landscapeView;
   const smallScreen = !$vuetify.display.smAndUp.value;
 
   if (preferLandscape) {

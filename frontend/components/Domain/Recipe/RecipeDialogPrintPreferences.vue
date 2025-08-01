@@ -44,6 +44,7 @@
               <v-switch
                 v-model="preferences.showDescription"
                 hide-details
+                color="primary"
                 :label="$t('recipe.description')"
               />
             </v-row>
@@ -51,6 +52,7 @@
               <v-switch
                 v-model="preferences.showNotes"
                 hide-details
+                color="primary"
                 :label="$t('recipe.notes')"
               />
             </v-row>
@@ -63,6 +65,7 @@
               <v-switch
                 v-model="preferences.showNutrition"
                 hide-details
+                color="primary"
                 :label="$t('recipe.nutrition')"
               />
             </v-row>
@@ -83,45 +86,19 @@
   </BaseDialog>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { Recipe } from "~/lib/api/types/recipe";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 
-export default defineNuxtComponent({
-  components: {
-    RecipePrintView,
-  },
-  props: {
-    modelValue: {
-      type: Boolean,
-      default: false,
-    },
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      default: undefined,
-    },
-  },
-  emits: ["update:modelValue"],
-  setup(props, context) {
-    const preferences = useUserPrintPreferences();
-
-    // V-Model Support
-    const dialog = computed({
-      get: () => {
-        return props.modelValue;
-      },
-      set: (val) => {
-        context.emit("update:modelValue", val);
-      },
-    });
-
-    return {
-      dialog,
-      ImagePosition,
-      preferences,
-    };
-  },
+interface Props {
+  recipe?: NoUndefinedField<Recipe>;
+}
+withDefaults(defineProps<Props>(), {
+  recipe: undefined,
 });
+
+const dialog = defineModel<boolean>({ default: false });
+const preferences = useUserPrintPreferences();
 </script>

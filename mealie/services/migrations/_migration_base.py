@@ -177,7 +177,6 @@ class BaseMigrator(BaseService):
             show_assets=self.household.preferences.recipe_show_assets,
             landscape_view=self.household.preferences.recipe_landscape_view,
             disable_comments=self.household.preferences.recipe_disable_comments,
-            disable_amount=self.household.preferences.recipe_disable_amount,
         )
 
         for recipe in validated_recipes:

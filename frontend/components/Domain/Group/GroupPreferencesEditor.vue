@@ -9,30 +9,10 @@
   </div>
 </template>
 
-<script lang="ts">
-export default defineNuxtComponent({
-  props: {
-    modelValue: {
-      type: Object,
-      required: true,
-    },
-  },
-  emits: ["update:modelValue"],
-  setup(props, context) {
-    const preferences = computed({
-      get() {
-        return props.modelValue;
-      },
-      set(val) {
-        context.emit("update:modelValue", val);
-      },
-    });
+<script setup lang="ts">
+import type { ReadGroupPreferences } from "~/lib/api/types/user";
 
-    return {
-      preferences,
-    };
-  },
-});
+const preferences = defineModel<ReadGroupPreferences>({ required: true });
 </script>
 
 <style lang="scss" scoped></style>

@@ -16,7 +16,7 @@
       @cancel="deleteCreateTarget()"
     >
       <v-card-text>
-        <CookbookEditor :key="createTargetKey" v-model="createTarget" :actions="actions" />
+        <CookbookEditor :key="createTargetKey" v-model="createTarget" />
       </v-card-text>
     </BaseDialog>
 
@@ -105,9 +105,7 @@
             <v-expansion-panel-text>
               <CookbookEditor
                 v-model="myCookbooks[index]"
-                :actions="actions"
                 :collapsable="false"
-                @delete="deleteEventHandler"
               />
               <v-card-actions>
                 <v-spacer />

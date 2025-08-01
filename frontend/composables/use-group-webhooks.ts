@@ -38,7 +38,7 @@ export const useGroupWebhooks = function () {
       loading.value = true;
 
       const payload = {
-        enabled: false,
+        enabled: true,
         name: "New Webhook",
         url: "",
         scheduledTime: "00:00",

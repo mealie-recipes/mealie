@@ -13,7 +13,7 @@ export class GroupRecipeActionsAPI extends BaseCRUDAPI<CreateGroupRecipeAction, 
   baseRoute = routes.groupRecipeActions;
   itemRoute = routes.groupRecipeActionsId;
 
-  async triggerAction(id: string | number, recipeSlug: string, scaledAmount: number) {
-    return await this.requests.post(routes.groupRecipeActionsIdTriggerRecipeSlug(id, recipeSlug), { scaledAmount });
+  async triggerAction(id: string | number, recipeSlug: string, recipeScale: number) {
+    return await this.requests.post(routes.groupRecipeActionsIdTriggerRecipeSlug(id, recipeSlug), { recipe_scale: recipeScale });
   }
 }

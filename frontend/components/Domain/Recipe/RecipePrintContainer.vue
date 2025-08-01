@@ -8,24 +8,17 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
 import type { Recipe } from "~/lib/api/types/recipe";
 
-export default defineNuxtComponent({
-  components: {
-    RecipePrintView,
-  },
-  props: {
-    recipe: {
-      type: Object as () => Recipe,
-      required: true,
-    },
-    scale: {
-      type: Number,
-      default: 1,
-    },
-  },
+interface Props {
+  recipe: Recipe;
+  scale?: number;
+}
+
+withDefaults(defineProps<Props>(), {
+  scale: 1,
 });
 </script>
 

@@ -18,8 +18,8 @@ function removeStartingPunctuation(word: string): string {
   return word.replace(punctuationAtBeginning, "");
 }
 
-function ingredientMatchesWord(ingredient: RecipeIngredient, word: string, recipeIngredientAmountsDisabled: boolean) {
-  const searchText = parseIngredientText(ingredient, recipeIngredientAmountsDisabled);
+function ingredientMatchesWord(ingredient: RecipeIngredient, word: string) {
+  const searchText = parseIngredientText(ingredient);
   return searchText.toLowerCase().includes(word.toLowerCase());
 }
 
@@ -39,7 +39,7 @@ function isBlackListedWord(word: string) {
   return blackListedText.includes(word) || word.match(blackListedRegexMatch);
 }
 
-export function useExtractIngredientReferences(recipeIngredients: RecipeIngredient[], activeRefs: string[], text: string, recipeIngredientAmountsDisabled: boolean): Set<string> {
+export function useExtractIngredientReferences(recipeIngredients: RecipeIngredient[], activeRefs: string[], text: string): Set<string> {
   const availableIngredients = recipeIngredients
     .filter(ingredient => ingredient.referenceId !== undefined)
     .filter(ingredient => !activeRefs.includes(ingredient.referenceId as string));
@@ -50,7 +50,7 @@ export function useExtractIngredientReferences(recipeIngredients: RecipeIngredie
     .map(normalize)
     .filter(word => word.length > 2)
     .filter(word => !isBlackListedWord(word))
-    .flatMap(word => availableIngredients.filter(ingredient => ingredientMatchesWord(ingredient, word, recipeIngredientAmountsDisabled)))
+    .flatMap(word => availableIngredients.filter(ingredient => ingredientMatchesWord(ingredient, word)))
     .map(ingredient => ingredient.referenceId as string);
   //  deduplicate
 
