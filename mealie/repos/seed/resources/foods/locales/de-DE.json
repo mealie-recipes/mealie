@@ -6490,7 +6490,7 @@
             "sugar syrup": {
                 "aliases": [],
                 "description": "sugar free sweetner",
-                "name": "sugar syrup",
+                "name": "Zuckersirup",
                 "plural_name": "sugar syrups"
             },
             "isomalt": {
@@ -6736,7 +6736,7 @@
             "rice syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "rice syrup",
+                "name": "Reissirup",
                 "plural_name": "Zuckerrohr-Sirup"
             },
             "manuka honey": {
@@ -6874,7 +6874,7 @@
             "malt syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "malt syrup",
+                "name": "Malzsirup",
                 "plural_name": "malt syrups"
             },
             "hot honey": {
