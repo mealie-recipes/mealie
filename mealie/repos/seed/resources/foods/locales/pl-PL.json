@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "czosnek",
-                "plural_name": "garlics"
+                "plural_name": "czosnek"
             },
             "onion": {
                 "aliases": [],
@@ -17,7 +17,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "papryka słodka",
-                "plural_name": "bell peppers"
+                "plural_name": "słodka papryka"
             },
             "carrot": {
                 "aliases": [],
