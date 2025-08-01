@@ -587,6 +587,7 @@
     "api-extras-description": "Os extras de receitas son unha característica clave da API de Mealie. Permítenche crear pares de clave/valor JSON personalizados dentro dunha receita, para facer referencia desde aplicacións de terceiros. Podes usar estas teclas para proporcionar información, por exemplo, para activar automatizacións ou mensaxes personalizadas para transmitir ao dispositivo que desexes.",
     "message-key": "Chave de Mensaxen",
     "parse": "Interpretar",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Anexe imaxens arrastrando e soltandoas no editor",
     "drop-image": "Arrastrar imaxen",
     "enable-ingredient-amounts-to-use-this-feature": "Ative cantidades de ingredientes para usar esta funcionalidade",
