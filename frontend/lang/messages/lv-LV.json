@@ -587,6 +587,7 @@
     "api-extras-description": "Recepšu ekstras ir galvenā Mealie API iezīme. Tie ļauj jums izveidot pielāgotus JSON atslēgu/vērtību pārus receptē, lai atsaucotos no trešo pušu lietojumprogrammām. Varat izmantot šos taustiņus, lai sniegtu informāciju, piemēram, aktivizētu automatizāciju vai pielāgotus ziņojumus, lai tos pārsūtītu uz vēlamo ierīci.",
     "message-key": "Ziņojuma atslēga",
     "parse": "Parsēšana",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Pievienojiet attēlus, velkot un nometot tos redaktorā",
     "drop-image": "Nometiet attēlu",
     "enable-ingredient-amounts-to-use-this-feature": "Iespējojiet sastāvdaļu daudzumu, lai izmantotu šo funkciju",
