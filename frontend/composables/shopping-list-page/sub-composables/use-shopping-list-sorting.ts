@@ -40,7 +40,7 @@ export function useShoppingListSorting() {
     shoppingList.listItems.forEach((item) => {
       const key = item.checked
         ? checkedItemKey
-        : item.isFood && item.food?.name
+        : item.food?.name
           ? item.food.name
           : item.note || "";
 

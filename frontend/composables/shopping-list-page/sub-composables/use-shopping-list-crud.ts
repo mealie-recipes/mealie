@@ -20,13 +20,12 @@ export function useShoppingListCrud(
   const createListItemData = ref<ShoppingListItemOut>(listItemFactory());
   const localLabels = ref<ShoppingListMultiPurposeLabelOut[]>();
 
-  function listItemFactory(isFood = false): ShoppingListItemOut {
+  function listItemFactory(): ShoppingListItemOut {
     return {
       id: uuid4(),
       shoppingListId: shoppingList.value?.id || "",
       checked: false,
       position: shoppingList.value?.listItems?.length || 1,
-      isFood,
       quantity: 0,
       note: "",
       labelId: undefined,
@@ -169,7 +168,7 @@ export function useShoppingListCrud(
       shoppingList.value.listItems.push(createListItemData.value);
       updateListItemOrder();
     }
-    createListItemData.value = listItemFactory(createListItemData.value.isFood || false);
+    createListItemData.value = listItemFactory();
     refresh();
   }
 
@@ -236,30 +235,11 @@ export function useShoppingListCrud(
   // Context menu actions
   const contextActions = {
     delete: "delete",
-    setIngredient: "setIngredient",
   };
 
   const contextMenu = [
     { title: t("general.delete"), action: contextActions.delete },
-    { title: t("recipe.ingredient"), action: contextActions.setIngredient },
   ];
-
-  function contextMenuAction(action: string, item: ShoppingListItemOut, idx: number) {
-    if (!shoppingList.value?.listItems) {
-      return;
-    }
-
-    switch (action) {
-      case contextActions.delete:
-        shoppingList.value.listItems = shoppingList.value?.listItems.filter(itm => itm.id !== item.id);
-        break;
-      case contextActions.setIngredient:
-        shoppingList.value.listItems[idx].isFood = !shoppingList.value.listItems[idx].isFood;
-        break;
-      default:
-        break;
-    }
-  }
 
   return {
     createListItemData,
@@ -279,6 +259,5 @@ export function useShoppingListCrud(
     toggleReorderLabelsDialog,
     contextActions,
     contextMenu,
-    contextMenuAction,
   };
 }
