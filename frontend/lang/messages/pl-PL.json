@@ -587,6 +587,7 @@
     "api-extras-description": "Dodatki w przepisach są kluczową cechą API Mealie. Pozwalają na tworzenie niestandardowych par kluczy/wartości JSON w przepisie do odwoływania się przez zewnętrzne aplikacje. Możesz użyć tych kluczy do wyzwalania automatyzacji lub przekazywania niestandardowych wiadomości do twoich wybranych urządzeń.",
     "message-key": "Klucz Wiadomości",
     "parse": "Analizuj",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Dołącz obrazy przeciągając i upuszczając je do edytora",
     "drop-image": "Upuść zdjęcie",
     "enable-ingredient-amounts-to-use-this-feature": "Włącz ilości składników, aby użyć tej funkcji",
