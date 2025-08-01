@@ -587,6 +587,7 @@
     "api-extras-description": "מתכונים נוספים הם יכולת מפתח של Mealie API. הם מאפשרים ליצור צמדי key/value בצורת JSON על מנת לקרוא אותם בתוכנת צד שלישית. תוכלו להשתמש בצמדים האלה כדי לספק מידע, לדוגמא להפעיל אוטומציות או הודעות מותאמות אישית למכשירים מסויימים.",
     "message-key": "מפתח הודעה",
     "parse": "ניתוח",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "הוסף תמונות ע\"י גרירה ושחרור אל תוך העורך",
     "drop-image": "גרור תמונה",
     "enable-ingredient-amounts-to-use-this-feature": "אפשר לכמות המרכיבים להשתמש בפונקציה",

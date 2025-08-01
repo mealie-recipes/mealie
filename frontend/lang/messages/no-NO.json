@@ -587,6 +587,7 @@
     "api-extras-description": "Ekstramaterialer til oppskrifter er en viktig funksjon i Mealie API-en. De lar deg opprette egendefinerte JSON-nøkkel/verdi-par innenfor en oppskrift for å referere fra tredjepartsapplikasjoner. Du kan bruke disse nøklene til å gi informasjon for eksempel for å utløse automatiseringer eller egendefinerte meldinger som skal videreformidles til ønsket enhet.",
     "message-key": "Meldingsnøkkel",
     "parse": "Analyser",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Fest bilder ved å dra og slippe dem inn i redigereringsverktøyet",
     "drop-image": "Slipp bilde",
     "enable-ingredient-amounts-to-use-this-feature": "Aktiver ingrediensmengder for å bruke denne funksjonen",

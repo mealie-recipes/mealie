@@ -587,6 +587,7 @@
     "api-extras-description": "Дополнения к рецептам являются ключевым элементом Mealie API. Они позволяют создавать пользовательские пары json ключ/значение в рецепте для ссылания на другие приложения. Вы можете использовать эти ключи, чтобы сохранить нужную информацию, например, для автоматизаций или уведомлений на ваши устройства.",
     "message-key": "Ключ сообщения",
     "parse": "Обработать",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Прикрепляйте изображения, перетаскивая их в редактор",
     "drop-image": "Перетащите изображение",
     "enable-ingredient-amounts-to-use-this-feature": "Включите количество ингредиентов для использования этой функции",

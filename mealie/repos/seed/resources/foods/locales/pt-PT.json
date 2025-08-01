@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "alho",
-                "plural_name": "garlics"
+                "plural_name": "alhos"
             },
             "onion": {
                 "aliases": [],
@@ -28,94 +28,94 @@
             "scallion": {
                 "aliases": [],
                 "description": "",
-                "name": "scallion",
-                "plural_name": "scallions"
+                "name": "cebolinho",
+                "plural_name": "cebolinhos"
             },
             "zucchini": {
                 "aliases": [],
                 "description": "",
-                "name": "zucchini",
-                "plural_name": "zucchinis"
+                "name": "courgette",
+                "plural_name": "courgettes"
             },
             "potato": {
                 "aliases": [],
                 "description": "",
-                "name": "potato",
+                "name": "batata",
                 "plural_name": "batatas"
             },
             "red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "red onion",
-                "plural_name": "red onions"
+                "name": "cebola roxa",
+                "plural_name": "cebolas roxas"
             },
             "yellow onion": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow onion",
-                "plural_name": "yellow onions"
+                "name": "cebola",
+                "plural_name": "cebolas"
             },
             "celery": {
                 "aliases": [],
                 "description": "",
-                "name": "celery",
-                "plural_name": "celeries"
+                "name": "aipo",
+                "plural_name": "aipos"
             },
             "jalapeno": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeno",
-                "plural_name": "jalapenoes"
+                "name": "jalapeño",
+                "plural_name": "jalapeños"
             },
             "avocado": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado",
-                "plural_name": "avocados"
+                "name": "abacate",
+                "plural_name": "abacates"
             },
             "shallot": {
                 "aliases": [],
                 "description": "",
-                "name": "shallot",
-                "plural_name": "shallots"
+                "name": "chalota",
+                "plural_name": "chalotas"
             },
             "cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry tomato",
-                "plural_name": "cherry tomatoes"
+                "name": "tomate cherry",
+                "plural_name": "tomates cherry"
             },
             "cucumber": {
                 "aliases": [],
                 "description": "",
-                "name": "cucumber",
-                "plural_name": "cucumbers"
+                "name": "pepino",
+                "plural_name": "pepinos"
             },
             "spinach": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach",
-                "plural_name": "spinaches"
+                "name": "espinafre",
+                "plural_name": "espinafres"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet corn",
-                "plural_name": "sweet corns"
+                "name": "milho doce",
+                "plural_name": "milhos doces"
             },
             "chile pepper": {
                 "aliases": [
-                    "capsicum"
+                    "pimento"
                 ],
                 "description": "",
-                "name": "chile pepper",
-                "plural_name": "chile peppers"
+                "name": "malagueta",
+                "plural_name": "malaguetas"
             },
             "sweet potato": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet potato",
-                "plural_name": "sweet potatoes"
+                "name": "batata doce",
+                "plural_name": "batatas doces"
             },
             "broccoli": {
                 "aliases": [],
