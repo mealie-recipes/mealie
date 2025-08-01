@@ -7184,8 +7184,8 @@
             "thai red curry paste": {
                 "aliases": [],
                 "description": "",
-                "name": "thai red curry paste",
-                "plural_name": "thai red curry pastes"
+                "name": "Rote Thai-Currypaste",
+                "plural_name": "Rote Thai-Currypasten"
             },
             "mixed herb": {
                 "aliases": [],
@@ -7304,8 +7304,8 @@
             "teriyaki marinade": {
                 "aliases": [],
                 "description": "",
-                "name": "teriyaki marinade",
-                "plural_name": "teriyaki marinades"
+                "name": "Teriyaki Marinade",
+                "plural_name": "Teriyaki Marinaden"
             },
             "adobo seasoning": {
                 "aliases": [],
@@ -7622,8 +7622,8 @@
             "tom yum paste": {
                 "aliases": [],
                 "description": "",
-                "name": "tom yum paste",
-                "plural_name": "tom yum pastes"
+                "name": "Tom Yum Paste",
+                "plural_name": "Tom Yum Pasten"
             },
             "fish masala": {
                 "aliases": [],
@@ -7671,8 +7671,8 @@
             "baking soda": {
                 "aliases": [],
                 "description": "",
-                "name": "baking soda",
-                "plural_name": "baking sodas"
+                "name": "Backpulver",
+                "plural_name": "Backpulver"
             },
             "cornstarch": {
                 "aliases": [],
@@ -9464,8 +9464,8 @@
             "hyacinth bean": {
                 "aliases": [],
                 "description": "",
-                "name": "hyacinth bean",
-                "plural_name": "hyacinth beans"
+                "name": "Helmbohne",
+                "plural_name": "Helmbohnen"
             },
             "petai": {
                 "aliases": [],
@@ -9476,14 +9476,14 @@
             "scarlet runner bean": {
                 "aliases": [],
                 "description": "",
-                "name": "scarlet runner bean",
-                "plural_name": "scarlet runner beans"
+                "name": "Feuerbohne",
+                "plural_name": "Feuerbohnen"
             },
             "soy flake": {
                 "aliases": [],
                 "description": "",
-                "name": "soy flake",
-                "plural_name": "soy flakes"
+                "name": "Sojaflocke",
+                "plural_name": "Sojaflocken"
             }
         }
     },
@@ -9492,8 +9492,8 @@
             "short-cut pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "short-cut pasta",
-                "plural_name": "short-cut pastas"
+                "name": "kurze Nudel",
+                "plural_name": "kurze Nudeln"
             },
             "spaghetti": {
                 "aliases": [],
@@ -9516,8 +9516,8 @@
             "spiral pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "spiral pasta",
-                "plural_name": "spiral pastas"
+                "name": "Spiralnudel",
+                "plural_name": "Spiralnudeln"
             },
             "lasagna noodle": {
                 "aliases": [
@@ -9548,14 +9548,14 @@
             "pasta shell": {
                 "aliases": [],
                 "description": "",
-                "name": "pasta shell",
-                "plural_name": "pasta shells"
+                "name": "Muschelnudel",
+                "plural_name": "Muschelnudeln"
             },
             "bow-tie pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "bow-tie pasta",
-                "plural_name": "bow-tie pastas"
+                "name": "Farfalle",
+                "plural_name": "Farfalle"
             },
             "noodle": {
                 "aliases": [],
@@ -9572,8 +9572,8 @@
             "cheese tortellini": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese tortellini",
-                "plural_name": "cheese tortellinis"
+                "name": "Käse-Tortellini",
+                "plural_name": "Käse-Tortellini"
             },
             "rice noodle": {
                 "aliases": [],
@@ -9596,8 +9596,8 @@
             "angel hair pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "angel hair pasta",
-                "plural_name": "angel hair pastas"
+                "name": "Capelli d’angelo",
+                "plural_name": "Capelli d’angelo"
             },
             "ramen noodle": {
                 "aliases": [],
@@ -9608,8 +9608,8 @@
             "vermicelli": {
                 "aliases": [],
                 "description": "",
-                "name": "vermicelli",
-                "plural_name": "vermicellis"
+                "name": "Vermicelli",
+                "plural_name": "Vermicelli"
             },
             "tagliatelle": {
                 "aliases": [],
@@ -9632,8 +9632,8 @@
             "ziti": {
                 "aliases": [],
                 "description": "",
-                "name": "ziti",
-                "plural_name": "zitis"
+                "name": "Ziti",
+                "plural_name": "Ziti"
             },
             "orecchiette": {
                 "aliases": [],
@@ -9644,8 +9644,8 @@
             "israeli couscou": {
                 "aliases": [],
                 "description": "",
-                "name": "israeli couscou",
-                "plural_name": "israeli couscous"
+                "name": "Perlcouscous",
+                "plural_name": "Perlcouscous"
             },
             "zoodle": {
                 "aliases": [],
@@ -9662,20 +9662,20 @@
             "ditalini": {
                 "aliases": [],
                 "description": "",
-                "name": "ditalini",
-                "plural_name": "ditalinis"
+                "name": "Ditalini",
+                "plural_name": "Ditalini"
             },
             "rice vermicelli": {
                 "aliases": [],
                 "description": "",
-                "name": "rice vermicelli",
-                "plural_name": "rice vermicellis"
+                "name": "Reis-Vermicelli",
+                "plural_name": "Reis-Vermicelli"
             },
             "pappardelle": {
                 "aliases": [],
                 "description": "",
-                "name": "pappardelle",
-                "plural_name": "pappardelles"
+                "name": "Pappardella",
+                "plural_name": "Pappardelle"
             },
             "glass noodle": {
                 "aliases": [],
@@ -9692,26 +9692,26 @@
             "mac 'n cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mac 'n cheese",
-                "plural_name": "mac 'n cheeses"
+                "name": "Mac 'n Cheese",
+                "plural_name": "Mac 'n Cheese"
             },
             "penne rigate": {
                 "aliases": [],
                 "description": "",
-                "name": "penne rigate",
-                "plural_name": "penne rigates"
+                "name": "Penne rigate",
+                "plural_name": "Penne rigate"
             },
             "manicotti": {
                 "aliases": [],
                 "description": "",
-                "name": "manicotti",
-                "plural_name": "manicottis"
+                "name": "Manicotto",
+                "plural_name": "Manicotti"
             },
             "bucatini": {
                 "aliases": [],
                 "description": "",
-                "name": "bucatini",
-                "plural_name": "bucatinis"
+                "name": "Bucatini",
+                "plural_name": "Bucatini"
             },
             "cannelloni": {
                 "aliases": [],
@@ -9734,8 +9734,8 @@
             "rotelle": {
                 "aliases": [],
                 "description": "",
-                "name": "rotelle",
-                "plural_name": "rotelles"
+                "name": "Rotelle",
+                "plural_name": "Rotelle"
             },
             "shirataki noodle": {
                 "aliases": [],
@@ -9770,14 +9770,14 @@
             "acini di pepe": {
                 "aliases": [],
                 "description": "",
-                "name": "acini di pepe",
-                "plural_name": "acini di pepes"
+                "name": "Acini di pepe",
+                "plural_name": "Acini di pepe"
             },
             "cavatelli": {
                 "aliases": [],
                 "description": "",
-                "name": "cavatelli",
-                "plural_name": "cavatellis"
+                "name": "Cavatelli",
+                "plural_name": "Cavatelli"
             },
             "instant noodle": {
                 "aliases": [],
@@ -13006,8 +13006,8 @@
             "curry sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "curry sauce",
-                "plural_name": "curry sauces"
+                "name": "Currysauce",
+                "plural_name": "Currysaucen"
             },
             "liver spread": {
                 "aliases": [],
@@ -13066,7 +13066,7 @@
             "japanese curry": {
                 "aliases": [],
                 "description": "",
-                "name": "japanese curry",
+                "name": "Japanisches Curry",
                 "plural_name": "japanese curries"
             },
             "mango salsa": {
