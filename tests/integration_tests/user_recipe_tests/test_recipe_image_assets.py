@@ -45,10 +45,10 @@ def test_recipe_assets_create(api_client: TestClient, unique_user: TestUser, rec
 def test_recipe_asset_exploit(api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe):
     """
     Test to ensure that users are unable to circumvent the destination directory when uploading a file
-    as an asset to the recipe. This was reported via huntr and was confirmed to be a sevre security issue.
+    as an asset to the recipe. This was reported via huntr and was confirmed to be a severe security issue.
 
-    mitigration is implemented by ensuring that the destination file is checked to ensure that the parent directory
-    is the recipe's asset directory. otherwise an exception is raised and a 400 error is returned.
+    A mitigation is implemented by ensuring that the destination file is checked to ensure that the parent directory
+    is the recipe's asset directory. Otherwise, an exception is raised and a 400 error is returned.
 
     Report Details:
     -------------------

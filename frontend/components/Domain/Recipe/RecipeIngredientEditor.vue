@@ -17,7 +17,6 @@
       class="d-flex flex-wrap my-1"
     >
       <v-col
-        v-if="!disableAmount"
         sm="12"
         md="2"
         cols="12"
@@ -42,7 +41,6 @@
         </v-text-field>
       </v-col>
       <v-col
-        v-if="!disableAmount"
         sm="12"
         md="3"
         cols="12"
@@ -98,7 +96,6 @@
 
       <!-- Foods Input -->
       <v-col
-        v-if="!disableAmount"
         m="12"
         md="3"
         cols="12"
@@ -166,16 +163,7 @@
             :placeholder="$t('recipe.notes')"
             class="mb-auto"
             @click="$emit('clickIngredientField', 'note')"
-          >
-            <template #prepend>
-              <v-icon
-                v-if="disableAmount && $attrs && $attrs.delete"
-                class="mr-n1 handle"
-              >
-                {{ $globals.icons.arrowUpDown }}
-              </v-icon>
-            </template>
-          </v-text-field>
+          />
           <BaseButtonGroup
             hover
             :large="false"
@@ -216,10 +204,6 @@ import type { RecipeIngredient } from "~/lib/api/types/recipe";
 const model = defineModel<RecipeIngredient>({ required: true });
 
 defineProps({
-  disableAmount: {
-    type: Boolean,
-    default: false,
-  },
   unitError: {
     type: Boolean,
     default: false,

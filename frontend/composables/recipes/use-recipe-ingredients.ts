@@ -36,16 +36,7 @@ function useUnitName(unit: CreateIngredientUnit | IngredientUnit | undefined, us
   return returnVal;
 }
 
-export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmount: boolean, scale = 1, includeFormating = true) {
-  if (disableAmount) {
-    return {
-      name: ingredient.note ? sanitizeIngredientHTML(ingredient.note) : undefined,
-      quantity: undefined,
-      unit: undefined,
-      note: undefined,
-    };
-  }
-
+export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true) {
   const { quantity, food, unit, note } = ingredient;
   const usePluralUnit = quantity !== undefined && ((quantity || 0) * scale > 1 || (quantity || 0) * scale === 0);
   const usePluralFood = (!quantity) || quantity * scale > 1;
@@ -82,8 +73,8 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, disableAmo
   };
 }
 
-export function parseIngredientText(ingredient: RecipeIngredient, disableAmount: boolean, scale = 1, includeFormating = true): string {
-  const { quantity, unit, name, note } = useParsedIngredientText(ingredient, disableAmount, scale, includeFormating);
+export function parseIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true): string {
+  const { quantity, unit, name, note } = useParsedIngredientText(ingredient, scale, includeFormating);
 
   const text = `${quantity || ""} ${unit || ""} ${name || ""} ${note || ""}`.replace(/ {2,}/g, " ").trim();
   return sanitizeIngredientHTML(text);

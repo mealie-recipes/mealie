@@ -364,7 +364,6 @@ export default defineNuxtComponent({
         confidence: {},
         ingredient: {
           quantity: 1.0,
-          disableAmount: false,
           referenceId: uuid4(),
         },
       } as ParsedIngredient;
@@ -409,10 +408,6 @@ export default defineNuxtComponent({
       }
 
       recipe.value.recipeIngredient = ingredients;
-      if (recipe.value.settings) {
-        recipe.value.settings.disableAmount = false;
-      }
-
       const { response } = await api.recipes.updateOne(recipe.value.slug, recipe.value);
 
       if (response?.status === 200) {

@@ -440,7 +440,6 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             )
             q = (
                 q.join(settings_alias, self.model.settings)
-                .filter(settings_alias.disable_amount == False)  # noqa: E712 - required for SQLAlchemy comparison
                 .outerjoin(unmatched_foods_query, self.model.id == unmatched_foods_query.c.recipe_id)
                 .outerjoin(total_user_foods_query, self.model.id == total_user_foods_query.c.recipe_id)
                 .filter(

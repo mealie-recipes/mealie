@@ -587,6 +587,7 @@
     "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Boodskap sleutel",
     "parse": "Verwerk",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Voeg prente by deur dit in die bewerker te sleep en los",
     "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Skakel bestanddeelhoeveelhede aan om hierdie funksie te gebruik",

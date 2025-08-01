@@ -1,9 +1,14 @@
 <!-- eslint-disable vue/no-mutating-props -->
 <template>
   <div>
-    <h2 class="mb-4 text-h5 font-weight-medium opacity-80">
-      {{ $t("recipe.ingredients") }}
-    </h2>
+    <div class="mb-4">
+      <h2 class="mb-4 text-h5 font-weight-medium opacity-80">
+        {{ $t("recipe.ingredients") }}
+      </h2>
+      <BannerWarning v-if="!hasFoodOrUnit">
+        {{ $t("recipe.ingredients-not-parsed-description", { parse: $t('recipe.parse') }) }}
+      </BannerWarning>
+    </div>
     <VueDraggable
       v-if="recipe.recipeIngredient.length > 0"
       v-model="recipe.recipeIngredient"
@@ -27,7 +32,6 @@
           :key="ingredient.referenceId"
           v-model="recipe.recipeIngredient[index]"
           class="list-group-item"
-          :disable-amount="recipe.settings.disableAmount"
           @delete="recipe.recipeIngredient.splice(index, 1)"
           @insert-above="insertNewIngredient(index)"
           @insert-below="insertNewIngredient(index + 1)"
@@ -49,7 +53,7 @@
           <span>
             <BaseButton
               class="mb-1"
-              :disabled="recipe.settings.disableAmount || hasFoodOrUnit"
+              :disabled="hasFoodOrUnit"
               color="accent"
               :to="`/g/${groupSlug}/r/${recipe.slug}/ingredient-parser`"
               v-bind="props"
@@ -109,10 +113,7 @@ const hasFoodOrUnit = computed(() => {
 });
 
 const parserToolTip = computed(() => {
-  if (recipe.value.settings.disableAmount) {
-    return i18n.t("recipe.enable-ingredient-amounts-to-use-this-feature");
-  }
-  else if (hasFoodOrUnit.value) {
+  if (hasFoodOrUnit.value) {
     return i18n.t("recipe.recipes-with-units-or-foods-defined-cannot-be-parsed");
   }
   return i18n.t("recipe.parse-ingredients");
@@ -127,7 +128,6 @@ function addIngredient(ingredients: Array<string> | null = null) {
         note: x,
         unit: undefined,
         food: undefined,
-        disableAmount: true,
         quantity: 1,
       };
     });
@@ -146,7 +146,6 @@ function addIngredient(ingredients: Array<string> | null = null) {
       unit: undefined,
       // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
       food: undefined,
-      disableAmount: true,
       quantity: 1,
     });
   }
@@ -161,7 +160,6 @@ function insertNewIngredient(dest: number) {
     unit: undefined,
     // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
     food: undefined,
-    disableAmount: true,
     quantity: 1,
   });
 }

@@ -587,6 +587,7 @@
     "api-extras-description": "Les suppléments des recettes sont une fonctionnalité clé de l’API Mealie. Ils permettent de créer des paires JSON clé/valeur personnalisées dans une recette, qui peuvent être référencées depuis des applications tierces. Ces clés peuvent être utilisées par exemple pour déclencher des tâches automatisées ou des messages personnalisés à transmettre à l’appareil souhaité.",
     "message-key": "Clé de message",
     "parse": "Analyser",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Ajouter des images en les glissant-déposant dans l'éditeur",
     "drop-image": "Déposer l'image",
     "enable-ingredient-amounts-to-use-this-feature": "Activez les quantités d'ingrédients pour utiliser cette fonctionnalité",

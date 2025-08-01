@@ -141,7 +141,6 @@
           <RecipeIngredients
             :value="notLinkedIngredients"
             :scale="scale"
-            :disable-amount="recipe.settings.disableAmount"
             :is-cook-mode="isCookMode"
           />
         </v-card>

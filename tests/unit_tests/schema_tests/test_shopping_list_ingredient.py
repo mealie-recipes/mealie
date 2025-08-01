@@ -20,8 +20,6 @@ def test_shopping_list_ingredient_validation():
             "updatedAt": "2024-02-26T18:29:46.190758",
         },
         "note": "",
-        "isFood": True,
-        "disableAmount": False,
         "shoppingListId": "dc8bce82-2da9-49f0-94e6-6d69d311490e",
         "checked": False,
         "position": 5,

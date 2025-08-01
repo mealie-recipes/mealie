@@ -43,7 +43,6 @@
           <v-list-item-title>
             <RecipeIngredientListItem
               :ingredient="ingredient"
-              :disable-amount="disableAmount"
               :scale="scale"
             />
           </v-list-item-title>
@@ -60,13 +59,11 @@ import type { RecipeIngredient } from "~/lib/api/types/recipe";
 
 interface Props {
   value?: RecipeIngredient[];
-  disableAmount?: boolean;
   scale?: number;
   isCookMode?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   value: () => [],
-  disableAmount: false,
   scale: 1,
   isCookMode: false,
 });
@@ -89,7 +86,7 @@ const ingredientCopyText = computed(() => {
       components.push(`[${ingredient.title}]`);
     }
 
-    components.push(parseIngredientText(ingredient, props.disableAmount, props.scale, false));
+    components.push(parseIngredientText(ingredient, props.scale, false));
   });
 
   return components.join("\n");

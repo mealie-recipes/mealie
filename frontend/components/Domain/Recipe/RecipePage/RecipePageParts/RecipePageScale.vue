@@ -4,7 +4,7 @@
       v-if="!isEditMode"
       v-model.number="scale"
       :recipe-servings="recipeServings"
-      :edit-scale="!recipe.settings.disableAmount && !isEditMode"
+      :edit-scale="hasFoodOrUnit && !isEditMode"
     />
   </div>
 </template>
@@ -23,5 +23,16 @@ const { isEditMode } = usePageState(props.recipe.slug);
 
 const recipeServings = computed<number>(() => {
   return props.recipe.recipeServings || props.recipe.recipeYieldQuantity || 1;
+});
+
+const hasFoodOrUnit = computed(() => {
+  if (props.recipe.recipeIngredient) {
+    for (const ingredient of props.recipe.recipeIngredient) {
+      if (ingredient.food || ingredient.unit) {
+        return true;
+      }
+    }
+  }
+  return false;
 });
 </script>
