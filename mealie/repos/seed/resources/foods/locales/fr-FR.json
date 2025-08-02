@@ -316,7 +316,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cresson",
-                "plural_name": "watercress"
+                "plural_name": "cresson"
             },
             "iceberg": {
                 "aliases": [],
@@ -357,8 +357,8 @@
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter lettuce",
-                "plural_name": "butter lettuces"
+                "name": "laitue beurre",
+                "plural_name": "laitues beurre"
             },
             "hash brown": {
                 "aliases": [],
@@ -368,7 +368,7 @@
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "chou chinois"
                 ],
                 "description": "",
                 "name": "chou chinois",
@@ -395,8 +395,8 @@
             "thai chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chile pepper",
-                "plural_name": "thai chile peppers"
+                "name": "piment thaï chili",
+                "plural_name": "piments thaï chili"
             },
             "bok choy": {
                 "aliases": [],
@@ -425,8 +425,8 @@
             "radicchio": {
                 "aliases": [],
                 "description": "",
-                "name": "radicchio",
-                "plural_name": "radicchio"
+                "name": "trévise",
+                "plural_name": "trévise"
             },
             "pearl onion": {
                 "aliases": [],
@@ -449,8 +449,8 @@
             "leaf lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "leaf lettuce",
-                "plural_name": "leaf lettuces"
+                "name": "feuille de laitue",
+                "plural_name": "feuilles de laitue"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -493,8 +493,8 @@
             "collard green": {
                 "aliases": [],
                 "description": "",
-                "name": "collard green",
-                "plural_name": "collard greens"
+                "name": "chou cavalier",
+                "plural_name": "choux cavaliers"
             },
             "french-fried onion": {
                 "aliases": [],
@@ -960,7 +960,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "carambole",
-                "plural_name": "star fruits"
+                "plural_name": "carambole"
             },
             "green papaya": {
                 "aliases": [],
@@ -1031,8 +1031,8 @@
             "dried lime": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lime",
-                "plural_name": "dried limes"
+                "name": "citron vert séché",
+                "plural_name": "citrons verts séchés"
             },
             "jujube": {
                 "aliases": [],
