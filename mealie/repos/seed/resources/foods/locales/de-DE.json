@@ -12196,8 +12196,8 @@
             "canned corn": {
                 "aliases": [],
                 "description": "",
-                "name": "canned corn",
-                "plural_name": "canned corns"
+                "name": "Dosenmais",
+                "plural_name": "Dosenmais"
             },
             "canned kidney bean": {
                 "aliases": [],
@@ -12238,8 +12238,8 @@
             "sauerkraut": {
                 "aliases": [],
                 "description": "",
-                "name": "sauerkraut",
-                "plural_name": "sauerkrauts"
+                "name": "Sauerkraut",
+                "plural_name": "Sauerkraut"
             },
             "creamed corn": {
                 "aliases": [],
@@ -12280,8 +12280,8 @@
             "kimchi": {
                 "aliases": [],
                 "description": "",
-                "name": "kimchi",
-                "plural_name": "kimchis"
+                "name": "Kimchi",
+                "plural_name": "Kimchi"
             },
             "canned mandarin orange": {
                 "aliases": [],
@@ -12838,8 +12838,8 @@
             "tzatziki": {
                 "aliases": [],
                 "description": "",
-                "name": "tzatziki",
-                "plural_name": "tzatzikis"
+                "name": "Tsatsiki",
+                "plural_name": "Tsatsiki"
             },
             "taco sauce": {
                 "aliases": [],
@@ -12862,14 +12862,14 @@
             "béchamel sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "béchamel sauce",
-                "plural_name": "béchamel sauces"
+                "name": "Béchamelsauce",
+                "plural_name": "Béchamelsaucen"
             },
             "horseradish sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "horseradish sauce",
-                "plural_name": "horseradish sauces"
+                "name": "Meerrettichsauce",
+                "plural_name": "Meerrettichsaucen"
             },
             "plum sauce": {
                 "aliases": [],
