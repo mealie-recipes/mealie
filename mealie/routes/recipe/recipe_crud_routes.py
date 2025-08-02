@@ -523,13 +523,12 @@ class RecipeController(BaseRecipeController):
 
     @router.put("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
     def update_recipe_image(self, slug: str, image: bytes = File(...), extension: str = Form(...)):
-        group_recipes = get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
-        recipe = group_recipes.get_one(slug)
-        data_service = RecipeDataService(recipe.id)
-        data_service.write_image(image, extension)
-
-        new_version = self.group_recipes.update_image(slug, extension)
-        return UpdateImageResponse(image=new_version)
+        try:
+            new_version = self.service.update_recipe_image(slug, image, extension)
+            return UpdateImageResponse(image=new_version)
+        except Exception as e:
+            self.handle_exceptions(e)
+            return None
 
     @router.post("/{slug}/assets", response_model=RecipeAsset, tags=["Recipe: Images and Assets"])
     def upload_recipe_asset(
@@ -551,8 +550,7 @@ class RecipeController(BaseRecipeController):
         file_name = f"{file_slug}.{extension}"
         asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
 
-        group_recipes = get_repositories(self.session, group_id=self.group_id, household_id=None).recipes
-        recipe = group_recipes.get_one(slug)
+        recipe = self.service.get_one(slug)
 
         dest = recipe.asset_dir / file_name
 
@@ -569,8 +567,9 @@ class RecipeController(BaseRecipeController):
         if not dest.is_file():
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        recipe.assets.append(asset_in)
+        if recipe.assets is not None:
+            recipe.assets.append(asset_in)
 
-        group_recipes.update(slug, recipe)
+        self.service.update_one(slug, recipe)
 
         return asset_in
