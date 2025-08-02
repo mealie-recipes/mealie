@@ -4255,14 +4255,14 @@
             "country ham": {
                 "aliases": [],
                 "description": "",
-                "name": "country ham",
-                "plural_name": "country hams"
+                "name": "Landschinken",
+                "plural_name": "Landschinken"
             },
             "boneless ham": {
                 "aliases": [],
                 "description": "",
-                "name": "boneless ham",
-                "plural_name": "boneless hams"
+                "name": "Entbeinter Schinken",
+                "plural_name": "Entbeinter Schinken"
             },
             "mortadella": {
                 "aliases": [],
@@ -4297,8 +4297,8 @@
             "smoked pork chop": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked pork chop",
-                "plural_name": "smoked pork chops"
+                "name": "Geräuchertes Schweinekotelett",
+                "plural_name": "Geräucherte Schweinekoteletten"
             },
             "lamb neck": {
                 "aliases": [],
@@ -4333,8 +4333,8 @@
             "steak tip": {
                 "aliases": [],
                 "description": "",
-                "name": "steak tip",
-                "plural_name": "steak tips"
+                "name": "Steak Spitze",
+                "plural_name": "Steak Spitzen"
             },
             "veal chop": {
                 "aliases": [],
@@ -4452,7 +4452,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Entbeintes Hühnerfleisch",
-                "plural_name": "boneless chickens"
+                "plural_name": "Entbeintes Hühnerfleisch"
             },
             "chicken liver": {
                 "aliases": [],
@@ -4463,8 +4463,8 @@
             "cornish hen": {
                 "aliases": [],
                 "description": "",
-                "name": "cornish hen",
-                "plural_name": "cornish hens"
+                "name": "Kornisches Huhn",
+                "plural_name": "Kornische Hühner"
             },
             "deli turkey": {
                 "aliases": [],
@@ -4475,8 +4475,8 @@
             "smoked turkey": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked turkey",
-                "plural_name": "smoked turkeys"
+                "name": "Geräucherter Truthahn",
+                "plural_name": "Geräucherte Truthähne"
             },
             "turkey meat": {
                 "aliases": [],
@@ -12826,8 +12826,8 @@
             "steak sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "steak sauce",
-                "plural_name": "steak sauces"
+                "name": "Steaksauce",
+                "plural_name": "Steaksaucen"
             },
             "chunky peanut butter": {
                 "aliases": [],
@@ -12874,8 +12874,8 @@
             "plum sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "plum sauce",
-                "plural_name": "plum sauces"
+                "name": "Pflaumensauce",
+                "plural_name": "Pflaumensaucen"
             },
             "garlic butter": {
                 "aliases": [],
@@ -12886,14 +12886,14 @@
             "hollandaise sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "hollandaise sauce",
-                "plural_name": "hollandaise sauces"
+                "name": "Hollandaise",
+                "plural_name": "Hollandaise"
             },
             "cocktail sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "cocktail sauce",
-                "plural_name": "cocktail sauces"
+                "name": "Cocktailsauce",
+                "plural_name": "Cocktailsaucen"
             },
             "cheese dip": {
                 "aliases": [],
@@ -12958,8 +12958,8 @@
             "mustard sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "mustard sauce",
-                "plural_name": "mustard sauces"
+                "name": "Senfsauce",
+                "plural_name": "Senfsaucen"
             },
             "sun-dried tomato paste": {
                 "aliases": [],
@@ -13024,8 +13024,8 @@
             "schezwan sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "schezwan sauce",
-                "plural_name": "schezwan sauces"
+                "name": "Szechuan-Sauce",
+                "plural_name": "Szechuan-Saucen"
             },
             "mushroom gravy": {
                 "aliases": [],
