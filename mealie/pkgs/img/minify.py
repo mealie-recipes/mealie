@@ -71,33 +71,41 @@ class ABCMinifier(ABC):
 class PillowMinifier(ABCMinifier):
     @staticmethod
     def _convert_image(
-        image_file: Path, image_format: ImageFormat, dest: Path | None = None, quality: int = 100
+        image_file: Path | None = None, image_format: ImageFormat, dest: Path | None = None, quality: int = 100, img: Image.Image | None = None
     ) -> Path:
         """
         Converts an image to the specified format in-place. The original image is not
         removed. By default, the quality is set to 100.
         """
+        if img is None:
+            if image_file is None:
+                raise ValueError("Must provide either image_file or img.")
+            img = Image.open(image_file)
 
-        img = Image.open(image_file)
         img = ImageOps.exif_transpose(img)
+
         if img.mode not in image_format.modes:
             img = img.convert(image_format.modes[0])
 
-        dest = dest or image_file.with_suffix(image_format.suffix)
+        if dest is None:
+            if image_file is None:
+                raise ValueError("If dest is not provided, image_file must be.")
+            dest = image_file.with_suffix(image_format.suffix)
+        
         img.save(dest, image_format.format, quality=quality)
 
         return dest
 
     @staticmethod
-    def to_jpg(image_file: Path, dest: Path | None = None, quality: int = 100) -> Path:
-        return PillowMinifier._convert_image(image_file, JPG, dest, quality)
+    def to_jpg(image_file_path: Path | None = None, dest_path: Path | None = None, quality: int = 100, img: Image.Image | None = None) -> Path:
+        return PillowMinifier._convert_image(image_file_path, JPG, dest_path, quality, img)
 
     @staticmethod
-    def to_webp(image_file: Path, dest: Path | None = None, quality: int = 100) -> Path:
-        return PillowMinifier._convert_image(image_file, WEBP, dest, quality)
+    def to_webp(image_file_path: Path | None = None, dest_path: Path | None = None, quality: int = 100, img: Image.Image | None = None) -> Path:
+        return PillowMinifier._convert_image(image_file_path, WEBP, dest_path, quality, img)
 
     @staticmethod
-    def crop_center(pil_img: Image, crop_width=300, crop_height=300):
+    def crop_center(pil_img: Image, crop_width=300, crop_height=300) -> Image.Image:
         img_width, img_height = pil_img.size
         return pil_img.crop(
             (
@@ -117,36 +125,44 @@ class PillowMinifier(ABCMinifier):
         tiny_dest = image_file.parent.joinpath("tiny-original.webp")
 
         if not force and min_dest.exists() and tiny_dest.exists() and org_dest.exists():
-            self._logger.info(f"{image_file.name} already minified")
+            self._logger.info(f"{image_file.name} already exists in all formats")
             return
 
         success = False
 
-        if self._opts.original:
-            if not force and org_dest.exists():
-                self._logger.info(f"{image_file.name} already minified")
-            else:
-                PillowMinifier.to_webp(image_file, org_dest, quality=70)
-                success = True
+        try:
+            with Image.open(image_file) as img:
 
-        if self._opts.miniature:
-            if not force and min_dest.exists():
-                self._logger.info(f"{image_file.name} already minified")
-            else:
-                PillowMinifier.to_webp(image_file, min_dest, quality=70)
-                self._logger.info(f"{image_file.name} minified")
-                success = True
+                if self._opts.original:
+                    if not force and org_dest.exists():
+                        self._logger.info(f"{org_dest} already minified")
+                    else:
+                        result_path = PillowMinifier.to_webp(dest_path=org_dest, quality=80, img=img.copy())
+                        self._logger.info(f"{result_path} created")
+                        success = True
 
-        if self._opts.tiny:
-            if not force and tiny_dest.exists():
-                self._logger.info(f"{image_file.name} already minified")
-            else:
-                img = Image.open(image_file)
-                img = ImageOps.exif_transpose(img)
-                tiny_image = PillowMinifier.crop_center(img)
-                tiny_image.save(tiny_dest, WEBP.format, quality=70)
-                self._logger.info("Tiny image saved")
-                success = True
+                if self._opts.miniature:
+                    if not force and min_dest.exists():
+                        self._logger.info(f"{min_dest} already minified")
+                    else:
+                        mini = img.copy()
+                        mini.thumbnail((1024, 1024), Image.LANCZOS)
+                        result_path = PillowMinifier.to_webp(dest_path=min_dest, quality=70, img=mini)
+                        self._logger.info(f"{result_path} created")
+                        success = True
+
+                if self._opts.tiny:
+                    if not force and tiny_dest.exists():
+                        self._logger.info(f"{tiny_dest} already minified")
+                    else:
+                        tiny_image = PillowMinifier.crop_center(ImageOps.exif_transpose(img.copy()))
+                        result_path = PillowMinifier.to_webp(dest_path=tiny_dest, quality=70, img=tiny_image)
+                        self._logger.info(f"{result_path} created")
+                        success = True
+
+        except Exception as e:
+            self._logger.error(f"[ERROR] Failed to minify {image_file.name}. Error: {e}")
+            raise
 
         if self._purge and success:
             self.purge(image_file)
