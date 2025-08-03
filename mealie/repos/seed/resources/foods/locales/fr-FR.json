@@ -47,7 +47,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "oignon rouge",
-                "plural_name": "oignons rouge"
+                "plural_name": "oignons rouges"
             },
             "yellow onion": {
                 "aliases": [],
@@ -105,7 +105,7 @@
             },
             "chile pepper": {
                 "aliases": [
-                    "poivron"
+                    "capsicum"
                 ],
                 "description": "",
                 "name": "piment",
@@ -162,8 +162,8 @@
             "kale": {
                 "aliases": [],
                 "description": "",
-                "name": "chou frisé",
-                "plural_name": "choux frisés"
+                "name": "chou kale",
+                "plural_name": "choux kale"
             },
             "arugula": {
                 "aliases": [],
@@ -193,7 +193,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "courge butternut",
-                "plural_name": "courge butternut"
+                "plural_name": "courges butternut"
             },
             "romaine": {
                 "aliases": [],
@@ -235,7 +235,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chou rouge",
-                "plural_name": "choux rouge"
+                "plural_name": "choux rouges"
             },
             "artichoke": {
                 "aliases": [],
@@ -252,7 +252,7 @@
             "summer squash": {
                 "aliases": [
                     "courgette",
-                    "gem squash"
+                    "courge gem"
                 ],
                 "description": "",
                 "name": "courge d'été",
@@ -261,8 +261,8 @@
             "mixed green": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed green",
-                "plural_name": "mixed greens"
+                "name": "mesclun",
+                "plural_name": "mesclun"
             },
             "parsnip": {
                 "aliases": [],
@@ -303,7 +303,7 @@
             "cayenne pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "pimment de Cayenne",
+                "name": "piment de Cayenne",
                 "plural_name": "piments de Cayenne"
             },
             "green tomato": {
@@ -352,7 +352,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "courge spaghetti",
-                "plural_name": "courges spaghettis"
+                "plural_name": "courges spaghetti"
             },
             "butter lettuce": {
                 "aliases": [],
@@ -413,8 +413,8 @@
             "acorn squash": {
                 "aliases": [],
                 "description": "",
-                "name": "acorn squash",
-                "plural_name": "acorn squashes"
+                "name": "courgeron",
+                "plural_name": "courgerons"
             },
             "corn cob": {
                 "aliases": [],
@@ -437,8 +437,8 @@
             "tenderstem broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "tenderstem broccoli",
-                "plural_name": "tenderstem broccolis"
+                "name": "broccolini",
+                "plural_name": "broccolini"
             },
             "plantain": {
                 "aliases": [],
@@ -541,14 +541,14 @@
             "ancho chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "ancho chile pepper",
-                "plural_name": "ancho chile peppers"
+                "name": "piment ancho",
+                "plural_name": "piments ancho"
             },
             "microgreen": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreen",
-                "plural_name": "microgreens"
+                "name": "micropousse",
+                "plural_name": "micropousses"
             },
             "boston lettuce": {
                 "aliases": [],
@@ -565,8 +565,8 @@
             "fresno chile": {
                 "aliases": [],
                 "description": "",
-                "name": "fresno chile",
-                "plural_name": "fresno chiles"
+                "name": "piment fresno",
+                "plural_name": "piments fresno"
             },
             "delicata squash": {
                 "aliases": [],
@@ -1007,8 +1007,8 @@
             "apple chip": {
                 "aliases": [],
                 "description": "",
-                "name": "apple chip",
-                "plural_name": "apple chips"
+                "name": "chips de pomme",
+                "plural_name": "chips de pomme"
             },
             "mixed peel": {
                 "aliases": [],
@@ -1043,8 +1043,8 @@
             "sweet lime": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet lime",
-                "plural_name": "sweet limes"
+                "name": "citron doux",
+                "plural_name": "citrons doux"
             },
             "custard-apple": {
                 "aliases": [],
@@ -1061,8 +1061,8 @@
             "young jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "young jackfruit",
-                "plural_name": "young jackfruits"
+                "name": "jeune jacquier",
+                "plural_name": "jeunes jacquiers"
             },
             "durian": {
                 "aliases": [],
@@ -1085,7 +1085,7 @@
             "honey date": {
                 "aliases": [],
                 "description": "",
-                "name": "honey date",
+                "name": "sirop de datte",
                 "plural_name": "honey dates"
             },
             "physali": {
@@ -1121,8 +1121,8 @@
             "bitter orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bitter orange",
-                "plural_name": "bitter oranges"
+                "name": "orange amère",
+                "plural_name": "orange amères"
             },
             "feijoa": {
                 "aliases": [],
@@ -1133,8 +1133,8 @@
             "dried persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried persimmon",
-                "plural_name": "dried persimmons"
+                "name": "kaki séché",
+                "plural_name": "kakis séchés"
             },
             "rambutan": {
                 "aliases": [],
@@ -1157,8 +1157,8 @@
             "loquat": {
                 "aliases": [],
                 "description": "",
-                "name": "loquat",
-                "plural_name": "loquats"
+                "name": "nèfle",
+                "plural_name": "nèfles"
             },
             "crabapple": {
                 "aliases": [],
@@ -1187,8 +1187,8 @@
             "soursop": {
                 "aliases": [],
                 "description": "",
-                "name": "soursop",
-                "plural_name": "soursops"
+                "name": "corossolier",
+                "plural_name": "corossoliers"
             },
             "hog plum": {
                 "aliases": [],
@@ -1199,14 +1199,14 @@
             "bergamot orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bergamot orange",
-                "plural_name": "bergamot oranges"
+                "name": "bergamote orange",
+                "plural_name": "bergamotes oranges"
             },
             "luo han guo": {
                 "aliases": [],
                 "description": "",
-                "name": "luo han guo",
-                "plural_name": "luo han guos"
+                "name": "fruit de moine",
+                "plural_name": "fruits de moine"
             },
             "mamey": {
                 "aliases": [],
@@ -1230,7 +1230,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kiwano",
-                "plural_name": "kiwanoes"
+                "plural_name": "kiwanos"
             }
         }
     },
@@ -1419,8 +1419,8 @@
             "puffball": {
                 "aliases": [],
                 "description": "",
-                "name": "puffball",
-                "plural_name": "puffballs"
+                "name": "vesse-de-loup",
+                "plural_name": "vesses-de-loup"
             },
             "honey fungu": {
                 "aliases": [],
@@ -1568,7 +1568,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "",
-                "plural_name": "acai berries"
+                "plural_name": "açai"
             },
             "canned cherry": {
                 "aliases": [],
@@ -6423,29 +6423,29 @@
             "sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "sugar",
-                "plural_name": "sugars"
+                "name": "sucre",
+                "plural_name": "sucres"
             },
             "brown sugar": {
                 "aliases": [
                     "turbinado sugar"
                 ],
                 "description": "",
-                "name": "brown sugar",
-                "plural_name": "brown sugars"
+                "name": "sucre de canne",
+                "plural_name": "sucres de canne"
             },
             "confectioners sugar": {
                 "aliases": [
-                    "powdered sugar",
-                    "icing sugar"
+                    "sucre glace",
+                    "sucre glace"
                 ],
                 "description": "",
-                "name": "confectioners sugar",
-                "plural_name": "confectioners sugars"
+                "name": "sucre glace",
+                "plural_name": "sucres glace"
             },
             "bar sugar": {
                 "aliases": [
-                    "castor sugar"
+                    "sucre semoule"
                 ],
                 "description": "",
                 "name": "bar sugar",
@@ -6461,13 +6461,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "sirop de maïs",
-                "plural_name": "corn syrups"
+                "plural_name": "sirop de maïs"
             },
             "coconut sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut sugar",
-                "plural_name": "coconut sugars"
+                "name": "sucre de coco",
+                "plural_name": "sucres de coco"
             },
             "molass": {
                 "aliases": [],
@@ -6484,14 +6484,14 @@
             "agave nectar": {
                 "aliases": [],
                 "description": "",
-                "name": "agave nectar",
-                "plural_name": "agave nectars"
+                "name": "sirop d'agave",
+                "plural_name": "sirops d'agave"
             },
             "sugar syrup": {
                 "aliases": [],
-                "description": "sugar free sweetner",
-                "name": "sugar syrup",
-                "plural_name": "sugar syrups"
+                "description": "édulcorant sans sucre",
+                "name": "sirop de sucre",
+                "plural_name": "sirops de sucre"
             },
             "isomalt": {
                 "aliases": [],
@@ -6514,50 +6514,50 @@
             "demerara sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "demerara sugar",
-                "plural_name": "demerara sugars"
+                "name": "sucre demerara",
+                "plural_name": "sucres demerara"
             },
             "caramel syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "caramel syrup",
-                "plural_name": "caramel syrups"
+                "name": "sirop de caramel",
+                "plural_name": "sirops de caramel"
             },
             "chocolate syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate syrup",
-                "plural_name": "chocolate syrups"
+                "name": "sirop de chocolat",
+                "plural_name": "sirops de chocolat"
             },
             "jaggery": {
                 "aliases": [],
                 "description": "",
-                "name": "jaggery",
-                "plural_name": "jaggeries"
+                "name": "jagre",
+                "plural_name": "jagres"
             },
             "raw sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "raw sugar",
-                "plural_name": "raw sugars"
+                "name": "sucre brut",
+                "plural_name": "sucres bruts"
             },
             "golden syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "golden syrup",
-                "plural_name": "golden syrups"
+                "name": "mélasse claire",
+                "plural_name": "mélasses claires"
             },
             "cinnamon sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon sugar",
-                "plural_name": "cinnamon sugars"
+                "name": "sucre à la cannelle",
+                "plural_name": "sucre à la cannelle"
             },
             "liquid stevia": {
                 "aliases": [],
                 "description": "",
-                "name": "liquid stevia",
-                "plural_name": "liquid stevias"
+                "name": "stevia liquide",
+                "plural_name": "stevias liquides"
             },
             "grenadine": {
                 "aliases": [],
@@ -6568,26 +6568,26 @@
             "coarse sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "coarse sugar",
-                "plural_name": "coarse sugars"
+                "name": "sucre brut",
+                "plural_name": "sucres bruts"
             },
             "salted caramel syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "salted caramel syrup",
-                "plural_name": "salted caramel syrups"
+                "name": "sirop de caramel salé",
+                "plural_name": "sirops de caramel salé"
             },
             "sanding sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "sanding sugar",
-                "plural_name": "sanding sugars"
+                "name": "sucre cruistal",
+                "plural_name": "sucres cristaux"
             },
             "dark corn syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "dark corn syrup",
-                "plural_name": "dark corn syrups"
+                "name": "mélasse",
+                "plural_name": "mélasses"
             },
             "sucralose": {
                 "aliases": [],
@@ -6598,14 +6598,14 @@
             "monk fruit sweetener": {
                 "aliases": [],
                 "description": "",
-                "name": "monk fruit sweetener",
-                "plural_name": "monk fruit sweeteners"
+                "name": "fruit de moine",
+                "plural_name": "fruits de moine"
             },
             "maple sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "maple sugar",
-                "plural_name": "maple sugars"
+                "name": "sucre d'érable",
+                "plural_name": "sucres d'érable"
             },
             "blackstrap molass": {
                 "aliases": [],
