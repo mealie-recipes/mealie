@@ -20,7 +20,6 @@ export function useShoppingListPage(listId: string) {
     preserveItemOrder,
     listItems,
     sortCheckedItems,
-    recipeMap,
   } = state;
 
   // Initialize sorting functionality
