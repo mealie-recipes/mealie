@@ -50,6 +50,8 @@ export function useShoppingListState() {
       .map(recipe => [recipe.id || "", recipe])),
   );
 
+  const recipeList = computed(() => Array.from(recipeMap.value.values()));
+
   return {
     shoppingList,
     loadingCounter,
@@ -62,6 +64,7 @@ export function useShoppingListState() {
     state,
     listItems,
     recipeMap,
+    recipeList,
     sortCheckedItems,
   };
 }

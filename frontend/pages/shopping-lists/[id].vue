@@ -317,12 +317,12 @@
         </div>
         <v-divider class="my-4" />
         <RecipeList
-          :recipes="Array.from(recipeMap.values())"
+          :recipes="recipeList"
           show-description
           :disabled="isOffline"
         >
           <template
-            v-for="(recipe, index) in recipeMap.values()"
+            v-for="(recipe, index) in recipeList"
             #[`actions-${recipe.id}`]
             :key="'item-actions-decrease' + recipe.id"
           >
