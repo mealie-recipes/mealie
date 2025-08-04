@@ -1269,14 +1269,14 @@
             "mixed mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed mushroom",
-                "plural_name": "mixed mushrooms"
+                "name": "champignon (mélange)",
+                "plural_name": "champignons (mélange)"
             },
             "oyster mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "oyster mushroom",
-                "plural_name": "oyster mushrooms"
+                "name": "pleurote en huître",
+                "plural_name": "pleurotes en huître"
             },
             "chestnut mushroom": {
                 "aliases": [],
@@ -1811,8 +1811,8 @@
             "roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted peanut",
-                "plural_name": "roasted peanuts"
+                "name": "cacahuète grillée",
+                "plural_name": "cacahuètes grillées"
             },
             "chopped nut": {
                 "aliases": [],
@@ -1835,8 +1835,8 @@
             "mixed nut": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed nut",
-                "plural_name": "mixed nuts"
+                "name": "noix (mélange)",
+                "plural_name": "noix (mélange)"
             },
             "brazil nut": {
                 "aliases": [],
@@ -1895,8 +1895,8 @@
             "basil seed": {
                 "aliases": [],
                 "description": "",
-                "name": "basil seed",
-                "plural_name": "basil seeds"
+                "name": "graine de basilic",
+                "plural_name": "graines de basilic"
             },
             "candlenut": {
                 "aliases": [],
