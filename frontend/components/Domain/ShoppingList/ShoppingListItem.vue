@@ -75,27 +75,6 @@
                 </template>
                 <span>Toggle Recipes</span>
               </v-tooltip>
-              <!-- Dummy button so the spacing is consistent when labels are enabled -->
-              <v-btn
-                v-else
-                size="small"
-                variant="text"
-                class="ml-2"
-                icon
-                disabled
-              />
-
-              <v-btn
-                size="small"
-                variant="text"
-                class="ml-2 handle"
-                icon
-                v-bind="props"
-              >
-                <v-icon>
-                  {{ $globals.icons.arrowUpDown }}
-                </v-icon>
-              </v-btn>
               <v-btn
                 size="small"
                 variant="text"
@@ -105,6 +84,17 @@
               >
                 <v-icon>
                   {{ $globals.icons.edit }}
+                </v-icon>
+              </v-btn>
+              <v-btn
+                size="small"
+                variant="text"
+                class="handle"
+                icon
+                v-bind="props"
+              >
+                <v-icon>
+                  {{ $globals.icons.arrowUpDown }}
                 </v-icon>
               </v-btn>
             </template>
