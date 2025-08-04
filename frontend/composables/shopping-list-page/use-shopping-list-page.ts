@@ -164,21 +164,11 @@ export function useShoppingListPage(listId: string) {
   });
 
   return {
-    shoppingList,
-    loadingCounter,
-    recipeReferenceLoading,
-    preserveItemOrder,
-    edit: state.edit,
-    threeDot: state.threeDot,
-    reorderLabelsDialog: state.reorderLabelsDialog,
-    createEditorOpen: state.createEditorOpen,
-    listItems,
-    recipeMap,
     itemsByLabel,
     isOffline,
 
     // Sub-composables
-    ...state.state,
+    ...state,
     ...labels,
     ...crud,
     ...recipes,

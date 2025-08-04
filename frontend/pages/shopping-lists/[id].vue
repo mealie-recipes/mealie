@@ -4,7 +4,7 @@
     class="md-container"
   >
     <BaseDialog
-      v-model="checkAllDialog"
+      v-model="state.checkAllDialog"
       :title="$t('general.confirm')"
       can-confirm
       @confirm="checkAll"
@@ -15,7 +15,7 @@
     </BaseDialog>
 
     <BaseDialog
-      v-model="uncheckAllDialog"
+      v-model="state.uncheckAllDialog"
       :title="$t('general.confirm')"
       can-confirm
       @confirm="uncheckAll"
@@ -26,7 +26,7 @@
     </BaseDialog>
 
     <BaseDialog
-      v-model="deleteCheckedDialog"
+      v-model="state.deleteCheckedDialog"
       :title="$t('general.confirm')"
       can-confirm
       @confirm="deleteChecked"
