@@ -121,6 +121,7 @@
           <v-text-field
             v-model="notifiers[index].appriseUrl"
             :label="$t('events.apprise-url-skipped-if-blank')"
+            :hint="$t('events.apprise-url-is-left-intentionally-blank')"
           />
           <v-checkbox
             v-model="notifiers[index].enabled"
