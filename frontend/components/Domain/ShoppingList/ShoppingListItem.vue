@@ -13,7 +13,7 @@
             v-model="listItem.checked"
             hide-details
             density="compact"
-            class="mt-0"
+            class="mt-0 flex-shrink-0"
             color="null"
             @change="$emit('checked', listItem)"
           />
