@@ -3,6 +3,7 @@ from typing import cast
 from pydantic import UUID4
 
 from mealie.core.exceptions import UnexpectedNone
+from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.group_shopping_list import (
     ShoppingListAddRecipeParamsBulk,
@@ -303,7 +304,10 @@ class ShoppingListService:
         """Generates a list of new list items based on a recipe"""
 
         if recipe_ingredients is None:
-            recipe = self.repos.recipes.get_one(recipe_id, "id")
+            group_recipes_repo = get_repositories(
+                self.repos.session, group_id=self.repos.group_id, household_id=None
+            ).recipes
+            recipe = group_recipes_repo.get_one(recipe_id, "id")
             if not recipe:
                 raise UnexpectedNone("Recipe not found")
 
