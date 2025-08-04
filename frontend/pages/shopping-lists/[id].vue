@@ -167,7 +167,6 @@
               >
                 <ShoppingListItem
                   v-model="value[index]"
-                  :show-label="false"
                   :labels="allLabels || []"
                   :units="allUnits || []"
                   :foods="allFoods || []"
