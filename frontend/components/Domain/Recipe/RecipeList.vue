@@ -1,5 +1,5 @@
 <template>
-  <v-list :class="tile ? 'd-flex flex-wrap background' : 'background'">
+  <v-list :class="tile ? 'd-flex flex-wrap background' : 'background'" style="background-color: transparent;">
     <v-sheet
       v-for="recipe, index in recipes"
       :key="recipe.id"
@@ -41,10 +41,10 @@
           </v-list-item-subtitle>
         </div>
         <template #append>
-            <slot
-              :name="'actions-' + recipe.id"
-              :v-bind="{ item: recipe }"
-            />
+          <slot
+            :name="'actions-' + recipe.id"
+            :v-bind="{ item: recipe }"
+          />
         </template>
       </v-list-item>
     </v-sheet>
