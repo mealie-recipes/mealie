@@ -144,6 +144,7 @@ class NLPParser(ABCIngredientParser):
         food, food_conf = self._extract_food(ingredient)
         note, note_conf = self._extract_note(ingredient)
 
+        # average confidence for components which were parsed
         confidences: list[float] = []
         if qty:
             confidences.append(qty_conf)
