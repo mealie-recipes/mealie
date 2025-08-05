@@ -7689,14 +7689,14 @@
             "chocolate chip": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate chip",
-                "plural_name": "chocolate chips"
+                "name": "pépite de chocolat",
+                "plural_name": "pépites de chocolat"
             },
             "dark chocolate chip": {
                 "aliases": [],
                 "description": "",
-                "name": "dark chocolate chip",
-                "plural_name": "dark chocolate chips"
+                "name": "pépite de chocolat noir",
+                "plural_name": "pépites de chocolat noir"
             },
             "whole-wheat flour": {
                 "aliases": [
@@ -7815,8 +7815,8 @@
             "rice flour": {
                 "aliases": [],
                 "description": "",
-                "name": "rice flour",
-                "plural_name": "rice flours"
+                "name": "farine de riz",
+                "plural_name": "farines de riz"
             },
             "desiccated coconut": {
                 "aliases": [],
@@ -8545,11 +8545,11 @@
             },
             "Rice Krispie Cereal": {
                 "aliases": [
-                    "Rice Krispie"
+                    "Rice Krispies"
                 ],
                 "description": "",
-                "name": "Rice Krispie Cereal",
-                "plural_name": "Rice Krispie Cereal"
+                "name": "Céréale Rice Krispies",
+                "plural_name": "Céréale Rice Krispies"
             },
             "quinoa": {
                 "aliases": [],
@@ -8746,7 +8746,7 @@
             "black rice": {
                 "aliases": [],
                 "description": "",
-                "name": "black rice",
+                "name": "riz noir",
                 "plural_name": "black rices"
             },
             "yellow rice": {
@@ -13878,8 +13878,8 @@
             "dark chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "dark chocolate",
-                "plural_name": "dark chocolates"
+                "name": "chocolat noir",
+                "plural_name": "chocolats noirs"
             },
             "dark cocoa": {
                 "aliases": [],
@@ -13890,8 +13890,8 @@
             "chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate",
-                "plural_name": "chocolates"
+                "name": "chocolat",
+                "plural_name": "chocolats"
             },
             "graham cracker": {
                 "aliases": [],
@@ -13908,14 +13908,14 @@
             "marshmallow": {
                 "aliases": [],
                 "description": "",
-                "name": "marshmallow",
-                "plural_name": "marshmallows"
+                "name": "chamallow",
+                "plural_name": "chamallows"
             },
             "mini arshmallow": {
                 "aliases": [],
                 "description": "",
                 "name": "mini arshmallow",
-                "plural_name": "mini marshmallows"
+                "plural_name": "mini chamallows"
             },
             "applesauce": {
                 "aliases": [],
@@ -13926,8 +13926,8 @@
             "white chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "white chocolate",
-                "plural_name": "white chocolates"
+                "name": "chocolat blanc",
+                "plural_name": "chocolats blancs"
             },
             "oreo": {
                 "aliases": [],
@@ -14319,8 +14319,8 @@
             "chocolate powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate powder",
-                "plural_name": "chocolate powders"
+                "name": "chocolat en poudre",
+                "plural_name": "chocolat en poudre"
             },
             "sponge cake": {
                 "aliases": [],
@@ -14343,8 +14343,8 @@
             "licorice": {
                 "aliases": [],
                 "description": "",
-                "name": "licorice",
-                "plural_name": "licorices"
+                "name": "réglisse",
+                "plural_name": "réglisses"
             },
             "plum jam": {
                 "aliases": [],
