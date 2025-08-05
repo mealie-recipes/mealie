@@ -31,8 +31,27 @@ class BruteForceParser(ABCIngredientParser):
     async def parse_one(self, ingredient: str) -> ParsedIngredient:
         bfi = brute.parse(ingredient, self)
 
+        confidences = []
+        qty_conf = 1.0 if bfi.amount else 0.0
+        unit_conf = 1.0 if bfi.unit else 0.0
+        food_conf = 1.0 if bfi.food else 0.0
+        note_conf = 1.0 if bfi.note else 0.0
+
+        for conf in [qty_conf, unit_conf, food_conf, note_conf]:
+            if conf > 0:
+                confidences.append(conf)
+
+        avg_conf = sum(confidences) / len(confidences) if confidences else 1.0
+
         parsed_ingredient = ParsedIngredient(
             input=ingredient,
+            confidence=IngredientConfidence(
+                average=avg_conf,
+                quantity=qty_conf,
+                unit=unit_conf,
+                food=food_conf,
+                comment=note_conf,
+            ),
             ingredient=RecipeIngredient(
                 unit=CreateIngredientUnit(name=bfi.unit),
                 food=CreateIngredientFood(name=bfi.food),
@@ -125,7 +144,6 @@ class NLPParser(ABCIngredientParser):
         food, food_conf = self._extract_food(ingredient)
         note, note_conf = self._extract_note(ingredient)
 
-        # average confidence for components which were parsed
         confidences: list[float] = []
         if qty:
             confidences.append(qty_conf)
