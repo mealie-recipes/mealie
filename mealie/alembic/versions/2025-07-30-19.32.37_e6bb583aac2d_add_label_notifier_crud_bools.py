@@ -1,7 +1,7 @@
 """'Add label notifier CRUD bools'
 
 Revision ID: e6bb583aac2d
-Revises: 7cf3054cbbcc
+Revises: d7b3ce6fa31a
 Create Date: 2025-07-30 19:32:37.285172
 
 """
@@ -11,7 +11,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "e6bb583aac2d"
-down_revision: str | None = "7cf3054cbbcc"
+down_revision: str | None = "d7b3ce6fa31a"
 branch_labels: str | tuple[str, ...] | None = None
 depends_on: str | tuple[str, ...] | None = None
 
