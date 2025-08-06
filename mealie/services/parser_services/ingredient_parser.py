@@ -31,27 +31,8 @@ class BruteForceParser(ABCIngredientParser):
     async def parse_one(self, ingredient: str) -> ParsedIngredient:
         bfi = brute.parse(ingredient, self)
 
-        confidences = []
-        qty_conf = 1.0 if bfi.amount else 0.0
-        unit_conf = 1.0 if bfi.unit else 0.0
-        food_conf = 1.0 if bfi.food else 0.0
-        note_conf = 1.0 if bfi.note else 0.0
-
-        for conf in [qty_conf, unit_conf, food_conf, note_conf]:
-            if conf > 0:
-                confidences.append(conf)
-
-        avg_conf = sum(confidences) / len(confidences) if confidences else 1.0
-
         parsed_ingredient = ParsedIngredient(
             input=ingredient,
-            confidence=IngredientConfidence(
-                average=avg_conf,
-                quantity=qty_conf,
-                unit=unit_conf,
-                food=food_conf,
-                comment=note_conf,
-            ),
             ingredient=RecipeIngredient(
                 unit=CreateIngredientUnit(name=bfi.unit),
                 food=CreateIngredientFood(name=bfi.food),
@@ -60,7 +41,24 @@ class BruteForceParser(ABCIngredientParser):
             ),
         )
 
-        return self.find_ingredient_match(parsed_ingredient)
+        matched_ingredient = self.find_ingredient_match(parsed_ingredient)
+
+        qty_conf = 1
+        note_conf = 1
+        unit_conf = 1 if bfi.unit is None or matched_ingredient.ingredient.unit else 0
+        food_conf = 1 if bfi.food is None or matched_ingredient.ingredient.food else 0
+
+        avg_conf = (qty_conf + unit_conf + food_conf + note_conf) / 4
+
+        matched_ingredient.confidence = IngredientConfidence(
+            average=avg_conf,
+            quantity=qty_conf,
+            unit=unit_conf,
+            food=food_conf,
+            comment=note_conf,
+        )
+
+        return matched_ingredient
 
     async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
         return [await self.parse_one(ingredient) for ingredient in ingredients]
