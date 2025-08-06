@@ -17,7 +17,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "болгарский перец",
-                "plural_name": "болгарских перца"
+                "plural_name": "болгарских перцев"
             },
             "carrot": {
                 "aliases": [],
@@ -76,36 +76,36 @@
             "shallot": {
                 "aliases": [],
                 "description": "",
-                "name": "шалот",
-                "plural_name": "шалот"
+                "name": "лук-шалот",
+                "plural_name": "лука-шалот"
             },
             "cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "помидор Черри",
-                "plural_name": "помидоры Черри"
+                "name": "помидор черри",
+                "plural_name": "помидоров черри"
             },
             "cucumber": {
                 "aliases": [],
                 "description": "",
                 "name": "огурец",
-                "plural_name": "огурцы"
+                "plural_name": "огурцов"
             },
             "spinach": {
                 "aliases": [],
                 "description": "",
                 "name": "шпинат",
-                "plural_name": "шпинат"
+                "plural_name": "шпината"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "сладкая кукуруза",
-                "plural_name": "сладкая кукуруза"
+                "plural_name": "сладкой кукурузы"
             },
             "chile pepper": {
                 "aliases": [
-                    "стручковый перец"
+                    "стручкового перца"
                 ],
                 "description": "",
                 "name": "перец чили",
@@ -115,7 +115,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "батат",
-                "plural_name": "батат"
+                "plural_name": "батата"
             },
             "broccoli": {
                 "aliases": [],
@@ -133,7 +133,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "молодая зелень",
-                "plural_name": "молодая зелень"
+                "plural_name": "молодой зелени"
             },
             "pumpkin": {
                 "aliases": [],
@@ -151,55 +151,55 @@
                 "aliases": [],
                 "description": "",
                 "name": "капуста",
-                "plural_name": "капуста"
+                "plural_name": "капусты"
             },
             "asparagu": {
                 "aliases": [],
                 "description": "",
                 "name": "спаржа",
-                "plural_name": "спаржа"
+                "plural_name": "спаржи"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
                 "name": "кудрявая капуста",
-                "plural_name": "кудрявая капуста"
+                "plural_name": "кудрявой капусты"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
                 "name": "руккола",
-                "plural_name": "руккола"
+                "plural_name": "рукколы"
             },
             "leek": {
                 "aliases": [],
                 "description": "",
                 "name": "лук-порей",
-                "plural_name": "лук-порей"
+                "plural_name": "лука-порей"
             },
             "eggplant": {
                 "aliases": [],
                 "description": "",
                 "name": "баклажан",
-                "plural_name": "баклажаны"
+                "plural_name": "баклажана"
             },
             "lettuce": {
                 "aliases": [],
                 "description": "",
                 "name": "салат - латук",
-                "plural_name": "салат - латук"
+                "plural_name": "салата - латук"
             },
             "butternut squash": {
                 "aliases": [],
                 "description": "",
                 "name": "мускатная тыква",
-                "plural_name": "мускатная тыква"
+                "plural_name": "мускатной тыквы"
             },
             "romaine": {
                 "aliases": [],
                 "description": "",
                 "name": "римский салат",
-                "plural_name": "римский салат"
+                "plural_name": "римского салата"
             },
             "beetroot": {
                 "aliases": [],
@@ -211,47 +211,47 @@
                 "aliases": [],
                 "description": "",
                 "name": "брюссельская капуста",
-                "plural_name": "брюссельская капуста"
+                "plural_name": "брюссельской капусты"
             },
             "fennel": {
                 "aliases": [],
                 "description": "",
                 "name": "фенхель",
-                "plural_name": "фенхель"
+                "plural_name": "фенхеля"
             },
             "sun dried tomato": {
                 "aliases": [],
                 "description": "",
                 "name": "вяленый помидор",
-                "plural_name": "вяленые помидоры"
+                "plural_name": "вяленых помидор"
             },
             "radish": {
                 "aliases": [],
                 "description": "",
                 "name": "редис",
-                "plural_name": "редис"
+                "plural_name": "редиса"
             },
             "red cabbage": {
                 "aliases": [],
                 "description": "",
                 "name": "красная капуста",
-                "plural_name": "красная капуста"
+                "plural_name": "красной капусты"
             },
             "artichoke": {
                 "aliases": [],
                 "description": "",
                 "name": "артишок",
-                "plural_name": "артишоки"
+                "plural_name": "артишока"
             },
             "new potato": {
                 "aliases": [],
                 "description": "",
                 "name": "молодой картофель",
-                "plural_name": "молодой картофель"
+                "plural_name": "молодого картофеля"
             },
             "summer squash": {
                 "aliases": [
-                    "кабачок",
+                    "кабачка",
                     "гем-сквош"
                 ],
                 "description": "",
@@ -629,68 +629,68 @@
             "tomato": {
                 "aliases": [],
                 "description": "Yes they are a fruit",
-                "name": "tomato",
-                "plural_name": "tomatoes"
+                "name": "помидор",
+                "plural_name": "помидоров"
             },
             "lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon",
-                "plural_name": "lemons"
+                "name": "лимон",
+                "plural_name": "лимонов"
             },
             "lime": {
                 "aliases": [],
                 "description": "",
-                "name": "lime",
-                "plural_name": "limes"
+                "name": "лайм",
+                "plural_name": "лаймов"
             },
             "apple": {
                 "aliases": [],
                 "description": "",
-                "name": "apple",
-                "plural_name": "apples"
+                "name": "яблоко",
+                "plural_name": "яблок"
             },
             "banana": {
                 "aliases": [],
                 "description": "",
-                "name": "banana",
-                "plural_name": "bananas"
+                "name": "банан",
+                "plural_name": "бананов"
             },
             "orange": {
                 "aliases": [],
                 "description": "",
-                "name": "orange",
-                "plural_name": "oranges"
+                "name": "апельсин",
+                "plural_name": "апельсинов"
             },
             "raisin": {
                 "aliases": [],
                 "description": "",
-                "name": "raisin",
-                "plural_name": "raisins"
+                "name": "изюм",
+                "plural_name": "изюма"
             },
             "pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple",
-                "plural_name": "pineapples"
+                "name": "ананас",
+                "plural_name": "ананасов"
             },
             "mango": {
                 "aliases": [],
                 "description": "",
-                "name": "mango",
-                "plural_name": "mangoes"
+                "name": "манго",
+                "plural_name": "манго"
             },
             "peach": {
                 "aliases": [],
                 "description": "",
-                "name": "peach",
-                "plural_name": "peaches"
+                "name": "персик",
+                "plural_name": "персиков"
             },
             "date": {
                 "aliases": [],
                 "description": "",
-                "name": "date",
-                "plural_name": "dates"
+                "name": "финик",
+                "plural_name": "фиников"
             },
             "coconut": {
                 "aliases": [],
@@ -713,14 +713,14 @@
             "grape": {
                 "aliases": [],
                 "description": "",
-                "name": "grape",
-                "plural_name": "grapes"
+                "name": "виноград",
+                "plural_name": "винограда"
             },
             "pomegranate": {
                 "aliases": [],
                 "description": "",
-                "name": "pomegranate",
-                "plural_name": "pomegranates"
+                "name": "гранат",
+                "plural_name": "граната"
             },
             "watermelon": {
                 "aliases": [],
@@ -743,8 +743,8 @@
             "kiwi": {
                 "aliases": [],
                 "description": "",
-                "name": "kiwi",
-                "plural_name": "kiwis"
+                "name": "киви",
+                "plural_name": "киви"
             },
             "grapefruit": {
                 "aliases": [],
@@ -911,14 +911,14 @@
             "kumquat": {
                 "aliases": [],
                 "description": "",
-                "name": "kumquat",
-                "plural_name": "kumquats"
+                "name": "кумкват",
+                "plural_name": "кумкватов"
             },
             "jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit",
-                "plural_name": "jackfruits"
+                "name": "джекфрут",
+                "plural_name": "джекфрутов"
             },
             "dragon fruit": {
                 "aliases": [],
