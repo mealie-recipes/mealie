@@ -199,7 +199,7 @@ class PillowMinifier(ABCMinifier):
                         self._logger.info(f"{tiny_dest} already minified")
                     else:
                         result_path = PillowMinifier.to_webp(
-                            dest_path=tiny_dest, quality=70, img=PillowMinifier.crop_center(img, size=(300, 300))
+                            dest_path=tiny_dest, quality=70, img=PillowMinifier.crop_center(img, size=(150, 150))
                         )
                         self._logger.info(f"{result_path} created")
                         success = True
