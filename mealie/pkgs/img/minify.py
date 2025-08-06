@@ -98,10 +98,7 @@ class PillowMinifier(ABCMinifier):
 
         img.save(dest, image_format.format, quality=quality)
 
-        width, height = img.size
-        new_dest = dest.with_name(f"{dest.stem}_{width}x{height}{dest.suffix}")
-
-        return new_dest
+        return dest
 
     @staticmethod
     def to_jpg(
