@@ -176,7 +176,6 @@ class PillowMinifier(ABCMinifier):
             with Image.open(image_path) as img:
                 img = ImageOps.exif_transpose(img)
                 if self._opts.original:
-                    # Used as default
                     if not force and org_dest.exists():
                         self._logger.info(f"{org_dest} already minified")
                     else:
@@ -187,8 +186,6 @@ class PillowMinifier(ABCMinifier):
                         success = True
 
                 if self._opts.miniature:
-                    # Used /g/home in desktop / tablet view
-                    # Used g/home/cookbooks/ desktop view
                     if not force and min_dest.exists():
                         self._logger.info(f"{min_dest} already minified")
                     else:
@@ -201,12 +198,6 @@ class PillowMinifier(ABCMinifier):
                         success = True
 
                 if self._opts.tiny:
-                    # Used /g/home/ in mobile view
-                    # Used /g/home/recipes/finder all views
-                    # Used /household/mealplan/planner/edit (currently used)
-                    # Used /g/home/recipes/timeline Desktop view only
-                    # Used g/home/cookbooks/cookbook in mobile / tablet
-
                     if not force and tiny_dest.exists():
                         self._logger.info(f"{tiny_dest} already minified")
                     else:
