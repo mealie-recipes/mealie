@@ -45,7 +45,7 @@
         "name": "millilitre",
         "plural_name": "millilitres",
         "description": "",
-        "abbreviation": "mL"
+        "abbreviation": "ml"
     },
     "liter": {
         "name": "litre",
