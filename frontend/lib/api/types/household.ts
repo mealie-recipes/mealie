@@ -21,7 +21,6 @@ export interface CreateHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
-  recipeDisableAmount?: boolean;
 }
 export interface CreateInviteToken {
   uses: number;
@@ -200,7 +199,6 @@ export interface ReadHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
-  recipeDisableAmount?: boolean;
   id: string;
 }
 export interface HouseholdUserSummary {
@@ -278,7 +276,6 @@ export interface SaveHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
-  recipeDisableAmount?: boolean;
   householdId: string;
 }
 export interface SaveInviteToken {
@@ -312,8 +309,6 @@ export interface RecipeIngredient {
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
   note?: string | null;
-  isFood?: boolean | null;
-  disableAmount?: boolean;
   display?: string;
   title?: string | null;
   originalText?: string | null;
@@ -418,8 +413,6 @@ export interface ShoppingListItemBase {
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
   note?: string | null;
-  isFood?: boolean;
-  disableAmount?: boolean | null;
   display?: string;
   shoppingListId: string;
   checked?: boolean;
@@ -436,8 +429,6 @@ export interface ShoppingListItemCreate {
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
   note?: string | null;
-  isFood?: boolean;
-  disableAmount?: boolean | null;
   display?: string;
   shoppingListId: string;
   checked?: boolean;
@@ -462,8 +453,6 @@ export interface ShoppingListItemOut {
   unit?: IngredientUnit | null;
   food?: IngredientFood | null;
   note?: string | null;
-  isFood?: boolean;
-  disableAmount?: boolean | null;
   display?: string;
   shoppingListId: string;
   checked?: boolean;
@@ -503,8 +492,6 @@ export interface ShoppingListItemUpdate {
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
   note?: string | null;
-  isFood?: boolean;
-  disableAmount?: boolean | null;
   display?: string;
   shoppingListId: string;
   checked?: boolean;
@@ -522,8 +509,6 @@ export interface ShoppingListItemUpdateBulk {
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
   note?: string | null;
-  isFood?: boolean;
-  disableAmount?: boolean | null;
   display?: string;
   shoppingListId: string;
   checked?: boolean;
@@ -691,14 +676,11 @@ export interface UpdateHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
-  recipeDisableAmount?: boolean;
 }
 export interface RecipeIngredientBase {
   quantity?: number | null;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
   note?: string | null;
-  isFood?: boolean | null;
-  disableAmount?: boolean | null;
   display?: string;
 }

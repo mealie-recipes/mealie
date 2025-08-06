@@ -9,6 +9,5 @@ class RecipeSettings(MealieModel):
     show_assets: bool = False
     landscape_view: bool = False
     disable_comments: bool = True
-    disable_amount: bool = True
     locked: bool = False
     model_config = ConfigDict(from_attributes=True)

@@ -22,10 +22,7 @@
             :class="listItem.checked ? 'strike-through' : ''"
             style="min-width: 0;"
           >
-            <RecipeIngredientListItem
-              :ingredient="listItem"
-              :disable-amount="!(listItem.isFood || listItem.quantity !== 1)"
-            />
+            <RecipeIngredientListItem :ingredient="listItem" />
           </div>
         </div>
       </v-col>
@@ -59,7 +56,7 @@
                 open-delay="200"
                 transition="slide-x-reverse-transition"
                 density="compact"
-                right
+                location="end"
                 content-class="text-caption"
               >
                 <template #activator="{ props: tooltipProps }">
@@ -172,7 +169,6 @@
       @save="save"
       @cancel="toggleEdit(false)"
       @delete="$emit('delete')"
-      @toggle-foods="localListItem.isFood = !localListItem.isFood"
     />
   </div>
 </template>

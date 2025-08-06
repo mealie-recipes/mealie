@@ -648,19 +648,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "eple",
-                "plural_name": "apples"
+                "plural_name": "epler"
             },
             "banana": {
                 "aliases": [],
                 "description": "",
                 "name": "banan",
-                "plural_name": "bananas"
+                "plural_name": "bananer"
             },
             "orange": {
                 "aliases": [],
                 "description": "",
                 "name": "appelsin",
-                "plural_name": "oranges"
+                "plural_name": "appelsiner"
             },
             "raisin": {
                 "aliases": [],
@@ -678,13 +678,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "mango",
-                "plural_name": "mangoes"
+                "plural_name": "mango"
             },
             "peach": {
                 "aliases": [],
                 "description": "",
                 "name": "fersken",
-                "plural_name": "peaches"
+                "plural_name": "fersken"
             },
             "date": {
                 "aliases": [],
@@ -702,7 +702,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "craisin",
-                "plural_name": "craisins"
+                "plural_name": "tranebær"
             },
             "pear": {
                 "aliases": [],
@@ -732,30 +732,30 @@
                 "aliases": [],
                 "description": "",
                 "name": "rabarbra",
-                "plural_name": "rhubarbs"
+                "plural_name": "rabarbra"
             },
             "dried apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apricot",
-                "plural_name": "dried apricots"
+                "name": "tørket aprikos",
+                "plural_name": "tørket aprikos"
             },
             "kiwi": {
                 "aliases": [],
                 "description": "",
                 "name": "kiwi",
-                "plural_name": "kiwis"
+                "plural_name": "kiwi"
             },
             "grapefruit": {
                 "aliases": [],
                 "description": "",
                 "name": "grapefruit",
-                "plural_name": "grapefruits"
+                "plural_name": "grapefrukt"
             },
             "plum": {
                 "aliases": [],
                 "description": "",
-                "name": "plum",
+                "name": "plomme",
                 "plural_name": "plums"
             },
             "fig": {
@@ -780,7 +780,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mandarin",
-                "plural_name": "mandarins"
+                "plural_name": "mandariner"
             },
             "prune": {
                 "aliases": [],

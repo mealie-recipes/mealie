@@ -472,6 +472,7 @@
     "comment": "Comentariu",
     "comments": "Comentarii",
     "delete-confirmation": "Sunteți sigur că doriți să ștergeți această rețetă?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Șterge rețeta",
     "description": "Descriere",
     "disable-amount": "Dezactivați cantitățile Ingredientelor",
@@ -662,6 +663,8 @@
       "no-unit": "Nicio unitate",
       "missing-unit": "Creează unitate lipsă: {unit}",
       "missing-food": "Creează mâncare lipsă: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Niciun aliment"
     },
     "reset-servings-count": "Resetează numărul de serviri",

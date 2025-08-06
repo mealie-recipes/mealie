@@ -93,7 +93,7 @@
     <!-- Alias Sub-Dialog -->
     <RecipeDataAliasManagerDialog
       v-if="editTarget"
-      :value="aliasManagerDialog"
+      v-model="aliasManagerDialog"
       :data="editTarget"
       can-submit
       @submit="updateUnitAlias"

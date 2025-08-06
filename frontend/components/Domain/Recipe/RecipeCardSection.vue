@@ -36,11 +36,11 @@
         offset-y
         start
       >
-        <template #activator="{ props }">
+        <template #activator="{ props: activatorProps }">
           <v-btn
             variant="text"
             :icon="$vuetify.display.xs"
-            v-bind="props"
+            v-bind="activatorProps"
             :loading="sortLoading"
           >
             <v-icon :start="!$vuetify.display.xs">
@@ -162,7 +162,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useThrottleFn } from "@vueuse/core";
 import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
@@ -175,273 +175,243 @@ import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 const REPLACE_RECIPES_EVENT = "replaceRecipes";
 const APPEND_RECIPES_EVENT = "appendRecipes";
 
-export default defineNuxtComponent({
-  components: {
-    RecipeCard,
-    RecipeCardMobile,
-  },
-  props: {
-    disableToolbar: {
-      type: Boolean,
-      default: false,
-    },
-    disableSort: {
-      type: Boolean,
-      default: false,
-    },
-    icon: {
-      type: String,
-      default: null,
-    },
-    title: {
-      type: String,
-      default: null,
-    },
-    singleColumn: {
-      type: Boolean,
-      default: false,
-    },
-    recipes: {
-      type: Array as () => Recipe[],
-      default: () => [],
-    },
-    query: {
-      type: Object as () => RecipeSearchQuery,
-      default: null,
-    },
-  },
-  setup(props, context) {
-    const { $vuetify } = useNuxtApp();
-    const preferences = useUserSortPreferences();
+interface Props {
+  disableToolbar?: boolean;
+  disableSort?: boolean;
+  icon?: string | null;
+  title?: string | null;
+  singleColumn?: boolean;
+  recipes?: Recipe[];
+  query?: RecipeSearchQuery | null;
+}
+const props = withDefaults(defineProps<Props>(), {
+  disableToolbar: false,
+  disableSort: false,
+  icon: null,
+  title: null,
+  singleColumn: false,
+  recipes: () => [],
+  query: null,
+});
 
-    const EVENTS = {
-      az: "az",
-      rating: "rating",
-      created: "created",
-      updated: "updated",
-      lastMade: "lastMade",
-      shuffle: "shuffle",
-    };
+const emit = defineEmits<{
+  replaceRecipes: [recipes: Recipe[]];
+  appendRecipes: [recipes: Recipe[]];
+}>();
 
-    const $auth = useMealieAuth();
-    const { $globals } = useNuxtApp();
-    const { isOwnGroup } = useLoggedInState();
-    const useMobileCards = computed(() => {
-      return $vuetify.display.smAndDown.value || preferences.value.useMobileCards;
-    });
+const { $vuetify } = useNuxtApp();
+const preferences = useUserSortPreferences();
 
-    const displayTitleIcon = computed(() => {
-      return props.icon || $globals.icons.tags;
-    });
+const EVENTS = {
+  az: "az",
+  rating: "rating",
+  created: "created",
+  updated: "updated",
+  lastMade: "lastMade",
+  shuffle: "shuffle",
+};
 
-    const state = reactive({
-      sortLoading: false,
-    });
+const $auth = useMealieAuth();
+const { $globals } = useNuxtApp();
+const { isOwnGroup } = useLoggedInState();
+const useMobileCards = computed(() => {
+  return $vuetify.display.smAndDown.value || preferences.value.useMobileCards;
+});
 
-    const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+const displayTitleIcon = computed(() => {
+  return props.icon || $globals.icons.tags;
+});
 
-    const page = ref(1);
-    const perPage = 32;
-    const hasMore = ref(true);
-    const ready = ref(false);
-    const loading = ref(false);
+const sortLoading = ref(false);
 
-    const { fetchMore, getRandom } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
-    const router = useRouter();
+const route = useRoute();
+const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
-    const queryFilter = computed(() => {
-      return props.query.queryFilter || null;
+const page = ref(1);
+const perPage = 32;
+const hasMore = ref(true);
+const ready = ref(false);
+const loading = ref(false);
 
-      // TODO: allow user to filter out null values when ordering by a value that may be null (such as lastMade)
+const { fetchMore, getRandom } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
+const router = useRouter();
 
-      // const orderBy = props.query?.orderBy || preferences.value.orderBy;
-      // const orderByFilter = preferences.value.filterNull && orderBy ? `${orderBy} IS NOT NULL` : null;
+const queryFilter = computed(() => {
+  return props.query?.queryFilter || null;
 
-      // if (props.query.queryFilter && orderByFilter) {
-      //   return `(${props.query.queryFilter}) AND ${orderByFilter}`;
-      // } else if (props.query.queryFilter) {
-      //   return props.query.queryFilter;
-      // } else {
-      //   return orderByFilter;
-      // }
-    });
+  // TODO: allow user to filter out null values when ordering by a value that may be null (such as lastMade)
 
-    async function fetchRecipes(pageCount = 1) {
-      const orderDir = props.query?.orderDirection || preferences.value.orderDirection;
-      const orderByNullPosition = props.query?.orderByNullPosition || orderDir === "asc" ? "first" : "last";
-      return await fetchMore(
-        page.value,
-        perPage * pageCount,
-        props.query?.orderBy || preferences.value.orderBy,
-        orderDir,
-        orderByNullPosition,
-        props.query,
-        // we use a computed queryFilter to filter out recipes that have a null value for the property we're sorting by
-        queryFilter.value,
-      );
-    }
+  // const orderBy = props.query?.orderBy || preferences.value.orderBy;
+  // const orderByFilter = preferences.value.filterNull && orderBy ? `${orderBy} IS NOT NULL` : null;
 
-    onMounted(async () => {
+  // if (props.query.queryFilter && orderByFilter) {
+  //   return `(${props.query.queryFilter}) AND ${orderByFilter}`;
+  // } else if (props.query.queryFilter) {
+  //   return props.query.queryFilter;
+  // } else {
+  //   return orderByFilter;
+  // }
+});
+
+async function fetchRecipes(pageCount = 1) {
+  const orderDir = props.query?.orderDirection || preferences.value.orderDirection;
+  const orderByNullPosition = props.query?.orderByNullPosition || orderDir === "asc" ? "first" : "last";
+  return await fetchMore(
+    page.value,
+    perPage * pageCount,
+    props.query?.orderBy || preferences.value.orderBy,
+    orderDir,
+    orderByNullPosition,
+    props.query,
+    // we use a computed queryFilter to filter out recipes that have a null value for the property we're sorting by
+    queryFilter.value,
+  );
+}
+
+onMounted(async () => {
+  await initRecipes();
+  ready.value = true;
+});
+
+let lastQuery: string | undefined = JSON.stringify(props.query);
+watch(
+  () => props.query,
+  async (newValue: RecipeSearchQuery | undefined | null) => {
+    const newValueString = JSON.stringify(newValue);
+    if (lastQuery !== newValueString) {
+      lastQuery = newValueString;
+      ready.value = false;
       await initRecipes();
       ready.value = true;
-    });
-
-    let lastQuery: string | undefined = JSON.stringify(props.query);
-    watch(
-      () => props.query,
-      async (newValue: RecipeSearchQuery | undefined) => {
-        const newValueString = JSON.stringify(newValue);
-        if (lastQuery !== newValueString) {
-          lastQuery = newValueString;
-          ready.value = false;
-          await initRecipes();
-          ready.value = true;
-        }
-      },
-    );
-
-    async function initRecipes() {
-      page.value = 1;
-      hasMore.value = true;
-
-      // we double-up the first call to avoid a bug with large screens that render
-      // the entire first page without scrolling, preventing additional loading
-      const newRecipes = await fetchRecipes(page.value + 1);
-      if (newRecipes.length < perPage) {
-        hasMore.value = false;
-      }
-
-      // since we doubled the first call, we also need to advance the page
-      page.value = page.value + 1;
-
-      context.emit(REPLACE_RECIPES_EVENT, newRecipes);
     }
-
-    const infiniteScroll = useThrottleFn(async () => {
-      if (!hasMore.value || loading.value) {
-        return;
-      }
-
-      loading.value = true;
-      page.value = page.value + 1;
-
-      const newRecipes = await fetchRecipes();
-      if (newRecipes.length < perPage) {
-        hasMore.value = false;
-      }
-      if (newRecipes.length) {
-        context.emit(APPEND_RECIPES_EVENT, newRecipes);
-      }
-
-      loading.value = false;
-    }, 500);
-
-    async function sortRecipes(sortType: string) {
-      if (state.sortLoading || loading.value) {
-        return;
-      }
-
-      function setter(
-        orderBy: string,
-        ascIcon: string,
-        descIcon: string,
-        defaultOrderDirection = "asc",
-        filterNull = false,
-      ) {
-        if (preferences.value.orderBy !== orderBy) {
-          preferences.value.orderBy = orderBy;
-          preferences.value.orderDirection = defaultOrderDirection;
-          preferences.value.filterNull = filterNull;
-        }
-        else {
-          preferences.value.orderDirection = preferences.value.orderDirection === "asc" ? "desc" : "asc";
-        }
-        preferences.value.sortIcon = preferences.value.orderDirection === "asc" ? ascIcon : descIcon;
-      }
-
-      switch (sortType) {
-        case EVENTS.az:
-          setter(
-            "name",
-            $globals.icons.sortAlphabeticalAscending,
-            $globals.icons.sortAlphabeticalDescending,
-            "asc",
-            false,
-          );
-          break;
-        case EVENTS.rating:
-          setter("rating", $globals.icons.sortAscending, $globals.icons.sortDescending, "desc", true);
-          break;
-        case EVENTS.created:
-          setter(
-            "created_at",
-            $globals.icons.sortCalendarAscending,
-            $globals.icons.sortCalendarDescending,
-            "desc",
-            false,
-          );
-          break;
-        case EVENTS.updated:
-          setter("updated_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending, "desc", false);
-          break;
-        case EVENTS.lastMade:
-          setter(
-            "last_made",
-            $globals.icons.sortCalendarAscending,
-            $globals.icons.sortCalendarDescending,
-            "desc",
-            true,
-          );
-          break;
-        default:
-          console.log("Unknown Event", sortType);
-          return;
-      }
-
-      // reset pagination
-      page.value = 1;
-      hasMore.value = true;
-
-      state.sortLoading = true;
-      loading.value = true;
-
-      // fetch new recipes
-      const newRecipes = await fetchRecipes();
-      context.emit(REPLACE_RECIPES_EVENT, newRecipes);
-
-      state.sortLoading = false;
-      loading.value = false;
-    }
-
-    async function navigateRandom() {
-      const recipe = await getRandom(props.query, queryFilter.value);
-      if (!recipe?.slug) {
-        return;
-      }
-
-      router.push(`/g/${groupSlug.value}/r/${recipe.slug}`);
-    }
-
-    function toggleMobileCards() {
-      preferences.value.useMobileCards = !preferences.value.useMobileCards;
-    }
-
-    return {
-      ...toRefs(state),
-      displayTitleIcon,
-      EVENTS,
-      infiniteScroll,
-      ready,
-      loading,
-      navigateRandom,
-      preferences,
-      sortRecipes,
-      toggleMobileCards,
-      useMobileCards,
-    };
   },
-});
+);
+
+async function initRecipes() {
+  page.value = 1;
+  hasMore.value = true;
+
+  // we double-up the first call to avoid a bug with large screens that render
+  // the entire first page without scrolling, preventing additional loading
+  const newRecipes = await fetchRecipes(page.value + 1);
+  if (newRecipes.length < perPage) {
+    hasMore.value = false;
+  }
+
+  // since we doubled the first call, we also need to advance the page
+  page.value = page.value + 1;
+
+  emit(REPLACE_RECIPES_EVENT, newRecipes);
+}
+
+const infiniteScroll = useThrottleFn(async () => {
+  if (!hasMore.value || loading.value) {
+    return;
+  }
+
+  loading.value = true;
+  page.value = page.value + 1;
+
+  const newRecipes = await fetchRecipes();
+  if (newRecipes.length < perPage) {
+    hasMore.value = false;
+  }
+  if (newRecipes.length) {
+    emit(APPEND_RECIPES_EVENT, newRecipes);
+  }
+
+  loading.value = false;
+}, 500);
+
+async function sortRecipes(sortType: string) {
+  if (sortLoading.value || loading.value) {
+    return;
+  }
+
+  function setter(
+    orderBy: string,
+    ascIcon: string,
+    descIcon: string,
+    defaultOrderDirection = "asc",
+    filterNull = false,
+  ) {
+    if (preferences.value.orderBy !== orderBy) {
+      preferences.value.orderBy = orderBy;
+      preferences.value.orderDirection = defaultOrderDirection;
+      preferences.value.filterNull = filterNull;
+    }
+    else {
+      preferences.value.orderDirection = preferences.value.orderDirection === "asc" ? "desc" : "asc";
+    }
+    preferences.value.sortIcon = preferences.value.orderDirection === "asc" ? ascIcon : descIcon;
+  }
+
+  switch (sortType) {
+    case EVENTS.az:
+      setter(
+        "name",
+        $globals.icons.sortAlphabeticalAscending,
+        $globals.icons.sortAlphabeticalDescending,
+        "asc",
+        false,
+      );
+      break;
+    case EVENTS.rating:
+      setter("rating", $globals.icons.sortAscending, $globals.icons.sortDescending, "desc", true);
+      break;
+    case EVENTS.created:
+      setter(
+        "created_at",
+        $globals.icons.sortCalendarAscending,
+        $globals.icons.sortCalendarDescending,
+        "desc",
+        false,
+      );
+      break;
+    case EVENTS.updated:
+      setter("updated_at", $globals.icons.sortClockAscending, $globals.icons.sortClockDescending, "desc", false);
+      break;
+    case EVENTS.lastMade:
+      setter(
+        "last_made",
+        $globals.icons.sortCalendarAscending,
+        $globals.icons.sortCalendarDescending,
+        "desc",
+        true,
+      );
+      break;
+    default:
+      console.log("Unknown Event", sortType);
+      return;
+  }
+
+  // reset pagination
+  page.value = 1;
+  hasMore.value = true;
+
+  sortLoading.value = true;
+  loading.value = true;
+
+  // fetch new recipes
+  const newRecipes = await fetchRecipes();
+  emit(REPLACE_RECIPES_EVENT, newRecipes);
+
+  sortLoading.value = false;
+  loading.value = false;
+}
+
+async function navigateRandom() {
+  const recipe = await getRandom(props.query, queryFilter.value);
+  if (!recipe?.slug) {
+    return;
+  }
+
+  router.push(`/g/${groupSlug.value}/r/${recipe.slug}`);
+}
+
+function toggleMobileCards() {
+  preferences.value.useMobileCards = !preferences.value.useMobileCards;
+}
 </script>
 
 <style>

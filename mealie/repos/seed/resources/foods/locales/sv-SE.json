@@ -11659,7 +11659,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "gochujang",
-                "plural_name": "gochujangs"
+                "plural_name": "gochujang"
             },
             "wasabi": {
                 "aliases": [],
@@ -11742,8 +11742,8 @@
             "tartar sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "tartar sauce",
-                "plural_name": "tartar sauces"
+                "name": "tartarsås",
+                "plural_name": "tartarsåser"
             },
             "hot pepper jelly": {
                 "aliases": [],
@@ -12060,8 +12060,8 @@
             "banana ketchup": {
                 "aliases": [],
                 "description": "",
-                "name": "banana ketchup",
-                "plural_name": "banana ketchups"
+                "name": "bananketchup",
+                "plural_name": "bananketchuper"
             },
             "chili puree": {
                 "aliases": [],
@@ -12723,7 +12723,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "salsa",
-                "plural_name": "salsas"
+                "plural_name": "salsa"
             },
             "tahini": {
                 "aliases": [],
@@ -12797,7 +12797,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "salsa verde",
-                "plural_name": "salsa verdes"
+                "plural_name": "salsa verde"
             },
             "alfredo sauce": {
                 "aliases": [],

@@ -33,7 +33,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { whenever } from "@vueuse/core";
 import { validators } from "~/composables/use-validators";
 import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
@@ -42,86 +42,66 @@ export interface GenericAlias {
   name: string;
 }
 
-export default defineNuxtComponent({
-  props: {
-    modelValue: {
-      type: Boolean,
-      default: false,
-    },
-    data: {
-      type: Object as () => IngredientFood | IngredientUnit,
-      required: true,
-    },
-  },
-  emits: ["submit", "update:modelValue", "cancel"],
-  setup(props, context) {
-    // V-Model Support
-    const dialog = computed({
-      get: () => {
-        return props.modelValue;
-      },
-      set: (val) => {
-        context.emit("update:modelValue", val);
-      },
-    });
+interface Props {
+  data: IngredientFood | IngredientUnit;
+}
 
-    function createAlias() {
-      aliases.value.push({
-        name: "",
-      });
-    }
+const props = defineProps<Props>();
 
-    function deleteAlias(index: number) {
-      aliases.value.splice(index, 1);
-    }
+const emit = defineEmits<{
+  submit: [aliases: GenericAlias[]];
+  cancel: [];
+}>();
 
-    const aliases = ref<GenericAlias[]>(props.data.aliases || []);
-    function initAliases() {
-      aliases.value = [...props.data.aliases || []];
-      if (!aliases.value.length) {
-        createAlias();
-      }
-    }
+// V-Model Support
+const dialog = defineModel<boolean>({ default: false });
 
+function createAlias() {
+  aliases.value.push({
+    name: "",
+  });
+}
+
+function deleteAlias(index: number) {
+  aliases.value.splice(index, 1);
+}
+
+const aliases = ref<GenericAlias[]>(props.data.aliases || []);
+function initAliases() {
+  aliases.value = [...props.data.aliases || []];
+  if (!aliases.value.length) {
+    createAlias();
+  }
+}
+
+initAliases();
+whenever(
+  () => dialog.value,
+  () => {
     initAliases();
-    whenever(
-      () => props.modelValue,
-      () => {
-        initAliases();
-      },
-    );
+  },
+);
 
-    function saveAliases() {
-      const seenAliasNames: string[] = [];
-      const keepAliases: GenericAlias[] = [];
-      aliases.value.forEach((alias) => {
-        if (
-          !alias.name
-          || alias.name === props.data.name
-          || alias.name === props.data.pluralName
-          || alias.name === props.data.abbreviation
-          || alias.name === props.data.pluralAbbreviation
-          || seenAliasNames.includes(alias.name)
-        ) {
-          return;
-        }
-
-        keepAliases.push(alias);
-        seenAliasNames.push(alias.name);
-      });
-
-      aliases.value = keepAliases;
-      context.emit("submit", keepAliases);
+function saveAliases() {
+  const seenAliasNames: string[] = [];
+  const keepAliases: GenericAlias[] = [];
+  aliases.value.forEach((alias) => {
+    if (
+      !alias.name
+      || alias.name === props.data.name
+      || alias.name === props.data.pluralName
+      || alias.name === props.data.abbreviation
+      || alias.name === props.data.pluralAbbreviation
+      || seenAliasNames.includes(alias.name)
+    ) {
+      return;
     }
 
-    return {
-      aliases,
-      createAlias,
-      dialog,
-      deleteAlias,
-      saveAliases,
-      validators,
-    };
-  },
-});
+    keepAliases.push(alias);
+    seenAliasNames.push(alias.name);
+  });
+
+  aliases.value = keepAliases;
+  emit("submit", keepAliases);
+}
 </script>

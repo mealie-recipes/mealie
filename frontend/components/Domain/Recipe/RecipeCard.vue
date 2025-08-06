@@ -2,11 +2,11 @@
   <!-- Wrap v-hover with a div to provide a proper DOM element for the transition -->
     <div>
       <v-hover
-        v-slot="{ isHovering, props }"
+        v-slot="{ isHovering, props: hoverProps }"
         :open-delay="50"
       >
         <v-card
-          v-bind="props"
+          v-bind="hoverProps"
           :class="{ 'on-hover': isHovering }"
           :style="{ cursor }"
           :elevation="isHovering ? 12 : 2"
@@ -100,7 +100,7 @@
     </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeChips from "./RecipeChips.vue";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
@@ -108,69 +108,41 @@ import RecipeCardImage from "./RecipeCardImage.vue";
 import RecipeRating from "./RecipeRating.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 
-export default defineNuxtComponent({
-  components: { RecipeFavoriteBadge, RecipeChips, RecipeContextMenu, RecipeRating, RecipeCardImage },
-  props: {
-    name: {
-      type: String,
-      required: true,
-    },
-    slug: {
-      type: String,
-      required: true,
-    },
-    description: {
-      type: String,
-      default: null,
-    },
-    rating: {
-      type: Number,
-      required: false,
-      default: 0,
-    },
-    ratingColor: {
-      type: String,
-      default: "secondary",
-    },
-    image: {
-      type: String,
-      required: false,
-      default: "abc123",
-    },
-    tags: {
-      type: Array,
-      default: () => [],
-    },
-    recipeId: {
-      required: true,
-      type: String,
-    },
-    imageHeight: {
-      type: Number,
-      default: 200,
-    },
-  },
-  emits: ["click", "delete"],
-  setup(props) {
-    const $auth = useMealieAuth();
-    const { isOwnGroup } = useLoggedInState();
-
-    const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
-    const showRecipeContent = computed(() => props.recipeId && props.slug);
-    const recipeRoute = computed<string>(() => {
-      return showRecipeContent.value ? `/g/${groupSlug.value}/r/${props.slug}` : "";
-    });
-    const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
-
-    return {
-      isOwnGroup,
-      recipeRoute,
-      showRecipeContent,
-      cursor,
-    };
-  },
+interface Props {
+  name: string;
+  slug: string;
+  description?: string | null;
+  rating?: number;
+  ratingColor?: string;
+  image?: string;
+  tags?: Array<any>;
+  recipeId: string;
+  imageHeight?: number;
+}
+const props = withDefaults(defineProps<Props>(), {
+  description: null,
+  rating: 0,
+  ratingColor: "secondary",
+  image: "abc123",
+  tags: () => [],
+  imageHeight: 200,
 });
+
+defineEmits<{
+  click: [];
+  delete: [slug: string];
+}>();
+
+const $auth = useMealieAuth();
+const { isOwnGroup } = useLoggedInState();
+
+const route = useRoute();
+const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
+const showRecipeContent = computed(() => props.recipeId && props.slug);
+const recipeRoute = computed<string>(() => {
+  return showRecipeContent.value ? `/g/${groupSlug.value}/r/${props.slug}` : "";
+});
+const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
 </script>
 
 <style>
@@ -195,6 +167,7 @@ export default defineNuxtComponent({
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 8;
+  line-clamp: 8;
   overflow: hidden;
 }
 </style>

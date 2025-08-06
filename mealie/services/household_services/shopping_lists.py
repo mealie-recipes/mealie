@@ -312,12 +312,10 @@ class ShoppingListService:
         list_items: list[ShoppingListItemCreate] = []
         for ingredient in recipe_ingredients:
             if isinstance(ingredient.food, IngredientFood):
-                is_food = True
                 food_id = ingredient.food.id
                 label_id = ingredient.food.label_id
 
             else:
-                is_food = False
                 food_id = None
                 label_id = None
 
@@ -329,7 +327,6 @@ class ShoppingListService:
 
             new_item = ShoppingListItemCreate(
                 shopping_list_id=list_id,
-                is_food=is_food,
                 note=ingredient.note,
                 quantity=ingredient.quantity * scale if ingredient.quantity else 0,
                 food_id=food_id,
