@@ -36,7 +36,7 @@
             :value="ing.referenceId"
           >
             <template #label>
-              <RecipeIngredientHtml :markup="parseIngredientText(ing, recipe.settings.disableAmount)" />
+              <RecipeIngredientHtml :markup="parseIngredientText(ing)" />
             </template>
           </v-checkbox-btn>
 
@@ -51,7 +51,7 @@
               :value="ing.referenceId"
             >
               <template #label>
-                <RecipeIngredientHtml :markup="parseIngredientText(ing, recipe.settings.disableAmount)" />
+                <RecipeIngredientHtml :markup="parseIngredientText(ing)" />
               </template>
             </v-checkbox-btn>
           </template>
@@ -323,7 +323,6 @@
                               return step.ingredientReferences.map((ref) => ref.referenceId).includes(ing.referenceId || '')
                             })"
                             :scale="scale"
-                            :disable-amount="recipe.settings.disableAmount"
                             :is-cook-mode="isCookMode"
                           />
                         </div>
@@ -552,7 +551,6 @@ function autoSetReferences() {
     props.recipe.recipeIngredient,
     activeRefs.value,
     activeText.value,
-    props.recipe.settings.disableAmount,
   ).forEach((ingredient: string) => activeRefs.value.push(ingredient));
 }
 
@@ -574,7 +572,7 @@ function getIngredientByRefId(refId: string | undefined) {
 
   const ing = ingredientLookup.value[refId];
   if (!ing) return "";
-  return parseIngredientText(ing, props.recipe.settings.disableAmount, props.scale);
+  return parseIngredientText(ing, props.scale);
 }
 
 // ===============================================================

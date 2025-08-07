@@ -16,33 +16,27 @@ describe(parseIngredientText.name, () => {
     ...overrides,
   });
 
-  test("uses ingredient note if disableAmount: true", () => {
-    const ingredient = createRecipeIngredient({ note: "foo" });
-
-    expect(parseIngredientText(ingredient, true)).toEqual("foo");
-  });
-
   test("adds note section if note present", () => {
     const ingredient = createRecipeIngredient({ note: "custom note" });
 
-    expect(parseIngredientText(ingredient, false)).toContain("custom note");
+    expect(parseIngredientText(ingredient)).toContain("custom note");
   });
 
   test("ingredient text with fraction", () => {
     const ingredient = createRecipeIngredient({ quantity: 1.5, unit: { fraction: true, id: "1", name: "cup" } });
 
-    expect(parseIngredientText(ingredient, false, 1, true)).contain("1<sup>1</sup>").and.to.contain("<sub>2</sub>");
+    expect(parseIngredientText(ingredient, 1, true)).contain("1<sup>1</sup>").and.to.contain("<sub>2</sub>");
   });
 
   test("ingredient text with fraction when unit is null", () => {
     const ingredient = createRecipeIngredient({ quantity: 1.5, unit: undefined });
 
-    expect(parseIngredientText(ingredient, false, 1, true)).contain("1<sup>1</sup>").and.to.contain("<sub>2</sub>");
+    expect(parseIngredientText(ingredient, 1, true)).contain("1<sup>1</sup>").and.to.contain("<sub>2</sub>");
   });
 
   test("ingredient text with fraction no formatting", () => {
     const ingredient = createRecipeIngredient({ quantity: 1.5, unit: { fraction: true, id: "1", name: "cup" } });
-    const result = parseIngredientText(ingredient, false, 1, false);
+    const result = parseIngredientText(ingredient, 1, false);
 
     expect(result).not.contain("<");
     expect(result).not.contain(">");
@@ -52,7 +46,7 @@ describe(parseIngredientText.name, () => {
   test("sanitizes html", () => {
     const ingredient = createRecipeIngredient({ note: "<script>alert('foo')</script>" });
 
-    expect(parseIngredientText(ingredient, false)).not.toContain("<script>");
+    expect(parseIngredientText(ingredient)).not.toContain("<script>");
   });
 
   test("plural test : plural qty : use abbreviation", () => {
@@ -62,7 +56,7 @@ describe(parseIngredientText.name, () => {
       food: { id: "1", name: "diced onion", pluralName: "diced onions" },
     });
 
-    expect(parseIngredientText(ingredient, false)).toEqual("2 tbsps diced onions");
+    expect(parseIngredientText(ingredient)).toEqual("2 tbsps diced onions");
   });
 
   test("plural test : plural qty : not abbreviation", () => {
@@ -72,7 +66,7 @@ describe(parseIngredientText.name, () => {
       food: { id: "1", name: "diced onion", pluralName: "diced onions" },
     });
 
-    expect(parseIngredientText(ingredient, false)).toEqual("2 tablespoons diced onions");
+    expect(parseIngredientText(ingredient)).toEqual("2 tablespoons diced onions");
   });
 
   test("plural test : single qty : use abbreviation", () => {
@@ -82,7 +76,7 @@ describe(parseIngredientText.name, () => {
       food: { id: "1", name: "diced onion", pluralName: "diced onions" },
     });
 
-    expect(parseIngredientText(ingredient, false)).toEqual("1 tbsp diced onion");
+    expect(parseIngredientText(ingredient)).toEqual("1 tbsp diced onion");
   });
 
   test("plural test : single qty : not abbreviation", () => {
@@ -92,7 +86,7 @@ describe(parseIngredientText.name, () => {
       food: { id: "1", name: "diced onion", pluralName: "diced onions" },
     });
 
-    expect(parseIngredientText(ingredient, false)).toEqual("1 tablespoon diced onion");
+    expect(parseIngredientText(ingredient)).toEqual("1 tablespoon diced onion");
   });
 
   test("plural test : small qty : use abbreviation", () => {
@@ -102,7 +96,7 @@ describe(parseIngredientText.name, () => {
       food: { id: "1", name: "diced onion", pluralName: "diced onions" },
     });
 
-    expect(parseIngredientText(ingredient, false)).toEqual("0.5 tbsp diced onion");
+    expect(parseIngredientText(ingredient)).toEqual("0.5 tbsp diced onion");
   });
 
   test("plural test : small qty : not abbreviation", () => {
@@ -112,7 +106,7 @@ describe(parseIngredientText.name, () => {
       food: { id: "1", name: "diced onion", pluralName: "diced onions" },
     });
 
-    expect(parseIngredientText(ingredient, false)).toEqual("0.5 tablespoon diced onion");
+    expect(parseIngredientText(ingredient)).toEqual("0.5 tablespoon diced onion");
   });
 
   test("plural test : zero qty", () => {
@@ -122,7 +116,7 @@ describe(parseIngredientText.name, () => {
       food: { id: "1", name: "diced onion", pluralName: "diced onions" },
     });
 
-    expect(parseIngredientText(ingredient, false)).toEqual("diced onions");
+    expect(parseIngredientText(ingredient)).toEqual("diced onions");
   });
 
   test("plural test : single qty, scaled", () => {
@@ -132,6 +126,6 @@ describe(parseIngredientText.name, () => {
       food: { id: "1", name: "diced onion", pluralName: "diced onions" },
     });
 
-    expect(parseIngredientText(ingredient, false, 2)).toEqual("2 tablespoons diced onions");
+    expect(parseIngredientText(ingredient, 2)).toEqual("2 tablespoons diced onions");
   });
 });

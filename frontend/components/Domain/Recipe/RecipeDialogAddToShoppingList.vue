@@ -130,20 +130,23 @@
                       .ingredients[i]
                       .checked"
                 >
-                  <v-checkbox
-                    hide-details
-                    :model-value="ingredientData.checked"
-                    class="pt-0 my-auto py-auto"
-                    color="secondary"
-                    density="compact"
-                  />
-                  <div :key="`${ingredientData.ingredient.quantity || 'no-qty'}-${i}`">
-                    <RecipeIngredientListItem
-                      :ingredient="ingredientData.ingredient"
-                      :disable-amount="ingredientData.disableAmount"
-                      :scale="recipeSection.recipeScale"
-                    />
-                  </div>
+                  <v-container class="pa-0 ma-0">
+                    <v-row no-gutters>
+                      <v-checkbox
+                        hide-details
+                        :model-value="ingredientData.checked"
+                        class="pt-0 my-auto py-auto mr-2"
+                        color="secondary"
+                        density="compact"
+                      />
+                      <div :key="`${ingredientData.ingredient.quantity || 'no-qty'}-${i}`" class="pa-auto my-auto">
+                        <RecipeIngredientListItem
+                          :ingredient="ingredientData.ingredient"
+                          :scale="recipeSection.recipeScale"
+                        />
+                      </div>
+                    </v-row>
+                  </v-container>
                 </v-list-item>
               </div>
             </div>
@@ -188,7 +191,6 @@ export interface RecipeWithScale extends Recipe {
 export interface ShoppingListIngredient {
   checked: boolean;
   ingredient: RecipeIngredient;
-  disableAmount: boolean;
 }
 
 export interface ShoppingListIngredientSection {
@@ -290,7 +292,6 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
       return {
         checked: !householdsWithFood.includes(userHousehold.value),
         ingredient: ing,
-        disableAmount: recipe.settings?.disableAmount || false,
       };
     });
 

@@ -587,6 +587,7 @@
     "api-extras-description": "Tarif ekstraları Mealie API'nin önemli bir özelliğidir. Üçüncü taraf uygulamalardan referans almak üzere bir tarif içinde özel JSON anahtar/değer çiftleri oluşturmanıza olanak tanır. Bu tuşları, örneğin otomasyonları tetiklemek veya istediğiniz cihaza iletilecek özel mesajları bilgi sağlamak için kullanabilirsiniz.",
     "message-key": "İleti Anahtarı",
     "parse": "Ayrıştırma",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Düzenleyiciye sürükleyip bırakarak görselleri ekleyin",
     "drop-image": "Yüklenecek resimi sürükleyip bırakın",
     "enable-ingredient-amounts-to-use-this-feature": "Bu özelliği kullanabilmek için malzeme miktarlarını etkinleştirin",

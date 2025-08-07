@@ -587,6 +587,7 @@
     "api-extras-description": "Recepty jsou klíčovým rysem rozhraní pro API Mealie. Umožňují vytvářet vlastní klíče/hodnoty JSON v rámci receptu pro odkazy na aplikace třetích stran. Tyto klíče můžete použít pro poskytnutí informací, například pro aktivaci automatizace nebo vlastních zpráv pro přenos do požadovaného zařízení.",
     "message-key": "Klíč zprávy",
     "parse": "Analyzovat",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Přiložit obrázky přetažením jich do editoru",
     "drop-image": "Vložit obrázek",
     "enable-ingredient-amounts-to-use-this-feature": "Chcete-li tuto funkci používat, povolte množství ingrediencí",

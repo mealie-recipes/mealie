@@ -587,6 +587,7 @@
     "api-extras-description": "Додатки в рецептах - ключова функція API Mealie. Вони дозволяють створювати користувацьку пару JSON ключів та значень в рецепті для сторонніх додатків. Це можна використовувати для автоматизації або для створення користувацьких повідомлень для сторонніх сервісів.",
     "message-key": "Ключ повідомлення",
     "parse": "Проаналізувати",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Прикріпіть зображення, перетягнувши їх у редактор",
     "drop-image": "Перетягніть зображення",
     "enable-ingredient-amounts-to-use-this-feature": "Увімкніть кількість інгредієнтів, щоб використовувати цю функцію",

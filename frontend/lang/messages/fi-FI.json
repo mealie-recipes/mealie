@@ -587,6 +587,7 @@
     "api-extras-description": "Reseptiekstrat ovat Mealien API:n tärkeä ominaisuus. Niiden avulla voidaan luoda mukautettuja JSON-avain/arvo-pareja reseptin sisällä viitaten kolmannen osapuolen sovelluksiin. Näitä avaimia voi käyttää tiedon antamiseksi, esimerkiksi automaattisen toiminnon tai mukautetun viestin käynnistämiseksi haluamaasi laitteeseen.",
     "message-key": "Viestiavain",
     "parse": "Jäsennä",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Liitä kuvia vetämällä ja pudottamalla ne editoriin",
     "drop-image": "Tuo kuva",
     "enable-ingredient-amounts-to-use-this-feature": "Käytä ainesosan määriä käyttääksesi tätä ominaisuutta",

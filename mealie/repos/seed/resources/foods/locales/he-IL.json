@@ -9034,8 +9034,8 @@
             "vegetable fried rice": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable fried rice",
-                "plural_name": "vegetable fried rices"
+                "name": "אורז מטוגן עם ירקות",
+                "plural_name": "אורז מטוגן עם ירקות"
             },
             "grünkern": {
                 "aliases": [],
@@ -9046,8 +9046,8 @@
             "jeera rice": {
                 "aliases": [],
                 "description": "",
-                "name": "jeera rice",
-                "plural_name": "jeera rices"
+                "name": "אורז ג׳ירה",
+                "plural_name": "אורז ג׳ירה"
             },
             "fonio": {
                 "aliases": [],
@@ -9098,8 +9098,8 @@
             "green bean": {
                 "aliases": [],
                 "description": "",
-                "name": "green bean",
-                "plural_name": "green beans"
+                "name": "שעועית ירוקה",
+                "plural_name": "שעועית ירוקה"
             },
             "chickpea": {
                 "aliases": [],
@@ -9116,8 +9116,8 @@
             "kidney bean": {
                 "aliases": [],
                 "description": "",
-                "name": "kidney bean",
-                "plural_name": "kidney beans"
+                "name": "שעועית אדומה",
+                "plural_name": "שעועית אדומה"
             },
             "white bean": {
                 "aliases": [],
@@ -9164,14 +9164,14 @@
             "bean sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "bean sprout",
-                "plural_name": "bean sprouts"
+                "name": "נבט שעועית",
+                "plural_name": "נבטי שעועית"
             },
             "edamame": {
                 "aliases": [],
                 "description": "",
-                "name": "edamame",
-                "plural_name": "edamames"
+                "name": "אדממה",
+                "plural_name": "אדממה"
             },
             "green lentil": {
                 "aliases": [],
@@ -9206,8 +9206,8 @@
             "black-eyed pea": {
                 "aliases": [],
                 "description": "",
-                "name": "black-eyed pea",
-                "plural_name": "black-eyed peas"
+                "name": "לוביה (שעועית העין השחורה)",
+                "plural_name": "לוביה (שעועית העין השחורה)"
             },
             "moong dal": {
                 "aliases": [],
@@ -9230,8 +9230,8 @@
             "red bean": {
                 "aliases": [],
                 "description": "",
-                "name": "red bean",
-                "plural_name": "red beans"
+                "name": "שעועית אדומה",
+                "plural_name": "שעועית אדומה"
             },
             "mung bean sprout": {
                 "aliases": [],
@@ -9356,8 +9356,8 @@
             "black soybean": {
                 "aliases": [],
                 "description": "",
-                "name": "black soybean",
-                "plural_name": "black soybeans"
+                "name": "פול סויה שחור",
+                "plural_name": "פולי סויה שחורים"
             },
             "field pea": {
                 "aliases": [],
@@ -9386,8 +9386,8 @@
             "soy sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "soy sprout",
-                "plural_name": "soy sprouts"
+                "name": "נבט סויה",
+                "plural_name": "נבטי סויה"
             },
             "honey bean": {
                 "aliases": [],
@@ -9734,14 +9734,14 @@
             "rotelle": {
                 "aliases": [],
                 "description": "",
-                "name": "rotelle",
-                "plural_name": "rotelles"
+                "name": "רוטלה",
+                "plural_name": "רוטלה"
             },
             "shirataki noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "shirataki noodle",
-                "plural_name": "shirataki noodles"
+                "name": "איטריית שיראטאקי",
+                "plural_name": "איטריות שיראטאקי"
             },
             "chicken raman": {
                 "aliases": [],
@@ -9752,8 +9752,8 @@
             "pierogi": {
                 "aliases": [],
                 "description": "",
-                "name": "pierogi",
-                "plural_name": "pierogis"
+                "name": "פירוגי",
+                "plural_name": "פירוגי"
             },
             "soup pasta": {
                 "aliases": [],
@@ -9800,8 +9800,8 @@
             "beef ravioli": {
                 "aliases": [],
                 "description": "",
-                "name": "beef ravioli",
-                "plural_name": "beef raviolis"
+                "name": "רביולי בקר",
+                "plural_name": "רביולי בקר"
             },
             "hakka noodle": {
                 "aliases": [],
@@ -9884,8 +9884,8 @@
             "fregola": {
                 "aliases": [],
                 "description": "",
-                "name": "fregola",
-                "plural_name": "fregolas"
+                "name": "פרגולה",
+                "plural_name": "פרגולה"
             },
             "beef tortellini": {
                 "aliases": [],
@@ -10156,8 +10156,8 @@
             "dry-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "dry-roasted peanut",
-                "plural_name": "dry-roasted peanuts"
+                "name": "בוטן בטיגון ללא שמן",
+                "plural_name": "בוטנים בטיגון ללא שמן"
             },
             "potato chip": {
                 "aliases": [],
@@ -10258,8 +10258,8 @@
             "potato bread": {
                 "aliases": [],
                 "description": "",
-                "name": "potato bread",
-                "plural_name": "potato breads"
+                "name": "לחם מקמח תפוחי אדמה",
+                "plural_name": "לחמים מקמח תפוחי אדמה"
             },
             "muffin": {
                 "aliases": [],
@@ -10270,8 +10270,8 @@
             "breadstick": {
                 "aliases": [],
                 "description": "",
-                "name": "breadstick",
-                "plural_name": "breadsticks"
+                "name": "גריסיני",
+                "plural_name": "גריסיני"
             },
             "focaccia": {
                 "aliases": [],
@@ -10492,8 +10492,8 @@
             "pretzel bun": {
                 "aliases": [],
                 "description": "",
-                "name": "pretzel bun",
-                "plural_name": "pretzel buns"
+                "name": "לחמניית פרצל",
+                "plural_name": "לחמניות פרצל"
             },
             "roti bread": {
                 "aliases": [],
@@ -10676,8 +10676,8 @@
             "frying oil": {
                 "aliases": [],
                 "description": "",
-                "name": "frying oil",
-                "plural_name": "frying oils"
+                "name": "שמן טיגון",
+                "plural_name": "שמן טיגון"
             },
             "sunflower oil": {
                 "aliases": [],
@@ -10720,8 +10720,8 @@
             "corn oil": {
                 "aliases": [],
                 "description": "",
-                "name": "corn oil",
-                "plural_name": "corn oils"
+                "name": "שמן תירס",
+                "plural_name": "שמני תירס"
             },
             "virgin coconut oil": {
                 "aliases": [],
@@ -10738,8 +10738,8 @@
             "mustard oil": {
                 "aliases": [],
                 "description": "",
-                "name": "mustard oil",
-                "plural_name": "mustard oils"
+                "name": "שמן חרדל",
+                "plural_name": "שמני חרדל"
             },
             "walnut oil": {
                 "aliases": [],
@@ -10750,8 +10750,8 @@
             "garlic oil": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic oil",
-                "plural_name": "garlic oils"
+                "name": "שמן שום",
+                "plural_name": "שמני שום"
             },
             "truffle oil": {
                 "aliases": [],
@@ -10780,8 +10780,8 @@
             "salad oil": {
                 "aliases": [],
                 "description": "",
-                "name": "salad oil",
-                "plural_name": "salad oils"
+                "name": "שמן לסלט",
+                "plural_name": "שמנים לסלט"
             },
             "duck fat": {
                 "aliases": [],
@@ -10798,8 +10798,8 @@
             "soybean oil": {
                 "aliases": [],
                 "description": "",
-                "name": "soybean oil",
-                "plural_name": "soybean oils"
+                "name": "שמן פולי סויה",
+                "plural_name": "שמני פולי סויה"
             },
             "butter-flavored cooking spray": {
                 "aliases": [],
@@ -11258,8 +11258,8 @@
             "spicy mayo": {
                 "aliases": [],
                 "description": "",
-                "name": "spicy mayo",
-                "plural_name": "spicy mayoes"
+                "name": "מיונז חריף",
+                "plural_name": "מיונז חריף"
             },
             "poppyseed dressing": {
                 "aliases": [],
@@ -11330,8 +11330,8 @@
             "garlic mayonnaise": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic mayonnaise",
-                "plural_name": "garlic mayonnaises"
+                "name": "מיונז שום",
+                "plural_name": "מיונז שום"
             },
             "brown rice vinegar": {
                 "aliases": [],
@@ -11664,14 +11664,14 @@
             "wasabi": {
                 "aliases": [],
                 "description": "",
-                "name": "wasabi",
-                "plural_name": "wasabis"
+                "name": "ווסאבי",
+                "plural_name": "ווסאבי"
             },
             "honey mustard": {
                 "aliases": [],
                 "description": "",
-                "name": "honey mustard",
-                "plural_name": "honey mustards"
+                "name": "חרדל דבש",
+                "plural_name": "חרדל דבש"
             },
             "mango chutney": {
                 "aliases": [],
@@ -12060,8 +12060,8 @@
             "banana ketchup": {
                 "aliases": [],
                 "description": "",
-                "name": "banana ketchup",
-                "plural_name": "banana ketchups"
+                "name": "קטשופ בננה",
+                "plural_name": "קטשופ בננות"
             },
             "chili puree": {
                 "aliases": [],
@@ -12154,8 +12154,8 @@
             "pickle": {
                 "aliases": [],
                 "description": "",
-                "name": "pickle",
-                "plural_name": "pickles"
+                "name": "מלפפון חמוץ",
+                "plural_name": "מלפפונים חמוצים"
             },
             "canned pineapple": {
                 "aliases": [],
@@ -12172,8 +12172,8 @@
             "canned anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "canned anchovy",
-                "plural_name": "canned anchovies"
+                "name": "אנשובי משומר",
+                "plural_name": "אנשובי משומר"
             },
             "roasted red pepper": {
                 "aliases": [],
@@ -12190,14 +12190,14 @@
             "canned artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "canned artichoke",
-                "plural_name": "canned artichokes"
+                "name": "ארטישוק משומר",
+                "plural_name": "ארטישוקים משומרים"
             },
             "canned corn": {
                 "aliases": [],
                 "description": "",
-                "name": "canned corn",
-                "plural_name": "canned corns"
+                "name": "גרעיני תירס",
+                "plural_name": "גרעיני תירס"
             },
             "canned kidney bean": {
                 "aliases": [],

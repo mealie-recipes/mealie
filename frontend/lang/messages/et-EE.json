@@ -587,6 +587,7 @@
     "api-extras-description": "Retsepti väljavõtted on Meali API oluline funktsioon. Neid saab kasutada kohandatud JSON-võtme/väärtuse paaride loomiseks retseptis, et viidata kolmandate osapoolte rakendustele. Neid klahve saab kasutada teabe edastamiseks, näiteks automaatse toimingu või kohandatud sõnumi käivitamiseks teie valitud seadmele.",
     "message-key": "Sõnumi võti",
     "parse": "Analüüsi",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Lisa pildid manustesse neid lohistades ja vabastades need redaktorisse",
     "drop-image": "Vabasta pilt",
     "enable-ingredient-amounts-to-use-this-feature": "Luba koostisosa kogused, et kasutada seda omadust",

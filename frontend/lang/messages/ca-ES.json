@@ -587,6 +587,7 @@
     "api-extras-description": "Els extres de receptes són una funcionalitat clau de l'API de Mealie. Permeten crear parells clau/valor JSON personalitzats dins una recepta, per referenciar-los des d'aplicacions de tercers. Pots emprar aquestes claus per proveir informació, per exemple per a desencadenar automatitzacions o missatges personlitzats per a propagar al teu dispositiu desitjat.",
     "message-key": "Clau del missatge",
     "parse": "Analitzar",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Afegeix imatges arrossegant i deixant anar la imatge a l'editor",
     "drop-image": "Deixa anar la imatge",
     "enable-ingredient-amounts-to-use-this-feature": "Habilita les quantitats d'ingredients per a poder fer servir aquesta característica",

@@ -31,7 +31,6 @@ const labels: Record<keyof RecipeSettings, string> = {
   showAssets: i18n.t("asset.show-assets"),
   landscapeView: i18n.t("recipe.landscape-view-coming-soon"),
   disableComments: i18n.t("recipe.disable-comments"),
-  disableAmount: i18n.t("recipe.disable-amount"),
   locked: i18n.t("recipe.locked"),
 };
 </script>

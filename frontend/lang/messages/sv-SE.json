@@ -587,6 +587,7 @@
     "api-extras-description": "Recept API-tillägg är en viktig funktion i Mealie's API. Med hjälp av dem kan du skapa anpassade JSON-nyckel/värdepar i ett recept, som du kan referera till från tredjepartsapplikationer. Du kan använda dessa nycklar för att tillhandahålla information, till exempel för att trigga automatiseringar eller anpassade meddelanden som ska vidarebefordras till önskad enhet.",
     "message-key": "Meddelandenyckel",
     "parse": "Läs in",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Bifoga bilder genom att dra och släppa dem i redigeraren",
     "drop-image": "Släpp bild",
     "enable-ingredient-amounts-to-use-this-feature": "Aktivera ingrediensmängd för att använda denna funktion",
@@ -663,8 +664,8 @@
       "no-unit": "Ingen enhet",
       "missing-unit": "Skapa saknad enhet: {unit}",
       "missing-food": "Skapa saknad ingrediens: {food}",
-      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
-      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
+      "this-unit-could-not-be-parsed-automatically": "Enheten kunde inte översättas automatiskt",
+      "this-food-could-not-be-parsed-automatically": "Maten kunde inte översättas automatiskt",
       "no-food": "Ingen mat"
     },
     "reset-servings-count": "Nollställ antal portioner",

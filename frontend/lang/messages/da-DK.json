@@ -587,6 +587,7 @@
     "api-extras-description": "Opskrifter ekstra er en central feature i Mealie API. De giver dig mulighed for at oprette brugerdefinerede JSON nøgle / værdi par inden for en opskrift, at henvise til fra 3. parts applikationer. Du kan bruge disse nøgler til at give oplysninger, for eksempel til at udløse automatiseringer eller brugerdefinerede beskeder til at videresende til din ønskede enhed.",
     "message-key": "Beskednøgle",
     "parse": "Behandl data",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Vedhæft billeder ved at trække dem ind i redigeringsværktøjet",
     "drop-image": "Slet billede",
     "enable-ingredient-amounts-to-use-this-feature": "Aktiver mængde af ingredienser for at bruge denne funktion",

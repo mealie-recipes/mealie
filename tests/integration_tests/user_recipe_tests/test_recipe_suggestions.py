@@ -48,7 +48,6 @@ def create_recipe(
     *,
     foods: list[IngredientFood] | None = None,
     tools: list[RecipeToolOut] | None = None,
-    disable_amount: bool = False,
     **kwargs,
 ):
     if foods:
@@ -63,7 +62,7 @@ def create_recipe(
             name=kwargs.pop("name", random_string()),
             recipe_ingredient=ingredients,
             tools=tools or [],
-            settings=RecipeSettings(disable_amount=disable_amount),
+            settings=RecipeSettings(),
             **kwargs,
         )
     )
@@ -335,60 +334,6 @@ def test_include_recipes_with_no_tools(api_client: TestClient, unique_user: Test
 
     finally:
         for recipe in [recipe_with_tools, recipe_without_tools]:
-            unique_user.repos.recipes.delete(recipe.slug)
-
-
-def test_ignore_recipes_with_ingredient_amounts_disabled_with_foods(api_client: TestClient, unique_user: TestUser):
-    known_food = create_food(unique_user)
-    recipe_with_amounts = create_recipe(unique_user, foods=[known_food])
-    recipe_without_amounts = create_recipe(unique_user, foods=[known_food], disable_amount=True)
-
-    try:
-        response = api_client.get(
-            api_routes.recipes_suggestions,
-            params={"maxMissingFoods": 0, "maxMissingTools": 0, "foods": [str(known_food.id)]},
-            headers=unique_user.token,
-        )
-        response.raise_for_status()
-
-        data = response.json()
-        assert {item["recipe"]["id"] for item in data["items"]} == {str(recipe_with_amounts.id)}
-        for item in data["items"]:
-            assert item["missingFoods"] == []
-
-    finally:
-        for recipe in [recipe_with_amounts, recipe_without_amounts]:
-            unique_user.repos.recipes.delete(recipe.slug)
-
-
-def test_include_recipes_with_ingredient_amounts_disabled_without_foods(api_client: TestClient, unique_user: TestUser):
-    known_tool = create_tool(unique_user)
-    recipe_with_amounts = create_recipe(unique_user, tools=[known_tool])
-    recipe_without_amounts = create_recipe(unique_user, tools=[known_tool], disable_amount=True)
-
-    try:
-        response = api_client.get(
-            api_routes.recipes_suggestions,
-            params={
-                "maxMissingFoods": 0,
-                "maxMissingTools": 0,
-                "includeFoodsOnHand": False,
-                "tools": [str(known_tool.id)],
-            },
-            headers=unique_user.token,
-        )
-        response.raise_for_status()
-
-        data = response.json()
-        assert {item["recipe"]["id"] for item in data["items"]} == {
-            str(recipe_with_amounts.id),
-            str(recipe_without_amounts.id),
-        }
-        for item in data["items"]:
-            assert item["missingFoods"] == []
-
-    finally:
-        for recipe in [recipe_with_amounts, recipe_without_amounts]:
             unique_user.repos.recipes.delete(recipe.slug)
 
 

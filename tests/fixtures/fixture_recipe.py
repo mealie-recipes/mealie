@@ -37,12 +37,12 @@ def recipe_ingredient_only(unique_user: TestUser):
         group_id=unique_user.group_id,
         name=random_string(10),
         recipe_ingredient=[
-            RecipeIngredient(note="Ingredient 1"),
-            RecipeIngredient(note="Ingredient 2"),
-            RecipeIngredient(note="Ingredient 3"),
-            RecipeIngredient(note="Ingredient 4"),
-            RecipeIngredient(note="Ingredient 5"),
-            RecipeIngredient(note="Ingredient 6"),
+            RecipeIngredient(quantity=1, note="Ingredient 1"),
+            RecipeIngredient(quantity=1, note="Ingredient 2"),
+            RecipeIngredient(quantity=1, note="Ingredient 3"),
+            RecipeIngredient(quantity=1, note="Ingredient 4"),
+            RecipeIngredient(quantity=1, note="Ingredient 5"),
+            RecipeIngredient(quantity=1, note="Ingredient 6"),
         ],
     )
 

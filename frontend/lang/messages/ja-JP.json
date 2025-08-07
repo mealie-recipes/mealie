@@ -587,6 +587,7 @@
     "api-extras-description": "レシピの追加機能はMealie APIの主な機能です。 サードパーティアプリから参照するために、レシピ内にカスタムJSONキー/値のペアを作成することができます。 これらのキーを使用して情報を提供することができます。例えば、自動化をトリガーしたり、カスタムメッセージをお使いのデバイスにリレーするなどです。",
     "message-key": "メッセージキー",
     "parse": "解析",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "エディタにドラッグ＆ドロップして画像を添付する",
     "drop-image": "画像をドロップ",
     "enable-ingredient-amounts-to-use-this-feature": "この機能を使用するには、材料の量を有効にする",

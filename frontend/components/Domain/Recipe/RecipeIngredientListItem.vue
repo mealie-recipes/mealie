@@ -34,16 +34,14 @@ import { useParsedIngredientText } from "~/composables/recipes";
 
 interface Props {
   ingredient: RecipeIngredient;
-  disableAmount?: boolean;
   scale?: number;
 }
 const props = withDefaults(defineProps<Props>(), {
-  disableAmount: false,
   scale: 1,
 });
 
 const parsedIng = computed(() => {
-  return useParsedIngredientText(props.ingredient, props.disableAmount, props.scale);
+  return useParsedIngredientText(props.ingredient, props.scale);
 });
 </script>
 
