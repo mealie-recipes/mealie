@@ -40,7 +40,6 @@
               v-if="requireAll != undefined"
               v-model="requireAllValue"
               density="compact"
-              size="small"
               hide-details
               class="my-auto"
               color="primary"

@@ -1,140 +1,140 @@
 {
     "teaspoon": {
         "name": "茶匙",
-        "plural_name": "teaspoons",
+        "plural_name": "茶匙",
         "description": "",
         "abbreviation": "茶匙"
     },
     "tablespoon": {
         "name": "湯匙",
-        "plural_name": "tablespoons",
+        "plural_name": "大匙",
         "description": "",
         "abbreviation": "湯匙"
     },
     "cup": {
         "name": "杯",
-        "plural_name": "cups",
+        "plural_name": "杯",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "杯"
     },
     "fluid-ounce": {
         "name": "液體盎司",
-        "plural_name": "fluid ounces",
+        "plural_name": "液量盎司",
         "description": "",
         "abbreviation": "液體盎司"
     },
     "pint": {
         "name": "品脫",
-        "plural_name": "pints",
+        "plural_name": "品脫",
         "description": "",
         "abbreviation": "品脫"
     },
     "quart": {
         "name": "夸脫",
-        "plural_name": "quarts",
+        "plural_name": "夸脫",
         "description": "",
         "abbreviation": "夸脫"
     },
     "gallon": {
         "name": "加侖",
-        "plural_name": "gallons",
+        "plural_name": "加侖",
         "description": "",
         "abbreviation": "加侖"
     },
     "milliliter": {
         "name": "毫升",
-        "plural_name": "milliliters",
+        "plural_name": "毫升",
         "description": "",
         "abbreviation": "毫升"
     },
     "liter": {
         "name": "公升",
-        "plural_name": "liters",
+        "plural_name": "公升",
         "description": "",
         "abbreviation": "公升"
     },
     "pound": {
         "name": "磅",
-        "plural_name": "pounds",
+        "plural_name": "磅",
         "description": "",
         "abbreviation": "磅",
-        "plural_abbreviation": "lbs"
+        "plural_abbreviation": "磅"
     },
     "ounce": {
         "name": "盎司",
-        "plural_name": "ounces",
+        "plural_name": "盎司",
         "description": "",
         "abbreviation": "盎司"
     },
     "gram": {
         "name": "克",
-        "plural_name": "grams",
+        "plural_name": "公克",
         "description": "",
         "abbreviation": "克"
     },
     "kilogram": {
         "name": "公斤",
-        "plural_name": "kilograms",
+        "plural_name": "公斤",
         "description": "",
         "abbreviation": "公斤"
     },
     "milligram": {
         "name": "毫克",
-        "plural_name": "milligrams",
+        "plural_name": "毫克",
         "description": "",
         "abbreviation": "毫克"
     },
     "splash": {
         "name": "少許",
-        "plural_name": "splashes",
+        "plural_name": "少許",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "少許",
-        "plural_name": "dashes",
+        "plural_name": "少許",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "份量",
-        "plural_name": "servings",
+        "plural_name": "份",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "頭",
-        "plural_name": "heads",
+        "plural_name": "顆",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "瓣",
-        "plural_name": "cloves",
+        "plural_name": "瓣",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "罐",
-        "plural_name": "cans",
+        "plural_name": "罐",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "束",
+        "plural_name": "束",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "包",
+        "plural_name": "包",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "撮",
+        "plural_name": "撮",
         "description": "",
         "abbreviation": ""
     }

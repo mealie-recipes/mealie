@@ -5,7 +5,6 @@
       :close-on-content-click="false"
       transition="scale-transition"
       offset-y
-      max-width="290px"
       min-width="auto"
     >
       <template #activator="{ props }">
@@ -20,29 +19,26 @@
           {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
         </v-btn>
       </template>
-      <v-date-picker
-        v-model="state.range"
-        hide-header
-        :multiple="'range'"
-        :first-day-of-week="firstDayOfWeek"
-        :local="$i18n.locale"
-      >
-        <v-text-field
-          v-model="numberOfDays"
-          type="number"
-          :label="$t('meal-plan.numberOfDays-label')"
-          :hint="$t('meal-plan.numberOfDays-hint')"
-          persistent-hint
+
+      <v-card>
+        <v-date-picker
+          v-model="state.range"
+          hide-header
+          :multiple="'range'"
+          :first-day-of-week="firstDayOfWeek"
+          :local="$i18n.locale"
         />
-        <v-spacer />
-        <v-btn
-          variant="text"
-          color="primary"
-          @click="state.picker = false"
-        >
-          {{ $t("general.ok") }}
-        </v-btn>
-      </v-date-picker>
+
+        <v-card-text>
+          <v-text-field
+            v-model="numberOfDays"
+            type="number"
+            :label="$t('meal-plan.numberOfDays-label')"
+            :hint="$t('meal-plan.numberOfDays-hint')"
+            persistent-hint
+          />
+        </v-card-text>
+      </v-card>
     </v-menu>
 
     <div class="d-flex flex-wrap align-center justify-space-between mb-2">
@@ -115,15 +111,11 @@ export default defineNuxtComponent({
     const weekRange = computed(() => {
       const sorted = [...state.value.range].sort((a, b) => a.getTime() - b.getTime());
 
-      if (sorted.length === 2) {
-        return {
-          start: sorted[0],
-          end: sorted[1],
-        };
-        // return {
-        //   start: parseYYYYMMDD(sorted[0]),
-        //   end: parseYYYYMMDD(sorted[1]),
-        // };
+      const start = sorted[0];
+      const end = sorted[sorted.length - 1];
+
+      if (start && end) {
+        return { start, end };
       }
       return {
         start: new Date(),

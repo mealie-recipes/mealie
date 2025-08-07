@@ -191,7 +191,7 @@
             {
               text: $t('about.github'),
               icon: $globals.icons.github,
-              href: 'https://github.com/hay-kot/mealie',
+              href: 'https://github.com/mealie-recipes/mealie',
             },
             {
               text: $t('about.docs'),

@@ -146,6 +146,11 @@ from mealie.schema.recipe.recipe_ingredient import (
     ["food", "expected_food_singular_string", "expected_food_plural_string"],
     [
         [
+            None,
+            "",
+            "",
+        ],
+        [
             IngredientFood(id=uuid4(), name="chopped onion", plural_name=None),
             "chopped onion",
             "chopped onion",
@@ -157,16 +162,14 @@ from mealie.schema.recipe.recipe_ingredient import (
         ],
     ],
 )
-@pytest.mark.parametrize("note", ["very thin", ""])
-@pytest.mark.parametrize("use_food", [True, False])
+@pytest.mark.parametrize("note", ["very thin", "", None])
 def test_ingredient_display(
     quantity: float | None,
     quantity_display_decimal: str,
     quantity_display_fraction: str,
     unit: IngredientUnit | None,
-    food: IngredientFood,
-    note: str,
-    use_food: bool,
+    food: IngredientFood | None,
+    note: str | None,
     expect_display_fraction: bool,
     expect_plural_unit: bool,
     expect_plural_food: bool,
@@ -176,36 +179,25 @@ def test_ingredient_display(
     expected_food_plural_string: str,
 ):
     expected_components = []
-    if use_food:
-        if expect_display_fraction:
-            expected_components.append(quantity_display_fraction)
+    if expect_display_fraction:
+        expected_components.append(quantity_display_fraction)
+    else:
+        expected_components.append(quantity_display_decimal)
+
+    if quantity:
+        if expect_plural_unit:
+            expected_components.append(expected_unit_plural_string)
         else:
-            expected_components.append(quantity_display_decimal)
+            expected_components.append(expected_unit_singular_string)
 
-        if quantity:
-            if expect_plural_unit:
-                expected_components.append(expected_unit_plural_string)
-            else:
-                expected_components.append(expected_unit_singular_string)
-
+    if food:
         if expect_plural_food:
             expected_components.append(expected_food_plural_string)
         else:
             expected_components.append(expected_food_singular_string)
 
-        expected_components.append(note)
-
-    else:
-        if quantity != 0 and quantity != 1:
-            if expect_display_fraction:
-                expected_components.append(quantity_display_fraction)
-            else:
-                expected_components.append(quantity_display_decimal)
-
-        expected_components.append(note)
+    expected_components.append(note or "")
 
     expected_display_value = " ".join(c for c in expected_components if c)
-    ingredient = RecipeIngredient(
-        quantity=quantity, unit=unit, food=food, note=note, use_food=use_food, disable_amount=not use_food
-    )
+    ingredient = RecipeIngredient(quantity=quantity, unit=unit, food=food, note=note)
     assert ingredient.display == expected_display_value

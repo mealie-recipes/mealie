@@ -26,10 +26,10 @@ export default defineComponent({
     },
   },
   emits: ["update:modelValue"],
-  setup(_, { emit }) {
+  setup(props, { emit }) {
     function parseEvent(event: any): object {
       if (!event) {
-        return {};
+        return props.modelValue || {};
       }
       try {
         if (event.json) {
@@ -43,11 +43,14 @@ export default defineComponent({
         }
       }
       catch {
-        return {};
+        return props.modelValue || {};
       }
     }
     function onChange(event: any) {
-      emit("update:modelValue", parseEvent(event));
+      const parsed = parseEvent(event);
+      if (parsed !== props.modelValue) {
+        emit("update:modelValue", parsed);
+      }
     }
     return {
       onChange,

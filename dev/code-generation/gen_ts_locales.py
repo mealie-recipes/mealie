@@ -179,8 +179,14 @@ def inject_nuxt_values():
 
     all_langs = []
     for match in locales_dir.glob("*.json"):
-        lang_string = f'{{ code: "{match.stem}", file: "{match.name.replace(".json", ".ts")}" }},'
+        match_data = LOCALE_DATA.get(match.stem)
+        match_dir = match_data.dir if match_data else "ltr"
+
+        lang_string = f'{{ code: "{match.stem}", file: "{match.name.replace(".json", ".ts")}", dir: "{match_dir}" }},'
         all_langs.append(lang_string)
+
+    all_langs.sort()
+    all_date_locales.sort()
 
     log.debug(f"injecting locales into nuxt config -> {nuxt_config}")
     inject_inline(nuxt_config, CodeKeys.nuxt_local_messages, all_langs)

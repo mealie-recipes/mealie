@@ -26,6 +26,7 @@
       :icon="$globals.icons.tags"
       :title="$t('data-pages.tags.edit-tag')"
       :submit-text="$t('general.save')"
+      can-confirm
       @submit="editSaveTag"
     >
       <v-card-text v-if="editTarget">
@@ -44,6 +45,7 @@
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
+      can-confirm
       @confirm="deleteTag"
     >
       <v-card-text>
@@ -64,6 +66,7 @@
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
+      can-confirm
       @confirm="deleteSelected"
     >
       <v-card-text>

@@ -1,6 +1,5 @@
 import { useStoreActions } from "./partials/use-actions-factory";
 import { useUserApi } from "~/composables/api";
-import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 import type { GroupRecipeActionOut, GroupRecipeActionType } from "~/lib/api/types/household";
 import type { RequestResponse } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
@@ -68,7 +67,7 @@ export const useGroupRecipeActions = function (
         window.open(url, "_blank")?.focus();
         return;
       case "post":
-        return await api.groupRecipeActions.triggerAction(action.id, recipe.slug || "", useScaledAmount(recipe.recipeServings || 1, recipeScale).scaledAmount);
+        return await api.groupRecipeActions.triggerAction(action.id, recipe.slug || "", recipeScale);
       default:
         break;
     }

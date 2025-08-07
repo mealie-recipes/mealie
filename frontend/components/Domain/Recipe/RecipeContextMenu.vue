@@ -12,7 +12,12 @@
       @confirm="deleteRecipe()"
     >
       <v-card-text>
-        {{ $t("recipe.delete-confirmation") }}
+        <template v-if="isAdminAndNotOwner">
+          {{ $t("recipe.admin-delete-confirmation") }}
+        </template>
+        <template v-else>
+          {{ $t("recipe.delete-confirmation") }}
+        </template>
       </v-card-text>
     </BaseDialog>
     <BaseDialog
@@ -50,12 +55,12 @@
           max-width="290px"
           min-width="auto"
         >
-          <template #activator="{ props }">
+          <template #activator="{ props: activatorProps }">
             <v-text-field
               v-model="newMealdateString"
               :label="$t('general.date')"
               :prepend-icon="$globals.icons.calendar"
-              v-bind="props"
+              v-bind="activatorProps"
               readonly
             />
           </template>
@@ -95,7 +100,7 @@
       :open-on-hover="$vuetify.display.mdAndUp"
       content-class="d-print-none"
     >
-      <template #activator="{ props }">
+      <template #activator="{ props: activatorProps }">
         <v-btn
           icon
           :variant="fab ? 'flat' : undefined"
@@ -103,7 +108,7 @@
           :size="fab ? 'small' : undefined"
           :color="fab ? 'info' : 'secondary'"
           :fab="fab"
-          v-bind="props"
+          v-bind="activatorProps"
           @click.prevent
         >
           <v-icon
@@ -125,32 +130,27 @@
         </v-list-item>
         <div v-if="useItems.recipeActions && recipeActions && recipeActions.length">
           <v-divider />
-          <v-list-group @click.stop>
-            <template #activator="{ props }">
-              <v-list-item-title v-bind="props">
-                {{ $t("recipe.recipe-actions") }}
-              </v-list-item-title>
+          <v-list-item
+            v-for="(action, index) in recipeActions"
+            :key="index"
+            @click="executeRecipeAction(action)"
+          >
+            <template #prepend>
+              <v-icon color="undefined">
+                {{ $globals.icons.linkVariantPlus }}
+              </v-icon>
             </template>
-            <v-list density="compact" class="ma-0 pa-0">
-              <v-list-item
-                v-for="(action, index) in recipeActions"
-                :key="index"
-                class="pl-6"
-                @click="executeRecipeAction(action)"
-              >
-                <v-list-item-title>
-                  {{ action.title }}
-                </v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-list-group>
+            <v-list-item-title>
+              {{ action.title }}
+            </v-list-item-title>
+          </v-list-item>
         </div>
       </v-list>
     </v-menu>
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import RecipeDialogAddToShoppingList from "./RecipeDialogAddToShoppingList.vue";
 import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "./RecipeDialogShare.vue";
@@ -186,343 +186,312 @@ export interface ContextMenuItem {
   isPublic: boolean;
 }
 
-export default defineNuxtComponent({
-  components: {
-    RecipeDialogAddToShoppingList,
-    RecipeDialogPrintPreferences,
-    RecipeDialogShare,
-  },
-  props: {
-    useItems: {
-      type: Object as () => ContextMenuIncludes,
-      default: () => ({
-        delete: true,
-        edit: true,
-        download: true,
-        duplicate: false,
-        mealplanner: true,
-        shoppingList: true,
-        print: true,
-        printPreferences: true,
-        share: true,
-        recipeActions: true,
-      }),
-    },
-    // Append items are added at the end of the useItems list
-    appendItems: {
-      type: Array as () => ContextMenuItem[],
-      default: () => [],
-    },
-    // Append items are added at the beginning of the useItems list
-    leadingItems: {
-      type: Array as () => ContextMenuItem[],
-      default: () => [],
-    },
-    menuTop: {
-      type: Boolean,
-      default: true,
-    },
-    fab: {
-      type: Boolean,
-      default: false,
-    },
-    color: {
-      type: String,
-      default: "primary",
-    },
-    slug: {
-      type: String,
-      required: true,
-    },
-    menuIcon: {
-      type: String,
-      default: null,
-    },
-    name: {
-      required: true,
-      type: String,
-    },
-    recipe: {
-      type: Object as () => Recipe,
-      default: undefined,
-    },
-    recipeId: {
-      required: true,
-      type: String,
-    },
-    recipeScale: {
-      type: Number,
-      default: 1,
-    },
-  },
-  emits: ["delete"],
-  setup(props, context) {
-    const api = useUserApi();
-
-    const state = reactive({
-      printPreferencesDialog: false,
-      shareDialog: false,
-      recipeDeleteDialog: false,
-      mealplannerDialog: false,
-      shoppingListDialog: false,
-      recipeDuplicateDialog: false,
-      recipeName: props.name,
-      loading: false,
-      menuItems: [] as ContextMenuItem[],
-      newMealdate: new Date(Date.now() - new Date().getTimezoneOffset() * 60000),
-      newMealType: "dinner" as PlanEntryType,
-      pickerMenu: false,
-    });
-
-    const newMealdateString = computed(() => {
-      return state.newMealdate.toISOString().substring(0, 10);
-    });
-
-    const i18n = useI18n();
-    const $auth = useMealieAuth();
-    const { $globals } = useNuxtApp();
-    const { household } = useHouseholdSelf();
-    const { isOwnGroup } = useLoggedInState();
-
-    const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
-
-    const firstDayOfWeek = computed(() => {
-      return household.value?.preferences?.firstDayOfWeek || 0;
-    });
-
-    // ===========================================================================
-    // Context Menu Setup
-
-    const defaultItems: { [key: string]: ContextMenuItem } = {
-      edit: {
-        title: i18n.t("general.edit"),
-        icon: $globals.icons.edit,
-        color: undefined,
-        event: "edit",
-        isPublic: false,
-      },
-      delete: {
-        title: i18n.t("general.delete"),
-        icon: $globals.icons.delete,
-        color: undefined,
-        event: "delete",
-        isPublic: false,
-      },
-      download: {
-        title: i18n.t("general.download"),
-        icon: $globals.icons.download,
-        color: undefined,
-        event: "download",
-        isPublic: false,
-      },
-      duplicate: {
-        title: i18n.t("general.duplicate"),
-        icon: $globals.icons.duplicate,
-        color: undefined,
-        event: "duplicate",
-        isPublic: false,
-      },
-      mealplanner: {
-        title: i18n.t("recipe.add-to-plan"),
-        icon: $globals.icons.calendar,
-        color: undefined,
-        event: "mealplanner",
-        isPublic: false,
-      },
-      shoppingList: {
-        title: i18n.t("recipe.add-to-list"),
-        icon: $globals.icons.cartCheck,
-        color: undefined,
-        event: "shoppingList",
-        isPublic: false,
-      },
-      print: {
-        title: i18n.t("general.print"),
-        icon: $globals.icons.printer,
-        color: undefined,
-        event: "print",
-        isPublic: true,
-      },
-      printPreferences: {
-        title: i18n.t("general.print-preferences"),
-        icon: $globals.icons.printerSettings,
-        color: undefined,
-        event: "printPreferences",
-        isPublic: true,
-      },
-      share: {
-        title: i18n.t("general.share"),
-        icon: $globals.icons.shareVariant,
-        color: undefined,
-        event: "share",
-        isPublic: false,
-      },
-    };
-
-    // Get Default Menu Items Specified in Props
-    for (const [key, value] of Object.entries(props.useItems)) {
-      if (value) {
-        const item = defaultItems[key];
-        if (item && (item.isPublic || isOwnGroup.value)) {
-          state.menuItems.push(item);
-        }
-      }
-    }
-
-    // Add leading and Appending Items
-    state.menuItems = [...state.menuItems, ...props.leadingItems, ...props.appendItems];
-
-    const icon = props.menuIcon || $globals.icons.dotsVertical;
-
-    // ===========================================================================
-    // Context Menu Event Handler
-
-    const shoppingLists = ref<ShoppingListSummary[]>();
-    const recipeRef = ref<Recipe | undefined>(props.recipe);
-    const recipeRefWithScale = computed(() =>
-      recipeRef.value ? { scale: props.recipeScale, ...recipeRef.value } : undefined,
-    );
-
-    async function getShoppingLists() {
-      const { data } = await api.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
-      if (data) {
-        shoppingLists.value = data.items ?? [];
-      }
-    }
-
-    async function refreshRecipe() {
-      const { data } = await api.recipes.getOne(props.slug);
-      if (data) {
-        recipeRef.value = data;
-      }
-    }
-
-    const router = useRouter();
-    const groupRecipeActionsStore = useGroupRecipeActions();
-
-    async function executeRecipeAction(action: GroupRecipeActionOut) {
-      if (!props.recipe) return;
-      const response = await groupRecipeActionsStore.execute(action, props.recipe, props.recipeScale);
-
-      if (action.actionType === "post") {
-        if (!response?.error) {
-          alert.success(i18n.t("events.message-sent"));
-        }
-        else {
-          alert.error(i18n.t("events.something-went-wrong"));
-        }
-      }
-    }
-
-    async function deleteRecipe() {
-      const { data } = await api.recipes.deleteOne(props.slug);
-      if (data?.slug) {
-        router.push(`/g/${groupSlug.value}`);
-      }
-      context.emit("delete", props.slug);
-    }
-
-    const download = useDownloader();
-
-    async function handleDownloadEvent() {
-      const { data } = await api.recipes.getZipToken(props.slug);
-
-      if (data) {
-        download(api.recipes.getZipRedirectUrl(props.slug, data.token), `${props.slug}.zip`);
-      }
-    }
-
-    async function addRecipeToPlan() {
-      const { response } = await api.mealplans.createOne({
-        date: newMealdateString.value,
-        entryType: state.newMealType,
-        title: "",
-        text: "",
-        recipeId: props.recipeId,
-      });
-
-      if (response?.status === 201) {
-        alert.success(i18n.t("recipe.recipe-added-to-mealplan") as string);
-      }
-      else {
-        alert.error(i18n.t("recipe.failed-to-add-recipe-to-mealplan") as string);
-      }
-    }
-
-    async function duplicateRecipe() {
-      const { data } = await api.recipes.duplicateOne(props.slug, state.recipeName);
-      if (data && data.slug) {
-        router.push(`/g/${groupSlug.value}/r/${data.slug}`);
-      }
-    }
-
-    // Note: Print is handled as an event in the parent component
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    const eventHandlers: { [key: string]: () => void | Promise<any> } = {
-      delete: () => {
-        state.recipeDeleteDialog = true;
-      },
-      edit: () => router.push(`/g/${groupSlug.value}/r/${props.slug}` + "?edit=true"),
-      download: handleDownloadEvent,
-      duplicate: () => {
-        state.recipeDuplicateDialog = true;
-      },
-      mealplanner: () => {
-        state.mealplannerDialog = true;
-      },
-      printPreferences: async () => {
-        if (!recipeRef.value) {
-          await refreshRecipe();
-        }
-        state.printPreferencesDialog = true;
-      },
-      shoppingList: () => {
-        const promises: Promise<void>[] = [getShoppingLists()];
-        if (!recipeRef.value) {
-          promises.push(refreshRecipe());
-        }
-
-        Promise.allSettled(promises).then(() => {
-          state.shoppingListDialog = true;
-        });
-      },
-      share: () => {
-        state.shareDialog = true;
-      },
-    };
-
-    function contextMenuEventHandler(eventKey: string) {
-      const handler = eventHandlers[eventKey];
-
-      if (handler && typeof handler === "function") {
-        handler();
-        state.loading = false;
-        return;
-      }
-
-      context.emit(eventKey);
-      state.loading = false;
-    }
-
-    const planTypeOptions = usePlanTypeOptions();
-
-    return {
-      ...toRefs(state),
-      newMealdateString,
-      recipeRef,
-      recipeRefWithScale,
-      executeRecipeAction,
-      recipeActions: groupRecipeActionsStore.recipeActions,
-      shoppingLists,
-      duplicateRecipe,
-      contextMenuEventHandler,
-      deleteRecipe,
-      addRecipeToPlan,
-      icon,
-      planTypeOptions,
-      firstDayOfWeek,
-    };
-  },
+interface Props {
+  useItems?: ContextMenuIncludes;
+  appendItems?: ContextMenuItem[];
+  leadingItems?: ContextMenuItem[];
+  menuTop?: boolean;
+  fab?: boolean;
+  color?: string;
+  slug: string;
+  menuIcon?: string | null;
+  name: string;
+  recipe?: Recipe;
+  recipeId: string;
+  recipeScale?: number;
+}
+const props = withDefaults(defineProps<Props>(), {
+  useItems: () => ({
+    delete: true,
+    edit: true,
+    download: true,
+    duplicate: false,
+    mealplanner: true,
+    shoppingList: true,
+    print: true,
+    printPreferences: true,
+    share: true,
+    recipeActions: true,
+  }),
+  appendItems: () => [],
+  leadingItems: () => [],
+  menuTop: true,
+  fab: false,
+  color: "primary",
+  menuIcon: null,
+  recipe: undefined,
+  recipeScale: 1,
 });
+
+const emit = defineEmits<{
+  [key: string]: any;
+  delete: [slug: string];
+}>();
+
+const api = useUserApi();
+
+const printPreferencesDialog = ref(false);
+const shareDialog = ref(false);
+const recipeDeleteDialog = ref(false);
+const mealplannerDialog = ref(false);
+const shoppingListDialog = ref(false);
+const recipeDuplicateDialog = ref(false);
+const recipeName = ref(props.name);
+const loading = ref(false);
+const menuItems = ref<ContextMenuItem[]>([]);
+const newMealdate = ref(new Date());
+const newMealType = ref<PlanEntryType>("dinner");
+const pickerMenu = ref(false);
+
+const newMealdateString = computed(() => {
+  // Format the date to YYYY-MM-DD in the same timezone as newMealdate
+  const year = newMealdate.value.getFullYear();
+  const month = String(newMealdate.value.getMonth() + 1).padStart(2, "0");
+  const day = String(newMealdate.value.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+});
+
+const i18n = useI18n();
+const $auth = useMealieAuth();
+const { $globals } = useNuxtApp();
+const { household } = useHouseholdSelf();
+const { isOwnGroup } = useLoggedInState();
+
+const route = useRoute();
+const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
+
+const firstDayOfWeek = computed(() => {
+  return household.value?.preferences?.firstDayOfWeek || 0;
+});
+
+// ===========================================================================
+// Context Menu Setup
+
+const defaultItems: { [key: string]: ContextMenuItem } = {
+  edit: {
+    title: i18n.t("general.edit"),
+    icon: $globals.icons.edit,
+    color: undefined,
+    event: "edit",
+    isPublic: false,
+  },
+  delete: {
+    title: i18n.t("general.delete"),
+    icon: $globals.icons.delete,
+    color: undefined,
+    event: "delete",
+    isPublic: false,
+  },
+  download: {
+    title: i18n.t("general.download"),
+    icon: $globals.icons.download,
+    color: undefined,
+    event: "download",
+    isPublic: false,
+  },
+  duplicate: {
+    title: i18n.t("general.duplicate"),
+    icon: $globals.icons.duplicate,
+    color: undefined,
+    event: "duplicate",
+    isPublic: false,
+  },
+  mealplanner: {
+    title: i18n.t("recipe.add-to-plan"),
+    icon: $globals.icons.calendar,
+    color: undefined,
+    event: "mealplanner",
+    isPublic: false,
+  },
+  shoppingList: {
+    title: i18n.t("recipe.add-to-list"),
+    icon: $globals.icons.cartCheck,
+    color: undefined,
+    event: "shoppingList",
+    isPublic: false,
+  },
+  print: {
+    title: i18n.t("general.print"),
+    icon: $globals.icons.printer,
+    color: undefined,
+    event: "print",
+    isPublic: true,
+  },
+  printPreferences: {
+    title: i18n.t("general.print-preferences"),
+    icon: $globals.icons.printerSettings,
+    color: undefined,
+    event: "printPreferences",
+    isPublic: true,
+  },
+  share: {
+    title: i18n.t("general.share"),
+    icon: $globals.icons.shareVariant,
+    color: undefined,
+    event: "share",
+    isPublic: false,
+  },
+};
+
+// Add leading and Appending Items
+menuItems.value = [...menuItems.value, ...props.leadingItems, ...props.appendItems];
+
+const icon = props.menuIcon || $globals.icons.dotsVertical;
+
+// ===========================================================================
+// Context Menu Event Handler
+
+const shoppingLists = ref<ShoppingListSummary[]>();
+const recipeRef = ref<Recipe | undefined>(props.recipe);
+const recipeRefWithScale = computed(() =>
+  recipeRef.value ? { scale: props.recipeScale, ...recipeRef.value } : undefined,
+);
+const isAdminAndNotOwner = computed(() => {
+  return (
+    $auth.user.value?.admin
+    && $auth.user.value?.id !== recipeRef.value?.userId
+  );
+});
+const canDelete = computed(() => {
+  const user = $auth.user.value;
+  const recipe = recipeRef.value;
+  return user && recipe && (user.admin || user.id === recipe.userId);
+});
+
+// Get Default Menu Items Specified in Props
+for (const [key, value] of Object.entries(props.useItems)) {
+  if (!value) continue;
+
+  // Skip delete if not allowed
+  if (key === "delete" && !canDelete.value) continue;
+
+  const item = defaultItems[key];
+  if (item && (item.isPublic || isOwnGroup.value)) {
+    menuItems.value.push(item);
+  }
+}
+
+async function getShoppingLists() {
+  const { data } = await api.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
+  if (data) {
+    shoppingLists.value = data.items ?? [];
+  }
+}
+
+async function refreshRecipe() {
+  const { data } = await api.recipes.getOne(props.slug);
+  if (data) {
+    recipeRef.value = data;
+  }
+}
+
+const router = useRouter();
+const groupRecipeActionsStore = useGroupRecipeActions();
+
+async function executeRecipeAction(action: GroupRecipeActionOut) {
+  if (!props.recipe) return;
+  const response = await groupRecipeActionsStore.execute(action, props.recipe, props.recipeScale);
+
+  if (action.actionType === "post") {
+    if (!response?.error) {
+      alert.success(i18n.t("events.message-sent"));
+    }
+    else {
+      alert.error(i18n.t("events.something-went-wrong"));
+    }
+  }
+}
+
+async function deleteRecipe() {
+  const { data } = await api.recipes.deleteOne(props.slug);
+  if (data?.slug) {
+    router.push(`/g/${groupSlug.value}`);
+  }
+  emit("delete", props.slug);
+}
+
+const download = useDownloader();
+
+async function handleDownloadEvent() {
+  const { data } = await api.recipes.getZipToken(props.slug);
+
+  if (data) {
+    download(api.recipes.getZipRedirectUrl(props.slug, data.token), `${props.slug}.zip`);
+  }
+}
+
+async function addRecipeToPlan() {
+  const { response } = await api.mealplans.createOne({
+    date: newMealdateString.value,
+    entryType: newMealType.value,
+    title: "",
+    text: "",
+    recipeId: props.recipeId,
+  });
+
+  if (response?.status === 201) {
+    alert.success(i18n.t("recipe.recipe-added-to-mealplan") as string);
+  }
+  else {
+    alert.error(i18n.t("recipe.failed-to-add-recipe-to-mealplan") as string);
+  }
+}
+
+async function duplicateRecipe() {
+  const { data } = await api.recipes.duplicateOne(props.slug, recipeName.value);
+  if (data && data.slug) {
+    router.push(`/g/${groupSlug.value}/r/${data.slug}`);
+  }
+}
+
+// Note: Print is handled as an event in the parent component
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+const eventHandlers: { [key: string]: () => void | Promise<any> } = {
+  delete: () => {
+    recipeDeleteDialog.value = true;
+  },
+  edit: () => router.push(`/g/${groupSlug.value}/r/${props.slug}` + "?edit=true"),
+  download: handleDownloadEvent,
+  duplicate: () => {
+    recipeDuplicateDialog.value = true;
+  },
+  mealplanner: () => {
+    mealplannerDialog.value = true;
+  },
+  printPreferences: async () => {
+    if (!recipeRef.value) {
+      await refreshRecipe();
+    }
+    printPreferencesDialog.value = true;
+  },
+  shoppingList: () => {
+    const promises: Promise<void>[] = [getShoppingLists()];
+    if (!recipeRef.value) {
+      promises.push(refreshRecipe());
+    }
+
+    Promise.allSettled(promises).then(() => {
+      shoppingListDialog.value = true;
+    });
+  },
+  share: () => {
+    shareDialog.value = true;
+  },
+};
+
+function contextMenuEventHandler(eventKey: string) {
+  const handler = eventHandlers[eventKey];
+
+  if (handler && typeof handler === "function") {
+    handler();
+    loading.value = false;
+    return;
+  }
+
+  emit(eventKey);
+  loading.value = false;
+}
+
+const planTypeOptions = usePlanTypeOptions();
+const recipeActions = groupRecipeActionsStore.recipeActions;
 </script>

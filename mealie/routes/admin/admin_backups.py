@@ -94,6 +94,7 @@ class AdminBackupController(BaseAdminController):
 
         if not dest.is_file():
             raise HTTPException(status.HTTP_400_BAD_REQUEST)
+        return SuccessResponse.respond("Upload successful")
 
     @router.post("/{file_name}/restore", response_model=SuccessResponse)
     def import_one(self, file_name: str):

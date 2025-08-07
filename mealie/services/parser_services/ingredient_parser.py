@@ -36,7 +36,6 @@ class BruteForceParser(ABCIngredientParser):
             ingredient=RecipeIngredient(
                 unit=CreateIngredientUnit(name=bfi.unit),
                 food=CreateIngredientFood(name=bfi.food),
-                disable_amount=False,
                 quantity=bfi.amount,
                 note=bfi.note,
             ),
@@ -151,7 +150,6 @@ class NLPParser(ABCIngredientParser):
                 quantity=qty,
                 unit=CreateIngredientUnit(name=unit) if unit else None,
                 food=CreateIngredientFood(name=food) if food else None,
-                disable_amount=False,
                 note=note,
             ),
         )

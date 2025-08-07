@@ -151,43 +151,43 @@
                 "aliases": [],
                 "description": "",
                 "name": "zelje",
-                "plural_name": "cabbages"
+                "plural_name": "zelje"
             },
             "asparagu": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagu",
-                "plural_name": "asparagus"
+                "name": "beluši",
+                "plural_name": "beluši"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
-                "name": "kale",
-                "plural_name": "kales"
+                "name": "ohrovt",
+                "plural_name": "ohrovt"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
-                "name": "arugula",
-                "plural_name": "arugulas"
+                "name": "rukola",
+                "plural_name": "rukola"
             },
             "leek": {
                 "aliases": [],
                 "description": "",
-                "name": "leek",
-                "plural_name": "leeks"
+                "name": "por",
+                "plural_name": "por"
             },
             "eggplant": {
                 "aliases": [],
                 "description": "",
-                "name": "eggplant",
-                "plural_name": "eggplants"
+                "name": "jajčevec",
+                "plural_name": "jajčevci"
             },
             "lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "lettuce",
-                "plural_name": "lettuces"
+                "name": "solata",
+                "plural_name": "solata"
             },
             "butternut squash": {
                 "aliases": [],

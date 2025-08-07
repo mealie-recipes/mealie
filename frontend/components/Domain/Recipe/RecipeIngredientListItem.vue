@@ -28,34 +28,20 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { RecipeIngredient } from "~/lib/api/types/household";
 import { useParsedIngredientText } from "~/composables/recipes";
 
-export default defineNuxtComponent({
-  props: {
-    ingredient: {
-      type: Object as () => RecipeIngredient,
-      required: true,
-    },
-    disableAmount: {
-      type: Boolean,
-      default: false,
-    },
-    scale: {
-      type: Number,
-      default: 1,
-    },
-  },
-  setup(props) {
-    const parsedIng = computed(() => {
-      return useParsedIngredientText(props.ingredient, props.disableAmount, props.scale);
-    });
+interface Props {
+  ingredient: RecipeIngredient;
+  scale?: number;
+}
+const props = withDefaults(defineProps<Props>(), {
+  scale: 1,
+});
 
-    return {
-      parsedIng,
-    };
-  },
+const parsedIng = computed(() => {
+  return useParsedIngredientText(props.ingredient, props.scale);
 });
 </script>
 
