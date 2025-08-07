@@ -60,119 +60,93 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 import { useCategoryStore, useTagStore, useToolStore } from "~/composables/store";
 import { type RecipeOrganizer, Organizer } from "~/lib/api/types/non-generated";
 
 const CREATED_ITEM_EVENT = "created-item";
 
-export default defineNuxtComponent({
-  props: {
-    modelValue: {
-      type: Boolean,
-      default: false,
-    },
-    color: {
-      type: String,
-      default: null,
-    },
-    tagDialog: {
-      type: Boolean,
-      default: true,
-    },
-    itemType: {
-      type: String as () => RecipeOrganizer,
-      default: "category",
-    },
-  },
-  emits: ["update:modelValue"],
-  setup(props, context) {
-    const i18n = useI18n();
-
-    const state = reactive({
-      name: "",
-      onHand: false,
-    });
-
-    const dialog = computed({
-      get() {
-        return props.modelValue;
-      },
-      set(value) {
-        context.emit("update:modelValue", value);
-      },
-    });
-
-    watch(
-      () => props.modelValue,
-      (val: boolean) => {
-        if (!val) state.name = "";
-      },
-    );
-
-    const userApi = useUserApi();
-
-    const store = (() => {
-      switch (props.itemType) {
-        case Organizer.Tag:
-          return useTagStore();
-        case Organizer.Tool:
-          return useToolStore();
-        default:
-          return useCategoryStore();
-      }
-    })();
-
-    const properties = computed(() => {
-      switch (props.itemType) {
-        case Organizer.Tag:
-          return {
-            title: i18n.t("tag.create-a-tag"),
-            label: i18n.t("tag.tag-name"),
-            api: userApi.tags,
-          };
-        case Organizer.Tool:
-          return {
-            title: i18n.t("tool.create-a-tool"),
-            label: i18n.t("tool.tool-name"),
-            api: userApi.tools,
-          };
-        default:
-          return {
-            title: i18n.t("category.create-a-category"),
-            label: i18n.t("category.category-name"),
-            api: userApi.categories,
-          };
-      }
-    });
-
-    const rules = {
-      required: (val: string) => !!val || (i18n.t("general.a-name-is-required") as string),
-    };
-
-    async function select() {
-      if (store) {
-        // @ts-expect-error the same state is used for different organizer types, which have different requirements
-        await store.actions.createOne({ ...state });
-      }
-
-      const newItem = store.store.value.find(item => item.name === state.name);
-
-      context.emit(CREATED_ITEM_EVENT, newItem);
-      dialog.value = false;
-    }
-
-    return {
-      Organizer,
-      ...toRefs(state),
-      dialog,
-      properties,
-      rules,
-      select,
-    };
-  },
+interface Props {
+  color?: string | null;
+  tagDialog?: boolean;
+  itemType?: RecipeOrganizer;
+}
+const props = withDefaults(defineProps<Props>(), {
+  color: null,
+  tagDialog: true,
+  itemType: "category" as RecipeOrganizer,
 });
+
+const emit = defineEmits<{
+  "created-item": [item: any];
+}>();
+
+const dialog = defineModel<boolean>({ default: false });
+
+const i18n = useI18n();
+
+const name = ref("");
+const onHand = ref(false);
+
+watch(
+  dialog,
+  (val: boolean) => {
+    if (!val) name.value = "";
+  },
+);
+
+const userApi = useUserApi();
+
+const store = (() => {
+  switch (props.itemType) {
+    case Organizer.Tag:
+      return useTagStore();
+    case Organizer.Tool:
+      return useToolStore();
+    default:
+      return useCategoryStore();
+  }
+})();
+
+const properties = computed(() => {
+  switch (props.itemType) {
+    case Organizer.Tag:
+      return {
+        title: i18n.t("tag.create-a-tag"),
+        label: i18n.t("tag.tag-name"),
+        api: userApi.tags,
+      };
+    case Organizer.Tool:
+      return {
+        title: i18n.t("tool.create-a-tool"),
+        label: i18n.t("tool.tool-name"),
+        api: userApi.tools,
+      };
+    default:
+      return {
+        title: i18n.t("category.create-a-category"),
+        label: i18n.t("category.category-name"),
+        api: userApi.categories,
+      };
+  }
+});
+
+const rules = {
+  required: (val: string) => !!val || (i18n.t("general.a-name-is-required") as string),
+};
+
+async function select() {
+  if (store) {
+    // @ts-expect-error the same state is used for different organizer types, which have different requirements
+    await store.actions.createOne({ name: name.value, onHand: onHand.value });
+  }
+
+  const newItem = store.store.value.find(item => item.name === name.value);
+
+  emit(CREATED_ITEM_EVENT, newItem);
+  dialog.value = false;
+}
 </script>
 
 <style></style>

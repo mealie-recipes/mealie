@@ -3,6 +3,8 @@ from datetime import UTC, datetime
 import pytest
 from fastapi.testclient import TestClient
 
+from mealie.schema.household.webhook import ReadWebhook
+from mealie.services.scheduler.tasks.post_webhooks import post_test_webhook
 from tests.utils import api_routes, assert_deserialize, jsonify
 from tests.utils.fixture_schemas import TestUser
 
@@ -84,3 +86,48 @@ def test_delete_webhook(api_client: TestClient, webhook_data, unique_user: TestU
 
     response = api_client.get(api_routes.households_webhooks_item_id(item_id), headers=unique_user.token)
     assert response.status_code == 404
+
+
+def test_post_test_webhook(
+    monkeypatch: pytest.MonkeyPatch, api_client: TestClient, unique_user: TestUser, webhook_data
+):
+    # Mock the requests.post to avoid actual HTTP calls
+    class MockResponse:
+        status_code = 200
+
+    mock_calls = []
+
+    def mock_post(*args, **kwargs):
+        mock_calls.append((args, kwargs))
+        return MockResponse()
+
+    monkeypatch.setattr("mealie.services.event_bus_service.publisher.requests.post", mock_post)
+
+    # Create a webhook and post it
+    response = api_client.post(
+        api_routes.households_webhooks,
+        json=jsonify(webhook_data),
+        headers=unique_user.token,
+    )
+    webhook_dict = assert_deserialize(response, 201)
+
+    webhook = ReadWebhook(
+        id=webhook_dict["id"],
+        name=webhook_dict["name"],
+        url=webhook_dict["url"],
+        scheduled_time=webhook_dict["scheduledTime"],
+        enabled=webhook_dict["enabled"],
+        group_id=webhook_dict["groupId"],
+        household_id=webhook_dict["householdId"],
+    )
+
+    test_message = "This is a test webhook message"
+    post_test_webhook(webhook, test_message)
+
+    # Verify that requests.post was called with the correct parameters
+    assert len(mock_calls) == 1
+    args, kwargs = mock_calls[0]
+
+    assert kwargs["json"]["message"]["body"] == test_message
+    assert kwargs["timeout"] == 15
+    assert args[0] == webhook.url

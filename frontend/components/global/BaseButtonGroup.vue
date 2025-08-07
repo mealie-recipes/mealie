@@ -48,7 +48,7 @@
         open-delay="200"
         transition="slide-y-reverse-transition"
         density="compact"
-        bottom
+        location="bottom"
         content-class="text-caption"
       >
         <template #activator="{ props }">

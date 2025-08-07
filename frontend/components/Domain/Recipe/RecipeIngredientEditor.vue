@@ -17,7 +17,6 @@
       class="d-flex flex-wrap my-1"
     >
       <v-col
-        v-if="!disableAmount"
         sm="12"
         md="2"
         cols="12"
@@ -42,7 +41,6 @@
         </v-text-field>
       </v-col>
       <v-col
-        v-if="!disableAmount"
         sm="12"
         md="3"
         cols="12"
@@ -63,6 +61,22 @@
           clearable
           @keyup.enter="handleUnitEnter"
         >
+          <template #prepend>
+            <v-tooltip v-if="unitError" location="bottom">
+              <template #activator="{ props: unitTooltipProps }">
+                <v-icon
+                  v-bind="unitTooltipProps"
+                  class="ml-2 mr-n3 opacity-100"
+                  color="primary"
+                >
+                  {{ $globals.icons.alert }}
+                </v-icon>
+              </template>
+              <span v-if="unitErrorTooltip">
+                {{ unitErrorTooltip }}
+              </span>
+            </v-tooltip>
+          </template>
           <template #no-data>
             <div class="caption text-center pb-2">
               {{ $t("recipe.press-enter-to-create") }}
@@ -82,7 +96,6 @@
 
       <!-- Foods Input -->
       <v-col
-        v-if="!disableAmount"
         m="12"
         md="3"
         cols="12"
@@ -104,6 +117,22 @@
           clearable
           @keyup.enter="handleFoodEnter"
         >
+          <template #prepend>
+            <v-tooltip v-if="foodError" location="bottom">
+              <template #activator="{ props: foodTooltipProps }">
+                <v-icon
+                  v-bind="foodTooltipProps"
+                  class="ml-2 mr-n3 opacity-100"
+                  color="primary"
+                >
+                  {{ $globals.icons.alert }}
+                </v-icon>
+              </template>
+              <span v-if="foodErrorTooltip">
+                {{ foodErrorTooltip }}
+              </span>
+            </v-tooltip>
+          </template>
           <template #no-data>
             <div class="caption text-center pb-2">
               {{ $t("recipe.press-enter-to-create") }}
@@ -134,16 +163,7 @@
             :placeholder="$t('recipe.notes')"
             class="mb-auto"
             @click="$emit('clickIngredientField', 'note')"
-          >
-            <template #prepend>
-              <v-icon
-                v-if="disableAmount && $attrs && $attrs.delete"
-                class="mr-n1 handle"
-              >
-                {{ $globals.icons.arrowUpDown }}
-              </v-icon>
-            </template>
-          </v-text-field>
+          />
           <BaseButtonGroup
             hover
             :large="false"
@@ -153,7 +173,6 @@
             @toggle-original="toggleOriginalText"
             @insert-above="$emit('insert-above')"
             @insert-below="$emit('insert-below')"
-            @insert-ingredient="$emit('insert-ingredient')"
             @delete="$emit('delete')"
           />
         </div>
@@ -184,14 +203,22 @@ import type { RecipeIngredient } from "~/lib/api/types/recipe";
 // defineModel replaces modelValue prop
 const model = defineModel<RecipeIngredient>({ required: true });
 
-const props = defineProps({
-  disableAmount: {
+defineProps({
+  unitError: {
     type: Boolean,
     default: false,
   },
-  allowInsertIngredient: {
+  unitErrorTooltip: {
+    type: String,
+    default: "",
+  },
+  foodError: {
     type: Boolean,
     default: false,
+  },
+  foodErrorTooltip: {
+    type: String,
+    default: "",
   },
 });
 
@@ -199,7 +226,6 @@ defineEmits([
   "clickIngredientField",
   "insert-above",
   "insert-below",
-  "insert-ingredient",
   "delete",
 ]);
 
@@ -227,13 +253,6 @@ const contextMenuOptions = computed(() => {
       event: "insert-below",
     },
   ];
-
-  if (props.allowInsertIngredient) {
-    options.push({
-      text: i18n.t("recipe.insert-ingredient"),
-      event: "insert-ingredient",
-    });
-  }
 
   if (model.value.originalText) {
     options.push({

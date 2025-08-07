@@ -95,12 +95,6 @@ export default defineNuxtComponent({
 		      label: i18n.t("group.disable-users-from-commenting-on-recipes"),
 		      description: i18n.t("group.disable-users-from-commenting-on-recipes-description"),
 		    } as Preference,
-		    {
-		      key: "recipeDisableAmount",
-		      value: household.value.preferences.recipeDisableAmount || false,
-		      label: i18n.t("group.disable-organizing-recipe-ingredients-by-units-and-food"),
-		      description: i18n.t("group.disable-organizing-recipe-ingredients-by-units-and-food-description"),
-		    } as Preference,
 		  ];
 		});
 

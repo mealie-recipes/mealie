@@ -88,7 +88,7 @@
             {{ $t("new-recipe.google-ld-json-info") }}
           </a>
           <a
-            href="https://github.com/hay-kot/mealie/issues"
+            href="https://github.com/mealie-recipes/mealie/issues"
             target="_blank"
             rel="noreferrer nofollow"
           >

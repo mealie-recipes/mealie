@@ -217,6 +217,42 @@ def test_delete_recipes_from_other_households(
 
 @pytest.mark.parametrize("is_private_household", [True, False])
 @pytest.mark.parametrize("household_lock_recipe_edits", [True, False])
+def test_admin_delete_recipes_from_other_households(
+    api_client: TestClient,
+    unique_admin: TestUser,
+    h2_user: TestUser,
+    is_private_household: bool,
+    household_lock_recipe_edits: bool,
+):
+    household = h2_user.repos.households.get_one(h2_user.household_id)
+    assert household and household.preferences
+    household.preferences.private_household = is_private_household
+    household.preferences.lock_recipe_edits_from_other_households = household_lock_recipe_edits
+    h2_user.repos.household_preferences.update(household.id, household.preferences)
+
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=h2_user.token)
+    assert response.status_code == 201
+    h2_recipe = h2_user.repos.recipes.get_one(response.json())
+    assert h2_recipe and h2_recipe.id
+    h2_recipe_id = str(h2_recipe.id)
+
+    response = api_client.get(api_routes.recipes_slug(h2_recipe_id), headers=unique_admin.token)
+    assert response.status_code == 200
+    recipe_json = response.json()
+    assert recipe_json["id"] == h2_recipe_id
+
+    # Admin users should always be able to delete recipes from other households
+    # regardless of household_lock_recipe_edits setting
+    response = api_client.delete(api_routes.recipes_slug(recipe_json["slug"]), headers=unique_admin.token)
+    assert response.status_code == 200
+
+    # confirm the recipe was deleted
+    response = api_client.get(api_routes.recipes_slug(h2_recipe_id), headers=unique_admin.token)
+    assert response.status_code == 404
+
+
+@pytest.mark.parametrize("is_private_household", [True, False])
+@pytest.mark.parametrize("household_lock_recipe_edits", [True, False])
 def test_user_can_update_last_made_on_other_household(
     api_client: TestClient,
     unique_user: TestUser,

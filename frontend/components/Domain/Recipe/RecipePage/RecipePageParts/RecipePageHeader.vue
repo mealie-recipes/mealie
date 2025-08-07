@@ -26,7 +26,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useRecipePermissions } from "~/composables/recipes";
 import RecipePageInfoCard from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInfoCard.vue";
@@ -35,82 +35,48 @@ import { useStaticRoutes, useUserApi } from "~/composables/api";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import type { Recipe } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import { usePageState, usePageUser, PageMode, EditorMode } from "~/composables/recipe-page/shared-state";
+import { usePageState, usePageUser, PageMode } from "~/composables/recipe-page/shared-state";
 
-export default defineNuxtComponent({
-  components: {
-    RecipePageInfoCard,
-    RecipeActionMenu,
-  },
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
-    recipeScale: {
-      type: Number,
-      default: 1,
-    },
-    landscape: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ["save", "delete"],
-  setup(props) {
-    const { $vuetify } = useNuxtApp();
-    const { recipeImage } = useStaticRoutes();
-    const { imageKey, pageMode, editMode, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
-    const { user } = usePageUser();
-    const { isOwnGroup } = useLoggedInState();
-
-    const recipeHousehold = ref<HouseholdSummary>();
-    if (user) {
-      const userApi = useUserApi();
-      userApi.households.getOne(props.recipe.householdId).then(({ data }) => {
-        recipeHousehold.value = data || undefined;
-      });
-    }
-    const { canEditRecipe } = useRecipePermissions(props.recipe, recipeHousehold, user);
-
-    function printRecipe() {
-      window.print();
-    }
-
-    const hideImage = ref(false);
-    const imageHeight = computed(() => {
-      return $vuetify.display.xs.value ? "200" : "400";
-    });
-
-    const recipeImageUrl = computed(() => {
-      return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
-    });
-
-    watch(
-      () => recipeImageUrl.value,
-      () => {
-        hideImage.value = false;
-      },
-    );
-
-    return {
-      isOwnGroup,
-      setMode,
-      toggleEditMode,
-      recipeImage,
-      canEditRecipe,
-      imageKey,
-      user,
-      PageMode,
-      pageMode,
-      EditorMode,
-      editMode,
-      printRecipe,
-      imageHeight,
-      hideImage,
-      isEditMode,
-      recipeImageUrl,
-    };
-  },
+interface Props {
+  recipe: NoUndefinedField<Recipe>;
+  recipeScale?: number;
+  landscape?: boolean;
+}
+const props = withDefaults(defineProps<Props>(), {
+  recipeScale: 1,
+  landscape: false,
 });
+
+defineEmits(["save", "delete"]);
+
+const { recipeImage } = useStaticRoutes();
+const { imageKey, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
+const { user } = usePageUser();
+const { isOwnGroup } = useLoggedInState();
+
+const recipeHousehold = ref<HouseholdSummary>();
+if (user) {
+  const userApi = useUserApi();
+  userApi.households.getOne(props.recipe.householdId).then(({ data }) => {
+    recipeHousehold.value = data || undefined;
+  });
+}
+const { canEditRecipe } = useRecipePermissions(props.recipe, recipeHousehold, user);
+
+function printRecipe() {
+  window.print();
+}
+
+const hideImage = ref(false);
+
+const recipeImageUrl = computed(() => {
+  return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
+});
+
+watch(
+  () => recipeImageUrl.value,
+  () => {
+    hideImage.value = false;
+  },
+);
 </script>

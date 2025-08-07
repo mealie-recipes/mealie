@@ -227,6 +227,13 @@ def unique_user(session: Session, api_client: TestClient):
 
 
 @fixture(scope="module")
+def unique_admin(session: Session, api_client: TestClient, unique_user: utils.TestUser):
+    admin_user = next(_unique_user(session, api_client))
+    admin_user.repos.users.patch(admin_user.user_id, {"admin": True, "group_id": unique_user.group_id})
+    yield admin_user
+
+
+@fixture(scope="module")
 def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generator[list[utils.TestUser], None, None]:
     group_name = utils.random_string()
 

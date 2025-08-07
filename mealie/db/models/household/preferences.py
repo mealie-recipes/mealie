@@ -31,6 +31,8 @@ class HouseholdPreferencesModel(SqlAlchemyBase, BaseMixins):
     recipe_show_assets: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
     recipe_landscape_view: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
     recipe_disable_comments: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
+
+    # Deprecated
     recipe_disable_amount: Mapped[bool | None] = mapped_column(sa.Boolean, default=True)
 
     @auto_init()

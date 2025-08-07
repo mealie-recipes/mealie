@@ -547,8 +547,8 @@
             "microgreen": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreen",
-                "plural_name": "microgreens"
+                "name": "mikrozöld",
+                "plural_name": "mikrozöldek"
             },
             "boston lettuce": {
                 "aliases": [],
@@ -767,8 +767,8 @@
             "apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "apricot",
-                "plural_name": "apricots"
+                "name": "sárgabarack",
+                "plural_name": "sárgabarackok"
             },
             "currant": {
                 "aliases": [],
@@ -780,7 +780,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mandarin",
-                "plural_name": "mandarins"
+                "plural_name": "mandarinok"
             },
             "prune": {
                 "aliases": [],
@@ -803,14 +803,14 @@
             "passion fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "passion fruit",
-                "plural_name": "passion fruits"
+                "name": "maracuja",
+                "plural_name": ""
             },
             "papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "papaya",
-                "plural_name": "papayas"
+                "name": "papaja",
+                "plural_name": "papaják"
             },
             "tamarind": {
                 "aliases": [],

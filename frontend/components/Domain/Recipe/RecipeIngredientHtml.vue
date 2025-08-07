@@ -3,21 +3,13 @@
   <div v-html="safeMarkup" />
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { sanitizeIngredientHTML } from "~/composables/recipes/use-recipe-ingredients";
 
-export default defineNuxtComponent({
-  props: {
-    markup: {
-      type: String,
-      required: true,
-    },
-  },
-  setup(props) {
-    const safeMarkup = computed(() => sanitizeIngredientHTML(props.markup));
-    return {
-      safeMarkup,
-    };
-  },
-});
+interface Props {
+  markup: string;
+}
+const props = defineProps<Props>();
+
+const safeMarkup = computed(() => sanitizeIngredientHTML(props.markup));
 </script>

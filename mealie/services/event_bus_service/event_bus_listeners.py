@@ -3,7 +3,6 @@ import json
 from abc import ABC, abstractmethod
 from collections.abc import Generator
 from datetime import UTC, datetime
-from typing import cast
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 from fastapi.encoders import jsonable_encoder
@@ -148,15 +147,24 @@ class WebhookEventListener(EventListenerBase):
 
     def publish_to_subscribers(self, event: Event, subscribers: list[ReadWebhook]) -> None:
         with self.ensure_repos(self.group_id, self.household_id) as repos:
-            if event.document_data.document_type == EventDocumentType.mealplan:
-                webhook_data = cast(EventWebhookData, event.document_data)
-                meal_repo = repos.meals
-                meal_data = meal_repo.get_meals_by_date_range(
-                    webhook_data.webhook_start_dt, webhook_data.webhook_end_dt
-                )
-                if meal_data:
-                    webhook_data.webhook_body = meal_data
-                    self.publisher.publish(event, [webhook.url for webhook in subscribers])
+            if not isinstance(event.document_data, EventWebhookData):
+                return
+
+            match event.document_data.document_type:
+                case EventDocumentType.mealplan:
+                    meal_repo = repos.meals
+                    meal_data = meal_repo.get_meals_by_date_range(
+                        event.document_data.webhook_start_dt, event.document_data.webhook_end_dt
+                    )
+                    event.document_data.webhook_body = meal_data or None
+                case _:
+                    if event.event_type is EventTypes.test_message:
+                        # make sure the webhook has a valid body so it gets sent
+                        event.document_data.webhook_body = event.document_data.webhook_body or []
+
+            # Only publish to subscribers if we have a webhook body to send
+            if event.document_data.webhook_body is not None:
+                self.publisher.publish(event, [webhook.url for webhook in subscribers])
 
     def get_scheduled_webhooks(self, start_dt: datetime, end_dt: datetime) -> list[ReadWebhook]:
         """Fetches all scheduled webhooks from the database"""
