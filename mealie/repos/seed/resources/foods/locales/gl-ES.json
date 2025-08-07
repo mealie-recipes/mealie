@@ -246,8 +246,8 @@
             "new potato": {
                 "aliases": [],
                 "description": "",
-                "name": "new potato",
-                "plural_name": "new potatoes"
+                "name": "pataca nova",
+                "plural_name": "patacas novas"
             },
             "summer squash": {
                 "aliases": [
@@ -755,14 +755,14 @@
             "plum": {
                 "aliases": [],
                 "description": "",
-                "name": "plum",
-                "plural_name": "plums"
+                "name": "ameixa",
+                "plural_name": "ameixas"
             },
             "fig": {
                 "aliases": [],
                 "description": "",
-                "name": "fig",
-                "plural_name": "figs"
+                "name": "figo",
+                "plural_name": "figos"
             },
             "apricot": {
                 "aliases": [],
@@ -773,8 +773,8 @@
             "currant": {
                 "aliases": [],
                 "description": "",
-                "name": "currant",
-                "plural_name": "currants"
+                "name": "grosella",
+                "plural_name": "grosellas"
             },
             "mandarin": {
                 "aliases": [],
@@ -785,8 +785,8 @@
             "prune": {
                 "aliases": [],
                 "description": "",
-                "name": "prune",
-                "plural_name": "prunes"
+                "name": "ameixa seca",
+                "plural_name": "ameixas secas"
             },
             "cantaloupe": {
                 "aliases": [],
@@ -815,26 +815,26 @@
             "tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarind",
-                "plural_name": "tamarinds"
+                "name": "tamarindo",
+                "plural_name": "tamarindos"
             },
             "nectarine": {
                 "aliases": [],
                 "description": "",
-                "name": "nectarine",
-                "plural_name": "nectarines"
+                "name": "nectarina",
+                "plural_name": "nectarinas"
             },
             "dried fig": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fig",
-                "plural_name": "dried figs"
+                "name": "figo seco",
+                "plural_name": "figos secos"
             },
             "chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut",
-                "plural_name": "chestnuts"
+                "name": "castaña",
+                "plural_name": "castañas"
             },
             "meyer lemon": {
                 "aliases": [],
@@ -857,20 +857,20 @@
             "clementine": {
                 "aliases": [],
                 "description": "",
-                "name": "clementine",
-                "plural_name": "clementines"
+                "name": "clementina",
+                "plural_name": "clementinas"
             },
             "persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "persimmon",
-                "plural_name": "persimmons"
+                "name": "caqui",
+                "plural_name": "caquis"
             },
             "melon": {
                 "aliases": [],
                 "description": "",
-                "name": "melon",
-                "plural_name": "melons"
+                "name": "melón",
+                "plural_name": "melóns"
             },
             "tangerine": {
                 "aliases": [],
@@ -887,8 +887,8 @@
             "dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apple",
-                "plural_name": "dried apples"
+                "name": "mazá seca",
+                "plural_name": "mazás secas"
             },
             "quince": {
                 "aliases": [],
@@ -899,8 +899,8 @@
             "guava": {
                 "aliases": [],
                 "description": "",
-                "name": "guava",
-                "plural_name": "guavas"
+                "name": "goiaba",
+                "plural_name": "goiabas"
             },
             "banana chip": {
                 "aliases": [],
@@ -1043,8 +1043,8 @@
             "sweet lime": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet lime",
-                "plural_name": "sweet limes"
+                "name": "lima doce",
+                "plural_name": "limas doces"
             },
             "custard-apple": {
                 "aliases": [],
@@ -1157,8 +1157,8 @@
             "loquat": {
                 "aliases": [],
                 "description": "",
-                "name": "loquat",
-                "plural_name": "loquats"
+                "name": "néspera",
+                "plural_name": "nésperas"
             },
             "crabapple": {
                 "aliases": [],
@@ -1251,8 +1251,8 @@
             "portobello mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "portobello mushroom",
-                "plural_name": "portobello mushrooms"
+                "name": "cogumelo portobello",
+                "plural_name": "cogumelos portobello"
             },
             "wild mushroom": {
                 "aliases": [],
@@ -1453,8 +1453,8 @@
             "strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry",
-                "plural_name": "strawberries"
+                "name": "amorodo",
+                "plural_name": "amorodos"
             },
             "blueberry": {
                 "aliases": [],
@@ -1727,8 +1727,8 @@
             "almond": {
                 "aliases": [],
                 "description": "",
-                "name": "almond",
-                "plural_name": "almonds"
+                "name": "améndoa",
+                "plural_name": "améndoas"
             },
             "sesame seed": {
                 "aliases": [],
@@ -1799,8 +1799,8 @@
             "sunflower seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower seed",
-                "plural_name": "sunflower seeds"
+                "name": "semente de xirasol",
+                "plural_name": "sementes de xirasol"
             },
             "macadamia": {
                 "aliases": [],
@@ -2202,7 +2202,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "manchego",
-                "plural_name": "manchegoes"
+                "plural_name": "manchegos"
             },
             "italian cheese blend": {
                 "aliases": [],
@@ -2711,8 +2711,8 @@
             "margarine": {
                 "aliases": [],
                 "description": "",
-                "name": "margarine",
-                "plural_name": "margarines"
+                "name": "margarina",
+                "plural_name": "margarinas"
             },
             "creme fraiche": {
                 "aliases": [],
@@ -2753,8 +2753,8 @@
             "dulce de leche": {
                 "aliases": [],
                 "description": "",
-                "name": "dulce de leche",
-                "plural_name": "dulce de leche"
+                "name": "doce de leite",
+                "plural_name": "doces de leite"
             },
             "custard": {
                 "aliases": [],
@@ -2777,14 +2777,14 @@
             "sherbet": {
                 "aliases": [],
                 "description": "",
-                "name": "sherbet",
-                "plural_name": "sherbets"
+                "name": "sorvete",
+                "plural_name": "sorvetes"
             },
             "chocolate milk": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk",
-                "plural_name": "chocolate milks"
+                "name": "leite con chocolate",
+                "plural_name": "leites con chocolate"
             },
             "liquid egg substitute": {
                 "aliases": [],
@@ -2873,8 +2873,8 @@
             "cajeta": {
                 "aliases": [],
                 "description": "",
-                "name": "cajeta",
-                "plural_name": "cajetas"
+                "name": "doce de leite de cabra",
+                "plural_name": "doces de leite de cabra"
             },
             "duck egg": {
                 "aliases": [],

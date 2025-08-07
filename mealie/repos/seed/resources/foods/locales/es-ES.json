@@ -162,8 +162,8 @@
             "kale": {
                 "aliases": [],
                 "description": "",
-                "name": "kale",
-                "plural_name": "kales"
+                "name": "col rizada",
+                "plural_name": "coles rizadas"
             },
             "arugula": {
                 "aliases": [],
@@ -192,14 +192,14 @@
             "butternut squash": {
                 "aliases": [],
                 "description": "",
-                "name": "butternut squash",
-                "plural_name": "butternut squashes"
+                "name": "calabaza",
+                "plural_name": "calabazas"
             },
             "romaine": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine",
-                "plural_name": "romaines"
+                "name": "lechuga romana",
+                "plural_name": "lechugas romanas"
             },
             "beetroot": {
                 "aliases": [],
@@ -222,8 +222,8 @@
             "sun dried tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "sun dried tomato",
-                "plural_name": "sun dried tomatoes"
+                "name": "tomate seco",
+                "plural_name": "tomates secos"
             },
             "radish": {
                 "aliases": [],
@@ -252,7 +252,7 @@
             "summer squash": {
                 "aliases": [
                     "calabacín",
-                    "gem squash"
+                    "zapallito redondo"
                 ],
                 "description": "",
                 "name": "summer squash",
@@ -261,14 +261,14 @@
             "mixed green": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed green",
-                "plural_name": "mixed greens"
+                "name": "mezcla de hojas verdes",
+                "plural_name": "mezclas de hojas verdes"
             },
             "parsnip": {
                 "aliases": [],
                 "description": "",
-                "name": "parsnip",
-                "plural_name": "parsnips"
+                "name": "chirivía",
+                "plural_name": "chirivías"
             },
             "baby carrot": {
                 "aliases": [],
@@ -432,19 +432,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "cebolla perla",
-                "plural_name": "pearl onions"
+                "plural_name": "cebollitas perla"
             },
             "tenderstem broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "tenderstem broccoli",
-                "plural_name": "tenderstem broccolis"
+                "name": "brócoli tierno",
+                "plural_name": "brócolis tiernos"
             },
             "plantain": {
                 "aliases": [],
                 "description": "",
-                "name": "plantain",
-                "plural_name": "plantains"
+                "name": "plátano macho",
+                "plural_name": "plátanos machos"
             },
             "leaf lettuce": {
                 "aliases": [],
@@ -455,8 +455,8 @@
             "pepperoncini": {
                 "aliases": [],
                 "description": "",
-                "name": "pepperoncini",
-                "plural_name": "pepperoncinis"
+                "name": "ají pepperoncini",
+                "plural_name": "ajís pepperoncini"
             },
             "baby bok choy": {
                 "aliases": [],
@@ -487,8 +487,8 @@
                     "maíz"
                 ],
                 "description": "",
-                "name": "corn husk",
-                "plural_name": "corn husks"
+                "name": "hoja de maíz",
+                "plural_name": "hojas de maíz"
             },
             "collard green": {
                 "aliases": [],
