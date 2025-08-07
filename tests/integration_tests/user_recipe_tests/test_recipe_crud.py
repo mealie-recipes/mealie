@@ -900,3 +900,50 @@ def test_get_cookbook_recipes(api_client: TestClient, unique_user: utils.TestUse
         assert recipe.id in fetched_recipe_ids
     for recipe in other_recipes:
         assert recipe.id not in fetched_recipe_ids
+
+
+def test_create_recipe_with_extremely_long_slug(api_client: TestClient, unique_user: TestUser):
+    """Test creating a recipe with an extremely long name that would generate a very long slug.
+    This reproduces the issue where long slugs cause 500 internal server errors.
+    """
+    # Create a recipe name that's extremely long like the one in the GitHub issue
+    long_recipe_name = "giallozafferano-on-instagram-il-piatto-vincente-di-simone-barlaam-medaglia-d-oro-e-d-argento-a-parigi-2024-paccheri-tricolore-se-ve-li-siete-persi-dovete-assolutamente-rimediare-lulugargari-ingredienti-paccheri-320-gr-spinacini-500-gr-nocciole-50-gr-ricotta-350-gr-olio-evo-q-b-limone-non-trattato-con-buccia-edibile-q-b-menta-q-b-peperoncino-fresco-q-b-10-pomodorini-ciliegino-preparazione-saltiamo-gli-spinaci-in-padella-lasciamo-raffreddare-e-frulliamo-insieme-a-ricotta-olio-sale-pepe-e-peperoncino-fresco-cuociamo-la-pasta-al-dente-e-mantechiamo-fuori-dal-fuoco-con-la-crema-tostiamo-a-parte-noci-o-nocciole-e-frulliamo-con-scorza-di-limone-impiattiamo-i-paccheri-con-qualche-spinacino-fresco-ciuffetti-di-ricotta-pomodorini-tagliati-in-4-e-la-polvere-di-nocciole-e-limone-buon-appetito-dmtc-pr-finp-nuotoparalimpico-giallozafferano-ricette-olimpiadi-paralimpiadi-atleti-simonebarlaam-cucina-paccheri-pasta-spinaci"  # noqa: E501
+
+    # Create the recipe
+    response = api_client.post(api_routes.recipes, json={"name": long_recipe_name}, headers=unique_user.token)
+    assert response.status_code == 201
+    created_slug = json.loads(response.text)
+
+    assert created_slug is not None
+    assert len(created_slug) > 0
+
+    new_name = "Pasta"
+    response = api_client.patch(
+        api_routes.recipes_slug(created_slug), json={"name": new_name}, headers=unique_user.token
+    )
+
+    assert response.status_code == 200
+
+    updated_recipe = json.loads(response.text)
+    assert updated_recipe["name"] == new_name
+    assert updated_recipe["slug"] == slugify(new_name)
+
+
+def test_create_recipe_slug_length_validation(api_client: TestClient, unique_user: TestUser):
+    """Test that recipe slugs are properly truncated to a reasonable length."""
+    very_long_name = "A" * 500  # 500 character name
+
+    response = api_client.post(api_routes.recipes, json={"name": very_long_name}, headers=unique_user.token)
+    assert response.status_code == 201
+
+    created_slug = json.loads(response.text)
+
+    # The slug should be truncated to a reasonable length
+    # Using 250 characters as a reasonable limit, leaving room for collision suffixes
+    assert len(created_slug) <= 250
+
+    assert created_slug is not None
+    assert len(created_slug) > 0
+
+    response = api_client.get(api_routes.recipes_slug(created_slug), headers=unique_user.token)
+    assert response.status_code == 200

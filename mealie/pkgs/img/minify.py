@@ -4,10 +4,9 @@ from logging import Logger
 from pathlib import Path
 
 from PIL import Image, ImageOps
-from pillow_heif import register_avif_opener, register_heif_opener
+from pillow_heif import register_heif_opener
 
 register_heif_opener()
-register_avif_opener()
 
 
 @dataclass

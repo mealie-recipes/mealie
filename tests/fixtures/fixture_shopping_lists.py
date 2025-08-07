@@ -12,7 +12,6 @@ def create_item(list_id: UUID4) -> dict:
         "shopping_list_id": str(list_id),
         "checked": False,
         "position": 0,
-        "is_food": False,
         "note": random_string(10),
         "quantity": 1,
         "unit_id": None,

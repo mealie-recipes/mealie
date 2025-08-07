@@ -1,31 +1,31 @@
 {
     "teaspoon": {
         "name": "teelepel",
-        "plural_name": "teaspoons",
+        "plural_name": "teelepel",
         "description": "",
         "abbreviation": "tl"
     },
     "tablespoon": {
         "name": "eetlepel",
-        "plural_name": "tablespoons",
+        "plural_name": "eetlepel",
         "description": "",
         "abbreviation": "el"
     },
     "cup": {
         "name": "koppie",
-        "plural_name": "cups",
+        "plural_name": "koppie",
         "description": "",
         "abbreviation": "c"
     },
     "fluid-ounce": {
         "name": "vloeistofons",
-        "plural_name": "fluid ounces",
+        "plural_name": "vloeistofons",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
         "name": "pint",
-        "plural_name": "pints",
+        "plural_name": "pint",
         "description": "",
         "abbreviation": "pt"
     },

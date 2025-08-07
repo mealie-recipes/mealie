@@ -6,8 +6,8 @@
         "unique-name-error": "Les noms de recette doivent être uniques",
         "recipe-created": "Recette créée",
         "recipe-defaults": {
-            "ingredient-note": "100 g de farine",
-            "step-text": "Les étapes de la recette ainsi que les autres champs de la page de recette supportent la syntaxe markdown.\n\n**Ajouter un lien**\n\n[Mon lien](https://demo.mealie.io)\n"
+            "ingredient-note": "1 Tasse de farine",
+            "step-text": "Les étapes de la recette ainsi que les autres champs de la page de recette supportent la syntaxe Markdown.\n\n**Ajouter un lien**\n\n[Mon lien](https://demo.mealie.io)\n"
         },
         "servings-text": {
             "makes": "Fait",
@@ -73,7 +73,7 @@
             "subject": "E-mail de test Mealie",
             "header_text": "E-mail de test",
             "message_top": "Ceci est un mail de test.",
-            "message_bottom": "Veuillez cliquer sur le bouton ci-dessus pour accepter l'invitation.",
+            "message_bottom": "Veuillez cliquer sur le bouton ci-dessus pour tester l'E-mail.",
             "button_text": "Ouvrir Mealie"
         }
     }

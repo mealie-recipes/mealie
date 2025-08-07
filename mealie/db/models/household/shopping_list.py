@@ -65,7 +65,6 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     quantity: Mapped[float | None] = mapped_column(Float, default=1)
     note: Mapped[str | None] = mapped_column(String)
 
-    is_food: Mapped[bool | None] = mapped_column(Boolean, default=False)
     extras: Mapped[list[ShoppingListItemExtras]] = orm.relationship(
         "ShoppingListItemExtras", cascade="all, delete-orphan"
     )
@@ -87,6 +86,9 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
         ShoppingListItemRecipeReference, cascade="all, delete, delete-orphan"
     )
     model_config = ConfigDict(exclude={"label", "food", "unit"})
+
+    # Deprecated
+    is_food: Mapped[bool | None] = mapped_column(Boolean, default=False)
 
     @api_extras
     @auto_init()

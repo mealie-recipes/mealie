@@ -1,5 +1,8 @@
 # Installing with PostgreSQL
 
+!!! Warning
+    When upgrading postgresql major versions, manual steps are required [Postgres#37](https://github.com/docker-library/postgres/issues/37).
+
 PostgreSQL might be considered if you need to support many concurrent users. In addition, some features are only enabled on PostgreSQL, such as fuzzy search.
 
 **For Environment Variable Configuration, see** [Backend Configuration](./backend-config.md)
@@ -7,7 +10,7 @@ PostgreSQL might be considered if you need to support many concurrent users. In 
 ```yaml
 services:
   mealie:
-    image: ghcr.io/mealie-recipes/mealie:v2.8.0 # (3)
+    image: ghcr.io/mealie-recipes/mealie:v3.0.2 # (3)
     container_name: mealie
     restart: always
     ports:
@@ -38,7 +41,7 @@ services:
 
   postgres:
     container_name: postgres
-    image: postgres:15
+    image: postgres:17
     restart: always
     volumes:
       - mealie-pgdata:/var/lib/postgresql/data
@@ -46,6 +49,7 @@ services:
       POSTGRES_PASSWORD: mealie
       POSTGRES_USER: mealie
       PGUSER: mealie
+      POSTGRES_DB: mealie
     healthcheck:
       test: ["CMD", "pg_isready"]
       interval: 30s

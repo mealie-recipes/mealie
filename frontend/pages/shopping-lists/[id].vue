@@ -371,6 +371,8 @@
               <v-btn
                 v-if="recipe"
                 icon
+                flat
+                class="bg-transparent"
                 :disabled="isOffline"
                 @click.prevent="removeRecipeReferenceToList(recipe.id!)"
               >
@@ -386,6 +388,8 @@
               <v-btn
                 icon
                 :disabled="isOffline"
+                flat
+                class="bg-transparent"
                 @click.prevent="addRecipeReferenceToList(recipe.id!)"
               >
                 <v-icon color="grey-lighten-1">
@@ -707,7 +711,7 @@ export default defineNuxtComponent({
         }
       });
       if (hasChanged) {
-        updateListItems();
+        updateUncheckedListItems();
       }
     }
 
@@ -727,7 +731,9 @@ export default defineNuxtComponent({
         }
       });
       if (hasChanged) {
-        updateListItems();
+        listItems.unchecked = [...listItems.unchecked, ...listItems.checked];
+        listItems.checked = [];
+        updateUncheckedListItems();
       }
     }
 
@@ -756,30 +762,11 @@ export default defineNuxtComponent({
 
     const contextActions = {
       delete: "delete",
-      setIngredient: "setIngredient",
     };
 
     const contextMenu = [
       { title: i18n.t("general.delete"), action: contextActions.delete },
-      { title: i18n.t("recipe.ingredient"), action: contextActions.setIngredient },
     ];
-
-    function contextMenuAction(action: string, item: ShoppingListItemOut, idx: number) {
-      if (!shoppingList.value?.listItems) {
-        return;
-      }
-
-      switch (action) {
-        case contextActions.delete:
-          shoppingList.value.listItems = shoppingList.value?.listItems.filter(itm => itm.id !== item.id);
-          break;
-        case contextActions.setIngredient:
-          shoppingList.value.listItems[idx].isFood = !shoppingList.value.listItems[idx].isFood;
-          break;
-        default:
-          break;
-      }
-    }
 
     // =====================================
     // Labels, Units, Foods
@@ -895,7 +882,7 @@ export default defineNuxtComponent({
       shoppingList.value.listItems.forEach((item) => {
         const key = item.checked
           ? checkedItemKey
-          : item.isFood && item.food?.name
+          : item.food?.name
             ? item.food.name
             : item.note || "";
 
@@ -1051,8 +1038,13 @@ export default defineNuxtComponent({
           .sort(sortCheckedItems);
       }
 
+      // Update the item if it's checked, otherwise updateUncheckedListItems will handle it
+      if (item.checked) {
+        shoppingListItemActions.updateItem(item);
+      }
+
       updateListItemOrder();
-      updateListItems();
+      updateUncheckedListItems();
     }
 
     function deleteListItem(item: ShoppingListItemOut) {
@@ -1076,13 +1068,12 @@ export default defineNuxtComponent({
     const createEditorOpen = ref(false);
     const createListItemData = ref<ShoppingListItemOut>(listItemFactory());
 
-    function listItemFactory(isFood = false): ShoppingListItemOut {
+    function listItemFactory(): ShoppingListItemOut {
       return {
         id: uuid4(),
         shoppingListId: id,
         checked: false,
         position: shoppingList.value?.listItems?.length || 1,
-        isFood,
         quantity: 0,
         note: "",
         labelId: undefined,
@@ -1133,7 +1124,7 @@ export default defineNuxtComponent({
         shoppingList.value.listItems.push(createListItemData.value);
         updateListItemOrder();
       }
-      createListItemData.value = listItemFactory(createListItemData.value.isFood || false);
+      createListItemData.value = listItemFactory();
       refresh();
     }
 
@@ -1144,7 +1135,7 @@ export default defineNuxtComponent({
       // since the user has manually reordered the list, we should preserve this order
       preserveItemOrder.value = true;
 
-      updateListItems();
+      updateUncheckedListItems();
     }
 
     function updateIndexUncheckedByLabel(labelName: string, labeledUncheckedItems: ShoppingListItemOut[]) {
@@ -1167,7 +1158,7 @@ export default defineNuxtComponent({
       // save changes
       listItems.unchecked = allUncheckedItems;
       listItems.checked = shoppingList.value?.listItems?.filter(item => item.checked) || [];
-      updateListItems();
+      updateUncheckedListItems();
     }
 
     function deleteListItems(items: ShoppingListItemOut[]) {
@@ -1187,30 +1178,25 @@ export default defineNuxtComponent({
       refresh();
     }
 
-    function updateListItems() {
+    function updateUncheckedListItems() {
       if (!shoppingList.value?.listItems) {
         return;
       }
 
-      // Set Position
-      shoppingList.value.listItems = listItems.unchecked.concat(listItems.checked).map((itm: ShoppingListItemOut, idx: number) => {
-        itm.position = idx;
-        return itm;
-      });
-
-      shoppingList.value.listItems.forEach((item) => {
+      // Set position for unchecked items
+      listItems.unchecked.forEach((item: ShoppingListItemOut, idx: number) => {
+        item.position = idx;
         shoppingListItemActions.updateItem(item);
       });
+
       refresh();
     }
 
     return {
       ...toRefs(state),
       addRecipeReferenceToList,
-      updateListItems,
       allLabels,
       contextMenu,
-      contextMenuAction,
       copyListItems,
       createEditorOpen,
       createListItem,

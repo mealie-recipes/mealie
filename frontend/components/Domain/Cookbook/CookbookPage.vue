@@ -17,7 +17,6 @@
       <v-card-text>
         <CookbookEditor
           v-model="editTarget"
-          :actions="actions"
         />
       </v-card-text>
     </BaseDialog>
@@ -65,7 +64,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useLazyRecipes } from "~/composables/recipes";
 import RecipeCardSection from "@/components/Domain/Recipe/RecipeCardSection.vue";
 import { useCookbookStore } from "~/composables/store/use-cookbook-store";
@@ -74,81 +73,58 @@ import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { RecipeCookBook } from "~/lib/api/types/cookbook";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
 
-export default defineNuxtComponent({
-  components: { RecipeCardSection, CookbookEditor },
-  setup() {
-    const $auth = useMealieAuth();
-    const { isOwnGroup } = useLoggedInState();
+const $auth = useMealieAuth();
+const { isOwnGroup } = useLoggedInState();
 
-    const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+const route = useRoute();
+const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
-    const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
-    const slug = route.params.slug as string;
-    const { getOne } = useCookbook(isOwnGroup.value ? null : groupSlug.value);
-    const { actions } = useCookbookStore();
-    const router = useRouter();
+const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
+const slug = route.params.slug as string;
+const { getOne } = useCookbook(isOwnGroup.value ? null : groupSlug.value);
+const { actions } = useCookbookStore();
+const router = useRouter();
 
-    const tab = ref(null);
-    const book = getOne(slug);
+const book = getOne(slug);
 
-    const isOwnHousehold = computed(() => {
-      if (!($auth.user.value && book.value?.householdId)) {
-        return false;
-      }
+const isOwnHousehold = computed(() => {
+  if (!($auth.user.value && book.value?.householdId)) {
+    return false;
+  }
 
-      return $auth.user.value.householdId === book.value.householdId;
-    });
-    const canEdit = computed(() => isOwnGroup.value && isOwnHousehold.value);
+  return $auth.user.value.householdId === book.value.householdId;
+});
+const canEdit = computed(() => isOwnGroup.value && isOwnHousehold.value);
 
-    const dialogStates = reactive({
-      edit: false,
-    });
+const dialogStates = reactive({
+  edit: false,
+});
 
-    const editTarget = ref<RecipeCookBook | null>(null);
-    function handleEditCookbook() {
-      dialogStates.edit = true;
-      editTarget.value = book.value;
-    }
+const editTarget = ref<RecipeCookBook | null>(null);
+function handleEditCookbook() {
+  dialogStates.edit = true;
+  editTarget.value = book.value;
+}
 
-    async function editCookbook() {
-      if (!editTarget.value) {
-        return;
-      }
-      const response = await actions.updateOne(editTarget.value);
+async function editCookbook() {
+  if (!editTarget.value) {
+    return;
+  }
+  const response = await actions.updateOne(editTarget.value);
 
-      if (response?.slug && book.value?.slug !== response?.slug) {
-        // if name changed, redirect to new slug
-        router.push(`/g/${route.params.groupSlug}/cookbooks/${response?.slug}`);
-      }
-      else {
-        // otherwise reload the page, since the recipe criteria changed
-        router.go(0);
-      }
-      dialogStates.edit = false;
-      editTarget.value = null;
-    }
+  if (response?.slug && book.value?.slug !== response?.slug) {
+    // if name changed, redirect to new slug
+    router.push(`/g/${route.params.groupSlug}/cookbooks/${response?.slug}`);
+  }
+  else {
+    // otherwise reload the page, since the recipe criteria changed
+    router.go(0);
+  }
+  dialogStates.edit = false;
+  editTarget.value = null;
+}
 
-    useSeoMeta({
-      title: book?.value?.name || "Cookbook",
-    });
-
-    return {
-      book,
-      slug,
-      tab,
-      appendRecipes,
-      assignSorted,
-      recipes,
-      removeRecipe,
-      replaceRecipes,
-      canEdit,
-      dialogStates,
-      editTarget,
-      handleEditCookbook,
-      editCookbook,
-      actions,
-    };
-  },
+useSeoMeta({
+  title: book?.value?.name || "Cookbook",
 });
 </script>

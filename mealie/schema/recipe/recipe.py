@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Annotated, Any, ClassVar
 from uuid import uuid4
 
-from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 from slugify import slugify
 from sqlalchemy import Select, desc, func, or_, select, text
@@ -34,6 +34,22 @@ from .recipe_settings import RecipeSettings
 from .recipe_step import RecipeStep
 
 app_dirs = get_app_dirs()
+
+
+def create_recipe_slug(name: str, max_length: int = 250) -> str:
+    """Generate a slug from a recipe name, truncating to a reasonable length.
+
+    Args:
+        name: The recipe name to create a slug from
+        max_length: Maximum length for the slug (default: 250)
+
+    Returns:
+        A truncated slug string
+    """
+    generated_slug = slugify(name)
+    if len(generated_slug) > max_length:
+        generated_slug = generated_slug[:max_length]
+    return generated_slug
 
 
 class RecipeTag(MealieModel):
@@ -212,24 +228,12 @@ class Recipe(RecipeSummary):
 
     model_config = ConfigDict(from_attributes=True)
 
-    @model_validator(mode="after")
-    def calculate_missing_food_flags_and_format_display(self):
-        disable_amount = self.settings.disable_amount if self.settings else True
-        for ingredient in self.recipe_ingredient:
-            ingredient.disable_amount = disable_amount
-            ingredient.is_food = not ingredient.disable_amount
-
-            # recalculate the display property, since it depends on the disable_amount flag
-            ingredient.display = ingredient._format_display()
-
-        return self
-
     @field_validator("slug", mode="before")
     def validate_slug(slug: str, info: ValidationInfo):
         if not info.data.get("name"):
             return slug
 
-        return slugify(info.data["name"])
+        return create_recipe_slug(info.data["name"])
 
     @field_validator("recipe_ingredient", mode="before")
     def validate_ingredients(recipe_ingredient):

@@ -9,7 +9,6 @@ from uuid import UUID, uuid4
 from zipfile import ZipFile
 
 from fastapi import UploadFile
-from slugify import slugify
 
 from mealie.core import exceptions
 from mealie.core.config import get_app_settings
@@ -21,7 +20,7 @@ from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeUpdate
 from mealie.schema.openai.recipe import OpenAIRecipe
-from mealie.schema.recipe.recipe import CreateRecipe, Recipe
+from mealie.schema.recipe.recipe import CreateRecipe, Recipe, create_recipe_slug
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_settings import RecipeSettings
@@ -64,6 +63,12 @@ class RecipeService(RecipeServiceBase):
         if recipe is None:
             raise exceptions.NoEntryFound("Recipe not found.")
         return recipe
+
+    def can_delete(self, recipe: Recipe) -> bool:
+        if self.user.admin:
+            return True
+        else:
+            return self.can_update(recipe)
 
     def can_update(self, recipe: Recipe) -> bool:
         if recipe.settings is None:
@@ -168,7 +173,6 @@ class RecipeService(RecipeServiceBase):
                     show_assets=self.household.preferences.recipe_show_assets,
                     landscape_view=self.household.preferences.recipe_landscape_view,
                     disable_comments=self.household.preferences.recipe_disable_comments,
-                    disable_amount=self.household.preferences.recipe_disable_amount,
                 )
             else:
                 data.settings = RecipeSettings()
@@ -332,7 +336,7 @@ class RecipeService(RecipeServiceBase):
 
         new_name = dup_data.name if dup_data.name else old_recipe.name or ""
         new_recipe.id = uuid4()
-        new_recipe.slug = slugify(new_name)
+        new_recipe.slug = create_recipe_slug(new_name)
         new_recipe.image = cache.cache_key.new_key() if old_recipe.image else None
         new_recipe.recipe_instructions = (
             None
@@ -405,8 +409,7 @@ class RecipeService(RecipeServiceBase):
         return new_data
 
     def patch_one(self, slug_or_id: str | UUID, patch_data: Recipe) -> Recipe:
-        recipe: Recipe | None = self._pre_update_check(slug_or_id, patch_data)
-        recipe = self.get_one(slug_or_id)
+        recipe: Recipe = self._pre_update_check(slug_or_id, patch_data)
 
         new_data = self.group_recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
 
@@ -425,7 +428,7 @@ class RecipeService(RecipeServiceBase):
     def delete_one(self, slug_or_id: str | UUID) -> Recipe:
         recipe = self.get_one(slug_or_id)
 
-        if not self.can_update(recipe):
+        if not self.can_delete(recipe):
             raise exceptions.PermissionDenied("You do not have permission to delete this recipe.")
 
         data = self.group_recipes.delete(recipe.id, "id")
@@ -447,7 +450,7 @@ class OpenAIRecipeService(RecipeServiceBase):
             group_id=self.user.group_id,
             household_id=self.household.id,
             name=openai_recipe.name,
-            slug=slugify(openai_recipe.name),
+            slug=create_recipe_slug(openai_recipe.name),
             description=openai_recipe.description,
             recipe_yield=openai_recipe.recipe_yield,
             total_time=openai_recipe.total_time,

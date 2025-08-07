@@ -1,4 +1,4 @@
-<template v-if="showCards">
+<template v-if="_showCards">
   <div class="text-center">
     <!-- Total Time -->
     <div
@@ -78,65 +78,46 @@
   </div>
 </template>
 
-<script lang="ts">
-export default defineNuxtComponent({
-  props: {
-    prepTime: {
-      type: String,
-      default: null,
-    },
-    totalTime: {
-      type: String,
-      default: null,
-    },
-    performTime: {
-      type: String,
-      default: null,
-    },
-    color: {
-      type: String,
-      default: "accent custom-transparent",
-    },
-    small: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props) {
-    const i18n = useI18n();
+<script setup lang="ts">
+interface Props {
+  prepTime?: string | null;
+  totalTime?: string | null;
+  performTime?: string | null;
+  color?: string;
+  small?: boolean;
+}
+const props = withDefaults(defineProps<Props>(), {
+  prepTime: null,
+  totalTime: null,
+  performTime: null,
+  color: "accent custom-transparent",
+  small: false,
+});
 
-    function isEmpty(str: string | null) {
-      return !str || str.length === 0;
-    }
+const i18n = useI18n();
 
-    const showCards = computed(() => {
-      return [props.prepTime, props.totalTime, props.performTime].some(x => !isEmpty(x));
-    });
+function isEmpty(str: string | null) {
+  return !str || str.length === 0;
+}
 
-    const validateTotalTime = computed(() => {
-      return !isEmpty(props.totalTime) ? { name: i18n.t("recipe.total-time"), value: props.totalTime } : null;
-    });
+const _showCards = computed(() => {
+  return [props.prepTime, props.totalTime, props.performTime].some(x => !isEmpty(x));
+});
 
-    const validatePrepTime = computed(() => {
-      return !isEmpty(props.prepTime) ? { name: i18n.t("recipe.prep-time"), value: props.prepTime } : null;
-    });
+const validateTotalTime = computed(() => {
+  return !isEmpty(props.totalTime) ? { name: i18n.t("recipe.total-time"), value: props.totalTime } : null;
+});
 
-    const validatePerformTime = computed(() => {
-      return !isEmpty(props.performTime) ? { name: i18n.t("recipe.perform-time"), value: props.performTime } : null;
-    });
+const validatePrepTime = computed(() => {
+  return !isEmpty(props.prepTime) ? { name: i18n.t("recipe.prep-time"), value: props.prepTime } : null;
+});
 
-    const fontSize = computed(() => {
-      return props.small ? { fontSize: "smaller" } : { fontSize: "larger" };
-    });
+const validatePerformTime = computed(() => {
+  return !isEmpty(props.performTime) ? { name: i18n.t("recipe.perform-time"), value: props.performTime } : null;
+});
 
-    return {
-      showCards,
-      validateTotalTime,
-      validatePrepTime,
-      validatePerformTime,
-      fontSize,
-    };
-  },
+const fontSize = computed(() => {
+  return props.small ? { fontSize: "smaller" } : { fontSize: "larger" };
 });
 </script>
 

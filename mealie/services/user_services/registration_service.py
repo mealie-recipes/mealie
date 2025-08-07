@@ -74,7 +74,6 @@ class RegistrationService:
             recipe_show_assets=self.registration.advanced,
             recipe_landscape_view=False,
             recipe_disable_comments=self.registration.advanced,
-            recipe_disable_amount=self.registration.advanced,
         )
         return HouseholdService.create_household(group_repos, household_data, household_preferences)
 

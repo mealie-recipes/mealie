@@ -30,6 +30,7 @@
       :icon="$globals.icons.potSteam"
       :title="$t('data-pages.tools.edit-tool')"
       :submit-text="$t('general.save')"
+      can-confirm
       @submit="editSaveTool"
     >
       <v-card-text v-if="editTarget">
@@ -41,6 +42,7 @@
           <v-checkbox
             v-model="editTarget.onHand"
             :label="$t('tool.on-hand')"
+            hide-details
           />
         </div>
       </v-card-text>
@@ -52,6 +54,7 @@
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
+      can-confirm
       @confirm="deleteTool"
     >
       <v-card-text>
@@ -72,6 +75,7 @@
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
+      can-confirm
       @confirm="deleteSelected"
     >
       <v-card-text>
