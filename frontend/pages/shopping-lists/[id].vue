@@ -136,6 +136,30 @@
       v-if="!edit"
       class="py-2"
     >
+      <!-- Create Item -->
+      <div v-if="createEditorOpen">
+        <ShoppingListItemEditor
+          v-model="createListItemData"
+          class="my-4"
+          :labels="allLabels || []"
+          :units="allUnits || []"
+          :foods="allFoods || []"
+          :allow-delete="false"
+          @delete="createEditorOpen = false"
+          @cancel="createEditorOpen = false"
+          @save="createListItem"
+        />
+      </div>
+      <div v-else class="d-flex justify-end">
+        <BaseButton
+          create
+          @click="createEditorOpen = true"
+        >
+          {{ $t('general.add') }}
+        </BaseButton>
+      </div>
+
+      <!-- View without Label grouping -->
       <div v-if="!preferences.viewByLabel">
         <VueDraggable
           v-model="listItems.unchecked"
@@ -220,29 +244,6 @@
             </div>
           </v-expand-transition>
         </div>
-      </div>
-
-      <!-- Create Item -->
-      <div v-if="createEditorOpen">
-        <ShoppingListItemEditor
-          v-model="createListItemData"
-          class="my-4"
-          :labels="allLabels || []"
-          :units="allUnits || []"
-          :foods="allFoods || []"
-          :allow-delete="false"
-          @delete="createEditorOpen = false"
-          @cancel="createEditorOpen = false"
-          @save="createListItem"
-        />
-      </div>
-      <div v-else class="d-flex justify-end">
-        <BaseButton
-          create
-          @click="createEditorOpen = true"
-        >
-          {{ $t('general.add') }}
-        </BaseButton>
       </div>
 
       <!-- Reorder Labels -->
