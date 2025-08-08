@@ -37,7 +37,8 @@
           :name="inputField.varName"
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
           :hint="inputField.hint"
-          hide-details="auto"
+          :hide-details="!inputField.hint"
+          :persistent-hint="!!inputField.hint"
           density="comfortable"
           @change="emitBlur">
           <template #label>
