@@ -10,8 +10,8 @@
             "step-text": "Шаги рецепта, как и другие поля на странице рецепта, поддерживают синтаксис Markdown.\n\n**Добавить ссылку**\n\n[Моя Ссылка](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
+            "makes": "Получается",
+            "serves": "Порций",
             "serving": "Порция",
             "servings": "Порции",
             "yield": "Выход",
