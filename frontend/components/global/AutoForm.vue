@@ -97,8 +97,8 @@
           :label="inputField.label"
           :name="inputField.varName"
           :items="inputField.options"
-          :item-title="inputField.itemText"
-          :item-value="inputField.itemValue"
+          item-title="text"
+          item-value="text"
           :return-object="false"
           :hint="inputField.hint"
           density="comfortable"
@@ -106,11 +106,12 @@
           lazy-validation
           @blur="emitBlur"
         >
-          <template #item="{ item }">
-            <div>
-              <v-list-item-title>{{ item.raw.text }}</v-list-item-title>
-              <v-list-item-subtitle>{{ item.raw.description }}</v-list-item-subtitle>
-            </div>
+          <template #item="{ item, props }">
+            <v-list-item
+              v-bind="props"
+              :title="item.raw.text"
+              :subtitle="item.raw.description"
+            />
           </template>
         </v-select>
 
