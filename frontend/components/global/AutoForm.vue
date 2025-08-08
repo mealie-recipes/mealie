@@ -44,8 +44,8 @@
             <span class="ml-4">
               {{ inputField.label }}
             </span>
-        </template>
-</v-checkbox>
+          </template>
+        </v-checkbox>
 
         <!-- Text Field -->
         <v-text-field
