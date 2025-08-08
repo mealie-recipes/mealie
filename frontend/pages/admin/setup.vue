@@ -46,7 +46,7 @@
       </v-container>
 
       <v-container v-if="currentPage === Pages.PAGE_2">
-        <v-card-title class="headline justify-center">
+        <v-card-title class="headline justify-center pa-0">
           {{ $t('admin.setup.common-settings-for-new-sites') }}
         </v-card-title>
         <AutoForm
