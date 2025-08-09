@@ -192,14 +192,14 @@
             "butternut squash": {
                 "aliases": [],
                 "description": "",
-                "name": "butternut squash",
-                "plural_name": "butternut squashes"
+                "name": "cabaza",
+                "plural_name": "cabazas"
             },
             "romaine": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine",
-                "plural_name": "romaines"
+                "name": "leituga-romana",
+                "plural_name": "leitugas-romanas"
             },
             "beetroot": {
                 "aliases": [],
@@ -222,8 +222,8 @@
             "sun dried tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "sun dried tomato",
-                "plural_name": "sun dried tomatoes"
+                "name": "tomate seco",
+                "plural_name": "tomates secos"
             },
             "radish": {
                 "aliases": [],
@@ -251,7 +251,7 @@
             },
             "summer squash": {
                 "aliases": [
-                    "courgette",
+                    "cabaciña",
                     "gem squash"
                 ],
                 "description": "",
@@ -274,7 +274,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "baby carrot",
-                "plural_name": "baby carrots"
+                "plural_name": "mini cenouras"
             },
             "mixed vegetable": {
                 "aliases": [],
@@ -303,8 +303,8 @@
             "cayenne pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "cayenne pepper",
-                "plural_name": "cayenne peppers"
+                "name": "pimenta caiena",
+                "plural_name": "pimentas de caiena"
             },
             "green tomato": {
                 "aliases": [],
@@ -327,8 +327,8 @@
             "mashed potato": {
                 "aliases": [],
                 "description": "",
-                "name": "mashed potato",
-                "plural_name": "mashed potatoes"
+                "name": "puré de pataca",
+                "plural_name": "purés de pataca"
             },
             "horseradish": {
                 "aliases": [],
@@ -368,11 +368,11 @@
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "repolo chinés"
                 ],
                 "description": "",
-                "name": "napa cabbage",
-                "plural_name": "napa cabbages"
+                "name": "repolo napa",
+                "plural_name": "repolos napa"
             },
             "celeriac": {
                 "aliases": [],
@@ -628,15 +628,15 @@
         "foods": {
             "tomato": {
                 "aliases": [],
-                "description": "Yes they are a fruit",
+                "description": "Si, son froitas",
                 "name": "tomate",
                 "plural_name": "tomates"
             },
             "lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon",
-                "plural_name": "lemons"
+                "name": "limón",
+                "plural_name": "limóns"
             },
             "lime": {
                 "aliases": [],
@@ -671,8 +671,8 @@
             "pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple",
-                "plural_name": "pineapples"
+                "name": "ananás",
+                "plural_name": "ananás"
             },
             "mango": {
                 "aliases": [],
@@ -683,8 +683,8 @@
             "peach": {
                 "aliases": [],
                 "description": "",
-                "name": "peach",
-                "plural_name": "peaches"
+                "name": "pexego",
+                "plural_name": "pexegos"
             },
             "date": {
                 "aliases": [],
@@ -1781,8 +1781,8 @@
             "pumpkin seed": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin seed",
-                "plural_name": "pumpkin seeds"
+                "name": "semente de cabaza",
+                "plural_name": "sementes de cabaza"
             },
             "hazelnut": {
                 "aliases": [],
@@ -2009,7 +2009,7 @@
                     "cheddars"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
+                "name": "queixo cheddar",
                 "plural_name": "cheddar cheeses"
             },
             "cream cheese": {
@@ -2531,8 +2531,8 @@
             "requeijão": {
                 "aliases": [],
                 "description": "",
-                "name": "requeijão",
-                "plural_name": "requeijãoes"
+                "name": "requeixo",
+                "plural_name": "requeixos"
             },
             "vacherin": {
                 "aliases": [],
@@ -2687,8 +2687,8 @@
             "condensed milk": {
                 "aliases": [],
                 "description": "",
-                "name": "condensed milk",
-                "plural_name": "condensed milks"
+                "name": "leite condensado",
+                "plural_name": "leites condensados"
             },
             "half and half": {
                 "aliases": [],
@@ -2849,8 +2849,8 @@
             "goat milk": {
                 "aliases": [],
                 "description": "",
-                "name": "goat milk",
-                "plural_name": "goat milks"
+                "name": "leite de cabra",
+                "plural_name": "leites de cabra"
             },
             "cheese curd": {
                 "aliases": [],
@@ -2975,8 +2975,8 @@
             "goat butter": {
                 "aliases": [],
                 "description": "",
-                "name": "goat butter",
-                "plural_name": "goat butter"
+                "name": "manteiga de leite de cabra",
+                "plural_name": "manteigas de leite de cabra"
             },
             "century egg": {
                 "aliases": [],
@@ -3141,8 +3141,8 @@
             "almond milk": {
                 "aliases": [],
                 "description": "",
-                "name": "almond milk",
-                "plural_name": "almond milks"
+                "name": "leite de améndoa",
+                "plural_name": "leites de améndoa"
             },
             "almond butter": {
                 "aliases": [],
@@ -3165,7 +3165,7 @@
             "vegan butter": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan butter",
+                "name": "manteiga vegana",
                 "plural_name": "vegan butter"
             },
             "non-dairy milk": {
@@ -3219,8 +3219,8 @@
             "vegan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan cheese",
-                "plural_name": "vegan cheeses"
+                "name": "queixo vegano",
+                "plural_name": "queixos veganos"
             },
             "cashew butter": {
                 "aliases": [],
@@ -3267,8 +3267,8 @@
             "oat milk": {
                 "aliases": [],
                 "description": "",
-                "name": "oat milk",
-                "plural_name": "oat milks"
+                "name": "leite de avea",
+                "plural_name": "leites de avea"
             },
             "nut butter": {
                 "aliases": [],
@@ -3280,7 +3280,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "leite de arroz",
-                "plural_name": "rice milks"
+                "plural_name": "leites de arroz"
             },
             "vegan sour cream": {
                 "aliases": [],
@@ -3823,8 +3823,8 @@
             "chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "chorizo",
-                "plural_name": "chorizoes"
+                "name": "chourizo",
+                "plural_name": "chourizos"
             },
             "pancetta": {
                 "aliases": [],
@@ -3883,8 +3883,8 @@
             "salami": {
                 "aliases": [],
                 "description": "",
-                "name": "salami",
-                "plural_name": "salamis"
+                "name": "salame",
+                "plural_name": "salames"
             },
             "brisket": {
                 "aliases": [],
@@ -5079,8 +5079,8 @@
             "carp": {
                 "aliases": [],
                 "description": "",
-                "name": "carp",
-                "plural_name": "carp"
+                "name": "carpa",
+                "plural_name": "carpas"
             },
             "cuttlefish": {
                 "aliases": [],
@@ -5515,8 +5515,8 @@
             "crab": {
                 "aliases": [],
                 "description": "",
-                "name": "crab",
-                "plural_name": "crabs"
+                "name": "caranguexo",
+                "plural_name": "caranguexos"
             },
             "scallop": {
                 "aliases": [],
@@ -5813,8 +5813,8 @@
             "cinnamon": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon",
-                "plural_name": "cinnamons"
+                "name": "canela",
+                "plural_name": "canelas"
             },
             "parsley": {
                 "aliases": [],
@@ -5855,8 +5855,8 @@
             "garlic powder": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic powder",
-                "plural_name": "garlic powders"
+                "name": "allo en pó",
+                "plural_name": "allos en pó"
             },
             "oregano": {
                 "aliases": [],
@@ -5921,8 +5921,8 @@
             "onion powder": {
                 "aliases": [],
                 "description": "",
-                "name": "onion powder",
-                "plural_name": "onion powders"
+                "name": "cebola en pó",
+                "plural_name": "cebolas en pó"
             },
             "ginger powder": {
                 "aliases": [],
@@ -15107,8 +15107,8 @@
             "coffee": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee",
-                "plural_name": "coffees"
+                "name": "café",
+                "plural_name": "cafés"
             },
             "club soda": {
                 "aliases": [],
