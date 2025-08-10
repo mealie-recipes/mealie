@@ -79,7 +79,8 @@
     "tag-events": "Події міток",
     "category-events": "Події категорій",
     "when-a-new-user-joins-your-group": "Коли новий користувач приєднується до групи",
-    "recipe-events": "Події рецепту"
+    "recipe-events": "Події рецепту",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Додати",
