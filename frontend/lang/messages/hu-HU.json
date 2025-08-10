@@ -79,7 +79,8 @@
     "tag-events": "Címke események",
     "category-events": "Kategória események",
     "when-a-new-user-joins-your-group": "Amikor egy új felhasználó csatlakozik a csoportodba",
-    "recipe-events": "Recept esemény"
+    "recipe-events": "Recept esemény",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Hozzáadás",
