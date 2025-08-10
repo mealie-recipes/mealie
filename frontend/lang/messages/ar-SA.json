@@ -79,7 +79,8 @@
     "tag-events": "أحداث الوسم",
     "category-events": "أحداث الفئة",
     "when-a-new-user-joins-your-group": "عندما ينضم مستخدم جديد إلى مجموعتك",
-    "recipe-events": "وصفات المناسبات"
+    "recipe-events": "وصفات المناسبات",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "أضف",
