@@ -17,20 +17,20 @@
         <p class="mb-3">
           {{ $t('user.it-looks-like-this-is-your-first-time-logging-in') }}
         </p>
-        <p class="mb-1 d-flex justify-start">
-          <strong>{{ $t('user.username') }}:</strong>&nbsp;changeme@example.com
+        <p class="mb-1">
+          <strong>{{ $t('user.username') }}: </strong>changeme@example.com
           <AppButtonCopy
             copy-text="changeme@example.com"
             color="info"
-            btn-class="ml-auto h-auto mr-2"
+            btn-class="h-auto"
           />
         </p>
-        <p class="mb-3 d-flex justify-start">
-          <strong>{{ $t('user.password') }}: </strong>&nbsp;MyPassword
+        <p class="mb-3">
+          <strong>{{ $t('user.password') }}: </strong>MyPassword
           <AppButtonCopy
             copy-text="MyPassword"
             color="info"
-            btn-class="ml-auto h-auto mr-2"
+            btn-class="h-auto"
           />
         </p>
         <p>
