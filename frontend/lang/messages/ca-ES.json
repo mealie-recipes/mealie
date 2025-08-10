@@ -79,7 +79,8 @@
     "tag-events": "Esdeveniments de les etiquetes",
     "category-events": "Esdeveniments de les categories",
     "when-a-new-user-joins-your-group": "Quan un nou usuari s'afegeix al grup",
-    "recipe-events": "Esdeveniments de receptes"
+    "recipe-events": "Esdeveniments de receptes",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Afegeix",
