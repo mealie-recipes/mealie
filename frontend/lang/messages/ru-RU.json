@@ -79,7 +79,8 @@
     "tag-events": "События тегов",
     "category-events": "События категорий",
     "when-a-new-user-joins-your-group": "Когда новый пользователь присоединяется к вашей группе",
-    "recipe-events": "События Рецепта"
+    "recipe-events": "События Рецепта",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Добавить",
