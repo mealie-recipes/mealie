@@ -79,7 +79,8 @@
     "tag-events": "Märksõna sündmused",
     "category-events": "Kategooria sündmused",
     "when-a-new-user-joins-your-group": "Kui uus kasutaja liitub sinu grupiga",
-    "recipe-events": "Retsepti sündmused"
+    "recipe-events": "Retsepti sündmused",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Lisa",
