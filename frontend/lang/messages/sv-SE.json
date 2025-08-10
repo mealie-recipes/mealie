@@ -79,7 +79,8 @@
     "tag-events": "Tagga händelser",
     "category-events": "Kategorihändelser",
     "when-a-new-user-joins-your-group": "När en ny användare går med i din grupp",
-    "recipe-events": "Recepthändelser"
+    "recipe-events": "Recepthändelser",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Lägg till",
