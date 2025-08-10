@@ -79,7 +79,8 @@
     "tag-events": "Žymų įvykiai",
     "category-events": "Kategorijų įvykiai",
     "when-a-new-user-joins-your-group": "Kai prie jūsų grupės prisijungia naujas naudotojas",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Recipe Events",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Pridėti",
