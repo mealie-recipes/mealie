@@ -79,7 +79,8 @@
     "tag-events": "Schlagwort-Ereignisse",
     "category-events": "Kategorie-Ereignisse",
     "when-a-new-user-joins-your-group": "Wenn ein neuer Benutzer deiner Gruppe beitritt",
-    "recipe-events": "Rezept-Ereignisse"
+    "recipe-events": "Rezept-Ereignisse",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Hinzufügen",
@@ -676,7 +677,7 @@
   },
   "recipe-finder": {
     "recipe-finder": "Rezept-Suche",
-    "recipe-finder-description": "Suche nach Rezepten basierend auf den Zutaten, die du zur Hand hast. Sie können auch nach verfügbaren Werkzeugen filtern und eine maximale Anzahl an fehlenden Zutaten oder Werkzeugen festlegen.",
+    "recipe-finder-description": "Suche nach Rezepten basierend auf den Zutaten, die du zur Hand hast. Du kannst auch nach verfügbaren Werkzeugen filtern und eine maximale Anzahl an fehlenden Zutaten oder Werkzeugen festlegen.",
     "selected-ingredients": "Ausgewählte Zutaten",
     "no-ingredients-selected": "Keine Zutaten ausgewählt",
     "missing": "Fehlend",
