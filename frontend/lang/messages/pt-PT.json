@@ -79,7 +79,8 @@
     "tag-events": "Eventos de Etiquetagem",
     "category-events": "Eventos de Categoria",
     "when-a-new-user-joins-your-group": "Quando um novo utilizador entra no seu grupo",
-    "recipe-events": "Eventos de receita"
+    "recipe-events": "Eventos de receita",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Adicionar",
