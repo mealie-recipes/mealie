@@ -1151,8 +1151,8 @@
             "dried orange slice": {
                 "aliases": [],
                 "description": "",
-                "name": "dried orange slice",
-                "plural_name": "dried orange slices"
+                "name": "tranche d'orange séchée",
+                "plural_name": "tranches d'orange séchées"
             },
             "loquat": {
                 "aliases": [],
@@ -1335,8 +1335,8 @@
             "dried chinese mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "dried chinese mushroom",
-                "plural_name": "dried chinese mushrooms"
+                "name": "shiitake",
+                "plural_name": "shiitakes"
             },
             "maitake": {
                 "aliases": [],
@@ -1347,8 +1347,8 @@
             "trumpet mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "trumpet mushroom",
-                "plural_name": "trumpet mushrooms"
+                "name": "pleurote de panicaut",
+                "plural_name": "pleurotes de panicaut"
             },
             "white truffle": {
                 "aliases": [],
@@ -2015,8 +2015,8 @@
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheeses"
+                "name": "mascarpone",
+                "plural_name": "mascarpones"
             },
             "sharp cheddar": {
                 "aliases": [],
@@ -2382,7 +2382,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "babybel",
-                "plural_name": "babybels"
+                "plural_name": "babybel"
             },
             "panela cheese": {
                 "aliases": [],
@@ -2556,7 +2556,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "port-salut",
-                "plural_name": "port saluts"
+                "plural_name": "port-salut"
             },
             "derby cheese": {
                 "aliases": [],
@@ -2637,8 +2637,8 @@
             "sour cream": {
                 "aliases": [],
                 "description": "",
-                "name": "crème fraiche",
-                "plural_name": "crèmes fraiches"
+                "name": "crème aigre",
+                "plural_name": "crèmes aigres"
             },
             "buttermilk": {
                 "aliases": [],
