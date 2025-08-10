@@ -79,7 +79,8 @@
     "tag-events": "Atzīmēt notikumus",
     "category-events": "Kategorija Notikumi",
     "when-a-new-user-joins-your-group": "Kad jūsu grupai pievienojas jauns lietotājs",
-    "recipe-events": "Recepšu notikumi"
+    "recipe-events": "Recepšu notikumi",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Pievienot",
