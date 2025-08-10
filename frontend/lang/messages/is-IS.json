@@ -79,7 +79,8 @@
     "tag-events": "Merki viðburðir",
     "category-events": "Flokka viðburðir",
     "when-a-new-user-joins-your-group": "Þegar nýr notandi bætist við í þinn hóp",
-    "recipe-events": "Uppskriftar viðburðir"
+    "recipe-events": "Uppskriftar viðburðir",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Bæta við",
