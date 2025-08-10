@@ -79,7 +79,8 @@
     "tag-events": "Valitse tapahtumat",
     "category-events": "Luokkatapahtumat",
     "when-a-new-user-joins-your-group": "Kun ryhmääsi liittyy uusi jäsen",
-    "recipe-events": "Reseptitapahtumat"
+    "recipe-events": "Reseptitapahtumat",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Lisää",
