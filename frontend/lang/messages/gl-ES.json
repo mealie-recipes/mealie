@@ -79,7 +79,8 @@
     "tag-events": "Eventos de Etiquetas",
     "category-events": "Eventos de Categorías",
     "when-a-new-user-joins-your-group": "Cando un novo usuario se une ao teu grupo",
-    "recipe-events": "Eventos de Receitas"
+    "recipe-events": "Eventos de Receitas",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Engadir",
