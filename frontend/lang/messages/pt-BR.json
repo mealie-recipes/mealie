@@ -80,7 +80,7 @@
     "category-events": "Eventos de Categoria",
     "when-a-new-user-joins-your-group": "Quando um novo usuário entrar no seu grupo",
     "recipe-events": "Eventos da Receita",
-    "label-events": "Label Events"
+    "label-events": "Rotular Eventos"
   },
   "general": {
     "add": "Adicionar",
@@ -684,9 +684,9 @@
     "no-recipes-found": "Nenhuma receita encontrada",
     "no-recipes-found-description": "Tente adicionar mais ingredientes à sua busca ou ajuste seus filtros",
     "include-ingredients-on-hand": "Incluir Ingredientes Manualmente",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
+    "include-tools-on-hand": "Incluir Utensílios Manualmente",
+    "max-missing-ingredients": "Máximo de Ingredientes Faltando",
+    "max-missing-tools": "Máximo de Utensílios Faltando",
     "selected-tools": "Ferramentas Selecionadas",
     "other-filters": "Outros Filtros",
     "ready-to-make": "Pronto Para Fazer",
