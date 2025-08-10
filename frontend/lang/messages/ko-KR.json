@@ -79,7 +79,8 @@
     "tag-events": "Tag 이벤트",
     "category-events": "카테고리 이벤트",
     "when-a-new-user-joins-your-group": "새로운 사용자가 그룹에 가입하면",
-    "recipe-events": "레시피 이벤트"
+    "recipe-events": "레시피 이벤트",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "추가",
