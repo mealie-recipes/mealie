@@ -673,7 +673,9 @@
     "not-linked-ingredients": "Dodatne sestavine",
     "upload-another-image": "Naloži drugo sliko",
     "upload-images": "Naloži slike",
-    "upload-more-images": "Naloži več slik"
+    "upload-more-images": "Naloži več slik",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Iskalnik receptov",
