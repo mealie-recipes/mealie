@@ -76,8 +76,8 @@
             "shallot": {
                 "aliases": [],
                 "description": "",
-                "name": "shallot",
-                "plural_name": "shallots"
+                "name": "chalota",
+                "plural_name": "chalotas"
             },
             "cherry tomato": {
                 "aliases": [],
@@ -100,8 +100,8 @@
             "sweet corn": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet corn",
-                "plural_name": "sweet corns"
+                "name": "millo doce",
+                "plural_name": "millos doces"
             },
             "chile pepper": {
                 "aliases": [
@@ -234,8 +234,8 @@
             "red cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "red cabbage",
-                "plural_name": "red cabbages"
+                "name": "repolo roxo",
+                "plural_name": "repolos roxos"
             },
             "artichoke": {
                 "aliases": [],
@@ -389,8 +389,8 @@
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "nabo",
+                "plural_name": "nabos"
             },
             "thai chile pepper": {
                 "aliases": [],
