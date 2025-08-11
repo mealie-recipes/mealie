@@ -673,7 +673,9 @@
     "not-linked-ingredients": "Ytterligare ingredienser",
     "upload-another-image": "Ladda upp en annan bild",
     "upload-images": "Ladda upp bilder",
-    "upload-more-images": "Ladda upp fler bilder"
+    "upload-more-images": "Ladda upp fler bilder",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Sök recept",
