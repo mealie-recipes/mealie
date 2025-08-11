@@ -673,7 +673,9 @@
     "not-linked-ingredients": "Additional Ingredients",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
