@@ -5,6 +5,7 @@ import enum
 from fractions import Fraction
 from typing import ClassVar
 from uuid import UUID, uuid4
+from typing import Optional
 
 from pydantic import UUID4, ConfigDict, Field, field_validator, model_validator
 from sqlalchemy.orm import joinedload, selectinload
@@ -15,6 +16,9 @@ from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.response.pagination import PaginationBase
+
+# Add import for Nutrition schema
+from mealie.db.models.recipe.nutrition import Nutrition
 
 INGREDIENT_QTY_PRECISION = 3
 MAX_INGREDIENT_DENOMINATOR = 32
@@ -320,6 +324,11 @@ class RecipeIngredient(RecipeIngredientBase):
         if value is None or value == "":
             return None
         return value
+
+    #---------------------------------------------------------------
+    # <-- Add this nutrition field here -->
+    nutrition: Optional[Nutrition] = None
+    #---------------------------------------------------------------
 
 
 class IngredientConfidence(MealieModel):

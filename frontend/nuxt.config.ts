@@ -24,7 +24,7 @@ export default defineNuxtConfig({
     },
   ],
   devtools: {
-    enabled: false,
+    enabled: true,
   },
   app: {
     baseURL: process.env.SUB_PATH || "",

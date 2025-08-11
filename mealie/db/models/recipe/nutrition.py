@@ -1,5 +1,7 @@
 import sqlalchemy as sa
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import ForeignKey
+from sqlalchemy.orm import relationship, Mapped, mapped_column
+
 
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.db.models._model_utils.guid import GUID
@@ -9,6 +11,13 @@ class Nutrition(SqlAlchemyBase):
     __tablename__ = "recipe_nutrition"
     id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
     recipe_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("recipes.id"), index=True)
+
+    #--------------------------------------------------------------------------------------------
+    # Add the foreign key to link to RecipeIngredientModel
+    ingredient_id: Mapped[GUID | None] = mapped_column(
+        GUID, ForeignKey("recipes_ingredients.id", ondelete="CASCADE"), unique=True, index=True
+    )
+    #--------------------------------------------------------------------------------------------
 
     calories: Mapped[str | None] = mapped_column(sa.String)
     carbohydrate_content: Mapped[str | None] = mapped_column(sa.String)
@@ -32,6 +41,11 @@ class Nutrition(SqlAlchemyBase):
     sugar_content: Mapped[str | None] = mapped_column(sa.String)
     trans_fat_content: Mapped[str | None] = mapped_column(sa.String)
     unsaturated_fat_content: Mapped[str | None] = mapped_column(sa.String)
+
+    #----------------------------------------------------------------------------------------------------
+    # Relationship back to RecipeIngredientModel
+    recipe_ingredient = relationship("RecipeIngredientModel", back_populates="nutrition", uselist=False)
+    #----------------------------------------------------------------------------------------------------
 
     def __init__(
         self,
