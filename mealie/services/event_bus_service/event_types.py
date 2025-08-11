@@ -53,6 +53,10 @@ class EventTypes(Enum):
     category_updated = auto()
     category_deleted = auto()
 
+    label_created = auto()
+    label_updated = auto()
+    label_deleted = auto()
+
 
 class EventDocumentType(Enum):
     generic = "generic"
@@ -68,6 +72,7 @@ class EventDocumentType(Enum):
     recipe_bulk_report = "recipe_bulk_report"
     recipe_timeline_event = "recipe_timeline_event"
     tag = "tag"
+    label = "label"
 
 
 class EventOperation(Enum):
@@ -104,6 +109,11 @@ class EventUserSignupData(EventDocumentDataBase):
 class EventCategoryData(EventDocumentDataBase):
     document_type: EventDocumentType = EventDocumentType.category
     category_id: UUID4
+
+
+class EventLabelData(EventDocumentDataBase):
+    document_type: EventDocumentType = EventDocumentType.label
+    label_id: UUID4
 
 
 class EventCookbookData(EventDocumentDataBase):

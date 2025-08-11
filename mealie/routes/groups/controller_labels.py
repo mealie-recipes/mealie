@@ -3,7 +3,7 @@ from functools import cached_property
 from fastapi import APIRouter, Depends
 from pydantic import UUID4
 
-from mealie.routes._base.base_controllers import BaseUserController
+from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute
@@ -15,13 +15,14 @@ from mealie.schema.labels import (
 )
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelPagination
 from mealie.schema.response.pagination import PaginationQuery
+from mealie.services.event_bus_service.event_types import EventLabelData, EventOperation, EventTypes
 from mealie.services.group_services.labels_service import MultiPurposeLabelService
 
 router = APIRouter(prefix="/groups/labels", tags=["Groups: Multi Purpose Labels"], route_class=MealieCrudRoute)
 
 
 @controller(router)
-class MultiPurposeLabelsController(BaseUserController):
+class MultiPurposeLabelsController(BaseCrudController):
     @cached_property
     def service(self):
         return MultiPurposeLabelService(self.repos)
@@ -53,7 +54,15 @@ class MultiPurposeLabelsController(BaseUserController):
 
     @router.post("", response_model=MultiPurposeLabelOut)
     def create_one(self, data: MultiPurposeLabelCreate):
-        return self.service.create_one(data)
+        new_label = self.service.create_one(data)
+        self.publish_event(
+            event_type=EventTypes.label_created,
+            document_data=EventLabelData(operation=EventOperation.create, label_id=new_label.id),
+            group_id=new_label.group_id,
+            household_id=None,
+            message=self.t("notifications.generic-created", name=new_label.name),
+        )
+        return new_label
 
     @router.get("/{item_id}", response_model=MultiPurposeLabelOut)
     def get_one(self, item_id: UUID4):
@@ -61,8 +70,25 @@ class MultiPurposeLabelsController(BaseUserController):
 
     @router.put("/{item_id}", response_model=MultiPurposeLabelOut)
     def update_one(self, item_id: UUID4, data: MultiPurposeLabelUpdate):
-        return self.mixins.update_one(data, item_id)
+        label = self.mixins.update_one(data, item_id)
+        self.publish_event(
+            event_type=EventTypes.label_updated,
+            document_data=EventLabelData(operation=EventOperation.update, label_id=label.id),
+            group_id=label.group_id,
+            household_id=None,
+            message=self.t("notifications.generic-updated", name=label.name),
+        )
+        return label
 
     @router.delete("/{item_id}", response_model=MultiPurposeLabelOut)
     def delete_one(self, item_id: UUID4):
-        return self.mixins.delete_one(item_id)  # type: ignore
+        label = self.mixins.delete_one(item_id)
+        if label:
+            self.publish_event(
+                event_type=EventTypes.label_deleted,
+                document_data=EventLabelData(operation=EventOperation.delete, label_id=label.id),
+                group_id=label.group_id,
+                household_id=None,
+                message=self.t("notifications.generic-deleted", name=label.name),
+            )
+        return label

@@ -18,10 +18,20 @@
           {{ $t('user.it-looks-like-this-is-your-first-time-logging-in') }}
         </p>
         <p class="mb-1">
-          <strong>{{ $t('user.username') }}:</strong> changeme@example.com
+          <strong>{{ $t('user.username') }}: </strong>changeme@example.com
+          <AppButtonCopy
+            copy-text="changeme@example.com"
+            color="info"
+            btn-class="h-auto"
+          />
         </p>
         <p class="mb-3">
-          <strong>{{ $t('user.password') }}:</strong> MyPassword
+          <strong>{{ $t('user.password') }}: </strong>MyPassword
+          <AppButtonCopy
+            copy-text="MyPassword"
+            color="info"
+            btn-class="h-auto"
+          />
         </p>
         <p>
           {{ $t('user.dont-want-to-see-this-anymore-be-sure-to-change-your-email') }}

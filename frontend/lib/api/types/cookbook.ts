@@ -1,5 +1,4 @@
 /* tslint:disable */
-
 /**
 /* This file was automatically generated from pydantic models by running pydantic2ts.
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
@@ -39,7 +38,6 @@ export interface QueryFilterJSONPart {
   attributeName?: string | null;
   relationalOperator?: RelationalKeyword | RelationalOperator | null;
   value?: string | string[] | null;
-  [k: string]: unknown;
 }
 export interface RecipeCookBook {
   name: string;
@@ -83,18 +81,21 @@ export interface RecipeSummary {
 }
 export interface RecipeCategory {
   id?: string | null;
+  groupId?: string | null;
   name: string;
   slug: string;
   [k: string]: unknown;
 }
 export interface RecipeTag {
   id?: string | null;
+  groupId?: string | null;
   name: string;
   slug: string;
   [k: string]: unknown;
 }
 export interface RecipeTool {
   id: string;
+  groupId?: string | null;
   name: string;
   slug: string;
   householdsWithTool?: string[];
