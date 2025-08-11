@@ -673,7 +673,9 @@
     "not-linked-ingredients": "מרכיבים נוספים",
     "upload-another-image": "העלאת תמונה נוספת",
     "upload-images": "העלאת תמונות",
-    "upload-more-images": "העלאת תמונות נוספות"
+    "upload-more-images": "העלאת תמונות נוספות",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "מצא מתכון",
