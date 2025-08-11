@@ -673,7 +673,9 @@
     "not-linked-ingredients": "Дополнительные ингредиенты",
     "upload-another-image": "Загрузите другое изображение",
     "upload-images": "Загрузить изображения",
-    "upload-more-images": "Загрузить больше изображений"
+    "upload-more-images": "Загрузить больше изображений",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Поиск рецептов",
