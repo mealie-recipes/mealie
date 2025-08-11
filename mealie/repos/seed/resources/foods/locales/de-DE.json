@@ -6407,8 +6407,8 @@
             "summer savory": {
                 "aliases": [],
                 "description": "",
-                "name": "summer savory",
-                "plural_name": "summer savories"
+                "name": "Sommer-Bohnenkraut",
+                "plural_name": "Sommer-Bohnenkräuter"
             },
             "fennel pollen": {
                 "aliases": [],
@@ -6440,12 +6440,12 @@
                     "Puderzucker"
                 ],
                 "description": "",
-                "name": "confectioners sugar",
-                "plural_name": "confectioners sugars"
+                "name": "Puderzucker",
+                "plural_name": "Puderzucker"
             },
             "bar sugar": {
                 "aliases": [
-                    "castor sugar"
+                    "Feinzucker"
                 ],
                 "description": "",
                 "name": "Rohrzucker",
@@ -6881,7 +6881,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "heißer Honig",
-                "plural_name": "hot honeys"
+                "plural_name": "heiße Honige"
             },
             "gula melaka": {
                 "aliases": [],
@@ -6892,14 +6892,14 @@
             "elderberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "elderberry syrup",
-                "plural_name": "elderberry syrups"
+                "name": "Holunderbeerensirup",
+                "plural_name": "Holunderbeerensirupe"
             },
             "rosemary syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "rosemary syrup",
-                "plural_name": "rosemary syrups"
+                "name": "Rosmarinsirup",
+                "plural_name": "Rosmarinsirupe"
             },
             "dark chocolate syrup": {
                 "aliases": [],
