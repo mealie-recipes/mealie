@@ -673,7 +673,9 @@
     "not-linked-ingredients": "Πρόσθετα συστατικά",
     "upload-another-image": "Ανέβασμα άλλης εικόνας",
     "upload-images": "Ανέβασμα εικόνων",
-    "upload-more-images": "Ανέβασμα περισσότερων εικόνων"
+    "upload-more-images": "Ανέβασμα περισσότερων εικόνων",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Εύρεση συνταγών",
