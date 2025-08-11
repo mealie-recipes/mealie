@@ -79,7 +79,8 @@
     "tag-events": "标签事件",
     "category-events": "分类事件",
     "when-a-new-user-joins-your-group": "当新用户加入您的群组时",
-    "recipe-events": "食谱事件"
+    "recipe-events": "食谱事件",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "添加",

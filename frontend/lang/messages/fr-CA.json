@@ -79,7 +79,8 @@
     "tag-events": "Événements des mots-clés",
     "category-events": "Événements de catégories",
     "when-a-new-user-joins-your-group": "Lorsqu'un nouvel utilisateur rejoint votre groupe",
-    "recipe-events": "Événements de recette"
+    "recipe-events": "Événements de recette",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Ajouter",
@@ -472,7 +473,7 @@
     "comment": "Commentaire",
     "comments": "Commentaires",
     "delete-confirmation": "Êtes-vous sûr(e) de vouloir supprimer cette recette?",
-    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
+    "admin-delete-confirmation": "Vous êtes sur le point de supprimer une recette qui n'est pas la vôtre en utilisant les permissions d'administrateur. Êtes-vous sûr(e) ?",
     "delete-recipe": "Supprimer la recette",
     "description": "Description",
     "disable-amount": "Désactiver les quantités d'ingrédients",
@@ -587,7 +588,7 @@
     "api-extras-description": "Les suppléments des recettes sont une fonctionnalité clé de l’API Mealie. Ils permettent de créer des paires JSON clé/valeur personnalisées dans une recette, qui peuvent être référencées depuis des applications tierces. Ces clés peuvent être utilisées par exemple pour déclencher des tâches automatisées ou des messages personnalisés à transmettre à l’appareil souhaité.",
     "message-key": "Clé de message",
     "parse": "Analyser",
-    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
+    "ingredients-not-parsed-description": "Il semble que vos ingrédients ne soient pas encore analysés. Cliquez sur le bouton \"{parse}\" ci-dessous pour analyser vos ingrédients en aliments structurés.",
     "attach-images-hint": "Ajouter des images en les glissant-déposant dans l'éditeur",
     "drop-image": "Déposer l'image",
     "enable-ingredient-amounts-to-use-this-feature": "Activez les quantités d'ingrédients pour utiliser cette fonctionnalité",
@@ -664,8 +665,8 @@
       "no-unit": "Pas d'unité",
       "missing-unit": "Créer une unité manquante : {unit}",
       "missing-food": "Créer un aliment manquant : {food}",
-      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
-      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
+      "this-unit-could-not-be-parsed-automatically": "Cette unité n'a pas pu être analysée automatiquement",
+      "this-food-could-not-be-parsed-automatically": "Cet aliment n'a pas pu être analysé automatiquement",
       "no-food": "Aucun aliment"
     },
     "reset-servings-count": "Réinitialiser le nombre de portions",

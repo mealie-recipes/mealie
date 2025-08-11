@@ -79,7 +79,8 @@
     "tag-events": "Etiket Etkinlikleri",
     "category-events": "Kategori Etkinlikleri",
     "when-a-new-user-joins-your-group": "Grubunuza yeni bir kullanıcı katıldığında",
-    "recipe-events": "Tarif Etkinlikleri"
+    "recipe-events": "Tarif Etkinlikleri",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Ekle",

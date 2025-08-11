@@ -79,7 +79,8 @@
     "tag-events": "Tag Events",
     "category-events": "Category Events",
     "when-a-new-user-joins-your-group": "When a new user joins your group",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Recipe Events",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Add",

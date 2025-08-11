@@ -79,7 +79,8 @@
     "tag-events": "История на етикетите",
     "category-events": "Събития за категория",
     "when-a-new-user-joins-your-group": "Когато потребител се присъедини към твоята потребителска група",
-    "recipe-events": "Събития на рецептата"
+    "recipe-events": "Събития на рецептата",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Добави",

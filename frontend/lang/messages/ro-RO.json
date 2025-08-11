@@ -79,7 +79,8 @@
     "tag-events": "Etichetele de Evenimente",
     "category-events": "Categorie de Evenimente",
     "when-a-new-user-joins-your-group": "Când un utilizator nou se alătură grupului tău",
-    "recipe-events": "Evenimente rețetă"
+    "recipe-events": "Evenimente rețetă",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Adaugă",
@@ -587,6 +588,7 @@
     "api-extras-description": "Recipes extras sunt o caracteristică cheie a API-ului Mealie. Îți permit să creezi perechi personalizate de cheie/valoare JSON într-o rețetă, ca să faci referire la aplicații terțe. Puteți utiliza aceste chei pentru a furniza informații, de exemplu pentru a declanșa automatizări sau mesaje personalizate pentru a transmite dispozitivul dorit.",
     "message-key": "Cheie mesaj",
     "parse": "Parsează",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Atașează imagini trăgându-le cu mouse-ul și plasându-le în editor",
     "drop-image": "Trage imaginea",
     "enable-ingredient-amounts-to-use-this-feature": "Activaţi cantităţile de ingrediente pentru a utiliza această funcționalitate",

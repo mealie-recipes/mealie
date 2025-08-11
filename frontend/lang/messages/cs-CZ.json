@@ -79,7 +79,8 @@
     "tag-events": "Události tagu",
     "category-events": "Události kategorie",
     "when-a-new-user-joins-your-group": "Když se nový uživatel připojí do vaší skupiny",
-    "recipe-events": "Události receptu"
+    "recipe-events": "Události receptu",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Přidat",

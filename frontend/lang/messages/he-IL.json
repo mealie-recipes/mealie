@@ -79,7 +79,8 @@
     "tag-events": "אירועי תגיות",
     "category-events": "אירועי קטגוריות",
     "when-a-new-user-joins-your-group": "כאשר משתמש חדש מצטרף לקבוצה",
-    "recipe-events": "אירועי מתכון"
+    "recipe-events": "אירועי מתכון",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "הוספה",

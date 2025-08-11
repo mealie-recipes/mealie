@@ -79,7 +79,8 @@
     "tag-events": "Συμβάντα ετικέτας",
     "category-events": "Συμβάντα κατηγορίας",
     "when-a-new-user-joins-your-group": "Οταν ένας νέος χρήστης ενταχθεί στην ομάδα σας",
-    "recipe-events": "Συμβάντα συνταγών"
+    "recipe-events": "Συμβάντα συνταγών",
+    "label-events": "Ετικέτα συμβάντων"
   },
   "general": {
     "add": "Προσθήκη",

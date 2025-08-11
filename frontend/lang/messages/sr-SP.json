@@ -79,7 +79,8 @@
     "tag-events": "Догађаји ознаке",
     "category-events": "Догађаји категорије",
     "when-a-new-user-joins-your-group": "Када се нови корисник придружи вашој групи",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Recipe Events",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Add",

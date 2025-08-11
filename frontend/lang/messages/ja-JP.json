@@ -79,7 +79,8 @@
     "tag-events": "タグイベント",
     "category-events": "カテゴリイベント",
     "when-a-new-user-joins-your-group": "新しいユーザーがグループに参加したとき",
-    "recipe-events": "レシピイベント"
+    "recipe-events": "レシピイベント",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "追加",

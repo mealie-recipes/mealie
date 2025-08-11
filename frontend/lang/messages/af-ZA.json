@@ -79,7 +79,8 @@
     "tag-events": "Merker gebeurtenisse",
     "category-events": "Kategorie Gebeurtenisse",
     "when-a-new-user-joins-your-group": "Wanneer 'n nuwe gebruiker by jou groep aansluit",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Recipe Events",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Add",
