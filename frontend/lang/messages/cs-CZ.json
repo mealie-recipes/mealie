@@ -673,7 +673,9 @@
     "not-linked-ingredients": "Další ingredience",
     "upload-another-image": "Nahrát další obrázek",
     "upload-images": "Nahrát obrázky",
-    "upload-more-images": "Nahrát více obrázků"
+    "upload-more-images": "Nahrát více obrázků",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Vyhledávač receptů",
