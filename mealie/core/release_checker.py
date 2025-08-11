@@ -15,7 +15,7 @@ def get_latest_github_release() -> str:
         str: The latest release from GitHub.
     """
 
-    url = "https://api.github.com/repos/hay-kot/mealie/releases/latest"
+    url = "https://api.github.com/repos/mealie-recipes/mealie/releases/latest"
     response = requests.get(url)
     response.raise_for_status()
     return response.json()["tag_name"]

@@ -19,6 +19,7 @@ export interface AssignCategories {
 export interface CategoryBase {
   name: string;
   id: string;
+  groupId?: string | null;
   slug: string;
 }
 export interface AssignSettings {
@@ -31,7 +32,6 @@ export interface RecipeSettings {
   showAssets?: boolean;
   landscapeView?: boolean;
   disableComments?: boolean;
-  disableAmount?: boolean;
   locked?: boolean;
 }
 export interface AssignTags {
@@ -41,6 +41,7 @@ export interface AssignTags {
 export interface TagBase {
   name: string;
   id: string;
+  groupId?: string | null;
   slug: string;
 }
 export interface CategoryIn {
@@ -49,8 +50,8 @@ export interface CategoryIn {
 export interface CategoryOut {
   name: string;
   id: string;
-  slug: string;
   groupId: string;
+  slug: string;
 }
 export interface CategorySave {
   name: string;
@@ -98,11 +99,13 @@ export interface CreateRecipeBulk {
 }
 export interface RecipeCategory {
   id?: string | null;
+  groupId?: string | null;
   name: string;
   slug: string;
 }
 export interface RecipeTag {
   id?: string | null;
+  groupId?: string | null;
   name: string;
   slug: string;
 }
@@ -212,8 +215,6 @@ export interface RecipeIngredient {
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
   note?: string | null;
-  isFood?: boolean | null;
-  disableAmount?: boolean;
   display?: string;
   title?: string | null;
   originalText?: string | null;
@@ -226,7 +227,7 @@ export interface Recipe {
   groupId?: string;
   name?: string | null;
   slug?: string;
-  image?: string;
+  image?: unknown;
   recipeServings?: number;
   recipeYieldQuantity?: number;
   recipeYield?: string | null;
@@ -258,6 +259,7 @@ export interface Recipe {
 }
 export interface RecipeTool {
   id: string;
+  groupId?: string | null;
   name: string;
   slug: string;
   householdsWithTool?: string[];
@@ -296,6 +298,7 @@ export interface UserBase {
 export interface RecipeCategoryResponse {
   name: string;
   id: string;
+  groupId?: string | null;
   slug: string;
   recipes?: RecipeSummary[];
 }
@@ -347,8 +350,6 @@ export interface RecipeIngredientBase {
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
   note?: string | null;
-  isFood?: boolean | null;
-  disableAmount?: boolean | null;
   display?: string;
 }
 export interface RecipeLastMade {
@@ -404,6 +405,7 @@ export interface RecipeSuggestionResponseItem {
 export interface RecipeTagResponse {
   name: string;
   id: string;
+  groupId?: string | null;
   slug: string;
   recipes?: RecipeSummary[];
 }
@@ -452,12 +454,14 @@ export interface RecipeToolOut {
   name: string;
   householdsWithTool?: string[];
   id: string;
+  groupId: string;
   slug: string;
 }
 export interface RecipeToolResponse {
   name: string;
   householdsWithTool?: string[];
   id: string;
+  groupId: string;
   slug: string;
   recipes?: RecipeSummary[];
 }
@@ -512,7 +516,7 @@ export interface ScrapeRecipeTest {
   url: string;
   useOpenAI?: boolean;
 }
-export interface SlugResponse { }
+export interface SlugResponse {}
 export interface TagIn {
   name: string;
 }

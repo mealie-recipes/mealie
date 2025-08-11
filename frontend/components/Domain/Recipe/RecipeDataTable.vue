@@ -62,15 +62,13 @@
   </v-data-table>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import UserAvatar from "../User/UserAvatar.vue";
 import RecipeChip from "./RecipeChips.vue";
 import type { Recipe, RecipeCategory, RecipeTool } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 import type { UserSummary } from "~/lib/api/types/user";
 import type { RecipeTag } from "~/lib/api/types/household";
-
-const INPUT_EVENT = "update:modelValue";
 
 interface ShowHeaders {
   id: boolean;
@@ -84,140 +82,114 @@ interface ShowHeaders {
   dateAdded: boolean;
 }
 
-export default defineNuxtComponent({
-  components: { RecipeChip, UserAvatar },
-  props: {
-    modelValue: {
-      type: Array as PropType<Recipe[]>,
-      required: false,
-      default: () => [],
-    },
-    loading: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    recipes: {
-      type: Array as () => Recipe[],
-      default: () => [],
-    },
-    showHeaders: {
-      type: Object as () => ShowHeaders,
-      required: false,
-      default: () => {
-        return {
-          id: true,
-          owner: false,
-          tags: true,
-          categories: true,
-          recipeServings: true,
-          recipeYieldQuantity: true,
-          recipeYield: true,
-          dateAdded: true,
-        };
-      },
-    },
-  },
-  emits: ["click", "update:modelValue"],
-  setup(props, context) {
-    const i18n = useI18n();
-    const $auth = useMealieAuth();
-    const groupSlug = $auth.user.value?.groupSlug;
-    const router = useRouter();
-    const selected = computed({
-      get: () => props.modelValue,
-      set: value => context.emit(INPUT_EVENT, value),
-    });
-
-    // Initialize sort state with default sorting by dateAdded descending
-    const sortBy = ref([{ key: "dateAdded", order: "desc" }]);
-
-    const headers = computed(() => {
-      const hdrs: Array<{ title: string; value: string; align?: string; sortable?: boolean }> = [];
-
-      if (props.showHeaders.id) {
-        hdrs.push({ title: i18n.t("general.id"), value: "id" });
-      }
-      if (props.showHeaders.owner) {
-        hdrs.push({ title: i18n.t("general.owner"), value: "userId", align: "center", sortable: true });
-      }
-      hdrs.push({ title: i18n.t("general.name"), value: "name", sortable: true });
-      if (props.showHeaders.categories) {
-        hdrs.push({ title: i18n.t("recipe.categories"), value: "recipeCategory", sortable: true });
-      }
-
-      if (props.showHeaders.tags) {
-        hdrs.push({ title: i18n.t("tag.tags"), value: "tags", sortable: true });
-      }
-      if (props.showHeaders.tools) {
-        hdrs.push({ title: i18n.t("tool.tools"), value: "tools", sortable: true });
-      }
-      if (props.showHeaders.recipeServings) {
-        hdrs.push({ title: i18n.t("recipe.servings"), value: "recipeServings", sortable: true });
-      }
-      if (props.showHeaders.recipeYieldQuantity) {
-        hdrs.push({ title: i18n.t("recipe.yield"), value: "recipeYieldQuantity", sortable: true });
-      }
-      if (props.showHeaders.recipeYield) {
-        hdrs.push({ title: i18n.t("recipe.yield-text"), value: "recipeYield", sortable: true });
-      }
-      if (props.showHeaders.dateAdded) {
-        hdrs.push({ title: i18n.t("general.date-added"), value: "dateAdded", sortable: true });
-      }
-
-      return hdrs;
-    });
-
-    function formatDate(date: string) {
-      try {
-        return i18n.d(Date.parse(date), "medium");
-      }
-      catch {
-        return "";
-      }
-    }
-
-    // ============
-    // Group Members
-    const api = useUserApi();
-    const members = ref<UserSummary[]>([]);
-
-    async function refreshMembers() {
-      const { data } = await api.groups.fetchMembers();
-      if (data) {
-        members.value = data.items;
-      }
-    }
-
-    function filterItems(item: RecipeTag | RecipeCategory | RecipeTool, itemType: string) {
-      if (!groupSlug || !item.id) {
-        return;
-      }
-      router.push(`/g/${groupSlug}?${itemType}=${item.id}`);
-    }
-
-    onMounted(() => {
-      refreshMembers();
-    });
-
-    function getMember(id: string) {
-      if (members.value[0]) {
-        return members.value.find(m => m.id === id)?.fullName;
-      }
-
-      return i18n.t("general.none");
-    }
-
-    return {
-      selected,
-      sortBy,
-      groupSlug,
-      headers,
-      formatDate,
-      members,
-      getMember,
-      filterItems,
-    };
-  },
+interface Props {
+  loading?: boolean;
+  recipes?: Recipe[];
+  showHeaders?: ShowHeaders;
+}
+const props = withDefaults(defineProps<Props>(), {
+  loading: false,
+  recipes: () => [],
+  showHeaders: () => ({
+    id: true,
+    owner: false,
+    tags: true,
+    categories: true,
+    tools: true,
+    recipeServings: true,
+    recipeYieldQuantity: true,
+    recipeYield: true,
+    dateAdded: true,
+  }),
 });
+
+defineEmits<{
+  click: [];
+}>();
+
+const selected = defineModel<Recipe[]>({ default: () => [] });
+
+const i18n = useI18n();
+const $auth = useMealieAuth();
+const groupSlug = $auth.user.value?.groupSlug;
+const router = useRouter();
+
+// Initialize sort state with default sorting by dateAdded descending
+const sortBy = ref([{ key: "dateAdded", order: "desc" as const }]);
+
+const headers = computed(() => {
+  const hdrs: Array<{ title: string; value: string; align?: "center" | "start" | "end"; sortable?: boolean }> = [];
+
+  if (props.showHeaders.id) {
+    hdrs.push({ title: i18n.t("general.id"), value: "id" });
+  }
+  if (props.showHeaders.owner) {
+    hdrs.push({ title: i18n.t("general.owner"), value: "userId", align: "center", sortable: true });
+  }
+  hdrs.push({ title: i18n.t("general.name"), value: "name", sortable: true });
+  if (props.showHeaders.categories) {
+    hdrs.push({ title: i18n.t("recipe.categories"), value: "recipeCategory", sortable: true });
+  }
+
+  if (props.showHeaders.tags) {
+    hdrs.push({ title: i18n.t("tag.tags"), value: "tags", sortable: true });
+  }
+  if (props.showHeaders.tools) {
+    hdrs.push({ title: i18n.t("tool.tools"), value: "tools", sortable: true });
+  }
+  if (props.showHeaders.recipeServings) {
+    hdrs.push({ title: i18n.t("recipe.servings"), value: "recipeServings", sortable: true });
+  }
+  if (props.showHeaders.recipeYieldQuantity) {
+    hdrs.push({ title: i18n.t("recipe.yield"), value: "recipeYieldQuantity", sortable: true });
+  }
+  if (props.showHeaders.recipeYield) {
+    hdrs.push({ title: i18n.t("recipe.yield-text"), value: "recipeYield", sortable: true });
+  }
+  if (props.showHeaders.dateAdded) {
+    hdrs.push({ title: i18n.t("general.date-added"), value: "dateAdded", sortable: true });
+  }
+
+  return hdrs;
+});
+
+function formatDate(date: string) {
+  try {
+    return i18n.d(Date.parse(date), "medium");
+  }
+  catch {
+    return "";
+  }
+}
+
+// ============
+// Group Members
+const api = useUserApi();
+const members = ref<UserSummary[]>([]);
+
+async function refreshMembers() {
+  const { data } = await api.groups.fetchMembers();
+  if (data) {
+    members.value = data.items;
+  }
+}
+
+function filterItems(item: RecipeTag | RecipeCategory | RecipeTool, itemType: string) {
+  if (!groupSlug || !item.id) {
+    return;
+  }
+  router.push(`/g/${groupSlug}?${itemType}=${item.id}`);
+}
+
+onMounted(() => {
+  refreshMembers();
+});
+
+function getMember(id: string) {
+  if (members.value[0]) {
+    return members.value.find(m => m.id === id)?.fullName;
+  }
+
+  return i18n.t("general.none");
+}
 </script>

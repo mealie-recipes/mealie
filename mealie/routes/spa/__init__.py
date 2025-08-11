@@ -101,22 +101,18 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
         image_url = "https://raw.githubusercontent.com/mealie-recipes/mealie/9571816ac4eed5beacfc0abf6c03eff1427fd0eb/frontend/static/icons/android-chrome-512x512.png"
 
     ingredients: list[str] = []
-    if recipe.settings.disable_amount:  # type: ignore
-        ingredients = [escape(i.note) for i in recipe.recipe_ingredient if i.note]
+    for ing in recipe.recipe_ingredient:
+        s = ""
+        if ing.quantity:
+            s += f"{ing.quantity} "
+        if ing.unit:
+            s += f"{ing.unit.name} "
+        if ing.food:
+            s += f"{ing.food.name} "
+        if ing.note:
+            s += f"{ing.note}"
 
-    else:
-        for ing in recipe.recipe_ingredient:
-            s = ""
-            if ing.quantity:
-                s += f"{ing.quantity} "
-            if ing.unit:
-                s += f"{ing.unit.name} "
-            if ing.food:
-                s += f"{ing.food.name} "
-            if ing.note:
-                s += f"{ing.note}"
-
-            ingredients.append(escape(s))
+        ingredients.append(escape(s))
 
     nutrition: dict[str, str | None] = recipe.nutrition.model_dump(by_alias=True) if recipe.nutrition else {}
     for k, v in nutrition.items():

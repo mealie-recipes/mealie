@@ -368,6 +368,24 @@ export default defineNuxtComponent({
           },
         ],
       },
+      {
+        id: 8,
+        text: i18n.t("events.label-events"),
+        options: [
+          {
+            text: i18n.t("general.create") as string,
+            key: "labelCreated",
+          },
+          {
+            text: i18n.t("general.update") as string,
+            key: "labelUpdated",
+          },
+          {
+            text: i18n.t("general.delete") as string,
+            key: "labelDeleted",
+          },
+        ],
+      },
     ];
 
     return {

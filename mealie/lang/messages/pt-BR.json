@@ -10,7 +10,7 @@
             "step-text": "Passos das receitas, assim como outros campos na página da receita, suportam sintaxe \"markdown\".\n\n**Adicione um link**\n\n[Meu Link](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
+            "makes": "Produz",
             "serves": "Porções",
             "serving": "Porção",
             "servings": "Porções",

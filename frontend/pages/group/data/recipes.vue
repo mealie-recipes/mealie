@@ -415,7 +415,6 @@ export default defineNuxtComponent({
       showAssets: false,
       landscapeView: false,
       disableComments: false,
-      disableAmount: false,
       locked: false,
     });
 

@@ -1,5 +1,5 @@
 import { useUserApi } from "~/composables/api";
-import type { GroupBase, GroupSummary } from "~/lib/api/types/user";
+import type { GroupBase, GroupInDB, GroupSummary } from "~/lib/api/types/user";
 
 const groupSelfRef = ref<GroupSummary | null>(null);
 const loading = ref(false);
@@ -45,7 +45,7 @@ export const useGroupSelf = function () {
 export const useGroups = function () {
   const api = useUserApi();
   const loading = ref(false);
-  const groups = ref<GroupSummary[] | null>(null);
+  const groups = ref<GroupInDB[] | null>(null);
 
   async function getAllGroups() {
     loading.value = true;
