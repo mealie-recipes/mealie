@@ -673,7 +673,9 @@
     "not-linked-ingredients": "Yderligere ingredienser",
     "upload-another-image": "Upload et andet billede",
     "upload-images": "Upload billeder",
-    "upload-more-images": "Upload flere billeder"
+    "upload-more-images": "Upload flere billeder",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Opskriftssøger",
