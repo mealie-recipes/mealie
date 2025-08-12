@@ -79,7 +79,8 @@
     "tag-events": "Emneordhendelser",
     "category-events": "Kategorihendelser",
     "when-a-new-user-joins-your-group": "Når en ny bruker blir med i gruppen din",
-    "recipe-events": "Oppskriftshendelser"
+    "recipe-events": "Oppskriftshendelser",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Legg til",
@@ -672,7 +673,9 @@
     "not-linked-ingredients": "Tilleggsingredienser",
     "upload-another-image": "Last opp nytt bilde",
     "upload-images": "Last opp bilder",
-    "upload-more-images": "Last opp flere bilder"
+    "upload-more-images": "Last opp flere bilder",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Oppskriftsfinner",

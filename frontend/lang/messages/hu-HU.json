@@ -79,7 +79,8 @@
     "tag-events": "Címke események",
     "category-events": "Kategória események",
     "when-a-new-user-joins-your-group": "Amikor egy új felhasználó csatlakozik a csoportodba",
-    "recipe-events": "Recept esemény"
+    "recipe-events": "Recept esemény",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Hozzáadás",
@@ -672,7 +673,9 @@
     "not-linked-ingredients": "Kiegészítő hozzávalók",
     "upload-another-image": "Másik kép feltöltése",
     "upload-images": "Képek feltöltése",
-    "upload-more-images": "További képek feltöltése"
+    "upload-more-images": "További képek feltöltése",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Receptkereső",

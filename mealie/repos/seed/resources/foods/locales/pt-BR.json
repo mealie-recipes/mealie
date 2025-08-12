@@ -389,14 +389,14 @@
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "nabo",
+                "plural_name": "nabos"
             },
             "thai chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chile pepper",
-                "plural_name": "thai chile peppers"
+                "name": "pimenta tailandesa",
+                "plural_name": "pimentas tailandesas"
             },
             "bok choy": {
                 "aliases": [],
@@ -425,14 +425,14 @@
             "radicchio": {
                 "aliases": [],
                 "description": "",
-                "name": "radicchio",
-                "plural_name": "radicchio"
+                "name": "chicória",
+                "plural_name": "chicória"
             },
             "pearl onion": {
                 "aliases": [],
                 "description": "",
-                "name": "pearl onion",
-                "plural_name": "pearl onions"
+                "name": "cebola pérola",
+                "plural_name": "cebolas pérola"
             },
             "tenderstem broccoli": {
                 "aliases": [],
@@ -443,14 +443,14 @@
             "plantain": {
                 "aliases": [],
                 "description": "",
-                "name": "plantain",
-                "plural_name": "plantains"
+                "name": "banana-da-terra",
+                "plural_name": "bananas-da-terra"
             },
             "leaf lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "leaf lettuce",
-                "plural_name": "leaf lettuces"
+                "name": "alface de folha",
+                "plural_name": "alfaces de folha"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -511,8 +511,8 @@
             "baby corn": {
                 "aliases": [],
                 "description": "",
-                "name": "baby corn",
-                "plural_name": "baby corns"
+                "name": "mini milho",
+                "plural_name": "mini milhos"
             },
             "broccoli rabe": {
                 "aliases": [],
@@ -595,8 +595,8 @@
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli slaw",
-                "plural_name": "broccoli slaws"
+                "name": "salada de brócolis",
+                "plural_name": "saladas de brócolis"
             },
             "arbol chile pepper": {
                 "aliases": [],
@@ -713,14 +713,14 @@
             "grape": {
                 "aliases": [],
                 "description": "",
-                "name": "grape",
+                "name": "uva",
                 "plural_name": "uvas"
             },
             "pomegranate": {
                 "aliases": [],
                 "description": "",
-                "name": "pomegranate",
-                "plural_name": "pomegranates"
+                "name": "romã",
+                "plural_name": "romãs"
             },
             "watermelon": {
                 "aliases": [],
@@ -731,14 +731,14 @@
             "rhubarb": {
                 "aliases": [],
                 "description": "",
-                "name": "rhubarb",
-                "plural_name": "rhubarbs"
+                "name": "ruibarbo",
+                "plural_name": "ruibarbos"
             },
             "dried apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apricot",
-                "plural_name": "dried apricots"
+                "name": "damasco seco",
+                "plural_name": "damascos secos"
             },
             "kiwi": {
                 "aliases": [],
@@ -749,14 +749,14 @@
             "grapefruit": {
                 "aliases": [],
                 "description": "",
-                "name": "grapefruit",
-                "plural_name": "grapefruits"
+                "name": "toranja",
+                "plural_name": "toranjas"
             },
             "plum": {
                 "aliases": [],
                 "description": "",
-                "name": "plum",
-                "plural_name": "plums"
+                "name": "ameixa",
+                "plural_name": "ameixas"
             },
             "fig": {
                 "aliases": [],
@@ -767,8 +767,8 @@
             "apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "apricot",
-                "plural_name": "apricots"
+                "name": "damasco",
+                "plural_name": "damascos"
             },
             "currant": {
                 "aliases": [],
@@ -827,14 +827,14 @@
             "dried fig": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fig",
-                "plural_name": "dried figs"
+                "name": "figo seco",
+                "plural_name": "figos secos"
             },
             "chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut",
-                "plural_name": "chestnuts"
+                "name": "castanha",
+                "plural_name": "castanhas"
             },
             "meyer lemon": {
                 "aliases": [],
@@ -851,8 +851,8 @@
             "dried fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fruit",
-                "plural_name": "dried fruits"
+                "name": "fruta seca",
+                "plural_name": "frutas secas"
             },
             "clementine": {
                 "aliases": [],
@@ -875,20 +875,20 @@
             "tangerine": {
                 "aliases": [],
                 "description": "",
-                "name": "tangerine",
-                "plural_name": "tangerines"
+                "name": "tangerina",
+                "plural_name": "tangerinas"
             },
             "dried mango": {
                 "aliases": [],
                 "description": "",
-                "name": "dried mango",
-                "plural_name": "dried mangoes"
+                "name": "manga seca",
+                "plural_name": "mangas secas"
             },
             "dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apple",
-                "plural_name": "dried apples"
+                "name": "maçã seca",
+                "plural_name": "maçãs secas"
             },
             "quince": {
                 "aliases": [],
@@ -905,8 +905,8 @@
             "banana chip": {
                 "aliases": [],
                 "description": "",
-                "name": "banana chip",
-                "plural_name": "banana chips"
+                "name": "chip de banana",
+                "plural_name": "chips de banana"
             },
             "kumquat": {
                 "aliases": [],
@@ -929,14 +929,14 @@
             "mixed fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed fruit",
-                "plural_name": "mixed fruits"
+                "name": "fruta mista",
+                "plural_name": "frutas mistas"
             },
             "asian pear": {
                 "aliases": [],
                 "description": "",
-                "name": "asian pear",
-                "plural_name": "asian pears"
+                "name": "pera asiática",
+                "plural_name": "pera asiáticas"
             },
             "lychee": {
                 "aliases": [],
@@ -947,8 +947,8 @@
             "young coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "young coconut",
-                "plural_name": "young coconuts"
+                "name": "coco verde",
+                "plural_name": "cocos verdes"
             },
             "kaffir lime": {
                 "aliases": [],
@@ -972,7 +972,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomeloes"
+                "plural_name": "pomelos"
             },
             "chestnut puree": {
                 "aliases": [],
@@ -1007,8 +1007,8 @@
             "apple chip": {
                 "aliases": [],
                 "description": "",
-                "name": "apple chip",
-                "plural_name": "apple chips"
+                "name": "chip de maçã",
+                "plural_name": "chips de maçã"
             },
             "mixed peel": {
                 "aliases": [],
@@ -1037,8 +1037,8 @@
             "jujube": {
                 "aliases": [],
                 "description": "",
-                "name": "jujube",
-                "plural_name": "jujubes"
+                "name": "jujuba",
+                "plural_name": "jujubas"
             },
             "sweet lime": {
                 "aliases": [],
@@ -1055,8 +1055,8 @@
             "dried lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lemon",
-                "plural_name": "dried lemons"
+                "name": "limão seco",
+                "plural_name": "limões secos"
             },
             "young jackfruit": {
                 "aliases": [],
@@ -1251,14 +1251,14 @@
             "portobello mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "portobello mushroom",
-                "plural_name": "portobello mushrooms"
+                "name": "cogumelo portobello",
+                "plural_name": "cogumelos portobello"
             },
             "wild mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "wild mushroom",
-                "plural_name": "wild mushrooms"
+                "name": "cogumelo silvestre",
+                "plural_name": "cogumelos silvestres"
             },
             "porcini": {
                 "aliases": [],
@@ -1269,8 +1269,8 @@
             "mixed mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed mushroom",
-                "plural_name": "mixed mushrooms"
+                "name": "cogumelo misto",
+                "plural_name": "cogumelos mistos"
             },
             "oyster mushroom": {
                 "aliases": [],
@@ -1460,25 +1460,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "blueberry",
-                "plural_name": "blueberries"
+                "plural_name": "mirtilos"
             },
             "raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry",
-                "plural_name": "raspberries"
+                "name": "framboesa",
+                "plural_name": "framboesas"
             },
             "cranberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry",
-                "plural_name": "cranberries"
+                "name": "arando",
+                "plural_name": "arandos"
             },
             "cherry": {
                 "aliases": [],
                 "description": "",
                 "name": "cereja",
-                "plural_name": "cherries"
+                "plural_name": "cerejas"
             },
             "blackberry": {
                 "aliases": [],
@@ -1501,8 +1501,8 @@
             "dried cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cherry",
-                "plural_name": "dried cherries"
+                "name": "cereja seca",
+                "plural_name": "cerejas secas"
             },
             "juniper berry": {
                 "aliases": [],
@@ -1842,7 +1842,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "castanha do Pará",
-                "plural_name": "brazil nuts"
+                "plural_name": "castanha do Pará"
             },
             "mixed seed": {
                 "aliases": [],
@@ -1853,14 +1853,14 @@
             "onion seed": {
                 "aliases": [],
                 "description": "",
-                "name": "onion seed",
-                "plural_name": "onion seeds"
+                "name": "semente de cebola",
+                "plural_name": "sementes de cebola"
             },
             "watermelon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon seed",
-                "plural_name": "watermelon seeds"
+                "name": "semente de melancia",
+                "plural_name": "sementes de melancia"
             },
             "honey-roasted peanut": {
                 "aliases": [],
@@ -1871,8 +1871,8 @@
             "melon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "melon seed",
-                "plural_name": "melon seeds"
+                "name": "semente de melão",
+                "plural_name": "sementes de melão"
             },
             "lotus seed": {
                 "aliases": [],
@@ -1883,8 +1883,8 @@
             "white chia": {
                 "aliases": [],
                 "description": "",
-                "name": "white chia",
-                "plural_name": "white chias"
+                "name": "chia branca",
+                "plural_name": "chias brancas"
             },
             "trail mix": {
                 "aliases": [],
@@ -2034,7 +2034,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "muçarela",
-                "plural_name": "mozzarellas"
+                "plural_name": "muçarelas"
             },
             "feta": {
                 "aliases": [],
@@ -2069,20 +2069,20 @@
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheeses"
+                "name": "queijo de cabra",
+                "plural_name": "queijos de cabra"
             },
             "fresh mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella",
-                "plural_name": "fresh mozzarellas"
+                "name": "muçarela fresca",
+                "plural_name": "muçarelas frescas"
             },
             "swiss cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "queijo suíço",
-                "plural_name": "swiss cheeses"
+                "plural_name": "queijos suíços"
             },
             "pecorino": {
                 "aliases": [],
@@ -2699,20 +2699,20 @@
             "sweetened condensed milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sweetened condensed milk",
-                "plural_name": "sweetened condensed milks"
+                "name": "leite condensado",
+                "plural_name": "leites condensados"
             },
             "ice cream": {
                 "aliases": [],
                 "description": "",
                 "name": "sorvete",
-                "plural_name": "ice creams"
+                "plural_name": "sorvetes"
             },
             "margarine": {
                 "aliases": [],
                 "description": "",
                 "name": "margarina",
-                "plural_name": "margarines"
+                "plural_name": "margarinas"
             },
             "creme fraiche": {
                 "aliases": [],
@@ -2729,8 +2729,8 @@
             "milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "milk powder",
-                "plural_name": "milk powders"
+                "name": "leite em pó",
+                "plural_name": "leites em pó"
             },
             "curd": {
                 "aliases": [],
@@ -2903,8 +2903,8 @@
             "raw milk": {
                 "aliases": [],
                 "description": "",
-                "name": "raw milk",
-                "plural_name": "raw milks"
+                "name": "leite puro",
+                "plural_name": "leites puros"
             },
             "lime curd": {
                 "aliases": [],
@@ -2922,7 +2922,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chantilly",
-                "plural_name": "chantillies"
+                "plural_name": "chantillys"
             },
             "milkfat": {
                 "aliases": [],
@@ -3023,8 +3023,8 @@
             "chocolate milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk powder",
-                "plural_name": "chocolate milk powders"
+                "name": "achocolatado em pó",
+                "plural_name": "achocolatados em pó"
             },
             "liquid rennet": {
                 "aliases": [],
@@ -3135,8 +3135,8 @@
             "coconut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut milk",
-                "plural_name": "coconut milks"
+                "name": "leite de coco",
+                "plural_name": "leites de coco"
             },
             "almond milk": {
                 "aliases": [],
@@ -3159,8 +3159,8 @@
             "coconut cream": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut cream",
-                "plural_name": "coconut creams"
+                "name": "creme de coco",
+                "plural_name": "cremes de coco"
             },
             "vegan butter": {
                 "aliases": [],
@@ -3201,8 +3201,8 @@
             "coconut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut butter",
-                "plural_name": "coconut butter"
+                "name": "manteiga de coco",
+                "plural_name": "manteigas de coco"
             },
             "egg replacer": {
                 "aliases": [],
@@ -3243,8 +3243,8 @@
             "coconut yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut yogurt",
-                "plural_name": "coconut yogurts"
+                "name": "iogurte de coco",
+                "plural_name": "iogurtes de coco"
             },
             "non-dairy yogurt": {
                 "aliases": [],
@@ -3339,8 +3339,8 @@
             "coconut powder": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut powder",
-                "plural_name": "coconut powders"
+                "name": "pó de coco",
+                "plural_name": "pós de cocos"
             },
             "soy cream": {
                 "aliases": [],
@@ -3369,8 +3369,8 @@
             "nut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "nut milk",
-                "plural_name": "nut milks"
+                "name": "leite de nozes",
+                "plural_name": "leites de nozes"
             },
             "non-dairy cream": {
                 "aliases": [],
@@ -3525,8 +3525,8 @@
             "vegan meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan meatball",
-                "plural_name": "vegan meatballs"
+                "name": "almôndega vegana",
+                "plural_name": "almôndegas veganas"
             },
             "almond-milk yogurt": {
                 "aliases": [],
@@ -3585,8 +3585,8 @@
             "coconut fat": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut fat",
-                "plural_name": "coconut fats"
+                "name": "gordura de coco",
+                "plural_name": "gorduras de coco"
             },
             "flax milk": {
                 "aliases": [],
@@ -4069,8 +4069,8 @@
             "frozen meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen meatball",
-                "plural_name": "frozen meatballs"
+                "name": "almôndega congelada",
+                "plural_name": "almôndegas congeladas"
             },
             "mixed ground meat": {
                 "aliases": [],
@@ -4559,8 +4559,8 @@
             "turkey meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey meatball",
-                "plural_name": "turkey meatballs"
+                "name": "almôndega de peru",
+                "plural_name": "almôndegas de peru"
             },
             "foie gra": {
                 "aliases": [],
@@ -4721,8 +4721,8 @@
             "chicken meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken meatball",
-                "plural_name": "chicken meatballs"
+                "name": "almôndega de frango",
+                "plural_name": "almôndegas de frango"
             },
             "duck liver": {
                 "aliases": [],
@@ -6466,8 +6466,8 @@
             "coconut sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut sugar",
-                "plural_name": "coconut sugars"
+                "name": "açúcar de coco",
+                "plural_name": "açúcares de coco"
             },
             "molass": {
                 "aliases": [],
@@ -6718,8 +6718,8 @@
             "coconut syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut syrup",
-                "plural_name": "coconut syrups"
+                "name": "xarope de coco",
+                "plural_name": "xaropes de coco"
             },
             "mint syrup": {
                 "aliases": [],
@@ -7721,8 +7721,8 @@
             "shredded coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "shredded coconut",
-                "plural_name": "shredded coconuts"
+                "name": "coco ralado",
+                "plural_name": "cocos ralados"
             },
             "cornmeal": {
                 "aliases": [],
@@ -7751,8 +7751,8 @@
             "coconut flour": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut flour",
-                "plural_name": "coconut flours"
+                "name": "farinha de coco",
+                "plural_name": "farinhas de coco"
             },
             "baking mix": {
                 "aliases": [],
@@ -7821,8 +7821,8 @@
             "desiccated coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "desiccated coconut",
-                "plural_name": "desiccated coconuts"
+                "name": "coco ralado seco",
+                "plural_name": "cocos ralados secos"
             },
             "tapioca starch": {
                 "aliases": [],
@@ -8136,8 +8136,8 @@
             "coconut chip": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut chip",
-                "plural_name": "coconut chips"
+                "name": "chip de coco",
+                "plural_name": "chips de coco"
             },
             "quinoa flour": {
                 "aliases": [],
@@ -8998,8 +8998,8 @@
             "coconut rice": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut rice",
-                "plural_name": "coconut rices"
+                "name": "arroz de coco",
+                "plural_name": "arrozes de coco"
             },
             "amaranth flake": {
                 "aliases": [],
@@ -10658,8 +10658,8 @@
             "coconut oil": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut oil",
-                "plural_name": "coconut oils"
+                "name": "óleo de coco",
+                "plural_name": "óleos de coco"
             },
             "cooking spray": {
                 "aliases": [],
@@ -10726,8 +10726,8 @@
             "virgin coconut oil": {
                 "aliases": [],
                 "description": "",
-                "name": "virgin coconut oil",
-                "plural_name": "virgin coconut oils"
+                "name": "óleo de coco virgem",
+                "plural_name": "óleos de coco virgem"
             },
             "chili oil": {
                 "aliases": [],
@@ -10840,8 +10840,8 @@
             "coconut oil spray": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut oil spray",
-                "plural_name": "coconut oil sprays"
+                "name": "spray de óleo de coco",
+                "plural_name": "sprays de óleo de coco"
             },
             "almond oil": {
                 "aliases": [],
@@ -11342,8 +11342,8 @@
             "coconut vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut vinegar",
-                "plural_name": "coconut vinegars"
+                "name": "vinagre de coco",
+                "plural_name": "vinagres de coco"
             },
             "ume plum vinegar": {
                 "aliases": [],
@@ -15155,8 +15155,8 @@
             "coconut water": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut water",
-                "plural_name": "coconut waters"
+                "name": "água de coco",
+                "plural_name": "águas de coco"
             },
             "pomegranate juice": {
                 "aliases": [],
@@ -15741,8 +15741,8 @@
             "coconut extract": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut extract",
-                "plural_name": "coconut extracts"
+                "name": "extrato de coco",
+                "plural_name": "extratos de coco"
             },
             "rose water": {
                 "aliases": [],

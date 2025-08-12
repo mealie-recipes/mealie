@@ -79,7 +79,8 @@
     "tag-events": "Eventos de etiqueta",
     "category-events": "Eventos de Categoría",
     "when-a-new-user-joins-your-group": "Cuando un nuevo usuario se une a tu grupo",
-    "recipe-events": "Eventos de receta"
+    "recipe-events": "Eventos de receta",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Agregar",
@@ -672,7 +673,9 @@
     "not-linked-ingredients": "Ingredientes adicionales",
     "upload-another-image": "Subir otra imagen",
     "upload-images": "Subir imágenes",
-    "upload-more-images": "Subir más imágenes"
+    "upload-more-images": "Subir más imágenes",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Buscador de recetas",
