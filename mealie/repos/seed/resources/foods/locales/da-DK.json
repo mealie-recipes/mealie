@@ -660,7 +660,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "orange",
-                "plural_name": "oranges"
+                "plural_name": "appelsiner"
             },
             "raisin": {
                 "aliases": [],
@@ -1055,7 +1055,7 @@
             "dried lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lemon",
+                "name": "tørret citron",
                 "plural_name": "dried lemons"
             },
             "young jackfruit": {
