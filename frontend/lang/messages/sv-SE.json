@@ -473,7 +473,7 @@
     "comment": "Kommentar",
     "comments": "Kommentarer",
     "delete-confirmation": "Är du säker på att du vill ta bort detta recept?",
-    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
+    "admin-delete-confirmation": "Du är på väg att ta bort ett recept som inte är ditt med administratörsbehörigheter. Är du säker?",
     "delete-recipe": "Radera recept",
     "description": "Beskrivning",
     "disable-amount": "Inaktivera ingredienser mängder",
@@ -588,7 +588,7 @@
     "api-extras-description": "Recept API-tillägg är en viktig funktion i Mealie's API. Med hjälp av dem kan du skapa anpassade JSON-nyckel/värdepar i ett recept, som du kan referera till från tredjepartsapplikationer. Du kan använda dessa nycklar för att tillhandahålla information, till exempel för att trigga automatiseringar eller anpassade meddelanden som ska vidarebefordras till önskad enhet.",
     "message-key": "Meddelandenyckel",
     "parse": "Läs in",
-    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
+    "ingredients-not-parsed-description": "Det verkar som om dina ingredienser inte är tolkade ännu. Klicka på knappen \"{parse}\" nedan för att tolka dina ingredienser till strukturerade livsmedel.",
     "attach-images-hint": "Bifoga bilder genom att dra och släppa dem i redigeraren",
     "drop-image": "Släpp bild",
     "enable-ingredient-amounts-to-use-this-feature": "Aktivera ingrediensmängd för att använda denna funktion",
@@ -674,8 +674,8 @@
     "upload-another-image": "Ladda upp en annan bild",
     "upload-images": "Ladda upp bilder",
     "upload-more-images": "Ladda upp fler bilder",
-    "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "set-as-cover-image": "Använd som receptbild",
+    "cover-image": "Receptbild"
   },
   "recipe-finder": {
     "recipe-finder": "Sök recept",
