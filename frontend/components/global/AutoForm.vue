@@ -107,7 +107,7 @@
           lazy-validation
           @blur="emitBlur"
         >
-          <template #item="{ item, props }">
+          <template #item="{ item }">
             <v-list-item
               v-bind="props"
               :title="item.raw.text"
