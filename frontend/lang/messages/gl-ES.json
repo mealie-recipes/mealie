@@ -639,7 +639,7 @@
     "bulk-import-process-has-failed": "Erro no proceso de importación en masa",
     "report-deletion-failed": "Erro ao eliminar relatorio",
     "recipe-debugger": "Depurador de Receitas",
-    "recipe-debugger-description": "Copie o URL da receita que quer depurar e pégueo aqui. O URL será lido polo lector de receitas e os resultados serán mostrados. Se non ves negún dato devolto, a páxina que está a tentar ler non é suportada polo Mealie ou pola sua biblioteca de 'scrapping'.",
+    "recipe-debugger-description": "Copie o URL da receita que quer depurar e pégueo aqui. O URL será lido polo lector de receitas e os resultados serán mostrados. Se non ve nengún dato devolto, a páxina que está a tentar ler non é suportada polo Mealie ou pola sua biblioteca de 'scrapping'.",
     "use-openai": "Utilizar OpenAI",
     "recipe-debugger-use-openai-description": "Utilize o OpenAI para analisar os resultados en vez de depender da biblioteca de scrapers. Ao crear unha receita através dun URL, isto é feito automaticamente se a biblioteca de scrapers falla, mas pode provala manualmente aqui.",
     "debug": "Depurar",
@@ -665,7 +665,7 @@
       "no-unit": "Sen unidades",
       "missing-unit": "Crear a unidade que falta: {unit}",
       "missing-food": "Crear a comida que falta: {food}",
-      "this-unit-could-not-be-parsed-automatically": "Non foi posível procesar automaticamente esta unidade",
+      "this-unit-could-not-be-parsed-automatically": "Non foi posíbel procesar automaticamente esta unidade",
       "this-food-could-not-be-parsed-automatically": "Non foi posíbel procesar automaticamente este alimento",
       "no-food": "Sen Comida"
     },
@@ -679,7 +679,7 @@
   },
   "recipe-finder": {
     "recipe-finder": "Localizador de Receitas",
-    "recipe-finder-description": "Procure receitas con base nos ingredientes que teñas a man. Pode tamén filtrar polas ferramentas disponíveis e definir un número máximo de ingredientes ou ferramentas que faltan.",
+    "recipe-finder-description": "Procure receitas con base nos ingredientes que teña a man. Pode tamén filtrar polas ferramentas disponíbeis e definir un número máximo de ingredientes ou ferramentas que faltan.",
     "selected-ingredients": "Ingredientes Selecionados",
     "no-ingredients-selected": "Nengun ingrediente selecionado",
     "missing": "En falta",
