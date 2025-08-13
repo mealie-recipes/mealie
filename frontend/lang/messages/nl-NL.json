@@ -79,7 +79,8 @@
     "tag-events": "Label-gebeurtenissen",
     "category-events": "Categorie-gebeurtenissen",
     "when-a-new-user-joins-your-group": "Als een nieuwe gebruiker zich bij je groep aansluit",
-    "recipe-events": "Recept gebeurtenissen"
+    "recipe-events": "Recept gebeurtenissen",
+    "label-events": "Label gebeurtenissen"
   },
   "general": {
     "add": "Voeg toe",
@@ -672,7 +673,9 @@
     "not-linked-ingredients": "Extra ingrediënten",
     "upload-another-image": "Een andere afbeelding uploaden",
     "upload-images": "Afbeelding uploaden",
-    "upload-more-images": "Meer afbeeldingen uploaden"
+    "upload-more-images": "Meer afbeeldingen uploaden",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Recept zoeker",
