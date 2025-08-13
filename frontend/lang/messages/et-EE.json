@@ -79,7 +79,8 @@
     "tag-events": "Märksõna sündmused",
     "category-events": "Kategooria sündmused",
     "when-a-new-user-joins-your-group": "Kui uus kasutaja liitub sinu grupiga",
-    "recipe-events": "Retsepti sündmused"
+    "recipe-events": "Retsepti sündmused",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Lisa",
@@ -672,7 +673,9 @@
     "not-linked-ingredients": "Lisa-koostisosad",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Retsepti otsing",

@@ -79,7 +79,8 @@
     "tag-events": "Události tagu",
     "category-events": "Události kategorie",
     "when-a-new-user-joins-your-group": "Když se nový uživatel připojí do vaší skupiny",
-    "recipe-events": "Události receptu"
+    "recipe-events": "Události receptu",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Přidat",
@@ -672,7 +673,9 @@
     "not-linked-ingredients": "Další ingredience",
     "upload-another-image": "Nahrát další obrázek",
     "upload-images": "Nahrát obrázky",
-    "upload-more-images": "Nahrát více obrázků"
+    "upload-more-images": "Nahrát více obrázků",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Vyhledávač receptů",

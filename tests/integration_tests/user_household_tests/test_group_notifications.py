@@ -38,6 +38,9 @@ def preferences_generator():
         category_created=random_bool(),
         category_updated=random_bool(),
         category_deleted=random_bool(),
+        label_created=random_bool(),
+        label_updated=random_bool(),
+        label_deleted=random_bool(),
     ).model_dump(by_alias=True)
 
 

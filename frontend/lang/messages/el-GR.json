@@ -79,7 +79,8 @@
     "tag-events": "Συμβάντα ετικέτας",
     "category-events": "Συμβάντα κατηγορίας",
     "when-a-new-user-joins-your-group": "Οταν ένας νέος χρήστης ενταχθεί στην ομάδα σας",
-    "recipe-events": "Συμβάντα συνταγών"
+    "recipe-events": "Συμβάντα συνταγών",
+    "label-events": "Ετικέτα συμβάντων"
   },
   "general": {
     "add": "Προσθήκη",
@@ -672,7 +673,9 @@
     "not-linked-ingredients": "Πρόσθετα συστατικά",
     "upload-another-image": "Ανέβασμα άλλης εικόνας",
     "upload-images": "Ανέβασμα εικόνων",
-    "upload-more-images": "Ανέβασμα περισσότερων εικόνων"
+    "upload-more-images": "Ανέβασμα περισσότερων εικόνων",
+    "set-as-cover-image": "Ορισμός ως εικόνα εξώφυλλου συνταγής",
+    "cover-image": "Εικόνα εξώφυλλου"
   },
   "recipe-finder": {
     "recipe-finder": "Εύρεση συνταγών",

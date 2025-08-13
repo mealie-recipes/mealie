@@ -79,7 +79,8 @@
     "tag-events": "Tagbegivenheder",
     "category-events": "Kategoribegivenheder",
     "when-a-new-user-joins-your-group": "Når en ny bruger slutter sig til din gruppe",
-    "recipe-events": "Hændelser for opskrifter"
+    "recipe-events": "Hændelser for opskrifter",
+    "label-events": "Navn på begivenheder"
   },
   "general": {
     "add": "Tilføj",
@@ -672,7 +673,9 @@
     "not-linked-ingredients": "Yderligere ingredienser",
     "upload-another-image": "Upload et andet billede",
     "upload-images": "Upload billeder",
-    "upload-more-images": "Upload flere billeder"
+    "upload-more-images": "Upload flere billeder",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Opskriftssøger",
