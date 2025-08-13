@@ -4709,8 +4709,8 @@
             "duck confit": {
                 "aliases": [],
                 "description": "",
-                "name": "duck confit",
-                "plural_name": "duck confits"
+                "name": "Entenconfit",
+                "plural_name": "Entenconfite"
             },
             "roast duck": {
                 "aliases": [],
@@ -4740,13 +4740,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "geräucherte Putenflügel",
-                "plural_name": "smoked turkey wings"
+                "plural_name": "Geräucherte Truthahnflügel"
             },
             "chicken curry-cut": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken curry-cut",
-                "plural_name": "chicken curry-cuts"
+                "name": "Curry-geschnittenes Hähnchen",
+                "plural_name": "Curry-geschnittene Hähnchenteile"
             },
             "chicken schnitzel": {
                 "aliases": [],
@@ -6131,8 +6131,8 @@
             "dried parsley flake": {
                 "aliases": [],
                 "description": "",
-                "name": "dried parsley flake",
-                "plural_name": "dried parsley flakes"
+                "name": "Petersilie, gerebelt",
+                "plural_name": "Petersilie, gerebelt"
             },
             "fenugreek seed": {
                 "aliases": [],
@@ -6233,8 +6233,8 @@
             "guajillo pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "guajillo pepper",
-                "plural_name": "guajillo peppers"
+                "name": "Guajillo-Chili",
+                "plural_name": "Guajillo-Chilis"
             },
             "pink peppercorn": {
                 "aliases": [],
