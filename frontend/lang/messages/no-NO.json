@@ -473,7 +473,7 @@
     "comment": "Kommentar",
     "comments": "Kommentarer",
     "delete-confirmation": "Er du sikker på at du vil slette denne oppskriften?",
-    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
+    "admin-delete-confirmation": "Du er i ferd med å slette en oppskrift som ikke er din ved å bruke administratortillatelser. Er du sikker?",
     "delete-recipe": "Slett oppskrift",
     "description": "Beskrivelse",
     "disable-amount": "Deaktiver ingrediensmengde",
@@ -582,7 +582,7 @@
     "how-did-it-turn-out": "Hvordan ble det?",
     "user-made-this": "{user} har laget dette",
     "added-to-timeline": "Legg til tidslinje",
-    "failed-to-add-to-timeline": "Failed to add to timeline",
+    "failed-to-add-to-timeline": "Kunne ikke legge til på tidslinjen",
     "failed-to-update-recipe": "Kunne ikke oppdatere oppskriften",
     "added-to-timeline-but-failed-to-add-image": "Lagt til i tidslinjen, men klarte ikke å legge til bilde",
     "api-extras-description": "Ekstramaterialer til oppskrifter er en viktig funksjon i Mealie API-en. De lar deg opprette egendefinerte JSON-nøkkel/verdi-par innenfor en oppskrift for å referere fra tredjepartsapplikasjoner. Du kan bruke disse nøklene til å gi informasjon for eksempel for å utløse automatiseringer eller egendefinerte meldinger som skal videreformidles til ønsket enhet.",
@@ -674,8 +674,8 @@
     "upload-another-image": "Last opp nytt bilde",
     "upload-images": "Last opp bilder",
     "upload-more-images": "Last opp flere bilder",
-    "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "set-as-cover-image": "Bruk som forsidebilde for oppskriften",
+    "cover-image": "Forsidebilde"
   },
   "recipe-finder": {
     "recipe-finder": "Oppskriftsfinner",
