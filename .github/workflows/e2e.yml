@@ -44,6 +44,9 @@ jobs:
       run: yarn playwright install --with-deps
     - name: Check test environment
       run: docker ps
+    - name: Wait for Mealie to be ready on :9000
+      run: |
+        timeout 120s bash -c 'until curl -fsS http://localhost:9000/login >/dev/null; do sleep 2; done'
     - name: Run Playwright tests
       run: yarn playwright test
     - name: Destroy Test Environment
