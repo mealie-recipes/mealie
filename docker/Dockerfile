@@ -132,7 +132,7 @@ RUN apt-get update \
     gosu \
     iproute2 \
     libldap-common \
-    libldap-2.5 \
+    libldap2 \
     && rm -rf /var/lib/apt/lists/*
 
 # create directory used for Docker Secrets
