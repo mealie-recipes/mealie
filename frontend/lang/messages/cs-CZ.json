@@ -1168,7 +1168,7 @@
     "group-details": "Podrobnosti o skupině",
     "group-details-description": "Než vytvoříte svůj účet, musíte vytvořit skupinu. Vaše skupina bude obsahovat pouze vás, ale později budete moct přizvat jiné uživatele. Členové vaší skupiny mohou sdílet jídelníčky, nákupní seznamy, recepty a další!",
     "use-seed-data": "Použít Seed Data",
-    "use-seed-data-description": "Mealie obsahuje kolekci potravin, jednotek a popisků, které můžete použít ve své skupině pro organizování svých receptů.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Podrobnosti účtu"
   },
   "validation": {
