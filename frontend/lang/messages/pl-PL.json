@@ -79,7 +79,8 @@
     "tag-events": "Zdarzenia tagów",
     "category-events": "Wydarzenia kategorii",
     "when-a-new-user-joins-your-group": "Kiedy nowy użytkownik dołączy do Twojej grupy",
-    "recipe-events": "Zdarzenia Przepisów"
+    "recipe-events": "Zdarzenia Przepisów",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Dodaj",
@@ -672,7 +673,9 @@
     "not-linked-ingredients": "Dodatkowe składniki",
     "upload-another-image": "Prześlij kolejny obraz",
     "upload-images": "Prześlij obraz",
-    "upload-more-images": "Prześlij więcej obrazów"
+    "upload-more-images": "Prześlij więcej obrazów",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Wyszukiwarka przepisów",
@@ -1165,7 +1168,7 @@
     "group-details": "Szczegóły grupy",
     "group-details-description": "Zanim utworzysz konto musisz stworzyć grupę. Twoja grupa zawierać będzie tylko Ciebie, ale będziesz istniała możlwiość zaproszenia do niej innych. Użytkownicy Twojej grupy mogą współdzielić plany posiłków, listy zakupów, przepisy i więcej!",
     "use-seed-data": "Użyj przykładowych danych",
-    "use-seed-data-description": "Mealie dostarcza zestaw posiłków, jednostek i opisów które mogą zostać użyte do zapełnienia Twojej grupy przydatnymi danymi do ogranizacji Twoich przepisów.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Szczegóły konta"
   },
   "validation": {
