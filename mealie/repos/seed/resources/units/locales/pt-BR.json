@@ -31,7 +31,7 @@
     },
     "quart": {
         "name": "litro",
-        "plural_name": "quarts",
+        "plural_name": "litros",
         "description": "",
         "abbreviation": "l"
     },
@@ -85,14 +85,14 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "punhado",
-        "plural_name": "splashes",
+        "name": "salpico",
+        "plural_name": "salpicadas",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "pitada",
-        "plural_name": "dashes",
+        "plural_name": "pitadas",
         "description": "",
         "abbreviation": ""
     },
@@ -121,8 +121,8 @@
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "punhado",
+        "plural_name": "punhados",
         "description": "",
         "abbreviation": ""
     },

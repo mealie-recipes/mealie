@@ -37,15 +37,16 @@
           :name="inputField.varName"
           :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
           :hint="inputField.hint"
-          hide-details="auto"
+          :hide-details="!inputField.hint"
+          :persistent-hint="!!inputField.hint"
           density="comfortable"
           @change="emitBlur">
           <template #label>
             <span class="ml-4">
               {{ inputField.label }}
             </span>
-        </template>
-</v-checkbox>
+          </template>
+        </v-checkbox>
 
         <!-- Text Field -->
         <v-text-field
@@ -97,8 +98,8 @@
           :label="inputField.label"
           :name="inputField.varName"
           :items="inputField.options"
-          :item-title="inputField.itemText"
-          :item-value="inputField.itemValue"
+          item-title="text"
+          item-value="text"
           :return-object="false"
           :hint="inputField.hint"
           density="comfortable"
@@ -107,10 +108,11 @@
           @blur="emitBlur"
         >
           <template #item="{ item }">
-            <div>
-              <v-list-item-title>{{ item.raw.text }}</v-list-item-title>
-              <v-list-item-subtitle>{{ item.raw.description }}</v-list-item-subtitle>
-            </div>
+            <v-list-item
+              v-bind="props"
+              :title="item.raw.text"
+              :subtitle="item.raw.description"
+            />
           </template>
         </v-select>
 

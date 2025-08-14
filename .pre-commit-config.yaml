@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v6.0.0
     hooks:
       - id: check-yaml
         exclude: "mkdocs.yml"
@@ -12,7 +12,7 @@ repos:
         exclude: ^tests/data/
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.12.7
+    rev: v0.12.8
     hooks:
       - id: ruff
       - id: ruff-format

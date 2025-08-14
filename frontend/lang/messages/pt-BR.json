@@ -79,7 +79,8 @@
     "tag-events": "Eventos de Etiqueta",
     "category-events": "Eventos de Categoria",
     "when-a-new-user-joins-your-group": "Quando um novo usuário entrar no seu grupo",
-    "recipe-events": "Eventos da Receita"
+    "recipe-events": "Eventos da Receita",
+    "label-events": "Rotular Eventos"
   },
   "general": {
     "add": "Adicionar",
@@ -672,7 +673,9 @@
     "not-linked-ingredients": "Ingredientes adicionais",
     "upload-another-image": "Carregar outra imagem",
     "upload-images": "Carregar imagens",
-    "upload-more-images": "Carregar mais imagens"
+    "upload-more-images": "Carregar mais imagens",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Localizador de Receitas",
@@ -683,9 +686,9 @@
     "no-recipes-found": "Nenhuma receita encontrada",
     "no-recipes-found-description": "Tente adicionar mais ingredientes à sua busca ou ajuste seus filtros",
     "include-ingredients-on-hand": "Incluir Ingredientes Manualmente",
-    "include-tools-on-hand": "Include Tools On Hand",
-    "max-missing-ingredients": "Max Missing Ingredients",
-    "max-missing-tools": "Max Missing Tools",
+    "include-tools-on-hand": "Incluir Utensílios Manualmente",
+    "max-missing-ingredients": "Máximo de Ingredientes Faltando",
+    "max-missing-tools": "Máximo de Utensílios Faltando",
     "selected-tools": "Ferramentas Selecionadas",
     "other-filters": "Outros Filtros",
     "ready-to-make": "Pronto Para Fazer",
@@ -1165,7 +1168,7 @@
     "group-details": "Detalhes do Grupo",
     "group-details-description": "Antes de criar uma conta é necessário criar um grupo. O seu grupo só conterá você, mas você poderá convidar os outros mais tarde. Os membros do seu grupo podem compartilhar planos de refeição, listas de compras, receitas e muito mais!",
     "use-seed-data": "Usar dados semeados",
-    "use-seed-data-description": "O Mealie é fornecido com uma coleção de alimentos, unidades e rótulos que podem ser usados para preencher seu grupo com dados úteis para organizar suas receitas.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Detalhes da Conta"
   },
   "validation": {
