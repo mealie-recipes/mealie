@@ -69,6 +69,7 @@
     "new-notification": "Új értesítés",
     "event-notifiers": "Esemény értesítők",
     "apprise-url-skipped-if-blank": "Értesítendő URL (kihagy, ha üres)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Értesítés engedélyezése",
     "what-events": "Milyen eseményekre figyeljen ez az értesítés?",
     "user-events": "Felhasználói Események",
