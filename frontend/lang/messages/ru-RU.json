@@ -1168,7 +1168,7 @@
     "group-details": "Сведения о группе",
     "group-details-description": "Прежде чем создать учетную запись, вам нужно создать группу. В вашей группе будете только вы, но вы сможете пригласить других позже. Участники группы могут обмениваться планами питания, списками покупок, рецептами и многим другим!",
     "use-seed-data": "Использовать дефолтные значения",
-    "use-seed-data-description": "Mealie идёт с коллекцией продуктов, единиц измерения и меток, которые могут быть использованы для заполнения вашей группы полезными данными для организации ваших рецептов.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Параметры учетной записи"
   },
   "validation": {

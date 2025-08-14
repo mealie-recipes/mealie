@@ -1,7 +1,8 @@
 ###############################################
 # Frontend Build
 ###############################################
-FROM node:20 AS frontend-builder
+FROM node:20@sha256:08535d63bb457126292492a7998feda843cc7094abefafa5ae2c00fe35b77958 \
+    AS frontend-builder
 
 WORKDIR /frontend
 
@@ -20,7 +21,8 @@ RUN yarn generate
 ###############################################
 # Base Image - Python
 ###############################################
-FROM python:3.12-slim AS python-base
+FROM python:3.12-slim@sha256:2267adc248a477c1f1a852a07a5a224d42abe54c28aafa572efa157dfb001bba \
+    AS python-base
 
 ENV MEALIE_HOME="/app"
 
@@ -132,7 +134,7 @@ RUN apt-get update \
     gosu \
     iproute2 \
     libldap-common \
-    libldap-2.5 \
+    libldap2 \
     && rm -rf /var/lib/apt/lists/*
 
 # create directory used for Docker Secrets

@@ -1168,7 +1168,7 @@
     "group-details": "群组详情",
     "group-details-description": "在你创建账户之前，需要先创建一个群组。此时群组将只包含你自己，但稍后你便可邀请其他人。 你的群组成员可以分享食谱、饮食计划、购物清单等！",
     "use-seed-data": "使用初始数据",
-    "use-seed-data-description": "Mealie附带一套现成的“食品”、“单位”、“标签”数据，可以帮助你的群组管理食谱。",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "账户详情"
   },
   "validation": {

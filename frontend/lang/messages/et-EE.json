@@ -1168,7 +1168,7 @@
     "group-details": "Grupi detailid",
     "group-details-description": "Sa pead looma grupi enne konto loomist. Sinu grupis oled vaid sina, kuid sa saad kutsuda teisi sinna hiljem. Su grupi liikmed saavad jagada toitumisplaane, ostunimekirju, retsepte ja muud!",
     "use-seed-data": "Kasuta baasandmete infot.",
-    "use-seed-data-description": "Mealsiga on kaasas toiduainete, ühikute ja siltide kogu, mida saate kasutada oma rühma täitmiseks kasuliku teabega retseptide korraldamiseks.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Konto üksikasjad"
   },
   "validation": {

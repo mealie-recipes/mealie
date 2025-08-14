@@ -1168,7 +1168,7 @@
     "group-details": "Groep besonderhede",
     "group-details-description": "Voordat jy 'n rekening skep, moet jy eers 'n groep skep. Jy sal die enigste lid van die groep wees, maar jy kan later ander nooi. Lede van jou groep kan maaltydplanne, inkopielyste, resepte en meer deel!",
     "use-seed-data": "Gebruik voorbeelddata",
-    "use-seed-data-description": "Mealie bevat 'n versameling bestanddele, eenhede en etikette wat gebruik kan word om jou groep met nuttige data te vul om jou resepte te organiseer.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Rekening besonderhede"
   },
   "validation": {

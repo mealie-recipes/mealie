@@ -1168,7 +1168,7 @@
     "group-details": "グループの詳細",
     "group-details-description": "アカウントを作成する前に、グループを作成する必要があります。グループにはあなたしか含まれませんが、後で他の人を招待できます。グループのメンバーは、食事計画、買い物リスト、レシピなどを共有できます！",
     "use-seed-data": "シードデータを使用",
-    "use-seed-data-description": "Mealieには、レシピを整理するために役立つデータをグループに追加するために使用できる、食品、単位、ラベルのコレクションが付属しています。",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "アカウントの詳細"
   },
   "validation": {

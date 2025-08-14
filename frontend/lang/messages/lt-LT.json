@@ -1168,7 +1168,7 @@
     "group-details": "Grupės informacija",
     "group-details-description": "Prieš kurdami paskyrą turite sukurti grupę. Jūsų grupėje būsite tik jūs, tačiau vėliau galėsite pakviesti ir kitus. Jūsų grupės nariai galės dalintis maitinimo planais, pirkinių sąrašais, receptais ir kita!",
     "use-seed-data": "Naudoti pradinius duomenis",
-    "use-seed-data-description": "\"Mealie\" sistemoje jau yra pradinis duomenų rinkinys su produktais, vienetais ir etiketėmis. Jį galite panaudoti savo grupės užpildymui naudinga informacija, kuri padės organizuoti jūsų receptus.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Paskyros informacija"
   },
   "validation": {
