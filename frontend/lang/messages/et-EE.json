@@ -69,6 +69,7 @@
     "new-notification": "Uus teade",
     "event-notifiers": "Sündmuste märguanded",
     "apprise-url-skipped-if-blank": "Apprise URL (kui on tühi, jäetakse vahele)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Luba teavitaja",
     "what-events": "Millised sündmused peaks see teavitaja tellimaa?",
     "user-events": "Kasutaja sündmused",
@@ -80,7 +81,7 @@
     "category-events": "Kategooria sündmused",
     "when-a-new-user-joins-your-group": "Kui uus kasutaja liitub sinu grupiga",
     "recipe-events": "Retsepti sündmused",
-    "label-events": "Label Events"
+    "label-events": "Sildista sündmused"
   },
   "general": {
     "add": "Lisa",
