@@ -1168,7 +1168,7 @@
     "group-details": "Detalji o Grupi",
     "group-details-description": "Prije nego što kreirate korisnički račun, morat ćete stvoriti grupu. Vaša grupa će sadržavati samo vas, ali kasnije ćete moći pozvati druge članove. Članovi vaše grupe mogu dijeliti planove obroka, popise za kupovinu, recepte i još mnogo toga!",
     "use-seed-data": "Koristi Pridržane Podatke",
-    "use-seed-data-description": "Mealie dolazi s kolekcijom hrane, jedinica i oznaka koje se mogu koristiti za popunjavanje vaše grupe korisnim podacima za organiziranje vaših recepata.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Detalji Računa"
   },
   "validation": {
