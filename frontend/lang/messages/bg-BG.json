@@ -1168,7 +1168,7 @@
     "group-details": "Подробности за групата",
     "group-details-description": "Преди да създадете акаунт, ще трябва да създадете група. Вашата група ще съдържа само Вас, но ще можете да поканите други по-късно. Членовете във вашата група могат да споделят планове за хранене, списъци за пазаруване, рецепти и други!",
     "use-seed-data": "Използвай предварителни данни",
-    "use-seed-data-description": "Mealie се доставя с колекция от продукти, мерни единици и етикети за попълване на Вашата група с полезни данни за организиране на рецептите.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Подробни данни за акаунта"
   },
   "validation": {
