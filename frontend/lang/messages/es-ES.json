@@ -1168,7 +1168,7 @@
     "group-details": "Detalles del grupo",
     "group-details-description": "Antes de crear una cuenta, debe crear un grupo. En el grupo sólo estará usted, pero puede invitar a otros más tarde. Los miembros de un grupo pueden compartir menús, listas de la compra, recetas y más...",
     "use-seed-data": "Utilizar datos de ejemplo",
-    "use-seed-data-description": "Mealie incluye una colección de alimentos, unidades y etiquetas, que puede utilizar como ejemplo en su grupo, para ayudarle a organizar sus recetas.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Información de la cuenta"
   },
   "validation": {
