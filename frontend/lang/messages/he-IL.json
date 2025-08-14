@@ -1168,7 +1168,7 @@
     "group-details": "פרטי הקבוצה",
     "group-details-description": "לפני יצירת חשבון יש צורך ליצור קבוצה. הקבוצה תכיל רק אותך אבל תוכל להזמין אחרים בשלב מאוחר יותר. חברים בקבוצה יכולים לשתף תוכנית ארוחות, רשימות קניות, מתכונים ועוד!",
     "use-seed-data": "השתמש בנתוני האכלוס",
-    "use-seed-data-description": "Mealie מגיעה עם אוסף של מאכלים, יחידות מדידה ותוויות שניתן להשתמש לאכלוס הקבוצות עם מידע שימושי לארגון המתכונים.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "פרטי חשבון"
   },
   "validation": {
