@@ -1168,7 +1168,7 @@
     "group-details": "Detajli skupine",
     "group-details-description": "Preden kreirate račun, morate kreirati skupino. V skupini boste sprva samo vi, vendar imate možnost povabiti še ostale člane. Člani v vaši skupini lahko delijo načrte obrokov, nakupovalne sezname, recepte in še več!",
     "use-seed-data": "Uporabi privzete podatke",
-    "use-seed-data-description": "Meali vključuje zbirko jedi, enot in oznak, ki se lahko uporabno uporabijo v vaši skupini za organizacijo receptov.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Podatki o računu"
   },
   "validation": {
