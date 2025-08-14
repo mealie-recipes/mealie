@@ -1168,7 +1168,7 @@
     "group-details": "Groepsdetails",
     "group-details-description": "Voordat je een account aanmaakt moet je eerst een groep aanmaken. Jij bent het enige lid van de groep, maar je kunt later anderen uitnodigen. Leden van je groep kunnen maaltijdplannen, boodschappenlijstjes, recepten en nog veel meer delen!",
     "use-seed-data": "Gebruik voorbeeldgegevens",
-    "use-seed-data-description": "Mealie bevat een verzameling ingrediënten, eenheden en labels die gebruikt kunnen worden om je groep te vullen met handige gegevens voor het organiseren van je recepten.",
+    "use-seed-data-description": "Mealie komt standaard met lijsten voor Voedsel, Eenheden en Labels. Die gebruik je om je recepten handig in te delen. Of om je groep handige informatie te geven. Ze zijn vertaald in de taal die je voor Mealie hebt ingesteld. Je kunt deze lijsten altijd aanvullen of aanpassen.",
     "account-details": "Accountgegevens"
   },
   "validation": {
