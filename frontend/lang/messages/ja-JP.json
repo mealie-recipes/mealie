@@ -69,6 +69,7 @@
     "new-notification": "新着通知",
     "event-notifiers": "イベント通知",
     "apprise-url-skipped-if-blank": "通知用URL (空欄の場合はスキップ)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "通知を有効にする",
     "what-events": "この通知はどのイベントを購読すべきですか？",
     "user-events": "ユーザーイベント",
