@@ -70,6 +70,9 @@ export interface GroupEventNotifierOptions {
   categoryCreated?: boolean;
   categoryUpdated?: boolean;
   categoryDeleted?: boolean;
+  labelCreated?: boolean;
+  labelUpdated?: boolean;
+  labelDeleted?: boolean;
 }
 export interface GroupEventNotifierOptionsOut {
   testMessage?: boolean;
@@ -94,6 +97,9 @@ export interface GroupEventNotifierOptionsOut {
   categoryCreated?: boolean;
   categoryUpdated?: boolean;
   categoryDeleted?: boolean;
+  labelCreated?: boolean;
+  labelUpdated?: boolean;
+  labelDeleted?: boolean;
   id: string;
 }
 export interface GroupEventNotifierOptionsSave {
@@ -119,6 +125,9 @@ export interface GroupEventNotifierOptionsSave {
   categoryCreated?: boolean;
   categoryUpdated?: boolean;
   categoryDeleted?: boolean;
+  labelCreated?: boolean;
+  labelUpdated?: boolean;
+  labelDeleted?: boolean;
   notifierId: string;
 }
 export interface GroupEventNotifierOut {

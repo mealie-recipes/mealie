@@ -1,70 +1,81 @@
 <template>
-  <v-container fill-height
-               fluid
-               class="d-flex justify-center align-center"
-               width="1200px"
-               min-height="700px"
-               :class="{
-                 'bg-off-white': !$vuetify.theme.current.dark,
-               }"
+  <v-container
+    fill-height
+    fluid
+    class="d-flex justify-center align-center"
+    width="1200px"
+    min-height="700px"
+    :class="{
+      'bg-off-white': !$vuetify.theme.current.dark,
+    }"
   >
-    <BaseWizard v-model="currentPage"
-                :max-page-number="totalPages"
-                :title="$t('admin.setup.first-time-setup')"
-                :prev-button-show="activeConfig.showPrevButton"
-                :next-button-show="activeConfig.showNextButton"
-                :next-button-text="activeConfig.nextButtonText"
-                :next-button-icon="activeConfig.nextButtonIcon"
-                :next-button-color="activeConfig.nextButtonColor"
-                :next-button-is-submit="activeConfig.isSubmit"
-                :is-submitting="isSubmitting"
-                @submit="handleSubmit"
+    <BaseWizard
+      v-model="currentPage"
+      :max-page-number="totalPages"
+      :title="$t('admin.setup.first-time-setup')"
+      :prev-button-show="activeConfig.showPrevButton"
+      :next-button-show="activeConfig.showNextButton"
+      :next-button-text="activeConfig.nextButtonText"
+      :next-button-icon="activeConfig.nextButtonIcon"
+      :next-button-color="activeConfig.nextButtonColor"
+      :next-button-is-submit="activeConfig.isSubmit"
+      :is-submitting="isSubmitting"
+      @submit="handleSubmit"
     >
-      <v-container v-if="currentPage === Pages.LANDING"
-                   class="mb-12"
+      <v-container
+        v-if="currentPage === Pages.LANDING"
+        class="mb-12"
       >
         <v-card-title class="text-h4 justify-center text-center">
           {{ $t('admin.setup.welcome-to-mealie-get-started') }}
         </v-card-title>
-        <v-btn :to="groupSlug ? `/g/${groupSlug}` : '/login'"
-               rounded
-               variant="outlined"
-               color="grey-lighten-1"
-               class="text-subtitle-2 d-flex mx-auto"
-               style="width: fit-content;"
+        <v-btn
+          :to="groupSlug ? `/g/${groupSlug}` : '/login'"
+          rounded
+          variant="outlined"
+          color="grey-lighten-1"
+          class="text-subtitle-2 d-flex mx-auto"
+          style="width: fit-content;"
         >
           {{ $t('admin.setup.already-set-up-bring-to-homepage') }}
         </v-btn>
       </v-container>
+
       <v-container v-if="currentPage === Pages.USER_INFO">
         <UserRegistrationForm />
       </v-container>
+
       <v-container v-if="currentPage === Pages.PAGE_2">
-        <v-card-title class="headline justify-center">
+        <v-card-title class="headline justify-center pa-0">
           {{ $t('admin.setup.common-settings-for-new-sites') }}
         </v-card-title>
-        <AutoForm v-model="commonSettings"
-                  :items="commonSettingsForm"
+        <AutoForm
+          v-model="commonSettings"
+          :items="commonSettingsForm"
         />
       </v-container>
+
       <v-container v-if="currentPage === Pages.CONFIRM">
         <v-card-title class="headline justify-center">
           {{ $t("general.confirm-how-does-everything-look") }}
         </v-card-title>
         <v-list>
           <template v-for="(item, idx) in confirmationData">
-            <v-list-item v-if="item.display"
-                         :key="idx"
+            <v-list-item
+              v-if="item.display"
+              :key="idx"
             >
-              <v-list-item-title> {{ item.text }} </v-list-item-title>
-              <v-list-item-subtitle> {{ item.value }} </v-list-item-subtitle>
+              <v-list-item-title>{{ item.text }}</v-list-item-title>
+              <v-list-item-subtitle>{{ item.value }}</v-list-item-subtitle>
             </v-list-item>
-            <v-divider v-if="idx !== confirmationData.length - 1"
-                       :key="`divider-${idx}`"
+            <v-divider
+              v-if="idx !== confirmationData.length - 1"
+              :key="`divider-${idx}`"
             />
           </template>
         </v-list>
       </v-container>
+
       <v-container v-if="currentPage === Pages.END">
         <v-card-title class="text-h4 justify-center">
           {{ $t('admin.setup.setup-complete') }}
@@ -72,9 +83,10 @@
         <v-card-title class="text-h6 justify-center">
           {{ $t('admin.setup.here-are-a-few-things-to-help-you-get-started') }}
         </v-card-title>
-        <div v-for="link, idx in setupCompleteLinks"
-             :key="idx"
-             class="px-4 pt-4"
+        <div
+          v-for="link, idx in setupCompleteLinks"
+          :key="idx"
+          class="px-4 pt-4"
         >
           <div v-if="link.section">
             <v-divider v-if="idx" />
@@ -82,8 +94,9 @@
               {{ link.section }}
             </v-card-text>
           </div>
-          <v-btn :to="link.to"
-                 color="info"
+          <v-btn
+            :to="link.to"
+            color="info"
           >
             {{ link.text }}
           </v-btn>

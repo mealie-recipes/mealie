@@ -351,45 +351,46 @@ class QueryFilterBuilder:
     ) -> sa.ColumnElement:
         original_model_attr = model_attr
         model_attr = cls._transform_model_attr(model_attr, model_attr_type)
+        value = component.validate(model_attr_type)
 
         # Keywords
         if component.relationship is RelationalKeyword.IS:
-            element = model_attr.is_(component.validate(model_attr_type))
+            element = model_attr.is_(value)
         elif component.relationship is RelationalKeyword.IS_NOT:
-            element = model_attr.is_not(component.validate(model_attr_type))
+            element = model_attr.is_not(value)
         elif component.relationship is RelationalKeyword.IN:
-            element = model_attr.in_(component.validate(model_attr_type))
+            element = model_attr.in_(value)
         elif component.relationship is RelationalKeyword.NOT_IN:
-            vals = component.validate(model_attr_type)
             if original_model_attr.parent.entity != model:
-                subq = query.with_only_columns(model.id).where(model_attr.in_(vals))
+                subq = query.with_only_columns(model.id).where(model_attr.in_(value))
                 element = sa.not_(model.id.in_(subq))
             else:
-                element = sa.not_(model_attr.in_(vals))
+                element = sa.not_(model_attr.in_(value))
 
         elif component.relationship is RelationalKeyword.CONTAINS_ALL:
-            primary_model_attr: InstrumentedAttribute = getattr(model, component.attribute_name.split(".")[0])
-            element = sa.and_()
-            for v in component.validate(model_attr_type):
-                element = sa.and_(element, primary_model_attr.any(model_attr == v))
+            if len(value) == 1:
+                element = model_attr.in_(value)
+            else:
+                primary_model_attr: InstrumentedAttribute = getattr(model, component.attribute_name.split(".")[0])
+                element = sa.and_(*(primary_model_attr.any(model_attr == v) for v in value))
         elif component.relationship is RelationalKeyword.LIKE:
-            element = model_attr.ilike(component.validate(model_attr_type))
+            element = model_attr.ilike(value)
         elif component.relationship is RelationalKeyword.NOT_LIKE:
-            element = model_attr.not_ilike(component.validate(model_attr_type))
+            element = model_attr.not_ilike(value)
 
         # Operators
         elif component.relationship is RelationalOperator.EQ:
-            element = model_attr == component.validate(model_attr_type)
+            element = model_attr == value
         elif component.relationship is RelationalOperator.NOTEQ:
-            element = model_attr != component.validate(model_attr_type)
+            element = model_attr != value
         elif component.relationship is RelationalOperator.GT:
-            element = model_attr > component.validate(model_attr_type)
+            element = model_attr > value
         elif component.relationship is RelationalOperator.LT:
-            element = model_attr < component.validate(model_attr_type)
+            element = model_attr < value
         elif component.relationship is RelationalOperator.GTE:
-            element = model_attr >= component.validate(model_attr_type)
+            element = model_attr >= value
         elif component.relationship is RelationalOperator.LTE:
-            element = model_attr <= component.validate(model_attr_type)
+            element = model_attr <= value
         else:
             raise ValueError(f"invalid relationship {component.relationship}")
 
