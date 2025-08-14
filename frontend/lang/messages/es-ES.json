@@ -80,7 +80,7 @@
     "category-events": "Eventos de Categoría",
     "when-a-new-user-joins-your-group": "Cuando un nuevo usuario se une a tu grupo",
     "recipe-events": "Eventos de receta",
-    "label-events": "Label Events"
+    "label-events": "Eventos de etiqueta"
   },
   "general": {
     "add": "Agregar",
@@ -674,8 +674,8 @@
     "upload-another-image": "Subir otra imagen",
     "upload-images": "Subir imágenes",
     "upload-more-images": "Subir más imágenes",
-    "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "set-as-cover-image": "Establecer como imagen de portada de receta",
+    "cover-image": "Imagen de portada"
   },
   "recipe-finder": {
     "recipe-finder": "Buscador de recetas",
