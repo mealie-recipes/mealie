@@ -1168,7 +1168,7 @@
     "group-details": "Gruppuppgifter",
     "group-details-description": "Innan du skapar ett konto måste du skapa en grupp. Din grupp kommer bara att innehålla dig, men du kommer att kunna bjuda in andra senare. Medlemmarna i din grupp kan dela måltidsplaner, inköpslistor, recept och mycket mer!",
     "use-seed-data": "Använd exempeldata",
-    "use-seed-data-description": "Mealie innehåller en samling av livsmedel, enheter och etiketter som kan användas för att fylla din grupp med användbara data för att organisera dina recept.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Kontouppgifter"
   },
   "validation": {
