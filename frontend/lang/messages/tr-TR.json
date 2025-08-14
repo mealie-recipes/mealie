@@ -1168,7 +1168,7 @@
     "group-details": "Grup Detayları",
     "group-details-description": "Hesap oluşturmadan önce bir grup oluşturmanız gerekir. Grubunuzda yalnızca siz yer alacaksınız ancak daha sonra başkalarını da davet edebileceksiniz. Grubunuzdaki üyeler yemek planlarını, alışveriş listelerini, tarifleri ve daha fazlasını paylaşabilir!",
     "use-seed-data": "Tohum Verisi Kullan",
-    "use-seed-data-description": "Mealie, grubunuzu tariflerinizi düzenlemenize yardımcı olacak yararlı verilerle doldurmak için kullanılabilecek bir Yiyecek, Birim ve Etiket koleksiyonuyla birlikte gelir.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Hesap Detayları"
   },
   "validation": {
