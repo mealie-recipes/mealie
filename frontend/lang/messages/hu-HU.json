@@ -1168,7 +1168,7 @@
     "group-details": "Csoport részletek",
     "group-details-description": "Mielőtt létrehozna egy fiókot, létre kell hoznia egy csoportot. A csoportban csak ön lesz, de később másokat is meghívhat. A csoport tagjai menüterveket, bevásárlólistákat, recepteket és még sok mást is megoszthatnak egymással!",
     "use-seed-data": "Mintaadatok használata",
-    "use-seed-data-description": "Mealie az alapanyagok, a mennyiségi egységek és a címkék gyűjteményét tartalmazza, amelyek megoszthatók a csoporttal és hasznos adataival segítségül szolgálhat a receptek szervezéséhez.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "A fiók részletei"
   },
   "validation": {
