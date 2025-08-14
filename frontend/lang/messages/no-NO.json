@@ -1168,7 +1168,7 @@
     "group-details": "Gruppedetaljer",
     "group-details-description": "Før du oppretter en konto må du opprette en gruppe. Gruppen din vil bare inneholde deg, men du vil kunne invitere andre senere. Medlemmer i gruppen din kan dele måltider, handlelister, oppskrifter med mer!",
     "use-seed-data": "Bruk tilføringsdata",
-    "use-seed-data-description": "Mealie kommer med en samling av matvarer, enheter og etiketter som kan brukes til å fylle gruppen din med nyttige data for å organisere oppskriftene dine.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Kontodetaljer"
   },
   "validation": {
