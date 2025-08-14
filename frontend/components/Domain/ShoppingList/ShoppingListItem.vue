@@ -13,7 +13,7 @@
             v-model="listItem.checked"
             hide-details
             density="compact"
-            class="mt-0"
+            class="mt-0 flex-shrink-0"
             color="null"
             @change="$emit('checked', listItem)"
           />
@@ -27,16 +27,6 @@
         </div>
       </v-col>
       <v-spacer />
-      <v-col
-        v-if="label && showLabel"
-        cols="3"
-        class="text-right"
-      >
-        <MultiPurposeLabel
-          :label="label"
-          size="small"
-        />
-      </v-col>
       <v-col
         cols="auto"
         class="text-right"
@@ -75,27 +65,6 @@
                 </template>
                 <span>Toggle Recipes</span>
               </v-tooltip>
-              <!-- Dummy button so the spacing is consistent when labels are enabled -->
-              <v-btn
-                v-else
-                size="small"
-                variant="text"
-                class="ml-2"
-                icon
-                disabled
-              />
-
-              <v-btn
-                size="small"
-                variant="text"
-                class="ml-2 handle"
-                icon
-                v-bind="props"
-              >
-                <v-icon>
-                  {{ $globals.icons.arrowUpDown }}
-                </v-icon>
-              </v-btn>
               <v-btn
                 size="small"
                 variant="text"
@@ -105,6 +74,17 @@
               >
                 <v-icon>
                   {{ $globals.icons.edit }}
+                </v-icon>
+              </v-btn>
+              <v-btn
+                size="small"
+                variant="text"
+                class="handle"
+                icon
+                v-bind="props"
+              >
+                <v-icon>
+                  {{ $globals.icons.arrowUpDown }}
                 </v-icon>
               </v-btn>
             </template>
@@ -177,7 +157,6 @@
 import { useOnline } from "@vueuse/core";
 import RecipeIngredientListItem from "../Recipe/RecipeIngredientListItem.vue";
 import ShoppingListItemEditor from "./ShoppingListItemEditor.vue";
-import MultiPurposeLabel from "./MultiPurposeLabel.vue";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
 import type { MultiPurposeLabelOut, MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import type { IngredientFood, IngredientUnit, RecipeSummary } from "~/lib/api/types/recipe";
@@ -189,15 +168,11 @@ interface actions {
 }
 
 export default defineNuxtComponent({
-  components: { ShoppingListItemEditor, MultiPurposeLabel, RecipeList, RecipeIngredientListItem },
+  components: { ShoppingListItemEditor, RecipeList, RecipeIngredientListItem },
   props: {
     modelValue: {
       type: Object as () => ShoppingListItemOut,
       required: true,
-    },
-    showLabel: {
-      type: Boolean,
-      default: false,
     },
     labels: {
       type: Array as () => MultiPurposeLabelOut[],
@@ -220,7 +195,7 @@ export default defineNuxtComponent({
   setup(props, context) {
     const i18n = useI18n();
     const displayRecipeRefs = ref(false);
-    const itemLabelCols = ref<string>(props.modelValue.checked ? "auto" : props.showLabel ? "4" : "6");
+    const itemLabelCols = ref<string>(props.modelValue.checked ? "auto" : "6");
     const isOffline = computed(() => useOnline().value === false);
 
     const contextMenu: actions[] = [
@@ -305,7 +280,7 @@ export default defineNuxtComponent({
       }
 
       listItem.value.recipeReferences.forEach((ref) => {
-        const recipe = props.recipes.get(ref.recipeId);
+        const recipe = props.recipes?.get(ref.recipeId);
         if (recipe) {
           recipeList.push(recipe);
         }

@@ -79,7 +79,8 @@
     "tag-events": "標籤事件",
     "category-events": "類別事件",
     "when-a-new-user-joins-your-group": "當新用戶加入您的群組時",
-    "recipe-events": "食譜事件"
+    "recipe-events": "食譜事件",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Add",
@@ -672,7 +673,9 @@
     "not-linked-ingredients": "Additional Ingredients",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
