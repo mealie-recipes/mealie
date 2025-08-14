@@ -69,6 +69,7 @@
     "new-notification": "Nova Notificação",
     "event-notifiers": "Notificações de Eventos",
     "apprise-url-skipped-if-blank": "URL Apprise (ignorado se estiver em branco)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Habilitar Notificador",
     "what-events": "A quais eventos este notificador deve subscrever?",
     "user-events": "Eventos do usuário",
