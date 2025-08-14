@@ -76,8 +76,8 @@
             "shallot": {
                 "aliases": [],
                 "description": "",
-                "name": "shallot",
-                "plural_name": "shallots"
+                "name": "chalota",
+                "plural_name": "chalotas"
             },
             "cherry tomato": {
                 "aliases": [],
@@ -100,8 +100,8 @@
             "sweet corn": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet corn",
-                "plural_name": "sweet corns"
+                "name": "millo doce",
+                "plural_name": "millos doces"
             },
             "chile pepper": {
                 "aliases": [
@@ -234,8 +234,8 @@
             "red cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "red cabbage",
-                "plural_name": "red cabbages"
+                "name": "repolo roxo",
+                "plural_name": "repolos roxos"
             },
             "artichoke": {
                 "aliases": [],
@@ -389,8 +389,8 @@
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "nabo",
+                "plural_name": "nabos"
             },
             "thai chile pepper": {
                 "aliases": [],
@@ -881,8 +881,8 @@
             "dried mango": {
                 "aliases": [],
                 "description": "",
-                "name": "dried mango",
-                "plural_name": "dried mangoes"
+                "name": "manga seca",
+                "plural_name": "mangas secas"
             },
             "dried apple": {
                 "aliases": [],
@@ -905,8 +905,8 @@
             "banana chip": {
                 "aliases": [],
                 "description": "",
-                "name": "banana chip",
-                "plural_name": "banana chips"
+                "name": "chip de banana",
+                "plural_name": "chips de banana"
             },
             "kumquat": {
                 "aliases": [],
@@ -935,8 +935,8 @@
             "asian pear": {
                 "aliases": [],
                 "description": "",
-                "name": "asian pear",
-                "plural_name": "asian pears"
+                "name": "pera asiática",
+                "plural_name": "peras asiáticas"
             },
             "lychee": {
                 "aliases": [],
@@ -972,7 +972,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomeloes"
+                "plural_name": "pomelos"
             },
             "chestnut puree": {
                 "aliases": [],
@@ -1007,8 +1007,8 @@
             "apple chip": {
                 "aliases": [],
                 "description": "",
-                "name": "apple chip",
-                "plural_name": "apple chips"
+                "name": "chip de mazá",
+                "plural_name": "chips de mazá"
             },
             "mixed peel": {
                 "aliases": [],
@@ -1055,8 +1055,8 @@
             "dried lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lemon",
-                "plural_name": "dried lemons"
+                "name": "limón seco",
+                "plural_name": "limóns secos"
             },
             "young jackfruit": {
                 "aliases": [],
@@ -1465,8 +1465,8 @@
             "raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry",
-                "plural_name": "raspberries"
+                "name": "framboesa",
+                "plural_name": "framboesas"
             },
             "cranberry": {
                 "aliases": [],
@@ -1483,8 +1483,8 @@
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
-                "plural_name": "blackberries"
+                "name": "amora",
+                "plural_name": "amoras"
             },
             "berry mix": {
                 "aliases": [],

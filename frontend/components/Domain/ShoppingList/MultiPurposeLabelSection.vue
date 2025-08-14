@@ -20,6 +20,7 @@
         <template #activator="{ props }">
           <v-btn
             size="small"
+            variant="text"
             class="ml-2 handle"
             icon
             v-bind="props"

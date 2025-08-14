@@ -38,12 +38,6 @@ from .user_passwords import (
 )
 
 __all__ = [
-    "ForgotPassword",
-    "PasswordResetToken",
-    "PrivatePasswordResetToken",
-    "ResetPassword",
-    "SavePasswordResetToken",
-    "ValidateResetToken",
     "CredentialsRequest",
     "CredentialsRequestForm",
     "Token",
@@ -75,4 +69,10 @@ __all__ = [
     "UserRatings",
     "UserSummary",
     "UserSummaryPagination",
+    "ForgotPassword",
+    "PasswordResetToken",
+    "PrivatePasswordResetToken",
+    "ResetPassword",
+    "SavePasswordResetToken",
+    "ValidateResetToken",
 ]
