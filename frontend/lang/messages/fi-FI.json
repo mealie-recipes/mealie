@@ -1168,7 +1168,7 @@
     "group-details": "Ryhmän tiedot",
     "group-details-description": "Ennen kuin luot tilin, sinun on luotava ryhmä. Ryhmässäsi on vain sinä, mutta voit kutsua muita myöhemmin. Ryhmäsi jäsenet voivat jakaa ateriasuunnitelmia, ostoslistoja, reseptejä ja paljon muuta!",
     "use-seed-data": "Käytä pohjatietoja",
-    "use-seed-data-description": "Mealien mukana toimitetaan kokoelma elintarvikkeita, yksiköitä ja tarroja, joiden avulla voit täyttää ryhmäsi hyödyllisillä tiedoilla reseptien järjestämiseen.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Tilitiedot"
   },
   "validation": {
