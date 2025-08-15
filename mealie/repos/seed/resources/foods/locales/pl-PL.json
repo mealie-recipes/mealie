@@ -310,7 +310,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "green tomato",
-                "plural_name": "green tomatoes"
+                "plural_name": "zielone pomidory"
             },
             "watercress": {
                 "aliases": [],
@@ -357,8 +357,8 @@
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter lettuce",
-                "plural_name": "butter lettuces"
+                "name": "sałata masłowa",
+                "plural_name": "sałaty masłowe"
             },
             "hash brown": {
                 "aliases": [],
@@ -389,8 +389,8 @@
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "rzepa",
+                "plural_name": "rzepy"
             },
             "thai chile pepper": {
                 "aliases": [],
@@ -851,8 +851,8 @@
             "dried fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fruit",
-                "plural_name": "dried fruits"
+                "name": "Suszony owoc",
+                "plural_name": "Suszone owoce"
             },
             "clementine": {
                 "aliases": [],
@@ -881,14 +881,14 @@
             "dried mango": {
                 "aliases": [],
                 "description": "",
-                "name": "dried mango",
-                "plural_name": "dried mangoes"
+                "name": "Suszone mango",
+                "plural_name": "Suszone mango"
             },
             "dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apple",
-                "plural_name": "dried apples"
+                "name": "Suszone jabłko",
+                "plural_name": "Suszone jabłka"
             },
             "quince": {
                 "aliases": [],
@@ -912,7 +912,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kumquat",
-                "plural_name": "kumquats"
+                "plural_name": "kumkwat"
             },
             "jackfruit": {
                 "aliases": [],
@@ -923,8 +923,8 @@
             "dragon fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "dragon fruit",
-                "plural_name": "dragon fruits"
+                "name": "smoczy owoc",
+                "plural_name": "smocze owoce"
             },
             "mixed fruit": {
                 "aliases": [],
@@ -959,20 +959,20 @@
             "star fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "star fruit",
-                "plural_name": "star fruits"
+                "name": "karambola",
+                "plural_name": "karambole"
             },
             "green papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "green papaya",
-                "plural_name": "green papayas"
+                "name": "zielona papaja",
+                "plural_name": "zielone papaje"
             },
             "pomelo": {
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomeloes"
+                "plural_name": "pomelo"
             },
             "chestnut puree": {
                 "aliases": [],
@@ -1055,8 +1055,8 @@
             "dried lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lemon",
-                "plural_name": "dried lemons"
+                "name": "Suszona cytryna",
+                "plural_name": "Suszone cytryny"
             },
             "young jackfruit": {
                 "aliases": [],
@@ -1068,7 +1068,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "durian",
-                "plural_name": "durians"
+                "plural_name": "duriany"
             },
             "freeze-dried apple": {
                 "aliases": [],
@@ -1245,8 +1245,8 @@
             "shiitake mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shiitake mushroom",
-                "plural_name": "shiitake mushrooms"
+                "name": "Grzyb Shiitake",
+                "plural_name": "Grzyby Shiitake"
             },
             "portobello mushroom": {
                 "aliases": [],
@@ -1299,8 +1299,8 @@
             "black truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "black truffle",
-                "plural_name": "black truffles"
+                "name": "czarna trufla",
+                "plural_name": "czarne trufle"
             },
             "morel mushroom": {
                 "aliases": [],
@@ -1353,8 +1353,8 @@
             "white truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "white truffle",
-                "plural_name": "white truffles"
+                "name": "biała trufla",
+                "plural_name": "białe trufle"
             },
             "white fungu": {
                 "aliases": [],
@@ -1453,26 +1453,26 @@
             "strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry",
-                "plural_name": "strawberries"
+                "name": "truskawka",
+                "plural_name": "truskawki"
             },
             "blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry",
-                "plural_name": "blueberries"
+                "name": "borówka",
+                "plural_name": "borówki"
             },
             "raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry",
-                "plural_name": "raspberries"
+                "name": "malina",
+                "plural_name": "maliny"
             },
             "cranberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry",
-                "plural_name": "cranberries"
+                "name": "żurawina",
+                "plural_name": "żurawiny"
             },
             "cherry": {
                 "aliases": [],
@@ -1483,8 +1483,8 @@
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
-                "plural_name": "blackberries"
+                "name": "jeżyna",
+                "plural_name": "jeżyny"
             },
             "berry mix": {
                 "aliases": [],
@@ -1519,14 +1519,14 @@
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
-                "plural_name": "goji berries"
+                "name": "jagoda goji",
+                "plural_name": "jagody goji"
             },
             "dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried blueberry",
-                "plural_name": "dried blueberries"
+                "name": "Suszona borówka",
+                "plural_name": "Suszone borówki"
             },
             "freeze-dried strawberry": {
                 "aliases": [],
@@ -1537,8 +1537,8 @@
             "gooseberry": {
                 "aliases": [],
                 "description": "",
-                "name": "gooseberry",
-                "plural_name": "gooseberries"
+                "name": "agrest",
+                "plural_name": "agresty"
             },
             "freeze-dried raspberry": {
                 "aliases": [],
@@ -1561,14 +1561,14 @@
             "mulberry": {
                 "aliases": [],
                 "description": "",
-                "name": "mulberry",
-                "plural_name": "mulberries"
+                "name": "morwa",
+                "plural_name": "morwy"
             },
             "acai berry": {
                 "aliases": [],
                 "description": "",
-                "name": "acai berry",
-                "plural_name": "acai berries"
+                "name": "jagoda acai",
+                "plural_name": "jagody acai"
             },
             "canned cherry": {
                 "aliases": [],
@@ -1585,8 +1585,8 @@
             "elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "elderberry",
-                "plural_name": "elderberries"
+                "name": "czarny bez",
+                "plural_name": "czarny bez"
             },
             "freeze-dried blueberry": {
                 "aliases": [],
@@ -1663,8 +1663,8 @@
             "aronia berry": {
                 "aliases": [],
                 "description": "",
-                "name": "aronia berry",
-                "plural_name": "aronia berries"
+                "name": "jagoda aronii",
+                "plural_name": "jagody aronii"
             },
             "chokeberry": {
                 "aliases": [],
@@ -5181,8 +5181,8 @@
             "dried anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "dried anchovy",
-                "plural_name": "dried anchovies"
+                "name": "Suszona anszua",
+                "plural_name": "Suszone anszua"
             },
             "arctic char": {
                 "aliases": [],
@@ -5331,8 +5331,8 @@
             "dried fish": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fish",
-                "plural_name": "dried fish"
+                "name": "suszona ryba",
+                "plural_name": "suszone ryby"
             },
             "flathead": {
                 "aliases": [],
@@ -5587,8 +5587,8 @@
             "dried shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "dried shrimp",
-                "plural_name": "dried shrimps"
+                "name": "suszona garnela",
+                "plural_name": "suszone garnele"
             },
             "bay scallop": {
                 "aliases": [],
@@ -5641,8 +5641,8 @@
             "dried prawn": {
                 "aliases": [],
                 "description": "",
-                "name": "dried prawn",
-                "plural_name": "dried prawns"
+                "name": "suszona krewetka",
+                "plural_name": "suszone krewetki"
             },
             "dulse seaweed": {
                 "aliases": [],
@@ -6215,8 +6215,8 @@
             "dried chili": {
                 "aliases": [],
                 "description": "",
-                "name": "dried chili",
-                "plural_name": "dried chilies"
+                "name": "suszone chili",
+                "plural_name": "suszone chili"
             },
             "black cardamom": {
                 "aliases": [],
@@ -9332,8 +9332,8 @@
             "dried pea": {
                 "aliases": [],
                 "description": "",
-                "name": "dried pea",
-                "plural_name": "dried peas"
+                "name": "suszony groch",
+                "plural_name": "suszony groch"
             },
             "pink bean": {
                 "aliases": [],

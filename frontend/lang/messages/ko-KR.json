@@ -69,6 +69,7 @@
     "new-notification": "새 알림",
     "event-notifiers": "이벤트 알림이",
     "apprise-url-skipped-if-blank": "Apprise URL (비워두면 생략합니다)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "알림 활성화",
     "what-events": "이 알리미는 어떤 이벤트를 구독해야 합니까?",
     "user-events": "사용자 이벤트",
