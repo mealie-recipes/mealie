@@ -217,13 +217,14 @@ def test_get_cookbooks_with_recipes(api_client: TestClient, unique_user: TestUse
         )
     )
 
-    # Get the cookbook and make sure we only get the public recipes from each household
-    response = api_client.get(api_routes.explore_groups_group_slug_cookbooks_item_id(unique_user.group_id, cookbook.id))
+    # Get the cookbook recipes and make sure we only get the public recipes from each household
+    response = api_client.get(
+        api_routes.explore_groups_group_slug_recipes(unique_user.group_id), params={"cookbook": cookbook.slug}
+    )
     assert response.status_code == 200
-    cookbook_data = response.json()
-    assert cookbook_data["id"] == str(cookbook.id)
+    recipe_data = response.json()
 
-    cookbook_recipe_ids: set[str] = {recipe["id"] for recipe in cookbook_data["recipes"]}
+    cookbook_recipe_ids: set[str] = {recipe["id"] for recipe in recipe_data["items"]}
     assert len(cookbook_recipe_ids) == 2
     assert str(public_recipe.id) in cookbook_recipe_ids
     assert str(private_recipe.id) not in cookbook_recipe_ids
@@ -297,13 +298,14 @@ def test_get_cookbooks_private_household(api_client: TestClient, unique_user: Te
         )
     )
 
-    # Get the cookbook and make sure we only get the public recipes from each household
-    response = api_client.get(api_routes.explore_groups_group_slug_cookbooks_item_id(unique_user.group_id, cookbook.id))
+    # Get the cookbook recipes and make sure we only get the public recipes from each household
+    response = api_client.get(
+        api_routes.explore_groups_group_slug_recipes(unique_user.group_id), params={"cookbook": cookbook.slug}
+    )
     assert response.status_code == 200
-    cookbook_data = response.json()
-    assert cookbook_data["id"] == str(cookbook.id)
+    recipe_data = response.json()
 
-    cookbook_recipe_ids: set[str] = {recipe["id"] for recipe in cookbook_data["recipes"]}
+    cookbook_recipe_ids: set[str] = {recipe["id"] for recipe in recipe_data["items"]}
     assert len(cookbook_recipe_ids) == 1
     assert str(public_recipe.id) in cookbook_recipe_ids
     assert str(other_household_private_recipe.id) not in cookbook_recipe_ids
