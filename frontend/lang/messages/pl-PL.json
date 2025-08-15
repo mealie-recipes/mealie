@@ -69,6 +69,7 @@
     "new-notification": "Nowe powiadomienie",
     "event-notifiers": "Powiadomienia o zdarzeniach",
     "apprise-url-skipped-if-blank": "URL Apprise (pominięty, jeśli puste)",
+    "apprise-url-is-left-intentionally-blank": "Ponieważ adresy URL Apprise zawierają zazwyczaj poufne informacje, pole to pozostaje celowo puste podczas edycji. Jeśli chcesz zaktualizować adres URL, wprowadź ten nowy tutaj, w przeciwnym razie pozostaw puste, aby zachować bieżący adres URL.",
     "enable-notifier": "Włącz Powiadomienie",
     "what-events": "Jakie zdarzenia powinien subskrybować ten powiadamiający?",
     "user-events": "Zdarzenia użytkownika",
@@ -80,7 +81,7 @@
     "category-events": "Wydarzenia kategorii",
     "when-a-new-user-joins-your-group": "Kiedy nowy użytkownik dołączy do Twojej grupy",
     "recipe-events": "Zdarzenia Przepisów",
-    "label-events": "Label Events"
+    "label-events": "Etykieta wydarzeń"
   },
   "general": {
     "add": "Dodaj",
@@ -674,8 +675,8 @@
     "upload-another-image": "Prześlij kolejny obraz",
     "upload-images": "Prześlij obraz",
     "upload-more-images": "Prześlij więcej obrazów",
-    "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "set-as-cover-image": "Ustaw jako okładkę przepisu",
+    "cover-image": "Okładka"
   },
   "recipe-finder": {
     "recipe-finder": "Wyszukiwarka przepisów",
@@ -1168,7 +1169,7 @@
     "group-details": "Szczegóły grupy",
     "group-details-description": "Zanim utworzysz konto musisz stworzyć grupę. Twoja grupa zawierać będzie tylko Ciebie, ale będziesz istniała możlwiość zaproszenia do niej innych. Użytkownicy Twojej grupy mogą współdzielić plany posiłków, listy zakupów, przepisy i więcej!",
     "use-seed-data": "Użyj przykładowych danych",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
+    "use-seed-data-description": "Wysyłka posiłków z kolekcją żywności, jednostek i etykiet, które mogą być użyte do wypełnienia Twojej grupy pomocnymi danymi do organizacji twoich przepisów. Są one tłumaczone na wybrany język. Zawsze możesz dodać lub zmodyfikować te dane później.",
     "account-details": "Szczegóły konta"
   },
   "validation": {

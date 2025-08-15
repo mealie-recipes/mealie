@@ -69,6 +69,7 @@
     "new-notification": "新通知",
     "event-notifiers": "事件通知",
     "apprise-url-skipped-if-blank": "Apprise 網址(空白則略過)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "啟用通知功能",
     "what-events": "要訂閱哪些事件通知？",
     "user-events": "用戶相關事件",

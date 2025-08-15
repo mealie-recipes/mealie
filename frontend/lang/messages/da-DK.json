@@ -69,6 +69,7 @@
     "new-notification": "Ny notifikation",
     "event-notifiers": "Notifikation om begivenheder",
     "apprise-url-skipped-if-blank": "Informations link (sprunget over hvis ladet være tomt)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Aktiver Notifikationer",
     "what-events": "Hvilke begivenheder skal denne anmelder abonnere på?",
     "user-events": "Brugerhændelser",

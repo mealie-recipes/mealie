@@ -69,6 +69,7 @@
     "new-notification": "Uusi ilmoitus",
     "event-notifiers": "Tapahtumien ilmoitukset",
     "apprise-url-skipped-if-blank": "Ilmoitusverkko-osoite (voi jättää tyhjäksi)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Ota ilmoittaja käyttöön",
     "what-events": "Mistä tapahtumista tulisi ilmoittaa?",
     "user-events": "Käyttäjän tapahtumat",
