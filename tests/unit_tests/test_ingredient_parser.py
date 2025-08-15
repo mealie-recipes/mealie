@@ -227,6 +227,46 @@ def test_brute_parser(
 
 
 @pytest.mark.parametrize(
+    "unit, food, expect_unit_match, expect_food_match, expected_avg",
+    [
+        pytest.param("Cups", "potatoes", True, True, 1.0, id="all matched"),
+        pytest.param("Cups", "veryuniquefood", True, False, 0.75, id="unit matched only"),
+        pytest.param("veryuniqueunit", "potatoes", False, True, 0.75, id="food matched only"),
+        pytest.param("veryuniqueunit", "veryuniquefood", False, False, 0.5, id="neither matched"),
+    ],
+)
+def test_brute_parser_confidence(
+    unit: str,
+    food: str,
+    expect_unit_match: bool,
+    expect_food_match: bool,
+    expected_avg: float,
+    unique_local_group_id: UUID4,
+    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],
+):
+    input_str = f"1 {unit} {food}"
+
+    with session_context() as session:
+        original_loop = asyncio.get_event_loop()
+        try:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+            parser = get_parser(RegisteredParser.brute, unique_local_group_id, session)
+            parsed = loop.run_until_complete(parser.parse_one(input_str))
+        finally:
+            loop.close()
+            asyncio.set_event_loop(original_loop)
+
+        conf = parsed.confidence
+
+        assert conf.quantity == 1
+        assert conf.comment == 1
+        assert conf.unit == (1 if expect_unit_match or not unit else 0)
+        assert conf.food == (1 if expect_food_match or not food else 0)
+        assert conf.average == expected_avg
+
+
+@pytest.mark.parametrize(
     "input, expected_unit_name, expected_food_name, expect_unit_match, expect_food_match",
     (
         pytest.param(

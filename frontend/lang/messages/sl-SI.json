@@ -69,6 +69,7 @@
     "new-notification": "Novo obvestilo",
     "event-notifiers": "Obvestila o dogodkih",
     "apprise-url-skipped-if-blank": "Apprise URL (preskočeno, če je prazno)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Vključi obvestila",
     "what-events": "Katere dogodke naj spremlja obveščevalni sistem?",
     "user-events": "Dogodki uporabnika",
@@ -79,7 +80,8 @@
     "tag-events": "Dogodki značk",
     "category-events": "Dogodki kategorij",
     "when-a-new-user-joins-your-group": "Ko se novi uporabnik pridruži tvoji skupini",
-    "recipe-events": "Dogodki receptov"
+    "recipe-events": "Dogodki receptov",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Dodaj",
@@ -672,7 +674,9 @@
     "not-linked-ingredients": "Dodatne sestavine",
     "upload-another-image": "Naloži drugo sliko",
     "upload-images": "Naloži slike",
-    "upload-more-images": "Naloži več slik"
+    "upload-more-images": "Naloži več slik",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Iskalnik receptov",
@@ -1165,7 +1169,7 @@
     "group-details": "Detajli skupine",
     "group-details-description": "Preden kreirate račun, morate kreirati skupino. V skupini boste sprva samo vi, vendar imate možnost povabiti še ostale člane. Člani v vaši skupini lahko delijo načrte obrokov, nakupovalne sezname, recepte in še več!",
     "use-seed-data": "Uporabi privzete podatke",
-    "use-seed-data-description": "Meali vključuje zbirko jedi, enot in oznak, ki se lahko uporabno uporabijo v vaši skupini za organizacijo receptov.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Podatki o računu"
   },
   "validation": {

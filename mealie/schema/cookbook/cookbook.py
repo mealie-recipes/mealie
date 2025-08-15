@@ -7,7 +7,6 @@ from slugify import slugify
 from mealie.core.root_logger import get_logger
 from mealie.db.models.recipe import RecipeModel
 from mealie.schema._mealie import MealieModel
-from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.response.pagination import PaginationBase
 from mealie.schema.response.query_filter import QueryFilterBuilder, QueryFilterJSON
 
@@ -84,10 +83,3 @@ class ReadCookBook(UpdateCookBook):
 
 class CookBookPagination(PaginationBase):
     items: list[ReadCookBook]
-
-
-class RecipeCookBook(ReadCookBook):
-    group_id: UUID4
-    household_id: UUID4
-    recipes: list[RecipeSummary]
-    model_config = ConfigDict(from_attributes=True)

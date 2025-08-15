@@ -69,6 +69,7 @@
     "new-notification": "Jauns paziņojums",
     "event-notifiers": "Notikumu paziņotāji",
     "apprise-url-skipped-if-blank": "Apprise URL (izlaists, ja tukšs)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Iespējot paziņotāju",
     "what-events": "Kādus notikumus šim paziņotājam vajadzētu abonēt?",
     "user-events": "Lietotāju notikumi",
@@ -79,7 +80,8 @@
     "tag-events": "Atzīmēt notikumus",
     "category-events": "Kategorija Notikumi",
     "when-a-new-user-joins-your-group": "Kad jūsu grupai pievienojas jauns lietotājs",
-    "recipe-events": "Recepšu notikumi"
+    "recipe-events": "Recepšu notikumi",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Pievienot",
@@ -672,7 +674,9 @@
     "not-linked-ingredients": "Additional Ingredients",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
@@ -1165,7 +1169,7 @@
     "group-details": "Grupas informācija",
     "group-details-description": "Pirms konta izveides jums būs jāizveido grupa. Jūsu grupā būs tikai jūs, bet vēlāk varēsiet uzaicināt citus. Jūsu grupas dalībnieki var dalīties maltīšu plānos, iepirkumu sarakstos, receptēs un daudz ko citu!",
     "use-seed-data": "Izmantojiet sēklu datus",
-    "use-seed-data-description": "Mealie piegādā kopā ar pārtikas produktu, vienību un etiķešu kolekciju, ko var izmantot, lai papildinātu grupu ar noderīgiem datiem recepšu sakārtošanai.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Konta informācija"
   },
   "validation": {

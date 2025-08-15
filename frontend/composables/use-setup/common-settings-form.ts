@@ -4,7 +4,7 @@ import type { AutoFormItems } from "~/types/auto-forms";
 export const useCommonSettingsForm = () => {
   const i18n = useI18n();
 
-  const commonSettingsForm: AutoFormItems = [
+  const commonSettingsForm = computed<AutoFormItems>(() => [
     {
       section: i18n.t("profile.group-settings"),
       label: i18n.t("group.enable-public-access"),
@@ -21,7 +21,7 @@ export const useCommonSettingsForm = () => {
       type: fieldTypes.BOOLEAN,
       rules: ["required"],
     },
-  ];
+  ]);
 
   return {
     commonSettingsForm,
