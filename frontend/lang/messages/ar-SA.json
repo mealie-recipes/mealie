@@ -69,6 +69,7 @@
     "new-notification": "إشعار جديد",
     "event-notifiers": "إشعار الحدث",
     "apprise-url-skipped-if-blank": "الرابط Apprise (يتم تجاهله إذا ما كان فارغً)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "تفعيل الإشعارات",
     "what-events": "ما هي الأحداث التي يجب على هذا المخدم أن يستجيب لها؟",
     "user-events": "أحداث المستخدمين",
@@ -79,7 +80,8 @@
     "tag-events": "أحداث الوسم",
     "category-events": "أحداث الفئة",
     "when-a-new-user-joins-your-group": "عندما ينضم مستخدم جديد إلى مجموعتك",
-    "recipe-events": "وصفات المناسبات"
+    "recipe-events": "وصفات المناسبات",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "أضف",
@@ -672,7 +674,9 @@
     "not-linked-ingredients": "مكونات إضافية",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "البحث عن الوصفات",
@@ -1165,7 +1169,7 @@
     "group-details": "تفاصيل المجموعة",
     "group-details-description": "قبل إنشاء حساب ستحتاج إلى إنشاء مجموعة. المجموعة الخاصة بك سوف تحتوي عليك فقط، ولكن ستتمكن من دعوة الآخرين لاحقاً. يمكن لأعضاء مجموعتك مشاركة خطط الوجبات وقوائم التسوق والوصفات، والمزيد!",
     "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie يأتي بمجموعة من الأطعمة والوحدات والعلامات التي يمكن استخدامها لتزويد مجموعتك ببيانات مفيدة لتنظيم وصفاتك.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "تفاصيل الحساب"
   },
   "validation": {

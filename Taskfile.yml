@@ -71,6 +71,7 @@ tasks:
     desc: run code generators
     cmds:
       - poetry run python dev/code-generation/main.py {{ .CLI_ARGS }}
+      - task: docs:gen
       - task: py:format
 
   dev:services:

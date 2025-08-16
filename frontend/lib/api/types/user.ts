@@ -1,5 +1,5 @@
 /* tslint:disable */
-
+/* eslint-disable */
 /**
 /* This file was automatically generated from pydantic models by running pydantic2ts.
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
@@ -63,6 +63,7 @@ export interface GroupInDB {
 export interface CategoryBase {
   name: string;
   id: string;
+  groupId?: string | null;
   slug: string;
 }
 export interface ReadWebhook {
@@ -197,7 +198,6 @@ export interface UserBase {
   canManage?: boolean;
   canManageHousehold?: boolean;
   canOrganize?: boolean;
-  advancedOptions?: boolean;
 }
 export interface UserIn {
   id?: string | null;

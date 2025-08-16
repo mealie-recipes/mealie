@@ -69,6 +69,7 @@
     "new-notification": "Новое уведомление",
     "event-notifiers": "Уведомления о событии",
     "apprise-url-skipped-if-blank": "URL-адрес (пропущен, если пусто)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Включить уведомления",
     "what-events": "На какие события следует настроить уведомления?",
     "user-events": "События пользователя",
@@ -79,7 +80,8 @@
     "tag-events": "События тегов",
     "category-events": "События категорий",
     "when-a-new-user-joins-your-group": "Когда новый пользователь присоединяется к вашей группе",
-    "recipe-events": "События Рецепта"
+    "recipe-events": "События Рецепта",
+    "label-events": "Ярлыки событий"
   },
   "general": {
     "add": "Добавить",
@@ -645,7 +647,7 @@
     "tree-view": "В виде дерева",
     "recipe-servings": "Порции",
     "recipe-yield": "Количество порций",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "Количество порций рецепта",
     "unit": "Единица измерения",
     "upload-image": "Загрузить изображение",
     "screen-awake": "Держать экран включенным",
@@ -654,25 +656,27 @@
     "recipe-actions": "Действия с рецептом",
     "parser": {
       "ingredient-parser": "Разделитель ингредиентов",
-      "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
+      "explanation": "Чтобы использовать парсер ингредиентов, нажмите кнопку «Обработать все». Как только обработанные ингредиенты будут доступны, Вы можете просмотреть элементы и убедиться, что они были обработаны правильно. Показатель достоверности модели отображается справа от названия элемента. Этот показатель рассчитывается как среднее всех индивидуальных результатов и не всегда полностью точен.",
       "alerts-explainer": "Оповещение появится если подходящие продукты или единица измерения найдены, но не занесены в базу данных.",
       "select-parser": "Выбрать Разделитель",
       "natural-language-processor": "Обработчик естественного языка",
-      "brute-parser": "Brute Parser",
+      "brute-parser": "Грубый Парсер",
       "openai-parser": "OpenAI Parser",
       "parse-all": "Обработать все",
       "no-unit": "Без единиц",
       "missing-unit": "Создать недостающую единицу: {unit}",
       "missing-food": "Создать недостающую еду: {food}",
-      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
-      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
+      "this-unit-could-not-be-parsed-automatically": "Эта единица не может быть обработана автоматически",
+      "this-food-could-not-be-parsed-automatically": "Этот продукт не может быть обработан автоматически",
       "no-food": "Нет еды"
     },
     "reset-servings-count": "Сбросить количество порций",
     "not-linked-ingredients": "Дополнительные ингредиенты",
-    "upload-another-image": "Upload another image",
+    "upload-another-image": "Загрузите другое изображение",
     "upload-images": "Загрузить изображения",
-    "upload-more-images": "Загрузить больше изображений"
+    "upload-more-images": "Загрузить больше изображений",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Поиск рецептов",
@@ -682,8 +686,8 @@
     "missing": "Отсутствует",
     "no-recipes-found": "Рецепты не найдены",
     "no-recipes-found-description": "Попробуйте добавить больше ингредиентов для поиска или измените настройки фильтров",
-    "include-ingredients-on-hand": "Include Ingredients On Hand",
-    "include-tools-on-hand": "Include Tools On Hand",
+    "include-ingredients-on-hand": "Включать ингредиенты в наличии, под рукой",
+    "include-tools-on-hand": "Включать инструменты в наличии, под рукой",
     "max-missing-ingredients": "Максимальное количество отсутствующих ингредиентов",
     "max-missing-tools": "Максимальное количество отсутствующих инструментов",
     "selected-tools": "Выбранные инструменты",
@@ -1072,7 +1076,7 @@
       "example-food-singular": "пр. Луковица",
       "example-food-plural": "пр. Луковиц",
       "label-overwrite-warning": "Это назначит выбранную метку всем выбранным продуктам и потенциально перезапишет существующие метки.",
-      "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list."
+      "on-hand-checkbox-label": "Установка этого флага сделает этот продукт неотмеченным по умолчанию при добавлении рецепта в список покупок."
     },
     "units": {
       "seed-dialog-text": "Заполняет базу данных рядовыми единицами измерений на основе выбранного языка.",
@@ -1125,9 +1129,9 @@
       "source-unit-will-be-deleted": "Первая единица измерения будет удалена"
     },
     "recipe-actions": {
-      "recipe-actions-data": "Recipe Actions Data",
-      "new-recipe-action": "New Recipe Action",
-      "edit-recipe-action": "Edit Recipe Action",
+      "recipe-actions-data": "Данные действий рецепта",
+      "new-recipe-action": "Новое действие с рецептом",
+      "edit-recipe-action": "Редактировать действие рецепта",
       "action-type": "Тип Действия"
     },
     "create-alias": "Создать псевдоним",
@@ -1165,7 +1169,7 @@
     "group-details": "Сведения о группе",
     "group-details-description": "Прежде чем создать учетную запись, вам нужно создать группу. В вашей группе будете только вы, но вы сможете пригласить других позже. Участники группы могут обмениваться планами питания, списками покупок, рецептами и многим другим!",
     "use-seed-data": "Использовать дефолтные значения",
-    "use-seed-data-description": "Mealie идёт с коллекцией продуктов, единиц измерения и меток, которые могут быть использованы для заполнения вашей группы полезными данными для организации ваших рецептов.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Параметры учетной записи"
   },
   "validation": {
@@ -1290,18 +1294,18 @@
       "first-time-setup": "Первоначальная Настройка",
       "welcome-to-mealie-get-started": "Добро пожаловать в Mealie! Давайте начнем",
       "already-set-up-bring-to-homepage": "Я уже готов, просто открой домашнюю страницу",
-      "common-settings-for-new-sites": "Here are some common settings for new sites",
+      "common-settings-for-new-sites": "Ниже приведены общие настройки для новых сайтов",
       "setup-complete": "Настройка завершена!",
-      "here-are-a-few-things-to-help-you-get-started": "Here are a few things to help you get started with Mealie",
-      "restore-from-v1-backup": "Have a backup from a previous instance of Mealie v1? You can restore it here.",
-      "manage-profile-or-get-invite-link": "Manage your own profile, or grab an invite link to share with others."
+      "here-are-a-few-things-to-help-you-get-started": "Вот несколько вещей, которые помогут Вам начать работу с Mealie",
+      "restore-from-v1-backup": "У вас есть резервная копия предыдущего экземпляра Mealie v1? Вы можете восстановить ее здесь.",
+      "manage-profile-or-get-invite-link": "Управляйте своим профилем или получите ссылку-приглашение, чтобы поделиться ею с другими."
     },
     "debug-openai-services": "Отладка OpenAI сервисов",
-    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "debug-openai-services-description": "Используйте эту страницу для отладки служб OpenAI. Вы можете проверить подключение к OpenAI и посмотреть результаты здесь. Если у Вас включены службы изображений, Вы также можете предоставить изображение.",
     "run-test": "Запустить тест",
     "test-results": "Результаты тестов",
-    "group-delete-note": "Groups with users or households cannot be deleted",
-    "household-delete-note": "Households with users cannot be deleted"
+    "group-delete-note": "Группы, в которых есть пользователи или домохозяйства, не могут быть удалены",
+    "household-delete-note": "Домохозяйства, в которых есть пользователи, не могут быть удалены"
   },
   "profile": {
     "welcome-user": "👋 Добро пожаловать, {0}!",
@@ -1314,7 +1318,7 @@
     "group-statistics": "Статистика группы",
     "group-statistics-description": "Статистика вашей группы дает некоторую информацию о том, как вы используете Mealie.",
     "household-statistics": "Статистика домохозяйства",
-    "household-statistics-description": "Your Household Statistics provide some insight how you're using Mealie.",
+    "household-statistics-description": "Статистика Вашего домохозяйства дает Вам некоторое представление о том, как Вы используете Mealie.",
     "storage-capacity": "Емкость хранилища",
     "storage-capacity-description": "Указанный размер хранилища - это подсчёт размера изображений и приложений рецептов загруженных вами.",
     "personal": "Личное",
@@ -1324,8 +1328,8 @@
     "api-tokens-description": "Управляйте вашими API-токенами для доступа сторонних приложений.",
     "group-description": "Эти элементы доступны внутри вашей группы. Редактирование одного из них изменит их для всей группы!",
     "group-settings": "Настройки группы",
-    "group-settings-description": "Manage your common group settings, like privacy settings.",
-    "household-description": "These items are shared within your household. Editing one of them will change it for the whole household!",
+    "group-settings-description": "Управляйте общими настройками группы, такими как настройки конфиденциальности.",
+    "household-description": "Эти элементы доступны внутри Вашего домохозяйства. Редактирование одного из них изменит их для всего домохозяйства!",
     "household-settings": "Настройки домохозяйства",
     "household-settings-description": "Управляйте настройками вашего домохозяйства, такими как настройки плана питания и конфиденциальности.",
     "cookbooks-description": "Управление коллекцией категорий рецептов и созданием страниц для них.",
@@ -1355,9 +1359,9 @@
   },
   "cookbook": {
     "cookbooks": "Книги рецептов",
-    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "description": "Книги рецептов – это еще один способ организовать рецепты путем создания разделов рецептов, органайзеров и других фильтров. Создание книги рецептов добавит запись в боковую панель, и все рецепты с выбранными фильтрами будут отображаться в книге рецептов.",
     "hide-cookbooks-from-other-households": "Скрыть книги рецептов от других домохозяйств",
-    "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
+    "hide-cookbooks-from-other-households-description": "Если эта функция включена, на боковой панели будут отображаться только книги рецептов из Вашего домохозяйства",
     "public-cookbook": "Публичные книги рецептов",
     "public-cookbook-description": "Публичными книгами рецептов можно делиться с людьми без аккаунта в Mealie, и они будут отображаться на странице вашей группы.",
     "filter-options": "Параметры фильтрации",
@@ -1385,13 +1389,13 @@
       "is-less-than-or-equal-to": "меньше или равно"
     },
     "relational-keywords": {
-      "is": "is",
-      "is-not": "is not",
+      "is": "соответствует",
+      "is-not": "не соответствует",
       "is-one-of": "один из",
       "is-not-one-of": "не один из",
       "contains-all-of": "содержит все",
-      "is-like": "is like",
-      "is-not-like": "is not like"
+      "is-like": "содержит",
+      "is-not-like": "не содержит"
     }
   }
 }
