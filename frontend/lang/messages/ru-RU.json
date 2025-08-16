@@ -69,6 +69,7 @@
     "new-notification": "Новое уведомление",
     "event-notifiers": "Уведомления о событии",
     "apprise-url-skipped-if-blank": "URL-адрес (пропущен, если пусто)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Включить уведомления",
     "what-events": "На какие события следует настроить уведомления?",
     "user-events": "События пользователя",

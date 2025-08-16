@@ -1,7 +1,7 @@
 ###############################################
 # Frontend Build
 ###############################################
-FROM node:20@sha256:452293f0e5c9b7075829f2cd0dbd5fcae44d89cf5508b84a17bbe0857dc1a654 \
+FROM node:20@sha256:572a90df10a58ebb7d3f223d661d964a6c2383a9c2b5763162b4f631c53dc56a \
     AS frontend-builder
 
 WORKDIR /frontend

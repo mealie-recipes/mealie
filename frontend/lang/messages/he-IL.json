@@ -69,6 +69,7 @@
     "new-notification": "התראה חדשה",
     "event-notifiers": "מנגנוני התרעה על אירועים",
     "apprise-url-skipped-if-blank": "כתובת Apprise (דלג אם ריק)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "הפעלת מתריע",
     "what-events": "לאילו אירועים לרשום את מתריע זה?",
     "user-events": "אירועי משתמש",

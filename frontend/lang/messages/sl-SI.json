@@ -69,6 +69,7 @@
     "new-notification": "Novo obvestilo",
     "event-notifiers": "Obvestila o dogodkih",
     "apprise-url-skipped-if-blank": "Apprise URL (preskočeno, če je prazno)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Vključi obvestila",
     "what-events": "Katere dogodke naj spremlja obveščevalni sistem?",
     "user-events": "Dogodki uporabnika",

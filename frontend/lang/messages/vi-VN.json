@@ -69,6 +69,7 @@
     "new-notification": "Thông báo mới",
     "event-notifiers": "Event Notifiers",
     "apprise-url-skipped-if-blank": "Apprise URL (skipped if blank)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Enable Notifier",
     "what-events": "What events should this notifier subscribe to?",
     "user-events": "User Events",

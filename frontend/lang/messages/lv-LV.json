@@ -69,6 +69,7 @@
     "new-notification": "Jauns paziņojums",
     "event-notifiers": "Notikumu paziņotāji",
     "apprise-url-skipped-if-blank": "Apprise URL (izlaists, ja tukšs)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Iespējot paziņotāju",
     "what-events": "Kādus notikumus šim paziņotājam vajadzētu abonēt?",
     "user-events": "Lietotāju notikumi",
