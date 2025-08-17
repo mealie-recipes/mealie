@@ -1,15 +1,15 @@
 import type { Composer } from "vue-i18n";
 import { useReadOnlyStore, useStore } from "../partials/use-store-factory";
-import type { RecipeCookBook, UpdateCookBook } from "~/lib/api/types/cookbook";
+import type { ReadCookBook, UpdateCookBook } from "~/lib/api/types/cookbook";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
 
-const cookbooks: Ref<RecipeCookBook[]> = ref([]);
+const cookbooks: Ref<ReadCookBook[]> = ref([]);
 const loading = ref(false);
 const publicLoading = ref(false);
 
 export const useCookbookStore = function (i18n?: Composer) {
   const api = useUserApi(i18n);
-  const store = useStore<RecipeCookBook>(cookbooks, loading, api.cookbooks);
+  const store = useStore<ReadCookBook>(cookbooks, loading, api.cookbooks);
 
   const updateAll = async function (updateData: UpdateCookBook[]) {
     loading.value = true;
@@ -25,5 +25,5 @@ export const useCookbookStore = function (i18n?: Composer) {
 
 export const usePublicCookbookStore = function (groupSlug: string, i18n?: Composer) {
   const api = usePublicExploreApi(groupSlug, i18n).explore;
-  return useReadOnlyStore<RecipeCookBook>(cookbooks, publicLoading, api.cookbooks);
+  return useReadOnlyStore<ReadCookBook>(cookbooks, publicLoading, api.cookbooks);
 };

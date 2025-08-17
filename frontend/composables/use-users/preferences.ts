@@ -33,7 +33,6 @@ export interface UserRecipePreferences {
 
 export interface UserShoppingListPreferences {
   viewAllLists: boolean;
-  viewByLabel: boolean;
 }
 
 export interface UserTimelinePreferences {
@@ -129,7 +128,6 @@ export function useShoppingListPreferences(): Ref<UserShoppingListPreferences> {
     "shopping-list-preferences",
     {
       viewAllLists: false,
-      viewByLabel: true,
     },
     { mergeDefaults: true },
     // we cast to a Ref because by default it will return an optional type ref

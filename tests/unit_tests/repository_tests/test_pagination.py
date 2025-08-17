@@ -488,6 +488,19 @@ def test_pagination_filter_in_advanced(unique_user: TestUser):
     assert recipe_2.id not in recipe_ids
     assert recipe_1_2.id in recipe_ids
 
+    query = PaginationQuery(
+        page=1,
+        per_page=-1,
+        query_filter=f"tags.name CONTAINS ALL [{tag_1.name}]",
+    )
+    recipe_results = database.recipes.page_all(query).items
+    assert len(recipe_results) == 2
+    recipe_ids = {recipe.id for recipe in recipe_results}
+    assert recipe_0.id not in recipe_ids
+    assert recipe_1.id in recipe_ids
+    assert recipe_2.id not in recipe_ids
+    assert recipe_1_2.id in recipe_ids
+
 
 def test_pagination_filter_like(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):
     units_repo, unit_1, unit_2, unit_3 = query_units

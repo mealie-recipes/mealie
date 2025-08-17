@@ -7,13 +7,13 @@ from .group_seeder import SeederConfig
 from .group_statistics import GroupStorage
 
 __all__ = [
-    "GroupAdminUpdate",
-    "GroupStorage",
     "GroupDataExport",
-    "SeederConfig",
     "CreateGroupPreferences",
     "ReadGroupPreferences",
     "UpdateGroupPreferences",
+    "GroupStorage",
     "DataMigrationCreate",
     "SupportedMigrations",
+    "SeederConfig",
+    "GroupAdminUpdate",
 ]

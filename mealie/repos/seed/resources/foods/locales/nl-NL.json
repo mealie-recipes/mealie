@@ -1890,7 +1890,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "trail mix",
-                "plural_name": "trail mixes"
+                "plural_name": "studentenhavers"
             },
             "basil seed": {
                 "aliases": [],
@@ -2105,8 +2105,8 @@
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cottage cheese",
-                "plural_name": "cottage cheeses"
+                "name": "huttenkaas",
+                "plural_name": "huttenkazen"
             },
             "american cheese": {
                 "aliases": [],

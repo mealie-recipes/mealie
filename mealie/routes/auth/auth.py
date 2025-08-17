@@ -19,6 +19,8 @@ from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
 from mealie.schema.user.auth import CredentialsRequestForm
 
+from .auth_cache import AuthCache
+
 public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])
 logger = root_logger.get_logger("auth")
@@ -27,7 +29,7 @@ remember_me_duration = timedelta(days=14)
 
 settings = get_app_settings()
 if settings.OIDC_READY:
-    oauth = OAuth()
+    oauth = OAuth(cache=AuthCache())
     scope = None
     if settings.OIDC_SCOPES_OVERRIDE:
         scope = settings.OIDC_SCOPES_OVERRIDE
