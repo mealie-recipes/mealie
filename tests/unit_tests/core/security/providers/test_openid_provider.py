@@ -149,6 +149,46 @@ def test_has_admin_group_new_user(monkeypatch: MonkeyPatch, session: Session):
     assert user.admin
 
 
+def test_no_group_new_user(monkeypatch: MonkeyPatch, session: Session):
+    monkeypatch.setenv("OIDC_ADMIN_GROUP", "mealie_admin")
+    get_app_settings.cache_clear()
+
+    data = {
+        "preferred_username": "dude2",
+        "email": "dude2@email.com",
+        "name": "Firstname Lastname",
+        "groups": [],
+    }
+    auth_provider = OpenIDProvider(session, data)
+
+    assert auth_provider.authenticate() is not None
+
+    db = get_repositories(session, group_id=None, household_id=None)
+    user = db.users.get_one("dude2", "username")
+    assert user is not None
+    assert not user.admin
+
+
+def test_nonmatching_group_new_user(monkeypatch: MonkeyPatch, session: Session):
+    monkeypatch.setenv("OIDC_ADMIN_GROUP", "mealie_admin")
+    get_app_settings.cache_clear()
+
+    data = {
+        "preferred_username": "dude2",
+        "email": "dude2@email.com",
+        "name": "Firstname Lastname",
+        "groups": ["testgroup"],
+    }
+    auth_provider = OpenIDProvider(session, data)
+
+    assert auth_provider.authenticate() is not None
+
+    db = get_repositories(session, group_id=None, household_id=None)
+    user = db.users.get_one("dude2", "username")
+    assert user is not None
+    assert not user.admin
+
+
 @pytest.mark.parametrize("valid_group", [True, False])
 @pytest.mark.parametrize("valid_household", [True, False])
 def test_ldap_user_creation_invalid_group_or_household(

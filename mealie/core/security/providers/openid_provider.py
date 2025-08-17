@@ -43,7 +43,9 @@ class OpenIDProvider(AuthProvider[UserInfo]):
 
         # Check for empty required claims
         for claim in self.required_claims:
-            if not claims.get(claim):
+            if not claims.get(claim) and claim != settings.OIDC_GROUPS_CLAIM:  # Allow empty groups claim
+                # It doesn't actually matter if the groups claim is empty,
+                # since OIDC_ADMIN_GROUP can be set without OIDC_USER_GROUP
                 self._logger.error("[OIDC] Required claim '%s' is empty", claim)
                 raise MissingClaimException()
 
