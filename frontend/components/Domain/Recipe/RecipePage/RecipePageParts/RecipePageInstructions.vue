@@ -587,9 +587,22 @@ function mergeAbove(target: number, source: number) {
     source,
     targetText: instructionList.value[target].text,
     sourceText: instructionList.value[source].text,
+    targetIngredientReferences: [...(instructionList.value[target].ingredientReferences || [])],
+    sourceIngredientReferences: [...(instructionList.value[source].ingredientReferences || [])],
   });
 
   instructionList.value[target].text += " " + instructionList.value[source].text;
+
+  const targetRefs = instructionList.value[target].ingredientReferences || [];
+  const sourceRefs = instructionList.value[source].ingredientReferences || [];
+  const mergedRefsMap = new Map();
+  [...targetRefs, ...sourceRefs].forEach(ref => {
+    if (ref.referenceId) {
+      mergedRefsMap.set(ref.referenceId, ref);
+    }
+  });
+  instructionList.value[target].ingredientReferences = Array.from(mergedRefsMap.values());
+
   instructionList.value.splice(source, 1);
 }
 
