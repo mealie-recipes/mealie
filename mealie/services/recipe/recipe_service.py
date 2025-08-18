@@ -408,6 +408,16 @@ class RecipeService(RecipeServiceBase):
         self.check_assets(new_data, recipe.slug)
         return new_data
 
+    def update_recipe_image(self, slug: str, image: bytes, extension: str):
+        recipe = self.get_one(slug)
+        if not self.can_update(recipe):
+            raise exceptions.PermissionDenied("You do not have permission to edit this recipe.")
+
+        data_service = RecipeDataService(recipe.id)
+        data_service.write_image(image, extension)
+
+        return self.group_recipes.update_image(slug, extension)
+
     def patch_one(self, slug_or_id: str | UUID, patch_data: Recipe) -> Recipe:
         recipe: Recipe = self._pre_update_check(slug_or_id, patch_data)
 

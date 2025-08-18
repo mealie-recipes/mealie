@@ -69,6 +69,7 @@
     "new-notification": "新通知",
     "event-notifiers": "事件通知器",
     "apprise-url-skipped-if-blank": "Apprise URL (如果为空则跳过)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "打开消息通知",
     "what-events": "该通知器需要订阅哪些事件？",
     "user-events": "用户事件",
@@ -79,7 +80,8 @@
     "tag-events": "标签事件",
     "category-events": "分类事件",
     "when-a-new-user-joins-your-group": "当新用户加入您的群组时",
-    "recipe-events": "食谱事件"
+    "recipe-events": "食谱事件",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "添加",
@@ -587,6 +589,7 @@
     "api-extras-description": "食谱扩展是Mealie API的关键功能之一。它允许你在食谱中添加自定义JSON键值对，以供第三方程序使用。你可以利用这些键提供信息，实现更多功能，例如触发自动化，或转发自定义信息到指定的设备上。",
     "message-key": "键名",
     "parse": "自动解析",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "如需添加图片，可将其拖拽到编辑器",
     "drop-image": "拖放图片",
     "enable-ingredient-amounts-to-use-this-feature": "使用此项功能需启用食材用量",
@@ -671,7 +674,9 @@
     "not-linked-ingredients": "Additional Ingredients",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "食谱搜索",
@@ -889,7 +894,7 @@
     "no-label": "无标签",
     "completed-on": "于 {date} 完成",
     "you-are-offline": "你已离线",
-    "you-are-offline-description": "Not all features are available while offline. You can still add, modify, and remove items, but you will not be able to sync your changes to the server until you are back online.",
+    "you-are-offline-description": "离线时并非所有功能都可用。您仍然可以添加、修改和删除项目，但在重新联机之前，您将无法将更改同步到服务器。",
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
@@ -1037,7 +1042,7 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "权限",
     "administrator": "管理员",
-    "user-can-invite-other-to-group": "User can invite others to group",
+    "user-can-invite-other-to-group": "",
     "user-can-manage-group": "用户可以管理群组",
     "user-can-manage-household": "User can manage household",
     "user-can-organize-group-data": "用户可以整理群组数据",
@@ -1164,7 +1169,7 @@
     "group-details": "群组详情",
     "group-details-description": "在你创建账户之前，需要先创建一个群组。此时群组将只包含你自己，但稍后你便可邀请其他人。 你的群组成员可以分享食谱、饮食计划、购物清单等！",
     "use-seed-data": "使用初始数据",
-    "use-seed-data-description": "Mealie附带一套现成的“食品”、“单位”、“标签”数据，可以帮助你的群组管理食谱。",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "账户详情"
   },
   "validation": {

@@ -70,7 +70,7 @@ class OpenAILocalImage(OpenAIImageBase):
         )
         with open(image, "rb") as f:
             b64content = base64.b64encode(f.read()).decode("utf-8")
-        return f"data:image/jpg;base64,{b64content}"
+        return f"data:image/jpeg;base64,{b64content}"
 
 
 class OpenAIService(BaseService):

@@ -69,6 +69,7 @@
     "new-notification": "Notificare nouă",
     "event-notifiers": "Notificatori de evenimente",
     "apprise-url-skipped-if-blank": "URL Apprise (ignorat daca e gol)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Activare notificator",
     "what-events": "La ce evenimente ar trebui să se înscrie acest notificator?",
     "user-events": "Evenimente Utilizator",
@@ -79,7 +80,8 @@
     "tag-events": "Etichetele de Evenimente",
     "category-events": "Categorie de Evenimente",
     "when-a-new-user-joins-your-group": "Când un utilizator nou se alătură grupului tău",
-    "recipe-events": "Evenimente rețetă"
+    "recipe-events": "Evenimente rețetă",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Adaugă",
@@ -587,6 +589,7 @@
     "api-extras-description": "Recipes extras sunt o caracteristică cheie a API-ului Mealie. Îți permit să creezi perechi personalizate de cheie/valoare JSON într-o rețetă, ca să faci referire la aplicații terțe. Puteți utiliza aceste chei pentru a furniza informații, de exemplu pentru a declanșa automatizări sau mesaje personalizate pentru a transmite dispozitivul dorit.",
     "message-key": "Cheie mesaj",
     "parse": "Parsează",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Atașează imagini trăgându-le cu mouse-ul și plasându-le în editor",
     "drop-image": "Trage imaginea",
     "enable-ingredient-amounts-to-use-this-feature": "Activaţi cantităţile de ingrediente pentru a utiliza această funcționalitate",
@@ -671,7 +674,9 @@
     "not-linked-ingredients": "Ingrediente suplimentare",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Căutător de rețete",
@@ -1164,7 +1169,7 @@
     "group-details": "Detalii grup",
     "group-details-description": "Înainte de a crea un cont, va trebui să creezi un grup. Grupul tău va conține inițial doar pe tine, dar vei putea invita și alte persoane ulterior. Membrii din grupul tău vor putea să partajeze planuri de mese, liste de cumpărături, rețete și multe altele!",
     "use-seed-data": "Utilizează setul de date a populării",
-    "use-seed-data-description": "Mealie vine cu o colecție de Alimente, Unități, și Etichete care pot fi utilizate pentru a popula grupul tău cu date utile pentru organizarea rețetelor.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Detalii Cont"
   },
   "validation": {

@@ -43,7 +43,7 @@
             color="gray"
             secondary
             target="_blank"
-            href="https://github.com/hay-kot/mealie/issues/new/choose"
+            href="https://github.com/mealie-recipes/mealie/issues/new/choose"
           >
             <template #icon>
               {{ $globals.icons.github }}
