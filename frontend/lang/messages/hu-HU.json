@@ -69,7 +69,7 @@
     "new-notification": "Új értesítés",
     "event-notifiers": "Esemény értesítők",
     "apprise-url-skipped-if-blank": "Értesítendő URL (kihagy, ha üres)",
-    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
+    "apprise-url-is-left-intentionally-blank": "Mivel Apprise URL-ek gyakran érzékeny információt tartalmaznak, ez a mező szándékosan üres marad szerkesztés közben. Ha frissíteni szeretnéd az URL-t, kérelk írd be ide az újat, különben hagyjad üresena jelenlegi URL megtartásához.",
     "enable-notifier": "Értesítés engedélyezése",
     "what-events": "Milyen eseményekre figyeljen ez az értesítés?",
     "user-events": "Felhasználói Események",
@@ -81,7 +81,7 @@
     "category-events": "Kategória események",
     "when-a-new-user-joins-your-group": "Amikor egy új felhasználó csatlakozik a csoportodba",
     "recipe-events": "Recept esemény",
-    "label-events": "Label Events"
+    "label-events": "Címke Események"
   },
   "general": {
     "add": "Hozzáadás",
@@ -550,8 +550,8 @@
     "failed-to-add-recipe-to-mealplan": "Nem sikerült hozzáadni a receptet a menütervhez",
     "failed-to-add-to-list": "Nem sikerült hozzáadni a listához",
     "yield": "Adag",
-    "yields-amount-with-text": "Yields {amount} {text}",
-    "yield-text": "Yield Text",
+    "yields-amount-with-text": "{amount} {text} készül",
+    "yield-text": "A készített étel (ha darabban lehet számolni)",
     "quantity": "Mennyiség",
     "choose-unit": "Válasszon mennyiségi egységet",
     "press-enter-to-create": "Üssön Enter-t a létrehozáshoz",
@@ -1169,7 +1169,7 @@
     "group-details": "Csoport részletek",
     "group-details-description": "Mielőtt létrehozna egy fiókot, létre kell hoznia egy csoportot. A csoportban csak ön lesz, de később másokat is meghívhat. A csoport tagjai menüterveket, bevásárlólistákat, recepteket és még sok mást is megoszthatnak egymással!",
     "use-seed-data": "Mintaadatok használata",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
+    "use-seed-data-description": "Mealie-ben alapból található sok Étel, Mértékegység, és Címke amík segíthetnek a csoportod felltöltésében a receptek csoportosításához hasznos adatokkal. Ezek a jelenlegi nyelvedre vannak lefordítva. Bármikor megváltoztathatod ezeket az adatokat később.",
     "account-details": "A fiók részletei"
   },
   "validation": {
