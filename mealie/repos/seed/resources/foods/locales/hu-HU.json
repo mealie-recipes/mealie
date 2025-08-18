@@ -541,8 +541,8 @@
             "ancho chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "ancho chile pepper",
-                "plural_name": "ancho chile peppers"
+                "name": "ancho csili paprika",
+                "plural_name": "ancho csili paprikák"
             },
             "microgreen": {
                 "aliases": [],
@@ -553,55 +553,55 @@
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "boston lettuce",
-                "plural_name": "boston lettuces"
+                "name": "fejes saláta",
+                "plural_name": "fejes saláták"
             },
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
-                "name": "kohlrabi",
-                "plural_name": "kohlrabis"
+                "name": "karalábé",
+                "plural_name": "karalábék"
             },
             "fresno chile": {
                 "aliases": [],
                 "description": "",
-                "name": "fresno chile",
-                "plural_name": "fresno chiles"
+                "name": "fresno csili",
+                "plural_name": "fresno csilik"
             },
             "delicata squash": {
                 "aliases": [],
                 "description": "",
-                "name": "delicata squash",
-                "plural_name": "delicata squashes"
+                "name": "delicata tök",
+                "plural_name": "delicata tökök"
             },
             "frisee": {
                 "aliases": [],
                 "description": "",
-                "name": "frisee",
-                "plural_name": "frisees"
+                "name": "göngyölt endívia",
+                "plural_name": "göngyölt endíviák"
             },
             "anaheim pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "anaheim pepper",
-                "plural_name": "anaheim peppers"
+                "name": "anaheim chili paprika",
+                "plural_name": "anaheim chili paprikák"
             },
             "cres": {
                 "aliases": [],
                 "description": "",
-                "name": "cres",
-                "plural_name": "cress"
+                "name": "kerti zsázsa",
+                "plural_name": "kerti zsázsák"
             },
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli slaw",
-                "plural_name": "broccoli slaws"
+                "name": "brokkoli saláta",
+                "plural_name": "brokkoli saláták"
             },
             "arbol chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "arbol chile pepper",
+                "name": "arbol csili paprika",
                 "plural_name": "arbol csili paprika"
             },
             "golden beet": {
@@ -755,14 +755,14 @@
             "plum": {
                 "aliases": [],
                 "description": "",
-                "name": "plum",
-                "plural_name": "plums"
+                "name": "szilva",
+                "plural_name": "szilvák"
             },
             "fig": {
                 "aliases": [],
                 "description": "",
-                "name": "fig",
-                "plural_name": "figs"
+                "name": "füge",
+                "plural_name": "fügék"
             },
             "apricot": {
                 "aliases": [],
@@ -773,8 +773,8 @@
             "currant": {
                 "aliases": [],
                 "description": "",
-                "name": "currant",
-                "plural_name": "currants"
+                "name": "ribizli",
+                "plural_name": "ribizlik"
             },
             "mandarin": {
                 "aliases": [],
@@ -785,20 +785,20 @@
             "prune": {
                 "aliases": [],
                 "description": "",
-                "name": "prune",
-                "plural_name": "prunes"
+                "name": "mazsola",
+                "plural_name": "mazsolák"
             },
             "cantaloupe": {
                 "aliases": [],
                 "description": "",
-                "name": "cantaloupe",
-                "plural_name": "cantaloupes"
+                "name": "sárgadinnye",
+                "plural_name": "sárgadinnyék"
             },
             "sultana": {
                 "aliases": [],
                 "description": "",
-                "name": "sultana",
-                "plural_name": "sultanas"
+                "name": "szultána szőlő",
+                "plural_name": "szultána szőlők"
             },
             "passion fruit": {
                 "aliases": [],
@@ -815,8 +815,8 @@
             "tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarind",
-                "plural_name": "tamarinds"
+                "name": "tamarindusz gyümölcs",
+                "plural_name": "tamarindusz gyümölcsök"
             },
             "nectarine": {
                 "aliases": [],
