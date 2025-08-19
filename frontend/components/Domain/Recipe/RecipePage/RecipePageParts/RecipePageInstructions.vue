@@ -390,8 +390,6 @@ const props = defineProps({
 
 const emit = defineEmits(["click-instruction-field", "update:assets"]);
 
-const BASE_URL = useRequestURL().origin;
-
 const { isCookMode, toggleCookMode, isEditForm } = usePageState(props.recipe.slug);
 
 const dialog = ref(false);
@@ -695,7 +693,7 @@ async function handleImageDrop(index: number, files: File[]) {
   }
 
   emit("update:assets", [...assets.value, data]);
-  const assetUrl = BASE_URL + recipeAssetPath(props.recipe.id, data.fileName as string);
+  const assetUrl = recipeAssetPath(props.recipe.id, data.fileName as string);
   const text = `<img src="${assetUrl}" height="100%" width="100%"/>`;
   instructionList.value[index].text += text;
 }

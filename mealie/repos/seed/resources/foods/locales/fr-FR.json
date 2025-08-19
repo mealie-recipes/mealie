@@ -280,7 +280,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mélange de légumes",
-                "plural_name": "mélange de légumes"
+                "plural_name": "mélanges de légumes"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -378,7 +378,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "céleri-rave",
-                "plural_name": "céleric-raves"
+                "plural_name": "céleri-raves"
             },
             "water chestnut": {
                 "aliases": [],
@@ -1073,13 +1073,13 @@
             "freeze-dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried apple",
-                "plural_name": "freeze-dried apples"
+                "name": "pomme lyophilisée",
+                "plural_name": "pommes lyophilisées"
             },
             "dried tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "dried tamarind",
+                "name": "tamarin séché",
                 "plural_name": "dried tamarinds"
             },
             "honey date": {
@@ -1151,8 +1151,8 @@
             "dried orange slice": {
                 "aliases": [],
                 "description": "",
-                "name": "dried orange slice",
-                "plural_name": "dried orange slices"
+                "name": "tranche d'orange séchée",
+                "plural_name": "tranches d'orange séchées"
             },
             "loquat": {
                 "aliases": [],
@@ -1335,8 +1335,8 @@
             "dried chinese mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "dried chinese mushroom",
-                "plural_name": "dried chinese mushrooms"
+                "name": "shiitake",
+                "plural_name": "shiitakes"
             },
             "maitake": {
                 "aliases": [],
@@ -1347,8 +1347,8 @@
             "trumpet mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "trumpet mushroom",
-                "plural_name": "trumpet mushrooms"
+                "name": "pleurote de panicaut",
+                "plural_name": "pleurotes de panicaut"
             },
             "white truffle": {
                 "aliases": [],
@@ -1437,14 +1437,14 @@
             "candy cap mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "candy cap mushroom",
-                "plural_name": "candy cap mushrooms"
+                "name": "Champignon Candy Cap",
+                "plural_name": "Champignons Candy Cap"
             },
             "lion’s mane mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "lion’s mane mushroom",
-                "plural_name": "lion’s mane mushrooms"
+                "name": "Champignon lion's mane",
+                "plural_name": "Champignons lion's mane"
             }
         }
     },
@@ -1745,7 +1745,7 @@
             "pine nut": {
                 "aliases": [],
                 "description": "",
-                "name": "pine nut",
+                "name": "pignon de pin",
                 "plural_name": "pine nuts"
             },
             "pistachio": {
@@ -1781,8 +1781,8 @@
             "pumpkin seed": {
                 "aliases": [],
                 "description": "",
-                "name": "graine de citrouille",
-                "plural_name": "graines de citrouille"
+                "name": "graine de courge",
+                "plural_name": "graines de courge"
             },
             "hazelnut": {
                 "aliases": [],
@@ -2015,8 +2015,8 @@
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheeses"
+                "name": "mascarpone",
+                "plural_name": "mascarpones"
             },
             "sharp cheddar": {
                 "aliases": [],
@@ -2382,7 +2382,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "babybel",
-                "plural_name": "babybels"
+                "plural_name": "babybel"
             },
             "panela cheese": {
                 "aliases": [],
@@ -2556,7 +2556,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "port-salut",
-                "plural_name": "port saluts"
+                "plural_name": "port-salut"
             },
             "derby cheese": {
                 "aliases": [],
@@ -2637,8 +2637,8 @@
             "sour cream": {
                 "aliases": [],
                 "description": "",
-                "name": "crème fraiche",
-                "plural_name": "crèmes fraiches"
+                "name": "crème aigre",
+                "plural_name": "crèmes aigres"
             },
             "buttermilk": {
                 "aliases": [],
@@ -3035,14 +3035,14 @@
             "sheep’s milk yoghurt": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep’s milk yoghurt",
-                "plural_name": "sheep’s milk yoghurts"
+                "name": "yaourt au lait de brebis",
+                "plural_name": "yaourts au lait de brebis"
             },
             "strawberry milk": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry milk",
-                "plural_name": "strawberry milks"
+                "name": "lait à la fraise",
+                "plural_name": "laits à la fraise"
             },
             "ayran": {
                 "aliases": [],
@@ -3078,7 +3078,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lait de brebis",
-                "plural_name": "sheep milks"
+                "plural_name": "lait de brebis"
             },
             "starter culture": {
                 "aliases": [],
@@ -3102,7 +3102,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lait vanillé",
-                "plural_name": "vanilla milks"
+                "plural_name": "laits à la vanille"
             },
             "yoplait whip": {
                 "aliases": [],
@@ -3303,8 +3303,8 @@
             "soy yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "soy yogurt",
-                "plural_name": "soy yogurts"
+                "name": "yaourt au lait de soja",
+                "plural_name": "yaourts au lait de soja"
             },
             "vegan mozzarella": {
                 "aliases": [],
@@ -6665,7 +6665,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vanilla syrup",
-                "plural_name": "vanilla syrups"
+                "plural_name": "sirop de vanille"
             },
             "ginger syrup": {
                 "aliases": [],
@@ -7655,12 +7655,12 @@
             },
             "vanilla extract": {
                 "aliases": [
-                    "vanilla",
-                    "vanillas"
+                    "vanille",
+                    "vanilles"
                 ],
                 "description": "",
-                "name": "vanilla extract",
-                "plural_name": "vanilla extracts"
+                "name": "extrait de vanille",
+                "plural_name": "extraits de vanille"
             },
             "baking powder": {
                 "aliases": [],
@@ -8534,8 +8534,8 @@
             "rolled oat": {
                 "aliases": [],
                 "description": "",
-                "name": "rolled oat",
-                "plural_name": "rolled oats"
+                "name": "flocon d'avoine",
+                "plural_name": "flocons d'avoine"
             },
             "rice": {
                 "aliases": [],
@@ -15025,8 +15025,8 @@
             "vanilla liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla liqueur",
-                "plural_name": "vanilla liqueurs"
+                "name": "liqueur de vanille",
+                "plural_name": "liqueurs de vanille"
             },
             "sangria": {
                 "aliases": [],

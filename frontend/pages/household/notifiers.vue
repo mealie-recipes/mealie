@@ -121,6 +121,7 @@
           <v-text-field
             v-model="notifiers[index].appriseUrl"
             :label="$t('events.apprise-url-skipped-if-blank')"
+            :hint="$t('events.apprise-url-is-left-intentionally-blank')"
           />
           <v-checkbox
             v-model="notifiers[index].enabled"
@@ -365,6 +366,24 @@ export default defineNuxtComponent({
           {
             text: i18n.t("general.delete") as string,
             key: "categoryDeleted",
+          },
+        ],
+      },
+      {
+        id: 8,
+        text: i18n.t("events.label-events"),
+        options: [
+          {
+            text: i18n.t("general.create") as string,
+            key: "labelCreated",
+          },
+          {
+            text: i18n.t("general.update") as string,
+            key: "labelUpdated",
+          },
+          {
+            text: i18n.t("general.delete") as string,
+            key: "labelDeleted",
           },
         ],
       },

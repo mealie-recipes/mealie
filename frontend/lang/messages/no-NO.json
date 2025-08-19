@@ -69,6 +69,7 @@
     "new-notification": "Nytt varsel",
     "event-notifiers": "Hendelsesvarsler",
     "apprise-url-skipped-if-blank": "Apprise-URL (hoppes over hvis tom)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Aktiver varslingsagenten",
     "what-events": "Hvilke hendelser skal denne varslingsagenten abonnere på?",
     "user-events": "Brukerhendelser",
@@ -79,7 +80,8 @@
     "tag-events": "Emneordhendelser",
     "category-events": "Kategorihendelser",
     "when-a-new-user-joins-your-group": "Når en ny bruker blir med i gruppen din",
-    "recipe-events": "Oppskriftshendelser"
+    "recipe-events": "Oppskriftshendelser",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Legg til",
@@ -472,7 +474,7 @@
     "comment": "Kommentar",
     "comments": "Kommentarer",
     "delete-confirmation": "Er du sikker på at du vil slette denne oppskriften?",
-    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
+    "admin-delete-confirmation": "Du er i ferd med å slette en oppskrift som ikke er din ved å bruke administratortillatelser. Er du sikker?",
     "delete-recipe": "Slett oppskrift",
     "description": "Beskrivelse",
     "disable-amount": "Deaktiver ingrediensmengde",
@@ -581,7 +583,7 @@
     "how-did-it-turn-out": "Hvordan ble det?",
     "user-made-this": "{user} har laget dette",
     "added-to-timeline": "Legg til tidslinje",
-    "failed-to-add-to-timeline": "Failed to add to timeline",
+    "failed-to-add-to-timeline": "Kunne ikke legge til på tidslinjen",
     "failed-to-update-recipe": "Kunne ikke oppdatere oppskriften",
     "added-to-timeline-but-failed-to-add-image": "Lagt til i tidslinjen, men klarte ikke å legge til bilde",
     "api-extras-description": "Ekstramaterialer til oppskrifter er en viktig funksjon i Mealie API-en. De lar deg opprette egendefinerte JSON-nøkkel/verdi-par innenfor en oppskrift for å referere fra tredjepartsapplikasjoner. Du kan bruke disse nøklene til å gi informasjon for eksempel for å utløse automatiseringer eller egendefinerte meldinger som skal videreformidles til ønsket enhet.",
@@ -672,7 +674,9 @@
     "not-linked-ingredients": "Tilleggsingredienser",
     "upload-another-image": "Last opp nytt bilde",
     "upload-images": "Last opp bilder",
-    "upload-more-images": "Last opp flere bilder"
+    "upload-more-images": "Last opp flere bilder",
+    "set-as-cover-image": "Bruk som forsidebilde for oppskriften",
+    "cover-image": "Forsidebilde"
   },
   "recipe-finder": {
     "recipe-finder": "Oppskriftsfinner",
@@ -1165,7 +1169,7 @@
     "group-details": "Gruppedetaljer",
     "group-details-description": "Før du oppretter en konto må du opprette en gruppe. Gruppen din vil bare inneholde deg, men du vil kunne invitere andre senere. Medlemmer i gruppen din kan dele måltider, handlelister, oppskrifter med mer!",
     "use-seed-data": "Bruk tilføringsdata",
-    "use-seed-data-description": "Mealie kommer med en samling av matvarer, enheter og etiketter som kan brukes til å fylle gruppen din med nyttige data for å organisere oppskriftene dine.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Kontodetaljer"
   },
   "validation": {

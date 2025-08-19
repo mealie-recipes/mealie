@@ -1,5 +1,6 @@
 import random
 
+import pytest
 from fastapi.testclient import TestClient
 
 from mealie.schema.household.group_shopping_list import (
@@ -242,6 +243,67 @@ def test_shopping_lists_add_recipes(
     for recipe in recipes:
         assert str(recipe.id) in refs_by_id
         assert refs_by_id[str(recipe.id)]["recipeQuantity"] == 2
+
+
+@pytest.mark.parametrize("is_private_household", [True, False])
+@pytest.mark.parametrize("household_lock_recipe_edits", [True, False])
+def test_shopping_lists_add_cross_household_recipe(
+    api_client: TestClient,
+    unique_user: TestUser,
+    h2_user: TestUser,
+    shopping_lists: list[ShoppingListOut],
+    is_private_household: bool,
+    household_lock_recipe_edits: bool,
+):
+    sample_list = random.choice(shopping_lists)
+    item_name = random_string(10)
+
+    # set up household
+    household = h2_user.repos.households.get_one(h2_user.household_id)
+    assert household and household.preferences
+    household.preferences.private_household = is_private_household
+    household.preferences.lock_recipe_edits_from_other_households = household_lock_recipe_edits
+    h2_user.repos.household_preferences.update(household.id, household.preferences)
+
+    # set up recipe
+    recipe = h2_user.repos.recipes.create(
+        Recipe(
+            user_id=h2_user.user_id,
+            group_id=h2_user.group_id,
+            name=random_string(10),
+            recipe_ingredient=[{"note": item_name, "quantity": 1}],
+        )
+    )
+
+    # add recipe once
+    response = api_client.post(
+        api_routes.households_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
+    assert len(as_json["listItems"]) == 1
+    assert as_json["listItems"][0]["note"] == item_name
+    assert as_json["listItems"][0]["quantity"] == 1
+
+    # add recipe again
+    response = api_client.post(
+        api_routes.households_shopping_lists_item_id_recipe_recipe_id(sample_list.id, recipe.id),
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
+    assert len(as_json["listItems"]) == 1
+    assert as_json["listItems"][0]["note"] == item_name
+    assert as_json["listItems"][0]["quantity"] == 2
 
 
 def test_shopping_lists_add_one_with_zero_quantity(

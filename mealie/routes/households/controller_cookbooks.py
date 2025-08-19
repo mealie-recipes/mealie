@@ -11,7 +11,7 @@ from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema import mapper
-from mealie.schema.cookbook import CreateCookBook, ReadCookBook, RecipeCookBook, SaveCookBook, UpdateCookBook
+from mealie.schema.cookbook import CreateCookBook, ReadCookBook, SaveCookBook, UpdateCookBook
 from mealie.schema.cookbook.cookbook import CookBookPagination
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_types import (
@@ -101,7 +101,7 @@ class GroupCookbookController(BaseCrudController):
 
         return all_updated
 
-    @router.get("/{item_id}", response_model=RecipeCookBook)
+    @router.get("/{item_id}", response_model=ReadCookBook)
     def get_one(self, item_id: UUID4 | str):
         if isinstance(item_id, UUID):
             match_attr = "id"
@@ -114,12 +114,10 @@ class GroupCookbookController(BaseCrudController):
 
         # Allow fetching other households' cookbooks
         cookbook = self.group_cookbooks.get_one(item_id, match_attr)
-
         if cookbook is None:
             raise HTTPException(status_code=404)
 
-        recipe_pagination = self.repos.recipes.page_all(PaginationQuery(page=1, per_page=-1, cookbook=cookbook))
-        return cookbook.cast(RecipeCookBook, recipes=recipe_pagination.items)
+        return cookbook
 
     @router.put("/{item_id}", response_model=ReadCookBook)
     def update_one(self, item_id: str, data: CreateCookBook):

@@ -69,6 +69,7 @@
     "new-notification": "Neue Benachrichtigung",
     "event-notifiers": "Ereignis-Benachrichtigungen",
     "apprise-url-skipped-if-blank": "Apprise-URL (wird übersprungen, wenn leer)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Benachrichtigen aktivieren",
     "what-events": "Welche Ereignisse soll diese Benachrichtigung abonnieren?",
     "user-events": "Benutzer-Ereignisse",
@@ -79,7 +80,8 @@
     "tag-events": "Schlagwort-Ereignisse",
     "category-events": "Kategorie-Ereignisse",
     "when-a-new-user-joins-your-group": "Wenn ein neuer Benutzer deiner Gruppe beitritt",
-    "recipe-events": "Rezept-Ereignisse"
+    "recipe-events": "Rezept-Ereignisse",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Hinzufügen",
@@ -215,7 +217,7 @@
     "organizers": "Organisieren",
     "caution": "Vorsicht",
     "show-advanced": "Erweiterte Optionen anzeigen",
-    "add-field": "Feld Hinzufügen",
+    "add-field": "Bedingung hinzufügen",
     "date-created": "Erstellungsdatum",
     "date-updated": "Aktualisiert am"
   },
@@ -583,7 +585,7 @@
     "added-to-timeline": "Zur Zeitleiste hinzugefügt",
     "failed-to-add-to-timeline": "Fehler beim Hinzufügen zur Zeitleiste",
     "failed-to-update-recipe": "Fehler beim Aktualisieren des Rezepts",
-    "added-to-timeline-but-failed-to-add-image": "Zur Zeitleiste hinzugefügt, Bild hinzufügen fehlgeschlagen",
+    "added-to-timeline-but-failed-to-add-image": "Zum Verlauf hinzugefügt, Bild hinzufügen fehlgeschlagen",
     "api-extras-description": "Rezepte-Extras sind ein Hauptmerkmal der Mealie API. Sie ermöglichen es dir, benutzerdefinierte JSON Key-Value-Paare zu einem Rezept zu erstellen, um Drittanbieter-Anwendungen zu steuern. Du kannst diese dazu verwenden, um Automatisierungen auszulösen oder benutzerdefinierte Nachrichten an bestimmte Geräte zu senden.",
     "message-key": "Nachrichten-Schlüssel",
     "parse": "Parsen",
@@ -672,11 +674,13 @@
     "not-linked-ingredients": "Zusätzliche Zutaten",
     "upload-another-image": "Weiteres Bild hochladen",
     "upload-images": "Bilder hochladen",
-    "upload-more-images": "Weitere Bilder hochladen"
+    "upload-more-images": "Weitere Bilder hochladen",
+    "set-as-cover-image": "Als Rezept-Titelbild setzen",
+    "cover-image": "Titelbild"
   },
   "recipe-finder": {
     "recipe-finder": "Rezept-Suche",
-    "recipe-finder-description": "Suche nach Rezepten basierend auf den Zutaten, die du zur Hand hast. Sie können auch nach verfügbaren Werkzeugen filtern und eine maximale Anzahl an fehlenden Zutaten oder Werkzeugen festlegen.",
+    "recipe-finder-description": "Suche nach Rezepten basierend auf den Zutaten, die du zur Hand hast. Du kannst auch nach verfügbaren Werkzeugen filtern und eine maximale Anzahl an fehlenden Zutaten oder Werkzeugen festlegen.",
     "selected-ingredients": "Ausgewählte Zutaten",
     "no-ingredients-selected": "Keine Zutaten ausgewählt",
     "missing": "Fehlend",
@@ -907,7 +911,7 @@
     "migrations": "Migrationen",
     "profile": "Profil",
     "search": "Suche",
-    "site-settings": "Einstellungen",
+    "site-settings": "Systemeinstellungen",
     "tags": "Schlagworte",
     "toolbox": "Werkzeuge",
     "language": "Sprache",
@@ -1165,7 +1169,7 @@
     "group-details": "Gruppendetails",
     "group-details-description": "Bevor du ein Konto erstellst, musst du eine Gruppe erstellen. Deine Gruppe wird nur dich enthalten, aber du kannst andere später einladen. Mitglieder in deiner Gruppe können Essenspläne, Einkaufslisten, Rezepte und vieles mehr teilen!",
     "use-seed-data": "Musterdaten",
-    "use-seed-data-description": "Mealie enthält eine Sammlung von Lebensmitteln, Maßeinheiten und Kategorien, die verwendet werden können, um deine Gruppe mit hilfreichen Daten für die Organisation deiner Rezepte zu füllen.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Kontoinformationen"
   },
   "validation": {

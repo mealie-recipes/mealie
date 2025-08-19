@@ -46,6 +46,10 @@ class GroupEventNotifierOptionsModel(SqlAlchemyBase, BaseMixins):
     category_updated: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     category_deleted: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
 
+    label_created: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    label_updated: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    label_deleted: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+
     @auto_init()
     def __init__(self, **_) -> None:
         pass

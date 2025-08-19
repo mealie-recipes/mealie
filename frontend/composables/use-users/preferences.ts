@@ -33,7 +33,6 @@ export interface UserRecipePreferences {
 
 export interface UserShoppingListPreferences {
   viewAllLists: boolean;
-  viewByLabel: boolean;
 }
 
 export interface UserTimelinePreferences {
@@ -96,8 +95,8 @@ export function useUserSortPreferences(): Ref<UserRecipePreferences> {
   const fromStorage = useLocalStorage(
     "recipe-section-preferences",
     {
-      orderBy: "name",
-      orderDirection: "asc",
+      orderBy: "created_at",
+      orderDirection: "desc",
       filterNull: false,
       sortIcon: $globals.icons.sortAlphabeticalAscending,
       useMobileCards: false,
@@ -129,7 +128,6 @@ export function useShoppingListPreferences(): Ref<UserShoppingListPreferences> {
     "shopping-list-preferences",
     {
       viewAllLists: false,
-      viewByLabel: true,
     },
     { mergeDefaults: true },
     // we cast to a Ref because by default it will return an optional type ref
