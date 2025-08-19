@@ -1204,7 +1204,7 @@
   },
   "demo": {
     "info_message_with_version": "这是{version} 版本的演示模式",
-    "demo_username": "{username}\n用户名：{username}",
+    "demo_username": "用户名：{username}",
     "demo_password": "密码：{password}"
   },
   "ocr-editor": {
