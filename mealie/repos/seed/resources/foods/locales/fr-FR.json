@@ -1073,13 +1073,13 @@
             "freeze-dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried apple",
-                "plural_name": "freeze-dried apples"
+                "name": "pomme lyophilisée",
+                "plural_name": "pommes lyophilisées"
             },
             "dried tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "dried tamarind",
+                "name": "tamarin séché",
                 "plural_name": "dried tamarinds"
             },
             "honey date": {
@@ -1781,8 +1781,8 @@
             "pumpkin seed": {
                 "aliases": [],
                 "description": "",
-                "name": "graine de citrouille",
-                "plural_name": "graines de citrouille"
+                "name": "graine de courge",
+                "plural_name": "graines de courge"
             },
             "hazelnut": {
                 "aliases": [],
@@ -8534,8 +8534,8 @@
             "rolled oat": {
                 "aliases": [],
                 "description": "",
-                "name": "rolled oat",
-                "plural_name": "rolled oats"
+                "name": "flocon d'avoine",
+                "plural_name": "flocons d'avoine"
             },
             "rice": {
                 "aliases": [],

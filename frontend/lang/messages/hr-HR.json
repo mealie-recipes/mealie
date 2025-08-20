@@ -299,7 +299,7 @@
     "lock-recipe-edits-from-other-households-description": "Kada je omogućeno, samo korisnici u tvojem domaćinstvu mogu uređivati recepte izrađene u tvojem domaćinstvu",
     "household-recipe-preferences": "Postavke recepata u domaćinstvu",
     "default-recipe-preferences-description": "Ovo su zadane postavke, kada se u tvojem domaćinstvu izradi novi recept. Ove postavke se mogu promijeniti za pojedinačne recepte u izborniku postavki recepata.",
-    "allow-users-outside-of-your-household-to-see-your-recipes": "Allow users outside of your household to see your recipes",
+    "allow-users-outside-of-your-household-to-see-your-recipes": "Dopustite korisnicima izvan vašega kućanstva da vide vaše recepte",
     "allow-users-outside-of-your-household-to-see-your-recipes-description": "When enabled you can use a public share link to share specific recipes without authorizing the user. When disabled, you can only share recipes with users who are in your household or with a pre-generated private link",
     "household-preferences": "Household Preferences"
   },
