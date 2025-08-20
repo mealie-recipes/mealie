@@ -1359,7 +1359,7 @@
   },
   "cookbook": {
     "cookbooks": "Kochbücher",
-    "description": "Kochbücher sind ein weiterer Weg, Rezepte zu organisieren, indem man verschiedene Filter erstellt. Das Erstellen eines Kochbuchs fügt einen Eintrag zur Seitenleiste hinzu und alle Rezepte, die den gewählten Filtern zustimmen, werden in dem Kochbuch angezeigt.",
+    "description": "Kochbücher sind ein weiterer Weg, Rezepte zu organisieren, indem man verschiedene Filter erstellt. Das Erstellen eines Kochbuchs fügt einen Eintrag zur Seitenleiste hinzu und alle Rezepte, die mit den gewählten Filtern übereinstimmen, werden in dem Kochbuch angezeigt.",
     "hide-cookbooks-from-other-households": "Kochbücher von anderen Haushalten ausblenden",
     "hide-cookbooks-from-other-households-description": "Wenn aktiviert, werden nur Kochbücher deines Haushalts in der Seitenleiste angezeigt",
     "public-cookbook": "Öffentliches Kochbuch",
