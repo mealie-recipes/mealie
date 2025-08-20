@@ -434,7 +434,7 @@ class AppSettings(AppLoggingSettings):
     def WORKERS(self) -> int:
         return max(1, self.WORKER_PER_CORE * self.UVICORN_WORKERS)
 
-    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
+    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow", env_nested_delimiter="__")
 
     # ===============================================
     # TLS
