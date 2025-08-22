@@ -45,7 +45,7 @@
     "category-filter": "Filtre par catégories",
     "category-update-failed": "La mise à jour de la catégorie a échoué",
     "category-updated": "Catégorie mise à jour",
-    "uncategorized-count": "{count} non catégorisée|{count} non catégorisées",
+    "uncategorized-count": "{count} non catégorisées",
     "create-a-category": "Créer une catégorie",
     "category-name": "Nom de la catégorie",
     "category": "Catégorie"
@@ -341,7 +341,7 @@
     "meal-type": "Type de repas",
     "breakfast": "Petit-déjeuner",
     "lunch": "Déjeuner",
-    "dinner": "Dîner",
+    "dinner": "Souper",
     "type-any": "Tous",
     "day-any": "Tous",
     "editor": "Éditeur",
@@ -381,7 +381,7 @@
     "nextcloud": {
       "description": "Importer des recettes depuis Nextcloud Cookbook",
       "description-long": "Les recettes Nextcloud peuvent être importées depuis un fichier zip qui contient les données stockées dans Nextcloud. Consultez la structure de dossiers d'exemple ci-dessous pour vous assurer que vos recettes peuvent être importées.",
-      "title": "Nextcloud Cookbook"
+      "title": "Cookbook Nextcloud"
     },
     "copymethat": {
       "description-long": "Mealie peut importer des recettes à partir de Copy Me That. Exportez vos recettes au format HTML, puis téléchargez le .zip ci-dessous.",
@@ -583,7 +583,7 @@
     "how-did-it-turn-out": "C’était bon ?",
     "user-made-this": "{user} l’a cuisiné",
     "added-to-timeline": "Ajouté à la ligne du temps",
-    "failed-to-add-to-timeline": "Ajout dans l’historique en échec",
+    "failed-to-add-to-timeline": "Impossible d'ajouter à la ligne du temps",
     "failed-to-update-recipe": "Impossible de modifier la recette",
     "added-to-timeline-but-failed-to-add-image": "Ajouté à la ligne du temps, mais impossible d'ajouter l'image",
     "api-extras-description": "Les suppléments des recettes sont une fonctionnalité clé de l’API Mealie. Ils permettent de créer des paires JSON clé/valeur personnalisées dans une recette, qui peuvent être référencées depuis des applications tierces. Ces clés peuvent être utilisées par exemple pour déclencher des tâches automatisées ou des messages personnalisés à transmettre à l’appareil souhaité.",
@@ -607,7 +607,7 @@
     "create-recipe-from-an-image": "Créer une recette à partir d’une image",
     "create-recipe-from-an-image-description": "Créez une recette en téléchargeant une image de celle-ci. Mealie utilisera l’IA pour tenter d’extraire le texte et de créer une recette.",
     "crop-and-rotate-the-image": "Rogner et pivoter l’image pour que seul le texte soit visible, et qu’il soit dans la bonne orientation.",
-    "create-from-images": "Créer à partir d’images",
+    "create-from-images": "Créer à partir d’une image",
     "should-translate-description": "Traduire la recette dans ma langue",
     "please-wait-image-procesing": "Veuillez patienter, l’image est en cours de traitement. Cela peut prendre du temps.",
     "please-wait-images-processing": "Un peu de patience, les images sont en cours de traitement. Cela peut prendre un certain temps.",
@@ -675,7 +675,7 @@
     "upload-another-image": "Télécharger une autre image",
     "upload-images": "Télécharger des images",
     "upload-more-images": "Télécharger d'autres images",
-    "set-as-cover-image": "Set as recipe cover image",
+    "set-as-cover-image": "Définir comme image de couverture de recette",
     "cover-image": "Image de couverture"
   },
   "recipe-finder": {
@@ -1169,7 +1169,7 @@
     "group-details": "Détails du groupe",
     "group-details-description": "Avant de créer un compte, vous devrez créer un groupe. Votre groupe ne contiendra que vous, mais vous pourrez inviter d’autres personnes plus tard. Les membres de votre groupe peuvent partager leur menu de la semaine, leurs listes d’achat, leurs recettes et plus encore !",
     "use-seed-data": "Utiliser l'initialisation de données",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
+    "use-seed-data-description": "Mealie propose une collection d'aliments, d'unités et d'étiquettes qui peuvent être utilisés pour remplir votre groupe avec des données utiles pour organiser vos recettes. Celles-ci sont traduites dans la langue que vous avez sélectionnée. Vous pouvez toujours ajouter ou modifier ces données plus tard.",
     "account-details": "Détails du compte"
   },
   "validation": {
