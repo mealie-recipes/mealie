@@ -14,7 +14,7 @@ from mealie.db.models.recipe import IngredientFoodModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema._mealie.types import NoneFloat
-from mealie.schema.group.group_preferences import GroupPreferencesPluralHanding
+from mealie.schema.group.group_preferences import GroupPreferencesPluralHandling
 from mealie.schema.response.pagination import PaginationBase
 
 INGREDIENT_QTY_PRECISION = 3
@@ -153,7 +153,7 @@ class IngredientUnit(CreateIngredientUnit):
 
 
 class RecipeIngredientBase(MealieModel):
-    plural_handling: GroupPreferencesPluralHanding = GroupPreferencesPluralHanding.pluralize_food_without_unit
+    plural_handling: GroupPreferencesPluralHandling = GroupPreferencesPluralHandling.pluralize_food_without_unit
 
     quantity: NoneFloat = 0
     unit: IngredientUnit | CreateIngredientUnit | None = None
@@ -248,11 +248,11 @@ class RecipeIngredientBase(MealieModel):
             use_plural = False
         else:
             match self.plural_handling:
-                case GroupPreferencesPluralHanding.disable:
+                case GroupPreferencesPluralHandling.disable:
                     use_plural = False
-                case GroupPreferencesPluralHanding.pluralize_food_without_unit:
+                case GroupPreferencesPluralHandling.pluralize_food_without_unit:
                     use_plural = not self.unit
-                case GroupPreferencesPluralHanding.always_pluralize:
+                case GroupPreferencesPluralHandling.always_pluralize:
                     use_plural = True
                 case _:
                     use_plural = False

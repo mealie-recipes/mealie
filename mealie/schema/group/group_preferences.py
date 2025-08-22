@@ -6,7 +6,7 @@ from pydantic import UUID4, ConfigDict
 from mealie.schema._mealie import MealieModel
 
 
-class GroupPreferencesPluralHanding(Enum):
+class GroupPreferencesPluralHandling(Enum):
     always_pluralize = "always_pluralize"
     pluralize_food_without_unit = "pluralize_food_without_unit"
     disable = "disable"
@@ -14,7 +14,7 @@ class GroupPreferencesPluralHanding(Enum):
 
 class UpdateGroupPreferences(MealieModel):
     private_group: bool = True
-    plural_handling: GroupPreferencesPluralHanding = GroupPreferencesPluralHanding.pluralize_food_without_unit
+    plural_handling: GroupPreferencesPluralHandling = GroupPreferencesPluralHandling.pluralize_food_without_unit
 
     model_config = ConfigDict(use_enum_values=True)
 
