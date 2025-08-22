@@ -1401,7 +1401,7 @@
             "nameko": {
                 "aliases": [],
                 "description": "",
-                "name": "nameko",
+                "name": "cchampignon Nameko",
                 "plural_name": "namekoes"
             },
             "djon djon mushroom": {
@@ -1413,7 +1413,7 @@
             "mixed asian mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed asian mushroom",
+                "name": "champignon mixte asiatique",
                 "plural_name": "mixed asian mushrooms"
             },
             "puffball": {
@@ -3394,7 +3394,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "boeuf haché végétalien",
-                "plural_name": "vegan ground beefs"
+                "plural_name": "bœufs hachés végétaliens"
             },
             "pulled oat": {
                 "aliases": [],
@@ -3412,12 +3412,12 @@
                 "aliases": [],
                 "description": "",
                 "name": "soy curl",
-                "plural_name": "soy curls"
+                "plural_name": "bâtonnets de soja"
             },
             "vegan pesto": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan pesto",
+                "name": "pesto végétalien",
                 "plural_name": "vegan pestoes"
             },
             "marinated tofu": {
@@ -3472,7 +3472,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "coconut paste",
-                "plural_name": "coconut pastes"
+                "plural_name": "pâtes de noix de coco"
             },
             "vegetable suet": {
                 "aliases": [],
