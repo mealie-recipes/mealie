@@ -4,14 +4,14 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic",
-                "plural_name": "garlics"
+                "name": "cesnak",
+                "plural_name": "cesnaky"
             },
             "onion": {
                 "aliases": [],
                 "description": "",
-                "name": "onion",
-                "plural_name": "onions"
+                "name": "cibuľa",
+                "plural_name": "cibule"
             },
             "bell pepper": {
                 "aliases": [],
@@ -22,32 +22,32 @@
             "carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "carrot",
-                "plural_name": "carrots"
+                "name": "mrkva",
+                "plural_name": "mrkvy"
             },
             "scallion": {
                 "aliases": [],
                 "description": "",
-                "name": "scallion",
-                "plural_name": "scallions"
+                "name": "jarná cibuľka",
+                "plural_name": "jarné cibuľky"
             },
             "zucchini": {
                 "aliases": [],
                 "description": "",
-                "name": "zucchini",
-                "plural_name": "zucchinis"
+                "name": "cuketa",
+                "plural_name": "cukety"
             },
             "potato": {
                 "aliases": [],
                 "description": "",
-                "name": "potato",
-                "plural_name": "potatoes"
+                "name": "zemiak",
+                "plural_name": "zemiaky"
             },
             "red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "red onion",
-                "plural_name": "red onions"
+                "name": "červená cibuľa",
+                "plural_name": "červené cibule"
             },
             "yellow onion": {
                 "aliases": [],
@@ -58,8 +58,8 @@
             "celery": {
                 "aliases": [],
                 "description": "",
-                "name": "celery",
-                "plural_name": "celeries"
+                "name": "zeler",
+                "plural_name": "zelery"
             },
             "jalapeno": {
                 "aliases": [],
@@ -70,38 +70,38 @@
             "avocado": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado",
-                "plural_name": "avocados"
+                "name": "avokádo",
+                "plural_name": "avokáda"
             },
             "shallot": {
                 "aliases": [],
                 "description": "",
-                "name": "shallot",
-                "plural_name": "shallots"
+                "name": "šalotka",
+                "plural_name": "šalotky"
             },
             "cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry tomato",
-                "plural_name": "cherry tomatoes"
+                "name": "cherry paradajka",
+                "plural_name": "cherry paradajky"
             },
             "cucumber": {
                 "aliases": [],
                 "description": "",
-                "name": "cucumber",
-                "plural_name": "cucumbers"
+                "name": "uhorka",
+                "plural_name": "uhorky"
             },
             "spinach": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach",
-                "plural_name": "spinaches"
+                "name": "špenát",
+                "plural_name": "špenáty"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet corn",
-                "plural_name": "sweet corns"
+                "name": "cukrová kukurica",
+                "plural_name": "cukrové kukurice"
             },
             "chile pepper": {
                 "aliases": [
@@ -114,7 +114,7 @@
             "sweet potato": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet potato",
+                "name": "batat",
                 "plural_name": "sweet potatoes"
             },
             "broccoli": {
@@ -205,37 +205,37 @@
                 "aliases": [],
                 "description": "",
                 "name": "beetroot",
-                "plural_name": "beetroots"
+                "plural_name": "cvikly"
             },
             "brussels sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "brussels sprout",
-                "plural_name": "brussels sprouts"
+                "name": "ružičkový kel",
+                "plural_name": "ružičkové kely"
             },
             "fennel": {
                 "aliases": [],
                 "description": "",
-                "name": "fennel",
-                "plural_name": "fennels"
+                "name": "fenikel",
+                "plural_name": "fenikle"
             },
             "sun dried tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "sun dried tomato",
-                "plural_name": "sun dried tomatoes"
+                "name": "sušená paradajka",
+                "plural_name": "sušené paradajky"
             },
             "radish": {
                 "aliases": [],
                 "description": "",
-                "name": "radish",
-                "plural_name": "radishes"
+                "name": "reďkovka",
+                "plural_name": "reďkovky"
             },
             "red cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "red cabbage",
-                "plural_name": "red cabbages"
+                "name": "červená kapusta",
+                "plural_name": "červené kapusty"
             },
             "artichoke": {
                 "aliases": [],
