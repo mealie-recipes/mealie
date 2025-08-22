@@ -13,40 +13,6 @@ from .utils.migration_alias import MigrationAlias
 from .utils.migration_helpers import import_image
 
 
-def _build_ingredient_from_ingredient_data(ingredient_data: dict[str, Any], title: str | None = None) -> dict[str, Any]:
-    quantity = ingredient_data.get("amount", "1")
-    if unit_data := ingredient_data.get("unit"):
-        unit = unit_data.get("plural_name") or unit_data.get("name")
-    else:
-        unit = None
-
-    if food_data := ingredient_data.get("food"):
-        food = food_data.get("plural_name") or food_data.get("name")
-    else:
-        food = None
-
-    base_ingredient = RecipeIngredientBase(quantity=quantity, unit=unit, food=food)
-    return {"title": title, "note": base_ingredient.display}
-
-
-def extract_instructions_and_ingredients(steps: list[dict[str, Any]]) -> tuple[list[str], list[dict[str, Any]]]:
-    """Returns a list of instructions and ingredients for a recipe"""
-
-    instructions: list[str] = []
-    ingredients: list[dict[str, Any]] = []
-    for step in steps:
-        if instruction_text := step.get("instruction"):
-            instructions.append(instruction_text)
-        if ingredients_data := step.get("ingredients"):
-            for i, ingredient in enumerate(ingredients_data):
-                if not i and (title := step.get("name")):
-                    ingredients.append(_build_ingredient_from_ingredient_data(ingredient, title))
-                else:
-                    ingredients.append(_build_ingredient_from_ingredient_data(ingredient))
-
-    return instructions, ingredients
-
-
 def _format_time(minutes: int) -> str:
     # TODO: make this translatable
     hour_label = "hour"
@@ -83,9 +49,48 @@ class TandoorMigrator(BaseMigrator):
             MigrationAlias(key="orgURL", alias="source_url", func=None),
         ]
 
+    def _build_ingredient_from_ingredient_data(
+        self, ingredient_data: dict[str, Any], title: str | None = None
+    ) -> dict[str, Any]:
+        quantity = ingredient_data.get("amount", "1")
+        if unit_data := ingredient_data.get("unit"):
+            unit = unit_data.get("plural_name") or unit_data.get("name")
+        else:
+            unit = None
+
+        if food_data := ingredient_data.get("food"):
+            food = food_data.get("plural_name") or food_data.get("name")
+        else:
+            food = None
+
+        prefs = self.group.preferences
+        plural_handling = prefs.plural_handling if prefs else None
+
+        base_ingredient = RecipeIngredientBase(quantity=quantity, unit=unit, food=food, plural_handling=plural_handling)
+        return {"title": title, "note": base_ingredient.display}
+
+    def _extract_instructions_and_ingredients(
+        self, steps: list[dict[str, Any]]
+    ) -> tuple[list[str], list[dict[str, Any]]]:
+        """Returns a list of instructions and ingredients for a recipe"""
+
+        instructions: list[str] = []
+        ingredients: list[dict[str, Any]] = []
+        for step in steps:
+            if instruction_text := step.get("instruction"):
+                instructions.append(instruction_text)
+            if ingredients_data := step.get("ingredients"):
+                for i, ingredient in enumerate(ingredients_data):
+                    if not i and (title := step.get("name")):
+                        ingredients.append(self._build_ingredient_from_ingredient_data(ingredient, title))
+                    else:
+                        ingredients.append(self._build_ingredient_from_ingredient_data(ingredient))
+
+        return instructions, ingredients
+
     def _process_recipe_document(self, source_dir: Path, recipe_data: dict) -> dict:
         steps_data = recipe_data.pop("steps", [])
-        recipe_data["recipeInstructions"], recipe_data["recipeIngredient"] = extract_instructions_and_ingredients(
+        recipe_data["recipeInstructions"], recipe_data["recipeIngredient"] = self._extract_instructions_and_ingredients(
             steps_data
         )
         recipe_data["performTime"], recipe_data["totalTime"] = parse_times(
