@@ -133,7 +133,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "jeûne pousse",
-                "plural_name": "jeûne pousses"
+                "plural_name": "jeûnes pousses"
             },
             "pumpkin": {
                 "aliases": [],
@@ -169,7 +169,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "roquette",
-                "plural_name": "roquettes"
+                "plural_name": "roquette"
             },
             "leek": {
                 "aliases": [],
@@ -192,8 +192,8 @@
             "butternut squash": {
                 "aliases": [],
                 "description": "",
-                "name": "courge butternut",
-                "plural_name": "courges butternut"
+                "name": "butternut",
+                "plural_name": "butternuts"
             },
             "romaine": {
                 "aliases": [],
@@ -252,7 +252,7 @@
             "summer squash": {
                 "aliases": [
                     "courgette",
-                    "courge gem"
+                    "courge d'été"
                 ],
                 "description": "",
                 "name": "courge d'été",
@@ -273,14 +273,14 @@
             "baby carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "bébé carotte",
-                "plural_name": "bébé carottes"
+                "name": "baby carotte",
+                "plural_name": "baby carottes"
             },
             "mixed vegetable": {
                 "aliases": [],
                 "description": "",
                 "name": "mélange de légumes",
-                "plural_name": "mélanges de légumes"
+                "plural_name": "mélange de légumes"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -473,8 +473,8 @@
             "endive": {
                 "aliases": [],
                 "description": "",
-                "name": "endive",
-                "plural_name": "endives"
+                "name": "chicon",
+                "plural_name": "chicons"
             },
             "habanero pepper": {
                 "aliases": [],
@@ -511,8 +511,8 @@
             "baby corn": {
                 "aliases": [],
                 "description": "",
-                "name": "bébé maïs",
-                "plural_name": "bébés maïs"
+                "name": "baby maïs",
+                "plural_name": "baby maïs"
             },
             "broccoli rabe": {
                 "aliases": [],
@@ -529,8 +529,8 @@
             "belgian endive": {
                 "aliases": [],
                 "description": "",
-                "name": "endive",
-                "plural_name": "endives"
+                "name": "chicon",
+                "plural_name": "chicons"
             },
             "yam": {
                 "aliases": [],
@@ -851,8 +851,8 @@
             "dried fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "fruit séché",
-                "plural_name": "fruits séchés"
+                "name": "fruit sec",
+                "plural_name": "fruits secs"
             },
             "clementine": {
                 "aliases": [],
@@ -929,8 +929,8 @@
             "mixed fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "Mélange de fruits",
-                "plural_name": "Mélange de fruits"
+                "name": "mélange de fruits",
+                "plural_name": "mélange de fruits"
             },
             "asian pear": {
                 "aliases": [],
@@ -960,7 +960,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "carambole",
-                "plural_name": "carambole"
+                "plural_name": "caramboles"
             },
             "green papaya": {
                 "aliases": [],
@@ -978,13 +978,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "purée de châtaigne",
-                "plural_name": "Purées de châtaigne"
+                "plural_name": "purées de châtaigne"
             },
             "prickly pear": {
                 "aliases": [],
                 "description": "",
-                "name": "Figue de Barbarie",
-                "plural_name": "Figues de Barbarie"
+                "name": "figue de Barbarie",
+                "plural_name": "figues de Barbarie"
             },
             "calamansi": {
                 "aliases": [],
@@ -1305,8 +1305,8 @@
             "morel mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "morel mushroom",
-                "plural_name": "morel mushrooms"
+                "name": "morelle",
+                "plural_name": "morelles"
             },
             "field mushroom": {
                 "aliases": [],
@@ -1746,7 +1746,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pignon de pin",
-                "plural_name": "pine nuts"
+                "plural_name": "pignon de pin"
             },
             "pistachio": {
                 "aliases": [],
@@ -1763,8 +1763,8 @@
             "chia": {
                 "aliases": [],
                 "description": "",
-                "name": "chia",
-                "plural_name": "chias"
+                "name": "graine de chia",
+                "plural_name": "graines de chia"
             },
             "flax": {
                 "aliases": [],
@@ -1991,8 +1991,8 @@
             "indian almond": {
                 "aliases": [],
                 "description": "",
-                "name": "indian almond",
-                "plural_name": "indian almonds"
+                "name": "amandes indiennes",
+                "plural_name": "amandes indiennes"
             }
         }
     },
@@ -2039,7 +2039,7 @@
             "feta": {
                 "aliases": [],
                 "description": "",
-                "name": "féta",
+                "name": "feta",
                 "plural_name": "fetas"
             },
             "ricotta": {
@@ -2051,8 +2051,8 @@
             "cheddar-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheddar-jack cheese",
-                "plural_name": "cheddar-jack cheeses"
+                "name": "cheddar",
+                "plural_name": "cheddar"
             },
             "monterey jack": {
                 "aliases": [],
@@ -2064,7 +2064,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bleu",
-                "plural_name": "bleus"
+                "plural_name": "bleu"
             },
             "goat cheese": {
                 "aliases": [],
@@ -2105,8 +2105,8 @@
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fromage cottage",
-                "plural_name": "fromages cottage"
+                "name": "cottage cheese",
+                "plural_name": "cottage cheese"
             },
             "american cheese": {
                 "aliases": [],
@@ -2298,7 +2298,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "taleggio",
-                "plural_name": "taleggios"
+                "plural_name": "taleggio"
             },
             "oaxaca": {
                 "aliases": [],
@@ -6424,20 +6424,20 @@
                 "aliases": [],
                 "description": "",
                 "name": "sucre",
-                "plural_name": "sucres"
+                "plural_name": "surcres"
             },
             "brown sugar": {
                 "aliases": [
                     "turbinado sugar"
                 ],
                 "description": "",
-                "name": "sucre de canne",
-                "plural_name": "sucres de canne"
+                "name": "cassonade brune",
+                "plural_name": "cassonade brune"
             },
             "confectioners sugar": {
                 "aliases": [
-                    "sucre glace",
-                    "sucre glace"
+                    "sucre impalpable",
+                    "sucre impalpable"
                 ],
                 "description": "",
                 "name": "sucre glace",
@@ -6479,13 +6479,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "stevia",
-                "plural_name": "stevias"
+                "plural_name": "stevia"
             },
             "agave nectar": {
                 "aliases": [],
                 "description": "",
-                "name": "sirop d'agave",
-                "plural_name": "sirops d'agave"
+                "name": "nectar d'agave",
+                "plural_name": "nectar d'agave"
             },
             "sugar syrup": {
                 "aliases": [],
@@ -6509,7 +6509,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sucre vanillé",
-                "plural_name": "sucres vanillés"
+                "plural_name": "sucre vanillé"
             },
             "demerara sugar": {
                 "aliases": [],
@@ -6521,13 +6521,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "sirop de caramel",
-                "plural_name": "sirops de caramel"
+                "plural_name": "sirop de caramel"
             },
             "chocolate syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "sirop de chocolat",
-                "plural_name": "sirops de chocolat"
+                "plural_name": "sirop de chocolat"
             },
             "jaggery": {
                 "aliases": [],
@@ -6538,8 +6538,8 @@
             "raw sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "sucre brut",
-                "plural_name": "sucres bruts"
+                "name": "sucre de canne brut",
+                "plural_name": "sucre de canne brut"
             },
             "golden syrup": {
                 "aliases": [],
@@ -6574,7 +6574,7 @@
             "salted caramel syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "sirop de caramel salé",
+                "name": "sirop de caramel beurre salé",
                 "plural_name": "sirops de caramel salé"
             },
             "sanding sugar": {
@@ -6664,8 +6664,8 @@
             "vanilla syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla syrup",
-                "plural_name": "sirop de vanille"
+                "name": "extrait de vanille",
+                "plural_name": "extraits de vanille"
             },
             "ginger syrup": {
                 "aliases": [],
@@ -15623,8 +15623,8 @@
             "sugar cane juice": {
                 "aliases": [],
                 "description": "",
-                "name": "sugar cane juice",
-                "plural_name": "sugar cane juices"
+                "name": "jus de canne à sucre",
+                "plural_name": "jus de canne à sucre"
             },
             "cranberry-raspberry juice": {
                 "aliases": [],
