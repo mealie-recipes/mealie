@@ -16,6 +16,8 @@ class UpdateGroupPreferences(MealieModel):
     private_group: bool = True
     plural_handling: GroupPreferencesPluralHanding = GroupPreferencesPluralHanding.pluralize_food_without_unit
 
+    model_config = ConfigDict(use_enum_values=True)
+
 
 class CreateGroupPreferences(UpdateGroupPreferences):
     group_id: UUID
