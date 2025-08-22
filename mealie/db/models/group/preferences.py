@@ -20,6 +20,7 @@ class GroupPreferencesModel(SqlAlchemyBase, BaseMixins):
     group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="preferences")
 
     private_group: Mapped[bool | None] = mapped_column(sa.Boolean, default=True)
+    plural_handling: Mapped[str] = mapped_column(sa.String, default="pluralize_food_without_unit")
 
     # Deprecated (see household preferences)
     first_day_of_week: Mapped[int | None] = mapped_column(sa.Integer, default=0)
