@@ -57,6 +57,8 @@ describe(parseIngredientText.name, () => {
     });
 
     expect(parseIngredientText(ingredient, undefined, undefined, "always_pluralize")).toEqual("2 tbsps diced onions");
+    expect(parseIngredientText(ingredient, undefined, undefined, "pluralize_food_without_unit")).toEqual("2 tbsps diced onion");
+    expect(parseIngredientText(ingredient, undefined, undefined, "disable")).toEqual("2 tbsps diced onion");
   });
 
   test("plural test : plural qty : not abbreviation", () => {
@@ -67,6 +69,8 @@ describe(parseIngredientText.name, () => {
     });
 
     expect(parseIngredientText(ingredient, undefined, undefined, "always_pluralize")).toEqual("2 tablespoons diced onions");
+    expect(parseIngredientText(ingredient, undefined, undefined, "pluralize_food_without_unit")).toEqual("2 tablespoons diced onion");
+    expect(parseIngredientText(ingredient, undefined, undefined, "disable")).toEqual("2 tablespoons diced onion");
   });
 
   test("plural test : single qty : use abbreviation", () => {
@@ -77,6 +81,8 @@ describe(parseIngredientText.name, () => {
     });
 
     expect(parseIngredientText(ingredient, undefined, undefined, "always_pluralize")).toEqual("1 tbsp diced onion");
+    expect(parseIngredientText(ingredient, undefined, undefined, "pluralize_food_without_unit")).toEqual("1 tbsp diced onion");
+    expect(parseIngredientText(ingredient, undefined, undefined, "disable")).toEqual("1 tbsp diced onion");
   });
 
   test("plural test : single qty : not abbreviation", () => {
@@ -87,6 +93,8 @@ describe(parseIngredientText.name, () => {
     });
 
     expect(parseIngredientText(ingredient, undefined, undefined, "always_pluralize")).toEqual("1 tablespoon diced onion");
+    expect(parseIngredientText(ingredient, undefined, undefined, "pluralize_food_without_unit")).toEqual("1 tablespoon diced onion");
+    expect(parseIngredientText(ingredient, undefined, undefined, "disable")).toEqual("1 tablespoon diced onion");
   });
 
   test("plural test : small qty : use abbreviation", () => {
@@ -97,6 +105,8 @@ describe(parseIngredientText.name, () => {
     });
 
     expect(parseIngredientText(ingredient, undefined, undefined, "always_pluralize")).toEqual("0.5 tbsp diced onion");
+    expect(parseIngredientText(ingredient, undefined, undefined, "pluralize_food_without_unit")).toEqual("0.5 tbsp diced onion");
+    expect(parseIngredientText(ingredient, undefined, undefined, "disable")).toEqual("0.5 tbsp diced onion");
   });
 
   test("plural test : small qty : not abbreviation", () => {
@@ -107,6 +117,8 @@ describe(parseIngredientText.name, () => {
     });
 
     expect(parseIngredientText(ingredient, undefined, undefined, "always_pluralize")).toEqual("0.5 tablespoon diced onion");
+    expect(parseIngredientText(ingredient, undefined, undefined, "pluralize_food_without_unit")).toEqual("0.5 tablespoon diced onion");
+    expect(parseIngredientText(ingredient, undefined, undefined, "disable")).toEqual("0.5 tablespoon diced onion");
   });
 
   test("plural test : zero qty", () => {
@@ -117,6 +129,8 @@ describe(parseIngredientText.name, () => {
     });
 
     expect(parseIngredientText(ingredient, undefined, undefined, "always_pluralize")).toEqual("diced onions");
+    expect(parseIngredientText(ingredient, undefined, undefined, "pluralize_food_without_unit")).toEqual("diced onions");
+    expect(parseIngredientText(ingredient, undefined, undefined, "disable")).toEqual("diced onion");
   });
 
   test("plural test : single qty, scaled", () => {
@@ -127,5 +141,19 @@ describe(parseIngredientText.name, () => {
     });
 
     expect(parseIngredientText(ingredient, 2, undefined, "always_pluralize")).toEqual("2 tablespoons diced onions");
+    expect(parseIngredientText(ingredient, 2, undefined, "pluralize_food_without_unit")).toEqual("2 tablespoons diced onion");
+    expect(parseIngredientText(ingredient, 2, undefined, "disable")).toEqual("2 tablespoons diced onion");
+  });
+
+  test("plural test : no unit", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 2,
+      unit: undefined,
+      food: { id: "1", name: "apple", pluralName: "apples" },
+    });
+
+    expect(parseIngredientText(ingredient, undefined, undefined, "always_pluralize")).toEqual("2 apples");
+    expect(parseIngredientText(ingredient, undefined, undefined, "pluralize_food_without_unit")).toEqual("2 apples");
+    expect(parseIngredientText(ingredient, undefined, undefined, "disable")).toEqual("2 apple");
   });
 });
