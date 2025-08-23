@@ -6,6 +6,7 @@
 */
 
 export type WebhookType = "mealplan";
+export type GroupPreferencesPluralHandling = "always_pluralize" | "pluralize_food_without_unit" | "disable";
 export type AuthMethod = "Mealie" | "LDAP" | "OIDC";
 
 export interface ChangePassword {
@@ -85,6 +86,7 @@ export interface UserSummary {
 }
 export interface ReadGroupPreferences {
   privateGroup?: boolean;
+  pluralHandling?: GroupPreferencesPluralHandling;
   groupId: string;
   id: string;
 }

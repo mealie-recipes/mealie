@@ -2,13 +2,19 @@
 from .group import GroupAdminUpdate
 from .group_exports import GroupDataExport
 from .group_migration import DataMigrationCreate, SupportedMigrations
-from .group_preferences import CreateGroupPreferences, ReadGroupPreferences, UpdateGroupPreferences
+from .group_preferences import (
+    CreateGroupPreferences,
+    GroupPreferencesPluralHandling,
+    ReadGroupPreferences,
+    UpdateGroupPreferences,
+)
 from .group_seeder import SeederConfig
 from .group_statistics import GroupStorage
 
 __all__ = [
     "GroupDataExport",
     "CreateGroupPreferences",
+    "GroupPreferencesPluralHandling",
     "ReadGroupPreferences",
     "UpdateGroupPreferences",
     "GroupStorage",

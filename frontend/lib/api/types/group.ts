@@ -5,6 +5,7 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
+export type GroupPreferencesPluralHandling = "always_pluralize" | "pluralize_food_without_unit" | "disable";
 export type SupportedMigrations =
   | "nextcloud"
   | "chowdown"
@@ -18,6 +19,7 @@ export type SupportedMigrations =
 
 export interface CreateGroupPreferences {
   privateGroup?: boolean;
+  pluralHandling?: GroupPreferencesPluralHandling;
   groupId: string;
 }
 export interface DataMigrationCreate {
@@ -30,6 +32,7 @@ export interface GroupAdminUpdate {
 }
 export interface UpdateGroupPreferences {
   privateGroup?: boolean;
+  pluralHandling?: GroupPreferencesPluralHandling;
 }
 export interface GroupDataExport {
   id: string;
@@ -48,6 +51,7 @@ export interface GroupStorage {
 }
 export interface ReadGroupPreferences {
   privateGroup?: boolean;
+  pluralHandling?: GroupPreferencesPluralHandling;
   groupId: string;
   id: string;
 }
