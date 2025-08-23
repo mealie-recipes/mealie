@@ -2,6 +2,7 @@ from uuid import uuid4
 
 import pytest
 
+from mealie.schema.group.group_preferences import GroupPreferencesPluralHandling
 from mealie.schema.recipe.recipe_ingredient import (
     IngredientFood,
     IngredientUnit,
@@ -199,5 +200,121 @@ def test_ingredient_display(
     expected_components.append(note or "")
 
     expected_display_value = " ".join(c for c in expected_components if c)
-    ingredient = RecipeIngredient(quantity=quantity, unit=unit, food=food, note=note)
+    ingredient = RecipeIngredient(
+        quantity=quantity,
+        unit=unit,
+        food=food,
+        note=note,
+        plural_handling=GroupPreferencesPluralHandling.always_pluralize,
+    )
     assert ingredient.display == expected_display_value
+
+
+@pytest.mark.parametrize(
+    ["quantity", "unit", "food", "result_map"],
+    [
+        [
+            0,
+            IngredientUnit(id=uuid4(), name="tbsp", plural_name="tbsps"),
+            IngredientFood(id=uuid4(), name="onion", plural_name="onions"),
+            {
+                GroupPreferencesPluralHandling.disable: "onion",
+                GroupPreferencesPluralHandling.pluralize_food_without_unit: "onions",
+                GroupPreferencesPluralHandling.always_pluralize: "onions",
+            },
+        ],
+        [
+            0,
+            None,
+            IngredientFood(id=uuid4(), name="onion", plural_name="onions"),
+            {
+                GroupPreferencesPluralHandling.disable: "onion",
+                GroupPreferencesPluralHandling.pluralize_food_without_unit: "onions",
+                GroupPreferencesPluralHandling.always_pluralize: "onions",
+            },
+        ],
+        [
+            0.5,
+            IngredientUnit(id=uuid4(), name="tbsp", plural_name="tbsps"),
+            IngredientFood(id=uuid4(), name="onion", plural_name="onions"),
+            {
+                GroupPreferencesPluralHandling.disable: "¹/₂ tbsp onion",
+                GroupPreferencesPluralHandling.pluralize_food_without_unit: "¹/₂ tbsp onion",
+                GroupPreferencesPluralHandling.always_pluralize: "¹/₂ tbsp onion",
+            },
+        ],
+        [
+            0.5,
+            None,
+            IngredientFood(id=uuid4(), name="onion", plural_name="onions"),
+            {
+                GroupPreferencesPluralHandling.disable: "¹/₂ onion",
+                GroupPreferencesPluralHandling.pluralize_food_without_unit: "¹/₂ onion",
+                GroupPreferencesPluralHandling.always_pluralize: "¹/₂ onion",
+            },
+        ],
+        [
+            1,
+            IngredientUnit(id=uuid4(), name="tbsp", plural_name="tbsps"),
+            IngredientFood(id=uuid4(), name="onion", plural_name="onions"),
+            {
+                GroupPreferencesPluralHandling.disable: "1 tbsp onion",
+                GroupPreferencesPluralHandling.pluralize_food_without_unit: "1 tbsp onion",
+                GroupPreferencesPluralHandling.always_pluralize: "1 tbsp onion",
+            },
+        ],
+        [
+            1,
+            None,
+            IngredientFood(id=uuid4(), name="onion", plural_name="onions"),
+            {
+                GroupPreferencesPluralHandling.disable: "1 onion",
+                GroupPreferencesPluralHandling.pluralize_food_without_unit: "1 onion",
+                GroupPreferencesPluralHandling.always_pluralize: "1 onion",
+            },
+        ],
+        [
+            2,
+            IngredientUnit(id=uuid4(), name="tbsp", plural_name="tbsps"),
+            IngredientFood(id=uuid4(), name="onion", plural_name="onions"),
+            {
+                GroupPreferencesPluralHandling.disable: "2 tbsps onion",
+                GroupPreferencesPluralHandling.pluralize_food_without_unit: "2 tbsps onion",
+                GroupPreferencesPluralHandling.always_pluralize: "2 tbsps onions",
+            },
+        ],
+        [
+            2,
+            None,
+            IngredientFood(id=uuid4(), name="onion", plural_name="onions"),
+            {
+                GroupPreferencesPluralHandling.disable: "2 onion",
+                GroupPreferencesPluralHandling.pluralize_food_without_unit: "2 onions",
+                GroupPreferencesPluralHandling.always_pluralize: "2 onions",
+            },
+        ],
+    ],
+)
+def test_ingredient_display_plural_handling(
+    quantity: float,
+    unit: IngredientUnit | None,
+    food: IngredientFood,
+    result_map: dict[GroupPreferencesPluralHandling, str],
+):
+    for plural_handling, expected_display in result_map.items():
+        ingredient = RecipeIngredient(
+            quantity=quantity,
+            unit=unit,
+            food=food,
+            plural_handling=plural_handling,
+        )
+
+        try:
+            assert ingredient.display == expected_display
+        except AssertionError as e:
+            unit_name = unit.name if unit else None
+            food_name = food.name
+            raise AssertionError(
+                f"Failed for {quantity=}, {unit_name=}, {food_name=}, {plural_handling.value=}. "
+                f"Expected '{expected_display}', got '{ingredient.display}'"
+            ) from e
