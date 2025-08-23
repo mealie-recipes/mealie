@@ -15,7 +15,7 @@
       {{ $t("profile.group-description") }}
     </BasePageTitle>
 
-    <section v-if="group">
+    <section v-if="group?.preferences">
       <BaseCardSectionTitle
         class="mt-10"
         :title="$t('group.group-preferences')"
@@ -27,6 +27,15 @@
           density="compact"
           color="primary"
           :label="$t('group.private-group')"
+          @change="groupActions.updatePreferences()"
+        />
+        <v-select
+          v-model="group.preferences.pluralHandling"
+          :items="pluralHandlingOptions"
+          :item-props="pluralHandlingOptionsItemProps"
+          :label="$t('group.plural-handling')"
+          item-title="label"
+          item-value="value"
           @change="groupActions.updatePreferences()"
         />
         <div class="ml-8">
@@ -51,6 +60,7 @@ export default defineNuxtComponent({
   setup() {
     const { group, actions: groupActions } = useGroupSelf();
     const i18n = useI18n();
+    const { pluralHandlingOptions, pluralHandlingOptionsItemProps } = useGroupPluralHandlingOptions(i18n);
 
     useSeoMeta({
       title: i18n.t("group.group"),
@@ -59,6 +69,8 @@ export default defineNuxtComponent({
     return {
       group,
       groupActions,
+      pluralHandlingOptions,
+      pluralHandlingOptionsItemProps,
     };
   },
 });
