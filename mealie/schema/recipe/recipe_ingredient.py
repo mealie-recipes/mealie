@@ -251,7 +251,8 @@ class RecipeIngredientBase(MealieModel):
                 case GroupPreferencesPluralHandling.disable:
                     use_plural = False
                 case GroupPreferencesPluralHandling.pluralize_food_without_unit:
-                    use_plural = not self.unit
+                    # if quantity is zero then unit is not shown even if it's set
+                    use_plural = not (self.quantity and self.unit)
                 case GroupPreferencesPluralHandling.always_pluralize:
                     use_plural = True
                 case _:
