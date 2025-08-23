@@ -281,6 +281,7 @@
     "total-households": "Total Households",
     "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household",
     "plural-handling": "Plural Handling",
+    "plural-handling-description": "How ingredients are displayed when the quantity is zero or greater than one",
     "pluralize-only-if-there-is-no-unit": "Pluralize only if there is no unit",
     "pluralize-only-if-there-is-no-unit-example": "2 onions chopped, 2 cups onion chopped",
     "always-pluralize-even-if-there-is-a-unit": "Always pluralize even if there is a unit",

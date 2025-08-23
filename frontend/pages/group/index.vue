@@ -29,15 +29,6 @@
           :label="$t('group.private-group')"
           @change="groupActions.updatePreferences()"
         />
-        <v-select
-          v-model="group.preferences.pluralHandling"
-          :items="pluralHandlingOptions"
-          :item-props="pluralHandlingOptionsItemProps"
-          :label="$t('group.plural-handling')"
-          item-title="label"
-          item-value="value"
-          @change="groupActions.updatePreferences()"
-        />
         <div class="ml-8">
           <p class="text-subtitle-2 my-0 py-0">
             {{ $t("group.private-group-description") }}
@@ -48,6 +39,17 @@
           />
         </div>
       </div>
+      <v-select
+        v-model="group.preferences.pluralHandling"
+        :label="$t('group.plural-handling')"
+        :hint="$t('group.plural-handling-description')"
+        persistent-hint
+        :items="pluralHandlingOptions"
+        :item-props="pluralHandlingOptionsItemProps"
+        item-title="label"
+        item-value="value"
+        @change="groupActions.updatePreferences()"
+      />
     </section>
   </v-container>
 </template>

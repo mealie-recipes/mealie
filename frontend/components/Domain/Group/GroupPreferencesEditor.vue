@@ -8,6 +8,8 @@
     />
     <v-select
       v-model="preferences.pluralHandling"
+      :hint="$t('group.plural-handling-description')"
+      persistent-hint
       :items="pluralHandlingOptions"
       :item-props="pluralHandlingOptionsItemProps"
       :label="$t('group.plural-handling')"
