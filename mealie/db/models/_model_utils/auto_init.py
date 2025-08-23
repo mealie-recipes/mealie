@@ -1,4 +1,3 @@
-from enum import Enum
 from functools import wraps
 from uuid import UUID
 
@@ -142,9 +141,6 @@ def auto_init():  # sourcery no-metrics
                     continue
 
                 if key in model_columns:
-                    if isinstance(val, Enum):
-                        val = val.value
-
                     setattr(self, key, val)
                     continue
 
