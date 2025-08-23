@@ -1080,7 +1080,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tamarin séché",
-                "plural_name": "dried tamarinds"
+                "plural_name": "tamarins séchés"
             },
             "honey date": {
                 "aliases": [],
@@ -1223,8 +1223,8 @@
             "green ume plum": {
                 "aliases": [],
                 "description": "",
-                "name": "green ume plum",
-                "plural_name": "green ume plums"
+                "name": "prune ume verte",
+                "plural_name": "prunes ume vertes"
             },
             "kiwano": {
                 "aliases": [],
@@ -1239,8 +1239,8 @@
             "button mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "button mushroom",
-                "plural_name": "button mushrooms"
+                "name": "champignon de paris",
+                "plural_name": "champignons de paris"
             },
             "shiitake mushroom": {
                 "aliases": [],
@@ -1281,8 +1281,8 @@
             "chestnut mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut mushroom",
-                "plural_name": "chestnut mushrooms"
+                "name": "champignon de paris",
+                "plural_name": "champignons de paris"
             },
             "enoki mushroom": {
                 "aliases": [],
@@ -1294,7 +1294,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "champignon noir",
-                "plural_name": "black fungus"
+                "plural_name": "champignon noir"
             },
             "black truffle": {
                 "aliases": [],
@@ -1305,20 +1305,20 @@
             "morel mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "morel mushroom",
-                "plural_name": "morel mushrooms"
+                "name": "morille",
+                "plural_name": "morilles"
             },
             "field mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "field mushroom",
-                "plural_name": "field mushrooms"
+                "name": "agaric champêtre",
+                "plural_name": "agarics champêtres"
             },
             "king oyster mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "king oyster mushroom",
-                "plural_name": "king oyster mushrooms"
+                "name": "pleurote en huitre",
+                "plural_name": "pleurotes en huitre"
             },
             "shimeji mushroom": {
                 "aliases": [],
@@ -1329,8 +1329,8 @@
             "straw mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "straw mushroom",
-                "plural_name": "straw mushrooms"
+                "name": "volvaire volvacée",
+                "plural_name": "volvaires volvacées"
             },
             "dried chinese mushroom": {
                 "aliases": [],
@@ -1371,8 +1371,8 @@
             "snow fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "snow fungu",
-                "plural_name": "snow fungus"
+                "name": "trémelle fucus",
+                "plural_name": "trémelles fucus"
             },
             "white beech mushroom": {
                 "aliases": [],
@@ -1402,7 +1402,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cchampignon Nameko",
-                "plural_name": "namekoes"
+                "plural_name": "namékos"
             },
             "djon djon mushroom": {
                 "aliases": [],
@@ -1615,8 +1615,8 @@
             "dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried berry",
-                "plural_name": "dried berries"
+                "name": "baie séchée",
+                "plural_name": "baies séchées"
             },
             "sea buckthorn": {
                 "aliases": [],
@@ -1645,8 +1645,8 @@
             "boysenberry": {
                 "aliases": [],
                 "description": "",
-                "name": "boysenberry",
-                "plural_name": "boysenberries"
+                "name": "mûre framboise boysenberry",
+                "plural_name": "mûres framboises boysenberry"
             },
             "cloudberry": {
                 "aliases": [],
@@ -1681,14 +1681,14 @@
             "blackcurrant leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "blackcurrant leaf",
-                "plural_name": "blackcurrant leaves"
+                "name": "feuille de cassis",
+                "plural_name": "feuilles de cassis"
             },
             "haskap berry": {
                 "aliases": [],
                 "description": "",
                 "name": "chèvrefeuille bleu",
-                "plural_name": "haskap berries"
+                "plural_name": "chèvrefeuille bleu"
             },
             "dewberry": {
                 "aliases": [],
@@ -1746,7 +1746,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pignon de pin",
-                "plural_name": "pine nuts"
+                "plural_name": "pignons de pin"
             },
             "pistachio": {
                 "aliases": [],
@@ -1817,8 +1817,8 @@
             "chopped nut": {
                 "aliases": [],
                 "description": "",
-                "name": "chopped nut",
-                "plural_name": "chopped nuts"
+                "name": "noix hachée",
+                "plural_name": "noix hachées"
             },
             "hemp heart": {
                 "aliases": [],
@@ -1883,8 +1883,8 @@
             "white chia": {
                 "aliases": [],
                 "description": "",
-                "name": "white chia",
-                "plural_name": "white chias"
+                "name": "chia blanc",
+                "plural_name": "chia blanc"
             },
             "trail mix": {
                 "aliases": [],
@@ -1949,8 +1949,8 @@
             "sunflower sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower sprout",
-                "plural_name": "sunflower sprouts"
+                "name": "pousse de tournesol",
+                "plural_name": "pousses de tournesol"
             },
             "apricot kernel": {
                 "aliases": [],
@@ -1979,8 +1979,8 @@
             "wattleseed": {
                 "aliases": [],
                 "description": "",
-                "name": "wattleseed",
-                "plural_name": "wattleseeds"
+                "name": "graine d'acacia",
+                "plural_name": "graines d'acacia"
             },
             "barùka": {
                 "aliases": [],
@@ -2190,7 +2190,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "halloumi",
-                "plural_name": "halloumis"
+                "plural_name": "halloumi"
             },
             "chevre": {
                 "aliases": [],
@@ -2202,7 +2202,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "manchego",
-                "plural_name": "manchegoes"
+                "plural_name": "manchego"
             },
             "italian cheese blend": {
                 "aliases": [],
@@ -2214,7 +2214,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "neufchâtel",
-                "plural_name": "neufchatels"
+                "plural_name": "neufchâtel"
             },
             "herb cream cheese": {
                 "aliases": [],
@@ -2226,13 +2226,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "burrata",
-                "plural_name": "burratas"
+                "plural_name": "burrata"
             },
             "havarti": {
                 "aliases": [],
                 "description": "",
                 "name": "havarti",
-                "plural_name": "havartis"
+                "plural_name": "havarti"
             },
             "colby": {
                 "aliases": [],
@@ -2243,14 +2243,14 @@
             "grana-padano": {
                 "aliases": [],
                 "description": "",
-                "name": "grana-padano",
+                "name": "grana padano",
                 "plural_name": "grana-padanoes"
             },
             "muenster": {
                 "aliases": [],
                 "description": "",
                 "name": "munster",
-                "plural_name": "muensters"
+                "plural_name": "munster"
             },
             "string cheese": {
                 "aliases": [],
@@ -2267,8 +2267,8 @@
             "soft cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "soft cheese",
-                "plural_name": "soft cheeses"
+                "name": "fromage à pâte molle",
+                "plural_name": "fromages à pâte molle"
             },
             "stilton": {
                 "aliases": [],
@@ -2285,14 +2285,14 @@
             "colby-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "colby-jack cheese",
-                "plural_name": "colby-jack cheeses"
+                "name": "fromage colby-jack",
+                "plural_name": "fromages colby-jack"
             },
             "jarlsberg cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "jarlsberg cheese",
-                "plural_name": "jarlsberg cheeses"
+                "name": "fromage jarlsberg",
+                "plural_name": "fromages jarlsberg"
             },
             "taleggio": {
                 "aliases": [],
@@ -2519,14 +2519,14 @@
             "queso quesadilla": {
                 "aliases": [],
                 "description": "",
-                "name": "queso quesadilla",
-                "plural_name": "queso quesadillas"
+                "name": "quesadilla au fromage",
+                "plural_name": "quesadillas au fromage"
             },
             "caciocavallo": {
                 "aliases": [],
                 "description": "",
                 "name": "caciocavallo",
-                "plural_name": "caciocavalloes"
+                "plural_name": "caciocavallos"
             },
             "requeijão": {
                 "aliases": [],
@@ -2561,7 +2561,7 @@
             "derby cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "derby cheese",
+                "name": "derby",
                 "plural_name": "derby cheeses"
             },
             "fontal": {
@@ -2579,14 +2579,14 @@
             "truffle cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "truffle cheese",
-                "plural_name": "truffle cheeses"
+                "name": "fromage aux truffes",
+                "plural_name": "fromages aux truffes"
             },
             "epoisses cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "epoisses cheese",
-                "plural_name": "epoisses cheeses"
+                "name": "époisses",
+                "plural_name": "époisses"
             },
             "maasdam": {
                 "aliases": [],
@@ -2676,19 +2676,19 @@
                 ],
                 "description": "",
                 "name": "ghi",
-                "plural_name": "ghees"
+                "plural_name": "ghee"
             },
             "shortening": {
                 "aliases": [],
                 "description": "",
-                "name": "shortening",
-                "plural_name": "shortenings"
+                "name": "graisse alimentaire",
+                "plural_name": "graisses alimentaires"
             },
             "condensed milk": {
                 "aliases": [],
                 "description": "",
                 "name": "lait concentré",
-                "plural_name": "condensed milks"
+                "plural_name": "laits concentrés"
             },
             "half and half": {
                 "aliases": [],
@@ -2699,8 +2699,8 @@
             "sweetened condensed milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sweetened condensed milk",
-                "plural_name": "sweetened condensed milks"
+                "name": "lait concentré sucré",
+                "plural_name": "laits concentrés sucrés"
             },
             "ice cream": {
                 "aliases": [],
@@ -2729,8 +2729,8 @@
             "milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "milk powder",
-                "plural_name": "milk powders"
+                "name": "lait en poudre",
+                "plural_name": "poudres de lait"
             },
             "curd": {
                 "aliases": [],
@@ -2759,7 +2759,7 @@
             "custard": {
                 "aliases": [],
                 "description": "",
-                "name": "custard",
+                "name": "crème anglaise",
                 "plural_name": "custards"
             },
             "chocolate frosting": {
@@ -2945,14 +2945,14 @@
             "strawberry frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry frosting",
-                "plural_name": "strawberry frostings"
+                "name": "glaçage à la fraise",
+                "plural_name": "glaçages à la fraise"
             },
             "honey greek yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "honey greek yogurt",
-                "plural_name": "honey greek yogurts"
+                "name": "yaourt grec au miel",
+                "plural_name": "yaourts grec au miel"
             },
             "amul butter": {
                 "aliases": [],
@@ -2969,20 +2969,20 @@
             "strawberry cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry cream cheese",
-                "plural_name": "strawberry cream cheeses"
+                "name": "cream cheese à la fraise",
+                "plural_name": "cream cheeses à la fraise"
             },
             "goat butter": {
                 "aliases": [],
                 "description": "",
-                "name": "goat butter",
-                "plural_name": "goat butter"
+                "name": "beurre au lait de chèvre",
+                "plural_name": "beurre au lait de chèvre"
             },
             "century egg": {
                 "aliases": [],
                 "description": "",
-                "name": "century egg",
-                "plural_name": "century eggs"
+                "name": "œuf de cent ans",
+                "plural_name": "œufs de cent ans"
             },
             "orange curd": {
                 "aliases": [],
@@ -2993,8 +2993,8 @@
             "goat yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "goat yogurt",
-                "plural_name": "goat yogurts"
+                "name": "yaourt au lait de chèvre",
+                "plural_name": "yaourts au lait de chèvre"
             },
             "dahi": {
                 "aliases": [],
@@ -3549,8 +3549,8 @@
             "vegan cream cheese frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan cream cheese frosting",
-                "plural_name": "vegan cream cheese frostings"
+                "name": "glaçage au cream cheese vegan",
+                "plural_name": "glaçages au cream cheese vegan"
             },
             "coconut manna": {
                 "aliases": [],
