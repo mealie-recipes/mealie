@@ -1,11 +1,13 @@
 import axios from "axios";
 import { alert } from "~/composables/use-toast";
+const AXIOS_TIMEOUT = process.env.OPENAI_REQUEST_TIMEOUT || 10000;
+
 
 export default defineNuxtPlugin(() => {
   const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
   const axiosInstance = axios.create({
     baseURL: "/", // api calls already pass with /api
-    timeout: 10000,
+    timeout: AXIOS_TIMEOUT,
     headers: {
       Authorization: "Bearer " + useCookie(tokenName).value,
     },

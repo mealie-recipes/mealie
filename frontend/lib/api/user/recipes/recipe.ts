@@ -18,6 +18,7 @@ import type {
   RecipeTimelineEventUpdate,
 } from "~/lib/api/types/recipe";
 import type { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
+const AXIOS_TIMEOUT = process.env.OPENAI_REQUEST_TIMEOUT || 120000;
 
 export type Parser = "nlp" | "brute" | "openai";
 
@@ -169,7 +170,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
       apiRoute = `${apiRoute}?translateLanguage=${translateLanguage}`;
     }
 
-    return await this.requests.post<string>(apiRoute, formData, { timeout: 120000 });
+    return await this.requests.post<string>(apiRoute, formData, { timeout: AXIOS_TIMEOUT });
   }
 
   async parseIngredients(parser: Parser, ingredients: Array<string>) {
