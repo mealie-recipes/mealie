@@ -35,5 +35,5 @@ export function useGroupPluralHandlingOptions(i18n: Composer) {
   return {
     pluralHandlingOptions,
     pluralHandlingOptionsItemProps,
-  }
+  };
 }

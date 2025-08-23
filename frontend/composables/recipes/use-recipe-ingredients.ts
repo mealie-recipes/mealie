@@ -52,7 +52,8 @@ export function useParsedIngredientText(
   let usePluralFood = false;
   if (scaledQuantity && scaledQuantity <= 1) {
     usePluralFood = false;
-  } else {
+  }
+  else {
     switch (pluralHandling) {
       case "disable":
         usePluralFood = false;
@@ -102,7 +103,8 @@ export function useParsedIngredientText(
 }
 
 export function parseIngredientText(
-  ingredient: RecipeIngredient, scale = 1,
+  ingredient: RecipeIngredient,
+  scale = 1,
   includeFormating = true,
   pluralHandling = "pluralize_food_without_unit" as GroupPreferencesPluralHandling,
 ): string {
