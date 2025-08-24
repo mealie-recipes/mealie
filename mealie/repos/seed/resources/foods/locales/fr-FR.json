@@ -4021,32 +4021,32 @@
             "beef sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "beef sausage",
-                "plural_name": "beef sausages"
+                "name": "saucisse de bœuf",
+                "plural_name": "saucisses de bœuf"
             },
             "lamb shank": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb shank",
-                "plural_name": "lamb shanks"
+                "name": "jarret d'agneau",
+                "plural_name": "jarrets d'agneau"
             },
             "mutton": {
                 "aliases": [],
                 "description": "",
-                "name": "mutton",
-                "plural_name": "muttons"
+                "name": "mouton",
+                "plural_name": "moutons"
             },
             "ham steak": {
                 "aliases": [],
                 "description": "",
-                "name": "ham steak",
-                "plural_name": "ham steaks"
+                "name": "steak de jambon",
+                "plural_name": "steaks de jambon"
             },
             "venison": {
                 "aliases": [],
                 "description": "",
                 "name": "gibier",
-                "plural_name": "venisons"
+                "plural_name": "gibiers"
             },
             "bratwurst": {
                 "aliases": [],
@@ -4057,26 +4057,26 @@
             "pulled pork": {
                 "aliases": [],
                 "description": "",
-                "name": "pulled pork",
-                "plural_name": "pulled porks"
+                "name": "porc effiloché",
+                "plural_name": "porcs effilochés"
             },
             "ham hock": {
                 "aliases": [],
                 "description": "",
-                "name": "ham hock",
-                "plural_name": "ham hocks"
+                "name": "jarret de porc",
+                "plural_name": "jarrets de porc"
             },
             "frozen meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen meatball",
-                "plural_name": "frozen meatballs"
+                "name": "boulette surgelée",
+                "plural_name": "boulettes surgelées"
             },
             "mixed ground meat": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed ground meat",
-                "plural_name": "mixed ground meats"
+                "name": "mélange de viande hachée",
+                "plural_name": "mélange de viandes hachées"
             },
             "rabbit": {
                 "aliases": [],
@@ -4087,14 +4087,14 @@
             "pork cutlet": {
                 "aliases": [],
                 "description": "",
-                "name": "pork cutlet",
-                "plural_name": "pork cutlets"
+                "name": "côtelette de porc",
+                "plural_name": "côtelettes de porc"
             },
             "veal cutlet": {
                 "aliases": [],
                 "description": "",
-                "name": "veal cutlet",
-                "plural_name": "veal cutlets"
+                "name": "escalope de veau",
+                "plural_name": "escalopes de veau"
             },
             "soup bone": {
                 "aliases": [],
@@ -4105,32 +4105,32 @@
             "lamb loin": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb loin",
-                "plural_name": "lamb loins"
+                "name": "filet d'agneau",
+                "plural_name": "filets d'agneau"
             },
             "pork steak": {
                 "aliases": [],
                 "description": "",
-                "name": "pork steak",
-                "plural_name": "pork steaks"
+                "name": "steak de porc",
+                "plural_name": "steaks de porc"
             },
             "mexican chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican chorizo",
-                "plural_name": "mexican chorizoes"
+                "name": "chorizo mexicain",
+                "plural_name": "chorizos mexicains"
             },
             "rack of lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "rack of lamb",
-                "plural_name": "rack of lamb"
+                "name": "carré d'agneau",
+                "plural_name": "carré d'agneau"
             },
             "pork back rib": {
                 "aliases": [],
                 "description": "",
-                "name": "pork back rib",
-                "plural_name": "pork back ribs"
+                "name": "travers de porc",
+                "plural_name": "travers de porc"
             },
             "country style rib": {
                 "aliases": [],
@@ -4141,20 +4141,20 @@
             "black forest ham": {
                 "aliases": [],
                 "description": "",
-                "name": "black forest ham",
-                "plural_name": "black forest hams"
+                "name": "jambon de la Forêt-Noire",
+                "plural_name": "jambons de la Forêt-Noire"
             },
             "oxtail": {
                 "aliases": [],
                 "description": "",
-                "name": "oxtail",
-                "plural_name": "oxtails"
+                "name": "queue de bœuf",
+                "plural_name": "queues de bœuf"
             },
             "smoked ham hock": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked ham hock",
-                "plural_name": "smoked ham hocks"
+                "name": "jarret de porc fumé",
+                "plural_name": "jarrets de porc fumés"
             },
             "serrano ham": {
                 "aliases": [],
@@ -4285,8 +4285,8 @@
             "bologna": {
                 "aliases": [],
                 "description": "",
-                "name": "bologna",
-                "plural_name": "bolognas"
+                "name": "mortadelle",
+                "plural_name": "mortadelles"
             },
             "burger patty": {
                 "aliases": [],
@@ -4297,8 +4297,8 @@
             "smoked pork chop": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked pork chop",
-                "plural_name": "smoked pork chops"
+                "name": "côte de porc fumée",
+                "plural_name": "côtes de porc fumées"
             },
             "lamb neck": {
                 "aliases": [],
@@ -4315,14 +4315,14 @@
             "beef suet": {
                 "aliases": [],
                 "description": "",
-                "name": "beef suet",
-                "plural_name": "beef suets"
+                "name": "suif de bœuf",
+                "plural_name": "suifs de bœuf"
             },
             "veal roast": {
                 "aliases": [],
                 "description": "",
-                "name": "veal roast",
-                "plural_name": "veal roasts"
+                "name": "rôti de veau",
+                "plural_name": "rôtis de veau"
             },
             "beef shoulder": {
                 "aliases": [],
@@ -4339,8 +4339,8 @@
             "veal chop": {
                 "aliases": [],
                 "description": "",
-                "name": "veal chop",
-                "plural_name": "veal chops"
+                "name": "côte de veau",
+                "plural_name": "côtes de veau"
             }
         }
     },
@@ -4361,14 +4361,14 @@
             "cooked chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "cooked chicken",
-                "plural_name": "cooked chickens"
+                "name": "poulet cuit",
+                "plural_name": "poulets cuits"
             },
             "ground turkey": {
                 "aliases": [],
                 "description": "",
                 "name": "dinde hachée",
-                "plural_name": "ground turkeys"
+                "plural_name": "dindes hachées"
             },
             "whole chicken": {
                 "aliases": [],
@@ -4385,8 +4385,8 @@
             "chicken leg": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken leg",
-                "plural_name": "chicken legs"
+                "name": "cuisse de poulet",
+                "plural_name": "cuisses de poulet"
             },
             "chicken wing": {
                 "aliases": [],
@@ -4404,19 +4404,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "poulet haché",
-                "plural_name": "ground chickens"
+                "plural_name": "poulets hachés"
             },
             "rotisserie chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "rotisserie chicken",
-                "plural_name": "rotisserie chickens"
+                "name": "poulet rôti",
+                "plural_name": "poulets rôtis"
             },
             "chicken tender": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken tender",
-                "plural_name": "chicken tenders"
+                "name": "filet de poulet",
+                "plural_name": "filets de poulet"
             },
             "turkey sausage": {
                 "aliases": [],
@@ -4434,7 +4434,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bacon de dinde",
-                "plural_name": "turkey bacons"
+                "plural_name": "bacon de dinde"
             },
             "duck": {
                 "aliases": [],
@@ -4475,14 +4475,14 @@
             "smoked turkey": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked turkey",
-                "plural_name": "smoked turkeys"
+                "name": "dinde fumée",
+                "plural_name": "dindes fumées"
             },
             "turkey meat": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey meat",
-                "plural_name": "turkey meats"
+                "name": "viande de dinde",
+                "plural_name": "viandes de dinde"
             },
             "chicken quarter": {
                 "aliases": [],
@@ -4493,37 +4493,37 @@
             "ground turkey sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "ground turkey sausage",
-                "plural_name": "ground turkey sausages"
+                "name": "saucisse de dinde hachée",
+                "plural_name": "saucisses de dinde hachée"
             },
             "quail": {
                 "aliases": [],
                 "description": "",
-                "name": "quail",
-                "plural_name": "quails"
+                "name": "caille",
+                "plural_name": "cailles"
             },
             "smoked turkey sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked turkey sausage",
-                "plural_name": "smoked turkey sausages"
+                "name": "saucisse de dinde fumée",
+                "plural_name": "saucisses de dinde fumée"
             },
             "smoked chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked chicken",
-                "plural_name": "smoked chickens"
+                "name": "poulet fumé",
+                "plural_name": "poulets fumés"
             },
             "turkey leg": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey leg",
-                "plural_name": "turkey legs"
+                "name": "cuisse de dinde",
+                "plural_name": "cuisses de dinde"
             },
             "pheasant": {
                 "aliases": [],
                 "description": "",
-                "name": "pheasant",
+                "name": "faisan",
                 "plural_name": "faisans"
             },
             "goose": {
