@@ -52,7 +52,10 @@ class GroupSelfServiceController(BaseUserController):
         return private_user.cast(UserSummary)
 
     @router.get("/preferences", response_model=ReadGroupPreferences)
-    def get_group_preferences(self):
+    def get_group_preferences(self) -> ReadGroupPreferences:
+        if not self.group.preferences:
+            raise HTTPException(404, "group preferences not found")
+
         return self.group.preferences
 
     @router.put("/preferences", response_model=ReadGroupPreferences)

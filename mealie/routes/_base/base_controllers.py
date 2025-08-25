@@ -83,7 +83,11 @@ class BasePublicController(_BaseController):
     by all Admin controllers.
     """
 
-    ...
+    def get_public_group(self, group_slug_or_id: str | UUID4) -> GroupInDB:
+        group = self.repos.groups.get_by_slug_or_id(group_slug_or_id)
+        if not group or group.preferences.private_group:
+            raise HTTPException(404, "group not found")
+        return group
 
 
 class BasePublicGroupExploreController(BasePublicController):
