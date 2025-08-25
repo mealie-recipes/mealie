@@ -293,6 +293,11 @@ def explore_groups_group_slug_organizers_tools_item_id(group_slug, item_id):
     return f"{prefix}/explore/groups/{group_slug}/organizers/tools/{item_id}"
 
 
+def explore_groups_group_slug_preferences(group_slug):
+    """`/api/explore/groups/{group_slug}/preferences`"""
+    return f"{prefix}/explore/groups/{group_slug}/preferences"
+
+
 def explore_groups_group_slug_recipes(group_slug):
     """`/api/explore/groups/{group_slug}/recipes`"""
     return f"{prefix}/explore/groups/{group_slug}/recipes"
