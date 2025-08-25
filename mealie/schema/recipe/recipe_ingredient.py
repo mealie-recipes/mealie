@@ -153,7 +153,9 @@ class IngredientUnit(CreateIngredientUnit):
 
 
 class RecipeIngredientBase(MealieModel):
-    plural_handling: GroupPreferencesPluralHandling = GroupPreferencesPluralHandling.pluralize_food_without_unit
+    plural_handling: GroupPreferencesPluralHandling = Field(
+        default=GroupPreferencesPluralHandling.pluralize_food_without_unit, exclude=True
+    )
 
     quantity: NoneFloat = 0
     unit: IngredientUnit | CreateIngredientUnit | None = None
