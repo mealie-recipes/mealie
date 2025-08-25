@@ -75,13 +75,17 @@ def clean(recipe_data: Recipe | dict, translator: Translator, url=None) -> Recip
     return Recipe(**recipe_data)
 
 
-def clean_string(text: str | list | int) -> str:
+def clean_string(text: str | list | int | float) -> str:
     """Cleans a string of HTML tags and extra white space"""
     if not isinstance(text, str):
         if isinstance(text, list):
-            text = text[0]
-
-        if isinstance(text, int):
+            if text:
+                return clean_string(text[0])
+            else:
+                text = ""
+        elif text is None:
+            text = ""
+        else:
             text = str(text)
 
     if not text:
