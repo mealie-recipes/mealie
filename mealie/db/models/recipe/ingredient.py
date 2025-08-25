@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 import sqlalchemy as sa
 from pydantic import ConfigDict
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, orm
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.orm.session import Session
 
@@ -16,6 +17,7 @@ from .._model_utils.guid import GUID
 if TYPE_CHECKING:
     from ..group import Group
     from ..household import Household
+    from ..recipe import RecipeModel
 
 
 households_to_ingredient_foods = sa.Table(
@@ -342,6 +344,7 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     position: Mapped[int | None] = mapped_column(Integer, index=True)
     recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
+    recipe: Mapped["RecipeModel"] = orm.relationship("RecipeModel", back_populates="recipe_ingredient")
 
     title: Mapped[str | None] = mapped_column(String)  # Section Header - Shows if Present
     note: Mapped[str | None] = mapped_column(String)  # Force Show Text - Overrides Concat
@@ -361,6 +364,14 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     # Automatically updated by sqlalchemy event, do not write to this manually
     note_normalized: Mapped[str | None] = mapped_column(String, index=True)
     original_text_normalized: Mapped[str | None] = mapped_column(String, index=True)
+
+    @hybrid_property
+    def plural_handling(self) -> str:
+        """Get the plural handling preference from the group"""
+        try:
+            return self.recipe.group.preferences.plural_handling
+        except Exception:
+            return "pluralize_food_without_unit"
 
     @auto_init()
     def __init__(

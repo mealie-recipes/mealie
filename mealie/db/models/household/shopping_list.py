@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Optional
 from pydantic import ConfigDict
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, UniqueConstraint, event, orm
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
+from sqlalchemy.ext.hybrid import hybrid_property
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -58,7 +59,6 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     household_id: AssociationProxy[GUID] = association_proxy("shopping_list", "household_id")
 
     # Meta
-    is_ingredient: Mapped[bool | None] = mapped_column(Boolean, default=True)
     position: Mapped[int] = mapped_column(Integer, nullable=False, default=0, index=True)
     checked: Mapped[bool | None] = mapped_column(Boolean, default=False)
 
@@ -89,6 +89,15 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
 
     # Deprecated
     is_food: Mapped[bool | None] = mapped_column(Boolean, default=False)
+    is_ingredient: Mapped[bool | None] = mapped_column(Boolean, default=True)
+
+    @hybrid_property
+    def plural_handling(self) -> str:
+        """Get the plural handling preference from the group"""
+        try:
+            return self.shopping_list.group.preferences.plural_handling
+        except Exception:
+            return "pluralize_food_without_unit"
 
     @api_extras
     @auto_init()
