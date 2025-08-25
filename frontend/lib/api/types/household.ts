@@ -7,7 +7,6 @@
 
 export type GroupRecipeActionType = "link" | "post";
 export type WebhookType = "mealplan";
-export type GroupPreferencesPluralHandling = "always_pluralize" | "pluralize_food_without_unit" | "disable";
 
 export interface CreateGroupRecipeAction {
   actionType: GroupRecipeActionType;
@@ -307,7 +306,6 @@ export interface ShoppingListAddRecipeParams {
   recipeIngredients?: RecipeIngredient[] | null;
 }
 export interface RecipeIngredient {
-  pluralHandling?: GroupPreferencesPluralHandling;
   quantity?: number | null;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
@@ -412,7 +410,6 @@ export interface ShoppingListCreate {
   updatedAt?: string | null;
 }
 export interface ShoppingListItemBase {
-  pluralHandling?: GroupPreferencesPluralHandling;
   quantity?: number;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
@@ -429,7 +426,6 @@ export interface ShoppingListItemBase {
   } | null;
 }
 export interface ShoppingListItemCreate {
-  pluralHandling?: GroupPreferencesPluralHandling;
   quantity?: number;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
@@ -454,7 +450,6 @@ export interface ShoppingListItemRecipeRefCreate {
   recipeNote?: string | null;
 }
 export interface ShoppingListItemOut {
-  pluralHandling?: GroupPreferencesPluralHandling;
   quantity?: number;
   unit?: IngredientUnit | null;
   food?: IngredientFood | null;
@@ -494,7 +489,6 @@ export interface ShoppingListItemRecipeRefUpdate {
   shoppingListItemId: string;
 }
 export interface ShoppingListItemUpdate {
-  pluralHandling?: GroupPreferencesPluralHandling;
   quantity?: number;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
@@ -512,7 +506,6 @@ export interface ShoppingListItemUpdate {
   recipeReferences?: (ShoppingListItemRecipeRefCreate | ShoppingListItemRecipeRefUpdate)[];
 }
 export interface ShoppingListItemUpdateBulk {
-  pluralHandling?: GroupPreferencesPluralHandling;
   quantity?: number;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
@@ -686,7 +679,6 @@ export interface UpdateHouseholdPreferences {
   recipeDisableComments?: boolean;
 }
 export interface RecipeIngredientBase {
-  pluralHandling?: GroupPreferencesPluralHandling;
   quantity?: number | null;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;

@@ -7,7 +7,6 @@
 
 export type ExportTypes = "json";
 export type RegisteredParser = "nlp" | "brute" | "openai";
-export type GroupPreferencesPluralHandling = "always_pluralize" | "pluralize_food_without_unit" | "disable";
 export type OrderByNullPosition = "first" | "last";
 export type OrderDirection = "asc" | "desc";
 export type TimelineEventType = "system" | "info" | "comment";
@@ -212,7 +211,6 @@ export interface ParsedIngredient {
   ingredient: RecipeIngredient;
 }
 export interface RecipeIngredient {
-  pluralHandling?: GroupPreferencesPluralHandling;
   quantity?: number | null;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
@@ -348,7 +346,6 @@ export interface RecipeDuplicate {
   name?: string | null;
 }
 export interface RecipeIngredientBase {
-  pluralHandling?: GroupPreferencesPluralHandling;
   quantity?: number | null;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
