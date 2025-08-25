@@ -398,7 +398,7 @@ class AppSettings(AppLoggingSettings):
     Sending database data may increase accuracy in certain requests,
     but will incur additional API costs
     """
-    OPENAI_REQUEST_TIMEOUT: int = 60
+    OPENAI_REQUEST_TIMEOUT: int = 300
     """
     The number of seconds to wait for an OpenAI request to complete before cancelling the request
     """
