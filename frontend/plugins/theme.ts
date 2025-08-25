@@ -55,7 +55,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
             info: theme?.lightInfo ?? "#1976d2",
             warning: theme?.lightWarning ?? "#FF6D00",
             error: theme?.lightError ?? "#EF5350",
-            background: "#1E1E1E",
           },
         },
         dark: {
@@ -68,6 +67,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
             info: theme?.darkInfo ?? "#1976d2",
             warning: theme?.darkWarning ?? "#FF6D00",
             error: theme?.darkError ?? "#EF5350",
+            background: "#1E1E1E",
           },
         },
       },

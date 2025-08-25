@@ -7,10 +7,10 @@
         "recipe-created": "Recept byl vytvořen",
         "recipe-defaults": {
             "ingredient-note": "1 hrnek mouky",
-            "step-text": "Kroky receptu stejně jako další pole v receptu podporují markdown syntaxi.\n\n**Přidat odkaz**\n\n[Můj odkaz](https://demo.mealie.io)\n"
+            "step-text": "Kroky receptu stejně jako další pole v receptu podporují syntaxi markdown.\n\n**Přidat odkaz**\n\n[Můj odkaz](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
+            "makes": "Vytvoří",
             "serves": "Porce",
             "serving": "Porce",
             "servings": "Porcí",
@@ -24,17 +24,17 @@
     "user": {
         "user-updated": "Uživatel aktualizován",
         "password-updated": "Heslo aktualizováno",
-        "invalid-current-password": "Nesprávné aktuální heslo",
-        "ldap-update-password-unavailable": "Nelze aktualizovat heslo, uživatel je řízen pomocí LDAP"
+        "invalid-current-password": "Nesprávné současné heslo",
+        "ldap-update-password-unavailable": "Nelze aktualizovat heslo, uživatel je spravován protokolem LDAP"
     },
     "group": {
-        "report-deleted": "Report odstraněn."
+        "report-deleted": "Sestava odstraněna."
     },
     "exceptions": {
-        "permission_denied": "K provedení této akce nemáte oprávnění",
-        "no-entry-found": "Požadovaný zdroj nebyl nalezen",
+        "permission_denied": "Nemáte oprávnění k provedení této akce",
+        "no-entry-found": "Požadovaný prostředek nebyl nalezen",
         "integrity-error": "Chyba integrity databáze",
-        "username-conflict-error": "Toto uživatelské jméno je již obsazeno",
+        "username-conflict-error": "Toto uživatelské jméno je již používáno",
         "email-conflict-error": "Tento e-mail je již používán"
     },
     "notifications": {
@@ -47,7 +47,7 @@
     },
     "datetime": {
         "year": "rok|roky",
-        "day": "den|dny",
+        "day": "den|dny|dnů",
         "hour": "hodina|hodiny|hodin",
         "minute": "minuta|minuty|minut",
         "second": "sekunda|sekundy|sekund",
@@ -56,10 +56,10 @@
     },
     "emails": {
         "password": {
-            "subject": "Mealie Zapomenuté heslo",
+            "subject": "Zapomenuté heslo Mealie",
             "header_text": "Zapomenuté heslo",
             "message_top": "Požádali jste o obnovení hesla.",
-            "message_bottom": "Pro obnovení hesla klikněte na tlačítko výše.",
+            "message_bottom": "Hesla obnovíte kliknutím na tlačítko výše.",
             "button_text": "Obnovit heslo"
         },
         "invitation": {
@@ -73,7 +73,7 @@
             "subject": "Zkušební e-mail z Mealie",
             "header_text": "Zkušební e-mail",
             "message_top": "Toto je zkušební email.",
-            "message_bottom": "Pro otestování e-mailu klikněte na tlačítko výše.",
+            "message_bottom": "E-mail otestujete kliknutím na tlačítko výše.",
             "button_text": "Otevřít Mealie"
         }
     }
