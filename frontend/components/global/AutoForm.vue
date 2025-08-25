@@ -106,15 +106,7 @@
           persistent-hint
           lazy-validation
           @blur="emitBlur"
-        >
-          <template #item="{ item }">
-            <v-list-item
-              v-bind="props"
-              :title="item.raw.text"
-              :subtitle="item.raw.description"
-            />
-          </template>
-        </v-select>
+        />
 
         <!-- Color Picker -->
         <div
