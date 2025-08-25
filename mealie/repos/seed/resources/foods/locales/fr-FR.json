@@ -14612,7 +14612,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "amaretto",
-                "plural_name": "amarettoes"
+                "plural_name": "amarettos"
             },
             "marsala wine": {
                 "aliases": [],
@@ -14629,32 +14629,32 @@
             "sparkling wine": {
                 "aliases": [],
                 "description": "",
-                "name": "sparkling wine",
-                "plural_name": "sparkling wines"
+                "name": "vin mousseux",
+                "plural_name": "vins mousseux"
             },
             "sake": {
                 "aliases": [],
                 "description": "",
-                "name": "sake",
-                "plural_name": "sakes"
+                "name": "saké",
+                "plural_name": "sakés"
             },
             "rice wine": {
                 "aliases": [],
                 "description": "",
-                "name": "rice wine",
-                "plural_name": "rice wines"
+                "name": "alcool de riz",
+                "plural_name": "alcools de riz"
             },
             "shaoxing wine": {
                 "aliases": [],
                 "description": "",
-                "name": "shaoxing wine",
-                "plural_name": "shaoxing wines"
+                "name": "vin de Shaoxing",
+                "plural_name": "vins de Shaoxing"
             },
             "dry vermouth": {
                 "aliases": [],
                 "description": "",
-                "name": "dry vermouth",
-                "plural_name": "dry vermouths"
+                "name": "vermouth sec",
+                "plural_name": "vermouths secs"
             },
             "liqueur": {
                 "aliases": [],
@@ -14665,62 +14665,62 @@
             "coconut rum": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut rum",
-                "plural_name": "coconut rums"
+                "name": "rhum arrangé à la noix de coco",
+                "plural_name": "rhums arrangés à la noix de coco"
             },
             "dessert wine": {
                 "aliases": [],
                 "description": "",
-                "name": "dessert wine",
-                "plural_name": "dessert wines"
+                "name": "vin de dessert",
+                "plural_name": "vins de dessert"
             },
             "curacao": {
                 "aliases": [],
                 "description": "",
-                "name": "curacao",
-                "plural_name": "curacaos"
+                "name": "curaçao",
+                "plural_name": "curaçaos"
             },
             "port wine": {
                 "aliases": [],
                 "description": "",
-                "name": "port wine",
-                "plural_name": "port wines"
+                "name": "porto",
+                "plural_name": "portos"
             },
             "kirsch": {
                 "aliases": [],
                 "description": "",
                 "name": "kirsch",
-                "plural_name": "kirsches"
+                "plural_name": "kirschs"
             },
             "peach schnapp": {
                 "aliases": [],
                 "description": "",
-                "name": "peach schnapp",
-                "plural_name": "peach schnapps"
+                "name": "eau-de-vie de pêche",
+                "plural_name": "eaux-de-vie de pêche"
             },
             "apple brandy": {
                 "aliases": [],
                 "description": "",
-                "name": "apple brandy",
-                "plural_name": "apple brandies"
+                "name": "brandy de pomme",
+                "plural_name": "brandys de pomme"
             },
             "rosé wine": {
                 "aliases": [],
                 "description": "",
-                "name": "rosé wine",
-                "plural_name": "rosé wines"
+                "name": "vin rosé",
+                "plural_name": "vins rosés"
             },
             "anise liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "anise liqueur",
-                "plural_name": "anise liqueurs"
+                "name": "liqueur d'anis",
+                "plural_name": "liqueurs d'anis"
             },
             "herbal liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "herbal liqueur",
-                "plural_name": "herbal liqueurs"
+                "name": "liqueur herbacée",
+                "plural_name": "liqueurs herbacées"
             },
             "limoncello": {
                 "aliases": [],
@@ -14893,14 +14893,14 @@
             "red cooking wine": {
                 "aliases": [],
                 "description": "",
-                "name": "red cooking wine",
-                "plural_name": "red cooking wines"
+                "name": "vin rouge de cuisine",
+                "plural_name": "vins rouges de cuisine"
             },
             "sparkling rosé": {
                 "aliases": [],
                 "description": "",
-                "name": "sparkling rosé",
-                "plural_name": "sparkling rosés"
+                "name": "vin pétillant rosé",
+                "plural_name": "vins pétillants rosés"
             },
             "grappa": {
                 "aliases": [],
@@ -14911,8 +14911,8 @@
             "lime cordial": {
                 "aliases": [],
                 "description": "",
-                "name": "lime cordial",
-                "plural_name": "lime cordials"
+                "name": "cordial au citron vert",
+                "plural_name": "cordials au citron vert"
             },
             "mezcal": {
                 "aliases": [],
@@ -14923,20 +14923,20 @@
             "strawberry liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry liqueur",
-                "plural_name": "strawberry liqueurs"
+                "name": "liqueur de fraises",
+                "plural_name": "liqueurs de fraises"
             },
             "drambuie": {
                 "aliases": [],
                 "description": "",
                 "name": "drambuie",
-                "plural_name": "drambuies"
+                "plural_name": "drambuie"
             },
             "ginger wine": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger wine",
-                "plural_name": "ginger wines"
+                "name": "vin de gingembre",
+                "plural_name": "vins de gingembre"
             },
             "pumpkin ale": {
                 "aliases": [],
@@ -14947,14 +14947,14 @@
             "white port": {
                 "aliases": [],
                 "description": "",
-                "name": "white port",
-                "plural_name": "white ports"
+                "name": "porto blanc",
+                "plural_name": "portos blancs"
             },
             "peppermint liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "peppermint liqueur",
-                "plural_name": "peppermint liqueurs"
+                "name": "liqueur de menthe poivrée",
+                "plural_name": "liqueurs de menthe poivrée"
             },
             "advocaat": {
                 "aliases": [],
@@ -14977,14 +14977,14 @@
             "rumchata liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "rumchata liqueur",
-                "plural_name": "rumchata liqueurs"
+                "name": "rumChata",
+                "plural_name": "rumChata"
             },
             "coconut liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut liqueur",
-                "plural_name": "coconut liqueurs"
+                "name": "liqueur de noix de coco",
+                "plural_name": "liqueurs de noix de coco"
             },
             "daiquiri mix": {
                 "aliases": [],
