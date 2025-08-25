@@ -4,7 +4,6 @@ type FormFieldType = "text" | "textarea" | "list" | "select" | "object" | "boole
 
 export interface FormSelectOption {
   text: string;
-  description?: string;
 }
 
 export interface FormField {

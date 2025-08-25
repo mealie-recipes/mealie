@@ -18,10 +18,10 @@
         "abbreviation": "š"
     },
     "fluid-ounce": {
-        "name": "dutá unce",
+        "name": "tekutá unce",
         "plural_name": "tekuté unce",
         "description": "",
-        "abbreviation": "fl oz"
+        "abbreviation": "tek. unce"
     },
     "pint": {
         "name": "pinta",
@@ -64,7 +64,7 @@
         "name": "unce",
         "plural_name": "uncí",
         "description": "",
-        "abbreviation": "oz"
+        "abbreviation": "unce"
     },
     "gram": {
         "name": "gram",
@@ -103,8 +103,8 @@
         "abbreviation": ""
     },
     "head": {
-        "name": "hlava",
-        "plural_name": "hlav",
+        "name": "hlávka",
+        "plural_name": "hlávky",
         "description": "",
         "abbreviation": ""
     },
@@ -115,7 +115,7 @@
         "abbreviation": ""
     },
     "can": {
-        "name": "plechovka",
+        "name": "konzerva",
         "plural_name": "konzerv",
         "description": "",
         "abbreviation": ""
