@@ -3011,8 +3011,8 @@
             "bulgarian yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "bulgarian yogurt",
-                "plural_name": "bulgarian yogurts"
+                "name": "yaourt bulgare",
+                "plural_name": "yaourts bulgares"
             },
             "tvorog": {
                 "aliases": [],
@@ -3023,8 +3023,8 @@
             "chocolate milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk powder",
-                "plural_name": "chocolate milk powders"
+                "name": "chocolat au lait en poudre",
+                "plural_name": "chocolats au lait en poudre"
             },
             "liquid rennet": {
                 "aliases": [],
@@ -3136,19 +3136,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "lait de coco",
-                "plural_name": "coconut milks"
+                "plural_name": "laits de coco"
             },
             "almond milk": {
                 "aliases": [],
                 "description": "",
                 "name": "lait d'amande",
-                "plural_name": "almond milks"
+                "plural_name": "laits d'amande"
             },
             "almond butter": {
                 "aliases": [],
                 "description": "",
-                "name": "almond butter",
-                "plural_name": "almond butter"
+                "name": "beurre d'amande",
+                "plural_name": "beurres d'amande"
             },
             "tofu": {
                 "aliases": [],
@@ -3159,26 +3159,26 @@
             "coconut cream": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut cream",
-                "plural_name": "coconut creams"
+                "name": "crème de noix de coco",
+                "plural_name": "crèmes de noix de coco"
             },
             "vegan butter": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan butter",
-                "plural_name": "vegan butter"
+                "name": "beurre végétal",
+                "plural_name": "beurres végétaux"
             },
             "non-dairy milk": {
                 "aliases": [],
                 "description": "",
-                "name": "non-dairy milk",
-                "plural_name": "non-dairy milks"
+                "name": "lait végétal",
+                "plural_name": "laits végétaux"
             },
             "soy milk": {
                 "aliases": [],
                 "description": "",
                 "name": "lait de soja",
-                "plural_name": "soy milks"
+                "plural_name": "laits de soja"
             },
             "extra firm tofu": {
                 "aliases": [],
@@ -3190,25 +3190,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "tofu soyeux",
-                "plural_name": "silken tofus"
+                "plural_name": "tofu soyeux"
             },
             "kala namak salt": {
                 "aliases": [],
                 "description": "",
-                "name": "kala namak salt",
-                "plural_name": "kala namak salts"
+                "name": "sel noir de kala namak",
+                "plural_name": "sels noirs de kala namak"
             },
             "coconut butter": {
                 "aliases": [],
                 "description": "",
                 "name": "beurre de coco",
-                "plural_name": "coconut butter"
+                "plural_name": "beurre de coco"
             },
             "egg replacer": {
                 "aliases": [],
                 "description": "",
-                "name": "egg replacer",
-                "plural_name": "egg replacers"
+                "name": "substitut d'œuf",
+                "plural_name": "substituts d'œuf"
             },
             "vegan mayonnaise": {
                 "aliases": [],
@@ -3225,32 +3225,32 @@
             "cashew butter": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew butter",
-                "plural_name": "cashew butter"
+                "name": "beurre de noix de cajou",
+                "plural_name": "beurres de noix de cajou"
             },
             "tempeh": {
                 "aliases": [],
                 "description": "",
                 "name": "tempeh",
-                "plural_name": "tempehs"
+                "plural_name": "tempeh"
             },
             "vegan cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan cream cheese",
-                "plural_name": "vegan cream cheeses"
+                "name": "cream cheese végan",
+                "plural_name": "cream cheeses végan"
             },
             "coconut yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut yogurt",
-                "plural_name": "coconut yogurts"
+                "name": "yaourt au lait de coco",
+                "plural_name": "yaourts au lait de coco"
             },
             "non-dairy yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "non-dairy yogurt",
-                "plural_name": "non-dairy yogurts"
+                "name": "yaourt végétal",
+                "plural_name": "yaourts végétal"
             },
             "seed butter": {
                 "aliases": [],
@@ -3261,26 +3261,26 @@
             "cashew milk": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew milk",
-                "plural_name": "cashew milks"
+                "name": "lait de noix de cajou",
+                "plural_name": "laits de noix de cajou"
             },
             "oat milk": {
                 "aliases": [],
                 "description": "",
                 "name": "lait d'avoine",
-                "plural_name": "oat milks"
+                "plural_name": "laits d'avoine"
             },
             "nut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "nut butter",
-                "plural_name": "nut butter"
+                "name": "beurre de noix",
+                "plural_name": "beurres de noix"
             },
             "rice milk": {
                 "aliases": [],
                 "description": "",
                 "name": "lait de riz",
-                "plural_name": "rice milks"
+                "plural_name": "laits de riz"
             },
             "vegan sour cream": {
                 "aliases": [],
@@ -3291,14 +3291,14 @@
             "textured vegetable protein": {
                 "aliases": [],
                 "description": "",
-                "name": "textured vegetable protein",
-                "plural_name": "textured vegetable proteins"
+                "name": "protéine végétale texturée",
+                "plural_name": "protéines végétales texturées"
             },
             "vegan worcestershire": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan worcestershire",
-                "plural_name": "vegan worcestershires"
+                "name": "sauce Worcestershire végan",
+                "plural_name": "sauces Worcestershire végans"
             },
             "soy yogurt": {
                 "aliases": [],
@@ -3309,8 +3309,8 @@
             "vegan mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan mozzarella",
-                "plural_name": "vegan mozzarellas"
+                "name": "mozzarella végane",
+                "plural_name": "mozzarellas végans"
             },
             "non-dairy creamer": {
                 "aliases": [],
@@ -3327,8 +3327,8 @@
             "coconut whipped cream": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut whipped cream",
-                "plural_name": "coconut whipped creams"
+                "name": "crème chantilly à la noix de coco",
+                "plural_name": "crèmes chantilly à la noix de coco"
             },
             "smoked tofu": {
                 "aliases": [],
@@ -3345,20 +3345,20 @@
             "soy cream": {
                 "aliases": [],
                 "description": "",
-                "name": "soy cream",
-                "plural_name": "soy creams"
+                "name": "crème de soja",
+                "plural_name": "crèmes de soja"
             },
             "seitan": {
                 "aliases": [],
                 "description": "",
                 "name": "seitan",
-                "plural_name": "seitans"
+                "plural_name": "seitan"
             },
             "coconut milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut milk powder",
-                "plural_name": "coconut milk powders"
+                "name": "lait de coco en poudre",
+                "plural_name": "laits de coco en poudre"
             },
             "non-dairy whipped topping": {
                 "aliases": [],
@@ -3369,14 +3369,14 @@
             "nut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "nut milk",
-                "plural_name": "nut milks"
+                "name": "lait de noix",
+                "plural_name": "laits de noix"
             },
             "non-dairy cream": {
                 "aliases": [],
                 "description": "",
-                "name": "non-dairy cream",
-                "plural_name": "non-dairy creams"
+                "name": "crème végétale",
+                "plural_name": "crèmes végétales"
             },
             "vegan burger patty": {
                 "aliases": [],
@@ -3387,8 +3387,8 @@
             "condensed coconut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "condensed coconut milk",
-                "plural_name": "condensed coconut milks"
+                "name": "lait de coco concentré",
+                "plural_name": "laits de coco concentrés"
             },
             "vegan ground beef": {
                 "aliases": [],
@@ -3406,7 +3406,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bacon végétalien",
-                "plural_name": "vegan bacons"
+                "plural_name": "bacons végans"
             },
             "soy curl": {
                 "aliases": [],
@@ -3418,7 +3418,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pesto végétalien",
-                "plural_name": "vegan pestoes"
+                "plural_name": "pestos végans"
             },
             "marinated tofu": {
                 "aliases": [],
@@ -3429,74 +3429,74 @@
             "vegan feta": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan feta",
-                "plural_name": "vegan fetas"
+                "name": "feta végan",
+                "plural_name": "fetas végans"
             },
             "soy chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "soy chorizo",
-                "plural_name": "soy chorizoes"
+                "name": "chorizo de soja",
+                "plural_name": "chorizo de soja"
             },
             "hemp milk": {
                 "aliases": [],
                 "description": "",
-                "name": "hemp milk",
-                "plural_name": "hemp milks"
+                "name": "lait de chanvre",
+                "plural_name": "laits de chanvre"
             },
             "vegan beef": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan beef",
-                "plural_name": "vegan beefs"
+                "name": "bœuf végan",
+                "plural_name": "bœufs végans"
             },
             "hazelnut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut butter",
-                "plural_name": "hazelnut butter"
+                "name": "beurre de noisette",
+                "plural_name": "beurres de noisette"
             },
             "vegan ranch": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan ranch",
-                "plural_name": "vegan ranches"
+                "name": "sauce ranch végan",
+                "plural_name": "sauces ranch végans"
             },
             "vegan chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan chicken",
-                "plural_name": "vegan chickens"
+                "name": "poulet végan",
+                "plural_name": "poulets végans"
             },
             "coconut paste": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut paste",
+                "name": "pâte de noix de coco",
                 "plural_name": "pâtes de noix de coco"
             },
             "vegetable suet": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable suet",
-                "plural_name": "vegetable suets"
+                "name": "suif végétal",
+                "plural_name": "suifs végétaux"
             },
             "dairy-free ice-cream": {
                 "aliases": [],
                 "description": "",
-                "name": "dairy-free ice-cream",
-                "plural_name": "dairy-free ice-creams"
+                "name": "crème glacée végétale",
+                "plural_name": "crèmes glacées végétales"
             },
             "almond-coconut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "almond-coconut milk",
-                "plural_name": "almond-coconut milks"
+                "name": "lait d'amande-coco",
+                "plural_name": "laits d'amande-coco"
             },
             "banana blossom": {
                 "aliases": [],
                 "description": "",
-                "name": "banana blossom",
-                "plural_name": "banana blossoms"
+                "name": "fleur de banane",
+                "plural_name": "fleurs de banane"
             },
             "vegan fish sauce": {
                 "aliases": [],
@@ -3514,25 +3514,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "lait de noisette",
-                "plural_name": "hazelnut milks"
+                "plural_name": "laits de noisette"
             },
             "maple almond butter": {
                 "aliases": [],
                 "description": "",
-                "name": "maple almond butter",
-                "plural_name": "maple almond butter"
+                "name": "beurre d'amande et d'érable",
+                "plural_name": "beurres d'amande et d'érable"
             },
             "vegan meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan meatball",
+                "name": "boulette de viande végan",
                 "plural_name": "vegan meatballs"
             },
             "almond-milk yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "almond-milk yogurt",
-                "plural_name": "almond-milk yogurts"
+                "name": "yaourt au lait d'amande",
+                "plural_name": "yaourts au lait d'amande"
             },
             "almond creamer": {
                 "aliases": [],
@@ -3543,8 +3543,8 @@
             "soy milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "soy milk powder",
-                "plural_name": "soy milk powders"
+                "name": "lait de soja en poudre",
+                "plural_name": "laits de soja en poudre"
             },
             "vegan cream cheese frosting": {
                 "aliases": [],
@@ -3555,8 +3555,8 @@
             "coconut manna": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut manna",
-                "plural_name": "coconut mannas"
+                "name": "manne de noix de coco",
+                "plural_name": "mannes de noix de coco"
             },
             "falafel mix": {
                 "aliases": [],
@@ -3586,13 +3586,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "graisse de noix de coco",
-                "plural_name": "coconut fats"
+                "plural_name": "huiles de coco"
             },
             "flax milk": {
                 "aliases": [],
                 "description": "",
                 "name": "lait de lin",
-                "plural_name": "flax milks"
+                "plural_name": "laits de lin"
             },
             "hazelnut creamer": {
                 "aliases": [],
@@ -3604,7 +3604,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "quorn",
-                "plural_name": "quorns"
+                "plural_name": "quorn"
             },
             "soy-free butter": {
                 "aliases": [],
@@ -3622,7 +3622,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "nutella végétalien",
-                "plural_name": "vegan nutellas"
+                "plural_name": "nutella végan"
             },
             "vegan tzatziki": {
                 "aliases": [],
@@ -3633,8 +3633,8 @@
             "cashew cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew cream cheese",
-                "plural_name": "cashew cream cheeses"
+                "name": "cream cheese de noix de cajou",
+                "plural_name": "cream cheeses de noix de cajou"
             },
             "cricket flour": {
                 "aliases": [],
@@ -3645,8 +3645,8 @@
             "macadamia butter": {
                 "aliases": [],
                 "description": "",
-                "name": "macadamia butter",
-                "plural_name": "macadamia butter"
+                "name": "beurre de macadamia",
+                "plural_name": "beurres de macadamia"
             },
             "okara": {
                 "aliases": [],
@@ -3663,20 +3663,20 @@
             "protein drink": {
                 "aliases": [],
                 "description": "",
-                "name": "protein drink",
-                "plural_name": "protein drinks"
+                "name": "boisson protéinée",
+                "plural_name": "boissons protéinées"
             },
             "macadamia milk": {
                 "aliases": [],
                 "description": "",
-                "name": "macadamia milk",
-                "plural_name": "macadamia milks"
+                "name": "lait de macadamia",
+                "plural_name": "laits de macadamia"
             },
             "vegan taco meat": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan taco meat",
-                "plural_name": "vegan taco meats"
+                "name": "taco végan à la viande",
+                "plural_name": "tacos végans à la viande"
             },
             "walnut taco meat": {
                 "aliases": [],
@@ -3693,8 +3693,8 @@
             "banana milk": {
                 "aliases": [],
                 "description": "",
-                "name": "banana milk",
-                "plural_name": "banana milks"
+                "name": "lait de banane",
+                "plural_name": "laits de banane"
             },
             "soy quark": {
                 "aliases": [],
@@ -3705,8 +3705,8 @@
             "vegan chicken nugget": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan chicken nugget",
-                "plural_name": "vegan chicken nuggets"
+                "name": "nugget végan de poulet",
+                "plural_name": "nuggets végans de poulet"
             },
             "vegan starter culture": {
                 "aliases": [],
@@ -3717,8 +3717,8 @@
             "walnut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut milk",
-                "plural_name": "walnut milks"
+                "name": "lait de noix",
+                "plural_name": "laits de noix"
             },
             "latik": {
                 "aliases": [],
@@ -3729,8 +3729,8 @@
             "rice cream": {
                 "aliases": [],
                 "description": "",
-                "name": "rice cream",
-                "plural_name": "rice creams"
+                "name": "crème de riz",
+                "plural_name": "crèmes de riz"
             }
         }
     },
