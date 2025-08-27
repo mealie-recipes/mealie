@@ -517,8 +517,8 @@
             "broccoli rabe": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli rabe",
-                "plural_name": "broccoli rabes"
+                "name": "rapini",
+                "plural_name": "rapini"
             },
             "rutabaga": {
                 "aliases": [],
@@ -648,7 +648,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "æble",
-                "plural_name": "apples"
+                "plural_name": "æbler"
             },
             "banana": {
                 "aliases": [],

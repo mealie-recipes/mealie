@@ -57,7 +57,7 @@
 
               <RecipeRating
                 class="ml-n2"
-                :value="rating"
+                :model-value="rating"
                 :recipe-id="recipeId"
                 :slug="slug"
                 small

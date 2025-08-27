@@ -2643,7 +2643,7 @@
             "buttermilk": {
                 "aliases": [],
                 "description": "",
-                "name": "buttermilk",
+                "name": "Leite de manteiga",
                 "plural_name": "buttermilks"
             },
             "yogurt": {
@@ -2688,7 +2688,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "leite condensado",
-                "plural_name": "condensed milks"
+                "plural_name": "Leite condensado"
             },
             "half and half": {
                 "aliases": [],
@@ -5001,7 +5001,7 @@
             "smoked trout": {
                 "aliases": [],
                 "description": "",
-                "name": "truta defumada",
+                "name": "Truta defumada",
                 "plural_name": "trutas defumadas"
             },
             "caviar": {
@@ -5515,7 +5515,7 @@
             "crab": {
                 "aliases": [],
                 "description": "",
-                "name": "caranguejo",
+                "name": "Caranguejo",
                 "plural_name": "crabs"
             },
             "scallop": {
@@ -8136,8 +8136,8 @@
             "coconut chip": {
                 "aliases": [],
                 "description": "",
-                "name": "chip de coco",
-                "plural_name": "chips de coco"
+                "name": "Chip de coco",
+                "plural_name": "Chips de coco"
             },
             "quinoa flour": {
                 "aliases": [],
@@ -8998,7 +8998,7 @@
             "coconut rice": {
                 "aliases": [],
                 "description": "",
-                "name": "arroz de coco",
+                "name": "Arroz de coco",
                 "plural_name": "arrozes de coco"
             },
             "amaranth flake": {

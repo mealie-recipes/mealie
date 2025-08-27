@@ -6497,13 +6497,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Isomalt",
-                "plural_name": "isomalts"
+                "plural_name": "Isomalt"
             },
             "erythritol": {
                 "aliases": [],
                 "description": "",
                 "name": "Erythritol",
-                "plural_name": "erythritols"
+                "plural_name": "Erythrit"
             },
             "vanilla sugar": {
                 "aliases": [],
@@ -13611,7 +13611,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Schweinenbrühe",
-                "plural_name": "Schweinsbrühen"
+                "plural_name": "Schweinebrühen"
             },
             "beefy mushroom soup": {
                 "aliases": [],
@@ -16282,7 +16282,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Cranberrypulver",
-                "plural_name": "Cranberrypulver"
+                "plural_name": "Cranberry Pulver"
             },
             "eucalyptus oil": {
                 "aliases": [],

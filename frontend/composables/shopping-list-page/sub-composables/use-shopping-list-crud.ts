@@ -150,7 +150,10 @@ export function useShoppingListCrud(
 
     loadingCounter.value += 1;
 
-    // make sure it's inserted into the end of the list, which may have been updated
+    // ensure list id is set to the current list, which may not have loaded yet in the factory
+    createListItemData.value.shoppingListId = shoppingList.value.id;
+
+    // ensure item is inserted into the end of the list, which may have been updated
     createListItemData.value.position = shoppingList.value?.listItems?.length
       ? (shoppingList.value.listItems.reduce((a, b) => (a.position || 0) > (b.position || 0) ? a : b).position || 0) + 1
       : 0;
