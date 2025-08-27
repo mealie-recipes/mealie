@@ -1305,7 +1305,8 @@
     "run-test": "Run Test",
     "test-results": "Test Results",
     "group-delete-note": "Groups with users or households cannot be deleted",
-    "household-delete-note": "Households with users cannot be deleted"
+    "household-delete-note": "Households with users cannot be deleted",
+    "admin-settings": "Admin Settings"
   },
   "profile": {
     "welcome-user": "👋 Welcome, {0}!",
