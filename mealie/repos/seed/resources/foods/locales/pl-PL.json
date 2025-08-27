@@ -689,7 +689,7 @@
             "date": {
                 "aliases": [],
                 "description": "",
-                "name": "data",
+                "name": "daktyl",
                 "plural_name": "daty"
             },
             "coconut": {
@@ -713,7 +713,7 @@
             "grape": {
                 "aliases": [],
                 "description": "",
-                "name": "winogron",
+                "name": "winogrono",
                 "plural_name": "winogrona"
             },
             "pomegranate": {
