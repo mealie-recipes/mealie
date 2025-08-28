@@ -69,7 +69,7 @@
     "new-notification": "Nieuwe melding",
     "event-notifiers": "Meldingen van gebeurtenissen",
     "apprise-url-skipped-if-blank": "URL van Apprise (overgeslagen als veld leeg is)",
-    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
+    "apprise-url-is-left-intentionally-blank": "Aangezien Apprise URL's doorgaans gevoelige informatie bevatten, wordt dit veld opzettelijk leeg gelaten tijdens het bewerken. Als je de URL wilt bijwerken, vul dan de nieuwe hier in, anders laat het leeg om de huidige URL te behouden.",
     "enable-notifier": "Activeer melding",
     "what-events": "Op welke gebeurtenissen moet deze melding zich abonneren?",
     "user-events": "Gebeurtenissen van gebruiker",
