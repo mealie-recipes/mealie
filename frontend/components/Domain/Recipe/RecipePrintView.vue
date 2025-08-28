@@ -176,7 +176,7 @@ import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/
 import { parseIngredientText, useNutritionLabels } from "~/composables/recipes";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
-import { usegroupPreferences } from "~/composables/use-group-preferences";
+import { useGroupPreferences } from "~/composables/use-group-preferences";
 
 type IngredientSection = {
   sectionName: string;

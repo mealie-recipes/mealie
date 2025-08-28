@@ -33,7 +33,7 @@ export const useGroupPreferences = function () {
       loading.value = true;
       const api = usePublicExploreApi(groupSlug.value, i18n);
       api.explore.groups.getPreferences(groupSlug.value).then(
-        ({ data }) => { preferencesRef.value = data; }
+        ({ data }) => { preferencesRef.value = data; },
       ).finally(() => { loading.value = false; });
     }
 
@@ -44,4 +44,4 @@ export const useGroupPreferences = function () {
   return {
     groupPreferences,
   };
-}
+};

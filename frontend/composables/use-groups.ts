@@ -1,6 +1,6 @@
-import { useUserApi } from "~/composables/api";
 import type { Composer } from "vue-i18n";
 import type { GroupBase, GroupInDB, GroupSummary } from "~/lib/api/types/user";
+import { useUserApi } from "~/composables/api";
 
 const groupSelfRef = ref<GroupSummary | null>(null);
 const loading = ref(false);
