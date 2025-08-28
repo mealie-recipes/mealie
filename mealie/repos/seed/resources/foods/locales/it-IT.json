@@ -252,7 +252,7 @@
             "summer squash": {
                 "aliases": [
                     "zucchina",
-                    "gem squash"
+                    ""
                 ],
                 "description": "",
                 "name": "zucca estiva",
@@ -1567,8 +1567,8 @@
             "acai berry": {
                 "aliases": [],
                 "description": "",
-                "name": "acai berry",
-                "plural_name": "acai berries"
+                "name": "bacca di acai",
+                "plural_name": "bacche di acai"
             },
             "canned cherry": {
                 "aliases": [],
@@ -15671,8 +15671,8 @@
             "acai berry juice": {
                 "aliases": [],
                 "description": "",
-                "name": "acai berry juice",
-                "plural_name": "acai berry juices"
+                "name": "succo alla bacca di acai",
+                "plural_name": "succo alle bacche di acai"
             },
             "lemon crystal": {
                 "aliases": [],
@@ -15933,8 +15933,8 @@
             "acai powder": {
                 "aliases": [],
                 "description": "",
-                "name": "acai powder",
-                "plural_name": "acai powders"
+                "name": "polvere di bacca di acai",
+                "plural_name": "polvere di bacca di acai"
             },
             "hemp protein": {
                 "aliases": [],
