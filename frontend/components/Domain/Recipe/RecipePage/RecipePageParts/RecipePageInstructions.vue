@@ -36,7 +36,7 @@
             :value="ing.referenceId"
           >
             <template #label>
-              <RecipeIngredientHtml :markup="parseIngredientText(ing)" />
+              <RecipeIngredientHtml :markup="parseIngredientText(ing, 1, true, groupPreferences?.pluralHandling)" />
             </template>
           </v-checkbox-btn>
 
@@ -51,7 +51,7 @@
               :value="ing.referenceId"
             >
               <template #label>
-                <RecipeIngredientHtml :markup="parseIngredientText(ing)" />
+                <RecipeIngredientHtml :markup="parseIngredientText(ing, 1, true, groupPreferences?.pluralHandling)" />
               </template>
             </v-checkbox-btn>
           </template>
@@ -363,6 +363,7 @@ import { uuid4 } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
+import { useGroupPreferences } from "~/composables/use-group-preferences";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
@@ -391,6 +392,7 @@ const props = defineProps({
 const emit = defineEmits(["click-instruction-field", "update:assets"]);
 
 const { isCookMode, toggleCookMode, isEditForm } = usePageState(props.recipe.slug);
+const { groupPreferences } = useGroupPreferences();
 
 const dialog = ref(false);
 const disabledSteps = ref<number[]>([]);
@@ -570,7 +572,7 @@ function getIngredientByRefId(refId: string | undefined) {
 
   const ing = ingredientLookup.value[refId];
   if (!ing) return "";
-  return parseIngredientText(ing, props.scale);
+  return parseIngredientText(ing, props.scale, true, groupPreferences.value?.pluralHandling);
 }
 
 // ===============================================================

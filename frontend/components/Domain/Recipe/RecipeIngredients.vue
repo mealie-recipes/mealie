@@ -55,6 +55,7 @@
 <script setup lang="ts">
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import { parseIngredientText } from "~/composables/recipes";
+import { useGroupPreferences } from "~/composables/use-group-preferences";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
 
 interface Props {
@@ -75,6 +76,7 @@ function validateTitle(title?: string | null) {
 const checked = ref(props.value.map(() => false));
 const showTitleEditor = computed(() => props.value.map(x => validateTitle(x.title)));
 
+const { groupPreferences } = useGroupPreferences();
 const ingredientCopyText = computed(() => {
   const components: string[] = [];
   props.value.forEach((ingredient) => {
@@ -86,7 +88,7 @@ const ingredientCopyText = computed(() => {
       components.push(`[${ingredient.title}]`);
     }
 
-    components.push(parseIngredientText(ingredient, props.scale, false));
+    components.push(parseIngredientText(ingredient, props.scale, false, groupPreferences.value?.pluralHandling));
   });
 
   return components.join("\n");
