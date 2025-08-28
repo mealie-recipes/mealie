@@ -2,6 +2,7 @@ from fastapi.testclient import TestClient
 
 from mealie.core.config import get_app_settings
 from mealie.repos.repository_factory import AllRepositories
+from mealie.schema.group.group_preferences import GroupPreferencesPluralHandling
 from mealie.schema.user.user import GroupInDB
 from tests.utils import api_routes
 from tests.utils.assertion_helpers import assert_ignore_keys
@@ -59,7 +60,10 @@ def test_admin_update_group(api_client: TestClient, admin_user: TestUser, unique
     update_payload = {
         "id": unique_user.group_id,
         "name": "New Name",
-        "preferences": {"privateGroup": random_bool()},
+        "preferences": {
+            "privateGroup": random_bool(),
+            "pluralHandling": GroupPreferencesPluralHandling.pluralize_food_without_unit.value,
+        },
     }
 
     response = api_client.put(
