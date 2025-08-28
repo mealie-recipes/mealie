@@ -1,6 +1,6 @@
 import { BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
 import { HouseholdSummary } from "~/lib/api/types/household";
-import { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
+import { ApiRequestInstance } from "~/lib/api/types/non-generated";
 
 const prefix = "/api";
 const exploreGroupSlug = (groupSlug: string | number) => `${prefix}/explore/groups/${groupSlug}`
