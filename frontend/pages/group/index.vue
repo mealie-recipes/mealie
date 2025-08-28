@@ -27,7 +27,7 @@
           density="compact"
           color="primary"
           :label="$t('group.private-group')"
-          @change="groupActions.updatePreferences()"
+          @update:model-value="groupActions.updatePreferences()"
         />
         <div class="ml-8">
           <p class="text-subtitle-2 my-0 py-0">
@@ -48,7 +48,7 @@
         :item-props="pluralHandlingOptionsItemProps"
         item-title="label"
         item-value="value"
-        @change="groupActions.updatePreferences()"
+        @update:model-value="groupActions.updatePreferences()"
       />
     </section>
   </v-container>
