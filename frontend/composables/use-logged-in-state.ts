@@ -1,14 +1,16 @@
+import { useGroupSlug } from "~/composables/use-group-slug";
+
 export const useLoggedInState = function () {
   const $auth = useMealieAuth();
-  const route = useRoute();
+  const groupSlug = useGroupSlug();
 
   const loggedIn = computed(() => $auth.loggedIn.value);
   const isOwnGroup = computed(() => {
-    if (!route.params.groupSlug) {
+    if (!groupSlug.value) {
       return loggedIn.value;
     }
     else {
-      return loggedIn.value && $auth.user.value?.groupSlug === route.params.groupSlug;
+      return loggedIn.value && $auth.user.value?.groupSlug === groupSlug.value;
     }
   });
 
