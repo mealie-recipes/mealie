@@ -292,6 +292,7 @@ def test_user_can_update_last_made_on_other_household(
     assert response.status_code == 200
     assert response.json()["lastMade"] is None
 
+    h2_user.repos.session.commit()
     recipe = h2_user.repos.recipes.get_one(h2_recipe_slug)
     assert recipe
     assert recipe.last_made == dt_2
