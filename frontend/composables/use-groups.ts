@@ -1,11 +1,12 @@
 import { useUserApi } from "~/composables/api";
+import type { Composer } from "vue-i18n";
 import type { GroupBase, GroupInDB, GroupSummary } from "~/lib/api/types/user";
 
 const groupSelfRef = ref<GroupSummary | null>(null);
 const loading = ref(false);
 
-export const useGroupSelf = function () {
-  const api = useUserApi();
+export const useGroupSelf = function (i18n?: Composer) {
+  const api = useUserApi(i18n);
   async function refreshGroupSelf() {
     loading.value = true;
     const { data } = await api.groups.getCurrentUserGroup();
