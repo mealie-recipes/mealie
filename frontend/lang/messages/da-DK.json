@@ -561,6 +561,7 @@
     "see-original-text": "Vis den oprindelige tekst",
     "original-text-with-value": "Oprindelig tekst: {originalText}",
     "ingredient-linker": "Ingrediens-linker",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Linket til andet trin",
     "auto": "Automatisk",
     "cook-mode": "Tilberedningsvisning",
