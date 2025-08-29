@@ -561,6 +561,7 @@
     "see-original-text": "Vaata originaalteksti",
     "original-text-with-value": "Originaaltekst: {originalText}",
     "ingredient-linker": "Koostisosa linkija",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Lingitud järgmise sammuga",
     "auto": "Automaatne",
     "cook-mode": "Küpsetusviis",
