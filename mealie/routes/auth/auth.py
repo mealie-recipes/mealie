@@ -138,7 +138,7 @@ async def oauth_callback(request: Request, response: Response, session: Session 
         try:
             logger.debug("[OIDC] Claims not present in the ID token, pulling user info")
             userinfo = await client.userinfo(token=token)
-            auth_provider = OpenIDProvider(session, userinfo)
+            auth_provider = OpenIDProvider(session, userinfo, use_default_groups=True)
             auth = auth_provider.authenticate()
         except MissingClaimException:
             auth = None
