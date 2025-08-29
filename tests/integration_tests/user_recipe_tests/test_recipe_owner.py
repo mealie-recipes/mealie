@@ -6,6 +6,7 @@ from fastapi.testclient import TestClient
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_settings import RecipeSettings
+from tests import data
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -180,3 +181,33 @@ def test_admin_can_delete_locked_recipe_owned_by_another_user(
 
     response = api_client.delete(api_routes.recipes_slug(slug), headers=admin_user.token)
     assert response.status_code == 200
+
+
+def test_user_can_update_recipe_image(api_client: TestClient, unique_user: TestUser):
+    data_payload = {"extension": "jpg"}
+    file_payload = {"image": data.images_test_image_1.read_bytes()}
+
+    household = unique_user.repos.households.get_one(unique_user.household_id)
+    assert household and household.preferences
+    household.preferences.private_household = True
+    household.preferences.lock_recipe_edits_from_other_households = True
+    unique_user.repos.household_preferences.update(household.id, household.preferences)
+
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
+    assert response.status_code == 201
+    recipe_json = unique_user.repos.recipes.get_one(response.json())
+    assert recipe_json and recipe_json.id
+    assert recipe_json.image is None
+    recipe_id = str(recipe_json.id)
+
+    response = api_client.put(
+        api_routes.recipes_slug_image(recipe_json.slug),
+        data=data_payload,
+        files=file_payload,
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.recipes_slug(recipe_id), headers=unique_user.token)
+    recipe_respons = response.json()
+    assert recipe_respons["image"] is not None

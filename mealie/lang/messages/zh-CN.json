@@ -4,18 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "食谱名称必须唯一",
-        "recipe-created": "Recipe Created",
+        "recipe-created": "创建食谱",
         "recipe-defaults": {
             "ingredient-note": "1杯面粉",
             "step-text": "食谱步骤以及食谱页面的其他字段支持markdown语法。\n\n**添加一个链接**\n\n[我的链接](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
-            "yield": "Yield",
-            "yields": "产出"
+            "makes": "制作",
+            "serves": "发布",
+            "serving": "几人份",
+            "servings": "可供食用人数",
+            "yield": "菜量（可做数量）",
+            "yields": "份量"
         }
     },
     "mealplan": {
@@ -56,24 +56,24 @@
     },
     "emails": {
         "password": {
-            "subject": "Mealie Forgot Password",
-            "header_text": "Forgot Password",
-            "message_top": "You have requested to reset your password.",
-            "message_bottom": "Please click the button above to reset your password.",
-            "button_text": "Reset Password"
+            "subject": "Mealie忘记密码",
+            "header_text": "忘记密码",
+            "message_top": "您已请求重置密码。",
+            "message_bottom": "请按上面的按钮重置密码。",
+            "button_text": "重置密码"
         },
         "invitation": {
-            "subject": "Invitation to join Mealie",
-            "header_text": "You're Invited!",
-            "message_top": "You have been invited to join Mealie.",
-            "message_bottom": "Please click the button above to accept the invitation.",
-            "button_text": "Accept Invitation"
+            "subject": "邀请加入Mealie",
+            "header_text": "您已被邀请！",
+            "message_top": "您已被邀请加入Mealie。",
+            "message_bottom": "请点击上面的按钮接受邀请。",
+            "button_text": "接受邀请"
         },
         "test": {
-            "subject": "Mealie Test Email",
-            "header_text": "Test Email",
-            "message_top": "This is a test email.",
-            "message_bottom": "Please click the button above to test the email.",
+            "subject": "Mealie测试邮件",
+            "header_text": "发送测试邮件",
+            "message_top": "这是一封测试邮件。",
+            "message_bottom": "请点击上面的按钮测试邮件。",
             "button_text": "打开Mealie"
         }
     }

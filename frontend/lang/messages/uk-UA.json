@@ -69,6 +69,7 @@
     "new-notification": "Нове сповіщення",
     "event-notifiers": "Сповіщувачі",
     "apprise-url-skipped-if-blank": "Apprise URL (пропущено якщо порожній)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Увімкнути сповіщувач",
     "what-events": "На які події цей сповіщувач має бути підписаний?",
     "user-events": "Події користувача",
@@ -79,7 +80,8 @@
     "tag-events": "Події міток",
     "category-events": "Події категорій",
     "when-a-new-user-joins-your-group": "Коли новий користувач приєднується до групи",
-    "recipe-events": "Події рецепту"
+    "recipe-events": "Події рецепту",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Додати",
@@ -672,7 +674,9 @@
     "not-linked-ingredients": "Додаткові продукти",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Шукач рецептів",
@@ -1165,7 +1169,7 @@
     "group-details": "Деталі групи",
     "group-details-description": "Перед створенням облікового запису вам потрібно створити групу. Спочатку ваша група буде містити тільки вас, але ви зможете запрошувати інших пізніше. Учасники вашої групи можуть обмінюватися планами харчування, списками покупок, рецептами і багато чим іншим!",
     "use-seed-data": "Використати початкові дані",
-    "use-seed-data-description": "Mealie має вбудований набір продуктів, одиниць виміру, та етикеток що можуть бути додані до вашої групи для допомоги в організації рецептів.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Деталі акаунта"
   },
   "validation": {

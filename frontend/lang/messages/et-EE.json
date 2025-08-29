@@ -69,6 +69,7 @@
     "new-notification": "Uus teade",
     "event-notifiers": "Sündmuste märguanded",
     "apprise-url-skipped-if-blank": "Apprise URL (kui on tühi, jäetakse vahele)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Luba teavitaja",
     "what-events": "Millised sündmused peaks see teavitaja tellimaa?",
     "user-events": "Kasutaja sündmused",
@@ -79,7 +80,8 @@
     "tag-events": "Märksõna sündmused",
     "category-events": "Kategooria sündmused",
     "when-a-new-user-joins-your-group": "Kui uus kasutaja liitub sinu grupiga",
-    "recipe-events": "Retsepti sündmused"
+    "recipe-events": "Retsepti sündmused",
+    "label-events": "Sildista sündmused"
   },
   "general": {
     "add": "Lisa",
@@ -672,7 +674,9 @@
     "not-linked-ingredients": "Lisa-koostisosad",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Retsepti otsing",
@@ -1165,7 +1169,7 @@
     "group-details": "Grupi detailid",
     "group-details-description": "Sa pead looma grupi enne konto loomist. Sinu grupis oled vaid sina, kuid sa saad kutsuda teisi sinna hiljem. Su grupi liikmed saavad jagada toitumisplaane, ostunimekirju, retsepte ja muud!",
     "use-seed-data": "Kasuta baasandmete infot.",
-    "use-seed-data-description": "Mealsiga on kaasas toiduainete, ühikute ja siltide kogu, mida saate kasutada oma rühma täitmiseks kasuliku teabega retseptide korraldamiseks.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Konto üksikasjad"
   },
   "validation": {

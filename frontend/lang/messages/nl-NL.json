@@ -69,6 +69,7 @@
     "new-notification": "Nieuwe melding",
     "event-notifiers": "Meldingen van gebeurtenissen",
     "apprise-url-skipped-if-blank": "URL van Apprise (overgeslagen als veld leeg is)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Activeer melding",
     "what-events": "Op welke gebeurtenissen moet deze melding zich abonneren?",
     "user-events": "Gebeurtenissen van gebruiker",
@@ -79,7 +80,8 @@
     "tag-events": "Label-gebeurtenissen",
     "category-events": "Categorie-gebeurtenissen",
     "when-a-new-user-joins-your-group": "Als een nieuwe gebruiker zich bij je groep aansluit",
-    "recipe-events": "Recept gebeurtenissen"
+    "recipe-events": "Recept gebeurtenissen",
+    "label-events": "Label gebeurtenissen"
   },
   "general": {
     "add": "Voeg toe",
@@ -672,7 +674,9 @@
     "not-linked-ingredients": "Extra ingrediënten",
     "upload-another-image": "Een andere afbeelding uploaden",
     "upload-images": "Afbeelding uploaden",
-    "upload-more-images": "Meer afbeeldingen uploaden"
+    "upload-more-images": "Meer afbeeldingen uploaden",
+    "set-as-cover-image": "Als recept omslagfoto instellen",
+    "cover-image": "Omslagfoto"
   },
   "recipe-finder": {
     "recipe-finder": "Recept zoeker",
@@ -1165,7 +1169,7 @@
     "group-details": "Groepsdetails",
     "group-details-description": "Voordat je een account aanmaakt moet je eerst een groep aanmaken. Jij bent het enige lid van de groep, maar je kunt later anderen uitnodigen. Leden van je groep kunnen maaltijdplannen, boodschappenlijstjes, recepten en nog veel meer delen!",
     "use-seed-data": "Gebruik voorbeeldgegevens",
-    "use-seed-data-description": "Mealie bevat een verzameling ingrediënten, eenheden en labels die gebruikt kunnen worden om je groep te vullen met handige gegevens voor het organiseren van je recepten.",
+    "use-seed-data-description": "Mealie komt standaard met lijsten voor Voedsel, Eenheden en Labels. Die gebruik je om je recepten handig in te delen. Of om je groep handige informatie te geven. Ze zijn vertaald in de taal die je voor Mealie hebt ingesteld. Je kunt deze lijsten altijd aanvullen of aanpassen.",
     "account-details": "Accountgegevens"
   },
   "validation": {

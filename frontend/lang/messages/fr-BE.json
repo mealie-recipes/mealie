@@ -45,7 +45,7 @@
     "category-filter": "Filtre par catégories",
     "category-update-failed": "La mise à jour de la catégorie a échoué",
     "category-updated": "Catégorie mise à jour",
-    "uncategorized-count": "{count} non catégorisée|{count} non catégorisées",
+    "uncategorized-count": "{count} non catégorisées",
     "create-a-category": "Créer une catégorie",
     "category-name": "Nom de la catégorie",
     "category": "Catégorie"
@@ -69,6 +69,7 @@
     "new-notification": "Nouvelle notification",
     "event-notifiers": "Notifications d'événements",
     "apprise-url-skipped-if-blank": "URL Apprise (ignoré si vide)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Activer la notification",
     "what-events": "À quels événements cette notification doit-elle s'abonner ?",
     "user-events": "Evénements utilisateur",
@@ -79,7 +80,8 @@
     "tag-events": "Événements des mots-clés",
     "category-events": "Événements de catégories",
     "when-a-new-user-joins-your-group": "Lorsqu'un nouvel utilisateur rejoint votre groupe",
-    "recipe-events": "Événements de recette"
+    "recipe-events": "Événements de recette",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Ajouter",
@@ -339,7 +341,7 @@
     "meal-type": "Type de repas",
     "breakfast": "Petit-déjeuner",
     "lunch": "Déjeuner",
-    "dinner": "Dîner",
+    "dinner": "Souper",
     "type-any": "Tous",
     "day-any": "Tous",
     "editor": "Éditeur",
@@ -348,7 +350,7 @@
     "meal-note": "Note du repas",
     "note-only": "Note uniquement",
     "random-meal": "Repas aléatoire",
-    "random-dinner": "Dîner aléatoire",
+    "random-dinner": "Souper aléatoire",
     "random-side": "Accompagnement aléatoire",
     "this-rule-will-apply": "Cette règle s'appliquera {dayCriteria} {mealTypeCriteria}.",
     "to-all-days": "à tous les jours",
@@ -379,7 +381,7 @@
     "nextcloud": {
       "description": "Importer des recettes depuis Nextcloud Cookbook",
       "description-long": "Les recettes Nextcloud peuvent être importées depuis un fichier zip qui contient les données stockées dans Nextcloud. Consultez la structure de dossiers d'exemple ci-dessous pour vous assurer que vos recettes peuvent être importées.",
-      "title": "Nextcloud Cookbook"
+      "title": "Cookbook Nextcloud"
     },
     "copymethat": {
       "description-long": "Mealie peut importer des recettes à partir de Copy Me That. Exportez vos recettes au format HTML, puis téléchargez le .zip ci-dessous.",
@@ -472,7 +474,7 @@
     "comment": "Commentaire",
     "comments": "Commentaires",
     "delete-confirmation": "Voulez-vous vraiment supprimer cette recette ?",
-    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
+    "admin-delete-confirmation": "Vous êtes sur le point de supprimer une recette qui n'est pas la vôtre en utilisant les permissions d'administrateur. Êtes-vous sûr(e) ?",
     "delete-recipe": "Supprimer la recette",
     "description": "Description",
     "disable-amount": "Désactiver les quantités des ingrédients",
@@ -580,14 +582,14 @@
     "made-this": "Je l’ai cuisiné",
     "how-did-it-turn-out": "C’était bon ?",
     "user-made-this": "{user} l’a cuisiné",
-    "added-to-timeline": "Ajouté à l’historique",
-    "failed-to-add-to-timeline": "Ajout dans l’historique en échec",
-    "failed-to-update-recipe": "Impossible de mettre à jour la recette",
-    "added-to-timeline-but-failed-to-add-image": "Ajouté à l’historique, mais impossible d’ajouter l’image",
+    "added-to-timeline": "Ajouté à la ligne du temps",
+    "failed-to-add-to-timeline": "Impossible d'ajouter à la ligne du temps",
+    "failed-to-update-recipe": "Impossible de modifier la recette",
+    "added-to-timeline-but-failed-to-add-image": "Ajouté à la ligne du temps, mais impossible d'ajouter l'image",
     "api-extras-description": "Les suppléments des recettes sont une fonctionnalité clé de l’API Mealie. Ils permettent de créer des paires JSON clé/valeur personnalisées dans une recette, qui peuvent être référencées depuis des applications tierces. Ces clés peuvent être utilisées par exemple pour déclencher des tâches automatisées ou des messages personnalisés à transmettre à l’appareil souhaité.",
     "message-key": "Clé de message",
     "parse": "Analyser",
-    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
+    "ingredients-not-parsed-description": "Il semble que vos ingrédients ne soient pas encore analysés. Cliquez sur le bouton \"{parse}\" ci-dessous pour analyser vos ingrédients en aliments structurés.",
     "attach-images-hint": "Ajouter des images en les glissant-déposant dans l'éditeur",
     "drop-image": "Déposer l'image",
     "enable-ingredient-amounts-to-use-this-feature": "Activez les quantités d'ingrédients pour utiliser cette fonctionnalité",
@@ -605,10 +607,10 @@
     "create-recipe-from-an-image": "Créer une recette à partir d’une image",
     "create-recipe-from-an-image-description": "Créez une recette en téléchargeant une image de celle-ci. Mealie utilisera l’IA pour tenter d’extraire le texte et de créer une recette.",
     "crop-and-rotate-the-image": "Rogner et pivoter l’image pour que seul le texte soit visible, et qu’il soit dans la bonne orientation.",
-    "create-from-images": "Créer à partir d’images",
+    "create-from-images": "Créer à partir d’une image",
     "should-translate-description": "Traduire la recette dans ma langue",
     "please-wait-image-procesing": "Veuillez patienter, l’image est en cours de traitement. Cela peut prendre du temps.",
-    "please-wait-images-processing": "Veuillez patienter, les images sont en cours de traitement. Cela peut prendre un certain temps.",
+    "please-wait-images-processing": "Un peu de patience, les images sont en cours de traitement. Cela peut prendre un certain temps.",
     "bulk-url-import": "Importation en masse d'URL",
     "debug-scraper": "Déboguer le récupérateur",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Créer une recette en fournissant le nom. Toutes les recettes doivent avoir des noms uniques.",
@@ -664,15 +666,17 @@
       "no-unit": "Pas d'unité",
       "missing-unit": "Créer une unité manquante : {unit}",
       "missing-food": "Créer un aliment manquant : {food}",
-      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
-      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
+      "this-unit-could-not-be-parsed-automatically": "Cette unité n'a pas pu être analysée automatiquement",
+      "this-food-could-not-be-parsed-automatically": "Cet aliment n'a pas pu être analysé automatiquement",
       "no-food": "Aucun aliment"
     },
     "reset-servings-count": "Réinitialiser le nombre de portions",
     "not-linked-ingredients": "Ingrédients supplémentaires",
     "upload-another-image": "Télécharger une autre image",
     "upload-images": "Télécharger des images",
-    "upload-more-images": "Télécharger d'autres images"
+    "upload-more-images": "Télécharger d'autres images",
+    "set-as-cover-image": "Définir comme image de couverture de recette",
+    "cover-image": "Image de couverture"
   },
   "recipe-finder": {
     "recipe-finder": "Recherche de recette",
@@ -1165,7 +1169,7 @@
     "group-details": "Détails du groupe",
     "group-details-description": "Avant de créer un compte, vous devrez créer un groupe. Votre groupe ne contiendra que vous, mais vous pourrez inviter d’autres personnes plus tard. Les membres de votre groupe peuvent partager leur menu de la semaine, leurs listes d’achat, leurs recettes et plus encore !",
     "use-seed-data": "Utiliser l'initialisation de données",
-    "use-seed-data-description": "Mealie inclut avec une liste d’aliments, d’unités et d’étiquettes qui peut être utilisée pour initialiser votre groupe avec des données utiles pour organiser vos recettes.",
+    "use-seed-data-description": "Mealie propose une collection d'aliments, d'unités et d'étiquettes qui peuvent être utilisés pour remplir votre groupe avec des données utiles pour organiser vos recettes. Celles-ci sont traduites dans la langue que vous avez sélectionnée. Vous pouvez toujours ajouter ou modifier ces données plus tard.",
     "account-details": "Détails du compte"
   },
   "validation": {

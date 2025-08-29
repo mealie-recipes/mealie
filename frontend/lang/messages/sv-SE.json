@@ -69,6 +69,7 @@
     "new-notification": "Ny avisering",
     "event-notifiers": "Händelseavisering",
     "apprise-url-skipped-if-blank": "Apprise-URL (hoppa över om tom)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Aktivera avisering",
     "what-events": "Vilka händelser ska denna avisering prenumerera på?",
     "user-events": "Användarhändelser",
@@ -79,7 +80,8 @@
     "tag-events": "Tagga händelser",
     "category-events": "Kategorihändelser",
     "when-a-new-user-joins-your-group": "När en ny användare går med i din grupp",
-    "recipe-events": "Recepthändelser"
+    "recipe-events": "Recepthändelser",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Lägg till",
@@ -472,7 +474,7 @@
     "comment": "Kommentar",
     "comments": "Kommentarer",
     "delete-confirmation": "Är du säker på att du vill ta bort detta recept?",
-    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
+    "admin-delete-confirmation": "Du är på väg att ta bort ett recept som inte är ditt med administratörsbehörigheter. Är du säker?",
     "delete-recipe": "Radera recept",
     "description": "Beskrivning",
     "disable-amount": "Inaktivera ingredienser mängder",
@@ -587,7 +589,7 @@
     "api-extras-description": "Recept API-tillägg är en viktig funktion i Mealie's API. Med hjälp av dem kan du skapa anpassade JSON-nyckel/värdepar i ett recept, som du kan referera till från tredjepartsapplikationer. Du kan använda dessa nycklar för att tillhandahålla information, till exempel för att trigga automatiseringar eller anpassade meddelanden som ska vidarebefordras till önskad enhet.",
     "message-key": "Meddelandenyckel",
     "parse": "Läs in",
-    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
+    "ingredients-not-parsed-description": "Det verkar som om dina ingredienser inte är tolkade ännu. Klicka på knappen \"{parse}\" nedan för att tolka dina ingredienser till strukturerade livsmedel.",
     "attach-images-hint": "Bifoga bilder genom att dra och släppa dem i redigeraren",
     "drop-image": "Släpp bild",
     "enable-ingredient-amounts-to-use-this-feature": "Aktivera ingrediensmängd för att använda denna funktion",
@@ -672,7 +674,9 @@
     "not-linked-ingredients": "Ytterligare ingredienser",
     "upload-another-image": "Ladda upp en annan bild",
     "upload-images": "Ladda upp bilder",
-    "upload-more-images": "Ladda upp fler bilder"
+    "upload-more-images": "Ladda upp fler bilder",
+    "set-as-cover-image": "Använd som receptbild",
+    "cover-image": "Receptbild"
   },
   "recipe-finder": {
     "recipe-finder": "Sök recept",
@@ -1165,7 +1169,7 @@
     "group-details": "Gruppuppgifter",
     "group-details-description": "Innan du skapar ett konto måste du skapa en grupp. Din grupp kommer bara att innehålla dig, men du kommer att kunna bjuda in andra senare. Medlemmarna i din grupp kan dela måltidsplaner, inköpslistor, recept och mycket mer!",
     "use-seed-data": "Använd exempeldata",
-    "use-seed-data-description": "Mealie innehåller en samling av livsmedel, enheter och etiketter som kan användas för att fylla din grupp med användbara data för att organisera dina recept.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Kontouppgifter"
   },
   "validation": {

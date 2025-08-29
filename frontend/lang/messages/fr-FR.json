@@ -69,6 +69,7 @@
     "new-notification": "Nouvelle notification",
     "event-notifiers": "Notifications d'événements",
     "apprise-url-skipped-if-blank": "URL Apprise (ignoré si vide)",
+    "apprise-url-is-left-intentionally-blank": "Comme les URL Apprise contiennent généralement des informations sensibles, ce champ est laissé intentionnellement vide lors de l'édition. Si vous souhaitez mettre à jour l'URL, veuillez entrer la nouvelle URL ici, sinon laisser vide pour conserver l'URL courante.",
     "enable-notifier": "Activer la notification",
     "what-events": "À quels événements cette notification doit-elle s'abonner ?",
     "user-events": "Événements utilisateur",
@@ -79,7 +80,8 @@
     "tag-events": "Événements des mots-clés",
     "category-events": "Événements de catégories",
     "when-a-new-user-joins-your-group": "Lorsqu'un nouvel utilisateur rejoint votre groupe",
-    "recipe-events": "Événements de recette"
+    "recipe-events": "Événements de recette",
+    "label-events": "Étiquette des événements"
   },
   "general": {
     "add": "Ajouter",
@@ -672,7 +674,9 @@
     "not-linked-ingredients": "Ingrédients supplémentaires",
     "upload-another-image": "Télécharger une autre image",
     "upload-images": "Télécharger des images",
-    "upload-more-images": "Télécharger d'autres images"
+    "upload-more-images": "Télécharger d'autres images",
+    "set-as-cover-image": "Définir comme image de couverture de la recette",
+    "cover-image": "Image de couverture"
   },
   "recipe-finder": {
     "recipe-finder": "Recherche de recette",
@@ -1165,7 +1169,7 @@
     "group-details": "Détails du groupe",
     "group-details-description": "Avant de créer un compte, vous devrez créer un groupe. Votre groupe ne contiendra que vous, mais vous pourrez inviter d’autres personnes plus tard. Les membres de votre groupe peuvent partager leur menu de la semaine, leurs listes d’achat, leurs recettes et plus encore !",
     "use-seed-data": "Utiliser l'initialisation de données",
-    "use-seed-data-description": "Mealie inclut avec une liste d’aliments, d’unités et d’étiquettes qui peut être utilisée pour initialiser votre groupe avec des données utiles pour organiser vos recettes.",
+    "use-seed-data-description": "Mealie est livrée avec une collection d'aliments, d'unités et d'étiquettes qui peuvent être utilisés pour remplir votre groupe avec des données utiles pour organiser vos recettes. Ceux-ci sont traduits dans la langue que vous avez sélectionnée. Vous pouvez toujours ajouter ou modifier ces données plus tard.",
     "account-details": "Détails du compte"
   },
   "validation": {

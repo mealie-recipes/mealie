@@ -69,6 +69,7 @@
     "new-notification": "Nova Notificación",
     "event-notifiers": "Notificadores de Eventos",
     "apprise-url-skipped-if-blank": "URL de Apprise (omitido se está en branco)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Activar o Notificador",
     "what-events": "A que eventos debería subscribirse este notificador?",
     "user-events": "Eventos de Usuario",
@@ -79,7 +80,8 @@
     "tag-events": "Eventos de Etiquetas",
     "category-events": "Eventos de Categorías",
     "when-a-new-user-joins-your-group": "Cando un novo usuario se une ao teu grupo",
-    "recipe-events": "Eventos de Receitas"
+    "recipe-events": "Eventos de Receitas",
+    "label-events": "Rotular Eventos"
   },
   "general": {
     "add": "Engadir",
@@ -638,7 +640,7 @@
     "bulk-import-process-has-failed": "Erro no proceso de importación en masa",
     "report-deletion-failed": "Erro ao eliminar relatorio",
     "recipe-debugger": "Depurador de Receitas",
-    "recipe-debugger-description": "Copie o URL da receita que quer depurar e pégueo aqui. O URL será lido polo lector de receitas e os resultados serán mostrados. Se non ves negún dato devolto, a páxina que está a tentar ler non é suportada polo Mealie ou pola sua biblioteca de 'scrapping'.",
+    "recipe-debugger-description": "Copie o URL da receita que quer depurar e pégueo aqui. O URL será lido polo lector de receitas e os resultados serán mostrados. Se non ve nengún dato devolto, a páxina que está a tentar ler non é suportada polo Mealie ou pola sua biblioteca de 'scrapping'.",
     "use-openai": "Utilizar OpenAI",
     "recipe-debugger-use-openai-description": "Utilize o OpenAI para analisar os resultados en vez de depender da biblioteca de scrapers. Ao crear unha receita através dun URL, isto é feito automaticamente se a biblioteca de scrapers falla, mas pode provala manualmente aqui.",
     "debug": "Depurar",
@@ -664,7 +666,7 @@
       "no-unit": "Sen unidades",
       "missing-unit": "Crear a unidade que falta: {unit}",
       "missing-food": "Crear a comida que falta: {food}",
-      "this-unit-could-not-be-parsed-automatically": "Non foi posível procesar automaticamente esta unidade",
+      "this-unit-could-not-be-parsed-automatically": "Non foi posíbel procesar automaticamente esta unidade",
       "this-food-could-not-be-parsed-automatically": "Non foi posíbel procesar automaticamente este alimento",
       "no-food": "Sen Comida"
     },
@@ -672,11 +674,13 @@
     "not-linked-ingredients": "Ingredientes Adicionais",
     "upload-another-image": "Cargar outra imaxen",
     "upload-images": "Cargar imaxens",
-    "upload-more-images": "Cargar mais imaxens"
+    "upload-more-images": "Cargar mais imaxens",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Localizador de Receitas",
-    "recipe-finder-description": "Procure receitas con base nos ingredientes que teñas a man. Pode tamén filtrar polas ferramentas disponíveis e definir un número máximo de ingredientes ou ferramentas que faltan.",
+    "recipe-finder-description": "Procure receitas con base nos ingredientes que teña a man. Pode tamén filtrar polas ferramentas disponíbeis e definir un número máximo de ingredientes ou ferramentas que faltan.",
     "selected-ingredients": "Ingredientes Selecionados",
     "no-ingredients-selected": "Nengun ingrediente selecionado",
     "missing": "En falta",
@@ -1165,7 +1169,7 @@
     "group-details": "Detalles do Grupo",
     "group-details-description": "Antes de crear unha conta é necesario crear un grupo. Será o único membro do seu grupo, mas poderá convidar outros mais tarde. Os membros do seu grupo poden compartir menús, listas de compras, receitas e moito mais!",
     "use-seed-data": "Utilizar datos xerados",
-    "use-seed-data-description": "O Mealie ven cunha coleción de Alimentos, Unidades e Rótulos que poden ser usados para preencher o seu grupo con datos úteis para organizar as suas receitas.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Detalles da Conta"
   },
   "validation": {

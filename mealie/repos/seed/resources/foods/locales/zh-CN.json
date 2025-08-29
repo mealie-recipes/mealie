@@ -132,7 +132,7 @@
             "baby green": {
                 "aliases": [],
                 "description": "",
-                "name": "baby green",
+                "name": "小白菜",
                 "plural_name": "baby greens"
             },
             "pumpkin": {
@@ -255,7 +255,7 @@
                     "gem squash"
                 ],
                 "description": "",
-                "name": "summer squash",
+                "name": "",
                 "plural_name": "summer squashes"
             },
             "mixed green": {
@@ -407,7 +407,7 @@
             "okra": {
                 "aliases": [],
                 "description": "",
-                "name": "okra",
+                "name": "秋葵",
                 "plural_name": "okra"
             },
             "acorn squash": {
@@ -518,7 +518,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "broccoli rabe",
-                "plural_name": "broccoli rabes"
+                "plural_name": ""
             },
             "rutabaga": {
                 "aliases": [],

@@ -9,7 +9,7 @@
         "name": "cuillère à soupe",
         "plural_name": "cuillères à soupe",
         "description": "",
-        "abbreviation": "càS"
+        "abbreviation": "càs"
     },
     "cup": {
         "name": "tasse",
@@ -21,13 +21,13 @@
         "name": "centilitre",
         "plural_name": "onces liquides",
         "description": "",
-        "abbreviation": "cL"
+        "abbreviation": "cl"
     },
     "pint": {
         "name": "pinte",
         "plural_name": "pintes",
         "description": "",
-        "abbreviation": "pt"
+        "abbreviation": "pinte"
     },
     "quart": {
         "name": "quart",
@@ -57,7 +57,7 @@
         "name": "livre",
         "plural_name": "livres",
         "description": "",
-        "abbreviation": "lb",
+        "abbreviation": "livre",
         "plural_abbreviation": "livres"
     },
     "ounce": {
@@ -92,7 +92,7 @@
     },
     "dash": {
         "name": "trait",
-        "plural_name": "1/8 de cuillères à café",
+        "plural_name": "traits",
         "description": "",
         "abbreviation": ""
     },
