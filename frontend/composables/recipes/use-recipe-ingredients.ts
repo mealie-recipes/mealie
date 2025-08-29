@@ -37,7 +37,7 @@ function useUnitName(unit: CreateIngredientUnit | IngredientUnit | undefined, us
 }
 
 export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true) {
-  const { quantity, food, unit, note } = ingredient;
+  const { quantity, food, unit, note, title } = ingredient;
   const usePluralUnit = quantity !== undefined && ((quantity || 0) * scale > 1 || (quantity || 0) * scale === 0);
   const usePluralFood = (!quantity) || quantity * scale > 1;
 
@@ -66,6 +66,7 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1,
   const foodName = useFoodName(food || undefined, usePluralFood);
 
   return {
+    title: title ? sanitizeIngredientHTML(title) : undefined,
     quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
     unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
     name: foodName ? sanitizeIngredientHTML(foodName) : undefined,
