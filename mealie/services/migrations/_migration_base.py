@@ -1,6 +1,7 @@
 import contextlib
 from pathlib import Path
 
+from PIL import UnidentifiedImageError
 from pydantic import UUID4
 
 from mealie.core import root_logger
@@ -24,6 +25,7 @@ from mealie.services.scraper import cleaner
 from .._base_service import BaseService
 from .utils.database_helpers import DatabaseMigrationHelpers
 from .utils.migration_alias import MigrationAlias
+from .utils.migration_helpers import import_image
 
 
 class BaseMigrator(BaseService):
@@ -269,3 +271,9 @@ class BaseMigrator(BaseService):
 
         recipe = cleaner.clean(recipe_dict, self.translator, url=recipe_dict.get("org_url", None))
         return recipe
+
+    def import_image(self, slug: str, src: str | Path, recipe_id: UUID4):
+        try:
+            import_image(src, recipe_id)
+        except UnidentifiedImageError as e:
+            self.logger.error(f"Failed to import image for {slug}: {e}")

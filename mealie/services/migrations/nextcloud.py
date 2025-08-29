@@ -9,13 +9,7 @@ from mealie.schema.reports.reports import ReportEntryCreate
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import (
-    MigrationReaders,
-    glob_walker,
-    import_image,
-    parse_iso8601_duration,
-    split_by_comma,
-)
+from .utils.migration_helpers import MigrationReaders, glob_walker, parse_iso8601_duration, split_by_comma
 
 
 @dataclass
@@ -103,4 +97,4 @@ class NextcloudMigrator(BaseMigrator):
                 if status:
                     nc_dir = nextcloud_dirs[slug]
                     if nc_dir.image:
-                        import_image(nc_dir.image, recipe_id)
+                        self.import_image(slug, nc_dir.image, recipe_id)

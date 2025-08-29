@@ -8,7 +8,7 @@ from mealie.services.scraper import cleaner
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import import_image, parse_iso8601_duration
+from .utils.migration_helpers import parse_iso8601_duration
 
 
 def clean_instructions(instructions: list[str]) -> list[str]:
@@ -98,7 +98,7 @@ class RecipeKeeperMigrator(BaseMigrator):
 
             recipes = [self.clean_recipe_dictionary(x) for x in recipes_as_dicts]
             results = self.import_recipes_to_database(recipes)
-            for (_, recipe_id, status), recipe in zip(results, recipes, strict=False):
+            for (slug, recipe_id, status), recipe in zip(results, recipes, strict=False):
                 if status:
                     try:
                         if not recipe or not recipe.image:
@@ -107,4 +107,4 @@ class RecipeKeeperMigrator(BaseMigrator):
                     except StopIteration:
                         continue
 
-                    import_image(recipe.image, recipe_id)
+                    self.import_image(slug, recipe.image, recipe_id)
