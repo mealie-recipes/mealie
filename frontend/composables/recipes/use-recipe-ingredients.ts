@@ -43,7 +43,7 @@ export function useParsedIngredientText(
   includeFormating = true,
   pluralHandling = "pluralize_food_without_unit" as GroupPreferencesPluralHandling,
 ) {
-  const { quantity, food, unit, note } = ingredient;
+  const { quantity, food, unit, note, title } = ingredient;
 
   // casting to number is required as sometimes quantity is a string
   const scaledQuantity = (Number(quantity || 0)) * scale;
@@ -95,6 +95,7 @@ export function useParsedIngredientText(
   const foodName = useFoodName(food || undefined, usePluralFood);
 
   return {
+    title: title ? sanitizeIngredientHTML(title) : undefined,
     quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
     unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
     name: foodName ? sanitizeIngredientHTML(foodName) : undefined,

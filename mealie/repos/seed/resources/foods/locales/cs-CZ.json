@@ -345,20 +345,20 @@
             "pimiento": {
                 "aliases": [],
                 "description": "",
-                "name": "pimiento",
-                "plural_name": "pimientoes"
+                "name": "třešňová paprika",
+                "plural_name": "třešňové papriky"
             },
             "spaghetti squash": {
                 "aliases": [],
                 "description": "",
                 "name": "špagetová dýně",
-                "plural_name": "spaghetti squashes"
+                "plural_name": "špagetové dýně"
             },
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter lettuce",
-                "plural_name": "butter lettuces"
+                "name": "dubáček",
+                "plural_name": "dubáčky"
             },
             "hash brown": {
                 "aliases": [],
@@ -368,11 +368,11 @@
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "čínské zelí"
                 ],
                 "description": "",
-                "name": "napa cabbage",
-                "plural_name": "napa cabbages"
+                "name": "pekingské zelí",
+                "plural_name": "pekingská zelí"
             },
             "celeriac": {
                 "aliases": [],
@@ -389,8 +389,8 @@
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "tuřín",
-                "plural_name": "tuříny"
+                "name": "vodnice",
+                "plural_name": "vodnice"
             },
             "thai chile pepper": {
                 "aliases": [],
@@ -505,14 +505,14 @@
             "daikon": {
                 "aliases": [],
                 "description": "",
-                "name": "daikon",
-                "plural_name": "daikons"
+                "name": "ředkev bílá",
+                "plural_name": "ředkve bílé"
             },
             "baby corn": {
                 "aliases": [],
                 "description": "",
-                "name": "baby corn",
-                "plural_name": "baby corns"
+                "name": "kukuřička",
+                "plural_name": "kukuřičky"
             },
             "broccoli rabe": {
                 "aliases": [],
@@ -523,8 +523,8 @@
             "rutabaga": {
                 "aliases": [],
                 "description": "",
-                "name": "rutabaga",
-                "plural_name": "rutabagas"
+                "name": "tuřín",
+                "plural_name": "tuříny"
             },
             "belgian endive": {
                 "aliases": [],
@@ -547,8 +547,8 @@
             "microgreen": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreen",
-                "plural_name": "microgreens"
+                "name": "mikro zelenina",
+                "plural_name": "mikro zelenina"
             },
             "boston lettuce": {
                 "aliases": [],
@@ -559,8 +559,8 @@
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
-                "name": "kohlrabi",
-                "plural_name": "kohlrabis"
+                "name": "kedluben",
+                "plural_name": "kedlubny"
             },
             "fresno chile": {
                 "aliases": [],
@@ -713,8 +713,8 @@
             "grape": {
                 "aliases": [],
                 "description": "",
-                "name": "grape",
-                "plural_name": "grapes"
+                "name": "hrozen",
+                "plural_name": "hrozny"
             },
             "pomegranate": {
                 "aliases": [],
@@ -774,7 +774,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rybíz",
-                "plural_name": "currants"
+                "plural_name": "rybíz"
             },
             "mandarin": {
                 "aliases": [],
@@ -797,8 +797,8 @@
             "sultana": {
                 "aliases": [],
                 "description": "",
-                "name": "sultana",
-                "plural_name": "sultanas"
+                "name": "sultánka",
+                "plural_name": "sultánky"
             },
             "passion fruit": {
                 "aliases": [],
@@ -893,26 +893,26 @@
             "quince": {
                 "aliases": [],
                 "description": "",
-                "name": "quince",
-                "plural_name": "quinces"
+                "name": "kdoule",
+                "plural_name": "kdoule"
             },
             "guava": {
                 "aliases": [],
                 "description": "",
                 "name": "guáve",
-                "plural_name": "guavas"
+                "plural_name": "guáve"
             },
             "banana chip": {
                 "aliases": [],
                 "description": "",
                 "name": "sušený banán",
-                "plural_name": "banana chips"
+                "plural_name": "sušený banán"
             },
             "kumquat": {
                 "aliases": [],
                 "description": "",
-                "name": "kumquat",
-                "plural_name": "kumquats"
+                "name": "kumkvat",
+                "plural_name": "kumkvaty"
             },
             "jackfruit": {
                 "aliases": [],
@@ -941,14 +941,14 @@
             "lychee": {
                 "aliases": [],
                 "description": "",
-                "name": "lychee",
-                "plural_name": "lychees"
+                "name": "liči",
+                "plural_name": "liči"
             },
             "young coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "young coconut",
-                "plural_name": "young coconuts"
+                "name": "mladý kokos",
+                "plural_name": "mladé kokosy"
             },
             "kaffir lime": {
                 "aliases": [],
@@ -959,14 +959,14 @@
             "star fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "star fruit",
-                "plural_name": "star fruits"
+                "name": "karambola",
+                "plural_name": "karamboly"
             },
             "green papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "green papaya",
-                "plural_name": "green papayas"
+                "name": "zelená papája",
+                "plural_name": "zelené papáji"
             },
             "pomelo": {
                 "aliases": [],
@@ -977,14 +977,14 @@
             "chestnut puree": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut puree",
-                "plural_name": "chestnut purees"
+                "name": "kaštanové pyré",
+                "plural_name": "kaštanová pyré"
             },
             "prickly pear": {
                 "aliases": [],
                 "description": "",
-                "name": "prickly pear",
-                "plural_name": "prickly pears"
+                "name": "opuncie",
+                "plural_name": "opuncie"
             },
             "calamansi": {
                 "aliases": [],
