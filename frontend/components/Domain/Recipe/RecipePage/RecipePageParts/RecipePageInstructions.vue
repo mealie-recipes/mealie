@@ -29,17 +29,6 @@
             {{ activeText }}
           </p>
           <v-divider class="mb-4" />
-          <v-checkbox-btn
-            v-for="ing in unusedIngredients"
-            :key="ing.referenceId"
-            v-model="activeRefs"
-            :value="ing.referenceId"
-          >
-            <template #label>
-              <RecipeIngredientHtml :markup="parseIngredientText(ing, 1, true, groupPreferences?.pluralHandling)" />
-            </template>
-          </v-checkbox-btn>
-
           <template v-if="Object.keys(groupedUnusedIngredients).length">
             <h4 class="py-3 ml-1">
               {{ $t("recipe.unlinked") }}
@@ -78,7 +67,7 @@
                 class="ml-4"
               >
                 <template #label>
-                  <RecipeIngredientHtml :markup="parseIngredientText(ing)" />
+                  <RecipeIngredientHtml :markup="parseIngredientText(ing, 1, true, groupPreferences?.pluralHandling)" />
                 </template>
               </v-checkbox-btn>
             </template>
