@@ -561,6 +561,7 @@
     "see-original-text": "Katso Alkuperäinen Teksti",
     "original-text-with-value": "Alkuperäinen Teksti: {originalText}",
     "ingredient-linker": "Ainesosan linkittäjä",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Linkitetty toiseen vaiheeseen",
     "auto": "Automaattinen",
     "cook-mode": "Kokkitila",
