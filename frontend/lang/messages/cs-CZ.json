@@ -561,6 +561,7 @@
     "see-original-text": "Zobrazit původní text",
     "original-text-with-value": "Původní text: {originalText}",
     "ingredient-linker": "Propojení ingrediencí",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Propojeno s jiným krokem receptu",
     "auto": "Automaticky",
     "cook-mode": "Režim vaření",
