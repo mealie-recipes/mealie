@@ -561,6 +561,7 @@
     "see-original-text": "Eredeti szöveg megjelenítése",
     "original-text-with-value": "Eredeti szöveg: {originalText}",
     "ingredient-linker": "Hozzávaló összekötő",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Egy másik lépéssel összekapcsolva",
     "auto": "Automatikus",
     "cook-mode": "Főzési mód",
