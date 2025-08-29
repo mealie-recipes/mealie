@@ -561,6 +561,7 @@
     "see-original-text": "See Original Text",
     "original-text-with-value": "Original Text: {originalText}",
     "ingredient-linker": "Ingredient Linker",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Linked to other step",
     "auto": "Auto",
     "cook-mode": "Cook Mode",
