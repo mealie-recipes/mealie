@@ -29,31 +29,48 @@
             {{ activeText }}
           </p>
           <v-divider class="mb-4" />
-          <v-checkbox-btn
-            v-for="ing in unusedIngredients"
-            :key="ing.referenceId"
-            v-model="activeRefs"
-            :value="ing.referenceId"
-          >
-            <template #label>
-              <RecipeIngredientHtml :markup="parseIngredientText(ing)" />
-            </template>
-          </v-checkbox-btn>
-
-          <template v-if="usedIngredients.length > 0">
+          <template v-if="Object.keys(groupedUnusedIngredients).length > 0">
             <h4 class="py-3 ml-1">
-              {{ $t("recipe.linked-to-other-step") }}
+              {{ $t("recipe.unlinked") }}
+            </h4>
+            <template v-for="(ingredients, title) in groupedUnusedIngredients" :key="title">
+            <h4 v-if="title" class="py-3 ml-1 pl-4">
+              {{ title }}
             </h4>
             <v-checkbox-btn
-              v-for="ing in usedIngredients"
+              v-for="ing in ingredients"
               :key="ing.referenceId"
               v-model="activeRefs"
               :value="ing.referenceId"
+              class="ml-4"
             >
               <template #label>
                 <RecipeIngredientHtml :markup="parseIngredientText(ing)" />
               </template>
             </v-checkbox-btn>
+          </template>
+          </template>
+
+          <template v-if="Object.keys(groupedUsedIngredients).length > 0">
+            <h4 class="py-3 ml-1">
+              {{ $t("recipe.linked-to-other-step") }}
+            </h4>
+            <template v-for="(ingredients, title) in groupedUsedIngredients" :key="title">
+              <h4 v-if="title" class="py-3 ml-1 pl-4">
+                {{ title }}
+              </h4>
+              <v-checkbox-btn
+                v-for="ing in ingredients"
+                :key="ing.referenceId"
+                v-model="activeRefs"
+                :value="ing.referenceId"
+                class="ml-4"
+              >
+                <template #label>
+                  <RecipeIngredientHtml :markup="parseIngredientText(ing)" />
+                </template>
+              </v-checkbox-btn>
+            </template>
           </template>
         </v-card-text>
 
@@ -561,6 +578,71 @@ const ingredientLookup = computed(() => {
     prev[ing.referenceId] = ing;
     return prev;
   }, results);
+});
+
+// Map each ingredient's referenceId to its section title
+const ingredientSectionTitles = computed(() => {
+  const titleMap: { [key: string]: string } = {};
+  let currentTitle = "";
+
+  // Go through all ingredients in order
+  props.recipe.recipeIngredient.forEach((ingredient) => {
+    if (ingredient.referenceId === undefined) {
+      return;
+    }
+
+    // If this ingredient has a title, update the current title
+    if (ingredient.title) {
+      currentTitle = ingredient.title;
+    }
+
+    // Assign the current title to this ingredient
+    titleMap[ingredient.referenceId] = currentTitle;
+  });
+
+  return titleMap;
+});
+
+const groupedUnusedIngredients = computed(() => {
+  const groups: { [key: string]: RecipeIngredient[] } = {};
+
+  // Group ingredients by section title
+  unusedIngredients.value.forEach((ingredient) => {
+    if (ingredient.referenceId === undefined) {
+      return;
+    }
+
+    // Use the section title from the mapping, or fallback to the ingredient's own title
+    const title = ingredientSectionTitles.value[ingredient.referenceId] || ingredient.title || "";
+
+    if (!groups[title]) {
+      groups[title] = [];
+    }
+    groups[title].push(ingredient);
+  });
+
+  return groups;
+});
+
+const groupedUsedIngredients = computed(() => {
+  const groups: { [key: string]: RecipeIngredient[] } = {};
+
+  // Group ingredients by section title
+  usedIngredients.value.forEach((ingredient) => {
+    if (ingredient.referenceId === undefined) {
+      return;
+    }
+
+    // Use the section title from the mapping, or fallback to the ingredient's own title
+    const title = ingredientSectionTitles.value[ingredient.referenceId] || ingredient.title || "";
+
+    if (!groups[title]) {
+      groups[title] = [];
+    }
+    groups[title].push(ingredient);
+  });
+
+  return groups;
 });
 
 function getIngredientByRefId(refId: string | undefined) {
