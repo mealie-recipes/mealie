@@ -1120,10 +1120,10 @@
       "data-exports-description": "This section provides links to available exports that are ready to download. These exports do expire, so be sure to grab them while they're still available.",
       "data-exports": "Data Exports",
       "tag": "Tag",
-      "categorize": "Categorize",
+      "categorize": "Categorise",
       "update-settings": "Update Settings",
       "tag-recipes": "Tag Recipes",
-      "categorize-recipes": "Categorize Recipes",
+      "categorize-recipes": "Categorise Recipes",
       "export-recipes": "Export Recipes",
       "delete-recipes": "Delete Recipes",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
@@ -1169,7 +1169,7 @@
     "group-details": "Group Details",
     "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
     "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organising your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Account Details"
   },
   "validation": {
@@ -1359,13 +1359,13 @@
   },
   "cookbook": {
     "cookbooks": "Cookbooks",
-    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "description": "Cookbooks are another way to organise recipes by creating cross-sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the sidebar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
     "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
     "public-cookbook": "Public Cookbook",
     "public-cookbook-description": "Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.",
     "filter-options": "Filter Options",
-    "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
+    "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross-section of the selected items.",
     "require-all-categories": "Require All Categories",
     "require-all-tags": "Require All Tags",
     "require-all-tools": "Require All Tools",
