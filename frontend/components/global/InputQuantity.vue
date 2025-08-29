@@ -10,8 +10,9 @@
       :min="min"
       :max="max"
       type="number"
-      size="small"
       variant="plain"
+      density="compact"
+      style="width: 60px;"
     />
   </div>
 </template>
