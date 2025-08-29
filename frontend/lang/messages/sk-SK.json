@@ -561,6 +561,7 @@
     "see-original-text": "Pozrieť pôvodný text",
     "original-text-with-value": "Pôvodný text: {originalText}",
     "ingredient-linker": "Prepojenie surovín",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Prepojené s iným krokom",
     "auto": "Automaticky",
     "cook-mode": "Režim varenia",
