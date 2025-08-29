@@ -4,8 +4,8 @@ import { alert } from "~/composables/use-toast";
 export default defineNuxtPlugin(() => {
   const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
   const axiosInstance = axios.create({
+    // timeout removed to allow backend to handle timeouts
     baseURL: "/", // api calls already pass with /api
-    timeout: 10000,
     headers: {
       Authorization: "Bearer " + useCookie(tokenName).value,
     },

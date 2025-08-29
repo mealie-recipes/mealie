@@ -3764,7 +3764,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ham",
-                "plural_name": "hams"
+                "plural_name": "hammen"
             },
             "pork chop": {
                 "aliases": [],
@@ -5097,7 +5097,7 @@
             "herring": {
                 "aliases": [],
                 "description": "",
-                "name": "herring",
+                "name": "haring",
                 "plural_name": "herrings"
             },
             "salmon roe": {

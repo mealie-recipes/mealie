@@ -69,7 +69,7 @@
     "new-notification": "Ny notifikation",
     "event-notifiers": "Notifikation om begivenheder",
     "apprise-url-skipped-if-blank": "Informations link (sprunget over hvis ladet være tomt)",
-    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
+    "apprise-url-is-left-intentionally-blank": "Eftersom Apprise URL'er typisk indeholder følsomme oplysninger, er feltet bevidst tom imens du skriver. Hvis du ønsker at opdatere URL'en, kan du skrive en ny, ellers efterlad feltet tomt for at bevare den nuværende URL.",
     "enable-notifier": "Aktiver Notifikationer",
     "what-events": "Hvilke begivenheder skal denne anmelder abonnere på?",
     "user-events": "Brugerhændelser",
@@ -589,7 +589,7 @@
     "api-extras-description": "Opskrifter ekstra er en central feature i Mealie API. De giver dig mulighed for at oprette brugerdefinerede JSON nøgle / værdi par inden for en opskrift, at henvise til fra 3. parts applikationer. Du kan bruge disse nøgler til at give oplysninger, for eksempel til at udløse automatiseringer eller brugerdefinerede beskeder til at videresende til din ønskede enhed.",
     "message-key": "Beskednøgle",
     "parse": "Behandl data",
-    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
+    "ingredients-not-parsed-description": "Det ser ud til at dine ingredienser ikke er klassificeret endnu. Klik på knappen \"{parse}\" nedenfor for at analysere ingredienserne til strukturerede fødevarer.",
     "attach-images-hint": "Vedhæft billeder ved at trække dem ind i redigeringsværktøjet",
     "drop-image": "Slet billede",
     "enable-ingredient-amounts-to-use-this-feature": "Aktiver mængde af ingredienser for at bruge denne funktion",
@@ -675,8 +675,8 @@
     "upload-another-image": "Upload et andet billede",
     "upload-images": "Upload billeder",
     "upload-more-images": "Upload flere billeder",
-    "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "set-as-cover-image": "Angiv som opskriftens coverbillede",
+    "cover-image": "Coverbillede"
   },
   "recipe-finder": {
     "recipe-finder": "Opskriftssøger",
@@ -1169,7 +1169,7 @@
     "group-details": "Gruppeoplysninger",
     "group-details-description": "Før du opretter en konto, skal du oprette en gruppe. Din gruppe vil kun indeholde dig, men du vil kunne invitere andre senere. Medlemmer i din gruppe kan dele madplaner, indkøbslister, opskrifter og meget mere!",
     "use-seed-data": "Anved standard data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
+    "use-seed-data-description": "Mealie kommer med en samling af Fødevarer, Enheder, og Etiketter som kan blive brugt til at udfylde din gruppe med nyttig data til at organisere dine opskrifter. De er oversat til det sprog, du i øjeblikket har valgt. Du kan altid tilføje og ændre disse data senere.",
     "account-details": "Kontodetaljer"
   },
   "validation": {
