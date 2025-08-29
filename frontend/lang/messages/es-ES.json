@@ -2,8 +2,8 @@
   "about": {
     "about": "Acerca de",
     "about-mealie": "Acerca de Mealie",
-    "api-docs": "Documentación API",
-    "api-port": "Puerto API",
+    "api-docs": "Documentación de API",
+    "api-port": "Puerto de API",
     "application-mode": "Modo de Aplicación",
     "database-type": "Tipo de base de datos",
     "database-url": "URL de base de datos",
@@ -69,6 +69,7 @@
     "new-notification": "Nueva notificación",
     "event-notifiers": "Notificaciones de eventos",
     "apprise-url-skipped-if-blank": "URL de Apprise (omitida si está en blanco)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Habilitar notificador",
     "what-events": "¿A qué eventos debe suscribirse este notificador?",
     "user-events": "Eventos de los usuarios",
@@ -79,7 +80,8 @@
     "tag-events": "Eventos de etiqueta",
     "category-events": "Eventos de Categoría",
     "when-a-new-user-joins-your-group": "Cuando un nuevo usuario se une a tu grupo",
-    "recipe-events": "Eventos de receta"
+    "recipe-events": "Eventos de receta",
+    "label-events": "Eventos de etiqueta"
   },
   "general": {
     "add": "Agregar",
@@ -472,6 +474,7 @@
     "comment": "Comentario",
     "comments": "Comentarios",
     "delete-confirmation": "¿Estás seguro de eliminar esta receta?",
+    "admin-delete-confirmation": "Estás a punto de eliminar una receta que no es tuya usando permisos de administrador. ¿Estás seguro?",
     "delete-recipe": "Borrar receta",
     "description": "Descripción",
     "disable-amount": "Desactivar cantidades de ingredientes",
@@ -579,9 +582,14 @@
     "made-this": "Lo hice",
     "how-did-it-turn-out": "¿Cómo resultó esto?",
     "user-made-this": "{user} hizo esto",
+    "added-to-timeline": "Añadido a la línea de tiempo",
+    "failed-to-add-to-timeline": "No se pudo agregar a la línea de tiempo",
+    "failed-to-update-recipe": "Error al actualizar la receta",
+    "added-to-timeline-but-failed-to-add-image": "Añadido a la línea de tiempo, pero no se pudo agregar la imagen",
     "api-extras-description": "Los extras de las recetas son una característica clave de la API de Mealie. Permiten crear pares json clave/valor personalizados dentro de una receta para acceder desde aplicaciones de terceros. Puede utilizar estas claves para almacenar información, para activar la automatización o mensajes personalizados para transmitir al dispositivo deseado.",
     "message-key": "Clave de mensaje",
     "parse": "Analizar",
+    "ingredients-not-parsed-description": "Parece que tus ingredientes no han sido analizados aún. Haz clic en el botón \"{parse}\" de abajo para analizarlos y convertirlos en alimentos estructurados.",
     "attach-images-hint": "Adjuntar imágenes arrastrando y soltando en el editor",
     "drop-image": "Soltar imagen",
     "enable-ingredient-amounts-to-use-this-feature": "Habilitar la cantidad de ingredientes para usar esta característica",
@@ -658,13 +666,17 @@
       "no-unit": "Sin unidad",
       "missing-unit": "Crear unidad faltante: {unit}",
       "missing-food": "Crear comida faltante: {food}",
+      "this-unit-could-not-be-parsed-automatically": "Esta unidad no pudo ser procesada automáticamente",
+      "this-food-could-not-be-parsed-automatically": "Esta comida no pudo ser procesada automáticamente",
       "no-food": "Sin Comida"
     },
     "reset-servings-count": "Restablecer contador de porciones",
     "not-linked-ingredients": "Ingredientes adicionales",
     "upload-another-image": "Subir otra imagen",
     "upload-images": "Subir imágenes",
-    "upload-more-images": "Subir más imágenes"
+    "upload-more-images": "Subir más imágenes",
+    "set-as-cover-image": "Establecer como imagen de portada de receta",
+    "cover-image": "Imagen de portada"
   },
   "recipe-finder": {
     "recipe-finder": "Buscador de recetas",
@@ -1157,7 +1169,7 @@
     "group-details": "Detalles del grupo",
     "group-details-description": "Antes de crear una cuenta, debe crear un grupo. En el grupo sólo estará usted, pero puede invitar a otros más tarde. Los miembros de un grupo pueden compartir menús, listas de la compra, recetas y más...",
     "use-seed-data": "Utilizar datos de ejemplo",
-    "use-seed-data-description": "Mealie incluye una colección de alimentos, unidades y etiquetas, que puede utilizar como ejemplo en su grupo, para ayudarle a organizar sus recetas.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Información de la cuenta"
   },
   "validation": {

@@ -69,6 +69,7 @@
     "new-notification": "Nuwe kennisgewing",
     "event-notifiers": "Gebeurteniskennisgewers",
     "apprise-url-skipped-if-blank": "Apprise URL (oorgeslaan indien leeg)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Aktiveer kennisgewer",
     "what-events": "Op watter gebeurtenisse moet hierdie kennisgewing inteken?",
     "user-events": "Gebruikersgebeurtenisse",
@@ -79,7 +80,8 @@
     "tag-events": "Merker gebeurtenisse",
     "category-events": "Kategorie Gebeurtenisse",
     "when-a-new-user-joins-your-group": "Wanneer 'n nuwe gebruiker by jou groep aansluit",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Recipe Events",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Add",
@@ -472,6 +474,7 @@
     "comment": "Lewer kommentaar",
     "comments": "Kommentaar",
     "delete-confirmation": "Is jy seker jy wil hierdie resep uitvee?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Verwyder resep",
     "description": "Beskrywing",
     "disable-amount": "Skakel bestanddeelhoeveelhede af",
@@ -579,9 +582,14 @@
     "made-this": "Ek het dit gemaak",
     "how-did-it-turn-out": "Hoe het dit uitgedraai?",
     "user-made-this": "{user} het dit gemaak",
+    "added-to-timeline": "Added to timeline",
+    "failed-to-add-to-timeline": "Failed to add to timeline",
+    "failed-to-update-recipe": "Failed to update recipe",
+    "added-to-timeline-but-failed-to-add-image": "Added to timeline, but failed to add image",
     "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Boodskap sleutel",
     "parse": "Verwerk",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Voeg prente by deur dit in die bewerker te sleep en los",
     "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Skakel bestanddeelhoeveelhede aan om hierdie funksie te gebruik",
@@ -658,13 +666,17 @@
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "No Food"
     },
     "reset-servings-count": "Reset Servings Count",
     "not-linked-ingredients": "Additional Ingredients",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
@@ -1157,7 +1169,7 @@
     "group-details": "Groep besonderhede",
     "group-details-description": "Voordat jy 'n rekening skep, moet jy eers 'n groep skep. Jy sal die enigste lid van die groep wees, maar jy kan later ander nooi. Lede van jou groep kan maaltydplanne, inkopielyste, resepte en meer deel!",
     "use-seed-data": "Gebruik voorbeelddata",
-    "use-seed-data-description": "Mealie bevat 'n versameling bestanddele, eenhede en etikette wat gebruik kan word om jou groep met nuttige data te vul om jou resepte te organiseer.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Rekening besonderhede"
   },
   "validation": {

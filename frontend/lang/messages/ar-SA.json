@@ -69,6 +69,7 @@
     "new-notification": "إشعار جديد",
     "event-notifiers": "إشعار الحدث",
     "apprise-url-skipped-if-blank": "الرابط Apprise (يتم تجاهله إذا ما كان فارغً)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "تفعيل الإشعارات",
     "what-events": "ما هي الأحداث التي يجب على هذا المخدم أن يستجيب لها؟",
     "user-events": "أحداث المستخدمين",
@@ -79,7 +80,8 @@
     "tag-events": "أحداث الوسم",
     "category-events": "أحداث الفئة",
     "when-a-new-user-joins-your-group": "عندما ينضم مستخدم جديد إلى مجموعتك",
-    "recipe-events": "وصفات المناسبات"
+    "recipe-events": "وصفات المناسبات",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "أضف",
@@ -472,6 +474,7 @@
     "comment": "أضف تعليق ",
     "comments": "التعليقات",
     "delete-confirmation": "هل انت متأكد من رغبتك بحذف هذه الوصفة؟",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "حذف الوصفة",
     "description": "الوصف",
     "disable-amount": "إيقاف إظهار كميات المكونات",
@@ -579,9 +582,14 @@
     "made-this": "لقد طبخت هذا",
     "how-did-it-turn-out": "كيف كانت النتيجة؟",
     "user-made-this": "{user} طبخ هذه",
+    "added-to-timeline": "Added to timeline",
+    "failed-to-add-to-timeline": "Failed to add to timeline",
+    "failed-to-update-recipe": "Failed to update recipe",
+    "added-to-timeline-but-failed-to-add-image": "Added to timeline, but failed to add image",
     "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "مفتاح الرساله",
     "parse": "تحليل",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Attach images by dragging & dropping them into the editor",
     "drop-image": "وضع الصورة",
     "enable-ingredient-amounts-to-use-this-feature": "Enable ingredient amounts to use this feature",
@@ -658,13 +666,17 @@
       "no-unit": "لا توجد وحدة",
       "missing-unit": "إنشاء وحدة مفقودة: {unit}",
       "missing-food": "إنشاء طعام مفقود: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "لا يوجد طعام"
     },
     "reset-servings-count": "إعادة تعيين عدد الحصص",
     "not-linked-ingredients": "مكونات إضافية",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "البحث عن الوصفات",
@@ -1157,7 +1169,7 @@
     "group-details": "تفاصيل المجموعة",
     "group-details-description": "قبل إنشاء حساب ستحتاج إلى إنشاء مجموعة. المجموعة الخاصة بك سوف تحتوي عليك فقط، ولكن ستتمكن من دعوة الآخرين لاحقاً. يمكن لأعضاء مجموعتك مشاركة خطط الوجبات وقوائم التسوق والوصفات، والمزيد!",
     "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie يأتي بمجموعة من الأطعمة والوحدات والعلامات التي يمكن استخدامها لتزويد مجموعتك ببيانات مفيدة لتنظيم وصفاتك.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "تفاصيل الحساب"
   },
   "validation": {

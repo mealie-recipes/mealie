@@ -47,6 +47,10 @@ class GroupEventNotifierOptions(MealieModel):
     category_updated: bool = False
     category_deleted: bool = False
 
+    label_created: bool = False
+    label_updated: bool = False
+    label_deleted: bool = False
+
 
 class GroupEventNotifierOptionsSave(GroupEventNotifierOptions):
     notifier_id: UUID4

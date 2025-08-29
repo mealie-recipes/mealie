@@ -69,6 +69,7 @@
     "new-notification": "Jauns paziņojums",
     "event-notifiers": "Notikumu paziņotāji",
     "apprise-url-skipped-if-blank": "Apprise URL (izlaists, ja tukšs)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Iespējot paziņotāju",
     "what-events": "Kādus notikumus šim paziņotājam vajadzētu abonēt?",
     "user-events": "Lietotāju notikumi",
@@ -79,7 +80,8 @@
     "tag-events": "Atzīmēt notikumus",
     "category-events": "Kategorija Notikumi",
     "when-a-new-user-joins-your-group": "Kad jūsu grupai pievienojas jauns lietotājs",
-    "recipe-events": "Recepšu notikumi"
+    "recipe-events": "Recepšu notikumi",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Pievienot",
@@ -472,6 +474,7 @@
     "comment": "Komentārs",
     "comments": "Komentāri",
     "delete-confirmation": "Vai esat pārliecināts, ka vēlaties izdzēst šo recepti?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Dzēst recepti",
     "description": "Apraksts",
     "disable-amount": "Atspējot sastāvdaļu daudzumu",
@@ -579,9 +582,14 @@
     "made-this": "Es to pagatavoju",
     "how-did-it-turn-out": "Kā tas izrādījās?",
     "user-made-this": "{user}izdarīja šo",
+    "added-to-timeline": "Added to timeline",
+    "failed-to-add-to-timeline": "Failed to add to timeline",
+    "failed-to-update-recipe": "Failed to update recipe",
+    "added-to-timeline-but-failed-to-add-image": "Added to timeline, but failed to add image",
     "api-extras-description": "Recepšu ekstras ir galvenā Mealie API iezīme. Tie ļauj jums izveidot pielāgotus JSON atslēgu/vērtību pārus receptē, lai atsaucotos no trešo pušu lietojumprogrammām. Varat izmantot šos taustiņus, lai sniegtu informāciju, piemēram, aktivizētu automatizāciju vai pielāgotus ziņojumus, lai tos pārsūtītu uz vēlamo ierīci.",
     "message-key": "Ziņojuma atslēga",
     "parse": "Parsēšana",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Pievienojiet attēlus, velkot un nometot tos redaktorā",
     "drop-image": "Nometiet attēlu",
     "enable-ingredient-amounts-to-use-this-feature": "Iespējojiet sastāvdaļu daudzumu, lai izmantotu šo funkciju",
@@ -658,13 +666,17 @@
       "no-unit": "Nav vienības",
       "missing-unit": "Izveidot trūkstošo vienību: {unit}",
       "missing-food": "Izveidojiet trūkstošo ēdienu: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Nav pārtikas"
     },
     "reset-servings-count": "Atiestatīt porciju skaitu",
     "not-linked-ingredients": "Additional Ingredients",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
@@ -1157,7 +1169,7 @@
     "group-details": "Grupas informācija",
     "group-details-description": "Pirms konta izveides jums būs jāizveido grupa. Jūsu grupā būs tikai jūs, bet vēlāk varēsiet uzaicināt citus. Jūsu grupas dalībnieki var dalīties maltīšu plānos, iepirkumu sarakstos, receptēs un daudz ko citu!",
     "use-seed-data": "Izmantojiet sēklu datus",
-    "use-seed-data-description": "Mealie piegādā kopā ar pārtikas produktu, vienību un etiķešu kolekciju, ko var izmantot, lai papildinātu grupu ar noderīgiem datiem recepšu sakārtošanai.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Konta informācija"
   },
   "validation": {

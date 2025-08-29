@@ -69,6 +69,7 @@
     "new-notification": "Neue Benachrichtigung",
     "event-notifiers": "Ereignis-Benachrichtigungen",
     "apprise-url-skipped-if-blank": "Apprise-URL (wird übersprungen, wenn leer)",
+    "apprise-url-is-left-intentionally-blank": "Da Apprise-URLs normalerweise sensible Informationen enthalten, wird dieses Feld während der Bearbeitung absichtlich leer gelassen. Wenn Sie die URL aktualisieren möchten, geben Sie hier die neue ein. Andernfalls lassen Sie diese leer, um die aktuelle URL zu behalten.",
     "enable-notifier": "Benachrichtigen aktivieren",
     "what-events": "Welche Ereignisse soll diese Benachrichtigung abonnieren?",
     "user-events": "Benutzer-Ereignisse",
@@ -79,7 +80,8 @@
     "tag-events": "Schlagwort-Ereignisse",
     "category-events": "Kategorie-Ereignisse",
     "when-a-new-user-joins-your-group": "Wenn ein neuer Benutzer deiner Gruppe beitritt",
-    "recipe-events": "Rezept-Ereignisse"
+    "recipe-events": "Rezept-Ereignisse",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Hinzufügen",
@@ -215,7 +217,7 @@
     "organizers": "Organisieren",
     "caution": "Vorsicht",
     "show-advanced": "Erweiterte Optionen anzeigen",
-    "add-field": "Feld Hinzufügen",
+    "add-field": "Bedingung hinzufügen",
     "date-created": "Erstellungsdatum",
     "date-updated": "Aktualisiert am"
   },
@@ -472,6 +474,7 @@
     "comment": "Kommentar",
     "comments": "Kommentare",
     "delete-confirmation": "Bist du dir sicher, dass du dieses Rezept löschen möchtest?",
+    "admin-delete-confirmation": "Du bist dabei ein Rezept, welches nicht deins ist, mit Admin-Rechten zu löschen. Bist du sicher?",
     "delete-recipe": "Rezept löschen",
     "description": "Beschreibung",
     "disable-amount": "Zutatenmenge deaktivieren",
@@ -579,9 +582,14 @@
     "made-this": "Ich hab's gemacht",
     "how-did-it-turn-out": "Wie ist es geworden?",
     "user-made-this": "{user} hat's gemacht",
+    "added-to-timeline": "Zur Zeitleiste hinzugefügt",
+    "failed-to-add-to-timeline": "Fehler beim Hinzufügen zur Zeitleiste",
+    "failed-to-update-recipe": "Fehler beim Aktualisieren des Rezepts",
+    "added-to-timeline-but-failed-to-add-image": "Zum Verlauf hinzugefügt, Bild hinzufügen fehlgeschlagen",
     "api-extras-description": "Rezepte-Extras sind ein Hauptmerkmal der Mealie API. Sie ermöglichen es dir, benutzerdefinierte JSON Key-Value-Paare zu einem Rezept zu erstellen, um Drittanbieter-Anwendungen zu steuern. Du kannst diese dazu verwenden, um Automatisierungen auszulösen oder benutzerdefinierte Nachrichten an bestimmte Geräte zu senden.",
     "message-key": "Nachrichten-Schlüssel",
     "parse": "Parsen",
+    "ingredients-not-parsed-description": "Es scheint als ob deine Zutaten noch nicht eingelesen wurden. Klick unten auf \"{parse}\" um deine Zutaten einzulesen.",
     "attach-images-hint": "Bilder durch Ziehen & Ablegen in den Editor hinzufügen",
     "drop-image": "Bild hier ablegen",
     "enable-ingredient-amounts-to-use-this-feature": "Aktiviere Zutatenmengen, um diese Funktion zu nutzen",
@@ -658,17 +666,21 @@
       "no-unit": "Keine Einheit",
       "missing-unit": "Fehlende Einheit erstellen: {unit}",
       "missing-food": "Fehlendes Lebensmittel erstellen: {food}",
+      "this-unit-could-not-be-parsed-automatically": "Diese Einheit konnte nicht automatisch analysiert werden",
+      "this-food-could-not-be-parsed-automatically": "Dieses Lebensmittel konnte nicht automatisch analysiert werden",
       "no-food": "Kein Lebensmittel"
     },
     "reset-servings-count": "Portionen zurücksetzen",
     "not-linked-ingredients": "Zusätzliche Zutaten",
     "upload-another-image": "Weiteres Bild hochladen",
     "upload-images": "Bilder hochladen",
-    "upload-more-images": "Weitere Bilder hochladen"
+    "upload-more-images": "Weitere Bilder hochladen",
+    "set-as-cover-image": "Als Rezept-Titelbild setzen",
+    "cover-image": "Titelbild"
   },
   "recipe-finder": {
     "recipe-finder": "Rezept-Suche",
-    "recipe-finder-description": "Suche nach Rezepten basierend auf den Zutaten, die du zur Hand hast. Sie können auch nach verfügbaren Werkzeugen filtern und eine maximale Anzahl an fehlenden Zutaten oder Werkzeugen festlegen.",
+    "recipe-finder-description": "Suche nach Rezepten basierend auf den Zutaten, die du zur Hand hast. Du kannst auch nach verfügbaren Werkzeugen filtern und eine maximale Anzahl an fehlenden Zutaten oder Werkzeugen festlegen.",
     "selected-ingredients": "Ausgewählte Zutaten",
     "no-ingredients-selected": "Keine Zutaten ausgewählt",
     "missing": "Fehlend",
@@ -899,7 +911,7 @@
     "migrations": "Migrationen",
     "profile": "Profil",
     "search": "Suche",
-    "site-settings": "Einstellungen",
+    "site-settings": "Systemeinstellungen",
     "tags": "Schlagworte",
     "toolbox": "Werkzeuge",
     "language": "Sprache",
@@ -1157,7 +1169,7 @@
     "group-details": "Gruppendetails",
     "group-details-description": "Bevor du ein Konto erstellst, musst du eine Gruppe erstellen. Deine Gruppe wird nur dich enthalten, aber du kannst andere später einladen. Mitglieder in deiner Gruppe können Essenspläne, Einkaufslisten, Rezepte und vieles mehr teilen!",
     "use-seed-data": "Musterdaten",
-    "use-seed-data-description": "Mealie enthält eine Sammlung von Lebensmitteln, Maßeinheiten und Kategorien, die verwendet werden können, um deine Gruppe mit hilfreichen Daten für die Organisation deiner Rezepte zu füllen.",
+    "use-seed-data-description": "Mealie enthält eine Sammlung von Lebensmitteln, Einheiten und Labels, die verwendet werden können, um deine Gruppe mit hilfreichen Daten für die Organisation deiner Rezepte zu füllen. Diese werden in die Sprache übersetzt, die Sie gerade ausgewählt haben. Sie können diese Daten jederzeit später hinzufügen oder ändern.",
     "account-details": "Kontoinformationen"
   },
   "validation": {
@@ -1347,7 +1359,7 @@
   },
   "cookbook": {
     "cookbooks": "Kochbücher",
-    "description": "Kochbücher sind ein weiterer Weg, Rezepte zu organisieren, indem man verschiedene Filter erstellt. Das Erstellen eines Kochbuchs fügt einen Eintrag zur Seitenleiste hinzu und alle Rezepte, die den gewählten Filtern zustimmen, werden in dem Kochbuch angezeigt.",
+    "description": "Kochbücher sind ein weiterer Weg, Rezepte zu organisieren, indem man verschiedene Filter erstellt. Das Erstellen eines Kochbuchs fügt einen Eintrag zur Seitenleiste hinzu und alle Rezepte, die mit den gewählten Filtern übereinstimmen, werden in dem Kochbuch angezeigt.",
     "hide-cookbooks-from-other-households": "Kochbücher von anderen Haushalten ausblenden",
     "hide-cookbooks-from-other-households-description": "Wenn aktiviert, werden nur Kochbücher deines Haushalts in der Seitenleiste angezeigt",
     "public-cookbook": "Öffentliches Kochbuch",

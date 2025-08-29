@@ -66,7 +66,6 @@ class ShoppingListItemBase(RecipeIngredientBase):
     label_id: UUID4 | None = None
     unit_id: UUID4 | None = None
 
-    is_food: bool = False
     extras: dict | None = {}
 
     @field_validator("extras", mode="before")

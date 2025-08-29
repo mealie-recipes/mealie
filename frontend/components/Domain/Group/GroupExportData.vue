@@ -20,45 +20,33 @@
   </v-data-table>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { parseISO, formatDistanceToNow } from "date-fns";
 import type { GroupDataExport } from "~/lib/api/types/group";
 
-export default defineNuxtComponent({
-  props: {
-    exports: {
-      type: Array as () => GroupDataExport[],
-      required: true,
-    },
-  },
-  setup() {
-    const i18n = useI18n();
+defineProps<{
+  exports: GroupDataExport[];
+}>();
 
-    const headers = [
-      { title: i18n.t("export.export"), value: "name" },
-      { title: i18n.t("export.file-name"), value: "filename" },
-      { title: i18n.t("export.size"), value: "size" },
-      { title: i18n.t("export.link-expires"), value: "expires" },
-      { title: "", value: "actions" },
-    ];
+const i18n = useI18n();
 
-    function getTimeToExpire(timeString: string) {
-      const expiresAt = parseISO(timeString);
+const headers = [
+  { title: i18n.t("export.export"), value: "name" },
+  { title: i18n.t("export.file-name"), value: "filename" },
+  { title: i18n.t("export.size"), value: "size" },
+  { title: i18n.t("export.link-expires"), value: "expires" },
+  { title: "", value: "actions" },
+];
 
-      return formatDistanceToNow(expiresAt, {
-        addSuffix: false,
-      });
-    }
+function getTimeToExpire(timeString: string) {
+  const expiresAt = parseISO(timeString);
 
-    function downloadData(_: any) {
-      console.log("Downloading data...");
-    }
+  return formatDistanceToNow(expiresAt, {
+    addSuffix: false,
+  });
+}
 
-    return {
-      downloadData,
-      headers,
-      getTimeToExpire,
-    };
-  },
-});
+function downloadData(_: any) {
+  console.log("Downloading data...");
+}
 </script>

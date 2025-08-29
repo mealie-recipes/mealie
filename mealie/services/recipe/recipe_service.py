@@ -73,6 +73,12 @@ class RecipeService(RecipeServiceBase):
             raise exceptions.NoEntryFound("Recipe not found.")
         return recipe
 
+    def can_delete(self, recipe: Recipe) -> bool:
+        if self.user.admin:
+            return True
+        else:
+            return self.can_update(recipe)
+
     def can_update(self, recipe: Recipe) -> bool:
         if recipe.settings is None:
             raise exceptions.UnexpectedNone("Recipe Settings is None")
@@ -177,7 +183,6 @@ class RecipeService(RecipeServiceBase):
                     show_assets=self.household.preferences.recipe_show_assets,
                     landscape_view=self.household.preferences.recipe_landscape_view,
                     disable_comments=self.household.preferences.recipe_disable_comments,
-                    disable_amount=self.household.preferences.recipe_disable_amount,
                 )
             else:
                 data.settings = RecipeSettings()
@@ -419,6 +424,16 @@ class RecipeService(RecipeServiceBase):
         self.check_assets(new_data, recipe.slug)
         return new_data
 
+    def update_recipe_image(self, slug: str, image: bytes, extension: str):
+        recipe = self.get_one(slug)
+        if not self.can_update(recipe):
+            raise exceptions.PermissionDenied("You do not have permission to edit this recipe.")
+
+        data_service = RecipeDataService(recipe.id)
+        data_service.write_image(image, extension)
+
+        return self.group_recipes.update_image(slug, extension)
+
     def patch_one(self, slug_or_id: str | UUID, patch_data: Recipe) -> Recipe:
         recipe: Recipe = self._pre_update_check(slug_or_id, patch_data, False)
 
@@ -439,7 +454,7 @@ class RecipeService(RecipeServiceBase):
     def delete_one(self, slug_or_id: str | UUID) -> Recipe:
         recipe = self.get_one(slug_or_id)
 
-        if not self.can_update(recipe):
+        if not self.can_delete(recipe):
             raise exceptions.PermissionDenied("You do not have permission to delete this recipe.")
 
         data = self.group_recipes.delete(recipe.id, "id")

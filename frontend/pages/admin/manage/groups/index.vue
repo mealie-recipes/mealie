@@ -47,6 +47,7 @@
         :items="groups || []"
         item-key="id"
         class="elevation-0"
+        :items-per-page="-1"
         hide-default-footer
         disable-pagination
         :search="search"
@@ -60,7 +61,7 @@
         </template>
         <template #[`item.actions`]="{ item }">
           <v-tooltip
-            bottom
+            location="bottom"
             :disabled="!(item && (item.households!.length > 0 || item.users!.length > 0))"
           >
             <template #activator="{ props }">
@@ -73,7 +74,7 @@
                   variant="text"
                   @click.stop="
                     confirmDialog = true;
-                    deleteTarget = +item.id;
+                    deleteTarget = item.id;
                   "
                 >
                   <v-icon>
@@ -114,7 +115,7 @@ export default defineNuxtComponent({
     const state = reactive({
       createDialog: false,
       confirmDialog: false,
-      deleteTarget: 0,
+      deleteTarget: "",
       search: "",
       headers: [
         {

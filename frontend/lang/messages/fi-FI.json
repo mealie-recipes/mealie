@@ -69,6 +69,7 @@
     "new-notification": "Uusi ilmoitus",
     "event-notifiers": "Tapahtumien ilmoitukset",
     "apprise-url-skipped-if-blank": "Ilmoitusverkko-osoite (voi jättää tyhjäksi)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Ota ilmoittaja käyttöön",
     "what-events": "Mistä tapahtumista tulisi ilmoittaa?",
     "user-events": "Käyttäjän tapahtumat",
@@ -79,7 +80,8 @@
     "tag-events": "Valitse tapahtumat",
     "category-events": "Luokkatapahtumat",
     "when-a-new-user-joins-your-group": "Kun ryhmääsi liittyy uusi jäsen",
-    "recipe-events": "Reseptitapahtumat"
+    "recipe-events": "Reseptitapahtumat",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Lisää",
@@ -472,6 +474,7 @@
     "comment": "Kommentti",
     "comments": "Kommentit",
     "delete-confirmation": "Haluatko varmasti poistaa reseptin?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Poista resepti",
     "description": "Kuvaus",
     "disable-amount": "Poista ainesosien määrät käytöstä",
@@ -579,9 +582,14 @@
     "made-this": "Tein tämän",
     "how-did-it-turn-out": "Miten se onnistui?",
     "user-made-this": "{user} teki tämän",
+    "added-to-timeline": "Added to timeline",
+    "failed-to-add-to-timeline": "Failed to add to timeline",
+    "failed-to-update-recipe": "Failed to update recipe",
+    "added-to-timeline-but-failed-to-add-image": "Added to timeline, but failed to add image",
     "api-extras-description": "Reseptiekstrat ovat Mealien API:n tärkeä ominaisuus. Niiden avulla voidaan luoda mukautettuja JSON-avain/arvo-pareja reseptin sisällä viitaten kolmannen osapuolen sovelluksiin. Näitä avaimia voi käyttää tiedon antamiseksi, esimerkiksi automaattisen toiminnon tai mukautetun viestin käynnistämiseksi haluamaasi laitteeseen.",
     "message-key": "Viestiavain",
     "parse": "Jäsennä",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Liitä kuvia vetämällä ja pudottamalla ne editoriin",
     "drop-image": "Tuo kuva",
     "enable-ingredient-amounts-to-use-this-feature": "Käytä ainesosan määriä käyttääksesi tätä ominaisuutta",
@@ -658,13 +666,17 @@
       "no-unit": "Ei yksikköä",
       "missing-unit": "Luo puuttuva yksikkö: {unit}",
       "missing-food": "Luo puuttuva ruoka: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Ei ruokaa"
     },
     "reset-servings-count": "Palauta Annoksien Määrä",
     "not-linked-ingredients": "Muut ainesosat",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Reseptin etsijä",
@@ -1157,7 +1169,7 @@
     "group-details": "Ryhmän tiedot",
     "group-details-description": "Ennen kuin luot tilin, sinun on luotava ryhmä. Ryhmässäsi on vain sinä, mutta voit kutsua muita myöhemmin. Ryhmäsi jäsenet voivat jakaa ateriasuunnitelmia, ostoslistoja, reseptejä ja paljon muuta!",
     "use-seed-data": "Käytä pohjatietoja",
-    "use-seed-data-description": "Mealien mukana toimitetaan kokoelma elintarvikkeita, yksiköitä ja tarroja, joiden avulla voit täyttää ryhmäsi hyödyllisillä tiedoilla reseptien järjestämiseen.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Tilitiedot"
   },
   "validation": {

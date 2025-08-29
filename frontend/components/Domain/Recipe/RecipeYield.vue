@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="scaledAmount"
+    v-if="yieldDisplay"
     class="d-flex align-center"
   >
     <v-row
@@ -18,53 +18,49 @@
       <p class="my-0 opacity-80">
         <span class="font-weight-bold">{{ $t("recipe.yield") }}</span><br>
         <!-- eslint-disable-next-line vue/no-v-html -->
-        <span v-html="scaledAmount" /> {{ text }}
+        <span v-html="yieldDisplay" />
       </p>
     </v-row>
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import DOMPurify from "dompurify";
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
-export default defineNuxtComponent({
-  props: {
-    yieldQuantity: {
-      type: Number,
-      default: 0,
-    },
-    yield: {
-      type: String,
-      default: "",
-    },
-    scale: {
-      type: Number,
-      default: 1,
-    },
-    color: {
-      type: String,
-      default: "accent custom-transparent",
-    },
-  },
-  setup(props) {
-    function sanitizeHTML(rawHtml: string) {
-      return DOMPurify.sanitize(rawHtml, {
-        USE_PROFILES: { html: true },
-        ALLOWED_TAGS: ["strong", "sup"],
-      });
-    }
+interface Props {
+  yieldQuantity?: number;
+  yieldText?: string;
+  scale?: number;
+  color?: string;
+}
+const props = withDefaults(defineProps<Props>(), {
+  yieldQuantity: 0,
+  yieldText: "",
+  scale: 1,
+  color: "accent custom-transparent",
+});
 
-    const scaledAmount = computed(() => {
-      const { scaledAmountDisplay } = useScaledAmount(props.yieldQuantity, props.scale);
-      return scaledAmountDisplay;
-    });
-    const text = sanitizeHTML(props.yield);
+function sanitizeHTML(rawHtml: string) {
+  return DOMPurify.sanitize(rawHtml, {
+    USE_PROFILES: { html: true },
+    ALLOWED_TAGS: ["strong", "sup"],
+  });
+}
 
-    return {
-      scaledAmount,
-      text,
-    };
-  },
+const yieldDisplay = computed<string>(() => {
+  const components: string[] = [];
+
+  const { scaledAmountDisplay } = useScaledAmount(props.yieldQuantity, props.scale);
+  if (scaledAmountDisplay) {
+    components.push(scaledAmountDisplay);
+  }
+
+  const text = props.yieldText;
+  if (text) {
+    components.push(text);
+  }
+
+  return sanitizeHTML(components.join(" "));
 });
 </script>

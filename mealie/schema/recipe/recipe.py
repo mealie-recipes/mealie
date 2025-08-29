@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Annotated, Any, ClassVar
 from uuid import uuid4
 
-from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator, model_validator
+from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 from slugify import slugify
 from sqlalchemy import Select, desc, func, or_, select, text
@@ -227,18 +227,6 @@ class Recipe(RecipeSummary):
         return self.image_dir_from_id(self.id)
 
     model_config = ConfigDict(from_attributes=True)
-
-    @model_validator(mode="after")
-    def calculate_missing_food_flags_and_format_display(self):
-        disable_amount = self.settings.disable_amount if self.settings else True
-        for ingredient in self.recipe_ingredient:
-            ingredient.disable_amount = disable_amount
-            ingredient.is_food = not ingredient.disable_amount
-
-            # recalculate the display property, since it depends on the disable_amount flag
-            ingredient.display = ingredient._format_display()
-
-        return self
 
     @field_validator("slug", mode="before")
     def validate_slug(slug: str, info: ValidationInfo):

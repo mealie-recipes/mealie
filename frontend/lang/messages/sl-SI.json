@@ -69,6 +69,7 @@
     "new-notification": "Novo obvestilo",
     "event-notifiers": "Obvestila o dogodkih",
     "apprise-url-skipped-if-blank": "Apprise URL (preskočeno, če je prazno)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Vključi obvestila",
     "what-events": "Katere dogodke naj spremlja obveščevalni sistem?",
     "user-events": "Dogodki uporabnika",
@@ -79,7 +80,8 @@
     "tag-events": "Dogodki značk",
     "category-events": "Dogodki kategorij",
     "when-a-new-user-joins-your-group": "Ko se novi uporabnik pridruži tvoji skupini",
-    "recipe-events": "Dogodki receptov"
+    "recipe-events": "Dogodki receptov",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Dodaj",
@@ -472,6 +474,7 @@
     "comment": "Komentar",
     "comments": "Pripombe",
     "delete-confirmation": "Ali želite izbrisati ta recept?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Izbriši recept",
     "description": "Opis",
     "disable-amount": "Onemogoči prikaz količin sestavin",
@@ -579,9 +582,14 @@
     "made-this": "Naredil sem to",
     "how-did-it-turn-out": "Kako se je izkazalo?",
     "user-made-this": "{user} je tole pripravil/a",
+    "added-to-timeline": "Added to timeline",
+    "failed-to-add-to-timeline": "Failed to add to timeline",
+    "failed-to-update-recipe": "Failed to update recipe",
+    "added-to-timeline-but-failed-to-add-image": "Added to timeline, but failed to add image",
     "api-extras-description": "Dodatni podatki za recepte so ključna funkcionalnost Mealie APIja. Omogočajo ustvarjanje lastnih JSON ključ / vrednost parov v okviru recepta, da lahko do njih dostopajo zunanje aplikacije. Te ključe lahko uporabiš za posredovanje informacij, na primer za sprožanje avtomatike ali sporočanje prilagojenih sporočil na poljubno napravo.",
     "message-key": "Ključ sporočila",
     "parse": "Razloči",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Slike pripneš z odlaganjem v urejevalnik",
     "drop-image": "Odloži sliko",
     "enable-ingredient-amounts-to-use-this-feature": "Vključi količine sestavin, da uporabiš to funkcijo",
@@ -658,13 +666,17 @@
       "no-unit": "Ni enote",
       "missing-unit": "Ustvari manjkajočo enoto: {unit}",
       "missing-food": "Ustvari manjkajoče živilo: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Ni živila"
     },
     "reset-servings-count": "Ponastavi števec obrokov",
     "not-linked-ingredients": "Dodatne sestavine",
     "upload-another-image": "Naloži drugo sliko",
     "upload-images": "Naloži slike",
-    "upload-more-images": "Naloži več slik"
+    "upload-more-images": "Naloži več slik",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Iskalnik receptov",
@@ -1157,7 +1169,7 @@
     "group-details": "Detajli skupine",
     "group-details-description": "Preden kreirate račun, morate kreirati skupino. V skupini boste sprva samo vi, vendar imate možnost povabiti še ostale člane. Člani v vaši skupini lahko delijo načrte obrokov, nakupovalne sezname, recepte in še več!",
     "use-seed-data": "Uporabi privzete podatke",
-    "use-seed-data-description": "Meali vključuje zbirko jedi, enot in oznak, ki se lahko uporabno uporabijo v vaši skupini za organizacijo receptov.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Podatki o računu"
   },
   "validation": {

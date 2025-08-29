@@ -33,6 +33,7 @@
       :items="members || []"
       item-key="id"
       class="elevation-0"
+      :items-per-page="-1"
       hide-default-footer
       disable-pagination
     >

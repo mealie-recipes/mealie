@@ -69,6 +69,7 @@
     "new-notification": "Naujas pranešimas",
     "event-notifiers": "Įvykių pranešimai",
     "apprise-url-skipped-if-blank": "Apprise URL (praleidžiama, jei tuščia)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Įjungti pranešiklį",
     "what-events": "Kokie įvykiai turėtų būti sekami?",
     "user-events": "Naudotojų įvykiai",
@@ -79,7 +80,8 @@
     "tag-events": "Žymų įvykiai",
     "category-events": "Kategorijų įvykiai",
     "when-a-new-user-joins-your-group": "Kai prie jūsų grupės prisijungia naujas naudotojas",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Recipe Events",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Pridėti",
@@ -472,6 +474,7 @@
     "comment": "Komentaras",
     "comments": "Komentarai",
     "delete-confirmation": "Ar tikrai pašalinti šį receptą?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Ištrinti receptą",
     "description": "Aprašymas",
     "disable-amount": "Išjungti ingredientų kiekius",
@@ -579,9 +582,14 @@
     "made-this": "Aš tai gaminau",
     "how-did-it-turn-out": "Kaip tai pavyko?",
     "user-made-this": "{user} gamino šį patiekalą",
+    "added-to-timeline": "Added to timeline",
+    "failed-to-add-to-timeline": "Failed to add to timeline",
+    "failed-to-update-recipe": "Failed to update recipe",
+    "added-to-timeline-but-failed-to-add-image": "Added to timeline, but failed to add image",
     "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Žinutės raktas",
     "parse": "Nuskaityti",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Pridėkite vaizdus vilkdami ir numesdami juos į redaktorių",
     "drop-image": "Drop image",
     "enable-ingredient-amounts-to-use-this-feature": "Įjunkite ingredientų kiekius, kad galėtumėte naudoti šią funkciją",
@@ -658,13 +666,17 @@
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "No Food"
     },
     "reset-servings-count": "Reset Servings Count",
     "not-linked-ingredients": "Additional Ingredients",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
@@ -1157,7 +1169,7 @@
     "group-details": "Grupės informacija",
     "group-details-description": "Prieš kurdami paskyrą turite sukurti grupę. Jūsų grupėje būsite tik jūs, tačiau vėliau galėsite pakviesti ir kitus. Jūsų grupės nariai galės dalintis maitinimo planais, pirkinių sąrašais, receptais ir kita!",
     "use-seed-data": "Naudoti pradinius duomenis",
-    "use-seed-data-description": "\"Mealie\" sistemoje jau yra pradinis duomenų rinkinys su produktais, vienetais ir etiketėmis. Jį galite panaudoti savo grupės užpildymui naudinga informacija, kuri padės organizuoti jūsų receptus.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Paskyros informacija"
   },
   "validation": {

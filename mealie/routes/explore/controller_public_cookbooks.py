@@ -5,7 +5,7 @@ from pydantic import UUID4
 
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BasePublicHouseholdExploreController
-from mealie.schema.cookbook.cookbook import ReadCookBook, RecipeCookBook
+from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.make_dependable import make_dependable
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery
 
@@ -39,8 +39,8 @@ class PublicCookbooksController(BasePublicHouseholdExploreController):
         response.set_pagination_guides(self.get_explore_url_path(router.url_path_for("get_all")), q.model_dump())
         return response
 
-    @router.get("/{item_id}", response_model=RecipeCookBook)
-    def get_one(self, item_id: UUID4 | str) -> RecipeCookBook:
+    @router.get("/{item_id}", response_model=ReadCookBook)
+    def get_one(self, item_id: UUID4 | str) -> ReadCookBook:
         NOT_FOUND_EXCEPTION = HTTPException(404, "cookbook not found")
         if isinstance(item_id, UUID):
             match_attr = "id"
@@ -58,13 +58,4 @@ class PublicCookbooksController(BasePublicHouseholdExploreController):
         if not household or household.preferences.private_household:
             raise NOT_FOUND_EXCEPTION
 
-        cross_household_recipes = self.cross_household_repos.recipes
-        recipes = cross_household_recipes.page_all(
-            PaginationQuery(
-                page=1,
-                per_page=-1,
-                query_filter="settings.public = TRUE AND household.preferences.privateHousehold = FALSE",
-            ),
-            cookbook=cookbook,
-        )
-        return cookbook.cast(RecipeCookBook, recipes=recipes.items)
+        return cookbook

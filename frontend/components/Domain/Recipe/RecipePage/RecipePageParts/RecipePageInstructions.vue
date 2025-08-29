@@ -29,33 +29,31 @@
             {{ activeText }}
           </p>
           <v-divider class="mb-4" />
-          <v-checkbox
+          <v-checkbox-btn
             v-for="ing in unusedIngredients"
             :key="ing.referenceId"
             v-model="activeRefs"
             :value="ing.referenceId"
-            class="mb-n2 mt-n2"
           >
             <template #label>
-              <RecipeIngredientHtml :markup="parseIngredientText(ing, recipe.settings.disableAmount)" />
+              <RecipeIngredientHtml :markup="parseIngredientText(ing)" />
             </template>
-          </v-checkbox>
+          </v-checkbox-btn>
 
           <template v-if="usedIngredients.length > 0">
             <h4 class="py-3 ml-1">
               {{ $t("recipe.linked-to-other-step") }}
             </h4>
-            <v-checkbox
+            <v-checkbox-btn
               v-for="ing in usedIngredients"
               :key="ing.referenceId"
               v-model="activeRefs"
               :value="ing.referenceId"
-              class="mb-n2 mt-n2"
             >
               <template #label>
-                <RecipeIngredientHtml :markup="parseIngredientText(ing, recipe.settings.disableAmount)" />
+                <RecipeIngredientHtml :markup="parseIngredientText(ing)" />
               </template>
-            </v-checkbox>
+            </v-checkbox-btn>
           </template>
         </v-card-text>
 
@@ -325,7 +323,6 @@
                               return step.ingredientReferences.map((ref) => ref.referenceId).includes(ing.referenceId || '')
                             })"
                             :scale="scale"
-                            :disable-amount="recipe.settings.disableAmount"
                             :is-cook-mode="isCookMode"
                           />
                         </div>
@@ -392,8 +389,6 @@ const props = defineProps({
 });
 
 const emit = defineEmits(["click-instruction-field", "update:assets"]);
-
-const BASE_URL = useRequestURL().origin;
 
 const { isCookMode, toggleCookMode, isEditForm } = usePageState(props.recipe.slug);
 
@@ -554,7 +549,6 @@ function autoSetReferences() {
     props.recipe.recipeIngredient,
     activeRefs.value,
     activeText.value,
-    props.recipe.settings.disableAmount,
   ).forEach((ingredient: string) => activeRefs.value.push(ingredient));
 }
 
@@ -576,7 +570,7 @@ function getIngredientByRefId(refId: string | undefined) {
 
   const ing = ingredientLookup.value[refId];
   if (!ing) return "";
-  return parseIngredientText(ing, props.recipe.settings.disableAmount, props.scale);
+  return parseIngredientText(ing, props.scale);
 }
 
 // ===============================================================
@@ -699,7 +693,7 @@ async function handleImageDrop(index: number, files: File[]) {
   }
 
   emit("update:assets", [...assets.value, data]);
-  const assetUrl = BASE_URL + recipeAssetPath(props.recipe.id, data.fileName as string);
+  const assetUrl = recipeAssetPath(props.recipe.id, data.fileName as string);
   const text = `<img src="${assetUrl}" height="100%" width="100%"/>`;
   instructionList.value[index].text += text;
 }

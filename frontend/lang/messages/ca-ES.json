@@ -69,6 +69,7 @@
     "new-notification": "Nova notificació",
     "event-notifiers": "Notificacions d'esdeveniments",
     "apprise-url-skipped-if-blank": "Apprise URL (si es deixa buit, s'ignorarà)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Habilita la notificació",
     "what-events": "Què esdeveniments vols que utilitzen aquest notificador?",
     "user-events": "Esdeveniments d'usuari",
@@ -79,7 +80,8 @@
     "tag-events": "Esdeveniments de les etiquetes",
     "category-events": "Esdeveniments de les categories",
     "when-a-new-user-joins-your-group": "Quan un nou usuari s'afegeix al grup",
-    "recipe-events": "Esdeveniments de receptes"
+    "recipe-events": "Esdeveniments de receptes",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Afegeix",
@@ -472,6 +474,7 @@
     "comment": "Comentari",
     "comments": "Comentaris",
     "delete-confirmation": "Estàs segur que vols suprimir-la?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Suprimeix la recepta",
     "description": "Descripció",
     "disable-amount": "Oculta les quantitats",
@@ -579,9 +582,14 @@
     "made-this": "Ho he fet",
     "how-did-it-turn-out": "Com ha sortit?",
     "user-made-this": "{user} ha fet això",
+    "added-to-timeline": "Added to timeline",
+    "failed-to-add-to-timeline": "Failed to add to timeline",
+    "failed-to-update-recipe": "Failed to update recipe",
+    "added-to-timeline-but-failed-to-add-image": "Added to timeline, but failed to add image",
     "api-extras-description": "Els extres de receptes són una funcionalitat clau de l'API de Mealie. Permeten crear parells clau/valor JSON personalitzats dins una recepta, per referenciar-los des d'aplicacions de tercers. Pots emprar aquestes claus per proveir informació, per exemple per a desencadenar automatitzacions o missatges personlitzats per a propagar al teu dispositiu desitjat.",
     "message-key": "Clau del missatge",
     "parse": "Analitzar",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Afegeix imatges arrossegant i deixant anar la imatge a l'editor",
     "drop-image": "Deixa anar la imatge",
     "enable-ingredient-amounts-to-use-this-feature": "Habilita les quantitats d'ingredients per a poder fer servir aquesta característica",
@@ -658,13 +666,17 @@
       "no-unit": "Sense unitat",
       "missing-unit": "Crear unitat que manca: {unit}",
       "missing-food": "Crear menjar que manca: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Sense menjar"
     },
     "reset-servings-count": "Reiniciar racions servides",
     "not-linked-ingredients": "Ingredients addicionals",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Cercador de receptes",
@@ -1157,7 +1169,7 @@
     "group-details": "Detalls del grup",
     "group-details-description": "Abans de crear un compte heu de crear un grup. Al grup només hi serà vostè, però després podeu convidar d'altres. Els membres d'un grup poden compartir menús, llistes de la compra, receptes i molt més!",
     "use-seed-data": "Afegiu dades predeterminades",
-    "use-seed-data-description": "Mealie ve configurat amb una col·lecció d'aliments, unitats i etiquetes que poden ser emprades pel vostre grup per a ajudar-vos a organitzar les vostres receptes.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Detalls del compte"
   },
   "validation": {

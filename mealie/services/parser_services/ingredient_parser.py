@@ -12,6 +12,8 @@ from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFood,
     CreateIngredientUnit,
     IngredientConfidence,
+    IngredientFood,
+    IngredientUnit,
     ParsedIngredient,
     RegisteredParser,
 )
@@ -28,21 +30,41 @@ class BruteForceParser(ABCIngredientParser):
     Brute force ingredient parser.
     """
 
-    async def parse_one(self, ingredient: str) -> ParsedIngredient:
-        bfi = brute.parse(ingredient, self)
+    async def parse_one(self, ingredient_string: str) -> ParsedIngredient:
+        bfi = brute.parse(ingredient_string, self)
 
         parsed_ingredient = ParsedIngredient(
-            input=ingredient,
+            input=ingredient_string,
             ingredient=RecipeIngredient(
                 unit=CreateIngredientUnit(name=bfi.unit),
                 food=CreateIngredientFood(name=bfi.food),
-                disable_amount=False,
                 quantity=bfi.amount,
                 note=bfi.note,
             ),
         )
 
-        return self.find_ingredient_match(parsed_ingredient)
+        matched_ingredient = self.find_ingredient_match(parsed_ingredient)
+
+        qty_conf = 1
+        note_conf = 1
+
+        unit_obj = matched_ingredient.ingredient.unit
+        food_obj = matched_ingredient.ingredient.food
+
+        unit_conf = 1 if bfi.unit is None or isinstance(unit_obj, IngredientUnit) else 0
+        food_conf = 1 if bfi.food is None or isinstance(food_obj, IngredientFood) else 0
+
+        avg_conf = (qty_conf + unit_conf + food_conf + note_conf) / 4
+
+        matched_ingredient.confidence = IngredientConfidence(
+            average=avg_conf,
+            quantity=qty_conf,
+            unit=unit_conf,
+            food=food_conf,
+            comment=note_conf,
+        )
+
+        return matched_ingredient
 
     async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
         return [await self.parse_one(ingredient) for ingredient in ingredients]
@@ -151,7 +173,6 @@ class NLPParser(ABCIngredientParser):
                 quantity=qty,
                 unit=CreateIngredientUnit(name=unit) if unit else None,
                 food=CreateIngredientFood(name=food) if food else None,
-                disable_amount=False,
                 note=note,
             ),
         )

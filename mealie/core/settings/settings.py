@@ -398,7 +398,7 @@ class AppSettings(AppLoggingSettings):
     Sending database data may increase accuracy in certain requests,
     but will incur additional API costs
     """
-    OPENAI_REQUEST_TIMEOUT: int = 60
+    OPENAI_REQUEST_TIMEOUT: int = 300
     """
     The number of seconds to wait for an OpenAI request to complete before cancelling the request
     """
@@ -434,7 +434,7 @@ class AppSettings(AppLoggingSettings):
     def WORKERS(self) -> int:
         return max(1, self.WORKER_PER_CORE * self.UVICORN_WORKERS)
 
-    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
+    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow", env_nested_delimiter="__")
 
     # ===============================================
     # TLS

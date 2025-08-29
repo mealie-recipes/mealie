@@ -2,7 +2,7 @@
   <div>
     <v-card variant="outlined">
       <v-card-text class="pb-3 pt-1">
-        <div v-if="listItem.isFood" class="d-md-flex align-center mb-2" style="gap: 20px">
+        <div class="d-md-flex align-center mb-2" style="gap: 20px">
           <div>
             <InputQuantity v-model="listItem.quantity" />
           </div>
@@ -26,9 +26,6 @@
           />
         </div>
         <div class="d-md-flex align-center" style="gap: 20px">
-          <div v-if="!listItem.isFood">
-            <InputQuantity v-model="listItem.quantity" />
-          </div>
           <v-textarea
             v-model="listItem.note"
             hide-details
@@ -72,7 +69,7 @@
           </div>
           <BaseButton
             v-if="listItem.labelId && listItem.food && listItem.labelId !== listItem.food.labelId"
-            size="small"
+            small
             color="info"
             :icon="$globals.icons.tagArrowRight"
             :text="$t('shopping-list.save-label')"
@@ -100,11 +97,6 @@
               event: 'cancel',
             },
             {
-              icon: $globals.icons.foods,
-              text: $t('shopping-list.toggle-food'),
-              event: 'toggle-foods',
-            },
-            {
               icon: $globals.icons.save,
               text: $t('general.save'),
               event: 'save',
@@ -113,7 +105,6 @@
           @save="$emit('save')"
           @cancel="$emit('cancel')"
           @delete="$emit('delete')"
-          @toggle-foods="listItem.isFood = !listItem.isFood"
         />
       </v-card-actions>
     </v-card>

@@ -152,33 +152,17 @@ class IngredientUnit(CreateIngredientUnit):
 
 
 class RecipeIngredientBase(MealieModel):
-    quantity: NoneFloat = 1
+    quantity: NoneFloat = 0
     unit: IngredientUnit | CreateIngredientUnit | None = None
     food: IngredientFood | CreateIngredientFood | None = None
     note: str | None = ""
 
-    is_food: bool | None = None
-    disable_amount: bool | None = None
     display: str = ""
     """
     How the ingredient should be displayed
 
     Automatically calculated after the object is created, unless overwritten
     """
-
-    @model_validator(mode="after")
-    def calculate_missing_food_flags(self):
-        # calculate missing is_food and disable_amount values
-        # we can't do this in a validator since they depend on each other
-        if self.is_food is None and self.disable_amount is not None:
-            self.is_food = not self.disable_amount
-        elif self.disable_amount is None and self.is_food is not None:
-            self.disable_amount = not self.is_food
-        elif self.is_food is None and self.disable_amount is None:
-            self.is_food = bool(self.food)
-            self.disable_amount = not self.is_food
-
-        return self
 
     @model_validator(mode="after")
     def format_display(self):
@@ -266,28 +250,17 @@ class RecipeIngredientBase(MealieModel):
     def _format_display(self) -> str:
         components = []
 
-        use_food = True
-        if self.is_food is False:
-            use_food = False
-        elif self.disable_amount is True:
-            use_food = False
-
-        # ingredients with no food come across with a qty of 1, which looks weird
-        # e.g. "1 2 tbsp of olive oil"
-        if self.quantity and (use_food or self.quantity != 1):
+        if self.quantity:
             components.append(self._format_quantity_for_display())
 
-        if not use_food:
-            components.append(self.note or "")
-        else:
-            if self.quantity and self.unit:
-                components.append(self._format_unit_for_display())
+        if self.quantity and self.unit:
+            components.append(self._format_unit_for_display())
 
-            if self.food:
-                components.append(self._format_food_for_display())
+        if self.food:
+            components.append(self._format_food_for_display())
 
-            if self.note:
-                components.append(self.note)
+        if self.note:
+            components.append(self.note)
 
         return " ".join(components).strip()
 
@@ -299,7 +272,6 @@ class IngredientUnitPagination(PaginationBase):
 class RecipeIngredient(RecipeIngredientBase):
     title: str | None = None
     original_text: str | None = None
-    disable_amount: bool = True
 
     # Ref is used as a way to distinguish between an individual ingredient on the frontend
     # It is required for the reorder and section titles to function properly because of how
