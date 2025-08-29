@@ -561,6 +561,7 @@
     "see-original-text": "Prikaži Izvorni Tekst",
     "original-text-with-value": "Izvorni Tekst: {originalText}",
     "ingredient-linker": "Poveznik Sastojaka",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Povezano s drugim korakom",
     "auto": "Auto",
     "cook-mode": "Način Kuhanja",
