@@ -6239,8 +6239,8 @@
             "pink peppercorn": {
                 "aliases": [],
                 "description": "",
-                "name": "pink peppercorn",
-                "plural_name": "pink peppercorns"
+                "name": "rosa Pfefferkorn",
+                "plural_name": "rosa Pfefferkörner"
             },
             "hot paprika": {
                 "aliases": [],
@@ -6258,7 +6258,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Galgant",
-                "plural_name": "galangals"
+                "plural_name": "Galgant"
             },
             "garlic flake": {
                 "aliases": [],
@@ -6479,7 +6479,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Stevia",
-                "plural_name": "stevias"
+                "plural_name": "Stevias"
             },
             "agave nectar": {
                 "aliases": [],
@@ -6489,9 +6489,9 @@
             },
             "sugar syrup": {
                 "aliases": [],
-                "description": "sugar free sweetner",
+                "description": "zuckerfreier Süßstoff",
                 "name": "Zuckersirup",
-                "plural_name": "sugar syrups"
+                "plural_name": "Zuckersirupe"
             },
             "isomalt": {
                 "aliases": [],

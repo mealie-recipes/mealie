@@ -92,8 +92,8 @@ export default defineNuxtConfig({
         light: {
           primary: process.env.THEME_LIGHT_PRIMARY || "#E58325",
           accent: process.env.THEME_LIGHT_ACCENT || "#007A99",
-          secondary: process.env.THEME_DARK_SECONDARY || "#973542",
-          success: process.env.THEME_DARK_SUCCESS || "#43A047",
+          secondary: process.env.THEME_LIGHT_SECONDARY || "#973542",
+          success: process.env.THEME_LIGHT_SUCCESS || "#43A047",
           info: process.env.THEME_LIGHT_INFO || "#1976d2",
           warning: process.env.THEME_LIGHT_WARNING || "#FF6D00",
           error: process.env.THEME_LIGHT_ERROR || "#EF5350",
