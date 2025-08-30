@@ -66,8 +66,8 @@
 </template>
 
 <script setup lang="ts">
-import { HouseholdSummary } from '~/lib/api/types/household';
-import { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from '~/lib/api/types/recipe';
+import type { HouseholdSummary } from "~/lib/api/types/household";
+import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import {
   useCategoryStore,
   usePublicCategoryStore,
@@ -82,16 +82,16 @@ import {
 } from "~/composables/store";
 
 // Use defineModel for cleaner two-way binding
-const requireAllCategories = defineModel<boolean>('requireAllCategories', { default: false });
-const requireAllTags = defineModel<boolean>('requireAllTags', { default: false });
-const requireAllTools = defineModel<boolean>('requireAllTools', { default: false });
-const requireAllFoods = defineModel<boolean>('requireAllFoods', { default: false });
+const requireAllCategories = defineModel<boolean>("requireAllCategories", { default: false });
+const requireAllTags = defineModel<boolean>("requireAllTags", { default: false });
+const requireAllTools = defineModel<boolean>("requireAllTools", { default: false });
+const requireAllFoods = defineModel<boolean>("requireAllFoods", { default: false });
 
-const selectedCategories = defineModel<RecipeCategory[]>('selectedCategories', { default: () => [] });
-const selectedTags = defineModel<RecipeTag[]>('selectedTags', { default: () => [] });
-const selectedTools = defineModel<RecipeTool[]>('selectedTools', { default: () => [] });
-const selectedFoods = defineModel<IngredientFood[]>('selectedFoods', { default: () => [] });
-const selectedHouseholds = defineModel<HouseholdSummary[]>('selectedHouseholds', { default: () => [] });
+const selectedCategories = defineModel<RecipeCategory[]>("selectedCategories", { default: () => [] });
+const selectedTags = defineModel<RecipeTag[]>("selectedTags", { default: () => [] });
+const selectedTools = defineModel<RecipeTool[]>("selectedTools", { default: () => [] });
+const selectedFoods = defineModel<IngredientFood[]>("selectedFoods", { default: () => [] });
+const selectedHouseholds = defineModel<HouseholdSummary[]>("selectedHouseholds", { default: () => [] });
 
 const $auth = useMealieAuth();
 const route = useRoute();
@@ -104,5 +104,4 @@ const { store: tags } = isOwnGroup.value ? useTagStore() : usePublicTagStore(gro
 const { store: tools } = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
 const { store: foods } = isOwnGroup.value ? useFoodStore() : usePublicFoodStore(groupSlug.value);
 const { store: households } = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value);
-
 </script>

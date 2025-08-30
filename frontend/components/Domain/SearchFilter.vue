@@ -9,11 +9,11 @@
     >
       <template #activator="{ props }">
         <v-badge
+          v-memo="[selectedCount]"
           :model-value="selectedCount > 0"
           size="small"
           color="primary"
           :content="selectedCount"
-          v-memo="[selectedCount]"
         >
           <v-btn
             size="small"
@@ -29,13 +29,13 @@
         <v-card-text>
           <v-text-field
             v-model="state.search"
+            v-memo="[state.search]"
             class="mb-2"
             hide-details
             density="comfortable"
             :variant="'underlined'"
             :label="$t('search.search')"
             clearable
-            v-memo="[state.search]"
           />
           <div class="d-flex py-4 px-1">
             <v-switch
@@ -76,9 +76,9 @@
                 <template #default="{ item }">
                   <v-list-item
                     :key="`radio-${item.id}`"
+                    v-memo="[item.id, item.name, selectedRadio?.id]"
                     :value="item"
                     :title="item.name"
-                    v-memo="[item.id, item.name, selectedRadio?.id]"
                   >
                     <template #prepend>
                       <v-list-item-action start>
@@ -105,9 +105,9 @@
                 <template #default="{ item }">
                   <v-list-item
                     :key="`checkbox-${item.id}`"
+                    v-memo="[item.id, item.name, selectedIds.has(item.id)]"
                     :value="item"
                     :title="item.name"
-                    v-memo="[item.id, item.name, selectedIds.has(item.id)]"
                   >
                     <template #prepend>
                       <v-list-item-action start>
@@ -166,7 +166,6 @@ export default defineNuxtComponent({
   },
   emits: ["update:requireAll", "update:modelValue"],
   setup(props, context) {
-    const i18n = useI18n();
     const state = reactive({
       search: "",
       menu: false,
@@ -202,7 +201,7 @@ export default defineNuxtComponent({
       (newSearch) => {
         debouncedSearch.value = newSearch;
       },
-      { debounce: 500, maxWait: 1500, immediate: false } // Increased debounce time
+      { debounce: 500, maxWait: 1500, immediate: false }, // Increased debounce time
     );
 
     const filtered = computed(() => {
@@ -228,7 +227,8 @@ export default defineNuxtComponent({
 
       if (isSelected) {
         selected.value = currentSelection.filter(i => i.id !== item.id);
-      } else {
+      }
+      else {
         selected.value = [...currentSelection, item];
       }
     };

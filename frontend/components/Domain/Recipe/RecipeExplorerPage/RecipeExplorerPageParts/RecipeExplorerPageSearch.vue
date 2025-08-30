@@ -130,34 +130,34 @@
 </template>
 
 <script setup lang="ts">
+import RecipeExplorerPageSearchFilters from "./RecipeExplorerPageSearchFilters.vue";
 import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { HouseholdSummary } from "~/lib/api/types/household";
-import RecipeExplorerPageSearchFilters from "./RecipeExplorerPageSearchFilters.vue";
 
 const emit = defineEmits<{
-  'search': [];
-  'reset': [];
-  'toggle-order-direction': [];
-  'set-order-by': [value: string];
+  "search": [];
+  "reset": [];
+  "toggle-order-direction": [];
+  "set-order-by": [value: string];
 }>();
 
 const { $globals } = useNuxtApp();
 const i18n = useI18n();
 
-const searchText = defineModel<string>('search', { default: '' });
-const orderBy = defineModel<string>('orderBy', { default: 'created_at' });
-const orderDirection = defineModel<"asc" | "desc">('orderDirection', { default: 'desc' });
-const autoSearch = defineModel<boolean>('auto', { default: true });
-const requireAllCategories = defineModel<boolean>('requireAllCategories', { default: false });
-const requireAllTags = defineModel<boolean>('requireAllTags', { default: false });
-const requireAllTools = defineModel<boolean>('requireAllTools', { default: false });
-const requireAllFoods = defineModel<boolean>('requireAllFoods', { default: false });
-const selectedCategories = defineModel<NoUndefinedField<RecipeCategory>[]>('selectedCategories', { default: () => [] });
-const selectedTags = defineModel<NoUndefinedField<RecipeTag>[]>('selectedTags', { default: () => [] });
-const selectedTools = defineModel<NoUndefinedField<RecipeTool>[]>('selectedTools', { default: () => [] });
-const selectedFoods = defineModel<IngredientFood[]>('selectedFoods', { default: () => [] });
-const selectedHouseholds = defineModel<NoUndefinedField<HouseholdSummary>[]>('selectedHouseholds', { default: () => [] });
+const searchText = defineModel<string>("search", { default: "" });
+const orderBy = defineModel<string>("orderBy", { default: "created_at" });
+const orderDirection = defineModel<"asc" | "desc">("orderDirection", { default: "desc" });
+const autoSearch = defineModel<boolean>("auto", { default: true });
+const requireAllCategories = defineModel<boolean>("requireAllCategories", { default: false });
+const requireAllTags = defineModel<boolean>("requireAllTags", { default: false });
+const requireAllTools = defineModel<boolean>("requireAllTools", { default: false });
+const requireAllFoods = defineModel<boolean>("requireAllFoods", { default: false });
+const selectedCategories = defineModel<NoUndefinedField<RecipeCategory>[]>("selectedCategories", { default: () => [] });
+const selectedTags = defineModel<NoUndefinedField<RecipeTag>[]>("selectedTags", { default: () => [] });
+const selectedTools = defineModel<NoUndefinedField<RecipeTool>[]>("selectedTools", { default: () => [] });
+const selectedFoods = defineModel<IngredientFood[]>("selectedFoods", { default: () => [] });
+const selectedHouseholds = defineModel<NoUndefinedField<HouseholdSummary>[]>("selectedHouseholds", { default: () => [] });
 
 const sortText = computed(() => {
   const sort = sortable.value.find(s => s.value === orderBy.value);
@@ -206,7 +206,7 @@ function hideKeyboard() {
 }
 
 function handleSearch() {
-  emit('search');
+  emit("search");
 }
 </script>
 

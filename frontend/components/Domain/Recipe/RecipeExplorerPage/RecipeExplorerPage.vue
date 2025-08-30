@@ -42,6 +42,7 @@
 
 <script lang="ts">
 import { watchDebounced } from "@vueuse/shared";
+import RecipeExplorerPageSearch from "./RecipeExplorerPageParts/RecipeExplorerPageSearch.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import {
   useCategoryStore,
@@ -57,7 +58,6 @@ import {
 } from "~/composables/store";
 import { useUserSearchQuerySession, useUserSortPreferences } from "~/composables/use-users/preferences";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
-import RecipeExplorerPageSearch from "./RecipeExplorerPageParts/RecipeExplorerPageSearch.vue";
 import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useLazyRecipes } from "~/composables/recipes";
