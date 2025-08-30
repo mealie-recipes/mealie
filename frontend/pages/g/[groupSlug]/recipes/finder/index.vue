@@ -428,7 +428,7 @@ interface RecipeSuggestions {
 export default defineNuxtComponent({
   components: { QueryFilterBuilder, RecipeSuggestion, SearchFilter },
   setup() {
-    const { $vuetify } = useNuxtApp();
+    const display = useDisplay();
     const i18n = useI18n();
     const $auth = useMealieAuth();
     const route = useRoute();
@@ -437,7 +437,7 @@ export default defineNuxtComponent({
       title: i18n.t("recipe-finder.recipe-finder"),
     });
 
-    const useMobile = computed(() => $vuetify.display.smAndDown.value);
+    const useMobile = computed(() => display.smAndDown.value);
 
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
     const { isOwnGroup } = useLoggedInState();

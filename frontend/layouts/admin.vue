@@ -38,11 +38,12 @@ import TheSnackbar from "~/components/Layout/LayoutParts/TheSnackbar.vue";
 import type { SidebarLinks } from "~/types/application-types";
 
 const i18n = useI18n();
-const { $globals, $vuetify } = useNuxtApp();
+const display = useDisplay();
+const { $globals } = useNuxtApp();
 
 const sidebar = ref<boolean>(false);
 onMounted(() => {
-  sidebar.value = !$vuetify.display.md.value;
+  sidebar.value = !display.md.value;
 });
 
 const topLinks: SidebarLinks = [
