@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
-      <v-card :flat="$vuetify.display.smAndDown.value" class="d-print-none">
+      <v-card :flat="$vuetify.display.smAndDown" class="d-print-none">
         <RecipePageHeader
           :recipe="recipe"
           :recipe-scale="scale"
