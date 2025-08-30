@@ -3,134 +3,25 @@
     fluid
     class="px-0"
   >
-    <div class="search-container pb-8">
-      <form
-        class="search-box pa-2"
-        @submit.prevent="search"
-      >
-        <div class="d-flex justify-center mb-2">
-          <v-text-field
-            ref="input"
-            v-model="state.search"
-            variant="outlined"
-            hide-details
-            clearable
-            color="primary"
-            :placeholder="$t('search.search-placeholder')"
-            :prepend-inner-icon="$globals.icons.search"
-            @keyup.enter="hideKeyboard"
-          />
-        </div>
-        <div class="search-row">
-          <RecipeExplorerPageFilters
-            v-model:require-all-categories="state.requireAllCategories"
-            v-model:require-all-tags="state.requireAllTags"
-            v-model:require-all-tools="state.requireAllTools"
-            v-model:require-all-foods="state.requireAllFoods"
-            v-model:selected-categories="selectedCategories"
-            v-model:selected-tags="selectedTags"
-            v-model:selected-tools="selectedTools"
-            v-model:selected-foods="selectedFoods"
-            v-model:selected-households="selectedHouseholds"
-          />
-          <!-- Sort Options -->
-          <v-menu
-            offset-y
-            nudge-bottom="3"
-          >
-            <template #activator="{ props }">
-              <v-btn
-                class="ml-auto"
-                size="small"
-                color="accent"
-                v-bind="props"
-              >
-                <v-icon :start="!$vuetify.display.xs">
-                  {{ state.orderDirection === "asc" ? $globals.icons.sortAscending : $globals.icons.sortDescending }}
-                </v-icon>
-                {{ $vuetify.display.xs ? null : sortText }}
-              </v-btn>
-            </template>
-            <v-card>
-              <v-list>
-                <v-list-item
-                  slim
-                  density="comfortable"
-                  :prepend-icon="state.orderDirection === 'asc' ? $globals.icons.sortDescending : $globals.icons.sortAscending"
-                  :title="state.orderDirection === 'asc' ? $t('general.sort-descending') : $t('general.sort-ascending')"
-                  @click="toggleOrderDirection()"
-                />
-                <v-divider />
-                <v-list-item
-                  v-for="v in sortable"
-                  :key="v.name"
-                  :active="state.orderBy === v.value"
-                  slim
-                  density="comfortable"
-                  :prepend-icon="v.icon"
-                  :title="v.name"
-                  @click="setOrderBy(v.value)"
-                />
-              </v-list>
-            </v-card>
-          </v-menu>
-
-          <!-- Settings -->
-          <v-menu
-            offset-y
-            bottom
-            start
-            nudge-bottom="3"
-            :close-on-content-click="false"
-          >
-            <template #activator="{ props }">
-              <v-btn
-                size="small"
-                color="accent"
-                dark
-                v-bind="props"
-              >
-                <v-icon size="small">
-                  {{ $globals.icons.cog }}
-                </v-icon>
-              </v-btn>
-            </template>
-            <v-card>
-              <v-card-text>
-                <v-switch
-                  v-model="state.auto"
-                  :label="$t('search.auto-search')"
-                  single-line
-                />
-                <v-btn
-                  block
-                  color="primary"
-                  @click="reset"
-                >
-                  {{ $t("general.reset") }}
-                </v-btn>
-              </v-card-text>
-            </v-card>
-          </v-menu>
-        </div>
-        <div
-          v-if="!state.auto"
-          class="search-button-container"
-        >
-          <v-btn
-            size="x-large"
-            color="primary"
-            type="submit"
-            block
-          >
-            <v-icon start>
-              {{ $globals.icons.search }}
-            </v-icon>
-            {{ $t("search.search") }}
-          </v-btn>
-        </div>
-      </form>
-    </div>
+    <RecipeExplorerPageSearch
+      v-model:search="state.search"
+      v-model:order-by="state.orderBy"
+      v-model:order-direction="state.orderDirection"
+      v-model:auto="state.auto"
+      v-model:require-all-categories="state.requireAllCategories"
+      v-model:require-all-tags="state.requireAllTags"
+      v-model:require-all-tools="state.requireAllTools"
+      v-model:require-all-foods="state.requireAllFoods"
+      v-model:selected-categories="selectedCategories"
+      v-model:selected-tags="selectedTags"
+      v-model:selected-tools="selectedTools"
+      v-model:selected-foods="selectedFoods"
+      v-model:selected-households="selectedHouseholds"
+      @search="search"
+      @reset="reset"
+      @toggle-order-direction="toggleOrderDirection"
+      @set-order-by="setOrderBy"
+    />
     <v-divider />
     <v-container class="mt-6 px-md-6">
       <RecipeCardSection
@@ -167,7 +58,7 @@ import {
 } from "~/composables/store";
 import { useUserSearchQuerySession, useUserSortPreferences } from "~/composables/use-users/preferences";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
-import RecipeExplorerPageFilters from "./RecipeExplorerPageParts/RecipeExplorerPageFilters.vue";
+import RecipeExplorerPageSearch from "./RecipeExplorerPageParts/RecipeExplorerPageSearch.vue";
 import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useLazyRecipes } from "~/composables/recipes";
@@ -175,7 +66,7 @@ import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 
 export default defineNuxtComponent({
-  components: { SearchFilter, RecipeCardSection, RecipeExplorerPageFilters },
+  components: { RecipeCardSection, RecipeExplorerPageSearch },
   setup() {
     const router = useRouter();
     const i18n = useI18n();
@@ -296,12 +187,6 @@ export default defineNuxtComponent({
       return array.map(item => item.id).sort();
     }
 
-    function hideKeyboard() {
-      input.value.blur();
-    }
-
-    const input: Ref<any> = ref(null);
-
     async function search() {
       const oldQueryValueString = JSON.stringify(passedQuery.value);
       const newQueryValue = calcPassedQuery();
@@ -359,45 +244,6 @@ export default defineNuxtComponent({
         }, opts.timeout) as unknown as number;
       });
     }
-
-    const sortText = computed(() => {
-      const sort = sortable.find(s => s.value === state.value.orderBy);
-      if (!sort) return "";
-      return `${sort.name}`;
-    });
-
-    const sortable = [
-      {
-        icon: $globals.icons.orderAlphabeticalAscending,
-        name: i18n.t("general.sort-alphabetically"),
-        value: "name",
-      },
-      {
-        icon: $globals.icons.newBox,
-        name: i18n.t("general.created"),
-        value: "created_at",
-      },
-      {
-        icon: $globals.icons.chefHat,
-        name: i18n.t("general.last-made"),
-        value: "last_made",
-      },
-      {
-        icon: $globals.icons.star,
-        name: i18n.t("general.rating"),
-        value: "rating",
-      },
-      {
-        icon: $globals.icons.update,
-        name: i18n.t("general.updated"),
-        value: "updated_at",
-      },
-      {
-        icon: $globals.icons.diceMultiple,
-        name: i18n.t("general.random"),
-        value: "random",
-      },
-    ];
 
     watch(
       () => route.query,
@@ -604,16 +450,12 @@ export default defineNuxtComponent({
     );
 
     return {
-      sortText,
       search,
       reset,
       state,
 
-      sortable,
       toggleOrderDirection,
       setOrderBy,
-      hideKeyboard,
-      input,
 
       selectedCategories,
       selectedFoods,
@@ -632,26 +474,3 @@ export default defineNuxtComponent({
   },
 });
 </script>
-
-<style lang="css">
-.search-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-  margin-top: 1rem;
-}
-
-.search-container {
-  display: flex;
-  justify-content: center;
-}
-
-.search-box {
-  width: 950px;
-}
-
-.search-button-container {
-  margin: 3rem auto 0 auto;
-  max-width: 500px;
-}
-</style>
