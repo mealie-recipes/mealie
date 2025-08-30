@@ -22,71 +22,17 @@
           />
         </div>
         <div class="search-row">
-          <!-- Category Filter -->
-          <SearchFilter
-            v-if="categories"
-            v-model="selectedCategories"
-            v-model:require-all="state.requireAllCategories"
-            :items="categories"
-          >
-            <v-icon start>
-              {{ $globals.icons.categories }}
-            </v-icon>
-            {{ $t("category.categories") }}
-          </SearchFilter>
-
-          <!-- Tag Filter -->
-          <SearchFilter
-            v-if="tags"
-            v-model="selectedTags"
-            v-model:require-all="state.requireAllTags"
-            :items="tags"
-          >
-            <v-icon start>
-              {{ $globals.icons.tags }}
-            </v-icon>
-            {{ $t("tag.tags") }}
-          </SearchFilter>
-
-          <!-- Tool Filter -->
-          <SearchFilter
-            v-if="tools"
-            v-model="selectedTools"
-            v-model:require-all="state.requireAllTools"
-            :items="tools"
-          >
-            <v-icon start>
-              {{ $globals.icons.potSteam }}
-            </v-icon>
-            {{ $t("tool.tools") }}
-          </SearchFilter>
-
-          <!-- Food Filter -->
-          <SearchFilter
-            v-if="foods"
-            v-model="selectedFoods"
-            v-model:require-all="state.requireAllFoods"
-            :items="foods"
-          >
-            <v-icon start>
-              {{ $globals.icons.foods }}
-            </v-icon>
-            {{ $t("general.foods") }}
-          </SearchFilter>
-
-          <!-- Household Filter -->
-          <SearchFilter
-            v-if="households.length > 1"
-            v-model="selectedHouseholds"
-            :items="households"
-            radio
-          >
-            <v-icon start>
-              {{ $globals.icons.household }}
-            </v-icon>
-            {{ $t("household.households") }}
-          </SearchFilter>
-
+          <RecipeExplorerPageFilters
+            v-model:require-all-categories="state.requireAllCategories"
+            v-model:require-all-tags="state.requireAllTags"
+            v-model:require-all-tools="state.requireAllTools"
+            v-model:require-all-foods="state.requireAllFoods"
+            v-model:selected-categories="selectedCategories"
+            v-model:selected-tags="selectedTags"
+            v-model:selected-tools="selectedTools"
+            v-model:selected-foods="selectedFoods"
+            v-model:selected-households="selectedHouseholds"
+          />
           <!-- Sort Options -->
           <v-menu
             offset-y
@@ -221,6 +167,7 @@ import {
 } from "~/composables/store";
 import { useUserSearchQuerySession, useUserSortPreferences } from "~/composables/use-users/preferences";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
+import RecipeExplorerPageFilters from "./RecipeExplorerPageParts/RecipeExplorerPageFilters.vue";
 import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useLazyRecipes } from "~/composables/recipes";
@@ -228,7 +175,7 @@ import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 
 export default defineNuxtComponent({
-  components: { SearchFilter, RecipeCardSection },
+  components: { SearchFilter, RecipeCardSection, RecipeExplorerPageFilters },
   setup() {
     const router = useRouter();
     const i18n = useI18n();
@@ -661,11 +608,6 @@ export default defineNuxtComponent({
       search,
       reset,
       state,
-      categories: categories.store as unknown as NoUndefinedField<RecipeCategory>[],
-      tags: tags.store as unknown as NoUndefinedField<RecipeTag>[],
-      foods: foods.store,
-      tools: tools.store as unknown as NoUndefinedField<RecipeTool>[],
-      households: households.store as unknown as NoUndefinedField<HouseholdSummary>[],
 
       sortable,
       toggleOrderDirection,
