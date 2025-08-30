@@ -18,12 +18,42 @@ import {
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserSearchQuerySession, useUserSortPreferences } from "~/composables/use-users/preferences";
 
-const { isOwnGroup } = useLoggedInState();
+// Type for the composable return value
+interface RecipeExplorerSearchState {
+  state: Ref<{
+    auto: boolean;
+    ready: boolean;
+    search: string;
+    orderBy: string;
+    orderDirection: "asc" | "desc";
+    requireAllCategories: boolean;
+    requireAllTags: boolean;
+    requireAllTools: boolean;
+    requireAllFoods: boolean;
+  }>;
+  selectedCategories: Ref<NoUndefinedField<RecipeCategory>[]>;
+  selectedFoods: Ref<IngredientFood[]>;
+  selectedHouseholds: Ref<NoUndefinedField<HouseholdSummary>[]>;
+  selectedTags: Ref<NoUndefinedField<RecipeTag>[]>;
+  selectedTools: Ref<NoUndefinedField<RecipeTool>[]>;
+  passedQueryWithSeed: ComputedRef<RecipeSearchQuery & { _searchSeed: string }>;
+  search: () => Promise<void>;
+  reset: () => void;
+  toggleOrderDirection: () => void;
+  setOrderBy: (value: string) => void;
+  filterItems: (item: RecipeCategory | RecipeTag | RecipeTool, urlPrefix: string) => void;
+  initialize: () => Promise<void>;
+}
 
-export function useRecipeExplorerSearch(groupSlug: ComputedRef<string>) {
+// Memo storage for singleton instances
+const memo: Record<string, RecipeExplorerSearchState> = {};
+
+function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): RecipeExplorerSearchState {
+
   const router = useRouter();
   const route = useRoute();
 
+  const { isOwnGroup } = useLoggedInState();
   const searchQuerySession = useUserSearchQuerySession();
   const sortPreferences = useUserSortPreferences();
 
@@ -396,7 +426,7 @@ export function useRecipeExplorerSearch(groupSlug: ComputedRef<string>) {
     },
   );
 
-  return {
+  const composableInstance: RecipeExplorerSearchState = {
     // State
     state,
     selectedCategories,
@@ -416,4 +446,21 @@ export function useRecipeExplorerSearch(groupSlug: ComputedRef<string>) {
     filterItems,
     initialize,
   };
+
+  return composableInstance;
+}
+
+export function useRecipeExplorerSearch(groupSlug: ComputedRef<string>): RecipeExplorerSearchState {
+  const key = groupSlug.value;
+
+  if (!memo[key]) {
+    memo[key] = createRecipeExplorerSearchState(groupSlug);
+  }
+
+  return memo[key];
+}
+
+export function clearRecipeExplorerSearchState(groupSlug: string) {
+  // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+  delete memo[groupSlug];
 }
