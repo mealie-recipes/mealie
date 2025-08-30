@@ -3,7 +3,7 @@
   <SearchFilter
     v-if="categories"
     v-model="selectedCategories"
-    v-model:require-all="requireAllCategories"
+    v-model:require-all="state.requireAllCategories"
     :items="categories"
   >
     <v-icon start>
@@ -16,7 +16,7 @@
   <SearchFilter
     v-if="tags"
     v-model="selectedTags"
-    v-model:require-all="requireAllTags"
+    v-model:require-all="state.requireAllTags"
     :items="tags"
   >
     <v-icon start>
@@ -29,7 +29,7 @@
   <SearchFilter
     v-if="tools"
     v-model="selectedTools"
-    v-model:require-all="requireAllTools"
+    v-model:require-all="state.requireAllTools"
     :items="tools"
   >
     <v-icon start>
@@ -42,7 +42,7 @@
   <SearchFilter
     v-if="foods"
     v-model="selectedFoods"
-    v-model:require-all="requireAllFoods"
+    v-model:require-all="state.requireAllFoods"
     :items="foods"
   >
     <v-icon start>
@@ -66,8 +66,8 @@
 </template>
 
 <script setup lang="ts">
-import type { HouseholdSummary } from "~/lib/api/types/household";
-import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
+import { useRecipeExplorerSearch } from "~/composables/use-recipe-explorer-search";
 import {
   useCategoryStore,
   usePublicCategoryStore,
@@ -81,23 +81,20 @@ import {
   usePublicToolStore,
 } from "~/composables/store";
 
-// Use defineModel for cleaner two-way binding
-const requireAllCategories = defineModel<boolean>("requireAllCategories", { default: false });
-const requireAllTags = defineModel<boolean>("requireAllTags", { default: false });
-const requireAllTools = defineModel<boolean>("requireAllTools", { default: false });
-const requireAllFoods = defineModel<boolean>("requireAllFoods", { default: false });
-
-const selectedCategories = defineModel<RecipeCategory[]>("selectedCategories", { default: () => [] });
-const selectedTags = defineModel<RecipeTag[]>("selectedTags", { default: () => [] });
-const selectedTools = defineModel<RecipeTool[]>("selectedTools", { default: () => [] });
-const selectedFoods = defineModel<IngredientFood[]>("selectedFoods", { default: () => [] });
-const selectedHouseholds = defineModel<HouseholdSummary[]>("selectedHouseholds", { default: () => [] });
-
 const $auth = useMealieAuth();
 const route = useRoute();
 
 const { isOwnGroup } = useLoggedInState();
 const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+
+const {
+  state,
+  selectedCategories,
+  selectedFoods,
+  selectedHouseholds,
+  selectedTags,
+  selectedTools,
+} = useRecipeExplorerSearch(groupSlug);
 
 const { store: categories } = isOwnGroup.value ? useCategoryStore() : usePublicCategoryStore(groupSlug.value);
 const { store: tags } = isOwnGroup.value ? useTagStore() : usePublicTagStore(groupSlug.value);

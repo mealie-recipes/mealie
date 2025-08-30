@@ -2,12 +2,12 @@
   <div class="search-container pb-8">
     <form
       class="search-box pa-2"
-      @submit.prevent="handleSearch"
+      @submit.prevent="search"
     >
       <div class="d-flex justify-center mb-2">
         <v-text-field
           ref="input"
-          v-model="searchText"
+          v-model="state.search"
           variant="outlined"
           hide-details
           clearable
@@ -18,17 +18,7 @@
         />
       </div>
       <div class="search-row">
-        <RecipeExplorerPageSearchFilters
-          v-model:require-all-categories="requireAllCategories"
-          v-model:require-all-tags="requireAllTags"
-          v-model:require-all-tools="requireAllTools"
-          v-model:require-all-foods="requireAllFoods"
-          v-model:selected-categories="selectedCategories"
-          v-model:selected-tags="selectedTags"
-          v-model:selected-tools="selectedTools"
-          v-model:selected-foods="selectedFoods"
-          v-model:selected-households="selectedHouseholds"
-        />
+        <RecipeExplorerPageSearchFilters />
         <!-- Sort Options -->
         <v-menu
           offset-y
@@ -42,7 +32,7 @@
               v-bind="props"
             >
               <v-icon :start="!$vuetify.display.xs">
-                {{ orderDirection === "asc" ? $globals.icons.sortAscending : $globals.icons.sortDescending }}
+                {{ state.orderDirection === "asc" ? $globals.icons.sortAscending : $globals.icons.sortDescending }}
               </v-icon>
               {{ $vuetify.display.xs ? null : sortText }}
             </v-btn>
@@ -52,20 +42,20 @@
               <v-list-item
                 slim
                 density="comfortable"
-                :prepend-icon="orderDirection === 'asc' ? $globals.icons.sortDescending : $globals.icons.sortAscending"
-                :title="orderDirection === 'asc' ? $t('general.sort-descending') : $t('general.sort-ascending')"
-                @click="$emit('toggle-order-direction')"
+                :prepend-icon="state.orderDirection === 'asc' ? $globals.icons.sortDescending : $globals.icons.sortAscending"
+                :title="state.orderDirection === 'asc' ? $t('general.sort-descending') : $t('general.sort-ascending')"
+                @click="toggleOrderDirection"
               />
               <v-divider />
               <v-list-item
                 v-for="v in sortable"
                 :key="v.name"
-                :active="orderBy === v.value"
+                :active="state.orderBy === v.value"
                 slim
                 density="comfortable"
                 :prepend-icon="v.icon"
                 :title="v.name"
-                @click="$emit('set-order-by', v.value)"
+                @click="setOrderBy(v.value)"
               />
             </v-list>
           </v-card>
@@ -94,14 +84,14 @@
           <v-card>
             <v-card-text>
               <v-switch
-                v-model="autoSearch"
+                v-model="state.auto"
                 :label="$t('search.auto-search')"
                 single-line
               />
               <v-btn
                 block
                 color="primary"
-                @click="$emit('reset')"
+                @click="reset"
               >
                 {{ $t("general.reset") }}
               </v-btn>
@@ -110,7 +100,7 @@
         </v-menu>
       </div>
       <div
-        v-if="!autoSearch"
+        v-if="!state.auto"
         class="search-button-container"
       >
         <v-btn
@@ -131,36 +121,42 @@
 
 <script setup lang="ts">
 import RecipeExplorerPageSearchFilters from "./RecipeExplorerPageSearchFilters.vue";
-import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { HouseholdSummary } from "~/lib/api/types/household";
+import { useRecipeExplorerSearch } from "~/composables/use-recipe-explorer-search";
 
 const emit = defineEmits<{
-  "search": [];
-  "reset": [];
-  "toggle-order-direction": [];
-  "set-order-by": [value: string];
+  "ready": [];
 }>();
 
+const $auth = useMealieAuth();
+const route = useRoute();
 const { $globals } = useNuxtApp();
 const i18n = useI18n();
 
-const searchText = defineModel<string>("search", { default: "" });
-const orderBy = defineModel<string>("orderBy", { default: "created_at" });
-const orderDirection = defineModel<"asc" | "desc">("orderDirection", { default: "desc" });
-const autoSearch = defineModel<boolean>("auto", { default: true });
-const requireAllCategories = defineModel<boolean>("requireAllCategories", { default: false });
-const requireAllTags = defineModel<boolean>("requireAllTags", { default: false });
-const requireAllTools = defineModel<boolean>("requireAllTools", { default: false });
-const requireAllFoods = defineModel<boolean>("requireAllFoods", { default: false });
-const selectedCategories = defineModel<NoUndefinedField<RecipeCategory>[]>("selectedCategories", { default: () => [] });
-const selectedTags = defineModel<NoUndefinedField<RecipeTag>[]>("selectedTags", { default: () => [] });
-const selectedTools = defineModel<NoUndefinedField<RecipeTool>[]>("selectedTools", { default: () => [] });
-const selectedFoods = defineModel<IngredientFood[]>("selectedFoods", { default: () => [] });
-const selectedHouseholds = defineModel<NoUndefinedField<HouseholdSummary>[]>("selectedHouseholds", { default: () => [] });
+const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+
+const {
+  state,
+  passedQueryWithSeed,
+  search,
+  reset,
+  toggleOrderDirection,
+  setOrderBy,
+  filterItems,
+  initialize,
+} = useRecipeExplorerSearch(groupSlug);
+
+defineExpose({
+  passedQueryWithSeed,
+  filterItems,
+});
+
+onMounted(async () => {
+  await initialize();
+  emit('ready');
+});
 
 const sortText = computed(() => {
-  const sort = sortable.value.find(s => s.value === orderBy.value);
+  const sort = sortable.value.find(s => s.value === state.value.orderBy);
   if (!sort) return "";
   return `${sort.name}`;
 });
@@ -203,10 +199,6 @@ const input: Ref<any> = ref(null);
 
 function hideKeyboard() {
   input.value?.blur();
-}
-
-function handleSearch() {
-  emit("search");
 }
 </script>
 
