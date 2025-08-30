@@ -42,7 +42,6 @@
 
 <script lang="ts">
 import { watchDebounced } from "@vueuse/shared";
-import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import {
   useCategoryStore,
@@ -69,9 +68,7 @@ export default defineNuxtComponent({
   components: { RecipeCardSection, RecipeExplorerPageSearch },
   setup() {
     const router = useRouter();
-    const i18n = useI18n();
     const $auth = useMealieAuth();
-    const { $globals } = useNuxtApp();
 
     const { isOwnGroup } = useLoggedInState();
     const state = ref({
