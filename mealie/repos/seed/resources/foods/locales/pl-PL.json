@@ -210,8 +210,8 @@
             "brussels sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "brussels sprout",
-                "plural_name": "brussels sprouts"
+                "name": "brukselka",
+                "plural_name": "brukselka"
             },
             "fennel": {
                 "aliases": [],
@@ -222,8 +222,8 @@
             "sun dried tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "sun dried tomato",
-                "plural_name": "sun dried tomatoes"
+                "name": "suszony pomidor",
+                "plural_name": "suszone pomidory"
             },
             "radish": {
                 "aliases": [],
@@ -246,8 +246,8 @@
             "new potato": {
                 "aliases": [],
                 "description": "",
-                "name": "new potato",
-                "plural_name": "new potatoes"
+                "name": "młody ziemniak",
+                "plural_name": "młode ziemniaki"
             },
             "summer squash": {
                 "aliases": [
@@ -291,8 +291,8 @@
             "sweet pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet pepper",
-                "plural_name": "sweet peppers"
+                "name": "słodka papryka",
+                "plural_name": "słodkie papryki"
             },
             "serrano pepper": {
                 "aliases": [],
@@ -303,13 +303,13 @@
             "cayenne pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "cayenne pepper",
+                "name": "pieprz cayenne",
                 "plural_name": "cayenne peppers"
             },
             "green tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "green tomato",
+                "name": "zielony pomidor",
                 "plural_name": "zielone pomidory"
             },
             "watercress": {
@@ -327,8 +327,8 @@
             "mashed potato": {
                 "aliases": [],
                 "description": "",
-                "name": "mashed potato",
-                "plural_name": "mashed potatoes"
+                "name": "tłoczone ziemniaki",
+                "plural_name": "tłuczone ziemniaki"
             },
             "horseradish": {
                 "aliases": [],
@@ -449,8 +449,8 @@
             "leaf lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "leaf lettuce",
-                "plural_name": "leaf lettuces"
+                "name": "sałata",
+                "plural_name": "sałata"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -479,8 +479,8 @@
             "habanero pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "habanero pepper",
-                "plural_name": "habanero peppers"
+                "name": "papryczka habanero",
+                "plural_name": "papryczki habanero"
             },
             "corn husk": {
                 "aliases": [
@@ -535,8 +535,8 @@
             "yam": {
                 "aliases": [],
                 "description": "",
-                "name": "yam",
-                "plural_name": "yams"
+                "name": "dżem",
+                "plural_name": "dżemy"
             },
             "ancho chile pepper": {
                 "aliases": [],
@@ -779,8 +779,8 @@
             "mandarin": {
                 "aliases": [],
                 "description": "",
-                "name": "mandarin",
-                "plural_name": "mandarins"
+                "name": "mandarynka",
+                "plural_name": "mandarynki"
             },
             "prune": {
                 "aliases": [],
@@ -833,8 +833,8 @@
             "chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut",
-                "plural_name": "chestnuts"
+                "name": "kasztan",
+                "plural_name": "kasztany"
             },
             "meyer lemon": {
                 "aliases": [],
@@ -857,8 +857,8 @@
             "clementine": {
                 "aliases": [],
                 "description": "",
-                "name": "clementine",
-                "plural_name": "clementines"
+                "name": "klementynka",
+                "plural_name": "klementynki"
             },
             "persimmon": {
                 "aliases": [],
@@ -899,14 +899,14 @@
             "guava": {
                 "aliases": [],
                 "description": "",
-                "name": "guava",
-                "plural_name": "guavas"
+                "name": "guawa",
+                "plural_name": "guawy"
             },
             "banana chip": {
                 "aliases": [],
                 "description": "",
-                "name": "banana chip",
-                "plural_name": "banana chips"
+                "name": "suszony czips bananowy",
+                "plural_name": "suszone czipsy bananowe"
             },
             "kumquat": {
                 "aliases": [],
