@@ -1889,7 +1889,7 @@
             "trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "trail mix",
+                "name": "studentenhaver",
                 "plural_name": "studentenhavers"
             },
             "basil seed": {
@@ -1907,7 +1907,7 @@
             "peanut brittle": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut brittle",
+                "name": "nougatine",
                 "plural_name": "peanut brittles"
             },
             "jackfruit seed": {
@@ -1943,8 +1943,8 @@
             "tigernut": {
                 "aliases": [],
                 "description": "",
-                "name": "tigernut",
-                "plural_name": "tigernuts"
+                "name": "tijgernoot",
+                "plural_name": "tijgernootjes"
             },
             "sunflower sprout": {
                 "aliases": [],
