@@ -561,7 +561,7 @@
     "see-original-text": "Zobacz oryginalny tekst",
     "original-text-with-value": "Oryginalny tekst: {originalText}",
     "ingredient-linker": "Linkier do składników",
-    "unlinked": "Not linked yet",
+    "unlinked": "Jeszcze nie połączony",
     "linked-to-other-step": "Powiązane z innym krokiem",
     "auto": "Automatycznie",
     "cook-mode": "Tryb Gotowania",
