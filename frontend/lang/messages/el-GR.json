@@ -561,7 +561,7 @@
     "see-original-text": "Προβολή Αρχικού Κειμένου",
     "original-text-with-value": "Αρχικό Κείμενο: {originalText}",
     "ingredient-linker": "Συνδυασμός συστατικών",
-    "unlinked": "Not linked yet",
+    "unlinked": "Δεν έχει συνδεθεί ακόμα",
     "linked-to-other-step": "Συνδεδεμένο με άλλο βήμα",
     "auto": "Αυτόματο",
     "cook-mode": "Λειτουργία Μαγειρέματος",
