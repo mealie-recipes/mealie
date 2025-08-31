@@ -1049,8 +1049,8 @@
             "custard-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "custard-apple",
-                "plural_name": "custard-apples"
+                "name": "Pomme-cannelle",
+                "plural_name": "Pommes-cannelles"
             },
             "dried lemon": {
                 "aliases": [],
@@ -1086,7 +1086,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sirop de datte",
-                "plural_name": "honey dates"
+                "plural_name": "Sirop de datte"
             },
             "physali": {
                 "aliases": [],
@@ -1097,14 +1097,14 @@
             "tamarillo": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarillo",
-                "plural_name": "tamarilloes"
+                "name": "Tamarillo",
+                "plural_name": "Tamarillos"
             },
             "ice-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "ice-apple",
-                "plural_name": "ice-apples"
+                "name": "Pomme glacée",
+                "plural_name": "Pommes glacées"
             },
             "longan": {
                 "aliases": [],
@@ -1115,8 +1115,8 @@
             "finger lime": {
                 "aliases": [],
                 "description": "",
-                "name": "finger lime",
-                "plural_name": "finger limes"
+                "name": "Citron caviar",
+                "plural_name": "Citrons caviar"
             },
             "bitter orange": {
                 "aliases": [],
@@ -1145,8 +1145,8 @@
             "rose apple": {
                 "aliases": [],
                 "description": "",
-                "name": "rose apple",
-                "plural_name": "rose apples"
+                "name": "Jamrosat",
+                "plural_name": "Jamrosats"
             },
             "dried orange slice": {
                 "aliases": [],
@@ -1163,8 +1163,8 @@
             "crabapple": {
                 "aliases": [],
                 "description": "",
-                "name": "crabapple",
-                "plural_name": "crabapples"
+                "name": "Pommier Sauvage",
+                "plural_name": "Pommiers Sauvages"
             },
             "fig leaf": {
                 "aliases": [],
@@ -1175,8 +1175,8 @@
             "freeze-dried pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried pineapple",
-                "plural_name": "freeze-dried pineapples"
+                "name": "Ananas déshydraté",
+                "plural_name": "Ananas déshydratés"
             },
             "pluot": {
                 "aliases": [],
@@ -1193,8 +1193,8 @@
             "hog plum": {
                 "aliases": [],
                 "description": "",
-                "name": "hog plum",
-                "plural_name": "hog plums"
+                "name": "Mombin",
+                "plural_name": "Mombins"
             },
             "bergamot orange": {
                 "aliases": [],
@@ -1211,8 +1211,8 @@
             "mamey": {
                 "aliases": [],
                 "description": "",
-                "name": "mamey",
-                "plural_name": "mameys"
+                "name": "Sapote",
+                "plural_name": "Sapotes"
             },
             "sapote": {
                 "aliases": [],
@@ -1377,8 +1377,8 @@
             "white beech mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "white beech mushroom",
-                "plural_name": "white beech mushrooms"
+                "name": "\nBolet blanc des marais",
+                "plural_name": "\nBolets blancs des marais"
             },
             "boletu": {
                 "aliases": [],
@@ -1389,8 +1389,8 @@
             "huitlacoche": {
                 "aliases": [],
                 "description": "",
-                "name": "huitlacoche",
-                "plural_name": "huitlacoches"
+                "name": "Huitlacoche",
+                "plural_name": "Huitlacoches"
             },
             "matsutake": {
                 "aliases": [],
@@ -1407,14 +1407,14 @@
             "djon djon mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "djon djon mushroom",
-                "plural_name": "djon djon mushrooms"
+                "name": "Champignon Djondjon",
+                "plural_name": "Champignons Djondjon"
             },
             "mixed asian mushroom": {
                 "aliases": [],
                 "description": "",
                 "name": "champignon mixte asiatique",
-                "plural_name": "mixed asian mushrooms"
+                "plural_name": "Mélange de champignons asiatiques"
             },
             "puffball": {
                 "aliases": [],
@@ -1425,14 +1425,14 @@
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungu",
-                "plural_name": "honey fungus"
+                "name": "Armillaire",
+                "plural_name": "Armillaires"
             },
             "caesar's mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "caesar's mushroom",
-                "plural_name": "caesar's mushrooms"
+                "name": "Oronge",
+                "plural_name": "Oronges"
             },
             "candy cap mushroom": {
                 "aliases": [],
@@ -1495,8 +1495,8 @@
             "maraschino cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "maraschino cherry",
-                "plural_name": "maraschino cherries"
+                "name": "Cerise au marasquin",
+                "plural_name": "Cerises au marasquin"
             },
             "dried cherry": {
                 "aliases": [],
@@ -1513,8 +1513,8 @@
             "sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cherry",
-                "plural_name": "sour cherries"
+                "name": "Griotte",
+                "plural_name": "Griottes"
             },
             "goji berry": {
                 "aliases": [],
@@ -1531,8 +1531,8 @@
             "freeze-dried strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried strawberry",
-                "plural_name": "freeze-dried strawberries"
+                "name": "Fraise déshydratée",
+                "plural_name": "Fraises déshydratées"
             },
             "gooseberry": {
                 "aliases": [],
@@ -1543,20 +1543,20 @@
             "freeze-dried raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried raspberry",
-                "plural_name": "freeze-dried raspberries"
+                "name": "Framboise déshydratée",
+                "plural_name": "Framboises déshydratées"
             },
             "lingonberry": {
                 "aliases": [],
                 "description": "",
-                "name": "lingonberry",
-                "plural_name": "lingonberries"
+                "name": "Airelle rouge",
+                "plural_name": "Airelles rouges"
             },
             "canned sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sour cherry",
-                "plural_name": "canned sour cherries"
+                "name": "Griotte en conserve",
+                "plural_name": "Griottes en conserve"
             },
             "mulberry": {
                 "aliases": [],
@@ -1591,26 +1591,26 @@
             "freeze-dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried blueberry",
-                "plural_name": "freeze-dried blueberries"
+                "name": "Myrtille déshydratée",
+                "plural_name": "Myrtilles déshydratées"
             },
             "huckleberry": {
                 "aliases": [],
                 "description": "",
-                "name": "huckleberry",
-                "plural_name": "huckleberries"
+                "name": "Airelle",
+                "plural_name": "Airelles"
             },
             "dried elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried elderberry",
-                "plural_name": "dried elderberries"
+                "name": "Baie de sureau",
+                "plural_name": "Baies de sureau"
             },
             "barberry": {
                 "aliases": [],
                 "description": "",
-                "name": "barberry",
-                "plural_name": "barberries"
+                "name": "Berbéris",
+                "plural_name": "Berbéris"
             },
             "dried berry": {
                 "aliases": [],
@@ -1627,8 +1627,8 @@
             "saskatoon berry": {
                 "aliases": [],
                 "description": "",
-                "name": "saskatoon berry",
-                "plural_name": "saskatoon berries"
+                "name": "Baie d'Amélanchier à feuilles d'aulne",
+                "plural_name": "Baies d'Amélanchier à feuilles d'aulne"
             },
             "rosehip": {
                 "aliases": [],
@@ -1652,13 +1652,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "cloudberry",
-                "plural_name": "cloudberries"
+                "plural_name": "Mûre arctique"
             },
             "freeze-dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried berry",
-                "plural_name": "freeze-dried berries"
+                "name": "Baie lyophilisée",
+                "plural_name": "Baies lyophilisées"
             },
             "aronia berry": {
                 "aliases": [],
