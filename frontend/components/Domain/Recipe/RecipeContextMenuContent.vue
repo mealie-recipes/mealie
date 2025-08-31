@@ -302,8 +302,6 @@ const defaultItems: { [key: string]: ContextMenuItem } = {
 // Add leading and Appending Items
 menuItems.value = [...menuItems.value, ...props.leadingItems, ...props.appendItems];
 
-const icon = props.menuIcon || $globals.icons.dotsVertical;
-
 // ===========================================================================
 // Context Menu Event Handler
 

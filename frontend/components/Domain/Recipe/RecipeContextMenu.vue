@@ -135,6 +135,6 @@ function onMenuToggle(isOpen: boolean) {
 }
 
 const RecipeContextMenuContent = defineAsyncComponent(
-  () => import('./RecipeContextMenuContent.vue')
+  () => import("./RecipeContextMenuContent.vue"),
 );
 </script>
