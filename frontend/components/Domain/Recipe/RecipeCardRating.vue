@@ -46,7 +46,7 @@ export default defineNuxtComponent({
     });
 
     const ratingValue = computed(() => userRating.value || props.modelValue || 0);
-    const useSecondaryStyle = computed(() => isOwnGroup.value && !userRating.value);
+    const useSecondaryStyle = computed(() => isOwnGroup.value && !userRating.value && props.modelValue);
     const ratingDisplay = computed<Star[]>(
       () => {
         const stars: Star[] = [];
