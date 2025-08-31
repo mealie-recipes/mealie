@@ -75,9 +75,10 @@
 
               <!-- If we're not logged-in, no items display, so we hide this menu -->
               <RecipeContextMenu
-                v-if="isOwnGroup"
+                v-if="isOwnGroup && showRecipeContent"
                 color="grey-darken-2"
                 :slug="slug"
+                :menu-icon="$globals.icons.dotsVertical"
                 :name="name"
                 :recipe-id="recipeId"
                 :use-items="{
@@ -90,7 +91,7 @@
                   printPreferences: false,
                   share: true,
                 }"
-                @delete="$emit('delete', slug)"
+                @deleted="$emit('delete', slug)"
               />
             </v-card-actions>
           </slot>

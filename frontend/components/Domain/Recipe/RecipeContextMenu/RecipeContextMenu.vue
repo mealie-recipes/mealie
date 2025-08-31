@@ -110,10 +110,12 @@ defineEmits<{
   deleted: [slug: string];
 }>();
 
+const { $globals } = useNuxtApp();
+
 const isMenuContentLoaded = ref(false);
 
 const icon = computed(() => {
-  return props.menuIcon || "$globals.icons.dotsVertical";
+  return props.menuIcon || $globals.icons.dotsVertical;
 });
 
 // Props to pass to the content component (excluding internal wrapper props)
