@@ -5993,8 +5993,8 @@
             "allspice": {
                 "aliases": [],
                 "description": "",
-                "name": "allspice",
-                "plural_name": "allspices"
+                "name": "Piment",
+                "plural_name": "Piment"
             },
             "cracked pepper": {
                 "aliases": [],
@@ -6605,7 +6605,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Ahornzucker",
-                "plural_name": "maple sugars"
+                "plural_name": "Ahornzucker"
             },
             "blackstrap molass": {
                 "aliases": [],
@@ -6617,7 +6617,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Glukose",
-                "plural_name": "glucoses"
+                "plural_name": "Glukose"
             },
             "rock sugar": {
                 "aliases": [],
