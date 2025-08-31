@@ -1,5 +1,5 @@
 <template>
-  <div @click.prevent class="rating-display">
+  <div class="rating-display">
     <span
       v-for="(star, index) in ratingDisplay"
       :key="index"
@@ -55,9 +55,11 @@ export default defineNuxtComponent({
           const diff = ratingValue.value - i;
           if (diff >= 1) {
             stars.push("full");
-          } else if (diff >= 0.25) {
+          }
+          else if (diff >= 0.25) {
             stars.push("half");
-          } else {
+          }
+          else {
             stars.push("empty");
           }
         }
