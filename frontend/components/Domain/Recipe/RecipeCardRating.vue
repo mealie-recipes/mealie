@@ -5,16 +5,24 @@
       :key="index"
       class="star"
       :class="{
-        'full': star === 'full',
-        'half': star === 'half',
-        'empty': star === 'empty',
+        'star-half': star === 'half',
         'text-secondary': !useSecondaryStyle,
         'text-grey-darken-1': useSecondaryStyle,
       }"
     >
-      <span v-if="star === 'half'" class="star-background">☆</span>
-      <span v-if="star === 'half'" class="star-overlay">★</span>
-      <span v-else>{{ star === 'empty' ? '☆' : '★' }}</span>
+      <!-- We render both the full and empty stars for "half" stars because they're layered over each other -->
+      <span
+        v-if="star === 'empty' || star === 'half'"
+        class="star-empty"
+      >
+        ☆
+      </span>
+      <span
+        v-if="star === 'full' || star === 'half'"
+        class="star-full"
+      >
+        ★
+      </span>
     </span>
   </div>
 </template>
@@ -89,8 +97,8 @@ export default defineNuxtComponent({
     user-select: none;
     position: relative;
     display: inline-block;
-    &.half {
-      .star-overlay {
+    &.star-half {
+      .star-full {
         position: absolute;
         left: 0;
         top: 0;
