@@ -1627,8 +1627,8 @@
             "saskatoon berry": {
                 "aliases": [],
                 "description": "",
-                "name": "saskatoon berry",
-                "plural_name": "saskatoon berries"
+                "name": "saskatoon bes",
+                "plural_name": "saskatoon bessen"
             },
             "rosehip": {
                 "aliases": [],
@@ -1829,8 +1829,8 @@
             "nigella seed": {
                 "aliases": [],
                 "description": "",
-                "name": "nigella seed",
-                "plural_name": "nigella seeds"
+                "name": "nigellazaad",
+                "plural_name": "nigella zaden"
             },
             "mixed nut": {
                 "aliases": [],
@@ -1853,8 +1853,8 @@
             "onion seed": {
                 "aliases": [],
                 "description": "",
-                "name": "onion seed",
-                "plural_name": "onion seeds"
+                "name": "uienzaad",
+                "plural_name": "uien zaden"
             },
             "watermelon seed": {
                 "aliases": [],
@@ -1865,8 +1865,8 @@
             "honey-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted peanut",
-                "plural_name": "honey-roasted peanuts"
+                "name": "honinggeroosterde pinda",
+                "plural_name": "honinggeroosterde pinda's"
             },
             "melon seed": {
                 "aliases": [],
@@ -1877,14 +1877,14 @@
             "lotus seed": {
                 "aliases": [],
                 "description": "",
-                "name": "lotus seed",
-                "plural_name": "lotus seeds"
+                "name": "lotuszaad",
+                "plural_name": "lotus zaden"
             },
             "white chia": {
                 "aliases": [],
                 "description": "",
-                "name": "white chia",
-                "plural_name": "white chias"
+                "name": "witte chiazaad",
+                "plural_name": ""
             },
             "trail mix": {
                 "aliases": [],
