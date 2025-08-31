@@ -25,6 +25,7 @@
 <script lang="ts">
 import TheSnackbar from "~/components/Layout/LayoutParts/TheSnackbar.vue";
 import { useAppInfo } from "~/composables/api";
+import { useGlobalI18n } from "~/composables/use-global-i18n";
 
 export default defineNuxtComponent({
   components: { TheSnackbar },

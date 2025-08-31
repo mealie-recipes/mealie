@@ -46,6 +46,8 @@
 </template>
 
 <script lang="ts">
+import { useGlobalI18n } from "~/composables/use-global-i18n";
+
 export default defineNuxtComponent({
   props: {
     error: {
