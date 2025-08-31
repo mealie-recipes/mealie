@@ -117,9 +117,9 @@
 </template>
 
 <script setup lang="ts">
-import RecipeDialogAddToShoppingList from "./RecipeDialogAddToShoppingList.vue";
-import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
-import RecipeDialogShare from "./RecipeDialogShare.vue";
+import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
+import RecipeDialogPrintPreferences from "~/components/Domain/Recipe/RecipeDialogPrintPreferences.vue";
+import RecipeDialogShare from "~/components/Domain/Recipe/RecipeDialogShare.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserApi } from "~/composables/api";
 import { useGroupRecipeActions } from "~/composables/use-group-recipe-actions";
