@@ -89,15 +89,6 @@ export default defineNuxtComponent({
     user-select: none;
     position: relative;
     display: inline-block;
-
-    &.empty {
-      color: rgb(var(--v-theme-secondary-lighten-3));
-    }
-
-    &.full {
-      color: rgb(var(--v-theme-secondary));
-    }
-
     &.half {
       .star-overlay {
         position: absolute;
@@ -105,18 +96,6 @@ export default defineNuxtComponent({
         top: 0;
         width: 50%;
         overflow: hidden;
-        color: rgb(var(--v-theme-secondary));
-      }
-    }
-
-    /* Group rating when a user is logged-in and hasn't rated this recipe */
-    &.text-grey-darken-1.full {
-      color: rgb(var(--v-theme-grey-darken-1));
-    }
-
-    &.text-grey-darken-1.half {
-      .star-overlay {
-        color: rgb(var(--v-theme-grey-darken-1));
       }
     }
   }
