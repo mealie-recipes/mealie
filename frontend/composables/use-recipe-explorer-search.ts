@@ -49,7 +49,6 @@ interface RecipeExplorerSearchState {
 const memo: Record<string, RecipeExplorerSearchState> = {};
 
 function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): RecipeExplorerSearchState {
-
   const router = useRouter();
   const route = useRoute();
 

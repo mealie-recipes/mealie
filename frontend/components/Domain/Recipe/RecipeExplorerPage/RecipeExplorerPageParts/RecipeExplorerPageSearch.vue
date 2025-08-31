@@ -124,7 +124,7 @@ import RecipeExplorerPageSearchFilters from "./RecipeExplorerPageSearchFilters.v
 import { useRecipeExplorerSearch } from "~/composables/use-recipe-explorer-search";
 
 const emit = defineEmits<{
-  "ready": [];
+  ready: [];
 }>();
 
 const $auth = useMealieAuth();
@@ -152,7 +152,7 @@ defineExpose({
 
 onMounted(async () => {
   await initialize();
-  emit('ready');
+  emit("ready");
 });
 
 const sortText = computed(() => {
