@@ -56,7 +56,7 @@ export default defineNuxtComponent({
           if (diff >= 1) {
             stars.push("full");
           }
-          else if (diff >= 0.25) {
+          else if (diff >= 0.25) { // round to half star if rating is at least 0.25 but not quite a full star
             stars.push("half");
           }
           else {
