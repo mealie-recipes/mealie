@@ -33,7 +33,7 @@ export default defineNuxtComponent({
 
     const isDemo = computed(() => appInfo?.value?.demoStatus || false);
 
-    const i18n = useI18n();
+    const i18n = useGlobalI18n();
     const version = computed(() => appInfo?.value?.version || i18n.t("about.unknown-version"));
 
     return {

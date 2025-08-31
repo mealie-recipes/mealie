@@ -58,7 +58,7 @@ export default defineNuxtComponent({
       layout: "basic",
     });
 
-    const i18n = useI18n();
+    const i18n = useGlobalI18n();
     const $auth = useMealieAuth();
     const { $globals } = useNuxtApp();
     const ready = ref(false);

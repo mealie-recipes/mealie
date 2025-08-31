@@ -37,7 +37,7 @@ import AppSidebar from "@/components/Layout/LayoutParts/AppSidebar.vue";
 import TheSnackbar from "~/components/Layout/LayoutParts/TheSnackbar.vue";
 import type { SidebarLinks } from "~/types/application-types";
 
-const i18n = useI18n();
+const i18n = useGlobalI18n();
 const { $globals, $vuetify } = useNuxtApp();
 
 const sidebar = ref<boolean>(false);
