@@ -6,8 +6,8 @@
       class="star"
       :class="{
         'star-half': star === 'half',
-        'text-secondary': !useSecondaryStyle,
-        'text-grey-darken-1': useSecondaryStyle,
+        'text-secondary': !useGroupStyle,
+        'text-grey-darken-1': useGroupStyle,
       }"
     >
       <!-- We render both the full and empty stars for "half" stars because they're layered over each other -->
@@ -54,7 +54,7 @@ export default defineNuxtComponent({
     });
 
     const ratingValue = computed(() => userRating.value || props.modelValue || 0);
-    const useSecondaryStyle = computed(() => isOwnGroup.value && !userRating.value && props.modelValue);
+    const useGroupStyle = computed(() => isOwnGroup.value && !userRating.value && props.modelValue);
     const ratingDisplay = computed<Star[]>(
       () => {
         const stars: Star[] = [];
@@ -78,7 +78,7 @@ export default defineNuxtComponent({
 
     return {
       ratingValue,
-      useSecondaryStyle,
+      useGroupStyle,
       ratingDisplay,
     };
   },
