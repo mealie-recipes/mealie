@@ -4757,14 +4757,14 @@
             "grouse": {
                 "aliases": [],
                 "description": "",
-                "name": "grouse",
+                "name": "",
                 "plural_name": "grouses"
             },
             "chicken roast": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken roast",
-                "plural_name": "chicken roasts"
+                "name": "Hähnchenbraten",
+                "plural_name": "Hähnchenbraten"
             },
             "goose liver": {
                 "aliases": [],
@@ -4781,8 +4781,8 @@
             "turkey lunch meat": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey lunch meat",
-                "plural_name": "turkey lunch meats"
+                "name": "Truthahnaufschnitt",
+                "plural_name": "Truthahnaufschnitt"
             },
             "turkey roast": {
                 "aliases": [],
@@ -6276,7 +6276,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lemon balm",
-                "plural_name": "lemon balms"
+                "plural_name": "Zitronenmelisse"
             },
             "dill seed": {
                 "aliases": [],
@@ -7088,8 +7088,8 @@
             "cajun seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "cajun seasoning",
-                "plural_name": "cajun seasonings"
+                "name": "Cajun-Gewürzmischung",
+                "plural_name": "Cajun-Gewürzmischungen"
             },
             "dry ranch seasoning": {
                 "aliases": [],
