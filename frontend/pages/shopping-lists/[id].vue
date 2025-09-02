@@ -38,8 +38,8 @@
 
     <BasePageTitle divider>
       <template #header>
-        <v-container>
-          <v-row>
+        <v-container class="px-0">
+          <v-row no-gutters>
             <v-col
               class="text-left"
             >
@@ -62,6 +62,7 @@
             </v-col>
             <v-col class="d-flex justify-end">
               <BaseButtonGroup
+                class="d-flex"
                 :buttons="[
                   {
                     icon: $globals.icons.contentCopy,
