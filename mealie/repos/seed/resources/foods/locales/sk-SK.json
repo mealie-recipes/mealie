@@ -1193,8 +1193,8 @@
             "hog plum": {
                 "aliases": [],
                 "description": "",
-                "name": "hog plum",
-                "plural_name": "hog plums"
+                "name": "mombín (španielska slivka)",
+                "plural_name": "mombiny (španielske slivky)"
             },
             "bergamot orange": {
                 "aliases": [],
@@ -1245,38 +1245,38 @@
             "shiitake mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shiitake mushroom",
-                "plural_name": "shiitake mushrooms"
+                "name": "huba shitake",
+                "plural_name": "huby shitake"
             },
             "portobello mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "portobello mushroom",
-                "plural_name": "portobello mushrooms"
+                "name": "portobello šampiňón",
+                "plural_name": "portobello šampiňóny"
             },
             "wild mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "wild mushroom",
-                "plural_name": "wild mushrooms"
+                "name": "divoká huba",
+                "plural_name": "divoké huby"
             },
             "porcini": {
                 "aliases": [],
                 "description": "",
-                "name": "porcini",
-                "plural_name": "porcinis"
+                "name": "hríb",
+                "plural_name": "hriby"
             },
             "mixed mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed mushroom",
-                "plural_name": "mixed mushrooms"
+                "name": "zmes húb",
+                "plural_name": "hubové zmesy"
             },
             "oyster mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "oyster mushroom",
-                "plural_name": "oyster mushrooms"
+                "name": "hliva ustricová",
+                "plural_name": "hlivy ustricové"
             },
             "chestnut mushroom": {
                 "aliases": [],
@@ -1287,14 +1287,14 @@
             "enoki mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "enoki mushroom",
-                "plural_name": "enoki mushrooms"
+                "name": "enoki (plamienka zimná)",
+                "plural_name": "enoki (plamienky zimné)"
             },
             "black fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "black fungu",
-                "plural_name": "black fungus"
+                "name": "čierna huba",
+                "plural_name": "čierne huby"
             },
             "black truffle": {
                 "aliases": [],
@@ -1305,56 +1305,56 @@
             "morel mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "morel mushroom",
-                "plural_name": "morel mushrooms"
+                "name": "smrčok jedlý",
+                "plural_name": "smrčky jedlé"
             },
             "field mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "field mushroom",
-                "plural_name": "field mushrooms"
+                "name": "pečiarka poľná",
+                "plural_name": "pečiarky poľné"
             },
             "king oyster mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "king oyster mushroom",
-                "plural_name": "king oyster mushrooms"
+                "name": "hliva kráľovská",
+                "plural_name": "hlivy kráľovské"
             },
             "shimeji mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shimeji mushroom",
-                "plural_name": "shimeji mushrooms"
+                "name": "huba shimeji",
+                "plural_name": "huby shimeji"
             },
             "straw mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "straw mushroom",
-                "plural_name": "straw mushrooms"
+                "name": "pošvovec",
+                "plural_name": "pošvovce"
             },
             "dried chinese mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "dried chinese mushroom",
-                "plural_name": "dried chinese mushrooms"
+                "name": "sušené čínske huby",
+                "plural_name": "sušené čínske huby"
             },
             "maitake": {
                 "aliases": [],
                 "description": "",
-                "name": "maitake",
-                "plural_name": "maitakes"
+                "name": "maitake (trsovnica lupeňovitá)",
+                "plural_name": "maitake (trsovnice lupeňovité)"
             },
             "trumpet mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "trumpet mushroom",
-                "plural_name": "trumpet mushrooms"
+                "name": "hliva kráľovská",
+                "plural_name": "hlivy kráľovské"
             },
             "white truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "white truffle",
-                "plural_name": "white truffles"
+                "name": "hľuzovka biela",
+                "plural_name": "hľuzovky biele"
             },
             "white fungu": {
                 "aliases": [],
@@ -1371,8 +1371,8 @@
             "snow fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "snow fungu",
-                "plural_name": "snow fungus"
+                "name": "rôsolovka riasotvorá",
+                "plural_name": "rôsolovky riasotvoré"
             },
             "white beech mushroom": {
                 "aliases": [],
@@ -1383,8 +1383,8 @@
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletu",
-                "plural_name": "boletus"
+                "name": "hríb",
+                "plural_name": "hríby"
             },
             "huitlacoche": {
                 "aliases": [],
