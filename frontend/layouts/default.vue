@@ -2,10 +2,9 @@
   <DefaultLayout />
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import DefaultLayout from "@/components/Layout/DefaultLayout.vue";
+import { useGlobalI18n } from "~/composables/use-global-i18n";
 
-export default defineNuxtComponent({
-  components: { DefaultLayout },
-});
+useGlobalI18n(); // ensure i18n is initialized
 </script>

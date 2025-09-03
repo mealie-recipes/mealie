@@ -13,11 +13,10 @@
   </v-app>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import TheSnackbar from "~/components/Layout/LayoutParts/TheSnackbar.vue";
 import AppHeader from "@/components/Layout/LayoutParts/AppHeader.vue";
+import { useGlobalI18n } from "~/composables/use-global-i18n";
 
-export default defineNuxtComponent({
-  components: { TheSnackbar, AppHeader },
-});
+useGlobalI18n(); // ensure i18n is initialized
 </script>
