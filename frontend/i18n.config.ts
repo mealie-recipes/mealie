@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 const datetimeFormats = {
   // CODE_GEN_ID: DATE_LOCALES
   "af-ZA": () => import("./lang/dateTimeFormats/af-ZA.json"),
