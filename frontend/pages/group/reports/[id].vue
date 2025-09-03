@@ -7,7 +7,7 @@
           max-height="200"
           max-width="200"
           class="mb-2"
-          :src="require('~/static/svgs/data-reports.svg')"
+          src="/svgs/data-reports.svg"
         />
       </template>
       <template #title>

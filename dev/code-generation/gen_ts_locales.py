@@ -174,7 +174,7 @@ the code generation ID is hardcoded into the script and required in the nuxt con
 
 def inject_nuxt_values():
     all_date_locales = [
-        f'"{match.stem}": require("./lang/dateTimeFormats/{match.name}"),' for match in datetime_dir.glob("*.json")
+        f'"{match.stem}": () => import("./lang/dateTimeFormats/{match.name}"),' for match in datetime_dir.glob("*.json")
     ]
 
     all_langs = []

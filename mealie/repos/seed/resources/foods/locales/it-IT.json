@@ -28,8 +28,8 @@
             "scallion": {
                 "aliases": [],
                 "description": "",
-                "name": "cipollotto",
-                "plural_name": "cipollotti"
+                "name": "scalogno",
+                "plural_name": "scalogni"
             },
             "zucchini": {
                 "aliases": [],
@@ -64,8 +64,8 @@
             "jalapeno": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeño",
-                "plural_name": "jalapeño"
+                "name": "peperoncino jalapeno",
+                "plural_name": "peperoncini jalapeno"
             },
             "avocado": {
                 "aliases": [],
@@ -132,8 +132,8 @@
             "baby green": {
                 "aliases": [],
                 "description": "",
-                "name": "insalatina",
-                "plural_name": "insalatine"
+                "name": "verdura baby",
+                "plural_name": "verdure baby"
             },
             "pumpkin": {
                 "aliases": [],
@@ -252,7 +252,7 @@
             "summer squash": {
                 "aliases": [
                     "zucchina",
-                    ""
+                    "Zucchina gioiello"
                 ],
                 "description": "",
                 "name": "zucca estiva",
@@ -261,8 +261,8 @@
             "mixed green": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed green",
-                "plural_name": "mixed greens"
+                "name": "Verdura mista",
+                "plural_name": "Verdure miste"
             },
             "parsnip": {
                 "aliases": [],
@@ -351,24 +351,24 @@
             "spaghetti squash": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti squash",
-                "plural_name": "spaghetti squashes"
+                "name": "Zucca spaghetti",
+                "plural_name": "Zucche spaghetti"
             },
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter lettuce",
-                "plural_name": "butter lettuces"
+                "name": "Lattuga liscia",
+                "plural_name": "Lattughe lisce"
             },
             "hash brown": {
                 "aliases": [],
                 "description": "",
-                "name": "hash brown",
-                "plural_name": "hash browns"
+                "name": "Frittella di patata",
+                "plural_name": "Frittelle di patate"
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "insalata cinese"
                 ],
                 "description": "",
                 "name": "cavolo napa",
