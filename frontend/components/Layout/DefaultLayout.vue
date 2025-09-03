@@ -16,7 +16,6 @@
       absolute
       :top-link="topLinks"
       :secondary-links="cookbookLinks || []"
-      :bottom-links="bottomLinks"
     >
       <v-menu
         offset-y
@@ -84,25 +83,6 @@
           </template>
         </v-list>
       </v-menu>
-      <template #bottom>
-        <v-list-item @click.stop="languageDialog = true">
-          <template #prepend>
-            <v-icon>{{ $globals.icons.translate }}</v-icon>
-          </template>
-          <v-list-item-title>{{ $t("sidebar.language") }}</v-list-item-title>
-          <LanguageDialog v-model="languageDialog" />
-        </v-list-item>
-        <v-list-item @click="toggleDark">
-          <template #prepend>
-            <v-icon>
-              {{ $vuetify.theme.current.dark ? $globals.icons.weatherSunny : $globals.icons.weatherNight }}
-            </v-icon>
-          </template>
-          <v-list-item-title>
-            {{ $vuetify.theme.current.dark ? $t("settings.theme.light-mode") : $t("settings.theme.dark-mode") }}
-          </v-list-item-title>
-        </v-list-item>
-      </template>
     </AppSidebar>
     <v-main class="pt-12">
       <v-scroll-x-transition>
@@ -121,7 +101,6 @@ import { useAppInfo } from "~/composables/api";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
 import { useCookbookStore, usePublicCookbookStore } from "~/composables/store/use-cookbook-store";
 import { useHouseholdStore, usePublicHouseholdStore } from "~/composables/store/use-household-store";
-import { useToggleDarkMode } from "~/composables/use-utils";
 import type { ReadCookBook } from "~/lib/api/types/cookbook";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 
@@ -133,7 +112,6 @@ export default defineNuxtComponent({
     const $auth = useMealieAuth();
     const { isOwnGroup } = useLoggedInState();
 
-    const isAdmin = computed(() => $auth.user.value?.admin);
     const route = useRoute();
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
@@ -190,8 +168,6 @@ export default defineNuxtComponent({
 
     const appInfo = useAppInfo();
     const showImageImport = computed(() => appInfo.value?.enableOpenaiImageServices);
-
-    const toggleDark = useToggleDarkMode();
 
     const languageDialog = ref<boolean>(false);
 
@@ -286,19 +262,6 @@ export default defineNuxtComponent({
       },
     ]);
 
-    const bottomLinks = computed<SideBarLink[]>(() =>
-      isAdmin.value
-        ? [
-            {
-              icon: $globals.icons.cog,
-              title: i18n.t("general.settings"),
-              to: "/admin/site-settings",
-              restricted: true,
-            },
-          ]
-        : [],
-    );
-
     const topLinks = computed<SideBarLink[]>(() => [
       {
         icon: $globals.icons.silverwareForkKnife,
@@ -367,11 +330,9 @@ export default defineNuxtComponent({
       groupSlug,
       cookbookLinks,
       createLinks,
-      bottomLinks,
       topLinks,
       isOwnGroup,
       languageDialog,
-      toggleDark,
       sidebar,
     };
   },
