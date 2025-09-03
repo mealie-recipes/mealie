@@ -6,7 +6,7 @@
           width="100%"
           max-height="100"
           max-width="100"
-          :src="require('~/static/svgs/manage-cookbooks.svg')"
+          src="/svgs/manage-cookbooks.svg"
         />
       </template>
       <template #title>

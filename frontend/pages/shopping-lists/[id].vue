@@ -57,7 +57,7 @@
               <v-img
                 max-height="100"
                 max-width="100"
-                :src="require('~/static/svgs/shopping-cart.svg')"
+                src="/svgs/shopping-cart.svg"
               />
             </v-col>
             <v-col class="d-flex justify-end">
