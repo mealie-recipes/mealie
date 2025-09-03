@@ -42,7 +42,7 @@ const props = defineProps({
     type: String,
     default: "",
   },
-})
+});
 
 const { isOwnGroup } = useLoggedInState();
 const { userRatings } = useUserSelfRatings();
