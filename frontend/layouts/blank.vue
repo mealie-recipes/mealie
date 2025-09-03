@@ -24,6 +24,7 @@
 <script lang="ts">
 import TheSnackbar from "~/components/Layout/LayoutParts/TheSnackbar.vue";
 import { useAppInfo } from "~/composables/api";
+import { useGlobalI18n } from "~/composables/use-global-i18n";
 
 export default defineNuxtComponent({
   components: { TheSnackbar },
@@ -32,7 +33,7 @@ export default defineNuxtComponent({
 
     const isDemo = computed(() => appInfo?.value?.demoStatus || false);
 
-    const i18n = useI18n();
+    const i18n = useGlobalI18n();
     const version = computed(() => appInfo?.value?.version || i18n.t("about.unknown-version"));
 
     return {

@@ -3,6 +3,7 @@ import type { Composer } from "vue-i18n";
 import type { ApiRequestInstance, RequestResponse } from "~/lib/api/types/non-generated";
 import { AdminAPI, PublicApi, UserApi } from "~/lib/api";
 import { PublicExploreApi } from "~/lib/api/client-public";
+import { useGlobalI18n } from "~/composables/use-global-i18n";
 
 const request = {
   async safe<T, U>(
@@ -56,8 +57,7 @@ function getRequests(axiosInstance: AxiosInstance): ApiRequestInstance {
 export const useRequests = function (i18n?: Composer): ApiRequestInstance {
   const { $axios } = useNuxtApp();
   if (!i18n) {
-    // Only works in a setup block
-    i18n = useI18n();
+    i18n = useGlobalI18n();
   }
 
   $axios.defaults.headers.common["Accept-Language"] = i18n.locale.value;
