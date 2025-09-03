@@ -863,7 +863,8 @@
     "oidc-ready-success-text": "Required OIDC variables are all set.",
     "openai-ready": "OpenAI Ready",
     "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready-success-text": "Required OpenAI variables are all set.",
+    "user-settings": "User Settings"
   },
   "shopping-list": {
     "all-lists": "All Lists",
