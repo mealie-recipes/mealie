@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="showDrawer" class="d-flex flex-column d-print-none position-fixed">
+  <v-navigation-drawer v-model="showDrawer" class="d-flex flex-column d-print-none position-fixed" touchless>
     <LanguageDialog v-model="languageDialog" />
     <!-- User Profile -->
     <template v-if="loggedIn">
