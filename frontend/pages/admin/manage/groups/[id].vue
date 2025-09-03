@@ -9,7 +9,7 @@
           width="100%"
           max-height="125"
           max-width="125"
-          :src="require('~/static/svgs/manage-group-settings.svg')"
+          src="/svgs/manage-group-settings.svg"
         />
       </template>
       <template #title>
