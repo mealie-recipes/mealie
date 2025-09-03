@@ -42,7 +42,7 @@
     <v-container class="px-12" max-width="1000">
       <BasePageTitle divider>
         <template #header>
-          <v-img width="100%" max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')" />
+          <v-img width="100%" max-height="100" max-width="100" src="/svgs/manage-cookbooks.svg" />
         </template>
         <template #title>
           {{ $t("cookbook.cookbooks") }}

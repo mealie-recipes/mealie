@@ -3280,7 +3280,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rice milk",
-                "plural_name": "rice milks"
+                "plural_name": "rice milk"
             },
             "vegan sour cream": {
                 "aliases": [],
@@ -3730,7 +3730,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rice cream",
-                "plural_name": "rice creams"
+                "plural_name": "rice cream"
             }
         }
     },
@@ -6647,7 +6647,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brown rice syrup",
-                "plural_name": "brown rice syrups"
+                "plural_name": "brown rice syrup"
             },
             "brown sugar substitute": {
                 "aliases": [],
@@ -6683,7 +6683,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rice malt syrup",
-                "plural_name": "rice malt syrups"
+                "plural_name": "rice malt syrup"
             },
             "pancake syrup": {
                 "aliases": [],
@@ -6737,7 +6737,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rice syrup",
-                "plural_name": "rice syrups"
+                "plural_name": "rice syrup"
             },
             "manuka honey": {
                 "aliases": [],
@@ -7816,7 +7816,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rice flour",
-                "plural_name": "rice flours"
+                "plural_name": "rice flour"
             },
             "desiccated coconut": {
                 "aliases": [],
@@ -7945,7 +7945,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brown rice flour",
-                "plural_name": "brown rice flours"
+                "plural_name": "brown rice flour"
             },
             "pectin": {
                 "aliases": [],
@@ -7975,7 +7975,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "glutinous rice flour",
-                "plural_name": "glutinous rice flours"
+                "plural_name": "glutinous rice flour"
             },
             "pancake mix": {
                 "aliases": [],
@@ -8541,7 +8541,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rice",
-                "plural_name": "rices"
+                "plural_name": "rice"
             },
             "Rice Krispie Cereal": {
                 "aliases": [
@@ -8561,13 +8561,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "basmati rice",
-                "plural_name": "basmati rices"
+                "plural_name": "basmati rice"
             },
             "brown rice": {
                 "aliases": [],
                 "description": "",
                 "name": "brown rice",
-                "plural_name": "brown rices"
+                "plural_name": "brown rice"
             },
             "quick-cooking oat": {
                 "aliases": [],
@@ -8585,7 +8585,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "risotto rice",
-                "plural_name": "risotto rices"
+                "plural_name": "risotto rice"
             },
             "couscou": {
                 "aliases": [],
@@ -8603,7 +8603,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "wild rice",
-                "plural_name": "wild rices"
+                "plural_name": "wild rice"
             },
             "semolina": {
                 "aliases": [],
@@ -8615,7 +8615,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "jasmine rice",
-                "plural_name": "jasmine rices"
+                "plural_name": "jasmine rice"
             },
             "polenta": {
                 "aliases": [],
@@ -8687,19 +8687,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "sushi rice",
-                "plural_name": "sushi rices"
+                "plural_name": "sushi rice"
             },
             "glutinous rice": {
                 "aliases": [],
                 "description": "",
                 "name": "glutinous rice",
-                "plural_name": "glutinous rices"
+                "plural_name": "glutinous rice"
             },
             "instant rice": {
                 "aliases": [],
                 "description": "",
                 "name": "instant rice",
-                "plural_name": "instant rices"
+                "plural_name": "instant rice"
             },
             "hominy": {
                 "aliases": [],
@@ -8747,13 +8747,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "black rice",
-                "plural_name": "black rices"
+                "plural_name": "black rice"
             },
             "yellow rice": {
                 "aliases": [],
                 "description": "",
                 "name": "yellow rice",
-                "plural_name": "yellow rices"
+                "plural_name": "yellow rice"
             },
             "fine semolina": {
                 "aliases": [],
@@ -8789,7 +8789,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "puffed rice",
-                "plural_name": "puffed rices"
+                "plural_name": "puffed rice"
             },
             "pearled farro": {
                 "aliases": [],
@@ -8813,7 +8813,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "paella rice",
-                "plural_name": "paella rices"
+                "plural_name": "paella rice"
             },
             "sorghum": {
                 "aliases": [],
@@ -8825,25 +8825,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "red rice",
-                "plural_name": "red rices"
+                "plural_name": "red rice"
             },
             "mexican rice": {
                 "aliases": [],
                 "description": "",
                 "name": "mexican rice",
-                "plural_name": "mexican rices"
+                "plural_name": "mexican rice"
             },
             "idli rice": {
                 "aliases": [],
                 "description": "",
                 "name": "idli rice",
-                "plural_name": "idli rices"
+                "plural_name": "idli rice"
             },
             "brown jasmine rice": {
                 "aliases": [],
                 "description": "",
                 "name": "brown jasmine rice",
-                "plural_name": "brown jasmine rices"
+                "plural_name": "brown jasmine rice"
             },
             "cream of wheat": {
                 "aliases": [],
@@ -8855,7 +8855,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rice pilaf",
-                "plural_name": "rice pilafs"
+                "plural_name": "rice pilaf"
             },
             "barnyard millet": {
                 "aliases": [],
@@ -8873,13 +8873,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "jambalaya rice mix",
-                "plural_name": "jambalaya rice mixes"
+                "plural_name": "jambalaya rice mix"
             },
             "black glutinous rice": {
                 "aliases": [],
                 "description": "",
                 "name": "black glutinous rice",
-                "plural_name": "black glutinous rices"
+                "plural_name": "black glutinous rice"
             },
             "whole-grain oat": {
                 "aliases": [],
@@ -8896,8 +8896,8 @@
             "cilantro lime rice": {
                 "aliases": [],
                 "description": "",
-                "name": "cilantro lime rice",
-                "plural_name": "cilantro lime rices"
+                "name": "coriander lime rice",
+                "plural_name": "coriander lime rice"
             },
             "dirty rice mix": {
                 "aliases": [],
@@ -8921,7 +8921,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brown long grain rice",
-                "plural_name": "brown long grain rices"
+                "plural_name": "brown long grain rice"
             },
             "finger millet": {
                 "aliases": [],
@@ -8939,7 +8939,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "matta rice",
-                "plural_name": "matta rices"
+                "plural_name": "matta rice"
             },
             "rye berry": {
                 "aliases": [],
@@ -8999,7 +8999,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "coconut rice",
-                "plural_name": "coconut rices"
+                "plural_name": "coconut rice"
             },
             "amaranth flake": {
                 "aliases": [],
@@ -9017,7 +9017,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bamboo rice",
-                "plural_name": "bamboo rices"
+                "plural_name": "bamboo rice"
             },
             "pearled sorghum": {
                 "aliases": [],
@@ -9029,13 +9029,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "shirataki rice",
-                "plural_name": "shirataki rices"
+                "plural_name": "shirataki rice"
             },
             "vegetable fried rice": {
                 "aliases": [],
                 "description": "",
                 "name": "vegetable fried rice",
-                "plural_name": "vegetable fried rices"
+                "plural_name": "vegetable fried rice"
             },
             "grünkern": {
                 "aliases": [],
@@ -9047,7 +9047,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "jeera rice",
-                "plural_name": "jeera rices"
+                "plural_name": "jeera rice"
             },
             "fonio": {
                 "aliases": [],
@@ -9669,7 +9669,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rice vermicelli",
-                "plural_name": "rice vermicellis"
+                "plural_name": "rice vermicelli"
             },
             "pappardelle": {
                 "aliases": [],
@@ -9729,7 +9729,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brown rice pasta",
-                "plural_name": "brown rice pastas"
+                "plural_name": "brown rice pasta"
             },
             "rotelle": {
                 "aliases": [],
@@ -10635,73 +10635,73 @@
                 "aliases": [],
                 "description": "",
                 "name": "olive oil",
-                "plural_name": "olive oils"
+                "plural_name": "olive oil"
             },
             "vegetable oil": {
                 "aliases": [],
                 "description": "",
                 "name": "vegetable oil",
-                "plural_name": "vegetable oils"
+                "plural_name": "vegetable oil"
             },
             "extra virgin olive oil": {
                 "aliases": [],
                 "description": "",
                 "name": "extra virgin olive oil",
-                "plural_name": "extra virgin olive oils"
+                "plural_name": "extra virgin olive oil"
             },
             "canola oil": {
                 "aliases": [],
                 "description": "",
                 "name": "canola oil",
-                "plural_name": "canola oils"
+                "plural_name": "canola oil"
             },
             "coconut oil": {
                 "aliases": [],
                 "description": "",
                 "name": "coconut oil",
-                "plural_name": "coconut oils"
+                "plural_name": "coconut oil"
             },
             "cooking spray": {
                 "aliases": [],
                 "description": "",
                 "name": "cooking spray",
-                "plural_name": "cooking sprays"
+                "plural_name": "cooking spray"
             },
             "sesame oil": {
                 "aliases": [],
                 "description": "",
                 "name": "sesame oil",
-                "plural_name": "sesame oils"
+                "plural_name": "sesame oil"
             },
             "frying oil": {
                 "aliases": [],
                 "description": "",
                 "name": "frying oil",
-                "plural_name": "frying oils"
+                "plural_name": "frying oil"
             },
             "sunflower oil": {
                 "aliases": [],
                 "description": "",
                 "name": "sunflower oil",
-                "plural_name": "sunflower oils"
+                "plural_name": "sunflower oil"
             },
             "avocado oil": {
                 "aliases": [],
                 "description": "",
                 "name": "avocado oil",
-                "plural_name": "avocado oils"
+                "plural_name": "avocado oil"
             },
             "toasted sesame oil": {
                 "aliases": [],
                 "description": "",
                 "name": "toasted sesame oil",
-                "plural_name": "toasted sesame oils"
+                "plural_name": "toasted sesame oil"
             },
             "peanut oil": {
                 "aliases": [],
                 "description": "",
                 "name": "peanut oil",
-                "plural_name": "peanut oils"
+                "plural_name": "peanut oil"
             },
             "grapeseed oil": {
                 "aliases": [
@@ -10709,67 +10709,67 @@
                 ],
                 "description": "",
                 "name": "grapeseed oil",
-                "plural_name": "grapeseed oils"
+                "plural_name": "grapeseed oil"
             },
             "lard": {
                 "aliases": [],
                 "description": "",
                 "name": "lard",
-                "plural_name": "lards"
+                "plural_name": "lard"
             },
             "corn oil": {
                 "aliases": [],
                 "description": "",
                 "name": "corn oil",
-                "plural_name": "corn oils"
+                "plural_name": "corn oil"
             },
             "virgin coconut oil": {
                 "aliases": [],
                 "description": "",
                 "name": "virgin coconut oil",
-                "plural_name": "virgin coconut oils"
+                "plural_name": "virgin coconut oil"
             },
             "chili oil": {
                 "aliases": [],
                 "description": "",
                 "name": "chili oil",
-                "plural_name": "chili oils"
+                "plural_name": "chili oil"
             },
             "mustard oil": {
                 "aliases": [],
                 "description": "",
                 "name": "mustard oil",
-                "plural_name": "mustard oils"
+                "plural_name": "mustard oil"
             },
             "walnut oil": {
                 "aliases": [],
                 "description": "",
                 "name": "walnut oil",
-                "plural_name": "walnut oils"
+                "plural_name": "walnut oil"
             },
             "garlic oil": {
                 "aliases": [],
                 "description": "",
                 "name": "garlic oil",
-                "plural_name": "garlic oils"
+                "plural_name": "garlic oil"
             },
             "truffle oil": {
                 "aliases": [],
                 "description": "",
                 "name": "truffle oil",
-                "plural_name": "truffle oils"
+                "plural_name": "truffle oil"
             },
             "bacon grease": {
                 "aliases": [],
                 "description": "",
                 "name": "bacon grease",
-                "plural_name": "bacon greases"
+                "plural_name": "bacon grease"
             },
             "safflower oil": {
                 "aliases": [],
                 "description": "",
                 "name": "safflower oil",
-                "plural_name": "safflower oils"
+                "plural_name": "safflower oil"
             },
             "cacao butter": {
                 "aliases": [],
@@ -10781,31 +10781,31 @@
                 "aliases": [],
                 "description": "",
                 "name": "salad oil",
-                "plural_name": "salad oils"
+                "plural_name": "salad oil"
             },
             "duck fat": {
                 "aliases": [],
                 "description": "",
                 "name": "duck fat",
-                "plural_name": "duck fats"
+                "plural_name": "duck fat"
             },
             "rice bran oil": {
                 "aliases": [],
                 "description": "",
                 "name": "rice bran oil",
-                "plural_name": "rice bran oils"
+                "plural_name": "rice bran oil"
             },
             "soybean oil": {
                 "aliases": [],
                 "description": "",
                 "name": "soybean oil",
-                "plural_name": "soybean oils"
+                "plural_name": "soybean oil"
             },
             "butter-flavored cooking spray": {
                 "aliases": [],
                 "description": "",
-                "name": "butter-flavored cooking spray",
-                "plural_name": "butter-flavored cooking sprays"
+                "name": "butter-flavoured cooking spray",
+                "plural_name": "butter-flavoured cooking spray"
             },
             "medium-chain triglyceride": {
                 "aliases": [],
@@ -10817,73 +10817,73 @@
                 "aliases": [],
                 "description": "",
                 "name": "flaxseed oil",
-                "plural_name": "flaxseed oils"
+                "plural_name": "flaxseed oil"
             },
             "white truffle oil": {
                 "aliases": [],
                 "description": "",
                 "name": "white truffle oil",
-                "plural_name": "white truffle oils"
+                "plural_name": "white truffle oil"
             },
             "pumpkin seed oil": {
                 "aliases": [],
                 "description": "",
                 "name": "pumpkin seed oil",
-                "plural_name": "pumpkin seed oils"
+                "plural_name": "pumpkin seed oil"
             },
             "hazelnut oil": {
                 "aliases": [],
                 "description": "",
                 "name": "hazelnut oil",
-                "plural_name": "hazelnut oils"
+                "plural_name": "hazelnut oil"
             },
             "coconut oil spray": {
                 "aliases": [],
                 "description": "",
                 "name": "coconut oil spray",
-                "plural_name": "coconut oil sprays"
+                "plural_name": "coconut oil spray"
             },
             "almond oil": {
                 "aliases": [],
                 "description": "",
                 "name": "almond oil",
-                "plural_name": "almond oils"
+                "plural_name": "almond oil"
             },
             "lemon oil": {
                 "aliases": [],
                 "description": "",
                 "name": "lemon oil",
-                "plural_name": "lemon oils"
+                "plural_name": "lemon oil"
             },
             "macadamia oil": {
                 "aliases": [],
                 "description": "",
                 "name": "macadamia oil",
-                "plural_name": "macadamia oils"
+                "plural_name": "macadamia oil"
             },
             "goose fat": {
                 "aliases": [],
                 "description": "",
                 "name": "goose fat",
-                "plural_name": "goose fats"
+                "plural_name": "goose fat"
             },
             "palm oil": {
                 "aliases": [],
                 "description": "",
                 "name": "palm oil",
-                "plural_name": "palm oils"
+                "plural_name": "palm oil"
             },
             "basil oil": {
                 "aliases": [],
                 "description": "",
                 "name": "basil oil",
-                "plural_name": "basil oils"
+                "plural_name": "basil oil"
             },
             "pork fat": {
                 "aliases": [],
                 "description": "",
                 "name": "pork fat",
-                "plural_name": "pork fats"
+                "plural_name": "pork fat"
             },
             "beef dripping": {
                 "aliases": [],
@@ -10901,61 +10901,61 @@
                 "aliases": [],
                 "description": "",
                 "name": "tallow",
-                "plural_name": "tallows"
+                "plural_name": "tallow"
             },
             "sushi vinegar": {
                 "aliases": [],
                 "description": "",
                 "name": "sushi vinegar",
-                "plural_name": "sushi vinegars"
+                "plural_name": "sushi vinegar"
             },
             "pistachio oil": {
                 "aliases": [],
                 "description": "",
                 "name": "pistachio oil",
-                "plural_name": "pistachio oils"
+                "plural_name": "pistachio oil"
             },
             "herb-infused olive oil": {
                 "aliases": [],
                 "description": "",
                 "name": "herb-infused olive oil",
-                "plural_name": "herb-infused olive oils"
+                "plural_name": "herb-infused olive oil"
             },
             "roasted peanut oil": {
                 "aliases": [],
                 "description": "",
                 "name": "roasted peanut oil",
-                "plural_name": "roasted peanut oils"
+                "plural_name": "roasted peanut oil"
             },
             "argan oil": {
                 "aliases": [],
                 "description": "",
                 "name": "argan oil",
-                "plural_name": "argan oils"
+                "plural_name": "argan oil"
             },
             "beef fat": {
                 "aliases": [],
                 "description": "",
                 "name": "beef fat",
-                "plural_name": "beef fats"
+                "plural_name": "beef fat"
             },
             "pecan oil": {
                 "aliases": [],
                 "description": "",
                 "name": "pecan oil",
-                "plural_name": "pecan oils"
+                "plural_name": "pecan oil"
             },
             "crisco oil": {
                 "aliases": [],
                 "description": "",
                 "name": "crisco oil",
-                "plural_name": "crisco oils"
+                "plural_name": "crisco oil"
             },
             "red palm oil": {
                 "aliases": [],
                 "description": "",
                 "name": "red palm oil",
-                "plural_name": "red palm oils"
+                "plural_name": "red palm oil"
             },
             "shea butter": {
                 "aliases": [],
@@ -10967,13 +10967,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "lamb fat",
-                "plural_name": "lamb fats"
+                "plural_name": "lamb fat"
             },
             "castor oil": {
                 "aliases": [],
                 "description": "",
                 "name": "castor oil",
-                "plural_name": "castor oils"
+                "plural_name": "castor oil"
             },
             "chicken dripping": {
                 "aliases": [],
@@ -10985,49 +10985,49 @@
                 "aliases": [],
                 "description": "",
                 "name": "shallot oil",
-                "plural_name": "shallot oils"
+                "plural_name": "shallot oil"
             },
             "achiote oil": {
                 "aliases": [],
                 "description": "",
                 "name": "achiote oil",
-                "plural_name": "achiote oils"
+                "plural_name": "achiote oil"
             },
             "jojoba oil": {
                 "aliases": [],
                 "description": "",
                 "name": "jojoba oil",
-                "plural_name": "jojoba oils"
+                "plural_name": "jojoba oil"
             },
             "oregano oil": {
                 "aliases": [],
                 "description": "",
                 "name": "oregano oil",
-                "plural_name": "oregano oils"
+                "plural_name": "oregano oil"
             },
             "hemp seed oil": {
                 "aliases": [],
                 "description": "",
                 "name": "hemp seed oil",
-                "plural_name": "hemp seed oils"
+                "plural_name": "hemp seed oil"
             },
             "wheat germ oil": {
                 "aliases": [],
                 "description": "",
                 "name": "wheat germ oil",
-                "plural_name": "wheat germ oils"
+                "plural_name": "wheat germ oil"
             },
             "ginger oil": {
                 "aliases": [],
                 "description": "",
                 "name": "ginger oil",
-                "plural_name": "ginger oils"
+                "plural_name": "ginger oil"
             },
             "cottonseed oil": {
                 "aliases": [],
                 "description": "",
                 "name": "cottonseed oil",
-                "plural_name": "cottonseed oils"
+                "plural_name": "cottonseed oil"
             },
             "pork dripping": {
                 "aliases": [],
@@ -11039,25 +11039,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "rosehip seed oil",
-                "plural_name": "rosehip seed oils"
+                "plural_name": "rosehip seed oil"
             },
             "camelina oil": {
                 "aliases": [],
                 "description": "",
                 "name": "camelina oil",
-                "plural_name": "camelina oils"
+                "plural_name": "camelina oil"
             },
             "marula oil": {
                 "aliases": [],
                 "description": "",
                 "name": "marula oil",
-                "plural_name": "marula oils"
+                "plural_name": "marula oil"
             },
             "moringa seed oil": {
                 "aliases": [],
                 "description": "",
                 "name": "moringa seed oil",
-                "plural_name": "moringa seed oils"
+                "plural_name": "moringa seed oil"
             },
             "white cacao butter": {
                 "aliases": [],
@@ -11069,7 +11069,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "black seed oil",
-                "plural_name": "black seed oils"
+                "plural_name": "black seed oil"
             }
         }
     },
@@ -11109,7 +11109,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rice wine vinegar",
-                "plural_name": "rice wine vinegars"
+                "plural_name": "rice wine vinegar"
             },
             "white wine vinegar": {
                 "aliases": [],
@@ -11307,7 +11307,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "avocado oil mayonnaise",
-                "plural_name": "avocado oil mayonnaises"
+                "plural_name": "avocado oil mayonnaise"
             },
             "creamy balsamic dressing": {
                 "aliases": [],
@@ -11337,7 +11337,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brown rice vinegar",
-                "plural_name": "brown rice vinegars"
+                "plural_name": "brown rice vinegar"
             },
             "coconut vinegar": {
                 "aliases": [],
@@ -11521,7 +11521,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ketchup",
-                "plural_name": "ketchups"
+                "plural_name": "ketchup"
             },
             "mustard": {
                 "aliases": [],
@@ -12061,7 +12061,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "banana ketchup",
-                "plural_name": "banana ketchups"
+                "plural_name": "banana ketchup"
             },
             "chili puree": {
                 "aliases": [],
@@ -14343,8 +14343,8 @@
             "licorice": {
                 "aliases": [],
                 "description": "",
-                "name": "licorice",
-                "plural_name": "licorices"
+                "name": "liquorice",
+                "plural_name": "liquorice"
             },
             "plum jam": {
                 "aliases": [],
@@ -14642,7 +14642,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rice wine",
-                "plural_name": "rice wines"
+                "plural_name": "rice wine"
             },
             "shaoxing wine": {
                 "aliases": [],
@@ -15886,13 +15886,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "lavender oil",
-                "plural_name": "lavender oils"
+                "plural_name": "lavender oil"
             },
             "essential oil": {
                 "aliases": [],
                 "description": "",
                 "name": "essential oil",
-                "plural_name": "essential oils"
+                "plural_name": "essential oil"
             },
             "chicken essence": {
                 "aliases": [],
@@ -16072,7 +16072,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cbd oil",
-                "plural_name": "cbd oils"
+                "plural_name": "cbd oil"
             },
             "chlorella": {
                 "aliases": [],
@@ -16084,13 +16084,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "fish oil",
-                "plural_name": "fish oils"
+                "plural_name": "fish oil"
             },
             "lime essential oil": {
                 "aliases": [],
                 "description": "",
                 "name": "lime essential oil",
-                "plural_name": "lime essential oils"
+                "plural_name": "lime essential oil"
             },
             "probiotic": {
                 "aliases": [],
@@ -16150,7 +16150,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tea-tree oil",
-                "plural_name": "tea-tree oils"
+                "plural_name": "tea-tree oil"
             },
             "vitamin d": {
                 "aliases": [],
@@ -16258,7 +16258,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rose oil",
-                "plural_name": "rose oils"
+                "plural_name": "rose oil"
             },
             "banana powder": {
                 "aliases": [],
@@ -16276,7 +16276,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "clove oil",
-                "plural_name": "clove oils"
+                "plural_name": "clove oil"
             },
             "cranberry powder": {
                 "aliases": [],
@@ -16288,7 +16288,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "eucalyptus oil",
-                "plural_name": "eucalyptus oils"
+                "plural_name": "eucalyptus oil"
             },
             "goji berry powder": {
                 "aliases": [],

@@ -255,7 +255,7 @@
                     "zapallito redondo"
                 ],
                 "description": "",
-                "name": "summer squash",
+                "name": "calabacín",
                 "plural_name": "summer squashes"
             },
             "mixed green": {
@@ -368,7 +368,7 @@
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "Col Chino"
                 ],
                 "description": "",
                 "name": "repollo",
@@ -450,7 +450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "leaf lettuce",
-                "plural_name": "leaf lettuces"
+                "plural_name": ""
             },
             "pepperoncini": {
                 "aliases": [],
@@ -863,7 +863,7 @@
             "persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "persimmon",
+                "name": "caqui",
                 "plural_name": "persimmons"
             },
             "melon": {
@@ -1031,7 +1031,7 @@
             "dried lime": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lime",
+                "name": "lima deshidratada",
                 "plural_name": "dried limes"
             },
             "jujube": {

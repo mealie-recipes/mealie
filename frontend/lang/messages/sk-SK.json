@@ -81,7 +81,7 @@
     "category-events": "Udalosti kategórií",
     "when-a-new-user-joins-your-group": "Keď sa k vašej skupine pripojí nový používateľ",
     "recipe-events": "Udalosti receptov",
-    "label-events": "Label Events"
+    "label-events": "Udalosti označení"
   },
   "general": {
     "add": "Pridať",
@@ -561,7 +561,7 @@
     "see-original-text": "Pozrieť pôvodný text",
     "original-text-with-value": "Pôvodný text: {originalText}",
     "ingredient-linker": "Prepojenie surovín",
-    "unlinked": "Not linked yet",
+    "unlinked": "Zatiaľ neprepojené",
     "linked-to-other-step": "Prepojené s iným krokom",
     "auto": "Automaticky",
     "cook-mode": "Režim varenia",
@@ -1170,7 +1170,7 @@
     "group-details": "Podrobnosti o skupine",
     "group-details-description": "Pred vytvorením účtu musíte vytvoriť skupinu. Vaša skupina bude obsahovať iba vás, ale neskôr budete môcť pozvať ostatných. Členovia vašej skupiny môžu zdieľať stravovacie plány, nákupné zoznamy, recepty a ďalšie!",
     "use-seed-data": "Použiť predvolené dáta",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
+    "use-seed-data-description": "Mealie sa dodáva so zbierkou ingrediencií, jednotiek a označení. Môžete ich použiť vo vašej skupine pre lepšiu organizáciu vašich receptov. Tieto sú preložené do jazyka, ktorý ste si práve zvolili. Tieto dáta môžete kedykoľvek doplniť alebo zmeniť.",
     "account-details": "Detaily účtu"
   },
   "validation": {
