@@ -561,7 +561,7 @@
     "see-original-text": "Mostra el text original",
     "original-text-with-value": "Text original: {originalText}",
     "ingredient-linker": "Enllaça ingredients",
-    "unlinked": "Not linked yet",
+    "unlinked": "No enllaçada",
     "linked-to-other-step": "Enllaça a un altre pas",
     "auto": "Automàtic",
     "cook-mode": "Mode \"cuinant\"",
