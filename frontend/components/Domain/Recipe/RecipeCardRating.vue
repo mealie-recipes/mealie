@@ -27,62 +27,52 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserSelfRatings } from "~/composables/use-users";
 
 type Star = "full" | "half" | "empty";
 
-export default defineNuxtComponent({
-  props: {
-    modelValue: {
-      type: Number,
-      default: 0,
-    },
-    recipeId: {
-      type: String,
-      default: "",
-    },
+const props = defineProps({
+  modelValue: {
+    type: Number,
+    default: 0,
   },
-  emits: ["update:modelValue"],
-  setup(props) {
-    const { isOwnGroup } = useLoggedInState();
-    const { userRatings } = useUserSelfRatings();
-
-    const userRating = computed(() => {
-      return userRatings.value.find(r => r.recipeId === props.recipeId)?.rating ?? undefined;
-    });
-
-    const ratingValue = computed(() => userRating.value || props.modelValue || 0);
-    const useGroupStyle = computed(() => isOwnGroup.value && !userRating.value && props.modelValue);
-    const ratingDisplay = computed<Star[]>(
-      () => {
-        const stars: Star[] = [];
-
-        for (let i = 0; i < 5; i++) {
-          const diff = ratingValue.value - i;
-          if (diff >= 1) {
-            stars.push("full");
-          }
-          else if (diff >= 0.25) { // round to half star if rating is at least 0.25 but not quite a full star
-            stars.push("half");
-          }
-          else {
-            stars.push("empty");
-          }
-        }
-
-        return stars;
-      },
-    );
-
-    return {
-      ratingValue,
-      useGroupStyle,
-      ratingDisplay,
-    };
+  recipeId: {
+    type: String,
+    default: "",
   },
+})
+
+const { isOwnGroup } = useLoggedInState();
+const { userRatings } = useUserSelfRatings();
+
+const userRating = computed(() => {
+  return userRatings.value.find(r => r.recipeId === props.recipeId)?.rating ?? undefined;
 });
+
+const ratingValue = computed(() => userRating.value || props.modelValue || 0);
+const useGroupStyle = computed(() => isOwnGroup.value && !userRating.value && props.modelValue);
+const ratingDisplay = computed<Star[]>(
+  () => {
+    const stars: Star[] = [];
+
+    for (let i = 0; i < 5; i++) {
+      const diff = ratingValue.value - i;
+      if (diff >= 1) {
+        stars.push("full");
+      }
+      else if (diff >= 0.25) { // round to half star if rating is at least 0.25 but not quite a full star
+        stars.push("half");
+      }
+      else {
+        stars.push("empty");
+      }
+    }
+
+    return stars;
+  },
+);
 </script>
 
 <style lang="scss" scoped>
