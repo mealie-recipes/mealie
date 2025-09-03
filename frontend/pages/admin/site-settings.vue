@@ -10,7 +10,7 @@
           width="100%"
           max-height="200"
           max-width="150"
-          :src="require('~/static/svgs/admin-site-settings.svg')"
+          src="/svgs/admin-site-settings.svg"
         />
       </template>
       <template #title>

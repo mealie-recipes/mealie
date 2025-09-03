@@ -9,7 +9,7 @@
           width="100%"
           max-height="200"
           max-width="150"
-          :src="require('~/static/svgs/manage-members.svg')"
+          src="/svgs/manage-members.svg"
         />
       </template>
       <template #title>
