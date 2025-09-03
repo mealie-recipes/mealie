@@ -7,15 +7,15 @@
     },
     "tablespoon": {
         "name": "cucchiaio",
-        "plural_name": "cucchiaio da tavola",
+        "plural_name": "cucchiai",
         "description": "",
-        "abbreviation": "cucch.o"
+        "abbreviation": "cucchiaio"
     },
     "cup": {
         "name": "tazza",
         "plural_name": "tazze",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "tazza"
     },
     "fluid-ounce": {
         "name": "oncia liquida",

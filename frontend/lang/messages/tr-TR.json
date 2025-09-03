@@ -561,6 +561,7 @@
     "see-original-text": "Orijinal Metni Göster",
     "original-text-with-value": "Orijinal Metin: {originalText}",
     "ingredient-linker": "Malzeme Bağlayıcı",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Başka bir adıma bağlı",
     "auto": "Otomatik",
     "cook-mode": "Pişirme Modu",

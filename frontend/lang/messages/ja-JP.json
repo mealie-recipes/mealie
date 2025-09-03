@@ -561,6 +561,7 @@
     "see-original-text": "元のテキストを見る",
     "original-text-with-value": "原文: {originalText}",
     "ingredient-linker": "材料リンク",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "他のステップにリンクしています",
     "auto": "自動",
     "cook-mode": "調理モード",

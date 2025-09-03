@@ -561,6 +561,7 @@
     "see-original-text": "عرض النص الأصلي",
     "original-text-with-value": "النص الأصلي: {originalText}",
     "ingredient-linker": "رابط المكون",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "مرتبط بخطوة أخرى",
     "auto": "تلقائي",
     "cook-mode": "وضع الطبخ",

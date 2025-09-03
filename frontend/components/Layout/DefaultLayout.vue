@@ -1,6 +1,5 @@
 <template>
   <v-app dark>
-    <NuxtPwaManifest />
     <TheSnackbar />
 
     <AppHeader>
@@ -108,7 +107,8 @@ import type { HouseholdSummary } from "~/lib/api/types/household";
 export default defineNuxtComponent({
   setup() {
     const i18n = useI18n();
-    const { $globals, $vuetify } = useNuxtApp();
+    const { $globals } = useNuxtApp();
+    const display = useDisplay();
     const $auth = useMealieAuth();
     const { isOwnGroup } = useLoggedInState();
 
@@ -173,7 +173,7 @@ export default defineNuxtComponent({
 
     const sidebar = ref<boolean>(false);
     onMounted(() => {
-      sidebar.value = $vuetify.display.mdAndUp.value;
+      sidebar.value = display.mdAndUp.value;
     });
 
     function cookbookAsLink(cookbook: ReadCookBook): SideBarLink {

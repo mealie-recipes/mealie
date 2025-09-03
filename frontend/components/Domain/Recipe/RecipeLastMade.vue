@@ -119,6 +119,7 @@
 
 <script setup lang="ts">
 import { whenever } from "@vueuse/core";
+import { formatISO } from "date-fns";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useHouseholdSelf } from "~/composables/use-households";
@@ -148,7 +149,7 @@ const newTimelineEventImageName = ref<string>("");
 const newTimelineEventImagePreviewUrl = ref<string>();
 const newTimelineEventTimestamp = ref<Date>(new Date());
 const newTimelineEventTimestampString = computed(() => {
-  return newTimelineEventTimestamp.value.toISOString().substring(0, 10);
+  return formatISO(newTimelineEventTimestamp.value, { representation: "date" });
 });
 
 const lastMade = ref(props.recipe.lastMade);
@@ -169,7 +170,7 @@ whenever(
   () => madeThisDialog.value,
   () => {
     // Set timestamp to now
-    newTimelineEventTimestamp.value = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
+    newTimelineEventTimestamp.value = new Date();
   },
 );
 

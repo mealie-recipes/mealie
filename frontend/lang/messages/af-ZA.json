@@ -561,6 +561,7 @@
     "see-original-text": "Sien oorspronklike teks",
     "original-text-with-value": "Oorspronklike teks: {originalText}",
     "ingredient-linker": "Bestanddele koppelaar",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Gekoppel aan 'n ander stap",
     "auto": "Outomaties",
     "cook-mode": "Kook modus",

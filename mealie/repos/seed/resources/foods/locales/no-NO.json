@@ -628,7 +628,7 @@
         "foods": {
             "tomato": {
                 "aliases": [],
-                "description": "Yes they are a fruit",
+                "description": "Ja, de er en frukt",
                 "name": "tomat",
                 "plural_name": "tomater"
             },
@@ -761,7 +761,7 @@
             "fig": {
                 "aliases": [],
                 "description": "",
-                "name": "fig",
+                "name": "fiken",
                 "plural_name": "fikener"
             },
             "apricot": {
@@ -870,7 +870,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "melon",
-                "plural_name": "melons"
+                "plural_name": "meloner"
             },
             "tangerine": {
                 "aliases": [],
@@ -881,13 +881,13 @@
             "dried mango": {
                 "aliases": [],
                 "description": "",
-                "name": "dried mango",
-                "plural_name": "dried mangoes"
+                "name": "tørket mango",
+                "plural_name": "tørkede mangoer"
             },
             "dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apple",
+                "name": "tørket eple",
                 "plural_name": "dried apples"
             },
             "quince": {
@@ -923,14 +923,14 @@
             "dragon fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "dragon fruit",
-                "plural_name": "dragon fruits"
+                "name": "dragefrukt",
+                "plural_name": "dragefrukt"
             },
             "mixed fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed fruit",
-                "plural_name": "mixed fruits"
+                "name": "blandet frukt",
+                "plural_name": "blandet frukt"
             },
             "asian pear": {
                 "aliases": [],
@@ -15485,37 +15485,37 @@
             "strawberry juice": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry juice",
-                "plural_name": "strawberry juices"
+                "name": "jordbær jus",
+                "plural_name": "jordbær jus"
             },
             "iced coffee concentrate": {
                 "aliases": [],
                 "description": "",
-                "name": "iced coffee concentrate",
-                "plural_name": "iced coffee concentrates"
+                "name": "iskaffe konsentrat",
+                "plural_name": "iskaffe konsentrater"
             },
             "green tea leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "green tea leaf",
-                "plural_name": "green tea leaves"
+                "name": "grønt teblad",
+                "plural_name": "grønne teblader"
             },
             "beetroot juice": {
                 "aliases": [],
                 "description": "",
-                "name": "beetroot juice",
-                "plural_name": "beetroot juices"
+                "name": "rødbete jus",
+                "plural_name": "rødbete juser"
             },
             "blueberry juice": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry juice",
-                "plural_name": "blueberry juices"
+                "name": "blåbær jus",
+                "plural_name": "blåbær juser"
             },
             "lemonade mix": {
                 "aliases": [],
                 "description": "",
-                "name": "lemonade mix",
+                "name": "lemonade miks",
                 "plural_name": "lemonade mixes"
             },
             "rose syrup": {
