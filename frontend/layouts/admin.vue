@@ -39,11 +39,12 @@ import type { SidebarLinks } from "~/types/application-types";
 import { useGlobalI18n } from "~/composables/use-global-i18n";
 
 const i18n = useGlobalI18n();
-const { $globals, $vuetify } = useNuxtApp();
+const display = useDisplay();
+const { $globals } = useNuxtApp();
 
 const sidebar = ref<boolean>(false);
 onMounted(() => {
-  sidebar.value = !$vuetify.display.md.value;
+  sidebar.value = !display.md.value;
 });
 
 const topLinks: SidebarLinks = [
