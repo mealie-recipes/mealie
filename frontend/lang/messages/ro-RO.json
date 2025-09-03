@@ -561,6 +561,7 @@
     "see-original-text": "Vezi Textul Original",
     "original-text-with-value": "Text original: {originalText}",
     "ingredient-linker": "Legarea cu ingrediente",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Conectat la alt pas",
     "auto": "Auto",
     "cook-mode": "Modul de gătire",

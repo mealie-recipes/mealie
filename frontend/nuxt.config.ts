@@ -1,5 +1,4 @@
 import { defineNuxtConfig } from "nuxt/config";
-import commonjs from "vite-plugin-commonjs";
 
 const AUTH_TOKEN = "mealie.auth.token";
 
@@ -56,6 +55,7 @@ export default defineNuxtConfig({
         { "rel": "shortcut icon", "type": "image/png", "href": "/icons/icon-x64.png", "data-n-head": "ssr" },
         { "rel": "apple-touch-icon", "type": "image/png", "href": "/icons/apple-touch-icon.png", "data-n-head": "ssr" },
         { "rel": "mask-icon", "href": "/icons/safari-pinned-tab.svg", "data-n-head": "ssr" },
+        { "rel": "manifest", "href": "/manifest.webmanifest", "data-n-head": "ssr" },
       ],
     },
 
@@ -126,12 +126,6 @@ export default defineNuxtConfig({
     baseURL: process.env.SUB_PATH || "",
   },
 
-  vite: {
-    plugins: [
-      commonjs(),
-    ],
-  },
-
   auth: {
     isEnabled: true,
     // disableServerSideAuth: true,
@@ -148,7 +142,7 @@ export default defineNuxtConfig({
         signInResponseTokenPointer: "/access_token",
         type: "Bearer",
         cookieName: AUTH_TOKEN,
-        maxAgeInSeconds: 604800, // 7 days
+        maxAgeInSeconds: parseInt(process.env.TOKEN_TIME || "48") * 3600, // TOKEN_TIME is in hours
       },
       pages: {
         login: "/login",
@@ -240,37 +234,57 @@ export default defineNuxtConfig({
     vueI18n: "./../i18n.config.ts", // note: we need to up one ../ because the default root of lang dir is the /frontend/i18n, which can not be configured
   },
 
-  // PWA module configuration: https://go.nuxtjs.dev/pwa
+  // PWA module configuration: https://vite-pwa-org.netlify.app/frameworks/nuxt.html
   pwa: {
-    mode: process.env.NODE_ENV === "production" ? "production" : "development",
     registerType: "autoUpdate",
-    useCredentials: true,
+    devOptions: {
+      enabled: false,
+      suppressWarnings: true,
+    },
+    workbox: {
+      navigateFallback: "/",
+      globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+      cleanupOutdatedCaches: true,
+      skipWaiting: true,
+      clientsClaim: true,
+    },
+    client: {
+      installPrompt: true,
+      periodicSyncForUpdates: 120,
+    },
+    includeAssets: ["favicon.ico", "apple-touch-icon.png", "safari-pinned-tab.svg"],
     manifest: {
-      start_url: "/",
-      scope: "/",
-      lang: "en",
       name: "Mealie",
       short_name: "Mealie",
-      id: "mealie",
-      description: "Mealie is a recipe management and meal planning app",
-      theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
-      background_color: "#FFFFFF",
+      id: "/",
+      start_url: "/",
+      scope: "/",
       display: "standalone",
+      background_color: "#FFFFFF",
+      theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
+      description: "Mealie is a recipe management and meal planning app",
+      lang: "en",
       display_override: [
         "standalone",
         "minimal-ui",
         "browser",
         "window-controls-overlay",
       ],
+      orientation: "portrait-primary",
+      categories: ["food", "lifestyle"],
+      prefer_related_applications: false,
+      handle_links: "preferred",
+      launch_handler: {
+        client_mode: ["focus-existing", "auto"],
+      },
+      edge_side_panel: {
+        preferred_width: 400,
+      },
       share_target: {
         action: "/r/create/url",
         method: "GET",
         params: {
-          /* title and url are not currently used in Mealie. If there are issues
-              with sharing, uncommenting those lines might help solve the puzzle. */
-          // "title": "title",
           text: "recipe_import_url",
-          // "url": "url",
         },
       },
       icons: [
@@ -383,17 +397,6 @@ export default defineNuxtConfig({
           ],
         },
       ],
-      prefer_related_applications: false,
-      handle_links: "preferred",
-      categories: [
-        "food",
-      ],
-      launch_handler: {
-        client_mode: ["focus-existing", "auto"],
-      },
-      edge_side_panel: {
-        preferred_width: 400,
-      },
     },
   },
 

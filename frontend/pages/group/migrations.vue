@@ -7,7 +7,7 @@
           max-height="200"
           max-width="200"
           class="mb-2"
-          :src="require('~/static/svgs/manage-data-migrations.svg')"
+          src="/svgs/manage-data-migrations.svg"
         />
       </template>
       <template #title>

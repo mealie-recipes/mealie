@@ -87,6 +87,7 @@ The shopping lists feature is a great way to keep track of what you need to buy 
 Managing shopping lists can be done from the Sidebar > Shopping Lists. 
 
 Here you will be able to:
+
 - See items already on the Shopping List
 - See linked recipes with ingredients
     - Toggling via the 'Pot' icon will show you the linked recipe, allowing you to click to access it. 
@@ -117,6 +118,7 @@ Mealie is designed to integrate with many different external services. There are
 ### Notifiers
 
 Notifiers are event-driven notifications sent when specific actions are performed within Mealie. Some actions include:
+
 - Creating / Updating a recipe
 - Adding items to a shopping list
 - Creating a new mealplan
@@ -198,6 +200,7 @@ Mealie lets you fully customize how you organize your users. You can use Groups 
 Groups are fully isolated instances of Mealie. Think of a goup as a completely separate, fully self-contained site. There is no data shared between groups. Each group has its own users, recipes, tags, categories, etc. A user logged-in to one group cannot make any changes to another.
 
 Common use cases for groups include:
+
 - Hosting multiple instances of Mealie for others who want to keep their data private and secure
 - Creating completely isolated recipe pools
 
@@ -206,6 +209,7 @@ Common use cases for groups include:
 Households are subdivisions within a single Group. Households maintain their own users and settings, while sharing their recipes with other households. Households also share organizers (tags, categories, etc.) with the entire group. Meal Plans, Shopping Lists, and Integrations are only accessible within a household.
 
 Common use cases for households include:
+
 - Sharing a common recipe pool amongst families
 - Maintaining separate meal plans and shopping lists from other households
 - Maintaining separate integrations and customizations from other households

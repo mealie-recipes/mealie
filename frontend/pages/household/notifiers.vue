@@ -37,7 +37,7 @@
           width="100%"
           max-height="125"
           max-width="125"
-          :src="require('~/static/svgs/manage-notifiers.svg')"
+          src="/svgs/manage-notifiers.svg"
         />
       </template>
       <template #title>
