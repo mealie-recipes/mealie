@@ -87,13 +87,11 @@
                 class="ma-0 pa-0"
               />
               <div v-else class="my-0 px-1 py-0" /> <!-- Empty div to keep the layout consistent -->
-              <RecipeRating
+              <RecipeCardRating
                 v-if="showRecipeContent"
                 :class="[{ 'pb-2': !isOwnGroup }, 'ml-n2']"
-                :value="rating"
+                :model-value="rating"
                 :recipe-id="recipeId"
-                :slug="slug"
-                small
               />
 
               <!-- If we're not logged-in, no items display, so we hide this menu -->
@@ -130,7 +128,7 @@
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeCardImage from "./RecipeCardImage.vue";
-import RecipeRating from "./RecipeRating.vue";
+import RecipeCardRating from "./RecipeCardRating.vue";
 import RecipeChips from "./RecipeChips.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 

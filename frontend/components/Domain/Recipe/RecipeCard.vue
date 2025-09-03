@@ -55,12 +55,9 @@
               />
               <div v-else class="px-1" /> <!-- Empty div to keep the layout consistent -->
 
-              <RecipeRating
-                class="ml-n2"
+              <RecipeCardRating
                 :model-value="rating"
                 :recipe-id="recipeId"
-                :slug="slug"
-                small
               />
               <v-spacer />
               <RecipeChips
@@ -105,7 +102,7 @@ import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeChips from "./RecipeChips.vue";
 import RecipeContextMenu from "./RecipeContextMenu.vue";
 import RecipeCardImage from "./RecipeCardImage.vue";
-import RecipeRating from "./RecipeRating.vue";
+import RecipeCardRating from "./RecipeCardRating.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 
 interface Props {

@@ -43,8 +43,6 @@ const props = withDefaults(defineProps<Props>(), {
   buttonStyle: false,
 });
 
-const api = useUserApi();
-const $auth = useMealieAuth();
 const { userRatings, refreshUserRatings } = useUserSelfRatings();
 
 const isFavorite = computed(() => {
@@ -53,6 +51,9 @@ const isFavorite = computed(() => {
 });
 
 async function toggleFavorite() {
+  const api = useUserApi();
+  const $auth = useMealieAuth();
+
   if (!$auth.user.value) return;
   if (!isFavorite.value) {
     await api.users.addFavorite($auth.user.value?.id, props.recipeId);

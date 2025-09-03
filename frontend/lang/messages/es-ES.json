@@ -69,7 +69,7 @@
     "new-notification": "Nueva notificación",
     "event-notifiers": "Notificaciones de eventos",
     "apprise-url-skipped-if-blank": "URL de Apprise (omitida si está en blanco)",
-    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
+    "apprise-url-is-left-intentionally-blank": "Dado que las URL de Apprise suelen contener información confidencial, este campo se deja en blanco intencionalmente durante la edición. Si desea actualizar la URL introdúzcala aquí, de lo contrario, déjelo en blanco para conservar la URL actual.\n",
     "enable-notifier": "Habilitar notificador",
     "what-events": "¿A qué eventos debe suscribirse este notificador?",
     "user-events": "Eventos de los usuarios",
@@ -1170,7 +1170,7 @@
     "group-details": "Detalles del grupo",
     "group-details-description": "Antes de crear una cuenta, debe crear un grupo. En el grupo sólo estará usted, pero puede invitar a otros más tarde. Los miembros de un grupo pueden compartir menús, listas de la compra, recetas y más...",
     "use-seed-data": "Utilizar datos de ejemplo",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
+    "use-seed-data-description": "Mealie incluye una colección de alimentos, unidades y etiquetas que puedes usar para completar tu grupo con datos útiles para organizar tus recetas. Estos datos están traducidos al idioma que hayas seleccionado. Siempre puedes añadir o modificar estos datos más adelante.\n",
     "account-details": "Información de la cuenta"
   },
   "validation": {

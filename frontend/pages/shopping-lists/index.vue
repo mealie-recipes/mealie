@@ -55,7 +55,7 @@
           width="100%"
           max-height="100"
           max-width="100"
-          :src="require('~/static/svgs/shopping-cart.svg')"
+          src="/svgs/shopping-cart.svg"
         />
       </template>
       <template #title>
