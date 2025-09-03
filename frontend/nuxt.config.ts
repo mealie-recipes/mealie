@@ -148,7 +148,7 @@ export default defineNuxtConfig({
         signInResponseTokenPointer: "/access_token",
         type: "Bearer",
         cookieName: AUTH_TOKEN,
-        maxAgeInSeconds: parseInt(process.env.TOKEN_TIME || "48") * 3600,
+        maxAgeInSeconds: parseInt(process.env.TOKEN_TIME || "48") * 3600, // TOKEN_TIME is in hours
       },
       pages: {
         login: "/login",
