@@ -25,7 +25,8 @@ test('ldap login', async ({ page }) => {
     await page.getByRole('button', { name: 'Login', exact: true }).click();
     await expect(page).toHaveURL(/\/g\/home/);
     await expect(page.getByRole('navigation')).toContainText(name);
-    await expect(page.getByRole('link', { name: 'Settings' })).not.toBeVisible();
+    await page.getByText('Settings', { exact: true }).click();
+    await expect(page.getByRole('link', { name: 'Admin Settings' })).not.toBeVisible();
 });
 
 test('ldap admin login', async ({ page }) => {
@@ -40,7 +41,8 @@ test('ldap admin login', async ({ page }) => {
     // skip admin setup page
     await page.getByRole('link', { name: "I'm already set up, just bring me to the homepage" }).click();
     await expect(page.getByRole('navigation')).toContainText(name);
-    await expect(page.getByRole('link', { name: 'Settings' })).toBeVisible();
+    await page.getByText('Settings', { exact: true }).click();
+    await expect(page.getByRole('link', { name: 'Admin Settings' })).toBeVisible();
 });
 
 test('oidc initial login', async ({ page }) => {
@@ -61,7 +63,8 @@ test('oidc initial login', async ({ page }) => {
     await page.getByRole('button', { name: 'Sign-in' }).click();
     await expect(page).toHaveURL(/\/g\/home/);
     await expect(page.getByRole('navigation')).toContainText(name);
-    await expect(page.getByRole('link', { name: 'Settings' })).not.toBeVisible();
+    await page.getByText('Settings', { exact: true }).click();
+    await expect(page.getByRole('link', { name: 'Admin Settings' })).not.toBeVisible();
 });
 
 test('oidc login with user not in propery group', async ({ page }) => {
@@ -167,5 +170,6 @@ test('oidc admin user', async ({ page }) => {
     await expect(page).toHaveURL(/\/admin\/setup/, { timeout: 15000 });
     await page.getByRole('link', { name: "I'm already set up, just bring me to the homepage" }).click();
     await expect(page.getByRole('navigation')).toContainText(name);
-    await expect(page.getByRole('link', { name: 'Settings' })).toBeVisible();
+    await page.getByText('Settings', { exact: true }).click();
+    await expect(page.getByRole('link', { name: 'Admin Settings' })).toBeVisible();
 });

@@ -15,7 +15,6 @@
       v-model="sidebar"
       absolute
       :top-link="topLinks"
-      :bottom-links="bottomLinks"
       :user="{ data: true }"
       :secondary-header="$t('sidebar.developer')"
       :secondary-links="developerLinks"
@@ -112,15 +111,6 @@ const developerLinks: SidebarLinks = [
         restricted: true,
       },
     ],
-  },
-];
-
-const bottomLinks: SidebarLinks = [
-  {
-    icon: $globals.icons.heart,
-    title: i18n.t("about.support"),
-    href: "https://github.com/sponsors/hay-kot",
-    restricted: true,
   },
 ];
 </script>
