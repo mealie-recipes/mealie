@@ -367,6 +367,16 @@ async function updateUser() {
     fullName: accountDetails.fullName.value || $auth.user.value?.fullName || undefined,
     // map advancedOptions (form) -> advanced (backend/UserBase)
     advanced: accountDetails.advancedOptions.value,
+    // ensure we include these required fields
+    id: $auth.user.value!.id,
+    group: $auth.user.value!.group,
+    household: $auth.user.value!.household,
+    // ensure the user remains an admin and has all permissions
+    admin: true,
+    can_invite: true,
+    can_manage: true,
+    can_manage_household: true,
+    can_organize: true,
   };
 
   const { response } = await userApi.users.updateOne($auth.user.value!.id, payload);
@@ -381,6 +391,7 @@ async function updateUser() {
 
 async function updatePassword() {
   const { response } = await userApi.users.changePassword({
+    currentPassword: "MyPassword",
     newPassword: credentials.password1.value,
   });
 
@@ -390,8 +401,7 @@ async function updatePassword() {
 }
 
 async function submitRegistration() {
-  // the backend will only update the password without the "currentPassword" field if the user is the default user,
-  // so we update the password first, then update the user's details
+  // we update the password first, then update the user's details
   await updatePassword().then(updateUser);
 }
 
