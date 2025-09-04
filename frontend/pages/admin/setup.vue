@@ -1,16 +1,14 @@
 <template>
   <v-container
     fluid
-    class="d-flex justify-center align-center"
-    width="1200px"
+    class="d-flex justify-center  align-start  fill-height"
     :class="{
-	  'my-10': $vuetify.display.mdAndUp,
+      'bg-off-white': !$vuetify.theme.current.dark && !isDark,
     }"
   >
     <!-- Header Toolbar -->
-    <v-card class="w-100 elevation-4">
+    <v-card class="elevation-4" width="1200" :class="{ 'my-10': $vuetify.display.mdAndUp }">
       <v-toolbar
-        width="100%"
         color="primary"
         class="d-flex justify-center"
         dark
@@ -21,7 +19,7 @@
       </v-toolbar>
 
     <!-- Stepper Wizard -->
-    <v-stepper v-model="currentPage" class="w-100" mobile-breakpoint="sm">
+    <v-stepper v-model="currentPage" mobile-breakpoint="sm">
       <v-stepper-header>
         <v-stepper-item
           :value="Pages.LANDING"
@@ -233,6 +231,7 @@
 </template>
 
 <script setup lang="ts">
+import { useDark } from "@vueuse/core";
 import { useAdminApi, useUserApi } from "~/composables/api";
 import { useLocales } from "~/composables/use-locales";
 import { alert } from "~/composables/use-toast";
@@ -256,6 +255,7 @@ const { locale } = useLocales();
 const router = useRouter();
 const isSubmitting = ref(false);
 const langDialog = ref(false);
+const isDark = useDark();
 
 useSeoMeta({
   title: i18n.t("admin.setup.first-time-setup"),
@@ -552,10 +552,6 @@ async function onFinish() {
 </script>
 
 <style scoped>
-.w-100 {
-  width: 100%;
-}
-
 .icon-white {
   fill: white;
 }
@@ -577,5 +573,9 @@ async function onFinish() {
 .icon-avatar {
   border-color: rgba(0, 0, 0, 0.12);
   border: 2px;
+}
+
+.bg-off-white {
+  background: #f5f8fa;
 }
 </style>
