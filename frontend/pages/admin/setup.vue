@@ -365,27 +365,13 @@ const currentPage = ref(Pages.LANDING);
 
 async function updateUser() {
   // Note: $auth.user is now a ref
-  const payload = {
-    // email is required by UserBase
-    email: accountDetails.email.value || $auth.user.value!.email,
-    // optional fields but we include them from the form if provided
-    username: accountDetails.username.value || $auth.user.value?.username || undefined,
-    fullName: accountDetails.fullName.value || $auth.user.value?.fullName || undefined,
-    // map advancedOptions (form) -> advanced (backend/UserBase)
+  const { response } = await userApi.users.updateOne($auth.user.value!.id, {
+    ...$auth.user.value,
+    email: accountDetails.email.value,
+    username: accountDetails.username.value,
+    fullName: accountDetails.fullName.value,
     advanced: accountDetails.advancedOptions.value,
-    // ensure we include these required fields
-    id: $auth.user.value!.id,
-    group: $auth.user.value!.group,
-    household: $auth.user.value!.household,
-    // ensure the user remains an admin and has all permissions
-    admin: true,
-    can_invite: true,
-    can_manage: true,
-    can_manage_household: true,
-    can_organize: true,
-  };
-
-  const { response } = await userApi.users.updateOne($auth.user.value!.id, payload);
+  });
 
   if (!response || response.status !== 200) {
     alert.error(i18n.t("events.something-went-wrong"));
