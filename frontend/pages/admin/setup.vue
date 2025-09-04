@@ -53,6 +53,12 @@
           :title="$t('admin.setup.setup-complete')"
         />
       </v-stepper-header>
+      <v-progress-linear
+            v-if="isSubmitting && currentPage === Pages.CONFIRM"
+            color="primary"
+            indeterminate
+            class="mb-2"
+          />
 
       <v-stepper-window :transition="false" class="stepper-window">
         <!-- LANDING -->
@@ -212,9 +218,9 @@
           <v-stepper-actions
             :disabled="isSubmitting"
             prev-text="general.back"
-            finish-text="general.home"
+            next-text="general.home"
             @click:prev="onPrev"
-            @click:finish="onFinish"
+            @click:next="onFinish"
           />
         </v-stepper-window-item>
       </v-stepper-window>
