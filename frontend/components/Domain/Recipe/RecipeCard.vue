@@ -72,9 +72,10 @@
 
               <!-- If we're not logged-in, no items display, so we hide this menu -->
               <RecipeContextMenu
-                v-if="isOwnGroup"
+                v-if="isOwnGroup && showRecipeContent"
                 color="grey-darken-2"
                 :slug="slug"
+                :menu-icon="$globals.icons.dotsVertical"
                 :name="name"
                 :recipe-id="recipeId"
                 :use-items="{
@@ -87,7 +88,7 @@
                   printPreferences: false,
                   share: true,
                 }"
-                @delete="$emit('delete', slug)"
+                @deleted="$emit('delete', slug)"
               />
             </v-card-actions>
           </slot>
@@ -100,7 +101,7 @@
 <script setup lang="ts">
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeChips from "./RecipeChips.vue";
-import RecipeContextMenu from "./RecipeContextMenu.vue";
+import RecipeContextMenu from "./RecipeContextMenu/RecipeContextMenu.vue";
 import RecipeCardImage from "./RecipeCardImage.vue";
 import RecipeCardRating from "./RecipeCardRating.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
