@@ -561,6 +561,7 @@
     "see-original-text": "Виж оригиналния текст",
     "original-text-with-value": "Оригинален текст: {originalText}",
     "ingredient-linker": "Инструмент за свързване на съставки",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Свързано към друга стъпка",
     "auto": "Автоматично",
     "cook-mode": "Режим на готвене",

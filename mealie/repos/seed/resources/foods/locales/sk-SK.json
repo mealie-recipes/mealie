@@ -16,8 +16,8 @@
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "bell pepper",
-                "plural_name": "bell peppers"
+                "name": "sladká paprika",
+                "plural_name": "sladké papriky"
             },
             "carrot": {
                 "aliases": [],
@@ -65,7 +65,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "jalapeno",
-                "plural_name": "jalapenoes"
+                "plural_name": "jalapeňos"
             },
             "avocado": {
                 "aliases": [],
@@ -105,11 +105,11 @@
             },
             "chile pepper": {
                 "aliases": [
-                    "capsicum"
+                    "paprička"
                 ],
                 "description": "",
-                "name": "chile pepper",
-                "plural_name": "chile peppers"
+                "name": "čili paprička",
+                "plural_name": "čili papričky"
             },
             "sweet potato": {
                 "aliases": [],
@@ -126,14 +126,14 @@
             "heart of palm": {
                 "aliases": [],
                 "description": "",
-                "name": "heart of palm",
-                "plural_name": "heart of palms"
+                "name": "srdce palmy",
+                "plural_name": "palmové srdcia"
             },
             "baby green": {
                 "aliases": [],
                 "description": "",
-                "name": "baby green",
-                "plural_name": "baby greens"
+                "name": "list zeleniny",
+                "plural_name": "listová zelenina"
             },
             "pumpkin": {
                 "aliases": [],
@@ -156,7 +156,7 @@
             "asparagu": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagu",
+                "name": "špargľa",
                 "plural_name": "špargľa"
             },
             "kale": {
@@ -168,8 +168,8 @@
             "arugula": {
                 "aliases": [],
                 "description": "",
-                "name": "arugula",
-                "plural_name": "arugulas"
+                "name": "list rukoly",
+                "plural_name": "rukola"
             },
             "leek": {
                 "aliases": [],
@@ -192,14 +192,14 @@
             "butternut squash": {
                 "aliases": [],
                 "description": "",
-                "name": "butternut squash",
-                "plural_name": "butternut squashes"
+                "name": "maslová tekvica",
+                "plural_name": "maslové tekvice"
             },
             "romaine": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine",
-                "plural_name": "romaines"
+                "name": "list rímskeho šalátu",
+                "plural_name": "rímsky šalát"
             },
             "beetroot": {
                 "aliases": [],
@@ -240,7 +240,7 @@
             "artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke",
+                "name": "artičok",
                 "plural_name": "artičoky"
             },
             "new potato": {
@@ -251,18 +251,18 @@
             },
             "summer squash": {
                 "aliases": [
-                    "courgette",
-                    "gem squash"
+                    "cuketa",
+                    "tekvica"
                 ],
                 "description": "",
-                "name": "summer squash",
-                "plural_name": "summer squashes"
+                "name": "letná tekvica",
+                "plural_name": "letné tekvice"
             },
             "mixed green": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed green",
-                "plural_name": "mixed greens"
+                "name": "miešaná listová zelenina",
+                "plural_name": "miešaná listová zelenina"
             },
             "parsnip": {
                 "aliases": [],
@@ -285,8 +285,8 @@
             "poblano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "poblano pepper",
-                "plural_name": "poblano peppers"
+                "name": "poblano paprika",
+                "plural_name": "poblano papriky"
             },
             "sweet pepper": {
                 "aliases": [],
@@ -297,8 +297,8 @@
             "serrano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano pepper",
-                "plural_name": "serrano peppers"
+                "name": "serrano paprička",
+                "plural_name": "serrano papričky"
             },
             "cayenne pepper": {
                 "aliases": [],
@@ -309,20 +309,20 @@
             "green tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "green tomato",
-                "plural_name": "green tomatoes"
+                "name": "zelená paradajka",
+                "plural_name": "zelené paradajky"
             },
             "watercress": {
                 "aliases": [],
                 "description": "",
-                "name": "watercress",
-                "plural_name": "watercress"
+                "name": "žerucha",
+                "plural_name": "žeruchy"
             },
             "iceberg": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg",
-                "plural_name": "icebergs"
+                "name": "ľadový šalát",
+                "plural_name": "ľadové šaláty"
             },
             "mashed potato": {
                 "aliases": [],
@@ -339,40 +339,40 @@
             "chard": {
                 "aliases": [],
                 "description": "",
-                "name": "chard",
-                "plural_name": "chards"
+                "name": "mangold",
+                "plural_name": "mangoldy"
             },
             "pimiento": {
                 "aliases": [],
                 "description": "",
-                "name": "pimiento",
-                "plural_name": "pimientoes"
+                "name": "čerešňová paprička",
+                "plural_name": "čerešňové papričky"
             },
             "spaghetti squash": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti squash",
-                "plural_name": "spaghetti squashes"
+                "name": "špagetová tekvica",
+                "plural_name": "špagetové tekvice"
             },
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter lettuce",
-                "plural_name": "butter lettuces"
+                "name": "maslový šalát",
+                "plural_name": "maslové šaláty"
             },
             "hash brown": {
                 "aliases": [],
                 "description": "",
-                "name": "hash brown",
-                "plural_name": "hash browns"
+                "name": "zemiaková placka",
+                "plural_name": "zemiakové placky"
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "čínska kapusta"
                 ],
                 "description": "",
-                "name": "napa cabbage",
-                "plural_name": "napa cabbages"
+                "name": "čínska kapusta",
+                "plural_name": "čínska kapusta"
             },
             "celeriac": {
                 "aliases": [],
@@ -383,178 +383,178 @@
             "water chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "water chestnut",
-                "plural_name": "water chestnuts"
+                "name": "vodný gaštan",
+                "plural_name": "vodné gaštany"
             },
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "repa",
+                "plural_name": "repy"
             },
             "thai chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chile pepper",
-                "plural_name": "thai chile peppers"
+                "name": "thajská čili paprička",
+                "plural_name": "thajské čili papričky"
             },
             "bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "bok choy",
-                "plural_name": "bok choy"
+                "name": "pak choi",
+                "plural_name": "pak choi"
             },
             "okra": {
                 "aliases": [],
                 "description": "",
-                "name": "okra",
-                "plural_name": "okra"
+                "name": "ibištek",
+                "plural_name": "ibišteky"
             },
             "acorn squash": {
                 "aliases": [],
                 "description": "",
-                "name": "acorn squash",
-                "plural_name": "acorn squashes"
+                "name": "žaluďová tekvica",
+                "plural_name": "žaluďové tekvice"
             },
             "corn cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn cob",
-                "plural_name": "corn cobs"
+                "name": "kukuričný klas",
+                "plural_name": "kukuričné klasy"
             },
             "radicchio": {
                 "aliases": [],
                 "description": "",
-                "name": "radicchio",
-                "plural_name": "radicchio"
+                "name": "čakanka",
+                "plural_name": "čakanky"
             },
             "pearl onion": {
                 "aliases": [],
                 "description": "",
-                "name": "pearl onion",
-                "plural_name": "pearl onions"
+                "name": "perlová cibuľka",
+                "plural_name": "perlové cibuľky"
             },
             "tenderstem broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "tenderstem broccoli",
-                "plural_name": "tenderstem broccolis"
+                "name": "stonková brokolica",
+                "plural_name": "stonkové brokolice"
             },
             "plantain": {
                 "aliases": [],
                 "description": "",
-                "name": "plantain",
-                "plural_name": "plantains"
+                "name": "zeleninový banán",
+                "plural_name": "zeleninové banány"
             },
             "leaf lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "leaf lettuce",
-                "plural_name": "leaf lettuces"
+                "name": "listový šalát",
+                "plural_name": "listové šaláty"
             },
             "pepperoncini": {
                 "aliases": [],
                 "description": "",
-                "name": "pepperoncini",
-                "plural_name": "pepperoncinis"
+                "name": "čili paprička",
+                "plural_name": "čili papričky"
             },
             "baby bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "baby bok choy",
-                "plural_name": "baby bok choys"
+                "name": "baby pak choi",
+                "plural_name": "baby pak choi"
             },
             "jicama": {
                 "aliases": [],
                 "description": "",
                 "name": "jicama",
-                "plural_name": "jicamas"
+                "plural_name": "jicama"
             },
             "endive": {
                 "aliases": [],
                 "description": "",
-                "name": "endive",
-                "plural_name": "endives"
+                "name": "čakanka",
+                "plural_name": "čakanky"
             },
             "habanero pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "habanero pepper",
-                "plural_name": "habanero peppers"
+                "name": "habanero paprička",
+                "plural_name": "habanero papričky"
             },
             "corn husk": {
                 "aliases": [
                     "kukurica"
                 ],
                 "description": "",
-                "name": "corn husk",
-                "plural_name": "corn husks"
+                "name": "kukuričná šupka",
+                "plural_name": "kukuričné šupky"
             },
             "collard green": {
                 "aliases": [],
                 "description": "",
-                "name": "collard green",
-                "plural_name": "collard greens"
+                "name": "listový kel",
+                "plural_name": "kelové listy"
             },
             "french-fried onion": {
                 "aliases": [],
                 "description": "",
-                "name": "french-fried onion",
-                "plural_name": "french-fried onions"
+                "name": "vyprážaná cibuľa",
+                "plural_name": "vyprážané cibule"
             },
             "daikon": {
                 "aliases": [],
                 "description": "",
-                "name": "daikon",
-                "plural_name": "daikons"
+                "name": "biela reďkovka",
+                "plural_name": "biele reďkovky"
             },
             "baby corn": {
                 "aliases": [],
                 "description": "",
-                "name": "baby corn",
-                "plural_name": "baby corns"
+                "name": "mladá kukurica",
+                "plural_name": "mladé kukurice"
             },
             "broccoli rabe": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli rabe",
-                "plural_name": "broccoli rabes"
+                "name": "rapini",
+                "plural_name": "rapini"
             },
             "rutabaga": {
                 "aliases": [],
                 "description": "",
-                "name": "rutabaga",
-                "plural_name": "rutabagas"
+                "name": "turín",
+                "plural_name": "turíny"
             },
             "belgian endive": {
                 "aliases": [],
                 "description": "",
-                "name": "belgian endive",
-                "plural_name": "belgian endives"
+                "name": "belgická čakanka",
+                "plural_name": "belgické čakanky"
             },
             "yam": {
                 "aliases": [],
                 "description": "",
-                "name": "yam",
-                "plural_name": "yams"
+                "name": "sladký zemiak",
+                "plural_name": "sladké zemiaky"
             },
             "ancho chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "ancho chile pepper",
+                "name": "ancho čili paprička",
                 "plural_name": ""
             },
             "microgreen": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreen",
-                "plural_name": "microgreens"
+                "name": "mikrolístky",
+                "plural_name": "mikrolístky"
             },
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "boston lettuce",
-                "plural_name": "boston lettuces"
+                "name": "hlávkový šalát",
+                "plural_name": "hlávkové šaláty"
             },
             "kohlrabi": {
                 "aliases": [],
@@ -565,62 +565,62 @@
             "fresno chile": {
                 "aliases": [],
                 "description": "",
-                "name": "fresno chile",
-                "plural_name": "fresno chiles"
+                "name": "Fresno čili paprička",
+                "plural_name": "Fresno čili papričky"
             },
             "delicata squash": {
                 "aliases": [],
                 "description": "",
-                "name": "delicata squash",
-                "plural_name": "delicata squashes"
+                "name": "delicata tekvička",
+                "plural_name": "delicata tekvičky"
             },
             "frisee": {
                 "aliases": [],
                 "description": "",
-                "name": "frisee",
-                "plural_name": "frisees"
+                "name": "kučeravý šalát",
+                "plural_name": "kučeravé šaláty"
             },
             "anaheim pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "anaheim pepper",
-                "plural_name": "anaheim peppers"
+                "name": "Anaheim čili paprička",
+                "plural_name": "Anaheim čili papričky"
             },
             "cres": {
                 "aliases": [],
                 "description": "",
-                "name": "cres",
-                "plural_name": "cress"
+                "name": "žerucha",
+                "plural_name": "žeruchy"
             },
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli slaw",
-                "plural_name": "broccoli slaws"
+                "name": "brokolicový šalát",
+                "plural_name": "brokolicové šaláty"
             },
             "arbol chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "arbol chile pepper",
-                "plural_name": "arbol chile peppers"
+                "name": "čili de arbol paprička",
+                "plural_name": "čili de arbol papričky"
             },
             "golden beet": {
                 "aliases": [],
                 "description": "",
-                "name": "golden beet",
-                "plural_name": "golden beets"
+                "name": "zlatá repa",
+                "plural_name": "zlaté repy"
             },
             "pea shoot": {
                 "aliases": [],
                 "description": "",
-                "name": "pea shoot",
-                "plural_name": "pea shoots"
+                "name": "hráškové výhonky",
+                "plural_name": "hráškové výhonky"
             },
             "alfalfa": {
                 "aliases": [],
                 "description": "",
-                "name": "alfalfa",
-                "plural_name": "alfalfas"
+                "name": "lucerna",
+                "plural_name": "lucerny"
             }
         }
     },
@@ -628,7 +628,7 @@
         "foods": {
             "tomato": {
                 "aliases": [],
-                "description": "Yes they are a fruit",
+                "description": "Ano, je to ovocie",
                 "name": "paradajka",
                 "plural_name": "paradajky"
             },
@@ -701,8 +701,8 @@
             "craisin": {
                 "aliases": [],
                 "description": "",
-                "name": "craisin",
-                "plural_name": "craisins"
+                "name": "sušená brusnica",
+                "plural_name": "sušené brusnice"
             },
             "pear": {
                 "aliases": [],
@@ -791,8 +791,8 @@
             "cantaloupe": {
                 "aliases": [],
                 "description": "",
-                "name": "cantaloupe",
-                "plural_name": "cantaloupes"
+                "name": "melón Cantaloupe",
+                "plural_name": "melóny Cantaloupe"
             },
             "sultana": {
                 "aliases": [],
@@ -803,8 +803,8 @@
             "passion fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "passion fruit",
-                "plural_name": "passion fruits"
+                "name": "mučenka",
+                "plural_name": "mučenky"
             },
             "papaya": {
                 "aliases": [],
@@ -816,7 +816,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tamarind",
-                "plural_name": "tamarinds"
+                "plural_name": "tamarindy"
             },
             "nectarine": {
                 "aliases": [],
@@ -839,14 +839,14 @@
             "meyer lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "meyer lemon",
-                "plural_name": "meyer lemons"
+                "name": "citrón Meyer",
+                "plural_name": "citróny Meyer"
             },
             "honeydew melon": {
                 "aliases": [],
                 "description": "",
-                "name": "honeydew melon",
-                "plural_name": "honeydew melons"
+                "name": "medový melón",
+                "plural_name": "medové melóny"
             },
             "dried fruit": {
                 "aliases": [],
@@ -863,8 +863,8 @@
             "persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "persimmon",
-                "plural_name": "persimmons"
+                "name": "kaki",
+                "plural_name": "kaki"
             },
             "melon": {
                 "aliases": [],
@@ -875,14 +875,14 @@
             "tangerine": {
                 "aliases": [],
                 "description": "",
-                "name": "tangerine",
-                "plural_name": "tangerines"
+                "name": "mandarinka",
+                "plural_name": "mandarinky"
             },
             "dried mango": {
                 "aliases": [],
                 "description": "",
-                "name": "dried mango",
-                "plural_name": "dried mangoes"
+                "name": "sušené mango",
+                "plural_name": "sušené mangá"
             },
             "dried apple": {
                 "aliases": [],
@@ -893,14 +893,14 @@
             "quince": {
                 "aliases": [],
                 "description": "",
-                "name": "quince",
-                "plural_name": "quinces"
+                "name": "dula",
+                "plural_name": "dule"
             },
             "guava": {
                 "aliases": [],
                 "description": "",
-                "name": "guava",
-                "plural_name": "guavas"
+                "name": "kvajáva",
+                "plural_name": "kvajávy"
             },
             "banana chip": {
                 "aliases": [],
@@ -911,32 +911,32 @@
             "kumquat": {
                 "aliases": [],
                 "description": "",
-                "name": "kumquat",
-                "plural_name": "kumquats"
+                "name": "kumkvat",
+                "plural_name": "kumkvaty"
             },
             "jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit",
-                "plural_name": "jackfruits"
+                "name": "chlebovník",
+                "plural_name": "chlebovníky"
             },
             "dragon fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "dragon fruit",
-                "plural_name": "dragon fruits"
+                "name": "dračie ovocie (pitahaya)",
+                "plural_name": "dračie ovocie (pitahaya)"
             },
             "mixed fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed fruit",
-                "plural_name": "mixed fruits"
+                "name": "miešané ovocie",
+                "plural_name": "miešané ovocie"
             },
             "asian pear": {
                 "aliases": [],
                 "description": "",
-                "name": "asian pear",
-                "plural_name": "asian pears"
+                "name": "nashi hruška",
+                "plural_name": "nashi hrušky"
             },
             "lychee": {
                 "aliases": [],
@@ -947,26 +947,26 @@
             "young coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "young coconut",
-                "plural_name": "young coconuts"
+                "name": "mladý kokos",
+                "plural_name": "mladé kokosy"
             },
             "kaffir lime": {
                 "aliases": [],
                 "description": "",
-                "name": "kaffir lime",
-                "plural_name": "kaffir limes"
+                "name": "kafrová limetka",
+                "plural_name": "kafrové limetky"
             },
             "star fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "star fruit",
-                "plural_name": "star fruits"
+                "name": "karambola",
+                "plural_name": "karamboly"
             },
             "green papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "green papaya",
-                "plural_name": "green papayas"
+                "name": "zelená papája",
+                "plural_name": "zelené papáje"
             },
             "pomelo": {
                 "aliases": [],
@@ -983,254 +983,254 @@
             "prickly pear": {
                 "aliases": [],
                 "description": "",
-                "name": "prickly pear",
-                "plural_name": "prickly pears"
+                "name": "opuncia",
+                "plural_name": "opuncie"
             },
             "calamansi": {
                 "aliases": [],
                 "description": "",
-                "name": "calamansi",
-                "plural_name": "calamansis"
+                "name": "citrón calamondin",
+                "plural_name": "citróny calamondin"
             },
             "yuzu": {
                 "aliases": [],
                 "description": "",
-                "name": "yuzu",
-                "plural_name": "yuzus"
+                "name": "citrón Yuzu",
+                "plural_name": "citróny Yuzu"
             },
             "granadilla": {
                 "aliases": [],
                 "description": "",
-                "name": "granadilla",
-                "plural_name": "granadillas"
+                "name": "mučenka",
+                "plural_name": "mučenky"
             },
             "apple chip": {
                 "aliases": [],
                 "description": "",
                 "name": "",
-                "plural_name": "apple chips"
+                "plural_name": "jablkové čipsy"
             },
             "mixed peel": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed peel",
-                "plural_name": "mixed peels"
+                "name": "kandizováná citrusová kôra",
+                "plural_name": "kandizováná citrusová kôra"
             },
             "kokum": {
                 "aliases": [],
                 "description": "",
                 "name": "kokum",
-                "plural_name": "kokums"
+                "plural_name": "kokumy"
             },
             "tangelo": {
                 "aliases": [],
                 "description": "",
                 "name": "tangelo",
-                "plural_name": "tangeloes"
+                "plural_name": "tangelo"
             },
             "dried lime": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lime",
-                "plural_name": "dried limes"
+                "name": "sušená limetka",
+                "plural_name": "sušené limetky"
             },
             "jujube": {
                 "aliases": [],
                 "description": "",
-                "name": "jujube",
-                "plural_name": "jujubes"
+                "name": "červená datla jujuba",
+                "plural_name": "červené datle jujube"
             },
             "sweet lime": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet lime",
-                "plural_name": "sweet limes"
+                "name": "sladká limetka",
+                "plural_name": "sladké limetky"
             },
             "custard-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "custard-apple",
-                "plural_name": "custard-apples"
+                "name": "pudingové jablko (cherimoya)",
+                "plural_name": "pudingové jablká (cherimoya)"
             },
             "dried lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lemon",
-                "plural_name": "dried lemons"
+                "name": "sušený citrón",
+                "plural_name": "sušené citróny"
             },
             "young jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "young jackfruit",
-                "plural_name": "young jackfruits"
+                "name": "mladý chlebovník",
+                "plural_name": "mladé chlebovníky"
             },
             "durian": {
                 "aliases": [],
                 "description": "",
                 "name": "durian",
-                "plural_name": "durians"
+                "plural_name": "duriany"
             },
             "freeze-dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried apple",
-                "plural_name": "freeze-dried apples"
+                "name": "marzom sušené jablko",
+                "plural_name": "mrazom sušené jablká"
             },
             "dried tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "dried tamarind",
-                "plural_name": "dried tamarinds"
+                "name": "sušený tamarind",
+                "plural_name": "sušené tamarindy"
             },
             "honey date": {
                 "aliases": [],
                 "description": "",
-                "name": "honey date",
-                "plural_name": "honey dates"
+                "name": "medová datľa",
+                "plural_name": "medové datle"
             },
             "physali": {
                 "aliases": [],
                 "description": "",
-                "name": "physali",
-                "plural_name": "physalis"
+                "name": "machovka peruánska",
+                "plural_name": "machovky peruánske"
             },
             "tamarillo": {
                 "aliases": [],
                 "description": "",
                 "name": "tamarillo",
-                "plural_name": "tamarilloes"
+                "plural_name": "tamarillá"
             },
             "ice-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "ice-apple",
-                "plural_name": "ice-apples"
+                "name": "lontar",
+                "plural_name": "lontary"
             },
             "longan": {
                 "aliases": [],
                 "description": "",
-                "name": "longan",
-                "plural_name": "longans"
+                "name": "longan (dračie oko)",
+                "plural_name": "longan (dračie oči)"
             },
             "finger lime": {
                 "aliases": [],
                 "description": "",
-                "name": "finger lime",
-                "plural_name": "finger limes"
+                "name": "kaviárový limetkovník",
+                "plural_name": "kaviárové limetkovníky"
             },
             "bitter orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bitter orange",
-                "plural_name": "bitter oranges"
+                "name": "horký pomaranč",
+                "plural_name": "horké pomaranče"
             },
             "feijoa": {
                 "aliases": [],
                 "description": "",
-                "name": "feijoa",
-                "plural_name": "feijoas"
+                "name": "ananásova guava",
+                "plural_name": "ananásové guavy"
             },
             "dried persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried persimmon",
-                "plural_name": "dried persimmons"
+                "name": "sušené kaki",
+                "plural_name": "sušené kaki"
             },
             "rambutan": {
                 "aliases": [],
                 "description": "",
-                "name": "rambutan",
-                "plural_name": "rambutans"
+                "name": "rambután",
+                "plural_name": "rambutány"
             },
             "rose apple": {
                 "aliases": [],
                 "description": "",
-                "name": "rose apple",
-                "plural_name": "rose apples"
+                "name": "ružové jablko",
+                "plural_name": "ružové jablká"
             },
             "dried orange slice": {
                 "aliases": [],
                 "description": "",
-                "name": "dried orange slice",
-                "plural_name": "dried orange slices"
+                "name": "slušený plátok pomaranča",
+                "plural_name": "sušené plátky pomaranča"
             },
             "loquat": {
                 "aliases": [],
                 "description": "",
-                "name": "loquat",
-                "plural_name": "loquats"
+                "name": "mišpuľa",
+                "plural_name": "mišpule"
             },
             "crabapple": {
                 "aliases": [],
                 "description": "",
-                "name": "crabapple",
-                "plural_name": "crabapples"
+                "name": "plané jablko",
+                "plural_name": "plané jablká"
             },
             "fig leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "fig leaf",
-                "plural_name": "fig leaves"
+                "name": "figový list",
+                "plural_name": "figové listy"
             },
             "freeze-dried pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried pineapple",
-                "plural_name": "freeze-dried pineapples"
+                "name": "mrazom sušený ananás",
+                "plural_name": "mrazom sušené ananásy"
             },
             "pluot": {
                 "aliases": [],
                 "description": "",
                 "name": "pluot",
-                "plural_name": "pluots"
+                "plural_name": "pluoty"
             },
             "soursop": {
                 "aliases": [],
                 "description": "",
-                "name": "soursop",
-                "plural_name": "soursops"
+                "name": "guanabana",
+                "plural_name": "guanabany"
             },
             "hog plum": {
                 "aliases": [],
                 "description": "",
-                "name": "hog plum",
-                "plural_name": "hog plums"
+                "name": "mombín (španielska slivka)",
+                "plural_name": "mombiny (španielske slivky)"
             },
             "bergamot orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bergamot orange",
-                "plural_name": "bergamot oranges"
+                "name": "bergamot",
+                "plural_name": "bergamoty"
             },
             "luo han guo": {
                 "aliases": [],
                 "description": "",
-                "name": "luo han guo",
-                "plural_name": "luo han guos"
+                "name": "mníchov plod",
+                "plural_name": "mníchove plody"
             },
             "mamey": {
                 "aliases": [],
                 "description": "",
-                "name": "mamey",
-                "plural_name": "mameys"
+                "name": "mamey sapote",
+                "plural_name": "mamey sapote"
             },
             "sapote": {
                 "aliases": [],
                 "description": "",
                 "name": "sapote",
-                "plural_name": "sapotes"
+                "plural_name": "sapote"
             },
             "green ume plum": {
                 "aliases": [],
                 "description": "",
-                "name": "green ume plum",
-                "plural_name": "green ume plums"
+                "name": "japonská slivka umeboshi",
+                "plural_name": "japonské slivky umebhosi"
             },
             "kiwano": {
                 "aliases": [],
                 "description": "",
-                "name": "kiwano",
-                "plural_name": "kiwanoes"
+                "name": "kiwano (uhorka rohatá)",
+                "plural_name": "kiwano (rohaté uhorky)"
             }
         }
     },
@@ -1239,44 +1239,44 @@
             "button mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "button mushroom",
-                "plural_name": "button mushrooms"
+                "name": "šampiňón",
+                "plural_name": "šampiňóny"
             },
             "shiitake mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shiitake mushroom",
-                "plural_name": "shiitake mushrooms"
+                "name": "huba shitake",
+                "plural_name": "huby shitake"
             },
             "portobello mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "portobello mushroom",
-                "plural_name": "portobello mushrooms"
+                "name": "portobello šampiňón",
+                "plural_name": "portobello šampiňóny"
             },
             "wild mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "wild mushroom",
-                "plural_name": "wild mushrooms"
+                "name": "divoká huba",
+                "plural_name": "divoké huby"
             },
             "porcini": {
                 "aliases": [],
                 "description": "",
-                "name": "porcini",
-                "plural_name": "porcinis"
+                "name": "hríb",
+                "plural_name": "hriby"
             },
             "mixed mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed mushroom",
-                "plural_name": "mixed mushrooms"
+                "name": "zmes húb",
+                "plural_name": "hubové zmesy"
             },
             "oyster mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "oyster mushroom",
-                "plural_name": "oyster mushrooms"
+                "name": "hliva ustricová",
+                "plural_name": "hlivy ustricové"
             },
             "chestnut mushroom": {
                 "aliases": [],
@@ -1287,14 +1287,14 @@
             "enoki mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "enoki mushroom",
-                "plural_name": "enoki mushrooms"
+                "name": "enoki (plamienka zimná)",
+                "plural_name": "enoki (plamienky zimné)"
             },
             "black fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "black fungu",
-                "plural_name": "black fungus"
+                "name": "čierna huba",
+                "plural_name": "čierne huby"
             },
             "black truffle": {
                 "aliases": [],
@@ -1305,56 +1305,56 @@
             "morel mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "morel mushroom",
-                "plural_name": "morel mushrooms"
+                "name": "smrčok jedlý",
+                "plural_name": "smrčky jedlé"
             },
             "field mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "field mushroom",
-                "plural_name": "field mushrooms"
+                "name": "pečiarka poľná",
+                "plural_name": "pečiarky poľné"
             },
             "king oyster mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "king oyster mushroom",
-                "plural_name": "king oyster mushrooms"
+                "name": "hliva kráľovská",
+                "plural_name": "hlivy kráľovské"
             },
             "shimeji mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shimeji mushroom",
-                "plural_name": "shimeji mushrooms"
+                "name": "huba shimeji",
+                "plural_name": "huby shimeji"
             },
             "straw mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "straw mushroom",
-                "plural_name": "straw mushrooms"
+                "name": "pošvovec",
+                "plural_name": "pošvovce"
             },
             "dried chinese mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "dried chinese mushroom",
-                "plural_name": "dried chinese mushrooms"
+                "name": "sušené čínske huby",
+                "plural_name": "sušené čínske huby"
             },
             "maitake": {
                 "aliases": [],
                 "description": "",
-                "name": "maitake",
-                "plural_name": "maitakes"
+                "name": "maitake (trsovnica lupeňovitá)",
+                "plural_name": "maitake (trsovnice lupeňovité)"
             },
             "trumpet mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "trumpet mushroom",
-                "plural_name": "trumpet mushrooms"
+                "name": "hliva kráľovská",
+                "plural_name": "hlivy kráľovské"
             },
             "white truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "white truffle",
-                "plural_name": "white truffles"
+                "name": "hľuzovka biela",
+                "plural_name": "hľuzovky biele"
             },
             "white fungu": {
                 "aliases": [],
@@ -1365,14 +1365,14 @@
             "pioppini": {
                 "aliases": [],
                 "description": "",
-                "name": "pioppini",
-                "plural_name": "pioppinis"
+                "name": "poľnička topoľová (pioppini)",
+                "plural_name": "poľničky topoľové (pioppini)"
             },
             "snow fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "snow fungu",
-                "plural_name": "snow fungus"
+                "name": "rôsolovka riasotvorá",
+                "plural_name": "rôsolovky riasotvoré"
             },
             "white beech mushroom": {
                 "aliases": [],
@@ -1383,26 +1383,26 @@
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletu",
-                "plural_name": "boletus"
+                "name": "hríb",
+                "plural_name": "hríby"
             },
             "huitlacoche": {
                 "aliases": [],
                 "description": "",
                 "name": "huitlacoche",
-                "plural_name": "huitlacoches"
+                "plural_name": "huitlacoche"
             },
             "matsutake": {
                 "aliases": [],
                 "description": "",
-                "name": "matsutake",
-                "plural_name": "matsutakes"
+                "name": "čírovka statná (matsutake)",
+                "plural_name": "čírovky statné (matsutake)"
             },
             "nameko": {
                 "aliases": [],
                 "description": "",
                 "name": "nameko",
-                "plural_name": "namekoes"
+                "plural_name": "nameko"
             },
             "djon djon mushroom": {
                 "aliases": [],
@@ -1413,8 +1413,8 @@
             "mixed asian mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed asian mushroom",
-                "plural_name": "mixed asian mushrooms"
+                "name": "zmes azijských húb",
+                "plural_name": "zmesy azijských húb"
             },
             "puffball": {
                 "aliases": [],
@@ -1425,14 +1425,14 @@
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungu",
-                "plural_name": "honey fungus"
+                "name": "podpňovka",
+                "plural_name": "podpňovky"
             },
             "caesar's mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "caesar's mushroom",
-                "plural_name": "caesar's mushrooms"
+                "name": "kráľovka (muchotrávka cisárska)",
+                "plural_name": "kráľovky (muchotrávky cisárske)"
             },
             "candy cap mushroom": {
                 "aliases": [],
@@ -1443,8 +1443,8 @@
             "lion’s mane mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "lion’s mane mushroom",
-                "plural_name": "lion’s mane mushrooms"
+                "name": "Korálovec Ježovitý",
+                "plural_name": "Korálovce Ježovité"
             }
         }
     },
@@ -1478,7 +1478,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "čerešňa",
-                "plural_name": "cherries"
+                "plural_name": "čerešne"
             },
             "blackberry": {
                 "aliases": [],
@@ -1489,14 +1489,14 @@
             "berry mix": {
                 "aliases": [],
                 "description": "",
-                "name": "berry mix",
-                "plural_name": "berry mixes"
+                "name": "zmes bobúľ",
+                "plural_name": "zmesy bobúľ"
             },
             "maraschino cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "maraschino cherry",
-                "plural_name": "maraschino cherries"
+                "name": "kandizovaná čerešňa",
+                "plural_name": "kandizované čerešne"
             },
             "dried cherry": {
                 "aliases": [],
@@ -1519,8 +1519,8 @@
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
-                "plural_name": "goji berries"
+                "name": "kustovnica čínska (goji)",
+                "plural_name": "kustovnice čínske (goji)"
             },
             "dried blueberry": {
                 "aliases": [],
@@ -1555,8 +1555,8 @@
             "canned sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sour cherry",
-                "plural_name": "canned sour cherries"
+                "name": "konzervovaná kyslá čerešňa",
+                "plural_name": "konzervované kyslé čerešne"
             },
             "mulberry": {
                 "aliases": [],
@@ -1567,8 +1567,8 @@
             "acai berry": {
                 "aliases": [],
                 "description": "",
-                "name": "acai berry",
-                "plural_name": "acai berries"
+                "name": "acai bobuľa",
+                "plural_name": "acai bobule"
             },
             "canned cherry": {
                 "aliases": [],
@@ -1579,8 +1579,8 @@
             "amla": {
                 "aliases": [],
                 "description": "",
-                "name": "amla",
-                "plural_name": "amlas"
+                "name": "indický egreš (amla)",
+                "plural_name": "indické egreše (amla)"
             },
             "elderberry": {
                 "aliases": [],
@@ -1603,32 +1603,32 @@
             "dried elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried elderberry",
-                "plural_name": "dried elderberries"
+                "name": "sušená baza",
+                "plural_name": "sušené bazy"
             },
             "barberry": {
                 "aliases": [],
                 "description": "",
-                "name": "barberry",
-                "plural_name": "barberries"
+                "name": "dráč",
+                "plural_name": "bobule dráča"
             },
             "dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried berry",
-                "plural_name": "dried berries"
+                "name": "sušená bobuľa",
+                "plural_name": "sušené bobule"
             },
             "sea buckthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "sea buckthorn",
-                "plural_name": "sea buckthorns"
+                "name": "rakytník",
+                "plural_name": "rakytníky"
             },
             "saskatoon berry": {
                 "aliases": [],
                 "description": "",
-                "name": "saskatoon berry",
-                "plural_name": "saskatoon berries"
+                "name": "indiánska čučoriedka",
+                "plural_name": "indiánske čučoriedky"
             },
             "rosehip": {
                 "aliases": [],
@@ -1639,68 +1639,68 @@
             "hawthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "hawthorn",
-                "plural_name": "hawthorns"
+                "name": "hloh",
+                "plural_name": "hloh"
             },
             "boysenberry": {
                 "aliases": [],
                 "description": "",
-                "name": "boysenberry",
-                "plural_name": "boysenberries"
+                "name": "malinočernica",
+                "plural_name": "malinočernice"
             },
             "cloudberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cloudberry",
-                "plural_name": "cloudberries"
+                "name": "moruška",
+                "plural_name": "morušky"
             },
             "freeze-dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried berry",
-                "plural_name": "freeze-dried berries"
+                "name": "mrazom sušená bobuľa",
+                "plural_name": "mrazom sušené bobule"
             },
             "aronia berry": {
                 "aliases": [],
                 "description": "",
-                "name": "aronia berry",
-                "plural_name": "aronia berries"
+                "name": "arónia",
+                "plural_name": "arónie"
             },
             "chokeberry": {
                 "aliases": [],
                 "description": "",
-                "name": "chokeberry",
-                "plural_name": "chokeberries"
+                "name": "arónia",
+                "plural_name": "arónie"
             },
             "loganberry": {
                 "aliases": [],
                 "description": "",
-                "name": "loganberry",
-                "plural_name": "loganberries"
+                "name": "malinočernica",
+                "plural_name": "malinočernice"
             },
             "blackcurrant leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "blackcurrant leaf",
-                "plural_name": "blackcurrant leaves"
+                "name": "list čiernej ríbezle",
+                "plural_name": "listy čiernej ríbezle"
             },
             "haskap berry": {
                 "aliases": [],
                 "description": "",
-                "name": "haskap berry",
-                "plural_name": "haskap berries"
+                "name": "kamčatská čučoriedka",
+                "plural_name": "kamčatské čučoriedky"
             },
             "dewberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dewberry",
-                "plural_name": "dewberries"
+                "name": "ostružina",
+                "plural_name": "ostružiny"
             },
             "sloe berry": {
                 "aliases": [],
                 "description": "",
-                "name": "sloe berry",
-                "plural_name": "sloe berries"
+                "name": "trnka",
+                "plural_name": "trnky"
             },
             "oregon grape": {
                 "aliases": [],
@@ -1775,8 +1775,8 @@
             "slivered almond": {
                 "aliases": [],
                 "description": "",
-                "name": "slivered almond",
-                "plural_name": "slivered almonds"
+                "name": "mandľový plátok",
+                "plural_name": "mandľové plátky"
             },
             "pumpkin seed": {
                 "aliases": [],
@@ -1817,44 +1817,44 @@
             "chopped nut": {
                 "aliases": [],
                 "description": "",
-                "name": "chopped nut",
-                "plural_name": "chopped nuts"
+                "name": "sekaný orech",
+                "plural_name": "sekané orechy"
             },
             "hemp heart": {
                 "aliases": [],
                 "description": "",
-                "name": "hemp heart",
-                "plural_name": "hemp hearts"
+                "name": "konopné lúpané semienko",
+                "plural_name": "konopné lúpané semienka"
             },
             "nigella seed": {
                 "aliases": [],
                 "description": "",
-                "name": "nigella seed",
-                "plural_name": "nigella seeds"
+                "name": "čierna rasca",
+                "plural_name": "čierne rasce"
             },
             "mixed nut": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed nut",
-                "plural_name": "mixed nuts"
+                "name": "zmes orechov",
+                "plural_name": "zmesy orechov"
             },
             "brazil nut": {
                 "aliases": [],
                 "description": "",
-                "name": "brazil nut",
-                "plural_name": "brazil nuts"
+                "name": "para orech",
+                "plural_name": "para orechy"
             },
             "mixed seed": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed seed",
-                "plural_name": "mixed seeds"
+                "name": "semienková zmes",
+                "plural_name": "semienkové zmesy"
             },
             "onion seed": {
                 "aliases": [],
                 "description": "",
-                "name": "onion seed",
-                "plural_name": "onion seeds"
+                "name": "cibuľové semienko",
+                "plural_name": "cibuľové semienka"
             },
             "watermelon seed": {
                 "aliases": [],
@@ -1865,8 +1865,8 @@
             "honey-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted peanut",
-                "plural_name": "honey-roasted peanuts"
+                "name": "arašid v mede",
+                "plural_name": "arašidy v mede"
             },
             "melon seed": {
                 "aliases": [],
@@ -1877,80 +1877,80 @@
             "lotus seed": {
                 "aliases": [],
                 "description": "",
-                "name": "lotus seed",
-                "plural_name": "lotus seeds"
+                "name": "lotusové semienko",
+                "plural_name": "lotusové semienka"
             },
             "white chia": {
                 "aliases": [],
                 "description": "",
-                "name": "white chia",
-                "plural_name": "white chias"
+                "name": "biele chia semienko",
+                "plural_name": "biele chia semienka"
             },
             "trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "trail mix",
-                "plural_name": "trail mixes"
+                "name": "studentský mix",
+                "plural_name": "študentský mix"
             },
             "basil seed": {
                 "aliases": [],
                 "description": "",
-                "name": "basil seed",
-                "plural_name": "basil seeds"
+                "name": "bazalkové semienko",
+                "plural_name": "bazalkové semienka"
             },
             "candlenut": {
                 "aliases": [],
                 "description": "",
-                "name": "candlenut",
-                "plural_name": "candlenuts"
+                "name": "kukui orech",
+                "plural_name": "kukui orechy"
             },
             "peanut brittle": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut brittle",
-                "plural_name": "peanut brittles"
+                "name": "krehký arašid",
+                "plural_name": "krehké arašidy"
             },
             "jackfruit seed": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit seed",
-                "plural_name": "jackfruit seeds"
+                "name": "chlebovníkové semienko",
+                "plural_name": "chlebovníkové semienka"
             },
             "honey-roasted almond": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted almond",
-                "plural_name": "honey-roasted almonds"
+                "name": "mandľa v mede",
+                "plural_name": "mandle v mede"
             },
             "toasted nut": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted nut",
-                "plural_name": "toasted nuts"
+                "name": "pečený orech",
+                "plural_name": "pečené orechy"
             },
             "chironji": {
                 "aliases": [],
                 "description": "",
                 "name": "chironji",
-                "plural_name": "chironjis"
+                "plural_name": "chironji"
             },
             "honey-roasted pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted pecan",
-                "plural_name": "honey-roasted pecans"
+                "name": "pekanový orech v mede",
+                "plural_name": "pekanové orechy v mede"
             },
             "tigernut": {
                 "aliases": [],
                 "description": "",
-                "name": "tigernut",
-                "plural_name": "tigernuts"
+                "name": "tigrí orech",
+                "plural_name": "tigrie orechy"
             },
             "sunflower sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower sprout",
-                "plural_name": "sunflower sprouts"
+                "name": "slnečnicový klíček",
+                "plural_name": "slnečnicové klíčky"
             },
             "apricot kernel": {
                 "aliases": [],

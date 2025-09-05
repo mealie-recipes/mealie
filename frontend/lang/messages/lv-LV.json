@@ -561,6 +561,7 @@
     "see-original-text": "Skatīt oriģinālo tekstu",
     "original-text-with-value": "Oriģinālais teksts: {originalText}",
     "ingredient-linker": "Sastāvdaļu Linker",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Saistīts ar citu soli",
     "auto": "Automātiski",
     "cook-mode": "Gatavošanas režīms",

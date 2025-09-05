@@ -117,7 +117,8 @@ defineEmits<{
   delete: [];
 }>();
 
-const { $vuetify, $globals } = useNuxtApp();
+const { $globals } = useNuxtApp();
+const display = useDisplay();
 const { recipeTimelineEventImage } = useStaticRoutes();
 const { eventTypeOptions } = useTimelineEventTypes();
 
@@ -127,7 +128,7 @@ const route = useRoute();
 const groupSlug = computed(() => (route.params.groupSlug as string) || currentUser?.value?.groupSlug || "");
 
 const useMobileFormat = computed(() => {
-  return $vuetify.display.smAndDown.value;
+  return display.smAndDown.value;
 });
 
 const attrs = computed(() => {

@@ -561,6 +561,7 @@
     "see-original-text": "הטקסט המקורי",
     "original-text-with-value": "הטקסט המקורי: {originalText}",
     "ingredient-linker": "קישוריות רכיבים",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "קשור לצעד אחד",
     "auto": "אוטומטי",
     "cook-mode": "מצב בישול",

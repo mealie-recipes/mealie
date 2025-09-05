@@ -61,6 +61,49 @@ def test_missing_groups_claim(monkeypatch: MonkeyPatch):
         auth_provider.authenticate()
 
 
+def test_missing_groups_claim_admin(monkeypatch: MonkeyPatch):
+    monkeypatch.setenv("OIDC_ADMIN_GROUP", "mealie_admin")
+    get_app_settings.cache_clear()
+
+    data = {
+        "preferred_username": "dude1",
+        "email": "email@email.com",
+        "name": "Firstname Lastname",
+    }
+    auth_provider = OpenIDProvider(None, data)
+
+    with pytest.raises(MissingClaimException):
+        auth_provider.authenticate()
+
+
+def test_missing_groups_claim_with_default(monkeypatch: MonkeyPatch):
+    monkeypatch.setenv("OIDC_USER_GROUP", "mealie_user")
+    get_app_settings.cache_clear()
+
+    data = {
+        "preferred_username": "dude1",
+        "email": "email@email.com",
+        "name": "Firstname Lastname",
+    }
+    auth_provider = OpenIDProvider(None, data, True)
+
+    assert auth_provider.authenticate() is None
+
+
+def test_missing_groups_claim_admin_group_with_default(monkeypatch: MonkeyPatch, unique_user: TestUser):
+    monkeypatch.setenv("OIDC_ADMIN_GROUP", "mealie_admin")
+    get_app_settings.cache_clear()
+
+    data = {
+        "preferred_username": "dude1",
+        "email": unique_user.email,
+        "name": "Firstname Lastname",
+    }
+    auth_provider = OpenIDProvider(unique_user.repos.session, data, True)
+
+    assert auth_provider.authenticate() is not None
+
+
 def test_missing_user_group(monkeypatch: MonkeyPatch):
     monkeypatch.setenv("OIDC_USER_GROUP", "mealie_user")
     get_app_settings.cache_clear()
