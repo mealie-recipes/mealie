@@ -105,7 +105,6 @@
 </template>
 
 <script lang="ts">
-import { useWindowSize } from "@vueuse/core";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { SidebarLinks } from "~/types/application-types";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
@@ -141,6 +140,7 @@ export default defineNuxtComponent({
     const { loggedIn, isOwnGroup } = useLoggedInState();
     const isAdmin = computed(() => $auth.user.value?.admin);
     const canManage = computed(() => $auth.user.value?.canManage);
+    const display = useDisplay();
 
     const userFavoritesLink = computed(() => $auth.user.value ? `/user/${$auth.user.value.id}/favorites` : undefined);
     const userProfileLink = computed(() => $auth.user.value ? "/user/profile" : undefined);
@@ -160,19 +160,8 @@ export default defineNuxtComponent({
       get: () => props.modelValue,
       set: value => context.emit("update:modelValue", value),
     });
-    watch(showDrawer, () => {
-      if (window.innerWidth < 760 && state.hasOpenedBefore === false) {
-        state.hasOpenedBefore = true;
-      }
-    });
-    const { width: wWidth } = useWindowSize();
-    watch(wWidth, (w) => {
-      if (w > 760) {
-        showDrawer.value = true;
-      }
-      else {
-        showDrawer.value = false;
-      }
+    onMounted(() => {
+      showDrawer.value = display.lgAndUp.value;
     });
 
     const allLinks = computed(() => [...props.topLink, ...(props.secondaryLinks || [])]);
