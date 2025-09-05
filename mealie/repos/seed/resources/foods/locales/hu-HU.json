@@ -7659,7 +7659,7 @@
                     "vanillas"
                 ],
                 "description": "",
-                "name": "vanilla extract",
+                "name": "vaníliaesszencia",
                 "plural_name": "vanilla extracts"
             },
             "baking powder": {
@@ -13872,7 +13872,7 @@
             "cocoa": {
                 "aliases": [],
                 "description": "",
-                "name": "cocoa",
+                "name": "kakaópor",
                 "plural_name": "cocoas"
             },
             "dark chocolate": {
@@ -13926,7 +13926,7 @@
             "white chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "white chocolate",
+                "name": "fehér csoki",
                 "plural_name": "white chocolates"
             },
             "oreo": {
@@ -14533,7 +14533,7 @@
             "orange liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "orange liqueur",
+                "name": "narancslikőr",
                 "plural_name": "orange liqueurs"
             },
             "cider": {
