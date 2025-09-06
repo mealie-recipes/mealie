@@ -1633,8 +1633,8 @@
             "rosehip": {
                 "aliases": [],
                 "description": "",
-                "name": "rosehip",
-                "plural_name": "rosehips"
+                "name": "csipkebogyó",
+                "plural_name": "csipkebogyó"
             },
             "hawthorn": {
                 "aliases": [],
@@ -2075,8 +2075,8 @@
             "fresh mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella",
-                "plural_name": "fresh mozzarellas"
+                "name": "friss mozzarella",
+                "plural_name": "friss mozzarella"
             },
             "swiss cheese": {
                 "aliases": [],
@@ -2094,7 +2094,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "gruyere",
-                "plural_name": "gruyeres"
+                "plural_name": "gruyere"
             },
             "mascarpone": {
                 "aliases": [],
@@ -2274,7 +2274,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "stilton",
-                "plural_name": "stiltons"
+                "plural_name": "stilton"
             },
             "raclette": {
                 "aliases": [],
@@ -2406,7 +2406,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "comté",
-                "plural_name": "comtés"
+                "plural_name": "comté"
             },
             "graviera": {
                 "aliases": [],
@@ -2613,20 +2613,20 @@
             "butter": {
                 "aliases": [],
                 "description": "",
-                "name": "butter",
-                "plural_name": "butter"
+                "name": "vaj",
+                "plural_name": "vaj"
             },
             "egg": {
                 "aliases": [],
                 "description": "",
-                "name": "egg",
-                "plural_name": "eggs"
+                "name": "tojás",
+                "plural_name": "tojás"
             },
             "milk": {
                 "aliases": [],
                 "description": "",
-                "name": "milk",
-                "plural_name": "milks"
+                "name": "tej",
+                "plural_name": "tej"
             },
             "heavy cream": {
                 "aliases": [],
@@ -2643,8 +2643,8 @@
             "buttermilk": {
                 "aliases": [],
                 "description": "",
-                "name": "buttermilk",
-                "plural_name": "buttermilks"
+                "name": "író",
+                "plural_name": "író"
             },
             "yogurt": {
                 "aliases": [],
@@ -3048,7 +3048,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ayran",
-                "plural_name": "ayrans"
+                "plural_name": "ayran"
             },
             "cuajada": {
                 "aliases": [],
@@ -3141,8 +3141,8 @@
             "almond milk": {
                 "aliases": [],
                 "description": "",
-                "name": "almond milk",
-                "plural_name": "almond milks"
+                "name": "mandulatej",
+                "plural_name": "mandulatej"
             },
             "almond butter": {
                 "aliases": [],
@@ -3177,8 +3177,8 @@
             "soy milk": {
                 "aliases": [],
                 "description": "",
-                "name": "soy milk",
-                "plural_name": "soy milks"
+                "name": "szójatej",
+                "plural_name": "szójatej"
             },
             "extra firm tofu": {
                 "aliases": [],
@@ -3501,8 +3501,8 @@
             "vegan fish sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan fish sauce",
-                "plural_name": "vegan fish sauces"
+                "name": "vegán halszósz",
+                "plural_name": "vegán halszósz"
             },
             "vegetarian hot dog": {
                 "aliases": [],
@@ -3793,8 +3793,8 @@
             "sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage",
-                "plural_name": "sausages"
+                "name": "kolbász",
+                "plural_name": "kolbász"
             },
             "beef roast": {
                 "aliases": [],
@@ -3872,7 +3872,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hot dog",
-                "plural_name": "hot dogs"
+                "plural_name": "hot dog"
             },
             "beef sirloin": {
                 "aliases": [],
