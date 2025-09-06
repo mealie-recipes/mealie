@@ -92,6 +92,7 @@ export default defineI18nConfig(() => {
   return {
     legacy: false,
     locale: "en-US",
+    availableLocales: Object.keys(datetimeFormats),
     datetimeFormats,
     fallbackLocale: "en-US",
     fallbackWarn: true,
