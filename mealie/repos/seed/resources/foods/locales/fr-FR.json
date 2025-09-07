@@ -2208,7 +2208,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mélange de fromages italiens",
-                "plural_name": "italian cheese blends"
+                "plural_name": "mélange de fromages italiens"
             },
             "neufchatel": {
                 "aliases": [],
@@ -5193,8 +5193,8 @@
             "fresh anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh anchovy",
-                "plural_name": "fresh anchovies"
+                "name": "anchois frais",
+                "plural_name": "anchois frais"
             },
             "lemon sole": {
                 "aliases": [],
@@ -5247,8 +5247,8 @@
             "fresh mackerel": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mackerel",
-                "plural_name": "fresh mackerel"
+                "name": "maquereau frais",
+                "plural_name": "maquereaux frais"
             },
             "salmon trout": {
                 "aliases": [],
@@ -5374,7 +5374,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "shark meat",
-                "plural_name": "shark meats"
+                "plural_name": "viande de requin"
             },
             "garoupa": {
                 "aliases": [],
@@ -6023,8 +6023,8 @@
             "curry leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "curry leaf",
-                "plural_name": "curry leaves"
+                "name": "feuille de curry",
+                "plural_name": "feuilles de curry"
             },
             "fennel seed": {
                 "aliases": [],
@@ -6658,8 +6658,8 @@
             "strawberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry syrup",
-                "plural_name": "strawberry syrups"
+                "name": "sirop de fraise",
+                "plural_name": "sirops de fraise"
             },
             "vanilla syrup": {
                 "aliases": [],
@@ -6718,8 +6718,8 @@
             "coconut syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut syrup",
-                "plural_name": "coconut syrups"
+                "name": "sirop de noix de coco",
+                "plural_name": "sirops de noix de coco"
             },
             "mint syrup": {
                 "aliases": [],
@@ -6869,7 +6869,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mango syrup",
-                "plural_name": "mango syrups"
+                "plural_name": "sirops de mangue"
             },
             "malt syrup": {
                 "aliases": [],
@@ -6910,8 +6910,8 @@
             "inulin": {
                 "aliases": [],
                 "description": "",
-                "name": "inulin",
-                "plural_name": "inulins"
+                "name": "insuline",
+                "plural_name": "insulines"
             },
             "sweet'n low": {
                 "aliases": [],
@@ -7172,7 +7172,7 @@
             "mixed spice": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed spice",
+                "name": "épices diverses",
                 "plural_name": "mixed spices"
             },
             "fleur de sel": {
