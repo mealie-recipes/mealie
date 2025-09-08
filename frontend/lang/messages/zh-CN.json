@@ -561,6 +561,7 @@
     "see-original-text": "查看原文",
     "original-text-with-value": "原文: {originalText}",
     "ingredient-linker": "食材关联器",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "已关联到其他步骤",
     "auto": "自动",
     "cook-mode": "烹饪模式",

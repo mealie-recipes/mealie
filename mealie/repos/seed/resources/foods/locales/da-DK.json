@@ -523,20 +523,20 @@
             "rutabaga": {
                 "aliases": [],
                 "description": "",
-                "name": "rutabaga",
-                "plural_name": "rutabagas"
+                "name": "kålroe",
+                "plural_name": "kålroer"
             },
             "belgian endive": {
                 "aliases": [],
                 "description": "",
-                "name": "belgian endive",
-                "plural_name": "belgian endives"
+                "name": "belgisk endivie",
+                "plural_name": "belgiske endivier"
             },
             "yam": {
                 "aliases": [],
                 "description": "",
-                "name": "yam",
-                "plural_name": "yams"
+                "name": "sød kartoffel",
+                "plural_name": "søde kartofler"
             },
             "ancho chile pepper": {
                 "aliases": [],

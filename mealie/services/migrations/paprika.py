@@ -7,13 +7,10 @@ import zipfile
 from gzip import GzipFile
 from pathlib import Path
 
-from slugify import slugify
-
 from mealie.schema.recipe import RecipeNote
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import import_image
 
 
 def paprika_recipes(file: Path):
@@ -67,32 +64,26 @@ class PaprikaMigrator(BaseMigrator):
         ]
 
     def _migrate(self) -> None:
-        recipe_image_urls = {}
+        recipes = [r for r in paprika_recipes(self.archive) if "name" in r]
+        recipe_models = [self.clean_recipe_dictionary(r) for r in recipes]
+        results = self.import_recipes_to_database(recipe_models)
 
-        recipes = []
-        for recipe in paprika_recipes(self.archive):
-            if "name" not in recipe:
+        for (slug, recipe_id, status), recipe in zip(results, recipes, strict=True):
+            if not status:
                 continue
 
-            recipe_model = self.clean_recipe_dictionary(recipe)
-
-            if "photo_data" in recipe:
-                recipe_image_urls[slugify(recipe["name"])] = recipe["photo_data"]
-
-            recipes.append(recipe_model)
-
-        results = self.import_recipes_to_database(recipes)
-
-        for slug, recipe_id, status in results:
-            if not status:
+            image_data = recipe.get("photo_data")
+            if image_data is None:
+                self.logger.info(f"Recipe '{recipe['name']}' has no image")
                 continue
 
             try:
                 # Images are stored as base64 encoded strings, so we need to decode them before importing.
-                image = io.BytesIO(base64.b64decode(recipe_image_urls[slug]))
+                image = io.BytesIO(base64.b64decode(image_data))
                 with tempfile.NamedTemporaryFile(suffix=".jpeg") as temp_file:
                     temp_file.write(image.read())
+                    temp_file.flush()
                     path = Path(temp_file.name)
-                    import_image(path, recipe_id)
+                    self.import_image(slug, path, recipe_id)
             except Exception as e:
-                self.logger.error(f"Failed to download image for {slug}: {e}")
+                self.logger.error(f"Failed to import image for {slug}: {e}")

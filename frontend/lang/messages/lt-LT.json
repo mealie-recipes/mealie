@@ -561,6 +561,7 @@
     "see-original-text": "Rodyti originalų tekstą",
     "original-text-with-value": "Originalus tekstas: {originalText}",
     "ingredient-linker": "Ingredientų siejimas",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Susietas su kitu žingsniu",
     "auto": "Automatiškai",
     "cook-mode": "Gaminimo režimas",

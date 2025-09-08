@@ -6,7 +6,7 @@
           width="100%"
           max-height="200px"
           max-width="200px"
-          :src="require('~/static/svgs/manage-api-tokens.svg')"
+          src="/svgs/manage-api-tokens.svg"
         />
       </template>
       <template #title>

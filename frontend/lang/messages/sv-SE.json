@@ -561,6 +561,7 @@
     "see-original-text": "Visa originaltext",
     "original-text-with-value": "Originaltext: {originalText}",
     "ingredient-linker": "Länka ingredienser",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Kopplat till annat steg",
     "auto": "Auto",
     "cook-mode": "Matlagningsläge",

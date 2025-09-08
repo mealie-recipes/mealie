@@ -104,6 +104,7 @@ def import_image(src: str | Path, recipe_id: UUID4):
     """Read the successful migrations attribute and for each import the image
     appropriately into the image directory. Minification is done in mass
     after the migration occurs.
+    May raise an UnidentifiedImageError if the file is not a recognised format.
     """
 
     if isinstance(src, str):
@@ -113,11 +114,7 @@ def import_image(src: str | Path, recipe_id: UUID4):
         return
 
     data_service = RecipeDataService(recipe_id=recipe_id)
-
-    try:
-        data_service.write_image(src, src.suffix)
-    except UnidentifiedImageError:
-        return
+    data_service.write_image(src, src.suffix)
 
 
 async def scrape_image(image_url: str, recipe_id: UUID4):

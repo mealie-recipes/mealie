@@ -1,7 +1,7 @@
 <template>
   <div>
-    <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown.value }">
-      <v-card :flat="$vuetify.display.smAndDown.value" class="d-print-none">
+    <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
+      <v-card :flat="$vuetify.display.smAndDown" class="d-print-none">
         <RecipePageHeader
           :recipe="recipe"
           :recipe-scale="scale"
@@ -107,7 +107,7 @@
           <v-divider />
         </v-col>
         <v-col class="overflow-y-auto"
-        :class="$vuetify.display.smAndDown.value ? 'py-2': 'py-6'"
+        :class="$vuetify.display.smAndDown ? 'py-2': 'py-6'"
         style="height: 100%" cols="12" sm="7">
           <h2 class="text-h5 px-4 font-weight-medium opacity-80">
             {{ $t('recipe.instructions') }}
@@ -188,7 +188,7 @@ import { useNavigationWarning } from "~/composables/use-navigation-warning";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 
-const { $vuetify } = useNuxtApp();
+const display = useDisplay();
 const i18n = useI18n();
 const $auth = useMealieAuth();
 const route = useRoute();
@@ -278,7 +278,7 @@ async function deleteRecipe() {
  */
 const landscape = computed(() => {
   const preferLandscape = recipe.value.settings?.landscapeView;
-  const smallScreen = !$vuetify.display.smAndUp.value;
+  const smallScreen = !display.smAndUp.value;
 
   if (preferLandscape) {
     return true;

@@ -27,7 +27,7 @@ const props = withDefaults(defineProps<Props>(), {
   maxWidth: undefined,
 });
 
-const { $vuetify } = useNuxtApp();
+const display = useDisplay();
 const { recipeImage } = useStaticRoutes();
 const { imageKey } = usePageState(props.recipe.slug);
 const { user } = usePageUser();
@@ -42,7 +42,7 @@ if (user) {
 
 const hideImage = ref(false);
 const imageHeight = computed(() => {
-  return $vuetify.display.xs.value ? "200" : "400";
+  return display.xs.value ? "200" : "400";
 });
 
 const recipeImageUrl = computed(() => {

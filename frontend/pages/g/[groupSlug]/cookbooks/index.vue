@@ -39,10 +39,10 @@
 
     <!-- Cookbook Page -->
     <!-- Page Title -->
-    <v-container class="px-12" max-width="1000">
+    <v-container max-width="1000">
       <BasePageTitle divider>
         <template #header>
-          <v-img width="100%" max-height="100" max-width="100" :src="require('~/static/svgs/manage-cookbooks.svg')" />
+          <v-img width="100%" max-height="100" max-width="100" src="/svgs/manage-cookbooks.svg" />
         </template>
         <template #title>
           {{ $t("cookbook.cookbooks") }}
@@ -75,7 +75,7 @@
           :delay="250"
           :delay-on-touch-only="true"
           style="width: 100%"
-          @end="actions.updateOrder(myCookbooks)"
+          @end="updateAll(myCookbooks)"
         >
           <v-expansion-panel
             v-for="(cookbook, index) in myCookbooks"
@@ -160,7 +160,7 @@ export default defineNuxtComponent({
     });
 
     const $auth = useMealieAuth();
-    const { store: allCookbooks, actions } = useCookbookStore();
+    const { store: allCookbooks, actions, updateAll } = useCookbookStore();
 
     // Make a local reactive copy of myCookbooks
     const myCookbooks = ref<ReadCookBook[]>([]);
@@ -170,7 +170,7 @@ export default defineNuxtComponent({
         myCookbooks.value
           = cookbooks?.filter(
             cookbook => cookbook.householdId === $auth.user.value?.householdId,
-          ) ?? [];
+          ).sort((a, b) => a.position > b.position) ?? [];
       },
       { immediate: true },
     );
@@ -248,6 +248,9 @@ export default defineNuxtComponent({
       createTargetKey,
       createTarget,
       createCookbook,
+
+      // update
+      updateAll,
 
       // delete
       deleteTarget,

@@ -561,6 +561,7 @@
     "see-original-text": "Переглянути оригінальний текст",
     "original-text-with-value": "Оригінальний текст: {originalText}",
     "ingredient-linker": "Зв'язування інгредієнтів",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Зв'язано з іншим кроком",
     "auto": "Авто",
     "cook-mode": "Режим кухаря",
