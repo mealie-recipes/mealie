@@ -64,7 +64,7 @@ def get_samesite(request: Request) -> Literal["lax", "none"]:
     """
     Determine the appropriate samesite attribute for cookies.
 
-    `samesite="none"` is required for iframe support (e.g., embedding Mealie in another site)
+    `samesite="none"` is required for iframe support (i.e. embedding Mealie in another site)
     but only works over HTTPS. If samesite="none" is set over HTTP, most browsers will reject the cookie.
 
     `samesite="lax"` is the default, which works regardless of HTTP or HTTPS,
