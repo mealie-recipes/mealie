@@ -88,6 +88,8 @@ tasks:
       - rm -r ./dev/data/recipes/
       - rm -r ./dev/data/users/
       - rm -f ./dev/data/mealie*.db
+      - rm -f ./dev/data/mealie*.db-shm
+      - rm -f ./dev/data/mealie*.db-wal
       - rm -f ./dev/data/mealie.log
       - rm -f ./dev/data/.secret
 
