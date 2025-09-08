@@ -43,7 +43,7 @@ const { $globals } = useNuxtApp();
 
 const sidebar = ref<boolean>(false);
 onMounted(() => {
-  sidebar.value = !display.md.value;
+  sidebar.value = display.lgAndUp.value;
 });
 
 const topLinks: SidebarLinks = [

@@ -126,7 +126,7 @@
 
 <script setup lang="ts">
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
-import RecipeContextMenu from "./RecipeContextMenu.vue";
+import RecipeContextMenu from "./RecipeContextMenu/RecipeContextMenu.vue";
 import RecipeCardImage from "./RecipeCardImage.vue";
 import RecipeCardRating from "./RecipeCardRating.vue";
 import RecipeChips from "./RecipeChips.vue";
