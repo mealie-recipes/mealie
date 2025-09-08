@@ -2333,13 +2333,6 @@
     vue-i18n "^10.0.5"
     vue-router "^4.5.0"
 
-"@nuxtjs/proxy@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/proxy/-/proxy-2.1.0.tgz#fa7715a11d237fa1273503c4e9e137dd1bf5575b"
-  integrity sha512-/qtoeqXgZ4Mg6LRg/gDUZQrFpOlOdHrol/vQYMnKu3aN3bP90UfOUB3QSDghUUK7OISAJ0xp8Ld78aHyCTcKCQ==
-  dependencies:
-    http-proxy-middleware "^1.0.6"
-
 "@oxc-parser/binding-darwin-arm64@0.53.0":
   version "0.53.0"
   resolved "https://registry.yarnpkg.com/@oxc-parser/binding-darwin-arm64/-/binding-darwin-arm64-0.53.0.tgz#5f0e1672c1e95a7b40eed6808731690fba6c0c77"
@@ -3083,13 +3076,6 @@
   resolved "https://registry.yarnpkg.com/@types/http-errors/-/http-errors-2.0.4.tgz#7eb47726c391b7345a6ec35ad7f4de469cf5ba4f"
   integrity sha512-D0CFMMtydbJAegzOyHjtiKPLlvnm3iTZyZRSZoLq2mRhDdmLfIWOCYPfQJ4cu2erKghU++QvjcUjp/5h7hESpA==
 
-"@types/http-proxy@^1.17.5":
-  version "1.17.16"
-  resolved "https://registry.yarnpkg.com/@types/http-proxy/-/http-proxy-1.17.16.tgz#dee360707b35b3cc85afcde89ffeebff7d7f9240"
-  integrity sha512-sdWoUajOB1cd0A8cRRQ1cfyWNbmFKLAqBB89Y8x5iYyG/mkJHc0YUH8pdWBy2omi9qtCpiIgGjuwO0dQST2l5w==
-  dependencies:
-    "@types/node" "*"
-
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.6.tgz#7739c232a1fee9b4d3ce8985f314c0c6d33549d7"
@@ -3816,10 +3802,10 @@
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.5.13.tgz#87b309a6379c22b926e696893237826f64339b6f"
   integrity sha512-/hnE/qP5ZoGpol0a5mDi45bOd7t3tjYJBjsgCsivow7D48cJeV5l05RD82lPqi7gRiphZM37rnhW1l6ZoCNNnQ==
 
-"@vuetify/loader-shared@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@vuetify/loader-shared/-/loader-shared-2.1.0.tgz#29410dce04a78fa9cd40c4d9bc417b8d61ce5103"
-  integrity sha512-dNE6Ceym9ijFsmJKB7YGW0cxs7xbYV8+1LjU6jd4P14xOt/ji4Igtgzt0rJFbxu+ZhAzqz853lhB0z8V9Dy9cQ==
+"@vuetify/loader-shared@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@vuetify/loader-shared/-/loader-shared-2.1.1.tgz#bc3bbf845f910f1b2e0317be9293f42dfc94006d"
+  integrity sha512-jSZTzTYaoiv8iwonFCVZQ0YYX/M+Uyl4ng+C4egMJT0Hcmh9gIxJL89qfZICDeo3g0IhqrvipW2FFKKRDMtVcA==
   dependencies:
     upath "^2.0.1"
 
@@ -5972,11 +5958,6 @@ event-target-shim@^5.0.0:
   resolved "https://registry.yarnpkg.com/event-target-shim/-/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
   integrity sha512-i/2XbnSz/uxRCU6+NdVJgKWDTM427+MqYbkQzD321DuCQJUqOuJKIA0IM2+W2xtYHdKOmZ4dR6fExsd4SXL+WQ==
 
-eventemitter3@^4.0.0:
-  version "4.0.7"
-  resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-4.0.7.tgz#2de9b68f6528d5644ef5c59526a1b4a07306169f"
-  integrity sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==
-
 eventemitter3@^5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/eventemitter3/-/eventemitter3-5.0.1.tgz#53f5ffd0a492ac800721bb42c66b841de96423c4"
@@ -6184,7 +6165,7 @@ flatted@^3.2.9:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.3.3.tgz#67c8fad95454a7c7abebf74bb78ee74a44023358"
   integrity sha512-GX+ysw4PBCz0PzosHDepZGANEuFCMLrnRTiEy9McGjmkCQYwRq4A/X786G/fjM/+OjsWSU1ZrY5qyARZmO/uwg==
 
-follow-redirects@^1.0.0, follow-redirects@^1.15.6:
+follow-redirects@^1.15.6:
   version "1.15.9"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.9.tgz#a604fa10e443bf98ca94228d9eebcc2e8a2c8ee1"
   integrity sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==
@@ -6647,26 +6628,6 @@ http-proxy-agent@^7.0.2:
     agent-base "^7.1.0"
     debug "^4.3.4"
 
-http-proxy-middleware@^1.0.6:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/http-proxy-middleware/-/http-proxy-middleware-1.3.1.tgz#43700d6d9eecb7419bf086a128d0f7205d9eb665"
-  integrity sha512-13eVVDYS4z79w7f1+NPllJtOQFx/FdUW4btIvVRMaRlUY9VGstAbo5MOhLEuUgZFRHn3x50ufn25zkj/boZnEg==
-  dependencies:
-    "@types/http-proxy" "^1.17.5"
-    http-proxy "^1.18.1"
-    is-glob "^4.0.1"
-    is-plain-obj "^3.0.0"
-    micromatch "^4.0.2"
-
-http-proxy@^1.18.1:
-  version "1.18.1"
-  resolved "https://registry.yarnpkg.com/http-proxy/-/http-proxy-1.18.1.tgz#401541f0534884bbf95260334e72f88ee3976549"
-  integrity sha512-7mz/721AbnJwIVbnaSv1Cz3Am0ZLT/UBwkC92VlxhXv/k/BBQfM2fXElQNC27BVGr0uwUpplYPQM9LnaBMR5NQ==
-  dependencies:
-    eventemitter3 "^4.0.0"
-    follow-redirects "^1.0.0"
-    requires-port "^1.0.0"
-
 http-shutdown@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/http-shutdown/-/http-shutdown-1.2.2.tgz#41bc78fc767637c4c95179bc492f312c0ae64c5f"
@@ -7046,11 +7007,6 @@ is-path-inside@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/is-path-inside/-/is-path-inside-4.0.0.tgz#805aeb62c47c1b12fc3fd13bfb3ed1e7430071db"
   integrity sha512-lJJV/5dYS+RcL8uQdBDW9c9uWFLLBNRyFhnAKXw5tVqLlKZ4RMGZKv+YQ/IA3OhD+RpbJa1LLFM1FQPGyIXvOA==
-
-is-plain-obj@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/is-plain-obj/-/is-plain-obj-3.0.0.tgz#af6f2ea14ac5a646183a5bbdb5baabbc156ad9d7"
-  integrity sha512-gwsOE28k+23GP1B6vFl1oVh/WOzmawBrKwo5Ev6wMKzPkaXaCDIQKzLnvsA42DRlbVTWorkgTKIviAKCWkfUwA==
 
 is-plain-obj@^4.1.0:
   version "4.1.0"
@@ -7797,7 +7753,7 @@ merge2@^1.3.0, merge2@^1.4.1:
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
   integrity sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
 
-micromatch@^4.0.2, micromatch@^4.0.5, micromatch@^4.0.8:
+micromatch@^4.0.5, micromatch@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.8.tgz#d66fa18f3a47076789320b9b1af32bd86d9fa202"
   integrity sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==
@@ -9267,11 +9223,6 @@ require-from-string@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/require-from-string/-/require-from-string-2.0.2.tgz#89a7fdd938261267318eafe14f9c32e598c36909"
   integrity sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
-
-requires-port@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
-  integrity sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==
 
 requrl@^3.0.2:
   version "3.0.2"
@@ -11100,12 +11051,12 @@ vite-plugin-vue-tracer@^0.1.1:
     pathe "^2.0.3"
     source-map-js "^1.2.1"
 
-vite-plugin-vuetify@^2.0.4:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/vite-plugin-vuetify/-/vite-plugin-vuetify-2.1.0.tgz#56767be099fd18a44ec2f9831d49269722e0e538"
-  integrity sha512-4wEAQtZaigPpwbFcZbrKpYwutOsWwWdeXn22B9XHzDPQNxVsKT+K9lKcXZnI5JESO1Iaql48S9rOk8RZZEt+Mw==
+vite-plugin-vuetify@^2.1.0:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/vite-plugin-vuetify/-/vite-plugin-vuetify-2.1.2.tgz#8e28dcb5b20f4635d350010547654cf2b4dad373"
+  integrity sha512-I/wd6QS+DO6lHmuGoi1UTyvvBTQ2KDzQZ9oowJQEJ6OcjWfJnscYXx2ptm6S7fJSASuZT8jGRBL3LV4oS3LpaA==
   dependencies:
-    "@vuetify/loader-shared" "^2.1.0"
+    "@vuetify/loader-shared" "^2.1.1"
     debug "^4.3.3"
     upath "^2.0.1"
 
@@ -11237,10 +11188,10 @@ vue@^3.4, vue@^3.5.13:
     "@vue/server-renderer" "3.5.13"
     "@vue/shared" "3.5.13"
 
-vuetify-nuxt-module@0.18.3:
-  version "0.18.3"
-  resolved "https://registry.yarnpkg.com/vuetify-nuxt-module/-/vuetify-nuxt-module-0.18.3.tgz#7d397a561a7410ccfea289a32646498570542554"
-  integrity sha512-Mv5mcqfqk5dR9oVJiITXn5p4NmDzp57AR2Txf/0iIoAjFlMsDWzTpUvn9ELTzDI3Z0LjiYVqptwxrOlMcju2Wg==
+vuetify-nuxt-module@^0.18.3:
+  version "0.18.7"
+  resolved "https://registry.yarnpkg.com/vuetify-nuxt-module/-/vuetify-nuxt-module-0.18.7.tgz#aa704bd950754064cc6ad214d24d9d782538c183"
+  integrity sha512-AEP5DRuyY5yIk8JzPEhG6NohCkGwf9afn4Mv51YPKGxreqP/KfzL0jooG/HN1cinSo4c+9uRowHllzCsnSN7FA==
   dependencies:
     "@nuxt/kit" "^3.12.4"
     defu "^6.1.4"
@@ -11251,13 +11202,18 @@ vuetify-nuxt-module@0.18.3:
     ufo "^1.5.4"
     unconfig "^0.5.5"
     upath "^2.0.1"
-    vite-plugin-vuetify "^2.0.4"
+    vite-plugin-vuetify "^2.1.0"
     vuetify "^3.7.0"
 
 vuetify@^3.7.0:
   version "3.7.18"
   resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-3.7.18.tgz#53b7184b8df224c6d2c696b2a62557564710bca1"
   integrity sha512-JDkPIaug4hP9c+K/wxSgmTiLTMjBTYv2ATPvudhkRKuhsoym89aWCXb1CVbs7FRYuRsJEOGojpwpL5rBfDDy9g==
+
+vuetify@^3.9.7:
+  version "3.9.7"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-3.9.7.tgz#aea996f35111f25dd7e31ab956fbb40911841c24"
+  integrity sha512-Ib8PB3ItcguCol8f0DXLpoGyy7FvoOYW23SEWqXX+in1CSItJZHxUXXGSus94m5JWqYqQrFiwCykbHm7UWPi4Q==
 
 w3c-keyname@^2.2.4:
   version "2.2.8"
