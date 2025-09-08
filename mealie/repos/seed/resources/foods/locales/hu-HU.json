@@ -1245,8 +1245,8 @@
             "shiitake mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shiitake mushroom",
-                "plural_name": "shiitake mushrooms"
+                "name": "shitake gomba",
+                "plural_name": "shitake gomba"
             },
             "portobello mushroom": {
                 "aliases": [],
@@ -1633,8 +1633,8 @@
             "rosehip": {
                 "aliases": [],
                 "description": "",
-                "name": "rosehip",
-                "plural_name": "rosehips"
+                "name": "csipkebogyó",
+                "plural_name": "csipkebogyó"
             },
             "hawthorn": {
                 "aliases": [],
@@ -1721,8 +1721,8 @@
             "pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "pecan",
-                "plural_name": "pecans"
+                "name": "pekándió",
+                "plural_name": "pekándió"
             },
             "almond": {
                 "aliases": [],
@@ -1763,8 +1763,8 @@
             "chia": {
                 "aliases": [],
                 "description": "",
-                "name": "chia",
-                "plural_name": "chias"
+                "name": "chiamag",
+                "plural_name": "chiamag"
             },
             "flax": {
                 "aliases": [],
@@ -1781,7 +1781,7 @@
             "pumpkin seed": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin seed",
+                "name": "tökmag",
                 "plural_name": "tökmag"
             },
             "hazelnut": {
@@ -1841,8 +1841,8 @@
             "brazil nut": {
                 "aliases": [],
                 "description": "",
-                "name": "brazil nut",
-                "plural_name": "brazil nuts"
+                "name": "brazil dió",
+                "plural_name": "brazil dió"
             },
             "mixed seed": {
                 "aliases": [],
@@ -1853,14 +1853,14 @@
             "onion seed": {
                 "aliases": [],
                 "description": "",
-                "name": "onion seed",
-                "plural_name": "onion seeds"
+                "name": "hagyma mag",
+                "plural_name": "hagyma mag"
             },
             "watermelon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon seed",
-                "plural_name": "watermelon seeds"
+                "name": "görögdinnye mag",
+                "plural_name": "görögdinnye mag"
             },
             "honey-roasted peanut": {
                 "aliases": [],
@@ -1961,8 +1961,8 @@
             "palm seed": {
                 "aliases": [],
                 "description": "",
-                "name": "palm seed",
-                "plural_name": "palm seeds"
+                "name": "pálmamag",
+                "plural_name": "pálmamag"
             },
             "ginkgo nut": {
                 "aliases": [],
@@ -2015,8 +2015,8 @@
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheeses"
+                "name": "krémsajt",
+                "plural_name": "krémsajt"
             },
             "sharp cheddar": {
                 "aliases": [],
@@ -2034,19 +2034,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "mozzarella",
-                "plural_name": "mozzarellas"
+                "plural_name": "mozzarella"
             },
             "feta": {
                 "aliases": [],
                 "description": "",
                 "name": "feta",
-                "plural_name": "fetas"
+                "plural_name": "feta"
             },
             "ricotta": {
                 "aliases": [],
                 "description": "",
                 "name": "ricotta",
-                "plural_name": "ricottas"
+                "plural_name": "ricotta"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
@@ -2058,13 +2058,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "monterey jack",
-                "plural_name": "monterey jacks"
+                "plural_name": "monterey jack"
             },
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheeses"
+                "name": "kéksajt",
+                "plural_name": "kéksajt"
             },
             "goat cheese": {
                 "aliases": [],
@@ -2075,8 +2075,8 @@
             "fresh mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella",
-                "plural_name": "fresh mozzarellas"
+                "name": "friss mozzarella",
+                "plural_name": "friss mozzarella"
             },
             "swiss cheese": {
                 "aliases": [],
@@ -2094,7 +2094,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "gruyere",
-                "plural_name": "gruyeres"
+                "plural_name": "gruyere"
             },
             "mascarpone": {
                 "aliases": [],
@@ -2136,7 +2136,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brie",
-                "plural_name": "bries"
+                "plural_name": "brie"
             },
             "paneer": {
                 "aliases": [],
@@ -2166,7 +2166,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "gouda",
-                "plural_name": "goudas"
+                "plural_name": "gouda"
             },
             "cotija": {
                 "aliases": [],
@@ -2262,19 +2262,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "camembert",
-                "plural_name": "camemberts"
+                "plural_name": "camembert"
             },
             "soft cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "soft cheese",
-                "plural_name": "soft cheeses"
+                "name": "lágysajt",
+                "plural_name": "lágysajt"
             },
             "stilton": {
                 "aliases": [],
                 "description": "",
                 "name": "stilton",
-                "plural_name": "stiltons"
+                "plural_name": "stilton"
             },
             "raclette": {
                 "aliases": [],
@@ -2406,7 +2406,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "comté",
-                "plural_name": "comtés"
+                "plural_name": "comté"
             },
             "graviera": {
                 "aliases": [],
@@ -2613,20 +2613,20 @@
             "butter": {
                 "aliases": [],
                 "description": "",
-                "name": "butter",
-                "plural_name": "butter"
+                "name": "vaj",
+                "plural_name": "vaj"
             },
             "egg": {
                 "aliases": [],
                 "description": "",
-                "name": "egg",
-                "plural_name": "eggs"
+                "name": "tojás",
+                "plural_name": "tojás"
             },
             "milk": {
                 "aliases": [],
                 "description": "",
-                "name": "milk",
-                "plural_name": "milks"
+                "name": "tej",
+                "plural_name": "tej"
             },
             "heavy cream": {
                 "aliases": [],
@@ -2643,8 +2643,8 @@
             "buttermilk": {
                 "aliases": [],
                 "description": "",
-                "name": "buttermilk",
-                "plural_name": "buttermilks"
+                "name": "író",
+                "plural_name": "író"
             },
             "yogurt": {
                 "aliases": [],
@@ -2771,8 +2771,8 @@
             "kefir": {
                 "aliases": [],
                 "description": "",
-                "name": "kefir",
-                "plural_name": "kefirs"
+                "name": "kefír",
+                "plural_name": "kefír"
             },
             "sherbet": {
                 "aliases": [],
@@ -3048,7 +3048,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ayran",
-                "plural_name": "ayrans"
+                "plural_name": "ayran"
             },
             "cuajada": {
                 "aliases": [],
@@ -3141,8 +3141,8 @@
             "almond milk": {
                 "aliases": [],
                 "description": "",
-                "name": "almond milk",
-                "plural_name": "almond milks"
+                "name": "mandulatej",
+                "plural_name": "mandulatej"
             },
             "almond butter": {
                 "aliases": [],
@@ -3154,7 +3154,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tofu",
-                "plural_name": "tofus"
+                "plural_name": "tofu"
             },
             "coconut cream": {
                 "aliases": [],
@@ -3177,8 +3177,8 @@
             "soy milk": {
                 "aliases": [],
                 "description": "",
-                "name": "soy milk",
-                "plural_name": "soy milks"
+                "name": "szójatej",
+                "plural_name": "szójatej"
             },
             "extra firm tofu": {
                 "aliases": [],
@@ -3501,8 +3501,8 @@
             "vegan fish sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan fish sauce",
-                "plural_name": "vegan fish sauces"
+                "name": "vegán halszósz",
+                "plural_name": "vegán halszósz"
             },
             "vegetarian hot dog": {
                 "aliases": [],
@@ -3793,8 +3793,8 @@
             "sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage",
-                "plural_name": "sausages"
+                "name": "kolbász",
+                "plural_name": "kolbász"
             },
             "beef roast": {
                 "aliases": [],
@@ -3872,7 +3872,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hot dog",
-                "plural_name": "hot dogs"
+                "plural_name": "hot dog"
             },
             "beef sirloin": {
                 "aliases": [],
