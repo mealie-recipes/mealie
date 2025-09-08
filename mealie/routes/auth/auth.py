@@ -95,6 +95,7 @@ def get_token(
         httponly=True,
         max_age=expires_in,
         secure=settings.PRODUCTION,
+        samesite="none" if settings.PRODUCTION else "lax",  # required for iframes
     )
 
     return MealieAuthToken.respond(access_token)
@@ -155,6 +156,7 @@ async def oauth_callback(request: Request, response: Response, session: Session 
         httponly=True,
         max_age=expires_in,
         secure=settings.PRODUCTION,
+        samesite="none" if settings.PRODUCTION else "lax",  # required for iframes
     )
 
     return MealieAuthToken.respond(access_token)
