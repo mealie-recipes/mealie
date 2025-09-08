@@ -7,7 +7,7 @@
             width="100%"
             max-height="175"
             max-width="175"
-            :src="require('~/static/svgs/recipes-create.svg')"
+            src="/svgs/recipes-create.svg"
           />
         </template>
         <template #title>

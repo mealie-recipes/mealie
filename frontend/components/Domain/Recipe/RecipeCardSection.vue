@@ -199,7 +199,7 @@ const emit = defineEmits<{
   appendRecipes: [recipes: Recipe[]];
 }>();
 
-const { $vuetify } = useNuxtApp();
+const display = useDisplay();
 const preferences = useUserSortPreferences();
 
 const EVENTS = {
@@ -215,7 +215,7 @@ const $auth = useMealieAuth();
 const { $globals } = useNuxtApp();
 const { isOwnGroup } = useLoggedInState();
 const useMobileCards = computed(() => {
-  return $vuetify.display.smAndDown.value || preferences.value.useMobileCards;
+  return display.smAndDown.value || preferences.value.useMobileCards;
 });
 
 const displayTitleIcon = computed(() => {

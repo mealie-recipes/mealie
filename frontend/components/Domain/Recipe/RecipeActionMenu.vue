@@ -87,7 +87,7 @@
 </template>
 
 <script setup lang="ts">
-import RecipeContextMenu from "./RecipeContextMenu.vue";
+import RecipeContextMenu from "./RecipeContextMenu/RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
 import RecipeTimelineBadge from "./RecipeTimelineBadge.vue";
 import type { Recipe } from "~/lib/api/types/recipe";
