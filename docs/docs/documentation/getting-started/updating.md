@@ -4,7 +4,7 @@
     You MUST read the release notes prior to upgrading your container. Mealie has a robust backup and restore system for managing your data. Pre-v1.0.0 versions of Mealie use a different database structure, so if you are upgrading from pre-v1.0.0 to v1.0.0, you MUST backup your data and then re-import it. Even if you are already on v1.0.0, it is strongly recommended to backup all data before updating.
 
     ### Before Upgrading
-     - Read The Release Notes
+     - [Read The Release Notes](https://github.com/mealie-recipes/mealie/releases)
      - Identify Breaking Changes
      - Create a Backup and Download from the UI
      - Upgrade
