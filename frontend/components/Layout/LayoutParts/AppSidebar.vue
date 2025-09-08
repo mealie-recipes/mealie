@@ -140,7 +140,6 @@ export default defineNuxtComponent({
     const { loggedIn, isOwnGroup } = useLoggedInState();
     const isAdmin = computed(() => $auth.user.value?.admin);
     const canManage = computed(() => $auth.user.value?.canManage);
-    const display = useDisplay();
 
     const userFavoritesLink = computed(() => $auth.user.value ? `/user/${$auth.user.value.id}/favorites` : undefined);
     const userProfileLink = computed(() => $auth.user.value ? "/user/profile" : undefined);
@@ -159,9 +158,6 @@ export default defineNuxtComponent({
     const showDrawer = computed({
       get: () => props.modelValue,
       set: value => context.emit("update:modelValue", value),
-    });
-    onMounted(() => {
-      showDrawer.value = display.lgAndUp.value;
     });
 
     const allLinks = computed(() => [...props.topLink, ...(props.secondaryLinks || [])]);
