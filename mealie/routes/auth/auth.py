@@ -1,4 +1,5 @@
 from datetime import timedelta
+from typing import Literal
 
 from authlib.integrations.starlette_client import OAuth
 from fastapi import APIRouter, Depends, Request, Response, status
@@ -59,6 +60,22 @@ class MealieAuthToken(BaseModel):
         return cls(access_token=token, token_type=token_type).model_dump()
 
 
+def get_samesite(request: Request) -> Literal["lax", "none"]:
+    """
+    Determine the appropriate samesite attribute for cookies.
+
+    `samesite="none"` is required for iframe support (e.g., embedding Mealie in another site)
+    but only works over HTTPS. If samesite="none" is set over HTTP, most browsers will reject the cookie.
+
+    `samesite="lax"` is the default, which works regardless of HTTP or HTTPS,
+    but does not support hosting in iframes.
+    """
+    if request.url.scheme == "https" and settings.PRODUCTION:
+        return "none"
+    else:
+        return "lax"
+
+
 @public_router.post("/token")
 def get_token(
     request: Request,
@@ -95,7 +112,7 @@ def get_token(
         httponly=True,
         max_age=expires_in,
         secure=settings.PRODUCTION,
-        samesite="none" if settings.PRODUCTION else "lax",  # required for iframes
+        samesite=get_samesite(request),
     )
 
     return MealieAuthToken.respond(access_token)
@@ -156,7 +173,7 @@ async def oauth_callback(request: Request, response: Response, session: Session 
         httponly=True,
         max_age=expires_in,
         secure=settings.PRODUCTION,
-        samesite="none" if settings.PRODUCTION else "lax",  # required for iframes
+        samesite=get_samesite(request),
     )
 
     return MealieAuthToken.respond(access_token)
