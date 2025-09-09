@@ -13,7 +13,6 @@ export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
     enableParseRecipe = true,
   } = props;
 
-  const route = useRoute();
   const router = useRouter();
   const recipeCreatePreferences = useRecipeCreatePreferences();
 
