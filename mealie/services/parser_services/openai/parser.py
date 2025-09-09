@@ -45,13 +45,21 @@ class OpenAIParser(ABCIngredientParser):
         if not note:
             return 1
 
-        note = "".join(filter(str.isalnum, note.strip().lower()))
-        note_words = note.split()
+        note_words: list[str] = []
+        for word in note.strip().lower().split():
+            clean_word = "".join(filter(str.isalnum, word))
+            if clean_word:
+                note_words.append(clean_word)
+
         if not note_words:
             return 1
 
-        original_text = "".join(filter(str.isalnum, original_text.strip().lower()))
-        original_words = original_text.split()
+        original_words: list[str] = []
+        for word in original_text.strip().lower().split():
+            clean_word = "".join(filter(str.isalnum, word))
+            if clean_word:
+                original_words.append(clean_word)
+
         note_conf_sum = sum(1 for word in note_words if word in original_words)
         return note_conf_sum / len(note_words)
 
