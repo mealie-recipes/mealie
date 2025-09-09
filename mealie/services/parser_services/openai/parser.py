@@ -16,9 +16,9 @@ from .._base import ABCIngredientParser
 
 
 class OpenAIParser(ABCIngredientParser):
-    def _convert_ingredient(self, openai_ing: OpenAIIngredient) -> ParsedIngredient:
+    def _convert_ingredient(self, original_text: str, openai_ing: OpenAIIngredient) -> ParsedIngredient:
         ingredient = RecipeIngredient(
-            original_text=openai_ing.input,
+            original_text=original_text,
             quantity=openai_ing.quantity,
             unit=CreateIngredientUnit(name=openai_ing.unit) if openai_ing.unit else None,
             food=CreateIngredientFood(name=openai_ing.food) if openai_ing.food else None,
@@ -26,7 +26,7 @@ class OpenAIParser(ABCIngredientParser):
         )
 
         parsed_ingredient = ParsedIngredient(
-            input=openai_ing.input,
+            input=original_text,
             confidence=IngredientConfidence(average=openai_ing.confidence),
             ingredient=ingredient,
         )
@@ -107,4 +107,13 @@ class OpenAIParser(ABCIngredientParser):
 
     async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
         response = await self._parse(ingredients)
-        return [self._convert_ingredient(ing) for ing in response.ingredients]
+        if len(response.ingredients) != len(ingredients):
+            raise ValueError(
+                "OpenAI returned an unexpected number of ingredients. "
+                f"Expected {len(ingredients)}, got {len(response.ingredients)}"
+            )
+
+        return [
+            self._convert_ingredient(original_text, ing)
+            for original_text, ing in zip(ingredients, response.ingredients, strict=True)
+        ]
