@@ -143,7 +143,6 @@ export default defineNuxtComponent({
       importKeywordsAsTags,
       stayInEditMode,
       parseRecipe,
-      initializeFromPreferences,
       navigateToRecipe,
     } = useNewRecipeOptions();
 
@@ -160,7 +159,6 @@ export default defineNuxtComponent({
         tags.actions.refresh();
       }
 
-      // Navigate to recipe using the composable function
       navigateToRecipe(response.data, groupSlug.value, `/g/${groupSlug.value}/r/create/url`);
     }
 
@@ -183,8 +181,6 @@ export default defineNuxtComponent({
         createByUrl(recipeUrl.value, importKeywordsAsTags.value, stayInEditMode.value, parseRecipe.value);
         return;
       }
-
-      initializeFromPreferences();
     });
 
     const domUrlForm = ref<VForm | null>(null);
