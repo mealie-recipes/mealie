@@ -55,8 +55,8 @@
               class="mb-1"
               :disabled="hasFoodOrUnit"
               color="accent"
-              :to="`/g/${groupSlug}/r/${recipe.slug}/ingredient-parser`"
               v-bind="props"
+              @click="toggleIsParsing(true)"
             >
               <template #icon>
                 {{ $globals.icons.foods }}
@@ -87,6 +87,7 @@ import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
+import { usePageState } from "~/composables/recipe-page/shared-state";
 import { uuid4 } from "~/composables/use-utils";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
@@ -97,6 +98,7 @@ const drag = ref(false);
 
 const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+const { toggleIsParsing } = usePageState(recipe.value.slug);
 
 const hasFoodOrUnit = computed(() => {
   if (!recipe.value) {
