@@ -15,23 +15,16 @@ from mealie.schema.recipe.recipe_ingredient import (
 from mealie.services.openai import OpenAIDataInjection, OpenAIService
 
 from .._base import ABCIngredientParser
-from ..brute.process import parse_amount
+from ..parser_utils import extract_quantity_from_string
 
 
 class OpenAIParser(ABCIngredientParser):
     def _calculate_qty_conf(self, original_text: str, parsed_qty: float | None) -> float:
-        """
-        Compares the extracted quantity to a brute-force parsed quantity.
-        The brute-force parser is the closest we have to a "ground truth" for quantity parsing.
-        """
+        """Compares the extracted quantity to a brute-force parsed quantity."""
 
-        try:
-            brute_qty, _, _ = parse_amount(original_text)
-        except Exception:
-            return 1
-
+        expected_qty, _ = extract_quantity_from_string(original_text)
         parsed_qty = parsed_qty or 0
-        if parsed_qty == brute_qty:
+        if parsed_qty == expected_qty:
             return 1
         else:
             return 0
