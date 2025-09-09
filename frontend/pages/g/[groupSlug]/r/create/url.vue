@@ -2,7 +2,7 @@
   <div>
     <v-form
       ref="domUrlForm"
-      @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags, stayInEditMode)"
+      @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags, stayInEditMode, parseRecipe)"
     >
       <div>
         <v-card-title class="headline">
@@ -43,6 +43,12 @@
           color="primary"
           hide-details
           :label="$t('recipe.stay-in-edit-mode')"
+        />
+        <v-checkbox
+          v-model="parseRecipe"
+          color="primary"
+          hide-details
+          :label="$t('recipe.parse-recipe-ingredients-after-import')"
         />
         <v-card-actions class="justify-center">
           <div style="width: 250px">
@@ -135,7 +141,7 @@ export default defineNuxtComponent({
     const bulkImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/bulk`);
     const htmlOrJsonImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/html`);
 
-    function handleResponse(response: AxiosResponse<string> | null, edit = false, refreshTags = false) {
+    function handleResponse(response: AxiosResponse<string> | null, edit = false, parseRecipe = false, refreshTags = false) {
       if (response?.status !== 201) {
         state.error = true;
         state.loading = false;
@@ -147,7 +153,7 @@ export default defineNuxtComponent({
 
       // we clear the query params first so if the user hits back, they don't re-import the recipe
       router.replace({ query: {} }).then(
-        () => router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}`),
+        () => router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}?parse=${parseRecipe.toString()}`),
       );
     }
 
@@ -181,19 +187,28 @@ export default defineNuxtComponent({
       },
     });
 
+    const parseRecipe = computed({
+      get() {
+        return route.query.parse === "1";
+      },
+      set(v: boolean) {
+        router.replace({ query: { ...route.query, parse: v ? "1" : "0" } });
+      },
+    })
+
     onMounted(() => {
       if (!recipeUrl.value) {
         return;
       }
 
       if (recipeUrl.value.includes("https")) {
-        createByUrl(recipeUrl.value, importKeywordsAsTags.value, stayInEditMode.value);
+        createByUrl(recipeUrl.value, importKeywordsAsTags.value, stayInEditMode.value, parseRecipe.value);
       }
     });
 
     const domUrlForm = ref<VForm | null>(null);
 
-    async function createByUrl(url: string | null, importKeywordsAsTags: boolean, stayInEditMode: boolean) {
+    async function createByUrl(url: string | null, importKeywordsAsTags: boolean, stayInEditMode: boolean, parseRecipe: boolean) {
       if (url === null) {
         return;
       }
@@ -204,7 +219,7 @@ export default defineNuxtComponent({
       }
       state.loading = true;
       const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags);
-      handleResponse(response, stayInEditMode, importKeywordsAsTags);
+      handleResponse(response, stayInEditMode, parseRecipe, importKeywordsAsTags);
     }
 
     return {
@@ -213,6 +228,7 @@ export default defineNuxtComponent({
       recipeUrl,
       importKeywordsAsTags,
       stayInEditMode,
+      parseRecipe,
       domUrlForm,
       createByUrl,
       ...toRefs(state),

@@ -1,7 +1,7 @@
 <template>
   <v-form
     ref="domUrlForm"
-    @submit.prevent="createFromHtmlOrJson(newRecipeData, importKeywordsAsTags, stayInEditMode)"
+    @submit.prevent="createFromHtmlOrJson(newRecipeData, importKeywordsAsTags, stayInEditMode, parseRecipe)"
   >
     <div>
       <v-card-title class="headline">
@@ -55,6 +55,12 @@
           v-model="stayInEditMode"
           hide-details
           :label="$t('recipe.stay-in-edit-mode')"
+        />
+        <v-checkbox
+          v-model="parseRecipe"
+          color="primary"
+          hide-details
+          :label="$t('recipe.parse-recipe-ingredients-after-import')"
         />
       </v-card-text>
       <v-card-actions class="justify-center">
@@ -113,7 +119,16 @@ export default defineNuxtComponent({
       },
     });
 
-    function handleResponse(response: AxiosResponse<string> | null, edit = false, refreshTags = false) {
+    const parseRecipe = computed({
+      get() {
+        return route.query.parse === "1";
+      },
+      set(v: boolean) {
+        router.replace({ query: { ...route.query, parse: v ? "1" : "0" } });
+      },
+    })
+
+    function handleResponse(response: AxiosResponse<string> | null, edit = false, parse = false, refreshTags = false) {
       if (response?.status !== 201) {
         state.error = true;
         state.loading = false;
@@ -123,7 +138,7 @@ export default defineNuxtComponent({
         tags.actions.refresh();
       }
 
-      router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}`);
+      router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}&parse=${parse.toString()}`);
     }
 
     const newRecipeData = ref<string | object | null>(null);
@@ -151,7 +166,7 @@ export default defineNuxtComponent({
     }
     handleIsEditJson();
 
-    async function createFromHtmlOrJson(htmlOrJsonData: string | object | null, importKeywordsAsTags: boolean, stayInEditMode: boolean) {
+    async function createFromHtmlOrJson(htmlOrJsonData: string | object | null, importKeywordsAsTags: boolean, stayInEditMode: boolean, parseRecipe: boolean) {
       if (!htmlOrJsonData || !domUrlForm.value?.validate()) {
         return;
       }
@@ -166,13 +181,14 @@ export default defineNuxtComponent({
 
       state.loading = true;
       const { response } = await api.recipes.createOneByHtmlOrJson(dataString, importKeywordsAsTags);
-      handleResponse(response, stayInEditMode, importKeywordsAsTags);
+      handleResponse(response, stayInEditMode, parseRecipe, importKeywordsAsTags);
     }
 
     return {
       domUrlForm,
       importKeywordsAsTags,
       stayInEditMode,
+      parseRecipe,
       newRecipeData,
       handleIsEditJson,
       createFromHtmlOrJson,
