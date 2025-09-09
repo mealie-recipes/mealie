@@ -134,7 +134,7 @@ class OpenAIParser(ABCIngredientParser):
                             "Below is a list of units found in the units database. While parsing, you should "
                             "reference this list when determining which part of the input is the unit. You may "
                             "find a unit in the input that does not exist in this list. This should not prevent "
-                            "you from parsing that text as a unit, however it may lower your confidence level."
+                            "you from parsing that text as a unit."
                         ),
                         value=list(set(self.data_matcher.units_by_alias)),
                     ),
