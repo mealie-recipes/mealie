@@ -465,8 +465,6 @@ def test_openai_parser(
         data = OpenAIIngredients(
             ingredients=[
                 OpenAIIngredient(
-                    input=input,
-                    confidence=1,
                     quantity=random_int(0, 10),
                     unit=random_string(),
                     food=random_string(),
@@ -503,8 +501,6 @@ def test_openai_parser_sanitize_output(
         data = OpenAIIngredients(
             ingredients=[
                 OpenAIIngredient(
-                    input="there is a null character here: \x00",
-                    confidence=1,
                     quantity=random_int(0, 10),
                     unit="",
                     food="there is a null character here: \x00",
@@ -523,8 +519,8 @@ def test_openai_parser_sanitize_output(
         parsed = loop.run_until_complete(parser.parse([""]))
         assert len(parsed) == 1
         parsed_ing = cast(ParsedIngredient, parsed[0])
-        assert parsed_ing.input
-        assert "\x00" not in parsed_ing.input
+        assert parsed_ing.ingredient.food
+        assert parsed_ing.ingredient.food.name == "there is a null character here: "
 
         # Make sure we can create a recipe with this ingredient
         assert isinstance(parsed_ing.ingredient.food, CreateIngredientFood)
