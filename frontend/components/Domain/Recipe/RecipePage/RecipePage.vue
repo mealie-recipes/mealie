@@ -1,5 +1,6 @@
 <template>
   <div>
+    <RecipePageParseDialog v-model="isParsing" />
     <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
       <v-card :flat="$vuetify.display.smAndDown" class="d-print-none">
         <RecipePageHeader
@@ -168,6 +169,7 @@ import RecipePageIngredientEditor from "./RecipePageParts/RecipePageIngredientEd
 import RecipePageIngredientToolsView from "./RecipePageParts/RecipePageIngredientToolsView.vue";
 import RecipePageInstructions from "./RecipePageParts/RecipePageInstructions.vue";
 import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
+import RecipePageParseDialog from "./RecipePageParts/RecipePageParseDialog.vue";
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageInfoEditor from "./RecipePageParts/RecipePageInfoEditor.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
@@ -197,7 +199,7 @@ const groupSlug = computed(() => (route.params.groupSlug as string) || $auth.use
 
 const router = useRouter();
 const api = useUserApi();
-const { setMode, isEditForm, isEditJSON, isCookMode, isEditMode, toggleCookMode }
+const { setMode, isEditForm, isEditJSON, isCookMode, isEditMode, isParsing, toggleCookMode }
   = usePageState(recipe.value.slug);
 const { deactivateNavigationWarning } = useNavigationWarning();
 const notLinkedIngredients = computed(() => {
@@ -247,17 +249,27 @@ const hasLinkedIngredients = computed(() => {
 type BooleanString = "true" | "false" | "";
 
 const paramsEdit = useRouteQuery<BooleanString>("edit", "");
-const edit = useRouteQuery<BooleanString>("edit", "");
+const paramsParse = useRouteQuery<BooleanString>("parse", "");
 
 onMounted(() => {
   if (paramsEdit.value === "true") {
     setMode(PageMode.EDIT);
+  }
+
+  if (paramsParse.value === "true") {
+    isParsing.value = true;
   }
 });
 
 watch(isEditMode, (newVal) => {
   if (!newVal) {
     paramsEdit.value = undefined;
+  }
+});
+
+watch(isParsing, (newVal) => {
+  if (!newVal) {
+    paramsParse.value = undefined;
   }
 });
 

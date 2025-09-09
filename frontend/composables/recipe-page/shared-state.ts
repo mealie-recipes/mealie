@@ -44,6 +44,10 @@ interface PageState {
 	 * true is the page is in cook mode.
 	 */
   isCookMode: ComputedRef<boolean>;
+  /**
+   * true if the recipe is currently being parsed.
+   */
+  isParsing: Ref<boolean>;
 
   setMode: (v: PageMode) => void;
   setEditMode: (v: EditorMode) => void;
@@ -126,6 +130,7 @@ function pageState({ slugRef, pageModeRef, editModeRef, imageKey }: PageRefs): P
     isCookMode: computed(() => {
       return pageModeRef.value === PageMode.COOK;
     }),
+    isParsing: ref(false),
   };
 }
 
