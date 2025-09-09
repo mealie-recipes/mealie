@@ -1,6 +1,10 @@
 <template>
   <div>
-    <RecipePageParseDialog v-model="isParsing" @update:model-value="toggleIsParsing" />
+    <RecipePageParseDialog
+      v-model="isParsing"
+      :ingredients="recipe.recipeIngredient"
+      @update:model-value="toggleIsParsing"
+    />
     <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
       <v-card :flat="$vuetify.display.smAndDown" class="d-print-none">
         <RecipePageHeader
