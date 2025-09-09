@@ -53,10 +53,19 @@ export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
     const editParam = enableStayInEditMode ? stayInEditMode.value : false;
     const parseParam = enableParseRecipe ? parseRecipe.value : false;
 
+    const queryParams = new URLSearchParams();
+    if (editParam) {
+      queryParams.set("edit", "true");
+    }
+    if (parseParam) {
+      queryParams.set("parse", "true");
+    }
+
+    const queryString = queryParams.toString();
+    const recipeUrl = `/g/${groupSlug}/r/${recipeSlug}${queryString ? `?${queryString}` : ''}`;
+
     // Replace current entry to prevent re-import on back navigation
-    router.replace(createPagePath).then(
-      () => router.push(`/g/${groupSlug}/r/${recipeSlug}?edit=${editParam.toString()}&parse=${parseParam.toString()}`),
-    );
+    router.replace(createPagePath).then(() => router.push(recipeUrl));
   }
 
   return {
