@@ -246,11 +246,18 @@ const hasLinkedIngredients = computed(() => {
 
 type BooleanString = "true" | "false" | "";
 
+const paramsEdit = useRouteQuery<BooleanString>("edit", "");
 const edit = useRouteQuery<BooleanString>("edit", "");
 
 onMounted(() => {
-  if (edit.value === "true") {
+  if (paramsEdit.value === "true") {
     setMode(PageMode.EDIT);
+  }
+});
+
+watch(isEditMode, (newVal) => {
+  if (!newVal) {
+    paramsEdit.value = undefined;
   }
 });
 
