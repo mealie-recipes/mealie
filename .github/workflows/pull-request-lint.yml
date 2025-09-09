@@ -31,6 +31,7 @@ jobs:
             deps
             auto
             l10n
+            config
           # Configure that a scope must always be provided.
           requireScope: false
           # If the PR contains one of these newline-delimited labels, the
