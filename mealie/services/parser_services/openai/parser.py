@@ -2,6 +2,8 @@ import asyncio
 import json
 from collections.abc import Awaitable
 
+from rapidfuzz import fuzz
+
 from mealie.schema.openai.recipe_ingredient import OpenAIIngredient, OpenAIIngredients
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFood,
@@ -13,9 +15,80 @@ from mealie.schema.recipe.recipe_ingredient import (
 from mealie.services.openai import OpenAIDataInjection, OpenAIService
 
 from .._base import ABCIngredientParser
+from ..brute.process import parse_amount
 
 
 class OpenAIParser(ABCIngredientParser):
+    def _calculate_qty_conf(self, original_text: str, parsed_qty: float | None) -> float:
+        """
+        Compares the extracted quantity to a brute-force parsed quantity.
+        The brute-force parser is the closest we have to a "ground truth" for quantity parsing.
+        """
+
+        try:
+            brute_qty, _, _ = parse_amount(original_text)
+        except Exception:
+            return 1
+
+        parsed_qty = parsed_qty or 0
+        if parsed_qty == brute_qty:
+            return 1
+        else:
+            return 0
+
+    def _calculate_note_conf(self, original_text: str, note: str | None) -> float:
+        """
+        Calculate confidence based on how many words in the note are found in the original text.
+        Uses alphanumeric filtering and lowercasing to improve matching.
+        """
+
+        if not note:
+            return 1
+
+        note = "".join(filter(str.isalnum, note.strip().lower()))
+        note_words = note.split()
+        if not note_words:
+            return 1
+
+        original_text = "".join(filter(str.isalnum, original_text.strip().lower()))
+        original_words = original_text.split()
+        note_conf_sum = sum(1 for word in note_words if word in original_words)
+        return note_conf_sum / len(note_words)
+
+    def _calculate_overall_confidence(self, original_text: str, ing_text: str) -> float:
+        """
+        Calculate overall confidence based on fuzzy matching between the original text and the ingredient text.
+        Uses token sort ratio to account for word order variations.
+        """
+
+        ratio = fuzz.token_sort_ratio(original_text, ing_text)
+        return ratio / 100.0
+
+    def _calculate_confidence(self, original_text: str, ing: RecipeIngredient) -> IngredientConfidence:
+        qty_conf = self._calculate_qty_conf(original_text, ing.quantity)
+        note_conf = self._calculate_note_conf(original_text, ing.note)
+
+        # Not all ingredients will have a food and/or unit,
+        # so if either is missing we fall back to overall confidence.
+        overall_confidence = self._calculate_overall_confidence(original_text, ing.display)
+        if ing.food:
+            food_conf = 1.0
+        else:
+            food_conf = overall_confidence
+
+        if ing.unit:
+            unit_conf = 1.0
+        else:
+            unit_conf = overall_confidence
+
+        return IngredientConfidence(
+            average=(qty_conf + unit_conf + food_conf + note_conf) / 4,
+            quantity=qty_conf,
+            unit=unit_conf,
+            food=food_conf,
+            comment=note_conf,
+        )
+
     def _convert_ingredient(self, original_text: str, openai_ing: OpenAIIngredient) -> ParsedIngredient:
         ingredient = RecipeIngredient(
             original_text=original_text,
@@ -27,7 +100,7 @@ class OpenAIParser(ABCIngredientParser):
 
         parsed_ingredient = ParsedIngredient(
             input=original_text,
-            confidence=IngredientConfidence(average=openai_ing.confidence),
+            confidence=self._calculate_confidence(original_text, ingredient),
             ingredient=ingredient,
         )
 
