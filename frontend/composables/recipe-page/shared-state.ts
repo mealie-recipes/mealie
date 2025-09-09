@@ -95,7 +95,7 @@ function pageState({ slugRef, pageModeRef, editModeRef, isParsingRef, imageKey }
     }
 
     isParsingRef.value = v;
-  }
+  };
 
   const setEditMode = (v: EditorMode) => {
     editModeRef.value = v;
@@ -143,7 +143,7 @@ function pageState({ slugRef, pageModeRef, editModeRef, isParsingRef, imageKey }
     }),
     isParsing: computed(() => {
       return isParsingRef.value;
-    })
+    }),
   };
 }
 

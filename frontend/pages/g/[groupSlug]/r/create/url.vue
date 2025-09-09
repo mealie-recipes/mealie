@@ -2,7 +2,7 @@
   <div>
     <v-form
       ref="domUrlForm"
-      @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags, stayInEditMode, parseRecipe)"
+      @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags)"
     >
       <div>
         <v-card-title class="headline">
@@ -174,18 +174,16 @@ export default defineNuxtComponent({
       },
     });
 
-
-
     onMounted(() => {
       if (recipeUrl.value && recipeUrl.value.includes("https")) {
-        createByUrl(recipeUrl.value, importKeywordsAsTags.value, stayInEditMode.value, parseRecipe.value);
+        createByUrl(recipeUrl.value, importKeywordsAsTags.value);
         return;
       }
     });
 
     const domUrlForm = ref<VForm | null>(null);
 
-    async function createByUrl(url: string | null, importKeywordsAsTags: boolean, stayInEditMode: boolean, parseRecipe: boolean) {
+    async function createByUrl(url: string | null, importKeywordsAsTags: boolean) {
       if (url === null) {
         return;
       }

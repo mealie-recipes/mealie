@@ -57,7 +57,9 @@ export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
     router.replace(createPagePath).then(
       () => router.push(`/g/${groupSlug}/r/${recipeSlug}?edit=${editParam.toString()}&parse=${parseParam.toString()}`),
     );
-  }  return {
+  }
+
+  return {
     // Computed properties for the checkboxes
     importKeywordsAsTags,
     stayInEditMode,

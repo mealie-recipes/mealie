@@ -8,7 +8,6 @@
 </template>
 
 <script setup lang="ts">
-
 defineProps<{
   modelValue: boolean;
 }>();
@@ -16,5 +15,4 @@ defineProps<{
 const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
 }>();
-
 </script>
