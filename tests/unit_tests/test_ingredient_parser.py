@@ -643,7 +643,7 @@ def test_openai_parser_sanitize_output(
             "Cups",
             "flour",
             "fresh",
-            (1.0, 1.0),
+            (0.0, 0.0),
             (1.0, 1.0),
             (1.0, 1.0),
             (0.0, 0.0),
