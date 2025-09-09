@@ -1,6 +1,6 @@
 <template>
   <div>
-    <RecipePageParseDialog v-model="isParsing" />
+    <RecipePageParseDialog v-model="isParsing" @update:model-value="toggleIsParsing" />
     <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
       <v-card :flat="$vuetify.display.smAndDown" class="d-print-none">
         <RecipePageHeader
@@ -199,7 +199,7 @@ const groupSlug = computed(() => (route.params.groupSlug as string) || $auth.use
 
 const router = useRouter();
 const api = useUserApi();
-const { setMode, isEditForm, isEditJSON, isCookMode, isEditMode, isParsing, toggleCookMode }
+const { setMode, isEditForm, isEditJSON, isCookMode, isEditMode, isParsing, toggleCookMode, toggleIsParsing }
   = usePageState(recipe.value.slug);
 const { deactivateNavigationWarning } = useNavigationWarning();
 const notLinkedIngredients = computed(() => {
@@ -257,7 +257,7 @@ onMounted(() => {
   }
 
   if (paramsParse.value === "true") {
-    isParsing.value = true;
+    toggleIsParsing(true);
   }
 });
 
@@ -267,8 +267,8 @@ watch(isEditMode, (newVal) => {
   }
 });
 
-watch(isParsing, (newVal) => {
-  if (!newVal) {
+watch(isParsing, () => {
+  if (!isParsing.value) {
     paramsParse.value = undefined;
   }
 });
