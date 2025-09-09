@@ -6,7 +6,7 @@
     "npm"
   ],
   "extends": [
-    "config:base"
+    "config:recommended"
   ],
   "addLabels": [
     "dependencies"
