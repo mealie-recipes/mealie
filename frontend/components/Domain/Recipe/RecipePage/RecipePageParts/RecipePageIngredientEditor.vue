@@ -92,12 +92,8 @@ import { uuid4 } from "~/composables/use-utils";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 const i18n = useI18n();
-const $auth = useMealieAuth();
 
 const drag = ref(false);
-
-const route = useRoute();
-const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 const { toggleIsParsing } = usePageState(recipe.value.slug);
 
 const hasFoodOrUnit = computed(() => {
