@@ -173,9 +173,25 @@ the code generation ID is hardcoded into the script and required in the nuxt con
 
 
 def inject_nuxt_values():
-    all_date_locales = [
-        f'"{match.stem}": () => import("./lang/dateTimeFormats/{match.name}"),' for match in datetime_dir.glob("*.json")
-    ]
+    datetime_files = list(datetime_dir.glob("*.json"))
+    datetime_files.sort()
+
+    datetime_imports = []
+    datetime_object_entries = []
+
+    for match in datetime_files:
+        # Convert locale name to camelCase variable name (e.g., "en-US" -> "enUS")
+        var_name = match.stem.replace("-", "")
+
+        # Generate import statement
+        import_line = f'import * as {var_name} from "./lang/dateTimeFormats/{match.name}";'
+        datetime_imports.append(import_line)
+
+        # Generate object entry
+        object_entry = f'  "{match.stem}": {var_name},'
+        datetime_object_entries.append(object_entry)
+
+    all_date_locales = datetime_imports + ["", "const datetimeFormats = {"] + datetime_object_entries + ["};"]
 
     all_langs = []
     for match in locales_dir.glob("*.json"):
@@ -186,7 +202,6 @@ def inject_nuxt_values():
         all_langs.append(lang_string)
 
     all_langs.sort()
-    all_date_locales.sort()
 
     log.debug(f"injecting locales into nuxt config -> {nuxt_config}")
     inject_inline(nuxt_config, CodeKeys.nuxt_local_messages, all_langs)
