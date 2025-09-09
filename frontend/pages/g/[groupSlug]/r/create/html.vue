@@ -84,6 +84,7 @@
 import type { AxiosResponse } from "axios";
 import { useTagStore } from "~/composables/store/use-tag-store";
 import { useUserApi } from "~/composables/api";
+import { useNewRecipeOptions } from "~/composables/use-new-recipe-options";
 import { validators } from "~/composables/use-validators";
 import type { VForm } from "~/types/auto-forms";
 
@@ -100,37 +101,17 @@ export default defineNuxtComponent({
     const domUrlForm = ref<VForm | null>(null);
 
     const api = useUserApi();
-    const router = useRouter();
     const tags = useTagStore();
 
-    const importKeywordsAsTags = computed({
-      get() {
-        return route.query.use_keywords === "1";
-      },
-      set(v: boolean) {
-        router.replace({ query: { ...route.query, use_keywords: v ? "1" : "0" } });
-      },
-    });
+    const {
+      importKeywordsAsTags,
+      stayInEditMode,
+      parseRecipe,
+      initializeFromPreferences,
+      navigateToRecipe,
+    } = useNewRecipeOptions();
 
-    const stayInEditMode = computed({
-      get() {
-        return route.query.edit === "1";
-      },
-      set(v: boolean) {
-        router.replace({ query: { ...route.query, edit: v ? "1" : "0" } });
-      },
-    });
-
-    const parseRecipe = computed({
-      get() {
-        return route.query.parse === "1";
-      },
-      set(v: boolean) {
-        router.replace({ query: { ...route.query, parse: v ? "1" : "0" } });
-      },
-    })
-
-    function handleResponse(response: AxiosResponse<string> | null, edit = false, parse = false, refreshTags = false) {
+    function handleResponse(response: AxiosResponse<string> | null, refreshTags = false) {
       if (response?.status !== 201) {
         state.error = true;
         state.loading = false;
@@ -140,7 +121,8 @@ export default defineNuxtComponent({
         tags.actions.refresh();
       }
 
-      router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}&parse=${parse.toString()}`);
+      // Navigate to recipe using the composable function
+      navigateToRecipe(response.data, groupSlug.value, `/g/${groupSlug.value}/r/create/html`);
     }
 
     const newRecipeData = ref<string | object | null>(null);
@@ -183,8 +165,12 @@ export default defineNuxtComponent({
 
       state.loading = true;
       const { response } = await api.recipes.createOneByHtmlOrJson(dataString, importKeywordsAsTags);
-      handleResponse(response, stayInEditMode, parseRecipe, importKeywordsAsTags);
+      handleResponse(response, importKeywordsAsTags);
     }
+
+    onMounted(() => {
+      initializeFromPreferences();
+    });
 
     return {
       domUrlForm,

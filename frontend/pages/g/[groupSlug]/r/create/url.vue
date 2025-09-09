@@ -117,6 +117,7 @@
 import type { AxiosResponse } from "axios";
 import { useUserApi } from "~/composables/api";
 import { useTagStore } from "~/composables/store/use-tag-store";
+import { useNewRecipeOptions } from "~/composables/use-new-recipe-options";
 import { validators } from "~/composables/use-validators";
 import type { VForm } from "~/types/auto-forms";
 
@@ -138,10 +139,18 @@ export default defineNuxtComponent({
     const router = useRouter();
     const tags = useTagStore();
 
+    const {
+      importKeywordsAsTags,
+      stayInEditMode,
+      parseRecipe,
+      initializeFromPreferences,
+      navigateToRecipe,
+    } = useNewRecipeOptions();
+
     const bulkImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/bulk`);
     const htmlOrJsonImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/html`);
 
-    function handleResponse(response: AxiosResponse<string> | null, edit = false, parseRecipe = false, refreshTags = false) {
+    function handleResponse(response: AxiosResponse<string> | null, refreshTags = false) {
       if (response?.status !== 201) {
         state.error = true;
         state.loading = false;
@@ -151,10 +160,8 @@ export default defineNuxtComponent({
         tags.actions.refresh();
       }
 
-      // we clear the query params first so if the user hits back, they don't re-import the recipe
-      router.replace({ query: {} }).then(
-        () => router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}?parse=${parseRecipe.toString()}`),
-      );
+      // Navigate to recipe using the composable function
+      navigateToRecipe(response.data, groupSlug.value, `/g/${groupSlug.value}/r/create/url`);
     }
 
     const recipeUrl = computed({
@@ -169,41 +176,15 @@ export default defineNuxtComponent({
       },
     });
 
-    const importKeywordsAsTags = computed({
-      get() {
-        return route.query.use_keywords === "1";
-      },
-      set(v: boolean) {
-        router.replace({ query: { ...route.query, use_keywords: v ? "1" : "0" } });
-      },
-    });
 
-    const stayInEditMode = computed({
-      get() {
-        return route.query.edit === "1";
-      },
-      set(v: boolean) {
-        router.replace({ query: { ...route.query, edit: v ? "1" : "0" } });
-      },
-    });
-
-    const parseRecipe = computed({
-      get() {
-        return route.query.parse === "1";
-      },
-      set(v: boolean) {
-        router.replace({ query: { ...route.query, parse: v ? "1" : "0" } });
-      },
-    })
 
     onMounted(() => {
-      if (!recipeUrl.value) {
+      if (recipeUrl.value && recipeUrl.value.includes("https")) {
+        createByUrl(recipeUrl.value, importKeywordsAsTags.value, stayInEditMode.value, parseRecipe.value);
         return;
       }
 
-      if (recipeUrl.value.includes("https")) {
-        createByUrl(recipeUrl.value, importKeywordsAsTags.value, stayInEditMode.value, parseRecipe.value);
-      }
+      initializeFromPreferences();
     });
 
     const domUrlForm = ref<VForm | null>(null);
@@ -219,7 +200,7 @@ export default defineNuxtComponent({
       }
       state.loading = true;
       const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags);
-      handleResponse(response, stayInEditMode, parseRecipe, importKeywordsAsTags);
+      handleResponse(response, importKeywordsAsTags);
     }
 
     return {
