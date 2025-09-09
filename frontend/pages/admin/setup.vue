@@ -176,10 +176,19 @@
           <v-stepper-actions
             :disabled="isSubmitting"
             prev-text="general.back"
-            next-text="general.submit"
             @click:prev="onPrev"
-            @click:next="onNext"
-          />
+          >
+            <template #next>
+              <BaseButton
+                create flat
+                :disabled="isSubmitting"
+                :loading="isSubmitting"
+                :icon="$globals.icons.check"
+                :text="$t('general.submit')"
+                @click="onNext"
+              />
+            </template>
+          </v-stepper-actions>
         </v-stepper-window-item>
 
         <!-- END -->
@@ -216,10 +225,20 @@
           <v-stepper-actions
             :disabled="isSubmitting"
             prev-text="general.back"
-            next-text="general.home"
             @click:prev="onPrev"
-            @click:next="onFinish"
-          />
+          >
+            <template #next>
+              <BaseButton
+                flat
+                color="primary"
+                :disabled="isSubmitting"
+                :loading="isSubmitting"
+                :icon="$globals.icons.home"
+                :text="$t('general.home')"
+                @click="onFinish"
+              />
+            </template>
+          </v-stepper-actions>
         </v-stepper-window-item>
       </v-stepper-window>
     </v-stepper>
