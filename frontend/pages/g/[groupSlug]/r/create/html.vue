@@ -48,11 +48,13 @@
         />
         <v-checkbox
           v-model="importKeywordsAsTags"
+          color="primary"
           hide-details
           :label="$t('recipe.import-original-keywords-as-tags')"
         />
         <v-checkbox
           v-model="stayInEditMode"
+          color="primary"
           hide-details
           :label="$t('recipe.stay-in-edit-mode')"
         />
