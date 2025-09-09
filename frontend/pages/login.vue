@@ -52,7 +52,7 @@
           Mealie
         </v-toolbar-title>
       </v-toolbar>
-      <AppLogo />
+      <AppLogo :size="100" />
       <v-card-title class="text-h5 justify-center pb-3">
         {{ $t('user.sign-in') }}
       </v-card-title>
@@ -217,7 +217,6 @@ import { usePasswordField } from "~/composables/use-passwords";
 import { alert } from "~/composables/use-toast";
 import { useAsyncKey } from "~/composables/use-utils";
 import type { AppStartupInfo } from "~/lib/api/types/admin";
-import AppLogo from "~/components/global/AppLogo.vue";
 
 export default defineNuxtComponent({
   setup() {

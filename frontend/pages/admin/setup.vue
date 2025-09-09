@@ -240,7 +240,6 @@ import { alert } from "~/composables/use-toast";
 import { useUserRegistrationForm } from "~/composables/use-users/user-registration-form";
 import { useCommonSettingsForm } from "~/composables/use-setup/common-settings-form";
 import UserRegistrationForm from "~/components/Domain/User/UserRegistrationForm.vue";
-import AppLogo from "~/components/global/AppLogo.vue";
 
 definePageMeta({
   layout: "blank",
