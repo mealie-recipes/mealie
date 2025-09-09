@@ -35,8 +35,8 @@
           v-if="inputField.type === fieldTypes.BOOLEAN"
           v-model="model[inputField.varName]"
           :name="inputField.varName"
-          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
-          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
+          :readonly="fieldState[inputField.varName]?.readonly"
+          :disabled="fieldState[inputField.varName]?.disabled"
           :hint="inputField.hint"
           :hide-details="!inputField.hint"
           :persistent-hint="!!inputField.hint"
@@ -53,8 +53,8 @@
         <v-text-field
           v-else-if="inputField.type === fieldTypes.TEXT || inputField.type === fieldTypes.PASSWORD"
           v-model="model[inputField.varName]"
-          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
-          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
+          :readonly="fieldState[inputField.varName]?.readonly"
+          :disabled="fieldState[inputField.varName]?.disabled"
           :type="inputField.type === fieldTypes.PASSWORD ? 'password' : 'text'"
           variant="solo-filled"
           flat
@@ -72,8 +72,8 @@
         <v-textarea
           v-else-if="inputField.type === fieldTypes.TEXT_AREA"
           v-model="model[inputField.varName]"
-          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
-          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
+          :readonly="fieldState[inputField.varName]?.readonly"
+          :disabled="fieldState[inputField.varName]?.disabled"
           variant="solo-filled"
           flat
           rows="3"
@@ -91,8 +91,8 @@
         <v-select
           v-else-if="inputField.type === fieldTypes.SELECT"
           v-model="model[inputField.varName]"
-          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
-          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
+          :readonly="fieldState[inputField.varName]?.readonly"
+          :disabled="fieldState[inputField.varName]?.disabled"
           variant="solo-filled"
           flat
           :label="inputField.label"
@@ -265,6 +265,19 @@ function rulesByKey(keys?: ValidatorKey[] | null) {
 }
 
 const defaultRules = computed<any[]>(() => rulesByKey(props.globalRules as any));
+
+// Combined state map for readonly and disabled fields
+const fieldState = computed<Record<string, { readonly: boolean; disabled: boolean }>>(() => {
+  const map: Record<string, { readonly: boolean; disabled: boolean }> = {};
+  (props.items || []).forEach((field: any) => {
+    const base = (field.disableUpdate && props.updateMode) || (!props.updateMode && field.disableCreate);
+    map[field.varName] = {
+      readonly: base || !!props.readonlyFields?.includes(field.varName),
+      disabled: base || !!props.disabledFields?.includes(field.varName),
+    };
+  });
+  return map;
+});
 
 function removeByIndex(list: never[], index: number) {
   // Removes the item at the index
