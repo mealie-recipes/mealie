@@ -149,6 +149,7 @@ import type { ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe"
 import type { Parser, } from "~/lib/api/user/recipes/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useAppInfo, useUserApi } from "~/composables/api";
+import { parseIngredientText } from "~/composables/recipes";
 import { useGlobalI18n } from "~/composables/use-global-i18n";
 import { useParsingPreferences } from "~/composables/use-users/preferences";
 
@@ -279,7 +280,7 @@ async function parseIngredients() {
   }
   parserLoading.value = true;
   try {
-    const ingsAsString = props.ingredients.map(ing => ing.display ?? "");
+    const ingsAsString = props.ingredients.map(ing => parseIngredientText(ing, 1, false) ?? "");
     const { data, error } = await api.recipes.parseIngredients(parser.value, ingsAsString);
     if (error || !data) {
       throw new Error("Failed to parse ingredients");
