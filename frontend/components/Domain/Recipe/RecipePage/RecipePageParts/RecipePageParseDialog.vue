@@ -64,12 +64,20 @@
           <v-card-actions>
             <v-spacer />
             <BaseButton
-              v-if="currentMissingUnit"
+              v-if="currentMissingUnit && !currentIng.ingredient.unit?.id"
               color="warning"
               size="small"
               @click="createMissingUnit"
             >
               {{ i18n.t("recipe.parser.missing-unit", { unit: currentMissingUnit }) }}
+            </BaseButton>
+            <BaseButton
+              v-if="currentMissingUnit && currentIng.ingredient.unit?.id"
+              color="warning"
+              size="small"
+              @click="addMissingUnitAsAlias"
+            >
+              {{ i18n.t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingUnit, item: currentIng.ingredient.unit.name}) }}
             </BaseButton>
             <BaseButton
               v-if="currentMissingFood && !currentIng.ingredient.food?.id"
@@ -83,9 +91,9 @@
               v-if="currentMissingFood && currentIng.ingredient.food?.id"
               color="warning"
               size="small"
-              @click="addMissingAsAlias"
+              @click="addMissingFoodAsAlias"
             >
-              {{ i18n.t("recipe.parser.add-text-as-alias-for-food", { text: currentMissingFood, food: currentIng.ingredient.food.name}) }}
+              {{ i18n.t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingFood, item: currentIng.ingredient.food.name}) }}
             </BaseButton>
           </v-card-actions>
         </v-card-text>
@@ -156,7 +164,7 @@
 
 <script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
-import type { IngredientFood, ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { IngredientFood, IngredientUnit, ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe";
 import type { Parser } from "~/lib/api/user/recipes/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useAppInfo, useUserApi } from "~/composables/api";
@@ -352,7 +360,28 @@ async function createMissingFood() {
   currentMissingFood.value = "";
 }
 
-async function addMissingAsAlias() {
+async function addMissingUnitAsAlias() {
+  const unit = currentIng.value?.ingredient.unit as IngredientUnit | undefined;
+  if (!currentMissingUnit.value || !unit?.id) {
+    return;
+  }
+
+  unit.aliases = unit.aliases || [];
+  if (unit.aliases.map((a) => a.name).includes(currentMissingUnit.value)) {
+    return;
+  }
+
+  unit.aliases.push({ name: currentMissingUnit.value });
+  const updated = await unitStore.actions.updateOne(unit);
+  if (!updated) {
+    return; // TODO: flash an alert
+  }
+
+  currentIng.value!.ingredient.unit = updated;
+  currentMissingUnit.value = "";
+}
+
+async function addMissingFoodAsAlias() {
   const food = currentIng.value?.ingredient.food as IngredientFood | undefined;
   if (!currentMissingFood.value || !food?.id) {
     return;

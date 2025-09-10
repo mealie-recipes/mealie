@@ -676,7 +676,7 @@
       "confidence-score": "Confidence Score",
       "ingredient-parser-description": "Your ingredients have successfully been parsed. We'll only show you the ingredients we're not sure about, so you can review and potentially make edits. If any foods or units are missing, be sure to select one from your data store or create a new one.",
       "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-food": "Add \"{text}\" as alias for {food}"
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
     },
     "reset-servings-count": "Reset Servings Count",
     "not-linked-ingredients": "Additional Ingredients",
