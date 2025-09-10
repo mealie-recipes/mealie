@@ -85,7 +85,7 @@
               size="small"
               @click="addMissingAsAlias"
             >
-              {{ `Add ${currentMissingFood} as alias for ${currentIng.ingredient.food.name}` }}
+              {{ i18n.t("recipe.parser.add-text-as-alias-for-food", { text: currentMissingFood, food: currentIng.ingredient.food.name}) }}
             </BaseButton>
           </v-card-actions>
         </v-card-text>
