@@ -6623,7 +6623,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kandiszucker",
-                "plural_name": "rock sugars"
+                "plural_name": "Kandiszucker"
             },
             "confectioners' sweetener": {
                 "aliases": [],
@@ -7202,7 +7202,7 @@
             "barbecue seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "barbecue seasoning",
+                "name": "Grill-Gewürze",
                 "plural_name": "barbecue seasonings"
             },
             "apple pie spice": {
@@ -7656,7 +7656,7 @@
             "vanilla extract": {
                 "aliases": [
                     "Vanille",
-                    "vanillas"
+                    "Vanille"
                 ],
                 "description": "",
                 "name": "Vanille Extrakt",
