@@ -265,7 +265,7 @@ function checkFood(ing: ParsedIngredient) {
 }
 
 function nextIngredient() {
-  let nextIndex = Math.min(state.currentParsedIndex + 1, parsedIngs.value.length - 1);
+  let nextIndex = state.currentParsedIndex + 1;
 
   while (nextIndex < parsedIngs.value.length) {
     const current = parsedIngs.value[nextIndex];
