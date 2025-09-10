@@ -3,6 +3,7 @@
     <RecipePageParseDialog
       v-model="isParsing"
       :ingredients="recipe.recipeIngredient"
+      width="70%"
       @update:model-value="toggleIsParsing"
     />
     <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
