@@ -2,13 +2,61 @@
   <div v-if="yieldDisplay">
     <div class="text-center d-flex align-center">
       <div>
-        <v-menu v-model="menu" :disabled="!canEditScale" offset-y top nudge-top="6" :close-on-content-click="false">
-          <template #activator="{ on, attrs }">
-            <v-card class="pa-1 px-2" dark color="secondary darken-1" small v-bind="attrs" v-on="on">
-              <v-icon small class="mr-2">{{ $globals.icons.edit }}</v-icon>
+        <v-menu
+          v-model="menu"
+          :disabled="!canEditScale"
+          offset-y
+          top
+          nudge-top="6"
+          :close-on-content-click="false"
+        >
+          <template #activator="{ props: activatorProps }">
+            <v-tooltip
+              v-if="canEditScale"
+              size="small"
+              location="top"
+              color="secondary-darken-1"
+            >
+              <template #activator="{ props: tooltipProps }">
+                <v-card
+                  class="pa-1 px-2"
+                  dark
+                  color="secondary-darken-1"
+                  size="small"
+                  v-bind="{ ...activatorProps, ...tooltipProps }"
+                  :style="{ cursor: canEditScale ? '' : 'default' }"
+                >
+                  <v-icon
+                    v-if="canEditScale"
+                    size="small"
+                    class="mr-2"
+                  >
+                    {{ $globals.icons.edit }}
+                  </v-icon>
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <span v-html="yieldDisplay" />
+                </v-card>
+              </template>
+              <span> {{ $t("recipe.edit-scale") }} </span>
+            </v-tooltip>
+            <v-card
+              v-else
+              class="pa-1 px-2"
+              dark
+              color="secondary-darken-1"
+              size="small"
+              v-bind="activatorProps"
+              :style="{ cursor: canEditScale ? '' : 'default' }"
+            >
+              <v-icon
+                v-if="canEditScale"
+                size="small"
+                class="mr-2"
+              >
+                {{ $globals.icons.edit }}
+              </v-icon>
               <!-- eslint-disable-next-line vue/no-v-html -->
-              <span v-html="yieldDisplay"></span>
-
+              <span v-html="yieldDisplay" />
             </v-card>
           </template>
           <v-card min-width="300px">
@@ -17,10 +65,27 @@
             </v-card-title>
             <v-card-text class="mt-n5">
               <div class="mt-4 d-flex align-center">
-                <v-text-field v-model="yieldQuantityEditorValue" type="number" :min="0" hide-spin-buttons @input="recalculateScale(yieldQuantityEditorValue)" />
-                <v-tooltip right color="secondary darken-1">
-                  <template #activator="{ on, attrs }">
-                    <v-btn v-bind="attrs" icon class="mx-1" small v-on="on" @click="scale = 1">
+                <v-text-field
+                  :model-value="yieldQuantity"
+                  type="number"
+                  :min="0"
+                  variant="underlined"
+                  hide-spin-buttons
+                  @update:model-value="recalculateScale(parseFloat($event) || 0)"
+                />
+                <v-tooltip
+                  location="end"
+                  color="secondary-darken-1"
+                >
+                  <template #activator="{ props: resetTooltipProps }">
+                    <v-btn
+                      v-bind="resetTooltipProps"
+                      icon
+                      flat
+                      class="mx-1"
+                      size="small"
+                      @click="scale = 1"
+                    >
                       <v-icon>
                         {{ $globals.icons.undo }}
                       </v-icon>
@@ -40,13 +105,13 @@
         :buttons="[
           {
             icon: $globals.icons.minus,
-            text: $tc('recipe.decrease-scale-label'),
+            text: $t('recipe.decrease-scale-label'),
             event: 'decrement',
             disabled: disableDecrement,
           },
           {
             icon: $globals.icons.createAlt,
-            text: $tc('recipe.increase-scale-label'),
+            text: $t('recipe.increase-scale-label'),
             event: 'increment',
           },
         ]"
@@ -57,87 +122,50 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, ref, useContext, watch } from "@nuxtjs/composition-api";
+<script setup lang="ts">
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
-export default defineComponent({
-  props: {
-    value: {
-      type: Number,
-      required: true,
-    },
-    recipeServings: {
-      type: Number,
-      default: 0,
-    },
-    editScale: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props, { emit }) {
-    const { i18n } = useContext();
-    const menu = ref<boolean>(false);
-    const canEditScale = computed(() => props.editScale && props.recipeServings > 0);
+interface Props {
+  recipeServings?: number;
+  editScale?: boolean;
+}
+const props = withDefaults(defineProps<Props>(), {
+  recipeServings: 0,
+  editScale: false,
+});
 
-    const scale = computed({
-      get: () => props.value,
-      set: (value) => {
-        const newScaleNumber = parseFloat(`${value}`);
-        emit("input", isNaN(newScaleNumber) ? 0 : newScaleNumber);
-      },
-    });
+const scale = defineModel<number>({ required: true });
 
-    function recalculateScale(newYield: number) {
-      if (isNaN(newYield) || newYield <= 0) {
-        return;
-      }
+const i18n = useI18n();
+const menu = ref<boolean>(false);
+const canEditScale = computed(() => props.editScale && props.recipeServings > 0);
 
-      if (props.recipeServings <= 0) {
-        scale.value = 1;
-      } else {
-        scale.value = newYield / props.recipeServings;
-      }
-    }
+function recalculateScale(newYield: number) {
+  if (isNaN(newYield) || newYield <= 0) {
+    return;
+  }
 
-    const recipeYieldAmount = computed(() => {
-      return useScaledAmount(props.recipeServings, scale.value);
-    });
-    const yieldQuantity = computed(() => recipeYieldAmount.value.scaledAmount);
-    const yieldDisplay = computed(() => {
-      return yieldQuantity.value ? i18n.t(
-        "recipe.serves-amount", { amount: recipeYieldAmount.value.scaledAmountDisplay }
-      ) as string : "";
-    });
+  if (props.recipeServings <= 0) {
+    scale.value = 1;
+  }
+  else {
+    scale.value = newYield / props.recipeServings;
+  }
+}
 
-    // only update yield quantity when the menu opens, so we don't override the user's input
-    const yieldQuantityEditorValue = ref(recipeYieldAmount.value.scaledAmount);
-    watch(
-      () => menu.value,
-      () => {
-        if (!menu.value) {
-          return;
-        }
+const recipeYieldAmount = computed(() => {
+  return useScaledAmount(props.recipeServings, scale.value);
+});
+const yieldQuantity = computed(() => recipeYieldAmount.value.scaledAmount);
+const yieldDisplay = computed(() => {
+  return yieldQuantity.value
+    ? i18n.t(
+      "recipe.serves-amount", { amount: recipeYieldAmount.value.scaledAmountDisplay },
+    ) as string
+    : "";
+});
 
-        yieldQuantityEditorValue.value = recipeYieldAmount.value.scaledAmount;
-      }
-    )
-
-    const disableDecrement = computed(() => {
-      return recipeYieldAmount.value.scaledAmount <= 1;
-    });
-
-    return {
-      menu,
-      canEditScale,
-      scale,
-      recalculateScale,
-      yieldDisplay,
-      yieldQuantity,
-      yieldQuantityEditorValue,
-      disableDecrement,
-    };
-  },
+const disableDecrement = computed(() => {
+  return yieldQuantity.value <= 1;
 });
 </script>

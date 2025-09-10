@@ -66,6 +66,7 @@ class IngredientFoodsController(BaseUserController):
 
     @router.put("/{item_id}", response_model=IngredientFood)
     def update_one(self, item_id: UUID4, data: CreateIngredientFood):
+        data = mapper.cast(data, SaveIngredientFood, group_id=self.group_id)
         return self.mixins.update_one(data, item_id)
 
     @router.delete("/{item_id}", response_model=IngredientFood)

@@ -1,7 +1,14 @@
 <template>
   <div>
-    <v-btn outlined class="rounded-xl my-1 mx-1" :to="to">
-      <v-icon v-if="icon != ''" left>
+    <v-btn
+      variant="outlined"
+      class="rounded-xl my-1 mx-1"
+      :to="to"
+    >
+      <v-icon
+        v-if="icon != ''"
+        start
+      >
         {{ icon }}
       </v-icon>
       {{ text }}
@@ -10,9 +17,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
-
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     to: {
       type: String,

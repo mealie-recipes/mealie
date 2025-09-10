@@ -1,101 +1,100 @@
 <template>
   <div>
     <div class="d-flex justify-end flex-wrap align-stretch">
-      <RecipePageInfoCardImage v-if="landscape" :recipe="recipe" />
+      <RecipePageInfoCardImage
+        v-if="landscape"
+        :recipe="recipe"
+      />
       <v-card
         :width="landscape ? '100%' : '50%'"
         flat
         class="d-flex flex-column justify-center align-center"
       >
-        <v-card-text>
-          <v-card-title class="headline pa-0 flex-column align-center">
+        <v-card-text class="w-100">
+          <div class="d-flex flex-column align-center">
+          <v-card-title class="text-h5 font-weight-regular pa-0 text-wrap text-center opacity-80">
             {{ recipe.name }}
-            <RecipeRating :key="recipe.slug" :value="recipe.rating" :recipe-id="recipe.id" :slug="recipe.slug" />
           </v-card-title>
+          <RecipeRating
+              :key="recipe.slug"
+              :value="recipe.rating"
+              :recipe-id="recipe.id"
+              :slug="recipe.slug"
+            />
+          </div>
           <v-divider class="my-2" />
-          <SafeMarkdown :source="recipe.description" />
-          <v-divider />
-          <v-container class="d-flex flex-row flex-wrap justify-center align-center">
-            <div class="mx-5">
-              <v-row no-gutters class="mb-1">
-                <v-col v-if="recipe.recipeYieldQuantity || recipe.recipeYield" cols="12" class="d-flex flex-wrap justify-center">
+          <SafeMarkdown :source="recipe.description" class="my-3" />
+          <v-divider v-if="recipe.description" />
+          <v-container class="d-flex flex-row flex-wrap justify-center">
+            <div class="mx-6">
+              <v-row no-gutters>
+                <v-col
+                  v-if="recipe.recipeYieldQuantity || recipe.recipeYield"
+                  cols="12"
+                  class="d-flex flex-wrap justify-center"
+                >
                   <RecipeYield
                     :yield-quantity="recipe.recipeYieldQuantity"
-                    :yield="recipe.recipeYield"
+                    :yield-text="recipe.recipeYield"
                     :scale="recipeScale"
+                    class="mb-4"
                   />
                 </v-col>
               </v-row>
               <v-row no-gutters>
-                <v-col cols="12" class="d-flex flex-wrap justify-center">
+                <v-col
+                  cols="12"
+                  class="d-flex flex-wrap justify-center"
+                >
                   <RecipeLastMade
                     v-if="isOwnGroup"
-                    :value="recipe.lastMade"
                     :recipe="recipe"
-                    :class="true ? undefined : 'force-bottom'"
+                    class="mb-4"
                   />
                 </v-col>
               </v-row>
             </div>
-            <div class="mx-5">
+            <div v-if="recipe.prepTime || recipe.totalTime || recipe.performTime" class="mx-6">
               <RecipeTimeCard
-                stacked
                 container-class="d-flex flex-wrap justify-center"
                 :prep-time="recipe.prepTime"
                 :total-time="recipe.totalTime"
                 :perform-time="recipe.performTime"
+                class="mb-4"
               />
             </div>
           </v-container>
         </v-card-text>
       </v-card>
-      <RecipePageInfoCardImage v-if="!landscape" :recipe="recipe" max-width="50%" class="my-auto" />
+      <RecipePageInfoCardImage
+        v-if="!landscape"
+        :recipe="recipe"
+        max-width="50%"
+        class="my-auto"
+      />
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+<script setup lang="ts">
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
 import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import RecipeYield from "~/components/Domain/Recipe/RecipeYield.vue";
 import RecipePageInfoCardImage from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInfoCardImage.vue";
-import { Recipe } from "~/lib/api/types/recipe";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
-export default defineComponent({
-  components: {
-    RecipeRating,
-    RecipeLastMade,
-    RecipeTimeCard,
-    RecipeYield,
-    RecipePageInfoCardImage,
-  },
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
-    recipeScale: {
-      type: Number,
-      default: 1,
-    },
-    landscape: {
-      type: Boolean,
-      required: true,
-    },
-  },
-  setup() {
-    const { $vuetify } = useContext();
-    const useMobile = computed(() => $vuetify.breakpoint.smAndDown);
+import type { Recipe } from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 
-    const { isOwnGroup } = useLoggedInState();
+interface Props {
+  recipe: NoUndefinedField<Recipe>;
+  recipeScale?: number;
+  landscape: boolean;
+}
 
-    return {
-      isOwnGroup,
-      useMobile,
-    };
-  }
+withDefaults(defineProps<Props>(), {
+  recipeScale: 1,
 });
+
+const { isOwnGroup } = useLoggedInState();
 </script>

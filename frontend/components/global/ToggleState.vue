@@ -1,16 +1,17 @@
 <template>
   <component :is="tag">
-    <slot name="activator" v-bind="{ toggle, state }"> </slot>
-    <slot v-bind="{ state, toggle }"></slot>
+    <slot
+      name="activator"
+      v-bind="{ toggle, state }"
+    />
+    <slot v-bind="{ state, toggle }" />
   </component>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from "@nuxtjs/composition-api";
-
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
-    value: {
+    modelValue: {
       type: Boolean,
       default: false,
     },
@@ -19,7 +20,8 @@ export default defineComponent({
       default: "div",
     },
   },
-  setup(_, context) {
+  emits: ["update:modelValue"],
+  setup(props, context) {
     const state = ref(false);
 
     const toggle = () => {
@@ -27,7 +29,7 @@ export default defineComponent({
     };
 
     watch(state, () => {
-      context.emit("input", state);
+      context.emit("update:modelValue", state.value);
     });
 
     return {

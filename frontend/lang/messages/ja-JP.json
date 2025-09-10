@@ -69,6 +69,7 @@
     "new-notification": "新着通知",
     "event-notifiers": "イベント通知",
     "apprise-url-skipped-if-blank": "通知用URL (空欄の場合はスキップ)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "通知を有効にする",
     "what-events": "この通知はどのイベントを購読すべきですか？",
     "user-events": "ユーザーイベント",
@@ -79,7 +80,8 @@
     "tag-events": "タグイベント",
     "category-events": "カテゴリイベント",
     "when-a-new-user-joins-your-group": "新しいユーザーがグループに参加したとき",
-    "recipe-events": "レシピイベント"
+    "recipe-events": "レシピイベント",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "追加",
@@ -472,6 +474,7 @@
     "comment": "コメント",
     "comments": "コメント",
     "delete-confirmation": "このレシピを削除しますか？",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "レシピを削除",
     "description": "説明",
     "disable-amount": "材料の量を無効にする",
@@ -558,6 +561,7 @@
     "see-original-text": "元のテキストを見る",
     "original-text-with-value": "原文: {originalText}",
     "ingredient-linker": "材料リンク",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "他のステップにリンクしています",
     "auto": "自動",
     "cook-mode": "調理モード",
@@ -570,13 +574,6 @@
     "increase-scale-label": "スケールを 1 ずつ増やす",
     "locked": "ロック済み",
     "public-link": "公開リンク",
-    "timer": {
-      "kitchen-timer": "キッチンタイマー",
-      "start-timer": "タイマー開始",
-      "pause-timer": "タイマーを一時停止",
-      "resume-timer": "タイマーを再開",
-      "stop-timer": "タイマーを停止"
-    },
     "edit-timeline-event": "タイムラインイベントの編集",
     "timeline": "タイムライン",
     "timeline-is-empty": "タイムラインにはまだ何もありません。レシピを作ってみてください！",
@@ -586,10 +583,14 @@
     "made-this": "これを作りました",
     "how-did-it-turn-out": "どうなりましたか？",
     "user-made-this": "{user} がこれを作りました",
-    "last-made-date": "最後は {date} に作りました",
+    "added-to-timeline": "Added to timeline",
+    "failed-to-add-to-timeline": "Failed to add to timeline",
+    "failed-to-update-recipe": "Failed to update recipe",
+    "added-to-timeline-but-failed-to-add-image": "Added to timeline, but failed to add image",
     "api-extras-description": "レシピの追加機能はMealie APIの主な機能です。 サードパーティアプリから参照するために、レシピ内にカスタムJSONキー/値のペアを作成することができます。 これらのキーを使用して情報を提供することができます。例えば、自動化をトリガーしたり、カスタムメッセージをお使いのデバイスにリレーするなどです。",
     "message-key": "メッセージキー",
     "parse": "解析",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "エディタにドラッグ＆ドロップして画像を添付する",
     "drop-image": "画像をドロップ",
     "enable-ingredient-amounts-to-use-this-feature": "この機能を使用するには、材料の量を有効にする",
@@ -607,9 +608,10 @@
     "create-recipe-from-an-image": "画像からレシピを作成",
     "create-recipe-from-an-image-description": "画像をアップロードしてレシピを作成します。 Mealieは、AIを使用して画像からテキストを抽出し、そこからレシピを作成しようとします。",
     "crop-and-rotate-the-image": "テキストのみが表示され、正しい方向になるように画像をトリミングして回転します。",
-    "create-from-image": "画像から作成",
+    "create-from-images": "Create from Images",
     "should-translate-description": "レシピを自分の言語に翻訳",
     "please-wait-image-procesing": "しばらくお待ちください。画像は処理中です。時間がかかる場合があります。",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "URL 一括インポート",
     "debug-scraper": "デバッグスクレーパー",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "名前を指定してレシピを作成します。すべてのレシピには固有の名前が必要です。",
@@ -654,7 +656,6 @@
     "nextStep": "次のステップ",
     "recipe-actions": "レシピ操作",
     "parser": {
-      "experimental-alert-text": "Mealieは、自然言語処理を使用して、レシピ成分のための単位や食品を解析し、作成します。 この機能は実験的であり、常に期待どおりに動作するとは限りません。 解析結果を使用したくない場合は、「キャンセル」を選択することができ、変更内容は保存されません。",
       "ingredient-parser": "Ingredient Parser",
       "explanation": "Ingredient Parserを使用するには、「すべて解析」ボタンをクリックしてプロセスを開始します。 処理された原材料が利用可能になったら、項目を確認し、それらが正しく解析されたことを確認できます。 アイテムタイトルの右側にモデルの信頼度が表示されます。 このスコアは、すべての個々のスコアの平均であり、常に完全に正確であるとは限りません。",
       "alerts-explainer": "一致する食品または単位が見つかってもデータベースに存在しない場合は、アラートが表示されます。",
@@ -666,10 +667,17 @@
       "no-unit": "単位がありません",
       "missing-unit": "欠けている単位を作成: {unit}",
       "missing-food": "欠けている食材を作成: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "食材はありません"
     },
     "reset-servings-count": "サービング数をリセット",
-    "not-linked-ingredients": "追加の材料"
+    "not-linked-ingredients": "追加の材料",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "レシピ検索",
@@ -729,7 +737,7 @@
       "backup-restore": "バックアップと復元",
       "back-restore-description": "このバックアップを復元すると、データベースとデータディレクトリ内のすべての現在のデータが上書きされ、このバックアップの内容に置き換えられます。 {cannot-be-undone} 復元が成功するとログアウトされます。",
       "cannot-be-undone": "この操作は元に戻せません - 注意してください。",
-      "postgresql-note": "PostGreSQLを使用している場合は、復元する前に {backup-restore-process} を確認してください。",
+      "postgresql-note": "PostgreSQLを使用している場合は、復元する前に {backup-restore-process} を確認してください。",
       "backup-restore-process-in-the-documentation": "ドキュメント内のバックアップ/復元プロセス",
       "irreversible-acknowledgment": "このアクションは不可逆的で破壊的で、データ損失を引き起こす可能性があることを理解しています",
       "restore-backup": "バックアップから復元"
@@ -1162,7 +1170,7 @@
     "group-details": "グループの詳細",
     "group-details-description": "アカウントを作成する前に、グループを作成する必要があります。グループにはあなたしか含まれませんが、後で他の人を招待できます。グループのメンバーは、食事計画、買い物リスト、レシピなどを共有できます！",
     "use-seed-data": "シードデータを使用",
-    "use-seed-data-description": "Mealieには、レシピを整理するために役立つデータをグループに追加するために使用できる、食品、単位、ラベルのコレクションが付属しています。",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "アカウントの詳細"
   },
   "validation": {

@@ -17,6 +17,7 @@ from mealie.db.models._model_utils.guid import GUID
 from mealie.db.models.recipe.ingredient import RecipeIngredientModel
 
 from .._model_base import BaseMixins, SqlAlchemyBase
+from ..household.household_to_recipe import HouseholdToRecipe
 from ..users.user_to_recipe import UserToRecipe
 from .api_extras import ApiExtras, api_extras
 from .assets import RecipeAsset
@@ -142,7 +143,11 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     # Time Stamp Properties
     date_added: Mapped[date | None] = mapped_column(sa.Date, default=get_utc_today)
     date_updated: Mapped[datetime | None] = mapped_column(NaiveDateTime)
+
     last_made: Mapped[datetime | None] = mapped_column(NaiveDateTime)
+    made_by: Mapped[list["Household"]] = orm.relationship(
+        "Household", secondary=HouseholdToRecipe.__tablename__, back_populates="made_recipes"
+    )
 
     # Shopping List Refs
     shopping_list_refs: Mapped[list["ShoppingListRecipeReference"]] = orm.relationship(

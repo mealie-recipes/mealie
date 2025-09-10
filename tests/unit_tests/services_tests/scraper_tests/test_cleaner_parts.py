@@ -62,6 +62,36 @@ clean_string_test_cases = (
         input=1,
         expected="1",
     ),
+    CleanerCase(
+        test_id="float",
+        input=1.5,
+        expected="1.5",
+    ),
+    CleanerCase(
+        test_id="none",
+        input=None,
+        expected="",
+    ),
+    CleanerCase(
+        test_id="list empty",
+        input=[],
+        expected="",
+    ),
+    CleanerCase(
+        test_id="list none",
+        input=[None],
+        expected="",
+    ),
+    CleanerCase(
+        test_id="list multiple none",
+        input=[None, None],
+        expected="",
+    ),
+    CleanerCase(
+        test_id="unexpected type",
+        input={"key": "value"},
+        expected="{'key': 'value'}",
+    ),
 )
 
 
@@ -535,6 +565,24 @@ nutrition_test_cases = (
         expected={
             "calories": "100",
             "fatContent": "10",
+        },
+    ),
+    CleanerCase(
+        test_id="calories as int",
+        input={
+            "calories": 100,
+        },
+        expected={
+            "calories": "100",
+        },
+    ),
+    CleanerCase(
+        test_id="calories as float",
+        input={
+            "calories": 100.0,
+        },
+        expected={
+            "calories": "100.0",
         },
     ),
     CleanerCase(

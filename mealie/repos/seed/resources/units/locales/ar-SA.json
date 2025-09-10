@@ -1,140 +1,140 @@
 {
     "teaspoon": {
         "name": "ملعقة صغيرة",
-        "plural_name": "teaspoons",
+        "plural_name": "ملعقة صغيرة",
         "description": "",
         "abbreviation": "ملعقة صغيرة"
     },
     "tablespoon": {
         "name": "ملعقة كبيرة",
-        "plural_name": "tablespoons",
+        "plural_name": "ملعقة كبيرة",
         "description": "",
         "abbreviation": "ملعقة كبيرة"
     },
     "cup": {
         "name": "كوب",
-        "plural_name": "cups",
+        "plural_name": "كوب",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "درجة مئوية"
     },
     "fluid-ounce": {
-        "name": "أوقية 200gm",
-        "plural_name": "fluid ounces",
+        "name": "أونصة سائل",
+        "plural_name": "أونصة سائل",
         "description": "",
-        "abbreviation": "أوقية 200gm"
+        "abbreviation": "أونصة سائل"
     },
     "pint": {
         "name": "نصف لتر",
-        "plural_name": "pints",
+        "plural_name": "نصف لتر",
         "description": "",
         "abbreviation": "نصف لتر"
     },
     "quart": {
         "name": "الربع",
-        "plural_name": "quarts",
+        "plural_name": "لتر",
         "description": "",
         "abbreviation": "الربع"
     },
     "gallon": {
         "name": "جالون",
-        "plural_name": "gallons",
+        "plural_name": "جالون",
         "description": "",
         "abbreviation": "جالون"
     },
     "milliliter": {
-        "name": "ميليلتر",
-        "plural_name": "milliliters",
+        "name": "ميلي لتر",
+        "plural_name": "مللي لترات",
         "description": "",
         "abbreviation": "مل"
     },
     "liter": {
         "name": "لتر",
-        "plural_name": "liters",
+        "plural_name": "لترات",
         "description": "",
         "abbreviation": "لتر"
     },
     "pound": {
         "name": "رطل",
-        "plural_name": "pounds",
+        "plural_name": "رطل",
         "description": "",
         "abbreviation": "رطل",
-        "plural_abbreviation": "lbs"
+        "plural_abbreviation": "رطل"
     },
     "ounce": {
         "name": "أوقية / ألأونضه",
-        "plural_name": "ounces",
+        "plural_name": "أوقية / ألأونضه",
         "description": "",
         "abbreviation": "أونصة"
     },
     "gram": {
         "name": "جرام",
-        "plural_name": "grams",
+        "plural_name": "جرامات",
         "description": "",
         "abbreviation": "غرام"
     },
     "kilogram": {
         "name": "كيلوغرام",
-        "plural_name": "kilograms",
+        "plural_name": "كيلوغرامات",
         "description": "",
         "abbreviation": "كيلوغرام"
     },
     "milligram": {
         "name": "مليغرام",
-        "plural_name": "milligrams",
+        "plural_name": "ميليغرامات",
         "description": "",
         "abbreviation": "مليغرام"
     },
     "splash": {
         "name": "دفقة",
-        "plural_name": "splashes",
+        "plural_name": "رشه",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "اندفاع",
-        "plural_name": "dashes",
+        "plural_name": "رشه",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "حصة الطعام",
-        "plural_name": "servings",
+        "plural_name": "حصة طعام",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "رأس",
-        "plural_name": "heads",
+        "plural_name": "رؤوس",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "القرنفل",
-        "plural_name": "cloves",
+        "plural_name": "القرنفل",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "يمكن",
-        "plural_name": "cans",
+        "plural_name": "علب",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "باقة",
+        "plural_name": "باقات",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "حُزْمَة",
+        "plural_name": "حزمات",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "رشه",
+        "plural_name": "رشاة",
         "description": "",
         "abbreviation": ""
     }

@@ -41,65 +41,6 @@ export interface QueryFilterJSONPart {
   value?: string | string[] | null;
   [k: string]: unknown;
 }
-export interface RecipeCookBook {
-  name: string;
-  description?: string;
-  slug?: string | null;
-  position?: number;
-  public?: boolean;
-  queryFilterString?: string;
-  groupId: string;
-  householdId: string;
-  id: string;
-  queryFilter?: QueryFilterJSON;
-  recipes: RecipeSummary[];
-}
-export interface RecipeSummary {
-  id?: string | null;
-  userId?: string;
-  householdId?: string;
-  groupId?: string;
-  name?: string | null;
-  slug?: string;
-  image?: unknown;
-  recipeServings?: number;
-  recipeYieldQuantity?: number;
-  recipeYield?: string | null;
-  totalTime?: string | null;
-  prepTime?: string | null;
-  cookTime?: string | null;
-  performTime?: string | null;
-  description?: string | null;
-  recipeCategory?: RecipeCategory[] | null;
-  tags?: RecipeTag[] | null;
-  tools?: RecipeTool[];
-  rating?: number | null;
-  orgURL?: string | null;
-  dateAdded?: string | null;
-  dateUpdated?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  lastMade?: string | null;
-}
-export interface RecipeCategory {
-  id?: string | null;
-  name: string;
-  slug: string;
-  [k: string]: unknown;
-}
-export interface RecipeTag {
-  id?: string | null;
-  name: string;
-  slug: string;
-  [k: string]: unknown;
-}
-export interface RecipeTool {
-  id: string;
-  name: string;
-  slug: string;
-  onHand?: boolean;
-  [k: string]: unknown;
-}
 export interface SaveCookBook {
   name: string;
   description?: string;

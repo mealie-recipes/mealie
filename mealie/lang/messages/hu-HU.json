@@ -10,12 +10,12 @@
             "step-text": "A recept lépései és a receptoldal egyéb mezői támogatják a markdown szintaxist.\n\n**Hivatkozás hozzáadása**\n\n[Saját link](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
+            "makes": "Elkészítések",
+            "serves": "Adag",
             "serving": "Adag",
             "servings": "Adag",
-            "yield": "Yield",
-            "yields": "Yields"
+            "yield": "Adag",
+            "yields": "Késleltetve"
         }
     },
     "mealplan": {

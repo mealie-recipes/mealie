@@ -1,7 +1,7 @@
 <template>
   <v-menu
     offset-y
-    left
+    start
     :bottom="!menuTop"
     :nudge-bottom="!menuTop ? '5' : '0'"
     :top="menuTop"
@@ -11,18 +11,30 @@
     open-on-hover
     content-class="d-print-none"
   >
-    <template #activator="{ on, attrs }">
-      <v-btn :fab="fab" :small="fab" :color="color" :icon="!fab" dark v-bind="attrs" v-on="on" @click.prevent>
+    <template #activator="{ props }">
+      <v-btn
+        :class="{ 'rounded-circle': fab }"
+        :small="fab"
+        :color="color"
+        :icon="!fab"
+        dark
+        v-bind="props"
+        @click.prevent
+      >
         <v-icon>{{ $globals.icons.dotsVertical }}</v-icon>
       </v-btn>
     </template>
-    <v-list dense>
-      <v-list-item v-for="(item, index) in items" :key="index" @click="$emit(item.event)">
-        <v-list-item-icon>
+    <v-list density="compact">
+      <v-list-item
+        v-for="(item, index) in items"
+        :key="index"
+        @click="$emit(item.event)"
+      >
+        <template #prepend>
           <v-icon :color="item.color ? item.color : undefined">
             {{ item.icon }}
           </v-icon>
-        </v-list-item-icon>
+        </template>
         <v-list-item-title>{{ item.title }}</v-list-item-title>
       </v-list-item>
     </v-list>
@@ -30,10 +42,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
-import { ContextMenuItem } from "~/composables/use-context-presents";
+import type { ContextMenuItem } from "~/composables/use-context-presents";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     items: {
       type: Array as () => ContextMenuItem[],
@@ -49,7 +60,7 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: "grey darken-2",
+      default: "grey-darken-2",
     },
   },
 });

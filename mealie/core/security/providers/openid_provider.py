@@ -5,6 +5,7 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
+from mealie.core.exceptions import MissingClaimException
 from mealie.core.security.providers.auth_provider import AuthProvider
 from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
@@ -15,8 +16,9 @@ class OpenIDProvider(AuthProvider[UserInfo]):
 
     _logger = root_logger.get_logger("openid_provider")
 
-    def __init__(self, session: Session, data: UserInfo) -> None:
+    def __init__(self, session: Session, data: UserInfo, use_default_groups: bool = False) -> None:
         super().__init__(session, data)
+        self.use_default_groups = use_default_groups
 
     def authenticate(self) -> tuple[str, timedelta] | None:
         """Attempt to authenticate a user given a username and password"""
@@ -25,7 +27,7 @@ class OpenIDProvider(AuthProvider[UserInfo]):
         claims = self.data
         if not claims:
             self._logger.error("[OIDC] No claims in the id_token")
-            return None
+            raise MissingClaimException()
 
         # Log all claims for debugging
         self._logger.debug("[OIDC] Received claims:")
@@ -38,18 +40,27 @@ class OpenIDProvider(AuthProvider[UserInfo]):
                 self.required_claims,
                 claims.keys(),
             )
-            return None
+            raise MissingClaimException()
 
         # Check for empty required claims
         for claim in self.required_claims:
             if not claims.get(claim):
                 self._logger.error("[OIDC] Required claim '%s' is empty", claim)
-                return None
+                raise MissingClaimException()
 
         repos = get_repositories(self.session, group_id=None, household_id=None)
 
         is_admin = False
         if settings.OIDC_REQUIRES_GROUP_CLAIM:
+            # We explicitly allow the groups claim to be missing to account for the behaviour of some IdPs:
+            # https://github.com/keycloak/keycloak/issues/22340
+            # We still log a warning though
+            if settings.OIDC_GROUPS_CLAIM not in claims:
+                self._logger.warning(
+                    "[OIDC] claims did not include a %s claim%s",
+                    settings.OIDC_GROUPS_CLAIM,
+                    ", using an empty list as default" if self.use_default_groups else "",
+                )
             group_claim = claims.get(settings.OIDC_GROUPS_CLAIM, []) or []
             is_admin = settings.OIDC_ADMIN_GROUP in group_claim if settings.OIDC_ADMIN_GROUP else False
             is_valid_user = settings.OIDC_USER_GROUP in group_claim if settings.OIDC_USER_GROUP else True
@@ -110,6 +121,6 @@ class OpenIDProvider(AuthProvider[UserInfo]):
         settings = get_app_settings()
 
         claims = {settings.OIDC_NAME_CLAIM, "email", settings.OIDC_USER_CLAIM}
-        if settings.OIDC_REQUIRES_GROUP_CLAIM:
+        if settings.OIDC_REQUIRES_GROUP_CLAIM and not self.use_default_groups:
             claims.add(settings.OIDC_GROUPS_CLAIM)
         return claims

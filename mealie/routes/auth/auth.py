@@ -11,13 +11,15 @@ from starlette.datastructures import URLPath
 from mealie.core import root_logger, security
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies import get_current_user
-from mealie.core.exceptions import UserLockedOut
+from mealie.core.exceptions import MissingClaimException, UserLockedOut
 from mealie.core.security.providers.openid_provider import OpenIDProvider
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
 from mealie.schema.user.auth import CredentialsRequestForm
+
+from .auth_cache import AuthCache
 
 public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])
@@ -27,7 +29,7 @@ remember_me_duration = timedelta(days=14)
 
 settings = get_app_settings()
 if settings.OIDC_READY:
-    oauth = OAuth()
+    oauth = OAuth(cache=AuthCache())
     scope = None
     if settings.OIDC_SCOPES_OVERRIDE:
         scope = settings.OIDC_SCOPES_OVERRIDE
@@ -125,14 +127,24 @@ async def oauth_callback(request: Request, response: Response, session: Session 
             detail="Could not initialize OAuth client",
         )
     client = oauth.create_client("oidc")
+
     token = await client.authorize_access_token(request)
-    auth_provider = OpenIDProvider(session, token["userinfo"])
-    auth = auth_provider.authenticate()
+
+    auth = None
+    try:
+        auth_provider = OpenIDProvider(session, token["userinfo"])
+        auth = auth_provider.authenticate()
+    except MissingClaimException:
+        try:
+            logger.debug("[OIDC] Claims not present in the ID token, pulling user info")
+            userinfo = await client.userinfo(token=token)
+            auth_provider = OpenIDProvider(session, userinfo, use_default_groups=True)
+            auth = auth_provider.authenticate()
+        except MissingClaimException:
+            auth = None
 
     if not auth:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-        )
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
     access_token, duration = auth
 
     expires_in = duration.total_seconds() if duration else None

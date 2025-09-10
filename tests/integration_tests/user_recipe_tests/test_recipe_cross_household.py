@@ -1,11 +1,13 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
+from dateutil.parser import parse as parse_dt
 from fastapi.testclient import TestClient
 
 from mealie.schema.cookbook.cookbook import SaveCookBook
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_category import TagSave
+from tests import data
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -216,6 +218,42 @@ def test_delete_recipes_from_other_households(
 
 @pytest.mark.parametrize("is_private_household", [True, False])
 @pytest.mark.parametrize("household_lock_recipe_edits", [True, False])
+def test_admin_delete_recipes_from_other_households(
+    api_client: TestClient,
+    unique_admin: TestUser,
+    h2_user: TestUser,
+    is_private_household: bool,
+    household_lock_recipe_edits: bool,
+):
+    household = h2_user.repos.households.get_one(h2_user.household_id)
+    assert household and household.preferences
+    household.preferences.private_household = is_private_household
+    household.preferences.lock_recipe_edits_from_other_households = household_lock_recipe_edits
+    h2_user.repos.household_preferences.update(household.id, household.preferences)
+
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=h2_user.token)
+    assert response.status_code == 201
+    h2_recipe = h2_user.repos.recipes.get_one(response.json())
+    assert h2_recipe and h2_recipe.id
+    h2_recipe_id = str(h2_recipe.id)
+
+    response = api_client.get(api_routes.recipes_slug(h2_recipe_id), headers=unique_admin.token)
+    assert response.status_code == 200
+    recipe_json = response.json()
+    assert recipe_json["id"] == h2_recipe_id
+
+    # Admin users should always be able to delete recipes from other households
+    # regardless of household_lock_recipe_edits setting
+    response = api_client.delete(api_routes.recipes_slug(recipe_json["slug"]), headers=unique_admin.token)
+    assert response.status_code == 200
+
+    # confirm the recipe was deleted
+    response = api_client.get(api_routes.recipes_slug(h2_recipe_id), headers=unique_admin.token)
+    assert response.status_code == 404
+
+
+@pytest.mark.parametrize("is_private_household", [True, False])
+@pytest.mark.parametrize("household_lock_recipe_edits", [True, False])
 def test_user_can_update_last_made_on_other_household(
     api_client: TestClient,
     unique_user: TestUser,
@@ -233,28 +271,50 @@ def test_user_can_update_last_made_on_other_household(
     assert response.status_code == 201
     h2_recipe = h2_user.repos.recipes.get_one(response.json())
     assert h2_recipe and h2_recipe.id
-    h2_recipe_id = h2_recipe.id
     h2_recipe_slug = h2_recipe.slug
 
-    response = api_client.get(api_routes.recipes_slug(h2_recipe_slug), headers=unique_user.token)
-    assert response.status_code == 200
-    recipe = response.json()
-    assert recipe["id"] == str(h2_recipe_id)
-    old_last_made = recipe["lastMade"]
+    dt_1 = datetime.now(tz=UTC)
+    dt_2 = dt_1 + timedelta(days=2)
 
-    now = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
+    # set last made for unique_user and make sure it only updates globally and for unique_user
     response = api_client.patch(
-        api_routes.recipes_slug_last_made(h2_recipe_slug), json={"timestamp": now}, headers=unique_user.token
+        api_routes.recipes_slug_last_made(h2_recipe.slug),
+        json={"timestamp": dt_2.isoformat()},
+        headers=unique_user.token,
     )
     assert response.status_code == 200
-
-    # confirm the last made date was updated
-    response = api_client.get(api_routes.recipes_slug(h2_recipe_slug), headers=unique_user.token)
+    response = api_client.get(api_routes.households_self_recipes_recipe_slug(h2_recipe_slug), headers=unique_user.token)
     assert response.status_code == 200
-    recipe = response.json()
-    assert recipe["id"] == str(h2_recipe_id)
-    new_last_made = recipe["lastMade"]
-    assert new_last_made == now != old_last_made
+    assert (last_made_json := response.json()["lastMade"])
+    assert parse_dt(last_made_json) == dt_2
+
+    response = api_client.get(api_routes.households_self_recipes_recipe_slug(h2_recipe_slug), headers=h2_user.token)
+    assert response.status_code == 200
+    assert response.json()["lastMade"] is None
+
+    recipe = h2_user.repos.recipes.get_one(h2_recipe_slug)
+    assert recipe
+    assert recipe.last_made == dt_2
+
+    # set last made for h2_user and make sure it only updates globally and for h2_user
+    response = api_client.patch(
+        api_routes.recipes_slug_last_made(h2_recipe.slug), json={"timestamp": dt_1.isoformat()}, headers=h2_user.token
+    )
+    assert response.status_code == 200
+    response = api_client.get(api_routes.households_self_recipes_recipe_slug(h2_recipe_slug), headers=h2_user.token)
+    assert response.status_code == 200
+    assert (last_made_json := response.json()["lastMade"])
+    assert parse_dt(last_made_json) == dt_1
+
+    response = api_client.get(api_routes.households_self_recipes_recipe_slug(h2_recipe_slug), headers=unique_user.token)
+    assert response.status_code == 200
+    assert (last_made_json := response.json()["lastMade"])
+    assert parse_dt(last_made_json) == dt_2
+
+    # this shouldn't have updated since dt_2 is newer than dt_1
+    recipe = h2_user.repos.recipes.get_one(h2_recipe_slug)
+    assert recipe
+    assert recipe.last_made == dt_2
 
 
 def test_cookbook_recipes_includes_all_households(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
@@ -312,3 +372,53 @@ def test_cookbooks_from_other_households(api_client: TestClient, unique_user: Te
 
     response = api_client.get(api_routes.recipes, params={"cookbook": h2_cookbook.slug}, headers=unique_user.token)
     assert response.status_code == 200
+
+
+@pytest.mark.parametrize("is_private_household", [True, False])
+@pytest.mark.parametrize("household_lock_recipe_edits", [True, False])
+def test_update_recipe_image_from_other_households(
+    api_client: TestClient,
+    unique_user: TestUser,
+    h2_user: TestUser,
+    is_private_household: bool,
+    household_lock_recipe_edits: bool,
+):
+    household = unique_user.repos.households.get_one(h2_user.household_id)
+    assert household and household.preferences
+    household.preferences.private_household = is_private_household
+    household.preferences.lock_recipe_edits_from_other_households = household_lock_recipe_edits
+    unique_user.repos.household_preferences.update(household.id, household.preferences)
+
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=h2_user.token)
+    assert response.status_code == 201
+    h2_recipe = h2_user.repos.recipes.get_one(response.json())
+    assert h2_recipe and h2_recipe.id
+    h2_recipe_id = str(h2_recipe.id)
+
+    response = api_client.get(api_routes.recipes_slug(h2_recipe_id), headers=unique_user.token)
+    assert response.status_code == 200
+    recipe_json = response.json()
+    assert recipe_json["id"] == h2_recipe_id
+    image_version = response.json()["image"]
+
+    data_payload = {"extension": "jpg"}
+    file_payload = {"image": data.images_test_image_1.read_bytes()}
+
+    response = api_client.put(
+        api_routes.recipes_slug_image(recipe_json["slug"]),
+        data=data_payload,
+        files=file_payload,
+        headers=unique_user.token,
+    )
+
+    if household_lock_recipe_edits:
+        assert response.status_code == 403
+        response = api_client.get(api_routes.recipes_slug(h2_recipe_id), headers=unique_user.token)
+        recipe_respons = response.json()
+        assert recipe_respons["image"] == image_version
+
+    else:
+        assert response.status_code == 200
+        response = api_client.get(api_routes.recipes_slug(h2_recipe_id), headers=unique_user.token)
+        recipe_respons = response.json()
+        assert recipe_respons["image"] is not None

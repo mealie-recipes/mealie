@@ -39,9 +39,9 @@ def test_alembic_revisions_are_in_order() -> None:
     last = None
     for migration in migrations:
         if last is not None:
-            assert (
-                last.revision == migration.down_revision
-            ), f"{last.revision} != {migration.down_revision} for {migration.path}"
+            assert last.revision == migration.down_revision, (
+                f"{last.revision} != {migration.down_revision} for {migration.path}"
+            )
 
         last = migration
         last = migration

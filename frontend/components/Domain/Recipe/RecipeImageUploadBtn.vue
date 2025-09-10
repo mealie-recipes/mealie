@@ -1,9 +1,19 @@
 <template>
   <div class="text-center">
-    <v-menu v-model="menu" offset-y top nudge-top="6" :close-on-content-click="false">
-      <template #activator="{ on, attrs }">
-        <v-btn color="accent" dark v-bind="attrs" v-on="on">
-          <v-icon left>
+    <v-menu
+      v-model="menu"
+      offset-y
+      top
+      nudge-top="6"
+      :close-on-content-click="false"
+    >
+      <template #activator="{ props: activatorProps }">
+        <v-btn
+          color="accent"
+          dark
+          v-bind="activatorProps"
+        >
+          <v-icon start>
             {{ $globals.icons.fileImage }}
           </v-icon>
           {{ $t("general.image") }}
@@ -25,9 +35,21 @@
         </v-card-title>
         <v-card-text class="mt-n5">
           <div>
-            <v-text-field v-model="url" :label="$t('general.url')" class="pt-5" clearable :messages="messages">
-              <template #append-outer>
-                <v-btn class="ml-2" color="primary" :loading="loading" :disabled="!slug" @click="getImageFromURL">
+            <v-text-field
+              v-model="url"
+              :label="$t('general.url')"
+              class="pt-5"
+              clearable
+              :messages="messages"
+            >
+              <template #append>
+                <v-btn
+                  class="ml-2"
+                  color="primary"
+                  :loading="loading"
+                  :disabled="!slug"
+                  @click="getImageFromURL"
+                >
                   {{ $t("general.get") }}
                 </v-btn>
               </template>
@@ -39,53 +61,42 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, reactive, toRefs, useContext } from "@nuxtjs/composition-api";
+<script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 
 const REFRESH_EVENT = "refresh";
 const UPLOAD_EVENT = "upload";
 
-export default defineComponent({
-  props: {
-    slug: {
-      type: String,
-      required: true,
-    },
-  },
-  setup(props, context) {
-    const state = reactive({
-      url: "",
-      loading: false,
-      menu: false,
-    })
+const props = defineProps<{ slug: string }>();
 
-    function uploadImage(fileObject: File) {
-      context.emit(UPLOAD_EVENT, fileObject);
-      state.menu = false;
-    }
+const emit = defineEmits<{
+  refresh: [];
+  upload: [fileObject: File];
+}>();
 
-    const api = useUserApi();
-    async function getImageFromURL() {
-      state.loading = true;
-      if (await api.recipes.updateImagebyURL(props.slug, state.url)) {
-        context.emit(REFRESH_EVENT);
-      }
-      state.loading = false;
-      state.menu = false;
-    }
+const url = ref("");
+const loading = ref(false);
+const menu = ref(false);
 
-    const { i18n } = useContext();
-    const messages = props.slug ? [""] : [i18n.t("recipe.save-recipe-before-use")];
+function uploadImage(fileObject: File) {
+  emit(UPLOAD_EVENT, fileObject);
+  menu.value = false;
+}
 
-    return {
-      ...toRefs(state),
-      uploadImage,
-      getImageFromURL,
-      messages,
-    };
-  },
-});
+const api = useUserApi();
+async function getImageFromURL() {
+  loading.value = true;
+  if (await api.recipes.updateImagebyURL(props.slug, url.value)) {
+    emit(REFRESH_EVENT);
+  }
+  loading.value = false;
+  menu.value = false;
+}
+
+const i18n = useI18n();
+const messages = computed(() =>
+  props.slug ? [""] : [i18n.t("recipe.save-recipe-before-use")],
+);
 </script>
 
 <style lang="scss" scoped></style>

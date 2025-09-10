@@ -1,69 +1,66 @@
 <template>
-  <div v-if="displayText" class="d-flex justify-space-between align-center">
-    <v-chip
-      :small="$vuetify.breakpoint.smAndDown"
-      label
-      :color="color"
+  <div
+    v-if="yieldDisplay"
+    class="d-flex align-center"
+  >
+    <v-row
+      no-gutters
+      class="d-flex flex-wrap align-center"
+      style="font-size: larger;"
     >
-      <v-icon left>
-        {{ $globals.icons.potSteam }}
+      <v-icon
+        size="x-large"
+        start
+        color="primary"
+      >
+        {{ $globals.icons.bread }}
       </v-icon>
-      <!-- eslint-disable-next-line vue/no-v-html -->
-      <span v-html="displayText"></span>
-    </v-chip>
+      <p class="my-0 opacity-80">
+        <span class="font-weight-bold">{{ $t("recipe.yield") }}</span><br>
+        <!-- eslint-disable-next-line vue/no-v-html -->
+        <span v-html="yieldDisplay" />
+      </p>
+    </v-row>
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+<script setup lang="ts">
 import DOMPurify from "dompurify";
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
-export default defineComponent({
-  props: {
-    yieldQuantity: {
-      type: Number,
-      default: 0,
-    },
-    yield: {
-      type: String,
-      default: "",
-    },
-    scale: {
-      type: Number,
-      default: 1,
-    },
-    color: {
-      type: String,
-      default: "accent custom-transparent"
-    },
-  },
-  setup(props) {
-    const { i18n } = useContext();
+interface Props {
+  yieldQuantity?: number;
+  yieldText?: string;
+  scale?: number;
+  color?: string;
+}
+const props = withDefaults(defineProps<Props>(), {
+  yieldQuantity: 0,
+  yieldText: "",
+  scale: 1,
+  color: "accent custom-transparent",
+});
 
-    function sanitizeHTML(rawHtml: string) {
-      return DOMPurify.sanitize(rawHtml, {
-        USE_PROFILES: { html: true },
-        ALLOWED_TAGS: ["strong", "sup"],
-      });
-    }
+function sanitizeHTML(rawHtml: string) {
+  return DOMPurify.sanitize(rawHtml, {
+    USE_PROFILES: { html: true },
+    ALLOWED_TAGS: ["strong", "sup"],
+  });
+}
 
-    const displayText = computed(() => {
-      if (!(props.yieldQuantity || props.yield)) {
-        return "";
-      }
+const yieldDisplay = computed<string>(() => {
+  const components: string[] = [];
 
-      const { scaledAmountDisplay } = useScaledAmount(props.yieldQuantity, props.scale);
+  const { scaledAmountDisplay } = useScaledAmount(props.yieldQuantity, props.scale);
+  if (scaledAmountDisplay) {
+    components.push(scaledAmountDisplay);
+  }
 
-      return i18n.t("recipe.yields-amount-with-text", {
-        amount: scaledAmountDisplay,
-        text: sanitizeHTML(props.yield),
-      }) as string;
-    });
+  const text = props.yieldText;
+  if (text) {
+    components.push(text);
+  }
 
-    return {
-      displayText,
-    };
-  },
+  return sanitizeHTML(components.join(" "));
 });
 </script>

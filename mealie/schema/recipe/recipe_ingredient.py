@@ -7,7 +7,7 @@ from typing import ClassVar
 from uuid import UUID, uuid4
 
 from pydantic import UUID4, ConfigDict, Field, field_validator, model_validator
-from sqlalchemy.orm import joinedload
+from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.recipe import IngredientFoodModel
@@ -38,7 +38,6 @@ class UnitFoodBase(MealieModel):
     plural_name: str | None = None
     description: str = ""
     extras: dict | None = {}
-    on_hand: bool = False
 
     @field_validator("id", mode="before")
     def convert_empty_id_to_none(cls, v):
@@ -68,6 +67,7 @@ class IngredientFoodAlias(CreateIngredientFoodAlias):
 class CreateIngredientFood(UnitFoodBase):
     label_id: UUID4 | None = None
     aliases: list[CreateIngredientFoodAlias] = []
+    households_with_ingredient_food: list[str] = []
 
 
 class SaveIngredientFood(CreateIngredientFood):
@@ -92,9 +92,23 @@ class IngredientFood(CreateIngredientFood):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [
+            selectinload(IngredientFoodModel.households_with_ingredient_food),
             joinedload(IngredientFoodModel.extras),
             joinedload(IngredientFoodModel.label),
         ]
+
+    @field_validator("households_with_ingredient_food", mode="before")
+    def convert_households_to_slugs(cls, v):
+        if not v:
+            return []
+
+        try:
+            return [household.slug for household in v]
+        except AttributeError:
+            return v
+
+    def is_on_hand(self, household_slug: str) -> bool:
+        return household_slug in self.households_with_tool
 
 
 class IngredientFoodPagination(PaginationBase):
@@ -139,7 +153,7 @@ class IngredientUnit(CreateIngredientUnit):
 
 
 class RecipeIngredientBase(MealieModel):
-    quantity: NoneFloat = 1
+    quantity: NoneFloat = 0
     unit: IngredientUnit | CreateIngredientUnit | None = None
     food: IngredientFood | CreateIngredientFood | None = None
     referenced_recipe: Recipe | None = None
@@ -148,7 +162,6 @@ class RecipeIngredientBase(MealieModel):
 
     is_food: bool | None = None
     is_recipe: bool | None = None
-    disable_amount: bool | None = None
     display: str = ""
     """
     How the ingredient should be displayed
@@ -272,28 +285,17 @@ class RecipeIngredientBase(MealieModel):
     def _format_display(self) -> str:
         components = []
 
-        use_food = True
-        if self.is_food is False:
-            use_food = False
-        elif self.disable_amount is True:
-            use_food = False
-
-        # ingredients with no food come across with a qty of 1, which looks weird
-        # e.g. "1 2 tbsp of olive oil"
-        if self.quantity and (use_food or self.quantity != 1):
+        if self.quantity:
             components.append(self._format_quantity_for_display())
 
-        if not use_food:
-            components.append(self.note or "")
-        else:
-            if self.quantity and self.unit:
-                components.append(self._format_unit_for_display())
+        if self.quantity and self.unit:
+            components.append(self._format_unit_for_display())
 
-            if self.food:
-                components.append(self._format_food_for_display())
+        if self.food:
+            components.append(self._format_food_for_display())
 
-            if self.note:
-                components.append(self.note)
+        if self.note:
+            components.append(self.note)
 
         return " ".join(components).strip()
 
@@ -305,7 +307,6 @@ class IngredientUnitPagination(PaginationBase):
 class RecipeIngredient(RecipeIngredientBase):
     title: str | None = None
     original_text: str | None = None
-    disable_amount: bool = True
 
     # Ref is used as a way to distinguish between an individual ingredient on the frontend
     # It is required for the reorder and section titles to function properly because of how

@@ -1,7 +1,6 @@
-import { Ref, useContext } from "@nuxtjs/composition-api";
 import { useLocalStorage, useSessionStorage } from "@vueuse/core";
-import { RegisteredParser, TimelineEventType } from "~/lib/api/types/recipe";
-import { QueryFilterJSON } from "~/lib/api/types/response";
+import type { RegisteredParser, TimelineEventType } from "~/lib/api/types/recipe";
+import type { QueryFilterJSON } from "~/lib/api/types/response";
 
 export interface UserPrintPreferences {
   imagePosition: string;
@@ -35,7 +34,6 @@ export interface UserRecipePreferences {
 
 export interface UserShoppingListPreferences {
   viewAllLists: boolean;
-  viewByLabel: boolean;
 }
 
 export interface UserTimelinePreferences {
@@ -68,7 +66,7 @@ export function useUserMealPlanPreferences(): Ref<UserMealPlanPreferences> {
     {
       numberOfDays: 7,
     },
-    { mergeDefaults: true }
+    { mergeDefaults: true },
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserMealPlanPreferences>;
@@ -85,7 +83,7 @@ export function useUserPrintPreferences(): Ref<UserPrintPreferences> {
       showNotes: true,
       expandChildRecipes: false,
     },
-    { mergeDefaults: true }
+    { mergeDefaults: true },
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserPrintPreferences>;
@@ -94,18 +92,18 @@ export function useUserPrintPreferences(): Ref<UserPrintPreferences> {
 }
 
 export function useUserSortPreferences(): Ref<UserRecipePreferences> {
-  const { $globals } = useContext();
+  const { $globals } = useNuxtApp();
 
   const fromStorage = useLocalStorage(
     "recipe-section-preferences",
     {
-      orderBy: "name",
-      orderDirection: "asc",
+      orderBy: "created_at",
+      orderDirection: "desc",
       filterNull: false,
       sortIcon: $globals.icons.sortAlphabeticalAscending,
       useMobileCards: false,
     },
-    { mergeDefaults: true }
+    { mergeDefaults: true },
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserRecipePreferences>;
@@ -119,7 +117,7 @@ export function useUserSearchQuerySession(): Ref<UserSearchQuery> {
     {
       recipe: "",
     },
-    { mergeDefaults: true }
+    { mergeDefaults: true },
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserSearchQuery>;
@@ -127,15 +125,13 @@ export function useUserSearchQuerySession(): Ref<UserSearchQuery> {
   return fromStorage;
 }
 
-
 export function useShoppingListPreferences(): Ref<UserShoppingListPreferences> {
   const fromStorage = useLocalStorage(
     "shopping-list-preferences",
     {
       viewAllLists: false,
-      viewByLabel: true,
     },
-    { mergeDefaults: true }
+    { mergeDefaults: true },
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserShoppingListPreferences>;
@@ -150,7 +146,7 @@ export function useTimelinePreferences(): Ref<UserTimelinePreferences> {
       orderDirection: "asc",
       types: ["info", "system", "comment"] as TimelineEventType[],
     },
-    { mergeDefaults: true }
+    { mergeDefaults: true },
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserTimelinePreferences>;
@@ -164,7 +160,7 @@ export function useParsingPreferences(): Ref<UserParsingPreferences> {
     {
       parser: "nlp",
     },
-    { mergeDefaults: true }
+    { mergeDefaults: true },
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserParsingPreferences>;
@@ -178,7 +174,7 @@ export function useCookbookPreferences(): Ref<UserCookbooksPreferences> {
     {
       hideOtherHouseholds: false,
     },
-    { mergeDefaults: true }
+    { mergeDefaults: true },
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserCookbooksPreferences>;
@@ -199,7 +195,7 @@ export function useRecipeFinderPreferences(): Ref<UserRecipeFinderPreferences> {
       includeFoodsOnHand: true,
       includeToolsOnHand: true,
     },
-    { mergeDefaults: true }
+    { mergeDefaults: true },
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserRecipeFinderPreferences>;

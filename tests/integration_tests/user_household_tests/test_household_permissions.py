@@ -86,3 +86,16 @@ def test_set_member_permissions_no_user(
     payload = get_permissions_payload(str(uuid4()))
     response = api_client.put(api_routes.households_permissions, json=payload, headers=unique_user.token)
     assert response.status_code == 404
+
+
+def test_set_own_permissions(api_client: TestClient, unique_user: TestUser):
+    database = unique_user.repos
+
+    user = database.users.get_one(unique_user.user_id)
+    assert user
+    user.can_manage = True
+    database.users.update(user.id, user)
+
+    form = {"user_id": str(unique_user.user_id), "canOrganize": not user.can_organize}
+    response = api_client.put(api_routes.households_permissions, json=form, headers=unique_user.token)
+    assert response.status_code == 403

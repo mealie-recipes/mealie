@@ -69,6 +69,7 @@
     "new-notification": "Ново известие",
     "event-notifiers": "Известия за събитие",
     "apprise-url-skipped-if-blank": "URL за известяване (пропуска се ако е празно)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Включи известията",
     "what-events": "За кои събития трябва да се получават известия?",
     "user-events": "Потребителски събития",
@@ -79,7 +80,8 @@
     "tag-events": "История на етикетите",
     "category-events": "Събития за категория",
     "when-a-new-user-joins-your-group": "Когато потребител се присъедини към твоята потребителска група",
-    "recipe-events": "Събития на рецептата"
+    "recipe-events": "Събития на рецептата",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Добави",
@@ -472,6 +474,7 @@
     "comment": "Коментар",
     "comments": "Коментари",
     "delete-confirmation": "Сигурни ли сте, че желаете да изтриете тази рецепта?",
+    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
     "delete-recipe": "Изтрий рецептата",
     "description": "Описание",
     "disable-amount": "Изключи количествата за съставките",
@@ -558,6 +561,7 @@
     "see-original-text": "Виж оригиналния текст",
     "original-text-with-value": "Оригинален текст: {originalText}",
     "ingredient-linker": "Инструмент за свързване на съставки",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Свързано към друга стъпка",
     "auto": "Автоматично",
     "cook-mode": "Режим на готвене",
@@ -570,13 +574,6 @@
     "increase-scale-label": "Увеличи мащаба с 1",
     "locked": "Заключено",
     "public-link": "Публична връзка",
-    "timer": {
-      "kitchen-timer": "Кухненски таймер",
-      "start-timer": "Стартирай таймера",
-      "pause-timer": "Поставяне таймера на пауза",
-      "resume-timer": "Възобновяване на таймера",
-      "stop-timer": "Спри таймера"
-    },
     "edit-timeline-event": "Редактирай събитие",
     "timeline": "Хронология на събитията",
     "timeline-is-empty": "Няма история на събитията. Опитайте да приготвите рецептата!",
@@ -586,10 +583,14 @@
     "made-this": "Сготвих рецептата",
     "how-did-it-turn-out": "Как се получи?",
     "user-made-this": "{user} направи това",
-    "last-made-date": "Последно приготвена на {date}",
+    "added-to-timeline": "Added to timeline",
+    "failed-to-add-to-timeline": "Failed to add to timeline",
+    "failed-to-update-recipe": "Failed to update recipe",
+    "added-to-timeline-but-failed-to-add-image": "Added to timeline, but failed to add image",
     "api-extras-description": "Екстрите за рецепти са ключова характеристика на Mealie API. Те Ви позволяват да създавате персонализирани JSON двойки ключ/стойност в рамките на рецепта, за да ги препращате към други приложения. Можете да използвате тези ключове, за да предоставите информация за задействане на автоматизация или персонализирани съобщения, за препращане към желаното от Вас устройство.",
     "message-key": "Ключ на съобщението",
     "parse": "Анализирай",
+    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Прикачете снимки като ги влачете и пуснете в редактора",
     "drop-image": "Премахване на изображение",
     "enable-ingredient-amounts-to-use-this-feature": "Пуснете количествата на съставките за да използвате функционалността",
@@ -607,9 +608,10 @@
     "create-recipe-from-an-image": "Create Recipe from an Image",
     "create-recipe-from-an-image-description": "Create a recipe by uploading an image of it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
     "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
-    "create-from-image": "Create from Image",
+    "create-from-images": "Create from Images",
     "should-translate-description": "Translate the recipe into my language",
     "please-wait-image-procesing": "Please wait, the image is processing. This may take some time.",
+    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Импортиране на рецепти от линк",
     "debug-scraper": "Отстраняване на грешки на скрейпъра",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Добави рецепта като предоставиш име. Всички рецепти трябва да имат уникални имена.",
@@ -654,7 +656,6 @@
     "nextStep": "Следваща стъпка",
     "recipe-actions": "Recipe Actions",
     "parser": {
-      "experimental-alert-text": "Mealie uses natural language processing to parse and create units and food items for your recipe ingredients. This feature is experimental and may not always work as expected. If you prefer not to use the parsed results, you can select 'Cancel' and your changes will not be saved.",
       "ingredient-parser": "Ingredient Parser",
       "explanation": "To use the ingredient parser, click the 'Parse All' button to start the process. Once the processed ingredients are available, you can review the items and verify that they were parsed correctly. The model's confidence score is displayed on the right of the item title. This score is an average of all the individual scores and may not always be completely accurate.",
       "alerts-explainer": "Alerts will be displayed if a matching foods or unit is found but does not exists in the database.",
@@ -666,10 +667,17 @@
       "no-unit": "No unit",
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
+      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "No Food"
     },
     "reset-servings-count": "Reset Servings Count",
-    "not-linked-ingredients": "Additional Ingredients"
+    "not-linked-ingredients": "Additional Ingredients",
+    "upload-another-image": "Upload another image",
+    "upload-images": "Upload images",
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
@@ -729,7 +737,7 @@
       "backup-restore": "Възстановяване на резервно копие",
       "back-restore-description": "Възстановяването на това резервно копие ще презапише цялата текуща информация във Вашата база данни и директорията с данни, и ще ги замени със съдържанието от резервното копие. {cannot-be-undone} Ако възстановяването е успешно ще бъдете отписан от системата.",
       "cannot-be-undone": "Това действие не може да бъде отменено - използвайте с внимание.",
-      "postgresql-note": "Ако използвате PostGreSQL, моля прегледайте {backup-restore-process} преди възстановяването.",
+      "postgresql-note": "If you are using PostgreSQL, please review the {backup-restore-process} prior to restoring.",
       "backup-restore-process-in-the-documentation": "процес за резервно копие/възстановяване в документацията",
       "irreversible-acknowledgment": "Разбирам, че това действие е невъзвращаемо, разрушително и може да доведе до загуба на данни",
       "restore-backup": "Възстановяване на резервно копие"
@@ -1057,8 +1065,8 @@
     "foods": {
       "merge-dialog-text": "Комбинирането на избраните храни ще обедини изходната храна и целевата храна в една единствена храна. Изходната храна ще бъде изтрита и всички препратки към изходната храна ще бъдат актуализирани, за да сочат към целевата храна.",
       "merge-food-example": "Обединяване на {food1} с {food2}",
-      "seed-dialog-text": "Изтеглете базата данни с продукти на вашия местен език. Ще бъдат заредени 200+ продукта, които да използвате за организиране на вашата база данни. Имената на продуктите се превеждат от общността.",
-      "seed-dialog-warning": "Вече имате някои елементи във Вашата база данни. Това действие няма да съгласува дубликати, ще трябва да ги управлявате ръчно.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Комбинирай Храни",
       "source-food": "Изходна храна",
       "target-food": "Целева храна",
@@ -1162,7 +1170,7 @@
     "group-details": "Подробности за групата",
     "group-details-description": "Преди да създадете акаунт, ще трябва да създадете група. Вашата група ще съдържа само Вас, но ще можете да поканите други по-късно. Членовете във вашата група могат да споделят планове за хранене, списъци за пазаруване, рецепти и други!",
     "use-seed-data": "Използвай предварителни данни",
-    "use-seed-data-description": "Mealie се доставя с колекция от продукти, мерни единици и етикети за попълване на Вашата група с полезни данни за организиране на рецептите.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Подробни данни за акаунта"
   },
   "validation": {

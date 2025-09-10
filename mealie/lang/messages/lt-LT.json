@@ -4,7 +4,7 @@
     },
     "recipe": {
         "unique-name-error": "Receptų pavadinimai turi būti unikalūs",
-        "recipe-created": "Recipe Created",
+        "recipe-created": "Receptas sukurtas",
         "recipe-defaults": {
             "ingredient-note": "1 Cup Flour",
             "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
@@ -13,7 +13,7 @@
             "makes": "Makes",
             "serves": "Serves",
             "serving": "Serving",
-            "servings": "Servings",
+            "servings": "Porcijos",
             "yield": "Yield",
             "yields": "Yields"
         }
@@ -46,13 +46,13 @@
         "generic-deleted": "{name} ištrintas"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "year": "metai|metai",
+        "day": "diena|dienos",
+        "hour": "valanda|valandos",
+        "minute": "minutė|minutės",
+        "second": "sekundė|sekundės",
+        "millisecond": "milisekundė|milisekundės",
+        "microsecond": "mikrosekundė|mikrosekundės"
     },
     "emails": {
         "password": {
@@ -67,12 +67,12 @@
             "header_text": "You're Invited!",
             "message_top": "You have been invited to join Mealie.",
             "message_bottom": "Please click the button above to accept the invitation.",
-            "button_text": "Accept Invitation"
+            "button_text": "Priimti pakvietimą"
         },
         "test": {
             "subject": "Mealie Test Email",
             "header_text": "Test Email",
-            "message_top": "This is a test email.",
+            "message_top": "Tai bandomasis el. laiškas.",
             "message_bottom": "Please click the button above to test the email.",
             "button_text": "Open Mealie"
         }

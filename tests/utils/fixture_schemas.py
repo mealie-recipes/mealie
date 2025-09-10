@@ -11,6 +11,7 @@ class TestUser:
     email: str
     user_id: UUID
     username: str
+    full_name: str
     password: str
     _group_id: UUID
     _household_id: UUID

@@ -2,6 +2,7 @@
   <v-img
     v-if="!fallBackImage"
     :height="height"
+    cover
     min-height="125"
     max-height="fill-height"
     :src="getImage(recipeId)"
@@ -9,94 +10,78 @@
     @load="fallBackImage = false"
     @error="fallBackImage = true"
   >
-    <slot> </slot>
+    <slot />
   </v-img>
-  <div v-else class="icon-slot" @click="$emit('click')">
-    <v-icon color="primary" class="icon-position" :size="iconSize">
+  <div
+    v-else
+    class="icon-slot"
+    @click="$emit('click')"
+  >
+    <v-icon
+      color="primary"
+      class="icon-position"
+      :size="iconSize"
+    >
       {{ $globals.icons.primary }}
     </v-icon>
-    <slot> </slot>
+    <slot />
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, ref, watch } from "@nuxtjs/composition-api";
-import { useStaticRoutes, useUserApi } from "~/composables/api";
+<script setup lang="ts">
+import { useStaticRoutes } from "~/composables/api";
 
-export default defineComponent({
-  props: {
-    tiny: {
-      type: Boolean,
-      default: null,
-    },
-    small: {
-      type: Boolean,
-      default: null,
-    },
-    large: {
-      type: Boolean,
-      default: null,
-    },
-    iconSize: {
-      type: [Number, String],
-      default: 100,
-    },
-    slug: {
-      type: String,
-      default: null,
-    },
-    recipeId: {
-      type: String,
-      required: true,
-    },
-    imageVersion: {
-      type: String,
-      default: null,
-    },
-    height: {
-      type: [Number, String],
-      default: "fill-height",
-    },
-  },
-  setup(props) {
-    const api = useUserApi();
-
-    const { recipeImage, recipeSmallImage, recipeTinyImage } = useStaticRoutes();
-
-    const fallBackImage = ref(false);
-    const imageSize = computed(() => {
-      if (props.tiny) return "tiny";
-      if (props.small) return "small";
-      if (props.large) return "large";
-      return "large";
-    });
-
-    watch(
-      () => props.recipeId,
-      () => {
-        fallBackImage.value = false;
-      }
-    );
-
-    function getImage(recipeId: string) {
-      switch (imageSize.value) {
-        case "tiny":
-          return recipeTinyImage(recipeId, props.imageVersion);
-        case "small":
-          return recipeSmallImage(recipeId, props.imageVersion);
-        case "large":
-          return recipeImage(recipeId, props.imageVersion);
-      }
-    }
-
-    return {
-      api,
-      fallBackImage,
-      imageSize,
-      getImage,
-    };
-  },
+interface Props {
+  tiny?: boolean | null;
+  small?: boolean | null;
+  large?: boolean | null;
+  iconSize?: number | string;
+  slug?: string | null;
+  recipeId: string;
+  imageVersion?: string | null;
+  height?: number | string;
+}
+const props = withDefaults(defineProps<Props>(), {
+  tiny: null,
+  small: null,
+  large: null,
+  iconSize: 100,
+  slug: null,
+  imageVersion: null,
+  height: "100%",
 });
+
+defineEmits<{
+  click: [];
+}>();
+
+const { recipeImage, recipeSmallImage, recipeTinyImage } = useStaticRoutes();
+
+const fallBackImage = ref(false);
+const imageSize = computed(() => {
+  if (props.tiny) return "tiny";
+  if (props.small) return "small";
+  if (props.large) return "large";
+  return "large";
+});
+
+watch(
+  () => props.recipeId,
+  () => {
+    fallBackImage.value = false;
+  },
+);
+
+function getImage(recipeId: string) {
+  switch (imageSize.value) {
+    case "tiny":
+      return recipeTinyImage(recipeId, props.imageVersion);
+    case "small":
+      return recipeSmallImage(recipeId, props.imageVersion);
+    case "large":
+      return recipeImage(recipeId, props.imageVersion);
+  }
+}
 </script>
 
 <style scoped>

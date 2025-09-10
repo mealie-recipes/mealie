@@ -1,0 +1,70 @@
+.layout-enter-active,
+.layout-leave-active {
+  transition: opacity 0.2s;
+}
+
+.layout-enter,
+.layout-leave-active {
+  opacity: 0;
+}
+
+.narrow-container {
+  max-width: 800px !important;
+}
+
+.md-container {
+  max-width: 950px !important;
+}
+
+.theme--dark.v-application {
+  background-color: rgb(var(--v-theme-background, 30, 30, 30)) !important;
+}
+
+.theme--dark.v-navigation-drawer {
+  background-color: rgb(var(--v-theme-background, 30, 30, 30)) !important;
+}
+
+.theme--dark.v-card {
+  background-color: #1e1e1e !important;
+}
+
+.left-border {
+  border-left: 5px solid rgb(var(--v-theme-primary)) !important;
+}
+
+.left-warning-border {
+  border-left: 5px solid rgb(var(--v-theme-warning)) !important;
+}
+
+.handle {
+  cursor: grab;
+}
+
+.hidden {
+  visibility: hidden !important;
+}
+
+.v-card__text,
+.v-card__title {
+  word-break: normal !important;
+}
+
+.text-hide-overflow {
+  display: inline-block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+a {
+  color: rgb(var(--v-theme-primary));
+}
+
+.fill-height {
+  min-height: 100vh;
+}
+
+.vue-simple-handler {
+  background-color: rgb(var(--v-theme-primary)) !important;
+}

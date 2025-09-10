@@ -1,69 +1,75 @@
 <template>
-  <v-tooltip bottom nudge-right="50" :color="buttonStyle ? 'info' : 'secondary'">
-    <template #activator="{ on, attrs }">
+  <v-tooltip
+    location="bottom"
+    nudge-right="50"
+    :color="buttonStyle ? 'info' : 'secondary'"
+  >
+    <template #activator="{ props: activatorProps }">
       <v-btn
-        small
+        icon
+        :variant="buttonStyle ? 'flat' : undefined"
+        :rounded="buttonStyle ? 'circle' : undefined"
+        size="small"
         :color="buttonStyle ? 'info' : 'secondary'"
         :fab="buttonStyle"
-        class="ml-1"
-        v-bind="attrs"
-        v-on="on"
+        v-bind="{ ...activatorProps, ...$attrs }"
         @click.prevent="toggleTimeline"
       >
-        <v-icon :small="!buttonStyle" :color="buttonStyle ? 'white' : 'secondary'">
+        <v-icon
+          :size="!buttonStyle ? undefined : 'x-large'"
+          :color="buttonStyle ? 'white' : 'secondary'"
+        >
           {{ $globals.icons.timelineText }}
         </v-icon>
       </v-btn>
-      <BaseDialog v-model="showTimeline" :title="timelineAttrs.title" :icon="$globals.icons.timelineText" width="70%">
-        <RecipeTimeline v-model="showTimeline" :query-filter="timelineAttrs.queryFilter" max-height="60vh" />
+      <BaseDialog
+        v-model="showTimeline"
+        :title="timelineAttrs.title"
+        :icon="$globals.icons.timelineText"
+        width="70%"
+      >
+        <RecipeTimeline
+          v-model="showTimeline"
+          :query-filter="timelineAttrs.queryFilter"
+          max-height="60vh"
+        />
       </BaseDialog>
-
     </template>
     <span>{{ $t('recipe.open-timeline') }}</span>
   </v-tooltip>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, ref, useContext } from "@nuxtjs/composition-api";
+<script setup lang="ts">
 import RecipeTimeline from "./RecipeTimeline.vue";
-export default defineComponent({
-  components: { RecipeTimeline },
 
-  props: {
-    buttonStyle: {
-      type: Boolean,
-      default: false,
-    },
-    slug: {
-      type: String,
-      default: "",
-    },
-    recipeName: {
-      type: String,
-      default: "",
-    },
-  },
+interface Props {
+  buttonStyle?: boolean;
+  slug?: string;
+  recipeName?: string;
+}
+const props = withDefaults(defineProps<Props>(), {
+  buttonStyle: false,
+  slug: "",
+  recipeName: "",
+});
 
-  setup(props) {
-    const { $vuetify, i18n } = useContext();
-    const showTimeline = ref(false);
-    function toggleTimeline() {
-      showTimeline.value = !showTimeline.value;
-    }
+const i18n = useI18n();
+const { smAndDown } = useDisplay();
+const showTimeline = ref(false);
 
-    const timelineAttrs = computed(() => {
-      let title = i18n.tc("recipe.timeline")
-      if ($vuetify.breakpoint.smAndDown) {
-        title += ` – ${props.recipeName}`
-      }
+function toggleTimeline() {
+  showTimeline.value = !showTimeline.value;
+}
 
-      return {
-        title,
-        queryFilter: `recipe.slug="${props.slug}"`,
-      }
-    })
+const timelineAttrs = computed(() => {
+  let title = i18n.t("recipe.timeline");
+  if (smAndDown.value) {
+    title += ` – ${props.recipeName}`;
+  }
 
-    return { showTimeline, timelineAttrs, toggleTimeline };
-  },
+  return {
+    title,
+    queryFilter: `recipe.slug="${props.slug}"`,
+  };
 });
 </script>

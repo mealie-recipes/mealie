@@ -4,18 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Nazwy przepisów muszą być unikatowe",
-        "recipe-created": "Recipe Created",
+        "recipe-created": "Utworzono przepis",
         "recipe-defaults": {
             "ingredient-note": "1 szklanka mąki",
             "step-text": "Kroki przepisu, jak również inne pola na stronie przepisu obsługują składnię markdown.\n\n**Dodaj link**\n\n[Mój link](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
-            "yield": "Yield",
-            "yields": "Yields"
+            "makes": "Daje",
+            "serves": "Wystarcza dla",
+            "serving": "Porcja",
+            "servings": "Porcje",
+            "yield": "Ilość",
+            "yields": "Porcje"
         }
     },
     "mealplan": {

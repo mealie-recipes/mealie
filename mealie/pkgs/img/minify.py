@@ -3,11 +3,10 @@ from dataclasses import dataclass
 from logging import Logger
 from pathlib import Path
 
-from PIL import Image
-from pillow_heif import register_avif_opener, register_heif_opener
+from PIL import Image, ImageOps
+from pillow_heif import register_heif_opener
 
 register_heif_opener()
-register_avif_opener()
 
 
 @dataclass
@@ -80,6 +79,7 @@ class PillowMinifier(ABCMinifier):
         """
 
         img = Image.open(image_file)
+        img = ImageOps.exif_transpose(img)
         if img.mode not in image_format.modes:
             img = img.convert(image_format.modes[0])
 
@@ -142,6 +142,7 @@ class PillowMinifier(ABCMinifier):
                 self._logger.info(f"{image_file.name} already minified")
             else:
                 img = Image.open(image_file)
+                img = ImageOps.exif_transpose(img)
                 tiny_image = PillowMinifier.crop_center(img)
                 tiny_image.save(tiny_dest, WEBP.format, quality=70)
                 self._logger.info("Tiny image saved")

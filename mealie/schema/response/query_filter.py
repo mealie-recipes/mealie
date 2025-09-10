@@ -3,13 +3,13 @@ from __future__ import annotations
 import re
 from collections import deque
 from enum import Enum
-from typing import Any, TypeVar, cast
+from typing import Any, cast
 from uuid import UUID
 
+import sqlalchemy as sa
 from dateutil import parser as date_parser
 from dateutil.parser import ParserError
 from humps import decamelize
-from sqlalchemy import ColumnElement, Select, and_, inspect, or_
 from sqlalchemy.ext.associationproxy import AssociationProxyInstance
 from sqlalchemy.orm import InstrumentedAttribute, Mapper
 from sqlalchemy.sql import sqltypes
@@ -18,8 +18,6 @@ from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.db.models._model_utils.datetime import NaiveDateTime
 from mealie.db.models._model_utils.guid import GUID
 from mealie.schema._mealie.mealie_model import MealieModel
-
-Model = TypeVar("Model", bound=SqlAlchemyBase)
 
 
 class RelationalKeyword(Enum):
@@ -173,12 +171,15 @@ class QueryFilterBuilderComponent:
         if not isinstance(self.value, list):
             sanitized_values = [self.value]
         else:
-            sanitized_values = self.value
+            sanitized_values = list(self.value)
 
         for i, v in enumerate(sanitized_values):
             # always allow querying for null values
             if v is None:
                 continue
+
+            if isinstance(model_attr_type, sqltypes.String):
+                sanitized_values[i] = v.lower()
 
             if self.relationship is RelationalKeyword.LIKE or self.relationship is RelationalKeyword.NOT_LIKE:
                 if not isinstance(model_attr_type, sqltypes.String):
@@ -251,17 +252,19 @@ class QueryFilterBuilder:
         return f"<<{joined}>>"
 
     @classmethod
-    def _consolidate_group(cls, group: list[ColumnElement], logical_operators: deque[LogicalOperator]) -> ColumnElement:
-        consolidated_group_builder: ColumnElement | None = None
+    def _consolidate_group(
+        cls, group: list[sa.ColumnElement], logical_operators: deque[LogicalOperator]
+    ) -> sa.ColumnElement:
+        consolidated_group_builder: sa.ColumnElement | None = None
         for i, element in enumerate(reversed(group)):
             if not i:
                 consolidated_group_builder = element
             else:
                 operator = logical_operators.pop()
                 if operator is LogicalOperator.AND:
-                    consolidated_group_builder = and_(consolidated_group_builder, element)
+                    consolidated_group_builder = sa.and_(consolidated_group_builder, element)
                 elif operator is LogicalOperator.OR:
-                    consolidated_group_builder = or_(consolidated_group_builder, element)
+                    consolidated_group_builder = sa.or_(consolidated_group_builder, element)
                 else:
                     raise ValueError(f"invalid logical operator {operator}")
 
@@ -269,9 +272,9 @@ class QueryFilterBuilder:
                 return consolidated_group_builder.self_group()
 
     @classmethod
-    def get_model_and_model_attr_from_attr_string(
-        cls, attr_string: str, model: type[Model], *, query: Select | None = None
-    ) -> tuple[SqlAlchemyBase, InstrumentedAttribute, Select | None]:
+    def get_model_and_model_attr_from_attr_string[Model: SqlAlchemyBase](
+        cls, attr_string: str, model: type[Model], *, query: sa.Select | None = None
+    ) -> tuple[SqlAlchemyBase, InstrumentedAttribute, sa.Select | None]:
         """
         Take an attribute string and traverse a database model and its relationships to get the desired
         model and model attribute. Optionally provide a query to apply the necessary table joins.
@@ -287,7 +290,7 @@ class QueryFilterBuilder:
         mapper: Mapper
         model_attr: InstrumentedAttribute | None = None
 
-        attribute_chain = attr_string.split(".")
+        attribute_chain = decamelize(attr_string).split(".")
         if not attribute_chain:
             raise ValueError("invalid query string: attribute name cannot be empty")
 
@@ -306,7 +309,7 @@ class QueryFilterBuilder:
                     if query is not None:
                         query = query.join(model_attr, isouter=True)
 
-                    mapper = inspect(current_model)
+                    mapper = sa.inspect(current_model)
                     relationship = mapper.relationships[proxied_attribute_link]
                     current_model = relationship.mapper.class_
                     model_attr = getattr(current_model, next_attribute_link)
@@ -318,7 +321,7 @@ class QueryFilterBuilder:
                 if query is not None:
                     query = query.join(model_attr, isouter=True)
 
-                mapper = inspect(current_model)
+                mapper = sa.inspect(current_model)
                 relationship = mapper.relationships[attribute_link]
                 current_model = relationship.mapper.class_
 
@@ -330,7 +333,78 @@ class QueryFilterBuilder:
 
         return current_model, model_attr, query
 
-    def filter_query(self, query: Select, model: type[Model]) -> Select:
+    @classmethod
+    def _transform_model_attr(cls, model_attr: InstrumentedAttribute, model_attr_type: Any) -> InstrumentedAttribute:
+        if isinstance(model_attr_type, sqltypes.String):
+            model_attr = sa.func.lower(model_attr)
+
+        return model_attr
+
+    @classmethod
+    def _get_filter_element[Model: SqlAlchemyBase](
+        cls,
+        query: sa.Select,
+        component: QueryFilterBuilderComponent,
+        model: type[Model],
+        model_attr: InstrumentedAttribute,
+        model_attr_type: Any,
+    ) -> sa.ColumnElement:
+        original_model_attr = model_attr
+        model_attr = cls._transform_model_attr(model_attr, model_attr_type)
+        value = component.validate(model_attr_type)
+
+        # Keywords
+        if component.relationship is RelationalKeyword.IS:
+            element = model_attr.is_(value)
+        elif component.relationship is RelationalKeyword.IS_NOT:
+            element = model_attr.is_not(value)
+        elif component.relationship is RelationalKeyword.IN:
+            element = model_attr.in_(value)
+        elif component.relationship is RelationalKeyword.NOT_IN:
+            if original_model_attr.parent.entity != model:
+                subq = query.with_only_columns(model.id).where(model_attr.in_(value))
+                element = sa.not_(model.id.in_(subq))
+            else:
+                element = sa.not_(model_attr.in_(value))
+
+        elif component.relationship is RelationalKeyword.CONTAINS_ALL:
+            if len(value) == 1:
+                element = model_attr.in_(value)
+            else:
+                primary_model_attr: InstrumentedAttribute = getattr(model, component.attribute_name.split(".")[0])
+                element = sa.and_(*(primary_model_attr.any(model_attr == v) for v in value))
+        elif component.relationship is RelationalKeyword.LIKE:
+            element = model_attr.ilike(value)
+        elif component.relationship is RelationalKeyword.NOT_LIKE:
+            element = model_attr.not_ilike(value)
+
+        # Operators
+        elif component.relationship is RelationalOperator.EQ:
+            element = model_attr == value
+        elif component.relationship is RelationalOperator.NOTEQ:
+            element = model_attr != value
+        elif component.relationship is RelationalOperator.GT:
+            element = model_attr > value
+        elif component.relationship is RelationalOperator.LT:
+            element = model_attr < value
+        elif component.relationship is RelationalOperator.GTE:
+            element = model_attr >= value
+        elif component.relationship is RelationalOperator.LTE:
+            element = model_attr <= value
+        else:
+            raise ValueError(f"invalid relationship {component.relationship}")
+
+        return element
+
+    def filter_query[Model: SqlAlchemyBase](
+        self, query: sa.Select, model: type[Model], column_aliases: dict[str, sa.ColumnElement] | None = None
+    ) -> sa.Select:
+        """
+        Filters a query based on the parsed filter string.
+        If you need to filter on a custom column expression (e.g. a computed property), you can supply column aliases
+        """
+        column_aliases = column_aliases or {}
+
         # join tables and build model chain
         attr_model_map: dict[int, Any] = {}
         model_attr: InstrumentedAttribute
@@ -344,8 +418,8 @@ class QueryFilterBuilder:
             attr_model_map[i] = nested_model
 
         # build query filter
-        partial_group: list[ColumnElement] = []
-        partial_group_stack: deque[list[ColumnElement]] = deque()
+        partial_group: list[sa.ColumnElement] = []
+        partial_group_stack: deque[list[sa.ColumnElement]] = deque()
         logical_operator_stack: deque[LogicalOperator] = deque()
         for i, component in enumerate(self.filter_components):
             if component == self.l_group_sep:
@@ -365,43 +439,13 @@ class QueryFilterBuilder:
 
             else:
                 component = cast(QueryFilterBuilderComponent, component)
-                model_attr = getattr(attr_model_map[i], component.attribute_name.split(".")[-1])
+                base_attribute_name = component.attribute_name.split(".")[-1]
+                model_attr = getattr(attr_model_map[i], base_attribute_name)
 
-                # Keywords
-                if component.relationship is RelationalKeyword.IS:
-                    element = model_attr.is_(component.validate(model_attr.type))
-                elif component.relationship is RelationalKeyword.IS_NOT:
-                    element = model_attr.is_not(component.validate(model_attr.type))
-                elif component.relationship is RelationalKeyword.IN:
-                    element = model_attr.in_(component.validate(model_attr.type))
-                elif component.relationship is RelationalKeyword.NOT_IN:
-                    element = model_attr.not_in(component.validate(model_attr.type))
-                elif component.relationship is RelationalKeyword.CONTAINS_ALL:
-                    primary_model_attr: InstrumentedAttribute = getattr(model, component.attribute_name.split(".")[0])
-                    element = and_()
-                    for v in component.validate(model_attr.type):
-                        element = and_(element, primary_model_attr.any(model_attr == v))
-                elif component.relationship is RelationalKeyword.LIKE:
-                    element = model_attr.like(component.validate(model_attr.type))
-                elif component.relationship is RelationalKeyword.NOT_LIKE:
-                    element = model_attr.not_like(component.validate(model_attr.type))
+                if (column_alias := column_aliases.get(base_attribute_name)) is not None:
+                    model_attr = column_alias
 
-                # Operators
-                elif component.relationship is RelationalOperator.EQ:
-                    element = model_attr == component.validate(model_attr.type)
-                elif component.relationship is RelationalOperator.NOTEQ:
-                    element = model_attr != component.validate(model_attr.type)
-                elif component.relationship is RelationalOperator.GT:
-                    element = model_attr > component.validate(model_attr.type)
-                elif component.relationship is RelationalOperator.LT:
-                    element = model_attr < component.validate(model_attr.type)
-                elif component.relationship is RelationalOperator.GTE:
-                    element = model_attr >= component.validate(model_attr.type)
-                elif component.relationship is RelationalOperator.LTE:
-                    element = model_attr <= component.validate(model_attr.type)
-                else:
-                    raise ValueError(f"invalid relationship {component.relationship}")
-
+                element = self._get_filter_element(query, component, model, model_attr, model_attr.type)
                 partial_group.append(element)
 
         # combine the completed groups into one filter

@@ -43,3 +43,6 @@ def mealie_registered_exceptions(t: Translator) -> dict:
 
 
 class UserLockedOut(Exception): ...
+
+
+class MissingClaimException(Exception): ...

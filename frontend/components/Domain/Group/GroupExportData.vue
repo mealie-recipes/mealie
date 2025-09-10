@@ -7,55 +7,46 @@
     class="elevation-0"
     @click:row="downloadData"
   >
-    <template #item.expires="{ item }">
+    <template #[`item.expires`]="{ item }">
       {{ getTimeToExpire(item.expires) }}
     </template>
-    <template #item.actions="{ item }">
-      <BaseButton download small :download-url="`/api/recipes/bulk-actions/export/download?path=${item.path}`">
-      </BaseButton>
+    <template #[`item.actions`]="{ item }">
+      <BaseButton
+        download
+        size="small"
+        :download-url="`/api/recipes/bulk-actions/export/download?path=${item.path}`"
+      />
     </template>
   </v-data-table>
 </template>
 
-<script lang="ts">
-import { defineComponent, useContext } from "@nuxtjs/composition-api";
+<script setup lang="ts">
 import { parseISO, formatDistanceToNow } from "date-fns";
-import { GroupDataExport } from "~/lib/api/types/group";
-export default defineComponent({
-  props: {
-    exports: {
-      type: Array as () => GroupDataExport[],
-      required: true,
-    },
-  },
-  setup() {
-    const { i18n } = useContext();
+import type { GroupDataExport } from "~/lib/api/types/group";
 
-    const headers = [
-      { text: i18n.t("export.export"), value: "name" },
-      { text: i18n.t("export.file-name"), value: "filename" },
-      { text: i18n.t("export.size"), value: "size" },
-      { text: i18n.t("export.link-expires"), value: "expires" },
-      { text: "", value: "actions" },
-    ];
+defineProps<{
+  exports: GroupDataExport[];
+}>();
 
-    function getTimeToExpire(timeString: string) {
-      const expiresAt = parseISO(timeString);
+const i18n = useI18n();
 
-      return formatDistanceToNow(expiresAt, {
-        addSuffix: false,
-      });
-    }
+const headers = [
+  { title: i18n.t("export.export"), value: "name" },
+  { title: i18n.t("export.file-name"), value: "filename" },
+  { title: i18n.t("export.size"), value: "size" },
+  { title: i18n.t("export.link-expires"), value: "expires" },
+  { title: "", value: "actions" },
+];
 
-    function downloadData(_: any) {
-      console.log("Downloading data...");
-    }
+function getTimeToExpire(timeString: string) {
+  const expiresAt = parseISO(timeString);
 
-    return {
-      downloadData,
-      headers,
-      getTimeToExpire,
-    };
-  },
-});
+  return formatDistanceToNow(expiresAt, {
+    addSuffix: false,
+  });
+}
+
+function downloadData(_: any) {
+  console.log("Downloading data...");
+}
 </script>

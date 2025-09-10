@@ -37,12 +37,12 @@ def recipe_ingredient_only(unique_user: TestUser):
         group_id=unique_user.group_id,
         name=random_string(10),
         recipe_ingredient=[
-            RecipeIngredient(note="Ingredient 1"),
-            RecipeIngredient(note="Ingredient 2"),
-            RecipeIngredient(note="Ingredient 3"),
-            RecipeIngredient(note="Ingredient 4"),
-            RecipeIngredient(note="Ingredient 5"),
-            RecipeIngredient(note="Ingredient 6"),
+            RecipeIngredient(quantity=1, note="Ingredient 1"),
+            RecipeIngredient(quantity=1, note="Ingredient 2"),
+            RecipeIngredient(quantity=1, note="Ingredient 3"),
+            RecipeIngredient(quantity=1, note="Ingredient 4"),
+            RecipeIngredient(quantity=1, note="Ingredient 5"),
+            RecipeIngredient(quantity=1, note="Ingredient 6"),
         ],
     )
 
@@ -52,6 +52,37 @@ def recipe_ingredient_only(unique_user: TestUser):
 
     with contextlib.suppress(sqlalchemy.exc.NoResultFound):
         database.recipes.delete(model.slug)
+
+
+@fixture(scope="function")
+def recipes_ingredient_only(unique_user: TestUser):
+    database = unique_user.repos
+    recipes: list[Recipe] = []
+
+    for _ in range(3):
+        # Create a recipe
+        recipe = Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=random_string(10),
+            recipe_ingredient=[
+                RecipeIngredient(note=f"Ingredient 1 {random_string(5)}"),
+                RecipeIngredient(note=f"Ingredient 2 {random_string(5)}"),
+                RecipeIngredient(note=f"Ingredient 3 {random_string(5)}"),
+                RecipeIngredient(note=f"Ingredient 4 {random_string(5)}"),
+                RecipeIngredient(note=f"Ingredient 5 {random_string(5)}"),
+                RecipeIngredient(note=f"Ingredient 6 {random_string(5)}"),
+            ],
+        )
+
+        model = database.recipes.create(recipe)
+        recipes.append(model)
+
+    yield recipes
+
+    with contextlib.suppress(sqlalchemy.exc.NoResultFound):
+        for recipe in recipes:
+            database.recipes.delete(recipe.slug)
 
 
 @fixture(scope="function")

@@ -18,6 +18,7 @@
     "source.organizeImports": "never"
   },
   "editor.formatOnSave": true,
+  "eslint.useFlatConfig": true,
   "eslint.workingDirectories": [
     "./frontend"
   ],
@@ -60,5 +61,9 @@
   },
   "[vue]": {
     "editor.formatOnSave": false
+  },
+  "[python]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "charliermarsh.ruff"
   }
 }

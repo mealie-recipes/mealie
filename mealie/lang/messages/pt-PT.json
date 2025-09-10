@@ -4,18 +4,18 @@
     },
     "recipe": {
         "unique-name-error": "Os nomes de receitas devem ser únicos",
-        "recipe-created": "Recipe Created",
+        "recipe-created": "Receita criada",
         "recipe-defaults": {
             "ingredient-note": "1 Chávena de Farinha",
             "step-text": "Os passos da receita, bem como outros campos na página da receita, suportam a sintaxe markdown.\n\n**Adicionar um link**\n\n[Meu link](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
-            "yield": "Yield",
-            "yields": "Yields"
+            "makes": "Faz",
+            "serves": "Serve",
+            "serving": "Porção",
+            "servings": "Porções",
+            "yield": "Rendimento",
+            "yields": "Rendimentos"
         }
     },
     "mealplan": {

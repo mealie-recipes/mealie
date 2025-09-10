@@ -1,59 +1,67 @@
 <template>
-  <div class="ma-0 pa-0 text-subtitle-1 dense-markdown ingredient-item">
-    <SafeMarkdown v-if="parsedIng.quantity" class="d-inline" :source="parsedIng.quantity" />
-    <template v-if="parsedIng.unit">{{ parsedIng.unit }} </template>
-    <SafeMarkdown v-if="parsedIng.note && !parsedIng.name" class="text-bold d-inline" :source="parsedIng.note" />
+  <div class="text-subtitle-1 dense-markdown ingredient-item">
+    <SafeMarkdown
+      v-if="parsedIng.quantity"
+      class="d-inline"
+      :source="parsedIng.quantity"
+    />
+    <template v-if="parsedIng.unit">
+      {{ parsedIng.unit }}
+    </template>
+    <SafeMarkdown
+      v-if="parsedIng.note && !parsedIng.name"
+      class="text-bold d-inline"
+      :source="parsedIng.note"
+    />
     <template v-else-if="parsedIng.isRecipe">
       <SafeMarkdown v-if="parsedIng.link" class="text-bold d-inline" :source="parsedIng.link" />
       <SafeMarkdown v-if="parsedIng.note" class="note" :source="parsedIng.note" />
     </template>
     <template v-else>
-      <SafeMarkdown v-if="parsedIng.name" class="text-bold d-inline" :source="parsedIng.name" />
-      <SafeMarkdown v-if="parsedIng.note" class="note" :source="parsedIng.note" />
+      <SafeMarkdown
+        v-if="parsedIng.name"
+        class="text-bold d-inline"
+        :source="parsedIng.name"
+      />
+      <SafeMarkdown
+        v-if="parsedIng.note"
+        class="note"
+        :source="parsedIng.note"
+      />
     </template>
   </div>
 </template>
-<script lang="ts">
-  import { computed, defineComponent, useRoute, useContext } from "@nuxtjs/composition-api";
-import { RecipeIngredient } from "~/lib/api/types/household";
+
+<script setup lang="ts">
+import type { RecipeIngredient } from "~/lib/api/types/household";
 import { useParsedIngredientText } from "~/composables/recipes";
 
-export default defineComponent({
-  props: {
-    ingredient: {
-      type: Object as () => RecipeIngredient,
-      required: true,
-    },
-    disableAmount: {
-      type: Boolean,
-      default: false,
-    },
-    scale: {
-      type: Number,
-      default: 1,
-    },
-  },
-  setup(props) {
-    const { $auth } = useContext();
+interface Props {
+  ingredient: RecipeIngredient;
+  scale?: number;
+}
+const props = withDefaults(defineProps<Props>(), {
+  scale: 1,
+});
 
-    const route = useRoute();
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
-    const parsedIng = computed(() => {
-      return useParsedIngredientText(props.ingredient, props.disableAmount, props.scale, true, groupSlug.value);
-    });
-
-    return {
-      parsedIng,
-    };
-  },
+const parsedIng = computed(() => {
+  return useParsedIngredientText(props.ingredient, props.scale);
 });
 </script>
+
 <style lang="scss">
 .ingredient-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25em;
+  word-break: break-word;
+  min-width: 0;
+
   .d-inline {
     & > p {
       display: inline;
-      &:has(>sub)>sup {
+      &:has(> sub) > sup {
         letter-spacing: -0.05rem;
       }
     }
@@ -63,7 +71,7 @@ export default defineComponent({
       }
     }
     sup {
-      &+span{
+      & + span {
         letter-spacing: -0.05rem;
       }
       &:before {
@@ -74,12 +82,19 @@ export default defineComponent({
 
   .text-bold {
     font-weight: bold;
+    white-space: normal;
+    word-break: break-word;
   }
 }
 
 .note {
-  line-height: 1.25em;
+  flex-basis: 100%;
+  width: 100%;
+  display: block;
+  line-height: 1.3em;
   font-size: 0.8em;
   opacity: 0.7;
+  white-space: normal;
+  word-break: break-word;
 }
 </style>

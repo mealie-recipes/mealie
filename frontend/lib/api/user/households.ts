@@ -1,8 +1,8 @@
 import { BaseCRUDAPIReadOnly } from "../base/base-clients";
-import { PaginationData } from "../types/non-generated";
-import { QueryValue } from "../base/route";
-import { UserOut } from "~/lib/api/types/user";
-import {
+import type { PaginationData } from "../types/non-generated";
+import type { QueryValue } from "../base/route";
+import type { UserOut } from "~/lib/api/types/user";
+import type {
   HouseholdInDB,
   HouseholdStatistics,
   ReadHouseholdPreferences,
@@ -11,6 +11,7 @@ import {
   CreateInviteToken,
   ReadInviteToken,
   HouseholdSummary,
+  HouseholdRecipeSummary,
 } from "~/lib/api/types/household";
 
 const prefix = "/api";
@@ -26,6 +27,7 @@ const routes = {
   invitation: `${prefix}/households/invitations`,
 
   householdsId: (id: string | number) => `${prefix}/groups/households/${id}`,
+  householdsSelfRecipesSlug: (recipeSlug: string) => `${prefix}/households/self/recipes/${recipeSlug}`,
 };
 
 export class HouseholdAPI extends BaseCRUDAPIReadOnly<HouseholdSummary> {
@@ -35,6 +37,10 @@ export class HouseholdAPI extends BaseCRUDAPIReadOnly<HouseholdSummary> {
    */
   async getCurrentUserHousehold() {
     return await this.requests.get<HouseholdInDB>(routes.householdsSelf);
+  }
+
+  async getCurrentUserHouseholdRecipe(recipeSlug: string) {
+    return await this.requests.get<HouseholdRecipeSummary>(routes.householdsSelfRecipesSlug(recipeSlug));
   }
 
   async getPreferences() {

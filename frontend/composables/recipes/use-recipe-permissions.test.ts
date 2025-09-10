@@ -1,9 +1,9 @@
 import { describe, test, expect } from "vitest";
-import { ref, Ref } from "@nuxtjs/composition-api";
+import { ref } from "vue";
 import { useRecipePermissions } from "./use-recipe-permissions";
-import { HouseholdSummary } from "~/lib/api/types/household";
-import { Recipe } from "~/lib/api/types/recipe";
-import { UserOut } from "~/lib/api/types/user";
+import type { HouseholdSummary } from "~/lib/api/types/household";
+import type { Recipe } from "~/lib/api/types/recipe";
+import type { UserOut } from "~/lib/api/types/user";
 
 describe("test use recipe permissions", () => {
   const commonUserId = "my-user-id";
@@ -67,7 +67,7 @@ describe("test use recipe permissions", () => {
         createUser({ id: "other-user-id" }),
       );
       expect(result.canEditRecipe.value).toBe(true);
-    }
+    },
   );
 
   test(
@@ -79,14 +79,14 @@ describe("test use recipe permissions", () => {
         createUser({ id: "other-user-id" }),
       );
       expect(result.canEditRecipe.value).toBe(true);
-    }
+    },
   );
 
   test("when user is not recipe owner, and user is other group, cannot edit", () => {
     const result = useRecipePermissions(
       createRecipe({}),
       createRecipeHousehold({}),
-      createUser({ id: "other-user-id", groupId: "other-group-id"}),
+      createUser({ id: "other-user-id", groupId: "other-group-id" }),
     );
     expect(result.canEditRecipe.value).toBe(false);
   });
@@ -113,7 +113,7 @@ describe("test use recipe permissions", () => {
     const result = useRecipePermissions(
       createRecipe({}, true),
       createRecipeHousehold({}),
-      createUser({ id: "other-user-id"}),
+      createUser({ id: "other-user-id" }),
     );
     expect(result.canEditRecipe.value).toBe(false);
   });

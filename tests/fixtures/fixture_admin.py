@@ -48,6 +48,7 @@ def admin_user(session: Session, api_client: TestClient):
             user_id=user_id,
             password=settings._DEFAULT_PASSWORD,
             username=user_data.get("username"),
+            full_name=user_data.get("fullName"),
             email=user_data.get("email"),
             token=token,
             repos=get_repositories(session, group_id=group_id, household_id=household_id),

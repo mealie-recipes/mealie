@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4
 
 from mealie.core import security
@@ -42,6 +42,11 @@ class AdminUserManagementRoutes(BaseAdminController):
 
     @router.post("", response_model=UserOut, status_code=201)
     def create_one(self, data: UserIn):
+        if self.repos.users.get_by_username(data.username):
+            raise HTTPException(status.HTTP_409_CONFLICT, {"message": self.t("exceptions.username-conflict-error")})
+        elif self.repos.users.get_one(data.email, "email"):
+            raise HTTPException(status.HTTP_409_CONFLICT, {"message": self.t("exceptions.email-conflict-error")})
+
         data.password = security.hash_password(data.password)
         return self.mixins.create_one(data)
 

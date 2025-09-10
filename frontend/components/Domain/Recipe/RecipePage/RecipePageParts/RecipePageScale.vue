@@ -1,62 +1,38 @@
 <template>
   <div class="d-flex justify-space-between align-center pt-2 pb-3">
-    <v-tooltip v-if="!isEditMode" small top color="secondary darken-1">
-      <template #activator="{ on, attrs }">
-        <RecipeScaleEditButton
-          v-model.number="scaleValue"
-          v-bind="attrs"
-          :recipe-servings="recipeServings"
-          :edit-scale="!recipe.settings.disableAmount && !isEditMode"
-          v-on="on"
-        />
-      </template>
-      <span> {{ $t("recipe.edit-scale") }} </span>
-    </v-tooltip>
+    <RecipeScaleEditButton
+      v-if="!isEditMode"
+      v-model.number="scale"
+      :recipe-servings="recipeServings"
+      :edit-scale="hasFoodOrUnit && !isEditMode"
+    />
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent } from "@nuxtjs/composition-api";
+<script setup lang="ts">
 import RecipeScaleEditButton from "~/components/Domain/Recipe/RecipeScaleEditButton.vue";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { Recipe } from "~/lib/api/types/recipe";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 
-export default defineComponent({
-  components: {
-    RecipeScaleEditButton,
-  },
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
-    scale: {
-      type: Number,
-      default: 1,
-    },
-  },
-  setup(props, { emit }) {
-    const { isEditMode } = usePageState(props.recipe.slug);
+const props = defineProps<{ recipe: NoUndefinedField<Recipe> }>();
 
-    const recipeServings = computed<number>(() => {
-      return props.recipe.recipeServings || props.recipe.recipeYieldQuantity || 1;
-    });
+const scale = defineModel<number>({ default: 1 });
 
-    const scaleValue = computed<number>({
-      get() {
-        return props.scale;
-      },
-      set(val) {
-        emit("update:scale", val);
-      },
-    });
+const { isEditMode } = usePageState(props.recipe.slug);
 
-    return {
-      recipeServings,
-      scaleValue,
-      isEditMode,
-    };
-  },
+const recipeServings = computed<number>(() => {
+  return props.recipe.recipeServings || props.recipe.recipeYieldQuantity || 1;
+});
+
+const hasFoodOrUnit = computed(() => {
+  if (props.recipe.recipeIngredient) {
+    for (const ingredient of props.recipe.recipeIngredient) {
+      if (ingredient.food || ingredient.unit) {
+        return true;
+      }
+    }
+  }
+  return false;
 });
 </script>

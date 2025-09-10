@@ -1,6 +1,5 @@
-import { useAsync, ref } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
-import { GroupBase, GroupSummary } from "~/lib/api/types/user";
+import type { GroupBase, GroupInDB, GroupSummary } from "~/lib/api/types/user";
 
 const groupSelfRef = ref<GroupSummary | null>(null);
 const loading = ref(false);
@@ -46,42 +45,31 @@ export const useGroupSelf = function () {
 export const useGroups = function () {
   const api = useUserApi();
   const loading = ref(false);
+  const groups = ref<GroupInDB[] | null>(null);
 
-  function getAllGroups() {
+  async function getAllGroups() {
     loading.value = true;
-    const asyncKey = String(Date.now());
-    const groups = useAsync(async () => {
-      const { data } = await api.groups.getAll(1, -1, {orderBy: "name", orderDirection: "asc"});;
-
-      if (data) {
-        return data.items;
-      } else {
-        return null;
-      }
-    }, asyncKey);
-
-    loading.value = false;
-    return groups;
-  }
-
-  async function refreshAllGroups() {
-    loading.value = true;
-    const { data } = await api.groups.getAll(1, -1, {orderBy: "name", orderDirection: "asc"});;
+    const { data } = await api.groups.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
 
     if (data) {
       groups.value = data.items;
-    } else {
+    }
+    else {
       groups.value = null;
     }
 
     loading.value = false;
   }
 
+  async function refreshAllGroups() {
+    await getAllGroups();
+  }
+
   async function deleteGroup(id: string | number) {
     loading.value = true;
     const { data } = await api.groups.deleteOne(id);
     loading.value = false;
-    refreshAllGroups();
+    await refreshAllGroups();
     return data;
   }
 
@@ -92,9 +80,13 @@ export const useGroups = function () {
     if (data && groups.value) {
       groups.value.push(data);
     }
+    loading.value = false;
   }
 
-  const groups = getAllGroups();
+  // Initialize data on first call
+  if (!groups.value) {
+    getAllGroups();
+  }
 
   return { groups, getAllGroups, refreshAllGroups, deleteGroup, createGroup };
 };

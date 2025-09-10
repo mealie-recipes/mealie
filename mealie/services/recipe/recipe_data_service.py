@@ -9,13 +9,7 @@ from mealie.pkgs import img, safehttp
 from mealie.pkgs.safehttp.transport import AsyncSafeTransport
 from mealie.schema.recipe.recipe import Recipe
 from mealie.services._base_service import BaseService
-
-try:
-    from recipe_scrapers._abstract import HEADERS
-
-    _FIREFOX_UA = HEADERS["User-Agent"]
-except (ImportError, KeyError):
-    _FIREFOX_UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:123.0) Gecko/20100101 Firefox/128.0"
+from mealie.services.scraper.user_agents_manager import get_user_agents_manager
 
 
 async def gather_with_concurrency(n, *coros, ignore_exceptions=False):
@@ -32,13 +26,15 @@ async def gather_with_concurrency(n, *coros, ignore_exceptions=False):
 
 
 async def largest_content_len(urls: list[str]) -> tuple[str, int]:
+    user_agent_manager = get_user_agents_manager()
+
     largest_url = ""
     largest_len = 0
 
     max_concurrency = 10
 
     async def do(client: AsyncClient, url: str) -> Response:
-        return await client.head(url, headers={"User-Agent": _FIREFOX_UA})
+        return await client.head(url, headers=user_agent_manager.get_scrape_headers())
 
     async with AsyncClient(transport=safehttp.AsyncSafeTransport()) as client:
         tasks = [do(client, url) for url in urls]
@@ -110,6 +106,7 @@ class RecipeDataService(BaseService):
 
     async def scrape_image(self, image_url: str | dict[str, str] | list[str]) -> None:
         self.logger.info(f"Image URL: {image_url}")
+        user_agent = get_user_agents_manager().user_agents[0]
 
         image_url_str = ""
 
@@ -140,7 +137,7 @@ class RecipeDataService(BaseService):
 
         async with AsyncClient(transport=AsyncSafeTransport()) as client:
             try:
-                r = await client.get(image_url_str, headers={"User-Agent": _FIREFOX_UA})
+                r = await client.get(image_url_str, headers={"User-Agent": user_agent})
             except Exception:
                 self.logger.exception("Fatal Image Request Exception")
                 return None

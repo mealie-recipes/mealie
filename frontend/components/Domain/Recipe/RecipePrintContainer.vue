@@ -1,28 +1,24 @@
 <template>
-<div class="print-container">
-  <RecipePrintView :recipe="recipe" :scale="scale" dense />
-</div>
+  <div class="print-container">
+    <RecipePrintView
+      :recipe="recipe"
+      :scale="scale"
+      :density="'compact'"
+    />
+  </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+<script setup lang="ts">
 import RecipePrintView from "~/components/Domain/Recipe/RecipePrintView.vue";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { Recipe } from "~/lib/api/types/recipe";
 
-export default defineComponent({
-  components: {
-    RecipePrintView,
-  },
-  props: {
-    recipe: {
-      type: Object as () => Recipe,
-      required: true,
-    },
-    scale: {
-      type: Number,
-      default: 1,
-    },
-  },
+interface Props {
+  recipe: Recipe;
+  scale?: number;
+}
+
+withDefaults(defineProps<Props>(), {
+  scale: 1,
 });
 </script>
 
@@ -39,6 +35,8 @@ export default defineComponent({
 
   .v-main {
     display: block;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
   .v-main__wrap {

@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime, timedelta
 from typing import cast
 from uuid import UUID
 
@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_recipes import RepositoryRecipes
-from mealie.schema.household.household import HouseholdCreate
+from mealie.schema.household.household import HouseholdCreate, HouseholdRecipeCreate
 from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood
 from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary
 from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagSave
@@ -340,12 +340,12 @@ def test_recipe_repo_pagination_by_categories(unique_user: TestUser):
         page=1,
         per_page=-1,
         order_by="random",
-        pagination_seed=str(datetime.now(timezone.utc)),
+        pagination_seed=str(datetime.now(UTC)),
         order_direction=OrderDirection.asc,
     )
     random_ordered = []
     for _ in range(5):
-        pagination_query.pagination_seed = str(datetime.now(timezone.utc))
+        pagination_query.pagination_seed = str(datetime.now(UTC))
         random_ordered.append(database.recipes.page_all(pagination_query, categories=[category_slug]).items)
     assert not all(i == random_ordered[0] for i in random_ordered)
 
@@ -437,12 +437,12 @@ def test_recipe_repo_pagination_by_tags(unique_user: TestUser):
         page=1,
         per_page=-1,
         order_by="random",
-        pagination_seed=str(datetime.now(timezone.utc)),
+        pagination_seed=str(datetime.now(UTC)),
         order_direction=OrderDirection.asc,
     )
     random_ordered = []
     for _ in range(5):
-        pagination_query.pagination_seed = str(datetime.now(timezone.utc))
+        pagination_query.pagination_seed = str(datetime.now(UTC))
         random_ordered.append(database.recipes.page_all(pagination_query, tags=[tag_slug]).items)
     assert len(random_ordered[0]) == 15
     assert not all(i == random_ordered[0] for i in random_ordered)
@@ -534,12 +534,12 @@ def test_recipe_repo_pagination_by_tools(unique_user: TestUser):
         page=1,
         per_page=-1,
         order_by="random",
-        pagination_seed=str(datetime.now(timezone.utc)),
+        pagination_seed=str(datetime.now(UTC)),
         order_direction=OrderDirection.asc,
     )
     random_ordered = []
     for _ in range(5):
-        pagination_query.pagination_seed = str(datetime.now(timezone.utc))
+        pagination_query.pagination_seed = str(datetime.now(UTC))
         random_ordered.append(database.recipes.page_all(pagination_query, tools=[tool_id]).items)
     assert len(random_ordered[0]) == 15
     assert not all(i == random_ordered[0] for i in random_ordered)
@@ -619,12 +619,12 @@ def test_recipe_repo_pagination_by_foods(unique_user: TestUser):
         page=1,
         per_page=-1,
         order_by="random",
-        pagination_seed=str(datetime.now(timezone.utc)),
+        pagination_seed=str(datetime.now(UTC)),
         order_direction=OrderDirection.asc,
     )
     random_ordered = []
     for _ in range(5):
-        pagination_query.pagination_seed = str(datetime.now(timezone.utc))
+        pagination_query.pagination_seed = str(datetime.now(UTC))
         random_ordered.append(database.recipes.page_all(pagination_query, foods=[food_id]).items)
     assert len(random_ordered[0]) == 15
     assert not all(i == random_ordered[0] for i in random_ordered)
@@ -696,14 +696,71 @@ def test_random_order_recipe_search(
         page=1,
         per_page=-1,
         order_by="random",
-        pagination_seed=str(datetime.now(timezone.utc)),
+        pagination_seed=str(datetime.now(UTC)),
         order_direction=OrderDirection.asc,
     )
     random_ordered = []
     for _ in range(5):
-        pagination.pagination_seed = str(datetime.now(timezone.utc))
+        pagination.pagination_seed = str(datetime.now(UTC))
         random_ordered.append(repo.page_all(pagination, search="soup").items)
     assert not all(i == random_ordered[0] for i in random_ordered)
+
+
+def test_order_by_last_made(unique_user: TestUser, h2_user: TestUser):
+    dt_1 = datetime.now(UTC)
+    dt_2 = dt_1 + timedelta(days=2)
+
+    recipe_1, recipe_2 = (
+        unique_user.repos.recipes.create(
+            Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string())
+        )
+        for _ in range(2)
+    )
+
+    # In ascending order:
+    # unique_user: recipe_1, recipe_2
+    # h2_user: recipe_2, recipe_1
+    unique_user.repos.household_recipes.create(
+        HouseholdRecipeCreate(recipe_id=recipe_1.id, household_id=unique_user.household_id, last_made=dt_1)
+    )
+    h2_user.repos.household_recipes.create(
+        HouseholdRecipeCreate(recipe_id=recipe_1.id, household_id=h2_user.household_id, last_made=dt_2)
+    )
+    unique_user.repos.household_recipes.create(
+        HouseholdRecipeCreate(recipe_id=recipe_2.id, household_id=unique_user.household_id, last_made=dt_2)
+    )
+    h2_user.repos.household_recipes.create(
+        HouseholdRecipeCreate(recipe_id=recipe_2.id, household_id=h2_user.household_id, last_made=dt_1)
+    )
+
+    h1_recipes = get_repositories(
+        unique_user.repos.session, group_id=unique_user.group_id, household_id=None
+    ).recipes.by_user(unique_user.user_id)
+    h2_recipes = get_repositories(h2_user.repos.session, group_id=h2_user.group_id, household_id=None).recipes.by_user(
+        h2_user.user_id
+    )
+
+    h1_query = h1_recipes.page_all(
+        PaginationQuery(
+            page=1,
+            per_page=-1,
+            order_by="last_made",
+            order_direction=OrderDirection.asc,
+            query_filter=f"id IN [{recipe_1.id}, {recipe_2.id}]",
+        )
+    )
+    assert [item.id for item in h1_query.items] == [recipe_1.id, recipe_2.id]
+
+    h2_query = h2_recipes.page_all(
+        PaginationQuery(
+            page=1,
+            per_page=-1,
+            order_by="lastMade",
+            order_direction=OrderDirection.asc,
+            query_filter=f"id IN [{recipe_1.id}, {recipe_2.id}]",
+        )
+    )
+    assert [item.id for item in h2_query.items] == [recipe_2.id, recipe_1.id]
 
 
 def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
@@ -713,7 +770,7 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
 
     recipes: list[Recipe] = []
     for i in range(3):
-        slug = f"recipe-{i+1}-{random_string(5)}"
+        slug = f"recipe-{i + 1}-{random_string(5)}"
         recipes.append(
             repo.create(
                 Recipe(

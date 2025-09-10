@@ -24,6 +24,7 @@ from mealie.core.dependencies import (
     get_temporary_zip_path,
 )
 from mealie.pkgs import cache
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import controller
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
@@ -252,8 +253,9 @@ class RecipeController(BaseRecipeController):
             if cookbook_data is None:
                 raise HTTPException(status_code=404, detail="cookbook not found")
 
-        # We use "group_recipes" here so we can return all recipes regardless of household. The query filter can include
-        # a household_id to filter by household. We use the "by_user" so we can sort favorites correctly.
+        # We use "group_recipes" here so we can return all recipes regardless of household. The query filter can
+        # include a household_id to filter by household.
+        # We use "by_user" so we can sort favorites and other user-specific data correctly.
         pagination_response = self.group_recipes.by_user(self.user.id).page_all(
             pagination=q,
             cookbook=cookbook_data,
@@ -288,7 +290,11 @@ class RecipeController(BaseRecipeController):
         foods: list[UUID4] | None = Query(None),
         tools: list[UUID4] | None = Query(None),
     ) -> RecipeSuggestionResponse:
-        recipes = self.group_recipes.find_suggested_recipes(q, foods, tools)
+        group_recipes_by_user = get_repositories(
+            self.session, group_id=self.group_id, household_id=None
+        ).recipes.by_user(self.user.id)
+
+        recipes = group_recipes_by_user.find_suggested_recipes(q, foods, tools)
         response = RecipeSuggestionResponse(items=recipes)
         json_compatible_response = orjson.dumps(response.model_dump(by_alias=True))
 
@@ -517,12 +523,12 @@ class RecipeController(BaseRecipeController):
 
     @router.put("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
     def update_recipe_image(self, slug: str, image: bytes = File(...), extension: str = Form(...)):
-        recipe = self.mixins.get_one(slug)
-        data_service = RecipeDataService(recipe.id)
-        data_service.write_image(image, extension)
-
-        new_version = self.recipes.update_image(slug, extension)
-        return UpdateImageResponse(image=new_version)
+        try:
+            new_version = self.service.update_recipe_image(slug, image, extension)
+            return UpdateImageResponse(image=new_version)
+        except Exception as e:
+            self.handle_exceptions(e)
+            return None
 
     @router.post("/{slug}/assets", response_model=RecipeAsset, tags=["Recipe: Images and Assets"])
     def upload_recipe_asset(
@@ -544,7 +550,7 @@ class RecipeController(BaseRecipeController):
         file_name = f"{file_slug}.{extension}"
         asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
 
-        recipe = self.mixins.get_one(slug)
+        recipe = self.service.get_one(slug)
 
         dest = recipe.asset_dir / file_name
 
@@ -561,9 +567,9 @@ class RecipeController(BaseRecipeController):
         if not dest.is_file():
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        recipe = self.mixins.get_one(slug)
-        recipe.assets.append(asset_in)
+        if recipe.assets is not None:
+            recipe.assets.append(asset_in)
 
-        self.mixins.update_one(recipe, slug)
+        self.service.update_one(slug, recipe)
 
         return asset_in

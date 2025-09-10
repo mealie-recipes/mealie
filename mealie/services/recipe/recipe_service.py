@@ -9,7 +9,6 @@ from uuid import UUID, uuid4
 from zipfile import ZipFile
 
 from fastapi import UploadFile
-from slugify import slugify
 
 from mealie.core import exceptions
 from mealie.core.config import get_app_settings
@@ -19,9 +18,9 @@ from mealie.pkgs import cache
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
-from mealie.schema.household.household import HouseholdInDB
+from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeUpdate
 from mealie.schema.openai.recipe import OpenAIRecipe
-from mealie.schema.recipe.recipe import CreateRecipe, Recipe
+from mealie.schema.recipe.recipe import CreateRecipe, Recipe, create_recipe_slug
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_settings import RecipeSettings
@@ -30,6 +29,7 @@ from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreat
 from mealie.schema.recipe.request_helpers import RecipeDuplicate
 from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
+from mealie.services.household_services.household_service import HouseholdService
 from mealie.services.openai import OpenAIDataInjection, OpenAILocalImage, OpenAIService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper import cleaner
@@ -63,6 +63,12 @@ class RecipeService(RecipeServiceBase):
         if recipe is None:
             raise exceptions.NoEntryFound("Recipe not found.")
         return recipe
+
+    def can_delete(self, recipe: Recipe) -> bool:
+        if self.user.admin:
+            return True
+        else:
+            return self.can_update(recipe)
 
     def can_update(self, recipe: Recipe) -> bool:
         if recipe.settings is None:
@@ -167,12 +173,12 @@ class RecipeService(RecipeServiceBase):
                     show_assets=self.household.preferences.recipe_show_assets,
                     landscape_view=self.household.preferences.recipe_landscape_view,
                     disable_comments=self.household.preferences.recipe_disable_comments,
-                    disable_amount=self.household.preferences.recipe_disable_amount,
                 )
             else:
                 data.settings = RecipeSettings()
 
         rating_input = data.rating
+        data.last_made = None
         new_recipe = self.repos.recipes.create(data)
 
         # convert rating into user rating
@@ -330,7 +336,7 @@ class RecipeService(RecipeServiceBase):
 
         new_name = dup_data.name if dup_data.name else old_recipe.name or ""
         new_recipe.id = uuid4()
-        new_recipe.slug = slugify(new_name)
+        new_recipe.slug = create_recipe_slug(new_name)
         new_recipe.image = cache.cache_key.new_key() if old_recipe.image else None
         new_recipe.recipe_instructions = (
             None
@@ -342,6 +348,7 @@ class RecipeService(RecipeServiceBase):
             if old_recipe.recipe_ingredient is None
             else list(map(copy_recipe_ingredient, old_recipe.recipe_ingredient))
         )
+        new_recipe.last_made = None
 
         new_recipe = self._recipe_creation_factory(new_name, additional_attrs=new_recipe.model_dump())
 
@@ -401,9 +408,18 @@ class RecipeService(RecipeServiceBase):
         self.check_assets(new_data, recipe.slug)
         return new_data
 
+    def update_recipe_image(self, slug: str, image: bytes, extension: str):
+        recipe = self.get_one(slug)
+        if not self.can_update(recipe):
+            raise exceptions.PermissionDenied("You do not have permission to edit this recipe.")
+
+        data_service = RecipeDataService(recipe.id)
+        data_service.write_image(image, extension)
+
+        return self.group_recipes.update_image(slug, extension)
+
     def patch_one(self, slug_or_id: str | UUID, patch_data: Recipe) -> Recipe:
-        recipe: Recipe | None = self._pre_update_check(slug_or_id, patch_data)
-        recipe = self.get_one(slug_or_id)
+        recipe: Recipe = self._pre_update_check(slug_or_id, patch_data)
 
         new_data = self.group_recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
 
@@ -413,13 +429,16 @@ class RecipeService(RecipeServiceBase):
     def update_last_made(self, slug_or_id: str | UUID, timestamp: datetime) -> Recipe:
         # we bypass the pre update check since any user can update a recipe's last made date, even if it's locked,
         # or if the user belongs to a different household
-        recipe = self.get_one(slug_or_id)
-        return self.group_recipes.patch(recipe.slug, {"last_made": timestamp})
+
+        household_service = HouseholdService(self.user.group_id, self.user.household_id, self.repos)
+        household_service.set_household_recipe(slug_or_id, HouseholdRecipeUpdate(last_made=timestamp))
+
+        return self.get_one(slug_or_id)
 
     def delete_one(self, slug_or_id: str | UUID) -> Recipe:
         recipe = self.get_one(slug_or_id)
 
-        if not self.can_update(recipe):
+        if not self.can_delete(recipe):
             raise exceptions.PermissionDenied("You do not have permission to delete this recipe.")
 
         data = self.group_recipes.delete(recipe.id, "id")
@@ -441,7 +460,7 @@ class OpenAIRecipeService(RecipeServiceBase):
             group_id=self.user.group_id,
             household_id=self.household.id,
             name=openai_recipe.name,
-            slug=slugify(openai_recipe.name),
+            slug=create_recipe_slug(openai_recipe.name),
             description=openai_recipe.description,
             recipe_yield=openai_recipe.recipe_yield,
             total_time=openai_recipe.total_time,

@@ -7,7 +7,7 @@ from pathlib import Path
 from textwrap import dedent
 
 from openai import NOT_GIVEN, AsyncOpenAI
-from openai.resources.chat.completions import ChatCompletion
+from openai.types.chat import ChatCompletion
 from pydantic import BaseModel, field_validator
 
 from mealie.core.config import get_app_settings
@@ -70,7 +70,7 @@ class OpenAILocalImage(OpenAIImageBase):
         )
         with open(image, "rb") as f:
             b64content = base64.b64encode(f.read()).decode("utf-8")
-        return f"data:image/jpg;base64,{b64content}"
+        return f"data:image/jpeg;base64,{b64content}"
 
 
 class OpenAIService(BaseService):
@@ -135,9 +135,7 @@ class OpenAIService(BaseService):
             )
         return "\n".join(content_parts)
 
-    async def _get_raw_response(
-        self, prompt: str, content: list[dict], temperature=0.2, force_json_response=True
-    ) -> ChatCompletion:
+    async def _get_raw_response(self, prompt: str, content: list[dict], force_json_response=True) -> ChatCompletion:
         client = self.get_client()
         return await client.chat.completions.create(
             messages=[
@@ -151,7 +149,6 @@ class OpenAIService(BaseService):
                 },
             ],
             model=self.model,
-            temperature=temperature,
             response_format={"type": "json_object"} if force_json_response else NOT_GIVEN,
         )
 
@@ -161,7 +158,6 @@ class OpenAIService(BaseService):
         message: str,
         *,
         images: list[OpenAIImageBase] | None = None,
-        temperature=0.2,
         force_json_response=True,
     ) -> str | None:
         """Send data to OpenAI and return the response message content"""
@@ -174,7 +170,7 @@ class OpenAIService(BaseService):
             for image in images or []:
                 user_messages.append(image.build_message())
 
-            response = await self._get_raw_response(prompt, user_messages, temperature, force_json_response)
+            response = await self._get_raw_response(prompt, user_messages, force_json_response)
             if not response.choices:
                 return None
             return response.choices[0].message.content

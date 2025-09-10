@@ -12,6 +12,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 from mealie.core.settings.themes import Theme
 
 from .db_providers import AbstractDBProvider, db_provider_factory
+from .static import PACKAGE_DIR
 
 
 class ScheduleTime(NamedTuple):
@@ -78,10 +79,7 @@ def get_secrets_dir() -> str | None:
 
     # Likewise, check we have permission to read from the secrets directory.
     if not os.access(secrets_dir, os.R_OK):
-        logger.warning(
-            f"Secrets directory '{
-                       secrets_dir}' cannot be read from. Check permissions"
-        )
+        logger.warning(f"Secrets directory '{secrets_dir}' cannot be read from. Check permissions")
         return None
 
     # The secrets directory exists and can be accessed.
@@ -112,7 +110,7 @@ class AppSettings(AppLoggingSettings):
     BASE_URL: str = "http://localhost:8080"
     """trailing slashes are trimmed (ex. `http://localhost:8080/` becomes ``http://localhost:8080`)"""
 
-    STATIC_FILES: str = ""
+    STATIC_FILES: str = str(PACKAGE_DIR / "frontend")
     """path to static files directory (ex. `mealie/dist`)"""
 
     IS_DEMO: bool = False
@@ -131,6 +129,7 @@ class AppSettings(AppLoggingSettings):
     GIT_COMMIT_HASH: str = "unknown"
 
     ALLOW_SIGNUP: bool = False
+    ALLOW_PASSWORD_LOGIN: bool = True
 
     DAILY_SCHEDULE_TIME: str = "23:45"
     """Local server time, in HH:MM format. See `DAILY_SCHEDULE_TIME_UTC` for the parsed UTC equivalent"""
@@ -156,8 +155,7 @@ class AppSettings(AppLoggingSettings):
             local_hour = 23
             local_minute = 45
             self.logger.exception(
-                f"Unable to parse {self.DAILY_SCHEDULE_TIME=} as HH:MM; defaulting to {
-                    local_hour}:{local_minute}"
+                f"Unable to parse {self.DAILY_SCHEDULE_TIME=} as HH:MM; defaulting to {local_hour}:{local_minute}"
             )
 
         # DAILY_SCHEDULE_TIME is in local time, so we convert it to UTC
@@ -166,10 +164,7 @@ class AppSettings(AppLoggingSettings):
         local_time = now.replace(hour=local_hour, minute=local_minute)
         utc_time = local_time.astimezone(UTC)
 
-        self.logger.debug(
-            f"Local time: {local_hour}:{local_minute} | UTC time: {
-                          utc_time.hour}:{utc_time.minute}"
-        )
+        self.logger.debug(f"Local time: {local_hour}:{local_minute} | UTC time: {utc_time.hour}:{utc_time.minute}")
         return ScheduleTime(utc_time.hour, utc_time.minute)
 
     # ===============================================
@@ -200,6 +195,8 @@ class AppSettings(AppLoggingSettings):
 
     DB_ENGINE: str = "sqlite"  # Options: 'sqlite', 'postgres'
     DB_PROVIDER: AbstractDBProvider | None = None
+
+    SQLITE_MIGRATE_JOURNAL_WAL: bool = False
 
     @property
     def DB_URL(self) -> str | None:
@@ -278,8 +275,7 @@ class AppSettings(AppLoggingSettings):
             required["SMTP_PASSWORD"] = password
             if not description:
                 missing_values = [key for (key, value) in required.items() if value is None]
-                description = f"Missing required values for {
-                    missing_values} because SMTP_AUTH_STRATEGY is not None"
+                description = f"Missing required values for {missing_values} because SMTP_AUTH_STRATEGY is not None"
 
         not_none = "" not in required.values() and None not in required.values()
 
@@ -404,7 +400,7 @@ class AppSettings(AppLoggingSettings):
     Sending database data may increase accuracy in certain requests,
     but will incur additional API costs
     """
-    OPENAI_REQUEST_TIMEOUT: int = 60
+    OPENAI_REQUEST_TIMEOUT: int = 300
     """
     The number of seconds to wait for an OpenAI request to complete before cancelling the request
     """
@@ -414,7 +410,7 @@ class AppSettings(AppLoggingSettings):
         description = None
         if not self.OPENAI_API_KEY:
             description = "OPENAI_API_KEY is not set"
-        elif self.OPENAI_MODEL:
+        elif not self.OPENAI_MODEL:
             description = "OPENAI_MODEL is not set"
 
         return FeatureDetails(
@@ -440,7 +436,7 @@ class AppSettings(AppLoggingSettings):
     def WORKERS(self) -> int:
         return max(1, self.WORKER_PER_CORE * self.UVICORN_WORKERS)
 
-    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
+    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow", env_nested_delimiter="__")
 
     # ===============================================
     # TLS
@@ -455,7 +451,7 @@ class AppSettings(AppLoggingSettings):
 def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:
     """
     app_settings_constructor is a factory function that returns an AppSettings object. It is used to inject the
-    required dependencies into the AppSettings object and nested child objects. AppSettings should not be substantiated
+    required dependencies into the AppSettings object and nested child objects. AppSettings should not be instantiated
     directly, but rather through this factory function.
     """
     secret_settings = {

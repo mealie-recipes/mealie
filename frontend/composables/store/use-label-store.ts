@@ -1,6 +1,6 @@
-import { ref, Ref } from "@nuxtjs/composition-api";
+import type { Composer } from "vue-i18n";
 import { useData, useStore } from "../partials/use-store-factory";
-import { MultiPurposeLabelOut } from "~/lib/api/types/labels";
+import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import { useUserApi } from "~/composables/api";
 
 const store: Ref<MultiPurposeLabelOut[]> = ref([]);
@@ -13,9 +13,9 @@ export const useLabelData = function () {
     name: "",
     color: "",
   });
-}
+};
 
-export const useLabelStore = function () {
-  const api = useUserApi();
+export const useLabelStore = function (i18n?: Composer) {
+  const api = useUserApi(i18n);
   return useStore<MultiPurposeLabelOut>(store, loading, api.multiPurposeLabels);
-}
+};

@@ -1,6 +1,5 @@
-import { ref, Ref, useContext } from "@nuxtjs/composition-api";
 import { useAsyncValidator } from "~/composables/use-validators";
-import { VForm } from "~/types/vuetify";
+import type { VForm } from "~/types/auto-forms";
 import { usePublicApi } from "~/composables/api/api-client";
 
 const domAccountForm = ref<VForm | null>(null);
@@ -12,12 +11,15 @@ const password2 = ref("");
 const advancedOptions = ref(false);
 
 export const useUserRegistrationForm = () => {
-  const { i18n } = useContext();
-  function safeValidate(form: Ref<VForm | null>) {
-    if (form.value && form.value.validate) {
-      return form.value.validate();
+  const i18n = useI18n();
+
+  async function safeValidate(form: Ref<VForm | null>) {
+    if (!form.value) {
+      return false;
     }
-    return false;
+
+    const result = await form.value.validate();
+    return result.valid;
   }
   // ================================================================
   // Provide Group Details
@@ -29,15 +31,15 @@ export const useUserRegistrationForm = () => {
   const { validate: validateUsername, valid: validUsername } = useAsyncValidator(
     username,
     (v: string) => publicApi.validators.username(v),
-    i18n.tc("validation.username-is-taken"),
-    usernameErrorMessages
+    i18n.t("validation.username-is-taken"),
+    usernameErrorMessages,
   );
   const emailErrorMessages = ref<string[]>([]);
   const { validate: validateEmail, valid: validEmail } = useAsyncValidator(
     email,
     (v: string) => publicApi.validators.email(v),
-    i18n.tc("validation.email-is-taken"),
-    emailErrorMessages
+    i18n.t("validation.email-is-taken"),
+    emailErrorMessages,
   );
   const accountDetails = {
     username,
@@ -45,11 +47,15 @@ export const useUserRegistrationForm = () => {
     email,
     advancedOptions,
     validate: async () => {
-      if (!(validUsername.value && validEmail.value)) {
+      if (!validUsername.value || !validEmail.value) {
         await Promise.all([validateUsername(), validateEmail()]);
       }
 
-      return (safeValidate(domAccountForm as Ref<VForm>) && validUsername.value && validEmail.value);
+      if (!validUsername.value || !validEmail.value) {
+        return false;
+      }
+
+      return await safeValidate(domAccountForm as Ref<VForm>);
     },
     reset: () => {
       accountDetails.username.value = "";
@@ -60,7 +66,7 @@ export const useUserRegistrationForm = () => {
   };
   // ================================================================
   // Provide Credentials
-  const passwordMatch = () => password1.value === password2.value || i18n.tc("user.password-must-match");
+  const passwordMatch = () => password1.value === password2.value || i18n.t("user.password-must-match");
   const credentials = {
     password1,
     password2,
@@ -68,7 +74,7 @@ export const useUserRegistrationForm = () => {
     reset: () => {
       credentials.password1.value = "";
       credentials.password2.value = "";
-    }
+    },
   };
 
   return {

@@ -2,46 +2,41 @@
   <v-tooltip
     ref="copyToolTip"
     v-model="show"
-    :color="copied? 'success lighten-1' : 'red lighten-1'"
-    top
+    location="top"
     :open-on-hover="false"
     :open-on-click="true"
     close-delay="500"
     transition="slide-y-transition"
   >
-    <template #activator="{ on }">
+    <template #activator="{ props }">
       <v-btn
+        variant="flat"
         :icon="icon"
         :color="color"
         retain-focus-on-click
         :class="btnClass"
         :disabled="copyText !== '' ? false : true"
-        @click="
-          on.click;
-          textToClipboard();
-        "
-        @blur="on.blur"
+        v-bind="props"
+        @click="textToClipboard()"
       >
         <v-icon>{{ $globals.icons.contentCopy }}</v-icon>
         {{ icon ? "" : $t("general.copy") }}
       </v-btn>
     </template>
-    <span>
-      <v-icon left dark>
+    <span v-if="!isSupported || copiedSuccess !== null">
+      <v-icon start>
         {{ $globals.icons.clipboardCheck }}
       </v-icon>
       <slot v-if="!isSupported"> {{ $t("general.your-browser-does-not-support-clipboard") }} </slot>
-      <slot v-else> {{ copied ? $t("general.copied_message") : $t("general.clipboard-copy-failure") }} </slot>
+      <slot v-else> {{ copiedSuccess ? $t("general.copied_message") : $t("general.clipboard-copy-failure") }} </slot>
     </span>
   </v-tooltip>
 </template>
 
 <script lang="ts">
-import { useClipboard } from "@vueuse/core"
-import { defineComponent, ref } from "@nuxtjs/composition-api";
-import { VTooltip } from "~/types/vuetify";
+import { useClipboard } from "@vueuse/core";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     copyText: {
       type: String,
@@ -61,22 +56,21 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { copy, copied, isSupported } = useClipboard()
+    const { copy, copied, isSupported } = useClipboard();
     const show = ref(false);
     const copyToolTip = ref<VTooltip | null>(null);
-
-    function toggleBlur() {
-      copyToolTip.value?.deactivate();
-    }
+    const copiedSuccess = ref<boolean | null>(null);
 
     async function textToClipboard() {
       if (isSupported.value) {
         await copy(props.copyText);
         if (copied.value) {
-          console.log(`Copied\n${props.copyText}`)
+          copiedSuccess.value = true;
+          console.info(`Copied\n${props.copyText}`);
         }
         else {
-          console.warn("Copy failed: ", copied.value);
+          copiedSuccess.value = false;
+          console.error("Copy failed: ", copied.value);
         }
       }
       else {
@@ -85,8 +79,8 @@ export default defineComponent({
 
       show.value = true;
       setTimeout(() => {
-        toggleBlur();
-      }, 500);
+        show.value = false;
+      }, 3000);
     }
 
     return {
@@ -95,6 +89,7 @@ export default defineComponent({
       textToClipboard,
       copied,
       isSupported,
+      copiedSuccess,
     };
   },
 });

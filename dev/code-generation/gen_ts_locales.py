@@ -1,3 +1,4 @@
+import os
 import pathlib
 from dataclasses import dataclass
 from pathlib import Path
@@ -13,7 +14,7 @@ from mealie.schema._mealie import MealieModel
 
 BASE = pathlib.Path(__file__).parent.parent.parent
 
-API_KEY = dotenv.get_key(BASE / ".env", "CROWDIN_API_KEY")
+API_KEY = dotenv.get_key(BASE / ".env", "CROWDIN_API_KEY") or os.environ.get("CROWDIN_API_KEY", "")
 
 
 @dataclass
@@ -23,19 +24,22 @@ class LocaleData:
 
 
 LOCALE_DATA: dict[str, LocaleData] = {
-    "en-US": LocaleData(name="American English"),
-    "en-GB": LocaleData(name="British English"),
     "af-ZA": LocaleData(name="Afrikaans (Afrikaans)"),
     "ar-SA": LocaleData(name="العربية (Arabic)", dir="rtl"),
+    "bg-BG": LocaleData(name="Български (Bulgarian)"),
     "ca-ES": LocaleData(name="Català (Catalan)"),
     "cs-CZ": LocaleData(name="Čeština (Czech)"),
     "da-DK": LocaleData(name="Dansk (Danish)"),
     "de-DE": LocaleData(name="Deutsch (German)"),
     "el-GR": LocaleData(name="Ελληνικά (Greek)"),
+    "en-GB": LocaleData(name="British English"),
+    "en-US": LocaleData(name="American English"),
     "es-ES": LocaleData(name="Español (Spanish)"),
+    "et-EE": LocaleData(name="Eesti (Estonian)"),
     "fi-FI": LocaleData(name="Suomi (Finnish)"),
-    "fr-FR": LocaleData(name="Français (French)"),
     "fr-BE": LocaleData(name="Belge (Belgian)"),
+    "fr-CA": LocaleData(name="Français canadien (Canadian French)"),
+    "fr-FR": LocaleData(name="Français (French)"),
     "gl-ES": LocaleData(name="Galego (Galician)"),
     "he-IL": LocaleData(name="עברית (Hebrew)", dir="rtl"),
     "hr-HR": LocaleData(name="Hrvatski (Croatian)"),
@@ -53,6 +57,7 @@ LOCALE_DATA: dict[str, LocaleData] = {
     "pt-PT": LocaleData(name="Português (Portuguese)"),
     "ro-RO": LocaleData(name="Română (Romanian)"),
     "ru-RU": LocaleData(name="Pусский (Russian)"),
+    "sk-SK": LocaleData(name="Slovenčina (Slovak)"),
     "sl-SI": LocaleData(name="Slovenščina (Slovenian)"),
     "sr-SP": LocaleData(name="српски (Serbian)"),
     "sv-SE": LocaleData(name="Svenska (Swedish)"),
@@ -71,7 +76,7 @@ export const LOCALES = [{% for locale in locales %}
     progress: {{ locale.progress }},
     dir: "{{ locale.dir }}",
   },{% endfor %}
-]
+];
 
 """
 
@@ -93,8 +98,8 @@ class CrowdinApi:
     project_id = "451976"
     api_key = API_KEY
 
-    def __init__(self, api_key: str):
-        api_key = api_key
+    def __init__(self, api_key: str | None):
+        self.api_key = api_key or API_KEY
 
     @property
     def headers(self) -> dict:
@@ -156,29 +161,51 @@ PROJECT_DIR = Path(__file__).parent.parent.parent
 
 datetime_dir = PROJECT_DIR / "frontend" / "lang" / "dateTimeFormats"
 locales_dir = PROJECT_DIR / "frontend" / "lang" / "messages"
-nuxt_config = PROJECT_DIR / "frontend" / "nuxt.config.js"
+nuxt_config = PROJECT_DIR / "frontend" / "nuxt.config.ts"
+i18n_config = PROJECT_DIR / "frontend" / "i18n.config.ts"
 reg_valid = PROJECT_DIR / "mealie" / "schema" / "_mealie" / "validators.py"
 
 """
 This snippet walks the message and dat locales directories and generates the import information
-for the nuxt.config.js file and automatically injects it into the nuxt.config.js file. Note that
+for the nuxt.config.ts file and automatically injects it into the nuxt.config.ts file. Note that
 the code generation ID is hardcoded into the script and required in the nuxt config.
 """
 
 
 def inject_nuxt_values():
-    all_date_locales = [
-        f'"{match.stem}": require("./lang/dateTimeFormats/{match.name}"),' for match in datetime_dir.glob("*.json")
-    ]
+    datetime_files = list(datetime_dir.glob("*.json"))
+    datetime_files.sort()
+
+    datetime_imports = []
+    datetime_object_entries = []
+
+    for match in datetime_files:
+        # Convert locale name to camelCase variable name (e.g., "en-US" -> "enUS")
+        var_name = match.stem.replace("-", "")
+
+        # Generate import statement
+        import_line = f'import * as {var_name} from "./lang/dateTimeFormats/{match.name}";'
+        datetime_imports.append(import_line)
+
+        # Generate object entry
+        object_entry = f'  "{match.stem}": {var_name},'
+        datetime_object_entries.append(object_entry)
+
+    all_date_locales = datetime_imports + ["", "const datetimeFormats = {"] + datetime_object_entries + ["};"]
 
     all_langs = []
     for match in locales_dir.glob("*.json"):
-        lang_string = f'{{ code: "{match.stem}", file: "{match.name}" }},'
+        match_data = LOCALE_DATA.get(match.stem)
+        match_dir = match_data.dir if match_data else "ltr"
+
+        lang_string = f'{{ code: "{match.stem}", file: "{match.name.replace(".json", ".ts")}", dir: "{match_dir}" }},'
         all_langs.append(lang_string)
+
+    all_langs.sort()
 
     log.debug(f"injecting locales into nuxt config -> {nuxt_config}")
     inject_inline(nuxt_config, CodeKeys.nuxt_local_messages, all_langs)
-    inject_inline(nuxt_config, CodeKeys.nuxt_local_dates, all_date_locales)
+    inject_inline(i18n_config, CodeKeys.nuxt_local_dates, all_date_locales)
 
 
 def inject_registration_validation_values():
@@ -195,7 +222,7 @@ def inject_registration_validation_values():
 
 
 def generate_locales_ts_file():
-    api = CrowdinApi("")
+    api = CrowdinApi(None)
     models = api.get_languages()
     tmpl = Template(LOCALE_TEMPLATE)
     rendered = tmpl.render(locales=models)

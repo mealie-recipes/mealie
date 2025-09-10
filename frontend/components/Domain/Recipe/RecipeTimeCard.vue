@@ -1,110 +1,130 @@
-<template>
-  <div v-if="stacked">
-    <v-container>
-      <v-row v-for="(time, index) in allTimes" :key="`${index}-stacked`" no-gutters>
-        <v-col cols="12" :class="containerClass">
-          <v-chip
-            :small="$vuetify.breakpoint.smAndDown"
-            label
-            :color="color"
-            class="ma-1"
-          >
-            <v-icon left>
-              {{ $globals.icons.clockOutline }}
-            </v-icon>
-            {{ time.name }} |
-            {{ time.value }}
-          </v-chip>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div>
-  <div v-else>
-    <v-container :class="containerClass">
-      <v-chip
-        v-for="(time, index) in allTimes"
-        :key="index"
-        :small="$vuetify.breakpoint.smAndDown"
-        label
-        :color="color"
-        class="ma-1"
+<template v-if="_showCards">
+  <div class="text-center">
+    <!-- Total Time -->
+    <div
+      v-if="validateTotalTime"
+      class="time-card-flex mx-auto"
+    >
+      <v-row
+        no-gutters
+        class="d-flex flex-no-wrap align-center"
+        :style="fontSize"
       >
-        <v-icon left>
+        <v-icon
+          :x-large="!small"
+          start
+          color="primary"
+        >
           {{ $globals.icons.clockOutline }}
         </v-icon>
-        {{ time.name }} |
-        {{ time.value }}
-      </v-chip>
-    </v-container>
+        <p class="my-0">
+          <span class="font-weight-bold opacity-80">{{ validateTotalTime.name }}</span><br>{{ validateTotalTime.value }}
+        </p>
+      </v-row>
+    </div>
+    <v-divider
+      v-if="validateTotalTime && (validatePrepTime || validatePerformTime)"
+      class="my-2"
+    />
+    <!-- Prep Time & Perform Time -->
+    <div
+      v-if="validatePrepTime || validatePerformTime"
+      class="time-card-flex mx-auto"
+    >
+      <v-row
+        no-gutters
+        class="d-flex justify-center align-center"
+        :class="{ 'flex-column': $vuetify.display.smAndDown }"
+        style="width: 100%;"
+        :style="fontSize"
+      >
+        <div
+          v-if="validatePrepTime"
+          class="d-flex flex-no-wrap my-1 align-center"
+        >
+          <v-icon
+            :size="small ? 'small' : 'large'"
+            left
+            color="primary"
+          >
+            {{ $globals.icons.knfife }}
+          </v-icon>
+          <p class="my-0">
+            <span class="font-weight-bold opacity-80">{{ validatePrepTime.name }}</span><br>{{ validatePrepTime.value }}
+          </p>
+        </div>
+        <v-divider
+          v-if="validatePrepTime && validatePerformTime"
+          vertical
+          class="mx-4"
+        />
+        <div
+          v-if="validatePerformTime"
+          class="d-flex flex-no-wrap my-1 align-center"
+        >
+          <v-icon
+            :size="small ? 'small' : 'large'"
+            left
+            color="primary"
+          >
+            {{ $globals.icons.potSteam }}
+          </v-icon>
+          <p class="my-0">
+            <span class="font-weight-bold opacity-80">{{ validatePerformTime.name }}</span><br>{{ validatePerformTime.value }}
+          </p>
+        </div>
+      </v-row>
+    </div>
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+<script setup lang="ts">
+interface Props {
+  prepTime?: string | null;
+  totalTime?: string | null;
+  performTime?: string | null;
+  color?: string;
+  small?: boolean;
+}
+const props = withDefaults(defineProps<Props>(), {
+  prepTime: null,
+  totalTime: null,
+  performTime: null,
+  color: "accent custom-transparent",
+  small: false,
+});
 
-export default defineComponent({
-  props: {
-    stacked: {
-      type: Boolean,
-      default: false,
-    },
-    prepTime: {
-      type: String,
-      default: null,
-    },
-    totalTime: {
-      type: String,
-      default: null,
-    },
-    performTime: {
-      type: String,
-      default: null,
-    },
-    color: {
-      type: String,
-      default: "accent custom-transparent"
-    },
-    containerClass: {
-      type: String,
-      default: undefined,
-    },
-  },
-  setup(props) {
-    const { i18n } = useContext();
+const i18n = useI18n();
 
-    function isEmpty(str: string | null) {
-      return !str || str.length === 0;
-    }
+function isEmpty(str: string | null) {
+  return !str || str.length === 0;
+}
 
-    const showCards = computed(() => {
-      return [props.prepTime, props.totalTime, props.performTime].some((x) => !isEmpty(x));
-    });
+const _showCards = computed(() => {
+  return [props.prepTime, props.totalTime, props.performTime].some(x => !isEmpty(x));
+});
 
-    const validateTotalTime = computed(() => {
-      return !isEmpty(props.totalTime) ? { name: i18n.t("recipe.total-time"), value: props.totalTime } : null;
-    });
+const validateTotalTime = computed(() => {
+  return !isEmpty(props.totalTime) ? { name: i18n.t("recipe.total-time"), value: props.totalTime } : null;
+});
 
-    const validatePrepTime = computed(() => {
-      return !isEmpty(props.prepTime) ? { name: i18n.t("recipe.prep-time"), value: props.prepTime } : null;
-    });
+const validatePrepTime = computed(() => {
+  return !isEmpty(props.prepTime) ? { name: i18n.t("recipe.prep-time"), value: props.prepTime } : null;
+});
 
-    const validatePerformTime = computed(() => {
-      return !isEmpty(props.performTime) ? { name: i18n.t("recipe.perform-time"), value: props.performTime } : null;
-    });
+const validatePerformTime = computed(() => {
+  return !isEmpty(props.performTime) ? { name: i18n.t("recipe.perform-time"), value: props.performTime } : null;
+});
 
-    const allTimes = computed(() => {
-      return [validateTotalTime.value, validatePrepTime.value, validatePerformTime.value].filter((x) => x !== null);
-    });
-
-    return {
-      showCards,
-      allTimes,
-    };
-  },
+const fontSize = computed(() => {
+  return props.small ? { fontSize: "smaller" } : { fontSize: "larger" };
 });
 </script>
 
 <style scoped>
+.text-center {
+  font-size: smaller;
+}
 .time-card-flex {
   width: fit-content;
 }

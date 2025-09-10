@@ -24,7 +24,7 @@ class RepositoryCookbooks(HouseholdRepositoryGeneric[ReadCookBook, CookBook]):
                 return super().create(data)
             except IntegrityError:
                 self.session.rollback()
-                data.slug = slugify(f"{data.name} ({i+1})")
+                data.slug = slugify(f"{data.name} ({i + 1})")
 
         raise  # raise the last IntegrityError
 
@@ -45,7 +45,7 @@ class RepositoryCookbooks(HouseholdRepositoryGeneric[ReadCookBook, CookBook]):
                 return super().update(match_value, data)
             except IntegrityError:
                 self.session.rollback()
-                data.slug = slugify(f"{data.name} ({i+1})")
+                data.slug = slugify(f"{data.name} ({i + 1})")
 
         raise  # raise the last IntegrityError
 

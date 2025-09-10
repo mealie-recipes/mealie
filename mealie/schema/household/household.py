@@ -1,16 +1,45 @@
+from datetime import datetime
 from typing import Annotated
 
 from pydantic import UUID4, ConfigDict, StringConstraints, field_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
-from mealie.db.models.household.household import Household
+from mealie.db.models.household import Household, HouseholdToRecipe
 from mealie.db.models.users.users import User
 from mealie.schema._mealie.mealie_model import MealieModel
 from mealie.schema.household.webhook import ReadWebhook
 from mealie.schema.response.pagination import PaginationBase
 
 from .household_preferences import ReadHouseholdPreferences, UpdateHouseholdPreferences
+
+
+class HouseholdRecipeBase(MealieModel):
+    last_made: datetime | None = None
+
+
+class HouseholdRecipeSummary(HouseholdRecipeBase):
+    recipe_id: UUID4
+    model_config = ConfigDict(from_attributes=True)
+
+
+class HouseholdRecipeCreate(HouseholdRecipeBase):
+    household_id: UUID4
+    recipe_id: UUID4
+
+
+class HouseholdRecipeUpdate(HouseholdRecipeBase): ...
+
+
+class HouseholdRecipeOut(HouseholdRecipeCreate):
+    id: UUID4
+    model_config = ConfigDict(from_attributes=True)
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [
+            joinedload(HouseholdToRecipe.household),
+        ]
 
 
 class HouseholdCreate(MealieModel):

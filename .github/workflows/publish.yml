@@ -1,0 +1,61 @@
+name: Build Containers
+
+on:
+  workflow_call:
+    inputs:
+      tag:
+        required: true
+        type: string
+      tags:
+        required: false
+        type: string
+    secrets:
+      DOCKERHUB_USERNAME:
+        required: true
+      DOCKERHUB_TOKEN:
+        required: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to the Container registry (ghcr.io)
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Log in to the Container registry (dockerhub)
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - uses: depot/setup-action@v1
+
+      - name: Retrieve Python package
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-dist
+          path: dist
+
+      - name: Build and push Docker image, via Depot.dev
+        uses: depot/build-push-action@v1
+        with:
+          project: srzjb6mhzm
+          file: ./docker/Dockerfile
+          context: .
+          build-contexts: |
+            packages=dist
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: |
+            hkotel/mealie:${{ inputs.tag }}
+            ghcr.io/${{ github.repository }}:${{ inputs.tag }}
+            ${{ inputs.tags }}
+          build-args: |
+            COMMIT=${{ github.sha }}

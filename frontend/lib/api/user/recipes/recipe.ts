@@ -2,7 +2,7 @@ import { BaseCRUDAPI } from "../../base/base-clients";
 import { route } from "../../base";
 import { CommentsApi } from "./recipe-comments";
 import { RecipeShareApi } from "./recipe-share";
-import {
+import type {
   Recipe,
   CreateRecipe,
   RecipeAsset,
@@ -17,7 +17,7 @@ import {
   RecipeTimelineEventOut,
   RecipeTimelineEventUpdate,
 } from "~/lib/api/types/recipe";
-import { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
+import type { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
 
 export type Parser = "nlp" | "brute" | "openai";
 
@@ -84,6 +84,7 @@ export type RecipeSearchQuery = {
   page?: number;
   perPage?: number;
   orderBy?: string;
+  orderByNullPosition?: "first" | "last";
 
   _searchSeed?: string;
 };
@@ -112,9 +113,9 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     });
   }
 
-  async getSuggestions(q: RecipeSuggestionQuery, foods: string[] | null = null, tools: string[]| null = null) {
+  async getSuggestions(q: RecipeSuggestionQuery, foods: string[] | null = null, tools: string[] | null = null) {
     return await this.requests.get<RecipeSuggestionResponse>(
-      route(routes.recipesSuggestions, { ...q, foods, tools })
+      route(routes.recipesSuggestions, { ...q, foods, tools }),
     );
   }
 
@@ -156,17 +157,19 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return await this.requests.post<string>(routes.recipesCreateUrlBulk, payload);
   }
 
-  async createOneFromImage(fileObject: Blob | File, fileName: string, translateLanguage: string | null = null) {
+  async createOneFromImages(fileObjects: (Blob | File)[], translateLanguage: string | null = null) {
     const formData = new FormData();
-    formData.append("images", fileObject);
-    formData.append("extension", fileName.split(".").pop() ?? "");
 
-    let apiRoute = routes.recipesCreateFromImage
+    fileObjects.forEach((file) => {
+      formData.append("images", file);
+    });
+
+    let apiRoute = routes.recipesCreateFromImage;
     if (translateLanguage) {
-      apiRoute = `${apiRoute}?translateLanguage=${translateLanguage}`
+      apiRoute = `${apiRoute}?translateLanguage=${translateLanguage}`;
     }
 
-    return await this.requests.post<string>(apiRoute, formData);
+    return await this.requests.post<string>(apiRoute, formData, { timeout: 120000 });
   }
 
   async parseIngredients(parser: Parser, ingredients: Array<string>) {
@@ -196,7 +199,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
   }
 
   async updateLastMade(recipeSlug: string, timestamp: string) {
-    return await this.requests.patch<Recipe, RecipeLastMade>(routes.recipesSlugLastMade(recipeSlug), { timestamp })
+    return await this.requests.patch<Recipe, RecipeLastMade>(routes.recipesSlugLastMade(recipeSlug), { timestamp });
   }
 
   async createTimelineEvent(payload: RecipeTimelineEventIn) {
@@ -206,7 +209,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
   async updateTimelineEvent(eventId: string, payload: RecipeTimelineEventUpdate) {
     return await this.requests.put<RecipeTimelineEventOut, RecipeTimelineEventUpdate>(
       routes.recipesTimelineEventId(eventId),
-      payload
+      payload,
     );
   }
 
@@ -216,10 +219,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
 
   async getAllTimelineEvents(page = 1, perPage = -1, params = {} as any) {
     return await this.requests.get<PaginationData<RecipeTimelineEventOut>>(
-      routes.recipesTimelineEvent,
-      {
-        params: { page, perPage, ...params },
-      }
+      routes.recipesTimelineEvent, { page, perPage, ...params },
     );
   }
 

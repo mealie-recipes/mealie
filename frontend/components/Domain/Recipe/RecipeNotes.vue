@@ -1,16 +1,40 @@
 <template>
-  <div v-if="value.length > 0 || edit" class="mt-8">
-    <h2 class="my-4">{{ $t("recipe.note") }}</h2>
-    <div v-for="(note, index) in value" :id="'note' + index" :key="'note' + index" class="mt-1">
+  <div
+    v-if="model.length > 0 || edit"
+    class="mt-8"
+  >
+    <h2 class="my-4 text-h5 font-weight-medium opacity-80">
+      {{ $t("recipe.note") }}
+    </h2>
+    <div
+      v-for="(note, index) in model"
+      :id="'note' + index"
+      :key="'note' + index"
+      class="mt-1"
+    >
       <v-card v-if="edit">
         <v-card-text>
           <div class="d-flex align-center">
-            <v-text-field v-model="value[index]['title']" :label="$t('recipe.title')" />
-            <v-btn icon class="mr-2" elevation="0" @click="removeByIndex(value, index)">
+            <v-text-field
+              v-model="model[index]['title']"
+              variant="underlined"
+              :label="$t('recipe.title')"
+            />
+            <v-btn
+              icon
+              class="mr-2"
+              elevation="0"
+              @click="removeByIndex(index)"
+            >
               <v-icon>{{ $globals.icons.delete }}</v-icon>
             </v-btn>
           </div>
-          <v-textarea v-model="value[index]['text']" auto-grow :placeholder="$t('recipe.note')" />
+          <v-textarea
+            v-model="model[index]['text']"
+            variant="underlined"
+            auto-grow
+            :placeholder="$t('recipe.note')"
+          />
         </v-card-text>
       </v-card>
       <div v-else>
@@ -23,44 +47,39 @@
       </div>
     </div>
 
-    <div v-if="edit" class="d-flex justify-end">
-      <BaseButton class="ml-auto my-2" @click="addNote"> {{ $t("general.add") }}</BaseButton>
+    <div
+      v-if="edit"
+      class="d-flex justify-end"
+    >
+      <BaseButton
+        class="ml-auto my-2"
+        @click="addNote"
+      >
+        {{ $t("general.add") }}
+      </BaseButton>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
-import { RecipeNote } from "~/lib/api/types/recipe";
+<script setup lang="ts">
+import type { RecipeNote } from "~/lib/api/types/recipe";
 
-export default defineComponent({
-  props: {
-    value: {
-      type: Array as () => RecipeNote[],
-      required: false,
-      default: () => [],
-    },
+const model = defineModel<RecipeNote[]>({ default: () => [] });
 
-    edit: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  setup(props) {
-    function addNote() {
-      props.value.push({ title: "", text: "" });
-    }
-
-    function removeByIndex(list: unknown[], index: number) {
-      list.splice(index, 1);
-    }
-
-    return {
-      addNote,
-      removeByIndex,
-    };
+defineProps({
+  edit: {
+    type: Boolean,
+    default: true,
   },
 });
-</script>
 
-<style></style>
+function addNote() {
+  model.value = [...model.value, { title: "", text: "" }];
+}
+
+function removeByIndex(index: number) {
+  const newNotes = [...model.value];
+  newNotes.splice(index, 1);
+  model.value = newNotes;
+}
+</script>

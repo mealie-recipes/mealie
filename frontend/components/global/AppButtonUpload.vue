@@ -1,9 +1,25 @@
 <template>
-  <v-form ref="file">
-    <input ref="uploader" class="d-none" type="file" :accept="accept" @change="onFileChanged" />
+  <v-form ref="files">
+    <input
+      ref="uploader"
+      class="d-none"
+      type="file"
+      :accept="accept"
+      :multiple="multiple"
+      @change="onFileChanged"
+    >
     <slot v-bind="{ isSelecting, onButtonClick }">
-      <v-btn :loading="isSelecting" :small="small" :color="color" :text="textBtn" :disabled="disabled" @click="onButtonClick">
-        <v-icon left> {{ effIcon }}</v-icon>
+      <v-btn
+        :loading="isSelecting"
+        :small="small"
+        :color="color"
+        :variant="textBtn ? 'text' : 'elevated'"
+        :disabled="disabled"
+        @click="onButtonClick"
+      >
+        <v-icon start>
+          {{ effIcon }}
+        </v-icon>
         {{ text ? text : defaultText }}
       </v-btn>
     </slot>
@@ -11,12 +27,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, useContext } from "@nuxtjs/composition-api";
 import { useUserApi } from "~/composables/api";
 
 const UPLOAD_EVENT = "uploaded";
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     small: {
       type: Boolean,
@@ -57,45 +72,71 @@ export default defineComponent({
     disabled: {
       type: Boolean,
       default: false,
-    }
+    },
+    multiple: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, context) {
-    const file = ref<File | null>(null);
+    const files = ref<File[]>([]);
     const uploader = ref<HTMLInputElement | null>(null);
     const isSelecting = ref(false);
 
-    const { i18n, $globals } = useContext();
+    const i18n = useI18n();
+    const { $globals } = useNuxtApp();
     const effIcon = props.icon ? props.icon : $globals.icons.upload;
 
     const defaultText = i18n.t("general.upload");
 
     const api = useUserApi();
     async function upload() {
-      if (file.value != null) {
-        isSelecting.value = true;
+      if (files.value.length === 0) {
+        return;
+      }
 
-        if (!props.post) {
-          context.emit(UPLOAD_EVENT, file.value);
-          isSelecting.value = false;
-          return;
-        }
+      isSelecting.value = true;
 
-        const formData = new FormData();
-        formData.append(props.fileName, file.value);
+      if (!props.post) {
+        // NOTE: To preserve behaviour for other parents of this component,
+        // we emit a single File if !props.multiple.
+        context.emit(UPLOAD_EVENT, props.multiple ? files.value : files.value[0]);
+        isSelecting.value = false;
+        return;
+      }
 
+      // WARN: My change is only for !props.post.
+      // I have not added support for multiple files in the API.
+      // Existing call-sites never passed the `multiple` prop,
+      // so this case will only be hit if the prop is set to true.
+      if (props.multiple && files.value.length > 1) {
+        console.warn("Multiple file uploads are not supported by the API.");
+        return;
+      }
+
+      const file = files.value[0];
+      const formData = new FormData();
+      formData.append(props.fileName, file);
+
+      try {
         const response = await api.upload.file(props.url, formData);
-
         if (response) {
           context.emit(UPLOAD_EVENT, response);
         }
-        isSelecting.value = false;
       }
+      catch (e) {
+        console.error(e);
+        context.emit(UPLOAD_EVENT, null);
+      }
+
+      isSelecting.value = false;
     }
 
     function onFileChanged(e: Event) {
       const target = e.target as HTMLInputElement;
-      if (target.files !== null && target.files.length > 0 && file.value !== null) {
-        file.value = target.files[0];
+
+      if (target.files !== null && target.files.length > 0) {
+        files.value = Array.from(target.files);
         upload();
       }
     }
@@ -107,13 +148,13 @@ export default defineComponent({
         () => {
           isSelecting.value = false;
         },
-        { once: true }
+        { once: true },
       );
       uploader.value?.click();
     }
 
     return {
-      file,
+      files,
       uploader,
       isSelecting,
       effIcon,

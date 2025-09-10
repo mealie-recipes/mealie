@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 import pytest
 from sqlalchemy.orm import Session
@@ -129,11 +129,11 @@ def test_random_order_search(
         page=1,
         per_page=-1,
         order_by="random",
-        pagination_seed=str(datetime.now(timezone.utc)),
+        pagination_seed=str(datetime.now(UTC)),
         order_direction=OrderDirection.asc,
     )
     random_ordered = []
     for _ in range(5):
-        pagination.pagination_seed = str(datetime.now(timezone.utc))
+        pagination.pagination_seed = str(datetime.now(UTC))
         random_ordered.append(repo.page_all(pagination, search="unit").items)
     assert not all(i == random_ordered[0] for i in random_ordered)

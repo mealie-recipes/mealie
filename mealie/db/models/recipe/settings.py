@@ -13,9 +13,11 @@ class RecipeSettings(SqlAlchemyBase):
     show_nutrition: Mapped[bool | None] = mapped_column(sa.Boolean)
     show_assets: Mapped[bool | None] = mapped_column(sa.Boolean)
     landscape_view: Mapped[bool | None] = mapped_column(sa.Boolean)
-    disable_amount: Mapped[bool | None] = mapped_column(sa.Boolean, default=True)
     disable_comments: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
     locked: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
+
+    # Deprecated
+    disable_amount: Mapped[bool | None] = mapped_column(sa.Boolean, default=True)
 
     def __init__(
         self,

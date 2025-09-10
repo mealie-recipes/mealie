@@ -1,0 +1,110 @@
+name: Backend Lint and Test
+
+on:
+  workflow_call:
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+
+    env:
+      PRODUCTION: false
+
+    strategy:
+      fail-fast: true
+      matrix:
+        # Database ENV Variables as Specified by Mealie
+        Database: [sqlite, postgres]
+
+    # Services
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: mealie
+          POSTGRES_PASSWORD: mealie
+          POSTGRES_DB: mealie
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        ports:
+          - 5432:5432
+      ldap:
+        image: rroemhild/test-openldap
+        ports:
+          - 10389:10389
+          - 10636:10636
+
+    # Steps
+    steps:
+      - name: Install Task
+        uses: arduino/setup-task@v2
+        with:
+          version: 3.x
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+        with:
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+
+      - name: Load cached venv
+        id: cached-poetry-dependencies
+        uses: actions/cache@v4
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Check venv cache
+        id: cache-validate
+        if: steps.cached-poetry-dependencies.outputs.cache-hit == 'true'
+        run: |
+          echo "import fastapi;print('venv good?')" > test.py && poetry run python test.py && echo "cache-hit-success=true" >> $GITHUB_OUTPUT
+          rm test.py
+        continue-on-error: true
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install libsasl2-dev libldap2-dev libssl-dev
+          poetry install
+          poetry add "psycopg2-binary==2.9.9"
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || steps.cache-validate.outputs.cache-hit-success != 'true'
+
+      - name: Formatting (Ruff)
+        run: |
+          poetry run ruff format . --check
+
+      - name: Lint (Ruff)
+        run: |
+          task py:lint
+
+      - name: Mypy Typecheck
+        run: |
+          task py:mypy
+
+      - name: Pytest
+        env:
+          DB_ENGINE: ${{ matrix.Database }}
+          POSTGRES_SERVER: localhost
+          LDAP_AUTH_ENABLED: True
+          LDAP_SERVER_URL: ldap://localhost:10389
+          LDAP_TLS_INSECURE: true
+          LDAP_ENABLE_STARTTLS: false
+          LDAP_BASE_DN: "ou=people,dc=planetexpress,dc=com"
+          LDAP_QUERY_BIND: "cn=admin,dc=planetexpress,dc=com"
+          LDAP_QUERY_PASSWORD: "GoodNewsEveryone"
+          LDAP_USER_FILTER: "(&(|({id_attribute}={input})({mail_attribute}={input}))(|(memberOf=cn=ship_crew,ou=people,dc=planetexpress,dc=com)(memberOf=cn=admin_staff,ou=people,dc=planetexpress,dc=com)))"
+          LDAP_ADMIN_FILTER: "memberOf=cn=admin_staff,ou=people,dc=planetexpress,dc=com"
+          LDAP_ID_ATTRIBUTE: uid
+          LDAP_NAME_ATTRIBUTE: cn
+          LDAP_MAIL_ATTRIBUTE: mail
+        run: |
+          task py:test

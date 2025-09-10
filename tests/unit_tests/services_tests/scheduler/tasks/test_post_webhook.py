@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
 from pydantic import UUID4
@@ -31,7 +31,7 @@ def webhook_factory(
         name=name or random_string(),
         url=url or random_string(),
         webhook_type=webhook_type,
-        scheduled_time=scheduled_time.time() if scheduled_time else datetime.now(timezone.utc).time(),
+        scheduled_time=scheduled_time.time() if scheduled_time else datetime.now(UTC).time(),
         group_id=group_id,
         household_id=household_id,
     )
@@ -45,7 +45,7 @@ def test_get_scheduled_webhooks_filter_query(unique_user: TestUser):
     database = unique_user.repos
     expected: list[SaveWebhook] = []
 
-    start = datetime.now(timezone.utc)
+    start = datetime.now(UTC)
 
     for _ in range(5):
         new_item = webhook_factory(
@@ -65,7 +65,7 @@ def test_get_scheduled_webhooks_filter_query(unique_user: TestUser):
             expected.append(new_item)
 
     event_bus_listener = WebhookEventListener(UUID(unique_user.group_id), UUID(unique_user.household_id))
-    results = event_bus_listener.get_scheduled_webhooks(start, datetime.now(timezone.utc) + timedelta(minutes=5))
+    results = event_bus_listener.get_scheduled_webhooks(start, datetime.now(UTC) + timedelta(minutes=5))
 
     assert len(results) == len(expected)
 
@@ -85,8 +85,8 @@ def test_event_listener_get_meals_by_date_range(unique_user: TestUser):
     """
     meal_repo = unique_user.repos.meals
 
-    start_date = datetime.now(timezone.utc) - timedelta(days=7)
-    end_date = datetime.now(timezone.utc)
+    start_date = datetime.now(UTC) - timedelta(days=7)
+    end_date = datetime.now(UTC)
 
     meal_1 = meal_repo.create(
         {
@@ -152,8 +152,8 @@ def test_event_listener_get_meals_by_date_range(unique_user: TestUser):
 def test_get_meals_by_date_range(unique_user: TestUser):
     meal_repo = unique_user.repos.meals
 
-    start_date = datetime.now(timezone.utc) - timedelta(days=7)
-    end_date = datetime.now(timezone.utc)
+    start_date = datetime.now(UTC) - timedelta(days=7)
+    end_date = datetime.now(UTC)
 
     meal_1 = meal_repo.create(
         {
@@ -210,8 +210,8 @@ def test_get_meals_by_date_range_no_meals(unique_user: TestUser):
     """
     meal_repo = unique_user.repos.meals
 
-    start_date = datetime.now(timezone.utc) - timedelta(days=7)
-    end_date = datetime.now(timezone.utc)
+    start_date = datetime.now(UTC) - timedelta(days=7)
+    end_date = datetime.now(UTC)
 
     meals_in_range = meal_repo.get_meals_by_date_range(start_date, end_date)
 
@@ -224,7 +224,7 @@ def test_get_meals_by_date_range_single_day(unique_user: TestUser):
     """
     meal_repo = unique_user.repos.meals
 
-    single_day = datetime.now(timezone.utc)
+    single_day = datetime.now(UTC)
 
     meal_1 = meal_repo.create(
         {
@@ -255,12 +255,12 @@ def test_get_meals_by_date_range_no_overlap(unique_user: TestUser):
     """
     meal_repo = unique_user.repos.meals
 
-    start_date = datetime.now(timezone.utc) + timedelta(days=1)
-    end_date = datetime.now(timezone.utc) + timedelta(days=10)
+    start_date = datetime.now(UTC) + timedelta(days=1)
+    end_date = datetime.now(UTC) + timedelta(days=10)
 
     meal_1 = meal_repo.create(
         {
-            "date": datetime.now(timezone.utc) - timedelta(days=5),
+            "date": datetime.now(UTC) - timedelta(days=5),
             "entry_type": "dinner",
             "title": "Meal Outside Range",
             "text": "This meal is outside the tested date range",
@@ -289,7 +289,7 @@ def test_get_meals_by_date_range_invalid_date_range(unique_user: TestUser):
     """
     meal_repo = unique_user.repos.meals
 
-    start_date = datetime.now(timezone.utc)
+    start_date = datetime.now(UTC)
     end_date = start_date - timedelta(days=1)
 
     meals_in_range = meal_repo.get_meals_by_date_range(start_date, end_date)

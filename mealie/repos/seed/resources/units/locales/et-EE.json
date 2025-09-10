@@ -1,0 +1,141 @@
+{
+    "teaspoon": {
+        "name": "teelusikas",
+        "plural_name": "teelusikad",
+        "description": "",
+        "abbreviation": "tl"
+    },
+    "tablespoon": {
+        "name": "supilusikas",
+        "plural_name": "supilusikad",
+        "description": "",
+        "abbreviation": "sl"
+    },
+    "cup": {
+        "name": "tass",
+        "plural_name": "tassid",
+        "description": "",
+        "abbreviation": "tassi"
+    },
+    "fluid-ounce": {
+        "name": "vedelikuunts",
+        "plural_name": "vedelikuuntsi",
+        "description": "",
+        "abbreviation": "fl oz"
+    },
+    "pint": {
+        "name": "pint",
+        "plural_name": "pinti",
+        "description": "",
+        "abbreviation": "pt"
+    },
+    "quart": {
+        "name": "kvart",
+        "plural_name": "kvarti",
+        "description": "",
+        "abbreviation": "qt"
+    },
+    "gallon": {
+        "name": "gallon",
+        "plural_name": "gallonit",
+        "description": "",
+        "abbreviation": "gal"
+    },
+    "milliliter": {
+        "name": "milliliiter",
+        "plural_name": "milliliitrit",
+        "description": "",
+        "abbreviation": "ml"
+    },
+    "liter": {
+        "name": "liiter",
+        "plural_name": "liitrit",
+        "description": "",
+        "abbreviation": "l"
+    },
+    "pound": {
+        "name": "nael",
+        "plural_name": "naela",
+        "description": "",
+        "abbreviation": "lb",
+        "plural_abbreviation": "lbs"
+    },
+    "ounce": {
+        "name": "unts",
+        "plural_name": "untsi",
+        "description": "",
+        "abbreviation": "oz"
+    },
+    "gram": {
+        "name": "gramm",
+        "plural_name": "grammi",
+        "description": "",
+        "abbreviation": "g"
+    },
+    "kilogram": {
+        "name": "kilogramm",
+        "plural_name": "kilogrammi",
+        "description": "",
+        "abbreviation": "kg"
+    },
+    "milligram": {
+        "name": "milligramm",
+        "plural_name": "milligrammi",
+        "description": "",
+        "abbreviation": "mg"
+    },
+    "splash": {
+        "name": "tilk",
+        "plural_name": "tilkka",
+        "description": "",
+        "abbreviation": ""
+    },
+    "dash": {
+        "name": "näpuotsatäis",
+        "plural_name": "näpuotsatäit",
+        "description": "",
+        "abbreviation": ""
+    },
+    "serving": {
+        "name": "portsjon",
+        "plural_name": "portsjonit",
+        "description": "",
+        "abbreviation": ""
+    },
+    "head": {
+        "name": "pea",
+        "plural_name": "pead",
+        "description": "",
+        "abbreviation": ""
+    },
+    "clove": {
+        "name": "küüs",
+        "plural_name": "küünt",
+        "description": "",
+        "abbreviation": ""
+    },
+    "can": {
+        "name": "purk",
+        "plural_name": "purki",
+        "description": "",
+        "abbreviation": ""
+    },
+    "bunch": {
+        "name": "kimp",
+        "plural_name": "kimpu",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pack": {
+        "name": "pakk",
+        "plural_name": "pakki",
+        "description": "",
+        "abbreviation": ""
+    },
+    "pinch": {
+        "name": "näpuotsatäis",
+        "plural_name": "näpuotsatäit",
+        "description": "",
+        "abbreviation": ""
+    }
+}

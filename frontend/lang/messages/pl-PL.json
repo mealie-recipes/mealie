@@ -69,6 +69,7 @@
     "new-notification": "Nowe powiadomienie",
     "event-notifiers": "Powiadomienia o zdarzeniach",
     "apprise-url-skipped-if-blank": "URL Apprise (pominięty, jeśli puste)",
+    "apprise-url-is-left-intentionally-blank": "Ponieważ adresy URL Apprise zawierają zazwyczaj poufne informacje, pole to pozostaje celowo puste podczas edycji. Jeśli chcesz zaktualizować adres URL, wprowadź ten nowy tutaj, w przeciwnym razie pozostaw puste, aby zachować bieżący adres URL.",
     "enable-notifier": "Włącz Powiadomienie",
     "what-events": "Jakie zdarzenia powinien subskrybować ten powiadamiający?",
     "user-events": "Zdarzenia użytkownika",
@@ -79,7 +80,8 @@
     "tag-events": "Zdarzenia tagów",
     "category-events": "Wydarzenia kategorii",
     "when-a-new-user-joins-your-group": "Kiedy nowy użytkownik dołączy do Twojej grupy",
-    "recipe-events": "Zdarzenia Przepisów"
+    "recipe-events": "Zdarzenia Przepisów",
+    "label-events": "Etykieta wydarzeń"
   },
   "general": {
     "add": "Dodaj",
@@ -472,6 +474,7 @@
     "comment": "Komentarz",
     "comments": "Komentarze",
     "delete-confirmation": "Czy jesteś pewien, że chcesz usunąć ten przepis?",
+    "admin-delete-confirmation": "Zamierzasz usunąć przepis, który nie należy do Ciebie, używając uprawnień administratora. Czy jesteś pewien?",
     "delete-recipe": "Usuń przepis",
     "description": "Opis",
     "disable-amount": "Wyłącz ilości składników",
@@ -518,7 +521,7 @@
     "save-recipe-before-use": "Zapisz przepis przed użyciem",
     "section-title": "Tytuł rozdziału",
     "servings": "Porcje",
-    "serves-amount": "{amount} porcji",
+    "serves-amount": "Porcje {amount}",
     "share-recipe-message": "Chcę podzielić się z Tobą moim przepisem na {0}.",
     "show-nutrition-values": "Pokaż wartości odżywcze",
     "sodium-content": "Sód",
@@ -558,6 +561,7 @@
     "see-original-text": "Zobacz oryginalny tekst",
     "original-text-with-value": "Oryginalny tekst: {originalText}",
     "ingredient-linker": "Linkier do składników",
+    "unlinked": "Jeszcze nie połączony",
     "linked-to-other-step": "Powiązane z innym krokiem",
     "auto": "Automatycznie",
     "cook-mode": "Tryb Gotowania",
@@ -570,13 +574,6 @@
     "increase-scale-label": "Zwiększ Skalę o 1",
     "locked": "Zablokowany",
     "public-link": "Link publiczny",
-    "timer": {
-      "kitchen-timer": "Minutnik",
-      "start-timer": "Włącz minutnik",
-      "pause-timer": "Zatrzymaj minutnik",
-      "resume-timer": "Wznów minutnik",
-      "stop-timer": "Zatrzymaj minutnik"
-    },
     "edit-timeline-event": "Edytuj zdarzenie osi czasu",
     "timeline": "Oś czasu",
     "timeline-is-empty": "Nie ma jeszcze nic na osi czasu. Spróbuj przygotować ten przepis!",
@@ -586,10 +583,14 @@
     "made-this": "Ugotowałem to",
     "how-did-it-turn-out": "Jak się to udało?",
     "user-made-this": "{user} ugotował(a) to",
-    "last-made-date": "Ostatnio ugotowano {date}",
+    "added-to-timeline": "Dodano do osi czasu",
+    "failed-to-add-to-timeline": "Nie udało się dodać do osi czasu",
+    "failed-to-update-recipe": "Nie udało się zaktualizować przepisu",
+    "added-to-timeline-but-failed-to-add-image": "Dodano do osi czasu, ale nie udało się dodać obrazu",
     "api-extras-description": "Dodatki w przepisach są kluczową cechą API Mealie. Pozwalają na tworzenie niestandardowych par kluczy/wartości JSON w przepisie do odwoływania się przez zewnętrzne aplikacje. Możesz użyć tych kluczy do wyzwalania automatyzacji lub przekazywania niestandardowych wiadomości do twoich wybranych urządzeń.",
     "message-key": "Klucz Wiadomości",
     "parse": "Analizuj",
+    "ingredients-not-parsed-description": "Wygląda na to, że Twoje składniki nie zostały jeszcze przeanalizowane. Kliknij przycisk \"{parse}\" poniżej, aby przetworzyć składniki w ustrukturyzowane jedzenie.",
     "attach-images-hint": "Dołącz obrazy przeciągając i upuszczając je do edytora",
     "drop-image": "Upuść zdjęcie",
     "enable-ingredient-amounts-to-use-this-feature": "Włącz ilości składników, aby użyć tej funkcji",
@@ -607,9 +608,10 @@
     "create-recipe-from-an-image": "Utwórz przepis z obrazu",
     "create-recipe-from-an-image-description": "Utwórz przepis poprzez przesłanie obrazka. Mealie spróbuje wyodrębnić tekst z obrazu za pomocą AI i utworzyć z niego przepis.",
     "crop-and-rotate-the-image": "Przytnij i obróć obraz, tak aby był w odpowiedniej orientacji i był widoczny tylko tekst.",
-    "create-from-image": "Utwórz z obrazu",
+    "create-from-images": "Utwórz przepis z obrazów",
     "should-translate-description": "Przetłumacz przepis na mój język",
     "please-wait-image-procesing": "Proszę czekać, obraz jest przetwarzany. To może chwilę potrwać.",
+    "please-wait-images-processing": "Proszę czekać, obrazy są przetwarzane. To może chwilę potrwać.",
     "bulk-url-import": "Import Zbiorczy z URL",
     "debug-scraper": "Debuguj Scraper",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Utwórz przepis, podając nazwę. Wszystkie przepisy muszą mieć unikalne nazwy.",
@@ -644,9 +646,9 @@
     "recipe-debugger-use-openai-description": "Użyj OpenAI, aby dynamicznie analizować przepisy zamiast polegać na bibliotece scraperów. Podczas tworzenia przepisu za pomocą adresu URL jest to wykonywane automatycznie, jeśli scraperowi nie uda się przetworzyć przepisu, ale możesz przetestować go ręcznie tutaj.",
     "debug": "Debuguj",
     "tree-view": "Widok drzewa",
-    "recipe-servings": "Recipe Servings",
+    "recipe-servings": "Ilość porcji",
     "recipe-yield": "Wydajność przepisu",
-    "recipe-yield-text": "Recipe Yield Text",
+    "recipe-yield-text": "Tekst pola przepisu",
     "unit": "Jednostka",
     "upload-image": "Prześlij obraz",
     "screen-awake": "Pozostaw ekran włączony",
@@ -654,7 +656,6 @@
     "nextStep": "Następny krok",
     "recipe-actions": "Akcje przepisów",
     "parser": {
-      "experimental-alert-text": "Mączka używa naturalnego przetwarzania języka, aby analizować i tworzyć jednostki oraz artykuły żywnościowe dla twoich składników. Ta funkcja jest eksperymentalna i nie zawsze działa zgodnie z oczekiwaniami. Jeśli wolisz nie używać zanalizowanych wyników, możesz wybrać 'Anuluj', a zmiany nie zostaną zapisane.",
       "ingredient-parser": "Parser składników",
       "explanation": "Aby użyć analizatora składników, kliknij przycisk \"Przeanalizuj wszystko\", aby rozpocząć proces. Gdy przetworzone składniki będą dostępne, możesz przejrzeć elementy i sprawdzić, czy zostały one poprawnie przetworzone. Wskaźnik zaufania modelu jest wyświetlany po prawej stronie tytułu elementu. Ten wynik jest średnią wszystkich wyników i nie zawsze będzie dokładny.",
       "alerts-explainer": "Powiadomienia będą wyświetlane, jeśli zostanie znaleziona pasująca żywność lub jednostka, ale nie istnieje w bazie danych.",
@@ -666,17 +667,24 @@
       "no-unit": "Brak jednostki",
       "missing-unit": "Utwórz brakującą jednostkę: {unit}",
       "missing-food": "Utwórz brakującą potrawę: {food}",
+      "this-unit-could-not-be-parsed-automatically": "Nie można przetworzyć tej jednostki automatycznie",
+      "this-food-could-not-be-parsed-automatically": "Nie można przetworzyć tego jedzenia automatycznie",
       "no-food": "Brak potrawy"
     },
     "reset-servings-count": "Zresetuj liczbę porcji",
-    "not-linked-ingredients": "Dodatkowe składniki"
+    "not-linked-ingredients": "Dodatkowe składniki",
+    "upload-another-image": "Prześlij kolejny obraz",
+    "upload-images": "Prześlij obraz",
+    "upload-more-images": "Prześlij więcej obrazów",
+    "set-as-cover-image": "Ustaw jako okładkę przepisu",
+    "cover-image": "Okładka"
   },
   "recipe-finder": {
     "recipe-finder": "Wyszukiwarka przepisów",
     "recipe-finder-description": "Wyszukuj przepisy na podstawie składników, które masz pod ręką. Możesz również filtrować według dostępnych narzędzi oraz ustawić maksymalną liczbę brakujących składników lub przyborów kuchennych.",
     "selected-ingredients": "Wybrany składnik",
     "no-ingredients-selected": "Nie wybrano żadnych składników",
-    "missing": "Missing",
+    "missing": "Brakujący",
     "no-recipes-found": "Nie znaleziono przepisów",
     "no-recipes-found-description": "Spróbuj dodać więcej składników do wyszukiwania lub dostosować filtry",
     "include-ingredients-on-hand": "Uwzględnij składniki dostępne pod ręką",
@@ -685,8 +693,8 @@
     "max-missing-tools": "Maks. ilość brakujących przyborów kuchennych",
     "selected-tools": "Wybrane przybory kuchenne",
     "other-filters": "Inne filtry",
-    "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "ready-to-make": "Gotowe do użycia",
+    "almost-ready-to-make": "Prawie gotowe do użycia"
   },
   "search": {
     "advanced-search": "Wyszukiwanie zaawansowane",
@@ -729,7 +737,7 @@
       "backup-restore": "Przywróć kopie",
       "back-restore-description": "Przywracanie tej kopii zapasowej nadpisze wszystkie aktualne dane w bazie danych i w katalogu danych i zastąpi je zawartością tej kopii zapasowej. {cannot-be-undone} Jeśli przywrócenie zakończy się pomyślnie, zostaniesz wylogowany.",
       "cannot-be-undone": "Tej czynności nie można cofnąć - należy zachować ostrożność.",
-      "postgresql-note": "Jeśli używasz PostGreSQL, sprawdź {backup-restore-process} przed przywróceniem.",
+      "postgresql-note": "Jeśli używasz PostgreSQL, sprawdź {backup-restore-process} przed przywróceniem.",
       "backup-restore-process-in-the-documentation": "proces tworzenia kopii zapasowej/przywracania w dokumentacji",
       "irreversible-acknowledgment": "Rozumiem, że ta operacja jest nieodwracalna, destrukcyjna i może spowodować utratę danych",
       "restore-backup": "Przywróć kopie"
@@ -1057,8 +1065,8 @@
     "foods": {
       "merge-dialog-text": "Połączenie wybranej żywności połączy źródło żywności i żywność docelową w pojedynczą żywność. Źródło żywności zostanie usunięte, a wszystkie odniesienia do źródłowej żywności zostaną zaktualizowane tak, aby wskazywały na docelową żywność.",
       "merge-food-example": "Scalanie {food1} do {food2}",
-      "seed-dialog-text": "Wypełnij bazę daniami na podstawie wybranego lokalnego języka. Akcja ta stworzy ponad 200 zwyczajowych potraw które mogą zostać użyte do organizacji Twojej bazy. Potrawy tłumaczone są przez wysiłek społeczeństwa.",
-      "seed-dialog-warning": "Posiadasz już wartości w bazie. Rozwiązanie problemu z duplikatami leżeć będzie w gestii użytkownika.",
+      "seed-dialog-text": "Wypełnij bazę danych produktami spożywczymi na podstawie twojego lokalnego języka. Dzięki temu utworzysz ponad 200 popularnych produktów spożywczych, które można wykorzystać do zorganizowania bazy danych. Produkty spożywcze są tłumaczone dzięki wysiłkom społeczności.",
+      "seed-dialog-warning": "W twojej bazie danych znajdują się już niektóre pozycje. Ta akcja nie usunie duplikatów, więc będziesz musiał zarządzać nimi ręcznie.",
       "combine-food": "Połącz Żywność",
       "source-food": "Żywność Źródłowa",
       "target-food": "Żywność Docelowa",
@@ -1122,9 +1130,9 @@
       "source-unit-will-be-deleted": "Jednostka źródłowa zostanie usunięta"
     },
     "recipe-actions": {
-      "recipe-actions-data": "Recipe Actions Data",
+      "recipe-actions-data": "Dane akcji przepisu",
       "new-recipe-action": "",
-      "edit-recipe-action": "Edit Recipe Action",
+      "edit-recipe-action": "Edycja akcji przepisu",
       "action-type": "Typ akcji"
     },
     "create-alias": "Utwórz alias",
@@ -1162,7 +1170,7 @@
     "group-details": "Szczegóły grupy",
     "group-details-description": "Zanim utworzysz konto musisz stworzyć grupę. Twoja grupa zawierać będzie tylko Ciebie, ale będziesz istniała możlwiość zaproszenia do niej innych. Użytkownicy Twojej grupy mogą współdzielić plany posiłków, listy zakupów, przepisy i więcej!",
     "use-seed-data": "Użyj przykładowych danych",
-    "use-seed-data-description": "Mealie dostarcza zestaw posiłków, jednostek i opisów które mogą zostać użyte do zapełnienia Twojej grupy przydatnymi danymi do ogranizacji Twoich przepisów.",
+    "use-seed-data-description": "Wysyłka posiłków z kolekcją żywności, jednostek i etykiet, które mogą być użyte do wypełnienia Twojej grupy pomocnymi danymi do organizacji twoich przepisów. Są one tłumaczone na wybrany język. Zawsze możesz dodać lub zmodyfikować te dane później.",
     "account-details": "Szczegóły konta"
   },
   "validation": {

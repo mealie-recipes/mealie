@@ -49,7 +49,7 @@
     },
     "liter": {
         "name": "litras",
-        "plural_name": "liters",
+        "plural_name": "litrų",
         "description": "",
         "abbreviation": "l"
     },
@@ -68,19 +68,19 @@
     },
     "gram": {
         "name": "gramas",
-        "plural_name": "grams",
+        "plural_name": "gramų",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilogramas",
-        "plural_name": "kilograms",
+        "plural_name": "kilogramų",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "miligramas",
-        "plural_name": "milligrams",
+        "plural_name": "miligramų",
         "description": "",
         "abbreviation": "mg"
     },
@@ -98,7 +98,7 @@
     },
     "serving": {
         "name": "porcijos",
-        "plural_name": "servings",
+        "plural_name": "porcijų",
         "description": "",
         "abbreviation": ""
     },

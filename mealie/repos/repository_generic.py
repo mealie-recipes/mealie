@@ -4,11 +4,11 @@ import random
 from collections.abc import Iterable
 from datetime import UTC, datetime
 from math import ceil
-from typing import Any, Generic, TypeVar
+from typing import Any
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
-from sqlalchemy import Select, case, delete, func, nulls_first, nulls_last, select
+from sqlalchemy import ColumnElement, Select, case, delete, func, nulls_first, nulls_last, select
 from sqlalchemy.orm import InstrumentedAttribute
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
@@ -28,18 +28,13 @@ from mealie.schema.response.query_search import SearchFilter
 
 from ._utils import NOT_SET, NotSet
 
-Schema = TypeVar("Schema", bound=MealieModel)
-Model = TypeVar("Model", bound=SqlAlchemyBase)
 
-T = TypeVar("T", bound="RepositoryGeneric")
-
-
-class RepositoryGeneric(Generic[Schema, Model]):
+class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
     """A Generic BaseAccess Model method to perform common operations on the database
 
     Args:
-        Generic ([Schema]): Represents the Pydantic Model
-        Generic ([Model]): Represents the SqlAlchemyModel Model
+        Schema: Represents the Pydantic Model
+        Model: Represents the SqlAlchemyModel Model
     """
 
     session: Session
@@ -69,6 +64,10 @@ class RepositoryGeneric(Generic[Schema, Model]):
     def household_id(self) -> UUID4 | None:
         return self._household_id
 
+    @property
+    def column_aliases(self) -> dict[str, ColumnElement]:
+        return {}
+
     def _random_seed(self) -> str:
         return str(datetime.now(tz=UTC))
 
@@ -86,7 +85,6 @@ class RepositoryGeneric(Generic[Schema, Model]):
 
     def _filter_builder(self, **kwargs) -> dict[str, Any]:
         dct = {}
-
         if self.group_id:
             dct["group_id"] = self.group_id
         if self.household_id:
@@ -147,7 +145,11 @@ class RepositoryGeneric(Generic[Schema, Model]):
         return self.session.execute(self._query().filter_by(**fltr)).unique().scalars().one()
 
     def get_one(
-        self, value: str | int | UUID4, key: str | None = None, any_case=False, override_schema=None
+        self,
+        value: str | int | UUID4,
+        key: str | None = None,
+        any_case=False,
+        override_schema=None,
     ) -> Schema | None:
         key = key or self.primary_key
         eff_schema = override_schema or self.schema
@@ -246,7 +248,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         match_key = match_key or self.primary_key
 
         result = self._query_one(value, match_key)
-        results_as_model = self.schema.model_validate(result)
+        result_as_model = self.schema.model_validate(result)
 
         try:
             self.session.delete(result)
@@ -255,10 +257,10 @@ class RepositoryGeneric(Generic[Schema, Model]):
             self.session.rollback()
             raise e
 
-        return results_as_model
+        return result_as_model
 
-    def delete_many(self, values: Iterable) -> Schema:
-        query = self._query().filter(self.model.id.in_(values))  # type: ignore
+    def delete_many(self, values: Iterable) -> list[Schema]:
+        query = self._query().filter(self.model.id.in_(values))
         results = self.session.execute(query).unique().scalars().all()
         results_as_model = [self.schema.model_validate(result) for result in results]
 
@@ -273,7 +275,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
             self.session.rollback()
             raise e
 
-        return results_as_model  # type: ignore
+        return results_as_model
 
     def delete_all(self) -> None:
         delete(self.model)
@@ -356,7 +358,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         if pagination.query_filter:
             try:
                 query_filter_builder = QueryFilterBuilder(pagination.query_filter)
-                query = query_filter_builder.filter_query(query, model=self.model)
+                query = query_filter_builder.filter_query(query, model=self.model, column_aliases=self.column_aliases)
 
             except ValueError as e:
                 self.logger.error(e)
@@ -394,6 +396,8 @@ class RepositoryGeneric(Generic[Schema, Model]):
         order_dir: OrderDirection,
         order_by_null: OrderByNullPosition | None,
     ) -> Select:
+        order_attr = self.column_aliases.get(order_attr.key, order_attr)
+
         # queries handle uppercase and lowercase differently, which is undesirable
         if isinstance(order_attr.type, sqltypes.String):
             order_attr = func.lower(order_attr)
@@ -461,7 +465,7 @@ class RepositoryGeneric(Generic[Schema, Model]):
         return search_filter.filter_query_by_search(query, schema, self.model)
 
 
-class GroupRepositoryGeneric(RepositoryGeneric[Schema, Model]):
+class GroupRepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase](RepositoryGeneric[Schema, Model]):
     def __init__(
         self,
         session: Session,
@@ -477,7 +481,7 @@ class GroupRepositoryGeneric(RepositoryGeneric[Schema, Model]):
         self._group_id = group_id if group_id else None
 
 
-class HouseholdRepositoryGeneric(RepositoryGeneric[Schema, Model]):
+class HouseholdRepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase](RepositoryGeneric[Schema, Model]):
     def __init__(
         self,
         session: Session,

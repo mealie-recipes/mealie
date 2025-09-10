@@ -3,75 +3,96 @@
     <RecipeIngredients
       :value="recipe.recipeIngredient"
       :scale="scale"
-      :disable-amount="recipe.settings.disableAmount"
       :is-cook-mode="isCookMode"
     />
     <div v-if="!isEditMode && recipe.tools && recipe.tools.length > 0">
-      <h2 class="mb-2 mt-4">{{ $t('tool.required-tools') }}</h2>
-      <v-list-item v-for="(tool, index) in recipe.tools" :key="index" dense>
-        <v-checkbox
-          v-model="recipe.tools[index].onHand"
-          hide-details
-          class="pt-0 my-auto py-auto"
-          color="secondary"
-          @change="updateTool(index)"
+      <h2 class="mt-4 text-h5 font-weight-medium opacity-80">
+        {{ $t('tool.required-tools') }}
+      </h2>
+      <v-list density="compact">
+        <v-list-item
+          v-for="(tool, index) in recipe.tools"
+          :key="index"
+          density="compact"
+          class="px-1"
         >
-        </v-checkbox>
-        <v-list-item-content>
-          {{ tool.name }}
-        </v-list-item-content>
-      </v-list-item>
+          <template #prepend>
+            <v-checkbox
+              v-model="recipeTools[index].onHand"
+              hide-details
+              class="pt-0 py-auto"
+              color="secondary"
+              density="compact"
+              @change="updateTool(index)"
+            />
+          </template>
+          <v-list-item-title>
+            {{ tool.name }}
+          </v-list-item-title>
+        </v-list-item>
+      </v-list>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "@nuxtjs/composition-api";
+<script setup lang="ts">
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import { useToolStore } from "~/composables/store";
-import { NoUndefinedField } from "~/lib/api/types/non-generated";
-import { Recipe } from "~/lib/api/types/recipe";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { Recipe, RecipeTool } from "~/lib/api/types/recipe";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 
-export default defineComponent({
-  components: {
-    RecipeIngredients,
-  },
-  props: {
-    recipe: {
-      type: Object as () => NoUndefinedField<Recipe>,
-      required: true,
-    },
-    scale: {
-      type: Number,
-      required: true,
-    },
-    isCookMode: {
-      type: Boolean,
-      default: false,
-    }
-  },
-  setup(props) {
-    const { isOwnGroup } = useLoggedInState();
+interface RecipeToolWithOnHand extends RecipeTool {
+  onHand: boolean;
+}
 
-    const toolStore = isOwnGroup.value ? useToolStore() : null;
-    const { user } = usePageUser();
-    const { isEditMode } = usePageState(props.recipe.slug);
+interface Props {
+  recipe: NoUndefinedField<Recipe>;
+  scale: number;
+  isCookMode?: boolean;
+}
+const props = withDefaults(defineProps<Props>(), {
+  isCookMode: false,
+});
 
-    function updateTool(index: number) {
-      if (user.id && toolStore) {
-        toolStore.actions.updateOne(props.recipe.tools[index]);
-      } else {
-        console.log("no user, skipping server update");
+const { isOwnGroup } = useLoggedInState();
+
+const toolStore = isOwnGroup.value ? useToolStore() : null;
+const { user } = usePageUser();
+const { isEditMode } = usePageState(props.recipe.slug);
+
+const recipeTools = computed(() => {
+  if (!(user.householdSlug && toolStore)) {
+    return props.recipe.tools.map(tool => ({ ...tool, onHand: false }) as RecipeToolWithOnHand);
+  }
+  else {
+    return props.recipe.tools.map((tool) => {
+      const onHand = tool.householdsWithTool?.includes(user.householdSlug) || false;
+      return { ...tool, onHand } as RecipeToolWithOnHand;
+    });
+  }
+});
+
+function updateTool(index: number) {
+  if (user.id && user.householdSlug && toolStore) {
+    const tool = recipeTools.value[index];
+    if (tool.onHand && !tool.householdsWithTool?.includes(user.householdSlug)) {
+      if (!tool.householdsWithTool) {
+        tool.householdsWithTool = [user.householdSlug];
+      }
+      else {
+        tool.householdsWithTool.push(user.householdSlug);
       }
     }
+    else if (!tool.onHand && tool.householdsWithTool?.includes(user.householdSlug)) {
+      tool.householdsWithTool = tool.householdsWithTool.filter(household => household !== user.householdSlug);
+    }
 
-    return {
-      toolStore,
-      isEditMode,
-      updateTool,
-    };
-  },
-});
+    toolStore.actions.updateOne(tool);
+  }
+  else {
+    console.log("no user, skipping server update");
+  }
+}
 </script>

@@ -80,9 +80,9 @@ def get_numeric(value: str | bytes | int | float, native_expected_type: str) -> 
 
 def from_unix_seconds(seconds: int | float) -> datetime:
     if seconds > MAX_NUMBER:
-        return datetime.max
+        return datetime.max.replace(tzinfo=UTC)
     elif seconds < -MAX_NUMBER:
-        return datetime.min
+        return datetime.min.replace(tzinfo=UTC)
 
     while abs(seconds) > MS_WATERSHED:
         seconds /= 1000
@@ -153,7 +153,7 @@ def parse_time(value: time | str | bytes | int | float) -> time:
         if number >= 86400:
             # doesn't make sense since the time time loop back around to 0
             raise TimeError()
-        return (datetime.min + timedelta(seconds=number)).time()
+        return (datetime.min.replace(tzinfo=UTC) + timedelta(seconds=number)).time()
 
     if isinstance(value, bytes):
         value = value.decode()

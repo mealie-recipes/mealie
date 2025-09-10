@@ -10,6 +10,7 @@ export interface AdminAboutInfo {
   version: string;
   demoStatus: boolean;
   allowSignup: boolean;
+  allowPasswordLogin: boolean;
   defaultGroupSlug?: string | null;
   defaultHouseholdSlug?: string | null;
   enableOidc: boolean;
@@ -41,6 +42,7 @@ export interface AppInfo {
   version: string;
   demoStatus: boolean;
   allowSignup: boolean;
+  allowPasswordLogin: boolean;
   defaultGroupSlug?: string | null;
   defaultHouseholdSlug?: string | null;
   enableOidc: boolean;
@@ -115,6 +117,7 @@ export interface CustomPageBase {
 export interface RecipeCategoryResponse {
   name: string;
   id: string;
+  groupId?: string | null;
   slug: string;
   recipes?: RecipeSummary[];
 }
@@ -147,21 +150,24 @@ export interface RecipeSummary {
 }
 export interface RecipeCategory {
   id?: string | null;
+  groupId?: string | null;
   name: string;
   slug: string;
   [k: string]: unknown;
 }
 export interface RecipeTag {
   id?: string | null;
+  groupId?: string | null;
   name: string;
   slug: string;
   [k: string]: unknown;
 }
 export interface RecipeTool {
   id: string;
+  groupId?: string | null;
   name: string;
   slug: string;
-  onHand?: boolean;
+  householdsWithTool?: string[];
   [k: string]: unknown;
 }
 export interface CustomPageImport {

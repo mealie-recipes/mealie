@@ -63,6 +63,7 @@ export interface GroupInDB {
 export interface CategoryBase {
   name: string;
   id: string;
+  groupId?: string | null;
   slug: string;
 }
 export interface ReadWebhook {
@@ -92,6 +93,12 @@ export interface GroupSummary {
   id: string;
   slug: string;
   preferences?: ReadGroupPreferences | null;
+}
+export interface LongLiveTokenCreateResponse {
+  name: string;
+  id: number;
+  createdAt?: string | null;
+  token: string;
 }
 export interface LongLiveTokenIn {
   name: string;
@@ -130,7 +137,6 @@ export interface PrivateUser {
   lockedAt?: string | null;
 }
 export interface LongLiveTokenOut {
-  token: string;
   name: string;
   id: number;
   createdAt?: string | null;

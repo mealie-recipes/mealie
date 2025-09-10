@@ -1,56 +1,135 @@
 <template>
   <div>
-    <v-menu v-model="state.menu" offset-y bottom nudge-bottom="3" :close-on-content-click="false">
-      <template #activator="{ on, attrs }">
-        <v-badge :value="selected.length > 0" small overlap color="primary" :content="selected.length">
-          <v-btn small color="accent" dark v-bind="attrs" v-on="on">
-            <slot></slot>
+    <v-menu
+      v-model="state.menu"
+      offset-y
+      bottom
+      nudge-bottom="3"
+      :close-on-content-click="false"
+    >
+      <template #activator="{ props }">
+        <v-badge
+          v-memo="[selectedCount]"
+          :model-value="selectedCount > 0"
+          size="small"
+          color="primary"
+          :content="selectedCount"
+        >
+          <v-btn
+            size="small"
+            color="accent"
+            dark
+            v-bind="props"
+          >
+            <slot />
           </v-btn>
         </v-badge>
       </template>
       <v-card width="400">
         <v-card-text>
-          <v-text-field v-model="state.search" class="mb-2" hide-details dense :label="$tc('search.search')" clearable />
-          <div class="d-flex py-4">
+          <v-text-field
+            v-model="state.search"
+            v-memo="[state.search]"
+            class="mb-2"
+            hide-details
+            density="comfortable"
+            :variant="'underlined'"
+            :label="$t('search.search')"
+            clearable
+          />
+          <div class="d-flex py-4 px-1">
             <v-switch
               v-if="requireAll != undefined"
               v-model="requireAllValue"
-              dense
-              small
+              density="compact"
               hide-details
               class="my-auto"
-              :label="`${requireAll ? $tc('search.has-all') : $tc('search.has-any')}`"
+              color="primary"
+              :label="requireAllValue ? $t('search.has-all') : $t('search.has-any')"
             />
             <v-spacer />
             <v-btn
-              small
+              size="small"
               color="accent"
               class="mr-2 my-auto"
               @click="clearSelection"
             >
-              {{ $tc("search.clear-selection") }}
+              {{ $t("search.clear-selection") }}
             </v-btn>
           </div>
-          <v-card v-if="filtered.length > 0" flat outlined>
-            <v-radio-group v-model="selectedRadio" class="ma-0 pa-0">
-            <v-virtual-scroll :items="filtered" height="300" item-height="51">
-              <template #default="{ item }">
-                  <v-list-item :key="item.id" dense :value="item">
-                    <v-list-item-action>
-                      <v-radio v-if="radio" :value="item" @click="handleRadioClick(item)" />
-                      <v-checkbox v-else v-model="selected" :value="item" />
-                    </v-list-item-action>
-                    <v-list-item-content>
-                      <v-list-item-title> {{ item.name }} </v-list-item-title>
-                    </v-list-item-content>
+          <v-card
+            v-if="filtered.length > 0"
+            flat
+            variant="text"
+          >
+            <!-- radio filters -->
+            <v-radio-group
+              v-if="radio"
+              v-model="selectedRadio"
+              class="ma-0 pa-0"
+            >
+              <v-virtual-scroll
+                :items="filtered"
+                height="300"
+                item-height="51"
+              >
+                <template #default="{ item }">
+                  <v-list-item
+                    :key="`radio-${item.id}`"
+                    v-memo="[item.id, item.name, selectedRadio?.id]"
+                    :value="item"
+                    :title="item.name"
+                  >
+                    <template #prepend>
+                      <v-list-item-action start>
+                        <v-radio
+                          v-if="radio"
+                          :value="item"
+                          color="primary"
+                          @click="handleRadioClick(item)"
+                        />
+                      </v-list-item-action>
+                    </template>
                   </v-list-item>
-                <v-divider></v-divider>
-              </template>
-            </v-virtual-scroll>
+                  <v-divider />
+                </template>
+              </v-virtual-scroll>
             </v-radio-group>
+            <!-- checkbox filters -->
+            <v-row v-else class="mt-1">
+              <v-virtual-scroll
+                :items="filtered"
+                height="300"
+                item-height="51"
+              >
+                <template #default="{ item }">
+                  <v-list-item
+                    :key="`checkbox-${item.id}`"
+                    v-memo="[item.id, item.name, selectedIds.has(item.id)]"
+                    :value="item"
+                    :title="item.name"
+                  >
+                    <template #prepend>
+                      <v-list-item-action start>
+                        <v-checkbox-btn
+                          v-model="selected"
+                          :value="item"
+                          color="primary"
+                        />
+                      </v-list-item-action>
+                    </template>
+                  </v-list-item>
+                  <v-divider />
+                </template>
+              </v-virtual-scroll>
+            </v-row>
           </v-card>
           <div v-else>
-            <v-alert type="info" text> {{ $tc('search.no-results') }} </v-alert>
+            <v-alert
+              type="info"
+              :text="$t('search.no-results')"
+              class="mb-0"
+            />
           </div>
         </v-card-text>
       </v-card>
@@ -59,20 +138,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, computed } from "@nuxtjs/composition-api";
+import { watchDebounced } from "@vueuse/core";
 
 export interface SelectableItem {
   id: string;
   name: string;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     items: {
       type: Array as () => SelectableItem[],
       required: true,
     },
-    value: {
+    modelValue: {
       type: Array as () => any[],
       required: true,
     },
@@ -85,11 +164,15 @@ export default defineComponent({
       default: false,
     },
   },
+  emits: ["update:requireAll", "update:modelValue"],
   setup(props, context) {
     const state = reactive({
       search: "",
       menu: false,
     });
+
+    // Use shallowRef for better performance with arrays
+    const debouncedSearch = shallowRef("");
 
     const requireAllValue = computed({
       get: () => props.requireAll,
@@ -98,27 +181,57 @@ export default defineComponent({
       },
     });
 
+    // Use shallowRef to prevent deep reactivity on large arrays
     const selected = computed({
-      get: () => props.value as SelectableItem[],
+      get: () => props.modelValue as SelectableItem[],
       set: (value) => {
-        context.emit("input", value);
+        context.emit("update:modelValue", value);
       },
     });
 
     const selectedRadio = computed({
       get: () => (selected.value.length > 0 ? selected.value[0] : null),
       set: (value) => {
-        context.emit("input", value ? [value] : []);
+        context.emit("update:modelValue", value ? [value] : []);
       },
     });
 
+    watchDebounced(
+      () => state.search,
+      (newSearch) => {
+        debouncedSearch.value = newSearch;
+      },
+      { debounce: 500, maxWait: 1500, immediate: false }, // Increased debounce time
+    );
+
     const filtered = computed(() => {
-      if (!state.search) {
-        return props.items;
+      const items = props.items;
+      const search = debouncedSearch.value;
+
+      if (!search || search.length < 2) { // Only filter after 2 characters
+        return items;
       }
 
-      return props.items.filter((item) => item.name.toLowerCase().includes(state.search.toLowerCase()));
+      const searchLower = search.toLowerCase();
+      return items.filter(item => item.name.toLowerCase().includes(searchLower));
     });
+
+    const selectedCount = computed(() => selected.value.length);
+    const selectedIds = computed(() => {
+      return new Set(selected.value.map(item => item.id));
+    });
+
+    const handleCheckboxClick = (item: SelectableItem) => {
+      const currentSelection = selected.value;
+      const isSelected = selectedIds.value.has(item.id);
+
+      if (isSelected) {
+        selected.value = currentSelection.filter(i => i.id !== item.id);
+      }
+      else {
+        selected.value = [...currentSelection, item];
+      }
+    };
 
     const handleRadioClick = (item: SelectableItem) => {
       if (selectedRadio.value === item) {
@@ -137,7 +250,10 @@ export default defineComponent({
       state,
       selected,
       selectedRadio,
+      selectedCount,
+      selectedIds,
       filtered,
+      handleCheckboxClick,
       handleRadioClick,
       clearSelection,
     };

@@ -1,6 +1,6 @@
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
-from typing import Annotated, Any, Generic, TypeVar
+from typing import Annotated, Any
 from uuid import UUID
 
 from pydantic import UUID4, BaseModel, ConfigDict, Field, StringConstraints, field_validator
@@ -20,7 +20,6 @@ from mealie.schema.response.pagination import PaginationBase
 from ...db.models.group import Group
 from ..recipe import CategoryBase
 
-DataT = TypeVar("DataT", bound=BaseModel)
 DEFAULT_INTEGRATION_ID = "generic"
 settings = get_app_settings()
 
@@ -31,7 +30,6 @@ class LongLiveTokenIn(MealieModel):
 
 
 class LongLiveTokenOut(MealieModel):
-    token: str
     name: str
     id: int
     created_at: datetime | None = None
@@ -40,6 +38,12 @@ class LongLiveTokenOut(MealieModel):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [joinedload(LongLiveToken.user)]
+
+
+class LongLiveTokenCreateResponse(LongLiveTokenOut):
+    """Should ONLY be used when creating a new token, as the token field is sensitive"""
+
+    token: str
 
 
 class CreateToken(LongLiveTokenIn):
@@ -97,7 +101,7 @@ class UserRatingOut(UserRatingCreate):
         ]
 
 
-class UserRatings(BaseModel, Generic[DataT]):
+class UserRatings[DataT: BaseModel](BaseModel):
     ratings: list[DataT]
 
 

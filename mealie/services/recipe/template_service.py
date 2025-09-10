@@ -2,8 +2,6 @@ import enum
 from pathlib import Path
 from zipfile import ZipFile
 
-from jinja2 import Template
-
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe_image_types import RecipeImageTypes
 from mealie.services._base_service import BaseService
@@ -11,7 +9,6 @@ from mealie.services._base_service import BaseService
 
 class TemplateType(str, enum.Enum):
     json = "json"
-    jinja2 = "jinja2"
     zip = "zip"
 
 
@@ -32,7 +29,6 @@ class TemplateService(BaseService):
         Returns a list of all templates available to render.
         """
         return {
-            TemplateType.jinja2.value: [x.name for x in self.directories.TEMPLATE_DIR.iterdir() if x.is_file()],
             TemplateType.json.value: ["raw"],
             TemplateType.zip.value: ["zip"],
         }
@@ -65,15 +61,12 @@ class TemplateService(BaseService):
         Args:
             t_type (TemplateType): The type of template to render
             recipe (Recipe): The recipe to render
-            template (str): The template to render **Required for Jinja2 Templates**
+            template (str): The template to render
         """
         t_type = self.template_type(template)
 
         if t_type == TemplateType.json:
             return self._render_json(recipe)
-
-        if t_type == TemplateType.jinja2:
-            return self._render_jinja2(recipe, template)
 
         if t_type == TemplateType.zip:
             return self._render_zip(recipe)
@@ -96,41 +89,8 @@ class TemplateService(BaseService):
 
         return save_path
 
-    def _render_jinja2(self, recipe: Recipe, j2_template: str | None = None) -> Path:
-        """
-        Renders a Jinja2 Template in a temporary directory and returns
-        the path to the file.
-        """
-        self.__check_temp(self._render_jinja2)
-
-        if j2_template is None:
-            raise ValueError("Template must be provided for method _render_jinja2")
-
-        j2_path: Path = self.directories.TEMPLATE_DIR / j2_template
-
-        if not j2_path.is_file():
-            raise FileNotFoundError(f"Template '{j2_path}' not found.")
-
-        with open(j2_path) as f:
-            template_text = f.read()
-
-        template = Template(template_text)
-        rendered_text = template.render(recipe=recipe.model_dump(by_alias=True))
-
-        save_name = f"{recipe.slug}{j2_path.suffix}"
-
-        if self.temp is None:
-            raise ValueError("Temporary directory must be provided for method _render_jinja2")
-
-        save_path = self.temp.joinpath(save_name)
-
-        with open(save_path, "w") as f:
-            f.write(rendered_text)
-
-        return save_path
-
     def _render_zip(self, recipe: Recipe) -> Path:
-        self.__check_temp(self._render_jinja2)
+        self.__check_temp(self._render_zip)
 
         image_asset = recipe.image_dir.joinpath(RecipeImageTypes.original.value)
 

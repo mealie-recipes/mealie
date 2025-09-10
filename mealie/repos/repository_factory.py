@@ -11,6 +11,7 @@ from mealie.db.models.group.preferences import GroupPreferencesModel
 from mealie.db.models.household.cookbook import CookBook
 from mealie.db.models.household.events import GroupEventNotifierModel
 from mealie.db.models.household.household import Household
+from mealie.db.models.household.household_to_recipe import HouseholdToRecipe
 from mealie.db.models.household.invite_tokens import GroupInviteToken
 from mealie.db.models.household.mealplan import GroupMealPlan, GroupMealPlanRules
 from mealie.db.models.household.preferences import HouseholdPreferencesModel
@@ -37,7 +38,7 @@ from mealie.db.models.users.password_reset import PasswordResetModel
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.repos.repository_cookbooks import RepositoryCookbooks
 from mealie.repos.repository_foods import RepositoryFood
-from mealie.repos.repository_household import RepositoryHousehold
+from mealie.repos.repository_household import RepositoryHousehold, RepositoryHouseholdRecipes
 from mealie.repos.repository_meal_plan_rules import RepositoryMealPlanRules
 from mealie.repos.repository_units import RepositoryUnit
 from mealie.schema.cookbook.cookbook import ReadCookBook
@@ -52,7 +53,7 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListOut,
     ShoppingListRecipeRefOut,
 )
-from mealie.schema.household.household import HouseholdInDB
+from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeOut
 from mealie.schema.household.household_preferences import ReadHouseholdPreferences
 from mealie.schema.household.invite_token import ReadInviteToken
 from mealie.schema.household.webhook import ReadWebhook
@@ -227,6 +228,17 @@ class AllRepositories:
             PK_HOUSEHOLD_ID,
             HouseholdPreferencesModel,
             ReadHouseholdPreferences,
+            group_id=self.group_id,
+            household_id=self.household_id,
+        )
+
+    @cached_property
+    def household_recipes(self) -> RepositoryHouseholdRecipes:
+        return RepositoryHouseholdRecipes(
+            self.session,
+            PK_ID,
+            HouseholdToRecipe,
+            HouseholdRecipeOut,
             group_id=self.group_id,
             household_id=self.household_id,
         )

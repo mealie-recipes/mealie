@@ -1,5 +1,6 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import { HouseholdCreate, HouseholdInDB, UpdateHouseholdAdmin } from "~/lib/api/types/household";
+import type { HouseholdCreate, HouseholdInDB, UpdateHouseholdAdmin } from "~/lib/api/types/household";
+
 const prefix = "/api";
 
 const routes = {

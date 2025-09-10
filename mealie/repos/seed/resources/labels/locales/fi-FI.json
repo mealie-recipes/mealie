@@ -1,9 +1,9 @@
 [
     {
-        "name": "Tuote"
+        "name": "HeVi"
     },
     {
-        "name": "Vilja"
+        "name": "Viljat"
     },
     {
         "name": "Hedelmät"
@@ -21,16 +21,16 @@
         "name": "Juomat"
     },
     {
-        "name": "Paistetut"
+        "name": "Leivonnaiset"
     },
     {
-        "name": "Tölkitetyt"
+        "name": "Säilykkeet"
     },
     {
-        "name": "Mausteet"
+        "name": "Maustekastikkeet"
     },
     {
-        "name": "Makeiset"
+        "name": "Konditoriatuotteet"
     },
     {
         "name": "Maitotuotteet"
@@ -39,16 +39,16 @@
         "name": "Pakasteet"
     },
     {
-        "name": "Terveelliset"
+        "name": "Terveysruoka"
     },
     {
-        "name": "Kotitaloudet"
+        "name": "Kotitalous"
     },
     {
         "name": "Lihatuotteet"
     },
     {
-        "name": "Pienpurtavat"
+        "name": "Välipalat"
     },
     {
         "name": "Mausteet"

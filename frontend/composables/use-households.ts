@@ -1,6 +1,5 @@
-import { computed, ref, Ref, useAsync } from "@nuxtjs/composition-api";
 import { useAdminApi, useUserApi } from "~/composables/api";
-import { HouseholdCreate, HouseholdInDB } from "~/lib/api/types/household";
+import type { HouseholdCreate, HouseholdInDB } from "~/lib/api/types/household";
 
 const householdSelfRef = ref<HouseholdInDB | null>(null);
 const loading = ref(false);
@@ -49,42 +48,31 @@ export const useHouseholdSelf = function () {
 export const useAdminHouseholds = function () {
   const api = useAdminApi();
   const loading = ref(false);
+  const households = ref<HouseholdInDB[] | null>(null);
 
-  function getAllHouseholds() {
+  async function getAllHouseholds() {
     loading.value = true;
-    const asyncKey = String(Date.now());
-    const households = useAsync(async () => {
-      const { data } = await api.households.getAll(1, -1, {orderBy: "name, group.name", orderDirection: "asc"});
-
-      if (data) {
-        return data.items;
-      } else {
-        return null;
-      }
-    }, asyncKey);
-
-    loading.value = false;
-    return households;
-  }
-
-  async function refreshAllHouseholds() {
-    loading.value = true;
-    const { data } = await api.households.getAll(1, -1, {orderBy: "name, group.name", orderDirection: "asc"});;
+    const { data } = await api.households.getAll(1, -1, { orderBy: "name, group.name", orderDirection: "asc" });
 
     if (data) {
       households.value = data.items;
-    } else {
-        households.value = null;
+    }
+    else {
+      households.value = null;
     }
 
     loading.value = false;
+  }
+
+  async function refreshAllHouseholds() {
+    await getAllHouseholds();
   }
 
   async function deleteHousehold(id: string | number) {
     loading.value = true;
     const { data } = await api.households.deleteOne(id);
     loading.value = false;
-    refreshAllHouseholds();
+    await refreshAllHouseholds();
     return data;
   }
 
@@ -93,19 +81,23 @@ export const useAdminHouseholds = function () {
     const { data } = await api.households.createOne(payload);
 
     if (data && households.value) {
-        households.value.push(data);
+      households.value.push(data);
     }
+    loading.value = false;
   }
 
-  const households = getAllHouseholds();
   function useHouseholdsInGroup(groupIdRef: Ref<string>) {
     return computed(
       () => {
         return (households.value && groupIdRef.value)
-        ? households.value.filter((h) => h.groupId === groupIdRef.value)
-        : [];
+          ? households.value.filter(h => h.groupId === groupIdRef.value)
+          : [];
       },
     );
+  }
+
+  if (!households.value) {
+    getAllHouseholds();
   }
 
   return {

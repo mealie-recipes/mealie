@@ -45,6 +45,7 @@ def build_unique_user(session: Session, group: str, api_client: TestClient) -> u
         user_id=user_id,
         email=user_data.get("email"),
         username=user_data.get("username"),
+        full_name=user_data.get("fullName"),
         password=registration.password,
         token=token,
         repos=get_repositories(session, group_id=group_id, household_id=household_id),
@@ -75,7 +76,7 @@ def h2_user(session: Session, admin_token, api_client: TestClient, unique_user: 
         "admin": False,
         "tokens": [],
     }
-    response = api_client.post(api_routes.users, json=user_data, headers=admin_token)
+    response = api_client.post(api_routes.admin_users, json=user_data, headers=admin_token)
     assert response.status_code == 201
 
     # Log in as this user
@@ -108,6 +109,7 @@ def h2_user(session: Session, admin_token, api_client: TestClient, unique_user: 
             token=token,
             email=user_data["email"],
             username=user_data["username"],
+            full_name=user_data["fullName"],
             password=user_data["password"],
             repos=get_repositories(session, group_id=group_id, household_id=household_id),
         )
@@ -133,7 +135,7 @@ def g2_user(session: Session, admin_token, api_client: TestClient):
     }
 
     api_client.post(api_routes.admin_groups, json={"name": group}, headers=admin_token)
-    response = api_client.post(api_routes.users, json=create_data, headers=admin_token)
+    response = api_client.post(api_routes.admin_users, json=create_data, headers=admin_token)
 
     assert response.status_code == 201
 
@@ -165,6 +167,7 @@ def g2_user(session: Session, admin_token, api_client: TestClient):
             token=token,
             email=create_data["email"],  # type: ignore
             username=create_data.get("username"),  # type: ignore
+            full_name=create_data.get("fullName"),  # type: ignore
             password=create_data.get("password"),  # type: ignore
             repos=get_repositories(session, group_id=group_id, household_id=household_id),
         )
@@ -203,6 +206,7 @@ def _unique_user(session: Session, api_client: TestClient):
             user_id=user_id,
             email=user_data.get("email"),
             username=user_data.get("username"),
+            full_name=user_data.get("fullName"),
             password=registration.password,
             token=token,
             repos=get_repositories(session, group_id=group_id, household_id=household_id),
@@ -220,6 +224,13 @@ def unique_user_fn_scoped(session: Session, api_client: TestClient):
 @fixture(scope="module")
 def unique_user(session: Session, api_client: TestClient):
     yield from _unique_user(session, api_client)
+
+
+@fixture(scope="module")
+def unique_admin(session: Session, api_client: TestClient, unique_user: utils.TestUser):
+    admin_user = next(_unique_user(session, api_client))
+    admin_user.repos.users.patch(admin_user.user_id, {"admin": True, "group_id": unique_user.group_id})
+    yield admin_user
 
 
 @fixture(scope="module")
@@ -254,7 +265,7 @@ def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generat
     users_out = []
 
     for usr in [create_data_1, create_data_2]:
-        response = api_client.post(api_routes.users, json=usr, headers=admin_token)
+        response = api_client.post(api_routes.admin_users, json=usr, headers=admin_token)
         assert response.status_code == 201
 
         # Log in as this user
@@ -281,6 +292,7 @@ def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generat
                 _household_id=household_id,
                 user_id=user_id,
                 username=user_data.get("username"),
+                full_name=user_data.get("fullName"),
                 email=user_data.get("email"),
                 password="useruser",
                 token=token,
@@ -307,7 +319,7 @@ def user_token(admin_token, api_client: TestClient):
         "tokens": [],
     }
 
-    response = api_client.post(api_routes.users, json=create_data, headers=admin_token)
+    response = api_client.post(api_routes.admin_users, json=create_data, headers=admin_token)
 
     assert response.status_code == 201
 

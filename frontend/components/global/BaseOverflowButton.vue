@@ -1,59 +1,104 @@
 <template>
   <v-menu offset-y>
-    <template #activator="{ on, attrs }">
-      <v-btn color="primary" v-bind="{ ...attrs, ...$attrs }" :class="btnClass" :disabled="disabled" v-on="on">
-        <v-icon v-if="activeObj.icon" left>
+    <template #activator="{ props }">
+      <v-btn
+        color="primary"
+        v-bind="{ ...props, ...$attrs }"
+        :class="btnClass"
+        :disabled="disabled"
+      >
+        <v-icon
+          v-if="activeObj.icon"
+          start
+        >
           {{ activeObj.icon }}
         </v-icon>
         {{ mode === MODES.model ? activeObj.text : btnText }}
-        <v-icon right>
+        <v-icon end>
           {{ $globals.icons.chevronDown }}
         </v-icon>
       </v-btn>
     </template>
     <!-- Model -->
-    <v-list v-if="mode === MODES.model" dense>
-      <v-list-item-group v-model="itemGroup">
-        <template v-for="(item, index) in items">
-          <div v-if="!item.hide" :key="index">
-            <v-list-item @click="setValue(item)">
-              <v-list-item-icon v-if="item.icon">
-                <v-icon>{{ item.icon }}</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>{{ item.text }}</v-list-item-title>
-            </v-list-item>
-            <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1" ></v-divider>
-          </div>
-        </template>
-      </v-list-item-group>
-    </v-list>
-    <!-- Links -->
-    <v-list v-else-if="mode === MODES.link" dense>
-      <v-list-item-group v-model="itemGroup">
-        <template v-for="(item, index) in items">
-          <div v-if="!item.hide" :key="index">
-            <v-list-item :to="item.to">
-            <v-list-item-icon v-if="item.icon">
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>{{ item.text }}</v-list-item-title>
-            </v-list-item>
-            <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1" ></v-divider>
-          </div>
-        </template>
-      </v-list-item-group>
-    </v-list>
-    <!-- Event -->
-    <v-list v-else-if="mode === MODES.event" dense>
+    <v-list
+      v-if="mode === MODES.model"
+      v-model:selected="itemGroup"
+      density="compact"
+    >
       <template v-for="(item, index) in items">
-        <div v-if="!item.hide" :key="index">
-          <v-list-item @click="$emit(item.event)">
-            <v-list-item-icon v-if="item.icon">
+        <div
+          v-if="!item.hide"
+          :key="index"
+        >
+          <v-list-item @click="setValue(item)">
+            <template
+              v-if="item.icon"
+              #prepend
+            >
               <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
+            </template>
             <v-list-item-title>{{ item.text }}</v-list-item-title>
           </v-list-item>
-          <v-divider v-if="item.divider" :key="`divider-${index}`" class="my-1" ></v-divider>
+          <v-divider
+            v-if="item.divider"
+            :key="`divider-${index}`"
+            class="my-1"
+          />
+        </div>
+      </template>
+    </v-list>
+    <!-- Links -->
+    <v-list
+      v-else-if="mode === MODES.link"
+      v-model:selected="itemGroup"
+      density="compact"
+    >
+      <template v-for="(item, index) in items">
+        <div
+          v-if="!item.hide"
+          :key="index"
+        >
+          <v-list-item :to="item.to">
+            <template
+              v-if="item.icon"
+              #prepend
+            >
+              <v-icon>{{ item.icon }}</v-icon>
+            </template>
+            <v-list-item-title>{{ item.text }}</v-list-item-title>
+          </v-list-item>
+          <v-divider
+            v-if="item.divider"
+            :key="`divider-${index}`"
+            class="my-1"
+          />
+        </div>
+      </template>
+    </v-list>
+    <!-- Event -->
+    <v-list
+      v-else-if="mode === MODES.event"
+      density="compact"
+    >
+      <template v-for="(item, index) in items">
+        <div
+          v-if="!item.hide"
+          :key="index"
+        >
+          <v-list-item @click="$emit(item.event)">
+            <template
+              v-if="item.icon"
+              #prepend
+            >
+              <v-icon>{{ item.icon }}</v-icon>
+            </template>
+            <v-list-item-title>{{ item.text }}</v-list-item-title>
+          </v-list-item>
+          <v-divider
+            v-if="item.divider"
+            :key="`divider-${index}`"
+            class="my-1"
+          />
         </div>
       </template>
     </v-list>
@@ -61,17 +106,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "@nuxtjs/composition-api";
-
-const INPUT_EVENT = "input";
-
-type modes = "model" | "link" | "event";
-
 const MODES = {
   model: "model",
   link: "link",
   event: "event",
 };
+
+type modes = "model" | "link" | "event";
 
 export interface MenuItem {
   text: string;
@@ -83,7 +124,7 @@ export interface MenuItem {
   hide?: boolean;
 }
 
-export default defineComponent({
+export default defineNuxtComponent({
   props: {
     mode: {
       type: String as () => modes,
@@ -98,7 +139,7 @@ export default defineComponent({
       required: false,
       default: false,
     },
-    value: {
+    modelValue: {
       type: String,
       required: false,
       default: "",
@@ -112,10 +153,11 @@ export default defineComponent({
       type: String,
       required: false,
       default: function () {
-        return this.$t("general.actions");
-      }
+        return useI18n().t("general.actions");
+      },
     },
   },
+  emits: ["update:modelValue"],
   setup(props, context) {
     const activeObj = ref<MenuItem>({
       text: "DEFAULT",
@@ -124,7 +166,7 @@ export default defineComponent({
 
     let startIndex = 0;
     props.items.forEach((item, index) => {
-      if (item.value === props.value) {
+      if (item.value === props.modelValue) {
         startIndex = index;
 
         activeObj.value = item;
@@ -133,7 +175,7 @@ export default defineComponent({
     const itemGroup = ref(startIndex);
 
     function setValue(v: MenuItem) {
-      context.emit(INPUT_EVENT, v.value);
+      context.emit("update:modelValue", v.value);
       activeObj.value = v;
     }
 

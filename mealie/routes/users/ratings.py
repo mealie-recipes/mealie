@@ -54,7 +54,7 @@ class UserRatingsController(BaseUserController):
     @router.post("/{id}/ratings/{slug}")
     def set_rating(self, id: UUID4, slug: str, data: UserRatingUpdate):
         """Sets the user's rating for a recipe"""
-        assert_user_change_allowed(id, self.user)
+        assert_user_change_allowed(id, self.user, self.user)
 
         recipe = self.get_recipe_or_404(slug)
         user_rating = self.repos.user_ratings.get_by_user_and_recipe(id, recipe.id)

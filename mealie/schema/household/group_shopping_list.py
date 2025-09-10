@@ -66,7 +66,6 @@ class ShoppingListItemBase(RecipeIngredientBase):
     label_id: UUID4 | None = None
     unit_id: UUID4 | None = None
 
-    is_food: bool = False
     extras: dict | None = {}
 
     @field_validator("extras", mode="before")
@@ -290,6 +289,10 @@ class ShoppingListAddRecipeParams(MealieModel):
     recipe_increment_quantity: float = 1
     recipe_ingredients: list[RecipeIngredient] | None = None
     """optionally override which ingredients are added from the recipe"""
+
+
+class ShoppingListAddRecipeParamsBulk(ShoppingListAddRecipeParams):
+    recipe_id: UUID4
 
 
 class ShoppingListRemoveRecipeParams(MealieModel):

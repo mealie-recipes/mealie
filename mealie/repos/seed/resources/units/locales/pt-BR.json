@@ -19,19 +19,19 @@
     },
     "fluid-ounce": {
         "name": "onça fluida",
-        "plural_name": "fluid ounces",
+        "plural_name": "onças fluidas",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
         "name": "pint",
-        "plural_name": "pints",
+        "plural_name": "pintas",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
         "name": "litro",
-        "plural_name": "quarts",
+        "plural_name": "litros",
         "description": "",
         "abbreviation": "l"
     },
@@ -58,11 +58,11 @@
         "plural_name": "libras",
         "description": "",
         "abbreviation": "lb",
-        "plural_abbreviation": "lbs"
+        "plural_abbreviation": "libras"
     },
     "ounce": {
         "name": "onça",
-        "plural_name": "ounces",
+        "plural_name": "onças",
         "description": "",
         "abbreviation": "oz"
     },
@@ -85,14 +85,14 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "punhado",
-        "plural_name": "splashes",
+        "name": "salpico",
+        "plural_name": "salpicadas",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "pitada",
-        "plural_name": "dashes",
+        "plural_name": "pitadas",
         "description": "",
         "abbreviation": ""
     },
@@ -104,13 +104,13 @@
     },
     "head": {
         "name": "cabeça",
-        "plural_name": "heads",
+        "plural_name": "cabeças",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "cravo",
-        "plural_name": "cloves",
+        "plural_name": "cravos",
         "description": "",
         "abbreviation": ""
     },
@@ -121,14 +121,14 @@
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "punhado",
+        "plural_name": "punhados",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "pacote",
+        "plural_name": "pacotes",
         "description": "",
         "abbreviation": ""
     },

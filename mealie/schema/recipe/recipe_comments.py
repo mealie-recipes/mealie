@@ -15,6 +15,7 @@ class UserBase(MealieModel):
     id: UUID4
     username: str | None = None
     admin: bool
+    full_name: str | None = None
     model_config = ConfigDict(from_attributes=True)
 
 

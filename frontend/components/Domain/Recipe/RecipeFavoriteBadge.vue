@@ -1,17 +1,25 @@
 <template>
-  <v-tooltip bottom nudge-right="50" :color="buttonStyle ? 'info' : 'secondary'">
-    <template #activator="{ on, attrs }">
+  <v-tooltip
+    location="bottom"
+    nudge-right="50"
+    :color="buttonStyle ? 'info' : 'secondary'"
+  >
+    <template #activator="{ props: tooltipProps }">
       <v-btn
         v-if="isFavorite || showAlways"
-        small
+        icon
+        :variant="buttonStyle ? 'flat' : undefined"
+        :rounded="buttonStyle ? 'circle' : undefined"
+        size="small"
         :color="buttonStyle ? 'info' : 'secondary'"
-        :icon="!buttonStyle"
         :fab="buttonStyle"
-        v-bind="attrs"
+        v-bind="{ ...tooltipProps, ...$attrs }"
         @click.prevent="toggleFavorite"
-        v-on="on"
       >
-        <v-icon :small="!buttonStyle" :color="buttonStyle ? 'white' : 'secondary'">
+        <v-icon
+          :size="!buttonStyle ? undefined : 'x-large'"
+          :color="buttonStyle ? 'white' : 'secondary'"
+        >
           {{ isFavorite ? $globals.icons.heart : $globals.icons.heartOutline }}
         </v-icon>
       </v-btn>
@@ -20,49 +28,39 @@
   </v-tooltip>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, useContext } from "@nuxtjs/composition-api";
+<script setup lang="ts">
 import { useUserSelfRatings } from "~/composables/use-users";
 import { useUserApi } from "~/composables/api";
-import { UserOut } from "~/lib/api/types/user";
-export default defineComponent({
-  props: {
-    recipeId: {
-      type: String,
-      default: "",
-    },
-    showAlways: {
-      type: Boolean,
-      default: false,
-    },
-    buttonStyle: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props) {
-    const api = useUserApi();
-    const { $auth } = useContext();
-    const { userRatings, refreshUserRatings } = useUserSelfRatings();
 
-    // TODO Setup the correct type for $auth.user
-    // See https://github.com/nuxt-community/auth-module/issues/1097
-    const user = computed(() => $auth.user as unknown as UserOut);
-    const isFavorite = computed(() => {
-      const rating = userRatings.value.find((r) => r.recipeId === props.recipeId);
-      return rating?.isFavorite || false;
-    });
-
-    async function toggleFavorite() {
-      if (!isFavorite.value) {
-        await api.users.addFavorite(user.value?.id, props.recipeId);
-      } else {
-        await api.users.removeFavorite(user.value?.id, props.recipeId);
-      }
-      await refreshUserRatings();
-    }
-
-    return { isFavorite, toggleFavorite };
-  },
+interface Props {
+  recipeId?: string;
+  showAlways?: boolean;
+  buttonStyle?: boolean;
+}
+const props = withDefaults(defineProps<Props>(), {
+  recipeId: "",
+  showAlways: false,
+  buttonStyle: false,
 });
+
+const { userRatings, refreshUserRatings } = useUserSelfRatings();
+
+const isFavorite = computed(() => {
+  const rating = userRatings.value.find(r => r.recipeId === props.recipeId);
+  return rating?.isFavorite || false;
+});
+
+async function toggleFavorite() {
+  const api = useUserApi();
+  const $auth = useMealieAuth();
+
+  if (!$auth.user.value) return;
+  if (!isFavorite.value) {
+    await api.users.addFavorite($auth.user.value?.id, props.recipeId);
+  }
+  else {
+    await api.users.removeFavorite($auth.user.value?.id, props.recipeId);
+  }
+  await refreshUserRatings();
+}
 </script>

@@ -5,7 +5,7 @@ from fastapi import Depends, HTTPException, status
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.routers import UserAPIRouter
-from mealie.schema.household.household import HouseholdInDB
+from mealie.schema.household import HouseholdInDB, HouseholdRecipeSummary
 from mealie.schema.household.household_permissions import SetPermissions
 from mealie.schema.household.household_preferences import ReadHouseholdPreferences, UpdateHouseholdPreferences
 from mealie.schema.household.household_statistics import HouseholdStatistics
@@ -26,6 +26,15 @@ class HouseholdSelfServiceController(BaseUserController):
     def get_logged_in_user_household(self):
         """Returns the Household Data for the Current User"""
         return self.household
+
+    @router.get("/self/recipes/{recipe_slug}", response_model=HouseholdRecipeSummary)
+    def get_household_recipe(self, recipe_slug: str):
+        """Returns recipe data for the current household"""
+        response = self.service.get_household_recipe(recipe_slug)
+        if not response:
+            raise HTTPException(status.HTTP_404_NOT_FOUND, detail="Recipe not found")
+
+        return response
 
     @router.get("/members", response_model=PaginationBase[UserOut])
     def get_household_members(self, q: PaginationQuery = Depends()):
@@ -66,6 +75,9 @@ class HouseholdSelfServiceController(BaseUserController):
 
         if target_user.household_id != self.household_id:
             raise HTTPException(status.HTTP_403_FORBIDDEN, detail="User is not a member of this household")
+
+        if target_user.id == self.user.id:
+            raise HTTPException(status.HTTP_403_FORBIDDEN, detail="User is not allowed to change their own permissions")
 
         target_user.can_invite = permissions.can_invite
         target_user.can_manage = permissions.can_manage

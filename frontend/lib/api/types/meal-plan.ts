@@ -103,21 +103,24 @@ export interface RecipeSummary {
 }
 export interface RecipeCategory {
   id?: string | null;
+  groupId?: string | null;
   name: string;
   slug: string;
   [k: string]: unknown;
 }
 export interface RecipeTag {
   id?: string | null;
+  groupId?: string | null;
   name: string;
   slug: string;
   [k: string]: unknown;
 }
 export interface RecipeTool {
   id: string;
+  groupId?: string | null;
   name: string;
   slug: string;
-  onHand?: boolean;
+  householdsWithTool?: string[];
   [k: string]: unknown;
 }
 export interface SavePlanEntry {

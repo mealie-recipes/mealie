@@ -2,6 +2,7 @@ import contextlib
 import functools
 import html
 import json
+import numbers
 import operator
 import re
 import typing
@@ -74,13 +75,17 @@ def clean(recipe_data: Recipe | dict, translator: Translator, url=None) -> Recip
     return Recipe(**recipe_data)
 
 
-def clean_string(text: str | list | int) -> str:
+def clean_string(text: str | list | int | float) -> str:
     """Cleans a string of HTML tags and extra white space"""
     if not isinstance(text, str):
         if isinstance(text, list):
-            text = text[0]
-
-        if isinstance(text, int):
+            if text:
+                return clean_string(text[0])
+            else:
+                text = ""
+        elif text is None:
+            text = ""
+        else:
             text = str(text)
 
     if not text:
@@ -120,7 +125,8 @@ def clean_image(image: str | list | dict | None = None, default: str = "no image
         case str(image):
             return [image]
         case [str(_), *_]:
-            return [x for x in image if x]  # Only return non-null strings in list
+            # Only return non-null strings in list
+            return [x for x in image if x]
         case [{"url": str(_)}, *_]:
             return [x["url"] for x in image if "url" in x]
         case {"url": str(image)}:
@@ -391,7 +397,7 @@ def clean_yield(yields: str | list[str] | None) -> tuple[float, float, str]:
     return servings_qty, yld_qty, yld_str
 
 
-def clean_time(time_entry: str | timedelta | None, translator: Translator) -> None | str:
+def clean_time(time_entry: str | timedelta | int | float | None, translator: Translator) -> None | str:
     """_summary_
 
     Supported Structures:
@@ -400,6 +406,7 @@ def clean_time(time_entry: str | timedelta | None, translator: Translator) -> No
         - `"PT1H30M"` - returns "1 hour 30 minutes"
         - `timedelta(hours=1, minutes=30)` - returns "1 hour 30 minutes"
         - `{"minValue": "PT1H30M"}` - returns "1 hour 30 minutes"
+        - `30` - as a `int` or `float` assumed to be in minutes, returns "30 minutes"
 
     Raises:
         TypeError: if the type is not supported a TypeError is raised
@@ -411,6 +418,10 @@ def clean_time(time_entry: str | timedelta | None, translator: Translator) -> No
         return None
 
     match time_entry:
+        case numbers.Number():
+            # type checked by case statement
+            time_delta = timedelta(minutes=time_entry)  # type: ignore
+            return pretty_print_timedelta(time_delta, translator)
         case str(time_entry):
             if not time_entry.strip():
                 return None
@@ -430,7 +441,9 @@ def clean_time(time_entry: str | timedelta | None, translator: Translator) -> No
             # TODO: Not sure what to do here
             return str(time_entry)
         case _:
-            logger.warning("[SCRAPER] Unexpected type or structure for variable time_entry")
+            logger.warning(
+                "[SCRAPER] Unexpected type(%s) or structure for variable time_entry: %s", type(time_entry), time_entry
+            )
             return None
 
 
@@ -569,5 +582,11 @@ def clean_nutrition(nutrition: dict | None) -> dict[str, str]:
             if isinstance(val, str) and "m" not in val and "g" in val:
                 with contextlib.suppress(AttributeError, TypeError):
                     output_nutrition[key] = str(float(output_nutrition[key]) * 1000)
+
+    for key in ["calories"]:
+        if val := nutrition.get(key, None):
+            if isinstance(val, int | float):
+                with contextlib.suppress(AttributeError, TypeError):
+                    output_nutrition[key] = str(val)
 
     return output_nutrition
