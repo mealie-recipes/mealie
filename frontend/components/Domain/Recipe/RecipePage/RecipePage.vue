@@ -5,6 +5,7 @@
       :ingredients="recipe.recipeIngredient"
       width="70%"
       @update:model-value="toggleIsParsing"
+      @save="saveParsedIngredients"
     />
     <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
       <v-card :flat="$vuetify.display.smAndDown" class="d-print-none">
@@ -185,7 +186,7 @@ import {
   usePageState,
 } from "~/composables/recipe-page/shared-state";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { Recipe, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeCategory, RecipeIngredient, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
@@ -288,6 +289,12 @@ async function saveRecipe() {
   if (data?.slug) {
     router.push(`/g/${groupSlug.value}/r/` + data.slug);
   }
+}
+
+async function saveParsedIngredients(ingredients: NoUndefinedField<RecipeIngredient[]> ) {
+  recipe.value.recipeIngredient = ingredients;
+  await saveRecipe();
+  toggleIsParsing(false);
 }
 
 async function deleteRecipe() {

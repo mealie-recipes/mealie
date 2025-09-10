@@ -115,6 +115,24 @@
         </v-expansion-panel>
       </v-expansion-panels>
     </v-container>
+    <template #custom-card-action v-if="!parserLoading">
+      <BaseButton
+        v-if="!allReviewed"
+        color="info"
+        :icon="$globals.icons.arrowRightBold"
+        icon-right
+        :text="$t('general.next')"
+        @click="nextIngredient"
+      />
+      <BaseButton
+        v-else
+        create
+        :text="$t('general.save')"
+        :icon="$globals.icons.save"
+        :loading="saveLoading"
+        @click="saveIngs"
+      />
+    </template>
   </BaseDialog>
 </template>
 
@@ -134,7 +152,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
-  (e: "update:ingredients", value: NoUndefinedField<RecipeIngredient[]>): void;
+  (e: "save", value: NoUndefinedField<RecipeIngredient[]>): void;
 }>();
 
 const i18n = useGlobalI18n();
@@ -173,9 +191,10 @@ const currentIng = ref<ParsedIngredient | null>(null);
 const currentIngUnitError = ref("");
 const currentIngFoodError = ref("");
 const currentIngHasError = computed(() => currentIngUnitError.value || currentIngFoodError.value);
-const allReviewed = computed(() => {
-  return currentParsedIndex.value >= parsedIngs.value.length;
-});
+const allReviewed = ref(false);
+
+const parserLoading = ref(false);
+const saveLoading = ref(false);
 
 function shouldReview(ing: ParsedIngredient): boolean {
   console.debug(`Checking if ingredient needs review (input="${ing.input})":`, ing);
@@ -237,9 +256,11 @@ function nextIngredient() {
 
     nextIndex += 1;
   }
+
+  // No more to review
+  allReviewed.value = true;
 }
 
-const parserLoading = ref(false);
 async function parseIngredients() {
   if (parserLoading.value) {
     return;
@@ -306,6 +327,11 @@ function insertNewIngredient(index: number) {
   } as ParsedIngredient;
 
   parsedIngs.value.splice(index, 0, ing);
+}
+
+function saveIngs() {
+  emit("save", parsedIngs.value.map(x => x.ingredient as NoUndefinedField<RecipeIngredient>));
+  saveLoading.value = true;
 }
 
 </script>
