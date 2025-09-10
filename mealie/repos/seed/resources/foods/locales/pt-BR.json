@@ -216,7 +216,7 @@
             "fennel": {
                 "aliases": [],
                 "description": "",
-                "name": "fennel",
+                "name": "funcho",
                 "plural_name": "erva-doce"
             },
             "sun dried tomato": {
@@ -377,14 +377,14 @@
             "celeriac": {
                 "aliases": [],
                 "description": "",
-                "name": "celeriac",
-                "plural_name": "celeriacs"
+                "name": "aipo",
+                "plural_name": "aipos"
             },
             "water chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "water chestnut",
-                "plural_name": "water chestnuts"
+                "name": "castanha d'água",
+                "plural_name": "castanhas d'água"
             },
             "turnip": {
                 "aliases": [],
@@ -401,26 +401,26 @@
             "bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "bok choy",
-                "plural_name": "bok choy"
+                "name": "acelga chinesa",
+                "plural_name": "acelgas chinesas"
             },
             "okra": {
                 "aliases": [],
                 "description": "",
-                "name": "okra",
-                "plural_name": "okra"
+                "name": "quiabo",
+                "plural_name": "quiabos"
             },
             "acorn squash": {
                 "aliases": [],
                 "description": "",
-                "name": "acorn squash",
-                "plural_name": "acorn squashes"
+                "name": "abóbora-cabotiá",
+                "plural_name": "abóboras-cabotiá"
             },
             "corn cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn cob",
-                "plural_name": "corn cobs"
+                "name": "espiga de milho",
+                "plural_name": "folhas de milho"
             },
             "radicchio": {
                 "aliases": [],
@@ -437,8 +437,8 @@
             "tenderstem broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "tenderstem broccoli",
-                "plural_name": "tenderstem broccolis"
+                "name": "brócoli ninja",
+                "plural_name": "brócolis ninjas"
             },
             "plantain": {
                 "aliases": [],
@@ -455,58 +455,58 @@
             "pepperoncini": {
                 "aliases": [],
                 "description": "",
-                "name": "pepperoncini",
-                "plural_name": "pepperoncinis"
+                "name": "peperoncino",
+                "plural_name": "peperoncinos"
             },
             "baby bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "baby bok choy",
-                "plural_name": "baby bok choys"
+                "name": "mini bok choy",
+                "plural_name": "mini bok choys"
             },
             "jicama": {
                 "aliases": [],
                 "description": "",
-                "name": "jicama",
-                "plural_name": "jicamas"
+                "name": "jacatupé",
+                "plural_name": "jacatupés"
             },
             "endive": {
                 "aliases": [],
                 "description": "",
-                "name": "endive",
-                "plural_name": "endives"
+                "name": "chicória",
+                "plural_name": "chicórias"
             },
             "habanero pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "habanero pepper",
-                "plural_name": "habanero peppers"
+                "name": "pimenta habanero",
+                "plural_name": "pimentas habanero"
             },
             "corn husk": {
                 "aliases": [
-                    "maize"
+                    "milho"
                 ],
                 "description": "",
-                "name": "corn husk",
-                "plural_name": "corn husks"
+                "name": "folha do milho",
+                "plural_name": "folhas de milho"
             },
             "collard green": {
                 "aliases": [],
                 "description": "",
-                "name": "collard green",
-                "plural_name": "collard greens"
+                "name": "couve-manteiga",
+                "plural_name": "couves-manteiga"
             },
             "french-fried onion": {
                 "aliases": [],
                 "description": "",
-                "name": "french-fried onion",
-                "plural_name": "french-fried onions"
+                "name": "cebola crispy",
+                "plural_name": "cebolas crispy"
             },
             "daikon": {
                 "aliases": [],
                 "description": "",
-                "name": "daikon",
-                "plural_name": "daikons"
+                "name": "nabo",
+                "plural_name": "nabos"
             },
             "baby corn": {
                 "aliases": [],
@@ -517,43 +517,43 @@
             "broccoli rabe": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli rabe",
-                "plural_name": "broccoli rabes"
+                "name": "brócolis rabe",
+                "plural_name": "brócolis rabes"
             },
             "rutabaga": {
                 "aliases": [],
                 "description": "",
-                "name": "rutabaga",
-                "plural_name": "rutabagas"
+                "name": "nabo-sueco",
+                "plural_name": "nabos-suecos"
             },
             "belgian endive": {
                 "aliases": [],
                 "description": "",
-                "name": "belgian endive",
-                "plural_name": "belgian endives"
+                "name": "chicória-belga",
+                "plural_name": "chicórias-belgas"
             },
             "yam": {
                 "aliases": [],
                 "description": "",
-                "name": "yam",
-                "plural_name": "yams"
+                "name": "inhame",
+                "plural_name": "inhames"
             },
             "ancho chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "ancho chile pepper",
-                "plural_name": "ancho chile peppers"
+                "name": "pimenta ancho",
+                "plural_name": "pimentas-ancho"
             },
             "microgreen": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreen",
-                "plural_name": "microgreens"
+                "name": "microverdes",
+                "plural_name": "microverdes"
             },
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "boston lettuce",
+                "name": "alface-manteiga",
                 "plural_name": "boston lettuces"
             },
             "kohlrabi": {
