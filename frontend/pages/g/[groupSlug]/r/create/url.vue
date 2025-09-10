@@ -176,6 +176,25 @@ export default defineNuxtComponent({
 
     onMounted(() => {
       if (recipeUrl.value && recipeUrl.value.includes("https")) {
+        // Check if we have a query params for using keywords as tags or staying in edit mode.
+        // We don't use these in the app anymore, but older automations such as Bookmarklet might still use them,
+        // and they're easy enough to support.
+        const importKeywordsAsTagsParam = route.query.use_keywords;
+        if (importKeywordsAsTagsParam === "1") {
+          importKeywordsAsTags.value = true;
+        }
+        else if (importKeywordsAsTagsParam === "0") {
+          importKeywordsAsTags.value = false;
+        }
+
+        const stayInEditModeParam = route.query.edit;
+        if (stayInEditModeParam === "1") {
+          stayInEditMode.value = true;
+        }
+        else if (stayInEditModeParam === "0") {
+          stayInEditMode.value = false;
+        }
+
         createByUrl(recipeUrl.value, importKeywordsAsTags.value);
         return;
       }
