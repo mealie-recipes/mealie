@@ -106,16 +106,19 @@
               <TransitionGroup
                 type="transition"
               >
-                <RecipeIngredientEditor
-                  v-for="(ingredient, index) in parsedIngs"
-                  :key="index"
-                  v-model="ingredient.ingredient"
-                  enable-context-menu
-                  class="list-group-item"
-                  @delete="parsedIngs.splice(index, 1)"
-                  @insert-above="insertNewIngredient(index)"
-                  @insert-below="insertNewIngredient(index + 1)"
-                />
+                <div v-for="(ingredient, index) in parsedIngs" :key="index">
+                  <RecipeIngredientEditor
+                    v-model="ingredient.ingredient"
+                    enable-context-menu
+                    class="list-group-item"
+                    @delete="parsedIngs.splice(index, 1)"
+                    @insert-above="insertNewIngredient(index)"
+                    @insert-below="insertNewIngredient(index + 1)"
+                  />
+                  <p class="pt-0 pb-4 my-0 text-caption">
+                    {{ $t("recipe.original-text-with-value", { originalText: ingredient.input }) }}
+                  </p>
+                </div>
               </TransitionGroup>
             </VueDraggable>
           </v-expansion-panel-text>
