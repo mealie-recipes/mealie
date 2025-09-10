@@ -317,7 +317,6 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
     let currentTitle = "";
     const onHandIngs: ShoppingListIngredient[] = [];
     const shoppingListIngredientSections = shoppingListIngredients.reduce((sections, ing) => {
-      console.log(ing);
       if (ing.ingredient?.title != null) {
         currentTitle = ing.ingredient.title;
       }

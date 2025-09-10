@@ -43,9 +43,12 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   scale: 1,
 });
+const route = useRoute();
+const $auth = useMealieAuth();
+const groupSlug = computed(() => route.params.groupSlug || $auth.user?.value?.groupSlug || "");
 
 const parsedIng = computed(() => {
-  return useParsedIngredientText(props.ingredient, props.scale);
+  return useParsedIngredientText(props.ingredient, props.scale, true, groupSlug.value.toString());
 });
 </script>
 

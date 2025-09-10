@@ -251,8 +251,6 @@ const ingredientSections = computed<IngredientSection[]>(() => {
       if (!section) {
         section = { sectionName: title, ingredients: [] };
         sections.push(section);
-        console.log("Created section for title:", title);
-        console.log(sections);
       }
     }
 
