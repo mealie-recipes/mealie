@@ -670,7 +670,10 @@
       "missing-food": "Create missing food: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
-      "no-food": "No Food"
+      "no-food": "No Food",
+      "parsing-completed": "Parsing Completed",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score"
     },
     "reset-servings-count": "Reset Servings Count",
     "not-linked-ingredients": "Additional Ingredients",
