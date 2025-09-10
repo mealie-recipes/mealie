@@ -169,19 +169,19 @@ class RecipeIngredientBase(MealieModel):
     Automatically calculated after the object is created, unless overwritten
     """
 
-    @model_validator(mode="after")
-    def calculate_missing_food_flags(self):
-        # calculate missing is_food and disable_amount values
-        # we can't do this in a validator since they depend on each other
-        if self.is_food is None and self.disable_amount is not None:
-            self.is_food = not self.disable_amount
-        elif self.disable_amount is None and self.is_food is not None:
-            self.disable_amount = not self.is_food
-        elif self.is_food is None and self.disable_amount is None:
-            self.is_food = bool(self.food)
-            self.disable_amount = not self.is_food
+    # @model_validator(mode="after")
+    # def calculate_missing_food_flags(self):
+    #     # calculate missing is_food and disable_amount values
+    #     # we can't do this in a validator since they depend on each other
+    #     if self.is_food is None and self.disable_amount is not None:
+    #         self.is_food = not self.disable_amount
+    #     elif self.disable_amount is None and self.is_food is not None:
+    #         self.disable_amount = not self.is_food
+    #     elif self.is_food is None and self.disable_amount is None:
+    #         self.is_food = bool(self.food)
+    #         self.disable_amount = not self.is_food
 
-        return self
+    #     return self
 
     @model_validator(mode="after")
     def calculate_missing_recipe_flags(self):

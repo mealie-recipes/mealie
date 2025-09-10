@@ -2,7 +2,12 @@
   <div>
     <slot v-bind="{ open, close }"> </slot>
     <v-dialog v-model="dialog" max-width="988px" content-class="top-dialog" :scrollable="false">
-      <v-app-bar sticky dark color="primary lighten-1" :rounded="!$vuetify.breakpoint.xs">
+      <v-app-bar
+        sticky
+        dark
+        color="primary-lighten-1 top-0 position-relative left-0"
+        :rounded="!$vuetify.display.xs"
+      >
         <v-text-field
           id="arrow-search"
           v-model="search.query.value"
@@ -20,13 +25,24 @@
           :prepend-inner-icon="$globals.icons.search"
         ></v-text-field>
 
-        <v-btn v-if="$vuetify.breakpoint.xs" x-small fab light @click="dialog = false">
+        <v-btn
+          v-if="$vuetify.display.xs"
+          size="x-small"
+          class="rounded-circle"
+          light
+          @click="dialog = false"
+        >
           <v-icon>
             {{ $globals.icons.close }}
           </v-icon>
         </v-btn>
       </v-app-bar>
-      <v-card class="mt-1 pa-1 scroll" max-height="700px" relative :loading="loading">
+      <v-card
+        class="position-relative mt-1 pa-1 scroll"
+        max-height="700px"
+        relative
+        :loading="loading"
+      >
         <v-card-actions>
           <div class="mr-auto">
             {{ $t("search.results") }}
@@ -35,7 +51,7 @@
         <RecipeList :recipes="search.data.value" show-description show-image :disabled="$nuxt.isOffline">
           <template v-for="(recipe) in search.data.value" #[`actions-${recipe.id}`]>
             <v-list-item-action :key="'item-actions-increase' + recipe.id">
-              <v-btn icon :disabled="$nuxt.isOffline" @click.prevent="addRecipeReferenceToRecipe(recipe)">
+              <v-btn icon :disabled="$nuxt.isOffline" @click.prevent="handleSelect(recipe)">
                 <v-icon color="grey lighten-1">{{ $globals.icons.createAlt }}</v-icon>
               </v-btn>
             </v-list-item-action>
@@ -48,8 +64,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, toRefs, reactive, ref, watch, useContext, useRoute } from "@nuxtjs/composition-api";
+<script setup lang="ts">
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { Recipe, RecipeSummary } from "~/lib/api/types/recipe";
@@ -57,108 +72,105 @@ import { useUserApi } from "~/composables/api";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 
-export default defineComponent({
-  components: {
-    RecipeList,
-  },
+const SELECTED_EVENT = "selected";
 
+// Define emits
+const emit = defineEmits<{
+  selected: [recipe: RecipeSummary];
+}>();
 
-  setup(_, context) {
-    const { $auth } = useContext();
-    const state = reactive({
-      loading: false,
-      selectedIndex: -1,
-    });
-    const groupSlug = computed(() => route.value.params.groupSlug || $auth.user?.groupSlug || "");
-    // ===========================================================================
-    // Dialog State Management
-    const dialog = ref(false);
+const $auth = useMealieAuth();
+const loading = ref(false);
+const selectedIndex = ref(-1);
 
-    // Reset or Grab Recipes on Change
-    watch(dialog, (val) => {
-      if (!val) {
-        search.query.value = "";
-        state.selectedIndex = -1;
-        search.data.value = [];
-      }
-    });
+// ===========================================================================
+// Dialog State Management
+const dialog = ref(false);
 
-    // ===========================================================================
-    // Event Handlers
+// Reset or Grab Recipes on Change
+watch(dialog, (val) => {
+  if (!val) {
+    search.query.value = "";
+    selectedIndex.value = -1;
+    search.data.value = [];
+  }
+});
 
-    function addRecipeReferenceToRecipe(recipe: Recipe) {
-      context.emit("recipe-selected", recipe);
-      close();
+// ===========================================================================
+// Event Handlers
+
+function selectRecipe() {
+  const recipeCards = document.getElementsByClassName("arrow-nav");
+  if (recipeCards) {
+    if (selectedIndex.value < 0) {
+      selectedIndex.value = -1;
+      document.getElementById("arrow-search")?.focus();
+      return;
     }
 
-    function selectRecipe() {
-      const recipeCards = document.getElementsByClassName("arrow-nav");
-      if (recipeCards) {
-        if (state.selectedIndex < 0) {
-          state.selectedIndex = -1;
-          document.getElementById("arrow-search")?.focus();
-          return;
-        }
-
-        if (state.selectedIndex >= recipeCards.length) {
-          state.selectedIndex = recipeCards.length - 1;
-        }
-
-        (recipeCards[state.selectedIndex] as HTMLElement).focus();
-      }
+    if (selectedIndex.value >= recipeCards.length) {
+      selectedIndex.value = recipeCards.length - 1;
     }
 
-    function onUpDown(e: KeyboardEvent) {
-      if (e.key === "Enter") {
-        console.log(document.activeElement);
-        // (document.activeElement as HTMLElement).click();
-      } else if (e.key === "ArrowUp") {
-        e.preventDefault();
-        state.selectedIndex--;
-      } else if (e.key === "ArrowDown") {
-        e.preventDefault();
-        state.selectedIndex++;
-      } else {
-        return;
-      }
-      selectRecipe();
-    }
+    (recipeCards[selectedIndex.value] as HTMLElement).focus();
+  }
+}
 
-    watch(dialog, (val) => {
-      if (!val) {
-        document.removeEventListener("keyup", onUpDown);
-      } else {
-        document.addEventListener("keyup", onUpDown);
-      }
-    });
+function onUpDown(e: KeyboardEvent) {
+  if (e.key === "Enter") {
+    console.log(document.activeElement);
+    // (document.activeElement as HTMLElement).click();
+  }
+  else if (e.key === "ArrowUp") {
+    e.preventDefault();
+    selectedIndex.value--;
+  }
+  else if (e.key === "ArrowDown") {
+    e.preventDefault();
+    selectedIndex.value++;
+  }
+  else {
+    return;
+  }
+  selectRecipe();
+}
 
+watch(dialog, (val) => {
+  if (!val) {
+    document.removeEventListener("keyup", onUpDown);
+  }
+  else {
+    document.addEventListener("keyup", onUpDown);
+  }
+});
 
-    const route = useRoute();
-    watch(route, close);
+const route = useRoute();
+const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+watch(route, close);
 
-    function open() {
-      dialog.value = true;
-    }
-    function close() {
-      dialog.value = false;
-    }
+function open() {
+  dialog.value = true;
+}
+function close() {
+  dialog.value = false;
+}
 
-    // ===========================================================================
-    // Basic Search
-    const { isOwnGroup } = useLoggedInState();
-    const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
-    const search = useRecipeSearch(api);
+// ===========================================================================
+// Basic Search
+const { isOwnGroup } = useLoggedInState();
+const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
+const search = useRecipeSearch(api);
 
+// Select Handler
+function handleSelect(recipe: RecipeSummary) {
+  close();
+  emit(SELECTED_EVENT, recipe);
+}
 
-    return {
-      ...toRefs(state),
-      dialog,
-      open,
-      close,
-      search,
-      addRecipeReferenceToRecipe,
-    };
-  },
+// Expose functions to parent components
+defineExpose({
+  open,
+  close,
 });
 </script>
 

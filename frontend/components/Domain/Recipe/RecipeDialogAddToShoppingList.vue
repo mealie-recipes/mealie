@@ -139,7 +139,7 @@
                         color="secondary"
                         density="compact"
                       />
-                      <div :key="`${ingredientData.ingredient.quantity || 'no-qty'}-${i}`" class="pa-auto my-auto">
+                      <div :key="`${ingredientData.ingredient?.quantity || 'no-qty'}-${i}`" class="pa-auto my-auto">
                         <RecipeIngredientListItem
                           :ingredient="ingredientData.ingredient"
                           :scale="recipeSection.recipeScale"
@@ -287,30 +287,40 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
       continue;
     }
 
-        const shoppingListIngredients: ShoppingListIngredient[] = recipe.recipeIngredient.map((ing) => {
-          if (ing.isRecipe && ing.referencedRecipe) {
-            // If this is a sub-recipe, we need to fetch its ingredients
-            return ing.referencedRecipe.recipeIngredient?.map((subIng) => {
-              const householdsWithFood = (ing.food?.householdsWithIngredientFood || []);
-              return {
-                checked: !householdsWithFood.includes(userHousehold.value),
-                ingredient: subIng
-              };
-            }) || [];
-          } else {
+      const shoppingListIngredients: ShoppingListIngredient[] = [];
+      recipe.recipeIngredient.forEach((ing) => {
+        if (ing.isRecipe && ing.referencedRecipe) {
+          // If ing is a recipe, add all its ingredients
+          ing.referencedRecipe.recipeIngredient?.forEach((subIng) => {
+            const calculatedQty = (ing.quantity || 1) * (subIng.quantity || 1);
             const householdsWithFood = (ing.food?.householdsWithIngredientFood || []);
-            return {
+            shoppingListIngredients.push({
               checked: !householdsWithFood.includes(userHousehold.value),
-              ingredient: ing,
-            };
-          }
-        });
+              ingredient: {
+            ...subIng,
+            quantity: calculatedQty,
+            title: ing.referencedRecipe?.name || "",
+        }
+            });
+          });
+        } else {
+          // If ing is not a recipe, add it directly
+          const householdsWithFood = (ing.food?.householdsWithIngredientFood || []);
+          shoppingListIngredients.push({
+            checked: !householdsWithFood.includes(userHousehold.value),
+            ingredient: ing
+          });
+        }
+      });
 
     let currentTitle = "";
     const onHandIngs: ShoppingListIngredient[] = [];
     const shoppingListIngredientSections = shoppingListIngredients.reduce((sections, ing) => {
-      if (ing.ingredient.title) {
+      console.log(ing);
+      if (ing.ingredient?.title != null) {
         currentTitle = ing.ingredient.title;
+      } else if (ing.ingredient?.referencedRecipe?.name != null) {
+        currentTitle = ing.ingredient.referencedRecipe.name;
       }
 
       // If this is the first item in the section, create a new section
@@ -327,7 +337,7 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
       }
 
       // Store the on-hand ingredients for later
-      const householdsWithFood = (ing.ingredient.food?.householdsWithIngredientFood || []);
+      const householdsWithFood = (ing.ingredient?.food?.householdsWithIngredientFood || []);
       if (householdsWithFood.includes(userHousehold.value)) {
         onHandIngs.push(ing);
         return sections;

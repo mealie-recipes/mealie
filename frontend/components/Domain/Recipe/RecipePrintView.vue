@@ -243,44 +243,55 @@ const ingredientSections = computed<IngredientSection[]>(() => {
   if (!props.recipe.recipeIngredient) {
     return [];
   }
+const addIngredientsToSections = (ingredients: RecipeIngredient[], sections: IngredientSection[], title: string | null) => {
+  // If title is set, ensure the section exists before adding ingredients
+  let section: IngredientSection | undefined;
+  if (title) {
+    section = sections.find(sec => sec.sectionName === title);
+    if (!section) {
+      section = { sectionName: title, ingredients: [] };
+      sections.push(section);
+      console.log("Created section for title:", title);
+      console.log(sections);
+    }
+  }
 
-      const addIngredientsToSections = (ingredients: RecipeIngredient[], sections: IngredientSection[], title: string | null) => {
-        ingredients.forEach((ingredient) => {
-          // If the ingredient has a referencedRecipe, add its ingredients recursively
-          if (preferences.value.expandChildRecipes && ingredient.referencedRecipe && ingredient.referencedRecipe.recipeIngredient && ingredient.referencedRecipe.name) {
-            addIngredientsToSections(ingredient.referencedRecipe.recipeIngredient, sections, ingredient.referencedRecipe.name);
-          } else {
-            // Because of recursive call, we need to check if section exists
-            // Title gets set in recursive call if it's a referenced recipe because ingredient title is empty
-            const sectionName = ingredient.title || title || "";
-
-            if (sectionName) {
-              const section = sections.find(sec => sec.sectionName === sectionName);
-              if (section) {
-                section.ingredients.push(ingredient);
-              } else {
-                sections.push({
-                  sectionName,
-                  ingredients: [ingredient],
-                });
-              }
-
-            } else {
-              // Append new section if first
-              // eslint-disable-next-line no-lonely-if
-              if (sections.length === 0) {
-                sections.push({
-                  sectionName: "",
-                  ingredients: [ingredient],
-                });
-              } else {
-                // Otherwise add ingredient to last section in the array
-                sections[sections.length - 1].ingredients.push(ingredient);
-              }
-            }
-          }
-        });
-      };
+  ingredients.forEach((ingredient) => {
+    if (
+      preferences.value.expandChildRecipes &&
+      ingredient.referencedRecipe &&
+      ingredient.referencedRecipe.recipeIngredient &&
+      ingredient.referencedRecipe.name
+    ) {
+      // Recursively add to the section for this referenced recipe
+      addIngredientsToSections(
+        ingredient.referencedRecipe.recipeIngredient,
+        sections,
+        ingredient.referencedRecipe.name
+      );
+    } else {
+      const sectionName = title || ingredient.title || "";
+      if (sectionName) {
+        let sec = sections.find(sec => sec.sectionName === sectionName);
+        if (!sec) {
+          sec = { sectionName, ingredients: [] };
+          sections.push(sec);
+        }
+        ingredient.title = sectionName;
+        sec.ingredients.push(ingredient);
+      } else {
+        if (sections.length === 0) {
+          sections.push({
+            sectionName: "",
+            ingredients: [ingredient],
+          });
+        } else {
+          sections[sections.length - 1].ingredients.push(ingredient);
+        }
+      }
+    }
+  });
+};
 
       const sections: IngredientSection[] = [];
       addIngredientsToSections(props.recipe.recipeIngredient, sections, null);
