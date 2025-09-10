@@ -53,9 +53,9 @@
           </div>
           <RecipeIngredientEditor
             v-model="currentIng.ingredient"
-            :unit-error="!!currentUnitError"
+            :unit-error="!!currentMissingUnit"
             :unit-error-tooltip="$t('recipe.parser.this-unit-could-not-be-parsed-automatically')"
-            :food-error="!!currentFoodError"
+            :food-error="!!currentMissingFood"
             :food-error-tooltip="$t('recipe.parser.this-food-could-not-be-parsed-automatically')"
           />
           <p class="pt-4 pb-0 my-0">
@@ -64,20 +64,20 @@
           <v-card-actions>
             <v-spacer />
             <BaseButton
-              v-if="currentUnitError"
+              v-if="currentMissingUnit"
               color="warning"
               size="small"
-              @click="createUnit"
+              @click="createMissingUnit"
             >
-              {{ currentUnitError }}
+              {{ i18n.t("recipe.parser.missing-unit", { unit: currentMissingUnit }) }}
             </BaseButton>
             <BaseButton
-              v-if="currentFoodError"
+              v-if="currentMissingFood"
               color="warning"
               size="small"
-              @click="createFood"
+              @click="createMissingFood"
             >
-              {{ currentFoodError }}
+              {{ i18n.t("recipe.parser.missing-food", { food: currentMissingFood }) }}
             </BaseButton>
           </v-card-actions>
         </v-card-text>
@@ -150,6 +150,7 @@ import type { Parser } from "~/lib/api/user/recipes/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useAppInfo, useUserApi } from "~/composables/api";
 import { parseIngredientText } from "~/composables/recipes";
+import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "~/composables/store";
 import { useGlobalI18n } from "~/composables/use-global-i18n";
 import { useParsingPreferences } from "~/composables/use-users/preferences";
 
@@ -167,6 +168,11 @@ const i18n = useGlobalI18n();
 const api = useUserApi();
 const appInfo = useAppInfo();
 const drag = ref(false);
+
+const unitStore = useUnitStore();
+const unitData = useUnitData();
+const foodStore = useFoodStore();
+const foodData = useFoodData();
 
 const parserPreferences = useParsingPreferences();
 const parser = ref<Parser>(parserPreferences.value.parser || "nlp");
@@ -196,9 +202,9 @@ const confidenceThreshold = 0.85;
 const parsedIngs = ref<ParsedIngredient[]>([]);
 
 const currentIng = ref<ParsedIngredient | null>(null);
-const currentUnitError = ref("");
-const currentFoodError = ref("");
-const currentIngHasError = computed(() => currentUnitError.value || currentFoodError.value);
+const currentMissingUnit = ref("");
+const currentMissingFood = ref("");
+const currentIngHasError = computed(() => currentMissingUnit.value || currentMissingFood.value);
 
 const state = reactive({
   currentParsedIndex: -1,
@@ -236,22 +242,22 @@ function shouldReview(ing: ParsedIngredient): boolean {
 function checkUnit(ing: ParsedIngredient) {
   const unit = ing.ingredient.unit?.name;
   if (!unit || ing.ingredient.unit?.id) {
-    currentUnitError.value = "";
+    currentMissingUnit.value = "";
     return;
   }
 
-  currentUnitError.value = i18n.t("recipe.parser.missing-unit", { unit }).toString();
+  currentMissingUnit.value = unit;
   ing.ingredient.unit = undefined;
 }
 
 function checkFood(ing: ParsedIngredient) {
   const food = ing.ingredient.food?.name;
   if (!food || ing.ingredient.food?.id) {
-    currentFoodError.value = "";
+    currentMissingFood.value = "";
     return;
   }
 
-  currentFoodError.value = i18n.t("recipe.parser.missing-food", { food }).toString();
+  currentMissingFood.value = food;
   ing.ingredient.food = undefined;
 }
 
@@ -303,12 +309,36 @@ async function parseIngredients() {
   }
 }
 
-function createUnit() {
-  return; // TODO: implement
+async function createMissingUnit() {
+  if (!currentMissingUnit.value) {
+    return;
+  }
+
+  unitData.reset();
+  unitData.data.name = currentMissingUnit.value;
+  const unit = await unitStore.actions.createOne(unitData.data);
+  if (!unit) {
+    return; // TODO: flash an alert
+  }
+
+  currentIng.value!.ingredient.unit = unit;
+  currentMissingUnit.value = "";
 }
 
-function createFood() {
-  return; // TODO: implement
+async function createMissingFood() {
+  if (!currentMissingFood.value) {
+    return;
+  }
+
+  foodData.reset();
+  foodData.data.name = currentMissingFood.value;
+  const food = await foodStore.actions.createOne(foodData.data);
+  if (!food) {
+    return; // TODO: flash an alert
+  }
+
+  currentIng.value!.ingredient.food = food;
+  currentMissingFood.value = "";
 }
 
 watch(() => props.modelValue, () => {
