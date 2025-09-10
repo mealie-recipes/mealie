@@ -1,6 +1,8 @@
 <template>
   <BaseDialog
     :model-value="modelValue"
+    :title="$t('recipe.parse-ingredients')"
+    :icon="$globals.icons.fileSign"
     @update:model-value="emit('update:modelValue', $event)"
   >
     <v-container class="pa-2 ma-0" style="background-color: rgb(var(--v-theme-background));">
@@ -29,6 +31,11 @@
       </BaseCardSectionTitle>
       <AppLoader v-if="parserLoading" waiting-text="" class="my-6" />
       <v-card v-else-if="!allReviewed && currentIng">
+        <v-card-text class="pt-0 mt-0">
+          <p>{{ $t("recipe.parser.ingredient-parser-description") }}</p>
+          <br />
+          <p>{{ $t("recipe.parser.ingredient-parser-final-review-description") }}</p>
+        </v-card-text>
         <v-card-text class="pb-0 mb-0">
           <div class="d-flex align-center pa-0 ma-0">
             <v-icon
