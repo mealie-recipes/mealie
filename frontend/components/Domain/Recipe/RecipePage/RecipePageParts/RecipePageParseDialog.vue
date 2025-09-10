@@ -171,6 +171,7 @@ import { useAppInfo, useUserApi } from "~/composables/api";
 import { parseIngredientText } from "~/composables/recipes";
 import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "~/composables/store";
 import { useGlobalI18n } from "~/composables/use-global-i18n";
+import { alert } from "~/composables/use-toast";
 import { useParsingPreferences } from "~/composables/use-users/preferences";
 
 const props = defineProps<{
@@ -321,7 +322,8 @@ async function parseIngredients() {
     nextIngredient();
   }
   catch (error) {
-    console.error("Error parsing ingredients:", error); // TODO: flash an alert
+    console.error("Error parsing ingredients:", error);
+    alert.error(i18n.t("events.something-went-wrong"));
   }
   finally {
     state.loading.parser = false;
@@ -337,7 +339,8 @@ async function createMissingUnit() {
   unitData.data.name = currentMissingUnit.value;
   const unit = await unitStore.actions.createOne(unitData.data);
   if (!unit) {
-    return; // TODO: flash an alert
+    alert.error(i18n.t("events.something-went-wrong"));
+    return;
   }
 
   currentIng.value!.ingredient.unit = unit;
@@ -353,7 +356,8 @@ async function createMissingFood() {
   foodData.data.name = currentMissingFood.value;
   const food = await foodStore.actions.createOne(foodData.data);
   if (!food) {
-    return; // TODO: flash an alert
+    alert.error(i18n.t("events.something-went-wrong"));
+    return;
   }
 
   currentIng.value!.ingredient.food = food;
@@ -374,7 +378,8 @@ async function addMissingUnitAsAlias() {
   unit.aliases.push({ name: currentMissingUnit.value });
   const updated = await unitStore.actions.updateOne(unit);
   if (!updated) {
-    return; // TODO: flash an alert
+    alert.error(i18n.t("events.something-went-wrong"));
+    return;
   }
 
   currentIng.value!.ingredient.unit = updated;
@@ -395,7 +400,8 @@ async function addMissingFoodAsAlias() {
   food.aliases.push({ name: currentMissingFood.value });
   const updated = await foodStore.actions.updateOne(food);
   if (!updated) {
-    return; // TODO: flash an alert
+    alert.error(i18n.t("events.something-went-wrong"));
+    return;
   }
 
   currentIng.value!.ingredient.food = updated;
