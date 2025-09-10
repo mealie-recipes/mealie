@@ -1841,20 +1841,20 @@
             "brazil nut": {
                 "aliases": [],
                 "description": "",
-                "name": "brazil nut",
-                "plural_name": "brazil nuts"
+                "name": "para orech",
+                "plural_name": "para orechy"
             },
             "mixed seed": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed seed",
-                "plural_name": "mixed seeds"
+                "name": "semienková zmes",
+                "plural_name": "semienkové zmesy"
             },
             "onion seed": {
                 "aliases": [],
                 "description": "",
-                "name": "onion seed",
-                "plural_name": "onion seeds"
+                "name": "cibuľové semienko",
+                "plural_name": "cibuľové semienka"
             },
             "watermelon seed": {
                 "aliases": [],
@@ -1865,8 +1865,8 @@
             "honey-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted peanut",
-                "plural_name": "honey-roasted peanuts"
+                "name": "arašid v mede",
+                "plural_name": "arašidy v mede"
             },
             "melon seed": {
                 "aliases": [],
@@ -1877,80 +1877,80 @@
             "lotus seed": {
                 "aliases": [],
                 "description": "",
-                "name": "lotus seed",
-                "plural_name": "lotus seeds"
+                "name": "lotusové semienko",
+                "plural_name": "lotusové semienka"
             },
             "white chia": {
                 "aliases": [],
                 "description": "",
-                "name": "white chia",
-                "plural_name": "white chias"
+                "name": "biele chia semienko",
+                "plural_name": "biele chia semienka"
             },
             "trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "trail mix",
-                "plural_name": "trail mixes"
+                "name": "studentský mix",
+                "plural_name": "študentský mix"
             },
             "basil seed": {
                 "aliases": [],
                 "description": "",
-                "name": "basil seed",
-                "plural_name": "basil seeds"
+                "name": "bazalkové semienko",
+                "plural_name": "bazalkové semienka"
             },
             "candlenut": {
                 "aliases": [],
                 "description": "",
-                "name": "candlenut",
-                "plural_name": "candlenuts"
+                "name": "kukui orech",
+                "plural_name": "kukui orechy"
             },
             "peanut brittle": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut brittle",
-                "plural_name": "peanut brittles"
+                "name": "krehký arašid",
+                "plural_name": "krehké arašidy"
             },
             "jackfruit seed": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit seed",
-                "plural_name": "jackfruit seeds"
+                "name": "chlebovníkové semienko",
+                "plural_name": "chlebovníkové semienka"
             },
             "honey-roasted almond": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted almond",
-                "plural_name": "honey-roasted almonds"
+                "name": "mandľa v mede",
+                "plural_name": "mandle v mede"
             },
             "toasted nut": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted nut",
-                "plural_name": "toasted nuts"
+                "name": "pečený orech",
+                "plural_name": "pečené orechy"
             },
             "chironji": {
                 "aliases": [],
                 "description": "",
                 "name": "chironji",
-                "plural_name": "chironjis"
+                "plural_name": "chironji"
             },
             "honey-roasted pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted pecan",
-                "plural_name": "honey-roasted pecans"
+                "name": "pekanový orech v mede",
+                "plural_name": "pekanové orechy v mede"
             },
             "tigernut": {
                 "aliases": [],
                 "description": "",
-                "name": "tigernut",
-                "plural_name": "tigernuts"
+                "name": "tigrí orech",
+                "plural_name": "tigrie orechy"
             },
             "sunflower sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower sprout",
-                "plural_name": "sunflower sprouts"
+                "name": "slnečnicový klíček",
+                "plural_name": "slnečnicové klíčky"
             },
             "apricot kernel": {
                 "aliases": [],

@@ -60,7 +60,7 @@ The following steps were tested on a Ubuntu 20.04 server, but should work for mo
 
 ## Step 3: Customizing The `docker-compose.yaml` files.
 
-After you've decided setup the files it's important to set a few ENV variables to ensure that you can use all the features of Mealie. I recommend that you verify and check that:
+After you've decided how to set up your files, it's important to set a few ENV variables to ensure that you can use all the features of Mealie. Verify that:
 
 - [x] You've configured the relevant ENV variables for your database selection in the `docker-compose.yaml` files.
 - [x] You've configured the [SMTP server settings](./backend-config.md#email) (used for invitations, password resets, etc). You can setup a [google app password](https://support.google.com/accounts/answer/185833?hl=en) if you want to send email via gmail.
@@ -117,7 +117,7 @@ The latest tag provides the latest released image of Mealie.
 
 ---
 
-**These tags no are long updated**
+**These tags are no longer updated**
 
 `mealie:frontend-v1.0.0beta-x` **and** `mealie:api-v1.0.0beta-x`
 

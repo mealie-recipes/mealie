@@ -32,15 +32,16 @@
 
 ### Database
 
- | Variables                                               | Default  | Description                                                             |
- | ------------------------------------------------------- | :------: | ----------------------------------------------------------------------- |
- | DB_ENGINE                                               |  sqlite  | Optional: 'sqlite', 'postgres'                                          |
- | POSTGRES_USER<super>[&dagger;][secrets]</super>         |  mealie  | Postgres database user                                                  |
- | POSTGRES_PASSWORD<super>[&dagger;][secrets]</super>     |  mealie  | Postgres database password                                              |
- | POSTGRES_SERVER<super>[&dagger;][secrets]</super>       | postgres | Postgres database server address                                        |
- | POSTGRES_PORT<super>[&dagger;][secrets]</super>         |   5432   | Postgres database port                                                  |
- | POSTGRES_DB<super>[&dagger;][secrets]</super>           |  mealie  | Postgres database name                                                  |
- | POSTGRES_URL_OVERRIDE<super>[&dagger;][secrets]</super> |   None   | Optional Postgres URL override to use instead of POSTGRES\_\* variables |
+ | Variables                                               | Default  | Description                                                                                                                                                                                                                      |
+ |---------------------------------------------------------|:--------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+ | DB_ENGINE                                               |  sqlite  | Optional: 'sqlite', 'postgres'                                                                                                                                                                                                   |
+ | SQLITE_MIGRATE_JOURNAL_WAL                              |  False   | If set to true, switches SQLite's journal mode to WAL, which allows for multiple concurrent accesses. This can be useful when you have a decent amount of concurrency or when using certain remote storage systems such as Ceph. |
+ | POSTGRES_USER<super>[&dagger;][secrets]</super>         |  mealie  | Postgres database user                                                                                                                                                                                                           |
+ | POSTGRES_PASSWORD<super>[&dagger;][secrets]</super>     |  mealie  | Postgres database password                                                                                                                                                                                                       |
+ | POSTGRES_SERVER<super>[&dagger;][secrets]</super>       | postgres | Postgres database server address                                                                                                                                                                                                 |
+ | POSTGRES_PORT<super>[&dagger;][secrets]</super>         |   5432   | Postgres database port                                                                                                                                                                                                           |
+ | POSTGRES_DB<super>[&dagger;][secrets]</super>           |  mealie  | Postgres database name                                                                                                                                                                                                           |
+ | POSTGRES_URL_OVERRIDE<super>[&dagger;][secrets]</super> |   None   | Optional Postgres URL override to use instead of POSTGRES\_\* variables                                                                                                                                                          |
 
 ### Email
 

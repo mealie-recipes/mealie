@@ -9,10 +9,11 @@
     >
       <template #activator="{ props }">
         <v-badge
-          :model-value="selected.length > 0"
+          v-memo="[selectedCount]"
+          :model-value="selectedCount > 0"
           size="small"
           color="primary"
-          :content="selected.length"
+          :content="selectedCount"
         >
           <v-btn
             size="small"
@@ -28,6 +29,7 @@
         <v-card-text>
           <v-text-field
             v-model="state.search"
+            v-memo="[state.search]"
             class="mb-2"
             hide-details
             density="comfortable"
@@ -43,7 +45,7 @@
               hide-details
               class="my-auto"
               color="primary"
-              :label="`${requireAll ? $t('search.has-all') : $t('search.has-any')}`"
+              :label="requireAllValue ? $t('search.has-all') : $t('search.has-any')"
             />
             <v-spacer />
             <v-btn
@@ -73,7 +75,8 @@
               >
                 <template #default="{ item }">
                   <v-list-item
-                    :key="item.id"
+                    :key="`radio-${item.id}`"
+                    v-memo="[item.id, item.name, selectedRadio?.id]"
                     :value="item"
                     :title="item.name"
                   >
@@ -101,7 +104,8 @@
               >
                 <template #default="{ item }">
                   <v-list-item
-                    :key="item.id"
+                    :key="`checkbox-${item.id}`"
+                    v-memo="[item.id, item.name, selectedIds.has(item.id)]"
                     :value="item"
                     :title="item.name"
                   >
@@ -134,6 +138,8 @@
 </template>
 
 <script lang="ts">
+import { watchDebounced } from "@vueuse/core";
+
 export interface SelectableItem {
   id: string;
   name: string;
@@ -165,6 +171,9 @@ export default defineNuxtComponent({
       menu: false,
     });
 
+    // Use shallowRef for better performance with arrays
+    const debouncedSearch = shallowRef("");
+
     const requireAllValue = computed({
       get: () => props.requireAll,
       set: (value) => {
@@ -172,6 +181,7 @@ export default defineNuxtComponent({
       },
     });
 
+    // Use shallowRef to prevent deep reactivity on large arrays
     const selected = computed({
       get: () => props.modelValue as SelectableItem[],
       set: (value) => {
@@ -186,21 +196,40 @@ export default defineNuxtComponent({
       },
     });
 
+    watchDebounced(
+      () => state.search,
+      (newSearch) => {
+        debouncedSearch.value = newSearch;
+      },
+      { debounce: 500, maxWait: 1500, immediate: false }, // Increased debounce time
+    );
+
     const filtered = computed(() => {
-      if (!state.search) {
-        return props.items;
+      const items = props.items;
+      const search = debouncedSearch.value;
+
+      if (!search || search.length < 2) { // Only filter after 2 characters
+        return items;
       }
 
-      return props.items.filter(item => item.name.toLowerCase().includes(state.search.toLowerCase()));
+      const searchLower = search.toLowerCase();
+      return items.filter(item => item.name.toLowerCase().includes(searchLower));
+    });
+
+    const selectedCount = computed(() => selected.value.length);
+    const selectedIds = computed(() => {
+      return new Set(selected.value.map(item => item.id));
     });
 
     const handleCheckboxClick = (item: SelectableItem) => {
-      console.log(selected.value, item);
-      if (selected.value.includes(item)) {
-        selected.value = selected.value.filter(i => i !== item);
+      const currentSelection = selected.value;
+      const isSelected = selectedIds.value.has(item.id);
+
+      if (isSelected) {
+        selected.value = currentSelection.filter(i => i.id !== item.id);
       }
       else {
-        selected.value.push(item);
+        selected.value = [...currentSelection, item];
       }
     };
 
@@ -221,6 +250,8 @@ export default defineNuxtComponent({
       state,
       selected,
       selectedRadio,
+      selectedCount,
+      selectedIds,
       filtered,
       handleCheckboxClick,
       handleRadioClick,
