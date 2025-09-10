@@ -13,7 +13,7 @@
           </div>
           <BaseOverflowButton
             v-model="parser"
-            :disabled="parserLoading"
+            :disabled="state.loading.parser"
             btn-class="mx-2 my-auto"
             :items="availableParsers"
           />
@@ -22,15 +22,15 @@
             size="40"
             color="info"
             class="ml-auto"
-            :disabled="parserLoading"
+            :disabled="state.loading.parser"
             @click="parseIngredients"
           >
             <v-icon>{{ $globals.icons.refresh }}</v-icon>
           </v-btn>
         </div>
       </BaseCardSectionTitle>
-      <AppLoader v-if="parserLoading" waiting-text="" class="my-6" />
-      <v-card v-else-if="!allReviewed && currentIng">
+      <AppLoader v-if="state.loading.parser" waiting-text="" class="my-6" />
+      <v-card v-else-if="!state.allReviewed && currentIng">
         <v-card-text class="pt-0 mt-0">
           <p>{{ $t("recipe.parser.ingredient-parser-description") }}</p>
           <br>
@@ -53,9 +53,9 @@
           </div>
           <RecipeIngredientEditor
             v-model="currentIng.ingredient"
-            :unit-error="!!currentIngUnitError"
+            :unit-error="!!currentUnitError"
             :unit-error-tooltip="$t('recipe.parser.this-unit-could-not-be-parsed-automatically')"
-            :food-error="!!currentIngFoodError"
+            :food-error="!!currentFoodError"
             :food-error-tooltip="$t('recipe.parser.this-food-could-not-be-parsed-automatically')"
           />
           <p class="pt-4 pb-0 my-0">
@@ -64,20 +64,20 @@
           <v-card-actions>
             <v-spacer />
             <BaseButton
-              v-if="currentIngUnitError"
+              v-if="currentUnitError"
               color="warning"
               size="small"
               @click="createUnit"
             >
-              {{ currentIngUnitError }}
+              {{ currentUnitError }}
             </BaseButton>
             <BaseButton
-              v-if="currentIngFoodError"
+              v-if="currentFoodError"
               color="warning"
               size="small"
               @click="createFood"
             >
-              {{ currentIngFoodError }}
+              {{ currentFoodError }}
             </BaseButton>
           </v-card-actions>
         </v-card-text>
@@ -122,9 +122,9 @@
         </v-expansion-panel>
       </v-expansion-panels>
     </v-container>
-    <template v-if="!parserLoading" #custom-card-action>
+    <template v-if="!state.loading.parser" #custom-card-action>
       <BaseButton
-        v-if="!allReviewed"
+        v-if="!state.allReviewed"
         color="info"
         :icon="$globals.icons.arrowRightBold"
         icon-right
@@ -136,7 +136,7 @@
         create
         :text="$t('general.save')"
         :icon="$globals.icons.save"
-        :loading="saveLoading"
+        :loading="state.loading.save"
         @click="saveIngs"
       />
     </template>
@@ -194,15 +194,20 @@ const availableParsers = computed(() => {
  */
 const confidenceThreshold = 0.85;
 const parsedIngs = ref<ParsedIngredient[]>([]);
-const currentParsedIndex = ref<number>(-1);
-const currentIng = ref<ParsedIngredient | null>(null);
-const currentIngUnitError = ref("");
-const currentIngFoodError = ref("");
-const currentIngHasError = computed(() => currentIngUnitError.value || currentIngFoodError.value);
-const allReviewed = ref(false);
 
-const parserLoading = ref(false);
-const saveLoading = ref(false);
+const currentIng = ref<ParsedIngredient | null>(null);
+const currentUnitError = ref("");
+const currentFoodError = ref("");
+const currentIngHasError = computed(() => currentUnitError.value || currentFoodError.value);
+
+const state = reactive({
+  currentParsedIndex: -1,
+  allReviewed: false,
+  loading: {
+    parser: false,
+    save: false,
+  },
+});
 
 function shouldReview(ing: ParsedIngredient): boolean {
   console.debug(`Checking if ingredient needs review (input="${ing.input})":`, ing);
@@ -229,33 +234,34 @@ function shouldReview(ing: ParsedIngredient): boolean {
 }
 
 function checkUnit(ing: ParsedIngredient) {
-  if (ing.ingredient.unit?.id) {
-    currentIngUnitError.value = "";
+  const unit = ing.ingredient.unit?.name;
+  if (!unit || ing.ingredient.unit?.id) {
+    currentUnitError.value = "";
     return;
   }
 
-  const unit = ing.ingredient.unit?.name || i18n.t("recipe.parser.no-unit");
-  currentIngUnitError.value = i18n.t("recipe.parser.missing-unit", { unit }).toString();
+  currentUnitError.value = i18n.t("recipe.parser.missing-unit", { unit }).toString();
   ing.ingredient.unit = undefined;
 }
 
 function checkFood(ing: ParsedIngredient) {
-  if (ing.ingredient.food?.id) {
-    currentIngFoodError.value = "";
+  const food = ing.ingredient.food?.name;
+  if (!food || ing.ingredient.food?.id) {
+    currentFoodError.value = "";
     return;
   }
-  const food = ing.ingredient.food?.name || i18n.t("recipe.parser.no-food");
-  currentIngFoodError.value = i18n.t("recipe.parser.missing-food", { food }).toString();
+
+  currentFoodError.value = i18n.t("recipe.parser.missing-food", { food }).toString();
   ing.ingredient.food = undefined;
 }
 
 function nextIngredient() {
-  let nextIndex = Math.min(currentParsedIndex.value + 1, parsedIngs.value.length - 1);
+  let nextIndex = Math.min(state.currentParsedIndex + 1, parsedIngs.value.length - 1);
 
   while (nextIndex < parsedIngs.value.length) {
     const current = parsedIngs.value[nextIndex];
     if (shouldReview(current)) {
-      currentParsedIndex.value = nextIndex;
+      state.currentParsedIndex = nextIndex;
       currentIng.value = current;
       checkUnit(current);
       checkFood(current);
@@ -266,19 +272,19 @@ function nextIngredient() {
   }
 
   // No more to review
-  allReviewed.value = true;
+  state.allReviewed = true;
 }
 
 async function parseIngredients() {
-  if (parserLoading.value) {
+  if (state.loading.parser) {
     return;
   }
 
   if (!props.ingredients || props.ingredients.length === 0) {
-    parserLoading.value = false;
+    state.loading.parser = false;
     return;
   }
-  parserLoading.value = true;
+  state.loading.parser = true;
   try {
     const ingsAsString = props.ingredients.map(ing => parseIngredientText(ing, 1, false) ?? "");
     const { data, error } = await api.recipes.parseIngredients(parser.value, ingsAsString);
@@ -286,14 +292,14 @@ async function parseIngredients() {
       throw new Error("Failed to parse ingredients");
     }
     parsedIngs.value = data;
-    currentParsedIndex.value = -1;
+    state.currentParsedIndex = -1;
     nextIngredient();
   }
   catch (error) {
     console.error("Error parsing ingredients:", error); // TODO: flash an alert
   }
   finally {
-    parserLoading.value = false;
+    state.loading.parser = false;
   }
 }
 
@@ -341,6 +347,6 @@ function insertNewIngredient(index: number) {
 
 function saveIngs() {
   emit("save", parsedIngs.value.map(x => x.ingredient as NoUndefinedField<RecipeIngredient>));
-  saveLoading.value = true;
+  state.loading.save = true;
 }
 </script>
