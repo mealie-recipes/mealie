@@ -189,6 +189,21 @@
                     text: $t('meal-plan.lunch'),
                     event: 'randomLunch',
                   },
+                  {
+                    icon: $globals.icons.diceMultiple,
+                    text: $t('meal-plan.side'),
+                    event: 'randomSide',
+                  },
+                  {
+                    icon: $globals.icons.diceMultiple,
+                    text: $t('meal-plan.snack'),
+                    event: 'randomSnack',
+                  },
+                  {
+                    icon: $globals.icons.diceMultiple,
+                    text: $t('meal-plan.dessert'),
+                    event: 'randomDessert',
+                  },
                 ],
               },
               {
@@ -212,6 +227,8 @@
             @random-lunch="randomMeal(plan.date, 'lunch')"
             @random-dinner="randomMeal(plan.date, 'dinner')"
             @random-side="randomMeal(plan.date, 'side')"
+            @random-snack="randomMeal(plan.date, 'snack')"
+            @random-dessert="randomMeal(plan.date, 'dessert')"
           />
         </div>
       </v-col>
