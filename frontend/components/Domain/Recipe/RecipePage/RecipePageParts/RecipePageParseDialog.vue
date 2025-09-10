@@ -72,12 +72,20 @@
               {{ i18n.t("recipe.parser.missing-unit", { unit: currentMissingUnit }) }}
             </BaseButton>
             <BaseButton
-              v-if="currentMissingFood"
+              v-if="currentMissingFood && !currentIng.ingredient.food?.id"
               color="warning"
               size="small"
               @click="createMissingFood"
             >
               {{ i18n.t("recipe.parser.missing-food", { food: currentMissingFood }) }}
+            </BaseButton>
+            <BaseButton
+              v-if="currentMissingFood && currentIng.ingredient.food?.id"
+              color="warning"
+              size="small"
+              @click="addMissingAsAlias"
+            >
+              {{ `Add ${currentMissingFood} as alias for ${currentIng.ingredient.food.name}` }}
             </BaseButton>
           </v-card-actions>
         </v-card-text>
@@ -148,7 +156,7 @@
 
 <script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
-import type { ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { IngredientFood, ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe";
 import type { Parser } from "~/lib/api/user/recipes/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useAppInfo, useUserApi } from "~/composables/api";
@@ -341,6 +349,27 @@ async function createMissingFood() {
   }
 
   currentIng.value!.ingredient.food = food;
+  currentMissingFood.value = "";
+}
+
+async function addMissingAsAlias() {
+  const food = currentIng.value?.ingredient.food as IngredientFood | undefined;
+  if (!currentMissingFood.value || !food?.id) {
+    return;
+  }
+
+  food.aliases = food.aliases || [];
+  if (food.aliases.map((a) => a.name).includes(currentMissingFood.value)) {
+    return;
+  }
+
+  food.aliases.push({ name: currentMissingFood.value });
+  const updated = await foodStore.actions.updateOne(food);
+  if (!updated) {
+    return; // TODO: flash an alert
+  }
+
+  currentIng.value!.ingredient.food = updated;
   currentMissingFood.value = "";
 }
 
