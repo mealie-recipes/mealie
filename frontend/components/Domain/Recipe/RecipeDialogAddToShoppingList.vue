@@ -287,31 +287,32 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
       continue;
     }
 
-      const shoppingListIngredients: ShoppingListIngredient[] = [];
-      recipe.recipeIngredient.forEach((ing) => {
-        if (ing.isRecipe && ing.referencedRecipe) {
-          // If ing is a recipe, add all its ingredients
-          ing.referencedRecipe.recipeIngredient?.forEach((subIng) => {
-            const calculatedQty = (ing.quantity || 1) * (subIng.quantity || 1);
-            const householdsWithFood = (ing.food?.householdsWithIngredientFood || []);
-            shoppingListIngredients.push({
-              checked: !householdsWithFood.includes(userHousehold.value),
-              ingredient: {
-            ...subIng,
-            quantity: calculatedQty,
-            title: ing.referencedRecipe?.name || "",
-        }
-            });
-          });
-        } else {
-          // If ing is not a recipe, add it directly
+    const shoppingListIngredients: ShoppingListIngredient[] = [];
+    recipe.recipeIngredient.forEach((ing) => {
+      if (ing.isRecipe && ing.referencedRecipe) {
+        // If ing is a recipe, add all its ingredients
+        ing.referencedRecipe.recipeIngredient?.forEach((subIng) => {
+          const calculatedQty = (ing.quantity || 1) * (subIng.quantity || 1);
           const householdsWithFood = (ing.food?.householdsWithIngredientFood || []);
           shoppingListIngredients.push({
             checked: !householdsWithFood.includes(userHousehold.value),
-            ingredient: ing
+            ingredient: {
+              ...subIng,
+              quantity: calculatedQty,
+              title: ing.referencedRecipe?.name || "",
+            },
           });
-        }
-      });
+        });
+      }
+      else {
+        // If ing is not a recipe, add it directly
+        const householdsWithFood = (ing.food?.householdsWithIngredientFood || []);
+        shoppingListIngredients.push({
+          checked: !householdsWithFood.includes(userHousehold.value),
+          ingredient: ing,
+        });
+      }
+    });
 
     let currentTitle = "";
     const onHandIngs: ShoppingListIngredient[] = [];
@@ -319,7 +320,8 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
       console.log(ing);
       if (ing.ingredient?.title != null) {
         currentTitle = ing.ingredient.title;
-      } else if (ing.ingredient?.referencedRecipe?.name != null) {
+      }
+      else if (ing.ingredient?.referencedRecipe?.name != null) {
         currentTitle = ing.ingredient.referencedRecipe.name;
       }
 

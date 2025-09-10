@@ -53,7 +53,6 @@
 
 <script setup lang="ts">
 import DOMPurify from "dompurify";
-import RecipeCardImage from "./RecipeCardImage.vue";
 import { useFraction } from "~/composables/recipes/use-fraction";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
 import type { RecipeSummary } from "~/lib/api/types/recipe";

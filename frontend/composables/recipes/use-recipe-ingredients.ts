@@ -37,7 +37,7 @@ function useUnitName(unit: CreateIngredientUnit | IngredientUnit | undefined, us
 }
 
 export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true, groupSlug?: string) {
-  const { quantity, food, unit, note, title, referencedRecipe } = ingredient;
+  const { quantity, food, unit, note, referencedRecipe } = ingredient;
   const usePluralUnit = quantity !== undefined && ((quantity || 0) * scale > 1 || (quantity || 0) * scale === 0);
   const usePluralFood = (!quantity) || quantity * scale > 1;
 
@@ -74,14 +74,15 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1,
       note: note ? sanitizeIngredientHTML(note) : undefined,
       isRecipe: false,
     };
-  } else {
+  }
+  else {
     const subRecipeName: string = referencedRecipe ? referencedRecipe.name || "" : "";
     if (referencedRecipe && referencedRecipe.name && groupSlug) {
       return {
         quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
         unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
         name: subRecipeName ? sanitizeIngredientHTML(subRecipeName) : undefined,
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
+
         link: `<a href="/g/${groupSlug}/r/${referencedRecipe.slug}" target="_blank">${referencedRecipe.name}</a>`,
         note: undefined,
         isRecipe: true,
@@ -94,7 +95,6 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1,
       unit: undefined,
       note: undefined,
     };
-
   }
 }
 

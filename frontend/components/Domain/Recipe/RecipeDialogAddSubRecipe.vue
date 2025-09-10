@@ -1,6 +1,8 @@
 <template>
   <div>
-    <slot v-bind="{ open, close }"> </slot>
+    <slot
+      v-bind="{ open, close }"
+    />
     <v-dialog v-model="dialog" max-width="988px" content-class="top-dialog" :scrollable="false">
       <v-app-bar
         sticky
@@ -23,7 +25,7 @@
           single-line
           :placeholder="$t('search.search')"
           :prepend-inner-icon="$globals.icons.search"
-        ></v-text-field>
+        />
 
         <v-btn
           v-if="$vuetify.display.xs"
@@ -49,25 +51,25 @@
           </div>
         </v-card-actions>
         <RecipeList :recipes="search.data.value" show-description show-image :disabled="$nuxt.isOffline">
-          <template v-for="(recipe) in search.data.value" #[`actions-${recipe.id}`]>
-            <v-list-item-action :key="'item-actions-increase' + recipe.id">
-              <v-btn icon :disabled="$nuxt.isOffline" @click.prevent="handleSelect(recipe)">
-                <v-icon color="grey lighten-1">{{ $globals.icons.createAlt }}</v-icon>
-              </v-btn>
-            </v-list-item-action>
-          </template>
-        </RecipeList>
-
-      </v-card>
-
-    </v-dialog>
+ <template v-for="recipe in search.data.value" #[`actions-${recipe.id}`] :key="recipe.id">
+    <v-list-item-action>
+      <v-btn icon :disabled="$nuxt.isOffline" @click.prevent="handleSelect(recipe)">
+        <v-icon color="grey lighten-1">
+          {{ $globals.icons.createAlt }}
+        </v-icon>
+      </v-btn>
+    </v-list-item-action>
+  </template>
+</RecipeList>
+</v-card>
+</v-dialog>
   </div>
 </template>
 
 <script setup lang="ts">
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import { Recipe, RecipeSummary } from "~/lib/api/types/recipe";
+import type { RecipeSummary } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 import { usePublicExploreApi } from "~/composables/api/api-client";

@@ -9,8 +9,10 @@
         {{ $t("recipe.ingredients-not-parsed-description", { parse: $t('recipe.parse') }) }}
       </BannerWarning>
     </div>
-    <RecipeDialogAddSubRecipe ref="domSubRecipeSearchDialog" :recipe="recipe" @selected="insertNewRecipe"/>
-    <BaseButton class="mb-1" @click="showSearch" > {{ $t("recipe.add-reference") }} </BaseButton>
+    <RecipeDialogAddSubRecipe ref="domSubRecipeSearchDialog" :recipe="recipe" @selected="insertNewRecipe" />
+    <BaseButton class="mb-1" @click="showSearch">
+{{ $t("recipe.add-reference") }}
+</BaseButton>
     <VueDraggable
       v-if="recipe.recipeIngredient.length > 0"
       v-model="recipe.recipeIngredient"
@@ -102,8 +104,6 @@ const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 const domSubRecipeSearchDialog = ref<InstanceType<typeof RecipeDialogAddSubRecipe> | null>(null);
 
-
-
 const hasFoodOrUnit = computed(() => {
   if (!recipe.value) {
     return false;
@@ -174,18 +174,18 @@ function insertNewIngredient(dest: number) {
   });
 }
 
- function insertNewRecipe(newRecipe: Recipe) {
-      recipe.value.recipeIngredient.push({
-            referenceId: uuid4(),
-            title: "",
-            note: newRecipe.name || "",
-            // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
-            unit: undefined,
-            // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
-            referencedRecipe: newRecipe,
-            isRecipe: true,
-            //disableAmount: true,
-            quantity: 1,
-          });
-    }
+function insertNewRecipe(newRecipe: Recipe) {
+  recipe.value.recipeIngredient.push({
+    referenceId: uuid4(),
+    title: "",
+    note: newRecipe.name || "",
+    // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
+    unit: undefined,
+    // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
+    referencedRecipe: newRecipe,
+    isRecipe: true,
+    // disableAmount: true,
+    quantity: 1,
+  });
+}
 </script>

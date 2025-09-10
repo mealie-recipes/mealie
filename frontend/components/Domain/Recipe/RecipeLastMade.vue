@@ -185,19 +185,20 @@ onMounted(async () => {
   lastMadeReady.value = true;
 });
 
-    const childRecipes = computed(() => {
-      return props.recipe.recipeIngredient?.map((ingredient) => {
-        if (ingredient.referencedRecipe) {
-          return {
-            checked: false, // Default value for checked
-            recipeId: ingredient.referencedRecipe.id || "", // Non-nullable recipeId
-            ...ingredient.referencedRecipe // Spread the rest of the referencedRecipe properties
-          };
-        } else {
-          return undefined;
-        }
-      }).filter(recipe => recipe !== undefined); // Filter out undefined values
-    });
+const childRecipes = computed(() => {
+  return props.recipe.recipeIngredient?.map((ingredient) => {
+    if (ingredient.referencedRecipe) {
+      return {
+        checked: false, // Default value for checked
+        recipeId: ingredient.referencedRecipe.id || "", // Non-nullable recipeId
+        ...ingredient.referencedRecipe, // Spread the rest of the referencedRecipe properties
+      };
+    }
+    else {
+      return undefined;
+    }
+  }).filter(recipe => recipe !== undefined); // Filter out undefined values
+});
 
 whenever(
   () => madeThisDialog.value,
@@ -301,26 +302,26 @@ async function createTimelineEvent() {
       console.error("Failed to upload image for timeline event:", error);
     }
   }
-    if (imageError) {
+  if (imageError) {
     alert.error(i18n.t("recipe.added-to-timeline-but-failed-to-add-image"));
   }
   else {
     alert.success(i18n.t("recipe.added-to-timeline"));
   }
-        // Update last made for any checked child recipes
-      if (childRecipes.value) {
-        for (const childRecipe of childRecipes.value) {
-          if (childRecipe.checked) {
-            newTimelineEvent.value.eventMessage = "";
-            clearImage();
-            newTimelineEvent.value.recipeId = childRecipe.recipeId;
-            await userApi.recipes.createTimelineEvent(newTimelineEvent.value);
-            if ((!props.value || newTimelineEvent.value.timestamp > props.value) && childRecipe.slug) {
-              await userApi.recipes.updateLastMade(childRecipe.slug, newTimelineEvent.value.timestamp);
-            }
-          }
+  // Update last made for any checked child recipes
+  if (childRecipes.value) {
+    for (const childRecipe of childRecipes.value) {
+      if (childRecipe.checked) {
+        newTimelineEvent.value.eventMessage = "";
+        clearImage();
+        newTimelineEvent.value.recipeId = childRecipe.recipeId;
+        await userApi.recipes.createTimelineEvent(newTimelineEvent.value);
+        if ((!props.value || newTimelineEvent.value.timestamp > props.value) && childRecipe.slug) {
+          await userApi.recipes.updateLastMade(childRecipe.slug, newTimelineEvent.value.timestamp);
         }
       }
+    }
+  }
 
   resetMadeThisForm();
   emit("eventCreated", newEvent);
