@@ -1,7 +1,7 @@
 <template>
   <div>
     <RecipePageParseDialog
-      v-model="isParsing"
+      :model-value="isParsing"
       :ingredients="recipe.recipeIngredient"
       width="70%"
       @update:model-value="toggleIsParsing"
