@@ -291,7 +291,7 @@ async function saveRecipe() {
   }
 }
 
-async function saveParsedIngredients(ingredients: NoUndefinedField<RecipeIngredient[]> ) {
+async function saveParsedIngredients(ingredients: NoUndefinedField<RecipeIngredient[]>) {
   recipe.value.recipeIngredient = ingredients;
   await saveRecipe();
   toggleIsParsing(false);

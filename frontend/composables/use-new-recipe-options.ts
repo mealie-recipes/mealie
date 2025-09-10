@@ -62,7 +62,7 @@ export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
     }
 
     const queryString = queryParams.toString();
-    const recipeUrl = `/g/${groupSlug}/r/${recipeSlug}${queryString ? `?${queryString}` : ''}`;
+    const recipeUrl = `/g/${groupSlug}/r/${recipeSlug}${queryString ? `?${queryString}` : ""}`;
 
     // Replace current entry to prevent re-import on back navigation
     router.replace(createPagePath).then(() => router.push(recipeUrl));

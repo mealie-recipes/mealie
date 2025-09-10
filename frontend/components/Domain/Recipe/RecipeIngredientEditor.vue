@@ -216,7 +216,7 @@ defineProps({
   enableContextMenu: {
     type: Boolean,
     default: false,
-  }
+  },
 });
 
 defineEmits([

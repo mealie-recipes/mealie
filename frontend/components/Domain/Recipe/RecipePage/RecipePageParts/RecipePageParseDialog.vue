@@ -33,7 +33,7 @@
       <v-card v-else-if="!allReviewed && currentIng">
         <v-card-text class="pt-0 mt-0">
           <p>{{ $t("recipe.parser.ingredient-parser-description") }}</p>
-          <br />
+          <br>
           <p>{{ $t("recipe.parser.ingredient-parser-final-review-description") }}</p>
         </v-card-text>
         <v-card-text class="pb-0 mb-0">
@@ -122,7 +122,7 @@
         </v-expansion-panel>
       </v-expansion-panels>
     </v-container>
-    <template #custom-card-action v-if="!parserLoading">
+    <template v-if="!parserLoading" #custom-card-action>
       <BaseButton
         v-if="!allReviewed"
         color="info"
@@ -146,7 +146,7 @@
 <script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
 import type { ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe";
-import type { Parser, } from "~/lib/api/user/recipes/recipe";
+import type { Parser } from "~/lib/api/user/recipes/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useAppInfo, useUserApi } from "~/composables/api";
 import { parseIngredientText } from "~/composables/recipes";
@@ -288,9 +288,11 @@ async function parseIngredients() {
     parsedIngs.value = data;
     currentParsedIndex.value = -1;
     nextIngredient();
-  } catch (error) {
+  }
+  catch (error) {
     console.error("Error parsing ingredients:", error); // TODO: flash an alert
-  } finally {
+  }
+  finally {
     parserLoading.value = false;
   }
 }
@@ -341,5 +343,4 @@ function saveIngs() {
   emit("save", parsedIngs.value.map(x => x.ingredient as NoUndefinedField<RecipeIngredient>));
   saveLoading.value = true;
 }
-
 </script>
