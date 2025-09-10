@@ -77,7 +77,7 @@
               size="small"
               @click="addMissingUnitAsAlias"
             >
-              {{ i18n.t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingUnit, item: currentIng.ingredient.unit.name}) }}
+              {{ i18n.t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingUnit, item: currentIng.ingredient.unit.name }) }}
             </BaseButton>
             <BaseButton
               v-if="currentMissingFood && !currentIng.ingredient.food?.id"
@@ -93,7 +93,7 @@
               size="small"
               @click="addMissingFoodAsAlias"
             >
-              {{ i18n.t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingFood, item: currentIng.ingredient.food.name}) }}
+              {{ i18n.t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingFood, item: currentIng.ingredient.food.name }) }}
             </BaseButton>
           </v-card-actions>
         </v-card-text>
@@ -367,7 +367,7 @@ async function addMissingUnitAsAlias() {
   }
 
   unit.aliases = unit.aliases || [];
-  if (unit.aliases.map((a) => a.name).includes(currentMissingUnit.value)) {
+  if (unit.aliases.map(a => a.name).includes(currentMissingUnit.value)) {
     return;
   }
 
@@ -388,7 +388,7 @@ async function addMissingFoodAsAlias() {
   }
 
   food.aliases = food.aliases || [];
-  if (food.aliases.map((a) => a.name).includes(currentMissingFood.value)) {
+  if (food.aliases.map(a => a.name).includes(currentMissingFood.value)) {
     return;
   }
 
