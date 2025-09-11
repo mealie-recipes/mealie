@@ -590,7 +590,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cres",
-                "plural_name": "cress"
+                "plural_name": "agriões-de-jardim"
             },
             "broccoli slaw": {
                 "aliases": [],
@@ -701,7 +701,7 @@
             "craisin": {
                 "aliases": [],
                 "description": "",
-                "name": "craisin",
+                "name": "passa de arando",
                 "plural_name": "craisins"
             },
             "pear": {
@@ -773,26 +773,26 @@
             "currant": {
                 "aliases": [],
                 "description": "",
-                "name": "currant",
-                "plural_name": "currants"
+                "name": "groselha",
+                "plural_name": "groselhas"
             },
             "mandarin": {
                 "aliases": [],
                 "description": "",
                 "name": "mandarin",
-                "plural_name": "mandarins"
+                "plural_name": "tangerinas"
             },
             "prune": {
                 "aliases": [],
                 "description": "",
-                "name": "prune",
-                "plural_name": "prunes"
+                "name": "ameixa",
+                "plural_name": "ameixas"
             },
             "cantaloupe": {
                 "aliases": [],
                 "description": "",
-                "name": "cantaloupe",
-                "plural_name": "cantaloupes"
+                "name": "melão-cantalupo",
+                "plural_name": "melões-cantalupo"
             },
             "sultana": {
                 "aliases": [],
@@ -803,26 +803,26 @@
             "passion fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "passion fruit",
+                "name": "maracujá",
                 "plural_name": "maracujás"
             },
             "papaya": {
                 "aliases": [],
                 "description": "",
                 "name": "mamão",
-                "plural_name": "papayas"
+                "plural_name": "mamões"
             },
             "tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarind",
+                "name": "tamarindo",
                 "plural_name": "tamarinds"
             },
             "nectarine": {
                 "aliases": [],
                 "description": "",
                 "name": "nectarina",
-                "plural_name": "nectarines"
+                "plural_name": "nectarinas"
             },
             "dried fig": {
                 "aliases": [],
@@ -839,14 +839,14 @@
             "meyer lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "meyer lemon",
+                "name": "limão-meyer",
                 "plural_name": "meyer lemons"
             },
             "honeydew melon": {
                 "aliases": [],
                 "description": "",
                 "name": "honeydew melon",
-                "plural_name": "honeydew melons"
+                "plural_name": "melões \"honeydew\""
             },
             "dried fruit": {
                 "aliases": [],
@@ -857,14 +857,14 @@
             "clementine": {
                 "aliases": [],
                 "description": "",
-                "name": "clementine",
+                "name": "clementina",
                 "plural_name": "clementines"
             },
             "persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "persimmon",
-                "plural_name": "persimmons"
+                "name": "caqui",
+                "plural_name": "caquis"
             },
             "melon": {
                 "aliases": [],
@@ -893,7 +893,7 @@
             "quince": {
                 "aliases": [],
                 "description": "",
-                "name": "quince",
+                "name": "marmelo",
                 "plural_name": "quinces"
             },
             "guava": {
