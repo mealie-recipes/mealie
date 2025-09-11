@@ -4841,8 +4841,8 @@
             "chicken frame": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken frame",
-                "plural_name": "chicken frames"
+                "name": "Hühnergerippe",
+                "plural_name": "Hühnergerippe"
             },
             "duck bacon": {
                 "aliases": [],
@@ -6401,8 +6401,8 @@
             "achiote paste": {
                 "aliases": [],
                 "description": "",
-                "name": "achiote paste",
-                "plural_name": "achiote pastes"
+                "name": "Annatto-Paste",
+                "plural_name": "Annatto-Pasten"
             },
             "summer savory": {
                 "aliases": [],
@@ -7124,8 +7124,8 @@
             "poultry seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "poultry seasoning",
-                "plural_name": "poultry seasonings"
+                "name": "Geflügelgewürz",
+                "plural_name": "Geflügelgewürze"
             },
             "chinese five spice": {
                 "aliases": [],
@@ -7244,8 +7244,8 @@
             "fajita seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "fajita seasoning",
-                "plural_name": "fajita seasonings"
+                "name": "Fajita Gewürz",
+                "plural_name": "Fajita Gewürze"
             },
             "tandoori spice": {
                 "aliases": [],
@@ -7274,8 +7274,8 @@
             "garlic & herb seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic & herb seasoning",
-                "plural_name": "garlic & herb seasonings"
+                "name": "Knoblauch & Kräutergewürz",
+                "plural_name": "Knoblauch & Kräutergewürze"
             },
             "garlic-pepper seasoning": {
                 "aliases": [],
@@ -7292,8 +7292,8 @@
             "greek seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "greek seasoning",
-                "plural_name": "greek seasonings"
+                "name": "Griechisches Gewürz",
+                "plural_name": "Griechische Gewürze"
             },
             "msg": {
                 "aliases": [],
