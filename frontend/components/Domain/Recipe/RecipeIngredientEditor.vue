@@ -174,41 +174,10 @@
           placeholder="Choose Recipe"
           clearable
           label="Recipe"
-          @keyup.enter="handleFoodEnter"
         >
-          <template #prepend>
-            <v-tooltip v-if="foodError" location="bottom">
-              <template #activator="{ props: foodTooltipProps }">
-                <v-icon
-                  v-bind="foodTooltipProps"
-                  class="ml-2 mr-n3 opacity-100"
-                  color="primary"
-                >
-                  {{ $globals.icons.alert }}
-                </v-icon>
-              </template>
-              <span v-if="foodErrorTooltip">
-                {{ foodErrorTooltip }}
-              </span>
-            </v-tooltip>
-          </template>
-          <template #no-data>
-            <div class="caption text-center pb-2">
-              {{ $t("recipe.press-enter-to-create") }}
-            </div>
-          </template>
-          <template #append-item>
-            <div class="px-2">
-              <BaseButton
-                block
-                size="small"
-                @click="createAssignFood()"
-              />
-            </div>
-          </template>
+          <template #prepend />
         </v-autocomplete>
       </v-col>
-      <!-- <v-col v-if="model.isRecipe" md="3" cols="12" class="pa-0 ma-0" /> -->
       <v-col
         sm="12"
         md=""
@@ -370,11 +339,12 @@ const { isOwnGroup } = useLoggedInState();
 const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
 const search = useRecipeSearch(api);
 const loading = ref(false);
-
+const selectedIndex = ref(-1);
 // Reset or Grab Recipes on Change
 watch(loading, (val) => {
   if (!val) {
     search.query.value = "";
+    selectedIndex.value = -1;
     search.data.value = [];
   }
 });
