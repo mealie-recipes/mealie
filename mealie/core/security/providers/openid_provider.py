@@ -16,8 +16,9 @@ class OpenIDProvider(AuthProvider[UserInfo]):
 
     _logger = root_logger.get_logger("openid_provider")
 
-    def __init__(self, session: Session, data: UserInfo) -> None:
+    def __init__(self, session: Session, data: UserInfo, use_default_groups: bool = False) -> None:
         super().__init__(session, data)
+        self.use_default_groups = use_default_groups
 
     def authenticate(self) -> tuple[str, timedelta] | None:
         """Attempt to authenticate a user given a username and password"""
@@ -51,6 +52,15 @@ class OpenIDProvider(AuthProvider[UserInfo]):
 
         is_admin = False
         if settings.OIDC_REQUIRES_GROUP_CLAIM:
+            # We explicitly allow the groups claim to be missing to account for the behaviour of some IdPs:
+            # https://github.com/keycloak/keycloak/issues/22340
+            # We still log a warning though
+            if settings.OIDC_GROUPS_CLAIM not in claims:
+                self._logger.warning(
+                    "[OIDC] claims did not include a %s claim%s",
+                    settings.OIDC_GROUPS_CLAIM,
+                    ", using an empty list as default" if self.use_default_groups else "",
+                )
             group_claim = claims.get(settings.OIDC_GROUPS_CLAIM, []) or []
             is_admin = settings.OIDC_ADMIN_GROUP in group_claim if settings.OIDC_ADMIN_GROUP else False
             is_valid_user = settings.OIDC_USER_GROUP in group_claim if settings.OIDC_USER_GROUP else True
@@ -111,6 +121,6 @@ class OpenIDProvider(AuthProvider[UserInfo]):
         settings = get_app_settings()
 
         claims = {settings.OIDC_NAME_CLAIM, "email", settings.OIDC_USER_CLAIM}
-        if settings.OIDC_REQUIRES_GROUP_CLAIM:
+        if settings.OIDC_REQUIRES_GROUP_CLAIM and not self.use_default_groups:
             claims.add(settings.OIDC_GROUPS_CLAIM)
         return claims

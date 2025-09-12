@@ -4446,7 +4446,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ankbröst",
-                "plural_name": "duck breasts"
+                "plural_name": "ankbröst"
             },
             "boneless chicken": {
                 "aliases": [],
@@ -4679,8 +4679,8 @@
             "smoked duck breast": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked duck breast",
-                "plural_name": "smoked duck breasts"
+                "name": "rökt ankbröst",
+                "plural_name": "rökt ankbröst"
             },
             "pigeon": {
                 "aliases": [],
@@ -6149,8 +6149,8 @@
             "thai basil": {
                 "aliases": [],
                 "description": "",
-                "name": "thai basil",
-                "plural_name": "thai basils"
+                "name": "thaibasilika",
+                "plural_name": "thaibasilika"
             },
             "edible flower": {
                 "aliases": [],
@@ -7709,8 +7709,8 @@
             "almond flour": {
                 "aliases": [],
                 "description": "",
-                "name": "almond flour",
-                "plural_name": "almond flours"
+                "name": "mandelmjöl",
+                "plural_name": "mandelmjöl"
             },
             "self-raising flour": {
                 "aliases": [],
@@ -7890,8 +7890,8 @@
             "arrowroot flour": {
                 "aliases": [],
                 "description": "",
-                "name": "arrowroot flour",
-                "plural_name": "arrowroot flours"
+                "name": "arrowrot",
+                "plural_name": "arrowrot"
             },
             "flaxseed meal": {
                 "aliases": [],
@@ -8059,7 +8059,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "agar agar",
-                "plural_name": "agar agars"
+                "plural_name": "agar agar"
             },
             "red velvet cake mix": {
                 "aliases": [],
@@ -12448,8 +12448,8 @@
             "canned apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "canned apricot",
-                "plural_name": "canned apricots"
+                "name": "konserverad aprikos",
+                "plural_name": "konserverade aprikoser"
             },
             "canned sweet potato": {
                 "aliases": [],
@@ -13920,8 +13920,8 @@
             "applesauce": {
                 "aliases": [],
                 "description": "",
-                "name": "applesauce",
-                "plural_name": "applesauces"
+                "name": "äppelmos",
+                "plural_name": "äppelmos"
             },
             "white chocolate": {
                 "aliases": [],
@@ -13974,8 +13974,8 @@
             "apricot jam": {
                 "aliases": [],
                 "description": "",
-                "name": "apricot jam",
-                "plural_name": "apricot jams"
+                "name": "aprikossylt",
+                "plural_name": "aprikossylt"
             },
             "caramel sauce": {
                 "aliases": [],
@@ -14612,7 +14612,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "amaretto",
-                "plural_name": "amarettoes"
+                "plural_name": "amaretto"
             },
             "marsala wine": {
                 "aliases": [],
@@ -14785,8 +14785,8 @@
             "madeira wine": {
                 "aliases": [],
                 "description": "",
-                "name": "madeira wine",
-                "plural_name": "madeira wines"
+                "name": "madeiravin",
+                "plural_name": "madeiraviner"
             },
             "absinthe": {
                 "aliases": [],
@@ -15125,14 +15125,14 @@
             "pineapple juice": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple juice",
-                "plural_name": "pineapple juices"
+                "name": "ananasjuice",
+                "plural_name": "ananasjuice"
             },
             "apple juice": {
                 "aliases": [],
                 "description": "",
-                "name": "apple juice",
-                "plural_name": "apple juices"
+                "name": "äppeljuice",
+                "plural_name": "äppeljuice"
             },
             "tea": {
                 "aliases": [],

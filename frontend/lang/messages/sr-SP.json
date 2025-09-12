@@ -561,6 +561,7 @@
     "see-original-text": "See Original Text",
     "original-text-with-value": "Original Text: {originalText}",
     "ingredient-linker": "Повезивач састојака",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Повезан са другим кораком",
     "auto": "Auto",
     "cook-mode": "Cook Mode",

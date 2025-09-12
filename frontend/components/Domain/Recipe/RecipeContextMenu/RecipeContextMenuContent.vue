@@ -1,159 +1,125 @@
 <template>
-  <div class="text-center">
-    <!-- Recipe Share Dialog -->
-    <RecipeDialogShare v-model="shareDialog" :recipe-id="recipeId" :name="name" />
-    <RecipeDialogPrintPreferences v-model="printPreferencesDialog" :recipe="recipeRef" />
-    <BaseDialog
-      v-model="recipeDeleteDialog"
-      :title="$t('recipe.delete-recipe')"
-      color="error"
-      :icon="$globals.icons.alertCircle"
-      can-confirm
-      @confirm="deleteRecipe()"
-    >
-      <v-card-text>
-        <template v-if="isAdminAndNotOwner">
-          {{ $t("recipe.admin-delete-confirmation") }}
-        </template>
-        <template v-else>
-          {{ $t("recipe.delete-confirmation") }}
-        </template>
-      </v-card-text>
-    </BaseDialog>
-    <BaseDialog
-      v-model="recipeDuplicateDialog"
-      :title="$t('recipe.duplicate')"
-      color="primary"
-      :icon="$globals.icons.duplicate"
-      can-confirm
-      @confirm="duplicateRecipe()"
-    >
-      <v-card-text>
-        <v-text-field
-          v-model="recipeName"
-          density="compact"
-          :label="$t('recipe.recipe-name')"
-          autofocus
-          @keyup.enter="duplicateRecipe()"
-        />
-      </v-card-text>
-    </BaseDialog>
-    <BaseDialog
-      v-model="mealplannerDialog"
-      :title="$t('recipe.add-recipe-to-mealplan')"
-      color="primary"
-      :icon="$globals.icons.calendar"
-      can-confirm
-      @confirm="addRecipeToPlan()"
-    >
-      <v-card-text>
-        <v-menu
-          v-model="pickerMenu"
-          :close-on-content-click="false"
-          transition="scale-transition"
-          offset-y
-          max-width="290px"
-          min-width="auto"
-        >
-          <template #activator="{ props: activatorProps }">
-            <v-text-field
-              v-model="newMealdateString"
-              :label="$t('general.date')"
-              :prepend-icon="$globals.icons.calendar"
-              v-bind="activatorProps"
-              readonly
-            />
-          </template>
-          <v-date-picker
-            v-model="newMealdate"
-            hide-header
-            :first-day-of-week="firstDayOfWeek"
-            :local="$i18n.locale"
-             @update:model-value="pickerMenu = false"
-          />
-        </v-menu>
-        <v-select
-          v-model="newMealType"
-          :return-object="false"
-          :items="planTypeOptions"
-          :label="$t('recipe.entry-type')"
-          item-title="text"
-          item-value="value"
-        />
-      </v-card-text>
-    </BaseDialog>
-    <RecipeDialogAddToShoppingList
-      v-if="shoppingLists && recipeRefWithScale"
-      v-model="shoppingListDialog"
-      :recipes="[recipeRefWithScale]"
-      :shopping-lists="shoppingLists"
-    />
-    <v-menu
-      offset-y
-      start
-      :bottom="!menuTop"
-      :nudge-bottom="!menuTop ? '5' : '0'"
-      :top="menuTop"
-      :nudge-top="menuTop ? '5' : '0'"
-      allow-overflow
-      close-delay="125"
-      :open-on-hover="$vuetify.display.mdAndUp"
-      content-class="d-print-none"
-    >
-      <template #activator="{ props: activatorProps }">
-        <v-btn
-          icon
-          :variant="fab ? 'flat' : undefined"
-          :rounded="fab ? 'circle' : undefined"
-          :size="fab ? 'small' : undefined"
-          :color="fab ? 'info' : 'secondary'"
-          :fab="fab"
-          v-bind="activatorProps"
-          @click.prevent
-        >
-          <v-icon
-          :size="!fab ? undefined : 'x-large'"
-          :color="fab ? 'white' : 'secondary'"
-        >
-          {{ icon }}
-        </v-icon>
-        </v-btn>
+  <RecipeDialogShare v-model="shareDialog" :recipe-id="recipeId" :name="name" />
+  <RecipeDialogPrintPreferences v-model="printPreferencesDialog" :recipe="recipeRef" />
+  <BaseDialog
+    v-model="recipeDeleteDialog"
+    :title="$t('recipe.delete-recipe')"
+    color="error"
+    :icon="$globals.icons.alertCircle"
+    can-confirm
+    @confirm="deleteRecipe()"
+  >
+    <v-card-text>
+      <template v-if="isAdminAndNotOwner">
+        {{ $t("recipe.admin-delete-confirmation") }}
       </template>
-      <v-list density="compact">
-        <v-list-item v-for="(item, index) in menuItems" :key="index" @click="contextMenuEventHandler(item.event)">
-          <template #prepend>
-            <v-icon :color="item.color">
-              {{ item.icon }}
-            </v-icon>
-          </template>
-          <v-list-item-title>{{ item.title }}</v-list-item-title>
-        </v-list-item>
-        <div v-if="useItems.recipeActions && recipeActions && recipeActions.length">
-          <v-divider />
-          <v-list-item
-            v-for="(action, index) in recipeActions"
-            :key="index"
-            @click="executeRecipeAction(action)"
-          >
-            <template #prepend>
-              <v-icon color="undefined">
-                {{ $globals.icons.linkVariantPlus }}
-              </v-icon>
-            </template>
-            <v-list-item-title>
-              {{ action.title }}
-            </v-list-item-title>
-          </v-list-item>
-        </div>
-      </v-list>
-    </v-menu>
-  </div>
+      <template v-else>
+        {{ $t("recipe.delete-confirmation") }}
+      </template>
+    </v-card-text>
+  </BaseDialog>
+  <BaseDialog
+    v-model="recipeDuplicateDialog"
+    :title="$t('recipe.duplicate')"
+    color="primary"
+    :icon="$globals.icons.duplicate"
+    can-confirm
+    @confirm="duplicateRecipe()"
+  >
+    <v-card-text>
+      <v-text-field
+        v-model="recipeName"
+        density="compact"
+        :label="$t('recipe.recipe-name')"
+        autofocus
+        @keyup.enter="duplicateRecipe()"
+      />
+    </v-card-text>
+  </BaseDialog>
+  <BaseDialog
+    v-model="mealplannerDialog"
+    :title="$t('recipe.add-recipe-to-mealplan')"
+    color="primary"
+    :icon="$globals.icons.calendar"
+    can-confirm
+    @confirm="addRecipeToPlan()"
+  >
+    <v-card-text>
+      <v-menu
+        v-model="pickerMenu"
+        :close-on-content-click="false"
+        transition="scale-transition"
+        offset-y
+        max-width="290px"
+        min-width="auto"
+      >
+        <template #activator="{ props: activatorProps }">
+          <v-text-field
+            v-model="newMealdateString"
+            :label="$t('general.date')"
+            :prepend-icon="$globals.icons.calendar"
+            v-bind="activatorProps"
+            readonly
+          />
+        </template>
+        <v-date-picker
+          v-model="newMealdate"
+          hide-header
+          :first-day-of-week="firstDayOfWeek"
+          :local="$i18n.locale"
+            @update:model-value="pickerMenu = false"
+        />
+      </v-menu>
+      <v-select
+        v-model="newMealType"
+        :return-object="false"
+        :items="planTypeOptions"
+        :label="$t('recipe.entry-type')"
+        item-title="text"
+        item-value="value"
+      />
+    </v-card-text>
+  </BaseDialog>
+  <RecipeDialogAddToShoppingList
+    v-if="shoppingLists && recipeRefWithScale"
+    v-model="shoppingListDialog"
+    :recipes="[recipeRefWithScale]"
+    :shopping-lists="shoppingLists"
+  />
+
+  <v-list density="compact">
+    <v-list-item v-for="(item, index) in menuItems" :key="index" @click="contextMenuEventHandler(item.event)">
+      <template #prepend>
+        <v-icon :color="item.color">
+          {{ item.icon }}
+        </v-icon>
+      </template>
+      <v-list-item-title>{{ item.title }}</v-list-item-title>
+    </v-list-item>
+    <div v-if="useItems.recipeActions && recipeActions && recipeActions.length">
+      <v-divider />
+      <v-list-item
+        v-for="(action, index) in recipeActions"
+        :key="index"
+        @click="executeRecipeAction(action)"
+      >
+        <template #prepend>
+          <v-icon color="undefined">
+            {{ $globals.icons.linkVariantPlus }}
+          </v-icon>
+        </template>
+        <v-list-item-title>
+          {{ action.title }}
+        </v-list-item-title>
+      </v-list-item>
+    </div>
+  </v-list>
 </template>
 
 <script setup lang="ts">
-import RecipeDialogAddToShoppingList from "./RecipeDialogAddToShoppingList.vue";
-import RecipeDialogPrintPreferences from "./RecipeDialogPrintPreferences.vue";
-import RecipeDialogShare from "./RecipeDialogShare.vue";
+import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
+import RecipeDialogPrintPreferences from "~/components/Domain/Recipe/RecipeDialogPrintPreferences.vue";
+import RecipeDialogShare from "~/components/Domain/Recipe/RecipeDialogShare.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserApi } from "~/composables/api";
 import { useGroupRecipeActions } from "~/composables/use-group-recipe-actions";
@@ -335,8 +301,6 @@ const defaultItems: { [key: string]: ContextMenuItem } = {
 
 // Add leading and Appending Items
 menuItems.value = [...menuItems.value, ...props.leadingItems, ...props.appendItems];
-
-const icon = props.menuIcon || $globals.icons.dotsVertical;
 
 // ===========================================================================
 // Context Menu Event Handler

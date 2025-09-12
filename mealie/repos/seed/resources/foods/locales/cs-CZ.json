@@ -6423,7 +6423,7 @@
             "sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "sugar",
+                "name": "cukr",
                 "plural_name": "sugars"
             },
             "brown sugar": {
@@ -6431,12 +6431,12 @@
                     "turbinado sugar"
                 ],
                 "description": "",
-                "name": "brown sugar",
+                "name": "třtinový cukr",
                 "plural_name": "brown sugars"
             },
             "confectioners sugar": {
                 "aliases": [
-                    "powdered sugar",
+                    "moučkový cukr",
                     "icing sugar"
                 ],
                 "description": "",

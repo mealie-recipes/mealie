@@ -561,6 +561,7 @@
     "see-original-text": "Показать исходный текст",
     "original-text-with-value": "Исходный текст: {originalText}",
     "ingredient-linker": "Связка ингредиентов",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Связан с другим шагом",
     "auto": "Авто",
     "cook-mode": "Режим готовки",
