@@ -983,8 +983,8 @@
             "prickly pear": {
                 "aliases": [],
                 "description": "",
-                "name": "prickly pear",
-                "plural_name": "prickly pears"
+                "name": "opúncia",
+                "plural_name": "opúncias"
             },
             "calamansi": {
                 "aliases": [],
@@ -1001,8 +1001,8 @@
             "granadilla": {
                 "aliases": [],
                 "description": "",
-                "name": "granadilla",
-                "plural_name": "granadillas"
+                "name": "granadilha",
+                "plural_name": "granadilhas"
             },
             "apple chip": {
                 "aliases": [],
@@ -1026,13 +1026,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "tangelo",
-                "plural_name": "tangeloes"
+                "plural_name": "tangelos"
             },
             "dried lime": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lime",
-                "plural_name": "dried limes"
+                "name": "limão seco",
+                "plural_name": "limões secos"
             },
             "jujube": {
                 "aliases": [],
@@ -1049,8 +1049,8 @@
             "custard-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "custard-apple",
-                "plural_name": "custard-apples"
+                "name": "fruta-do-conde",
+                "plural_name": "frutas-do-conde"
             },
             "dried lemon": {
                 "aliases": [],
@@ -1061,14 +1061,14 @@
             "young jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "young jackfruit",
-                "plural_name": "young jackfruits"
+                "name": "jaca verde",
+                "plural_name": "jacas verdes"
             },
             "durian": {
                 "aliases": [],
                 "description": "",
-                "name": "durian",
-                "plural_name": "durians"
+                "name": "durião",
+                "plural_name": "duriões"
             },
             "freeze-dried apple": {
                 "aliases": [],
@@ -1079,13 +1079,13 @@
             "dried tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "dried tamarind",
-                "plural_name": "dried tamarinds"
+                "name": "tamarindo desidratado",
+                "plural_name": "tamarindos desidratados"
             },
             "honey date": {
                 "aliases": [],
                 "description": "",
-                "name": "honey date",
+                "name": "mel de tâmara",
                 "plural_name": "honey dates"
             },
             "physali": {
