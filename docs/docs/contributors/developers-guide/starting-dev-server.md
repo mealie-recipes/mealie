@@ -45,7 +45,7 @@ Once the prerequisites are installed you can cd into the project base directory 
 === "Linux / macOS"
 
     ```bash
-    # Naviate To The Root Directory
+    # Navigate To The Root Directory
     cd /path/to/project
 
     # Utilize the Taskfile to Install Dependencies

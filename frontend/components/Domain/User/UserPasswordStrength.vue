@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex justify-center pb-6 mt-n1">
+  <div class="d-flex pb-6 mt-n1 ml-10">
     <div style="flex-basis: 500px">
       <strong> {{ $t("user.password-strength", { strength: pwStrength.strength.value }) }}</strong>
       <v-progress-linear

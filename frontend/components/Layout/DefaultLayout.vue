@@ -173,7 +173,7 @@ export default defineNuxtComponent({
 
     const sidebar = ref<boolean>(false);
     onMounted(() => {
-      sidebar.value = display.mdAndUp.value;
+      sidebar.value = display.lgAndUp.value;
     });
 
     function cookbookAsLink(cookbook: ReadCookBook): SideBarLink {

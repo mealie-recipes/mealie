@@ -69,7 +69,7 @@
     "new-notification": "Nova Notificação",
     "event-notifiers": "Notificações de Eventos",
     "apprise-url-skipped-if-blank": "URL Apprise (ignorado se estiver em branco)",
-    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
+    "apprise-url-is-left-intentionally-blank": "Como URLs de notificação normalmente contém informações confidenciais, este campo foi deixando intencionalmente em branco quando editado. Se você deseja atualizar o URL, por favor insira o novo localizador aqui. Caso contrário, deixe em branco para manter o URL atual.",
     "enable-notifier": "Habilitar Notificador",
     "what-events": "A quais eventos este notificador deve subscrever?",
     "user-events": "Eventos do usuário",
@@ -561,7 +561,7 @@
     "see-original-text": "Exibir texto original",
     "original-text-with-value": "Texto Original: {originalText}",
     "ingredient-linker": "Ingrediente do Linker",
-    "unlinked": "Not linked yet",
+    "unlinked": "Ainda não vinculado",
     "linked-to-other-step": "Ligado a outro passo",
     "auto": "Automático",
     "cook-mode": "Modo Cozinheiro",
@@ -676,8 +676,8 @@
     "upload-another-image": "Carregar outra imagem",
     "upload-images": "Carregar imagens",
     "upload-more-images": "Carregar mais imagens",
-    "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "set-as-cover-image": "Definir como imagem de capa da receita",
+    "cover-image": "Imagem de capa"
   },
   "recipe-finder": {
     "recipe-finder": "Localizador de Receitas",
@@ -1170,7 +1170,7 @@
     "group-details": "Detalhes do Grupo",
     "group-details-description": "Antes de criar uma conta é necessário criar um grupo. O seu grupo só conterá você, mas você poderá convidar os outros mais tarde. Os membros do seu grupo podem compartilhar planos de refeição, listas de compras, receitas e muito mais!",
     "use-seed-data": "Usar dados semeados",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
+    "use-seed-data-description": "O Mealie vem com uma coleção de Alimentos, Unidades e Rótulos que podem ser usados ​​para preencher seu grupo com dados úteis ou para organizar suas receitas. Eles são traduzidos para o idioma selecionado. Você sempre pode adicionar ou modificar esses dados posteriormente.",
     "account-details": "Detalhes da Conta"
   },
   "validation": {

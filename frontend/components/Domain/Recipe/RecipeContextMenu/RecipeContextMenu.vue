@@ -3,6 +3,7 @@
     <v-menu
       offset-y
       start
+      :eager="isMenuContentLoaded"
       :bottom="!menuTop"
       :nudge-bottom="!menuTop ? '5' : '0'"
       :top="menuTop"

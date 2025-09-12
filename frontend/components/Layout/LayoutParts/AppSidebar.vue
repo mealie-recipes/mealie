@@ -105,7 +105,6 @@
 </template>
 
 <script lang="ts">
-import { useWindowSize } from "@vueuse/core";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { SidebarLinks } from "~/types/application-types";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
@@ -159,20 +158,6 @@ export default defineNuxtComponent({
     const showDrawer = computed({
       get: () => props.modelValue,
       set: value => context.emit("update:modelValue", value),
-    });
-    watch(showDrawer, () => {
-      if (window.innerWidth < 760 && state.hasOpenedBefore === false) {
-        state.hasOpenedBefore = true;
-      }
-    });
-    const { width: wWidth } = useWindowSize();
-    watch(wWidth, (w) => {
-      if (w > 760) {
-        showDrawer.value = true;
-      }
-      else {
-        showDrawer.value = false;
-      }
     });
 
     const allLinks = computed(() => [...props.topLink, ...(props.secondaryLinks || [])]);

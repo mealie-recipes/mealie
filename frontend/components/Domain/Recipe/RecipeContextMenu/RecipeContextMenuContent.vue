@@ -191,7 +191,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   [key: string]: any;
-  delete: [slug: string];
+  deleted: [slug: string];
 }>();
 
 const api = useUserApi();
@@ -371,7 +371,7 @@ async function deleteRecipe() {
   if (data?.slug) {
     router.push(`/g/${groupSlug.value}`);
   }
-  emit("delete", props.slug);
+  emit("deleted", props.slug);
 }
 
 const download = useDownloader();
