@@ -8308,7 +8308,7 @@
             "biscuit dough": {
                 "aliases": [],
                 "description": "",
-                "name": "biscuit dough",
+                "name": "Biskuitteig",
                 "plural_name": "biscuit doughs"
             },
             "dumpling wrapper": {
@@ -9957,7 +9957,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mandu",
-                "plural_name": "mandus"
+                "plural_name": "Mandus"
             },
             "pasta salad mix": {
                 "aliases": [],
@@ -10066,7 +10066,7 @@
             "cracker": {
                 "aliases": [],
                 "description": "",
-                "name": "cracker",
+                "name": "Cracker",
                 "plural_name": "crackers"
             },
             "baguette": {
@@ -10205,7 +10205,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "corn chip",
-                "plural_name": "corn chips"
+                "plural_name": "Maischips"
             },
             "unpopped popcorn": {
                 "aliases": [],
@@ -10253,7 +10253,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "gluten free bread",
-                "plural_name": "gluten free breads"
+                "plural_name": "glutenfreie Brote"
             },
             "potato bread": {
                 "aliases": [],
@@ -10396,7 +10396,7 @@
             "chapati": {
                 "aliases": [],
                 "description": "",
-                "name": "chapati",
+                "name": "Chapati",
                 "plural_name": "chapatis"
             },
             "crumpet": {
@@ -10535,7 +10535,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bao bun",
-                "plural_name": "bao buns"
+                "plural_name": "Bao Buns"
             },
             "ezekiel bread": {
                 "aliases": [],
@@ -10906,7 +10906,7 @@
             "sushi vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "sushi vinegar",
+                "name": "Sushi Essig",
                 "plural_name": "sushi vinegars"
             },
             "pistachio oil": {
@@ -11144,7 +11144,7 @@
             "sweet chilli sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet chilli sauce",
+                "name": "Sweet Chili Sauce",
                 "plural_name": "sweet chilli sauces"
             },
             "white balsamic vinegar": {
@@ -11198,7 +11198,7 @@
             "black vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "black vinegar",
+                "name": "schwarzer Essig",
                 "plural_name": "black vinegars"
             },
             "canola mayonnaise": {
