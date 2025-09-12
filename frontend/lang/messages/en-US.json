@@ -444,7 +444,9 @@
     "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
     "import-by-url": "Import a recipe by URL",
     "create-manually": "Create a recipe manually",
-    "make-recipe-image": "Make this the recipe image"
+    "make-recipe-image": "Make this the recipe image",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Page not found",

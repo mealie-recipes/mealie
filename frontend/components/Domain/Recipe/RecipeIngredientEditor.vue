@@ -41,6 +41,7 @@
         </v-text-field>
       </v-col>
       <v-col
+        v-if="!model.isRecipe"
         sm="12"
         md="3"
         cols="12"
@@ -96,6 +97,7 @@
 
       <!-- Foods Input -->
       <v-col
+        v-if="!model.isRecipe"
         m="12"
         md="3"
         cols="12"
@@ -149,6 +151,64 @@
           </template>
         </v-autocomplete>
       </v-col>
+      <!-- Recipe Input -->
+      <v-col
+        v-if="model.isRecipe"
+        m="12"
+        md="6"
+        cols="12"
+        class=""
+      >
+        <v-autocomplete
+          ref="search.query"
+          v-model="model.referencedRecipe"
+          v-model:search="search.query.value"
+          auto-select-first
+          hide-details
+          density="compact"
+          variant="solo"
+          return-object
+          :items="search.data.value || []"
+          item-title="name"
+          class="mx-1 py-0"
+          placeholder="Choose Recipe"
+          clearable
+          label="Recipe"
+          @keyup.enter="handleFoodEnter"
+        >
+          <template #prepend>
+            <v-tooltip v-if="foodError" location="bottom">
+              <template #activator="{ props: foodTooltipProps }">
+                <v-icon
+                  v-bind="foodTooltipProps"
+                  class="ml-2 mr-n3 opacity-100"
+                  color="primary"
+                >
+                  {{ $globals.icons.alert }}
+                </v-icon>
+              </template>
+              <span v-if="foodErrorTooltip">
+                {{ foodErrorTooltip }}
+              </span>
+            </v-tooltip>
+          </template>
+          <template #no-data>
+            <div class="caption text-center pb-2">
+              {{ $t("recipe.press-enter-to-create") }}
+            </div>
+          </template>
+          <template #append-item>
+            <div class="px-2">
+              <BaseButton
+                block
+                size="small"
+                @click="createAssignFood()"
+              />
+            </div>
+          </template>
+        </v-autocomplete>
+      </v-col>
+      <!-- <v-col v-if="model.isRecipe" md="3" cols="12" class="pa-0 ma-0" /> -->
       <v-col
         sm="12"
         md=""
@@ -199,6 +259,8 @@ import { useI18n } from "vue-i18n";
 import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
 import { useNuxtApp } from "#app";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
+import { usePublicExploreApi, useUserApi } from "~/composables/api";
+import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 
 // defineModel replaces modelValue prop
 const model = defineModel<RecipeIngredient>({ required: true });
@@ -298,6 +360,24 @@ async function createAssignFood() {
   foodData.reset();
   foodAutocomplete.value?.blur();
 }
+
+// Recipes
+const route = useRoute();
+const $auth = useMealieAuth();
+const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+
+const { isOwnGroup } = useLoggedInState();
+const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
+const search = useRecipeSearch(api);
+const loading = ref(false);
+
+// Reset or Grab Recipes on Change
+watch(loading, (val) => {
+  if (!val) {
+    search.query.value = "";
+    search.data.value = [];
+  }
+});
 
 // Units
 const unitStore = useUnitStore();

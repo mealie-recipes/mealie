@@ -9,10 +9,6 @@
         {{ $t("recipe.ingredients-not-parsed-description", { parse: $t('recipe.parse') }) }}
       </BannerWarning>
     </div>
-    <RecipeDialogAddSubRecipe ref="domSubRecipeSearchDialog" :recipe="recipe" @selected="insertNewRecipe" />
-    <BaseButton class="mb-1" @click="showSearch">
-{{ $t("recipe.add-reference") }}
-</BaseButton>
     <VueDraggable
       v-if="recipe.recipeIngredient.length > 0"
       v-model="recipe.recipeIngredient"
@@ -72,15 +68,59 @@
         <span>{{ parserToolTip }}</span>
       </v-tooltip>
       <RecipeDialogBulkAdd
+        ref="domBulkAddDialog"
         class="mx-1 mb-1"
+        style="display: none"
         @bulk-data="addIngredient"
       />
-      <BaseButton
-        class="mb-1"
-        @click="addIngredient"
-      >
-        {{ $t("general.add") }}
-      </BaseButton>
+      <div class="d-inline-flex split-button">
+        <!-- Main button: Add Food -->
+        <v-btn
+          color="success"
+          class="split-main"
+          @click="addIngredient"
+        >
+          <v-icon start>
+            {{ $globals.icons.createAlt }}
+          </v-icon>
+          {{ $t('general.add') || 'Add Food' }}
+        </v-btn>
+        <!-- Dropdown button -->
+        <v-menu>
+          <template #activator="{ props }">
+            <v-btn
+              color="success"
+              class="split-dropdown"
+              v-bind="props"
+            >
+              <v-icon>{{ $globals.icons.chevronDown }}</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              slim
+              density="comfortable"
+              :prepend-icon="$globals.icons.foods"
+              :title="$t('new-recipe.add-food')"
+              @click="addIngredient"
+              />
+            <v-list-item
+              slim
+              density="comfortable"
+              :prepend-icon="$globals.icons.silverwareForkKnife"
+              :title="$t('new-recipe.add-recipe')"
+              @click="addRecipe"
+            />
+            <v-list-item
+              slim
+              density="comfortable"
+              :prepend-icon="$globals.icons.create"
+              :title="$t('new-recipe.bulk-add')"
+              @click="showBulkAdd"
+            />
+          </v-list>
+        </v-menu>
+      </div>
     </div>
   </div>
 </template>
@@ -90,9 +130,8 @@ import { VueDraggable } from "vue-draggable-plus";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
-import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
+import type RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import { uuid4 } from "~/composables/use-utils";
-import RecipeDialogAddSubRecipe from "~/components/Domain/Recipe/RecipeDialogAddSubRecipe.vue";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 const i18n = useI18n();
@@ -102,7 +141,7 @@ const drag = ref(false);
 
 const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
-const domSubRecipeSearchDialog = ref<InstanceType<typeof RecipeDialogAddSubRecipe> | null>(null);
+const domBulkAddDialog = ref<InstanceType<typeof RecipeDialogBulkAdd> | null>(null);
 
 const hasFoodOrUnit = computed(() => {
   if (!recipe.value) {
@@ -125,8 +164,8 @@ const parserToolTip = computed(() => {
   return i18n.t("recipe.parse-ingredients");
 });
 
-function showSearch() {
-  domSubRecipeSearchDialog.value?.open();
+function showBulkAdd() {
+  domBulkAddDialog.value?.open();
 }
 
 function addIngredient(ingredients: Array<string> | null = null) {
@@ -161,6 +200,40 @@ function addIngredient(ingredients: Array<string> | null = null) {
   }
 }
 
+function addRecipe(recipes: Array<string> | null = null) {
+  if (recipes?.length) {
+    const newRecipes = recipes.map((x) => {
+      return {
+        referenceId: uuid4(),
+        title: "",
+        note: x,
+        unit: undefined,
+        referencedRecipe: undefined,
+        isRecipe: true,
+        quantity: 1,
+      };
+    });
+
+    if (newRecipes) {
+      // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
+      recipe.value.recipeIngredient.push(...newRecipes);
+    }
+  }
+  else {
+    recipe.value.recipeIngredient.push({
+      referenceId: uuid4(),
+      title: "",
+      note: "",
+      // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
+      unit: undefined,
+      // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
+      referencedRecipe: undefined,
+      isRecipe: true,
+      quantity: 1,
+    });
+  }
+}
+
 function insertNewIngredient(dest: number) {
   recipe.value.recipeIngredient.splice(dest, 0, {
     referenceId: uuid4(),
@@ -173,19 +246,23 @@ function insertNewIngredient(dest: number) {
     quantity: 1,
   });
 }
-
-function insertNewRecipe(newRecipe: Recipe) {
-  recipe.value.recipeIngredient.push({
-    referenceId: uuid4(),
-    title: "",
-    note: newRecipe.name || "",
-    // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
-    unit: undefined,
-    // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
-    referencedRecipe: newRecipe,
-    isRecipe: true,
-    // disableAmount: true,
-    quantity: 1,
-  });
-}
 </script>
+
+<style scoped>
+.split-button {
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.split-main {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+.split-dropdown {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  min-width: 30px;
+  padding-left: 0;
+  padding-right: 0;
+}
+</style>
