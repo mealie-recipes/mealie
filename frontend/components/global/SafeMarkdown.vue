@@ -39,7 +39,7 @@ export default defineNuxtComponent({
     }
 
     const value = computed(() => {
-      const rawHtml = marked.parse(props.source || "", { async: false });
+      const rawHtml = marked.parse(props.source || "", { async: false, breaks: true });
       return sanitizeMarkdown(rawHtml);
     });
 
