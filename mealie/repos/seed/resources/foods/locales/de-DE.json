@@ -6964,8 +6964,8 @@
             "gum syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "gum syrup",
-                "plural_name": "gum syrups"
+                "name": "Gomme Sirup",
+                "plural_name": "Gomme Sirup"
             },
             "irish cream syrup": {
                 "aliases": [],
@@ -6988,8 +6988,8 @@
             "creamed honey": {
                 "aliases": [],
                 "description": "",
-                "name": "creamed honey",
-                "plural_name": "creamed honeys"
+                "name": "cremiger Honig",
+                "plural_name": "cremiger Honig"
             },
             "buttermilk syrup": {
                 "aliases": [],
@@ -7190,8 +7190,8 @@
             "mixed herb": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed herb",
-                "plural_name": "mixed herbs"
+                "name": "Kräutermix",
+                "plural_name": "Kräutermix"
             },
             "green curry": {
                 "aliases": [],
@@ -8968,20 +8968,20 @@
             "teff": {
                 "aliases": [],
                 "description": "",
-                "name": "teff",
-                "plural_name": "teffs"
+                "name": "Zwerghirse (Teff)",
+                "plural_name": "Zwerghirse (Teff)"
             },
             "rye flake": {
                 "aliases": [],
                 "description": "",
-                "name": "rye flake",
-                "plural_name": "rye flakes"
+                "name": "Roggenflocken",
+                "plural_name": "Roggenflocken"
             },
             "little millet": {
                 "aliases": [],
                 "description": "",
-                "name": "little millet",
-                "plural_name": "little millets"
+                "name": "Kutkihirse",
+                "plural_name": "Kutkihirse"
             },
             "gluten-free breakfast cereal": {
                 "aliases": [],
@@ -8998,8 +8998,8 @@
             "coconut rice": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut rice",
-                "plural_name": "coconut rices"
+                "name": "Kokosnussreis",
+                "plural_name": "Kokosnussreis"
             },
             "amaranth flake": {
                 "aliases": [],
@@ -9956,7 +9956,7 @@
             "mandu": {
                 "aliases": [],
                 "description": "",
-                "name": "mandu",
+                "name": "Mandu",
                 "plural_name": "Mandus"
             },
             "pasta salad mix": {
@@ -10036,7 +10036,7 @@
             "bread crumb": {
                 "aliases": [],
                 "description": "",
-                "name": "bread crumb",
+                "name": "Brotkrümel",
                 "plural_name": "Paniermehl"
             },
             "panko": {
@@ -10204,7 +10204,7 @@
             "corn chip": {
                 "aliases": [],
                 "description": "",
-                "name": "corn chip",
+                "name": "Maischip",
                 "plural_name": "Maischips"
             },
             "unpopped popcorn": {
@@ -10252,7 +10252,7 @@
             "gluten free bread": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten free bread",
+                "name": "glutenfreies Brot",
                 "plural_name": "glutenfreie Brote"
             },
             "potato bread": {
@@ -10516,8 +10516,8 @@
             "milk bread": {
                 "aliases": [],
                 "description": "",
-                "name": "milk bread",
-                "plural_name": "milk breads"
+                "name": "Milchbrötchen",
+                "plural_name": "Milchbrötchen"
             },
             "popcorn shrimp": {
                 "aliases": [],
@@ -10534,7 +10534,7 @@
             "bao bun": {
                 "aliases": [],
                 "description": "",
-                "name": "bao bun",
+                "name": "Bao Bun",
                 "plural_name": "Bao Buns"
             },
             "ezekiel bread": {
@@ -10564,8 +10564,8 @@
             "zwieback": {
                 "aliases": [],
                 "description": "",
-                "name": "zwieback",
-                "plural_name": "zwiebacks"
+                "name": "Zwieback",
+                "plural_name": "Zwiebacke"
             },
             "oven chip": {
                 "aliases": [],
@@ -10871,13 +10871,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Palmöl",
-                "plural_name": "palm oils"
+                "plural_name": "Palmöle"
             },
             "basil oil": {
                 "aliases": [],
                 "description": "",
-                "name": "basil oil",
-                "plural_name": "basil oils"
+                "name": "Basilikumöl",
+                "plural_name": "Basilikumöle"
             },
             "pork fat": {
                 "aliases": [],
@@ -14792,7 +14792,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Absinth",
-                "plural_name": "absinthes"
+                "plural_name": "Absinth"
             },
             "white cooking wine": {
                 "aliases": [],
@@ -15671,8 +15671,8 @@
             "acai berry juice": {
                 "aliases": [],
                 "description": "",
-                "name": "acai berry juice",
-                "plural_name": "acai berry juices"
+                "name": "Açaisaft",
+                "plural_name": "Açaisaft"
             },
             "lemon crystal": {
                 "aliases": [],
@@ -15933,8 +15933,8 @@
             "acai powder": {
                 "aliases": [],
                 "description": "",
-                "name": "acai powder",
-                "plural_name": "acai powders"
+                "name": "Açaipulver",
+                "plural_name": "Açaipulver"
             },
             "hemp protein": {
                 "aliases": [],
