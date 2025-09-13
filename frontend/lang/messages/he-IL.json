@@ -69,7 +69,7 @@
     "new-notification": "התראה חדשה",
     "event-notifiers": "מנגנוני התרעה על אירועים",
     "apprise-url-skipped-if-blank": "כתובת Apprise (דלג אם ריק)",
-    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
+    "apprise-url-is-left-intentionally-blank": "מאחר שכתובות URL של Apprise לרוב מכילות מידע רגיש, שזה זה נותר ריק במכוון בעת העריכה. אם ברצונך לעדכן את כתובת ה URL, אנא הזן כאן את ה-URL החדש, אחרת השאר אותו ריק כדי לשמור את כתובת ה-URL הנוכחית.",
     "enable-notifier": "הפעלת מתריע",
     "what-events": "לאילו אירועים לרשום את מתריע זה?",
     "user-events": "אירועי משתמש",
@@ -81,7 +81,7 @@
     "category-events": "אירועי קטגוריות",
     "when-a-new-user-joins-your-group": "כאשר משתמש חדש מצטרף לקבוצה",
     "recipe-events": "אירועי מתכון",
-    "label-events": "Label Events"
+    "label-events": "הוסף תוויות לאירועים"
   },
   "general": {
     "add": "הוספה",
