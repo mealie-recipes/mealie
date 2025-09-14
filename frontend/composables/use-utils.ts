@@ -1,4 +1,5 @@
 import { useDark, useToggle } from "@vueuse/core";
+import type { FilterFunction } from "vuetify";
 
 export const useToggleDarkMode = () => {
   const isDark = useDark();
@@ -16,6 +17,29 @@ export const titleCase = function (str: string) {
     .split(" ")
     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
+};
+
+const replaceAllBuilder = (map: Map<string, string>): ((str: string) => string) => {
+  const re = new RegExp(Array.from(map.keys()).join("|"), "gi");
+  return str => str.replace(re, matched => map.get(matched)!);
+};
+
+const normalize_ligatures = replaceAllBuilder(new Map([
+  ["œ", "oe"],
+  ["æ", "ae"],
+]));
+
+export const normalize = (str: string) => {
+  let normalized = str.normalize("NFKD").toLowerCase();
+  normalized = normalized.replace(/\p{Diacritic}/gu, "");
+  normalized = normalize_ligatures(normalized);
+  return normalized;
+};
+
+export const normalizeFilter: FilterFunction = (value: string, query: string) => {
+  const normalizedValue = normalize(value);
+  const normalizeQuery = normalize(query);
+  return normalizedValue.indexOf(normalizeQuery) > -1;
 };
 
 export function uuid4() {

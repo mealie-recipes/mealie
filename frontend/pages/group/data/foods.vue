@@ -16,6 +16,7 @@
           v-model="fromFood"
           return-object
           :items="foods"
+          :custom-filter="normalizeFilter"
           item-title="name"
           :label="$t('data-pages.foods.source-food')"
         />
@@ -23,6 +24,7 @@
           v-model="toFood"
           return-object
           :items="foods"
+          :custom-filter="normalizeFilter"
           item-title="name"
           :label="$t('data-pages.foods.target-food')"
         />
@@ -51,6 +53,7 @@
           v-model="locale"
           :items="locales"
           item-title="name"
+          :custom-filter="normalizeFilter"
           :label="$t('data-pages.select-language')"
           class="my-3"
           hide-details
@@ -107,6 +110,7 @@
             v-model="createTarget.labelId"
             clearable
             :items="allLabels"
+            :custom-filter="normalizeFilter"
             item-value="id"
             item-title="name"
             :label="$t('data-pages.foods.food-label')"
@@ -163,6 +167,7 @@
             v-model="editTarget.labelId"
             clearable
             :items="allLabels"
+            :custom-filter="normalizeFilter"
             item-value="id"
             item-title="name"
             :label="$t('data-pages.foods.food-label')"
@@ -255,6 +260,7 @@
           v-model="bulkAssignLabelId"
           clearable
           :items="allLabels"
+          :custom-filter="normalizeFilter"
           item-value="id"
           item-title="name"
           :label="$t('data-pages.foods.food-label')"
@@ -345,6 +351,7 @@ import { useUserApi } from "~/composables/api";
 import type { CreateIngredientFood, IngredientFood, IngredientFoodAlias } from "~/lib/api/types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
+import { normalizeFilter } from "~/composables/use-utils";
 import { useFoodStore, useLabelStore } from "~/composables/store";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import type { VForm } from "~/types/auto-forms";
@@ -634,6 +641,7 @@ export default defineNuxtComponent({
       allLabels,
       validators,
       formatDate,
+      normalizeFilter,
       // Create
       createDialog,
       domNewFoodForm,
