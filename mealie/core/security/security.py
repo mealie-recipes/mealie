@@ -45,11 +45,6 @@ def create_file_token(file_path: Path) -> str:
     return create_access_token(token_data, expires_delta=timedelta(minutes=30))
 
 
-def create_recipe_slug_token(file_path: str | Path) -> str:
-    token_data = {"slug": str(file_path)}
-    return create_access_token(token_data, expires_delta=timedelta(minutes=30))
-
-
 def hash_password(password: str) -> str:
     """Takes in a raw password and hashes it. Used prior to saving a new password to the database."""
     return get_hasher().hash(password)
