@@ -75,7 +75,7 @@ export const LOCALES = [
   {
     name: "Português do Brasil (Brazilian Portuguese)",
     value: "pt-BR",
-    progress: 41,
+    progress: 45,
     dir: "ltr",
   },
   {
@@ -159,7 +159,7 @@ export const LOCALES = [
   {
     name: "Français (French)",
     value: "fr-FR",
-    progress: 64,
+    progress: 65,
     dir: "ltr",
   },
   {
@@ -213,7 +213,7 @@ export const LOCALES = [
   {
     name: "Deutsch (German)",
     value: "de-DE",
-    progress: 72,
+    progress: 73,
     dir: "ltr",
   },
   {
@@ -237,7 +237,7 @@ export const LOCALES = [
   {
     name: "Български (Bulgarian)",
     value: "bg-BG",
-    progress: 31,
+    progress: 44,
     dir: "ltr",
   },
   {
