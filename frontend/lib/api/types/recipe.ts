@@ -470,9 +470,6 @@ export interface RecipeToolSave {
   householdsWithTool?: string[];
   groupId: string;
 }
-export interface RecipeZipTokenResponse {
-  token: string;
-}
 export interface SaveIngredientFood {
   id?: string | null;
   name: string;
