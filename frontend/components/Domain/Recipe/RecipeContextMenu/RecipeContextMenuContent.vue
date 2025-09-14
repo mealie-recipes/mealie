@@ -377,7 +377,7 @@ async function deleteRecipe() {
 const download = useDownloader();
 
 async function handleDownloadEvent() {
-  const { data: shareToken } = await api.recipes.share.createOne({recipeId: props.recipeId});
+  const { data: shareToken } = await api.recipes.share.createOne({ recipeId: props.recipeId });
   if (!shareToken) {
     console.error("No share token received");
     alert.error(i18n.t("events.something-went-wrong"));

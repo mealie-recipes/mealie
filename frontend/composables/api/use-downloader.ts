@@ -7,7 +7,7 @@ export function useDownloader() {
       method: "GET",
       responseType: "blob",
       onResponse({ response }) {
-        if(!response.ok) {
+        if (!response.ok) {
           console.error("Download failed", response);
           const i18n = useGlobalI18n();
           alert.error(i18n.t("events.something-went-wrong"));
