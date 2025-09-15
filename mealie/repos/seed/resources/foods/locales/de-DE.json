@@ -6916,8 +6916,8 @@
             "sweet'n low": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet'n low",
-                "plural_name": "sweet'n lows"
+                "name": "Süßstoff",
+                "plural_name": "Süßstoffe"
             },
             "fructose": {
                 "aliases": [],
@@ -6976,8 +6976,8 @@
             "prickly pear syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "prickly pear syrup",
-                "plural_name": "prickly pear syrups"
+                "name": "Kaktusfeigensirup",
+                "plural_name": "Kaktusfeigensirup"
             },
             "cookie butter syrup": {
                 "aliases": [],
@@ -7142,8 +7142,8 @@
             "old bay seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "old bay seasoning",
-                "plural_name": "old bay seasonings"
+                "name": "Old Bay Gewürzmischung",
+                "plural_name": "Old Bay Gewürzmischungen"
             },
             "herbe de provence": {
                 "aliases": [],
@@ -7262,8 +7262,8 @@
             "caribbean jerk seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "caribbean jerk seasoning",
-                "plural_name": "caribbean jerk seasonings"
+                "name": "Karibische Jerk-Gewürzmischung",
+                "plural_name": "Karibische Jerk-Gewürzmischungen"
             },
             "gravy mix": {
                 "aliases": [],
@@ -7280,8 +7280,8 @@
             "garlic-pepper seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic-pepper seasoning",
-                "plural_name": "garlic-pepper seasonings"
+                "name": "Knoblauch-Pfeffer",
+                "plural_name": "Knoblauch-Pfeffer"
             },
             "pickling salt": {
                 "aliases": [],
@@ -7310,14 +7310,14 @@
             "adobo seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "adobo seasoning",
-                "plural_name": "adobo seasonings"
+                "name": "Adobo-Gewürzmischung",
+                "plural_name": "Adobo-Gewürzmischung"
             },
             "sambar powder": {
                 "aliases": [],
                 "description": "",
-                "name": "sambar powder",
-                "plural_name": "sambar powders"
+                "name": "Sambar-Pulver",
+                "plural_name": "Sambar-Pulver"
             },
             "smoked salt": {
                 "aliases": [],
@@ -7328,14 +7328,14 @@
             "dash seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "dash seasoning",
-                "plural_name": "dash seasonings"
+                "name": "Dash-Gewürzmischung",
+                "plural_name": "Dash-Gewürzmischung"
             },
             "red miso": {
                 "aliases": [],
                 "description": "",
                 "name": "Rote Misopaste",
-                "plural_name": "red misoes"
+                "plural_name": "Rote Misopaste"
             },
             "hot curry": {
                 "aliases": [],
@@ -7352,38 +7352,38 @@
             "carne asada seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "carne asada seasoning",
-                "plural_name": "carne asada seasonings"
+                "name": "Gewürzmischung für gebratenes Fleisch",
+                "plural_name": "Gewürzmischungen für gebratenes Fleisch"
             },
             "bouquet garni": {
                 "aliases": [],
                 "description": "",
-                "name": "bouquet garni",
-                "plural_name": "bouquet garnis"
+                "name": "Kräuterbündel",
+                "plural_name": "Kräuterbündel"
             },
             "yellow miso": {
                 "aliases": [],
                 "description": "",
                 "name": "Geld Misopaste",
-                "plural_name": "yellow misoes"
+                "plural_name": "Gelbe Misopaste"
             },
             "dukkah": {
                 "aliases": [],
                 "description": "",
-                "name": "dukkah",
-                "plural_name": "dukkahs"
+                "name": "Dukkah",
+                "plural_name": "Dukkah"
             },
             "pav bhaji masala": {
                 "aliases": [],
                 "description": "",
-                "name": "pav bhaji masala",
-                "plural_name": "pav bhaji masalas"
+                "name": "Pav-Bhaji-Masala",
+                "plural_name": "Pav-Bhaji-Masala"
             },
             "curing salt": {
                 "aliases": [],
                 "description": "",
-                "name": "curing salt",
-                "plural_name": "curing salts"
+                "name": "Pökelsalz",
+                "plural_name": "Pökelsalz"
             },
             "mexican seasoning": {
                 "aliases": [],
@@ -7394,32 +7394,32 @@
             "tajin seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "tajin seasoning",
-                "plural_name": "tajin seasonings"
+                "name": "Tajín Gewürz",
+                "plural_name": "Tajín Gewürz"
             },
             "seasoned pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "seasoned pepper",
-                "plural_name": "seasoned peppers"
+                "name": "Gewürzpfeffer",
+                "plural_name": "Gewürzpfeffer"
             },
             "crab boil seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "crab boil seasoning",
-                "plural_name": "crab boil seasonings"
+                "name": "Würzmischung für Meeresfrüchte",
+                "plural_name": "Würzmischung für Meeresfrüchte"
             },
             "shichimi togarashi": {
                 "aliases": [],
                 "description": "",
-                "name": "shichimi togarashi",
-                "plural_name": "shichimi togarashis"
+                "name": "Shichimi Togarashi",
+                "plural_name": "Shichimi Togarashi"
             },
             "rib rub": {
                 "aliases": [],
                 "description": "",
-                "name": "rib rub",
-                "plural_name": "rib rubs"
+                "name": "Rippchen Rub",
+                "plural_name": "Rippchen Rub"
             },
             "truffle salt": {
                 "aliases": [],
@@ -7436,32 +7436,32 @@
             "furikake": {
                 "aliases": [],
                 "description": "",
-                "name": "furikake",
-                "plural_name": "furikakes"
+                "name": "Furikake",
+                "plural_name": "Furikake"
             },
             "togarashi": {
                 "aliases": [],
                 "description": "",
-                "name": "togarashi",
-                "plural_name": "togarashis"
+                "name": "Togarashi",
+                "plural_name": "Togarashi"
             },
             "chipotle seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "chipotle seasoning",
-                "plural_name": "chipotle seasonings"
+                "name": "Chipotle-Gewürzmischung",
+                "plural_name": "Chipotle-Gewürzmischung"
             },
             "meat masala": {
                 "aliases": [],
                 "description": "",
-                "name": "meat masala",
-                "plural_name": "meat masalas"
+                "name": "Meat Masala-Gewürzmischung",
+                "plural_name": "Meat Masala-Gewürzmischung"
             },
             "harissa spice blend": {
                 "aliases": [],
                 "description": "",
-                "name": "harissa spice blend",
-                "plural_name": "harissa spice blends"
+                "name": "Harissa-Gewürzmischung",
+                "plural_name": "Harissa-Gewürzmischung"
             },
             "chana masala": {
                 "aliases": [],
@@ -7472,8 +7472,8 @@
             "chicken gravy mix": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken gravy mix",
-                "plural_name": "chicken gravy mixes"
+                "name": "Hühner-Soßenmischung",
+                "plural_name": "Hühner-Soßenmischung"
             },
             "grey sea salt": {
                 "aliases": [],
@@ -7496,8 +7496,8 @@
             "au jus mix": {
                 "aliases": [],
                 "description": "",
-                "name": "au jus mix",
-                "plural_name": "au jus mixes"
+                "name": "Bratensaft-Mischung",
+                "plural_name": "Bratensaft-Mischung"
             },
             "gingerbread spice": {
                 "aliases": [],
@@ -7532,8 +7532,8 @@
             "blackening seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "blackening seasoning",
-                "plural_name": "blackening seasonings"
+                "name": "Blackening-Gewürzmischung",
+                "plural_name": "Blackening-Gewürzmischung"
             },
             "pizza seasoning": {
                 "aliases": [],
@@ -7544,8 +7544,8 @@
             "fines herbe": {
                 "aliases": [],
                 "description": "",
-                "name": "fines herbe",
-                "plural_name": "fines herbes"
+                "name": "Feine Kräuter",
+                "plural_name": "Feine Kräuter"
             },
             "shawarma seasoning": {
                 "aliases": [],
@@ -7562,7 +7562,7 @@
             "panang curry": {
                 "aliases": [],
                 "description": "",
-                "name": "panang curry",
+                "name": "Panang-Curry",
                 "plural_name": "Panang Curry"
             },
             "kitchen king masala": {
@@ -7604,8 +7604,8 @@
             "coffee rub": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee rub",
-                "plural_name": "coffee rubs"
+                "name": "Kaffee-Rub",
+                "plural_name": "Kaffee-Rub"
             },
             "hawaiian salt": {
                 "aliases": [],
@@ -7616,8 +7616,8 @@
             "mesquite seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "mesquite seasoning",
-                "plural_name": "mesquite seasonings"
+                "name": "Mesquite-Gewürzmischung",
+                "plural_name": "Mesquite-Gewürzmischung"
             },
             "tom yum paste": {
                 "aliases": [],
@@ -7897,7 +7897,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Leinsamenöl",
-                "plural_name": "flaxseed meals"
+                "plural_name": "Gemahlene Leinsamen"
             },
             "chocolate cake mix": {
                 "aliases": [],
@@ -7914,38 +7914,38 @@
             "jello": {
                 "aliases": [],
                 "description": "",
-                "name": "jello",
-                "plural_name": "jelloes"
+                "name": "Wackelpudding",
+                "plural_name": "Wackelpudding"
             },
             "butterscotch chip": {
                 "aliases": [],
                 "description": "",
-                "name": "butterscotch chip",
-                "plural_name": "butterscotch chips"
+                "name": "Butterscotch-Chips",
+                "plural_name": "Butterscotch-Chips"
             },
             "peanut butter chip": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut butter chip",
-                "plural_name": "peanut butter chips"
+                "name": "Erdnussbutter-Backtröpfchen",
+                "plural_name": "Erdnussbutter-Backtröpfchen"
             },
             "crystallized ginger": {
                 "aliases": [],
                 "description": "",
-                "name": "crystallized ginger",
-                "plural_name": "crystallized gingers"
+                "name": "Kandierter Ingwer",
+                "plural_name": "Kandierter Ingwer"
             },
             "buckwheat flour": {
                 "aliases": [],
                 "description": "",
-                "name": "buckwheat flour",
+                "name": "Buchweizenmehl",
                 "plural_name": "Buchweizenmehle"
             },
             "brown rice flour": {
                 "aliases": [],
                 "description": "",
-                "name": "brown rice flour",
-                "plural_name": "brown rice flours"
+                "name": "Vollkornreismehl",
+                "plural_name": "Vollkornreismehl"
             },
             "pectin": {
                 "aliases": [],
@@ -7962,26 +7962,26 @@
             "psyllium husk": {
                 "aliases": [],
                 "description": "",
-                "name": "psyllium husk",
-                "plural_name": "psyllium husks"
+                "name": "Flohsamenschalen",
+                "plural_name": "Flohsamenschalen"
             },
             "semolina flour": {
                 "aliases": [],
                 "description": "",
-                "name": "semolina flour",
-                "plural_name": "semolina flours"
+                "name": "Semolina",
+                "plural_name": "Semolina"
             },
             "glutinous rice flour": {
                 "aliases": [],
                 "description": "",
-                "name": "glutinous rice flour",
-                "plural_name": "glutinous rice flours"
+                "name": "Klebreismehl",
+                "plural_name": "Klebreismehl"
             },
             "pancake mix": {
                 "aliases": [],
                 "description": "",
-                "name": "pancake mix",
-                "plural_name": "pancake mixes"
+                "name": "Pancake-Mischung",
+                "plural_name": "Pancake-Mischungen"
             },
             "refined flour": {
                 "aliases": [],
@@ -8010,20 +8010,20 @@
             "toffee bit": {
                 "aliases": [],
                 "description": "",
-                "name": "toffee bit",
-                "plural_name": "toffee bits"
+                "name": "Toffee-Bit",
+                "plural_name": "Toffee-Bits"
             },
             "cornbread mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cornbread mix",
-                "plural_name": "cornbread mixes"
+                "name": "Maisbrotmischung",
+                "plural_name": "Maisbrotmischung"
             },
             "spice cake mix": {
                 "aliases": [],
                 "description": "",
-                "name": "spice cake mix",
-                "plural_name": "spice cake mixes"
+                "name": "Gewürzkuchenmischung",
+                "plural_name": "Gewürzkuchenmischung"
             },
             "devil's food cake mix": {
                 "aliases": [],
@@ -8040,8 +8040,8 @@
             "potato flake": {
                 "aliases": [],
                 "description": "",
-                "name": "potato flake",
-                "plural_name": "potato flakes"
+                "name": "Kartoffelflocke",
+                "plural_name": "Kartoffelflocken"
             },
             "masa harina": {
                 "aliases": [],
