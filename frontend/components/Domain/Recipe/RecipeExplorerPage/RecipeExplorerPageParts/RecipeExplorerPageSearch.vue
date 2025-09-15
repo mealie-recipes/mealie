@@ -121,7 +121,7 @@
 
 <script setup lang="ts">
 import RecipeExplorerPageSearchFilters from "./RecipeExplorerPageSearchFilters.vue";
-import { useRecipeExplorerSearch } from "~/composables/use-recipe-explorer-search";
+import { useRecipeExplorerSearch, clearRecipeExplorerSearchState } from "~/composables/use-recipe-explorer-search";
 
 const emit = defineEmits<{
   ready: [];
@@ -153,6 +153,11 @@ defineExpose({
 onMounted(async () => {
   await initialize();
   emit("ready");
+});
+
+onUnmounted(() => {
+  // Clear the cache when component unmounts to ensure fresh state on remount
+  clearRecipeExplorerSearchState(groupSlug.value);
 });
 
 const sortText = computed(() => {
