@@ -45,14 +45,7 @@
                 class="ml-4"
               >
                 <template #label>
-                  <div class="ingredient-link-label links-disabled">
-                    <span v-if="getIngredientBase(ing)">{{ getIngredientBase(ing) }}</span>
-                    <SafeMarkdown
-                      v-if="ing.note"
-                      class="d-inline"
-                      :source="` ${ing.note}`"
-                    />
-                  </div>
+                  <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
                 </template>
               </v-checkbox-btn>
             </template>
@@ -74,14 +67,7 @@
                 class="ml-4"
               >
                 <template #label>
-                  <div class="ingredient-link-label links-disabled">
-                    <span v-if="getIngredientBase(ing)">{{ getIngredientBase(ing) }}</span>
-                    <SafeMarkdown
-                      v-if="ing.note"
-                      class="d-inline"
-                      :source="` ${ing.note}`"
-                    />
-                  </div>
+                  <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
                 </template>
               </v-checkbox-btn>
             </template>
@@ -348,18 +334,13 @@
                     <div
                       v-for="(linkRef, i) in step.ingredientReferences"
                       :key="linkRef.referenceId ?? i"
-                      class="ingredient-link-label links-disabled mb-1"
+                      class="mb-1"
                     >
-                      <template v-if="linkRef.referenceId && ingredientLookup[linkRef.referenceId]">
-                        <span v-if="getIngredientBase(ingredientLookup[linkRef.referenceId])">
-                          {{ getIngredientBase(ingredientLookup[linkRef.referenceId]) }}
-                        </span>
-                        <SafeMarkdown
-                          v-if="ingredientLookup[linkRef.referenceId].note"
-                          class="d-inline"
-                          :source="` ${ingredientLookup[linkRef.referenceId].note}`"
-                        />
-                      </template>
+                      <RecipeIngredientHtml
+                        v-if="linkRef.referenceId && ingredientLookup[linkRef.referenceId]"
+                        :ingredient="ingredientLookup[linkRef.referenceId]"
+                        :scale="scale"
+                      />
                     </div>
                   </div>
                 </v-card-text>
@@ -421,10 +402,10 @@ import { uuid4 } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
-import { useParsedIngredientText } from "~/composables/recipes";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
+import RecipeIngredientHtml from "~/components/Domain/Recipe/RecipeIngredientHtml.vue";
 
 interface MergerHistory {
   target: number;
@@ -542,10 +523,9 @@ function openDialog(idx: number, text: string, refs?: IngredientReferences[]) {
     instructionList.value[idx].ingredientReferences = [];
     refs = instructionList.value[idx].ingredientReferences as IngredientReferences[];
   }
-
-  setUsedIngredients();
-  activeText.value = text;
   activeIndex.value = idx;
+  activeText.value = text;
+  setUsedIngredients();
   dialog.value = true;
   activeRefs.value = refs.map(ref => ref.referenceId ?? "");
 }
@@ -673,11 +653,6 @@ const groupedUsedIngredients = computed((): Record<string, RecipeIngredient[]> =
 
   return groups;
 });
-
-function getIngredientBase(ing: RecipeIngredient): string {
-  const parsed = useParsedIngredientText(ing, props.scale);
-  return [parsed.quantity, parsed.unit, parsed.name].filter(Boolean).join(" ").trim();
-}
 
 // ===============================================================
 // Instruction Merger
@@ -887,19 +862,5 @@ function openImageUpload(index: number) {
   white-space: normal;
   overflow-wrap: anywhere;
   cursor: pointer;
-}
-
-.ingredient-link-label {
-  display: block;
-  line-height: 1.25;
-  word-break: break-word;
-  font-size: 0.95rem;
-}
-
-.links-disabled :deep(a) {
-  pointer-events: none;
-  cursor: default;
-  color: var(--v-theme-primary);
-  text-decoration: none;
 }
 </style>
