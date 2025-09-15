@@ -57,8 +57,8 @@
             <tr>
               <th />
               <th class="text-end">
-Quantity per serving
-</th>
+              Quantity per serving
+              </th>
             </tr>
           </thead>
 
