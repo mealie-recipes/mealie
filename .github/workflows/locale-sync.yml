@@ -99,7 +99,6 @@ jobs:
             --title "chore(l10n): Crowdin locale sync" \
             --base "$BASE_BRANCH" \
             --head "$BRANCH_NAME" \
-            --label "l10n" \
             --body "## Summary
 
           Automatically generated locale updates from the weekly sync job.

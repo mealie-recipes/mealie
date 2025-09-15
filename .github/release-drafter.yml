@@ -86,3 +86,6 @@ autolabeler:
   - label: 'dev'
     title:
       - '/dev:/i'
+  - label: 'l10n'
+    title:
+      - '/l10n/i'
