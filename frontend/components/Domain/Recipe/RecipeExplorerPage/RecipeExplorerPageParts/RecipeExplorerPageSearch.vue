@@ -55,7 +55,7 @@
                 density="comfortable"
                 :prepend-icon="v.icon"
                 :title="v.name"
-                @click="setOrderBy(v.value)"
+                @click="v.value === 'random' ? setRandomOrderBy() : setOrderBy(v.value)"
               />
             </v-list>
           </v-card>
@@ -141,6 +141,7 @@ const {
   reset,
   toggleOrderDirection,
   setOrderBy,
+  setRandomOrderBy,
   filterItems,
   initialize,
 } = useRecipeExplorerSearch(groupSlug);
