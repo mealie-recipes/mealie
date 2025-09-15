@@ -4,98 +4,98 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic",
-                "plural_name": "garlics"
+                "name": "česnakas",
+                "plural_name": "česnakai"
             },
             "onion": {
                 "aliases": [],
                 "description": "",
-                "name": "onion",
-                "plural_name": "onions"
+                "name": "svogūnas",
+                "plural_name": "svogūnai"
             },
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "bell pepper",
-                "plural_name": "bell peppers"
+                "name": "paprika",
+                "plural_name": "paprikos"
             },
             "carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "carrot",
-                "plural_name": "carrots"
+                "name": "morka",
+                "plural_name": "morkos"
             },
             "scallion": {
                 "aliases": [],
                 "description": "",
-                "name": "scallion",
-                "plural_name": "scallions"
+                "name": "laiškinis svogūnas",
+                "plural_name": "laiškiniai svogūnai"
             },
             "zucchini": {
                 "aliases": [],
                 "description": "",
-                "name": "zucchini",
-                "plural_name": "zucchinis"
+                "name": "cukinija",
+                "plural_name": "cukinijos"
             },
             "potato": {
                 "aliases": [],
                 "description": "",
-                "name": "potato",
-                "plural_name": "potatoes"
+                "name": "bulvė",
+                "plural_name": "bulvės"
             },
             "red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "red onion",
-                "plural_name": "red onions"
+                "name": "raudonasis svogūnas",
+                "plural_name": "raudonieji svogūnai"
             },
             "yellow onion": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow onion",
-                "plural_name": "yellow onions"
+                "name": "geltonasis svogūnas",
+                "plural_name": "geltonieji svogūnai"
             },
             "celery": {
                 "aliases": [],
                 "description": "",
-                "name": "celery",
-                "plural_name": "celeries"
+                "name": "salieras",
+                "plural_name": "salierai"
             },
             "jalapeno": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeno",
-                "plural_name": "jalapenoes"
+                "name": "jalapenas",
+                "plural_name": "jalapenai"
             },
             "avocado": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado",
-                "plural_name": "avocados"
+                "name": "avokadas",
+                "plural_name": "avokadai"
             },
             "shallot": {
                 "aliases": [],
                 "description": "",
-                "name": "shallot",
-                "plural_name": "shallots"
+                "name": "šalotas",
+                "plural_name": "šalotai"
             },
             "cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry tomato",
-                "plural_name": "cherry tomatoes"
+                "name": "vyšninis pomidoras",
+                "plural_name": "vyšniniai pomidorai"
             },
             "cucumber": {
                 "aliases": [],
                 "description": "",
-                "name": "cucumber",
-                "plural_name": "cucumbers"
+                "name": "agurkas",
+                "plural_name": "agurkai"
             },
             "spinach": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach",
-                "plural_name": "spinaches"
+                "name": "špinatai",
+                "plural_name": "špinatai"
             },
             "sweet corn": {
                 "aliases": [],
@@ -114,14 +114,14 @@
             "sweet potato": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet potato",
-                "plural_name": "sweet potatoes"
+                "name": "batatas",
+                "plural_name": "batatai"
             },
             "broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli",
-                "plural_name": "broccolis"
+                "name": "brokolis",
+                "plural_name": "brokoliai"
             },
             "heart of palm": {
                 "aliases": [],
@@ -138,26 +138,26 @@
             "pumpkin": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin",
-                "plural_name": "pumpkins"
+                "name": "moliūgas",
+                "plural_name": "moliūgai"
             },
             "cauliflower": {
                 "aliases": [],
                 "description": "",
-                "name": "cauliflower",
-                "plural_name": "cauliflowers"
+                "name": "žiedinis kopūstas",
+                "plural_name": "žiediniai kopūstai"
             },
             "cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "cabbage",
-                "plural_name": "cabbages"
+                "name": "kopūstas",
+                "plural_name": "kopūstai"
             },
             "asparagu": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagu",
-                "plural_name": "asparagus"
+                "name": "smidras",
+                "plural_name": "smidrai"
             },
             "kale": {
                 "aliases": [],
@@ -174,62 +174,62 @@
             "leek": {
                 "aliases": [],
                 "description": "",
-                "name": "leek",
-                "plural_name": "leeks"
+                "name": "poras",
+                "plural_name": "porai"
             },
             "eggplant": {
                 "aliases": [],
                 "description": "",
-                "name": "eggplant",
-                "plural_name": "eggplants"
+                "name": "baklažanas",
+                "plural_name": "baklažanai"
             },
             "lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "lettuce",
-                "plural_name": "lettuces"
+                "name": "salota",
+                "plural_name": "salotos"
             },
             "butternut squash": {
                 "aliases": [],
                 "description": "",
-                "name": "butternut squash",
-                "plural_name": "butternut squashes"
+                "name": "sviestinis moliūgas",
+                "plural_name": "sviestiniai moliūgai"
             },
             "romaine": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine",
-                "plural_name": "romaines"
+                "name": "romaninė salota",
+                "plural_name": "romaninės salotos"
             },
             "beetroot": {
                 "aliases": [],
                 "description": "",
-                "name": "beetroot",
-                "plural_name": "beetroots"
+                "name": "burokėlis",
+                "plural_name": "burokėliai"
             },
             "brussels sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "brussels sprout",
-                "plural_name": "brussels sprouts"
+                "name": "briuselio kopūstas",
+                "plural_name": "briuselio kopūstai"
             },
             "fennel": {
                 "aliases": [],
                 "description": "",
-                "name": "fennel",
-                "plural_name": "fennels"
+                "name": "pankolis",
+                "plural_name": "pankoliai"
             },
             "sun dried tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "sun dried tomato",
-                "plural_name": "sun dried tomatoes"
+                "name": "saulėje džiovintas pomidoras",
+                "plural_name": "saulėje džiovinti pomidorai"
             },
             "radish": {
                 "aliases": [],
                 "description": "",
-                "name": "radish",
-                "plural_name": "radishes"
+                "name": "ridikėlis",
+                "plural_name": "ridikėliai"
             },
             "red cabbage": {
                 "aliases": [],
@@ -240,8 +240,8 @@
             "artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke",
-                "plural_name": "artichokes"
+                "name": "artišokas",
+                "plural_name": "artišokai"
             },
             "new potato": {
                 "aliases": [],
@@ -267,14 +267,14 @@
             "parsnip": {
                 "aliases": [],
                 "description": "",
-                "name": "parsnip",
-                "plural_name": "parsnips"
+                "name": "pastarnokas",
+                "plural_name": "pastarnokai"
             },
             "baby carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "baby carrot",
-                "plural_name": "baby carrots"
+                "name": "morkytė",
+                "plural_name": "morkytės"
             },
             "mixed vegetable": {
                 "aliases": [],
@@ -303,14 +303,14 @@
             "cayenne pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "cayenne pepper",
-                "plural_name": "cayenne peppers"
+                "name": "kajeno pipiras",
+                "plural_name": "kajeno pipirai"
             },
             "green tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "green tomato",
-                "plural_name": "green tomatoes"
+                "name": "žalias pomidoras",
+                "plural_name": "žali pomidorai"
             },
             "watercress": {
                 "aliases": [],
@@ -389,8 +389,8 @@
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "ropė",
+                "plural_name": "ropės"
             },
             "thai chile pepper": {
                 "aliases": [],
