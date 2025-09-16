@@ -80,7 +80,7 @@
           :recipe="recipes.get(event.recipeId)"
           :show-recipe-cards="showRecipeCards"
           :width="$vuetify.display.smAndDown ? '100%' : undefined"
-          @update="updateTimelineEvent(index)"
+          @update="updateTimelineEvent(index, $event)"
           @delete="deleteTimelineEvent(index)"
         />
       </v-timeline>
@@ -186,19 +186,16 @@ function toggleEventTypeOption(option: TimelineEventType) {
 }
 
 // Timeline Actions
-async function updateTimelineEvent(index: number) {
-  const event = timelineEvents.value[index];
-  const payload: RecipeTimelineEventUpdate = {
-    subject: event.subject,
-    eventMessage: event.eventMessage,
-    image: event.image,
-  };
-
-  const { response } = await api.recipes.updateTimelineEvent(event.id, payload);
+async function updateTimelineEvent(index: number, event: RecipeTimelineEventUpdate) {
+  const eventId = timelineEvents.value[index].id;
+  const { response } = await api.recipes.updateTimelineEvent(eventId, event);
   if (response?.status !== 200) {
     alert.error(i18n.t("events.something-went-wrong") as string);
     return;
   }
+
+  // Update the local event data to reflect the changes in the UI
+  timelineEvents.value[index] = response.data;
 
   alert.success(i18n.t("events.event-updated") as string);
 }

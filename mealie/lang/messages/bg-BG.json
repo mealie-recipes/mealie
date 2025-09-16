@@ -4,22 +4,22 @@
     },
     "recipe": {
         "unique-name-error": "Името на рецептата трябва да е уникално",
-        "recipe-created": "Recipe Created",
+        "recipe-created": "Рецептата е създадена",
         "recipe-defaults": {
             "ingredient-note": "1 чаша брашно",
             "step-text": "Стъпките на рецептата, както и други полета в страницата с рецепти поддържат синтаксис за маркиране.\n\n **Добавяне на връзка**\n\n [Моята връзка](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
-            "yield": "Yield",
-            "yields": "Yields"
+            "makes": "Порции",
+            "serves": "Порции",
+            "serving": "Порции",
+            "servings": "Порции",
+            "yield": "Порции",
+            "yields": "Порции"
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Няма рецепти отговарящи на Вашите условия"
+        "no-recipes-match-your-rules": "Няма рецепти отговарящи на Вашите критерии"
     },
     "user": {
         "user-updated": "Потребителят е обновен",
@@ -38,7 +38,7 @@
         "email-conflict-error": "Този имейл адрес вече се използва"
     },
     "notifications": {
-        "generic-created": "{name} беше създадено",
+        "generic-created": "{name} добавено успешно",
         "generic-updated": "{name} беше актуализирано",
         "generic-created-with-url": "{name} беше създадено, {url}",
         "generic-updated-with-url": "{name} беше актуализирано, {url}",
@@ -56,25 +56,25 @@
     },
     "emails": {
         "password": {
-            "subject": "Mealie Forgot Password",
-            "header_text": "Forgot Password",
-            "message_top": "You have requested to reset your password.",
-            "message_bottom": "Please click the button above to reset your password.",
-            "button_text": "Reset Password"
+            "subject": "Забравена парола за Mealie",
+            "header_text": "Забравена парола",
+            "message_top": "Изпратили сте заявка за смяна на паролата.",
+            "message_bottom": "Натиснете бутона по-горе за смяна на паролата.",
+            "button_text": "Смяна на паролата"
         },
         "invitation": {
-            "subject": "Invitation to join Mealie",
-            "header_text": "You're Invited!",
-            "message_top": "You have been invited to join Mealie.",
-            "message_bottom": "Please click the button above to accept the invitation.",
-            "button_text": "Accept Invitation"
+            "subject": "Покана за присъединяване към Mealie",
+            "header_text": "Поканен сте!",
+            "message_top": "Получихте покана за присъединяване към Mealie.",
+            "message_bottom": "Натиснете бутона по-горе за приемане на поканата.",
+            "button_text": "Приемете поканата"
         },
         "test": {
-            "subject": "Mealie Test Email",
-            "header_text": "Test Email",
-            "message_top": "This is a test email.",
-            "message_bottom": "Please click the button above to test the email.",
-            "button_text": "Open Mealie"
+            "subject": "Тестово съобщение от Mealie",
+            "header_text": "Тестово съобщение",
+            "message_top": "Това е тестово съобщение.",
+            "message_bottom": "Натиснете бутона по-горе за тест на електронната поща.",
+            "button_text": "Влезте в Mealie"
         }
     }
 }

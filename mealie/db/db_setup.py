@@ -2,12 +2,32 @@ from collections.abc import Generator
 from contextlib import contextmanager
 
 import sqlalchemy as sa
+from sqlalchemy.engine import Engine
+from sqlalchemy.event import listens_for
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
 
 settings = get_app_settings()
+
+
+@listens_for(Engine, "connect")
+def set_sqlite_pragma_journal_wal(dbapi_connection, connection_record):
+    """
+    Automatically enables SQLite's WAL journal mode if the setting is activated.
+
+    This is a persistent setting, so turning it off down the line doesn't revert back to the original journal mode.
+
+    Write-Ahead-Log enables sqlite to be used concurrently by multiple readers and writers (writes still happen
+    sequentially).
+    """
+    global settings
+    if settings.DB_ENGINE != "sqlite" or not settings.SQLITE_MIGRATE_JOURNAL_WAL:
+        return
+    cursor = dbapi_connection.cursor()
+    cursor.execute("PRAGMA journal_mode=WAL")
+    cursor.close()
 
 
 def sql_global_init(db_url: str):
