@@ -1925,7 +1925,7 @@
             "toasted nut": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted nut",
+                "name": "Noix grillée",
                 "plural_name": "toasted nuts"
             },
             "chironji": {
@@ -2022,7 +2022,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sharp cheddar",
-                "plural_name": "sharp cheddars"
+                "plural_name": "ccheddar fort"
             },
             "cheese": {
                 "aliases": [],
@@ -2051,7 +2051,7 @@
             "cheddar-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheddar-jack cheese",
+                "name": "",
                 "plural_name": "cheddar-jack cheeses"
             },
             "monterey jack": {
