@@ -168,6 +168,7 @@ export function useQueryFilterBuilder() {
       || type === Organizer.Tool
       || type === Organizer.Food
       || type === Organizer.Household
+      || type === Organizer.User
     );
   };
 

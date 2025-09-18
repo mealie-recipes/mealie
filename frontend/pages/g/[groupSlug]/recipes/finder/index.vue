@@ -653,6 +653,11 @@ export default defineNuxtComponent({
         label: i18n.t("household.households"),
         type: Organizer.Household,
       },
+      {
+        name: "user_id",
+        label: i18n.t("user.users"),
+        type: Organizer.User,
+      },
     ];
 
     function clearQueryFilter() {

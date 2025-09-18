@@ -8,6 +8,7 @@
     chips
     closable-chips
     item-title="name"
+    item-value="id"
     multiple
     :variant="variant"
     :prepend-inner-icon="icon"
@@ -25,11 +26,15 @@
         color="accent"
         variant="flat"
         label
-
         closable
         @click:close="removeByIndex(index)"
       >
-        {{ item.value }}
+        <template v-if="selectorType === Organizer.User">
+          {{ item.raw.fullName }}
+        </template>
+        <template v-else>
+          {{ item.value }}
+        </template>
       </v-chip>
     </template>
 
@@ -52,6 +57,8 @@ import type { RecipeTool } from "~/lib/api/types/admin";
 import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
+import { useUserStore } from "~/composables/store/use-user-store";
+import type { UserSummary } from "~/lib/api/types/user";
 
 interface Props {
   selectorType: RecipeOrganizer;
@@ -78,6 +85,7 @@ const selected = defineModel<(
   | RecipeCategory
   | RecipeTool
   | IngredientFood
+  | UserSummary
   | string
 )[] | undefined>({ required: true });
 
@@ -106,6 +114,8 @@ const label = computed(() => {
       return i18n.t("general.foods");
     case Organizer.Household:
       return i18n.t("household.households");
+    case Organizer.User:
+      return i18n.t("user.users");
     default:
       return i18n.t("general.organizer");
   }
@@ -127,6 +137,8 @@ const icon = computed(() => {
       return $globals.icons.foods;
     case Organizer.Household:
       return $globals.icons.household;
+    case Organizer.User:
+      return $globals.icons.user;
     default:
       return $globals.icons.tags;
   }
@@ -141,18 +153,26 @@ const storeMap = {
   [Organizer.Tool]: useToolStore(),
   [Organizer.Food]: useFoodStore(),
   [Organizer.Household]: useHouseholdStore(),
+  [Organizer.User]: useUserStore(),
 };
 
-const store = computed(() => {
+const activeStore = computed(() => {
   const { store } = storeMap[props.selectorType];
   return store.value;
 });
 
-const items = computed(() => {
+const items = computed<any[]>(() => {
   if (!props.returnObject) {
-    return store.value.map(item => item.name);
+    if (props.selectorType === Organizer.User) {
+      return (activeStore.value as unknown as UserSummary[]).map(u => u.fullName);
+    }
+    return (activeStore.value as unknown as any[]).map(item => item.name);
   }
-  return store.value;
+
+  if (props.selectorType === Organizer.User) {
+    return (activeStore.value as unknown as UserSummary[]).map(u => ({ ...u, name: u.fullName }));
+  }
+  return activeStore.value as unknown as any[];
 });
 
 function removeByIndex(index: number) {

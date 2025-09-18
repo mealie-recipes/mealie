@@ -190,7 +190,7 @@
                 :show-label="false"
                 :show-icon="false"
                 variant="underlined"
-                @update:model-value="setFieldOrganizers(field, index, $event)"
+                @update:model-value="val => setFieldOrganizers(field, index, (val || []) as OrganizerBase[])"
               />
               <RecipeOrganizerSelector
                 v-else-if="field.type === Organizer.Tag"
@@ -200,7 +200,7 @@
                 :show-label="false"
                 :show-icon="false"
                 variant="underlined"
-                @update:model-value="setFieldOrganizers(field, index, $event)"
+                @update:model-value="val => setFieldOrganizers(field, index, (val || []) as OrganizerBase[])"
               />
               <RecipeOrganizerSelector
                 v-else-if="field.type === Organizer.Tool"
@@ -210,7 +210,7 @@
                 :show-label="false"
                 :show-icon="false"
                 variant="underlined"
-                @update:model-value="setFieldOrganizers(field, index, $event)"
+                @update:model-value="val => setFieldOrganizers(field, index, (val || []) as OrganizerBase[])"
               />
               <RecipeOrganizerSelector
                 v-else-if="field.type === Organizer.Food"
@@ -220,7 +220,7 @@
                 :show-label="false"
                 :show-icon="false"
                 variant="underlined"
-                @update:model-value="setFieldOrganizers(field, index, $event)"
+                @update:model-value="val => setFieldOrganizers(field, index, (val || []) as OrganizerBase[])"
               />
               <RecipeOrganizerSelector
                 v-else-if="field.type === Organizer.Household"
@@ -230,7 +230,17 @@
                 :show-label="false"
                 :show-icon="false"
                 variant="underlined"
-                @update:model-value="setFieldOrganizers(field, index, $event)"
+                @update:model-value="val => setFieldOrganizers(field, index, (val || []) as OrganizerBase[])"
+              />
+              <RecipeOrganizerSelector
+                v-else-if="field.type === Organizer.User"
+                v-model="field.organizers"
+                :selector-type="Organizer.User"
+                :show-add="false"
+                :show-label="false"
+                :show-icon="false"
+                variant="underlined"
+                @update:model-value="val => setFieldOrganizers(field, index, (val || []) as OrganizerBase[])"
               />
             </v-col>
             <!-- right parenthesis -->
@@ -305,6 +315,7 @@ import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerS
 import { Organizer } from "~/lib/api/types/non-generated";
 import type { LogicalOperator, QueryFilterJSON, QueryFilterJSONPart, RelationalKeyword, RelationalOperator } from "~/lib/api/types/response";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
+import { useUserStore } from "~/composables/store/use-user-store";
 import { type Field, type FieldDefinition, type FieldValue, type OrganizerBase, useQueryFilterBuilder } from "~/composables/use-query-filter-builder";
 
 const props = defineProps({
@@ -344,6 +355,7 @@ const storeMap = {
   [Organizer.Tool]: useToolStore(),
   [Organizer.Food]: useFoodStore(),
   [Organizer.Household]: useHouseholdStore(),
+  [Organizer.User]: useUserStore(),
 };
 
 function onDragEnd(event: any) {
