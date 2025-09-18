@@ -88,7 +88,7 @@
             "cucumber": {
                 "aliases": [],
                 "description": "",
-                "name": "cucumber",
+                "name": "Огірок",
                 "plural_name": "огірки"
             },
             "spinach": {
@@ -240,18 +240,18 @@
             "artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke",
-                "plural_name": "artichokes"
+                "name": "Артишок",
+                "plural_name": "Артишоки"
             },
             "new potato": {
                 "aliases": [],
                 "description": "",
-                "name": "new potato",
-                "plural_name": "new potatoes"
+                "name": "Молода картопля",
+                "plural_name": "Молодої картоплі"
             },
             "summer squash": {
                 "aliases": [
-                    "courgette",
+                    "Кабачок",
                     "gem squash"
                 ],
                 "description": "",
