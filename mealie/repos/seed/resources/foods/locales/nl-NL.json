@@ -5837,8 +5837,8 @@
             "basil": {
                 "aliases": [],
                 "description": "",
-                "name": "basil",
-                "plural_name": "basils"
+                "name": "basilicum",
+                "plural_name": "basilicum"
             },
             "thyme": {
                 "aliases": [],
@@ -6149,8 +6149,8 @@
             "thai basil": {
                 "aliases": [],
                 "description": "",
-                "name": "thai basil",
-                "plural_name": "thai basils"
+                "name": "thaise basilicum",
+                "plural_name": "thaise basilicum"
             },
             "edible flower": {
                 "aliases": [],
@@ -10876,7 +10876,7 @@
             "basil oil": {
                 "aliases": [],
                 "description": "",
-                "name": "basil oil",
+                "name": "",
                 "plural_name": "basil oils"
             },
             "pork fat": {
@@ -11324,8 +11324,8 @@
             "sun-dried tomato vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "sun-dried tomato vinaigrette",
-                "plural_name": "sun-dried tomato vinaigrettes"
+                "name": "zon-gedroogde tomaten vinaigrette",
+                "plural_name": "zon-gedroogde tomaten vinaigrettes"
             },
             "garlic mayonnaise": {
                 "aliases": [],
@@ -12100,8 +12100,8 @@
             "canned tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned tomato",
-                "plural_name": "canned tomatoes"
+                "name": "blik tomaat",
+                "plural_name": "blikken tomaat"
             },
             "caper": {
                 "aliases": [],
@@ -12274,8 +12274,8 @@
             "sun-dried tomato in oil": {
                 "aliases": [],
                 "description": "",
-                "name": "sun-dried tomato in oil",
-                "plural_name": "sun-dried tomatoes in oil"
+                "name": "zon-gedroogde tomaat in olie",
+                "plural_name": "zon-gedroogde tomaten in olie"
             },
             "kimchi": {
                 "aliases": [],
@@ -12520,8 +12520,8 @@
             "canned carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "canned carrot",
-                "plural_name": "canned carrots"
+                "name": "blik wortel",
+                "plural_name": "blik wortel"
             },
             "banana pepper ring": {
                 "aliases": [],
@@ -12604,7 +12604,7 @@
             "canned peas and carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "canned peas and carrot",
+                "name": "",
                 "plural_name": "canned peas and carrots"
             },
             "corn relish": {
@@ -13252,8 +13252,8 @@
             "tomato tapenade": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato tapenade",
-                "plural_name": "tomato tapenades"
+                "name": "tomaten tapenade",
+                "plural_name": "tomaten tapenades"
             },
             "yum yum sauce": {
                 "aliases": [],
@@ -14960,7 +14960,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "advocaat",
-                "plural_name": "advocaats"
+                "plural_name": "advocaat"
             },
             "piña colada mix": {
                 "aliases": [],
@@ -15149,8 +15149,8 @@
             "tomato juice": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato juice",
-                "plural_name": "tomato juices"
+                "name": "tomatensap",
+                "plural_name": ""
             },
             "coconut water": {
                 "aliases": [],
