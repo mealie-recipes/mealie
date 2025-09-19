@@ -864,7 +864,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "persimmon",
-                "plural_name": "persimmons"
+                "plural_name": "cachi"
             },
             "melon": {
                 "aliases": [],
@@ -1055,8 +1055,8 @@
             "dried lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lemon",
-                "plural_name": "dried lemons"
+                "name": "limone essiccato",
+                "plural_name": "limoni essiccati"
             },
             "young jackfruit": {
                 "aliases": [],
