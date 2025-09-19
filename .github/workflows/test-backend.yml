@@ -4,8 +4,31 @@ on:
   workflow_call:
 
 jobs:
+  setup-python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        database: [sqlite, postgres]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python Backend
+        uses: ./.github/actions/setup-python-backend
+        with:
+          install-postgres: ${{ matrix.database == 'postgres' }}
+
+      - name: Cache Python Environment
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            ~/.cache/pypoetry
+            .venv
+          key: python-deps-${{ matrix.database }}-${{ hashFiles('poetry.lock', 'pyproject.toml') }}
+
   lint-and-typecheck:
     runs-on: ubuntu-latest
+    needs: setup-python
 
     env:
       PRODUCTION: false
@@ -14,8 +37,20 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Setup Python Backend
-        uses: ./.github/actions/setup-python-backend
+      - name: Restore Python Environment (SQLite)
+        uses: actions/cache/restore@v3
+        with:
+          path: |
+            ~/.cache/pypoetry
+            .venv
+          key: python-deps-sqlite-${{ hashFiles('poetry.lock', 'pyproject.toml') }}
+          fail-on-cache-miss: true
+
+      - name: Setup Task (only)
+        uses: arduino/setup-task@v2
+        with:
+          version: 3.x
+          repo-token: ${{ github.token }}
 
       - name: Formatting (Ruff)
         run: |
@@ -35,6 +70,7 @@ jobs:
 
   tests:
     runs-on: ubuntu-latest
+    needs: setup-python
 
     env:
       PRODUCTION: false
@@ -86,10 +122,20 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Setup Python Backend
-        uses: ./.github/actions/setup-python-backend
+      - name: Restore Python Environment
+        uses: actions/cache/restore@v3
         with:
-          install-postgres: ${{ matrix.Database == 'postgres' }}
+          path: |
+            ~/.cache/pypoetry
+            .venv
+          key: python-deps-${{ matrix.Database }}-${{ hashFiles('poetry.lock', 'pyproject.toml') }}
+          fail-on-cache-miss: true
+
+      - name: Setup Task (only)
+        uses: arduino/setup-task@v2
+        with:
+          version: 3.x
+          repo-token: ${{ github.token }}
 
       - name: Pytest (${{ matrix.TestSuite }} - ${{ matrix.Database }})
         env:
