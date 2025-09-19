@@ -1,6 +1,6 @@
 <template>
   <div class="ingredient-link-label links-disabled">
-    <span v-if="baseText">{{ baseText }}</span>
+    <SafeMarkdown v-if="baseText" :source="baseText" />
     <SafeMarkdown
       v-if="ingredient?.note"
       class="d-inline"
