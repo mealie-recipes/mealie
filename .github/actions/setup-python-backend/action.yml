@@ -5,6 +5,10 @@ inputs:
     description: 'Whether to install psycopg2-binary for PostgreSQL support'
     required: false
     default: 'false'
+  cache-key:
+    description: 'External cache key to restore from (skips internal caching)'
+    required: false
+    default: ''
 runs:
   using: 'composite'
   steps:
@@ -25,8 +29,20 @@ runs:
         virtualenvs-create: true
         virtualenvs-in-project: true
 
-    - name: Load cached venv
+    - name: Load cached venv (external)
+      id: cached-external-dependencies
+      if: inputs.cache-key != ''
+      uses: actions/cache/restore@v3
+      with:
+        path: |
+          ~/.cache/pypoetry
+          .venv
+        key: ${{ inputs.cache-key }}
+        fail-on-cache-miss: true
+
+    - name: Load cached venv (internal)
       id: cached-poetry-dependencies
+      if: inputs.cache-key == ''
       uses: actions/cache@v4
       with:
         path: .venv
@@ -34,7 +50,7 @@ runs:
 
     - name: Check venv cache
       id: cache-validate
-      if: steps.cached-poetry-dependencies.outputs.cache-hit == 'true'
+      if: inputs.cache-key == '' && steps.cached-poetry-dependencies.outputs.cache-hit == 'true'
       shell: bash
       run: |
         echo "import fastapi;print('venv good?')" > test.py && poetry run python test.py && echo "cache-hit-success=true" >> $GITHUB_OUTPUT
@@ -50,4 +66,4 @@ runs:
         if [ "${{ inputs.install-postgres }}" = "true" ]; then
           poetry add "psycopg2-binary==2.9.9"
         fi
-      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || steps.cache-validate.outputs.cache-hit-success != 'true'
+      if: inputs.cache-key == '' && (steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || steps.cache-validate.outputs.cache-hit-success != 'true')
