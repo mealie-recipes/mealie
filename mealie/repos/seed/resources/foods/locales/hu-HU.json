@@ -1122,91 +1122,91 @@
                 "aliases": [],
                 "description": "",
                 "name": "keserű narancs",
-                "plural_name": "bitter oranges"
+                "plural_name": "keserű narancsok"
             },
             "feijoa": {
                 "aliases": [],
                 "description": "",
                 "name": "feijoa",
-                "plural_name": "feijoas"
+                "plural_name": "feijoák"
             },
             "dried persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried persimmon",
-                "plural_name": "dried persimmons"
+                "name": "szárított datolyaszilva",
+                "plural_name": "szárított datolyaszilvák"
             },
             "rambutan": {
                 "aliases": [],
                 "description": "",
-                "name": "rambutan",
-                "plural_name": "rambutans"
+                "name": "rambután",
+                "plural_name": "rambutánok"
             },
             "rose apple": {
                 "aliases": [],
                 "description": "",
-                "name": "rose apple",
-                "plural_name": "rose apples"
+                "name": "rózsaalma",
+                "plural_name": "rózsaalmák"
             },
             "dried orange slice": {
                 "aliases": [],
                 "description": "",
-                "name": "dried orange slice",
-                "plural_name": "dried orange slices"
+                "name": "szárított narancsszelet",
+                "plural_name": "szárított narancsszeletek"
             },
             "loquat": {
                 "aliases": [],
                 "description": "",
-                "name": "loquat",
-                "plural_name": "loquats"
+                "name": "japán naspolya",
+                "plural_name": "japán naspolyák"
             },
             "crabapple": {
                 "aliases": [],
                 "description": "",
-                "name": "crabapple",
-                "plural_name": "crabapples"
+                "name": "vadalma",
+                "plural_name": "vadalmák"
             },
             "fig leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "fig leaf",
-                "plural_name": "fig leaves"
+                "name": "fügefalevél",
+                "plural_name": "fügefalevelek"
             },
             "freeze-dried pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried pineapple",
-                "plural_name": "freeze-dried pineapples"
+                "name": "liofilizált ananász",
+                "plural_name": "liofilizált ananászok"
             },
             "pluot": {
                 "aliases": [],
                 "description": "",
                 "name": "pluot",
-                "plural_name": "pluots"
+                "plural_name": "pluotok"
             },
             "soursop": {
                 "aliases": [],
                 "description": "",
                 "name": "soursop",
-                "plural_name": "soursops"
+                "plural_name": "soursopok"
             },
             "hog plum": {
                 "aliases": [],
                 "description": "",
-                "name": "hog plum",
-                "plural_name": "hog plums"
+                "name": "disznó szilva",
+                "plural_name": "disznó szilvák"
             },
             "bergamot orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bergamot orange",
-                "plural_name": "bergamot oranges"
+                "name": "bergamott narancs",
+                "plural_name": "bergamott narancsok"
             },
             "luo han guo": {
                 "aliases": [],
                 "description": "",
                 "name": "luo han guo",
-                "plural_name": "luo han guos"
+                "plural_name": "luo han guo-k"
             },
             "mamey": {
                 "aliases": [],
@@ -1223,8 +1223,8 @@
             "green ume plum": {
                 "aliases": [],
                 "description": "",
-                "name": "green ume plum",
-                "plural_name": "green ume plums"
+                "name": "zöld ume szilva",
+                "plural_name": "zöld ume szilvák"
             },
             "kiwano": {
                 "aliases": [],
@@ -1567,7 +1567,7 @@
             "acai berry": {
                 "aliases": [],
                 "description": "",
-                "name": "acai berry",
+                "name": "acai bogyó",
                 "plural_name": "acai bogyó"
             },
             "canned cherry": {
@@ -1591,8 +1591,8 @@
             "freeze-dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried blueberry",
-                "plural_name": "freeze-dried blueberries"
+                "name": "acai bogyók",
+                "plural_name": "liofilizált áfonya"
             },
             "huckleberry": {
                 "aliases": [],
@@ -1603,20 +1603,20 @@
             "dried elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried elderberry",
-                "plural_name": "dried elderberries"
+                "name": "szárított bodza",
+                "plural_name": "szárított bodzák"
             },
             "barberry": {
                 "aliases": [],
                 "description": "",
-                "name": "barberry",
-                "plural_name": "barberries"
+                "name": "borbolya",
+                "plural_name": "borbolyák"
             },
             "dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried berry",
-                "plural_name": "dried berries"
+                "name": "szárított bogyó",
+                "plural_name": "szárított bogyók"
             },
             "sea buckthorn": {
                 "aliases": [],
@@ -1847,8 +1847,8 @@
             "mixed seed": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed seed",
-                "plural_name": "mixed seeds"
+                "name": "vegyes mag",
+                "plural_name": "vegyes magok"
             },
             "onion seed": {
                 "aliases": [],
@@ -1865,26 +1865,26 @@
             "honey-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted peanut",
-                "plural_name": "honey-roasted peanuts"
+                "name": "mézzel pörkölt földimogyoró",
+                "plural_name": "mézzel pörkölt földimogyorók"
             },
             "melon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "melon seed",
-                "plural_name": "melon seeds"
+                "name": "dinnyemag",
+                "plural_name": "dinnyemagok"
             },
             "lotus seed": {
                 "aliases": [],
                 "description": "",
-                "name": "lotus seed",
-                "plural_name": "lotus seeds"
+                "name": "lótuszmag",
+                "plural_name": "lótuszmagok"
             },
             "white chia": {
                 "aliases": [],
                 "description": "",
-                "name": "white chia",
-                "plural_name": "white chias"
+                "name": "fehér chia",
+                "plural_name": "fehér chiák"
             },
             "trail mix": {
                 "aliases": [],
@@ -1895,8 +1895,8 @@
             "basil seed": {
                 "aliases": [],
                 "description": "",
-                "name": "basil seed",
-                "plural_name": "basil seeds"
+                "name": "bazsalikommag",
+                "plural_name": "bazsalikommagok"
             },
             "candlenut": {
                 "aliases": [],
@@ -1919,14 +1919,14 @@
             "honey-roasted almond": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted almond",
-                "plural_name": "honey-roasted almonds"
+                "name": "mézes-pörkölt mandula",
+                "plural_name": "mézes-pörkölt mandulák"
             },
             "toasted nut": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted nut",
-                "plural_name": "toasted nuts"
+                "name": "pirított dió",
+                "plural_name": "pirított diók"
             },
             "chironji": {
                 "aliases": [],
