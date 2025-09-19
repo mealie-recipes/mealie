@@ -157,3 +157,23 @@ jobs:
           LDAP_MAIL_ATTRIBUTE: mail
         run: |
           poetry run pytest tests/${{ matrix.TestSuite }} -v
+
+  test-summary:
+    runs-on: ubuntu-latest
+    needs: [lint-and-typecheck, tests]
+    if: always()
+    steps:
+      - name: Backend Test Summary
+        run: |
+          # Check if any required job failed or was cancelled
+          if [[ "${{ needs.lint-and-typecheck.result }}" != "success" ]]; then
+            echo "❌ Lint and typecheck failed or was cancelled: ${{ needs.lint-and-typecheck.result }}"
+            exit 1
+          fi
+
+          if [[ "${{ needs.tests.result }}" != "success" ]]; then
+            echo "❌ Tests failed or were cancelled: ${{ needs.tests.result }}"
+            exit 1
+          fi
+
+          echo "✅ All tests passed successfully!"
