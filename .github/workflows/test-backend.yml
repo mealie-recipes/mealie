@@ -90,12 +90,7 @@ jobs:
           integration_tests/user_household_tests,
           integration_tests/user_tests,
           multitenant_tests,
-          unit_tests/core,
-          unit_tests/pkgs,
-          unit_tests/repository_tests,
-          unit_tests/schema_tests,
-          unit_tests/services_tests,
-          unit_tests/validator_tests,
+          unit_tests,
         ]
 
     # Services
