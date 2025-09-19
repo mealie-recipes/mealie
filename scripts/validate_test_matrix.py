@@ -44,13 +44,22 @@ def get_matrix_suites_from_workflow() -> list[str]:
 
     matrix_content: str = match.group(1)
     test_suites = []
-    for line in matrix_content.split(","):
-        suite = line.strip().split("#")[0].strip()  # Remove comments
-        suite = suite.strip("\"'")  # Remove quotes
-        if not suite:
-            continue
 
-        test_suites.append(suite)
+    # Split by commas, but handle multiline entries properly
+    for line in matrix_content.split(","):
+        # Split by newlines and process each line
+        for subline in line.split("\n"):
+            suite = subline.strip()
+            # Remove comments (everything after #)
+            if "#" in suite:
+                suite = suite.split("#")[0].strip()
+            # Remove quotes
+            suite = suite.strip("\"'")
+
+            if not suite:
+                continue
+
+            test_suites.append(suite)
 
     return test_suites
 
