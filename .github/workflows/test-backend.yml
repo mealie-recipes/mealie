@@ -46,7 +46,15 @@ jobs:
         Database: [sqlite, postgres]
         # Test directories to run in parallel
         TestSuite: [
-          integration_tests,
+          integration_tests/admin_tests,
+          integration_tests/category_tag_tool_tests,
+          integration_tests/core,
+          integration_tests/public_explorer_tests,
+          integration_tests/recipe_migration_tests,
+          integration_tests/user_group_tests,
+          integration_tests/user_household_tests,
+          integration_tests/user_recipe_tests,
+          integration_tests/user_tests,
           multitenant_tests,
           unit_tests/core,
           unit_tests/pkgs,
