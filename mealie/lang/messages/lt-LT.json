@@ -57,10 +57,10 @@
     "emails": {
         "password": {
             "subject": "Mealie Forgot Password",
-            "header_text": "Forgot Password",
+            "header_text": "Pamiršau slaptažodį",
             "message_top": "You have requested to reset your password.",
             "message_bottom": "Please click the button above to reset your password.",
-            "button_text": "Reset Password"
+            "button_text": "Iš naujo nustatyti slaptažodį"
         },
         "invitation": {
             "subject": "Invitation to join Mealie",
