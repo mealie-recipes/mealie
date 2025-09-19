@@ -82,6 +82,9 @@ jobs:
         Database: [sqlite, postgres]
         # Test directories to run in parallel
         TestSuite: [
+          # Long-running tests
+          integration_tests/user_recipe_tests,
+          # Everything else
           integration_tests/admin_tests,
           integration_tests/category_tag_tool_tests,
           integration_tests/core,
@@ -89,7 +92,6 @@ jobs:
           integration_tests/recipe_migration_tests,
           integration_tests/user_group_tests,
           integration_tests/user_household_tests,
-          integration_tests/user_recipe_tests,
           integration_tests/user_tests,
           multitenant_tests,
           unit_tests/core,
