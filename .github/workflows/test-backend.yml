@@ -40,7 +40,7 @@ jobs:
       PRODUCTION: false
 
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         # Database ENV Variables as Specified by Mealie
         Database: [sqlite, postgres]
