@@ -4,6 +4,35 @@ on:
   workflow_call:
 
 jobs:
+  lint-and-typecheck:
+    runs-on: ubuntu-latest
+
+    env:
+      PRODUCTION: false
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python Backend
+        uses: ./.github/actions/setup-python-backend
+
+      - name: Formatting (Ruff)
+        run: |
+          poetry run ruff format . --check
+
+      - name: Lint (Ruff)
+        run: |
+          task py:lint
+
+      - name: Mypy Typecheck
+        run: |
+          task py:mypy
+
+      - name: GitHub Actions Test Suite Sync
+        run: |
+          task py:test:validate-actions
+
   tests:
     runs-on: ubuntu-latest
 
@@ -15,6 +44,17 @@ jobs:
       matrix:
         # Database ENV Variables as Specified by Mealie
         Database: [sqlite, postgres]
+        # Test directories to run in parallel
+        TestSuite: [
+          integration_tests,
+          multitenant_tests,
+          unit_tests/core,
+          unit_tests/pkgs,
+          unit_tests/repository_tests,
+          unit_tests/schema_tests,
+          unit_tests/services_tests,
+          unit_tests/validator_tests,
+        ]
 
     # Services
     services:
@@ -35,62 +75,15 @@ jobs:
 
     # Steps
     steps:
-      - name: Install Task
-        uses: arduino/setup-task@v2
-        with:
-          version: 3.x
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Check out repository
         uses: actions/checkout@v4
 
-      - name: Set up python
-        uses: actions/setup-python@v5
+      - name: Setup Python Backend
+        uses: ./.github/actions/setup-python-backend
         with:
-          python-version: "3.12"
+          install-postgres: ${{ matrix.Database == 'postgres' }}
 
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v4
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
-
-      - name: Check venv cache
-        id: cache-validate
-        if: steps.cached-poetry-dependencies.outputs.cache-hit == 'true'
-        run: |
-          echo "import fastapi;print('venv good?')" > test.py && poetry run python test.py && echo "cache-hit-success=true" >> $GITHUB_OUTPUT
-          rm test.py
-        continue-on-error: true
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install libsasl2-dev libldap2-dev libssl-dev
-          poetry install
-          poetry add "psycopg2-binary==2.9.9"
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true' || steps.cache-validate.outputs.cache-hit-success != 'true'
-
-      - name: Formatting (Ruff)
-        run: |
-          poetry run ruff format . --check
-
-      - name: Lint (Ruff)
-        run: |
-          task py:lint
-
-      - name: Mypy Typecheck
-        run: |
-          task py:mypy
-
-      - name: Pytest
+      - name: Pytest (${{ matrix.TestSuite }} - ${{ matrix.Database }})
         env:
           DB_ENGINE: ${{ matrix.Database }}
           POSTGRES_SERVER: localhost
@@ -107,4 +100,4 @@ jobs:
           LDAP_NAME_ATTRIBUTE: cn
           LDAP_MAIL_ATTRIBUTE: mail
         run: |
-          task py:test
+          poetry run pytest tests/${{ matrix.TestSuite }} -v

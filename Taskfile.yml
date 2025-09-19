@@ -103,6 +103,11 @@ tasks:
     cmds:
       - poetry run pytest {{ .CLI_ARGS }}
 
+  py:test:validate-actions:
+    desc: validates that all test directories are covered by GitHub Actions matrix
+    cmds:
+      - poetry run python scripts/validate_test_matrix.py
+
   py:format:
     desc: runs python code formatter
     cmds:
