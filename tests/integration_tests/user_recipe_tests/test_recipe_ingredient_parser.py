@@ -1,10 +1,21 @@
+from dataclasses import dataclass
+
 import pytest
 from fastapi.testclient import TestClient
 
 from mealie.schema.recipe.recipe_ingredient import RegisteredParser
-from tests.unit_tests.test_ingredient_parser import TestIngredient
 from tests.utils import api_routes
 from tests.utils.fixture_schemas import TestUser
+
+
+@dataclass
+class TestIngredient:
+    input: str
+    quantity: float
+    unit: str
+    food: str
+    comments: str
+
 
 nlp_test_ingredients = [
     TestIngredient("½ cup all-purpose flour", 0.5, "cup", "all-purpose flour", ""),
