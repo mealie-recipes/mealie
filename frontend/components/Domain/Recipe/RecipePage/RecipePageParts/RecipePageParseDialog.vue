@@ -333,6 +333,9 @@ async function parseIngredients() {
     }
     parsedIngs.value = data;
     state.currentParsedIndex = -1;
+    state.allReviewed = false;
+    createdUnits.clear();
+    createdFoods.clear();
     nextIngredient();
   }
   catch (error) {
