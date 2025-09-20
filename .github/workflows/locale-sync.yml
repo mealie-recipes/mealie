@@ -86,7 +86,7 @@ jobs:
 
           # Add and commit changes
           git add .
-          git commit -m "chore: automatic locale sync"
+          git commit -m "chore: crowdin locale sync"
 
           # Push the branch
           git push origin "$BRANCH_NAME"
@@ -96,9 +96,10 @@ jobs:
           # Create PR using GitHub CLI with explicit repository
           gh pr create \
             --repo "${{ github.repository }}" \
-            --title "chore: automatic locale sync" \
+            --title "chore(l10n): Crowdin locale sync" \
             --base "$BASE_BRANCH" \
             --head "$BRANCH_NAME" \
+            --label "l10n" \
             --body "## Summary
 
           Automatically generated locale updates from the weekly sync job.

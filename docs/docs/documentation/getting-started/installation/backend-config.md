@@ -138,6 +138,13 @@ For custom mapping variables (e.g. OPENAI_CUSTOM_HEADERS) you should pass values
 
 Setting the following environmental variables will change the theme of the frontend. Note that the themes are the same for all users. This is a break-change when migration from v0.x.x -> 1.x.x.
 
+!!! info
+    If you're setting these variables but not seeing these changes persist, try removing the `#` character. Also, depending on which syntax you're using, double-check you're using quotes correctly.
+
+    If using YAML mapping syntax, be sure to include quotes around these values, otherwise they will be treated as comments in your YAML file:<br>`THEME_LIGHT_PRIMARY: '#E58325'` or  `THEME_LIGHT_PRIMARY: 'E58325'`
+
+    If using YAML sequence syntax, don't include any quotes:<br>`THEME_LIGHT_PRIMARY=#E58325` or `THEME_LIGHT_PRIMARY=E58325`
+
 | Variables             | Default | Description                 |
 | --------------------- | :-----: | --------------------------- |
 | THEME_LIGHT_PRIMARY   | #E58325 | Light Theme Config Variable |
