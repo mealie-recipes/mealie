@@ -7,35 +7,35 @@
   >
     <v-container class="pa-2 ma-0" style="background-color: rgb(var(--v-theme-background));">
       <BaseCardSectionTitle :title="$t('recipe.parser.ingredient-parser')">
-        <div class="d-flex align-center">
-          <div class="my-auto">
+        <div class="mb-4">
+          <p>{{ $t("recipe.parser.ingredient-parser-description") }}</p>
+          <p>{{ $t("recipe.parser.ingredient-parser-final-review-description") }}</p>
+        </div>
+        <div class="d-flex flex-wrap align-center">
+          <div class="text-body-2 mr-2">
             {{ $t("recipe.parser.select-parser") }}
           </div>
-          <BaseOverflowButton
-            v-model="parser"
-            :disabled="state.loading.parser"
-            btn-class="mx-2 my-auto"
-            :items="availableParsers"
-          />
-          <v-btn
-            icon
-            size="40"
-            color="info"
-            class="ml-auto"
-            :disabled="state.loading.parser"
-            @click="parseIngredients"
-          >
-            <v-icon>{{ $globals.icons.refresh }}</v-icon>
-          </v-btn>
+          <div class="d-flex align-center">
+            <BaseOverflowButton
+              v-model="parser"
+              :disabled="state.loading.parser"
+              btn-class="mx-2"
+              :items="availableParsers"
+            />
+            <v-btn
+              icon
+              size="40"
+              color="info"
+              :disabled="state.loading.parser"
+              @click="parseIngredients"
+            >
+              <v-icon>{{ $globals.icons.refresh }}</v-icon>
+            </v-btn>
+          </div>
         </div>
       </BaseCardSectionTitle>
       <AppLoader v-if="state.loading.parser" waiting-text="" class="my-6" />
       <v-card v-else-if="!state.allReviewed && currentIng">
-        <v-card-text class="pt-0 mt-0">
-          <p>{{ $t("recipe.parser.ingredient-parser-description") }}</p>
-          <br>
-          <p>{{ $t("recipe.parser.ingredient-parser-final-review-description") }}</p>
-        </v-card-text>
         <v-card-text class="pb-0 mb-0">
           <div class="d-flex align-center pa-0 ma-0">
             <v-icon
