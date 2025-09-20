@@ -8034,8 +8034,8 @@
             "sorghum flour": {
                 "aliases": [],
                 "description": "",
-                "name": "sorghum flour",
-                "plural_name": "sorghum flours"
+                "name": "Natriumpulver",
+                "plural_name": "Natriumpulver"
             },
             "potato flake": {
                 "aliases": [],
@@ -8046,8 +8046,8 @@
             "masa harina": {
                 "aliases": [],
                 "description": "",
-                "name": "masa harina",
-                "plural_name": "masa harinas"
+                "name": "Maismehl",
+                "plural_name": "Maismehl"
             },
             "cinnamon chip": {
                 "aliases": [],
@@ -8064,8 +8064,8 @@
             "red velvet cake mix": {
                 "aliases": [],
                 "description": "",
-                "name": "red velvet cake mix",
-                "plural_name": "red velvet cake mixes"
+                "name": "Red Velvet Kuchenmischung",
+                "plural_name": "Red Velvet Kuchenmischungen"
             },
             "matzo meal": {
                 "aliases": [],
@@ -8083,7 +8083,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Weiße Backschokolade",
-                "plural_name": "white baking chocolates"
+                "plural_name": "weiße Backschokolade"
             },
             "cassava flour": {
                 "aliases": [],
