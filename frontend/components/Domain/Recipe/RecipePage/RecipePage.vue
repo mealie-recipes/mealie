@@ -3,7 +3,7 @@
     <RecipePageParseDialog
       :model-value="isParsing"
       :ingredients="recipe.recipeIngredient"
-      width="70%"
+      :width="$vuetify.display.smAndDown ? '100%' : '80%'"
       @update:model-value="toggleIsParsing"
       @save="saveParsedIngredients"
     />
