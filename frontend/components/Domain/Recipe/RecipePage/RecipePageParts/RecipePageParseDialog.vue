@@ -7,7 +7,7 @@
   >
     <v-container class="pa-2 ma-0" style="background-color: rgb(var(--v-theme-background));">
       <BaseCardSectionTitle :title="$t('recipe.parser.ingredient-parser')">
-        <div class="mb-4">
+        <div v-if="!state.allReviewed" class="mb-4">
           <p>{{ $t("recipe.parser.ingredient-parser-description") }}</p>
           <p>{{ $t("recipe.parser.ingredient-parser-final-review-description") }}</p>
         </div>
