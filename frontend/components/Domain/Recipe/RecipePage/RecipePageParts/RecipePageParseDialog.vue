@@ -38,11 +38,12 @@
       <v-card v-else-if="!state.allReviewed && currentIng">
         <v-card-text class="pb-0 mb-0">
           <div class="text-center px-8 py-4 mb-6">
-            <p class="text-h5 font-italic">{{ currentIng.input }}</p>
+            <p class="text-h5 font-italic">
+              {{ currentIng.input }}
+            </p>
           </div>
           <div class="d-flex align-center pa-0 ma-0">
             <v-icon
-
               :color="(currentIng.confidence?.average || 0) < confidenceThreshold ? 'error' : 'success'"
             >
               {{ (currentIng.confidence?.average || 0) < confidenceThreshold ? $globals.icons.alert : $globals.icons.check }}
@@ -363,7 +364,8 @@ async function createMissingUnit() {
   let newUnit: IngredientUnit | null = null;
   if (createdUnits.has(unitData.data.name)) {
     newUnit = createdUnits.get(unitData.data.name)!;
-  } else {
+  }
+  else {
     newUnit = await unitStore.actions.createOne(unitData.data);
   }
 
@@ -388,7 +390,8 @@ async function createMissingFood() {
   let newFood: IngredientFood | null = null;
   if (createdFoods.has(foodData.data.name)) {
     newFood = createdFoods.get(foodData.data.name)!;
-  } else {
+  }
+  else {
     newFood = await foodStore.actions.createOne(foodData.data);
   }
 
