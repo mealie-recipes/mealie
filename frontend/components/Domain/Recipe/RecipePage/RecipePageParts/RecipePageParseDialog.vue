@@ -37,6 +37,9 @@
       <AppLoader v-if="state.loading.parser" waiting-text="" class="my-6" />
       <v-card v-else-if="!state.allReviewed && currentIng">
         <v-card-text class="pb-0 mb-0">
+          <div class="text-center px-8 py-4 mb-6">
+            <p class="text-h5 font-italic">{{ currentIng.input }}</p>
+          </div>
           <div class="d-flex align-center pa-0 ma-0">
             <v-icon
 
@@ -58,9 +61,6 @@
             :food-error="!!currentMissingFood"
             :food-error-tooltip="$t('recipe.parser.this-food-could-not-be-parsed-automatically')"
           />
-          <p class="pt-4 pb-0 my-0">
-            {{ $t("recipe.original-text-with-value", { originalText: currentIng.input }) }}
-          </p>
           <v-card-actions>
             <v-spacer />
             <BaseButton
