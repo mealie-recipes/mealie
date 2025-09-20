@@ -266,6 +266,13 @@ function checkUnit(ing: ParsedIngredient) {
     return;
   }
 
+  const potentialMatch = createdUnits.get(unit.toLowerCase());
+  if (potentialMatch) {
+    ing.ingredient.unit = potentialMatch;
+    currentMissingUnit.value = "";
+    return;
+  }
+
   currentMissingUnit.value = unit;
   ing.ingredient.unit = undefined;
 }
@@ -273,6 +280,13 @@ function checkUnit(ing: ParsedIngredient) {
 function checkFood(ing: ParsedIngredient) {
   const food = ing.ingredient.food?.name;
   if (!food || ing.ingredient.food?.id) {
+    currentMissingFood.value = "";
+    return;
+  }
+
+  const potentialMatch = createdFoods.get(food.toLowerCase());
+  if (potentialMatch) {
+    ing.ingredient.food = potentialMatch;
     currentMissingFood.value = "";
     return;
   }
@@ -330,6 +344,11 @@ async function parseIngredients() {
   }
 }
 
+/** Cache of lowercased created units to avoid duplicate creations */
+const createdUnits = new Map<string, IngredientUnit>();
+/** Cache of lowercased created foods to avoid duplicate creations */
+const createdFoods = new Map<string, IngredientFood>();
+
 async function createMissingUnit() {
   if (!currentMissingUnit.value) {
     return;
@@ -337,13 +356,21 @@ async function createMissingUnit() {
 
   unitData.reset();
   unitData.data.name = currentMissingUnit.value;
-  const unit = await unitStore.actions.createOne(unitData.data);
-  if (!unit) {
+
+  let newUnit: IngredientUnit | null = null;
+  if (createdUnits.has(unitData.data.name)) {
+    newUnit = createdUnits.get(unitData.data.name)!;
+  } else {
+    newUnit = await unitStore.actions.createOne(unitData.data);
+  }
+
+  if (!newUnit) {
     alert.error(i18n.t("events.something-went-wrong"));
     return;
   }
 
-  currentIng.value!.ingredient.unit = unit;
+  currentIng.value!.ingredient.unit = newUnit;
+  createdUnits.set(newUnit.name.toLowerCase(), newUnit);
   currentMissingUnit.value = "";
 }
 
@@ -354,13 +381,21 @@ async function createMissingFood() {
 
   foodData.reset();
   foodData.data.name = currentMissingFood.value;
-  const food = await foodStore.actions.createOne(foodData.data);
-  if (!food) {
+
+  let newFood: IngredientFood | null = null;
+  if (createdFoods.has(foodData.data.name)) {
+    newFood = createdFoods.get(foodData.data.name)!;
+  } else {
+    newFood = await foodStore.actions.createOne(foodData.data);
+  }
+
+  if (!newFood) {
     alert.error(i18n.t("events.something-went-wrong"));
     return;
   }
 
-  currentIng.value!.ingredient.food = food;
+  currentIng.value!.ingredient.food = newFood;
+  createdFoods.set(newFood.name.toLowerCase(), newFood);
   currentMissingFood.value = "";
 }
 
