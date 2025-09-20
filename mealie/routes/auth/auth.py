@@ -1,5 +1,3 @@
-from datetime import timedelta
-
 from authlib.integrations.starlette_client import OAuth
 from fastapi import APIRouter, Depends, Request, Response, status
 from fastapi.exceptions import HTTPException
@@ -25,7 +23,6 @@ public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])
 logger = root_logger.get_logger("auth")
 
-remember_me_duration = timedelta(days=14)
 
 settings = get_app_settings()
 if settings.OIDC_READY:
