@@ -36,7 +36,6 @@ export default defineNuxtPlugin(() => {
 
       // If we receive a 401 Unauthorized response, clear the token cookie and redirect to login
       if (error?.response?.status === 401) {
-
         // If tokenCookie is not set, we may just be an unauthenticated user using the wrong API, so don't redirect
         const tokenCookie = useCookie(tokenName);
         if (tokenCookie.value) {
@@ -44,7 +43,7 @@ export default defineNuxtPlugin(() => {
 
           // Disable beforeunload warnings to prevent "Are you sure you want to leave?" popups
           window.onbeforeunload = null;
-          window.location.href = '/login';
+          window.location.href = "/login";
         }
       }
 
