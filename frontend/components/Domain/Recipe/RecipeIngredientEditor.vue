@@ -194,12 +194,12 @@
             @click="$emit('clickIngredientField', 'note')"
           />
           <BaseButtonGroup
+            v-if="enableContextMenu"
             hover
             :large="false"
             class="my-auto d-flex"
             :buttons="btns"
             @toggle-section="toggleTitle"
-            @toggle-original="toggleOriginalText"
             @insert-above="$emit('insert-above')"
             @insert-below="$emit('insert-below')"
             @delete="$emit('delete')"
@@ -207,13 +207,6 @@
         </div>
       </v-col>
     </v-row>
-    <p
-      v-if="showOriginalText"
-      class="text-caption"
-    >
-      {{ $t("recipe.original-text-with-value", { originalText: model.originalText }) }}
-    </p>
-
     <v-divider
       v-if="!mdAndUp"
       class="my-4"
@@ -251,6 +244,10 @@ defineProps({
     type: String,
     default: "",
   },
+  enableContextMenu: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 defineEmits([
@@ -266,7 +263,6 @@ const { $globals } = useNuxtApp();
 
 const state = reactive({
   showTitle: false,
-  showOriginalText: false,
 });
 
 const contextMenuOptions = computed(() => {
@@ -284,13 +280,6 @@ const contextMenuOptions = computed(() => {
       event: "insert-below",
     },
   ];
-
-  if (model.value.originalText) {
-    options.push({
-      text: i18n.t("recipe.see-original-text"),
-      event: "toggle-original",
-    });
-  }
 
   return options;
 });
@@ -369,10 +358,6 @@ function toggleTitle() {
   state.showTitle = !state.showTitle;
 }
 
-function toggleOriginalText() {
-  state.showOriginalText = !state.showOriginalText;
-}
-
 function handleUnitEnter() {
   if (
     model.value.unit === undefined
@@ -399,7 +384,7 @@ function quantityFilter(e: KeyboardEvent) {
   }
 }
 
-const { showTitle, showOriginalText } = toRefs(state);
+const { showTitle } = toRefs(state);
 
 const foods = foodStore.store;
 const units = unitStore.store;
