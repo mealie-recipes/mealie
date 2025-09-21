@@ -571,8 +571,8 @@
             "delicata squash": {
                 "aliases": [],
                 "description": "",
-                "name": "Courge delicata",
-                "plural_name": "Courges delicata"
+                "name": "courge delicata",
+                "plural_name": "courges delicata"
             },
             "frisee": {
                 "aliases": [],
@@ -583,8 +583,8 @@
             "anaheim pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "Piment d'Anaheim",
-                "plural_name": "Piments d'Anaheim"
+                "name": "piment d'Anaheim",
+                "plural_name": "piments d'Anaheim"
             },
             "cres": {
                 "aliases": [],
@@ -601,8 +601,8 @@
             "arbol chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "Piment de árbol",
-                "plural_name": "Piments de árbol"
+                "name": "piment de árbol",
+                "plural_name": "piments de árbol"
             },
             "golden beet": {
                 "aliases": [],
@@ -613,8 +613,8 @@
             "pea shoot": {
                 "aliases": [],
                 "description": "",
-                "name": "Micro-pousse de pois",
-                "plural_name": "Micro-pousses de pois"
+                "name": "micro-pousse de pois",
+                "plural_name": "micro-pousses de pois"
             },
             "alfalfa": {
                 "aliases": [],
@@ -846,7 +846,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "melon miel",
-                "plural_name": "Melons miel"
+                "plural_name": "melons miel"
             },
             "dried fruit": {
                 "aliases": [],
@@ -947,14 +947,14 @@
             "young coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "Noix de coco jeune",
-                "plural_name": "Noix de coco jeunes"
+                "name": "noix de coco jeune",
+                "plural_name": "noix de coco jeunes"
             },
             "kaffir lime": {
                 "aliases": [],
                 "description": "",
                 "name": "combava",
-                "plural_name": "Combava"
+                "plural_name": "combava"
             },
             "star fruit": {
                 "aliases": [],
@@ -978,19 +978,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "purée de châtaigne",
-                "plural_name": "Purées de châtaigne"
+                "plural_name": "purées de châtaigne"
             },
             "prickly pear": {
                 "aliases": [],
                 "description": "",
-                "name": "Figue de Barbarie",
-                "plural_name": "Figues de Barbarie"
+                "name": "figue de Barbarie",
+                "plural_name": "figues de Barbarie"
             },
             "calamansi": {
                 "aliases": [],
                 "description": "",
-                "name": "Citron des Philippines",
-                "plural_name": "Citrons des Philippines"
+                "name": "citron des Philippines",
+                "plural_name": "citrons des Philippines"
             },
             "yuzu": {
                 "aliases": [],
@@ -1013,8 +1013,8 @@
             "mixed peel": {
                 "aliases": [],
                 "description": "",
-                "name": "Écorces d'agrumes confits",
-                "plural_name": "Écorces d'agrumes confits"
+                "name": "écorces d'agrumes confits",
+                "plural_name": "écorces d'agrumes confits"
             },
             "kokum": {
                 "aliases": [],
@@ -1025,7 +1025,7 @@
             "tangelo": {
                 "aliases": [],
                 "description": "",
-                "name": "Tangelo",
+                "name": "tangelo",
                 "plural_name": "tangelos"
             },
             "dried lime": {
@@ -1049,8 +1049,8 @@
             "custard-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "Pomme-cannelle",
-                "plural_name": "Pommes-cannelles"
+                "name": "pomme-cannelle",
+                "plural_name": "pommes-cannelles"
             },
             "dried lemon": {
                 "aliases": [],
@@ -1086,7 +1086,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sirop de datte",
-                "plural_name": "Sirop de datte"
+                "plural_name": "sirop de datte"
             },
             "physali": {
                 "aliases": [],
@@ -1097,14 +1097,14 @@
             "tamarillo": {
                 "aliases": [],
                 "description": "",
-                "name": "Tamarillo",
-                "plural_name": "Tamarillos"
+                "name": "tamarillo",
+                "plural_name": "tamarillos"
             },
             "ice-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "Pomme glacée",
-                "plural_name": "Pommes glacées"
+                "name": "pomme glacée",
+                "plural_name": "pommes glacées"
             },
             "longan": {
                 "aliases": [],
@@ -1115,8 +1115,8 @@
             "finger lime": {
                 "aliases": [],
                 "description": "",
-                "name": "Citron caviar",
-                "plural_name": "Citrons caviar"
+                "name": "citron caviar",
+                "plural_name": "citrons caviar"
             },
             "bitter orange": {
                 "aliases": [],
@@ -1145,8 +1145,8 @@
             "rose apple": {
                 "aliases": [],
                 "description": "",
-                "name": "Jamrosat",
-                "plural_name": "Jamrosats"
+                "name": "jamrosat",
+                "plural_name": "jamrosats"
             },
             "dried orange slice": {
                 "aliases": [],
@@ -1163,8 +1163,8 @@
             "crabapple": {
                 "aliases": [],
                 "description": "",
-                "name": "Pommier Sauvage",
-                "plural_name": "Pommiers Sauvages"
+                "name": "pommier Sauvage",
+                "plural_name": "pommiers Sauvages"
             },
             "fig leaf": {
                 "aliases": [],
@@ -1175,8 +1175,8 @@
             "freeze-dried pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "Ananas déshydraté",
-                "plural_name": "Ananas déshydratés"
+                "name": "ananas déshydraté",
+                "plural_name": "ananas déshydratés"
             },
             "pluot": {
                 "aliases": [],
@@ -1193,8 +1193,8 @@
             "hog plum": {
                 "aliases": [],
                 "description": "",
-                "name": "Mombin",
-                "plural_name": "Mombins"
+                "name": "mombin",
+                "plural_name": "mombins"
             },
             "bergamot orange": {
                 "aliases": [],
@@ -1211,8 +1211,8 @@
             "mamey": {
                 "aliases": [],
                 "description": "",
-                "name": "Sapote",
-                "plural_name": "Sapotes"
+                "name": "sapote",
+                "plural_name": "sapotes"
             },
             "sapote": {
                 "aliases": [],
@@ -1377,8 +1377,8 @@
             "white beech mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "\nBolet blanc des marais",
-                "plural_name": "\nBolets blancs des marais"
+                "name": "bolet blanc des marais",
+                "plural_name": "bolets blancs des marais"
             },
             "boletu": {
                 "aliases": [],
@@ -1389,8 +1389,8 @@
             "huitlacoche": {
                 "aliases": [],
                 "description": "",
-                "name": "Huitlacoche",
-                "plural_name": "Huitlacoches"
+                "name": "huitlacoche",
+                "plural_name": "huitlacoches"
             },
             "matsutake": {
                 "aliases": [],
@@ -1407,14 +1407,14 @@
             "djon djon mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "Champignon Djondjon",
-                "plural_name": "Champignons Djondjon"
+                "name": "champignon Djondjon",
+                "plural_name": "champignons Djondjon"
             },
             "mixed asian mushroom": {
                 "aliases": [],
                 "description": "",
                 "name": "champignon mixte asiatique",
-                "plural_name": "Mélange de champignons asiatiques"
+                "plural_name": "mélange de champignons asiatiques"
             },
             "puffball": {
                 "aliases": [],
@@ -1425,26 +1425,26 @@
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "Armillaire",
-                "plural_name": "Armillaires"
+                "name": "armillaire",
+                "plural_name": "armillaires"
             },
             "caesar's mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "Oronge",
-                "plural_name": "Oronges"
+                "name": "oronge",
+                "plural_name": "oronges"
             },
             "candy cap mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "Champignon Candy Cap",
-                "plural_name": "Champignons Candy Cap"
+                "name": "champignon Candy Cap",
+                "plural_name": "champignons Candy Cap"
             },
             "lion’s mane mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "Champignon lion's mane",
-                "plural_name": "Champignons lion's mane"
+                "name": "champignon lion's mane",
+                "plural_name": "champignons lion's mane"
             }
         }
     },
@@ -1495,8 +1495,8 @@
             "maraschino cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "Cerise au marasquin",
-                "plural_name": "Cerises au marasquin"
+                "name": "cerise au marasquin",
+                "plural_name": "cerises au marasquin"
             },
             "dried cherry": {
                 "aliases": [],
@@ -1513,8 +1513,8 @@
             "sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "Griotte",
-                "plural_name": "Griottes"
+                "name": "griotte",
+                "plural_name": "griottes"
             },
             "goji berry": {
                 "aliases": [],
@@ -1531,8 +1531,8 @@
             "freeze-dried strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "Fraise déshydratée",
-                "plural_name": "Fraises déshydratées"
+                "name": "fraise déshydratée",
+                "plural_name": "fraises déshydratées"
             },
             "gooseberry": {
                 "aliases": [],
@@ -1543,20 +1543,20 @@
             "freeze-dried raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "Framboise déshydratée",
-                "plural_name": "Framboises déshydratées"
+                "name": "framboise déshydratée",
+                "plural_name": "framboises déshydratées"
             },
             "lingonberry": {
                 "aliases": [],
                 "description": "",
-                "name": "Airelle rouge",
-                "plural_name": "Airelles rouges"
+                "name": "airelle rouge",
+                "plural_name": "airelles rouges"
             },
             "canned sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "Griotte en conserve",
-                "plural_name": "Griottes en conserve"
+                "name": "griotte en conserve",
+                "plural_name": "griottes en conserve"
             },
             "mulberry": {
                 "aliases": [],
@@ -1591,26 +1591,26 @@
             "freeze-dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "Myrtille déshydratée",
-                "plural_name": "Myrtilles déshydratées"
+                "name": "myrtille déshydratée",
+                "plural_name": "myrtilles déshydratées"
             },
             "huckleberry": {
                 "aliases": [],
                 "description": "",
-                "name": "Airelle",
-                "plural_name": "Airelles"
+                "name": "airelle",
+                "plural_name": "airelles"
             },
             "dried elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "Baie de sureau",
-                "plural_name": "Baies de sureau"
+                "name": "baie de sureau",
+                "plural_name": "baies de sureau"
             },
             "barberry": {
                 "aliases": [],
                 "description": "",
-                "name": "Berbéris",
-                "plural_name": "Berbéris"
+                "name": "berbéris",
+                "plural_name": "berbéris"
             },
             "dried berry": {
                 "aliases": [],
@@ -1627,8 +1627,8 @@
             "saskatoon berry": {
                 "aliases": [],
                 "description": "",
-                "name": "Baie d'Amélanchier à feuilles d'aulne",
-                "plural_name": "Baies d'Amélanchier à feuilles d'aulne"
+                "name": "baie d'Amélanchier à feuilles d'aulne",
+                "plural_name": "baies d'Amélanchier à feuilles d'aulne"
             },
             "rosehip": {
                 "aliases": [],
@@ -1652,13 +1652,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "cloudberry",
-                "plural_name": "Mûre arctique"
+                "plural_name": "mûre arctique"
             },
             "freeze-dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "Baie lyophilisée",
-                "plural_name": "Baies lyophilisées"
+                "name": "baie lyophilisée",
+                "plural_name": "baies lyophilisées"
             },
             "aronia berry": {
                 "aliases": [],
@@ -1925,7 +1925,7 @@
             "toasted nut": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted nut",
+                "name": "Noix grillée",
                 "plural_name": "toasted nuts"
             },
             "chironji": {
@@ -2022,7 +2022,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sharp cheddar",
-                "plural_name": "sharp cheddars"
+                "plural_name": "ccheddar fort"
             },
             "cheese": {
                 "aliases": [],
@@ -2051,7 +2051,7 @@
             "cheddar-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheddar-jack cheese",
+                "name": "",
                 "plural_name": "cheddar-jack cheeses"
             },
             "monterey jack": {
@@ -2255,8 +2255,8 @@
             "string cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "string cheese",
-                "plural_name": "string cheeses"
+                "name": "fromage ficelle",
+                "plural_name": "fromages ficelle"
             },
             "camembert": {
                 "aliases": [],
@@ -2321,14 +2321,14 @@
             "creamy cheese wedge": {
                 "aliases": [],
                 "description": "",
-                "name": "creamy cheese wedge",
-                "plural_name": "creamy cheese wedges"
+                "name": "Vache qui rit",
+                "plural_name": "Vache qui rit"
             },
             "cheese powder": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese powder",
-                "plural_name": "cheese powders"
+                "name": "fromage en poudre",
+                "plural_name": "fromages en poudre"
             },
             "fromage blanc": {
                 "aliases": [],
@@ -2400,7 +2400,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fromage feta assaisonné",
-                "plural_name": "seasoned feta cheeses"
+                "plural_name": "fromages de feta assaisonnés"
             },
             "comté": {
                 "aliases": [],
@@ -2465,8 +2465,8 @@
             "sheep cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep cheese",
-                "plural_name": "sheep cheeses"
+                "name": "fromage de brebis",
+                "plural_name": "fromages de brebis"
             },
             "amul cheese": {
                 "aliases": [],
@@ -2735,14 +2735,14 @@
             "curd": {
                 "aliases": [],
                 "description": "",
-                "name": "curd",
-                "plural_name": "curds"
+                "name": "caillé",
+                "plural_name": "caillés"
             },
             "thickened cream": {
                 "aliases": [],
                 "description": "",
-                "name": "thickened cream",
-                "plural_name": "thickened creams"
+                "name": "crème épaisse",
+                "plural_name": "crèmes épaisses"
             },
             "lemon curd": {
                 "aliases": [],
@@ -2855,14 +2855,14 @@
             "cheese curd": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese curd",
-                "plural_name": "cheese curds"
+                "name": "fromage en grains",
+                "plural_name": "fromages en grains"
             },
             "sour milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sour milk",
-                "plural_name": "sour milks"
+                "name": "lait fermenté",
+                "plural_name": "laits fermentés"
             },
             "ganache": {
                 "aliases": [],
@@ -2933,8 +2933,8 @@
             "yogurt starter": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt starter",
-                "plural_name": "yogurt starters"
+                "name": "ferment lactique",
+                "plural_name": "ferments lactiques"
             },
             "rainbow sherbet": {
                 "aliases": [],
@@ -3526,7 +3526,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "boulette de viande végan",
-                "plural_name": "vegan meatballs"
+                "plural_name": "boulettes de viande végan"
             },
             "almond-milk yogurt": {
                 "aliases": [],
@@ -3609,8 +3609,8 @@
             "soy-free butter": {
                 "aliases": [],
                 "description": "",
-                "name": "soy-free butter",
-                "plural_name": "soy-free butter"
+                "name": "beurre sans soja",
+                "plural_name": "beurre sans soja"
             },
             "tofurky": {
                 "aliases": [],
@@ -3639,8 +3639,8 @@
             "cricket flour": {
                 "aliases": [],
                 "description": "",
-                "name": "cricket flour",
-                "plural_name": "cricket flours"
+                "name": "farine de grillon",
+                "plural_name": "farines de grillon"
             },
             "macadamia butter": {
                 "aliases": [],
@@ -3752,7 +3752,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bœuf haché",
-                "plural_name": "ground beefs"
+                "plural_name": "Bœufs hachés"
             },
             "beef steak": {
                 "aliases": [],
@@ -3769,8 +3769,8 @@
             "pork chop": {
                 "aliases": [],
                 "description": "",
-                "name": "pork chop",
-                "plural_name": "pork chops"
+                "name": "côtelette de porc",
+                "plural_name": "côtelettes de porc"
             },
             "sweet italian sausage": {
                 "aliases": [],
@@ -3781,8 +3781,8 @@
             "pork loin": {
                 "aliases": [],
                 "description": "",
-                "name": "pork loin",
-                "plural_name": "pork loins"
+                "name": "longe de porc",
+                "plural_name": "longes de porc"
             },
             "prosciutto": {
                 "aliases": [],
@@ -3806,7 +3806,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "porc haché",
-                "plural_name": "ground porks"
+                "plural_name": "porcs haché"
             },
             "beef stew meat": {
                 "aliases": [],
@@ -3877,8 +3877,8 @@
             "beef sirloin": {
                 "aliases": [],
                 "description": "",
-                "name": "beef sirloin",
-                "plural_name": "beef sirloins"
+                "name": "faux-filet de boeuf",
+                "plural_name": "faux-filets de boeuf"
             },
             "salami": {
                 "aliases": [],
@@ -3889,8 +3889,8 @@
             "brisket": {
                 "aliases": [],
                 "description": "",
-                "name": "brisket",
-                "plural_name": "briskets"
+                "name": "poitrine",
+                "plural_name": "poitrines"
             },
             "deli ham": {
                 "aliases": [],
@@ -3901,14 +3901,14 @@
             "leg of lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "leg of lamb",
-                "plural_name": "leg of lamb"
+                "name": "gigot d'agneau",
+                "plural_name": "gigots d'agneau"
             },
             "beef short rib": {
                 "aliases": [],
                 "description": "",
-                "name": "beef short rib",
-                "plural_name": "beef short ribs"
+                "name": "plat-de-côtes",
+                "plural_name": "plat-de-côtes"
             },
             "kielbasa": {
                 "aliases": [],
@@ -3919,8 +3919,8 @@
             "pork belly": {
                 "aliases": [],
                 "description": "",
-                "name": "pork belly",
-                "plural_name": "pork bellies"
+                "name": "poitrine de porc",
+                "plural_name": "poitrines de porc"
             },
             "andouille": {
                 "aliases": [],
@@ -3949,20 +3949,20 @@
             "roast beef": {
                 "aliases": [],
                 "description": "",
-                "name": "roast beef",
-                "plural_name": "roast beefs"
+                "name": "rosbif",
+                "plural_name": "rosbifs"
             },
             "bacon bit": {
                 "aliases": [],
                 "description": "",
-                "name": "bacon bit",
-                "plural_name": "bacon bits"
+                "name": "morceau de bacon",
+                "plural_name": "morceaux de bacon"
             },
             "pork roast": {
                 "aliases": [],
                 "description": "",
-                "name": "pork roast",
-                "plural_name": "pork roasts"
+                "name": "rôti de porc",
+                "plural_name": "rôtis de porc"
             },
             "hot italian sausage": {
                 "aliases": [],
@@ -3973,32 +3973,32 @@
             "pork spare rib": {
                 "aliases": [],
                 "description": "",
-                "name": "pork spare rib",
-                "plural_name": "pork spare ribs"
+                "name": "carré de porc",
+                "plural_name": "carrés de porc"
             },
             "lamb shoulder": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb shoulder",
-                "plural_name": "lamb shoulders"
+                "name": "épaule d'agneau",
+                "plural_name": "épaules d'agneau"
             },
             "beef rib": {
                 "aliases": [],
                 "description": "",
-                "name": "beef rib",
-                "plural_name": "beef ribs"
+                "name": "côte de bœuf",
+                "plural_name": "côtes de bœuf"
             },
             "veal steak": {
                 "aliases": [],
                 "description": "",
-                "name": "veal steak",
-                "plural_name": "veal steaks"
+                "name": "steak de veau",
+                "plural_name": "steaks de veau"
             },
             "lamb chop": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb chop",
-                "plural_name": "lamb chops"
+                "name": "côtelette d'agneau",
+                "plural_name": "côtelettes d'agneau"
             },
             "bone-in ham": {
                 "aliases": [],
@@ -4009,14 +4009,14 @@
             "pork butt": {
                 "aliases": [],
                 "description": "",
-                "name": "pork butt",
-                "plural_name": "pork butts"
+                "name": "crosse de porc",
+                "plural_name": "crosses de porc"
             },
             "canadian bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "canadian bacon",
-                "plural_name": "canadian bacons"
+                "name": "bacon canadien",
+                "plural_name": "bacons canadiens"
             },
             "beef sausage": {
                 "aliases": [],
@@ -4159,14 +4159,14 @@
             "serrano ham": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano ham",
-                "plural_name": "serrano hams"
+                "name": "jambon Serrano",
+                "plural_name": "jambons Serrano"
             },
             "raw chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "raw chorizo",
-                "plural_name": "raw chorizoes"
+                "name": "chorizo cru",
+                "plural_name": "chorizos crus"
             },
             "beef liver": {
                 "aliases": [],
@@ -4207,8 +4207,8 @@
             "veal shank": {
                 "aliases": [],
                 "description": "",
-                "name": "veal shank",
-                "plural_name": "veal shanks"
+                "name": "jarret de Veau",
+                "plural_name": "jarrets de Veau"
             },
             "ground venison": {
                 "aliases": [],
@@ -4219,14 +4219,14 @@
             "beef shank": {
                 "aliases": [],
                 "description": "",
-                "name": "beef shank",
-                "plural_name": "beef shanks"
+                "name": "jarret de bœuf",
+                "plural_name": "jarrets de bœuf"
             },
             "lap cheong": {
                 "aliases": [],
                 "description": "",
-                "name": "lap cheong",
-                "plural_name": "lap cheongs"
+                "name": "saucisse chinoise",
+                "plural_name": "saucisses chinoises"
             },
             "blood sausage": {
                 "aliases": [],
@@ -4237,8 +4237,8 @@
             "dried beef": {
                 "aliases": [],
                 "description": "",
-                "name": "dried beef",
-                "plural_name": "dried beefs"
+                "name": "bœuf séché",
+                "plural_name": "bœufs séchés"
             },
             "gammon joint": {
                 "aliases": [],
@@ -4273,8 +4273,8 @@
             "ground bison": {
                 "aliases": [],
                 "description": "",
-                "name": "ground bison",
-                "plural_name": "ground bisons"
+                "name": "bison haché",
+                "plural_name": "bisons hachés"
             },
             "fresh sausage": {
                 "aliases": [],
@@ -4291,8 +4291,8 @@
             "burger patty": {
                 "aliases": [],
                 "description": "",
-                "name": "burger patty",
-                "plural_name": "burger patties"
+                "name": "steak haché",
+                "plural_name": "steaks hachés"
             },
             "smoked pork chop": {
                 "aliases": [],
@@ -4487,8 +4487,8 @@
             "chicken quarter": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken quarter",
-                "plural_name": "chicken quarters"
+                "name": "cuisse de poulet",
+                "plural_name": "cuisses de poulet"
             },
             "ground turkey sausage": {
                 "aliases": [],
@@ -4589,7 +4589,7 @@
             "turkey neck": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey neck",
+                "name": "",
                 "plural_name": "turkey necks"
             },
             "chicken nugget": {

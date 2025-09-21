@@ -624,6 +624,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Sa võid otse importida töötlemata andmetest",
     "import-original-keywords-as-tags": "Impordi originaal võtmesõnad siltidena",
     "stay-in-edit-mode": "Püsige redigeerimisrežiimis",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Impordi .zip-st",
     "import-from-zip-description": "Impordi üks retsept, mis oli eksporditud teisest Mealie paigaldusest.",
     "import-from-html-or-json": "Impordi HTMLst või JSONist",
@@ -669,7 +670,13 @@
       "missing-food": "Loo puuduv toit: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
-      "no-food": "Toit puudub"
+      "no-food": "Toit puudub",
+      "parsing-completed": "Parsing Completed",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
     },
     "reset-servings-count": "Lähtesta portsionite arv",
     "not-linked-ingredients": "Lisa-koostisosad",

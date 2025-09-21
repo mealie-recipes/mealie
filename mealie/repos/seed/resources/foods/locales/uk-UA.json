@@ -4,399 +4,399 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic",
-                "plural_name": "garlics"
+                "name": "часник",
+                "plural_name": "часник"
             },
             "onion": {
                 "aliases": [],
                 "description": "",
-                "name": "onion",
-                "plural_name": "onions"
+                "name": "цибуля",
+                "plural_name": "цибуля"
             },
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "bell pepper",
-                "plural_name": "bell peppers"
+                "name": "болгарський перець",
+                "plural_name": "болгарські перці"
             },
             "carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "carrot",
-                "plural_name": "carrots"
+                "name": "морква",
+                "plural_name": "моркви"
             },
             "scallion": {
                 "aliases": [],
                 "description": "",
-                "name": "scallion",
-                "plural_name": "scallions"
+                "name": "зелена цибуля",
+                "plural_name": "зелені цибулі"
             },
             "zucchini": {
                 "aliases": [],
                 "description": "",
-                "name": "zucchini",
-                "plural_name": "zucchinis"
+                "name": "цукіні",
+                "plural_name": "цукіні"
             },
             "potato": {
                 "aliases": [],
                 "description": "",
-                "name": "potato",
-                "plural_name": "potatoes"
+                "name": "картопля",
+                "plural_name": "картоплини"
             },
             "red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "red onion",
-                "plural_name": "red onions"
+                "name": "червона цибуля",
+                "plural_name": "червоні цибулі"
             },
             "yellow onion": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow onion",
-                "plural_name": "yellow onions"
+                "name": "жовта цибуля",
+                "plural_name": "жовті цибулі"
             },
             "celery": {
                 "aliases": [],
                 "description": "",
-                "name": "celery",
-                "plural_name": "celeries"
+                "name": "селера",
+                "plural_name": "селери"
             },
             "jalapeno": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeno",
-                "plural_name": "jalapenoes"
+                "name": "халапеньйо",
+                "plural_name": "халапеньйо"
             },
             "avocado": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado",
-                "plural_name": "avocados"
+                "name": "авокадо",
+                "plural_name": "авокадо"
             },
             "shallot": {
                 "aliases": [],
                 "description": "",
-                "name": "shallot",
-                "plural_name": "shallots"
+                "name": "цибуля шалот",
+                "plural_name": "цибулі шалот"
             },
             "cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry tomato",
-                "plural_name": "cherry tomatoes"
+                "name": "помідор чері",
+                "plural_name": "помідори чері"
             },
             "cucumber": {
                 "aliases": [],
                 "description": "",
-                "name": "cucumber",
-                "plural_name": "cucumbers"
+                "name": "Огірок",
+                "plural_name": "огірки"
             },
             "spinach": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach",
-                "plural_name": "spinaches"
+                "name": "шпинат",
+                "plural_name": "шпинат"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet corn",
-                "plural_name": "sweet corns"
+                "name": "солодка кукурудза",
+                "plural_name": "солодка кукурудза"
             },
             "chile pepper": {
                 "aliases": [
-                    "capsicum"
+                    "стручковий перець"
                 ],
                 "description": "",
-                "name": "chile pepper",
-                "plural_name": "chile peppers"
+                "name": "перець чилі",
+                "plural_name": "перець чилі"
             },
             "sweet potato": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet potato",
-                "plural_name": "sweet potatoes"
+                "name": "батат",
+                "plural_name": "батат"
             },
             "broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli",
-                "plural_name": "broccolis"
+                "name": "брокколі",
+                "plural_name": "брокколі"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
-                "name": "heart of palm",
-                "plural_name": "heart of palms"
+                "name": "серцевина пальми",
+                "plural_name": "серцевина пальм"
             },
             "baby green": {
                 "aliases": [],
                 "description": "",
-                "name": "baby green",
-                "plural_name": "baby greens"
+                "name": "молода зелень",
+                "plural_name": "молода зелень"
             },
             "pumpkin": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin",
-                "plural_name": "pumpkins"
+                "name": "гарбуз",
+                "plural_name": "гарбузи"
             },
             "cauliflower": {
                 "aliases": [],
                 "description": "",
-                "name": "cauliflower",
-                "plural_name": "cauliflowers"
+                "name": "цвітна капуста",
+                "plural_name": "цвітні капусти"
             },
             "cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "cabbage",
-                "plural_name": "cabbages"
+                "name": "капуста",
+                "plural_name": "капусти"
             },
             "asparagu": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagu",
-                "plural_name": "asparagus"
+                "name": "спаржа",
+                "plural_name": "спаржа"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
-                "name": "kale",
-                "plural_name": "kales"
+                "name": "капуста калі",
+                "plural_name": "капуста калі"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
-                "name": "arugula",
-                "plural_name": "arugulas"
+                "name": "рукола",
+                "plural_name": "рукола"
             },
             "leek": {
                 "aliases": [],
                 "description": "",
-                "name": "leek",
-                "plural_name": "leeks"
+                "name": "цибуля-порей",
+                "plural_name": "цибулі-порей"
             },
             "eggplant": {
                 "aliases": [],
                 "description": "",
-                "name": "eggplant",
-                "plural_name": "eggplants"
+                "name": "баклажан",
+                "plural_name": "баклажани"
             },
             "lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "lettuce",
-                "plural_name": "lettuces"
+                "name": "салат латук",
+                "plural_name": "салат латук"
             },
             "butternut squash": {
                 "aliases": [],
                 "description": "",
-                "name": "butternut squash",
-                "plural_name": "butternut squashes"
+                "name": "мускатний гарбуз",
+                "plural_name": "мускатні гарбузи"
             },
             "romaine": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine",
-                "plural_name": "romaines"
+                "name": "салат ромен",
+                "plural_name": "салати ромен"
             },
             "beetroot": {
                 "aliases": [],
                 "description": "",
-                "name": "beetroot",
-                "plural_name": "beetroots"
+                "name": "буряк",
+                "plural_name": "буряки"
             },
             "brussels sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "brussels sprout",
-                "plural_name": "brussels sprouts"
+                "name": "брюссельська капуста",
+                "plural_name": "брюссельські капусти"
             },
             "fennel": {
                 "aliases": [],
                 "description": "",
-                "name": "fennel",
-                "plural_name": "fennels"
+                "name": "кріп",
+                "plural_name": "кріп"
             },
             "sun dried tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "sun dried tomato",
-                "plural_name": "sun dried tomatoes"
+                "name": "вялені помідори",
+                "plural_name": "вялені помідори"
             },
             "radish": {
                 "aliases": [],
                 "description": "",
-                "name": "radish",
-                "plural_name": "radishes"
+                "name": "редис",
+                "plural_name": "редиски"
             },
             "red cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "red cabbage",
-                "plural_name": "red cabbages"
+                "name": "червона капуста",
+                "plural_name": "червоні капустини"
             },
             "artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke",
-                "plural_name": "artichokes"
+                "name": "Артишок",
+                "plural_name": "Артишоки"
             },
             "new potato": {
                 "aliases": [],
                 "description": "",
-                "name": "new potato",
-                "plural_name": "new potatoes"
+                "name": "Молода картопля",
+                "plural_name": "Молодої картоплі"
             },
             "summer squash": {
                 "aliases": [
-                    "courgette",
-                    "gem squash"
+                    "Кабачок",
+                    "Гарбуз Сквош (gem squash)"
                 ],
                 "description": "",
-                "name": "summer squash",
-                "plural_name": "summer squashes"
+                "name": "Літній кабачок",
+                "plural_name": "Літні кабачки"
             },
             "mixed green": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed green",
-                "plural_name": "mixed greens"
+                "name": "Мікс зелені салату",
+                "plural_name": "Мікси зелені салату"
             },
             "parsnip": {
                 "aliases": [],
                 "description": "",
-                "name": "parsnip",
-                "plural_name": "parsnips"
+                "name": "Пастернак",
+                "plural_name": "Пастернаки"
             },
             "baby carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "baby carrot",
-                "plural_name": "baby carrots"
+                "name": "Морква міні",
+                "plural_name": "Моркви міні"
             },
             "mixed vegetable": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetable",
-                "plural_name": "mixed vegetables"
+                "name": "Суміш овочів",
+                "plural_name": "Суміші овочів"
             },
             "poblano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "poblano pepper",
-                "plural_name": "poblano peppers"
+                "name": "Перець Поблано",
+                "plural_name": "Перці Поблано"
             },
             "sweet pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet pepper",
-                "plural_name": "sweet peppers"
+                "name": "Перець солодкий",
+                "plural_name": "Перці солодки"
             },
             "serrano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano pepper",
-                "plural_name": "serrano peppers"
+                "name": "Перець серрано",
+                "plural_name": "Перці серрано"
             },
             "cayenne pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "cayenne pepper",
-                "plural_name": "cayenne peppers"
+                "name": "Перець каєнський",
+                "plural_name": "Перці каєнські"
             },
             "green tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "green tomato",
-                "plural_name": "green tomatoes"
+                "name": "Помідор зелений",
+                "plural_name": "Помідори зелені"
             },
             "watercress": {
                 "aliases": [],
                 "description": "",
-                "name": "watercress",
-                "plural_name": "watercress"
+                "name": "Настурція",
+                "plural_name": "Настурції"
             },
             "iceberg": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg",
-                "plural_name": "icebergs"
+                "name": "Салат Айсберг",
+                "plural_name": "Салати Айсберг"
             },
             "mashed potato": {
                 "aliases": [],
                 "description": "",
-                "name": "mashed potato",
-                "plural_name": "mashed potatoes"
+                "name": "Картопляна пюре",
+                "plural_name": "Картопляні пюре"
             },
             "horseradish": {
                 "aliases": [],
                 "description": "",
-                "name": "horseradish",
-                "plural_name": "horseradishes"
+                "name": "Хрін",
+                "plural_name": "Хріни"
             },
             "chard": {
                 "aliases": [],
                 "description": "",
-                "name": "chard",
-                "plural_name": "chards"
+                "name": "Мангольд або буряк листовий",
+                "plural_name": "Мангольді або буряки листові"
             },
             "pimiento": {
                 "aliases": [],
                 "description": "",
-                "name": "pimiento",
-                "plural_name": "pimientoes"
+                "name": "Перець Піменто",
+                "plural_name": "Переці Піменто"
             },
             "spaghetti squash": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti squash",
-                "plural_name": "spaghetti squashes"
+                "name": "Кабачок-спагеті",
+                "plural_name": "Кабачки-спагеті "
             },
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter lettuce",
-                "plural_name": "butter lettuces"
+                "name": "Масляний салат Баттерхед",
+                "plural_name": "Масляні салати Баттерхед"
             },
             "hash brown": {
                 "aliases": [],
                 "description": "",
-                "name": "hash brown",
-                "plural_name": "hash browns"
+                "name": "Дранік",
+                "plural_name": "Драніки"
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "Капуста китайська"
                 ],
                 "description": "",
-                "name": "napa cabbage",
-                "plural_name": "napa cabbages"
+                "name": "Капусти китайські",
+                "plural_name": "Капуста пекінська"
             },
             "celeriac": {
                 "aliases": [],
                 "description": "",
-                "name": "celeriac",
-                "plural_name": "celeriacs"
+                "name": "Капусти пекінські",
+                "plural_name": "Селера"
             },
             "water chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "water chestnut",
-                "plural_name": "water chestnuts"
+                "name": "Горіх водяний",
+                "plural_name": "Горіхи водяні"
             },
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "Ріпа",
+                "plural_name": "Ріпи"
             },
             "thai chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chile pepper",
-                "plural_name": "thai chile peppers"
+                "name": "Перець чилі тайський",
+                "plural_name": "Переці чилі тайський"
             },
             "bok choy": {
                 "aliases": [],
@@ -530,97 +530,97 @@
                 "aliases": [],
                 "description": "",
                 "name": "belgian endive",
-                "plural_name": "belgian endives"
+                "plural_name": "цикорій вітлуф (шикон)"
             },
             "yam": {
                 "aliases": [],
                 "description": "",
-                "name": "yam",
-                "plural_name": "yams"
+                "name": "ямс",
+                "plural_name": "ямси"
             },
             "ancho chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "ancho chile pepper",
-                "plural_name": "ancho chile peppers"
+                "name": "червоний поблано",
+                "plural_name": "червоні поблано"
             },
             "microgreen": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreen",
-                "plural_name": "microgreens"
+                "name": "мікрозелень",
+                "plural_name": "мікрозелені"
             },
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "boston lettuce",
-                "plural_name": "boston lettuces"
+                "name": "салат Бостон",
+                "plural_name": "салат Бостон"
             },
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
-                "name": "kohlrabi",
-                "plural_name": "kohlrabis"
+                "name": "кольрабі",
+                "plural_name": "кольрабі"
             },
             "fresno chile": {
                 "aliases": [],
                 "description": "",
-                "name": "fresno chile",
-                "plural_name": "fresno chiles"
+                "name": "перець чилі фресно",
+                "plural_name": "перець чилі фресно"
             },
             "delicata squash": {
                 "aliases": [],
                 "description": "",
-                "name": "delicata squash",
-                "plural_name": "delicata squashes"
+                "name": "гарбуз деліката",
+                "plural_name": "гарбузи деліката"
             },
             "frisee": {
                 "aliases": [],
                 "description": "",
-                "name": "frisee",
-                "plural_name": "frisees"
+                "name": "кучерявий цикорій",
+                "plural_name": "кучеряві цикорії"
             },
             "anaheim pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "anaheim pepper",
-                "plural_name": "anaheim peppers"
+                "name": "анагаймський гострий перець",
+                "plural_name": "анагаймські гострі перці"
             },
             "cres": {
                 "aliases": [],
                 "description": "",
-                "name": "cres",
-                "plural_name": "cress"
+                "name": "крес-салат",
+                "plural_name": "крес-салат"
             },
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli slaw",
-                "plural_name": "broccoli slaws"
+                "name": "броколі",
+                "plural_name": "броколі"
             },
             "arbol chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "arbol chile pepper",
-                "plural_name": "arbol chile peppers"
+                "name": "чилі де арбол",
+                "plural_name": "чилі де арбол"
             },
             "golden beet": {
                 "aliases": [],
                 "description": "",
-                "name": "golden beet",
-                "plural_name": "golden beets"
+                "name": "золотий буряк",
+                "plural_name": "золоті буряки"
             },
             "pea shoot": {
                 "aliases": [],
                 "description": "",
-                "name": "pea shoot",
-                "plural_name": "pea shoots"
+                "name": "паросток гороху",
+                "plural_name": "паростки гороху"
             },
             "alfalfa": {
                 "aliases": [],
                 "description": "",
-                "name": "alfalfa",
-                "plural_name": "alfalfas"
+                "name": "люцерна посівна",
+                "plural_name": "люцерна посівна"
             }
         }
     },
@@ -628,57 +628,57 @@
         "foods": {
             "tomato": {
                 "aliases": [],
-                "description": "Yes they are a fruit",
-                "name": "tomato",
-                "plural_name": "tomatoes"
+                "description": "Так, це фрукти",
+                "name": "помідор",
+                "plural_name": "помідори"
             },
             "lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon",
-                "plural_name": "lemons"
+                "name": "лимон",
+                "plural_name": "лимони"
             },
             "lime": {
                 "aliases": [],
                 "description": "",
-                "name": "lime",
-                "plural_name": "limes"
+                "name": "лайм",
+                "plural_name": "лайми"
             },
             "apple": {
                 "aliases": [],
                 "description": "",
-                "name": "apple",
-                "plural_name": "apples"
+                "name": "яблуко",
+                "plural_name": "яблука"
             },
             "banana": {
                 "aliases": [],
                 "description": "",
-                "name": "banana",
-                "plural_name": "bananas"
+                "name": "банан",
+                "plural_name": "банани"
             },
             "orange": {
                 "aliases": [],
                 "description": "",
-                "name": "orange",
-                "plural_name": "oranges"
+                "name": "апельсин",
+                "plural_name": "апельсини"
             },
             "raisin": {
                 "aliases": [],
                 "description": "",
-                "name": "raisin",
-                "plural_name": "raisins"
+                "name": "родзинка",
+                "plural_name": "родзинки"
             },
             "pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple",
-                "plural_name": "pineapples"
+                "name": "ананас",
+                "plural_name": "ананаси"
             },
             "mango": {
                 "aliases": [],
                 "description": "",
-                "name": "mango",
-                "plural_name": "mangoes"
+                "name": "манго",
+                "plural_name": "манго"
             },
             "peach": {
                 "aliases": [],
@@ -701,452 +701,452 @@
             "craisin": {
                 "aliases": [],
                 "description": "",
-                "name": "craisin",
-                "plural_name": "craisins"
+                "name": "Сушена журавлина",
+                "plural_name": "Сушені журавлини"
             },
             "pear": {
                 "aliases": [],
                 "description": "",
-                "name": "pear",
-                "plural_name": "pears"
+                "name": "Груша",
+                "plural_name": "Груші"
             },
             "grape": {
                 "aliases": [],
                 "description": "",
-                "name": "grape",
-                "plural_name": "grapes"
+                "name": "Виноград",
+                "plural_name": "Винограду"
             },
             "pomegranate": {
                 "aliases": [],
                 "description": "",
-                "name": "pomegranate",
-                "plural_name": "pomegranates"
+                "name": "Гранат",
+                "plural_name": "Гранати"
             },
             "watermelon": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon",
-                "plural_name": "watermelons"
+                "name": "Кавун",
+                "plural_name": "Кавунів"
             },
             "rhubarb": {
                 "aliases": [],
                 "description": "",
-                "name": "rhubarb",
-                "plural_name": "rhubarbs"
+                "name": "Ревінь",
+                "plural_name": "Ревіню"
             },
             "dried apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apricot",
-                "plural_name": "dried apricots"
+                "name": "Курага",
+                "plural_name": "Кураги"
             },
             "kiwi": {
                 "aliases": [],
                 "description": "",
-                "name": "kiwi",
-                "plural_name": "kiwis"
+                "name": "Ківі",
+                "plural_name": "Ківі"
             },
             "grapefruit": {
                 "aliases": [],
                 "description": "",
-                "name": "grapefruit",
-                "plural_name": "grapefruits"
+                "name": "Грейпфрут",
+                "plural_name": "Грейпфрутів"
             },
             "plum": {
                 "aliases": [],
                 "description": "",
-                "name": "plum",
-                "plural_name": "plums"
+                "name": "Слива",
+                "plural_name": "Слив"
             },
             "fig": {
                 "aliases": [],
                 "description": "",
-                "name": "fig",
-                "plural_name": "figs"
+                "name": "Інжир",
+                "plural_name": "Інжиру"
             },
             "apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "apricot",
-                "plural_name": "apricots"
+                "name": "Абрикос",
+                "plural_name": "Абрикосів"
             },
             "currant": {
                 "aliases": [],
                 "description": "",
-                "name": "currant",
-                "plural_name": "currants"
+                "name": "Порічка",
+                "plural_name": "Порічки"
             },
             "mandarin": {
                 "aliases": [],
                 "description": "",
-                "name": "mandarin",
-                "plural_name": "mandarins"
+                "name": "Мандарин",
+                "plural_name": "Мандаринів"
             },
             "prune": {
                 "aliases": [],
                 "description": "",
-                "name": "prune",
-                "plural_name": "prunes"
+                "name": "Чорнослив",
+                "plural_name": "Чорносливів"
             },
             "cantaloupe": {
                 "aliases": [],
                 "description": "",
-                "name": "cantaloupe",
-                "plural_name": "cantaloupes"
+                "name": "Диня Канталуп",
+                "plural_name": "Динь Канталуп"
             },
             "sultana": {
                 "aliases": [],
                 "description": "",
-                "name": "sultana",
-                "plural_name": "sultanas"
+                "name": "Родзинка",
+                "plural_name": "Родзинки"
             },
             "passion fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "passion fruit",
-                "plural_name": "passion fruits"
+                "name": "Маракуя",
+                "plural_name": "Маракуї"
             },
             "papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "papaya",
-                "plural_name": "papayas"
+                "name": "Папая",
+                "plural_name": "Папаї"
             },
             "tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarind",
-                "plural_name": "tamarinds"
+                "name": "Тамаринд",
+                "plural_name": "Тамариндів"
             },
             "nectarine": {
                 "aliases": [],
                 "description": "",
-                "name": "nectarine",
-                "plural_name": "nectarines"
+                "name": "Нектарин",
+                "plural_name": "Нектаринів"
             },
             "dried fig": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fig",
-                "plural_name": "dried figs"
+                "name": "Інжир сушений",
+                "plural_name": "Інжирів сушених"
             },
             "chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut",
-                "plural_name": "chestnuts"
+                "name": "каштан",
+                "plural_name": "каштани"
             },
             "meyer lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "meyer lemon",
-                "plural_name": "meyer lemons"
+                "name": "Лимон Меєра",
+                "plural_name": "Лимони Меєра"
             },
             "honeydew melon": {
                 "aliases": [],
                 "description": "",
-                "name": "honeydew melon",
-                "plural_name": "honeydew melons"
+                "name": "Біла мускатна диня",
+                "plural_name": "Білі мускатні дині"
             },
             "dried fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fruit",
-                "plural_name": "dried fruits"
+                "name": "сухофрукт",
+                "plural_name": "Сухофрукти"
             },
             "clementine": {
                 "aliases": [],
                 "description": "",
-                "name": "clementine",
-                "plural_name": "clementines"
+                "name": "Мандарин Клементин",
+                "plural_name": "Мандарини Клементині"
             },
             "persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "persimmon",
-                "plural_name": "persimmons"
+                "name": "Хурма",
+                "plural_name": "Хурми"
             },
             "melon": {
                 "aliases": [],
                 "description": "",
-                "name": "melon",
-                "plural_name": "melons"
+                "name": "диня",
+                "plural_name": "дині"
             },
             "tangerine": {
                 "aliases": [],
                 "description": "",
-                "name": "tangerine",
-                "plural_name": "tangerines"
+                "name": "Мандарин Танжерин",
+                "plural_name": "Мандарини Танжерини"
             },
             "dried mango": {
                 "aliases": [],
                 "description": "",
-                "name": "dried mango",
-                "plural_name": "dried mangoes"
+                "name": "Сушений манго",
+                "plural_name": "Сушені манго"
             },
             "dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apple",
-                "plural_name": "dried apples"
+                "name": "сушене яблуко",
+                "plural_name": "сушені яблука"
             },
             "quince": {
                 "aliases": [],
                 "description": "",
-                "name": "quince",
-                "plural_name": "quinces"
+                "name": "айва",
+                "plural_name": "айва"
             },
             "guava": {
                 "aliases": [],
                 "description": "",
-                "name": "guava",
-                "plural_name": "guavas"
+                "name": "Гуаява ",
+                "plural_name": "Гуаява"
             },
             "banana chip": {
                 "aliases": [],
                 "description": "",
-                "name": "banana chip",
-                "plural_name": "banana chips"
+                "name": "Бананові чипси",
+                "plural_name": "Бананові чипси"
             },
             "kumquat": {
                 "aliases": [],
                 "description": "",
-                "name": "kumquat",
-                "plural_name": "kumquats"
+                "name": "кумкват",
+                "plural_name": "кумквати"
             },
             "jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit",
-                "plural_name": "jackfruits"
+                "name": "Джекфрут",
+                "plural_name": "Джекфрути"
             },
             "dragon fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "dragon fruit",
-                "plural_name": "dragon fruits"
+                "name": "Пітахая",
+                "plural_name": "Пітахая"
             },
             "mixed fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed fruit",
-                "plural_name": "mixed fruits"
+                "name": "Суміш фруктів",
+                "plural_name": "Суміші фруктів"
             },
             "asian pear": {
                 "aliases": [],
                 "description": "",
-                "name": "asian pear",
-                "plural_name": "asian pears"
+                "name": "Японська груша",
+                "plural_name": "Японські груші"
             },
             "lychee": {
                 "aliases": [],
                 "description": "",
-                "name": "lychee",
-                "plural_name": "lychees"
+                "name": "лічі",
+                "plural_name": "лічі"
             },
             "young coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "young coconut",
-                "plural_name": "young coconuts"
+                "name": "Молодий кокос",
+                "plural_name": "Молоді кокоси"
             },
             "kaffir lime": {
                 "aliases": [],
                 "description": "",
-                "name": "kaffir lime",
-                "plural_name": "kaffir limes"
+                "name": "Кафрський лайм ",
+                "plural_name": "Кафрські лайми"
             },
             "star fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "star fruit",
-                "plural_name": "star fruits"
+                "name": "Карамбола",
+                "plural_name": "Карамболи"
             },
             "green papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "green papaya",
-                "plural_name": "green papayas"
+                "name": "зелена папая",
+                "plural_name": "Зелені папаї"
             },
             "pomelo": {
                 "aliases": [],
                 "description": "",
-                "name": "pomelo",
-                "plural_name": "pomeloes"
+                "name": "помело",
+                "plural_name": "помело"
             },
             "chestnut puree": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut puree",
-                "plural_name": "chestnut purees"
+                "name": "Каштанове пюре",
+                "plural_name": "Каштанове пюре"
             },
             "prickly pear": {
                 "aliases": [],
                 "description": "",
-                "name": "prickly pear",
-                "plural_name": "prickly pears"
+                "name": "Колюча груша",
+                "plural_name": "Колючих груш"
             },
             "calamansi": {
                 "aliases": [],
                 "description": "",
-                "name": "calamansi",
-                "plural_name": "calamansis"
+                "name": "Марум кумкват",
+                "plural_name": "Марум кумкватів"
             },
             "yuzu": {
                 "aliases": [],
                 "description": "",
-                "name": "yuzu",
-                "plural_name": "yuzus"
+                "name": "Юзу",
+                "plural_name": "Юзу"
             },
             "granadilla": {
                 "aliases": [],
                 "description": "",
-                "name": "granadilla",
-                "plural_name": "granadillas"
+                "name": "Пасифлора солодка",
+                "plural_name": "Пасифлори солодкі"
             },
             "apple chip": {
                 "aliases": [],
                 "description": "",
-                "name": "apple chip",
-                "plural_name": "apple chips"
+                "name": "Яблучні чіпси",
+                "plural_name": "Яблучні чіпси"
             },
             "mixed peel": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed peel",
-                "plural_name": "mixed peels"
+                "name": "Суміш консервованої (цукатної) цитрусової цедри",
+                "plural_name": "Суміш консервованої (цукатної) цитрусової цедри"
             },
             "kokum": {
                 "aliases": [],
                 "description": "",
-                "name": "kokum",
-                "plural_name": "kokums"
+                "name": "Гарцинія індійська",
+                "plural_name": "Гарцинії індійські"
             },
             "tangelo": {
                 "aliases": [],
                 "description": "",
-                "name": "tangelo",
-                "plural_name": "tangeloes"
+                "name": "Танжело",
+                "plural_name": "Танжело"
             },
             "dried lime": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lime",
-                "plural_name": "dried limes"
+                "name": "Сухий лайм",
+                "plural_name": "Сухі лайми"
             },
             "jujube": {
                 "aliases": [],
                 "description": "",
-                "name": "jujube",
-                "plural_name": "jujubes"
+                "name": "Зизифус звичайний (унабі)",
+                "plural_name": "Зизифуси звичайні (унабі)"
             },
             "sweet lime": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet lime",
-                "plural_name": "sweet limes"
+                "name": "Солодкий лайм",
+                "plural_name": "Солодкі лайми"
             },
             "custard-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "custard-apple",
-                "plural_name": "custard-apples"
+                "name": "Цукрове яблуко",
+                "plural_name": "Цукрові яблука"
             },
             "dried lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lemon",
-                "plural_name": "dried lemons"
+                "name": "Сушений лимон",
+                "plural_name": "Сушені лимони"
             },
             "young jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "young jackfruit",
-                "plural_name": "young jackfruits"
+                "name": "Молодий джекфрут",
+                "plural_name": "Молоді джекфрути"
             },
             "durian": {
                 "aliases": [],
                 "description": "",
-                "name": "durian",
-                "plural_name": "durians"
+                "name": "Дуріан",
+                "plural_name": "Дуріани"
             },
             "freeze-dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried apple",
-                "plural_name": "freeze-dried apples"
+                "name": "Сублімоване морожене яблуко",
+                "plural_name": "Сублімовані морожені яблука"
             },
             "dried tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "dried tamarind",
-                "plural_name": "dried tamarinds"
+                "name": "Сухий індійський фінік",
+                "plural_name": "Сухі індійські фінікі"
             },
             "honey date": {
                 "aliases": [],
                 "description": "",
-                "name": "honey date",
-                "plural_name": "honey dates"
+                "name": "Фініковий мед",
+                "plural_name": "Фініковий мед"
             },
             "physali": {
                 "aliases": [],
                 "description": "",
-                "name": "physali",
-                "plural_name": "physalis"
+                "name": "Фізаліс",
+                "plural_name": "Фізаліс"
             },
             "tamarillo": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarillo",
-                "plural_name": "tamarilloes"
+                "name": "Тамарильйо",
+                "plural_name": "Тамарильйо"
             },
             "ice-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "ice-apple",
-                "plural_name": "ice-apples"
+                "name": "Пальмірова пальма",
+                "plural_name": "Пальмірові пальми"
             },
             "longan": {
                 "aliases": [],
                 "description": "",
-                "name": "longan",
-                "plural_name": "longans"
+                "name": "Лонган",
+                "plural_name": "Лонган"
             },
             "finger lime": {
                 "aliases": [],
                 "description": "",
-                "name": "finger lime",
-                "plural_name": "finger limes"
+                "name": "Пальчиковий лайм",
+                "plural_name": "Пальчикові лайми"
             },
             "bitter orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bitter orange",
-                "plural_name": "bitter oranges"
+                "name": "Померанець",
+                "plural_name": "Померанеці"
             },
             "feijoa": {
                 "aliases": [],
                 "description": "",
-                "name": "feijoa",
-                "plural_name": "feijoas"
+                "name": "Фейхоа",
+                "plural_name": "Фейхоа"
             },
             "dried persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried persimmon",
-                "plural_name": "dried persimmons"
+                "name": "Сушена хурма",
+                "plural_name": "Сушеної хурми"
             },
             "rambutan": {
                 "aliases": [],
                 "description": "",
-                "name": "rambutan",
-                "plural_name": "rambutans"
+                "name": "Рамбутан",
+                "plural_name": "Рамбутани"
             },
             "rose apple": {
                 "aliases": [],
                 "description": "",
-                "name": "rose apple",
-                "plural_name": "rose apples"
+                "name": "Джамбоза",
+                "plural_name": "Джамбози"
             },
             "dried orange slice": {
                 "aliases": [],
@@ -1437,14 +1437,14 @@
             "candy cap mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "candy cap mushroom",
-                "plural_name": "candy cap mushrooms"
+                "name": "Хрящ-молочник камфорний",
+                "plural_name": "Хрящ-молочник камфорний"
             },
             "lion’s mane mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "lion’s mane mushroom",
-                "plural_name": "lion’s mane mushrooms"
+                "name": "Їжовик гребінчастий",
+                "plural_name": "Їжовик гребінчастий"
             }
         }
     },
@@ -1453,140 +1453,140 @@
             "strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry",
-                "plural_name": "strawberries"
+                "name": "Полуниця",
+                "plural_name": "Полуниця"
             },
             "blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry",
-                "plural_name": "blueberries"
+                "name": "Лохина (чи чорниця)",
+                "plural_name": "Лохина (чи чорниця)"
             },
             "raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry",
-                "plural_name": "raspberries"
+                "name": "Малина",
+                "plural_name": "Малина"
             },
             "cranberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry",
-                "plural_name": "cranberries"
+                "name": "Журавлина",
+                "plural_name": "Журавлина"
             },
             "cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry",
-                "plural_name": "cherries"
+                "name": "Вишня",
+                "plural_name": "Вишні"
             },
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
-                "plural_name": "blackberries"
+                "name": "Ожина",
+                "plural_name": "Ожина"
             },
             "berry mix": {
                 "aliases": [],
                 "description": "",
-                "name": "berry mix",
-                "plural_name": "berry mixes"
+                "name": "Мікс ягід",
+                "plural_name": "Мікс ягід"
             },
             "maraschino cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "maraschino cherry",
-                "plural_name": "maraschino cherries"
+                "name": "Коктейльна вишня",
+                "plural_name": "Коктейльні вишні"
             },
             "dried cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cherry",
-                "plural_name": "dried cherries"
+                "name": "Сушена вишня",
+                "plural_name": "Сушені вишні"
             },
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "Ягоди ялівцю",
+                "plural_name": "Ягоди ялівцю"
             },
             "sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cherry",
-                "plural_name": "sour cherries"
+                "name": "Вишня звичайна",
+                "plural_name": "Вишні звичайні"
             },
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
-                "plural_name": "goji berries"
+                "name": "Годжі ягода",
+                "plural_name": "Годжі ягоди"
             },
             "dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried blueberry",
-                "plural_name": "dried blueberries"
+                "name": "Висушена лохина (або чорниця)",
+                "plural_name": "Висушені ягоди лохини (або чорниці)"
             },
             "freeze-dried strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried strawberry",
-                "plural_name": "freeze-dried strawberries"
+                "name": "Сублімована полуниця",
+                "plural_name": "Сублімовані полуниці"
             },
             "gooseberry": {
                 "aliases": [],
                 "description": "",
-                "name": "gooseberry",
-                "plural_name": "gooseberries"
+                "name": "Аґрус",
+                "plural_name": "Аґрус"
             },
             "freeze-dried raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried raspberry",
-                "plural_name": "freeze-dried raspberries"
+                "name": "Сублімована малина",
+                "plural_name": "Сублімована малина"
             },
             "lingonberry": {
                 "aliases": [],
                 "description": "",
-                "name": "lingonberry",
-                "plural_name": "lingonberries"
+                "name": "Брусниця",
+                "plural_name": "Брусниці"
             },
             "canned sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sour cherry",
-                "plural_name": "canned sour cherries"
+                "name": "Консервована кисла вишня",
+                "plural_name": "Консервовані кислі вишні"
             },
             "mulberry": {
                 "aliases": [],
                 "description": "",
-                "name": "mulberry",
-                "plural_name": "mulberries"
+                "name": "Шовковиця",
+                "plural_name": "Шовковиця"
             },
             "acai berry": {
                 "aliases": [],
                 "description": "",
-                "name": "acai berry",
-                "plural_name": "acai berries"
+                "name": "Ягода асаї",
+                "plural_name": "Ягоди асаї"
             },
             "canned cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cherry",
-                "plural_name": "canned cherries"
+                "name": "Консервована вишня",
+                "plural_name": "Консервовані вишні"
             },
             "amla": {
                 "aliases": [],
                 "description": "",
-                "name": "amla",
-                "plural_name": "amlas"
+                "name": "Амла",
+                "plural_name": "Амла"
             },
             "elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "elderberry",
-                "plural_name": "elderberries"
+                "name": "Ягода бузини",
+                "plural_name": "Ягоди бузини"
             },
             "freeze-dried blueberry": {
                 "aliases": [],
@@ -1745,152 +1745,152 @@
             "pine nut": {
                 "aliases": [],
                 "description": "",
-                "name": "pine nut",
-                "plural_name": "pine nuts"
+                "name": "Кедровий горіх",
+                "plural_name": "Кедрові горіхи"
             },
             "pistachio": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio",
-                "plural_name": "pistachios"
+                "name": "Фісташка",
+                "plural_name": "Фісташки"
             },
             "peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut",
-                "plural_name": "peanuts"
+                "name": "Арахіс",
+                "plural_name": "Арахіс"
             },
             "chia": {
                 "aliases": [],
                 "description": "",
-                "name": "chia",
-                "plural_name": "chias"
+                "name": "Насіння чіа",
+                "plural_name": "Насіння чіа"
             },
             "flax": {
                 "aliases": [],
                 "description": "",
-                "name": "flax",
-                "plural_name": "flaxes"
+                "name": "Насіння льону",
+                "plural_name": "Насіння льону"
             },
             "slivered almond": {
                 "aliases": [],
                 "description": "",
-                "name": "slivered almond",
-                "plural_name": "slivered almonds"
+                "name": "Тертий мигдаль",
+                "plural_name": "Тертий мигдаль"
             },
             "pumpkin seed": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin seed",
-                "plural_name": "pumpkin seeds"
+                "name": "Гарбузове насіння",
+                "plural_name": "Гарбузове насіння"
             },
             "hazelnut": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut",
-                "plural_name": "hazelnuts"
+                "name": "Ліщиновий горіх",
+                "plural_name": "Ліщинові горіхи"
             },
             "poppy seed": {
                 "aliases": [],
                 "description": "",
-                "name": "poppy seed",
-                "plural_name": "poppy seeds"
+                "name": "Макове насіння",
+                "plural_name": "Макове насіння"
             },
             "sunflower seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower seed",
-                "plural_name": "sunflower seeds"
+                "name": "Насіння соняшника",
+                "plural_name": "Насіння соняшника"
             },
             "macadamia": {
                 "aliases": [],
                 "description": "",
-                "name": "macadamia",
-                "plural_name": "macadamias"
+                "name": "Горіх макадамія",
+                "plural_name": "Горіхи макадамії"
             },
             "roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted peanut",
-                "plural_name": "roasted peanuts"
+                "name": "Смажений арахіс",
+                "plural_name": "Смажений арахіс"
             },
             "chopped nut": {
                 "aliases": [],
                 "description": "",
-                "name": "chopped nut",
-                "plural_name": "chopped nuts"
+                "name": "Подрібнений горіх",
+                "plural_name": "Подрібнені горіхи"
             },
             "hemp heart": {
                 "aliases": [],
                 "description": "",
-                "name": "hemp heart",
-                "plural_name": "hemp hearts"
+                "name": "Насіння конопель",
+                "plural_name": "Насіння конопель"
             },
             "nigella seed": {
                 "aliases": [],
                 "description": "",
-                "name": "nigella seed",
-                "plural_name": "nigella seeds"
+                "name": "Кмин чорний",
+                "plural_name": "Кмин чорний"
             },
             "mixed nut": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed nut",
-                "plural_name": "mixed nuts"
+                "name": "Суміш горіхів",
+                "plural_name": "Суміші горіхів"
             },
             "brazil nut": {
                 "aliases": [],
                 "description": "",
-                "name": "brazil nut",
-                "plural_name": "brazil nuts"
+                "name": "Бразильський горіх",
+                "plural_name": "Бразильські горіхи"
             },
             "mixed seed": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed seed",
-                "plural_name": "mixed seeds"
+                "name": "Мікс насіння",
+                "plural_name": "Мікс насіння"
             },
             "onion seed": {
                 "aliases": [],
                 "description": "",
-                "name": "onion seed",
-                "plural_name": "onion seeds"
+                "name": "Насіння цибулі",
+                "plural_name": "Насіння цибулі"
             },
             "watermelon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon seed",
-                "plural_name": "watermelon seeds"
+                "name": "Насіння кавуна",
+                "plural_name": "Насіння кавуна"
             },
             "honey-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted peanut",
-                "plural_name": "honey-roasted peanuts"
+                "name": "Смажений у меду арахіс",
+                "plural_name": "Смажений у меду арахіс"
             },
             "melon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "melon seed",
-                "plural_name": "melon seeds"
+                "name": "Насіння диня",
+                "plural_name": "Насіння диня"
             },
             "lotus seed": {
                 "aliases": [],
                 "description": "",
-                "name": "lotus seed",
-                "plural_name": "lotus seeds"
+                "name": "Насіння лотоса",
+                "plural_name": "Насіння лотоса"
             },
             "white chia": {
                 "aliases": [],
                 "description": "",
-                "name": "white chia",
-                "plural_name": "white chias"
+                "name": "Чіа насіння біле",
+                "plural_name": "Чіа насіння біле"
             },
             "trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "trail mix",
-                "plural_name": "trail mixes"
+                "name": "Трейл-мікс",
+                "plural_name": "Трейл-мікс"
             },
             "basil seed": {
                 "aliases": [],
@@ -2051,152 +2051,152 @@
             "cheddar-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheddar-jack cheese",
-                "plural_name": "cheddar-jack cheeses"
+                "name": "Сир чеддер-джек",
+                "plural_name": "Сир чеддер-джек"
             },
             "monterey jack": {
                 "aliases": [],
                 "description": "",
-                "name": "monterey jack",
-                "plural_name": "monterey jacks"
+                "name": "Монтерей Джек сир",
+                "plural_name": "Монтерей Джек сир"
             },
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheeses"
+                "name": "Блакитний сир",
+                "plural_name": "Блакитні сири"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheeses"
+                "name": "Козячий сир",
+                "plural_name": "Козячі сири"
             },
             "fresh mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella",
-                "plural_name": "fresh mozzarellas"
+                "name": "Свіжа моцарела",
+                "plural_name": "Свіжа моцарела"
             },
             "swiss cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swiss cheese",
-                "plural_name": "swiss cheeses"
+                "name": "Швейцарський сир",
+                "plural_name": "Швейцарські сири"
             },
             "pecorino": {
                 "aliases": [],
                 "description": "",
-                "name": "pecorino",
-                "plural_name": "pecorinoes"
+                "name": "Пекорино романо сир",
+                "plural_name": "Пекорино романо сири"
             },
             "gruyere": {
                 "aliases": [],
                 "description": "",
-                "name": "gruyere",
-                "plural_name": "gruyeres"
+                "name": "Сир грюєр",
+                "plural_name": "Сири грюєр"
             },
             "mascarpone": {
                 "aliases": [],
                 "description": "",
-                "name": "mascarpone",
-                "plural_name": "mascarpones"
+                "name": "Маскарпоне",
+                "plural_name": "Маскарпоне"
             },
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cottage cheese",
-                "plural_name": "cottage cheeses"
+                "name": "Зернистий кисломолочний сир",
+                "plural_name": "Зернисті кисломолочні сири"
             },
             "american cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "american cheese",
-                "plural_name": "american cheeses"
+                "name": "Американський сир",
+                "plural_name": "Американські сири"
             },
             "provolone": {
                 "aliases": [],
                 "description": "",
-                "name": "provolone",
-                "plural_name": "provolones"
+                "name": "Проволоне сир",
+                "plural_name": "Проволоне сири"
             },
             "mexican cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican cheese blend",
-                "plural_name": "mexican cheese blends"
+                "name": "Суміш мексиканських сирів",
+                "plural_name": "Суміши мексиканських сирів"
             },
             "pepper jack": {
                 "aliases": [],
                 "description": "",
-                "name": "pepper jack",
-                "plural_name": "pepper jacks"
+                "name": "Сир пеппер джек",
+                "plural_name": "Сири пеппер джек"
             },
             "brie": {
                 "aliases": [],
                 "description": "",
-                "name": "brie",
-                "plural_name": "bries"
+                "name": "Сир брі",
+                "plural_name": "Сири брі"
             },
             "paneer": {
                 "aliases": [],
                 "description": "",
-                "name": "paneer",
-                "plural_name": "paneers"
+                "name": "Сир панір",
+                "plural_name": "Сири панір"
             },
             "fontina": {
                 "aliases": [],
                 "description": "",
-                "name": "fontina",
-                "plural_name": "fontinas"
+                "name": "Сир Фонтіна",
+                "plural_name": "Сири Фонтіна"
             },
             "queso fresco": {
                 "aliases": [],
                 "description": "",
-                "name": "queso fresco",
-                "plural_name": "queso frescoes"
+                "name": "Сир Кесо бланко",
+                "plural_name": "Сири Кесо бланко"
             },
             "quark": {
                 "aliases": [],
                 "description": "",
-                "name": "quark",
-                "plural_name": "quarks"
+                "name": "Домашній кисломолочний сир",
+                "plural_name": "Домашні кисломолочні сири"
             },
             "gouda": {
                 "aliases": [],
                 "description": "",
-                "name": "gouda",
-                "plural_name": "goudas"
+                "name": "Сир гауда",
+                "plural_name": "Сири гауда"
             },
             "cotija": {
                 "aliases": [],
                 "description": "",
-                "name": "cotija",
-                "plural_name": "cotijas"
+                "name": "Сир Котиха ",
+                "plural_name": "Сири Котиха "
             },
             "asiago": {
                 "aliases": [],
                 "description": "",
-                "name": "asiago",
-                "plural_name": "asiagoes"
+                "name": "Сир Азіаго",
+                "plural_name": "Сири Азіаго"
             },
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheeses"
+                "name": "Сир копчений",
+                "plural_name": "Сири копчені"
             },
             "halloumi": {
                 "aliases": [],
                 "description": "",
-                "name": "halloumi",
-                "plural_name": "halloumis"
+                "name": "Сир Халумі",
+                "plural_name": "Сири Халумі"
             },
             "chevre": {
                 "aliases": [],
                 "description": "",
-                "name": "chevre",
-                "plural_name": "chevres"
+                "name": "Сир козячий французький",
+                "plural_name": "Сири козячі французькі"
             },
             "manchego": {
                 "aliases": [],
@@ -2351,152 +2351,152 @@
             "leicester": {
                 "aliases": [],
                 "description": "",
-                "name": "leicester",
-                "plural_name": "leicesters"
+                "name": "Сир лестерський чеддер",
+                "plural_name": "Сири лестерські чеддери"
             },
             "kefalotyri": {
                 "aliases": [],
                 "description": "",
-                "name": "kefalotyri",
-                "plural_name": "kefalotyris"
+                "name": "Сир Кефалотирі",
+                "plural_name": "Сири Кефалотирі"
             },
             "mizithra": {
                 "aliases": [],
                 "description": "",
-                "name": "mizithra",
-                "plural_name": "mizithras"
+                "name": "Сир Мізіфра",
+                "plural_name": "Сири Мізіфри"
             },
             "lancashire": {
                 "aliases": [],
                 "description": "",
-                "name": "lancashire",
-                "plural_name": "lancashires"
+                "name": "Сир Ланкашир",
+                "plural_name": "Сири Ланкашир"
             },
             "kasseri": {
                 "aliases": [],
                 "description": "",
-                "name": "kasseri",
-                "plural_name": "kasseris"
+                "name": "Сир Касері",
+                "plural_name": "Сири Касері"
             },
             "babybel": {
                 "aliases": [],
                 "description": "",
-                "name": "babybel",
-                "plural_name": "babybels"
+                "name": "Сир Babybel",
+                "plural_name": "Сири Babybel"
             },
             "panela cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "panela cheese",
-                "plural_name": "panela cheeses"
+                "name": "Сир Панела",
+                "plural_name": "Сири Панела"
             },
             "longhorn": {
                 "aliases": [],
                 "description": "",
-                "name": "longhorn",
-                "plural_name": "longhorns"
+                "name": "Сир Колбі",
+                "plural_name": "Сири Колбі"
             },
             "seasoned feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "seasoned feta cheese",
-                "plural_name": "seasoned feta cheeses"
+                "name": "Сир фета зі спеціями",
+                "plural_name": "Сири фета зі спеціями"
             },
             "comté": {
                 "aliases": [],
                 "description": "",
-                "name": "comté",
-                "plural_name": "comtés"
+                "name": "Сир Конте",
+                "plural_name": "Сири Конте"
             },
             "graviera": {
                 "aliases": [],
                 "description": "",
-                "name": "graviera",
-                "plural_name": "gravieras"
+                "name": "Сир Грав'єра",
+                "plural_name": "Сири Грав'єра"
             },
             "wensleydale": {
                 "aliases": [],
                 "description": "",
-                "name": "wensleydale",
-                "plural_name": "wensleydales"
+                "name": "Сир Венслідейл",
+                "plural_name": "Сири Венслідейл"
             },
             "scamorza": {
                 "aliases": [],
                 "description": "",
-                "name": "scamorza",
-                "plural_name": "scamorzas"
+                "name": "Сир Скаморца",
+                "plural_name": "Сири Скаморца"
             },
             "cambozola": {
                 "aliases": [],
                 "description": "",
-                "name": "cambozola",
-                "plural_name": "cambozolas"
+                "name": "Сир Камбоцола",
+                "plural_name": "Сири Камбоцола"
             },
             "cheshire cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheshire cheese",
-                "plural_name": "cheshire cheeses"
+                "name": "Сир Чешир",
+                "plural_name": "Сири Чешир"
             },
             "anthotyro": {
                 "aliases": [],
                 "description": "",
-                "name": "anthotyro",
-                "plural_name": "anthotyros"
+                "name": "Сир Анфотирос",
+                "plural_name": "Сири Анфотирос"
             },
             "chenna": {
                 "aliases": [],
                 "description": "",
-                "name": "chenna",
-                "plural_name": "chennas"
+                "name": "Сир Чгена",
+                "plural_name": "Сири Чгена"
             },
             "hard goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "hard goat cheese",
-                "plural_name": "hard goat cheeses"
+                "name": "Сир козячий твердий",
+                "plural_name": "Сири козячі тверді"
             },
             "kashkaval": {
                 "aliases": [],
                 "description": "",
-                "name": "kashkaval",
-                "plural_name": "kashkavals"
+                "name": "Сир Кашкавал",
+                "plural_name": "Сири Кашкавал"
             },
             "sheep cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep cheese",
-                "plural_name": "sheep cheeses"
+                "name": "Сир овечий",
+                "plural_name": "Сири овечі"
             },
             "amul cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "amul cheese",
-                "plural_name": "amul cheeses"
+                "name": "Сир Амул",
+                "plural_name": "Сири Амул"
             },
             "reblochon": {
                 "aliases": [],
                 "description": "",
-                "name": "reblochon",
-                "plural_name": "reblochons"
+                "name": "Сир Реблошон",
+                "plural_name": "Сири Реблошон"
             },
             "robiola": {
                 "aliases": [],
                 "description": "",
-                "name": "robiola",
-                "plural_name": "robiolas"
+                "name": "Сир Робіола",
+                "plural_name": "Сири Робіола"
             },
             "brick cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "brick cheese",
-                "plural_name": "brick cheeses"
+                "name": "Сир Вісконський цеглинкою",
+                "plural_name": "Сири Вісконські цеглинкою"
             },
             "quick-melt cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "quick-melt cheese",
-                "plural_name": "quick-melt cheeses"
+                "name": "Сир Швидкоплавний",
+                "plural_name": "Сири Швидкоплавні"
             },
             "farmer's cheese": {
                 "aliases": [],
@@ -2655,309 +2655,309 @@
             "greek yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "greek yogurt",
-                "plural_name": "greek yogurts"
+                "name": "Грецький йогурт",
+                "plural_name": "Грецькі йогурти"
             },
             "cream": {
                 "aliases": [],
                 "description": "",
-                "name": "cream",
-                "plural_name": "creams"
+                "name": "Вершки",
+                "plural_name": "Вершки"
             },
             "whipped cream": {
                 "aliases": [],
                 "description": "",
-                "name": "whipped cream",
-                "plural_name": "whipped creams"
+                "name": "Збиті вершки",
+                "plural_name": "Збиті вершки"
             },
             "ghee": {
                 "aliases": [
-                    "clarified butter"
+                    "Пряжене масло"
                 ],
                 "description": "",
-                "name": "ghee",
-                "plural_name": "ghees"
+                "name": "Масло Гхи",
+                "plural_name": "Масло Гхи"
             },
             "shortening": {
                 "aliases": [],
                 "description": "",
-                "name": "shortening",
-                "plural_name": "shortenings"
+                "name": "Кулінарний жир",
+                "plural_name": "Кулінарний жир"
             },
             "condensed milk": {
                 "aliases": [],
                 "description": "",
-                "name": "condensed milk",
-                "plural_name": "condensed milks"
+                "name": "Згущене молоко",
+                "plural_name": "Згущене молоко"
             },
             "half and half": {
                 "aliases": [],
                 "description": "",
-                "name": "half and half",
-                "plural_name": "half and halves"
+                "name": "П'ятдесят на п'ятдесят",
+                "plural_name": "П'ятдесят на п'ятдесят"
             },
             "sweetened condensed milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sweetened condensed milk",
-                "plural_name": "sweetened condensed milks"
+                "name": "Згущене молоко солодке",
+                "plural_name": "Згущене молоко солодке"
             },
             "ice cream": {
                 "aliases": [],
                 "description": "",
-                "name": "ice cream",
-                "plural_name": "ice creams"
+                "name": "Морозиво",
+                "plural_name": "Морозиво"
             },
             "margarine": {
                 "aliases": [],
                 "description": "",
-                "name": "margarine",
-                "plural_name": "margarines"
+                "name": "Маргарин",
+                "plural_name": "Маргарин"
             },
             "creme fraiche": {
                 "aliases": [],
                 "description": "",
-                "name": "creme fraiche",
-                "plural_name": "creme fraiches"
+                "name": "Крем-фреш",
+                "plural_name": "Крем-фреш"
             },
             "frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "frosting",
-                "plural_name": "frostings"
+                "name": "Глазур",
+                "plural_name": "Глазурі"
             },
             "milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "milk powder",
-                "plural_name": "milk powders"
+                "name": "Сухе молоко",
+                "plural_name": "Сухе молоко"
             },
             "curd": {
                 "aliases": [],
                 "description": "",
-                "name": "curd",
-                "plural_name": "curds"
+                "name": "Курд",
+                "plural_name": "Курди"
             },
             "thickened cream": {
                 "aliases": [],
                 "description": "",
-                "name": "thickened cream",
-                "plural_name": "thickened creams"
+                "name": "Вершки для збивання",
+                "plural_name": "Вершки для збивання"
             },
             "lemon curd": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon curd",
-                "plural_name": "lemon curds"
+                "name": "Лимоний курд",
+                "plural_name": "Лимоний курд"
             },
             "dulce de leche": {
                 "aliases": [],
                 "description": "",
-                "name": "dulce de leche",
-                "plural_name": "dulce de leche"
+                "name": "Варене згущене молоко",
+                "plural_name": "Варене згущене молоко"
             },
             "custard": {
                 "aliases": [],
                 "description": "",
-                "name": "custard",
-                "plural_name": "custards"
+                "name": "Заварний крем",
+                "plural_name": "Заварний крем"
             },
             "chocolate frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate frosting",
-                "plural_name": "chocolate frostings"
+                "name": "Шоколадна глазур",
+                "plural_name": "Шоколадна глазур"
             },
             "kefir": {
                 "aliases": [],
                 "description": "",
-                "name": "kefir",
-                "plural_name": "kefirs"
+                "name": "Кефір",
+                "plural_name": "Кефір"
             },
             "sherbet": {
                 "aliases": [],
                 "description": "",
-                "name": "sherbet",
-                "plural_name": "sherbets"
+                "name": "Сорбет",
+                "plural_name": "Сорбети"
             },
             "chocolate milk": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk",
-                "plural_name": "chocolate milks"
+                "name": "Шоколадне молоко",
+                "plural_name": "Шоколадне молоко"
             },
             "liquid egg substitute": {
                 "aliases": [],
                 "description": "",
-                "name": "liquid egg substitute",
-                "plural_name": "liquid egg substitutes"
+                "name": "Рідкий замінник яйця",
+                "plural_name": "Рідкі замінники яйця"
             },
             "whey": {
                 "aliases": [],
                 "description": "",
-                "name": "whey",
-                "plural_name": "wheys"
+                "name": "Молочна сироватка",
+                "plural_name": "Молочні сироватки"
             },
             "hung curd": {
                 "aliases": [],
                 "description": "",
-                "name": "hung curd",
+                "name": "Підвішений сир хунг-курд",
                 "plural_name": "hung curds"
             },
             "quail egg": {
                 "aliases": [],
                 "description": "",
                 "name": "quail egg",
-                "plural_name": "quail eggs"
+                "plural_name": "Перепелині яйця"
             },
             "buttermilk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "buttermilk powder",
-                "plural_name": "buttermilk powders"
+                "name": "Пахта у порошку",
+                "plural_name": "Пахта у порошку"
             },
             "frozen yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen yogurt",
-                "plural_name": "frozen yogurts"
+                "name": "Морожений йогурт",
+                "plural_name": "Морожені йогурти"
             },
             "khoya": {
                 "aliases": [],
                 "description": "",
-                "name": "khoya",
-                "plural_name": "khoyas"
+                "name": "Хоя",
+                "plural_name": "Хоя"
             },
             "milk cream": {
                 "aliases": [],
                 "description": "",
-                "name": "milk cream",
-                "plural_name": "milk creams"
+                "name": "Молочні вершки",
+                "plural_name": "Молочні вершки"
             },
             "coffee creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee creamer",
-                "plural_name": "coffee creamers"
+                "name": "Сухі кавові вершки",
+                "plural_name": "Сухі кавові вершки"
             },
             "clotted cream": {
                 "aliases": [],
                 "description": "",
-                "name": "clotted cream",
-                "plural_name": "clotted creams"
+                "name": "Пряжені вершки",
+                "plural_name": "Пряжені вершки"
             },
             "goat milk": {
                 "aliases": [],
                 "description": "",
-                "name": "goat milk",
-                "plural_name": "goat milks"
+                "name": "Козяче молоко",
+                "plural_name": "Козяче молоко"
             },
             "cheese curd": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese curd",
-                "plural_name": "cheese curds"
+                "name": "Сирне зерно",
+                "plural_name": "Сирне зерно"
             },
             "sour milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sour milk",
-                "plural_name": "sour milks"
+                "name": "Кисляк",
+                "plural_name": "Кисляк"
             },
             "ganache": {
                 "aliases": [],
                 "description": "",
-                "name": "ganache",
-                "plural_name": "ganaches"
+                "name": "Ганаш",
+                "plural_name": "Ганаш"
             },
             "cajeta": {
                 "aliases": [],
                 "description": "",
-                "name": "cajeta",
-                "plural_name": "cajetas"
+                "name": "Кахета",
+                "plural_name": "Кахети"
             },
             "duck egg": {
                 "aliases": [],
                 "description": "",
-                "name": "duck egg",
-                "plural_name": "duck eggs"
+                "name": "Яйце качки",
+                "plural_name": "Яйця качки"
             },
             "salted egg": {
                 "aliases": [],
                 "description": "",
-                "name": "salted egg",
-                "plural_name": "salted eggs"
+                "name": "Солоне (качине) яйце",
+                "plural_name": "Солоні (качині) яйця"
             },
             "skyr": {
                 "aliases": [],
                 "description": "",
-                "name": "skyr",
-                "plural_name": "skyrs"
+                "name": "Скір",
+                "plural_name": "Скір"
             },
             "pumpkin spice coffee creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin spice coffee creamer",
-                "plural_name": "pumpkin spice coffee creamers"
+                "name": "Кавові вершки з гарбузовими спеціями",
+                "plural_name": "Кавові вершки з гарбузовими спеціями"
             },
             "raw milk": {
                 "aliases": [],
                 "description": "",
-                "name": "raw milk",
-                "plural_name": "raw milks"
+                "name": "Сире молоко (незбиране)",
+                "plural_name": "Сире молоко (незбиране)"
             },
             "lime curd": {
                 "aliases": [],
                 "description": "",
-                "name": "lime curd",
-                "plural_name": "lime curds"
+                "name": "Лаймовий курд",
+                "plural_name": "Лаймові курди"
             },
             "powdered coffee creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "powdered coffee creamer",
-                "plural_name": "powdered coffee creamers"
+                "name": "Порошкові кавові вершки",
+                "plural_name": "Порошкові кавові вершки"
             },
             "chantilly": {
                 "aliases": [],
                 "description": "",
-                "name": "chantilly",
-                "plural_name": "chantillies"
+                "name": "Крем Шантільї",
+                "plural_name": "Крем Шантільї"
             },
             "milkfat": {
                 "aliases": [],
                 "description": "",
-                "name": "milkfat",
-                "plural_name": "milkfats"
+                "name": "Молочний жир",
+                "plural_name": "Молочні жири"
             },
             "yogurt starter": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt starter",
-                "plural_name": "yogurt starters"
+                "name": "Закваска для йогурту",
+                "plural_name": "Закваски для йогурту"
             },
             "rainbow sherbet": {
                 "aliases": [],
                 "description": "",
-                "name": "rainbow sherbet",
-                "plural_name": "rainbow sherbets"
+                "name": "Райдужний шербет",
+                "plural_name": "Райдужні шербети"
             },
             "strawberry frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry frosting",
-                "plural_name": "strawberry frostings"
+                "name": "Полунична глазур",
+                "plural_name": "Полуничної глазурі"
             },
             "honey greek yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "honey greek yogurt",
-                "plural_name": "honey greek yogurts"
+                "name": "Грецький медовий йогурт",
+                "plural_name": "Грецькі медові йогурти"
             },
             "amul butter": {
                 "aliases": [],
                 "description": "",
-                "name": "amul butter",
+                "name": "Масло Амуль",
                 "plural_name": "amul butter"
             },
             "honey butter": {
