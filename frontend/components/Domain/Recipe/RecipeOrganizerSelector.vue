@@ -7,7 +7,7 @@
     :label="label"
     chips
     closable-chips
-    item-title="name"
+    :item-title="itemTitle"
     item-value="id"
     multiple
     :variant="variant"
@@ -19,25 +19,6 @@
     @update:model-value="resetSearchInput"
     @click:append="dialog = true"
   >
-    <template #chip="{ item, index }">
-      <v-chip
-        :key="index"
-        class="ma-1"
-        color="accent"
-        variant="flat"
-        label
-        closable
-        @click:close="removeByIndex(index)"
-      >
-        <template v-if="selectorType === Organizer.User">
-          {{ item.raw.fullName }}
-        </template>
-        <template v-else>
-          {{ item.value }}
-        </template>
-      </v-chip>
-    </template>
-
     <template
       v-if="showAdd"
       #append
@@ -63,7 +44,6 @@ import type { UserSummary } from "~/lib/api/types/user";
 interface Props {
   selectorType: RecipeOrganizer;
   inputAttrs?: Record<string, any>;
-  returnObject?: boolean;
   showAdd?: boolean;
   showLabel?: boolean;
   showIcon?: boolean;
@@ -72,7 +52,6 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   inputAttrs: () => ({}),
-  returnObject: true,
   showAdd: true,
   showLabel: true,
   showIcon: true,
@@ -86,7 +65,6 @@ const selected = defineModel<(
   | RecipeTool
   | IngredientFood
   | UserSummary
-  | string
 )[] | undefined>({ required: true });
 
 onMounted(() => {
@@ -144,6 +122,12 @@ const icon = computed(() => {
   }
 });
 
+const itemTitle = computed(() =>
+  props.selectorType === Organizer.User
+    ? (i: any) => i?.fullName ?? i?.name ?? ""
+    : "name",
+);
+
 // ===========================================================================
 // Store & Items Setup
 
@@ -162,26 +146,9 @@ const activeStore = computed(() => {
 });
 
 const items = computed<any[]>(() => {
-  if (!props.returnObject) {
-    if (props.selectorType === Organizer.User) {
-      return (activeStore.value as unknown as UserSummary[]).map(u => u.fullName);
-    }
-    return (activeStore.value as unknown as any[]).map(item => item.name);
-  }
-
-  if (props.selectorType === Organizer.User) {
-    return (activeStore.value as unknown as UserSummary[]).map(u => ({ ...u, name: u.fullName }));
-  }
-  return activeStore.value as unknown as any[];
+  const list = (activeStore.value as unknown as any[]) ?? [];
+  return list;
 });
-
-function removeByIndex(index: number) {
-  if (selected.value === undefined) {
-    return;
-  }
-  const newSelected = selected.value.filter((_, i) => i !== index);
-  selected.value = [...newSelected];
-}
 
 function appendCreated(item: any) {
   if (selected.value === undefined) {
