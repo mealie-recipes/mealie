@@ -761,8 +761,8 @@
             "fig": {
                 "aliases": [],
                 "description": "",
-                "name": "fig",
-                "plural_name": "figs"
+                "name": "fico",
+                "plural_name": "fichi"
             },
             "apricot": {
                 "aliases": [],
@@ -863,7 +863,7 @@
             "persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "persimmon",
+                "name": "cachi",
                 "plural_name": "cachi"
             },
             "melon": {
@@ -1067,8 +1067,8 @@
             "durian": {
                 "aliases": [],
                 "description": "",
-                "name": "durian",
-                "plural_name": "durians"
+                "name": "Durian",
+                "plural_name": "Durian"
             },
             "freeze-dried apple": {
                 "aliases": [],
@@ -1079,8 +1079,8 @@
             "dried tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "dried tamarind",
-                "plural_name": "dried tamarinds"
+                "name": "Tamarindo essiccato",
+                "plural_name": "Tamarindi essiccati"
             },
             "honey date": {
                 "aliases": [],
@@ -1169,8 +1169,8 @@
             "fig leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "fig leaf",
-                "plural_name": "fig leaves"
+                "name": "Foglia di fico",
+                "plural_name": "Foglie di fico"
             },
             "freeze-dried pineapple": {
                 "aliases": [],
@@ -1199,8 +1199,8 @@
             "bergamot orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bergamot orange",
-                "plural_name": "bergamot oranges"
+                "name": "bergamotto",
+                "plural_name": "bergamotti"
             },
             "luo han guo": {
                 "aliases": [],
@@ -1245,14 +1245,14 @@
             "shiitake mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shiitake mushroom",
-                "plural_name": "shiitake mushrooms"
+                "name": "fungo shiitake",
+                "plural_name": "funghi shiitake"
             },
             "portobello mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "portobello mushroom",
-                "plural_name": "portobello mushrooms"
+                "name": "fungo portobello",
+                "plural_name": "funghi portobello"
             },
             "wild mushroom": {
                 "aliases": [],
@@ -1269,8 +1269,8 @@
             "mixed mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed mushroom",
-                "plural_name": "mixed mushrooms"
+                "name": "funghi misti",
+                "plural_name": "funghi misti"
             },
             "oyster mushroom": {
                 "aliases": [],
@@ -1366,7 +1366,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pioppini",
-                "plural_name": "pioppinis"
+                "plural_name": "pioppini"
             },
             "snow fungu": {
                 "aliases": [],
@@ -1471,26 +1471,26 @@
             "cranberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry",
-                "plural_name": "cranberries"
+                "name": "mirtillo rosso",
+                "plural_name": "Mirtilli rossi"
             },
             "cherry": {
                 "aliases": [],
                 "description": "",
                 "name": "ciliegia",
-                "plural_name": "cherries"
+                "plural_name": "ciliegie"
             },
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
-                "plural_name": "blackberries"
+                "name": "mora",
+                "plural_name": "more"
             },
             "berry mix": {
                 "aliases": [],
                 "description": "",
-                "name": "berry mix",
-                "plural_name": "berry mixes"
+                "name": "mix di bacche",
+                "plural_name": "mix di bacche"
             },
             "maraschino cherry": {
                 "aliases": [],
@@ -1715,8 +1715,8 @@
             "walnut": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut",
-                "plural_name": "walnuts"
+                "name": "noce",
+                "plural_name": "noci"
             },
             "pecan": {
                 "aliases": [],
@@ -1727,44 +1727,44 @@
             "almond": {
                 "aliases": [],
                 "description": "",
-                "name": "almond",
-                "plural_name": "almonds"
+                "name": "mandorla",
+                "plural_name": "mandorle"
             },
             "sesame seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame seed",
-                "plural_name": "sesame seeds"
+                "name": "semi di sesamo",
+                "plural_name": "semi di sesamo"
             },
             "cashew": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew",
-                "plural_name": "cashews"
+                "name": "anacardo",
+                "plural_name": "anacardi"
             },
             "pine nut": {
                 "aliases": [],
                 "description": "",
-                "name": "pine nut",
-                "plural_name": "pine nuts"
+                "name": "pinoli",
+                "plural_name": "pinoli"
             },
             "pistachio": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio",
-                "plural_name": "pistachios"
+                "name": "pistacchio",
+                "plural_name": "pistacchi"
             },
             "peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut",
-                "plural_name": "peanuts"
+                "name": "arachide",
+                "plural_name": "arachidi"
             },
             "chia": {
                 "aliases": [],
                 "description": "",
                 "name": "chia",
-                "plural_name": "chias"
+                "plural_name": "chia"
             },
             "flax": {
                 "aliases": [],
@@ -1787,20 +1787,20 @@
             "hazelnut": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut",
-                "plural_name": "hazelnuts"
+                "name": "nocciola",
+                "plural_name": "nocciole"
             },
             "poppy seed": {
                 "aliases": [],
                 "description": "",
-                "name": "poppy seed",
-                "plural_name": "poppy seeds"
+                "name": "semi di papavero",
+                "plural_name": "semi di papavero"
             },
             "sunflower seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower seed",
-                "plural_name": "sunflower seeds"
+                "name": "semi di girasole",
+                "plural_name": "semi di girasole"
             },
             "macadamia": {
                 "aliases": [],
@@ -1811,8 +1811,8 @@
             "roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted peanut",
-                "plural_name": "roasted peanuts"
+                "name": "arachidi tostate",
+                "plural_name": "arachidi tostate"
             },
             "chopped nut": {
                 "aliases": [],
