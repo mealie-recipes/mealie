@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-const { size } = withDefaults(defineProps<{ size?: number }>(), { size: 75 });
+withDefaults(defineProps<{ size?: number }>(), { size: 75 });
 </script>
 
 <style scoped>

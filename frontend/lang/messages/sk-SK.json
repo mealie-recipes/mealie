@@ -624,6 +624,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Môžete importovať priamo nespracované údaje",
     "import-original-keywords-as-tags": "Importovať pôvodné kľúčové slová ako štítky",
     "stay-in-edit-mode": "Zostať v režime editovania",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Importovať zo Zip-súboru",
     "import-from-zip-description": "Importovať recept exportovaný z inej Mealie inštalácie.",
     "import-from-html-or-json": "Importovať z HTML alebo JSONu",
@@ -669,7 +670,13 @@
       "missing-food": "Vytvoriť chýbajúcu surovinu: {food}",
       "this-unit-could-not-be-parsed-automatically": "Túto jednotku nebolo možné parsovať automaticky",
       "this-food-could-not-be-parsed-automatically": "Toto jedlo nebolo možné parsovať automaticky",
-      "no-food": "Žiadne suroviny"
+      "no-food": "Žiadne suroviny",
+      "parsing-completed": "Parsing Completed",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
     },
     "reset-servings-count": "Resetovať počet porcií",
     "not-linked-ingredients": "Ďalšie suroviny",

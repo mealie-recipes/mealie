@@ -59,6 +59,12 @@ export interface UserRecipeFinderPreferences {
   includeToolsOnHand: boolean;
 }
 
+export interface UserRecipeCreatePreferences {
+  importKeywordsAsTags: boolean;
+  stayInEditMode: boolean;
+  parseRecipe: boolean;
+}
+
 export function useUserMealPlanPreferences(): Ref<UserMealPlanPreferences> {
   const fromStorage = useLocalStorage(
     "meal-planner-preferences",
@@ -197,6 +203,22 @@ export function useRecipeFinderPreferences(): Ref<UserRecipeFinderPreferences> {
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserRecipeFinderPreferences>;
+
+  return fromStorage;
+}
+
+export function useRecipeCreatePreferences(): Ref<UserRecipeCreatePreferences> {
+  const fromStorage = useLocalStorage(
+    "recipe-create-preferences",
+    {
+      importKeywordsAsTags: false,
+      stayInEditMode: false,
+      parseRecipe: true,
+    },
+    { mergeDefaults: true },
+    // we cast to a Ref because by default it will return an optional type ref
+    // but since we pass defaults we know all properties are set.
+  ) as unknown as Ref<UserRecipeCreatePreferences>;
 
   return fromStorage;
 }

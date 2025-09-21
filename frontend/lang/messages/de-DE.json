@@ -217,7 +217,7 @@
     "organizers": "Organisieren",
     "caution": "Vorsicht",
     "show-advanced": "Erweiterte Optionen anzeigen",
-    "add-field": "Bedingung hinzufügen",
+    "add-field": "Feld Hinzufügen",
     "date-created": "Erstellungsdatum",
     "date-updated": "Aktualisiert am"
   },
@@ -624,6 +624,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kannst direkt von Rohdaten importieren",
     "import-original-keywords-as-tags": "Importiere ursprüngliche Stichwörter als Schlagwörter",
     "stay-in-edit-mode": "Im Bearbeitungsmodus bleiben",
+    "parse-recipe-ingredients-after-import": "Zutaten nach dem Import parsen",
     "import-from-zip": "Von Zip importieren",
     "import-from-zip-description": "Importiere ein einzelnes Rezept, das von einer anderen Mealie-Instanz exportiert wurde.",
     "import-from-html-or-json": "Aus HTML oder JSON importieren",
@@ -669,7 +670,13 @@
       "missing-food": "Fehlendes Lebensmittel erstellen: {food}",
       "this-unit-could-not-be-parsed-automatically": "Diese Einheit konnte nicht automatisch analysiert werden",
       "this-food-could-not-be-parsed-automatically": "Dieses Lebensmittel konnte nicht automatisch analysiert werden",
-      "no-food": "Kein Lebensmittel"
+      "no-food": "Kein Lebensmittel",
+      "parsing-completed": "Parsen abgeschlossen",
+      "review-parsed-ingredients": "Geparste Zutaten überprüfen",
+      "confidence-score": "Zuverlässigkeitswert",
+      "ingredient-parser-description": "Deine Zutaten wurden erfolgreich geparst. Bitte überprüfe die Zutaten, bei denen wir uns nicht sicher sind.",
+      "ingredient-parser-final-review-description": "Sobald alle Zutaten überprüft wurden, kannst du nochmal alle Zutaten kontrollieren, bevor die Änderungen ins Rezept übernommen werden.",
+      "add-text-as-alias-for-item": "Füge \"{text}\" als Alias für {item} hinzu"
     },
     "reset-servings-count": "Portionen zurücksetzen",
     "not-linked-ingredients": "Zusätzliche Zutaten",
