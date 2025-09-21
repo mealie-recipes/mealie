@@ -624,6 +624,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "È possibile importare direttamente dai dati grezzi",
     "import-original-keywords-as-tags": "Importa parole chiave originali come tag",
     "stay-in-edit-mode": "Rimani in modalità Modifica",
+    "parse-recipe-ingredients-after-import": "Analizza gli ingredienti della ricetta dopo l'importazione",
     "import-from-zip": "Importa da Zip",
     "import-from-zip-description": "Importa una singola ricetta esportata da un'altra istanza di Mealie.",
     "import-from-html-or-json": "Importa da HTML o JSON",
@@ -669,7 +670,13 @@
       "missing-food": "Crea cibo mancante: {food}",
       "this-unit-could-not-be-parsed-automatically": "Questa unità non può essere analizzata automaticamente",
       "this-food-could-not-be-parsed-automatically": "Questo alimento non può essere analizzato automaticamente",
-      "no-food": "Nessun Alimento"
+      "no-food": "Nessun Alimento",
+      "parsing-completed": "Analisi Completata",
+      "review-parsed-ingredients": "Controlla ingredienti analizzati",
+      "confidence-score": "Punteggio Di Confidenza",
+      "ingredient-parser-description": "I tuoi ingredienti sono stati analizzati con successo. Controlla gli ingredienti di cui non siamo sicuri.",
+      "ingredient-parser-final-review-description": "Una volta che tutti gli ingredienti sono stati controllati, avrai ancora una possibilità di rivederli tutti prima di applicare le modifiche alla ricetta.",
+      "add-text-as-alias-for-item": "Aggiungi \"{text}\" come alias per {item}"
     },
     "reset-servings-count": "Reimposta conteggio porzioni",
     "not-linked-ingredients": "Ingredienti Aggiuntivi",

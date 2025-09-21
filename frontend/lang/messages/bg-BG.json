@@ -624,6 +624,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Можете да импортирате директно от сурови данни",
     "import-original-keywords-as-tags": "Добави оригиналните ключови думи като етикети",
     "stay-in-edit-mode": "Остани в режим на редакция",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Импортирай от Zip",
     "import-from-zip-description": "Импортирай рецепта, която е била експортирана от друга инстанция на Mealie.",
     "import-from-html-or-json": "Импортиране от HTML или JSON",
@@ -669,7 +670,13 @@
       "missing-food": "Създаване на липсваща храна: {food}",
       "this-unit-could-not-be-parsed-automatically": "Тази мерна единица не може да бъде анализирана автоматично",
       "this-food-could-not-be-parsed-automatically": "Тази храна не може да бъде анализирана автоматично",
-      "no-food": "Не е зададен вид храна"
+      "no-food": "Не е зададен вид храна",
+      "parsing-completed": "Parsing Completed",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
     },
     "reset-servings-count": "Нулиране на броя на порциите",
     "not-linked-ingredients": "Допълнителни съставки",

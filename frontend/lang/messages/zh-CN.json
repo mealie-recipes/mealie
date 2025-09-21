@@ -624,6 +624,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "您可以直接从原始数据导入",
     "import-original-keywords-as-tags": "导入原始关键字作为标签",
     "stay-in-edit-mode": "留在编辑模式",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "从Zip压缩包导入",
     "import-from-zip-description": "导入从另一个Mealie应用导出的单个食谱。",
     "import-from-html-or-json": "从 HTML 或 JSON 导入",
@@ -669,7 +670,13 @@
       "missing-food": "创建缺失的食物：{food}",
       "this-unit-could-not-be-parsed-automatically": "无法自动解析此单元",
       "this-food-could-not-be-parsed-automatically": "这种食物不能被自动解析",
-      "no-food": "没有食物"
+      "no-food": "没有食物",
+      "parsing-completed": "Parsing Completed",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
     },
     "reset-servings-count": "重置份量数量",
     "not-linked-ingredients": "附加配料",

@@ -624,6 +624,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Můžete importovat přímo ze surových dat",
     "import-original-keywords-as-tags": "Importovat původní klíčová slova jako štítky",
     "stay-in-edit-mode": "Zůstat v režimu úprav",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Importovat ze zipu",
     "import-from-zip-description": "Importovat jeden recept, který byl exportován z jiné instance Mealie.",
     "import-from-html-or-json": "Importovat z HTML nebo JSON",
@@ -669,7 +670,13 @@
       "missing-food": "Vytvořit chybějící jídlo: {food}",
       "this-unit-could-not-be-parsed-automatically": "Tuto jednotku nelze analyzovat automaticky",
       "this-food-could-not-be-parsed-automatically": "Toto jídlo nelze analyzovat automaticky",
-      "no-food": "Žádné jídlo"
+      "no-food": "Žádné jídlo",
+      "parsing-completed": "Parsing Completed",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
     },
     "reset-servings-count": "Resetovat počet porcí",
     "not-linked-ingredients": "Další ingredience",
