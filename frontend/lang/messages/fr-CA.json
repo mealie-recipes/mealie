@@ -561,7 +561,7 @@
     "see-original-text": "Afficher le texte original",
     "original-text-with-value": "Texte original: {originalText}",
     "ingredient-linker": "Association d’ingrédients",
-    "unlinked": "Not linked yet",
+    "unlinked": "Pas encore associée",
     "linked-to-other-step": "Lié à une autre étape",
     "auto": "Auto",
     "cook-mode": "Mode Cuisine",
@@ -1170,7 +1170,7 @@
     "group-details": "Détails du groupe",
     "group-details-description": "Avant de créer un compte, vous devrez créer un groupe. Votre groupe ne contiendra que vous, mais vous pourrez inviter d’autres personnes plus tard. Les membres de votre groupe peuvent partager leur menu de la semaine, leurs listes d’achat, leurs recettes et plus encore !",
     "use-seed-data": "Utiliser l'initialisation de données",
-    "use-seed-data-description": "Mealie est livrée avec une collection d'aliments, d'unités et d'étiquettes qui peuvent être utilisés pour remplir votre groupe avec des données utiles pour organiser vos recettes. Ceux-ci sont traduits dans la langue que vous avez sélectionnée. Vous pouvez toujours ajouter ou modifier ces données plus tard.",
+    "use-seed-data-description": "Mealie est livrée avec une collection d'aliments, d'unités et d'étiquettes qui peuvent être utilisés pour peupler votre groupe avec des données utiles pour organiser vos recettes. Ceux-ci sont traduits dans la langue que vous avez sélectionnée. Vous pouvez toujours ajouter ou modifier ces données plus tard.",
     "account-details": "Détails du compte"
   },
   "validation": {

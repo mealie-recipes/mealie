@@ -565,14 +565,14 @@
             "fresno chile": {
                 "aliases": [],
                 "description": "",
-                "name": "fresno chile",
+                "name": "pimenta fresno",
                 "plural_name": "fresno chiles"
             },
             "delicata squash": {
                 "aliases": [],
                 "description": "",
                 "name": "delicata squash",
-                "plural_name": "delicata squashes"
+                "plural_name": "abóboras de inverno"
             },
             "frisee": {
                 "aliases": [],
@@ -584,7 +584,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "anaheim pepper",
-                "plural_name": "anaheim peppers"
+                "plural_name": "pimentas anaheim"
             },
             "cres": {
                 "aliases": [],
@@ -798,7 +798,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sultana",
-                "plural_name": "sultanas"
+                "plural_name": "uvas sultana"
             },
             "passion fruit": {
                 "aliases": [],
@@ -1013,8 +1013,8 @@
             "mixed peel": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed peel",
-                "plural_name": "mixed peels"
+                "name": "",
+                "plural_name": "mistura de frutas critalizadas"
             },
             "kokum": {
                 "aliases": [],
@@ -1206,7 +1206,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "luo han guo",
-                "plural_name": "luo han guos"
+                "plural_name": "Luo han guos/futos de buda/frutos de monge"
             },
             "mamey": {
                 "aliases": [],
