@@ -624,6 +624,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Вы можете импортировать напрямую из необработанных данных",
     "import-original-keywords-as-tags": "Импортировать исходные ключевые слова как теги",
     "stay-in-edit-mode": "Остаться в режиме редактирования",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Импорт из архива",
     "import-from-zip-description": "Импорт одного рецепта, который был экспортирован из другого экземпляра Mealie.",
     "import-from-html-or-json": "Импортировать из HTML или JSON",
@@ -669,7 +670,13 @@
       "missing-food": "Создать недостающую еду: {food}",
       "this-unit-could-not-be-parsed-automatically": "Эта единица не может быть обработана автоматически",
       "this-food-could-not-be-parsed-automatically": "Этот продукт не может быть обработан автоматически",
-      "no-food": "Нет еды"
+      "no-food": "Нет еды",
+      "parsing-completed": "Parsing Completed",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
     },
     "reset-servings-count": "Сбросить количество порций",
     "not-linked-ingredients": "Дополнительные ингредиенты",
