@@ -624,6 +624,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "A nyers adatokból közvetlenül is importálhat",
     "import-original-keywords-as-tags": "Eredeti kulcsszavak importálása címkeként",
     "stay-in-edit-mode": "Maradjon Szerkesztés módban",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Importálás ZIP-ből",
     "import-from-zip-description": "Egy másik Mealie-példányból kiexportált recept egyedi importálása.",
     "import-from-html-or-json": "Importálás HTML vagy JSON fájlból",
@@ -669,7 +670,13 @@
       "missing-food": "Hiányzó élelmiszer létrehozása: {food}",
       "this-unit-could-not-be-parsed-automatically": "Ez az egység nem tudja automatikusan értelmezni",
       "this-food-could-not-be-parsed-automatically": "Ezt az ételt nem lehetett automatikusan feldolgozni",
-      "no-food": "Élelmiszer nélküli"
+      "no-food": "Élelmiszer nélküli",
+      "parsing-completed": "Parsing Completed",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
     },
     "reset-servings-count": "Adagok számának visszaállítása",
     "not-linked-ingredients": "Kiegészítő hozzávalók",
