@@ -2,7 +2,7 @@
   <div>
     <v-form
       ref="domUrlForm"
-      @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags, stayInEditMode)"
+      @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags)"
     >
       <div>
         <v-card-title class="headline">
@@ -43,6 +43,12 @@
           color="primary"
           hide-details
           :label="$t('recipe.stay-in-edit-mode')"
+        />
+        <v-checkbox
+          v-model="parseRecipe"
+          color="primary"
+          hide-details
+          :label="$t('recipe.parse-recipe-ingredients-after-import')"
         />
         <v-card-actions class="justify-center">
           <div style="width: 250px">
@@ -111,6 +117,7 @@
 import type { AxiosResponse } from "axios";
 import { useUserApi } from "~/composables/api";
 import { useTagStore } from "~/composables/store/use-tag-store";
+import { useNewRecipeOptions } from "~/composables/use-new-recipe-options";
 import { validators } from "~/composables/use-validators";
 import type { VForm } from "~/types/auto-forms";
 
@@ -132,10 +139,17 @@ export default defineNuxtComponent({
     const router = useRouter();
     const tags = useTagStore();
 
+    const {
+      importKeywordsAsTags,
+      stayInEditMode,
+      parseRecipe,
+      navigateToRecipe,
+    } = useNewRecipeOptions();
+
     const bulkImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/bulk`);
     const htmlOrJsonImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/html`);
 
-    function handleResponse(response: AxiosResponse<string> | null, edit = false, refreshTags = false) {
+    function handleResponse(response: AxiosResponse<string> | null, refreshTags = false) {
       if (response?.status !== 201) {
         state.error = true;
         state.loading = false;
@@ -145,10 +159,7 @@ export default defineNuxtComponent({
         tags.actions.refresh();
       }
 
-      // we clear the query params first so if the user hits back, they don't re-import the recipe
-      router.replace({ query: {} }).then(
-        () => router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}`),
-      );
+      navigateToRecipe(response.data, groupSlug.value, `/g/${groupSlug.value}/r/create/url`);
     }
 
     const recipeUrl = computed({
@@ -163,37 +174,35 @@ export default defineNuxtComponent({
       },
     });
 
-    const importKeywordsAsTags = computed({
-      get() {
-        return route.query.use_keywords === "1";
-      },
-      set(v: boolean) {
-        router.replace({ query: { ...route.query, use_keywords: v ? "1" : "0" } });
-      },
-    });
-
-    const stayInEditMode = computed({
-      get() {
-        return route.query.edit === "1";
-      },
-      set(v: boolean) {
-        router.replace({ query: { ...route.query, edit: v ? "1" : "0" } });
-      },
-    });
-
     onMounted(() => {
-      if (!recipeUrl.value) {
-        return;
-      }
+      if (recipeUrl.value && recipeUrl.value.includes("https")) {
+        // Check if we have a query params for using keywords as tags or staying in edit mode.
+        // We don't use these in the app anymore, but older automations such as Bookmarklet might still use them,
+        // and they're easy enough to support.
+        const importKeywordsAsTagsParam = route.query.use_keywords;
+        if (importKeywordsAsTagsParam === "1") {
+          importKeywordsAsTags.value = true;
+        }
+        else if (importKeywordsAsTagsParam === "0") {
+          importKeywordsAsTags.value = false;
+        }
 
-      if (recipeUrl.value.includes("https")) {
-        createByUrl(recipeUrl.value, importKeywordsAsTags.value, stayInEditMode.value);
+        const stayInEditModeParam = route.query.edit;
+        if (stayInEditModeParam === "1") {
+          stayInEditMode.value = true;
+        }
+        else if (stayInEditModeParam === "0") {
+          stayInEditMode.value = false;
+        }
+
+        createByUrl(recipeUrl.value, importKeywordsAsTags.value);
+        return;
       }
     });
 
     const domUrlForm = ref<VForm | null>(null);
 
-    async function createByUrl(url: string | null, importKeywordsAsTags: boolean, stayInEditMode: boolean) {
+    async function createByUrl(url: string | null, importKeywordsAsTags: boolean) {
       if (url === null) {
         return;
       }
@@ -204,7 +213,7 @@ export default defineNuxtComponent({
       }
       state.loading = true;
       const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags);
-      handleResponse(response, stayInEditMode, importKeywordsAsTags);
+      handleResponse(response, importKeywordsAsTags);
     }
 
     return {
@@ -213,6 +222,7 @@ export default defineNuxtComponent({
       recipeUrl,
       importKeywordsAsTags,
       stayInEditMode,
+      parseRecipe,
       domUrlForm,
       createByUrl,
       ...toRefs(state),

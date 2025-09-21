@@ -3,7 +3,7 @@ authors = ["Hayden <hay-kot@pm.me>"]
 description = "A Recipe Manager"
 license = "AGPL"
 name = "mealie"
-version = "3.2.0"
+version = "3.2.1"
 include = [
     # Explicit include to override .gitignore when packaging the frontend
     { path = "mealie/frontend/**/*", format = ["sdist", "wheel"] }
@@ -69,7 +69,7 @@ pylint = "^3.0.0"
 pytest = "^8.0.0"
 pytest-asyncio = "^1.0.0"
 rich = "^14.0.0"
-ruff = "^0.12.0"
+ruff = "^0.13.0"
 types-PyYAML = "^6.0.4"
 types-python-dateutil = "^2.8.18"
 types-python-slugify = "^6.0.0"

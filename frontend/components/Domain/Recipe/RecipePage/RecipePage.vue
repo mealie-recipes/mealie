@@ -1,5 +1,12 @@
 <template>
   <div>
+    <RecipePageParseDialog
+      :model-value="isParsing"
+      :ingredients="recipe.recipeIngredient"
+      :width="$vuetify.display.smAndDown ? '100%' : '80%'"
+      @update:model-value="toggleIsParsing"
+      @save="saveParsedIngredients"
+    />
     <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
       <v-card :flat="$vuetify.display.smAndDown" class="d-print-none">
         <RecipePageHeader
@@ -168,6 +175,7 @@ import RecipePageIngredientEditor from "./RecipePageParts/RecipePageIngredientEd
 import RecipePageIngredientToolsView from "./RecipePageParts/RecipePageIngredientToolsView.vue";
 import RecipePageInstructions from "./RecipePageParts/RecipePageInstructions.vue";
 import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
+import RecipePageParseDialog from "./RecipePageParts/RecipePageParseDialog.vue";
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageInfoEditor from "./RecipePageParts/RecipePageInfoEditor.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
@@ -178,7 +186,7 @@ import {
   usePageState,
 } from "~/composables/recipe-page/shared-state";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { Recipe, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeCategory, RecipeIngredient, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
@@ -197,7 +205,7 @@ const groupSlug = computed(() => (route.params.groupSlug as string) || $auth.use
 
 const router = useRouter();
 const api = useUserApi();
-const { setMode, isEditForm, isEditJSON, isCookMode, isEditMode, toggleCookMode }
+const { setMode, isEditForm, isEditJSON, isCookMode, isEditMode, isParsing, toggleCookMode, toggleIsParsing }
   = usePageState(recipe.value.slug);
 const { deactivateNavigationWarning } = useNavigationWarning();
 const notLinkedIngredients = computed(() => {
@@ -246,11 +254,28 @@ const hasLinkedIngredients = computed(() => {
 
 type BooleanString = "true" | "false" | "";
 
-const edit = useRouteQuery<BooleanString>("edit", "");
+const paramsEdit = useRouteQuery<BooleanString>("edit", "");
+const paramsParse = useRouteQuery<BooleanString>("parse", "");
 
 onMounted(() => {
-  if (edit.value === "true") {
+  if (paramsEdit.value === "true") {
     setMode(PageMode.EDIT);
+  }
+
+  if (paramsParse.value === "true") {
+    toggleIsParsing(true);
+  }
+});
+
+watch(isEditMode, (newVal) => {
+  if (!newVal) {
+    paramsEdit.value = undefined;
+  }
+});
+
+watch(isParsing, () => {
+  if (!isParsing.value) {
+    paramsParse.value = undefined;
   }
 });
 
@@ -264,6 +289,12 @@ async function saveRecipe() {
   if (data?.slug) {
     router.push(`/g/${groupSlug.value}/r/` + data.slug);
   }
+}
+
+async function saveParsedIngredients(ingredients: NoUndefinedField<RecipeIngredient[]>) {
+  recipe.value.recipeIngredient = ingredients;
+  await saveRecipe();
+  toggleIsParsing(false);
 }
 
 async function deleteRecipe() {
@@ -302,7 +333,7 @@ function addStep(steps: Array<string> | null = null) {
 
   if (steps) {
     const cleanedSteps = steps.map((step) => {
-      return { id: uuid4(), text: step, title: "", ingredientReferences: [] };
+      return { id: uuid4(), text: step, title: "", summary: "", ingredientReferences: [] };
     });
 
     recipe.value.recipeInstructions.push(...cleanedSteps);
