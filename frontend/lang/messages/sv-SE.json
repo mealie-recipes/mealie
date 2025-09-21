@@ -624,6 +624,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kan importera från rådata direkt",
     "import-original-keywords-as-tags": "Importera ursprungliga sökord som taggar",
     "stay-in-edit-mode": "Stanna kvar i redigeringsläge",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Importera från zip",
     "import-from-zip-description": "Importera ett enstaka recept som exporterades från en annan Mealie-instans.",
     "import-from-html-or-json": "Importera från HTML eller JSON",
@@ -669,7 +670,13 @@
       "missing-food": "Skapa saknad ingrediens: {food}",
       "this-unit-could-not-be-parsed-automatically": "Enheten kunde inte översättas automatiskt",
       "this-food-could-not-be-parsed-automatically": "Maten kunde inte översättas automatiskt",
-      "no-food": "Ingen mat"
+      "no-food": "Ingen mat",
+      "parsing-completed": "Parsing Completed",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
     },
     "reset-servings-count": "Nollställ antal portioner",
     "not-linked-ingredients": "Ytterligare ingredienser",
