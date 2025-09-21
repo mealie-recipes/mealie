@@ -52,7 +52,9 @@ class MealieAuthToken(BaseModel):
     token_type: str = "bearer"
 
     @classmethod
-    def set_cookie(cls, response: Response, token: str, expires_in: float | None = None):
+    def set_cookie(cls, response: Response, token: str, expires_in: int | float | None = None):
+        expires_in = int(expires_in) if expires_in else None
+
         # httponly=False to allow JS access for frontend
         response.set_cookie(
             key="mealie.access_token",
