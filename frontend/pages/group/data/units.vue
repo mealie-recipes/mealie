@@ -291,7 +291,7 @@
         </v-icon>
       </template>
       <template #[`item.createdAt`]="{ item }">
-        {{ formatDate(item.createdAt) }}
+        {{ item.createdAt ? $d(new Date(item.createdAt)) : '' }}
       </template>
       <template #button-bottom>
         <BaseButton @click="seedDialog = true">
@@ -379,15 +379,6 @@ export default defineNuxtComponent({
         sortable: true,
       },
     ];
-
-    function formatDate(date: string) {
-      try {
-        return i18n.d(Date.parse(date), "medium");
-      }
-      catch {
-        return "";
-      }
-    }
 
     const { store, actions: unitActions } = useUnitStore();
 
@@ -544,7 +535,6 @@ export default defineNuxtComponent({
       tableHeaders,
       store,
       validators,
-      formatDate,
       // Create
       createDialog,
       domNewUnitForm,
