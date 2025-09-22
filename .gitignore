@@ -70,8 +70,11 @@ wheels/
 .installed.cfg
 *.egg
 
+# packaged output - temporarily written here by `uv build`
+/mealie-*
+
 # frontend copied into Python module for packaging purposes
-/mealie/frontend/
+/mealie/frontend
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
