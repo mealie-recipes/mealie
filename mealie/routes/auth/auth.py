@@ -1,5 +1,3 @@
-from datetime import timedelta
-
 from authlib.integrations.starlette_client import OAuth
 from fastapi import APIRouter, Depends, Request, Response, status
 from fastapi.exceptions import HTTPException
@@ -25,7 +23,6 @@ public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])
 logger = root_logger.get_logger("auth")
 
-remember_me_duration = timedelta(days=14)
 
 settings = get_app_settings()
 if settings.OIDC_READY:
@@ -53,6 +50,19 @@ if settings.OIDC_READY:
 class MealieAuthToken(BaseModel):
     access_token: str
     token_type: str = "bearer"
+
+    @classmethod
+    def set_cookie(cls, response: Response, token: str, expires_in: int | float | None = None):
+        expires_in = int(expires_in) if expires_in else None
+
+        # httponly=False to allow JS access for frontend
+        response.set_cookie(
+            key="mealie.access_token",
+            value=token,
+            httponly=False,
+            max_age=expires_in,
+            secure=settings.PRODUCTION,
+        )
 
     @classmethod
     def respond(cls, token: str, token_type: str = "bearer") -> dict:
@@ -86,17 +96,11 @@ def get_token(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
         )
+
     access_token, duration = auth
-
     expires_in = duration.total_seconds() if duration else None
-    response.set_cookie(
-        key="mealie.access_token",
-        value=access_token,
-        httponly=True,
-        max_age=expires_in,
-        secure=settings.PRODUCTION,
-    )
 
+    MealieAuthToken.set_cookie(response, access_token, expires_in)
     return MealieAuthToken.respond(access_token)
 
 
@@ -145,18 +149,11 @@ async def oauth_callback(request: Request, response: Response, session: Session 
 
     if not auth:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
-    access_token, duration = auth
 
+    access_token, duration = auth
     expires_in = duration.total_seconds() if duration else None
 
-    response.set_cookie(
-        key="mealie.access_token",
-        value=access_token,
-        httponly=True,
-        max_age=expires_in,
-        secure=settings.PRODUCTION,
-    )
-
+    MealieAuthToken.set_cookie(response, access_token, expires_in)
     return MealieAuthToken.respond(access_token)
 
 
