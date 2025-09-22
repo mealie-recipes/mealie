@@ -255,7 +255,7 @@
                     "edelpompoen"
                 ],
                 "description": "",
-                "name": "edelpompoenen",
+                "name": "edelpompoen",
                 "plural_name": "edelpompoenen"
             },
             "mixed green": {
@@ -2291,8 +2291,8 @@
             "jarlsberg cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "jarlsberg cheese",
-                "plural_name": "jarlsberg cheeses"
+                "name": "Jarlsberg kaas",
+                "plural_name": "Jarlsberg kazen"
             },
             "taleggio": {
                 "aliases": [],
@@ -2795,8 +2795,8 @@
             "whey": {
                 "aliases": [],
                 "description": "",
-                "name": "whey",
-                "plural_name": "wheys"
+                "name": "wei",
+                "plural_name": "wei"
             },
             "hung curd": {
                 "aliases": [],
@@ -2807,8 +2807,8 @@
             "quail egg": {
                 "aliases": [],
                 "description": "",
-                "name": "quail egg",
-                "plural_name": "quail eggs"
+                "name": "kwartelei",
+                "plural_name": "kwarteleieren"
             },
             "buttermilk powder": {
                 "aliases": [],
@@ -2921,8 +2921,8 @@
             "chantilly": {
                 "aliases": [],
                 "description": "",
-                "name": "chantilly",
-                "plural_name": "chantillies"
+                "name": "slagroom",
+                "plural_name": "slagroom"
             },
             "milkfat": {
                 "aliases": [],
@@ -3011,8 +3011,8 @@
             "bulgarian yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "bulgarian yogurt",
-                "plural_name": "bulgarian yogurts"
+                "name": "Bulgaarse yoghurt",
+                "plural_name": "Bulgaarse yoghurts"
             },
             "tvorog": {
                 "aliases": [],
@@ -3059,8 +3059,8 @@
             "yogurt drink": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt drink",
-                "plural_name": "yogurt drinks"
+                "name": "yoghurt drank",
+                "plural_name": "yoghurt drank"
             },
             "passion-fruit curd": {
                 "aliases": [],
@@ -3101,8 +3101,8 @@
             "vanilla milk": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla milk",
-                "plural_name": "vanilla milks"
+                "name": "vanille melk",
+                "plural_name": "vanille melk"
             },
             "yoplait whip": {
                 "aliases": [],
@@ -3159,8 +3159,8 @@
             "coconut cream": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut cream",
-                "plural_name": "coconut creams"
+                "name": "kokosroom",
+                "plural_name": "kokosroom"
             },
             "vegan butter": {
                 "aliases": [],
@@ -3207,8 +3207,8 @@
             "egg replacer": {
                 "aliases": [],
                 "description": "",
-                "name": "egg replacer",
-                "plural_name": "egg replacers"
+                "name": "ei-vervanger",
+                "plural_name": "ei-vervangers"
             },
             "vegan mayonnaise": {
                 "aliases": [],
@@ -3345,8 +3345,8 @@
             "soy cream": {
                 "aliases": [],
                 "description": "",
-                "name": "soy cream",
-                "plural_name": "soy creams"
+                "name": "soja-room",
+                "plural_name": "soja-room"
             },
             "seitan": {
                 "aliases": [],
@@ -3381,8 +3381,8 @@
             "vegan burger patty": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan burger patty",
-                "plural_name": "vegan burger patties"
+                "name": "vegan hamburger",
+                "plural_name": "vegan hamburgers"
             },
             "condensed coconut milk": {
                 "aliases": [],
@@ -3393,8 +3393,8 @@
             "vegan ground beef": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan ground beef",
-                "plural_name": "vegan ground beefs"
+                "name": "vegan gehakt",
+                "plural_name": "vegan gehakt"
             },
             "pulled oat": {
                 "aliases": [],
@@ -3418,13 +3418,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "vegan pesto",
-                "plural_name": "vegan pestoes"
+                "plural_name": "vegan pesto's"
             },
             "marinated tofu": {
                 "aliases": [],
                 "description": "",
-                "name": "marinated tofu",
-                "plural_name": "marinated tofus"
+                "name": "gemarineerde tofu",
+                "plural_name": "gemarineerde tofu's"
             },
             "vegan feta": {
                 "aliases": [],
@@ -3525,8 +3525,8 @@
             "vegan meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan meatball",
-                "plural_name": "vegan meatballs"
+                "name": "vegan gehaktbal",
+                "plural_name": "vegan gehaktballlen"
             },
             "almond-milk yogurt": {
                 "aliases": [],
@@ -3751,8 +3751,8 @@
             "ground beef": {
                 "aliases": [],
                 "description": "",
-                "name": "ground beef",
-                "plural_name": "ground beefs"
+                "name": "rundergehakt",
+                "plural_name": "rundergehakt"
             },
             "beef steak": {
                 "aliases": [],
@@ -3793,8 +3793,8 @@
             "sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage",
-                "plural_name": "sausages"
+                "name": "worstje",
+                "plural_name": "worstjes"
             },
             "beef roast": {
                 "aliases": [],
@@ -3805,8 +3805,8 @@
             "ground pork": {
                 "aliases": [],
                 "description": "",
-                "name": "ground pork",
-                "plural_name": "ground porks"
+                "name": "varkensgehakt",
+                "plural_name": "varkensgehakt"
             },
             "beef stew meat": {
                 "aliases": [],
