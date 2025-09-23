@@ -413,8 +413,8 @@
             "acorn squash": {
                 "aliases": [],
                 "description": "",
-                "name": "abóbora-cabotiá",
-                "plural_name": "abóboras-cabotiá"
+                "name": "abóbora-bolota",
+                "plural_name": "abóbora-bolota"
             },
             "corn cob": {
                 "aliases": [],
@@ -3854,7 +3854,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pork rib",
-                "plural_name": "pork ribs"
+                "plural_name": "costelas de porco"
             },
             "smoked sausage": {
                 "aliases": [],
@@ -4866,7 +4866,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hambúrguer de frango",
-                "plural_name": "hambúrgueres de frango"
+                "plural_name": "hambúrguer de frango"
             },
             "chicken rib": {
                 "aliases": [],
@@ -8088,7 +8088,7 @@
             "cassava flour": {
                 "aliases": [],
                 "description": "",
-                "name": "cassava flour",
+                "name": "farinha de mandioca",
                 "plural_name": "cassava flours"
             },
             "whipped cream stabilizer": {
@@ -11096,8 +11096,8 @@
             "vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "vinegar",
-                "plural_name": "vinegars"
+                "name": "vinagre",
+                "plural_name": "vinagres"
             },
             "red wine vinegar": {
                 "aliases": [],
