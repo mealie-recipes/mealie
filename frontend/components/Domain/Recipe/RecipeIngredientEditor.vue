@@ -31,7 +31,7 @@
           :placeholder="$t('recipe.quantity')"
           @keypress="quantityFilter"
         >
-          <template #prepend>
+          <template v-if="enableDragHandle" #prepend>
             <v-icon
               class="mr-n1 handle"
             >
@@ -215,6 +215,10 @@ defineProps({
     default: "",
   },
   enableContextMenu: {
+    type: Boolean,
+    default: false,
+  },
+  enableDragHandle: {
     type: Boolean,
     default: false,
   },

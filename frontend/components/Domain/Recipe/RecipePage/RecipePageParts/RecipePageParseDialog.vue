@@ -126,6 +126,7 @@
                 <v-lazy v-for="(ingredient, index) in parsedIngs" :key="index">
                   <RecipeIngredientEditor
                     v-model="ingredient.ingredient"
+                    enable-drag-handle
                     enable-context-menu
                     class="list-group-item pb-8"
                     @delete="parsedIngs.splice(index, 1)"
