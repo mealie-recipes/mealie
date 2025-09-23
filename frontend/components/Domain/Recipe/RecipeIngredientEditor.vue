@@ -178,6 +178,7 @@
         </div>
       </v-col>
     </v-row>
+    <slot name="before-divider" />
     <v-divider
       v-if="!mdAndUp"
       class="my-4"

@@ -130,14 +130,17 @@
                     <RecipeIngredientEditor
                       v-model="ingredient.ingredient"
                       enable-context-menu
-                      class="list-group-item"
+                      class="list-group-item pb-8"
                       @delete="parsedIngs.splice(index, 1)"
                       @insert-above="insertNewIngredient(index)"
                       @insert-below="insertNewIngredient(index + 1)"
-                    />
-                    <p class="pt-0 pb-4 my-0 text-caption">
-                      {{ $t("recipe.original-text-with-value", { originalText: ingredient.input }) }}
-                    </p>
+                    >
+                      <template #before-divider>
+                        <p class="py-0 my-0 text-caption">
+                          {{ $t("recipe.original-text-with-value", { originalText: ingredient.input }) }}
+                        </p>
+                      </template>
+                    </RecipeIngredientEditor>
                   </div>
                 </TransitionGroup>
               </VueDraggable>
