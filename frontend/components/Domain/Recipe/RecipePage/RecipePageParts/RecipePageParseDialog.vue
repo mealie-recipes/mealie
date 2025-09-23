@@ -102,51 +102,47 @@
             </v-card-actions>
           </v-card-text>
         </v-card>
-        <v-expansion-panels v-else>
-          <v-card-title>{{ $t("recipe.parser.parsing-completed") }}</v-card-title>
-          <v-expansion-panel>
-            <v-expansion-panel-title>
-              {{ $t("recipe.parser.review-parsed-ingredients") }}
-            </v-expansion-panel-title>
-            <v-expansion-panel-text>
-              <VueDraggable
-                v-model="parsedIngs"
-                handle=".handle"
-                :delay="250"
-                :delay-on-touch-only="true"
-                v-bind="{
-                  animation: 200,
-                  group: 'recipe-ingredients',
-                  disabled: false,
-                  ghostClass: 'ghost',
-                }"
-                @start="drag = true"
-                @end="drag = false"
+        <div v-else>
+          <v-card-title class="text-center pt-0 pb-8">{{ $t("recipe.parser.review-parsed-ingredients") }}</v-card-title>
+          <v-card-text style="max-height: 60vh; overflow-y: auto;">
+            <VueDraggable
+              v-model="parsedIngs"
+              handle=".handle"
+              :delay="250"
+              :delay-on-touch-only="true"
+              v-bind="{
+                animation: 200,
+                group: 'recipe-ingredients',
+                disabled: false,
+                ghostClass: 'ghost',
+              }"
+              class="px-6"
+              @start="drag = true"
+              @end="drag = false"
+            >
+              <TransitionGroup
+                type="transition"
               >
-                <TransitionGroup
-                  type="transition"
-                >
-                  <div v-for="(ingredient, index) in parsedIngs" :key="index">
-                    <RecipeIngredientEditor
-                      v-model="ingredient.ingredient"
-                      enable-context-menu
-                      class="list-group-item pb-8"
-                      @delete="parsedIngs.splice(index, 1)"
-                      @insert-above="insertNewIngredient(index)"
-                      @insert-below="insertNewIngredient(index + 1)"
-                    >
-                      <template #before-divider>
-                        <p class="py-0 my-0 text-caption">
-                          {{ $t("recipe.original-text-with-value", { originalText: ingredient.input }) }}
-                        </p>
-                      </template>
-                    </RecipeIngredientEditor>
-                  </div>
-                </TransitionGroup>
-              </VueDraggable>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-        </v-expansion-panels>
+                <v-lazy v-for="(ingredient, index) in parsedIngs" :key="index">
+                  <RecipeIngredientEditor
+                    v-model="ingredient.ingredient"
+                    enable-context-menu
+                    class="list-group-item pb-8"
+                    @delete="parsedIngs.splice(index, 1)"
+                    @insert-above="insertNewIngredient(index)"
+                    @insert-below="insertNewIngredient(index + 1)"
+                  >
+                    <template #before-divider>
+                      <p class="py-0 my-0 text-caption">
+                        {{ $t("recipe.original-text-with-value", { originalText: ingredient.input }) }}
+                      </p>
+                    </template>
+                  </RecipeIngredientEditor>
+                </v-lazy>
+              </TransitionGroup>
+            </VueDraggable>
+          </v-card-text>
+        </div>
       </div>
     </v-container>
     <template v-if="!state.loading.parser" #custom-card-action>
