@@ -197,7 +197,7 @@ import type { RecipeIngredient } from "~/lib/api/types/recipe";
 // defineModel replaces modelValue prop
 const model = defineModel<RecipeIngredient>({ required: true });
 
-defineProps({
+const props = defineProps({
   unitError: {
     type: Boolean,
     default: false,
@@ -219,6 +219,10 @@ defineProps({
     default: false,
   },
   enableDragHandle: {
+    type: Boolean,
+    default: false,
+  },
+  deleteDisabled: {
     type: Boolean,
     default: false,
   },
@@ -275,8 +279,8 @@ const btns = computed(() => {
     text: i18n.t("general.delete"),
     event: "delete",
     children: undefined,
+    disabled: props.deleteDisabled,
   });
-
   return out;
 });
 

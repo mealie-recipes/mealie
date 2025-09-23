@@ -129,12 +129,13 @@
                     enable-drag-handle
                     enable-context-menu
                     class="list-group-item pb-8"
+                    :delete-disabled="parsedIngs.length <= 1"
                     @delete="parsedIngs.splice(index, 1)"
                     @insert-above="insertNewIngredient(index)"
                     @insert-below="insertNewIngredient(index + 1)"
                   >
                     <template #before-divider>
-                      <p class="py-0 my-0 text-caption">
+                      <p v-if="ingredient.input" class="py-0 my-0 text-caption">
                         {{ $t("recipe.original-text-with-value", { originalText: ingredient.input }) }}
                       </p>
                     </template>
@@ -147,22 +148,34 @@
       </div>
     </v-container>
     <template v-if="!state.loading.parser" #custom-card-action>
-      <BaseButton
-        v-if="!state.allReviewed"
-        color="info"
-        :icon="$globals.icons.arrowRightBold"
-        icon-right
-        :text="$t('general.next')"
-        @click="nextIngredient"
-      />
-      <BaseButton
-        v-else
-        create
-        :text="$t('general.save')"
-        :icon="$globals.icons.save"
-        :loading="state.loading.save"
-        @click="saveIngs"
-      />
+      <!-- Parse -->
+      <div v-if="!state.allReviewed" class="d-flex justify-space-between align-center">
+        <v-checkbox
+          v-model="currentIngShouldDelete"
+          color="error"
+          hide-details
+          density="compact"
+          :label="i18n.t('recipe.parser.delete-item')"
+          class="mr-4"
+        />
+        <BaseButton
+          :color="currentIngShouldDelete ? 'error' : 'info'"
+          :icon="currentIngShouldDelete ? $globals.icons.delete : $globals.icons.arrowRightBold"
+          :icon-right="!currentIngShouldDelete"
+          :text="$t(currentIngShouldDelete ? 'recipe.parser.delete-item' : 'general.next')"
+          @click="nextIngredient"
+        />
+       </div>
+      <!-- Review -->
+       <div v-else>
+        <BaseButton
+          create
+          :text="$t('general.save')"
+          :icon="$globals.icons.save"
+          :loading="state.loading.save"
+          @click="saveIngs"
+        />
+       </div>
     </template>
   </BaseDialog>
 </template>
@@ -230,6 +243,7 @@ const currentIng = ref<ParsedIngredient | null>(null);
 const currentMissingUnit = ref("");
 const currentMissingFood = ref("");
 const currentIngHasError = computed(() => currentMissingUnit.value || currentMissingFood.value);
+const currentIngShouldDelete = ref(false);
 
 const state = reactive({
   currentParsedIndex: -1,
@@ -301,6 +315,11 @@ function checkFood(ing: ParsedIngredient) {
 }
 
 function nextIngredient() {
+  if (currentIngShouldDelete.value) {
+    parsedIngs.value.splice(state.currentParsedIndex, 1);
+    currentIngShouldDelete.value = false;
+  }
+
   let nextIndex = state.currentParsedIndex + 1;
 
   while (nextIndex < parsedIngs.value.length) {
@@ -308,6 +327,7 @@ function nextIngredient() {
     if (shouldReview(current)) {
       state.currentParsedIndex = nextIndex;
       currentIng.value = current;
+      currentIngShouldDelete.value = false;
       checkUnit(current);
       checkFood(current);
       return;
@@ -465,6 +485,16 @@ watch(parser, () => {
   parserPreferences.value.parser = parser.value;
   parseIngredients();
 });
+
+watch([parsedIngs, () => state.allReviewed], () => {
+  if (!state.allReviewed) {
+    return;
+  }
+
+  if (!parsedIngs.value.length) {
+    insertNewIngredient(0);
+  }
+}, { immediate: true, deep: true })
 
 function asPercentage(num: number | undefined): string {
   if (!num) {
