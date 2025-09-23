@@ -317,12 +317,14 @@ function checkFood(ing: ParsedIngredient) {
 }
 
 function nextIngredient() {
+  let nextIndex = state.currentParsedIndex;
   if (currentIngShouldDelete.value) {
     parsedIngs.value.splice(state.currentParsedIndex, 1);
     currentIngShouldDelete.value = false;
   }
-
-  let nextIndex = state.currentParsedIndex + 1;
+  else {
+    nextIndex += 1;
+  }
 
   while (nextIndex < parsedIngs.value.length) {
     const current = parsedIngs.value[nextIndex];
@@ -363,6 +365,7 @@ async function parseIngredients() {
     state.allReviewed = false;
     createdUnits.clear();
     createdFoods.clear();
+    currentIngShouldDelete.value = false;
     nextIngredient();
   }
   catch (error) {
