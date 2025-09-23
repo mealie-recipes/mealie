@@ -31,7 +31,7 @@
           :placeholder="$t('recipe.quantity')"
           @keypress="quantityFilter"
         >
-          <template #prepend>
+          <template v-if="enableDragHandle" #prepend>
             <v-icon
               class="mr-n1 handle"
             >
@@ -207,6 +207,7 @@
         </div>
       </v-col>
     </v-row>
+    <slot name="before-divider" />
     <v-divider
       v-if="!mdAndUp"
       class="my-4"
@@ -227,7 +228,7 @@ import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 // defineModel replaces modelValue prop
 const model = defineModel<RecipeIngredient>({ required: true });
 
-defineProps({
+const props = defineProps({
   unitError: {
     type: Boolean,
     default: false,
@@ -245,6 +246,14 @@ defineProps({
     default: "",
   },
   enableContextMenu: {
+    type: Boolean,
+    default: false,
+  },
+  enableDragHandle: {
+    type: Boolean,
+    default: false,
+  },
+  deleteDisabled: {
     type: Boolean,
     default: false,
   },
@@ -301,8 +310,8 @@ const btns = computed(() => {
     text: i18n.t("general.delete"),
     event: "delete",
     children: undefined,
+    disabled: props.deleteDisabled,
   });
-
   return out;
 });
 

@@ -31,6 +31,7 @@
           v-for="(ingredient, index) in recipe.recipeIngredient"
           :key="ingredient.referenceId"
           v-model="recipe.recipeIngredient[index]"
+          enable-drag-handle
           enable-context-menu
           class="list-group-item"
           @delete="recipe.recipeIngredient.splice(index, 1)"
