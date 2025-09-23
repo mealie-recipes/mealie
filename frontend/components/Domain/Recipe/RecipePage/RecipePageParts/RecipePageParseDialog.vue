@@ -317,7 +317,7 @@ function checkFood(ing: ParsedIngredient) {
 }
 
 function nextIngredient() {
-let nextIndex = state.currentParsedIndex;
+  let nextIndex = state.currentParsedIndex;
   if (currentIngShouldDelete.value) {
     parsedIngs.value.splice(state.currentParsedIndex, 1);
     currentIngShouldDelete.value = false;
