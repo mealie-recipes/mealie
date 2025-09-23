@@ -103,7 +103,9 @@
           </v-card-text>
         </v-card>
         <div v-else>
-          <v-card-title class="text-center pt-0 pb-8">{{ $t("recipe.parser.review-parsed-ingredients") }}</v-card-title>
+          <v-card-title class="text-center pt-0 pb-8">
+            {{ $t("recipe.parser.review-parsed-ingredients") }}
+          </v-card-title>
           <v-card-text style="max-height: 60vh; overflow-y: auto;">
             <VueDraggable
               v-model="parsedIngs"
@@ -494,7 +496,7 @@ watch([parsedIngs, () => state.allReviewed], () => {
   if (!parsedIngs.value.length) {
     insertNewIngredient(0);
   }
-}, { immediate: true, deep: true })
+}, { immediate: true, deep: true });
 
 function asPercentage(num: number | undefined): string {
   if (!num) {
