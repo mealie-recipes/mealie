@@ -565,14 +565,14 @@
             "fresno chile": {
                 "aliases": [],
                 "description": "",
-                "name": "fresno chile",
-                "plural_name": "fresno chiles"
+                "name": "peperoncino di Fresno",
+                "plural_name": "peperoncini di Fresno"
             },
             "delicata squash": {
                 "aliases": [],
                 "description": "",
-                "name": "delicata squash",
-                "plural_name": "delicata squashes"
+                "name": "zucca delicata",
+                "plural_name": "zucche delicata"
             },
             "frisee": {
                 "aliases": [],
@@ -1098,13 +1098,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "tamarillo",
-                "plural_name": "tamarilloes"
+                "plural_name": "tamarilli"
             },
             "ice-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "ice-apple",
-                "plural_name": "ice-apples"
+                "name": "borasso",
+                "plural_name": "borassi"
             },
             "longan": {
                 "aliases": [],
@@ -1157,8 +1157,8 @@
             "loquat": {
                 "aliases": [],
                 "description": "",
-                "name": "loquat",
-                "plural_name": "loquats"
+                "name": "nespolo del Giappone",
+                "plural_name": "nespoli del Giappone"
             },
             "crabapple": {
                 "aliases": [],
