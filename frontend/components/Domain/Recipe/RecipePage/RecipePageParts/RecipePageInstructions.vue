@@ -34,21 +34,21 @@
               {{ $t("recipe.unlinked") }}
             </h4>
             <template v-for="(ingredients, title) in groupedUnusedIngredients" :key="title">
-            <h4 v-if="title" class="py-3 ml-1 pl-4">
-              {{ title }}
-            </h4>
-            <v-checkbox-btn
-              v-for="ing in ingredients"
-              :key="ing.referenceId"
-              v-model="activeRefs"
-              :value="ing.referenceId"
-              class="ml-4"
-            >
-              <template #label>
-                <RecipeIngredientHtml :markup="parseIngredientText(ing)" />
-              </template>
-            </v-checkbox-btn>
-          </template>
+              <h4 v-if="title" class="py-3 ml-1 pl-4">
+                {{ title }}
+              </h4>
+              <v-checkbox-btn
+                v-for="ing in ingredients"
+                :key="ing.referenceId"
+                v-model="activeRefs"
+                :value="ing.referenceId"
+                class="ml-4"
+              >
+                <template #label>
+                  <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
+                </template>
+              </v-checkbox-btn>
+            </template>
           </template>
 
           <template v-if="Object.keys(groupedUsedIngredients).length > 0">
@@ -67,7 +67,7 @@
                 class="ml-4"
               >
                 <template #label>
-                  <RecipeIngredientHtml :markup="parseIngredientText(ing)" />
+                  <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
                 </template>
               </v-checkbox-btn>
             </template>
@@ -184,17 +184,17 @@
           <v-hover v-slot="{ isHovering }">
             <v-card
               class="my-3"
-              :class="[{ 'on-hover': isHovering }, isChecked(index)]"
+              :class="[{ 'on-hover': isHovering }, { 'cursor-default': isEditForm }, isChecked(index)]"
               :elevation="isHovering ? 12 : 2"
               :ripple="false"
               @click="toggleDisabled(index)"
             >
-              <v-card-title :class="{ 'pb-0': !isChecked(index) }">
-                <div class="d-flex align-center">
+              <v-card-title class="recipe-step-title pt-3" :class="!isChecked(index) ? 'pb-0' : 'pb-3'">
+                <div class="d-flex align-center w-100">
                   <v-text-field
                     v-if="isEditForm"
                     v-model="step.summary"
-                    class="headline handle"
+                    class="headline"
                     hide-details
                     density="compact"
                     variant="solo"
@@ -202,14 +202,27 @@
                     :placeholder="$t('recipe.step-index', { step: index + 1 })"
                   >
                     <template #prepend>
-                      <v-icon size="26">
+                      <v-icon size="26" class="handle">
                         {{ $globals.icons.arrowUpDown }}
                       </v-icon>
                     </template>
                   </v-text-field>
-                  <span v-else>
-                    {{ step.summary ? step.summary : $t("recipe.step-index", { step: index + 1 }) }}
-                  </span>
+                  <div
+                    v-else
+                    class="summary-wrapper"
+                  >
+                    <template v-if="step.summary">
+                      <SafeMarkdown
+                        class="pr-2"
+                        :source="step.summary"
+                      />
+                    </template>
+                    <template v-else>
+                      <span>
+                        {{ $t('recipe.step-index', { step: index + 1 }) }}
+                      </span>
+                    </template>
+                  </div>
                   <template v-if="isEditForm">
                     <div class="ml-auto">
                       <BaseButtonGroup
@@ -314,11 +327,22 @@
                       persistentHint: true,
                     }"
                   />
-                  <RecipeIngredientHtml
-                    v-for="ing in step.ingredientReferences"
-                    :key="ing.referenceId!"
-                    :markup="getIngredientByRefId(ing.referenceId!)"
-                  />
+                  <div
+                    v-if="step.ingredientReferences && step.ingredientReferences.length"
+                    class="linked-ingredients-editor"
+                  >
+                    <div
+                      v-for="(linkRef, i) in step.ingredientReferences"
+                      :key="linkRef.referenceId ?? i"
+                      class="mb-1"
+                    >
+                      <RecipeIngredientHtml
+                        v-if="linkRef.referenceId && ingredientLookup[linkRef.referenceId]"
+                        :ingredient="ingredientLookup[linkRef.referenceId]"
+                        :scale="scale"
+                      />
+                    </div>
+                  </div>
                 </v-card-text>
               </DropZone>
               <v-expand-transition>
@@ -373,9 +397,7 @@
 <script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
 import { computed, nextTick, onMounted, ref, watch } from "vue";
-import RecipeIngredientHtml from "../../RecipeIngredientHtml.vue";
 import type { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
-import { parseIngredientText } from "~/composables/recipes";
 import { uuid4 } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
@@ -383,6 +405,7 @@ import { useExtractIngredientReferences } from "~/composables/recipe-page/use-ex
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
+import RecipeIngredientHtml from "~/components/Domain/Recipe/RecipeIngredientHtml.vue";
 
 interface MergerHistory {
   target: number;
@@ -500,10 +523,9 @@ function openDialog(idx: number, text: string, refs?: IngredientReferences[]) {
     instructionList.value[idx].ingredientReferences = [];
     refs = instructionList.value[idx].ingredientReferences as IngredientReferences[];
   }
-
-  setUsedIngredients();
-  activeText.value = text;
   activeIndex.value = idx;
+  activeText.value = text;
+  setUsedIngredients();
   dialog.value = true;
   activeRefs.value = refs.map(ref => ref.referenceId ?? "");
 }
@@ -544,29 +566,26 @@ function saveAndOpenNextLinkIngredients() {
 function setUsedIngredients() {
   const usedRefs: { [key: string]: boolean } = {};
 
-  instructionList.value.forEach((element) => {
+  instructionList.value.forEach((element, idx) => {
+    if (idx === activeIndex.value) return;
     element.ingredientReferences?.forEach((ref) => {
-      if (ref.referenceId !== undefined) {
-        usedRefs[ref.referenceId!] = true;
-      }
+      if (ref.referenceId) usedRefs[ref.referenceId] = true;
     });
   });
 
-  usedIngredients.value = props.recipe.recipeIngredient.filter((ing) => {
-    return ing.referenceId !== undefined && ing.referenceId in usedRefs;
-  });
+  usedIngredients.value = props.recipe.recipeIngredient.filter(ing => !!ing.referenceId && ing.referenceId in usedRefs);
 
-  unusedIngredients.value = props.recipe.recipeIngredient.filter((ing) => {
-    return !(ing.referenceId !== undefined && ing.referenceId in usedRefs);
-  });
+  unusedIngredients.value = props.recipe.recipeIngredient.filter(ing => !!ing.referenceId && !(ing.referenceId in usedRefs));
 }
+
+watch(activeRefs, () => setUsedIngredients());
 
 function autoSetReferences() {
   useExtractIngredientReferences(
     props.recipe.recipeIngredient,
     activeRefs.value,
     activeText.value,
-  ).forEach((ingredient: string) => activeRefs.value.push(ingredient));
+  ).forEach(ingredient => activeRefs.value.push(ingredient));
 }
 
 const ingredientLookup = computed(() => {
@@ -603,8 +622,8 @@ const ingredientSectionTitles = computed(() => {
   return titleMap;
 });
 
-const groupedUnusedIngredients = computed(() => {
-  const groups: { [key: string]: RecipeIngredient[] } = {};
+const groupedUnusedIngredients = computed((): Record<string, RecipeIngredient[]> => {
+  const groups: Record<string, RecipeIngredient[]> = {};
 
   // Group ingredients by section title
   unusedIngredients.value.forEach((ingredient) => {
@@ -614,20 +633,14 @@ const groupedUnusedIngredients = computed(() => {
 
     // Use the section title from the mapping, or fallback to the ingredient's own title
     const title = ingredientSectionTitles.value[ingredient.referenceId] || ingredient.title || "";
-
-    if (!groups[title]) {
-      groups[title] = [];
-    }
-    groups[title].push(ingredient);
+    (groups[title] ||= []).push(ingredient);
   });
 
   return groups;
 });
 
-const groupedUsedIngredients = computed(() => {
-  const groups: { [key: string]: RecipeIngredient[] } = {};
-
-  // Group ingredients by section title
+const groupedUsedIngredients = computed((): Record<string, RecipeIngredient[]> => {
+  const groups: Record<string, RecipeIngredient[]> = {};
   usedIngredients.value.forEach((ingredient) => {
     if (ingredient.referenceId === undefined) {
       return;
@@ -635,25 +648,11 @@ const groupedUsedIngredients = computed(() => {
 
     // Use the section title from the mapping, or fallback to the ingredient's own title
     const title = ingredientSectionTitles.value[ingredient.referenceId] || ingredient.title || "";
-
-    if (!groups[title]) {
-      groups[title] = [];
-    }
-    groups[title].push(ingredient);
+    (groups[title] ||= []).push(ingredient);
   });
 
   return groups;
 });
-
-function getIngredientByRefId(refId: string | undefined) {
-  if (refId === undefined) {
-    return "";
-  }
-
-  const ing = ingredientLookup.value[refId];
-  if (!ing) return "";
-  return parseIngredientText(ing, props.scale);
-}
 
 // ===============================================================
 // Instruction Merger
@@ -847,7 +846,21 @@ function openImageUpload(index: number) {
   z-index: 1;
 }
 
-.v-text-field >>> input {
+.v-text-field :deep(input) {
   font-size: 1.5rem;
+}
+
+.recipe-step-title {
+  /* Multiline display */
+  white-space: normal;
+  line-height: 1.25;
+  word-break: break-word;
+}
+.summary-wrapper {
+  flex: 1 1 auto;
+  min-width: 0; /* wrapping in flex container */
+  white-space: normal;
+  overflow-wrap: anywhere;
+  cursor: pointer;
 }
 </style>

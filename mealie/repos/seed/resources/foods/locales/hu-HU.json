@@ -1098,115 +1098,115 @@
                 "aliases": [],
                 "description": "",
                 "name": "tamarillo",
-                "plural_name": "tamarilloes"
+                "plural_name": "tamarillok"
             },
             "ice-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "ice-apple",
-                "plural_name": "ice-apples"
+                "name": "jégalma",
+                "plural_name": "jégalmák"
             },
             "longan": {
                 "aliases": [],
                 "description": "",
-                "name": "longan",
-                "plural_name": "longans"
+                "name": "longán",
+                "plural_name": "longánok"
             },
             "finger lime": {
                 "aliases": [],
                 "description": "",
-                "name": "finger lime",
-                "plural_name": "finger limes"
+                "name": "ujj lime",
+                "plural_name": "ujj lime-ok"
             },
             "bitter orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bitter orange",
-                "plural_name": "bitter oranges"
+                "name": "keserű narancs",
+                "plural_name": "keserű narancsok"
             },
             "feijoa": {
                 "aliases": [],
                 "description": "",
                 "name": "feijoa",
-                "plural_name": "feijoas"
+                "plural_name": "feijoák"
             },
             "dried persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried persimmon",
-                "plural_name": "dried persimmons"
+                "name": "szárított datolyaszilva",
+                "plural_name": "szárított datolyaszilvák"
             },
             "rambutan": {
                 "aliases": [],
                 "description": "",
-                "name": "rambutan",
-                "plural_name": "rambutans"
+                "name": "rambután",
+                "plural_name": "rambutánok"
             },
             "rose apple": {
                 "aliases": [],
                 "description": "",
-                "name": "rose apple",
-                "plural_name": "rose apples"
+                "name": "rózsaalma",
+                "plural_name": "rózsaalmák"
             },
             "dried orange slice": {
                 "aliases": [],
                 "description": "",
-                "name": "dried orange slice",
-                "plural_name": "dried orange slices"
+                "name": "szárított narancsszelet",
+                "plural_name": "szárított narancsszeletek"
             },
             "loquat": {
                 "aliases": [],
                 "description": "",
-                "name": "loquat",
-                "plural_name": "loquats"
+                "name": "japán naspolya",
+                "plural_name": "japán naspolyák"
             },
             "crabapple": {
                 "aliases": [],
                 "description": "",
-                "name": "crabapple",
-                "plural_name": "crabapples"
+                "name": "vadalma",
+                "plural_name": "vadalmák"
             },
             "fig leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "fig leaf",
-                "plural_name": "fig leaves"
+                "name": "fügefalevél",
+                "plural_name": "fügefalevelek"
             },
             "freeze-dried pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried pineapple",
-                "plural_name": "freeze-dried pineapples"
+                "name": "liofilizált ananász",
+                "plural_name": "liofilizált ananászok"
             },
             "pluot": {
                 "aliases": [],
                 "description": "",
                 "name": "pluot",
-                "plural_name": "pluots"
+                "plural_name": "pluotok"
             },
             "soursop": {
                 "aliases": [],
                 "description": "",
                 "name": "soursop",
-                "plural_name": "soursops"
+                "plural_name": "soursopok"
             },
             "hog plum": {
                 "aliases": [],
                 "description": "",
-                "name": "hog plum",
-                "plural_name": "hog plums"
+                "name": "disznó szilva",
+                "plural_name": "disznó szilvák"
             },
             "bergamot orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bergamot orange",
-                "plural_name": "bergamot oranges"
+                "name": "bergamott narancs",
+                "plural_name": "bergamott narancsok"
             },
             "luo han guo": {
                 "aliases": [],
                 "description": "",
                 "name": "luo han guo",
-                "plural_name": "luo han guos"
+                "plural_name": "luo han guo-k"
             },
             "mamey": {
                 "aliases": [],
@@ -1223,8 +1223,8 @@
             "green ume plum": {
                 "aliases": [],
                 "description": "",
-                "name": "green ume plum",
-                "plural_name": "green ume plums"
+                "name": "zöld ume szilva",
+                "plural_name": "zöld ume szilvák"
             },
             "kiwano": {
                 "aliases": [],
@@ -1567,7 +1567,7 @@
             "acai berry": {
                 "aliases": [],
                 "description": "",
-                "name": "acai berry",
+                "name": "acai bogyó",
                 "plural_name": "acai bogyó"
             },
             "canned cherry": {
@@ -1591,8 +1591,8 @@
             "freeze-dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried blueberry",
-                "plural_name": "freeze-dried blueberries"
+                "name": "acai bogyók",
+                "plural_name": "liofilizált áfonya"
             },
             "huckleberry": {
                 "aliases": [],
@@ -1603,20 +1603,20 @@
             "dried elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried elderberry",
-                "plural_name": "dried elderberries"
+                "name": "szárított bodza",
+                "plural_name": "szárított bodzák"
             },
             "barberry": {
                 "aliases": [],
                 "description": "",
-                "name": "barberry",
-                "plural_name": "barberries"
+                "name": "borbolya",
+                "plural_name": "borbolyák"
             },
             "dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried berry",
-                "plural_name": "dried berries"
+                "name": "szárított bogyó",
+                "plural_name": "szárított bogyók"
             },
             "sea buckthorn": {
                 "aliases": [],
@@ -1847,8 +1847,8 @@
             "mixed seed": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed seed",
-                "plural_name": "mixed seeds"
+                "name": "vegyes mag",
+                "plural_name": "vegyes magok"
             },
             "onion seed": {
                 "aliases": [],
@@ -1865,26 +1865,26 @@
             "honey-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted peanut",
-                "plural_name": "honey-roasted peanuts"
+                "name": "mézzel pörkölt földimogyoró",
+                "plural_name": "mézzel pörkölt földimogyorók"
             },
             "melon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "melon seed",
-                "plural_name": "melon seeds"
+                "name": "dinnyemag",
+                "plural_name": "dinnyemagok"
             },
             "lotus seed": {
                 "aliases": [],
                 "description": "",
-                "name": "lotus seed",
-                "plural_name": "lotus seeds"
+                "name": "lótuszmag",
+                "plural_name": "lótuszmagok"
             },
             "white chia": {
                 "aliases": [],
                 "description": "",
-                "name": "white chia",
-                "plural_name": "white chias"
+                "name": "fehér chia",
+                "plural_name": "fehér chiák"
             },
             "trail mix": {
                 "aliases": [],
@@ -1895,8 +1895,8 @@
             "basil seed": {
                 "aliases": [],
                 "description": "",
-                "name": "basil seed",
-                "plural_name": "basil seeds"
+                "name": "bazsalikommag",
+                "plural_name": "bazsalikommagok"
             },
             "candlenut": {
                 "aliases": [],
@@ -1919,14 +1919,14 @@
             "honey-roasted almond": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted almond",
-                "plural_name": "honey-roasted almonds"
+                "name": "mézes-pörkölt mandula",
+                "plural_name": "mézes-pörkölt mandulák"
             },
             "toasted nut": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted nut",
-                "plural_name": "toasted nuts"
+                "name": "pirított dió",
+                "plural_name": "pirított diók"
             },
             "chironji": {
                 "aliases": [],
@@ -2001,8 +2001,8 @@
             "parmesan": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan",
-                "plural_name": "parmesans"
+                "name": "parmezán",
+                "plural_name": "parmezán"
             },
             "cheddar cheese": {
                 "aliases": [
@@ -2105,20 +2105,20 @@
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cottage cheese",
-                "plural_name": "cottage cheeses"
+                "name": "túró",
+                "plural_name": "túró"
             },
             "american cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "american cheese",
-                "plural_name": "american cheeses"
+                "name": "amerikai sajt",
+                "plural_name": "amerikai sajt"
             },
             "provolone": {
                 "aliases": [],
                 "description": "",
                 "name": "provolone",
-                "plural_name": "provolones"
+                "plural_name": "provolone"
             },
             "mexican cheese blend": {
                 "aliases": [],
@@ -2183,26 +2183,26 @@
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheeses"
+                "name": "füstölt sajt",
+                "plural_name": "füstölt sajt"
             },
             "halloumi": {
                 "aliases": [],
                 "description": "",
                 "name": "halloumi",
-                "plural_name": "halloumis"
+                "plural_name": "halloumi"
             },
             "chevre": {
                 "aliases": [],
                 "description": "",
-                "name": "chevre",
-                "plural_name": "chevres"
+                "name": "kecskesajt",
+                "plural_name": "kecskesajt"
             },
             "manchego": {
                 "aliases": [],
                 "description": "",
                 "name": "manchego",
-                "plural_name": "manchegoes"
+                "plural_name": "manchego"
             },
             "italian cheese blend": {
                 "aliases": [],
@@ -2244,13 +2244,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "grana-padano",
-                "plural_name": "grana-padanoes"
+                "plural_name": "grana-padano"
             },
             "muenster": {
                 "aliases": [],
                 "description": "",
                 "name": "muenster",
-                "plural_name": "muensters"
+                "plural_name": "muenster"
             },
             "string cheese": {
                 "aliases": [],
@@ -2315,8 +2315,8 @@
             "edam": {
                 "aliases": [],
                 "description": "",
-                "name": "edam",
-                "plural_name": "edams"
+                "name": "edami",
+                "plural_name": "edami"
             },
             "creamy cheese wedge": {
                 "aliases": [],
@@ -2424,13 +2424,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "scamorza",
-                "plural_name": "scamorzas"
+                "plural_name": "scamorza"
             },
             "cambozola": {
                 "aliases": [],
                 "description": "",
                 "name": "cambozola",
-                "plural_name": "cambozolas"
+                "plural_name": "cambozola"
             },
             "cheshire cheese": {
                 "aliases": [],
@@ -2478,7 +2478,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "reblochon",
-                "plural_name": "reblochons"
+                "plural_name": "reblochon"
             },
             "robiola": {
                 "aliases": [],
@@ -2514,7 +2514,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mimolette",
-                "plural_name": "mimolettes"
+                "plural_name": "mimolette"
             },
             "queso quesadilla": {
                 "aliases": [],
@@ -2675,8 +2675,8 @@
                     "clarified butter"
                 ],
                 "description": "",
-                "name": "ghee",
-                "plural_name": "ghees"
+                "name": "ghi",
+                "plural_name": "ghi"
             },
             "shortening": {
                 "aliases": [],
@@ -2687,8 +2687,8 @@
             "condensed milk": {
                 "aliases": [],
                 "description": "",
-                "name": "condensed milk",
-                "plural_name": "condensed milks"
+                "name": "sűrített tej",
+                "plural_name": "sűrített tej"
             },
             "half and half": {
                 "aliases": [],
@@ -3213,8 +3213,8 @@
             "vegan mayonnaise": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan mayonnaise",
-                "plural_name": "vegan mayonnaises"
+                "name": "vegán majonéz",
+                "plural_name": "vegán majonéz"
             },
             "vegan cheese": {
                 "aliases": [],
@@ -3237,8 +3237,8 @@
             "vegan cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan cream cheese",
-                "plural_name": "vegan cream cheeses"
+                "name": "vegán krémsajt",
+                "plural_name": "vegán krémsajt"
             },
             "coconut yogurt": {
                 "aliases": [],
@@ -3303,14 +3303,14 @@
             "soy yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "soy yogurt",
-                "plural_name": "soy yogurts"
+                "name": "szójajoghurt",
+                "plural_name": "szójajoghurt"
             },
             "vegan mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan mozzarella",
-                "plural_name": "vegan mozzarellas"
+                "name": "vegán mozzarella",
+                "plural_name": "vegán mozzarella"
             },
             "non-dairy creamer": {
                 "aliases": [],
@@ -3321,8 +3321,8 @@
             "vegan sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan sausage",
-                "plural_name": "vegan sausages"
+                "name": "vegán kolbász",
+                "plural_name": "vegán kolbász"
             },
             "coconut whipped cream": {
                 "aliases": [],
@@ -3333,8 +3333,8 @@
             "smoked tofu": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked tofu",
-                "plural_name": "smoked tofus"
+                "name": "füstölt tofu",
+                "plural_name": "füstölt tofu"
             },
             "coconut powder": {
                 "aliases": [],
@@ -3739,8 +3739,8 @@
             "bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "bacon",
-                "plural_name": "bacons"
+                "name": "szalonna",
+                "plural_name": "szalonna"
             },
             "chopped bacon": {
                 "aliases": [],
@@ -3751,20 +3751,20 @@
             "ground beef": {
                 "aliases": [],
                 "description": "",
-                "name": "ground beef",
-                "plural_name": "ground beefs"
+                "name": "darált marhahús",
+                "plural_name": "darált marhahús"
             },
             "beef steak": {
                 "aliases": [],
                 "description": "",
-                "name": "beef steak",
-                "plural_name": "beef steaks"
+                "name": "marha bélszín",
+                "plural_name": "marha bélszín"
             },
             "ham": {
                 "aliases": [],
                 "description": "",
-                "name": "ham",
-                "plural_name": "hams"
+                "name": "sonka",
+                "plural_name": "sonka"
             },
             "pork chop": {
                 "aliases": [],
@@ -3824,13 +3824,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "chorizo",
-                "plural_name": "chorizoes"
+                "plural_name": "chorizo"
             },
             "pancetta": {
                 "aliases": [],
                 "description": "",
                 "name": "pancetta",
-                "plural_name": "pancettas"
+                "plural_name": "pancetta"
             },
             "pork fillet": {
                 "aliases": [],
@@ -16119,14 +16119,14 @@
             "vitamin e": {
                 "aliases": [],
                 "description": "",
-                "name": "vitamin e",
-                "plural_name": "vitamin es"
+                "name": "E-vitamin",
+                "plural_name": "E-vitamin"
             },
             "wine yeast": {
                 "aliases": [],
                 "description": "",
-                "name": "wine yeast",
-                "plural_name": "wine yeasts"
+                "name": "borélesztő",
+                "plural_name": "borélesztő"
             },
             "barley gras": {
                 "aliases": [],
@@ -16155,8 +16155,8 @@
             "vitamin d": {
                 "aliases": [],
                 "description": "",
-                "name": "vitamin d",
-                "plural_name": "vitamin ds"
+                "name": "D-vitamin",
+                "plural_name": "D-vitamin"
             },
             "calcium lactate": {
                 "aliases": [],
@@ -16191,14 +16191,14 @@
             "magnesium": {
                 "aliases": [],
                 "description": "",
-                "name": "magnesium",
-                "plural_name": "magnesiums"
+                "name": "magnézium",
+                "plural_name": "magnézium"
             },
             "creatine": {
                 "aliases": [],
                 "description": "",
-                "name": "creatine",
-                "plural_name": "creatines"
+                "name": "kreatin",
+                "plural_name": "kreatin"
             },
             "daily vitamin": {
                 "aliases": [],
@@ -16215,14 +16215,14 @@
             "pure lime extract": {
                 "aliases": [],
                 "description": "",
-                "name": "pure lime extract",
-                "plural_name": "pure lime extracts"
+                "name": "tiszta lime kivonat",
+                "plural_name": "tiszta lime kivonat"
             },
             "sodium alginate": {
                 "aliases": [],
                 "description": "",
-                "name": "sodium alginate",
-                "plural_name": "sodium alginates"
+                "name": "nátrium-alginát",
+                "plural_name": "nátrium-alginát"
             },
             "sunflower lecithin": {
                 "aliases": [],
@@ -16234,7 +16234,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "thc",
-                "plural_name": "thcs"
+                "plural_name": "thc"
             },
             "berry powder": {
                 "aliases": [],
@@ -16245,62 +16245,62 @@
             "champagne yeast": {
                 "aliases": [],
                 "description": "",
-                "name": "champagne yeast",
-                "plural_name": "champagne yeasts"
+                "name": "pezsgőélesztő",
+                "plural_name": "pezsgőélesztő"
             },
             "maqui": {
                 "aliases": [],
                 "description": "",
-                "name": "maqui",
-                "plural_name": "maquis"
+                "name": "maqui bogyó",
+                "plural_name": "maqui bogyó"
             },
             "rose oil": {
                 "aliases": [],
                 "description": "",
-                "name": "rose oil",
-                "plural_name": "rose oils"
+                "name": "rózsaolaj",
+                "plural_name": "rózsaolaj"
             },
             "banana powder": {
                 "aliases": [],
                 "description": "",
-                "name": "banana powder",
-                "plural_name": "banana powders"
+                "name": "banánpor",
+                "plural_name": "banánpor"
             },
             "chaga mushroom powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chaga mushroom powder",
-                "plural_name": "chaga mushroom powders"
+                "name": "chaga gombapor",
+                "plural_name": "chaga gombapor"
             },
             "clove oil": {
                 "aliases": [],
                 "description": "",
-                "name": "clove oil",
-                "plural_name": "clove oils"
+                "name": "szegfűszeg olaj",
+                "plural_name": "szegfűszeg olaj"
             },
             "cranberry powder": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry powder",
-                "plural_name": "cranberry powders"
+                "name": "tőzegáfonya por",
+                "plural_name": "tőzegáfonya por"
             },
             "eucalyptus oil": {
                 "aliases": [],
                 "description": "",
-                "name": "eucalyptus oil",
-                "plural_name": "eucalyptus oils"
+                "name": "eukaliptusz olaj",
+                "plural_name": "eukaliptusz olaj"
             },
             "goji berry powder": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry powder",
-                "plural_name": "goji berry powders"
+                "name": "goji bogyó por",
+                "plural_name": "goji bogyó por"
             },
             "maltodextrin": {
                 "aliases": [],
                 "description": "",
                 "name": "maltodextrin",
-                "plural_name": "maltodextrins"
+                "plural_name": "maltodextrin"
             }
         }
     }

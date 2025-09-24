@@ -19,7 +19,7 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Aucune recette ne correspond à vos règles"
+        "no-recipes-match-your-rules": "Aucune recette ne correspond à vos filtres"
     },
     "user": {
         "user-updated": "Utilisateur mis à jour",

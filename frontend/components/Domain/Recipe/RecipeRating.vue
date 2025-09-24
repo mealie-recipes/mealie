@@ -13,7 +13,6 @@
         hover
         clearable
         @update:model-value="updateRating(+$event)"
-        @click="updateRating"
       />
       <!-- Group Rating -->
       <v-rating v-else
@@ -83,7 +82,7 @@ export default defineNuxtComponent({
     });
 
     function updateRating(val?: number) {
-      if (!isOwnGroup.value) {
+      if (!isOwnGroup.value || !val) {
         return;
       }
 
