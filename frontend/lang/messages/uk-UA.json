@@ -671,12 +671,12 @@
       "this-unit-could-not-be-parsed-automatically": "Ця одиниця не може бути оброблена автоматично",
       "this-food-could-not-be-parsed-automatically": "Ця їжа не може бути оброблена автоматично",
       "no-food": "Немає їжі",
-      "parsing-completed": "Розбір закінчено",
       "review-parsed-ingredients": "Переглянути розпізнані інгредієнти",
       "confidence-score": "Оцінка впевненості",
       "ingredient-parser-description": "Ваші інгредієнти успішно розпізнано. Перегляньте інгредієнти, щодо яких ми не впевнені.",
       "ingredient-parser-final-review-description": "Як тільки всі інгредієнти будуть перевірені, у вас буде ще один шанс переглянути всі інгредієнти перед застосуванням змін до вашого рецепту.",
-      "add-text-as-alias-for-item": "Додати\"{text}\" як псевдонім для {item}"
+      "add-text-as-alias-for-item": "Додати\"{text}\" як псевдонім для {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Скинути кількість порцій",
     "not-linked-ingredients": "Додаткові продукти",
