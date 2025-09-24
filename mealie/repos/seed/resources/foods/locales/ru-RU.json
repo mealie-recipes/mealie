@@ -437,19 +437,19 @@
             "tenderstem broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "tenderstem broccoli",
-                "plural_name": "tenderstem broccolis"
+                "name": "тендерное брокколи",
+                "plural_name": "брокколи из нежных стеблей"
             },
             "plantain": {
                 "aliases": [],
                 "description": "",
-                "name": "plantain",
-                "plural_name": "plantains"
+                "name": "плантат",
+                "plural_name": "растения"
             },
             "leaf lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "leaf lettuce",
+                "name": "Листья",
                 "plural_name": "листовой салат"
             },
             "pepperoncini": {
@@ -601,7 +601,7 @@
             "arbol chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "arbol chile pepper",
+                "name": "перец арбола",
                 "plural_name": "arbol chile peppers"
             },
             "golden beet": {

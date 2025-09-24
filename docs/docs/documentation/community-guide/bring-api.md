@@ -1,5 +1,5 @@
 !!! info
-This guide was submitted by a community member. Find something wrong? Submit a PR to get it fixed!
+    This guide was submitted by a community member. Find something wrong? Submit a PR to get it fixed!
 
 Mealie supports adding the ingredients of a recipe to your [Bring](https://www.getbring.com/) shopping list, as you can
 see [here](https://docs.mealie.io/documentation/getting-started/features/#recipe-actions).

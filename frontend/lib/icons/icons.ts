@@ -153,6 +153,7 @@ import {
   mdiBellPlus,
   mdiLinkVariantPlus,
   mdiTableEdit,
+  mdiFileSign,
 } from "@mdi/js";
 
 export const icons = {
@@ -285,6 +286,7 @@ export const icons = {
   undo: mdiUndo,
   knfife: mdiKnife,
   bread: mdiCookie,
+  fileSign: mdiFileSign,
 
   // Crud
   backArrow: mdiArrowLeftBoldOutline,

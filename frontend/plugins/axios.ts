@@ -30,7 +30,23 @@ export default defineNuxtPlugin(() => {
       return response;
     },
     (error) => {
-      if (error?.response?.data?.detail?.message) alert.error(error.response.data.detail.message as string);
+      if (error?.response?.data?.detail?.message) {
+        alert.error(error.response.data.detail.message as string);
+      };
+
+      // If we receive a 401 Unauthorized response, clear the token cookie and redirect to login
+      if (error?.response?.status === 401) {
+        // If tokenCookie is not set, we may just be an unauthenticated user using the wrong API, so don't redirect
+        const tokenCookie = useCookie(tokenName);
+        if (tokenCookie.value) {
+          tokenCookie.value = null;
+
+          // Disable beforeunload warnings to prevent "Are you sure you want to leave?" popups
+          window.onbeforeunload = null;
+          window.location.href = "/login";
+        }
+      }
+
       return Promise.reject(error);
     },
   );

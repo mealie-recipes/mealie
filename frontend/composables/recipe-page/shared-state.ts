@@ -44,11 +44,16 @@ interface PageState {
 	 * true is the page is in cook mode.
 	 */
   isCookMode: ComputedRef<boolean>;
+  /**
+   * true if the recipe is currently being parsed.
+   */
+  isParsing: ComputedRef<boolean>;
 
   setMode: (v: PageMode) => void;
   setEditMode: (v: EditorMode) => void;
   toggleEditMode: () => void;
   toggleCookMode: () => void;
+  toggleIsParsing: (v?: boolean) => void;
 }
 
 type PageRefs = ReturnType<typeof pageRefs>;
@@ -60,11 +65,12 @@ function pageRefs(slug: string) {
     slugRef: ref(slug),
     pageModeRef: ref(PageMode.VIEW),
     editModeRef: ref(EditorMode.FORM),
+    isParsingRef: ref(false),
     imageKey: ref(1),
   };
 }
 
-function pageState({ slugRef, pageModeRef, editModeRef, imageKey }: PageRefs): PageState {
+function pageState({ slugRef, pageModeRef, editModeRef, isParsingRef, imageKey }: PageRefs): PageState {
   const { activateNavigationWarning, deactivateNavigationWarning } = useNavigationWarning();
 
   const toggleEditMode = () => {
@@ -81,6 +87,14 @@ function pageState({ slugRef, pageModeRef, editModeRef, imageKey }: PageRefs): P
       return;
     }
     pageModeRef.value = PageMode.COOK;
+  };
+
+  const toggleIsParsing = (v: boolean | null = null) => {
+    if (v === null) {
+      v = !isParsingRef.value;
+    }
+
+    isParsingRef.value = v;
   };
 
   const setEditMode = (v: EditorMode) => {
@@ -113,6 +127,7 @@ function pageState({ slugRef, pageModeRef, editModeRef, imageKey }: PageRefs): P
     setMode,
     setEditMode,
     toggleCookMode,
+    toggleIsParsing,
 
     isEditForm: computed(() => {
       return pageModeRef.value === PageMode.EDIT && editModeRef.value === EditorMode.FORM;
@@ -125,6 +140,9 @@ function pageState({ slugRef, pageModeRef, editModeRef, imageKey }: PageRefs): P
     }),
     isCookMode: computed(() => {
       return pageModeRef.value === PageMode.COOK;
+    }),
+    isParsing: computed(() => {
+      return isParsingRef.value;
     }),
   };
 }

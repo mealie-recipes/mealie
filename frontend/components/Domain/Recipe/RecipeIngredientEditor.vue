@@ -31,7 +31,7 @@
           :placeholder="$t('recipe.quantity')"
           @keypress="quantityFilter"
         >
-          <template #prepend>
+          <template v-if="enableDragHandle" #prepend>
             <v-icon
               class="mr-n1 handle"
             >
@@ -165,12 +165,12 @@
             @click="$emit('clickIngredientField', 'note')"
           />
           <BaseButtonGroup
+            v-if="enableContextMenu"
             hover
             :large="false"
             class="my-auto d-flex"
             :buttons="btns"
             @toggle-section="toggleTitle"
-            @toggle-original="toggleOriginalText"
             @insert-above="$emit('insert-above')"
             @insert-below="$emit('insert-below')"
             @delete="$emit('delete')"
@@ -178,13 +178,7 @@
         </div>
       </v-col>
     </v-row>
-    <p
-      v-if="showOriginalText"
-      class="text-caption"
-    >
-      {{ $t("recipe.original-text-with-value", { originalText: model.originalText }) }}
-    </p>
-
+    <slot name="before-divider" />
     <v-divider
       v-if="!mdAndUp"
       class="my-4"
@@ -203,7 +197,7 @@ import type { RecipeIngredient } from "~/lib/api/types/recipe";
 // defineModel replaces modelValue prop
 const model = defineModel<RecipeIngredient>({ required: true });
 
-defineProps({
+const props = defineProps({
   unitError: {
     type: Boolean,
     default: false,
@@ -220,6 +214,18 @@ defineProps({
     type: String,
     default: "",
   },
+  enableContextMenu: {
+    type: Boolean,
+    default: false,
+  },
+  enableDragHandle: {
+    type: Boolean,
+    default: false,
+  },
+  deleteDisabled: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 defineEmits([
@@ -235,7 +241,6 @@ const { $globals } = useNuxtApp();
 
 const state = reactive({
   showTitle: false,
-  showOriginalText: false,
 });
 
 const contextMenuOptions = computed(() => {
@@ -253,13 +258,6 @@ const contextMenuOptions = computed(() => {
       event: "insert-below",
     },
   ];
-
-  if (model.value.originalText) {
-    options.push({
-      text: i18n.t("recipe.see-original-text"),
-      event: "toggle-original",
-    });
-  }
 
   return options;
 });
@@ -281,8 +279,8 @@ const btns = computed(() => {
     text: i18n.t("general.delete"),
     event: "delete",
     children: undefined,
+    disabled: props.deleteDisabled,
   });
-
   return out;
 });
 
@@ -319,10 +317,6 @@ function toggleTitle() {
   state.showTitle = !state.showTitle;
 }
 
-function toggleOriginalText() {
-  state.showOriginalText = !state.showOriginalText;
-}
-
 function handleUnitEnter() {
   if (
     model.value.unit === undefined
@@ -349,7 +343,7 @@ function quantityFilter(e: KeyboardEvent) {
   }
 }
 
-const { showTitle, showOriginalText } = toRefs(state);
+const { showTitle } = toRefs(state);
 
 const foods = foodStore.store;
 const units = unitStore.store;
