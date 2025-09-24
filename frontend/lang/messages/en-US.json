@@ -671,12 +671,12 @@
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "No Food",
-      "parsing-completed": "Parsing Completed",
       "review-parsed-ingredients": "Review parsed ingredients",
       "confidence-score": "Confidence Score",
       "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
       "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Reset Servings Count",
     "not-linked-ingredients": "Additional Ingredients",

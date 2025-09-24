@@ -671,12 +671,12 @@
       "this-unit-could-not-be-parsed-automatically": "无法自动解析此单元",
       "this-food-could-not-be-parsed-automatically": "这种食物不能被自动解析",
       "no-food": "没有食物",
-      "parsing-completed": "Parsing Completed",
       "review-parsed-ingredients": "Review parsed ingredients",
       "confidence-score": "Confidence Score",
       "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
       "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "重置份量数量",
     "not-linked-ingredients": "附加配料",
