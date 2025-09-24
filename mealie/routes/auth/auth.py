@@ -55,7 +55,7 @@ class MealieAuthToken(BaseModel):
 
     @classmethod
     def set_cookie(
-        cls, response: Response, token: str, expires_in: int | float | None = None, samesite: str | None = None
+        cls, response: Response, token: str, *, expires_in: int | float | None = None, samesite: str | None = None
     ):
         expires_in = int(expires_in) if expires_in else None
 
@@ -124,7 +124,7 @@ def get_token(
     MealieAuthToken.set_cookie(
         response,
         access_token,
-        expires_in,
+        expires_in=expires_in,
         samesite=get_samesite(request),
     )
     return MealieAuthToken.respond(access_token)
@@ -182,7 +182,7 @@ async def oauth_callback(request: Request, response: Response, session: Session 
     MealieAuthToken.set_cookie(
         response,
         access_token,
-        expires_in,
+        expires_in=expires_in,
         samesite=get_samesite(request),
     )
     return MealieAuthToken.respond(access_token)
