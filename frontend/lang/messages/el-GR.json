@@ -671,12 +671,12 @@
       "this-unit-could-not-be-parsed-automatically": "Δεν ήταν δυνατή η αυτόματη ανάλυση αυτής της μονάδας",
       "this-food-could-not-be-parsed-automatically": "Δεν ήταν δυνατή η αυτόματη ανάλυση αυτού του φαγητού",
       "no-food": "Χωρίς Τρόφιμο",
-      "parsing-completed": "Η ανάλυση ολοκληρώθηκε",
       "review-parsed-ingredients": "Επανεξέταση αναλυμένων συστατικών",
       "confidence-score": "Βαθμολογία εμπιστοσύνης",
       "ingredient-parser-description": "Τα συστατικά σας έχουν αναλυθεί επιτυχώς. Παρακαλούμε ελέγξτε τα συστατικά για τα οποία δεν είμαστε σίγουροι.",
       "ingredient-parser-final-review-description": "Μόλις εξεταστούν όλα τα συστατικά, θα έχετε μία ακόμη ευκαιρία να επανεξετάσετε όλα τα συστατικά πριν εφαρμόσετε τις αλλαγές στη συνταγή σας.",
-      "add-text-as-alias-for-item": "Προσθήκη \"{text}\" ως ψευδώνυμο για το {item}"
+      "add-text-as-alias-for-item": "Προσθήκη \"{text}\" ως ψευδώνυμο για το {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Επαναφορά μέτρησης μερίδων",
     "not-linked-ingredients": "Πρόσθετα συστατικά",
