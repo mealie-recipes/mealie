@@ -23,7 +23,7 @@
     "support": "Soutenir",
     "version": "Version",
     "unknown-version": "inconnu",
-    "sponsor": "Sponsoriser"
+    "sponsor": "Soutenir"
   },
   "asset": {
     "assets": "Ressources",
@@ -671,12 +671,12 @@
       "this-unit-could-not-be-parsed-automatically": "Cette unité n'a pas pu être analysée automatiquement",
       "this-food-could-not-be-parsed-automatically": "Cet aliment n'a pas pu être analysé automatiquement",
       "no-food": "Aucun aliment",
-      "parsing-completed": "Analyse terminée",
       "review-parsed-ingredients": "Vérifier les ingrédients analysés",
       "confidence-score": "Score de confiance",
       "ingredient-parser-description": "Vos ingrédients ont été analysés avec succès. Veuillez vérifier les ingrédients dont nous ne sommes pas certains.",
       "ingredient-parser-final-review-description": "Une fois que tous les ingrédients ont été analysés, vous aurez encore une chance de vérifier tous les ingrédients avant de les appliquer à votre recette.",
-      "add-text-as-alias-for-item": "Ajouter \"{text}\" comme alias pour {item}"
+      "add-text-as-alias-for-item": "Ajouter \"{text}\" comme alias pour {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Réinitialiser le nombre de portions",
     "not-linked-ingredients": "Ingrédients supplémentaires",

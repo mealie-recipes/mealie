@@ -671,12 +671,12 @@
       "this-unit-could-not-be-parsed-automatically": "Questa unità non può essere analizzata automaticamente",
       "this-food-could-not-be-parsed-automatically": "Questo alimento non può essere analizzato automaticamente",
       "no-food": "Nessun Alimento",
-      "parsing-completed": "Analisi Completata",
       "review-parsed-ingredients": "Controlla ingredienti analizzati",
       "confidence-score": "Punteggio Di Confidenza",
       "ingredient-parser-description": "I tuoi ingredienti sono stati analizzati con successo. Controlla gli ingredienti di cui non siamo sicuri.",
       "ingredient-parser-final-review-description": "Una volta che tutti gli ingredienti sono stati controllati, avrai ancora una possibilità di rivederli tutti prima di applicare le modifiche alla ricetta.",
-      "add-text-as-alias-for-item": "Aggiungi \"{text}\" come alias per {item}"
+      "add-text-as-alias-for-item": "Aggiungi \"{text}\" come alias per {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Reimposta conteggio porzioni",
     "not-linked-ingredients": "Ingredienti Aggiuntivi",

@@ -1949,7 +1949,7 @@
             "sunflower sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower sprout",
+                "name": "Соняшникові паростки",
                 "plural_name": "Соняшникові паростки"
             },
             "apricot kernel": {
@@ -1980,19 +1980,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Кетомікс ягід та горіхів",
-                "plural_name": "wattleseeds"
+                "plural_name": "Насіння австралійської акації"
             },
             "barùka": {
                 "aliases": [],
                 "description": "",
-                "name": "barùka",
+                "name": "Горіх бару",
                 "plural_name": "бараукас"
             },
             "indian almond": {
                 "aliases": [],
                 "description": "",
-                "name": "indian almond",
-                "plural_name": "indian almonds"
+                "name": "Індійський мигдаль",
+                "plural_name": "Індійські мигдалі"
             }
         }
     },
@@ -2001,52 +2001,52 @@
             "parmesan": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan",
-                "plural_name": "parmesans"
+                "name": "Пармезан",
+                "plural_name": "Пармезану"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddars"
+                    "Чеддер"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheeses"
+                "name": "Чеддер сир",
+                "plural_name": "Чеддер сирів"
             },
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheeses"
+                "name": "Вершковий сир",
+                "plural_name": "Вершкового сиру"
             },
             "sharp cheddar": {
                 "aliases": [],
                 "description": "",
-                "name": "sharp cheddar",
-                "plural_name": "sharp cheddars"
+                "name": "Гострий чеддер",
+                "plural_name": "Гострого чеддеру"
             },
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheeses"
+                "name": "Сир",
+                "plural_name": "Сири"
             },
             "mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella",
-                "plural_name": "mozzarellas"
+                "name": "Моцарела",
+                "plural_name": "Моцарела"
             },
             "feta": {
                 "aliases": [],
                 "description": "",
-                "name": "feta",
-                "plural_name": "fetas"
+                "name": "Фета",
+                "plural_name": "Фети"
             },
             "ricotta": {
                 "aliases": [],
                 "description": "",
-                "name": "ricotta",
-                "plural_name": "ricottas"
+                "name": "Рикота",
+                "plural_name": "Рикоти"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
@@ -2201,86 +2201,86 @@
             "manchego": {
                 "aliases": [],
                 "description": "",
-                "name": "manchego",
-                "plural_name": "manchegoes"
+                "name": "Манчего сир",
+                "plural_name": "Манчего сиру"
             },
             "italian cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "italian cheese blend",
-                "plural_name": "italian cheese blends"
+                "name": "Суміш італійських сирів",
+                "plural_name": "Суміші італійських сирів"
             },
             "neufchatel": {
                 "aliases": [],
                 "description": "",
-                "name": "neufchatel",
-                "plural_name": "neufchatels"
+                "name": "Невшатель сир",
+                "plural_name": "Невшатель сиру"
             },
             "herb cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "herb cream cheese",
-                "plural_name": "herb cream cheeses"
+                "name": "Крем-сир вершковий з травами",
+                "plural_name": "Крем-сиру вершкового з травами"
             },
             "burrata": {
                 "aliases": [],
                 "description": "",
-                "name": "burrata",
-                "plural_name": "burratas"
+                "name": "Буррата",
+                "plural_name": "Буррати"
             },
             "havarti": {
                 "aliases": [],
                 "description": "",
-                "name": "havarti",
-                "plural_name": "havartis"
+                "name": "Хаварти сир",
+                "plural_name": "Хаварти сиру"
             },
             "colby": {
                 "aliases": [],
                 "description": "",
-                "name": "colby",
-                "plural_name": "colbies"
+                "name": "Колбі сир",
+                "plural_name": "Колбі сиру"
             },
             "grana-padano": {
                 "aliases": [],
                 "description": "",
-                "name": "grana-padano",
-                "plural_name": "grana-padanoes"
+                "name": "Грана падано",
+                "plural_name": "Грана падано"
             },
             "muenster": {
                 "aliases": [],
                 "description": "",
-                "name": "muenster",
-                "plural_name": "muensters"
+                "name": "Мюнстер сир",
+                "plural_name": "Мюнстер сиру"
             },
             "string cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "string cheese",
-                "plural_name": "string cheeses"
+                "name": "Сир-косичка",
+                "plural_name": "Сиру-косички"
             },
             "camembert": {
                 "aliases": [],
                 "description": "",
-                "name": "camembert",
-                "plural_name": "camemberts"
+                "name": "Камамбер",
+                "plural_name": "Камамберу"
             },
             "soft cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "soft cheese",
-                "plural_name": "soft cheeses"
+                "name": "М'який сир",
+                "plural_name": "М'яких сирів"
             },
             "stilton": {
                 "aliases": [],
                 "description": "",
-                "name": "stilton",
-                "plural_name": "stiltons"
+                "name": "Стілтон сир",
+                "plural_name": "Стілтон сирів"
             },
             "raclette": {
                 "aliases": [],
                 "description": "",
-                "name": "raclette",
-                "plural_name": "raclettes"
+                "name": "Раклет сир",
+                "plural_name": "Раклет сирів"
             },
             "colby-jack cheese": {
                 "aliases": [],
