@@ -671,12 +671,12 @@
       "this-unit-could-not-be-parsed-automatically": "Mealie kon deze meeteenheid niet automatisch verwerken",
       "this-food-could-not-be-parsed-automatically": "Mealie kon dit soort voedsel niet automatisch verwerken",
       "no-food": "Geen levensmiddel",
-      "parsing-completed": "Ontleding voltooid",
       "review-parsed-ingredients": "Controleer ingrediënten na de ontleding",
       "confidence-score": "Betrouwbaarheids-score",
       "ingredient-parser-description": "Uw ingrediëntenlijst is succesvol ontleed. Controleer de ingrediënten waar we niet zeker van zijn.",
       "ingredient-parser-final-review-description": "Als alle ingrediënten gecontroleerd zijn heb je, voor het toepassen van wijzigingen in je recept, nog één kans om alle ingrediënten te controleren.",
-      "add-text-as-alias-for-item": "Voeg \"{text}\" toe als alias voor {item}"
+      "add-text-as-alias-for-item": "Voeg \"{text}\" toe als alias voor {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Porties resetten",
     "not-linked-ingredients": "Extra ingrediënten",
