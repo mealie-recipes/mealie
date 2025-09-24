@@ -671,12 +671,12 @@
       "this-unit-could-not-be-parsed-automatically": "Ez az egység nem tudja automatikusan értelmezni",
       "this-food-could-not-be-parsed-automatically": "Ezt az ételt nem lehetett automatikusan feldolgozni",
       "no-food": "Élelmiszer nélküli",
-      "parsing-completed": "Az elemzés befejeződött",
       "review-parsed-ingredients": "Kinyert hozzávalók ellenőrzése",
       "confidence-score": "Bizonyossági érték",
       "ingredient-parser-description": "Sikeresen feldolgoztuk a hozzávalókat. Kérljük, nézze át azokat, amelyekben nem vagyunk teljesen biztosak.",
       "ingredient-parser-final-review-description": "Miután az összes hozzávalót átnézte, még egyszer átnézheti az összes hozzávalót, mielőtt a változtatásokat átvezeti a receptbe.",
-      "add-text-as-alias-for-item": "Adja hozzá a „{text}” nevet {item} aliasaként"
+      "add-text-as-alias-for-item": "Adja hozzá a „{text}” nevet {item} aliasaként",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Adagok számának visszaállítása",
     "not-linked-ingredients": "Kiegészítő hozzávalók",
