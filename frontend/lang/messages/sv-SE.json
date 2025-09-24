@@ -205,7 +205,7 @@
     "copied-to-clipboard": "Kopierat till urklipp",
     "your-browser-does-not-support-clipboard": "Din webbläsare stödjer inte urklipp",
     "copied-items-to-clipboard": "Inget objekt kopierat till urklipp|Ett objekt kopierat till urklipp|Kopierade {count} objekt till urklipp",
-    "actions": "Handlingar",
+    "actions": "Hantera",
     "selected-count": "Valda: {count}",
     "export-all": "Exportera allt",
     "refresh": "Uppdatera",
