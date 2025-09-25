@@ -10,6 +10,7 @@ export type RelationalKeyword = "IS" | "IS NOT" | "IN" | "NOT IN" | "CONTAINS AL
 export type RelationalOperator = "=" | "<>" | ">" | "<" | ">=" | "<=";
 
 export interface CookbookHousehold {
+  id: string;
   name: string;
 }
 export interface CreateCookBook {
