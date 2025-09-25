@@ -624,7 +624,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Você pode importar diretamente de dados brutos",
     "import-original-keywords-as-tags": "Importar palavras-chave originais como marcadores",
     "stay-in-edit-mode": "Permanecer no modo de edição",
-    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
+    "parse-recipe-ingredients-after-import": "Interpretar os ingredientes da receita após importar",
     "import-from-zip": "Importar do .zip",
     "import-from-zip-description": "Importar uma única receita exportada de outra instância Mealie.",
     "import-from-html-or-json": "Importar de HTML ou JSON",
