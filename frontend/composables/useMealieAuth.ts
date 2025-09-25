@@ -39,6 +39,8 @@ export const useMealieAuth = function () {
 
   async function signIn(...params: Parameters<typeof auth.signIn>) {
     await auth.signIn(...params);
+    // Force a session refresh after sign in to ensure user data is loaded
+    await auth.getSession();
   }
 
   async function oauthSignIn() {

@@ -6,16 +6,15 @@ export default defineNuxtPlugin(() => {
   const axiosInstance = axios.create({
     // timeout removed to allow backend to handle timeouts
     baseURL: "/", // api calls already pass with /api
-    headers: {
-      Authorization: "Bearer " + useCookie(tokenName).value,
-    },
     withCredentials: true,
   });
 
-  // Add request interceptor
   axiosInstance.interceptors.request.use(
     (config) => {
-      // You can add auth tokens or other headers here
+      const token = useCookie(tokenName).value;
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
       return config;
     },
     (error) => {
