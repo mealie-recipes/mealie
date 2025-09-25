@@ -1988,7 +1988,7 @@
     unplugin "^2.3.3"
     unstorage "^1.16.0"
 
-"@nuxt/kit@3.19.2", "@nuxt/kit@^3.12.4", "@nuxt/kit@^3.14.1592", "@nuxt/kit@^3.15.4", "@nuxt/kit@^3.16.0", "@nuxt/kit@^3.17.2", "@nuxt/kit@^3.17.3", "@nuxt/kit@^3.19.2", "@nuxt/kit@^3.5.0", "@nuxt/kit@^3.9.0":
+"@nuxt/kit@3.19.2", "@nuxt/kit@^3.12.4", "@nuxt/kit@^3.15.4", "@nuxt/kit@^3.16.0", "@nuxt/kit@^3.17.2", "@nuxt/kit@^3.17.3", "@nuxt/kit@^3.17.6", "@nuxt/kit@^3.19.2", "@nuxt/kit@^3.5.0", "@nuxt/kit@^3.9.0":
   version "3.19.2"
   resolved "https://registry.yarnpkg.com/@nuxt/kit/-/kit-3.19.2.tgz#e49bd5e6672fdf21289f24603151e42a77b97e51"
   integrity sha512-+QiqO0WcIxsKLUqXdVn3m4rzTRm2fO9MZgd330utCAaagGmHsgiMJp67kE14boJEPutnikfz3qOmrzBnDIHUUg==
@@ -2898,19 +2898,19 @@
   resolved "https://registry.yarnpkg.com/@rtsao/scc/-/scc-1.1.0.tgz#927dd2fae9bc3361403ac2c7a00c32ddce9ad7e8"
   integrity sha512-zt6OdqaDoOnJ1ZYsCYGt9YmWzDXl4vQdKTyJev62gFhRGKdx7mcT54V9KIjg+d2wi9EXsPvAPKe7i7WjfVWB8g==
 
-"@sidebase/nuxt-auth@0.10.0":
-  version "0.10.0"
-  resolved "https://registry.yarnpkg.com/@sidebase/nuxt-auth/-/nuxt-auth-0.10.0.tgz#1d26b8dc2386168439f221ba7d7ec8a245dcb73c"
-  integrity sha512-epAodLKJS7LNclKJ4l6Zs9qkxdhgASll8TourjTInOySCtC29S8nolJ00JxULy7ffBj8HSVoIzFQjPC9LnxxJg==
+"@sidebase/nuxt-auth@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@sidebase/nuxt-auth/-/nuxt-auth-1.1.0.tgz#c5ad29d5703f8a75503761120f9817314eb3d807"
+  integrity sha512-2Lj8dmlWE1tIA2CdGlekQsVUpgy2W56jaN9WDukJWxmuSDZRNK+CqxSXReYEHF+gb2tDRLMdhmyk0JUPfnRANg==
   dependencies:
-    "@nuxt/kit" "^3.14.1592"
+    "@nuxt/kit" "^3.17.6"
     defu "^6.1.4"
-    h3 "^1.13.0"
-    knitwork "^1.1.0"
-    nitropack "^2.10.4"
+    h3 "^1.15.3"
+    knitwork "^1.2.0"
+    nitropack "^2.11.13"
     requrl "^3.0.2"
     scule "^1.3.0"
-    ufo "^1.5.4"
+    ufo "^1.6.1"
 
 "@sinclair/typebox@^0.27.8":
   version "0.27.8"
@@ -6532,7 +6532,7 @@ gzip-size@^7.0.0:
   dependencies:
     duplexer "^0.1.2"
 
-h3@^1.12.0, h3@^1.13.0, h3@^1.15.1, h3@^1.15.3, h3@^1.15.4:
+h3@^1.12.0, h3@^1.15.1, h3@^1.15.3, h3@^1.15.4:
   version "1.15.4"
   resolved "https://registry.yarnpkg.com/h3/-/h3-1.15.4.tgz#022ab3563bbaf2108c25375c40460f3e54a5fe02"
   integrity sha512-z5cFQWDffyOe4vQ9xIqNfCZdV4p//vy6fBnr8Q1AWnVZ0teurKMG66rLj++TKwKPUP3u7iMUvrvKaEUiQw2QWQ==
@@ -7425,7 +7425,7 @@ klona@^2.0.6:
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.6.tgz#85bffbf819c03b2f53270412420a4555ef882e22"
   integrity sha512-dhG34DXATL5hSxJbIexCft8FChFXtmskoZYnoPWjXQuebWYCNkVeV3KkGegCK9CP1oswI/vQibS2GY7Em/sJJA==
 
-knitwork@^1.1.0, knitwork@^1.2.0:
+knitwork@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/knitwork/-/knitwork-1.2.0.tgz#3cc92e76249aeb35449cfbed3f31c6df8444db3f"
   integrity sha512-xYSH7AvuQ6nXkq42x0v5S8/Iry+cfulBz/DJQzhIyESdLD7425jXsPy4vn5cCXU+HhRN2kVw51Vd1K6/By4BQg==
@@ -7937,7 +7937,7 @@ next-auth@~4.24.0:
     preact-render-to-string "^5.1.19"
     uuid "^8.3.2"
 
-nitropack@^2.10.4, nitropack@^2.12.5:
+nitropack@^2.11.13, nitropack@^2.12.5:
   version "2.12.6"
   resolved "https://registry.yarnpkg.com/nitropack/-/nitropack-2.12.6.tgz#7743f88c2c9710347f982341c356a4bf56cbce6d"
   integrity sha512-DEq31s0SP4/Z5DIoVBRo9DbWFPWwIoYD4cQMEz7eE+iJMiAP+1k9A3B9kcc6Ihc0jDJmfUcHYyh6h2XlynCx6g==
