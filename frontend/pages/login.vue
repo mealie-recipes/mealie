@@ -110,7 +110,7 @@
           </v-card-actions>
 
           <div
-            v-if="allowOidc && allowPasswordLogin"
+            v-if="appInfoLoaded && allowOidc && allowPasswordLogin"
             class="d-flex my-4 justify-center align-center"
             width="80%"
           >
@@ -126,7 +126,7 @@
             </span>
           </div>
           <v-card-actions
-            v-if="allowOidc"
+            v-if="appInfoLoaded && allowOidc"
             class="justify-center"
           >
             <div class="max-button">
@@ -270,6 +270,7 @@ export default defineNuxtComponent({
 
     const { passwordIcon, inputType, togglePasswordShow } = usePasswordField();
 
+    const appInfoLoaded = computed(() => appInfo.value !== null);
     const allowSignup = computed(() => appInfo.value?.allowSignup || false);
     const allowOidc = computed(() => appInfo.value?.enableOidc || false);
     const oidcRedirect = computed(() => appInfo.value?.oidcRedirect || false);
@@ -277,7 +278,7 @@ export default defineNuxtComponent({
     const allowPasswordLogin = computed(() => appInfo.value?.allowPasswordLogin ?? true);
 
     whenever(
-      () => allowOidc.value && oidcRedirect.value && !isCallback() && !isDirectLogin() /* && !$auth.check().valid */,
+      () => appInfoLoaded.value && allowOidc.value && oidcRedirect.value && !isCallback() && !isDirectLogin() /* && !$auth.check().valid */,
       () => oidcAuthenticate(),
       { immediate: true },
     );
@@ -359,6 +360,7 @@ export default defineNuxtComponent({
       isDark,
       form,
       loggingIn,
+      appInfoLoaded,
       allowSignup,
       allowPasswordLogin,
       allowOidc,
