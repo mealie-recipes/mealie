@@ -40,7 +40,7 @@ python-slugify = "^8.0.0"
 recipe-scrapers = "^15.0.0"
 requests = "^2.31.0"
 tzdata = "^2024.1"
-uvicorn = { extras = ["standard"], version = "^0.35.0" }
+uvicorn = { extras = ["standard"], version = "^0.37.0" }
 beautifulsoup4 = "^4.11.2"
 isodate = "^0.7.0"
 text-unidecode = "^1.3"
