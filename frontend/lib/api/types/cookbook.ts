@@ -9,6 +9,9 @@ export type LogicalOperator = "AND" | "OR";
 export type RelationalKeyword = "IS" | "IS NOT" | "IN" | "NOT IN" | "CONTAINS ALL" | "LIKE" | "NOT LIKE";
 export type RelationalOperator = "=" | "<>" | ">" | "<" | ">=" | "<=";
 
+export interface CookbookHousehold {
+  name: string;
+}
 export interface CreateCookBook {
   name: string;
   description?: string;
@@ -28,6 +31,7 @@ export interface ReadCookBook {
   householdId: string;
   id: string;
   queryFilter?: QueryFilterJSON;
+  household?: CookbookHousehold | null;
 }
 export interface QueryFilterJSON {
   parts?: QueryFilterJSONPart[];
