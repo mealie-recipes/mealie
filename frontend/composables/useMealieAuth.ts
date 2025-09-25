@@ -39,7 +39,6 @@ export const useMealieAuth = function () {
 
   async function signIn(...params: Parameters<typeof auth.signIn>) {
     await auth.signIn(...params);
-    refreshCookie(useRuntimeConfig().public.AUTH_TOKEN);
   }
 
   async function oauthSignIn() {
