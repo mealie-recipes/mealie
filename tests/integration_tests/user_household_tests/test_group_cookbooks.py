@@ -89,6 +89,9 @@ def test_read_cookbook(
     use_other_household: bool,
 ):
     sample = random.choice(cookbooks)
+    household = unique_user.repos.households.get_one(sample.data["household_id"])
+    assert household
+
     if use_other_household:
         headers = h2_user.token
     else:
@@ -104,6 +107,8 @@ def test_read_cookbook(
     assert page_data["slug"] == sample.slug
     assert page_data["name"] == sample.name
     assert page_data["groupId"] == str(unique_user.group_id)
+    assert page_data["householdId"] == str(unique_user.household_id)
+    assert page_data["household"]["name"] == household.name
 
 
 def test_update_cookbook(api_client: TestClient, unique_user: TestUser, cookbooks: list[TestCookbook]):
