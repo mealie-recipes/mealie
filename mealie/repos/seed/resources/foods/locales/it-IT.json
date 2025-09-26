@@ -1110,7 +1110,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "longan",
-                "plural_name": "longans"
+                "plural_name": "longan"
             },
             "finger lime": {
                 "aliases": [],
@@ -1121,8 +1121,8 @@
             "bitter orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bitter orange",
-                "plural_name": "bitter oranges"
+                "name": "arancia amara",
+                "plural_name": "arance amare"
             },
             "feijoa": {
                 "aliases": [],
@@ -1163,8 +1163,8 @@
             "crabapple": {
                 "aliases": [],
                 "description": "",
-                "name": "crabapple",
-                "plural_name": "crabapples"
+                "name": "melo selvatico",
+                "plural_name": "mele selvatiche"
             },
             "fig leaf": {
                 "aliases": [],
@@ -1230,7 +1230,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kiwano",
-                "plural_name": "kiwanoes"
+                "plural_name": "kiwano"
             }
         }
     },
@@ -1239,8 +1239,8 @@
             "button mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "button mushroom",
-                "plural_name": "button mushrooms"
+                "name": "champignon",
+                "plural_name": "champignon"
             },
             "shiitake mushroom": {
                 "aliases": [],
@@ -1257,7 +1257,7 @@
             "wild mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "wild mushroom",
+                "name": "fungo selvatico",
                 "plural_name": "wild mushrooms"
             },
             "porcini": {
@@ -1294,13 +1294,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "black fungu",
-                "plural_name": "black fungus"
+                "plural_name": "trombetta dei morti"
             },
             "black truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "black truffle",
-                "plural_name": "black truffles"
+                "name": "tartufo nero",
+                "plural_name": "tartufi neri"
             },
             "morel mushroom": {
                 "aliases": [],
