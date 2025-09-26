@@ -3,6 +3,7 @@
     :model-value="modelValue"
     :title="$t('recipe.parse-ingredients')"
     :icon="$globals.icons.fileSign"
+    disable-submit-on-enter
     @update:model-value="emit('update:modelValue', $event)"
   >
     <v-container class="pa-2 ma-0" style="background-color: rgb(var(--v-theme-background));">
@@ -76,7 +77,11 @@
                 {{ i18n.t("recipe.parser.missing-unit", { unit: currentMissingUnit }) }}
               </BaseButton>
               <BaseButton
-                v-if="currentMissingUnit && currentIng.ingredient.unit?.id"
+                v-if="
+                  currentMissingUnit
+                  && currentIng.ingredient.unit?.id
+                  && currentMissingUnit.toLowerCase() != currentIng.ingredient.unit?.name.toLowerCase()
+                "
                 color="warning"
                 size="small"
                 @click="addMissingUnitAsAlias"
@@ -92,7 +97,11 @@
                 {{ i18n.t("recipe.parser.missing-food", { food: currentMissingFood }) }}
               </BaseButton>
               <BaseButton
-                v-if="currentMissingFood && currentIng.ingredient.food?.id"
+                v-if="
+                  currentMissingFood
+                  && currentIng.ingredient.food?.id
+                  && currentMissingFood.toLowerCase() != currentIng.ingredient.food?.name.toLowerCase()
+                "
                 color="warning"
                 size="small"
                 @click="addMissingFoodAsAlias"

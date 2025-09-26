@@ -60,6 +60,7 @@
           class="mx-1"
           :placeholder="$t('recipe.choose-unit')"
           clearable
+          :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
           @keyup.enter="handleUnitEnter"
         >
           <template #prepend>
@@ -117,6 +118,7 @@
           class="mx-1 py-0"
           :placeholder="$t('recipe.choose-food')"
           clearable
+          :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
           @keyup.enter="handleFoodEnter"
         >
           <template #prepend>
@@ -229,6 +231,10 @@ import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 const model = defineModel<RecipeIngredient>({ required: true });
 
 const props = defineProps({
+  menuAttachTarget: {
+    type: String,
+    default: "body",
+  },
   unitError: {
     type: Boolean,
     default: false,
