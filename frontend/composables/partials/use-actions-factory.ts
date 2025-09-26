@@ -29,20 +29,23 @@ export function useReadOnlyActions<T extends BoundT>(
     params.orderBy ??= "name";
     params.orderDirection ??= "asc";
 
-    loading.value = true;
     const allItems = useAsyncData(useAsyncKey(), async () => {
-      const { data } = await api.getAll(page, perPage, params);
-      loading.value = false;
+      loading.value = true;
+      try {
+        const { data } = await api.getAll(page, perPage, params);
 
-      if (data && allRef) {
-        allRef.value = data.items;
-      }
+        if (data && allRef) {
+          allRef.value = data.items;
+        }
 
-      if (data) {
-        return data.items ?? [];
-      }
-      else {
-        return [];
+        if (data) {
+          return data.items ?? [];
+        }
+        else {
+          return [];
+        }
+      } finally {
+        loading.value = false;
       }
     });
 
@@ -84,20 +87,23 @@ export function useStoreActions<T extends BoundT>(
     params.orderBy ??= "name";
     params.orderDirection ??= "asc";
 
-    loading.value = true;
     const allItems = useAsyncData(useAsyncKey(), async () => {
-      const { data } = await api.getAll(page, perPage, params);
-      loading.value = false;
+      loading.value = true;
+      try {
+        const { data } = await api.getAll(page, perPage, params);
 
-      if (data && allRef) {
-        allRef.value = data.items;
-      }
+        if (data && allRef) {
+          allRef.value = data.items;
+        }
 
-      if (data) {
-        return data.items ?? [];
-      }
-      else {
-        return [];
+        if (data) {
+          return data.items ?? [];
+        }
+        else {
+          return [];
+        }
+      } finally {
+        loading.value = false;
       }
     });
 

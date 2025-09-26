@@ -29,7 +29,7 @@ export const useReadOnlyStore = function <T extends BoundT>(
     },
   };
 
-  if (!loading.value && (!store.value || store.value.length === 0)) {
+  if (!loading.value && !store.value.length) {
     const result = actions.getAll(1, -1, params);
     store.value = result.value || [];
   }
@@ -54,7 +54,7 @@ export const useStore = function <T extends BoundT>(
     },
   };
 
-  if (!loading.value && (!store.value || store.value.length === 0)) {
+  if (!loading.value && !store.value.length) {
     const result = actions.getAll(1, -1, params);
     store.value = result.value || [];
   }
