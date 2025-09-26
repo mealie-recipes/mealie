@@ -77,7 +77,11 @@
                 {{ i18n.t("recipe.parser.missing-unit", { unit: currentMissingUnit }) }}
               </BaseButton>
               <BaseButton
-                v-if="currentMissingUnit && currentIng.ingredient.unit?.id && currentMissingUnit != currentIng.ingredient.unit?.name"
+                v-if="
+                  currentMissingUnit
+                  && currentIng.ingredient.unit?.id
+                  && currentMissingUnit.toLowerCase() != currentIng.ingredient.unit?.name.toLowerCase()
+                "
                 color="warning"
                 size="small"
                 @click="addMissingUnitAsAlias"
@@ -93,7 +97,11 @@
                 {{ i18n.t("recipe.parser.missing-food", { food: currentMissingFood }) }}
               </BaseButton>
               <BaseButton
-                v-if="currentMissingFood && currentIng.ingredient.food?.id && currentMissingFood != currentIng.ingredient.food?.name"
+                v-if="
+                  currentMissingFood
+                  && currentIng.ingredient.food?.id
+                  && currentMissingFood.toLowerCase() != currentIng.ingredient.food?.name.toLowerCase()
+                "
                 color="warning"
                 size="small"
                 @click="addMissingFoodAsAlias"
