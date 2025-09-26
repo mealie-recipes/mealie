@@ -10,9 +10,7 @@
       :max-width="maxWidth ?? undefined"
       :content-class="top ? 'top-dialog' : undefined"
       :fullscreen="$vuetify.display.xs"
-      @keydown.enter="() => {
-        emit('submit'); dialog = false;
-      }"
+      @keydown.enter="submitOnEnter"
       @click:outside="emit('cancel')"
       @keydown.esc="emit('cancel')"
     >
@@ -127,6 +125,7 @@ interface DialogProps {
   canDelete?: boolean;
   canConfirm?: boolean;
   canSubmit?: boolean;
+  disableSubmitOnEnter?: boolean;
 }
 
 interface DialogEmits {
@@ -150,6 +149,7 @@ const props = withDefaults(defineProps<DialogProps>(), {
   canDelete: false,
   canConfirm: false,
   canSubmit: false,
+  disableSubmitOnEnter: false,
 });
 const emit = defineEmits<DialogEmits>();
 
@@ -179,6 +179,14 @@ watch(dialog, (val) => {
 function submitEvent() {
   emit("submit");
   submitted.value = true;
+}
+
+function submitOnEnter() {
+  if (props.disableSubmitOnEnter) {
+    return;
+  }
+
+  submitEvent();
 }
 
 function deleteEvent() {

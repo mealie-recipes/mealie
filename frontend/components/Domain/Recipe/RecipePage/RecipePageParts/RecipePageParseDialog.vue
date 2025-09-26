@@ -3,6 +3,7 @@
     :model-value="modelValue"
     :title="$t('recipe.parse-ingredients')"
     :icon="$globals.icons.fileSign"
+    disable-submit-on-enter
     @update:model-value="emit('update:modelValue', $event)"
   >
     <v-container class="pa-2 ma-0" style="background-color: rgb(var(--v-theme-background));">
