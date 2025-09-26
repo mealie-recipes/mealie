@@ -44,7 +44,8 @@ export function useReadOnlyActions<T extends BoundT>(
         else {
           return [];
         }
-      } finally {
+      }
+      finally {
         loading.value = false;
       }
     });
@@ -102,7 +103,8 @@ export function useStoreActions<T extends BoundT>(
         else {
           return [];
         }
-      } finally {
+      }
+      finally {
         loading.value = false;
       }
     });
