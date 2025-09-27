@@ -63,17 +63,29 @@ def inject_meta(contents: str, tags: list[MetaTag]) -> str:
     scraped_meta_tags = soup.find_all("meta")
 
     tags_by_hid = {tag.hid: tag for tag in tags}
-    for scraped_meta_tag in scraped_meta_tags:
-        try:
-            scraped_hid = scraped_meta_tag["data-hid"]
-        except KeyError:
-            continue
+    tags_by_property = {tag.property_name: tag for tag in tags}
 
-        if not (matched_tag := tags_by_hid.pop(scraped_hid, None)):
+    for scraped_meta_tag in scraped_meta_tags:
+        # Try to match by data-hid first
+        scraped_hid = scraped_meta_tag.get("data-hid")
+        matched_tag = tags_by_hid.pop(scraped_hid, None) if scraped_hid else None
+
+        # If no match by data-hid, try matching by property name
+        if not matched_tag:
+            scraped_property = scraped_meta_tag.get("property")
+            matched_tag = tags_by_property.get(scraped_property) if scraped_property else None
+            if matched_tag:
+                tags_by_hid.pop(matched_tag.hid, None)
+                tags_by_property.pop(scraped_property, None)
+
+        if not matched_tag:
             continue
 
         scraped_meta_tag["property"] = matched_tag.property_name
         scraped_meta_tag["content"] = matched_tag.content
+        # Add data-hid if it doesn't exist
+        if "data-hid" not in scraped_meta_tag.attrs:
+            scraped_meta_tag["data-hid"] = matched_tag.hid
 
     # add any tags we didn't find
     if soup.html and soup.html.head:

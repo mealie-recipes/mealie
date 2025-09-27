@@ -45,7 +45,7 @@
     "category-filter": "Filtros de Categorías",
     "category-update-failed": "Error al actualizar categoría",
     "category-updated": "Categoría actualizada",
-    "uncategorized-count": "{count} no categorizado",
+    "uncategorized-count": "{count} sin categorizar",
     "create-a-category": "Crear una categoría",
     "category-name": "Nombre de la categoría",
     "category": "Categoría"

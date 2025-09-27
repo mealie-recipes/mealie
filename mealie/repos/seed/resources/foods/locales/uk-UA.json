@@ -3723,8 +3723,8 @@
             "latik": {
                 "aliases": [],
                 "description": "",
-                "name": "latik",
-                "plural_name": "latiks"
+                "name": "Латік сироп",
+                "plural_name": "Латік сиропу"
             },
             "rice cream": {
                 "aliases": [],
@@ -3769,578 +3769,578 @@
             "pork chop": {
                 "aliases": [],
                 "description": "",
-                "name": "pork chop",
-                "plural_name": "pork chops"
+                "name": "Cвиняча відбивна",
+                "plural_name": "Cвинячі відбивні"
             },
             "sweet italian sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet italian sausage",
-                "plural_name": "sweet italian sausages"
+                "name": "Солодка італійська ковбаса",
+                "plural_name": "Солодкі італійські ковбаси"
             },
             "pork loin": {
                 "aliases": [],
                 "description": "",
-                "name": "pork loin",
-                "plural_name": "pork loins"
+                "name": "Свиняча вирізка",
+                "plural_name": "Свинячої вирізки"
             },
             "prosciutto": {
                 "aliases": [],
                 "description": "",
-                "name": "prosciutto",
-                "plural_name": "prosciuttoes"
+                "name": "Прошуто",
+                "plural_name": "Прошуто"
             },
             "sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage",
-                "plural_name": "sausages"
+                "name": "Ковбаса",
+                "plural_name": "Ковбаси"
             },
             "beef roast": {
                 "aliases": [],
                 "description": "",
-                "name": "beef roast",
-                "plural_name": "beef roasts"
+                "name": "Яловичина смажена",
+                "plural_name": "Яловичини смаженої"
             },
             "ground pork": {
                 "aliases": [],
                 "description": "",
-                "name": "ground pork",
-                "plural_name": "ground porks"
+                "name": "Свинячий фарш",
+                "plural_name": "Свинячого фаршу"
             },
             "beef stew meat": {
                 "aliases": [],
                 "description": "",
-                "name": "beef stew meat",
-                "plural_name": "beef stew meats"
+                "name": "Яловичина тушкована",
+                "plural_name": "Яловичини тушкованої"
             },
             "pepperoni": {
                 "aliases": [],
                 "description": "",
-                "name": "pepperoni",
-                "plural_name": "pepperonis"
+                "name": "Пепероні",
+                "plural_name": "Пепероні"
             },
             "chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "chorizo",
-                "plural_name": "chorizoes"
+                "name": "Чорисо",
+                "plural_name": "Чорисо"
             },
             "pancetta": {
                 "aliases": [],
                 "description": "",
-                "name": "pancetta",
-                "plural_name": "pancettas"
+                "name": "Панчета ",
+                "plural_name": "Панчети"
             },
             "pork fillet": {
                 "aliases": [],
                 "description": "",
-                "name": "pork fillet",
-                "plural_name": "pork fillets"
+                "name": "Свиняче філе",
+                "plural_name": "Свинячого філе"
             },
             "pork shoulder": {
                 "aliases": [],
                 "description": "",
-                "name": "pork shoulder",
-                "plural_name": "pork shoulders"
+                "name": "Свиняча лопатка",
+                "plural_name": "Свинячих лопаток"
             },
             "ground lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "ground lamb",
-                "plural_name": "ground lambs"
+                "name": "Фарш з ягняти",
+                "plural_name": "Фаршу з ягняти"
             },
             "pork rib": {
                 "aliases": [],
                 "description": "",
-                "name": "pork rib",
-                "plural_name": "pork ribs"
+                "name": "Свинячі реберця",
+                "plural_name": "Свинячих реберць"
             },
             "smoked sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked sausage",
-                "plural_name": "smoked sausages"
+                "name": "Копчена ковбаса",
+                "plural_name": "Копчених ковбас"
             },
             "breakfast sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "breakfast sausage",
-                "plural_name": "breakfast sausages"
+                "name": "Ковбаса для сніданку",
+                "plural_name": "Ковбаси для сніданку"
             },
             "hot dog": {
                 "aliases": [],
                 "description": "",
-                "name": "hot dog",
-                "plural_name": "hot dogs"
+                "name": "Хот-дог",
+                "plural_name": "Хот-доги"
             },
             "beef sirloin": {
                 "aliases": [],
                 "description": "",
-                "name": "beef sirloin",
-                "plural_name": "beef sirloins"
+                "name": "Яловича вирізка",
+                "plural_name": "Яловичі вирізки"
             },
             "salami": {
                 "aliases": [],
                 "description": "",
-                "name": "salami",
-                "plural_name": "salamis"
+                "name": "Салямі",
+                "plural_name": "Салямі"
             },
             "brisket": {
                 "aliases": [],
                 "description": "",
-                "name": "brisket",
-                "plural_name": "briskets"
+                "name": "Грудинка",
+                "plural_name": "Грудинки"
             },
             "deli ham": {
                 "aliases": [],
                 "description": "",
-                "name": "deli ham",
-                "plural_name": "deli hams"
+                "name": "Делікатесна шинка",
+                "plural_name": "Делікатесні шинки"
             },
             "leg of lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "leg of lamb",
-                "plural_name": "leg of lamb"
+                "name": "Нога ягня",
+                "plural_name": "Ноги ягня"
             },
             "beef short rib": {
                 "aliases": [],
                 "description": "",
-                "name": "beef short rib",
-                "plural_name": "beef short ribs"
+                "name": "\nЯловичі короткі реберця\n",
+                "plural_name": "Яловичі короткі реберця"
             },
             "kielbasa": {
                 "aliases": [],
                 "description": "",
-                "name": "kielbasa",
-                "plural_name": "kielbasas"
+                "name": "Польска ковбаса",
+                "plural_name": "Польскі ковбаси"
             },
             "pork belly": {
                 "aliases": [],
                 "description": "",
-                "name": "pork belly",
-                "plural_name": "pork bellies"
+                "name": "Свиняче черево",
+                "plural_name": "Свинячі черева"
             },
             "andouille": {
                 "aliases": [],
                 "description": "",
-                "name": "andouille",
-                "plural_name": "andouilles"
+                "name": "Андуй",
+                "plural_name": "Андуй"
             },
             "boneless lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "boneless lamb",
-                "plural_name": "boneless lambs"
+                "name": "Ягня без кісток",
+                "plural_name": "Ягня без кісток"
             },
             "ground sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "ground sausage",
-                "plural_name": "ground sausages"
+                "name": "Фарш для ковбаси",
+                "plural_name": "Фаршу для ковбаси"
             },
             "ground pork sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "ground pork sausage",
-                "plural_name": "ground pork sausages"
+                "name": "Фарш свинячий для ковбаси",
+                "plural_name": "Фаршу свинячого для ковбаси"
             },
             "roast beef": {
                 "aliases": [],
                 "description": "",
-                "name": "roast beef",
-                "plural_name": "roast beefs"
+                "name": "Смажена яловичина",
+                "plural_name": "Смаженої яловичини"
             },
             "bacon bit": {
                 "aliases": [],
                 "description": "",
-                "name": "bacon bit",
-                "plural_name": "bacon bits"
+                "name": "Шматочок бекону",
+                "plural_name": "Шматочки бекону"
             },
             "pork roast": {
                 "aliases": [],
                 "description": "",
-                "name": "pork roast",
-                "plural_name": "pork roasts"
+                "name": "Смажена свинина",
+                "plural_name": "Смаженої свинини"
             },
             "hot italian sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "hot italian sausage",
-                "plural_name": "hot italian sausages"
+                "name": "Гостра італійська ковбаса",
+                "plural_name": "Гострі італійські ковбаси"
             },
             "pork spare rib": {
                 "aliases": [],
                 "description": "",
-                "name": "pork spare rib",
-                "plural_name": "pork spare ribs"
+                "name": "Заднє свиняче ребро",
+                "plural_name": "Задні свинячі ребра"
             },
             "lamb shoulder": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb shoulder",
-                "plural_name": "lamb shoulders"
+                "name": "Бараняча лопатка",
+                "plural_name": "Лопатки ягня"
             },
             "beef rib": {
                 "aliases": [],
                 "description": "",
-                "name": "beef rib",
-                "plural_name": "beef ribs"
+                "name": "Яловичине ребро",
+                "plural_name": "Яловичині ребра"
             },
             "veal steak": {
                 "aliases": [],
                 "description": "",
-                "name": "veal steak",
-                "plural_name": "veal steaks"
+                "name": "Телячий стейк",
+                "plural_name": "Телячі стейки"
             },
             "lamb chop": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb chop",
-                "plural_name": "lamb chops"
+                "name": "Відбивна з ягня",
+                "plural_name": "Відбивні з ягня"
             },
             "bone-in ham": {
                 "aliases": [],
                 "description": "",
-                "name": "bone-in ham",
-                "plural_name": "bone-in hams"
+                "name": "Шинка з окісту",
+                "plural_name": "Шинки з окісту"
             },
             "pork butt": {
                 "aliases": [],
                 "description": "",
-                "name": "pork butt",
-                "plural_name": "pork butts"
+                "name": "Свиняча лопатка",
+                "plural_name": "Свиняча лопатка"
             },
             "canadian bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "canadian bacon",
-                "plural_name": "canadian bacons"
+                "name": "Канадський бекон",
+                "plural_name": "Канадськиє беконів"
             },
             "beef sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "beef sausage",
-                "plural_name": "beef sausages"
+                "name": "Яловича ковбаса",
+                "plural_name": "Яловичі ковбаси"
             },
             "lamb shank": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb shank",
-                "plural_name": "lamb shanks"
+                "name": "Ягняча гомілка",
+                "plural_name": "Ягнячих гомілок"
             },
             "mutton": {
                 "aliases": [],
                 "description": "",
-                "name": "mutton",
-                "plural_name": "muttons"
+                "name": "Баранина",
+                "plural_name": "Баранини"
             },
             "ham steak": {
                 "aliases": [],
                 "description": "",
-                "name": "ham steak",
-                "plural_name": "ham steaks"
+                "name": "Cтейк з шинки",
+                "plural_name": "Cтейки з шинки"
             },
             "venison": {
                 "aliases": [],
                 "description": "",
-                "name": "venison",
-                "plural_name": "venisons"
+                "name": "Оленина",
+                "plural_name": "Оленини"
             },
             "bratwurst": {
                 "aliases": [],
                 "description": "",
-                "name": "bratwurst",
-                "plural_name": "bratwursts"
+                "name": "Братвурст",
+                "plural_name": "Братвурсти"
             },
             "pulled pork": {
                 "aliases": [],
                 "description": "",
-                "name": "pulled pork",
-                "plural_name": "pulled porks"
+                "name": "Рвана свинина",
+                "plural_name": "Рваної свинини"
             },
             "ham hock": {
                 "aliases": [],
                 "description": "",
-                "name": "ham hock",
-                "plural_name": "ham hocks"
+                "name": "Свиняча рулька",
+                "plural_name": "Свинячих рульок"
             },
             "frozen meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen meatball",
-                "plural_name": "frozen meatballs"
+                "name": "Заморожені фрикадельки",
+                "plural_name": "Заморожених фрикадельок"
             },
             "mixed ground meat": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed ground meat",
-                "plural_name": "mixed ground meats"
+                "name": "Суміш фаршів",
+                "plural_name": "Суміши фаршів"
             },
             "rabbit": {
                 "aliases": [],
                 "description": "",
-                "name": "rabbit",
-                "plural_name": "rabbits"
+                "name": "Кролик",
+                "plural_name": "Кроликів"
             },
             "pork cutlet": {
                 "aliases": [],
                 "description": "",
-                "name": "pork cutlet",
-                "plural_name": "pork cutlets"
+                "name": "Свиняча відбивна",
+                "plural_name": "Свинячі відбивні"
             },
             "veal cutlet": {
                 "aliases": [],
                 "description": "",
-                "name": "veal cutlet",
-                "plural_name": "veal cutlets"
+                "name": "Теляча відбивна",
+                "plural_name": "Телячі відбивні"
             },
             "soup bone": {
                 "aliases": [],
                 "description": "",
-                "name": "soup bone",
-                "plural_name": "soup bones"
+                "name": "Кістка для бульйону",
+                "plural_name": "Кістки для бульйону"
             },
             "lamb loin": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb loin",
-                "plural_name": "lamb loins"
+                "name": "Ягняча вирізка",
+                "plural_name": "Ягнячі вирізкі"
             },
             "pork steak": {
                 "aliases": [],
                 "description": "",
-                "name": "pork steak",
-                "plural_name": "pork steaks"
+                "name": "Свинячий стейк",
+                "plural_name": "Свинячі стейки"
             },
             "mexican chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican chorizo",
-                "plural_name": "mexican chorizoes"
+                "name": "Мексиканське чорізо",
+                "plural_name": "Мексиканські чорізо"
             },
             "rack of lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "rack of lamb",
-                "plural_name": "rack of lamb"
+                "name": "Каре ягняти",
+                "plural_name": "Каре ягняти"
             },
             "pork back rib": {
                 "aliases": [],
                 "description": "",
-                "name": "pork back rib",
-                "plural_name": "pork back ribs"
+                "name": "Свинячі ребра з корейки",
+                "plural_name": "Cвинячі ребра з корейки"
             },
             "country style rib": {
                 "aliases": [],
                 "description": "",
-                "name": "country style rib",
-                "plural_name": "country style ribs"
+                "name": "Смужка м'яса",
+                "plural_name": "Смужки м'яса"
             },
             "black forest ham": {
                 "aliases": [],
                 "description": "",
-                "name": "black forest ham",
-                "plural_name": "black forest hams"
+                "name": "Шварцвальдська шинка",
+                "plural_name": "Шварцвальдської шинки"
             },
             "oxtail": {
                 "aliases": [],
                 "description": "",
-                "name": "oxtail",
-                "plural_name": "oxtails"
+                "name": "Яловичий хвіст",
+                "plural_name": "Яловичі хвости"
             },
             "smoked ham hock": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked ham hock",
-                "plural_name": "smoked ham hocks"
+                "name": "Копчена свиняча рулька",
+                "plural_name": "Копчені свинячі рульки"
             },
             "serrano ham": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano ham",
-                "plural_name": "serrano hams"
+                "name": "Хамон серрано",
+                "plural_name": "Хамону серрано"
             },
             "raw chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "raw chorizo",
-                "plural_name": "raw chorizoes"
+                "name": "Мексиканський чірозо",
+                "plural_name": "Мексиканські чірозо"
             },
             "beef liver": {
                 "aliases": [],
                 "description": "",
-                "name": "beef liver",
-                "plural_name": "beef livers"
+                "name": "Яловича печінка",
+                "plural_name": "Яловичої печінки"
             },
             "pastrami": {
                 "aliases": [],
                 "description": "",
-                "name": "pastrami",
-                "plural_name": "pastramis"
+                "name": "Пастрамі",
+                "plural_name": "Пастрамі"
             },
             "cocktail sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "cocktail sausage",
-                "plural_name": "cocktail sausages"
+                "name": "Міні-сосиска",
+                "plural_name": "Міні-сосиски"
             },
             "hard salami": {
                 "aliases": [],
                 "description": "",
-                "name": "hard salami",
-                "plural_name": "hard salamis"
+                "name": "Тверда салямі",
+                "plural_name": "Тверді салямі"
             },
             "back bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "back bacon",
-                "plural_name": "back bacons"
+                "name": "Бекoн зі спини",
+                "plural_name": "Бекoну зі спини"
             },
             "salt pork": {
                 "aliases": [],
                 "description": "",
-                "name": "salt pork",
-                "plural_name": "salt porks"
+                "name": "Засолена свинина",
+                "plural_name": "Засоленої свинини"
             },
             "veal shank": {
                 "aliases": [],
                 "description": "",
-                "name": "veal shank",
-                "plural_name": "veal shanks"
+                "name": "Теляча гомілка",
+                "plural_name": "Телячих гомілок"
             },
             "ground venison": {
                 "aliases": [],
                 "description": "",
-                "name": "ground venison",
-                "plural_name": "ground venisons"
+                "name": "Фарш з оленини",
+                "plural_name": "Фаршу з оленини"
             },
             "beef shank": {
                 "aliases": [],
                 "description": "",
-                "name": "beef shank",
-                "plural_name": "beef shanks"
+                "name": "Яловича гомілка",
+                "plural_name": "Яловичих гомілок"
             },
             "lap cheong": {
                 "aliases": [],
                 "description": "",
-                "name": "lap cheong",
-                "plural_name": "lap cheongs"
+                "name": "Лап чеонг",
+                "plural_name": "Лап чеонг"
             },
             "blood sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "blood sausage",
-                "plural_name": "blood sausages"
+                "name": "Кров'янка",
+                "plural_name": "Кров'янки"
             },
             "dried beef": {
                 "aliases": [],
                 "description": "",
-                "name": "dried beef",
-                "plural_name": "dried beefs"
+                "name": "Сушена яловичина",
+                "plural_name": "Сушеної яловичини"
             },
             "gammon joint": {
                 "aliases": [],
                 "description": "",
-                "name": "gammon joint",
-                "plural_name": "gammon joints"
+                "name": "Маринований окіст",
+                "plural_name": "Маринованих окістів"
             },
             "boneless beef short rib": {
                 "aliases": [],
                 "description": "",
-                "name": "boneless beef short rib",
-                "plural_name": "boneless beef short ribs"
+                "name": "Яловиче ребро без кістки",
+                "plural_name": "Яловичі ребра без кісток"
             },
             "country ham": {
                 "aliases": [],
                 "description": "",
-                "name": "country ham",
-                "plural_name": "country hams"
+                "name": "Сухов'ялена шинка",
+                "plural_name": "Сухов'яленої шинки"
             },
             "boneless ham": {
                 "aliases": [],
                 "description": "",
-                "name": "boneless ham",
-                "plural_name": "boneless hams"
+                "name": "Шинка без кісток",
+                "plural_name": "Шинки без кісток"
             },
             "mortadella": {
                 "aliases": [],
                 "description": "",
-                "name": "mortadella",
-                "plural_name": "mortadellas"
+                "name": "Мортаделла",
+                "plural_name": "Мортаделли"
             },
             "ground bison": {
                 "aliases": [],
                 "description": "",
-                "name": "ground bison",
-                "plural_name": "ground bisons"
+                "name": "Фарш з бізона",
+                "plural_name": "Фаршу з бізона"
             },
             "fresh sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh sausage",
-                "plural_name": "fresh sausages"
+                "name": "Сира ковбаса",
+                "plural_name": "Сирих ковбас"
             },
             "bologna": {
                 "aliases": [],
                 "description": "",
-                "name": "bologna",
-                "plural_name": "bolognas"
+                "name": "Болонська ковбаса",
+                "plural_name": "Болонські ковбаси"
             },
             "burger patty": {
                 "aliases": [],
                 "description": "",
-                "name": "burger patty",
-                "plural_name": "burger patties"
+                "name": "Котлета з рубленого м'яса",
+                "plural_name": "Котлет з рубленого м'яса"
             },
             "smoked pork chop": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked pork chop",
-                "plural_name": "smoked pork chops"
+                "name": "Копчена свиняча відбивна",
+                "plural_name": "Копчені свинячі відбивні"
             },
             "lamb neck": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb neck",
-                "plural_name": "lamb necks"
+                "name": "Шия ягня",
+                "plural_name": "Шиї ягня"
             },
             "sausage patty": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage patty",
-                "plural_name": "sausage patties"
+                "name": "Ковбасна котлета",
+                "plural_name": "Ковбасних котлет"
             },
             "beef suet": {
                 "aliases": [],
                 "description": "",
-                "name": "beef suet",
-                "plural_name": "beef suets"
+                "name": "Яловичий жир",
+                "plural_name": "Яловичого жиру"
             },
             "veal roast": {
                 "aliases": [],
                 "description": "",
-                "name": "veal roast",
-                "plural_name": "veal roasts"
+                "name": "Смажена телятина",
+                "plural_name": "Смаженої телятини"
             },
             "beef shoulder": {
                 "aliases": [],
                 "description": "",
-                "name": "beef shoulder",
-                "plural_name": "beef shoulders"
+                "name": "Яловича лопатка",
+                "plural_name": "Яловичих лопаток"
             },
             "steak tip": {
                 "aliases": [],
                 "description": "",
-                "name": "steak tip",
-                "plural_name": "steak tips"
+                "name": "Кубік стейка",
+                "plural_name": "Кубики стейка"
             },
             "veal chop": {
                 "aliases": [],
                 "description": "",
-                "name": "veal chop",
-                "plural_name": "veal chops"
+                "name": "Теляча відбивна",
+                "plural_name": "Телячі відбивні"
             }
         }
     },
@@ -4349,104 +4349,104 @@
             "chicken breast": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken breast",
-                "plural_name": "chicken breasts"
+                "name": "Куряча грудка",
+                "plural_name": "Курячі грудки"
             },
             "chicken thigh": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken thigh",
-                "plural_name": "chicken thighs"
+                "name": "Куряче стегно",
+                "plural_name": "Курячі стегна"
             },
             "cooked chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "cooked chicken",
-                "plural_name": "cooked chickens"
+                "name": "Приготована курка",
+                "plural_name": "Приготовані курки"
             },
             "ground turkey": {
                 "aliases": [],
                 "description": "",
-                "name": "ground turkey",
-                "plural_name": "ground turkeys"
+                "name": "Фарш з індички",
+                "plural_name": "Фаршу з індички"
             },
             "whole chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "whole chicken",
-                "plural_name": "whole chickens"
+                "name": "Ціле курча",
+                "plural_name": "Цілі курча"
             },
             "whole turkey": {
                 "aliases": [],
                 "description": "",
-                "name": "whole turkey",
-                "plural_name": "whole turkeys"
+                "name": "Ціла індичка",
+                "plural_name": "Цілі індички"
             },
             "chicken leg": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken leg",
-                "plural_name": "chicken legs"
+                "name": "Куряча ніжка",
+                "plural_name": "Курячі ніжки"
             },
             "chicken wing": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken wing",
-                "plural_name": "chicken wings"
+                "name": "Куряче крило",
+                "plural_name": "Курячі крильця"
             },
             "turkey breast": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey breast",
-                "plural_name": "turkey breasts"
+                "name": "Грудка індички",
+                "plural_name": "Грудки індички"
             },
             "ground chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "ground chicken",
-                "plural_name": "ground chickens"
+                "name": "Курячий фарш",
+                "plural_name": "Курячого фаршу"
             },
             "rotisserie chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "rotisserie chicken",
-                "plural_name": "rotisserie chickens"
+                "name": "Курка-гриль",
+                "plural_name": "Курки-гриль"
             },
             "chicken tender": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken tender",
-                "plural_name": "chicken tenders"
+                "name": "Курячі ніжні палички",
+                "plural_name": "Курячі ніжні палички"
             },
             "turkey sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey sausage",
-                "plural_name": "turkey sausages"
+                "name": "Ковбаса з індички",
+                "plural_name": "Індичі ковбаски"
             },
             "chicken sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken sausage",
-                "plural_name": "chicken sausages"
+                "name": "Куряча ковбаса",
+                "plural_name": "Курячі ковбаси"
             },
             "turkey bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey bacon",
-                "plural_name": "turkey bacons"
+                "name": "Бекон з індички",
+                "plural_name": "Бекони з індички"
             },
             "duck": {
                 "aliases": [],
                 "description": "",
-                "name": "duck",
-                "plural_name": "ducks"
+                "name": "Качка",
+                "plural_name": "Качки"
             },
             "duck breast": {
                 "aliases": [],
                 "description": "",
-                "name": "duck breast",
-                "plural_name": "duck breasts"
+                "name": "Грудка качки",
+                "plural_name": "Качині грудки"
             },
             "boneless chicken": {
                 "aliases": [],
@@ -10966,8 +10966,8 @@
             "lamb fat": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb fat",
-                "plural_name": "lamb fats"
+                "name": "Жир ягня",
+                "plural_name": "Жир ягня"
             },
             "castor oil": {
                 "aliases": [],
@@ -13442,8 +13442,8 @@
             "lamb stock": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb stock",
-                "plural_name": "lamb stocks"
+                "name": "Концетрований бульон з ягня",
+                "plural_name": "Концетрованих бульони з ягня"
             },
             "turkey broth": {
                 "aliases": [],
@@ -13736,8 +13736,8 @@
             "lamb broth": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb broth",
-                "plural_name": "lamb broths"
+                "name": "Бульон з ягня",
+                "plural_name": "Бульони з ягня"
             },
             "minestrone": {
                 "aliases": [],

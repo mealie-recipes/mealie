@@ -881,7 +881,7 @@
     "new-list": "New List",
     "quantity": "Quantity: {0}",
     "shopping-list": "Shopping List",
-    "shopping-lists": "Shopping Lists",
+    "shopping-lists": "Innkaupalisti",
     "food": "Food",
     "note": "Note",
     "label": "Label",
@@ -1366,7 +1366,7 @@
     "manage-data-migrations": "Manage Data Migrations"
   },
   "cookbook": {
-    "cookbooks": "Cookbooks",
+    "cookbooks": "Uppskriftabók",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
     "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
