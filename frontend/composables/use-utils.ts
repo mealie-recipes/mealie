@@ -8,7 +8,7 @@ export const useToggleDarkMode = () => {
 };
 
 export const useAsyncKey = function () {
-  return String(Date.now());
+  return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 };
 
 export const titleCase = function (str: string) {
