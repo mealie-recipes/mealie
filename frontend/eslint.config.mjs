@@ -6,7 +6,6 @@ export default withNuxt({
   plugins: {
     "@stylistic": stylistic,
   },
-  // Your custom configs here
   rules: {
     "@typescript-eslint/no-explicit-any": "off",
     "vue/no-mutating-props": "warn",
@@ -19,8 +18,5 @@ export default withNuxt({
     "vue/max-attributes-per-line": "off",
     "vue/html-indent": "off",
     "vue/html-closing-bracket-newline": "off",
-    // TODO: temporarily off to get this PR in without a crazy diff
-    "@stylistic/indent": "off",
-    "@stylistic/operator-linebreak": "off",
   },
 });
