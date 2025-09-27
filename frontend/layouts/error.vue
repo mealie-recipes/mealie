@@ -121,9 +121,9 @@ export default defineNuxtComponent({
 
     useSeoMeta({
       title:
-				props.error.statusCode === 404
-				  ? (i18n.t("page.404-not-found") as string)
-				  : (i18n.t("page.an-error-occurred") as string),
+        props.error.statusCode === 404
+          ? (i18n.t("page.404-not-found") as string)
+          : (i18n.t("page.an-error-occurred") as string),
     });
 
     const buttons = [

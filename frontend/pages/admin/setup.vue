@@ -228,7 +228,7 @@
 
     <!-- Dialog Language -->
     <LanguageDialog v-model="langDialog" />
-	</v-card>
+  </v-card>
 </v-container>
 </template>
 
