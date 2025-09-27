@@ -12,8 +12,6 @@ export default withNuxt({
     "@typescript-eslint/no-explicit-any": "off",
     "vue/no-mutating-props": "error",
     "vue/no-v-html": "error",
-    "vue/first-attribute-linebreak": "off",
     "vue/max-attributes-per-line": "off",
-    "vue/html-closing-bracket-newline": "off",
   },
 });
