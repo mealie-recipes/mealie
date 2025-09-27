@@ -6,8 +6,12 @@
     elevation="0"
   >
     <BaseDialog
-      v-model="deleteDialog" :title="$t('recipe.delete-recipe')" color="error"
-      :icon="$globals.icons.alertCircle" can-confirm @confirm="emitDelete()"
+      v-model="deleteDialog"
+      :title="$t('recipe.delete-recipe')"
+      color="error"
+      :icon="$globals.icons.alertCircle"
+      can-confirm
+      @confirm="emitDelete()"
     >
       <v-card-text>
         {{ $t("recipe.delete-confirmation") }}

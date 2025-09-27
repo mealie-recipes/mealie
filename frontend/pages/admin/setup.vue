@@ -163,7 +163,8 @@
             >
               <template #next>
                 <BaseButton
-                  create flat
+                  create
+                  flat
                   :disabled="isSubmitting"
                   :loading="isSubmitting"
                   :icon="$globals.icons.check"

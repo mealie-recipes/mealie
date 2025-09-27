@@ -2,7 +2,13 @@
   <v-container class="mx-0 my-3 pa">
     <v-row>
       <v-col
-        v-for="(day, index) in plan" :key="index" cols="12" sm="12" md="4" lg="4" xl="2"
+        v-for="(day, index) in plan"
+        :key="index"
+        cols="12"
+        sm="12"
+        md="4"
+        lg="4"
+        xl="2"
         class="col-borders my-1 d-flex flex-column"
       >
         <v-card class="mb-2 border-left-primary rounded-sm px-2">
@@ -28,8 +34,10 @@
           </div>
 
           <RecipeCardMobile
-            v-for="mealplan in section.meals" :key="mealplan.id"
-            :recipe-id="mealplan.recipe ? mealplan.recipe.id! : ''" class="mb-2"
+            v-for="mealplan in section.meals"
+            :key="mealplan.id"
+            :recipe-id="mealplan.recipe ? mealplan.recipe.id! : ''"
+            class="mb-2"
             :rating="mealplan.recipe ? mealplan.recipe.rating! : 0"
             :slug="mealplan.recipe ? mealplan.recipe.slug! : mealplan.title!"
             :description="mealplan.recipe ? mealplan.recipe.description! : mealplan.text!"

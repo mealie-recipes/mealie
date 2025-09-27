@@ -1,7 +1,8 @@
 <template>
   <v-container fluid class="narrow-container">
     <BaseDialog
-      v-model="state.storageDetails" :title="$t('admin.maintenance.storage-details')"
+      v-model="state.storageDetails"
+      :title="$t('admin.maintenance.storage-details')"
       :icon="$globals.icons.folderOutline"
     >
       <div class="py-2">
@@ -57,7 +58,8 @@
     </section>
     <section>
       <BaseCardSectionTitle
-        class="pb-0 mt-8" :icon="$globals.icons.wrench"
+        class="pb-0 mt-8"
+        :icon="$globals.icons.wrench"
         :title="$t('admin.mainentance.actions-title')"
       >
         <i18n-t keypath="admin.maintenance.actions-description">

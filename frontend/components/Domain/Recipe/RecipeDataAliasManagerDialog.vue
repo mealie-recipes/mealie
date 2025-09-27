@@ -1,8 +1,13 @@
 <template>
   <div>
     <BaseDialog
-      v-model="dialog" :title="$t('data-pages.manage-aliases')" :icon="$globals.icons.edit"
-      :submit-icon="$globals.icons.check" :submit-text="$t('general.confirm')" can-submit @submit="saveAliases"
+      v-model="dialog"
+      :title="$t('data-pages.manage-aliases')"
+      :icon="$globals.icons.edit"
+      :submit-icon="$globals.icons.check"
+      :submit-text="$t('general.confirm')"
+      can-submit
+      @submit="saveAliases"
       @cancel="$emit('cancel')"
     >
       <v-card-text>
@@ -19,7 +24,8 @@
                     text: $t('general.delete'),
                     event: 'delete',
                   },
-                ]" @delete="deleteAlias(i)"
+                ]"
+                @delete="deleteAlias(i)"
               />
             </v-col>
           </v-row>
