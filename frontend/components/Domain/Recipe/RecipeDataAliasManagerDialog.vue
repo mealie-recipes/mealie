@@ -1,8 +1,8 @@
 <template>
   <div>
     <BaseDialog v-model="dialog" :title="$t('data-pages.manage-aliases')" :icon="$globals.icons.edit"
-      :submit-icon="$globals.icons.check" :submit-text="$t('general.confirm')" can-submit @submit="saveAliases"
-      @cancel="$emit('cancel')">
+                :submit-icon="$globals.icons.check" :submit-text="$t('general.confirm')" can-submit @submit="saveAliases"
+                @cancel="$emit('cancel')">
       <v-card-text>
         <v-container>
           <v-row v-for="alias, i in aliases" :key="i">

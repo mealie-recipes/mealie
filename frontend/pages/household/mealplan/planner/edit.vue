@@ -14,7 +14,7 @@
           if (newMeal.existing) {
             actions.updateOne({ ...newMeal, date: newMealDateString });
           }
- else {
+          else {
             actions.createOne({ ...newMeal, date: newMealDateString });
           }
           resetDialog();

@@ -34,19 +34,19 @@
           <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
             <!-- Multi Items -->
             <v-list-group v-if="nav.children" :key="(nav.key || nav.title) + 'multi-item'"
-              v-model="dropDowns[nav.title]" color="primary" :prepend-icon="nav.icon" :fluid="true">
+                          v-model="dropDowns[nav.title]" color="primary" :prepend-icon="nav.icon" :fluid="true">
               <template #activator="{ props }">
                 <v-list-item v-bind="props" :prepend-icon="nav.icon" :title="nav.title" />
               </template>
 
               <v-list-item v-for="child in nav.children" :key="child.key || child.title" exact :to="child.to"
-                :prepend-icon="child.icon" :title="child.title" class="ml-4" />
+                           :prepend-icon="child.icon" :title="child.title" class="ml-4" />
             </v-list-group>
 
             <!-- Single Item -->
             <template v-else>
               <v-list-item :key="(nav.key || nav.title) + 'single-item'" exact link :to="nav.to"
-                :prepend-icon="nav.icon" :title="nav.title" />
+                           :prepend-icon="nav.icon" :title="nav.title" />
             </template>
           </div>
         </template>
@@ -61,13 +61,13 @@
           <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
             <!-- Multi Items -->
             <v-list-group v-if="nav.children" :key="(nav.key || nav.title) + 'multi-item'"
-              v-model="dropDowns[nav.title]" color="primary" :prepend-icon="nav.icon" fluid>
+                          v-model="dropDowns[nav.title]" color="primary" :prepend-icon="nav.icon" fluid>
               <template #activator="{ props }">
                 <v-list-item v-bind="props" :prepend-icon="nav.icon" :title="nav.title" />
               </template>
 
               <v-list-item v-for="child in nav.children" :key="child.key || child.title" exact :to="child.to"
-                class="ml-2" :prepend-icon="child.icon" :title="child.title" />
+                           class="ml-2" :prepend-icon="child.icon" :title="child.title" />
             </v-list-group>
 
             <!-- Single Item -->
