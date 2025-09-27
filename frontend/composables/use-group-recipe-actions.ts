@@ -29,8 +29,8 @@ export function useGroupRecipeActionData() {
 }
 
 export const useGroupRecipeActions = function (
-	orderBy: string | null = "title",
-	orderDirection: string | null = "asc",
+  orderBy: string | null = "title",
+  orderDirection: string | null = "asc",
 ) {
   const api = useUserApi();
 
