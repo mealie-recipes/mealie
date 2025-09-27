@@ -43,7 +43,7 @@
     "@nuxt/types": "^2.18.1",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
-    "@stylistic/eslint-plugin-js": "^4.2.0",
+    "@stylistic/eslint-plugin": "^5.4.0",
     "@types/sortablejs": "^1.15.8",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.0.2",
