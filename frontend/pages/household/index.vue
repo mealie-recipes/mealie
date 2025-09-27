@@ -1,6 +1,7 @@
 <template>
-  <v-container v-if="household"
-               class="narrow-container"
+  <v-container
+    v-if="household"
+    class="narrow-container"
   >
     <BasePageTitle class="mb-5">
       <template #header>

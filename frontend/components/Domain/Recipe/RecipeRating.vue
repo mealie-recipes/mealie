@@ -2,29 +2,31 @@
   <div @click.prevent>
     <!-- User Rating -->
     <v-hover v-slot="{ isHovering, props }">
-      <v-rating v-if="isOwnGroup && (userRating || isHovering || !ratingsLoaded)"
-                v-bind="props"
-                :model-value="userRating"
-                active-color="secondary"
-                color="secondary-lighten-3"
-                length="5"
-                :density="small ? 'compact' : 'default'"
-                :size="small ? 'x-small' : undefined"
-                hover
-                clearable
-                @update:model-value="updateRating(+$event)"
+      <v-rating
+        v-if="isOwnGroup && (userRating || isHovering || !ratingsLoaded)"
+        v-bind="props"
+        :model-value="userRating"
+        active-color="secondary"
+        color="secondary-lighten-3"
+        length="5"
+        :density="small ? 'compact' : 'default'"
+        :size="small ? 'x-small' : undefined"
+        hover
+        clearable
+        @update:model-value="updateRating(+$event)"
       />
       <!-- Group Rating -->
-      <v-rating v-else
-                v-bind="props"
-                :model-value="groupRating"
-                :half-increments="true"
-                active-color="grey-darken-1"
-                color="secondary-lighten-3"
-                length="5"
-                :density="small ? 'compact' : 'default'"
-                :size="small ? 'x-small' : undefined"
-                hover
+      <v-rating
+        v-else
+        v-bind="props"
+        :model-value="groupRating"
+        :half-increments="true"
+        active-color="grey-darken-1"
+        color="secondary-lighten-3"
+        length="5"
+        :density="small ? 'compact' : 'default'"
+        :size="small ? 'x-small' : undefined"
+        hover
       />
     </v-hover>
   </div>
