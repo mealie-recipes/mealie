@@ -530,11 +530,11 @@ class RecipeController(BaseRecipeController):
             self.handle_exceptions(e)
             return None
 
-    @router.delete("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
-    def delete_recipe_image(self, slug: str, image: bytes = File(...), extension: str = Form(...)):
+    @router.delete("/{slug}/image", tags=["Recipe: Images and Assets"])
+    def delete_recipe_image(self, slug: str):
         try:
             self.service.delete_recipe_image(slug)
-            return UpdateImageResponse(image=None)
+            return None
         except Exception as e:
             self.handle_exceptions(e)
             return None
