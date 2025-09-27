@@ -78,7 +78,7 @@
                 <v-list-item-subtitle class="font-weight-medium" style="font-size: small;">
                   {{ item.subtitle }}
                 </v-list-item-subtitle>
-            </v-list-item>
+              </v-list-item>
             </div>
           </template>
         </v-list>

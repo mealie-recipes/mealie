@@ -1,4 +1,5 @@
 import re
+import subprocess
 from pathlib import Path
 
 from jinja2 import Template
@@ -189,6 +190,7 @@ def generate_typescript_types() -> None:  # noqa: C901
     skipped_dirs: list[Path] = []
     failed_modules: list[Path] = []
 
+    out_paths: list[Path] = []
     for module in schema_path.iterdir():
         if module.is_dir() and module.stem in ignore_dirs:
             skipped_dirs.append(module)
@@ -205,9 +207,17 @@ def generate_typescript_types() -> None:  # noqa: C901
             path_as_module = path_to_module(module)
             generate_typescript_defs(path_as_module, str(out_path), exclude=("MealieModel"))  # type: ignore
             clean_output_file(out_path)
+            out_paths.append(out_path)
         except Exception:
             failed_modules.append(module)
             log.exception(f"Module Error: {module}")
+
+    # Run ESLint --fix on the files to clean up any formatting issues
+    subprocess.run(
+        ["yarn", "lint", "--fix", *(str(path) for path in out_paths)],
+        check=True,
+        cwd=PROJECT_DIR / "frontend",
+    )
 
     log.debug("\n📁 Skipped Directories:")
     for skipped_dir in skipped_dirs:

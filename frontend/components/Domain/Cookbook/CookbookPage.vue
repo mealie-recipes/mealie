@@ -32,9 +32,9 @@
       >
         <div class="d-flex align-center w-100 mb-2">
           <v-toolbar-title class="headline mb-0">
-          <v-icon size="large" class="mr-3">
-            {{ $globals.icons.pages }}
-          </v-icon>
+            <v-icon size="large" class="mr-3">
+              {{ $globals.icons.pages }}
+            </v-icon>
             {{ book.name }}
           </v-toolbar-title>
           <BaseButton

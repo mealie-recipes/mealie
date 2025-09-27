@@ -6,21 +6,20 @@ export default withNuxt({
   plugins: {
     "@stylistic": stylistic,
   },
-  // Your custom configs here
   rules: {
-    "@typescript-eslint/no-explicit-any": "off",
-    "vue/no-mutating-props": "warn",
-    "vue/no-v-html": "warn",
-    "object-curly-newline": "off",
-    "consistent-list-newline": "off",
-    "vue/first-attribute-linebreak": "off",
-    "@stylistic/no-tabs": ["error", { allowIndentationTabs: true }],
+    "@stylistic/no-tabs": ["error"],
     "@stylistic/no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
-    "vue/max-attributes-per-line": "off",
-    "vue/html-indent": "off",
-    "vue/html-closing-bracket-newline": "off",
-    // TODO: temporarily off to get this PR in without a crazy diff
-    "@stylistic/indent": "off",
-    "@stylistic/operator-linebreak": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "vue/first-attribute-linebreak": "error",
+    "vue/html-closing-bracket-newline": "error",
+    "vue/max-attributes-per-line": [
+      "error",
+      {
+        singleline: 5,
+        multiline: 1,
+      },
+    ],
+    "vue/no-mutating-props": "error",
+    "vue/no-v-html": "error",
   },
 });

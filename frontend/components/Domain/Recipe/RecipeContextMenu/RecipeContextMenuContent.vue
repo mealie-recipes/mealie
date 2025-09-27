@@ -67,7 +67,7 @@
           hide-header
           :first-day-of-week="firstDayOfWeek"
           :local="$i18n.locale"
-            @update:model-value="pickerMenu = false"
+          @update:model-value="pickerMenu = false"
         />
       </v-menu>
       <v-select

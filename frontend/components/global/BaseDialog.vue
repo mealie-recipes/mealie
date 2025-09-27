@@ -200,8 +200,8 @@ function open() {
 }
 
 /* function close() {
-	dialog.value = false;
-	logDeprecatedProp("close");
+  dialog.value = false;
+  logDeprecatedProp("close");
 } */
 
 function logDeprecatedProp(val: string) {
