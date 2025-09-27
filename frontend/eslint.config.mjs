@@ -10,8 +10,10 @@ export default withNuxt({
     "@stylistic/no-tabs": ["error"],
     "@stylistic/no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
     "@typescript-eslint/no-explicit-any": "off",
+    "vue/first-attribute-linebreak": "error",
+    "vue/html-closing-bracket-newline": "error",
+    "vue/max-attributes-per-line": "off",
     "vue/no-mutating-props": "error",
     "vue/no-v-html": "error",
-    "vue/max-attributes-per-line": "off",
   },
 });
