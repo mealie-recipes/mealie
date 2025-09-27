@@ -22,6 +22,10 @@ export const useReadOnlyStore = function <T extends BoundT>(
   const actions = {
     ...storeActions,
     async refresh() {
+      if (loading.value) {
+        return;
+      }
+
       return await storeActions.refresh(1, -1, params);
     },
     flushStore() {
@@ -29,11 +33,7 @@ export const useReadOnlyStore = function <T extends BoundT>(
     },
   };
 
-  if (!loading.value && !store.value.length) {
-    const result = actions.getAll(1, -1, params);
-    store.value = result.value || [];
-  }
-
+  actions.refresh();
   return { store, actions };
 };
 
@@ -47,6 +47,10 @@ export const useStore = function <T extends BoundT>(
   const actions = {
     ...storeActions,
     async refresh() {
+      if (loading.value) {
+        return;
+      }
+
       return await storeActions.refresh(1, -1, params);
     },
     flushStore() {
@@ -54,10 +58,6 @@ export const useStore = function <T extends BoundT>(
     },
   };
 
-  if (!loading.value && !store.value.length) {
-    const result = actions.getAll(1, -1, params);
-    store.value = result.value || [];
-  }
-
+  actions.refresh();
   return { store, actions };
 };

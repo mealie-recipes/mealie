@@ -1,10 +1,11 @@
 import { useAsyncKey } from "../use-utils";
+import type { AsyncData, NuxtError } from "#app";
 import type { BoundT } from "./types";
 import type { BaseCRUDAPI, BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
 import type { QueryValue } from "~/lib/api/base/route";
 
 interface ReadOnlyStoreActions<T extends BoundT> {
-  getAll(page?: number, perPage?: number, params?: any): Ref<T[] | null>;
+  getAll(page?: number, perPage?: number, params?: any): AsyncData<T[] | null, NuxtError<unknown> | null>;
   refresh(page?: number, perPage?: number, params?: any): Promise<void>;
 }
 
