@@ -105,15 +105,13 @@ class RecipeDataService(BaseService):
 
         return image_path
 
-    def delete_image(self, image_dir: Path | None = None) -> Path:
+    def delete_image(self, image_dir: Path | None = None):
         if not image_dir:
             image_dir = self.dir_image
 
         for img_type in RecipeImageTypes:
             image_path = image_dir.joinpath(img_type.value)
             image_path.unlink(missing_ok=True)
-
-        return image_path
 
     async def scrape_image(self, image_url: str | dict[str, str] | list[str]) -> None:
         self.logger.info(f"Image URL: {image_url}")
