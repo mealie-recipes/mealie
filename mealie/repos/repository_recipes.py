@@ -154,6 +154,13 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
 
         return entry.image
 
+    def delete_image(self, slug: str, _: str | None = None) -> int:
+        entry: RecipeModel = self._query_one(match_value=slug)
+        entry.image = None
+        self.session.commit()
+
+        return entry.image
+
     def count_uncategorized(self, count=True, override_schema=None):
         return self._count_attribute(
             attribute_name=RecipeModel.recipe_category,
