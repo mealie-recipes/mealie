@@ -13,12 +13,13 @@ export const useData = function <T extends BoundT>(defaultObject: T) {
 };
 
 export const useReadOnlyStore = function <T extends BoundT>(
+  storeKey: string,
   store: Ref<T[]>,
   loading: Ref<boolean>,
   api: BaseCRUDAPIReadOnly<T>,
   params = {} as Record<string, QueryValue>,
 ) {
-  const storeActions = useReadOnlyActions(api, store, loading);
+  const storeActions = useReadOnlyActions(`${storeKey}-store-readonly`, api, store, loading);
   const actions = {
     ...storeActions,
     async refresh() {
@@ -38,12 +39,13 @@ export const useReadOnlyStore = function <T extends BoundT>(
 };
 
 export const useStore = function <T extends BoundT>(
+  storeKey: string,
   store: Ref<T[]>,
   loading: Ref<boolean>,
   api: BaseCRUDAPI<unknown, T, unknown>,
   params = {} as Record<string, QueryValue>,
 ) {
-  const storeActions = useStoreActions(api, store, loading);
+  const storeActions = useStoreActions(`${storeKey}-store`, api, store, loading);
   const actions = {
     ...storeActions,
     async refresh() {

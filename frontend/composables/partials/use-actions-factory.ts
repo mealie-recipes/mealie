@@ -1,4 +1,3 @@
-import { useAsyncKey } from "../use-utils";
 import type { AsyncData, NuxtError } from "#app";
 import type { BoundT } from "./types";
 import type { BaseCRUDAPI, BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
@@ -22,6 +21,7 @@ interface StoreActions<T extends BoundT> extends ReadOnlyStoreActions<T> {
  * a lot of refreshing hooks to be called on operations
  */
 export function useReadOnlyActions<T extends BoundT>(
+  storeKey: string,
   api: BaseCRUDAPIReadOnly<T>,
   allRef: Ref<T[] | null> | null,
   loading: Ref<boolean>,
@@ -30,7 +30,7 @@ export function useReadOnlyActions<T extends BoundT>(
     params.orderBy ??= "name";
     params.orderDirection ??= "asc";
 
-    const allItems = useAsyncData(useAsyncKey(), async () => {
+    const allItems = useAsyncData(storeKey, async () => {
       loading.value = true;
       try {
         const { data } = await api.getAll(page, perPage, params);
@@ -81,6 +81,7 @@ export function useReadOnlyActions<T extends BoundT>(
  * a lot of refreshing hooks to be called on operations
  */
 export function useStoreActions<T extends BoundT>(
+  storeKey: string,
   api: BaseCRUDAPI<unknown, T, unknown>,
   allRef: Ref<T[] | null> | null,
   loading: Ref<boolean>,
@@ -89,7 +90,7 @@ export function useStoreActions<T extends BoundT>(
     params.orderBy ??= "name";
     params.orderDirection ??= "asc";
 
-    const allItems = useAsyncData(useAsyncKey(), async () => {
+    const allItems = useAsyncData(storeKey, async () => {
       loading.value = true;
       try {
         const { data } = await api.getAll(page, perPage, params);
