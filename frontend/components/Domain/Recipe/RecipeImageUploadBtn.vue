@@ -20,18 +20,27 @@
         </v-btn>
       </template>
       <v-card width="400">
-        <v-card-title class="headline flex mb-0">
+        <v-card-title class="headline flex-wrap mb-0">
           <div>
             {{ $t("recipe.recipe-image") }}
           </div>
-          <AppButtonUpload
-            class="ml-auto"
-            url="none"
-            file-name="image"
-            :text-btn="false"
-            :post="false"
-            @uploaded="uploadImage"
-          />
+          <div class="d-flex gap-2">
+            <AppButtonUpload
+              url="none"
+              file-name="image"
+              :text-btn="false"
+              :post="false"
+              @uploaded="uploadImage"
+            />
+            <AppButtonDelete
+              class="mx-2"
+              :url="slug"
+              :text-btn="false"
+              :post="false"
+              :confirm-type="$t('recipe.recipe-image')"
+              @delete="deleteImage"
+            />
+         </div>
         </v-card-title>
         <v-card-text class="mt-n5">
           <div>
@@ -72,6 +81,7 @@ const props = defineProps<{ slug: string }>();
 const emit = defineEmits<{
   refresh: [];
   upload: [fileObject: File];
+  delete: [],
 }>();
 
 const url = ref("");
@@ -81,6 +91,14 @@ const menu = ref(false);
 function uploadImage(fileObject: File) {
   emit(UPLOAD_EVENT, fileObject);
   menu.value = false;
+}
+
+async function deleteImage() {
+  loading.value = true;
+  await api.recipes.deleteImage(props.slug);
+  emit(REFRESH_EVENT);
+  menu.value = false;
+  loading.value = false;
 }
 
 const api = useUserApi();
