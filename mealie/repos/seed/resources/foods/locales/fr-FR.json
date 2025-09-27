@@ -1865,8 +1865,8 @@
             "honey-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted peanut",
-                "plural_name": "honey-roasted peanuts"
+                "name": "cacahuète grillée au miel",
+                "plural_name": "cacahuètes grillées au miel"
             },
             "melon seed": {
                 "aliases": [],
@@ -1889,8 +1889,8 @@
             "trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "trail mix",
-                "plural_name": "trail mixes"
+                "name": "mélange de fruits sec",
+                "plural_name": "mélanges de fruits sec"
             },
             "basil seed": {
                 "aliases": [],
@@ -1901,8 +1901,8 @@
             "candlenut": {
                 "aliases": [],
                 "description": "",
-                "name": "candlenut",
-                "plural_name": "candlenuts"
+                "name": "noix de bancoule",
+                "plural_name": "noix de bancoule"
             },
             "peanut brittle": {
                 "aliases": [],
@@ -1919,8 +1919,8 @@
             "honey-roasted almond": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted almond",
-                "plural_name": "honey-roasted almonds"
+                "name": "amande grillée au miel",
+                "plural_name": "amandes grillées au miel"
             },
             "toasted nut": {
                 "aliases": [],
@@ -4136,7 +4136,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "country style rib",
-                "plural_name": "country style ribs"
+                "plural_name": "ribs style country"
             },
             "black forest ham": {
                 "aliases": [],
@@ -4201,8 +4201,8 @@
             "salt pork": {
                 "aliases": [],
                 "description": "",
-                "name": "salt pork",
-                "plural_name": "salt porks"
+                "name": "porc salé",
+                "plural_name": "porcs salés"
             },
             "veal shank": {
                 "aliases": [],
@@ -4255,8 +4255,8 @@
             "country ham": {
                 "aliases": [],
                 "description": "",
-                "name": "country ham",
-                "plural_name": "country hams"
+                "name": "jambon de pays",
+                "plural_name": "jambons de pays"
             },
             "boneless ham": {
                 "aliases": [],
@@ -4559,8 +4559,8 @@
             "turkey meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey meatball",
-                "plural_name": "turkey meatballs"
+                "name": "boulette de viande de dinde",
+                "plural_name": "boulettes de viande de dinde"
             },
             "foie gra": {
                 "aliases": [],
@@ -4661,8 +4661,8 @@
             "chicken foot": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken foot",
-                "plural_name": "chicken feet"
+                "name": "pied de poulet",
+                "plural_name": "pieds de poulet"
             },
             "pulled chicken": {
                 "aliases": [],
@@ -4805,8 +4805,8 @@
             "chicken bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken bacon",
-                "plural_name": "chicken bacons"
+                "name": "bacon de poulet",
+                "plural_name": "bacons de poulet"
             },
             "turkey rissole": {
                 "aliases": [],
