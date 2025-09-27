@@ -14,7 +14,6 @@ export default withNuxt({
     "vue/no-v-html": "error",
     "vue/first-attribute-linebreak": "off",
     "vue/max-attributes-per-line": "off",
-    "vue/html-indent": "off",
     "vue/html-closing-bracket-newline": "off",
   },
 });
