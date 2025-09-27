@@ -21,8 +21,8 @@
     "@mdi/js": "^7.4.47",
     "@nuxt/fonts": "^0.11.4",
     "@nuxtjs/i18n": "^9.2.1",
-    "@sidebase/nuxt-auth": "1.1.0",
-    "@vite-pwa/nuxt": "0.10.6",
+    "@sidebase/nuxt-auth": "^1.1.0",
+    "@vite-pwa/nuxt": "^0.10.6",
     "@vueuse/core": "^12.7.0",
     "axios": "^1.8.1",
     "date-fns": "^4.1.0",
@@ -39,7 +39,7 @@
     "vuetify-nuxt-module": "^0.18.3"
   },
   "devDependencies": {
-    "@nuxt/eslint": "1.2.0",
+    "@nuxt/eslint": "^1.2.0",
     "@nuxt/types": "^2.18.1",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@nuxtjs/eslint-module": "^4.1.0",
@@ -54,7 +54,7 @@
     "lint-staged": "^15.4.3",
     "prettier": "^3.5.2",
     "sass-embedded": "^1.85.1",
-    "typescript": "5.3",
+    "typescript": "^5.3",
     "vite-plugin-commonjs": "^0.10.4",
     "vitest": "^3.0.7"
   },
