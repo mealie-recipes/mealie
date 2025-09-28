@@ -179,9 +179,9 @@ class ShoppingListService:
                 continue
 
             # create the item
-            if create_item.checked:
-                # checked items should not have recipe references
-                create_item.recipe_references = []
+            # if create_item.checked:
+            #     # checked items should not have recipe references
+            #     create_item.recipe_references = []
             if auto_find_labels:
                 create_item.label_id = self.find_matching_label(create_item)
 
@@ -261,9 +261,9 @@ class ShoppingListService:
                 delete_items.add(update_item.id)
                 continue
 
-            if update_item.checked:
-                # checked items should not have recipe references
-                update_item.recipe_references = []
+            # if update_item.checked:
+            #     # checked items should not have recipe references
+            #     update_item.recipe_references = []
 
             filtered_update_items.append(update_item)
 
