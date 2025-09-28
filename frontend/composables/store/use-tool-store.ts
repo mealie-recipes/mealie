@@ -23,10 +23,10 @@ export const useToolData = function () {
 
 export const useToolStore = function (i18n?: Composer) {
   const api = useUserApi(i18n);
-  return useStore<RecipeTool>(store, loading, api.tools);
+  return useStore<RecipeTool>("tool", store, loading, api.tools);
 };
 
 export const usePublicToolStore = function (groupSlug: string, i18n?: Composer) {
   const api = usePublicExploreApi(groupSlug, i18n).explore;
-  return useReadOnlyStore<RecipeTool>(store, publicLoading, api.tools);
+  return useReadOnlyStore<RecipeTool>("tool", store, publicLoading, api.tools);
 };

@@ -17,10 +17,10 @@ export const useCategoryData = function () {
 
 export const useCategoryStore = function (i18n?: Composer) {
   const api = useUserApi(i18n);
-  return useStore<RecipeCategory>(store, loading, api.categories);
+  return useStore<RecipeCategory>("category", store, loading, api.categories);
 };
 
 export const usePublicCategoryStore = function (groupSlug: string, i18n?: Composer) {
   const api = usePublicExploreApi(groupSlug, i18n).explore;
-  return useReadOnlyStore<RecipeCategory>(store, publicLoading, api.categories);
+  return useReadOnlyStore<RecipeCategory>("category", store, publicLoading, api.categories);
 };

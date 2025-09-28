@@ -16,5 +16,5 @@ export const useUserStore = function (i18n?: Composer) {
   const requests = useRequests(i18n);
   const api = new GroupUserAPIReadOnly(requests);
 
-  return useReadOnlyStore<UserSummary>(store, loading, api, { orderBy: "full_name" });
+  return useReadOnlyStore<UserSummary>("user", store, loading, api, { orderBy: "full_name" });
 };
