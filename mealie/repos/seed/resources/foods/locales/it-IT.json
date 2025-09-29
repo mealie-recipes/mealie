@@ -1085,8 +1085,8 @@
             "honey date": {
                 "aliases": [],
                 "description": "",
-                "name": "honey date",
-                "plural_name": "honey dates"
+                "name": "dattero \"honey date\"",
+                "plural_name": "datteri \"honey date\""
             },
             "physali": {
                 "aliases": [],
@@ -1223,8 +1223,8 @@
             "green ume plum": {
                 "aliases": [],
                 "description": "",
-                "name": "green ume plum",
-                "plural_name": "green ume plums"
+                "name": "prugna ume verde",
+                "plural_name": "prugne ume verdi"
             },
             "kiwano": {
                 "aliases": [],
@@ -1275,25 +1275,25 @@
             "oyster mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "oyster mushroom",
-                "plural_name": "oyster mushrooms"
+                "name": "fungo orecchione",
+                "plural_name": "funghi orecchione"
             },
             "chestnut mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut mushroom",
-                "plural_name": "chestnut mushrooms"
+                "name": "fungo \"chestnut mushroom\"",
+                "plural_name": "funghi \"chestnut mushroom\""
             },
             "enoki mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "enoki mushroom",
-                "plural_name": "enoki mushrooms"
+                "name": "fungo enoki",
+                "plural_name": "funghi enoki"
             },
             "black fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "black fungu",
+                "name": "fungo orecchio del legno",
                 "plural_name": "trombetta dei morti"
             },
             "black truffle": {
@@ -1305,14 +1305,14 @@
             "morel mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "morel mushroom",
-                "plural_name": "morel mushrooms"
+                "name": "fungo spugnola",
+                "plural_name": "funghi spugnola"
             },
             "field mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "field mushroom",
-                "plural_name": "field mushrooms"
+                "name": "fungo prataiolo",
+                "plural_name": "funghi prataioli"
             },
             "king oyster mushroom": {
                 "aliases": [],
