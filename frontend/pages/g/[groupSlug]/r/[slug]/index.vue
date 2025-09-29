@@ -19,7 +19,7 @@ import type { Recipe } from "~/lib/api/types/recipe";
 const $auth = useMealieAuth();
 const { isOwnGroup } = useLoggedInState();
 const route = useRoute();
-const title = ref(route.meta?.title ?? "");
+const title = ref(route.meta?.title as string || "");
 useSeoMeta({ title });
 
 const router = useRouter();
