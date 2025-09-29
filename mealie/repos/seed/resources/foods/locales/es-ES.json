@@ -1389,7 +1389,7 @@
             "huitlacoche": {
                 "aliases": [],
                 "description": "",
-                "name": "huitlacoche",
+                "name": "\n",
                 "plural_name": "huitlacoches"
             },
             "matsutake": {
@@ -1722,7 +1722,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pecan",
-                "plural_name": "pecans"
+                "plural_name": "pecanas"
             },
             "almond": {
                 "aliases": [],
@@ -1811,8 +1811,8 @@
             "roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted peanut",
-                "plural_name": "roasted peanuts"
+                "name": "cacahuete tostado",
+                "plural_name": "cacahuetes tostados"
             },
             "chopped nut": {
                 "aliases": [],
@@ -1835,26 +1835,26 @@
             "mixed nut": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed nut",
-                "plural_name": "mixed nuts"
+                "name": "mezcla frutos secos",
+                "plural_name": "mezcla frutos secos"
             },
             "brazil nut": {
                 "aliases": [],
                 "description": "",
-                "name": "brazil nut",
-                "plural_name": "brazil nuts"
+                "name": "nuez de Brasil",
+                "plural_name": "nuez de Brasil"
             },
             "mixed seed": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed seed",
-                "plural_name": "mixed seeds"
+                "name": "mezcla de semillas",
+                "plural_name": "mezcla de semillas"
             },
             "onion seed": {
                 "aliases": [],
                 "description": "",
-                "name": "onion seed",
-                "plural_name": "onion seeds"
+                "name": "semilla de cebolla",
+                "plural_name": "Semillas de cebolla"
             },
             "watermelon seed": {
                 "aliases": [],
@@ -2001,8 +2001,8 @@
             "parmesan": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan",
-                "plural_name": "parmesans"
+                "name": "parmesano",
+                "plural_name": "parmesanos"
             },
             "cheddar cheese": {
                 "aliases": [
@@ -2027,8 +2027,8 @@
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheeses"
+                "name": "queso",
+                "plural_name": "quesos"
             },
             "mozzarella": {
                 "aliases": [],
@@ -2051,8 +2051,8 @@
             "cheddar-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheddar-jack cheese",
-                "plural_name": "cheddar-jack cheeses"
+                "name": "queso cheddar",
+                "plural_name": "quesos cheddars"
             },
             "monterey jack": {
                 "aliases": [],
@@ -2063,25 +2063,25 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheeses"
+                "name": "queso azul",
+                "plural_name": "quesos azules"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheeses"
+                "name": "queso de cabra",
+                "plural_name": "quesos de cabra"
             },
             "fresh mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella",
-                "plural_name": "fresh mozzarellas"
+                "name": "mozzarella fresca",
+                "plural_name": "mozzarellas frescas"
             },
             "swiss cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swiss cheese",
+                "name": "queso suizo",
                 "plural_name": "swiss cheeses"
             },
             "pecorino": {
@@ -2631,20 +2631,20 @@
             "heavy cream": {
                 "aliases": [],
                 "description": "",
-                "name": "heavy cream",
-                "plural_name": "heavy creams"
+                "name": "crema de leche",
+                "plural_name": "crema de leche"
             },
             "sour cream": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cream",
-                "plural_name": "sour creams"
+                "name": "crema agria",
+                "plural_name": "crema agria"
             },
             "buttermilk": {
                 "aliases": [],
                 "description": "",
-                "name": "buttermilk",
-                "plural_name": "buttermilks"
+                "name": "suero de mantequilla",
+                "plural_name": "suero de mantequilla"
             },
             "yogurt": {
                 "aliases": [],
@@ -2662,27 +2662,27 @@
                 "aliases": [],
                 "description": "",
                 "name": "crema",
-                "plural_name": "creams"
+                "plural_name": "cremas"
             },
             "whipped cream": {
                 "aliases": [],
                 "description": "",
-                "name": "whipped cream",
-                "plural_name": "whipped creams"
+                "name": "crema batida",
+                "plural_name": "crema batida"
             },
             "ghee": {
                 "aliases": [
                     "mantequilla clarificada"
                 ],
                 "description": "",
-                "name": "ghee",
-                "plural_name": "ghees"
+                "name": "Mantequilla clarificada",
+                "plural_name": "Mantequilla clarificada"
             },
             "shortening": {
                 "aliases": [],
                 "description": "",
-                "name": "shortening",
-                "plural_name": "shortenings"
+                "name": "manteca vegetal",
+                "plural_name": "manteca vegetal"
             },
             "condensed milk": {
                 "aliases": [],
@@ -2694,13 +2694,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "mitad y mitad",
-                "plural_name": "half and halves"
+                "plural_name": "mitad y mitad"
             },
             "sweetened condensed milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sweetened condensed milk",
-                "plural_name": "sweetened condensed milks"
+                "name": "leche condensada endulzada",
+                "plural_name": "leche condensada endulzada"
             },
             "ice cream": {
                 "aliases": [],
@@ -2717,38 +2717,38 @@
             "creme fraiche": {
                 "aliases": [],
                 "description": "",
-                "name": "creme fraiche",
-                "plural_name": "creme fraiches"
+                "name": "Crema fraiche",
+                "plural_name": "Crema fraiche"
             },
             "frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "frosting",
-                "plural_name": "frostings"
+                "name": "glaseado",
+                "plural_name": "glaseado"
             },
             "milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "milk powder",
-                "plural_name": "milk powders"
+                "name": "leche en polvo",
+                "plural_name": "leche en polvo"
             },
             "curd": {
                 "aliases": [],
                 "description": "",
-                "name": "curd",
-                "plural_name": "curds"
+                "name": "cuajada",
+                "plural_name": "cuajada"
             },
             "thickened cream": {
                 "aliases": [],
                 "description": "",
-                "name": "thickened cream",
-                "plural_name": "thickened creams"
+                "name": "crema espesa",
+                "plural_name": "cremas espesas"
             },
             "lemon curd": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon curd",
-                "plural_name": "lemon curds"
+                "name": "crema de limón",
+                "plural_name": "crema de limón"
             },
             "dulce de leche": {
                 "aliases": [],
@@ -2759,14 +2759,14 @@
             "custard": {
                 "aliases": [],
                 "description": "",
-                "name": "custard",
-                "plural_name": "custards"
+                "name": "natilla",
+                "plural_name": "natillas"
             },
             "chocolate frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate frosting",
-                "plural_name": "chocolate frostings"
+                "name": "glaseado de chocolate",
+                "plural_name": "glaseado de chocolate"
             },
             "kefir": {
                 "aliases": [],
@@ -2783,20 +2783,20 @@
             "chocolate milk": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk",
-                "plural_name": "chocolate milks"
+                "name": "chocolate con leche",
+                "plural_name": "chocolate con leche"
             },
             "liquid egg substitute": {
                 "aliases": [],
                 "description": "",
-                "name": "liquid egg substitute",
-                "plural_name": "liquid egg substitutes"
+                "name": "sustituto de huevo líquido",
+                "plural_name": "sustituto de huevo líquido"
             },
             "whey": {
                 "aliases": [],
                 "description": "",
-                "name": "whey",
-                "plural_name": "wheys"
+                "name": "suero",
+                "plural_name": "sueros"
             },
             "hung curd": {
                 "aliases": [],
@@ -2807,8 +2807,8 @@
             "quail egg": {
                 "aliases": [],
                 "description": "",
-                "name": "quail egg",
-                "plural_name": "quail eggs"
+                "name": "huevo de codorniz",
+                "plural_name": "huevos de codorniz"
             },
             "buttermilk powder": {
                 "aliases": [],
@@ -2819,8 +2819,8 @@
             "frozen yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen yogurt",
-                "plural_name": "frozen yogurts"
+                "name": "yogur helado",
+                "plural_name": "yogures helados"
             },
             "khoya": {
                 "aliases": [],
@@ -2831,13 +2831,13 @@
             "milk cream": {
                 "aliases": [],
                 "description": "",
-                "name": "milk cream",
-                "plural_name": "milk creams"
+                "name": "crema de leche",
+                "plural_name": "cremas de leche"
             },
             "coffee creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee creamer",
+                "name": "crema de café",
                 "plural_name": "coffee creamers"
             },
             "clotted cream": {
@@ -2849,20 +2849,20 @@
             "goat milk": {
                 "aliases": [],
                 "description": "",
-                "name": "goat milk",
-                "plural_name": "goat milks"
+                "name": "leche de cabra",
+                "plural_name": "leches de cabra"
             },
             "cheese curd": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese curd",
-                "plural_name": "cheese curds"
+                "name": "queso en grano",
+                "plural_name": "quesos en grano"
             },
             "sour milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sour milk",
-                "plural_name": "sour milks"
+                "name": "leche agria",
+                "plural_name": "leche agria"
             },
             "ganache": {
                 "aliases": [],
@@ -2879,14 +2879,14 @@
             "duck egg": {
                 "aliases": [],
                 "description": "",
-                "name": "duck egg",
-                "plural_name": "duck eggs"
+                "name": "huevo de pato",
+                "plural_name": "huevos de pato"
             },
             "salted egg": {
                 "aliases": [],
                 "description": "",
-                "name": "salted egg",
-                "plural_name": "salted eggs"
+                "name": "huevo en salazón",
+                "plural_name": "huevos en salazón"
             },
             "skyr": {
                 "aliases": [],
@@ -2903,13 +2903,13 @@
             "raw milk": {
                 "aliases": [],
                 "description": "",
-                "name": "raw milk",
-                "plural_name": "raw milks"
+                "name": "leche cruda",
+                "plural_name": "leche cruda"
             },
             "lime curd": {
                 "aliases": [],
                 "description": "",
-                "name": "lime curd",
+                "name": "crema de limón",
                 "plural_name": "lime curds"
             },
             "powdered coffee creamer": {
@@ -2945,8 +2945,8 @@
             "strawberry frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry frosting",
-                "plural_name": "strawberry frostings"
+                "name": "glaseado de fresa",
+                "plural_name": "glaseado de fresa"
             },
             "honey greek yogurt": {
                 "aliases": [],
