@@ -176,7 +176,7 @@ function addIngredient(ingredients: Array<string> | null = null) {
         note: x,
         unit: undefined,
         food: undefined,
-        quantity: 1,
+        quantity: 0,
       };
     });
 
@@ -194,7 +194,7 @@ function addIngredient(ingredients: Array<string> | null = null) {
       unit: undefined,
       // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
       food: undefined,
-      quantity: 1,
+      quantity: 0,
     });
   }
 }
@@ -242,7 +242,7 @@ function insertNewIngredient(dest: number) {
     unit: undefined,
     // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
     food: undefined,
-    quantity: 1,
+    quantity: 0,
   });
 }
 </script>
