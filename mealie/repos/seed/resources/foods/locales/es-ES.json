@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lechuga",
-                "plural_name": "lechugas"
+                "plural_name": "lechuga"
             },
             "butternut squash": {
                 "aliases": [],
@@ -449,8 +449,8 @@
             "leaf lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "Hoja de lechuga",
-                "plural_name": ""
+                "name": "hoja de lechuga",
+                "plural_name": "hoja de lechuga"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -553,8 +553,8 @@
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "Lechuga Boston",
-                "plural_name": "Lechugas Boston"
+                "name": "lechuga Boston",
+                "plural_name": "lechugas Boston"
             },
             "kohlrabi": {
                 "aliases": [],
@@ -2093,8 +2093,8 @@
             "gruyere": {
                 "aliases": [],
                 "description": "",
-                "name": "gruyere",
-                "plural_name": "gruyeres"
+                "name": "queso gruyere",
+                "plural_name": "queso gruyere"
             },
             "mascarpone": {
                 "aliases": [],
@@ -2165,8 +2165,8 @@
             "gouda": {
                 "aliases": [],
                 "description": "",
-                "name": "gouda",
-                "plural_name": "goudas"
+                "name": "queso gouda",
+                "plural_name": "queso gouda"
             },
             "cotija": {
                 "aliases": [],
