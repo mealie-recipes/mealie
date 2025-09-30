@@ -1,61 +1,83 @@
 <template>
   <div v-if="model.length > 0 || edit">
     <v-card class="mt-4">
-      <v-card-title class="py-2">
+      <v-list-item class="pr-2 pl-0">
+        <v-card-title>
         {{ $t("asset.assets") }}
       </v-card-title>
+      <template #append>
+      <v-btn
+        variant="plain"
+       :icon="$globals.icons.create"
+       @click="state.newAssetDialog = true"
+        />
+      </template>
+      </v-list-item>
       <v-divider class="mx-2" />
       <v-list
         v-if="model.length > 0"
+        lines="two"
         :flat="!edit"
       >
         <v-list-item
           v-for="(item, i) in model"
           :key="i"
+          :href="!edit ? assetURL(item.fileName ?? '') : ''"
         >
           <template #prepend>
-            <div class="ma-auto">
-              <v-tooltip location="bottom">
-                <template #activator="{ props: tooltipProps }">
-                  <v-icon v-bind="tooltipProps">
-                    {{ getIconDefinition(item.icon).icon }}
-                  </v-icon>
-                </template>
-                <span>{{ getIconDefinition(item.icon).title }}</span>
-              </v-tooltip>
-            </div>
+              <v-avatar size="48" rounded="lg" class="elevation-1">
+                <v-img
+                  v-if="isImage(item.fileName)"
+                  :src="assetURL(item.fileName ?? '')"
+                  :alt="item.name"
+                  cover
+                />
+                <v-icon v-else size="large">
+                  {{ getIconDefinition(item.icon).icon }}
+                </v-icon>
+              </v-avatar>
           </template>
-          <v-list-item-title class="pl-2">
-            {{ item.name }}
+
+          <v-list-item-title>
+              {{ item.name }}
           </v-list-item-title>
-          <v-list-item-action>
-            <v-btn
-              v-if="!edit"
-              color="primary"
-              icon
-              :href="assetURL(item.fileName ?? '')"
-              target="_blank"
-              top
-            >
-              <v-icon> {{ $globals.icons.download }} </v-icon>
-            </v-btn>
-            <div v-else>
-              <v-btn
-                color="error"
-                icon
-                top
-                @click="model.splice(i, 1)"
-              >
-                <v-icon>{{ $globals.icons.delete }}</v-icon>
-              </v-btn>
-              <AppButtonCopy
-                color=""
-                :copy-text="assetEmbed(item.fileName ?? '')"
-              />
-            </div>
-          </v-list-item-action>
+
+          <template #append>
+            <v-menu v-if="edit" location="bottom end">
+              <template #activator="{ props: menuProps }">
+                <v-btn
+                  v-bind="menuProps"
+                  icon
+                  size="small"
+                  variant="text"
+                >
+                  <v-icon :icon="$globals.icons.dotsVertical" />
+                </v-btn>
+              </template>
+              <v-list density="compact" min-width="220">
+                <v-list-item
+                  :href="assetURL(item.fileName ?? '')"
+                  :download="item.fileName ?? ''"
+                  :prepend-icon="$globals.icons.download"
+                  :title="$t('general.download')"
+                />
+                <v-list-item
+                  v-if="edit"
+                  :prepend-icon="$globals.icons.delete"
+                  :title="$t('general.delete')"
+                  @click="model.splice(i, 1)"
+                />
+                <v-list-item v-if="edit"
+                  :prepend-icon="$globals.icons.contentCopy"
+                  :title="$t('general.copy')"
+                  @click="copyText(assetEmbed(item.fileName ?? ''))"
+                />
+              </v-list>
+            </v-menu>
+          </template>
         </v-list-item>
       </v-list>
+      <v-container v-else fluid class="py-2" />
     </v-card>
     <div class="d-flex ml-auto mt-2">
       <v-spacer />
@@ -66,18 +88,9 @@
         can-submit
         @submit="addAsset"
       >
-        <template #activator>
-          <BaseButton
-            v-if="edit"
-            size="small"
-            create
-            @click="state.newAssetDialog = true"
-          />
-        </template>
         <v-card-text class="pt-4">
           <v-text-field
             v-model="state.newAsset.name"
-            density="compact"
             :label="$t('general.name')"
           />
           <div class="d-flex justify-space-between">
@@ -90,13 +103,16 @@
               item-value="name"
               class="mr-2"
             >
-              <template #item="{ item }">
-                <v-avatar>
-                  <v-icon class="mr-auto">
-                    {{ item.raw.icon }}
-                  </v-icon>
-                </v-avatar>
-                {{ item.title }}
+              <template #item="{ props: itemProps, item }">
+                <v-list-item v-bind="itemProps">
+                  <template #prepend>
+                    <v-avatar>
+                      <v-icon>
+                        {{ item.raw.icon }}
+                      </v-icon>
+                    </v-avatar>
+                  </template>
+                </v-list-item>
               </template>
             </v-select>
             <AppButtonUpload
@@ -106,7 +122,6 @@
               @uploaded="setFileObject"
             />
           </div>
-          {{ state.fileObject.name }}
         </v-card-text>
       </BaseDialog>
     </div>
@@ -117,6 +132,7 @@
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import type { RecipeAsset } from "~/lib/api/types/recipe";
+import { useCopy } from "~/composables/use-copy";
 
 const props = defineProps({
   slug: {
@@ -148,6 +164,7 @@ const state = reactive({
 
 const i18n = useI18n();
 const { $globals } = useNuxtApp();
+const { copyText } = useCopy();
 
 const iconOptions = [
   {
@@ -183,21 +200,31 @@ function getIconDefinition(icon: string) {
   return iconOptions.find(item => item.name === icon) || iconOptions[0];
 }
 
+function isImage(fileName?: string | null) {
+  if (!fileName) return false;
+  return /\.(png|jpe?g|gif|webp|bmp|svg|avif)$/i.test(fileName);
+}
+
 const { recipeAssetPath } = useStaticRoutes();
 function assetURL(assetName: string) {
   return recipeAssetPath(props.recipeId, assetName);
 }
 
 function assetEmbed(name: string) {
-  return `<img src="${serverBase}${assetURL(name)}" height="100%" width="100%"> </img>`;
+  return `<img src="${serverBase}${assetURL(name)}" height="100%" width="100%" />`;
 }
 
 function setFileObject(fileObject: File) {
   state.fileObject = fileObject;
+  // If the user didn't provide a name, default to the file base name
+  if (!state.newAsset.name?.trim()) {
+    state.newAsset.name = fileObject.name.substring(0, fileObject.name.lastIndexOf("."));
+  }
 }
 
 function validFields() {
-  return state.newAsset.name.length > 0 && state.fileObject.name.length > 0;
+  // Only require a file; name will fall back to the file name if empty
+  return Boolean(state.fileObject?.name);
 }
 
 async function addAsset() {
@@ -206,8 +233,10 @@ async function addAsset() {
     return;
   }
 
+  const nameToUse = state.newAsset.name?.trim() || state.fileObject.name;
+
   const { data } = await api.recipes.createAsset(props.slug, {
-    name: state.newAsset.name,
+    name: nameToUse,
     icon: state.newAsset.icon,
     file: state.fileObject,
     extension: state.fileObject.name.split(".").pop() || "",
