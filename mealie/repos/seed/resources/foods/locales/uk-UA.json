@@ -4865,26 +4865,26 @@
             "chicken patty": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken patty",
-                "plural_name": "chicken patties"
+                "name": "Куряча котлета",
+                "plural_name": "Курячих котлет"
             },
             "chicken rib": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken rib",
-                "plural_name": "chicken ribs"
+                "name": "Куряче ребро",
+                "plural_name": "Курячі ребра"
             },
             "turkey tail": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey tail",
-                "plural_name": "turkey tails"
+                "name": "Індича гузка",
+                "plural_name": "Індичі гузки"
             },
             "chicken milanesa": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken milanesa",
-                "plural_name": "chicken milanesas"
+                "name": "Куряча відбивна в паніровці",
+                "plural_name": "Курячи відбивні в паніровці"
             }
         }
     },
@@ -4893,56 +4893,56 @@
             "salmon": {
                 "aliases": [],
                 "description": "",
-                "name": "salmon",
-                "plural_name": "salmon"
+                "name": "Лосось",
+                "plural_name": "Лосось"
             },
             "smoked salmon": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked salmon",
-                "plural_name": "smoked salmon"
+                "name": "Копчений лосось",
+                "plural_name": "Копчений лосось"
             },
             "cod": {
                 "aliases": [],
                 "description": "",
-                "name": "cod",
-                "plural_name": "cod"
+                "name": "Тріска",
+                "plural_name": "Тріска"
             },
             "tilapia": {
                 "aliases": [],
                 "description": "",
-                "name": "tilapia",
-                "plural_name": "tilapias"
+                "name": "Тілапія",
+                "plural_name": "Тілапія"
             },
             "tuna steak": {
                 "aliases": [],
                 "description": "",
-                "name": "tuna steak",
-                "plural_name": "tuna steaks"
+                "name": "Стейк тунця",
+                "plural_name": "Стейк тунця"
             },
             "whitefish": {
                 "aliases": [],
                 "description": "",
-                "name": "whitefish",
-                "plural_name": "whitefish"
+                "name": "Біла риба",
+                "plural_name": "Біла риба"
             },
             "halibut": {
                 "aliases": [],
                 "description": "",
-                "name": "halibut",
-                "plural_name": "halibuts"
+                "name": "Палтус",
+                "plural_name": "Палтус"
             },
             "red snapper": {
                 "aliases": [],
                 "description": "",
-                "name": "red snapper",
-                "plural_name": "red snappers"
+                "name": "Червоний луціан",
+                "plural_name": "Червоні луціани"
             },
             "sea bas": {
                 "aliases": [],
                 "description": "",
-                "name": "sea bas",
-                "plural_name": "sea bass"
+                "name": "Сібас",
+                "plural_name": "Сібас"
             },
             "fish fillet": {
                 "aliases": [],
