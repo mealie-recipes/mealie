@@ -46,8 +46,8 @@
             "red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "cebolla colorada",
-                "plural_name": "cebollas coloradas"
+                "name": "cebolla roja",
+                "plural_name": "cebolla roja"
             },
             "yellow onion": {
                 "aliases": [],
@@ -70,8 +70,8 @@
             "avocado": {
                 "aliases": [],
                 "description": "",
-                "name": "palta",
-                "plural_name": "paltas"
+                "name": "aguacate",
+                "plural_name": "aguacate"
             },
             "shallot": {
                 "aliases": [],
@@ -2082,13 +2082,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "queso suizo",
-                "plural_name": "swiss cheeses"
+                "plural_name": "queso suizo"
             },
             "pecorino": {
                 "aliases": [],
                 "description": "",
                 "name": "pecorino",
-                "plural_name": "pecorinoes"
+                "plural_name": "pecorino"
             },
             "gruyere": {
                 "aliases": [],
@@ -2105,14 +2105,14 @@
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cottage cheese",
-                "plural_name": "cottage cheeses"
+                "name": "queso cottage",
+                "plural_name": "queso cottage"
             },
             "american cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "american cheese",
-                "plural_name": "american cheeses"
+                "name": "queso americano",
+                "plural_name": "queso americano"
             },
             "provolone": {
                 "aliases": [],
@@ -2154,7 +2154,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "queso fresco",
-                "plural_name": "queso frescoes"
+                "plural_name": "queso fresco"
             },
             "quark": {
                 "aliases": [],
@@ -2183,7 +2183,7 @@
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
+                "name": "queso ahumado",
                 "plural_name": "smoked cheeses"
             },
             "halloumi": {
@@ -2201,14 +2201,14 @@
             "manchego": {
                 "aliases": [],
                 "description": "",
-                "name": "manchego",
-                "plural_name": "manchegoes"
+                "name": "queso manchego",
+                "plural_name": "queso manchego"
             },
             "italian cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "italian cheese blend",
-                "plural_name": "italian cheese blends"
+                "name": "mezcla de queso italiano",
+                "plural_name": "mezcla de queso italiano"
             },
             "neufchatel": {
                 "aliases": [],
@@ -2226,13 +2226,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "burrata",
-                "plural_name": "burratas"
+                "plural_name": "burrata"
             },
             "havarti": {
                 "aliases": [],
                 "description": "",
                 "name": "havarti",
-                "plural_name": "havartis"
+                "plural_name": "havarti"
             },
             "colby": {
                 "aliases": [],
@@ -2243,8 +2243,8 @@
             "grana-padano": {
                 "aliases": [],
                 "description": "",
-                "name": "grana-padano",
-                "plural_name": "grana-padanoes"
+                "name": "grana padano",
+                "plural_name": "grana padano"
             },
             "muenster": {
                 "aliases": [],
@@ -2280,7 +2280,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "raclette",
-                "plural_name": "raclettes"
+                "plural_name": "raclette"
             },
             "colby-jack cheese": {
                 "aliases": [],
@@ -3279,8 +3279,8 @@
             "rice milk": {
                 "aliases": [],
                 "description": "",
-                "name": "rice milk",
-                "plural_name": "rice milks"
+                "name": "leche de arroz",
+                "plural_name": "leche de arroz"
             },
             "vegan sour cream": {
                 "aliases": [],
@@ -3729,8 +3729,8 @@
             "rice cream": {
                 "aliases": [],
                 "description": "",
-                "name": "rice cream",
-                "plural_name": "rice creams"
+                "name": "crema de arroz",
+                "plural_name": "crema de arroz"
             }
         }
     },
@@ -6736,8 +6736,8 @@
             "rice syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "rice syrup",
-                "plural_name": "rice syrups"
+                "name": "jarabe de arroz",
+                "plural_name": "jarabe de arroz"
             },
             "manuka honey": {
                 "aliases": [],
@@ -7815,8 +7815,8 @@
             "rice flour": {
                 "aliases": [],
                 "description": "",
-                "name": "rice flour",
-                "plural_name": "rice flours"
+                "name": "harina de arroz",
+                "plural_name": "harina de arroz"
             },
             "desiccated coconut": {
                 "aliases": [],
@@ -7944,8 +7944,8 @@
             "brown rice flour": {
                 "aliases": [],
                 "description": "",
-                "name": "brown rice flour",
-                "plural_name": "brown rice flours"
+                "name": "harina de arroz marrón",
+                "plural_name": "harina de arroz marrón"
             },
             "pectin": {
                 "aliases": [],
@@ -8320,8 +8320,8 @@
             "rice paper": {
                 "aliases": [],
                 "description": "",
-                "name": "rice paper",
-                "plural_name": "rice papers"
+                "name": "papel de arroz",
+                "plural_name": "papel de arroz"
             },
             "sourdough starter": {
                 "aliases": [],
@@ -8540,8 +8540,8 @@
             "rice": {
                 "aliases": [],
                 "description": "",
-                "name": "rice",
-                "plural_name": "rices"
+                "name": "arroz",
+                "plural_name": "arroz"
             },
             "Rice Krispie Cereal": {
                 "aliases": [
@@ -8560,14 +8560,14 @@
             "basmati rice": {
                 "aliases": [],
                 "description": "",
-                "name": "basmati rice",
-                "plural_name": "basmati rices"
+                "name": "arroz basmati",
+                "plural_name": "arroz basmati"
             },
             "brown rice": {
                 "aliases": [],
                 "description": "",
-                "name": "brown rice",
-                "plural_name": "brown rices"
+                "name": "arroz integral",
+                "plural_name": "arroz integral"
             },
             "quick-cooking oat": {
                 "aliases": [],
@@ -8584,8 +8584,8 @@
             "risotto rice": {
                 "aliases": [],
                 "description": "",
-                "name": "risotto rice",
-                "plural_name": "risotto rices"
+                "name": "arroz de risotto",
+                "plural_name": "arroz de risotto"
             },
             "couscou": {
                 "aliases": [],
@@ -8596,14 +8596,14 @@
             "rice cereal": {
                 "aliases": [],
                 "description": "",
-                "name": "rice cereal",
-                "plural_name": "rice cereals"
+                "name": "cereal de arroz",
+                "plural_name": "cereal de arroz"
             },
             "wild rice": {
                 "aliases": [],
                 "description": "",
-                "name": "wild rice",
-                "plural_name": "wild rices"
+                "name": "arroz salvaje",
+                "plural_name": "arroz salvaje"
             },
             "semolina": {
                 "aliases": [],
@@ -8614,8 +8614,8 @@
             "jasmine rice": {
                 "aliases": [],
                 "description": "",
-                "name": "jasmine rice",
-                "plural_name": "jasmine rices"
+                "name": "arroz jazmín",
+                "plural_name": "arroz jazmín"
             },
             "polenta": {
                 "aliases": [],
@@ -8686,8 +8686,8 @@
             "sushi rice": {
                 "aliases": [],
                 "description": "",
-                "name": "sushi rice",
-                "plural_name": "sushi rices"
+                "name": "arroz de sushi",
+                "plural_name": "arroz de sushi"
             },
             "glutinous rice": {
                 "aliases": [],
@@ -8698,8 +8698,8 @@
             "instant rice": {
                 "aliases": [],
                 "description": "",
-                "name": "instant rice",
-                "plural_name": "instant rices"
+                "name": "arroz instantáneo",
+                "plural_name": "arroz instantáneo"
             },
             "hominy": {
                 "aliases": [],
@@ -8746,14 +8746,14 @@
             "black rice": {
                 "aliases": [],
                 "description": "",
-                "name": "black rice",
-                "plural_name": "black rices"
+                "name": "arroz negro",
+                "plural_name": "arroz negro"
             },
             "yellow rice": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow rice",
-                "plural_name": "yellow rices"
+                "name": "arroz amarillo",
+                "plural_name": "arroz amarillo"
             },
             "fine semolina": {
                 "aliases": [],
@@ -8812,7 +8812,7 @@
             "paella rice": {
                 "aliases": [],
                 "description": "",
-                "name": "paella rice",
+                "name": "arroz de paella",
                 "plural_name": "paella rices"
             },
             "sorghum": {
@@ -9070,8 +9070,8 @@
             "cream of rice": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of rice",
-                "plural_name": "cream of rice"
+                "name": "crema de arroz",
+                "plural_name": "crema de arroz"
             },
             "kañiwa": {
                 "aliases": [],
@@ -9578,8 +9578,8 @@
             "rice noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "rice noodle",
-                "plural_name": "rice noodles"
+                "name": "fideo de arroz",
+                "plural_name": "fideo de arroz"
             },
             "rigatoni": {
                 "aliases": [],
@@ -10688,8 +10688,8 @@
             "avocado oil": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado oil",
-                "plural_name": "avocado oils"
+                "name": "aceite de aguacate",
+                "plural_name": "aceite de aguacate"
             },
             "toasted sesame oil": {
                 "aliases": [],
