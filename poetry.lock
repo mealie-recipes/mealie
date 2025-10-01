@@ -1924,14 +1924,14 @@ signedtoken = ["cryptography (>=3.0.0)", "pyjwt (>=2.0.0,<3)"]
 
 [[package]]
 name = "openai"
-version = "1.109.1"
+version = "2.0.0"
 description = "The official Python library for the openai API"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "openai-1.109.1-py3-none-any.whl", hash = "sha256:6bcaf57086cf59159b8e27447e4e7dd019db5d29a438072fbd49c290c7e65315"},
-    {file = "openai-1.109.1.tar.gz", hash = "sha256:d173ed8dbca665892a6db099b4a2dfac624f94d20a93f46eb0b56aae940ed869"},
+    {file = "openai-2.0.0-py3-none-any.whl", hash = "sha256:a79f493651f9843a6c54789a83f3b2db56df0e1770f7dcbe98bcf0e967ee2148"},
+    {file = "openai-2.0.0.tar.gz", hash = "sha256:6b9513b485f856b0be6bc44c518831acb58e37a12bed72fcc52b1177d1fb34a8"},
 ]
 
 [package.dependencies]
@@ -4017,4 +4017,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<3.13"
-content-hash = "456600838d923eefd6eb56d979d2e80ee391a6c5d31d50586ea25a541df72d4a"
+content-hash = "c04e60828c3a6aea274c8e5c1ab70bc84a425a6dfd082903dc4daccc8ae66cb0"
