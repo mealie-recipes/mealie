@@ -94,14 +94,14 @@ files = [
 
 [[package]]
 name = "apprise"
-version = "1.9.4"
+version = "1.9.5"
 description = "Push Notifications that work with just about every platform!"
 optional = false
 python-versions = ">=3.9"
 groups = ["main"]
 files = [
-    {file = "apprise-1.9.4-py3-none-any.whl", hash = "sha256:17dca8ad0a5b2063f6bae707979a51ca2cb374fcc66b0dd5c05a9d286dd40069"},
-    {file = "apprise-1.9.4.tar.gz", hash = "sha256:483122aee19a89a7b075ecd48ef11ae37d79744f7aeb450bcf985a9a6c28c988"},
+    {file = "apprise-1.9.5-py3-none-any.whl", hash = "sha256:1873a8a1b8cf9e44fcbefe0486ed260b590652aea12427f545b37c8566142961"},
+    {file = "apprise-1.9.5.tar.gz", hash = "sha256:8f3be318bb429c2017470e33928a2e313cbf7600fc74b8184782a37060db366a"},
 ]
 
 [package.dependencies]
@@ -111,11 +111,12 @@ markdown = "*"
 PyYAML = "*"
 requests = "*"
 requests-oauthlib = "*"
+tzdata = {version = "*", markers = "platform_system == \"Windows\""}
 
 [package.extras]
 all-plugins = ["PGPy", "cryptography", "gntp", "paho-mqtt (!=2.0.*)", "smpplib"]
 dev = ["babel", "coverage", "mock", "pytest", "pytest-cov", "pytest-mock", "ruff", "tox", "validate-pyproject"]
-windows = ["pywin32"]
+windows = ["pywin32", "tzdata"]
 
 [[package]]
 name = "astroid"
