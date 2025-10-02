@@ -31,7 +31,7 @@
     },
     "quart": {
         "name": "quart",
-        "plural_name": "quarts",
+        "plural_name": "",
         "description": "",
         "abbreviation": "qt"
     },
@@ -42,20 +42,20 @@
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "milliliter",
-        "plural_name": "milliliters",
+        "name": "millilíter",
+        "plural_name": "millilítrar",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "liter",
-        "plural_name": "liters",
+        "name": "líter",
+        "plural_name": "lítrar",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
-        "plural_name": "pounds",
+        "name": "pund",
+        "plural_name": "pund",
         "description": "",
         "abbreviation": "lb",
         "plural_abbreviation": "lbs"
@@ -67,20 +67,20 @@
         "abbreviation": "oz"
     },
     "gram": {
-        "name": "gram",
-        "plural_name": "grams",
+        "name": "gramm",
+        "plural_name": "grömm",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
-        "plural_name": "kilograms",
+        "name": "kílógramm",
+        "plural_name": "kílógrömm",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "milligram",
-        "plural_name": "milligrams",
+        "name": "milligramm",
+        "plural_name": "milligrömm",
         "description": "",
         "abbreviation": "mg"
     },
@@ -97,44 +97,44 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "serving",
-        "plural_name": "servings",
+        "name": "skammtur",
+        "plural_name": "skammtar",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
-        "plural_name": "heads",
+        "name": "höfuð",
+        "plural_name": "höfuð",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "clove",
-        "plural_name": "cloves",
+        "name": "geiri",
+        "plural_name": "geirar",
         "description": "",
         "abbreviation": ""
     },
     "can": {
-        "name": "can",
-        "plural_name": "cans",
+        "name": "dós",
+        "plural_name": "dósir",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "búnt",
+        "plural_name": "búnt",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "pakki",
+        "plural_name": "pakkar",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "klípa",
+        "plural_name": "klípur",
         "description": "",
         "abbreviation": ""
     }
