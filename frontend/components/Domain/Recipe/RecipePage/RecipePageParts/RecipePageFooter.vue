@@ -29,8 +29,8 @@
         class="mb-2 mx-n2"
       >
         <v-card-title class="text-h5 font-weight-medium opacity-80">
-{{ $t('recipe.api-extras') }}
-</v-card-title>
+          {{ $t('recipe.api-extras') }}
+        </v-card-title>
         <v-divider class="ml-4" />
         <v-card-text>
           {{ $t('recipe.api-extras-description') }}

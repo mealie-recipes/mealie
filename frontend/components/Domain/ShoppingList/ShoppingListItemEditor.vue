@@ -84,12 +84,12 @@
           :buttons="[
             ...(allowDelete
               ? [
-                  {
-                    icon: $globals.icons.delete,
-                    text: $t('general.delete'),
-                    event: 'delete',
-                  },
-                ]
+                {
+                  icon: $globals.icons.delete,
+                  text: $t('general.delete'),
+                  event: 'delete',
+                },
+              ]
               : []),
             {
               icon: $globals.icons.close,

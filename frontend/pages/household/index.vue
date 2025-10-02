@@ -1,6 +1,7 @@
 <template>
-  <v-container v-if="household"
-               class="narrow-container"
+  <v-container
+    v-if="household"
+    class="narrow-container"
   >
     <BasePageTitle class="mb-5">
       <template #header>
@@ -53,105 +54,105 @@ export default defineNuxtComponent({
 
     const refHouseholdEditForm = ref<VForm | null>(null);
 
-		type Preference = {
-		  key: keyof ReadHouseholdPreferences;
-		  value: boolean;
-		  label: string;
-		  description: string;
-		};
+    type Preference = {
+      key: keyof ReadHouseholdPreferences;
+      value: boolean;
+      label: string;
+      description: string;
+    };
 
-		const preferencesEditor = computed<Preference[]>(() => {
-		  if (!household.value || !household.value.preferences) {
-		    return [];
-		  }
-		  return [
-		    {
-		      key: "recipePublic",
-		      value: household.value.preferences.recipePublic || false,
-		      label: i18n.t("household.allow-users-outside-of-your-household-to-see-your-recipes"),
-		      description: i18n.t("household.allow-users-outside-of-your-household-to-see-your-recipes-description"),
-		    } as Preference,
-		    {
-		      key: "recipeShowNutrition",
-		      value: household.value.preferences.recipeShowNutrition || false,
-		      label: i18n.t("group.show-nutrition-information"),
-		      description: i18n.t("group.show-nutrition-information-description"),
-		    } as Preference,
-		    {
-		      key: "recipeShowAssets",
-		      value: household.value.preferences.recipeShowAssets || false,
-		      label: i18n.t("group.show-recipe-assets"),
-		      description: i18n.t("group.show-recipe-assets-description"),
-		    } as Preference,
-		    {
-		      key: "recipeLandscapeView",
-		      value: household.value.preferences.recipeLandscapeView || false,
-		      label: i18n.t("group.default-to-landscape-view"),
-		      description: i18n.t("group.default-to-landscape-view-description"),
-		    } as Preference,
-		    {
-		      key: "recipeDisableComments",
-		      value: household.value.preferences.recipeDisableComments || false,
-		      label: i18n.t("group.disable-users-from-commenting-on-recipes"),
-		      description: i18n.t("group.disable-users-from-commenting-on-recipes-description"),
-		    } as Preference,
-		  ];
-		});
+    const preferencesEditor = computed<Preference[]>(() => {
+      if (!household.value || !household.value.preferences) {
+        return [];
+      }
+      return [
+        {
+          key: "recipePublic",
+          value: household.value.preferences.recipePublic || false,
+          label: i18n.t("household.allow-users-outside-of-your-household-to-see-your-recipes"),
+          description: i18n.t("household.allow-users-outside-of-your-household-to-see-your-recipes-description"),
+        } as Preference,
+        {
+          key: "recipeShowNutrition",
+          value: household.value.preferences.recipeShowNutrition || false,
+          label: i18n.t("group.show-nutrition-information"),
+          description: i18n.t("group.show-nutrition-information-description"),
+        } as Preference,
+        {
+          key: "recipeShowAssets",
+          value: household.value.preferences.recipeShowAssets || false,
+          label: i18n.t("group.show-recipe-assets"),
+          description: i18n.t("group.show-recipe-assets-description"),
+        } as Preference,
+        {
+          key: "recipeLandscapeView",
+          value: household.value.preferences.recipeLandscapeView || false,
+          label: i18n.t("group.default-to-landscape-view"),
+          description: i18n.t("group.default-to-landscape-view-description"),
+        } as Preference,
+        {
+          key: "recipeDisableComments",
+          value: household.value.preferences.recipeDisableComments || false,
+          label: i18n.t("group.disable-users-from-commenting-on-recipes"),
+          description: i18n.t("group.disable-users-from-commenting-on-recipes-description"),
+        } as Preference,
+      ];
+    });
 
-		const allDays = [
-		  {
-		    name: i18n.t("general.sunday"),
-		    value: 0,
-		  },
-		  {
-		    name: i18n.t("general.monday"),
-		    value: 1,
-		  },
-		  {
-		    name: i18n.t("general.tuesday"),
-		    value: 2,
-		  },
-		  {
-		    name: i18n.t("general.wednesday"),
-		    value: 3,
-		  },
-		  {
-		    name: i18n.t("general.thursday"),
-		    value: 4,
-		  },
-		  {
-		    name: i18n.t("general.friday"),
-		    value: 5,
-		  },
-		  {
-		    name: i18n.t("general.saturday"),
-		    value: 6,
-		  },
-		];
+    const allDays = [
+      {
+        name: i18n.t("general.sunday"),
+        value: 0,
+      },
+      {
+        name: i18n.t("general.monday"),
+        value: 1,
+      },
+      {
+        name: i18n.t("general.tuesday"),
+        value: 2,
+      },
+      {
+        name: i18n.t("general.wednesday"),
+        value: 3,
+      },
+      {
+        name: i18n.t("general.thursday"),
+        value: 4,
+      },
+      {
+        name: i18n.t("general.friday"),
+        value: 5,
+      },
+      {
+        name: i18n.t("general.saturday"),
+        value: 6,
+      },
+    ];
 
-		async function handleSubmit() {
-		  if (!refHouseholdEditForm.value?.validate() || !household.value?.preferences) {
-		    console.log(refHouseholdEditForm.value?.validate());
-		    return;
-		  }
+    async function handleSubmit() {
+      if (!refHouseholdEditForm.value?.validate() || !household.value?.preferences) {
+        console.log(refHouseholdEditForm.value?.validate());
+        return;
+      }
 
-		  const data = await householdActions.updatePreferences();
-		  if (data) {
-		    alert.success(i18n.t("settings.settings-updated"));
-		  }
-		  else {
-		    alert.error(i18n.t("settings.settings-update-failed"));
-		  }
-		}
+      const data = await householdActions.updatePreferences();
+      if (data) {
+        alert.success(i18n.t("settings.settings-updated"));
+      }
+      else {
+        alert.error(i18n.t("settings.settings-update-failed"));
+      }
+    }
 
-		return {
-		  household,
-		  householdActions,
-		  allDays,
-		  preferencesEditor,
-		  refHouseholdEditForm,
-		  handleSubmit,
-		};
+    return {
+      household,
+      householdActions,
+      allDays,
+      preferencesEditor,
+      refHouseholdEditForm,
+      handleSubmit,
+    };
   },
 });
 </script>

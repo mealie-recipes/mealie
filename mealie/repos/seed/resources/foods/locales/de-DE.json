@@ -8548,7 +8548,7 @@
                     "Rice Krispie"
                 ],
                 "description": "",
-                "name": "Rice Krispie Cereal",
+                "name": "",
                 "plural_name": "Rice Krispie Cereal"
             },
             "quinoa": {
@@ -8891,7 +8891,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "puffed quinoa",
-                "plural_name": "puffed quinoas"
+                "plural_name": "Gepuffter Quinoa"
             },
             "cilantro lime rice": {
                 "aliases": [],
@@ -8945,13 +8945,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "rye berry",
-                "plural_name": "rye berries"
+                "plural_name": "Roggenkörner"
             },
             "spelt flake": {
                 "aliases": [],
                 "description": "",
-                "name": "spelt flake",
-                "plural_name": "spelt flakes"
+                "name": "Dinkel flocken",
+                "plural_name": "Dinkelflocken"
             },
             "kodo millet": {
                 "aliases": [],
@@ -9134,7 +9134,7 @@
             "pinto bean": {
                 "aliases": [],
                 "description": "",
-                "name": "pinto bean",
+                "name": "Pintobohnen",
                 "plural_name": "pinto beans"
             },
             "snow pea": {

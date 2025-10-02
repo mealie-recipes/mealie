@@ -80,10 +80,10 @@
     />
     <section class="d-flex flex-column">
       <v-list>
-      <div
-        v-for="(token, index) in user.tokens"
-        :key="index"
-      >
+        <div
+          v-for="(token, index) in user.tokens"
+          :key="index"
+        >
           <v-list-item>
             <v-list-item-title>
               {{ token.name }}

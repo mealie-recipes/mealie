@@ -139,6 +139,7 @@ def test_get_one_cookbook(
     assert response.status_code == 200
     cookbook_data = response.json()
     assert cookbook_data["id"] == str(cookbook.id)
+    assert cookbook_data["household"]["name"] == household.name
 
 
 def test_get_cookbooks_with_recipes(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):

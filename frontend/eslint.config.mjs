@@ -1,24 +1,25 @@
 // @ts-check
-import stylisticJs from "@stylistic/eslint-plugin-js";
+import stylistic from "@stylistic/eslint-plugin";
 import withNuxt from "./.nuxt/eslint.config.mjs";
 
 export default withNuxt({
   plugins: {
-    "@stylistic/js": stylisticJs,
+    "@stylistic": stylistic,
   },
-  // Your custom configs here
   rules: {
-    "@typescript-eslint/no-explicit-any": "off",
-    "vue/no-mutating-props": "warn",
-    "vue/no-v-html": "warn",
-    "object-curly-newline": "off",
-    "consistent-list-newline": "off",
-    "vue/first-attribute-linebreak": "off",
-    "@stylistic/js/no-tabs": ["error", { allowIndentationTabs: true }],
-    "@stylistic/no-tabs": ["error", { allowIndentationTabs: true }],
+    "@stylistic/no-tabs": ["error"],
     "@stylistic/no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
-    "vue/max-attributes-per-line": "off",
-    "vue/html-indent": "off",
-    "vue/html-closing-bracket-newline": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "vue/first-attribute-linebreak": "error",
+    "vue/html-closing-bracket-newline": "error",
+    "vue/max-attributes-per-line": [
+      "error",
+      {
+        singleline: 5,
+        multiline: 1,
+      },
+    ],
+    "vue/no-mutating-props": "error",
+    "vue/no-v-html": "error",
   },
 });
