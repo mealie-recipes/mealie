@@ -4,26 +4,26 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic",
-                "plural_name": "garlics"
+                "name": "hvítlaukur",
+                "plural_name": "hvítlaukar"
             },
             "onion": {
                 "aliases": [],
                 "description": "",
-                "name": "onion",
-                "plural_name": "onions"
+                "name": "laukur",
+                "plural_name": "laukar"
             },
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "bell pepper",
-                "plural_name": "bell peppers"
+                "name": "papríka",
+                "plural_name": "papríkur"
             },
             "carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "carrot",
-                "plural_name": "carrots"
+                "name": "gulrót",
+                "plural_name": "gulrætur"
             },
             "scallion": {
                 "aliases": [],
@@ -40,26 +40,26 @@
             "potato": {
                 "aliases": [],
                 "description": "",
-                "name": "potato",
-                "plural_name": "potatoes"
+                "name": "kartafla",
+                "plural_name": "kartöflur"
             },
             "red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "red onion",
-                "plural_name": "red onions"
+                "name": "rauðlaukur",
+                "plural_name": "rauðlaukar"
             },
             "yellow onion": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow onion",
-                "plural_name": "yellow onions"
+                "name": "gulur laukur",
+                "plural_name": "gulur laukur"
             },
             "celery": {
                 "aliases": [],
                 "description": "",
-                "name": "celery",
-                "plural_name": "celeries"
+                "name": "sellerí",
+                "plural_name": "sellerí"
             },
             "jalapeno": {
                 "aliases": [],
@@ -82,20 +82,20 @@
             "cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry tomato",
-                "plural_name": "cherry tomatoes"
+                "name": "kirsuberjatómatur",
+                "plural_name": "kirsuberjatómatar"
             },
             "cucumber": {
                 "aliases": [],
                 "description": "",
-                "name": "cucumber",
-                "plural_name": "cucumbers"
+                "name": "gúrka",
+                "plural_name": "gúrkur"
             },
             "spinach": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach",
-                "plural_name": "spinaches"
+                "name": "spínat",
+                "plural_name": "spínat"
             },
             "sweet corn": {
                 "aliases": [],
@@ -108,20 +108,20 @@
                     "capsicum"
                 ],
                 "description": "",
-                "name": "chile pepper",
-                "plural_name": "chile peppers"
+                "name": "eldpipar",
+                "plural_name": "eldpiprar"
             },
             "sweet potato": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet potato",
-                "plural_name": "sweet potatoes"
+                "name": "sæt kartafla",
+                "plural_name": "sætar kartöflur"
             },
             "broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli",
-                "plural_name": "broccolis"
+                "name": "brokkólí",
+                "plural_name": "brokkólí"
             },
             "heart of palm": {
                 "aliases": [],
@@ -138,26 +138,26 @@
             "pumpkin": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin",
-                "plural_name": "pumpkins"
+                "name": "grasker",
+                "plural_name": "grasker"
             },
             "cauliflower": {
                 "aliases": [],
                 "description": "",
-                "name": "cauliflower",
-                "plural_name": "cauliflowers"
+                "name": "blómkál",
+                "plural_name": "blómkál"
             },
             "cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "cabbage",
+                "name": "hvítkál",
                 "plural_name": "cabbages"
             },
             "asparagu": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagu",
-                "plural_name": "asparagus"
+                "name": "aspas",
+                "plural_name": "aspas"
             },
             "kale": {
                 "aliases": [],
@@ -180,14 +180,14 @@
             "eggplant": {
                 "aliases": [],
                 "description": "",
-                "name": "eggplant",
-                "plural_name": "eggplants"
+                "name": "eggaldin",
+                "plural_name": "eggaldin"
             },
             "lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "lettuce",
-                "plural_name": "lettuces"
+                "name": "salat",
+                "plural_name": "salat"
             },
             "butternut squash": {
                 "aliases": [],
@@ -204,14 +204,14 @@
             "beetroot": {
                 "aliases": [],
                 "description": "",
-                "name": "beetroot",
-                "plural_name": "beetroots"
+                "name": "rauðrófa",
+                "plural_name": "rauðrófur"
             },
             "brussels sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "brussels sprout",
-                "plural_name": "brussels sprouts"
+                "name": "rósakál",
+                "plural_name": "rósakál"
             },
             "fennel": {
                 "aliases": [],
@@ -222,26 +222,26 @@
             "sun dried tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "sun dried tomato",
-                "plural_name": "sun dried tomatoes"
+                "name": "sólþurrkaður tómatur",
+                "plural_name": "sólþurrkaðir tómatar"
             },
             "radish": {
                 "aliases": [],
                 "description": "",
-                "name": "radish",
-                "plural_name": "radishes"
+                "name": "radísa",
+                "plural_name": "radísur"
             },
             "red cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "red cabbage",
-                "plural_name": "red cabbages"
+                "name": "rauðkál",
+                "plural_name": "rauðkál"
             },
             "artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke",
-                "plural_name": "artichokes"
+                "name": "þistilhjarta",
+                "plural_name": "þistilhjörtu"
             },
             "new potato": {
                 "aliases": [],
@@ -267,8 +267,8 @@
             "parsnip": {
                 "aliases": [],
                 "description": "",
-                "name": "parsnip",
-                "plural_name": "parsnips"
+                "name": "nípa",
+                "plural_name": "nípur"
             },
             "baby carrot": {
                 "aliases": [],
@@ -279,8 +279,8 @@
             "mixed vegetable": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetable",
-                "plural_name": "mixed vegetables"
+                "name": "blandað græðnmeti",
+                "plural_name": "blandað græðnmeti"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -297,7 +297,7 @@
             "serrano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano pepper",
+                "name": "",
                 "plural_name": "serrano peppers"
             },
             "cayenne pepper": {
@@ -389,8 +389,8 @@
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "rófa",
+                "plural_name": "rófur"
             },
             "thai chile pepper": {
                 "aliases": [],
