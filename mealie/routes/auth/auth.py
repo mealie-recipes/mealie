@@ -1,4 +1,4 @@
-from datetime import timedelta
+from typing import Literal
 
 from authlib.integrations.starlette_client import OAuth
 from fastapi import APIRouter, Depends, Request, Response, status
@@ -25,7 +25,6 @@ public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])
 logger = root_logger.get_logger("auth")
 
-remember_me_duration = timedelta(days=14)
 
 settings = get_app_settings()
 if settings.OIDC_READY:
@@ -55,8 +54,40 @@ class MealieAuthToken(BaseModel):
     token_type: str = "bearer"
 
     @classmethod
+    def set_cookie(
+        cls, response: Response, token: str, *, expires_in: int | float | None = None, samesite: str | None = None
+    ):
+        expires_in = int(expires_in) if expires_in else None
+
+        # httponly=False to allow JS access for frontend
+        response.set_cookie(
+            key="mealie.access_token",
+            value=token,
+            httponly=False,
+            max_age=expires_in,
+            secure=settings.PRODUCTION,
+            samesite=samesite,
+        )
+
+    @classmethod
     def respond(cls, token: str, token_type: str = "bearer") -> dict:
         return cls(access_token=token, token_type=token_type).model_dump()
+
+
+def get_samesite(request: Request) -> Literal["lax", "none"]:
+    """
+    Determine the appropriate samesite attribute for cookies.
+
+    `samesite="none"` is required for iframe support (i.e. embedding Mealie in another site)
+    but only works over HTTPS. If `samesite="none"` is set over HTTP, most browsers will reject the cookie.
+
+    `samesite="lax"` is the default, which works regardless of HTTP or HTTPS,
+    but does not support hosting in iframes.
+    """
+    if request.url.scheme == "https" and settings.PRODUCTION:
+        return "none"
+    else:
+        return "lax"
 
 
 @public_router.post("/token")
@@ -86,17 +117,16 @@ def get_token(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
         )
+
     access_token, duration = auth
-
     expires_in = duration.total_seconds() if duration else None
-    response.set_cookie(
-        key="mealie.access_token",
-        value=access_token,
-        httponly=True,
-        max_age=expires_in,
-        secure=settings.PRODUCTION,
-    )
 
+    MealieAuthToken.set_cookie(
+        response,
+        access_token,
+        expires_in=expires_in,
+        samesite=get_samesite(request),
+    )
     return MealieAuthToken.respond(access_token)
 
 
@@ -145,18 +175,16 @@ async def oauth_callback(request: Request, response: Response, session: Session 
 
     if not auth:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
-    access_token, duration = auth
 
+    access_token, duration = auth
     expires_in = duration.total_seconds() if duration else None
 
-    response.set_cookie(
-        key="mealie.access_token",
-        value=access_token,
-        httponly=True,
-        max_age=expires_in,
-        secure=settings.PRODUCTION,
+    MealieAuthToken.set_cookie(
+        response,
+        access_token,
+        expires_in=expires_in,
+        samesite=get_samesite(request),
     )
-
     return MealieAuthToken.respond(access_token)
 
 

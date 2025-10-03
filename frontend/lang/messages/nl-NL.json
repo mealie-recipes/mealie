@@ -624,6 +624,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "U kunt direct importeren uit onbewerkte gegevens",
     "import-original-keywords-as-tags": "Importeer oorspronkelijke trefwoorden als labels",
     "stay-in-edit-mode": "Blijf in bewerkingsmodus",
+    "parse-recipe-ingredients-after-import": "Ontleed de ingrediënten van het recept na importeren",
     "import-from-zip": "Importeren uit zip",
     "import-from-zip-description": "Importeer een recept dat geëxporteerd was uit een andere Mealie instantie.",
     "import-from-html-or-json": "Importeer van HTML of JSON",
@@ -669,7 +670,13 @@
       "missing-food": "Ontbrekend levensmiddel maken: {food}",
       "this-unit-could-not-be-parsed-automatically": "Mealie kon deze meeteenheid niet automatisch verwerken",
       "this-food-could-not-be-parsed-automatically": "Mealie kon dit soort voedsel niet automatisch verwerken",
-      "no-food": "Geen levensmiddel"
+      "no-food": "Geen levensmiddel",
+      "review-parsed-ingredients": "Controleer ingrediënten na de ontleding",
+      "confidence-score": "Betrouwbaarheids-score",
+      "ingredient-parser-description": "Uw ingrediëntenlijst is succesvol ontleed. Controleer de ingrediënten waar we niet zeker van zijn.",
+      "ingredient-parser-final-review-description": "Als alle ingrediënten gecontroleerd zijn heb je, voor het toepassen van wijzigingen in je recept, nog één kans om alle ingrediënten te controleren.",
+      "add-text-as-alias-for-item": "Voeg \"{text}\" toe als alias voor {item}",
+      "delete-item": "Verwijderen item"
     },
     "reset-servings-count": "Porties resetten",
     "not-linked-ingredients": "Extra ingrediënten",

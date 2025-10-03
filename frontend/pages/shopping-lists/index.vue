@@ -92,32 +92,32 @@
         class="my-2 left-border"
         :to="`/shopping-lists/${list.id}`"
       >
-      <v-card-title class="d-flex align-center">
-        <v-icon class="mr-2">
-          {{ $globals.icons.cartCheck }}
-        </v-icon>
-        <span class="flex-grow-1">
-          {{ list.name }}
-        </span>
-        <v-btn
-          icon
-          variant="plain"
-          @click.prevent="toggleOwnerDialog(list)"
-        >
-          <v-icon>
-            {{ $globals.icons.user }}
+        <v-card-title class="d-flex align-center">
+          <v-icon class="mr-2">
+            {{ $globals.icons.cartCheck }}
           </v-icon>
-        </v-btn>
-        <v-btn
-          icon
-          variant="plain"
-          @click.prevent="openDelete(list.id)"
-        >
-          <v-icon>
-            {{ $globals.icons.delete }}
-          </v-icon>
-        </v-btn>
-      </v-card-title>
+          <span class="flex-grow-1">
+            {{ list.name }}
+          </span>
+          <v-btn
+            icon
+            variant="plain"
+            @click.prevent="toggleOwnerDialog(list)"
+          >
+            <v-icon>
+              {{ $globals.icons.user }}
+            </v-icon>
+          </v-btn>
+          <v-btn
+            icon
+            variant="plain"
+            @click.prevent="openDelete(list.id)"
+          >
+            <v-icon>
+              {{ $globals.icons.delete }}
+            </v-icon>
+          </v-btn>
+        </v-card-title>
       </v-card>
     </section>
   </v-container>

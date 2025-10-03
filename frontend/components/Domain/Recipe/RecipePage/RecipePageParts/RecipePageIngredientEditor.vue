@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-mutating-props -->
 <template>
   <div>
     <div class="mb-4">
@@ -31,6 +30,8 @@
           v-for="(ingredient, index) in recipe.recipeIngredient"
           :key="ingredient.referenceId"
           v-model="recipe.recipeIngredient[index]"
+          enable-drag-handle
+          enable-context-menu
           class="list-group-item"
           @delete="recipe.recipeIngredient.splice(index, 1)"
           @insert-above="insertNewIngredient(index)"
@@ -55,8 +56,8 @@
               class="mb-1"
               :disabled="hasFoodOrUnit"
               color="accent"
-              :to="`/g/${groupSlug}/r/${recipe.slug}/ingredient-parser`"
               v-bind="props"
+              @click="toggleIsParsing(true)"
             >
               <template #icon>
                 {{ $globals.icons.foods }}
@@ -87,16 +88,14 @@ import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
+import { usePageState } from "~/composables/recipe-page/shared-state";
 import { uuid4 } from "~/composables/use-utils";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 const i18n = useI18n();
-const $auth = useMealieAuth();
 
 const drag = ref(false);
-
-const route = useRoute();
-const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+const { toggleIsParsing } = usePageState(recipe.value.slug);
 
 const hasFoodOrUnit = computed(() => {
   if (!recipe.value) {
@@ -128,7 +127,7 @@ function addIngredient(ingredients: Array<string> | null = null) {
         note: x,
         unit: undefined,
         food: undefined,
-        quantity: 1,
+        quantity: 0,
       };
     });
 
@@ -146,7 +145,7 @@ function addIngredient(ingredients: Array<string> | null = null) {
       unit: undefined,
       // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
       food: undefined,
-      quantity: 1,
+      quantity: 0,
     });
   }
 }
@@ -160,7 +159,7 @@ function insertNewIngredient(dest: number) {
     unit: undefined,
     // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
     food: undefined,
-    quantity: 1,
+    quantity: 0,
   });
 }
 </script>
