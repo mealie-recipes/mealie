@@ -523,7 +523,7 @@ function insertNewIngredient(index: number) {
     input: "",
     confidence: {},
     ingredient: {
-      quantity: 1.0,
+      quantity: 0,
       referenceId: uuid4(),
     },
   } as ParsedIngredient;
