@@ -81,7 +81,7 @@
     "category-events": "Kategorihendelser",
     "when-a-new-user-joins-your-group": "Når en ny bruker blir med i gruppen din",
     "recipe-events": "Oppskriftshendelser",
-    "label-events": "Label Events"
+    "label-events": "Merk hendelser"
   },
   "general": {
     "add": "Legg til",
@@ -561,7 +561,7 @@
     "see-original-text": "Se opprinnelig tekst",
     "original-text-with-value": "Opprinnelig tekst: {originalText}",
     "ingredient-linker": "Tilknytt ingredienser",
-    "unlinked": "Not linked yet",
+    "unlinked": "Ingen lenke enda",
     "linked-to-other-step": "Tilknyttet et annet steg",
     "auto": "Automatisk",
     "cook-mode": "Tilberedelsesmodus",

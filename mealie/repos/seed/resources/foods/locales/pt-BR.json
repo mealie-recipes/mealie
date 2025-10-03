@@ -1245,7 +1245,7 @@
             "shiitake mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shiitake mushroom",
+                "name": "Cogumelo Shiitake",
                 "plural_name": "shiitake mushrooms"
             },
             "portobello mushroom": {
@@ -1420,7 +1420,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "puffball",
-                "plural_name": "puffballs"
+                "plural_name": "Cogumelos bola"
             },
             "honey fungu": {
                 "aliases": [],
@@ -1651,7 +1651,7 @@
             "cloudberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cloudberry",
+                "name": "Amora das nuvens",
                 "plural_name": "cloudberries"
             },
             "freeze-dried berry": {
@@ -1949,7 +1949,7 @@
             "sunflower sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower sprout",
+                "name": "Broto de girassol",
                 "plural_name": "sunflower sprouts"
             },
             "apricot kernel": {
@@ -2220,7 +2220,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "herb cream cheese",
-                "plural_name": "herb cream cheeses"
+                "plural_name": "Cream cheese de ervas"
             },
             "burrata": {
                 "aliases": [],
@@ -2249,8 +2249,8 @@
             "muenster": {
                 "aliases": [],
                 "description": "",
-                "name": "muenster",
-                "plural_name": "muensters"
+                "name": "Queijo Muenster",
+                "plural_name": "Queijo muensters"
             },
             "string cheese": {
                 "aliases": [],
@@ -2322,7 +2322,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "creamy cheese wedge",
-                "plural_name": "creamy cheese wedges"
+                "plural_name": "Pedaços de cream cheese"
             },
             "cheese powder": {
                 "aliases": [],
@@ -2429,7 +2429,7 @@
             "cambozola": {
                 "aliases": [],
                 "description": "",
-                "name": "cambozola",
+                "name": "Queijo cambozola",
                 "plural_name": "cambozolas"
             },
             "cheshire cheese": {
@@ -2586,7 +2586,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "epoisses cheese",
-                "plural_name": "epoisses cheeses"
+                "plural_name": "Queijos epoisses"
             },
             "maasdam": {
                 "aliases": [],
@@ -2891,7 +2891,7 @@
             "skyr": {
                 "aliases": [],
                 "description": "",
-                "name": "skyr",
+                "name": "Iorgute islândes proteico",
                 "plural_name": "skyrs"
             },
             "pumpkin spice coffee creamer": {

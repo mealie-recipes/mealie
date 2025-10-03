@@ -1,41 +1,41 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "Óvænt villa kom upp"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique",
-        "recipe-created": "Recipe Created",
+        "unique-name-error": "Nöfn uppskrifta þurfa að vera einstök",
+        "recipe-created": "Uppskrift stofnuð",
         "recipe-defaults": {
             "ingredient-note": "1 Cup Flour",
             "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
         },
         "servings-text": {
             "makes": "Makes",
-            "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
-            "yield": "Yield",
-            "yields": "Yields"
+            "serves": "Skammtar",
+            "serving": "Skammtur",
+            "servings": "Skammtar",
+            "yield": "Skilar",
+            "yields": "Skilar"
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "Eingin uppskrift passar við settar reglur"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
+        "user-updated": "Notandi uppfærður",
+        "password-updated": "Lykilorð uppfært",
         "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "ldap-update-password-unavailable": "Ekki var hægt að uppfæra lykilorð, notanda er stjórnað af LDAP"
     },
     "group": {
         "report-deleted": "Report deleted."
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
+        "permission_denied": "Þú hefur ekki réttindi til að framkvæma þessa aðgerð",
         "no-entry-found": "The requested resource was not found",
         "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "username-conflict-error": "Notandanafn er þegar í notkun",
+        "email-conflict-error": "Tölvupóstur er þegar í notkun"
     },
     "notifications": {
         "generic-created": "{name} was created",
@@ -46,25 +46,25 @@
         "generic-deleted": "{name} has been deleted"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "year": "ár",
+        "day": "dagur|dagar",
+        "hour": "klukkustund|klukkustundir",
+        "minute": "mínluta|mínútur",
+        "second": "sekúnda|sekúndur",
+        "millisecond": "millisekúnda|millisekúndur",
+        "microsecond": "míkrósekúnda|míkrósekúndur"
     },
     "emails": {
         "password": {
-            "subject": "Mealie Forgot Password",
-            "header_text": "Forgot Password",
-            "message_top": "You have requested to reset your password.",
-            "message_bottom": "Please click the button above to reset your password.",
-            "button_text": "Reset Password"
+            "subject": "Mealie Gleymt Lykilorð",
+            "header_text": "Gleymt Lykilorð",
+            "message_top": "Þú hefur óskað eftir að endursetja lykilorðið þitt.",
+            "message_bottom": "Vinsamlegast smelltu á hnappinn hér að ofan til að endursetja lykilorðið þitt.",
+            "button_text": "Endursetja lykilorð"
         },
         "invitation": {
             "subject": "Invitation to join Mealie",
-            "header_text": "You're Invited!",
+            "header_text": "Þér er boðið!",
             "message_top": "You have been invited to join Mealie.",
             "message_bottom": "Please click the button above to accept the invitation.",
             "button_text": "Accept Invitation"

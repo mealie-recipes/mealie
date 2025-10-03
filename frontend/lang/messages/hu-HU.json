@@ -676,7 +676,7 @@
       "ingredient-parser-description": "Sikeresen feldolgoztuk a hozzávalókat. Kérljük, nézze át azokat, amelyekben nem vagyunk teljesen biztosak.",
       "ingredient-parser-final-review-description": "Miután az összes hozzávalót átnézte, még egyszer átnézheti az összes hozzávalót, mielőtt a változtatásokat átvezeti a receptbe.",
       "add-text-as-alias-for-item": "Adja hozzá a „{text}” nevet {item} aliasaként",
-      "delete-item": "Delete Item"
+      "delete-item": "Elem törlése"
     },
     "reset-servings-count": "Adagok számának visszaállítása",
     "not-linked-ingredients": "Kiegészítő hozzávalók",
@@ -1273,7 +1273,7 @@
       "action-clean-temporary-files-description": "Minden fájl és mappa eltávolítása a .temp könyvtárból",
       "action-clean-images-name": "Képek tisztítása",
       "action-clean-images-description": "Minden nem .webp kiterjesztésű kép eltávolítása",
-      "actions-description": "A karbantartási műveletek {destructive_in_bold} és óvatosan használandók. Ezen műveletek bármelyikének végrehajtása {irreversible_in_bold}.",
+      "actions-description": "A karbantartási műveletek {destructive_in_bold} jellegűek, ezért óvatosan kell alkalmazni őket. Ezen műveletek végrehajtása {irreversible_in_bold}.",
       "actions-description-destructive": "romboló",
       "actions-description-irreversible": "visszafordíthatatlan",
       "logs-action-refresh": "Logok frissítése",
