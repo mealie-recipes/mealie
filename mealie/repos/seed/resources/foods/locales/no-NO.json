@@ -262,7 +262,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mixed green",
-                "plural_name": "mixed greens"
+                "plural_name": "salatblanding"
             },
             "parsnip": {
                 "aliases": [],
@@ -286,13 +286,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "poblano pepper",
-                "plural_name": "poblano peppers"
+                "plural_name": "mild chilipepper (Poblano)"
             },
             "sweet pepper": {
                 "aliases": [],
                 "description": "",
                 "name": "sweet pepper",
-                "plural_name": "sweet peppers"
+                "plural_name": "paprika"
             },
             "serrano pepper": {
                 "aliases": [],
