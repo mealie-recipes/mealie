@@ -619,8 +619,8 @@
             "alfalfa": {
                 "aliases": [],
                 "description": "",
-                "name": "alfalfa",
-                "plural_name": "alfalfas"
+                "name": "refasmári",
+                "plural_name": "refasmárar"
             }
         }
     },
@@ -628,104 +628,104 @@
         "foods": {
             "tomato": {
                 "aliases": [],
-                "description": "Yes they are a fruit",
-                "name": "tomato",
-                "plural_name": "tomatoes"
+                "description": "Tómatur er ávöxtur",
+                "name": "tómatur",
+                "plural_name": "tómatar"
             },
             "lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon",
-                "plural_name": "lemons"
+                "name": "sítróna",
+                "plural_name": "sítrónur"
             },
             "lime": {
                 "aliases": [],
                 "description": "",
-                "name": "lime",
-                "plural_name": "limes"
+                "name": "límóna",
+                "plural_name": "límónur"
             },
             "apple": {
                 "aliases": [],
                 "description": "",
-                "name": "apple",
-                "plural_name": "apples"
+                "name": "epli",
+                "plural_name": "epli"
             },
             "banana": {
                 "aliases": [],
                 "description": "",
-                "name": "banana",
-                "plural_name": "bananas"
+                "name": "banani",
+                "plural_name": "bananar"
             },
             "orange": {
                 "aliases": [],
                 "description": "",
-                "name": "orange",
-                "plural_name": "oranges"
+                "name": "appelsína",
+                "plural_name": "appelsínur"
             },
             "raisin": {
                 "aliases": [],
                 "description": "",
-                "name": "raisin",
-                "plural_name": "raisins"
+                "name": "rúsína",
+                "plural_name": "rúsínur"
             },
             "pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple",
-                "plural_name": "pineapples"
+                "name": "ananas",
+                "plural_name": "ananas"
             },
             "mango": {
                 "aliases": [],
                 "description": "",
-                "name": "mango",
-                "plural_name": "mangoes"
+                "name": "mangó",
+                "plural_name": "mangó"
             },
             "peach": {
                 "aliases": [],
                 "description": "",
-                "name": "peach",
-                "plural_name": "peaches"
+                "name": "ferskja",
+                "plural_name": "ferskjur"
             },
             "date": {
                 "aliases": [],
                 "description": "",
-                "name": "date",
-                "plural_name": "dates"
+                "name": "daðla",
+                "plural_name": "döðlur"
             },
             "coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut",
-                "plural_name": "coconuts"
+                "name": "kókoshneta",
+                "plural_name": "kókoshnetur"
             },
             "craisin": {
                 "aliases": [],
                 "description": "",
-                "name": "craisin",
-                "plural_name": "craisins"
+                "name": "þurrkuð trönuber",
+                "plural_name": "þurrkuð trönuber"
             },
             "pear": {
                 "aliases": [],
                 "description": "",
-                "name": "pear",
-                "plural_name": "pears"
+                "name": "pera",
+                "plural_name": "perur"
             },
             "grape": {
                 "aliases": [],
                 "description": "",
-                "name": "grape",
-                "plural_name": "grapes"
+                "name": "vínber",
+                "plural_name": "vínber"
             },
             "pomegranate": {
                 "aliases": [],
                 "description": "",
-                "name": "pomegranate",
-                "plural_name": "pomegranates"
+                "name": "granatepli",
+                "plural_name": "granatepli"
             },
             "watermelon": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon",
+                "name": "vatnsmelóna",
                 "plural_name": "vatnsmelóna"
             },
             "rhubarb": {
@@ -839,74 +839,74 @@
             "meyer lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "meyer lemon",
-                "plural_name": "meyer lemons"
+                "name": "meyer sítróna",
+                "plural_name": "meyer sítrónur"
             },
             "honeydew melon": {
                 "aliases": [],
                 "description": "",
-                "name": "honeydew melon",
-                "plural_name": "honeydew melons"
+                "name": "hunangsmelóna",
+                "plural_name": "hunangsmelónur"
             },
             "dried fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fruit",
-                "plural_name": "dried fruits"
+                "name": "þurrkaður ávöxtur",
+                "plural_name": "þurrkaðir ávextir"
             },
             "clementine": {
                 "aliases": [],
                 "description": "",
-                "name": "clementine",
-                "plural_name": "clementines"
+                "name": "klementína",
+                "plural_name": "klementínur"
             },
             "persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "persimmon",
-                "plural_name": "persimmons"
+                "name": "þurrkuð persimóna",
+                "plural_name": "persimónur"
             },
             "melon": {
                 "aliases": [],
                 "description": "",
-                "name": "melon",
-                "plural_name": "melons"
+                "name": "melóna",
+                "plural_name": "melónur"
             },
             "tangerine": {
                 "aliases": [],
                 "description": "",
-                "name": "tangerine",
-                "plural_name": "tangerines"
+                "name": "tangerína",
+                "plural_name": "tangerínur"
             },
             "dried mango": {
                 "aliases": [],
                 "description": "",
-                "name": "dried mango",
-                "plural_name": "dried mangoes"
+                "name": "þurrkaður mangó",
+                "plural_name": "þurrkaðir mangó"
             },
             "dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apple",
-                "plural_name": "dried apples"
+                "name": "þurrkað epli",
+                "plural_name": "þurrkuð epli"
             },
             "quince": {
                 "aliases": [],
                 "description": "",
-                "name": "quince",
-                "plural_name": "quinces"
+                "name": "kveði",
+                "plural_name": "kveður"
             },
             "guava": {
                 "aliases": [],
                 "description": "",
-                "name": "guava",
+                "name": "gvava",
                 "plural_name": "guavas"
             },
             "banana chip": {
                 "aliases": [],
                 "description": "",
-                "name": "banana chip",
-                "plural_name": "banana chips"
+                "name": "banana snakk",
+                "plural_name": "banana snakk"
             },
             "kumquat": {
                 "aliases": [],
@@ -941,56 +941,56 @@
             "lychee": {
                 "aliases": [],
                 "description": "",
-                "name": "lychee",
-                "plural_name": "lychees"
+                "name": "litkaber",
+                "plural_name": "litkaber"
             },
             "young coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "young coconut",
-                "plural_name": "young coconuts"
+                "name": "ung kókoshneta",
+                "plural_name": "ungar kókoshnetur"
             },
             "kaffir lime": {
                 "aliases": [],
                 "description": "",
-                "name": "kaffir lime",
-                "plural_name": "kaffir limes"
+                "name": "kaffírlímóna",
+                "plural_name": "kaffírlímónur"
             },
             "star fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "star fruit",
-                "plural_name": "star fruits"
+                "name": "stjörnualdin",
+                "plural_name": "stjörnualdin"
             },
             "green papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "green papaya",
-                "plural_name": "green papayas"
+                "name": "græn papaja",
+                "plural_name": "græn papaja"
             },
             "pomelo": {
                 "aliases": [],
                 "description": "",
-                "name": "pomelo",
-                "plural_name": "pomeloes"
+                "name": "pómelóna",
+                "plural_name": "pómelónur"
             },
             "chestnut puree": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut puree",
-                "plural_name": "chestnut purees"
+                "name": "kastaníumauk",
+                "plural_name": "kastaníumauk"
             },
             "prickly pear": {
                 "aliases": [],
                 "description": "",
-                "name": "prickly pear",
-                "plural_name": "prickly pears"
+                "name": "kaktusfíkja",
+                "plural_name": "kaktusfíkjur"
             },
             "calamansi": {
                 "aliases": [],
                 "description": "",
-                "name": "calamansi",
-                "plural_name": "calamansis"
+                "name": "kalamansi",
+                "plural_name": "kalamansi"
             },
             "yuzu": {
                 "aliases": [],
@@ -1007,14 +1007,14 @@
             "apple chip": {
                 "aliases": [],
                 "description": "",
-                "name": "apple chip",
-                "plural_name": "apple chips"
+                "name": "eplasnakk",
+                "plural_name": "epla-snakk"
             },
             "mixed peel": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed peel",
-                "plural_name": "mixed peels"
+                "name": "blandaður börkur",
+                "plural_name": "blandaður börkur"
             },
             "kokum": {
                 "aliases": [],
@@ -1025,14 +1025,14 @@
             "tangelo": {
                 "aliases": [],
                 "description": "",
-                "name": "tangelo",
-                "plural_name": "tangeloes"
+                "name": "tangeló aldin",
+                "plural_name": "tangeló aldin"
             },
             "dried lime": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lime",
-                "plural_name": "dried limes"
+                "name": "þurrkuð límóna",
+                "plural_name": "þurrkaðar límónur"
             },
             "jujube": {
                 "aliases": [],
@@ -1043,62 +1043,62 @@
             "sweet lime": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet lime",
-                "plural_name": "sweet limes"
+                "name": "límonetta",
+                "plural_name": "límonettur"
             },
             "custard-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "custard-apple",
-                "plural_name": "custard-apples"
+                "name": "kvöldberkja",
+                "plural_name": "kvöldberkjur"
             },
             "dried lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lemon",
-                "plural_name": "dried lemons"
+                "name": "þurrkuð sítróna",
+                "plural_name": "þurrkaðar sítrónur"
             },
             "young jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "young jackfruit",
-                "plural_name": "young jackfruits"
+                "name": "ung saðningaraldin",
+                "plural_name": "ung saðningaraldin"
             },
             "durian": {
                 "aliases": [],
                 "description": "",
-                "name": "durian",
-                "plural_name": "durians"
+                "name": "dáraaldin",
+                "plural_name": "dáraaldin"
             },
             "freeze-dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried apple",
-                "plural_name": "freeze-dried apples"
+                "name": "frost-þurrkað epli",
+                "plural_name": "frost-þurrkuð epli"
             },
             "dried tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "dried tamarind",
-                "plural_name": "dried tamarinds"
+                "name": "þurrkuð tamarind",
+                "plural_name": "þurrkað tamarind"
             },
             "honey date": {
                 "aliases": [],
                 "description": "",
-                "name": "honey date",
-                "plural_name": "honey dates"
+                "name": "hunangsdaðla",
+                "plural_name": "hunangsdöðlur"
             },
             "physali": {
                 "aliases": [],
                 "description": "",
-                "name": "physali",
-                "plural_name": "physalis"
+                "name": "hýðisber",
+                "plural_name": "hýðisber"
             },
             "tamarillo": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarillo",
-                "plural_name": "tamarilloes"
+                "name": "trjátómatur",
+                "plural_name": "trjátómatar"
             },
             "ice-apple": {
                 "aliases": [],
@@ -1109,8 +1109,8 @@
             "longan": {
                 "aliases": [],
                 "description": "",
-                "name": "longan",
-                "plural_name": "longans"
+                "name": "vörtuber",
+                "plural_name": "vörtuber"
             },
             "finger lime": {
                 "aliases": [],
@@ -1121,44 +1121,44 @@
             "bitter orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bitter orange",
-                "plural_name": "bitter oranges"
+                "name": "beiskjuappelsína",
+                "plural_name": "beiskjuappelsínur"
             },
             "feijoa": {
                 "aliases": [],
                 "description": "",
-                "name": "feijoa",
-                "plural_name": "feijoas"
+                "name": "joðber",
+                "plural_name": "joðber"
             },
             "dried persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried persimmon",
-                "plural_name": "dried persimmons"
+                "name": "þurrkuð persimóna",
+                "plural_name": "þurrkaðar persimónur"
             },
             "rambutan": {
                 "aliases": [],
                 "description": "",
-                "name": "rambutan",
-                "plural_name": "rambutans"
+                "name": "ígulber",
+                "plural_name": "ígulber"
             },
             "rose apple": {
                 "aliases": [],
                 "description": "",
-                "name": "rose apple",
-                "plural_name": "rose apples"
+                "name": "rósaepli",
+                "plural_name": "rósaepli"
             },
             "dried orange slice": {
                 "aliases": [],
                 "description": "",
-                "name": "dried orange slice",
-                "plural_name": "dried orange slices"
+                "name": "þurrkuð appelsína",
+                "plural_name": "þurrkaðar appelsínur"
             },
             "loquat": {
                 "aliases": [],
                 "description": "",
-                "name": "loquat",
-                "plural_name": "loquats"
+                "name": "dúnepli",
+                "plural_name": "dúnepli"
             },
             "crabapple": {
                 "aliases": [],
@@ -6065,8 +6065,8 @@
             "lemongras": {
                 "aliases": [],
                 "description": "",
-                "name": "lemongras",
-                "plural_name": "lemongrass"
+                "name": "sítrónugras",
+                "plural_name": "sítrónugras"
             },
             "caraway": {
                 "aliases": [],
@@ -6167,8 +6167,8 @@
             "kaffir lime leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "kaffir lime leaf",
-                "plural_name": "kaffir lime leaves"
+                "name": "kaffírlímónu lauf",
+                "plural_name": "kaffírlímónu lauf"
             },
             "chervil": {
                 "aliases": [],
@@ -6251,8 +6251,8 @@
             "lemon thyme": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon thyme",
-                "plural_name": "lemon thymes"
+                "name": "sítrónu timian",
+                "plural_name": "sítrónu timian"
             },
             "galangal": {
                 "aliases": [],
@@ -6275,8 +6275,8 @@
             "lemon balm": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon balm",
-                "plural_name": "lemon balms"
+                "name": "sítrónumelissa",
+                "plural_name": "sítrónumelissur"
             },
             "dill seed": {
                 "aliases": [],
@@ -6341,8 +6341,8 @@
             "lemongrass paste": {
                 "aliases": [],
                 "description": "",
-                "name": "lemongrass paste",
-                "plural_name": "lemongrass pastes"
+                "name": "sítrónumelissu krem",
+                "plural_name": "sítrónumelissu krem"
             },
             "shiso": {
                 "aliases": [],
@@ -6377,8 +6377,8 @@
             "dried orange peel": {
                 "aliases": [],
                 "description": "",
-                "name": "dried orange peel",
-                "plural_name": "dried orange peels"
+                "name": "þurrkaður appelsínu börkur",
+                "plural_name": "þurrkaður appelsínu börkur"
             },
             "espelette pepper": {
                 "aliases": [],
@@ -7112,8 +7112,8 @@
             "lemon & pepper seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon & pepper seasoning",
-                "plural_name": "lemon & pepper seasonings"
+                "name": "sítrónu og pipar krydd",
+                "plural_name": "sítrónu og pipar krydd"
             },
             "liquid smoke": {
                 "aliases": [],
@@ -7574,8 +7574,8 @@
             "lemon & herb seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon & herb seasoning",
-                "plural_name": "lemon & herb seasonings"
+                "name": "sítrónu og kryddjurt",
+                "plural_name": "sítrónu og kryddjurtir"
             },
             "vanilla salt": {
                 "aliases": [],
@@ -10852,8 +10852,8 @@
             "lemon oil": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon oil",
-                "plural_name": "lemon oils"
+                "name": "sítrónuolía",
+                "plural_name": "sítrónuolíur"
             },
             "macadamia oil": {
                 "aliases": [],
@@ -11079,7 +11079,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mayonnaise",
-                "plural_name": "mayonnaises"
+                "plural_name": "majónes"
             },
             "apple cider vinegar": {
                 "aliases": [],
@@ -11694,8 +11694,8 @@
             "preserved lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "preserved lemon",
-                "plural_name": "preserved lemons"
+                "name": "sultuð sítróna",
+                "plural_name": "sultaðar sítrónur"
             },
             "kecap mani": {
                 "aliases": [],
@@ -15173,8 +15173,8 @@
             "lemonade": {
                 "aliases": [],
                 "description": "",
-                "name": "lemonade",
-                "plural_name": "lemonades"
+                "name": "límonaði",
+                "plural_name": "límonaði"
             },
             "coke": {
                 "aliases": [],
@@ -15233,8 +15233,8 @@
             "lemonade concentrate": {
                 "aliases": [],
                 "description": "",
-                "name": "lemonade concentrate",
-                "plural_name": "lemonade concentrates"
+                "name": "sítrónuþykkni",
+                "plural_name": "sítrónuþykkni"
             },
             "chai tea": {
                 "aliases": [],
@@ -15515,8 +15515,8 @@
             "lemonade mix": {
                 "aliases": [],
                 "description": "",
-                "name": "lemonade mix",
-                "plural_name": "lemonade mixes"
+                "name": "sítrónublanda",
+                "plural_name": "sítrónublöndur"
             },
             "rose syrup": {
                 "aliases": [],
@@ -15999,8 +15999,8 @@
             "lemon juice concentrate": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon juice concentrate",
-                "plural_name": "lemon juice concentrates"
+                "name": "sítrónuþykkni",
+                "plural_name": "sítrónuþykkni"
             },
             "chocolate collagen": {
                 "aliases": [],
