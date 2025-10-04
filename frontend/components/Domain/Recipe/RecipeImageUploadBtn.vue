@@ -81,7 +81,7 @@ const props = defineProps<{ slug: string }>();
 const emit = defineEmits<{
   refresh: [];
   upload: [fileObject: File];
-  delete: [],
+  delete: [];
 }>();
 
 const url = ref("");

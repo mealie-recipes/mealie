@@ -12,7 +12,7 @@
         :color="color"
         :variant="textBtn ? 'text' : 'elevated'"
         :disabled="disabled"
-        :class="class"
+        :class="props.class"
         @click="onButtonClick"
       >
         <v-icon start>
@@ -21,7 +21,6 @@
         {{ text ? text : defaultText }}
       </v-btn>
     </slot>
-
 </template>
 
 <script setup lang="ts">
@@ -53,7 +52,7 @@ const props = withDefaults(
     color: "error",
     disabled: false,
     class: "mx-1",
-  }
+  },
 );
 
 const emit = defineEmits<{
@@ -69,7 +68,7 @@ const defaultText = i18n.t("general.delete");
 const confirmTextI8n = props.confirmText
   ? props.confirmText
   : i18n.t("general.confirm-delete-generic-with-name", {
-      name: props.confirmType ? props.confirmType : ""
+      name: props.confirmType ? props.confirmType : "",
     });
 const confirmTitleI8n = props.confirmTitle
   ? props.confirmTitle
@@ -78,7 +77,8 @@ const confirmTitleI8n = props.confirmTitle
 async function deleteElem() {
   try {
     emit(DELETE_EVENT);
-  } catch (e) {
+  }
+  catch (e) {
     console.error(e);
   }
 }
