@@ -6,11 +6,11 @@
         "unique-name-error": "Nöfn uppskrifta þurfa að vera einstök",
         "recipe-created": "Uppskrift stofnuð",
         "recipe-defaults": {
-            "ingredient-note": "1 Cup Flour",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "ingredient-note": "1 bolli hveiti",
+            "step-text": "Hægt er að nota markdown málskipan (syntax) í uppskriftinni og öðrum reitum.\n\n**Bæta við tengli**\n\n[Minn tengill](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
+            "makes": "Framkvæmir",
             "serves": "Skammtar",
             "serving": "Skammtur",
             "servings": "Skammtar",
@@ -24,26 +24,26 @@
     "user": {
         "user-updated": "Notandi uppfærður",
         "password-updated": "Lykilorð uppfært",
-        "invalid-current-password": "Invalid current password",
+        "invalid-current-password": "Núverandi lykilorð er rangt",
         "ldap-update-password-unavailable": "Ekki var hægt að uppfæra lykilorð, notanda er stjórnað af LDAP"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "Skýrslu eytt."
     },
     "exceptions": {
         "permission_denied": "Þú hefur ekki réttindi til að framkvæma þessa aðgerð",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
+        "no-entry-found": "Umbeðin síða fannst ekki",
+        "integrity-error": "Villa í gagnagrunni",
         "username-conflict-error": "Notandanafn er þegar í notkun",
         "email-conflict-error": "Tölvupóstur er þegar í notkun"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-created": "{name} var stofnað",
+        "generic-updated": "{name} var uppfært",
+        "generic-created-with-url": "{name} hefur verið stofnað, {url}",
+        "generic-updated-with-url": "{name} hefur verið uppfært, {url}",
+        "generic-duplicated": "{name} hefur verið afritað",
+        "generic-deleted": "{name} hefur verið eytt"
     },
     "datetime": {
         "year": "ár",
@@ -63,18 +63,18 @@
             "button_text": "Endursetja lykilorð"
         },
         "invitation": {
-            "subject": "Invitation to join Mealie",
+            "subject": "Boð um að skoða Mealie",
             "header_text": "Þér er boðið!",
-            "message_top": "You have been invited to join Mealie.",
-            "message_bottom": "Please click the button above to accept the invitation.",
-            "button_text": "Accept Invitation"
+            "message_top": "Þér hefur verið boðið að skoða Mealie.",
+            "message_bottom": "Vinsamlegast ýttu á takkann hér að ofan til að samþykkja boðið.",
+            "button_text": "Samþykkja boð"
         },
         "test": {
-            "subject": "Mealie Test Email",
-            "header_text": "Test Email",
-            "message_top": "This is a test email.",
-            "message_bottom": "Please click the button above to test the email.",
-            "button_text": "Open Mealie"
+            "subject": "Mealie prufupóstur",
+            "header_text": "Prufupóstur",
+            "message_top": "Þetta er prufupóstur.",
+            "message_bottom": "Vinsamlegast ýttu á takkan hér fyrir ofan til að prófa póstinn.",
+            "button_text": "Opna Mealie"
         }
     }
 }
