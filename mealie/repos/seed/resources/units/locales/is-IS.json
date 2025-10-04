@@ -18,8 +18,8 @@
         "abbreviation": "b"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
-        "plural_name": "fluid ounces",
+        "name": "fljótandi únsa",
+        "plural_name": "fjótandi únsur",
         "description": "",
         "abbreviation": "fl oz"
     },
@@ -37,7 +37,7 @@
     },
     "gallon": {
         "name": "gallon",
-        "plural_name": "gallons",
+        "plural_name": "gallon",
         "description": "",
         "abbreviation": "gal"
     },
@@ -61,8 +61,8 @@
         "plural_abbreviation": "lbs"
     },
     "ounce": {
-        "name": "ounce",
-        "plural_name": "ounces",
+        "name": "únsa",
+        "plural_name": "únsur",
         "description": "",
         "abbreviation": "oz"
     },
@@ -85,14 +85,14 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
-        "plural_name": "splashes",
+        "name": "skvetta",
+        "plural_name": "skvettur",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
-        "plural_name": "dashes",
+        "name": "dass",
+        "plural_name": "dass",
         "description": "",
         "abbreviation": ""
     },
