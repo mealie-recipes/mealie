@@ -22,7 +22,7 @@
         "no-recipes-match-your-rules": "Eingin uppskrift passar við settar reglur"
     },
     "user": {
-        "user-updated": "Notandi uppfærður",
+        "user-updated": "Notandaupplýsingar uppfærðar",
         "password-updated": "Lykilorð uppfært",
         "invalid-current-password": "Núverandi lykilorð er rangt",
         "ldap-update-password-unavailable": "Ekki var hægt að uppfæra lykilorð, notanda er stjórnað af LDAP"
