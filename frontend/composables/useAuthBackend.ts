@@ -25,14 +25,7 @@ export const useAuthBackend = function (): AuthState {
   const { $axios } = useNuxtApp();
   const router = useRouter();
   const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
-
-  const tokenCookie = useCookie(tokenName, {
-    default: () => null as string | null,
-    httpOnly: false,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "lax",
-    maxAge: 60 * 60 * 24 * 30, // 30 days
-  });
+  const tokenCookie = useCookie(tokenName);
 
   function setToken(token: string | null) {
     tokenCookie.value = token;
