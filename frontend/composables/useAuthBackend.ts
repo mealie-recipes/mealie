@@ -16,6 +16,7 @@ interface AuthState {
   signOut: () => Promise<void>;
   refresh: () => Promise<void>;
   getSession: () => Promise<void>;
+  setToken: (token: string | null) => void;
 }
 
 const authUser = ref<UserOut | null>(null);
@@ -160,18 +161,6 @@ export const useAuthBackend = function (): AuthState {
     signOut,
     refresh,
     getSession,
-  };
-};
-
-export const useAuthState = function () {
-  const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
-  const tokenCookie = useCookie(tokenName);
-
-  function setToken(token: string | null) {
-    tokenCookie.value = token;
-  }
-
-  return {
     setToken,
   };
 };

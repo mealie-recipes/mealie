@@ -1,10 +1,9 @@
 import { ref, watch, computed } from "vue";
-import { useAuthBackend, useAuthState } from "~/composables/useAuthBackend";
+import { useAuthBackend } from "~/composables/useAuthBackend";
 import type { UserOut } from "~/lib/api/types/user";
 
 export const useMealieAuth = function () {
   const auth = useAuthBackend();
-  const { setToken } = useAuthState();
   const { $axios } = useNuxtApp();
 
   // User Management
@@ -41,7 +40,7 @@ export const useMealieAuth = function () {
   async function oauthSignIn() {
     const params = new URLSearchParams(window.location.search);
     const { data: token } = await $axios.get<{ access_token: string; token_type: "bearer" }>("/api/auth/oauth/callback", { params });
-    setToken(token.access_token);
+    auth.setToken(token.access_token);
     await auth.getSession();
   }
 
