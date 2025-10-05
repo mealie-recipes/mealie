@@ -1,8 +1,9 @@
 import { ref, watch, computed } from "vue";
+import { useAuthBackend, useAuthState } from "~/composables/useAuthBackend";
 import type { UserOut } from "~/lib/api/types/user";
 
 export const useMealieAuth = function () {
-  const auth = useAuth();
+  const auth = useAuthBackend();
   const { setToken } = useAuthState();
   const { $axios } = useNuxtApp();
 
@@ -49,7 +50,6 @@ export const useMealieAuth = function () {
     loggedIn,
     signIn: auth.signIn,
     signOut: auth.signOut,
-    signUp: auth.signUp,
     refresh: auth.refresh,
     oauthSignIn,
   };
