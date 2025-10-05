@@ -65,10 +65,7 @@ export const useAuthBackend = function (): AuthState {
     }
   }
 
-  async function signIn(
-    credentials: FormData,
-    options: { redirect?: boolean } = { redirect: true },
-  ): Promise<void> {
+  async function signIn(credentials: FormData): Promise<void> {
     authStatus.value = "loading";
 
     try {
@@ -81,10 +78,6 @@ export const useAuthBackend = function (): AuthState {
       const { access_token } = response.data;
       setToken(access_token);
       await getSession();
-
-      if (options.redirect !== false) {
-        await router.push("/");
-      }
     }
     catch (error) {
       authStatus.value = "unauthenticated";

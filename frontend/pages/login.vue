@@ -329,7 +329,7 @@ export default defineNuxtComponent({
       formData.append("remember_me", String(form.remember));
 
       try {
-        await $auth.signIn(formData, { redirect: false });
+        await $auth.signIn(formData);
       }
       catch (error) {
         console.log(error);
