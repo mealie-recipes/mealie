@@ -18,7 +18,6 @@ interface AuthState {
   getSession: () => Promise<void>;
 }
 
-// Global auth state
 const authUser = ref<UserOut | null>(null);
 const authStatus = ref<"loading" | "authenticated" | "unauthenticated">("unauthenticated");
 
@@ -27,7 +26,6 @@ export const useAuthBackend = function (): AuthState {
   const router = useRouter();
   const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
 
-  // Token management
   const tokenCookie = useCookie(tokenName, {
     default: () => null as string | null,
     httpOnly: false,
@@ -36,12 +34,23 @@ export const useAuthBackend = function (): AuthState {
     maxAge: 60 * 60 * 24 * 30, // 30 days
   });
 
-  // Set token helper
   function setToken(token: string | null) {
     tokenCookie.value = token;
   }
 
-  // Get current session/user data
+  function handleAuthError(error: any, redirect = false) {
+    // Only clear token on auth errors, not network errors
+    if (error?.response?.status === 401) {
+      setToken(null);
+      authUser.value = null;
+      authStatus.value = "unauthenticated";
+      if (redirect) {
+        router.push("/login");
+      }
+    }
+    return false;
+  }
+
   async function getSession(): Promise<void> {
     if (!tokenCookie.value) {
       authUser.value = null;
@@ -56,22 +65,12 @@ export const useAuthBackend = function (): AuthState {
       authStatus.value = "authenticated";
     }
     catch (error: any) {
-      // Only clear token if it's an auth error (401), not network errors
-      if (error?.response?.status === 401) {
-        // Token is invalid/expired - clear it
-        setToken(null);
-        authUser.value = null;
-        authStatus.value = "unauthenticated";
-      }
-      else {
-        // Network error or other issue - keep token but set status
-        authStatus.value = "unauthenticated";
-      }
+      handleAuthError(error);
+      authStatus.value = "unauthenticated";
       throw error;
     }
   }
 
-  // Sign in function
   async function signIn(
     credentials: FormData,
     options: { redirect?: boolean } = { redirect: true },
@@ -87,8 +86,6 @@ export const useAuthBackend = function (): AuthState {
 
       const { access_token } = response.data;
       setToken(access_token);
-
-      // Fetch user session after successful login
       await getSession();
 
       if (options.redirect !== false) {
@@ -101,7 +98,6 @@ export const useAuthBackend = function (): AuthState {
     }
   }
 
-  // Sign out function
   async function signOut(): Promise<void> {
     try {
       await $axios.post("/api/auth/logout");
@@ -118,7 +114,6 @@ export const useAuthBackend = function (): AuthState {
     }
   }
 
-  // Refresh token
   async function refresh(): Promise<void> {
     if (!tokenCookie.value) return;
 
@@ -129,10 +124,7 @@ export const useAuthBackend = function (): AuthState {
       await getSession();
     }
     catch (error: any) {
-      // Only sign out on auth errors, not network errors
-      if (error?.response?.status === 401 || error?.response?.status === 403) {
-        await signOut();
-      }
+      handleAuthError(error, true);
       throw error;
     }
   }
@@ -143,7 +135,6 @@ export const useAuthBackend = function (): AuthState {
 
     watch(() => authStatus.value, (status) => {
       if (status === "authenticated") {
-        // Refresh user data every 5 minutes when authenticated
         refreshInterval = setInterval(() => {
           if (tokenCookie.value) {
             getSession().catch(() => {
@@ -165,11 +156,7 @@ export const useAuthBackend = function (): AuthState {
   // Initialize auth state if token exists
   if (import.meta.client && tokenCookie.value && authStatus.value === "unauthenticated") {
     getSession().catch((error: any) => {
-      // Only clear token on auth errors, not network errors
-      if (error?.response?.status === 401 || error?.response?.status === 403) {
-        setToken(null);
-      }
-      // For network errors, keep the token - user might be offline
+      handleAuthError(error);
     });
   }
 
@@ -183,7 +170,6 @@ export const useAuthBackend = function (): AuthState {
   };
 };
 
-// Custom useAuthState replacement
 export const useAuthState = function () {
   const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
   const tokenCookie = useCookie(tokenName);
