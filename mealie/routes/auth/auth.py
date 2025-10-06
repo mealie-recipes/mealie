@@ -1,7 +1,7 @@
-from typing import Literal
+from typing import Annotated, Literal
 
 from authlib.integrations.starlette_client import OAuth
-from fastapi import APIRouter, Depends, Request, Response, status
+from fastapi import APIRouter, Depends, Header, Request, Response, status
 from fastapi.exceptions import HTTPException
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
@@ -15,6 +15,7 @@ from mealie.core.exceptions import MissingClaimException, UserLockedOut
 from mealie.core.security.providers.openid_provider import OpenIDProvider
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
+from mealie.lang import local_provider
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
 from mealie.schema.user.auth import CredentialsRequestForm
@@ -196,6 +197,11 @@ async def refresh_token(current_user: PrivateUser = Depends(get_current_user)):
 
 
 @user_router.post("/logout")
-async def logout(response: Response):
+async def logout(
+    response: Response,
+    accept_language: Annotated[str | None, Header()] = None,
+):
     response.delete_cookie("mealie.access_token")
-    return {"message": "Logged out"}
+
+    translator = local_provider(accept_language)
+    return {"message": translator.t("notifications.logged-out")}
