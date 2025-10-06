@@ -91,6 +91,7 @@
         </div>
       </v-scroll-x-transition>
     </v-main>
+    <FooterNav v-if="$vuetify.display.xs" />
   </v-app>
 </template>
 
