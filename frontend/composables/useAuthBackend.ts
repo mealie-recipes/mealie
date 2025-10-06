@@ -28,6 +28,10 @@ export const useAuthBackend = function (): AuthState {
   const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
   const tokenCookie = useCookie(tokenName);
 
+  // If there is a token, assume we're authenticated. We'll update this later if the token is invalid.
+  // This prevents prematurely redirecting to the login page if the user has a valid token.
+  authStatus.value = tokenCookie.value ? "authenticated" : "loading";
+
   function setToken(token: string | null) {
     tokenCookie.value = token;
   }
