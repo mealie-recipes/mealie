@@ -13,7 +13,7 @@ interface AuthState {
   data: AuthData;
   status: AuthStatus;
   signIn: (credentials: FormData, options?: { redirect?: boolean }) => Promise<void>;
-  signOut: () => Promise<void>;
+  signOut: (callbackUrl?: string) => Promise<void>;
   refresh: () => Promise<void>;
   getSession: () => Promise<void>;
   setToken: (token: string | null) => void;
@@ -85,7 +85,7 @@ export const useAuthBackend = function (): AuthState {
     }
   }
 
-  async function signOut(): Promise<void> {
+  async function signOut(callbackUrl: string = ""): Promise<void> {
     try {
       await $axios.post("/api/auth/logout");
     }
@@ -97,7 +97,7 @@ export const useAuthBackend = function (): AuthState {
       setToken(null);
       authUser.value = null;
       authStatus.value = "unauthenticated";
-      await router.push("/login");
+      await router.push(callbackUrl || "/login");
     }
   }
 
