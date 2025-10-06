@@ -87,6 +87,12 @@ class RecipeController(BaseRecipeController):
         elif thrownType == sqlalchemy.exc.IntegrityError:
             self.logger.error("SQL Integrity Error on recipe controller action")
             raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Recipe already exists"))
+        elif thrownType == exceptions.RecursiveRecipe:
+            self.logger.error("Recursive Recipe Link Error on recipe controller action")
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond(message="A recipe cannot reference itself, either directly or indirectly"),
+            )
         else:
             self.logger.error("Unknown Error on recipe controller action")
             self.logger.exception(ex)

@@ -23,6 +23,7 @@ from mealie.pkgs.safehttp.transport import AsyncSafeTransport
 from mealie.schema.cookbook.cookbook import SaveCookBook
 from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary, RecipeTag
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientFood
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.services.recipe.recipe_data_service import RecipeDataService
@@ -510,6 +511,73 @@ def test_update_many(api_client: TestClient, unique_user: TestUser, use_patch: b
         get_response = api_client.get(api_routes.recipes_slug(updated_recipe_data["slug"]), headers=unique_user.token)
         assert get_response.status_code == 200
         assert get_response.json()["slug"] == updated_recipe_data["slug"]
+
+
+def test_recipe_recursion(api_client: TestClient, unique_user: TestUser):
+    # Generate a test that creates two recipes, adds one as a sub-recipe of the other,
+    # then tries to add the first as a sub-recipe of the second, which should fail.
+
+    database = unique_user.repos
+    slug1 = random_string(10)
+
+    food_1 = database.ingredient_foods.create(
+        SaveIngredientFood(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+        )
+    )
+
+    food_2 = database.ingredient_foods.create(
+        SaveIngredientFood(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+        )
+    )
+
+    recipe: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", food=food_2),  # type: ignore
+            ],
+        )
+    )
+    recipe_with_subs = database.recipes.create(
+        Recipe(
+            name=slug1,
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                # type: ignore
+                RecipeIngredient(note="", referenced_recipe=recipe),
+                RecipeIngredient(note="", food=food_1),  # type: ignore
+            ],
+        )
+    )
+    assert recipe_with_subs
+    assert len(recipe_with_subs.recipe_ingredient) == 2
+    assert recipe_with_subs.recipe_ingredient[0].referenced_recipe is not None
+    assert recipe_with_subs.recipe_ingredient[1].food is not None
+
+    # Try to update the first recipe to include the second as a sub-recipe using api PUT
+    recipe_url = api_routes.recipes_slug(recipe.slug)
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe_data = json.loads(response.text)
+    assert recipe_data
+    assert recipe_data.get("id") == str(recipe.id)
+    assert recipe_data.get("recipeIngredient") is not None
+    recipe_data["recipeIngredient"].append(
+        {
+            "note": "",
+            "referencedRecipe": {"id": str(recipe_with_subs.id)},
+        }
+    )
+    response = api_client.put(recipe_url, json=recipe_data, headers=unique_user.token)
+    assert response.status_code == 400
+    assert "cannot reference itself" in response.text.lower()
 
 
 def test_duplicate(api_client: TestClient, unique_user: TestUser):

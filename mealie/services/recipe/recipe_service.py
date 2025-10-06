@@ -369,6 +369,21 @@ class RecipeService(RecipeServiceBase):
 
         return new_recipe
 
+    def has_recursive_recipe_link(self, recipe: Recipe, visited=None):
+        if visited is None:
+            visited = set()
+        recipe_id = str(getattr(recipe, "id", None))  # Ensure consistent type
+        if recipe_id in visited:
+            return True  # Cycle detected
+        visited.add(recipe_id)
+        ingredients = getattr(recipe, "recipe_ingredient", [])
+        for ing in ingredients:
+            if getattr(ing, "is_recipe", False) and getattr(ing, "referenced_recipe", None):
+                sub_recipe = self.get_one(ing.referenced_recipe.id)
+                if self.has_recursive_recipe_link(sub_recipe, visited.copy()):
+                    return True
+        return False
+
     def _pre_update_check(self, slug_or_id: str | UUID, new_data: Recipe) -> Recipe:
         """
         gets the recipe from the database and performs a check to see if the user can update the recipe.
@@ -398,6 +413,9 @@ class RecipeService(RecipeServiceBase):
         setting_lock = new_data.settings is not None and recipe.settings.locked != new_data.settings.locked
         if setting_lock and not self.can_lock_unlock(recipe):
             raise exceptions.PermissionDenied("You do not have permission to lock/unlock this recipe.")
+
+        if self.has_recursive_recipe_link(new_data):
+            raise exceptions.RecursiveRecipe("Recursive recipe link detected. Update aborted.")
 
         return recipe
 
