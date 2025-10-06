@@ -288,30 +288,34 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
     }
 
     const shoppingListIngredients: ShoppingListIngredient[] = [];
-    recipe.recipeIngredient.forEach((ing) => {
+    function flattenRecipeIngredients(ing: RecipeIngredient, parentTitle = ""): ShoppingListIngredient[] {
+      const householdsWithFood = ing.food?.householdsWithIngredientFood || [];
       if (ing.isRecipe && ing.referencedRecipe) {
-        // If ing is a recipe, add all its ingredients
-        ing.referencedRecipe.recipeIngredient?.forEach((subIng) => {
+        // Recursively flatten all ingredients in the referenced recipe
+        return (ing.referencedRecipe.recipeIngredient ?? []).flatMap((subIng) => {
           const calculatedQty = (ing.quantity || 1) * (subIng.quantity || 1);
-          const householdsWithFood = (ing.food?.householdsWithIngredientFood || []);
-          shoppingListIngredients.push({
-            checked: !householdsWithFood.includes(userHousehold.value),
-            ingredient: {
-              ...subIng,
-              quantity: calculatedQty,
-              title: ing.referencedRecipe?.name || "",
-            },
-          });
+          // Pass the referenced recipe name as the section title
+          return flattenRecipeIngredients(
+            { ...subIng, quantity: calculatedQty },
+            "",
+          );
         });
       }
       else {
-        // If ing is not a recipe, add it directly
-        const householdsWithFood = (ing.food?.householdsWithIngredientFood || []);
-        shoppingListIngredients.push({
+        // Regular ingredient
+        return [{
           checked: !householdsWithFood.includes(userHousehold.value),
-          ingredient: ing,
-        });
+          ingredient: {
+            ...ing,
+            title: ing.title || parentTitle,
+          },
+        }];
       }
+    }
+
+    recipe.recipeIngredient.forEach((ing) => {
+      const flattened = flattenRecipeIngredients(ing, "");
+      shoppingListIngredients.push(...flattened);
     });
 
     let currentTitle = "";
