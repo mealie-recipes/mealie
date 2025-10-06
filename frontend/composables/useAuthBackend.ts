@@ -141,14 +141,6 @@ export const useAuthBackend = function (): AuthState {
         }
       }
     }, { immediate: true });
-
-    // Initialize auth state if token exists
-    if (tokenCookie.value) {
-      getSession();
-    }
-    else {
-      authStatus.value = "unauthenticated";
-    }
   }
 
   return {
