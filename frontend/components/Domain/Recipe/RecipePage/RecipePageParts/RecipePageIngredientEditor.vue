@@ -78,7 +78,7 @@
         <!-- Main button: Add Food -->
         <v-btn
           color="success"
-          class="split-main"
+          class="split-main  ml-2"
           @click="addIngredient"
         >
           <v-icon start>
