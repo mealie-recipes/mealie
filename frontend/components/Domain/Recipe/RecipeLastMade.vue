@@ -36,9 +36,9 @@
                     class="pt-0 my-auto py-auto"
                     color="secondary"
                   />
-                  </v-list-item>
-                  </v-list>
-                  </div>
+                </v-list-item>
+              </v-list>
+            </div>
             <v-container>
               <v-row>
                 <v-col cols="6">

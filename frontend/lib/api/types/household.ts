@@ -5,7 +5,7 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
-import { Recipe } from "./recipe";
+import type { Recipe } from "./recipe";
 
 export type GroupRecipeActionType = "link" | "post";
 export type WebhookType = "mealplan";

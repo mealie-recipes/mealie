@@ -338,12 +338,14 @@ function nextIngredient() {
   while (nextIndex < parsedIngs.value.length) {
     const current = parsedIngs.value[nextIndex];
     if (shouldReview(current)) {
-      state.currentParsedIndex = nextIndex;
-      currentIng.value = current;
-      currentIngShouldDelete.value = false;
-      checkUnit(current);
-      checkFood(current);
-      return;
+      if (!current.ingredient.isRecipe) {
+        state.currentParsedIndex = nextIndex;
+        currentIng.value = current;
+        currentIngShouldDelete.value = false;
+        checkUnit(current);
+        checkFood(current);
+        return;
+      }
     }
 
     nextIndex += 1;
@@ -364,12 +366,21 @@ async function parseIngredients() {
   }
   state.loading.parser = true;
   try {
-    const ingsAsString = props.ingredients.map(ing => parseIngredientText(ing, 1, false) ?? "");
+    const ingsAsString = props.ingredients
+      .filter(ing => !ing.isRecipe)
+      .map(ing => parseIngredientText(ing, 1, false) ?? "");
     const { data, error } = await api.recipes.parseIngredients(parser.value, ingsAsString);
     if (error || !data) {
       throw new Error("Failed to parse ingredients");
     }
     parsedIngs.value = data;
+    const parsed = data ?? [];
+    const recipeRefs = props.ingredients.filter(ing => ing.isRecipe).map(ing => ({
+      input: ing.note || "",
+      confidence: {},
+      ingredient: ing,
+    }));
+    parsedIngs.value = [...parsed, ...recipeRefs];
     state.currentParsedIndex = -1;
     state.allReviewed = false;
     createdUnits.clear();

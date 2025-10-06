@@ -104,7 +104,7 @@
               :prepend-icon="$globals.icons.foods"
               :title="$t('new-recipe.add-food')"
               @click="addIngredient"
-              />
+            />
             <v-list-item
               slim
               density="comfortable"
@@ -139,6 +139,7 @@ const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 const i18n = useI18n();
 
 const drag = ref(false);
+const domBulkAddDialog = ref<InstanceType<typeof RecipeDialogBulkAdd> | null>(null);
 const { toggleIsParsing } = usePageState(recipe.value.slug);
 
 const hasFoodOrUnit = computed(() => {

@@ -51,18 +51,18 @@
           </div>
         </v-card-actions>
         <RecipeList :recipes="search.data.value" show-description show-image :disabled="$nuxt.isOffline">
- <template v-for="recipe in search.data.value" #[`actions-${recipe.id}`] :key="recipe.id">
-    <v-list-item-action>
-      <v-btn icon :disabled="$nuxt.isOffline" @click.prevent="handleSelect(recipe)">
-        <v-icon color="grey lighten-1">
-          {{ $globals.icons.createAlt }}
-        </v-icon>
-      </v-btn>
-    </v-list-item-action>
-  </template>
-</RecipeList>
-</v-card>
-</v-dialog>
+          <template v-for="recipe in search.data.value" #[`actions-${recipe.id}`] :key="recipe.id">
+            <v-list-item-action>
+              <v-btn icon :disabled="$nuxt.isOffline" @click.prevent="handleSelect(recipe)">
+                <v-icon color="grey lighten-1">
+                  {{ $globals.icons.createAlt }}
+                </v-icon>
+              </v-btn>
+            </v-list-item-action>
+          </template>
+        </RecipeList>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 

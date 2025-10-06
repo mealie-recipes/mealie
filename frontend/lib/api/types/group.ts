@@ -5,16 +5,16 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
-export type SupportedMigrations =
-  | "nextcloud"
-  | "chowdown"
-  | "copymethat"
-  | "paprika"
-  | "mealie_alpha"
-  | "tandoor"
-  | "plantoeat"
-  | "myrecipebox"
-  | "recipekeeper";
+export type SupportedMigrations
+  = | "nextcloud"
+    | "chowdown"
+    | "copymethat"
+    | "paprika"
+    | "mealie_alpha"
+    | "tandoor"
+    | "plantoeat"
+    | "myrecipebox"
+    | "recipekeeper";
 
 export interface CreateGroupPreferences {
   privateGroup?: boolean;
