@@ -140,7 +140,6 @@ const i18n = useI18n();
 
 const drag = ref(false);
 const { toggleIsParsing } = usePageState(recipe.value.slug);
-const domBulkAddDialog = ref<InstanceType<typeof RecipeDialogBulkAdd> | null>(null);
 
 const hasFoodOrUnit = computed(() => {
   if (!recipe.value) {
