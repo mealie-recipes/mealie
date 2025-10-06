@@ -13,9 +13,10 @@ interface AuthState {
   data: AuthData;
   status: AuthStatus;
   signIn: (credentials: FormData, options?: { redirect?: boolean }) => Promise<void>;
+  oauthSignIn: (params: URLSearchParams) => Promise<void>;
   signOut: (callbackUrl?: string) => Promise<void>;
   refresh: () => Promise<void>;
-  getSession: (refreshTokenCookie?: boolean) => Promise<void>;
+  getSession: () => Promise<void>;
   setToken: (token: string | null) => void;
 }
 
@@ -98,6 +99,19 @@ export const useAuthBackend = function (): AuthState {
     }
   }
 
+  async function oauthSignIn(params: URLSearchParams): Promise<void> {
+    authStatus.value = "loading";
+
+    try {
+      await $axios.get("/api/auth/oauth/callback", { params });
+      await getSession();
+    }
+    catch (error) {
+      authStatus.value = "unauthenticated";
+      throw error;
+    }
+  }
+
   async function refresh(): Promise<void> {
     if (!tokenCookie.value) return;
 
@@ -145,5 +159,6 @@ export const useAuthBackend = function (): AuthState {
     refresh,
     getSession,
     setToken,
+    oauthSignIn,
   };
 };
