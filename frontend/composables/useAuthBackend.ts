@@ -16,7 +16,6 @@ interface AuthState {
   signOut: (callbackUrl?: string) => Promise<void>;
   refresh: () => Promise<void>;
   getSession: () => Promise<void>;
-  setToken: (token: string | null) => void;
 }
 
 const authUser = ref<UserOut | null>(null);
@@ -32,10 +31,14 @@ export const useAuthBackend = function (): AuthState {
     tokenCookie.value = token;
   }
 
+  function resetToken() {
+    setToken(null);
+  }
+
   function handleAuthError(error: any, redirect = false) {
     // Only clear token on auth errors, not network errors
     if (error?.response?.status === 401) {
-      setToken(null);
+      resetToken();
       authUser.value = null;
       authStatus.value = "unauthenticated";
       if (redirect) {
@@ -68,14 +71,12 @@ export const useAuthBackend = function (): AuthState {
     authStatus.value = "loading";
 
     try {
-      const response = await $axios.post("/api/auth/token", credentials, {
+      await $axios.post("/api/auth/token", credentials, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
-      const { access_token } = response.data;
-      setToken(access_token);
       await getSession();
     }
     catch (error) {
@@ -93,7 +94,7 @@ export const useAuthBackend = function (): AuthState {
       console.warn("Logout API call failed:", error);
     }
     finally {
-      setToken(null);
+      resetToken();
       authUser.value = null;
       authStatus.value = "unauthenticated";
       await router.push(callbackUrl || "/login");
@@ -146,6 +147,5 @@ export const useAuthBackend = function (): AuthState {
     signOut,
     refresh,
     getSession,
-    setToken,
   };
 };
