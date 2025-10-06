@@ -194,7 +194,7 @@
                   </a>
                 </v-list-item-subtitle>
               </template>
-              <template v-else-if="property.slot === 'version' && property.value !== 'develop'">
+              <template v-else-if="property.slot === 'version' && property.value !== 'develop' && property.value !== 'nightly'">
                 <v-list-item-subtitle>
                   <a
                     target="_blank"
