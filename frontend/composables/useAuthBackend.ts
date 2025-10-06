@@ -15,7 +15,8 @@ interface AuthState {
   signIn: (credentials: FormData, options?: { redirect?: boolean }) => Promise<void>;
   signOut: (callbackUrl?: string) => Promise<void>;
   refresh: () => Promise<void>;
-  getSession: () => Promise<void>;
+  getSession: (refreshTokenCookie?: boolean) => Promise<void>;
+  setToken: (token: string | null) => void;
 }
 
 const authUser = ref<UserOut | null>(null);
@@ -31,14 +32,10 @@ export const useAuthBackend = function (): AuthState {
     tokenCookie.value = token;
   }
 
-  function resetToken() {
-    setToken(null);
-  }
-
   function handleAuthError(error: any, redirect = false) {
     // Only clear token on auth errors, not network errors
     if (error?.response?.status === 401) {
-      resetToken();
+      setToken(null);
       authUser.value = null;
       authStatus.value = "unauthenticated";
       if (redirect) {
@@ -94,7 +91,7 @@ export const useAuthBackend = function (): AuthState {
       console.warn("Logout API call failed:", error);
     }
     finally {
-      resetToken();
+      setToken(null);
       authUser.value = null;
       authStatus.value = "unauthenticated";
       await router.push(callbackUrl || "/login");
@@ -147,5 +144,6 @@ export const useAuthBackend = function (): AuthState {
     signOut,
     refresh,
     getSession,
+    setToken,
   };
 };
