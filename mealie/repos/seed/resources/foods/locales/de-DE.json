@@ -8506,8 +8506,8 @@
             "egg wrap": {
                 "aliases": [],
                 "description": "",
-                "name": "egg wrap",
-                "plural_name": "egg wraps"
+                "name": "Eier-Wrap",
+                "plural_name": "Eier-Wraps"
             },
             "samosa sheet": {
                 "aliases": [],
@@ -8524,7 +8524,7 @@
             "brick pastry": {
                 "aliases": [],
                 "description": "",
-                "name": "brick pastry",
+                "name": "Brik-Teig",
                 "plural_name": "brick pastries"
             }
         }

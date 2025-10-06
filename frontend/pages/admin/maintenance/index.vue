@@ -1,8 +1,10 @@
 <template>
   <v-container fluid class="narrow-container">
-    <BaseDialog v-model="state.storageDetails" :title="$t('admin.maintenance.storage-details')"
+    <BaseDialog
+      v-model="state.storageDetails"
+      :title="$t('admin.maintenance.storage-details')"
       :icon="$globals.icons.folderOutline"
->
+    >
       <div class="py-2">
         <template v-for="(value, key, idx) in storageDetails" :key="`item-${key}`">
           <v-list-item>
@@ -55,9 +57,11 @@
       </v-card>
     </section>
     <section>
-      <BaseCardSectionTitle class="pb-0 mt-8" :icon="$globals.icons.wrench"
+      <BaseCardSectionTitle
+        class="pb-0 mt-8"
+        :icon="$globals.icons.wrench"
         :title="$t('admin.mainentance.actions-title')"
->
+      >
         <i18n-t keypath="admin.maintenance.actions-description">
           <template #destructive_in_bold>
             <b>{{ $t("admin.maintenance.actions-description-destructive") }}</b>
@@ -78,11 +82,11 @@
             </v-list-item-title>
             <template #append>
               <BaseButton color="info" @click="action.handler">
-              <template #icon>
-                {{ $globals.icons.robot }}
-              </template>
-              {{ $t("general.run") }}
-            </BaseButton>
+                <template #icon>
+                  {{ $globals.icons.robot }}
+                </template>
+                {{ $t("general.run") }}
+              </BaseButton>
             </template>
           </v-list-item>
           <v-divider class="mx-2" />

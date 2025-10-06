@@ -18,218 +18,219 @@
         </v-toolbar-title>
       </v-toolbar>
 
-    <!-- Stepper Wizard -->
-    <v-stepper v-model="currentPage" mobile-breakpoint="sm">
-      <v-stepper-header>
-        <v-stepper-item
-          :value="Pages.LANDING"
-          :complete="currentPage > Pages.LANDING"
-          :title="$t('general.start')"
-        />
-        <v-divider />
-        <v-stepper-item
-          :value="Pages.USER_INFO"
-          :complete="currentPage > Pages.USER_INFO"
-          :title="$t('user-registration.account-details')"
-        />
-        <v-divider />
-        <v-stepper-item
-          :value="Pages.PAGE_2"
-          :complete="currentPage > Pages.PAGE_2"
-          :title="$t('settings.site-settings')"
-        />
-        <v-divider />
-        <v-stepper-item
-          :value="Pages.CONFIRM"
-          :complete="currentPage > Pages.CONFIRM"
-          :title="$t('admin.maintenance.summary-title')"
-        />
-        <v-divider />
-        <v-stepper-item
-          :value="Pages.END"
-          :complete="currentPage > Pages.END"
-          :title="$t('admin.setup.setup-complete')"
-        />
-      </v-stepper-header>
-      <v-progress-linear
-            v-if="isSubmitting && currentPage === Pages.CONFIRM"
-            color="primary"
-            indeterminate
-            class="mb-2"
+      <!-- Stepper Wizard -->
+      <v-stepper v-model="currentPage" mobile-breakpoint="sm">
+        <v-stepper-header>
+          <v-stepper-item
+            :value="Pages.LANDING"
+            :complete="currentPage > Pages.LANDING"
+            :title="$t('general.start')"
           />
-
-      <v-stepper-window :transition="false" class="stepper-window">
-        <!-- LANDING -->
-        <v-stepper-window-item :value="Pages.LANDING">
-          <v-container class="mb-12">
-            <AppLogo />
-            <v-card-title class="text-h4 justify-center text-center text-break text-pre-wrap">
-              {{ $t('admin.setup.welcome-to-mealie-get-started') }}
-            </v-card-title>
-            <v-btn
-              :to="groupSlug ? `/g/${groupSlug}` : '/login'"
-              rounded
-              variant="outlined"
-              color="grey-lighten-1"
-              class="text-subtitle-2 d-flex mx-auto"
-              style="width: fit-content;"
-            >
-              {{ $t('admin.setup.already-set-up-bring-to-homepage') }}
-            </v-btn>
-          </v-container>
-
-          <v-card-actions class="justify-center flex-column py-8">
-            <BaseButton
-              size="large"
-              color="primary"
-              :icon="$globals.icons.translate"
-              @click="langDialog = true"
-            >
-              {{ $t('language-dialog.choose-language') }}
-            </BaseButton>
-          </v-card-actions>
-
-          <v-stepper-actions
-            class="justify-end"
-            :disabled="isSubmitting"
-            next-text="general.next"
-            @click:next="onNext"
-          >
-            <template #prev />
-          </v-stepper-actions>
-        </v-stepper-window-item>
-
-        <!-- USER INFO -->
-        <v-stepper-window-item :value="Pages.USER_INFO" eager>
-          <v-container max-width="880">
-            <UserRegistrationForm />
-          </v-container>
-          <v-stepper-actions
-            :disabled="isSubmitting"
-            prev-text="general.back"
-            next-text="general.next"
-            @click:prev="onPrev"
-            @click:next="onNext"
+          <v-divider />
+          <v-stepper-item
+            :value="Pages.USER_INFO"
+            :complete="currentPage > Pages.USER_INFO"
+            :title="$t('user-registration.account-details')"
           />
-        </v-stepper-window-item>
+          <v-divider />
+          <v-stepper-item
+            :value="Pages.PAGE_2"
+            :complete="currentPage > Pages.PAGE_2"
+            :title="$t('settings.site-settings')"
+          />
+          <v-divider />
+          <v-stepper-item
+            :value="Pages.CONFIRM"
+            :complete="currentPage > Pages.CONFIRM"
+            :title="$t('admin.maintenance.summary-title')"
+          />
+          <v-divider />
+          <v-stepper-item
+            :value="Pages.END"
+            :complete="currentPage > Pages.END"
+            :title="$t('admin.setup.setup-complete')"
+          />
+        </v-stepper-header>
+        <v-progress-linear
+          v-if="isSubmitting && currentPage === Pages.CONFIRM"
+          color="primary"
+          indeterminate
+          class="mb-2"
+        />
 
-        <!-- COMMON SETTINGS -->
-        <v-stepper-window-item :value="Pages.PAGE_2">
-          <v-container max-width="880">
-            <v-card-title class="headline pa-0">
-              {{ $t('admin.setup.common-settings-for-new-sites') }}
-            </v-card-title>
-            <AutoForm
-              v-model="commonSettings"
-              :items="commonSettingsForm"
+        <v-stepper-window :transition="false" class="stepper-window">
+          <!-- LANDING -->
+          <v-stepper-window-item :value="Pages.LANDING">
+            <v-container class="mb-12">
+              <AppLogo />
+              <v-card-title class="text-h4 justify-center text-center text-break text-pre-wrap">
+                {{ $t('admin.setup.welcome-to-mealie-get-started') }}
+              </v-card-title>
+              <v-btn
+                :to="groupSlug ? `/g/${groupSlug}` : '/login'"
+                rounded
+                variant="outlined"
+                color="grey-lighten-1"
+                class="text-subtitle-2 d-flex mx-auto"
+                style="width: fit-content;"
+              >
+                {{ $t('admin.setup.already-set-up-bring-to-homepage') }}
+              </v-btn>
+            </v-container>
+
+            <v-card-actions class="justify-center flex-column py-8">
+              <BaseButton
+                size="large"
+                color="primary"
+                :icon="$globals.icons.translate"
+                @click="langDialog = true"
+              >
+                {{ $t('language-dialog.choose-language') }}
+              </BaseButton>
+            </v-card-actions>
+
+            <v-stepper-actions
+              class="justify-end"
+              :disabled="isSubmitting"
+              next-text="general.next"
+              @click:next="onNext"
+            >
+              <template #prev />
+            </v-stepper-actions>
+          </v-stepper-window-item>
+
+          <!-- USER INFO -->
+          <v-stepper-window-item :value="Pages.USER_INFO" eager>
+            <v-container max-width="880">
+              <UserRegistrationForm />
+            </v-container>
+            <v-stepper-actions
+              :disabled="isSubmitting"
+              prev-text="general.back"
+              next-text="general.next"
+              @click:prev="onPrev"
+              @click:next="onNext"
             />
-          </v-container>
-          <v-stepper-actions
-            :disabled="isSubmitting"
-            prev-text="general.back"
-            next-text="general.next"
-            @click:prev="onPrev"
-            @click:next="onNext"
-          />
-        </v-stepper-window-item>
+          </v-stepper-window-item>
 
-        <!-- CONFIRMATION -->
-        <v-stepper-window-item :value="Pages.CONFIRM">
-          <v-container max-width="880">
-            <v-card-title class="headline pa-0">
-              {{ $t('general.confirm-how-does-everything-look') }}
-            </v-card-title>
-            <v-list>
-              <template v-for="(item, idx) in confirmationData">
-                <v-list-item
-                  v-if="item.display"
-                  :key="idx"
-                  class="px-0"
-                >
-                  <v-list-item-title>{{ item.text }}</v-list-item-title>
-                  <v-list-item-subtitle>{{ item.value }}</v-list-item-subtitle>
-                </v-list-item>
-                <v-divider
-                  v-if="idx !== confirmationData.length - 1"
-                  :key="`divider-${idx}`"
+          <!-- COMMON SETTINGS -->
+          <v-stepper-window-item :value="Pages.PAGE_2">
+            <v-container max-width="880">
+              <v-card-title class="headline pa-0">
+                {{ $t('admin.setup.common-settings-for-new-sites') }}
+              </v-card-title>
+              <AutoForm
+                v-model="commonSettings"
+                :items="commonSettingsForm"
+              />
+            </v-container>
+            <v-stepper-actions
+              :disabled="isSubmitting"
+              prev-text="general.back"
+              next-text="general.next"
+              @click:prev="onPrev"
+              @click:next="onNext"
+            />
+          </v-stepper-window-item>
+
+          <!-- CONFIRMATION -->
+          <v-stepper-window-item :value="Pages.CONFIRM">
+            <v-container max-width="880">
+              <v-card-title class="headline pa-0">
+                {{ $t('general.confirm-how-does-everything-look') }}
+              </v-card-title>
+              <v-list>
+                <template v-for="(item, idx) in confirmationData">
+                  <v-list-item
+                    v-if="item.display"
+                    :key="idx"
+                    class="px-0"
+                  >
+                    <v-list-item-title>{{ item.text }}</v-list-item-title>
+                    <v-list-item-subtitle>{{ item.value }}</v-list-item-subtitle>
+                  </v-list-item>
+                  <v-divider
+                    v-if="idx !== confirmationData.length - 1"
+                    :key="`divider-${idx}`"
+                  />
+                </template>
+              </v-list>
+            </v-container>
+            <v-stepper-actions
+              :disabled="isSubmitting"
+              prev-text="general.back"
+              @click:prev="onPrev"
+            >
+              <template #next>
+                <BaseButton
+                  create
+                  flat
+                  :disabled="isSubmitting"
+                  :loading="isSubmitting"
+                  :icon="$globals.icons.check"
+                  :text="$t('general.submit')"
+                  @click="onNext"
                 />
               </template>
-            </v-list>
-          </v-container>
-          <v-stepper-actions
-            :disabled="isSubmitting"
-            prev-text="general.back"
-            @click:prev="onPrev"
-          >
-            <template #next>
-              <BaseButton
-                create flat
-                :disabled="isSubmitting"
-                :loading="isSubmitting"
-                :icon="$globals.icons.check"
-                :text="$t('general.submit')"
-                @click="onNext"
-              />
-            </template>
-          </v-stepper-actions>
-        </v-stepper-window-item>
+            </v-stepper-actions>
+          </v-stepper-window-item>
 
-        <!-- END -->
-        <v-stepper-window-item :value="Pages.END">
-          <v-container max-width="880">
-            <v-card-title class="text-h4 justify-center">
-              {{ $t('admin.setup.setup-complete') }}
-            </v-card-title>
-            <v-card-title class="text-h6 justify-center">
-              {{ $t('admin.setup.here-are-a-few-things-to-help-you-get-started') }}
-            </v-card-title>
-            <div
-              v-for="link, idx in setupCompleteLinks"
-              :key="idx"
-              class="px-4 pt-4"
-            >
-              <div v-if="link.section">
-                <v-divider v-if="idx" />
-                <v-card-text class="headline pl-0">
-                  {{ link.section }}
+          <!-- END -->
+          <v-stepper-window-item :value="Pages.END">
+            <v-container max-width="880">
+              <v-card-title class="text-h4 justify-center">
+                {{ $t('admin.setup.setup-complete') }}
+              </v-card-title>
+              <v-card-title class="text-h6 justify-center">
+                {{ $t('admin.setup.here-are-a-few-things-to-help-you-get-started') }}
+              </v-card-title>
+              <div
+                v-for="link, idx in setupCompleteLinks"
+                :key="idx"
+                class="px-4 pt-4"
+              >
+                <div v-if="link.section">
+                  <v-divider v-if="idx" />
+                  <v-card-text class="headline pl-0">
+                    {{ link.section }}
+                  </v-card-text>
+                </div>
+                <v-btn
+                  :to="link.to"
+                  color="info"
+                >
+                  {{ link.text }}
+                </v-btn>
+                <v-card-text class="subtitle px-0 py-2">
+                  {{ link.description }}
                 </v-card-text>
               </div>
-              <v-btn
-                :to="link.to"
-                color="info"
-              >
-                {{ link.text }}
-              </v-btn>
-              <v-card-text class="subtitle px-0 py-2">
-                {{ link.description }}
-              </v-card-text>
-            </div>
-          </v-container>
-          <v-stepper-actions
-            :disabled="isSubmitting"
-            prev-text="general.back"
-            @click:prev="onPrev"
-          >
-            <template #next>
-              <BaseButton
-                flat
-                color="primary"
-                :disabled="isSubmitting"
-                :loading="isSubmitting"
-                :icon="$globals.icons.home"
-                :text="$t('general.home')"
-                @click="onFinish"
-              />
-            </template>
-          </v-stepper-actions>
-        </v-stepper-window-item>
-      </v-stepper-window>
-    </v-stepper>
+            </v-container>
+            <v-stepper-actions
+              :disabled="isSubmitting"
+              prev-text="general.back"
+              @click:prev="onPrev"
+            >
+              <template #next>
+                <BaseButton
+                  flat
+                  color="primary"
+                  :disabled="isSubmitting"
+                  :loading="isSubmitting"
+                  :icon="$globals.icons.home"
+                  :text="$t('general.home')"
+                  @click="onFinish"
+                />
+              </template>
+            </v-stepper-actions>
+          </v-stepper-window-item>
+        </v-stepper-window>
+      </v-stepper>
 
-    <!-- Dialog Language -->
-    <LanguageDialog v-model="langDialog" />
-	</v-card>
-</v-container>
+      <!-- Dialog Language -->
+      <LanguageDialog v-model="langDialog" />
+    </v-card>
+  </v-container>
 </template>
 
 <script setup lang="ts">
