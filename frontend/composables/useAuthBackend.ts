@@ -46,7 +46,6 @@ export const useAuthBackend = function (): AuthState {
         router.push("/login");
       }
     }
-    return false;
   }
 
   async function getSession(): Promise<void> {
@@ -63,9 +62,9 @@ export const useAuthBackend = function (): AuthState {
       authStatus.value = "authenticated";
     }
     catch (error: any) {
+      console.error("Failed to fetch user session:", error);
       handleAuthError(error);
       authStatus.value = "unauthenticated";
-      throw error;
     }
   }
 
