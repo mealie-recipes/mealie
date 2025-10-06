@@ -20,7 +20,7 @@ interface AuthState {
 }
 
 const authUser = ref<UserOut | null>(null);
-const authStatus = ref<"loading" | "authenticated" | "unauthenticated">("unauthenticated");
+const authStatus = ref<"loading" | "authenticated" | "unauthenticated">("loading");
 
 export const useAuthBackend = function (): AuthState {
   const { $axios } = useNuxtApp();
@@ -138,13 +138,14 @@ export const useAuthBackend = function (): AuthState {
         }
       }
     }, { immediate: true });
-  }
 
-  // Initialize auth state if token exists
-  if (import.meta.client && tokenCookie.value && authStatus.value === "unauthenticated") {
-    getSession().catch((error: any) => {
-      handleAuthError(error);
-    });
+    // Initialize auth state if token exists
+    if (tokenCookie.value) {
+      getSession();
+    }
+    else {
+      authStatus.value = "unauthenticated";
+    }
   }
 
   return {
