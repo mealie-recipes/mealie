@@ -25,15 +25,7 @@ class FakeHasher:
 
 class BcryptHasher:
     def _get_password_bytes(self, password: str) -> bytes:
-        password_bytes = password.encode("utf-8")
-        if len(password_bytes) > 72:
-            logger.warning(
-                "Password is longer than 72 bytes, which bcrypt does not support. "
-                "Manually truncating password to 72 bytes. Consider using a shorter password."
-            )
-            password_bytes = password_bytes[:72]
-
-        return password_bytes
+        return password.encode("utf-8")[:72]
 
     def hash(self, password: str) -> str:
         password_bytes = self._get_password_bytes(password)
