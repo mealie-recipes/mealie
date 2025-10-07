@@ -3,10 +3,7 @@ from typing import Protocol
 
 import bcrypt
 
-from mealie.core import root_logger
 from mealie.core.config import get_app_settings
-
-logger = root_logger.get_logger()
 
 
 class Hasher(Protocol):
