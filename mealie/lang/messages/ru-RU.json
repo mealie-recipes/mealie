@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} был создан, {url}",
         "generic-updated-with-url": "{name} был обновлен, {url}",
         "generic-duplicated": "Копия {name} была создана",
-        "generic-deleted": "{name} был удален"
+        "generic-deleted": "{name} был удален",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "год|лет",
