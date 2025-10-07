@@ -514,9 +514,6 @@ def test_update_many(api_client: TestClient, unique_user: TestUser, use_patch: b
 
 
 def test_recipe_recursion(api_client: TestClient, unique_user: TestUser):
-    # Generate a test that creates two recipes, adds one as a sub-recipe of the other,
-    # then tries to add the first as a sub-recipe of the second, which should fail.
-
     database = unique_user.repos
     slug1 = random_string(10)
 
@@ -540,7 +537,7 @@ def test_recipe_recursion(api_client: TestClient, unique_user: TestUser):
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             recipe_ingredient=[
-                RecipeIngredient(note="", food=food_2),  # type: ignore
+                RecipeIngredient(note="", food=food_2),
             ],
         )
     )
@@ -550,9 +547,8 @@ def test_recipe_recursion(api_client: TestClient, unique_user: TestUser):
             user_id=unique_user.user_id,
             group_id=unique_user.group_id,
             recipe_ingredient=[
-                # type: ignore
                 RecipeIngredient(note="", referenced_recipe=recipe),
-                RecipeIngredient(note="", food=food_1),  # type: ignore
+                RecipeIngredient(note="", food=food_1),
             ],
         )
     )
