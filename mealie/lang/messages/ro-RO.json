@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} a fost creat, {url}",
         "generic-updated-with-url": "{name} a fost actualizat, {url}",
         "generic-duplicated": "{name} a fost duplicat",
-        "generic-deleted": "{name} a fost șters"
+        "generic-deleted": "{name} a fost șters",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "an|ani",
