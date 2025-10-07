@@ -145,7 +145,7 @@ import { useCookbookPreferences } from "~/composables/use-users/preferences";
 
 export default defineNuxtComponent({
   components: { CookbookEditor, VueDraggable },
-  middleware: ["sidebase-auth", "group-only"],
+  middleware: ["group-only"],
   setup() {
     const dialogStates = reactive({
       create: false,

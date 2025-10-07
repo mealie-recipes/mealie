@@ -183,7 +183,6 @@ export default defineNuxtComponent({
     GroupMealPlanRuleForm,
     RecipeChips,
   },
-  middleware: ["sidebase-auth"],
   props: {
     modelValue: {
       type: Boolean,

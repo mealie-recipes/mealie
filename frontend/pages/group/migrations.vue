@@ -127,7 +127,7 @@ const MIGRATIONS = {
 };
 
 export default defineNuxtComponent({
-  middleware: ["sidebase-auth", "advanced-only"],
+  middleware: ["advanced-only"],
   setup() {
     const i18n = useI18n();
     const { $globals } = useNuxtApp();
