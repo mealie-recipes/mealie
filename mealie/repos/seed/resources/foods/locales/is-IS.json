@@ -1353,8 +1353,8 @@
             "white truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "white truffle",
-                "plural_name": "white truffles"
+                "name": "hvítur jarðkeppur",
+                "plural_name": "hvítir jarðkeppir"
             },
             "white fungu": {
                 "aliases": [],
@@ -1383,8 +1383,8 @@
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletu",
-                "plural_name": "boletus"
+                "name": "lerkisveppur",
+                "plural_name": "lerkisveppur"
             },
             "huitlacoche": {
                 "aliases": [],
@@ -1395,14 +1395,14 @@
             "matsutake": {
                 "aliases": [],
                 "description": "",
-                "name": "matsutake",
-                "plural_name": "matsutakes"
+                "name": "matsutake-sveppur",
+                "plural_name": "matsutake-sveppir"
             },
             "nameko": {
                 "aliases": [],
                 "description": "",
-                "name": "nameko",
-                "plural_name": "namekoes"
+                "name": "namekoskrýfa",
+                "plural_name": "namekoskrýfur"
             },
             "djon djon mushroom": {
                 "aliases": [],
@@ -1413,38 +1413,38 @@
             "mixed asian mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed asian mushroom",
-                "plural_name": "mixed asian mushrooms"
+                "name": "blandaðir asískir sveppir",
+                "plural_name": "blandaðir asískir sveppir"
             },
             "puffball": {
                 "aliases": [],
                 "description": "",
-                "name": "puffball",
-                "plural_name": "puffballs"
+                "name": "gorkúla",
+                "plural_name": "gorkúlur"
             },
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungu",
-                "plural_name": "honey fungus"
+                "name": "hunangssveppur",
+                "plural_name": "hunangssveppir"
             },
             "caesar's mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "caesar's mushroom",
-                "plural_name": "caesar's mushrooms"
+                "name": "keisaraserkur",
+                "plural_name": "keisaraserkur"
             },
             "candy cap mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "candy cap mushroom",
-                "plural_name": "candy cap mushrooms"
+                "name": "karrílekta",
+                "plural_name": "karrílekta"
             },
             "lion’s mane mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "lion’s mane mushroom",
-                "plural_name": "lion’s mane mushrooms"
+                "name": "broddkóralsveppur",
+                "plural_name": "broddkóralsveppir"
             }
         }
     },
@@ -1453,74 +1453,74 @@
             "strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry",
-                "plural_name": "strawberries"
+                "name": "jarðarber",
+                "plural_name": "jarðarber"
             },
             "blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry",
-                "plural_name": "blueberries"
+                "name": "bláber",
+                "plural_name": "bláber"
             },
             "raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry",
-                "plural_name": "raspberries"
+                "name": "hindber",
+                "plural_name": "hindber"
             },
             "cranberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry",
-                "plural_name": "cranberries"
+                "name": "trönuber",
+                "plural_name": "trönuber"
             },
             "cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry",
-                "plural_name": "cherries"
+                "name": "kirsuber",
+                "plural_name": "kirsiber"
             },
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
-                "plural_name": "blackberries"
+                "name": "brómber",
+                "plural_name": "brómber"
             },
             "berry mix": {
                 "aliases": [],
                 "description": "",
-                "name": "berry mix",
-                "plural_name": "berry mixes"
+                "name": "berjablanda",
+                "plural_name": "berjablanda"
             },
             "maraschino cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "maraschino cherry",
-                "plural_name": "maraschino cherries"
+                "name": "maraschino kirsuber",
+                "plural_name": "maraschino kirsuber"
             },
             "dried cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cherry",
-                "plural_name": "dried cherries"
+                "name": "þurrkuð kirsuber",
+                "plural_name": "þurrkuð kirsuber"
             },
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "einiber",
+                "plural_name": "einiber"
             },
             "sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cherry",
-                "plural_name": "sour cherries"
+                "name": "kirsiber",
+                "plural_name": "kirsuber"
             },
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
-                "plural_name": "goji berries"
+                "name": "goji ber",
+                "plural_name": "goji ber"
             },
             "dried blueberry": {
                 "aliases": [],
