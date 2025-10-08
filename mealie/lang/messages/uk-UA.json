@@ -44,7 +44,7 @@
         "generic-updated-with-url": "{name} оновлено, {url}",
         "generic-duplicated": "{name} дубльовано",
         "generic-deleted": "{name} видалено",
-        "logged-out": "Logged out"
+        "logged-out": "Вихід із системи"
     },
     "datetime": {
         "year": "рік|роки",
