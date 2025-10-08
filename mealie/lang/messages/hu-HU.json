@@ -44,7 +44,7 @@
         "generic-updated-with-url": "{name} frissítve, {url}",
         "generic-duplicated": "{name} duplikálva",
         "generic-deleted": "{name} törölve lett",
-        "logged-out": "Logged out"
+        "logged-out": "Kijelentkezett"
     },
     "datetime": {
         "year": "év",
