@@ -192,19 +192,61 @@ export interface MergeUnit {
   fromUnit: string;
   toUnit: string;
 }
+
+/**
+ * Nutrition now includes *_unit fields so values + units are persisted separately,
+ * and also supports customNutrition for arbitrary user-defined nutrients.
+ */
 export interface Nutrition {
   calories?: string | null;
+  caloriesUnit?: string | null;
+
   carbohydrateContent?: string | null;
+  carbohydrateContentUnit?: string | null;
+
   cholesterolContent?: string | null;
+  cholesterolContentUnit?: string | null;
+
   fatContent?: string | null;
+  fatContentUnit?: string | null;
+
   fiberContent?: string | null;
+  fiberContentUnit?: string | null;
+
   proteinContent?: string | null;
+  proteinContentUnit?: string | null;
+
   saturatedFatContent?: string | null;
+  saturatedFatContentUnit?: string | null;
+
   sodiumContent?: string | null;
+  sodiumContentUnit?: string | null;
+
   sugarContent?: string | null;
+  sugarContentUnit?: string | null;
+
   transFatContent?: string | null;
+  transFatContentUnit?: string | null;
+
   unsaturatedFatContent?: string | null;
+  unsaturatedFatContentUnit?: string | null;
+
+  /** NEW: user-defined nutrients */
+  customNutrition?: {
+    [name: string]: {
+      value: string;
+      unit: string;
+    };
+  };
 }
+
+/**
+ * Nutrition Units API response
+ */
+export interface NutritionUnitsResponse {
+  units: string[];
+}
+
 export interface ParsedIngredient {
   input?: string | null;
   confidence?: IngredientConfidence;
@@ -378,9 +420,6 @@ export interface RecipeShareTokenSummary {
   groupId: string;
   id: string;
   createdAt: string;
-}
-export interface RecipeSlug {
-  slug: string;
 }
 export interface RecipeSuggestionQuery {
   orderBy?: string | null;
