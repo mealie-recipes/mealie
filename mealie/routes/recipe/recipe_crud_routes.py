@@ -37,6 +37,7 @@ from mealie.schema.recipe.recipe import (
     RecipeSummary,
 )
 from mealie.schema.recipe.recipe_asset import RecipeAsset
+from mealie.schema.recipe.recipe_nutrition import NutritionUnit, NutritionUnitsResponse
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse
 from mealie.schema.recipe.request_helpers import (
@@ -223,7 +224,7 @@ class RecipeController(BaseRecipeController):
 
         return recipe.slug
 
-    # ==================================================================================================================
+    # =====================================================
     # CRUD Operations
 
     @router.get("", response_model=PaginationBase[RecipeSummary])
@@ -497,7 +498,18 @@ class RecipeController(BaseRecipeController):
 
         return recipe
 
-    # ==================================================================================================================
+        # ================================================================
+
+    # Nutrition Units Endpoint
+
+    @router.get("/nutrition/units", response_model=NutritionUnitsResponse)
+    def get_nutrition_units(self):
+        """
+        Returns the list of allowed nutrition units for dropdowns
+        """
+        return NutritionUnitsResponse(units=[unit.value for unit in NutritionUnit])
+
+    # =====================================================================
     # Image and Assets
 
     @router.post("/{slug}/image", tags=["Recipe: Images and Assets"])
