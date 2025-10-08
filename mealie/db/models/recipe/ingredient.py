@@ -5,7 +5,6 @@ from pydantic import ConfigDict
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, orm
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.orm.session import Session
-from sqlalchemy.orm import relationship
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
 from mealie.db.models.labels import MultiPurposeLabel
@@ -346,17 +345,6 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
 
     title: Mapped[str | None] = mapped_column(String)  # Section Header - Shows if Present
     note: Mapped[str | None] = mapped_column(String)  # Force Show Text - Overrides Concat
-
-    #-------------------------------------------------------------------------------------
-    # Add a relationship to nutrition
-    nutrition = relationship(
-        "NutritionModel",
-        back_populates="recipe_ingredient",
-        uselist=False,
-        cascade="all, delete-orphan",
-        passive_deletes=True,
-    )
-    #------------------------------------------------------------------------------------
 
     # Scaling Items
     unit_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_units.id"), index=True)
