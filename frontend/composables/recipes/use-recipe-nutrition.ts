@@ -1,10 +1,16 @@
+import { ref } from "vue";
+import { useI18n } from "vue-i18n";
+import { useUserApi } from "~/composables/api/api-client";
+import type { NutritionUnitsResponse } from "~/lib/api/types/recipe";
+
+
 export interface NutritionLabelType {
   [key: string]: {
     label: string;
     suffix: string;
     value?: string;
   };
-};
+}
 
 export function useNutritionLabels() {
   const i18n = useI18n();
@@ -56,4 +62,32 @@ export function useNutritionLabels() {
   };
 
   return { labels };
+}
+
+/**
+ * Composable to fetch nutrition units from backend
+ */
+export function useNutritionUnits() {
+  const api = useUserApi(); // correct export
+  const units = ref<string[]>([]);
+  const loading = ref(false);
+  const error = ref<string | null>(null);
+
+  const fetchUnits = async () => {
+    loading.value = true;
+    error.value = null;
+
+    try {
+      const res = await api.nutrition.getUnits(); // calls /api/recipes/nutrition/units
+      // depending on your ApiRequestInstance type, res may have `.data`
+      units.value = (res as NutritionUnitsResponse).units ?? [];
+    } catch (e: any) {
+      console.error("Failed to fetch nutrition units", e);
+      error.value = e?.message || "Failed to load units";
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  return { units, loading, error, fetchUnits };
 }
