@@ -44,7 +44,7 @@
         "generic-updated-with-url": "{name} har uppdaterats, {url}",
         "generic-duplicated": "{name} har duplicerats",
         "generic-deleted": "{name} har tagits bort",
-        "logged-out": "Logged out"
+        "logged-out": "Utloggad"
     },
     "datetime": {
         "year": "år|år",
