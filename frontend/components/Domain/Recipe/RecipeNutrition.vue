@@ -5,37 +5,104 @@
         {{ $t("recipe.nutrition") }}
       </v-card-title>
       <v-divider class="mx-2 my-1" />
+
+      <!-- ================= Editor Mode ================= -->
       <v-card-text v-if="edit">
+        <!-- Built-in nutrition rows -->
         <div
-          v-for="(item, key, index) in modelValue"
+          v-for="(item, key, index) in labels"
           :key="index"
+          class="d-flex"
         >
-          <div class="d-flex"></div> <!-- 3. Update Template: Add <v-select> for units-->
-            <v-text-field
-              density="compact"
-             :model-value="modelValue[key]?.replace(/[a-zA-Z]+$/, '')"
-             :label="labels[key].label"
-             type="number"
-             autocomplete="off"
-             variant="underlined"
-             class="flex-grow-1"
-             @update:model-value="updateValue(key, $event)"
-            />
-            <v-select
-              :items="unitOptions"
-              v-model="selectedUnits[key]"
-              class="ml-2"
-              hide-details
-              density="compact"
-              style="max-width: 80px"
-            />
-          </div>
+          <v-text-field
+            density="compact"
+            :model-value="String(modelValue[key] || '')"
+            :label="labels[key].label"
+            type="number"
+            autocomplete="off"
+            variant="underlined"
+            class="flex-grow-1"
+            @update:model-value="val => updateValue(key, val)"
+          />
+          <v-select
+            :items="unitOptions"
+            v-model="modelValue[key + 'Unit']"
+            class="ml-2"
+            hide-details
+            density="compact"
+            style="max-width: 80px"
+          />
+        </div>
+
+        <v-divider class="my-3" />
+
+        <!-- Add Custom Nutrition Row -->
+        <div class="d-flex align-center mb-2">
+          <v-text-field
+            v-model="newCustomName"
+            label="Nutrient Name"
+            density="compact"
+            class="mr-2"
+            style="max-width: 150px"
+          />
+          <v-text-field
+            v-model="newCustomValue"
+            label="Value"
+            type="number"
+            density="compact"
+            class="mr-2"
+            style="max-width: 100px"
+          />
+          <v-select
+            v-model="newCustomUnit"
+            :items="unitOptions"
+            density="compact"
+            hide-details
+            style="max-width: 80px"
+          />
+          <v-btn
+            size="small"
+            class="ml-2"
+            @click="addCustomNutrition"
+          >
+            Add
+          </v-btn>
+        </div>
+
+        <!-- Existing Custom Nutrients -->
+        <div
+          v-for="(nutrient, name) in modelValue.customNutrition ?? {}"
+          :key="name"
+          class="d-flex align-center mb-1"
+        >
+          <v-text-field
+            v-model="modelValue.customNutrition![name].value"
+            :label="String(name)"
+            type="number"
+            density="compact"
+            class="mr-2 flex-grow-1"
+          />
+          <v-select
+            v-model="modelValue.customNutrition![name].unit"
+            :items="unitOptions"
+            density="compact"
+            hide-details
+            style="max-width: 80px"
+            class="mr-2"
+          />
+          <v-btn
+            size="small"
+            color="error"
+            @click="removeCustomNutrition(name)"
+          >
+            Remove
+          </v-btn>
+        </div>
       </v-card-text>
-      <v-list
-        v-if="showViewer"
-        density="compact"
-        class="mt-0 pt-0"
-      >
+
+      <!-- ================= Viewer Mode ================= -->
+      <v-list v-if="showViewer" density="compact" class="mt-0 pt-0">
+        <!-- Built-in nutrients -->
         <v-list-item
           v-for="(item, key, index) in renderedList"
           :key="index"
@@ -43,10 +110,21 @@
         >
           <v-list-item-title class="pl-2 d-flex">
             <div>{{ item.label }}</div>
-            <div class="ml-auto mr-1">
-              {{ item.value }}
-            </div>
+            <div class="ml-auto mr-1">{{ item.value }}</div>
             <div>{{ item.suffix }}</div>
+          </v-list-item-title>
+        </v-list-item>
+
+        <!-- Custom nutrients -->
+        <v-list-item
+          v-for="(nutrient, name) in modelValue.customNutrition ?? {}"
+          :key="name"
+          style="min-height: 25px"
+        >
+          <v-list-item-title class="pl-2 d-flex">
+            <div>{{ name }}</div>
+            <div class="ml-auto mr-1">{{ nutrient.value }}</div>
+            <div>{{ nutrient.unit }}</div>
           </v-list-item-title>
         </v-list-item>
       </v-list>
@@ -55,10 +133,11 @@
 </template>
 
 <script setup lang="ts">
-import { useNutritionLabels } from "~/composables/recipes";
+import { useNutritionLabels } from "~/composables/recipes/use-recipe-nutrition";
 import type { Nutrition } from "~/lib/api/types/recipe";
 import type { NutritionLabelType } from "~/composables/recipes/use-recipe-nutrition";
-import { defineComponent, ref, computed } from "vue";
+import { ref, computed, onMounted } from "vue";
+import { useUserApi } from "~/composables/api/api-client";
 
 interface Props {
   edit?: boolean;
@@ -67,87 +146,90 @@ const props = withDefaults(defineProps<Props>(), {
   edit: true,
 });
 
+// v-model from parent
 const modelValue = defineModel<Nutrition>({ required: true });
-
 const { labels } = useNutritionLabels();
 
-    // 1. Add unit options and a selectedUnits object
-    // In <script lang="ts">, inside setup
-    
-    // Defines an array called unitOptions that holds the list of available measurement units
-    //This list is used to populate the <v-select> dropdown
-    const unitOptions = ['g', 'mg', 'kcal', 'IU', 'µg']; // Extend as needed
-    // Creates a reactive object selectedUnits using Vue’s ref()
-    const selectedUnits = ref<Record<string, string>>({});
+// Units state
+const unitOptions = ref<string[]>([]);
+onMounted(async () => {
+  try {
+    const api = useUserApi();
+    const res = await api.nutrition.getUnits();
+    unitOptions.value = res.units || ["g", "mg", "kcal", "IU", "µg"];
+  } catch (err) {
+    console.error("Failed to load nutrition units", err);
+    unitOptions.value = ["g", "mg", "kcal", "IU", "µg"];
+  }
+});
 
-    // Initialize selected units from label suffix or default
-    // Loops through all keys in the modelValue object passed as a prop
-    Object.keys(props.modelValue).forEach((key) => {
-      // This initializes the unit dropdown for each item with either the recommended label unit
-      selectedUnits.value[key] = labels[key]?.suffix || 'g'; //// default unit
-    });
+// New custom nutrient inputs
+const newCustomName = ref("");
+const newCustomValue = ref("");
+const newCustomUnit = ref("g");
 
+// Methods
+function updateValue(key: string, value: string) {
+  const updated = { ...modelValue.value, [key]: value };
+  modelValue.value = updated;
+}
+
+function addCustomNutrition() {
+  if (!newCustomName.value.trim()) return;
+  if (!modelValue.value.customNutrition) {
+    modelValue.value.customNutrition = {};
+  }
+  modelValue.value.customNutrition[newCustomName.value] = {
+    value: newCustomValue.value || "",
+    unit: newCustomUnit.value || "",
+  };
+  newCustomName.value = "";
+  newCustomValue.value = "";
+  newCustomUnit.value = "g";
+}
+
+function removeCustomNutrition(name: string) {
+  if (modelValue.value.customNutrition) {
+    delete modelValue.value.customNutrition[name];
+  }
+}
+
+// Computed
 const valueNotNull = computed(() => {
   let key: keyof Nutrition;
   for (key in modelValue.value) {
-    if (modelValue.value[key] !== null) {
+    if (
+      modelValue.value[key] !== null &&
+      modelValue.value[key] !== "" &&
+      key !== "customNutrition"
+    ) {
       return true;
     }
   }
-  return false;
+  return (
+    modelValue.value.customNutrition &&
+    Object.keys(modelValue.value.customNutrition).length > 0
+  );
 });
 
 const showViewer = computed(() => !props.edit && valueNotNull.value);
 
-    //function updateValue(key: number | string, event: Event) {
-      //context.emit("update:modelValue", { ...props.modelValue, [key]: event });
-    //}
-
-    
-    // 2. Update updateValue() to emit both value and selected unit
-    // Replace the function
-    function updateValue(key: string, value: string) {
-      const updated = {
-        ...props.modelValue,
-        [key]: value + selectedUnits.value[key], // Append unit to the value
-      };
-      context.emit("update:modelValue", updated);
-    }
-
-// Build a new list that only contains nutritional information that has a value
 const renderedList = computed(() => {
-  return Object.entries(labels).reduce((item: NutritionLabelType, [key, label]) => {
-    if (modelValue.value[key]?.trim()) {
-      item[key] = {
-        ...label,
-        value: modelValue.value[key],
-      };
-    }
-    return item;
-  }, {});
-    // Build a new list that only contains nutritional information that has a value
-    const renderedList = computed(() => {
-      return Object.entries(labels).reduce((item: NutritionLabelType, [key, label]) => {
-        if (props.modelValue[key]?.trim()) {
-          item[key] = {
-            ...label,
-            value: props.modelValue[key],
-          };
-        }
-        return item;
-      }, {});
-    });
-
-    return {
-      labels,
-      valueNotNull,
-      showViewer,
-      updateValue,
-      renderedList,
-      unitOptions, // 4. Return added items in setup()
-      selectedUnits, // 4. Return added items in setup()
-    };
-  },
+  return Object.entries(labels).reduce(
+    (item: NutritionLabelType, [key, label]) => {
+      const value = modelValue.value[key as keyof Nutrition];
+      const unit = modelValue.value[key + "Unit" as keyof Nutrition];
+      if (value && value.toString().trim()) {
+        item[key] = {
+          ...label,
+          value: String(value),
+          suffix: String(unit || ""),
+        };
+      }
+      return item;
+    },
+    {}
+  );
 });
 </script>
 
