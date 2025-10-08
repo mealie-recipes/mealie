@@ -1,9 +1,4 @@
-from fastapi import APIRouter, Depends
-from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
-from mealie.db.models.recipe.ingredient import IngredientModel
-from mealie.db.models.recipe.nutrition import NutritionModel
-from sqlalchemy.orm import Session
-from mealie.db.session import get_db
+from fastapi import APIRouter
 
 from . import (
     admin,
@@ -38,22 +33,3 @@ router.include_router(unit_and_foods.router)
 router.include_router(admin.router)
 router.include_router(validators.router)
 router.include_router(explore.router)
-
-router = APIRouter()
-
-@router.post("/ingredients")
-def create_ingredient(ingredient: RecipeIngredient, db: Session = Depends(get_db)):
-    db_ingredient = IngredientModel(**ingredient.dict(exclude={"nutrition"}))
-    db.add(db_ingredient)
-    db.commit()
-    db.refresh(db_ingredient)
-
-    if ingredient.nutrition:
-        db_nutrition = NutritionModel(
-            ingredient_id=db_ingredient.id,
-            **ingredient.nutrition.dict(exclude_unset=True)
-        )
-        db.add(db_nutrition)
-        db.commit()
-
-    return db_ingredient
