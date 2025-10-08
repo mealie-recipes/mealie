@@ -25,9 +25,19 @@ import { GroupEventNotifierApi } from "./user/group-event-notifier";
 import { MealPlanRulesApi } from "./user/group-mealplan-rules";
 import { GroupDataSeederApi } from "./user/group-seeder";
 import type { ApiRequestInstance } from "~/lib/api/types/non-generated";
+import type { NutritionUnitsResponse } from "~/lib/api/types/recipe";
+
+export class NutritionAPI {
+  constructor(private requests: ApiRequestInstance) {}
+
+  async getUnits(): Promise<NutritionUnitsResponse> {
+    return this.requests.get("/recipes/nutrition/units");
+  }
+}
 
 export class UserApiClient {
   public recipes: RecipeAPI;
+  public nutrition: NutritionAPI; // Added NutritionAPI
   public users: UserApi;
   public households: HouseholdAPI;
   public groups: GroupAPI;
@@ -57,6 +67,7 @@ export class UserApiClient {
   constructor(requests: ApiRequestInstance) {
     // Recipes
     this.recipes = new RecipeAPI(requests);
+    this.nutrition = new NutritionAPI(requests); // Initialize NutritionAPI
     this.categories = new CategoriesAPI(requests);
     this.tags = new TagsAPI(requests);
     this.units = new UnitAPI(requests);
