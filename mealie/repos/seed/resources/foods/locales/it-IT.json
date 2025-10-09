@@ -1353,14 +1353,14 @@
             "white truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "white truffle",
-                "plural_name": "white truffles"
+                "name": "tartufo bianco",
+                "plural_name": "tartufi bianchi"
             },
             "white fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "white fungu",
-                "plural_name": "white fungus"
+                "name": "fungo bianco",
+                "plural_name": "fungo bianco"
             },
             "pioppini": {
                 "aliases": [],
@@ -1657,7 +1657,7 @@
             "freeze-dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried berry",
+                "name": "",
                 "plural_name": "freeze-dried berries"
             },
             "aronia berry": {
