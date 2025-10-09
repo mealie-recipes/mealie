@@ -44,7 +44,7 @@
         "generic-updated-with-url": "Zaktualizowano {name}, {url}",
         "generic-duplicated": "Zduplikowano {name}",
         "generic-deleted": "Usunięto {name}",
-        "logged-out": "Logged out"
+        "logged-out": "Wylogowano"
     },
     "datetime": {
         "year": "rok|lat",
