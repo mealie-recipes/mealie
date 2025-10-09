@@ -36,7 +36,7 @@
 
 <script lang="ts">
 export default defineNuxtComponent({
-  middleware: ["sidebase-auth", "can-organize-only"],
+  middleware: ["can-organize-only"],
   setup() {
     const i18n = useI18n();
     const buttonLookup: { [key: string]: string } = {

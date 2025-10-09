@@ -213,7 +213,6 @@ export default defineNuxtComponent({
     UserAvatar,
     UserPasswordStrength,
   },
-  middleware: "sidebase-auth",
   setup() {
     const i18n = useI18n();
     const $auth = useMealieAuth();

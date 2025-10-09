@@ -1,6 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: ["sidebase-auth", "admin-only"],
+  middleware: ["admin-only"],
 });
 </script>
 

@@ -244,6 +244,7 @@ import UserRegistrationForm from "~/components/Domain/User/UserRegistrationForm.
 
 definePageMeta({
   layout: "blank",
+  middleware: ["admin-only"],
 });
 
 // ================================================================
@@ -263,13 +264,6 @@ const isDark = useDark();
 useSeoMeta({
   title: i18n.t("admin.setup.first-time-setup"),
 });
-
-if (!$auth.loggedIn.value) {
-  router.push("/login");
-}
-else if (!$auth.user.value?.admin) {
-  router.push(groupSlug.value ? `/g/${groupSlug.value}` : "/login");
-}
 
 enum Pages {
   LANDING = 0,
