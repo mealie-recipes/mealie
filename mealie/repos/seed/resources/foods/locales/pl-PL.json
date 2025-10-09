@@ -198,8 +198,8 @@
             "romaine": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine",
-                "plural_name": "romaines"
+                "name": "sałata rzymska",
+                "plural_name": "sałaty rzymskie"
             },
             "beetroot": {
                 "aliases": [],
@@ -315,8 +315,8 @@
             "watercress": {
                 "aliases": [],
                 "description": "",
-                "name": "watercress",
-                "plural_name": "watercress"
+                "name": "rukiew wodna",
+                "plural_name": "rukiewie wodne"
             },
             "iceberg": {
                 "aliases": [],
@@ -425,14 +425,14 @@
             "radicchio": {
                 "aliases": [],
                 "description": "",
-                "name": "radicchio",
-                "plural_name": "radicchio"
+                "name": "\ncykoria sałatowa\n",
+                "plural_name": "\ncykorie sałatowe\n"
             },
             "pearl onion": {
                 "aliases": [],
                 "description": "",
-                "name": "pearl onion",
-                "plural_name": "pearl onions"
+                "name": "cebulka perłowa",
+                "plural_name": "cebulki perłowe"
             },
             "tenderstem broccoli": {
                 "aliases": [],
@@ -443,8 +443,8 @@
             "plantain": {
                 "aliases": [],
                 "description": "",
-                "name": "plantain",
-                "plural_name": "plantains"
+                "name": "banan",
+                "plural_name": "banany"
             },
             "leaf lettuce": {
                 "aliases": [],
@@ -473,8 +473,8 @@
             "endive": {
                 "aliases": [],
                 "description": "",
-                "name": "endive",
-                "plural_name": "endives"
+                "name": "endywia",
+                "plural_name": "endywie"
             },
             "habanero pepper": {
                 "aliases": [],
@@ -701,8 +701,8 @@
             "craisin": {
                 "aliases": [],
                 "description": "",
-                "name": "craisin",
-                "plural_name": "craisins"
+                "name": "suszona żurawina",
+                "plural_name": "suszonej żurawiny"
             },
             "pear": {
                 "aliases": [],
@@ -785,14 +785,14 @@
             "prune": {
                 "aliases": [],
                 "description": "",
-                "name": "prune",
-                "plural_name": "prunes"
+                "name": "suszona śliwka",
+                "plural_name": "suszone śliwki"
             },
             "cantaloupe": {
                 "aliases": [],
                 "description": "",
-                "name": "cantaloupe",
-                "plural_name": "cantaloupes"
+                "name": "kantalupa",
+                "plural_name": "kantalupy"
             },
             "sultana": {
                 "aliases": [],
@@ -815,8 +815,8 @@
             "tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarind",
-                "plural_name": "tamarinds"
+                "name": "Tamaryndowiec",
+                "plural_name": "Tamaryndowce"
             },
             "nectarine": {
                 "aliases": [],
@@ -911,7 +911,7 @@
             "kumquat": {
                 "aliases": [],
                 "description": "",
-                "name": "kumquat",
+                "name": "kumkwat",
                 "plural_name": "kumkwat"
             },
             "jackfruit": {
@@ -1031,8 +1031,8 @@
             "dried lime": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lime",
-                "plural_name": "dried limes"
+                "name": "suszona limonka",
+                "plural_name": "suszone limonki"
             },
             "jujube": {
                 "aliases": [],
@@ -1098,7 +1098,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tamarillo",
-                "plural_name": "tamarilloes"
+                "plural_name": "tamarilla"
             },
             "ice-apple": {
                 "aliases": [],
@@ -1110,7 +1110,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "longan",
-                "plural_name": "longans"
+                "plural_name": "longany"
             },
             "finger lime": {
                 "aliases": [],
@@ -1133,8 +1133,8 @@
             "dried persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried persimmon",
-                "plural_name": "dried persimmons"
+                "name": "suszona persymona",
+                "plural_name": "suszone persymony"
             },
             "rambutan": {
                 "aliases": [],
@@ -1489,8 +1489,8 @@
             "berry mix": {
                 "aliases": [],
                 "description": "",
-                "name": "berry mix",
-                "plural_name": "berry mixes"
+                "name": "mieszanka jagód",
+                "plural_name": "mieszanki jagód"
             },
             "maraschino cherry": {
                 "aliases": [],
@@ -1507,8 +1507,8 @@
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "jagoda jałowca",
+                "plural_name": "jagody jałowca"
             },
             "sour cherry": {
                 "aliases": [],
@@ -1603,8 +1603,8 @@
             "dried elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried elderberry",
-                "plural_name": "dried elderberries"
+                "name": "suszony czarny bez",
+                "plural_name": "suszony czarny bez"
             },
             "barberry": {
                 "aliases": [],
@@ -1615,8 +1615,8 @@
             "dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried berry",
-                "plural_name": "dried berries"
+                "name": "suszona jagoda",
+                "plural_name": "suszone jagody"
             },
             "sea buckthorn": {
                 "aliases": [],
@@ -4237,8 +4237,8 @@
             "dried beef": {
                 "aliases": [],
                 "description": "",
-                "name": "dried beef",
-                "plural_name": "dried beefs"
+                "name": "suszona wołowina",
+                "plural_name": "suszone wołowiny"
             },
             "gammon joint": {
                 "aliases": [],
@@ -6269,8 +6269,8 @@
             "dried cilantro": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cilantro",
-                "plural_name": "dried cilantros"
+                "name": "suszona kolendra",
+                "plural_name": "suszone kolendry"
             },
             "lemon balm": {
                 "aliases": [],
@@ -6377,8 +6377,8 @@
             "dried orange peel": {
                 "aliases": [],
                 "description": "",
-                "name": "dried orange peel",
-                "plural_name": "dried orange peels"
+                "name": "suszona skórka pomarańczy",
+                "plural_name": "suszoni skórki pomarańczy"
             },
             "espelette pepper": {
                 "aliases": [],
@@ -6454,14 +6454,14 @@
             "maple syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "maple syrup",
-                "plural_name": "maple syrups"
+                "name": "syrop klonowy",
+                "plural_name": "syropy klonowe"
             },
             "corn syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "corn syrup",
-                "plural_name": "corn syrups"
+                "name": "syrop kukurydziany",
+                "plural_name": "syropy kukurydziane"
             },
             "coconut sugar": {
                 "aliases": [],
@@ -6489,9 +6489,9 @@
             },
             "sugar syrup": {
                 "aliases": [],
-                "description": "sugar free sweetner",
-                "name": "sugar syrup",
-                "plural_name": "sugar syrups"
+                "description": "słodzik bezcukrowy",
+                "name": "syrop cukrowy",
+                "plural_name": "syropy cukrowe"
             },
             "isomalt": {
                 "aliases": [],
@@ -6520,14 +6520,14 @@
             "caramel syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "caramel syrup",
-                "plural_name": "caramel syrups"
+                "name": "syrop karmelowy",
+                "plural_name": "syropy karmelowe"
             },
             "chocolate syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate syrup",
-                "plural_name": "chocolate syrups"
+                "name": "syrop czekoladowy",
+                "plural_name": "syropy czekoladowe"
             },
             "jaggery": {
                 "aliases": [],
@@ -6658,20 +6658,20 @@
             "strawberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry syrup",
-                "plural_name": "strawberry syrups"
+                "name": "syrop truskawkowy",
+                "plural_name": "syropy truskawkowe"
             },
             "vanilla syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla syrup",
-                "plural_name": "vanilla syrups"
+                "name": "syrop waniliowy",
+                "plural_name": "syropy waniliowe"
             },
             "ginger syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger syrup",
-                "plural_name": "ginger syrups"
+                "name": "syrop imbirowy",
+                "plural_name": "syropy imbirowe"
             },
             "orgeat": {
                 "aliases": [],
@@ -6688,14 +6688,14 @@
             "pancake syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "pancake syrup",
-                "plural_name": "pancake syrups"
+                "name": "syrop do naleśników",
+                "plural_name": "syropy do naleśników"
             },
             "raspberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry syrup",
-                "plural_name": "raspberry syrups"
+                "name": "syrop malinowy",
+                "plural_name": "syropy malinowe"
             },
             "date syrup": {
                 "aliases": [],
@@ -6718,14 +6718,14 @@
             "coconut syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut syrup",
-                "plural_name": "coconut syrups"
+                "name": "syrop kokosowy",
+                "plural_name": "syropy kokosowe"
             },
             "mint syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "mint syrup",
-                "plural_name": "mint syrups"
+                "name": "syrop miętowy",
+                "plural_name": "syropy miętowe"
             },
             "treacle": {
                 "aliases": [],
@@ -6736,8 +6736,8 @@
             "rice syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "rice syrup",
-                "plural_name": "rice syrups"
+                "name": "syrop ryżowy",
+                "plural_name": "syropy ryżowe"
             },
             "manuka honey": {
                 "aliases": [],
@@ -6754,14 +6754,14 @@
             "blueberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry syrup",
-                "plural_name": "blueberry syrups"
+                "name": "syrop borówkowy",
+                "plural_name": "syropy borówkowe"
             },
             "apple syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "apple syrup",
-                "plural_name": "apple syrups"
+                "name": "syrop jabłkowy",
+                "plural_name": "syropy jabłkowe"
             },
             "allulose": {
                 "aliases": [],
@@ -6784,20 +6784,20 @@
             "cherry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry syrup",
-                "plural_name": "cherry syrups"
+                "name": "syrop wiśniowy",
+                "plural_name": "syropy wiśniowe"
             },
             "hibiscus syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "hibiscus syrup",
-                "plural_name": "hibiscus syrups"
+                "name": "syrop hibiskusa",
+                "plural_name": "syropy hibiskusa"
             },
             "lavender syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "lavender syrup",
-                "plural_name": "lavender syrups"
+                "name": "syrop lawendowy",
+                "plural_name": "syropy lawendowe"
             },
             "fresh sugar cane": {
                 "aliases": [],
@@ -6850,8 +6850,8 @@
             "cranberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry syrup",
-                "plural_name": "cranberry syrups"
+                "name": "syrop żurawinowy",
+                "plural_name": "syropy żurawinowe"
             },
             "golden sugar": {
                 "aliases": [],
@@ -6868,8 +6868,8 @@
             "mango syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "mango syrup",
-                "plural_name": "mango syrups"
+                "name": "syrop z mango",
+                "plural_name": "syropy z mango"
             },
             "malt syrup": {
                 "aliases": [],
@@ -6892,14 +6892,14 @@
             "elderberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "elderberry syrup",
-                "plural_name": "elderberry syrups"
+                "name": "syrop z czarnego bzu",
+                "plural_name": "syropy z czarnego bzu"
             },
             "rosemary syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "rosemary syrup",
-                "plural_name": "rosemary syrups"
+                "name": "syrop rozmarynowy",
+                "plural_name": "syropy rozmarynowe"
             },
             "dark chocolate syrup": {
                 "aliases": [],
@@ -6934,14 +6934,14 @@
             "berry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "berry syrup",
-                "plural_name": "berry syrups"
+                "name": "syrop jagodowy",
+                "plural_name": "syropy jagodowe"
             },
             "grape syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "grape syrup",
-                "plural_name": "grape syrups"
+                "name": "syrop winogronowy",
+                "plural_name": "syropy winogronowe"
             },
             "brown butter syrup": {
                 "aliases": [],
@@ -7006,8 +7006,8 @@
             "flavored syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "flavored syrup",
-                "plural_name": "flavored syrups"
+                "name": "syrop smakowy",
+                "plural_name": "syropy smakowe"
             },
             "elderflower syrup": {
                 "aliases": [],
@@ -15521,8 +15521,8 @@
             "rose syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "rose syrup",
-                "plural_name": "rose syrups"
+                "name": "syrop różany",
+                "plural_name": "syropy różane"
             },
             "v8 juice": {
                 "aliases": [],
