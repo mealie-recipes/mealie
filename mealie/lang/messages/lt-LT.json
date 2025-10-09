@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} sukurtas, {url}",
         "generic-updated-with-url": "{name} atnaujintas, {url}",
         "generic-duplicated": "{name} buvo nukopijuotas",
-        "generic-deleted": "{name} ištrintas"
+        "generic-deleted": "{name} ištrintas",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "metai|metai",

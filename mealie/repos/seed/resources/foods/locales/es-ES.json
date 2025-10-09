@@ -1407,14 +1407,14 @@
             "djon djon mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "djon djon mushroom",
-                "plural_name": "djon djon mushrooms"
+                "name": "seta djon djon",
+                "plural_name": "setas djon djon"
             },
             "mixed asian mushroom": {
                 "aliases": [],
                 "description": "",
                 "name": "hongos asiáticos mixtos",
-                "plural_name": "mixed asian mushrooms"
+                "plural_name": "hongos asiáticos mixtos"
             },
             "puffball": {
                 "aliases": [],
@@ -1432,7 +1432,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "caesar's mushroom",
-                "plural_name": "caesar's mushrooms"
+                "plural_name": ""
             },
             "candy cap mushroom": {
                 "aliases": [],
@@ -1657,13 +1657,13 @@
             "freeze-dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried berry",
-                "plural_name": "freeze-dried berries"
+                "name": "frambuesa liofilizada",
+                "plural_name": "frambuesas liofilizadas"
             },
             "aronia berry": {
                 "aliases": [],
                 "description": "",
-                "name": "aronia berry",
+                "name": "",
                 "plural_name": "aronia berries"
             },
             "chokeberry": {
@@ -1883,8 +1883,8 @@
             "white chia": {
                 "aliases": [],
                 "description": "",
-                "name": "white chia",
-                "plural_name": "white chias"
+                "name": "chía blanca",
+                "plural_name": "chía blancas"
             },
             "trail mix": {
                 "aliases": [],
@@ -1895,8 +1895,8 @@
             "basil seed": {
                 "aliases": [],
                 "description": "",
-                "name": "basil seed",
-                "plural_name": "basil seeds"
+                "name": "semilla de albahaca",
+                "plural_name": "semillas de albahaca"
             },
             "candlenut": {
                 "aliases": [],
@@ -1925,8 +1925,8 @@
             "toasted nut": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted nut",
-                "plural_name": "toasted nuts"
+                "name": "nuez tostada",
+                "plural_name": "nueces tostadas"
             },
             "chironji": {
                 "aliases": [],
@@ -1955,14 +1955,14 @@
             "apricot kernel": {
                 "aliases": [],
                 "description": "",
-                "name": "apricot kernel",
-                "plural_name": "apricot kernels"
+                "name": "hueso de albaricoque",
+                "plural_name": "huesos de albaricoque"
             },
             "palm seed": {
                 "aliases": [],
                 "description": "",
-                "name": "palm seed",
-                "plural_name": "palm seeds"
+                "name": "semilla de palmera",
+                "plural_name": "semillas de palmera"
             },
             "ginkgo nut": {
                 "aliases": [],
@@ -1991,8 +1991,8 @@
             "indian almond": {
                 "aliases": [],
                 "description": "",
-                "name": "indian almond",
-                "plural_name": "indian almonds"
+                "name": "almendra india",
+                "plural_name": "almendras indias"
             }
         }
     },
@@ -2136,7 +2136,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brie",
-                "plural_name": "bries"
+                "plural_name": "brie"
             },
             "paneer": {
                 "aliases": [],
@@ -2184,7 +2184,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "queso ahumado",
-                "plural_name": "smoked cheeses"
+                "plural_name": "quesos ahumados"
             },
             "halloumi": {
                 "aliases": [],
@@ -2327,14 +2327,14 @@
             "cheese powder": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese powder",
-                "plural_name": "cheese powders"
+                "name": "queso rallado",
+                "plural_name": "queso rallado"
             },
             "fromage blanc": {
                 "aliases": [],
                 "description": "",
-                "name": "fromage blanc",
-                "plural_name": "fromage blancs"
+                "name": "queso blanco",
+                "plural_name": "quesos blancos"
             },
             "asadero": {
                 "aliases": [],

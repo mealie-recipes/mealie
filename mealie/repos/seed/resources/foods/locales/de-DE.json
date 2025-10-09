@@ -6012,7 +6012,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Senfsaat",
-                "plural_name": "Senfsaat"
+                "plural_name": "Senfsaaten"
             },
             "white pepper": {
                 "aliases": [],
@@ -11527,7 +11527,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Senf",
-                "plural_name": "mustards"
+                "plural_name": "Senf"
             },
             "fish sauce": {
                 "aliases": [],
@@ -11581,7 +11581,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brown mustard",
-                "plural_name": "brown mustards"
+                "plural_name": "brauner Senf"
             },
             "wing sauce": {
                 "aliases": [],
@@ -11671,7 +11671,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Honigsenf",
-                "plural_name": "honey mustards"
+                "plural_name": "Honigsenf"
             },
             "mango chutney": {
                 "aliases": [],
@@ -11683,7 +11683,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "english mustard",
-                "plural_name": "english mustards"
+                "plural_name": "englischer Senf"
             },
             "sambal oelek": {
                 "aliases": [],
@@ -16300,7 +16300,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Maltodextrin",
-                "plural_name": "maltodextrins"
+                "plural_name": "Maltodextrin"
             }
         }
     }

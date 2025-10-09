@@ -43,7 +43,8 @@
         "generic-created-with-url": "Το {name} δημιουργήθηκε, {url}",
         "generic-updated-with-url": "Το {name} ενημερώθηκε, {url}",
         "generic-duplicated": "Δημιουργήθηκε διπλότυπο του {name}",
-        "generic-deleted": "Το {name} διαγράφηκε"
+        "generic-deleted": "Το {name} διαγράφηκε",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "χρόνος | χρόνια",

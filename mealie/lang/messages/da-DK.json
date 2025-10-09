@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} er oprettet, {url}",
         "generic-updated-with-url": "{name} er blevet opdateret, {url}",
         "generic-duplicated": "{name} er blevet duplikeret",
-        "generic-deleted": "{name} er blevet slettet"
+        "generic-deleted": "{name} er blevet slettet",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "år|år",
