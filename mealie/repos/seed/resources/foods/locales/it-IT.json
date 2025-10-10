@@ -1371,14 +1371,14 @@
             "snow fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "snow fungu",
-                "plural_name": "snow fungus"
+                "name": "fungo tremella fuciformis",
+                "plural_name": "funghi tremella fuciformis"
             },
             "white beech mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "white beech mushroom",
-                "plural_name": "white beech mushrooms"
+                "name": "fungo hypsizygus tessulatus",
+                "plural_name": "funghi hypsizygus tessulatus"
             },
             "boletu": {
                 "aliases": [],
@@ -1390,7 +1390,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "huitlacoche",
-                "plural_name": "huitlacoches"
+                "plural_name": "huitlacoche"
             },
             "matsutake": {
                 "aliases": [],
@@ -1402,7 +1402,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "nameko",
-                "plural_name": "namekoes"
+                "plural_name": "nameko"
             },
             "djon djon mushroom": {
                 "aliases": [],
@@ -1425,14 +1425,14 @@
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungu",
-                "plural_name": "honey fungus"
+                "name": "fungo armillaria",
+                "plural_name": "funghi armillaria"
             },
             "caesar's mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "caesar's mushroom",
-                "plural_name": "caesar's mushrooms"
+                "name": "fungo amanita cesarea",
+                "plural_name": "funghi amanita cesarea"
             },
             "candy cap mushroom": {
                 "aliases": [],
