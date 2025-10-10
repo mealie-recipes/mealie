@@ -36,7 +36,7 @@ import RecipeTimeline from "~/components/Domain/Recipe/RecipeTimeline.vue";
 
 export default defineNuxtComponent({
   components: { RecipeTimeline },
-  middleware: ["sidebase-auth", "group-only"],
+  middleware: ["group-only"],
   setup() {
     const i18n = useI18n();
     const api = useUserApi();

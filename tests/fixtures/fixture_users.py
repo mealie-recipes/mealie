@@ -337,7 +337,7 @@ def ldap_user():
         user = db.users.create(
             {
                 "username": utils.random_string(10),
-                "password": "mealie_password_not_important",
+                "password": "LDAP",
                 "full_name": utils.random_string(10),
                 "email": utils.random_string(10),
                 "admin": False,

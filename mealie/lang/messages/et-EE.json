@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} loodud, {url}",
         "generic-updated-with-url": "{name} uuendatud, {url}",
         "generic-duplicated": "{name} on duplitseeritud",
-        "generic-deleted": "{name} kustutatud"
+        "generic-deleted": "{name} kustutatud",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "aasta|aastad",

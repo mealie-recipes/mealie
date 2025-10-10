@@ -1,9 +1,9 @@
 import { ref, watch, computed } from "vue";
+import { useAuthBackend } from "~/composables/useAuthBackend";
 import type { UserOut } from "~/lib/api/types/user";
 
 export const useMealieAuth = function () {
-  const auth = useAuth();
-  const { setToken } = useAuthState();
+  const auth = useAuthBackend();
   const { $axios } = useNuxtApp();
 
   // User Management
@@ -37,24 +37,18 @@ export const useMealieAuth = function () {
     { immediate: true },
   );
 
-  async function signIn(...params: Parameters<typeof auth.signIn>) {
-    await auth.signIn(...params);
-    refreshCookie(useRuntimeConfig().public.AUTH_TOKEN);
-  }
-
   async function oauthSignIn() {
     const params = new URLSearchParams(window.location.search);
     const { data: token } = await $axios.get<{ access_token: string; token_type: "bearer" }>("/api/auth/oauth/callback", { params });
-    setToken(token.access_token);
+    auth.setToken(token.access_token);
     await auth.getSession();
   }
 
   return {
     user,
     loggedIn,
-    signIn,
+    signIn: auth.signIn,
     signOut: auth.signOut,
-    signUp: auth.signUp,
     refresh: auth.refresh,
     oauthSignIn,
   };

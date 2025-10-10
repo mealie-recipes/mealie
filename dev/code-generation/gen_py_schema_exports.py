@@ -1,5 +1,6 @@
 import pathlib
 import re
+import subprocess
 from dataclasses import dataclass, field
 
 from utils import PROJECT_DIR, log, render_python_template
@@ -84,16 +85,23 @@ def find_modules(root: pathlib.Path) -> list[Modules]:
     return modules
 
 
-def main():
+def main() -> None:
     modules = find_modules(SCHEMA_PATH)
 
+    template_paths: list[pathlib.Path] = []
     for module in modules:
         log.debug(f"Module: {module.directory.name}")
         for file in module.files:
             log.debug(f"  File: {file.import_path}")
             log.debug(f"    Classes: [{', '.join(file.classes)}]")
 
-        render_python_template(template, module.directory / "__init__.py", {"module": module})
+        template_path = module.directory / "__init__.py"
+        template_paths.append(template_path)
+        render_python_template(template, template_path, {"module": module})
+
+    path_args = (str(p) for p in template_paths)
+    subprocess.run(["poetry", "run", "ruff", "check", *path_args, "--fix"])
+    subprocess.run(["poetry", "run", "ruff", "format", *path_args])
 
 
 if __name__ == "__main__":

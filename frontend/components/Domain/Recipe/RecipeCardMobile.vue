@@ -116,7 +116,7 @@
                 @deleted="$emit('delete', slug)"
               />
             </v-card-actions>
-            </slot>
+          </slot>
         </v-list-item>
         <slot />
       </v-card>

@@ -256,13 +256,13 @@
                 ],
                 "description": "",
                 "name": "summer squash",
-                "plural_name": "summer squashes"
+                "plural_name": "sommersquashene"
             },
             "mixed green": {
                 "aliases": [],
                 "description": "",
                 "name": "mixed green",
-                "plural_name": "mixed greens"
+                "plural_name": "salatblanding"
             },
             "parsnip": {
                 "aliases": [],
@@ -286,13 +286,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "poblano pepper",
-                "plural_name": "poblano peppers"
+                "plural_name": "mild chilipepper (Poblano)"
             },
             "sweet pepper": {
                 "aliases": [],
                 "description": "",
                 "name": "sweet pepper",
-                "plural_name": "sweet peppers"
+                "plural_name": "paprika"
             },
             "serrano pepper": {
                 "aliases": [],
@@ -14588,7 +14588,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "coffee liqueur",
-                "plural_name": "coffee liqueurs"
+                "plural_name": ""
             },
             "champagne": {
                 "aliases": [],
@@ -16204,7 +16204,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "daily vitamin",
-                "plural_name": "daily vitamins"
+                "plural_name": "daglig vitaminer"
             },
             "moringa powder": {
                 "aliases": [],

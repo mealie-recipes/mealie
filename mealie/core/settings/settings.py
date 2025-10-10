@@ -123,6 +123,17 @@ class AppSettings(AppLoggingSettings):
     TOKEN_TIME: int = 48
     """time in hours"""
 
+    @field_validator("TOKEN_TIME")
+    @classmethod
+    def validate_token_time(cls, v: int) -> int:
+        if v < 1:
+            raise ValueError("TOKEN_TIME must be at least 1 hour")
+        # If TOKEN_TIME is unreasonably high (e.g. hundreds of years), JWT encoding
+        # can overflow, so we set the max to 10 years (87600 hours).
+        if v > 87600:
+            raise ValueError("TOKEN_TIME is too high; maximum is 87600 hours (10 years)")
+        return v
+
     SECRET: str
     SESSION_SECRET: str
 

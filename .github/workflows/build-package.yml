@@ -19,7 +19,7 @@ jobs:
       - name: Setup node env 🏗
         uses: actions/setup-node@v4.0.0
         with:
-          node-version: 20
+          node-version: 22
           check-latest: true
 
       - name: Get yarn cache directory path 🛠

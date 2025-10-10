@@ -5,8 +5,14 @@
     density="compact"
     elevation="0"
   >
-    <BaseDialog v-model="deleteDialog" :title="$t('recipe.delete-recipe')" color="error"
-      :icon="$globals.icons.alertCircle" can-confirm @confirm="emitDelete()">
+    <BaseDialog
+      v-model="deleteDialog"
+      :title="$t('recipe.delete-recipe')"
+      color="error"
+      :icon="$globals.icons.alertCircle"
+      can-confirm
+      @confirm="emitDelete()"
+    >
       <v-card-text>
         {{ $t("recipe.delete-confirmation") }}
       </v-card-text>
@@ -15,7 +21,14 @@
     <v-spacer />
     <div v-if="!open" class="custom-btn-group ma-1">
       <RecipeFavoriteBadge v-if="loggedIn" color="info" button-style :recipe-id="recipe.id!" show-always />
-      <RecipeTimelineBadge v-if="loggedIn" class="ml-1" color="info" button-style :slug="recipe.slug" :recipe-name="recipe.name!" />
+      <RecipeTimelineBadge
+        v-if="loggedIn"
+        class="ml-1"
+        color="info"
+        button-style
+        :slug="recipe.slug"
+        :recipe-name="recipe.name!"
+      />
       <div v-if="loggedIn">
         <v-tooltip v-if="canEdit" location="bottom" color="info">
           <template #activator="{ props: tooltipProps }">

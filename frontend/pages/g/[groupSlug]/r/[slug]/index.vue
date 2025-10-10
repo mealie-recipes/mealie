@@ -19,20 +19,21 @@ import type { Recipe } from "~/lib/api/types/recipe";
 const $auth = useMealieAuth();
 const { isOwnGroup } = useLoggedInState();
 const route = useRoute();
-const title = ref(route.meta?.title ?? "");
+const title = ref(route.meta?.title as string || "");
 useSeoMeta({ title });
 
 const router = useRouter();
 const slug = route.params.slug as string;
 
 const recipe = ref<Recipe | null>(null);
-if (isOwnGroup.value) {
+function loadRecipe() {
   const { recipe: data } = useRecipe(slug);
   watch(data, (value) => {
     recipe.value = value;
   });
 }
-else {
+
+async function loadPublicRecipe() {
   const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
   const api = usePublicExploreApi(groupSlug.value);
   const { data } = await useAsyncData(useAsyncKey(), async () => {
@@ -45,6 +46,13 @@ else {
     return data;
   });
   recipe.value = data.value;
+}
+
+if (isOwnGroup.value) {
+  loadRecipe();
+}
+else {
+  onMounted(loadPublicRecipe);
 }
 
 whenever(

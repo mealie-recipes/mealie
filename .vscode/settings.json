@@ -59,8 +59,11 @@
     "netlify.toml": "runtime.txt",
     "README.md": "LICENSE, SECURITY.md"
   },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
   "[vue]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": true
   },
   "[python]": {
     "editor.formatOnSave": true,

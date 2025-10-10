@@ -1,44 +1,44 @@
 <template>
-	<div v-if="preferences">
-		<BaseCardSectionTitle :title="$t('household.household-preferences')" />
-		<div class="mb-6">
-			<v-checkbox v-model="preferences.privateHousehold" hide-details density="compact" :label="$t('household.private-household')" color="primary" />
-			<div class="ml-8">
-				<p class="text-subtitle-2 my-0 py-0">
-					{{ $t("household.private-household-description") }}
-				</p>
-				<DocLink class="mt-2" link="/documentation/getting-started/faq/#how-do-private-groups-and-recipes-work" />
-			</div>
-		</div>
-		<div class="mb-6">
-			<v-checkbox v-model="preferences.lockRecipeEditsFromOtherHouseholds" hide-details density="compact" :label="$t('household.lock-recipe-edits-from-other-households')" color="primary" />
-			<div class="ml-8">
-				<p class="text-subtitle-2 my-0 py-0">
-					{{ $t("household.lock-recipe-edits-from-other-households-description") }}
-				</p>
-			</div>
-		</div>
-		<v-select
-			v-model="preferences.firstDayOfWeek"
-			:prepend-icon="$globals.icons.calendarWeekBegin"
-			:items="allDays"
-			item-title="name"
-			item-value="value"
-			:label="$t('settings.first-day-of-week')"
-			variant="underlined"
-			flat
-		/>
+  <div v-if="preferences">
+    <BaseCardSectionTitle :title="$t('household.household-preferences')" />
+    <div class="mb-6">
+      <v-checkbox v-model="preferences.privateHousehold" hide-details density="compact" :label="$t('household.private-household')" color="primary" />
+      <div class="ml-8">
+        <p class="text-subtitle-2 my-0 py-0">
+          {{ $t("household.private-household-description") }}
+        </p>
+        <DocLink class="mt-2" link="/documentation/getting-started/faq/#how-do-private-groups-and-recipes-work" />
+      </div>
+    </div>
+    <div class="mb-6">
+      <v-checkbox v-model="preferences.lockRecipeEditsFromOtherHouseholds" hide-details density="compact" :label="$t('household.lock-recipe-edits-from-other-households')" color="primary" />
+      <div class="ml-8">
+        <p class="text-subtitle-2 my-0 py-0">
+          {{ $t("household.lock-recipe-edits-from-other-households-description") }}
+        </p>
+      </div>
+    </div>
+    <v-select
+      v-model="preferences.firstDayOfWeek"
+      :prepend-icon="$globals.icons.calendarWeekBegin"
+      :items="allDays"
+      item-title="name"
+      item-value="value"
+      :label="$t('settings.first-day-of-week')"
+      variant="underlined"
+      flat
+    />
 
-		<BaseCardSectionTitle class="mt-5" :title="$t('household.household-recipe-preferences')" />
-		<div class="preference-container">
-			<div v-for="p in recipePreferences" :key="p.key">
-				<v-checkbox v-model="preferences[p.key]" hide-details density="compact" :label="p.label" color="primary" />
-				<p class="ml-8 text-subtitle-2 my-0 py-0">
-					{{ p.description }}
-				</p>
-			</div>
-		</div>
-	</div>
+    <BaseCardSectionTitle class="mt-5" :title="$t('household.household-recipe-preferences')" />
+    <div class="preference-container">
+      <div v-for="p in recipePreferences" :key="p.key">
+        <v-checkbox v-model="preferences[p.key]" hide-details density="compact" :label="p.label" color="primary" />
+        <p class="ml-8 text-subtitle-2 my-0 py-0">
+          {{ p.description }}
+        </p>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">

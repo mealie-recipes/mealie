@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} が作成されました: {url}",
         "generic-updated-with-url": "{name} が更新されました: {url}",
         "generic-duplicated": "{name} が複製されました",
-        "generic-deleted": "{name} が削除されました"
+        "generic-deleted": "{name} が削除されました",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "年",

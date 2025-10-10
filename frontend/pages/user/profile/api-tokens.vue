@@ -80,10 +80,10 @@
     />
     <section class="d-flex flex-column">
       <v-list>
-      <div
-        v-for="(token, index) in user.tokens"
-        :key="index"
-      >
+        <div
+          v-for="(token, index) in user.tokens"
+          :key="index"
+        >
           <v-list-item>
             <v-list-item-title>
               {{ token.name }}
@@ -111,7 +111,7 @@ import { useUserApi } from "~/composables/api";
 import type { VForm } from "~/types/auto-forms";
 
 export default defineNuxtComponent({
-  middleware: ["sidebase-auth", "advanced-only"],
+  middleware: ["advanced-only"],
   setup() {
     const i18n = useI18n();
     const $auth = useMealieAuth();
