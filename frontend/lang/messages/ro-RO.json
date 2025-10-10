@@ -399,6 +399,10 @@
       "description-long": "Mealie poate importa rețete din Tandoor. Exportă datele în formatul \"Implicit\", apoi încarcă fișierul de tip \".ZIP\" folosind câmpul de mai jos.",
       "title": "Rețete Tandoor"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migrarea datelor rețetelor",
     "recipe-data-migrations-explanation": "Rețetele pot fi migrate de la o altă aplicație ce este suportată de Mealie. Acesta este un mod excelent de a începe să folosiți Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Veniți dintr-o altă aplicație sau o versiune și mai veche a Mealie? Uitați-vă la migrări și vedeți dacă datele dvs. pot fi importate.",
