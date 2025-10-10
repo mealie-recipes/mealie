@@ -36,6 +36,34 @@
       </v-card-text>
     </BaseDialog>
 
+    <!-- Reorder Labels -->
+    <BaseDialog
+      v-model="reorderLabelsDialog"
+      :icon="$globals.icons.tagArrowUp"
+      :title="$t('shopping-list.reorder-labels')"
+      :submit-icon="$globals.icons.save"
+      :submit-text="$t('general.save')"
+      can-submit
+      @submit="saveLabelOrder"
+      @close="cancelLabelOrder"
+    >
+      <v-card height="fit-content" max-height="70vh" style="overflow-y: auto;">
+        <VueDraggable
+          v-if="localLabels"
+          v-model="localLabels"
+          handle=".handle"
+          :delay="250"
+          :delay-on-touch-only="true"
+          class="my-2"
+          @update:model-value="updateLabelOrder"
+        >
+          <div v-for="(labelSetting, index) in localLabels" :key="labelSetting.id">
+            <MultiPurposeLabelSection v-model="localLabels[index]" use-color />
+          </div>
+        </VueDraggable>
+      </v-card>
+    </BaseDialog>
+
     <BasePageTitle divider>
       <template #header>
         <v-container class="px-0">
@@ -127,10 +155,7 @@
     />
 
     <!-- Viewer -->
-    <section
-      v-if="!edit"
-      class="py-2"
-    >
+    <section v-if="!edit" class="py-2 d-flex flex-column ga-4">
       <!-- Create Item -->
       <div v-if="createEditorOpen">
         <ShoppingListItemEditor
@@ -154,27 +179,15 @@
         </BaseButton>
       </div>
 
-      <div
-        v-for="(value, key) in itemsByLabel"
-        :key="key"
-        class="pb-4"
-      >
-        <v-btn
-          :color="getLabelColor(value[0]) ? getLabelColor(value[0]) : '#959595'"
-          :style="{
-            'color': getTextColor(getLabelColor(value[0])),
-            'letter-spacing': 'normal',
-          }"
-          @click="toggleShowLabel(key.toString())"
-        >
-          <v-icon>
-            {{ labelOpenState[key] ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
-          </v-icon>
-          {{ key }}
-        </v-btn>
-        <v-divider />
-        <v-expand-transition>
-          <div v-if="labelOpenState[key]">
+      <v-expansion-panels v-model="openedSections" multiple>
+        <v-expansion-panel v-for="(value, key) in itemsByLabel" :key="key">
+          <v-expansion-panel-title
+            :color="getLabelColor(value[0]) ? getLabelColor(value[0]) + '40' : '#ffffff40'"
+            class="body-1 font-weight-bold section-title"
+          >
+            {{ key }}
+          </v-expansion-panel-title>
+          <v-expansion-panel-text>
             <VueDraggable
               :model-value="value"
               handle=".handle"
@@ -201,90 +214,39 @@
                 />
               </v-lazy>
             </VueDraggable>
-          </div>
-        </v-expand-transition>
-      </div>
-
-      <!-- Reorder Labels -->
-      <BaseDialog
-        v-model="reorderLabelsDialog"
-        :icon="$globals.icons.tagArrowUp"
-        :title="$t('shopping-list.reorder-labels')"
-        :submit-icon="$globals.icons.save"
-        :submit-text="$t('general.save')"
-        can-submit
-        @submit="saveLabelOrder"
-        @close="cancelLabelOrder"
-      >
-        <v-card
-          height="fit-content"
-          max-height="70vh"
-          style="overflow-y: auto;"
-        >
-          <VueDraggable
-            v-if="localLabels"
-            v-model="localLabels"
-            handle=".handle"
-            :delay="250"
-            :delay-on-touch-only="true"
-            class="my-2"
-            @update:model-value="updateLabelOrder"
-          >
-            <div
-              v-for="(labelSetting, index) in localLabels"
-              :key="labelSetting.id"
-            >
-              <MultiPurposeLabelSection
-                v-model="localLabels[index]"
-                use-color
-              />
-            </div>
-          </VueDraggable>
-        </v-card>
-      </BaseDialog>
-
+          </v-expansion-panel-text>
+        </v-expansion-panel>
+      </v-expansion-panels>
       <!-- Checked Items -->
-      <div
-        v-if="listItems.checked && listItems.checked.length > 0"
-        class="mt-6"
-      >
-        <div class="d-flex">
-          <div class="flex-grow-1">
-            <button @click="toggleShowChecked()">
-              <span>
-                <v-icon>
-                  {{ showChecked ? $globals.icons.chevronDown : $globals.icons.chevronRight }}
-                </v-icon>
-              </span>
-              {{ $t('shopping-list.items-checked-count', listItems.checked ? listItems.checked.length : 0) }}
-            </button>
-          </div>
-          <div class="justify-end mt-n2">
-            <BaseButtonGroup
-              :buttons="[
-                {
-                  icon: $globals.icons.checkboxBlankOutline,
-                  text: $t('shopping-list.uncheck-all-items'),
-                  event: 'uncheck',
-                },
-                {
-                  icon: $globals.icons.delete,
-                  text: $t('shopping-list.delete-checked'),
-                  event: 'delete',
-                },
-              ]"
-              @uncheck="openUncheckAll"
-              @delete="openDeleteChecked"
-            />
-          </div>
-        </div>
-        <v-divider class="my-4" />
-        <v-expand-transition>
-          <div v-if="showChecked">
-            <div
-              v-for="(item, idx) in listItems.checked"
-              :key="item.id"
-            >
+      <v-expansion-panels flat>
+        <v-expansion-panel v-if="listItems.checked && listItems.checked.length > 0">
+          <v-expansion-panel-title class="border-solid border-thin py-1">
+            <div class="d-flex align-center flex-0-1-100">
+              <div class="flex-1-0">
+                {{ $t('shopping-list.items-checked-count', listItems.checked ? listItems.checked.length : 0) }}
+              </div>
+              <div class="justify-end">
+                <BaseButtonGroup
+                  :buttons="[
+                    {
+                      icon: $globals.icons.checkboxBlankOutline,
+                      text: $t('shopping-list.uncheck-all-items'),
+                      event: 'uncheck',
+                    },
+                    {
+                      icon: $globals.icons.delete,
+                      text: $t('shopping-list.delete-checked'),
+                      event: 'delete',
+                    },
+                  ]"
+                  @uncheck="openUncheckAll"
+                  @delete="openDeleteChecked"
+                />
+              </div>
+            </div>
+          </v-expansion-panel-title>
+          <v-expansion-panel-text>
+            <div v-for="(item, idx) in listItems.checked" :key="item.id">
               <ShoppingListItem
                 v-model="listItems.checked[idx]"
                 class="strike-through-note"
@@ -296,14 +258,15 @@
                 @delete="deleteListItem(item)"
               />
             </div>
-          </div>
-        </v-expand-transition>
-      </div>
+          </v-expansion-panel-text>
+        </v-expansion-panel>
+      </v-expansion-panels>
     </section>
 
     <!-- Recipe References -->
     <v-lazy
       v-if="shoppingList.recipeReferences && shoppingList.recipeReferences.length > 0"
+      class="mt-6"
     >
       <section>
         <div>
@@ -316,7 +279,7 @@
             ? shoppingList.recipeReferences.length
             : 0) }}
         </div>
-        <v-divider class="my-4" />
+        <v-divider />
         <RecipeList
           :recipes="recipeList"
           show-description
@@ -403,6 +366,10 @@ export default defineNuxtComponent({
     const { store: allUnits } = useUnitStore();
     const { store: allFoods } = useFoodStore();
 
+    // opens the first 10 sections by default;
+    // the 11th and on will be closed by default to prevent excessive scrolling
+    const openedSections = ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+
     return {
       groupSlug,
       preferences,
@@ -411,6 +378,7 @@ export default defineNuxtComponent({
       allFoods,
       getTextColor,
       mdAndUp,
+      openedSections,
       ...shoppingListPage,
     };
   },
@@ -420,5 +388,9 @@ export default defineNuxtComponent({
 <style scoped>
 .number-input-container {
   max-width: 50px;
+}
+
+.section-title {
+  font-size: 1rem;
 }
 </style>
