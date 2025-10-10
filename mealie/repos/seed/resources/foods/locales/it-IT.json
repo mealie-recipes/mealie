@@ -1317,8 +1317,8 @@
             "king oyster mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "king oyster mushroom",
-                "plural_name": "king oyster mushrooms"
+                "name": "fungo cardoncello",
+                "plural_name": "funghi cardoncello"
             },
             "shimeji mushroom": {
                 "aliases": [],
@@ -1353,14 +1353,14 @@
             "white truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "white truffle",
-                "plural_name": "white truffles"
+                "name": "tartufo bianco",
+                "plural_name": "tartufi bianchi"
             },
             "white fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "white fungu",
-                "plural_name": "white fungus"
+                "name": "fungo bianco",
+                "plural_name": "fungo bianco"
             },
             "pioppini": {
                 "aliases": [],
@@ -1396,7 +1396,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "matsutake",
-                "plural_name": "matsutakes"
+                "plural_name": "matsutake"
             },
             "nameko": {
                 "aliases": [],
@@ -1495,14 +1495,14 @@
             "maraschino cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "maraschino cherry",
-                "plural_name": "maraschino cherries"
+                "name": "ciliegia maraschino",
+                "plural_name": "ciliegie maraschino"
             },
             "dried cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cherry",
-                "plural_name": "dried cherries"
+                "name": "ciliegia disidratata",
+                "plural_name": "ciliegie disidratate"
             },
             "juniper berry": {
                 "aliases": [],
@@ -1519,50 +1519,50 @@
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
-                "plural_name": "goji berries"
+                "name": "bacca di goji",
+                "plural_name": "bacche di goji"
             },
             "dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried blueberry",
-                "plural_name": "dried blueberries"
+                "name": "mirtillo essiccato",
+                "plural_name": "mirtilli essiccati"
             },
             "freeze-dried strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried strawberry",
-                "plural_name": "freeze-dried strawberries"
+                "name": "fragola liofilizzata",
+                "plural_name": "fragole liofilizzate"
             },
             "gooseberry": {
                 "aliases": [],
                 "description": "",
-                "name": "gooseberry",
-                "plural_name": "gooseberries"
+                "name": "uva spina",
+                "plural_name": "uva spina"
             },
             "freeze-dried raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried raspberry",
-                "plural_name": "freeze-dried raspberries"
+                "name": "lampone liofilizzato",
+                "plural_name": "lamponi liofilizzati"
             },
             "lingonberry": {
                 "aliases": [],
                 "description": "",
-                "name": "lingonberry",
-                "plural_name": "lingonberries"
+                "name": "mirtillo rosso",
+                "plural_name": "mirtilli rossi"
             },
             "canned sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sour cherry",
-                "plural_name": "canned sour cherries"
+                "name": "amarena in scatola",
+                "plural_name": "amarene in scatola"
             },
             "mulberry": {
                 "aliases": [],
                 "description": "",
-                "name": "mulberry",
-                "plural_name": "mulberries"
+                "name": "gelso",
+                "plural_name": "gelso"
             },
             "acai berry": {
                 "aliases": [],
@@ -1573,8 +1573,8 @@
             "canned cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cherry",
-                "plural_name": "canned cherries"
+                "name": "ciliegia in scatola",
+                "plural_name": "ciliege in scatola"
             },
             "amla": {
                 "aliases": [],
@@ -1591,20 +1591,20 @@
             "freeze-dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried blueberry",
-                "plural_name": "freeze-dried blueberries"
+                "name": "mirtillo liofilizzato",
+                "plural_name": "mirtilli liofilizzati"
             },
             "huckleberry": {
                 "aliases": [],
                 "description": "",
-                "name": "huckleberry",
-                "plural_name": "huckleberries"
+                "name": "mirtillo",
+                "plural_name": "mirtilli"
             },
             "dried elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried elderberry",
-                "plural_name": "dried elderberries"
+                "name": "bacca di sambuco essiccata",
+                "plural_name": "bacche di sambuco essiccate"
             },
             "barberry": {
                 "aliases": [],
@@ -1615,8 +1615,8 @@
             "dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried berry",
-                "plural_name": "dried berries"
+                "name": "bacca essiccata",
+                "plural_name": "bacche essiccate"
             },
             "sea buckthorn": {
                 "aliases": [],
@@ -1657,7 +1657,7 @@
             "freeze-dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried berry",
+                "name": "",
                 "plural_name": "freeze-dried berries"
             },
             "aronia berry": {
@@ -1675,20 +1675,20 @@
             "loganberry": {
                 "aliases": [],
                 "description": "",
-                "name": "loganberry",
-                "plural_name": "loganberries"
+                "name": "mora-lampone",
+                "plural_name": "more-lamponi"
             },
             "blackcurrant leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "blackcurrant leaf",
-                "plural_name": "blackcurrant leaves"
+                "name": "foglia di ribes nero",
+                "plural_name": "foglie di ribes nero"
             },
             "haskap berry": {
                 "aliases": [],
                 "description": "",
-                "name": "haskap berry",
-                "plural_name": "haskap berries"
+                "name": "haskap",
+                "plural_name": "haskap"
             },
             "dewberry": {
                 "aliases": [],
@@ -1721,8 +1721,8 @@
             "pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "pecan",
-                "plural_name": "pecans"
+                "name": "noce pecan",
+                "plural_name": "noci pecan"
             },
             "almond": {
                 "aliases": [],
@@ -1769,20 +1769,20 @@
             "flax": {
                 "aliases": [],
                 "description": "",
-                "name": "flax",
-                "plural_name": "flaxes"
+                "name": "lino",
+                "plural_name": "lino"
             },
             "slivered almond": {
                 "aliases": [],
                 "description": "",
-                "name": "slivered almond",
-                "plural_name": "slivered almonds"
+                "name": "fettina di mandorla",
+                "plural_name": "fettine di mandorla"
             },
             "pumpkin seed": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin seed",
-                "plural_name": "pumpkin seeds"
+                "name": "seme di zucca",
+                "plural_name": "semi di zucca"
             },
             "hazelnut": {
                 "aliases": [],
@@ -1806,7 +1806,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "macadamia",
-                "plural_name": "macadamias"
+                "plural_name": "macadamia"
             },
             "roasted peanut": {
                 "aliases": [],
@@ -1817,68 +1817,68 @@
             "chopped nut": {
                 "aliases": [],
                 "description": "",
-                "name": "chopped nut",
-                "plural_name": "chopped nuts"
+                "name": "noce tritata",
+                "plural_name": "noci tritate"
             },
             "hemp heart": {
                 "aliases": [],
                 "description": "",
-                "name": "hemp heart",
-                "plural_name": "hemp hearts"
+                "name": "cuore di canapa",
+                "plural_name": "cuori di canapa"
             },
             "nigella seed": {
                 "aliases": [],
                 "description": "",
-                "name": "nigella seed",
-                "plural_name": "nigella seeds"
+                "name": "seme di nigella",
+                "plural_name": "semi di nigella"
             },
             "mixed nut": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed nut",
-                "plural_name": "mixed nuts"
+                "name": "frutta a guscio mista",
+                "plural_name": "frutta a guscio mista"
             },
             "brazil nut": {
                 "aliases": [],
                 "description": "",
-                "name": "brazil nut",
-                "plural_name": "brazil nuts"
+                "name": "noce brasiliana",
+                "plural_name": "noci brasiliane"
             },
             "mixed seed": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed seed",
-                "plural_name": "mixed seeds"
+                "name": "semi misti",
+                "plural_name": "semi misti"
             },
             "onion seed": {
                 "aliases": [],
                 "description": "",
-                "name": "onion seed",
-                "plural_name": "onion seeds"
+                "name": "seme di cipolla",
+                "plural_name": "semi di cipolla"
             },
             "watermelon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon seed",
-                "plural_name": "watermelon seeds"
+                "name": "seme di anguria",
+                "plural_name": "semi di anguria"
             },
             "honey-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted peanut",
-                "plural_name": "honey-roasted peanuts"
+                "name": "arachide tostata",
+                "plural_name": "arachidi tostate"
             },
             "melon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "melon seed",
-                "plural_name": "melon seeds"
+                "name": "seme di melone",
+                "plural_name": "semi di melone"
             },
             "lotus seed": {
                 "aliases": [],
                 "description": "",
-                "name": "lotus seed",
-                "plural_name": "lotus seeds"
+                "name": "seme di loto",
+                "plural_name": "semi di loto"
             },
             "white chia": {
                 "aliases": [],
@@ -1895,8 +1895,8 @@
             "basil seed": {
                 "aliases": [],
                 "description": "",
-                "name": "basil seed",
-                "plural_name": "basil seeds"
+                "name": "seme di basilico",
+                "plural_name": "semi di basilico"
             },
             "candlenut": {
                 "aliases": [],
@@ -1925,8 +1925,8 @@
             "toasted nut": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted nut",
-                "plural_name": "toasted nuts"
+                "name": "noce tostata",
+                "plural_name": "noci tostate"
             },
             "chironji": {
                 "aliases": [],
@@ -1937,8 +1937,8 @@
             "honey-roasted pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted pecan",
-                "plural_name": "honey-roasted pecans"
+                "name": "pecan tostata",
+                "plural_name": "pecan tostate"
             },
             "tigernut": {
                 "aliases": [],
@@ -1961,8 +1961,8 @@
             "palm seed": {
                 "aliases": [],
                 "description": "",
-                "name": "palm seed",
-                "plural_name": "palm seeds"
+                "name": "seme di palma",
+                "plural_name": "semi di palma"
             },
             "ginkgo nut": {
                 "aliases": [],
@@ -1991,8 +1991,8 @@
             "indian almond": {
                 "aliases": [],
                 "description": "",
-                "name": "indian almond",
-                "plural_name": "indian almonds"
+                "name": "mandorla indiana",
+                "plural_name": "mandorle indiane"
             }
         }
     },

@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} беше създадено, {url}",
         "generic-updated-with-url": "{name} беше актуализирано, {url}",
         "generic-duplicated": "{name} е дублирано",
-        "generic-deleted": "{name} беше изтрито"
+        "generic-deleted": "{name} беше изтрито",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "година|години",

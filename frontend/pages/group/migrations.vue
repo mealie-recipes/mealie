@@ -124,6 +124,7 @@ const MIGRATIONS = {
   plantoeat: "plantoeat",
   recipekeeper: "recipekeeper",
   tandoor: "tandoor",
+  cookn: "cookn",
 };
 
 export default defineNuxtComponent({
@@ -184,6 +185,10 @@ export default defineNuxtComponent({
       {
         text: i18n.t("migration.tandoor.title"),
         value: MIGRATIONS.tandoor,
+      },
+      {
+        text: i18n.t("migration.cookn.title"),
+        value: MIGRATIONS.cookn,
       },
     ];
     const _content: Record<string, MigrationContent> = {
@@ -394,6 +399,34 @@ export default defineNuxtComponent({
                   { title: "recipe.json", icon: $globals.icons.codeJson },
                 ],
               },
+            ],
+          },
+        ],
+      },
+      [MIGRATIONS.cookn]: {
+        text: i18n.t("migration.cookn.description-long"),
+        acceptedFileType: ".zip",
+        tree: [
+          {
+            icon: $globals.icons.zip,
+            title: "cookn.zip",
+            children: [
+              { title: "temp_brand.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_chapter_desc.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_chapter.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_cookBook_desc.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_cookBook.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_food_brand.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_food_group.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_food.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_ingredient.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_media.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_nutrient.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_recipe_desc.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_recipe.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_unit_equivalent.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_unit.dsv", icon: $globals.icons.codeJson },
+              { title: "images", icon: $globals.icons.fileImage },
             ],
           },
         ],

@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} hefur verið stofnað, {url}",
         "generic-updated-with-url": "{name} hefur verið uppfært, {url}",
         "generic-duplicated": "{name} hefur verið afritað",
-        "generic-deleted": "{name} hefur verið eytt"
+        "generic-deleted": "{name} hefur verið eytt",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "ár",
