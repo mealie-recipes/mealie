@@ -399,6 +399,10 @@
       "description-long": "Mealie может импортировать рецепты из Tandoor. Экспортируйте ваши данные в формате «По умолчанию», затем загрузите .zip ниже.",
       "title": "Рецепты Tandoor"
     },
+    "cookn": {
+      "description-long": "Mealie может импортировать рецепты из DVO Cook'n X3. Экспортируйте книгу рецептов или меню в формате \"Cook'n\", переименуйте расширение файла экспорта в .zip, затем загрузите .zip ниже.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Перенос данных рецептов",
     "recipe-data-migrations-explanation": "Рецепты могут быть перенесены из другого поддерживаемого приложения в Mealie. Это отличный способ начать работу с Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Переходите из другого приложения или с более поздней версии Mealie? Проверьте \"миграции\", чтобы убедиться, что ваши данные могут быть перенесены.",
@@ -521,7 +525,7 @@
     "save-recipe-before-use": "Сохранить рецепт перед использованием",
     "section-title": "Название раздела",
     "servings": "Порций",
-    "serves-amount": "Серверов {amount}",
+    "serves-amount": "Порции {amount}",
     "share-recipe-message": "Я хотел(а) поделиться с тобой моим рецептом {0}.",
     "show-nutrition-values": "Показать пищевую ценность",
     "sodium-content": "Соль",
