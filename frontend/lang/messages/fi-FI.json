@@ -399,6 +399,10 @@
       "description-long": "Mealie voi tuoda reseptejä Tandoorista. Vie tietosi \"Oletus\" -muodossa ja lataa sitten .zip alla.",
       "title": "Tandoor Recipes -sovellus"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Reseptien tietojen migraatiot",
     "recipe-data-migrations-explanation": "Reseptit voidaan siirtää toisesta tuetusta sovelluksesta Mealie -sovellukseen. Tämä on hyvä tapa päästä alkuun Mealiella.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Olitko toisessa sovelluksessa tai Mealien aiemmassa versiossa? Tarkista, voidaanko tietosi siirtää.",
