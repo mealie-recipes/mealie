@@ -399,6 +399,10 @@
       "description-long": "Mealie, Tandoor'dan tarifleri içe aktarabilir. Verilerinizi \"Varsayılan\" biçimde dışa aktarın, ardından aşağıdaki .zip dosyasını yükleyin.",
       "title": "Tandoor Tarifleri"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Tarif Verilerini Taşı",
     "recipe-data-migrations-explanation": "Tarifler desteklenen başka bir uygulamadan Mealie'ye taşınabilir. Bu Mealie kullanmaya başlamak için mükemmel bir yöntemdir.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Başka bir uygulamadan mı yoksa Mealie'nin daha eski bir sürümünden mi geliyorsunuz? Taşıma işlemlerine göz atın ve verilerinizin içe aktarılıp aktarılamayacağını görün.",
