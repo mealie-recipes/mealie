@@ -14,7 +14,8 @@ export type SupportedMigrations =
   | "tandoor"
   | "plantoeat"
   | "myrecipebox"
-  | "recipekeeper";
+  | "recipekeeper"
+  | "cookn";
 
 export interface CreateGroupPreferences {
   privateGroup?: boolean;
