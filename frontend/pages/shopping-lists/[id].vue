@@ -187,7 +187,7 @@
           >
             {{ key }}
           </v-expansion-panel-title>
-          <v-expansion-panel-text>
+          <v-expansion-panel-text eager>
             <VueDraggable
               :model-value="value"
               handle=".handle"
@@ -245,7 +245,7 @@
               </div>
             </div>
           </v-expansion-panel-title>
-          <v-expansion-panel-text>
+          <v-expansion-panel-text eager>
             <div v-for="(item, idx) in listItems.checked" :key="item.id">
               <ShoppingListItem
                 v-model="listItems.checked[idx]"
