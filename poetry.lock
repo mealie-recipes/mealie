@@ -739,14 +739,14 @@ cli = ["requests"]
 
 [[package]]
 name = "fastapi"
-version = "0.118.3"
+version = "0.119.0"
 description = "FastAPI framework, high performance, easy to learn, fast to code, ready for production"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "fastapi-0.118.3-py3-none-any.whl", hash = "sha256:8b9673dc083b4b9d3d295d49ba1c0a2abbfb293d34ba210fd9b0a90d5f39981e"},
-    {file = "fastapi-0.118.3.tar.gz", hash = "sha256:5bf36d9bb0cd999e1aefcad74985a6d6a1fc3a35423d497f9e1317734633411d"},
+    {file = "fastapi-0.119.0-py3-none-any.whl", hash = "sha256:90a2e49ed19515320abb864df570dd766be0662c5d577688f1600170f7f73cf2"},
+    {file = "fastapi-0.119.0.tar.gz", hash = "sha256:451082403a2c1f0b99c6bd57c09110ed5463856804c8078d38e5a1f1035dbbb7"},
 ]
 
 [package.dependencies]
@@ -4035,4 +4035,4 @@ pgsql = ["psycopg2-binary"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.12,<3.13"
-content-hash = "0bfed6b7da7b39290244ff05c85aacd85606caacdb87a023eeb190dec8f0a608"
+content-hash = "3aeb5f7345251bdfcd68a7acff3905e6d6e5e27042b4134baf2032f925dd459f"
