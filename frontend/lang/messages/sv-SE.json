@@ -69,7 +69,7 @@
     "new-notification": "Ny avisering",
     "event-notifiers": "Händelseavisering",
     "apprise-url-skipped-if-blank": "Apprise-URL (hoppa över om tom)",
-    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
+    "apprise-url-is-left-intentionally-blank": "Eftersom Apprise URL:er vanligtvis innehåller känslig information lämnas detta fält medvetet tomt vid redigering. Om du vill uppdatera webbadressen, ange det nya här, annars lämna det tomt för att behålla den aktuella webbadressen.",
     "enable-notifier": "Aktivera avisering",
     "what-events": "Vilka händelser ska denna avisering prenumerera på?",
     "user-events": "Användarhändelser",
@@ -81,7 +81,7 @@
     "category-events": "Kategorihändelser",
     "when-a-new-user-joins-your-group": "När en ny användare går med i din grupp",
     "recipe-events": "Recepthändelser",
-    "label-events": "Label Events"
+    "label-events": "Etiketthändelser"
   },
   "general": {
     "add": "Lägg till",
@@ -400,7 +400,7 @@
       "title": "Tandoor-recept"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie kan importera recept från DVO Cook'n X3. Exportera en kokbok eller meny i \"Cook'n\" format, byt namn på exporttillägget till .zip, sedan ladda upp .zip nedan.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migrering av receptdata",
@@ -565,7 +565,7 @@
     "see-original-text": "Visa originaltext",
     "original-text-with-value": "Originaltext: {originalText}",
     "ingredient-linker": "Länka ingredienser",
-    "unlinked": "Not linked yet",
+    "unlinked": "Ännu inte länkad",
     "linked-to-other-step": "Kopplat till annat steg",
     "auto": "Auto",
     "cook-mode": "Matlagningsläge",
@@ -628,7 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kan importera från rådata direkt",
     "import-original-keywords-as-tags": "Importera ursprungliga sökord som taggar",
     "stay-in-edit-mode": "Stanna kvar i redigeringsläge",
-    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
+    "parse-recipe-ingredients-after-import": "Tolka receptingredienser efter import",
     "import-from-zip": "Importera från zip",
     "import-from-zip-description": "Importera ett enstaka recept som exporterades från en annan Mealie-instans.",
     "import-from-html-or-json": "Importera från HTML eller JSON",
@@ -675,12 +675,12 @@
       "this-unit-could-not-be-parsed-automatically": "Enheten kunde inte översättas automatiskt",
       "this-food-could-not-be-parsed-automatically": "Maten kunde inte översättas automatiskt",
       "no-food": "Ingen mat",
-      "review-parsed-ingredients": "Review parsed ingredients",
-      "confidence-score": "Confidence Score",
-      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
-      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
-      "delete-item": "Delete Item"
+      "review-parsed-ingredients": "Granska tolkade ingredienser",
+      "confidence-score": "Konfidenspoäng",
+      "ingredient-parser-description": "Dina ingredienser har blivit tolkade. Se över ingredienserna vi inte är säkra på.",
+      "ingredient-parser-final-review-description": "När alla ingredienser har granskats har du ytterligare en chans att granska alla ingredienser innan du tillämpar ändringarna i ditt recept.",
+      "add-text-as-alias-for-item": "Lägg till \"{text}\" som alias för {item}",
+      "delete-item": "Radera objekt"
     },
     "reset-servings-count": "Nollställ antal portioner",
     "not-linked-ingredients": "Ytterligare ingredienser",
@@ -1181,7 +1181,7 @@
     "group-details": "Gruppuppgifter",
     "group-details-description": "Innan du skapar ett konto måste du skapa en grupp. Din grupp kommer bara att innehålla dig, men du kommer att kunna bjuda in andra senare. Medlemmarna i din grupp kan dela måltidsplaner, inköpslistor, recept och mycket mer!",
     "use-seed-data": "Använd exempeldata",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
+    "use-seed-data-description": "Mealie kommer med en samling av ingridienser, enheter och etiketter som kan användas för att fylla din grupp med användbara data för att organisera dina recept. Dessa översätts till det språk du just nu har valt. Du kan alltid lägga till eller ändra dessa data senare.",
     "account-details": "Kontouppgifter"
   },
   "validation": {
