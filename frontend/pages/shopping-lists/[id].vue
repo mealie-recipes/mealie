@@ -197,22 +197,19 @@
               @end="loadingCounter -= 1"
               @update:model-value="updateIndexUncheckedByLabel(key.toString(), $event)"
             >
-              <v-lazy
+              <ShoppingListItem
                 v-for="(item, index) in value"
                 :key="item.id"
+                v-model="value[index]"
                 class="ml-2 my-2"
-              >
-                <ShoppingListItem
-                  v-model="value[index]"
-                  :labels="allLabels || []"
-                  :units="allUnits || []"
-                  :foods="allFoods || []"
-                  :recipes="recipeMap"
-                  @checked="saveListItem"
-                  @save="saveListItem"
-                  @delete="deleteListItem(item)"
-                />
-              </v-lazy>
+                :labels="allLabels || []"
+                :units="allUnits || []"
+                :foods="allFoods || []"
+                :recipes="recipeMap"
+                @checked="saveListItem"
+                @save="saveListItem"
+                @delete="deleteListItem(item)"
+              />
             </VueDraggable>
           </v-expansion-panel-text>
         </v-expansion-panel>
