@@ -2321,8 +2321,8 @@
             "creamy cheese wedge": {
                 "aliases": [],
                 "description": "",
-                "name": "creamy cheese wedge",
-                "plural_name": "creamy cheese wedges"
+                "name": "krämig ostkil",
+                "plural_name": "krämiga ostkilar"
             },
             "cheese powder": {
                 "aliases": [],
@@ -2585,8 +2585,8 @@
             "epoisses cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "epoisses cheese",
-                "plural_name": "epoisses cheeses"
+                "name": "epoisses ost",
+                "plural_name": "epoisses ostar"
             },
             "maasdam": {
                 "aliases": [],
@@ -2801,8 +2801,8 @@
             "hung curd": {
                 "aliases": [],
                 "description": "",
-                "name": "hung curd",
-                "plural_name": "hung curds"
+                "name": "silad yoghurt",
+                "plural_name": "silad yoghurt"
             },
             "quail egg": {
                 "aliases": [],
@@ -2855,8 +2855,8 @@
             "cheese curd": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese curd",
-                "plural_name": "cheese curds"
+                "name": "kvarg",
+                "plural_name": "kvarg"
             },
             "sour milk": {
                 "aliases": [],
@@ -2897,8 +2897,8 @@
             "pumpkin spice coffee creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin spice coffee creamer",
-                "plural_name": "pumpkin spice coffee creamers"
+                "name": "pumpa kryddad kaffe grädde",
+                "plural_name": "Pumpa kryddade kaffe krämer"
             },
             "raw milk": {
                 "aliases": [],
@@ -2910,13 +2910,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "lime curd",
-                "plural_name": "lime curds"
+                "plural_name": "lime curd"
             },
             "powdered coffee creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "powdered coffee creamer",
-                "plural_name": "powdered coffee creamers"
+                "name": "pulveriserad kaffekräm",
+                "plural_name": "pulveriserad kaffekräm"
             },
             "chantilly": {
                 "aliases": [],
@@ -2927,49 +2927,49 @@
             "milkfat": {
                 "aliases": [],
                 "description": "",
-                "name": "milkfat",
-                "plural_name": "milkfats"
+                "name": "mjölkfett",
+                "plural_name": "mjölkfett"
             },
             "yogurt starter": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt starter",
-                "plural_name": "yogurt starters"
+                "name": "yoghurt startkultur",
+                "plural_name": "yoghurt startkultuer"
             },
             "rainbow sherbet": {
                 "aliases": [],
                 "description": "",
-                "name": "rainbow sherbet",
-                "plural_name": "rainbow sherbets"
+                "name": "regnbågssorbet",
+                "plural_name": "regnbågssorbet"
             },
             "strawberry frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry frosting",
-                "plural_name": "strawberry frostings"
+                "name": "jordgubbsglasyr",
+                "plural_name": "jordgubbsglasyrer"
             },
             "honey greek yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "honey greek yogurt",
-                "plural_name": "honey greek yogurts"
+                "name": "grekisk honungs yoghurt",
+                "plural_name": "grekisk honungs yoghurt"
             },
             "amul butter": {
                 "aliases": [],
                 "description": "",
-                "name": "amul butter",
-                "plural_name": "amul butter"
+                "name": "amul smör",
+                "plural_name": "amul smör"
             },
             "honey butter": {
                 "aliases": [],
                 "description": "",
-                "name": "honey butter",
-                "plural_name": "honey butter"
+                "name": "honungssmör",
+                "plural_name": "honungssmör"
             },
             "strawberry cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry cream cheese",
+                "name": "jordgubbsfärskost",
                 "plural_name": "jordgubbsfärskost"
             },
             "goat butter": {
@@ -3065,8 +3065,8 @@
             "passion-fruit curd": {
                 "aliases": [],
                 "description": "",
-                "name": "passion-fruit curd",
-                "plural_name": "passion-fruit curds"
+                "name": "passion-frukt curd",
+                "plural_name": "passion-frukt curds"
             },
             "pickled egg": {
                 "aliases": [],
@@ -3077,7 +3077,7 @@
             "sheep milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep milk",
+                "name": "fårmjölk",
                 "plural_name": "fårmjölk"
             },
             "starter culture": {
@@ -3136,31 +3136,31 @@
                 "aliases": [],
                 "description": "",
                 "name": "kokosmjölk",
-                "plural_name": "coconut milks"
+                "plural_name": "kokosmjölk"
             },
             "almond milk": {
                 "aliases": [],
                 "description": "",
                 "name": "mandelmjölk",
-                "plural_name": "almond milks"
+                "plural_name": "mandelmjölk"
             },
             "almond butter": {
                 "aliases": [],
                 "description": "",
-                "name": "almond butter",
-                "plural_name": "almond butter"
+                "name": "mandel smör",
+                "plural_name": "mandel smör"
             },
             "tofu": {
                 "aliases": [],
                 "description": "",
                 "name": "tofu",
-                "plural_name": "tofus"
+                "plural_name": "tofu"
             },
             "coconut cream": {
                 "aliases": [],
                 "description": "",
                 "name": "kokosgrädde",
-                "plural_name": "coconut creams"
+                "plural_name": "kokosgrädde"
             },
             "vegan butter": {
                 "aliases": [],
@@ -3189,7 +3189,7 @@
             "silken tofu": {
                 "aliases": [],
                 "description": "",
-                "name": "silken tofu",
+                "name": "silkestofu",
                 "plural_name": "silkestofu"
             },
             "kala namak salt": {
@@ -3201,8 +3201,8 @@
             "coconut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut butter",
-                "plural_name": "coconut butter"
+                "name": "jordnötssmör",
+                "plural_name": "jordnötssmör"
             },
             "egg replacer": {
                 "aliases": [],
@@ -3237,20 +3237,20 @@
             "vegan cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan cream cheese",
-                "plural_name": "vegan cream cheeses"
+                "name": "vegansk färskost",
+                "plural_name": "veganska färskost"
             },
             "coconut yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut yogurt",
-                "plural_name": "coconut yogurts"
+                "name": "kokos yoghurt",
+                "plural_name": "kokos yoghurt"
             },
             "non-dairy yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "non-dairy yogurt",
-                "plural_name": "non-dairy yogurts"
+                "name": "Icke-mejeri yoghurt",
+                "plural_name": "Icke-mejeri yoghurt"
             },
             "seed butter": {
                 "aliases": [],
@@ -7024,8 +7024,8 @@
             "buckwheat honey": {
                 "aliases": [],
                 "description": "",
-                "name": "buckwheat honey",
-                "plural_name": "buckwheat honeys"
+                "name": "bovetehonung",
+                "plural_name": "bovete honung"
             },
             "truffle honey": {
                 "aliases": [],
@@ -7700,10 +7700,10 @@
             },
             "whole-wheat flour": {
                 "aliases": [
-                    "whole wheat flour"
+                    "fullkornsmjöl"
                 ],
                 "description": "",
-                "name": "whole-wheat flour",
+                "name": "fullkornsmjöl",
                 "plural_name": "whole-wheat flours"
             },
             "almond flour": {
