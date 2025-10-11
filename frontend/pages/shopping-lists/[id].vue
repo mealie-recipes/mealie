@@ -180,7 +180,7 @@
       </div>
 
       <v-expansion-panels v-model="openedSections" multiple>
-        <v-expansion-panel v-for="(value, key) in itemsByLabel" :key="key">
+        <v-expansion-panel v-for="(value, key) in itemsByLabel" :key="key" class="shopping-list-section">
           <v-expansion-panel-title
             :color="getLabelColor(value[0])"
             class="body-1 font-weight-bold section-title"
@@ -385,12 +385,19 @@ export default defineNuxtComponent({
 });
 </script>
 
-<style scoped>
+<style>
 .number-input-container {
   max-width: 50px;
 }
 
-.section-title {
-  font-size: 1rem;
+.shopping-list-section {
+  .section-title {
+    font-size: 1rem;
+    min-height: 48px !important;
+  }
+
+  .v-expansion-panel-text__wrapper {
+    padding: 0;
+  }
 }
 </style>
