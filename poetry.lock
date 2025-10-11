@@ -2946,13 +2946,13 @@ cli = ["click (>=5.0)"]
 
 [[package]]
 name = "python-ldap"
-version = "3.4.4"
+version = "3.4.5"
 description = "Python modules for implementing LDAP clients"
 optional = false
 python-versions = ">=3.6"
 groups = ["main"]
 files = [
-    {file = "python-ldap-3.4.4.tar.gz", hash = "sha256:7edb0accec4e037797705f3a05cbf36a9fde50d08c8f67f2aef99a2628fab828"},
+    {file = "python_ldap-3.4.5.tar.gz", hash = "sha256:b2f6ef1c37fe2c6a5a85212efe71311ee21847766a7d45fcb711f3b270a5f79a"},
 ]
 
 [package.dependencies]
