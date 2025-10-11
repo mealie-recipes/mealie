@@ -3321,7 +3321,7 @@
             "vegan sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan sausage",
+                "name": "vegansk korv",
                 "plural_name": "vegan sausages"
             },
             "coconut whipped cream": {
@@ -5356,12 +5356,12 @@
                 "aliases": [],
                 "description": "",
                 "name": "smoked herring",
-                "plural_name": "smoked herrings"
+                "plural_name": "Rökt strömming"
             },
             "whiting": {
                 "aliases": [],
                 "description": "",
-                "name": "whiting",
+                "name": "",
                 "plural_name": "whiting"
             },
             "salmon burger meat": {
