@@ -49,7 +49,6 @@
           >
             <RecipeFavoriteBadge
               v-if="isOwnGroup"
-              class="absolute"
               :recipe-id="recipeId"
               show-always
             />
