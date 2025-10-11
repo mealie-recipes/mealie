@@ -182,7 +182,7 @@
       <v-expansion-panels v-model="openedSections" multiple>
         <v-expansion-panel v-for="(value, key) in itemsByLabel" :key="key">
           <v-expansion-panel-title
-            :color="getLabelColor(value[0]) ? getLabelColor(value[0]) + '40' : '#ffffff40'"
+            :color="getLabelColor(value[0])"
             class="body-1 font-weight-bold section-title"
           >
             {{ key }}
