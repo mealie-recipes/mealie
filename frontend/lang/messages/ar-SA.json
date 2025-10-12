@@ -399,6 +399,10 @@
       "description-long": "يمكن لميلي استيراد الوصفات من تندور. يجب تصدير بياناتك بالتنسيق \"الافتراضي\"، ثم يجب تحميل المِلَفّ المضغوط أدناه.",
       "title": "وصفات تاندور"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "وصفة 2",
     "recipe-data-migrations-explanation": "يمكن نقل الوصفات من تطبيق آخر مدعوم إلى ميلي. هذه طريقة رائعة للبدء مع ميلي.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "هل تأتي من تطبيق آخر أو حتى إصدار قديم من ميلي؟ يجب التحقق من عمليات الترحيل لمعرفة ما إذا كان يمكن استيراد بياناتك.",

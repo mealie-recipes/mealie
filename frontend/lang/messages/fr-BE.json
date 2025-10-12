@@ -399,6 +399,10 @@
       "description-long": "Mealie peut importer des recettes à partir de Tandoor. Exportez vos données dans le format « Défaut », puis téléchargez le .zip ci-dessous.",
       "title": "Recettes Tandoor"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migration des données de recettes",
     "recipe-data-migrations-explanation": "Les recettes peuvent être migrées depuis une autre application prise en charge vers Mealie. C'est une excellente façon de commencer avec Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "En provenance d’une autre application une d’une version encore plus vieille de Mealie ? Regardez du côté des migrations pour voir si vos données peuvent être importées.",
@@ -676,7 +680,7 @@
       "ingredient-parser-description": "Vos ingrédients ont été analysés avec succès. Veuillez vérifier les ingrédients dont nous ne sommes pas certains.",
       "ingredient-parser-final-review-description": "Une fois que tous les ingrédients ont été analysés, vous aurez encore une chance de vérifier tous les ingrédients avant de les appliquer à votre recette.",
       "add-text-as-alias-for-item": "Ajouter \"{text}\" comme alias pour {item}",
-      "delete-item": "Delete Item"
+      "delete-item": "Supprimer l'élément"
     },
     "reset-servings-count": "Réinitialiser le nombre de portions",
     "not-linked-ingredients": "Ingrédients supplémentaires",

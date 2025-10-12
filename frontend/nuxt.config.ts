@@ -9,7 +9,6 @@ export default defineNuxtConfig({
   modules: [
     "@vite-pwa/nuxt",
     "@nuxtjs/i18n",
-    "@sidebase/nuxt-auth",
     "@nuxt/fonts",
     "vuetify-nuxt-module",
     "@nuxt/eslint",
@@ -124,29 +123,6 @@ export default defineNuxtConfig({
 
   nitro: {
     baseURL: process.env.SUB_PATH || "",
-  },
-
-  auth: {
-    isEnabled: true,
-    // disableServerSideAuth: true,
-    originEnvKey: "AUTH_ORIGIN",
-    baseURL: "/api",
-    provider: {
-      type: "local",
-      endpoints: {
-        signIn: { path: "/auth/token", method: "post" },
-        signOut: { path: "/auth/logout", method: "post" },
-        getSession: { path: "/users/self", method: "get" },
-      },
-      token: {
-        signInResponseTokenPointer: "/access_token",
-        type: "Bearer",
-        cookieName: AUTH_TOKEN,
-      },
-      pages: {
-        login: "/login",
-      },
-    },
   },
 
   // eslint rules

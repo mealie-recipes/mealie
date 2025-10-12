@@ -22,6 +22,7 @@ Mealie supports importing recipes from a few other sources besides websites. Cur
 - Recipe Keeper
 - Copy Me That
 - My Recipe Box
+- DVO Cook'n X3
 
 You can access these options on your installation at the `/group/migrations` page on your installation. If you'd like to see another source added, feel free to request so on Github.
 

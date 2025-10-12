@@ -304,7 +304,6 @@ export default defineNuxtComponent({
         oidcLoggingIn.value = true;
         try {
           await $auth.oauthSignIn();
-          window.location.href = "/"; // Reload the app to get the new user
         }
         catch (error) {
           await router.replace("/login?direct=1");
@@ -330,8 +329,7 @@ export default defineNuxtComponent({
       formData.append("remember_me", String(form.remember));
 
       try {
-        await $auth.signIn(formData, { redirect: false });
-        window.location.href = "/"; // Reload the app to get the new user
+        await $auth.signIn(formData);
       }
       catch (error) {
         console.log(error);

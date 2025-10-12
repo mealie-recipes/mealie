@@ -399,6 +399,10 @@
       "description-long": "Mealie pode importar receitas do Tandoor. Exporte seus dados no formato \"Padrão\" e faça o upload do arquivo .zip abaixo.",
       "title": "Receitas do Tandoor"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migrações de Dados de Receita",
     "recipe-data-migrations-explanation": "Receitas podem ser migradas de outro aplicativo suportado para o Mealie. Esta é uma ótima maneira de começar com Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Vindo de outra aplicação ou de uma versão mais antiga do Mealie? Confira as migrações e veja se seus dados podem ser importados.",
@@ -671,12 +675,12 @@
       "this-unit-could-not-be-parsed-automatically": "Esta unidade não pôde ser analisada automaticamente",
       "this-food-could-not-be-parsed-automatically": "Este alimento não pôde ser analisado automaticamente",
       "no-food": "Sem Comida",
-      "review-parsed-ingredients": "Review parsed ingredients",
-      "confidence-score": "Confidence Score",
-      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
-      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
-      "delete-item": "Delete Item"
+      "review-parsed-ingredients": "Revisar ingredientes analisados",
+      "confidence-score": "Nota de Confiança",
+      "ingredient-parser-description": "Seus ingredientes foram analisados com sucesso. Por favor, verifique os ingredientes que não temos certeza.",
+      "ingredient-parser-final-review-description": "Depois que todos os ingredientes forem revisados, você terá mais uma chance de revisar todos os ingredientes antes de aplicar as mudanças em sua receita.",
+      "add-text-as-alias-for-item": "Adicionar \"{text}\" como apelido para {item}",
+      "delete-item": "Excluir item"
     },
     "reset-servings-count": "Redefinir Contagem de Porções",
     "not-linked-ingredients": "Ingredientes adicionais",

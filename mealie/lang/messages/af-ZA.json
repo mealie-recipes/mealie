@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} is geskep, {url}",
         "generic-updated-with-url": "{name} is opgedateer, {url}",
         "generic-duplicated": "{name} is gekopieer",
-        "generic-deleted": "{name} is verwyder"
+        "generic-deleted": "{name} is verwyder",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "year|years",

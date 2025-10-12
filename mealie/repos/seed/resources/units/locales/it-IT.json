@@ -51,7 +51,7 @@
         "name": "litro",
         "plural_name": "litri",
         "description": "",
-        "abbreviation": "l"
+        "abbreviation": "L"
     },
     "pound": {
         "name": "libbra",
@@ -92,7 +92,7 @@
     },
     "dash": {
         "name": "pizzico",
-        "plural_name": "trattini",
+        "plural_name": "pizzichi",
         "description": "",
         "abbreviation": ""
     },
