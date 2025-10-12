@@ -432,9 +432,9 @@ function removeField(index: number) {
 
 const fieldsUpdater = useDebounceFn((/* newFields: typeof fields.value */) => {
   /* newFields.forEach((field, index) => {
-		const updatedField = getFieldFromFieldDef(field);
-		fields.value[index] = updatedField; // recursive!!!
-	}); */
+    const updatedField = getFieldFromFieldDef(field);
+    fields.value[index] = updatedField; // recursive!!!
+  }); */
 
   const qf = buildQueryFilterString(fields.value, state.showAdvanced);
   if (qf) {

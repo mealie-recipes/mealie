@@ -43,7 +43,8 @@
         "generic-created-with-url": "تم إنشاء {name}، {url}",
         "generic-updated-with-url": "{name} تم تحديثه، {url}",
         "generic-duplicated": "تم تكرار {name}",
-        "generic-deleted": "تم حذف {name}"
+        "generic-deleted": "تم حذف {name}",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "سنة|سنوات",

@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} ha estat creat, {url}",
         "generic-updated-with-url": "{name} ha estat actualitzat, {url}",
         "generic-duplicated": "S'ha duplicat {name}",
-        "generic-deleted": "{name} ha estat eliminat"
+        "generic-deleted": "{name} ha estat eliminat",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "any|anys",

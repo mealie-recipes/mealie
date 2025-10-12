@@ -28,7 +28,7 @@ export default defineNuxtComponent({
   components: {
     RecipeOrganizerPage,
   },
-  middleware: ["sidebase-auth", "group-only"],
+  middleware: ["group-only"],
   setup() {
     const $auth = useMealieAuth();
     const toolStore = useToolStore();

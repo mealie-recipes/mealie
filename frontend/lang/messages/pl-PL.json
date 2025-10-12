@@ -399,6 +399,10 @@
       "description-long": "Mealie może zaimportować przepisy z Tandoor. Wyeksportuj swoje przepisy w formacie HTML, a następnie prześlij plik .zip poniżej.",
       "title": "Przepisy Tandoor"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migracja danych przepisów",
     "recipe-data-migrations-explanation": "Receptury mogą być przeniesione z innej wspieranej aplikacji na Mealie. To świetny sposób na rozpoczęcie z Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Przechodzisz z innej aplikacji, bądź starszej wersji Mealie? Sprawdź dostępne migracje i zobacz czy dane mogą zostać zaimportowane.",
@@ -624,6 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Możesz zaimportować bezpośrednio z surowych danych",
     "import-original-keywords-as-tags": "Importuj oryginalne słowa kluczowe jako tagi",
     "stay-in-edit-mode": "Pozostań w trybie edycji",
+    "parse-recipe-ingredients-after-import": "Analizuj składniki receptury po zaimportowaniu",
     "import-from-zip": "Importuj z pliku Zip",
     "import-from-zip-description": "Importuj pojedynczy przepis, który został wyeksportowany z innej instancji Mealie.",
     "import-from-html-or-json": "Importuj z HTML lub JSON",
@@ -669,7 +674,13 @@
       "missing-food": "Utwórz brakującą potrawę: {food}",
       "this-unit-could-not-be-parsed-automatically": "Nie można przetworzyć tej jednostki automatycznie",
       "this-food-could-not-be-parsed-automatically": "Nie można przetworzyć tego jedzenia automatycznie",
-      "no-food": "Brak potrawy"
+      "no-food": "Brak potrawy",
+      "review-parsed-ingredients": "Przejrzyj przeanalizowane składniki",
+      "confidence-score": "Wskaźnik pewności",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Usuń przedmiot"
     },
     "reset-servings-count": "Zresetuj liczbę porcji",
     "not-linked-ingredients": "Dodatkowe składniki",

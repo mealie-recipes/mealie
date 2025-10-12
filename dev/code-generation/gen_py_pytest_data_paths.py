@@ -1,3 +1,4 @@
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -105,11 +106,15 @@ def main():
     # Flatten list of lists
     all_children = [item for sublist in all_children for item in sublist]
 
+    out_path = GENERATED / "__init__.py"
     render_python_template(
         TEMPLATE,
-        GENERATED / "__init__.py",
+        out_path,
         {"children": all_children},
     )
+
+    subprocess.run(["poetry", "run", "ruff", "check", str(out_path), "--fix"])
+    subprocess.run(["poetry", "run", "ruff", "format", str(out_path)])
 
 
 if __name__ == "__main__":

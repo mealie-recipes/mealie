@@ -1,6 +1,6 @@
 import { defineNuxtConfig } from "nuxt/config";
 
-const AUTH_TOKEN = "mealie.auth.token";
+const AUTH_TOKEN = "mealie.access_token";
 
 export default defineNuxtConfig({
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -9,7 +9,6 @@ export default defineNuxtConfig({
   modules: [
     "@vite-pwa/nuxt",
     "@nuxtjs/i18n",
-    "@sidebase/nuxt-auth",
     "@nuxt/fonts",
     "vuetify-nuxt-module",
     "@nuxt/eslint",
@@ -124,30 +123,6 @@ export default defineNuxtConfig({
 
   nitro: {
     baseURL: process.env.SUB_PATH || "",
-  },
-
-  auth: {
-    isEnabled: true,
-    // disableServerSideAuth: true,
-    originEnvKey: "AUTH_ORIGIN",
-    baseURL: "/api",
-    provider: {
-      type: "local",
-      endpoints: {
-        signIn: { path: "/auth/token", method: "post" },
-        signOut: { path: "/auth/logout", method: "post" },
-        getSession: { path: "/users/self", method: "get" },
-      },
-      token: {
-        signInResponseTokenPointer: "/access_token",
-        type: "Bearer",
-        cookieName: AUTH_TOKEN,
-        maxAgeInSeconds: parseInt(process.env.TOKEN_TIME || "48") * 3600, // TOKEN_TIME is in hours
-      },
-      pages: {
-        login: "/login",
-      },
-    },
   },
 
   // eslint rules
@@ -270,7 +245,7 @@ export default defineNuxtConfig({
         "browser",
         "window-controls-overlay",
       ],
-      orientation: "portrait-primary",
+      orientation: "any",
       categories: ["food", "lifestyle"],
       prefer_related_applications: false,
       handle_links: "preferred",

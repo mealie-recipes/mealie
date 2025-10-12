@@ -14,7 +14,7 @@
           if (newMeal.existing) {
             actions.updateOne({ ...newMeal, date: newMealDateString });
           }
- else {
+          else {
             actions.createOne({ ...newMeal, date: newMealDateString });
           }
           resetDialog();
@@ -146,7 +146,14 @@
               </v-btn>
               <v-menu offset-y>
                 <template #activator="{ props }">
-                  <v-chip v-bind="props" label variant="elevated" size="small" color="accent" @click.prevent>
+                  <v-chip
+                    v-bind="props"
+                    label
+                    variant="elevated"
+                    size="small"
+                    color="accent"
+                    @click.prevent
+                  >
                     <v-icon start>
                       {{ $globals.icons.tags }}
                     </v-icon>

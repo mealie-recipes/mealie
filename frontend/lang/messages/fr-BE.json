@@ -399,6 +399,10 @@
       "description-long": "Mealie peut importer des recettes à partir de Tandoor. Exportez vos données dans le format « Défaut », puis téléchargez le .zip ci-dessous.",
       "title": "Recettes Tandoor"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migration des données de recettes",
     "recipe-data-migrations-explanation": "Les recettes peuvent être migrées depuis une autre application prise en charge vers Mealie. C'est une excellente façon de commencer avec Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "En provenance d’une autre application une d’une version encore plus vieille de Mealie ? Regardez du côté des migrations pour voir si vos données peuvent être importées.",
@@ -561,7 +565,7 @@
     "see-original-text": "Afficher le texte original",
     "original-text-with-value": "Texte original : {originalText}",
     "ingredient-linker": "Liaison d’ingrédients",
-    "unlinked": "Not linked yet",
+    "unlinked": "Pas encore associée",
     "linked-to-other-step": "Déjà associé à une autre étape",
     "auto": "Auto",
     "cook-mode": "Mode Cuisine",
@@ -624,6 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Vous pouvez directement importer des données brutes",
     "import-original-keywords-as-tags": "Importer les mots-clés d'origine en tant que tags",
     "stay-in-edit-mode": "Rester en mode édition",
+    "parse-recipe-ingredients-after-import": "Analyser les ingrédients de la recette après l'import",
     "import-from-zip": "Importer depuis un zip",
     "import-from-zip-description": "Importer une recette qui a été exportée depuis une autre instance de Mealie.",
     "import-from-html-or-json": "Importer depuis HTML ou JSON",
@@ -669,7 +674,13 @@
       "missing-food": "Créer un aliment manquant : {food}",
       "this-unit-could-not-be-parsed-automatically": "Cette unité n'a pas pu être analysée automatiquement",
       "this-food-could-not-be-parsed-automatically": "Cet aliment n'a pas pu être analysé automatiquement",
-      "no-food": "Aucun aliment"
+      "no-food": "Aucun aliment",
+      "review-parsed-ingredients": "Vérifier les ingrédients analysés",
+      "confidence-score": "Score de confiance",
+      "ingredient-parser-description": "Vos ingrédients ont été analysés avec succès. Veuillez vérifier les ingrédients dont nous ne sommes pas certains.",
+      "ingredient-parser-final-review-description": "Une fois que tous les ingrédients ont été analysés, vous aurez encore une chance de vérifier tous les ingrédients avant de les appliquer à votre recette.",
+      "add-text-as-alias-for-item": "Ajouter \"{text}\" comme alias pour {item}",
+      "delete-item": "Supprimer l'élément"
     },
     "reset-servings-count": "Réinitialiser le nombre de portions",
     "not-linked-ingredients": "Ingrédients supplémentaires",

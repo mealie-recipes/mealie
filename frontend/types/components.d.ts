@@ -3,6 +3,7 @@ import type AdvancedOnly from "@/components/global/AdvancedOnly.vue";
 import type AppButtonCopy from "@/components/global/AppButtonCopy.vue";
 import type AppButtonUpload from "@/components/global/AppButtonUpload.vue";
 import type AppLoader from "@/components/global/AppLoader.vue";
+import type AppLogo from "@/components/global/AppLogo.vue";
 import type AppToolbar from "@/components/global/AppToolbar.vue";
 import type AutoForm from "@/components/global/AutoForm.vue";
 import type BannerExperimental from "@/components/global/BannerExperimental.vue";
@@ -43,6 +44,7 @@ declare module "vue" {
     AppButtonCopy: typeof AppButtonCopy;
     AppButtonUpload: typeof AppButtonUpload;
     AppLoader: typeof AppLoader;
+    AppLogo: typeof AppLogo;
     AppToolbar: typeof AppToolbar;
     AutoForm: typeof AutoForm;
     BannerExperimental: typeof BannerExperimental;
@@ -79,4 +81,4 @@ declare module "vue" {
   }
 }
 
-export { };
+export {};

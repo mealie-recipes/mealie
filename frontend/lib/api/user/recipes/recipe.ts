@@ -169,7 +169,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
       apiRoute = `${apiRoute}?translateLanguage=${translateLanguage}`;
     }
 
-    return await this.requests.post<string>(apiRoute, formData, { timeout: 120000 });
+    return await this.requests.post<string>(apiRoute, formData);
   }
 
   async parseIngredients(parser: Parser, ingredients: Array<string>) {
