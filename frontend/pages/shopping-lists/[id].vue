@@ -184,6 +184,7 @@
           <v-expansion-panel-title
             :color="getLabelColor(value[0])"
             class="body-1 font-weight-bold section-title"
+            @click="updateClosedSections(key)"
           >
             {{ key }}
           </v-expansion-panel-title>
@@ -363,9 +364,15 @@ export default defineNuxtComponent({
     const { store: allUnits } = useUnitStore();
     const { store: allFoods } = useFoodStore();
 
-    // opens the first 10 sections by default;
-    // the 11th and on will be closed by default to prevent excessive scrolling
-    const openedSections = ref([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
+    function updateClosedSections(key: string | number) {
+      closedSections.value[key] = !closedSections.value[key];
+    }
+    const closedSections: Ref<{ [key: string | number]: boolean }> = ref({});
+    const openedSections = ref([0]);
+    watch(shoppingListPage.itemsByLabel, () => {
+      openedSections.value = Object.keys(shoppingListPage.itemsByLabel.value)
+        .flatMap((key, i) => closedSections.value[key] ? [] : [i]);
+    });
 
     return {
       groupSlug,
@@ -376,6 +383,7 @@ export default defineNuxtComponent({
       getTextColor,
       mdAndUp,
       openedSections,
+      updateClosedSections,
       ...shoppingListPage,
     };
   },
