@@ -408,7 +408,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "okra",
-                "plural_name": "okra"
+                "plural_name": "okry"
             },
             "acorn squash": {
                 "aliases": [],
@@ -425,8 +425,8 @@
             "radicchio": {
                 "aliases": [],
                 "description": "",
-                "name": "\ncykoria sałatowa\n",
-                "plural_name": "\ncykorie sałatowe\n"
+                "name": "cykoria sałatowa\n",
+                "plural_name": "cykorie sałatowe\n"
             },
             "pearl onion": {
                 "aliases": [],
@@ -455,8 +455,8 @@
             "pepperoncini": {
                 "aliases": [],
                 "description": "",
-                "name": "pepperoncini",
-                "plural_name": "pepperoncinis"
+                "name": "peperoncino",
+                "plural_name": "peperoncini"
             },
             "baby bok choy": {
                 "aliases": [],
@@ -505,8 +505,8 @@
             "daikon": {
                 "aliases": [],
                 "description": "",
-                "name": "daikon",
-                "plural_name": "daikons"
+                "name": "rzodkiew japońska",
+                "plural_name": "rzodkwie japońskie"
             },
             "baby corn": {
                 "aliases": [],
@@ -953,8 +953,8 @@
             "kaffir lime": {
                 "aliases": [],
                 "description": "",
-                "name": "kaffir lime",
-                "plural_name": "kaffir limes"
+                "name": "limonka kaffir",
+                "plural_name": "limonki kaffir"
             },
             "star fruit": {
                 "aliases": [],
@@ -1055,8 +1055,8 @@
             "dried lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "Suszona cytryna",
-                "plural_name": "Suszone cytryny"
+                "name": "suszona cytryna",
+                "plural_name": "suszone cytryny"
             },
             "young jackfruit": {
                 "aliases": [],
@@ -1245,8 +1245,8 @@
             "shiitake mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "Grzyb Shiitake",
-                "plural_name": "Grzyby Shiitake"
+                "name": "grzyb Shiitake",
+                "plural_name": "grzyby Shiitake"
             },
             "portobello mushroom": {
                 "aliases": [],
