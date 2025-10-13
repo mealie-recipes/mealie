@@ -22,11 +22,12 @@
 
       <v-card>
         <v-date-picker
-          v-model="state.range"
+          v-model="selectedDates"
           hide-header
-          :multiple="'range'"
+          multiple
           :first-day-of-week="firstDayOfWeek"
           :local="$i18n.locale"
+          @update:model-value="onDateSelection"
         />
 
         <v-card-text>
@@ -103,6 +104,37 @@ export default defineNuxtComponent({
       end: addDays(new Date(), adjustForToday(numberOfDays.value)),
     });
 
+    // Generate all dates between start and end for visual selection
+    const selectedDates = computed(() => {
+      const start = state.value.range[0];
+      const end = state.value.range[1];
+      if (!start || !end) return [];
+      
+      const dates = [];
+      const current = new Date(start.getTime());
+      const endDate = new Date(end.getTime());
+      
+      // Ensure we include both start and end dates
+      while (current.getTime() <= endDate.getTime()) {
+        dates.push(new Date(current));
+        current.setDate(current.getDate() + 1);
+      }
+      
+      return dates;
+    });
+
+    // Handle date selection to maintain range behavior
+    function onDateSelection(dates: Date[]) {
+      if (!dates || dates.length === 0) return;
+      
+      // Sort dates to get proper start and end
+      const sortedDates = [...dates].sort((a, b) => a.getTime() - b.getTime());
+      const start = sortedDates[0];
+      const end = sortedDates[sortedDates.length - 1];
+      
+      state.value.range = [start, end];
+    }
+
     const firstDayOfWeek = computed(() => {
       return household.value?.preferences?.firstDayOfWeek || 0;
     });
@@ -167,6 +199,8 @@ export default defineNuxtComponent({
       weekRange,
       firstDayOfWeek,
       numberOfDays,
+      selectedDates,
+      onDateSelection,
     };
   },
 });
