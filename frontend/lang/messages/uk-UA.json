@@ -400,7 +400,7 @@
       "title": "Tandoor Recipes"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie може імпортувати рецепти з DVO Cook'n X3. Експортуйте кулінарну книгу або меню у форматі «Cook'n», перейменуйте розширення експорту на .zip, а потім завантажте файл .zip нижче.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Міграція рецептів",
