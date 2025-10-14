@@ -5151,86 +5151,86 @@
             "bangu": {
                 "aliases": [],
                 "description": "",
-                "name": "bangu",
-                "plural_name": "bangus"
+                "name": "Бангос риба",
+                "plural_name": "Бангос риба"
             },
             "rockfish": {
                 "aliases": [],
                 "description": "",
-                "name": "rockfish",
-                "plural_name": "rockfish"
+                "name": "Морський окунь",
+                "plural_name": "Морські окуні"
             },
             "branzino": {
                 "aliases": [],
                 "description": "",
-                "name": "branzino",
-                "plural_name": "branzinoes"
+                "name": "Лаврак",
+                "plural_name": "Лаврак"
             },
             "pomfret": {
                 "aliases": [],
                 "description": "",
-                "name": "pomfret",
-                "plural_name": "pomfrets"
+                "name": "Помфрет",
+                "plural_name": "Помфрет"
             },
             "eel": {
                 "aliases": [],
                 "description": "",
-                "name": "eel",
-                "plural_name": "eels"
+                "name": "Вугор",
+                "plural_name": "Вугрі"
             },
             "dried anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "dried anchovy",
-                "plural_name": "dried anchovies"
+                "name": "Сушений анчоус",
+                "plural_name": "Сушені анчоуси"
             },
             "arctic char": {
                 "aliases": [],
                 "description": "",
-                "name": "arctic char",
-                "plural_name": "arctic chars"
+                "name": "Арктичний голець",
+                "plural_name": "Арктичний голець"
             },
             "fresh anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh anchovy",
-                "plural_name": "fresh anchovies"
+                "name": "Свіжий анчоус",
+                "plural_name": "Свіжі анчоуси"
             },
             "lemon sole": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon sole",
-                "plural_name": "lemon soles"
+                "name": "Камбала малорота",
+                "plural_name": "Камбала малорота"
             },
             "yellowtail": {
                 "aliases": [],
                 "description": "",
-                "name": "yellowtail",
-                "plural_name": "yellowtails"
+                "name": "Лакедра",
+                "plural_name": "Лакедра"
             },
             "battered fish": {
                 "aliases": [],
                 "description": "",
-                "name": "battered fish",
-                "plural_name": "battered fish"
+                "name": "Риба в клярі",
+                "plural_name": "Риба в клярі"
             },
             "pike": {
                 "aliases": [],
                 "description": "",
-                "name": "pike",
-                "plural_name": "pikes"
+                "name": "Щука",
+                "plural_name": "Щуки"
             },
             "pickled herring": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled herring",
-                "plural_name": "pickled herrings"
+                "name": "Маринований оселедець",
+                "plural_name": "Мариновані оселедеці"
             },
             "john dory": {
                 "aliases": [],
                 "description": "",
-                "name": "john dory",
-                "plural_name": "john dories"
+                "name": "Зевс звичайний",
+                "plural_name": "Зевс звичайний"
             },
             "swai fish": {
                 "aliases": [],
