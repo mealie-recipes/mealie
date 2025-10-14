@@ -255,7 +255,7 @@
     "default-recipe-preferences": "Sjálfgefnar stillingar uppskrifta",
     "group-preferences": "Stillingar hóps",
     "private-group": "Lokaður hópur",
-    "private-group-description": "Ef þú stillir hópinn þinn sem lokaðan hóp lokast á alla almennan aðgang. Þessi stilling hefur forgang fram yfir einstakar stillingar fyrir almenna sýn",
+    "private-group-description": "Ef þú stillir hópinn þinn sem lokaðan hóp þá geta aðrir utan hópsins ekki séð neitt. Þessi stilling hefur forgang fram yfir einstakar stillingar fyrir almenna sýn",
     "enable-public-access": "Virkja almennan aðgang",
     "enable-public-access-description": "Gera uppskriftir innan hópa aðgengar öllum og leyfa gestum að skoða þær án þess að skrá sig inn",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Leyfa notendum utan þíns hóps að sjá þínar uppskriftir",
