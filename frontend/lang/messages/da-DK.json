@@ -400,7 +400,7 @@
       "title": "Tandoor Recipes"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie kan importere opskrifter fra DVO Cook'n X3. Eksportér en kogebog eller menu i \"Cook'n\" formatet, omdøb filtypen .dvo til .zip, og upload derefter .zip nedenfor.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migrering af opskrifter",
@@ -678,9 +678,9 @@
       "review-parsed-ingredients": "Review parsed ingredients",
       "confidence-score": "Confidence Score",
       "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
-      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
-      "delete-item": "Delete Item"
+      "ingredient-parser-final-review-description": "Når alle ingredienser er blevet gennemgået, har du endnu en chance for at gennemgå alle ingredienser, før du anvender ændringerne til din opskrift.",
+      "add-text-as-alias-for-item": "Tilføj \"{text}\" som alias for {item}",
+      "delete-item": "Slet Element"
     },
     "reset-servings-count": "Nulstil antal serveringer",
     "not-linked-ingredients": "Yderligere ingredienser",
