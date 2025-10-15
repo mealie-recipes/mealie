@@ -312,7 +312,7 @@
     "edit-meal-plan": "Breyta matarplani",
     "end-date": "Loka dagsetning",
     "group": "Hópur (Beta)",
-    "main": "Main",
+    "main": "Aðal",
     "meal-planner": "Matarplan",
     "meal-plans": "Matarplön",
     "mealplan-categories": "MATARPLANS HÓPAR",
@@ -346,7 +346,7 @@
     "day-any": "Alla",
     "editor": "Ritill",
     "meal-recipe": "Uppskrift",
-    "meal-title": "Heiti máltíðar",
+    "meal-title": "Máltíðarheiti",
     "meal-note": "Athugasemdir",
     "note-only": "Bara athugasemd",
     "random-meal": "Handahófskennd máltíð",
@@ -355,45 +355,45 @@
     "this-rule-will-apply": "Þessi regla gildir {dayCriteria} {mealTypeCriteria}.",
     "to-all-days": "alla daga",
     "on-days": "á {0}",
-    "for-all-meal-types": "um allar tegundir máltíða",
+    "for-all-meal-types": "fyrir allar máltíðartegundir",
     "for-type-meal-types": "um {0} ",
     "meal-plan-rules": "Reglur fyrir máltíðar skipulag",
     "new-rule": "Ný regla",
     "meal-plan-rules-description": "Þú getur búið til reglur til að velja sjálfvirkt uppskriftir fyrir máltíðar skipulagið. Þessar reglur eru notaðar af kerfinu til að ákvarða hvaða uppskriftir koma til greina þegar máltíðaplön eru búin til af handahófi. Athugaðu að ef reglur hafa sömu skilyrði fyrir dag eða tegund máltíðar, verða síurnar í reglunum sameinaðar. Í reynd er óþarfi að búa til tvítekna reglur, þó það sé mögulegt.",
-    "new-rule-description": "When creating a new rule for a meal plan you can restrict the rule to be applicable for a specific day of the week and/or a specific type of meal. To apply a rule to all days or all meal types you can set the rule to \"Any\" which will apply it to all the possible values for the day and/or meal type.",
-    "recipe-rules": "Recipe Rules",
-    "applies-to-all-days": "Applies to all days",
-    "applies-on-days": "Applies on {0}s",
-    "meal-plan-settings": "Meal Plan Settings"
+    "new-rule-description": "Þegar þú býrð til nýja reglu fyrir matarplan geturðu takmarkað regluna við að hún gildi fyrir ákveðinn dag vikunnar og/eða ákveðna tegund máltíðar. Til að nota reglu á alla daga eða allar tegundir máltíða geturðu stillt regluna á „Allir sem mun nota hana á öll möguleg gildi fyrir daginn og/eða tegund máltíðar.",
+    "recipe-rules": "Uppskriftar reglur",
+    "applies-to-all-days": "Á við alla daga",
+    "applies-on-days": "Gildir þegar er {0},",
+    "meal-plan-settings": "Stillingar matarplans"
   },
   "migration": {
-    "migration-data-removed": "Migration data removed",
-    "new-migration": "New Migration",
-    "no-file-selected": "No File Selected",
-    "no-migration-data-available": "No Migration Data Available",
-    "previous-migrations": "Previous Migrations",
-    "recipe-migration": "Recipe Migration",
+    "migration-data-removed": "Flutningsgögn fjarlægð",
+    "new-migration": "Ný flutningsgögn",
+    "no-file-selected": "Engin skrá valin",
+    "no-migration-data-available": "Engin gögn tiltæk",
+    "previous-migrations": "Fyrri gagnaflutningur",
+    "recipe-migration": "Flutningur uppskriftar gagna",
     "chowdown": {
-      "description": "Migrate data from Chowdown",
-      "description-long": "Mealie natively supports the chowdown repository format. Download the code repository as a .zip file and upload it below.",
+      "description": "Flytja gögn frá Chowdown",
+      "description-long": "Mealie styður við Chowdown gagna formið. Sæktu gögnin þaðan sem .zip skrá og svo hleður þú skránni inn hér fyrir neðan.",
       "title": "Chowdown"
     },
     "nextcloud": {
-      "description": "Migrate data from a Nextcloud Cookbook instance",
-      "description-long": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+      "description": "Flytja gögn frá Nextcloud Cookbook",
+      "description-long": "Nextcloud uppskriftir er hægt að hlaða upp sem .zip skrá sem hefur verið niðurhalað frá Nextcloud. Sjáðu dæmi um möppuskipan hér að neðan til til að tryggja að gögnin muni virka í Mealie.",
       "title": "Nextcloud Cookbook"
     },
     "copymethat": {
-      "description-long": "Mealie can import recipes from Copy Me That. Export your recipes in HTML format, then upload the .zip below.",
+      "description-long": "Mealie getur hlaðið inn gögnum frá „Copy Me That“. Flyttu út gögnin sem HTML formi, svo hleður þú inn .zip hér fyrir neðan.",
       "title": "Copy Me That Recipe Manager"
     },
     "paprika": {
-      "description-long": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
+      "description-long": "Mealie getur hlaðið inn gögnum frá „Paprika Recipe Manager“. Flyttu gögnin út í „Paprika Recipe Manager“, endurnefndu skráarendinguna í .zip og svo hleður þú henni upp hér fyrir neðan.",
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
-      "title": "Mealie Pre v1.0"
+      "description-long": "Mealie getur flutt inn uppskriftir úr eldri útgáfum en 1.0 af Mealie. Flyttu út uppskriftirnar úr eldri útgáfunni þinni og svo hleður þú .zip skránni inn hér fyrir neðan. Athugaðu að einungis er hægt að hlaða inn uppskriftum úr eldra kerfinu.",
+      "title": "Mealie, eldri útgáfur en 1.0"
     },
     "tandoor": {
       "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
@@ -545,7 +545,7 @@
     "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD format",
     "add-to-list": "Add to List",
     "add-to-plan": "Add to Plan",
-    "add-to-timeline": "Add to Timeline",
+    "add-to-timeline": "Bæta við tímalínu",
     "recipe-added-to-list": "Recipe added to list",
     "recipes-added-to-list": "Recipes added to list",
     "successfully-added-to-list": "Successfully added to list",
@@ -578,19 +578,19 @@
     "increase-scale-label": "Increase Scale by 1",
     "locked": "Locked",
     "public-link": "Public Link",
-    "edit-timeline-event": "Edit Timeline Event",
-    "timeline": "Timeline",
-    "timeline-is-empty": "Nothing on the timeline yet. Try making this recipe!",
-    "timeline-no-events-found-try-adjusting-filters": "No events found. Try adjusting your search filters.",
-    "group-global-timeline": "{groupName} Global Timeline",
-    "open-timeline": "Open Timeline",
+    "edit-timeline-event": "Breyta viðburði á tímalínu",
+    "timeline": "Tímalína",
+    "timeline-is-empty": "Tímalínan er tóm, prófaðu að gera þessa uppskrift.",
+    "timeline-no-events-found-try-adjusting-filters": "Engir viðburðir fundust, reyndu að breyta leitar skilyrðum þínum.",
+    "group-global-timeline": "Tímalína {groupName}",
+    "open-timeline": "Opna tímalínu",
     "made-this": "I Made This",
     "how-did-it-turn-out": "How did it turn out?",
     "user-made-this": "{user} made this",
-    "added-to-timeline": "Added to timeline",
-    "failed-to-add-to-timeline": "Failed to add to timeline",
+    "added-to-timeline": "Bætt við tímalínu",
+    "failed-to-add-to-timeline": "Mistókst að bæta við tímalínu",
     "failed-to-update-recipe": "Failed to update recipe",
-    "added-to-timeline-but-failed-to-add-image": "Added to timeline, but failed to add image",
+    "added-to-timeline-but-failed-to-add-image": "Bætt við tímalínu en mistókst að bæta við mynd",
     "api-extras-description": "Recipes extras are a key feature of the Mealie API. They allow you to create custom JSON key/value pairs within a recipe, to reference from 3rd party applications. You can use these keys to provide information, for example to trigger automations or custom messages to relay to your desired device.",
     "message-key": "Message Key",
     "parse": "Parse",
@@ -1370,7 +1370,7 @@
     "manage-data-migrations": "Manage Data Migrations"
   },
   "cookbook": {
-    "cookbooks": "Uppskriftabók",
+    "cookbooks": "Uppskriftabækur",
     "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
     "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
@@ -1384,13 +1384,13 @@
     "cookbook-name": "Cookbook Name",
     "cookbook-with-name": "Cookbook {0}",
     "household-cookbook-name": "{0} Cookbook {1}",
-    "create-a-cookbook": "Create a Cookbook",
-    "cookbook": "Cookbook"
+    "create-a-cookbook": "Stofna uppskrifabók",
+    "cookbook": "Uppskriftabók"
   },
   "query-filter": {
     "logical-operators": {
-      "and": "AND",
-      "or": "OR"
+      "and": "OG",
+      "or": "EÐA"
     },
     "relational-operators": {
       "equals": "equals",
