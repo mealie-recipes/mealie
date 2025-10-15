@@ -14,7 +14,7 @@ mealie = "mealie.main:main"
 
 [tool.poetry.dependencies]
 Jinja2 = "^3.1.2"
-Pillow = "^11.3.0"
+Pillow = "^12.0.0"
 PyYAML = "^6.0.1"
 SQLAlchemy = "^2"
 aiofiles = "^25.0.0"
