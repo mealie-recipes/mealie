@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Більше не хочете це бачити? Обов'язково змініть адресу електронної пошти в налаштуваннях користувача!",
     "forgot-password": "Нагадати пароль",
     "forgot-password-text": "Будь ласка, введіть адресу вашої електронної пошти й вам надійде повідомлення, щоб відновити пароль.",
-    "changes-reflected-immediately": "Зміни для цього користувача будуть негайно відображені."
+    "changes-reflected-immediately": "Зміни для цього користувача будуть негайно відображені.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "перекладено",
