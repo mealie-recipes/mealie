@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vill du inte se detta längre? Se till att ändra din e-post i dina användarinställningar!",
     "forgot-password": "Glömt lösenord",
     "forgot-password-text": "Ange din e-postadress så skickar vi dig en länk för att återställa ditt lösenord.",
-    "changes-reflected-immediately": "Ändringar av denna användare kommer att ske omedelbart."
+    "changes-reflected-immediately": "Ändringar av denna användare kommer att ske omedelbart.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "översatt",
