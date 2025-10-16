@@ -3071,7 +3071,7 @@
             "pickled egg": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled egg",
+                "name": "syltet æg",
                 "plural_name": "pickled eggs"
             },
             "sheep milk": {
@@ -3805,7 +3805,7 @@
             "ground pork": {
                 "aliases": [],
                 "description": "",
-                "name": "ground pork",
+                "name": "hakket svinekød",
                 "plural_name": "ground porks"
             },
             "beef stew meat": {
@@ -8535,7 +8535,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rolled oat",
-                "plural_name": "rolled oats"
+                "plural_name": "havregryn"
             },
             "rice": {
                 "aliases": [],
@@ -8573,7 +8573,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "quick-cooking oat",
-                "plural_name": "quick-cooking oats"
+                "plural_name": "finvalsede havregryn"
             },
             "breakfast cereal": {
                 "aliases": [],
@@ -8963,7 +8963,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "oat groat",
-                "plural_name": "oat groats"
+                "plural_name": "havrekerner"
             },
             "teff": {
                 "aliases": [],
@@ -10634,7 +10634,7 @@
             "olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "olive oil",
+                "name": "olivenolie",
                 "plural_name": "olive oils"
             },
             "vegetable oil": {
@@ -12880,7 +12880,7 @@
             "garlic butter": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic butter",
+                "name": "hvidløgssmør",
                 "plural_name": "garlic butter"
             },
             "hollandaise sauce": {
@@ -15789,8 +15789,8 @@
             "liquid egg white": {
                 "aliases": [],
                 "description": "",
-                "name": "liquid egg white",
-                "plural_name": "liquid egg whites"
+                "name": "æggehvide",
+                "plural_name": "æggehvider"
             },
             "peanut butter powder": {
                 "aliases": [],
