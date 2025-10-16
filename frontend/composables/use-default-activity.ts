@@ -1,21 +1,5 @@
-type I18n = ReturnType<typeof useI18n>;
-type TRoute = string;
-type TranslationResult = string;
-
-type ActivityRoute = (groupSlug?: string) => TRoute;
-type ActivityLabel = (i18n: I18n) => TranslationResult;
-
-type Activity = {
-  key: ActivityKey;
-  route: ActivityRoute;
-  label: ActivityLabel;
-};
-
-export const enum ActivityKey {
-  RECIPES = "recipes",
-  MEALPLANNER = "mealplanner",
-  SHOPPING_LIST = "shopping_list",
-}
+import type { Activity, I18n, TranslationResult } from "~/lib/api/types/activity";
+import { ActivityKey } from "~/lib/api/types/activity";
 
 export const DEFAULT_ACTIVITY = "/g/home" as const;
 
@@ -43,7 +27,7 @@ const selectableActivities: ActivityRegistry = {
   },
 };
 
-export function getDefaultActivityRoute(activityKey?: ActivityKey, groupSlug?: string): string {
+function getDefaultActivityRoute(activityKey?: ActivityKey, groupSlug?: string): string {
   if (!activityKey) {
     return DEFAULT_ACTIVITY;
   }
@@ -51,19 +35,29 @@ export function getDefaultActivityRoute(activityKey?: ActivityKey, groupSlug?: s
   return route(groupSlug);
 }
 
-export function getDefaultActivityLabels(i18n: I18n): TranslationResult[] {
+function getDefaultActivityLabels(i18n: I18n): TranslationResult[] {
   return Object.values(selectableActivities).map(
     ({ label }) => label(i18n),
   );
 }
 
-export function getActivityKey(i18n: I18n, target: TranslationResult = ""): ActivityKey | undefined {
+function getActivityKey(i18n: I18n, target: TranslationResult = ""): ActivityKey | undefined {
   return Object.values(selectableActivities)
     .find(({ label }) => label(i18n) === target)?.key;
 }
 
-export function getActivityLabel(i18n: I18n, target?: ActivityKey): TranslationResult {
+function getActivityLabel(i18n: I18n, target?: ActivityKey): TranslationResult {
   return Object.values(selectableActivities)
     .find(({ key }) => key === target)
     ?.label(i18n) ?? "";
+}
+
+export default function useDefaultActivity() {
+  return {
+    selectableActivities,
+    getDefaultActivityRoute,
+    getDefaultActivityLabels,
+    getActivityKey,
+    getActivityLabel,
+  };
 }

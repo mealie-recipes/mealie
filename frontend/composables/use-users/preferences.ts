@@ -1,5 +1,5 @@
 import { useLocalStorage, useSessionStorage } from "@vueuse/core";
-import { ActivityKey } from "~/lib/api/activity/get-default-activity-route";
+import { ActivityKey } from "~/lib/api/types/activity";
 import type { RegisteredParser, TimelineEventType } from "~/lib/api/types/recipe";
 import type { QueryFilterJSON } from "~/lib/api/types/response";
 

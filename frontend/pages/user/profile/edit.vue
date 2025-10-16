@@ -221,7 +221,8 @@ import UserPasswordStrength from "~/components/Domain/User/UserPasswordStrength.
 import { validators } from "~/composables/use-validators";
 import type { VForm } from "~/types/auto-forms";
 import { useUserActivityPreferences } from "~/composables/use-users/preferences";
-import { getDefaultActivityLabels, getActivityLabel, getActivityKey, ActivityKey } from "~/lib/api/activity/get-default-activity-route";
+import useDefaultActivity from "~/composables/use-default-activity";
+import { ActivityKey } from "~/lib/api/types/activity";
 
 export default defineNuxtComponent({
   components: {
@@ -231,6 +232,7 @@ export default defineNuxtComponent({
   setup() {
     const i18n = useI18n();
     const $auth = useMealieAuth();
+    const { getDefaultActivityLabels, getActivityLabel, getActivityKey } = useDefaultActivity();
     const user = computed(() => $auth.user.value);
 
     useSeoMeta({

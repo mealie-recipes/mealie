@@ -218,7 +218,6 @@ import { alert } from "~/composables/use-toast";
 import { useAsyncKey } from "~/composables/use-utils";
 import type { AppStartupInfo } from "~/lib/api/types/admin";
 import { useUserActivityPreferences } from "~/composables/use-users/preferences";
-import { getDefaultActivityRoute } from "~/lib/api/activity/get-default-activity-route";
 
 export default defineNuxtComponent({
   setup() {
@@ -236,6 +235,7 @@ export default defineNuxtComponent({
     const isDemo = ref(false);
     const isFirstLogin = ref(false);
     const activityPreferences = useUserActivityPreferences();
+    const { getDefaultActivityRoute } = useDefaultActivity();
 
     useSeoMeta({
       title: i18n.t("user.login"),
