@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "לא רוצה לראות את זה יותר? ניתן לשנות את המייל שלך בהגדרות המשתמש!",
     "forgot-password": "שכחתי סיסמא",
     "forgot-password-text": "נא לספק כתובת דוא\"ל. אנו נשלח לך הודעת דוא\"ל לצורך איפוס הסיסמה שלך.",
-    "changes-reflected-immediately": "שינויים למשתמש זה ישתקפו מיידית."
+    "changes-reflected-immediately": "שינויים למשתמש זה ישתקפו מיידית.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "תורגם",
