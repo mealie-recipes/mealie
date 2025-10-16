@@ -1064,8 +1064,8 @@
     "forgot-password": "Нагадати пароль",
     "forgot-password-text": "Будь ласка, введіть адресу вашої електронної пошти й вам надійде повідомлення, щоб відновити пароль.",
     "changes-reflected-immediately": "Зміни для цього користувача будуть негайно відображені.",
-    "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity": "Дія за замовчуванням",
+    "default-activity-hint": "Виберіть, на яку сторінку ви хочете перейти після входу з цього пристрою"
   },
   "language-dialog": {
     "translated": "перекладено",
