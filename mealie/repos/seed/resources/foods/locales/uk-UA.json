@@ -8130,8 +8130,8 @@
             "citric acid": {
                 "aliases": [],
                 "description": "",
-                "name": "citric acid",
-                "plural_name": "citric acids"
+                "name": "Лимонна кислота",
+                "plural_name": "Лимонна кислота"
             },
             "coconut chip": {
                 "aliases": [],
@@ -8142,8 +8142,8 @@
             "quinoa flour": {
                 "aliases": [],
                 "description": "",
-                "name": "quinoa flour",
-                "plural_name": "quinoa flours"
+                "name": "Борошно кіноа",
+                "plural_name": "Борошно кіноа"
             },
             "finger millet flour": {
                 "aliases": [],
@@ -8190,8 +8190,8 @@
             "gluten-free baking flour": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free baking flour",
-                "plural_name": "gluten-free baking flours"
+                "name": "Безглютеново пекарське борошно",
+                "plural_name": "Безглютеново пекарське борошно"
             },
             "einkorn flour": {
                 "aliases": [],
@@ -12704,38 +12704,38 @@
             "peanut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut butter",
-                "plural_name": "peanut butters"
+                "name": "Арахісове масло",
+                "plural_name": "Арахісове масло"
             },
             "tomato paste": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato paste",
-                "plural_name": "tomato pastes"
+                "name": "Томатна паста",
+                "plural_name": "Томатна паста"
             },
             "tomato sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato sauce",
-                "plural_name": "tomato sauces"
+                "name": "Томатний соус",
+                "plural_name": "Томатний соус"
             },
             "salsa": {
                 "aliases": [],
                 "description": "",
-                "name": "salsa",
-                "plural_name": "salsas"
+                "name": "Сальса",
+                "plural_name": "Сальса"
             },
             "tahini": {
                 "aliases": [],
                 "description": "",
-                "name": "tahini",
-                "plural_name": "tahinis"
+                "name": "Тахіні",
+                "plural_name": "Тахіні"
             },
             "pesto": {
                 "aliases": [],
                 "description": "",
-                "name": "pesto",
-                "plural_name": "pestoes"
+                "name": "Песто",
+                "plural_name": "Песто"
             },
             "marinara sauce": {
                 "aliases": [
@@ -12772,14 +12772,14 @@
             "guacamole": {
                 "aliases": [],
                 "description": "",
-                "name": "guacamole",
-                "plural_name": "guacamoles"
+                "name": "Гуакамоле",
+                "plural_name": "Гуакамоле"
             },
             "hummu": {
                 "aliases": [],
                 "description": "",
-                "name": "hummu",
-                "plural_name": "hummus"
+                "name": "Хумус",
+                "plural_name": "Хумус"
             },
             "enchilada sauce": {
                 "aliases": [],
@@ -16299,8 +16299,8 @@
             "maltodextrin": {
                 "aliases": [],
                 "description": "",
-                "name": "maltodextrin",
-                "plural_name": "maltodextrins"
+                "name": "мальтодекстрин",
+                "plural_name": "мальтодекстрин"
             }
         }
     }
