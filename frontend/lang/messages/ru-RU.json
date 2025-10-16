@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Больше не хотите видеть это сообщение? Не забудьте изменить адрес электронной почты в настройках пользователя!",
     "forgot-password": "Забыли Пароль",
     "forgot-password-text": "Введите адрес вашей почты, и мы отправим на неё ссылку для сброса пароля.",
-    "changes-reflected-immediately": "Изменения в этом пользователе будут отражены немедленно."
+    "changes-reflected-immediately": "Изменения в этом пользователе будут отражены немедленно.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "переведено",
