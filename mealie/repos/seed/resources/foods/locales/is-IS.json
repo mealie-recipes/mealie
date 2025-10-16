@@ -5813,122 +5813,122 @@
             "cinnamon": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon",
-                "plural_name": "cinnamons"
+                "name": "kanill",
+                "plural_name": "kanill"
             },
             "parsley": {
                 "aliases": [],
                 "description": "",
-                "name": "parsley",
-                "plural_name": "parsleys"
+                "name": "steinselja",
+                "plural_name": "steinselja"
             },
             "cilantro": {
                 "aliases": [],
                 "description": "",
-                "name": "cilantro",
-                "plural_name": "cilantros"
+                "name": "kóríander",
+                "plural_name": "kóríander"
             },
             "cumin": {
                 "aliases": [],
                 "description": "",
-                "name": "cumin",
-                "plural_name": "cumins"
+                "name": "kúmín",
+                "plural_name": "kúmín"
             },
             "basil": {
                 "aliases": [],
                 "description": "",
-                "name": "basil",
-                "plural_name": "basils"
+                "name": "basilíka",
+                "plural_name": "basilíka"
             },
             "thyme": {
                 "aliases": [],
                 "description": "",
-                "name": "thyme",
-                "plural_name": "thymes"
+                "name": "timjan",
+                "plural_name": "timjan"
             },
             "ginger root": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger root",
-                "plural_name": "ginger roots"
+                "name": "engifer",
+                "plural_name": "engifer"
             },
             "garlic powder": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic powder",
-                "plural_name": "garlic powders"
+                "name": "hvítlauksduft",
+                "plural_name": "hvítlauksduft"
             },
             "oregano": {
                 "aliases": [],
                 "description": "",
                 "name": "oregano",
-                "plural_name": "oreganos"
+                "plural_name": "bergminta"
             },
             "nutmeg": {
                 "aliases": [],
                 "description": "",
-                "name": "nutmeg",
-                "plural_name": "nutmegs"
+                "name": "múskat",
+                "plural_name": "múskat"
             },
             "chili flake": {
                 "aliases": [],
                 "description": "",
-                "name": "chili flake",
-                "plural_name": "chili flakes"
+                "name": "chilíflögur",
+                "plural_name": "chilíflögur"
             },
             "chili powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chili powder",
-                "plural_name": "chili powders"
+                "name": "chilíduft",
+                "plural_name": "chilíduft"
             },
             "paprika": {
                 "aliases": [],
                 "description": "",
                 "name": "paprika",
-                "plural_name": "paprikas"
+                "plural_name": "paprikur"
             },
             "cayenne": {
                 "aliases": [],
                 "description": "",
-                "name": "cayenne",
-                "plural_name": "cayennes"
+                "name": "cayenne-pipar",
+                "plural_name": "cayenne-pipar"
             },
             "rosemary": {
                 "aliases": [],
                 "description": "",
-                "name": "rosemary",
-                "plural_name": "rosemaries"
+                "name": "rósmarín",
+                "plural_name": "rósmarín"
             },
             "bay leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "bay leaf",
-                "plural_name": "bay leaves"
+                "name": "lárviðarlauf",
+                "plural_name": "lárviðarlauf"
             },
             "turmeric": {
                 "aliases": [],
                 "description": "",
-                "name": "turmeric",
-                "plural_name": "turmerics"
+                "name": "túrmerik",
+                "plural_name": "túrmerik"
             },
             "clove": {
                 "aliases": [],
                 "description": "",
-                "name": "clove",
-                "plural_name": "cloves"
+                "name": "negull",
+                "plural_name": "negull"
             },
             "onion powder": {
                 "aliases": [],
                 "description": "",
-                "name": "onion powder",
-                "plural_name": "onion powders"
+                "name": "laukduft",
+                "plural_name": "laukduft"
             },
             "ginger powder": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger powder",
-                "plural_name": "ginger powders"
+                "name": "engiferduft",
+                "plural_name": "engiferduft"
             },
             "panch puran": {
                 "aliases": [],
@@ -5940,127 +5940,127 @@
                 "aliases": [],
                 "description": "",
                 "name": "dill",
-                "plural_name": "dills"
+                "plural_name": "dill"
             },
             "chive": {
                 "aliases": [],
                 "description": "",
-                "name": "chive",
-                "plural_name": "chives"
+                "name": "graslaukur",
+                "plural_name": "graslaukar"
             },
             "mint": {
                 "aliases": [],
                 "description": "",
-                "name": "mint",
-                "plural_name": "mints"
+                "name": "mynta",
+                "plural_name": "myntur"
             },
             "green cardamom": {
                 "aliases": [],
                 "description": "",
-                "name": "green cardamom",
-                "plural_name": "green cardamoms"
+                "name": "kardimomma",
+                "plural_name": "kardimomma"
             },
             "smoked paprika": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked paprika",
-                "plural_name": "smoked paprikas"
+                "name": "reykt paprika",
+                "plural_name": "reykt paprika"
             },
             "fresh mint": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mint",
-                "plural_name": "fresh mints"
+                "name": "fersk mynta",
+                "plural_name": "ferskar myntur"
             },
             "coriander powder": {
                 "aliases": [],
                 "description": "",
-                "name": "coriander powder",
-                "plural_name": "coriander powders"
+                "name": "kóríander duft",
+                "plural_name": "kóríander duft"
             },
             "sage": {
                 "aliases": [],
                 "description": "",
-                "name": "sage",
-                "plural_name": "sages"
+                "name": "salvía",
+                "plural_name": "salvíur"
             },
             "coriander": {
                 "aliases": [],
                 "description": "",
-                "name": "coriander",
-                "plural_name": "corianders"
+                "name": "kóríander",
+                "plural_name": "kóríander"
             },
             "allspice": {
                 "aliases": [],
                 "description": "",
-                "name": "allspice",
-                "plural_name": "allspices"
+                "name": "allrahanda",
+                "plural_name": "allrahanda"
             },
             "cracked pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "cracked pepper",
-                "plural_name": "cracked peppers"
+                "name": "mulinn pipar",
+                "plural_name": "mulinn pipar"
             },
             "peppercorn": {
                 "aliases": [],
                 "description": "",
-                "name": "peppercorn",
-                "plural_name": "peppercorns"
+                "name": "piparkorn",
+                "plural_name": "piparkorn"
             },
             "mustard seed": {
                 "aliases": [],
                 "description": "",
-                "name": "mustard seed",
-                "plural_name": "mustard seeds"
+                "name": "sinnepsfræ",
+                "plural_name": "sinnepsfræ"
             },
             "white pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "white pepper",
-                "plural_name": "white peppers"
+                "name": "hvítur pipar",
+                "plural_name": "hvítur pipar"
             },
             "curry leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "curry leaf",
-                "plural_name": "curry leaves"
+                "name": "karrílauf",
+                "plural_name": "karrílauf"
             },
             "fennel seed": {
                 "aliases": [],
                 "description": "",
-                "name": "fennel seed",
-                "plural_name": "fennel seeds"
+                "name": "svartkummin",
+                "plural_name": "svartkummin"
             },
             "tarragon": {
                 "aliases": [],
                 "description": "",
-                "name": "tarragon",
-                "plural_name": "tarragons"
+                "name": "fáfnisgras",
+                "plural_name": "fafnisgrös"
             },
             "saffron": {
                 "aliases": [],
                 "description": "",
-                "name": "saffron",
-                "plural_name": "saffrons"
+                "name": "saffran",
+                "plural_name": "saffran"
             },
             "asafoetida": {
                 "aliases": [],
                 "description": "",
-                "name": "asafoetida",
-                "plural_name": "asafoetidas"
+                "name": "djöflamjöður",
+                "plural_name": "djöflamjöður"
             },
             "star anise": {
                 "aliases": [],
                 "description": "",
-                "name": "star anise",
-                "plural_name": "star anises"
+                "name": "stjörnuanís",
+                "plural_name": "stjörnuanís"
             },
             "marjoram": {
                 "aliases": [],
                 "description": "",
-                "name": "marjoram",
-                "plural_name": "marjorams"
+                "name": "kryddmæra",
+                "plural_name": "kryddmæra"
             },
             "lemongras": {
                 "aliases": [],
@@ -6071,20 +6071,20 @@
             "caraway": {
                 "aliases": [],
                 "description": "",
-                "name": "caraway",
-                "plural_name": "caraways"
+                "name": "kúmen",
+                "plural_name": "kúmen"
             },
             "garlic granule": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic granule",
-                "plural_name": "garlic granules"
+                "name": "hvítlaukskorn",
+                "plural_name": "hvítlaukskorn"
             },
             "celery seed": {
                 "aliases": [],
                 "description": "",
-                "name": "celery seed",
-                "plural_name": "celery seeds"
+                "name": "sellerífræ",
+                "plural_name": "sellerífræ"
             },
             "chipotle powder": {
                 "aliases": [],
@@ -6101,13 +6101,13 @@
             "fenugreek": {
                 "aliases": [],
                 "description": "",
-                "name": "fenugreek",
-                "plural_name": "fenugreeks"
+                "name": "grikkjasmári",
+                "plural_name": "grikkjasmárar"
             },
             "onion flake": {
                 "aliases": [],
                 "description": "",
-                "name": "onion flake",
+                "name": "laukflögur",
                 "plural_name": "onion flakes"
             },
             "matcha powder": {
@@ -6222,7 +6222,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "black cardamom",
-                "plural_name": "black cardamoms"
+                "plural_name": "svört kardimomma"
             },
             "saffron strand": {
                 "aliases": [],
@@ -6257,14 +6257,14 @@
             "galangal": {
                 "aliases": [],
                 "description": "",
-                "name": "galangal",
-                "plural_name": "galangals"
+                "name": "stórgalangal",
+                "plural_name": "stórgalangal"
             },
             "garlic flake": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic flake",
-                "plural_name": "garlic flakes"
+                "name": "hvítlauksflaga",
+                "plural_name": "hvítlauksflögur"
             },
             "dried cilantro": {
                 "aliases": [],
@@ -6670,8 +6670,8 @@
             "ginger syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger syrup",
-                "plural_name": "ginger syrups"
+                "name": "engifer sírop",
+                "plural_name": "engifer sírop"
             },
             "orgeat": {
                 "aliases": [],
@@ -7502,8 +7502,8 @@
             "gingerbread spice": {
                 "aliases": [],
                 "description": "",
-                "name": "gingerbread spice",
-                "plural_name": "gingerbread spices"
+                "name": "piparköku krydd",
+                "plural_name": "piparköku krydd"
             },
             "popcorn seasoning": {
                 "aliases": [],
@@ -8488,8 +8488,8 @@
             "gingerbread cookie dough": {
                 "aliases": [],
                 "description": "",
-                "name": "gingerbread cookie dough",
-                "plural_name": "gingerbread cookie doughs"
+                "name": "piparkökudeig",
+                "plural_name": "piparkökudeig"
             },
             "yufka": {
                 "aliases": [],
@@ -11020,8 +11020,8 @@
             "ginger oil": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger oil",
-                "plural_name": "ginger oils"
+                "name": "engifer olía",
+                "plural_name": "engifer olíur"
             },
             "cottonseed oil": {
                 "aliases": [],
