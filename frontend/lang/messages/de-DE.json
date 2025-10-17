@@ -366,6 +366,33 @@
     "applies-on-days": "Gilt {0}s",
     "meal-plan-settings": "Essensplan Einstellungen"
   },
+  "planner": {
+    "goals": {
+      "title": "Essensplan Ziele",
+      "description": "Lege deine täglichen Nährwert-Ziele für die Essensplanung fest.",
+      "button": "Ziele",
+      "calories": "Kalorien (kcal/Tag)",
+      "protein": "Protein (g/Tag)",
+      "carbohydrate": "Kohlenhydrate (g/Tag)",
+      "fat": "Fett (g/Tag)",
+      "tolerance-kcal": "Kalorien-Toleranz (±)",
+      "tolerance-hint": "Kalorien innerhalb von ±Toleranz gelten als 'im Ziel'"
+    },
+    "totals": {
+      "day-total": "Summe",
+      "week-total": "Woche",
+      "daily-avg": "Ø pro Tag",
+      "goal": "Ziel",
+      "status": {
+        "under": "Unter Ziel",
+        "ok": "Im Ziel",
+        "over": "Über Ziel"
+      }
+    },
+    "tooltips": {
+      "incomplete": "Bei einigen Rezepten fehlen Nährwertangaben"
+    }
+  },
   "migration": {
     "migration-data-removed": "Migrationsdaten entfernt",
     "new-migration": "Neue Migration",

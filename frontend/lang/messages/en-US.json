@@ -366,6 +366,33 @@
     "applies-on-days": "Applies on {0}s",
     "meal-plan-settings": "Meal Plan Settings"
   },
+  "planner": {
+    "goals": {
+      "title": "Meal Plan Goals",
+      "description": "Set your daily nutritional targets for meal planning.",
+      "button": "Goals",
+      "calories": "Calories (kcal/day)",
+      "protein": "Protein (g/day)",
+      "carbohydrate": "Carbohydrates (g/day)",
+      "fat": "Fat (g/day)",
+      "tolerance-kcal": "Calorie Tolerance (±)",
+      "tolerance-hint": "Calories within ±tolerance are considered 'on target'"
+    },
+    "totals": {
+      "day-total": "Total",
+      "week-total": "Week",
+      "daily-avg": "Daily Avg",
+      "goal": "Goal",
+      "status": {
+        "under": "Under",
+        "ok": "On Target",
+        "over": "Over"
+      }
+    },
+    "tooltips": {
+      "incomplete": "Some recipes are missing nutrition data"
+    }
+  },
   "migration": {
     "migration-data-removed": "Migration data removed",
     "new-migration": "New Migration",
