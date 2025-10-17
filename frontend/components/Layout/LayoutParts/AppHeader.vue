@@ -6,6 +6,7 @@
     color="primary"
     dark
     class="d-print-none"
+    scroll-behavior="hide"
   >
     <slot />
     <router-link :to="routerLink">
