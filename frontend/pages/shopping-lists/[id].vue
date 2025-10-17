@@ -179,12 +179,11 @@
         </BaseButton>
       </div>
 
-      <v-expansion-panels v-model="openedSections" multiple>
-        <v-expansion-panel v-for="(value, key) in itemsByLabel" :key="key" class="shopping-list-section">
+      <Disclosure v-for="(value, key) in itemsByLabel" :key="key" :v-model="0" initial-state="open">
+        <v-expansion-panel class="shopping-list-section">
           <v-expansion-panel-title
             :color="getLabelColor(value[0])"
             class="body-1 font-weight-bold section-title"
-            @click="updateClosedSections(key)"
           >
             {{ key }}
           </v-expansion-panel-title>
@@ -202,7 +201,7 @@
                 v-for="(item, index) in value"
                 :key="item.id"
                 v-model="value[index]"
-                class="ml-2 my-2"
+                class="ml-2 my-2 w-auto"
                 :labels="allLabels || []"
                 :units="allUnits || []"
                 :foods="allFoods || []"
@@ -214,7 +213,7 @@
             </VueDraggable>
           </v-expansion-panel-text>
         </v-expansion-panel>
-      </v-expansion-panels>
+      </Disclosure>
       <!-- Checked Items -->
       <v-expansion-panels flat>
         <v-expansion-panel v-if="listItems.checked && listItems.checked.length > 0">
@@ -328,14 +327,14 @@
 
 <script lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
+import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurposeLabelSection.vue";
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
-import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
-import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
-import { useShoppingListPreferences } from "~/composables/use-users/preferences";
-import { getTextColor } from "~/composables/use-text-color";
 import { useShoppingListPage } from "~/composables/shopping-list-page/use-shopping-list-page";
+import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
+import { getTextColor } from "~/composables/use-text-color";
+import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 
 export default defineNuxtComponent({
   components: {
@@ -364,16 +363,6 @@ export default defineNuxtComponent({
     const { store: allUnits } = useUnitStore();
     const { store: allFoods } = useFoodStore();
 
-    function updateClosedSections(key: string | number) {
-      closedSections.value[key] = !closedSections.value[key];
-    }
-    const closedSections: Ref<{ [key: string | number]: boolean }> = ref({});
-    const openedSections = ref([0]);
-    watch(shoppingListPage.itemsByLabel, () => {
-      openedSections.value = Object.keys(shoppingListPage.itemsByLabel.value)
-        .flatMap((key, i) => closedSections.value[key] ? [] : [i]);
-    });
-
     return {
       groupSlug,
       preferences,
@@ -382,8 +371,6 @@ export default defineNuxtComponent({
       allFoods,
       getTextColor,
       mdAndUp,
-      openedSections,
-      updateClosedSections,
       ...shoppingListPage,
     };
   },
