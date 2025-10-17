@@ -9842,8 +9842,8 @@
             "kluski noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "kluski noodle",
-                "plural_name": "kluski noodles"
+                "name": "Kluski Nudel",
+                "plural_name": "Kluski Nudeln"
             },
             "yolk-free noodle": {
                 "aliases": [],
@@ -9944,14 +9944,14 @@
             "palmini": {
                 "aliases": [],
                 "description": "",
-                "name": "palmini",
-                "plural_name": "palminis"
+                "name": "Palmini",
+                "plural_name": "Palminis"
             },
             "trottole": {
                 "aliases": [],
                 "description": "",
-                "name": "trottole",
-                "plural_name": "trottoles"
+                "name": "Trottole",
+                "plural_name": "Trottoles"
             },
             "mandu": {
                 "aliases": [],
@@ -9962,8 +9962,8 @@
             "pasta salad mix": {
                 "aliases": [],
                 "description": "",
-                "name": "pasta salad mix",
-                "plural_name": "pasta salad mixes"
+                "name": "Nudelsalat-Mix",
+                "plural_name": "Nudelsalat-Mix"
             },
             "pot pie noodle": {
                 "aliases": [],
@@ -9992,20 +9992,20 @@
             "bean sheet": {
                 "aliases": [],
                 "description": "",
-                "name": "bean sheet",
-                "plural_name": "bean sheets"
+                "name": "Bohnenblatt",
+                "plural_name": "Bohnenblätter"
             },
             "hilopite": {
                 "aliases": [],
                 "description": "",
-                "name": "hilopite",
-                "plural_name": "hilopites"
+                "name": "Hilopite",
+                "plural_name": "Hilopites"
             },
             "jjolmyeon": {
                 "aliases": [],
                 "description": "",
-                "name": "jjolmyeon",
-                "plural_name": "jjolmyeons"
+                "name": "Jjolmyeon",
+                "plural_name": "Jjolmyeon"
             },
             "naengmyeon noodle": {
                 "aliases": [],
@@ -10054,8 +10054,8 @@
             "almond flour tortilla": {
                 "aliases": [],
                 "description": "",
-                "name": "almond flour tortilla",
-                "plural_name": "almond flour tortillas"
+                "name": "Mandelmehltortilla",
+                "plural_name": "Mandelmehltortillas"
             },
             "corn tortilla": {
                 "aliases": [],
@@ -10067,7 +10067,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Cracker",
-                "plural_name": "crackers"
+                "plural_name": "Cracker"
             },
             "baguette": {
                 "aliases": [],
@@ -10102,8 +10102,8 @@
             "rustic italian bread": {
                 "aliases": [],
                 "description": "",
-                "name": "rustic italian bread",
-                "plural_name": "rustic italian breads"
+                "name": "rustikales italienisches Brot",
+                "plural_name": "rustikale italienische Brote"
             },
             "popcorn": {
                 "aliases": [],
@@ -10138,8 +10138,8 @@
             "italian bread crumb": {
                 "aliases": [],
                 "description": "",
-                "name": "italian bread crumb",
-                "plural_name": "italian bread crumbs"
+                "name": "italienische Brotkrümel",
+                "plural_name": "italienische Brotkrümel"
             },
             "rye bread": {
                 "aliases": [],
@@ -10156,8 +10156,8 @@
             "dry-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "dry-roasted peanut",
-                "plural_name": "dry-roasted peanuts"
+                "name": "trocken geröstete Erdnuss",
+                "plural_name": "trocken geröstete Erdnüsse"
             },
             "potato chip": {
                 "aliases": [],
@@ -15981,19 +15981,19 @@
             "butterscotch flavor": {
                 "aliases": [],
                 "description": "",
-                "name": "butterscotch flavor",
-                "plural_name": "butterscotch flavors"
+                "name": "Butterscotch-Geschmack",
+                "plural_name": "Butterscotch-Geschmack"
             },
             "kewra water": {
                 "aliases": [],
                 "description": "",
-                "name": "kewra water",
-                "plural_name": "kewra waters"
+                "name": "Kewra-Wasser",
+                "plural_name": "Kewra-Wasser"
             },
             "pineapple extract": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple extract",
+                "name": "Ananasextrakt",
                 "plural_name": "Ananasextrakt"
             },
             "lemon juice concentrate": {
@@ -16005,8 +16005,8 @@
             "chocolate collagen": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate collagen",
-                "plural_name": "chocolate collagens"
+                "name": "Kollagen Schokolade",
+                "plural_name": "Kollagen Schokolade"
             },
             "cinnamon extract": {
                 "aliases": [],
@@ -16186,61 +16186,61 @@
                 "aliases": [],
                 "description": "",
                 "name": "Maisextrakt",
-                "plural_name": "corn extracts"
+                "plural_name": "Maisextrakt"
             },
             "magnesium": {
                 "aliases": [],
                 "description": "",
-                "name": "magnesium",
-                "plural_name": "magnesiums"
+                "name": "Magnesium",
+                "plural_name": "Magnesium"
             },
             "creatine": {
                 "aliases": [],
                 "description": "",
-                "name": "creatine",
-                "plural_name": "creatines"
+                "name": "Kreatin",
+                "plural_name": "Kreatin"
             },
             "daily vitamin": {
                 "aliases": [],
                 "description": "",
-                "name": "daily vitamin",
-                "plural_name": "daily vitamins"
+                "name": "tägliches Vitamin",
+                "plural_name": "tägliche Vitamine"
             },
             "moringa powder": {
                 "aliases": [],
                 "description": "",
-                "name": "moringa powder",
-                "plural_name": "moringa powders"
+                "name": "Moringapulver",
+                "plural_name": "Moringapulver"
             },
             "pure lime extract": {
                 "aliases": [],
                 "description": "",
-                "name": "pure lime extract",
-                "plural_name": "pure lime extracts"
+                "name": "reines Limettenextrakt",
+                "plural_name": "reine Limettenextrakte"
             },
             "sodium alginate": {
                 "aliases": [],
                 "description": "",
-                "name": "sodium alginate",
-                "plural_name": "sodium alginates"
+                "name": "Natriumalginat",
+                "plural_name": "Natriumalginat"
             },
             "sunflower lecithin": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower lecithin",
-                "plural_name": "sunflower lecithins"
+                "name": "Sonnenblumenlecithin",
+                "plural_name": "Sonnenblumenlecithin"
             },
             "thc": {
                 "aliases": [],
                 "description": "",
                 "name": "THC",
-                "plural_name": "thcs"
+                "plural_name": "THC"
             },
             "berry powder": {
                 "aliases": [],
                 "description": "",
-                "name": "berry powder",
-                "plural_name": "berry powders"
+                "name": "Fruchtpulver",
+                "plural_name": "Fruchtpulver"
             },
             "champagne yeast": {
                 "aliases": [],
@@ -16251,8 +16251,8 @@
             "maqui": {
                 "aliases": [],
                 "description": "",
-                "name": "maqui",
-                "plural_name": "maquis"
+                "name": "chilenische Weinbeere",
+                "plural_name": "chilenische Weinbeeren"
             },
             "rose oil": {
                 "aliases": [],
@@ -16269,14 +16269,14 @@
             "chaga mushroom powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chaga mushroom powder",
-                "plural_name": "chaga mushroom powders"
+                "name": "Chaga-Pilzpulver",
+                "plural_name": "Chaga-Pilzpulver"
             },
             "clove oil": {
                 "aliases": [],
                 "description": "",
-                "name": "clove oil",
-                "plural_name": "clove oils"
+                "name": "Nelkenöl",
+                "plural_name": "Nelkenöl"
             },
             "cranberry powder": {
                 "aliases": [],
@@ -16293,8 +16293,8 @@
             "goji berry powder": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry powder",
-                "plural_name": "goji berry powders"
+                "name": "Gojibeerenpulver",
+                "plural_name": "Gojibeerenpulver"
             },
             "maltodextrin": {
                 "aliases": [],
