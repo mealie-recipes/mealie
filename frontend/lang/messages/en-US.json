@@ -1076,7 +1076,8 @@
     "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
     "changes-reflected-immediately": "Changes to this user will be reflected immediately.",
     "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device",
+    "show-footer": "Show footer navigation in mobile?"
   },
   "language-dialog": {
     "translated": "translated",

@@ -69,6 +69,7 @@ export interface UserRecipeCreatePreferences {
 
 export interface UserActivityPreferences {
   defaultActivity: ActivityKey;
+  showFooter: boolean;
 }
 
 export function useUserMealPlanPreferences(): Ref<UserMealPlanPreferences> {
@@ -127,6 +128,7 @@ export function useUserActivityPreferences(): Ref<UserActivityPreferences> {
     "activity-preferences",
     {
       defaultActivity: ActivityKey.RECIPES,
+      showFooter: true,
     },
     { mergeDefaults: true },
     // we cast to a Ref because by default it will return an optional type ref

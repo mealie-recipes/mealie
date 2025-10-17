@@ -91,7 +91,7 @@
         </div>
       </v-scroll-x-transition>
     </v-main>
-    <FooterNav v-if="$vuetify.display.xs" />
+    <FooterNav v-if="$vuetify.display.xs && activityPreferences.showFooter" />
   </v-app>
 </template>
 
@@ -99,7 +99,7 @@
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { SideBarLink } from "~/types/application-types";
 import { useAppInfo } from "~/composables/api";
-import { useCookbookPreferences } from "~/composables/use-users/preferences";
+import { useCookbookPreferences, useUserActivityPreferences } from "~/composables/use-users/preferences";
 import { useCookbookStore, usePublicCookbookStore } from "~/composables/store/use-cookbook-store";
 import type { ReadCookBook } from "~/lib/api/types/cookbook";
 
@@ -110,6 +110,7 @@ export default defineNuxtComponent({
     const display = useDisplay();
     const $auth = useMealieAuth();
     const { isOwnGroup } = useLoggedInState();
+    const activityPreferences = useUserActivityPreferences();
 
     const route = useRoute();
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
@@ -301,6 +302,7 @@ export default defineNuxtComponent({
       isOwnGroup,
       languageDialog,
       sidebar,
+      activityPreferences,
     };
   },
 });

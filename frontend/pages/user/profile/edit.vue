@@ -184,6 +184,11 @@
             persistent-hint
           />
           <v-checkbox
+            v-model="activityPreferences.showFooter"
+            :label="$t('user.show-footer')"
+            color="primary"
+          />
+          <v-checkbox
             v-model="userCopy.advanced"
             :label="$t('profile.show-advanced-description')"
             color="primary"
@@ -223,6 +228,7 @@ import type { VForm } from "~/types/auto-forms";
 import { useUserActivityPreferences } from "~/composables/use-users/preferences";
 import useDefaultActivity from "~/composables/use-default-activity";
 import { ActivityKey } from "~/lib/api/types/activity";
+import type { UserOut } from "~/lib/api/types/user";
 
 export default defineNuxtComponent({
   components: {
@@ -265,7 +271,7 @@ export default defineNuxtComponent({
 
     async function updateUser() {
       if (!userCopy.value?.id) return;
-      const { response } = await api.users.updateOne(userCopy.value.id, userCopy.value);
+      const { response } = await api.users.updateOne(userCopy.value.id, userCopy.value as UserOut);
       if (response?.status === 200) {
         $auth.refresh();
       }
@@ -299,6 +305,7 @@ export default defineNuxtComponent({
       userCopy,
       selectedDefaultActivity,
       activityOptions,
+      activityPreferences,
       password,
       domUpdatePassword,
       passwordsMatch,
