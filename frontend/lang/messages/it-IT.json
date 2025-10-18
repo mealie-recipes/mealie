@@ -1064,8 +1064,8 @@
     "forgot-password": "Password Dimenticata",
     "forgot-password-text": "Inserisci il tuo indirizzo email e ti invieremo un collegamento per reimpostare la tua password.",
     "changes-reflected-immediately": "Le modifiche a questo utente diventeranno immediatamente effettive.",
-    "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity": "Attività Predefinita",
+    "default-activity-hint": "Seleziona a quale pagina vuoi navigare al momento dell'accesso da questo dispositivo"
   },
   "language-dialog": {
     "translated": "tradotto",
