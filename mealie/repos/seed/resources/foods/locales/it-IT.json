@@ -1920,7 +1920,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Mandorla al miele tostata",
-                "plural_name": "honey-roasted almonds"
+                "plural_name": "mandorla al miele tostata"
             },
             "toasted nut": {
                 "aliases": [],
@@ -1949,13 +1949,13 @@
             "sunflower sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower sprout",
-                "plural_name": "sunflower sprouts"
+                "name": "germoglio di girasole",
+                "plural_name": "germogli di girasole"
             },
             "apricot kernel": {
                 "aliases": [],
                 "description": "",
-                "name": "apricot kernel",
+                "name": "nocciolo di albicocca",
                 "plural_name": "apricot kernels"
             },
             "palm seed": {
