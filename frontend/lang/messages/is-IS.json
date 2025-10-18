@@ -1109,10 +1109,10 @@
       "unit-data": "Unit Data",
       "use-abbv": "Use Abbv.",
       "fraction": "Fraction",
-      "example-unit-singular": "ex: Tablespoon",
-      "example-unit-plural": "ex: Tablespoons",
-      "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-singular": "t.d. matskeið",
+      "example-unit-plural": "t.d. matskeiðar",
+      "example-unit-abbreviation-singular": "t.d. msk",
+      "example-unit-abbreviation-plural": "t.d. msk"
     },
     "labels": {
       "seed-dialog-text": "Seed the database with common labels based on your local language.",
@@ -1183,7 +1183,7 @@
     "group-details": "Group Details",
     "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
     "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
+    "use-seed-data-description": "Mealie kemur með safn á matvörum, einingum og merkingum sem hægt er að nota í hópnum til að hjálpa við að skipuleggja uppskriftirnar þínar. Safnið er þýtt á tungumálið sem þú hefur valið. Alltaf er hægt að bæta við eða breyta þessu heitum síðar.",
     "account-details": "Account Details"
   },
   "validation": {
