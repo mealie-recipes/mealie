@@ -57,7 +57,7 @@
     "event-delete-confirmation": "Er du sikker på, at du vil slette denne begivenhed?",
     "event-deleted": "Hændelse slettet",
     "event-updated": "Hændelse opdateret",
-    "new-notification-form-description": "Mealie bruger Apprise-biblioteket for at generere notifikationer. De giver mange muligheder for notifikationer til tjenester. Kig i deres wiki for en gennemgående guide til, hvordan en URL oprettes i din situation. Hvis muligt, kan valget af din type af notifikation omfatte flere ekstrafunktioner.",
+    "new-notification-form-description": "Mealie bruger Apprise biblioteket for at generere notifikationer. De giver mange muligheder for notifikationer til tjenester. Kig i deres wiki for en gennemgående guide til, hvordan en URL oprettes i din situation. Hvis muligt, kan valget af din type af notifikation omfatte flere ekstrafunktioner.",
     "new-version": "Ny opdatering er tilgængelig!",
     "notification": "Notifikation",
     "refresh": "Opdater",
