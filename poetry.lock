@@ -1929,14 +1929,14 @@ signedtoken = ["cryptography (>=3.0.0)", "pyjwt (>=2.0.0,<3)"]
 
 [[package]]
 name = "openai"
-version = "2.3.0"
+version = "2.6.0"
 description = "The official Python library for the openai API"
 optional = false
 python-versions = ">=3.8"
 groups = ["main"]
 files = [
-    {file = "openai-2.3.0-py3-none-any.whl", hash = "sha256:a7aa83be6f7b0ab2e4d4d7bcaf36e3d790874c0167380c5d0afd0ed99a86bd7b"},
-    {file = "openai-2.3.0.tar.gz", hash = "sha256:8d213ee5aaf91737faea2d7fc1cd608657a5367a18966372a3756ceaabfbd812"},
+    {file = "openai-2.6.0-py3-none-any.whl", hash = "sha256:f33fa12070fe347b5787a7861c8dd397786a4a17e1c3186e239338dac7e2e743"},
+    {file = "openai-2.6.0.tar.gz", hash = "sha256:f119faf7fc07d7e558c1e7c32c873e241439b01bd7480418234291ee8c8f4b9d"},
 ]
 
 [package.dependencies]
@@ -1950,7 +1950,7 @@ tqdm = ">4"
 typing-extensions = ">=4.11,<5"
 
 [package.extras]
-aiohttp = ["aiohttp", "httpx-aiohttp (>=0.1.8)"]
+aiohttp = ["aiohttp", "httpx-aiohttp (>=0.1.9)"]
 datalib = ["numpy (>=1)", "pandas (>=1.2.3)", "pandas-stubs (>=1.1.0.11)"]
 realtime = ["websockets (>=13,<16)"]
 voice-helpers = ["numpy (>=2.0.2)", "sounddevice (>=0.5.1)"]
