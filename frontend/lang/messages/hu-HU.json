@@ -1064,8 +1064,8 @@
     "forgot-password": "Elfelejtett jelszó",
     "forgot-password-text": "Írja be e-mail címét és mi küldünk egy linket a jelszó visszaállításához.",
     "changes-reflected-immediately": "Ehhez a felhasználóhoz tartozó változtatások azonnal megjelennek.",
-    "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity": "Alapértelmezett tevékenység",
+    "default-activity-hint": "Válassza ki, melyik oldalra szeretne navigálni, amikor bejelentkezik erről az eszközről"
   },
   "language-dialog": {
     "translated": "lefordítva",
