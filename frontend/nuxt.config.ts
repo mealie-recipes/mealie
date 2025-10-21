@@ -234,6 +234,7 @@ export default defineNuxtConfig({
       id: "/",
       start_url: "/",
       scope: "/",
+      crossorigin: 'use-credentials',
       display: "standalone",
       background_color: "#FFFFFF",
       theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
