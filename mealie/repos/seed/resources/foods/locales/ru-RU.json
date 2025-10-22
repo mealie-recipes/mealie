@@ -2001,22 +2001,22 @@
             "parmesan": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan",
-                "plural_name": "parmesans"
+                "name": "пармезан",
+                "plural_name": "пармезан"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddars"
+                    "чеддер"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheeses"
+                "name": "чеддер",
+                "plural_name": "чеддер"
             },
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheeses"
+                "name": "сливочный сыр",
+                "plural_name": "сливочные сыры"
             },
             "sharp cheddar": {
                 "aliases": [],
@@ -2027,26 +2027,26 @@
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheeses"
+                "name": "сыр",
+                "plural_name": "сыры"
             },
             "mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella",
-                "plural_name": "mozzarellas"
+                "name": "моцарелла",
+                "plural_name": "моцарелла"
             },
             "feta": {
                 "aliases": [],
                 "description": "",
-                "name": "feta",
-                "plural_name": "fetas"
+                "name": "фета",
+                "plural_name": "фета"
             },
             "ricotta": {
                 "aliases": [],
                 "description": "",
-                "name": "ricotta",
-                "plural_name": "ricottas"
+                "name": "рикотта",
+                "plural_name": "рикотта"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
@@ -2057,85 +2057,85 @@
             "monterey jack": {
                 "aliases": [],
                 "description": "",
-                "name": "monterey jack",
-                "plural_name": "monterey jacks"
+                "name": "Монтерей Джек",
+                "plural_name": "Монтерей Джек"
             },
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheeses"
+                "name": "голубой сыр",
+                "plural_name": "голубые сыры"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheeses"
+                "name": "козий сыр",
+                "plural_name": "козьи сыры"
             },
             "fresh mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella",
-                "plural_name": "fresh mozzarellas"
+                "name": "свежая моцарелла",
+                "plural_name": "свежая моцарелла"
             },
             "swiss cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swiss cheese",
-                "plural_name": "swiss cheeses"
+                "name": "швейцарский сыр",
+                "plural_name": "швейцарские сыры"
             },
             "pecorino": {
                 "aliases": [],
                 "description": "",
-                "name": "pecorino",
-                "plural_name": "pecorinoes"
+                "name": "пекорино",
+                "plural_name": "пекорино"
             },
             "gruyere": {
                 "aliases": [],
                 "description": "",
-                "name": "gruyere",
-                "plural_name": "gruyeres"
+                "name": "грюйер",
+                "plural_name": "грюйер"
             },
             "mascarpone": {
                 "aliases": [],
                 "description": "",
-                "name": "mascarpone",
-                "plural_name": "mascarpones"
+                "name": "маскарпоне",
+                "plural_name": "маскарпоне"
             },
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cottage cheese",
-                "plural_name": "cottage cheeses"
+                "name": "творог",
+                "plural_name": "творог"
             },
             "american cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "american cheese",
-                "plural_name": "american cheeses"
+                "name": "американский сыр",
+                "plural_name": "американские сыры"
             },
             "provolone": {
                 "aliases": [],
                 "description": "",
-                "name": "provolone",
-                "plural_name": "provolones"
+                "name": "проволоне",
+                "plural_name": "проволоне"
             },
             "mexican cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican cheese blend",
-                "plural_name": "mexican cheese blends"
+                "name": "смесь мексиканских сыров",
+                "plural_name": "смеси мексиканских сыров"
             },
             "pepper jack": {
                 "aliases": [],
                 "description": "",
-                "name": "pepper jack",
-                "plural_name": "pepper jacks"
+                "name": "Пеппер Джек",
+                "plural_name": "Пеппер Джек"
             },
             "brie": {
                 "aliases": [],
                 "description": "",
-                "name": "brie",
+                "name": "бри",
                 "plural_name": "bries"
             },
             "paneer": {
