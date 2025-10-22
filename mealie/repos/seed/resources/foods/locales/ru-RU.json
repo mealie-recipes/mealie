@@ -2136,19 +2136,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "бри",
-                "plural_name": "bries"
+                "plural_name": "бри"
             },
             "paneer": {
                 "aliases": [],
                 "description": "",
-                "name": "paneer",
-                "plural_name": "paneers"
+                "name": "панир",
+                "plural_name": "панир"
             },
             "fontina": {
                 "aliases": [],
                 "description": "",
-                "name": "fontina",
-                "plural_name": "fontinas"
+                "name": "фонтина",
+                "plural_name": "фонтина"
             },
             "queso fresco": {
                 "aliases": [],
@@ -2165,14 +2165,14 @@
             "gouda": {
                 "aliases": [],
                 "description": "",
-                "name": "gouda",
-                "plural_name": "goudas"
+                "name": "гауда",
+                "plural_name": "гауда"
             },
             "cotija": {
                 "aliases": [],
                 "description": "",
-                "name": "cotija",
-                "plural_name": "cotijas"
+                "name": "котиха",
+                "plural_name": "котиха"
             },
             "asiago": {
                 "aliases": [],
@@ -2183,8 +2183,8 @@
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheeses"
+                "name": "копчёный сыр",
+                "plural_name": "копчёные сыры"
             },
             "halloumi": {
                 "aliases": [],
@@ -2207,62 +2207,62 @@
             "italian cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "italian cheese blend",
-                "plural_name": "italian cheese blends"
+                "name": "итальянская сырная смесь",
+                "plural_name": "итальянские сырные смеси"
             },
             "neufchatel": {
                 "aliases": [],
                 "description": "",
-                "name": "neufchatel",
-                "plural_name": "neufchatels"
+                "name": "нёшатель",
+                "plural_name": "нёшатель"
             },
             "herb cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "herb cream cheese",
-                "plural_name": "herb cream cheeses"
+                "name": "сливочный сыр с травами",
+                "plural_name": "сливочные сыры с травами"
             },
             "burrata": {
                 "aliases": [],
                 "description": "",
-                "name": "burrata",
-                "plural_name": "burratas"
+                "name": "буррата",
+                "plural_name": "буррата"
             },
             "havarti": {
                 "aliases": [],
                 "description": "",
-                "name": "havarti",
-                "plural_name": "havartis"
+                "name": "хаварти",
+                "plural_name": "хаварти"
             },
             "colby": {
                 "aliases": [],
                 "description": "",
-                "name": "colby",
-                "plural_name": "colbies"
+                "name": "колби",
+                "plural_name": "колби "
             },
             "grana-padano": {
                 "aliases": [],
                 "description": "",
-                "name": "grana-padano",
-                "plural_name": "grana-padanoes"
+                "name": "грана падано",
+                "plural_name": "грана падано"
             },
             "muenster": {
                 "aliases": [],
                 "description": "",
-                "name": "muenster",
-                "plural_name": "muensters"
+                "name": "мюнстер",
+                "plural_name": "мюнстер"
             },
             "string cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "string cheese",
-                "plural_name": "string cheeses"
+                "name": "сыр косичка",
+                "plural_name": "сыры косичка"
             },
             "camembert": {
                 "aliases": [],
                 "description": "",
-                "name": "camembert",
-                "plural_name": "camemberts"
+                "name": "камамбер",
+                "plural_name": "камамбер"
             },
             "soft cheese": {
                 "aliases": [],
