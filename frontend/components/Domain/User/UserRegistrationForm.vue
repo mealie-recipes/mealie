@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card-title>
+    <v-card-title class="pt-0">
       <v-icon
         size="large"
         class="mr-3"
@@ -10,7 +10,7 @@
       <span class="headline"> {{ $t("user-registration.account-details") }}</span>
     </v-card-title>
     <v-divider />
-    <v-card-text>
+    <v-card-text class="mt-2">
       <v-form
         ref="domAccountForm"
         @submit.prevent

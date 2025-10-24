@@ -6,7 +6,7 @@
           width="100%"
           max-height="175"
           max-width="175"
-          :src="require('~/static/svgs/manage-recipes.svg')"
+          src="/svgs/manage-recipes.svg"
         />
       </template>
       <template #title>
@@ -36,7 +36,7 @@
 
 <script lang="ts">
 export default defineNuxtComponent({
-  middleware: ["sidebase-auth", "can-organize-only"],
+  middleware: ["can-organize-only"],
   setup() {
     const i18n = useI18n();
     const buttonLookup: { [key: string]: string } = {

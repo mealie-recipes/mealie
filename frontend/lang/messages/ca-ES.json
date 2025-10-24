@@ -399,6 +399,10 @@
       "description-long": "Mealie pot importar les receptes de Tandoor. Exporta les dades en format \"Default\", i carrega el .zip a sota.",
       "title": "Tandoor Recipes"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migració de receptes",
     "recipe-data-migrations-explanation": "Les receptes es poden migrar des d'una altra aplicació suportada cap a Mealie. És una manera genial de començar a utilitzar el Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Véns d'una altra aplicació o una versió més antiga de Mealia? Fés un cop d'ull a migracions i mira si pots importar les teves dades.",
@@ -561,6 +565,7 @@
     "see-original-text": "Mostra el text original",
     "original-text-with-value": "Text original: {originalText}",
     "ingredient-linker": "Enllaça ingredients",
+    "unlinked": "No enllaçada",
     "linked-to-other-step": "Enllaça a un altre pas",
     "auto": "Automàtic",
     "cook-mode": "Mode \"cuinant\"",
@@ -623,6 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Podeu importar directament des de les dades planes",
     "import-original-keywords-as-tags": "Importa les paraules clau originals com a tags",
     "stay-in-edit-mode": "Segueix en el mode d'edició",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Importa des d'un ZIP",
     "import-from-zip-description": "Importa una sola recepta que ha estat importada d'una altra instància de Mealie.",
     "import-from-html-or-json": "Importar des d'un HTML o JSON",
@@ -668,7 +674,13 @@
       "missing-food": "Crear menjar que manca: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
-      "no-food": "Sense menjar"
+      "no-food": "Sense menjar",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Reiniciar racions servides",
     "not-linked-ingredients": "Ingredients addicionals",

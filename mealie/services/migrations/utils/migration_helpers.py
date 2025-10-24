@@ -104,6 +104,7 @@ def import_image(src: str | Path, recipe_id: UUID4):
     """Read the successful migrations attribute and for each import the image
     appropriately into the image directory. Minification is done in mass
     after the migration occurs.
+    May raise an UnidentifiedImageError if the file is not a recognised format.
     """
 
     if isinstance(src, str):
@@ -113,11 +114,7 @@ def import_image(src: str | Path, recipe_id: UUID4):
         return
 
     data_service = RecipeDataService(recipe_id=recipe_id)
-
-    try:
-        data_service.write_image(src, src.suffix)
-    except UnidentifiedImageError:
-        return
+    data_service.write_image(src, src.suffix)
 
 
 async def scrape_image(image_url: str, recipe_id: UUID4):
@@ -177,3 +174,21 @@ def parse_iso8601_duration(time: str | None) -> str:
         return_strings.append(f"{value} {value_map[unit_key]}")
 
     return " ".join(return_strings) if return_strings else time
+
+
+def format_time(minutes: int) -> str:
+    # TODO: make this translatable
+    hour_label = "hour"
+    hours_label = "hours"
+    minute_label = "minute"
+    minutes_label = "minutes"
+
+    hours, minutes = divmod(minutes, 60)
+    parts: list[str] = []
+
+    if hours:
+        parts.append(f"{int(hours)} {hour_label if hours == 1 else hours_label}")
+    if minutes:
+        parts.append(f"{minutes} {minute_label if minutes == 1 else minutes_label}")
+
+    return " ".join(parts)

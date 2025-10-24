@@ -18,10 +18,10 @@ export const useFoodData = function () {
 
 export const useFoodStore = function (i18n?: Composer) {
   const api = useUserApi(i18n);
-  return useStore<IngredientFood>(store, loading, api.foods);
+  return useStore<IngredientFood>("food", store, loading, api.foods);
 };
 
 export const usePublicFoodStore = function (groupSlug: string, i18n?: Composer) {
   const api = usePublicExploreApi(groupSlug, i18n).explore;
-  return useReadOnlyStore<IngredientFood>(store, publicLoading, api.foods);
+  return useReadOnlyStore<IngredientFood>("food", store, publicLoading, api.foods);
 };

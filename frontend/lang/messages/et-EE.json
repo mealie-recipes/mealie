@@ -399,6 +399,10 @@
       "description-long": "Mealie saab importida retsepte Tandoor-ist. Ekspordi oma andmed \"Default\" formaadis ning lae .zip allolevasse kasti",
       "title": "Tandoor-i retsptid"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Retsepti andmete ületoomised",
     "recipe-data-migrations-explanation": "Retsepte saab üle tuua teisest toetatud rakendusest Mealiesse. See on hea viis tegemaks algust Mealie-ga.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Tuled teisest rakendusest või hoopis vanemast Mealie versioonist? Uuri ületoomise võimalusi ning vaata kas su andmeid saab importida.",
@@ -561,6 +565,7 @@
     "see-original-text": "Vaata originaalteksti",
     "original-text-with-value": "Originaaltekst: {originalText}",
     "ingredient-linker": "Koostisosa linkija",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Lingitud järgmise sammuga",
     "auto": "Automaatne",
     "cook-mode": "Küpsetusviis",
@@ -623,6 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Sa võid otse importida töötlemata andmetest",
     "import-original-keywords-as-tags": "Impordi originaal võtmesõnad siltidena",
     "stay-in-edit-mode": "Püsige redigeerimisrežiimis",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Impordi .zip-st",
     "import-from-zip-description": "Impordi üks retsept, mis oli eksporditud teisest Mealie paigaldusest.",
     "import-from-html-or-json": "Impordi HTMLst või JSONist",
@@ -668,7 +674,13 @@
       "missing-food": "Loo puuduv toit: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
-      "no-food": "Toit puudub"
+      "no-food": "Toit puudub",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Lähtesta portsionite arv",
     "not-linked-ingredients": "Lisa-koostisosad",

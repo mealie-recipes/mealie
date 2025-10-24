@@ -1,5 +1,6 @@
 <template>
-  <v-navigation-drawer v-model="showDrawer" class="d-flex flex-column d-print-none position-fixed">
+  <v-navigation-drawer v-model="showDrawer" class="d-flex flex-column d-print-none position-fixed" touchless>
+    <LanguageDialog v-model="languageDialog" />
     <!-- User Profile -->
     <template v-if="loggedIn">
       <v-list-item lines="two" :to="userProfileLink" exact>
@@ -32,20 +33,39 @@
         <template v-for="nav in topLink">
           <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
             <!-- Multi Items -->
-            <v-list-group v-if="nav.children" :key="(nav.key || nav.title) + 'multi-item'"
-              v-model="dropDowns[nav.title]" color="primary" :prepend-icon="nav.icon" :fluid="true">
+            <v-list-group
+              v-if="nav.children"
+              :key="(nav.key || nav.title) + 'multi-item'"
+              v-model="dropDowns[nav.title]"
+              color="primary"
+              :prepend-icon="nav.icon"
+              :fluid="true"
+            >
               <template #activator="{ props }">
                 <v-list-item v-bind="props" :prepend-icon="nav.icon" :title="nav.title" />
               </template>
 
-              <v-list-item v-for="child in nav.children" :key="child.key || child.title" exact :to="child.to"
-                :prepend-icon="child.icon" :title="child.title" class="ml-4" />
+              <v-list-item
+                v-for="child in nav.children"
+                :key="child.key || child.title"
+                exact
+                :to="child.to"
+                :prepend-icon="child.icon"
+                :title="child.title"
+                class="ml-4"
+              />
             </v-list-group>
 
             <!-- Single Item -->
             <template v-else>
-              <v-list-item :key="(nav.key || nav.title) + 'single-item'" exact link :to="nav.to"
-                :prepend-icon="nav.icon" :title="nav.title" />
+              <v-list-item
+                :key="(nav.key || nav.title) + 'single-item'"
+                exact
+                link
+                :to="nav.to"
+                :prepend-icon="nav.icon"
+                :title="nav.title"
+              />
             </template>
           </div>
         </template>
@@ -59,14 +79,27 @@
         <template v-for="nav in secondaryLinks">
           <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
             <!-- Multi Items -->
-            <v-list-group v-if="nav.children" :key="(nav.key || nav.title) + 'multi-item'"
-              v-model="dropDowns[nav.title]" color="primary" :prepend-icon="nav.icon" fluid>
+            <v-list-group
+              v-if="nav.children"
+              :key="(nav.key || nav.title) + 'multi-item'"
+              v-model="dropDowns[nav.title]"
+              color="primary"
+              :prepend-icon="nav.icon"
+              fluid
+            >
               <template #activator="{ props }">
                 <v-list-item v-bind="props" :prepend-icon="nav.icon" :title="nav.title" />
               </template>
 
-              <v-list-item v-for="child in nav.children" :key="child.key || child.title" exact :to="child.to"
-                class="ml-2" :prepend-icon="child.icon" :title="child.title" />
+              <v-list-item
+                v-for="child in nav.children"
+                :key="child.key || child.title"
+                exact
+                :to="child.to"
+                class="ml-2"
+                :prepend-icon="child.icon"
+                :title="child.title"
+              />
             </v-list-group>
 
             <!-- Single Item -->
@@ -82,30 +115,32 @@
     </template>
 
     <!-- Bottom Navigation Links -->
-    <template v-if="bottomLinks" #append>
-      <v-list v-model:selected="bottomSelected" nav density="compact">
-        <template v-for="nav in bottomLinks">
-          <div v-if="!nav.restricted || isOwnGroup" :key="nav.key || nav.title">
-            <v-list-item :key="nav.key || nav.title" exact link :to="nav.to" :href="nav.href"
-              :target="nav.href ? '_blank' : null">
-              <template #prepend>
-                <v-icon>{{ nav.icon }}</v-icon>
-              </template>
-              <v-list-item-title>{{ nav.title }}</v-list-item-title>
-            </v-list-item>
-          </div>
-        </template>
-        <slot name="bottom" />
+    <template #append>
+      <v-list v-model:selected="bottomSelected" nav density="comfortable">
+        <v-menu location="end bottom" :offset="15">
+          <template #activator="{ props }">
+            <v-list-item v-bind="props" :prepend-icon="$globals.icons.cog" :title="$t('general.settings')" />
+          </template>
+          <v-list density="comfortable" color="primary">
+            <v-list-item :prepend-icon="$globals.icons.translate" :title="$t('sidebar.language')" @click="languageDialog=true" />
+            <v-list-item :prepend-icon="$vuetify.theme.current.dark ? $globals.icons.weatherSunny : $globals.icons.weatherNight" :title="$vuetify.theme.current.dark ? $t('settings.theme.light-mode') : $t('settings.theme.dark-mode')" @click="toggleDark" />
+            <v-divider v-if="loggedIn" class="my-2" />
+            <v-list-item v-if="loggedIn" :prepend-icon="$globals.icons.cog" :title="$t('profile.user-settings')" to="/user/profile" />
+            <v-list-item v-if="canManage" :prepend-icon="$globals.icons.manageData" :title="$t('data-pages.data-management')" to="/group/data" />
+            <v-divider v-if="isAdmin" class="my-2" />
+            <v-list-item v-if="isAdmin" :prepend-icon="$globals.icons.wrench" :title="$t('settings.admin-settings')" to="/admin/site-settings" />
+          </v-list>
+        </v-menu>
       </v-list>
     </template>
   </v-navigation-drawer>
 </template>
 
 <script lang="ts">
-import { useWindowSize } from "@vueuse/core";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { SidebarLinks } from "~/types/application-types";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
+import { useToggleDarkMode } from "~/composables/use-utils";
 
 export default defineNuxtComponent({
   components: {
@@ -130,19 +165,18 @@ export default defineNuxtComponent({
       required: false,
       default: null,
     },
-    bottomLinks: {
-      type: Array as () => SidebarLinks,
-      required: false,
-      default: () => ([]),
-    },
   },
   emits: ["update:modelValue"],
   setup(props, context) {
     const $auth = useMealieAuth();
     const { loggedIn, isOwnGroup } = useLoggedInState();
+    const isAdmin = computed(() => $auth.user.value?.admin);
+    const canManage = computed(() => $auth.user.value?.canManage);
 
     const userFavoritesLink = computed(() => $auth.user.value ? `/user/${$auth.user.value.id}/favorites` : undefined);
     const userProfileLink = computed(() => $auth.user.value ? "/user/profile" : undefined);
+
+    const toggleDark = useToggleDarkMode();
 
     const state = reactive({
       dropDowns: {} as Record<string, boolean>,
@@ -150,28 +184,15 @@ export default defineNuxtComponent({
       secondarySelected: null as string[] | null,
       bottomSelected: null as string[] | null,
       hasOpenedBefore: false as boolean,
+      languageDialog: false as boolean,
     });
     // model to control the drawer
     const showDrawer = computed({
       get: () => props.modelValue,
       set: value => context.emit("update:modelValue", value),
     });
-    watch(showDrawer, () => {
-      if (window.innerWidth < 760 && state.hasOpenedBefore === false) {
-        state.hasOpenedBefore = true;
-      }
-    });
-    const { width: wWidth } = useWindowSize();
-    watch(wWidth, (w) => {
-      if (w > 760) {
-        showDrawer.value = true;
-      }
-      else {
-        showDrawer.value = false;
-      }
-    });
 
-    const allLinks = computed(() => [...props.topLink, ...(props.secondaryLinks || []), ...(props.bottomLinks || [])]);
+    const allLinks = computed(() => [...props.topLink, ...(props.secondaryLinks || [])]);
     function initDropdowns() {
       allLinks.value.forEach((link) => {
         state.dropDowns[link.title] = link.childrenStartExpanded || false;
@@ -193,8 +214,11 @@ export default defineNuxtComponent({
       userProfileLink,
       showDrawer,
       loggedIn,
+      isAdmin,
+      canManage,
       isOwnGroup,
       sessionUser: $auth.user,
+      toggleDark,
     };
   },
 });

@@ -37,7 +37,7 @@
 }
 
 .handle {
-  cursor: grab;
+  cursor: grab !important;
 }
 
 .hidden {

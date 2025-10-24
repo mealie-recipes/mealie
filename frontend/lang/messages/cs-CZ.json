@@ -399,6 +399,10 @@
       "description-long": "Mealie může importovat recepty z Tandoor. Exportujte data ve výchozím formátu, poté nahrajte soubor ve formátu .zip.",
       "title": "Recepty Tandoor"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migrace dat receptů",
     "recipe-data-migrations-explanation": "Recepty mohou být migrovány z jiné podporované aplikace na Mealie. To je skvělý způsob, jak začít s Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Migrujete z jiné aplikace nebo starší verze Mealie? Podívejte se na migrace a zjistěte, zda lze vaše data importovat.",
@@ -549,7 +553,7 @@
     "failed-to-add-recipes-to-list": "Přidání receptu do seznamu se nezdařilo",
     "failed-to-add-recipe-to-mealplan": "Přidání receptu do jídelníčku selhalo",
     "failed-to-add-to-list": "Přidání do seznamu se nezdařilo",
-    "yield": "Úroda",
+    "yield": "Výnos",
     "yields-amount-with-text": "Pro {amount} {text}",
     "yield-text": "Text porcí",
     "quantity": "Množství",
@@ -561,6 +565,7 @@
     "see-original-text": "Zobrazit původní text",
     "original-text-with-value": "Původní text: {originalText}",
     "ingredient-linker": "Propojení ingrediencí",
+    "unlinked": "Zatím nepropojeno",
     "linked-to-other-step": "Propojeno s jiným krokem receptu",
     "auto": "Automaticky",
     "cook-mode": "Režim vaření",
@@ -623,6 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Můžete importovat přímo ze surových dat",
     "import-original-keywords-as-tags": "Importovat původní klíčová slova jako štítky",
     "stay-in-edit-mode": "Zůstat v režimu úprav",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Importovat ze zipu",
     "import-from-zip-description": "Importovat jeden recept, který byl exportován z jiné instance Mealie.",
     "import-from-html-or-json": "Importovat z HTML nebo JSON",
@@ -668,7 +674,13 @@
       "missing-food": "Vytvořit chybějící jídlo: {food}",
       "this-unit-could-not-be-parsed-automatically": "Tuto jednotku nelze analyzovat automaticky",
       "this-food-could-not-be-parsed-automatically": "Toto jídlo nelze analyzovat automaticky",
-      "no-food": "Žádné jídlo"
+      "no-food": "Žádné jídlo",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Resetovat počet porcí",
     "not-linked-ingredients": "Další ingredience",

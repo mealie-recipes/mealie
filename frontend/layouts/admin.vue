@@ -15,7 +15,6 @@
       v-model="sidebar"
       absolute
       :top-link="topLinks"
-      :bottom-links="bottomLinks"
       :user="{ data: true }"
       :secondary-header="$t('sidebar.developer')"
       :secondary-links="developerLinks"
@@ -36,13 +35,15 @@ import AppHeader from "@/components/Layout/LayoutParts/AppHeader.vue";
 import AppSidebar from "@/components/Layout/LayoutParts/AppSidebar.vue";
 import TheSnackbar from "~/components/Layout/LayoutParts/TheSnackbar.vue";
 import type { SidebarLinks } from "~/types/application-types";
+import { useGlobalI18n } from "~/composables/use-global-i18n";
 
-const i18n = useI18n();
-const { $globals, $vuetify } = useNuxtApp();
+const i18n = useGlobalI18n();
+const display = useDisplay();
+const { $globals } = useNuxtApp();
 
 const sidebar = ref<boolean>(false);
 onMounted(() => {
-  sidebar.value = !$vuetify.display.md.value;
+  sidebar.value = display.lgAndUp.value;
 });
 
 const topLinks: SidebarLinks = [
@@ -110,15 +111,6 @@ const developerLinks: SidebarLinks = [
         restricted: true,
       },
     ],
-  },
-];
-
-const bottomLinks: SidebarLinks = [
-  {
-    icon: $globals.icons.heart,
-    title: i18n.t("about.support"),
-    href: "https://github.com/sponsors/hay-kot",
-    restricted: true,
   },
 ];
 </script>

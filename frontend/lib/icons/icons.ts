@@ -152,6 +152,8 @@ import {
   mdiCookie,
   mdiBellPlus,
   mdiLinkVariantPlus,
+  mdiTableEdit,
+  mdiFileSign,
 } from "@mdi/js";
 
 export const icons = {
@@ -240,6 +242,7 @@ export const icons = {
   linkVariantPlus: mdiLinkVariantPlus,
   lock: mdiLock,
   logout: mdiLogout,
+  manageData: mdiTableEdit,
   menu: mdiMenu,
   messageText: mdiMessageText,
   newBox: mdiNewBox,
@@ -283,6 +286,7 @@ export const icons = {
   undo: mdiUndo,
   knfife: mdiKnife,
   bread: mdiCookie,
+  fileSign: mdiFileSign,
 
   // Crud
   backArrow: mdiArrowLeftBoldOutline,
@@ -324,5 +328,4 @@ export const icons = {
   preserveLines: mdiText,
   preserveBlocks: mdiTextBoxOutline,
   flatten: mdiMinus,
-
 };

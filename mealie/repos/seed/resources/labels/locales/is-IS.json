@@ -1,65 +1,65 @@
 [
     {
-        "name": "Produce"
+        "name": "Matvæli"
     },
     {
-        "name": "Grains"
+        "name": "Korn"
     },
     {
-        "name": "Fruits"
+        "name": "Ávextir"
     },
     {
-        "name": "Vegetables"
+        "name": "Grænmeti"
     },
     {
-        "name": "Meat"
+        "name": "Kjöt"
     },
     {
-        "name": "Seafood"
+        "name": "Sjávarréttir"
     },
     {
-        "name": "Beverages"
+        "name": "Drykkir"
     },
     {
-        "name": "Baked Goods"
+        "name": "Bakað"
     },
     {
-        "name": "Canned Goods"
+        "name": "Dósamatur"
     },
     {
-        "name": "Condiments"
+        "name": "Bragðbætar"
     },
     {
-        "name": "Confectionary"
+        "name": "Konfekt"
     },
     {
-        "name": "Dairy Products"
+        "name": "Mjólkurvörur"
     },
     {
-        "name": "Frozen Foods"
+        "name": "Frosinn matur"
     },
     {
-        "name": "Health Foods"
+        "name": "Heilsumatur"
     },
     {
-        "name": "Household"
+        "name": "Heimili"
     },
     {
-        "name": "Meat Products"
+        "name": "Kjötvörur"
     },
     {
-        "name": "Snacks"
+        "name": "Snakk"
     },
     {
-        "name": "Spices"
+        "name": "Krydd"
     },
     {
-        "name": "Sweets"
+        "name": "Sætindi"
     },
     {
-        "name": "Alcohol"
+        "name": "Áfengi"
     },
     {
-        "name": "Other"
+        "name": "Annað"
     }
 ]

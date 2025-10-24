@@ -399,6 +399,10 @@
       "description-long": "Mealie képes recepteket importálni a Tandoorból. Exportálja adatait az \"Alapértelmezett\" formátumban, majd töltse fel a .zip fájlt lentebb.",
       "title": "Tandoor receptek"
     },
+    "cookn": {
+      "description-long": "Mealie képes importálni a DVO Cook'n X3 receptjeit. Exportáljon egy szakácskönyvet vagy menüt „Cook'n” formátumban, nevezze át az exportált fájl kiterjesztését .zip-re, majd töltse fel az alábbi .zip fájlt.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Receptadatok migrációja",
     "recipe-data-migrations-explanation": "A receptek átemelhetők más támogatott alkalmazásból Mealie-be. Ez egy remek módja a Mealie használatának elkezdésére.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "A Mealie egy másik verzióját használtad vagy valami teljesen más applikációt? Nézd meg az adat importálási lehetőségeinket.",
@@ -561,6 +565,7 @@
     "see-original-text": "Eredeti szöveg megjelenítése",
     "original-text-with-value": "Eredeti szöveg: {originalText}",
     "ingredient-linker": "Hozzávaló összekötő",
+    "unlinked": "Még nincs csatolva",
     "linked-to-other-step": "Egy másik lépéssel összekapcsolva",
     "auto": "Automatikus",
     "cook-mode": "Főzési mód",
@@ -623,6 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "A nyers adatokból közvetlenül is importálhat",
     "import-original-keywords-as-tags": "Eredeti kulcsszavak importálása címkeként",
     "stay-in-edit-mode": "Maradjon Szerkesztés módban",
+    "parse-recipe-ingredients-after-import": "Recept összetevőinek elemzése importálás után",
     "import-from-zip": "Importálás ZIP-ből",
     "import-from-zip-description": "Egy másik Mealie-példányból kiexportált recept egyedi importálása.",
     "import-from-html-or-json": "Importálás HTML vagy JSON fájlból",
@@ -668,7 +674,13 @@
       "missing-food": "Hiányzó élelmiszer létrehozása: {food}",
       "this-unit-could-not-be-parsed-automatically": "Ez az egység nem tudja automatikusan értelmezni",
       "this-food-could-not-be-parsed-automatically": "Ezt az ételt nem lehetett automatikusan feldolgozni",
-      "no-food": "Élelmiszer nélküli"
+      "no-food": "Élelmiszer nélküli",
+      "review-parsed-ingredients": "Kinyert hozzávalók ellenőrzése",
+      "confidence-score": "Bizonyossági érték",
+      "ingredient-parser-description": "Sikeresen feldolgoztuk a hozzávalókat. Kérljük, nézze át azokat, amelyekben nem vagyunk teljesen biztosak.",
+      "ingredient-parser-final-review-description": "Miután az összes hozzávalót átnézte, még egyszer átnézheti az összes hozzávalót, mielőtt a változtatásokat átvezeti a receptbe.",
+      "add-text-as-alias-for-item": "Adja hozzá a „{text}” nevet {item} aliasaként",
+      "delete-item": "Elem törlése"
     },
     "reset-servings-count": "Adagok számának visszaállítása",
     "not-linked-ingredients": "Kiegészítő hozzávalók",
@@ -1265,7 +1277,7 @@
       "action-clean-temporary-files-description": "Minden fájl és mappa eltávolítása a .temp könyvtárból",
       "action-clean-images-name": "Képek tisztítása",
       "action-clean-images-description": "Minden nem .webp kiterjesztésű kép eltávolítása",
-      "actions-description": "A karbantartási műveletek {destructive_in_bold} és óvatosan használandók. Ezen műveletek bármelyikének végrehajtása {irreversible_in_bold}.",
+      "actions-description": "A karbantartási műveletek {destructive_in_bold} jellegűek, ezért óvatosan kell alkalmazni őket. Ezen műveletek végrehajtása {irreversible_in_bold}.",
       "actions-description-destructive": "romboló",
       "actions-description-irreversible": "visszafordíthatatlan",
       "logs-action-refresh": "Logok frissítése",

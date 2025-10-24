@@ -11,6 +11,7 @@ from mealie.schema.reports.reports import ReportSummary
 from mealie.services.migrations import (
     BaseMigrator,
     ChowdownMigrator,
+    CooknMigrator,
     CopyMeThatMigrator,
     MealieAlphaMigrator,
     MyRecipeBoxMigrator,
@@ -59,6 +60,7 @@ class GroupMigrationController(BaseUserController):
                 SupportedMigrations.plantoeat: PlanToEatMigrator,
                 SupportedMigrations.myrecipebox: MyRecipeBoxMigrator,
                 SupportedMigrations.recipekeeper: RecipeKeeperMigrator,
+                SupportedMigrations.cookn: CooknMigrator,
             }
 
             constructor = table.get(migration_type, None)

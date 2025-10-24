@@ -399,6 +399,10 @@
       "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
       "title": "Tandoor Recipes"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Recipe Data Migrations",
     "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
@@ -561,6 +565,7 @@
     "see-original-text": "See Original Text",
     "original-text-with-value": "Original Text: {originalText}",
     "ingredient-linker": "Ingredient Linker",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Linked to other step",
     "auto": "Auto",
     "cook-mode": "Cook Mode",
@@ -623,6 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Stay in Edit mode",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Import from Zip",
     "import-from-zip-description": "Import a single recipe that was exported from another Mealie instance.",
     "import-from-html-or-json": "Import from HTML or JSON",
@@ -668,7 +674,13 @@
       "missing-food": "Create missing food: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
-      "no-food": "No Food"
+      "no-food": "No Food",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Reset Servings Count",
     "not-linked-ingredients": "Additional Ingredients",
@@ -1120,10 +1132,10 @@
       "data-exports-description": "This section provides links to available exports that are ready to download. These exports do expire, so be sure to grab them while they're still available.",
       "data-exports": "Data Exports",
       "tag": "Tag",
-      "categorize": "Categorize",
+      "categorize": "Categorise",
       "update-settings": "Update Settings",
       "tag-recipes": "Tag Recipes",
-      "categorize-recipes": "Categorize Recipes",
+      "categorize-recipes": "Categorise Recipes",
       "export-recipes": "Export Recipes",
       "delete-recipes": "Delete Recipes",
       "source-unit-will-be-deleted": "Source Unit will be deleted"
@@ -1169,7 +1181,7 @@
     "group-details": "Group Details",
     "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
     "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organising your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Account Details"
   },
   "validation": {
@@ -1359,13 +1371,13 @@
   },
   "cookbook": {
     "cookbooks": "Cookbooks",
-    "description": "Cookbooks are another way to organize recipes by creating cross sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the side-bar and all the recipes with the filters chosen will be displayed in the cookbook.",
+    "description": "Cookbooks are another way to organise recipes by creating cross-sections of recipes, organizers, and other filters. Creating a cookbook will add an entry to the sidebar and all the recipes with the filters chosen will be displayed in the cookbook.",
     "hide-cookbooks-from-other-households": "Hide Cookbooks from Other Households",
     "hide-cookbooks-from-other-households-description": "When enabled, only cookbooks from your household will appear on the sidebar",
     "public-cookbook": "Public Cookbook",
     "public-cookbook-description": "Public Cookbooks can be shared with non-mealie users and will be displayed on your groups page.",
     "filter-options": "Filter Options",
-    "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
+    "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross-section of the selected items.",
     "require-all-categories": "Require All Categories",
     "require-all-tags": "Require All Tags",
     "require-all-tools": "Require All Tools",

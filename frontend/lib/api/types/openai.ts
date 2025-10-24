@@ -6,8 +6,6 @@
 */
 
 export interface OpenAIIngredient {
-  input: string;
-  confidence?: number | null;
   quantity?: number | null;
   unit?: string | null;
   food?: string | null;

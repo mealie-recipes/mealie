@@ -13,25 +13,25 @@
       @upload="uploadImage"
     />
     <v-spacer />
-      <v-select
-        v-model="recipe.userId"
-        class="my-2"
-        max-width="300"
-        :items="allUsers"
-        :item-props="itemsProps"
-        :label="$t('general.owner')"
-        :disabled="!canEditOwner"
-        variant="outlined"
-        density="compact"
-      >
-        <template #prepend>
-          <UserAvatar
-            :user-id="recipe.userId"
-            :tooltip="false"
-          />
-        </template>
-      </v-select>
-</div>
+    <v-select
+      v-model="recipe.userId"
+      class="my-2"
+      max-width="300"
+      :items="allUsers"
+      :item-props="itemsProps"
+      :label="$t('general.owner')"
+      :disabled="!canEditOwner"
+      variant="outlined"
+      density="compact"
+    >
+      <template #prepend>
+        <UserAvatar
+          :user-id="recipe.userId"
+          :tooltip="false"
+        />
+      </template>
+    </v-select>
+  </div>
 </template>
 
 <script setup lang="ts">
