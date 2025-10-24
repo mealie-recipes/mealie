@@ -378,7 +378,7 @@ class RecipeService(RecipeServiceBase):
         visited.add(recipe_id)
         ingredients = getattr(recipe, "recipe_ingredient", [])
         for ing in ingredients:
-            if getattr(ing, "is_recipe", False) and getattr(ing, "referenced_recipe", None):
+            if getattr(ing, "referenced_recipe", None):
                 sub_recipe = self.get_one(ing.referenced_recipe.id)
                 if self.has_recursive_recipe_link(sub_recipe, visited.copy()):
                     return True

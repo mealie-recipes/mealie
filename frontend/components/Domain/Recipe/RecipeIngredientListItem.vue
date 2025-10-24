@@ -13,8 +13,8 @@
       class="text-bold d-inline"
       :source="parsedIng.note"
     />
-    <template v-else-if="parsedIng.isRecipe">
-      <SafeMarkdown v-if="parsedIng.link" class="text-bold d-inline" :source="parsedIng.link" />
+    <template v-else-if="parsedIng.recipeLink">
+      <SafeMarkdown v-if="parsedIng.recipeLink" class="text-bold d-inline" :source="parsedIng.recipeLink" />
       <SafeMarkdown v-if="parsedIng.note" class="note" :source="parsedIng.note" />
     </template>
     <template v-else>

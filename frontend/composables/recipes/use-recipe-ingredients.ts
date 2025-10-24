@@ -36,7 +36,19 @@ function useUnitName(unit: CreateIngredientUnit | IngredientUnit | undefined, us
   return returnVal;
 }
 
-export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true, groupSlug?: string) {
+type ParsedIngredientText = {
+  quantity?: string;
+  unit?: string;
+  name?: string;
+  note?: string;
+
+  /**
+   * If the ingredient is a linked recipe, an HTML link to the referenced recipe, otherwise undefined.
+   */
+  recipeLink?: string;
+};
+
+export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true, groupSlug?: string): ParsedIngredientText {
   const { quantity, food, unit, note, referencedRecipe } = ingredient;
   const usePluralUnit = quantity !== undefined && ((quantity || 0) * scale > 1 || (quantity || 0) * scale === 0);
   const usePluralFood = (!quantity) || quantity * scale > 1;
@@ -72,7 +84,7 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1,
       unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
       name: foodName ? sanitizeIngredientHTML(foodName) : undefined,
       note: note ? sanitizeIngredientHTML(note) : undefined,
-      isRecipe: false,
+      recipeLink: undefined,
     };
   }
   else {
@@ -82,10 +94,8 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1,
         quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
         unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
         name: subRecipeName ? sanitizeIngredientHTML(subRecipeName) : undefined,
-
-        link: `<a href="/g/${groupSlug}/r/${referencedRecipe.slug}" target="_blank">${referencedRecipe.name}</a>`,
         note: undefined,
-        isRecipe: true,
+        recipeLink: `<a href="/g/${groupSlug}/r/${referencedRecipe.slug}" target="_blank">${referencedRecipe.name}</a>`,
       };
     }
 
@@ -94,6 +104,7 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1,
       quantity: undefined,
       unit: undefined,
       note: undefined,
+      recipeLink: undefined,
     };
   }
 }

@@ -157,7 +157,6 @@ class RecipeIngredientBase(MealieModel):
     unit: IngredientUnit | CreateIngredientUnit | None = None
     food: IngredientFood | CreateIngredientFood | None = None
     referenced_recipe: Recipe | None = None
-    is_recipe: bool | None = None
 
     note: str | None = ""
     display: str = ""
@@ -168,14 +167,7 @@ class RecipeIngredientBase(MealieModel):
     """
 
     @model_validator(mode="after")
-    def calculate_missing_recipe_flags(self):
-        if self.is_recipe is None:
-            self.is_recipe = bool(self.referenced_recipe)
-
-        return self
-
-    @model_validator(mode="after")
-    def change_note_templates(self):
+    def validate_note(self):
         if self.referenced_recipe:
             self.note = self.referenced_recipe.name
 

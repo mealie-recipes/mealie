@@ -34,7 +34,7 @@ def test_recipe_as_ingredient(unique_user: TestUser):
     assert recipe_with_subs.id is not None
 
     for ing in recipe_with_subs.recipe_ingredient:
-        if ing.is_recipe:
+        if ing.referenced_recipe:
             assert ing.referenced_recipe == recipe
 
 

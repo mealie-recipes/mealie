@@ -30,6 +30,7 @@
           v-for="(ingredient, index) in recipe.recipeIngredient"
           :key="ingredient.referenceId"
           v-model="recipe.recipeIngredient[index]"
+          :is-recipe="ingredientIsRecipe(ingredient)"
           enable-drag-handle
           enable-context-menu
           class="list-group-item"
@@ -129,13 +130,14 @@
 <script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { uuid4 } from "~/composables/use-utils";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
+const ingredientsWithRecipe = new Map<string, boolean>();
 const i18n = useI18n();
 
 const drag = ref(false);
@@ -165,6 +167,18 @@ const parserToolTip = computed(() => {
 
 function showBulkAdd() {
   domBulkAddDialog.value?.open();
+}
+
+function ingredientIsRecipe(ingredient: RecipeIngredient): boolean {
+  if (ingredient.referencedRecipe) {
+    return true;
+  }
+
+  if (ingredient.referenceId) {
+    return !!ingredientsWithRecipe.get(ingredient.referenceId);
+  }
+
+  return false;
 }
 
 function addIngredient(ingredients: Array<string> | null = null) {
@@ -200,15 +214,17 @@ function addIngredient(ingredients: Array<string> | null = null) {
 }
 
 function addRecipe(recipes: Array<string> | null = null) {
+  const refId = uuid4();
+  ingredientsWithRecipe.set(refId, true);
+
   if (recipes?.length) {
     const newRecipes = recipes.map((x) => {
       return {
-        referenceId: uuid4(),
+        referenceId: refId,
         title: "",
         note: x,
         unit: undefined,
         referencedRecipe: undefined,
-        isRecipe: true,
         quantity: 1,
       };
     });
@@ -220,14 +236,13 @@ function addRecipe(recipes: Array<string> | null = null) {
   }
   else {
     recipe.value.recipeIngredient.push({
-      referenceId: uuid4(),
+      referenceId: refId,
       title: "",
       note: "",
       // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
       unit: undefined,
       // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
       referencedRecipe: undefined,
-      isRecipe: true,
       quantity: 1,
     });
   }

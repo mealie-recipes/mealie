@@ -290,7 +290,7 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
     const shoppingListIngredients: ShoppingListIngredient[] = [];
     function flattenRecipeIngredients(ing: RecipeIngredient, parentTitle = ""): ShoppingListIngredient[] {
       const householdsWithFood = ing.food?.householdsWithIngredientFood || [];
-      if (ing.isRecipe && ing.referencedRecipe) {
+      if (ing.referencedRecipe) {
         // Recursively flatten all ingredients in the referenced recipe
         return (ing.referencedRecipe.recipeIngredient ?? []).flatMap((subIng) => {
           const calculatedQty = (ing.quantity || 1) * (subIng.quantity || 1);

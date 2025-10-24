@@ -41,7 +41,7 @@
         </v-text-field>
       </v-col>
       <v-col
-        v-if="!model.isRecipe"
+        v-if="!isRecipe"
         sm="12"
         md="3"
         cols="12"
@@ -98,7 +98,7 @@
 
       <!-- Foods Input -->
       <v-col
-        v-if="!model.isRecipe"
+        v-if="!isRecipe"
         m="12"
         md="3"
         cols="12"
@@ -155,7 +155,7 @@
       </v-col>
       <!-- Recipe Input -->
       <v-col
-        v-if="model.isRecipe"
+        v-if="isRecipe"
         m="12"
         md="6"
         cols="12"
@@ -234,6 +234,10 @@ const props = defineProps({
   menuAttachTarget: {
     type: String,
     default: "body",
+  },
+  isRecipe: {
+    type: Boolean,
+    default: false,
   },
   unitError: {
     type: Boolean,
