@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Nem akarja ezt többé látni? Mindenképpen változtassa meg az e-mail címét a felhasználói beállítások között!",
     "forgot-password": "Elfelejtett jelszó",
     "forgot-password-text": "Írja be e-mail címét és mi küldünk egy linket a jelszó visszaállításához.",
-    "changes-reflected-immediately": "Ehhez a felhasználóhoz tartozó változtatások azonnal megjelennek."
+    "changes-reflected-immediately": "Ehhez a felhasználóhoz tartozó változtatások azonnal megjelennek.",
+    "default-activity": "Alapértelmezett tevékenység",
+    "default-activity-hint": "Válassza ki, melyik oldalra szeretne navigálni, amikor bejelentkezik erről az eszközről"
   },
   "language-dialog": {
     "translated": "lefordítva",

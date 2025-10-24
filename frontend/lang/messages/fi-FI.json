@@ -73,7 +73,7 @@
     "enable-notifier": "Ota ilmoittaja käyttöön",
     "what-events": "Mistä tapahtumista tulisi ilmoittaa?",
     "user-events": "Käyttäjän tapahtumat",
-    "mealplan-events": "Ateriasuunnitelman Tapahtumat",
+    "mealplan-events": "Ateriasuunnittelun tapahtumat",
     "when-a-user-in-your-group-creates-a-new-mealplan": "Kun ryhmäsi käyttäjä tekee ateriasuunnitelman",
     "shopping-list-events": "Ostoslistatapahtumat",
     "cookbook-events": "Keittokirjatapahtumat",
@@ -737,7 +737,7 @@
       "restore-success": "Palautus onnistui",
       "restore-fail": "Palautus epäonnistui. Tarkista palvelinloki saadaksesi lisätietoja",
       "backup-tag": "Varmuuskopion tunniste",
-      "create-heading": "Create a Backup",
+      "create-heading": "Luo varmuuskopio",
       "delete-backup": "Poista varmuuskopio",
       "error-creating-backup-see-log-file": "Virhe varmuuskopiota luodessa. Katso lokitiedosto",
       "full-backup": "Täysi varmuuskopiointi",
@@ -992,7 +992,7 @@
     "login": "Kirjaudu",
     "login-oidc": "Kirjaudu sisään käyttäen",
     "or": "tai",
-    "logout": "Uloskirjaudu",
+    "logout": "Kirjaudu ulos",
     "manage-users": "Käyttäjien hallinta",
     "manage-users-description": "Luo ja hallitse käyttäjiä.",
     "new-password": "Uusi salasana",
@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vaihda sähköpostisi asetuksista, jos et halua nähdä tätä enää.",
     "forgot-password": "Unohditko salasanasi",
     "forgot-password-text": "Syötä sähköpostiosoitteesi, niin voit muuttaa salasanaasi linkin kautta.",
-    "changes-reflected-immediately": "Muutokset tähän käyttäjään astuvat välittömästi voimaan."
+    "changes-reflected-immediately": "Muutokset tähän käyttäjään astuvat välittömästi voimaan.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "käännetty",

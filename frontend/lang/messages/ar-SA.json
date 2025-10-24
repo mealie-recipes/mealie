@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "لا تريد رؤية هذه الرسالة بعد الآن؟ تأكد من تغيير بريدك الإلكتروني في إعدادات المستخدم الخاصة بك!",
     "forgot-password": "نسيت كلمة المرور",
     "forgot-password-text": "الرجاء إدخال بريدك الإلكتروني وسنرسل لك رابطًا لإعادة تعيين كلمة المرور الخاصة بك.",
-    "changes-reflected-immediately": "التغييرات التي ستطرأ على هذا المستخدم ستنعكس على الفور."
+    "changes-reflected-immediately": "التغييرات التي ستطرأ على هذا المستخدم ستنعكس على الفور.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "مترجم",

@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "これ以上表示したくないですか？ユーザー設定でメールアドレスを変更してください！",
     "forgot-password": "パスワードを忘れた",
     "forgot-password-text": "メールアドレスを入力すると、パスワードをリセットするためのリンクが送信されます。",
-    "changes-reflected-immediately": "このユーザーへの変更はすぐに反映されます。"
+    "changes-reflected-immediately": "このユーザーへの変更はすぐに反映されます。",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "翻訳済み",

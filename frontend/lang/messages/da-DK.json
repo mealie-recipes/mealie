@@ -57,7 +57,7 @@
     "event-delete-confirmation": "Er du sikker på, at du vil slette denne begivenhed?",
     "event-deleted": "Hændelse slettet",
     "event-updated": "Hændelse opdateret",
-    "new-notification-form-description": "Mealie bruger Apprise-biblioteket for at generere notifikationer. De giver mange muligheder for notifikationer til tjenester. Kig i deres wiki for en gennemgående guide til, hvordan en URL oprettes i din situation. Hvis muligt, kan valget af din type af notifikation omfatte flere ekstrafunktioner.",
+    "new-notification-form-description": "Mealie bruger Apprise biblioteket for at generere notifikationer. De giver mange muligheder for notifikationer til tjenester. Kig i deres wiki for en gennemgående guide til, hvordan en URL oprettes i din situation. Hvis muligt, kan valget af din type af notifikation omfatte flere ekstrafunktioner.",
     "new-version": "Ny opdatering er tilgængelig!",
     "notification": "Notifikation",
     "refresh": "Opdater",
@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vil du ikke længere se dette? Sørg for at ændre din e-mail i dine brugerindstillinger!",
     "forgot-password": "Glemt adgangskode",
     "forgot-password-text": "Indtast venligst din e-mail-adresse. Vi sender dig en e-mail, så at du kan nulstille din adgangskode.",
-    "changes-reflected-immediately": "Ændringer til denne bruger vil have effekt med det samme."
+    "changes-reflected-immediately": "Ændringer til denne bruger vil have effekt med det samme.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "oversat",
