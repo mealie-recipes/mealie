@@ -53,7 +53,7 @@ class ABCMinifier(ABC):
         )
 
     @abstractmethod
-    def minify(self, image: Path, force=True): ...
+    def minify(self, image_path: Path, force=True): ...
 
     def purge(self, image: Path):
         if not self._purge:
@@ -112,9 +112,10 @@ class PillowMinifier(ABCMinifier):
 
         return pil_img.crop((left, top, right, bottom)).resize((size, size), Image.LANCZOS)
 
-    def minify(self, image_file: Path, force=True):
-        if not image_file.exists():
-            raise FileNotFoundError(f"{image_file.name} does not exist")
+        # For retina displays, double the target size
+        if high_res:
+            target_width *= 2
+            target_height *= 2
 
         org_dest = image_file.parent.joinpath("original.webp")
         min_dest = image_file.parent.joinpath("min-original.webp")
@@ -170,4 +171,4 @@ class PillowMinifier(ABCMinifier):
             raise
 
         if self._purge and success:
-            self.purge(image_file)
+            self.purge(image_path)
