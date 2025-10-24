@@ -9,7 +9,6 @@ export default defineNuxtConfig({
   modules: [
     "@vite-pwa/nuxt",
     "@nuxtjs/i18n",
-    "@sidebase/nuxt-auth",
     "@nuxt/fonts",
     "vuetify-nuxt-module",
     "@nuxt/eslint",
@@ -51,11 +50,11 @@ export default defineNuxtConfig({
         },
       ],
       link: [
-        { "rel": "icon", "type": "image/x-icon", "href": "/favicon.ico", "data-n-head": "ssr" },
-        { "rel": "shortcut icon", "type": "image/png", "href": "/icons/icon-x64.png", "data-n-head": "ssr" },
-        { "rel": "apple-touch-icon", "type": "image/png", "href": "/icons/apple-touch-icon.png", "data-n-head": "ssr" },
-        { "rel": "mask-icon", "href": "/icons/safari-pinned-tab.svg", "data-n-head": "ssr" },
-        { "rel": "manifest", "href": "/manifest.webmanifest", "data-n-head": "ssr" },
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+        { rel: "shortcut icon", type: "image/png", href: "/icons/icon-x64.png" },
+        { rel: "apple-touch-icon", type: "image/png", href: "/icons/apple-touch-icon.png" },
+        { rel: "mask-icon", href: "/icons/safari-pinned-tab.svg" },
+        { rel: "manifest", href: "/manifest.webmanifest", crossorigin: "use-credentials" },
       ],
     },
 
@@ -124,29 +123,6 @@ export default defineNuxtConfig({
 
   nitro: {
     baseURL: process.env.SUB_PATH || "",
-  },
-
-  auth: {
-    isEnabled: true,
-    // disableServerSideAuth: true,
-    originEnvKey: "AUTH_ORIGIN",
-    baseURL: "/api",
-    provider: {
-      type: "local",
-      endpoints: {
-        signIn: { path: "/auth/token", method: "post" },
-        signOut: { path: "/auth/logout", method: "post" },
-        getSession: { path: "/users/self", method: "get" },
-      },
-      token: {
-        signInResponseTokenPointer: "/access_token",
-        type: "Bearer",
-        cookieName: AUTH_TOKEN,
-      },
-      pages: {
-        login: "/login",
-      },
-    },
   },
 
   // eslint rules

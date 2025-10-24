@@ -132,8 +132,8 @@
             "baby green": {
                 "aliases": [],
                 "description": "",
-                "name": "baby green",
-                "plural_name": "baby greens"
+                "name": "σαλάτα baby",
+                "plural_name": "σαλάτες baby"
             },
             "pumpkin": {
                 "aliases": [],
@@ -252,11 +252,11 @@
             "summer squash": {
                 "aliases": [
                     "κολοκυθάκι",
-                    "gem squash"
+                    "κολοκύθα gem"
                 ],
                 "description": "",
-                "name": "summer squash",
-                "plural_name": "summer squashes"
+                "name": "καλοκαιρινή κολοκύθα",
+                "plural_name": "καλοκαιρινές κολοκύθες"
             },
             "mixed green": {
                 "aliases": [],
@@ -351,8 +351,8 @@
             "spaghetti squash": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti squash",
-                "plural_name": "spaghetti squashes"
+                "name": "κολοκύθα σπαγγέτι",
+                "plural_name": "κολοκύθες σπαγγέτι"
             },
             "butter lettuce": {
                 "aliases": [],
@@ -419,8 +419,8 @@
             "corn cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn cob",
-                "plural_name": "corn cobs"
+                "name": "καλαμπόκι",
+                "plural_name": "καλαμπόκια"
             },
             "radicchio": {
                 "aliases": [],
@@ -2063,8 +2063,8 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "ροκφόρ τυρί ",
-                "plural_name": "ροκφόρ τυριά"
+                "name": "ροκφόρ τυρί",
+                "plural_name": "ροκφόρ τυρί"
             },
             "goat cheese": {
                 "aliases": [],
@@ -2105,8 +2105,8 @@
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cottage cheese",
-                "plural_name": "cottage cheeses"
+                "name": "τυρί κότατζ (cottage)",
+                "plural_name": "τυριά κότατζ (cottage)"
             },
             "american cheese": {
                 "aliases": [],
@@ -2649,14 +2649,14 @@
             "yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt",
-                "plural_name": "yogurts"
+                "name": "γιαούρτι",
+                "plural_name": "γιαούρτια"
             },
             "greek yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "greek yogurt",
-                "plural_name": "greek yogurts"
+                "name": "γιαούρτι",
+                "plural_name": "γιαούρτια"
             },
             "cream": {
                 "aliases": [],
@@ -2819,8 +2819,8 @@
             "frozen yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen yogurt",
-                "plural_name": "frozen yogurts"
+                "name": "παγωμένο γιαούρτι",
+                "plural_name": "παγωμένα γιαούρτια"
             },
             "khoya": {
                 "aliases": [],
@@ -9614,8 +9614,8 @@
             "tagliatelle": {
                 "aliases": [],
                 "description": "",
-                "name": "tagliatelle",
-                "plural_name": "tagliatelles"
+                "name": "ταλιατέλες",
+                "plural_name": "ταλιατέλες"
             },
             "soba noodle": {
                 "aliases": [],
@@ -10444,8 +10444,8 @@
             "frozen onion ring": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen onion ring",
-                "plural_name": "frozen onion rings"
+                "name": "κατεψυγμένο onion ring",
+                "plural_name": "κατεψυγμένα onion rings"
             },
             "corn muffin": {
                 "aliases": [],
@@ -10634,7 +10634,7 @@
             "olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "olive oil",
+                "name": "ελαιόλαδο",
                 "plural_name": "olive oils"
             },
             "vegetable oil": {
@@ -10646,7 +10646,7 @@
             "extra virgin olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "extra virgin olive oil",
+                "name": "έξτρα παρθένο ελαιόλαδο",
                 "plural_name": "extra virgin olive oils"
             },
             "canola oil": {
@@ -12112,8 +12112,8 @@
             "green olive": {
                 "aliases": [],
                 "description": "",
-                "name": "green olive",
-                "plural_name": "green olives"
+                "name": "πράσινη ελιά",
+                "plural_name": "πράσινες ελιές"
             },
             "canned chickpea": {
                 "aliases": [],
@@ -12124,8 +12124,8 @@
             "black olive": {
                 "aliases": [],
                 "description": "",
-                "name": "black olive",
-                "plural_name": "black olives"
+                "name": "μαύρη ελιά",
+                "plural_name": "μαύρες ελιές"
             },
             "canned black bean": {
                 "aliases": [],
@@ -12568,8 +12568,8 @@
             "taggiasca olive": {
                 "aliases": [],
                 "description": "",
-                "name": "taggiasca olive",
-                "plural_name": "taggiasca olives"
+                "name": "ελιά ταγιάσκα",
+                "plural_name": "ελιές ταγιάσκα"
             },
             "cranberry relish": {
                 "aliases": [],

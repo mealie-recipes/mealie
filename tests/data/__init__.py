@@ -46,6 +46,8 @@ migrations_myrecipebox = CWD / "migrations/myrecipebox.csv"
 
 migrations_recipekeeper = CWD / "migrations/recipekeeper.zip"
 
+migrations_cookn = CWD / "migrations/cookn.zip"
+
 images_test_image_1 = CWD / "images/test-image-1.jpg"
 
 images_test_image_2 = CWD / "images/test-image-2.png"

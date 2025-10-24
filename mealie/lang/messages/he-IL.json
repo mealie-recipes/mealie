@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} נוצר, {url}",
         "generic-updated-with-url": "{name} עודכן, {url}",
         "generic-duplicated": "{name} שוכפל",
-        "generic-deleted": "{name} נמחק"
+        "generic-deleted": "{name} נמחק",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "שנה|שנים",

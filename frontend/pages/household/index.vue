@@ -43,7 +43,7 @@ export default defineNuxtComponent({
   components: {
     HouseholdPreferencesEditor,
   },
-  middleware: ["sidebase-auth", "can-manage-household-only"],
+  middleware: ["can-manage-household-only"],
   setup() {
     const { household, actions: householdActions } = useHouseholdSelf();
     const i18n = useI18n();

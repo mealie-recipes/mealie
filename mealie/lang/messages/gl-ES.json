@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} foi creado, {url}",
         "generic-updated-with-url": "{name} foi atualizado, {url}",
         "generic-duplicated": "{name} foi duplicado",
-        "generic-deleted": "{name} foi eliminado"
+        "generic-deleted": "{name} foi eliminado",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "ano|anos",
