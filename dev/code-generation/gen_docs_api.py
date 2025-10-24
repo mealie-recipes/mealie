@@ -66,10 +66,7 @@ def normalize_timestamps(s: dict[str, Any]) -> dict[str, Any]:
 
 
 def generate_api_docs(my_app: FastAPI):
-    # Generate the OpenAPI schema
     openapi_schema = my_app.openapi()
-
-    # Normalize datetime examples to ensure consistency
     openapi_schema = normalize_timestamps(openapi_schema)
 
     with open(HTML_PATH, "w") as fd:
