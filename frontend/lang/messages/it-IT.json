@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Non vuoi più vederlo? Assicurati di modificare la tua email nelle impostazioni utente!",
     "forgot-password": "Password Dimenticata",
     "forgot-password-text": "Inserisci il tuo indirizzo email e ti invieremo un collegamento per reimpostare la tua password.",
-    "changes-reflected-immediately": "Le modifiche a questo utente diventeranno immediatamente effettive."
+    "changes-reflected-immediately": "Le modifiche a questo utente diventeranno immediatamente effettive.",
+    "default-activity": "Attività Predefinita",
+    "default-activity-hint": "Seleziona a quale pagina vuoi navigare al momento dell'accesso da questo dispositivo"
   },
   "language-dialog": {
     "translated": "tradotto",

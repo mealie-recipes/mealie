@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "No vols tornar a veure això? Assegura't de canviar el teu correu electrònic a les configuracions del teu usuari!",
     "forgot-password": "Contrasenya oblidada",
     "forgot-password-text": "Introdueix siusplau la teva adreça de correu electrònic i t'enviarem un enllaç per restablir la teva contrassenya.",
-    "changes-reflected-immediately": "Els canvis en aquest usuari s'actualitzaran immediatament."
+    "changes-reflected-immediately": "Els canvis en aquest usuari s'actualitzaran immediatament.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "traduït",

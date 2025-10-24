@@ -4709,20 +4709,20 @@
             "duck confit": {
                 "aliases": [],
                 "description": "",
-                "name": "duck confit",
-                "plural_name": "duck confits"
+                "name": "confit de canard",
+                "plural_name": "confits de canard"
             },
             "roast duck": {
                 "aliases": [],
                 "description": "",
-                "name": "roast duck",
-                "plural_name": "roast ducks"
+                "name": "canard rôti",
+                "plural_name": "canards rôtis"
             },
             "chicken meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken meatball",
-                "plural_name": "chicken meatballs"
+                "name": "boulette de poulet",
+                "plural_name": "boulettes de poulet"
             },
             "duck liver": {
                 "aliases": [],
@@ -5509,8 +5509,8 @@
             "prawn": {
                 "aliases": [],
                 "description": "",
-                "name": "prawn",
-                "plural_name": "prawns"
+                "name": "crevette",
+                "plural_name": "crevettes"
             },
             "crab": {
                 "aliases": [],
@@ -5695,7 +5695,7 @@
             "conch": {
                 "aliases": [],
                 "description": "",
-                "name": "conch",
+                "name": "",
                 "plural_name": "conches"
             },
             "arame": {

@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "不想再看到这条消息了吗？请务必在用户设置中更改你的邮箱！",
     "forgot-password": "忘记密码",
     "forgot-password-text": "请输入你的邮箱地址，我们会发给你重置密码的链接。",
-    "changes-reflected-immediately": "对用户的更改将立即生效。"
+    "changes-reflected-immediately": "对用户的更改将立即生效。",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "已翻译",

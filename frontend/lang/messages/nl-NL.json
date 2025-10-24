@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Wil je dit niet meer zien? Verander dan je e-mailadres in je gebruikersinstellingen!",
     "forgot-password": "Wachtwoord vergeten",
     "forgot-password-text": "Voer je e-mailadres in, dan sturen we je een link om het wachtwoord te herstellen.",
-    "changes-reflected-immediately": "Wijzigingen in deze groep zijn meteen zichtbaar."
+    "changes-reflected-immediately": "Wijzigingen in deze groep zijn meteen zichtbaar.",
+    "default-activity": "Standaard activiteit",
+    "default-activity-hint": "Kies de pagina waar u naar toe wilt, na inloggen op dit apparaat"
   },
   "language-dialog": {
     "translated": "vertaald",

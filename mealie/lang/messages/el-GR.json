@@ -44,7 +44,7 @@
         "generic-updated-with-url": "Το {name} ενημερώθηκε, {url}",
         "generic-duplicated": "Δημιουργήθηκε διπλότυπο του {name}",
         "generic-deleted": "Το {name} διαγράφηκε",
-        "logged-out": "Logged out"
+        "logged-out": "Αποσυνδεδεμένος"
     },
     "datetime": {
         "year": "χρόνος | χρόνια",

@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Não quer voltar a ver isto? Não se esqueça de alterar o seu email nas suas definições de utilizador!",
     "forgot-password": "Esqueceu-se da palavra-passe",
     "forgot-password-text": "Por favor, digite o seu endereço de email para enviarmos um link para redefinir a sua palavra-passe.",
-    "changes-reflected-immediately": "As alterações a este utilizador serão aplicadas imediatamente."
+    "changes-reflected-immediately": "As alterações a este utilizador serão aplicadas imediatamente.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "traduzido",

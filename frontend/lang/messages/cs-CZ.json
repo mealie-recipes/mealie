@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Už to nechcete vidět? Nezapomeňte si změnit svůj e-mail v uživatelském nastavení!",
     "forgot-password": "Zapomenuté heslo",
     "forgot-password-text": "Zadejte prosím svou e-mailovou adresu a my vám zašleme odkaz pro obnovení hesla.",
-    "changes-reflected-immediately": "Změny tohoto uživatele budou okamžitě zohledněny."
+    "changes-reflected-immediately": "Změny tohoto uživatele budou okamžitě zohledněny.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "přeloženo",

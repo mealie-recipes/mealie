@@ -171,13 +171,26 @@
         class="mt-10"
         :title="$t('profile.preferences')"
       />
-      <v-checkbox
-        v-model="userCopy.advanced"
-        class="mt-n4"
-        :label="$t('profile.show-advanced-description')"
-        color="primary"
-        @change="updateUser"
-      />
+      <v-card variant="outlined" style="border-color: lightgrey;">
+        <v-card-text>
+          <v-combobox
+            v-model="selectedDefaultActivity"
+            :label="$t('user.default-activity')"
+            :items="activityOptions"
+            :hint="$t('user.default-activity-hint')"
+            density="comfortable"
+            variant="underlined"
+            validate-on="blur"
+            persistent-hint
+          />
+          <v-checkbox
+            v-model="userCopy.advanced"
+            :label="$t('profile.show-advanced-description')"
+            color="primary"
+            @change="updateUser"
+          />
+        </v-card-text>
+      </v-card>
       <nuxt-link
         class="mt-5 d-flex flex-column justify-center text-center"
         :to="`/group`"
@@ -207,6 +220,9 @@ import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import UserPasswordStrength from "~/components/Domain/User/UserPasswordStrength.vue";
 import { validators } from "~/composables/use-validators";
 import type { VForm } from "~/types/auto-forms";
+import { useUserActivityPreferences } from "~/composables/use-users/preferences";
+import useDefaultActivity from "~/composables/use-default-activity";
+import { ActivityKey } from "~/lib/api/types/activity";
 
 export default defineNuxtComponent({
   components: {
@@ -216,10 +232,18 @@ export default defineNuxtComponent({
   setup() {
     const i18n = useI18n();
     const $auth = useMealieAuth();
+    const { getDefaultActivityLabels, getActivityLabel, getActivityKey } = useDefaultActivity();
     const user = computed(() => $auth.user.value);
 
     useSeoMeta({
       title: i18n.t("settings.profile"),
+    });
+
+    const activityPreferences = useUserActivityPreferences();
+    const activityOptions = getDefaultActivityLabels(i18n);
+    const selectedDefaultActivity = ref(getActivityLabel(i18n, activityPreferences.value.defaultActivity));
+    watch(selectedDefaultActivity, () => {
+      activityPreferences.value.defaultActivity = getActivityKey(i18n, selectedDefaultActivity.value) ?? ActivityKey.RECIPES;
     });
 
     watch(user, () => {
@@ -273,6 +297,8 @@ export default defineNuxtComponent({
       updateUser,
       updatePassword,
       userCopy,
+      selectedDefaultActivity,
+      activityOptions,
       password,
       domUpdatePassword,
       passwordsMatch,

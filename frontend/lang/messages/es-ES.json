@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "¿No quieres ver esto más? ¡Asegúrate de cambiar tu correo electrónico en tu configuración de usuario!",
     "forgot-password": "Olvidé mi contraseña",
     "forgot-password-text": "Por favor, introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
-    "changes-reflected-immediately": "Los cambios en este grupo se reflejarán inmediatamente."
+    "changes-reflected-immediately": "Los cambios en este grupo se reflejarán inmediatamente.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "traducido",
