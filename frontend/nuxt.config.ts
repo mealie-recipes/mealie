@@ -54,7 +54,7 @@ export default defineNuxtConfig({
         { rel: "shortcut icon", type: "image/png", href: "/icons/icon-x64.png" },
         { rel: "apple-touch-icon", type: "image/png", href: "/icons/apple-touch-icon.png" },
         { rel: "mask-icon", href: "/icons/safari-pinned-tab.svg" },
-        { rel: "manifest", href: "/manifest.webmanifest" },
+        { rel: "manifest", href: "/manifest.webmanifest", crossorigin: "use-credentials" },
       ],
     },
 
