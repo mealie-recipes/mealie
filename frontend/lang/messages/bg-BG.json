@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Искате ли да виждате това по-често? Уверете се, че сте конфигурирали настройките си за email известяване правилно!",
     "forgot-password": "Забравена Парола",
     "forgot-password-text": "Въведете Вашият имейл адрес и ние ще ви изпратим линк, с който да промените Вашата парола.",
-    "changes-reflected-immediately": "Промените по този потребител ще бъдат отразени моментално."
+    "changes-reflected-immediately": "Промените по този потребител ще бъдат отразени моментално.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "преведено",

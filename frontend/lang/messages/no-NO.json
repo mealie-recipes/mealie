@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ønsker du ikke å se dette lenger? Sørg for å endre e-posten din i brukerinnstillingene dine!",
     "forgot-password": "Glemt passord",
     "forgot-password-text": "Skriv inn e-postadressen din. Vi sender deg en e-post slik at du kan tilbakestille passordet ditt.",
-    "changes-reflected-immediately": "Endringer på denne brukeren gjenspeiles umiddelbart."
+    "changes-reflected-immediately": "Endringer på denne brukeren gjenspeiles umiddelbart.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "oversatt",

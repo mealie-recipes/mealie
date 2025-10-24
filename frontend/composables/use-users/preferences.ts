@@ -1,4 +1,5 @@
 import { useLocalStorage, useSessionStorage } from "@vueuse/core";
+import { ActivityKey } from "~/lib/api/types/activity";
 import type { RegisteredParser, TimelineEventType } from "~/lib/api/types/recipe";
 import type { QueryFilterJSON } from "~/lib/api/types/response";
 
@@ -65,6 +66,10 @@ export interface UserRecipeCreatePreferences {
   parseRecipe: boolean;
 }
 
+export interface UserActivityPreferences {
+  defaultActivity: ActivityKey;
+}
+
 export function useUserMealPlanPreferences(): Ref<UserMealPlanPreferences> {
   const fromStorage = useLocalStorage(
     "meal-planner-preferences",
@@ -111,6 +116,20 @@ export function useUserSortPreferences(): Ref<UserRecipePreferences> {
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserRecipePreferences>;
+
+  return fromStorage;
+}
+
+export function useUserActivityPreferences(): Ref<UserActivityPreferences> {
+  const fromStorage = useLocalStorage(
+    "activity-preferences",
+    {
+      defaultActivity: ActivityKey.RECIPES,
+    },
+    { mergeDefaults: true },
+    // we cast to a Ref because by default it will return an optional type ref
+    // but since we pass defaults we know all properties are set.
+  ) as Ref<UserActivityPreferences>;
 
   return fromStorage;
 }
