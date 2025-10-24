@@ -2082,7 +2082,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "swiss cheese",
-                "plural_name": "swiss cheeses"
+                "plural_name": "formaggi svizzeri"
             },
             "pecorino": {
                 "aliases": [],
@@ -2736,7 +2736,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "curd",
-                "plural_name": "curds"
+                "plural_name": "cagliate"
             },
             "thickened cream": {
                 "aliases": [],
@@ -3060,7 +3060,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "yogurt drink",
-                "plural_name": "yogurt drinks"
+                "plural_name": "yoghurt da bere"
             },
             "passion-fruit curd": {
                 "aliases": [],
@@ -3096,7 +3096,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ostrich egg",
-                "plural_name": "ostrich eggs"
+                "plural_name": "uova di struzzo"
             },
             "vanilla milk": {
                 "aliases": [],
@@ -3178,7 +3178,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "soy milk",
-                "plural_name": "soy milks"
+                "plural_name": "latti di soia"
             },
             "extra firm tofu": {
                 "aliases": [],
@@ -3514,7 +3514,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hazelnut milk",
-                "plural_name": "hazelnut milks"
+                "plural_name": "latte di nocciole"
             },
             "maple almond butter": {
                 "aliases": [],
@@ -3751,7 +3751,7 @@
             "ground beef": {
                 "aliases": [],
                 "description": "",
-                "name": "ground beef",
+                "name": "carne macinata",
                 "plural_name": "ground beefs"
             },
             "beef steak": {
@@ -5086,7 +5086,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cuttlefish",
-                "plural_name": "cuttlefish"
+                "plural_name": "seppie"
             },
             "grouper": {
                 "aliases": [],
@@ -5446,7 +5446,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bottarga",
-                "plural_name": "bottargas"
+                "plural_name": "bottarga"
             },
             "dried baby sardine": {
                 "aliases": [],
@@ -5564,7 +5564,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lobster tail",
-                "plural_name": "lobster tails"
+                "plural_name": "code di aragosta"
             },
             "crawfish": {
                 "aliases": [],
@@ -6509,7 +6509,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vanilla sugar",
-                "plural_name": "vanilla sugars"
+                "plural_name": "zucchero vanigliato"
             },
             "demerara sugar": {
                 "aliases": [],
