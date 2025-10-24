@@ -46,14 +46,16 @@ def normalize_timestamps(s: dict[str, Any]) -> dict[str, Any]:
     is_timestamp = field_format in ["date-time", "date", "time"]
     has_default = s.get("default")
 
-    if not (is_timestamp and has_default):
+    if not is_timestamp:
         for k, v in s.items():
             if isinstance(v, dict):
                 s[k] = normalize_timestamps(v)
             elif isinstance(v, list):
                 s[k] = [normalize_timestamps(i) if isinstance(i, dict) else i for i in v]
 
-            continue
+        return s
+    elif not has_default:
+        return s
 
     if field_format == "date-time":
         s["default"] = CONSTANT_DT.isoformat()
