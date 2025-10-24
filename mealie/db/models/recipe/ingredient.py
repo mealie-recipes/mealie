@@ -337,34 +337,6 @@ class IngredientFoodAliasModel(SqlAlchemyBase, BaseMixins):
         self.__table_args__ = tableargs
 
 
-# class RecipeIngredientRecipeReference(BaseMixins, SqlAlchemyBase):
-#     __tablename__ = "recipe_ingredient_recipe_reference"
-#     id: Mapped[GUID] = mapped_column(
-#         GUID, primary_key=True, default=GUID.generate)
-
-#     ingredient: Mapped["RecipeIngredientModel"] = orm.relationship(
-#         "RecipeIngredientModel", back_populates="recipe_references"
-#     )
-#     ingredient_id: Mapped[GUID] = mapped_column(
-#         GUID, ForeignKey("recipes_ingredients.id"), primary_key=True)
-
-#     recipe_id: Mapped[GUID | None] = mapped_column(
-#         GUID, ForeignKey("recipes.id"), index=True)
-#     recipe: Mapped[Optional["RecipeModel"]] = orm.relationship(
-#         "RecipeModel", back_populates="recipe_ingredient_recipe_references")
-#     recipe_quantity: Mapped[float] = mapped_column(Float, nullable=False)
-#     recipe_note: Mapped[str | None] = mapped_column(String)
-
-#     # group_id: AssociationProxy[GUID] = association_proxy(
-#     #     "recipes_ingredients", "group_id")
-#     # household_id: AssociationProxy[GUID] = association_proxy(
-#     #     "recipes_ingredients", "household_id")
-
-#     @auto_init()
-#     def __init__(self, **_) -> None:
-#         pass
-
-
 class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes_ingredients"
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
@@ -380,7 +352,6 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
 
     food_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), index=True)
     food: Mapped[IngredientFoodModel | None] = orm.relationship(IngredientFoodModel, uselist=False)
-
     quantity: Mapped[float | None] = mapped_column(Float)
 
     original_text: Mapped[str | None] = mapped_column(String)
@@ -388,9 +359,6 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     reference_id: Mapped[GUID | None] = mapped_column(GUID)  # Reference Links
 
     # Recipe Reference
-    # recipe_references: Mapped[list[GUID]] = orm.relationship(
-    #     "RecipeModel", cascade="all, delete, delete-orphan"
-    # )
     referenced_recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
     referenced_recipe: Mapped["RecipeModel"] = orm.relationship("RecipeModel", foreign_keys=[referenced_recipe_id])
 

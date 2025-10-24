@@ -157,11 +157,9 @@ class RecipeIngredientBase(MealieModel):
     unit: IngredientUnit | CreateIngredientUnit | None = None
     food: IngredientFood | CreateIngredientFood | None = None
     referenced_recipe: Recipe | None = None
+    is_recipe: bool | None = None
 
     note: str | None = ""
-
-    is_food: bool | None = None
-    is_recipe: bool | None = None
     display: str = ""
     """
     How the ingredient should be displayed
@@ -169,24 +167,8 @@ class RecipeIngredientBase(MealieModel):
     Automatically calculated after the object is created, unless overwritten
     """
 
-    # @model_validator(mode="after")
-    # def calculate_missing_food_flags(self):
-    #     # calculate missing is_food and disable_amount values
-    #     # we can't do this in a validator since they depend on each other
-    #     if self.is_food is None and self.disable_amount is not None:
-    #         self.is_food = not self.disable_amount
-    #     elif self.disable_amount is None and self.is_food is not None:
-    #         self.disable_amount = not self.is_food
-    #     elif self.is_food is None and self.disable_amount is None:
-    #         self.is_food = bool(self.food)
-    #         self.disable_amount = not self.is_food
-
-    #     return self
-
     @model_validator(mode="after")
     def calculate_missing_recipe_flags(self):
-        # calculate missing is_recipe
-        # we can't do this in a validator since they depend on each other
         if self.is_recipe is None:
             self.is_recipe = bool(self.referenced_recipe)
 
