@@ -352,7 +352,10 @@ export interface RecipeIngredientBase {
   quantity?: number | null;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  referencedRecipe?: Recipe | null;
   note?: string | null;
+  isFood?: boolean | null;
+  isRecipe?: boolean | null;
   display?: string;
 }
 export interface RecipeLastMade {
@@ -519,7 +522,7 @@ export interface ScrapeRecipeTest {
   url: string;
   useOpenAI?: boolean;
 }
-export interface SlugResponse { }
+export interface SlugResponse {}
 export interface TagIn {
   name: string;
 }
