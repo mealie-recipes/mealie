@@ -2613,14 +2613,14 @@
             "butter": {
                 "aliases": [],
                 "description": "",
-                "name": "butter",
-                "plural_name": "butter"
+                "name": "smør",
+                "plural_name": "smør"
             },
             "egg": {
                 "aliases": [],
                 "description": "",
-                "name": "egg",
-                "plural_name": "eggs"
+                "name": "æg",
+                "plural_name": "æg"
             },
             "milk": {
                 "aliases": [],
@@ -2655,8 +2655,8 @@
             "greek yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "greek yogurt",
-                "plural_name": "greek yogurts"
+                "name": "græsk yoghurt",
+                "plural_name": "græsk yoghurt"
             },
             "cream": {
                 "aliases": [],
@@ -2672,7 +2672,7 @@
             },
             "ghee": {
                 "aliases": [
-                    "clarified butter"
+                    "klaret smør"
                 ],
                 "description": "",
                 "name": "ghee",
@@ -2712,19 +2712,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "margarine",
-                "plural_name": "margarines"
+                "plural_name": "margarine"
             },
             "creme fraiche": {
                 "aliases": [],
                 "description": "",
-                "name": "creme fraiche",
-                "plural_name": "creme fraiches"
+                "name": "cremefraiche",
+                "plural_name": "cremefraiche"
             },
             "frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "frosting",
-                "plural_name": "frostings"
+                "name": "glasurer",
+                "plural_name": "glasurer"
             },
             "milk powder": {
                 "aliases": [],
@@ -2765,8 +2765,8 @@
             "chocolate frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate frosting",
-                "plural_name": "chocolate frostings"
+                "name": "chokoladeglasurer",
+                "plural_name": "chokoladeglasurer"
             },
             "kefir": {
                 "aliases": [],
@@ -2819,8 +2819,8 @@
             "frozen yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen yogurt",
-                "plural_name": "frozen yogurts"
+                "name": "frosne yoghurt",
+                "plural_name": "frosne yoghurter"
             },
             "khoya": {
                 "aliases": [],
@@ -2837,8 +2837,8 @@
             "coffee creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee creamer",
-                "plural_name": "coffee creamers"
+                "name": "kaffe fløde",
+                "plural_name": "kaffe fløde"
             },
             "clotted cream": {
                 "aliases": [],
@@ -2885,8 +2885,8 @@
             "salted egg": {
                 "aliases": [],
                 "description": "",
-                "name": "salted egg",
-                "plural_name": "salted eggs"
+                "name": "saltet æg",
+                "plural_name": "saltede æg"
             },
             "skyr": {
                 "aliases": [],
@@ -5055,7 +5055,7 @@
             "salt cod": {
                 "aliases": [],
                 "description": "",
-                "name": "salt cod",
+                "name": "saltet torsk",
                 "plural_name": "salt cod"
             },
             "smoked mackerel": {
@@ -5349,8 +5349,8 @@
             "salt fish": {
                 "aliases": [],
                 "description": "",
-                "name": "salt fish",
-                "plural_name": "salt fish"
+                "name": "saltet fisk",
+                "plural_name": "saltede fisk"
             },
             "smoked herring": {
                 "aliases": [],
@@ -6423,20 +6423,20 @@
             "sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "sugar",
-                "plural_name": "sugars"
+                "name": "sukker",
+                "plural_name": "sukker"
             },
             "brown sugar": {
                 "aliases": [
-                    "turbinado sugar"
+                    "rørsukker"
                 ],
                 "description": "",
-                "name": "brown sugar",
+                "name": "brunt sukker",
                 "plural_name": "brown sugars"
             },
             "confectioners sugar": {
                 "aliases": [
-                    "powdered sugar",
+                    "flormelis",
                     "icing sugar"
                 ],
                 "description": "",
@@ -6460,13 +6460,13 @@
             "corn syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "corn syrup",
+                "name": "majssirup",
                 "plural_name": "corn syrups"
             },
             "coconut sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut sugar",
+                "name": "kokossukker",
                 "plural_name": "coconut sugars"
             },
             "molass": {
@@ -6490,7 +6490,7 @@
             "sugar syrup": {
                 "aliases": [],
                 "description": "sugar free sweetner",
-                "name": "sugar syrup",
+                "name": "sukkersirup",
                 "plural_name": "sugar syrups"
             },
             "isomalt": {
@@ -6568,7 +6568,7 @@
             "coarse sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "coarse sugar",
+                "name": "grovkornet sukker",
                 "plural_name": "coarse sugars"
             },
             "salted caramel syrup": {
@@ -6622,7 +6622,7 @@
             "rock sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "rock sugar",
+                "name": "kandis",
                 "plural_name": "rock sugars"
             },
             "confectioners' sweetener": {
@@ -7106,7 +7106,7 @@
             "himalayan salt": {
                 "aliases": [],
                 "description": "",
-                "name": "himalayan salt",
+                "name": "himalayasalt",
                 "plural_name": "himalayan salts"
             },
             "lemon & pepper seasoning": {
@@ -7322,7 +7322,7 @@
             "smoked salt": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked salt",
+                "name": "røget salt",
                 "plural_name": "smoked salts"
             },
             "dash seasoning": {
@@ -7650,8 +7650,8 @@
             "flour": {
                 "aliases": [],
                 "description": "",
-                "name": "flour",
-                "plural_name": "flours"
+                "name": "mel",
+                "plural_name": "mel"
             },
             "vanilla extract": {
                 "aliases": [
@@ -7671,8 +7671,8 @@
             "baking soda": {
                 "aliases": [],
                 "description": "",
-                "name": "baking soda",
-                "plural_name": "baking sodas"
+                "name": "natron",
+                "plural_name": "natron"
             },
             "cornstarch": {
                 "aliases": [],
@@ -7700,16 +7700,16 @@
             },
             "whole-wheat flour": {
                 "aliases": [
-                    "whole wheat flour"
+                    "fuldkorns hvedemel"
                 ],
                 "description": "",
-                "name": "whole-wheat flour",
+                "name": "fuldkornshvedemel",
                 "plural_name": "whole-wheat flours"
             },
             "almond flour": {
                 "aliases": [],
                 "description": "",
-                "name": "almond flour",
+                "name": "mandelmel",
                 "plural_name": "almond flours"
             },
             "self-raising flour": {
@@ -7751,7 +7751,7 @@
             "coconut flour": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut flour",
+                "name": "kokosmel",
                 "plural_name": "coconut flours"
             },
             "baking mix": {
@@ -7809,7 +7809,7 @@
             "gluten-free flour": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free flour",
+                "name": "glutenfrit mel",
                 "plural_name": "gluten-free flours"
             },
             "rice flour": {
@@ -7944,7 +7944,7 @@
             "brown rice flour": {
                 "aliases": [],
                 "description": "",
-                "name": "brown rice flour",
+                "name": "brun rismel",
                 "plural_name": "brown rice flours"
             },
             "pectin": {
@@ -8004,8 +8004,8 @@
             "coffee bean": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee bean",
-                "plural_name": "coffee beans"
+                "name": "kaffebønner",
+                "plural_name": "kaffebønner"
             },
             "toffee bit": {
                 "aliases": [],
@@ -10026,7 +10026,7 @@
             "bread": {
                 "aliases": [],
                 "description": "",
-                "name": "bread",
+                "name": "brød",
                 "plural_name": "breads"
             }
         }
@@ -10036,7 +10036,7 @@
             "bread crumb": {
                 "aliases": [],
                 "description": "",
-                "name": "bread crumb",
+                "name": "brødkrummer",
                 "plural_name": "bread crumbs"
             },
             "panko": {
@@ -13872,7 +13872,7 @@
             "cocoa": {
                 "aliases": [],
                 "description": "",
-                "name": "cocoa",
+                "name": "kakao",
                 "plural_name": "cocoas"
             },
             "dark chocolate": {
@@ -13884,7 +13884,7 @@
             "dark cocoa": {
                 "aliases": [],
                 "description": "",
-                "name": "dark cocoa",
+                "name": "mørk kakao",
                 "plural_name": "dark cocoas"
             },
             "chocolate": {
@@ -13962,7 +13962,7 @@
             "dutch-process cocoa": {
                 "aliases": [],
                 "description": "",
-                "name": "dutch-process cocoa",
+                "name": "hollandsk kakao",
                 "plural_name": "dutch-process cocoas"
             },
             "raspberry jam": {
@@ -14319,8 +14319,8 @@
             "chocolate powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate powder",
-                "plural_name": "chocolate powders"
+                "name": "kakaopulver",
+                "plural_name": "kakaopulver"
             },
             "sponge cake": {
                 "aliases": [],
@@ -15107,8 +15107,8 @@
             "coffee": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee",
-                "plural_name": "coffees"
+                "name": "kaffe",
+                "plural_name": "kaffe"
             },
             "club soda": {
                 "aliases": [],
@@ -15635,8 +15635,8 @@
             "decaf coffee": {
                 "aliases": [],
                 "description": "",
-                "name": "decaf coffee",
-                "plural_name": "decaf coffees"
+                "name": "koffeinfri kaffe",
+                "plural_name": "koffeinfri kaffe"
             },
             "pumpkin spice coffee": {
                 "aliases": [],
@@ -15795,7 +15795,7 @@
             "peanut butter powder": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut butter powder",
+                "name": "jordnøddesmør pulver",
                 "plural_name": "peanut butter powders"
             },
             "vegan protein powder": {

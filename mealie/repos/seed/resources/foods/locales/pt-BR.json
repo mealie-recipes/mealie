@@ -4,7 +4,7 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "alho",
+                "name": "alholt\night",
                 "plural_name": "alhos"
             },
             "onion": {
@@ -2632,7 +2632,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "heavy cream",
-                "plural_name": "heavy creams"
+                "plural_name": "cremes de leite fresco"
             },
             "sour cream": {
                 "aliases": [],
@@ -12125,7 +12125,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "black olive",
-                "plural_name": "black olives"
+                "plural_name": "azeitonas pretas"
             },
             "canned black bean": {
                 "aliases": [],
@@ -12716,7 +12716,7 @@
             "tomato sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato sauce",
+                "name": "molho de tomate",
                 "plural_name": "tomato sauces"
             },
             "salsa": {

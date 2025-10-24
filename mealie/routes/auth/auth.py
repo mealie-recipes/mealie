@@ -85,9 +85,18 @@ def get_samesite(request: Request) -> Literal["lax", "none"]:
     `samesite="lax"` is the default, which works regardless of HTTP or HTTPS,
     but does not support hosting in iframes.
     """
-    if request.url.scheme == "https" and settings.PRODUCTION:
+
+    forwarded_proto = request.headers.get("x-forwarded-proto", "").lower()
+    is_https = request.url.scheme == "https" or forwarded_proto == "https"
+
+    if is_https and settings.PRODUCTION:
         return "none"
     else:
+        # TODO: remove this once we resolve pending iframe issues
+        if settings.PRODUCTION:
+            logger.debug("Setting samesite to 'lax' because connection is not HTTPS")
+            logger.debug(f"{request.url.scheme=} | {forwarded_proto=}")
+
         return "lax"
 
 

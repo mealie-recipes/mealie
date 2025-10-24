@@ -399,6 +399,10 @@
       "description-long": "Mealie képes recepteket importálni a Tandoorból. Exportálja adatait az \"Alapértelmezett\" formátumban, majd töltse fel a .zip fájlt lentebb.",
       "title": "Tandoor receptek"
     },
+    "cookn": {
+      "description-long": "Mealie képes importálni a DVO Cook'n X3 receptjeit. Exportáljon egy szakácskönyvet vagy menüt „Cook'n” formátumban, nevezze át az exportált fájl kiterjesztését .zip-re, majd töltse fel az alábbi .zip fájlt.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Receptadatok migrációja",
     "recipe-data-migrations-explanation": "A receptek átemelhetők más támogatott alkalmazásból Mealie-be. Ez egy remek módja a Mealie használatának elkezdésére.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "A Mealie egy másik verzióját használtad vagy valami teljesen más applikációt? Nézd meg az adat importálási lehetőségeinket.",
