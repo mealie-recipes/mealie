@@ -182,7 +182,7 @@
       <BaseDisclosure v-for="(value, key) in itemsByLabel" :key="key" :v-model="0" start-open>
         <v-expansion-panel class="shopping-list-section">
           <v-expansion-panel-title
-            :color="getLabelColor(value[0])"
+            :color="getLabelColor(key)"
             class="body-1 font-weight-bold section-title"
           >
             {{ key }}
