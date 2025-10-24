@@ -179,7 +179,7 @@
         </BaseButton>
       </div>
 
-      <Disclosure v-for="(value, key) in itemsByLabel" :key="key" :v-model="0" initial-state="open">
+      <BaseDisclosure v-for="(value, key) in itemsByLabel" :key="key" :v-model="0" start-open>
         <v-expansion-panel class="shopping-list-section">
           <v-expansion-panel-title
             :color="getLabelColor(value[0])"
@@ -213,7 +213,7 @@
             </VueDraggable>
           </v-expansion-panel-text>
         </v-expansion-panel>
-      </Disclosure>
+      </BaseDisclosure>
       <!-- Checked Items -->
       <v-expansion-panels flat>
         <v-expansion-panel v-if="listItems.checked && listItems.checked.length > 0">
