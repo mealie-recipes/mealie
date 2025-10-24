@@ -13,6 +13,7 @@ class SupportedMigrations(str, enum.Enum):
     plantoeat = "plantoeat"
     myrecipebox = "myrecipebox"
     recipekeeper = "recipekeeper"
+    cookn = "cookn"
 
 
 class DataMigrationCreate(MealieModel):

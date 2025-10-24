@@ -1,6 +1,7 @@
 <template>
-  <v-app v-if="ready"
-         dark
+  <v-app
+    v-if="ready"
+    dark
   >
     <v-card-title>
       <slot>
@@ -14,9 +15,10 @@
         <p class="primary--text">
           4
         </p>
-        <v-icon color="primary"
-                class="mx-auto mb-0"
-                size="200"
+        <v-icon
+          color="primary"
+          class="mx-auto mb-0"
+          size="200"
         >
           {{ $globals.icons.primary }}
         </v-icon>
@@ -28,11 +30,12 @@
     <v-card-actions>
       <v-spacer />
       <slot name="actions">
-        <v-btn v-for="(button, index) in buttons"
-               :key="index"
-               nuxt
-               :to="button.to"
-               color="primary"
+        <v-btn
+          v-for="(button, index) in buttons"
+          :key="index"
+          nuxt
+          :to="button.to"
+          color="primary"
         >
           <v-icon start>
             {{ button.icon }}
@@ -46,6 +49,8 @@
 </template>
 
 <script lang="ts">
+import { useGlobalI18n } from "~/composables/use-global-i18n";
+
 export default defineNuxtComponent({
   props: {
     error: {
@@ -58,7 +63,7 @@ export default defineNuxtComponent({
       layout: "basic",
     });
 
-    const i18n = useI18n();
+    const i18n = useGlobalI18n();
     const $auth = useMealieAuth();
     const { $globals } = useNuxtApp();
     const ready = ref(false);
@@ -119,9 +124,9 @@ export default defineNuxtComponent({
 
     useSeoMeta({
       title:
-				props.error.statusCode === 404
-				  ? (i18n.t("page.404-not-found") as string)
-				  : (i18n.t("page.an-error-occurred") as string),
+        props.error.statusCode === 404
+          ? (i18n.t("page.404-not-found") as string)
+          : (i18n.t("page.an-error-occurred") as string),
     });
 
     const buttons = [

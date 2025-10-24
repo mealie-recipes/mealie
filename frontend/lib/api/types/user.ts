@@ -63,6 +63,7 @@ export interface GroupInDB {
 export interface CategoryBase {
   name: string;
   id: string;
+  groupId?: string | null;
   slug: string;
 }
 export interface ReadWebhook {
@@ -197,7 +198,6 @@ export interface UserBase {
   canManage?: boolean;
   canManageHousehold?: boolean;
   canOrganize?: boolean;
-  advancedOptions?: boolean;
 }
 export interface UserIn {
   id?: string | null;

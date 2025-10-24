@@ -32,9 +32,9 @@
       >
         <div class="d-flex align-center w-100 mb-2">
           <v-toolbar-title class="headline mb-0">
-          <v-icon size="large" class="mr-3">
-            {{ $globals.icons.pages }}
-          </v-icon>
+            <v-icon size="large" class="mr-3">
+              {{ $globals.icons.pages }}
+            </v-icon>
             {{ book.name }}
           </v-toolbar-title>
           <BaseButton
@@ -70,7 +70,7 @@ import RecipeCardSection from "@/components/Domain/Recipe/RecipeCardSection.vue"
 import { useCookbookStore } from "~/composables/store/use-cookbook-store";
 import { useCookbook } from "~/composables/use-group-cookbooks";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import type { RecipeCookBook } from "~/lib/api/types/cookbook";
+import type { ReadCookBook } from "~/lib/api/types/cookbook";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
 
 const $auth = useMealieAuth();
@@ -100,7 +100,7 @@ const dialogStates = reactive({
   edit: false,
 });
 
-const editTarget = ref<RecipeCookBook | null>(null);
+const editTarget = ref<ReadCookBook | null>(null);
 function handleEditCookbook() {
   dialogStates.edit = true;
   editTarget.value = book.value;

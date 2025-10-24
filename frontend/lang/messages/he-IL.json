@@ -69,6 +69,7 @@
     "new-notification": "התראה חדשה",
     "event-notifiers": "מנגנוני התרעה על אירועים",
     "apprise-url-skipped-if-blank": "כתובת Apprise (דלג אם ריק)",
+    "apprise-url-is-left-intentionally-blank": "מאחר שכתובות URL של Apprise לרוב מכילות מידע רגיש, שזה זה נותר ריק במכוון בעת העריכה. אם ברצונך לעדכן את כתובת ה URL, אנא הזן כאן את ה-URL החדש, אחרת השאר אותו ריק כדי לשמור את כתובת ה-URL הנוכחית.",
     "enable-notifier": "הפעלת מתריע",
     "what-events": "לאילו אירועים לרשום את מתריע זה?",
     "user-events": "אירועי משתמש",
@@ -79,7 +80,8 @@
     "tag-events": "אירועי תגיות",
     "category-events": "אירועי קטגוריות",
     "when-a-new-user-joins-your-group": "כאשר משתמש חדש מצטרף לקבוצה",
-    "recipe-events": "אירועי מתכון"
+    "recipe-events": "אירועי מתכון",
+    "label-events": "הוסף תוויות לאירועים"
   },
   "general": {
     "add": "הוספה",
@@ -397,6 +399,10 @@
       "description-long": "Mealie יכול לייבא מתכונים מ-Tandoor, תייצא את המתכון בפורמט הדיפולטיבי ולאחר מכן העלאה אותם בחזרה בפורמט zip.",
       "title": "מתכוני Tandoor"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "מגרציית מידע מתכונים",
     "recipe-data-migrations-explanation": "ניתן לייבא מתכונים מאפליקציות תומכות אחרות אל Mealie. זו דרך מעולה להתחיל במילי.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "הגעת מתוכנה אחרת או גרסה ישנה יותר של Mealie? מומלץ לבדוק מיגרציות ולראות אם ניתן לייבא את המידע שלך.",
@@ -559,6 +565,7 @@
     "see-original-text": "הטקסט המקורי",
     "original-text-with-value": "הטקסט המקורי: {originalText}",
     "ingredient-linker": "קישוריות רכיבים",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "קשור לצעד אחד",
     "auto": "אוטומטי",
     "cook-mode": "מצב בישול",
@@ -621,6 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "ניתן לייבא ישירות ממידע גולמי",
     "import-original-keywords-as-tags": "ייבוא שמות מפתח מקוריות כתגיות",
     "stay-in-edit-mode": "השאר במצב עריכה",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "ייבא מקובץ",
     "import-from-zip-description": "ייבוא מתכון בודד שיוצא ממילי אחרת.",
     "import-from-html-or-json": "ייבוא מ-HTML או JSON",
@@ -666,13 +674,21 @@
       "missing-food": "יצירת אוכל חסר: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
-      "no-food": "אין אוכל"
+      "no-food": "אין אוכל",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "איפוס מספר המנות",
     "not-linked-ingredients": "מרכיבים נוספים",
     "upload-another-image": "העלאת תמונה נוספת",
     "upload-images": "העלאת תמונות",
-    "upload-more-images": "העלאת תמונות נוספות"
+    "upload-more-images": "העלאת תמונות נוספות",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "מצא מתכון",
@@ -1165,7 +1181,7 @@
     "group-details": "פרטי הקבוצה",
     "group-details-description": "לפני יצירת חשבון יש צורך ליצור קבוצה. הקבוצה תכיל רק אותך אבל תוכל להזמין אחרים בשלב מאוחר יותר. חברים בקבוצה יכולים לשתף תוכנית ארוחות, רשימות קניות, מתכונים ועוד!",
     "use-seed-data": "השתמש בנתוני האכלוס",
-    "use-seed-data-description": "Mealie מגיעה עם אוסף של מאכלים, יחידות מדידה ותוויות שניתן להשתמש לאכלוס הקבוצות עם מידע שימושי לארגון המתכונים.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "פרטי חשבון"
   },
   "validation": {

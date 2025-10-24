@@ -1,4 +1,5 @@
 import { useLocalStorage, useSessionStorage } from "@vueuse/core";
+import { ActivityKey } from "~/lib/api/types/activity";
 import type { RegisteredParser, TimelineEventType } from "~/lib/api/types/recipe";
 import type { QueryFilterJSON } from "~/lib/api/types/response";
 
@@ -33,7 +34,6 @@ export interface UserRecipePreferences {
 
 export interface UserShoppingListPreferences {
   viewAllLists: boolean;
-  viewByLabel: boolean;
 }
 
 export interface UserTimelinePreferences {
@@ -58,6 +58,16 @@ export interface UserRecipeFinderPreferences {
   maxMissingTools: number;
   includeFoodsOnHand: boolean;
   includeToolsOnHand: boolean;
+}
+
+export interface UserRecipeCreatePreferences {
+  importKeywordsAsTags: boolean;
+  stayInEditMode: boolean;
+  parseRecipe: boolean;
+}
+
+export interface UserActivityPreferences {
+  defaultActivity: ActivityKey;
 }
 
 export function useUserMealPlanPreferences(): Ref<UserMealPlanPreferences> {
@@ -96,8 +106,8 @@ export function useUserSortPreferences(): Ref<UserRecipePreferences> {
   const fromStorage = useLocalStorage(
     "recipe-section-preferences",
     {
-      orderBy: "name",
-      orderDirection: "asc",
+      orderBy: "created_at",
+      orderDirection: "desc",
       filterNull: false,
       sortIcon: $globals.icons.sortAlphabeticalAscending,
       useMobileCards: false,
@@ -106,6 +116,20 @@ export function useUserSortPreferences(): Ref<UserRecipePreferences> {
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserRecipePreferences>;
+
+  return fromStorage;
+}
+
+export function useUserActivityPreferences(): Ref<UserActivityPreferences> {
+  const fromStorage = useLocalStorage(
+    "activity-preferences",
+    {
+      defaultActivity: ActivityKey.RECIPES,
+    },
+    { mergeDefaults: true },
+    // we cast to a Ref because by default it will return an optional type ref
+    // but since we pass defaults we know all properties are set.
+  ) as Ref<UserActivityPreferences>;
 
   return fromStorage;
 }
@@ -129,7 +153,6 @@ export function useShoppingListPreferences(): Ref<UserShoppingListPreferences> {
     "shopping-list-preferences",
     {
       viewAllLists: false,
-      viewByLabel: true,
     },
     { mergeDefaults: true },
     // we cast to a Ref because by default it will return an optional type ref
@@ -199,6 +222,22 @@ export function useRecipeFinderPreferences(): Ref<UserRecipeFinderPreferences> {
     // we cast to a Ref because by default it will return an optional type ref
     // but since we pass defaults we know all properties are set.
   ) as unknown as Ref<UserRecipeFinderPreferences>;
+
+  return fromStorage;
+}
+
+export function useRecipeCreatePreferences(): Ref<UserRecipeCreatePreferences> {
+  const fromStorage = useLocalStorage(
+    "recipe-create-preferences",
+    {
+      importKeywordsAsTags: false,
+      stayInEditMode: false,
+      parseRecipe: true,
+    },
+    { mergeDefaults: true },
+    // we cast to a Ref because by default it will return an optional type ref
+    // but since we pass defaults we know all properties are set.
+  ) as unknown as Ref<UserRecipeCreatePreferences>;
 
   return fromStorage;
 }

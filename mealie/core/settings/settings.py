@@ -123,6 +123,17 @@ class AppSettings(AppLoggingSettings):
     TOKEN_TIME: int = 48
     """time in hours"""
 
+    @field_validator("TOKEN_TIME")
+    @classmethod
+    def validate_token_time(cls, v: int) -> int:
+        if v < 1:
+            raise ValueError("TOKEN_TIME must be at least 1 hour")
+        # If TOKEN_TIME is unreasonably high (e.g. hundreds of years), JWT encoding
+        # can overflow, so we set the max to 10 years (87600 hours).
+        if v > 87600:
+            raise ValueError("TOKEN_TIME is too high; maximum is 87600 hours (10 years)")
+        return v
+
     SECRET: str
     SESSION_SECRET: str
 
@@ -195,6 +206,8 @@ class AppSettings(AppLoggingSettings):
 
     DB_ENGINE: str = "sqlite"  # Options: 'sqlite', 'postgres'
     DB_PROVIDER: AbstractDBProvider | None = None
+
+    SQLITE_MIGRATE_JOURNAL_WAL: bool = False
 
     @property
     def DB_URL(self) -> str | None:
@@ -398,7 +411,7 @@ class AppSettings(AppLoggingSettings):
     Sending database data may increase accuracy in certain requests,
     but will incur additional API costs
     """
-    OPENAI_REQUEST_TIMEOUT: int = 60
+    OPENAI_REQUEST_TIMEOUT: int = 300
     """
     The number of seconds to wait for an OpenAI request to complete before cancelling the request
     """
@@ -434,7 +447,7 @@ class AppSettings(AppLoggingSettings):
     def WORKERS(self) -> int:
         return max(1, self.WORKER_PER_CORE * self.UVICORN_WORKERS)
 
-    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
+    model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow", env_nested_delimiter="__")
 
     # ===============================================
     # TLS

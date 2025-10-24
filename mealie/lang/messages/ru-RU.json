@@ -10,11 +10,11 @@
             "step-text": "Шаги рецепта, как и другие поля на странице рецепта, поддерживают синтаксис Markdown.\n\n**Добавить ссылку**\n\n[Моя Ссылка](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
+            "makes": "Получается",
+            "serves": "Порций",
             "serving": "Порция",
             "servings": "Порции",
-            "yield": "Выход",
+            "yield": "Количество порций",
             "yields": "Можно получить"
         }
     },
@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} был создан, {url}",
         "generic-updated-with-url": "{name} был обновлен, {url}",
         "generic-duplicated": "Копия {name} была создана",
-        "generic-deleted": "{name} был удален"
+        "generic-deleted": "{name} был удален",
+        "logged-out": "Выполнен выход"
     },
     "datetime": {
         "year": "год|лет",

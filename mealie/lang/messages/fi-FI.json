@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} on luotu, {url}",
         "generic-updated-with-url": "{name} on päivitetty, {url}",
         "generic-duplicated": "{name} on kahdennettu",
-        "generic-deleted": "{name} on poistettu"
+        "generic-deleted": "{name} on poistettu",
+        "logged-out": "Kirjauduttu ulos"
     },
     "datetime": {
         "year": "vuosi|vuotta",

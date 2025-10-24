@@ -5,8 +5,6 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
-import type { HouseholdSummary } from "./household";
-
 export type PlanEntryType = "breakfast" | "lunch" | "dinner" | "side";
 export type PlanRulesDay = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday" | "unset";
 export type PlanRulesType = "breakfast" | "lunch" | "dinner" | "side" | "unset";
@@ -44,9 +42,6 @@ export interface PlanRulesOut {
   householdId: string;
   id: string;
   queryFilter?: QueryFilterJSON;
-  categories?: RecipeCategory[];
-  tags?: RecipeTag[];
-  households?: HouseholdSummary[];
 }
 export interface QueryFilterJSON {
   parts?: QueryFilterJSONPart[];
@@ -108,18 +103,21 @@ export interface RecipeSummary {
 }
 export interface RecipeCategory {
   id?: string | null;
+  groupId?: string | null;
   name: string;
   slug: string;
   [k: string]: unknown;
 }
 export interface RecipeTag {
   id?: string | null;
+  groupId?: string | null;
   name: string;
   slug: string;
   [k: string]: unknown;
 }
 export interface RecipeTool {
   id: string;
+  groupId?: string | null;
   name: string;
   slug: string;
   householdsWithTool?: string[];

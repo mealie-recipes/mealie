@@ -9,7 +9,7 @@
           width="100%"
           max-height="200"
           max-width="150"
-          :src="require('~/static/svgs/manage-members.svg')"
+          src="/svgs/manage-members.svg"
         />
       </template>
       <template #title>
@@ -36,7 +36,7 @@ import RecipeTimeline from "~/components/Domain/Recipe/RecipeTimeline.vue";
 
 export default defineNuxtComponent({
   components: { RecipeTimeline },
-  middleware: ["sidebase-auth", "group-only"],
+  middleware: ["group-only"],
   setup() {
     const i18n = useI18n();
     const api = useUserApi();

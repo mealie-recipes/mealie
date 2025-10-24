@@ -10,7 +10,7 @@
             v-model="listItem.unit"
             v-model:item-id="listItem.unitId!"
             :items="units"
-            :label="$t('general.units')"
+            :label="$t('recipe.unit')"
             :icon="$globals.icons.units"
             create
             @create="createAssignUnit"
@@ -69,7 +69,7 @@
           </div>
           <BaseButton
             v-if="listItem.labelId && listItem.food && listItem.labelId !== listItem.food.labelId"
-            size="small"
+            small
             color="info"
             :icon="$globals.icons.tagArrowRight"
             :text="$t('shopping-list.save-label')"
@@ -84,12 +84,12 @@
           :buttons="[
             ...(allowDelete
               ? [
-                  {
-                    icon: $globals.icons.delete,
-                    text: $t('general.delete'),
-                    event: 'delete',
-                  },
-                ]
+                {
+                  icon: $globals.icons.delete,
+                  text: $t('general.delete'),
+                  event: 'delete',
+                },
+              ]
               : []),
             {
               icon: $globals.icons.close,

@@ -69,6 +69,7 @@
     "new-notification": "新着通知",
     "event-notifiers": "イベント通知",
     "apprise-url-skipped-if-blank": "通知用URL (空欄の場合はスキップ)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "通知を有効にする",
     "what-events": "この通知はどのイベントを購読すべきですか？",
     "user-events": "ユーザーイベント",
@@ -79,7 +80,8 @@
     "tag-events": "タグイベント",
     "category-events": "カテゴリイベント",
     "when-a-new-user-joins-your-group": "新しいユーザーがグループに参加したとき",
-    "recipe-events": "レシピイベント"
+    "recipe-events": "レシピイベント",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "追加",
@@ -397,6 +399,10 @@
       "description-long": "MealieはTandoorからレシピをインポートすることができます。「デフォルト」形式でデータをエクスポートし、以下に.zipをアップロードしてください。",
       "title": "Tandoor Recipes"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "レシピの移行",
     "recipe-data-migrations-explanation": "レシピは、サポートされている別のアプリケーションからMealieに移行できます。これはMealieを始めるのに最適な方法です。",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "別のアプリケーションもしくは古いバージョンのMealieからですか？移行をチェックして、データをインポートできるかどうかを確認してください。",
@@ -559,6 +565,7 @@
     "see-original-text": "元のテキストを見る",
     "original-text-with-value": "原文: {originalText}",
     "ingredient-linker": "材料リンク",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "他のステップにリンクしています",
     "auto": "自動",
     "cook-mode": "調理モード",
@@ -621,6 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "生データから直接インポートできます",
     "import-original-keywords-as-tags": "元のキーワードをタグとしてインポート",
     "stay-in-edit-mode": "編集モードを維持",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Zipからインポート",
     "import-from-zip-description": "別のMealieインスタンスからエクスポートされた1つのレシピをインポートします。",
     "import-from-html-or-json": "HTML または JSON からインポート",
@@ -666,13 +674,21 @@
       "missing-food": "欠けている食材を作成: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
-      "no-food": "食材はありません"
+      "no-food": "食材はありません",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "サービング数をリセット",
     "not-linked-ingredients": "追加の材料",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "レシピ検索",
@@ -1165,7 +1181,7 @@
     "group-details": "グループの詳細",
     "group-details-description": "アカウントを作成する前に、グループを作成する必要があります。グループにはあなたしか含まれませんが、後で他の人を招待できます。グループのメンバーは、食事計画、買い物リスト、レシピなどを共有できます！",
     "use-seed-data": "シードデータを使用",
-    "use-seed-data-description": "Mealieには、レシピを整理するために役立つデータをグループに追加するために使用できる、食品、単位、ラベルのコレクションが付属しています。",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "アカウントの詳細"
   },
   "validation": {

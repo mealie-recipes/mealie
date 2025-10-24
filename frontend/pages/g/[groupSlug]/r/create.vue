@@ -7,7 +7,7 @@
             width="100%"
             max-height="175"
             max-width="175"
-            :src="require('~/static/svgs/recipes-create.svg')"
+            src="/svgs/recipes-create.svg"
           />
         </template>
         <template #title>
@@ -49,7 +49,7 @@ import AdvancedOnly from "~/components/global/AdvancedOnly.vue";
 
 export default defineNuxtComponent({
   components: { AdvancedOnly },
-  middleware: ["sidebase-auth", "group-only"],
+  middleware: ["group-only"],
   setup() {
     const i18n = useI18n();
     const $auth = useMealieAuth();

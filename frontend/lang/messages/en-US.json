@@ -69,6 +69,7 @@
     "new-notification": "New Notification",
     "event-notifiers": "Event Notifiers",
     "apprise-url-skipped-if-blank": "Apprise URL (skipped if blank)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Enable Notifier",
     "what-events": "What events should this notifier subscribe to?",
     "user-events": "User Events",
@@ -79,7 +80,8 @@
     "tag-events": "Tag Events",
     "category-events": "Category Events",
     "when-a-new-user-joins-your-group": "When a new user joins your group",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Recipe Events",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Add",
@@ -397,6 +399,10 @@
       "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
       "title": "Tandoor Recipes"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Recipe Data Migrations",
     "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
@@ -559,6 +565,7 @@
     "see-original-text": "See Original Text",
     "original-text-with-value": "Original Text: {originalText}",
     "ingredient-linker": "Ingredient Linker",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Linked to other step",
     "auto": "Auto",
     "cook-mode": "Cook Mode",
@@ -621,6 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Stay in Edit mode",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Import from Zip",
     "import-from-zip-description": "Import a single recipe that was exported from another Mealie instance.",
     "import-from-html-or-json": "Import from HTML or JSON",
@@ -666,13 +674,21 @@
       "missing-food": "Create missing food: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
-      "no-food": "No Food"
+      "no-food": "No Food",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Reset Servings Count",
     "not-linked-ingredients": "Additional Ingredients",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
@@ -1047,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
     "forgot-password": "Forgot Password",
     "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
-    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "translated",
@@ -1165,7 +1183,7 @@
     "group-details": "Group Details",
     "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
     "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Account Details"
   },
   "validation": {

@@ -21,13 +21,16 @@ class FakeHasher:
 
 
 class BcryptHasher:
+    def _get_password_bytes(self, password: str) -> bytes:
+        return password.encode("utf-8")[:72]
+
     def hash(self, password: str) -> str:
-        password_bytes = password.encode("utf-8")
+        password_bytes = self._get_password_bytes(password)
         hashed = bcrypt.hashpw(password_bytes, bcrypt.gensalt())
         return hashed.decode("utf-8")
 
     def verify(self, password: str, hashed: str) -> bool:
-        password_bytes = password.encode("utf-8")
+        password_bytes = self._get_password_bytes(password)
         hashed_bytes = hashed.encode("utf-8")
         return bcrypt.checkpw(password_bytes, hashed_bytes)
 

@@ -72,7 +72,7 @@
     Mealie allows you to link ingredients to specific steps in a recipe, ensuring you know exactly when to add each ingredient during the cooking process.
 
     **Link Ingredients to Steps in a Recipe**
-    
+
     1. Go to a recipe
     2. Click the Edit button/icon
     3. Scroll down to the step you want to link ingredients to
@@ -82,7 +82,7 @@
     7. Click 'Save' on the Recipe
 
     You can optionally link the same ingredient to multiple steps, which is useful for prepping an ingredient in one step and using it in another.
-    
+
 ??? question "What is fuzzy search and how do I use it?"
 
     ### What is fuzzy search and how do I use it?
@@ -111,7 +111,7 @@
 
     You can change the theme by settings the environment variables.
 
-    - [Backend Config - Themeing](./installation/backend-config.md#themeing)
+    - [Backend Config - Theming](./installation/backend-config.md#theming)
 
 
 ??? question "How can I change the login session timeout?"
@@ -233,7 +233,7 @@
 
     ### How can I use Mealie externally
 
-    Exposing Mealie or any service to the internet can pose significant security risks. Before proceeding, carefully evaluate the potential impacts on your system. Due to the unique nature of each network, we cannot provide specific steps for your setup. 
+    Exposing Mealie or any service to the internet can pose significant security risks. Before proceeding, carefully evaluate the potential impacts on your system. Due to the unique nature of each network, we cannot provide specific steps for your setup.
 
     There is a community guide available for one way to potentially set this up, and you could reach out on Discord for further discussion on what may be best for your network.
 
@@ -267,7 +267,7 @@
 
     ### Why setup Email?
 
-    Mealie uses email to send account invites and password resets. If you don't use these features, you don't need to set up email. There are also other methods to perform these actions that do not require the setup of Email. 
+    Mealie uses email to send account invites and password resets. If you don't use these features, you don't need to set up email. There are also other methods to perform these actions that do not require the setup of Email.
 
     Email settings can be adjusted via environment variables on the backend container:
 

@@ -43,7 +43,7 @@
                 edit: true,
                 delete: true,
               }"
-              @update="$emit('update')"
+              @update="$emit('update', $event)"
               @delete="$emit('delete')"
             />
           </v-col>
@@ -96,7 +96,7 @@ import RecipeCardMobile from "./RecipeCardMobile.vue";
 import RecipeTimelineContextMenu from "./RecipeTimelineContextMenu.vue";
 import { useStaticRoutes } from "~/composables/api";
 import { useTimelineEventTypes } from "~/composables/recipes/use-recipe-timeline-events";
-import type { Recipe, RecipeTimelineEventOut } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate } from "~/lib/api/types/recipe";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import SafeMarkdown from "~/components/global/SafeMarkdown.vue";
 
@@ -113,11 +113,12 @@ const props = withDefaults(defineProps<Props>(), {
 
 defineEmits<{
   selected: [];
-  update: [];
+  update: [event: RecipeTimelineEventUpdate];
   delete: [];
 }>();
 
-const { $vuetify, $globals } = useNuxtApp();
+const { $globals } = useNuxtApp();
+const display = useDisplay();
 const { recipeTimelineEventImage } = useStaticRoutes();
 const { eventTypeOptions } = useTimelineEventTypes();
 
@@ -127,7 +128,7 @@ const route = useRoute();
 const groupSlug = computed(() => (route.params.groupSlug as string) || currentUser?.value?.groupSlug || "");
 
 const useMobileFormat = computed(() => {
-  return $vuetify.display.smAndDown.value;
+  return display.smAndDown.value;
 });
 
 const attrs = computed(() => {

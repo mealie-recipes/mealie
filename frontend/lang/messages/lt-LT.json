@@ -69,6 +69,7 @@
     "new-notification": "Naujas pranešimas",
     "event-notifiers": "Įvykių pranešimai",
     "apprise-url-skipped-if-blank": "Apprise URL (praleidžiama, jei tuščia)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Įjungti pranešiklį",
     "what-events": "Kokie įvykiai turėtų būti sekami?",
     "user-events": "Naudotojų įvykiai",
@@ -79,7 +80,8 @@
     "tag-events": "Žymų įvykiai",
     "category-events": "Kategorijų įvykiai",
     "when-a-new-user-joins-your-group": "Kai prie jūsų grupės prisijungia naujas naudotojas",
-    "recipe-events": "Recipe Events"
+    "recipe-events": "Recipe Events",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Pridėti",
@@ -397,6 +399,10 @@
       "description-long": "Mealie gali importuoti receptus iš \"Tandoor\". Eksportuokite savo duomenis \"Default\" formatu ir įkelkite .ZIP failą žemiau.",
       "title": "\"Tandoor\" receptai"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Receptų duomenų migracijos",
     "recipe-data-migrations-explanation": "Receptai gali būti importuojami į Mealie iš kitų palaikomų sistemų. Tai - puikus būdas pradėti naudotis Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
@@ -559,6 +565,7 @@
     "see-original-text": "Rodyti originalų tekstą",
     "original-text-with-value": "Originalus tekstas: {originalText}",
     "ingredient-linker": "Ingredientų siejimas",
+    "unlinked": "Not linked yet",
     "linked-to-other-step": "Susietas su kitu žingsniu",
     "auto": "Automatiškai",
     "cook-mode": "Gaminimo režimas",
@@ -621,6 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
     "import-original-keywords-as-tags": "Įkelti pradinius raktažodžius kaip žymas",
     "stay-in-edit-mode": "Toliau redaguoti",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Įkelti iš .ZIP archyvo",
     "import-from-zip-description": "Įkelti atskirą receptą, išsaugotą iš Mealie.",
     "import-from-html-or-json": "Import from HTML or JSON",
@@ -666,13 +674,21 @@
       "missing-food": "Create missing food: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
-      "no-food": "No Food"
+      "no-food": "No Food",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Reset Servings Count",
     "not-linked-ingredients": "Additional Ingredients",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
@@ -1165,7 +1181,7 @@
     "group-details": "Grupės informacija",
     "group-details-description": "Prieš kurdami paskyrą turite sukurti grupę. Jūsų grupėje būsite tik jūs, tačiau vėliau galėsite pakviesti ir kitus. Jūsų grupės nariai galės dalintis maitinimo planais, pirkinių sąrašais, receptais ir kita!",
     "use-seed-data": "Naudoti pradinius duomenis",
-    "use-seed-data-description": "\"Mealie\" sistemoje jau yra pradinis duomenų rinkinys su produktais, vienetais ir etiketėmis. Jį galite panaudoti savo grupės užpildymui naudinga informacija, kuri padės organizuoti jūsų receptus.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Paskyros informacija"
   },
   "validation": {

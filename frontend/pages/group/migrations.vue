@@ -7,7 +7,7 @@
           max-height="200"
           max-width="200"
           class="mb-2"
-          :src="require('~/static/svgs/manage-data-migrations.svg')"
+          src="/svgs/manage-data-migrations.svg"
         />
       </template>
       <template #title>
@@ -36,7 +36,8 @@
           </div>
           {{ content.text }}
           <v-treeview
-            v-if="content.tree"
+            v-if="content.tree && Array.isArray(content.tree)"
+            :key="migrationType"
             density="compact"
             :items="content.tree"
           >
@@ -100,6 +101,19 @@ import type { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 import { useUserApi } from "~/composables/api";
 import type { SupportedMigrations } from "~/lib/api/types/group";
 
+interface TreeNode {
+  id?: number;
+  icon: string;
+  title: string;
+  children?: TreeNode[];
+}
+
+interface MigrationContent {
+  text: string;
+  acceptedFileType: string;
+  tree: TreeNode[] | false;
+}
+
 const MIGRATIONS = {
   mealie: "mealie_alpha",
   chowdown: "chowdown",
@@ -110,10 +124,11 @@ const MIGRATIONS = {
   plantoeat: "plantoeat",
   recipekeeper: "recipekeeper",
   tandoor: "tandoor",
+  cookn: "cookn",
 };
 
 export default defineNuxtComponent({
-  middleware: ["sidebase-auth", "advanced-only"],
+  middleware: ["advanced-only"],
   setup() {
     const i18n = useI18n();
     const { $globals } = useNuxtApp();
@@ -171,54 +186,52 @@ export default defineNuxtComponent({
         text: i18n.t("migration.tandoor.title"),
         value: MIGRATIONS.tandoor,
       },
+      {
+        text: i18n.t("migration.cookn.title"),
+        value: MIGRATIONS.cookn,
+      },
     ];
-    const _content = {
+    const _content: Record<string, MigrationContent> = {
       [MIGRATIONS.mealie]: {
         text: i18n.t("migration.mealie-pre-v1.description-long"),
         acceptedFileType: ".zip",
         tree: [
           {
-            id: 1,
             icon: $globals.icons.zip,
-            name: "mealie.zip",
+            title: "mealie.zip",
             children: [
               {
-                id: 2,
-                name: "recipes",
+                title: "recipes",
                 icon: $globals.icons.folderOutline,
                 children: [
                   {
-                    id: 3,
-                    name: "recipe-name",
+                    title: "recipe-name",
                     icon: $globals.icons.folderOutline,
                     children: [
-                      { id: 4, name: "recipe-name.json", icon: $globals.icons.codeJson },
+                      { title: "recipe-name.json", icon: $globals.icons.codeJson },
                       {
-                        id: 5,
-                        name: "images",
+                        title: "images",
                         icon: $globals.icons.folderOutline,
                         children: [
-                          { id: 6, name: "original.webp", icon: $globals.icons.codeJson },
-                          { id: 7, name: "full.jpg", icon: $globals.icons.fileImage },
-                          { id: 8, name: "thumb.jpg", icon: $globals.icons.fileImage },
+                          { title: "original.webp", icon: $globals.icons.codeJson },
+                          { title: "full.jpg", icon: $globals.icons.fileImage },
+                          { title: "thumb.jpg", icon: $globals.icons.fileImage },
                         ],
                       },
                     ],
                   },
                   {
-                    id: 9,
-                    name: "recipe-name-1",
+                    title: "recipe-name-1",
                     icon: $globals.icons.folderOutline,
                     children: [
-                      { id: 10, name: "recipe-name-1.json", icon: $globals.icons.codeJson },
+                      { title: "recipe-name-1.json", icon: $globals.icons.codeJson },
                       {
-                        id: 11,
-                        name: "images",
+                        title: "images",
                         icon: $globals.icons.folderOutline,
                         children: [
-                          { id: 12, name: "original.webp", icon: $globals.icons.codeJson },
-                          { id: 13, name: "full.jpg", icon: $globals.icons.fileImage },
-                          { id: 14, name: "thumb.jpg", icon: $globals.icons.fileImage },
+                          { title: "original.webp", icon: $globals.icons.codeJson },
+                          { title: "full.jpg", icon: $globals.icons.fileImage },
+                          { title: "thumb.jpg", icon: $globals.icons.fileImage },
                         ],
                       },
                     ],
@@ -234,28 +247,25 @@ export default defineNuxtComponent({
         acceptedFileType: ".zip",
         tree: [
           {
-            id: 1,
             icon: $globals.icons.zip,
-            name: "nextcloud.zip",
+            title: "nextcloud.zip",
             children: [
               {
-                id: 2,
-                name: i18n.t("migration.recipe-1"),
+                title: i18n.t("migration.recipe-1"),
                 icon: $globals.icons.folderOutline,
                 children: [
-                  { id: 3, name: "recipe.json", icon: $globals.icons.codeJson },
-                  { id: 4, name: "full.jpg", icon: $globals.icons.fileImage },
-                  { id: 5, name: "thumb.jpg", icon: $globals.icons.fileImage },
+                  { title: "recipe.json", icon: $globals.icons.codeJson },
+                  { title: "full.jpg", icon: $globals.icons.fileImage },
+                  { title: "thumb.jpg", icon: $globals.icons.fileImage },
                 ],
               },
               {
-                id: 6,
-                name: i18n.t("migration.recipe-2"),
+                title: i18n.t("migration.recipe-2"),
                 icon: $globals.icons.folderOutline,
                 children: [
-                  { id: 7, name: "recipe.json", icon: $globals.icons.codeJson },
-                  { id: 8, name: "full.jpg", icon: $globals.icons.fileImage },
-                  { id: 9, name: "thumb.jpg", icon: $globals.icons.fileImage },
+                  { title: "recipe.json", icon: $globals.icons.codeJson },
+                  { title: "full.jpg", icon: $globals.icons.fileImage },
+                  { title: "thumb.jpg", icon: $globals.icons.fileImage },
                 ],
               },
             ],
@@ -267,21 +277,19 @@ export default defineNuxtComponent({
         acceptedFileType: ".zip",
         tree: [
           {
-            id: 1,
             icon: $globals.icons.zip,
-            name: "Copy_Me_That_20230306.zip",
+            title: "Copy_Me_That_20230306.zip",
             children: [
               {
-                id: 2,
-                name: "images",
+                title: "images",
                 icon: $globals.icons.folderOutline,
                 children: [
-                  { id: 3, name: "recipe_1_an5zy.jpg", icon: $globals.icons.fileImage },
-                  { id: 4, name: "recipe_2_82el8.jpg", icon: $globals.icons.fileImage },
-                  { id: 5, name: "recipe_3_j75qg.jpg", icon: $globals.icons.fileImage },
+                  { title: "recipe_1_an5zy.jpg", icon: $globals.icons.fileImage },
+                  { title: "recipe_2_82el8.jpg", icon: $globals.icons.fileImage },
+                  { title: "recipe_3_j75qg.jpg", icon: $globals.icons.fileImage },
                 ],
               },
-              { id: 6, name: "recipes.html", icon: $globals.icons.codeJson },
+              { title: "recipes.html", icon: $globals.icons.codeJson },
             ],
           },
         ],
@@ -296,28 +304,25 @@ export default defineNuxtComponent({
         acceptedFileType: ".zip",
         tree: [
           {
-            id: 1,
             icon: $globals.icons.zip,
-            name: "nextcloud.zip",
+            title: "nextcloud.zip",
             children: [
               {
-                id: 2,
-                name: i18n.t("migration.recipe-1"),
+                title: i18n.t("migration.recipe-1"),
                 icon: $globals.icons.folderOutline,
                 children: [
-                  { id: 3, name: "recipe.json", icon: $globals.icons.codeJson },
-                  { id: 4, name: "full.jpg", icon: $globals.icons.fileImage },
-                  { id: 5, name: "thumb.jpg", icon: $globals.icons.fileImage },
+                  { title: "recipe.json", icon: $globals.icons.codeJson },
+                  { title: "full.jpg", icon: $globals.icons.fileImage },
+                  { title: "thumb.jpg", icon: $globals.icons.fileImage },
                 ],
               },
               {
-                id: 6,
-                name: i18n.t("migration.recipe-2"),
+                title: i18n.t("migration.recipe-2"),
                 icon: $globals.icons.folderOutline,
                 children: [
-                  { id: 7, name: "recipe.json", icon: $globals.icons.codeJson },
-                  { id: 8, name: "full.jpg", icon: $globals.icons.fileImage },
-                  { id: 9, name: "thumb.jpg", icon: $globals.icons.fileImage },
+                  { title: "recipe.json", icon: $globals.icons.codeJson },
+                  { title: "full.jpg", icon: $globals.icons.fileImage },
+                  { title: "thumb.jpg", icon: $globals.icons.fileImage },
                 ],
               },
             ],
@@ -334,11 +339,10 @@ export default defineNuxtComponent({
         acceptedFileType: ".zip",
         tree: [
           {
-            id: 1,
             icon: $globals.icons.zip,
-            name: "plantoeat-recipes-508318_10-13-2023.zip",
+            title: "plantoeat-recipes-508318_10-13-2023.zip",
             children: [
-              { id: 9, name: "plantoeat-recipes-508318_10-13-2023.csv", icon: $globals.icons.codeJson },
+              { title: "plantoeat-recipes-508318_10-13-2023.csv", icon: $globals.icons.codeJson },
             ],
           },
         ],
@@ -348,16 +352,15 @@ export default defineNuxtComponent({
         acceptedFileType: ".zip",
         tree: [
           {
-            id: 1,
             icon: $globals.icons.zip,
-            name: "recipekeeperhtml.zip",
+            title: "recipekeeperhtml.zip",
             children: [
-              { id: 2, name: "recipes.html", icon: $globals.icons.codeJson },
+              { title: "recipes.html", icon: $globals.icons.codeJson },
               {
-                id: 3, name: "images", icon: $globals.icons.folderOutline,
+                title: "images", icon: $globals.icons.folderOutline,
                 children: [
-                  { id: 4, name: "image1.jpg", icon: $globals.icons.fileImage },
-                  { id: 5, name: "image2.jpg", icon: $globals.icons.fileImage },
+                  { title: "image1.jpg", icon: $globals.icons.fileImage },
+                  { title: "image2.jpg", icon: $globals.icons.fileImage },
                 ],
               },
             ],
@@ -369,42 +372,89 @@ export default defineNuxtComponent({
         acceptedFileType: ".zip",
         tree: [
           {
-            id: 1,
             icon: $globals.icons.zip,
-            name: "tandoor_default_export_full_2023-06-29.zip",
+            title: "tandoor_default_export_full_2023-06-29.zip",
             children: [
               {
-                id: 2,
-                name: "1.zip",
+                title: "1.zip",
                 icon: $globals.icons.zip,
                 children: [
-                  { id: 3, name: "image.jpeg", icon: $globals.icons.fileImage },
-                  { id: 4, name: "recipe.json", icon: $globals.icons.codeJson },
+                  { title: "image.jpeg", icon: $globals.icons.fileImage },
+                  { title: "recipe.json", icon: $globals.icons.codeJson },
                 ],
               },
               {
-                id: 5,
-                name: "2.zip",
+                title: "2.zip",
                 icon: $globals.icons.zip,
                 children: [
-                  { id: 6, name: "image.jpeg", icon: $globals.icons.fileImage },
-                  { id: 7, name: "recipe.json", icon: $globals.icons.codeJson },
+                  { title: "image.jpeg", icon: $globals.icons.fileImage },
+                  { title: "recipe.json", icon: $globals.icons.codeJson },
                 ],
               },
               {
-                id: 8,
-                name: "3.zip",
+                title: "3.zip",
                 icon: $globals.icons.zip,
                 children: [
-                  { id: 9, name: "image.jpeg", icon: $globals.icons.fileImage },
-                  { id: 10, name: "recipe.json", icon: $globals.icons.codeJson },
+                  { title: "image.jpeg", icon: $globals.icons.fileImage },
+                  { title: "recipe.json", icon: $globals.icons.codeJson },
                 ],
               },
             ],
           },
         ],
       },
+      [MIGRATIONS.cookn]: {
+        text: i18n.t("migration.cookn.description-long"),
+        acceptedFileType: ".zip",
+        tree: [
+          {
+            icon: $globals.icons.zip,
+            title: "cookn.zip",
+            children: [
+              { title: "temp_brand.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_chapter_desc.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_chapter.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_cookBook_desc.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_cookBook.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_food_brand.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_food_group.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_food.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_ingredient.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_media.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_nutrient.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_recipe_desc.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_recipe.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_unit_equivalent.dsv", icon: $globals.icons.codeJson },
+              { title: "temp_unit.dsv", icon: $globals.icons.codeJson },
+              { title: "images", icon: $globals.icons.fileImage },
+            ],
+          },
+        ],
+      },
     };
+
+    function addIdToNode(counter: number, node: TreeNode): number {
+      node.id = counter;
+      counter += 1;
+      if (node.children) {
+        node.children.forEach((child: TreeNode) => {
+          counter = addIdToNode(counter, child);
+        });
+      }
+      return counter;
+    }
+
+    for (const key in _content) {
+      const migration = _content[key];
+      if (migration.tree && Array.isArray(migration.tree)) {
+        let counter = 1;
+        migration.tree.forEach((node: TreeNode) => {
+          counter = addIdToNode(counter, node);
+        });
+      }
+    }
+
+    console.log(_content);
 
     function setFileObject(fileObject: File) {
       state.fileObject = fileObject;

@@ -69,6 +69,7 @@
     "new-notification": "Nova notificació",
     "event-notifiers": "Notificacions d'esdeveniments",
     "apprise-url-skipped-if-blank": "Apprise URL (si es deixa buit, s'ignorarà)",
+    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
     "enable-notifier": "Habilita la notificació",
     "what-events": "Què esdeveniments vols que utilitzen aquest notificador?",
     "user-events": "Esdeveniments d'usuari",
@@ -79,7 +80,8 @@
     "tag-events": "Esdeveniments de les etiquetes",
     "category-events": "Esdeveniments de les categories",
     "when-a-new-user-joins-your-group": "Quan un nou usuari s'afegeix al grup",
-    "recipe-events": "Esdeveniments de receptes"
+    "recipe-events": "Esdeveniments de receptes",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Afegeix",
@@ -397,6 +399,10 @@
       "description-long": "Mealie pot importar les receptes de Tandoor. Exporta les dades en format \"Default\", i carrega el .zip a sota.",
       "title": "Tandoor Recipes"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migració de receptes",
     "recipe-data-migrations-explanation": "Les receptes es poden migrar des d'una altra aplicació suportada cap a Mealie. És una manera genial de començar a utilitzar el Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Véns d'una altra aplicació o una versió més antiga de Mealia? Fés un cop d'ull a migracions i mira si pots importar les teves dades.",
@@ -559,6 +565,7 @@
     "see-original-text": "Mostra el text original",
     "original-text-with-value": "Text original: {originalText}",
     "ingredient-linker": "Enllaça ingredients",
+    "unlinked": "No enllaçada",
     "linked-to-other-step": "Enllaça a un altre pas",
     "auto": "Automàtic",
     "cook-mode": "Mode \"cuinant\"",
@@ -621,6 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Podeu importar directament des de les dades planes",
     "import-original-keywords-as-tags": "Importa les paraules clau originals com a tags",
     "stay-in-edit-mode": "Segueix en el mode d'edició",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Importa des d'un ZIP",
     "import-from-zip-description": "Importa una sola recepta que ha estat importada d'una altra instància de Mealie.",
     "import-from-html-or-json": "Importar des d'un HTML o JSON",
@@ -666,13 +674,21 @@
       "missing-food": "Crear menjar que manca: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
-      "no-food": "Sense menjar"
+      "no-food": "Sense menjar",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Reiniciar racions servides",
     "not-linked-ingredients": "Ingredients addicionals",
     "upload-another-image": "Upload another image",
     "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-more-images": "Upload more images",
+    "set-as-cover-image": "Set as recipe cover image",
+    "cover-image": "Cover image"
   },
   "recipe-finder": {
     "recipe-finder": "Cercador de receptes",
@@ -1165,7 +1181,7 @@
     "group-details": "Detalls del grup",
     "group-details-description": "Abans de crear un compte heu de crear un grup. Al grup només hi serà vostè, però després podeu convidar d'altres. Els membres d'un grup poden compartir menús, llistes de la compra, receptes i molt més!",
     "use-seed-data": "Afegiu dades predeterminades",
-    "use-seed-data-description": "Mealie ve configurat amb una col·lecció d'aliments, unitats i etiquetes que poden ser emprades pel vostre grup per a ajudar-vos a organitzar les vostres receptes.",
+    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
     "account-details": "Detalls del compte"
   },
   "validation": {

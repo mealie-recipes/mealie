@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} létrehozva, {url}",
         "generic-updated-with-url": "{name} frissítve, {url}",
         "generic-duplicated": "{name} duplikálva",
-        "generic-deleted": "{name} törölve lett"
+        "generic-deleted": "{name} törölve lett",
+        "logged-out": "Kijelentkezett"
     },
     "datetime": {
         "year": "év",

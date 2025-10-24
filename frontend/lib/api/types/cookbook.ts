@@ -9,6 +9,10 @@ export type LogicalOperator = "AND" | "OR";
 export type RelationalKeyword = "IS" | "IS NOT" | "IN" | "NOT IN" | "CONTAINS ALL" | "LIKE" | "NOT LIKE";
 export type RelationalOperator = "=" | "<>" | ">" | "<" | ">=" | "<=";
 
+export interface CookbookHousehold {
+  id: string;
+  name: string;
+}
 export interface CreateCookBook {
   name: string;
   description?: string;
@@ -28,6 +32,7 @@ export interface ReadCookBook {
   householdId: string;
   id: string;
   queryFilter?: QueryFilterJSON;
+  household?: CookbookHousehold | null;
 }
 export interface QueryFilterJSON {
   parts?: QueryFilterJSONPart[];
@@ -39,65 +44,6 @@ export interface QueryFilterJSONPart {
   attributeName?: string | null;
   relationalOperator?: RelationalKeyword | RelationalOperator | null;
   value?: string | string[] | null;
-  [k: string]: unknown;
-}
-export interface RecipeCookBook {
-  name: string;
-  description?: string;
-  slug?: string | null;
-  position?: number;
-  public?: boolean;
-  queryFilterString?: string;
-  groupId: string;
-  householdId: string;
-  id: string;
-  queryFilter?: QueryFilterJSON;
-  recipes: RecipeSummary[];
-}
-export interface RecipeSummary {
-  id?: string | null;
-  userId?: string;
-  householdId?: string;
-  groupId?: string;
-  name?: string | null;
-  slug?: string;
-  image?: unknown;
-  recipeServings?: number;
-  recipeYieldQuantity?: number;
-  recipeYield?: string | null;
-  totalTime?: string | null;
-  prepTime?: string | null;
-  cookTime?: string | null;
-  performTime?: string | null;
-  description?: string | null;
-  recipeCategory?: RecipeCategory[] | null;
-  tags?: RecipeTag[] | null;
-  tools?: RecipeTool[];
-  rating?: number | null;
-  orgURL?: string | null;
-  dateAdded?: string | null;
-  dateUpdated?: string | null;
-  createdAt?: string | null;
-  updatedAt?: string | null;
-  lastMade?: string | null;
-}
-export interface RecipeCategory {
-  id?: string | null;
-  name: string;
-  slug: string;
-  [k: string]: unknown;
-}
-export interface RecipeTag {
-  id?: string | null;
-  name: string;
-  slug: string;
-  [k: string]: unknown;
-}
-export interface RecipeTool {
-  id: string;
-  name: string;
-  slug: string;
-  householdsWithTool?: string[];
   [k: string]: unknown;
 }
 export interface SaveCookBook {
