@@ -400,7 +400,7 @@
       "title": "Tandoor recepti"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie lahko uvozi recepte iz DVO Cook'n X3. Izvozite kuharsko knjigo ali jedilnik v formatu »Cook'n«, preimenujte izvozno končnico v .zip in nato naložite spodnjo datoteko .zip.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migracije receptov",
@@ -628,7 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Uvoziš lahko neposredno iz surovih podatkov",
     "import-original-keywords-as-tags": "Uvozi izvorne ključne besede kot značke",
     "stay-in-edit-mode": "Urejaj naprej",
-    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
+    "parse-recipe-ingredients-after-import": "Razčlenitev sestavin recepta po uvozu",
     "import-from-zip": "Uvozi z Zip",
     "import-from-zip-description": "Uvozi posamezen recept, ki je bil izvožen iz druge instance Mealie aplikacije.",
     "import-from-html-or-json": "Uvozi iz HTML ali JSON",
@@ -675,12 +675,12 @@
       "this-unit-could-not-be-parsed-automatically": "Te enote ni bilo mogoče samodejno razčleniti",
       "this-food-could-not-be-parsed-automatically": "Te hrane ni bilo mogoče samodejno razčleniti",
       "no-food": "Ni živila",
-      "review-parsed-ingredients": "Review parsed ingredients",
-      "confidence-score": "Confidence Score",
-      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
-      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
-      "delete-item": "Delete Item"
+      "review-parsed-ingredients": "Pregled razčlenjenih sestavin",
+      "confidence-score": "Stopnja zaupanja",
+      "ingredient-parser-description": "Vaše sestavine so bile uspešno razčlenjene. Prosimo, preglejte sestavine, glede katerih nismo prepričani.",
+      "ingredient-parser-final-review-description": "Ko bodo vse sestavine pregledane, boste imeli še eno priložnost, da jih pregledate, preden spremembe uveljavite v svojem receptu.",
+      "add-text-as-alias-for-item": "Dodaj \"{text}\" kot vzdevek za {item}",
+      "delete-item": "Izbriši element"
     },
     "reset-servings-count": "Ponastavi števec obrokov",
     "not-linked-ingredients": "Dodatne sestavine",
@@ -1064,8 +1064,8 @@
     "forgot-password": "Ste pozabili geslo",
     "forgot-password-text": "Vnesi svoj email naslov, poslali ti bomo povezavo za ponastavitev gesla.",
     "changes-reflected-immediately": "Spremembe na tem uporabniku se poznajo takoj.",
-    "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity": "Privzeta dejavnost",
+    "default-activity-hint": "Izberite, na katero stran želite priti ob prijavi iz te naprave"
   },
   "language-dialog": {
     "translated": "prevedeno",
