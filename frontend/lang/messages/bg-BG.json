@@ -729,7 +729,7 @@
   },
   "settings": {
     "add-a-new-theme": "Добавяне на нова тема",
-    "admin-settings": "Администраторски настройки",
+    "admin-settings": "Системни настройки",
     "backup": {
       "backup-created": "Архивът е създаден успешно",
       "backup-created-at-response-export_path": "Резервно копие е създадено в {path}",
@@ -1350,7 +1350,7 @@
     "members": "Участници",
     "members-description": "Вижте кой е във вашето домакинство и управлявайте техните разрешения.",
     "webhooks-description": "Настройте webhooks, които се задействат в дните, в които имате планиран план за хранене.",
-    "notifiers": "Уведомители",
+    "notifiers": "Уведомления",
     "notifiers-description": "Настройте имейл и push известия, които се задействат при конкретни събития.",
     "manage-data": "Управление на данни",
     "manage-data-description": "Управлявай данните в Mealie: Храни, Единици, Категории, Тагове и други.",
@@ -1368,7 +1368,7 @@
     "manage-cookbooks": "Управление на готварските книги",
     "manage-members": "Управление на потребителите",
     "manage-webhooks": "Управление на Webhooks",
-    "manage-notifiers": "Управление на уведомители",
+    "manage-notifiers": "Настройки на уведомленията",
     "manage-data-migrations": "Управление на миграцията на данни"
   },
   "cookbook": {

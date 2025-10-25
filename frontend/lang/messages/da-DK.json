@@ -1064,7 +1064,7 @@
     "forgot-password": "Glemt adgangskode",
     "forgot-password-text": "Indtast venligst din e-mail-adresse. Vi sender dig en e-mail, så at du kan nulstille din adgangskode.",
     "changes-reflected-immediately": "Ændringer til denne bruger vil have effekt med det samme.",
-    "default-activity": "Default Activity",
+    "default-activity": "",
     "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
