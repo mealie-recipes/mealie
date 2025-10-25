@@ -541,7 +541,7 @@
             "ancho chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "ancho chile pepper",
+                "name": "ancho chilipeber",
                 "plural_name": "ancho chile peppers"
             },
             "microgreen": {
@@ -559,8 +559,8 @@
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
-                "name": "kohlrabi",
-                "plural_name": "kohlrabis"
+                "name": "glaskål",
+                "plural_name": "glaskål"
             },
             "fresno chile": {
                 "aliases": [],
@@ -930,7 +930,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "blandet frugt",
-                "plural_name": "mixed fruits"
+                "plural_name": "blandede frugter"
             },
             "asian pear": {
                 "aliases": [],
@@ -942,7 +942,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lychee",
-                "plural_name": "lychees"
+                "plural_name": "lycheer"
             },
             "young coconut": {
                 "aliases": [],
@@ -954,25 +954,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "kaffir lime",
-                "plural_name": "kaffir limes"
+                "plural_name": "kaffir lime"
             },
             "star fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "star fruit",
-                "plural_name": "star fruits"
+                "name": "stjernefrugt",
+                "plural_name": "stjernefrugter"
             },
             "green papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "green papaya",
-                "plural_name": "green papayas"
+                "name": "grøn papaya",
+                "plural_name": "grønne papayaer"
             },
             "pomelo": {
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomeloes"
+                "plural_name": "pomeloer"
             },
             "chestnut puree": {
                 "aliases": [],
@@ -1169,14 +1169,14 @@
             "fig leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "fig leaf",
-                "plural_name": "fig leaves"
+                "name": "figenblad",
+                "plural_name": "figenblade"
             },
             "freeze-dried pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried pineapple",
-                "plural_name": "freeze-dried pineapples"
+                "name": "frysetørret ananas",
+                "plural_name": "frysetørrede ananasser"
             },
             "pluot": {
                 "aliases": [],
@@ -1245,20 +1245,20 @@
             "shiitake mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shiitake mushroom",
-                "plural_name": "shiitake mushrooms"
+                "name": "shiitakesvamp",
+                "plural_name": "shiitakesvampe"
             },
             "portobello mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "portobello mushroom",
-                "plural_name": "portobello mushrooms"
+                "name": "portobellosvamp",
+                "plural_name": "portobellosvampe"
             },
             "wild mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "wild mushroom",
-                "plural_name": "wild mushrooms"
+                "name": "vild svamp",
+                "plural_name": "vilde svampe"
             },
             "porcini": {
                 "aliases": [],
