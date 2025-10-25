@@ -136,7 +136,7 @@
     "options": "Valinnat:",
     "plural-name": "Monikollinen nimi",
     "print": "Tulosta",
-    "print-preferences": "Tulosta asetukset",
+    "print-preferences": "Tulostusasetukset",
     "random": "Satunnainen",
     "rating": "Arvio",
     "recent": "Viimeisimmät",
@@ -680,7 +680,7 @@
       "ingredient-parser-description": "Ainesosat on haettu onnistuneesti. Ole hyvä ja tarkista ainesosat joista emme ole varmoja.",
       "ingredient-parser-final-review-description": "Kun kaikki ainesosat on tarkistettu, sinulla on vielä yksi mahdollisuus tarkistaa kaikki ainesosat ennen kuin muokkaat reseptiäsi.",
       "add-text-as-alias-for-item": "",
-      "delete-item": ""
+      "delete-item": "Poista kohde"
     },
     "reset-servings-count": "Palauta Annoksien Määrä",
     "not-linked-ingredients": "Muut ainesosat",
