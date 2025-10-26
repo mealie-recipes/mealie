@@ -167,13 +167,6 @@ class RecipeIngredientBase(MealieModel):
     """
 
     @model_validator(mode="after")
-    def validate_note(self):
-        if self.referenced_recipe:
-            self.note = self.referenced_recipe.name
-
-        return self
-
-    @model_validator(mode="after")
     def format_display(self):
         if not self.display:
             self.display = self._format_display()

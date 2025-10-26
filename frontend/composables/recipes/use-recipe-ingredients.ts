@@ -94,7 +94,7 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1,
         quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
         unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
         name: subRecipeName ? sanitizeIngredientHTML(subRecipeName) : undefined,
-        note: undefined,
+        note: note ? sanitizeIngredientHTML(note) : undefined,
         recipeLink: `<a href="/g/${groupSlug}/r/${referencedRecipe.slug}" target="_blank">${referencedRecipe.name}</a>`,
       };
     }
