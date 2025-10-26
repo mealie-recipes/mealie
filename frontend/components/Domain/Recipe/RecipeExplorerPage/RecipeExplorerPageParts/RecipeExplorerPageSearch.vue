@@ -32,7 +32,7 @@
               v-bind="props"
             >
               <v-icon :start="!$vuetify.display.xs">
-                {{ state.orderDirection === "asc" ? $globals.icons.sortAscending : $globals.icons.sortDescending }}
+                {{ state.orderDirection === "asc" ? $globals.icons.sortDescending : $globals.icons.sortAscending }}
               </v-icon>
               {{ $vuetify.display.xs ? null : sortText }}
             </v-btn>
@@ -42,7 +42,7 @@
               <v-list-item
                 slim
                 density="comfortable"
-                :prepend-icon="state.orderDirection === 'asc' ? $globals.icons.sortDescending : $globals.icons.sortAscending"
+                :prepend-icon="state.orderDirection === 'asc' ? $globals.icons.sortAscending : $globals.icons.sortDescending"
                 :title="state.orderDirection === 'asc' ? $t('general.sort-descending') : $t('general.sort-ascending')"
                 @click="toggleOrderDirection"
               />

@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vous ne voulez plus voir cela ? Assurez-vous de changer votre adresse e-mail dans vos paramètres d'utilisateur !",
     "forgot-password": "Mot de passe oublié",
     "forgot-password-text": "Veuillez entrer votre adresse e-mail. Un e-mail vous sera envoyé afin de réinitialiser votre mot de passe.",
-    "changes-reflected-immediately": "Les changements apportés à cet utilisateur seront immédiatement pris en compte."
+    "changes-reflected-immediately": "Les changements apportés à cet utilisateur seront immédiatement pris en compte.",
+    "default-activity": "Activité par défaut ",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "traduit",

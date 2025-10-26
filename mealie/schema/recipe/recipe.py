@@ -14,6 +14,7 @@ from sqlalchemy.orm import Session, joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs
+from mealie.core.exceptions import SlugError
 from mealie.db.models.users.users import User
 from mealie.schema._mealie import MealieModel, SearchType
 from mealie.schema._mealie.mealie_model import UpdatedAtField
@@ -45,8 +46,13 @@ def create_recipe_slug(name: str, max_length: int = 250) -> str:
 
     Returns:
         A truncated slug string
+
+    Raises:
+        ValueError: If the name cannot be converted to a valid slug
     """
     generated_slug = slugify(name)
+    if not generated_slug:
+        raise SlugError("Recipe name cannot be empty or contain only special characters")
     if len(generated_slug) > max_length:
         generated_slug = generated_slug[:max_length]
     return generated_slug

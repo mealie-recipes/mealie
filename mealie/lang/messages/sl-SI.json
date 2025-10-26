@@ -44,7 +44,7 @@
         "generic-updated-with-url": "{name} je bil posodobljen, {url}",
         "generic-duplicated": "{name} je bilo podvojeno",
         "generic-deleted": "{name} je bil izbrisan",
-        "logged-out": "Logged out"
+        "logged-out": "Odjavljen/a"
     },
     "datetime": {
         "year": "leto|let",

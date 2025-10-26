@@ -541,7 +541,7 @@
             "ancho chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "ancho chile pepper",
+                "name": "ancho chilipeber",
                 "plural_name": "ancho chile peppers"
             },
             "microgreen": {
@@ -559,8 +559,8 @@
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
-                "name": "kohlrabi",
-                "plural_name": "kohlrabis"
+                "name": "glaskål",
+                "plural_name": "glaskål"
             },
             "fresno chile": {
                 "aliases": [],
@@ -930,7 +930,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "blandet frugt",
-                "plural_name": "mixed fruits"
+                "plural_name": "blandede frugter"
             },
             "asian pear": {
                 "aliases": [],
@@ -942,7 +942,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lychee",
-                "plural_name": "lychees"
+                "plural_name": "lycheer"
             },
             "young coconut": {
                 "aliases": [],
@@ -954,25 +954,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "kaffir lime",
-                "plural_name": "kaffir limes"
+                "plural_name": "kaffir lime"
             },
             "star fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "star fruit",
-                "plural_name": "star fruits"
+                "name": "stjernefrugt",
+                "plural_name": "stjernefrugter"
             },
             "green papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "green papaya",
-                "plural_name": "green papayas"
+                "name": "grøn papaya",
+                "plural_name": "grønne papayaer"
             },
             "pomelo": {
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomeloes"
+                "plural_name": "pomeloer"
             },
             "chestnut puree": {
                 "aliases": [],
@@ -1169,14 +1169,14 @@
             "fig leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "fig leaf",
-                "plural_name": "fig leaves"
+                "name": "figenblad",
+                "plural_name": "figenblade"
             },
             "freeze-dried pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried pineapple",
-                "plural_name": "freeze-dried pineapples"
+                "name": "frysetørret ananas",
+                "plural_name": "frysetørrede ananasser"
             },
             "pluot": {
                 "aliases": [],
@@ -1245,20 +1245,20 @@
             "shiitake mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shiitake mushroom",
-                "plural_name": "shiitake mushrooms"
+                "name": "shiitakesvamp",
+                "plural_name": "shiitakesvampe"
             },
             "portobello mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "portobello mushroom",
-                "plural_name": "portobello mushrooms"
+                "name": "portobellosvamp",
+                "plural_name": "portobellosvampe"
             },
             "wild mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "wild mushroom",
-                "plural_name": "wild mushrooms"
+                "name": "vild svamp",
+                "plural_name": "vilde svampe"
             },
             "porcini": {
                 "aliases": [],
@@ -3071,7 +3071,7 @@
             "pickled egg": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled egg",
+                "name": "syltet æg",
                 "plural_name": "pickled eggs"
             },
             "sheep milk": {
@@ -3805,7 +3805,7 @@
             "ground pork": {
                 "aliases": [],
                 "description": "",
-                "name": "ground pork",
+                "name": "hakket svinekød",
                 "plural_name": "ground porks"
             },
             "beef stew meat": {
@@ -8535,7 +8535,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rolled oat",
-                "plural_name": "rolled oats"
+                "plural_name": "havregryn"
             },
             "rice": {
                 "aliases": [],
@@ -8573,7 +8573,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "quick-cooking oat",
-                "plural_name": "quick-cooking oats"
+                "plural_name": "finvalsede havregryn"
             },
             "breakfast cereal": {
                 "aliases": [],
@@ -8963,7 +8963,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "oat groat",
-                "plural_name": "oat groats"
+                "plural_name": "havrekerner"
             },
             "teff": {
                 "aliases": [],
@@ -10634,7 +10634,7 @@
             "olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "olive oil",
+                "name": "olivenolie",
                 "plural_name": "olive oils"
             },
             "vegetable oil": {
@@ -12880,7 +12880,7 @@
             "garlic butter": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic butter",
+                "name": "hvidløgssmør",
                 "plural_name": "garlic butter"
             },
             "hollandaise sauce": {
@@ -15789,8 +15789,8 @@
             "liquid egg white": {
                 "aliases": [],
                 "description": "",
-                "name": "liquid egg white",
-                "plural_name": "liquid egg whites"
+                "name": "æggehvide",
+                "plural_name": "æggehvider"
             },
             "peanut butter powder": {
                 "aliases": [],
