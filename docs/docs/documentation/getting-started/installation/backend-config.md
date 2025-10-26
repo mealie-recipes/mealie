@@ -166,7 +166,7 @@ Setting the following environmental variables will change the theme of the front
 
 The table below provides copy-ready example palettes. Add these to your environment variables and follow the syntax guidance above when formatting your YAML configuration
 
-> Note: These themes are functional and ready to use, but they are provided primarily as examples. The colour palettes can be adjusted or refined to better suit your preferences
+> These themes are functional and ready to use, but they are provided primarily as examples. The colour palettes can be adjusted or refined to better suit your preferences
 
 ---
 
