@@ -47,7 +47,7 @@
     "category-updated": "Kategorie aktualisiert",
     "uncategorized-count": "Nicht kategorisiert {count}",
     "create-a-category": "Eine Kategorie erstellen",
-    "category-name": "Name der Kategorie",
+    "category-name": "Kategoriename",
     "category": "Kategorie"
   },
   "events": {
@@ -400,7 +400,7 @@
       "title": "Tandoor Rezepte"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie kann Rezepte von DVO Cook'n X3 importieren. Exportieren Sie ein Kochbuch oder ein Menü im \"Cook'n\"-Format, benennen Sie die Export-Erweiterung in .zip um, dann laden Sie die .zip unten hoch.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Rezeptdatenmigration",
