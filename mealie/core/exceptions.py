@@ -26,9 +26,10 @@ class RecursiveRecipe(Exception):
     """
     This exception is raised when a recipe references itself, either directly or indirectly.
     """
-    
+
     pass
-    
+
+
 class SlugError(Exception):
     """
     This exception is raised when the recipe name generates an invalid slug.
