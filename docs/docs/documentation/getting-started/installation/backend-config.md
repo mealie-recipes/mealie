@@ -168,8 +168,6 @@ The table below provides copy-ready example palettes. Add these to your environm
 
 > These themes are functional and ready to use, but they are provided primarily as examples. The colour palettes can be adjusted or refined to better suit your preferences
 
----
-
 | **Variable**          | **Blue** | **Green** | **Pink** | **Description**                        |
 | --------------------- | -------- | --------- | -------- | -------------------------------------- |
 | **_Light Mode_**      |          |           |          |                                        |
