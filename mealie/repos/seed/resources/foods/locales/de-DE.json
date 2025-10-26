@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Blumenkohl",
-                "plural_name": "Blumenkohle"
+                "plural_name": "Blumenkohl"
             },
             "cabbage": {
                 "aliases": [],
@@ -334,7 +334,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Meerrettich",
-                "plural_name": "Meerrettiche"
+                "plural_name": "Meerrettich"
             },
             "chard": {
                 "aliases": [],
@@ -364,7 +364,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Rösti",
-                "plural_name": "Röstis"
+                "plural_name": "Rösti"
             },
             "napa cabbage": {
                 "aliases": [
@@ -9746,8 +9746,8 @@
             "chicken raman": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken raman",
-                "plural_name": "chicken ramen"
+                "name": "Hähnchen Ramen",
+                "plural_name": "Hähnchen Ramen"
             },
             "pierogi": {
                 "aliases": [],
@@ -9986,8 +9986,8 @@
             "bean pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "bean pasta",
-                "plural_name": "bean pastas"
+                "name": "Bohnennudeln",
+                "plural_name": "Bohnennudeln"
             },
             "bean sheet": {
                 "aliases": [],
@@ -10282,8 +10282,8 @@
             "gluten-free bread crumb": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free bread crumb",
-                "plural_name": "gluten-free bread crumbs"
+                "name": "glutenfreie Semmelbrösel",
+                "plural_name": "glutenfreie Semmelbrösel"
             },
             "tostada shell": {
                 "aliases": [],
@@ -11289,13 +11289,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Himbeer-Vinaigrette",
-                "plural_name": "raspberry vinaigrettes"
+                "plural_name": "Himbeer Vinaigrette"
             },
             "red wine vinaigrette": {
                 "aliases": [],
                 "description": "",
                 "name": "Rotwein-Vinaigrette",
-                "plural_name": "red wine vinaigrettes"
+                "plural_name": "Rotwein Vinaigrette"
             },
             "russian dressing": {
                 "aliases": [],
