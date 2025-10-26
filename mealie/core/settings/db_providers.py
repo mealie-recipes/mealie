@@ -70,7 +70,6 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
             )
         )
 
-
     @property
     def db_url_public(self) -> str:
         if self.POSTGRES_URL_OVERRIDE:
