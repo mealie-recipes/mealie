@@ -41,7 +41,7 @@
         </v-text-field>
       </v-col>
       <v-col
-        v-if="!isRecipe"
+        v-if="!state.isRecipe"
         sm="12"
         md="3"
         cols="12"
@@ -98,7 +98,7 @@
 
       <!-- Foods Input -->
       <v-col
-        v-if="!isRecipe"
+        v-if="!state.isRecipe"
         m="12"
         md="3"
         cols="12"
@@ -155,7 +155,7 @@
       </v-col>
       <!-- Recipe Input -->
       <v-col
-        v-if="isRecipe"
+        v-if="state.isRecipe"
         m="12"
         md="6"
         cols="12"
@@ -202,6 +202,7 @@
             class="my-auto d-flex"
             :buttons="btns"
             @toggle-section="toggleTitle"
+            @toggle-subrecipe="toggleIsRecipe"
             @insert-above="$emit('insert-above')"
             @insert-below="$emit('insert-below')"
             @delete="$emit('delete')"
@@ -282,6 +283,7 @@ const { $globals } = useNuxtApp();
 
 const state = reactive({
   showTitle: false,
+  isRecipe: props.isRecipe,
 });
 
 const contextMenuOptions = computed(() => {
@@ -289,6 +291,10 @@ const contextMenuOptions = computed(() => {
     {
       text: i18n.t("recipe.toggle-section"),
       event: "toggle-section",
+    },
+    {
+      text: i18n.t("recipe.toggle-subrecipe"),
+      event: "toggle-subrecipe",
     },
     {
       text: i18n.t("recipe.insert-above"),
@@ -375,6 +381,17 @@ function toggleTitle() {
     model.value.title = "";
   }
   state.showTitle = !state.showTitle;
+}
+
+function toggleIsRecipe() {
+  if (state.isRecipe) {
+    model.value.referencedRecipe = undefined;
+  }
+  else {
+    model.value.unit = undefined;
+    model.value.food = undefined;
+  }
+  state.isRecipe = !state.isRecipe;
 }
 
 function handleUnitEnter() {

@@ -693,7 +693,8 @@
     "cover-image": "Cover image",
     "add-reference": "Add Recipe Reference",
     "sub-recipes": "Include Linked Recipes",
-    "expand-child-recipe": "Linked Recipe Ingredients"
+    "expand-child-recipe": "Linked Recipe Ingredients",
+    "toggle-subrecipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
