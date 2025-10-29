@@ -1097,20 +1097,20 @@ files = [
 
 [[package]]
 name = "ingredient-parser-nlp"
-version = "2.3.0"
+version = "2.4.0"
 description = "A Python package to parse structured information from recipe ingredient sentences"
 optional = false
-python-versions = "<3.14,>=3.10"
+python-versions = "<3.15,>=3.11"
 groups = ["main"]
 files = [
-    {file = "ingredient_parser_nlp-2.3.0-py3-none-any.whl", hash = "sha256:b972c5699a40282f9b472f15ed09717450045ba7126ade2fdb7f13502b58267b"},
-    {file = "ingredient_parser_nlp-2.3.0.tar.gz", hash = "sha256:2b742cf9b111026883128c10e356c6e94df9bcd96a3bcc80880958dc0a340e7e"},
+    {file = "ingredient_parser_nlp-2.4.0-py3-none-any.whl", hash = "sha256:022b7ae24fd4b5f3a51ca2b8b4de73f39bc2d9f9332b02128345fc72790764af"},
+    {file = "ingredient_parser_nlp-2.4.0.tar.gz", hash = "sha256:73c48f229ec86afc07c8e52df5c60cea93dbbfd8fde4f9659ac1f89d1711306c"},
 ]
 
 [package.dependencies]
 nltk = ">=3.9.1"
 numpy = "*"
-pint = "0.24.4"
+pint = ">=0.25.0"
 python-crfsuite = "*"
 
 [[package]]
@@ -2282,14 +2282,14 @@ tests-min = ["defusedxml", "packaging", "pytest"]
 
 [[package]]
 name = "pint"
-version = "0.24.4"
+version = "0.25"
 description = "Physical quantities module"
 optional = false
-python-versions = ">=3.9"
+python-versions = ">=3.11"
 groups = ["main"]
 files = [
-    {file = "Pint-0.24.4-py3-none-any.whl", hash = "sha256:aa54926c8772159fcf65f82cc0d34de6768c151b32ad1deb0331291c38fe7659"},
-    {file = "pint-0.24.4.tar.gz", hash = "sha256:35275439b574837a6cd3020a5a4a73645eb125ce4152a73a2f126bf164b91b80"},
+    {file = "pint-0.25-py3-none-any.whl", hash = "sha256:cc20ae3dff010b9bbea41fb80c2de008f683cc83512cea73633d55aead80aa1e"},
+    {file = "pint-0.25.tar.gz", hash = "sha256:22911a30d682ee0540d656571c19a7b1806ce00b2be88a16f67218108b7b8cc2"},
 ]
 
 [package.dependencies]
@@ -2299,14 +2299,18 @@ platformdirs = ">=2.1.0"
 typing-extensions = ">=4.0.0"
 
 [package.extras]
+all = ["babel (<=2.8)", "dask (<2025.3.0)", "matplotlib", "mip (>=1.13) ; python_version < \"3.13\"", "numpy (>=1.23)", "pint-pandas (>=0.3)", "uncertainties (>=3.1.6)", "xarray"]
 babel = ["babel (<=2.8)"]
-bench = ["pytest", "pytest-codspeed"]
-dask = ["dask"]
-mip = ["mip (>=1.13)"]
+codspeed = ["pytest", "pytest-benchmark", "pytest-codspeed", "pytest-cov", "pytest-mpl", "pytest-subtests"]
+dask = ["dask (<2025.3.0)"]
+docs = ["babel", "commonmark (==0.8.1)", "docutils", "graphviz", "ipykernel", "ipython (<=8.12)", "jupyter-client", "nbsphinx", "pooch", "pygments (>=2.4)", "recommonmark (==0.5.0)", "sciform", "scipy", "serialize", "sparse", "sphinx (>=6,<8.2)", "sphinx-book-theme (>=1.1.0)", "sphinx-copybutton", "sphinx-design"]
+matplotlib = ["matplotlib"]
+mip = ["mip (>=1.13) ; python_version < \"3.13\""]
 numpy = ["numpy (>=1.23)"]
 pandas = ["pint-pandas (>=0.3)"]
-test = ["pytest", "pytest-benchmark", "pytest-cov", "pytest-mpl", "pytest-subtests"]
-testbase = ["pytest", "pytest-benchmark", "pytest-cov", "pytest-subtests"]
+test = ["pytest", "pytest-benchmark", "pytest-cov", "pytest-subtests"]
+test-all = ["pytest", "pytest-benchmark", "pytest-cov", "pytest-mpl", "pytest-subtests"]
+test-mpl = ["pytest-mpl"]
 uncertainties = ["uncertainties (>=3.1.6)"]
 xarray = ["xarray"]
 
