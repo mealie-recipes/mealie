@@ -10010,14 +10010,14 @@
             "naengmyeon noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "naengmyeon noodle",
-                "plural_name": "naengmyeon noodles"
+                "name": "Naengmyeon-Nudel",
+                "plural_name": "Naengmyeon-Nudeln"
             },
             "yuba noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "yuba noodle",
-                "plural_name": "yuba noodles"
+                "name": "Yuba-Nudeln",
+                "plural_name": "Yuba-Nudeln"
             }
         }
     },
@@ -10211,7 +10211,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Popcornmais",
-                "plural_name": "unpopped popcorns"
+                "plural_name": "Popcornmais"
             },
             "croissant": {
                 "aliases": [],
@@ -13311,19 +13311,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Hühnerbrühe",
-                "plural_name": "Hühnerbrühen"
+                "plural_name": "Hühnerbrühe"
             },
             "vegetable broth": {
                 "aliases": [],
                 "description": "",
                 "name": "Gemüsebrühe",
-                "plural_name": "Gemüsebrühen"
+                "plural_name": "Gemüsebrühe"
             },
             "chicken stock": {
                 "aliases": [],
                 "description": "",
                 "name": "Hühnerfond",
-                "plural_name": "Hühnerbrühe"
+                "plural_name": "Hühnerbrüh"
             },
             "beef broth": {
                 "aliases": [],
@@ -13371,7 +13371,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Fischbrühe",
-                "plural_name": "Fischbrühen"
+                "plural_name": "Fischbrühe"
             },
             "cream of celery": {
                 "aliases": [],
@@ -13401,7 +13401,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Knochenbrühe",
-                "plural_name": "Knochenbrühen"
+                "plural_name": "Knochenbrühe"
             },
             "dashi": {
                 "aliases": [],
@@ -13431,7 +13431,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Hühnerknochenbrühe",
-                "plural_name": "Hühnerknochenbrühen"
+                "plural_name": "Hühnerknochenbrühe"
             },
             "turkey stock": {
                 "aliases": [],
@@ -13449,7 +13449,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Putenbrühe",
-                "plural_name": "Putenbrühen"
+                "plural_name": "Putenbrühe"
             },
             "beef consommé": {
                 "aliases": [],
@@ -13485,7 +13485,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Pilzbrühe",
-                "plural_name": "Pilzbrühen"
+                "plural_name": "Pilzbrühe"
             },
             "vegetable soup": {
                 "aliases": [],
@@ -13593,7 +13593,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Muschelbrühe",
-                "plural_name": "Muschelbrühen"
+                "plural_name": "Muschelbrühe"
             },
             "vegan chicken broth": {
                 "aliases": [],
@@ -13611,7 +13611,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Schweinenbrühe",
-                "plural_name": "Schweinebrühen"
+                "plural_name": "Schweinebrühe"
             },
             "beefy mushroom soup": {
                 "aliases": [],
@@ -13641,7 +13641,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Schinkenbrühe",
-                "plural_name": "Schinkenbrühen"
+                "plural_name": "Schinkenbrühe"
             },
             "lentil soup": {
                 "aliases": [],
@@ -13659,7 +13659,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kalbsbrühe",
-                "plural_name": "Kalbsbrühen"
+                "plural_name": "Kalbsbrühe"
             },
             "vegetable beef soup": {
                 "aliases": [],
@@ -13737,7 +13737,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Lammbrühe",
-                "plural_name": "Lammbrühen"
+                "plural_name": "Lammbrühe"
             },
             "minestrone": {
                 "aliases": [],

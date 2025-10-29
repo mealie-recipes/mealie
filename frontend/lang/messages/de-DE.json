@@ -1064,8 +1064,8 @@
     "forgot-password": "Passwort vergessen",
     "forgot-password-text": "Bitte gib Deine E-Mail-Adresse ein. Wir werden Dir eine E-Mail zusenden, damit Du Dein Passwort zurücksetzen kannst.",
     "changes-reflected-immediately": "Änderungen an diesem Benutzer sind sofort wirksam.",
-    "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity": "Standardaktivität",
+    "default-activity-hint": "Wählen Sie die Seite, auf die Sie navigieren möchten, wenn Sie sich von diesem Gerät aus anmelden"
   },
   "language-dialog": {
     "translated": "übersetzt",
