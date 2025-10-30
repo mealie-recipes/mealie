@@ -11282,8 +11282,8 @@
             "cane vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "cane vinegar",
-                "plural_name": "cane vinegars"
+                "name": "Rohrzuckeressig",
+                "plural_name": "Rohrzuckeressig"
             },
             "raspberry vinaigrette": {
                 "aliases": [],
@@ -11300,8 +11300,8 @@
             "russian dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "russian dressing",
-                "plural_name": "russian dressings"
+                "name": "Russisches Dressing",
+                "plural_name": "Russisches Dressings"
             },
             "avocado oil mayonnaise": {
                 "aliases": [],
@@ -11312,8 +11312,8 @@
             "creamy balsamic dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "creamy balsamic dressing",
-                "plural_name": "creamy balsamic dressings"
+                "name": "cremiges Balsamico-Dressing",
+                "plural_name": "cremige Balsamico-Dressings"
             },
             "champagne vinaigrette": {
                 "aliases": [],
@@ -11336,8 +11336,8 @@
             "brown rice vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "brown rice vinegar",
-                "plural_name": "brown rice vinegars"
+                "name": "brauner Reis Essig",
+                "plural_name": "brauner Reis Essig"
             },
             "coconut vinegar": {
                 "aliases": [],
@@ -11348,32 +11348,32 @@
             "ume plum vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "ume plum vinegar",
-                "plural_name": "ume plum vinegars"
+                "name": "ume Pflaumen-Essig",
+                "plural_name": "ume Pflaumen-Essig"
             },
             "buttermilk ranch dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "buttermilk ranch dressing",
-                "plural_name": "buttermilk ranch dressings"
+                "name": "Buttermilch-Ranch-Dressing",
+                "plural_name": "Buttermilch-Ranch-Dressings"
             },
             "cilantro dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "cilantro dressing",
-                "plural_name": "cilantro dressings"
+                "name": "Cilantro Dressing",
+                "plural_name": "Cilantro Dressings"
             },
             "spicy ranch dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "spicy ranch dressing",
-                "plural_name": "spicy ranch dressings"
+                "name": "Würziges Ranch-Dressing",
+                "plural_name": "Würzige Ranch-Dressings"
             },
             "fig balsamic": {
                 "aliases": [],
                 "description": "",
-                "name": "fig balsamic",
-                "plural_name": "fig balsamics"
+                "name": "Feigen-Balsamico",
+                "plural_name": "Feigen-Balsamico"
             },
             "green goddess dressing": {
                 "aliases": [],
@@ -11384,20 +11384,20 @@
             "creamy dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "creamy dressing",
-                "plural_name": "creamy dressings"
+                "name": "Cremiges Dressing",
+                "plural_name": "Cremige Dressings"
             },
             "onion salad dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "onion salad dressing",
-                "plural_name": "onion salad dressings"
+                "name": "Zwiebelsalat-Dressing",
+                "plural_name": "Zwiebelsalat-Dressings"
             },
             "miso dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "miso dressing",
-                "plural_name": "miso dressings"
+                "name": "Miso-Dressing",
+                "plural_name": "Miso-Dressings"
             },
             "white balsamic vinaigrette": {
                 "aliases": [],
