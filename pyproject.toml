@@ -86,6 +86,9 @@ include-package-data = true
 [tool.setuptools.packages.find]
 include = ["mealie*"]
 
+[tool.setuptools.package-data]
+"*" = ["*"]
+
 [tool.pytest.ini_options]
 addopts = "-ra -q"
 asyncio_default_fixture_loop_scope = "function"
