@@ -73,7 +73,8 @@ dev = [
     "types-python-slugify>=6.0.0,<7.0.0",
     "types-requests>=2.27.12,<3.0.0",
     "types-urllib3>=1.26.11,<2.0.0",
-    "pydantic-to-typescript2>=1.0.4,<2.0.0"
+    "pydantic-to-typescript2>=1.0.4,<2.0.0",
+    "toml>=0.10.2",
 ]
 
 [build-system]
