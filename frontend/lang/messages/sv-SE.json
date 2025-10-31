@@ -1064,7 +1064,7 @@
     "forgot-password": "Glömt lösenord",
     "forgot-password-text": "Ange din e-postadress så skickar vi dig en länk för att återställa ditt lösenord.",
     "changes-reflected-immediately": "Ändringar av denna användare kommer att ske omedelbart.",
-    "default-activity": "Default Activity",
+    "default-activity": "Standard aktivitet",
     "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
