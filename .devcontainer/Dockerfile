@@ -26,6 +26,7 @@ RUN apt-get update \
 
 # Install uv
 RUN pip install uv
+ENV UV_LINK_MODE=copy
 
 # Create directory for Docker Secrets
 RUN mkdir -p /run/secrets
