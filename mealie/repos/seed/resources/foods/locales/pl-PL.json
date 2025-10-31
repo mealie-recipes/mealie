@@ -126,8 +126,8 @@
             "heart of palm": {
                 "aliases": [],
                 "description": "",
-                "name": "heart of palm",
-                "plural_name": "heart of palms"
+                "name": "serce palmy",
+                "plural_name": "serca palm"
             },
             "baby green": {
                 "aliases": [],
@@ -316,7 +316,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rukiew wodna",
-                "plural_name": "rukiewie wodne"
+                "plural_name": "rukwie wodne"
             },
             "iceberg": {
                 "aliases": [],
@@ -327,7 +327,7 @@
             "mashed potato": {
                 "aliases": [],
                 "description": "",
-                "name": "tłoczone ziemniaki",
+                "name": "tłuczone ziemniaki",
                 "plural_name": "tłuczone ziemniaki"
             },
             "horseradish": {
