@@ -12,13 +12,13 @@ yarnpkg generate
 popd
 rm -r mealie/frontend
 cp -a frontend/dist mealie/frontend
-poetry build
-poetry export -n --only=main --extras=pgsql --output=dist/requirements.txt
-MEALIE_VERSION=$(poetry version --short)
+python -m build
+uv pip compile -o dist/requirements.txt --extra pgsql
+MEALIE_VERSION=$(python -c "import toml; print(toml.load(open('pyproject.toml'))['project']['version'])")
 echo "mealie[pgsql]==${MEALIE_VERSION} \\" >> dist/requirements.txt
-poetry run pip hash dist/mealie-${MEALIE_VERSION}-py3-none-any.whl | tail -n1 | tr -d '\n' >> dist/requirements.txt
+pip hash dist/mealie-${MEALIE_VERSION}-py3-none-any.whl | tail -n1 | tr -d '\n' >> dist/requirements.txt
 echo " \\" >> dist/requirements.txt
-poetry run pip hash dist/mealie-${MEALIE_VERSION}.tar.gz | tail -n1 >> dist/requirements.txt
+pip hash dist/mealie-${MEALIE_VERSION}.tar.gz | tail -n1 >> dist/requirements.txt
 ```
 
 The Python package can be installed with all of its dependencies pinned to the versions tested by the developers with:
