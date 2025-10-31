@@ -62,7 +62,7 @@ COPY mealie ./mealie
 COPY --from=frontend-builder /frontend/dist ./mealie/frontend
 
 # Build the source and binary package
-RUN python -m build --outdir dist
+RUN uv build --out-dir dist
 
 # Create the requirements file, which is used to install the built package and
 # its pinned dependencies later. mealie is included to ensure the built one is
