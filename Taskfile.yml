@@ -155,7 +155,7 @@ tasks:
       - pip hash dist/mealie-{{.MEALIE_VERSION}}.tar.gz | tail -n1 >> dist/requirements.txt
     vars:
       MEALIE_VERSION:
-         sh: python -c "import toml; print(toml.load(open('pyproject.toml'))['project']['version'])"
+         sh: python -c "import tomllib; print(tomllib.load(open('pyproject.toml'))['project']['version'])"
     sources:
       - uv.lock
       - pyproject.toml
