@@ -3,7 +3,7 @@ name = "mealie"
 version = "3.3.2"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
-license = "AGPL"
+license = "AGPL-3.0-only"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "Jinja2>=3.1.2,<4.0.0",
@@ -75,11 +75,14 @@ dev = [
 ]
 
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=77.0.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
 include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["mealie*"]
 
 [tool.pytest.ini_options]
 addopts = "-ra -q"
