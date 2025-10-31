@@ -12,7 +12,7 @@ yarnpkg generate
 popd
 rm -r mealie/frontend
 cp -a frontend/dist mealie/frontend
-python -m build
+uv build --out-dir dist
 uv export --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/requirements.txt
 MEALIE_VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
 echo "mealie[pgsql]==${MEALIE_VERSION} \\" >> dist/requirements.txt

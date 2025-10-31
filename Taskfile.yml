@@ -184,7 +184,7 @@ tasks:
     deps:
       - py:package:deps
     cmds:
-      - python -m build --outdir dist
+      - uv build --out-dir dist
       - task: py:package:generate-requirements
 
   py:
