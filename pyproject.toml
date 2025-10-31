@@ -55,6 +55,8 @@ mealie = "mealie.main:main"
 pgsql = [
     "psycopg2-binary>=2.9.1,<3.0.0"
 ]
+
+[dependency-groups]
 dev = [
     "coverage>=7.0,<8.0",
     "coveragepy-lcov>=0.1.1,<1.0.0",
