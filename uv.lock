@@ -920,7 +920,7 @@ dev = [
     { name = "rich", specifier = ">=14.0.0,<15.0.0" },
     { name = "ruff", specifier = ">=0.14.0,<1.0.0" },
     { name = "types-python-dateutil", specifier = ">=2.8.18,<3.0.0" },
-    { name = "types-python-slugify", specifier = ">=6.0.0,<7.0.0" },
+    { name = "types-python-slugify", specifier = ">=8.0.2.0,<8.1.0" },
     { name = "types-pyyaml", specifier = ">=6.0.4,<7.0.0" },
     { name = "types-requests", specifier = ">=2.27.12,<3.0.0" },
     { name = "types-urllib3", specifier = ">=1.26.11,<2.0.0" },
@@ -1828,11 +1828,11 @@ wheels = [
 
 [[package]]
 name = "types-python-slugify"
-version = "6.1.0.1"
+version = "8.0.2.20240310"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/f8/8a/973c3ff49427090a15317dfd395cca7c6dac884bae80a723badbbd0f57e5/types-python-slugify-6.1.0.1.tar.gz", hash = "sha256:21fd3af49842944acf96f07e320399fac51fdb9c857b7bf1cf2118526e252a22", size = 2534, upload-time = "2022-11-18T12:35:52.433Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d2/cb/7fdc1982b117d216a9ebbe4ecc6619690991c48f994d93dee7888f459976/types-python-slugify-8.0.2.20240310.tar.gz", hash = "sha256:5157b508c7fed587520c70d77f62aea0fafdc6620893c2ec8972f13a1faf5560", size = 3661, upload-time = "2024-03-10T02:19:03.582Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/4f/00/f13f6d6f1d4bd4cb3a1b1b9051833e4379b510d66e398d018f5ef8738390/types_python_slugify-6.1.0.1-py3-none-any.whl", hash = "sha256:260d08ab291d15fa7ab26b95bfb23eddb422aaeb9b9182d0da46decbf751349e", size = 3057, upload-time = "2022-11-18T12:35:50.972Z" },
+    { url = "https://files.pythonhosted.org/packages/ce/6d/873300a60133e51b284a5287a618d3d948a65160e3954b90b3dc5e562667/types_python_slugify-8.0.2.20240310-py3-none-any.whl", hash = "sha256:0efec18b802c69ebd22dcee55c91afaeaa80e1e40ddd66ccabf69fd42ce87b74", size = 3566, upload-time = "2024-03-10T02:19:02.575Z" },
 ]
 
 [[package]]
