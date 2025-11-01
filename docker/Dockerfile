@@ -50,40 +50,29 @@ RUN apt-get update \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-ENV POETRY_HOME="/opt/poetry" \
-    POETRY_NO_INTERACTION=1
-
-# prepend poetry to path
-ENV PATH="$POETRY_HOME/bin:$PATH"
-
-# install poetry - respects $POETRY_VERSION & $POETRY_HOME
-ENV POETRY_VERSION=2.0.1
-RUN curl -sSL https://install.python-poetry.org | python3 -
-
-# install poetry plugins needed to build the package
-RUN poetry self add "poetry-plugin-export>=1.9"
+RUN pip install uv
 
 WORKDIR /mealie
 
 # copy project files here to ensure they will be cached.
-COPY poetry.lock pyproject.toml ./
+COPY uv.lock pyproject.toml ./
 COPY mealie ./mealie
 
 # Copy frontend to package it into the wheel
 COPY --from=frontend-builder /frontend/dist ./mealie/frontend
 
 # Build the source and binary package
-RUN poetry build --output=dist
+RUN uv build --out-dir dist
 
 # Create the requirements file, which is used to install the built package and
 # its pinned dependencies later. mealie is included to ensure the built one is
 # what's installed.
-RUN export MEALIE_VERSION=$(poetry version --short) \
-    && poetry export --only=main --extras=pgsql --output=dist/requirements.txt \
-    && echo "mealie[pgsql]==$MEALIE_VERSION \\" >> dist/requirements.txt \
-    && poetry run pip hash dist/mealie-$MEALIE_VERSION-py3-none-any.whl | tail -n1 | tr -d '\n' >> dist/requirements.txt \
+RUN uv export --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/requirements.txt \
+    && MEALIE_VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])") \
+    && echo "mealie[pgsql]==${MEALIE_VERSION} \\" >> dist/requirements.txt \
+    && pip hash dist/mealie-${MEALIE_VERSION}-py3-none-any.whl | tail -n1 | tr -d '\n' >> dist/requirements.txt \
     && echo " \\" >> dist/requirements.txt \
-    && poetry run pip hash dist/mealie-$MEALIE_VERSION.tar.gz | tail -n1 >> dist/requirements.txt
+    && pip hash dist/mealie-${MEALIE_VERSION}.tar.gz | tail -n1 >> dist/requirements.txt
 
 ###############################################
 # Package Container
