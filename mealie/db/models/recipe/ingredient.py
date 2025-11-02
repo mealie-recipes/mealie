@@ -360,7 +360,9 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
 
     # Recipe Reference
     referenced_recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
-    referenced_recipe: Mapped["RecipeModel"] = orm.relationship("RecipeModel", foreign_keys=[referenced_recipe_id])
+    referenced_recipe: Mapped["RecipeModel"] = orm.relationship(
+        "RecipeModel", back_populates="referenced_ingredients", foreign_keys=[referenced_recipe_id]
+    )
 
     # Automatically updated by sqlalchemy event, do not write to this manually
     note_normalized: Mapped[str | None] = mapped_column(String, index=True)
