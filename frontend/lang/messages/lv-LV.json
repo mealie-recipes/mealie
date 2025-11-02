@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vai nevēlaties to vairs redzēt? Noteikti mainiet savu e-pastu lietotāja iestatījumos!",
     "forgot-password": "Aizmirsāt paroli",
     "forgot-password-text": "Lūdzu, ievadiet savu e-pasta adresi, un mēs jums nosūtīsim saiti, lai atiestatītu jūsu paroli.",
-    "changes-reflected-immediately": "Izmaiņas šim lietotājam tiks atspoguļotas nekavējoties."
+    "changes-reflected-immediately": "Izmaiņas šim lietotājam tiks atspoguļotas nekavējoties.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "tulkots",

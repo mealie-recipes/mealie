@@ -291,8 +291,8 @@
             "sweet pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "pimienta dulce",
-                "plural_name": "pimientas dulces"
+                "name": "pimiento morrón",
+                "plural_name": "pimientos morrón"
             },
             "serrano pepper": {
                 "aliases": [],
@@ -1402,7 +1402,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "nameko",
-                "plural_name": "namekoes"
+                "plural_name": "namekos"
             },
             "djon djon mushroom": {
                 "aliases": [],
@@ -1471,8 +1471,8 @@
             "cranberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry",
-                "plural_name": "cranberries"
+                "name": "arándano rojo",
+                "plural_name": "arándanos rojos"
             },
             "cherry": {
                 "aliases": [],
@@ -1537,8 +1537,8 @@
             "gooseberry": {
                 "aliases": [],
                 "description": "",
-                "name": "gooseberry",
-                "plural_name": "gooseberries"
+                "name": "grosella",
+                "plural_name": "grosellas"
             },
             "freeze-dried raspberry": {
                 "aliases": [],
@@ -1549,8 +1549,8 @@
             "lingonberry": {
                 "aliases": [],
                 "description": "",
-                "name": "lingonberry",
-                "plural_name": "lingonberries"
+                "name": "arándano rojo",
+                "plural_name": "arándanos rojos"
             },
             "canned sour cherry": {
                 "aliases": [],
@@ -1573,8 +1573,8 @@
             "canned cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cherry",
-                "plural_name": "canned cherries"
+                "name": "cereza enlatada",
+                "plural_name": "cerezas enlatadas"
             },
             "amla": {
                 "aliases": [],

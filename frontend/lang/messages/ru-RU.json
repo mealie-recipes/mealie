@@ -14,7 +14,7 @@
     "development": "В разработке",
     "docs": "Справка",
     "download-log": "Скачать журнал",
-    "download-recipe-json": "Последний распаршенный JSON",
+    "download-recipe-json": "Последний извлеченный JSON",
     "github": "GitHub",
     "log-lines": "Строки журнала",
     "not-demo": "Не демо",
@@ -51,7 +51,7 @@
     "category": "Категория"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "Apprise URL-адрес",
     "database": "База данных",
     "delete-event": "Удалить событие",
     "event-delete-confirmation": "Вы уверены, что хотите удалить данное событие?",
@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Больше не хотите видеть это сообщение? Не забудьте изменить адрес электронной почты в настройках пользователя!",
     "forgot-password": "Забыли Пароль",
     "forgot-password-text": "Введите адрес вашей почты, и мы отправим на неё ссылку для сброса пароля.",
-    "changes-reflected-immediately": "Изменения в этом пользователе будут отражены немедленно."
+    "changes-reflected-immediately": "Изменения в этом пользователе будут отражены немедленно.",
+    "default-activity": "Действие по умолчанию",
+    "default-activity-hint": "Выберите, на какую страницу вы хотели бы перейти при входе в систему с этого устройства"
   },
   "language-dialog": {
     "translated": "переведено",

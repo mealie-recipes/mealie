@@ -1776,7 +1776,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "slivered almond",
-                "plural_name": "slivered almonds"
+                "plural_name": "amandes effilées"
             },
             "pumpkin seed": {
                 "aliases": [],
@@ -1937,8 +1937,8 @@
             "honey-roasted pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted pecan",
-                "plural_name": "honey-roasted pecans"
+                "name": "noix de pécan grillée au miel",
+                "plural_name": "noix de pécan grillée au miel"
             },
             "tigernut": {
                 "aliases": [],
@@ -3411,7 +3411,7 @@
             "soy curl": {
                 "aliases": [],
                 "description": "",
-                "name": "soy curl",
+                "name": "",
                 "plural_name": "bâtonnets de soja"
             },
             "vegan pesto": {
@@ -3537,7 +3537,7 @@
             "almond creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "almond creamer",
+                "name": "",
                 "plural_name": "almond creamers"
             },
             "soy milk powder": {
@@ -4709,20 +4709,20 @@
             "duck confit": {
                 "aliases": [],
                 "description": "",
-                "name": "duck confit",
-                "plural_name": "duck confits"
+                "name": "confit de canard",
+                "plural_name": "confits de canard"
             },
             "roast duck": {
                 "aliases": [],
                 "description": "",
-                "name": "roast duck",
-                "plural_name": "roast ducks"
+                "name": "canard rôti",
+                "plural_name": "canards rôtis"
             },
             "chicken meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken meatball",
-                "plural_name": "chicken meatballs"
+                "name": "boulette de poulet",
+                "plural_name": "boulettes de poulet"
             },
             "duck liver": {
                 "aliases": [],
@@ -5509,8 +5509,8 @@
             "prawn": {
                 "aliases": [],
                 "description": "",
-                "name": "prawn",
-                "plural_name": "prawns"
+                "name": "crevette",
+                "plural_name": "crevettes"
             },
             "crab": {
                 "aliases": [],
@@ -5695,7 +5695,7 @@
             "conch": {
                 "aliases": [],
                 "description": "",
-                "name": "conch",
+                "name": "",
                 "plural_name": "conches"
             },
             "arame": {

@@ -44,7 +44,7 @@
         "generic-updated-with-url": "{name} беше актуализирано, {url}",
         "generic-duplicated": "{name} е дублирано",
         "generic-deleted": "{name} беше изтрито",
-        "logged-out": "Logged out"
+        "logged-out": "Излязохте от профила си"
     },
     "datetime": {
         "year": "година|години",

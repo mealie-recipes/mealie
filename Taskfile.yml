@@ -28,7 +28,7 @@ tasks:
   docs:gen:
     desc: runs the API documentation generator
     cmds:
-      - poetry run python dev/code-generation/gen_docs_api.py
+      - uv run python dev/code-generation/gen_docs_api.py
 
   docs:
     desc: runs the documentation server
@@ -36,7 +36,7 @@ tasks:
     deps:
       - docs:gen
     cmds:
-      - poetry run python -m mkdocs serve
+      - uv run python -m mkdocs serve
 
   setup:ui:
     desc: setup frontend dependencies
@@ -54,10 +54,10 @@ tasks:
     desc: setup python dependencies
     run: once
     cmds:
-      - poetry install --with main,dev,postgres
-      - poetry run pre-commit install
+      - uv sync --extra pgsql --group dev
+      - uv run pre-commit install
     sources:
-      - poetry.lock
+      - uv.lock
       - pyproject.toml
       - .pre-commit-config.yaml
 
@@ -70,7 +70,7 @@ tasks:
   dev:generate:
     desc: run code generators
     cmds:
-      - poetry run python dev/code-generation/main.py {{ .CLI_ARGS }}
+      - uv run python dev/code-generation/main.py {{ .CLI_ARGS }}
       - task: docs:gen
       - task: py:format
 
@@ -96,22 +96,22 @@ tasks:
   py:mypy:
     desc: runs python type checking
     cmds:
-      - poetry run mypy mealie
+      - uv run mypy mealie
 
   py:test:
     desc: runs python tests (support args after '--')
     cmds:
-      - poetry run pytest {{ .CLI_ARGS }}
+      - uv run pytest {{ .CLI_ARGS }}
 
   py:format:
     desc: runs python code formatter
     cmds:
-      - poetry run ruff format .
+      - uv run ruff format .
 
   py:lint:
     desc: runs python linter
     cmds:
-      - poetry run ruff check mealie
+      - uv run ruff check mealie
 
   py:check:
     desc: runs all linters, type checkers, and formatters
@@ -124,10 +124,10 @@ tasks:
   py:coverage:
     desc: runs python coverage and generates html report
     cmds:
-      - poetry run pytest
-      - poetry run coverage report -m
-      - poetry run coveragepy-lcov
-      - poetry run coverage html
+      - uv run pytest
+      - uv run coverage report -m
+      - uv run coveragepy-lcov
+      - uv run coverage html
       - open htmlcov/index.html
 
   py:package:copy-frontend:
@@ -147,17 +147,17 @@ tasks:
     desc: Generate requirements file to pin all packages, effectively a "pip freeze" before installation begins
     internal: true
     cmds:
-      - poetry export -n --only=main --extras=pgsql --output=dist/requirements.txt
+      - uv export --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/requirements.txt
       # Include mealie in the requirements, hashing the package that was just built to ensure it's the one installed
       - echo "mealie[pgsql]=={{.MEALIE_VERSION}} \\" >> dist/requirements.txt
-      - poetry run pip hash dist/mealie-{{.MEALIE_VERSION}}-py3-none-any.whl | tail -n1 | tr -d '\n' >> dist/requirements.txt
+      - pip hash dist/mealie-{{.MEALIE_VERSION}}-py3-none-any.whl | tail -n1 | tr -d '\n' >> dist/requirements.txt
       - echo " \\" >> dist/requirements.txt
-      - poetry run pip hash dist/mealie-{{.MEALIE_VERSION}}.tar.gz | tail -n1 >> dist/requirements.txt
+      - pip hash dist/mealie-{{.MEALIE_VERSION}}.tar.gz | tail -n1 >> dist/requirements.txt
     vars:
       MEALIE_VERSION:
-         sh: poetry version --short
+         sh: python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])"
     sources:
-      - poetry.lock
+      - uv.lock
       - pyproject.toml
       - dist/mealie-*.whl
       - dist/mealie-*.tar.gz
@@ -184,13 +184,13 @@ tasks:
     deps:
       - py:package:deps
     cmds:
-      - poetry build -n --output=dist
+      - uv build --out-dir dist
       - task: py:package:generate-requirements
 
   py:
     desc: runs the backend server
     cmds:
-      - poetry run python mealie/app.py
+      - uv run python mealie/app.py
 
   py:postgres:
     desc: runs the backend server configured for containerized postgres
@@ -202,12 +202,12 @@ tasks:
       POSTGRES_PORT: 5432
       POSTGRES_DB: mealie
     cmds:
-      - poetry run python mealie/app.py
+      - uv run python mealie/app.py
 
   py:migrate:
     desc: generates a new database migration file e.g. task py:migrate -- "add new column"
     cmds:
-      - poetry run alembic --config mealie/alembic/alembic.ini revision --autogenerate -m "{{ .CLI_ARGS }}"
+      - uv run alembic --config mealie/alembic/alembic.ini revision --autogenerate -m "{{ .CLI_ARGS }}"
       - task: py:format
 
   ui:build:
