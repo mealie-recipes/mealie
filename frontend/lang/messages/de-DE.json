@@ -47,7 +47,7 @@
     "category-updated": "Kategorie aktualisiert",
     "uncategorized-count": "Nicht kategorisiert {count}",
     "create-a-category": "Eine Kategorie erstellen",
-    "category-name": "Name der Kategorie",
+    "category-name": "Kategoriename",
     "category": "Kategorie"
   },
   "events": {
@@ -400,7 +400,7 @@
       "title": "Tandoor Rezepte"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie kann Rezepte von DVO Cook'n X3 importieren. Exportieren Sie ein Kochbuch oder ein Menü im \"Cook'n\"-Format, benennen Sie die Export-Erweiterung in .zip um, dann laden Sie die .zip unten hoch.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Rezeptdatenmigration",
@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Möchtest du das hier nicht mehr sehen? Bitte ändere deine E-Mail in den Benutzereinstellungen!",
     "forgot-password": "Passwort vergessen",
     "forgot-password-text": "Bitte gib Deine E-Mail-Adresse ein. Wir werden Dir eine E-Mail zusenden, damit Du Dein Passwort zurücksetzen kannst.",
-    "changes-reflected-immediately": "Änderungen an diesem Benutzer sind sofort wirksam."
+    "changes-reflected-immediately": "Änderungen an diesem Benutzer sind sofort wirksam.",
+    "default-activity": "Standardaktivität",
+    "default-activity-hint": "Wählen Sie die Seite, auf die Sie navigieren möchten, wenn Sie sich von diesem Gerät aus anmelden"
   },
   "language-dialog": {
     "translated": "übersetzt",

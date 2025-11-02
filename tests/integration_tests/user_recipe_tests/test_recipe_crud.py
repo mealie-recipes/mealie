@@ -929,6 +929,13 @@ def test_create_recipe_with_extremely_long_slug(api_client: TestClient, unique_u
     assert updated_recipe["slug"] == slugify(new_name)
 
 
+def test_create_recipe_slug_not_empty(api_client: TestClient, unique_user: TestUser):
+    recipe_name = "---"  # will result in an empty slug
+
+    response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=unique_user.token)
+    assert response.status_code == 400
+
+
 def test_create_recipe_slug_length_validation(api_client: TestClient, unique_user: TestUser):
     """Test that recipe slugs are properly truncated to a reasonable length."""
     very_long_name = "A" * 500  # 500 character name

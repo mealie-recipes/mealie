@@ -1,6 +1,6 @@
 {
   "about": {
-    "about": "Σχετικά με",
+    "about": "Σχετικά",
     "about-mealie": "Σχετικά με το Mealie",
     "api-docs": "Τεκμηρίωση API",
     "api-port": "Θύρα API",
@@ -14,7 +14,7 @@
     "development": "Ανάπτυξη",
     "docs": "Τεκμηρίωση",
     "download-log": "Λήψη αρχείου καταγραφής",
-    "download-recipe-json": "Τελευταίο Scraped JSON",
+    "download-recipe-json": "Τελευταίο αντλημένο JSON",
     "github": "GitHub",
     "log-lines": "Γραμμές καταγραφής",
     "not-demo": "Εκτός Επίδειξης",
@@ -27,7 +27,7 @@
   },
   "asset": {
     "assets": "Στοιχεία",
-    "code": "Κώδικας",
+    "code": "Κωδικός",
     "file": "Αρχείο",
     "image": "Εικόνα",
     "new-asset": "Νέο Στοιχείο",
@@ -38,15 +38,15 @@
   },
   "category": {
     "categories": "Κατηγορίες",
-    "category-created": "Δημιουργήθηκε η κατηγορία",
+    "category-created": "Η κατηγορία δημιουργήθηκε",
     "category-creation-failed": "Η δημιουργία κατηγορίας απέτυχε",
-    "category-deleted": "Κατηγορία Διαγράφηκε",
+    "category-deleted": "Η κατηγορία διαγράφηκε",
     "category-deletion-failed": "Η διαγραφή κατηγορίας απέτυχε",
     "category-filter": "Φίλτρο κατηγορίας",
     "category-update-failed": "Η ενημέρωση της κατηγορίας απέτυχε",
     "category-updated": "Η κατηγορία ενημερώθηκε",
     "uncategorized-count": "Μη κατηγοριοποιημένο {count}",
-    "create-a-category": "Δημιουργήστε μια Κατηγορία",
+    "create-a-category": "Δημιουργία Κατηγορίας",
     "category-name": "Όνομα Κατηγορίας",
     "category": "Κατηγορία"
   },
@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Δεν θέλετε να το δείτε αυτό ξανά; Φροντίστε να αλλάξετε το email σας στις ρυθμίσεις χρήστη!",
     "forgot-password": "Ξέχασα τον κωδικό πρόσβασης",
     "forgot-password-text": "Παρακαλώ εισάγετε τη διεύθυνση email σας και θα σας στείλουμε έναν σύνδεσμο για να επαναφέρετε τον κωδικό πρόσβασής σας.",
-    "changes-reflected-immediately": "Οι αλλαγές σε αυτόν τον χρήστη θα αντικατοπτρίζονται αμέσως."
+    "changes-reflected-immediately": "Οι αλλαγές σε αυτόν τον χρήστη θα αντικατοπτρίζονται αμέσως.",
+    "default-activity": "Προεπιλεγμένη Δραστηριότητα",
+    "default-activity-hint": "Επιλέξτε σε ποια σελίδα θα θέλατε να μεταβείτε κατά τη σύνδεση από αυτήν τη συσκευή"
   },
   "language-dialog": {
     "translated": "μεταφρασμένο",

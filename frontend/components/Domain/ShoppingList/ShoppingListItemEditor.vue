@@ -10,7 +10,7 @@
             v-model="listItem.unit"
             v-model:item-id="listItem.unitId!"
             :items="units"
-            :label="$t('general.units')"
+            :label="$t('recipe.unit')"
             :icon="$globals.icons.units"
             create
             @create="createAssignUnit"

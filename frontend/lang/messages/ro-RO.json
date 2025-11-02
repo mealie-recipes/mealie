@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Nu mai vrei să vezi acest lucru? Asigură-te că îți schimbi adresa de e-mail în setările de utilizator!",
     "forgot-password": "Recuperare parola",
     "forgot-password-text": "Va rugam introduceti adresa de e-mail pentru a va trimite un link de resetare parola.",
-    "changes-reflected-immediately": "Modificările aduse acestui utilizator vor fi reflectate imediat."
+    "changes-reflected-immediately": "Modificările aduse acestui utilizator vor fi reflectate imediat.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "tradus",

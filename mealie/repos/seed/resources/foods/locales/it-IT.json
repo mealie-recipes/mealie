@@ -1419,8 +1419,8 @@
             "puffball": {
                 "aliases": [],
                 "description": "",
-                "name": "puffball",
-                "plural_name": "puffballs"
+                "name": "Fungo Vescia",
+                "plural_name": "Funghi Vescia"
             },
             "honey fungu": {
                 "aliases": [],
@@ -1437,14 +1437,14 @@
             "candy cap mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "candy cap mushroom",
-                "plural_name": "candy cap mushrooms"
+                "name": "Fungo candy cap",
+                "plural_name": "Funghi candy cap"
             },
             "lion’s mane mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "lion’s mane mushroom",
-                "plural_name": "lion’s mane mushrooms"
+                "name": "Fungo criniera di leone",
+                "plural_name": "Funghi criniera di leone"
             }
         }
     },
@@ -1507,14 +1507,14 @@
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "Bacca di ginepro",
+                "plural_name": "Bacche di ginepro"
             },
             "sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cherry",
-                "plural_name": "sour cherries"
+                "name": "Amarena",
+                "plural_name": "Amarene"
             },
             "goji berry": {
                 "aliases": [],
@@ -1579,14 +1579,14 @@
             "amla": {
                 "aliases": [],
                 "description": "",
-                "name": "amla",
-                "plural_name": "amlas"
+                "name": "Uva spina indiana",
+                "plural_name": "Uva spina indiana"
             },
             "elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "elderberry",
-                "plural_name": "elderberries"
+                "name": "Bacca di sambuco",
+                "plural_name": "Bacche di sambuco"
             },
             "freeze-dried blueberry": {
                 "aliases": [],
@@ -1609,8 +1609,8 @@
             "barberry": {
                 "aliases": [],
                 "description": "",
-                "name": "barberry",
-                "plural_name": "barberries"
+                "name": "Bacca di crespino",
+                "plural_name": "Bacche di crespino"
             },
             "dried berry": {
                 "aliases": [],
@@ -1621,56 +1621,56 @@
             "sea buckthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "sea buckthorn",
-                "plural_name": "sea buckthorns"
+                "name": "Olivello spinoso",
+                "plural_name": "Olivelli spinosi"
             },
             "saskatoon berry": {
                 "aliases": [],
                 "description": "",
-                "name": "saskatoon berry",
-                "plural_name": "saskatoon berries"
+                "name": "Bacca di saskatoon",
+                "plural_name": "Bacche di saskatoon"
             },
             "rosehip": {
                 "aliases": [],
                 "description": "",
-                "name": "rosehip",
-                "plural_name": "rosehips"
+                "name": "Rosa canina",
+                "plural_name": "Rose canine"
             },
             "hawthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "hawthorn",
-                "plural_name": "hawthorns"
+                "name": "Biancospino",
+                "plural_name": "Biancospini"
             },
             "boysenberry": {
                 "aliases": [],
                 "description": "",
-                "name": "boysenberry",
-                "plural_name": "boysenberries"
+                "name": "Bacca di boysen",
+                "plural_name": "Bacche di boysen"
             },
             "cloudberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cloudberry",
-                "plural_name": "cloudberries"
+                "name": "Lampone artico",
+                "plural_name": "Lamponi artici"
             },
             "freeze-dried berry": {
                 "aliases": [],
                 "description": "",
                 "name": "",
-                "plural_name": "freeze-dried berries"
+                "plural_name": "Bacche liofilizzate"
             },
             "aronia berry": {
                 "aliases": [],
                 "description": "",
-                "name": "aronia berry",
-                "plural_name": "aronia berries"
+                "name": "Bacca di aronia",
+                "plural_name": "Bacche di aronia"
             },
             "chokeberry": {
                 "aliases": [],
                 "description": "",
-                "name": "chokeberry",
-                "plural_name": "chokeberries"
+                "name": "Aronia",
+                "plural_name": "Bacche di aronia"
             },
             "loganberry": {
                 "aliases": [],
@@ -1693,20 +1693,20 @@
             "dewberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dewberry",
-                "plural_name": "dewberries"
+                "name": "Mora selvatica",
+                "plural_name": "More selvatiche"
             },
             "sloe berry": {
                 "aliases": [],
                 "description": "",
-                "name": "sloe berry",
-                "plural_name": "sloe berries"
+                "name": "Bacca di prugnolo",
+                "plural_name": "Bacche di prugnolo"
             },
             "oregon grape": {
                 "aliases": [],
                 "description": "",
-                "name": "oregon grape",
-                "plural_name": "oregon grapes"
+                "name": "Uva dell’Oregon",
+                "plural_name": "Uva dell’Oregon"
             }
         }
     },
@@ -1883,14 +1883,14 @@
             "white chia": {
                 "aliases": [],
                 "description": "",
-                "name": "white chia",
-                "plural_name": "white chias"
+                "name": "Chia bianca",
+                "plural_name": "Chia bianca"
             },
             "trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "trail mix",
-                "plural_name": "trail mixes"
+                "name": "Mix di frutta secca",
+                "plural_name": "Mix di frutta secca"
             },
             "basil seed": {
                 "aliases": [],
@@ -1901,26 +1901,26 @@
             "candlenut": {
                 "aliases": [],
                 "description": "",
-                "name": "candlenut",
-                "plural_name": "candlenuts"
+                "name": "Noce di candela",
+                "plural_name": "Noci di candela"
             },
             "peanut brittle": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut brittle",
-                "plural_name": "peanut brittles"
+                "name": "Croccante alle arachidi",
+                "plural_name": "Croccanti alle arachidi"
             },
             "jackfruit seed": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit seed",
-                "plural_name": "jackfruit seeds"
+                "name": "Seme di jackfruit",
+                "plural_name": "Semi di jackfruit"
             },
             "honey-roasted almond": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted almond",
-                "plural_name": "honey-roasted almonds"
+                "name": "Mandorla al miele tostata",
+                "plural_name": "mandorla al miele tostata"
             },
             "toasted nut": {
                 "aliases": [],
@@ -1949,13 +1949,13 @@
             "sunflower sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower sprout",
-                "plural_name": "sunflower sprouts"
+                "name": "germoglio di girasole",
+                "plural_name": "germogli di girasole"
             },
             "apricot kernel": {
                 "aliases": [],
                 "description": "",
-                "name": "apricot kernel",
+                "name": "nocciolo di albicocca",
                 "plural_name": "apricot kernels"
             },
             "palm seed": {
@@ -2082,7 +2082,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "swiss cheese",
-                "plural_name": "swiss cheeses"
+                "plural_name": "formaggi svizzeri"
             },
             "pecorino": {
                 "aliases": [],
@@ -2177,110 +2177,110 @@
             "asiago": {
                 "aliases": [],
                 "description": "",
-                "name": "asiago",
-                "plural_name": "asiagoes"
+                "name": "Asiago",
+                "plural_name": "Asiago"
             },
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheeses"
+                "name": "Formaggio affumicato",
+                "plural_name": "Formaggi affumicato"
             },
             "halloumi": {
                 "aliases": [],
                 "description": "",
-                "name": "halloumi",
-                "plural_name": "halloumis"
+                "name": "Halloumi",
+                "plural_name": "Halloumi"
             },
             "chevre": {
                 "aliases": [],
                 "description": "",
-                "name": "chevre",
-                "plural_name": "chevres"
+                "name": "Formaggio di capra",
+                "plural_name": "Formaggi di capra"
             },
             "manchego": {
                 "aliases": [],
                 "description": "",
-                "name": "manchego",
-                "plural_name": "manchegoes"
+                "name": "Formaggio Manchego",
+                "plural_name": "Formaggi Manchego"
             },
             "italian cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "italian cheese blend",
-                "plural_name": "italian cheese blends"
+                "name": "Miscela di formaggio italiano",
+                "plural_name": "Miscela di formaggi italiani"
             },
             "neufchatel": {
                 "aliases": [],
                 "description": "",
-                "name": "neufchatel",
-                "plural_name": "neufchatels"
+                "name": "Formaggio Neufchâtel",
+                "plural_name": "Formaggi Neufchâtel"
             },
             "herb cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "herb cream cheese",
-                "plural_name": "herb cream cheeses"
+                "name": "Formaggio cremoso alle erbe",
+                "plural_name": "Formaggi cremosi alle erbe"
             },
             "burrata": {
                 "aliases": [],
                 "description": "",
-                "name": "burrata",
-                "plural_name": "burratas"
+                "name": "Burrata",
+                "plural_name": "Burrate"
             },
             "havarti": {
                 "aliases": [],
                 "description": "",
-                "name": "havarti",
-                "plural_name": "havartis"
+                "name": "Formaggio Havarti",
+                "plural_name": "Formaggi Havarti"
             },
             "colby": {
                 "aliases": [],
                 "description": "",
-                "name": "colby",
-                "plural_name": "colbies"
+                "name": "Formaggio Colby",
+                "plural_name": "Formaggi Colby"
             },
             "grana-padano": {
                 "aliases": [],
                 "description": "",
-                "name": "grana-padano",
-                "plural_name": "grana-padanoes"
+                "name": "Grana Padano",
+                "plural_name": "Grana Padano"
             },
             "muenster": {
                 "aliases": [],
                 "description": "",
-                "name": "muenster",
-                "plural_name": "muensters"
+                "name": "Formaggio Muenster",
+                "plural_name": "Formaggi Muenster"
             },
             "string cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "string cheese",
-                "plural_name": "string cheeses"
+                "name": "Formaggio a strisce",
+                "plural_name": "Formaggi a strisce"
             },
             "camembert": {
                 "aliases": [],
                 "description": "",
-                "name": "camembert",
-                "plural_name": "camemberts"
+                "name": "Camembert",
+                "plural_name": "Camembert"
             },
             "soft cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "soft cheese",
-                "plural_name": "soft cheeses"
+                "name": "Formaggio molle",
+                "plural_name": "Formaggi molle"
             },
             "stilton": {
                 "aliases": [],
                 "description": "",
-                "name": "stilton",
-                "plural_name": "stiltons"
+                "name": "Formaggio Stilton",
+                "plural_name": "Formaggi Stilton"
             },
             "raclette": {
                 "aliases": [],
                 "description": "",
-                "name": "raclette",
-                "plural_name": "raclettes"
+                "name": "Raclette",
+                "plural_name": "Raclette"
             },
             "colby-jack cheese": {
                 "aliases": [],
@@ -2736,7 +2736,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "curd",
-                "plural_name": "curds"
+                "plural_name": "cagliate"
             },
             "thickened cream": {
                 "aliases": [],
@@ -3060,7 +3060,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "yogurt drink",
-                "plural_name": "yogurt drinks"
+                "plural_name": "yoghurt da bere"
             },
             "passion-fruit curd": {
                 "aliases": [],
@@ -3096,7 +3096,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ostrich egg",
-                "plural_name": "ostrich eggs"
+                "plural_name": "uova di struzzo"
             },
             "vanilla milk": {
                 "aliases": [],
@@ -3178,7 +3178,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "soy milk",
-                "plural_name": "soy milks"
+                "plural_name": "latti di soia"
             },
             "extra firm tofu": {
                 "aliases": [],
@@ -3514,7 +3514,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hazelnut milk",
-                "plural_name": "hazelnut milks"
+                "plural_name": "latte di nocciole"
             },
             "maple almond butter": {
                 "aliases": [],
@@ -3751,7 +3751,7 @@
             "ground beef": {
                 "aliases": [],
                 "description": "",
-                "name": "ground beef",
+                "name": "carne macinata",
                 "plural_name": "ground beefs"
             },
             "beef steak": {
@@ -5086,7 +5086,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cuttlefish",
-                "plural_name": "cuttlefish"
+                "plural_name": "seppie"
             },
             "grouper": {
                 "aliases": [],
@@ -5446,7 +5446,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bottarga",
-                "plural_name": "bottargas"
+                "plural_name": "bottarga"
             },
             "dried baby sardine": {
                 "aliases": [],
@@ -5564,7 +5564,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lobster tail",
-                "plural_name": "lobster tails"
+                "plural_name": "code di aragosta"
             },
             "crawfish": {
                 "aliases": [],
@@ -6509,7 +6509,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vanilla sugar",
-                "plural_name": "vanilla sugars"
+                "plural_name": "zucchero vanigliato"
             },
             "demerara sugar": {
                 "aliases": [],

@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ei taha enam seda näha? Ära unusta muuta oma email kasutaja seadetes",
     "forgot-password": "Unustasid salasõna",
     "forgot-password-text": "Sisestage oma meiliaadress, et saada e-kiri  uue salasõna määramiseks.",
-    "changes-reflected-immediately": "Selle kasutaja muudatused on koheselt nähtaval"
+    "changes-reflected-immediately": "Selle kasutaja muudatused on koheselt nähtaval",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "tõlgitud",

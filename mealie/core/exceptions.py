@@ -22,6 +22,14 @@ class PermissionDenied(Exception):
     pass
 
 
+class SlugError(Exception):
+    """
+    This exception is raised when the recipe name generates an invalid slug.
+    """
+
+    pass
+
+
 class NoEntryFound(Exception):
     """
     This exception is raised when a user tries to access a resource that does not exist.

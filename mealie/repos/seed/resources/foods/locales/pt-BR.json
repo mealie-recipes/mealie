@@ -9524,8 +9524,8 @@
                     "lasagnas"
                 ],
                 "description": "",
-                "name": "lasagna noodle",
-                "plural_name": "lasagna noodles"
+                "name": "massa de lasanha",
+                "plural_name": "massas de lasanha"
             },
             "linguine": {
                 "aliases": [],
@@ -12959,7 +12959,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mustard sauce",
-                "plural_name": "mustard sauces"
+                "plural_name": "molhos de mostarda"
             },
             "sun-dried tomato paste": {
                 "aliases": [],

@@ -113,8 +113,8 @@ def main():
         {"children": all_children},
     )
 
-    subprocess.run(["poetry", "run", "ruff", "check", str(out_path), "--fix"])
-    subprocess.run(["poetry", "run", "ruff", "format", str(out_path)])
+    subprocess.run(["uv", "run", "ruff", "check", str(out_path), "--fix"])
+    subprocess.run(["uv", "run", "ruff", "format", str(out_path)])
 
 
 if __name__ == "__main__":

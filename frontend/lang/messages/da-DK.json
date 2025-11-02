@@ -57,7 +57,7 @@
     "event-delete-confirmation": "Er du sikker på, at du vil slette denne begivenhed?",
     "event-deleted": "Hændelse slettet",
     "event-updated": "Hændelse opdateret",
-    "new-notification-form-description": "Mealie bruger Apprise-biblioteket for at generere notifikationer. De giver mange muligheder for notifikationer til tjenester. Kig i deres wiki for en gennemgående guide til, hvordan en URL oprettes i din situation. Hvis muligt, kan valget af din type af notifikation omfatte flere ekstrafunktioner.",
+    "new-notification-form-description": "Mealie bruger Apprise biblioteket for at generere notifikationer. De giver mange muligheder for notifikationer til tjenester. Kig i deres wiki for en gennemgående guide til, hvordan en URL oprettes i din situation. Hvis muligt, kan valget af din type af notifikation omfatte flere ekstrafunktioner.",
     "new-version": "Ny opdatering er tilgængelig!",
     "notification": "Notifikation",
     "refresh": "Opdater",
@@ -400,7 +400,7 @@
       "title": "Tandoor Recipes"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie kan importere opskrifter fra DVO Cook'n X3. Eksportér en kogebog eller menu i \"Cook'n\" formatet, omdøb filtypen .dvo til .zip, og upload derefter .zip nedenfor.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migrering af opskrifter",
@@ -628,7 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kan importere direkte fra rå data",
     "import-original-keywords-as-tags": "Importér originale nøgleord som mærker",
     "stay-in-edit-mode": "Bliv i redigeringstilstand",
-    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
+    "parse-recipe-ingredients-after-import": "Fortolk opskrift ingredienser efter import",
     "import-from-zip": "Importer fra zip-fil",
     "import-from-zip-description": "Importer en enkelt opskrift, der blev eksporteret fra en anden Mealie instans.",
     "import-from-html-or-json": "Importer fra HTML eller JSON",
@@ -675,12 +675,12 @@
       "this-unit-could-not-be-parsed-automatically": "Denne enhed kunne ikke fortolkes automatisk",
       "this-food-could-not-be-parsed-automatically": "Denne fødevare kunne ikke fortolkes automatisk",
       "no-food": "Ingen fødevarer",
-      "review-parsed-ingredients": "Review parsed ingredients",
-      "confidence-score": "Confidence Score",
-      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
-      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
-      "delete-item": "Delete Item"
+      "review-parsed-ingredients": "Gennemgå fortolkede ingredienser",
+      "confidence-score": "Tillidsscore",
+      "ingredient-parser-description": "Dine ingredienser er blevet fortolket. Gennemgå de ingredienser, vi ikke er sikker på.",
+      "ingredient-parser-final-review-description": "Når alle ingredienser er blevet gennemgået, har du endnu en chance for at gennemgå alle ingredienser, før du anvender ændringerne til din opskrift.",
+      "add-text-as-alias-for-item": "Tilføj \"{text}\" som alias for {item}",
+      "delete-item": "Slet Element"
     },
     "reset-servings-count": "Nulstil antal serveringer",
     "not-linked-ingredients": "Yderligere ingredienser",
@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vil du ikke længere se dette? Sørg for at ændre din e-mail i dine brugerindstillinger!",
     "forgot-password": "Glemt adgangskode",
     "forgot-password-text": "Indtast venligst din e-mail-adresse. Vi sender dig en e-mail, så at du kan nulstille din adgangskode.",
-    "changes-reflected-immediately": "Ændringer til denne bruger vil have effekt med det samme."
+    "changes-reflected-immediately": "Ændringer til denne bruger vil have effekt med det samme.",
+    "default-activity": "",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "oversat",
@@ -1180,7 +1182,7 @@
     "provide-registration-token-description": "Angiv venligst det registreringstoken, der er knyttet til den gruppe, du gerne vil deltage i. Du skal indhente dette fra et eksisterende gruppemedlem.",
     "group-details": "Gruppeoplysninger",
     "group-details-description": "Før du opretter en konto, skal du oprette en gruppe. Din gruppe vil kun indeholde dig, men du vil kunne invitere andre senere. Medlemmer i din gruppe kan dele madplaner, indkøbslister, opskrifter og meget mere!",
-    "use-seed-data": "Anved standard data",
+    "use-seed-data": "Anvend standard data",
     "use-seed-data-description": "Mealie kommer med en samling af Fødevarer, Enheder, og Etiketter som kan blive brugt til at udfylde din gruppe med nyttig data til at organisere dine opskrifter. De er oversat til det sprog, du i øjeblikket har valgt. Du kan altid tilføje og ændre disse data senere.",
     "account-details": "Kontodetaljer"
   },

@@ -400,7 +400,7 @@
       "title": "Tandoor Recipes"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie може імпортувати рецепти з DVO Cook'n X3. Експортуйте кулінарну книгу або меню у форматі «Cook'n», перейменуйте розширення експорту на .zip, а потім завантажте файл .zip нижче.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Міграція рецептів",
@@ -1063,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Більше не хочете це бачити? Обов'язково змініть адресу електронної пошти в налаштуваннях користувача!",
     "forgot-password": "Нагадати пароль",
     "forgot-password-text": "Будь ласка, введіть адресу вашої електронної пошти й вам надійде повідомлення, щоб відновити пароль.",
-    "changes-reflected-immediately": "Зміни для цього користувача будуть негайно відображені."
+    "changes-reflected-immediately": "Зміни для цього користувача будуть негайно відображені.",
+    "default-activity": "Дія за замовчуванням",
+    "default-activity-hint": "Виберіть, на яку сторінку ви хочете перейти після входу з цього пристрою"
   },
   "language-dialog": {
     "translated": "перекладено",
