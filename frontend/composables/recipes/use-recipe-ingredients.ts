@@ -1,6 +1,6 @@
 import DOMPurify from "isomorphic-dompurify";
 import { useFraction } from "./use-fraction";
-import type { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit, Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 
 const { frac } = useFraction();
 
@@ -34,6 +34,14 @@ function useUnitName(unit: CreateIngredientUnit | IngredientUnit | undefined, us
   }
 
   return returnVal;
+}
+
+function useRecipeLink(recipe: Recipe | undefined, groupSlug: string | undefined): string | undefined {
+  if (!(recipe && recipe.slug && recipe.name && groupSlug)) {
+    return undefined;
+  }
+
+  return `<a href="/g/${groupSlug}/r/${recipe.slug}" target="_blank">${recipe.name}</a>`;
 }
 
 type ParsedIngredientText = {
@@ -74,39 +82,17 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1,
     }
   }
 
-  const unitName = useUnitName(unit || undefined, usePluralUnit);
   // TODO: Add support for sub-recipes here?
-  if (food) {
-    const foodName = useFoodName(food || undefined, usePluralFood);
+  const unitName = useUnitName(unit || undefined, usePluralUnit);
+  const ingName = referencedRecipe ? referencedRecipe.name || "" : useFoodName(food || undefined, usePluralFood);
 
-    return {
-      quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
-      unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
-      name: foodName ? sanitizeIngredientHTML(foodName) : undefined,
-      note: note ? sanitizeIngredientHTML(note) : undefined,
-      recipeLink: undefined,
-    };
-  }
-  else {
-    const subRecipeName: string = referencedRecipe ? referencedRecipe.name || "" : "";
-    if (referencedRecipe && referencedRecipe.name && groupSlug) {
-      return {
-        quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
-        unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
-        name: subRecipeName ? sanitizeIngredientHTML(subRecipeName) : undefined,
-        note: note ? sanitizeIngredientHTML(note) : undefined,
-        recipeLink: `<a href="/g/${groupSlug}/r/${referencedRecipe.slug}" target="_blank">${referencedRecipe.name}</a>`,
-      };
-    }
-
-    return {
-      name: ingredient.note ? sanitizeIngredientHTML(ingredient.note) : undefined,
-      quantity: undefined,
-      unit: undefined,
-      note: undefined,
-      recipeLink: undefined,
-    };
-  }
+  return {
+    quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
+    unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
+    name: ingName ? sanitizeIngredientHTML(ingName) : undefined,
+    note: note ? sanitizeIngredientHTML(note) : undefined,
+    recipeLink: useRecipeLink(referencedRecipe || undefined, groupSlug),
+  };
 }
 
 export function parseIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true): string {
