@@ -1,21 +1,21 @@
 !!! info
-  This guide was submitted by a community member. Find something wrong? Submit a PR to get it fixed!
+    This guide was submitted by a community member. Find something wrong? Submit a PR to get it fixed!
 
 In a lot of ways, Home Assistant is why this project exists! Since Mealie has a robust API it makes it a great fit for interacting with Home Assistant and pulling information into your dashboard.
 
-### Display Today's Meal in Lovelace
+## Display Today's Meal in Lovelace
 
 You can use the Mealie API to get access to meal plans in Home Assistant like in the image below.
 
 ![api-extras-gif](../../assets/img/home-assistant-card.png)
 
-Steps:
+## Steps:
 
-#### 1. Get your API Token
+### 1. Get your API Token
 
-Create an API token from Mealie's User Settings page (https://docs.mealie.io/documentation/getting-started/api-usage/#getting-a-token)
+Create an API token from Mealie's User Settings page (see [this page](https://docs.mealie.io/documentation/getting-started/api-usage/#getting-a-token) to learn how).
 
-#### 2. Create Home Assistant Sensors
+### 2. Create Home Assistant Sensors
 
 Create REST sensors in home assistant to get the details of today's meal.
 We will create sensors to get the name and ID of the first meal in today's meal plan (note that this may not be what is wanted if there is more than one meal planned for the day). We need the ID as well as the name to be able to retrieve the image for the meal.
@@ -40,7 +40,7 @@ rest:
         unique_id: mealie_todays_meal_id
 ```
 
-#### 3. Create a Camera Entity
+### 3. Create a Camera Entity
 
 We will create a camera entity to display the image of today's meal in Lovelace.
 
@@ -52,7 +52,7 @@ In the still image url field put in:
 Under the entity page for the new camera, rename it.
 e.g. `camera.mealie_todays_meal_image`
 
-#### 4. Create a Lovelace Card
+### 4. Create a Lovelace Card
 
 Create a picture entity card and set the entity to `mealie_todays_meal` and the camera entity to `camera.mealie_todays_meal_image` or set in the yaml directly.
 
@@ -76,4 +76,4 @@ card_mod:
 ```
 
 !!! tip
-Due to how Home Assistant works with images, I had to include the additional styling to get the images to not appear distorted. This requires an [additional installation](https://github.com/thomasloven/lovelace-card-mod) from HACS.
+    Due to how Home Assistant works with images, I had to include the additional styling to get the images to not appear distorted. This requires an [additional installation](https://github.com/thomasloven/lovelace-card-mod) from HACS.

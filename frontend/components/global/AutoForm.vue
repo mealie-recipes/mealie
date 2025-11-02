@@ -41,7 +41,8 @@
           :hide-details="!inputField.hint"
           :persistent-hint="!!inputField.hint"
           density="comfortable"
-          @change="emitBlur">
+          @change="emitBlur"
+        >
           <template #label>
             <span class="ml-4">
               {{ inputField.label }}

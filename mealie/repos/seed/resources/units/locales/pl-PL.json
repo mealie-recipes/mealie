@@ -15,13 +15,13 @@
         "name": "szklanka",
         "plural_name": "szklanki",
         "description": "",
-        "abbreviation": ""
+        "abbreviation": "szklanka"
     },
     "fluid-ounce": {
         "name": "uncja",
         "plural_name": "uncje",
         "description": "",
-        "abbreviation": ""
+        "abbreviation": "uncje"
     },
     "pint": {
         "name": "pinta",

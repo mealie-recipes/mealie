@@ -1,8 +1,16 @@
 <template>
   <v-container class="mx-0 my-3 pa">
     <v-row>
-      <v-col v-for="(day, index) in plan" :key="index" cols="12" sm="12" md="4" lg="4" xl="2"
-        class="col-borders my-1 d-flex flex-column">
+      <v-col
+        v-for="(day, index) in plan"
+        :key="index"
+        cols="12"
+        sm="12"
+        md="4"
+        lg="4"
+        xl="2"
+        class="col-borders my-1 d-flex flex-column"
+      >
         <v-card class="mb-2 border-left-primary rounded-sm px-2">
           <v-container class="px-0 d-flex align-center" height="56px">
             <v-row no-gutters style="width: 100%;">
@@ -25,13 +33,17 @@
             </p>
           </div>
 
-          <RecipeCardMobile v-for="mealplan in section.meals" :key="mealplan.id"
-            :recipe-id="mealplan.recipe ? mealplan.recipe.id! : ''" class="mb-2"
+          <RecipeCardMobile
+            v-for="mealplan in section.meals"
+            :key="mealplan.id"
+            :recipe-id="mealplan.recipe ? mealplan.recipe.id! : ''"
+            class="mb-2"
             :rating="mealplan.recipe ? mealplan.recipe.rating! : 0"
             :slug="mealplan.recipe ? mealplan.recipe.slug! : mealplan.title!"
             :description="mealplan.recipe ? mealplan.recipe.description! : mealplan.text!"
             :name="mealplan.recipe ? mealplan.recipe.name! : mealplan.title!"
-            :tags="mealplan.recipe ? mealplan.recipe.tags! : []" />
+            :tags="mealplan.recipe ? mealplan.recipe.tags! : []"
+          />
         </div>
       </v-col>
     </v-row>

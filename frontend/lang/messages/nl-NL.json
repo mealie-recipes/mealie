@@ -399,6 +399,10 @@
       "description-long": "Mealie kan recepten importeren van Tandoor. Exporteer je gegevens in het \"Standaardformaat\" (\"Default\") en upload het .zip bestand hieronder.",
       "title": "Tandoor-recepten"
     },
+    "cookn": {
+      "description-long": "Mealie kan recepten importeren van DVO Cook'n X3. Exporteer een cookboek of menu in het \"Cook'n\" formaat. Verander de naam van de export extensie naar .zip. En upload daarna de .zip.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Receptmigratie",
     "recipe-data-migrations-explanation": "Je kunt recepten van een ander programma importeren in Mealie. Zo kun je snel aan de slag.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Kom je van een andere toepassing of een oudere versie van Mealie? Kijk eens naar de migraties. Misschien kunnen we je gegevens importeren.",
@@ -624,6 +628,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "U kunt direct importeren uit onbewerkte gegevens",
     "import-original-keywords-as-tags": "Importeer oorspronkelijke trefwoorden als labels",
     "stay-in-edit-mode": "Blijf in bewerkingsmodus",
+    "parse-recipe-ingredients-after-import": "Ontleed de ingrediënten van het recept na importeren",
     "import-from-zip": "Importeren uit zip",
     "import-from-zip-description": "Importeer een recept dat geëxporteerd was uit een andere Mealie instantie.",
     "import-from-html-or-json": "Importeer van HTML of JSON",
@@ -669,7 +674,13 @@
       "missing-food": "Ontbrekend levensmiddel maken: {food}",
       "this-unit-could-not-be-parsed-automatically": "Mealie kon deze meeteenheid niet automatisch verwerken",
       "this-food-could-not-be-parsed-automatically": "Mealie kon dit soort voedsel niet automatisch verwerken",
-      "no-food": "Geen levensmiddel"
+      "no-food": "Geen levensmiddel",
+      "review-parsed-ingredients": "Controleer ingrediënten na de ontleding",
+      "confidence-score": "Betrouwbaarheids-score",
+      "ingredient-parser-description": "Uw ingrediëntenlijst is succesvol ontleed. Controleer de ingrediënten waar we niet zeker van zijn.",
+      "ingredient-parser-final-review-description": "Als alle ingrediënten gecontroleerd zijn heb je, voor het toepassen van wijzigingen in je recept, nog één kans om alle ingrediënten te controleren.",
+      "add-text-as-alias-for-item": "Voeg \"{text}\" toe als alias voor {item}",
+      "delete-item": "Verwijderen item"
     },
     "reset-servings-count": "Porties resetten",
     "not-linked-ingredients": "Extra ingrediënten",
@@ -1052,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Wil je dit niet meer zien? Verander dan je e-mailadres in je gebruikersinstellingen!",
     "forgot-password": "Wachtwoord vergeten",
     "forgot-password-text": "Voer je e-mailadres in, dan sturen we je een link om het wachtwoord te herstellen.",
-    "changes-reflected-immediately": "Wijzigingen in deze groep zijn meteen zichtbaar."
+    "changes-reflected-immediately": "Wijzigingen in deze groep zijn meteen zichtbaar.",
+    "default-activity": "Standaard activiteit",
+    "default-activity-hint": "Kies de pagina waar u naar toe wilt, na inloggen op dit apparaat"
   },
   "language-dialog": {
     "translated": "vertaald",

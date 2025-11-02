@@ -12,10 +12,10 @@
       >
         <v-card-text class="w-100">
           <div class="d-flex flex-column align-center">
-          <v-card-title class="text-h5 font-weight-regular pa-0 text-wrap text-center opacity-80">
-            {{ recipe.name }}
-          </v-card-title>
-          <RecipeRating
+            <v-card-title class="text-h5 font-weight-regular pa-0 text-wrap text-center opacity-80">
+              {{ recipe.name }}
+            </v-card-title>
+            <RecipeRating
               :key="recipe.slug"
               :value="recipe.rating"
               :recipe-id="recipe.id"

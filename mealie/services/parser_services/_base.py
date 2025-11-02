@@ -161,12 +161,15 @@ class ABCIngredientParser(ABC):
             ingredient.ingredient.unit = unit_match
 
         # Parser might have wrongly split a food into a unit and food.
-        if isinstance(ingredient.ingredient.food, CreateIngredientFood) and isinstance(
-            ingredient.ingredient.unit, CreateIngredientUnit
-        ):
-            if food_match := self.data_matcher.find_food_match(
-                f"{ingredient.ingredient.unit.name} {ingredient.ingredient.food.name}"
-            ):
+        food_is_matched = bool(ingredient.ingredient.food and ingredient.ingredient.food.id)
+        unit_is_matched = bool(ingredient.ingredient.unit and ingredient.ingredient.unit.id)
+        food_name = ingredient.ingredient.food.name if ingredient.ingredient.food else ""
+        unit_name = ingredient.ingredient.unit.name if ingredient.ingredient.unit else ""
+
+        if not food_is_matched and not unit_is_matched and food_name and unit_name:
+            food_match = self.data_matcher.find_food_match(f"{unit_name} {food_name}")
+
+            if food_match:
                 ingredient.ingredient.food = food_match
                 ingredient.ingredient.unit = None
 
