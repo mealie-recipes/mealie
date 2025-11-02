@@ -691,6 +691,73 @@ def test_recipe_recursion_cycle_three_level(api_client: TestClient, unique_user:
     assert "cannot reference itself" in response.text.lower()
 
 
+def test_recipe_reference_deleted(api_client: TestClient, unique_user: TestUser):
+    """Test that when a referenced recipe is deleted, the parent recipe remains intact."""
+    database = unique_user.repos
+
+    food = database.ingredient_foods.create(
+        SaveIngredientFood(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+        )
+    )
+
+    # Create recipe_b
+    recipe_b: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", food=food),
+            ],
+        )
+    )
+
+    # Create recipe_a that references recipe_b
+    recipe_a = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="ingredient 1", referenced_recipe=recipe_b),
+                RecipeIngredient(note="ingredient 2", food=food),
+            ],
+        )
+    )
+
+    # Verify recipe_a has the reference to recipe_b
+    recipe_a_url = api_routes.recipes_slug(recipe_a.slug)
+    response = api_client.get(recipe_a_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe_a_data = json.loads(response.text)
+    assert len(recipe_a_data["recipeIngredient"]) == 2
+    assert recipe_a_data["recipeIngredient"][0]["referencedRecipe"] is not None
+    assert recipe_a_data["recipeIngredient"][0]["referencedRecipe"]["id"] == str(recipe_b.id)
+
+    # Delete recipe_b
+    recipe_b_url = api_routes.recipes_slug(recipe_b.slug)
+    response = api_client.delete(recipe_b_url, headers=unique_user.token)
+    assert response.status_code == 200
+
+    # Verify recipe_b is deleted
+    response = api_client.get(recipe_b_url, headers=unique_user.token)
+    assert response.status_code == 404
+
+    # Verify recipe_a still exists and can be retrieved
+    response = api_client.get(recipe_a_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe_a_data = json.loads(response.text)
+
+    # The ingredient with the deleted reference should still exist but with no valid reference
+    assert len(recipe_a_data["recipeIngredient"]) == 2
+    assert recipe_a_data["recipeIngredient"][0]["note"] == "ingredient 1"
+    assert recipe_a_data["recipeIngredient"][1]["note"] == "ingredient 2"
+    # The referenced recipe should be None or not present since it was deleted
+    assert recipe_a_data["recipeIngredient"][0]["referencedRecipe"] is None
+
+
 def test_duplicate(api_client: TestClient, unique_user: TestUser):
     recipe_data = recipe_test_data[0]
 
