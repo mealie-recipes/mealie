@@ -7,7 +7,7 @@ from zipfile import ZipFile
 from mealie.services._base_service import BaseService
 from mealie.services.backups_v2.alchemy_exporter import AlchemyExporter
 from mealie.services.backups_v2.backup_file import BackupFile
-
+from mealie.core.config import get_app_settings
 
 class BackupSchemaMismatch(Exception): ...
 
@@ -64,7 +64,8 @@ class BackupV2(BaseService):
             if f.is_file():
                 if f.name != ".secret":
                     continue
-                shutil.copyfile(f,self.directories.DATA_DIR / f.name)                
+                shutil.copyfile(f,self.directories.DATA_DIR / f.name) 
+                get_app_settings.cache_clear()
                 continue
 
             shutil.rmtree(self.directories.DATA_DIR / f.name)
