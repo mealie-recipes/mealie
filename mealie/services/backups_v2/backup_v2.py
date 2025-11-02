@@ -33,7 +33,7 @@ class BackupV2(BaseService):
 
     def backup(self) -> Path:
         # sourcery skip: merge-nested-ifs, reintroduce-else, remove-redundant-continue
-        exclude = {"mealie.db", "mealie.log", ".secret"}
+        exclude = {"mealie.db", "mealie.log"}
         exclude_ext = {".zip"}
         exclude_dirs = {"backups", ".temp"}
 
@@ -62,6 +62,9 @@ class BackupV2(BaseService):
     def _copy_data(self, data_path: Path) -> None:
         for f in data_path.iterdir():
             if f.is_file():
+                if f.name != ".secret":
+                    continue
+                shutil.copyfile(f,self.directories.DATA_DIR / f.name)                
                 continue
 
             shutil.rmtree(self.directories.DATA_DIR / f.name)
