@@ -268,6 +268,11 @@ const state = reactive({
 function shouldReview(ing: ParsedIngredient): boolean {
   console.debug(`Checking if ingredient needs review (input="${ing.input})":`, ing);
 
+  if (ing.ingredient.referencedRecipe) {
+    console.debug("No review needed for sub-recipe ingredient");
+    return false;
+  }
+
   if ((ing.confidence?.average || 0) < confidenceThreshold) {
     console.debug("Needs review due to low confidence:", ing.confidence?.average);
     return true;
@@ -338,14 +343,12 @@ function nextIngredient() {
   while (nextIndex < parsedIngs.value.length) {
     const current = parsedIngs.value[nextIndex];
     if (shouldReview(current)) {
-      if (!current.ingredient.referencedRecipe) {
-        state.currentParsedIndex = nextIndex;
-        currentIng.value = current;
-        currentIngShouldDelete.value = false;
-        checkUnit(current);
-        checkFood(current);
-        return;
-      }
+      state.currentParsedIndex = nextIndex;
+      currentIng.value = current;
+      currentIngShouldDelete.value = false;
+      checkUnit(current);
+      checkFood(current);
+      return;
     }
 
     nextIndex += 1;
