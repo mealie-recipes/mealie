@@ -693,7 +693,7 @@
     "set-as-cover-image": "Set as recipe cover image",
     "cover-image": "Cover image",
     "include-linked-recipes": "Include Linked Recipes",
-    "linked-recipe-ingredients": "Linked Recipe Ingredients",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
     "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {

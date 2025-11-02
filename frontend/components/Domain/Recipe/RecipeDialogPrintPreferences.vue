@@ -74,7 +74,7 @@
                 v-model="preferences.expandChildRecipes"
                 hide-details
                 color="primary"
-                :label="$t('recipe.linked-recipe-ingredients')"
+                :label="$t('recipe.include-linked-recipe-ingredients')"
               />
             </v-row>
           </v-col>
