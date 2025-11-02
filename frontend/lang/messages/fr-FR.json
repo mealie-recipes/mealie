@@ -400,7 +400,7 @@
       "title": "Recettes Tandoor"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie peut importer des recettes de DVO Cook'n X3. Exportez un livre de recettes ou un menu au format \"Cook'n\", renommez l'extension d'exportation en .zip, puis téléchargez le .zip ci-dessous.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migration des données de recettes",
@@ -1065,7 +1065,7 @@
     "forgot-password-text": "Veuillez entrer votre adresse e-mail. Un e-mail vous sera envoyé afin de réinitialiser votre mot de passe.",
     "changes-reflected-immediately": "Les changements apportés à cet utilisateur seront immédiatement pris en compte.",
     "default-activity": "Activité par défaut ",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity-hint": "Sélectionnez la page que vous souhaitez ouvrir lors de la connexion sur cet appareil"
   },
   "language-dialog": {
     "translated": "traduit",

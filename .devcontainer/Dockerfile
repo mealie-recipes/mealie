@@ -8,28 +8,13 @@ FROM mcr.microsoft.com/devcontainers/python:${VARIANT}
 ARG NODE_VERSION="none"
 RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/local/share/nvm/nvm.sh && nvm install ${NODE_VERSION} 2>&1"; fi
 
-# install poetry - respects $POETRY_VERSION & $POETRY_HOME
-
 RUN echo "export PROMPT_COMMAND='history -a'" >> /home/vscode/.bashrc \
     && echo "export HISTFILE=~/commandhistory/.bash_history" >> /home/vscode/.bashrc \
     && chown vscode:vscode -R /home/vscode/
 
 RUN npm install -g @go-task/cli
 
-ENV PYTHONUNBUFFERED=1 \
-    PYTHONDONTWRITEBYTECODE=1 \
-    PIP_NO_CACHE_DIR=off \
-    PIP_DISABLE_PIP_VERSION_CHECK=on \
-    PIP_DEFAULT_TIMEOUT=100 \
-    POETRY_HOME="/opt/poetry" \
-    POETRY_VIRTUALENVS_IN_PROJECT=true
-
-# prepend poetry and venv to path
-ENV PATH="$POETRY_HOME/bin:$PATH"
-
-RUN curl -sSL https://install.python-poetry.org | python3 -
-# RUN poetry config virtualenvs.create false
-
+# Install additional OS packages
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     curl \
@@ -39,5 +24,9 @@ RUN apt-get update \
     libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1
 
-# create directory used for Docker Secrets
+# Install uv
+RUN pip install uv
+ENV UV_LINK_MODE=copy
+
+# Create directory for Docker Secrets
 RUN mkdir -p /run/secrets
