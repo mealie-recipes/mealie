@@ -65,7 +65,6 @@ class BackupV2(BaseService):
                 if f.name != ".secret":
                     continue
                 shutil.copyfile(f,self.directories.DATA_DIR / f.name) 
-                get_app_settings.cache_clear()
                 continue
 
             shutil.rmtree(self.directories.DATA_DIR / f.name)
@@ -109,5 +108,8 @@ class BackupV2(BaseService):
             self.logger.info("restoring data directory")
             self._copy_data(contents.data_directory)
             self.logger.info("data directory restored successfully")
-
+            self.logger.info("invalidating settings cache")
+            get_app_settings.cache_clear()
+            get_app_settings()
+            self.logger.info("settings cache invalidated")
         self.logger.info("backup restore complete")
