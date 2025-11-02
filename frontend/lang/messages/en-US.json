@@ -691,10 +691,9 @@
     "upload-more-images": "Upload more images",
     "set-as-cover-image": "Set as recipe cover image",
     "cover-image": "Cover image",
-    "add-reference": "Add Recipe Reference",
-    "sub-recipes": "Include Linked Recipes",
-    "expand-child-recipe": "Linked Recipe Ingredients",
-    "toggle-subrecipe": "Toggle Recipe"
+    "include-linked-recipes": "Include Linked Recipes",
+    "linked-recipe-ingredients": "Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",

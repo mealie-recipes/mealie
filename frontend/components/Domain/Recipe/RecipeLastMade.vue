@@ -21,7 +21,7 @@
               rows="4"
             />
             <div v-if="childRecipes && childRecipes.length > 0">
-              <v-list-subheader>{{ $tc('recipe.sub-recipes') }}</v-list-subheader>
+              <v-list-subheader>{{ $tc('recipe.include-linked-recipes') }}</v-list-subheader>
               <v-list dense>
                 <v-list-item
                   v-for="(childRecipe, i) in childRecipes"

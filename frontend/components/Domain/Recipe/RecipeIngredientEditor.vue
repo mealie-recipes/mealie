@@ -293,7 +293,7 @@ const contextMenuOptions = computed(() => {
       event: "toggle-section",
     },
     {
-      text: i18n.t("recipe.toggle-subrecipe"),
+      text: i18n.t("recipe.toggle-recipe"),
       event: "toggle-subrecipe",
     },
     {
