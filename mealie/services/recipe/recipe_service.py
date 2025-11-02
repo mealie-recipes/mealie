@@ -369,19 +369,25 @@ class RecipeService(RecipeServiceBase):
 
         return new_recipe
 
-    def has_recursive_recipe_link(self, recipe: Recipe, visited=None):
+    def has_recursive_recipe_link(self, recipe: Recipe, visited: set[str] | None = None):
+        """Recursively checks if a recipe links to itself through its ingredients."""
+
         if visited is None:
             visited = set()
-        recipe_id = str(getattr(recipe, "id", None))  # Ensure consistent type
+        recipe_id = str(getattr(recipe, "id", None))
         if recipe_id in visited:
-            return True  # Cycle detected
+            return True
+
         visited.add(recipe_id)
         ingredients = getattr(recipe, "recipe_ingredient", [])
         for ing in ingredients:
-            if getattr(ing, "referenced_recipe", None):
+            try:
                 sub_recipe = self.get_one(ing.referenced_recipe.id)
-                if self.has_recursive_recipe_link(sub_recipe, visited.copy()):
-                    return True
+            except (AttributeError, exceptions.NoEntryFound):
+                continue
+
+            if self.has_recursive_recipe_link(sub_recipe, visited):
+                return True
         return False
 
     def _pre_update_check(self, slug_or_id: str | UUID, new_data: Recipe) -> Recipe:
