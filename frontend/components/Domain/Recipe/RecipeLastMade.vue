@@ -20,8 +20,8 @@
               persistent-hint
               rows="4"
             />
-            <div v-if="childRecipes && childRecipes.length > 0">
-              <v-list-subheader>{{ $tc('recipe.include-linked-recipes') }}</v-list-subheader>
+            <div v-if="childRecipes?.length">
+              <v-list-subheader>{{ $t('recipe.include-linked-recipes') }}</v-list-subheader>
               <v-list dense>
                 <v-list-item
                   v-for="(childRecipe, i) in childRecipes"
@@ -284,6 +284,37 @@ async function createTimelineEvent() {
     }
   }
 
+  for (const childRecipe of childRecipes.value || []) {
+    if (!childRecipe.checked) {
+      continue;
+    }
+
+    const childTimelineEvent = {
+      ...newTimelineEvent.value,
+      recipeId: childRecipe.recipeId,
+      eventMessage: i18n.t("recipe.made-for-recipe", { recipe: childRecipe.name }),
+      image: undefined,
+    };
+    try {
+      await userApi.recipes.createTimelineEvent(childTimelineEvent);
+    }
+    catch (error) {
+      console.error(`Failed to create timeline event for child recipe ${childRecipe.slug}:`, error);
+    }
+
+    if (
+      newTimelineEvent.value.timestamp
+      && (!childRecipe.lastMade || newTimelineEvent.value.timestamp > childRecipe.lastMade)
+    ) {
+      try {
+        await userApi.recipes.updateLastMade(childRecipe.slug || "", newTimelineEvent.value.timestamp);
+      }
+      catch (error) {
+        console.error(`Failed to update last made date for child recipe ${childRecipe.slug}:`, error);
+      }
+    }
+  }
+
   // update the image, if provided
   let imageError = false;
   if (newTimelineEventImage.value) {
@@ -307,20 +338,6 @@ async function createTimelineEvent() {
   }
   else {
     alert.success(i18n.t("recipe.added-to-timeline"));
-  }
-  // Update last made for any checked child recipes
-  if (childRecipes.value) {
-    for (const childRecipe of childRecipes.value) {
-      if (childRecipe.checked) {
-        newTimelineEvent.value.eventMessage = "";
-        clearImage();
-        newTimelineEvent.value.recipeId = childRecipe.recipeId;
-        await userApi.recipes.createTimelineEvent(newTimelineEvent.value);
-        if ((!props.value || newTimelineEvent.value.timestamp > props.value) && childRecipe.slug) {
-          await userApi.recipes.updateLastMade(childRecipe.slug, newTimelineEvent.value.timestamp);
-        }
-      }
-    }
   }
 
   resetMadeThisForm();

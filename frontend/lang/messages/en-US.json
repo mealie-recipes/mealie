@@ -589,6 +589,7 @@
     "made-this": "I Made This",
     "how-did-it-turn-out": "How did it turn out?",
     "user-made-this": "{user} made this",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Added to timeline",
     "failed-to-add-to-timeline": "Failed to add to timeline",
     "failed-to-update-recipe": "Failed to update recipe",
