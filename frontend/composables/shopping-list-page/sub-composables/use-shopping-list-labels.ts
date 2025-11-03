@@ -1,5 +1,5 @@
 import { useToggle } from "@vueuse/core";
-import type { ShoppingListOut, ShoppingListItemOut } from "~/lib/api/types/household";
+import type { ShoppingListOut } from "~/lib/api/types/household";
 
 /**
  * Composable for managing shopping list label state and operations
@@ -36,14 +36,24 @@ export function useShoppingListLabels(shoppingList: Ref<ShoppingListOut | null>)
     );
   });
 
+  const labelColorByName = computed(() => {
+    const map: Record<string, string | undefined> = {};
+    shoppingList.value?.listItems?.forEach((item) => {
+      if (!item.label) return;
+      const labelName = item.label?.name || t("shopping-list.no-label");
+      map[labelName] = item.label.color;
+    });
+    return map;
+  });
+
   watch(labelNames, initializeLabelOpenStates, { immediate: true });
 
   function toggleShowLabel(key: string) {
     labelOpenState.value[key] = !labelOpenState.value[key];
   }
 
-  function getLabelColor(item: ShoppingListItemOut | null) {
-    return item?.label?.color;
+  function getLabelColor(label: string) {
+    return labelColorByName.value[label];
   }
 
   const presentLabels = computed(() => {

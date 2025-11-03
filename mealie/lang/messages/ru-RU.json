@@ -44,7 +44,7 @@
         "generic-updated-with-url": "{name} был обновлен, {url}",
         "generic-duplicated": "Копия {name} была создана",
         "generic-deleted": "{name} был удален",
-        "logged-out": "Logged out"
+        "logged-out": "Выполнен выход"
     },
     "datetime": {
         "year": "год|лет",

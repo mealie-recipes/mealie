@@ -64,7 +64,7 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
             PostgresDsn.build(
                 scheme="postgresql",
                 username=self.POSTGRES_USER,
-                password=urlparse.quote(self.POSTGRES_PASSWORD),
+                password=self.POSTGRES_PASSWORD,
                 host=f"{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}",
                 path=f"{self.POSTGRES_DB or ''}",
             )
