@@ -4,7 +4,7 @@
     },
     "recipe": {
         "unique-name-error": "Името на рецептата трябва да е уникално",
-        "recipe-created": "Рецептата е създадена",
+        "recipe-created": "Нова рецепта",
         "recipe-defaults": {
             "ingredient-note": "1 чаша брашно",
             "step-text": "Стъпките на рецептата, както и други полета в страницата с рецепти поддържат синтаксис за маркиране.\n\n **Добавяне на връзка**\n\n [Моята връзка](https://demo.mealie.io)\n"
@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} беше създадено, {url}",
         "generic-updated-with-url": "{name} беше актуализирано, {url}",
         "generic-duplicated": "{name} е дублирано",
-        "generic-deleted": "{name} беше изтрито"
+        "generic-deleted": "{name} беше изтрито",
+        "logged-out": "Излязохте от профила си"
     },
     "datetime": {
         "year": "година|години",

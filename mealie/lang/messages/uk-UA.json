@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} створено, {url}",
         "generic-updated-with-url": "{name} оновлено, {url}",
         "generic-duplicated": "{name} дубльовано",
-        "generic-deleted": "{name} видалено"
+        "generic-deleted": "{name} видалено",
+        "logged-out": "Вихід із системи"
     },
     "datetime": {
         "year": "рік|роки",

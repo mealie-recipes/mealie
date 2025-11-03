@@ -20,7 +20,7 @@ interface AuthState {
 }
 
 const authUser = ref<UserOut | null>(null);
-const authStatus = ref<"loading" | "authenticated" | "unauthenticated">("unauthenticated");
+const authStatus = ref<"loading" | "authenticated" | "unauthenticated">("loading");
 
 export const useAuthBackend = function (): AuthState {
   const { $axios } = useNuxtApp();
@@ -42,7 +42,6 @@ export const useAuthBackend = function (): AuthState {
         router.push("/login");
       }
     }
-    return false;
   }
 
   async function getSession(): Promise<void> {
@@ -59,9 +58,9 @@ export const useAuthBackend = function (): AuthState {
       authStatus.value = "authenticated";
     }
     catch (error: any) {
+      console.error("Failed to fetch user session:", error);
       handleAuthError(error);
       authStatus.value = "unauthenticated";
-      throw error;
     }
   }
 
@@ -138,13 +137,6 @@ export const useAuthBackend = function (): AuthState {
         }
       }
     }, { immediate: true });
-  }
-
-  // Initialize auth state if token exists
-  if (import.meta.client && tokenCookie.value && authStatus.value === "unauthenticated") {
-    getSession().catch((error: any) => {
-      handleAuthError(error);
-    });
   }
 
   return {
