@@ -174,3 +174,21 @@ def parse_iso8601_duration(time: str | None) -> str:
         return_strings.append(f"{value} {value_map[unit_key]}")
 
     return " ".join(return_strings) if return_strings else time
+
+
+def format_time(minutes: int) -> str:
+    # TODO: make this translatable
+    hour_label = "hour"
+    hours_label = "hours"
+    minute_label = "minute"
+    minutes_label = "minutes"
+
+    hours, minutes = divmod(minutes, 60)
+    parts: list[str] = []
+
+    if hours:
+        parts.append(f"{int(hours)} {hour_label if hours == 1 else hours_label}")
+    if minutes:
+        parts.append(f"{minutes} {minute_label if minutes == 1 else minutes_label}")
+
+    return " ".join(parts)

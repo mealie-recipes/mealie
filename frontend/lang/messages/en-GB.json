@@ -399,6 +399,10 @@
       "description-long": "Mealie can import recipes from Tandoor. Export your data in the \"Default\" format, then upload the .zip below.",
       "title": "Tandoor Recipes"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Recipe Data Migrations",
     "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
@@ -671,12 +675,12 @@
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "No Food",
-      "parsing-completed": "Parsing Completed",
       "review-parsed-ingredients": "Review parsed ingredients",
       "confidence-score": "Confidence Score",
       "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
       "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Reset Servings Count",
     "not-linked-ingredients": "Additional Ingredients",
@@ -1059,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this any more? Be sure to change your email in your user settings!",
     "forgot-password": "Forgot Password",
     "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
-    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "translated",

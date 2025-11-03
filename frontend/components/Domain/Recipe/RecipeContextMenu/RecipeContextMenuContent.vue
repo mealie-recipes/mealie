@@ -55,7 +55,7 @@
       >
         <template #activator="{ props: activatorProps }">
           <v-text-field
-            v-model="newMealdateString"
+            :model-value="$d(newMealdate)"
             :label="$t('general.date')"
             :prepend-icon="$globals.icons.calendar"
             v-bind="activatorProps"
@@ -67,7 +67,7 @@
           hide-header
           :first-day-of-week="firstDayOfWeek"
           :local="$i18n.locale"
-            @update:model-value="pickerMenu = false"
+          @update:model-value="pickerMenu = false"
         />
       </v-menu>
       <v-select

@@ -399,6 +399,10 @@
       "description-long": "Mealie saab importida retsepte Tandoor-ist. Ekspordi oma andmed \"Default\" formaadis ning lae .zip allolevasse kasti",
       "title": "Tandoor-i retsptid"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Retsepti andmete ületoomised",
     "recipe-data-migrations-explanation": "Retsepte saab üle tuua teisest toetatud rakendusest Mealiesse. See on hea viis tegemaks algust Mealie-ga.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Tuled teisest rakendusest või hoopis vanemast Mealie versioonist? Uuri ületoomise võimalusi ning vaata kas su andmeid saab importida.",
@@ -671,12 +675,12 @@
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "Toit puudub",
-      "parsing-completed": "Parsing Completed",
       "review-parsed-ingredients": "Review parsed ingredients",
       "confidence-score": "Confidence Score",
       "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
       "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Lähtesta portsionite arv",
     "not-linked-ingredients": "Lisa-koostisosad",
@@ -1059,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ei taha enam seda näha? Ära unusta muuta oma email kasutaja seadetes",
     "forgot-password": "Unustasid salasõna",
     "forgot-password-text": "Sisestage oma meiliaadress, et saada e-kiri  uue salasõna määramiseks.",
-    "changes-reflected-immediately": "Selle kasutaja muudatused on koheselt nähtaval"
+    "changes-reflected-immediately": "Selle kasutaja muudatused on koheselt nähtaval",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "tõlgitud",

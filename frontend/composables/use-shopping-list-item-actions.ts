@@ -177,8 +177,8 @@ export function useShoppingListItemActions(shoppingListId: string) {
   }
 
   /**
-	 * Processes the queue items and returns whether the processing was successful.
-	 */
+   * Processes the queue items and returns whether the processing was successful.
+   */
   async function processQueueItems(
     action: (items: ShoppingListItemOut[]) => Promise<RequestResponse<any>>,
     itemQueueType: ItemQueueType,

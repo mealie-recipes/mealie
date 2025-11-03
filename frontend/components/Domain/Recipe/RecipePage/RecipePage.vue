@@ -113,9 +113,13 @@
           />
           <v-divider />
         </v-col>
-        <v-col class="overflow-y-auto"
-        :class="$vuetify.display.smAndDown ? 'py-2': 'py-6'"
-        style="height: 100%" cols="12" sm="7">
+        <v-col
+          class="overflow-y-auto"
+          :class="$vuetify.display.smAndDown ? 'py-2': 'py-6'"
+          style="height: 100%"
+          cols="12"
+          sm="7"
+        >
           <h2 class="text-h5 px-4 font-weight-medium opacity-80">
             {{ $t('recipe.instructions') }}
           </h2>
@@ -192,6 +196,7 @@ import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useNavigationWarning } from "~/composables/use-navigation-warning";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
@@ -200,6 +205,7 @@ const display = useDisplay();
 const i18n = useI18n();
 const $auth = useMealieAuth();
 const route = useRoute();
+const { isOwnGroup } = useLoggedInState();
 
 const groupSlug = computed(() => (route.params.groupSlug as string) || $auth.user?.value?.groupSlug || "");
 
@@ -258,11 +264,11 @@ const paramsEdit = useRouteQuery<BooleanString>("edit", "");
 const paramsParse = useRouteQuery<BooleanString>("parse", "");
 
 onMounted(() => {
-  if (paramsEdit.value === "true") {
+  if (paramsEdit.value === "true" && isOwnGroup.value) {
     setMode(PageMode.EDIT);
   }
 
-  if (paramsParse.value === "true") {
+  if (paramsParse.value === "true" && isOwnGroup.value) {
     toggleIsParsing(true);
   }
 });

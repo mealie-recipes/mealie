@@ -31,7 +31,7 @@
           :placeholder="$t('recipe.quantity')"
           @keypress="quantityFilter"
         >
-          <template #prepend>
+          <template v-if="enableDragHandle" #prepend>
             <v-icon
               class="mr-n1 handle"
             >
@@ -59,6 +59,7 @@
           class="mx-1"
           :placeholder="$t('recipe.choose-unit')"
           clearable
+          :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
           @keyup.enter="handleUnitEnter"
         >
           <template #prepend>
@@ -115,6 +116,7 @@
           class="mx-1 py-0"
           :placeholder="$t('recipe.choose-food')"
           clearable
+          :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
           @keyup.enter="handleFoodEnter"
         >
           <template #prepend>
@@ -178,6 +180,7 @@
         </div>
       </v-col>
     </v-row>
+    <slot name="before-divider" />
     <v-divider
       v-if="!mdAndUp"
       class="my-4"
@@ -196,7 +199,11 @@ import type { RecipeIngredient } from "~/lib/api/types/recipe";
 // defineModel replaces modelValue prop
 const model = defineModel<RecipeIngredient>({ required: true });
 
-defineProps({
+const props = defineProps({
+  menuAttachTarget: {
+    type: String,
+    default: "body",
+  },
   unitError: {
     type: Boolean,
     default: false,
@@ -214,6 +221,14 @@ defineProps({
     default: "",
   },
   enableContextMenu: {
+    type: Boolean,
+    default: false,
+  },
+  enableDragHandle: {
+    type: Boolean,
+    default: false,
+  },
+  deleteDisabled: {
     type: Boolean,
     default: false,
   },
@@ -270,8 +285,8 @@ const btns = computed(() => {
     text: i18n.t("general.delete"),
     event: "delete",
     children: undefined,
+    disabled: props.deleteDisabled,
   });
-
   return out;
 });
 

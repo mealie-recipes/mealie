@@ -14,7 +14,7 @@
           if (newMeal.existing) {
             actions.updateOne({ ...newMeal, date: newMealDateString });
           }
- else {
+          else {
             actions.createOne({ ...newMeal, date: newMealDateString });
           }
           resetDialog();
@@ -33,9 +33,8 @@
         >
           <template #activator="{ props }">
             <v-text-field
-              v-model="newMealDateString"
+              :model-value="$d(newMeal.date)"
               :label="$t('general.date')"
-              :hint="$t('recipe.date-format-hint-yyyy-mm-dd')"
               persistent-hint
               :prepend-icon="$globals.icons.calendar"
               v-bind="props"
@@ -147,7 +146,14 @@
               </v-btn>
               <v-menu offset-y>
                 <template #activator="{ props }">
-                  <v-chip v-bind="props" label variant="elevated" size="small" color="accent" @click.prevent>
+                  <v-chip
+                    v-bind="props"
+                    label
+                    variant="elevated"
+                    size="small"
+                    color="accent"
+                    @click.prevent
+                  >
                     <v-icon start>
                       {{ $globals.icons.tags }}
                     </v-icon>

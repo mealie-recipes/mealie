@@ -25,7 +25,7 @@ const router = useRouter();
 const recipeId = route.params.id as string;
 const api = usePublicApi();
 
-const title = ref(route.meta?.title ?? "");
+const title = ref(route.meta?.title as string ?? "");
 useSeoMeta({
   title,
 });

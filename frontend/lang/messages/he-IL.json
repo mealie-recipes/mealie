@@ -399,6 +399,10 @@
       "description-long": "Mealie יכול לייבא מתכונים מ-Tandoor, תייצא את המתכון בפורמט הדיפולטיבי ולאחר מכן העלאה אותם בחזרה בפורמט zip.",
       "title": "מתכוני Tandoor"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "מגרציית מידע מתכונים",
     "recipe-data-migrations-explanation": "ניתן לייבא מתכונים מאפליקציות תומכות אחרות אל Mealie. זו דרך מעולה להתחיל במילי.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "הגעת מתוכנה אחרת או גרסה ישנה יותר של Mealie? מומלץ לבדוק מיגרציות ולראות אם ניתן לייבא את המידע שלך.",
@@ -671,12 +675,12 @@
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "no-food": "אין אוכל",
-      "parsing-completed": "Parsing Completed",
       "review-parsed-ingredients": "Review parsed ingredients",
       "confidence-score": "Confidence Score",
       "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
       "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "איפוס מספר המנות",
     "not-linked-ingredients": "מרכיבים נוספים",
@@ -1059,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "לא רוצה לראות את זה יותר? ניתן לשנות את המייל שלך בהגדרות המשתמש!",
     "forgot-password": "שכחתי סיסמא",
     "forgot-password-text": "נא לספק כתובת דוא\"ל. אנו נשלח לך הודעת דוא\"ל לצורך איפוס הסיסמה שלך.",
-    "changes-reflected-immediately": "שינויים למשתמש זה ישתקפו מיידית."
+    "changes-reflected-immediately": "שינויים למשתמש זה ישתקפו מיידית.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "תורגם",

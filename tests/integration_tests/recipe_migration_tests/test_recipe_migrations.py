@@ -108,6 +108,12 @@ test_cases = [
         search_slug="zucchini-bread",
         nutrition_entries=set(),
     ),
+    MigrationTestData(
+        typ=SupportedMigrations.cookn,
+        archive=test_data.migrations_cookn,
+        search_slug="fresh-fruit-pizza",
+        nutrition_entries=set(),
+    ),
 ]
 
 test_ids = [
@@ -120,6 +126,7 @@ test_ids = [
     "plantoeat_archive",
     "myrecipebox_csv",
     "recipekeeper_archive",
+    "cookn_archive",
 ]
 
 

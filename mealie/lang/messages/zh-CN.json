@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} 已创建， {url}",
         "generic-updated-with-url": "{name} 已创建， {url}",
         "generic-duplicated": "{name} 已复制",
-        "generic-deleted": "{name} 已删除"
+        "generic-deleted": "{name} 已删除",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "年|年",
