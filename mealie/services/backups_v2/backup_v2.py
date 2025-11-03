@@ -60,9 +60,10 @@ class BackupV2(BaseService):
         return backup_file
 
     def _copy_data(self, data_path: Path) -> None:
+        restoreFiles = { ".secret" }
         for f in data_path.iterdir():
             if f.is_file():
-                if f.name != ".secret":
+                if f.name not in restoreFiles:
                     continue
                 shutil.copyfile(f,self.directories.DATA_DIR / f.name) 
                 self.logger.info("invalidating appsettings cache")
