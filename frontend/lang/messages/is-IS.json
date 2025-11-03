@@ -243,7 +243,7 @@
     "user-group-creation-failed": "Mistókst að stofna notenda hóp",
     "settings": {
       "keep-my-recipes-private": "Ekki deila mínum uppskriftum",
-      "keep-my-recipes-private-description": "Hafa sjálfgefið að hópar og uppskriftir sé ekki deilt. Það er hægt að breyta þessu síðar."
+      "keep-my-recipes-private-description": "Hafa sjálfgefið að hóp og uppskriftum sé ekki deilt. Það er hægt að breyta þessu síðar."
     },
     "manage-members": "Umsjá meðlima",
     "manage-members-description": "Stjórnaðu aðgangsheimildum annarra í heimilinu. {manage} opnar gagnastjórnunarsíðu og {invite} býr til boðtengla fyrir aðra. Stjórnendur hópa geta ekki breytt eigin heimildum.",
@@ -723,7 +723,7 @@
     "search-placeholder": "Leita...",
     "tag-filter": "Merki",
     "search-hint": "Ýttu á '/'",
-    "advanced": "Advanced",
+    "advanced": "Ítarlegt",
     "auto-search": "Sjálfvirk leit",
     "no-results": "Ekkert fannst"
   },
@@ -1029,8 +1029,8 @@
     "webhooks-enabled": "Webhooks Enabled",
     "you-are-not-allowed-to-create-a-user": "You are not allowed to create a user",
     "you-are-not-allowed-to-delete-this-user": "You are not allowed to delete this user",
-    "enable-advanced-content": "Enable Advanced Content",
-    "enable-advanced-content-description": "Enables advanced features like Recipe Scaling, API keys, Webhooks, and Data Management. Don't worry, you can always change this later",
+    "enable-advanced-content": "Virkja ítarlegt efni",
+    "enable-advanced-content-description": "Virkja ítarlegt efni eins og að stækka uppskrift, API keys, vefkrækjur (Webhooks) og gagnastýring. Það er alltaf hægt að breyta þessu síðar",
     "favorite-recipes": "Favorite Recipes",
     "email-or-username": "Tölvupóstur eða notandanafn",
     "remember-me": "Remember Me",
@@ -1058,7 +1058,7 @@
     "user-can-manage-group": "User can manage group",
     "user-can-manage-household": "User can manage household",
     "user-can-organize-group-data": "User can organize group data",
-    "enable-advanced-features": "Enable advanced features",
+    "enable-advanced-features": "Virkja ítarlega eiginleika",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
     "forgot-password": "Gleymt Lykilorð",
@@ -1078,7 +1078,7 @@
     "foods": {
       "merge-dialog-text": "Við að sameina valdar matvörur munu matvörurnar sem þú hefur valið sameinast í eina matvöru. Upprunalegu matvörunni verður eytt og allar tengingar við matvöruna mun breytast og vísa á sameinuðu matvöruna.",
       "merge-food-example": "Sameina {food1} við {food2}",
-      "seed-dialog-text": "Bæta matvörum á þínu tungumáli við gagnagrunninn. Það munu bætast við um 2700 matvörur við gagnagrunninn sem hafa verið þýddar af fólki í Mealie samfélaginu.",
+      "seed-dialog-text": "Bæta matvörum á þínu tungumáli við gagnagrunninn. Það munu bætast við um 2700 matvörur við gagnagrunninn sem hafa verið þýddar af notendum Mealie.",
       "seed-dialog-warning": "Það eru nú þegar matvörur í gagnagrunninum. Nýrri matvöru verður ekki bætt við ef matvara með sama nafni er þegar til staðar.",
       "combine-food": "Sameina matvörur",
       "source-food": "Upprunaleg matvara",
@@ -1093,7 +1093,7 @@
       "on-hand-checkbox-label": "Við að haka við hér þá mun ekki vera hakað við matvöruna þegar verið er að bæta við uppskriftinni á innkaupalistann."
     },
     "units": {
-      "seed-dialog-text": "Bæta við algengum mælieiningum á þínu tungumáli.",
+      "seed-dialog-text": "Bæta algengum mælieiningum á þínu tungumáli við gagnagrunninn.",
       "combine-unit-description": "Valdar mælieiningar verða sameinaðar, {source-unit-will-be-deleted} og allar tengingar við hana verða uppfærðar og munu benda á sameinuðu mælieininguna.",
       "combine-unit": "Sameina mælieiningar",
       "source-unit": "Upprunaleg mælieining",
@@ -1115,7 +1115,7 @@
       "example-unit-abbreviation-plural": "t.d. msk"
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language.",
+      "seed-dialog-text": "Bæta algengum merkimiðum á þínu tungumáli við gagnarunninn.",
       "edit-label": "Edit Label",
       "new-label": "New Label",
       "labels": "Labels",
@@ -1150,8 +1150,8 @@
     },
     "create-alias": "Create Alias",
     "manage-aliases": "Manage Aliases",
-    "seed-data": "Seed Data",
-    "seed": "Seed",
+    "seed-data": "Grunngögn",
+    "seed": "Sækja grunngögn",
     "data-management": "Data Management",
     "data-management-description": "Select which data set you want to make changes to.",
     "select-data": "Select Data",
@@ -1175,25 +1175,25 @@
     }
   },
   "user-registration": {
-    "user-registration": "User Registration",
-    "registration-success": "Registration Success",
-    "join-a-group": "Join a Group",
-    "create-a-new-group": "Create a New Group",
+    "user-registration": "Nýskráning notanda",
+    "registration-success": "Skráning tókst",
+    "join-a-group": "Verða meðlimur í hóp",
+    "create-a-new-group": "Stofna nýjan hóp",
     "provide-registration-token-description": "Vinsamlegast settu inn aðgangslykil sem er tengdur hópnum sem þig langar að tengjast. Þú færð hann hjá notanda úr hópnum.",
-    "group-details": "Group Details",
-    "group-details-description": "Before you create an account you'll need to create a group. Your group will only contain you, but you'll be able to invite others later. Members in your group can share meal plans, shopping lists, recipes, and more!",
-    "use-seed-data": "Use Seed Data",
-    "use-seed-data-description": "Mealie kemur með safn á matvörum, mælieiningum og merkingum sem hægt er að nota í hópnum til að hjálpa við að skipuleggja uppskriftirnar þínar. Safnið er þýtt á tungumálið sem þú hefur valið. Alltaf er hægt að bæta við eða breyta þessu heitum síðar.",
-    "account-details": "Account Details"
+    "group-details": "Upplýsingar um hópinn",
+    "group-details-description": "Áður en þý býrð til aðgang verður þú að stofna hóp. Þú munnt verða eini meðlimurinn í hópnum en þú munnt geta boðið öðrum í hópinn síðar. Meðlimir í hópnum geta deilt matarplani, innkaupalistum, uppskriftum og fleiru.",
+    "use-seed-data": "Nota grunngögn",
+    "use-seed-data-description": "Mealie kemur með safn af matvörum, mælieiningum og merkimiðum sem hægt er að nota í hópnum þínum til að hjálpa við að skipuleggja uppskriftirnar þínar. Safnið er þýtt á tungumálið sem þú hefur valið. Alltaf er hægt að bæta við eða breyta þessum gögnum síðar.",
+    "account-details": "Upplýsingar um notanda"
   },
   "validation": {
-    "group-name-is-taken": "Group name is taken",
+    "group-name-is-taken": "Nafn á hóp er þegar tekið",
     "username-is-taken": "Notandanafn er þegar í notkun",
-    "email-is-taken": "Email is taken",
-    "this-field-is-required": "This Field is Required"
+    "email-is-taken": "Netfang er þegar í notkun",
+    "this-field-is-required": "Þessi reitur er nauðsynlegur"
   },
   "export": {
-    "export": "Export",
+    "export": "Flytja út",
     "file-name": "File Name",
     "size": "Size",
     "link-expires": "Link Expires"
@@ -1335,13 +1335,13 @@
     "household-statistics-description": "Your Household Statistics provide some insight how you're using Mealie.",
     "storage-capacity": "Storage Capacity",
     "storage-capacity-description": "Your storage capacity is a calculation of the images and assets you have uploaded.",
-    "personal": "Personal",
-    "personal-description": "These are settings that are personal to you. Changes here won't affect other users.",
-    "user-settings": "User Settings",
+    "personal": "Eigin stillingar",
+    "personal-description": "Þetta eru stillingar sem eru bara fyrir þig, breytingar hér munu ekki hafa áhrif á aðra notendur.",
+    "user-settings": "Notandastillingar",
     "user-settings-description": "Breyta þínum stillingum, breyta lykilorði og breyta tölvupósti.",
     "api-tokens-description": "Umsjá með API aðgangslyklum til að tengjast með öðrum forritum.",
     "group-description": "These items are shared within your group. Editing one of them will change it for the whole group!",
-    "group-settings": "Group Settings",
+    "group-settings": "Hóp stillingar",
     "group-settings-description": "Manage your common group settings, like privacy settings.",
     "household-description": "These items are shared within your household. Editing one of them will change it for the whole household!",
     "household-settings": "Household Settings",
@@ -1360,9 +1360,9 @@
     "error-sending-email": "Error Sending Email",
     "personal-information": "Personal Information",
     "preferences": "Preferences",
-    "show-advanced-description": "Show advanced features (API Keys, Webhooks, and Data Management)",
+    "show-advanced-description": "Sýna ítarlega eiginleika (API lykla, vefkræjur (Webhook) og gagnastýringu)",
     "back-to-profile": "Til baka í prófíl",
-    "looking-for-privacy-settings": "Looking for Privacy Settings?",
+    "looking-for-privacy-settings": "Þarftu að komast í friðhelgisstillingar?",
     "manage-your-api-tokens": "Umsjá með þínum API aðgangslyklum",
     "manage-user-profile": "Manage User Profile",
     "manage-cookbooks": "Manage Cookbooks",
