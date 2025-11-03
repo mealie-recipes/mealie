@@ -165,7 +165,7 @@
               >
                 <template #activator="{ props: activatorProps }">
                   <v-text-field
-                    v-model="field.value"
+                    :model-value="field.value ? $d(new Date(field.value + 'T00:00:00')) : null"
                     persistent-hint
                     :prepend-icon="$globals.icons.calendar"
                     variant="underlined"

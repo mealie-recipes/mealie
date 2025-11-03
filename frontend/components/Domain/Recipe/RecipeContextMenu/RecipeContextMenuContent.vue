@@ -55,7 +55,7 @@
       >
         <template #activator="{ props: activatorProps }">
           <v-text-field
-            v-model="newMealdateString"
+            :model-value="$d(newMealdate)"
             :label="$t('general.date')"
             :prepend-icon="$globals.icons.calendar"
             v-bind="activatorProps"

@@ -834,9 +834,9 @@
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at",
       "webhook-url": "Webhook URL",
       "webhooks-caps": "WEBHOOKS",
-      "webhooks": "Webhooks",
-      "webhook-name": "Webhook Name",
-      "description": "The webhooks defined below will be executed when a meal is defined for the day. At the scheduled time the webhooks will be sent with the data from the recipe that is scheduled for the day. Note that webhook execution is not exact. The webhooks are executed on a 5 minutes interval so the webhooks will be executed within 5 +/- minutes of the scheduled."
+      "webhooks": "Webhook-vefkrækjur",
+      "webhook-name": "Vefkrækju nafn",
+      "description": "Vefkrækjur (webhooks) sem skilgreindar eru hér að neðan verða keyrðar þegar máltíð er skilgreind fyrir daginn. Á fyrirfram ákveðnum tíma verða vefkrækjurnar sendar með gögnum úr þeirri uppskrift sem skipulögð er í dag. Athugaðu að keyrsla vefkrækja er ekki alveg nákvæm, þær eru keyrðar á 5 mínútna fresti, þannig að sendingin getur farið fram allt að 5 mínútum fyrir eða eftir áætlaðan tíma."
     },
     "bug-report": "Villu skýrsla",
     "bug-report-information": "Use this information to report a bug. Providing details of your instance to developers is the best way to get your issues resolved quickly.",
@@ -1266,7 +1266,7 @@
       "info-description-cleanable-images": "Cleanable Images",
       "storage": {
         "title-temporary-directory": "Temporary Directory (.temp)",
-        "title-backups-directory": "Backups Directory (backups)",
+        "title-backups-directory": "Mappa fyrir öryggisafrit",
         "title-groups-directory": "Groups Directory (groups)",
         "title-recipes-directory": "Recipes Directory (recipes)",
         "title-user-directory": "User Directory (user)"

@@ -32,7 +32,7 @@
                   >
                     <template #activator="{ props: activatorProps }">
                       <v-text-field
-                        v-model="newTimelineEventTimestampString"
+                        :model-value="$d(newTimelineEventTimestamp)"
                         :prepend-icon="$globals.icons.calendar"
                         v-bind="activatorProps"
                         readonly
@@ -102,7 +102,7 @@
                 <span class="text-body-1 opacity-80">
                   <b>{{ $t("general.last-made") }}</b>
                   <br>
-                  {{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $t("general.never") }}
+                  {{ lastMade ? $d(new Date(lastMade)) : $t("general.never") }}
                 </span>
                 <v-icon end size="large" color="primary">
                   {{ $globals.icons.createAlt }}
