@@ -23,6 +23,7 @@ from mealie.pkgs.safehttp.transport import AsyncSafeTransport
 from mealie.schema.cookbook.cookbook import SaveCookBook
 from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary, RecipeTag
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientFood
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.services.recipe.recipe_data_service import RecipeDataService
@@ -510,6 +511,251 @@ def test_update_many(api_client: TestClient, unique_user: TestUser, use_patch: b
         get_response = api_client.get(api_routes.recipes_slug(updated_recipe_data["slug"]), headers=unique_user.token)
         assert get_response.status_code == 200
         assert get_response.json()["slug"] == updated_recipe_data["slug"]
+
+
+def test_recipe_recursion_valid_linear_chain(api_client: TestClient, unique_user: TestUser):
+    """Test that valid deep nesting without cycles is allowed (a -> b -> c)."""
+    database = unique_user.repos
+
+    food = database.ingredient_foods.create(
+        SaveIngredientFood(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+        )
+    )
+
+    # Create recipe_c with just a food ingredient (base recipe)
+    recipe_c: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", food=food),
+            ],
+        )
+    )
+
+    # Create recipe_b that references recipe_c (c -> b)
+    recipe_b = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", referenced_recipe=recipe_c),
+            ],
+        )
+    )
+
+    # Update recipe_a to reference recipe_b (b -> a, creating chain c -> b -> a)
+    recipe_a: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", food=food),
+            ],
+        )
+    )
+
+    recipe_url = api_routes.recipes_slug(recipe_a.slug)
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe_data = json.loads(response.text)
+
+    recipe_data["recipeIngredient"].append(
+        {
+            "note": "",
+            "referencedRecipe": {"id": str(recipe_b.id)},
+        }
+    )
+    response = api_client.put(recipe_url, json=recipe_data, headers=unique_user.token)
+    assert response.status_code == 200
+
+
+def test_recipe_recursion_cycle_two_level(api_client: TestClient, unique_user: TestUser):
+    """Test that two-level cycles (a -> b -> a) are detected and rejected."""
+    database = unique_user.repos
+
+    food = database.ingredient_foods.create(
+        SaveIngredientFood(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+        )
+    )
+
+    # Create recipe_a
+    recipe_a: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", food=food),
+            ],
+        )
+    )
+
+    # Create recipe_b that references recipe_a (a -> b)
+    recipe_b = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", referenced_recipe=recipe_a),
+            ],
+        )
+    )
+
+    # Try to update recipe_a to reference recipe_b, creating a cycle (b -> a)
+    recipe_url = api_routes.recipes_slug(recipe_a.slug)
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe_data = json.loads(response.text)
+
+    recipe_data["recipeIngredient"].append(
+        {
+            "note": "",
+            "referencedRecipe": {"id": str(recipe_b.id)},
+        }
+    )
+    response = api_client.put(recipe_url, json=recipe_data, headers=unique_user.token)
+    assert response.status_code == 400
+    assert "cannot reference itself" in response.text.lower()
+
+
+def test_recipe_recursion_cycle_three_level(api_client: TestClient, unique_user: TestUser):
+    """Test that three-level cycles (a -> b -> c -> a) are detected and rejected."""
+    database = unique_user.repos
+
+    food = database.ingredient_foods.create(
+        SaveIngredientFood(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+        )
+    )
+
+    # Create recipe_a
+    recipe_a: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", food=food),
+            ],
+        )
+    )
+
+    # Create recipe_b that references recipe_a (a -> b)
+    recipe_b = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", referenced_recipe=recipe_a),
+            ],
+        )
+    )
+
+    # Create recipe_c that references recipe_b (b -> c, creating chain a -> b -> c)
+    recipe_c = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", referenced_recipe=recipe_b),
+            ],
+        )
+    )
+
+    # Try to update recipe_a to reference recipe_c, creating a cycle (c -> a)
+    recipe_url = api_routes.recipes_slug(recipe_a.slug)
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe_data = json.loads(response.text)
+
+    recipe_data["recipeIngredient"].append(
+        {
+            "note": "",
+            "referencedRecipe": {"id": str(recipe_c.id)},
+        }
+    )
+    response = api_client.put(recipe_url, json=recipe_data, headers=unique_user.token)
+    assert response.status_code == 400
+    assert "cannot reference itself" in response.text.lower()
+
+
+def test_recipe_reference_deleted(api_client: TestClient, unique_user: TestUser):
+    """Test that when a referenced recipe is deleted, the parent recipe remains intact."""
+    database = unique_user.repos
+
+    food = database.ingredient_foods.create(
+        SaveIngredientFood(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+        )
+    )
+
+    # Create recipe_b
+    recipe_b: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", food=food),
+            ],
+        )
+    )
+
+    # Create recipe_a that references recipe_b
+    recipe_a = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="ingredient 1", referenced_recipe=recipe_b),
+                RecipeIngredient(note="ingredient 2", food=food),
+            ],
+        )
+    )
+
+    # Verify recipe_a has the reference to recipe_b
+    recipe_a_url = api_routes.recipes_slug(recipe_a.slug)
+    response = api_client.get(recipe_a_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe_a_data = json.loads(response.text)
+    assert len(recipe_a_data["recipeIngredient"]) == 2
+    assert recipe_a_data["recipeIngredient"][0]["referencedRecipe"] is not None
+    assert recipe_a_data["recipeIngredient"][0]["referencedRecipe"]["id"] == str(recipe_b.id)
+
+    # Delete recipe_b
+    recipe_b_url = api_routes.recipes_slug(recipe_b.slug)
+    response = api_client.delete(recipe_b_url, headers=unique_user.token)
+    assert response.status_code == 200
+
+    # Verify recipe_b is deleted
+    response = api_client.get(recipe_b_url, headers=unique_user.token)
+    assert response.status_code == 404
+
+    # Verify recipe_a still exists and can be retrieved
+    response = api_client.get(recipe_a_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe_a_data = json.loads(response.text)
+
+    # The ingredient with the deleted reference should still exist but with no valid reference
+    assert len(recipe_a_data["recipeIngredient"]) == 2
+    assert recipe_a_data["recipeIngredient"][0]["note"] == "ingredient 1"
+    assert recipe_a_data["recipeIngredient"][1]["note"] == "ingredient 2"
+    # The referenced recipe should be None or not present since it was deleted
+    assert recipe_a_data["recipeIngredient"][0]["referencedRecipe"] is None
 
 
 def test_duplicate(api_client: TestClient, unique_user: TestUser):

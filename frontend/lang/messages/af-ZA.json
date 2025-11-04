@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Pogings om 'n paragraaf te verdeel deur die '1)' of '1.' patrone om te gebruik",
     "import-by-url": "Voer 'n resep vanaf 'n webwerf in",
     "create-manually": "Skep 'n resep met die hand",
-    "make-recipe-image": "Maak dit die prentjie vir hierdie resep"
+    "make-recipe-image": "Maak dit die prentjie vir hierdie resep",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Bladsy nie gevind nie",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Resep uitgevee",
     "recipe-image": "Resep foto",
     "recipe-image-updated": "Resep foto is opgedateer",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Resepnaam",
     "recipe-settings": "Resep verstellings",
     "recipe-update-failed": "Kon nie resep opdateer nie",
@@ -587,6 +592,7 @@
     "made-this": "Ek het dit gemaak",
     "how-did-it-turn-out": "Hoe het dit uitgedraai?",
     "user-made-this": "{user} het dit gemaak",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Added to timeline",
     "failed-to-add-to-timeline": "Failed to add to timeline",
     "failed-to-update-recipe": "Failed to update recipe",
@@ -688,7 +694,10 @@
     "upload-images": "Upload images",
     "upload-more-images": "Upload more images",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "Cover image",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",

@@ -5,6 +5,7 @@
     "recipe": {
         "unique-name-error": "Receptnamen moeten uniek zijn",
         "recipe-created": "Recept aangemaakt op",
+        "recipe-image-deleted": "Recipe image deleted",
         "recipe-defaults": {
             "ingredient-note": "250 gram bloem",
             "step-text": "Receptstappen en andere velden op de receptpagina ondersteunen Markdown syntaxis.\n\n**Voeg een link toe**\n\n[Mijn Link](https://demo.mealie.io)\n"
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Je hebt geen toestemming om deze actie uit te voeren",
+        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "Het opgevraagde is niet gevonden",
         "integrity-error": "Database integriteitsfout",
         "username-conflict-error": "Deze gebruikersnaam is al in gebruik",

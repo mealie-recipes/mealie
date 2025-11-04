@@ -53,10 +53,23 @@
                 :active="state.orderBy === v.value"
                 slim
                 density="comfortable"
-                :prepend-icon="v.icon"
-                :title="v.name"
-                @click="setOrderBy(v.value)"
-              />
+                @click="v.value === 'random' ? setRandomOrderByWrapper() : setOrderBy(v.value)"
+              >
+                <template #prepend>
+                  <v-icon>{{ v.icon }}</v-icon>
+                </template>
+
+                <template #title>
+                  <span>{{ v.name }}</span>
+                  <v-icon
+                    v-if="v.value === 'random' && showRandomLoading"
+                    size="small"
+                    class="ml-3"
+                  >
+                    {{ $globals.icons.refreshCircle }}
+                  </v-icon>
+                </template>
+              </v-list-item>
             </v-list>
           </v-card>
         </v-menu>
@@ -131,6 +144,7 @@ const $auth = useMealieAuth();
 const route = useRoute();
 const { $globals } = useNuxtApp();
 const i18n = useI18n();
+const showRandomLoading = ref(false);
 
 const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
@@ -141,6 +155,7 @@ const {
   reset,
   toggleOrderDirection,
   setOrderBy,
+  setRandomOrderBy,
   filterItems,
   initialize,
 } = useRecipeExplorerSearch(groupSlug);
@@ -204,6 +219,14 @@ const input: Ref<any> = ref(null);
 
 function hideKeyboard() {
   input.value?.blur();
+}
+
+// function to show refresh icon
+async function setRandomOrderByWrapper() {
+  if (!showRandomLoading.value) {
+    showRandomLoading.value = true;
+  }
+  await setRandomOrderBy();
 }
 </script>
 

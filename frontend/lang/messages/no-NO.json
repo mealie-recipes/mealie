@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Forsøk å dele opp et avsnitt ved å matche mønsteret '1)' eller '1.'",
     "import-by-url": "Importer en oppskrift via nettadresse",
     "create-manually": "Opprett en oppskrift manuelt",
-    "make-recipe-image": "Bruk dette som oppskriftsbilde"
+    "make-recipe-image": "Bruk dette som oppskriftsbilde",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Siden ble ikke funnet",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Oppskrift slettet",
     "recipe-image": "Oppskriftsbilde",
     "recipe-image-updated": "Oppskriftsbilde oppdatert",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Navn på oppskrift",
     "recipe-settings": "Oppskriftsinnstillinger",
     "recipe-update-failed": "Oppdatering av oppskrift mislyktes",
@@ -587,6 +592,7 @@
     "made-this": "Jeg har laget dette",
     "how-did-it-turn-out": "Hvordan ble det?",
     "user-made-this": "{user} har laget dette",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Legg til tidslinje",
     "failed-to-add-to-timeline": "Kunne ikke legge til på tidslinjen",
     "failed-to-update-recipe": "Kunne ikke oppdatere oppskriften",
@@ -688,7 +694,10 @@
     "upload-images": "Last opp bilder",
     "upload-more-images": "Last opp flere bilder",
     "set-as-cover-image": "Bruk som forsidebilde for oppskriften",
-    "cover-image": "Forsidebilde"
+    "cover-image": "Forsidebilde",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Oppskriftsfinner",

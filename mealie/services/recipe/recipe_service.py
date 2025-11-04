@@ -369,6 +369,27 @@ class RecipeService(RecipeServiceBase):
 
         return new_recipe
 
+    def has_recursive_recipe_link(self, recipe: Recipe, visited: set[str] | None = None):
+        """Recursively checks if a recipe links to itself through its ingredients."""
+
+        if visited is None:
+            visited = set()
+        recipe_id = str(getattr(recipe, "id", None))
+        if recipe_id in visited:
+            return True
+
+        visited.add(recipe_id)
+        ingredients = getattr(recipe, "recipe_ingredient", [])
+        for ing in ingredients:
+            try:
+                sub_recipe = self.get_one(ing.referenced_recipe.id)
+            except (AttributeError, exceptions.NoEntryFound):
+                continue
+
+            if self.has_recursive_recipe_link(sub_recipe, visited):
+                return True
+        return False
+
     def _pre_update_check(self, slug_or_id: str | UUID, new_data: Recipe) -> Recipe:
         """
         gets the recipe from the database and performs a check to see if the user can update the recipe.
@@ -399,6 +420,9 @@ class RecipeService(RecipeServiceBase):
         if setting_lock and not self.can_lock_unlock(recipe):
             raise exceptions.PermissionDenied("You do not have permission to lock/unlock this recipe.")
 
+        if self.has_recursive_recipe_link(new_data):
+            raise exceptions.RecursiveRecipe("Recursive recipe link detected. Update aborted.")
+
         return recipe
 
     def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
@@ -417,6 +441,17 @@ class RecipeService(RecipeServiceBase):
         data_service.write_image(image, extension)
 
         return self.group_recipes.update_image(slug, extension)
+
+    def delete_recipe_image(self, slug: str) -> None:
+        recipe = self.get_one(slug)
+        if not self.can_update(recipe):
+            raise exceptions.PermissionDenied("You do not have permission to edit this recipe.")
+
+        data_service = RecipeDataService(recipe.id)
+        data_service.delete_image()
+
+        self.group_recipes.delete_image(slug)
+        return None
 
     def patch_one(self, slug_or_id: str | UUID, patch_data: Recipe) -> Recipe:
         recipe: Recipe = self._pre_update_check(slug_or_id, patch_data)
