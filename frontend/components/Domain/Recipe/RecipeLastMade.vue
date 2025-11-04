@@ -21,19 +21,23 @@
               rows="4"
             />
             <div v-if="childRecipes?.length">
-              <v-list-subheader>{{ $t('recipe.include-linked-recipes') }}</v-list-subheader>
-              <v-list dense>
+              <v-card-text class="pt-6 pb-0">
+                {{ $t('recipe.include-linked-recipes') }}
+              </v-card-text>
+              <v-list>
                 <v-list-item
                   v-for="(childRecipe, i) in childRecipes"
                   :key="childRecipe.recipeId + i"
-                  dense
+                  density="compact"
+                  class="my-0 py-0"
                   @click="childRecipe.checked = !childRecipe.checked"
                 >
                   <v-checkbox
                     hide-details
+                    density="compact"
                     :input-value="childRecipe.checked"
                     :label="childRecipe.name"
-                    class="pt-0 my-auto py-auto"
+                    class="my-0 py-0"
                     color="secondary"
                   />
                 </v-list-item>
