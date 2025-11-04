@@ -121,25 +121,30 @@ export function useShoppingListItemActions(shoppingListId: string) {
 
   function createItem(item: ShoppingListItemOut) {
     removeFromQueue(queue.create, item);
+    removeFromQueue(queue.update, item);
+    removeFromQueue(queue.delete, item);
+
     queue.create.push(item);
   }
 
   function updateItem(item: ShoppingListItemOut) {
     const removedFromCreate = removeFromQueue(queue.create, item);
-    if (removedFromCreate) {
-      // this item hasn't been created yet, so we don't need to update it
-      queue.create.push(item);
-      return;
-    }
-
     removeFromQueue(queue.update, item);
-    queue.update.push(item);
+    removeFromQueue(queue.delete, item);
+
+    if (removedFromCreate) {
+      // This item hasn't been created yet, so keep it in create queue with updated data
+      queue.create.push(item);
+    }
+    else {
+      queue.update.push(item);
+    }
   }
 
   function deleteItem(item: ShoppingListItemOut) {
     const removedFromCreate = removeFromQueue(queue.create, item);
     if (removedFromCreate) {
-      // this item hasn't been created yet, so we don't need to delete it
+      // This item hasn't been created yet, so we don't need to delete it
       return;
     }
 
@@ -197,11 +202,15 @@ export function useShoppingListItemActions(shoppingListId: string) {
     }
 
     try {
+      // Take a snapshot of items to process and their IDs for safe clearing later
       const itemsToProcess = [...queueItems];
+      const itemIdsToProcess = itemsToProcess.map(item => item.id);
+
       await action(itemsToProcess)
         .then(() => {
           if (isOnline.value) {
-            clearQueueItems(itemQueueType, itemsToProcess.map(item => item.id));
+            // Only clear items that were actually processed, not any new ones added during processing
+            clearQueueItems(itemQueueType, itemIdsToProcess);
           }
         });
     }
