@@ -296,6 +296,7 @@ async function saveRecipe() {
   }
   if (data?.slug) {
     router.push(`/g/${groupSlug.value}/r/` + data.slug);
+    recipe.value = data as NoUndefinedField<Recipe>;
   }
 }
 
