@@ -112,7 +112,7 @@ async function deleteImage() {
   loading.value = true;
   try {
     await api.recipes.deleteImage(props.slug);
-    emit(REFRESH_EVENT);
+    emit(DELETE_EVENT);
     menu.value = false;
   }
   catch (e) {
