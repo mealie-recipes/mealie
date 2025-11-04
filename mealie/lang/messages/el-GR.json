@@ -5,6 +5,7 @@
     "recipe": {
         "unique-name-error": "Τα ονόματα συνταγών πρέπει να είναι μοναδικά",
         "recipe-created": "Η συνταγή δημιουργήθηκε",
+        "recipe-image-deleted": "Recipe image deleted",
         "recipe-defaults": {
             "ingredient-note": "1 Κούπα Αλεύρι",
             "step-text": "Βήματα συνταγής, καθώς και άλλα πεδία στη σύνταξη σήμανσης της σελίδας συνταγής.\n\n**Προσθήκη συνδέσμου**\n\n[Ο σύνδεσμος μου](https://demo.mealie.io)\n"
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Δεν έχετε δικαιώματα για την εκτέλεση αυτής της ενέργειας",
+        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "Η σελίδα που ζητήσατε δε βρέθηκε",
         "integrity-error": "Σφάλμα ακεραιότητας βάσης δεδομένων",
         "username-conflict-error": "Το όνομα χρήστη χρησιμοποιείται ήδη",
