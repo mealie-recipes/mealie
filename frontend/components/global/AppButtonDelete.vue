@@ -1,26 +1,32 @@
 <template>
-    <BaseDialog v-model="deleteDialog" :title="confirmTitleI8n" color="error"
-      :icon="$globals.icons.alertCircle" can-confirm @confirm="deleteElem()">
-      <v-card-text>
-        {{ confirmTextI8n }}
-      </v-card-text>
+  <BaseDialog
+    v-model="deleteDialog"
+    :title="confirmTitleI8n"
+    color="error"
+    :icon="$globals.icons.alertCircle"
+    can-confirm
+    @confirm="deleteElem()"
+  >
+    <v-card-text>
+      {{ confirmTextI8n }}
+    </v-card-text>
   </BaseDialog>
 
-    <slot v-bind="{ onButtonClick }">
-      <v-btn
-        :small="small"
-        :color="color"
-        :variant="textBtn ? 'text' : 'elevated'"
-        :disabled="disabled"
-        :class="props.class"
-        @click="onButtonClick"
-      >
-        <v-icon start>
-          {{ effIcon }}
-        </v-icon>
-        {{ text ? text : defaultText }}
-      </v-btn>
-    </slot>
+  <slot v-bind="{ onButtonClick }">
+    <v-btn
+      :small="small"
+      :color="color"
+      :variant="textBtn ? 'text' : 'elevated'"
+      :disabled="disabled"
+      :class="props.class"
+      @click="onButtonClick"
+    >
+      <v-icon start>
+        {{ effIcon }}
+      </v-icon>
+      {{ text ? text : defaultText }}
+    </v-btn>
+  </slot>
 </template>
 
 <script setup lang="ts">

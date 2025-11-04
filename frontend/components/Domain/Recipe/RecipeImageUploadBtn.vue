@@ -40,7 +40,7 @@
               :confirm-type="$t('recipe.recipe-image')"
               @delete="deleteImage"
             />
-         </div>
+          </div>
         </v-card-title>
         <v-card-text class="mt-n5">
           <div>
