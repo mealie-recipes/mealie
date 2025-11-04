@@ -46,7 +46,7 @@ from mealie.schema.recipe.request_helpers import (
 )
 from mealie.schema.response import PaginationBase, PaginationQuery
 from mealie.schema.response.pagination import RecipeSearchQuery
-from mealie.schema.response.responses import ErrorResponse
+from mealie.schema.response.responses import ErrorResponse, SuccessResponse
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import (
     EventOperation,
@@ -547,7 +547,7 @@ class RecipeController(BaseRecipeController):
     def delete_recipe_image(self, slug: str):
         try:
             self.service.delete_recipe_image(slug)
-            return None
+            return SuccessResponse.respond(message="Recipe image deleted")
         except Exception as e:
             self.handle_exceptions(e)
             return None
