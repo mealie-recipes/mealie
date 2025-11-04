@@ -5,6 +5,7 @@
     "recipe": {
         "unique-name-error": "Nöfn uppskrifta þurfa að vera einstök",
         "recipe-created": "Uppskrift stofnuð",
+        "recipe-image-deleted": "Recipe image deleted",
         "recipe-defaults": {
             "ingredient-note": "1 bolli hveiti",
             "step-text": "Hægt er að nota markdown málskipan (syntax) í uppskriftinni og öðrum reitum.\n\n**Bæta við tengli**\n\n[Minn tengill](https://demo.mealie.io)\n"
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Þú hefur ekki réttindi til að framkvæma þessa aðgerð",
+        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "Umbeðin síða fannst ekki",
         "integrity-error": "Villa í gagnagrunni",
         "username-conflict-error": "Notandanafn er þegar í notkun",
