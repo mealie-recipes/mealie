@@ -83,7 +83,6 @@
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
 
-const REFRESH_EVENT = "refresh";
 const UPLOAD_EVENT = "upload";
 const DELETE_EVENT = "delete";
 
