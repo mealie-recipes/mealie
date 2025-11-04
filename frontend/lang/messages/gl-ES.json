@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Tenta dividir un parágrafo facendo corresponder os padróns '1)' ou '1.'",
     "import-by-url": "Importar unha receita por URL",
     "create-manually": "Cree unha receita manualmente",
-    "make-recipe-image": "Faga desta a imaxen da receita"
+    "make-recipe-image": "Faga desta a imaxen da receita",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Páxina non encontrada",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Eliminouse a receita",
     "recipe-image": "Imaxe da Receita",
     "recipe-image-updated": "Actualizouse a imaxe da receita",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Nome da Receita",
     "recipe-settings": "Configuración da Receita",
     "recipe-update-failed": "Produciuse un erro na actualización da receita",
@@ -587,6 +592,7 @@
     "made-this": "Eu fixen isto",
     "how-did-it-turn-out": "Que tal ficou?",
     "user-made-this": "{user} fixo isto",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Adicionado ao histórico",
     "failed-to-add-to-timeline": "Falla ao adicionar ao histórico",
     "failed-to-update-recipe": "Falla ao atualizar a receita",
@@ -688,7 +694,10 @@
     "upload-images": "Cargar imaxens",
     "upload-more-images": "Cargar mais imaxens",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "Cover image",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Localizador de Receitas",
