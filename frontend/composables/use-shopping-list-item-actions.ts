@@ -209,14 +209,12 @@ export function useShoppingListItemActions(shoppingListId: string) {
     }
 
     try {
-      // Take a snapshot of items to process and their IDs for safe clearing later
       const itemsToProcess = [...queueItems];
       const itemIdsToProcess = itemsToProcess.map(item => item.id);
 
       await action(itemsToProcess)
         .then(() => {
           if (isOnline.value) {
-            // Only clear items that were actually processed, not any new ones added during processing
             clearQueueItems(itemQueueType, itemIdsToProcess);
           }
         });
