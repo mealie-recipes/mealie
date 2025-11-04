@@ -32,14 +32,23 @@
               :post="false"
               @uploaded="uploadImage"
             />
-            <AppButtonDelete
-              class="mx-2"
-              :url="slug"
-              :text-btn="false"
-              :post="false"
-              :confirm-type="$t('recipe.recipe-image')"
-              @delete="deleteImage"
+            <BaseButton
+              class="ml-2"
+              delete
+              @click="dialogDeleteImage = true"
             />
+            <BaseDialog
+              v-model="dialogDeleteImage"
+              :title="$t('recipe.delete-image')"
+              :icon="$globals.icons.alertCircle"
+              color="error"
+              can-delete
+              @delete="deleteImage"
+            >
+              <v-card-text>
+                {{ $t("recipe.delete-image-confirmation") }}
+              </v-card-text>
+            </BaseDialog>
           </div>
         </v-card-title>
         <v-card-text class="mt-n5">
@@ -71,10 +80,12 @@
 </template>
 
 <script setup lang="ts">
+import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
 
 const REFRESH_EVENT = "refresh";
 const UPLOAD_EVENT = "upload";
+const DELETE_EVENT = "delete";
 
 const props = defineProps<{ slug: string }>();
 
@@ -84,9 +95,13 @@ const emit = defineEmits<{
   delete: [];
 }>();
 
+const i18n = useI18n();
+const api = useUserApi();
+
 const url = ref("");
 const loading = ref(false);
 const menu = ref(false);
+const dialogDeleteImage = ref(false);
 
 function uploadImage(fileObject: File) {
   emit(UPLOAD_EVENT, fileObject);
@@ -95,23 +110,29 @@ function uploadImage(fileObject: File) {
 
 async function deleteImage() {
   loading.value = true;
-  await api.recipes.deleteImage(props.slug);
-  emit(REFRESH_EVENT);
-  menu.value = false;
-  loading.value = false;
+  try {
+    await api.recipes.deleteImage(props.slug);
+    emit(REFRESH_EVENT);
+    menu.value = false;
+  }
+  catch (e) {
+    alert.error(i18n.t("events.something-went-wrong"));
+    console.error("Failed to delete image", e);
+  }
+  finally {
+    loading.value = false;
+  }
 }
 
-const api = useUserApi();
 async function getImageFromURL() {
   loading.value = true;
   if (await api.recipes.updateImagebyURL(props.slug, url.value)) {
-    emit(REFRESH_EVENT);
+    emit(DELETE_EVENT);
   }
   loading.value = false;
   menu.value = false;
 }
 
-const i18n = useI18n();
 const messages = computed(() =>
   props.slug ? [""] : [i18n.t("recipe.save-recipe-before-use")],
 );
