@@ -274,13 +274,8 @@ const ingredientSections = computed<IngredientSection[]>(() => {
     }
 
     ingredients.forEach((ingredient) => {
-      if (
-        preferences.value.expandChildRecipes
-        && ingredient.referencedRecipe
-        && ingredient.referencedRecipe.recipeIngredient
-        && ingredient.referencedRecipe.name
-      ) {
-      // Recursively add to the section for this referenced recipe
+      if (preferences.value.expandChildRecipes && ingredient.referencedRecipe?.recipeIngredient?.length) {
+        // Recursively add to the section for this referenced recipe
         addIngredientsToSections(
           ingredient.referencedRecipe.recipeIngredient,
           sections,
