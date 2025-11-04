@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Yrittää jakaa kappaleen vastaamalla '1)' tai '1.' kuvioita",
     "import-by-url": "Tuo resepti osoitteesta",
     "create-manually": "Luo resepti manuaalisesti",
-    "make-recipe-image": "Luo reseptikuva"
+    "make-recipe-image": "Luo reseptikuva",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 sivua ei löydy",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Resepti poistettu",
     "recipe-image": "Reseptikuva",
     "recipe-image-updated": "Reseptikuva päivitetty",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Reseptin nimi",
     "recipe-settings": "Reseptiasetukset",
     "recipe-update-failed": "Reseptin päivitys epäonnistui",
@@ -587,6 +592,7 @@
     "made-this": "Tein tämän",
     "how-did-it-turn-out": "Miten se onnistui?",
     "user-made-this": "{user} teki tämän",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Lisätty aikajanalle",
     "failed-to-add-to-timeline": "Aikajanaan lisääminen epäonnistui",
     "failed-to-update-recipe": "Reseptin päivitys epäonnistui",
@@ -688,7 +694,10 @@
     "upload-images": "Lataa kuva",
     "upload-more-images": "Lataa lisää kuvia",
     "set-as-cover-image": "Aseta reseptin kansikuvaksi",
-    "cover-image": "Kansikuva"
+    "cover-image": "Kansikuva",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Reseptin etsijä",
