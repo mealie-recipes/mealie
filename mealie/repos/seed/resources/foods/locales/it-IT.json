@@ -1956,7 +1956,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "nocciolo di albicocca",
-                "plural_name": "apricot kernels"
+                "plural_name": "noccioli di albicocca"
             },
             "palm seed": {
                 "aliases": [],
@@ -2015,8 +2015,8 @@
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheeses"
+                "name": "formaggio cremoso",
+                "plural_name": "formaggi cremosi"
             },
             "sharp cheddar": {
                 "aliases": [],
@@ -2063,25 +2063,25 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheeses"
+                "name": "gorgonzola",
+                "plural_name": "gorgonzola"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheeses"
+                "name": "formaggio di capra",
+                "plural_name": "formaggi di capra"
             },
             "fresh mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella",
-                "plural_name": "fresh mozzarellas"
+                "name": "mozzarella fresca",
+                "plural_name": "mozzarelle fresche"
             },
             "swiss cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swiss cheese",
+                "name": "formaggio svizzero",
                 "plural_name": "formaggi svizzeri"
             },
             "pecorino": {
@@ -2111,8 +2111,8 @@
             "american cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "american cheese",
-                "plural_name": "american cheeses"
+                "name": "formaggio americano",
+                "plural_name": "formaggi americani"
             },
             "provolone": {
                 "aliases": [],
@@ -2136,7 +2136,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brie",
-                "plural_name": "bries"
+                "plural_name": "brie"
             },
             "paneer": {
                 "aliases": [],
@@ -2160,7 +2160,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "quark",
-                "plural_name": "quarks"
+                "plural_name": "quark"
             },
             "gouda": {
                 "aliases": [],
@@ -2316,7 +2316,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "edam",
-                "plural_name": "edams"
+                "plural_name": "edam"
             },
             "creamy cheese wedge": {
                 "aliases": [],
@@ -2327,14 +2327,14 @@
             "cheese powder": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese powder",
-                "plural_name": "cheese powders"
+                "name": "formaggio in polvere",
+                "plural_name": "formaggi in polvere"
             },
             "fromage blanc": {
                 "aliases": [],
                 "description": "",
                 "name": "fromage blanc",
-                "plural_name": "fromage blancs"
+                "plural_name": "fromage blanc"
             },
             "asadero": {
                 "aliases": [],
@@ -2352,7 +2352,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "leicester",
-                "plural_name": "leicesters"
+                "plural_name": "leicester"
             },
             "kefalotyri": {
                 "aliases": [],

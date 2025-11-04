@@ -468,6 +468,11 @@ def recipes_shared_token_id(token_id):
     return f"{prefix}/recipes/shared/{token_id}"
 
 
+def recipes_shared_token_id_zip(token_id):
+    """`/api/recipes/shared/{token_id}/zip`"""
+    return f"{prefix}/recipes/shared/{token_id}/zip"
+
+
 def recipes_slug(slug):
     """`/api/recipes/{slug}`"""
     return f"{prefix}/recipes/{slug}"
@@ -491,11 +496,6 @@ def recipes_slug_duplicate(slug):
 def recipes_slug_exports(slug):
     """`/api/recipes/{slug}/exports`"""
     return f"{prefix}/recipes/{slug}/exports"
-
-
-def recipes_slug_exports_zip(slug):
-    """`/api/recipes/{slug}/exports/zip`"""
-    return f"{prefix}/recipes/{slug}/exports/zip"
 
 
 def recipes_slug_image(slug):
