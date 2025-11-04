@@ -112,9 +112,16 @@ export function useShoppingListItemActions(shoppingListId: string) {
 
   async function getList() {
     const response = await api.shopping.lists.getOne(shoppingListId);
-    if (!isOnline.value && response.data) {
+    if (response.data) {
+      // Merge pending local changes (both online and offline)
       const createAndUpdateQueues = mergeListItemsByLatest(queue.update, queue.create);
-      response.data.listItems = mergeListItemsByLatest(response.data.listItems ?? [], createAndUpdateQueues);
+      const deleteQueueIds = new Set(queue.delete.map(item => item.id));
+
+      const filteredLocalChanges = createAndUpdateQueues.filter(item => !deleteQueueIds.has(item.id));
+      let mergedItems = mergeListItemsByLatest(response.data.listItems ?? [], filteredLocalChanges);
+      mergedItems = mergedItems.filter(item => !deleteQueueIds.has(item.id));
+
+      response.data.listItems = mergedItems;
     }
     return response.data;
   }
