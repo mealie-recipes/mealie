@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Попытка разделить параграф с помощью шаблонов '1)' или '1.'",
     "import-by-url": "Импортировать рецепт по URL",
     "create-manually": "Создать рецепт вручную",
-    "make-recipe-image": "Сделать это изображением рецепта"
+    "make-recipe-image": "Сделать это изображением рецепта",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 - страница не найдена",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Рецепт удален",
     "recipe-image": "Изображение рецепта",
     "recipe-image-updated": "Изображение рецепта обновлено",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Название рецепта",
     "recipe-settings": "Настройки рецепта",
     "recipe-update-failed": "Ошибка обновления рецепта",
@@ -587,6 +592,7 @@
     "made-this": "Я приготовил это",
     "how-did-it-turn-out": "Что получилось?",
     "user-made-this": "{user} приготовил это",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Добавлено в ленту",
     "failed-to-add-to-timeline": "Не удалось добавить в ленту",
     "failed-to-update-recipe": "Не удалось обновить рецепт",
@@ -688,7 +694,10 @@
     "upload-images": "Загрузить изображения",
     "upload-more-images": "Загрузить больше изображений",
     "set-as-cover-image": "Установить как обложку рецепта",
-    "cover-image": "Обложка"
+    "cover-image": "Обложка",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Поиск рецептов",
