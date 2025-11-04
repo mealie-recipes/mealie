@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} је направљено, {url}",
         "generic-updated-with-url": "{name} је ажурирано, {url}",
         "generic-duplicated": "{name} је дуплиран",
-        "generic-deleted": "{name} је обрисан"
+        "generic-deleted": "{name} је обрисан",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "year|years",

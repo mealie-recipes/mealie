@@ -79,8 +79,8 @@
               <BaseButton
                 v-if="
                   currentMissingUnit
-                  && currentIng.ingredient.unit?.id
-                  && currentMissingUnit.toLowerCase() != currentIng.ingredient.unit?.name.toLowerCase()
+                    && currentIng.ingredient.unit?.id
+                    && currentMissingUnit.toLowerCase() != currentIng.ingredient.unit?.name.toLowerCase()
                 "
                 color="warning"
                 size="small"
@@ -99,8 +99,8 @@
               <BaseButton
                 v-if="
                   currentMissingFood
-                  && currentIng.ingredient.food?.id
-                  && currentMissingFood.toLowerCase() != currentIng.ingredient.food?.name.toLowerCase()
+                    && currentIng.ingredient.food?.id
+                    && currentMissingFood.toLowerCase() != currentIng.ingredient.food?.name.toLowerCase()
                 "
                 color="warning"
                 size="small"
@@ -176,9 +176,9 @@
           :text="$t(currentIngShouldDelete ? 'recipe.parser.delete-item' : 'general.next')"
           @click="nextIngredient"
         />
-       </div>
+      </div>
       <!-- Review -->
-       <div v-else>
+      <div v-else>
         <BaseButton
           create
           :text="$t('general.save')"
@@ -186,7 +186,7 @@
           :loading="state.loading.save"
           @click="saveIngs"
         />
-       </div>
+      </div>
     </template>
   </BaseDialog>
 </template>
@@ -523,7 +523,7 @@ function insertNewIngredient(index: number) {
     input: "",
     confidence: {},
     ingredient: {
-      quantity: 1.0,
+      quantity: 0,
       referenceId: uuid4(),
     },
   } as ParsedIngredient;

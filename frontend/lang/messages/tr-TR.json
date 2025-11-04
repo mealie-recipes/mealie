@@ -399,6 +399,10 @@
       "description-long": "Mealie, Tandoor'dan tarifleri içe aktarabilir. Verilerinizi \"Varsayılan\" biçimde dışa aktarın, ardından aşağıdaki .zip dosyasını yükleyin.",
       "title": "Tandoor Tarifleri"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Tarif Verilerini Taşı",
     "recipe-data-migrations-explanation": "Tarifler desteklenen başka bir uygulamadan Mealie'ye taşınabilir. Bu Mealie kullanmaya başlamak için mükemmel bir yöntemdir.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Başka bir uygulamadan mı yoksa Mealie'nin daha eski bir sürümünden mi geliyorsunuz? Taşıma işlemlerine göz atın ve verilerinizin içe aktarılıp aktarılamayacağını görün.",
@@ -1059,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Artık bunu görmek istemiyor musunuz? Kullanıcı ayarlarınızda e-postanızı değiştirmeyi unutmayın!",
     "forgot-password": "Şifreni mi Unuttun?",
     "forgot-password-text": "Lütfen e-posta adresinizi girin, size şifrenizi sıfırlamanız için bir bağlantı göndereceğiz.",
-    "changes-reflected-immediately": "Bu kullanıcıda yapılan değişiklikler hemen yansıtılacaktır."
+    "changes-reflected-immediately": "Bu kullanıcıda yapılan değişiklikler hemen yansıtılacaktır.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "çevirilmiş",

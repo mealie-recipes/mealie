@@ -49,7 +49,7 @@ import AdvancedOnly from "~/components/global/AdvancedOnly.vue";
 
 export default defineNuxtComponent({
   components: { AdvancedOnly },
-  middleware: ["sidebase-auth", "group-only"],
+  middleware: ["group-only"],
   setup() {
     const i18n = useI18n();
     const $auth = useMealieAuth();

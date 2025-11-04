@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} bol vytvorený, {url}",
         "generic-updated-with-url": "{name} bol aktualizovaný, {url}",
         "generic-duplicated": "{name} bol duplikovaný",
-        "generic-deleted": "{name} bol vymazaný"
+        "generic-deleted": "{name} bol vymazaný",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "rok|roky",

@@ -4,6 +4,7 @@ from uuid import UUID
 
 import orjson
 import sqlalchemy
+import sqlalchemy.exc
 from fastapi import (
     BackgroundTasks,
     Depends,
@@ -80,13 +81,25 @@ class RecipeController(BaseRecipeController):
 
         if thrownType == exceptions.PermissionDenied:
             self.logger.error("Permission Denied on recipe controller action")
-            raise HTTPException(status_code=403, detail=ErrorResponse.respond(message="Permission Denied"))
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN, detail=ErrorResponse.respond(message="Permission Denied")
+            )
         elif thrownType == exceptions.NoEntryFound:
             self.logger.error("No Entry Found on recipe controller action")
-            raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No Entry Found"))
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail=ErrorResponse.respond(message="No Entry Found")
+            )
         elif thrownType == sqlalchemy.exc.IntegrityError:
             self.logger.error("SQL Integrity Error on recipe controller action")
-            raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Recipe already exists"))
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST, detail=ErrorResponse.respond(message="Recipe already exists")
+            )
+        elif thrownType == exceptions.SlugError:
+            self.logger.error("Failed to generate a valid slug from recipe name")
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=ErrorResponse.respond(message="Unable to generate recipe slug"),
+            )
         else:
             self.logger.error("Unknown Error on recipe controller action")
             self.logger.exception(ex)

@@ -43,7 +43,8 @@
         "generic-created-with-url": "{name} tika izveidots, {url}",
         "generic-updated-with-url": "{name} tika atjaunots, {url}",
         "generic-duplicated": "{name} tika dublicēts",
-        "generic-deleted": "{name} tika dzēsts"
+        "generic-deleted": "{name} tika dzēsts",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "gads|gadi",

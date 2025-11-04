@@ -33,8 +33,8 @@ Make sure the VSCode Dev Containers extension is installed, then select "Dev Con
 ### Prerequisites
 
 - [Python 3.12](https://www.python.org/downloads/)
-- [Poetry](https://python-poetry.org/docs/#installation)
-- [Node v16.x](https://nodejs.org/en/)
+- [uv](https://docs.astral.sh/uv/)
+- [Node](https://nodejs.org/en/)
 - [yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
 - [task](https://taskfile.dev/#/installation)
 

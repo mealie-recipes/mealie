@@ -399,6 +399,10 @@
       "description-long": "Mealie pot importar les receptes de Tandoor. Exporta les dades en format \"Default\", i carrega el .zip a sota.",
       "title": "Tandoor Recipes"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migració de receptes",
     "recipe-data-migrations-explanation": "Les receptes es poden migrar des d'una altra aplicació suportada cap a Mealie. És una manera genial de començar a utilitzar el Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Véns d'una altra aplicació o una versió més antiga de Mealia? Fés un cop d'ull a migracions i mira si pots importar les teves dades.",
@@ -1059,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "No vols tornar a veure això? Assegura't de canviar el teu correu electrònic a les configuracions del teu usuari!",
     "forgot-password": "Contrasenya oblidada",
     "forgot-password-text": "Introdueix siusplau la teva adreça de correu electrònic i t'enviarem un enllaç per restablir la teva contrassenya.",
-    "changes-reflected-immediately": "Els canvis en aquest usuari s'actualitzaran immediatament."
+    "changes-reflected-immediately": "Els canvis en aquest usuari s'actualitzaran immediatament.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "traduït",

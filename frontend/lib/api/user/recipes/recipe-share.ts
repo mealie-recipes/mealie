@@ -6,9 +6,14 @@ const prefix = "/api";
 const routes = {
   shareToken: `${prefix}/shared/recipes`,
   shareTokenId: (id: string) => `${prefix}/shared/recipes/${id}`,
+  shareTokenIdZip: (id: string) => `${prefix}/recipes/shared/${id}/zip`,
 };
 
 export class RecipeShareApi extends BaseCRUDAPI<RecipeShareTokenCreate, RecipeShareToken> {
   baseRoute: string = routes.shareToken;
   itemRoute = routes.shareTokenId;
+
+  getZipRedirectUrl(tokenId: string) {
+    return routes.shareTokenIdZip(tokenId);
+  }
 }

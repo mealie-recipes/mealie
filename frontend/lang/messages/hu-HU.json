@@ -399,6 +399,10 @@
       "description-long": "Mealie képes recepteket importálni a Tandoorból. Exportálja adatait az \"Alapértelmezett\" formátumban, majd töltse fel a .zip fájlt lentebb.",
       "title": "Tandoor receptek"
     },
+    "cookn": {
+      "description-long": "Mealie képes importálni a DVO Cook'n X3 receptjeit. Exportáljon egy szakácskönyvet vagy menüt „Cook'n” formátumban, nevezze át az exportált fájl kiterjesztését .zip-re, majd töltse fel az alábbi .zip fájlt.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Receptadatok migrációja",
     "recipe-data-migrations-explanation": "A receptek átemelhetők más támogatott alkalmazásból Mealie-be. Ez egy remek módja a Mealie használatának elkezdésére.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "A Mealie egy másik verzióját használtad vagy valami teljesen más applikációt? Nézd meg az adat importálási lehetőségeinket.",
@@ -676,7 +680,7 @@
       "ingredient-parser-description": "Sikeresen feldolgoztuk a hozzávalókat. Kérljük, nézze át azokat, amelyekben nem vagyunk teljesen biztosak.",
       "ingredient-parser-final-review-description": "Miután az összes hozzávalót átnézte, még egyszer átnézheti az összes hozzávalót, mielőtt a változtatásokat átvezeti a receptbe.",
       "add-text-as-alias-for-item": "Adja hozzá a „{text}” nevet {item} aliasaként",
-      "delete-item": "Delete Item"
+      "delete-item": "Elem törlése"
     },
     "reset-servings-count": "Adagok számának visszaállítása",
     "not-linked-ingredients": "Kiegészítő hozzávalók",
@@ -1059,7 +1063,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Nem akarja ezt többé látni? Mindenképpen változtassa meg az e-mail címét a felhasználói beállítások között!",
     "forgot-password": "Elfelejtett jelszó",
     "forgot-password-text": "Írja be e-mail címét és mi küldünk egy linket a jelszó visszaállításához.",
-    "changes-reflected-immediately": "Ehhez a felhasználóhoz tartozó változtatások azonnal megjelennek."
+    "changes-reflected-immediately": "Ehhez a felhasználóhoz tartozó változtatások azonnal megjelennek.",
+    "default-activity": "Alapértelmezett tevékenység",
+    "default-activity-hint": "Válassza ki, melyik oldalra szeretne navigálni, amikor bejelentkezik erről az eszközről"
   },
   "language-dialog": {
     "translated": "lefordítva",
@@ -1273,7 +1279,7 @@
       "action-clean-temporary-files-description": "Minden fájl és mappa eltávolítása a .temp könyvtárból",
       "action-clean-images-name": "Képek tisztítása",
       "action-clean-images-description": "Minden nem .webp kiterjesztésű kép eltávolítása",
-      "actions-description": "A karbantartási műveletek {destructive_in_bold} és óvatosan használandók. Ezen műveletek bármelyikének végrehajtása {irreversible_in_bold}.",
+      "actions-description": "A karbantartási műveletek {destructive_in_bold} jellegűek, ezért óvatosan kell alkalmazni őket. Ezen műveletek végrehajtása {irreversible_in_bold}.",
       "actions-description-destructive": "romboló",
       "actions-description-irreversible": "visszafordíthatatlan",
       "logs-action-refresh": "Logok frissítése",

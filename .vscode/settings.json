@@ -55,12 +55,15 @@
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
     "package.json": "package-lock.json, yarn.lock, .eslintrc.js, tsconfig.json, .prettierrc, .editorconfig",
-    "pyproject.toml": "poetry.lock, alembic.ini, .pylintrc",
+    "pyproject.toml": "uv.lock, alembic.ini, .pylintrc",
     "netlify.toml": "runtime.txt",
     "README.md": "LICENSE, SECURITY.md"
   },
+  "[typescript]": {
+    "editor.formatOnSave": true
+  },
   "[vue]": {
-    "editor.formatOnSave": false
+    "editor.formatOnSave": true
   },
   "[python]": {
     "editor.formatOnSave": true,

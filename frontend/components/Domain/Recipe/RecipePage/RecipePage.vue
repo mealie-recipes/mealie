@@ -113,9 +113,13 @@
           />
           <v-divider />
         </v-col>
-        <v-col class="overflow-y-auto"
-        :class="$vuetify.display.smAndDown ? 'py-2': 'py-6'"
-        style="height: 100%" cols="12" sm="7">
+        <v-col
+          class="overflow-y-auto"
+          :class="$vuetify.display.smAndDown ? 'py-2': 'py-6'"
+          style="height: 100%"
+          cols="12"
+          sm="7"
+        >
           <h2 class="text-h5 px-4 font-weight-medium opacity-80">
             {{ $t('recipe.instructions') }}
           </h2>
