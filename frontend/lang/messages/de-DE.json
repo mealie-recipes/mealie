@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Absätze nach dem Schema '1)' oder '1.' aufzuteilen versuchen",
     "import-by-url": "Ein Rezept von einer Webseite importieren",
     "create-manually": "Ein Rezept manuell erstellen",
-    "make-recipe-image": "Als Rezept-Titelbild verwenden"
+    "make-recipe-image": "Als Rezept-Titelbild verwenden",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Seite nicht gefunden",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Rezept entfernt",
     "recipe-image": "Rezeptbild",
     "recipe-image-updated": "Rezeptbild aktualisiert",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Rezeptname",
     "recipe-settings": "Rezepteinstellungen",
     "recipe-update-failed": "Aktualisieren des Rezepts fehlgeschlagen",
@@ -587,6 +592,7 @@
     "made-this": "Ich hab's gemacht",
     "how-did-it-turn-out": "Wie ist es geworden?",
     "user-made-this": "{user} hat's gemacht",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Zur Zeitleiste hinzugefügt",
     "failed-to-add-to-timeline": "Fehler beim Hinzufügen zur Zeitleiste",
     "failed-to-update-recipe": "Fehler beim Aktualisieren des Rezepts",
@@ -688,7 +694,10 @@
     "upload-images": "Bilder hochladen",
     "upload-more-images": "Weitere Bilder hochladen",
     "set-as-cover-image": "Als Rezept-Titelbild setzen",
-    "cover-image": "Titelbild"
+    "cover-image": "Titelbild",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Rezept-Suche",
