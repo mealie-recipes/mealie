@@ -418,6 +418,17 @@ class RecipeService(RecipeServiceBase):
 
         return self.group_recipes.update_image(slug, extension)
 
+    def delete_recipe_image(self, slug: str) -> None:
+        recipe = self.get_one(slug)
+        if not self.can_update(recipe):
+            raise exceptions.PermissionDenied("You do not have permission to edit this recipe.")
+
+        data_service = RecipeDataService(recipe.id)
+        data_service.delete_image()
+
+        self.group_recipes.delete_image(slug)
+        return None
+
     def patch_one(self, slug_or_id: str | UUID, patch_data: Recipe) -> Recipe:
         recipe: Recipe = self._pre_update_check(slug_or_id, patch_data)
 

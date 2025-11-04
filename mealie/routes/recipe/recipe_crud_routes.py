@@ -46,7 +46,7 @@ from mealie.schema.recipe.request_helpers import (
 )
 from mealie.schema.response import PaginationBase, PaginationQuery
 from mealie.schema.response.pagination import RecipeSearchQuery
-from mealie.schema.response.responses import ErrorResponse
+from mealie.schema.response.responses import ErrorResponse, SuccessResponse
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import (
     EventOperation,
@@ -539,6 +539,15 @@ class RecipeController(BaseRecipeController):
         try:
             new_version = self.service.update_recipe_image(slug, image, extension)
             return UpdateImageResponse(image=new_version)
+        except Exception as e:
+            self.handle_exceptions(e)
+            return None
+
+    @router.delete("/{slug}/image", tags=["Recipe: Images and Assets"])
+    def delete_recipe_image(self, slug: str):
+        try:
+            self.service.delete_recipe_image(slug)
+            return SuccessResponse.respond(message=self.t("recipe.recipe-image-deleted"))
         except Exception as e:
             self.handle_exceptions(e)
             return None

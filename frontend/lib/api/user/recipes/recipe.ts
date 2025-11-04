@@ -138,6 +138,10 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return this.requests.post<UpdateImageResponse>(routes.recipesRecipeSlugImage(slug), { url });
   }
 
+  deleteImage(slug: string) {
+    return this.requests.delete<string>(routes.recipesRecipeSlugImage(slug));
+  }
+
   async testCreateOneUrl(url: string, useOpenAI = false) {
     return await this.requests.post<Recipe | null>(routes.recipesTestScrapeUrl, { url, useOpenAI });
   }
