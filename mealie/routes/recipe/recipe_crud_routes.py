@@ -547,7 +547,7 @@ class RecipeController(BaseRecipeController):
     def delete_recipe_image(self, slug: str):
         try:
             self.service.delete_recipe_image(slug)
-            return SuccessResponse.respond(message="Recipe image deleted")
+            return SuccessResponse.respond(message=self.t("recipe.recipe-image-deleted"))
         except Exception as e:
             self.handle_exceptions(e)
             return None
