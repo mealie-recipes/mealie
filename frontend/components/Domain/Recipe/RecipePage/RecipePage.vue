@@ -290,8 +290,10 @@ watch(isParsing, () => {
  */
 
 async function saveRecipe() {
-  const { data } = await api.recipes.updateOne(recipe.value.slug, recipe.value);
-  setMode(PageMode.VIEW);
+  const { data, error } = await api.recipes.updateOne(recipe.value.slug, recipe.value);
+  if (!error) {
+    setMode(PageMode.VIEW);
+  }
   if (data?.slug) {
     router.push(`/g/${groupSlug.value}/r/` + data.slug);
   }

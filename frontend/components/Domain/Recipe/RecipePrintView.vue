@@ -284,7 +284,7 @@ const ingredientSections = computed<IngredientSection[]>(() => {
         addIngredientsToSections(
           ingredient.referencedRecipe.recipeIngredient,
           sections,
-          ingredient.referencedRecipe.name,
+          "",
         );
       }
       else {
