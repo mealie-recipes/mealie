@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Intenta separar per paràgrafs, utilitzant com a patró '1)' o '1.'",
     "import-by-url": "Importa per URL",
     "create-manually": "Crea una recepta manualment",
-    "make-recipe-image": "Fes-la la imatge de la recepta"
+    "make-recipe-image": "Fes-la la imatge de la recepta",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 - Pàgina no trobada",
@@ -515,6 +517,9 @@
     "recipe-deleted": "S'ha suprimit la recepta",
     "recipe-image": "Imatge de la recepta",
     "recipe-image-updated": "S'ha actualitzat la imatge de la recepta",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Nom de la recepta",
     "recipe-settings": "Opcions de la recepta",
     "recipe-update-failed": "S'ha produït un error a l'actualitzar la recepta",
@@ -587,6 +592,7 @@
     "made-this": "Ho he fet",
     "how-did-it-turn-out": "Com ha sortit?",
     "user-made-this": "{user} ha fet això",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Added to timeline",
     "failed-to-add-to-timeline": "Failed to add to timeline",
     "failed-to-update-recipe": "Failed to update recipe",
@@ -688,7 +694,10 @@
     "upload-images": "Upload images",
     "upload-more-images": "Upload more images",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "Cover image",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Cercador de receptes",

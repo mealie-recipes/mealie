@@ -176,36 +176,6 @@ def validate_file_token(token: str | None = None) -> Path:
     return file_path
 
 
-def validate_recipe_token(token: str | None = None) -> str:
-    """
-    Args:
-        token (Optional[str], optional): _description_. Defaults to None.
-
-    Raises:
-        HTTPException: 400 Bad Request when no token or the recipe doesn't exist
-        HTTPException: 401 PyJWTError when token is invalid
-
-    Returns:
-        str: token data
-    """
-    if not token:
-        raise HTTPException(status.HTTP_400_BAD_REQUEST)
-
-    try:
-        payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
-        slug: str | None = payload.get("slug")
-    except PyJWTError as e:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="could not validate file token",
-        ) from e
-
-    if slug is None:
-        raise HTTPException(status.HTTP_400_BAD_REQUEST)
-
-    return slug
-
-
 @contextmanager
 def get_temporary_zip_path(auto_unlink=True) -> Generator[Path, None, None]:
     app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)

@@ -139,7 +139,7 @@
                         color="secondary"
                         density="compact"
                       />
-                      <div :key="`${ingredientData.ingredient.quantity || 'no-qty'}-${i}`" class="pa-auto my-auto">
+                      <div :key="`${ingredientData.ingredient?.quantity || 'no-qty'}-${i}`" class="pa-auto my-auto">
                         <RecipeIngredientListItem
                           :ingredient="ingredientData.ingredient"
                           :scale="recipeSection.recipeScale"
@@ -287,12 +287,35 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
       continue;
     }
 
-    const shoppingListIngredients: ShoppingListIngredient[] = recipe.recipeIngredient.map((ing) => {
-      const householdsWithFood = (ing.food?.householdsWithIngredientFood || []);
-      return {
-        checked: !householdsWithFood.includes(userHousehold.value),
-        ingredient: ing,
-      };
+    const shoppingListIngredients: ShoppingListIngredient[] = [];
+    function flattenRecipeIngredients(ing: RecipeIngredient, parentTitle = ""): ShoppingListIngredient[] {
+      const householdsWithFood = ing.food?.householdsWithIngredientFood || [];
+      if (ing.referencedRecipe) {
+        // Recursively flatten all ingredients in the referenced recipe
+        return (ing.referencedRecipe.recipeIngredient ?? []).flatMap((subIng) => {
+          const calculatedQty = (ing.quantity || 1) * (subIng.quantity || 1);
+          // Pass the referenced recipe name as the section title
+          return flattenRecipeIngredients(
+            { ...subIng, quantity: calculatedQty },
+            "",
+          );
+        });
+      }
+      else {
+        // Regular ingredient
+        return [{
+          checked: !householdsWithFood.includes(userHousehold.value),
+          ingredient: {
+            ...ing,
+            title: ing.title || parentTitle,
+          },
+        }];
+      }
+    }
+
+    recipe.recipeIngredient.forEach((ing) => {
+      const flattened = flattenRecipeIngredients(ing, "");
+      shoppingListIngredients.push(...flattened);
     });
 
     let currentTitle = "";
@@ -300,6 +323,9 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
     const shoppingListIngredientSections = shoppingListIngredients.reduce((sections, ing) => {
       if (ing.ingredient.title) {
         currentTitle = ing.ingredient.title;
+      }
+      else if (ing.ingredient.referencedRecipe?.name) {
+        currentTitle = ing.ingredient.referencedRecipe.name;
       }
 
       // If this is the first item in the section, create a new section
@@ -316,7 +342,7 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
       }
 
       // Store the on-hand ingredients for later
-      const householdsWithFood = (ing.ingredient.food?.householdsWithIngredientFood || []);
+      const householdsWithFood = (ing.ingredient?.food?.householdsWithIngredientFood || []);
       if (householdsWithFood.includes(userHousehold.value)) {
         onHandIngs.push(ing);
         return sections;

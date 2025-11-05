@@ -5385,8 +5385,8 @@
             "gilt-head bream": {
                 "aliases": [],
                 "description": "",
-                "name": "gilt-head bream",
-                "plural_name": "gilt-head bream"
+                "name": "Золотоголова дорада",
+                "plural_name": "Золотоголові дорадо"
             },
             "pangasiu": {
                 "aliases": [],
@@ -5427,8 +5427,8 @@
             "korean fish cake": {
                 "aliases": [],
                 "description": "",
-                "name": "korean fish cake",
-                "plural_name": "korean fish cakes"
+                "name": "Еомук",
+                "plural_name": "Еомук"
             },
             "mullet": {
                 "aliases": [],
@@ -5439,14 +5439,14 @@
             "skipjack tuna": {
                 "aliases": [],
                 "description": "",
-                "name": "skipjack tuna",
-                "plural_name": "skipjack tuna"
+                "name": "Смугастий тунець",
+                "plural_name": "Смугастий тунець"
             },
             "bottarga": {
                 "aliases": [],
                 "description": "",
-                "name": "bottarga",
-                "plural_name": "bottargas"
+                "name": "Ботарга",
+                "plural_name": "Ботарга"
             },
             "dried baby sardine": {
                 "aliases": [],
@@ -5463,14 +5463,14 @@
             "threadfin": {
                 "aliases": [],
                 "description": "",
-                "name": "threadfin",
-                "plural_name": "threadfins"
+                "name": "Ниткопер",
+                "plural_name": "Ниткопер"
             },
             "tiny fish": {
                 "aliases": [],
                 "description": "",
-                "name": "tiny fish",
-                "plural_name": "tiny fish"
+                "name": "Дрібна рибка",
+                "plural_name": "Дрібні рибки"
             },
             "tuna belly": {
                 "aliases": [],
@@ -5481,14 +5481,14 @@
             "beluga caviar": {
                 "aliases": [],
                 "description": "",
-                "name": "beluga caviar",
-                "plural_name": "beluga caviars"
+                "name": "Ікра білуги",
+                "plural_name": "Ікри білуги"
             },
             "bombay duck": {
                 "aliases": [],
                 "description": "",
-                "name": "bombay duck",
-                "plural_name": "bombay ducks"
+                "name": "Бомбейська качка",
+                "plural_name": "Бомбейські качки"
             }
         }
     },
@@ -5539,104 +5539,104 @@
             "squid": {
                 "aliases": [],
                 "description": "",
-                "name": "squid",
-                "plural_name": "squids"
+                "name": "Кальмар",
+                "plural_name": "Кальмари"
             },
             "nori": {
                 "aliases": [],
                 "description": "",
-                "name": "nori",
-                "plural_name": "noris"
+                "name": "Норі",
+                "plural_name": "Норі"
             },
             "lobster": {
                 "aliases": [],
                 "description": "",
-                "name": "lobster",
-                "plural_name": "lobsters"
+                "name": "Лобстер",
+                "plural_name": "Лобстери"
             },
             "oyster": {
                 "aliases": [],
                 "description": "",
-                "name": "oyster",
-                "plural_name": "oysters"
+                "name": "Устриця",
+                "plural_name": "Устриці"
             },
             "lobster tail": {
                 "aliases": [],
                 "description": "",
-                "name": "lobster tail",
-                "plural_name": "lobster tails"
+                "name": "Хвіст лобстера",
+                "plural_name": "Хвіст лобстера"
             },
             "crawfish": {
                 "aliases": [],
                 "description": "",
-                "name": "crawfish",
-                "plural_name": "crawfish"
+                "name": "Річковий рак",
+                "plural_name": "Річкові раки"
             },
             "octopu": {
                 "aliases": [],
                 "description": "",
-                "name": "octopu",
-                "plural_name": "octopus"
+                "name": "Восьминіг",
+                "plural_name": "Восьминоги"
             },
             "kombu": {
                 "aliases": [],
                 "description": "",
-                "name": "kombu",
-                "plural_name": "kombus"
+                "name": "Комбу",
+                "plural_name": "Комбу"
             },
             "dried shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "dried shrimp",
-                "plural_name": "dried shrimps"
+                "name": "Сушена креветка",
+                "plural_name": "Сушені креветки"
             },
             "bay scallop": {
                 "aliases": [],
                 "description": "",
-                "name": "bay scallop",
-                "plural_name": "bay scallops"
+                "name": "Морський гребінець",
+                "plural_name": "Морські гребінеці"
             },
             "wakame": {
                 "aliases": [],
                 "description": "",
-                "name": "wakame",
-                "plural_name": "wakames"
+                "name": "Вакаме",
+                "plural_name": "Вакаме"
             },
             "soft-shell crab": {
                 "aliases": [],
                 "description": "",
-                "name": "soft-shell crab",
-                "plural_name": "soft-shell crabs"
+                "name": "Краб із м'яким панциром",
+                "plural_name": "Краби із м'яким панциром"
             },
             "scampi": {
                 "aliases": [],
                 "description": "",
-                "name": "scampi",
-                "plural_name": "scampis"
+                "name": "Лангустин",
+                "plural_name": "Лангустини"
             },
             "king crab": {
                 "aliases": [],
                 "description": "",
-                "name": "king crab",
-                "plural_name": "king crabs"
+                "name": "Королівський краб",
+                "plural_name": "Королівський краб"
             },
             "mixed seafood": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed seafood",
-                "plural_name": "mixed seafoods"
+                "name": "Мікс морепродуктів",
+                "plural_name": "Мікси морепродуктів"
             },
             "baby squid": {
                 "aliases": [],
                 "description": "",
-                "name": "baby squid",
-                "plural_name": "baby squids"
+                "name": "Молодий кальмар",
+                "plural_name": "Молоді кальмари"
             },
             "squid ink": {
                 "aliases": [],
                 "description": "",
-                "name": "squid ink",
-                "plural_name": "squid inks"
+                "name": "Чорнила кальмара",
+                "plural_name": "Чорнил кальмара"
             },
             "dried prawn": {
                 "aliases": [],

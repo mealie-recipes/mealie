@@ -419,8 +419,8 @@
             "corn cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn cob",
-                "plural_name": "corn cobs"
+                "name": "maiskolbe",
+                "plural_name": "maiskolber"
             },
             "radicchio": {
                 "aliases": [],
@@ -431,7 +431,7 @@
             "pearl onion": {
                 "aliases": [],
                 "description": "",
-                "name": "pearl onion",
+                "name": "perleløk",
                 "plural_name": "pearl onions"
             },
             "tenderstem broccoli": {
@@ -449,8 +449,8 @@
             "leaf lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "leaf lettuce",
-                "plural_name": "leaf lettuces"
+                "name": "bladsalat",
+                "plural_name": "bladsalater"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -559,7 +559,7 @@
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
-                "name": "kohlrabi",
+                "name": "kålrabi",
                 "plural_name": "kohlrabis"
             },
             "fresno chile": {
@@ -577,8 +577,8 @@
             "frisee": {
                 "aliases": [],
                 "description": "",
-                "name": "frisee",
-                "plural_name": "frisees"
+                "name": "friséesalat",
+                "plural_name": "friséesalat"
             },
             "anaheim pepper": {
                 "aliases": [],
@@ -1245,8 +1245,8 @@
             "shiitake mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shiitake mushroom",
-                "plural_name": "shiitake mushrooms"
+                "name": "shiitakesopp",
+                "plural_name": "shiitakesopp"
             },
             "portobello mushroom": {
                 "aliases": [],

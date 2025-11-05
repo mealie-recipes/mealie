@@ -130,9 +130,8 @@
       <v-col cols="auto">
         <div class="text-caption font-weight-light font-italic">
           {{ $t("shopping-list.completed-on", {
-            date: new Date(listItem.updatedAt
-              || "").toLocaleDateString($i18n.locale) })
-          }}
+            date: listItem.updatedAt ? $d(new Date(listItem.updatedAt)) : '',
+          }) }}
         </div>
       </v-col>
     </v-row>

@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Pokusí se rozdělit odstavec na místech odpovídajících vzorům '1)' a '1.'",
     "import-by-url": "Importovat recept podle URL",
     "create-manually": "Vytvořit recept ručně",
-    "make-recipe-image": "Nastavit jako obrázek receptu"
+    "make-recipe-image": "Nastavit jako obrázek receptu",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Stránka nebyla nalezena",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Recept smazán",
     "recipe-image": "Obrázek receptu",
     "recipe-image-updated": "Obrázek receptu aktualizován",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Název receptu",
     "recipe-settings": "Nastavení receptu",
     "recipe-update-failed": "Aktualizace receptu se nezdařila",
@@ -587,6 +592,7 @@
     "made-this": "Toto jsem uvařil",
     "how-did-it-turn-out": "Jak to dopadlo?",
     "user-made-this": "{user} udělal toto",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Přidáno na časovou osu",
     "failed-to-add-to-timeline": "Přidání na časovou osu selhalo",
     "failed-to-update-recipe": "Aktualizace receptu selhala",
@@ -688,7 +694,10 @@
     "upload-images": "Nahrát obrázky",
     "upload-more-images": "Nahrát více obrázků",
     "set-as-cover-image": "Nastavit recept jako úvodní obrázek",
-    "cover-image": "Úvodní obrázek"
+    "cover-image": "Úvodní obrázek",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Vyhledávač receptů",
