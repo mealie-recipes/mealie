@@ -123,6 +123,7 @@
               :image="recipe.image!"
               :tags="recipe.tags!"
               :recipe-id="recipe.id!"
+              @delete="onRecipeDeleted"
             />
           </v-col>
         </v-row>
@@ -147,6 +148,7 @@
               :image="recipe.image!"
               :tags="recipe.tags!"
               :recipe-id="recipe.id!"
+              @delete="onRecipeDeleted"
             />
           </v-col>
         </v-row>
@@ -411,6 +413,11 @@ async function navigateRandom() {
 
 function toggleMobileCards() {
   preferences.value.useMobileCards = !preferences.value.useMobileCards;
+}
+
+function onRecipeDeleted(slug: string) {
+  const filtered = props.recipes.filter(r => r.slug !== slug);
+  emit(REPLACE_RECIPES_EVENT, filtered);
 }
 </script>
 

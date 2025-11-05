@@ -299,8 +299,25 @@ const defaultItems: { [key: string]: ContextMenuItem } = {
   },
 };
 
-// Add leading and Appending Items
-menuItems.value = [...menuItems.value, ...props.leadingItems, ...props.appendItems];
+function buildMenuItems() {
+  // reset
+  menuItems.value = [];
+  // Add leading and Appending Items
+  menuItems.value = [...menuItems.value, ...props.leadingItems, ...props.appendItems];
+
+  // Get Default Menu Items Specified in Props
+  for (const [key, value] of Object.entries(props.useItems)) {
+    if (!value) continue;
+
+    // Skip delete if not allowed
+    if (key === "delete" && !canDelete.value) continue;
+
+    const item = (defaultItems as any)[key];
+    if (item && (item.isPublic || isOwnGroup.value)) {
+      menuItems.value.push(item);
+    }
+  }
+}
 
 // ===========================================================================
 // Context Menu Event Handler
@@ -322,18 +339,16 @@ const canDelete = computed(() => {
   return user && recipe && (user.admin || user.id === recipe.userId);
 });
 
-// Get Default Menu Items Specified in Props
-for (const [key, value] of Object.entries(props.useItems)) {
-  if (!value) continue;
-
-  // Skip delete if not allowed
-  if (key === "delete" && !canDelete.value) continue;
-
-  const item = defaultItems[key];
-  if (item && (item.isPublic || isOwnGroup.value)) {
-    menuItems.value.push(item);
+onMounted(async () => {
+  if (!recipeRef.value) {
+    await refreshRecipe();
   }
-}
+  buildMenuItems();
+});
+
+watch([() => recipeRef.value?.userId, isOwnGroup], () => {
+  buildMenuItems();
+});
 
 async function getShoppingLists() {
   const { data } = await api.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
