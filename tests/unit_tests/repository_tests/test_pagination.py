@@ -133,8 +133,8 @@ def test_pagination_response_and_metadata(unique_user: TestUser):
 
 def test_pagination_total_calculation(unique_user: TestUser):
     db = unique_user.repos
-    unique_category_1, unique_category_2, shared_category = (
-        db.categories.create(CategorySave(group_id=unique_user.group_id, name=random_string(10))) for _ in range(3)
+    unique_category_1, unique_category_2, shared_category, unused_category = (
+        db.categories.create(CategorySave(group_id=unique_user.group_id, name=random_string(10))) for _ in range(4)
     )
     recipe_1, recipe_2 = (
         db.recipes.create(Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string()))
@@ -146,14 +146,13 @@ def test_pagination_total_calculation(unique_user: TestUser):
     db.recipes.update(recipe_1.slug, recipe_1)
     db.recipes.update(recipe_2.slug, recipe_2)
 
-    query = PaginationQuery(page=1, per_page=64, query_filter=f"recipeCategory.name NOT IN [{shared_category.name}]")
-    result = db.recipes.page_all(query)
-
-    assert result.total == 2
-
     query = PaginationQuery(page=1, per_page=64, query_filter=f"recipeCategory.name NOT IN [{unique_category_1.name}]")
     result = db.recipes.page_all(query)
     assert result.total == 1
+
+    query = PaginationQuery(page=1, per_page=64, query_filter=f"recipeCategory.name NOT IN [{unused_category.name}]")
+    result = db.recipes.page_all(query)
+    assert result.total == 2
 
 
 def test_pagination_guides(unique_user: TestUser):
