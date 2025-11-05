@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Försök att dela ett stycke genom att matcha mönstret '1)' eller '1.'",
     "import-by-url": "Importera recept via URL",
     "create-manually": "Skapa recept manuellt",
-    "make-recipe-image": "Gör detta till receptbild"
+    "make-recipe-image": "Gör detta till receptbild",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 sidan hittades inte",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Recept raderat",
     "recipe-image": "Recept bild",
     "recipe-image-updated": "Recept bild uppdaterad",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Receptets namn",
     "recipe-settings": "Recept inställningar",
     "recipe-update-failed": "Receptet gick inte att uppdatera",
@@ -587,6 +592,7 @@
     "made-this": "Jag lagade den här",
     "how-did-it-turn-out": "Hur blev rätten?",
     "user-made-this": "{user} lagade detta",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Lagt till i tidslinjen",
     "failed-to-add-to-timeline": "Kunde inte lägga till i tidslinjen",
     "failed-to-update-recipe": "Kunde inte uppdatera receptet",
@@ -688,7 +694,10 @@
     "upload-images": "Ladda upp bilder",
     "upload-more-images": "Ladda upp fler bilder",
     "set-as-cover-image": "Använd som receptbild",
-    "cover-image": "Receptbild"
+    "cover-image": "Receptbild",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Sök recept",

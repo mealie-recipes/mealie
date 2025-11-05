@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "「1)」または「1.」に一致する段落を分割しようとします。",
     "import-by-url": "URLからレシピをインポート",
     "create-manually": "レシピを手動で作成",
-    "make-recipe-image": "これをレシピ画像にします"
+    "make-recipe-image": "これをレシピ画像にします",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 ページが見つかりません",
@@ -515,6 +517,9 @@
     "recipe-deleted": "レシピを削除しました",
     "recipe-image": "レシピの画像",
     "recipe-image-updated": "レシピ画像を更新しました",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "レシピ名",
     "recipe-settings": "レシピの設定",
     "recipe-update-failed": "レシピの更新に失敗しました",
@@ -587,6 +592,7 @@
     "made-this": "これを作りました",
     "how-did-it-turn-out": "どうなりましたか？",
     "user-made-this": "{user} がこれを作りました",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Added to timeline",
     "failed-to-add-to-timeline": "Failed to add to timeline",
     "failed-to-update-recipe": "Failed to update recipe",
@@ -688,7 +694,10 @@
     "upload-images": "Upload images",
     "upload-more-images": "Upload more images",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "Cover image",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "レシピ検索",
