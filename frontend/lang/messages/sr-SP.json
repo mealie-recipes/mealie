@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
     "import-by-url": "Увези рецепт помоћу URL везе",
     "create-manually": "Направи рецепт ручно",
-    "make-recipe-image": "Make this the recipe image"
+    "make-recipe-image": "Make this the recipe image",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Page not found",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Recipe deleted",
     "recipe-image": "Recipe Image",
     "recipe-image-updated": "Recipe image updated",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Recipe Name",
     "recipe-settings": "Recipe Settings",
     "recipe-update-failed": "Recipe update failed",
@@ -587,6 +592,7 @@
     "made-this": "I Made This",
     "how-did-it-turn-out": "How did it turn out?",
     "user-made-this": "{user} made this",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Added to timeline",
     "failed-to-add-to-timeline": "Failed to add to timeline",
     "failed-to-update-recipe": "Failed to update recipe",
@@ -688,7 +694,10 @@
     "upload-images": "Upload images",
     "upload-more-images": "Upload more images",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "Cover image",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",

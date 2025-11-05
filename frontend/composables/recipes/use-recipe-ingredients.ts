@@ -1,6 +1,6 @@
 import DOMPurify from "isomorphic-dompurify";
 import { useFraction } from "./use-fraction";
-import type { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit, Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 
 const { frac } = useFraction();
 
@@ -36,8 +36,28 @@ function useUnitName(unit: CreateIngredientUnit | IngredientUnit | undefined, us
   return returnVal;
 }
 
-export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true) {
-  const { quantity, food, unit, note, title } = ingredient;
+function useRecipeLink(recipe: Recipe | undefined, groupSlug: string | undefined): string | undefined {
+  if (!(recipe && recipe.slug && recipe.name && groupSlug)) {
+    return undefined;
+  }
+
+  return `<a href="/g/${groupSlug}/r/${recipe.slug}" target="_blank">${recipe.name}</a>`;
+}
+
+type ParsedIngredientText = {
+  quantity?: string;
+  unit?: string;
+  name?: string;
+  note?: string;
+
+  /**
+   * If the ingredient is a linked recipe, an HTML link to the referenced recipe, otherwise undefined.
+   */
+  recipeLink?: string;
+};
+
+export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true, groupSlug?: string): ParsedIngredientText {
+  const { quantity, food, unit, note, referencedRecipe } = ingredient;
   const usePluralUnit = quantity !== undefined && ((quantity || 0) * scale > 1 || (quantity || 0) * scale === 0);
   const usePluralFood = (!quantity) || quantity * scale > 1;
 
@@ -62,15 +82,16 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1,
     }
   }
 
+  // TODO: Add support for sub-recipes here?
   const unitName = useUnitName(unit || undefined, usePluralUnit);
-  const foodName = useFoodName(food || undefined, usePluralFood);
+  const ingName = referencedRecipe ? referencedRecipe.name || "" : useFoodName(food || undefined, usePluralFood);
 
   return {
-    title: title ? sanitizeIngredientHTML(title) : undefined,
     quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
     unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
-    name: foodName ? sanitizeIngredientHTML(foodName) : undefined,
+    name: ingName ? sanitizeIngredientHTML(ingName) : undefined,
     note: note ? sanitizeIngredientHTML(note) : undefined,
+    recipeLink: useRecipeLink(referencedRecipe || undefined, groupSlug),
   };
 }
 

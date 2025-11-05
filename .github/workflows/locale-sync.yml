@@ -25,24 +25,21 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
+      - name: Install uv
+        run: pip install uv
 
       - name: Load cached venv
-        id: cached-poetry-dependencies
+        id: cached-python-dependencies
         uses: actions/cache@v4
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/poetry.lock') }}
+          key: venv-${{ runner.os }}-${{ hashFiles('**/uv.lock') }}
 
       - name: Check venv cache
         id: cache-validate
-        if: steps.cached-poetry-dependencies.outputs.cache-hit == 'true'
+        if: steps.cached-python-dependencies.outputs.cache-hit == 'true'
         run: |
-          echo "import fastapi;print('venv good?')" > test.py && poetry run python test.py && echo "cache-hit-success=true" >> $GITHUB_OUTPUT
+          echo "import fastapi;print('venv good?')" > test.py && uv run python test.py && echo "cache-hit-success=true" >> $GITHUB_OUTPUT
           rm test.py
         continue-on-error: true
 
@@ -50,13 +47,13 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install libsasl2-dev libldap2-dev libssl-dev
-          poetry install
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+          uv sync --group dev
+        if: steps.cached-python-dependencies.outputs.cache-hit != 'true'
 
       - name: Run locale generation
         run: |
           cd dev/code-generation
-          poetry run python main.py locales
+          uv run python main.py locales
         env:
           CROWDIN_API_KEY: ${{ secrets.CROWDIN_API_KEY }}
 

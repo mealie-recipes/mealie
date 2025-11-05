@@ -5,6 +5,7 @@
     "recipe": {
         "unique-name-error": "שמות מתכונים חייבים להיות ייחודיים",
         "recipe-created": "מתכון נוצר",
+        "recipe-image-deleted": "Recipe image deleted",
         "recipe-defaults": {
             "ingredient-note": "כוס קמח",
             "step-text": "שלבי המתכון, כמו גם שדות אחרים בעמוד המתכון, תומכים בתחביר markdown.\n\n**הוספת קישור**\n\n[הקישור שלי](https://demo.mealie.io)\n"
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "אין לך הרשאות לביצוע פעולה זו",
+        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "המשאב המבוקש לא נמצא",
         "integrity-error": "שגיאת שלמות מסד נתונים",
         "username-conflict-error": "שם המשתמש הזה כבר נמצא בשימוש",
