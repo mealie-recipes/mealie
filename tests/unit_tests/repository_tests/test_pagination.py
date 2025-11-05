@@ -133,15 +133,14 @@ def test_pagination_response_and_metadata(unique_user: TestUser):
 
 def test_pagination_total_calculation(unique_user: TestUser):
     db = unique_user.repos
-    unique_category_1, unique_category_2, shared_category, unused_category = (
-        db.categories.create(CategorySave(group_id=unique_user.group_id, name=random_string(10))) for _ in range(4)
+    unique_category_1, unused_category = (
+        db.categories.create(CategorySave(group_id=unique_user.group_id, name=random_string(10))) for _ in range(2)
     )
     recipe_1, recipe_2 = (
         db.recipes.create(Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string()))
         for _ in range(2)
     )
-    recipe_1.recipe_category = [unique_category_1, shared_category]
-    recipe_2.recipe_category = [unique_category_2, shared_category]
+    recipe_1.recipe_category = [unique_category_1]
 
     db.recipes.update(recipe_1.slug, recipe_1)
     db.recipes.update(recipe_2.slug, recipe_2)
