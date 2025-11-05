@@ -449,8 +449,8 @@
     "import-by-url": "Hlaða inn uppskrift frá slóð",
     "create-manually": "Skrifa nýja uppskrift",
     "make-recipe-image": "Gera þessa að uppskriftar myndinni",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Bæta við matvöru",
+    "add-recipe": "Bæta við uppskrift"
   },
   "page": {
     "404-page-not-found": "404 síðan fannst ekki",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Uppskrift eytt",
     "recipe-image": "Mynd af uppskrift",
     "recipe-image-updated": "Mynd af uppskrift uppfærð",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Eyða mynd af uppskrift",
+    "delete-image-confirmation": "Ertu viss um að þú viljir eyða myndinni úr uppskriftinni?",
+    "recipe-image-deleted": "Mynd af uppskrift eytt",
     "recipe-name": "Nafn uppskriftar",
     "recipe-settings": "Stillingar uppskriftar",
     "recipe-update-failed": "Mistókst að uppfæra uppskrift",
