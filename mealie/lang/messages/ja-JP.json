@@ -5,6 +5,7 @@
     "recipe": {
         "unique-name-error": "レシピ名が重複しています",
         "recipe-created": "レシピが作成されました",
+        "recipe-image-deleted": "Recipe image deleted",
         "recipe-defaults": {
             "ingredient-note": "小麦粉1カップ",
             "step-text": "レシピの手順など、レシピページはmarkdown構文に対応しています\n\n例）\n[ミーリー](https://demo.mealie.io)\n"
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "この操作を実行する権限がありません",
+        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "リクエストされた情報は見つかりませんでした",
         "integrity-error": "データベースの整合性エラー",
         "username-conflict-error": "この ユーザー名はすでに使用されています。",

@@ -1745,8 +1745,8 @@
             "pine nut": {
                 "aliases": [],
                 "description": "",
-                "name": "pine nut",
-                "plural_name": "pine nuts"
+                "name": "piñón",
+                "plural_name": "piñones"
             },
             "pistachio": {
                 "aliases": [],
@@ -1865,8 +1865,8 @@
             "honey-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted peanut",
-                "plural_name": "honey-roasted peanuts"
+                "name": "cacahuete frito con miel",
+                "plural_name": "cacahuetes fritos con miel"
             },
             "melon seed": {
                 "aliases": [],
@@ -2267,7 +2267,7 @@
             "soft cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "soft cheese",
+                "name": "queso tierno",
                 "plural_name": "soft cheeses"
             },
             "stilton": {
@@ -2315,7 +2315,7 @@
             "edam": {
                 "aliases": [],
                 "description": "",
-                "name": "edam",
+                "name": "queso edam",
                 "plural_name": "edams"
             },
             "creamy cheese wedge": {
@@ -2993,7 +2993,7 @@
             "goat yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "goat yogurt",
+                "name": "yogur de cabra",
                 "plural_name": "goat yogurts"
             },
             "dahi": {
@@ -3023,7 +3023,7 @@
             "chocolate milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk powder",
+                "name": "polvos de chocoloate con leche",
                 "plural_name": "chocolate milk powders"
             },
             "liquid rennet": {
@@ -3077,7 +3077,7 @@
             "sheep milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep milk",
+                "name": "leche de oveja",
                 "plural_name": "sheep milks"
             },
             "starter culture": {
@@ -3141,7 +3141,7 @@
             "almond milk": {
                 "aliases": [],
                 "description": "",
-                "name": "almond milk",
+                "name": "leche de almendra",
                 "plural_name": "almond milks"
             },
             "almond butter": {
@@ -3159,7 +3159,7 @@
             "coconut cream": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut cream",
+                "name": "crema de coco",
                 "plural_name": "coconut creams"
             },
             "vegan butter": {
@@ -3177,7 +3177,7 @@
             "soy milk": {
                 "aliases": [],
                 "description": "",
-                "name": "soy milk",
+                "name": "leche de soja",
                 "plural_name": "soy milks"
             },
             "extra firm tofu": {
@@ -3201,7 +3201,7 @@
             "coconut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut butter",
+                "name": "pasta de coco",
                 "plural_name": "coconut butter"
             },
             "egg replacer": {
@@ -3213,7 +3213,7 @@
             "vegan mayonnaise": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan mayonnaise",
+                "name": "mayonesa vegana",
                 "plural_name": "vegan mayonnaises"
             },
             "vegan cheese": {
@@ -3770,7 +3770,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pork chop",
-                "plural_name": "pork chops"
+                "plural_name": "chuletas de cerdo"
             },
             "sweet italian sausage": {
                 "aliases": [],
@@ -3800,7 +3800,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "beef roast",
-                "plural_name": "beef roasts"
+                "plural_name": "asados de carne de vacuno"
             },
             "ground pork": {
                 "aliases": [],
@@ -3812,7 +3812,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "beef stew meat",
-                "plural_name": "beef stew meats"
+                "plural_name": "carnes de vacuno estofadas"
             },
             "pepperoni": {
                 "aliases": [],
@@ -3830,7 +3830,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pancetta",
-                "plural_name": "pancettas"
+                "plural_name": "panceta"
             },
             "pork fillet": {
                 "aliases": [],
@@ -3853,13 +3853,13 @@
             "pork rib": {
                 "aliases": [],
                 "description": "",
-                "name": "pork rib",
+                "name": "costilla de cerdo",
                 "plural_name": "pork ribs"
             },
             "smoked sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked sausage",
+                "name": "salchicha ahumada",
                 "plural_name": "smoked sausages"
             },
             "breakfast sausage": {
@@ -3871,8 +3871,8 @@
             "hot dog": {
                 "aliases": [],
                 "description": "",
-                "name": "hot dog",
-                "plural_name": "hot dogs"
+                "name": "frankfurt",
+                "plural_name": "frankfurts"
             },
             "beef sirloin": {
                 "aliases": [],
@@ -4280,7 +4280,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fresh sausage",
-                "plural_name": "fresh sausages"
+                "plural_name": "salchichas frescas"
             },
             "bologna": {
                 "aliases": [],
@@ -4349,14 +4349,14 @@
             "chicken breast": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken breast",
-                "plural_name": "chicken breasts"
+                "name": "pechuga de pollo",
+                "plural_name": "pechuga de pollo"
             },
             "chicken thigh": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken thigh",
-                "plural_name": "chicken thighs"
+                "name": "muslo de pollo",
+                "plural_name": "muslos del pollo"
             },
             "cooked chicken": {
                 "aliases": [],
@@ -4379,8 +4379,8 @@
             "whole turkey": {
                 "aliases": [],
                 "description": "",
-                "name": "whole turkey",
-                "plural_name": "whole turkeys"
+                "name": "pavo entero",
+                "plural_name": "pavos enteros"
             },
             "chicken leg": {
                 "aliases": [],
@@ -4391,14 +4391,14 @@
             "chicken wing": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken wing",
-                "plural_name": "chicken wings"
+                "name": "alita de pollo",
+                "plural_name": "alitas de pollo"
             },
             "turkey breast": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey breast",
-                "plural_name": "turkey breasts"
+                "name": "pechuga de pavo",
+                "plural_name": "pechuga de pavo"
             },
             "ground chicken": {
                 "aliases": [],
@@ -4439,8 +4439,8 @@
             "duck": {
                 "aliases": [],
                 "description": "",
-                "name": "duck",
-                "plural_name": "ducks"
+                "name": "pato",
+                "plural_name": "patos"
             },
             "duck breast": {
                 "aliases": [],
@@ -4487,8 +4487,8 @@
             "chicken quarter": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken quarter",
-                "plural_name": "chicken quarters"
+                "name": "cuarto trasero de pollo",
+                "plural_name": "cuartos trasero de pollo"
             },
             "ground turkey sausage": {
                 "aliases": [],
@@ -5855,7 +5855,7 @@
             "garlic powder": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic powder",
+                "name": "sal de ajo",
                 "plural_name": "garlic powders"
             },
             "oregano": {
@@ -5915,7 +5915,7 @@
             "clove": {
                 "aliases": [],
                 "description": "",
-                "name": "clove",
+                "name": "diente de",
                 "plural_name": "cloves"
             },
             "onion powder": {
@@ -10306,7 +10306,7 @@
             "garlic bread": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic bread",
+                "name": "pan con ajo",
                 "plural_name": "garlic breads"
             },
             "yeast extract spread": {
@@ -10750,7 +10750,7 @@
             "garlic oil": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic oil",
+                "name": "aceite con sabor a ajo",
                 "plural_name": "garlic oils"
             },
             "truffle oil": {

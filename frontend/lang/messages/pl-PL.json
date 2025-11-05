@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Próbuj podzielić paragrafy poprzez dopasowanie po wzorcach '1)' i '1.'",
     "import-by-url": "Importuj przepis przez URL",
     "create-manually": "Stwórz przepis ręcznie",
-    "make-recipe-image": "Niech to będzie obraz przepisu"
+    "make-recipe-image": "Niech to będzie obraz przepisu",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404. Nie znaleziono strony",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Przepis został usunięty",
     "recipe-image": "Zdjęcie do przepisu",
     "recipe-image-updated": "Zdjęcie przepisu zostało zaktualizowane",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Nazwa przepisu",
     "recipe-settings": "Ustawienia przepisu",
     "recipe-update-failed": "Aktualizacja przepisu nie powiodła się",
@@ -587,6 +592,7 @@
     "made-this": "Ugotowałem to",
     "how-did-it-turn-out": "Jak się to udało?",
     "user-made-this": "{user} ugotował(a) to",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Dodano do osi czasu",
     "failed-to-add-to-timeline": "Nie udało się dodać do osi czasu",
     "failed-to-update-recipe": "Nie udało się zaktualizować przepisu",
@@ -688,7 +694,10 @@
     "upload-images": "Prześlij obraz",
     "upload-more-images": "Prześlij więcej obrazów",
     "set-as-cover-image": "Ustaw jako okładkę przepisu",
-    "cover-image": "Okładka"
+    "cover-image": "Okładka",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Wyszukiwarka przepisów",

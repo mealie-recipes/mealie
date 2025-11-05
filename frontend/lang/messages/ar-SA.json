@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Attempts to split a paragraph by matching '1)' or '1.' patterns",
     "import-by-url": "استيراد وصفة عن طريق عنوان URL",
     "create-manually": "إنشاء وصفة يدوياً",
-    "make-recipe-image": "اجعل هذه صورة الوصفة"
+    "make-recipe-image": "اجعل هذه صورة الوصفة",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404: لم يتم العثور على الصفحة",
@@ -515,6 +517,9 @@
     "recipe-deleted": "تم حذف الوصفة",
     "recipe-image": "صورة الوصفة",
     "recipe-image-updated": "تم تحديث صورة الوصفة",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "اسم الوصفة",
     "recipe-settings": "إعدادات الوصفة",
     "recipe-update-failed": "فشل تحديث الوصفة",
@@ -587,6 +592,7 @@
     "made-this": "لقد طبخت هذا",
     "how-did-it-turn-out": "كيف كانت النتيجة؟",
     "user-made-this": "{user} طبخ هذه",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Added to timeline",
     "failed-to-add-to-timeline": "Failed to add to timeline",
     "failed-to-update-recipe": "Failed to update recipe",
@@ -688,7 +694,10 @@
     "upload-images": "Upload images",
     "upload-more-images": "Upload more images",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "Cover image",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "البحث عن الوصفات",
