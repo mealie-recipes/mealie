@@ -5,6 +5,7 @@
     "recipe": {
         "unique-name-error": "Retseptide nimed peavad olema unikaalsed",
         "recipe-created": "Retsept loodud",
+        "recipe-image-deleted": "Recipe image deleted",
         "recipe-defaults": {
             "ingredient-note": "1 tass jahu",
             "step-text": "Retsepti sammud nagu ka teised väljad retsepti lehed toetavad Markdown-i süntaksit\n\n** Lisa link **\n[Minu link](https://demo.mealie.io)"
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Sul puuduvad selle toimingu tegemiseks õigused",
+        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "Soovitud ressurssi ei leitud",
         "integrity-error": "Tõrge andmebaasi terviklikkuses",
         "username-conflict-error": "See kasutajanimi on juba kasutusel",

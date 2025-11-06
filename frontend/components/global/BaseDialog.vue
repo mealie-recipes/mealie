@@ -59,7 +59,6 @@
             <BaseButton
               v-if="canDelete"
               delete
-              secondary
               @click="deleteEvent"
             />
             <BaseButton
