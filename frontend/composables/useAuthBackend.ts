@@ -16,7 +16,6 @@ interface AuthState {
   signOut: (callbackUrl?: string) => Promise<void>;
   refresh: () => Promise<void>;
   getSession: () => Promise<void>;
-  setToken: (token: string | null) => void;
 }
 
 const authUser = ref<UserOut | null>(null);
@@ -28,14 +27,14 @@ export const useAuthBackend = function (): AuthState {
   const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
   const tokenCookie = useCookie(tokenName);
 
-  function setToken(token: string | null) {
-    tokenCookie.value = token;
+  function clearToken() {
+    tokenCookie.value = null;
   }
 
   function handleAuthError(error: any, redirect = false) {
     // Only clear token on auth errors, not network errors
     if (error?.response?.status === 401) {
-      setToken(null);
+      clearToken();
       authUser.value = null;
       authStatus.value = "unauthenticated";
       if (redirect) {
@@ -44,6 +43,10 @@ export const useAuthBackend = function (): AuthState {
     }
   }
 
+  /**
+   * Fetches the current user session from the backend and updates the auth state accordingly.
+   * The backend includes the token in the cookie.
+   */
   async function getSession(): Promise<void> {
     if (!tokenCookie.value) {
       authUser.value = null;
@@ -60,7 +63,6 @@ export const useAuthBackend = function (): AuthState {
     catch (error: any) {
       console.error("Failed to fetch user session:", error);
       handleAuthError(error);
-      authStatus.value = "unauthenticated";
     }
   }
 
@@ -68,14 +70,12 @@ export const useAuthBackend = function (): AuthState {
     authStatus.value = "loading";
 
     try {
-      const response = await $axios.post("/api/auth/token", credentials, {
+      await $axios.post("/api/auth/token", credentials, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
-      const { access_token } = response.data;
-      setToken(access_token);
       await getSession();
     }
     catch (error) {
@@ -93,7 +93,7 @@ export const useAuthBackend = function (): AuthState {
       console.warn("Logout API call failed:", error);
     }
     finally {
-      setToken(null);
+      clearToken();
       authUser.value = null;
       authStatus.value = "unauthenticated";
       await router.push(callbackUrl || "/login");
@@ -104,9 +104,7 @@ export const useAuthBackend = function (): AuthState {
     if (!tokenCookie.value) return;
 
     try {
-      const response = await $axios.get("/api/auth/refresh");
-      const { access_token } = response.data;
-      setToken(access_token);
+      await $axios.get("/api/auth/refresh");
       await getSession();
     }
     catch (error: any) {
@@ -146,6 +144,5 @@ export const useAuthBackend = function (): AuthState {
     signOut,
     refresh,
     getSession,
-    setToken,
   };
 };
