@@ -44,10 +44,28 @@ export const useAuthBackend = function (): AuthState {
   }
 
   /**
-   * Fetches the current user session from the backend and updates the auth state accordingly.
-   * The backend includes the token in the cookie.
+   * Waits for the auth token cookie to be set by the backend.
+   * The browser should do this immedaitely, but sometimes there is a slight delay, so we poll for it.
    */
-  async function getSession(): Promise<void> {
+  async function waitForCookie(timeoutMs: number = 2000): Promise<void> {
+    const startTime = Date.now();
+
+    while (!tokenCookie.value && Date.now() - startTime < timeoutMs) {
+      refreshCookie(tokenName);
+      if (tokenCookie.value) return;
+      await new Promise(resolve => setTimeout(resolve, 50));
+    }
+
+    if (!tokenCookie.value) {
+      console.warn("Cookie was not set by backend within timeout");
+    }
+  }
+
+  async function getSession(forceRefreshCookie: boolean = false): Promise<void> {
+    if (forceRefreshCookie) {
+      await waitForCookie();
+    }
+
     if (!tokenCookie.value) {
       authUser.value = null;
       authStatus.value = "unauthenticated";
@@ -77,7 +95,7 @@ export const useAuthBackend = function (): AuthState {
         },
       });
 
-      await getSession();
+      await getSession(true);
     }
     catch (error) {
       authStatus.value = "unauthenticated";
@@ -106,7 +124,7 @@ export const useAuthBackend = function (): AuthState {
 
     try {
       await $axios.get("/api/auth/refresh");
-      await getSession();
+      await getSession(true);
     }
     catch (error: any) {
       handleAuthError(error, true);

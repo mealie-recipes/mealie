@@ -40,7 +40,7 @@ export const useMealieAuth = function () {
   async function oauthSignIn() {
     const params = new URLSearchParams(window.location.search);
     await $axios.get("/api/auth/oauth/callback", { params });
-    await auth.getSession();
+    await auth.getSession(true);
   }
 
   return {
