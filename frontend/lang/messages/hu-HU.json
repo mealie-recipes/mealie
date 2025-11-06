@@ -449,8 +449,8 @@
     "import-by-url": "Recept importálása URL-cím alapján",
     "create-manually": "Recept kézi létrehozása",
     "make-recipe-image": "Ez legyen a recept képe",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Étel hozzáadása",
+    "add-recipe": "Recept hozzáadása"
   },
   "page": {
     "404-page-not-found": "404. Az oldal nem található",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Recept törölve",
     "recipe-image": "Recept képe",
     "recipe-image-updated": "Recept képe frissítve",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Receptkép törlése",
+    "delete-image-confirmation": "Biztosan törli ezt a receptképet?",
+    "recipe-image-deleted": "Receptkép törölve",
     "recipe-name": "Recept neve",
     "recipe-settings": "Recept beállítások",
     "recipe-update-failed": "Recept frissítése sikertelen",
@@ -592,7 +592,7 @@
     "made-this": "Elkészítettem ezt",
     "how-did-it-turn-out": "Hogyan sikerült?",
     "user-made-this": "ezt {user} készítette el",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Készült {recipe} számára",
     "added-to-timeline": "Idővonalhoz hozzáadva",
     "failed-to-add-to-timeline": "Nem sikerült az idővonalhoz hozzáadni",
     "failed-to-update-recipe": "Nem sikerült frissíteni a receptet",
@@ -695,9 +695,9 @@
     "upload-more-images": "További képek feltöltése",
     "set-as-cover-image": "Beállítás a recept borítóképének",
     "cover-image": "Borítókép",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Kapcsolódó receptek hozzáadása",
+    "include-linked-recipe-ingredients": "Kapcsolódó recept hozzávalók hozzáadása",
+    "toggle-recipe": "Recept váltása"
   },
   "recipe-finder": {
     "recipe-finder": "Receptkereső",
