@@ -15,7 +15,12 @@ interface AuthState {
   signIn: (credentials: FormData, options?: { redirect?: boolean }) => Promise<void>;
   signOut: (callbackUrl?: string) => Promise<void>;
   refresh: () => Promise<void>;
-  getSession: () => Promise<void>;
+  /**
+   * Fetches the current user session from the backend using the auth token cookie.
+   * @param forceRefreshCookie Whether to refresh the auth token cookie before fetching the session
+   * @returns A promise that resolves when the session has been fetched
+   */
+  getSession: (forceRefreshCookie?: boolean) => Promise<void>;
 }
 
 const authUser = ref<UserOut | null>(null);
