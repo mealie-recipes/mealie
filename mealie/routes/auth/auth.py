@@ -199,9 +199,18 @@ async def oauth_callback(request: Request, response: Response, session: Session 
 
 
 @user_router.get("/refresh")
-async def refresh_token(current_user: PrivateUser = Depends(get_current_user)):
+async def refresh_token(request: Request, response: Response, current_user: PrivateUser = Depends(get_current_user)):
     """Use a valid token to get another token"""
-    access_token = security.create_access_token(data={"sub": str(current_user.id)})
+
+    access_token, duration = security.AuthProvider.create_access_token(data={"sub": str(current_user.id)})
+    expires_in = duration.total_seconds() if duration else None
+
+    MealieAuthToken.set_cookie(
+        response,
+        access_token,
+        expires_in=expires_in,
+        samesite=get_samesite(request),
+    )
     return MealieAuthToken.respond(access_token)
 
 
