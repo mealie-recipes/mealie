@@ -63,6 +63,7 @@ export const useAuthBackend = function (): AuthState {
     catch (error: any) {
       console.error("Failed to fetch user session:", error);
       handleAuthError(error);
+      authStatus.value = "unauthenticated";
     }
   }
 
