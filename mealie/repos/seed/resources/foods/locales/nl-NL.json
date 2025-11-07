@@ -2136,7 +2136,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brie",
-                "plural_name": "bries"
+                "plural_name": "brieën"
             },
             "paneer": {
                 "aliases": [],
@@ -2165,8 +2165,8 @@
             "gouda": {
                 "aliases": [],
                 "description": "",
-                "name": "gouda",
-                "plural_name": "goudas"
+                "name": "goudse kaas",
+                "plural_name": "goudse kazen"
             },
             "cotija": {
                 "aliases": [],
@@ -2219,8 +2219,8 @@
             "herb cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "herb cream cheese",
-                "plural_name": "herb cream cheeses"
+                "name": "kruidenroomkaas",
+                "plural_name": "kruidenroomkazen"
             },
             "burrata": {
                 "aliases": [],
