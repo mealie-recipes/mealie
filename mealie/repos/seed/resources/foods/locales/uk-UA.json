@@ -5903,14 +5903,14 @@
             "bay leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "bay leaf",
-                "plural_name": "bay leaves"
+                "name": "лавровий лист",
+                "plural_name": "лаврові листя"
             },
             "turmeric": {
                 "aliases": [],
                 "description": "",
-                "name": "turmeric",
-                "plural_name": "turmerics"
+                "name": "куркума",
+                "plural_name": "куркума"
             },
             "clove": {
                 "aliases": [],
@@ -5933,20 +5933,20 @@
             "panch puran": {
                 "aliases": [],
                 "description": "",
-                "name": "panch puran",
-                "plural_name": "panch purans"
+                "name": "панч форон",
+                "plural_name": "панч форон"
             },
             "dill": {
                 "aliases": [],
                 "description": "",
-                "name": "dill",
-                "plural_name": "dills"
+                "name": "кріп",
+                "plural_name": "кріп"
             },
             "chive": {
                 "aliases": [],
                 "description": "",
-                "name": "chive",
-                "plural_name": "chives"
+                "name": "цибуля-трибулька",
+                "plural_name": "цибуля-трибулька"
             },
             "mint": {
                 "aliases": [],
@@ -6023,8 +6023,8 @@
             "curry leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "curry leaf",
-                "plural_name": "curry leaves"
+                "name": "лист каррі",
+                "plural_name": "лисття каррі"
             },
             "fennel seed": {
                 "aliases": [],
@@ -6035,8 +6035,8 @@
             "tarragon": {
                 "aliases": [],
                 "description": "",
-                "name": "tarragon",
-                "plural_name": "tarragons"
+                "name": "естрагон",
+                "plural_name": "естрагон"
             },
             "saffron": {
                 "aliases": [],
@@ -6047,8 +6047,8 @@
             "asafoetida": {
                 "aliases": [],
                 "description": "",
-                "name": "asafoetida",
-                "plural_name": "asafoetidas"
+                "name": "асафетида",
+                "plural_name": "асафетида"
             },
             "star anise": {
                 "aliases": [],
@@ -6077,8 +6077,8 @@
             "garlic granule": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic granule",
-                "plural_name": "garlic granules"
+                "name": "часник гранульований",
+                "plural_name": "часник гранульований"
             },
             "celery seed": {
                 "aliases": [],
@@ -6263,8 +6263,8 @@
             "garlic flake": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic flake",
-                "plural_name": "garlic flakes"
+                "name": "часникові пластівці",
+                "plural_name": "часникові пластівці"
             },
             "dried cilantro": {
                 "aliases": [],
