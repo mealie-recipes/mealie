@@ -21,6 +21,7 @@ interface AuthState {
    * @returns A promise that resolves when the session has been fetched
    */
   getSession: (forceRefreshCookie?: boolean) => Promise<void>;
+  setToken: (token: string | null) => void;
 }
 
 const authUser = ref<UserOut | null>(null);
@@ -32,14 +33,14 @@ export const useAuthBackend = function (): AuthState {
   const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
   const tokenCookie = useCookie(tokenName);
 
-  function clearToken() {
-    tokenCookie.value = null;
+  function setToken(token: string | null) {
+    tokenCookie.value = token;
   }
 
   function handleAuthError(error: any, redirect = false) {
     // Only clear token on auth errors, not network errors
     if (error?.response?.status === 401) {
-      clearToken();
+      setToken(null);
       authUser.value = null;
       authStatus.value = "unauthenticated";
       if (redirect) {
@@ -117,7 +118,7 @@ export const useAuthBackend = function (): AuthState {
       console.warn("Logout API call failed:", error);
     }
     finally {
-      clearToken();
+      setToken(null);
       authUser.value = null;
       authStatus.value = "unauthenticated";
       await router.push(callbackUrl || "/login");
@@ -168,5 +169,6 @@ export const useAuthBackend = function (): AuthState {
     signOut,
     refresh,
     getSession,
+    setToken,
   };
 };
