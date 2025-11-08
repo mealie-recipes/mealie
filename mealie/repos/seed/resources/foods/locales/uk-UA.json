@@ -6544,8 +6544,8 @@
             "golden syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "golden syrup",
-                "plural_name": "golden syrups"
+                "name": "Золотий сироп",
+                "plural_name": "Золотого сиропу"
             },
             "cinnamon sugar": {
                 "aliases": [],
@@ -6568,8 +6568,8 @@
             "coarse sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "coarse sugar",
-                "plural_name": "coarse sugars"
+                "name": "Крупнокристалічний цукор",
+                "plural_name": "Крупнокристалічного цукру"
             },
             "salted caramel syrup": {
                 "aliases": [],
@@ -6580,14 +6580,14 @@
             "sanding sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "sanding sugar",
-                "plural_name": "sanding sugars"
+                "name": "Декоративний цукор",
+                "plural_name": "Декоративного цукру"
             },
             "dark corn syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "dark corn syrup",
-                "plural_name": "dark corn syrups"
+                "name": "Темний кукурудзяний сироп",
+                "plural_name": "Темного кукурудзяного сиропу"
             },
             "sucralose": {
                 "aliases": [],
@@ -6658,20 +6658,20 @@
             "strawberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry syrup",
-                "plural_name": "strawberry syrups"
+                "name": "Полуничний сироп",
+                "plural_name": "Полуничного сиропу"
             },
             "vanilla syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla syrup",
-                "plural_name": "vanilla syrups"
+                "name": "Ванільний сироп",
+                "plural_name": "Ванільного сиропу"
             },
             "ginger syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger syrup",
-                "plural_name": "ginger syrups"
+                "name": "Імбирний сироп",
+                "plural_name": "Імбирного сиропу"
             },
             "orgeat": {
                 "aliases": [],
@@ -6694,8 +6694,8 @@
             "raspberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry syrup",
-                "plural_name": "raspberry syrups"
+                "name": "Малиновий сироп",
+                "plural_name": "Малинового сиропу"
             },
             "date syrup": {
                 "aliases": [],
@@ -6718,14 +6718,14 @@
             "coconut syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut syrup",
-                "plural_name": "coconut syrups"
+                "name": "Кокосовий сироп",
+                "plural_name": "Кокосового сиропу"
             },
             "mint syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "mint syrup",
-                "plural_name": "mint syrups"
+                "name": "М'ятний сироп",
+                "plural_name": "М'ятного сиропу"
             },
             "treacle": {
                 "aliases": [],
@@ -6736,8 +6736,8 @@
             "rice syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "rice syrup",
-                "plural_name": "rice syrups"
+                "name": "Рисовий сироп",
+                "plural_name": "Рисового сиропу"
             },
             "manuka honey": {
                 "aliases": [],
@@ -6748,20 +6748,20 @@
             "maple butter": {
                 "aliases": [],
                 "description": "",
-                "name": "maple butter",
-                "plural_name": "maple butter"
+                "name": "Кленове масло",
+                "plural_name": "Кленове масло"
             },
             "blueberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry syrup",
-                "plural_name": "blueberry syrups"
+                "name": "Сироп з лохини",
+                "plural_name": "Сиропу з лохини"
             },
             "apple syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "apple syrup",
-                "plural_name": "apple syrups"
+                "name": "Яблучний сироп",
+                "plural_name": "Яблучного сиропу"
             },
             "allulose": {
                 "aliases": [],
@@ -6772,8 +6772,8 @@
             "blackberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry syrup",
-                "plural_name": "blackberry syrups"
+                "name": "Ожиновий сироп",
+                "plural_name": "Ожинового сиропу"
             },
             "piloncillo": {
                 "aliases": [],
@@ -6784,8 +6784,8 @@
             "cherry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry syrup",
-                "plural_name": "cherry syrups"
+                "name": "Вишневий сироп",
+                "plural_name": "Вишневого сиропу"
             },
             "hibiscus syrup": {
                 "aliases": [],
@@ -6796,7 +6796,7 @@
             "lavender syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "lavender syrup",
+                "name": "Лавандовий сироп",
                 "plural_name": "lavender syrups"
             },
             "fresh sugar cane": {
@@ -6826,8 +6826,8 @@
             "glycerine": {
                 "aliases": [],
                 "description": "",
-                "name": "glycerine",
-                "plural_name": "glycerines"
+                "name": "Гліцерин",
+                "plural_name": "Гліцерину"
             },
             "sorghum syrup": {
                 "aliases": [],
