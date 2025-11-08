@@ -6089,14 +6089,14 @@
             "chipotle powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chipotle powder",
-                "plural_name": "chipotle powders"
+                "name": "порошок чіпотле",
+                "plural_name": "порошок чіпотле"
             },
             "chipotle": {
                 "aliases": [],
                 "description": "",
-                "name": "chipotle",
-                "plural_name": "chipotles"
+                "name": "чіпотле",
+                "plural_name": "чіпотле"
             },
             "fenugreek": {
                 "aliases": [],
@@ -6119,8 +6119,8 @@
             "ancho chile powder": {
                 "aliases": [],
                 "description": "",
-                "name": "ancho chile powder",
-                "plural_name": "ancho chile powders"
+                "name": "порошок перцю анчо",
+                "plural_name": "порошок перцю анчо"
             },
             "sumac": {
                 "aliases": [],
@@ -6143,38 +6143,38 @@
             "kashmiri red chilli": {
                 "aliases": [],
                 "description": "",
-                "name": "kashmiri red chilli",
-                "plural_name": "kashmiri red chillis"
+                "name": "кашмірський червоний перець чилі",
+                "plural_name": "кашмірські червоні перці чилі"
             },
             "thai basil": {
                 "aliases": [],
                 "description": "",
-                "name": "thai basil",
-                "plural_name": "thai basils"
+                "name": "тайський базилік",
+                "plural_name": "тайський базилік"
             },
             "edible flower": {
                 "aliases": [],
                 "description": "",
-                "name": "edible flower",
-                "plural_name": "edible flowers"
+                "name": "їстівна квітка",
+                "plural_name": "їстівні квітки"
             },
             "aniseed": {
                 "aliases": [],
                 "description": "",
-                "name": "aniseed",
-                "plural_name": "aniseeds"
+                "name": "аніс",
+                "plural_name": "аніс"
             },
             "kaffir lime leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "kaffir lime leaf",
-                "plural_name": "kaffir lime leaves"
+                "name": "листя кафірського лайму",
+                "plural_name": "листя кафірського лайму"
             },
             "chervil": {
                 "aliases": [],
                 "description": "",
-                "name": "chervil",
-                "plural_name": "chervils"
+                "name": "черемша",
+                "plural_name": "черемша"
             },
             "lavender": {
                 "aliases": [],
@@ -6185,8 +6185,8 @@
             "carom seed": {
                 "aliases": [],
                 "description": "",
-                "name": "carom seed",
-                "plural_name": "carom seeds"
+                "name": "ажгон",
+                "plural_name": "ажгон"
             },
             "mexican oregano": {
                 "aliases": [],
@@ -6197,8 +6197,8 @@
             "mace": {
                 "aliases": [],
                 "description": "",
-                "name": "mace",
-                "plural_name": "maces"
+                "name": "мацис",
+                "plural_name": "мацис"
             },
             "mango powder": {
                 "aliases": [],
@@ -6227,14 +6227,14 @@
             "saffron strand": {
                 "aliases": [],
                 "description": "",
-                "name": "saffron strand",
-                "plural_name": "saffron strands"
+                "name": "нитка шафрану",
+                "plural_name": "нитки шафрану"
             },
             "guajillo pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "guajillo pepper",
-                "plural_name": "guajillo peppers"
+                "name": "перець гуахільо",
+                "plural_name": "перці гуахільо"
             },
             "pink peppercorn": {
                 "aliases": [],
@@ -6251,14 +6251,14 @@
             "lemon thyme": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon thyme",
-                "plural_name": "lemon thymes"
+                "name": "лимонний чебрець",
+                "plural_name": "лимонні чебреці"
             },
             "galangal": {
                 "aliases": [],
                 "description": "",
-                "name": "galangal",
-                "plural_name": "galangals"
+                "name": "галангал",
+                "plural_name": "галангали"
             },
             "garlic flake": {
                 "aliases": [],
@@ -6269,20 +6269,20 @@
             "dried cilantro": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cilantro",
-                "plural_name": "dried cilantros"
+                "name": "сушена кінза",
+                "plural_name": "сушені кінзи"
             },
             "lemon balm": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon balm",
-                "plural_name": "lemon balms"
+                "name": "меліса",
+                "plural_name": "меліси"
             },
             "dill seed": {
                 "aliases": [],
                 "description": "",
-                "name": "dill seed",
-                "plural_name": "dill seeds"
+                "name": "насіння кропу",
+                "plural_name": "насіння кропу"
             },
             "green peppercorn": {
                 "aliases": [],
@@ -6293,8 +6293,8 @@
             "aleppo pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "aleppo pepper",
-                "plural_name": "aleppo peppers"
+                "name": "перець алепський",
+                "plural_name": "переці алепський"
             },
             "wasabi powder": {
                 "aliases": [],
@@ -6305,32 +6305,32 @@
             "achiote seed": {
                 "aliases": [],
                 "description": "",
-                "name": "achiote seed",
-                "plural_name": "achiote seeds"
+                "name": "насіння ачіоте",
+                "plural_name": "насіння ачіоте"
             },
             "savory herb": {
                 "aliases": [],
                 "description": "",
-                "name": "savory herb",
-                "plural_name": "savory herbs"
+                "name": "чабер",
+                "plural_name": "чабрі"
             },
             "pandan leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "pandan leaf",
-                "plural_name": "pandan leaves"
+                "name": "листя пандану",
+                "plural_name": "листя пандану"
             },
             "sorrel": {
                 "aliases": [],
                 "description": "",
-                "name": "sorrel",
-                "plural_name": "sorrels"
+                "name": "щавель",
+                "plural_name": "щавелі"
             },
             "gochugaru": {
                 "aliases": [],
                 "description": "",
-                "name": "gochugaru",
-                "plural_name": "gochugarus"
+                "name": "кочукару",
+                "plural_name": "кочукару"
             },
             "saigon cinnamon": {
                 "aliases": [],
@@ -6341,14 +6341,14 @@
             "lemongrass paste": {
                 "aliases": [],
                 "description": "",
-                "name": "lemongrass paste",
-                "plural_name": "lemongrass pastes"
+                "name": "паста з лемонграсу",
+                "plural_name": "пасти з лемонграсу"
             },
             "shiso": {
                 "aliases": [],
                 "description": "",
-                "name": "shiso",
-                "plural_name": "shisoes"
+                "name": "Шисо",
+                "plural_name": "Шисо"
             },
             "celery powder": {
                 "aliases": [],
@@ -6365,8 +6365,8 @@
             "anardana": {
                 "aliases": [],
                 "description": "",
-                "name": "anardana",
-                "plural_name": "anardanas"
+                "name": "Анардана",
+                "plural_name": "Анардана"
             },
             "vietnamese mint": {
                 "aliases": [],
@@ -6377,20 +6377,20 @@
             "dried orange peel": {
                 "aliases": [],
                 "description": "",
-                "name": "dried orange peel",
-                "plural_name": "dried orange peels"
+                "name": "Сушена цедра апельсина",
+                "plural_name": "Сушені цедри апельсинів"
             },
             "espelette pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "espelette pepper",
-                "plural_name": "espelette peppers"
+                "name": "Перець еспелет",
+                "plural_name": "Перці еспелет"
             },
             "lemon verbena": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon verbena",
-                "plural_name": "lemon verbenas"
+                "name": "Вербена лимонна",
+                "plural_name": "Вербени лимонні"
             },
             "raw stevia": {
                 "aliases": [],
@@ -6401,20 +6401,20 @@
             "achiote paste": {
                 "aliases": [],
                 "description": "",
-                "name": "achiote paste",
-                "plural_name": "achiote pastes"
+                "name": "Паста ачіоте",
+                "plural_name": "Пасти ачіоте"
             },
             "summer savory": {
                 "aliases": [],
                 "description": "",
-                "name": "summer savory",
-                "plural_name": "summer savories"
+                "name": "Літній чабер",
+                "plural_name": "Літні чабри"
             },
             "fennel pollen": {
                 "aliases": [],
                 "description": "",
-                "name": "fennel pollen",
-                "plural_name": "fennel pollens"
+                "name": "Пилок фенхелю",
+                "plural_name": "Пилок фенхелю"
             }
         }
     },
@@ -6423,123 +6423,123 @@
             "sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "sugar",
-                "plural_name": "sugars"
+                "name": "цукор",
+                "plural_name": "цукри"
             },
             "brown sugar": {
                 "aliases": [
-                    "turbinado sugar"
+                    "сирий тростинний цукор"
                 ],
                 "description": "",
-                "name": "brown sugar",
-                "plural_name": "brown sugars"
+                "name": "коричневий цукор",
+                "plural_name": "коричневий цукор"
             },
             "confectioners sugar": {
                 "aliases": [
-                    "powdered sugar",
-                    "icing sugar"
+                    "цукрова пудра",
+                    "Цукор для глазурі"
                 ],
                 "description": "",
-                "name": "confectioners sugar",
-                "plural_name": "confectioners sugars"
+                "name": "Цукор кондитерський",
+                "plural_name": "Цукри кондитерські"
             },
             "bar sugar": {
                 "aliases": [
-                    "castor sugar"
+                    "Цукор-пісок"
                 ],
                 "description": "",
-                "name": "bar sugar",
-                "plural_name": "bar sugars"
+                "name": "Цукор для бару",
+                "plural_name": "Цукри для бару"
             },
             "maple syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "maple syrup",
-                "plural_name": "maple syrups"
+                "name": "кленовий сироп",
+                "plural_name": "кленові сиропи"
             },
             "corn syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "corn syrup",
-                "plural_name": "corn syrups"
+                "name": "кукурудзяний сироп",
+                "plural_name": "кукурудзяні сиропи"
             },
             "coconut sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut sugar",
-                "plural_name": "coconut sugars"
+                "name": "кокосовий цукор",
+                "plural_name": "кокосові цукори"
             },
             "molass": {
                 "aliases": [],
                 "description": "",
-                "name": "molass",
-                "plural_name": "molasses"
+                "name": "Меляса",
+                "plural_name": "Меляса"
             },
             "stevia": {
                 "aliases": [],
                 "description": "",
-                "name": "stevia",
-                "plural_name": "stevias"
+                "name": "стевія",
+                "plural_name": "стевіі"
             },
             "agave nectar": {
                 "aliases": [],
                 "description": "",
-                "name": "agave nectar",
-                "plural_name": "agave nectars"
+                "name": "нектар агави",
+                "plural_name": "нектари агави"
             },
             "sugar syrup": {
                 "aliases": [],
-                "description": "sugar free sweetner",
-                "name": "sugar syrup",
-                "plural_name": "sugar syrups"
+                "description": "підсолоджувач без цукру",
+                "name": "підсолоджувачі без цукру",
+                "plural_name": "цукровий сироп"
             },
             "isomalt": {
                 "aliases": [],
                 "description": "",
-                "name": "isomalt",
-                "plural_name": "isomalts"
+                "name": "ізомальт",
+                "plural_name": "ізомальт"
             },
             "erythritol": {
                 "aliases": [],
                 "description": "",
-                "name": "erythritol",
-                "plural_name": "erythritols"
+                "name": "ерітрітол",
+                "plural_name": "ерітрітол"
             },
             "vanilla sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla sugar",
-                "plural_name": "vanilla sugars"
+                "name": "ванільний цукор",
+                "plural_name": "ванільні цукри"
             },
             "demerara sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "demerara sugar",
-                "plural_name": "demerara sugars"
+                "name": "Цукор Демерара",
+                "plural_name": "Цукри Демерара"
             },
             "caramel syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "caramel syrup",
-                "plural_name": "caramel syrups"
+                "name": "карамельний сироп",
+                "plural_name": "карамельні сиропи"
             },
             "chocolate syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate syrup",
-                "plural_name": "chocolate syrups"
+                "name": "шоколадний сироп",
+                "plural_name": "Шоколадні сиропи"
             },
             "jaggery": {
                 "aliases": [],
                 "description": "",
-                "name": "jaggery",
-                "plural_name": "jaggeries"
+                "name": "Джаґґері",
+                "plural_name": "Джаґґері"
             },
             "raw sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "raw sugar",
-                "plural_name": "raw sugars"
+                "name": "Цукор сирець",
+                "plural_name": "Цукри сирець"
             },
             "golden syrup": {
                 "aliases": [],
@@ -6550,20 +6550,20 @@
             "cinnamon sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon sugar",
-                "plural_name": "cinnamon sugars"
+                "name": "Цукор із корицею",
+                "plural_name": "Цукор із корицею"
             },
             "liquid stevia": {
                 "aliases": [],
                 "description": "",
-                "name": "liquid stevia",
-                "plural_name": "liquid stevias"
+                "name": "Рідка стевія",
+                "plural_name": "Рідка стевія"
             },
             "grenadine": {
                 "aliases": [],
                 "description": "",
-                "name": "grenadine",
-                "plural_name": "grenadines"
+                "name": "Гренадин",
+                "plural_name": "Гренадин"
             },
             "coarse sugar": {
                 "aliases": [],
@@ -6574,8 +6574,8 @@
             "salted caramel syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "salted caramel syrup",
-                "plural_name": "salted caramel syrups"
+                "name": "Солоний карамельний сироп",
+                "plural_name": "Солоний карамельний сироп"
             },
             "sanding sugar": {
                 "aliases": [],
@@ -6592,8 +6592,8 @@
             "sucralose": {
                 "aliases": [],
                 "description": "",
-                "name": "sucralose",
-                "plural_name": "sucraloses"
+                "name": "Сукралоза",
+                "plural_name": "Сукралоза"
             },
             "monk fruit sweetener": {
                 "aliases": [],
@@ -6604,8 +6604,8 @@
             "maple sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "maple sugar",
-                "plural_name": "maple sugars"
+                "name": "Кленовий цукор",
+                "plural_name": "Кленові цукри"
             },
             "blackstrap molass": {
                 "aliases": [],
@@ -6616,8 +6616,8 @@
             "glucose": {
                 "aliases": [],
                 "description": "",
-                "name": "glucose",
-                "plural_name": "glucoses"
+                "name": "Глюкоза",
+                "plural_name": "Глюкози"
             },
             "rock sugar": {
                 "aliases": [],
@@ -6634,7 +6634,7 @@
             "xylitol": {
                 "aliases": [],
                 "description": "",
-                "name": "xylitol",
+                "name": "Ксиліт",
                 "plural_name": "xylitols"
             },
             "jam sugar": {
