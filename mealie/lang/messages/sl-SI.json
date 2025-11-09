@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Ime recepta mora biti unikatno",
         "recipe-created": "Recept ustvarjen",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "Slika recepta je bila izbrisana",
         "recipe-defaults": {
             "ingredient-note": "skodelica moke",
             "step-text": "Postopek priprave recepta, kot tudi druga polja v receptu podpirajo markdown sintakso.\n\n**Dodaj povezavo**\n\n[Moja povezava](https://demo.mealie.io)\n"
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Nimate dovoljenja za izvedbo zahtevanega dejanja",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Recept se ne more sklicevati na samega sebe, niti neposredno niti posredno",
         "no-entry-found": "Zahtevanega vira ni moč najti",
         "integrity-error": "Napaka pri preverjanju integritete baze",
         "username-conflict-error": "To uporabniško ime je že zasedeno",
