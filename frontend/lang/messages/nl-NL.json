@@ -449,8 +449,8 @@
     "import-by-url": "Importeer een recept van een website",
     "create-manually": "Maak handmatig een recept aan",
     "make-recipe-image": "Maak dit de afbeelding voor dit recept",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Voeg eten toe",
+    "add-recipe": "Voeg recept toe"
   },
   "page": {
     "404-page-not-found": "404 Pagina niet gevonden",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Recept verwijderd",
     "recipe-image": "Receptafbeelding",
     "recipe-image-updated": "Receptafbeelding bijgewerkt",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Verwijder Recept Afbeelding",
+    "delete-image-confirmation": "Weet je zeker dat je deze afbeelding wil verwijderen?",
+    "recipe-image-deleted": "Receptafbeelding verwijderd",
     "recipe-name": "Receptnaam",
     "recipe-settings": "Receptinstellingen",
     "recipe-update-failed": "Recept bijwerken mislukt",
@@ -592,7 +592,7 @@
     "made-this": "Ik heb dit gemaakt",
     "how-did-it-turn-out": "Hoe was je gerecht?",
     "user-made-this": "{user} heeft dit gemaakt",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Gemaakt voor {recipe}",
     "added-to-timeline": "Toevoegen aan tijdlijn",
     "failed-to-add-to-timeline": "Toegevoegd aan tijdlijn",
     "failed-to-update-recipe": "Updaten recept mislukt",
@@ -695,9 +695,9 @@
     "upload-more-images": "Meer afbeeldingen uploaden",
     "set-as-cover-image": "Als recept omslagfoto instellen",
     "cover-image": "Omslagfoto",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Reken gekoppelde recepten mee",
+    "include-linked-recipe-ingredients": "Voeg gekoppelde receptingrediënten toe",
+    "toggle-recipe": "Recept wisselen"
   },
   "recipe-finder": {
     "recipe-finder": "Recept zoeker",

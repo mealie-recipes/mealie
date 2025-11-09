@@ -449,8 +449,8 @@
     "import-by-url": "Εισαγωγή μιας συνταγής από URL",
     "create-manually": "Δημιουργήστε μια συνταγή χειροκίνητα",
     "make-recipe-image": "Ορισμός ως εικόνας συνταγής",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Προσθήκη τρόφιμου",
+    "add-recipe": "Προσθήκη συνταγής"
   },
   "page": {
     "404-page-not-found": "404. η σελίδα δεν βρέθηκε",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Η συνταγή διαγράφηκε",
     "recipe-image": "Εικόνα Συνταγής",
     "recipe-image-updated": "Η εικόνα συνταγής ενημερώθηκε",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Διαγραφή Εικόνας Συνταγής",
+    "delete-image-confirmation": "Θέλετε σίγουρα να διαγράψετε αυτή την εικόνα συνταγής;",
+    "recipe-image-deleted": "Η εικόνα συνταγής διαγράφηκε",
     "recipe-name": "Όνομα συνταγής",
     "recipe-settings": "Ρυθμίσεις Συνταγής",
     "recipe-update-failed": "Η ενημέρωση συνταγής απέτυχε",
@@ -592,7 +592,7 @@
     "made-this": "Το έφτιαξα",
     "how-did-it-turn-out": "Ποιό ήταν το αποτέλεσμα;",
     "user-made-this": "Ο/η {user} έφτιαξε αυτό",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Φτιαγμένο για {recipe}",
     "added-to-timeline": "Προστέθηκε στο χρονολόγιο",
     "failed-to-add-to-timeline": "Αποτυχία προσθήκης στο χρονολόγιο",
     "failed-to-update-recipe": "Αποτυχία ενημέρωσης συνταγής",
@@ -695,9 +695,9 @@
     "upload-more-images": "Ανέβασμα περισσότερων εικόνων",
     "set-as-cover-image": "Ορισμός ως εικόνα εξώφυλλου συνταγής",
     "cover-image": "Εικόνα εξώφυλλου",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Συμπερίληψη συνδεδεμένων συνταγών",
+    "include-linked-recipe-ingredients": "Συμπερίληψη συστατικών συνδεδεμένης συνταγής",
+    "toggle-recipe": "Εναλλαγή συνταγής"
   },
   "recipe-finder": {
     "recipe-finder": "Εύρεση συνταγών",

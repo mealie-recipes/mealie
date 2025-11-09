@@ -400,7 +400,7 @@
       "title": "Tandoor Recipes"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie kan importere oppskrifter fra DVO Cook'n X3. Eksporter en cookbook eller meny i \"Cook'n\" formatet, endre navnet på eksporten til .zip, og last så opp .zip-filen nedenfor.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Overføring av oppskrifter",
@@ -449,8 +449,8 @@
     "import-by-url": "Importer en oppskrift via nettadresse",
     "create-manually": "Opprett en oppskrift manuelt",
     "make-recipe-image": "Bruk dette som oppskriftsbilde",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Legg til mat",
+    "add-recipe": "Legg til oppskrift"
   },
   "page": {
     "404-page-not-found": "404 Siden ble ikke funnet",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Oppskrift slettet",
     "recipe-image": "Oppskriftsbilde",
     "recipe-image-updated": "Oppskriftsbilde oppdatert",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Slett oppskriftsbilde",
+    "delete-image-confirmation": "Er du sikker på at du vil slette dette oppskriftsbilde?",
+    "recipe-image-deleted": "Oppskriftsbilde slettet",
     "recipe-name": "Navn på oppskrift",
     "recipe-settings": "Oppskriftsinnstillinger",
     "recipe-update-failed": "Oppdatering av oppskrift mislyktes",
@@ -592,7 +592,7 @@
     "made-this": "Jeg har laget dette",
     "how-did-it-turn-out": "Hvordan ble det?",
     "user-made-this": "{user} har laget dette",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Laget til {recipe}",
     "added-to-timeline": "Legg til tidslinje",
     "failed-to-add-to-timeline": "Kunne ikke legge til på tidslinjen",
     "failed-to-update-recipe": "Kunne ikke oppdatere oppskriften",
@@ -695,9 +695,9 @@
     "upload-more-images": "Last opp flere bilder",
     "set-as-cover-image": "Bruk som forsidebilde for oppskriften",
     "cover-image": "Forsidebilde",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Inkluder lenkede oppskrifter",
+    "include-linked-recipe-ingredients": "Inkluder lenkede oppskriftsingredienser",
+    "toggle-recipe": "Aktiver/deaktiver oppskrift"
   },
   "recipe-finder": {
     "recipe-finder": "Oppskriftsfinner",
@@ -1073,8 +1073,8 @@
     "forgot-password": "Glemt passord",
     "forgot-password-text": "Skriv inn e-postadressen din. Vi sender deg en e-post slik at du kan tilbakestille passordet ditt.",
     "changes-reflected-immediately": "Endringer på denne brukeren gjenspeiles umiddelbart.",
-    "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity": "Standard aktivitet",
+    "default-activity-hint": "Velg hvilken side du vil navigere til når du logger inn fra denne enheten"
   },
   "language-dialog": {
     "translated": "oversatt",
