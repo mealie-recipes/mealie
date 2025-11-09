@@ -449,8 +449,8 @@
     "import-by-url": "Uvozi recept preko URL",
     "create-manually": "Ročno ustvari recept",
     "make-recipe-image": "To sliko izberi kot sliko recepta",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Dodaj hrano",
+    "add-recipe": "Dodaj recept"
   },
   "page": {
     "404-page-not-found": "404 strani ni mogoče najti",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Recept je izbrisan",
     "recipe-image": "Slika recepta",
     "recipe-image-updated": "Slika recepta je posodobljena",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Izbriši sliko recepta",
+    "delete-image-confirmation": "Ali ste prepričani, da želite izbrisati to sliko recepta?",
+    "recipe-image-deleted": "Slika recepta je bila izbrisana",
     "recipe-name": "Naslov recepta",
     "recipe-settings": "Nastavitve recepta",
     "recipe-update-failed": "Napaka pri posodobitvi recepta",
@@ -592,7 +592,7 @@
     "made-this": "Naredil sem to",
     "how-did-it-turn-out": "Kako se je izkazalo?",
     "user-made-this": "{user} je tole pripravil/a",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Narejeno za {recipe}",
     "added-to-timeline": "Dodano na časovnico",
     "failed-to-add-to-timeline": "Dodajanje na časovnico ni uspelo",
     "failed-to-update-recipe": "Posodobitev recepta ni uspela",
@@ -695,9 +695,9 @@
     "upload-more-images": "Naloži več slik",
     "set-as-cover-image": "Nastavi kot sliko naslovnice recepta",
     "cover-image": "Naslovna slika",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Vključi povezane recepte",
+    "include-linked-recipe-ingredients": "Vključi povezane sestavine recepta",
+    "toggle-recipe": "Preklopi recept"
   },
   "recipe-finder": {
     "recipe-finder": "Iskalnik receptov",
