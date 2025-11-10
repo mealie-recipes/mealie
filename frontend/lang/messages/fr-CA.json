@@ -81,7 +81,7 @@
     "category-events": "Événements de catégories",
     "when-a-new-user-joins-your-group": "Lorsqu'un nouvel utilisateur rejoint votre groupe",
     "recipe-events": "Événements de recette",
-    "label-events": "Étiquette des événements"
+    "label-events": "Libellé des événements"
   },
   "general": {
     "add": "Ajouter",
@@ -198,7 +198,7 @@
     "copy": "Copier",
     "color": "Couleur",
     "timestamp": "Horodatage",
-    "last-made": "Cuisiné le",
+    "last-made": "Cuisinée le",
     "learn-more": "En savoir plus",
     "this-feature-is-currently-inactive": "Cette fonctionnalité est actuellement inactive",
     "clipboard-not-supported": "Presse-papier non supporté",
@@ -375,7 +375,7 @@
     "recipe-migration": "Migrer les recettes",
     "chowdown": {
       "description": "Importer des recettes depuis Chowdown",
-      "description-long": "Mealie supporte nativement le format du dépôt chowdown. Téléchargez le dépôt de code en tant que fichier .zip et téléchargez-le ci-dessous.",
+      "description-long": "Mealie supporte nativement le format du dépôt chowdown. Téléchargez le dépôt de code en tant que fichier .zip et téléverser-le ci-dessous.",
       "title": "Chowdown"
     },
     "nextcloud": {
@@ -384,23 +384,23 @@
       "title": "Nextcloud Cookbook"
     },
     "copymethat": {
-      "description-long": "Mealie peut importer des recettes à partir de Copy Me That. Exportez vos recettes au format HTML, puis téléchargez le .zip ci-dessous.",
+      "description-long": "Mealie peut importer des recettes à partir de Copy Me That. Exportez vos recettes au format HTML, puis téléverser-le .zip ci-dessous.",
       "title": "Gestionnaire de recettes Copy Me That"
     },
     "paprika": {
-      "description-long": "Mealie peut importer des recettes depuis l'application Paprika. Exportez vos recettes de paprika, renommez l'extension d'exportation en .zip et téléchargez-les ci-dessous.",
+      "description-long": "Mealie peut importer des recettes depuis l'application Paprika. Exportez vos recettes de paprika, renommez l'extension d'exportation en .zip et téléverser-les ci-dessous.",
       "title": "Gestionnaire de recettes Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie peut importer des recettes depuis l'application Mealie depuis une version antérieure à 1.0. Exportez vos recettes depuis votre ancienne instance, et téléchargez le fichier zip ci-dessous. Notez que seules les recettes peuvent être importées à partir de l'exportation.",
+      "description-long": "Mealie peut importer des recettes depuis l'application Mealie depuis une version antérieure à 1.0. Exportez vos recettes depuis votre ancienne instance, et téléverser-le fichier zip ci-dessous. Notez que seules les recettes peuvent être importées à partir de l'exportation.",
       "title": "Mealie Pré-1.0"
     },
     "tandoor": {
-      "description-long": "Mealie peut importer des recettes à partir de Tandoor. Exportez vos données dans le format « Défaut », puis téléchargez le .zip ci-dessous.",
+      "description-long": "Mealie peut importer des recettes à partir de Tandoor. Exportez vos données dans le format « Défaut », puis téléverser-le .zip ci-dessous.",
       "title": "Recettes Tandoor"
     },
     "cookn": {
-      "description-long": "Mealie peut importer des recettes de DVO Cook'n X3. Exportez un livre de recettes ou un menu au format \"Cook'n\", renommez l'extension d'exportation en .zip, puis téléchargez le .zip ci-dessous.",
+      "description-long": "Mealie peut importer des recettes de DVO Cook'n X3. Exportez un livre de recettes ou un menu au format \"Cook'n\", renommez l'extension d'exportation en .zip, puis téléverser-le .zip ci-dessous.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migration des données de recettes",
@@ -409,22 +409,22 @@
     "choose-migration-type": "Choisissez le type de migration",
     "tag-all-recipes": "Étiquetez toutes les recettes avec le mot-clé {tag-name}",
     "nextcloud-text": "Les recettes Nextcloud peuvent être importées depuis un fichier zip qui contient les données stockées dans Nextcloud. Consultez la structure de dossiers d'exemple ci-dessous pour vous assurer que vos recettes peuvent être importées.",
-    "chowdown-text": "Mealie prend en charge nativement le format de dépôt chowdown. Téléchargez le dépôt de code en tant que fichier .zip et téléchargez-le ci-dessous.",
+    "chowdown-text": "Mealie prend en charge nativement le format de dépôt chowdown. Téléchargez le dépôt de code en tant que fichier .zip et téléverser-le ci-dessous.",
     "recipe-1": "Recette 1",
     "recipe-2": "Recette 2",
-    "paprika-text": "Mealie peut importer des recettes depuis l'application Paprika. Exportez vos recettes de paprika, renommez l'extension d'exportation en .zip et téléchargez-les ci-dessous.",
-    "mealie-text": "Mealie peut importer des recettes depuis l'application Mealie depuis une version antérieure à 1.0. Exportez vos recettes depuis votre ancienne instance, et téléchargez le fichier zip ci-dessous. Notez que seules les recettes peuvent être importées à partir de l'exportation.",
+    "paprika-text": "Mealie peut importer des recettes depuis l'application Paprika. Exportez vos recettes de paprika, renommez l'extension d'exportation en .zip et téléverser-les ci-dessous.",
+    "mealie-text": "Mealie peut importer des recettes depuis l'application Mealie depuis une version antérieure à 1.0. Exportez vos recettes depuis votre ancienne instance, et téléverser-le fichier zip ci-dessous. Notez que seules les recettes peuvent être importées à partir de l'exportation.",
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie peut importer des recettes depuis Plan to Eat."
     },
     "myrecipebox": {
       "title": "My Recipe Box",
-      "description-long": "Mealie peut importer des recettes depuis My Recipe Box. Exportez vos recettes au format CSV, puis téléchargez le fichier CSV ci-dessous."
+      "description-long": "Mealie peut importer des recettes depuis My Recipe Box. Exportez vos recettes au format CSV, puis téléverser-le fichier CSV ci-dessous."
     },
     "recipekeeper": {
       "title": "Recipe Keeper",
-      "description-long": "Mealie peut importer des recettes depuis Recipe Keeper. Exportez vos recettes au format Zip, puis téléversez le fichier .zip ci-dessous."
+      "description-long": "Mealie peut importer des recettes depuis Recipe Keeper. Exportez vos recettes au format Zip, puis téléverser-le fichier .zip ci-dessous."
     }
   },
   "new-recipe": {
@@ -440,7 +440,7 @@
     "recipe-url": "Adresse de la recette",
     "recipe-html-or-json": "Recette HTML ou JSON",
     "upload-a-recipe": "Télécharger une recette",
-    "upload-individual-zip-file": "Chargez un fichier .zip exporté depuis une autre instance Mealie.",
+    "upload-individual-zip-file": "Téléverser un fichier .zip exporté depuis une autre instance Mealie.",
     "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori",
     "view-scraped-data": "Voir les données récupérées",
     "trim-whitespace-description": "Ajuster les espaces de début et de fin ainsi que les lignes vides",
@@ -449,8 +449,8 @@
     "import-by-url": "Importer une recette par son URL",
     "create-manually": "Créer une recette manuellement",
     "make-recipe-image": "Faire de cette image l’image de recette",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Ajouter un aliment",
+    "add-recipe": "Ajouter une recette"
   },
   "page": {
     "404-page-not-found": "404 Page introuvable",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Recette supprimée",
     "recipe-image": "Image de la recette",
     "recipe-image-updated": "L'image de la recette a été mise à jour",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Supprimer l'image de la recette",
+    "delete-image-confirmation": "Êtes-vous sûr(e) de vouloir supprimer l'image de cette recette?",
+    "recipe-image-deleted": "L'image de la recette a été supprimée",
     "recipe-name": "Nom de la recette",
     "recipe-settings": "Paramètres de la recette",
     "recipe-update-failed": "La mise à jour de la recette a échoué",
@@ -560,7 +560,7 @@
     "failed-to-add-to-list": "Ajout dans la liste en échec",
     "yield": "Rendement",
     "yields-amount-with-text": "Produit {amount} {text}",
-    "yield-text": "Unité",
+    "yield-text": "Unité du rendement",
     "quantity": "Quantité",
     "choose-unit": "Choisir une unité",
     "press-enter-to-create": "Clique sur Entrer pour créer",
@@ -570,7 +570,7 @@
     "see-original-text": "Afficher le texte original",
     "original-text-with-value": "Texte original: {originalText}",
     "ingredient-linker": "Association d’ingrédients",
-    "unlinked": "Pas encore associée",
+    "unlinked": "Pas encore lié",
     "linked-to-other-step": "Lié à une autre étape",
     "auto": "Auto",
     "cook-mode": "Mode Cuisine",
@@ -592,10 +592,10 @@
     "made-this": "Je l’ai cuisiné",
     "how-did-it-turn-out": "C’était bon ?",
     "user-made-this": "{user} l’a cuisiné",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Cuisinée pour {recipe}",
     "added-to-timeline": "Ajouté à l’historique",
-    "failed-to-add-to-timeline": "Ajout dans l’historique en échec",
-    "failed-to-update-recipe": "Impossible de mettre à jour la recette",
+    "failed-to-add-to-timeline": "Échec d'ajout à l'historique",
+    "failed-to-update-recipe": "Échec de la mise à jour de la recette",
     "added-to-timeline-but-failed-to-add-image": "Ajouté à l’historique, mais impossible d’ajouter l’image",
     "api-extras-description": "Les suppléments des recettes sont une fonctionnalité clé de l’API Mealie. Ils permettent de créer des paires JSON clé/valeur personnalisées dans une recette, qui peuvent être référencées depuis des applications tierces. Ces clés peuvent être utilisées par exemple pour déclencher des tâches automatisées ou des messages personnalisés à transmettre à l’appareil souhaité.",
     "message-key": "Clé de message",
@@ -642,8 +642,8 @@
     "json-import-format-description-colon": "Pour importer via JSON, le format doit être valide :",
     "json-editor": "Éditeur JSON",
     "zip-files-must-have-been-exported-from-mealie": "Les fichiers .zip doivent avoir été exportés depuis Mealie",
-    "create-a-recipe-by-uploading-a-scan": "Créer une recette en envoyant un scan.",
-    "upload-a-png-image-from-a-recipe-book": "Importer une image png d'un livre de recettes",
+    "create-a-recipe-by-uploading-a-scan": "Créer une recette en téléversant une image numérisée.",
+    "upload-a-png-image-from-a-recipe-book": "Téléverser une image png d'un livre de recettes",
     "recipe-bulk-importer": "Importation en masse de recettes",
     "recipe-bulk-importer-description": "L'importateur en masse de recettes vous permet d'importer plusieurs recettes à la fois en lançant l'import en arrière-plan. Cela peut être utile lors de la migration vers Mealie, ou lorsque vous voulez importer un grand nombre de recettes.",
     "set-categories-and-tags": "Définir des catégories et des étiquettes",
@@ -658,8 +658,8 @@
     "debug": "Déboguer",
     "tree-view": "Vue en arborescence",
     "recipe-servings": "Portions de la recette",
-    "recipe-yield": "Nombre de parts",
-    "recipe-yield-text": "Unité",
+    "recipe-yield": "Rendement",
+    "recipe-yield-text": "Unité du rendement",
     "unit": "Unité",
     "upload-image": "Ajouter une image",
     "screen-awake": "Garder l’écran allumé",
@@ -685,19 +685,19 @@
       "confidence-score": "Score de confiance",
       "ingredient-parser-description": "Vos ingrédients ont été analysés avec succès. Veuillez vérifier les ingrédients dont nous ne sommes pas certains.",
       "ingredient-parser-final-review-description": "Une fois que tous les ingrédients ont été analysés, vous aurez encore une chance de vérifier tous les ingrédients avant de les appliquer à votre recette.",
-      "add-text-as-alias-for-item": "Ajouter \"{text}\" comme alias pour {item}",
+      "add-text-as-alias-for-item": "Ajouter \"{text}\" comme un alias pour {item}",
       "delete-item": "Supprimer l'élément"
     },
     "reset-servings-count": "Réinitialiser le nombre de portions",
     "not-linked-ingredients": "Ingrédients supplémentaires",
-    "upload-another-image": "Télécharger une autre image",
-    "upload-images": "Télécharger des images",
-    "upload-more-images": "Télécharger d'autres images",
+    "upload-another-image": "Téléverser une autre image",
+    "upload-images": "Téléverser des images",
+    "upload-more-images": "Téléverser d'autres images",
     "set-as-cover-image": "Définir comme image de couverture de la recette",
     "cover-image": "Image de couverture",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Inclure les recettes liées",
+    "include-linked-recipe-ingredients": "Inclure les ingrédients de la recette liée",
+    "toggle-recipe": "Activer/désactiver la recette"
   },
   "recipe-finder": {
     "recipe-finder": "Recherche de recette",
@@ -1073,7 +1073,7 @@
     "forgot-password": "Mot de passe oublié",
     "forgot-password-text": "Veuillez entrer votre adresse e-mail. Un e-mail vous sera envoyé afin de réinitialiser votre mot de passe.",
     "changes-reflected-immediately": "Les changements apportés à cet utilisateur seront immédiatement pris en compte.",
-    "default-activity": "Activité par défaut ",
+    "default-activity": "Activité principale",
     "default-activity-hint": "Sélectionnez la page que vous souhaitez ouvrir lors de la connexion sur cet appareil"
   },
   "language-dialog": {
@@ -1343,7 +1343,7 @@
     "household-statistics": "Statistiques du foyer",
     "household-statistics-description": "Vos statistiques du foyer fournissent un aperçu sur la façon dont vous utilisez Mealie.",
     "storage-capacity": "Capacité de stockage",
-    "storage-capacity-description": "Votre capacité de stockage est un calcul des images et des ressources que vous avez téléchargées.",
+    "storage-capacity-description": "Votre capacité de stockage est un calcul des images et des ressources que vous avez téléversées.",
     "personal": "Personnel",
     "personal-description": "Il s'agit de paramètres qui vous sont personnels. Les modifications ici n'affecteront pas les autres utilisateurs.",
     "user-settings": "Paramètres utilisateur",
