@@ -400,7 +400,7 @@
       "title": "Receitas do Tandoor"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "O Mealie pode importar receitas do DVO Cook’n X3. Exporte um livro de receitas ou menu no formato “Cook'n”, renomeie a extensão do arquivo exportado para .zip e, em seguida, envie o arquivo .zip abaixo.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migrações de Dados de Receita",
@@ -449,8 +449,8 @@
     "import-by-url": "Importar uma receita por URL",
     "create-manually": "Crie uma receita manualmente",
     "make-recipe-image": "Tornar esta a imagem da receita",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Adicionar Alimento",
+    "add-recipe": "Adicionar Receita"
   },
   "page": {
     "404-page-not-found": "404 Página não encontrada",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Receita excluída",
     "recipe-image": "Imagem da Receita",
     "recipe-image-updated": "Imagem da receita atualizada",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Deletar Imagem da Receita",
+    "delete-image-confirmation": "Tem certeza que deseja deletar a imagem da receita?",
+    "recipe-image-deleted": "Imagem da receita deletada",
     "recipe-name": "Nome da Receita",
     "recipe-settings": "Configurações da Receita",
     "recipe-update-failed": "Falha ao atualizar a receita",
@@ -592,7 +592,7 @@
     "made-this": "Eu Fiz Isso",
     "how-did-it-turn-out": "Como que ficou?",
     "user-made-this": "{user} fez isso",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Feito para {recipe}",
     "added-to-timeline": "Adicionado à linha do tempo",
     "failed-to-add-to-timeline": "Falha ao adicionar à linha do tempo",
     "failed-to-update-recipe": "Falha ao atualizar receita",
@@ -695,9 +695,9 @@
     "upload-more-images": "Carregar mais imagens",
     "set-as-cover-image": "Definir como imagem de capa da receita",
     "cover-image": "Imagem de capa",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Incluir Receita Linkada",
+    "include-linked-recipe-ingredients": "Incluir Ingredientes da Receita Linkada",
+    "toggle-recipe": "Alternar Receita"
   },
   "recipe-finder": {
     "recipe-finder": "Localizador de Receitas",
@@ -1073,8 +1073,8 @@
     "forgot-password": "Esqueci minha senha",
     "forgot-password-text": "Digite seu endereço de e-mail e enviaremos um link para redefinir sua senha.",
     "changes-reflected-immediately": "As alterações deste usuário serão refletidas imediatamente.",
-    "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity": "Atividade padrão",
+    "default-activity-hint": "Selecione para qual página você deseja ser direcionado ao fazer \"login\" neste dispositivo"
   },
   "language-dialog": {
     "translated": "traduzido",
