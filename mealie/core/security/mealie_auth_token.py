@@ -37,7 +37,7 @@ class MealieAuthToken(BaseModel):
 
     @computed_field  # type: ignore
     @property
-    def samesite(self) -> str | None:
+    def samesite(self) -> str:
         forwarded_proto = self._request.headers.get("x-forwarded-proto", "").lower()
         is_https = self._request.url.scheme == "https" or forwarded_proto == "https"
 
