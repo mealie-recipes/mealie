@@ -27,24 +27,23 @@ export const useAuthBackend = function (): AuthState {
   const { $axios } = useNuxtApp();
   const router = useRouter();
   const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
-
-  const tokenMetadata = ref<MealieAuthToken | null>(null);
-  const tokenCookie = useCookie<string | null>(tokenName, {
-    maxAge: tokenMetadata.value?.expires_in,
-    httpOnly: tokenMetadata.value?.http_only,
-    secure: tokenMetadata.value?.secure,
-    sameSite: tokenMetadata.value?.samesite,
-  });
+  const tokenValue = ref<string | null>(useCookie<string | null>(tokenName).value);
 
   function setToken(token: MealieAuthToken | null) {
     if (token === null) {
-      tokenCookie.value = null;
-      tokenMetadata.value = null;
+      useCookie<string | null>(tokenName).value = null;
+      tokenValue.value = null;
       return;
     }
 
-    tokenCookie.value = token.access_token;
-    tokenMetadata.value = token;
+    // Set cookie with dynamic options from backend
+    useCookie<string | null>(tokenName, {
+      maxAge: token.expires_in,
+      httpOnly: token.http_only,
+      secure: token.secure,
+      sameSite: token.samesite,
+    }).value = token.access_token;
+    tokenValue.value = token.access_token;
   }
 
   function handleAuthError(error: any, redirect = false) {
@@ -60,7 +59,7 @@ export const useAuthBackend = function (): AuthState {
   }
 
   async function getSession(): Promise<void> {
-    if (!tokenCookie.value) {
+    if (!tokenValue.value) {
       authUser.value = null;
       authStatus.value = "unauthenticated";
       return;
@@ -115,7 +114,7 @@ export const useAuthBackend = function (): AuthState {
   }
 
   async function refresh(): Promise<void> {
-    if (!tokenCookie.value) return;
+    if (!tokenValue.value) return;
 
     try {
       const { data } = await $axios.get<MealieAuthToken>("/api/auth/refresh");
@@ -135,12 +134,12 @@ export const useAuthBackend = function (): AuthState {
     watch(() => authStatus.value, (status) => {
       if (status === "authenticated") {
         refreshInterval = setInterval(() => {
-          if (tokenCookie.value) {
+          if (tokenValue.value) {
             getSession().catch(() => {
               // Ignore errors in background refresh
             });
           }
-        }, 5 * 60 * 1000); // 5 minutes
+        }, 2 * 60 * 1000); // 5 minutes
       }
       else {
         // Clear interval when not authenticated
