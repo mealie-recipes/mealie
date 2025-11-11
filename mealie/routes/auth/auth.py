@@ -81,7 +81,7 @@ def get_token(
     access_token, duration = auth
     expires_in = duration.total_seconds() if duration else None
 
-    mealie_auth_token = MealieAuthToken(_request=request, access_token=access_token, expires_in=expires_in)
+    mealie_auth_token = MealieAuthToken(request=request, access_token=access_token, expires_in=expires_in)
     return mealie_auth_token.respond(response)
 
 
@@ -136,7 +136,7 @@ async def oauth_callback(
     access_token, duration = auth
     expires_in = duration.total_seconds() if duration else None
 
-    mealie_auth_token = MealieAuthToken(_request=request, access_token=access_token, expires_in=expires_in)
+    mealie_auth_token = MealieAuthToken(request=request, access_token=access_token, expires_in=expires_in)
     return mealie_auth_token.respond(response)
 
 
@@ -146,7 +146,7 @@ async def refresh_token(
 ) -> MealieAuthToken:
     """Use a valid token to get another token"""
     access_token = security.create_access_token(data={"sub": str(current_user.id)})
-    mealie_auth_token = MealieAuthToken(_request=request, access_token=access_token)
+    mealie_auth_token = MealieAuthToken(request=request, access_token=access_token)
     return mealie_auth_token.respond(response)
 
 

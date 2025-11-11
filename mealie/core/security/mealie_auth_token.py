@@ -1,18 +1,28 @@
 from typing import ClassVar, Self
 
 from fastapi import Request, Response
-from pydantic import BaseModel, Field, computed_field, field_validator
+from pydantic import BaseModel, Field, PrivateAttr, computed_field, field_validator
 
 from ..config import get_app_settings
 
 
 class MealieAuthToken(BaseModel):
+    """
+    Mealie authentication token model for managing access tokens and their associated cookie settings.
+
+    Must pass the Request object to determine cookie attributes based on the request context.
+    """
+
     TOKEN_KEY: ClassVar = "mealie.access_token"
 
-    _request: Request
+    _request: Request = PrivateAttr()
     access_token: str
     token_type: str = "bearer"
     expires_in: int = Field(None, validate_default=True)
+
+    def __init__(self, request: Request, **data) -> None:
+        super().__init__(**data)
+        self._request = request
 
     @computed_field  # type: ignore
     @property
