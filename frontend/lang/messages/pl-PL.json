@@ -450,7 +450,7 @@
     "create-manually": "Stwórz przepis ręcznie",
     "make-recipe-image": "Niech to będzie obraz przepisu",
     "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-recipe": "Dodaj przepis"
   },
   "page": {
     "404-page-not-found": "404. Nie znaleziono strony",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Przepis został usunięty",
     "recipe-image": "Zdjęcie do przepisu",
     "recipe-image-updated": "Zdjęcie przepisu zostało zaktualizowane",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Usuń obrazek przepisu",
+    "delete-image-confirmation": "Czy jesteś pewien, że chcesz usunąć obrazek przepisu?",
+    "recipe-image-deleted": "Obrazek przepisu został usunięty",
     "recipe-name": "Nazwa przepisu",
     "recipe-settings": "Ustawienia przepisu",
     "recipe-update-failed": "Aktualizacja przepisu nie powiodła się",
@@ -683,7 +683,7 @@
       "no-food": "Brak potrawy",
       "review-parsed-ingredients": "Przejrzyj przeanalizowane składniki",
       "confidence-score": "Wskaźnik pewności",
-      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-description": "Twoja lista składników została przetworzona. Sprawdź proszę składniki co , do  których mamy wątpliwości",
       "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
       "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
       "delete-item": "Usuń przedmiot"
@@ -695,7 +695,7 @@
     "upload-more-images": "Prześlij więcej obrazów",
     "set-as-cover-image": "Ustaw jako okładkę przepisu",
     "cover-image": "Okładka",
-    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipes": "Dołącz połączone przepisy",
     "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
     "toggle-recipe": "Toggle Recipe"
   },
@@ -1073,7 +1073,7 @@
     "forgot-password": "Nie pamiętam hasła",
     "forgot-password-text": "Podaj adres e-mail konta, do którego chcesz odzyskać hasło.",
     "changes-reflected-immediately": "Zmiany dla tego użytkownika będą zastosowane natychmiastowo.",
-    "default-activity": "Default Activity",
+    "default-activity": "Domyślna aktywność",
     "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
