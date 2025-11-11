@@ -22,17 +22,20 @@ interface AuthState {
 
 const authUser = ref<UserOut | null>(null);
 const authStatus = ref<"loading" | "authenticated" | "unauthenticated">("loading");
+const authTokenValue = ref<string | null>(null);
 
 export const useAuthBackend = function (): AuthState {
   const { $axios } = useNuxtApp();
   const router = useRouter();
   const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
-  const tokenValue = ref<string | null>(useCookie<string | null>(tokenName).value);
+  if (!authTokenValue.value) {
+    authTokenValue.value = useCookie<string | null>(tokenName).value;
+  }
 
   function setToken(token: MealieAuthToken | null) {
     if (token === null) {
       useCookie<string | null>(tokenName).value = null;
-      tokenValue.value = null;
+      authTokenValue.value = null;
       return;
     }
 
@@ -43,7 +46,7 @@ export const useAuthBackend = function (): AuthState {
       secure: token.secure,
       sameSite: token.samesite,
     }).value = token.access_token;
-    tokenValue.value = token.access_token;
+    authTokenValue.value = token.access_token;
   }
 
   function handleAuthError(error: any, redirect = false) {
@@ -59,7 +62,7 @@ export const useAuthBackend = function (): AuthState {
   }
 
   async function getSession(): Promise<void> {
-    if (!tokenValue.value) {
+    if (!authTokenValue.value) {
       authUser.value = null;
       authStatus.value = "unauthenticated";
       return;
@@ -114,7 +117,7 @@ export const useAuthBackend = function (): AuthState {
   }
 
   async function refresh(): Promise<void> {
-    if (!tokenValue.value) return;
+    if (!authTokenValue.value) return;
 
     try {
       const { data } = await $axios.get<MealieAuthToken>("/api/auth/refresh");
@@ -127,27 +130,6 @@ export const useAuthBackend = function (): AuthState {
     }
   }
 
-  // Auto-refresh user data periodically when authenticated
-  let refreshInterval: NodeJS.Timeout | null = null;
-  watch(() => authStatus.value, (status) => {
-    if (status === "authenticated") {
-      refreshInterval = setInterval(() => {
-        if (tokenValue.value) {
-          getSession().catch(() => {
-            // Ignore errors in background refresh
-          });
-        }
-      }, 2 * 60 * 1000); // 5 minutes
-    }
-    else {
-      // Clear interval when not authenticated
-      if (refreshInterval) {
-        clearInterval(refreshInterval);
-        refreshInterval = null;
-      }
-    }
-  }, { immediate: true });
-
   return {
     data: computed(() => authUser.value),
     status: computed(() => authStatus.value),
@@ -158,3 +140,26 @@ export const useAuthBackend = function (): AuthState {
     setToken,
   };
 };
+
+// Auto-refresh user data periodically when authenticated
+let refreshInterval: NodeJS.Timeout | null = null;
+watch(() => authStatus.value, (status) => {
+  if (status === "authenticated") {
+    refreshInterval = setInterval(() => {
+      if (authTokenValue.value) {
+        // Call getSession from a new instance to ensure we have the latest $axios
+        const auth = useAuthBackend();
+        auth.getSession().catch(() => {
+          // Ignore errors in background refresh
+        });
+      }
+    }, 5 * 60 * 1000); // 5 minutes
+  }
+  else {
+    // Clear interval when not authenticated
+    if (refreshInterval) {
+      clearInterval(refreshInterval);
+      refreshInterval = null;
+    }
+  }
+}, { immediate: true });
