@@ -16,6 +16,15 @@ export interface ApiRequestInstance {
   delete<T>(url: string, config?: AxiosRequestConfig): Promise<RequestResponse<T>>;
 }
 
+export interface MealieAuthToken {
+  access_token: string;
+  token_type: "bearer";
+  expires_in: number;
+  http_only: boolean;
+  secure: boolean;
+  samesite: "lax" | "strict" | "none";
+}
+
 export interface PaginationData<T> {
   page: number;
   per_page: number;
