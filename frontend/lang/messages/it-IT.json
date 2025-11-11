@@ -449,8 +449,8 @@
     "import-by-url": "Importa una ricetta tramite URL",
     "create-manually": "Crea una ricetta manualmente",
     "make-recipe-image": "Usa come immagine della ricetta",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Aggiungi cibo",
+    "add-recipe": "Aggiungi ricetta"
   },
   "page": {
     "404-page-not-found": "404 Pagina non Trovata",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Ricetta eliminata",
     "recipe-image": "Immagine Ricetta",
     "recipe-image-updated": "Immagine ricetta aggiornata",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Elimina Immagine Ricetta",
+    "delete-image-confirmation": "Sei sicuro di voler eliminare questa immagine della ricetta?",
+    "recipe-image-deleted": "Immagine della ricetta eliminata",
     "recipe-name": "Nome Ricetta",
     "recipe-settings": "Impostazioni Ricetta",
     "recipe-update-failed": "Aggiornamento ricetta fallito",
@@ -592,7 +592,7 @@
     "made-this": "L'Ho Preparato",
     "how-did-it-turn-out": "Come è venuto?",
     "user-made-this": "{user} l'ha preparato",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Creato per {recipe}",
     "added-to-timeline": "Aggiunto alla cronologia",
     "failed-to-add-to-timeline": "Impossibile aggiungere alla cronologia",
     "failed-to-update-recipe": "Impossibile aggiornare la ricetta",
@@ -695,9 +695,9 @@
     "upload-more-images": "Carica altre immagini",
     "set-as-cover-image": "Imposta come immagine di copertina della ricetta",
     "cover-image": "Immagine di copertina",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Includi Ricette Collegate",
+    "include-linked-recipe-ingredients": "Includi Ingredienti Della Ricetta Collegata",
+    "toggle-recipe": "Attiva/Disattiva Ricetta"
   },
   "recipe-finder": {
     "recipe-finder": "Trova ricette",
