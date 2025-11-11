@@ -449,8 +449,8 @@
     "import-by-url": "Импортиране на рецепта от линк",
     "create-manually": "Създай рецепта ръчно",
     "make-recipe-image": "Задай като изображението на рецептата",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Добавяне на ястие",
+    "add-recipe": "Добавяне на рецепта"
   },
   "page": {
     "404-page-not-found": "404 Страницата не е намерена",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Рецептата е изтрита",
     "recipe-image": "Изображение на рецептата",
     "recipe-image-updated": "Изображението на рецептата беше обновено",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Итриване на изображението на рецептата",
+    "delete-image-confirmation": "Сигурни ли сте, че желаете да изтриете изображението на рецептата?",
+    "recipe-image-deleted": "Изображението на рецептата беше изтрито",
     "recipe-name": "Наименование",
     "recipe-settings": "Настройки на рецептата",
     "recipe-update-failed": "Обновяването на рецептата беше неуспешно",
@@ -592,7 +592,7 @@
     "made-this": "Сготвих рецептата",
     "how-did-it-turn-out": "Как се получи?",
     "user-made-this": "{user} направи това",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Направено за {recipe}",
     "added-to-timeline": "Добавено към историята на събитията",
     "failed-to-add-to-timeline": "Неуспешно добавяне към историята на събитията",
     "failed-to-update-recipe": "Неуспешно актуализиране на рецептата",
@@ -695,9 +695,9 @@
     "upload-more-images": "Качете още изображения",
     "set-as-cover-image": "Задай като изображение на корицата на рецептата",
     "cover-image": "Изображение на корицата",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Влючване на свързаните рецепти",
+    "include-linked-recipe-ingredients": "Включване на съставките от свързаните рецепти",
+    "toggle-recipe": "Превключване на рецептата"
   },
   "recipe-finder": {
     "recipe-finder": "Търсачка на рецепти",
@@ -1054,7 +1054,7 @@
       "very-strong": "Много силна"
     },
     "user-management": "Управление на потребителя",
-    "reset-locked-users": "Нулиране на заключените потребители",
+    "reset-locked-users": "Отключване на заключените потребители",
     "admin-user-creation": "Създаване на администратор",
     "admin-user-management": "Управление на администраторите",
     "user-details": "Детайли за потребителя",
