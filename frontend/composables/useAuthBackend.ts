@@ -128,28 +128,25 @@ export const useAuthBackend = function (): AuthState {
   }
 
   // Auto-refresh user data periodically when authenticated
-  if (import.meta.client) {
-    let refreshInterval: NodeJS.Timeout | null = null;
-
-    watch(() => authStatus.value, (status) => {
-      if (status === "authenticated") {
-        refreshInterval = setInterval(() => {
-          if (tokenValue.value) {
-            getSession().catch(() => {
-              // Ignore errors in background refresh
-            });
-          }
-        }, 2 * 60 * 1000); // 5 minutes
-      }
-      else {
-        // Clear interval when not authenticated
-        if (refreshInterval) {
-          clearInterval(refreshInterval);
-          refreshInterval = null;
+  let refreshInterval: NodeJS.Timeout | null = null;
+  watch(() => authStatus.value, (status) => {
+    if (status === "authenticated") {
+      refreshInterval = setInterval(() => {
+        if (tokenValue.value) {
+          getSession().catch(() => {
+            // Ignore errors in background refresh
+          });
         }
+      }, 2 * 60 * 1000); // 5 minutes
+    }
+    else {
+      // Clear interval when not authenticated
+      if (refreshInterval) {
+        clearInterval(refreshInterval);
+        refreshInterval = null;
       }
-    }, { immediate: true });
-  }
+    }
+  }, { immediate: true });
 
   return {
     data: computed(() => authUser.value),
