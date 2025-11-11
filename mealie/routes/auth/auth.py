@@ -1,10 +1,9 @@
-from typing import Annotated, Literal
+from typing import Annotated
 
 from authlib.integrations.starlette_client import OAuth
 from fastapi import APIRouter, Depends, Header, Request, Response, status
 from fastapi.exceptions import HTTPException
 from fastapi.responses import RedirectResponse
-from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
 from starlette.datastructures import URLPath
 
@@ -21,6 +20,7 @@ from mealie.schema.user import PrivateUser
 from mealie.schema.user.auth import CredentialsRequestForm
 
 from .auth_cache import AuthCache
+from .mealie_auth_token import MealieAuthToken
 
 public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])
@@ -50,63 +50,13 @@ if settings.OIDC_READY:
     )
 
 
-class MealieAuthToken(BaseModel):
-    access_token: str
-    token_type: str = "bearer"
-
-    @classmethod
-    def set_cookie(
-        cls, response: Response, token: str, *, expires_in: int | float | None = None, samesite: str | None = None
-    ):
-        expires_in = int(expires_in) if expires_in else None
-
-        # httponly=False to allow JS access for frontend
-        response.set_cookie(
-            key="mealie.access_token",
-            value=token,
-            httponly=False,
-            max_age=expires_in,
-            secure=settings.PRODUCTION,
-            samesite=samesite,
-        )
-
-    @classmethod
-    def respond(cls, token: str, token_type: str = "bearer") -> dict:
-        return cls(access_token=token, token_type=token_type).model_dump()
-
-
-def get_samesite(request: Request) -> Literal["lax", "none"]:
-    """
-    Determine the appropriate samesite attribute for cookies.
-
-    `samesite="none"` is required for iframe support (i.e. embedding Mealie in another site)
-    but only works over HTTPS. If `samesite="none"` is set over HTTP, most browsers will reject the cookie.
-
-    `samesite="lax"` is the default, which works regardless of HTTP or HTTPS,
-    but does not support hosting in iframes.
-    """
-
-    forwarded_proto = request.headers.get("x-forwarded-proto", "").lower()
-    is_https = request.url.scheme == "https" or forwarded_proto == "https"
-
-    if is_https and settings.PRODUCTION:
-        return "none"
-    else:
-        # TODO: remove this once we resolve pending iframe issues
-        if settings.PRODUCTION:
-            logger.debug("Setting samesite to 'lax' because connection is not HTTPS")
-            logger.debug(f"{request.url.scheme=} | {forwarded_proto=}")
-
-        return "lax"
-
-
 @public_router.post("/token")
 def get_token(
     request: Request,
     response: Response,
     data: CredentialsRequestForm = Depends(),
     session: Session = Depends(generate_session),
-):
+) -> MealieAuthToken:
     if "x-forwarded-for" in request.headers:
         ip = request.headers["x-forwarded-for"]
         if "," in ip:  # if there are multiple IPs, the first one is canonically the true client
@@ -131,17 +81,12 @@ def get_token(
     access_token, duration = auth
     expires_in = duration.total_seconds() if duration else None
 
-    MealieAuthToken.set_cookie(
-        response,
-        access_token,
-        expires_in=expires_in,
-        samesite=get_samesite(request),
-    )
-    return MealieAuthToken.respond(access_token)
+    mealie_auth_token = MealieAuthToken(request=request, access_token=access_token, expires_in=expires_in)
+    return mealie_auth_token.respond(response)
 
 
 @public_router.get("/oauth")
-async def oauth_login(request: Request):
+async def oauth_login(request: Request) -> RedirectResponse:
     if not oauth:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -160,7 +105,9 @@ async def oauth_login(request: Request):
 
 
 @public_router.get("/oauth/callback")
-async def oauth_callback(request: Request, response: Response, session: Session = Depends(generate_session)):
+async def oauth_callback(
+    request: Request, response: Response, session: Session = Depends(generate_session)
+) -> MealieAuthToken:
     if not oauth:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -189,20 +136,18 @@ async def oauth_callback(request: Request, response: Response, session: Session 
     access_token, duration = auth
     expires_in = duration.total_seconds() if duration else None
 
-    MealieAuthToken.set_cookie(
-        response,
-        access_token,
-        expires_in=expires_in,
-        samesite=get_samesite(request),
-    )
-    return MealieAuthToken.respond(access_token)
+    mealie_auth_token = MealieAuthToken(request=request, access_token=access_token, expires_in=expires_in)
+    return mealie_auth_token.respond(response)
 
 
 @user_router.get("/refresh")
-async def refresh_token(current_user: PrivateUser = Depends(get_current_user)):
+async def refresh_token(
+    request: Request, response: Response, current_user: PrivateUser = Depends(get_current_user)
+) -> MealieAuthToken:
     """Use a valid token to get another token"""
     access_token = security.create_access_token(data={"sub": str(current_user.id)})
-    return MealieAuthToken.respond(access_token)
+    mealie_auth_token = MealieAuthToken(request=request, access_token=access_token)
+    return mealie_auth_token.respond(response)
 
 
 @user_router.post("/logout")
@@ -210,7 +155,7 @@ async def logout(
     response: Response,
     accept_language: Annotated[str | None, Header()] = None,
 ):
-    response.delete_cookie("mealie.access_token")
+    response.delete_cookie(MealieAuthToken.TOKEN_KEY)
 
     translator = local_provider(accept_language)
     return {"message": translator.t("notifications.logged-out")}
