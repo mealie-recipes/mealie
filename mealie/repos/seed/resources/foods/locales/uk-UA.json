@@ -6916,8 +6916,8 @@
             "sweet'n low": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet'n low",
-                "plural_name": "sweet'n lows"
+                "name": "Підсолождувач без цукру",
+                "plural_name": "Підсолождувачи без цукру"
             },
             "fructose": {
                 "aliases": [],
@@ -6946,8 +6946,8 @@
             "brown butter syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "brown butter syrup",
-                "plural_name": "brown butter syrups"
+                "name": "Сироп із пряженого масла",
+                "plural_name": "Сиропи із пряженого масла"
             },
             "date sugar": {
                 "aliases": [],
@@ -6982,8 +6982,8 @@
             "cookie butter syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "cookie butter syrup",
-                "plural_name": "cookie butter syrups"
+                "name": "Сироп cookie butter",
+                "plural_name": "Сиропи cookie butter"
             },
             "creamed honey": {
                 "aliases": [],
@@ -6994,14 +6994,14 @@
             "buttermilk syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "buttermilk syrup",
-                "plural_name": "buttermilk syrups"
+                "name": "Сироп зі сколотини",
+                "plural_name": "Сиропи зі сколотини"
             },
             "chocolate sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate sugar",
-                "plural_name": "chocolate sugars"
+                "name": "Шоколадний цукор",
+                "plural_name": "Шоколадного цукру"
             },
             "flavored syrup": {
                 "aliases": [],
@@ -7046,14 +7046,14 @@
             "ranch dressing packet": {
                 "aliases": [],
                 "description": "",
-                "name": "ranch dressing packet",
-                "plural_name": "ranch dressing packets"
+                "name": "Пакет-суміш для соусу Ранч ",
+                "plural_name": "Пакети-суміші для соусу Ранч "
             },
             "seasoned salt": {
                 "aliases": [],
                 "description": "",
-                "name": "seasoned salt",
-                "plural_name": "seasoned salts"
+                "name": "Сіль зі спеціями",
+                "plural_name": "Солі зі спеціями"
             },
             "curry": {
                 "aliases": [],
@@ -7094,8 +7094,8 @@
             "dry ranch seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "dry ranch seasoning",
-                "plural_name": "dry ranch seasonings"
+                "name": "Суха суміш для соусу Ранч ",
+                "plural_name": "Сухі суміші для соусу Ранч "
             },
             "white miso": {
                 "aliases": [],
@@ -7119,7 +7119,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "рідкий дим",
-                "plural_name": "liquid smokes"
+                "plural_name": "Рідкий дим"
             },
             "poultry seasoning": {
                 "aliases": [],
@@ -7136,8 +7136,8 @@
             "red curry": {
                 "aliases": [],
                 "description": "",
-                "name": "red curry",
-                "plural_name": "red curries"
+                "name": "Червоне карі",
+                "plural_name": "Червоне карі"
             },
             "old bay seasoning": {
                 "aliases": [],
@@ -7154,8 +7154,8 @@
             "chaat masala": {
                 "aliases": [],
                 "description": "",
-                "name": "chaat masala",
-                "plural_name": "chaat masalas"
+                "name": "Чат масала",
+                "plural_name": "Чат масала"
             },
             "creole seasoning": {
                 "aliases": [],
@@ -7172,20 +7172,20 @@
             "mixed spice": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed spice",
-                "plural_name": "mixed spices"
+                "name": "Суміш спецій",
+                "plural_name": "Суміші спецій"
             },
             "fleur de sel": {
                 "aliases": [],
                 "description": "",
-                "name": "fleur de sel",
-                "plural_name": "fleur de sel"
+                "name": "Квітка солі",
+                "plural_name": "Квітки солі"
             },
             "thai red curry paste": {
                 "aliases": [],
                 "description": "",
-                "name": "thai red curry paste",
-                "plural_name": "thai red curry pastes"
+                "name": "Тайська паста з червоного каррі",
+                "plural_name": "Тайські пасти з червоного каррі"
             },
             "mixed herb": {
                 "aliases": [],
@@ -7196,8 +7196,8 @@
             "green curry": {
                 "aliases": [],
                 "description": "",
-                "name": "green curry",
-                "plural_name": "green curries"
+                "name": "Зелене карі",
+                "plural_name": "Зелене карі"
             },
             "barbecue seasoning": {
                 "aliases": [],
@@ -7214,68 +7214,68 @@
             "za'atar": {
                 "aliases": [],
                 "description": "",
-                "name": "za'atar",
-                "plural_name": "za'atars"
+                "name": "Затар",
+                "plural_name": "Затар"
             },
             "ras el hanout": {
                 "aliases": [],
                 "description": "",
-                "name": "ras el hanout",
-                "plural_name": "ras el hanouts"
+                "name": "Рас-ель-ханут",
+                "plural_name": "Рас-ель-ханут"
             },
             "all-purpose seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "all-purpose seasoning",
-                "plural_name": "all-purpose seasonings"
+                "name": "Універсальна приправа",
+                "plural_name": "Універсальні приправи"
             },
             "seafood seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "seafood seasoning",
-                "plural_name": "seafood seasonings"
+                "name": "Приправа для морепродуктів",
+                "plural_name": "Приправи для морепродуктів"
             },
             "bagel seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "bagel seasoning",
-                "plural_name": "bagel seasonings"
+                "name": "Приправа для бейглів",
+                "plural_name": "Приправи для бейглів"
             },
             "fajita seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "fajita seasoning",
-                "plural_name": "fajita seasonings"
+                "name": "Приправа для фахіти",
+                "plural_name": "Приправи для фахіти"
             },
             "tandoori spice": {
                 "aliases": [],
                 "description": "",
-                "name": "tandoori spice",
-                "plural_name": "tandoori spices"
+                "name": "Тандурі прянощі",
+                "plural_name": "Тандурі прянощі"
             },
             "pickling spice": {
                 "aliases": [],
                 "description": "",
-                "name": "pickling spice",
-                "plural_name": "pickling spices"
+                "name": "Приправа для маринування",
+                "plural_name": "Приправи для маринування"
             },
             "caribbean jerk seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "caribbean jerk seasoning",
-                "plural_name": "caribbean jerk seasonings"
+                "name": "Карибська приправа джерк",
+                "plural_name": "Карибські приправи джерк"
             },
             "gravy mix": {
                 "aliases": [],
                 "description": "",
-                "name": "gravy mix",
-                "plural_name": "gravy mixes"
+                "name": "Суміш для підливи",
+                "plural_name": "Суміші для підливи"
             },
             "garlic & herb seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic & herb seasoning",
-                "plural_name": "garlic & herb seasonings"
+                "name": "Часниково-трав'яна приправа",
+                "plural_name": "Часниково-трав'яна приправи"
             },
             "garlic-pepper seasoning": {
                 "aliases": [],
@@ -7299,7 +7299,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "глутамат натрію",
-                "plural_name": "msgs"
+                "plural_name": "Глутамат натрію"
             },
             "teriyaki marinade": {
                 "aliases": [],
@@ -7310,8 +7310,8 @@
             "adobo seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "adobo seasoning",
-                "plural_name": "adobo seasonings"
+                "name": "Приправа адобо",
+                "plural_name": "Приправи адобо"
             },
             "sambar powder": {
                 "aliases": [],
@@ -7334,14 +7334,14 @@
             "red miso": {
                 "aliases": [],
                 "description": "",
-                "name": "red miso",
-                "plural_name": "red misoes"
+                "name": "Червона місо-паста",
+                "plural_name": "Червоні місо-пасти"
             },
             "hot curry": {
                 "aliases": [],
                 "description": "",
-                "name": "hot curry",
-                "plural_name": "hot curries"
+                "name": "Гострий карі",
+                "plural_name": "Гострого карі"
             },
             "salt-free seasoning": {
                 "aliases": [],
@@ -7352,26 +7352,26 @@
             "carne asada seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "carne asada seasoning",
-                "plural_name": "carne asada seasonings"
+                "name": "Суміш для смаженого м'яса",
+                "plural_name": "Суміши для смаженого м'яса"
             },
             "bouquet garni": {
                 "aliases": [],
                 "description": "",
-                "name": "bouquet garni",
-                "plural_name": "bouquet garnis"
+                "name": "Суміш пряних трав",
+                "plural_name": "Суміши пряних трав"
             },
             "yellow miso": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow miso",
-                "plural_name": "yellow misoes"
+                "name": "Жовта місо-паста",
+                "plural_name": "Жовті місо-пасти"
             },
             "dukkah": {
                 "aliases": [],
                 "description": "",
-                "name": "dukkah",
-                "plural_name": "dukkahs"
+                "name": "Дукка",
+                "plural_name": "Дукки"
             },
             "pav bhaji masala": {
                 "aliases": [],
@@ -7388,8 +7388,8 @@
             "mexican seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican seasoning",
-                "plural_name": "mexican seasonings"
+                "name": "Мексиканська приправа",
+                "plural_name": "Мексиканські приправи"
             },
             "tajin seasoning": {
                 "aliases": [],
@@ -16227,8 +16227,8 @@
             "sunflower lecithin": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower lecithin",
-                "plural_name": "sunflower lecithins"
+                "name": "Соняшниковий лецитин",
+                "plural_name": "Соняшникові лецитини"
             },
             "thc": {
                 "aliases": [],
@@ -16257,14 +16257,14 @@
             "rose oil": {
                 "aliases": [],
                 "description": "",
-                "name": "rose oil",
-                "plural_name": "rose oils"
+                "name": "Трояндова олія",
+                "plural_name": "Трояндові олії"
             },
             "banana powder": {
                 "aliases": [],
                 "description": "",
-                "name": "banana powder",
-                "plural_name": "banana powders"
+                "name": "Банановий порошок",
+                "plural_name": "Бананові порошки"
             },
             "chaga mushroom powder": {
                 "aliases": [],
