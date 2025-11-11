@@ -6976,8 +6976,8 @@
             "prickly pear syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "prickly pear syrup",
-                "plural_name": "prickly pear syrups"
+                "name": "опунцевий сироп",
+                "plural_name": "опунцеві сироп"
             },
             "cookie butter syrup": {
                 "aliases": [],
@@ -7006,14 +7006,14 @@
             "flavored syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "flavored syrup",
-                "plural_name": "flavored syrups"
+                "name": "ароматизований сироп",
+                "plural_name": "ароматизовані сиропи"
             },
             "elderflower syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "elderflower syrup",
-                "plural_name": "elderflower syrups"
+                "name": "бузиновий сироп",
+                "plural_name": "бузинові сиропи"
             },
             "malt sugar": {
                 "aliases": [],
@@ -7070,8 +7070,8 @@
             "pumpkin pie spice": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin pie spice",
-                "plural_name": "pumpkin pie spices"
+                "name": "приправа для гарбузового пирога",
+                "plural_name": "приправи для гарбузового пирога"
             },
             "mustard powder": {
                 "aliases": [],
@@ -7082,14 +7082,14 @@
             "taco seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "taco seasoning",
-                "plural_name": "taco seasonings"
+                "name": "приправа для тако",
+                "plural_name": "приправи для тако"
             },
             "cajun seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "cajun seasoning",
-                "plural_name": "cajun seasonings"
+                "name": "каджунська приправа",
+                "plural_name": "каджунські приправи"
             },
             "dry ranch seasoning": {
                 "aliases": [],
@@ -7112,26 +7112,26 @@
             "lemon & pepper seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon & pepper seasoning",
-                "plural_name": "lemon & pepper seasonings"
+                "name": "приправа \"лимонний перець\"",
+                "plural_name": "приправи \"лимонний перець\""
             },
             "liquid smoke": {
                 "aliases": [],
                 "description": "",
-                "name": "liquid smoke",
+                "name": "рідкий дим",
                 "plural_name": "liquid smokes"
             },
             "poultry seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "poultry seasoning",
-                "plural_name": "poultry seasonings"
+                "name": "приправа для птиці",
+                "plural_name": "приправи для птиці"
             },
             "chinese five spice": {
                 "aliases": [],
                 "description": "",
-                "name": "chinese five spice",
-                "plural_name": "chinese five spices"
+                "name": "китайська приправа \"5 спецій\"",
+                "plural_name": "китайські приправи \"5 спецій\""
             },
             "red curry": {
                 "aliases": [],
@@ -7142,14 +7142,14 @@
             "old bay seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "old bay seasoning",
-                "plural_name": "old bay seasonings"
+                "name": "приправа \"old bay\"",
+                "plural_name": "приправи \"old bay\""
             },
             "herbe de provence": {
                 "aliases": [],
                 "description": "",
-                "name": "herbe de provence",
-                "plural_name": "herbes de provence"
+                "name": "прованські трави",
+                "plural_name": "прованські трави"
             },
             "chaat masala": {
                 "aliases": [],
@@ -7160,14 +7160,14 @@
             "creole seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "creole seasoning",
-                "plural_name": "creole seasonings"
+                "name": "креольска приправа",
+                "plural_name": "креольскі приправи"
             },
             "steak seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "steak seasoning",
-                "plural_name": "steak seasonings"
+                "name": "приправа для стейка",
+                "plural_name": "приправи для стейка"
             },
             "mixed spice": {
                 "aliases": [],
@@ -7190,8 +7190,8 @@
             "mixed herb": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed herb",
-                "plural_name": "mixed herbs"
+                "name": "суміш трав",
+                "plural_name": "суміші трав"
             },
             "green curry": {
                 "aliases": [],
@@ -7202,14 +7202,14 @@
             "barbecue seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "barbecue seasoning",
-                "plural_name": "barbecue seasonings"
+                "name": "приправа для барбекю",
+                "plural_name": "приправи для барбекю"
             },
             "apple pie spice": {
                 "aliases": [],
                 "description": "",
-                "name": "apple pie spice",
-                "plural_name": "apple pie spices"
+                "name": "приправа для яблучного пирога",
+                "plural_name": "приправи для яблучного пирога"
             },
             "za'atar": {
                 "aliases": [],
@@ -7280,32 +7280,32 @@
             "garlic-pepper seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic-pepper seasoning",
-                "plural_name": "garlic-pepper seasonings"
+                "name": "приправа \"часниковий перець\"",
+                "plural_name": "приправи \"часниковий перець\""
             },
             "pickling salt": {
                 "aliases": [],
                 "description": "",
-                "name": "pickling salt",
-                "plural_name": "pickling salts"
+                "name": "сіль для маринування",
+                "plural_name": "солі для маринування"
             },
             "greek seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "greek seasoning",
-                "plural_name": "greek seasonings"
+                "name": "приправа \"грецька\"",
+                "plural_name": "приправи \"грецькі\""
             },
             "msg": {
                 "aliases": [],
                 "description": "",
-                "name": "msg",
+                "name": "глутамат натрію",
                 "plural_name": "msgs"
             },
             "teriyaki marinade": {
                 "aliases": [],
                 "description": "",
-                "name": "teriyaki marinade",
-                "plural_name": "teriyaki marinades"
+                "name": "маринад теріякі",
+                "plural_name": "маринади теріякі"
             },
             "adobo seasoning": {
                 "aliases": [],
@@ -7316,20 +7316,20 @@
             "sambar powder": {
                 "aliases": [],
                 "description": "",
-                "name": "sambar powder",
-                "plural_name": "sambar powders"
+                "name": "самбар масала",
+                "plural_name": "самбар масали"
             },
             "smoked salt": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked salt",
-                "plural_name": "smoked salts"
+                "name": "копчена сіль",
+                "plural_name": "копчені солі"
             },
             "dash seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "dash seasoning",
-                "plural_name": "dash seasonings"
+                "name": "приправа \"mrs. dash\"",
+                "plural_name": "приправи \"mrs. dash\""
             },
             "red miso": {
                 "aliases": [],
@@ -7346,8 +7346,8 @@
             "salt-free seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "salt-free seasoning",
-                "plural_name": "salt-free seasonings"
+                "name": "приправа без солі",
+                "plural_name": "приправи без солі"
             },
             "carne asada seasoning": {
                 "aliases": [],
@@ -7478,20 +7478,20 @@
             "grey sea salt": {
                 "aliases": [],
                 "description": "",
-                "name": "grey sea salt",
-                "plural_name": "grey sea salts"
+                "name": "сіра морська сіль",
+                "plural_name": "сірі морські солі"
             },
             "chicken taco seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken taco seasoning",
-                "plural_name": "chicken taco seasonings"
+                "name": "приправа для курячих тако",
+                "plural_name": "приправи для курячих тако"
             },
             "mushroom seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "mushroom seasoning",
-                "plural_name": "mushroom seasonings"
+                "name": "грибна приправа",
+                "plural_name": "грибні приправи"
             },
             "au jus mix": {
                 "aliases": [],
@@ -7502,14 +7502,14 @@
             "gingerbread spice": {
                 "aliases": [],
                 "description": "",
-                "name": "gingerbread spice",
-                "plural_name": "gingerbread spices"
+                "name": "суміш для імбирного печива",
+                "plural_name": "суміші для імбирного печива"
             },
             "popcorn seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "popcorn seasoning",
-                "plural_name": "popcorn seasonings"
+                "name": "приправа для попкорну",
+                "plural_name": "приправи для попкорну"
             },
             "berbere": {
                 "aliases": [],
@@ -7580,20 +7580,20 @@
             "vanilla salt": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla salt",
-                "plural_name": "vanilla salts"
+                "name": "ванільна сіль",
+                "plural_name": "ванільні солі"
             },
             "thai seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "thai seasoning",
-                "plural_name": "thai seasonings"
+                "name": "тайська приправа",
+                "plural_name": "тайські приправи"
             },
             "mulling spice": {
                 "aliases": [],
                 "description": "",
-                "name": "mulling spice",
-                "plural_name": "mulling spices"
+                "name": "спеції для глінтвейну",
+                "plural_name": "спеції для глінтвейну"
             },
             "sriracha seasoning": {
                 "aliases": [],
@@ -7610,8 +7610,8 @@
             "hawaiian salt": {
                 "aliases": [],
                 "description": "",
-                "name": "hawaiian salt",
-                "plural_name": "hawaiian salts"
+                "name": "гавайська сіль",
+                "plural_name": "гавайські солі"
             },
             "mesquite seasoning": {
                 "aliases": [],
@@ -7622,8 +7622,8 @@
             "tom yum paste": {
                 "aliases": [],
                 "description": "",
-                "name": "tom yum paste",
-                "plural_name": "tom yum pastes"
+                "name": "паста том ям",
+                "plural_name": "пасти том ям"
             },
             "fish masala": {
                 "aliases": [],
@@ -7650,29 +7650,29 @@
             "flour": {
                 "aliases": [],
                 "description": "",
-                "name": "flour",
-                "plural_name": "flours"
+                "name": "борошно",
+                "plural_name": "борошно"
             },
             "vanilla extract": {
                 "aliases": [
-                    "vanilla",
-                    "vanillas"
+                    "ваніль",
+                    "ваніль"
                 ],
                 "description": "",
-                "name": "vanilla extract",
-                "plural_name": "vanilla extracts"
+                "name": "екстракт ванілі",
+                "plural_name": "екстракти ванілі"
             },
             "baking powder": {
                 "aliases": [],
                 "description": "",
-                "name": "baking powder",
-                "plural_name": "baking powders"
+                "name": "розпушувач",
+                "plural_name": "розпушувачі"
             },
             "baking soda": {
                 "aliases": [],
                 "description": "",
-                "name": "baking soda",
-                "plural_name": "baking sodas"
+                "name": "харчова сода",
+                "plural_name": "харчові соди"
             },
             "cornstarch": {
                 "aliases": [],
@@ -7902,20 +7902,20 @@
             "chocolate cake mix": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate cake mix",
-                "plural_name": "chocolate cake mixes"
+                "name": "суміш для шоколадного торта",
+                "plural_name": "суміші для шоколадного торта"
             },
             "potato starch": {
                 "aliases": [],
                 "description": "",
-                "name": "potato starch",
+                "name": "картопляний крохмаль",
                 "plural_name": "potato starches"
             },
             "jello": {
                 "aliases": [],
                 "description": "",
-                "name": "jello",
-                "plural_name": "jelloes"
+                "name": "желе",
+                "plural_name": "желе"
             },
             "butterscotch chip": {
                 "aliases": [],
@@ -8590,8 +8590,8 @@
             "couscou": {
                 "aliases": [],
                 "description": "",
-                "name": "couscou",
-                "plural_name": "couscous"
+                "name": "кускус",
+                "plural_name": "кускус"
             },
             "rice cereal": {
                 "aliases": [],
@@ -8680,14 +8680,14 @@
             "oat bran": {
                 "aliases": [],
                 "description": "",
-                "name": "oat bran",
-                "plural_name": "oat brans"
+                "name": "вівсяні висівки",
+                "plural_name": "вівсяні висівки"
             },
             "sushi rice": {
                 "aliases": [],
                 "description": "",
-                "name": "sushi rice",
-                "plural_name": "sushi rices"
+                "name": "рис для суші",
+                "plural_name": "рис для суші"
             },
             "glutinous rice": {
                 "aliases": [],
@@ -8764,8 +8764,8 @@
             "muesli": {
                 "aliases": [],
                 "description": "",
-                "name": "muesli",
-                "plural_name": "mueslis"
+                "name": "мюслі",
+                "plural_name": "мюслі"
             },
             "amaranth": {
                 "aliases": [],
@@ -9668,8 +9668,8 @@
             "rice vermicelli": {
                 "aliases": [],
                 "description": "",
-                "name": "rice vermicelli",
-                "plural_name": "rice vermicellis"
+                "name": "рисова вермішель",
+                "plural_name": "рисова вермішель"
             },
             "pappardelle": {
                 "aliases": [],
@@ -10096,8 +10096,8 @@
             "sourdough bread": {
                 "aliases": [],
                 "description": "",
-                "name": "sourdough bread",
-                "plural_name": "sourdough breads"
+                "name": "хліб на заквасці",
+                "plural_name": "хліб на заквасці"
             },
             "rustic italian bread": {
                 "aliases": [],
@@ -10108,20 +10108,20 @@
             "popcorn": {
                 "aliases": [],
                 "description": "",
-                "name": "popcorn",
-                "plural_name": "popcorns"
+                "name": "попкорн",
+                "plural_name": "попкорн"
             },
             "crouton": {
                 "aliases": [],
                 "description": "",
-                "name": "crouton",
-                "plural_name": "croutons"
+                "name": "крутон",
+                "plural_name": "крутони"
             },
             "whole-wheat tortilla": {
                 "aliases": [],
                 "description": "",
-                "name": "whole-wheat tortilla",
-                "plural_name": "whole-wheat tortillas"
+                "name": "цільнозернова тортилья",
+                "plural_name": "цільнозернові тортильї"
             },
             "english muffin": {
                 "aliases": [],
