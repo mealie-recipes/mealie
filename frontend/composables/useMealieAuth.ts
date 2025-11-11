@@ -1,6 +1,7 @@
 import { ref, watch, computed } from "vue";
 import { useAuthBackend } from "~/composables/useAuthBackend";
 import type { UserOut } from "~/lib/api/types/user";
+import type { MealieAuthToken } from "~/lib/api/types/non-generated";
 
 export const useMealieAuth = function () {
   const auth = useAuthBackend();
@@ -39,8 +40,8 @@ export const useMealieAuth = function () {
 
   async function oauthSignIn() {
     const params = new URLSearchParams(window.location.search);
-    const { data: token } = await $axios.get<{ access_token: string; token_type: "bearer" }>("/api/auth/oauth/callback", { params });
-    auth.setToken(token.access_token);
+    const { data } = await $axios.get<MealieAuthToken>("/api/auth/oauth/callback", { params });
+    auth.setToken(data);
     await auth.getSession();
   }
 

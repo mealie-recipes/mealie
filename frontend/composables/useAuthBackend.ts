@@ -1,5 +1,6 @@
 import { ref, computed } from "vue";
 import type { UserOut } from "~/lib/api/types/user";
+import type { MealieAuthToken } from "~/lib/api/types/non-generated";
 
 interface AuthData {
   value: UserOut | null;
@@ -16,7 +17,7 @@ interface AuthState {
   signOut: (callbackUrl?: string) => Promise<void>;
   refresh: () => Promise<void>;
   getSession: () => Promise<void>;
-  setToken: (token: string | null) => void;
+  setToken: (token: MealieAuthToken | null) => void;
 }
 
 const authUser = ref<UserOut | null>(null);
@@ -26,10 +27,24 @@ export const useAuthBackend = function (): AuthState {
   const { $axios } = useNuxtApp();
   const router = useRouter();
   const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
-  const tokenCookie = useCookie(tokenName);
 
-  function setToken(token: string | null) {
-    tokenCookie.value = token;
+  const tokenMetadata = ref<MealieAuthToken | null>(null);
+  const tokenCookie = useCookie<string | null>(tokenName, {
+    maxAge: tokenMetadata.value?.expires_in,
+    httpOnly: tokenMetadata.value?.http_only,
+    secure: tokenMetadata.value?.secure,
+    sameSite: tokenMetadata.value?.samesite,
+  });
+
+  function setToken(token: MealieAuthToken | null) {
+    if (token === null) {
+      tokenCookie.value = null;
+      tokenMetadata.value = null;
+      return;
+    }
+
+    tokenCookie.value = token.access_token;
+    tokenMetadata.value = token;
   }
 
   function handleAuthError(error: any, redirect = false) {
@@ -68,14 +83,13 @@ export const useAuthBackend = function (): AuthState {
     authStatus.value = "loading";
 
     try {
-      const response = await $axios.post("/api/auth/token", credentials, {
+      const { data } = await $axios.post<MealieAuthToken>("/api/auth/token", credentials, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
 
-      const { access_token } = response.data;
-      setToken(access_token);
+      setToken(data);
       await getSession();
     }
     catch (error) {
@@ -104,9 +118,8 @@ export const useAuthBackend = function (): AuthState {
     if (!tokenCookie.value) return;
 
     try {
-      const response = await $axios.get("/api/auth/refresh");
-      const { access_token } = response.data;
-      setToken(access_token);
+      const { data } = await $axios.get<MealieAuthToken>("/api/auth/refresh");
+      setToken(data);
       await getSession();
     }
     catch (error: any) {
