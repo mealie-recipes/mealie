@@ -1,4 +1,4 @@
-from typing import Self
+from typing import ClassVar, Self
 
 from fastapi import Request, Response
 from pydantic import BaseModel, Field, computed_field, field_validator
@@ -7,10 +7,9 @@ from ..config import get_app_settings
 
 
 class MealieAuthToken(BaseModel):
-    TOKEN_KEY = "mealie.access_token"
+    TOKEN_KEY: ClassVar = "mealie.access_token"
 
-    request: Request = Field(exclude=True)
-
+    _request: Request
     access_token: str
     token_type: str = "bearer"
     expires_in: int = Field(None, validate_default=True)
@@ -29,8 +28,8 @@ class MealieAuthToken(BaseModel):
     @computed_field  # type: ignore
     @property
     def samesite(self) -> str | None:
-        forwarded_proto = self.request.headers.get("x-forwarded-proto", "").lower()
-        is_https = self.request.url.scheme == "https" or forwarded_proto == "https"
+        forwarded_proto = self._request.headers.get("x-forwarded-proto", "").lower()
+        is_https = self._request.url.scheme == "https" or forwarded_proto == "https"
 
         if is_https and self.secure:
             return "none"
