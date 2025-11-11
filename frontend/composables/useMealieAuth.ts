@@ -42,7 +42,7 @@ export const useMealieAuth = function () {
     // TODO: we shouldn't be setting the token here since the backend is already setting the cookie, but removing it breaks E2E tests for some reason
     const { data: token } = await $axios.get<{ access_token: string; token_type: "bearer" }>("/api/auth/oauth/callback", { params });
     auth.setToken(token.access_token);
-    await auth.getSession(true);
+    await auth.getSession();
   }
 
   return {
