@@ -11,6 +11,7 @@ from mealie.core import root_logger, security
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies import get_current_user
 from mealie.core.exceptions import MissingClaimException, UserLockedOut
+from mealie.core.security.mealie_auth_token import MealieAuthToken
 from mealie.core.security.providers.openid_provider import OpenIDProvider
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
@@ -20,7 +21,6 @@ from mealie.schema.user import PrivateUser
 from mealie.schema.user.auth import CredentialsRequestForm
 
 from .auth_cache import AuthCache
-from .mealie_auth_token import MealieAuthToken
 
 public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])

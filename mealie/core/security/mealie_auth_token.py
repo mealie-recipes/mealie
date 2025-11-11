@@ -3,7 +3,7 @@ from typing import Self
 from fastapi import Request, Response
 from pydantic import BaseModel, Field, computed_field, field_validator
 
-from mealie.core.config import get_app_settings
+from ..config import get_app_settings
 
 
 class MealieAuthToken(BaseModel):

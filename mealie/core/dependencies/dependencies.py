@@ -14,6 +14,7 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger
 from mealie.core.config import get_app_dirs, get_app_settings
+from mealie.core.security.mealie_auth_token import MealieAuthToken
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import PrivateUser, TokenData
@@ -90,9 +91,9 @@ async def get_current_user(
     token: str | None = Depends(oauth2_scheme_soft_fail),
     session=Depends(generate_session),
 ) -> PrivateUser:
-    if token is None and "mealie.access_token" in request.cookies:
+    if token is None and MealieAuthToken.TOKEN_KEY in request.cookies:
         # Try extract from cookie
-        token = request.cookies.get("mealie.access_token", "")
+        token = request.cookies.get(MealieAuthToken.TOKEN_KEY, "")
     else:
         token = token or ""
 
