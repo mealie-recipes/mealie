@@ -13,6 +13,7 @@
 import { computed } from "vue";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
 import { useParsedIngredientText } from "~/composables/recipes";
+import { useGroupPreferences } from "~/composables/use-group-preferences";
 
 interface Props {
   ingredient?: RecipeIngredient;
@@ -20,10 +21,11 @@ interface Props {
 }
 
 const { ingredient, scale = 1 } = defineProps<Props>();
+const { groupPreferences } = useGroupPreferences();
 
 const baseText = computed(() => {
   if (!ingredient) return "";
-  const parsed = useParsedIngredientText(ingredient, scale);
+  const parsed = useParsedIngredientText(ingredient, scale, false, groupPreferences.value?.pluralHandling);
   return [parsed.quantity, parsed.unit, parsed.name].filter(Boolean).join(" ").trim();
 });
 </script>

@@ -402,7 +402,6 @@ import { uuid4 } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
-import { useGroupPreferences } from "~/composables/use-group-preferences";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
