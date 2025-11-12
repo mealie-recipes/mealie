@@ -343,7 +343,9 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     position: Mapped[int | None] = mapped_column(Integer, index=True)
     recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
-    recipe: Mapped["RecipeModel"] = orm.relationship("RecipeModel", back_populates="recipe_ingredient")
+    recipe: Mapped["RecipeModel"] = orm.relationship(
+        "RecipeModel", back_populates="recipe_ingredient", foreign_keys=[recipe_id]
+    )
 
     title: Mapped[str | None] = mapped_column(String)  # Section Header - Shows if Present
     note: Mapped[str | None] = mapped_column(String)  # Force Show Text - Overrides Concat

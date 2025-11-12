@@ -105,11 +105,12 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         cascade="all, delete-orphan",
         order_by="RecipeIngredientModel.position",
         collection_class=ordering_list("position"),
-        foreign_keys="RecipeIngredientModel.recipe_id",
+        foreign_keys=[RecipeIngredientModel.recipe_id],
+        back_populates="recipe",
     )
     referenced_ingredients: Mapped[list["RecipeIngredientModel"]] = orm.relationship(
         "RecipeIngredientModel",
-        foreign_keys="RecipeIngredientModel.referenced_recipe_id",
+        foreign_keys=[RecipeIngredientModel.referenced_recipe_id],
         back_populates="referenced_recipe",
     )
     recipe_instructions: Mapped[list[RecipeInstruction]] = orm.relationship(
