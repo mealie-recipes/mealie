@@ -1,8 +1,8 @@
 """add plural handling to group preferences
 
 Revision ID: a8592ec31406
-Revises: e6bb583aac2d
-Create Date: 2025-08-22 20:11:51.875531
+Revises: 1d9a002d7234
+Create Date: 2025-11-12 20:11:51.875531
 
 """
 
@@ -11,7 +11,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "a8592ec31406"
-down_revision: str | None = "e6bb583aac2d"
+down_revision: str | None = "1d9a002d7234"
 branch_labels: str | tuple[str, ...] | None = None
 depends_on: str | tuple[str, ...] | None = None
 
