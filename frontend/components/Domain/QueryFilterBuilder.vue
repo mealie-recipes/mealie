@@ -165,7 +165,7 @@
               >
                 <template #activator="{ props: activatorProps }">
                   <v-text-field
-                    v-model="field.value"
+                    :model-value="field.value ? $d(new Date(field.value + 'T00:00:00')) : null"
                     persistent-hint
                     :prepend-icon="$globals.icons.calendar"
                     variant="underlined"
@@ -432,9 +432,9 @@ function removeField(index: number) {
 
 const fieldsUpdater = useDebounceFn((/* newFields: typeof fields.value */) => {
   /* newFields.forEach((field, index) => {
-		const updatedField = getFieldFromFieldDef(field);
-		fields.value[index] = updatedField; // recursive!!!
-	}); */
+    const updatedField = getFieldFromFieldDef(field);
+    fields.value[index] = updatedField; // recursive!!!
+  }); */
 
   const qf = buildQueryFilterString(fields.value, state.showAdvanced);
   if (qf) {

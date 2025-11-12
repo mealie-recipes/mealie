@@ -19,7 +19,6 @@ if TYPE_CHECKING:
     from ..household import Household
     from ..recipe import RecipeModel
 
-
 households_to_ingredient_foods = sa.Table(
     "households_to_ingredient_foods",
     SqlAlchemyBase.metadata,
@@ -360,6 +359,12 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     original_text: Mapped[str | None] = mapped_column(String)
 
     reference_id: Mapped[GUID | None] = mapped_column(GUID)  # Reference Links
+
+    # Recipe Reference
+    referenced_recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
+    referenced_recipe: Mapped["RecipeModel"] = orm.relationship(
+        "RecipeModel", back_populates="referenced_ingredients", foreign_keys=[referenced_recipe_id]
+    )
 
     # Automatically updated by sqlalchemy event, do not write to this manually
     note_normalized: Mapped[str | None] = mapped_column(String, index=True)

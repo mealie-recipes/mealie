@@ -29,8 +29,8 @@ export function useGroupRecipeActionData() {
 }
 
 export const useGroupRecipeActions = function (
-	orderBy: string | null = "title",
-	orderDirection: string | null = "asc",
+  orderBy: string | null = "title",
+  orderDirection: string | null = "asc",
 ) {
   const api = useUserApi();
 
@@ -78,7 +78,7 @@ export const useGroupRecipeActions = function (
   };
 
   const actions = {
-    ...useStoreActions<GroupRecipeActionOut>(api.groupRecipeActions, groupRecipeActions, loading),
+    ...useStoreActions<GroupRecipeActionOut>("group-recipe-actions", api.groupRecipeActions, groupRecipeActions, loading),
     flushStore() {
       groupRecipeActions.value = [];
     },

@@ -10,9 +10,7 @@
       :max-width="maxWidth ?? undefined"
       :content-class="top ? 'top-dialog' : undefined"
       :fullscreen="$vuetify.display.xs"
-      @keydown.enter="() => {
-        emit('submit'); dialog = false;
-      }"
+      @keydown.enter="submitOnEnter"
       @click:outside="emit('cancel')"
       @keydown.esc="emit('cancel')"
     >
@@ -61,7 +59,6 @@
             <BaseButton
               v-if="canDelete"
               delete
-              secondary
               @click="deleteEvent"
             />
             <BaseButton
@@ -127,6 +124,7 @@ interface DialogProps {
   canDelete?: boolean;
   canConfirm?: boolean;
   canSubmit?: boolean;
+  disableSubmitOnEnter?: boolean;
 }
 
 interface DialogEmits {
@@ -150,6 +148,7 @@ const props = withDefaults(defineProps<DialogProps>(), {
   canDelete: false,
   canConfirm: false,
   canSubmit: false,
+  disableSubmitOnEnter: false,
 });
 const emit = defineEmits<DialogEmits>();
 
@@ -181,6 +180,14 @@ function submitEvent() {
   submitted.value = true;
 }
 
+function submitOnEnter() {
+  if (props.disableSubmitOnEnter) {
+    return;
+  }
+
+  submitEvent();
+}
+
 function deleteEvent() {
   emit("delete");
   submitted.value = true;
@@ -192,8 +199,8 @@ function open() {
 }
 
 /* function close() {
-	dialog.value = false;
-	logDeprecatedProp("close");
+  dialog.value = false;
+  logDeprecatedProp("close");
 } */
 
 function logDeprecatedProp(val: string) {

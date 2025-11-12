@@ -106,7 +106,7 @@
           @click:row="setSelected"
         >
           <template #[`item.date`]="{ item }">
-            {{ $d(Date.parse(item.date), "medium") }}
+            {{ $d(Date.parse(item.date)) }}
           </template>
           <template #[`item.actions`]="{ item }">
             <v-btn

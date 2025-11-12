@@ -15,6 +15,7 @@ from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema._mealie.types import NoneFloat
 from mealie.schema.group.group_preferences import GroupPreferencesPluralHandling
+from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.response.pagination import PaginationBase
 
 INGREDIENT_QTY_PRECISION = 3
@@ -160,8 +161,9 @@ class RecipeIngredientBase(MealieModel):
     quantity: NoneFloat = 0
     unit: IngredientUnit | CreateIngredientUnit | None = None
     food: IngredientFood | CreateIngredientFood | None = None
-    note: str | None = ""
+    referenced_recipe: Recipe | None = None
 
+    note: str | None = ""
     display: str = ""
     """
     How the ingredient should be displayed

@@ -1,4 +1,5 @@
 from .chowdown import *
+from .cookn import *
 from .copymethat import *
 from .mealie_alpha import *
 from .myrecipebox import *

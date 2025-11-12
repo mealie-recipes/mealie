@@ -11,7 +11,7 @@
 | DEFAULT_GROUP                 |         Home          | The default group for users                                                                        |
 | DEFAULT_HOUSEHOLD             |        Family         | The default household for users in each group                                                      |
 | BASE_URL                      | http://localhost:8080 | Used for Notifications                                                                             |
-| TOKEN_TIME                    |          48           | The time in hours that a login/auth token is valid                                                 |
+| TOKEN_TIME                    |          48           | The time in hours that a login/auth token is valid. Must be <= 87600 (10 years, in hours).         |
 | API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker**                |
 | API_DOCS                      |         True          | Turns on/off access to the API documentation locally                                               |
 | TZ                            |          UTC          | Must be set to get correct date/time on the server                                                 |
@@ -32,15 +32,16 @@
 
 ### Database
 
- | Variables                                               | Default  | Description                                                             |
- | ------------------------------------------------------- | :------: | ----------------------------------------------------------------------- |
- | DB_ENGINE                                               |  sqlite  | Optional: 'sqlite', 'postgres'                                          |
- | POSTGRES_USER<super>[&dagger;][secrets]</super>         |  mealie  | Postgres database user                                                  |
- | POSTGRES_PASSWORD<super>[&dagger;][secrets]</super>     |  mealie  | Postgres database password                                              |
- | POSTGRES_SERVER<super>[&dagger;][secrets]</super>       | postgres | Postgres database server address                                        |
- | POSTGRES_PORT<super>[&dagger;][secrets]</super>         |   5432   | Postgres database port                                                  |
- | POSTGRES_DB<super>[&dagger;][secrets]</super>           |  mealie  | Postgres database name                                                  |
- | POSTGRES_URL_OVERRIDE<super>[&dagger;][secrets]</super> |   None   | Optional Postgres URL override to use instead of POSTGRES\_\* variables |
+ | Variables                                               | Default  | Description                                                                                                                                                                                                                      |
+ |---------------------------------------------------------|:--------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+ | DB_ENGINE                                               |  sqlite  | Optional: 'sqlite', 'postgres'                                                                                                                                                                                                   |
+ | SQLITE_MIGRATE_JOURNAL_WAL                              |  False   | If set to true, switches SQLite's journal mode to WAL, which allows for multiple concurrent accesses. This can be useful when you have a decent amount of concurrency or when using certain remote storage systems such as Ceph. |
+ | POSTGRES_USER<super>[&dagger;][secrets]</super>         |  mealie  | Postgres database user                                                                                                                                                                                                           |
+ | POSTGRES_PASSWORD<super>[&dagger;][secrets]</super>     |  mealie  | Postgres database password                                                                                                                                                                                                       |
+ | POSTGRES_SERVER<super>[&dagger;][secrets]</super>       | postgres | Postgres database server address                                                                                                                                                                                                 |
+ | POSTGRES_PORT<super>[&dagger;][secrets]</super>         |   5432   | Postgres database port                                                                                                                                                                                                           |
+ | POSTGRES_DB<super>[&dagger;][secrets]</super>           |  mealie  | Postgres database name                                                                                                                                                                                                           |
+ | POSTGRES_URL_OVERRIDE<super>[&dagger;][secrets]</super> |   None   | Optional Postgres URL override to use instead of POSTGRES\_\* variables                                                                                                                                                          |
 
 ### Email
 
@@ -136,6 +137,13 @@ For custom mapping variables (e.g. OPENAI_CUSTOM_HEADERS) you should pass values
 ### Theming
 
 Setting the following environmental variables will change the theme of the frontend. Note that the themes are the same for all users. This is a break-change when migration from v0.x.x -> 1.x.x.
+
+!!! info
+    If you're setting these variables but not seeing these changes persist, try removing the `#` character. Also, depending on which syntax you're using, double-check you're using quotes correctly.
+
+    If using YAML mapping syntax, be sure to include quotes around these values, otherwise they will be treated as comments in your YAML file:<br>`THEME_LIGHT_PRIMARY: '#E58325'` or  `THEME_LIGHT_PRIMARY: 'E58325'`
+
+    If using YAML sequence syntax, don't include any quotes:<br>`THEME_LIGHT_PRIMARY=#E58325` or `THEME_LIGHT_PRIMARY=E58325`
 
 | Variables             | Default | Description                 |
 | --------------------- | :-----: | --------------------------- |

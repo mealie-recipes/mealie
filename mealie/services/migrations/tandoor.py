@@ -10,31 +10,14 @@ from mealie.schema.reports.reports import ReportEntryCreate
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-
-
-def _format_time(minutes: int) -> str:
-    # TODO: make this translatable
-    hour_label = "hour"
-    hours_label = "hours"
-    minute_label = "minute"
-    minutes_label = "minutes"
-
-    hours, minutes = divmod(minutes, 60)
-    parts: list[str] = []
-
-    if hours:
-        parts.append(f"{int(hours)} {hour_label if hours == 1 else hours_label}")
-    if minutes:
-        parts.append(f"{minutes} {minute_label if minutes == 1 else minutes_label}")
-
-    return " ".join(parts)
+from .utils.migration_helpers import format_time
 
 
 def parse_times(working_time: int, waiting_time: int) -> tuple[str, str]:
     """Returns the performTime and totalTime"""
 
     total_time = working_time + waiting_time
-    return _format_time(working_time), _format_time(total_time)
+    return format_time(working_time), format_time(total_time)
 
 
 class TandoorMigrator(BaseMigrator):

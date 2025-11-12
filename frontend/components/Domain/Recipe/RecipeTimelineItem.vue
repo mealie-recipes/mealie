@@ -5,7 +5,7 @@
         <v-icon class="mr-1">
           {{ $globals.icons.calendar }}
         </v-icon>
-        {{ new Date(event.timestamp).toLocaleDateString($i18n.locale) }}
+        {{ $d(new Date(event.timestamp)) }}
       </v-chip>
     </template>
     <v-card
@@ -22,7 +22,7 @@
           <v-col v-if="useMobileFormat" align-self="center" class="pr-0">
             <v-chip label>
               <v-icon> {{ $globals.icons.calendar }} </v-icon>
-              {{ new Date(event.timestamp || "").toLocaleDateString($i18n.locale) }}
+              {{ $d(new Date(event.timestamp || "")) }}
             </v-chip>
           </v-col>
           <v-col v-else cols="9" style="margin: auto; text-align: center">
@@ -43,7 +43,7 @@
                 edit: true,
                 delete: true,
               }"
-              @update="$emit('update')"
+              @update="$emit('update', $event)"
               @delete="$emit('delete')"
             />
           </v-col>
@@ -96,7 +96,7 @@ import RecipeCardMobile from "./RecipeCardMobile.vue";
 import RecipeTimelineContextMenu from "./RecipeTimelineContextMenu.vue";
 import { useStaticRoutes } from "~/composables/api";
 import { useTimelineEventTypes } from "~/composables/recipes/use-recipe-timeline-events";
-import type { Recipe, RecipeTimelineEventOut } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate } from "~/lib/api/types/recipe";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import SafeMarkdown from "~/components/global/SafeMarkdown.vue";
 
@@ -113,7 +113,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 defineEmits<{
   selected: [];
-  update: [];
+  update: [event: RecipeTimelineEventUpdate];
   delete: [];
 }>();
 

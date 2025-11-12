@@ -1,7 +1,7 @@
 import DOMPurify from "isomorphic-dompurify";
 import { useFraction } from "./use-fraction";
-import type { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit, RecipeIngredient } from "~/lib/api/types/recipe";
 import type { GroupPreferencesPluralHandling } from "~/lib/api/types/group";
+import type { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit, Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 
 const { frac } = useFraction();
 
@@ -37,20 +37,34 @@ function useUnitName(unit: CreateIngredientUnit | IngredientUnit | undefined, us
   return returnVal;
 }
 
+function useRecipeLink(recipe: Recipe | undefined, groupSlug: string | undefined): string | undefined {
+  if (!(recipe && recipe.slug && recipe.name && groupSlug)) {
+    return undefined;
+  }
+  return `<a href="/g/${groupSlug}/r/${recipe.slug}" target="_blank">${recipe.name}</a>`;
+}
+
+type ParsedIngredientText = {
+  quantity?: string;
+  unit?: string;
+  name?: string;
+  note?: string;
+  recipeLink?: string;
+};
+
 export function useParsedIngredientText(
   ingredient: RecipeIngredient,
   scale = 1,
   includeFormating = true,
-  pluralHandling = "pluralize_food_without_unit" as GroupPreferencesPluralHandling,
-) {
-  const { quantity, food, unit, note, title } = ingredient;
-
-  // casting to number is required as sometimes quantity is a string
-  const scaledQuantity = (Number(quantity || 0)) * scale;
-  const usePluralUnit = (scaledQuantity && scaledQuantity > 1) || false;
-
+  pluralHandling: GroupPreferencesPluralHandling = "pluralize_food_without_unit",
+  groupSlug?: string,
+): ParsedIngredientText {
+  const { quantity, food, unit, note, referencedRecipe } = ingredient;
+  const scaledQuantity = Number(quantity || 0) * scale;
+  const usePluralUnit = scaledQuantity > 1;
   let usePluralFood = false;
-  if (scaledQuantity && scaledQuantity <= 1) {
+
+  if (scaledQuantity <= 1) {
     usePluralFood = false;
   }
   else {
@@ -59,7 +73,6 @@ export function useParsedIngredientText(
         usePluralFood = false;
         break;
       case "pluralize_food_without_unit":
-        // if quantity is zero then unit is not shown even if it's set
         usePluralFood = !(scaledQuantity && unit);
         break;
       case "always_pluralize":
@@ -72,7 +85,6 @@ export function useParsedIngredientText(
   }
 
   let returnQty = "";
-
   if (scaledQuantity) {
     if (unit && !unit.fraction) {
       returnQty = Number(scaledQuantity.toPrecision(3)).toString();
@@ -82,7 +94,6 @@ export function useParsedIngredientText(
       if (fraction[0] !== undefined && fraction[0] > 0) {
         returnQty += fraction[0];
       }
-
       if (fraction[1] > 0) {
         returnQty += includeFormating
           ? `<sup>${fraction[1]}</sup><span>&frasl;</span><sub>${fraction[2]}</sub>`
@@ -92,14 +103,14 @@ export function useParsedIngredientText(
   }
 
   const unitName = useUnitName(unit || undefined, usePluralUnit);
-  const foodName = useFoodName(food || undefined, usePluralFood);
+  const ingName = referencedRecipe ? referencedRecipe.name || "" : useFoodName(food || undefined, usePluralFood);
 
   return {
-    title: title ? sanitizeIngredientHTML(title) : undefined,
     quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
     unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
-    name: foodName ? sanitizeIngredientHTML(foodName) : undefined,
+    name: ingName ? sanitizeIngredientHTML(ingName) : undefined,
     note: note ? sanitizeIngredientHTML(note) : undefined,
+    recipeLink: useRecipeLink(referencedRecipe || undefined, groupSlug),
   };
 }
 

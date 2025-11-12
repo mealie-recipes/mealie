@@ -52,26 +52,7 @@
           Mealie
         </v-toolbar-title>
       </v-toolbar>
-
-      <div class="icon-container">
-        <v-divider class="icon-divider" />
-        <v-avatar
-          class="pa-2 icon-avatar"
-          color="primary"
-          size="100"
-        >
-          <svg
-            class="icon-white"
-            style="width: 100px; height: 100px"
-            viewBox="0 0 24 24"
-          >
-            <path
-              d="M8.1,13.34L3.91,9.16C2.35,7.59 2.35,5.06 3.91,3.5L10.93,10.5L8.1,13.34M13.41,13L20.29,19.88L18.88,21.29L12,14.41L5.12,21.29L3.71,19.88L13.36,10.22L13.16,10C12.38,9.23 12.38,7.97 13.16,7.19L17.5,2.82L18.43,3.74L15.19,7L16.15,7.94L19.39,4.69L20.31,5.61L17.06,8.85L18,9.81L21.26,6.56L22.18,7.5L17.81,11.84C17.03,12.62 15.77,12.62 15,11.84L14.78,11.64L13.41,13Z"
-            />
-          </svg>
-        </v-avatar>
-      </div>
-
+      <AppLogo :size="100" />
       <v-card-title class="text-h5 justify-center pb-3">
         {{ $t('user.sign-in') }}
       </v-card-title>
@@ -129,7 +110,7 @@
           </v-card-actions>
 
           <div
-            v-if="allowOidc && allowPasswordLogin"
+            v-if="appInfoLoaded && allowOidc && allowPasswordLogin"
             class="d-flex my-4 justify-center align-center"
             width="80%"
           >
@@ -145,7 +126,7 @@
             </span>
           </div>
           <v-card-actions
-            v-if="allowOidc"
+            v-if="appInfoLoaded && allowOidc"
             class="justify-center"
           >
             <div class="max-button">
@@ -236,6 +217,7 @@ import { usePasswordField } from "~/composables/use-passwords";
 import { alert } from "~/composables/use-toast";
 import { useAsyncKey } from "~/composables/use-utils";
 import type { AppStartupInfo } from "~/lib/api/types/admin";
+import { useUserActivityPreferences } from "~/composables/use-users/preferences";
 
 export default defineNuxtComponent({
   setup() {
@@ -252,6 +234,8 @@ export default defineNuxtComponent({
     const groupSlug = computed(() => $auth.user.value?.groupSlug);
     const isDemo = ref(false);
     const isFirstLogin = ref(false);
+    const activityPreferences = useUserActivityPreferences();
+    const { getDefaultActivityRoute } = useDefaultActivity();
 
     useSeoMeta({
       title: i18n.t("user.login"),
@@ -272,8 +256,15 @@ export default defineNuxtComponent({
     whenever(
       () => loggedIn.value && groupSlug.value,
       () => {
+        const defaultActivityRoute = getDefaultActivityRoute(
+          activityPreferences.value.defaultActivity,
+          groupSlug.value,
+        );
         if (!isDemo.value && isFirstLogin.value && $auth.user.value?.admin) {
           router.push("/admin/setup");
+        }
+        else if (defaultActivityRoute) {
+          router.push(defaultActivityRoute);
         }
         else {
           router.push(`/g/${groupSlug.value || ""}`);
@@ -289,6 +280,7 @@ export default defineNuxtComponent({
 
     const { passwordIcon, inputType, togglePasswordShow } = usePasswordField();
 
+    const appInfoLoaded = computed(() => appInfo.value !== null);
     const allowSignup = computed(() => appInfo.value?.allowSignup || false);
     const allowOidc = computed(() => appInfo.value?.enableOidc || false);
     const oidcRedirect = computed(() => appInfo.value?.oidcRedirect || false);
@@ -296,7 +288,7 @@ export default defineNuxtComponent({
     const allowPasswordLogin = computed(() => appInfo.value?.allowPasswordLogin ?? true);
 
     whenever(
-      () => allowOidc.value && oidcRedirect.value && !isCallback() && !isDirectLogin() /* && !$auth.check().valid */,
+      () => appInfoLoaded.value && allowOidc.value && oidcRedirect.value && !isCallback() && !isDirectLogin() /* && !$auth.check().valid */,
       () => oidcAuthenticate(),
       { immediate: true },
     );
@@ -322,7 +314,6 @@ export default defineNuxtComponent({
         oidcLoggingIn.value = true;
         try {
           await $auth.oauthSignIn();
-          window.location.href = "/"; // Reload the app to get the new user
         }
         catch (error) {
           await router.replace("/login?direct=1");
@@ -348,8 +339,7 @@ export default defineNuxtComponent({
       formData.append("remember_me", String(form.remember));
 
       try {
-        await $auth.signIn(formData, { redirect: false });
-        window.location.href = "/"; // Reload the app to get the new user
+        await $auth.signIn(formData);
       }
       catch (error) {
         console.log(error);
@@ -378,6 +368,7 @@ export default defineNuxtComponent({
       isDark,
       form,
       loggingIn,
+      appInfoLoaded,
       allowSignup,
       allowPasswordLogin,
       allowOidc,

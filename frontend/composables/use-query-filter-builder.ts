@@ -17,19 +17,19 @@ export interface OrganizerBase {
   name: string;
 }
 
-export type FieldType =
-  | "string"
-  | "number"
-  | "boolean"
-  | "date"
-  | RecipeOrganizer;
+export type FieldType
+  = | "string"
+    | "number"
+    | "boolean"
+    | "date"
+    | RecipeOrganizer;
 
-export type FieldValue =
-  | string
-  | number
-  | boolean
-  | Date
-  | Organizer;
+export type FieldValue
+  = | string
+    | number
+    | boolean
+    | Date
+    | Organizer;
 
 export interface SelectableItem {
   label: string;

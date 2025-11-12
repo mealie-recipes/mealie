@@ -30,8 +30,8 @@ class AuthProvider[T](metaclass=abc.ABCMeta):
         settings = get_app_settings()
 
         duration = timedelta(hours=settings.TOKEN_TIME)
-        if remember_me and remember_me_duration > duration:
-            duration = remember_me_duration
+        if remember_me:
+            duration = max(remember_me_duration, duration)
 
         return AuthProvider.create_access_token({"sub": str(user.id)}, duration)
 

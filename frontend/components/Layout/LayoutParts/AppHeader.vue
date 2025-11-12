@@ -128,7 +128,7 @@ export default defineNuxtComponent({
 
     async function logout() {
       try {
-        await $auth.signOut({ callbackUrl: "/login?direct=1" });
+        await $auth.signOut("/login?direct=1");
       }
       catch (e) {
         console.error(e);

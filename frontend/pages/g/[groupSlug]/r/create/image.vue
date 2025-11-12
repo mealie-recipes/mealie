@@ -19,7 +19,7 @@
               :multiple="true"
               @uploaded="uploadImages"
             />
-            <div v-if="uploadedImages.length > 0" class="mt-3">
+            <div v-if="uploadedImages.length" class="mt-3">
               <p class="my-2">
                 {{ $t("recipe.crop-and-rotate-the-image") }}
               </p>
@@ -60,19 +60,27 @@
               </v-row>
             </div>
           </v-container>
+          <v-checkbox
+            v-if="uploadedImages.length"
+            v-model="shouldTranslate"
+            color="primary"
+            hide-details
+            :label="$t('recipe.should-translate-description')"
+            :disabled="loading"
+          />
+          <v-checkbox
+            v-if="uploadedImages.length"
+            v-model="parseRecipe"
+            color="primary"
+            hide-details
+            :label="$t('recipe.parse-recipe-ingredients-after-import')"
+            :disabled="loading"
+          />
         </v-card-text>
         <v-card-actions v-if="uploadedImages.length">
           <div class="w-100 d-flex flex-column align-center">
             <p style="width: 250px">
               <BaseButton rounded block type="submit" :loading="loading" />
-            </p>
-            <p>
-              <v-checkbox
-                v-model="shouldTranslate"
-                hide-details
-                :label="$t('recipe.should-translate-description')"
-                :disabled="loading"
-              />
             </p>
             <p v-if="loading" class="mb-0">
               {{
@@ -91,6 +99,7 @@
 <script lang="ts">
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
+import { useNewRecipeOptions } from "~/composables/use-new-recipe-options";
 import type { VForm } from "~/types/auto-forms";
 
 export default defineNuxtComponent({
@@ -102,7 +111,6 @@ export default defineNuxtComponent({
     const i18n = useI18n();
     const api = useUserApi();
     const route = useRoute();
-    const router = useRouter();
     const groupSlug = computed(() => route.params.groupSlug || "");
 
     const domUrlForm = ref<VForm | null>(null);
@@ -110,6 +118,8 @@ export default defineNuxtComponent({
     const uploadedImageNames = ref<string[]>([]);
     const uploadedImagesPreviewUrls = ref<string[]>([]);
     const shouldTranslate = ref(true);
+
+    const { parseRecipe, navigateToRecipe } = useNewRecipeOptions();
 
     function uploadImages(files: File[]) {
       uploadedImages.value = [...uploadedImages.value, ...files];
@@ -143,7 +153,7 @@ export default defineNuxtComponent({
         state.loading = false;
       }
       else {
-        router.push(`/g/${groupSlug.value}/r/${data}`);
+        navigateToRecipe(data, groupSlug.value, `/g/${groupSlug.value}/r/create/image`);
       }
     }
 
@@ -184,6 +194,7 @@ export default defineNuxtComponent({
       uploadedImages,
       uploadedImagesPreviewUrls,
       shouldTranslate,
+      parseRecipe,
       uploadImages,
       clearImage,
       createRecipe,

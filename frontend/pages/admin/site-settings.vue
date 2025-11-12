@@ -194,6 +194,16 @@
                   </a>
                 </v-list-item-subtitle>
               </template>
+              <template v-else-if="property.slot === 'version' && property.value !== 'develop' && property.value !== 'nightly'">
+                <v-list-item-subtitle>
+                  <a
+                    target="_blank"
+                    :href="`https://github.com/mealie-recipes/mealie/releases/tag/${property.value}`"
+                  >
+                    {{ property.value }}
+                  </a>
+                </v-list-item-subtitle>
+              </template>
               <template v-else>
                 <v-list-item-subtitle>
                   {{ property.value }}
@@ -400,6 +410,7 @@ export default defineNuxtComponent({
           rawAppInfo.value.versionLatest = data.versionLatest;
           const prettyInfo = [
             {
+              slot: "version",
               name: i18n.t("about.version"),
               icon: $globals.icons.information,
               value: data.version,

@@ -9,7 +9,6 @@ import type {
   CreateRecipeByUrlBulk,
   ParsedIngredient,
   UpdateImageResponse,
-  RecipeZipTokenResponse,
   RecipeLastMade,
   RecipeSuggestionQuery,
   RecipeSuggestionResponse,
@@ -46,8 +45,6 @@ const routes = {
   recipesTimelineEvent: `${prefix}/recipes/timeline/events`,
 
   recipesRecipeSlug: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}`,
-  recipesRecipeSlugExport: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/exports`,
-  recipesRecipeSlugExportZip: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/exports/zip`,
   recipesRecipeSlugImage: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/image`,
   recipesRecipeSlugAssets: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets`,
 
@@ -141,6 +138,10 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return this.requests.post<UpdateImageResponse>(routes.recipesRecipeSlugImage(slug), { url });
   }
 
+  deleteImage(slug: string) {
+    return this.requests.delete<string>(routes.recipesRecipeSlugImage(slug));
+  }
+
   async testCreateOneUrl(url: string, useOpenAI = false) {
     return await this.requests.post<Recipe | null>(routes.recipesTestScrapeUrl, { url, useOpenAI });
   }
@@ -169,7 +170,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
       apiRoute = `${apiRoute}?translateLanguage=${translateLanguage}`;
     }
 
-    return await this.requests.post<string>(apiRoute, formData, { timeout: 120000 });
+    return await this.requests.post<string>(apiRoute, formData);
   }
 
   async parseIngredients(parser: Parser, ingredients: Array<string>) {
@@ -180,14 +181,6 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
   async parseIngredient(parser: Parser, ingredient: string) {
     parser = parser || "nlp";
     return await this.requests.post<ParsedIngredient>(routes.recipesParseIngredient, { parser, ingredient });
-  }
-
-  async getZipToken(recipeSlug: string) {
-    return await this.requests.post<RecipeZipTokenResponse>(routes.recipesRecipeSlugExport(recipeSlug), {});
-  }
-
-  getZipRedirectUrl(recipeSlug: string, token: string) {
-    return `${routes.recipesRecipeSlugExportZip(recipeSlug)}?token=${token}`;
   }
 
   async updateMany(payload: Recipe[]) {
