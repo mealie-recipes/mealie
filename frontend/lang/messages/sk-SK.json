@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Pokúsiť sa rozdeliť odsek pomocou vzoru '1)' alebo '1.'",
     "import-by-url": "Importovať recept z URL",
     "create-manually": "Vytvoriť recept manuálne",
-    "make-recipe-image": "Nastaviť ako obrázok receptu"
+    "make-recipe-image": "Nastaviť ako obrázok receptu",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "Chyba 404 - Stránka nenájdená",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Recept bol odstránený",
     "recipe-image": "Obrázok receptu",
     "recipe-image-updated": "Obrázok receptu aktualizovaný",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Názov receptu",
     "recipe-settings": "Nastavenia receptu",
     "recipe-update-failed": "Aktualizácia receptu zlyhala",
@@ -587,6 +592,7 @@
     "made-this": "Toto som uvaril",
     "how-did-it-turn-out": "Ako to dopadlo?",
     "user-made-this": "{user} toto uvaril(a)",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Pridané na časovú os",
     "failed-to-add-to-timeline": "Pridanie na časovú os skončilo chybou",
     "failed-to-update-recipe": "Recept sa nepodarilo aktualizovať",
@@ -688,7 +694,10 @@
     "upload-images": "Nahrať obrázky",
     "upload-more-images": "Nahrať ďalšie obrázky",
     "set-as-cover-image": "Nastaviť ako titulný obrázok receptu",
-    "cover-image": "Titulný obrázok"
+    "cover-image": "Titulný obrázok",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Hľadač receptov",

@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Προσπάθεια για χωρισμό μιας παραγράφου ταιριάζοντας μοτίβα '1)' ή '1.'",
     "import-by-url": "Εισαγωγή μιας συνταγής από URL",
     "create-manually": "Δημιουργήστε μια συνταγή χειροκίνητα",
-    "make-recipe-image": "Ορισμός ως εικόνας συνταγής"
+    "make-recipe-image": "Ορισμός ως εικόνας συνταγής",
+    "add-food": "Προσθήκη τρόφιμου",
+    "add-recipe": "Προσθήκη συνταγής"
   },
   "page": {
     "404-page-not-found": "404. η σελίδα δεν βρέθηκε",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Η συνταγή διαγράφηκε",
     "recipe-image": "Εικόνα Συνταγής",
     "recipe-image-updated": "Η εικόνα συνταγής ενημερώθηκε",
+    "delete-image": "Διαγραφή Εικόνας Συνταγής",
+    "delete-image-confirmation": "Θέλετε σίγουρα να διαγράψετε αυτή την εικόνα συνταγής;",
+    "recipe-image-deleted": "Η εικόνα συνταγής διαγράφηκε",
     "recipe-name": "Όνομα συνταγής",
     "recipe-settings": "Ρυθμίσεις Συνταγής",
     "recipe-update-failed": "Η ενημέρωση συνταγής απέτυχε",
@@ -587,6 +592,7 @@
     "made-this": "Το έφτιαξα",
     "how-did-it-turn-out": "Ποιό ήταν το αποτέλεσμα;",
     "user-made-this": "Ο/η {user} έφτιαξε αυτό",
+    "made-for-recipe": "Φτιαγμένο για {recipe}",
     "added-to-timeline": "Προστέθηκε στο χρονολόγιο",
     "failed-to-add-to-timeline": "Αποτυχία προσθήκης στο χρονολόγιο",
     "failed-to-update-recipe": "Αποτυχία ενημέρωσης συνταγής",
@@ -688,7 +694,10 @@
     "upload-images": "Ανέβασμα εικόνων",
     "upload-more-images": "Ανέβασμα περισσότερων εικόνων",
     "set-as-cover-image": "Ορισμός ως εικόνα εξώφυλλου συνταγής",
-    "cover-image": "Εικόνα εξώφυλλου"
+    "cover-image": "Εικόνα εξώφυλλου",
+    "include-linked-recipes": "Συμπερίληψη συνδεδεμένων συνταγών",
+    "include-linked-recipe-ingredients": "Συμπερίληψη συστατικών συνδεδεμένης συνταγής",
+    "toggle-recipe": "Εναλλαγή συνταγής"
   },
   "recipe-finder": {
     "recipe-finder": "Εύρεση συνταγών",

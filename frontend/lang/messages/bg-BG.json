@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Опитва се да раздели параграф по '1)' or '1.' модел",
     "import-by-url": "Импортиране на рецепта от линк",
     "create-manually": "Създай рецепта ръчно",
-    "make-recipe-image": "Задай като изображението на рецептата"
+    "make-recipe-image": "Задай като изображението на рецептата",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Страницата не е намерена",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Рецептата е изтрита",
     "recipe-image": "Изображение на рецептата",
     "recipe-image-updated": "Изображението на рецептата беше обновено",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Наименование",
     "recipe-settings": "Настройки на рецептата",
     "recipe-update-failed": "Обновяването на рецептата беше неуспешно",
@@ -587,6 +592,7 @@
     "made-this": "Сготвих рецептата",
     "how-did-it-turn-out": "Как се получи?",
     "user-made-this": "{user} направи това",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Добавено към историята на събитията",
     "failed-to-add-to-timeline": "Неуспешно добавяне към историята на събитията",
     "failed-to-update-recipe": "Неуспешно актуализиране на рецептата",
@@ -688,7 +694,10 @@
     "upload-images": "Качване на изображения",
     "upload-more-images": "Качете още изображения",
     "set-as-cover-image": "Задай като изображение на корицата на рецептата",
-    "cover-image": "Изображение на корицата"
+    "cover-image": "Изображение на корицата",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Търсачка на рецепти",

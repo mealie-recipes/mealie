@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "מנסה לפצל את הפסקה עם תבניות '1)' או '1.'",
     "import-by-url": "ייבוא מתכון באמצעות לינק",
     "create-manually": "יצירת מתכון ידנית",
-    "make-recipe-image": "הפוך תמונה זאת לתמונת המתכון"
+    "make-recipe-image": "הפוך תמונה זאת לתמונת המתכון",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 העמוד אינו נמצא",
@@ -515,6 +517,9 @@
     "recipe-deleted": "מתכון נמחק",
     "recipe-image": "תמונת המתכון",
     "recipe-image-updated": "תמונת המתכון עודכנה",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "שם המתכון",
     "recipe-settings": "הגדרות המתכון",
     "recipe-update-failed": "עדכון מתכון נכשל",
@@ -587,6 +592,7 @@
     "made-this": "הכנתי את זה",
     "how-did-it-turn-out": "איך יצא?",
     "user-made-this": "{user} הכין את זה",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "נוסף לציר הזמן",
     "failed-to-add-to-timeline": "כישלון בהוספה לציר הזמן",
     "failed-to-update-recipe": "כישלון בעדכון מתכון",
@@ -688,7 +694,10 @@
     "upload-images": "העלאת תמונות",
     "upload-more-images": "העלאת תמונות נוספות",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "Cover image",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "מצא מתכון",

@@ -5,6 +5,7 @@
     "recipe": {
         "unique-name-error": "Naziv recepta mora imati jedinstveno ime",
         "recipe-created": "Recipe Created",
+        "recipe-image-deleted": "Recipe image deleted",
         "recipe-defaults": {
             "ingredient-note": "1 Cup Flour",
             "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Nemate dozvolu za izvođenje ove akcije",
+        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "Traženi izvor nije pronađen",
         "integrity-error": "Greška integriteta baze podataka",
         "username-conflict-error": "Ovo korisničko ime je već u upotrebi",

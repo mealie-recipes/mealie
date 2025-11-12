@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Bandyti atskirti pastraipas pagal \"1)\" ar \"1.\" numeraciją",
     "import-by-url": "Importuokite receptą iš URL",
     "create-manually": "Sukurti receptą rankiniu būdu",
-    "make-recipe-image": "Padaryti pagrindine recepto nuotrauka"
+    "make-recipe-image": "Padaryti pagrindine recepto nuotrauka",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Puslapis nerastas",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Receptas ištrintas",
     "recipe-image": "Recepto paveikslėlis",
     "recipe-image-updated": "Recepto paveikslėlis atnaujintas",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Recepto pavadinimas",
     "recipe-settings": "Recepto nustatymai",
     "recipe-update-failed": "Nepavyko atnaujinti recepto",
@@ -587,6 +592,7 @@
     "made-this": "Aš tai gaminau",
     "how-did-it-turn-out": "Kaip tai pavyko?",
     "user-made-this": "{user} gamino šį patiekalą",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Added to timeline",
     "failed-to-add-to-timeline": "Failed to add to timeline",
     "failed-to-update-recipe": "Failed to update recipe",
@@ -688,7 +694,10 @@
     "upload-images": "Upload images",
     "upload-more-images": "Upload more images",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "Cover image",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
