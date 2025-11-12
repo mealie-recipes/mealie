@@ -1776,7 +1776,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "slivered almond",
-                "plural_name": "slivered almonds"
+                "plural_name": "amandes effilées"
             },
             "pumpkin seed": {
                 "aliases": [],
@@ -1937,8 +1937,8 @@
             "honey-roasted pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted pecan",
-                "plural_name": "honey-roasted pecans"
+                "name": "noix de pécan grillée au miel",
+                "plural_name": "noix de pécan grillée au miel"
             },
             "tigernut": {
                 "aliases": [],
@@ -3411,7 +3411,7 @@
             "soy curl": {
                 "aliases": [],
                 "description": "",
-                "name": "soy curl",
+                "name": "",
                 "plural_name": "bâtonnets de soja"
             },
             "vegan pesto": {
@@ -3537,7 +3537,7 @@
             "almond creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "almond creamer",
+                "name": "",
                 "plural_name": "almond creamers"
             },
             "soy milk powder": {
