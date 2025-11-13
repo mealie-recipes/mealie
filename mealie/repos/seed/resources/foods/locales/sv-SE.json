@@ -3201,8 +3201,8 @@
             "coconut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "jordnötssmör",
-                "plural_name": "jordnötssmör"
+                "name": "kokossmör",
+                "plural_name": "kokossmör"
             },
             "egg replacer": {
                 "aliases": [],
@@ -3388,7 +3388,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "condensed coconut milk",
-                "plural_name": "condensed coconut milks"
+                "plural_name": "kondenserad kokosmjölk"
             },
             "vegan ground beef": {
                 "aliases": [],
@@ -3418,7 +3418,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Vegansk pesto",
-                "plural_name": "vegan pestoes"
+                "plural_name": "vegansk pesto"
             },
             "marinated tofu": {
                 "aliases": [],
@@ -3435,8 +3435,8 @@
             "soy chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "soy chorizo",
-                "plural_name": "soy chorizoes"
+                "name": "soja-chorizo",
+                "plural_name": ""
             },
             "hemp milk": {
                 "aliases": [],

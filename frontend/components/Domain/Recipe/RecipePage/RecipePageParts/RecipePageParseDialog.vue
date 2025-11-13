@@ -268,6 +268,11 @@ const state = reactive({
 function shouldReview(ing: ParsedIngredient): boolean {
   console.debug(`Checking if ingredient needs review (input="${ing.input})":`, ing);
 
+  if (ing.ingredient.referencedRecipe) {
+    console.debug("No review needed for sub-recipe ingredient");
+    return false;
+  }
+
   if ((ing.confidence?.average || 0) < confidenceThreshold) {
     console.debug("Needs review due to low confidence:", ing.confidence?.average);
     return true;
@@ -364,12 +369,21 @@ async function parseIngredients() {
   }
   state.loading.parser = true;
   try {
-    const ingsAsString = props.ingredients.map(ing => parseIngredientText(ing, 1, false) ?? "");
+    const ingsAsString = props.ingredients
+      .filter(ing => !ing.referencedRecipe)
+      .map(ing => parseIngredientText(ing, 1, false) ?? "");
     const { data, error } = await api.recipes.parseIngredients(parser.value, ingsAsString);
     if (error || !data) {
       throw new Error("Failed to parse ingredients");
     }
     parsedIngs.value = data;
+    const parsed = data ?? [];
+    const recipeRefs = props.ingredients.filter(ing => ing.referencedRecipe).map(ing => ({
+      input: ing.note || "",
+      confidence: {},
+      ingredient: ing,
+    }));
+    parsedIngs.value = [...parsed, ...recipeRefs];
     state.currentParsedIndex = -1;
     state.allReviewed = false;
     createdUnits.clear();

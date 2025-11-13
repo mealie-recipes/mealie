@@ -21,19 +21,19 @@ export const LOCALES = [
   {
     name: "Українська (Ukrainian)",
     value: "uk-UA",
-    progress: 56,
+    progress: 61,
     dir: "ltr",
   },
   {
     name: "Türkçe (Turkish)",
     value: "tr-TR",
-    progress: 36,
+    progress: 35,
     dir: "ltr",
   },
   {
     name: "Svenska (Swedish)",
     value: "sv-SE",
-    progress: 54,
+    progress: 66,
     dir: "ltr",
   },
   {
@@ -57,13 +57,13 @@ export const LOCALES = [
   {
     name: "Pусский (Russian)",
     value: "ru-RU",
-    progress: 41,
+    progress: 43,
     dir: "ltr",
   },
   {
     name: "Română (Romanian)",
     value: "ro-RO",
-    progress: 37,
+    progress: 36,
     dir: "ltr",
   },
   {
@@ -87,13 +87,13 @@ export const LOCALES = [
   {
     name: "Norsk (Norwegian)",
     value: "no-NO",
-    progress: 40,
+    progress: 41,
     dir: "ltr",
   },
   {
     name: "Nederlands (Dutch)",
     value: "nl-NL",
-    progress: 52,
+    progress: 53,
     dir: "ltr",
   },
   {
@@ -117,25 +117,25 @@ export const LOCALES = [
   {
     name: "日本語 (Japanese)",
     value: "ja-JP",
-    progress: 37,
+    progress: 36,
     dir: "ltr",
   },
   {
     name: "Italiano (Italian)",
     value: "it-IT",
-    progress: 45,
+    progress: 46,
     dir: "ltr",
   },
   {
     name: "Íslenska (Icelandic)",
     value: "is-IS",
-    progress: 15,
+    progress: 37,
     dir: "ltr",
   },
   {
     name: "Magyar (Hungarian)",
     value: "hu-HU",
-    progress: 46,
+    progress: 47,
     dir: "ltr",
   },
   {
@@ -147,7 +147,7 @@ export const LOCALES = [
   {
     name: "עברית (Hebrew)",
     value: "he-IL",
-    progress: 73,
+    progress: 72,
     dir: "rtl",
   },
   {
@@ -177,19 +177,19 @@ export const LOCALES = [
   {
     name: "Suomi (Finnish)",
     value: "fi-FI",
-    progress: 37,
+    progress: 40,
     dir: "ltr",
   },
   {
     name: "Eesti (Estonian)",
     value: "et-EE",
-    progress: 37,
+    progress: 43,
     dir: "ltr",
   },
   {
     name: "Español (Spanish)",
     value: "es-ES",
-    progress: 45,
+    progress: 46,
     dir: "ltr",
   },
   {
@@ -213,13 +213,13 @@ export const LOCALES = [
   {
     name: "Deutsch (German)",
     value: "de-DE",
-    progress: 79,
+    progress: 96,
     dir: "ltr",
   },
   {
     name: "Dansk (Danish)",
     value: "da-DK",
-    progress: 43,
+    progress: 46,
     dir: "ltr",
   },
   {
@@ -231,13 +231,13 @@ export const LOCALES = [
   {
     name: "Català (Catalan)",
     value: "ca-ES",
-    progress: 37,
+    progress: 38,
     dir: "ltr",
   },
   {
     name: "Български (Bulgarian)",
     value: "bg-BG",
-    progress: 44,
+    progress: 47,
     dir: "ltr",
   },
   {

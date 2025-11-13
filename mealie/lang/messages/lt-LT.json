@@ -5,6 +5,7 @@
     "recipe": {
         "unique-name-error": "Receptų pavadinimai turi būti unikalūs",
         "recipe-created": "Receptas sukurtas",
+        "recipe-image-deleted": "Recipe image deleted",
         "recipe-defaults": {
             "ingredient-note": "1 Cup Flour",
             "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Neturite leidimo atlikti šį veiksmą",
+        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "Ieškomo resurso nerasta",
         "integrity-error": "Duomenų bazės vientisumo klaida",
         "username-conflict-error": "Toks vartotojas jau egzistuoja",
