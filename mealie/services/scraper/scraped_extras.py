@@ -4,7 +4,7 @@ from slugify import slugify
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe import TagOut
-from mealie.schema.recipe.recipe_category import TagSave, CategorySave
+from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 
 
 class NoContextException(Exception):
