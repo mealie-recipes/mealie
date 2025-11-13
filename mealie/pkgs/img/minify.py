@@ -101,26 +101,49 @@ class PillowMinifier(ABCMinifier):
         return PillowMinifier._convert_image(image_file_path, WEBP, dest_path, quality, img)
 
     @staticmethod
-    def crop_center_square(pil_img: Image, size: int = 300):
-        width, height = pil_img.size
-        crop_size = min(width, height)
-
-        left = (width - crop_size) // 2
-        top = (height - crop_size) // 2
-        right = left + crop_size
-        bottom = top + crop_size
-
-        return pil_img.crop((left, top, right, bottom)).resize((size, size), Image.LANCZOS)
+    def crop_center(img: Image.Image, size=(300, 300), high_res: bool = True) -> Image.Image:
+        img = img.copy()
+        target_width, target_height = size
 
         # For retina displays, double the target size
         if high_res:
             target_width *= 2
             target_height *= 2
 
-        org_dest = image_file.parent.joinpath("original.webp")
-        min_dest = image_file.parent.joinpath("min-original.webp")
-        tiny_dest = image_file.parent.joinpath("tiny-original.webp")
-        uncropped_dest = image_file.parent.joinpath("uncropped-original.webp")
+        img_ratio = img.width / img.height
+        target_ratio = target_width / target_height
+
+        # If original image smaller than target, do not upscale
+        if img.width < size[0] or img.height < size[1]:
+            return img
+
+        # Resize first to fill area while preserving aspect ratio
+        if img_ratio > target_ratio:
+            # Wider than target
+            scale_height = target_height
+            scale_width = int(scale_height * img_ratio)
+        else:
+            # Taller than target
+            scale_width = target_width
+            scale_height = int(scale_width / img_ratio)
+
+        img = img.resize((scale_width, scale_height), Image.LANCZOS)
+
+        # Crop center of the resized image
+        left = (img.width - target_width) // 2
+        top = (img.height - target_height) // 2
+        right = left + target_width
+        bottom = top + target_height
+        return img.crop((left, top, right, bottom))
+
+    def minify(self, image_path: Path, force=True):
+        if not image_path.exists():
+            raise FileNotFoundError(f"{image_path.name} does not exist")
+
+        org_dest = image_path.parent.joinpath("original.webp")
+        min_dest = image_path.parent.joinpath("min-original.webp")
+        tiny_dest = image_path.parent.joinpath("tiny-original.webp")
+        uncropped_dest = image_path.parent.joinpath("uncropped-original.webp")
 
         if not force and min_dest.exists() and tiny_dest.exists() and org_dest.exists() and uncropped_dest.exists():
             self._logger.info(f"{image_file.name} already exists in all formats")
