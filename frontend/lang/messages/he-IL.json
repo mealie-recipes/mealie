@@ -565,6 +565,7 @@
     "choose-unit": "בחירת יחידת מידה",
     "press-enter-to-create": "הקש Enter כדי להוסיף",
     "choose-food": "בחר מזון",
+    "choose-recipe": "Choose Recipe",
     "notes": "הערות",
     "toggle-section": "צור כותרת",
     "see-original-text": "הטקסט המקורי",
@@ -734,7 +735,8 @@
     "search-hint": "לחץ '/'",
     "advanced": "מתקדם",
     "auto-search": "חיפוש אוטומטי",
-    "no-results": "לא נמצאו תוצאות"
+    "no-results": "לא נמצאו תוצאות",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "הוסף ערכת נושא חדשה",
