@@ -13,6 +13,7 @@ import type BaseButtonGroup from "@/components/global/BaseButtonGroup.vue";
 import type BaseCardSectionTitle from "@/components/global/BaseCardSectionTitle.vue";
 import type BaseDialog from "@/components/global/BaseDialog.vue";
 import type BaseDivider from "@/components/global/BaseDivider.vue";
+import type BaseExpansionPanels from "@/components/global/BaseExpansionPanels.vue";
 import type BaseOverflowButton from "@/components/global/BaseOverflowButton.vue";
 import type BasePageTitle from "@/components/global/BasePageTitle.vue";
 import type BaseStatCard from "@/components/global/BaseStatCard.vue";
@@ -54,6 +55,7 @@ declare module "vue" {
     BaseCardSectionTitle: typeof BaseCardSectionTitle;
     BaseDialog: typeof BaseDialog;
     BaseDivider: typeof BaseDivider;
+    BaseExpansionPanels: typeof BaseExpansionPanels;
     BaseOverflowButton: typeof BaseOverflowButton;
     BasePageTitle: typeof BasePageTitle;
     BaseStatCard: typeof BaseStatCard;

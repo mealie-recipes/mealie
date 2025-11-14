@@ -97,13 +97,8 @@ export function useShoppingListCrud(
         .sort(sortCheckedItems);
     }
 
-    // Update the item if it's checked, otherwise updateUncheckedListItems will handle it
-    if (item.checked) {
-      shoppingListItemActions.updateItem(item);
-    }
-
+    shoppingListItemActions.updateItem(item);
     updateListItemOrder();
-    updateUncheckedListItems();
   }
 
   function deleteListItem(item: ShoppingListItemOut) {

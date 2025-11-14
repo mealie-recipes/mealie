@@ -1,6 +1,6 @@
 {
   "about": {
-    "about": "Σχετικά με",
+    "about": "Σχετικά",
     "about-mealie": "Σχετικά με το Mealie",
     "api-docs": "Τεκμηρίωση API",
     "api-port": "Θύρα API",
@@ -14,7 +14,7 @@
     "development": "Ανάπτυξη",
     "docs": "Τεκμηρίωση",
     "download-log": "Λήψη αρχείου καταγραφής",
-    "download-recipe-json": "Τελευταίο Scraped JSON",
+    "download-recipe-json": "Τελευταίο αντλημένο JSON",
     "github": "GitHub",
     "log-lines": "Γραμμές καταγραφής",
     "not-demo": "Εκτός Επίδειξης",
@@ -27,7 +27,7 @@
   },
   "asset": {
     "assets": "Στοιχεία",
-    "code": "Κώδικας",
+    "code": "Κωδικός",
     "file": "Αρχείο",
     "image": "Εικόνα",
     "new-asset": "Νέο Στοιχείο",
@@ -38,15 +38,15 @@
   },
   "category": {
     "categories": "Κατηγορίες",
-    "category-created": "Δημιουργήθηκε η κατηγορία",
+    "category-created": "Η κατηγορία δημιουργήθηκε",
     "category-creation-failed": "Η δημιουργία κατηγορίας απέτυχε",
-    "category-deleted": "Κατηγορία Διαγράφηκε",
+    "category-deleted": "Η κατηγορία διαγράφηκε",
     "category-deletion-failed": "Η διαγραφή κατηγορίας απέτυχε",
     "category-filter": "Φίλτρο κατηγορίας",
     "category-update-failed": "Η ενημέρωση της κατηγορίας απέτυχε",
     "category-updated": "Η κατηγορία ενημερώθηκε",
     "uncategorized-count": "Μη κατηγοριοποιημένο {count}",
-    "create-a-category": "Δημιουργήστε μια Κατηγορία",
+    "create-a-category": "Δημιουργία Κατηγορίας",
     "category-name": "Όνομα Κατηγορίας",
     "category": "Κατηγορία"
   },
@@ -399,6 +399,10 @@
       "description-long": "Το Mealie μπορεί να εισάγει συνταγές από το Tandoor. Εξαγάγετε τα δεδομένα σας στην \"Προεπιλεγμένη\" (default) μορφή, στη συνέχεια, ανεβάστε το .zip παρακάτω.",
       "title": "Tandoor Recipes"
     },
+    "cookn": {
+      "description-long": "Το Mealie μπορεί να εισάγει συνταγές από το DVO Cook'n X3. Κάντε εξαγωγή ενός βιβλίου μαγειρικής ή ενός μενού σε μορφή \"Cook'n\", αλλάξτε την επέκταση του εξαγόμενου αρχείου σε .zip και, στη συνέχεια, ανεβάστε το .zip παρακάτω.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Μετεγκατάσταση Δεδομένων Συνταγής",
     "recipe-data-migrations-explanation": "Συνταγές μπορούν να μετεγκατασταθούν από άλλη υποστηριζόμενη εφαρμογή στο Mealie. Αυτός είναι ένας πολύ καλός τρόπος για να ξεκινήσετε με Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Ερχόμενοι από άλλη εφαρμογή ή ακόμα και παλαιότερη έκδοση του Mealie; Ελέγξτε τις μετεγκαταστάσεις και δείτε αν τα δεδομένα σας μπορούν να εισαχθούν.",
@@ -444,7 +448,9 @@
     "split-by-numbered-line-description": "Προσπάθεια για χωρισμό μιας παραγράφου ταιριάζοντας μοτίβα '1)' ή '1.'",
     "import-by-url": "Εισαγωγή μιας συνταγής από URL",
     "create-manually": "Δημιουργήστε μια συνταγή χειροκίνητα",
-    "make-recipe-image": "Ορισμός ως εικόνας συνταγής"
+    "make-recipe-image": "Ορισμός ως εικόνας συνταγής",
+    "add-food": "Προσθήκη τρόφιμου",
+    "add-recipe": "Προσθήκη συνταγής"
   },
   "page": {
     "404-page-not-found": "404. η σελίδα δεν βρέθηκε",
@@ -511,6 +517,9 @@
     "recipe-deleted": "Η συνταγή διαγράφηκε",
     "recipe-image": "Εικόνα Συνταγής",
     "recipe-image-updated": "Η εικόνα συνταγής ενημερώθηκε",
+    "delete-image": "Διαγραφή Εικόνας Συνταγής",
+    "delete-image-confirmation": "Θέλετε σίγουρα να διαγράψετε αυτή την εικόνα συνταγής;",
+    "recipe-image-deleted": "Η εικόνα συνταγής διαγράφηκε",
     "recipe-name": "Όνομα συνταγής",
     "recipe-settings": "Ρυθμίσεις Συνταγής",
     "recipe-update-failed": "Η ενημέρωση συνταγής απέτυχε",
@@ -583,6 +592,7 @@
     "made-this": "Το έφτιαξα",
     "how-did-it-turn-out": "Ποιό ήταν το αποτέλεσμα;",
     "user-made-this": "Ο/η {user} έφτιαξε αυτό",
+    "made-for-recipe": "Φτιαγμένο για {recipe}",
     "added-to-timeline": "Προστέθηκε στο χρονολόγιο",
     "failed-to-add-to-timeline": "Αποτυχία προσθήκης στο χρονολόγιο",
     "failed-to-update-recipe": "Αποτυχία ενημέρωσης συνταγής",
@@ -676,7 +686,7 @@
       "ingredient-parser-description": "Τα συστατικά σας έχουν αναλυθεί επιτυχώς. Παρακαλούμε ελέγξτε τα συστατικά για τα οποία δεν είμαστε σίγουροι.",
       "ingredient-parser-final-review-description": "Μόλις εξεταστούν όλα τα συστατικά, θα έχετε μία ακόμη ευκαιρία να επανεξετάσετε όλα τα συστατικά πριν εφαρμόσετε τις αλλαγές στη συνταγή σας.",
       "add-text-as-alias-for-item": "Προσθήκη \"{text}\" ως ψευδώνυμο για το {item}",
-      "delete-item": "Delete Item"
+      "delete-item": "Διαγραφή αντικειμένου"
     },
     "reset-servings-count": "Επαναφορά μέτρησης μερίδων",
     "not-linked-ingredients": "Πρόσθετα συστατικά",
@@ -684,7 +694,10 @@
     "upload-images": "Ανέβασμα εικόνων",
     "upload-more-images": "Ανέβασμα περισσότερων εικόνων",
     "set-as-cover-image": "Ορισμός ως εικόνα εξώφυλλου συνταγής",
-    "cover-image": "Εικόνα εξώφυλλου"
+    "cover-image": "Εικόνα εξώφυλλου",
+    "include-linked-recipes": "Συμπερίληψη συνδεδεμένων συνταγών",
+    "include-linked-recipe-ingredients": "Συμπερίληψη συστατικών συνδεδεμένης συνταγής",
+    "toggle-recipe": "Εναλλαγή συνταγής"
   },
   "recipe-finder": {
     "recipe-finder": "Εύρεση συνταγών",
@@ -1059,7 +1072,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Δεν θέλετε να το δείτε αυτό ξανά; Φροντίστε να αλλάξετε το email σας στις ρυθμίσεις χρήστη!",
     "forgot-password": "Ξέχασα τον κωδικό πρόσβασης",
     "forgot-password-text": "Παρακαλώ εισάγετε τη διεύθυνση email σας και θα σας στείλουμε έναν σύνδεσμο για να επαναφέρετε τον κωδικό πρόσβασής σας.",
-    "changes-reflected-immediately": "Οι αλλαγές σε αυτόν τον χρήστη θα αντικατοπτρίζονται αμέσως."
+    "changes-reflected-immediately": "Οι αλλαγές σε αυτόν τον χρήστη θα αντικατοπτρίζονται αμέσως.",
+    "default-activity": "Προεπιλεγμένη Δραστηριότητα",
+    "default-activity-hint": "Επιλέξτε σε ποια σελίδα θα θέλατε να μεταβείτε κατά τη σύνδεση από αυτήν τη συσκευή"
   },
   "language-dialog": {
     "translated": "μεταφρασμένο",

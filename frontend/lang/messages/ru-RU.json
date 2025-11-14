@@ -14,7 +14,7 @@
     "development": "В разработке",
     "docs": "Справка",
     "download-log": "Скачать журнал",
-    "download-recipe-json": "Последний распаршенный JSON",
+    "download-recipe-json": "Последний извлеченный JSON",
     "github": "GitHub",
     "log-lines": "Строки журнала",
     "not-demo": "Не демо",
@@ -51,7 +51,7 @@
     "category": "Категория"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "Apprise URL-адрес",
     "database": "База данных",
     "delete-event": "Удалить событие",
     "event-delete-confirmation": "Вы уверены, что хотите удалить данное событие?",
@@ -399,6 +399,10 @@
       "description-long": "Mealie может импортировать рецепты из Tandoor. Экспортируйте ваши данные в формате «По умолчанию», затем загрузите .zip ниже.",
       "title": "Рецепты Tandoor"
     },
+    "cookn": {
+      "description-long": "Mealie может импортировать рецепты из DVO Cook'n X3. Экспортируйте книгу рецептов или меню в формате \"Cook'n\", переименуйте расширение файла экспорта в .zip, затем загрузите .zip ниже.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Перенос данных рецептов",
     "recipe-data-migrations-explanation": "Рецепты могут быть перенесены из другого поддерживаемого приложения в Mealie. Это отличный способ начать работу с Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Переходите из другого приложения или с более поздней версии Mealie? Проверьте \"миграции\", чтобы убедиться, что ваши данные могут быть перенесены.",
@@ -444,7 +448,9 @@
     "split-by-numbered-line-description": "Попытка разделить параграф с помощью шаблонов '1)' или '1.'",
     "import-by-url": "Импортировать рецепт по URL",
     "create-manually": "Создать рецепт вручную",
-    "make-recipe-image": "Сделать это изображением рецепта"
+    "make-recipe-image": "Сделать это изображением рецепта",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 - страница не найдена",
@@ -511,6 +517,9 @@
     "recipe-deleted": "Рецепт удален",
     "recipe-image": "Изображение рецепта",
     "recipe-image-updated": "Изображение рецепта обновлено",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Название рецепта",
     "recipe-settings": "Настройки рецепта",
     "recipe-update-failed": "Ошибка обновления рецепта",
@@ -521,7 +530,7 @@
     "save-recipe-before-use": "Сохранить рецепт перед использованием",
     "section-title": "Название раздела",
     "servings": "Порций",
-    "serves-amount": "Серверов {amount}",
+    "serves-amount": "Порции {amount}",
     "share-recipe-message": "Я хотел(а) поделиться с тобой моим рецептом {0}.",
     "show-nutrition-values": "Показать пищевую ценность",
     "sodium-content": "Соль",
@@ -583,6 +592,7 @@
     "made-this": "Я приготовил это",
     "how-did-it-turn-out": "Что получилось?",
     "user-made-this": "{user} приготовил это",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Добавлено в ленту",
     "failed-to-add-to-timeline": "Не удалось добавить в ленту",
     "failed-to-update-recipe": "Не удалось обновить рецепт",
@@ -684,7 +694,10 @@
     "upload-images": "Загрузить изображения",
     "upload-more-images": "Загрузить больше изображений",
     "set-as-cover-image": "Установить как обложку рецепта",
-    "cover-image": "Обложка"
+    "cover-image": "Обложка",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Поиск рецептов",
@@ -1059,7 +1072,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Больше не хотите видеть это сообщение? Не забудьте изменить адрес электронной почты в настройках пользователя!",
     "forgot-password": "Забыли Пароль",
     "forgot-password-text": "Введите адрес вашей почты, и мы отправим на неё ссылку для сброса пароля.",
-    "changes-reflected-immediately": "Изменения в этом пользователе будут отражены немедленно."
+    "changes-reflected-immediately": "Изменения в этом пользователе будут отражены немедленно.",
+    "default-activity": "Действие по умолчанию",
+    "default-activity-hint": "Выберите, на какую страницу вы хотели бы перейти при входе в систему с этого устройства"
   },
   "language-dialog": {
     "translated": "переведено",

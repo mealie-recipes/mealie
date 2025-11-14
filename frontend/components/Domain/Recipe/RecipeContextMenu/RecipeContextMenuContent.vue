@@ -55,7 +55,7 @@
       >
         <template #activator="{ props: activatorProps }">
           <v-text-field
-            v-model="newMealdateString"
+            :model-value="$d(newMealdate)"
             :label="$t('general.date')"
             :prepend-icon="$globals.icons.calendar"
             v-bind="activatorProps"
@@ -377,11 +377,14 @@ async function deleteRecipe() {
 const download = useDownloader();
 
 async function handleDownloadEvent() {
-  const { data } = await api.recipes.getZipToken(props.slug);
-
-  if (data) {
-    download(api.recipes.getZipRedirectUrl(props.slug, data.token), `${props.slug}.zip`);
+  const { data: shareToken } = await api.recipes.share.createOne({ recipeId: props.recipeId });
+  if (!shareToken) {
+    console.error("No share token received");
+    alert.error(i18n.t("events.something-went-wrong"));
+    return;
   }
+
+  download(api.recipes.share.getZipRedirectUrl(shareToken.id), `${props.slug}.zip`);
 }
 
 async function addRecipeToPlan() {

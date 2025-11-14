@@ -399,6 +399,10 @@
       "description-long": "Mealie gali importuoti receptus iš \"Tandoor\". Eksportuokite savo duomenis \"Default\" formatu ir įkelkite .ZIP failą žemiau.",
       "title": "\"Tandoor\" receptai"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Receptų duomenų migracijos",
     "recipe-data-migrations-explanation": "Receptai gali būti importuojami į Mealie iš kitų palaikomų sistemų. Tai - puikus būdas pradėti naudotis Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
@@ -444,7 +448,9 @@
     "split-by-numbered-line-description": "Bandyti atskirti pastraipas pagal \"1)\" ar \"1.\" numeraciją",
     "import-by-url": "Importuokite receptą iš URL",
     "create-manually": "Sukurti receptą rankiniu būdu",
-    "make-recipe-image": "Padaryti pagrindine recepto nuotrauka"
+    "make-recipe-image": "Padaryti pagrindine recepto nuotrauka",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Puslapis nerastas",
@@ -511,6 +517,9 @@
     "recipe-deleted": "Receptas ištrintas",
     "recipe-image": "Recepto paveikslėlis",
     "recipe-image-updated": "Recepto paveikslėlis atnaujintas",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Recepto pavadinimas",
     "recipe-settings": "Recepto nustatymai",
     "recipe-update-failed": "Nepavyko atnaujinti recepto",
@@ -583,6 +592,7 @@
     "made-this": "Aš tai gaminau",
     "how-did-it-turn-out": "Kaip tai pavyko?",
     "user-made-this": "{user} gamino šį patiekalą",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Added to timeline",
     "failed-to-add-to-timeline": "Failed to add to timeline",
     "failed-to-update-recipe": "Failed to update recipe",
@@ -684,7 +694,10 @@
     "upload-images": "Upload images",
     "upload-more-images": "Upload more images",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "Cover image",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
@@ -1059,7 +1072,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
     "forgot-password": "Forgot Password",
     "forgot-password-text": "Please enter your email address and we will send you a link to reset your password.",
-    "changes-reflected-immediately": "Changes to this user will be reflected immediately."
+    "changes-reflected-immediately": "Changes to this user will be reflected immediately.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "išversta",

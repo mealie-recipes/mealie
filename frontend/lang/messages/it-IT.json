@@ -399,6 +399,10 @@
       "description-long": "Mealie può importare ricette da Tandoor. Esporta i tuoi dati nel formato \"Predefinito\", quindi carica il file .zip sottostante.",
       "title": "Ricette Del Tandoore"
     },
+    "cookn": {
+      "description-long": "Mealie può importare ricette da DVO Cook'n X3. Per esportare un ricettario o un menu nel formato \"Cook'n\", rinominare l'estensione di esportazione in .zip, quindi caricare il file .zip qui sotto.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migrazione Dati Ricetta",
     "recipe-data-migrations-explanation": "Le ricette possono essere migrate da un'altra applicazione supportata da Mealie. Questo è un ottimo modo per iniziare con Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Arrivi da un'altra applicazione o da una versione più vecchia di Mealie? Scopri le migrazioni e scopri se i tuoi dati possono essere importati.",
@@ -444,7 +448,9 @@
     "split-by-numbered-line-description": "Tenta di dividere un paragrafo con i modelli '1)' o '1.'",
     "import-by-url": "Importa una ricetta tramite URL",
     "create-manually": "Crea una ricetta manualmente",
-    "make-recipe-image": "Usa come immagine della ricetta"
+    "make-recipe-image": "Usa come immagine della ricetta",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Pagina non Trovata",
@@ -511,6 +517,9 @@
     "recipe-deleted": "Ricetta eliminata",
     "recipe-image": "Immagine Ricetta",
     "recipe-image-updated": "Immagine ricetta aggiornata",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Nome Ricetta",
     "recipe-settings": "Impostazioni Ricetta",
     "recipe-update-failed": "Aggiornamento ricetta fallito",
@@ -583,6 +592,7 @@
     "made-this": "L'Ho Preparato",
     "how-did-it-turn-out": "Come è venuto?",
     "user-made-this": "{user} l'ha preparato",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Aggiunto alla cronologia",
     "failed-to-add-to-timeline": "Impossibile aggiungere alla cronologia",
     "failed-to-update-recipe": "Impossibile aggiornare la ricetta",
@@ -684,7 +694,10 @@
     "upload-images": "Carica immagini",
     "upload-more-images": "Carica altre immagini",
     "set-as-cover-image": "Imposta come immagine di copertina della ricetta",
-    "cover-image": "Immagine di copertina"
+    "cover-image": "Immagine di copertina",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Trova ricette",
@@ -1059,7 +1072,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Non vuoi più vederlo? Assicurati di modificare la tua email nelle impostazioni utente!",
     "forgot-password": "Password Dimenticata",
     "forgot-password-text": "Inserisci il tuo indirizzo email e ti invieremo un collegamento per reimpostare la tua password.",
-    "changes-reflected-immediately": "Le modifiche a questo utente diventeranno immediatamente effettive."
+    "changes-reflected-immediately": "Le modifiche a questo utente diventeranno immediatamente effettive.",
+    "default-activity": "Attività Predefinita",
+    "default-activity-hint": "Seleziona a quale pagina vuoi navigare al momento dell'accesso da questo dispositivo"
   },
   "language-dialog": {
     "translated": "tradotto",

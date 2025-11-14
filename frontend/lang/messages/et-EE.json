@@ -399,6 +399,10 @@
       "description-long": "Mealie saab importida retsepte Tandoor-ist. Ekspordi oma andmed \"Default\" formaadis ning lae .zip allolevasse kasti",
       "title": "Tandoor-i retsptid"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Retsepti andmete ületoomised",
     "recipe-data-migrations-explanation": "Retsepte saab üle tuua teisest toetatud rakendusest Mealiesse. See on hea viis tegemaks algust Mealie-ga.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Tuled teisest rakendusest või hoopis vanemast Mealie versioonist? Uuri ületoomise võimalusi ning vaata kas su andmeid saab importida.",
@@ -444,7 +448,9 @@
     "split-by-numbered-line-description": "Proovib paragrahvi poolitada sobitades \"1)\" või \"1\". mustrid",
     "import-by-url": "Impordi retsept URL-lt",
     "create-manually": "Loo retsept manuaalselt",
-    "make-recipe-image": "Sea see retsepti pildiks"
+    "make-recipe-image": "Sea see retsepti pildiks",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Lehte ei leitud",
@@ -511,6 +517,9 @@
     "recipe-deleted": "Retsept kustutatud",
     "recipe-image": "Retsepti pilt",
     "recipe-image-updated": "Retsepti pilt uuendatud",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Retsepti nimi",
     "recipe-settings": "Retsepti seaded",
     "recipe-update-failed": "Retsepti uuendamine ebaõnnestus",
@@ -583,6 +592,7 @@
     "made-this": "Olen seda valmistanud",
     "how-did-it-turn-out": "Kuidas tuli see välja?",
     "user-made-this": "{user} on seda valmistanud",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Added to timeline",
     "failed-to-add-to-timeline": "Failed to add to timeline",
     "failed-to-update-recipe": "Failed to update recipe",
@@ -684,7 +694,10 @@
     "upload-images": "Upload images",
     "upload-more-images": "Upload more images",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "Cover image",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Retsepti otsing",
@@ -1059,7 +1072,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ei taha enam seda näha? Ära unusta muuta oma email kasutaja seadetes",
     "forgot-password": "Unustasid salasõna",
     "forgot-password-text": "Sisestage oma meiliaadress, et saada e-kiri  uue salasõna määramiseks.",
-    "changes-reflected-immediately": "Selle kasutaja muudatused on koheselt nähtaval"
+    "changes-reflected-immediately": "Selle kasutaja muudatused on koheselt nähtaval",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "tõlgitud",
