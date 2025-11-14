@@ -565,6 +565,7 @@
     "choose-unit": "単位を選択",
     "press-enter-to-create": "Enterキーを押して作成",
     "choose-food": "食料を選択",
+    "choose-recipe": "Choose Recipe",
     "notes": "備考",
     "toggle-section": "セクションの切り替え",
     "see-original-text": "元のテキストを見る",
@@ -734,7 +735,8 @@
     "search-hint": "'/' を押す",
     "advanced": "詳細",
     "auto-search": "自動検索",
-    "no-results": "結果は見つかりませんでした。"
+    "no-results": "結果は見つかりませんでした。",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "新しいテーマを追加",
