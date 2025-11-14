@@ -565,6 +565,7 @@
     "choose-unit": "Odaberi Jedinicu",
     "press-enter-to-create": "Pritisni Enter za Kreiranje",
     "choose-food": "Odaberi Hranu",
+    "choose-recipe": "Choose Recipe",
     "notes": "Bilješke",
     "toggle-section": "Preklopi Odjeljak",
     "see-original-text": "Prikaži Izvorni Tekst",
@@ -734,7 +735,8 @@
     "search-hint": "Pritisni '/'",
     "advanced": "Napredno",
     "auto-search": "Auto Pretraga",
-    "no-results": "No results found"
+    "no-results": "No results found",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Dodaj Novu Temu",
