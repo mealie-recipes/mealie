@@ -90,13 +90,13 @@ export default defineNuxtComponent({
     },
   },
   setup() {
-    const { $vuetify } = useNuxtApp();
+    const display = useDisplay();
     const hasHeading = computed(() => false);
     const hasAltHeading = computed(() => false);
     const classes = computed(() => {
       return {
         "v-card--material--has-heading": hasHeading,
-        "mt-3": $vuetify.display.name.value === "xs" || $vuetify.display.name.value === "sm",
+        "mt-3": display.name.value === "xs" || display.name.value === "sm",
       };
     });
 

@@ -69,6 +69,7 @@
     "new-notification": "Nuova Notifica",
     "event-notifiers": "Notifiche Evento",
     "apprise-url-skipped-if-blank": "Url di Apprise (ignorato se vuoto)",
+    "apprise-url-is-left-intentionally-blank": "Poiché gli URL Apprise contengono in genere informazioni sensibili, questo campo viene lasciato intenzionalmente vuoto durante la modifica. Se si desidera aggiornare l'URL, inserire qui il nuovo URL, altrimenti lasciarlo vuoto per mantenere l'URL corrente.",
     "enable-notifier": "Abilita Notificatore",
     "what-events": "Quali eventi dovrebbe sottoscrivere questo notificatore?",
     "user-events": "Eventi Utente",
@@ -79,7 +80,8 @@
     "tag-events": "Tag Eventi",
     "category-events": "Categoria Eventi",
     "when-a-new-user-joins-your-group": "Quando un nuovo utente entra nel tuo gruppo",
-    "recipe-events": "Eventi di ricette"
+    "recipe-events": "Eventi di ricette",
+    "label-events": "Eventi Etichetta"
   },
   "general": {
     "add": "Aggiungi",
@@ -397,6 +399,10 @@
       "description-long": "Mealie può importare ricette da Tandoor. Esporta i tuoi dati nel formato \"Predefinito\", quindi carica il file .zip sottostante.",
       "title": "Ricette Del Tandoore"
     },
+    "cookn": {
+      "description-long": "Mealie può importare ricette da DVO Cook'n X3. Per esportare un ricettario o un menu nel formato \"Cook'n\", rinominare l'estensione di esportazione in .zip, quindi caricare il file .zip qui sotto.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migrazione Dati Ricetta",
     "recipe-data-migrations-explanation": "Le ricette possono essere migrate da un'altra applicazione supportata da Mealie. Questo è un ottimo modo per iniziare con Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Arrivi da un'altra applicazione o da una versione più vecchia di Mealie? Scopri le migrazioni e scopri se i tuoi dati possono essere importati.",
@@ -442,7 +448,9 @@
     "split-by-numbered-line-description": "Tenta di dividere un paragrafo con i modelli '1)' o '1.'",
     "import-by-url": "Importa una ricetta tramite URL",
     "create-manually": "Crea una ricetta manualmente",
-    "make-recipe-image": "Usa come immagine della ricetta"
+    "make-recipe-image": "Usa come immagine della ricetta",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Pagina non Trovata",
@@ -472,7 +480,7 @@
     "comment": "Commento",
     "comments": "Commenti",
     "delete-confirmation": "Sei sicuro di voler eliminare questa ricetta?",
-    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
+    "admin-delete-confirmation": "Stai per eliminare una ricetta che non è tua usando i permessi di amministrazione. Sei sicuro?",
     "delete-recipe": "Elimina Ricetta",
     "description": "Descrizione",
     "disable-amount": "Disabilita Quantità Ingredienti",
@@ -509,6 +517,9 @@
     "recipe-deleted": "Ricetta eliminata",
     "recipe-image": "Immagine Ricetta",
     "recipe-image-updated": "Immagine ricetta aggiornata",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Nome Ricetta",
     "recipe-settings": "Impostazioni Ricetta",
     "recipe-update-failed": "Aggiornamento ricetta fallito",
@@ -559,6 +570,7 @@
     "see-original-text": "Vedi Testo Originale",
     "original-text-with-value": "Testo originale: {originalText}",
     "ingredient-linker": "Linker degli Ingredienti",
+    "unlinked": "Non ancora collegato",
     "linked-to-other-step": "Collegato ad un altro passaggio",
     "auto": "Automatico",
     "cook-mode": "Modalità di Cottura",
@@ -580,10 +592,11 @@
     "made-this": "L'Ho Preparato",
     "how-did-it-turn-out": "Come è venuto?",
     "user-made-this": "{user} l'ha preparato",
-    "added-to-timeline": "Added to timeline",
-    "failed-to-add-to-timeline": "Failed to add to timeline",
-    "failed-to-update-recipe": "Failed to update recipe",
-    "added-to-timeline-but-failed-to-add-image": "Added to timeline, but failed to add image",
+    "made-for-recipe": "Made for {recipe}",
+    "added-to-timeline": "Aggiunto alla cronologia",
+    "failed-to-add-to-timeline": "Impossibile aggiungere alla cronologia",
+    "failed-to-update-recipe": "Impossibile aggiornare la ricetta",
+    "added-to-timeline-but-failed-to-add-image": "Aggiunto alla cronologia, ma non è stato possibile aggiungere l'immagine",
     "api-extras-description": "Le opzioni extra delle ricette sono una caratteristica fondamentale dell'API Mealie. Consentono di creare json personalizzati con coppie di chiavi/valore all'interno di una ricetta a cui fare riferimento tramite applicazioni terze. È possibile utilizzare queste chiavi per inserire informazioni, per esempio per attivare automazioni oppure per inoltrare messaggi personalizzati al dispositivo desiderato.",
     "message-key": "Chiave Messaggio",
     "parse": "Analizza",
@@ -605,10 +618,10 @@
     "create-recipe-from-an-image": "Crea ricetta da un'immagine",
     "create-recipe-from-an-image-description": "Crea una ricetta caricando un'immagine di essa. Mealie tenterà di estrarre il testo dall'immagine usando l'IA e creare una ricetta da esso.",
     "crop-and-rotate-the-image": "Ritaglia e ruota l'immagine in modo che solo il testo sia visibile e che sia orientato correttamente.",
-    "create-from-images": "Create from Images",
+    "create-from-images": "Crea da immagini",
     "should-translate-description": "Traduci la ricetta nella mia lingua",
     "please-wait-image-procesing": "Attendere, l'immagine è in fase di elaborazione. Potrebbe volerci un po' di tempo.",
-    "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
+    "please-wait-images-processing": "Attendere, le immagini sono in fase di elaborazione. Potrebbe volerci un po' di tempo.",
     "bulk-url-import": "Importazione multipla URL",
     "debug-scraper": "Debug Scraper",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crea una ricetta fornendo il nome. Tutte le ricette devono avere nomi univoci.",
@@ -621,6 +634,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "È possibile importare direttamente dai dati grezzi",
     "import-original-keywords-as-tags": "Importa parole chiave originali come tag",
     "stay-in-edit-mode": "Rimani in modalità Modifica",
+    "parse-recipe-ingredients-after-import": "Analizza gli ingredienti della ricetta dopo l'importazione",
     "import-from-zip": "Importa da Zip",
     "import-from-zip-description": "Importa una singola ricetta esportata da un'altra istanza di Mealie.",
     "import-from-html-or-json": "Importa da HTML o JSON",
@@ -664,15 +678,26 @@
       "no-unit": "Nessuna unità",
       "missing-unit": "Crea unità mancante: {unit}",
       "missing-food": "Crea cibo mancante: {food}",
-      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
-      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
-      "no-food": "Nessun Alimento"
+      "this-unit-could-not-be-parsed-automatically": "Questa unità non può essere analizzata automaticamente",
+      "this-food-could-not-be-parsed-automatically": "Questo alimento non può essere analizzato automaticamente",
+      "no-food": "Nessun Alimento",
+      "review-parsed-ingredients": "Controlla ingredienti analizzati",
+      "confidence-score": "Punteggio Di Confidenza",
+      "ingredient-parser-description": "I tuoi ingredienti sono stati analizzati con successo. Controlla gli ingredienti di cui non siamo sicuri.",
+      "ingredient-parser-final-review-description": "Una volta che tutti gli ingredienti sono stati controllati, avrai ancora una possibilità di rivederli tutti prima di applicare le modifiche alla ricetta.",
+      "add-text-as-alias-for-item": "Aggiungi \"{text}\" come alias per {item}",
+      "delete-item": "Elimina elemento"
     },
     "reset-servings-count": "Reimposta conteggio porzioni",
     "not-linked-ingredients": "Ingredienti Aggiuntivi",
-    "upload-another-image": "Upload another image",
-    "upload-images": "Upload images",
-    "upload-more-images": "Upload more images"
+    "upload-another-image": "Carica un'altra immagine",
+    "upload-images": "Carica immagini",
+    "upload-more-images": "Carica altre immagini",
+    "set-as-cover-image": "Imposta come immagine di copertina della ricetta",
+    "cover-image": "Immagine di copertina",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Trova ricette",
@@ -1047,7 +1072,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Non vuoi più vederlo? Assicurati di modificare la tua email nelle impostazioni utente!",
     "forgot-password": "Password Dimenticata",
     "forgot-password-text": "Inserisci il tuo indirizzo email e ti invieremo un collegamento per reimpostare la tua password.",
-    "changes-reflected-immediately": "Le modifiche a questo utente diventeranno immediatamente effettive."
+    "changes-reflected-immediately": "Le modifiche a questo utente diventeranno immediatamente effettive.",
+    "default-activity": "Attività Predefinita",
+    "default-activity-hint": "Seleziona a quale pagina vuoi navigare al momento dell'accesso da questo dispositivo"
   },
   "language-dialog": {
     "translated": "tradotto",
@@ -1165,7 +1192,7 @@
     "group-details": "Dettagli Gruppo",
     "group-details-description": "Prima di creare un account, è necessario creare un gruppo. Il gruppo conterrà solo voi, ma potrete invitare altre persone in seguito. I membri del gruppo possono condividere piani alimentari, liste della spesa, ricette e molto altro!",
     "use-seed-data": "Utilizzo Dati Generati",
-    "use-seed-data-description": "Mealie viene fornito con una raccolta di alimenti, unità ed etichette che possono essere utilizzate per popolare il tuo gruppo con dati utili per organizzare le tue ricette.",
+    "use-seed-data-description": "Mealie include una raccolta di Alimenti, Unità ed Etichette che possono essere utilizzate per arricchire il proprio gruppo con dati utili per organizzare le proprie ricette. Questi dati vengono tradotti nella lingua selezionata. Si può sempre aggiungere o modificare questi dati in seguito.",
     "account-details": "Dettagli dell'Account"
   },
   "validation": {

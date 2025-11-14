@@ -1,4 +1,3 @@
-<!-- eslint-disable vue/no-mutating-props -->
 <template>
   <div>
     <div class="mb-4">
@@ -31,6 +30,9 @@
           v-for="(ingredient, index) in recipe.recipeIngredient"
           :key="ingredient.referenceId"
           v-model="recipe.recipeIngredient[index]"
+          :is-recipe="ingredientIsRecipe(ingredient)"
+          enable-drag-handle
+          enable-context-menu
           class="list-group-item"
           @delete="recipe.recipeIngredient.splice(index, 1)"
           @insert-above="insertNewIngredient(index)"
@@ -55,8 +57,8 @@
               class="mb-1"
               :disabled="hasFoodOrUnit"
               color="accent"
-              :to="`/g/${groupSlug}/r/${recipe.slug}/ingredient-parser`"
               v-bind="props"
+              @click="toggleIsParsing(true)"
             >
               <template #icon>
                 {{ $globals.icons.foods }}
@@ -68,15 +70,59 @@
         <span>{{ parserToolTip }}</span>
       </v-tooltip>
       <RecipeDialogBulkAdd
+        ref="domBulkAddDialog"
         class="mx-1 mb-1"
+        style="display: none"
         @bulk-data="addIngredient"
       />
-      <BaseButton
-        class="mb-1"
-        @click="addIngredient"
-      >
-        {{ $t("general.add") }}
-      </BaseButton>
+      <div class="d-inline-flex split-button">
+        <!-- Main button: Add Food -->
+        <v-btn
+          color="success"
+          class="split-main  ml-2"
+          @click="addIngredient"
+        >
+          <v-icon start>
+            {{ $globals.icons.createAlt }}
+          </v-icon>
+          {{ $t('general.add') || 'Add Food' }}
+        </v-btn>
+        <!-- Dropdown button -->
+        <v-menu>
+          <template #activator="{ props }">
+            <v-btn
+              color="success"
+              class="split-dropdown"
+              v-bind="props"
+            >
+              <v-icon>{{ $globals.icons.chevronDown }}</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              slim
+              density="comfortable"
+              :prepend-icon="$globals.icons.foods"
+              :title="$t('new-recipe.add-food')"
+              @click="addIngredient"
+            />
+            <v-list-item
+              slim
+              density="comfortable"
+              :prepend-icon="$globals.icons.silverwareForkKnife"
+              :title="$t('new-recipe.add-recipe')"
+              @click="addRecipe"
+            />
+            <v-list-item
+              slim
+              density="comfortable"
+              :prepend-icon="$globals.icons.create"
+              :title="$t('new-recipe.bulk-add')"
+              @click="showBulkAdd"
+            />
+          </v-list>
+        </v-menu>
+      </div>
     </div>
   </div>
 </template>
@@ -84,19 +130,19 @@
 <script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { Recipe } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
+import { usePageState } from "~/composables/recipe-page/shared-state";
 import { uuid4 } from "~/composables/use-utils";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
+const ingredientsWithRecipe = new Map<string, boolean>();
 const i18n = useI18n();
-const $auth = useMealieAuth();
 
 const drag = ref(false);
-
-const route = useRoute();
-const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+const domBulkAddDialog = ref<InstanceType<typeof RecipeDialogBulkAdd> | null>(null);
+const { toggleIsParsing } = usePageState(recipe.value.slug);
 
 const hasFoodOrUnit = computed(() => {
   if (!recipe.value) {
@@ -119,6 +165,22 @@ const parserToolTip = computed(() => {
   return i18n.t("recipe.parse-ingredients");
 });
 
+function showBulkAdd() {
+  domBulkAddDialog.value?.open();
+}
+
+function ingredientIsRecipe(ingredient: RecipeIngredient): boolean {
+  if (ingredient.referencedRecipe) {
+    return true;
+  }
+
+  if (ingredient.referenceId) {
+    return !!ingredientsWithRecipe.get(ingredient.referenceId);
+  }
+
+  return false;
+}
+
 function addIngredient(ingredients: Array<string> | null = null) {
   if (ingredients?.length) {
     const newIngredients = ingredients.map((x) => {
@@ -128,7 +190,7 @@ function addIngredient(ingredients: Array<string> | null = null) {
         note: x,
         unit: undefined,
         food: undefined,
-        quantity: 1,
+        quantity: 0,
       };
     });
 
@@ -146,6 +208,41 @@ function addIngredient(ingredients: Array<string> | null = null) {
       unit: undefined,
       // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
       food: undefined,
+      quantity: 0,
+    });
+  }
+}
+
+function addRecipe(recipes: Array<string> | null = null) {
+  const refId = uuid4();
+  ingredientsWithRecipe.set(refId, true);
+
+  if (recipes?.length) {
+    const newRecipes = recipes.map((x) => {
+      return {
+        referenceId: refId,
+        title: "",
+        note: x,
+        unit: undefined,
+        referencedRecipe: undefined,
+        quantity: 1,
+      };
+    });
+
+    if (newRecipes) {
+      // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
+      recipe.value.recipeIngredient.push(...newRecipes);
+    }
+  }
+  else {
+    recipe.value.recipeIngredient.push({
+      referenceId: refId,
+      title: "",
+      note: "",
+      // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
+      unit: undefined,
+      // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
+      referencedRecipe: undefined,
       quantity: 1,
     });
   }
@@ -160,7 +257,26 @@ function insertNewIngredient(dest: number) {
     unit: undefined,
     // @ts-expect-error - prop can be null-type by NoUndefinedField type forces it to be set
     food: undefined,
-    quantity: 1,
+    quantity: 0,
   });
 }
 </script>
+
+<style scoped>
+.split-button {
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+.split-main {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+.split-dropdown {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  min-width: 30px;
+  padding-left: 0;
+  padding-right: 0;
+}
+</style>

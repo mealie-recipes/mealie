@@ -33,26 +33,29 @@
         <!-- Check Box -->
         <v-checkbox
           v-if="inputField.type === fieldTypes.BOOLEAN"
-          v-model="modelValue[inputField.varName]"
+          v-model="model[inputField.varName]"
           :name="inputField.varName"
-          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
+          :readonly="fieldState[inputField.varName]?.readonly"
+          :disabled="fieldState[inputField.varName]?.disabled"
           :hint="inputField.hint"
-          hide-details="auto"
+          :hide-details="!inputField.hint"
+          :persistent-hint="!!inputField.hint"
           density="comfortable"
-          @change="emitBlur">
+          @change="emitBlur"
+        >
           <template #label>
             <span class="ml-4">
               {{ inputField.label }}
             </span>
-        </template>
-</v-checkbox>
+          </template>
+        </v-checkbox>
 
         <!-- Text Field -->
         <v-text-field
           v-else-if="inputField.type === fieldTypes.TEXT || inputField.type === fieldTypes.PASSWORD"
-          v-model="modelValue[inputField.varName]"
-          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
-          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
+          v-model="model[inputField.varName]"
+          :readonly="fieldState[inputField.varName]?.readonly"
+          :disabled="fieldState[inputField.varName]?.disabled"
           :type="inputField.type === fieldTypes.PASSWORD ? 'password' : 'text'"
           variant="solo-filled"
           flat
@@ -61,7 +64,7 @@
           :label="inputField.label"
           :name="inputField.varName"
           :hint="inputField.hint || ''"
-          :rules="!(inputField.disableUpdate && updateMode) ? [...rulesByKey(inputField.rules), ...defaultRules] : []"
+          :rules="!(inputField.disableUpdate && updateMode) ? [...rulesByKey(inputField.rules as any), ...defaultRules] : []"
           lazy-validation
           @blur="emitBlur"
         />
@@ -69,9 +72,9 @@
         <!-- Text Area -->
         <v-textarea
           v-else-if="inputField.type === fieldTypes.TEXT_AREA"
-          v-model="modelValue[inputField.varName]"
-          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
-          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
+          v-model="model[inputField.varName]"
+          :readonly="fieldState[inputField.varName]?.readonly"
+          :disabled="fieldState[inputField.varName]?.disabled"
           variant="solo-filled"
           flat
           rows="3"
@@ -80,7 +83,7 @@
           :label="inputField.label"
           :name="inputField.varName"
           :hint="inputField.hint || ''"
-          :rules="[...rulesByKey(inputField.rules), ...defaultRules]"
+          :rules="[...rulesByKey(inputField.rules as any), ...defaultRules]"
           lazy-validation
           @blur="emitBlur"
         />
@@ -88,31 +91,23 @@
         <!-- Option Select -->
         <v-select
           v-else-if="inputField.type === fieldTypes.SELECT"
-          v-model="modelValue[inputField.varName]"
-          :readonly="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (readonlyFields && readonlyFields.includes(inputField.varName))"
-          :disabled="(inputField.disableUpdate && updateMode) || (!updateMode && inputField.disableCreate) || (disabledFields && disabledFields.includes(inputField.varName))"
+          v-model="model[inputField.varName]"
+          :readonly="fieldState[inputField.varName]?.readonly"
+          :disabled="fieldState[inputField.varName]?.disabled"
           variant="solo-filled"
           flat
-          :prepend-icon="inputField.icons ? modelValue[inputField.varName] : null"
           :label="inputField.label"
           :name="inputField.varName"
           :items="inputField.options"
-          :item-title="inputField.itemText"
-          :item-value="inputField.itemValue"
+          item-title="text"
+          item-value="text"
           :return-object="false"
           :hint="inputField.hint"
           density="comfortable"
           persistent-hint
           lazy-validation
           @blur="emitBlur"
-        >
-          <template #item="{ item }">
-            <div>
-              <v-list-item-title>{{ item.raw.text }}</v-list-item-title>
-              <v-list-item-subtitle>{{ item.raw.description }}</v-list-item-subtitle>
-            </div>
-          </template>
-        </v-select>
+        />
 
         <!-- Color Picker -->
         <div
@@ -125,7 +120,7 @@
               <v-btn
                 class="my-2 ml-auto"
                 style="min-width: 200px"
-                :color="modelValue[inputField.varName]"
+                :color="model[inputField.varName]"
                 dark
                 v-bind="templateProps"
               >
@@ -133,7 +128,7 @@
               </v-btn>
             </template>
             <v-color-picker
-              v-model="modelValue[inputField.varName]"
+              v-model="model[inputField.varName]"
               value="#7417BE"
               hide-canvas
               hide-inputs
@@ -144,11 +139,12 @@
           </v-menu>
         </div>
 
+        <!-- Object Type -->
         <div v-else-if="inputField.type === fieldTypes.OBJECT">
           <auto-form
-            v-model="modelValue[inputField.varName]"
+            v-model="model[inputField.varName]"
             :color="color"
-            :items="inputField.items"
+            :items="(inputField as any).items"
             @blur="emitBlur"
           />
         </div>
@@ -156,7 +152,7 @@
         <!-- List Type -->
         <div v-else-if="inputField.type === fieldTypes.LIST">
           <div
-            v-for="(item, idx) in modelValue[inputField.varName]"
+            v-for="(item, idx) in model[inputField.varName]"
             :key="idx"
           >
             <p>
@@ -166,15 +162,15 @@
                   class="ml-5"
                   x-small
                   delete
-                  @click="removeByIndex(modelValue[inputField.varName], idx)"
+                  @click="removeByIndex(model[inputField.varName], idx)"
                 />
               </span>
             </p>
             <v-divider class="mb-5 mx-2" />
             <auto-form
-              v-model="modelValue[inputField.varName][idx]"
+              v-model="model[inputField.varName][idx]"
               :color="color"
-              :items="inputField.items"
+              :items="(inputField as any).items"
               @blur="emitBlur"
             />
           </div>
@@ -182,7 +178,7 @@
             <v-spacer />
             <BaseButton
               small
-              @click="modelValue[inputField.varName].push(getTemplate(inputField.items))"
+              @click="model[inputField.varName].push(getTemplate((inputField as any).items))"
             >
               {{ $t("general.new") }}
             </BaseButton>
@@ -203,7 +199,13 @@ const BLUR_EVENT = "blur";
 type ValidatorKey = keyof typeof validators;
 
 // Use defineModel for v-model
-const modelValue = defineModel<[object, Array<any>]>();
+const modelValue = defineModel<Record<string, any> | any[]>({
+  type: [Object, Array],
+  required: true,
+});
+
+// alias to avoid template TS complaining about possible undefined
+const model = modelValue as any;
 
 const props = defineProps({
   updateMode: {
@@ -244,26 +246,39 @@ const emit = defineEmits(["blur", "update:modelValue"]);
 
 function rulesByKey(keys?: ValidatorKey[] | null) {
   if (keys === undefined || keys === null) {
-    return [];
+    return [] as any[];
   }
 
-  const list = [] as ((v: string) => boolean | string)[];
+  const list: any[] = [];
   keys.forEach((key) => {
     const split = key.split(":");
     const validatorKey = split[0] as ValidatorKey;
     if (validatorKey in validators) {
       if (split.length === 1) {
-        list.push(validators[validatorKey]);
+        list.push((validators as any)[validatorKey]);
       }
       else {
-        list.push(validators[validatorKey](split[1]));
+        list.push((validators as any)[validatorKey](split[1] as any));
       }
     }
   });
   return list;
 }
 
-const defaultRules = computed(() => rulesByKey(props.globalRules as ValidatorKey[]));
+const defaultRules = computed<any[]>(() => rulesByKey(props.globalRules as any));
+
+// Combined state map for readonly and disabled fields
+const fieldState = computed<Record<string, { readonly: boolean; disabled: boolean }>>(() => {
+  const map: Record<string, { readonly: boolean; disabled: boolean }> = {};
+  (props.items || []).forEach((field: any) => {
+    const base = (field.disableUpdate && props.updateMode) || (!props.updateMode && field.disableCreate);
+    map[field.varName] = {
+      readonly: base || !!props.readonlyFields?.includes(field.varName),
+      disabled: base || !!props.disabledFields?.includes(field.varName),
+    };
+  });
+  return map;
+});
 
 function removeByIndex(list: never[], index: number) {
   // Removes the item at the index

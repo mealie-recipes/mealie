@@ -6,7 +6,7 @@
           width="100%"
           max-height="100"
           max-width="100"
-          :src="require('~/static/svgs/manage-group-settings.svg')"
+          src="/svgs/manage-group-settings.svg"
         />
       </template>
       <template #title>
@@ -47,7 +47,7 @@
 import { useGroupSelf } from "~/composables/use-groups";
 
 export default defineNuxtComponent({
-  middleware: ["sidebase-auth", "can-manage-only"],
+  middleware: ["can-manage-only"],
   setup() {
     const { group, actions: groupActions } = useGroupSelf();
     const i18n = useI18n();

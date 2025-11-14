@@ -47,7 +47,7 @@
     "category-updated": "Kategorie aktualisiert",
     "uncategorized-count": "Nicht kategorisiert {count}",
     "create-a-category": "Eine Kategorie erstellen",
-    "category-name": "Name der Kategorie",
+    "category-name": "Kategoriename",
     "category": "Kategorie"
   },
   "events": {
@@ -69,6 +69,7 @@
     "new-notification": "Neue Benachrichtigung",
     "event-notifiers": "Ereignis-Benachrichtigungen",
     "apprise-url-skipped-if-blank": "Apprise-URL (wird übersprungen, wenn leer)",
+    "apprise-url-is-left-intentionally-blank": "Da Apprise-URLs normalerweise sensible Informationen enthalten, wird dieses Feld während der Bearbeitung absichtlich leer gelassen. Wenn Sie die URL aktualisieren möchten, geben Sie hier die neue ein. Andernfalls lassen Sie diese leer, um die aktuelle URL zu behalten.",
     "enable-notifier": "Benachrichtigen aktivieren",
     "what-events": "Welche Ereignisse soll diese Benachrichtigung abonnieren?",
     "user-events": "Benutzer-Ereignisse",
@@ -79,7 +80,8 @@
     "tag-events": "Schlagwort-Ereignisse",
     "category-events": "Kategorie-Ereignisse",
     "when-a-new-user-joins-your-group": "Wenn ein neuer Benutzer deiner Gruppe beitritt",
-    "recipe-events": "Rezept-Ereignisse"
+    "recipe-events": "Rezept-Ereignisse",
+    "label-events": "Label Events"
   },
   "general": {
     "add": "Hinzufügen",
@@ -397,6 +399,10 @@
       "description-long": "Mealie kann Rezepte von Tandoor importieren. Exportiere deine Daten im 'Default' Format und lade dann unten die .zip Datei hoch.",
       "title": "Tandoor Rezepte"
     },
+    "cookn": {
+      "description-long": "Mealie kann Rezepte von DVO Cook'n X3 importieren. Exportieren Sie ein Kochbuch oder ein Menü im \"Cook'n\"-Format, benennen Sie die Export-Erweiterung in .zip um, dann laden Sie die .zip unten hoch.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Rezeptdatenmigration",
     "recipe-data-migrations-explanation": "Rezepte können aus unterstützten Programmen nach Mealie migriert werden. Das ist eine gute Möglichkeit, um mit Mealie loszulegen.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Wechselst du von einer anderen Anwendung oder einer noch älteren Version von Mealie? Prüfe die Migrations-Optionen, vielleicht können deine Daten importiert werden.",
@@ -442,7 +448,9 @@
     "split-by-numbered-line-description": "Absätze nach dem Schema '1)' oder '1.' aufzuteilen versuchen",
     "import-by-url": "Ein Rezept von einer Webseite importieren",
     "create-manually": "Ein Rezept manuell erstellen",
-    "make-recipe-image": "Als Rezept-Titelbild verwenden"
+    "make-recipe-image": "Als Rezept-Titelbild verwenden",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Seite nicht gefunden",
@@ -509,6 +517,9 @@
     "recipe-deleted": "Rezept entfernt",
     "recipe-image": "Rezeptbild",
     "recipe-image-updated": "Rezeptbild aktualisiert",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Rezeptname",
     "recipe-settings": "Rezepteinstellungen",
     "recipe-update-failed": "Aktualisieren des Rezepts fehlgeschlagen",
@@ -559,6 +570,7 @@
     "see-original-text": "Originaltext anzeigen",
     "original-text-with-value": "Originaltext: {originalText}",
     "ingredient-linker": "Zutaten-Verlinkung",
+    "unlinked": "Nicht verbunden",
     "linked-to-other-step": "In anderem Schritt verlinkt",
     "auto": "Automatisch",
     "cook-mode": "Koch-Modus",
@@ -580,10 +592,11 @@
     "made-this": "Ich hab's gemacht",
     "how-did-it-turn-out": "Wie ist es geworden?",
     "user-made-this": "{user} hat's gemacht",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Zur Zeitleiste hinzugefügt",
     "failed-to-add-to-timeline": "Fehler beim Hinzufügen zur Zeitleiste",
     "failed-to-update-recipe": "Fehler beim Aktualisieren des Rezepts",
-    "added-to-timeline-but-failed-to-add-image": "Zur Zeitleiste hinzugefügt, Bild hinzufügen fehlgeschlagen",
+    "added-to-timeline-but-failed-to-add-image": "Zum Verlauf hinzugefügt, Bild hinzufügen fehlgeschlagen",
     "api-extras-description": "Rezepte-Extras sind ein Hauptmerkmal der Mealie API. Sie ermöglichen es dir, benutzerdefinierte JSON Key-Value-Paare zu einem Rezept zu erstellen, um Drittanbieter-Anwendungen zu steuern. Du kannst diese dazu verwenden, um Automatisierungen auszulösen oder benutzerdefinierte Nachrichten an bestimmte Geräte zu senden.",
     "message-key": "Nachrichten-Schlüssel",
     "parse": "Parsen",
@@ -621,6 +634,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kannst direkt von Rohdaten importieren",
     "import-original-keywords-as-tags": "Importiere ursprüngliche Stichwörter als Schlagwörter",
     "stay-in-edit-mode": "Im Bearbeitungsmodus bleiben",
+    "parse-recipe-ingredients-after-import": "Zutaten nach dem Import parsen",
     "import-from-zip": "Von Zip importieren",
     "import-from-zip-description": "Importiere ein einzelnes Rezept, das von einer anderen Mealie-Instanz exportiert wurde.",
     "import-from-html-or-json": "Aus HTML oder JSON importieren",
@@ -666,17 +680,28 @@
       "missing-food": "Fehlendes Lebensmittel erstellen: {food}",
       "this-unit-could-not-be-parsed-automatically": "Diese Einheit konnte nicht automatisch analysiert werden",
       "this-food-could-not-be-parsed-automatically": "Dieses Lebensmittel konnte nicht automatisch analysiert werden",
-      "no-food": "Kein Lebensmittel"
+      "no-food": "Kein Lebensmittel",
+      "review-parsed-ingredients": "Geparste Zutaten überprüfen",
+      "confidence-score": "Zuverlässigkeitswert",
+      "ingredient-parser-description": "Deine Zutaten wurden erfolgreich geparst. Bitte überprüfe die Zutaten, bei denen wir uns nicht sicher sind.",
+      "ingredient-parser-final-review-description": "Sobald alle Zutaten überprüft wurden, kannst du nochmal alle Zutaten kontrollieren, bevor die Änderungen ins Rezept übernommen werden.",
+      "add-text-as-alias-for-item": "Füge \"{text}\" als Alias für {item} hinzu",
+      "delete-item": "Element löschen"
     },
     "reset-servings-count": "Portionen zurücksetzen",
     "not-linked-ingredients": "Zusätzliche Zutaten",
     "upload-another-image": "Weiteres Bild hochladen",
     "upload-images": "Bilder hochladen",
-    "upload-more-images": "Weitere Bilder hochladen"
+    "upload-more-images": "Weitere Bilder hochladen",
+    "set-as-cover-image": "Als Rezept-Titelbild setzen",
+    "cover-image": "Titelbild",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Rezept-Suche",
-    "recipe-finder-description": "Suche nach Rezepten basierend auf den Zutaten, die du zur Hand hast. Sie können auch nach verfügbaren Werkzeugen filtern und eine maximale Anzahl an fehlenden Zutaten oder Werkzeugen festlegen.",
+    "recipe-finder-description": "Suche nach Rezepten basierend auf den Zutaten, die du zur Hand hast. Du kannst auch nach verfügbaren Werkzeugen filtern und eine maximale Anzahl an fehlenden Zutaten oder Werkzeugen festlegen.",
     "selected-ingredients": "Ausgewählte Zutaten",
     "no-ingredients-selected": "Keine Zutaten ausgewählt",
     "missing": "Fehlend",
@@ -907,7 +932,7 @@
     "migrations": "Migrationen",
     "profile": "Profil",
     "search": "Suche",
-    "site-settings": "Einstellungen",
+    "site-settings": "Systemeinstellungen",
     "tags": "Schlagworte",
     "toolbox": "Werkzeuge",
     "language": "Sprache",
@@ -1047,7 +1072,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Möchtest du das hier nicht mehr sehen? Bitte ändere deine E-Mail in den Benutzereinstellungen!",
     "forgot-password": "Passwort vergessen",
     "forgot-password-text": "Bitte gib Deine E-Mail-Adresse ein. Wir werden Dir eine E-Mail zusenden, damit Du Dein Passwort zurücksetzen kannst.",
-    "changes-reflected-immediately": "Änderungen an diesem Benutzer sind sofort wirksam."
+    "changes-reflected-immediately": "Änderungen an diesem Benutzer sind sofort wirksam.",
+    "default-activity": "Standardaktivität",
+    "default-activity-hint": "Wählen Sie die Seite, auf die Sie navigieren möchten, wenn Sie sich von diesem Gerät aus anmelden"
   },
   "language-dialog": {
     "translated": "übersetzt",
@@ -1165,7 +1192,7 @@
     "group-details": "Gruppendetails",
     "group-details-description": "Bevor du ein Konto erstellst, musst du eine Gruppe erstellen. Deine Gruppe wird nur dich enthalten, aber du kannst andere später einladen. Mitglieder in deiner Gruppe können Essenspläne, Einkaufslisten, Rezepte und vieles mehr teilen!",
     "use-seed-data": "Musterdaten",
-    "use-seed-data-description": "Mealie enthält eine Sammlung von Lebensmitteln, Maßeinheiten und Kategorien, die verwendet werden können, um deine Gruppe mit hilfreichen Daten für die Organisation deiner Rezepte zu füllen.",
+    "use-seed-data-description": "Mealie enthält eine Sammlung von Lebensmitteln, Einheiten und Labels, die verwendet werden können, um deine Gruppe mit hilfreichen Daten für die Organisation deiner Rezepte zu füllen. Diese werden in die Sprache übersetzt, die Sie gerade ausgewählt haben. Sie können diese Daten jederzeit später hinzufügen oder ändern.",
     "account-details": "Kontoinformationen"
   },
   "validation": {
@@ -1355,7 +1382,7 @@
   },
   "cookbook": {
     "cookbooks": "Kochbücher",
-    "description": "Kochbücher sind ein weiterer Weg, Rezepte zu organisieren, indem man verschiedene Filter erstellt. Das Erstellen eines Kochbuchs fügt einen Eintrag zur Seitenleiste hinzu und alle Rezepte, die den gewählten Filtern zustimmen, werden in dem Kochbuch angezeigt.",
+    "description": "Kochbücher sind ein weiterer Weg, Rezepte zu organisieren, indem man verschiedene Filter erstellt. Das Erstellen eines Kochbuchs fügt einen Eintrag zur Seitenleiste hinzu und alle Rezepte, die mit den gewählten Filtern übereinstimmen, werden in dem Kochbuch angezeigt.",
     "hide-cookbooks-from-other-households": "Kochbücher von anderen Haushalten ausblenden",
     "hide-cookbooks-from-other-households-description": "Wenn aktiviert, werden nur Kochbücher deines Haushalts in der Seitenleiste angezeigt",
     "public-cookbook": "Öffentliches Kochbuch",

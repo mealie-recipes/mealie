@@ -4,6 +4,7 @@ from uuid import UUID
 
 import orjson
 import sqlalchemy
+import sqlalchemy.exc
 from fastapi import (
     BackgroundTasks,
     Depends,
@@ -46,7 +47,7 @@ from mealie.schema.recipe.request_helpers import (
 )
 from mealie.schema.response import PaginationBase, PaginationQuery
 from mealie.schema.response.pagination import RecipeSearchQuery
-from mealie.schema.response.responses import ErrorResponse
+from mealie.schema.response.responses import ErrorResponse, SuccessResponse
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import (
     EventOperation,
@@ -81,13 +82,31 @@ class RecipeController(BaseRecipeController):
 
         if thrownType == exceptions.PermissionDenied:
             self.logger.error("Permission Denied on recipe controller action")
-            raise HTTPException(status_code=403, detail=ErrorResponse.respond(message="Permission Denied"))
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN, detail=ErrorResponse.respond(message="Permission Denied")
+            )
         elif thrownType == exceptions.NoEntryFound:
             self.logger.error("No Entry Found on recipe controller action")
-            raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="No Entry Found"))
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND, detail=ErrorResponse.respond(message="No Entry Found")
+            )
         elif thrownType == sqlalchemy.exc.IntegrityError:
             self.logger.error("SQL Integrity Error on recipe controller action")
-            raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Recipe already exists"))
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST, detail=ErrorResponse.respond(message="Recipe already exists")
+            )
+        elif thrownType == exceptions.RecursiveRecipe:
+            self.logger.error("Recursive Recipe Link Error on recipe controller action")
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=ErrorResponse.respond(message=self.t("exceptions.recursive-recipe-link")),
+            )
+        elif thrownType == exceptions.SlugError:
+            self.logger.error("Failed to generate a valid slug from recipe name")
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=ErrorResponse.respond(message="Unable to generate recipe slug"),
+            )
         else:
             self.logger.error("Unknown Error on recipe controller action")
             self.logger.exception(ex)
@@ -535,12 +554,21 @@ class RecipeController(BaseRecipeController):
 
     @router.put("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
     def update_recipe_image(self, slug: str, image: bytes = File(...), extension: str = Form(...)):
-        recipe = self.mixins.get_one(slug)
-        data_service = RecipeDataService(recipe.id)
-        data_service.write_image(image, extension)
+        try:
+            new_version = self.service.update_recipe_image(slug, image, extension)
+            return UpdateImageResponse(image=new_version)
+        except Exception as e:
+            self.handle_exceptions(e)
+            return None
 
-        new_version = self.recipes.update_image(slug, extension)
-        return UpdateImageResponse(image=new_version)
+    @router.delete("/{slug}/image", tags=["Recipe: Images and Assets"])
+    def delete_recipe_image(self, slug: str):
+        try:
+            self.service.delete_recipe_image(slug)
+            return SuccessResponse.respond(message=self.t("recipe.recipe-image-deleted"))
+        except Exception as e:
+            self.handle_exceptions(e)
+            return None
 
     @router.post("/{slug}/assets", response_model=RecipeAsset, tags=["Recipe: Images and Assets"])
     def upload_recipe_asset(
@@ -562,7 +590,7 @@ class RecipeController(BaseRecipeController):
         file_name = f"{file_slug}.{extension}"
         asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
 
-        recipe = self.mixins.get_one(slug)
+        recipe = self.service.get_one(slug)
 
         dest = recipe.asset_dir / file_name
 
@@ -579,9 +607,9 @@ class RecipeController(BaseRecipeController):
         if not dest.is_file():
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        recipe = self.mixins.get_one(slug)
-        recipe.assets.append(asset_in)
+        if recipe.assets is not None:
+            recipe.assets.append(asset_in)
 
-        self.mixins.update_one(recipe, slug)
+        self.service.update_one(slug, recipe)
 
         return asset_in

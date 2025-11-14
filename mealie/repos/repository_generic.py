@@ -85,7 +85,6 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
 
     def _filter_builder(self, **kwargs) -> dict[str, Any]:
         dct = {}
-
         if self.group_id:
             dct["group_id"] = self.group_id
         if self.household_id:
@@ -146,7 +145,11 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         return self.session.execute(self._query().filter_by(**fltr)).unique().scalars().one()
 
     def get_one(
-        self, value: str | int | UUID4, key: str | None = None, any_case=False, override_schema=None
+        self,
+        value: str | int | UUID4,
+        key: str | None = None,
+        any_case=False,
+        override_schema=None,
     ) -> Schema | None:
         key = key or self.primary_key
         eff_schema = override_schema or self.schema

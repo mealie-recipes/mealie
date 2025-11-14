@@ -6,7 +6,7 @@
           width="100%"
           max-height="125"
           max-width="125"
-          :src="require('~/static/svgs/manage-members.svg')"
+          src="/svgs/manage-members.svg"
         />
       </template>
       <template #title>
@@ -33,6 +33,7 @@
       :items="members || []"
       item-key="id"
       class="elevation-0"
+      :items-per-page="-1"
       hide-default-footer
       disable-pagination
     >
@@ -123,7 +124,6 @@ export default defineNuxtComponent({
   components: {
     UserAvatar,
   },
-  middleware: ["sidebase-auth"],
   setup() {
     const $auth = useMealieAuth();
     const api = useUserApi();

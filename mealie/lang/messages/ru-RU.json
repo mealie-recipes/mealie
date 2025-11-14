@@ -5,6 +5,7 @@
     "recipe": {
         "unique-name-error": "Название рецепта должно быть уникальным",
         "recipe-created": "Рецепт создан",
+        "recipe-image-deleted": "Recipe image deleted",
         "recipe-defaults": {
             "ingredient-note": "1 Чашка муки",
             "step-text": "Шаги рецепта, как и другие поля на странице рецепта, поддерживают синтаксис Markdown.\n\n**Добавить ссылку**\n\n[Моя Ссылка](https://demo.mealie.io)\n"
@@ -14,7 +15,7 @@
             "serves": "Порций",
             "serving": "Порция",
             "servings": "Порции",
-            "yield": "Выход",
+            "yield": "Количество порций",
             "yields": "Можно получить"
         }
     },
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "У вас нет прав для выполнения этого действия",
+        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "Запрашиваемый ресурс не найден",
         "integrity-error": "Ошибка целостности базы данных",
         "username-conflict-error": "Это имя пользователя уже занято",
@@ -43,7 +45,8 @@
         "generic-created-with-url": "{name} был создан, {url}",
         "generic-updated-with-url": "{name} был обновлен, {url}",
         "generic-duplicated": "Копия {name} была создана",
-        "generic-deleted": "{name} был удален"
+        "generic-deleted": "{name} был удален",
+        "logged-out": "Выполнен выход"
     },
     "datetime": {
         "year": "год|лет",

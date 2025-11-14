@@ -1,4 +1,5 @@
 /* tslint:disable */
+
 /**
 /* This file was automatically generated from pydantic models by running pydantic2ts.
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
@@ -308,6 +309,7 @@ export interface RecipeIngredient {
   quantity?: number | null;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
   title?: string | null;
@@ -395,6 +397,129 @@ export interface CreateIngredientFoodAlias {
   name: string;
   [k: string]: unknown;
 }
+export interface Recipe {
+  id?: string | null;
+  userId?: string;
+  householdId?: string;
+  groupId?: string;
+  name?: string | null;
+  slug?: string;
+  image?: unknown;
+  recipeServings?: number;
+  recipeYieldQuantity?: number;
+  recipeYield?: string | null;
+  totalTime?: string | null;
+  prepTime?: string | null;
+  cookTime?: string | null;
+  performTime?: string | null;
+  description?: string | null;
+  recipeCategory?: RecipeCategory[] | null;
+  tags?: RecipeTag[] | null;
+  tools?: RecipeTool[];
+  rating?: number | null;
+  orgURL?: string | null;
+  dateAdded?: string | null;
+  dateUpdated?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+  lastMade?: string | null;
+  recipeIngredient?: RecipeIngredient[];
+  recipeInstructions?: RecipeStep[] | null;
+  nutrition?: Nutrition | null;
+  settings?: RecipeSettings | null;
+  assets?: RecipeAsset[] | null;
+  notes?: RecipeNote[] | null;
+  extras?: {
+    [k: string]: unknown;
+  } | null;
+  comments?: RecipeCommentOut[] | null;
+  [k: string]: unknown;
+}
+export interface RecipeCategory {
+  id?: string | null;
+  groupId?: string | null;
+  name: string;
+  slug: string;
+  [k: string]: unknown;
+}
+export interface RecipeTag {
+  id?: string | null;
+  groupId?: string | null;
+  name: string;
+  slug: string;
+  [k: string]: unknown;
+}
+export interface RecipeTool {
+  id: string;
+  groupId?: string | null;
+  name: string;
+  slug: string;
+  householdsWithTool?: string[];
+  [k: string]: unknown;
+}
+export interface RecipeStep {
+  id?: string | null;
+  title?: string | null;
+  summary?: string | null;
+  text: string;
+  ingredientReferences?: IngredientReferences[];
+  [k: string]: unknown;
+}
+export interface IngredientReferences {
+  referenceId?: string | null;
+  [k: string]: unknown;
+}
+export interface Nutrition {
+  calories?: string | null;
+  carbohydrateContent?: string | null;
+  cholesterolContent?: string | null;
+  fatContent?: string | null;
+  fiberContent?: string | null;
+  proteinContent?: string | null;
+  saturatedFatContent?: string | null;
+  sodiumContent?: string | null;
+  sugarContent?: string | null;
+  transFatContent?: string | null;
+  unsaturatedFatContent?: string | null;
+  [k: string]: unknown;
+}
+export interface RecipeSettings {
+  public?: boolean;
+  showNutrition?: boolean;
+  showAssets?: boolean;
+  landscapeView?: boolean;
+  disableComments?: boolean;
+  locked?: boolean;
+  [k: string]: unknown;
+}
+export interface RecipeAsset {
+  name: string;
+  icon: string;
+  fileName?: string | null;
+  [k: string]: unknown;
+}
+export interface RecipeNote {
+  title: string;
+  text: string;
+  [k: string]: unknown;
+}
+export interface RecipeCommentOut {
+  recipeId: string;
+  text: string;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  userId: string;
+  user: UserBase;
+  [k: string]: unknown;
+}
+export interface UserBase {
+  id: string;
+  username?: string | null;
+  admin: boolean;
+  fullName?: string | null;
+  [k: string]: unknown;
+}
 export interface ShoppingListAddRecipeParamsBulk {
   recipeIncrementQuantity?: number;
   recipeIngredients?: RecipeIngredient[] | null;
@@ -412,6 +537,7 @@ export interface ShoppingListItemBase {
   quantity?: number;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
   shoppingListId: string;
@@ -428,6 +554,7 @@ export interface ShoppingListItemCreate {
   quantity?: number;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
   shoppingListId: string;
@@ -452,6 +579,7 @@ export interface ShoppingListItemOut {
   quantity?: number;
   unit?: IngredientUnit | null;
   food?: IngredientFood | null;
+  referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
   shoppingListId: string;
@@ -491,6 +619,7 @@ export interface ShoppingListItemUpdate {
   quantity?: number;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
   shoppingListId: string;
@@ -508,6 +637,7 @@ export interface ShoppingListItemUpdateBulk {
   quantity?: number;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
   shoppingListId: string;
@@ -594,28 +724,6 @@ export interface RecipeSummary {
   updatedAt?: string | null;
   lastMade?: string | null;
 }
-export interface RecipeCategory {
-  id?: string | null;
-  groupId?: string | null;
-  name: string;
-  slug: string;
-  [k: string]: unknown;
-}
-export interface RecipeTag {
-  id?: string | null;
-  groupId?: string | null;
-  name: string;
-  slug: string;
-  [k: string]: unknown;
-}
-export interface RecipeTool {
-  id: string;
-  groupId?: string | null;
-  name: string;
-  slug: string;
-  householdsWithTool?: string[];
-  [k: string]: unknown;
-}
 export interface ShoppingListRemoveRecipeParams {
   recipeDecrementQuantity?: number;
 }
@@ -681,6 +789,7 @@ export interface RecipeIngredientBase {
   quantity?: number | null;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
 }

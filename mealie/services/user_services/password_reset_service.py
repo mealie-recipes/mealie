@@ -21,7 +21,7 @@ class PasswordResetService(BaseService):
             self.logger.error(f"failed to create password reset for {email=}: user doesn't exists")
             # Do not raise exception here as we don't want to confirm to the client that the Email doesn't exists
             return None
-        elif user.password == "LDAP" or user.auth_method == AuthMethod.LDAP:
+        elif user.auth_method == AuthMethod.LDAP:
             self.logger.error(f"failed to create password reset for {email=}: user controlled by LDAP")
             return None
 

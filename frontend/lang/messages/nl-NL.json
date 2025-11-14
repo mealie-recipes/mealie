@@ -69,6 +69,7 @@
     "new-notification": "Nieuwe melding",
     "event-notifiers": "Meldingen van gebeurtenissen",
     "apprise-url-skipped-if-blank": "URL van Apprise (overgeslagen als veld leeg is)",
+    "apprise-url-is-left-intentionally-blank": "Aangezien Apprise URL's doorgaans gevoelige informatie bevatten, wordt dit veld opzettelijk leeg gelaten tijdens het bewerken. Als je de URL wilt bijwerken, vul dan de nieuwe hier in, anders laat het leeg om de huidige URL te behouden.",
     "enable-notifier": "Activeer melding",
     "what-events": "Op welke gebeurtenissen moet deze melding zich abonneren?",
     "user-events": "Gebeurtenissen van gebruiker",
@@ -79,7 +80,8 @@
     "tag-events": "Label-gebeurtenissen",
     "category-events": "Categorie-gebeurtenissen",
     "when-a-new-user-joins-your-group": "Als een nieuwe gebruiker zich bij je groep aansluit",
-    "recipe-events": "Recept gebeurtenissen"
+    "recipe-events": "Recept gebeurtenissen",
+    "label-events": "Label gebeurtenissen"
   },
   "general": {
     "add": "Voeg toe",
@@ -397,6 +399,10 @@
       "description-long": "Mealie kan recepten importeren van Tandoor. Exporteer je gegevens in het \"Standaardformaat\" (\"Default\") en upload het .zip bestand hieronder.",
       "title": "Tandoor-recepten"
     },
+    "cookn": {
+      "description-long": "Mealie kan recepten importeren van DVO Cook'n X3. Exporteer een cookboek of menu in het \"Cook'n\" formaat. Verander de naam van de export extensie naar .zip. En upload daarna de .zip.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Receptmigratie",
     "recipe-data-migrations-explanation": "Je kunt recepten van een ander programma importeren in Mealie. Zo kun je snel aan de slag.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Kom je van een andere toepassing of een oudere versie van Mealie? Kijk eens naar de migraties. Misschien kunnen we je gegevens importeren.",
@@ -442,7 +448,9 @@
     "split-by-numbered-line-description": "Probeert om een alinea te splitsen door de '1)' of '1.' patronen te gebruiken",
     "import-by-url": "Importeer een recept van een website",
     "create-manually": "Maak handmatig een recept aan",
-    "make-recipe-image": "Maak dit de afbeelding voor dit recept"
+    "make-recipe-image": "Maak dit de afbeelding voor dit recept",
+    "add-food": "Voeg eten toe",
+    "add-recipe": "Voeg recept toe"
   },
   "page": {
     "404-page-not-found": "404 Pagina niet gevonden",
@@ -509,6 +517,9 @@
     "recipe-deleted": "Recept verwijderd",
     "recipe-image": "Receptafbeelding",
     "recipe-image-updated": "Receptafbeelding bijgewerkt",
+    "delete-image": "Verwijder Recept Afbeelding",
+    "delete-image-confirmation": "Weet je zeker dat je deze afbeelding wil verwijderen?",
+    "recipe-image-deleted": "Receptafbeelding verwijderd",
     "recipe-name": "Receptnaam",
     "recipe-settings": "Receptinstellingen",
     "recipe-update-failed": "Recept bijwerken mislukt",
@@ -559,6 +570,7 @@
     "see-original-text": "Zie oorspronkelijke tekst",
     "original-text-with-value": "Oorspronkelijke tekst: {originalText}",
     "ingredient-linker": "Ingrediëntenkoppelaar",
+    "unlinked": "Nog niet gelinkt",
     "linked-to-other-step": "Gekoppeld aan andere stap",
     "auto": "Automatisch",
     "cook-mode": "Kookmodus",
@@ -580,6 +592,7 @@
     "made-this": "Ik heb dit gemaakt",
     "how-did-it-turn-out": "Hoe was je gerecht?",
     "user-made-this": "{user} heeft dit gemaakt",
+    "made-for-recipe": "Gemaakt voor {recipe}",
     "added-to-timeline": "Toevoegen aan tijdlijn",
     "failed-to-add-to-timeline": "Toegevoegd aan tijdlijn",
     "failed-to-update-recipe": "Updaten recept mislukt",
@@ -621,6 +634,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "U kunt direct importeren uit onbewerkte gegevens",
     "import-original-keywords-as-tags": "Importeer oorspronkelijke trefwoorden als labels",
     "stay-in-edit-mode": "Blijf in bewerkingsmodus",
+    "parse-recipe-ingredients-after-import": "Ontleed de ingrediënten van het recept na importeren",
     "import-from-zip": "Importeren uit zip",
     "import-from-zip-description": "Importeer een recept dat geëxporteerd was uit een andere Mealie instantie.",
     "import-from-html-or-json": "Importeer van HTML of JSON",
@@ -666,13 +680,24 @@
       "missing-food": "Ontbrekend levensmiddel maken: {food}",
       "this-unit-could-not-be-parsed-automatically": "Mealie kon deze meeteenheid niet automatisch verwerken",
       "this-food-could-not-be-parsed-automatically": "Mealie kon dit soort voedsel niet automatisch verwerken",
-      "no-food": "Geen levensmiddel"
+      "no-food": "Geen levensmiddel",
+      "review-parsed-ingredients": "Controleer ingrediënten na de ontleding",
+      "confidence-score": "Betrouwbaarheids-score",
+      "ingredient-parser-description": "Uw ingrediëntenlijst is succesvol ontleed. Controleer de ingrediënten waar we niet zeker van zijn.",
+      "ingredient-parser-final-review-description": "Als alle ingrediënten gecontroleerd zijn heb je, voor het toepassen van wijzigingen in je recept, nog één kans om alle ingrediënten te controleren.",
+      "add-text-as-alias-for-item": "Voeg \"{text}\" toe als alias voor {item}",
+      "delete-item": "Verwijderen item"
     },
     "reset-servings-count": "Porties resetten",
     "not-linked-ingredients": "Extra ingrediënten",
     "upload-another-image": "Een andere afbeelding uploaden",
     "upload-images": "Afbeelding uploaden",
-    "upload-more-images": "Meer afbeeldingen uploaden"
+    "upload-more-images": "Meer afbeeldingen uploaden",
+    "set-as-cover-image": "Als recept omslagfoto instellen",
+    "cover-image": "Omslagfoto",
+    "include-linked-recipes": "Reken gekoppelde recepten mee",
+    "include-linked-recipe-ingredients": "Voeg gekoppelde receptingrediënten toe",
+    "toggle-recipe": "Recept wisselen"
   },
   "recipe-finder": {
     "recipe-finder": "Recept zoeker",
@@ -1017,7 +1042,7 @@
     "enable-advanced-content-description": "Schakelt geavanceerde functies, zoals recepten opschalen, API-sleutels, webhooks en gegevensbeheer in. Geen zorgen, je kan dit later altijd aanpassen",
     "favorite-recipes": "Favoriete recepten",
     "email-or-username": "E-mailadres of gebruikersnaam",
-    "remember-me": "Herinner mij",
+    "remember-me": "Blijf ingelogd",
     "please-enter-your-email-and-password": "Voer je e-mailadres en wachtwoord in",
     "invalid-credentials": "Ongeldige inloggegevens",
     "account-locked-please-try-again-later": "Account geblokkeerd. Probeer het later opnieuw",
@@ -1047,7 +1072,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Wil je dit niet meer zien? Verander dan je e-mailadres in je gebruikersinstellingen!",
     "forgot-password": "Wachtwoord vergeten",
     "forgot-password-text": "Voer je e-mailadres in, dan sturen we je een link om het wachtwoord te herstellen.",
-    "changes-reflected-immediately": "Wijzigingen in deze groep zijn meteen zichtbaar."
+    "changes-reflected-immediately": "Wijzigingen in deze groep zijn meteen zichtbaar.",
+    "default-activity": "Standaard activiteit",
+    "default-activity-hint": "Kies de pagina waar u naar toe wilt, na inloggen op dit apparaat"
   },
   "language-dialog": {
     "translated": "vertaald",
@@ -1165,7 +1192,7 @@
     "group-details": "Groepsdetails",
     "group-details-description": "Voordat je een account aanmaakt moet je eerst een groep aanmaken. Jij bent het enige lid van de groep, maar je kunt later anderen uitnodigen. Leden van je groep kunnen maaltijdplannen, boodschappenlijstjes, recepten en nog veel meer delen!",
     "use-seed-data": "Gebruik voorbeeldgegevens",
-    "use-seed-data-description": "Mealie bevat een verzameling ingrediënten, eenheden en labels die gebruikt kunnen worden om je groep te vullen met handige gegevens voor het organiseren van je recepten.",
+    "use-seed-data-description": "Mealie komt standaard met lijsten voor Voedsel, Eenheden en Labels. Die gebruik je om je recepten handig in te delen. Of om je groep handige informatie te geven. Ze zijn vertaald in de taal die je voor Mealie hebt ingesteld. Je kunt deze lijsten altijd aanvullen of aanpassen.",
     "account-details": "Accountgegevens"
   },
   "validation": {

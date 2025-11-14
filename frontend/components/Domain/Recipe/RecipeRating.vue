@@ -2,7 +2,8 @@
   <div @click.prevent>
     <!-- User Rating -->
     <v-hover v-slot="{ isHovering, props }">
-      <v-rating v-if="isOwnGroup && (userRating || isHovering || !ratingsLoaded)"
+      <v-rating
+        v-if="isOwnGroup && (userRating || isHovering || !ratingsLoaded)"
         v-bind="props"
         :model-value="userRating"
         active-color="secondary"
@@ -13,10 +14,10 @@
         hover
         clearable
         @update:model-value="updateRating(+$event)"
-        @click="updateRating"
       />
       <!-- Group Rating -->
-      <v-rating v-else
+      <v-rating
+        v-else
         v-bind="props"
         :model-value="groupRating"
         :half-increments="true"
@@ -83,7 +84,7 @@ export default defineNuxtComponent({
     });
 
     function updateRating(val?: number) {
-      if (!isOwnGroup.value) {
+      if (!isOwnGroup.value || !val) {
         return;
       }
 

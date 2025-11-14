@@ -9,10 +9,10 @@ const publicLoading = ref(false);
 
 export const useHouseholdStore = function (i18n?: Composer) {
   const api = useUserApi(i18n);
-  return useReadOnlyStore<HouseholdSummary>(store, loading, api.households);
+  return useReadOnlyStore<HouseholdSummary>("household", store, loading, api.households);
 };
 
 export const usePublicHouseholdStore = function (groupSlug: string, i18n?: Composer) {
   const api = usePublicExploreApi(groupSlug, i18n).explore;
-  return useReadOnlyStore<HouseholdSummary>(store, publicLoading, api.households);
+  return useReadOnlyStore<HouseholdSummary>("household-public", store, publicLoading, api.households);
 };

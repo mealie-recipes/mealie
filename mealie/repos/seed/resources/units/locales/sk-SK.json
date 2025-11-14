@@ -18,7 +18,7 @@
         "abbreviation": "š"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "tekutá unca",
         "plural_name": "tekuté unce",
         "description": "",
         "abbreviation": "fl oz"
@@ -31,7 +31,7 @@
     },
     "quart": {
         "name": "quart",
-        "plural_name": "štvrťky",
+        "plural_name": "quarty",
         "description": "",
         "abbreviation": "qt"
     },
@@ -58,7 +58,7 @@
         "plural_name": "libry",
         "description": "",
         "abbreviation": "lb",
-        "plural_abbreviation": "lb"
+        "plural_abbreviation": "lbs"
     },
     "ounce": {
         "name": "unca",
@@ -92,7 +92,7 @@
     },
     "dash": {
         "name": "štipka",
-        "plural_name": "kvapky",
+        "plural_name": "štipky",
         "description": "",
         "abbreviation": ""
     },

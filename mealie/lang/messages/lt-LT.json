@@ -5,6 +5,7 @@
     "recipe": {
         "unique-name-error": "Receptų pavadinimai turi būti unikalūs",
         "recipe-created": "Receptas sukurtas",
+        "recipe-image-deleted": "Recipe image deleted",
         "recipe-defaults": {
             "ingredient-note": "1 Cup Flour",
             "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Neturite leidimo atlikti šį veiksmą",
+        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "Ieškomo resurso nerasta",
         "integrity-error": "Duomenų bazės vientisumo klaida",
         "username-conflict-error": "Toks vartotojas jau egzistuoja",
@@ -43,7 +45,8 @@
         "generic-created-with-url": "{name} sukurtas, {url}",
         "generic-updated-with-url": "{name} atnaujintas, {url}",
         "generic-duplicated": "{name} buvo nukopijuotas",
-        "generic-deleted": "{name} ištrintas"
+        "generic-deleted": "{name} ištrintas",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "metai|metai",
@@ -57,10 +60,10 @@
     "emails": {
         "password": {
             "subject": "Mealie Forgot Password",
-            "header_text": "Forgot Password",
+            "header_text": "Pamiršau slaptažodį",
             "message_top": "You have requested to reset your password.",
             "message_bottom": "Please click the button above to reset your password.",
-            "button_text": "Reset Password"
+            "button_text": "Iš naujo nustatyti slaptažodį"
         },
         "invitation": {
             "subject": "Invitation to join Mealie",

@@ -69,6 +69,7 @@
     "new-notification": "Nowe powiadomienie",
     "event-notifiers": "Powiadomienia o zdarzeniach",
     "apprise-url-skipped-if-blank": "URL Apprise (pominięty, jeśli puste)",
+    "apprise-url-is-left-intentionally-blank": "Ponieważ adresy URL Apprise zawierają zazwyczaj poufne informacje, pole to pozostaje celowo puste podczas edycji. Jeśli chcesz zaktualizować adres URL, wprowadź ten nowy tutaj, w przeciwnym razie pozostaw puste, aby zachować bieżący adres URL.",
     "enable-notifier": "Włącz Powiadomienie",
     "what-events": "Jakie zdarzenia powinien subskrybować ten powiadamiający?",
     "user-events": "Zdarzenia użytkownika",
@@ -79,7 +80,8 @@
     "tag-events": "Zdarzenia tagów",
     "category-events": "Wydarzenia kategorii",
     "when-a-new-user-joins-your-group": "Kiedy nowy użytkownik dołączy do Twojej grupy",
-    "recipe-events": "Zdarzenia Przepisów"
+    "recipe-events": "Zdarzenia Przepisów",
+    "label-events": "Etykieta wydarzeń"
   },
   "general": {
     "add": "Dodaj",
@@ -397,6 +399,10 @@
       "description-long": "Mealie może zaimportować przepisy z Tandoor. Wyeksportuj swoje przepisy w formacie HTML, a następnie prześlij plik .zip poniżej.",
       "title": "Przepisy Tandoor"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migracja danych przepisów",
     "recipe-data-migrations-explanation": "Receptury mogą być przeniesione z innej wspieranej aplikacji na Mealie. To świetny sposób na rozpoczęcie z Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Przechodzisz z innej aplikacji, bądź starszej wersji Mealie? Sprawdź dostępne migracje i zobacz czy dane mogą zostać zaimportowane.",
@@ -442,7 +448,9 @@
     "split-by-numbered-line-description": "Próbuj podzielić paragrafy poprzez dopasowanie po wzorcach '1)' i '1.'",
     "import-by-url": "Importuj przepis przez URL",
     "create-manually": "Stwórz przepis ręcznie",
-    "make-recipe-image": "Niech to będzie obraz przepisu"
+    "make-recipe-image": "Niech to będzie obraz przepisu",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404. Nie znaleziono strony",
@@ -509,6 +517,9 @@
     "recipe-deleted": "Przepis został usunięty",
     "recipe-image": "Zdjęcie do przepisu",
     "recipe-image-updated": "Zdjęcie przepisu zostało zaktualizowane",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Nazwa przepisu",
     "recipe-settings": "Ustawienia przepisu",
     "recipe-update-failed": "Aktualizacja przepisu nie powiodła się",
@@ -559,6 +570,7 @@
     "see-original-text": "Zobacz oryginalny tekst",
     "original-text-with-value": "Oryginalny tekst: {originalText}",
     "ingredient-linker": "Linkier do składników",
+    "unlinked": "Jeszcze nie połączony",
     "linked-to-other-step": "Powiązane z innym krokiem",
     "auto": "Automatycznie",
     "cook-mode": "Tryb Gotowania",
@@ -580,6 +592,7 @@
     "made-this": "Ugotowałem to",
     "how-did-it-turn-out": "Jak się to udało?",
     "user-made-this": "{user} ugotował(a) to",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Dodano do osi czasu",
     "failed-to-add-to-timeline": "Nie udało się dodać do osi czasu",
     "failed-to-update-recipe": "Nie udało się zaktualizować przepisu",
@@ -621,6 +634,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Możesz zaimportować bezpośrednio z surowych danych",
     "import-original-keywords-as-tags": "Importuj oryginalne słowa kluczowe jako tagi",
     "stay-in-edit-mode": "Pozostań w trybie edycji",
+    "parse-recipe-ingredients-after-import": "Analizuj składniki receptury po zaimportowaniu",
     "import-from-zip": "Importuj z pliku Zip",
     "import-from-zip-description": "Importuj pojedynczy przepis, który został wyeksportowany z innej instancji Mealie.",
     "import-from-html-or-json": "Importuj z HTML lub JSON",
@@ -666,13 +680,24 @@
       "missing-food": "Utwórz brakującą potrawę: {food}",
       "this-unit-could-not-be-parsed-automatically": "Nie można przetworzyć tej jednostki automatycznie",
       "this-food-could-not-be-parsed-automatically": "Nie można przetworzyć tego jedzenia automatycznie",
-      "no-food": "Brak potrawy"
+      "no-food": "Brak potrawy",
+      "review-parsed-ingredients": "Przejrzyj przeanalizowane składniki",
+      "confidence-score": "Wskaźnik pewności",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Usuń przedmiot"
     },
     "reset-servings-count": "Zresetuj liczbę porcji",
     "not-linked-ingredients": "Dodatkowe składniki",
     "upload-another-image": "Prześlij kolejny obraz",
     "upload-images": "Prześlij obraz",
-    "upload-more-images": "Prześlij więcej obrazów"
+    "upload-more-images": "Prześlij więcej obrazów",
+    "set-as-cover-image": "Ustaw jako okładkę przepisu",
+    "cover-image": "Okładka",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Wyszukiwarka przepisów",
@@ -1047,7 +1072,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Nie chcesz już tego widzieć? Pamiętaj, aby zmienić swój adres e-mail w ustawieniach użytkownika!",
     "forgot-password": "Nie pamiętam hasła",
     "forgot-password-text": "Podaj adres e-mail konta, do którego chcesz odzyskać hasło.",
-    "changes-reflected-immediately": "Zmiany dla tego użytkownika będą zastosowane natychmiastowo."
+    "changes-reflected-immediately": "Zmiany dla tego użytkownika będą zastosowane natychmiastowo.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "przetłumaczone",
@@ -1165,7 +1192,7 @@
     "group-details": "Szczegóły grupy",
     "group-details-description": "Zanim utworzysz konto musisz stworzyć grupę. Twoja grupa zawierać będzie tylko Ciebie, ale będziesz istniała możlwiość zaproszenia do niej innych. Użytkownicy Twojej grupy mogą współdzielić plany posiłków, listy zakupów, przepisy i więcej!",
     "use-seed-data": "Użyj przykładowych danych",
-    "use-seed-data-description": "Mealie dostarcza zestaw posiłków, jednostek i opisów które mogą zostać użyte do zapełnienia Twojej grupy przydatnymi danymi do ogranizacji Twoich przepisów.",
+    "use-seed-data-description": "Wysyłka posiłków z kolekcją żywności, jednostek i etykiet, które mogą być użyte do wypełnienia Twojej grupy pomocnymi danymi do organizacji twoich przepisów. Są one tłumaczone na wybrany język. Zawsze możesz dodać lub zmodyfikować te dane później.",
     "account-details": "Szczegóły konta"
   },
   "validation": {

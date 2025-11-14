@@ -1,7 +1,6 @@
 import { defineNuxtConfig } from "nuxt/config";
-import commonjs from "vite-plugin-commonjs";
 
-const AUTH_TOKEN = "mealie.auth.token";
+const AUTH_TOKEN = "mealie.access_token";
 
 export default defineNuxtConfig({
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -10,7 +9,6 @@ export default defineNuxtConfig({
   modules: [
     "@vite-pwa/nuxt",
     "@nuxtjs/i18n",
-    "@sidebase/nuxt-auth",
     "@nuxt/fonts",
     "vuetify-nuxt-module",
     "@nuxt/eslint",
@@ -52,10 +50,11 @@ export default defineNuxtConfig({
         },
       ],
       link: [
-        { "rel": "icon", "type": "image/x-icon", "href": "/favicon.ico", "data-n-head": "ssr" },
-        { "rel": "shortcut icon", "type": "image/png", "href": "/icons/icon-x64.png", "data-n-head": "ssr" },
-        { "rel": "apple-touch-icon", "type": "image/png", "href": "/icons/apple-touch-icon.png", "data-n-head": "ssr" },
-        { "rel": "mask-icon", "href": "/icons/safari-pinned-tab.svg", "data-n-head": "ssr" },
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+        { rel: "shortcut icon", type: "image/png", href: "/icons/icon-x64.png" },
+        { rel: "apple-touch-icon", type: "image/png", href: "/icons/apple-touch-icon.png" },
+        { rel: "mask-icon", href: "/icons/safari-pinned-tab.svg" },
+        { rel: "manifest", href: "/manifest.webmanifest", crossorigin: "use-credentials" },
       ],
     },
 
@@ -92,8 +91,8 @@ export default defineNuxtConfig({
         light: {
           primary: process.env.THEME_LIGHT_PRIMARY || "#E58325",
           accent: process.env.THEME_LIGHT_ACCENT || "#007A99",
-          secondary: process.env.THEME_DARK_SECONDARY || "#973542",
-          success: process.env.THEME_DARK_SUCCESS || "#43A047",
+          secondary: process.env.THEME_LIGHT_SECONDARY || "#973542",
+          success: process.env.THEME_LIGHT_SUCCESS || "#43A047",
           info: process.env.THEME_LIGHT_INFO || "#1976d2",
           warning: process.env.THEME_LIGHT_WARNING || "#FF6D00",
           error: process.env.THEME_LIGHT_ERROR || "#EF5350",
@@ -124,36 +123,6 @@ export default defineNuxtConfig({
 
   nitro: {
     baseURL: process.env.SUB_PATH || "",
-  },
-
-  vite: {
-    plugins: [
-      commonjs(),
-    ],
-  },
-
-  auth: {
-    isEnabled: true,
-    // disableServerSideAuth: true,
-    originEnvKey: "AUTH_ORIGIN",
-    baseURL: "/api",
-    provider: {
-      type: "local",
-      endpoints: {
-        signIn: { path: "/auth/token", method: "post" },
-        signOut: { path: "/auth/logout", method: "post" },
-        getSession: { path: "/users/self", method: "get" },
-      },
-      token: {
-        signInResponseTokenPointer: "/access_token",
-        type: "Bearer",
-        cookieName: AUTH_TOKEN,
-        maxAgeInSeconds: 604800, // 7 days
-      },
-      pages: {
-        login: "/login",
-      },
-    },
   },
 
   // eslint rules
@@ -240,37 +209,57 @@ export default defineNuxtConfig({
     vueI18n: "./../i18n.config.ts", // note: we need to up one ../ because the default root of lang dir is the /frontend/i18n, which can not be configured
   },
 
-  // PWA module configuration: https://go.nuxtjs.dev/pwa
+  // PWA module configuration: https://vite-pwa-org.netlify.app/frameworks/nuxt.html
   pwa: {
-    mode: process.env.NODE_ENV === "production" ? "production" : "development",
     registerType: "autoUpdate",
-    useCredentials: true,
+    devOptions: {
+      enabled: false,
+      suppressWarnings: true,
+    },
+    workbox: {
+      navigateFallback: "/",
+      globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+      cleanupOutdatedCaches: true,
+      skipWaiting: true,
+      clientsClaim: true,
+    },
+    client: {
+      installPrompt: true,
+      periodicSyncForUpdates: 120,
+    },
+    includeAssets: ["favicon.ico", "apple-touch-icon.png", "safari-pinned-tab.svg"],
     manifest: {
-      start_url: "/",
-      scope: "/",
-      lang: "en",
       name: "Mealie",
       short_name: "Mealie",
-      id: "mealie",
-      description: "Mealie is a recipe management and meal planning app",
-      theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
-      background_color: "#FFFFFF",
+      id: "/",
+      start_url: "/",
+      scope: "/",
       display: "standalone",
+      background_color: "#FFFFFF",
+      theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
+      description: "Mealie is a recipe management and meal planning app",
+      lang: "en",
       display_override: [
         "standalone",
         "minimal-ui",
         "browser",
         "window-controls-overlay",
       ],
+      orientation: "any",
+      categories: ["food", "lifestyle"],
+      prefer_related_applications: false,
+      handle_links: "preferred",
+      launch_handler: {
+        client_mode: ["focus-existing", "auto"],
+      },
+      edge_side_panel: {
+        preferred_width: 400,
+      },
       share_target: {
         action: "/r/create/url",
         method: "GET",
         params: {
-          /* title and url are not currently used in Mealie. If there are issues
-              with sharing, uncommenting those lines might help solve the puzzle. */
-          // "title": "title",
           text: "recipe_import_url",
-          // "url": "url",
         },
       },
       icons: [
@@ -383,17 +372,6 @@ export default defineNuxtConfig({
           ],
         },
       ],
-      prefer_related_applications: false,
-      handle_links: "preferred",
-      categories: [
-        "food",
-      ],
-      launch_handler: {
-        client_mode: ["focus-existing", "auto"],
-      },
-      edge_side_panel: {
-        preferred_width: 400,
-      },
     },
   },
 

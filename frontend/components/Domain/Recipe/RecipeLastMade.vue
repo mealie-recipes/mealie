@@ -20,6 +20,29 @@
               persistent-hint
               rows="4"
             />
+            <div v-if="childRecipes?.length">
+              <v-card-text class="pt-6 pb-0">
+                {{ $t('recipe.include-linked-recipes') }}
+              </v-card-text>
+              <v-list>
+                <v-list-item
+                  v-for="(childRecipe, i) in childRecipes"
+                  :key="childRecipe.recipeId + i"
+                  density="compact"
+                  class="my-0 py-0"
+                  @click="childRecipe.checked = !childRecipe.checked"
+                >
+                  <v-checkbox
+                    hide-details
+                    density="compact"
+                    :input-value="childRecipe.checked"
+                    :label="childRecipe.name"
+                    class="my-0 py-0"
+                    color="secondary"
+                  />
+                </v-list-item>
+              </v-list>
+            </div>
             <v-container>
               <v-row>
                 <v-col cols="6">
@@ -32,7 +55,7 @@
                   >
                     <template #activator="{ props: activatorProps }">
                       <v-text-field
-                        v-model="newTimelineEventTimestampString"
+                        :model-value="$d(newTimelineEventTimestamp)"
                         :prepend-icon="$globals.icons.calendar"
                         v-bind="activatorProps"
                         readonly
@@ -102,7 +125,7 @@
                 <span class="text-body-1 opacity-80">
                   <b>{{ $t("general.last-made") }}</b>
                   <br>
-                  {{ lastMade ? new Date(lastMade).toLocaleDateString($i18n.locale) : $t("general.never") }}
+                  {{ lastMade ? $d(new Date(lastMade)) : $t("general.never") }}
                 </span>
                 <v-icon end size="large" color="primary">
                   {{ $globals.icons.createAlt }}
@@ -119,6 +142,7 @@
 
 <script setup lang="ts">
 import { whenever } from "@vueuse/core";
+import { formatISO } from "date-fns";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useHouseholdSelf } from "~/composables/use-households";
@@ -148,7 +172,7 @@ const newTimelineEventImageName = ref<string>("");
 const newTimelineEventImagePreviewUrl = ref<string>();
 const newTimelineEventTimestamp = ref<Date>(new Date());
 const newTimelineEventTimestampString = computed(() => {
-  return newTimelineEventTimestamp.value.toISOString().substring(0, 10);
+  return formatISO(newTimelineEventTimestamp.value, { representation: "date" });
 });
 
 const lastMade = ref(props.recipe.lastMade);
@@ -165,11 +189,26 @@ onMounted(async () => {
   lastMadeReady.value = true;
 });
 
+const childRecipes = computed(() => {
+  return props.recipe.recipeIngredient?.map((ingredient) => {
+    if (ingredient.referencedRecipe) {
+      return {
+        checked: false, // Default value for checked
+        recipeId: ingredient.referencedRecipe.id || "", // Non-nullable recipeId
+        ...ingredient.referencedRecipe, // Spread the rest of the referencedRecipe properties
+      };
+    }
+    else {
+      return undefined;
+    }
+  }).filter(recipe => recipe !== undefined); // Filter out undefined values
+});
+
 whenever(
   () => madeThisDialog.value,
   () => {
     // Set timestamp to now
-    newTimelineEventTimestamp.value = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
+    newTimelineEventTimestamp.value = new Date();
   },
 );
 
@@ -249,6 +288,37 @@ async function createTimelineEvent() {
     }
   }
 
+  for (const childRecipe of childRecipes.value || []) {
+    if (!childRecipe.checked) {
+      continue;
+    }
+
+    const childTimelineEvent = {
+      ...newTimelineEvent.value,
+      recipeId: childRecipe.recipeId,
+      eventMessage: i18n.t("recipe.made-for-recipe", { recipe: childRecipe.name }),
+      image: undefined,
+    };
+    try {
+      await userApi.recipes.createTimelineEvent(childTimelineEvent);
+    }
+    catch (error) {
+      console.error(`Failed to create timeline event for child recipe ${childRecipe.slug}:`, error);
+    }
+
+    if (
+      newTimelineEvent.value.timestamp
+      && (!childRecipe.lastMade || newTimelineEvent.value.timestamp > childRecipe.lastMade)
+    ) {
+      try {
+        await userApi.recipes.updateLastMade(childRecipe.slug || "", newTimelineEvent.value.timestamp);
+      }
+      catch (error) {
+        console.error(`Failed to update last made date for child recipe ${childRecipe.slug}:`, error);
+      }
+    }
+  }
+
   // update the image, if provided
   let imageError = false;
   if (newTimelineEventImage.value) {
@@ -267,7 +337,6 @@ async function createTimelineEvent() {
       console.error("Failed to upload image for timeline event:", error);
     }
   }
-
   if (imageError) {
     alert.error(i18n.t("recipe.added-to-timeline-but-failed-to-add-image"));
   }

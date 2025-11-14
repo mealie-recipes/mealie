@@ -3,6 +3,7 @@ from typing import cast
 from pydantic import UUID4
 
 from mealie.core.exceptions import UnexpectedNone
+from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.group_shopping_list import (
     ShoppingListAddRecipeParamsBulk,
@@ -19,6 +20,7 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListOut,
     ShoppingListSave,
 )
+from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import (
     IngredientFood,
     IngredientUnit,
@@ -303,7 +305,10 @@ class ShoppingListService:
         """Generates a list of new list items based on a recipe"""
 
         if recipe_ingredients is None:
-            recipe = self.repos.recipes.get_one(recipe_id, "id")
+            group_recipes_repo = get_repositories(
+                self.repos.session, group_id=self.repos.group_id, household_id=None
+            ).recipes
+            recipe = group_recipes_repo.get_one(recipe_id, "id")
             if not recipe:
                 raise UnexpectedNone("Recipe not found")
 
@@ -311,10 +316,22 @@ class ShoppingListService:
 
         list_items: list[ShoppingListItemCreate] = []
         for ingredient in recipe_ingredients:
+            if isinstance(ingredient.referenced_recipe, Recipe):
+                # Recursively process sub-recipe ingredients
+                sub_recipe = ingredient.referenced_recipe
+                sub_scale = (ingredient.quantity or 1) * scale
+                sub_items = self.get_shopping_list_items_from_recipe(
+                    list_id,
+                    sub_recipe.id,
+                    sub_scale,
+                    sub_recipe.recipe_ingredient,
+                )
+                list_items.extend(sub_items)
+                continue
+
             if isinstance(ingredient.food, IngredientFood):
                 food_id = ingredient.food.id
                 label_id = ingredient.food.label_id
-
             else:
                 food_id = None
                 label_id = None

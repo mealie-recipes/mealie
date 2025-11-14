@@ -132,8 +132,8 @@
             "baby green": {
                 "aliases": [],
                 "description": "",
-                "name": "baby green",
-                "plural_name": "baby greens"
+                "name": "σαλάτα baby",
+                "plural_name": "σαλάτες baby"
             },
             "pumpkin": {
                 "aliases": [],
@@ -163,7 +163,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "λαχανίδα",
-                "plural_name": "kales"
+                "plural_name": "λαχανίδες"
             },
             "arugula": {
                 "aliases": [],
@@ -204,8 +204,8 @@
             "beetroot": {
                 "aliases": [],
                 "description": "",
-                "name": "beetroot",
-                "plural_name": "beetroots"
+                "name": "παντζάρι",
+                "plural_name": "παντζάρια"
             },
             "brussels sprout": {
                 "aliases": [],
@@ -252,11 +252,11 @@
             "summer squash": {
                 "aliases": [
                     "κολοκυθάκι",
-                    "gem squash"
+                    "κολοκύθα gem"
                 ],
                 "description": "",
-                "name": "summer squash",
-                "plural_name": "summer squashes"
+                "name": "καλοκαιρινή κολοκύθα",
+                "plural_name": "καλοκαιρινές κολοκύθες"
             },
             "mixed green": {
                 "aliases": [],
@@ -267,8 +267,8 @@
             "parsnip": {
                 "aliases": [],
                 "description": "",
-                "name": "parsnip",
-                "plural_name": "parsnips"
+                "name": "παστινάκι",
+                "plural_name": "παστινάκια"
             },
             "baby carrot": {
                 "aliases": [],
@@ -285,8 +285,8 @@
             "poblano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "poblano pepper",
-                "plural_name": "poblano peppers"
+                "name": "πιπεριά πομπλάνο",
+                "plural_name": "πιπεριές πομπλάνο"
             },
             "sweet pepper": {
                 "aliases": [],
@@ -297,7 +297,7 @@
             "serrano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano pepper",
+                "name": "πιπεριά σεράνο",
                 "plural_name": "πιπεριές σεράνο"
             },
             "cayenne pepper": {
@@ -351,28 +351,28 @@
             "spaghetti squash": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti squash",
-                "plural_name": "spaghetti squashes"
+                "name": "κολοκύθα σπαγγέτι",
+                "plural_name": "κολοκύθες σπαγγέτι"
             },
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter lettuce",
-                "plural_name": "butter lettuces"
+                "name": "λείο κεφαλωτό μαρούλι",
+                "plural_name": "λεία κεφαλωτά μαρούλια"
             },
             "hash brown": {
                 "aliases": [],
                 "description": "",
-                "name": "hash brown",
-                "plural_name": "hash browns"
+                "name": "χας μπράουν",
+                "plural_name": "χας μπράουνς"
             },
             "napa cabbage": {
                 "aliases": [
                     "κινέζικα φύλλα"
                 ],
                 "description": "",
-                "name": "napa cabbage",
-                "plural_name": "napa cabbages"
+                "name": "κινέζικο λάχανο",
+                "plural_name": "κινέζικα λάχανα"
             },
             "celeriac": {
                 "aliases": [],
@@ -419,14 +419,14 @@
             "corn cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn cob",
-                "plural_name": "corn cobs"
+                "name": "καλαμπόκι",
+                "plural_name": "καλαμπόκια"
             },
             "radicchio": {
                 "aliases": [],
                 "description": "",
-                "name": "radicchio",
-                "plural_name": "radicchio"
+                "name": "ραντίτσιο",
+                "plural_name": "ραντίτσια"
             },
             "pearl onion": {
                 "aliases": [],
@@ -461,34 +461,34 @@
             "baby bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "baby bok choy",
-                "plural_name": "baby bok choys"
+                "name": "κινέζικο λάχανο μπέιμπι",
+                "plural_name": "κινέζικα λάχανα μπέιμπι"
             },
             "jicama": {
                 "aliases": [],
                 "description": "",
-                "name": "jicama",
-                "plural_name": "jicamas"
+                "name": "μεξικάνικο γογγύλι",
+                "plural_name": "μεξικάνικα γογγύλια"
             },
             "endive": {
                 "aliases": [],
                 "description": "",
-                "name": "endive",
-                "plural_name": "endives"
+                "name": "αντίδι",
+                "plural_name": "αντίδια"
             },
             "habanero pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "habanero pepper",
-                "plural_name": "habanero peppers"
+                "name": "πιπεριά χαμπανέρο",
+                "plural_name": "πιπεριές χαμπανέρο"
             },
             "corn husk": {
                 "aliases": [
-                    "maize"
+                    "καλαμπόκι"
                 ],
                 "description": "",
-                "name": "corn husk",
-                "plural_name": "corn husks"
+                "name": "φλοιός καλαμποκιού",
+                "plural_name": "φλοιοί καλαμποκιού"
             },
             "collard green": {
                 "aliases": [],
@@ -535,8 +535,8 @@
             "yam": {
                 "aliases": [],
                 "description": "",
-                "name": "yam",
-                "plural_name": "yams"
+                "name": "γιαμ",
+                "plural_name": "γιαμ"
             },
             "ancho chile pepper": {
                 "aliases": [],
@@ -619,8 +619,8 @@
             "alfalfa": {
                 "aliases": [],
                 "description": "",
-                "name": "alfalfa",
-                "plural_name": "alfalfas"
+                "name": "μηδική",
+                "plural_name": "μηδικές"
             }
         }
     },
@@ -719,8 +719,8 @@
             "pomegranate": {
                 "aliases": [],
                 "description": "",
-                "name": "pomegranate",
-                "plural_name": "pomegranates"
+                "name": "ρόδι",
+                "plural_name": "ρόδια"
             },
             "watermelon": {
                 "aliases": [],
@@ -731,14 +731,14 @@
             "rhubarb": {
                 "aliases": [],
                 "description": "",
-                "name": "rhubarb",
-                "plural_name": "rhubarbs"
+                "name": "ραβέντι",
+                "plural_name": "ραβέντια"
             },
             "dried apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apricot",
-                "plural_name": "dried apricots"
+                "name": "αποξηραμένο βερίκοκο",
+                "plural_name": "αποξηραμένα βερίκοκα"
             },
             "kiwi": {
                 "aliases": [],
@@ -749,74 +749,74 @@
             "grapefruit": {
                 "aliases": [],
                 "description": "",
-                "name": "grapefruit",
-                "plural_name": "grapefruits"
+                "name": "γκρέιπφρουτ",
+                "plural_name": "γκρέιπφρουτ"
             },
             "plum": {
                 "aliases": [],
                 "description": "",
-                "name": "plum",
-                "plural_name": "plums"
+                "name": "δαμάσκηνο",
+                "plural_name": "δαμάσκηνα"
             },
             "fig": {
                 "aliases": [],
                 "description": "",
-                "name": "fig",
-                "plural_name": "figs"
+                "name": "σύκο",
+                "plural_name": "σύκα"
             },
             "apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "apricot",
-                "plural_name": "apricots"
+                "name": "βερύκοκκο",
+                "plural_name": "βερύκοκκα"
             },
             "currant": {
                 "aliases": [],
                 "description": "",
-                "name": "currant",
-                "plural_name": "currants"
+                "name": "φραγκοστάφυλο",
+                "plural_name": "φραγκοστάφυλα"
             },
             "mandarin": {
                 "aliases": [],
                 "description": "",
-                "name": "mandarin",
-                "plural_name": "mandarins"
+                "name": "μανταρίνι",
+                "plural_name": "μανταρίνια"
             },
             "prune": {
                 "aliases": [],
                 "description": "",
-                "name": "prune",
-                "plural_name": "prunes"
+                "name": "αποξηραμένο δαμάσκηνο",
+                "plural_name": "αποξηραμένα δαμάσκηνα"
             },
             "cantaloupe": {
                 "aliases": [],
                 "description": "",
-                "name": "cantaloupe",
-                "plural_name": "cantaloupes"
+                "name": "πεπόνι κανταλούπε",
+                "plural_name": "πεπόνια κανταλούπε"
             },
             "sultana": {
                 "aliases": [],
                 "description": "",
-                "name": "sultana",
-                "plural_name": "sultanas"
+                "name": "σουλτανίνα",
+                "plural_name": "σουλτανίνες"
             },
             "passion fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "passion fruit",
-                "plural_name": "passion fruits"
+                "name": "πασιφλόρα",
+                "plural_name": "πασιφλόρες"
             },
             "papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "papaya",
-                "plural_name": "papayas"
+                "name": "παπάγια",
+                "plural_name": "παπάγιες"
             },
             "tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarind",
-                "plural_name": "tamarinds"
+                "name": "ταμάρινδος",
+                "plural_name": "ταμάρινδοι"
             },
             "nectarine": {
                 "aliases": [],
@@ -827,20 +827,20 @@
             "dried fig": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fig",
-                "plural_name": "dried figs"
+                "name": "αποξηραμένο σύκο",
+                "plural_name": "αποξηραμένα σύκα"
             },
             "chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut",
-                "plural_name": "chestnuts"
+                "name": "κάστανο",
+                "plural_name": "κάστανα"
             },
             "meyer lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "meyer lemon",
-                "plural_name": "meyer lemons"
+                "name": "λεμόνι meyer",
+                "plural_name": "λεμόνια meyer"
             },
             "honeydew melon": {
                 "aliases": [],
@@ -965,8 +965,8 @@
             "green papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "green papaya",
-                "plural_name": "green papayas"
+                "name": "πράσινη παπάγια",
+                "plural_name": "πράσινες παπάγιες"
             },
             "pomelo": {
                 "aliases": [],
@@ -995,14 +995,14 @@
             "yuzu": {
                 "aliases": [],
                 "description": "",
-                "name": "yuzu",
-                "plural_name": "yuzus"
+                "name": "γιούζου",
+                "plural_name": "γιούζου"
             },
             "granadilla": {
                 "aliases": [],
                 "description": "",
-                "name": "granadilla",
-                "plural_name": "granadillas"
+                "name": "γραναδίγια",
+                "plural_name": "γραναδίγιες"
             },
             "apple chip": {
                 "aliases": [],
@@ -1311,14 +1311,14 @@
             "field mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "field mushroom",
-                "plural_name": "field mushrooms"
+                "name": "μανιτάρι του αγρού",
+                "plural_name": "μανιτάρια του αγρού"
             },
             "king oyster mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "king oyster mushroom",
-                "plural_name": "king oyster mushrooms"
+                "name": "πλευρώτους του ερυγγίου",
+                "plural_name": "πλευρώτους του ερυγγίου"
             },
             "shimeji mushroom": {
                 "aliases": [],
@@ -1329,14 +1329,14 @@
             "straw mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "straw mushroom",
-                "plural_name": "straw mushrooms"
+                "name": "μανιτάρι του άχυρου",
+                "plural_name": "μανιτάρια του άχυρου"
             },
             "dried chinese mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "dried chinese mushroom",
-                "plural_name": "dried chinese mushrooms"
+                "name": "αποξηραμένο κινέζικο μανιτάρι",
+                "plural_name": "αποξηραμένα κινέζικα μανιτάρια"
             },
             "maitake": {
                 "aliases": [],
@@ -2063,8 +2063,8 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "ροκφόρ τυρί ",
-                "plural_name": "ροκφόρ τυριά"
+                "name": "ροκφόρ τυρί",
+                "plural_name": "ροκφόρ τυρί"
             },
             "goat cheese": {
                 "aliases": [],
@@ -2105,8 +2105,8 @@
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cottage cheese",
-                "plural_name": "cottage cheeses"
+                "name": "τυρί κότατζ (cottage)",
+                "plural_name": "τυριά κότατζ (cottage)"
             },
             "american cheese": {
                 "aliases": [],
@@ -2649,14 +2649,14 @@
             "yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt",
-                "plural_name": "yogurts"
+                "name": "γιαούρτι",
+                "plural_name": "γιαούρτια"
             },
             "greek yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "greek yogurt",
-                "plural_name": "greek yogurts"
+                "name": "γιαούρτι",
+                "plural_name": "γιαούρτια"
             },
             "cream": {
                 "aliases": [],
@@ -2819,8 +2819,8 @@
             "frozen yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen yogurt",
-                "plural_name": "frozen yogurts"
+                "name": "παγωμένο γιαούρτι",
+                "plural_name": "παγωμένα γιαούρτια"
             },
             "khoya": {
                 "aliases": [],
@@ -9614,8 +9614,8 @@
             "tagliatelle": {
                 "aliases": [],
                 "description": "",
-                "name": "tagliatelle",
-                "plural_name": "tagliatelles"
+                "name": "ταλιατέλες",
+                "plural_name": "ταλιατέλες"
             },
             "soba noodle": {
                 "aliases": [],
@@ -10444,8 +10444,8 @@
             "frozen onion ring": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen onion ring",
-                "plural_name": "frozen onion rings"
+                "name": "κατεψυγμένο onion ring",
+                "plural_name": "κατεψυγμένα onion rings"
             },
             "corn muffin": {
                 "aliases": [],
@@ -10634,7 +10634,7 @@
             "olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "olive oil",
+                "name": "ελαιόλαδο",
                 "plural_name": "olive oils"
             },
             "vegetable oil": {
@@ -10646,7 +10646,7 @@
             "extra virgin olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "extra virgin olive oil",
+                "name": "έξτρα παρθένο ελαιόλαδο",
                 "plural_name": "extra virgin olive oils"
             },
             "canola oil": {
@@ -12112,8 +12112,8 @@
             "green olive": {
                 "aliases": [],
                 "description": "",
-                "name": "green olive",
-                "plural_name": "green olives"
+                "name": "πράσινη ελιά",
+                "plural_name": "πράσινες ελιές"
             },
             "canned chickpea": {
                 "aliases": [],
@@ -12124,8 +12124,8 @@
             "black olive": {
                 "aliases": [],
                 "description": "",
-                "name": "black olive",
-                "plural_name": "black olives"
+                "name": "μαύρη ελιά",
+                "plural_name": "μαύρες ελιές"
             },
             "canned black bean": {
                 "aliases": [],
@@ -12568,8 +12568,8 @@
             "taggiasca olive": {
                 "aliases": [],
                 "description": "",
-                "name": "taggiasca olive",
-                "plural_name": "taggiasca olives"
+                "name": "ελιά ταγιάσκα",
+                "plural_name": "ελιές ταγιάσκα"
             },
             "cranberry relish": {
                 "aliases": [],
@@ -16155,7 +16155,7 @@
             "vitamin d": {
                 "aliases": [],
                 "description": "",
-                "name": "vitamin d",
+                "name": "βιταμίνη d",
                 "plural_name": "vitamin ds"
             },
             "calcium lactate": {

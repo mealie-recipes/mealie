@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import RecipeExplorerPage from "~/components/Domain/Recipe/RecipeExplorerPage.vue";
+import RecipeExplorerPage from "~/components/Domain/Recipe/RecipeExplorerPage/RecipeExplorerPage.vue";
 
 export default defineNuxtComponent({
   components: { RecipeExplorerPage },

@@ -37,7 +37,7 @@
           width="100%"
           max-height="125"
           max-width="125"
-          :src="require('~/static/svgs/manage-notifiers.svg')"
+          src="/svgs/manage-notifiers.svg"
         />
       </template>
       <template #title>
@@ -121,6 +121,7 @@
           <v-text-field
             v-model="notifiers[index].appriseUrl"
             :label="$t('events.apprise-url-skipped-if-blank')"
+            :hint="$t('events.apprise-url-is-left-intentionally-blank')"
           />
           <v-checkbox
             v-model="notifiers[index].enabled"
@@ -198,7 +199,7 @@ interface OptionSection {
 }
 
 export default defineNuxtComponent({
-  middleware: ["sidebase-auth", "advanced-only"],
+  middleware: ["advanced-only"],
   setup() {
     const api = useUserApi();
     const i18n = useI18n();
