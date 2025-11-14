@@ -565,6 +565,7 @@
     "choose-unit": "Izberite enoto",
     "press-enter-to-create": "Pritisnite enter da izdelate",
     "choose-food": "Izberite hrano",
+    "choose-recipe": "Choose Recipe",
     "notes": "Zapiski",
     "toggle-section": "Preklopi izbiro",
     "see-original-text": "Prikaži izvirno besedilo",
@@ -734,7 +735,8 @@
     "search-hint": "Pritisni '/'",
     "advanced": "Napredno",
     "auto-search": "Avtomatsko iskanje",
-    "no-results": "Ni zadetkov"
+    "no-results": "Ni zadetkov",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Dodaj novo temo",
