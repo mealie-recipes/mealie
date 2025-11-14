@@ -565,6 +565,7 @@
     "choose-unit": "Выберите единицу измерения",
     "press-enter-to-create": "Нажмите Enter для создания",
     "choose-food": "Выберите продукт",
+    "choose-recipe": "Choose Recipe",
     "notes": "Заметки",
     "toggle-section": "Переключить раздел",
     "see-original-text": "Показать исходный текст",
@@ -734,7 +735,8 @@
     "search-hint": "Нажмите '/'",
     "advanced": "Дополнительно",
     "auto-search": "Авто поиск",
-    "no-results": "Ничего не найдено"
+    "no-results": "Ничего не найдено",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Добавить новую тему",
