@@ -565,6 +565,7 @@
     "choose-unit": "Tria el tipus d'unitat",
     "press-enter-to-create": "Premeu enter per a crear-lo",
     "choose-food": "Tria un aliment",
+    "choose-recipe": "Choose Recipe",
     "notes": "Notes",
     "toggle-section": "Nova secció",
     "see-original-text": "Mostra el text original",
@@ -734,7 +735,8 @@
     "search-hint": "Prem '/'",
     "advanced": "Avançat",
     "auto-search": "Cerca automàtica",
-    "no-results": "No s'han trobat resultats"
+    "no-results": "No s'han trobat resultats",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Afegiu un nou tema",
