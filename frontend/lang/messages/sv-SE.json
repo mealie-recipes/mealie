@@ -449,8 +449,8 @@
     "import-by-url": "Importera recept via URL",
     "create-manually": "Skapa recept manuellt",
     "make-recipe-image": "Gör detta till receptbild",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Lägg till mat",
+    "add-recipe": "Lägg till recept"
   },
   "page": {
     "404-page-not-found": "404 sidan hittades inte",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Recept raderat",
     "recipe-image": "Recept bild",
     "recipe-image-updated": "Recept bild uppdaterad",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Radera receptbild",
+    "delete-image-confirmation": "Är du säker på att du vill ta bort den här receptbilden?",
+    "recipe-image-deleted": "Recept bild raderad",
     "recipe-name": "Receptets namn",
     "recipe-settings": "Recept inställningar",
     "recipe-update-failed": "Receptet gick inte att uppdatera",
@@ -592,7 +592,7 @@
     "made-this": "Jag lagade den här",
     "how-did-it-turn-out": "Hur blev rätten?",
     "user-made-this": "{user} lagade detta",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Skapat för {recipe}",
     "added-to-timeline": "Lagt till i tidslinjen",
     "failed-to-add-to-timeline": "Kunde inte lägga till i tidslinjen",
     "failed-to-update-recipe": "Kunde inte uppdatera receptet",
@@ -695,9 +695,9 @@
     "upload-more-images": "Ladda upp fler bilder",
     "set-as-cover-image": "Använd som receptbild",
     "cover-image": "Receptbild",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Inkludera länk till recept",
+    "include-linked-recipe-ingredients": "Inkludera länk till receptingredienser",
+    "toggle-recipe": "Växla receptet"
   },
   "recipe-finder": {
     "recipe-finder": "Sök recept",
@@ -1074,7 +1074,7 @@
     "forgot-password-text": "Ange din e-postadress så skickar vi dig en länk för att återställa ditt lösenord.",
     "changes-reflected-immediately": "Ändringar av denna användare kommer att ske omedelbart.",
     "default-activity": "Standard aktivitet",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity-hint": "Välj vilken sida du vill gå till när du loggar in från den här enheten"
   },
   "language-dialog": {
     "translated": "översatt",

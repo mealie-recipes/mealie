@@ -400,8 +400,8 @@
       "title": "Recetas de Tandoor"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
-      "title": "DVO Cook'n X3"
+      "description-long": "Mealie no puede importar recetas de DVO Cook'n X3. Exporta un recetario o un menú en el formato \"Cook'n\", renómbralo a la extensión .zip y sube el .zip en la sección de abajo.",
+      "title": "Cook'n DVO X3"
     },
     "recipe-data-migrations": "Migración de recetas",
     "recipe-data-migrations-explanation": "Las recetas pueden migrarse desde otra aplicación soportada a Mealie. Esta es una excelente manera de empezar con Mealie.",
@@ -450,7 +450,7 @@
     "create-manually": "Crear receta manualmente",
     "make-recipe-image": "Haz de esta la imagen de la receta",
     "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-recipe": "Agregar receta"
   },
   "page": {
     "404-page-not-found": "404 Página no encontrada",
@@ -517,8 +517,8 @@
     "recipe-deleted": "Receta eliminada",
     "recipe-image": "Imagen de la receta",
     "recipe-image-updated": "Imagen de la receta actualizada",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "delete-image": "Borra la imagen de la receta",
+    "delete-image-confirmation": "¿Estás seguro de que quieres borrar esta imagen de la receta?",
     "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Nombre de la receta",
     "recipe-settings": "Ajustes de la receta",
@@ -697,7 +697,7 @@
     "cover-image": "Imagen de portada",
     "include-linked-recipes": "Include Linked Recipes",
     "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "toggle-recipe": "Alternar Receta"
   },
   "recipe-finder": {
     "recipe-finder": "Buscador de recetas",
@@ -1073,8 +1073,8 @@
     "forgot-password": "Olvidé mi contraseña",
     "forgot-password-text": "Por favor, introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
     "changes-reflected-immediately": "Los cambios en este grupo se reflejarán inmediatamente.",
-    "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity": "Actividad predeterminada",
+    "default-activity-hint": "Selecciona la pagina a la que navegar al iniciar la sesion en este dispositivo"
   },
   "language-dialog": {
     "translated": "traducido",

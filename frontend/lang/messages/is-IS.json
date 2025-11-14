@@ -449,8 +449,8 @@
     "import-by-url": "Hlaða inn uppskrift frá slóð",
     "create-manually": "Skrifa nýja uppskrift",
     "make-recipe-image": "Gera þessa að uppskriftar myndinni",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Bæta við matvöru",
+    "add-recipe": "Bæta við uppskrift"
   },
   "page": {
     "404-page-not-found": "404 síðan fannst ekki",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Uppskrift eytt",
     "recipe-image": "Mynd af uppskrift",
     "recipe-image-updated": "Mynd af uppskrift uppfærð",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Eyða mynd af uppskrift",
+    "delete-image-confirmation": "Ertu viss um að þú viljir eyða myndinni úr uppskriftinni?",
+    "recipe-image-deleted": "Mynd af uppskrift eytt",
     "recipe-name": "Nafn uppskriftar",
     "recipe-settings": "Stillingar uppskriftar",
     "recipe-update-failed": "Mistókst að uppfæra uppskrift",
@@ -951,7 +951,7 @@
     "sign-up-links": "Sign Up Links",
     "sign-up-token-deleted": "Aðgangslykli fyrir skráningu eytt",
     "sign-up-token-deletion-failed": "Mistókst að eyða aðgangslykli fyrir skráningu",
-    "welcome-to-mealie": "Welcome to Mealie! To become a user of this instance you are required to have a valid invitation link. If you haven't recieved an invitation you are unable to sign-up. To recieve a link, contact the sites administrator."
+    "welcome-to-mealie": "Velkominn í Mealie! Til að verða notandi af þessari síðu þá þarftu að hafa boðstengil. Ef þú hefur ekki fengið boð þá getur þú ekki skráð þig. Til að fá tengil hafðu þá samband við kerfisstjóra."
   },
   "tag": {
     "tag-created": "Merki stofnað",
@@ -988,12 +988,12 @@
     "create-link": "Create Link",
     "create-user": "Create User",
     "current-password": "Núverandi lykilorð",
-    "e-mail-must-be-valid": "E-mail must be valid",
+    "e-mail-must-be-valid": "Verður að nota gilt netfang",
     "edit-user": "Edit User",
-    "email": "Email",
+    "email": "Netfang",
     "error-cannot-delete-super-user": "Error! Cannot Delete Super User",
     "existing-password-does-not-match": "Núverandi lykilorð stemmir ekki",
-    "full-name": "Full Name",
+    "full-name": "Fullt nafn",
     "generate-password-reset-link": "Gera tengil til að endurstilla lykilorð",
     "invite-only": "Invite Only",
     "link-id": "Link ID",
@@ -1039,7 +1039,7 @@
     "you-are-not-allowed-to-create-a-user": "You are not allowed to create a user",
     "you-are-not-allowed-to-delete-this-user": "You are not allowed to delete this user",
     "enable-advanced-content": "Virkja ítarlegt efni",
-    "enable-advanced-content-description": "Virkja ítarlegt efni eins og að stækka uppskrift, API keys, vefkrækjur (Webhooks) og gagnastýring. Það er alltaf hægt að breyta þessu síðar",
+    "enable-advanced-content-description": "Virkjar ítarlegt efni eins og að stækka uppskrift, API keys, vefkrækjur (Webhooks) og gagnastýring. Það er alltaf hægt að breyta þessu síðar",
     "favorite-recipes": "Favorite Recipes",
     "email-or-username": "Tölvupóstur eða notandanafn",
     "remember-me": "Remember Me",
@@ -1078,8 +1078,8 @@
   },
   "language-dialog": {
     "translated": "translated",
-    "choose-language": "Choose Language",
-    "select-description": "Choose the language for the Mealie UI. The setting only applies to you, not other users.",
+    "choose-language": "Veldu tungumál",
+    "select-description": "Veldu tungumálið fyrir notendaviðmótið. Stillingin mun bara gilda fyrir þig, ekki aðra notendur.",
     "how-to-contribute-description": "Is something not translated yet, mistranslated, or your language missing from the list? {read-the-docs-link} on how to contribute!",
     "read-the-docs": "Read the docs"
   },
@@ -1315,8 +1315,8 @@
     "tasks": "Verkefni",
     "setup": {
       "first-time-setup": "First Time Setup",
-      "welcome-to-mealie-get-started": "Welcome to Mealie! Let's get started",
-      "already-set-up-bring-to-homepage": "I'm already set up, just bring me to the homepage",
+      "welcome-to-mealie-get-started": "Mealie býður þig velkominn, kílum á þetta",
+      "already-set-up-bring-to-homepage": "Allt er þegar klárt hjá mér, sendu mig á heimasíðuna",
       "common-settings-for-new-sites": "Here are some common settings for new sites",
       "setup-complete": "Setup Complete!",
       "here-are-a-few-things-to-help-you-get-started": "Here are a few things to help you get started with Mealie",

@@ -2051,8 +2051,8 @@
             "cheddar-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheddar-jack cheese",
-                "plural_name": "cheddar-jack cheeses"
+                "name": "formaggio cheddar-jack",
+                "plural_name": "formaggi cheddar-jack"
             },
             "monterey jack": {
                 "aliases": [],
@@ -2123,8 +2123,8 @@
             "mexican cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican cheese blend",
-                "plural_name": "mexican cheese blends"
+                "name": "miscela di formaggio messicano",
+                "plural_name": "miscele di formaggio messicano"
             },
             "pepper jack": {
                 "aliases": [],
@@ -2153,7 +2153,7 @@
             "queso fresco": {
                 "aliases": [],
                 "description": "",
-                "name": "queso fresco",
+                "name": "formaggio fresco",
                 "plural_name": "queso frescoes"
             },
             "quark": {
@@ -2399,8 +2399,8 @@
             "seasoned feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "seasoned feta cheese",
-                "plural_name": "seasoned feta cheeses"
+                "name": "formaggio feta stagionato",
+                "plural_name": "formaggi feta stagionati"
             },
             "comté": {
                 "aliases": [],
@@ -2484,7 +2484,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "robiola",
-                "plural_name": "robiolas"
+                "plural_name": "robiole"
             },
             "brick cheese": {
                 "aliases": [],
@@ -2526,7 +2526,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "caciocavallo",
-                "plural_name": "caciocavalloes"
+                "plural_name": "caciocavalli"
             },
             "requeijão": {
                 "aliases": [],
@@ -2550,7 +2550,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "gloucester",
-                "plural_name": "gloucesters"
+                "plural_name": "gloucester"
             },
             "port salut": {
                 "aliases": [],
@@ -2661,14 +2661,14 @@
             "cream": {
                 "aliases": [],
                 "description": "",
-                "name": "cream",
-                "plural_name": "creams"
+                "name": "panna",
+                "plural_name": "panna"
             },
             "whipped cream": {
                 "aliases": [],
                 "description": "",
-                "name": "whipped cream",
-                "plural_name": "whipped creams"
+                "name": "panna montata",
+                "plural_name": "panna montata"
             },
             "ghee": {
                 "aliases": [
@@ -2723,14 +2723,14 @@
             "frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "frosting",
-                "plural_name": "frostings"
+                "name": "glassa",
+                "plural_name": "glasse"
             },
             "milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "milk powder",
-                "plural_name": "milk powders"
+                "name": "latte in polvere",
+                "plural_name": "latte in polvere"
             },
             "curd": {
                 "aliases": [],
@@ -2753,8 +2753,8 @@
             "dulce de leche": {
                 "aliases": [],
                 "description": "",
-                "name": "dulce de leche",
-                "plural_name": "dulce de leche"
+                "name": "dolce de leche",
+                "plural_name": "dolci de leche"
             },
             "custard": {
                 "aliases": [],
@@ -2849,8 +2849,8 @@
             "goat milk": {
                 "aliases": [],
                 "description": "",
-                "name": "goat milk",
-                "plural_name": "goat milks"
+                "name": "latte di capra",
+                "plural_name": "latte di capra"
             },
             "cheese curd": {
                 "aliases": [],
@@ -2861,8 +2861,8 @@
             "sour milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sour milk",
-                "plural_name": "sour milks"
+                "name": "latte acido",
+                "plural_name": "latte acido"
             },
             "ganache": {
                 "aliases": [],
@@ -2903,8 +2903,8 @@
             "raw milk": {
                 "aliases": [],
                 "description": "",
-                "name": "raw milk",
-                "plural_name": "raw milks"
+                "name": "latte crudo",
+                "plural_name": "latte crudo"
             },
             "lime curd": {
                 "aliases": [],
@@ -2921,20 +2921,20 @@
             "chantilly": {
                 "aliases": [],
                 "description": "",
-                "name": "chantilly",
-                "plural_name": "chantillies"
+                "name": "crema chantilly",
+                "plural_name": "creme chantilly"
             },
             "milkfat": {
                 "aliases": [],
                 "description": "",
-                "name": "milkfat",
-                "plural_name": "milkfats"
+                "name": "grasso del latte",
+                "plural_name": "grassi del latte"
             },
             "yogurt starter": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt starter",
-                "plural_name": "yogurt starters"
+                "name": "antipasto allo yogurt",
+                "plural_name": "antipasti allo yogurt"
             },
             "rainbow sherbet": {
                 "aliases": [],
@@ -2975,7 +2975,7 @@
             "goat butter": {
                 "aliases": [],
                 "description": "",
-                "name": "goat butter",
+                "name": "burro di capra",
                 "plural_name": "goat butter"
             },
             "century egg": {
@@ -3023,8 +3023,8 @@
             "chocolate milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk powder",
-                "plural_name": "chocolate milk powders"
+                "name": "latte al cioccolato in polvere",
+                "plural_name": "latte al cioccolato in polvere"
             },
             "liquid rennet": {
                 "aliases": [],
@@ -3035,14 +3035,14 @@
             "sheep’s milk yoghurt": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep’s milk yoghurt",
-                "plural_name": "sheep’s milk yoghurts"
+                "name": "yogurt di latte di pecora",
+                "plural_name": "yogurt di latte di pecora"
             },
             "strawberry milk": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry milk",
-                "plural_name": "strawberry milks"
+                "name": "latte alle fragole",
+                "plural_name": "latte alle fragole"
             },
             "ayran": {
                 "aliases": [],
@@ -3059,7 +3059,7 @@
             "yogurt drink": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt drink",
+                "name": "yogurt da bere",
                 "plural_name": "yoghurt da bere"
             },
             "passion-fruit curd": {
@@ -3077,8 +3077,8 @@
             "sheep milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep milk",
-                "plural_name": "sheep milks"
+                "name": "latte di pecora",
+                "plural_name": "latte di pecora"
             },
             "starter culture": {
                 "aliases": [],
@@ -3101,8 +3101,8 @@
             "vanilla milk": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla milk",
-                "plural_name": "vanilla milks"
+                "name": "latte alla vaniglia",
+                "plural_name": "latte alla vaniglia"
             },
             "yoplait whip": {
                 "aliases": [],
@@ -3141,8 +3141,8 @@
             "almond milk": {
                 "aliases": [],
                 "description": "",
-                "name": "almond milk",
-                "plural_name": "almond milks"
+                "name": "latte di mandorle",
+                "plural_name": "latte di mandorle"
             },
             "almond butter": {
                 "aliases": [],
@@ -3154,7 +3154,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tofu",
-                "plural_name": "tofus"
+                "plural_name": "tofu"
             },
             "coconut cream": {
                 "aliases": [],
@@ -3165,14 +3165,14 @@
             "vegan butter": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan butter",
-                "plural_name": "vegan butter"
+                "name": "burro vegano",
+                "plural_name": "burro vegano"
             },
             "non-dairy milk": {
                 "aliases": [],
                 "description": "",
-                "name": "non-dairy milk",
-                "plural_name": "non-dairy milks"
+                "name": "latte non caseario",
+                "plural_name": "latte non caseario"
             },
             "soy milk": {
                 "aliases": [],
@@ -3249,38 +3249,38 @@
             "non-dairy yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "non-dairy yogurt",
-                "plural_name": "non-dairy yogurts"
+                "name": "yogurt non caseario",
+                "plural_name": "yogurt non caseari"
             },
             "seed butter": {
                 "aliases": [],
                 "description": "",
-                "name": "seed butter",
-                "plural_name": "seed butter"
+                "name": "burro di semi",
+                "plural_name": "burro di semi"
             },
             "cashew milk": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew milk",
-                "plural_name": "cashew milks"
+                "name": "latte di anacardi",
+                "plural_name": "latte di anacardi"
             },
             "oat milk": {
                 "aliases": [],
                 "description": "",
-                "name": "oat milk",
-                "plural_name": "oat milks"
+                "name": "latte di avena",
+                "plural_name": "latte di avena"
             },
             "nut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "nut butter",
-                "plural_name": "nut butter"
+                "name": "burro di noci",
+                "plural_name": "burro di noci"
             },
             "rice milk": {
                 "aliases": [],
                 "description": "",
-                "name": "rice milk",
-                "plural_name": "rice milks"
+                "name": "latte di riso",
+                "plural_name": "latte di riso"
             },
             "vegan sour cream": {
                 "aliases": [],
@@ -3303,8 +3303,8 @@
             "soy yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "soy yogurt",
-                "plural_name": "soy yogurts"
+                "name": "yogurt di soia",
+                "plural_name": "yogurt di soia"
             },
             "vegan mozzarella": {
                 "aliases": [],
@@ -3345,14 +3345,14 @@
             "soy cream": {
                 "aliases": [],
                 "description": "",
-                "name": "soy cream",
-                "plural_name": "soy creams"
+                "name": "panna di soia",
+                "plural_name": "panna di soia"
             },
             "seitan": {
                 "aliases": [],
                 "description": "",
                 "name": "seitan",
-                "plural_name": "seitans"
+                "plural_name": "seitan"
             },
             "coconut milk powder": {
                 "aliases": [],
@@ -3369,14 +3369,14 @@
             "nut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "nut milk",
-                "plural_name": "nut milks"
+                "name": "latte di noci",
+                "plural_name": "latte di noci"
             },
             "non-dairy cream": {
                 "aliases": [],
                 "description": "",
-                "name": "non-dairy cream",
-                "plural_name": "non-dairy creams"
+                "name": "panna non casearia",
+                "plural_name": "panne non casearie"
             },
             "vegan burger patty": {
                 "aliases": [],
@@ -3453,8 +3453,8 @@
             "hazelnut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut butter",
-                "plural_name": "hazelnut butter"
+                "name": "burro di nocciole",
+                "plural_name": "burro di nocciole"
             },
             "vegan ranch": {
                 "aliases": [],
@@ -3489,8 +3489,8 @@
             "almond-coconut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "almond-coconut milk",
-                "plural_name": "almond-coconut milks"
+                "name": "latte di mandorle-cocco",
+                "plural_name": "latte di mandorle-cocco"
             },
             "banana blossom": {
                 "aliases": [],
@@ -3561,8 +3561,8 @@
             "falafel mix": {
                 "aliases": [],
                 "description": "",
-                "name": "falafel mix",
-                "plural_name": "falafel mixes"
+                "name": "miscela di falafel",
+                "plural_name": "miscela di falafel"
             },
             "ready-made falafel": {
                 "aliases": [],
@@ -3657,8 +3657,8 @@
             "egg tofu": {
                 "aliases": [],
                 "description": "",
-                "name": "egg tofu",
-                "plural_name": "egg tofus"
+                "name": "tofu di uova",
+                "plural_name": "tofu di uova"
             },
             "protein drink": {
                 "aliases": [],
@@ -3699,8 +3699,8 @@
             "soy quark": {
                 "aliases": [],
                 "description": "",
-                "name": "soy quark",
-                "plural_name": "soy quarks"
+                "name": "quark di soia",
+                "plural_name": "quark di soia"
             },
             "vegan chicken nugget": {
                 "aliases": [],
@@ -3717,8 +3717,8 @@
             "walnut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut milk",
-                "plural_name": "walnut milks"
+                "name": "latte di noci",
+                "plural_name": "latte di noci"
             },
             "latik": {
                 "aliases": [],
@@ -3739,8 +3739,8 @@
             "bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "bacon",
-                "plural_name": "bacons"
+                "name": "pancetta",
+                "plural_name": "pancetta"
             },
             "chopped bacon": {
                 "aliases": [],
@@ -3763,14 +3763,14 @@
             "ham": {
                 "aliases": [],
                 "description": "",
-                "name": "ham",
-                "plural_name": "hams"
+                "name": "prosciutto",
+                "plural_name": "prosciutti"
             },
             "pork chop": {
                 "aliases": [],
                 "description": "",
-                "name": "pork chop",
-                "plural_name": "pork chops"
+                "name": "braciola di maiale",
+                "plural_name": "braciole di maiale"
             },
             "sweet italian sausage": {
                 "aliases": [],
@@ -3817,20 +3817,20 @@
             "pepperoni": {
                 "aliases": [],
                 "description": "",
-                "name": "pepperoni",
-                "plural_name": "pepperonis"
+                "name": "peperone",
+                "plural_name": "peperoni"
             },
             "chorizo": {
                 "aliases": [],
                 "description": "",
                 "name": "chorizo",
-                "plural_name": "chorizoes"
+                "plural_name": "chorizo"
             },
             "pancetta": {
                 "aliases": [],
                 "description": "",
                 "name": "pancetta",
-                "plural_name": "pancettas"
+                "plural_name": "pancetta"
             },
             "pork fillet": {
                 "aliases": [],
@@ -3853,14 +3853,14 @@
             "pork rib": {
                 "aliases": [],
                 "description": "",
-                "name": "pork rib",
-                "plural_name": "pork ribs"
+                "name": "costola di maiale",
+                "plural_name": "costole di maiale"
             },
             "smoked sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked sausage",
-                "plural_name": "smoked sausages"
+                "name": "salsiccia affumicata",
+                "plural_name": "salsicce affumicate"
             },
             "breakfast sausage": {
                 "aliases": [],
@@ -3872,7 +3872,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hot dog",
-                "plural_name": "hot dogs"
+                "plural_name": "hot dog"
             },
             "beef sirloin": {
                 "aliases": [],
@@ -3883,8 +3883,8 @@
             "salami": {
                 "aliases": [],
                 "description": "",
-                "name": "salami",
-                "plural_name": "salamis"
+                "name": "salame",
+                "plural_name": "salami"
             },
             "brisket": {
                 "aliases": [],
@@ -3949,8 +3949,8 @@
             "roast beef": {
                 "aliases": [],
                 "description": "",
-                "name": "roast beef",
-                "plural_name": "roast beefs"
+                "name": "arrosto di manzo",
+                "plural_name": "arrosti di manzo"
             },
             "bacon bit": {
                 "aliases": [],

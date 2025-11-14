@@ -449,8 +449,8 @@
     "import-by-url": "Імпортувати рецепт з URL",
     "create-manually": "Створити рецепт вручну",
     "make-recipe-image": "Зробити це зображенням рецепту",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Додати їжу",
+    "add-recipe": "Додати рецепт"
   },
   "page": {
     "404-page-not-found": "404 - Сторінка не знайдена",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Рецепт видалено",
     "recipe-image": "Зображення рецепту",
     "recipe-image-updated": "Зображення рецепту оновлено",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Видалити зображення рецепту",
+    "delete-image-confirmation": "Ви впевнені, що хочете видалити це зображення рецепту?",
+    "recipe-image-deleted": "Зображення рецепту видалено",
     "recipe-name": "Назва рецепта",
     "recipe-settings": "Налаштування рецепта",
     "recipe-update-failed": "Не вдалося оновити рецепт",
@@ -592,7 +592,7 @@
     "made-this": "Я це приготував",
     "how-did-it-turn-out": "Як вийшло?",
     "user-made-this": "{user} зробив це",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Зроблено для {recipe}",
     "added-to-timeline": "Додати до хроніки",
     "failed-to-add-to-timeline": "Не вдалося додати до хроніки",
     "failed-to-update-recipe": "Не вдалося оновити рецепт",
@@ -695,9 +695,9 @@
     "upload-more-images": "Завантажити більше зображень",
     "set-as-cover-image": "Встановити як зображення обкладинки",
     "cover-image": "Обкладинка",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Включати зв'язані рецепти",
+    "include-linked-recipe-ingredients": "Включити пов'язані інгредієнти рецепту",
+    "toggle-recipe": "Переключити рецепт"
   },
   "recipe-finder": {
     "recipe-finder": "Шукач рецептів",
