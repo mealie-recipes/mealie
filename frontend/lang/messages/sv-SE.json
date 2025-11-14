@@ -565,6 +565,7 @@
     "choose-unit": "Välj enhet",
     "press-enter-to-create": "Tryck Enter för att skapa",
     "choose-food": "Välj mat",
+    "choose-recipe": "Choose Recipe",
     "notes": "Anteckningar",
     "toggle-section": "Växla sektion",
     "see-original-text": "Visa originaltext",
@@ -734,7 +735,8 @@
     "search-hint": "Tryck '/'",
     "advanced": "Avancerat",
     "auto-search": "Autosök",
-    "no-results": "Inga resultat hittades"
+    "no-results": "Inga resultat hittades",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Lägg till ett nytt tema",
