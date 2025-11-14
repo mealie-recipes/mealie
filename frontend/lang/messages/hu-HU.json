@@ -565,6 +565,7 @@
     "choose-unit": "Válasszon mennyiségi egységet",
     "press-enter-to-create": "Üssön Enter-t a létrehozáshoz",
     "choose-food": "Étel kiválasztása",
+    "choose-recipe": "Recept kiválasztása",
     "notes": "Megjegyzések",
     "toggle-section": "Szakaszcím megjelenítése/kikapcsolása",
     "see-original-text": "Eredeti szöveg megjelenítése",
@@ -734,7 +735,8 @@
     "search-hint": "Üsse be '/'",
     "advanced": "Haladó mód",
     "auto-search": "Automatikus keresés",
-    "no-results": "Nincs találat"
+    "no-results": "Nincs találat",
+    "type-to-search": "Írja be a keresett szót..."
   },
   "settings": {
     "add-a-new-theme": "Új téma hozzáadása",
