@@ -565,6 +565,7 @@
     "choose-unit": "Избери мерна единица",
     "press-enter-to-create": "Натисните Enter за да създадете",
     "choose-food": "Избери продукт",
+    "choose-recipe": "Choose Recipe",
     "notes": "Бележки",
     "toggle-section": "Превключване на раздела",
     "see-original-text": "Виж оригиналния текст",
@@ -734,7 +735,8 @@
     "search-hint": "Натисни '/'",
     "advanced": "Разширени",
     "auto-search": "Автоматично търсене",
-    "no-results": "Не са намерени резултати"
+    "no-results": "Не са намерени резултати",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Добавяне на нова тема",
