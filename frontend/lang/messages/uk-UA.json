@@ -565,6 +565,7 @@
     "choose-unit": "Виберіть одиниці вимірювання",
     "press-enter-to-create": "Натисніть Enter, щоб створити",
     "choose-food": "Вибрати продукт",
+    "choose-recipe": "Choose Recipe",
     "notes": "Нотатки",
     "toggle-section": "Перемкнути секцію",
     "see-original-text": "Переглянути оригінальний текст",
@@ -734,7 +735,8 @@
     "search-hint": "Натисніть '/'",
     "advanced": "Розширений",
     "auto-search": "Автопошук",
-    "no-results": "Нічого не знайдено"
+    "no-results": "Нічого не знайдено",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Додати нову тему",
