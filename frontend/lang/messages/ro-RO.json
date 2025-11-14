@@ -565,6 +565,7 @@
     "choose-unit": "Alegeţi unitatea",
     "press-enter-to-create": "Apăsați Enter pentru a crea",
     "choose-food": "Alege Mâncarea",
+    "choose-recipe": "Choose Recipe",
     "notes": "Notițe",
     "toggle-section": "Activează/dezactivează secțiunea",
     "see-original-text": "Vezi Textul Original",
@@ -734,7 +735,8 @@
     "search-hint": "Apasă „/”",
     "advanced": "Avansat",
     "auto-search": "Căutare automată",
-    "no-results": "Nu s-au găsit rezultate"
+    "no-results": "Nu s-au găsit rezultate",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Adaugă o nouă temă",
