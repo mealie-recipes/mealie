@@ -173,7 +173,7 @@
           :items="search.data.value || []"
           item-title="name"
           class="mx-1 py-0"
-          :placeholder="$t('search.type-search')"
+          :placeholder="$t('search.type-to-search')"
           clearable
           :label="!model.referencedRecipe ? $t('recipe.choose-recipe') : ''"
           @click="search.trigger()"
