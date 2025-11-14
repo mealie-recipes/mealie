@@ -565,6 +565,7 @@
     "choose-unit": "Choisissez une unité",
     "press-enter-to-create": "Clique sur Entrer pour créer",
     "choose-food": "Choisissez un aliment",
+    "choose-recipe": "Choose Recipe",
     "notes": "Notes",
     "toggle-section": "Activer/Désactiver la section",
     "see-original-text": "Afficher le texte original",
@@ -734,7 +735,8 @@
     "search-hint": "Appuyez sur « /»",
     "advanced": "Avancé",
     "auto-search": "Recherche automatique",
-    "no-results": "Aucun résultat trouvé"
+    "no-results": "Aucun résultat trouvé",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Ajouter un nouveau thème",
