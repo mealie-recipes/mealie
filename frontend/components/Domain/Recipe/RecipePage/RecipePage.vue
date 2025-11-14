@@ -95,9 +95,12 @@
       <RecipePrintContainer :recipe="recipe" :scale="scale" />
     </v-container>
     <!-- Cook mode displayes two columns with ingredients and instructions side by side, each being scrolled individually, allowing to view both at the same time -->
+    <!-- The calc is to account for the navabar height (48px) -->
     <v-sheet
       v-show="isCookMode && !hasLinkedIngredients"
       key="cookmode"
+      :height="$vuetify.display.smAndUp ? 'calc(100vh - 48px)' : 'auto'"
+      className="overflow-hidden"
     >
       <!-- the calc is to account for the toolbar a more dynamic solution could be needed  -->
       <v-row style="height: 100%" no-gutters class="overflow-hidden">
