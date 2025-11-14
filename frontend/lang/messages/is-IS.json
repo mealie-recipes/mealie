@@ -565,6 +565,7 @@
     "choose-unit": "Veldu mælieiningu",
     "press-enter-to-create": "Ýttu á Enter til að stofna",
     "choose-food": "Veldu matvöru",
+    "choose-recipe": "Choose Recipe",
     "notes": "Athugasemdir",
     "toggle-section": "Setja inn skiptingu",
     "see-original-text": "Sjá upprunalegan texta",
@@ -734,7 +735,8 @@
     "search-hint": "Ýttu á '/'",
     "advanced": "Ítarlegt",
     "auto-search": "Sjálfvirk leit",
-    "no-results": "Ekkert fannst"
+    "no-results": "Ekkert fannst",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Bæta við nýju þema",
