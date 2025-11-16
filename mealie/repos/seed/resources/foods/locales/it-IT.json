@@ -1967,8 +1967,8 @@
             "ginkgo nut": {
                 "aliases": [],
                 "description": "",
-                "name": "ginkgo nut",
-                "plural_name": "ginkgo nuts"
+                "name": "noce di ginkgo",
+                "plural_name": "noci di ginkgo"
             },
             "keto trail mix": {
                 "aliases": [],
@@ -2058,7 +2058,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "monterey jack",
-                "plural_name": "monterey jacks"
+                "plural_name": "monterey jack"
             },
             "blue cheese": {
                 "aliases": [],
@@ -2130,7 +2130,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pepper jack",
-                "plural_name": "pepper jacks"
+                "plural_name": "pepper jack"
             },
             "brie": {
                 "aliases": [],
@@ -2142,7 +2142,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "paneer",
-                "plural_name": "paneers"
+                "plural_name": "paneer"
             },
             "fontina": {
                 "aliases": [],
@@ -2166,13 +2166,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "gouda",
-                "plural_name": "goudas"
+                "plural_name": "gouda"
             },
             "cotija": {
                 "aliases": [],
                 "description": "",
                 "name": "cotija",
-                "plural_name": "cotijas"
+                "plural_name": "cotija"
             },
             "asiago": {
                 "aliases": [],
@@ -2382,7 +2382,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "babybel",
-                "plural_name": "babybels"
+                "plural_name": "babybel"
             },
             "panela cheese": {
                 "aliases": [],
@@ -2406,7 +2406,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "comté",
-                "plural_name": "comtés"
+                "plural_name": "comté"
             },
             "graviera": {
                 "aliases": [],
@@ -2460,7 +2460,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kashkaval",
-                "plural_name": "kashkavals"
+                "plural_name": "kashkaval"
             },
             "sheep cheese": {
                 "aliases": [],
