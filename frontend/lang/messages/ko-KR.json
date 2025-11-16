@@ -565,6 +565,7 @@
     "choose-unit": "단위 선택",
     "press-enter-to-create": "Enter 키를 눌러 생성하세요",
     "choose-food": "음식 선택",
+    "choose-recipe": "Choose Recipe",
     "notes": "노트",
     "toggle-section": "Toggle Section",
     "see-original-text": "See Original Text",
@@ -734,7 +735,8 @@
     "search-hint": "Press '/'",
     "advanced": "Advanced",
     "auto-search": "자동 검색",
-    "no-results": "검색 결과가 없습니다."
+    "no-results": "검색 결과가 없습니다.",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "새 테마 추가",

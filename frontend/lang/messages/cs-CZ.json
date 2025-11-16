@@ -565,6 +565,7 @@
     "choose-unit": "Vybrat jednotku",
     "press-enter-to-create": "Stiskněte enter pro vytvoření",
     "choose-food": "Zvolte jídlo",
+    "choose-recipe": "Choose Recipe",
     "notes": "Poznámky",
     "toggle-section": "Přidat/odebrat název sekce",
     "see-original-text": "Zobrazit původní text",
@@ -734,7 +735,8 @@
     "search-hint": "Stiskněte '/'",
     "advanced": "Pokročilé",
     "auto-search": "Automatické vyhledávání",
-    "no-results": "Nebyly nalezeny žádné výsledky"
+    "no-results": "Nebyly nalezeny žádné výsledky",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Přidat nový motiv",

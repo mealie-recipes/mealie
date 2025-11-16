@@ -565,6 +565,7 @@
     "choose-unit": "Vælg enhed",
     "press-enter-to-create": "Tryk enter for at oprette",
     "choose-food": "Vælg fødevarer",
+    "choose-recipe": "Choose Recipe",
     "notes": "Kommentarer",
     "toggle-section": "Sektion",
     "see-original-text": "Vis den oprindelige tekst",
@@ -734,7 +735,8 @@
     "search-hint": "Tryk '/'",
     "advanced": "Avanceret",
     "auto-search": "Automatisk søgning",
-    "no-results": "Ingen resultater fundet"
+    "no-results": "Ingen resultater fundet",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Tilføj et nyt tema",

@@ -4,31 +4,31 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic",
+                "name": "usturoi",
                 "plural_name": "usturoi"
             },
             "onion": {
                 "aliases": [],
                 "description": "",
-                "name": "onion",
-                "plural_name": "onions"
+                "name": "ceapă",
+                "plural_name": "cepe"
             },
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "bell pepper",
-                "plural_name": "bell peppers"
+                "name": "ardei gras",
+                "plural_name": "ardei grași"
             },
             "carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "carrot",
-                "plural_name": "carrots"
+                "name": "morcov",
+                "plural_name": "morcovi"
             },
             "scallion": {
                 "aliases": [],
                 "description": "",
-                "name": "scallion",
+                "name": "ceapă verde",
                 "plural_name": "scallions"
             },
             "zucchini": {
