@@ -7872,8 +7872,8 @@
             "candy sprinkle": {
                 "aliases": [],
                 "description": "",
-                "name": "candy sprinkle",
-                "plural_name": "candy sprinkles"
+                "name": "Цукерка Sprinkle",
+                "plural_name": "Цукерки Sprinkle"
             },
             "spelt": {
                 "aliases": [],
@@ -7890,14 +7890,14 @@
             "arrowroot flour": {
                 "aliases": [],
                 "description": "",
-                "name": "arrowroot flour",
-                "plural_name": "arrowroot flours"
+                "name": "Борошно з маранти",
+                "plural_name": "Борошна з маранти"
             },
             "flaxseed meal": {
                 "aliases": [],
                 "description": "",
-                "name": "flaxseed meal",
-                "plural_name": "flaxseed meals"
+                "name": "Льняна крупа",
+                "plural_name": "Льняної крупи"
             },
             "chocolate cake mix": {
                 "aliases": [],
@@ -7920,20 +7920,20 @@
             "butterscotch chip": {
                 "aliases": [],
                 "description": "",
-                "name": "butterscotch chip",
-                "plural_name": "butterscotch chips"
+                "name": "карамельні дропси «батерскотч»",
+                "plural_name": "карамельних дропсів «батерскотч»"
             },
             "peanut butter chip": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut butter chip",
-                "plural_name": "peanut butter chips"
+                "name": "дропси арахісового масла",
+                "plural_name": "дропсів арахісового масла"
             },
             "crystallized ginger": {
                 "aliases": [],
                 "description": "",
-                "name": "crystallized ginger",
-                "plural_name": "crystallized gingers"
+                "name": "Цукат з імбиру",
+                "plural_name": "Цукати з імбиру"
             },
             "buckwheat flour": {
                 "aliases": [],
@@ -7968,116 +7968,116 @@
             "semolina flour": {
                 "aliases": [],
                 "description": "",
-                "name": "semolina flour",
-                "plural_name": "semolina flours"
+                "name": "Манна крупа",
+                "plural_name": "Манної крупи"
             },
             "glutinous rice flour": {
                 "aliases": [],
                 "description": "",
-                "name": "glutinous rice flour",
-                "plural_name": "glutinous rice flours"
+                "name": "Борошно з клейкого рису",
+                "plural_name": "Борошна з клейкого рису"
             },
             "pancake mix": {
                 "aliases": [],
                 "description": "",
-                "name": "pancake mix",
-                "plural_name": "pancake mixes"
+                "name": "Суміш для млинців",
+                "plural_name": "Суміші для млинців"
             },
             "refined flour": {
                 "aliases": [],
                 "description": "",
-                "name": "refined flour",
-                "plural_name": "refined flours"
+                "name": "Борошно вищого ґатунку",
+                "plural_name": "Борошна вищого ґатунку"
             },
             "muffin mix": {
                 "aliases": [],
                 "description": "",
-                "name": "muffin mix",
-                "plural_name": "muffin mixes"
+                "name": "Суміш для мафінів",
+                "plural_name": "Суміші для мафінів"
             },
             "marzipan": {
                 "aliases": [],
                 "description": "",
-                "name": "marzipan",
-                "plural_name": "marzipans"
+                "name": "Марципан",
+                "plural_name": "Марципани"
             },
             "coffee bean": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee bean",
-                "plural_name": "coffee beans"
+                "name": "Кавове зерно",
+                "plural_name": "Кавові зерна"
             },
             "toffee bit": {
                 "aliases": [],
                 "description": "",
-                "name": "toffee bit",
-                "plural_name": "toffee bits"
+                "name": "Крихта іриски",
+                "plural_name": "Крихти іриски"
             },
             "cornbread mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cornbread mix",
-                "plural_name": "cornbread mixes"
+                "name": "Суміш для кукурудзяного хліба",
+                "plural_name": "Суміші для кукурудзяного хліба"
             },
             "spice cake mix": {
                 "aliases": [],
                 "description": "",
-                "name": "spice cake mix",
-                "plural_name": "spice cake mixes"
+                "name": "Суміш для пряного пирога",
+                "plural_name": "Суміші для пряного пирога"
             },
             "devil's food cake mix": {
                 "aliases": [],
                 "description": "",
-                "name": "devil's food cake mix",
-                "plural_name": "devil's food cake mixes"
+                "name": "Суміш для торта «Диявольська їжа»",
+                "plural_name": "Суміші для торта «Диявольська їжа»"
             },
             "sorghum flour": {
                 "aliases": [],
                 "description": "",
-                "name": "sorghum flour",
-                "plural_name": "sorghum flours"
+                "name": "Соргове борошно",
+                "plural_name": "Соргового борошна"
             },
             "potato flake": {
                 "aliases": [],
                 "description": "",
-                "name": "potato flake",
-                "plural_name": "potato flakes"
+                "name": "Сухе картопляне пюре",
+                "plural_name": "Сухого картопляного пюре"
             },
             "masa harina": {
                 "aliases": [],
                 "description": "",
-                "name": "masa harina",
-                "plural_name": "masa harinas"
+                "name": "Маса харіна",
+                "plural_name": "Маса харіни"
             },
             "cinnamon chip": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon chip",
-                "plural_name": "cinnamon chips"
+                "name": "Дропс зі смаком кориці",
+                "plural_name": "Дропси зі смаком кориці"
             },
             "agar agar": {
                 "aliases": [],
                 "description": "",
-                "name": "agar agar",
-                "plural_name": "agar agars"
+                "name": "Агар-агар",
+                "plural_name": "Агар-агару"
             },
             "red velvet cake mix": {
                 "aliases": [],
                 "description": "",
-                "name": "red velvet cake mix",
-                "plural_name": "red velvet cake mixes"
+                "name": "Суміш для торту \"Червоний оксамит\"",
+                "plural_name": "Суміши для торту \"Червоний оксамит\""
             },
             "matzo meal": {
                 "aliases": [],
                 "description": "",
-                "name": "matzo meal",
-                "plural_name": "matzo meals"
+                "name": "Мацове борошно",
+                "plural_name": "Мацового борошна"
             },
             "sago": {
                 "aliases": [],
                 "description": "",
-                "name": "sago",
-                "plural_name": "sagos"
+                "name": "Саго",
+                "plural_name": "Саго"
             },
             "white baking chocolate": {
                 "aliases": [],

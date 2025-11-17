@@ -565,7 +565,7 @@
     "choose-unit": "Vali ühik",
     "press-enter-to-create": "Loomiseks vajuta Enter",
     "choose-food": "Vali toit",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "Vali retsept",
     "notes": "Märkmed",
     "toggle-section": "Jaotise sisse- ja väljalülitamine",
     "see-original-text": "Vaata originaalteksti",
@@ -736,7 +736,7 @@
     "advanced": "Lisavalikud",
     "auto-search": "Automaatotsing",
     "no-results": "Tulemusi ei leitud",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Tippige otsimiseks..."
   },
   "settings": {
     "add-a-new-theme": "Lisa uus teema",

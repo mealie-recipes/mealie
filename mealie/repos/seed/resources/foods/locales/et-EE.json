@@ -857,8 +857,8 @@
             "clementine": {
                 "aliases": [],
                 "description": "",
-                "name": "clementine",
-                "plural_name": "clementines"
+                "name": "klementiin",
+                "plural_name": "klementiini"
             },
             "persimmon": {
                 "aliases": [],
@@ -1353,8 +1353,8 @@
             "white truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "white truffle",
-                "plural_name": "white truffles"
+                "name": "valge trühvel",
+                "plural_name": "valget trühvlit"
             },
             "white fungu": {
                 "aliases": [],
@@ -1715,8 +1715,8 @@
             "walnut": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut",
-                "plural_name": "walnuts"
+                "name": "kreeka pähkel",
+                "plural_name": "kreeka pähklit"
             },
             "pecan": {
                 "aliases": [],
@@ -1751,14 +1751,14 @@
             "pistachio": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio",
-                "plural_name": "pistachios"
+                "name": "pistaatsia pähkel",
+                "plural_name": "pistaatsia pähklit"
             },
             "peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut",
-                "plural_name": "peanuts"
+                "name": "maapähkel",
+                "plural_name": "maapähklit"
             },
             "chia": {
                 "aliases": [],
@@ -1787,8 +1787,8 @@
             "hazelnut": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut",
-                "plural_name": "hazelnuts"
+                "name": "sarapuupähkel",
+                "plural_name": "sarapuupähklit"
             },
             "poppy seed": {
                 "aliases": [],
@@ -1811,8 +1811,8 @@
             "roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted peanut",
-                "plural_name": "roasted peanuts"
+                "name": "röstitud maapähkel",
+                "plural_name": "röstitud maapähklit"
             },
             "chopped nut": {
                 "aliases": [],
@@ -2040,7 +2040,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "feta",
-                "plural_name": "fetas"
+                "plural_name": "fetat"
             },
             "ricotta": {
                 "aliases": [],
@@ -2705,8 +2705,8 @@
             "ice cream": {
                 "aliases": [],
                 "description": "",
-                "name": "ice cream",
-                "plural_name": "ice creams"
+                "name": "jäätis",
+                "plural_name": "jäätist"
             },
             "margarine": {
                 "aliases": [],
@@ -3793,8 +3793,8 @@
             "sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage",
-                "plural_name": "sausages"
+                "name": "vorst",
+                "plural_name": "vorsti"
             },
             "beef roast": {
                 "aliases": [],
@@ -3824,7 +3824,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chorizo",
-                "plural_name": "chorizoes"
+                "plural_name": "chorizot"
             },
             "pancetta": {
                 "aliases": [],
@@ -3883,8 +3883,8 @@
             "salami": {
                 "aliases": [],
                 "description": "",
-                "name": "salami",
-                "plural_name": "salamis"
+                "name": "salaami",
+                "plural_name": "salaamit"
             },
             "brisket": {
                 "aliases": [],
@@ -6640,8 +6640,8 @@
             "jam sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "jam sugar",
-                "plural_name": "jam sugars"
+                "name": "moosisuhkur",
+                "plural_name": "moosisuhkrut"
             },
             "brown rice syrup": {
                 "aliases": [],
@@ -10510,8 +10510,8 @@
             "chocolate muffin": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate muffin",
-                "plural_name": "chocolate muffins"
+                "name": "šokolaadimuffin",
+                "plural_name": "šokolaadimuffinit"
             },
             "milk bread": {
                 "aliases": [],
@@ -13878,8 +13878,8 @@
             "dark chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "dark chocolate",
-                "plural_name": "dark chocolates"
+                "name": "tume šokolaad",
+                "plural_name": "tumedat šokolaadi"
             },
             "dark cocoa": {
                 "aliases": [],
@@ -13890,8 +13890,8 @@
             "chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate",
-                "plural_name": "chocolates"
+                "name": "šokolaad",
+                "plural_name": "šokolaadi"
             },
             "graham cracker": {
                 "aliases": [],
@@ -14055,8 +14055,8 @@
             "chocolate pudding": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate pudding",
-                "plural_name": "chocolate puddings"
+                "name": "šokolaadipuding",
+                "plural_name": "šokolaadipudingut"
             },
             "candy cane": {
                 "aliases": [],
@@ -14097,8 +14097,8 @@
             "chocolate cookie": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate cookie",
-                "plural_name": "chocolate cookies"
+                "name": "šokolaadiküpsis",
+                "plural_name": "šokolaadiküpsist"
             },
             "digestive biscuit": {
                 "aliases": [],
