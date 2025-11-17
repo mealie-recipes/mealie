@@ -8082,50 +8082,50 @@
             "white baking chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "white baking chocolate",
-                "plural_name": "white baking chocolates"
+                "name": "Дропс білого шоколаду",
+                "plural_name": "Дропси білого шоколаду"
             },
             "cassava flour": {
                 "aliases": [],
                 "description": "",
-                "name": "cassava flour",
-                "plural_name": "cassava flours"
+                "name": "Борошно маніоки",
+                "plural_name": "Борошна маніоки"
             },
             "whipped cream stabilizer": {
                 "aliases": [],
                 "description": "",
-                "name": "whipped cream stabilizer",
-                "plural_name": "whipped cream stabilizers"
+                "name": "Стабілізатор для збитих вершків",
+                "plural_name": "Стабілізатору для збитих вершків"
             },
             "sugar cookie mix": {
                 "aliases": [],
                 "description": "",
-                "name": "sugar cookie mix",
-                "plural_name": "sugar cookie mixes"
+                "name": "Суміш для цукрового печива",
+                "plural_name": "Суміши для цукрового печива"
             },
             "vital wheat gluten": {
                 "aliases": [],
                 "description": "",
-                "name": "vital wheat gluten",
-                "plural_name": "vital wheat glutens"
+                "name": "Пшеничний Глютен",
+                "plural_name": "Пшеничного Глютену"
             },
             "baking chip": {
                 "aliases": [],
                 "description": "",
-                "name": "baking chip",
-                "plural_name": "baking chips"
+                "name": "Дропс термостабільний",
+                "plural_name": "Дропси термостабільні"
             },
             "meringue powder": {
                 "aliases": [],
                 "description": "",
-                "name": "meringue powder",
-                "plural_name": "meringue powders"
+                "name": "Меренговий Порошок",
+                "plural_name": "Меренгового Порошку"
             },
             "hazelnut flour": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut flour",
-                "plural_name": "hazelnut flours"
+                "name": "Фундукове борошно",
+                "plural_name": "Фундукового борошна"
             },
             "citric acid": {
                 "aliases": [],
@@ -8148,44 +8148,44 @@
             "finger millet flour": {
                 "aliases": [],
                 "description": "",
-                "name": "finger millet flour",
-                "plural_name": "finger millet flours"
+                "name": "Борошно з рагі",
+                "plural_name": "Борошна з рагі"
             },
             "fondant": {
                 "aliases": [],
                 "description": "",
-                "name": "fondant",
-                "plural_name": "fondants"
+                "name": "Фондант",
+                "plural_name": "Фонданту"
             },
             "mint baking chip": {
                 "aliases": [],
                 "description": "",
-                "name": "mint baking chip",
-                "plural_name": "mint baking chips"
+                "name": "М'ятний кондитерський дропс",
+                "plural_name": "М'ятні кондитерські дропси"
             },
             "angel food cake mix": {
                 "aliases": [],
                 "description": "",
-                "name": "angel food cake mix",
-                "plural_name": "angel food cake mixes"
+                "name": "Мікс для торту \"Янгольский бісківт\"",
+                "plural_name": "Міксу для торту \"Янгольский бісківт\""
             },
             "white cornmeal": {
                 "aliases": [],
                 "description": "",
-                "name": "white cornmeal",
-                "plural_name": "white cornmeals"
+                "name": "Біла кукурудзяна крупа",
+                "plural_name": "Білої кукурудзяної крупи"
             },
             "millet flour": {
                 "aliases": [],
                 "description": "",
-                "name": "millet flour",
-                "plural_name": "millet flours"
+                "name": "Просове борошно",
+                "plural_name": "Просового борошна"
             },
             "mincemeat": {
                 "aliases": [],
                 "description": "",
-                "name": "mincemeat",
-                "plural_name": "mincemeats"
+                "name": "Різдвяна фруктова начинка",
+                "plural_name": "Різдвяної фруктової начинки"
             },
             "gluten-free baking flour": {
                 "aliases": [],
@@ -8196,62 +8196,62 @@
             "einkorn flour": {
                 "aliases": [],
                 "description": "",
-                "name": "einkorn flour",
-                "plural_name": "einkorn flours"
+                "name": "Борошно з однозернянки",
+                "plural_name": "Борошна з однозернянки"
             },
             "self-rising cornmeal": {
                 "aliases": [],
                 "description": "",
-                "name": "self-rising cornmeal",
-                "plural_name": "self-rising cornmeals"
+                "name": "Кукурудзяна крупа з розпушувачем",
+                "plural_name": "Кукурудзяної крупи з розпушувачем"
             },
             "gluten-free self-raising flour": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free self-raising flour",
-                "plural_name": "gluten-free self-raising flours"
+                "name": "Безглютенове борошно з розпушувачем",
+                "plural_name": "Безглютенового борошна з розпушувачем"
             },
             "peanut flour": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut flour",
-                "plural_name": "peanut flours"
+                "name": "Арахісове борошно",
+                "plural_name": "Арахісового борошна"
             },
             "sweet bean paste": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet bean paste",
-                "plural_name": "sweet bean pastes"
+                "name": "Солодка бобова паста ",
+                "plural_name": "Солодкої бобової пасти"
             },
             "carob powder": {
                 "aliases": [],
                 "description": "",
-                "name": "carob powder",
-                "plural_name": "carob powders"
+                "name": "Кероб порошок",
+                "plural_name": "Кероб порошка"
             },
             "tapioca pearl": {
                 "aliases": [],
                 "description": "",
-                "name": "tapioca pearl",
-                "plural_name": "tapioca pearls"
+                "name": "Кулька з тапіоки",
+                "plural_name": "Кульки з тапіоки"
             },
             "teff flour": {
                 "aliases": [],
                 "description": "",
-                "name": "teff flour",
-                "plural_name": "teff flours"
+                "name": "Борошно з тефу",
+                "plural_name": "Борошна з тефу"
             },
             "guar gum": {
                 "aliases": [],
                 "description": "",
-                "name": "guar gum",
-                "plural_name": "guar gums"
+                "name": "Гуарова камедь",
+                "plural_name": "Гуарової камеді"
             },
             "potato flour": {
                 "aliases": [],
                 "description": "",
-                "name": "potato flour",
-                "plural_name": "potato flours"
+                "name": "Картопляне борошно",
+                "plural_name": "Картопляного борошна"
             },
             "ready-made icing": {
                 "aliases": [],
@@ -8272,32 +8272,32 @@
             "pie crust": {
                 "aliases": [],
                 "description": "",
-                "name": "pie crust",
-                "plural_name": "pie crusts"
+                "name": "Корж для пирога",
+                "plural_name": "Коржи для пирога"
             },
             "puff pastry": {
                 "aliases": [],
                 "description": "",
-                "name": "puff pastry",
-                "plural_name": "puff pastries"
+                "name": "Листкове тісто",
+                "plural_name": "Листкового тіста"
             },
             "pizza crust": {
                 "aliases": [],
                 "description": "",
-                "name": "pizza crust",
-                "plural_name": "pizza crusts"
+                "name": "Основа для піци",
+                "plural_name": "Основи для піци"
             },
             "pizza dough": {
                 "aliases": [],
                 "description": "",
-                "name": "pizza dough",
-                "plural_name": "pizza doughs"
+                "name": "Тісто для піци",
+                "plural_name": "Тіста для піци"
             },
             "phyllo": {
                 "aliases": [],
                 "description": "",
-                "name": "phyllo",
-                "plural_name": "phylloes"
+                "name": "Тісто філо",
+                "plural_name": "Тіста філо"
             },
             "refrigerated crescent roll": {
                 "aliases": [],
@@ -8320,20 +8320,20 @@
             "rice paper": {
                 "aliases": [],
                 "description": "",
-                "name": "rice paper",
-                "plural_name": "rice papers"
+                "name": "Рисовий папір",
+                "plural_name": "Рисових папери"
             },
             "sourdough starter": {
                 "aliases": [],
                 "description": "",
-                "name": "sourdough starter",
-                "plural_name": "sourdough starters"
+                "name": "Закваска",
+                "plural_name": "Закваски"
             },
             "cookie dough": {
                 "aliases": [],
                 "description": "",
-                "name": "cookie dough",
-                "plural_name": "cookie doughs"
+                "name": "Тісто для печива",
+                "plural_name": "Тіста для печива"
             },
             "egg roll wrapper": {
                 "aliases": [],
@@ -8344,8 +8344,8 @@
             "bread dough": {
                 "aliases": [],
                 "description": "",
-                "name": "bread dough",
-                "plural_name": "bread doughs"
+                "name": "Тісто для хліба",
+                "plural_name": "Тіста для хліба"
             },
             "butter puff pastry": {
                 "aliases": [],
@@ -8380,8 +8380,8 @@
             "wonton": {
                 "aliases": [],
                 "description": "",
-                "name": "wonton",
-                "plural_name": "wontons"
+                "name": "Вонтон",
+                "plural_name": "Вонтони"
             },
             "gyoza wrapper": {
                 "aliases": [],
@@ -8398,14 +8398,14 @@
             "gluten-free pizza crust": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free pizza crust",
-                "plural_name": "gluten-free pizza crusts"
+                "name": "Безглютенова основа для піци",
+                "plural_name": "Безглютенові основи для піци"
             },
             "fresh pasta dough": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh pasta dough",
-                "plural_name": "fresh pasta doughs"
+                "name": "Cвіже тісто для пасти",
+                "plural_name": "Cвіжого тіста для пасти"
             },
             "idli batter": {
                 "aliases": [],
@@ -8534,14 +8534,14 @@
             "rolled oat": {
                 "aliases": [],
                 "description": "",
-                "name": "rolled oat",
-                "plural_name": "rolled oats"
+                "name": "Вівсяні пластівці",
+                "plural_name": "Вівсяних пластівців"
             },
             "rice": {
                 "aliases": [],
                 "description": "",
-                "name": "rice",
-                "plural_name": "rices"
+                "name": "Рис",
+                "plural_name": "Рису"
             },
             "Rice Krispie Cereal": {
                 "aliases": [
@@ -8554,26 +8554,26 @@
             "quinoa": {
                 "aliases": [],
                 "description": "",
-                "name": "quinoa",
-                "plural_name": "quinoas"
+                "name": "Кіноа",
+                "plural_name": "Кіноа"
             },
             "basmati rice": {
                 "aliases": [],
                 "description": "",
-                "name": "basmati rice",
-                "plural_name": "basmati rices"
+                "name": "Рис басматі",
+                "plural_name": "Рису басматі"
             },
             "brown rice": {
                 "aliases": [],
                 "description": "",
-                "name": "brown rice",
-                "plural_name": "brown rices"
+                "name": "Коричневий рис",
+                "plural_name": "Коричневого рису"
             },
             "quick-cooking oat": {
                 "aliases": [],
                 "description": "",
-                "name": "quick-cooking oat",
-                "plural_name": "quick-cooking oats"
+                "name": "Вівсянка швидкого приготування",
+                "plural_name": "Вівсянки швидкого приготування"
             },
             "breakfast cereal": {
                 "aliases": [],
@@ -8584,8 +8584,8 @@
             "risotto rice": {
                 "aliases": [],
                 "description": "",
-                "name": "risotto rice",
-                "plural_name": "risotto rices"
+                "name": "Рис для ризотто",
+                "plural_name": "Рису для ризотто"
             },
             "couscou": {
                 "aliases": [],
@@ -8602,26 +8602,26 @@
             "wild rice": {
                 "aliases": [],
                 "description": "",
-                "name": "wild rice",
-                "plural_name": "wild rices"
+                "name": "Дикий рис",
+                "plural_name": "Дикого рису"
             },
             "semolina": {
                 "aliases": [],
                 "description": "",
-                "name": "semolina",
-                "plural_name": "semolinas"
+                "name": "Манна крупа",
+                "plural_name": "Манної крупи"
             },
             "jasmine rice": {
                 "aliases": [],
                 "description": "",
-                "name": "jasmine rice",
-                "plural_name": "jasmine rices"
+                "name": "Рис жасмин",
+                "plural_name": "Рису жасмин"
             },
             "polenta": {
                 "aliases": [],
                 "description": "",
-                "name": "polenta",
-                "plural_name": "polentas"
+                "name": "Полента",
+                "plural_name": "Поленти"
             },
             "granola cereal": {
                 "aliases": [],
@@ -8632,8 +8632,8 @@
             "bulgur": {
                 "aliases": [],
                 "description": "",
-                "name": "bulgur",
-                "plural_name": "bulgurs"
+                "name": "Булгур",
+                "plural_name": "Булгуру"
             },
             "pearl barley": {
                 "aliases": [],
@@ -8662,7 +8662,7 @@
             "grit": {
                 "aliases": [],
                 "description": "",
-                "name": "grit",
+                "name": "Грубий помел зерна",
                 "plural_name": "grits"
             },
             "steel cut oat": {
@@ -8740,7 +8740,7 @@
             "poha": {
                 "aliases": [],
                 "description": "",
-                "name": "poha",
+                "name": "Рис плющений",
                 "plural_name": "pohas"
             },
             "black rice": {
@@ -9092,7 +9092,7 @@
             "pea": {
                 "aliases": [],
                 "description": "",
-                "name": "pea",
+                "name": "Горох",
                 "plural_name": "peas"
             },
             "green bean": {
@@ -10026,7 +10026,7 @@
             "bread": {
                 "aliases": [],
                 "description": "",
-                "name": "bread",
+                "name": "Хліб",
                 "plural_name": "breads"
             }
         }
@@ -10354,7 +10354,7 @@
             "sev": {
                 "aliases": [],
                 "description": "",
-                "name": "sev",
+                "name": "Сев снек",
                 "plural_name": "sevs"
             },
             "vegetable chip": {
@@ -12814,62 +12814,62 @@
             "anchovy paste": {
                 "aliases": [],
                 "description": "",
-                "name": "anchovy paste",
-                "plural_name": "anchovy pastes"
+                "name": "Паста з анчоусів",
+                "plural_name": "Пасти з анчоусів"
             },
             "red enchilada sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "red enchilada sauce",
-                "plural_name": "red enchilada sauces"
+                "name": "Червоний соус енчілада",
+                "plural_name": "Червоного соусу енчілада"
             },
             "steak sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "steak sauce",
-                "plural_name": "steak sauces"
+                "name": "Соус до стейку",
+                "plural_name": "Соусу до стейку"
             },
             "chunky peanut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "chunky peanut butter",
-                "plural_name": "chunky peanut butter"
+                "name": "Арахісове масло з шматочками горіхів",
+                "plural_name": "Арахісового масла з шматочками горіхів"
             },
             "tzatziki": {
                 "aliases": [],
                 "description": "",
-                "name": "tzatziki",
-                "plural_name": "tzatzikis"
+                "name": "Дзадзикі",
+                "plural_name": "Дзадзикі"
             },
             "taco sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "taco sauce",
-                "plural_name": "taco sauces"
+                "name": "Соус тако",
+                "plural_name": "Соусу тако"
             },
             "beef gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "beef gravy",
-                "plural_name": "beef gravies"
+                "name": "Підлива з яловичини",
+                "plural_name": "Підливи з яловичини"
             },
             "sun-dried tomato pesto": {
                 "aliases": [],
                 "description": "",
-                "name": "sun-dried tomato pesto",
-                "plural_name": "sun-dried tomato pestoes"
+                "name": "Песто з вяленими помідорами",
+                "plural_name": "Песто з вяленими помідорами"
             },
             "béchamel sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "béchamel sauce",
-                "plural_name": "béchamel sauces"
+                "name": "Соус бешамель",
+                "plural_name": "Соусу бешамель"
             },
             "horseradish sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "horseradish sauce",
-                "plural_name": "horseradish sauces"
+                "name": "Соус з хрону",
+                "plural_name": "Соусу з хрону"
             },
             "plum sauce": {
                 "aliases": [],
@@ -12886,8 +12886,8 @@
             "hollandaise sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "hollandaise sauce",
-                "plural_name": "hollandaise sauces"
+                "name": "Соус Голландез",
+                "plural_name": "Соусу Голландез"
             },
             "cocktail sauce": {
                 "aliases": [],
@@ -13956,8 +13956,8 @@
             "chocolate cream-filled chocolate sandwich cookie": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate cream-filled chocolate sandwich cookie",
-                "plural_name": "chocolate cream-filled chocolate sandwich cookies"
+                "name": "Шоколадні печива-сендвічі із шоколадним кремом",
+                "plural_name": "Шоколадне печиво-сендвіч із шоколадним кремом"
             },
             "dutch-process cocoa": {
                 "aliases": [],
@@ -14022,7 +14022,7 @@
             "jam": {
                 "aliases": [],
                 "description": "",
-                "name": "jam",
+                "name": "Джем",
                 "plural_name": "jams"
             },
             "orange marmalade": {
@@ -14331,8 +14331,8 @@
             "chocolate-covered espresso bean": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate-covered espresso bean",
-                "plural_name": "chocolate-covered espresso beans"
+                "name": "Кавові зерна в шоколаді",
+                "plural_name": "Кавове зерно в шоколаді"
             },
             "pineapple jam": {
                 "aliases": [],
@@ -14515,7 +14515,7 @@
             "rum": {
                 "aliases": [],
                 "description": "",
-                "name": "rum",
+                "name": "Ром",
                 "plural_name": "rums"
             },
             "vodka": {
@@ -14557,7 +14557,7 @@
             "gin": {
                 "aliases": [],
                 "description": "",
-                "name": "gin",
+                "name": "Джин",
                 "plural_name": "gins"
             },
             "brandy": {
@@ -15137,7 +15137,7 @@
             "tea": {
                 "aliases": [],
                 "description": "",
-                "name": "tea",
+                "name": "Чай",
                 "plural_name": "teas"
             },
             "cranberry juice": {
@@ -16233,7 +16233,7 @@
             "thc": {
                 "aliases": [],
                 "description": "",
-                "name": "thc",
+                "name": "ТГК",
                 "plural_name": "thcs"
             },
             "berry powder": {
