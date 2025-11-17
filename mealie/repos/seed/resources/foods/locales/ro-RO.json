@@ -327,100 +327,100 @@
             "mashed potato": {
                 "aliases": [],
                 "description": "",
-                "name": "mashed potato",
-                "plural_name": "mashed potatoes"
+                "name": "piure de cartofi",
+                "plural_name": "piure de cartofi"
             },
             "horseradish": {
                 "aliases": [],
                 "description": "",
-                "name": "horseradish",
-                "plural_name": "horseradishes"
+                "name": "hrean",
+                "plural_name": "hrean"
             },
             "chard": {
                 "aliases": [],
                 "description": "",
-                "name": "chard",
-                "plural_name": "chards"
+                "name": "pătrunjel de grădină",
+                "plural_name": "pătrunjel de grădină"
             },
             "pimiento": {
                 "aliases": [],
                 "description": "",
-                "name": "pimiento",
-                "plural_name": "pimientoes"
+                "name": "ardei pimiento",
+                "plural_name": "ardei pimiento"
             },
             "spaghetti squash": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti squash",
-                "plural_name": "spaghetti squashes"
+                "name": "dovleac spaghetti",
+                "plural_name": "dovleci spaghetti"
             },
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter lettuce",
-                "plural_name": "butter lettuces"
+                "name": "salată cu unt",
+                "plural_name": "salate cu unt"
             },
             "hash brown": {
                 "aliases": [],
                 "description": "",
-                "name": "hash brown",
-                "plural_name": "hash browns"
+                "name": "cartofi prăjiți răzuiți",
+                "plural_name": "cartofi prăjiți răzuiți"
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "frunze chinezești"
                 ],
                 "description": "",
-                "name": "napa cabbage",
-                "plural_name": "napa cabbages"
+                "name": "verze chinezești",
+                "plural_name": "verze chinezești"
             },
             "celeriac": {
                 "aliases": [],
                 "description": "",
-                "name": "celeriac",
-                "plural_name": "celeriacs"
+                "name": "țelină rădăcină",
+                "plural_name": "țeline rădăcină"
             },
             "water chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "water chestnut",
-                "plural_name": "water chestnuts"
+                "name": "castane de apă",
+                "plural_name": "castane de apă"
             },
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "nap",
+                "plural_name": "napi"
             },
             "thai chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chile pepper",
-                "plural_name": "thai chile peppers"
+                "name": "ardei chili thailandez",
+                "plural_name": "ardei chili thailandezi"
             },
             "bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "bok choy",
-                "plural_name": "bok choy"
+                "name": "varză chinezească",
+                "plural_name": "varză chinezească"
             },
             "okra": {
                 "aliases": [],
                 "description": "",
-                "name": "okra",
-                "plural_name": "okra"
+                "name": "bame",
+                "plural_name": "bame"
             },
             "acorn squash": {
                 "aliases": [],
                 "description": "",
-                "name": "acorn squash",
-                "plural_name": "acorn squashes"
+                "name": "dovleac ghindă",
+                "plural_name": "dovleci ghindă"
             },
             "corn cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn cob",
-                "plural_name": "corn cobs"
+                "name": "știulete de porumb",
+                "plural_name": "știuleți de porumb"
             },
             "radicchio": {
                 "aliases": [],
@@ -431,49 +431,49 @@
             "pearl onion": {
                 "aliases": [],
                 "description": "",
-                "name": "pearl onion",
-                "plural_name": "pearl onions"
+                "name": "ceapă perlă",
+                "plural_name": "cepe perlă"
             },
             "tenderstem broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "tenderstem broccoli",
-                "plural_name": "tenderstem broccolis"
+                "name": "broccoli tenderstem",
+                "plural_name": "broccoli tenderstem"
             },
             "plantain": {
                 "aliases": [],
                 "description": "",
-                "name": "plantain",
-                "plural_name": "plantains"
+                "name": "banană plantain",
+                "plural_name": "banane plantain"
             },
             "leaf lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "leaf lettuce",
-                "plural_name": "leaf lettuces"
+                "name": "salată cu frunze",
+                "plural_name": "salate cu frunze"
             },
             "pepperoncini": {
                 "aliases": [],
                 "description": "",
-                "name": "pepperoncini",
-                "plural_name": "pepperoncinis"
+                "name": "ardei pepperoncini",
+                "plural_name": "ardei pepperoncini"
             },
             "baby bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "baby bok choy",
-                "plural_name": "baby bok choys"
+                "name": "varză chinezească bebe",
+                "plural_name": "varză chinezească bebe"
             },
             "jicama": {
                 "aliases": [],
                 "description": "",
                 "name": "jicama",
-                "plural_name": "jicamas"
+                "plural_name": "jicama"
             },
             "endive": {
                 "aliases": [],
                 "description": "",
-                "name": "endive",
+                "name": "andivă",
                 "plural_name": "andive"
             },
             "habanero pepper": {
@@ -572,12 +572,12 @@
                 "aliases": [],
                 "description": "",
                 "name": "dovleac delicata",
-                "plural_name": "delicata squashes"
+                "plural_name": "dovleci delicata"
             },
             "frisee": {
                 "aliases": [],
                 "description": "",
-                "name": "frisee",
+                "name": "salată frize",
                 "plural_name": "frisees"
             },
             "anaheim pepper": {
@@ -900,85 +900,85 @@
                 "aliases": [],
                 "description": "",
                 "name": "guavă",
-                "plural_name": "guavas"
+                "plural_name": "guave"
             },
             "banana chip": {
                 "aliases": [],
                 "description": "",
-                "name": "banana chip",
-                "plural_name": "banana chips"
+                "name": "chips de banană",
+                "plural_name": "chips de banană"
             },
             "kumquat": {
                 "aliases": [],
                 "description": "",
                 "name": "kumquat",
-                "plural_name": "kumquats"
+                "plural_name": "kumquat"
             },
             "jackfruit": {
                 "aliases": [],
                 "description": "",
                 "name": "jackfruit",
-                "plural_name": "jackfruits"
+                "plural_name": "jackfruit"
             },
             "dragon fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "dragon fruit",
-                "plural_name": "dragon fruits"
+                "name": "fruct de dragon",
+                "plural_name": "fructe de dragon"
             },
             "mixed fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed fruit",
-                "plural_name": "mixed fruits"
+                "name": "fructe amestecate",
+                "plural_name": "fructe amestecate"
             },
             "asian pear": {
                 "aliases": [],
                 "description": "",
-                "name": "asian pear",
-                "plural_name": "asian pears"
+                "name": "pară asiatică",
+                "plural_name": "pere asiatice"
             },
             "lychee": {
                 "aliases": [],
                 "description": "",
-                "name": "lychee",
-                "plural_name": "lychees"
+                "name": "litchi",
+                "plural_name": "litchi"
             },
             "young coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "young coconut",
-                "plural_name": "young coconuts"
+                "name": "nucă de cocos tânără",
+                "plural_name": "nuci de cocos tinere"
             },
             "kaffir lime": {
                 "aliases": [],
                 "description": "",
-                "name": "kaffir lime",
-                "plural_name": "kaffir limes"
+                "name": "lime kaffir",
+                "plural_name": "lime kaffir"
             },
             "star fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "star fruit",
-                "plural_name": "star fruits"
+                "name": "carambolă",
+                "plural_name": "carambole"
             },
             "green papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "green papaya",
-                "plural_name": "green papayas"
+                "name": "papaya verde",
+                "plural_name": "papaya verde"
             },
             "pomelo": {
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomeloes"
+                "plural_name": "pomelo"
             },
             "chestnut puree": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut puree",
-                "plural_name": "chestnut purees"
+                "name": "piure de castane",
+                "plural_name": "piure de castane"
             },
             "prickly pear": {
                 "aliases": [],
