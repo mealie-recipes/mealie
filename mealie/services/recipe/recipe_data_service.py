@@ -8,6 +8,7 @@ from pydantic import UUID4
 from mealie.pkgs import img, safehttp
 from mealie.pkgs.safehttp.transport import AsyncSafeTransport
 from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe_image_types import RecipeImageTypes
 from mealie.services._base_service import BaseService
 from mealie.services.scraper.user_agents_manager import get_user_agents_manager
 
@@ -103,6 +104,14 @@ class RecipeDataService(BaseService):
         self.minifier.minify(image_path)
 
         return image_path
+
+    def delete_image(self, image_dir: Path | None = None):
+        if not image_dir:
+            image_dir = self.dir_image
+
+        for img_type in RecipeImageTypes:
+            image_path = image_dir.joinpath(img_type.value)
+            image_path.unlink(missing_ok=True)
 
     async def scrape_image(self, image_url: str | dict[str, str] | list[str]) -> None:
         self.logger.info(f"Image URL: {image_url}")

@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Tente de découper un paragraphe par correspondance de motifs : '1)' ou '1.'",
     "import-by-url": "Importer une recette par son URL",
     "create-manually": "Créer une recette manuellement",
-    "make-recipe-image": "Faire de cette image l’image de recette"
+    "make-recipe-image": "Faire de cette image l’image de recette",
+    "add-food": "Ajouter un aliment",
+    "add-recipe": "Ajouter une recette"
   },
   "page": {
     "404-page-not-found": "404 Page introuvable",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Recette supprimée",
     "recipe-image": "Image de la recette",
     "recipe-image-updated": "L’image de la recette a été mise à jour",
+    "delete-image": "Supprimer l'image de la recette",
+    "delete-image-confirmation": "Êtes-vous sûr de vouloir supprimer l'image de cette recette ?",
+    "recipe-image-deleted": "L’image de la recette a été supprimée",
     "recipe-name": "Nom de la recette",
     "recipe-settings": "Paramètres de la recette",
     "recipe-update-failed": "La mise à jour de la recette a échoué",
@@ -560,6 +565,7 @@
     "choose-unit": "Choisissez une unité",
     "press-enter-to-create": "Clique sur Entrer pour créer",
     "choose-food": "Choisissez un aliment",
+    "choose-recipe": "Choose Recipe",
     "notes": "Notes",
     "toggle-section": "Activer/Désactiver la section",
     "see-original-text": "Afficher le texte original",
@@ -587,6 +593,7 @@
     "made-this": "Je l’ai cuisiné",
     "how-did-it-turn-out": "C’était bon ?",
     "user-made-this": "{user} l’a cuisiné",
+    "made-for-recipe": "Fait pour {recipe}",
     "added-to-timeline": "Ajouté à la ligne du temps",
     "failed-to-add-to-timeline": "Impossible d'ajouter à la ligne du temps",
     "failed-to-update-recipe": "Impossible de modifier la recette",
@@ -688,7 +695,10 @@
     "upload-images": "Télécharger des images",
     "upload-more-images": "Télécharger d'autres images",
     "set-as-cover-image": "Définir comme image de couverture de recette",
-    "cover-image": "Image de couverture"
+    "cover-image": "Image de couverture",
+    "include-linked-recipes": "Inclure les recettes liées",
+    "include-linked-recipe-ingredients": "Inclure les ingrédients de la recette liée",
+    "toggle-recipe": "Afficher/Masquer la recette"
   },
   "recipe-finder": {
     "recipe-finder": "Recherche de recette",
@@ -725,7 +735,8 @@
     "search-hint": "Appuyez sur « /»",
     "advanced": "Avancé",
     "auto-search": "Recherche automatique",
-    "no-results": "Aucun résultat trouvé"
+    "no-results": "Aucun résultat trouvé",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Ajouter un nouveau thème",

@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "'1)' 또는 '1.' 패턴을 일치시켜 문단을 분할하려고 시도합니다.",
     "import-by-url": "URL로 레시피 가져오기",
     "create-manually": "수동으로 레시피 만들기",
-    "make-recipe-image": "이것을 레시피 이미지로 만드세요."
+    "make-recipe-image": "이것을 레시피 이미지로 만드세요.",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404. 페이지를 찾을 수 없음",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Recipe deleted",
     "recipe-image": "Recipe Image",
     "recipe-image-updated": "Recipe image updated",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Recipe Name",
     "recipe-settings": "Recipe Settings",
     "recipe-update-failed": "Recipe update failed",
@@ -560,6 +565,7 @@
     "choose-unit": "단위 선택",
     "press-enter-to-create": "Enter 키를 눌러 생성하세요",
     "choose-food": "음식 선택",
+    "choose-recipe": "Choose Recipe",
     "notes": "노트",
     "toggle-section": "Toggle Section",
     "see-original-text": "See Original Text",
@@ -587,6 +593,7 @@
     "made-this": "I Made This",
     "how-did-it-turn-out": "How did it turn out?",
     "user-made-this": "{user} made this",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Added to timeline",
     "failed-to-add-to-timeline": "Failed to add to timeline",
     "failed-to-update-recipe": "Failed to update recipe",
@@ -688,7 +695,10 @@
     "upload-images": "Upload images",
     "upload-more-images": "Upload more images",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "Cover image",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
@@ -725,7 +735,8 @@
     "search-hint": "Press '/'",
     "advanced": "Advanced",
     "auto-search": "자동 검색",
-    "no-results": "검색 결과가 없습니다."
+    "no-results": "검색 결과가 없습니다.",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "새 테마 추가",

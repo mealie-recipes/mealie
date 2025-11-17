@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Пробує розділити абзац по '1)' або '1.' шаблону",
     "import-by-url": "Імпортувати рецепт з URL",
     "create-manually": "Створити рецепт вручну",
-    "make-recipe-image": "Зробити це зображенням рецепту"
+    "make-recipe-image": "Зробити це зображенням рецепту",
+    "add-food": "Додати їжу",
+    "add-recipe": "Додати рецепт"
   },
   "page": {
     "404-page-not-found": "404 - Сторінка не знайдена",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Рецепт видалено",
     "recipe-image": "Зображення рецепту",
     "recipe-image-updated": "Зображення рецепту оновлено",
+    "delete-image": "Видалити зображення рецепту",
+    "delete-image-confirmation": "Ви впевнені, що хочете видалити це зображення рецепту?",
+    "recipe-image-deleted": "Зображення рецепту видалено",
     "recipe-name": "Назва рецепта",
     "recipe-settings": "Налаштування рецепта",
     "recipe-update-failed": "Не вдалося оновити рецепт",
@@ -560,6 +565,7 @@
     "choose-unit": "Виберіть одиниці вимірювання",
     "press-enter-to-create": "Натисніть Enter, щоб створити",
     "choose-food": "Вибрати продукт",
+    "choose-recipe": "Обрати рецепт",
     "notes": "Нотатки",
     "toggle-section": "Перемкнути секцію",
     "see-original-text": "Переглянути оригінальний текст",
@@ -587,6 +593,7 @@
     "made-this": "Я це приготував",
     "how-did-it-turn-out": "Як вийшло?",
     "user-made-this": "{user} зробив це",
+    "made-for-recipe": "Зроблено для {recipe}",
     "added-to-timeline": "Додати до хроніки",
     "failed-to-add-to-timeline": "Не вдалося додати до хроніки",
     "failed-to-update-recipe": "Не вдалося оновити рецепт",
@@ -688,7 +695,10 @@
     "upload-images": "Завантажити зображення",
     "upload-more-images": "Завантажити більше зображень",
     "set-as-cover-image": "Встановити як зображення обкладинки",
-    "cover-image": "Обкладинка"
+    "cover-image": "Обкладинка",
+    "include-linked-recipes": "Включати зв'язані рецепти",
+    "include-linked-recipe-ingredients": "Включити пов'язані інгредієнти рецепту",
+    "toggle-recipe": "Переключити рецепт"
   },
   "recipe-finder": {
     "recipe-finder": "Шукач рецептів",
@@ -725,7 +735,8 @@
     "search-hint": "Натисніть '/'",
     "advanced": "Розширений",
     "auto-search": "Автопошук",
-    "no-results": "Нічого не знайдено"
+    "no-results": "Нічого не знайдено",
+    "type-to-search": "Введіть текст для пошуку..."
   },
   "settings": {
     "add-a-new-theme": "Додати нову тему",

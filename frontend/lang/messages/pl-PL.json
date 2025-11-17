@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Próbuj podzielić paragrafy poprzez dopasowanie po wzorcach '1)' i '1.'",
     "import-by-url": "Importuj przepis przez URL",
     "create-manually": "Stwórz przepis ręcznie",
-    "make-recipe-image": "Niech to będzie obraz przepisu"
+    "make-recipe-image": "Niech to będzie obraz przepisu",
+    "add-food": "Add Food",
+    "add-recipe": "Dodaj przepis"
   },
   "page": {
     "404-page-not-found": "404. Nie znaleziono strony",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Przepis został usunięty",
     "recipe-image": "Zdjęcie do przepisu",
     "recipe-image-updated": "Zdjęcie przepisu zostało zaktualizowane",
+    "delete-image": "Usuń obrazek przepisu",
+    "delete-image-confirmation": "Czy jesteś pewien, że chcesz usunąć obrazek przepisu?",
+    "recipe-image-deleted": "Obrazek przepisu został usunięty",
     "recipe-name": "Nazwa przepisu",
     "recipe-settings": "Ustawienia przepisu",
     "recipe-update-failed": "Aktualizacja przepisu nie powiodła się",
@@ -560,6 +565,7 @@
     "choose-unit": "Wybierz jednostkę",
     "press-enter-to-create": "Naciśnij \"enter\", aby utworzyć",
     "choose-food": "Wybierz jedzenie",
+    "choose-recipe": "Choose Recipe",
     "notes": "Notatki",
     "toggle-section": "Przełącz Sekcję",
     "see-original-text": "Zobacz oryginalny tekst",
@@ -587,6 +593,7 @@
     "made-this": "Ugotowałem to",
     "how-did-it-turn-out": "Jak się to udało?",
     "user-made-this": "{user} ugotował(a) to",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Dodano do osi czasu",
     "failed-to-add-to-timeline": "Nie udało się dodać do osi czasu",
     "failed-to-update-recipe": "Nie udało się zaktualizować przepisu",
@@ -677,7 +684,7 @@
       "no-food": "Brak potrawy",
       "review-parsed-ingredients": "Przejrzyj przeanalizowane składniki",
       "confidence-score": "Wskaźnik pewności",
-      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-description": "Twoja lista składników została przetworzona. Sprawdź proszę składniki co , do  których mamy wątpliwości",
       "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
       "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
       "delete-item": "Usuń przedmiot"
@@ -688,7 +695,10 @@
     "upload-images": "Prześlij obraz",
     "upload-more-images": "Prześlij więcej obrazów",
     "set-as-cover-image": "Ustaw jako okładkę przepisu",
-    "cover-image": "Okładka"
+    "cover-image": "Okładka",
+    "include-linked-recipes": "Dołącz połączone przepisy",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Wyszukiwarka przepisów",
@@ -725,7 +735,8 @@
     "search-hint": "Naciśnij '/'",
     "advanced": "Zaawansowane",
     "auto-search": "Auto wyszukiwanie",
-    "no-results": "Nie znaleziono wyników"
+    "no-results": "Nie znaleziono wyników",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Dodaj nowy motyw",
@@ -1064,7 +1075,7 @@
     "forgot-password": "Nie pamiętam hasła",
     "forgot-password-text": "Podaj adres e-mail konta, do którego chcesz odzyskać hasło.",
     "changes-reflected-immediately": "Zmiany dla tego użytkownika będą zastosowane natychmiastowo.",
-    "default-activity": "Default Activity",
+    "default-activity": "Domyślna aktywność",
     "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {

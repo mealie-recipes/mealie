@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Mēģinājumi sadalīt rindkopu, saskaņojot modeļus “1)” vai “1.”",
     "import-by-url": "Receptes importēšana pēc URL",
     "create-manually": "Izveidojiet recepti manuāli",
-    "make-recipe-image": "Padariet šo par receptes attēlu"
+    "make-recipe-image": "Padariet šo par receptes attēlu",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Lapa nav atrasta",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Recepte izdzēsta",
     "recipe-image": "Receptes attēls",
     "recipe-image-updated": "Receptes attēls atjaunināts",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Receptes nosaukums",
     "recipe-settings": "Receptes iestatījumi",
     "recipe-update-failed": "Receptes atjaunināšana neizdevās",
@@ -560,6 +565,7 @@
     "choose-unit": "Izvēlieties vienību",
     "press-enter-to-create": "Nospiediet taustiņu Enter, lai izveidotu",
     "choose-food": "Izvēlieties ēdienu",
+    "choose-recipe": "Choose Recipe",
     "notes": "Piezīmes",
     "toggle-section": "Pārslēgt sadaļu",
     "see-original-text": "Skatīt oriģinālo tekstu",
@@ -587,6 +593,7 @@
     "made-this": "Es to pagatavoju",
     "how-did-it-turn-out": "Kā tas izrādījās?",
     "user-made-this": "{user}izdarīja šo",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Added to timeline",
     "failed-to-add-to-timeline": "Failed to add to timeline",
     "failed-to-update-recipe": "Failed to update recipe",
@@ -688,7 +695,10 @@
     "upload-images": "Upload images",
     "upload-more-images": "Upload more images",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "Cover image",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
@@ -725,7 +735,8 @@
     "search-hint": "Nospiediet '/'",
     "advanced": "Papildu Opcijas",
     "auto-search": "Automātiskā meklēšana",
-    "no-results": "Nav atrasts neviens rezultāts"
+    "no-results": "Nav atrasts neviens rezultāts",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Pievienot jaunu motīvu",

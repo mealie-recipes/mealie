@@ -419,8 +419,8 @@
             "corn cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn cob",
-                "plural_name": "corn cobs"
+                "name": "maiskolbe",
+                "plural_name": "maiskolber"
             },
             "radicchio": {
                 "aliases": [],
@@ -431,7 +431,7 @@
             "pearl onion": {
                 "aliases": [],
                 "description": "",
-                "name": "pearl onion",
+                "name": "perleløk",
                 "plural_name": "pearl onions"
             },
             "tenderstem broccoli": {
@@ -449,8 +449,8 @@
             "leaf lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "leaf lettuce",
-                "plural_name": "leaf lettuces"
+                "name": "bladsalat",
+                "plural_name": "bladsalater"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -559,8 +559,8 @@
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
-                "name": "kohlrabi",
-                "plural_name": "kohlrabis"
+                "name": "kålrabi",
+                "plural_name": "kålrabi"
             },
             "fresno chile": {
                 "aliases": [],
@@ -577,8 +577,8 @@
             "frisee": {
                 "aliases": [],
                 "description": "",
-                "name": "frisee",
-                "plural_name": "frisees"
+                "name": "friséesalat",
+                "plural_name": "friséesalat"
             },
             "anaheim pepper": {
                 "aliases": [],
@@ -965,7 +965,7 @@
             "green papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "green papaya",
+                "name": "grønn papaya",
                 "plural_name": "green papayas"
             },
             "pomelo": {
@@ -1245,8 +1245,8 @@
             "shiitake mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shiitake mushroom",
-                "plural_name": "shiitake mushrooms"
+                "name": "shiitakesopp",
+                "plural_name": "shiitakesopp"
             },
             "portobello mushroom": {
                 "aliases": [],
@@ -1567,8 +1567,8 @@
             "acai berry": {
                 "aliases": [],
                 "description": "",
-                "name": "acai berry",
-                "plural_name": "acai berries"
+                "name": "acai bær",
+                "plural_name": "acai bær"
             },
             "canned cherry": {
                 "aliases": [],
@@ -1585,8 +1585,8 @@
             "elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "elderberry",
-                "plural_name": "elderberries"
+                "name": "hyllebær",
+                "plural_name": "hyllebær"
             },
             "freeze-dried blueberry": {
                 "aliases": [],
@@ -1603,7 +1603,7 @@
             "dried elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried elderberry",
+                "name": "tørkede hyllebær",
                 "plural_name": "dried elderberries"
             },
             "barberry": {
@@ -1682,7 +1682,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "blackcurrant leaf",
-                "plural_name": "blackcurrant leaves"
+                "plural_name": "solbærblad"
             },
             "haskap berry": {
                 "aliases": [],
@@ -1739,7 +1739,7 @@
             "cashew": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew",
+                "name": "cashewnøtt",
                 "plural_name": "cashews"
             },
             "pine nut": {
@@ -1758,7 +1758,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "peanut",
-                "plural_name": "peanuts"
+                "plural_name": "peanøtter"
             },
             "chia": {
                 "aliases": [],
@@ -1782,7 +1782,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "gresskarfrø",
-                "plural_name": "pumpkin seeds"
+                "plural_name": "gresskarfrø"
             },
             "hazelnut": {
                 "aliases": [],
@@ -1859,8 +1859,8 @@
             "watermelon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon seed",
-                "plural_name": "watermelon seeds"
+                "name": "vannmelonfrø",
+                "plural_name": "vannmelonfrø"
             },
             "honey-roasted peanut": {
                 "aliases": [],
@@ -1895,8 +1895,8 @@
             "basil seed": {
                 "aliases": [],
                 "description": "",
-                "name": "basil seed",
-                "plural_name": "basil seeds"
+                "name": "basilikum blad",
+                "plural_name": "basilikum blader"
             },
             "candlenut": {
                 "aliases": [],

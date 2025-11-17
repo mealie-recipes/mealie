@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Absätze nach dem Schema '1)' oder '1.' aufzuteilen versuchen",
     "import-by-url": "Ein Rezept von einer Webseite importieren",
     "create-manually": "Ein Rezept manuell erstellen",
-    "make-recipe-image": "Als Rezept-Titelbild verwenden"
+    "make-recipe-image": "Als Rezept-Titelbild verwenden",
+    "add-food": "Lebensmittel",
+    "add-recipe": "Rezepte hinzufügen"
   },
   "page": {
     "404-page-not-found": "404 Seite nicht gefunden",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Rezept entfernt",
     "recipe-image": "Rezeptbild",
     "recipe-image-updated": "Rezeptbild aktualisiert",
+    "delete-image": "Rezeptbild löschen",
+    "delete-image-confirmation": "Bist du dir sicher, dass du dieses Rezept löschen möchtest?",
+    "recipe-image-deleted": "Rezeptbild gelöscht",
     "recipe-name": "Rezeptname",
     "recipe-settings": "Rezepteinstellungen",
     "recipe-update-failed": "Aktualisieren des Rezepts fehlgeschlagen",
@@ -560,6 +565,7 @@
     "choose-unit": "Einheit wählen",
     "press-enter-to-create": "Zum Erstellen Eingabetaste drücken",
     "choose-food": "Lebensmittel wählen",
+    "choose-recipe": "Choose Recipe",
     "notes": "Notizen",
     "toggle-section": "Überschrift ein-/ausblenden",
     "see-original-text": "Originaltext anzeigen",
@@ -587,6 +593,7 @@
     "made-this": "Ich hab's gemacht",
     "how-did-it-turn-out": "Wie ist es geworden?",
     "user-made-this": "{user} hat's gemacht",
+    "made-for-recipe": "Erstellt für {recipe}",
     "added-to-timeline": "Zur Zeitleiste hinzugefügt",
     "failed-to-add-to-timeline": "Fehler beim Hinzufügen zur Zeitleiste",
     "failed-to-update-recipe": "Fehler beim Aktualisieren des Rezepts",
@@ -688,7 +695,10 @@
     "upload-images": "Bilder hochladen",
     "upload-more-images": "Weitere Bilder hochladen",
     "set-as-cover-image": "Als Rezept-Titelbild setzen",
-    "cover-image": "Titelbild"
+    "cover-image": "Titelbild",
+    "include-linked-recipes": "Verknüpfte Rezepte einbeziehen",
+    "include-linked-recipe-ingredients": "Zutaten verknüpfter Rezepte einbeziehen",
+    "toggle-recipe": "Rezept ein/aus"
   },
   "recipe-finder": {
     "recipe-finder": "Rezept-Suche",
@@ -725,7 +735,8 @@
     "search-hint": "'/' drücken",
     "advanced": "Erweitert",
     "auto-search": "Automatische Suche",
-    "no-results": "Keine Ergebnisse gefunden"
+    "no-results": "Keine Ergebnisse gefunden",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Neues Thema hinzufügen",

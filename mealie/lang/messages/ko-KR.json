@@ -5,6 +5,7 @@
     "recipe": {
         "unique-name-error": "Recipe 이름은 고유해야 합니다",
         "recipe-created": "Recipe Created",
+        "recipe-image-deleted": "Recipe image deleted",
         "recipe-defaults": {
             "ingredient-note": "밀가루 1컵",
             "step-text": "Recipe 단계는 물론 recipe 페이지의 다른 필드도 Markdown 문법을 지원합니다.\n\n**Add a link**\n\n[\b나의 링크](https://demo.mealie.io)"
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "이 작업을 수행할 권한이 없습니다.",
+        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "요청한 페이지를 찾을 수 없습니다. 주소를 정확히 입력했는지 확인해보세요.",
         "integrity-error": "Database integrity error",
         "username-conflict-error": "이미 사용 중인 사용자 이름입니다.",

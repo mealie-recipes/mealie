@@ -400,8 +400,8 @@
       "title": "Recetas de Tandoor"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
-      "title": "DVO Cook'n X3"
+      "description-long": "Mealie no puede importar recetas de DVO Cook'n X3. Exporta un recetario o un menú en el formato \"Cook'n\", renómbralo a la extensión .zip y sube el .zip en la sección de abajo.",
+      "title": "Cook'n DVO X3"
     },
     "recipe-data-migrations": "Migración de recetas",
     "recipe-data-migrations-explanation": "Las recetas pueden migrarse desde otra aplicación soportada a Mealie. Esta es una excelente manera de empezar con Mealie.",
@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Intenta dividir un párrafo utilizando los patrones '1)' o '1.'",
     "import-by-url": "Importar una receta desde URL",
     "create-manually": "Crear receta manualmente",
-    "make-recipe-image": "Haz de esta la imagen de la receta"
+    "make-recipe-image": "Haz de esta la imagen de la receta",
+    "add-food": "Add Food",
+    "add-recipe": "Agregar receta"
   },
   "page": {
     "404-page-not-found": "404 Página no encontrada",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Receta eliminada",
     "recipe-image": "Imagen de la receta",
     "recipe-image-updated": "Imagen de la receta actualizada",
+    "delete-image": "Borra la imagen de la receta",
+    "delete-image-confirmation": "¿Estás seguro de que quieres borrar esta imagen de la receta?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Nombre de la receta",
     "recipe-settings": "Ajustes de la receta",
     "recipe-update-failed": "Error al actualizar la receta",
@@ -560,6 +565,7 @@
     "choose-unit": "Elija unidad",
     "press-enter-to-create": "Presione Intro para crear",
     "choose-food": "Elija comida",
+    "choose-recipe": "Choose Recipe",
     "notes": "Notas",
     "toggle-section": "Activar sección",
     "see-original-text": "Mostrar Texto Original",
@@ -587,6 +593,7 @@
     "made-this": "Lo hice",
     "how-did-it-turn-out": "¿Cómo resultó esto?",
     "user-made-this": "{user} hizo esto",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Añadido a la línea de tiempo",
     "failed-to-add-to-timeline": "No se pudo agregar a la línea de tiempo",
     "failed-to-update-recipe": "Error al actualizar la receta",
@@ -688,7 +695,10 @@
     "upload-images": "Subir imágenes",
     "upload-more-images": "Subir más imágenes",
     "set-as-cover-image": "Establecer como imagen de portada de receta",
-    "cover-image": "Imagen de portada"
+    "cover-image": "Imagen de portada",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Alternar Receta"
   },
   "recipe-finder": {
     "recipe-finder": "Buscador de recetas",
@@ -725,7 +735,8 @@
     "search-hint": "Presione '/'",
     "advanced": "Avanzado",
     "auto-search": "Búsqueda automática",
-    "no-results": "No se encontraron resultados"
+    "no-results": "No se encontraron resultados",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Añadir un nuevo tema",
@@ -1064,8 +1075,8 @@
     "forgot-password": "Olvidé mi contraseña",
     "forgot-password-text": "Por favor, introduce tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.",
     "changes-reflected-immediately": "Los cambios en este grupo se reflejarán inmediatamente.",
-    "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity": "Actividad predeterminada",
+    "default-activity-hint": "Selecciona la pagina a la que navegar al iniciar la sesion en este dispositivo"
   },
   "language-dialog": {
     "translated": "traducido",

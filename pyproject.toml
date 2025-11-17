@@ -1,6 +1,6 @@
 [project]
 name = "mealie"
-version = "3.4.0"
+version = "3.5.0"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
@@ -64,7 +64,7 @@ dev = [
     "mypy>=1.5.1,<2.0.0",
     "pre-commit>=4.0.0,<5.0.0",
     "pylint>=4.0.0,<5.0.0",
-    "pytest>=8.0.0,<9.0.0",
+    "pytest>=9.0.1,<9.1.0",
     "pytest-asyncio>=1.0.0,<2.0.0",
     "rich>=14.0.0,<15.0.0",
     "ruff>=0.14.0,<1.0.0",

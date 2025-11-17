@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Probeert om een alinea te splitsen door de '1)' of '1.' patronen te gebruiken",
     "import-by-url": "Importeer een recept van een website",
     "create-manually": "Maak handmatig een recept aan",
-    "make-recipe-image": "Maak dit de afbeelding voor dit recept"
+    "make-recipe-image": "Maak dit de afbeelding voor dit recept",
+    "add-food": "Voeg eten toe",
+    "add-recipe": "Voeg recept toe"
   },
   "page": {
     "404-page-not-found": "404 Pagina niet gevonden",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Recept verwijderd",
     "recipe-image": "Receptafbeelding",
     "recipe-image-updated": "Receptafbeelding bijgewerkt",
+    "delete-image": "Verwijder Recept Afbeelding",
+    "delete-image-confirmation": "Weet je zeker dat je deze afbeelding wil verwijderen?",
+    "recipe-image-deleted": "Receptafbeelding verwijderd",
     "recipe-name": "Receptnaam",
     "recipe-settings": "Receptinstellingen",
     "recipe-update-failed": "Recept bijwerken mislukt",
@@ -560,6 +565,7 @@
     "choose-unit": "Kies een eenheid",
     "press-enter-to-create": "Druk op Enter om aan te maken",
     "choose-food": "Levensmiddelen kiezen",
+    "choose-recipe": "Kies recept",
     "notes": "Notities",
     "toggle-section": "Sectie schakelen",
     "see-original-text": "Zie oorspronkelijke tekst",
@@ -587,6 +593,7 @@
     "made-this": "Ik heb dit gemaakt",
     "how-did-it-turn-out": "Hoe was je gerecht?",
     "user-made-this": "{user} heeft dit gemaakt",
+    "made-for-recipe": "Gemaakt voor {recipe}",
     "added-to-timeline": "Toevoegen aan tijdlijn",
     "failed-to-add-to-timeline": "Toegevoegd aan tijdlijn",
     "failed-to-update-recipe": "Updaten recept mislukt",
@@ -688,7 +695,10 @@
     "upload-images": "Afbeelding uploaden",
     "upload-more-images": "Meer afbeeldingen uploaden",
     "set-as-cover-image": "Als recept omslagfoto instellen",
-    "cover-image": "Omslagfoto"
+    "cover-image": "Omslagfoto",
+    "include-linked-recipes": "Reken gekoppelde recepten mee",
+    "include-linked-recipe-ingredients": "Voeg gekoppelde receptingrediënten toe",
+    "toggle-recipe": "Recept wisselen"
   },
   "recipe-finder": {
     "recipe-finder": "Recept zoeker",
@@ -725,7 +735,8 @@
     "search-hint": "Druk op '/'",
     "advanced": "Geavanceerd",
     "auto-search": "Automatisch zoeken",
-    "no-results": "Geen resultaten gevonden"
+    "no-results": "Geen resultaten gevonden",
+    "type-to-search": "Zoek..."
   },
   "settings": {
     "add-a-new-theme": "Voeg een nieuw thema toe",
