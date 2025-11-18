@@ -5,6 +5,7 @@
       :slug="recipe.slug"
       @upload="uploadImage"
       @refresh="imageKey++"
+      @delete="deleteImage"
     />
     <RecipeSettingsMenu
       v-model="recipe.settings"
@@ -13,25 +14,25 @@
       @upload="uploadImage"
     />
     <v-spacer />
-      <v-select
-        v-model="recipe.userId"
-        class="my-2"
-        max-width="300"
-        :items="allUsers"
-        :item-props="itemsProps"
-        :label="$t('general.owner')"
-        :disabled="!canEditOwner"
-        variant="outlined"
-        density="compact"
-      >
-        <template #prepend>
-          <UserAvatar
-            :user-id="recipe.userId"
-            :tooltip="false"
-          />
-        </template>
-      </v-select>
-</div>
+    <v-select
+      v-model="recipe.userId"
+      class="my-2"
+      max-width="300"
+      :items="allUsers"
+      :item-props="itemsProps"
+      :label="$t('general.owner')"
+      :disabled="!canEditOwner"
+      variant="outlined"
+      density="compact"
+    >
+      <template #prepend>
+        <UserAvatar
+          :user-id="recipe.userId"
+          :tooltip="false"
+        />
+      </template>
+    </v-select>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -76,6 +77,12 @@ async function uploadImage(fileObject: File) {
   if (newVersion?.data?.image) {
     recipe.value.image = newVersion.data.image;
   }
+  imageKey.value++;
+}
+
+async function deleteImage() {
+  // The image is already deleted on the backend, just need to update the UI
+  recipe.value.image = "";
   imageKey.value++;
 }
 </script>

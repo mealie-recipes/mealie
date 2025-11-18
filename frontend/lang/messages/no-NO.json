@@ -69,7 +69,7 @@
     "new-notification": "Nytt varsel",
     "event-notifiers": "Hendelsesvarsler",
     "apprise-url-skipped-if-blank": "Apprise-URL (hoppes over hvis tom)",
-    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
+    "apprise-url-is-left-intentionally-blank": "Siden Apprise URL-er vanligvis inneholder sensitiv informasjon, må dette feltet ikke være tomt mens du redigerer. Hvis du vil oppdatere URL, skriv inn den nye her, ellers la den være tom for å beholde den gjeldende URL.",
     "enable-notifier": "Aktiver varslingsagenten",
     "what-events": "Hvilke hendelser skal denne varslingsagenten abonnere på?",
     "user-events": "Brukerhendelser",
@@ -81,7 +81,7 @@
     "category-events": "Kategorihendelser",
     "when-a-new-user-joins-your-group": "Når en ny bruker blir med i gruppen din",
     "recipe-events": "Oppskriftshendelser",
-    "label-events": "Label Events"
+    "label-events": "Merk hendelser"
   },
   "general": {
     "add": "Legg til",
@@ -399,6 +399,10 @@
       "description-long": "Mealie kan importere oppskrifter fra Tandoor. Eksporter dataene i \"Standard\"-formatet, last deretter opp zip-filen nedenfor.",
       "title": "Tandoor Recipes"
     },
+    "cookn": {
+      "description-long": "Mealie kan importere oppskrifter fra DVO Cook'n X3. Eksporter en cookbook eller meny i \"Cook'n\" formatet, endre navnet på eksporten til .zip, og last så opp .zip-filen nedenfor.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Overføring av oppskrifter",
     "recipe-data-migrations-explanation": "Oppskrifter kan overføres fra et annet støttet program til Mealie. Dette er en flott måte å komme i gang med Mealie på.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Kommer du fra en annen applikasjon eller en enda eldre versjon av Mealie? Sjekk ut overføringer og se om dine data kan importeres.",
@@ -444,7 +448,9 @@
     "split-by-numbered-line-description": "Forsøk å dele opp et avsnitt ved å matche mønsteret '1)' eller '1.'",
     "import-by-url": "Importer en oppskrift via nettadresse",
     "create-manually": "Opprett en oppskrift manuelt",
-    "make-recipe-image": "Bruk dette som oppskriftsbilde"
+    "make-recipe-image": "Bruk dette som oppskriftsbilde",
+    "add-food": "Legg til mat",
+    "add-recipe": "Legg til oppskrift"
   },
   "page": {
     "404-page-not-found": "404 Siden ble ikke funnet",
@@ -511,6 +517,9 @@
     "recipe-deleted": "Oppskrift slettet",
     "recipe-image": "Oppskriftsbilde",
     "recipe-image-updated": "Oppskriftsbilde oppdatert",
+    "delete-image": "Slett oppskriftsbilde",
+    "delete-image-confirmation": "Er du sikker på at du vil slette dette oppskriftsbilde?",
+    "recipe-image-deleted": "Oppskriftsbilde slettet",
     "recipe-name": "Navn på oppskrift",
     "recipe-settings": "Oppskriftsinnstillinger",
     "recipe-update-failed": "Oppdatering av oppskrift mislyktes",
@@ -556,12 +565,13 @@
     "choose-unit": "Velg enhet",
     "press-enter-to-create": "Trykk Enter for å opprette",
     "choose-food": "Velg matvarer",
+    "choose-recipe": "Choose Recipe",
     "notes": "Notater",
     "toggle-section": "Legg til seksjon",
     "see-original-text": "Se opprinnelig tekst",
     "original-text-with-value": "Opprinnelig tekst: {originalText}",
     "ingredient-linker": "Tilknytt ingredienser",
-    "unlinked": "Not linked yet",
+    "unlinked": "Ingen lenke enda",
     "linked-to-other-step": "Tilknyttet et annet steg",
     "auto": "Automatisk",
     "cook-mode": "Tilberedelsesmodus",
@@ -583,6 +593,7 @@
     "made-this": "Jeg har laget dette",
     "how-did-it-turn-out": "Hvordan ble det?",
     "user-made-this": "{user} har laget dette",
+    "made-for-recipe": "Laget til {recipe}",
     "added-to-timeline": "Legg til tidslinje",
     "failed-to-add-to-timeline": "Kunne ikke legge til på tidslinjen",
     "failed-to-update-recipe": "Kunne ikke oppdatere oppskriften",
@@ -590,7 +601,7 @@
     "api-extras-description": "Ekstramaterialer til oppskrifter er en viktig funksjon i Mealie API-en. De lar deg opprette egendefinerte JSON-nøkkel/verdi-par innenfor en oppskrift for å referere fra tredjepartsapplikasjoner. Du kan bruke disse nøklene til å gi informasjon for eksempel for å utløse automatiseringer eller egendefinerte meldinger som skal videreformidles til ønsket enhet.",
     "message-key": "Meldingsnøkkel",
     "parse": "Analyser",
-    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
+    "ingredients-not-parsed-description": "Det ser ut som ingridensene ikke har blitt analysert enda. Klikk\"{parse}\"-knappen under for å analysere ingrediensese som strukturert matvarer.",
     "attach-images-hint": "Fest bilder ved å dra og slippe dem inn i redigereringsverktøyet",
     "drop-image": "Slipp bilde",
     "enable-ingredient-amounts-to-use-this-feature": "Aktiver ingrediensmengder for å bruke denne funksjonen",
@@ -624,7 +635,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kan importere fra rådata direkte",
     "import-original-keywords-as-tags": "Importer originale søkeord som emneord",
     "stay-in-edit-mode": "Forbli i redigeringsmodus",
-    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
+    "parse-recipe-ingredients-after-import": "Analyser oppskriftens ingredienser etter at importen er fullført",
     "import-from-zip": "Importer fra zip-fil",
     "import-from-zip-description": "Importer en enkelt oppskrift som ble eksportert fra en annen Mealie-instans.",
     "import-from-html-or-json": "Importer fra HTML eller JSON",
@@ -668,15 +679,15 @@
       "no-unit": "Ingen enhet",
       "missing-unit": "Opprett manglende enhet: {unit}",
       "missing-food": "Opprett manglende mat: {food}",
-      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
+      "this-unit-could-not-be-parsed-automatically": "Denne enheten kunne ikke analyseres automatisk",
       "this-food-could-not-be-parsed-automatically": "Denne maten kunne ikke leses automatisk",
       "no-food": "Ingen matvarer",
-      "parsing-completed": "Parsing Completed",
-      "review-parsed-ingredients": "Review parsed ingredients",
-      "confidence-score": "Confidence Score",
-      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
-      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
+      "review-parsed-ingredients": "Gjennomgå de analyserte ingrediensene",
+      "confidence-score": "Tillit score",
+      "ingredient-parser-description": "Ingrediensene har blitt analysert. Venligst gjennomgå ingrediensene vi ikke er sikkre på.",
+      "ingredient-parser-final-review-description": "Når alle ingredienser er gjennomgått, har du en siste sjanse til å gjennomgå alle ingrediensene før du tar i bruk endringene på oppskriften din.",
+      "add-text-as-alias-for-item": "Legg til \"{text}\" som kallenavn for {item}",
+      "delete-item": "Slett gjenstanden"
     },
     "reset-servings-count": "Nullstill antall porsjoner",
     "not-linked-ingredients": "Tilleggsingredienser",
@@ -684,7 +695,10 @@
     "upload-images": "Last opp bilder",
     "upload-more-images": "Last opp flere bilder",
     "set-as-cover-image": "Bruk som forsidebilde for oppskriften",
-    "cover-image": "Forsidebilde"
+    "cover-image": "Forsidebilde",
+    "include-linked-recipes": "Inkluder lenkede oppskrifter",
+    "include-linked-recipe-ingredients": "Inkluder lenkede oppskriftsingredienser",
+    "toggle-recipe": "Aktiver/deaktiver oppskrift"
   },
   "recipe-finder": {
     "recipe-finder": "Oppskriftsfinner",
@@ -721,7 +735,8 @@
     "search-hint": "Trykk på '/'",
     "advanced": "Avansert",
     "auto-search": "Autosøk",
-    "no-results": "Ingen resultater funnet"
+    "no-results": "Ingen resultater funnet",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Legg til nytt tema",
@@ -1059,7 +1074,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ønsker du ikke å se dette lenger? Sørg for å endre e-posten din i brukerinnstillingene dine!",
     "forgot-password": "Glemt passord",
     "forgot-password-text": "Skriv inn e-postadressen din. Vi sender deg en e-post slik at du kan tilbakestille passordet ditt.",
-    "changes-reflected-immediately": "Endringer på denne brukeren gjenspeiles umiddelbart."
+    "changes-reflected-immediately": "Endringer på denne brukeren gjenspeiles umiddelbart.",
+    "default-activity": "Standard aktivitet",
+    "default-activity-hint": "Velg hvilken side du vil navigere til når du logger inn fra denne enheten"
   },
   "language-dialog": {
     "translated": "oversatt",
@@ -1177,7 +1194,7 @@
     "group-details": "Gruppedetaljer",
     "group-details-description": "Før du oppretter en konto må du opprette en gruppe. Gruppen din vil bare inneholde deg, men du vil kunne invitere andre senere. Medlemmer i gruppen din kan dele måltider, handlelister, oppskrifter med mer!",
     "use-seed-data": "Bruk tilføringsdata",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
+    "use-seed-data-description": "Mealie leveres med en kolleksjon av matvarer, enheter og etiketter, som can bli brukt til å utfylle gruppen med hjelpsom data for organisering av oppskrifter. Disse er oversatt over til språket du har valgt. Du kan alltid legge til eller modifisere denne dataen senere.",
     "account-details": "Kontodetaljer"
   },
   "validation": {

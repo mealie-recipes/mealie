@@ -3,14 +3,23 @@ from typing import Annotated
 import sqlalchemy as sa
 from pydantic import UUID4, ConfigDict, Field, ValidationInfo, field_validator
 from slugify import slugify
+from sqlalchemy.orm import joinedload
+from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.root_logger import get_logger
+from mealie.db.models.household.cookbook import CookBook
 from mealie.db.models.recipe import RecipeModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
 from mealie.schema.response.query_filter import QueryFilterBuilder, QueryFilterJSON
 
 logger = get_logger()
+
+
+class CookbookHousehold(MealieModel):
+    id: UUID4
+    name: str
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CreateCookBook(MealieModel):
@@ -62,6 +71,7 @@ class UpdateCookBook(SaveCookBook):
 
 class ReadCookBook(UpdateCookBook):
     query_filter: Annotated[QueryFilterJSON, Field(validate_default=True)] = None  # type: ignore
+    household: CookbookHousehold | None = None
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -79,6 +89,10 @@ class ReadCookBook(UpdateCookBook):
         except Exception:
             logger.exception(f"Invalid query filter string: {query_filter_string}")
             return QueryFilterJSON()
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [joinedload(CookBook.household)]
 
 
 class CookBookPagination(PaginationBase):

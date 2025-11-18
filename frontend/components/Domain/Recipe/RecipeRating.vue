@@ -2,7 +2,8 @@
   <div @click.prevent>
     <!-- User Rating -->
     <v-hover v-slot="{ isHovering, props }">
-      <v-rating v-if="isOwnGroup && (userRating || isHovering || !ratingsLoaded)"
+      <v-rating
+        v-if="isOwnGroup && (userRating || isHovering || !ratingsLoaded)"
         v-bind="props"
         :model-value="userRating"
         active-color="secondary"
@@ -15,7 +16,8 @@
         @update:model-value="updateRating(+$event)"
       />
       <!-- Group Rating -->
-      <v-rating v-else
+      <v-rating
+        v-else
         v-bind="props"
         :model-value="groupRating"
         :half-increments="true"

@@ -57,7 +57,7 @@
       </div>
     </template>
     <template #[`item.dateAdded`]="{ item }">
-      {{ formatDate(item.dateAdded!) }}
+      {{ item.dateAdded ? $d(new Date(item.dateAdded)) : '' }}
     </template>
   </v-data-table>
 </template>
@@ -152,15 +152,6 @@ const headers = computed(() => {
 
   return hdrs;
 });
-
-function formatDate(date: string) {
-  try {
-    return i18n.d(Date.parse(date), "medium");
-  }
-  catch {
-    return "";
-  }
-}
 
 // ============
 // Group Members

@@ -57,7 +57,7 @@
     "event-delete-confirmation": "Tem certeza de que quer excluir este evento?",
     "event-deleted": "Evento Excluído",
     "event-updated": "Evento Atualizado",
-    "new-notification-form-description": "Mealie usa a biblioteca Apprise para gerar notificações. Eles oferecem várias opções de serviços para usar em notificações. Consulte sua wiki para um guia completo sobre como criar a URL para o seu serviço. Se disponível, selecionar o tipo da sua notificação pode incluir recursos extras.",
+    "new-notification-form-description": "Mealie usa a biblioteca Apprise para gerar notificações. Eles oferecem várias opções de serviços para serem usados para notificações. Consulte a wiki para um guia completo sobre como criar a URL para o seu serviço. Se disponível, selecionar o tipo de notificação pode incluir recursos extras.",
     "new-version": "Nova versão disponível!",
     "notification": "Notificação",
     "refresh": "Recarregar",
@@ -399,6 +399,10 @@
       "description-long": "Mealie pode importar receitas do Tandoor. Exporte seus dados no formato \"Padrão\" e faça o upload do arquivo .zip abaixo.",
       "title": "Receitas do Tandoor"
     },
+    "cookn": {
+      "description-long": "O Mealie pode importar receitas do DVO Cook’n X3. Exporte um livro de receitas ou menu no formato “Cook'n”, renomeie a extensão do arquivo exportado para .zip e, em seguida, envie o arquivo .zip abaixo.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migrações de Dados de Receita",
     "recipe-data-migrations-explanation": "Receitas podem ser migradas de outro aplicativo suportado para o Mealie. Esta é uma ótima maneira de começar com Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Vindo de outra aplicação ou de uma versão mais antiga do Mealie? Confira as migrações e veja se seus dados podem ser importados.",
@@ -444,7 +448,9 @@
     "split-by-numbered-line-description": "Tenta dividir um parágrafo correspondendo aos padrões '1)' ou '1.'",
     "import-by-url": "Importar uma receita por URL",
     "create-manually": "Crie uma receita manualmente",
-    "make-recipe-image": "Tornar esta a imagem da receita"
+    "make-recipe-image": "Tornar esta a imagem da receita",
+    "add-food": "Adicionar Alimento",
+    "add-recipe": "Adicionar Receita"
   },
   "page": {
     "404-page-not-found": "404 Página não encontrada",
@@ -511,6 +517,9 @@
     "recipe-deleted": "Receita excluída",
     "recipe-image": "Imagem da Receita",
     "recipe-image-updated": "Imagem da receita atualizada",
+    "delete-image": "Deletar Imagem da Receita",
+    "delete-image-confirmation": "Tem certeza que deseja deletar a imagem da receita?",
+    "recipe-image-deleted": "Imagem da receita deletada",
     "recipe-name": "Nome da Receita",
     "recipe-settings": "Configurações da Receita",
     "recipe-update-failed": "Falha ao atualizar a receita",
@@ -556,6 +565,7 @@
     "choose-unit": "Escolher unidades",
     "press-enter-to-create": "Pressione Enter para criar",
     "choose-food": "Escolher Comida",
+    "choose-recipe": "Selecionar Receita",
     "notes": "Notas",
     "toggle-section": "Alternar Seção",
     "see-original-text": "Exibir texto original",
@@ -583,6 +593,7 @@
     "made-this": "Eu Fiz Isso",
     "how-did-it-turn-out": "Como que ficou?",
     "user-made-this": "{user} fez isso",
+    "made-for-recipe": "Feito para {recipe}",
     "added-to-timeline": "Adicionado à linha do tempo",
     "failed-to-add-to-timeline": "Falha ao adicionar à linha do tempo",
     "failed-to-update-recipe": "Falha ao atualizar receita",
@@ -624,7 +635,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Você pode importar diretamente de dados brutos",
     "import-original-keywords-as-tags": "Importar palavras-chave originais como marcadores",
     "stay-in-edit-mode": "Permanecer no modo de edição",
-    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
+    "parse-recipe-ingredients-after-import": "Interpretar os ingredientes da receita após importar",
     "import-from-zip": "Importar do .zip",
     "import-from-zip-description": "Importar uma única receita exportada de outra instância Mealie.",
     "import-from-html-or-json": "Importar de HTML ou JSON",
@@ -671,12 +682,12 @@
       "this-unit-could-not-be-parsed-automatically": "Esta unidade não pôde ser analisada automaticamente",
       "this-food-could-not-be-parsed-automatically": "Este alimento não pôde ser analisado automaticamente",
       "no-food": "Sem Comida",
-      "parsing-completed": "Parsing Completed",
-      "review-parsed-ingredients": "Review parsed ingredients",
-      "confidence-score": "Confidence Score",
-      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
-      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}"
+      "review-parsed-ingredients": "Revisar ingredientes analisados",
+      "confidence-score": "Nota de Confiança",
+      "ingredient-parser-description": "Seus ingredientes foram analisados com sucesso. Por favor, verifique os ingredientes que não temos certeza.",
+      "ingredient-parser-final-review-description": "Depois que todos os ingredientes forem revisados, você terá mais uma chance de revisar todos os ingredientes antes de aplicar as mudanças em sua receita.",
+      "add-text-as-alias-for-item": "Adicionar \"{text}\" como apelido para {item}",
+      "delete-item": "Excluir item"
     },
     "reset-servings-count": "Redefinir Contagem de Porções",
     "not-linked-ingredients": "Ingredientes adicionais",
@@ -684,7 +695,10 @@
     "upload-images": "Carregar imagens",
     "upload-more-images": "Carregar mais imagens",
     "set-as-cover-image": "Definir como imagem de capa da receita",
-    "cover-image": "Imagem de capa"
+    "cover-image": "Imagem de capa",
+    "include-linked-recipes": "Incluir Receita Linkada",
+    "include-linked-recipe-ingredients": "Incluir Ingredientes da Receita Linkada",
+    "toggle-recipe": "Alternar Receita"
   },
   "recipe-finder": {
     "recipe-finder": "Localizador de Receitas",
@@ -721,7 +735,8 @@
     "search-hint": "Pressione '/'",
     "advanced": "Avançado",
     "auto-search": "Pesquisa automática",
-    "no-results": "Nenhum resultado encontrado"
+    "no-results": "Nenhum resultado encontrado",
+    "type-to-search": "Digite para pesquisar..."
   },
   "settings": {
     "add-a-new-theme": "Adicionar um novo tema",
@@ -1059,7 +1074,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Não quer mais ver isto? Não se esqueça de alterar seu e-mail nas configurações do seu usuário!",
     "forgot-password": "Esqueci minha senha",
     "forgot-password-text": "Digite seu endereço de e-mail e enviaremos um link para redefinir sua senha.",
-    "changes-reflected-immediately": "As alterações deste usuário serão refletidas imediatamente."
+    "changes-reflected-immediately": "As alterações deste usuário serão refletidas imediatamente.",
+    "default-activity": "Atividade padrão",
+    "default-activity-hint": "Selecione para qual página você deseja ser direcionado ao fazer \"login\" neste dispositivo"
   },
   "language-dialog": {
     "translated": "traduzido",

@@ -31,7 +31,7 @@
           :placeholder="$t('recipe.quantity')"
           @keypress="quantityFilter"
         >
-          <template #prepend>
+          <template v-if="enableDragHandle" #prepend>
             <v-icon
               class="mr-n1 handle"
             >
@@ -41,6 +41,7 @@
         </v-text-field>
       </v-col>
       <v-col
+        v-if="!state.isRecipe"
         sm="12"
         md="3"
         cols="12"
@@ -59,6 +60,7 @@
           class="mx-1"
           :placeholder="$t('recipe.choose-unit')"
           clearable
+          :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
           @keyup.enter="handleUnitEnter"
         >
           <template #prepend>
@@ -96,6 +98,7 @@
 
       <!-- Foods Input -->
       <v-col
+        v-if="!state.isRecipe"
         m="12"
         md="3"
         cols="12"
@@ -115,6 +118,7 @@
           class="mx-1 py-0"
           :placeholder="$t('recipe.choose-food')"
           clearable
+          :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
           @keyup.enter="handleFoodEnter"
         >
           <template #prepend>
@@ -149,6 +153,35 @@
           </template>
         </v-autocomplete>
       </v-col>
+      <!-- Recipe Input -->
+      <v-col
+        v-if="state.isRecipe"
+        m="12"
+        md="6"
+        cols="12"
+        class=""
+      >
+        <v-autocomplete
+          ref="search.query"
+          v-model="model.referencedRecipe"
+          v-model:search="search.query.value"
+          auto-select-first
+          hide-details
+          density="compact"
+          variant="solo"
+          return-object
+          :items="search.data.value || []"
+          item-title="name"
+          class="mx-1 py-0"
+          :placeholder="$t('search.type-to-search')"
+          clearable
+          :label="!model.referencedRecipe ? $t('recipe.choose-recipe') : ''"
+          @click="search.trigger()"
+          @focus="search.trigger()"
+        >
+          <template #prepend />
+        </v-autocomplete>
+      </v-col>
       <v-col
         sm="12"
         md=""
@@ -171,6 +204,7 @@
             class="my-auto d-flex"
             :buttons="btns"
             @toggle-section="toggleTitle"
+            @toggle-subrecipe="toggleIsRecipe"
             @insert-above="$emit('insert-above')"
             @insert-below="$emit('insert-below')"
             @delete="$emit('delete')"
@@ -178,6 +212,7 @@
         </div>
       </v-col>
     </v-row>
+    <slot name="before-divider" />
     <v-divider
       v-if="!mdAndUp"
       class="my-4"
@@ -192,11 +227,21 @@ import { useI18n } from "vue-i18n";
 import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
 import { useNuxtApp } from "#app";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
+import { usePublicExploreApi, useUserApi } from "~/composables/api";
+import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 
 // defineModel replaces modelValue prop
 const model = defineModel<RecipeIngredient>({ required: true });
 
-defineProps({
+const props = defineProps({
+  menuAttachTarget: {
+    type: String,
+    default: "body",
+  },
+  isRecipe: {
+    type: Boolean,
+    default: false,
+  },
   unitError: {
     type: Boolean,
     default: false,
@@ -217,6 +262,14 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  enableDragHandle: {
+    type: Boolean,
+    default: false,
+  },
+  deleteDisabled: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 defineEmits([
@@ -232,6 +285,7 @@ const { $globals } = useNuxtApp();
 
 const state = reactive({
   showTitle: false,
+  isRecipe: props.isRecipe,
 });
 
 const contextMenuOptions = computed(() => {
@@ -239,6 +293,10 @@ const contextMenuOptions = computed(() => {
     {
       text: i18n.t("recipe.toggle-section"),
       event: "toggle-section",
+    },
+    {
+      text: i18n.t("recipe.toggle-recipe"),
+      event: "toggle-subrecipe",
     },
     {
       text: i18n.t("recipe.insert-above"),
@@ -270,8 +328,8 @@ const btns = computed(() => {
     text: i18n.t("general.delete"),
     event: "delete",
     children: undefined,
+    disabled: props.deleteDisabled,
   });
-
   return out;
 });
 
@@ -287,6 +345,25 @@ async function createAssignFood() {
   foodData.reset();
   foodAutocomplete.value?.blur();
 }
+
+// Recipes
+const route = useRoute();
+const $auth = useMealieAuth();
+const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+
+const { isOwnGroup } = useLoggedInState();
+const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
+const search = useRecipeSearch(api);
+const loading = ref(false);
+const selectedIndex = ref(-1);
+// Reset or Grab Recipes on Change
+watch(loading, (val) => {
+  if (!val) {
+    search.query.value = "";
+    selectedIndex.value = -1;
+    search.data.value = [];
+  }
+});
 
 // Units
 const unitStore = useUnitStore();
@@ -306,6 +383,17 @@ function toggleTitle() {
     model.value.title = "";
   }
   state.showTitle = !state.showTitle;
+}
+
+function toggleIsRecipe() {
+  if (state.isRecipe) {
+    model.value.referencedRecipe = undefined;
+  }
+  else {
+    model.value.unit = undefined;
+    model.value.food = undefined;
+  }
+  state.isRecipe = !state.isRecipe;
 }
 
 function handleUnitEnter() {

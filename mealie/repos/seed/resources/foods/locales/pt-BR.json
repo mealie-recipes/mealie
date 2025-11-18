@@ -4,7 +4,7 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "alho",
+                "name": "alholt\night",
                 "plural_name": "alhos"
             },
             "onion": {
@@ -101,7 +101,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "milho doce",
-                "plural_name": "milhos-doce"
+                "plural_name": "milhos doce"
             },
             "chile pepper": {
                 "aliases": [
@@ -109,13 +109,13 @@
                 ],
                 "description": "",
                 "name": "pimenta malagueta",
-                "plural_name": "pimentas-malagueta"
+                "plural_name": "pimentas malagueta"
             },
             "sweet potato": {
                 "aliases": [],
                 "description": "",
                 "name": "batata-doce",
-                "plural_name": "batatas-doce"
+                "plural_name": "batatas doce"
             },
             "broccoli": {
                 "aliases": [],
@@ -413,8 +413,8 @@
             "acorn squash": {
                 "aliases": [],
                 "description": "",
-                "name": "abóbora-cabotiá",
-                "plural_name": "abóboras-cabotiá"
+                "name": "abóbora-bolota",
+                "plural_name": "abóbora-bolota"
             },
             "corn cob": {
                 "aliases": [],
@@ -809,7 +809,7 @@
             "papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "mamão",
+                "name": "mamão papaia",
                 "plural_name": "mamões"
             },
             "tamarind": {
@@ -1245,8 +1245,8 @@
             "shiitake mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shiitake mushroom",
-                "plural_name": "shiitake mushrooms"
+                "name": "Cogumelo Shiitake",
+                "plural_name": "shitakes"
             },
             "portobello mushroom": {
                 "aliases": [],
@@ -1420,7 +1420,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "puffball",
-                "plural_name": "puffballs"
+                "plural_name": "Cogumelos bola"
             },
             "honey fungu": {
                 "aliases": [],
@@ -1651,7 +1651,7 @@
             "cloudberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cloudberry",
+                "name": "Amora das nuvens",
                 "plural_name": "cloudberries"
             },
             "freeze-dried berry": {
@@ -1949,7 +1949,7 @@
             "sunflower sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower sprout",
+                "name": "Broto de girassol",
                 "plural_name": "sunflower sprouts"
             },
             "apricot kernel": {
@@ -2220,7 +2220,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "herb cream cheese",
-                "plural_name": "herb cream cheeses"
+                "plural_name": "Cream cheese de ervas"
             },
             "burrata": {
                 "aliases": [],
@@ -2249,8 +2249,8 @@
             "muenster": {
                 "aliases": [],
                 "description": "",
-                "name": "muenster",
-                "plural_name": "muensters"
+                "name": "Queijo Muenster",
+                "plural_name": "Queijo muensters"
             },
             "string cheese": {
                 "aliases": [],
@@ -2322,7 +2322,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "creamy cheese wedge",
-                "plural_name": "creamy cheese wedges"
+                "plural_name": "Pedaços de cream cheese"
             },
             "cheese powder": {
                 "aliases": [],
@@ -2429,7 +2429,7 @@
             "cambozola": {
                 "aliases": [],
                 "description": "",
-                "name": "cambozola",
+                "name": "Queijo cambozola",
                 "plural_name": "cambozolas"
             },
             "cheshire cheese": {
@@ -2586,7 +2586,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "epoisses cheese",
-                "plural_name": "epoisses cheeses"
+                "plural_name": "Queijos epoisses"
             },
             "maasdam": {
                 "aliases": [],
@@ -2632,7 +2632,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "heavy cream",
-                "plural_name": "heavy creams"
+                "plural_name": "cremes de leite fresco"
             },
             "sour cream": {
                 "aliases": [],
@@ -2891,7 +2891,7 @@
             "skyr": {
                 "aliases": [],
                 "description": "",
-                "name": "skyr",
+                "name": "Iorgute islândes proteico",
                 "plural_name": "skyrs"
             },
             "pumpkin spice coffee creamer": {
@@ -3854,7 +3854,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pork rib",
-                "plural_name": "pork ribs"
+                "plural_name": "costelas de porco"
             },
             "smoked sausage": {
                 "aliases": [],
@@ -4866,7 +4866,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hambúrguer de frango",
-                "plural_name": "hambúrgueres de frango"
+                "plural_name": "hambúrguer de frango"
             },
             "chicken rib": {
                 "aliases": [],
@@ -8088,7 +8088,7 @@
             "cassava flour": {
                 "aliases": [],
                 "description": "",
-                "name": "cassava flour",
+                "name": "farinha de mandioca",
                 "plural_name": "cassava flours"
             },
             "whipped cream stabilizer": {
@@ -9524,8 +9524,8 @@
                     "lasagnas"
                 ],
                 "description": "",
-                "name": "lasagna noodle",
-                "plural_name": "lasagna noodles"
+                "name": "massa de lasanha",
+                "plural_name": "massas de lasanha"
             },
             "linguine": {
                 "aliases": [],
@@ -10670,8 +10670,8 @@
             "sesame oil": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame oil",
-                "plural_name": "sesame oils"
+                "name": "óleo de gergelim",
+                "plural_name": "óleos de gergelim"
             },
             "frying oil": {
                 "aliases": [],
@@ -10694,8 +10694,8 @@
             "toasted sesame oil": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted sesame oil",
-                "plural_name": "toasted sesame oils"
+                "name": "óleo de gergelim torrado",
+                "plural_name": "óleos de gergelim torrado"
             },
             "peanut oil": {
                 "aliases": [],
@@ -11096,8 +11096,8 @@
             "vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "vinegar",
-                "plural_name": "vinegars"
+                "name": "vinagre",
+                "plural_name": "vinagres"
             },
             "red wine vinegar": {
                 "aliases": [],
@@ -11234,8 +11234,8 @@
             "sesame dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame dressing",
-                "plural_name": "sesame dressings"
+                "name": "molho de gergelim para salada",
+                "plural_name": "molhos de gergelim para salada"
             },
             "honey mustard dressing": {
                 "aliases": [],
@@ -12125,7 +12125,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "black olive",
-                "plural_name": "black olives"
+                "plural_name": "azeitonas pretas"
             },
             "canned black bean": {
                 "aliases": [],
@@ -12716,7 +12716,7 @@
             "tomato sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato sauce",
+                "name": "molho de tomate",
                 "plural_name": "tomato sauces"
             },
             "salsa": {
@@ -12959,7 +12959,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mustard sauce",
-                "plural_name": "mustard sauces"
+                "plural_name": "molhos de mostarda"
             },
             "sun-dried tomato paste": {
                 "aliases": [],
@@ -13144,8 +13144,8 @@
             "sesame sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame sauce",
-                "plural_name": "sesame sauces"
+                "name": "molho de gergelim",
+                "plural_name": "molhos de gergelim"
             },
             "cheese spread": {
                 "aliases": [],

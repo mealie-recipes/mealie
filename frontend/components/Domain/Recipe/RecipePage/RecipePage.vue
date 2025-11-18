@@ -95,9 +95,12 @@
       <RecipePrintContainer :recipe="recipe" :scale="scale" />
     </v-container>
     <!-- Cook mode displayes two columns with ingredients and instructions side by side, each being scrolled individually, allowing to view both at the same time -->
+    <!-- The calc is to account for the navabar height (48px) -->
     <v-sheet
       v-show="isCookMode && !hasLinkedIngredients"
       key="cookmode"
+      :height="$vuetify.display.smAndUp ? 'calc(100vh - 48px)' : 'auto'"
+      className="overflow-hidden"
     >
       <!-- the calc is to account for the toolbar a more dynamic solution could be needed  -->
       <v-row style="height: 100%" no-gutters class="overflow-hidden">
@@ -113,9 +116,13 @@
           />
           <v-divider />
         </v-col>
-        <v-col class="overflow-y-auto"
-        :class="$vuetify.display.smAndDown ? 'py-2': 'py-6'"
-        style="height: 100%" cols="12" sm="7">
+        <v-col
+          class="overflow-y-auto"
+          :class="$vuetify.display.smAndDown ? 'py-2': 'py-6'"
+          style="height: 100%"
+          cols="12"
+          sm="7"
+        >
           <h2 class="text-h5 px-4 font-weight-medium opacity-80">
             {{ $t('recipe.instructions') }}
           </h2>
@@ -192,6 +199,7 @@ import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useNavigationWarning } from "~/composables/use-navigation-warning";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
@@ -200,6 +208,7 @@ const display = useDisplay();
 const i18n = useI18n();
 const $auth = useMealieAuth();
 const route = useRoute();
+const { isOwnGroup } = useLoggedInState();
 
 const groupSlug = computed(() => (route.params.groupSlug as string) || $auth.user?.value?.groupSlug || "");
 
@@ -258,11 +267,11 @@ const paramsEdit = useRouteQuery<BooleanString>("edit", "");
 const paramsParse = useRouteQuery<BooleanString>("parse", "");
 
 onMounted(() => {
-  if (paramsEdit.value === "true") {
+  if (paramsEdit.value === "true" && isOwnGroup.value) {
     setMode(PageMode.EDIT);
   }
 
-  if (paramsParse.value === "true") {
+  if (paramsParse.value === "true" && isOwnGroup.value) {
     toggleIsParsing(true);
   }
 });
@@ -284,10 +293,13 @@ watch(isParsing, () => {
  */
 
 async function saveRecipe() {
-  const { data } = await api.recipes.updateOne(recipe.value.slug, recipe.value);
-  setMode(PageMode.VIEW);
+  const { data, error } = await api.recipes.updateOne(recipe.value.slug, recipe.value);
+  if (!error) {
+    setMode(PageMode.VIEW);
+  }
   if (data?.slug) {
     router.push(`/g/${groupSlug.value}/r/` + data.slug);
+    recipe.value = data as NoUndefinedField<Recipe>;
   }
 }
 

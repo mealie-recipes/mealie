@@ -9,7 +9,7 @@ const publicLoading = ref(false);
 
 export const useCookbookStore = function (i18n?: Composer) {
   const api = useUserApi(i18n);
-  const store = useStore<ReadCookBook>(cookbooks, loading, api.cookbooks);
+  const store = useStore<ReadCookBook>("cookbook", cookbooks, loading, api.cookbooks);
 
   const updateAll = async function (updateData: UpdateCookBook[]) {
     loading.value = true;
@@ -25,5 +25,5 @@ export const useCookbookStore = function (i18n?: Composer) {
 
 export const usePublicCookbookStore = function (groupSlug: string, i18n?: Composer) {
   const api = usePublicExploreApi(groupSlug, i18n).explore;
-  return useReadOnlyStore<ReadCookBook>(cookbooks, publicLoading, api.cookbooks);
+  return useReadOnlyStore<ReadCookBook>("cookbook", cookbooks, publicLoading, api.cookbooks);
 };

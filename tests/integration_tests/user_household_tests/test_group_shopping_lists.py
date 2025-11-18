@@ -11,6 +11,7 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListOut,
 )
 from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientFood
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.assertion_helpers import assert_deserialize
@@ -243,6 +244,121 @@ def test_shopping_lists_add_recipes(
     for recipe in recipes:
         assert str(recipe.id) in refs_by_id
         assert refs_by_id[str(recipe.id)]["recipeQuantity"] == 2
+
+
+def test_shopping_lists_add_nested_recipe_ingredients(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_lists: list[ShoppingListOut],
+):
+    """Test that adding a recipe with nested recipe ingredients flattens all ingredients (a -> b -> c)."""
+    shopping_list = random.choice(shopping_lists)
+    database = unique_user.repos
+
+    # Create three food items for the base recipes
+    food_c = database.ingredient_foods.create(
+        SaveIngredientFood(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+        )
+    )
+
+    food_b = database.ingredient_foods.create(
+        SaveIngredientFood(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+        )
+    )
+
+    food_a = database.ingredient_foods.create(
+        SaveIngredientFood(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+        )
+    )
+
+    # Create recipe_c with a single food ingredient (base recipe)
+    recipe_c: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note=f"ingredient from recipe c - {food_c.name}", food=food_c, quantity=1),
+            ],
+        )
+    )
+
+    # Create recipe_b with its own food ingredient and a reference to recipe_c (c -> b)
+    recipe_b: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note=f"ingredient from recipe b - {food_b.name}", food=food_b, quantity=2),
+                RecipeIngredient(note="nested recipe c", referenced_recipe=recipe_c),
+            ],
+        )
+    )
+
+    # Create recipe_a with its own food ingredient and a reference to recipe_b (b -> a, creating chain c -> b -> a)
+    recipe_a: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note=f"ingredient from recipe a - {food_a.name}", food=food_a, quantity=3),
+                RecipeIngredient(note="nested recipe b", referenced_recipe=recipe_b),
+            ],
+        )
+    )
+
+    # Add recipe_a to the shopping list
+    response = api_client.post(
+        api_routes.households_shopping_lists_item_id_recipe(shopping_list.id),
+        json=utils.jsonify([ShoppingListAddRecipeParamsBulk(recipe_id=recipe_a.id).model_dump()]),
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    # Get the shopping list and verify all ingredients from a, b, and c are flattened
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    shopping_list_data = utils.assert_deserialize(response, 200)
+
+    # Should have 3 items: one from recipe_a, one from recipe_b, and one from recipe_c
+    assert len(shopping_list_data["listItems"]) == 3
+
+    # Verify each ingredient is present with the correct quantity
+    found_ingredients = {
+        food_a.name: False,
+        food_b.name: False,
+        food_c.name: False,
+    }
+
+    for item in shopping_list_data["listItems"]:
+        if food_a.name in item["note"]:
+            assert item["quantity"] == 3
+            found_ingredients[food_a.name] = True
+        elif food_b.name in item["note"]:
+            assert item["quantity"] == 2
+            found_ingredients[food_b.name] = True
+        elif food_c.name in item["note"]:
+            assert item["quantity"] == 1
+            found_ingredients[food_c.name] = True
+
+    # Ensure all ingredients were found
+    assert all(found_ingredients.values()), f"Missing ingredients: {found_ingredients}"
+
+    # Verify recipe reference
+    refs = shopping_list_data["recipeReferences"]
+    assert len(refs) == 1
+    assert refs[0]["recipeId"] == str(recipe_a.id)
+    assert refs[0]["recipeQuantity"] == 1
 
 
 @pytest.mark.parametrize("is_private_household", [True, False])

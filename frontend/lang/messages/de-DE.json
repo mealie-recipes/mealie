@@ -47,7 +47,7 @@
     "category-updated": "Kategorie aktualisiert",
     "uncategorized-count": "Nicht kategorisiert {count}",
     "create-a-category": "Eine Kategorie erstellen",
-    "category-name": "Name der Kategorie",
+    "category-name": "Kategoriename",
     "category": "Kategorie"
   },
   "events": {
@@ -399,6 +399,10 @@
       "description-long": "Mealie kann Rezepte von Tandoor importieren. Exportiere deine Daten im 'Default' Format und lade dann unten die .zip Datei hoch.",
       "title": "Tandoor Rezepte"
     },
+    "cookn": {
+      "description-long": "Mealie kann Rezepte von DVO Cook'n X3 importieren. Exportieren Sie ein Kochbuch oder ein Menü im \"Cook'n\"-Format, benennen Sie die Export-Erweiterung in .zip um, dann laden Sie die .zip unten hoch.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Rezeptdatenmigration",
     "recipe-data-migrations-explanation": "Rezepte können aus unterstützten Programmen nach Mealie migriert werden. Das ist eine gute Möglichkeit, um mit Mealie loszulegen.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Wechselst du von einer anderen Anwendung oder einer noch älteren Version von Mealie? Prüfe die Migrations-Optionen, vielleicht können deine Daten importiert werden.",
@@ -444,7 +448,9 @@
     "split-by-numbered-line-description": "Absätze nach dem Schema '1)' oder '1.' aufzuteilen versuchen",
     "import-by-url": "Ein Rezept von einer Webseite importieren",
     "create-manually": "Ein Rezept manuell erstellen",
-    "make-recipe-image": "Als Rezept-Titelbild verwenden"
+    "make-recipe-image": "Als Rezept-Titelbild verwenden",
+    "add-food": "Lebensmittel",
+    "add-recipe": "Rezepte hinzufügen"
   },
   "page": {
     "404-page-not-found": "404 Seite nicht gefunden",
@@ -511,6 +517,9 @@
     "recipe-deleted": "Rezept entfernt",
     "recipe-image": "Rezeptbild",
     "recipe-image-updated": "Rezeptbild aktualisiert",
+    "delete-image": "Rezeptbild löschen",
+    "delete-image-confirmation": "Bist du dir sicher, dass du dieses Rezept löschen möchtest?",
+    "recipe-image-deleted": "Rezeptbild gelöscht",
     "recipe-name": "Rezeptname",
     "recipe-settings": "Rezepteinstellungen",
     "recipe-update-failed": "Aktualisieren des Rezepts fehlgeschlagen",
@@ -556,6 +565,7 @@
     "choose-unit": "Einheit wählen",
     "press-enter-to-create": "Zum Erstellen Eingabetaste drücken",
     "choose-food": "Lebensmittel wählen",
+    "choose-recipe": "Choose Recipe",
     "notes": "Notizen",
     "toggle-section": "Überschrift ein-/ausblenden",
     "see-original-text": "Originaltext anzeigen",
@@ -583,6 +593,7 @@
     "made-this": "Ich hab's gemacht",
     "how-did-it-turn-out": "Wie ist es geworden?",
     "user-made-this": "{user} hat's gemacht",
+    "made-for-recipe": "Erstellt für {recipe}",
     "added-to-timeline": "Zur Zeitleiste hinzugefügt",
     "failed-to-add-to-timeline": "Fehler beim Hinzufügen zur Zeitleiste",
     "failed-to-update-recipe": "Fehler beim Aktualisieren des Rezepts",
@@ -671,12 +682,12 @@
       "this-unit-could-not-be-parsed-automatically": "Diese Einheit konnte nicht automatisch analysiert werden",
       "this-food-could-not-be-parsed-automatically": "Dieses Lebensmittel konnte nicht automatisch analysiert werden",
       "no-food": "Kein Lebensmittel",
-      "parsing-completed": "Parsen abgeschlossen",
       "review-parsed-ingredients": "Geparste Zutaten überprüfen",
       "confidence-score": "Zuverlässigkeitswert",
       "ingredient-parser-description": "Deine Zutaten wurden erfolgreich geparst. Bitte überprüfe die Zutaten, bei denen wir uns nicht sicher sind.",
       "ingredient-parser-final-review-description": "Sobald alle Zutaten überprüft wurden, kannst du nochmal alle Zutaten kontrollieren, bevor die Änderungen ins Rezept übernommen werden.",
-      "add-text-as-alias-for-item": "Füge \"{text}\" als Alias für {item} hinzu"
+      "add-text-as-alias-for-item": "Füge \"{text}\" als Alias für {item} hinzu",
+      "delete-item": "Element löschen"
     },
     "reset-servings-count": "Portionen zurücksetzen",
     "not-linked-ingredients": "Zusätzliche Zutaten",
@@ -684,7 +695,10 @@
     "upload-images": "Bilder hochladen",
     "upload-more-images": "Weitere Bilder hochladen",
     "set-as-cover-image": "Als Rezept-Titelbild setzen",
-    "cover-image": "Titelbild"
+    "cover-image": "Titelbild",
+    "include-linked-recipes": "Verknüpfte Rezepte einbeziehen",
+    "include-linked-recipe-ingredients": "Zutaten verknüpfter Rezepte einbeziehen",
+    "toggle-recipe": "Rezept ein/aus"
   },
   "recipe-finder": {
     "recipe-finder": "Rezept-Suche",
@@ -721,7 +735,8 @@
     "search-hint": "'/' drücken",
     "advanced": "Erweitert",
     "auto-search": "Automatische Suche",
-    "no-results": "Keine Ergebnisse gefunden"
+    "no-results": "Keine Ergebnisse gefunden",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Neues Thema hinzufügen",
@@ -1059,7 +1074,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Möchtest du das hier nicht mehr sehen? Bitte ändere deine E-Mail in den Benutzereinstellungen!",
     "forgot-password": "Passwort vergessen",
     "forgot-password-text": "Bitte gib Deine E-Mail-Adresse ein. Wir werden Dir eine E-Mail zusenden, damit Du Dein Passwort zurücksetzen kannst.",
-    "changes-reflected-immediately": "Änderungen an diesem Benutzer sind sofort wirksam."
+    "changes-reflected-immediately": "Änderungen an diesem Benutzer sind sofort wirksam.",
+    "default-activity": "Standardaktivität",
+    "default-activity-hint": "Wählen Sie die Seite, auf die Sie navigieren möchten, wenn Sie sich von diesem Gerät aus anmelden"
   },
   "language-dialog": {
     "translated": "übersetzt",
