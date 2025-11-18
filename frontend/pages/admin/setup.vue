@@ -19,7 +19,7 @@
       </v-toolbar>
 
       <!-- Stepper Wizard -->
-      <v-stepper v-model="currentPage" mobile-breakpoint="sm">
+      <v-stepper v-model="currentPage" mobile-breakpoint="sm" alt-labels>
         <v-stepper-header>
           <v-stepper-item
             :value="Pages.LANDING"
@@ -568,14 +568,11 @@ async function onFinish() {
   margin-inline-end: 0; /** reset weird margin */
 
   .v-icon {
-    font-size: 2rem;
+    font-size: 1.4rem;
   }
 }
 
-.v-stepper-item.v-stepper-item {
-  display: grid;
-  grid-template-columns: 1fr;
-  place-items: center center;
-  gap: 0.5rem;
+.v-stepper--alt-labels .v-stepper-header .v-divider {
+  margin: 48px -42px 0 !important;
 }
 </style>
