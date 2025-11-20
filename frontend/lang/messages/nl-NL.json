@@ -565,6 +565,7 @@
     "choose-unit": "Kies een eenheid",
     "press-enter-to-create": "Druk op Enter om aan te maken",
     "choose-food": "Levensmiddelen kiezen",
+    "choose-recipe": "Kies recept",
     "notes": "Notities",
     "toggle-section": "Sectie schakelen",
     "see-original-text": "Zie oorspronkelijke tekst",
@@ -734,7 +735,8 @@
     "search-hint": "Druk op '/'",
     "advanced": "Geavanceerd",
     "auto-search": "Automatisch zoeken",
-    "no-results": "Geen resultaten gevonden"
+    "no-results": "Geen resultaten gevonden",
+    "type-to-search": "Zoek..."
   },
   "settings": {
     "add-a-new-theme": "Voeg een nieuw thema toe",

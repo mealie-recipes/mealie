@@ -565,6 +565,7 @@
     "choose-unit": "Velg enhet",
     "press-enter-to-create": "Trykk Enter for å opprette",
     "choose-food": "Velg matvarer",
+    "choose-recipe": "Choose Recipe",
     "notes": "Notater",
     "toggle-section": "Legg til seksjon",
     "see-original-text": "Se opprinnelig tekst",
@@ -734,7 +735,8 @@
     "search-hint": "Trykk på '/'",
     "advanced": "Avansert",
     "auto-search": "Autosøk",
-    "no-results": "Ingen resultater funnet"
+    "no-results": "Ingen resultater funnet",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Legg til nytt tema",

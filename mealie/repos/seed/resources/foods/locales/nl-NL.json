@@ -2111,8 +2111,8 @@
             "american cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "american cheese",
-                "plural_name": "american cheeses"
+                "name": "amerikaanse kaas",
+                "plural_name": "amerikaanse kazen"
             },
             "provolone": {
                 "aliases": [],
@@ -2123,8 +2123,8 @@
             "mexican cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican cheese blend",
-                "plural_name": "mexican cheese blends"
+                "name": "mexicaanse kaasmix",
+                "plural_name": "mexicaanse kaasmengsels"
             },
             "pepper jack": {
                 "aliases": [],
@@ -2136,25 +2136,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "brie",
-                "plural_name": "bries"
+                "plural_name": "brieën"
             },
             "paneer": {
                 "aliases": [],
                 "description": "",
                 "name": "paneer",
-                "plural_name": "paneers"
+                "plural_name": "paneermeel"
             },
             "fontina": {
                 "aliases": [],
                 "description": "",
                 "name": "fontina",
-                "plural_name": "fontinas"
+                "plural_name": "fontina-kaas"
             },
             "queso fresco": {
                 "aliases": [],
                 "description": "",
-                "name": "queso fresco",
-                "plural_name": "queso frescoes"
+                "name": "verse kaas",
+                "plural_name": "verse kazen"
             },
             "quark": {
                 "aliases": [],
@@ -2165,8 +2165,8 @@
             "gouda": {
                 "aliases": [],
                 "description": "",
-                "name": "gouda",
-                "plural_name": "goudas"
+                "name": "goudse kaas",
+                "plural_name": "goudse kazen"
             },
             "cotija": {
                 "aliases": [],
@@ -2196,7 +2196,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chevre",
-                "plural_name": "chevres"
+                "plural_name": "geiten"
             },
             "manchego": {
                 "aliases": [],
@@ -2207,8 +2207,8 @@
             "italian cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "italian cheese blend",
-                "plural_name": "italian cheese blends"
+                "name": "italiaanse kaasmix",
+                "plural_name": "italiaanse kaasmengsels"
             },
             "neufchatel": {
                 "aliases": [],
@@ -2219,8 +2219,8 @@
             "herb cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "herb cream cheese",
-                "plural_name": "herb cream cheeses"
+                "name": "kruidenroomkaas",
+                "plural_name": "kruidenroomkazen"
             },
             "burrata": {
                 "aliases": [],
