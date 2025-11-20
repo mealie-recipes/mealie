@@ -565,6 +565,7 @@
     "choose-unit": "Birim Seçin",
     "press-enter-to-create": "Oluşturmak İçin Enter'a Basın",
     "choose-food": "Yemek Seç",
+    "choose-recipe": "Choose Recipe",
     "notes": "Notlar",
     "toggle-section": "Bölümü Görünürlüğünü Değiştir",
     "see-original-text": "Orijinal Metni Göster",
@@ -734,7 +735,8 @@
     "search-hint": "'/' Tuşuna Basın",
     "advanced": "Gelişmiş",
     "auto-search": "Otomatik Arama",
-    "no-results": "Sonuç bulunamadı"
+    "no-results": "Sonuç bulunamadı",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Yeni Tema Ekle",

@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "El nombre de la receta debe ser único",
         "recipe-created": "Receta creada",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "Imagen de receta eliminada",
         "recipe-defaults": {
             "ingredient-note": "1 Taza de harina",
             "step-text": "Los pasos de receta, así como otros campos en la página de recetas, soportan sintaxis Markdown.\n\n**Agregar un enlace**\n\n[Mi Enlace](https://demo.mealie.io)\n"
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "No tiene permiso para realizar esta acción",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Una receta no puede referenciarse, sea directa o indirectamente",
         "no-entry-found": "No se ha encontrado el recurso solicitado",
         "integrity-error": "Error de integridad de la base de Datos",
         "username-conflict-error": "Este nombre de usuario ya está en uso",
