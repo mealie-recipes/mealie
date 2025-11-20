@@ -90,6 +90,14 @@
               <v-list-item-title>{{ $t("general.last-made") }}</v-list-item-title>
             </div>
           </v-list-item>
+          <v-list-item @click="sortRecipes(EVENTS.shuffle)">
+            <div class="d-flex align-center flex-nowrap">
+              <v-icon class="mr-2" inline>
+                {{ $globals.icons.diceMultiple }}
+              </v-icon>
+              <v-list-item-title>{{ $t("general.random") }}</v-list-item-title>
+            </div>
+          </v-list-item>
         </v-list>
       </v-menu>
       <ContextMenu
@@ -223,6 +231,7 @@ const displayTitleIcon = computed(() => {
 });
 
 const sortLoading = ref(false);
+const randomSeed = ref(Date.now().toString());
 
 const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
@@ -256,13 +265,18 @@ const queryFilter = computed(() => {
 async function fetchRecipes(pageCount = 1) {
   const orderDir = props.query?.orderDirection || preferences.value.orderDirection;
   const orderByNullPosition = props.query?.orderByNullPosition || orderDir === "asc" ? "first" : "last";
+  const orderBy = props.query?.orderBy || preferences.value.orderBy;
+  const localQuery = { ...props.query };
+  if (orderBy === "random") {
+    localQuery._searchSeed = randomSeed.value;
+  }
   return await fetchMore(
     page.value,
     perPage * pageCount,
-    props.query?.orderBy || preferences.value.orderBy,
+    orderBy,
     orderDir,
     orderByNullPosition,
-    props.query,
+    localQuery,
     // we use a computed queryFilter to filter out recipes that have a null value for the property we're sorting by
     queryFilter.value,
   );
@@ -288,6 +302,9 @@ watch(
 );
 
 async function initRecipes() {
+  if (preferences.value.orderBy === "random") {
+    randomSeed.value = Date.now().toString();
+  }
   page.value = 1;
   hasMore.value = true;
 
@@ -379,6 +396,15 @@ async function sortRecipes(sortType: string) {
         "desc",
         true,
       );
+      break;
+    case EVENTS.shuffle:
+      setter(
+        "random",
+        $globals.icons.diceMultiple,
+        $globals.icons.diceMultiple, // icon in asc and desc is the same for random
+      );
+      // We update the seed value to have a different order
+      randomSeed.value = Date.now().toString();
       break;
     default:
       console.log("Unknown Event", sortType);
