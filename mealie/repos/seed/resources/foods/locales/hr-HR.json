@@ -4,26 +4,26 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic",
+                "name": "češnjak",
                 "plural_name": "garlics"
             },
             "onion": {
                 "aliases": [],
                 "description": "",
-                "name": "onion",
-                "plural_name": "onions"
+                "name": "luk",
+                "plural_name": "luk"
             },
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "bell pepper",
-                "plural_name": "bell peppers"
+                "name": "paprika",
+                "plural_name": "paprike"
             },
             "carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "carrot",
-                "plural_name": "carrots"
+                "name": "mrkva",
+                "plural_name": "mrkve"
             },
             "scallion": {
                 "aliases": [],
@@ -58,7 +58,7 @@
             "celery": {
                 "aliases": [],
                 "description": "",
-                "name": "celery",
+                "name": "celer",
                 "plural_name": "celeries"
             },
             "jalapeno": {
@@ -70,7 +70,7 @@
             "avocado": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado",
+                "name": "avokado",
                 "plural_name": "avocados"
             },
             "shallot": {
@@ -82,25 +82,25 @@
             "cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry tomato",
-                "plural_name": "cherry tomatoes"
+                "name": "cherry rajčica",
+                "plural_name": "cherry rajčice"
             },
             "cucumber": {
                 "aliases": [],
                 "description": "",
-                "name": "cucumber",
-                "plural_name": "cucumbers"
+                "name": "krastavac",
+                "plural_name": "krastavci"
             },
             "spinach": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach",
+                "name": "špinat",
                 "plural_name": "spinaches"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet corn",
+                "name": "slatki kukuruz",
                 "plural_name": "sweet corns"
             },
             "chile pepper": {

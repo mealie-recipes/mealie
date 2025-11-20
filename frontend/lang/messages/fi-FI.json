@@ -565,6 +565,7 @@
     "choose-unit": "Valitse Yksikkö",
     "press-enter-to-create": "Luo painamalla Enter",
     "choose-food": "Valitse Ruoka",
+    "choose-recipe": "Choose Recipe",
     "notes": "Merkinnät",
     "toggle-section": "Vaihda osio",
     "see-original-text": "Katso Alkuperäinen Teksti",
@@ -734,7 +735,8 @@
     "search-hint": "Paina '/'",
     "advanced": "Lisäasetukset",
     "auto-search": "Automaattinen Haku",
-    "no-results": "Ei tuloksia"
+    "no-results": "Ei tuloksia",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Lisää uusi teema",

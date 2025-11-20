@@ -2052,7 +2052,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cheddar-jack cheese",
-                "plural_name": "cheddar-jack cheeses"
+                "plural_name": "чедар"
             },
             "monterey jack": {
                 "aliases": [],
@@ -2807,8 +2807,8 @@
             "quail egg": {
                 "aliases": [],
                 "description": "",
-                "name": "quail egg",
-                "plural_name": "quail eggs"
+                "name": "пъдпъдъче яйце",
+                "plural_name": "пъдпъдъчи яйца"
             },
             "buttermilk powder": {
                 "aliases": [],
@@ -3095,8 +3095,8 @@
             "ostrich egg": {
                 "aliases": [],
                 "description": "",
-                "name": "ostrich egg",
-                "plural_name": "ostrich eggs"
+                "name": "щраусово яйце",
+                "plural_name": "щраусови яйца"
             },
             "vanilla milk": {
                 "aliases": [],

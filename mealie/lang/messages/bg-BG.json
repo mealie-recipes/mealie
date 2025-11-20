@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Името на рецептата трябва да е уникално",
         "recipe-created": "Нова рецепта",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "Изображението на рецептата беше изтрито",
         "recipe-defaults": {
             "ingredient-note": "1 чаша брашно",
             "step-text": "Стъпките на рецептата, както и други полета в страницата с рецепти поддържат синтаксис за маркиране.\n\n **Добавяне на връзка**\n\n [Моята връзка](https://demo.mealie.io)\n"
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Нямате разрешение да изпълните това действие",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Рецептата не може да се позовава на самата себе си, нито пряко, нито косвено",
         "no-entry-found": "Търсената страница не е намерена",
         "integrity-error": "Проверка на интегритета на данните",
         "username-conflict-error": "Потребителското име вече е заето",
