@@ -9236,8 +9236,8 @@
             "mung bean sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "mung bean sprout",
-                "plural_name": "mung bean sprouts"
+                "name": "Проростки машу",
+                "plural_name": "Проростків машу"
             },
             "soybean": {
                 "aliases": [],
@@ -9248,14 +9248,14 @@
             "mung bean": {
                 "aliases": [],
                 "description": "",
-                "name": "mung bean",
-                "plural_name": "mung beans"
+                "name": "Боби маш",
+                "plural_name": "Бобів маш"
             },
             "string bean": {
                 "aliases": [],
                 "description": "",
-                "name": "string bean",
-                "plural_name": "string beans"
+                "name": "Стручкова квасоля",
+                "plural_name": "Стручкової квасолі"
             },
             "yellow split pea": {
                 "aliases": [],
@@ -9272,8 +9272,8 @@
             "borlotti bean": {
                 "aliases": [],
                 "description": "",
-                "name": "borlotti bean",
-                "plural_name": "borlotti beans"
+                "name": "Квасоля борлотті",
+                "plural_name": "Квасолі борлотті"
             },
             "aquafaba": {
                 "aliases": [],
@@ -9284,14 +9284,14 @@
             "chana": {
                 "aliases": [],
                 "description": "",
-                "name": "chana",
-                "plural_name": "chanas"
+                "name": "Турецький горох",
+                "plural_name": "Турецького гороху"
             },
             "snake bean": {
                 "aliases": [],
                 "description": "",
-                "name": "snake bean",
-                "plural_name": "snake beans"
+                "name": "Вігна спаржева",
+                "plural_name": "Вігни спаржевої"
             },
             "yellow lentil": {
                 "aliases": [],
@@ -9302,32 +9302,32 @@
             "mixed bean": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed bean",
-                "plural_name": "mixed beans"
+                "name": "Мікс квасолі",
+                "plural_name": "Міксу квасолі"
             },
             "kala chana": {
                 "aliases": [],
                 "description": "",
-                "name": "kala chana",
-                "plural_name": "kala chanas"
+                "name": "Кала чана",
+                "plural_name": "Кала чани"
             },
             "fermented black bean": {
                 "aliases": [],
                 "description": "",
-                "name": "fermented black bean",
-                "plural_name": "fermented black beans"
+                "name": "Ферментовані чорні боби",
+                "plural_name": "Ферментованих чорних бобів"
             },
             "black gram": {
                 "aliases": [],
                 "description": "",
-                "name": "black gram",
-                "plural_name": "black grams"
+                "name": "Чорний урад",
+                "plural_name": "Чорного ураду"
             },
             "wax bean": {
                 "aliases": [],
                 "description": "",
-                "name": "wax bean",
-                "plural_name": "wax beans"
+                "name": "Жовта стручкова квасоля",
+                "plural_name": "Жовтої стручкової квасолі"
             },
             "dried pea": {
                 "aliases": [],
@@ -9338,8 +9338,8 @@
             "pink bean": {
                 "aliases": [],
                 "description": "",
-                "name": "pink bean",
-                "plural_name": "pink beans"
+                "name": "Рожева квасоля",
+                "plural_name": "Рожевої квасолі"
             },
             "lentil sprout": {
                 "aliases": [],
@@ -9356,8 +9356,8 @@
             "black soybean": {
                 "aliases": [],
                 "description": "",
-                "name": "black soybean",
-                "plural_name": "black soybeans"
+                "name": "Чорні соєві боби",
+                "plural_name": "Чорних соєвих бобів"
             },
             "field pea": {
                 "aliases": [],
@@ -9368,26 +9368,26 @@
             "gigante": {
                 "aliases": [],
                 "description": "",
-                "name": "gigante",
-                "plural_name": "gigantes"
+                "name": "Квасоля гіганте",
+                "plural_name": "Квасолі гіганти"
             },
             "flageolet": {
                 "aliases": [],
                 "description": "",
-                "name": "flageolet",
-                "plural_name": "flageolets"
+                "name": "Квасоля флажоле",
+                "plural_name": "Квасолі флажоле"
             },
             "horse gram": {
                 "aliases": [],
                 "description": "",
-                "name": "horse gram",
-                "plural_name": "horse grams"
+                "name": "Кінські боби",
+                "plural_name": "Кінських бобів"
             },
             "soy sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "soy sprout",
-                "plural_name": "soy sprouts"
+                "name": "Паростки сої",
+                "plural_name": "Паростків сої"
             },
             "honey bean": {
                 "aliases": [],
@@ -9398,26 +9398,26 @@
             "cluster bean": {
                 "aliases": [],
                 "description": "",
-                "name": "cluster bean",
-                "plural_name": "cluster beans"
+                "name": "Гуарова квасоля",
+                "plural_name": "Гуарової квасолі"
             },
             "brown bean": {
                 "aliases": [],
                 "description": "",
-                "name": "brown bean",
-                "plural_name": "brown beans"
+                "name": "Коричнева квасоля",
+                "plural_name": "Коричневої квасолі"
             },
             "mayocoba bean": {
                 "aliases": [],
                 "description": "",
-                "name": "mayocoba bean",
-                "plural_name": "mayocoba beans"
+                "name": "Перуанська квасоля",
+                "plural_name": "Перуанської квасолі"
             },
             "winged bean": {
                 "aliases": [],
                 "description": "",
-                "name": "winged bean",
-                "plural_name": "winged beans"
+                "name": "Крилаті боби",
+                "plural_name": "Крилатих бобів"
             },
             "castelluccio lentil": {
                 "aliases": [],
@@ -9428,14 +9428,14 @@
             "golden wax bean": {
                 "aliases": [],
                 "description": "",
-                "name": "golden wax bean",
-                "plural_name": "golden wax beans"
+                "name": "Золота воскова квасоля",
+                "plural_name": "Золотої воскової квасолі"
             },
             "moth bean": {
                 "aliases": [],
                 "description": "",
-                "name": "moth bean",
-                "plural_name": "moth beans"
+                "name": "Молі квасоля",
+                "plural_name": "Молі квасолі"
             },
             "chickpea sprout": {
                 "aliases": [],
@@ -9446,14 +9446,14 @@
             "hara chana": {
                 "aliases": [],
                 "description": "",
-                "name": "hara chana",
-                "plural_name": "hara chanas"
+                "name": "Хара чана",
+                "plural_name": "Зелений нут"
             },
             "lupini bean": {
                 "aliases": [],
                 "description": "",
-                "name": "lupini bean",
-                "plural_name": "lupini beans"
+                "name": "Люпінові боби",
+                "plural_name": "Люпінових бобів"
             },
             "natto": {
                 "aliases": [],
