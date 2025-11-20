@@ -1386,6 +1386,7 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
             'group.preferences.badAttribute="test value"',
             id="bad double nested attribute",
         ),
+        pytest.param('nutrition.calories="test value"', id="comparing int to string"),
     ],
 )
 def test_malformed_query_filters(api_client: TestClient, unique_user: TestUser, qf: str):

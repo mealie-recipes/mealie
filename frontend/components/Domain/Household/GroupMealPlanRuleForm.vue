@@ -118,5 +118,25 @@ const fieldDefs: FieldDefinition[] = [
     label: i18n.t("general.date-updated"),
     type: "date",
   },
+  {
+    name: "nutrition.calories",
+    label: i18n.t("recipe.calories"),
+    type: "number",
+  },
+  {
+    name: "nutrition.protein_content",
+    label: i18n.t("recipe.protein-content"),
+    type: "number",
+  },
+  {
+    name: "nutrition.fat_content",
+    label: i18n.t("recipe.fat-content"),
+    type: "number",
+  },
+  {
+    name: "nutrition.carbohydrate_content",
+    label: i18n.t("recipe.carbohydrate-content"),
+    type: "number",
+  },
 ];
 </script>
