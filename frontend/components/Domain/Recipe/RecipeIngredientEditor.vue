@@ -173,9 +173,11 @@
           :items="search.data.value || []"
           item-title="name"
           class="mx-1 py-0"
-          placeholder="Choose Recipe"
+          :placeholder="$t('search.type-to-search')"
           clearable
-          label="Recipe"
+          :label="!model.referencedRecipe ? $t('recipe.choose-recipe') : ''"
+          @click="search.trigger()"
+          @focus="search.trigger()"
         >
           <template #prepend />
         </v-autocomplete>

@@ -565,6 +565,7 @@
     "choose-unit": "اختر الوحدة",
     "press-enter-to-create": "",
     "choose-food": "اختيار الطعام",
+    "choose-recipe": "Choose Recipe",
     "notes": "ملاحظات",
     "toggle-section": "",
     "see-original-text": "عرض النص الأصلي",
@@ -734,7 +735,8 @@
     "search-hint": "اضغط '/'",
     "advanced": "الإعدادات المتقدمة",
     "auto-search": "البحث التلقائي",
-    "no-results": "لم يتم العثور على نتائج"
+    "no-results": "لم يتم العثور على نتائج",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "إضافة سمة جديدة",
