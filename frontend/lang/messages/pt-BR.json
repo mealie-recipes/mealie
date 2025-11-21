@@ -57,7 +57,7 @@
     "event-delete-confirmation": "Tem certeza de que quer excluir este evento?",
     "event-deleted": "Evento Excluído",
     "event-updated": "Evento Atualizado",
-    "new-notification-form-description": "Mealie usa a biblioteca Apprise para gerar notificações. Eles oferecem várias opções de serviços para usar em notificações. Consulte sua wiki para um guia completo sobre como criar a URL para o seu serviço. Se disponível, selecionar o tipo da sua notificação pode incluir recursos extras.",
+    "new-notification-form-description": "Mealie usa a biblioteca Apprise para gerar notificações. Eles oferecem várias opções de serviços para serem usados para notificações. Consulte a wiki para um guia completo sobre como criar a URL para o seu serviço. Se disponível, selecionar o tipo de notificação pode incluir recursos extras.",
     "new-version": "Nova versão disponível!",
     "notification": "Notificação",
     "refresh": "Recarregar",
@@ -565,7 +565,7 @@
     "choose-unit": "Escolher unidades",
     "press-enter-to-create": "Pressione Enter para criar",
     "choose-food": "Escolher Comida",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "Selecionar Receita",
     "notes": "Notas",
     "toggle-section": "Alternar Seção",
     "see-original-text": "Exibir texto original",
@@ -736,7 +736,7 @@
     "advanced": "Avançado",
     "auto-search": "Pesquisa automática",
     "no-results": "Nenhum resultado encontrado",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Digite para pesquisar..."
   },
   "settings": {
     "add-a-new-theme": "Adicionar um novo tema",

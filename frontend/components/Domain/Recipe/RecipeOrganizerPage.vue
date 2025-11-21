@@ -105,10 +105,9 @@
               <v-icon>
                 {{ icon }}
               </v-icon>
-              <v-card-title class="py-1">
+              <v-card-title class="py-1 text-truncate flex-shrink-1 flex-grow-1">
                 {{ item.name }}
               </v-card-title>
-              <v-spacer />
               <ContextMenu
                 :items="[presets.delete, presets.edit]"
                 @delete="confirmDelete(item)"
