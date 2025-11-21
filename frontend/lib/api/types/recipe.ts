@@ -329,6 +329,7 @@ export interface RecipeSummary {
   createdAt?: string | null;
   updatedAt?: string | null;
   lastMade?: string | null;
+  nutrition?: Nutrition | null;
 }
 export interface RecipeCommentCreate {
   recipeId: string;
@@ -515,7 +516,7 @@ export interface ScrapeRecipeTest {
   url: string;
   useOpenAI?: boolean;
 }
-export interface SlugResponse {}
+export interface SlugResponse { }
 export interface TagIn {
   name: string;
 }

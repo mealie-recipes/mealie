@@ -146,6 +146,7 @@ class RecipeSummary(MealieModel):
     created_at: datetime.datetime | None = None
     updated_at: datetime.datetime | None = UpdatedAtField(None)
     last_made: datetime.datetime | None = None
+    nutrition: Nutrition | None = None
     model_config = ConfigDict(from_attributes=True)
 
     @field_validator("recipe_yield", "total_time", "prep_time", "cook_time", "perform_time", mode="before")
@@ -168,6 +169,7 @@ class RecipeSummary(MealieModel):
             joinedload(RecipeModel.tags),
             joinedload(RecipeModel.tools),
             joinedload(RecipeModel.user).load_only(User.household_id),
+            joinedload(RecipeModel.nutrition),
         ]
 
 
@@ -178,7 +180,6 @@ class RecipePagination(PaginationBase):
 class Recipe(RecipeSummary):
     recipe_ingredient: Annotated[list[RecipeIngredient], Field(validate_default=True)] = []
     recipe_instructions: list[RecipeStep] | None = []
-    nutrition: Nutrition | None = None
 
     # Mealie Specific
     settings: RecipeSettings | None = None
