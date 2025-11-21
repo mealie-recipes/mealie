@@ -449,8 +449,8 @@
     "import-by-url": "ייבוא מתכון באמצעות לינק",
     "create-manually": "יצירת מתכון ידנית",
     "make-recipe-image": "הפוך תמונה זאת לתמונת המתכון",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "הוסף מאכל",
+    "add-recipe": "הוסף מתכון"
   },
   "page": {
     "404-page-not-found": "404 העמוד אינו נמצא",
@@ -480,7 +480,7 @@
     "comment": "הערה",
     "comments": "הערות",
     "delete-confirmation": "למחוק את המתכון הזה?",
-    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
+    "admin-delete-confirmation": "אתה עומד למחוק מתכון שאינו שלך באמצעות הרשאות מנהל. האם אתה בטוח?",
     "delete-recipe": "מחיקת מתכון",
     "description": "תיאור",
     "disable-amount": "ביטול כמויות מרכיבים",
@@ -517,9 +517,9 @@
     "recipe-deleted": "מתכון נמחק",
     "recipe-image": "תמונת המתכון",
     "recipe-image-updated": "תמונת המתכון עודכנה",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "מחק תמונת מתכון",
+    "delete-image-confirmation": "האם אתה בטוח שאתה רוצה למחוק את תמונת המתכון?",
+    "recipe-image-deleted": "תמונת מתכון נמחקה",
     "recipe-name": "שם המתכון",
     "recipe-settings": "הגדרות המתכון",
     "recipe-update-failed": "עדכון מתכון נכשל",
@@ -565,7 +565,7 @@
     "choose-unit": "בחירת יחידת מידה",
     "press-enter-to-create": "הקש Enter כדי להוסיף",
     "choose-food": "בחר מזון",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "בחר מתכון",
     "notes": "הערות",
     "toggle-section": "צור כותרת",
     "see-original-text": "הטקסט המקורי",
@@ -736,7 +736,7 @@
     "advanced": "מתקדם",
     "auto-search": "חיפוש אוטומטי",
     "no-results": "לא נמצאו תוצאות",
-    "type-to-search": "Type to search..."
+    "type-to-search": "הקלד לחיפוש..."
   },
   "settings": {
     "add-a-new-theme": "הוסף ערכת נושא חדשה",
