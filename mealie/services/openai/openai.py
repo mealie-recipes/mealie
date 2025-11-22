@@ -3,6 +3,7 @@ import inspect
 import json
 import os
 from abc import ABC, abstractmethod
+from os import PathLike
 from pathlib import Path
 from textwrap import dedent
 
@@ -85,6 +86,7 @@ class OpenAIService(BaseService):
         self.workers = settings.OPENAI_WORKERS
         self.send_db_data = settings.OPENAI_SEND_DATABASE_DATA
         self.enable_image_services = settings.OPENAI_ENABLE_IMAGE_SERVICES
+        self.custom_prompt_dir = settings.OPENAI_CUSTOM_PROMPT_DIR
 
         self.get_client = lambda: AsyncOpenAI(
             base_url=settings.OPENAI_BASE_URL,
@@ -96,8 +98,51 @@ class OpenAIService(BaseService):
 
         super().__init__()
 
-    @classmethod
-    def get_prompt(cls, name: str, data_injections: list[OpenAIDataInjection] | None = None) -> str:
+    def _get_prompt_file_candidates(self, name: str) -> list[Path]:
+        """
+        Returns a list of prompt file path candidates.
+        First optional entry is the users custom prompt file, if configured and existing,
+        second one (or only one) is the systems default prompt file
+        """
+        tree = name.split(".")
+        relative_path = Path(*tree[:-1], tree[-1] + ".txt")
+        default_prompt_file = Path(self.PROMPTS_DIR, relative_path)
+        custom_dir = self.custom_prompt_dir
+
+        # Only include custom files if the custom_dir is configured, is a directory, and the prompt file exists
+        if isinstance(custom_dir, (str, PathLike)) and Path(custom_dir).is_dir():
+            custom_prompt_file = Path(custom_dir, relative_path)
+            if custom_prompt_file.exists():
+                return [custom_prompt_file, default_prompt_file]
+
+        # Otherwise, only return the default internal prompt file
+        return [default_prompt_file]
+
+    def _load_prompt_from_file(self, name) -> str:
+        prompt_file_candidates = self._get_prompt_file_candidates(name)
+        content = None
+        last_error = None
+        for prompt_file in prompt_file_candidates:
+            try:
+                with open(prompt_file) as f:
+                    content = f.read()
+                    if content:
+                        break
+            except OSError as e:
+                last_error = e
+                pass
+
+        if not content:
+            if last_error:
+                raise OSError(f"Unable to load prompt {name}") from last_error
+            else:
+                # This handles the case where the list was empty (no existing candidates found)
+                attempted_paths = ", ".join(map(str, prompt_file_candidates))
+                raise OSError(f"Unable to load prompt '{name}'. No valid content found in files: {attempted_paths}")
+
+        return content
+
+    def get_prompt(self, name: str, data_injections: list[OpenAIDataInjection] | None = None) -> str:
         """
         Load stored prompt and inject data into it.
 
@@ -109,13 +154,7 @@ class OpenAIService(BaseService):
         if not name:
             raise ValueError("Prompt name cannot be empty")
 
-        tree = name.split(".")
-        prompt_dir = os.path.join(cls.PROMPTS_DIR, *tree[:-1], tree[-1] + ".txt")
-        try:
-            with open(prompt_dir) as f:
-                content = f.read()
-        except OSError as e:
-            raise OSError(f"Unable to load prompt {name}") from e
+        content = self._load_prompt_from_file(name)
 
         if not data_injections:
             return content
