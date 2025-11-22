@@ -124,9 +124,7 @@ const ingredientCopyText = computed(() => {
 const parserLoading = ref(false);
 
 async function fetchNutritionInfo() {
-  // const raw = foodStore.store.value.map((ing) => ing.name);
   parserLoading.value = true;
-  // TODO: Update this to call a backend function that updates the nutrition on the recipe
   const data = await userApi.recipes.fetchNutrition(ingredientCopyText.value);
   if (data.data) {
     recipe.value.nutrition = data.data;
