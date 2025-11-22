@@ -5,42 +5,61 @@
         {{ $t("recipe.nutrition") }}
       </v-card-title>
       <v-divider class="mx-2 my-1" />
-      <v-card-text v-if="edit">
-        <div
-          v-for="(item, key, index) in modelValue"
-          :key="index"
+      <div v-if="loading">
+        <AppLoader
+          v-if="loading"
+          :loading="loading"
+          waiting-text=""
+        />
+      </div>
+      <div v-else>
+        <v-card-text v-if="edit">
+          <div
+            v-for="(item, key, index) in modelValue"
+            :key="index"
+          >
+            <v-text-field
+              density="compact"
+              :model-value="modelValue[key]"
+              :label="labels[key].label"
+              :suffix="labels[key].suffix"
+              type="number"
+              autocomplete="off"
+              variant="underlined"
+              @update:model-value="updateValue(key, $event)"
+            />
+          </div>
+        </v-card-text>
+        <v-list
+          v-if="showViewer"
+          density="compact"
+          class="mt-0 pt-0"
         >
-          <v-text-field
-            density="compact"
-            :model-value="modelValue[key]"
-            :label="labels[key].label"
-            :suffix="labels[key].suffix"
-            type="number"
-            autocomplete="off"
-            variant="underlined"
-            @update:model-value="updateValue(key, $event)"
-          />
-        </div>
-      </v-card-text>
-      <v-list
-        v-if="showViewer"
-        density="compact"
-        class="mt-0 pt-0"
-      >
-        <v-list-item
-          v-for="(item, key, index) in renderedList"
-          :key="index"
-          style="min-height: 25px"
+          <v-list-item
+            v-for="(item, key, index) in renderedList"
+            :key="index"
+            style="min-height: 25px"
+          >
+            <v-list-item-title class="pl-2 d-flex">
+              <div>{{ item.label }}</div>
+              <div class="ml-auto mr-1">
+                {{ typeof item.value === 'string' ? Math.round(Number(item.value)) : 0 }}
+              </div>
+              <div>{{ item.suffix }}</div>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </div>
+      <div class="d-flex justify-end pa-2">
+        <BaseButton
+          v-if="appInfo && appInfo.enableOpenai && edit"
+          :icon="$globals.icons.refresh"
+          :disabled="loading"
+          @click="emit('fetch-nutrition-info')"
         >
-          <v-list-item-title class="pl-2 d-flex">
-            <div>{{ item.label }}</div>
-            <div class="ml-auto mr-1">
-              {{ item.value }}
-            </div>
-            <div>{{ item.suffix }}</div>
-          </v-list-item-title>
-        </v-list-item>
-      </v-list>
+          Fetch Nutrition Data
+        </BaseButton>
+      </div>
     </v-card>
   </div>
 </template>
@@ -49,9 +68,11 @@
 import { useNutritionLabels } from "~/composables/recipes";
 import type { Nutrition } from "~/lib/api/types/recipe";
 import type { NutritionLabelType } from "~/composables/recipes/use-recipe-nutrition";
+import { useAppInfo } from "~/composables/api/use-app-info";
 
 interface Props {
   edit?: boolean;
+  loading?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   edit: true,
@@ -59,7 +80,13 @@ const props = withDefaults(defineProps<Props>(), {
 
 const modelValue = defineModel<Nutrition>({ required: true });
 
+const emit = defineEmits<{
+  "fetch-nutrition-info": [];
+}>();
+
 const { labels } = useNutritionLabels();
+const appInfo = useAppInfo();
+
 const valueNotNull = computed(() => {
   let key: keyof Nutrition;
   for (key in modelValue.value) {

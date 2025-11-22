@@ -22,3 +22,8 @@ class Nutrition(MealieModel):
         coerce_numbers_to_str=True,
         alias_generator=to_camel,
     )
+
+
+class NutritionRequest(MealieModel):
+    parser: str = "openai"
+    recipe: str

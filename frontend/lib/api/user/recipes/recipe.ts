@@ -15,8 +15,9 @@ import type {
   RecipeTimelineEventIn,
   RecipeTimelineEventOut,
   RecipeTimelineEventUpdate,
+  Nutrition,
 } from "~/lib/api/types/recipe";
-import type { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
+import type { ApiRequestInstance, NoUndefinedField, PaginationData } from "~/lib/api/types/non-generated";
 
 export type Parser = "nlp" | "brute" | "openai";
 
@@ -42,6 +43,7 @@ const routes = {
   recipesCategory: `${prefix}/recipes/category`,
   recipesParseIngredient: `${prefix}/parser/ingredient`,
   recipesParseIngredients: `${prefix}/parser/ingredients`,
+  recipesFetchNutrition: `${prefix}/parser/nutrition`,
   recipesTimelineEvent: `${prefix}/recipes/timeline/events`,
 
   recipesRecipeSlug: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}`,
@@ -222,5 +224,9 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     formData.append("extension", fileName.split(".").pop() ?? "");
 
     return await this.requests.put<UpdateImageResponse, FormData>(routes.recipesTimelineEventIdImage(eventId), formData);
+  }
+
+  async fetchNutrition(recipe: string) {
+    return await this.requests.post<NoUndefinedField<Nutrition>>(routes.recipesFetchNutrition, { recipe });
   }
 }

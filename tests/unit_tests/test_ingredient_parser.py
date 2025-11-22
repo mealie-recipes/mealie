@@ -11,6 +11,7 @@ from mealie.db.db_setup import session_context
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.openai.recipe_ingredient import OpenAIIngredient, OpenAIIngredients
+from mealie.schema.openai.recipe_nutrition import OpenAINutrition
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFood,
@@ -27,6 +28,7 @@ from mealie.schema.recipe.recipe_ingredient import (
 from mealie.schema.user.user import GroupBase
 from mealie.services.openai import OpenAIService
 from mealie.services.parser_services import RegisteredParser, get_parser
+from mealie.services.parser_services.openai.fetch_nutrition import OpenAINutritionParser
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -535,6 +537,45 @@ def test_openai_parser_sanitize_output(
                 recipe_ingredient=[parsed_ing.ingredient],
             )
         )
+
+
+def test_openai_nutrition_parser(
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """Test that OpenAI nutrition JSON response is parsed properly"""
+
+    async def mock_get_response(self, prompt: str, message: str, *args, **kwargs) -> str | None:
+        data = OpenAINutrition(
+            nutrition={
+                "calories": 250,
+                "protein_content": 12.5,
+                "carbohydrate_content": 30.0,
+                "fat_content": 8.5,
+                "fiber_content": 4.0,
+                "sugar_content": 5.0,
+                "sodium_content": 200,
+            }
+        )
+        return data.model_dump_json()
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    with session_context() as session:
+        loop = asyncio.get_event_loop()
+        parser = OpenAINutritionParser(unique_user.group_id, session)
+
+        result = parser.fetch("Sample ingredient text")
+        parsed = loop.run_until_complete(result)
+
+        assert parsed is not None
+        assert parsed.calories == "250"
+        assert parsed.protein_content == "12.5"
+        assert parsed.carbohydrate_content == "30.0"
+        assert parsed.fat_content == "8.5"
+        assert parsed.fiber_content == "4.0"
+        assert parsed.sugar_content == "5.0"
+        assert parsed.sodium_content == "200"
 
 
 @pytest.mark.parametrize(

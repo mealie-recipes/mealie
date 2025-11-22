@@ -74,6 +74,8 @@
       v-model="recipe.nutrition"
       class="mt-4"
       :edit="isEditForm"
+      :loading="parserLoading"
+      @fetch-nutrition-info="fetchNutritionInfo"
     />
     <RecipeAssets
       v-if="recipe.settings.showAssets"
@@ -93,7 +95,42 @@ import RecipeOrganizerSelector from "@/components/Domain/Recipe/RecipeOrganizerS
 import RecipeNutrition from "~/components/Domain/Recipe/RecipeNutrition.vue";
 import RecipeChips from "@/components/Domain/Recipe/RecipeChips.vue";
 import RecipeAssets from "@/components/Domain/Recipe/RecipeAssets.vue";
+import { useUserApi } from "~/composables/api/api-client";
+import { parseIngredientText } from "~/composables/recipes";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 const { isEditForm } = usePageState(recipe.value.slug);
+
+const userApi = useUserApi();
+
+const ingredientCopyText = computed(() => {
+  const components: string[] = [];
+  if (recipe.value.recipeIngredient) {
+    recipe.value.recipeIngredient.forEach((ingredient) => {
+      if (ingredient.title) {
+        if (components.length) {
+          components.push("");
+        }
+
+        components.push(`[${ingredient.title}]`);
+      }
+
+      components.push(parseIngredientText(ingredient, 1, false));
+    });
+  }
+  return components.join("\n");
+});
+
+const parserLoading = ref(false);
+
+async function fetchNutritionInfo() {
+  // const raw = foodStore.store.value.map((ing) => ing.name);
+  parserLoading.value = true;
+  // TODO: Update this to call a backend function that updates the nutrition on the recipe
+  const data = await userApi.recipes.fetchNutrition(ingredientCopyText.value);
+  if (data.data) {
+    recipe.value.nutrition = data.data;
+  }
+  parserLoading.value = false;
+}
 </script>
