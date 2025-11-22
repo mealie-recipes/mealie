@@ -75,11 +75,11 @@
         style="display: none"
         @bulk-data="addIngredient"
       />
-      <div class="d-inline-flex split-button">
+      <div class="d-inline-flex">
         <!-- Main button: Add Food -->
         <v-btn
           color="success"
-          class="split-main  ml-2"
+          class="split-main ml-2"
           @click="addIngredient"
         >
           <v-icon start>
@@ -263,11 +263,6 @@ function insertNewIngredient(dest: number) {
 </script>
 
 <style scoped>
-.split-button {
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
-}
 .split-main {
   border-top-right-radius: 0 !important;
   border-bottom-right-radius: 0 !important;

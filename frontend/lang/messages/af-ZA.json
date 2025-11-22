@@ -565,6 +565,7 @@
     "choose-unit": "Kies 'n eenheid",
     "press-enter-to-create": "Druk Enter om te skep",
     "choose-food": "Keuse van kos",
+    "choose-recipe": "Choose Recipe",
     "notes": "Notas",
     "toggle-section": "Wissel afdeling",
     "see-original-text": "Sien oorspronklike teks",
@@ -734,7 +735,8 @@
     "search-hint": "Druk '/'",
     "advanced": "Gevorderd",
     "auto-search": "Outomatiese soektog",
-    "no-results": "No results found"
+    "no-results": "No results found",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Voeg 'n nuwe tema by",

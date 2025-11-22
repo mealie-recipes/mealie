@@ -565,6 +565,7 @@
     "choose-unit": "Izvēlieties vienību",
     "press-enter-to-create": "Nospiediet taustiņu Enter, lai izveidotu",
     "choose-food": "Izvēlieties ēdienu",
+    "choose-recipe": "Choose Recipe",
     "notes": "Piezīmes",
     "toggle-section": "Pārslēgt sadaļu",
     "see-original-text": "Skatīt oriģinālo tekstu",
@@ -734,7 +735,8 @@
     "search-hint": "Nospiediet '/'",
     "advanced": "Papildu Opcijas",
     "auto-search": "Automātiskā meklēšana",
-    "no-results": "Nav atrasts neviens rezultāts"
+    "no-results": "Nav atrasts neviens rezultāts",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Pievienot jaunu motīvu",
