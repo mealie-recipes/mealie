@@ -8256,14 +8256,14 @@
             "ready-made icing": {
                 "aliases": [],
                 "description": "",
-                "name": "ready-made icing",
-                "plural_name": "ready-made icings"
+                "name": "Кондитерська глазур",
+                "plural_name": "Кондитерської глазурі"
             },
             "fruit salt": {
                 "aliases": [],
                 "description": "",
-                "name": "fruit salt",
-                "plural_name": "fruit salts"
+                "name": "Фруктова сіль",
+                "plural_name": "Фруктової солі"
             }
         }
     },
@@ -8302,20 +8302,20 @@
             "refrigerated crescent roll": {
                 "aliases": [],
                 "description": "",
-                "name": "refrigerated crescent roll",
-                "plural_name": "refrigerated crescent rolls"
+                "name": "Охолоджене тісто для рогаликів",
+                "plural_name": "Охолодженого тіста для рогаликів"
             },
             "biscuit dough": {
                 "aliases": [],
                 "description": "",
-                "name": "biscuit dough",
-                "plural_name": "biscuit doughs"
+                "name": "Тісто для бісквіта",
+                "plural_name": "Тіста для бісквіта"
             },
             "dumpling wrapper": {
                 "aliases": [],
                 "description": "",
-                "name": "dumpling wrapper",
-                "plural_name": "dumpling wrappers"
+                "name": "Тісто для пельменів",
+                "plural_name": "Тіста для пельменів"
             },
             "rice paper": {
                 "aliases": [],
@@ -8338,8 +8338,8 @@
             "egg roll wrapper": {
                 "aliases": [],
                 "description": "",
-                "name": "egg roll wrapper",
-                "plural_name": "egg roll wrappers"
+                "name": "Яєчний лист для ролів",
+                "plural_name": "Яєчні листи для ролів"
             },
             "bread dough": {
                 "aliases": [],
@@ -8350,32 +8350,32 @@
             "butter puff pastry": {
                 "aliases": [],
                 "description": "",
-                "name": "butter puff pastry",
-                "plural_name": "butter puff pastries"
+                "name": "Листкове тісто на вершковому маслі",
+                "plural_name": "Листкового тіста на вершковому маслі"
             },
             "frozen dinner roll": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen dinner roll",
-                "plural_name": "frozen dinner rolls"
+                "name": "Заморожена порційна булочка",
+                "plural_name": "Заморожені порційні булочки"
             },
             "cinnamon roll dough": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon roll dough",
-                "plural_name": "cinnamon roll doughs"
+                "name": "Тісто для булочок з корицею",
+                "plural_name": "Тіста для булочок з корицею"
             },
             "dosa batter": {
                 "aliases": [],
                 "description": "",
-                "name": "dosa batter",
-                "plural_name": "dosa batters"
+                "name": "Рідке тісто для доси",
+                "plural_name": "Рідкого тіста для доси"
             },
             "puff pastry shell": {
                 "aliases": [],
                 "description": "",
-                "name": "puff pastry shell",
-                "plural_name": "puff pastry shells"
+                "name": "Тарталетка",
+                "plural_name": "Тарталетки"
             },
             "wonton": {
                 "aliases": [],
@@ -8386,14 +8386,14 @@
             "gyoza wrapper": {
                 "aliases": [],
                 "description": "",
-                "name": "gyoza wrapper",
-                "plural_name": "gyoza wrappers"
+                "name": "Лист з тіста для гьодзе",
+                "plural_name": "Листи з тіста для гьодзе"
             },
             "wonton strip": {
                 "aliases": [],
                 "description": "",
-                "name": "wonton strip",
-                "plural_name": "wonton strips"
+                "name": "Смужка вонтону",
+                "plural_name": "Смужки вонтону"
             },
             "gluten-free pizza crust": {
                 "aliases": [],
@@ -8410,74 +8410,74 @@
             "idli batter": {
                 "aliases": [],
                 "description": "",
-                "name": "idli batter",
-                "plural_name": "idli batters"
+                "name": "Рідке тісто для ідлі",
+                "plural_name": "Рідкого тіста для ідлі"
             },
             "potsticker wrapper": {
                 "aliases": [],
                 "description": "",
-                "name": "potsticker wrapper",
-                "plural_name": "potsticker wrappers"
+                "name": "Тісто для китайських потстіків",
+                "plural_name": "Тіста для китайських потстіків"
             },
             "chocolate pie crust": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate pie crust",
-                "plural_name": "chocolate pie crusts"
+                "name": "Шоколадна основа для пирога",
+                "plural_name": "Шоколадної основи для пирога"
             },
             "croissant dough": {
                 "aliases": [],
                 "description": "",
-                "name": "croissant dough",
-                "plural_name": "croissant doughs"
+                "name": "Тісто для круасанів",
+                "plural_name": "Тіста для круасанів"
             },
             "tofu skin": {
                 "aliases": [],
                 "description": "",
-                "name": "tofu skin",
-                "plural_name": "tofu skins"
+                "name": "Соєва спаржа",
+                "plural_name": "Соєвої спаржи"
             },
             "brisee": {
                 "aliases": [],
                 "description": "",
-                "name": "brisee",
-                "plural_name": "brisees"
+                "name": "Солоне пісочне тісто",
+                "plural_name": "Солоного пісочного тіста"
             },
             "sausage roll": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage roll",
-                "plural_name": "sausage rolls"
+                "name": "Ковбасний рулет",
+                "plural_name": "Ковбасні рулети"
             },
             "kataifi": {
                 "aliases": [],
                 "description": "",
-                "name": "kataifi",
-                "plural_name": "kataifis"
+                "name": "Катаїфі",
+                "plural_name": "Катаїфі"
             },
             "korean rice cake": {
                 "aliases": [],
                 "description": "",
-                "name": "korean rice cake",
-                "plural_name": "korean rice cakes"
+                "name": "Корейський рисовий пиріг",
+                "plural_name": "Корейського рисового пирога"
             },
             "corn dog": {
                 "aliases": [],
                 "description": "",
-                "name": "corn dog",
-                "plural_name": "corn dogs"
+                "name": "Сосиска в кукурудзяному тісті",
+                "plural_name": "Сосиски в кукурудзяному тісті"
             },
             "tortilla dough": {
                 "aliases": [],
                 "description": "",
-                "name": "tortilla dough",
-                "plural_name": "tortilla doughs"
+                "name": "Тісто для тортильї",
+                "plural_name": "Тіста для тортильї"
             },
             "empanada wrapper": {
                 "aliases": [],
                 "description": "",
-                "name": "empanada wrapper",
-                "plural_name": "empanada wrappers"
+                "name": "Тісто для емпанад",
+                "plural_name": "Тіста для емпанад"
             },
             "rough-puff pastry": {
                 "aliases": [],
@@ -8638,8 +8638,8 @@
             "pearl barley": {
                 "aliases": [],
                 "description": "",
-                "name": "pearl barley",
-                "plural_name": "pearl barleys"
+                "name": "Перлова крупа",
+                "plural_name": "Перлової крупи"
             },
             "farro": {
                 "aliases": [],
@@ -8746,8 +8746,8 @@
             "black rice": {
                 "aliases": [],
                 "description": "",
-                "name": "black rice",
-                "plural_name": "black rices"
+                "name": "Чорний рис",
+                "plural_name": "Чорного рису"
             },
             "yellow rice": {
                 "aliases": [],
@@ -8794,8 +8794,8 @@
             "pearled farro": {
                 "aliases": [],
                 "description": "",
-                "name": "pearled farro",
-                "plural_name": "pearled farroes"
+                "name": "Перловий фарро",
+                "plural_name": "Перлового фарро"
             },
             "cracked wheat": {
                 "aliases": [],
@@ -8812,8 +8812,8 @@
             "paella rice": {
                 "aliases": [],
                 "description": "",
-                "name": "paella rice",
-                "plural_name": "paella rices"
+                "name": "Рис для паельї",
+                "plural_name": "Рису для паельї"
             },
             "sorghum": {
                 "aliases": [],
@@ -8824,14 +8824,14 @@
             "red rice": {
                 "aliases": [],
                 "description": "",
-                "name": "red rice",
-                "plural_name": "red rices"
+                "name": "Червоний рис",
+                "plural_name": "Червоного рису"
             },
             "mexican rice": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican rice",
-                "plural_name": "mexican rices"
+                "name": "Мексиканський рис",
+                "plural_name": "Мексиканського рису"
             },
             "idli rice": {
                 "aliases": [],
@@ -8842,8 +8842,8 @@
             "brown jasmine rice": {
                 "aliases": [],
                 "description": "",
-                "name": "brown jasmine rice",
-                "plural_name": "brown jasmine rices"
+                "name": "Коричневий рис жасмін",
+                "plural_name": "Коричневого рису жасмін"
             },
             "cream of wheat": {
                 "aliases": [],
@@ -8854,8 +8854,8 @@
             "rice pilaf": {
                 "aliases": [],
                 "description": "",
-                "name": "rice pilaf",
-                "plural_name": "rice pilafs"
+                "name": "Рис для плову",
+                "plural_name": "Рису для плову"
             },
             "barnyard millet": {
                 "aliases": [],
@@ -8872,14 +8872,14 @@
             "jambalaya rice mix": {
                 "aliases": [],
                 "description": "",
-                "name": "jambalaya rice mix",
-                "plural_name": "jambalaya rice mixes"
+                "name": "Рисова суміш  для «джамбалая»",
+                "plural_name": "Рисової суміші для «джамбалая»"
             },
             "black glutinous rice": {
                 "aliases": [],
                 "description": "",
-                "name": "black glutinous rice",
-                "plural_name": "black glutinous rices"
+                "name": "Чорний клейкий рис",
+                "plural_name": "Чорного клейкого рису"
             },
             "whole-grain oat": {
                 "aliases": [],
@@ -9022,8 +9022,8 @@
             "pearled sorghum": {
                 "aliases": [],
                 "description": "",
-                "name": "pearled sorghum",
-                "plural_name": "pearled sorghums"
+                "name": "Перлове сорго",
+                "plural_name": "Перлового сорго"
             },
             "shirataki rice": {
                 "aliases": [],
@@ -9093,7 +9093,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Горох",
-                "plural_name": "peas"
+                "plural_name": "Гороху"
             },
             "green bean": {
                 "aliases": [],
@@ -9104,14 +9104,14 @@
             "chickpea": {
                 "aliases": [],
                 "description": "",
-                "name": "chickpea",
-                "plural_name": "chickpeas"
+                "name": "Нут",
+                "plural_name": "Нуту"
             },
             "black bean": {
                 "aliases": [],
                 "description": "",
-                "name": "black bean",
-                "plural_name": "black beans"
+                "name": "Чорна квасоля",
+                "plural_name": "Чорної квасолі"
             },
             "kidney bean": {
                 "aliases": [],
@@ -9122,14 +9122,14 @@
             "white bean": {
                 "aliases": [],
                 "description": "",
-                "name": "white bean",
-                "plural_name": "white beans"
+                "name": "Біла квасоля",
+                "plural_name": "Білої квасолі"
             },
             "lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "lentil",
-                "plural_name": "lentils"
+                "name": "Сочевиця",
+                "plural_name": "Сочевиці"
             },
             "pinto bean": {
                 "aliases": [],
@@ -9140,20 +9140,20 @@
             "snow pea": {
                 "aliases": [],
                 "description": "",
-                "name": "snow pea",
-                "plural_name": "snow peas"
+                "name": "Сніжний горошок",
+                "plural_name": "Сніжного горошку"
             },
             "snap pea": {
                 "aliases": [],
                 "description": "",
-                "name": "snap pea",
-                "plural_name": "snap peas"
+                "name": "Цукровий горошок",
+                "plural_name": "Цукрового горошка"
             },
             "red lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "red lentil",
-                "plural_name": "red lentils"
+                "name": "Червона сочевиця",
+                "plural_name": "Червоної сочевиці"
             },
             "cannellini bean": {
                 "aliases": [],
@@ -9176,8 +9176,8 @@
             "green lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "green lentil",
-                "plural_name": "green lentils"
+                "name": "Зелена сочевиця",
+                "plural_name": "Зеленої сочевиці"
             },
             "urad dal": {
                 "aliases": [],
@@ -9206,8 +9206,8 @@
             "black-eyed pea": {
                 "aliases": [],
                 "description": "",
-                "name": "black-eyed pea",
-                "plural_name": "black-eyed peas"
+                "name": "Коров'ячий горох",
+                "plural_name": "Коров'ячого гороху"
             },
             "moong dal": {
                 "aliases": [],
@@ -9218,14 +9218,14 @@
             "split pea": {
                 "aliases": [],
                 "description": "",
-                "name": "split pea",
-                "plural_name": "split peas"
+                "name": "Колотий горох",
+                "plural_name": "Колотого гороху"
             },
             "pigeon pea": {
                 "aliases": [],
                 "description": "",
-                "name": "pigeon pea",
-                "plural_name": "pigeon peas"
+                "name": "Голубиний горох",
+                "plural_name": "Голубиного гороху"
             },
             "red bean": {
                 "aliases": [],
@@ -9242,8 +9242,8 @@
             "soybean": {
                 "aliases": [],
                 "description": "",
-                "name": "soybean",
-                "plural_name": "soybeans"
+                "name": "Соєвий боб",
+                "plural_name": "Соєвих бобів"
             },
             "mung bean": {
                 "aliases": [],
@@ -9260,14 +9260,14 @@
             "yellow split pea": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow split pea",
-                "plural_name": "yellow split peas"
+                "name": "Жовтий колотий горох",
+                "plural_name": "Жовтого колотого гороху"
             },
             "black lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "black lentil",
-                "plural_name": "black lentils"
+                "name": "Чорна сочевиця",
+                "plural_name": "Чорної сочевиці"
             },
             "borlotti bean": {
                 "aliases": [],
@@ -9278,8 +9278,8 @@
             "aquafaba": {
                 "aliases": [],
                 "description": "",
-                "name": "aquafaba",
-                "plural_name": "aquafabas"
+                "name": "Аквафаба",
+                "plural_name": "Аквафаби"
             },
             "chana": {
                 "aliases": [],
@@ -9296,8 +9296,8 @@
             "yellow lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow lentil",
-                "plural_name": "yellow lentils"
+                "name": "Жовта сочевиця",
+                "plural_name": "Жовтої сочевиці"
             },
             "mixed bean": {
                 "aliases": [],
@@ -9332,8 +9332,8 @@
             "dried pea": {
                 "aliases": [],
                 "description": "",
-                "name": "dried pea",
-                "plural_name": "dried peas"
+                "name": "Сухий горох",
+                "plural_name": "Сухого гороху"
             },
             "pink bean": {
                 "aliases": [],
@@ -9344,14 +9344,14 @@
             "lentil sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "lentil sprout",
-                "plural_name": "lentil sprouts"
+                "name": "Паросток сочевиці",
+                "plural_name": "Паростки сочевиці"
             },
             "white pea": {
                 "aliases": [],
                 "description": "",
-                "name": "white pea",
-                "plural_name": "white peas"
+                "name": "Білий горох",
+                "plural_name": "Білого гороху"
             },
             "black soybean": {
                 "aliases": [],
@@ -9362,8 +9362,8 @@
             "field pea": {
                 "aliases": [],
                 "description": "",
-                "name": "field pea",
-                "plural_name": "field peas"
+                "name": "Польовий горох",
+                "plural_name": "Польового гороху"
             },
             "gigante": {
                 "aliases": [],
@@ -9422,8 +9422,8 @@
             "castelluccio lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "castelluccio lentil",
-                "plural_name": "castelluccio lentils"
+                "name": "Сочевиця Кастеллуччо",
+                "plural_name": "Сочевиці Кастеллуччо"
             },
             "golden wax bean": {
                 "aliases": [],
@@ -9440,8 +9440,8 @@
             "chickpea sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "chickpea sprout",
-                "plural_name": "chickpea sprouts"
+                "name": "Паросток нуту",
+                "plural_name": "Паростки нуту"
             },
             "hara chana": {
                 "aliases": [],
@@ -10156,8 +10156,8 @@
             "dry-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "dry-roasted peanut",
-                "plural_name": "dry-roasted peanuts"
+                "name": "Сухо-смажений арахіс",
+                "plural_name": "Сухо-смаженого арахісу"
             },
             "potato chip": {
                 "aliases": [],
@@ -10384,8 +10384,8 @@
             "roasted chickpea": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted chickpea",
-                "plural_name": "roasted chickpeas"
+                "name": "Смажений нут",
+                "plural_name": "Смаженого нуту"
             },
             "cheeto": {
                 "aliases": [],
@@ -10546,8 +10546,8 @@
             "wasabi pea": {
                 "aliases": [],
                 "description": "",
-                "name": "wasabi pea",
-                "plural_name": "wasabi peas"
+                "name": "Горошок у васабі",
+                "plural_name": "Горошків у васабі"
             },
             "arabic bread": {
                 "aliases": [],
@@ -10606,8 +10606,8 @@
             "japanese peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "japanese peanut",
-                "plural_name": "japanese peanuts"
+                "name": "Японський арахіс",
+                "plural_name": "Японського арахісу"
             },
             "khari boondi": {
                 "aliases": [],
@@ -10700,8 +10700,8 @@
             "peanut oil": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut oil",
-                "plural_name": "peanut oils"
+                "name": "Арахісова олія",
+                "plural_name": "Арахісової олії"
             },
             "grapeseed oil": {
                 "aliases": [
@@ -10924,8 +10924,8 @@
             "roasted peanut oil": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted peanut oil",
-                "plural_name": "roasted peanut oils"
+                "name": "Олія з обсмаженого арахісу",
+                "plural_name": "Олії з обсмаженого арахісу"
             },
             "argan oil": {
                 "aliases": [],
@@ -12118,8 +12118,8 @@
             "canned chickpea": {
                 "aliases": [],
                 "description": "",
-                "name": "canned chickpea",
-                "plural_name": "canned chickpeas"
+                "name": "Консервований нут",
+                "plural_name": "Консервованого нуту"
             },
             "black olive": {
                 "aliases": [],
@@ -12340,14 +12340,14 @@
             "canned peach": {
                 "aliases": [],
                 "description": "",
-                "name": "canned peach",
-                "plural_name": "canned peaches"
+                "name": "Консервований персик",
+                "plural_name": "Консервованого персику"
             },
             "canned black-eyed pea": {
                 "aliases": [],
                 "description": "",
-                "name": "canned black-eyed pea",
-                "plural_name": "canned black-eyed peas"
+                "name": "Консервований коровʼячий горох",
+                "plural_name": "Консервованого коровʼячого гороху"
             },
             "pickled ginger": {
                 "aliases": [],
@@ -12400,14 +12400,14 @@
             "canned lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "canned lentil",
-                "plural_name": "canned lentils"
+                "name": "Консервована сочевиця",
+                "plural_name": "Консервованої сочевиці"
             },
             "canned pea": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pea",
-                "plural_name": "canned peas"
+                "name": "Консервований горох",
+                "plural_name": "Консервованого гороху"
             },
             "pickled red onion": {
                 "aliases": [],
@@ -12460,8 +12460,8 @@
             "canned pear": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pear",
-                "plural_name": "canned pears"
+                "name": "Консервована груша",
+                "plural_name": "Консервованої груши"
             },
             "peppadew pepper": {
                 "aliases": [],
@@ -12604,8 +12604,8 @@
             "canned peas and carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "canned peas and carrot",
-                "plural_name": "canned peas and carrots"
+                "name": "Консервований горох і морква",
+                "plural_name": "Консервовані горох і морква"
             },
             "corn relish": {
                 "aliases": [],
@@ -12928,8 +12928,8 @@
             "thai peanut sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "thai peanut sauce",
-                "plural_name": "thai peanut sauces"
+                "name": "Тайський арахісовий соус",
+                "plural_name": "Тайського арахісового соусу"
             },
             "chicken gravy": {
                 "aliases": [],
@@ -13646,8 +13646,8 @@
             "lentil soup": {
                 "aliases": [],
                 "description": "",
-                "name": "lentil soup",
-                "plural_name": "lentil soups"
+                "name": "Суп із сочевиці",
+                "plural_name": "Супу із сочевиці"
             },
             "cream of shrimp soup": {
                 "aliases": [],
@@ -13820,8 +13820,8 @@
             "split pea soup": {
                 "aliases": [],
                 "description": "",
-                "name": "split pea soup",
-                "plural_name": "split pea soups"
+                "name": "Суп із колотого гороху",
+                "plural_name": "Супу із колотого гороху"
             },
             "chicken and mushroom soup": {
                 "aliases": [],
@@ -13856,8 +13856,8 @@
             "green pea soup": {
                 "aliases": [],
                 "description": "",
-                "name": "green pea soup",
-                "plural_name": "green pea soups"
+                "name": "Суп з зеленого горошку",
+                "plural_name": "Супу з зеленого горошку"
             },
             "pho broth": {
                 "aliases": [],
@@ -14045,12 +14045,12 @@
             },
             "peanut butter cup": {
                 "aliases": [
-                    "Reeses PB cup",
-                    "Reeses Peanut Buttercup"
+                    "Арахісова чашечка «Різс»",
+                    "Арахісові чашечки «Різс»"
                 ],
                 "description": "",
-                "name": "peanut butter cup",
-                "plural_name": "peanut butter cups"
+                "name": "Арахісова чашечка в шоколаді",
+                "plural_name": "Арахісові чашечки в шоколаді"
             },
             "chocolate pudding": {
                 "aliases": [],
@@ -14169,8 +14169,8 @@
             "peach preserve": {
                 "aliases": [],
                 "description": "",
-                "name": "peach preserve",
-                "plural_name": "peach preserves"
+                "name": "Персиковий конфітюр",
+                "plural_name": "Персикового конфітюру"
             },
             "chocolate wafer": {
                 "aliases": [],
@@ -14379,8 +14379,8 @@
             "chocolate peanut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate peanut butter",
-                "plural_name": "chocolate peanut butter"
+                "name": "Шоколадне арахісове масло",
+                "plural_name": "Шоколадного арахісового масла"
             },
             "cinnamon candy": {
                 "aliases": [],
@@ -14695,8 +14695,8 @@
             "peach schnapp": {
                 "aliases": [],
                 "description": "",
-                "name": "peach schnapp",
-                "plural_name": "peach schnapps"
+                "name": "Персиковий шнапс",
+                "plural_name": "Персикового шнапсу"
             },
             "apple brandy": {
                 "aliases": [],
@@ -14749,8 +14749,8 @@
             "peach liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "peach liqueur",
-                "plural_name": "peach liqueurs"
+                "name": "Персиковий лікер",
+                "plural_name": "Персикового лікеру"
             },
             "melon liqueur": {
                 "aliases": [],
@@ -15043,8 +15043,8 @@
             "peach brandy": {
                 "aliases": [],
                 "description": "",
-                "name": "peach brandy",
-                "plural_name": "peach brandies"
+                "name": "Персиковий бренді",
+                "plural_name": "Персикового бренді"
             },
             "white chocolate liqueur": {
                 "aliases": [],
@@ -15061,8 +15061,8 @@
             "pear brandy": {
                 "aliases": [],
                 "description": "",
-                "name": "pear brandy",
-                "plural_name": "pear brandies"
+                "name": "Грушевий бренді",
+                "plural_name": "Грушевого бренді"
             },
             "moonshine": {
                 "aliases": [],
@@ -15377,8 +15377,8 @@
             "peach juice": {
                 "aliases": [],
                 "description": "",
-                "name": "peach juice",
-                "plural_name": "peach juices"
+                "name": "Персиковий сік",
+                "plural_name": "Персикового соку"
             },
             "orange soda": {
                 "aliases": [],
@@ -15413,8 +15413,8 @@
             "pear juice": {
                 "aliases": [],
                 "description": "",
-                "name": "pear juice",
-                "plural_name": "pear juices"
+                "name": "Грушевий сік",
+                "plural_name": "Грушевогсоку"
             },
             "tamarind juice": {
                 "aliases": [],
@@ -15575,8 +15575,8 @@
             "butterfly pea flower": {
                 "aliases": [],
                 "description": "",
-                "name": "butterfly pea flower",
-                "plural_name": "butterfly pea flowers"
+                "name": "Квітка блакитного чаю",
+                "plural_name": "Квітки блакитного чаю"
             },
             "passion tea": {
                 "aliases": [],
@@ -15795,8 +15795,8 @@
             "peanut butter powder": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut butter powder",
-                "plural_name": "peanut butter powders"
+                "name": "Арахісова паста у порошку",
+                "plural_name": "Арахісової пасти у порошку"
             },
             "vegan protein powder": {
                 "aliases": [],
