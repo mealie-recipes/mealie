@@ -98,7 +98,7 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1,
     recipeLink: recipeLink ? recipeLink : undefined,
   };
 }
-// (quantity && quantity > 1 ? `scale=${scale}` : "")
+
 export function parseIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true): string {
   const { quantity, unit, name, note } = useParsedIngredientText(ingredient, scale, includeFormating);
 
