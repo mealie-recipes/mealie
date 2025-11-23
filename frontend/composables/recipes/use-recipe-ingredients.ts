@@ -36,12 +36,12 @@ function useUnitName(unit: CreateIngredientUnit | IngredientUnit | undefined, us
   return returnVal;
 }
 
-function useRecipeLink(recipe: Recipe | undefined, groupSlug: string | undefined): string | undefined {
+function useRecipeLink(recipe: Recipe | undefined, groupSlug: string | undefined, scale: number = 1): string | undefined {
   if (!(recipe && recipe.slug && recipe.name && groupSlug)) {
     return undefined;
   }
 
-  return `<a href="/g/${groupSlug}/r/${recipe.slug}" target="_blank">${recipe.name}</a>`;
+  return `<a href="/g/${groupSlug}/r/${recipe.slug}?scale=${scale}" target="_blank">${recipe.name}</a>`;
 }
 
 type ParsedIngredientText = {
@@ -79,22 +79,25 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1,
           ? `<sup>${fraction[1]}</sup><span>&frasl;</span><sub>${fraction[2]}</sub>`
           : ` ${fraction[1]}/${fraction[2]}`;
       }
+
+      if (referencedRecipe) {
+        returnQty += "x";
+      }
     }
   }
 
-  // TODO: Add support for sub-recipes here?
   const unitName = useUnitName(unit || undefined, usePluralUnit);
   const ingName = referencedRecipe ? referencedRecipe.name || "" : useFoodName(food || undefined, usePluralFood);
-
+  const recipeLink = referencedRecipe ? useRecipeLink(referencedRecipe, groupSlug, quantity ? quantity : 1) : undefined;
   return {
     quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
     unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
     name: ingName ? sanitizeIngredientHTML(ingName) : undefined,
     note: note ? sanitizeIngredientHTML(note) : undefined,
-    recipeLink: useRecipeLink(referencedRecipe || undefined, groupSlug),
+    recipeLink: recipeLink ? recipeLink : undefined,
   };
 }
-
+// (quantity && quantity > 1 ? `scale=${scale}` : "")
 export function parseIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true): string {
   const { quantity, unit, name, note } = useParsedIngredientText(ingredient, scale, includeFormating);
 

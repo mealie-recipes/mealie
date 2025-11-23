@@ -265,6 +265,9 @@ type BooleanString = "true" | "false" | "";
 
 const paramsEdit = useRouteQuery<BooleanString>("edit", "");
 const paramsParse = useRouteQuery<BooleanString>("parse", "");
+const paramsScale = useRouteQuery<string>("scale", "1");
+
+const scale = ref(1);
 
 onMounted(() => {
   if (paramsEdit.value === "true" && isOwnGroup.value) {
@@ -273,6 +276,12 @@ onMounted(() => {
 
   if (paramsParse.value === "true" && isOwnGroup.value) {
     toggleIsParsing(true);
+  }
+
+  // Set scale from URL parameter
+  const scaleValue = Number(paramsScale.value);
+  if (!isNaN(scaleValue) && scaleValue > 0) {
+    scale.value = scaleValue;
   }
 });
 
@@ -285,6 +294,15 @@ watch(isEditMode, (newVal) => {
 watch(isParsing, () => {
   if (!isParsing.value) {
     paramsParse.value = undefined;
+  }
+});
+
+watch(scale, (newVal) => {
+  if (newVal !== 1) {
+    paramsScale.value = String(newVal);
+  }
+  else {
+    paramsScale.value = undefined;
   }
 });
 
@@ -371,8 +389,6 @@ function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: st
   }
   router.push(`/g/${groupSlug.value}?${itemType}=${item.id}`);
 }
-
-const scale = ref(1);
 
 // expose to template
 // (all variables used in template are top-level in <script setup>)
