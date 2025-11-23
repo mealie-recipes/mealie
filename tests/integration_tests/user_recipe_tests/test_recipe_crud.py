@@ -691,6 +691,74 @@ def test_recipe_recursion_cycle_three_level(api_client: TestClient, unique_user:
     assert "cannot reference itself" in response.text.lower()
 
 
+def test_recipe_recursion_valid_branched_chain(api_client: TestClient, unique_user: TestUser):
+    """Test that valid branched nesting without cycles is allowed (d -> b -> a, d -> c -> a)."""
+    database = unique_user.repos
+
+    food = database.ingredient_foods.create(
+        SaveIngredientFood(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+        )
+    )
+
+    # Create recipe_a
+    recipe_a: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", food=food),
+            ],
+        )
+    )
+
+    # Create recipe_b
+    recipe_b: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", referenced_recipe=recipe_a),
+            ],
+        )
+    )
+
+    # Create recipe_c
+    recipe_c: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", referenced_recipe=recipe_a),
+            ],
+        )
+    )
+
+    # Create recipe_d to reference recipe_b and recipe_c
+    recipe_d: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", referenced_recipe=recipe_b),
+                RecipeIngredient(note="", referenced_recipe=recipe_c),
+            ],
+        )
+    )
+    recipe_url = api_routes.recipes_slug(recipe_d.slug)
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe_data = json.loads(response.text)
+
+    response = api_client.put(recipe_url, json=recipe_data, headers=unique_user.token)
+    assert response.status_code == 200
+
+
 def test_recipe_reference_deleted(api_client: TestClient, unique_user: TestUser):
     """Test that when a referenced recipe is deleted, the parent recipe remains intact."""
     database = unique_user.repos
