@@ -1169,7 +1169,7 @@
             "fig leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "fig leaf",
+                "name": "лист инжира",
                 "plural_name": "листья инжира"
             },
             "freeze-dried pineapple": {
@@ -1324,7 +1324,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "шимеджи",
-                "plural_name": "shimeji mushrooms"
+                "plural_name": "грибы шимиджи"
             },
             "straw mushroom": {
                 "aliases": [],
@@ -1335,8 +1335,8 @@
             "dried chinese mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "dried chinese mushroom",
-                "plural_name": "dried chinese mushrooms"
+                "name": "сушёный китайский гриб",
+                "plural_name": "сушёные китайские грибы"
             },
             "maitake": {
                 "aliases": [],
@@ -1573,8 +1573,8 @@
             "canned cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cherry",
-                "plural_name": "canned cherries"
+                "name": "консервированная черешня",
+                "plural_name": "консервированные черешни"
             },
             "amla": {
                 "aliases": [],

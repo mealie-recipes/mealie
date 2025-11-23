@@ -46,7 +46,7 @@
         "generic-updated-with-url": "{name} עודכן, {url}",
         "generic-duplicated": "{name} שוכפל",
         "generic-deleted": "{name} נמחק",
-        "logged-out": "Logged out"
+        "logged-out": "התנתקת"
     },
     "datetime": {
         "year": "שנה|שנים",
