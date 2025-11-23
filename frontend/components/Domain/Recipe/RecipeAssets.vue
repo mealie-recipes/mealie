@@ -90,13 +90,12 @@
               item-value="name"
               class="mr-2"
             >
-              <template #item="{ item }">
-                <v-avatar>
-                  <v-icon class="mr-auto">
-                    {{ item.raw.icon }}
-                  </v-icon>
-                </v-avatar>
-                {{ item.title }}
+              <template #item="{ item, props }">
+                <v-list-item v-bind="props">
+                  <template #prepend>
+                    <v-icon>{{ item.raw.icon }}</v-icon>
+                  </template>
+                </v-list-item>
               </template>
             </v-select>
             <AppButtonUpload
