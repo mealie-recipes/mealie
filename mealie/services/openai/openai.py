@@ -11,10 +11,13 @@ from openai import NOT_GIVEN, AsyncOpenAI
 from openai.types.chat import ChatCompletion
 from pydantic import BaseModel, field_validator
 
+from mealie.core import root_logger
 from mealie.core.config import get_app_settings
 from mealie.pkgs import img
 
 from .._base_service import BaseService
+
+logger = root_logger.get_logger(__name__)
 
 
 class OpenAIDataInjection(BaseModel):
@@ -113,7 +116,12 @@ class OpenAIService(BaseService):
         if isinstance(custom_dir, (str, PathLike)) and Path(custom_dir).is_dir():
             custom_prompt_file = Path(custom_dir, relative_path)
             if custom_prompt_file.exists():
+                logger.debug(f"Found valid custom prompt file: {custom_prompt_file}")
                 return [custom_prompt_file, default_prompt_file]
+            else:
+                logger.debug(f"Custom prompt file doesn't exist: {custom_prompt_file}")
+        else:
+            logger.debug(f"Custom prompt dir doesn't exist: {custom_dir}")
 
         # Otherwise, only return the default internal prompt file
         return [default_prompt_file]
@@ -124,9 +132,11 @@ class OpenAIService(BaseService):
         last_error = None
         for prompt_file in prompt_file_candidates:
             try:
+                logger.debug(f"Trying to load prompt file: {prompt_file}")
                 with open(prompt_file) as f:
                     content = f.read()
                     if content:
+                        logger.debug(f"Successfully read prompt from {prompt_file}")
                         break
             except OSError as e:
                 last_error = e
