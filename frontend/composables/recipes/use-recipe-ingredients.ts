@@ -81,7 +81,7 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1,
       }
 
       if (referencedRecipe) {
-        returnQty += "x";
+        returnQty += quantity > 1 ? " batches" : " batch";
       }
     }
   }
