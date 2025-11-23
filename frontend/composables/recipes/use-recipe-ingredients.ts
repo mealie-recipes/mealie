@@ -81,7 +81,8 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1,
       }
 
       if (referencedRecipe) {
-        returnQty += quantity > 1 ? " batches" : " batch";
+        const i18n = useI18n();
+        returnQty += quantity > 1 ? ` ${i18n.t("recipe.batch_plural")}` : ` ${i18n.t("recipe.batch")}`;
       }
     }
   }
