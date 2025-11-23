@@ -10090,8 +10090,8 @@
             "pretzel": {
                 "aliases": [],
                 "description": "",
-                "name": "pretzel",
-                "plural_name": "pretzels"
+                "name": "Брецель",
+                "plural_name": "Брецелів"
             },
             "sourdough bread": {
                 "aliases": [],
@@ -10102,8 +10102,8 @@
             "rustic italian bread": {
                 "aliases": [],
                 "description": "",
-                "name": "rustic italian bread",
-                "plural_name": "rustic italian breads"
+                "name": "Рустикальний італійський хліб",
+                "plural_name": "Рустикального італійського хлібу"
             },
             "popcorn": {
                 "aliases": [],
@@ -10138,8 +10138,8 @@
             "italian bread crumb": {
                 "aliases": [],
                 "description": "",
-                "name": "italian bread crumb",
-                "plural_name": "italian bread crumbs"
+                "name": "Італійські панірувальні сухарі",
+                "plural_name": "Італійських панірувальних сухарів"
             },
             "rye bread": {
                 "aliases": [],
@@ -10150,8 +10150,8 @@
             "flatbread": {
                 "aliases": [],
                 "description": "",
-                "name": "flatbread",
-                "plural_name": "flatbreads"
+                "name": "Корж",
+                "plural_name": "Коржи"
             },
             "dry-roasted peanut": {
                 "aliases": [],
@@ -10162,20 +10162,20 @@
             "potato chip": {
                 "aliases": [],
                 "description": "",
-                "name": "potato chip",
-                "plural_name": "potato chips"
+                "name": "Картопляні чипси",
+                "plural_name": "Картопляних чипсів"
             },
             "naan": {
                 "aliases": [],
                 "description": "",
-                "name": "naan",
-                "plural_name": "naans"
+                "name": "Наан",
+                "plural_name": "Наанів"
             },
             "stuffing mix": {
                 "aliases": [],
                 "description": "",
-                "name": "stuffing mix",
-                "plural_name": "stuffing mixes"
+                "name": "Суміш для фарширування",
+                "plural_name": "Суміші для фарширування"
             },
             "cornbread": {
                 "aliases": [],
@@ -10186,14 +10186,14 @@
             "taco shell": {
                 "aliases": [],
                 "description": "",
-                "name": "taco shell",
-                "plural_name": "taco shells"
+                "name": "Тортилья для тако",
+                "plural_name": "Тортильї для тако"
             },
             "tater tot": {
                 "aliases": [],
                 "description": "",
-                "name": "tater tot",
-                "plural_name": "tater tots"
+                "name": "Татер тотс",
+                "plural_name": "Татер тотс"
             },
             "bagel": {
                 "aliases": [],
@@ -10210,8 +10210,8 @@
             "unpopped popcorn": {
                 "aliases": [],
                 "description": "",
-                "name": "unpopped popcorn",
-                "plural_name": "unpopped popcorns"
+                "name": "Сухі зерна для попкорну",
+                "plural_name": "Сухих зерен для попкорну"
             },
             "croissant": {
                 "aliases": [],
@@ -10222,32 +10222,32 @@
             "pork rind": {
                 "aliases": [],
                 "description": "",
-                "name": "pork rind",
-                "plural_name": "pork rinds"
+                "name": "Свинячі чипси",
+                "plural_name": "Свинячих чипсів"
             },
             "pumpernickel": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpernickel",
-                "plural_name": "pumpernickels"
+                "name": "Пумпернікель",
+                "plural_name": "Пумпернікель"
             },
             "sweet bread": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet bread",
-                "plural_name": "sweet breads"
+                "name": "Здоба",
+                "plural_name": "Здоби"
             },
             "hawaiian roll": {
                 "aliases": [],
                 "description": "",
-                "name": "hawaiian roll",
-                "plural_name": "hawaiian rolls"
+                "name": "Гавайська булочка",
+                "plural_name": "Гавайських булочок"
             },
             "pita chip": {
                 "aliases": [],
                 "description": "",
-                "name": "pita chip",
-                "plural_name": "pita chips"
+                "name": "Піта-чипси",
+                "plural_name": "Піта-чипсів"
             },
             "gluten free bread": {
                 "aliases": [],
@@ -10270,116 +10270,116 @@
             "breadstick": {
                 "aliases": [],
                 "description": "",
-                "name": "breadstick",
-                "plural_name": "breadsticks"
+                "name": "Хлібні палички",
+                "plural_name": "Хлібних паличок"
             },
             "focaccia": {
                 "aliases": [],
                 "description": "",
-                "name": "focaccia",
-                "plural_name": "focaccias"
+                "name": "Фокача",
+                "plural_name": "Фокачі"
             },
             "gluten-free bread crumb": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free bread crumb",
-                "plural_name": "gluten-free bread crumbs"
+                "name": "Безглютенові панірувальні сухарі",
+                "plural_name": "Безглютенових панірувальних сухарів"
             },
             "tostada shell": {
                 "aliases": [],
                 "description": "",
-                "name": "tostada shell",
-                "plural_name": "tostada shells"
+                "name": "Тортилья для тостада",
+                "plural_name": "Тортильї для тостади"
             },
             "crispy fried onion": {
                 "aliases": [],
                 "description": "",
-                "name": "crispy fried onion",
-                "plural_name": "crispy fried onions"
+                "name": "Хрустка смажена цибуля",
+                "plural_name": "Хрусткої смаженої цибулі"
             },
             "matzo": {
                 "aliases": [],
                 "description": "",
-                "name": "matzo",
-                "plural_name": "matzoes"
+                "name": "Маца",
+                "plural_name": "Маци"
             },
             "garlic bread": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic bread",
-                "plural_name": "garlic breads"
+                "name": "Часниковий хліб",
+                "plural_name": "Часникового хлібу"
             },
             "yeast extract spread": {
                 "aliases": [],
                 "description": "",
-                "name": "yeast extract spread",
-                "plural_name": "yeast extract spreads"
+                "name": "Паста з дріжджового екстракту",
+                "plural_name": "Пасти з дріжджового екстракту"
             },
             "challah": {
                 "aliases": [],
                 "description": "",
-                "name": "challah",
-                "plural_name": "challahs"
+                "name": "Хала",
+                "plural_name": "Хали"
             },
             "roasted gram": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted gram",
-                "plural_name": "roasted grams"
+                "name": "Обсмажений нут",
+                "plural_name": "Обсмаженого нуту"
             },
             "crostini": {
                 "aliases": [],
                 "description": "",
-                "name": "crostini",
-                "plural_name": "crostinis"
+                "name": "Кростіні",
+                "plural_name": "Кростіні"
             },
             "rice cake": {
                 "aliases": [],
                 "description": "",
-                "name": "rice cake",
-                "plural_name": "rice cakes"
+                "name": "Рисовий хлібець",
+                "plural_name": "Рисових хлібців"
             },
             "panettone": {
                 "aliases": [],
                 "description": "",
-                "name": "panettone",
-                "plural_name": "panettones"
+                "name": "Панетоне",
+                "plural_name": "Панетонів"
             },
             "sweet potato fry": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet potato fry",
-                "plural_name": "sweet potato fries"
+                "name": "Фрі з батату",
+                "plural_name": "Фрі з батату"
             },
             "sev": {
                 "aliases": [],
                 "description": "",
                 "name": "Сев снек",
-                "plural_name": "sevs"
+                "plural_name": "Сев снек"
             },
             "vegetable chip": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable chip",
-                "plural_name": "vegetable chips"
+                "name": "Овочеві чипси",
+                "plural_name": "Овочевих чипсів"
             },
             "papad": {
                 "aliases": [],
                 "description": "",
-                "name": "papad",
-                "plural_name": "papads"
+                "name": "Папад",
+                "plural_name": "Папад"
             },
             "spinach wrap": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach wrap",
-                "plural_name": "spinach wraps"
+                "name": "Шпинатна тортилья",
+                "plural_name": "Шпинатні тортильї"
             },
             "plantain chip": {
                 "aliases": [],
                 "description": "",
-                "name": "plantain chip",
-                "plural_name": "plantain chips"
+                "name": "Чипси з плантана",
+                "plural_name": "Чипсів з плантана"
             },
             "roasted chickpea": {
                 "aliases": [],
@@ -10390,44 +10390,44 @@
             "cheeto": {
                 "aliases": [],
                 "description": "",
-                "name": "cheeto",
-                "plural_name": "cheetos"
+                "name": "Снек Cheetos",
+                "plural_name": "Снеків Cheetos"
             },
             "chapati": {
                 "aliases": [],
                 "description": "",
-                "name": "chapati",
-                "plural_name": "chapatis"
+                "name": "Чапаті",
+                "plural_name": "Чапаті"
             },
             "crumpet": {
                 "aliases": [],
                 "description": "",
-                "name": "crumpet",
-                "plural_name": "crumpets"
+                "name": "Крампет",
+                "plural_name": "Крампети"
             },
             "seed bread": {
                 "aliases": [],
                 "description": "",
-                "name": "seed bread",
-                "plural_name": "seed breads"
+                "name": "Хліб з насінням",
+                "plural_name": "Хлібу з насінням"
             },
             "keto bread": {
                 "aliases": [],
                 "description": "",
-                "name": "keto bread",
-                "plural_name": "keto breads"
+                "name": "Кето-хліб",
+                "plural_name": "Кето-хлібу"
             },
             "bread bowl": {
                 "aliases": [],
                 "description": "",
-                "name": "bread bowl",
-                "plural_name": "bread bowls"
+                "name": "Хлібна миска",
+                "plural_name": "Хлібні миски"
             },
             "sprouted grain bread": {
                 "aliases": [],
                 "description": "",
-                "name": "sprouted grain bread",
-                "plural_name": "sprouted grain breads"
+                "name": "Хліб із пророщеного зерна",
+                "plural_name": "Хлібу із пророщеного зерна"
             },
             "cornbread stuffing mix": {
                 "aliases": [],
@@ -10438,56 +10438,56 @@
             "low-carb wrap": {
                 "aliases": [],
                 "description": "",
-                "name": "low-carb wrap",
-                "plural_name": "low-carb wraps"
+                "name": "Низьковуглеводна тортилья",
+                "plural_name": "Низьковуглеводні тортильї"
             },
             "frozen onion ring": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen onion ring",
-                "plural_name": "frozen onion rings"
+                "name": "Заморожені цибулеві кільця",
+                "plural_name": "Заморожених цибулевих кілець"
             },
             "corn muffin": {
                 "aliases": [],
                 "description": "",
-                "name": "corn muffin",
-                "plural_name": "corn muffins"
+                "name": "Кукурудзяний мафін",
+                "plural_name": "Кукурудзяні мафіни"
             },
             "pav bun": {
                 "aliases": [],
                 "description": "",
-                "name": "pav bun",
-                "plural_name": "pav buns"
+                "name": "Пав (булочка)",
+                "plural_name": "Пав (булочки)"
             },
             "corn nut": {
                 "aliases": [],
                 "description": "",
-                "name": "corn nut",
-                "plural_name": "corn nuts"
+                "name": "Смажена кукурудза",
+                "plural_name": "Смаженої кукурудзи"
             },
             "rice cracker": {
                 "aliases": [],
                 "description": "",
-                "name": "rice cracker",
-                "plural_name": "rice crackers"
+                "name": "Рисовий крекер",
+                "plural_name": "Рисових крекерів"
             },
             "rusk": {
                 "aliases": [],
                 "description": "",
-                "name": "rusk",
-                "plural_name": "rusks"
+                "name": "Бісквітний сухар",
+                "plural_name": "Бісквітних сухарів"
             },
             "fruit bread": {
                 "aliases": [],
                 "description": "",
-                "name": "fruit bread",
-                "plural_name": "fruit breads"
+                "name": "Фруктовий хліб",
+                "plural_name": "Фруктового хлібу"
             },
             "sprouted bread": {
                 "aliases": [],
                 "description": "",
-                "name": "sprouted bread",
-                "plural_name": "sprouted breads"
+                "name": "Хліб із пророщеного зерна",
+                "plural_name": "Хлібу із пророщеного зерна"
             },
             "pretzel bun": {
                 "aliases": [],
