@@ -449,8 +449,8 @@
     "import-by-url": "Importér opskrift fra en webside",
     "create-manually": "Opret opskrift manuelt",
     "make-recipe-image": "Gør dette til opskriftsbillede",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Tilføj Mad",
+    "add-recipe": "Tilføj opskrift"
   },
   "page": {
     "404-page-not-found": "404 Siden blev ikke fundet",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Opskrift slettet",
     "recipe-image": "Opskriftsbillede",
     "recipe-image-updated": "Opskriftsbillede ændret",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Slet Opskrift Billede",
+    "delete-image-confirmation": "Er du sikker på, du vil slette dette opskrift billede?",
+    "recipe-image-deleted": "Opskrift billede slettet",
     "recipe-name": "Opskriftens navn",
     "recipe-settings": "Opskriftsindstillinger",
     "recipe-update-failed": "Opdatering af opskrift fejlede",
@@ -565,7 +565,7 @@
     "choose-unit": "Vælg enhed",
     "press-enter-to-create": "Tryk enter for at oprette",
     "choose-food": "Vælg fødevarer",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "Vælg Opskrift",
     "notes": "Kommentarer",
     "toggle-section": "Sektion",
     "see-original-text": "Vis den oprindelige tekst",
@@ -593,7 +593,7 @@
     "made-this": "Jeg har lavet denne",
     "how-did-it-turn-out": "Hvordan blev det?",
     "user-made-this": "{user} lavede denne",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Lavet til {recipe}",
     "added-to-timeline": "Tilføjet til tidslinjen",
     "failed-to-add-to-timeline": "Kunne ikke tilføje til tidslinjen",
     "failed-to-update-recipe": "Kunne ikke opdatere opskrift",
@@ -696,9 +696,9 @@
     "upload-more-images": "Upload flere billeder",
     "set-as-cover-image": "Angiv som opskriftens coverbillede",
     "cover-image": "Coverbillede",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Inkluder Relaterede Opskrifter",
+    "include-linked-recipe-ingredients": "Inkluder Relaterede Opskrift Ingredienser",
+    "toggle-recipe": "Vis/Skjul Opskrift"
   },
   "recipe-finder": {
     "recipe-finder": "Opskriftssøger",
@@ -736,7 +736,7 @@
     "advanced": "Avanceret",
     "auto-search": "Automatisk søgning",
     "no-results": "Ingen resultater fundet",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Skriv for at søge..."
   },
   "settings": {
     "add-a-new-theme": "Tilføj et nyt tema",

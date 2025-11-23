@@ -6826,8 +6826,8 @@
             "glycerine": {
                 "aliases": [],
                 "description": "",
-                "name": "glycerine",
-                "plural_name": "glycerines"
+                "name": "γλυκερίνη",
+                "plural_name": "γλυκερίνες"
             },
             "sorghum syrup": {
                 "aliases": [],
@@ -6922,7 +6922,7 @@
             "fructose": {
                 "aliases": [],
                 "description": "",
-                "name": "fructose",
+                "name": "φρουκτόζη",
                 "plural_name": "fructoses"
             },
             "honey powder": {
@@ -7058,13 +7058,13 @@
             "curry": {
                 "aliases": [],
                 "description": "",
-                "name": "curry",
-                "plural_name": "curries"
+                "name": "κάρι",
+                "plural_name": "κάρι"
             },
             "garam masala": {
                 "aliases": [],
                 "description": "",
-                "name": "garam masala",
+                "name": "γκαράμ μασάλα",
                 "plural_name": "garam masalas"
             },
             "pumpkin pie spice": {
@@ -7322,8 +7322,8 @@
             "smoked salt": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked salt",
-                "plural_name": "smoked salts"
+                "name": "καπνιστό αλάτι",
+                "plural_name": "καπνιστά άλατα"
             },
             "dash seasoning": {
                 "aliases": [],
@@ -7650,53 +7650,53 @@
             "flour": {
                 "aliases": [],
                 "description": "",
-                "name": "flour",
-                "plural_name": "flours"
+                "name": "αλεύρι",
+                "plural_name": "αλεύρι"
             },
             "vanilla extract": {
                 "aliases": [
-                    "vanilla",
-                    "vanillas"
+                    "βανίλια",
+                    "βανίλιες"
                 ],
                 "description": "",
-                "name": "vanilla extract",
-                "plural_name": "vanilla extracts"
+                "name": "εκχύλισμα βανίλιας",
+                "plural_name": "εκχυλίσματα βανίλιας"
             },
             "baking powder": {
                 "aliases": [],
                 "description": "",
-                "name": "baking powder",
-                "plural_name": "baking powders"
+                "name": "μπέικιν πάουντερ",
+                "plural_name": "μπέικιν πάουντερ"
             },
             "baking soda": {
                 "aliases": [],
                 "description": "",
-                "name": "baking soda",
-                "plural_name": "baking sodas"
+                "name": "μαγειρική σόδα",
+                "plural_name": "μαγειρική σόδα"
             },
             "cornstarch": {
                 "aliases": [],
                 "description": "",
-                "name": "cornstarch",
-                "plural_name": "cornstarches"
+                "name": "άμυλο αραβοσίτου",
+                "plural_name": "άμυλα αραβοσίτου"
             },
             "yeast": {
                 "aliases": [],
                 "description": "",
-                "name": "yeast",
-                "plural_name": "yeasts"
+                "name": "μαγιά",
+                "plural_name": "μαγιά"
             },
             "chocolate chip": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate chip",
-                "plural_name": "chocolate chips"
+                "name": "κομματάκι σοκολάτας",
+                "plural_name": "κομματάκια σοκολάτας"
             },
             "dark chocolate chip": {
                 "aliases": [],
                 "description": "",
-                "name": "dark chocolate chip",
-                "plural_name": "dark chocolate chips"
+                "name": "κομματάκι μαύρης σοκολάτας",
+                "plural_name": "κομματάκια μαύρης σοκολάτας"
             },
             "whole-wheat flour": {
                 "aliases": [
@@ -16287,8 +16287,8 @@
             "eucalyptus oil": {
                 "aliases": [],
                 "description": "",
-                "name": "eucalyptus oil",
-                "plural_name": "eucalyptus oils"
+                "name": "έλαιο ευκαλύπτου",
+                "plural_name": "έλαια ευκαλύπτου"
             },
             "goji berry powder": {
                 "aliases": [],

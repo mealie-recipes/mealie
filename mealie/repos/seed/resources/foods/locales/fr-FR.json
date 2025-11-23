@@ -1985,8 +1985,8 @@
             "barùka": {
                 "aliases": [],
                 "description": "",
-                "name": "barùka",
-                "plural_name": "barùkas"
+                "name": "noix de Baru",
+                "plural_name": "noix de Baru"
             },
             "indian almond": {
                 "aliases": [],
@@ -2424,7 +2424,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "scamorza",
-                "plural_name": "scamorzas"
+                "plural_name": "scamorza"
             },
             "cambozola": {
                 "aliases": [],
@@ -3090,7 +3090,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kashk",
-                "plural_name": "kashks"
+                "plural_name": ""
             },
             "ostrich egg": {
                 "aliases": [],
@@ -4698,7 +4698,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "turkey liver",
-                "plural_name": "turkey livers"
+                "plural_name": "foies de dinde"
             },
             "chicken neck": {
                 "aliases": [],
@@ -5879,8 +5879,8 @@
             "chili powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chili powder",
-                "plural_name": "chili powders"
+                "name": "poudre de chili",
+                "plural_name": "poudres de chili"
             },
             "paprika": {
                 "aliases": [],
@@ -6323,7 +6323,7 @@
             "sorrel": {
                 "aliases": [],
                 "description": "",
-                "name": "sorrel",
+                "name": "oseille",
                 "plural_name": "sorrels"
             },
             "gochugaru": {
@@ -6851,7 +6851,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cranberry syrup",
-                "plural_name": "cranberry syrups"
+                "plural_name": "sirops de canneberge"
             },
             "golden sugar": {
                 "aliases": [],
