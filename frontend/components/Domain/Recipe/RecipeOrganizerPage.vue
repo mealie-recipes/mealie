@@ -123,6 +123,7 @@
 
 <script setup lang="ts">
 import Fuse from "fuse.js";
+import { normalizeText } from "~/composables/use-text-normalize";
 import { useContextPresets } from "~/composables/use-context-presents";
 import RecipeOrganizerDialog from "~/components/Domain/Recipe/RecipeOrganizerDialog.vue";
 import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
@@ -158,7 +159,12 @@ const state = reactive({
     findAllMatches: true,
     maxPatternLength: 32,
     minMatchCharLength: 1,
-    keys: ["name"],
+    keys: [
+      {
+        name: "name",
+        getFn: (item: GenericItem) => normalizeText(item.name),
+      },
+    ],
   },
 });
 
@@ -230,7 +236,9 @@ const fuzzyItems = computed<GenericItem[]>(() => {
   if (searchString.value.trim() === "") {
     return props.items;
   }
-  const result = fuse.value.search(searchString.value.trim() as string);
+  // Normalize the search string to match the normalized item names
+  const normalizedSearch = normalizeText(searchString.value.trim());
+  const result = fuse.value.search(normalizedSearch);
   return result.map(x => x.item);
 });
 

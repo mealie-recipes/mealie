@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING
 
 from pydantic import ConfigDict
 from slugify import slugify
-from sqlalchemy import Boolean, Column, ForeignKey, String, Table, UniqueConstraint, orm
+from sqlalchemy import Boolean, Column, ForeignKey, String, Table, UniqueConstraint, event, orm
 from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
@@ -49,6 +49,7 @@ class Tool(SqlAlchemyBase, BaseMixins):
     group: Mapped["Group"] = orm.relationship("Group", back_populates="tools", foreign_keys=[group_id])
 
     name: Mapped[str] = mapped_column(String, index=True, nullable=False)
+    name_normalized: Mapped[str] = mapped_column(String, index=True, nullable=False)
     slug: Mapped[str] = mapped_column(String, index=True, nullable=False)
 
     households_with_tool: Mapped[list["Household"]] = orm.relationship(
@@ -73,6 +74,7 @@ class Tool(SqlAlchemyBase, BaseMixins):
     ) -> None:
         from ..household import Household
 
+        self.name_normalized = self.normalize(name)
         self.slug = slugify(name)
 
         if not households_with_tool:
@@ -83,3 +85,8 @@ class Tool(SqlAlchemyBase, BaseMixins):
                 .filter(Household.group_id == group_id, Household.slug.in_(households_with_tool))
                 .all()
             )
+
+
+@event.listens_for(Tool.name, "set")
+def receive_tool_name(target: Tool, value: str, oldvalue, initiator):
+    target.name_normalized = Tool.normalize(value)

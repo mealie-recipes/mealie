@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from slugify import slugify
+from sqlalchemy import event
 from sqlalchemy.orm import Mapped, mapped_column, validates
 
 from mealie.core import root_logger
@@ -51,6 +52,7 @@ class Tag(SqlAlchemyBase, BaseMixins):
     group: Mapped["Group"] = orm.relationship("Group", back_populates="tags", foreign_keys=[group_id])
 
     name: Mapped[str] = mapped_column(sa.String, index=True, nullable=False)
+    name_normalized: Mapped[str] = mapped_column(sa.String, index=True, nullable=False)
     slug: Mapped[str] = mapped_column(sa.String, index=True, nullable=False)
     recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=recipes_to_tags, back_populates="tags"
@@ -64,4 +66,10 @@ class Tag(SqlAlchemyBase, BaseMixins):
     def __init__(self, name, group_id, **_) -> None:
         self.group_id = group_id
         self.name = name.strip()
+        self.name_normalized = self.normalize(name)
         self.slug = slugify(self.name)
+
+
+@event.listens_for(Tag.name, "set")
+def receive_tag_name(target: Tag, value: str, oldvalue, initiator):
+    target.name_normalized = Tag.normalize(value)

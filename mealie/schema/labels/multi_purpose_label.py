@@ -22,7 +22,8 @@ class MultiPurposeLabelUpdate(MultiPurposeLabelSave):
 
 
 class MultiPurposeLabelSummary(MultiPurposeLabelUpdate):
-    _searchable_properties: ClassVar[list[str]] = ["name"]
+    _searchable_properties: ClassVar[list[str]] = ["name_normalized"]
+    _normalize_search: ClassVar[bool] = True
     model_config = ConfigDict(from_attributes=True)
 
 

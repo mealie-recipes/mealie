@@ -139,6 +139,7 @@
 
 <script lang="ts">
 import { watchDebounced } from "@vueuse/core";
+import { normalizeText } from "~/composables/use-text-normalize";
 
 export interface SelectableItem {
   id: string;
@@ -212,8 +213,8 @@ export default defineNuxtComponent({
         return items;
       }
 
-      const searchLower = search.toLowerCase();
-      return items.filter(item => item.name.toLowerCase().includes(searchLower));
+      const normalizedSearch = normalizeText(search);
+      return items.filter(item => normalizeText(item.name).includes(normalizedSearch));
     });
 
     const selectedCount = computed(() => selected.value.length);
