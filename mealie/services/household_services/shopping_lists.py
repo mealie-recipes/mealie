@@ -1,4 +1,5 @@
 from typing import cast
+import math
 
 from pydantic import UUID4
 
@@ -17,8 +18,10 @@ from mealie.schema.household.group_shopping_list import (
     ShoppingListItemUpdate,
     ShoppingListItemUpdateBulk,
     ShoppingListMultiPurposeLabelCreate,
+    ShoppingListMultiPurposeLabelUpdate,
     ShoppingListOut,
     ShoppingListSave,
+    ShoppingListSummary,
 )
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import (
@@ -28,6 +31,7 @@ from mealie.schema.recipe.recipe_ingredient import (
 )
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.services.parser_services._base import DataMatcher
+from mealie.schema.household.shopping_list_tesco import TescoBasketItem
 
 
 class ShoppingListService:
@@ -527,3 +531,201 @@ class ShoppingListService:
 
         self.repos.shopping_list_multi_purpose_labels.create_many(label_settings)
         return self.shopping_lists.get_one(new_list.id)
+
+    def get_tesco_basket(self, list_id: UUID4) -> list[TescoBasketItem]:
+        from mealie.core.config import get_app_settings
+        import logging
+        logger = logging.getLogger(__name__)
+        
+        shopping_list = self.shopping_lists.get_one(list_id)
+        if not shopping_list:
+            raise UnexpectedNone("Shopping list not found")
+
+        logger.info(f"TESCO BASKET: Processing list {list_id} with {len(shopping_list.list_items)} items")
+
+        # Collect all recipe IDs from the list items
+        recipe_ids = set()
+        for item in shopping_list.list_items:
+            if item.checked:
+                logger.info(f"TESCO BASKET: Skipping checked item {item.id}")
+                continue
+            for ref in item.recipe_references:
+                recipe_ids.add(ref.recipe_id)
+
+        if not recipe_ids:
+            logger.info("TESCO BASKET: No recipe IDs found in list")
+            return []
+
+        logger.info(f"TESCO BASKET: Found recipe IDs: {recipe_ids}")
+
+        # Fetch recipes
+        # We fetch full recipes to ensure ingredients are loaded
+        # Use existing repository with proper household context
+        recipe_repo = self.repos.recipes
+        logger.info(f"TESCO BASKET: Repo Context - Group ID: {self.repos.group_id}")
+        
+        recipe_map = {}
+        for recipe_id in recipe_ids:
+            try:
+                recipe = recipe_repo.get_one(recipe_id, "id")
+                if recipe:
+                    recipe_map[recipe_id] = recipe
+                    logger.info(f"TESCO BASKET: Loaded recipe {recipe.name} ({recipe.id}) with {len(recipe.recipe_ingredient)} ingredients")
+                else:
+                    logger.warning(f"TESCO BASKET: Recipe {recipe_id} returned None from repo")
+            except Exception as e:
+                logger.error(f"TESCO BASKET: Failed to load recipe {recipe_id}: {e}")
+                continue
+
+        basket_map = {}  # url -> dict
+
+        # Helper to normalize text for comparison
+        def normalize(text: str | None) -> str:
+            return (text or "").lower().strip()
+
+        # Helper to convert units
+        def convert_quantity(qty: float, from_unit: str | None, to_unit: str | None) -> float:
+            if not from_unit or not to_unit:
+                return qty
+            
+            f = from_unit.lower().strip()
+            t = to_unit.lower().strip()
+            
+            if f == t:
+                return qty
+            
+            # Mass
+            if f in ['g', 'gram', 'grams'] and t in ['kg', 'kilogram', 'kilograms']:
+                return qty / 1000.0
+            if f in ['kg', 'kilogram', 'kilograms'] and t in ['g', 'gram', 'grams']:
+                return qty * 1000.0
+            
+            # Volume
+            if f in ['ml', 'milliliter', 'milliliters'] and t in ['l', 'liter', 'liters']:
+                return qty / 1000.0
+            if f in ['l', 'liter', 'liters'] and t in ['ml', 'milliliter', 'milliliters']:
+                return qty * 1000.0
+                
+            return qty
+
+        for item in shopping_list.list_items:
+            if item.checked:
+                continue
+
+            logger.debug(f"TESCO BASKET: Processing item {item.id}, Note: '{item.note}', FoodID: {item.food_id}")
+
+            matched_via_recipe = False
+            for ref in item.recipe_references:
+                if ref.recipe_id not in recipe_map:
+                    logger.debug(f"TESCO BASKET: Recipe {ref.recipe_id} not found in map")
+                    continue
+                
+                recipe = recipe_map[ref.recipe_id]
+                
+                # Find the matching ingredient in the recipe
+                matched_ingredient = None
+                for ingredient in recipe.recipe_ingredient:
+                    # 1. Match based on food and unit (if available)
+                    if item.food_id and ingredient.food and ingredient.food.id:
+                        if item.food_id == ingredient.food.id and item.unit_id == (ingredient.unit.id if ingredient.unit else None):
+                            matched_ingredient = ingredient
+                            logger.debug(f"TESCO BASKET: Matched by ID: {ingredient.reference_id}")
+                            break
+                    
+                    # 2. Fallback: Match based on text (note vs original_text/title)
+                    # This is needed when ingredients are not parsed into foods
+                    if not item.food_id:
+                        item_text = normalize(item.note)
+                        ing_text = normalize(ingredient.original_text) or normalize(ingredient.title) or normalize(ingredient.note)
+                        
+                        logger.debug(f"TESCO BASKET: Comparing '{item_text}' vs '{ing_text}'")
+
+                        # Simple containment check or exact match
+                        if item_text and ing_text and (item_text == ing_text or item_text in ing_text or ing_text in item_text):
+                            matched_ingredient = ingredient
+                            logger.debug(f"TESCO BASKET: Matched by TEXT: {ingredient.reference_id}")
+                            break
+                
+                if matched_ingredient:
+                    if matched_ingredient.tesco_product_url:
+                        url = matched_ingredient.tesco_product_url
+                        logger.debug(f"TESCO BASKET: Found URL {url} for ingredient {matched_ingredient.reference_id}")
+                        
+                        if url not in basket_map:
+                            basket_map[url] = {
+                                "url": url,
+                                "product_name": matched_ingredient.food.name if matched_ingredient.food else (matched_ingredient.title or matched_ingredient.note or "Unknown Product"),
+                                "total_quantity_needed": 0.0,
+                                "unit": matched_ingredient.tesco_units if matched_ingredient.tesco_units else (matched_ingredient.unit.name if matched_ingredient.unit else ""),
+                                "pack_size": matched_ingredient.tesco_quantity or 1.0,
+                                "estimated_cost": matched_ingredient.tesco_price or 0.0,
+                                "tesco_units": matched_ingredient.tesco_units
+                            }
+                        
+                        # Use the item's total quantity instead of recalculating from references
+                        qty_to_add = item.quantity
+                        
+                        # Unit conversion
+                        recipe_unit = matched_ingredient.unit.name if matched_ingredient.unit else None
+                        tesco_unit = matched_ingredient.tesco_units
+                        
+                        if tesco_unit:
+                            qty_to_add = convert_quantity(qty_to_add, recipe_unit, tesco_unit)
+                            
+                        basket_map[url]["total_quantity_needed"] += qty_to_add
+                        matched_via_recipe = True
+                        break 
+                    else:
+                        logger.debug(f"TESCO BASKET: Matched ingredient {matched_ingredient.reference_id} has no Tesco URL")
+                else:
+                    logger.debug(f"TESCO BASKET: No match found for item {item.id} in recipe {recipe.id}")
+
+            # If not matched via recipe (or no recipe refs), try manual food link
+            if not matched_via_recipe and item.food and item.food.tesco_product_url:
+                url = item.food.tesco_product_url
+                logger.debug(f"TESCO BASKET: Found Manual URL {url} for item {item.id}")
+                
+                if url not in basket_map:
+                    basket_map[url] = {
+                        "url": url,
+                        "product_name": item.food.name,
+                        "total_quantity_needed": 0.0,
+                        "unit": item.food.tesco_units if item.food.tesco_units else (item.unit.name if item.unit else ""),
+                        "pack_size": item.food.tesco_quantity or 1.0,
+                        "estimated_cost": item.food.tesco_price or 0.0,
+                        "tesco_units": item.food.tesco_units
+                    }
+                
+                qty_to_add = item.quantity
+                
+                # Unit conversion for manual items
+                item_unit = item.unit.name if item.unit else None
+                tesco_unit = item.food.tesco_units
+                
+                if tesco_unit:
+                    qty_to_add = convert_quantity(qty_to_add, item_unit, tesco_unit)
+                    
+                basket_map[url]["total_quantity_needed"] += qty_to_add
+
+        basket_items = []
+        for url, data in basket_map.items():
+            pack_size = data["pack_size"]
+            # Avoid division by zero
+            if pack_size <= 0:
+                pack_size = 1.0
+            
+            packs = math.ceil(data["total_quantity_needed"] / pack_size)
+            
+            basket_items.append(TescoBasketItem(
+                url=url,
+                product_name=data["product_name"],
+                total_quantity_needed=data["total_quantity_needed"],
+                unit=data["unit"],
+                pack_size=pack_size,
+                packs_needed=packs,
+                estimated_cost=packs * data["estimated_cost"]
+            ))
+            
+        logger.info(f"TESCO BASKET: Returning {len(basket_items)} items")
+        return basket_items
+

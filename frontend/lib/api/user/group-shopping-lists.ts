@@ -9,6 +9,7 @@ import type {
   ShoppingListMultiPurposeLabelUpdate,
   ShoppingListOut,
   ShoppingListUpdate,
+  TescoBasketItem,
 } from "~/lib/api/types/household";
 
 const prefix = "/api";
@@ -19,6 +20,7 @@ const routes = {
   shoppingListIdAddRecipe: (id: string) => `${prefix}/households/shopping/lists/${id}/recipe`,
   shoppingListIdRemoveRecipe: (id: string, recipeId: string) => `${prefix}/households/shopping/lists/${id}/recipe/${recipeId}/delete`,
   shoppingListIdUpdateLabelSettings: (id: string) => `${prefix}/households/shopping/lists/${id}/label-settings`,
+  shoppingListIdTescoBasket: (id: string) => `${prefix}/households/shopping/lists/${id}/tesco-basket`,
 
   shoppingListItems: `${prefix}/households/shopping/items`,
   shoppingListItemsCreateBulk: `${prefix}/households/shopping/items/create-bulk`,
@@ -39,6 +41,10 @@ export class ShoppingListsApi extends BaseCRUDAPI<ShoppingListCreate, ShoppingLi
 
   async updateLabelSettings(itemId: string, listSettings: ShoppingListMultiPurposeLabelUpdate[]) {
     return await this.requests.put(routes.shoppingListIdUpdateLabelSettings(itemId), listSettings);
+  }
+
+  async getTescoBasket(itemId: string) {
+    return await this.requests.get<TescoBasketItem[]>(routes.shoppingListIdTescoBasket(itemId));
   }
 }
 

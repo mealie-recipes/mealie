@@ -5,6 +5,14 @@
       :scale="scale"
       :is-cook-mode="isCookMode"
     />
+    <div v-if="totalCost > 0" class="mt-4">
+      <h2 class="text-h5 font-weight-medium opacity-80">
+        Total Estimated Cost
+      </h2>
+      <div class="text-body-1">
+        £{{ totalCost.toFixed(2) }}
+      </div>
+    </div>
     <div v-if="!isEditMode && recipe.tools && recipe.tools.length > 0">
       <h2 class="mt-4 text-h5 font-weight-medium opacity-80">
         {{ $t('tool.required-tools') }}
@@ -72,6 +80,13 @@ const recipeTools = computed(() => {
       return { ...tool, onHand } as RecipeToolWithOnHand;
     });
   }
+});
+
+const totalCost = computed(() => {
+  if (!props.recipe.recipeIngredient) return 0;
+  return props.recipe.recipeIngredient.reduce((acc, ingredient) => {
+    return acc + (ingredient.tescoPrice || 0);
+  }, 0);
 });
 
 function updateTool(index: number) {

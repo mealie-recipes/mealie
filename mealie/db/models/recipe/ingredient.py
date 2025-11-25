@@ -174,6 +174,14 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     label_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"), index=True)
     label: Mapped[MultiPurposeLabel | None] = orm.relationship(MultiPurposeLabel, uselist=False, back_populates="foods")
 
+    # Tesco Integration
+    tesco_product_id: Mapped[str | None] = mapped_column(String)
+    tesco_product_url: Mapped[str | None] = mapped_column(String)
+    tesco_price: Mapped[float | None] = mapped_column(Float)
+    tesco_unit_price: Mapped[float | None] = mapped_column(Float)
+    tesco_units: Mapped[str | None] = mapped_column(String)
+    tesco_quantity: Mapped[float | None] = mapped_column(Float)
+
     # Automatically updated by sqlalchemy event, do not write to this manually
     name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
     plural_name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
@@ -357,6 +365,13 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     original_text: Mapped[str | None] = mapped_column(String)
 
     reference_id: Mapped[GUID | None] = mapped_column(GUID)  # Reference Links
+
+    # Tesco Integration
+    tesco_product_url: Mapped[str | None] = mapped_column(String)
+    tesco_price: Mapped[float | None] = mapped_column(Float)
+    tesco_unit_price: Mapped[float | None] = mapped_column(Float)
+    tesco_units: Mapped[str | None] = mapped_column(String)
+    tesco_quantity: Mapped[float | None] = mapped_column(Float)
 
     # Recipe Reference
     referenced_recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)

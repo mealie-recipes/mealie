@@ -37,7 +37,17 @@
           />
         </div>
         <div class="d-flex flex-wrap align-end" style="gap: 20px">
-          <div class="d-flex align-end">
+          <div class="d-flex align-end" style="flex-grow: 1">
+            <v-text-field
+              v-if="listItem.food"
+              v-model="listItem.food.tescoProductUrl"
+              label="Tesco URL"
+              hide-details
+              density="compact"
+              variant="underlined"
+              class="mt-3 mr-4"
+              @change="updateFood"
+            />
             <div style="max-width: 300px" class="mt-3 mr-auto">
               <InputLabelType
                 v-model="listItem.label"
@@ -203,11 +213,18 @@ export default defineNuxtComponent({
       await foodStore.actions.updateOne(listItem.value.food);
     }
 
+    async function updateFood() {
+      if (listItem.value.food && listItem.value.foodId) {
+        await foodStore.actions.updateOne(listItem.value.food);
+      }
+    }
+
     return {
       listItem,
       createAssignFood,
       createAssignUnit,
       assignLabelToFood,
+      updateFood,
     };
   },
   methods: {

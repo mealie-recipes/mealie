@@ -144,6 +144,11 @@ export interface IngredientFood {
   label?: MultiPurposeLabelSummary | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  tescoProductUrl?: string | null;
+  tescoPrice?: number | null;
+  tescoUnitPrice?: number | null;
+  tescoUnits?: string | null;
+  tescoQuantity?: number | null;
 }
 export interface IngredientFoodAlias {
   name: string;
@@ -220,6 +225,11 @@ export interface RecipeIngredient {
   title?: string | null;
   originalText?: string | null;
   referenceId?: string;
+  tescoProductUrl?: string | null;
+  tescoPrice?: number | null;
+  tescoUnitPrice?: number | null;
+  tescoUnits?: string | null;
+  tescoQuantity?: number | null;
 }
 export interface Recipe {
   id?: string | null;
@@ -353,6 +363,11 @@ export interface RecipeIngredientBase {
   referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
+  tescoProductUrl?: string | null;
+  tescoPrice?: number | null;
+  tescoUnitPrice?: number | null;
+  tescoUnits?: string | null;
+  tescoQuantity?: number | null;
 }
 export interface RecipeLastMade {
   timestamp: string;
@@ -515,7 +530,7 @@ export interface ScrapeRecipeTest {
   url: string;
   useOpenAI?: boolean;
 }
-export interface SlugResponse {}
+export interface SlugResponse { }
 export interface TagIn {
   name: string;
 }

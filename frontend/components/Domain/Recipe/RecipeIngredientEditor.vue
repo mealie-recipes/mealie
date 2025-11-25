@@ -212,6 +212,19 @@
         </div>
       </v-col>
     </v-row>
+    <v-row v-if="!state.isRecipe" dense class="mx-1">
+      <v-col cols="12">
+        <v-text-field
+          v-model="model.tescoProductUrl"
+          density="compact"
+          variant="underlined"
+          hide-details
+          label="Tesco Product URL"
+          placeholder="https://www.tesco.com/groceries/en-GB/products/..."
+          class="mb-2"
+        />
+      </v-col>
+    </v-row>
     <slot name="before-divider" />
     <v-divider
       v-if="!mdAndUp"

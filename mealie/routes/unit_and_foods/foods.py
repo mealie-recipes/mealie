@@ -66,8 +66,30 @@ class IngredientFoodsController(BaseUserController):
 
     @router.put("/{item_id}", response_model=IngredientFood)
     def update_one(self, item_id: UUID4, data: CreateIngredientFood):
-        data = mapper.cast(data, SaveIngredientFood, group_id=self.group_id)
-        return self.mixins.update_one(data, item_id)
+        save_data = mapper.cast(data, SaveIngredientFood, group_id=self.group_id)
+        
+        if save_data.tesco_product_url:
+            try:
+                from mealie.services.tesco.tesco_service import TescoService
+                service = TescoService()
+                # Use sync method since this controller is sync
+                product = service.get_product_price_sync(save_data.tesco_product_url)
+                
+                if product.scrape_success:
+                    self.logger.info(f"Scraped Tesco Data: {product.price} {product.units}")
+                    save_data.tesco_price = product.price
+                    save_data.tesco_unit_price = product.price_per_unit
+                    save_data.tesco_units = product.units
+                    save_data.tesco_quantity = product.quantity
+                    # Extract ID from URL if possible
+                    if product.url:
+                        parts = product.url.split('/')
+                        if parts:
+                            save_data.tesco_product_id = parts[-1]
+            except Exception as e:
+                self.logger.error(f"Failed to scrape Tesco URL: {e}")
+
+        return self.mixins.update_one(save_data, item_id)
 
     @router.delete("/{item_id}", response_model=IngredientFood)
     def delete_one(self, item_id: UUID4):

@@ -36,6 +36,11 @@
       </v-card-text>
     </BaseDialog>
 
+    <TescoBasketDialog
+      v-model="tescoBasketDialog"
+      :shopping-list-id="id"
+    />
+
     <!-- Reorder Labels -->
     <BaseDialog
       v-model="reorderLabelsDialog"
@@ -115,6 +120,11 @@
                     event: 'check',
                   },
                   {
+                    icon: $globals.icons.cartCheck,
+                    text: 'Tesco Basket',
+                    event: 'tesco-basket',
+                  },
+                  {
                     icon: $globals.icons.dotsVertical,
                     text: '',
                     event: 'three-dot',
@@ -135,6 +145,7 @@
                 @edit="edit = true"
                 @three-dot="threeDot = true"
                 @check="openCheckAll"
+                @tesco-basket="tescoBasketDialog = true"
                 @copy-plain="copyListItems('plain')"
                 @copy-markdown="copyListItems('markdown')"
                 @reorder-labels="toggleReorderLabelsDialog()"
@@ -331,6 +342,7 @@ import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurposeLabelSection.vue";
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
+import TescoBasketDialog from "~/components/Domain/ShoppingList/TescoBasketDialog.vue";
 import { useShoppingListPage } from "~/composables/shopping-list-page/use-shopping-list-page";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
 import { getTextColor } from "~/composables/use-text-color";
@@ -343,12 +355,15 @@ export default defineNuxtComponent({
     ShoppingListItem,
     RecipeList,
     ShoppingListItemEditor,
+    TescoBasketDialog,
   },
   setup() {
     const { mdAndUp } = useDisplay();
     const i18n = useI18n();
     const $auth = useMealieAuth();
     const preferences = useShoppingListPreferences();
+
+    const tescoBasketDialog = ref(false);
 
     useSeoMeta({
       title: i18n.t("shopping-list.shopping-list"),
@@ -364,6 +379,7 @@ export default defineNuxtComponent({
     const { store: allFoods } = useFoodStore();
 
     return {
+      id,
       groupSlug,
       preferences,
       allLabels,
@@ -371,6 +387,7 @@ export default defineNuxtComponent({
       allFoods,
       getTextColor,
       mdAndUp,
+      tescoBasketDialog,
       ...shoppingListPage,
     };
   },

@@ -793,3 +793,12 @@ export interface RecipeIngredientBase {
   note?: string | null;
   display?: string;
 }
+export interface TescoBasketItem {
+  url: string;
+  productName: string;
+  totalQuantityNeeded: number;
+  unit: string;
+  packSize: number;
+  packsNeeded: number;
+  estimatedCost: number;
+}

@@ -34,6 +34,7 @@ from mealie.services.event_bus_service.event_types import (
     EventTypes,
 )
 from mealie.services.household_services.shopping_lists import ShoppingListService
+from mealie.schema.household.shopping_list_tesco import TescoBasketItem
 
 item_router = APIRouter(prefix="/households/shopping/items", tags=["Households: Shopping List Items"])
 
@@ -281,3 +282,8 @@ class ShoppingListController(BaseCrudController):
 
         publish_list_item_events(self.publish_event, items)
         return shopping_list
+
+    @router.get("/{item_id}/tesco-basket", response_model=list[TescoBasketItem])
+    def get_tesco_basket(self, item_id: UUID4):
+        self.logger.info(f"TESCO BASKET: Controller - Group ID: {self.repos.group_id}, Household ID: {self.repos.household_id}")
+        return self.service.get_tesco_basket(item_id)

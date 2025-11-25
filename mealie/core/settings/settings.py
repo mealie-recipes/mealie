@@ -142,7 +142,7 @@ class AppSettings(AppLoggingSettings):
     ALLOW_SIGNUP: bool = False
     ALLOW_PASSWORD_LOGIN: bool = True
 
-    DAILY_SCHEDULE_TIME: str = "23:45"
+    DAILY_SCHEDULE_TIME: str = "04:00"
     """Local server time, in HH:MM format. See `DAILY_SCHEDULE_TIME_UTC` for the parsed UTC equivalent"""
 
     @property

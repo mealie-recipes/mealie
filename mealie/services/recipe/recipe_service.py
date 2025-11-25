@@ -33,6 +33,7 @@ from mealie.services.household_services.household_service import HouseholdServic
 from mealie.services.openai import OpenAIDataInjection, OpenAILocalImage, OpenAIService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper import cleaner
+from mealie.services.tesco.tesco_service import TescoService
 
 from .template_service import TemplateService
 
@@ -120,6 +121,23 @@ class RecipeService(RecipeServiceBase):
         rmtree(recipe_dir, ignore_errors=True)
         self.logger.info(f"Recipe Directory Removed: {recipe.slug}")
 
+    def _enrich_ingredients_with_tesco_data(self, recipe_data: Recipe):
+        if not recipe_data.recipe_ingredient:
+            return
+
+        tesco_service = TescoService()
+        for ingredient in recipe_data.recipe_ingredient:
+            if ingredient.tesco_product_url:
+                try:
+                    product = tesco_service.get_product_price_sync(ingredient.tesco_product_url)
+                    if product.scrape_success:
+                        ingredient.tesco_price = product.price
+                        ingredient.tesco_unit_price = product.price_per_unit
+                        ingredient.tesco_units = product.units
+                        ingredient.tesco_quantity = product.quantity
+                except Exception as e:
+                    self.logger.error(f"Failed to fetch Tesco data for {ingredient.tesco_product_url}: {e}")
+
     def _recipe_creation_factory(self, name: str, additional_attrs: dict | None = None) -> Recipe:
         """
         The main creation point for recipes. The factor method returns an instance of the
@@ -164,6 +182,8 @@ class RecipeService(RecipeServiceBase):
             create_data.name = "New Recipe"
 
         data: Recipe = self._recipe_creation_factory(name=create_data.name, additional_attrs=create_data.model_dump())
+
+        self._enrich_ingredients_with_tesco_data(data)
 
         if isinstance(create_data, CreateRecipe) or create_data.settings is None:
             if self.household.preferences is not None:
@@ -428,6 +448,8 @@ class RecipeService(RecipeServiceBase):
     def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
         recipe = self._pre_update_check(slug_or_id, update_data)
 
+        self._enrich_ingredients_with_tesco_data(update_data)
+
         new_data = self.group_recipes.update(recipe.slug, update_data)
         self.check_assets(new_data, recipe.slug)
         return new_data
@@ -455,6 +477,8 @@ class RecipeService(RecipeServiceBase):
 
     def patch_one(self, slug_or_id: str | UUID, patch_data: Recipe) -> Recipe:
         recipe: Recipe = self._pre_update_check(slug_or_id, patch_data)
+
+        self._enrich_ingredients_with_tesco_data(patch_data)
 
         new_data = self.group_recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
 

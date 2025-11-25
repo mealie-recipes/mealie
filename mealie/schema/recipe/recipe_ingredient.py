@@ -69,6 +69,14 @@ class CreateIngredientFood(UnitFoodBase):
     aliases: list[CreateIngredientFoodAlias] = []
     households_with_ingredient_food: list[str] = []
 
+    # Tesco Integration
+    tesco_product_id: str | None = None
+    tesco_product_url: str | None = None
+    tesco_price: NoneFloat = None
+    tesco_unit_price: NoneFloat = None
+    tesco_units: str | None = None
+    tesco_quantity: NoneFloat = None
+
 
 class SaveIngredientFood(CreateIngredientFood):
     group_id: UUID4
@@ -157,6 +165,13 @@ class RecipeIngredientBase(MealieModel):
     unit: IngredientUnit | CreateIngredientUnit | None = None
     food: IngredientFood | CreateIngredientFood | None = None
     referenced_recipe: Recipe | None = None
+
+    # Tesco Integration
+    tesco_product_url: str | None = None
+    tesco_price: NoneFloat = None
+    tesco_unit_price: NoneFloat = None
+    tesco_units: str | None = None
+    tesco_quantity: NoneFloat = None
 
     note: str | None = ""
     display: str = ""

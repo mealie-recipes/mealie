@@ -9,6 +9,8 @@ services:
     restart: always
     volumes:
       - mealie-data:/app/data/
+      - ../mealie/services/household_services/shopping_lists.py:/opt/mealie/lib/python3.12/site-packages/mealie/services/household_services/shopping_lists.py
+      - ../mealie/routes/households/controller_shopping_lists.py:/opt/mealie/lib/python3.12/site-packages/mealie/routes/households/controller_shopping_lists.py
     ports:
       - 9091:9000
     environment:
