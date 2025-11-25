@@ -30,7 +30,7 @@
       :icon="$globals.icons.potSteam"
       :title="$t('data-pages.tools.edit-tool')"
       :submit-text="$t('general.save')"
-      can-confirm
+      can-submit
       @submit="editSaveTool"
     >
       <v-card-text v-if="editTarget">
