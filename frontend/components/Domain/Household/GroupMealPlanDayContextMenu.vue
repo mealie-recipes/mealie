@@ -66,7 +66,6 @@ export interface ContextMenuItem {
 
 interface Props {
   recipes?: Recipe[];
-  date?: Date;
   menuTop?: boolean;
   fab?: boolean;
   color?: string;
@@ -78,12 +77,10 @@ const props = withDefaults(defineProps<Props>(), {
   fab: false,
   color: "primary",
   menuIcon: null,
-  date: undefined,
 });
 
 const emit = defineEmits<{
-  (e: "show-nutrition", payload: Date): void;
-  (e: string): void;
+  [key: string]: [];
 }>();
 
 const { mdAndUp } = useDisplay();
@@ -101,13 +98,6 @@ const state = reactive({
       icon: $globals.icons.cartCheck,
       color: undefined,
       event: "shoppingList",
-      isPublic: false,
-    },
-    {
-      title: i18n.t("recipe.toggle-nutrition-values"),
-      icon: $globals.icons.chefHat,
-      color: undefined,
-      event: "showNutrition",
       isPublic: false,
     },
   ],
@@ -139,12 +129,6 @@ const eventHandlers: { [key: string]: () => void | Promise<any> } = {
   shoppingList: () => {
     getShoppingLists();
     state.shoppingListDialog = true;
-  },
-  showNutrition: () => {
-    if (!props.date) {
-      return;
-    }
-    emit("show-nutrition", props.date);
   },
 };
 

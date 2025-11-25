@@ -100,7 +100,6 @@ export interface RecipeSummary {
   createdAt?: string | null;
   updatedAt?: string | null;
   lastMade?: string | null;
-  nutrition?: Record<string, number> | null;
 }
 export interface RecipeCategory {
   id?: string | null;

@@ -698,9 +698,7 @@
     "cover-image": "Cover image",
     "include-linked-recipes": "Include Linked Recipes",
     "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe",
-    "toggle-nutrition-values": "Toggle Nutrition Values",
-    "no-nutrition-values": "No nutrition values available"
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
