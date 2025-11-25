@@ -10432,8 +10432,8 @@
             "cornbread stuffing mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cornbread stuffing mix",
-                "plural_name": "cornbread stuffing mixes"
+                "name": "Суміш з кукурудзяного хлібу для фарширування",
+                "plural_name": "Суміші з кукурудзяного хлібу для фарширування"
             },
             "low-carb wrap": {
                 "aliases": [],
@@ -10492,56 +10492,56 @@
             "pretzel bun": {
                 "aliases": [],
                 "description": "",
-                "name": "pretzel bun",
-                "plural_name": "pretzel buns"
+                "name": "Крендельна булочка",
+                "plural_name": "Крендельні булочки"
             },
             "roti bread": {
                 "aliases": [],
                 "description": "",
-                "name": "roti bread",
-                "plural_name": "roti breads"
+                "name": "Хліб роті",
+                "plural_name": "Хліби роті"
             },
             "crispbread": {
                 "aliases": [],
                 "description": "",
-                "name": "crispbread",
-                "plural_name": "crispbreads"
+                "name": "Хрусткий хлібець",
+                "plural_name": "Хрусткі хлібці"
             },
             "chocolate muffin": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate muffin",
-                "plural_name": "chocolate muffins"
+                "name": "Шоколадний мафін",
+                "plural_name": "Шоколадні мафіни"
             },
             "milk bread": {
                 "aliases": [],
                 "description": "",
-                "name": "milk bread",
-                "plural_name": "milk breads"
+                "name": "Молочний хліб",
+                "plural_name": "Молочні хліби"
             },
             "popcorn shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "popcorn shrimp",
-                "plural_name": "popcorn shrimps"
+                "name": "Креветка попкорн",
+                "plural_name": "Креветки попкорн"
             },
             "prawn cracker": {
                 "aliases": [],
                 "description": "",
-                "name": "prawn cracker",
-                "plural_name": "prawn crackers"
+                "name": "Крекер креветковий",
+                "plural_name": "Крекери креветкові"
             },
             "bao bun": {
                 "aliases": [],
                 "description": "",
-                "name": "bao bun",
-                "plural_name": "bao buns"
+                "name": "Парова булочка бао",
+                "plural_name": "Парові булочки бао"
             },
             "ezekiel bread": {
                 "aliases": [],
                 "description": "",
-                "name": "ezekiel bread",
-                "plural_name": "ezekiel breads"
+                "name": "Хліб Єзекіїля",
+                "plural_name": "Хліби Єзекіїля"
             },
             "wasabi pea": {
                 "aliases": [],
@@ -10552,56 +10552,56 @@
             "arabic bread": {
                 "aliases": [],
                 "description": "",
-                "name": "arabic bread",
-                "plural_name": "arabic breads"
+                "name": "Арабський хліб",
+                "plural_name": "Арабські хліби"
             },
             "boboli": {
                 "aliases": [],
                 "description": "",
-                "name": "boboli",
-                "plural_name": "bobolis"
+                "name": "Основа для піци boboli",
+                "plural_name": "Основи для піци boboli"
             },
             "zwieback": {
                 "aliases": [],
                 "description": "",
-                "name": "zwieback",
-                "plural_name": "zwiebacks"
+                "name": "Цвібак",
+                "plural_name": "Цвібаки"
             },
             "oven chip": {
                 "aliases": [],
                 "description": "",
-                "name": "oven chip",
-                "plural_name": "oven chips"
+                "name": "Картопляна скибка",
+                "plural_name": "Картопляні скибки"
             },
             "taco kit": {
                 "aliases": [],
                 "description": "",
-                "name": "taco kit",
-                "plural_name": "taco kits"
+                "name": "Набір для тако",
+                "plural_name": "Набори для тако"
             },
             "gluten free pita": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten free pita",
-                "plural_name": "gluten free pitas"
+                "name": "Безглютенова піта",
+                "plural_name": "Безглютенові піти"
             },
             "ready-made arepa": {
                 "aliases": [],
                 "description": "",
-                "name": "ready-made arepa",
-                "plural_name": "ready-made arepas"
+                "name": "Готова арепа",
+                "plural_name": "Готові арепи"
             },
             "ready-made pancake": {
                 "aliases": [],
                 "description": "",
-                "name": "ready-made pancake",
-                "plural_name": "ready-made pancakes"
+                "name": "Готовий млинець",
+                "plural_name": "Готові млинці"
             },
             "breading mix": {
                 "aliases": [],
                 "description": "",
-                "name": "breading mix",
-                "plural_name": "breading mixes"
+                "name": "Суміш для кляру",
+                "plural_name": "Суміші для кляру"
             },
             "japanese peanut": {
                 "aliases": [],
@@ -10612,20 +10612,20 @@
             "khari boondi": {
                 "aliases": [],
                 "description": "",
-                "name": "khari boondi",
-                "plural_name": "khari boondis"
+                "name": "Карі бунді",
+                "plural_name": "Карі бунді"
             },
             "potato waffle": {
                 "aliases": [],
                 "description": "",
-                "name": "potato waffle",
-                "plural_name": "potato waffles"
+                "name": "Картопляні вафлі",
+                "plural_name": "Картопляних вафель"
             },
             "tartlet shell": {
                 "aliases": [],
                 "description": "",
-                "name": "tartlet shell",
-                "plural_name": "tartlet shells"
+                "name": "Тарталетка",
+                "plural_name": "Тарталетки"
             }
         }
     },
@@ -10634,26 +10634,26 @@
             "olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "olive oil",
-                "plural_name": "olive oils"
+                "name": "Оливкова олія",
+                "plural_name": "Оливкової олії"
             },
             "vegetable oil": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable oil",
-                "plural_name": "vegetable oils"
+                "name": "Рослинна олія",
+                "plural_name": "Рослинної олії"
             },
             "extra virgin olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "extra virgin olive oil",
-                "plural_name": "extra virgin olive oils"
+                "name": "Оливкова олія extra virgin",
+                "plural_name": "Оливкової олії extra virgin"
             },
             "canola oil": {
                 "aliases": [],
                 "description": "",
-                "name": "canola oil",
-                "plural_name": "canola oils"
+                "name": "Рапсова олія",
+                "plural_name": "Рапсової олії"
             },
             "coconut oil": {
                 "aliases": [],
@@ -10664,38 +10664,38 @@
             "cooking spray": {
                 "aliases": [],
                 "description": "",
-                "name": "cooking spray",
-                "plural_name": "cooking sprays"
+                "name": "Кулінарний спрей",
+                "plural_name": "Кулінарного спрею"
             },
             "sesame oil": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame oil",
-                "plural_name": "sesame oils"
+                "name": "Кунжутна олія",
+                "plural_name": "Кунжутної олії"
             },
             "frying oil": {
                 "aliases": [],
                 "description": "",
-                "name": "frying oil",
-                "plural_name": "frying oils"
+                "name": "Олія для смаження",
+                "plural_name": "Олії для смаження"
             },
             "sunflower oil": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower oil",
-                "plural_name": "sunflower oils"
+                "name": "Соняшникова олія",
+                "plural_name": "Соняшникової олії"
             },
             "avocado oil": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado oil",
-                "plural_name": "avocado oils"
+                "name": "Олія авокадо",
+                "plural_name": "Олії авокадо"
             },
             "toasted sesame oil": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted sesame oil",
-                "plural_name": "toasted sesame oils"
+                "name": "Кунжутна олія з обсмаженого насіння",
+                "plural_name": "Кунжутної олії з обсмаженого насіння"
             },
             "peanut oil": {
                 "aliases": [],
@@ -10705,23 +10705,23 @@
             },
             "grapeseed oil": {
                 "aliases": [
-                    "grape seed oil"
+                    "Олія з виноградних кісточок"
                 ],
                 "description": "",
-                "name": "grapeseed oil",
-                "plural_name": "grapeseed oils"
+                "name": "Олія з виноградних кісточок",
+                "plural_name": "Олії з виноградних кісточок"
             },
             "lard": {
                 "aliases": [],
                 "description": "",
-                "name": "lard",
-                "plural_name": "lards"
+                "name": "Смалець",
+                "plural_name": "Смальця"
             },
             "corn oil": {
                 "aliases": [],
                 "description": "",
-                "name": "corn oil",
-                "plural_name": "corn oils"
+                "name": "Кукурудзяна олія",
+                "plural_name": "Кукурудзяної олії"
             },
             "virgin coconut oil": {
                 "aliases": [],
@@ -10732,74 +10732,74 @@
             "chili oil": {
                 "aliases": [],
                 "description": "",
-                "name": "chili oil",
-                "plural_name": "chili oils"
+                "name": "Олія чилі",
+                "plural_name": "Олії чилі"
             },
             "mustard oil": {
                 "aliases": [],
                 "description": "",
-                "name": "mustard oil",
-                "plural_name": "mustard oils"
+                "name": "Гірчична олія",
+                "plural_name": "Гірчичної олії"
             },
             "walnut oil": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut oil",
-                "plural_name": "walnut oils"
+                "name": "Олія з волоських горіхів",
+                "plural_name": "Олії з волоських горіхів"
             },
             "garlic oil": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic oil",
-                "plural_name": "garlic oils"
+                "name": "Часникова олія",
+                "plural_name": "Часникової олії"
             },
             "truffle oil": {
                 "aliases": [],
                 "description": "",
-                "name": "truffle oil",
-                "plural_name": "truffle oils"
+                "name": "Трюфельна олія",
+                "plural_name": "Трюфельної олії"
             },
             "bacon grease": {
                 "aliases": [],
                 "description": "",
-                "name": "bacon grease",
-                "plural_name": "bacon greases"
+                "name": "Жир із бекону",
+                "plural_name": "Жиру із бекону"
             },
             "safflower oil": {
                 "aliases": [],
                 "description": "",
-                "name": "safflower oil",
-                "plural_name": "safflower oils"
+                "name": "Сафлорова олія",
+                "plural_name": "Сафлорової олії"
             },
             "cacao butter": {
                 "aliases": [],
                 "description": "",
-                "name": "cacao butter",
-                "plural_name": "cacao butter"
+                "name": "Какао-масло",
+                "plural_name": "Какао-масла"
             },
             "salad oil": {
                 "aliases": [],
                 "description": "",
-                "name": "salad oil",
-                "plural_name": "salad oils"
+                "name": "Олія для салатів",
+                "plural_name": "Олії для салатів"
             },
             "duck fat": {
                 "aliases": [],
                 "description": "",
-                "name": "duck fat",
-                "plural_name": "duck fats"
+                "name": "Качиний жир",
+                "plural_name": "Качиного жиру"
             },
             "rice bran oil": {
                 "aliases": [],
                 "description": "",
-                "name": "rice bran oil",
-                "plural_name": "rice bran oils"
+                "name": "Олія з рисових висівок",
+                "plural_name": "Олії з рисових висівок"
             },
             "soybean oil": {
                 "aliases": [],
                 "description": "",
-                "name": "soybean oil",
-                "plural_name": "soybean oils"
+                "name": "Соєва олія",
+                "plural_name": "Соєвої олії"
             },
             "butter-flavored cooking spray": {
                 "aliases": [],
@@ -10810,32 +10810,32 @@
             "medium-chain triglyceride": {
                 "aliases": [],
                 "description": "",
-                "name": "medium-chain triglyceride",
-                "plural_name": "medium-chain triglycerides"
+                "name": "МСТ-олія",
+                "plural_name": "МСТ-олії"
             },
             "flaxseed oil": {
                 "aliases": [],
                 "description": "",
-                "name": "flaxseed oil",
-                "plural_name": "flaxseed oils"
+                "name": "Лляна олія",
+                "plural_name": "Лляняної олії"
             },
             "white truffle oil": {
                 "aliases": [],
                 "description": "",
-                "name": "white truffle oil",
-                "plural_name": "white truffle oils"
+                "name": "Олія з білого трюфеля",
+                "plural_name": "Олії з білого трюфеля"
             },
             "pumpkin seed oil": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin seed oil",
-                "plural_name": "pumpkin seed oils"
+                "name": "Олія з насіння гарбуза",
+                "plural_name": "Олії з насіння гарбуза"
             },
             "hazelnut oil": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut oil",
-                "plural_name": "hazelnut oils"
+                "name": "Фундукова олія",
+                "plural_name": "Фундукової олії"
             },
             "coconut oil spray": {
                 "aliases": [],
@@ -10846,80 +10846,80 @@
             "almond oil": {
                 "aliases": [],
                 "description": "",
-                "name": "almond oil",
-                "plural_name": "almond oils"
+                "name": "Мигдальна олія",
+                "plural_name": "Мигдальної олії"
             },
             "lemon oil": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon oil",
-                "plural_name": "lemon oils"
+                "name": "Лимонна олія",
+                "plural_name": "Лимонної олії"
             },
             "macadamia oil": {
                 "aliases": [],
                 "description": "",
-                "name": "macadamia oil",
-                "plural_name": "macadamia oils"
+                "name": "Олія макадамії",
+                "plural_name": "Олії макадамії"
             },
             "goose fat": {
                 "aliases": [],
                 "description": "",
-                "name": "goose fat",
-                "plural_name": "goose fats"
+                "name": "Гусячий жир",
+                "plural_name": "Гусячого жиру"
             },
             "palm oil": {
                 "aliases": [],
                 "description": "",
-                "name": "palm oil",
-                "plural_name": "palm oils"
+                "name": "Пальмова олія",
+                "plural_name": "Пальмової олії"
             },
             "basil oil": {
                 "aliases": [],
                 "description": "",
-                "name": "basil oil",
-                "plural_name": "basil oils"
+                "name": "Базилікова олія",
+                "plural_name": "Базилікової олії"
             },
             "pork fat": {
                 "aliases": [],
                 "description": "",
-                "name": "pork fat",
-                "plural_name": "pork fats"
+                "name": "Сало",
+                "plural_name": "Сала"
             },
             "beef dripping": {
                 "aliases": [],
                 "description": "",
-                "name": "beef dripping",
-                "plural_name": "beef drippings"
+                "name": "Топлений яловичий жир",
+                "plural_name": "Топленого яловичого жиру"
             },
             "schmaltz": {
                 "aliases": [],
                 "description": "",
-                "name": "schmaltz",
-                "plural_name": "schmaltzzes"
+                "name": "Шмальц",
+                "plural_name": "Шмальцу"
             },
             "tallow": {
                 "aliases": [],
                 "description": "",
-                "name": "tallow",
-                "plural_name": "tallows"
+                "name": "Тваринний жир",
+                "plural_name": "Тваринного жиру"
             },
             "sushi vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "sushi vinegar",
-                "plural_name": "sushi vinegars"
+                "name": "Оцет для суші",
+                "plural_name": "Оцту для суші"
             },
             "pistachio oil": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio oil",
-                "plural_name": "pistachio oils"
+                "name": "Фісташкова олія",
+                "plural_name": "Фісташкової олії"
             },
             "herb-infused olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "herb-infused olive oil",
-                "plural_name": "herb-infused olive oils"
+                "name": "Оливкова олія на травах",
+                "plural_name": "Оливкової олії на травах"
             },
             "roasted peanut oil": {
                 "aliases": [],
@@ -10930,38 +10930,38 @@
             "argan oil": {
                 "aliases": [],
                 "description": "",
-                "name": "argan oil",
-                "plural_name": "argan oils"
+                "name": "Арганова олія",
+                "plural_name": "Арганової олії"
             },
             "beef fat": {
                 "aliases": [],
                 "description": "",
-                "name": "beef fat",
-                "plural_name": "beef fats"
+                "name": "Яловичий жир",
+                "plural_name": "Яловичого жиру"
             },
             "pecan oil": {
                 "aliases": [],
                 "description": "",
-                "name": "pecan oil",
-                "plural_name": "pecan oils"
+                "name": "Олія пекан",
+                "plural_name": "Олії пекан"
             },
             "crisco oil": {
                 "aliases": [],
                 "description": "",
-                "name": "crisco oil",
-                "plural_name": "crisco oils"
+                "name": "Олія Crisco",
+                "plural_name": "Олії Crisco"
             },
             "red palm oil": {
                 "aliases": [],
                 "description": "",
-                "name": "red palm oil",
-                "plural_name": "red palm oils"
+                "name": "Червона пальмова олія",
+                "plural_name": "Червоної пальмової олії"
             },
             "shea butter": {
                 "aliases": [],
                 "description": "",
-                "name": "shea butter",
-                "plural_name": "shea butter"
+                "name": "Масло ши",
+                "plural_name": "Масла ши"
             },
             "lamb fat": {
                 "aliases": [],
@@ -10972,26 +10972,26 @@
             "castor oil": {
                 "aliases": [],
                 "description": "",
-                "name": "castor oil",
-                "plural_name": "castor oils"
+                "name": "Рицинова олія",
+                "plural_name": "Касторова олія"
             },
             "chicken dripping": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken dripping",
-                "plural_name": "chicken drippings"
+                "name": "Топлений курячий жир",
+                "plural_name": "Топленого курячого жиру"
             },
             "shallot oil": {
                 "aliases": [],
                 "description": "",
-                "name": "shallot oil",
-                "plural_name": "shallot oils"
+                "name": "Олія шалот",
+                "plural_name": "Олії шалот"
             },
             "achiote oil": {
                 "aliases": [],
                 "description": "",
-                "name": "achiote oil",
-                "plural_name": "achiote oils"
+                "name": "Олія ачіоте",
+                "plural_name": "Олії ачіоте"
             },
             "jojoba oil": {
                 "aliases": [],
