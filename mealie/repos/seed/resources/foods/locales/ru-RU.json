@@ -1329,8 +1329,8 @@
             "straw mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "straw mushroom",
-                "plural_name": "straw mushrooms"
+                "name": "Соломенный гриб",
+                "plural_name": "Соломенные грибы"
             },
             "dried chinese mushroom": {
                 "aliases": [],
@@ -1341,14 +1341,14 @@
             "maitake": {
                 "aliases": [],
                 "description": "",
-                "name": "maitake",
-                "plural_name": "maitakes"
+                "name": "Гриб мейтаке",
+                "plural_name": "Грибы мейэтаке"
             },
             "trumpet mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "trumpet mushroom",
-                "plural_name": "trumpet mushrooms"
+                "name": "Гриб вешенка",
+                "plural_name": "Грибы вешенки"
             },
             "white truffle": {
                 "aliases": [],
@@ -1359,38 +1359,38 @@
             "white fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "white fungu",
-                "plural_name": "white fungus"
+                "name": "Гриб серебряное ухо (White fungus)",
+                "plural_name": "Грибы серебряное ухо (White fungi)"
             },
             "pioppini": {
                 "aliases": [],
                 "description": "",
-                "name": "pioppini",
-                "plural_name": "pioppinis"
+                "name": "Гриб полевка (Pioppini)",
+                "plural_name": "Грибы полевки (Pioppini)"
             },
             "snow fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "snow fungu",
-                "plural_name": "snow fungus"
+                "name": "Гриб \"снежное ухо\" (Snow fungus)",
+                "plural_name": "Грибы \"cнежное ухо\" (Snow fungus)"
             },
             "white beech mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "white beech mushroom",
-                "plural_name": "white beech mushrooms"
+                "name": "Гриб вешенка ильмовая (Hypsizygus ulmarius)",
+                "plural_name": "Грибы вешенки ильмовые (Hypsizygus ulmarius)"
             },
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletu",
-                "plural_name": "boletus"
+                "name": "Белый гриб (Boletu)",
+                "plural_name": "Белые грибы (Boletus)"
             },
             "huitlacoche": {
                 "aliases": [],
                 "description": "",
-                "name": "huitlacoche",
-                "plural_name": "huitlacoches"
+                "name": "Гриб пузырчатая головня",
+                "plural_name": "Грибы пузырчатая головня"
             },
             "matsutake": {
                 "aliases": [],
@@ -1443,7 +1443,7 @@
             "lion’s mane mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "lion’s mane mushroom",
+                "name": "гриб львиная грива",
                 "plural_name": "грибы львиная грива"
             }
         }
@@ -1507,8 +1507,8 @@
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "ягода можжевельника",
+                "plural_name": "ягоды можжевельника"
             },
             "sour cherry": {
                 "aliases": [],
