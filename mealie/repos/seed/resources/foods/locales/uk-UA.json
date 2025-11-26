@@ -10996,80 +10996,80 @@
             "jojoba oil": {
                 "aliases": [],
                 "description": "",
-                "name": "jojoba oil",
-                "plural_name": "jojoba oils"
+                "name": "Олія жожоба",
+                "plural_name": "Олії жожоба"
             },
             "oregano oil": {
                 "aliases": [],
                 "description": "",
-                "name": "oregano oil",
-                "plural_name": "oregano oils"
+                "name": "Олія орегано",
+                "plural_name": "Олії орегано"
             },
             "hemp seed oil": {
                 "aliases": [],
                 "description": "",
-                "name": "hemp seed oil",
-                "plural_name": "hemp seed oils"
+                "name": "Олія насіння конопель",
+                "plural_name": "Олії насіння конопель"
             },
             "wheat germ oil": {
                 "aliases": [],
                 "description": "",
-                "name": "wheat germ oil",
-                "plural_name": "wheat germ oils"
+                "name": "Олія зародків пшениці",
+                "plural_name": "Олії зародків пшениці"
             },
             "ginger oil": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger oil",
-                "plural_name": "ginger oils"
+                "name": "Імбирна олія",
+                "plural_name": "Імбирної олії"
             },
             "cottonseed oil": {
                 "aliases": [],
                 "description": "",
-                "name": "cottonseed oil",
-                "plural_name": "cottonseed oils"
+                "name": "Бавовняна олія",
+                "plural_name": "Бавовняної олії"
             },
             "pork dripping": {
                 "aliases": [],
                 "description": "",
-                "name": "pork dripping",
-                "plural_name": "pork drippings"
+                "name": "Свинячий смалець",
+                "plural_name": "Свинячого смальцю"
             },
             "rosehip seed oil": {
                 "aliases": [],
                 "description": "",
-                "name": "rosehip seed oil",
-                "plural_name": "rosehip seed oils"
+                "name": "Олія шипшини",
+                "plural_name": "Олії шипшини"
             },
             "camelina oil": {
                 "aliases": [],
                 "description": "",
-                "name": "camelina oil",
-                "plural_name": "camelina oils"
+                "name": "Рижієва олія",
+                "plural_name": "Рижієвої олії"
             },
             "marula oil": {
                 "aliases": [],
                 "description": "",
-                "name": "marula oil",
-                "plural_name": "marula oils"
+                "name": "Олія марули",
+                "plural_name": "Олії марули"
             },
             "moringa seed oil": {
                 "aliases": [],
                 "description": "",
-                "name": "moringa seed oil",
-                "plural_name": "moringa seed oils"
+                "name": "Олія насіння моринги",
+                "plural_name": "Олії насіння моринги"
             },
             "white cacao butter": {
                 "aliases": [],
                 "description": "",
-                "name": "white cacao butter",
-                "plural_name": "white cacao butter"
+                "name": "Какао-масло біле",
+                "plural_name": "Какао-масла біле"
             },
             "black seed oil": {
                 "aliases": [],
                 "description": "",
-                "name": "black seed oil",
-                "plural_name": "black seed oils"
+                "name": "Олія чорного кмину",
+                "plural_name": "Олії чорного кмину"
             }
         }
     },
@@ -11078,164 +11078,164 @@
             "mayonnaise": {
                 "aliases": [],
                 "description": "",
-                "name": "mayonnaise",
-                "plural_name": "mayonnaises"
+                "name": "Майонез",
+                "plural_name": "Майонезу"
             },
             "apple cider vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "apple cider vinegar",
-                "plural_name": "apple cider vinegars"
+                "name": "Яблучний оцет",
+                "plural_name": "Яблучного оцту"
             },
             "balsamic vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "balsamic vinegar",
-                "plural_name": "balsamic vinegars"
+                "name": "Бальзамічний оцет",
+                "plural_name": "Бальзамічного оцту"
             },
             "vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "vinegar",
-                "plural_name": "vinegars"
+                "name": "Оцет",
+                "plural_name": "Оцту"
             },
             "red wine vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "red wine vinegar",
-                "plural_name": "red wine vinegars"
+                "name": "Червоний винний оцет",
+                "plural_name": "Червоного винного оцту"
             },
             "rice wine vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "rice wine vinegar",
-                "plural_name": "rice wine vinegars"
+                "name": "Рисовий оцет",
+                "plural_name": "Рисового оцту"
             },
             "white wine vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "white wine vinegar",
-                "plural_name": "white wine vinegars"
+                "name": "Білий винний оцет",
+                "plural_name": "Білого винного оцту"
             },
             "ranch dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "ranch dressing",
-                "plural_name": "ranch dressings"
+                "name": "Соус «Ранч»",
+                "plural_name": "Соусу «Ранч»"
             },
             "italian dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "italian dressing",
-                "plural_name": "italian dressings"
+                "name": "Італійська заправка",
+                "plural_name": "Італійської заправки"
             },
             "sherry vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "sherry vinegar",
-                "plural_name": "sherry vinegars"
+                "name": "Хересний оцет",
+                "plural_name": "Хересного оцту"
             },
             "distilled white vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "distilled white vinegar",
-                "plural_name": "distilled white vinegars"
+                "name": "Дистильований білий оцет",
+                "plural_name": "Дистильованого білого оцту"
             },
             "sweet chilli sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet chilli sauce",
-                "plural_name": "sweet chilli sauces"
+                "name": "Соус солодкий чилі",
+                "plural_name": "Соусу солодкого чилі"
             },
             "white balsamic vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "white balsamic vinegar",
-                "plural_name": "white balsamic vinegars"
+                "name": "Білий бальзамічний оцет",
+                "plural_name": "Білого бальзамічного оцту"
             },
             "champagne vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "champagne vinegar",
-                "plural_name": "champagne vinegars"
+                "name": "Шампанський оцет",
+                "plural_name": "Шампанського оцту"
             },
             "vinaigrette dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "vinaigrette dressing",
-                "plural_name": "vinaigrette dressings"
+                "name": "Соус вінегрет",
+                "plural_name": "Соусу вінегрет"
             },
             "balsamic vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "balsamic vinaigrette",
-                "plural_name": "balsamic vinaigrettes"
+                "name": "Бальзамічний вінегрет",
+                "plural_name": "Бальзамічного вінегрету"
             },
             "blue cheese dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese dressing",
-                "plural_name": "blue cheese dressings"
+                "name": "Соус з блакитним сиром",
+                "plural_name": "Соусу з блакитним сиром"
             },
             "caesar dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "caesar dressing",
-                "plural_name": "caesar dressings"
+                "name": "Соус Цезар",
+                "plural_name": "Соусу Цезар"
             },
             "thousand island": {
                 "aliases": [],
                 "description": "",
-                "name": "thousand island",
-                "plural_name": "thousand islands"
+                "name": "Соус Тисяча островів",
+                "plural_name": "Соусу Тисяча островів"
             },
             "malt vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "malt vinegar",
-                "plural_name": "malt vinegars"
+                "name": "Солодовий оцет",
+                "plural_name": "Солодового оцту"
             },
             "black vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "black vinegar",
-                "plural_name": "black vinegars"
+                "name": "Чорний оцет",
+                "plural_name": "Чорного оцту"
             },
             "canola mayonnaise": {
                 "aliases": [],
                 "description": "",
-                "name": "canola mayonnaise",
-                "plural_name": "canola mayonnaises"
+                "name": "Майонез на основі рапсової олії",
+                "plural_name": "Майонезу на основі рапсової олії"
             },
             "raspberry vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry vinegar",
-                "plural_name": "raspberry vinegars"
+                "name": "Малиновий оцет",
+                "plural_name": "Малинового оцту"
             },
             "japanese mayonnaise": {
                 "aliases": [],
                 "description": "",
-                "name": "japanese mayonnaise",
-                "plural_name": "japanese mayonnaises"
+                "name": "Японський майонез",
+                "plural_name": "Японського майонезу"
             },
             "tarragon vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "tarragon vinegar",
-                "plural_name": "tarragon vinegars"
+                "name": "Естрагоновий оцет",
+                "plural_name": "Естрагонового оцту"
             },
             "greek vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "greek vinaigrette",
-                "plural_name": "greek vinaigrettes"
+                "name": "Грецький вінегрет",
+                "plural_name": "Грецького вінегрету"
             },
             "sesame dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame dressing",
-                "plural_name": "sesame dressings"
+                "name": "Кунжутна заправка",
+                "plural_name": "Кунжутної заправки"
             },
             "honey mustard dressing": {
                 "aliases": [],
@@ -11246,80 +11246,80 @@
             "aioli sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "aioli sauce",
-                "plural_name": "aioli sauces"
+                "name": "Соус Айолі",
+                "plural_name": "Соусу Айолі"
             },
             "french dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "french dressing",
-                "plural_name": "french dressings"
+                "name": "Французька заправка",
+                "plural_name": "Французької заправки"
             },
             "spicy mayo": {
                 "aliases": [],
                 "description": "",
-                "name": "spicy mayo",
-                "plural_name": "spicy mayoes"
+                "name": "Гострий майонез",
+                "plural_name": "Гострого майонезу"
             },
             "poppyseed dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "poppyseed dressing",
-                "plural_name": "poppyseed dressings"
+                "name": "Макова салатна заправка",
+                "plural_name": "Макової салатної заправки"
             },
             "catalina dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "catalina dressing",
-                "plural_name": "catalina dressings"
+                "name": "Заправка Каталіна",
+                "plural_name": "Заправки Каталіна"
             },
             "verjuice": {
                 "aliases": [],
                 "description": "",
-                "name": "verjuice",
-                "plural_name": "verjuices"
+                "name": "Вержус",
+                "plural_name": "Вержус"
             },
             "cane vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "cane vinegar",
-                "plural_name": "cane vinegars"
+                "name": "Тростинний оцет",
+                "plural_name": "Тростинного оцту"
             },
             "raspberry vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry vinaigrette",
-                "plural_name": "raspberry vinaigrettes"
+                "name": "Малиновий вінегрет",
+                "plural_name": "Малинового вінегрету"
             },
             "red wine vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "red wine vinaigrette",
-                "plural_name": "red wine vinaigrettes"
+                "name": "Вінегрет на червоному винному оцті",
+                "plural_name": "Вінегрету на червоному винному оцті"
             },
             "russian dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "russian dressing",
-                "plural_name": "russian dressings"
+                "name": "російський соус",
+                "plural_name": "російського соусу"
             },
             "avocado oil mayonnaise": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado oil mayonnaise",
-                "plural_name": "avocado oil mayonnaises"
+                "name": "Майонез на основі олії авокадо",
+                "plural_name": "Майонезу на основі олії авокадо"
             },
             "creamy balsamic dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "creamy balsamic dressing",
-                "plural_name": "creamy balsamic dressings"
+                "name": "Бальзамічний крем-соус",
+                "plural_name": "Бальзамічного крем-соусу"
             },
             "champagne vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "champagne vinaigrette",
-                "plural_name": "champagne vinaigrettes"
+                "name": "Соус шампанський вінегрет",
+                "plural_name": "Соусу шампанський вінегрет"
             },
             "sun-dried tomato vinaigrette": {
                 "aliases": [],
@@ -11330,14 +11330,14 @@
             "garlic mayonnaise": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic mayonnaise",
-                "plural_name": "garlic mayonnaises"
+                "name": "Часниковий майонез",
+                "plural_name": "Часникового майонезу"
             },
             "brown rice vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "brown rice vinegar",
-                "plural_name": "brown rice vinegars"
+                "name": "Оцет із коричневого рису",
+                "plural_name": "Оцту із коричневого рису"
             },
             "coconut vinegar": {
                 "aliases": [],
@@ -11348,74 +11348,74 @@
             "ume plum vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "ume plum vinegar",
-                "plural_name": "ume plum vinegars"
+                "name": "Умедзу сливовий соус",
+                "plural_name": "Умедзу сливового соусу"
             },
             "buttermilk ranch dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "buttermilk ranch dressing",
-                "plural_name": "buttermilk ranch dressings"
+                "name": "Соус «Ранч» на пахті",
+                "plural_name": "Соусу «Ранч» на пахті"
             },
             "cilantro dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "cilantro dressing",
-                "plural_name": "cilantro dressings"
+                "name": "Заправка з кінзою",
+                "plural_name": "Заправки з кінзою"
             },
             "spicy ranch dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "spicy ranch dressing",
-                "plural_name": "spicy ranch dressings"
+                "name": "Гострий соус «Ранч»",
+                "plural_name": "Гострого соусу «Ранч»"
             },
             "fig balsamic": {
                 "aliases": [],
                 "description": "",
-                "name": "fig balsamic",
-                "plural_name": "fig balsamics"
+                "name": "Бальзамічноий оцет з інжиру",
+                "plural_name": "Бальзамічного оцту з інжиру"
             },
             "green goddess dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "green goddess dressing",
-                "plural_name": "green goddess dressings"
+                "name": "Соус «Зелена богиня»",
+                "plural_name": "соусу зелена богиня"
             },
             "creamy dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "creamy dressing",
-                "plural_name": "creamy dressings"
+                "name": "Вершкова заправка для салатів",
+                "plural_name": "Вершкової заправки для салатів"
             },
             "onion salad dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "onion salad dressing",
-                "plural_name": "onion salad dressings"
+                "name": "Цибулева заправка для салату",
+                "plural_name": "Цибулевої заправки для салату"
             },
             "miso dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "miso dressing",
-                "plural_name": "miso dressings"
+                "name": "Заправка з місо",
+                "plural_name": "Заправки з місо"
             },
             "white balsamic vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "white balsamic vinaigrette",
-                "plural_name": "white balsamic vinaigrettes"
+                "name": "Білий бальзамічний вінегрет",
+                "plural_name": "Білого бальзамічного вінегрету"
             },
             "chardonnay vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "chardonnay vinegar",
-                "plural_name": "chardonnay vinegars"
+                "name": "Оцет шардоне",
+                "plural_name": "Оцту шардоне"
             },
             "prepared coleslaw dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "prepared coleslaw dressing",
-                "plural_name": "prepared coleslaw dressings"
+                "name": "Готова заправка для салату коул-слоу",
+                "plural_name": "Готової заправки для салату коул-слоу"
             },
             "honey vinegar": {
                 "aliases": [],
@@ -11426,50 +11426,50 @@
             "tandoori mayonnaise": {
                 "aliases": [],
                 "description": "",
-                "name": "tandoori mayonnaise",
-                "plural_name": "tandoori mayonnaises"
+                "name": "Майонез Тандурі",
+                "plural_name": "Майонезу Тандурі"
             },
             "chili vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "chili vinegar",
-                "plural_name": "chili vinegars"
+                "name": "Оцет чилі",
+                "plural_name": "Оцту чилі"
             },
             "chili-lime dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "chili-lime dressing",
-                "plural_name": "chili-lime dressings"
+                "name": "Заправка чилі-лайм",
+                "plural_name": "Заправки чилі-лайм"
             },
             "moscatel vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "moscatel vinegar",
-                "plural_name": "moscatel vinegars"
+                "name": "Оцет москатель",
+                "plural_name": "Оцту москатель"
             },
             "vinegar powder": {
                 "aliases": [],
                 "description": "",
-                "name": "vinegar powder",
-                "plural_name": "vinegar powders"
+                "name": "Оцтовий порошок",
+                "plural_name": "Оцтового порошку"
             },
             "caramelised onion dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "caramelised onion dressing",
-                "plural_name": "caramelised onion dressings"
+                "name": "Заправка з карамелізованою цибулею",
+                "plural_name": "Заправки з карамелізованою цибулею"
             },
             "mango vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "mango vinaigrette",
-                "plural_name": "mango vinaigrettes"
+                "name": "Соус Манговий вінегрет",
+                "plural_name": "Соусу Манговий вінегрет"
             },
             "sugarcane vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "sugarcane vinegar",
-                "plural_name": "sugarcane vinegars"
+                "name": "Оцет із цукрової тростини",
+                "plural_name": "Оцту із цукрової тростини"
             },
             "avocado-lime dressing": {
                 "aliases": [],
