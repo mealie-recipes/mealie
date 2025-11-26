@@ -125,7 +125,8 @@ const parserLoading = ref(false);
 
 async function fetchNutritionInfo() {
   parserLoading.value = true;
-  const data = await userApi.recipes.fetchNutrition(ingredientCopyText.value);
+  const fetchString = "Number of servings: " + (recipe.value.recipeServings || recipe.value.recipeYieldQuantity || 1) + "\n\n" + ingredientCopyText.value;
+  const data = await userApi.recipes.fetchNutrition(fetchString);
   if (data.data) {
     recipe.value.nutrition = data.data;
   }
