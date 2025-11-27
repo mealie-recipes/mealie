@@ -12090,8 +12090,8 @@
             "guk ganjang": {
                 "aliases": [],
                 "description": "",
-                "name": "guk ganjang",
-                "plural_name": "guk ganjangs"
+                "name": "Соус guk ganjang",
+                "plural_name": "Соусу guk ganjang"
             }
         }
     },
@@ -12100,20 +12100,20 @@
             "canned tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned tomato",
-                "plural_name": "canned tomatoes"
+                "name": "Консервовані помідори",
+                "plural_name": "Консервованих помідорів"
             },
             "caper": {
                 "aliases": [],
                 "description": "",
-                "name": "caper",
-                "plural_name": "capers"
+                "name": "Каперси",
+                "plural_name": "Каперсів"
             },
             "green olive": {
                 "aliases": [],
                 "description": "",
-                "name": "green olive",
-                "plural_name": "green olives"
+                "name": "Зелені оливки",
+                "plural_name": "Зелених оливок"
             },
             "canned chickpea": {
                 "aliases": [],
@@ -12124,218 +12124,218 @@
             "black olive": {
                 "aliases": [],
                 "description": "",
-                "name": "black olive",
-                "plural_name": "black olives"
+                "name": "Чорні оливки",
+                "plural_name": "Чорних оливок"
             },
             "canned black bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned black bean",
-                "plural_name": "canned black beans"
+                "name": "Консервована чорна квасоля",
+                "plural_name": "Консервованої чорної квасолі"
             },
             "canned pumpkin": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pumpkin",
-                "plural_name": "canned pumpkins"
+                "name": "Консервований гарбуз",
+                "plural_name": "Консервованого гарбузу"
             },
             "kalamata olive": {
                 "aliases": [],
                 "description": "",
-                "name": "kalamata olive",
-                "plural_name": "kalamata olives"
+                "name": "Оливки Каламата",
+                "plural_name": "Оливок Каламата"
             },
             "canned tuna": {
                 "aliases": [],
                 "description": "",
-                "name": "canned tuna",
-                "plural_name": "canned tuna"
+                "name": "Консервований тунець",
+                "plural_name": "Консервованого тунця"
             },
             "pickle": {
                 "aliases": [],
                 "description": "",
-                "name": "pickle",
-                "plural_name": "pickles"
+                "name": "Маринований огірок",
+                "plural_name": "Мариновані огірки"
             },
             "canned pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pineapple",
-                "plural_name": "canned pineapples"
+                "name": "Консервований ананас",
+                "plural_name": "Консервовані ананаси"
             },
             "chipotle in adobo": {
                 "aliases": [],
                 "description": "",
-                "name": "chipotle in adobo",
-                "plural_name": "chipotle in adobo"
+                "name": "Перець Чипотле в соусі адобо",
+                "plural_name": "Перців Чипотле в соусі адобо"
             },
             "canned anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "canned anchovy",
-                "plural_name": "canned anchovies"
+                "name": "Консервовані анчоуси",
+                "plural_name": "Консервованих анчоусів"
             },
             "roasted red pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted red pepper",
-                "plural_name": "roasted red peppers"
+                "name": "Запечений червоний перець",
+                "plural_name": "Запечені червоні переці"
             },
             "tomato with green chiles": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato with green chiles",
-                "plural_name": "tomatoes with green chiles"
+                "name": "Консервований помідор з зеленим перцем чилі",
+                "plural_name": "Консервовані помідори з зеленим перцем чилі"
             },
             "canned artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "canned artichoke",
-                "plural_name": "canned artichokes"
+                "name": "Консервований артишок",
+                "plural_name": "Консервовані артишоки"
             },
             "canned corn": {
                 "aliases": [],
                 "description": "",
-                "name": "canned corn",
-                "plural_name": "canned corns"
+                "name": "Консервована кукурудза",
+                "plural_name": "Консервованої кукурудзи"
             },
             "canned kidney bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned kidney bean",
-                "plural_name": "canned kidney beans"
+                "name": "Консервована квасоля «Кідні»",
+                "plural_name": "Консервованої квасолі «Кідні»"
             },
             "canned pie filling": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pie filling",
-                "plural_name": "canned pie fillings"
+                "name": "Консервована начинка для пирога",
+                "plural_name": "Консервованої начинки для пирога"
             },
             "canned cannellini bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cannellini bean",
-                "plural_name": "canned cannellini beans"
+                "name": "Консервована квасоля каннелліні",
+                "plural_name": "Консервованої квасолі каннелліні"
             },
             "refried bean": {
                 "aliases": [],
                 "description": "",
-                "name": "refried bean",
-                "plural_name": "refried beans"
+                "name": "Фріхолес рефрітос",
+                "plural_name": "Фріхолес рефрітос"
             },
             "canned whole tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned whole tomato",
-                "plural_name": "canned whole tomatoes"
+                "name": "Консервовані цілі помідори",
+                "plural_name": "Консервованих цілих помідорів"
             },
             "sweet pickle relish": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet pickle relish",
-                "plural_name": "sweet pickle relishes"
+                "name": "Солодкий огірковий реліш",
+                "plural_name": "Солодкого огіркового релішу"
             },
             "sauerkraut": {
                 "aliases": [],
                 "description": "",
-                "name": "sauerkraut",
-                "plural_name": "sauerkrauts"
+                "name": "Квашена капуста",
+                "plural_name": "Квашеної капусти"
             },
             "creamed corn": {
                 "aliases": [],
                 "description": "",
-                "name": "creamed corn",
-                "plural_name": "creamed corns"
+                "name": "Кукурудза в вершковому соусі",
+                "plural_name": "Кукурудзи в вершковому соусі"
             },
             "corned beef": {
                 "aliases": [],
                 "description": "",
-                "name": "corned beef",
-                "plural_name": "corned beefs"
+                "name": "Корн-біф",
+                "plural_name": "Корн-біф"
             },
             "canned bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned bean",
-                "plural_name": "canned beans"
+                "name": "Консервовані боби",
+                "plural_name": "Консервованих бобів"
             },
             "pickled jalapeno": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled jalapeno",
-                "plural_name": "pickled jalapenos"
+                "name": "Маринований халапеньо",
+                "plural_name": "Маринованого халапеньо"
             },
             "diced green chile": {
                 "aliases": [],
                 "description": "",
-                "name": "diced green chile",
-                "plural_name": "diced green chiles"
+                "name": "Консервований різаний зелений чилі",
+                "plural_name": "Консервованого різаного зеленого чилі"
             },
             "sun-dried tomato in oil": {
                 "aliases": [],
                 "description": "",
-                "name": "sun-dried tomato in oil",
-                "plural_name": "sun-dried tomatoes in oil"
+                "name": "В'ялені помідори в олії",
+                "plural_name": "В'ялених помідорів в олії"
             },
             "kimchi": {
                 "aliases": [],
                 "description": "",
-                "name": "kimchi",
-                "plural_name": "kimchis"
+                "name": "Кімчі",
+                "plural_name": "Кімчі"
             },
             "canned mandarin orange": {
                 "aliases": [],
                 "description": "",
-                "name": "canned mandarin orange",
-                "plural_name": "canned mandarin oranges"
+                "name": "Консервовані мандарини",
+                "plural_name": "Консервованих мандарин"
             },
             "chili bean": {
                 "aliases": [],
                 "description": "",
-                "name": "chili bean",
-                "plural_name": "chili beans"
+                "name": "Боби в соусі чилі",
+                "plural_name": "Бобів в соусі чилі"
             },
             "canned crab": {
                 "aliases": [],
                 "description": "",
-                "name": "canned crab",
-                "plural_name": "canned crabs"
+                "name": "Консервований краб",
+                "plural_name": "Консервовані краби"
             },
             "bamboo shoot": {
                 "aliases": [],
                 "description": "",
-                "name": "bamboo shoot",
-                "plural_name": "bamboo shoots"
+                "name": "Бамбукові паростки",
+                "plural_name": "Бамбукових паростків"
             },
             "canned mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "canned mushroom",
-                "plural_name": "canned mushrooms"
+                "name": "Консервовані гриби",
+                "plural_name": "Консервованих грибів"
             },
             "baked bean": {
                 "aliases": [],
                 "description": "",
-                "name": "baked bean",
-                "plural_name": "baked beans"
+                "name": "Запечені боби в томатному соусі",
+                "plural_name": "Запечених бобів в томатному соусі"
             },
             "canned salmon": {
                 "aliases": [],
                 "description": "",
-                "name": "canned salmon",
-                "plural_name": "canned salmon"
+                "name": "Консервований лосось",
+                "plural_name": "Консервованого лосося"
             },
             "pickling juice": {
                 "aliases": [],
                 "description": "",
-                "name": "pickling juice",
-                "plural_name": "pickling juices"
+                "name": "Розсіл для маринування",
+                "plural_name": "Розсолу для маринування"
             },
             "dill pickle relish": {
                 "aliases": [],
                 "description": "",
-                "name": "dill pickle relish",
-                "plural_name": "dill pickle relishes"
+                "name": "Кроповий реліш",
+                "plural_name": "Кропового релішу"
             },
             "canned peach": {
                 "aliases": [],
@@ -12352,50 +12352,50 @@
             "pickled ginger": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled ginger",
-                "plural_name": "pickled gingers"
+                "name": "Маринований імбир",
+                "plural_name": "Маринованого імбиру"
             },
             "canned apple": {
                 "aliases": [],
                 "description": "",
-                "name": "canned apple",
-                "plural_name": "canned apples"
+                "name": "Консервовані яблука",
+                "plural_name": "Консервованих яблук"
             },
             "canned green bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned green bean",
-                "plural_name": "canned green beans"
+                "name": "Консервована стручкова квасоля",
+                "plural_name": "Консервованої стручкової квасолі"
             },
             "spam": {
                 "aliases": [],
                 "description": "",
-                "name": "spam",
-                "plural_name": "spams"
+                "name": "Фарш з шинки консервований",
+                "plural_name": "Фаршу з шинки консервованого"
             },
             "canned clam": {
                 "aliases": [],
                 "description": "",
-                "name": "canned clam",
-                "plural_name": "canned clams"
+                "name": " Морепродукти консервовані",
+                "plural_name": " Морепродуктів консервованих"
             },
             "chili with beans": {
                 "aliases": [],
                 "description": "",
-                "name": "chili with beans",
-                "plural_name": "chili with beans"
+                "name": "Чилі з бобами",
+                "plural_name": "Чилі з бобами"
             },
             "pickled onion": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled onion",
-                "plural_name": "pickled onions"
+                "name": "Маринована цибуля",
+                "plural_name": "Маринованої цибулі"
             },
             "fruit cocktail": {
                 "aliases": [],
                 "description": "",
-                "name": "fruit cocktail",
-                "plural_name": "fruit cocktails"
+                "name": "Фруктовий коктейль",
+                "plural_name": "Фруктового коктейлю"
             },
             "canned lentil": {
                 "aliases": [],
@@ -12412,8 +12412,8 @@
             "pickled red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled red onion",
-                "plural_name": "pickled red onions"
+                "name": "Маринована червона цибуля",
+                "plural_name": "Маринованої червоної цибулі"
             },
             "pimiento-stuffed green olive": {
                 "aliases": [],
@@ -12424,38 +12424,38 @@
             "canned pork": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pork",
-                "plural_name": "canned porks"
+                "name": "Консервована свинина",
+                "plural_name": "Консервованої свинини"
             },
             "pickled beet": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled beet",
-                "plural_name": "pickled beets"
+                "name": "Маринований буряк",
+                "plural_name": "Маринованого буряку"
             },
             "canned cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cherry tomato",
-                "plural_name": "canned cherry tomatoes"
+                "name": "Консервовані томати чері",
+                "plural_name": "Консервованих томатів чері"
             },
             "bread & butter pickle": {
                 "aliases": [],
                 "description": "",
-                "name": "bread & butter pickle",
-                "plural_name": "bread & butter pickles"
+                "name": "Огірки BREAD & BUTTER",
+                "plural_name": "Огірків BREAD & BUTTER"
             },
             "canned apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "canned apricot",
-                "plural_name": "canned apricots"
+                "name": "Консервований абрикос",
+                "plural_name": "Консервованого абрикосу"
             },
             "canned sweet potato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sweet potato",
-                "plural_name": "canned sweet potatoes"
+                "name": "Консервований батат",
+                "plural_name": "Консервованого батату"
             },
             "canned pear": {
                 "aliases": [],
@@ -12466,140 +12466,140 @@
             "peppadew pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "peppadew pepper",
-                "plural_name": "peppadew peppers"
+                "name": "Перець Пеппадью",
+                "plural_name": "Перцю Пеппадью"
             },
             "pickled vegetable": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled vegetable",
-                "plural_name": "pickled vegetables"
+                "name": "Мариновані овочі",
+                "plural_name": "Маринованих овочів"
             },
             "onion paste": {
                 "aliases": [],
                 "description": "",
-                "name": "onion paste",
-                "plural_name": "onion pastes"
+                "name": "Цибулева паста",
+                "plural_name": "Цибулевої пасти"
             },
             "canned baby corn": {
                 "aliases": [],
                 "description": "",
-                "name": "canned baby corn",
-                "plural_name": "canned baby corns"
+                "name": "Консервовані початки міні кукурудзи",
+                "plural_name": "Консервованих початків міні кукурудзи"
             },
             "mexican-style corn": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican-style corn",
-                "plural_name": "mexican-style corns"
+                "name": "Кукурудза по-мексиканськи",
+                "plural_name": "Кукурудзи по-мексиканськи"
             },
             "chili without bean": {
                 "aliases": [],
                 "description": "",
-                "name": "chili without bean",
-                "plural_name": "chili without beans"
+                "name": "Чилі без квасолі",
+                "plural_name": "Чилі без квасолі"
             },
             "pork and bean": {
                 "aliases": [],
                 "description": "",
-                "name": "pork and bean",
-                "plural_name": "pork and beans"
+                "name": "Боби зі свининою",
+                "plural_name": "Бобів зі свининою"
             },
             "ranch-style bean": {
                 "aliases": [],
                 "description": "",
-                "name": "ranch-style bean",
-                "plural_name": "ranch-style beans"
+                "name": "Квасоля в стилі «Ранчо»",
+                "plural_name": "Квасолі в стилі «Ранчо»"
             },
             "canned chicken breast": {
                 "aliases": [],
                 "description": "",
-                "name": "canned chicken breast",
-                "plural_name": "canned chicken breasts"
+                "name": "Консервована куряча грудка",
+                "plural_name": "Консервованої курячої грудки"
             },
             "canned carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "canned carrot",
-                "plural_name": "canned carrots"
+                "name": "Консервована морква",
+                "plural_name": "Консервованої моркви"
             },
             "banana pepper ring": {
                 "aliases": [],
                 "description": "",
-                "name": "banana pepper ring",
-                "plural_name": "banana pepper rings"
+                "name": "Кільця маринованого жовтого перцю",
+                "plural_name": "Кілець маринованого жовтого перцю"
             },
             "canned lychee": {
                 "aliases": [],
                 "description": "",
-                "name": "canned lychee",
-                "plural_name": "canned lychees"
+                "name": "Консервований лічі",
+                "plural_name": "Консервованих лічі"
             },
             "pumpkin pie filling": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin pie filling",
-                "plural_name": "pumpkin pie fillings"
+                "name": "Начинка для гарбузового пирога",
+                "plural_name": "Начинки для гарбузового пирога"
             },
             "canned sardine": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sardine",
-                "plural_name": "canned sardines"
+                "name": "Консервовані сардини",
+                "plural_name": "Консервованих сардин"
             },
             "pickled pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled pepper",
-                "plural_name": "pickled peppers"
+                "name": "Маринований перець",
+                "plural_name": "Мариновані перці"
             },
             "tomato relish": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato relish",
-                "plural_name": "tomato relishes"
+                "name": "Томатний реліш",
+                "plural_name": "Томатного релішу"
             },
             "canned jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "canned jackfruit",
-                "plural_name": "canned jackfruits"
+                "name": "Консервований джекфрут",
+                "plural_name": "Консервованого джекфруту"
             },
             "taggiasca olive": {
                 "aliases": [],
                 "description": "",
-                "name": "taggiasca olive",
-                "plural_name": "taggiasca olives"
+                "name": "Оливки Таджаска",
+                "plural_name": "Оливок Таджаска"
             },
             "cranberry relish": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry relish",
-                "plural_name": "cranberry relishes"
+                "name": "Журавлинний реліш",
+                "plural_name": "Журавлинного релішу"
             },
             "red pepper relish": {
                 "aliases": [],
                 "description": "",
-                "name": "red pepper relish",
-                "plural_name": "red pepper relishes"
+                "name": "Реліш з червоного перцю",
+                "plural_name": "Релішу з червоного перцю"
             },
             "canned asparagu": {
                 "aliases": [],
                 "description": "",
-                "name": "canned asparagu",
-                "plural_name": "canned asparagus"
+                "name": "Консервована спаржа",
+                "plural_name": "Консервованої спаржи"
             },
             "fire-roasted green chile": {
                 "aliases": [],
                 "description": "",
-                "name": "fire-roasted green chile",
-                "plural_name": "fire-roasted green chiles"
+                "name": "Зелений чилі, печений на вогні",
+                "plural_name": "Зелених чилі, печених на вогні"
             },
             "pickled hot pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled hot pepper",
-                "plural_name": "pickled hot peppers"
+                "name": "Маринований гострий перець",
+                "plural_name": "Маринованого гострого перцю"
             },
             "canned peas and carrot": {
                 "aliases": [],
@@ -12610,92 +12610,92 @@
             "corn relish": {
                 "aliases": [],
                 "description": "",
-                "name": "corn relish",
-                "plural_name": "corn relishes"
+                "name": "Кукурудзяний реліш",
+                "plural_name": "Кукурудзяного релішу"
             },
             "golden hominy": {
                 "aliases": [],
                 "description": "",
-                "name": "golden hominy",
-                "plural_name": "golden hominies"
+                "name": "Кукурудза golden hominy",
+                "plural_name": "Кукурудзи golden hominy"
             },
             "canned mackerel": {
                 "aliases": [],
                 "description": "",
-                "name": "canned mackerel",
-                "plural_name": "canned mackerel"
+                "name": "Консервована скумбрія",
+                "plural_name": "Консервованої скумбрії"
             },
             "pickled cherry pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled cherry pepper",
-                "plural_name": "pickled cherry peppers"
+                "name": "Маринований перець чері",
+                "plural_name": "Маринованого перцю чері"
             },
             "candied jalapeno": {
                 "aliases": [],
                 "description": "",
-                "name": "candied jalapeno",
-                "plural_name": "candied jalapenos"
+                "name": "Цукати з халапеньо",
+                "plural_name": "Цукатів з халапеньо"
             },
             "umeboshi": {
                 "aliases": [],
                 "description": "",
-                "name": "umeboshi",
-                "plural_name": "umeboshis"
+                "name": "Умебоші",
+                "plural_name": "Умебоші"
             },
             "canned pimento": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pimento",
-                "plural_name": "canned pimentos"
+                "name": "Консервований піменто",
+                "plural_name": "Консервованого піменто"
             },
             "canned potato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned potato",
-                "plural_name": "canned potatoes"
+                "name": "Консервована картопля",
+                "plural_name": "Консервованої картоплі"
             },
             "okra pickle": {
                 "aliases": [],
                 "description": "",
-                "name": "okra pickle",
-                "plural_name": "okra pickles"
+                "name": "Окра маринована",
+                "plural_name": "Окри маринованої"
             },
             "tomato confit": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato confit",
-                "plural_name": "tomato confits"
+                "name": "Конфітюр з помідорів",
+                "plural_name": "Конфітюру з помідорів"
             },
             "brandied cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "brandied cherry",
-                "plural_name": "brandied cherries"
+                "name": "Вишні в бренді",
+                "plural_name": "Вишні в бренді"
             },
             "macapuno": {
                 "aliases": [],
                 "description": "",
-                "name": "macapuno",
-                "plural_name": "macapunoes"
+                "name": "Макапуно",
+                "plural_name": "Макапуно"
             },
             "canned four-bean mix": {
                 "aliases": [],
                 "description": "",
-                "name": "canned four-bean mix",
-                "plural_name": "canned four-bean mixes"
+                "name": "Консервована суміш з бобів Four Beans",
+                "plural_name": "Консервованої суміші з бобів Four Beans"
             },
             "half-sour pickle": {
                 "aliases": [],
                 "description": "",
-                "name": "half-sour pickle",
-                "plural_name": "half-sour pickles"
+                "name": "Малосольний огірок",
+                "plural_name": "Малосольні огірки"
             },
             "pickled green bean": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled green bean",
-                "plural_name": "pickled green beans"
+                "name": "Маринована стручкова квасоля",
+                "plural_name": "Маринованої стручкової квасолі"
             }
         }
     },
@@ -12739,35 +12739,35 @@
             },
             "marinara sauce": {
                 "aliases": [
-                    "marinara sauce - jarred"
+                    "Соус маринара (у банці)"
                 ],
                 "description": "",
-                "name": "marinara sauce",
-                "plural_name": "marinara sauces"
+                "name": "Соус маринара",
+                "plural_name": "Соусу маринара"
             },
             "pasta sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "pasta sauce",
-                "plural_name": "pasta sauces"
+                "name": "Соус для пасти",
+                "plural_name": "Соусу для пасти"
             },
             "hoisin sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "hoisin sauce",
-                "plural_name": "hoisin sauces"
+                "name": "Соус хойсін",
+                "plural_name": "Соусу хойсін"
             },
             "pico de gallo": {
                 "aliases": [],
                 "description": "",
-                "name": "pico de gallo",
-                "plural_name": "pico de gallo"
+                "name": "Піко де ґалло",
+                "plural_name": "Піко де ґалло"
             },
             "stewed tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "stewed tomato",
-                "plural_name": "stewed tomatoes"
+                "name": "Тушковані помідори",
+                "plural_name": "Тушкованих помідорів"
             },
             "guacamole": {
                 "aliases": [],
@@ -12784,32 +12784,32 @@
             "enchilada sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "enchilada sauce",
-                "plural_name": "enchilada sauces"
+                "name": "Соус енчілада",
+                "plural_name": "Соусу енчілада"
             },
             "fire-roasted tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "fire-roasted tomato",
-                "plural_name": "fire-roasted tomatoes"
+                "name": "Смажені помідори",
+                "plural_name": "Смажених помідорівсмажені помідори"
             },
             "salsa verde": {
                 "aliases": [],
                 "description": "",
-                "name": "salsa verde",
-                "plural_name": "salsa verdes"
+                "name": "Сальса верде",
+                "plural_name": "Сальса верде"
             },
             "alfredo sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "alfredo sauce",
-                "plural_name": "alfredo sauces"
+                "name": "Соус Альфредо",
+                "plural_name": "Соусу Альфредо"
             },
             "balsamic glaze": {
                 "aliases": [],
                 "description": "",
-                "name": "balsamic glaze",
-                "plural_name": "balsamic glazes"
+                "name": "Бальзамічна глазур",
+                "plural_name": "Бальзамічної глазурі"
             },
             "anchovy paste": {
                 "aliases": [],
@@ -12874,14 +12874,14 @@
             "plum sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "plum sauce",
-                "plural_name": "plum sauces"
+                "name": "Сливовий соус",
+                "plural_name": "Сливового соусу"
             },
             "garlic butter": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic butter",
-                "plural_name": "garlic butter"
+                "name": "Часникове масло",
+                "plural_name": "Часникового масла"
             },
             "hollandaise sauce": {
                 "aliases": [],
@@ -12892,38 +12892,38 @@
             "cocktail sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "cocktail sauce",
-                "plural_name": "cocktail sauces"
+                "name": "Коктейльний соус",
+                "plural_name": "Коктейльного соусу"
             },
             "cheese dip": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese dip",
-                "plural_name": "cheese dips"
+                "name": "Сирний діп",
+                "plural_name": "Сирного діпу"
             },
             "black bean sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "black bean sauce",
-                "plural_name": "black bean sauces"
+                "name": "Соус із чорних бобів",
+                "plural_name": "Соусу із чорних бобів"
             },
             "tapenade": {
                 "aliases": [],
                 "description": "",
-                "name": "tapenade",
-                "plural_name": "tapenades"
+                "name": "Тапенад",
+                "plural_name": "Тапенаду"
             },
             "turkey gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey gravy",
-                "plural_name": "turkey gravies"
+                "name": "Соус із соків індички",
+                "plural_name": "Соусу із соків індички"
             },
             "stir-fry sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "stir-fry sauce",
-                "plural_name": "stir-fry sauces"
+                "name": "Стір фрай соус",
+                "plural_name": "Стір фрай соусу"
             },
             "thai peanut sauce": {
                 "aliases": [],
@@ -12934,86 +12934,86 @@
             "chicken gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken gravy",
-                "plural_name": "chicken gravies"
+                "name": "Соус із соків курки",
+                "plural_name": "Соусу із соків курки"
             },
             "sloppy joe sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "sloppy joe sauce",
-                "plural_name": "sloppy joe sauces"
+                "name": "Соус «Слоппі Джо»",
+                "plural_name": "Соусу «Слоппі Джо»"
             },
             "pimento cheese spread": {
                 "aliases": [],
                 "description": "",
-                "name": "pimento cheese spread",
-                "plural_name": "pimento cheese spreads"
+                "name": "Сирна намазка з піменто",
+                "plural_name": "Сирної намазки з піменто"
             },
             "sofrito": {
                 "aliases": [],
                 "description": "",
-                "name": "sofrito",
-                "plural_name": "sofritoes"
+                "name": "Софріто",
+                "plural_name": "Софріто"
             },
             "mustard sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "mustard sauce",
-                "plural_name": "mustard sauces"
+                "name": "Гірчичний соус",
+                "plural_name": "Гірчичного соусу"
             },
             "sun-dried tomato paste": {
                 "aliases": [],
                 "description": "",
-                "name": "sun-dried tomato paste",
-                "plural_name": "sun-dried tomato pastes"
+                "name": "Паста з в'ялених помідорів",
+                "plural_name": "Пасти з в'ялених помідорів"
             },
             "queso dip": {
                 "aliases": [],
                 "description": "",
-                "name": "queso dip",
-                "plural_name": "queso dips"
+                "name": "Чилі кон кесо",
+                "plural_name": "Чилі кон кесо"
             },
             "demi-glace": {
                 "aliases": [],
                 "description": "",
-                "name": "demi-glace",
-                "plural_name": "demi-glaces"
+                "name": "Деміглас",
+                "plural_name": "Демігласу"
             },
             "chimichurri sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "chimichurri sauce",
-                "plural_name": "chimichurri sauces"
+                "name": "Соус чимічуррі",
+                "plural_name": "Соусу чимічуррі"
             },
             "french onion dip": {
                 "aliases": [],
                 "description": "",
-                "name": "french onion dip",
-                "plural_name": "french onion dips"
+                "name": "Діп «Французька цибуля»",
+                "plural_name": "Діпу «Французька цибуля»"
             },
             "herb butter": {
                 "aliases": [],
                 "description": "",
-                "name": "herb butter",
-                "plural_name": "herb butter"
+                "name": "Масло з травами",
+                "plural_name": "Масла з травами"
             },
             "bolognese sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "bolognese sauce",
-                "plural_name": "bolognese sauces"
+                "name": "Соус Болоньєзе",
+                "plural_name": "Соусу Болоньєзе"
             },
             "curry sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "curry sauce",
-                "plural_name": "curry sauces"
+                "name": "Соус карі",
+                "plural_name": "Соусу карі"
             },
             "liver spread": {
                 "aliases": [],
                 "description": "",
-                "name": "liver spread",
-                "plural_name": "liver spreads"
+                "name": "Печінковий паштет",
+                "plural_name": "Печінкового паштету"
             },
             "browning sauce": {
                 "aliases": [],
