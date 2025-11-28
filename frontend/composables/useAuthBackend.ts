@@ -30,6 +30,8 @@ export const useAuthBackend = function (): AuthState {
   const tokenName = runtimeConfig.public.AUTH_TOKEN;
   const tokenCookie = useCookie(tokenName, {
     maxAge: $appInfo.tokenTime * 60 * 60,
+    secure: $appInfo.production,
+    // sameSite is unset in order to support iframes in production
   });
 
   function setToken(token: string | null) {
