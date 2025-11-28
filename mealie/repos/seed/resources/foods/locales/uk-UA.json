@@ -12916,8 +12916,8 @@
             "turkey gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "Соус із соків індички",
-                "plural_name": "Соусу із соків індички"
+                "name": "Підлива з індички",
+                "plural_name": "Підливи з індички"
             },
             "stir-fry sauce": {
                 "aliases": [],
@@ -13018,104 +13018,104 @@
             "browning sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "browning sauce",
-                "plural_name": "browning sauces"
+                "name": "Соус для карамелізації",
+                "plural_name": "Соусу для карамелізації"
             },
             "schezwan sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "schezwan sauce",
-                "plural_name": "schezwan sauces"
+                "name": "Сичуанський соус",
+                "plural_name": "Сичуанського соусу"
             },
             "mushroom gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "mushroom gravy",
-                "plural_name": "mushroom gravies"
+                "name": "Грибна підлива",
+                "plural_name": "Грибної підливи"
             },
             "pork gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "pork gravy",
-                "plural_name": "pork gravies"
+                "name": "Свиняча підлива",
+                "plural_name": "Свинячої підливи"
             },
             "country gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "country gravy",
-                "plural_name": "country gravies"
+                "name": "Американська сільська підлива",
+                "plural_name": "Американської сільської підливи"
             },
             "orange sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "orange sauce",
-                "plural_name": "orange sauces"
+                "name": "Помаранчевий соус",
+                "plural_name": "Помаранчевого соусу"
             },
             "pineapple salsa": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple salsa",
-                "plural_name": "pineapple salsas"
+                "name": "Ананасова сальса",
+                "plural_name": "Ананасової сальси"
             },
             "artichoke dip": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke dip",
-                "plural_name": "artichoke dips"
+                "name": "Діп з артишоку",
+                "plural_name": "Діпу з артишоків"
             },
             "japanese curry": {
                 "aliases": [],
                 "description": "",
-                "name": "japanese curry",
-                "plural_name": "japanese curries"
+                "name": "Японське карі",
+                "plural_name": "Японського карі"
             },
             "mango salsa": {
                 "aliases": [],
                 "description": "",
-                "name": "mango salsa",
-                "plural_name": "mango salsas"
+                "name": "Мангова сальса",
+                "plural_name": "Сальси з манго"
             },
             "olive paste": {
                 "aliases": [],
                 "description": "",
-                "name": "olive paste",
-                "plural_name": "olive pastes"
+                "name": "Оливкова паста",
+                "plural_name": "Оливкової пасти"
             },
             "spinach dip": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach dip",
-                "plural_name": "spinach dips"
+                "name": "Діп зі шпинату",
+                "plural_name": "Діпу зі шпинату"
             },
             "black truffle butter": {
                 "aliases": [],
                 "description": "",
-                "name": "black truffle butter",
-                "plural_name": "black truffle butter"
+                "name": "Масло з чорним трюфелем",
+                "plural_name": "Масла з чорним трюфелем"
             },
             "roasted red pepper hummu": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted red pepper hummu",
-                "plural_name": "roasted red pepper hummus"
+                "name": "Хумус з печеним перцем",
+                "plural_name": "Хумусу з печеним перцем"
             },
             "bacon jam": {
                 "aliases": [],
                 "description": "",
-                "name": "bacon jam",
-                "plural_name": "bacon jams"
+                "name": "Беконовий джем",
+                "plural_name": "Беконового джему"
             },
             "tikka masala sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "tikka masala sauce",
-                "plural_name": "tikka masala sauces"
+                "name": "Соус Тікка масала",
+                "plural_name": "Соусу Тікка масала"
             },
             "vodka sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "vodka sauce",
-                "plural_name": "vodka sauces"
+                "name": "Горілчаний соус",
+                "plural_name": "Горілчаного соусу"
             },
             "whipped cream cheese spread": {
                 "aliases": [],
@@ -13126,140 +13126,140 @@
             "kung pao sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "kung pao sauce",
-                "plural_name": "kung pao sauces"
+                "name": "Соус Кунг пао",
+                "plural_name": "Соусу Кунг пао"
             },
             "mole paste": {
                 "aliases": [],
                 "description": "",
-                "name": "mole paste",
-                "plural_name": "mole pastes"
+                "name": "Паста моле",
+                "plural_name": "Пасти моле"
             },
             "onion gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "onion gravy",
-                "plural_name": "onion gravies"
+                "name": "Цибулева підлива",
+                "plural_name": "Цибулевої підливи"
             },
             "sesame sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame sauce",
-                "plural_name": "sesame sauces"
+                "name": "Кунжутний соус",
+                "plural_name": "Кунжутного соусу"
             },
             "cheese spread": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese spread",
-                "plural_name": "cheese spreads"
+                "name": "Сирна намазка",
+                "plural_name": "Сирної намазки"
             },
             "corn salsa": {
                 "aliases": [],
                 "description": "",
-                "name": "corn salsa",
-                "plural_name": "corn salsas"
+                "name": "Кукурудзяна сальса",
+                "plural_name": "Кукурудзяної сальси"
             },
             "pad thai sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "pad thai sauce",
-                "plural_name": "pad thai sauces"
+                "name": "Соус для пад тай",
+                "plural_name": "Соусу для пад тай"
             },
             "sausage gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage gravy",
-                "plural_name": "sausage gravies"
+                "name": "Ковбасна підливка",
+                "plural_name": "Ковбасної підливки"
             },
             "deviled ham spread": {
                 "aliases": [],
                 "description": "",
-                "name": "deviled ham spread",
-                "plural_name": "deviled ham spreads"
+                "name": "Пікантна шинкова намазка",
+                "plural_name": "Пікантної шинкової намазки"
             },
             "butter chicken sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter chicken sauce",
-                "plural_name": "butter chicken sauces"
+                "name": "Соус для Баттер Чікен",
+                "plural_name": "Соусу для Баттер Чікен"
             },
             "garlic spread": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic spread",
-                "plural_name": "garlic spreads"
+                "name": "Часникова намазка",
+                "plural_name": "Часникової намазки"
             },
             "black pepper sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "black pepper sauce",
-                "plural_name": "black pepper sauces"
+                "name": "Соус з чорним перцем",
+                "plural_name": "Соусу з чорного перцю"
             },
             "char siu sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "char siu sauce",
-                "plural_name": "char siu sauces"
+                "name": "Соус чар сіу",
+                "plural_name": "Соусу чар сіу"
             },
             "garlic pasta sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic pasta sauce",
-                "plural_name": "garlic pasta sauces"
+                "name": "Часниковий соус до пасти",
+                "plural_name": "Часникового соусу до пасти"
             },
             "green olive tapenade": {
                 "aliases": [],
                 "description": "",
-                "name": "green olive tapenade",
-                "plural_name": "green olive tapenades"
+                "name": "Тапенад із зелених оливок",
+                "plural_name": "Тапенаду із зелених оливок"
             },
             "schezwan chutney": {
                 "aliases": [],
                 "description": "",
-                "name": "schezwan chutney",
-                "plural_name": "schezwan chutneys"
+                "name": "Сичуанський чатні",
+                "plural_name": "Сичуанського чатні"
             },
             "mentsuyu": {
                 "aliases": [],
                 "description": "",
-                "name": "mentsuyu",
-                "plural_name": "mentsuyus"
+                "name": "Соус Менцую",
+                "plural_name": "Соусу Менцую"
             },
             "thai red curry sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "thai red curry sauce",
-                "plural_name": "thai red curry sauces"
+                "name": "Тайський соус червоного карі",
+                "plural_name": "Тайський червоний карі"
             },
             "tarama": {
                 "aliases": [],
                 "description": "",
-                "name": "tarama",
-                "plural_name": "taramas"
+                "name": "Тарама",
+                "plural_name": "Тарами"
             },
             "ssamjang": {
                 "aliases": [],
                 "description": "",
-                "name": "ssamjang",
-                "plural_name": "ssamjangs"
+                "name": "Ссамджан",
+                "plural_name": "Ссамджан"
             },
             "white pizza sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "white pizza sauce",
-                "plural_name": "white pizza sauces"
+                "name": "Білий соус для піци",
+                "plural_name": "Білого соусу для піциБілого соусу для піци"
             },
             "tomato tapenade": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato tapenade",
-                "plural_name": "tomato tapenades"
+                "name": "Томатний тапенад",
+                "plural_name": "Томатного тапенаду"
             },
             "yum yum sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "yum yum sauce",
-                "plural_name": "yum yum sauces"
+                "name": "Соус юм юм",
+                "plural_name": "Соусу юм юм"
             },
             "honey garlic sauce": {
                 "aliases": [],
@@ -13270,38 +13270,38 @@
             "mole sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "mole sauce",
-                "plural_name": "mole sauces"
+                "name": "Соус моле",
+                "plural_name": "Соусу моле"
             },
             "nuoc cham": {
                 "aliases": [],
                 "description": "",
-                "name": "nuoc cham",
-                "plural_name": "nuoc chams"
+                "name": "Соус Нуок чам",
+                "plural_name": "Соусу Нуок чам"
             },
             "white clam sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "white clam sauce",
-                "plural_name": "white clam sauces"
+                "name": "Білий соус із молюсків",
+                "plural_name": "Білого соусу із молюсків"
             },
             "bean dip": {
                 "aliases": [],
                 "description": "",
-                "name": "bean dip",
-                "plural_name": "bean dips"
+                "name": "Бобовий діп",
+                "plural_name": "Бобового діпу"
             },
             "eggplant dip": {
                 "aliases": [],
                 "description": "",
-                "name": "eggplant dip",
-                "plural_name": "eggplant dips"
+                "name": "Діп з баклажанів",
+                "plural_name": "Баклажанового діпу"
             },
             "pomegranate sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "pomegranate sauce",
-                "plural_name": "pomegranate sauces"
+                "name": "Гранатовий соус",
+                "plural_name": "Гранатового соусу"
             }
         }
     },
@@ -13310,26 +13310,26 @@
             "chicken broth": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken broth",
-                "plural_name": "chicken broths"
+                "name": "Курячий бульйон",
+                "plural_name": "Курячого бульйону"
             },
             "vegetable broth": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable broth",
-                "plural_name": "vegetable broths"
+                "name": "Овочевий бульйон",
+                "plural_name": "Овочевого бульйону"
             },
             "chicken stock": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken stock",
-                "plural_name": "chicken stocks"
+                "name": "Курячий фонд",
+                "plural_name": "Курячого фонду"
             },
             "beef broth": {
                 "aliases": [],
                 "description": "",
-                "name": "beef broth",
-                "plural_name": "beef broths"
+                "name": "Яловичий бульйон",
+                "plural_name": "Яловичого бульйону"
             },
             "beef stock": {
                 "aliases": [],
