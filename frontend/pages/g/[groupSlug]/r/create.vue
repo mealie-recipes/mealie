@@ -58,8 +58,6 @@ export default defineNuxtComponent({
       title: i18n.t("general.create"),
     });
 
-    const enableOpenAIImages = computed(() => $appInfo.enableOpenaiImageServices);
-
     const subpages = computed<MenuItem[]>(() => [
       {
         icon: $globals.icons.link,
@@ -80,7 +78,7 @@ export default defineNuxtComponent({
         icon: $globals.icons.fileImage,
         text: i18n.t("recipe.create-from-images"),
         value: "image",
-        hide: !enableOpenAIImages.value,
+        hide: !$appInfo.enableOpenaiImageServices,
       },
       {
         icon: $globals.icons.edit,
