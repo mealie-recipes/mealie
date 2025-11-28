@@ -246,7 +246,6 @@ export default defineNuxtConfig({
         "browser",
         "window-controls-overlay",
       ],
-      orientation: "any",
       categories: ["food", "lifestyle"],
       prefer_related_applications: false,
       handle_links: "preferred",
