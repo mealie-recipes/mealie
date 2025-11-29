@@ -92,8 +92,8 @@
               item-value="name"
               class="mr-2"
             >
-              <template #item="{ item, props }">
-                <v-list-item v-bind="props">
+              <template #item="{ item, props: itemProps }">
+                <v-list-item v-bind="itemProps">
                   <template #prepend>
                     <v-icon>{{ item.raw.icon }}</v-icon>
                   </template>
