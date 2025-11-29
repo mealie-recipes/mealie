@@ -15,7 +15,7 @@ interface AuthState {
   signIn: (credentials: FormData, options?: { redirect?: boolean }) => Promise<void>;
   signOut: (callbackUrl?: string) => Promise<void>;
   refresh: () => Promise<void>;
-  getSession: () => Promise<void>;
+  getSession: (token?: string) => Promise<void>;
   setToken: (token: string | null) => void;
 }
 
@@ -50,8 +50,8 @@ export const useAuthBackend = function (): AuthState {
     }
   }
 
-  async function getSession(): Promise<void> {
-    if (!tokenCookie.value) {
+  async function getSession(token: string | null = null): Promise<void> {
+    if (!(token || tokenCookie.value)) {
       authUser.value = null;
       authStatus.value = "unauthenticated";
       return;
@@ -59,7 +59,10 @@ export const useAuthBackend = function (): AuthState {
 
     authStatus.value = "loading";
     try {
-      const { data } = await $axios.get<UserOut>("/api/users/self");
+      // Sometimes there is a race condition or state issue with cookies, specifically in WebKit browsers.
+      // This explicitly sets the token to work around the issue.
+      const config = token ? { headers: { Authorization: `Bearer ${token}` } } : undefined;
+      const { data } = await $axios.get<UserOut>("/api/users/self", config);
       authUser.value = data;
       authStatus.value = "authenticated";
     }
