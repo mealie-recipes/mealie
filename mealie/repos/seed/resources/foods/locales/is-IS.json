@@ -126,8 +126,8 @@
             "heart of palm": {
                 "aliases": [],
                 "description": "",
-                "name": "heart of palm",
-                "plural_name": "heart of palms"
+                "name": "pálmahjarta",
+                "plural_name": "pálmahjörtu"
             },
             "baby green": {
                 "aliases": [],
@@ -9164,7 +9164,7 @@
             "bean sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "bean sprout",
+                "name": "bauna spíra",
                 "plural_name": "bean sprouts"
             },
             "edamame": {
