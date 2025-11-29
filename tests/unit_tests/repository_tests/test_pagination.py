@@ -262,19 +262,19 @@ def test_pagination_filter_string_case_insensitive(
         units_repo.delete(upper_unit.id)
 
 
-def test_pagination_filter_null(unique_user: TestUser):
-    database = unique_user.repos
+def test_pagination_filter_null(unique_user_fn_scoped: TestUser):
+    database = unique_user_fn_scoped.repos
     recipe_not_made_1 = database.recipes.create(
         Recipe(
-            user_id=unique_user.user_id,
-            group_id=unique_user.group_id,
+            user_id=unique_user_fn_scoped.user_id,
+            group_id=unique_user_fn_scoped.group_id,
             name=random_string(),
         )
     )
     recipe_not_made_2 = database.recipes.create(
         Recipe(
-            user_id=unique_user.user_id,
-            group_id=unique_user.group_id,
+            user_id=unique_user_fn_scoped.user_id,
+            group_id=unique_user_fn_scoped.group_id,
             name=random_string(),
         )
     )
@@ -282,8 +282,8 @@ def test_pagination_filter_null(unique_user: TestUser):
     # give one recipe a last made date
     recipe_made = database.recipes.create(
         Recipe(
-            user_id=unique_user.user_id,
-            group_id=unique_user.group_id,
+            user_id=unique_user_fn_scoped.user_id,
+            group_id=unique_user_fn_scoped.group_id,
             name=random_string(),
             last_made=datetime.now(UTC),
         )
