@@ -13322,8 +13322,8 @@
             "chicken stock": {
                 "aliases": [],
                 "description": "",
-                "name": "Курячий фонд",
-                "plural_name": "Курячого фонду"
+                "name": "Курячий навар",
+                "plural_name": "Курячого навару"
             },
             "beef broth": {
                 "aliases": [],
@@ -13334,314 +13334,314 @@
             "beef stock": {
                 "aliases": [],
                 "description": "",
-                "name": "beef stock",
-                "plural_name": "beef stocks"
+                "name": "Яловичий навар",
+                "plural_name": "Яловичого навару"
             },
             "cream of mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of mushroom",
-                "plural_name": "cream of mushroom"
+                "name": "Крем-суп грибний",
+                "plural_name": "Крем-супу грибного"
             },
             "bouillon cube": {
                 "aliases": [],
                 "description": "",
-                "name": "bouillon cube",
-                "plural_name": "bouillon cubes"
+                "name": "Бульйонний кубик",
+                "plural_name": "Бульйонні кубики"
             },
             "cream of chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of chicken",
-                "plural_name": "cream of chicken"
+                "name": "Крем-суп курячий",
+                "plural_name": "Крем-супу курячого"
             },
             "onion soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "onion soup mix",
-                "plural_name": "onion soup mixes"
+                "name": "Суміш для цибулевого супу",
+                "plural_name": "Суміші для цибулевого супу"
             },
             "tomato soup": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato soup",
-                "plural_name": "tomato soups"
+                "name": "Томатний суп",
+                "plural_name": "Томатного супу"
             },
             "fish stock": {
                 "aliases": [],
                 "description": "",
-                "name": "fish stock",
-                "plural_name": "fish stocks"
+                "name": "Рибний навар",
+                "plural_name": "Рибного навару"
             },
             "cream of celery": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of celery",
-                "plural_name": "cream of celery"
+                "name": "Крем-суп із селери",
+                "plural_name": "Крем-супу із селери"
             },
             "better than bouillon": {
                 "aliases": [],
                 "description": "",
-                "name": "better than bouillon",
-                "plural_name": "better than bouillons"
+                "name": "Концентрована бульйонна основа",
+                "plural_name": "Концентрованої бульйонної основи"
             },
             "clam juice": {
                 "aliases": [],
                 "description": "",
-                "name": "clam juice",
-                "plural_name": "clam juices"
+                "name": "Сік з молюсків",
+                "plural_name": "Соку з молюсків"
             },
             "cheese soup": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese soup",
-                "plural_name": "cheese soups"
+                "name": "Сирний суп",
+                "plural_name": "Сирного супу"
             },
             "bone broth": {
                 "aliases": [],
                 "description": "",
-                "name": "bone broth",
-                "plural_name": "bone broths"
+                "name": "Кістковий бульйон",
+                "plural_name": "Кісткового бульйону"
             },
             "dashi": {
                 "aliases": [],
                 "description": "",
-                "name": "dashi",
-                "plural_name": "dashis"
+                "name": "Дасі",
+                "plural_name": "Даші"
             },
             "onion soup": {
                 "aliases": [],
                 "description": "",
-                "name": "onion soup",
-                "plural_name": "onion soups"
+                "name": "Цибулевий суп",
+                "plural_name": "Цибулевого супу"
             },
             "chicken soup": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken soup",
-                "plural_name": "chicken soups"
+                "name": "Курячий суп",
+                "plural_name": "Курячого супу"
             },
             "veal stock": {
                 "aliases": [],
                 "description": "",
-                "name": "veal stock",
-                "plural_name": "veal stocks"
+                "name": "Навар з телятини",
+                "plural_name": "Навару з телятини"
             },
             "chicken bone broth": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken bone broth",
-                "plural_name": "chicken bone broths"
+                "name": "Бульйон з курячих кісток",
+                "plural_name": "Бульйону з курячих кісток"
             },
             "turkey stock": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey stock",
-                "plural_name": "turkey stocks"
+                "name": "Індичий навар",
+                "plural_name": "Індичого навару"
             },
             "lamb stock": {
                 "aliases": [],
                 "description": "",
-                "name": "Концетрований бульон з ягня",
-                "plural_name": "Концетрованих бульони з ягня"
+                "name": "Навар з ягня",
+                "plural_name": "Навару з ягня"
             },
             "turkey broth": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey broth",
-                "plural_name": "turkey broths"
+                "name": "Індичий бульйон",
+                "plural_name": "Індичого бульйону"
             },
             "beef consommé": {
                 "aliases": [],
                 "description": "",
-                "name": "beef consommé",
-                "plural_name": "beef consommés"
+                "name": "Яловиче консоме",
+                "plural_name": "Яловичого консоме"
             },
             "stock paste": {
                 "aliases": [],
                 "description": "",
-                "name": "stock paste",
-                "plural_name": "stock pastes"
+                "name": "Паста-концентрат бульйону",
+                "plural_name": "Пасти-концентрату бульйону"
             },
             "cream of potato": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of potato",
-                "plural_name": "cream of potato"
+                "name": "Крем-суп із картоплі",
+                "plural_name": "Крем-супу із картоплі"
             },
             "golden mushroom soup": {
                 "aliases": [],
                 "description": "",
-                "name": "golden mushroom soup",
-                "plural_name": "golden mushroom soups"
+                "name": "Грибний крем-суп «Золотий гриб»",
+                "plural_name": "Грибного крем-супу «Золотий гриб»"
             },
             "seafood stock": {
                 "aliases": [],
                 "description": "",
-                "name": "seafood stock",
-                "plural_name": "seafood stocks"
+                "name": "Бульйон з морепродуктів",
+                "plural_name": "Бульйону з морепродуктів"
             },
             "mushroom broth": {
                 "aliases": [],
                 "description": "",
-                "name": "mushroom broth",
-                "plural_name": "mushroom broths"
+                "name": "Грибний бульйон",
+                "plural_name": "Грибний відвар"
             },
             "vegetable soup": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable soup",
-                "plural_name": "vegetable soups"
+                "name": "Овочевий суп",
+                "plural_name": "Овочевого супу"
             },
             "chicken noodle soup": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken noodle soup",
-                "plural_name": "chicken noodle soups"
+                "name": "Курячий суп з локшиною",
+                "plural_name": "Курячого супу з локшиною"
             },
             "vegetable soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable soup mix",
-                "plural_name": "vegetable soup mixes"
+                "name": "Суміш для овочевого супу",
+                "plural_name": "Суміші для овочевого супу"
             },
             "chicken consommé": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken consommé",
-                "plural_name": "chicken consommés"
+                "name": "Куряче консоме",
+                "plural_name": "Курячого консоме"
             },
             "shrimp stock": {
                 "aliases": [],
                 "description": "",
-                "name": "shrimp stock",
-                "plural_name": "shrimp stocks"
+                "name": "Бульйон з панцирів креветок",
+                "plural_name": "Бульйону з панцирів креветок"
             },
             "nacho cheese soup": {
                 "aliases": [],
                 "description": "",
-                "name": "nacho cheese soup",
-                "plural_name": "nacho cheese soups"
+                "name": "Суп з сиром начо",
+                "plural_name": "Супу з сиром начо"
             },
             "ramen noodle soup": {
                 "aliases": [],
                 "description": "",
-                "name": "ramen noodle soup",
-                "plural_name": "ramen noodle soups"
+                "name": "Суп-рамен з локшиною",
+                "plural_name": "Супу-рамен з локшиною"
             },
             "cream of broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of broccoli",
-                "plural_name": "cream of broccoli"
+                "name": "Крем-суп із броколі",
+                "plural_name": "Крем-супу із броколі"
             },
             "lobster stock": {
                 "aliases": [],
                 "description": "",
-                "name": "lobster stock",
-                "plural_name": "lobster stocks"
+                "name": "Бульйон з лобстера",
+                "plural_name": "Бульйону з лобстера"
             },
             "pork stock": {
                 "aliases": [],
                 "description": "",
-                "name": "pork stock",
-                "plural_name": "pork stocks"
+                "name": "Свинячий кістковий бульйон",
+                "plural_name": "Свинячий навар"
             },
             "chicken rice soup": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken rice soup",
-                "plural_name": "chicken rice soups"
+                "name": "Курячий суп з рисом",
+                "plural_name": "Курячого супу з рисом"
             },
             "beefy onion soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "beefy onion soup mix",
-                "plural_name": "beefy onion soup mixes"
+                "name": "Суміш для цибулевого супу з яловичим смаком",
+                "plural_name": "Суміші для цибулевого супу з яловичим смаком"
             },
             "butternut squash soup": {
                 "aliases": [],
                 "description": "",
-                "name": "butternut squash soup",
-                "plural_name": "butternut squash soups"
+                "name": "Суп із гарбуза баттернат",
+                "plural_name": "Супу із гарбуза баттернат"
             },
             "chicken stock paste": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken stock paste",
-                "plural_name": "chicken stock pastes"
+                "name": "Концентрат курячого бульйону",
+                "plural_name": "Концентрату курячого бульйону"
             },
             "miso soup": {
                 "aliases": [],
                 "description": "",
-                "name": "miso soup",
-                "plural_name": "miso soups"
+                "name": "Суп місо",
+                "plural_name": "Супу місо"
             },
             "broccoli-cheese soup": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli-cheese soup",
-                "plural_name": "broccoli-cheese soups"
+                "name": "Суп із броколі та сиром",
+                "plural_name": "Супу із броколі та сиром"
             },
             "duck stock": {
                 "aliases": [],
                 "description": "",
-                "name": "duck stock",
-                "plural_name": "duck stocks"
+                "name": "Бульйон з качки",
+                "plural_name": "Бульйону з качки"
             },
             "clam broth": {
                 "aliases": [],
                 "description": "",
-                "name": "clam broth",
-                "plural_name": "clam broths"
+                "name": "Бульйон з молюсків",
+                "plural_name": "Бульйону з молюсків"
             },
             "vegan chicken broth": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan chicken broth",
-                "plural_name": "vegan chicken broths"
+                "name": "Веганський бульйон зі смаком курки",
+                "plural_name": "Веганський «курячий» бульйон"
             },
             "cream of asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of asparagus",
-                "plural_name": "cream of asparagus"
+                "name": "Крем-суп зі спаржі",
+                "plural_name": "Крем-супу зі спаржі"
             },
             "pork broth": {
                 "aliases": [],
                 "description": "",
-                "name": "pork broth",
-                "plural_name": "pork broths"
+                "name": "Бульйон зі свинини",
+                "plural_name": "Бульйону зі свинини"
             },
             "beefy mushroom soup": {
                 "aliases": [],
                 "description": "",
-                "name": "beefy mushroom soup",
-                "plural_name": "beefy mushroom soups"
+                "name": "Грибний суп з яловичим смаком",
+                "plural_name": "Грибного супу з яловичим смаком"
             },
             "new england clam chowder": {
                 "aliases": [],
                 "description": "",
-                "name": "new england clam chowder",
-                "plural_name": "new england clam chowders"
+                "name": "Клем-чаудер по-новоанглійськи",
+                "plural_name": "Клем-чаудеру по-новоанглійськи"
             },
             "bean soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "bean soup mix",
-                "plural_name": "bean soup mixes"
+                "name": "Суміш для квасолевого супу",
+                "plural_name": "Суміші для квасолевого супу"
             },
             "black bean soup": {
                 "aliases": [],
                 "description": "",
-                "name": "black bean soup",
-                "plural_name": "black bean soups"
+                "name": "Суп із чорної квасолі",
+                "plural_name": "Супу із чорної квасолі"
             },
             "ham stock": {
                 "aliases": [],
                 "description": "",
-                "name": "ham stock",
-                "plural_name": "ham stocks"
+                "name": "Бульйон на копченостях",
+                "plural_name": "Бульйону на копченостях"
             },
             "lentil soup": {
                 "aliases": [],
@@ -13652,50 +13652,50 @@
             "cream of shrimp soup": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of shrimp soup",
-                "plural_name": "cream of shrimp soup"
+                "name": "Крем-суп з креветок",
+                "plural_name": "Крем-супу з креветок"
             },
             "veal broth": {
                 "aliases": [],
                 "description": "",
-                "name": "veal broth",
-                "plural_name": "veal broths"
+                "name": "Телячий бульйон",
+                "plural_name": "Телячого бульйону"
             },
             "vegetable beef soup": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable beef soup",
-                "plural_name": "vegetable beef soups"
+                "name": "Овочевий суп з яловичиною",
+                "plural_name": "Овочевого супу з яловичиною"
             },
             "chicken soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken soup mix",
-                "plural_name": "chicken soup mixes"
+                "name": "Суміш для курячого супу",
+                "plural_name": "Суміші для курячого супу"
             },
             "cream of bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of bacon",
-                "plural_name": "cream of bacon"
+                "name": "Крем-суп із беконом",
+                "plural_name": "Крем-супу із беконом"
             },
             "lobster bisque": {
                 "aliases": [],
                 "description": "",
-                "name": "lobster bisque",
-                "plural_name": "lobster bisques"
+                "name": "Лобстер-біск",
+                "plural_name": "Біск з лобстера"
             },
             "bean with bacon soup": {
                 "aliases": [],
                 "description": "",
-                "name": "bean with bacon soup",
-                "plural_name": "bean with bacon soup"
+                "name": "Квасолевий суп з беконом",
+                "plural_name": "Квасолевого супу з беконом"
             },
             "clam chowder": {
                 "aliases": [],
                 "description": "",
-                "name": "clam chowder",
-                "plural_name": "clam chowders"
+                "name": "Клем-чаудер",
+                "plural_name": "Клем-чаудеру"
             },
             "condensed chicken gumbo soup": {
                 "aliases": [],
@@ -13706,86 +13706,86 @@
             "tortilla soup base": {
                 "aliases": [],
                 "description": "",
-                "name": "tortilla soup base",
-                "plural_name": "tortilla soup bases"
+                "name": "Основа для супу тортилья",
+                "plural_name": "Основи для супу тортилья"
             },
             "turkey bone broth": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey bone broth",
-                "plural_name": "turkey bone broths"
+                "name": "Кістковий бульйон з індички",
+                "plural_name": "Кісткового бульйону з індички"
             },
             "anchovy stock": {
                 "aliases": [],
                 "description": "",
-                "name": "anchovy stock",
-                "plural_name": "anchovy stocks"
+                "name": "Бульйон з анчоусів",
+                "plural_name": "Бульйону з анчоусів"
             },
             "cream of chicken soup mix:": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of chicken soup mix:",
-                "plural_name": "cream of chicken soup mix:"
+                "name": "Суміш для курячого крем-супу",
+                "plural_name": "Суміші для курячого крем-супу"
             },
             "noodle soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "noodle soup mix",
-                "plural_name": "noodle soup mixes"
+                "name": "Суміш для супу з локшиною",
+                "plural_name": "Суміші для супу з локшиною"
             },
             "lamb broth": {
                 "aliases": [],
                 "description": "",
-                "name": "Бульон з ягня",
-                "plural_name": "Бульони з ягня"
+                "name": "Бульйон з ягнятини",
+                "plural_name": "Бульйону з ягнятини"
             },
             "minestrone": {
                 "aliases": [],
                 "description": "",
-                "name": "minestrone",
-                "plural_name": "minestrones"
+                "name": "Мінестроне",
+                "plural_name": "Мінестроне"
             },
             "thai chicken broth": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chicken broth",
-                "plural_name": "thai chicken broths"
+                "name": "Тайський курячий бульйон",
+                "plural_name": "Тайського курячого бульйону"
             },
             "tomato bisque": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato bisque",
-                "plural_name": "tomato bisques"
+                "name": "Томатний біск",
+                "plural_name": "Томатного біску"
             },
             "venison stock": {
                 "aliases": [],
                 "description": "",
-                "name": "venison stock",
-                "plural_name": "venison stocks"
+                "name": "Навар з оленини",
+                "plural_name": "Навару з оленини"
             },
             "beef stock paste": {
                 "aliases": [],
                 "description": "",
-                "name": "beef stock paste",
-                "plural_name": "beef stock pastes"
+                "name": "Концентрат яловичого бульйону",
+                "plural_name": "Концентрату яловичого бульйону"
             },
             "bovril": {
                 "aliases": [],
                 "description": "",
-                "name": "bovril",
-                "plural_name": "bovrils"
+                "name": "Бовріл",
+                "plural_name": "Боврілу"
             },
             "chicken corn chowder": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken corn chowder",
-                "plural_name": "chicken corn chowders"
+                "name": "Курячий чаудер з кукурудзою",
+                "plural_name": "Курячого чаудеру з кукурудзою"
             },
             "pork & bean": {
                 "aliases": [],
                 "description": "",
-                "name": "pork & bean",
-                "plural_name": "pork & beans"
+                "name": "Боби зі свининою",
+                "plural_name": "Бобів зі свининою"
             },
             "sun-dried tomato bisque mix": {
                 "aliases": [],
@@ -13796,26 +13796,26 @@
             "ham-flavored concentrate": {
                 "aliases": [],
                 "description": "",
-                "name": "ham-flavored concentrate",
-                "plural_name": "ham-flavored concentrates"
+                "name": "Концентрат зі смаком шинки",
+                "plural_name": "Концентрату зі смаком шинки"
             },
             "oxtail soup": {
                 "aliases": [],
                 "description": "",
-                "name": "oxtail soup",
-                "plural_name": "oxtail soups"
+                "name": "Суп з бичачих хвостів",
+                "plural_name": "Супу з бичачих хвостів"
             },
             "potato soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "potato soup mix",
-                "plural_name": "potato soup mixes"
+                "name": "Суміш для картопляного супу",
+                "plural_name": "Суміші для картопляного супу"
             },
             "callaloo": {
                 "aliases": [],
                 "description": "",
-                "name": "callaloo",
-                "plural_name": "callaloos"
+                "name": "Каллалу",
+                "plural_name": "Каллалу"
             },
             "split pea soup": {
                 "aliases": [],
@@ -13826,32 +13826,32 @@
             "chicken and mushroom soup": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken and mushroom soup",
-                "plural_name": "chicken and mushroom soups"
+                "name": "Суп з куркою та грибами",
+                "plural_name": "Супу з куркою та грибами"
             },
             "chili beef soup": {
                 "aliases": [],
                 "description": "",
-                "name": "chili beef soup",
-                "plural_name": "chili beef soups"
+                "name": "Суп чилі з яловичиною",
+                "plural_name": "Супу чилі з яловичиною"
             },
             "corn chowder": {
                 "aliases": [],
                 "description": "",
-                "name": "corn chowder",
-                "plural_name": "corn chowders"
+                "name": "Кукурудзяний чаудер",
+                "plural_name": "Кукурудзяного чаудеру"
             },
             "cream of cauliflower": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of cauliflower",
-                "plural_name": "cream of cauliflower"
+                "name": "Крем-суп із цвітної капусти",
+                "plural_name": "Крем-супу із цвітної капусти"
             },
             "dashida": {
                 "aliases": [],
                 "description": "",
-                "name": "dashida",
-                "plural_name": "dashidas"
+                "name": "Дасіда",
+                "plural_name": "Дашида"
             },
             "green pea soup": {
                 "aliases": [],
@@ -13862,8 +13862,8 @@
             "pho broth": {
                 "aliases": [],
                 "description": "",
-                "name": "pho broth",
-                "plural_name": "pho broths"
+                "name": "Бульйон для супу Фо",
+                "plural_name": "Бульйону для супу Фо"
             }
         }
     },
@@ -13872,86 +13872,86 @@
             "cocoa": {
                 "aliases": [],
                 "description": "",
-                "name": "cocoa",
-                "plural_name": "cocoas"
+                "name": "Какао",
+                "plural_name": "Какао"
             },
             "dark chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "dark chocolate",
-                "plural_name": "dark chocolates"
+                "name": "Чорний шоколад",
+                "plural_name": "Чорного шоколаду"
             },
             "dark cocoa": {
                 "aliases": [],
                 "description": "",
-                "name": "dark cocoa",
-                "plural_name": "dark cocoas"
+                "name": "Темне какао",
+                "plural_name": "Темного какао"
             },
             "chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate",
-                "plural_name": "chocolates"
+                "name": "Шоколад",
+                "plural_name": "Шоколаду"
             },
             "graham cracker": {
                 "aliases": [],
                 "description": "",
-                "name": "graham cracker",
-                "plural_name": "graham crackers"
+                "name": "Крекер Грема",
+                "plural_name": "Крекера Грема"
             },
             "baking chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "baking chocolate",
-                "plural_name": "baking chocolates"
+                "name": "Кондитерський шоколад",
+                "plural_name": "Кондитерського шоколаду"
             },
             "marshmallow": {
                 "aliases": [],
                 "description": "",
-                "name": "marshmallow",
-                "plural_name": "marshmallows"
+                "name": "Маршмелоу",
+                "plural_name": "Маршмелоу"
             },
             "mini arshmallow": {
                 "aliases": [],
                 "description": "",
-                "name": "mini arshmallow",
-                "plural_name": "mini marshmallows"
+                "name": "Міні-маршмелоу",
+                "plural_name": "Міні-маршмелоу"
             },
             "applesauce": {
                 "aliases": [],
                 "description": "",
-                "name": "applesauce",
-                "plural_name": "applesauces"
+                "name": "Яблучне пюре",
+                "plural_name": "Яблучного пюре"
             },
             "white chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "white chocolate",
-                "plural_name": "white chocolates"
+                "name": "Білий шоколад",
+                "plural_name": "Білого шоколаду"
             },
             "oreo": {
                 "aliases": [],
                 "description": "",
-                "name": "oreo",
-                "plural_name": "oreos"
+                "name": "Орео",
+                "plural_name": "Орео"
             },
             "chocolate hazelnut spread": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate hazelnut spread",
-                "plural_name": "chocolate hazelnut spreads"
+                "name": "Шоколадно-фундучна намазка",
+                "plural_name": "Шоколадно-фундучної намазки"
             },
             "instant pudding": {
                 "aliases": [],
                 "description": "",
-                "name": "instant pudding",
-                "plural_name": "instant puddings"
+                "name": "Пудинг швидкого приготування",
+                "plural_name": "Пудингу швидкого приготування"
             },
             "chocolate candy": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate candy",
-                "plural_name": "chocolate candies"
+                "name": "Шоколадна цукерка",
+                "plural_name": "Шоколадні цукерки"
             },
             "chocolate cream-filled chocolate sandwich cookie": {
                 "aliases": [],
@@ -13962,86 +13962,86 @@
             "dutch-process cocoa": {
                 "aliases": [],
                 "description": "",
-                "name": "dutch-process cocoa",
-                "plural_name": "dutch-process cocoas"
+                "name": "Алкалізоване какао",
+                "plural_name": "Алкалізованого какао"
             },
             "raspberry jam": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry jam",
-                "plural_name": "raspberry jams"
+                "name": "Малиновий джем",
+                "plural_name": "Малинового джему"
             },
             "apricot jam": {
                 "aliases": [],
                 "description": "",
-                "name": "apricot jam",
-                "plural_name": "apricot jams"
+                "name": "Абрикосовий джем",
+                "plural_name": "Абрикосового джему"
             },
             "caramel sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "caramel sauce",
-                "plural_name": "caramel sauces"
+                "name": "Карамельний соус",
+                "plural_name": "Карамельного соусу"
             },
             "candy coating": {
                 "aliases": [],
                 "description": "",
-                "name": "candy coating",
-                "plural_name": "candy coatings"
+                "name": "Цукеркова глазур",
+                "plural_name": "Цукеркової глазурі"
             },
             "raw cacao powder": {
                 "aliases": [],
                 "description": "",
-                "name": "raw cacao powder",
-                "plural_name": "raw cacao powders"
+                "name": "Неалкалізований какао порошок\n",
+                "plural_name": "Неалкалізованого какао порошку"
             },
             "strawberry jam": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry jam",
-                "plural_name": "strawberry jams"
+                "name": "Полуничний джем",
+                "plural_name": "Полуничного джему"
             },
             "biscuit": {
                 "aliases": [],
                 "description": "",
-                "name": "biscuit",
-                "plural_name": "biscuits"
+                "name": "Бісквітне печиво",
+                "plural_name": "Бісквітного печива"
             },
             "marshmallow creme": {
                 "aliases": [],
                 "description": "",
-                "name": "marshmallow creme",
-                "plural_name": "marshmallow cremes"
+                "name": "Зефірний крем",
+                "plural_name": "Крем Маршмеллоу"
             },
             "candy": {
                 "aliases": [],
                 "description": "",
-                "name": "candy",
-                "plural_name": "candies"
+                "name": "Цукерка",
+                "plural_name": "Цукерки"
             },
             "jam": {
                 "aliases": [],
                 "description": "",
                 "name": "Джем",
-                "plural_name": "jams"
+                "plural_name": "Джем"
             },
             "orange marmalade": {
                 "aliases": [],
                 "description": "",
-                "name": "orange marmalade",
-                "plural_name": "orange marmalades"
+                "name": "Помаранчевий мармелад",
+                "plural_name": "Помаранчевого мармеладу"
             },
             "wafer": {
                 "aliases": [],
                 "description": "",
-                "name": "wafer",
-                "plural_name": "wafers"
+                "name": "Вафля",
+                "plural_name": "Вафлі"
             },
             "cookie": {
                 "aliases": [],
                 "description": "",
-                "name": "cookie",
-                "plural_name": "cookies"
+                "name": "Печиво",
+                "plural_name": "Печива"
             },
             "peanut butter cup": {
                 "aliases": [
@@ -14055,116 +14055,116 @@
             "chocolate pudding": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate pudding",
-                "plural_name": "chocolate puddings"
+                "name": "Шоколадний пудинг",
+                "plural_name": "Шоколадного пудингу"
             },
             "candy cane": {
                 "aliases": [],
                 "description": "",
-                "name": "candy cane",
-                "plural_name": "candy canes"
+                "name": "Цукрова тростина",
+                "plural_name": "Цукрові тростини"
             },
             "ginger snap": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger snap",
-                "plural_name": "ginger snaps"
+                "name": "Імбирне печиво",
+                "plural_name": "Імбирного печива"
             },
             "cacao nib": {
                 "aliases": [],
                 "description": "",
-                "name": "cacao nib",
-                "plural_name": "cacao nibs"
+                "name": "Какао боби",
+                "plural_name": "Какао бобів"
             },
             "lady finger": {
                 "aliases": [],
                 "description": "",
-                "name": "lady finger",
-                "plural_name": "lady fingers"
+                "name": "Печиво «Дамські пальчики»",
+                "plural_name": "Печиво Савоярді"
             },
             "chocolate chip cookie": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate chip cookie",
-                "plural_name": "chocolate chip cookies"
+                "name": "Печиво з шоколадною крихтою",
+                "plural_name": "Печиво з шоколадними дропсами "
             },
             "fudge sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "fudge sauce",
-                "plural_name": "fudge sauces"
+                "name": "Соус фадж",
+                "plural_name": "Соусу фадж"
             },
             "chocolate cookie": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate cookie",
-                "plural_name": "chocolate cookies"
+                "name": "Шоколадне печиво",
+                "plural_name": "Шоколадного печива"
             },
             "digestive biscuit": {
                 "aliases": [],
                 "description": "",
-                "name": "digestive biscuit",
-                "plural_name": "digestive biscuits"
+                "name": "Печиво бісквітне Digestive",
+                "plural_name": "Печива бісквітного Digestive"
             },
             "apple butter": {
                 "aliases": [],
                 "description": "",
-                "name": "apple butter",
-                "plural_name": "apple butter"
+                "name": "Яблучне масло",
+                "plural_name": "Яблучного масла"
             },
             "peppermint candy": {
                 "aliases": [],
                 "description": "",
-                "name": "peppermint candy",
-                "plural_name": "peppermint candies"
+                "name": "М'ятна цукерка",
+                "plural_name": "М'ятні цукерки"
             },
             "cinnamon roll": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon roll",
-                "plural_name": "cinnamon rolls"
+                "name": "Булочка з корицею",
+                "plural_name": "Булочки з корицею"
             },
             "butter cookie": {
                 "aliases": [],
                 "description": "",
-                "name": "butter cookie",
-                "plural_name": "butter cookies"
+                "name": "Вершкове печиво",
+                "plural_name": "Вершкові печива"
             },
             "candied cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "candied cherry",
-                "plural_name": "candied cherries"
+                "name": "Цукати з вишні",
+                "plural_name": "Цукатів з вишні"
             },
             "caramel candy": {
                 "aliases": [],
                 "description": "",
-                "name": "caramel candy",
-                "plural_name": "caramel candies"
+                "name": "Карамельна цукерка",
+                "plural_name": "Карамельні цукерки"
             },
             "vanilla pudding": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla pudding",
-                "plural_name": "vanilla puddings"
+                "name": "Ванільний пудинг",
+                "plural_name": "Ванільного пудингу"
             },
             "currant jelly": {
                 "aliases": [],
                 "description": "",
-                "name": "currant jelly",
-                "plural_name": "currant jellies"
+                "name": "Смородинове желе",
+                "plural_name": "Смородинового желе"
             },
             "candied ginger": {
                 "aliases": [],
                 "description": "",
-                "name": "candied ginger",
-                "plural_name": "candied gingers"
+                "name": "Імбир у цукрі",
+                "plural_name": "Імбиру у цукрі"
             },
             "angel food cake": {
                 "aliases": [],
                 "description": "",
-                "name": "angel food cake",
-                "plural_name": "angel food cakes"
+                "name": "Їжа янголів бісквіт",
+                "plural_name": "Ангельський бісквіт"
             },
             "peach preserve": {
                 "aliases": [],
@@ -14175,158 +14175,158 @@
             "chocolate wafer": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate wafer",
-                "plural_name": "chocolate wafers"
+                "name": "Шоколадна вафля",
+                "plural_name": "Шоколадні вафлі"
             },
             "candied peel": {
                 "aliases": [],
                 "description": "",
-                "name": "candied peel",
-                "plural_name": "candied peels"
+                "name": "Цукати з цедри",
+                "plural_name": "Цукатів з цедри"
             },
             "nutella": {
                 "aliases": [],
                 "description": "",
-                "name": "nutella",
-                "plural_name": "nutellas"
+                "name": "Нутелла",
+                "plural_name": "Нутелли"
             },
             "cherry jam": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry jam",
-                "plural_name": "cherry jams"
+                "name": "Вишневий джем",
+                "plural_name": "Вишневе варення"
             },
             "dark couverture chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "dark couverture chocolate",
-                "plural_name": "dark couverture chocolates"
+                "name": "Чорний кувертюрний шоколад ",
+                "plural_name": "Чорного кувертюрного шоколаду"
             },
             "couverture chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "couverture chocolate",
-                "plural_name": "couverture chocolates"
+                "name": "Кувертюрний шоколад",
+                "plural_name": "Кувертюрного шоколаду"
             },
             "grape jelly": {
                 "aliases": [],
                 "description": "",
-                "name": "grape jelly",
-                "plural_name": "grape jellies"
+                "name": "Виноградне желе",
+                "plural_name": "Виноградного желе"
             },
             "waffle": {
                 "aliases": [],
                 "description": "",
-                "name": "waffle",
-                "plural_name": "waffles"
+                "name": "Вафля",
+                "plural_name": "Вафлі"
             },
             "tartlet shell": {
                 "aliases": [],
                 "description": "",
-                "name": "tartlet shell",
-                "plural_name": "tartlet shells"
+                "name": "Тарталетка",
+                "plural_name": "Тарталетки"
             },
             "cookie butter": {
                 "aliases": [],
                 "description": "",
-                "name": "cookie butter",
-                "plural_name": "cookie butter"
+                "name": "Паста з печива",
+                "plural_name": "Бісквітна паста"
             },
             "fig jam": {
                 "aliases": [],
                 "description": "",
-                "name": "fig jam",
-                "plural_name": "fig jams"
+                "name": "Інжирний джем",
+                "plural_name": "Варення з інжиру"
             },
             "butterscotch": {
                 "aliases": [],
                 "description": "",
-                "name": "butterscotch",
-                "plural_name": "butterscotches"
+                "name": "Карамель іриска",
+                "plural_name": "Карамелі іриски"
             },
             "blueberry jam": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry jam",
-                "plural_name": "blueberry jams"
+                "name": "Чорничний джем",
+                "plural_name": "Чорничного джему"
             },
             "candied fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "candied fruit",
-                "plural_name": "candied fruits"
+                "name": "Цукат",
+                "plural_name": "Цукатів"
             },
             "almond cookie": {
                 "aliases": [],
                 "description": "",
-                "name": "almond cookie",
-                "plural_name": "almond cookies"
+                "name": "Мигдальне печиво",
+                "plural_name": "Мигдального печива"
             },
             "gummy": {
                 "aliases": [],
                 "description": "",
-                "name": "gummy",
-                "plural_name": "gummies"
+                "name": "Желейка",
+                "plural_name": "Желейна цукерка"
             },
             "apple jelly": {
                 "aliases": [],
                 "description": "",
-                "name": "apple jelly",
-                "plural_name": "apple jellies"
+                "name": "Яблучне желе",
+                "plural_name": "Яблучного желе"
             },
             "blackberry preserve": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry preserve",
-                "plural_name": "blackberry preserves"
+                "name": "Ожиновий конфітюр",
+                "plural_name": "Ожинове варення"
             },
             "candy corn": {
                 "aliases": [],
                 "description": "",
-                "name": "candy corn",
-                "plural_name": "candy corns"
+                "name": "Цукерка Candy Corn",
+                "plural_name": "Цукеркова кукурудза"
             },
             "ice-cream cone": {
                 "aliases": [],
                 "description": "",
-                "name": "ice-cream cone",
-                "plural_name": "ice-cream cones"
+                "name": "Ріжок для морозива",
+                "plural_name": "Ріжка для морозива"
             },
             "sugar cookie": {
                 "aliases": [],
                 "description": "",
-                "name": "sugar cookie",
-                "plural_name": "sugar cookies"
+                "name": "Цукрове печиво",
+                "plural_name": "Цукрового печива"
             },
             "marmalade": {
                 "aliases": [],
                 "description": "",
-                "name": "marmalade",
-                "plural_name": "marmalades"
+                "name": "Мармелад",
+                "plural_name": "Мармеладу"
             },
             "egg candy": {
                 "aliases": [],
                 "description": "",
-                "name": "egg candy",
-                "plural_name": "egg candies"
+                "name": "Желейна цукерка яйце",
+                "plural_name": "Желейка Egg"
             },
             "strawberry puree": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry puree",
-                "plural_name": "strawberry purees"
+                "name": "Полуничне пюре",
+                "plural_name": "Полуничного пюре"
             },
             "chocolate powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate powder",
-                "plural_name": "chocolate powders"
+                "name": "Шоколадний порошок",
+                "plural_name": "Шоколадного порошку"
             },
             "sponge cake": {
                 "aliases": [],
                 "description": "",
-                "name": "sponge cake",
-                "plural_name": "sponge cakes"
+                "name": "Бісквітний корж",
+                "plural_name": "Бісквітні коржи"
             },
             "chocolate-covered espresso bean": {
                 "aliases": [],
@@ -14337,44 +14337,44 @@
             "pineapple jam": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple jam",
-                "plural_name": "pineapple jams"
+                "name": "Ананасовий джем",
+                "plural_name": "Ананасовий конфітюр"
             },
             "licorice": {
                 "aliases": [],
                 "description": "",
-                "name": "licorice",
-                "plural_name": "licorices"
+                "name": "Лакриця",
+                "plural_name": "Лакриці"
             },
             "plum jam": {
                 "aliases": [],
                 "description": "",
-                "name": "plum jam",
-                "plural_name": "plum jams"
+                "name": "Сливовий джем",
+                "plural_name": "Сливовий конфітюр"
             },
             "mexican chocolate": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican chocolate",
-                "plural_name": "mexican chocolates"
+                "name": "Мексиканський шоколад",
+                "plural_name": "Мексиканського шоколаду"
             },
             "banana pudding": {
                 "aliases": [],
                 "description": "",
-                "name": "banana pudding",
-                "plural_name": "banana puddings"
+                "name": "Банановий пудинг",
+                "plural_name": "Бананового пудингу"
             },
             "white couverture": {
                 "aliases": [],
                 "description": "",
-                "name": "white couverture",
-                "plural_name": "white couvertures"
+                "name": "Шоколад білий кувертюр",
+                "plural_name": "Шоколаду білий кувертюр"
             },
             "sorbet": {
                 "aliases": [],
                 "description": "",
-                "name": "sorbet",
-                "plural_name": "sorbets"
+                "name": "Сорбет",
+                "plural_name": "Сорбету"
             },
             "chocolate peanut butter": {
                 "aliases": [],
@@ -14385,38 +14385,38 @@
             "cinnamon candy": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon candy",
-                "plural_name": "cinnamon candies"
+                "name": "Цукерка з корицею",
+                "plural_name": "Цукерки з корицею"
             },
             "pumpkin butter": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin butter",
-                "plural_name": "pumpkin butter"
+                "name": "Гарбузове масло-пюре",
+                "plural_name": "Гарбузового масла-пюре"
             },
             "guava paste": {
                 "aliases": [],
                 "description": "",
-                "name": "guava paste",
-                "plural_name": "guava pastes"
+                "name": "Паста з гуави",
+                "plural_name": "Пасти з гуави"
             },
             "fudge": {
                 "aliases": [],
                 "description": "",
-                "name": "fudge",
-                "plural_name": "fudges"
+                "name": "Молочний ірис Фадж",
+                "plural_name": "Молочного ірису Фадж"
             },
             "strawberry sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry sauce",
-                "plural_name": "strawberry sauces"
+                "name": "Полуничний соус",
+                "plural_name": "Полуничного соусу"
             },
             "butterscotch pudding mix": {
                 "aliases": [],
                 "description": "",
-                "name": "butterscotch pudding mix",
-                "plural_name": "butterscotch pudding mixes"
+                "name": "Суміш для ірисового пудингу",
+                "plural_name": "Суміші для ірисового пудингу"
             },
             "chocolate spread": {
                 "aliases": [],
@@ -16179,50 +16179,50 @@
             "blueberry extract": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry extract",
-                "plural_name": "blueberry extracts"
+                "name": "Екстракт чорниці",
+                "plural_name": "Екстракту чорниці"
             },
             "corn extract": {
                 "aliases": [],
                 "description": "",
-                "name": "corn extract",
-                "plural_name": "corn extracts"
+                "name": "Екстракт кукурудзи",
+                "plural_name": "Екстракту кукурудзи"
             },
             "magnesium": {
                 "aliases": [],
                 "description": "",
-                "name": "magnesium",
-                "plural_name": "magnesiums"
+                "name": "Магній",
+                "plural_name": "Магнію"
             },
             "creatine": {
                 "aliases": [],
                 "description": "",
-                "name": "creatine",
-                "plural_name": "creatines"
+                "name": "Креатин",
+                "plural_name": "Креатину"
             },
             "daily vitamin": {
                 "aliases": [],
                 "description": "",
-                "name": "daily vitamin",
-                "plural_name": "daily vitamins"
+                "name": "Щоденні вітаміни",
+                "plural_name": "Щоденних вітамінів"
             },
             "moringa powder": {
                 "aliases": [],
                 "description": "",
-                "name": "moringa powder",
-                "plural_name": "moringa powders"
+                "name": "Порошок моринги",
+                "plural_name": "Порошку моринги"
             },
             "pure lime extract": {
                 "aliases": [],
                 "description": "",
-                "name": "pure lime extract",
-                "plural_name": "pure lime extracts"
+                "name": "Чистий екстракт лайма",
+                "plural_name": "Чистого екстракту лайма"
             },
             "sodium alginate": {
                 "aliases": [],
                 "description": "",
-                "name": "sodium alginate",
-                "plural_name": "sodium alginates"
+                "name": "Альгінат натрію",
+                "plural_name": "Альгінату натрію"
             },
             "sunflower lecithin": {
                 "aliases": [],
@@ -16234,25 +16234,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "ТГК",
-                "plural_name": "thcs"
+                "plural_name": "ТГК (Тетрагідроканабінол)"
             },
             "berry powder": {
                 "aliases": [],
                 "description": "",
-                "name": "berry powder",
-                "plural_name": "berry powders"
+                "name": "Ягідний порошок",
+                "plural_name": "Ягідного порошку"
             },
             "champagne yeast": {
                 "aliases": [],
                 "description": "",
-                "name": "champagne yeast",
-                "plural_name": "champagne yeasts"
+                "name": "Шампанські дріжджі",
+                "plural_name": "Шампанських дріжджів"
             },
             "maqui": {
                 "aliases": [],
                 "description": "",
-                "name": "maqui",
-                "plural_name": "maquis"
+                "name": "Макуї",
+                "plural_name": "Макуї"
             },
             "rose oil": {
                 "aliases": [],
@@ -16269,32 +16269,32 @@
             "chaga mushroom powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chaga mushroom powder",
-                "plural_name": "chaga mushroom powders"
+                "name": "Порошок гриба чага",
+                "plural_name": "Порошку гриба чага"
             },
             "clove oil": {
                 "aliases": [],
                 "description": "",
-                "name": "clove oil",
-                "plural_name": "clove oils"
+                "name": "Олія гвоздики",
+                "plural_name": "Олії гвоздики"
             },
             "cranberry powder": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry powder",
-                "plural_name": "cranberry powders"
+                "name": "Журавлинний порошок",
+                "plural_name": "Журавлинного порошку"
             },
             "eucalyptus oil": {
                 "aliases": [],
                 "description": "",
-                "name": "eucalyptus oil",
-                "plural_name": "eucalyptus oils"
+                "name": "Евкаліптова олія",
+                "plural_name": "Евкаліптової олії"
             },
             "goji berry powder": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry powder",
-                "plural_name": "goji berry powders"
+                "name": "Порошок ягід годжі",
+                "plural_name": "Порошку ягід годжі"
             },
             "maltodextrin": {
                 "aliases": [],
