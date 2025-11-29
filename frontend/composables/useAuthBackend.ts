@@ -15,7 +15,7 @@ interface AuthState {
   signIn: (credentials: FormData, options?: { redirect?: boolean }) => Promise<void>;
   signOut: (callbackUrl?: string) => Promise<void>;
   refresh: () => Promise<void>;
-  getSession: (token?: string) => Promise<void>;
+  getSession: () => Promise<void>;
   setToken: (token: string | null) => void;
 }
 
@@ -30,8 +30,7 @@ export const useAuthBackend = function (): AuthState {
   const tokenName = runtimeConfig.public.AUTH_TOKEN;
   const tokenCookie = useCookie(tokenName, {
     maxAge: $appInfo.tokenTime * 60 * 60,
-    secure: $appInfo.production,
-    // sameSite is unset in order to support iframes in production
+    secure: $appInfo.production && window?.location?.protocol === "https:",
   });
 
   function setToken(token: string | null) {
@@ -50,8 +49,8 @@ export const useAuthBackend = function (): AuthState {
     }
   }
 
-  async function getSession(token: string | null = null): Promise<void> {
-    if (!(token || tokenCookie.value)) {
+  async function getSession(): Promise<void> {
+    if (!tokenCookie.value) {
       authUser.value = null;
       authStatus.value = "unauthenticated";
       return;
@@ -59,10 +58,7 @@ export const useAuthBackend = function (): AuthState {
 
     authStatus.value = "loading";
     try {
-      // Sometimes there is a race condition or state issue with cookies, specifically in WebKit browsers.
-      // This explicitly sets the token to work around the issue.
-      const config = token ? { headers: { Authorization: `Bearer ${token}` } } : undefined;
-      const { data } = await $axios.get<UserOut>("/api/users/self", config);
+      const { data } = await $axios.get<UserOut>("/api/users/self");
       authUser.value = data;
       authStatus.value = "authenticated";
     }
