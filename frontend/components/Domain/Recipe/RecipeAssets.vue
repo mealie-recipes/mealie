@@ -28,11 +28,12 @@
           <v-list-item-title class="pl-2">
             {{ item.name }}
           </v-list-item-title>
-          <v-list-item-action>
+          <template #append>
             <v-btn
               v-if="!edit"
               color="primary"
               icon
+              size="small"
               :href="assetURL(item.fileName ?? '')"
               target="_blank"
               top
@@ -43,6 +44,7 @@
               <v-btn
                 color="error"
                 icon
+                size="small"
                 top
                 @click="model.splice(i, 1)"
               >
@@ -53,7 +55,7 @@
                 :copy-text="assetEmbed(item.fileName ?? '')"
               />
             </div>
-          </v-list-item-action>
+          </template>
         </v-list-item>
       </v-list>
     </v-card>
@@ -90,13 +92,12 @@
               item-value="name"
               class="mr-2"
             >
-              <template #item="{ item }">
-                <v-avatar>
-                  <v-icon class="mr-auto">
-                    {{ item.raw.icon }}
-                  </v-icon>
-                </v-avatar>
-                {{ item.title }}
+              <template #item="{ item, props }">
+                <v-list-item v-bind="props">
+                  <template #prepend>
+                    <v-icon>{{ item.raw.icon }}</v-icon>
+                  </template>
+                </v-list-item>
               </template>
             </v-select>
             <AppButtonUpload
