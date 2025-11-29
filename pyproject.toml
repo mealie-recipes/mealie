@@ -63,7 +63,7 @@ dev = [
     "mkdocs-material==9.6.22",
     "mypy==1.18.2",
     "pre-commit==4.3.0",
-    "pylint==4.0.2",
+    "pylint==4.0.3",
     "pytest==9.0.1",
     "pytest-asyncio==1.3.0",
     "rich==14.2.0",
