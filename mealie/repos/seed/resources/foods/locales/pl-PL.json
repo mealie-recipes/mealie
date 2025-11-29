@@ -132,8 +132,8 @@
             "baby green": {
                 "aliases": [],
                 "description": "",
-                "name": "baby green",
-                "plural_name": "baby greens"
+                "name": "Młody liść",
+                "plural_name": "młode liście"
             },
             "pumpkin": {
                 "aliases": [],
@@ -192,8 +192,8 @@
             "butternut squash": {
                 "aliases": [],
                 "description": "",
-                "name": "butternut squash",
-                "plural_name": "butternut squashes"
+                "name": "dynia piżmowa",
+                "plural_name": "dynie piżmowe"
             },
             "romaine": {
                 "aliases": [],
@@ -252,11 +252,11 @@
             "summer squash": {
                 "aliases": [
                     "cukinia",
-                    "gem squash"
+                    "dynia zielona"
                 ],
                 "description": "",
-                "name": "summer squash",
-                "plural_name": "summer squashes"
+                "name": "kabaczek letni",
+                "plural_name": "kabaczki letnie"
             },
             "mixed green": {
                 "aliases": [],
@@ -285,8 +285,8 @@
             "poblano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "poblano pepper",
-                "plural_name": "poblano peppers"
+                "name": "papryka poblano",
+                "plural_name": "poblano"
             },
             "sweet pepper": {
                 "aliases": [],
@@ -297,14 +297,14 @@
             "serrano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano pepper",
-                "plural_name": "serrano peppers"
+                "name": "papryka serrano",
+                "plural_name": "serrano"
             },
             "cayenne pepper": {
                 "aliases": [],
                 "description": "",
                 "name": "pieprz cayenne",
-                "plural_name": "cayenne peppers"
+                "plural_name": "papryczki cayenne"
             },
             "green tomato": {
                 "aliases": [],
@@ -345,14 +345,14 @@
             "pimiento": {
                 "aliases": [],
                 "description": "",
-                "name": "pimiento",
-                "plural_name": "pimientoes"
+                "name": "papryka",
+                "plural_name": "papryki"
             },
             "spaghetti squash": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti squash",
-                "plural_name": "spaghetti squashes"
+                "name": "dynia makaronowa",
+                "plural_name": "dynie makaronowe"
             },
             "butter lettuce": {
                 "aliases": [],
@@ -368,11 +368,11 @@
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "kapusta pekińska"
                 ],
                 "description": "",
-                "name": "napa cabbage",
-                "plural_name": "napa cabbages"
+                "name": "kapusta właściwa pekińska",
+                "plural_name": "kapusty właściwe pekińskie"
             },
             "celeriac": {
                 "aliases": [],

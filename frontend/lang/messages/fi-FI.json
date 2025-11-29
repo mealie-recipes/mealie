@@ -449,8 +449,8 @@
     "import-by-url": "Tuo resepti osoitteesta",
     "create-manually": "Luo resepti manuaalisesti",
     "make-recipe-image": "Luo reseptikuva",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Lisää Ruoka",
+    "add-recipe": "Lisää resepti"
   },
   "page": {
     "404-page-not-found": "404 sivua ei löydy",
@@ -517,9 +517,9 @@
     "recipe-deleted": "Resepti poistettu",
     "recipe-image": "Reseptikuva",
     "recipe-image-updated": "Reseptikuva päivitetty",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Poista Reseptin Kuva",
+    "delete-image-confirmation": "Haluatko varmasti poistaa reseptikuvan?",
+    "recipe-image-deleted": "Reseptikuva poistettu",
     "recipe-name": "Reseptin nimi",
     "recipe-settings": "Reseptiasetukset",
     "recipe-update-failed": "Reseptin päivitys epäonnistui",
@@ -565,7 +565,7 @@
     "choose-unit": "Valitse Yksikkö",
     "press-enter-to-create": "Luo painamalla Enter",
     "choose-food": "Valitse Ruoka",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "Valitse Resepti",
     "notes": "Merkinnät",
     "toggle-section": "Vaihda osio",
     "see-original-text": "Katso Alkuperäinen Teksti",
@@ -593,7 +593,7 @@
     "made-this": "Tein tämän",
     "how-did-it-turn-out": "Miten se onnistui?",
     "user-made-this": "{user} teki tämän",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Tehty reseptille",
     "added-to-timeline": "Lisätty aikajanalle",
     "failed-to-add-to-timeline": "Aikajanaan lisääminen epäonnistui",
     "failed-to-update-recipe": "Reseptin päivitys epäonnistui",
@@ -696,9 +696,9 @@
     "upload-more-images": "Lataa lisää kuvia",
     "set-as-cover-image": "Aseta reseptin kansikuvaksi",
     "cover-image": "Kansikuva",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Sisällytä Linkitetyt Reseptit",
+    "include-linked-recipe-ingredients": "Sisällytä Yhdistetyt Reseptin Ainesosat",
+    "toggle-recipe": "Vaihda osio"
   },
   "recipe-finder": {
     "recipe-finder": "Reseptin etsijä",
@@ -736,7 +736,7 @@
     "advanced": "Lisäasetukset",
     "auto-search": "Automaattinen Haku",
     "no-results": "Ei tuloksia",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Kirjoita haettavaksi..."
   },
   "settings": {
     "add-a-new-theme": "Lisää uusi teema",
@@ -1075,8 +1075,8 @@
     "forgot-password": "Unohditko salasanasi",
     "forgot-password-text": "Syötä sähköpostiosoitteesi, niin voit muuttaa salasanaasi linkin kautta.",
     "changes-reflected-immediately": "Muutokset tähän käyttäjään astuvat välittömästi voimaan.",
-    "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity": "Oletus Toiminta",
+    "default-activity-hint": "Valitse haluamasi sivu, johon haluat navigoida kirjautuessasi tältä laitteelta"
   },
   "language-dialog": {
     "translated": "käännetty",
