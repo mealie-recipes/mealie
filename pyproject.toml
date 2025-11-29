@@ -28,7 +28,7 @@ dependencies = [
     "python-ldap==3.4.5",
     "python-multipart==0.0.20",
     "python-slugify==8.0.4",
-    "recipe-scrapers==15.9.0",
+    "recipe-scrapers==15.10.0",
     "requests==2.32.5",
     "tzdata==2025.2",
     "uvicorn[standard]==0.38.0",
