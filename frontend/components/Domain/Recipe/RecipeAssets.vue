@@ -3,15 +3,16 @@
     <v-card class="mt-4">
       <v-list-item class="pr-2 pl-0">
         <v-card-title>
-        {{ $t("asset.assets") }}
-      </v-card-title>
-      <template #append>
-      <v-btn
-        variant="plain"
-       :icon="$globals.icons.create"
-       @click="state.newAssetDialog = true"
-        />
-      </template>
+          {{ $t("asset.assets") }}
+        </v-card-title>
+        <template #append>
+          <v-btn
+            v-if="edit"
+            variant="plain"
+            :icon="$globals.icons.create"
+            @click="state.newAssetDialog = true"
+          />
+        </template>
       </v-list-item>
       <v-divider class="mx-2" />
       <v-list
@@ -25,21 +26,21 @@
           :href="!edit ? assetURL(item.fileName ?? '') : ''"
         >
           <template #prepend>
-              <v-avatar size="48" rounded="lg" class="elevation-1">
-                <v-img
-                  v-if="isImage(item.fileName)"
-                  :src="assetURL(item.fileName ?? '')"
-                  :alt="item.name"
-                  cover
-                />
-                <v-icon v-else size="large">
-                  {{ getIconDefinition(item.icon).icon }}
-                </v-icon>
-              </v-avatar>
+            <v-avatar size="48" rounded="lg" class="elevation-1">
+              <v-img
+                v-if="isImage(item.fileName)"
+                :src="assetURL(item.fileName ?? '')"
+                :alt="item.name"
+                cover
+              />
+              <v-icon v-else size="large">
+                {{ getIconDefinition(item.icon).icon }}
+              </v-icon>
+            </v-avatar>
           </template>
 
           <v-list-item-title>
-              {{ item.name }}
+            {{ item.name }}
           </v-list-item-title>
 
           <template #append>
@@ -67,7 +68,8 @@
                   :title="$t('general.delete')"
                   @click="model.splice(i, 1)"
                 />
-                <v-list-item v-if="edit"
+                <v-list-item
+                  v-if="edit"
                   :prepend-icon="$globals.icons.contentCopy"
                   :title="$t('general.copy')"
                   @click="copyText(assetEmbed(item.fileName ?? ''))"
