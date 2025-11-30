@@ -42,7 +42,6 @@
           <v-list-item-title>
             {{ item.name }}
           </v-list-item-title>
-
           <template #append>
             <v-menu v-if="edit" location="bottom end">
               <template #activator="{ props: menuProps }">
@@ -76,6 +75,17 @@
                 />
               </v-list>
             </v-menu>
+            <v-btn
+              v-if="!edit"
+              color="primary"
+              icon
+              size="small"
+              :href="assetURL(item.fileName ?? '')"
+              target="_blank"
+              top
+            >
+              <v-icon> {{ $globals.icons.download }} </v-icon>
+            </v-btn>
           </template>
         </v-list-item>
       </v-list>

@@ -23,10 +23,15 @@ const authUser = ref<UserOut | null>(null);
 const authStatus = ref<"loading" | "authenticated" | "unauthenticated">("loading");
 
 export const useAuthBackend = function (): AuthState {
-  const { $axios } = useNuxtApp();
+  const { $appInfo, $axios } = useNuxtApp();
   const router = useRouter();
-  const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
-  const tokenCookie = useCookie(tokenName);
+
+  const runtimeConfig = useRuntimeConfig();
+  const tokenName = runtimeConfig.public.AUTH_TOKEN;
+  const tokenCookie = useCookie(tokenName, {
+    maxAge: $appInfo.tokenTime * 60 * 60,
+    secure: $appInfo.production && window?.location?.protocol === "https:",
+  });
 
   function setToken(token: string | null) {
     tokenCookie.value = token;
