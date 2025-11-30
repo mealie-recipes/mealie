@@ -53,7 +53,7 @@ async def get_recipe_asset(recipe_id: UUID4, file_name: str):
     """Returns a recipe asset"""
     file = Recipe.directory_from_id(recipe_id).joinpath("assets", file_name)
 
-    try:
+    if file.exists():
         return FileResponse(file)
-    except Exception as e:
-        raise HTTPException(status.HTTP_404_NOT_FOUND) from e
+    else:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
