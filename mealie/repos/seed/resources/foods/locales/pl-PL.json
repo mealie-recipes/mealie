@@ -395,8 +395,8 @@
             "thai chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chile pepper",
-                "plural_name": "thai chile peppers"
+                "name": "tajlandzka papryczka chili",
+                "plural_name": "tajlandzkie papryczki chili"
             },
             "bok choy": {
                 "aliases": [],
@@ -499,8 +499,8 @@
             "french-fried onion": {
                 "aliases": [],
                 "description": "",
-                "name": "french-fried onion",
-                "plural_name": "french-fried onions"
+                "name": "smażona cebula",
+                "plural_name": "smażone cebule"
             },
             "daikon": {
                 "aliases": [],
@@ -541,8 +541,8 @@
             "ancho chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "ancho chile pepper",
-                "plural_name": "ancho chile peppers"
+                "name": "papryka ancho",
+                "plural_name": "papryki ancho"
             },
             "microgreen": {
                 "aliases": [],
@@ -583,8 +583,8 @@
             "anaheim pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "anaheim pepper",
-                "plural_name": "anaheim peppers"
+                "name": "papryka Anaheim",
+                "plural_name": "papryki Anaheim"
             },
             "cres": {
                 "aliases": [],
@@ -601,8 +601,8 @@
             "arbol chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "arbol chile pepper",
-                "plural_name": "arbol chile peppers"
+                "name": "papryka chili de árbol",
+                "plural_name": "papryki chili de árbol"
             },
             "golden beet": {
                 "aliases": [],
@@ -1853,8 +1853,8 @@
             "onion seed": {
                 "aliases": [],
                 "description": "",
-                "name": "onion seed",
-                "plural_name": "onion seeds"
+                "name": "nasiono cebuli",
+                "plural_name": "nasiona cebuli"
             },
             "watermelon seed": {
                 "aliases": [],
@@ -2129,8 +2129,8 @@
             "pepper jack": {
                 "aliases": [],
                 "description": "",
-                "name": "pepper jack",
-                "plural_name": "pepper jacks"
+                "name": "ser Pepper Jack",
+                "plural_name": "ser Pepper Jack"
             },
             "brie": {
                 "aliases": [],
@@ -4535,8 +4535,8 @@
             "turkey pepperoni": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey pepperoni",
-                "plural_name": "turkey pepperonis"
+                "name": "pepperoni z indyka",
+                "plural_name": "pepperoni z indyka"
             },
             "turkey ham": {
                 "aliases": [],
@@ -5855,8 +5855,8 @@
             "garlic powder": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic powder",
-                "plural_name": "garlic powders"
+                "name": "czosnek w proszku",
+                "plural_name": "czosnek w proszku"
             },
             "oregano": {
                 "aliases": [],
@@ -5921,8 +5921,8 @@
             "onion powder": {
                 "aliases": [],
                 "description": "",
-                "name": "onion powder",
-                "plural_name": "onion powders"
+                "name": "cebula mielona w proszku",
+                "plural_name": "cebula mielona w proszku"
             },
             "ginger powder": {
                 "aliases": [],
@@ -5999,14 +5999,14 @@
             "cracked pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "cracked pepper",
-                "plural_name": "cracked peppers"
+                "name": "grubomielony pieprz",
+                "plural_name": "grubomielony pieprz"
             },
             "peppercorn": {
                 "aliases": [],
                 "description": "",
-                "name": "peppercorn",
-                "plural_name": "peppercorns"
+                "name": "pieprz ziarnisty",
+                "plural_name": "pieprz ziarnisty"
             },
             "mustard seed": {
                 "aliases": [],
@@ -6017,8 +6017,8 @@
             "white pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "white pepper",
-                "plural_name": "white peppers"
+                "name": "biały pieprz",
+                "plural_name": "biały pieprz"
             },
             "curry leaf": {
                 "aliases": [],
@@ -6077,8 +6077,8 @@
             "garlic granule": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic granule",
-                "plural_name": "garlic granules"
+                "name": "czosnek granulowany",
+                "plural_name": "czosnek granulowany"
             },
             "celery seed": {
                 "aliases": [],
@@ -6107,8 +6107,8 @@
             "onion flake": {
                 "aliases": [],
                 "description": "",
-                "name": "onion flake",
-                "plural_name": "onion flakes"
+                "name": "płatek cebulowy",
+                "plural_name": "płatki cebulowe"
             },
             "matcha powder": {
                 "aliases": [],
@@ -6233,14 +6233,14 @@
             "guajillo pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "guajillo pepper",
-                "plural_name": "guajillo peppers"
+                "name": "papryka guajillo",
+                "plural_name": "papryka guajillo"
             },
             "pink peppercorn": {
                 "aliases": [],
                 "description": "",
-                "name": "pink peppercorn",
-                "plural_name": "pink peppercorns"
+                "name": "pieprz różowy ziarnisty",
+                "plural_name": "pieprz różowy ziarnisty"
             },
             "hot paprika": {
                 "aliases": [],
@@ -6263,8 +6263,8 @@
             "garlic flake": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic flake",
-                "plural_name": "garlic flakes"
+                "name": "płatek czosnku",
+                "plural_name": "płatki czosnku"
             },
             "dried cilantro": {
                 "aliases": [],
@@ -6287,14 +6287,14 @@
             "green peppercorn": {
                 "aliases": [],
                 "description": "",
-                "name": "green peppercorn",
-                "plural_name": "green peppercorns"
+                "name": "zielony pieprz ziarnisty",
+                "plural_name": "zielony pieprz ziarnisty"
             },
             "aleppo pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "aleppo pepper",
-                "plural_name": "aleppo peppers"
+                "name": "papryka aleppo",
+                "plural_name": "papryki aleppo"
             },
             "wasabi powder": {
                 "aliases": [],
@@ -6383,8 +6383,8 @@
             "espelette pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "espelette pepper",
-                "plural_name": "espelette peppers"
+                "name": "papryka z Espelette",
+                "plural_name": "papryki z Espelette"
             },
             "lemon verbena": {
                 "aliases": [],
@@ -7112,8 +7112,8 @@
             "lemon & pepper seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon & pepper seasoning",
-                "plural_name": "lemon & pepper seasonings"
+                "name": "pieprz cytrynowy",
+                "plural_name": "pieprz cytrynowy"
             },
             "liquid smoke": {
                 "aliases": [],
@@ -7274,14 +7274,14 @@
             "garlic & herb seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic & herb seasoning",
-                "plural_name": "garlic & herb seasonings"
+                "name": "przyprawa czosnkowo-ziołowa",
+                "plural_name": "przyprawy czosnkowo-ziołowe"
             },
             "garlic-pepper seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic-pepper seasoning",
-                "plural_name": "garlic-pepper seasonings"
+                "name": "przyprawa czosnkowo-pieprzowa",
+                "plural_name": "przyprawa czosnkowo-pieprzowe"
             },
             "pickling salt": {
                 "aliases": [],
@@ -7400,8 +7400,8 @@
             "seasoned pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "seasoned pepper",
-                "plural_name": "seasoned peppers"
+                "name": "pieprz ziołowy",
+                "plural_name": "pieprz ziołowy"
             },
             "crab boil seasoning": {
                 "aliases": [],
@@ -10294,8 +10294,8 @@
             "crispy fried onion": {
                 "aliases": [],
                 "description": "",
-                "name": "crispy fried onion",
-                "plural_name": "crispy fried onions"
+                "name": "chrupiąca smażona cebula",
+                "plural_name": "chrupiące smażone cebule"
             },
             "matzo": {
                 "aliases": [],
@@ -10306,8 +10306,8 @@
             "garlic bread": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic bread",
-                "plural_name": "garlic breads"
+                "name": "pieczywo czosnkowe",
+                "plural_name": "pieczywo czosnkowe"
             },
             "yeast extract spread": {
                 "aliases": [],
@@ -10444,8 +10444,8 @@
             "frozen onion ring": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen onion ring",
-                "plural_name": "frozen onion rings"
+                "name": "mrożony krążek cebulowy",
+                "plural_name": "mrożone krążki cebulowe"
             },
             "corn muffin": {
                 "aliases": [],
@@ -10750,8 +10750,8 @@
             "garlic oil": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic oil",
-                "plural_name": "garlic oils"
+                "name": "olej czosnkowy",
+                "plural_name": "oleje czosnkowe"
             },
             "truffle oil": {
                 "aliases": [],
@@ -11331,7 +11331,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "majonez czosnkowy",
-                "plural_name": "garlic mayonnaises"
+                "plural_name": "majonezy czosnkowe"
             },
             "brown rice vinegar": {
                 "aliases": [],
@@ -11390,8 +11390,8 @@
             "onion salad dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "onion salad dressing",
-                "plural_name": "onion salad dressings"
+                "name": "sos sałatkowy z cebulą",
+                "plural_name": "sosy sałatkowe z cebulą"
             },
             "miso dressing": {
                 "aliases": [],
@@ -11456,8 +11456,8 @@
             "caramelised onion dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "caramelised onion dressing",
-                "plural_name": "caramelised onion dressings"
+                "name": "sos sałatkowy z karmelizowaną cebulą",
+                "plural_name": "sosy sałatkowe z karmelizowaną cebulą"
             },
             "mango vinaigrette": {
                 "aliases": [],
@@ -11574,8 +11574,8 @@
             "ginger-garlic paste": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger-garlic paste",
-                "plural_name": "ginger-garlic pastes"
+                "name": "pasta imbirowo-czosnkowa",
+                "plural_name": "pasty imbirowo-czosnkowej"
             },
             "brown mustard": {
                 "aliases": [],
@@ -11640,8 +11640,8 @@
             "chili-garlic sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "chili-garlic sauce",
-                "plural_name": "chili-garlic sauces"
+                "name": "sos chili-czosnek",
+                "plural_name": "sos chili-czosnek"
             },
             "tamarind paste": {
                 "aliases": [],
@@ -11748,14 +11748,14 @@
             "hot pepper jelly": {
                 "aliases": [],
                 "description": "",
-                "name": "hot pepper jelly",
-                "plural_name": "hot pepper jellies"
+                "name": "galaretka z papryczek chili",
+                "plural_name": "galaretka z papryczek chili"
             },
             "chili-garlic paste": {
                 "aliases": [],
                 "description": "",
-                "name": "chili-garlic paste",
-                "plural_name": "chili-garlic pastes"
+                "name": "pasta chili-czosnek",
+                "plural_name": "pasta chili-czosnek"
             },
             "bonito flake": {
                 "aliases": [],
@@ -11796,14 +11796,14 @@
             "crispy onion": {
                 "aliases": [],
                 "description": "",
-                "name": "crispy onion",
-                "plural_name": "crispy onions"
+                "name": "chrupiąca cebula",
+                "plural_name": "chrupiące cebule"
             },
             "red pepper jelly": {
                 "aliases": [],
                 "description": "",
-                "name": "red pepper jelly",
-                "plural_name": "red pepper jellies"
+                "name": "galaretka z czerwonej papryki",
+                "plural_name": "galaretka z czerwonej papryki"
             },
             "thai chili paste": {
                 "aliases": [],
@@ -11850,8 +11850,8 @@
             "pepper paste": {
                 "aliases": [],
                 "description": "",
-                "name": "pepper paste",
-                "plural_name": "pepper pastes"
+                "name": "pasta paprykowa",
+                "plural_name": "pasta paprykowa"
             },
             "yuzu juice": {
                 "aliases": [],
@@ -11898,8 +11898,8 @@
             "onion marmalade": {
                 "aliases": [],
                 "description": "",
-                "name": "onion marmalade",
-                "plural_name": "onion marmalades"
+                "name": "marmolada cebulowa",
+                "plural_name": "marmolady cebulowe"
             },
             "giardiniera": {
                 "aliases": [],
@@ -12178,8 +12178,8 @@
             "roasted red pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted red pepper",
-                "plural_name": "roasted red peppers"
+                "name": "pieczona czerwona papryka",
+                "plural_name": "pieczone czerwone papryki"
             },
             "tomato with green chiles": {
                 "aliases": [],
@@ -12388,8 +12388,8 @@
             "pickled onion": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled onion",
-                "plural_name": "pickled onions"
+                "name": "marynowana cebula",
+                "plural_name": "marynowane cebule"
             },
             "fruit cocktail": {
                 "aliases": [],
@@ -12412,8 +12412,8 @@
             "pickled red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled red onion",
-                "plural_name": "pickled red onions"
+                "name": "marynowana czerwona cebula",
+                "plural_name": "marynowane czerwone cebule"
             },
             "pimiento-stuffed green olive": {
                 "aliases": [],
@@ -12466,8 +12466,8 @@
             "peppadew pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "peppadew pepper",
-                "plural_name": "peppadew peppers"
+                "name": "papryczka peppadew",
+                "plural_name": "papryczki peppadew"
             },
             "pickled vegetable": {
                 "aliases": [],
@@ -12478,8 +12478,8 @@
             "onion paste": {
                 "aliases": [],
                 "description": "",
-                "name": "onion paste",
-                "plural_name": "onion pastes"
+                "name": "pasta cebulowa",
+                "plural_name": "pasta cebulowa"
             },
             "canned baby corn": {
                 "aliases": [],
@@ -12526,8 +12526,8 @@
             "banana pepper ring": {
                 "aliases": [],
                 "description": "",
-                "name": "banana pepper ring",
-                "plural_name": "banana pepper rings"
+                "name": "krążek papryki bananowej",
+                "plural_name": "krążki papryki bananowej"
             },
             "canned lychee": {
                 "aliases": [],
@@ -12550,8 +12550,8 @@
             "pickled pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled pepper",
-                "plural_name": "pickled peppers"
+                "name": "marynowana papryka",
+                "plural_name": "marynowane papryki"
             },
             "tomato relish": {
                 "aliases": [],
@@ -12580,8 +12580,8 @@
             "red pepper relish": {
                 "aliases": [],
                 "description": "",
-                "name": "red pepper relish",
-                "plural_name": "red pepper relishes"
+                "name": "relish z czerwonej papryki",
+                "plural_name": "relish z czerwonej papryki"
             },
             "canned asparagu": {
                 "aliases": [],
@@ -12598,8 +12598,8 @@
             "pickled hot pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled hot pepper",
-                "plural_name": "pickled hot peppers"
+                "name": "marynowana ostra papryczka",
+                "plural_name": "marynowane ostre papryczki"
             },
             "canned peas and carrot": {
                 "aliases": [],
@@ -12628,8 +12628,8 @@
             "pickled cherry pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled cherry pepper",
-                "plural_name": "pickled cherry peppers"
+                "name": "marynowana papryczka wiśniowa",
+                "plural_name": "marynowane papryczki wiśniowe"
             },
             "candied jalapeno": {
                 "aliases": [],
@@ -12880,8 +12880,8 @@
             "garlic butter": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic butter",
-                "plural_name": "garlic butter"
+                "name": "masło czosnkowe",
+                "plural_name": "masło czosnkowe"
             },
             "hollandaise sauce": {
                 "aliases": [],
@@ -12988,8 +12988,8 @@
             "french onion dip": {
                 "aliases": [],
                 "description": "",
-                "name": "french onion dip",
-                "plural_name": "french onion dips"
+                "name": "dip z karmelizowaną cebulą",
+                "plural_name": "dip z karmelizowaną cebulą"
             },
             "herb butter": {
                 "aliases": [],
@@ -13096,8 +13096,8 @@
             "roasted red pepper hummu": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted red pepper hummu",
-                "plural_name": "roasted red pepper hummus"
+                "name": "hummus z pieczoną papryką",
+                "plural_name": "hummus z pieczoną papryką"
             },
             "bacon jam": {
                 "aliases": [],
@@ -13138,8 +13138,8 @@
             "onion gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "onion gravy",
-                "plural_name": "onion gravies"
+                "name": "sos cebulowy",
+                "plural_name": "sosy cebulowe"
             },
             "sesame sauce": {
                 "aliases": [],
@@ -13186,14 +13186,14 @@
             "garlic spread": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic spread",
-                "plural_name": "garlic spreads"
+                "name": "smarowidło czosnkowe",
+                "plural_name": "smarowidło czosnkowe"
             },
             "black pepper sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "black pepper sauce",
-                "plural_name": "black pepper sauces"
+                "name": "sos z czarnego pieprzu",
+                "plural_name": "sos z czarnego pieprzu"
             },
             "char siu sauce": {
                 "aliases": [],
@@ -13204,8 +13204,8 @@
             "garlic pasta sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic pasta sauce",
-                "plural_name": "garlic pasta sauces"
+                "name": "sos makaronowy z czosnku",
+                "plural_name": "sosy makaronowe z czosnku"
             },
             "green olive tapenade": {
                 "aliases": [],
@@ -13264,8 +13264,8 @@
             "honey garlic sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "honey garlic sauce",
-                "plural_name": "honey garlic sauces"
+                "name": "sos miodowo-czosnkowy",
+                "plural_name": "sosy miodowo-czosnkowe"
             },
             "mole sauce": {
                 "aliases": [],
@@ -13358,8 +13358,8 @@
             "onion soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "onion soup mix",
-                "plural_name": "onion soup mixes"
+                "name": "mieszanka przyprawowa z cebulą",
+                "plural_name": "mieszanki przyprawowe z cebulą"
             },
             "tomato soup": {
                 "aliases": [],
@@ -13412,8 +13412,8 @@
             "onion soup": {
                 "aliases": [],
                 "description": "",
-                "name": "onion soup",
-                "plural_name": "onion soups"
+                "name": "zupa cebulowa",
+                "plural_name": "zupa cebulowa"
             },
             "chicken soup": {
                 "aliases": [],
@@ -13556,8 +13556,8 @@
             "beefy onion soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "beefy onion soup mix",
-                "plural_name": "beefy onion soup mixes"
+                "name": "mieszanka przyprawowa cebulowo-wołowa",
+                "plural_name": "mieszanki przyprawowe cebulowo-wołowe"
             },
             "butternut squash soup": {
                 "aliases": [],
@@ -14115,8 +14115,8 @@
             "peppermint candy": {
                 "aliases": [],
                 "description": "",
-                "name": "peppermint candy",
-                "plural_name": "peppermint candies"
+                "name": "cukierek miętowy",
+                "plural_name": "cukierki miętowe"
             },
             "cinnamon roll": {
                 "aliases": [],
@@ -14445,8 +14445,8 @@
             "peppermint patty": {
                 "aliases": [],
                 "description": "",
-                "name": "peppermint patty",
-                "plural_name": "peppermint patties"
+                "name": "miętowa landrynka w czekoladzie",
+                "plural_name": "miętowe landrynki w czekoladzie"
             },
             "pistachio pudding": {
                 "aliases": [],
@@ -14953,8 +14953,8 @@
             "peppermint liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "peppermint liqueur",
-                "plural_name": "peppermint liqueurs"
+                "name": "likier miętowy",
+                "plural_name": "likier miętowy"
             },
             "advocaat": {
                 "aliases": [],
@@ -15659,8 +15659,8 @@
             "peppermint tea": {
                 "aliases": [],
                 "description": "",
-                "name": "peppermint tea",
-                "plural_name": "peppermint teas"
+                "name": "herbata mięta pieprzowa",
+                "plural_name": "herbata mięta pieprzowa"
             },
             "sports drink": {
                 "aliases": [],
@@ -15723,8 +15723,8 @@
             "peppermint extract": {
                 "aliases": [],
                 "description": "",
-                "name": "peppermint extract",
-                "plural_name": "peppermint extracts"
+                "name": "ekstrakt z mięty pieprzowej",
+                "plural_name": "ekstrakt z mięty pieprzowej"
             },
             "protein powder": {
                 "aliases": [],
