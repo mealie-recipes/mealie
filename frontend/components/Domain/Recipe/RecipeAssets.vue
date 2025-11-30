@@ -24,6 +24,8 @@
           v-for="(item, i) in model"
           :key="i"
           :href="!edit ? assetURL(item.fileName ?? '') : ''"
+          target="_blank"
+          class="pr-2"
         >
           <template #prepend>
             <v-avatar size="48" rounded="lg" class="elevation-1">
@@ -31,6 +33,7 @@
                 v-if="isImage(item.fileName)"
                 :src="assetURL(item.fileName ?? '')"
                 :alt="item.name"
+                loading="lazy"
                 cover
               />
               <v-icon v-else size="large">
@@ -48,8 +51,7 @@
                 <v-btn
                   v-bind="menuProps"
                   icon
-                  size="small"
-                  variant="text"
+                  variant="plain"
                 >
                   <v-icon :icon="$globals.icons.dotsVertical" />
                 </v-btn>
@@ -57,15 +59,15 @@
               <v-list density="compact" min-width="220">
                 <v-list-item
                   :href="assetURL(item.fileName ?? '')"
-                  :download="item.fileName ?? ''"
-                  :prepend-icon="$globals.icons.download"
-                  :title="$t('general.download')"
+                  :prepend-icon="$globals.icons.eye"
+                  :title="$t('general.view')"
+                  target="_blank"
                 />
                 <v-list-item
-                  v-if="edit"
-                  :prepend-icon="$globals.icons.delete"
-                  :title="$t('general.delete')"
-                  @click="model.splice(i, 1)"
+                  :href="assetURL(item.fileName ?? '')"
+                  :prepend-icon="$globals.icons.download"
+                  :title="$t('general.download')"
+                  download
                 />
                 <v-list-item
                   v-if="edit"
@@ -73,23 +75,26 @@
                   :title="$t('general.copy')"
                   @click="copyText(assetEmbed(item.fileName ?? ''))"
                 />
+                <v-list-item
+                  v-if="edit"
+                  :prepend-icon="$globals.icons.delete"
+                  :title="$t('general.delete')"
+                  @click="model.splice(i, 1)"
+                />
               </v-list>
             </v-menu>
             <v-btn
               v-if="!edit"
-              color="primary"
               icon
-              size="small"
+              variant="plain"
               :href="assetURL(item.fileName ?? '')"
-              target="_blank"
-              top
+              download
             >
               <v-icon> {{ $globals.icons.download }} </v-icon>
             </v-btn>
           </template>
         </v-list-item>
       </v-list>
-      <v-container v-else fluid class="py-2" />
     </v-card>
     <div class="d-flex ml-auto mt-2">
       <v-spacer />
