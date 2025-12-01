@@ -12,6 +12,7 @@ interface StoreActions<T extends BoundT> extends ReadOnlyStoreActions<T> {
   createOne(createData: T): Promise<T | null>;
   updateOne(updateData: T): Promise<T | null>;
   deleteOne(id: string | number): Promise<T | null>;
+  deleteMany(ids: (string | number)[]): Promise<void>;
 }
 
 /**
@@ -165,11 +166,23 @@ export function useStoreActions<T extends BoundT>(
     return response?.data || null;
   }
 
+  async function deleteMany(ids: (string | number)[]) {
+    loading.value = true;
+    for (const id of ids) {
+      await api.deleteOne(id);
+    }
+    if (allRef?.value) {
+      await refresh();
+    }
+    loading.value = false;
+  }
+
   return {
     getAll,
     refresh,
     createOne,
     updateOne,
     deleteOne,
+    deleteMany,
   };
 }
