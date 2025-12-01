@@ -2477,7 +2477,7 @@
             "reblochon": {
                 "aliases": [],
                 "description": "",
-                "name": "reblochon",
+                "name": "",
                 "plural_name": "reblochons"
             },
             "robiola": {
@@ -2687,8 +2687,8 @@
             "condensed milk": {
                 "aliases": [],
                 "description": "",
-                "name": "condensed milk",
-                "plural_name": "condensed milks"
+                "name": "latte condensato",
+                "plural_name": ""
             },
             "half and half": {
                 "aliases": [],
@@ -2916,7 +2916,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "powdered coffee creamer",
-                "plural_name": "powdered coffee creamers"
+                "plural_name": ""
             },
             "chantilly": {
                 "aliases": [],

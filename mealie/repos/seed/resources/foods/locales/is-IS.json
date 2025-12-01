@@ -126,14 +126,14 @@
             "heart of palm": {
                 "aliases": [],
                 "description": "",
-                "name": "heart of palm",
-                "plural_name": "heart of palms"
+                "name": "pálmahjarta",
+                "plural_name": "pálmahjörtu"
             },
             "baby green": {
                 "aliases": [],
                 "description": "",
-                "name": "baby green",
-                "plural_name": "baby greens"
+                "name": "strengjabaun",
+                "plural_name": "strengjabaunir"
             },
             "pumpkin": {
                 "aliases": [],
@@ -396,7 +396,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "thai chili pipar",
-                "plural_name": "thai chile pipar"
+                "plural_name": "thai chili pipar"
             },
             "bok choy": {
                 "aliases": [],
@@ -547,8 +547,8 @@
             "microgreen": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreen",
-                "plural_name": "microgreens"
+                "name": "spretta",
+                "plural_name": "sprettur"
             },
             "boston lettuce": {
                 "aliases": [],
@@ -565,8 +565,8 @@
             "fresno chile": {
                 "aliases": [],
                 "description": "",
-                "name": "fresno chile",
-                "plural_name": "fresno chiles"
+                "name": "fresno chili",
+                "plural_name": "fresno chili"
             },
             "delicata squash": {
                 "aliases": [],
@@ -578,13 +578,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "frisee",
-                "plural_name": "frisees"
+                "plural_name": "frisee"
             },
             "anaheim pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "anaheim pepper",
-                "plural_name": "anaheim peppers"
+                "name": "kaliforníu paprika",
+                "plural_name": "kaliforníu paprikur"
             },
             "cres": {
                 "aliases": [],
@@ -602,7 +602,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "arbol chili pipar",
-                "plural_name": "arbol chili pipar"
+                "plural_name": "arbol chilí pipar"
             },
             "golden beet": {
                 "aliases": [],
@@ -613,8 +613,8 @@
             "pea shoot": {
                 "aliases": [],
                 "description": "",
-                "name": "pea shoot",
-                "plural_name": "pea shoots"
+                "name": "baunaspíra",
+                "plural_name": "baunaspírur"
             },
             "alfalfa": {
                 "aliases": [],
@@ -996,7 +996,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "yuzu",
-                "plural_name": "yuzus"
+                "plural_name": "yuzu"
             },
             "granadilla": {
                 "aliases": [],
@@ -1019,8 +1019,8 @@
             "kokum": {
                 "aliases": [],
                 "description": "",
-                "name": "kokum",
-                "plural_name": "kokums"
+                "name": "gullaldin",
+                "plural_name": "gullaldin"
             },
             "tangelo": {
                 "aliases": [],
@@ -1103,8 +1103,8 @@
             "ice-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "ice-apple",
-                "plural_name": "ice-apples"
+                "name": "ís-epli",
+                "plural_name": "ís-epli"
             },
             "longan": {
                 "aliases": [],
@@ -6119,8 +6119,8 @@
             "ancho chile powder": {
                 "aliases": [],
                 "description": "",
-                "name": "ancho chile powder",
-                "plural_name": "ancho chile powders"
+                "name": "poblano duft",
+                "plural_name": "pablano duft"
             },
             "sumac": {
                 "aliases": [],
@@ -9164,8 +9164,8 @@
             "bean sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "bean sprout",
-                "plural_name": "bean sprouts"
+                "name": "bauna spíra",
+                "plural_name": "bauna spírur"
             },
             "edamame": {
                 "aliases": [],
@@ -9236,8 +9236,8 @@
             "mung bean sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "mung bean sprout",
-                "plural_name": "mung bean sprouts"
+                "name": "baunaspíra",
+                "plural_name": "baunaspírur"
             },
             "soybean": {
                 "aliases": [],
@@ -12184,8 +12184,8 @@
             "tomato with green chiles": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato with green chiles",
-                "plural_name": "tomatoes with green chiles"
+                "name": "tómatur með grænum chili",
+                "plural_name": "tómatar með grænum chili"
             },
             "canned artichoke": {
                 "aliases": [],
@@ -12268,8 +12268,8 @@
             "diced green chile": {
                 "aliases": [],
                 "description": "",
-                "name": "diced green chile",
-                "plural_name": "diced green chiles"
+                "name": "skorinn grænn chili",
+                "plural_name": "skorinn grænn chili"
             },
             "sun-dried tomato in oil": {
                 "aliases": [],
@@ -12592,8 +12592,8 @@
             "fire-roasted green chile": {
                 "aliases": [],
                 "description": "",
-                "name": "fire-roasted green chile",
-                "plural_name": "fire-roasted green chiles"
+                "name": "eld steikur grænn chili",
+                "plural_name": "eld steiktir grænir chili"
             },
             "pickled hot pepper": {
                 "aliases": [],
