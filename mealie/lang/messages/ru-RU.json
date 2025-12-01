@@ -7,46 +7,46 @@
         "recipe-created": "Рецепт создан",
         "recipe-image-deleted": "Фото рецепта удалено",
         "recipe-defaults": {
-            "ingredient-note": "1 Чашка муки",
-            "step-text": "Шаги рецепта, как и другие поля на странице рецепта, поддерживают синтаксис Markdown.\n\n**Добавить ссылку**\n\n[Моя Ссылка](https://demo.mealie.io)\n"
+            "ingredient-note": "1 чашка муки",
+            "step-text": "Шаги рецепта и прочие поля на странице рецепта поддерживают синтаксис Markdown.\n\n**Добавить ссылку**\n\n[Моя ссылка](https://demo.mealie.io)\n"
         },
         "servings-text": {
             "makes": "Получается",
-            "serves": "Порций",
+            "serves": "Количество порций",
             "serving": "Порция",
-            "servings": "Порции",
+            "servings": "Порций",
             "yield": "Количество порций",
-            "yields": "Можно получить"
+            "yields": "Можно получить порций"
         }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Нет рецептов, соответствующих вашим правилам"
     },
     "user": {
-        "user-updated": "Пользователь обновлен",
+        "user-updated": "Профиль пользователя обновлен",
         "password-updated": "Пароль обновлен",
         "invalid-current-password": "Неправильный текущий пароль",
-        "ldap-update-password-unavailable": "Не удается обновить пароль, пользователь контролируется LDAP"
+        "ldap-update-password-unavailable": "Не удается обновить пароль, профиль пользователя управляется LDAP"
     },
     "group": {
-        "report-deleted": "Отчет удален."
+        "report-deleted": "Отчет удален"
     },
     "exceptions": {
         "permission_denied": "У вас нет прав для выполнения этого действия",
-        "recursive-recipe-link": "Рецепт не может ссылаться на себя, ни на прямую, ни косвенно",
+        "recursive-recipe-link": "Рецепт не может ссылаться на себя ни напрямую, ни косвенно",
         "no-entry-found": "Запрашиваемый ресурс не найден",
         "integrity-error": "Ошибка целостности базы данных",
-        "username-conflict-error": "Это имя пользователя уже занято",
-        "email-conflict-error": "Этот адрес эл. почты уже используется"
+        "username-conflict-error": "Имя пользователя уже занято",
+        "email-conflict-error": "Емейл уже используется"
     },
     "notifications": {
-        "generic-created": "{name} был создан",
-        "generic-updated": "{name} был обновлён",
-        "generic-created-with-url": "{name} был создан, {url}",
-        "generic-updated-with-url": "{name} был обновлен, {url}",
-        "generic-duplicated": "Копия {name} была создана",
-        "generic-deleted": "{name} был удален",
-        "logged-out": "Выполнен выход"
+        "generic-created": "{name} создан",
+        "generic-updated": "{name} обновлён",
+        "generic-created-with-url": "{name} создан, {url}",
+        "generic-updated-with-url": "{name} обновлен, {url}",
+        "generic-duplicated": "Копия {name} создана",
+        "generic-deleted": "{name} удален",
+        "logged-out": "Вы вышли из системы"
     },
     "datetime": {
         "year": "год|лет",
@@ -59,22 +59,22 @@
     },
     "emails": {
         "password": {
-            "subject": "Mealie забыла пароль",
+            "subject": "Mealie забыла ваш пароль",
             "header_text": "Забыл пароль",
-            "message_top": "Вы запросили сброс пароля.",
-            "message_bottom": "Пожалуйста, нажмите на кнопку снизу для сброса пароля.",
+            "message_top": "Вы запросили сброс пароля",
+            "message_bottom": "Пожалуйста, нажмите на кнопку снизу для сброса пароля",
             "button_text": "Сбросить пароль"
         },
         "invitation": {
-            "subject": "Приглашение присоединиться к Mealie",
+            "subject": "Приглашение в Mealie",
             "header_text": "Вы приглашены!",
             "message_top": "Вас пригласили присоединиться к Mealie.",
             "message_bottom": "Пожалуйста, нажмите на кнопку выше, чтобы принять приглашение.",
             "button_text": "Принять приглашение"
         },
         "test": {
-            "subject": "Тестовое Письмо Mealie",
-            "header_text": "Тестовое Письмо",
+            "subject": "Тестовое письмо Mealie",
+            "header_text": "Тестовое письмо",
             "message_top": "Это тестовое письмо.",
             "message_bottom": "Пожалуйста, нажмите на кнопку сверху, чтобы протестировать эл. Почту.",
             "button_text": "Открыть Mealie"

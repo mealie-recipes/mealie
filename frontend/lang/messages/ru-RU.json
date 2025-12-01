@@ -26,11 +26,11 @@
     "sponsor": "Спонсор"
   },
   "asset": {
-    "assets": "Приложения",
+    "assets": "Файлы",
     "code": "Код",
     "file": "Файл",
     "image": "Изображение",
-    "new-asset": "Новое приложение",
+    "new-asset": "Новый файл",
     "pdf": "PDF",
     "recipe": "Рецепт",
     "show-assets": "Показать приложения",
@@ -45,13 +45,13 @@
     "category-filter": "Фильтр по категориям",
     "category-update-failed": "Не удалось обновить категорию",
     "category-updated": "Категория обновлена",
-    "uncategorized-count": "Без категории {count}",
+    "uncategorized-count": "Без категории: {count}",
     "create-a-category": "Создать категорию",
     "category-name": "Название категории",
     "category": "Категория"
   },
   "events": {
-    "apprise-url": "Apprise URL-адрес",
+    "apprise-url": "URL-адрес для уведомлений Apprise",
     "database": "База данных",
     "delete-event": "Удалить событие",
     "event-delete-confirmation": "Вы уверены, что хотите удалить данное событие?",

@@ -2981,8 +2981,8 @@
             "century egg": {
                 "aliases": [],
                 "description": "",
-                "name": "century egg",
-                "plural_name": "century eggs"
+                "name": "tusenårigt ägg",
+                "plural_name": "tusenåriga ägg"
             },
             "orange curd": {
                 "aliases": [],
@@ -3006,7 +3006,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kanel smaksatt smörkräm",
-                "plural_name": "cinnamon sugar butter spreads"
+                "plural_name": "smörkrämer med kanelsocker"
             },
             "bulgarian yogurt": {
                 "aliases": [],
@@ -3018,7 +3018,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tvorog",
-                "plural_name": "tvorogs"
+                "plural_name": "tvoroger"
             },
             "chocolate milk powder": {
                 "aliases": [],
@@ -3048,13 +3048,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "ayran",
-                "plural_name": "ayrans"
+                "plural_name": "ayraner"
             },
             "cuajada": {
                 "aliases": [],
                 "description": "",
-                "name": "cuajada",
-                "plural_name": "cuajadas"
+                "name": "kvarg",
+                "plural_name": "kvarger"
             },
             "yogurt drink": {
                 "aliases": [],
@@ -3126,7 +3126,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lebneh",
-                "plural_name": "lebnehs"
+                "plural_name": "lebnehr"
             }
         }
     },
@@ -3195,8 +3195,8 @@
             "kala namak salt": {
                 "aliases": [],
                 "description": "",
-                "name": "kala namak salt",
-                "plural_name": "kala namak salts"
+                "name": "kala namak-salt",
+                "plural_name": "kala namak-salter"
             },
             "coconut butter": {
                 "aliases": [],
@@ -3285,26 +3285,26 @@
             "vegan sour cream": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan sour cream",
-                "plural_name": "vegan sour creams"
+                "name": "vegansk gräddfil",
+                "plural_name": "veganska gräddfiler"
             },
             "textured vegetable protein": {
                 "aliases": [],
                 "description": "",
-                "name": "textured vegetable protein",
-                "plural_name": "textured vegetable proteins"
+                "name": "texturerat vegetabiliskt protein",
+                "plural_name": "texturerade vegetabiliska proteiner"
             },
             "vegan worcestershire": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan worcestershire",
-                "plural_name": "vegan worcestershires"
+                "name": "vegansk worcestershiresås",
+                "plural_name": "veganska worcestershiresåser"
             },
             "soy yogurt": {
                 "aliases": [],
                 "description": "",
                 "name": "Soygurt",
-                "plural_name": "soy yogurts"
+                "plural_name": "sojayoghurtar"
             },
             "vegan mozzarella": {
                 "aliases": [],
@@ -3315,8 +3315,8 @@
             "non-dairy creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "non-dairy creamer",
-                "plural_name": "non-dairy creamers"
+                "name": "mjölkfri gräddersättning",
+                "plural_name": "mjölkfria gräddersättningar"
             },
             "vegan sausage": {
                 "aliases": [],
@@ -3327,8 +3327,8 @@
             "coconut whipped cream": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut whipped cream",
-                "plural_name": "coconut whipped creams"
+                "name": "vispad kokosgrädde",
+                "plural_name": "vispad kokosgrädde"
             },
             "smoked tofu": {
                 "aliases": [],
@@ -3340,7 +3340,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kokospulver",
-                "plural_name": "coconut powders"
+                "plural_name": "kokospulver"
             },
             "soy cream": {
                 "aliases": [],
@@ -3352,13 +3352,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "seitan",
-                "plural_name": "seitans"
+                "plural_name": "seitan"
             },
             "coconut milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut milk powder",
-                "plural_name": "coconut milk powders"
+                "name": "kokosmjölkpulver",
+                "plural_name": "kokosmjölkpulver"
             },
             "non-dairy whipped topping": {
                 "aliases": [],
@@ -3387,13 +3387,13 @@
             "condensed coconut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "condensed coconut milk",
+                "name": "kondenserad kokosmjölk",
                 "plural_name": "kondenserad kokosmjölk"
             },
             "vegan ground beef": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan ground beef",
+                "name": "vegansk köttfärs",
                 "plural_name": "Vegansk färs"
             },
             "pulled oat": {
@@ -3441,8 +3441,8 @@
             "hemp milk": {
                 "aliases": [],
                 "description": "",
-                "name": "hemp milk",
-                "plural_name": "hemp milks"
+                "name": "hampamjölk",
+                "plural_name": "hampamjölker"
             },
             "vegan beef": {
                 "aliases": [],
@@ -3471,8 +3471,8 @@
             "coconut paste": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut paste",
-                "plural_name": "coconut pastes"
+                "name": "kokospasta",
+                "plural_name": "kokospasta"
             },
             "vegetable suet": {
                 "aliases": [],
