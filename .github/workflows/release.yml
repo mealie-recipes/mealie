@@ -78,6 +78,7 @@ jobs:
           sed -i 's/:v[0-9]*.[0-9]*.[0-9]*/:v${{ env.VERSION_NUM }}/' docs/docs/documentation/getting-started/installation/postgres.md
           sed -i 's/^version = "[^"]*"/version = "${{ env.VERSION_NUM }}"/' pyproject.toml
           sed -i 's/\("version": "\)[^"]*"/\1${{ env.VERSION_NUM }}"/' frontend/package.json
+          sed -i '/^name = "mealie"$/,/^version = / s/^version = "[^"]*"/version = "${{ env.VERSION_NUM }}"/' uv.lock
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v6
