@@ -397,7 +397,7 @@
     },
     "tandoor": {
       "description-long": "Mealie getur flutt inn uppskriftir frá Tandoor. Flyttu út gögnin í sjálfgefnu formi svo hleður þú upp .zip skránni hér fyrir neðan.",
-      "title": "Tandoor uppskriftir"
+      "title": "Tandoor Recipes"
     },
     "cookn": {
       "description-long": "Mealie getur flutt inn uppskriftir frá DVO Cook'n X3. Flyttu matreiðslubókina eða valmyndina í „Cook'n“ sniði, endurnefndu skráarendinguna í .zip og flyttu svo .zip skrána inn hér fyrir neðan.",
@@ -843,7 +843,7 @@
     "webhooks": {
       "test-webhooks": "Test Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at",
-      "webhook-url": "Webhook URL",
+      "webhook-url": "Vefkrækju URL",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhook-vefkrækjur",
       "webhook-name": "Vefkrækju nafn",
@@ -1036,7 +1036,7 @@
     "users-header": "NOTENDUR",
     "users": "Notendur",
     "user-not-found": "User not found",
-    "webhook-time": "Webhook Time",
+    "webhook-time": "Vefkrækju tími",
     "webhooks-enabled": "Vefkrækjur virkjaðar",
     "you-are-not-allowed-to-create-a-user": "Þú hefur ekki réttindi til að stofna notanda",
     "you-are-not-allowed-to-delete-this-user": "Þú hefur ekki réttindi til að eyða þessum notanda",
@@ -1357,7 +1357,7 @@
     "household-description": "Þessum einingum er deilt innan heimilis þíns, að breyta hér hefur áhrif á stillingar fyrir alla í heimilinu!",
     "household-settings": "Heimilis stillingar",
     "household-settings-description": "Stjórnaðu stillingum heimilis, eins og matarplani og persónuverndarstillingum.",
-    "cookbooks-description": "Manage a collection of recipe categories and generate pages for them.",
+    "cookbooks-description": "Stjórna safni uppskriftaflokka og búa til síður fyrir þá.",
     "members": "Stillingasíða fyrir heimili",
     "members-description": "Sjáðu hverjir eru í þínu heimili og stjórnaðu réttindum þeirra.",
     "webhooks-description": "Settu upp vefkrækju sem virkjast á dögum sem þú hefur virkt matarplan.",
