@@ -71,8 +71,7 @@ jobs:
     name: Build Package
     uses: ./.github/workflows/build-package.yml
     needs:
-      - backend-tests
-      - frontend-tests
+      - commit-version-bump
     with:
       tag: ${{ github.event.release.tag_name }}
 
@@ -88,6 +87,8 @@ jobs:
     name: Build Tagged Release
     uses: ./.github/workflows/publish.yml
     needs:
+      - backend-tests
+      - frontend-tests
       - build-package
     with:
       tag: ${{ github.event.release.tag_name }}
