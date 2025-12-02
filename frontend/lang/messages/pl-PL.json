@@ -400,7 +400,7 @@
       "title": "Przepisy Tandoor"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie może importować przepisy z DVO Cook'n X3. Wyeksportuj książkę kucharską lub menu w formacie \"Cook'n\", zmień rozszerzenie eksportu na .zip, a następnie prześlij plik .zip poniżej.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migracja danych przepisów",
@@ -449,7 +449,7 @@
     "import-by-url": "Importuj przepis przez URL",
     "create-manually": "Stwórz przepis ręcznie",
     "make-recipe-image": "Niech to będzie obraz przepisu",
-    "add-food": "Add Food",
+    "add-food": "Dodaj Składnik",
     "add-recipe": "Dodaj przepis"
   },
   "page": {
@@ -565,7 +565,7 @@
     "choose-unit": "Wybierz jednostkę",
     "press-enter-to-create": "Naciśnij \"enter\", aby utworzyć",
     "choose-food": "Wybierz jedzenie",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "Wybierz Przepis",
     "notes": "Notatki",
     "toggle-section": "Przełącz Sekcję",
     "see-original-text": "Zobacz oryginalny tekst",
@@ -593,7 +593,7 @@
     "made-this": "Ugotowałem to",
     "how-did-it-turn-out": "Jak się to udało?",
     "user-made-this": "{user} ugotował(a) to",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Wykonane do {recipe}",
     "added-to-timeline": "Dodano do osi czasu",
     "failed-to-add-to-timeline": "Nie udało się dodać do osi czasu",
     "failed-to-update-recipe": "Nie udało się zaktualizować przepisu",
@@ -685,8 +685,8 @@
       "review-parsed-ingredients": "Przejrzyj przeanalizowane składniki",
       "confidence-score": "Wskaźnik pewności",
       "ingredient-parser-description": "Twoja lista składników została przetworzona. Sprawdź proszę składniki co , do  których mamy wątpliwości",
-      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "ingredient-parser-final-review-description": "Gdy wszystkie składniki zostaną sprawdzone, będziesz mieć jeszcze jedną szansę na sprawdzenie ich przed zastosowaniem zmian w przepisie.",
+      "add-text-as-alias-for-item": "Dodaj \"{text}\" jako alternatywną nazwę dla {item}",
       "delete-item": "Usuń przedmiot"
     },
     "reset-servings-count": "Zresetuj liczbę porcji",
@@ -697,8 +697,8 @@
     "set-as-cover-image": "Ustaw jako okładkę przepisu",
     "cover-image": "Okładka",
     "include-linked-recipes": "Dołącz połączone przepisy",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipe-ingredients": "Uwzględnij Składniki Powiązanego Przepisu",
+    "toggle-recipe": "Przełącz Przepis"
   },
   "recipe-finder": {
     "recipe-finder": "Wyszukiwarka przepisów",
@@ -736,7 +736,7 @@
     "advanced": "Zaawansowane",
     "auto-search": "Auto wyszukiwanie",
     "no-results": "Nie znaleziono wyników",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Wpisz, aby wyszukać..."
   },
   "settings": {
     "add-a-new-theme": "Dodaj nowy motyw",
@@ -1076,7 +1076,7 @@
     "forgot-password-text": "Podaj adres e-mail konta, do którego chcesz odzyskać hasło.",
     "changes-reflected-immediately": "Zmiany dla tego użytkownika będą zastosowane natychmiastowo.",
     "default-activity": "Domyślna aktywność",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity-hint": "Wybierz stronę, do której chcesz przejść po zalogowaniu się z tego urządzenia"
   },
   "language-dialog": {
     "translated": "przetłumaczone",
