@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Nazwy przepisów muszą być unikatowe",
         "recipe-created": "Utworzono przepis",
-        "recipe-image-deleted": "Obrazek przepisu został usunięty ",
+        "recipe-image-deleted": "Obrazek przepisu został usunięty",
         "recipe-defaults": {
             "ingredient-note": "1 szklanka mąki",
             "step-text": "Kroki przepisu, jak również inne pola na stronie przepisu obsługują składnię markdown.\n\n**Dodaj link**\n\n[Mój link](https://demo.mealie.io)\n"
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Nie masz uprawnień do wykonania tej akcji",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Przepis nie może odnosić się do samego siebie bezpośrednio, ani pośrednio",
         "no-entry-found": "Wskazany zasób jest niedostępny",
         "integrity-error": "Błąd spójności bazy danych",
         "username-conflict-error": "Ta nazwa użytkownika jest już zajęta",
