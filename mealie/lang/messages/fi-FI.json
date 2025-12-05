@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Reseptien nimien täytyy olla yksilöllisiä",
         "recipe-created": "Resepti luotu",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "Reseptikuva poistettu",
         "recipe-defaults": {
             "ingredient-note": "1 kupillinen jauhoja",
             "step-text": "Reseptin vaiheet sekä muut kentät reseptisivulla tukevat markdown-syntaksia.\n\n**Lisää linkki**\n\n[Oma linkki](https://demo.mealie.io)\n"
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Sinulla ei ole oikeutta tämän toiminnon suorittamiseen",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Reseptillä ei voida viitata itseensä, joko suoraan tai välillisesti",
         "no-entry-found": "Pyydettyä resurssia ei löytynyt",
         "integrity-error": "Tietokannan eheysvirhe",
         "username-conflict-error": "Tämä käyttäjätunnus on jo käytössä",
