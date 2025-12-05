@@ -53,7 +53,6 @@
         color="primary"
         :first-day-of-week="firstDayOfWeek"
         :local="$i18n.locale"
-        @update:model-value="value => newMealdate = value"
       />
       <v-select
         v-model="newMealType"
