@@ -173,6 +173,7 @@
           variant="solo"
           return-object
           :items="search.data.value || []"
+          :custom-filter="normalizeFilter"
           item-title="name"
           class="mx-1 py-0"
           :placeholder="$t('search.type-to-search')"
