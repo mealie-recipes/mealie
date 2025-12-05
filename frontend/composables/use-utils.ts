@@ -38,6 +38,10 @@ const normalizeLigatures = replaceAllBuilder(new Map([
 ]));
 
 export const normalize = (str: string) => {
+  if (!str) {
+    return "";
+  }
+
   let normalized = str.normalize("NFKD").toLowerCase();
   normalized = normalized.replace(/\p{Diacritic}/gu, "");
   normalized = normalizeLigatures(normalized);
