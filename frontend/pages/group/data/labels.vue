@@ -109,6 +109,7 @@
         <v-autocomplete
           v-model="locale"
           :items="locales"
+          :custom-filter="normalizeFilter"
           item-title="name"
           :label="$t('data-pages.select-language')"
           class="my-3"
@@ -186,6 +187,7 @@ import { useUserApi } from "~/composables/api";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import type { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import { useLocales } from "~/composables/use-locales";
+import { normalizeFilter } from "~/composables/use-utils";
 import { useLabelData, useLabelStore } from "~/composables/store";
 
 export default defineNuxtComponent({
@@ -316,6 +318,7 @@ export default defineNuxtComponent({
       tableHeaders,
       labels: labelStore.store,
       validators,
+      normalizeFilter,
 
       // create
       createLabel,
