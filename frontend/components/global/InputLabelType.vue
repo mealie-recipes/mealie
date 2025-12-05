@@ -7,6 +7,7 @@
     item-title="name"
     return-object
     :items="items"
+    :custom-filter="normalizeFilter"
     :prepend-icon="icon || $globals.icons.tags"
     auto-select-first
     clearable
@@ -52,6 +53,7 @@
 
 import type { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
+import { normalizeFilter } from "~/composables/use-utils";
 
 export default defineNuxtComponent({
   props: {
@@ -122,6 +124,7 @@ export default defineNuxtComponent({
       itemIdVal,
       searchInput,
       emitCreate,
+      normalizeFilter,
     };
   },
 });

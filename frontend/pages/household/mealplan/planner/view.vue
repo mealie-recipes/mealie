@@ -83,6 +83,9 @@ const plan = computed<Days[]>(() => {
         { title: i18n.t("meal-plan.lunch"), meals: [] },
         { title: i18n.t("meal-plan.dinner"), meals: [] },
         { title: i18n.t("meal-plan.side"), meals: [] },
+        { title: i18n.t("meal-plan.snack"), meals: [] },
+        { title: i18n.t("meal-plan.drink"), meals: [] },
+        { title: i18n.t("meal-plan.dessert"), meals: [] },
       ],
       recipes: [],
     };
@@ -99,6 +102,15 @@ const plan = computed<Days[]>(() => {
       }
       else if (meal.entryType === "side") {
         out.sections[3].meals.push(meal);
+      }
+      else if (meal.entryType === "snack") {
+        out.sections[4].meals.push(meal);
+      }
+      else if (meal.entryType === "drink") {
+        out.sections[5].meals.push(meal);
+      }
+      else if (meal.entryType === "dessert") {
+        out.sections[6].meals.push(meal);
       }
 
       if (meal.recipe) {

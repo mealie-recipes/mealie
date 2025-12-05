@@ -449,7 +449,7 @@
     "import-by-url": "Импортиране на рецепта от линк",
     "create-manually": "Създай рецепта ръчно",
     "make-recipe-image": "Задай като изображението на рецептата",
-    "add-food": "Добавяне на ястие",
+    "add-food": "Добавяне на продукт",
     "add-recipe": "Добавяне на рецепта"
   },
   "page": {
@@ -497,7 +497,7 @@
     "insert-section": "Въведете раздел",
     "insert-above": "Вмъкни отгоре",
     "insert-below": "Вмъкни отдолу",
-    "instructions": "Инструкции",
+    "instructions": "Начин на приготвяне",
     "key-name-required": "Ключовото име е задължително",
     "landscape-view-coming-soon": "Пейзажен изглед",
     "milligrams": "милиграма",
@@ -567,14 +567,14 @@
     "choose-food": "Избери продукт",
     "choose-recipe": "Избор на рецепта",
     "notes": "Бележки",
-    "toggle-section": "Превключване на раздела",
+    "toggle-section": "Създай раздел",
     "see-original-text": "Виж оригиналния текст",
     "original-text-with-value": "Оригинален текст: {originalText}",
     "ingredient-linker": "Инструмент за свързване на съставки",
     "unlinked": "Все още не е свързано",
     "linked-to-other-step": "Свързано към друга стъпка",
     "auto": "Автоматично",
-    "cook-mode": "Начин на приготвяне",
+    "cook-mode": "Инструкции",
     "link-ingredients": "Свържи съставки",
     "merge-above": "Обедини с по-горната стъпка",
     "move-to-bottom": "Премести най-долу",
@@ -969,14 +969,14 @@
     "tag": "Етикет"
   },
   "tool": {
-    "tools": "Инструменти",
+    "tools": "Прибори",
     "on-hand": "Наличности",
     "create-a-tool": "Създаване на инструмент",
     "tool-name": "Име на инструмента",
     "create-new-tool": "Създаване на нов инструмент",
     "on-hand-checkbox-label": "Показване като налични (отметнато)",
     "required-tools": "Задължителни инструменти",
-    "tool": "Инструменти"
+    "tool": "Прибори"
   },
   "user": {
     "admin": "Админ",
@@ -1017,7 +1017,7 @@
     "please-enter-password": "Моля, въведете новата си парола.",
     "register": "Регистриране",
     "reset-password": "Забравена парола",
-    "sign-in": "Вписване",
+    "sign-in": "Вход в системата",
     "total-mealplans": "Хранителни планове общо",
     "total-users": "Общо потребители",
     "upload-photo": "Качете снимка",
