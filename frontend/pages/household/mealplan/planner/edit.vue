@@ -207,6 +207,11 @@
                   },
                   {
                     icon: $globals.icons.diceMultiple,
+                    text: $t('meal-plan.drink'),
+                    event: 'randomDrink',
+                  },
+                  {
+                    icon: $globals.icons.diceMultiple,
                     text: $t('meal-plan.dessert'),
                     event: 'randomDessert',
                   },
@@ -234,6 +239,7 @@
             @random-dinner="randomMeal(plan.date, 'dinner')"
             @random-side="randomMeal(plan.date, 'side')"
             @random-snack="randomMeal(plan.date, 'snack')"
+            @random-drink="randomMeal(plan.date, 'drink')"
             @random-dessert="randomMeal(plan.date, 'dessert')"
           />
         </div>

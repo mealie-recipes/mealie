@@ -59,6 +59,7 @@ const MEAL_TYPE_OPTIONS = [
   { title: i18n.t("meal-plan.dinner"), value: "dinner" },
   { title: i18n.t("meal-plan.side"), value: "side" },
   { title: i18n.t("meal-plan.snack"), value: "snack" },
+  { title: i18n.t("meal-plan.drink"), value: "drink" },
   { title: i18n.t("meal-plan.dessert"), value: "dessert" },
   { title: i18n.t("meal-plan.type-any"), value: "unset" },
 ];
