@@ -24,15 +24,23 @@ const replaceAllBuilder = (map: Map<string, string>): ((str: string) => string) 
   return str => str.replace(re, matched => map.get(matched)!);
 };
 
-const normalize_ligatures = replaceAllBuilder(new Map([
+const normalizeLigatures = replaceAllBuilder(new Map([
   ["œ", "oe"],
+  ["Œ", "OE"],
   ["æ", "ae"],
+  ["Æ", "AE"],
+  ["ĳ", "ij"],
+  ["Ĳ", "IJ"],
+  ["ﬀ", "ff"],
+  ["ﬁ", "fi"],
+  ["ﬂ", "fl"],
+  ["ﬆ", "st"],
 ]));
 
 export const normalize = (str: string) => {
   let normalized = str.normalize("NFKD").toLowerCase();
   normalized = normalized.replace(/\p{Diacritic}/gu, "");
-  normalized = normalize_ligatures(normalized);
+  normalized = normalizeLigatures(normalized);
   return normalized;
 };
 
