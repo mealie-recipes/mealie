@@ -565,6 +565,7 @@
     "choose-unit": "Pasirinkite vienetą",
     "press-enter-to-create": "Paspauskite 'Enter', norėdami sukurti",
     "choose-food": "Pasirinkite maistą",
+    "choose-recipe": "Choose Recipe",
     "notes": "Pastabos",
     "toggle-section": "Rodyti skyrių",
     "see-original-text": "Rodyti originalų tekstą",
@@ -734,7 +735,8 @@
     "search-hint": "Paspauskite '/'",
     "advanced": "Išplėstinė paieška",
     "auto-search": "Automatinė paieška",
-    "no-results": "No results found"
+    "no-results": "No results found",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Pridėti naują temą",

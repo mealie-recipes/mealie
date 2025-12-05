@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Les noms de recette doivent être uniques",
         "recipe-created": "Recette créée",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "L’image de la recette a été supprimée",
         "recipe-defaults": {
             "ingredient-note": "1 Tasse de farine",
             "step-text": "Les étapes de la recette ainsi que les autres champs de la page de recette supportent la syntaxe Markdown.\n\n**Ajouter un lien**\n\n[Mon lien](https://demo.mealie.io)\n"
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Vous n’avez pas la permission d’effectuer cette action",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Une recette ne peut pas se référencer elle-même, directement ou indirectement",
         "no-entry-found": "La ressource demandée est introuvable",
         "integrity-error": "Erreur d’intégrité de la base de données",
         "username-conflict-error": "Ce nom d’utilisateur est déjà pris",
@@ -76,7 +76,7 @@
             "subject": "E-mail de test Mealie",
             "header_text": "E-mail de test",
             "message_top": "Ceci est un mail de test.",
-            "message_bottom": "Veuillez cliquer sur le bouton ci-dessus pour tester l'E-mail.",
+            "message_bottom": "Veuillez cliquer sur le bouton ci-dessus pour tester le courriel.",
             "button_text": "Ouvrir Mealie"
         }
     }

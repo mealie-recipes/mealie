@@ -565,6 +565,7 @@
     "choose-unit": "选择单位",
     "press-enter-to-create": "按回车键以创建",
     "choose-food": "选择食品",
+    "choose-recipe": "Choose Recipe",
     "notes": "备注",
     "toggle-section": "切换分类",
     "see-original-text": "查看原文",
@@ -734,7 +735,8 @@
     "search-hint": "按 '/'",
     "advanced": "高级",
     "auto-search": "自动搜索",
-    "no-results": "未找到任何结果"
+    "no-results": "未找到任何结果",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "新增布景主题",

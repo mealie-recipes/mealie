@@ -565,6 +565,7 @@
     "choose-unit": "Vyberte jednotku",
     "press-enter-to-create": "Stlačte Enter pre vytvorenie",
     "choose-food": "Vyberte potravinu",
+    "choose-recipe": "Choose Recipe",
     "notes": "Poznámky",
     "toggle-section": "Prepnúť sekciu",
     "see-original-text": "Pozrieť pôvodný text",
@@ -734,7 +735,8 @@
     "search-hint": "Stlač '/'",
     "advanced": "Rozšírené",
     "auto-search": "Automatické vyhľadávanie",
-    "no-results": "Nenašli sa žiadne výsledky"
+    "no-results": "Nenašli sa žiadne výsledky",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Pridať nový motív",
