@@ -3363,8 +3363,8 @@
             "non-dairy whipped topping": {
                 "aliases": [],
                 "description": "",
-                "name": "non-dairy whipped topping",
-                "plural_name": "non-dairy whipped toppings"
+                "name": "mjölkfri vispgrädde",
+                "plural_name": ""
             },
             "nut milk": {
                 "aliases": [],
@@ -3375,7 +3375,7 @@
             "non-dairy cream": {
                 "aliases": [],
                 "description": "",
-                "name": "non-dairy cream",
+                "name": "",
                 "plural_name": "non-dairy creams"
             },
             "vegan burger patty": {
@@ -3693,7 +3693,7 @@
             "banana milk": {
                 "aliases": [],
                 "description": "",
-                "name": "banana milk",
+                "name": "bananmjölk",
                 "plural_name": "banana milks"
             },
             "soy quark": {
@@ -4643,7 +4643,7 @@
             "popcorn chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "popcorn chicken",
+                "name": "popcornkyckling",
                 "plural_name": "popcorn chickens"
             },
             "turkey kielbasa": {
@@ -4715,7 +4715,7 @@
             "roast duck": {
                 "aliases": [],
                 "description": "",
-                "name": "roast duck",
+                "name": "rostad anka",
                 "plural_name": "roast ducks"
             },
             "chicken meatball": {
@@ -15705,7 +15705,7 @@
             "almond extract": {
                 "aliases": [],
                 "description": "",
-                "name": "almond extract",
+                "name": "mandelextrakt",
                 "plural_name": "almond extracts"
             },
             "food coloring": {
