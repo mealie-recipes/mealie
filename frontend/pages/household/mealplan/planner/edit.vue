@@ -47,6 +47,7 @@
             v-model:search="search.query.value"
             :label="$t('meal-plan.meal-recipe')"
             :items="search.data.value"
+            :custom-filter="normalizeFilter"
             :loading="search.loading.value"
             cache-items
             item-title="name"
@@ -242,6 +243,7 @@ import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
 import type { PlanEntryType, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
 import { useHouseholdSelf } from "~/composables/use-households";
+import { normalizeFilter } from "~/composables/use-utils";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 
 export default defineNuxtComponent({
@@ -416,6 +418,7 @@ export default defineNuxtComponent({
       getEntryTypeText,
       requiredRule,
       isCreateDisabled,
+      normalizeFilter,
 
       // Dialog
       dialog,

@@ -4,6 +4,7 @@
     v-bind="inputAttrs"
     v-model:search="searchInput"
     :items="items"
+    :custom-filter="normalizeFilter"
     :label="label"
     chips
     closable-chips
@@ -39,6 +40,7 @@ import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
 import { useUserStore } from "~/composables/store/use-user-store";
+import { normalizeFilter } from "~/composables/use-utils";
 import type { UserSummary } from "~/lib/api/types/user";
 
 interface Props {
