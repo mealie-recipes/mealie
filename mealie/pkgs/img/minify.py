@@ -103,7 +103,9 @@ class PillowMinifier(ABCMinifier):
         quality: int = 100,
         img: Image.Image | None = None,
     ) -> Path:
-        return PillowMinifier._convert_image(image_file_path, JPG, dest, quality, img)
+        return PillowMinifier._convert_image(
+            image_file=image_file_path, image_format=JPG, dest=dest, quality=quality, img=img
+        )
 
     @staticmethod
     def to_webp(
@@ -112,7 +114,9 @@ class PillowMinifier(ABCMinifier):
         quality: int = 100,
         img: Image.Image | None = None,
     ) -> Path:
-        return PillowMinifier._convert_image(image_file_path, WEBP, dest, quality, img)
+        return PillowMinifier._convert_image(
+            image_file=image_file_path, image_format=WEBP, dest=dest, quality=quality, img=img
+        )
 
     @staticmethod
     def crop_center(img: Image.Image, size=(300, 300), high_res: bool = True) -> Image.Image:
