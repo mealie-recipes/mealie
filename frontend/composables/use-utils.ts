@@ -26,11 +26,8 @@ const replaceAllBuilder = (map: Map<string, string>): ((str: string) => string) 
 
 const normalizeLigatures = replaceAllBuilder(new Map([
   ["œ", "oe"],
-  ["Œ", "OE"],
   ["æ", "ae"],
-  ["Æ", "AE"],
   ["ĳ", "ij"],
-  ["Ĳ", "IJ"],
   ["ﬀ", "ff"],
   ["ﬁ", "fi"],
   ["ﬂ", "fl"],
