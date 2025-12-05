@@ -31,7 +31,7 @@
     },
     "quart": {
         "name": "quart",
-        "plural_name": "",
+        "plural_name": "quarts",
         "description": "",
         "abbreviation": "qt"
     },
@@ -103,8 +103,8 @@
         "abbreviation": ""
     },
     "head": {
-        "name": "höfuð",
-        "plural_name": "höfuð",
+        "name": "haus",
+        "plural_name": "hausar",
         "description": "",
         "abbreviation": ""
     },

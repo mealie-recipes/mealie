@@ -21,6 +21,9 @@ class PlanEntryType(str, Enum):
     lunch = "lunch"
     dinner = "dinner"
     side = "side"
+    snack = "snack"
+    drink = "drink"
+    dessert = "dessert"
 
 
 class CreateRandomEntry(MealieModel):

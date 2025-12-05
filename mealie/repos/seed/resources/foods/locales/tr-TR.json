@@ -4,301 +4,301 @@
             "garlic": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic",
-                "plural_name": "garlics"
+                "name": "sarımsak",
+                "plural_name": "sarımsak"
             },
             "onion": {
                 "aliases": [],
                 "description": "",
-                "name": "onion",
-                "plural_name": "onions"
+                "name": "soğan",
+                "plural_name": "soğan"
             },
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "bell pepper",
-                "plural_name": "bell peppers"
+                "name": "dolma biber",
+                "plural_name": "dolma biber"
             },
             "carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "carrot",
-                "plural_name": "carrots"
+                "name": "havuç",
+                "plural_name": "havuç"
             },
             "scallion": {
                 "aliases": [],
                 "description": "",
-                "name": "scallion",
-                "plural_name": "scallions"
+                "name": "taze soğan",
+                "plural_name": "taze soğan"
             },
             "zucchini": {
                 "aliases": [],
                 "description": "",
-                "name": "zucchini",
-                "plural_name": "zucchinis"
+                "name": "kabak",
+                "plural_name": "kabak"
             },
             "potato": {
                 "aliases": [],
                 "description": "",
-                "name": "potato",
-                "plural_name": "potatoes"
+                "name": "patates",
+                "plural_name": "patates"
             },
             "red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "red onion",
-                "plural_name": "red onions"
+                "name": "kırmızı soğan",
+                "plural_name": "kırmızı soğan"
             },
             "yellow onion": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow onion",
-                "plural_name": "yellow onions"
+                "name": "soğan",
+                "plural_name": "soğan"
             },
             "celery": {
                 "aliases": [],
                 "description": "",
-                "name": "celery",
-                "plural_name": "celeries"
+                "name": "kereviz",
+                "plural_name": "kereviz"
             },
             "jalapeno": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeno",
-                "plural_name": "jalapenoes"
+                "name": "jalapeno biberi",
+                "plural_name": "jalapeno biberi"
             },
             "avocado": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado",
-                "plural_name": "avocados"
+                "name": "avokado",
+                "plural_name": "avokado"
             },
             "shallot": {
                 "aliases": [],
                 "description": "",
-                "name": "shallot",
-                "plural_name": "shallots"
+                "name": "arpacık soğan",
+                "plural_name": "arpacık soğan"
             },
             "cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry tomato",
-                "plural_name": "cherry tomatoes"
+                "name": "çeri domates",
+                "plural_name": "çeri domates"
             },
             "cucumber": {
                 "aliases": [],
                 "description": "",
-                "name": "cucumber",
-                "plural_name": "cucumbers"
+                "name": "salatalık",
+                "plural_name": "salatalık"
             },
             "spinach": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach",
-                "plural_name": "spinaches"
+                "name": "ıspanak",
+                "plural_name": "ıspanak"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet corn",
-                "plural_name": "sweet corns"
+                "name": "tatlı mısır",
+                "plural_name": "tatlı mısır"
             },
             "chile pepper": {
                 "aliases": [
-                    "capsicum"
+                    "kırmızı biber"
                 ],
                 "description": "",
-                "name": "chile pepper",
-                "plural_name": "chile peppers"
+                "name": "acı biber",
+                "plural_name": "acı biber"
             },
             "sweet potato": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet potato",
-                "plural_name": "sweet potatoes"
+                "name": "tatlı patates",
+                "plural_name": "tatlı patates"
             },
             "broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli",
-                "plural_name": "broccolis"
+                "name": "brokoli",
+                "plural_name": "brokoli"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
-                "name": "heart of palm",
-                "plural_name": "heart of palms"
+                "name": "palmiye kalbi",
+                "plural_name": "palmiye kalbi"
             },
             "baby green": {
                 "aliases": [],
                 "description": "",
-                "name": "baby green",
-                "plural_name": "baby greens"
+                "name": "yeşillik",
+                "plural_name": "yeşillik"
             },
             "pumpkin": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin",
-                "plural_name": "pumpkins"
+                "name": "balkabağı",
+                "plural_name": "balkabağı"
             },
             "cauliflower": {
                 "aliases": [],
                 "description": "",
-                "name": "cauliflower",
-                "plural_name": "cauliflowers"
+                "name": "karnabahar",
+                "plural_name": "karnabahar"
             },
             "cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "cabbage",
-                "plural_name": "cabbages"
+                "name": "lahana",
+                "plural_name": "lahana"
             },
             "asparagu": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagu",
-                "plural_name": "asparagus"
+                "name": "kuşkonmaz",
+                "plural_name": "kuşkonmaz"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
-                "name": "kale",
-                "plural_name": "kales"
+                "name": "kıvırcık lahana",
+                "plural_name": "kıvırcık lahana"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
-                "name": "arugula",
-                "plural_name": "arugulas"
+                "name": "roka",
+                "plural_name": "roka"
             },
             "leek": {
                 "aliases": [],
                 "description": "",
-                "name": "leek",
-                "plural_name": "leeks"
+                "name": "pırasa",
+                "plural_name": "pırasa"
             },
             "eggplant": {
                 "aliases": [],
                 "description": "",
-                "name": "eggplant",
-                "plural_name": "eggplants"
+                "name": "patlıcan",
+                "plural_name": "patlıcan"
             },
             "lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "lettuce",
-                "plural_name": "lettuces"
+                "name": "marul",
+                "plural_name": "marul"
             },
             "butternut squash": {
                 "aliases": [],
                 "description": "",
-                "name": "butternut squash",
-                "plural_name": "butternut squashes"
+                "name": "Bambu kabak",
+                "plural_name": "Bambu kabak"
             },
             "romaine": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine",
-                "plural_name": "romaines"
+                "name": "roman marulu",
+                "plural_name": "roman marulu"
             },
             "beetroot": {
                 "aliases": [],
                 "description": "",
-                "name": "beetroot",
-                "plural_name": "beetroots"
+                "name": "pancar kökü",
+                "plural_name": "pancar kökü"
             },
             "brussels sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "brussels sprout",
-                "plural_name": "brussels sprouts"
+                "name": "brüksel lahanası",
+                "plural_name": "brüksel lahanası"
             },
             "fennel": {
                 "aliases": [],
                 "description": "",
-                "name": "fennel",
-                "plural_name": "fennels"
+                "name": "rezene",
+                "plural_name": "rezene"
             },
             "sun dried tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "sun dried tomato",
-                "plural_name": "sun dried tomatoes"
+                "name": "kurutulmuş domates",
+                "plural_name": "kurutulmuş domates"
             },
             "radish": {
                 "aliases": [],
                 "description": "",
-                "name": "radish",
-                "plural_name": "radishes"
+                "name": "turp",
+                "plural_name": "turp"
             },
             "red cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "red cabbage",
-                "plural_name": "red cabbages"
+                "name": "kırmızı lahana",
+                "plural_name": "kırmızı lahana"
             },
             "artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke",
-                "plural_name": "artichokes"
+                "name": "enginar",
+                "plural_name": "enginar"
             },
             "new potato": {
                 "aliases": [],
                 "description": "",
-                "name": "new potato",
-                "plural_name": "new potatoes"
+                "name": "taze patates",
+                "plural_name": "taze patates"
             },
             "summer squash": {
                 "aliases": [
-                    "courgette",
-                    "gem squash"
+                    "dolmalık kabak",
+                    "dolmalık kabak"
                 ],
                 "description": "",
-                "name": "summer squash",
-                "plural_name": "summer squashes"
+                "name": "yaz kabağı",
+                "plural_name": "yaz kabağı"
             },
             "mixed green": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed green",
-                "plural_name": "mixed greens"
+                "name": "karışık yeşillik",
+                "plural_name": "karışık yeşillik"
             },
             "parsnip": {
                 "aliases": [],
                 "description": "",
-                "name": "parsnip",
-                "plural_name": "parsnips"
+                "name": "yaban havucu",
+                "plural_name": "yaban havucu"
             },
             "baby carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "baby carrot",
-                "plural_name": "baby carrots"
+                "name": "küçük havuç",
+                "plural_name": "küçük havuç"
             },
             "mixed vegetable": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetable",
-                "plural_name": "mixed vegetables"
+                "name": "karışık sebze",
+                "plural_name": "karışık sebze"
             },
             "poblano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "poblano pepper",
-                "plural_name": "poblano peppers"
+                "name": "poblano biberi",
+                "plural_name": "poblano biberi"
             },
             "sweet pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet pepper",
-                "plural_name": "sweet peppers"
+                "name": "tatlı biber",
+                "plural_name": "tatlı biber"
             },
             "serrano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano pepper",
-                "plural_name": "serrano peppers"
+                "name": "serrano biberi",
+                "plural_name": "serrano biberi"
             },
             "cayenne pepper": {
                 "aliases": [],

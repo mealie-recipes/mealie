@@ -196,7 +196,7 @@ import { VueDraggable } from "vue-draggable-plus";
 import type { IngredientFood, IngredientUnit, ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe";
 import type { Parser } from "~/lib/api/user/recipes/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import { useAppInfo, useUserApi } from "~/composables/api";
+import { useUserApi } from "~/composables/api";
 import { parseIngredientText } from "~/composables/recipes";
 import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "~/composables/store";
 import { useGlobalI18n } from "~/composables/use-global-i18n";
@@ -213,9 +213,9 @@ const emit = defineEmits<{
   (e: "save", value: NoUndefinedField<RecipeIngredient[]>): void;
 }>();
 
+const { $appInfo } = useNuxtApp();
 const i18n = useGlobalI18n();
 const api = useUserApi();
-const appInfo = useAppInfo();
 const drag = ref(false);
 
 const unitStore = useUnitStore();
@@ -238,7 +238,7 @@ const availableParsers = computed(() => {
     {
       text: i18n.t("recipe.parser.openai-parser"),
       value: "openai",
-      hide: !appInfo.value?.enableOpenai,
+      hide: !$appInfo.enableOpenai,
     },
   ];
 });
@@ -267,6 +267,11 @@ const state = reactive({
 
 function shouldReview(ing: ParsedIngredient): boolean {
   console.debug(`Checking if ingredient needs review (input="${ing.input})":`, ing);
+
+  if (ing.ingredient.referencedRecipe) {
+    console.debug("No review needed for sub-recipe ingredient");
+    return false;
+  }
 
   if ((ing.confidence?.average || 0) < confidenceThreshold) {
     console.debug("Needs review due to low confidence:", ing.confidence?.average);
@@ -364,12 +369,21 @@ async function parseIngredients() {
   }
   state.loading.parser = true;
   try {
-    const ingsAsString = props.ingredients.map(ing => parseIngredientText(ing, 1, false) ?? "");
+    const ingsAsString = props.ingredients
+      .filter(ing => !ing.referencedRecipe)
+      .map(ing => parseIngredientText(ing, 1, false) ?? "");
     const { data, error } = await api.recipes.parseIngredients(parser.value, ingsAsString);
     if (error || !data) {
       throw new Error("Failed to parse ingredients");
     }
     parsedIngs.value = data;
+    const parsed = data ?? [];
+    const recipeRefs = props.ingredients.filter(ing => ing.referencedRecipe).map(ing => ({
+      input: ing.note || "",
+      confidence: {},
+      ingredient: ing,
+    }));
+    parsedIngs.value = [...parsed, ...recipeRefs];
     state.currentParsedIndex = -1;
     state.allReviewed = false;
     createdUnits.clear();

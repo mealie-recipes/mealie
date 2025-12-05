@@ -342,6 +342,9 @@
     "breakfast": "Colazione",
     "lunch": "Pranzo",
     "dinner": "Cena",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Qualsiasi",
     "day-any": "Qualsiasi",
     "editor": "Modifica",
@@ -448,7 +451,9 @@
     "split-by-numbered-line-description": "Tenta di dividere un paragrafo con i modelli '1)' o '1.'",
     "import-by-url": "Importa una ricetta tramite URL",
     "create-manually": "Crea una ricetta manualmente",
-    "make-recipe-image": "Usa come immagine della ricetta"
+    "make-recipe-image": "Usa come immagine della ricetta",
+    "add-food": "Aggiungi cibo",
+    "add-recipe": "Aggiungi ricetta"
   },
   "page": {
     "404-page-not-found": "404 Pagina non Trovata",
@@ -515,6 +520,9 @@
     "recipe-deleted": "Ricetta eliminata",
     "recipe-image": "Immagine Ricetta",
     "recipe-image-updated": "Immagine ricetta aggiornata",
+    "delete-image": "Elimina Immagine Ricetta",
+    "delete-image-confirmation": "Sei sicuro di voler eliminare questa immagine della ricetta?",
+    "recipe-image-deleted": "Immagine della ricetta eliminata",
     "recipe-name": "Nome Ricetta",
     "recipe-settings": "Impostazioni Ricetta",
     "recipe-update-failed": "Aggiornamento ricetta fallito",
@@ -560,6 +568,7 @@
     "choose-unit": "Scegli Unità",
     "press-enter-to-create": "Premi invio per creare",
     "choose-food": "Scegli Cibo",
+    "choose-recipe": "Scegli Ricetta",
     "notes": "Note",
     "toggle-section": "Attiva Sezione",
     "see-original-text": "Vedi Testo Originale",
@@ -587,6 +596,7 @@
     "made-this": "L'Ho Preparato",
     "how-did-it-turn-out": "Come è venuto?",
     "user-made-this": "{user} l'ha preparato",
+    "made-for-recipe": "Creato per {recipe}",
     "added-to-timeline": "Aggiunto alla cronologia",
     "failed-to-add-to-timeline": "Impossibile aggiungere alla cronologia",
     "failed-to-update-recipe": "Impossibile aggiornare la ricetta",
@@ -688,7 +698,10 @@
     "upload-images": "Carica immagini",
     "upload-more-images": "Carica altre immagini",
     "set-as-cover-image": "Imposta come immagine di copertina della ricetta",
-    "cover-image": "Immagine di copertina"
+    "cover-image": "Immagine di copertina",
+    "include-linked-recipes": "Includi Ricette Collegate",
+    "include-linked-recipe-ingredients": "Includi Ingredienti Della Ricetta Collegata",
+    "toggle-recipe": "Attiva/Disattiva Ricetta"
   },
   "recipe-finder": {
     "recipe-finder": "Trova ricette",
@@ -725,7 +738,8 @@
     "search-hint": "Premi '/'",
     "advanced": "Ricerca Avanzata",
     "auto-search": "Ricerca automatica",
-    "no-results": "Nessun risultato trovato"
+    "no-results": "Nessun risultato trovato",
+    "type-to-search": "Scrivi per cercare..."
   },
   "settings": {
     "add-a-new-theme": "Aggiungi un Nuovo Tema",
@@ -1063,7 +1077,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Non vuoi più vederlo? Assicurati di modificare la tua email nelle impostazioni utente!",
     "forgot-password": "Password Dimenticata",
     "forgot-password-text": "Inserisci il tuo indirizzo email e ti invieremo un collegamento per reimpostare la tua password.",
-    "changes-reflected-immediately": "Le modifiche a questo utente diventeranno immediatamente effettive."
+    "changes-reflected-immediately": "Le modifiche a questo utente diventeranno immediatamente effettive.",
+    "default-activity": "Attività Predefinita",
+    "default-activity-hint": "Seleziona a quale pagina vuoi navigare al momento dell'accesso da questo dispositivo"
   },
   "language-dialog": {
     "translated": "tradotto",

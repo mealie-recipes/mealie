@@ -70,13 +70,8 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Install Poetry
-        uses: snok/install-poetry@v1
-        with:
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-          plugins: |
-            poetry-plugin-export
+      - name: Install uv
+        run: pip install uv
 
       - name: Retrieve built frontend
         uses: actions/download-artifact@v4

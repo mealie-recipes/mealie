@@ -97,7 +97,6 @@
 <script lang="ts">
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { SideBarLink } from "~/types/application-types";
-import { useAppInfo } from "~/composables/api";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
 import { useCookbookStore, usePublicCookbookStore } from "~/composables/store/use-cookbook-store";
 import type { ReadCookBook } from "~/lib/api/types/cookbook";
@@ -105,7 +104,7 @@ import type { ReadCookBook } from "~/lib/api/types/cookbook";
 export default defineNuxtComponent({
   setup() {
     const i18n = useI18n();
-    const { $globals } = useNuxtApp();
+    const { $appInfo, $globals } = useNuxtApp();
     const display = useDisplay();
     const $auth = useMealieAuth();
     const { isOwnGroup } = useLoggedInState();
@@ -135,9 +134,7 @@ export default defineNuxtComponent({
       return [];
     });
 
-    const appInfo = useAppInfo();
-    const showImageImport = computed(() => appInfo.value?.enableOpenaiImageServices);
-
+    const showImageImport = computed(() => $appInfo.enableOpenaiImageServices);
     const languageDialog = ref<boolean>(false);
 
     const sidebar = ref<boolean>(false);

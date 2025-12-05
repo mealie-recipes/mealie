@@ -262,32 +262,55 @@ const ingredientSections = computed<IngredientSection[]>(() => {
   if (!props.recipe.recipeIngredient) {
     return [];
   }
-
-  return props.recipe.recipeIngredient.reduce((sections, ingredient) => {
-    // if title append new section to the end of the array
-    if (ingredient.title) {
-      sections.push({
-        sectionName: ingredient.title,
-        ingredients: [ingredient],
-      });
-
-      return sections;
+  const addIngredientsToSections = (ingredients: RecipeIngredient[], sections: IngredientSection[], title: string | null) => {
+  // If title is set, ensure the section exists before adding ingredients
+    let section: IngredientSection | undefined;
+    if (title) {
+      section = sections.find(sec => sec.sectionName === title);
+      if (!section) {
+        section = { sectionName: title, ingredients: [] };
+        sections.push(section);
+      }
     }
 
-    // append new section if first
-    if (sections.length === 0) {
-      sections.push({
-        sectionName: "",
-        ingredients: [ingredient],
-      });
+    ingredients.forEach((ingredient) => {
+      if (preferences.value.expandChildRecipes && ingredient.referencedRecipe?.recipeIngredient?.length) {
+        // Recursively add to the section for this referenced recipe
+        addIngredientsToSections(
+          ingredient.referencedRecipe.recipeIngredient,
+          sections,
+          "",
+        );
+      }
+      else {
+        const sectionName = title || ingredient.title || "";
+        if (sectionName) {
+          let sec = sections.find(sec => sec.sectionName === sectionName);
+          if (!sec) {
+            sec = { sectionName, ingredients: [] };
+            sections.push(sec);
+          }
+          ingredient.title = sectionName;
+          sec.ingredients.push(ingredient);
+        }
+        else {
+          if (sections.length === 0) {
+            sections.push({
+              sectionName: "",
+              ingredients: [ingredient],
+            });
+          }
+          else {
+            sections[sections.length - 1].ingredients.push(ingredient);
+          }
+        }
+      }
+    });
+  };
 
-      return sections;
-    }
-
-    // otherwise add ingredient to last section in the array
-    sections[sections.length - 1].ingredients.push(ingredient);
-    return sections;
-  }, [] as IngredientSection[]);
+  const sections: IngredientSection[] = [];
+  addIngredientsToSections(props.recipe.recipeIngredient, sections, null);
+  return sections;
 });
 
 // Group instructions by section so we can style them independently

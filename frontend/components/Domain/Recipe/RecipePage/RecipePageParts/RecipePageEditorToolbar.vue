@@ -5,6 +5,7 @@
       :slug="recipe.slug"
       @upload="uploadImage"
       @refresh="imageKey++"
+      @delete="deleteImage"
     />
     <RecipeSettingsMenu
       v-model="recipe.settings"
@@ -76,6 +77,12 @@ async function uploadImage(fileObject: File) {
   if (newVersion?.data?.image) {
     recipe.value.image = newVersion.data.image;
   }
+  imageKey.value++;
+}
+
+async function deleteImage() {
+  // The image is already deleted on the backend, just need to update the UI
+  recipe.value.image = "";
   imageKey.value++;
 }
 </script>
