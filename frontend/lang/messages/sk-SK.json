@@ -399,6 +399,10 @@
       "description-long": "Mealie dokáže importovať recepty z Tandoor. Exportujte recepty v prednastavenom formáte a zip-súbor nahrajte nižšie.",
       "title": "Tandoor recepty"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migrácie dát receptov",
     "recipe-data-migrations-explanation": "Recepty je možné prenášať do Mealie z inej podporovanej aplikácie. Je to výborný spôsob ako začať s používaním Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Prichádzate z inej aplikácie alebo dokonca staršej verzie Mealie? Pozrite si možnosti migrácie a zistite, či je možné importovať vaše pôvodné dáta.",
@@ -444,7 +448,9 @@
     "split-by-numbered-line-description": "Pokúsiť sa rozdeliť odsek pomocou vzoru '1)' alebo '1.'",
     "import-by-url": "Importovať recept z URL",
     "create-manually": "Vytvoriť recept manuálne",
-    "make-recipe-image": "Nastaviť ako obrázok receptu"
+    "make-recipe-image": "Nastaviť ako obrázok receptu",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "Chyba 404 - Stránka nenájdená",
@@ -511,6 +517,9 @@
     "recipe-deleted": "Recept bol odstránený",
     "recipe-image": "Obrázok receptu",
     "recipe-image-updated": "Obrázok receptu aktualizovaný",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Názov receptu",
     "recipe-settings": "Nastavenia receptu",
     "recipe-update-failed": "Aktualizácia receptu zlyhala",
@@ -549,13 +558,14 @@
     "failed-to-add-recipes-to-list": "Pridanie receptu do zoznamu zlyhalo",
     "failed-to-add-recipe-to-mealplan": "Pridanie receptu do stravovacieho plánu zlyhalo",
     "failed-to-add-to-list": "Pridanie do zoznamu zlyhalo",
-    "yield": "Počet porcií",
+    "yield": "Množstvo",
     "yields-amount-with-text": "Pre {amount} {text}",
     "yield-text": "Jednotka množstva",
     "quantity": "Množstvo",
     "choose-unit": "Vyberte jednotku",
     "press-enter-to-create": "Stlačte Enter pre vytvorenie",
     "choose-food": "Vyberte potravinu",
+    "choose-recipe": "Choose Recipe",
     "notes": "Poznámky",
     "toggle-section": "Prepnúť sekciu",
     "see-original-text": "Pozrieť pôvodný text",
@@ -583,6 +593,7 @@
     "made-this": "Toto som uvaril",
     "how-did-it-turn-out": "Ako to dopadlo?",
     "user-made-this": "{user} toto uvaril(a)",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Pridané na časovú os",
     "failed-to-add-to-timeline": "Pridanie na časovú os skončilo chybou",
     "failed-to-update-recipe": "Recept sa nepodarilo aktualizovať",
@@ -590,7 +601,7 @@
     "api-extras-description": "API dolnky receptov sú kľúčovou funkcionalitou Mealie API. Umožňujú používateľom vytvárať vlastné JSON páry kľúč/hodnota v rámci receptu, a využiť v aplikáciách tretích strán. Údaje uložené pod jednotlivými kľúčmi je možné využiť napríklad ako spúšťač automatizovaných procesov, či pri zasielaní vlastných správ do vami zvolených zariadení.",
     "message-key": "Kľúč správy",
     "parse": "Analyzovať",
-    "ingredients-not-parsed-description": "",
+    "ingredients-not-parsed-description": "Zdá sa, že vaše suroviny neboli zatiaľ analyzované. Kliknite na tlačidlo \"{parse}\" nižšie, aby ste rozložili ingrediencie do štrukturovaných potravín.",
     "attach-images-hint": "Pridaj obrázky ich potiahnutím a pustením na editor",
     "drop-image": "Odstrániť obrázok",
     "enable-ingredient-amounts-to-use-this-feature": "Povoľ množstvám prísad využívať túto vlastnosť",
@@ -624,6 +635,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Môžete importovať priamo nespracované údaje",
     "import-original-keywords-as-tags": "Importovať pôvodné kľúčové slová ako štítky",
     "stay-in-edit-mode": "Zostať v režime editovania",
+    "parse-recipe-ingredients-after-import": "Analyzovať ingrediencie po importe",
     "import-from-zip": "Importovať zo Zip-súboru",
     "import-from-zip-description": "Importovať recept exportovaný z inej Mealie inštalácie.",
     "import-from-html-or-json": "Importovať z HTML alebo JSONu",
@@ -669,7 +681,13 @@
       "missing-food": "Vytvoriť chýbajúcu surovinu: {food}",
       "this-unit-could-not-be-parsed-automatically": "Túto jednotku nebolo možné parsovať automaticky",
       "this-food-could-not-be-parsed-automatically": "Toto jedlo nebolo možné parsovať automaticky",
-      "no-food": "Žiadne suroviny"
+      "no-food": "Žiadne suroviny",
+      "review-parsed-ingredients": "Skontrolovať analyzované ingrediencie",
+      "confidence-score": "Skóre istoty",
+      "ingredient-parser-description": "Vaše ingrediencie boli úspešne zanalyzované. Prosím prekontrolujte ingrediencie pri ktorých nemáme istotu.",
+      "ingredient-parser-final-review-description": "Keď skontrolujete všetky ingrediencie, budete mať ešte jednu možnosť skontrolovať ich pred tým než uložíte zmeny vo svojom recepte.",
+      "add-text-as-alias-for-item": "Pridať \"{text}\" ako alias pre {item}",
+      "delete-item": "Zmazať položku"
     },
     "reset-servings-count": "Resetovať počet porcií",
     "not-linked-ingredients": "Ďalšie suroviny",
@@ -677,7 +695,10 @@
     "upload-images": "Nahrať obrázky",
     "upload-more-images": "Nahrať ďalšie obrázky",
     "set-as-cover-image": "Nastaviť ako titulný obrázok receptu",
-    "cover-image": "Titulný obrázok"
+    "cover-image": "Titulný obrázok",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Hľadač receptov",
@@ -714,7 +735,8 @@
     "search-hint": "Stlač '/'",
     "advanced": "Rozšírené",
     "auto-search": "Automatické vyhľadávanie",
-    "no-results": "Nenašli sa žiadne výsledky"
+    "no-results": "Nenašli sa žiadne výsledky",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Pridať nový motív",
@@ -1052,7 +1074,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Želáte si, aby sa vám toto už viackrát nezobrazovalo? Zmeňte si prosím váš e-mail v nastaveniach používateľa!",
     "forgot-password": "Zabudnuté heslo",
     "forgot-password-text": "Prosím zadajte svoju e-mailovú adresu a my vám zašleme odkaz, ktorý vám umožní heslo obnoviť.",
-    "changes-reflected-immediately": "Zmeny týkajúce sa tohto používateľa budú vykonané okamžite."
+    "changes-reflected-immediately": "Zmeny týkajúce sa tohto používateľa budú vykonané okamžite.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "preložené",
@@ -1065,7 +1089,7 @@
     "foods": {
       "merge-dialog-text": "Kombináciou vybraných potravín sa zdrojové jedlo a cieľové jedlo zlúčia do jedného jedla. Zdrojové jedlo bude vymazané a všetky odkazy na zdrojové jedlo budú aktualizované tak, aby ukazovali na cieľové jedlo.",
       "merge-food-example": "Zlučujem {food1} do {food2}",
-      "seed-dialog-text": "Naplňte databázu potravinami vo vašom jazyku. Tým vytvoríte viac ako 200 bežných potravín, ktoré môžete použiť na organizovanie vašej databáze. Potraviny sú preložené vďaka úsiliu komunity.",
+      "seed-dialog-text": "Naplňte databázu potravinami vo vašom jazyku. Tým vytvoríte viac ako 2700 bežných potravín, ktoré môžete použiť na organizovanie vašej databáze. Potraviny sú preložené vďaka úsiliu komunity.",
       "seed-dialog-warning": "V databáze už máte nejaké údaje. Táto akcia neodstráni duplicitné položky, budete ich musieť odstrániť ručne.",
       "combine-food": "Kombinované jedlo",
       "source-food": "Zdrojové jedlo",
@@ -1170,7 +1194,7 @@
     "group-details": "Podrobnosti o skupine",
     "group-details-description": "Pred vytvorením účtu musíte vytvoriť skupinu. Vaša skupina bude obsahovať iba vás, ale neskôr budete môcť pozvať ostatných. Členovia vašej skupiny môžu zdieľať stravovacie plány, nákupné zoznamy, recepty a ďalšie!",
     "use-seed-data": "Použiť predvolené dáta",
-    "use-seed-data-description": "Mealie sa dodáva so zbierkou ingrediencií, jednotiek a označení. Môžete ich použiť vo vašej skupine pre lepšiu organizáciu vašich receptov. Tieto sú preložené do jazyka, ktorý ste si práve zvolili. Tieto dáta môžete kedykoľvek doplniť alebo zmeniť.",
+    "use-seed-data-description": "Mealie sa dodáva so zbierkou potravín, jednotiek a označení, ktorými môžete naplniť vašu skupinu užitočnými dátami pre lepšiu organizáciu vašich receptov. Tieto sú preložené do jazyka, ktorý ste si práve zvolili. Tieto dáta môžete kedykoľvek doplniť alebo zmeniť.",
     "account-details": "Detaily účtu"
   },
   "validation": {
@@ -1340,7 +1364,7 @@
     "notifiers": "Notifikátory",
     "notifiers-description": "Nastaviť e-mail a push notifikácie, ktoré sa spúšťajú pri špecifických udalostiach.",
     "manage-data": "Spravovať dáta",
-    "manage-data-description": "Spravujte svoje údaje, jedlá, jednotky, kategórie, štítky a ďalšie.",
+    "manage-data-description": "Spravujte svoje údaje, potraviny, jednotky, kategórie, štítky a ďalšie.",
     "data-migrations": "Migrácie dát",
     "data-migrations-description": "Migrujte svoje existujúce údaje z iných aplikácií, ako sú Nextcloud Recipes a Chowdown.",
     "email-sent": "E-mail Odoslaný",

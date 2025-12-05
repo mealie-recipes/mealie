@@ -399,6 +399,10 @@
       "description-long": "Mealie pot importar les receptes de Tandoor. Exporta les dades en format \"Default\", i carrega el .zip a sota.",
       "title": "Tandoor Recipes"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migració de receptes",
     "recipe-data-migrations-explanation": "Les receptes es poden migrar des d'una altra aplicació suportada cap a Mealie. És una manera genial de començar a utilitzar el Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Véns d'una altra aplicació o una versió més antiga de Mealia? Fés un cop d'ull a migracions i mira si pots importar les teves dades.",
@@ -444,7 +448,9 @@
     "split-by-numbered-line-description": "Intenta separar per paràgrafs, utilitzant com a patró '1)' o '1.'",
     "import-by-url": "Importa per URL",
     "create-manually": "Crea una recepta manualment",
-    "make-recipe-image": "Fes-la la imatge de la recepta"
+    "make-recipe-image": "Fes-la la imatge de la recepta",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 - Pàgina no trobada",
@@ -511,6 +517,9 @@
     "recipe-deleted": "S'ha suprimit la recepta",
     "recipe-image": "Imatge de la recepta",
     "recipe-image-updated": "S'ha actualitzat la imatge de la recepta",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Nom de la recepta",
     "recipe-settings": "Opcions de la recepta",
     "recipe-update-failed": "S'ha produït un error a l'actualitzar la recepta",
@@ -556,6 +565,7 @@
     "choose-unit": "Tria el tipus d'unitat",
     "press-enter-to-create": "Premeu enter per a crear-lo",
     "choose-food": "Tria un aliment",
+    "choose-recipe": "Choose Recipe",
     "notes": "Notes",
     "toggle-section": "Nova secció",
     "see-original-text": "Mostra el text original",
@@ -583,6 +593,7 @@
     "made-this": "Ho he fet",
     "how-did-it-turn-out": "Com ha sortit?",
     "user-made-this": "{user} ha fet això",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Added to timeline",
     "failed-to-add-to-timeline": "Failed to add to timeline",
     "failed-to-update-recipe": "Failed to update recipe",
@@ -624,6 +635,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Podeu importar directament des de les dades planes",
     "import-original-keywords-as-tags": "Importa les paraules clau originals com a tags",
     "stay-in-edit-mode": "Segueix en el mode d'edició",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Importa des d'un ZIP",
     "import-from-zip-description": "Importa una sola recepta que ha estat importada d'una altra instància de Mealie.",
     "import-from-html-or-json": "Importar des d'un HTML o JSON",
@@ -669,7 +681,13 @@
       "missing-food": "Crear menjar que manca: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
-      "no-food": "Sense menjar"
+      "no-food": "Sense menjar",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "Reiniciar racions servides",
     "not-linked-ingredients": "Ingredients addicionals",
@@ -677,7 +695,10 @@
     "upload-images": "Upload images",
     "upload-more-images": "Upload more images",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "Cover image",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Cercador de receptes",
@@ -714,7 +735,8 @@
     "search-hint": "Prem '/'",
     "advanced": "Avançat",
     "auto-search": "Cerca automàtica",
-    "no-results": "No s'han trobat resultats"
+    "no-results": "No s'han trobat resultats",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Afegiu un nou tema",
@@ -1052,7 +1074,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "No vols tornar a veure això? Assegura't de canviar el teu correu electrònic a les configuracions del teu usuari!",
     "forgot-password": "Contrasenya oblidada",
     "forgot-password-text": "Introdueix siusplau la teva adreça de correu electrònic i t'enviarem un enllaç per restablir la teva contrassenya.",
-    "changes-reflected-immediately": "Els canvis en aquest usuari s'actualitzaran immediatament."
+    "changes-reflected-immediately": "Els canvis en aquest usuari s'actualitzaran immediatament.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "traduït",

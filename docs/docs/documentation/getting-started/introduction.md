@@ -28,6 +28,7 @@ Mealie is a self hosted recipe manager and meal planner with a RestAPI backend a
     - Copy Me That
     - Paprika
     - Tandoor Recipes
+    - DVO Cook'n X3
   - Random Meal Plan generation
     - Advanced rule configuration to fine tune random recipes
 

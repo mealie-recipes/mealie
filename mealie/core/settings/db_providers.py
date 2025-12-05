@@ -75,15 +75,7 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
         if self.POSTGRES_URL_OVERRIDE:
             return "Postgres Url Overridden"
 
-        return str(
-            PostgresDsn.build(
-                scheme="postgresql",
-                username="******",
-                password="******",
-                host=f"{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}",
-                path=f"{self.POSTGRES_DB or ''}",
-            )
-        )
+        return f"postgresql://******:******@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB or ''}"
 
 
 def db_provider_factory(provider_name: str, data_dir: Path, env_file: Path, env_encoding="utf-8") -> AbstractDBProvider:

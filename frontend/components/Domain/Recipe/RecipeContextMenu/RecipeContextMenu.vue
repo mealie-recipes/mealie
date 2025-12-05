@@ -38,6 +38,7 @@
       <RecipeContextMenuContent
         v-if="isMenuContentLoaded"
         v-bind="contentProps"
+        @print="$emit('print')"
         @deleted="$emit('deleted', $event)"
       />
     </v-menu>
@@ -108,6 +109,7 @@ const props = withDefaults(defineProps<Props>(), {
 
 defineEmits<{
   [key: string]: any;
+  print: [];
   deleted: [slug: string];
 }>();
 

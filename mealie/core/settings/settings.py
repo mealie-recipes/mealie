@@ -123,6 +123,14 @@ class AppSettings(AppLoggingSettings):
     TOKEN_TIME: int = 48
     """time in hours"""
 
+    @field_validator("TOKEN_TIME")
+    @classmethod
+    def validate_token_time(cls, v: int) -> int:
+        if v < 1:
+            raise ValueError("TOKEN_TIME must be at least 1 hour")
+        # Certain browsers (webkit) have issues with very long-lived cookies, so we limit to 400 days
+        return min(v, 400 * 24)
+
     SECRET: str
     SESSION_SECRET: str
 

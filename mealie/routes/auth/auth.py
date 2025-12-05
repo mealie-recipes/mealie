@@ -1,7 +1,7 @@
-from datetime import timedelta
+from typing import Annotated
 
 from authlib.integrations.starlette_client import OAuth
-from fastapi import APIRouter, Depends, Request, Response, status
+from fastapi import APIRouter, Depends, Header, Request, Response, status
 from fastapi.exceptions import HTTPException
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
@@ -15,6 +15,7 @@ from mealie.core.exceptions import MissingClaimException, UserLockedOut
 from mealie.core.security.providers.openid_provider import OpenIDProvider
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
+from mealie.lang import local_provider
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
 from mealie.schema.user.auth import CredentialsRequestForm
@@ -25,7 +26,6 @@ public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])
 logger = root_logger.get_logger("auth")
 
-remember_me_duration = timedelta(days=14)
 
 settings = get_app_settings()
 if settings.OIDC_READY:
@@ -60,12 +60,7 @@ class MealieAuthToken(BaseModel):
 
 
 @public_router.post("/token")
-def get_token(
-    request: Request,
-    response: Response,
-    data: CredentialsRequestForm = Depends(),
-    session: Session = Depends(generate_session),
-):
+def get_token(request: Request, data: CredentialsRequestForm = Depends(), session: Session = Depends(generate_session)):
     if "x-forwarded-for" in request.headers:
         ip = request.headers["x-forwarded-for"]
         if "," in ip:  # if there are multiple IPs, the first one is canonically the true client
@@ -86,17 +81,8 @@ def get_token(
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
         )
-    access_token, duration = auth
 
-    expires_in = duration.total_seconds() if duration else None
-    response.set_cookie(
-        key="mealie.access_token",
-        value=access_token,
-        httponly=True,
-        max_age=expires_in,
-        secure=settings.PRODUCTION,
-    )
-
+    access_token, _ = auth
     return MealieAuthToken.respond(access_token)
 
 
@@ -120,7 +106,7 @@ async def oauth_login(request: Request):
 
 
 @public_router.get("/oauth/callback")
-async def oauth_callback(request: Request, response: Response, session: Session = Depends(generate_session)):
+async def oauth_callback(request: Request, session: Session = Depends(generate_session)):
     if not oauth:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -145,18 +131,8 @@ async def oauth_callback(request: Request, response: Response, session: Session 
 
     if not auth:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
-    access_token, duration = auth
 
-    expires_in = duration.total_seconds() if duration else None
-
-    response.set_cookie(
-        key="mealie.access_token",
-        value=access_token,
-        httponly=True,
-        max_age=expires_in,
-        secure=settings.PRODUCTION,
-    )
-
+    access_token, _ = auth
     return MealieAuthToken.respond(access_token)
 
 
@@ -168,6 +144,11 @@ async def refresh_token(current_user: PrivateUser = Depends(get_current_user)):
 
 
 @user_router.post("/logout")
-async def logout(response: Response):
+async def logout(
+    response: Response,
+    accept_language: Annotated[str | None, Header()] = None,
+):
     response.delete_cookie("mealie.access_token")
-    return {"message": "Logged out"}
+
+    translator = local_provider(accept_language)
+    return {"message": translator.t("notifications.logged-out")}

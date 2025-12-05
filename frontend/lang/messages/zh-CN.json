@@ -399,6 +399,10 @@
       "description-long": "Mealie支持从Tandoor中导入食谱。在Tandoor中以“默认”格式导出数据，并在下方上传zip文件。",
       "title": "Tandoor食谱"
     },
+    "cookn": {
+      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "食谱数据迁移",
     "recipe-data-migrations-explanation": "你可以从受支持的应用中将食谱迁移至Mealie，这是上手Mealie的好方法。",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "之前使用其他食谱应用或是旧版本Mealie吗？检查迁移设置，来确认你的原有数据是否可以导入。",
@@ -444,7 +448,9 @@
     "split-by-numbered-line-description": "尝试匹配 “1)” 或 “1.” 的格式来分割段落",
     "import-by-url": "通过网址导入食谱",
     "create-manually": "手动创建食谱",
-    "make-recipe-image": "将此设为食谱图片"
+    "make-recipe-image": "将此设为食谱图片",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404-页面未找到",
@@ -511,6 +517,9 @@
     "recipe-deleted": "食谱已删除",
     "recipe-image": "食谱图片",
     "recipe-image-updated": "食谱图片已更新",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "食谱名称",
     "recipe-settings": "食谱设置",
     "recipe-update-failed": "食谱更新失败",
@@ -556,6 +565,7 @@
     "choose-unit": "选择单位",
     "press-enter-to-create": "按回车键以创建",
     "choose-food": "选择食品",
+    "choose-recipe": "Choose Recipe",
     "notes": "备注",
     "toggle-section": "切换分类",
     "see-original-text": "查看原文",
@@ -583,6 +593,7 @@
     "made-this": "我做了这道菜",
     "how-did-it-turn-out": "成品怎么样?",
     "user-made-this": "{user}制作了这个",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "添加到时间轴",
     "failed-to-add-to-timeline": "未能添加到时间轴",
     "failed-to-update-recipe": "更新配方失败",
@@ -624,6 +635,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "您可以直接从原始数据导入",
     "import-original-keywords-as-tags": "导入原始关键字作为标签",
     "stay-in-edit-mode": "留在编辑模式",
+    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "从Zip压缩包导入",
     "import-from-zip-description": "导入从另一个Mealie应用导出的单个食谱。",
     "import-from-html-or-json": "从 HTML 或 JSON 导入",
@@ -669,7 +681,13 @@
       "missing-food": "创建缺失的食物：{food}",
       "this-unit-could-not-be-parsed-automatically": "无法自动解析此单元",
       "this-food-could-not-be-parsed-automatically": "这种食物不能被自动解析",
-      "no-food": "没有食物"
+      "no-food": "没有食物",
+      "review-parsed-ingredients": "Review parsed ingredients",
+      "confidence-score": "Confidence Score",
+      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
+      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "delete-item": "Delete Item"
     },
     "reset-servings-count": "重置份量数量",
     "not-linked-ingredients": "附加配料",
@@ -677,7 +695,10 @@
     "upload-images": "上传图片",
     "upload-more-images": "上传更多图片",
     "set-as-cover-image": "设置为食谱封面图片",
-    "cover-image": "封面图片"
+    "cover-image": "封面图片",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "食谱搜索",
@@ -714,7 +735,8 @@
     "search-hint": "按 '/'",
     "advanced": "高级",
     "auto-search": "自动搜索",
-    "no-results": "未找到任何结果"
+    "no-results": "未找到任何结果",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "新增布景主题",
@@ -1052,7 +1074,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "不想再看到这条消息了吗？请务必在用户设置中更改你的邮箱！",
     "forgot-password": "忘记密码",
     "forgot-password-text": "请输入你的邮箱地址，我们会发给你重置密码的链接。",
-    "changes-reflected-immediately": "对用户的更改将立即生效。"
+    "changes-reflected-immediately": "对用户的更改将立即生效。",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "已翻译",

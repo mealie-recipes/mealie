@@ -5,6 +5,7 @@
     "recipe": {
         "unique-name-error": "Recipe names must be unique",
         "recipe-created": "Recipe Created",
+        "recipe-image-deleted": "Recipe image deleted",
         "recipe-defaults": {
             "ingredient-note": "1 Cup Flour",
             "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "You do not have permission to perform this action",
+        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "The requested resource was not found",
         "integrity-error": "Database integrity error",
         "username-conflict-error": "This username is already taken",
@@ -43,7 +45,8 @@
         "generic-created-with-url": "{name} has been created, {url}",
         "generic-updated-with-url": "{name} has been updated, {url}",
         "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted"
+        "generic-deleted": "{name} has been deleted",
+        "logged-out": "Logged out"
     },
     "datetime": {
         "year": "year|years",

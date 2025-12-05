@@ -5,6 +5,7 @@
     "recipe": {
         "unique-name-error": "Назва рецепту повинна бути унікальною",
         "recipe-created": "Рецепт створено",
+        "recipe-image-deleted": "Зображення рецепту видалено",
         "recipe-defaults": {
             "ingredient-note": "Стакан борошна",
             "step-text": "Кроки рецептів, так само як і інші поля сторінки, підтримують синтаксис markdown.\n\n**Додати посилання**\n\n[Моє посилання](https://demo.mealie.io)\n"
@@ -14,8 +15,8 @@
             "serves": "Подає",
             "serving": "Порція",
             "servings": "Порції",
-            "yield": "Yield",
-            "yields": "Yields"
+            "yield": "Вихід",
+            "yields": "Вихід"
         }
     },
     "mealplan": {
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "У вас немає дозволу на виконання цієї дії",
+        "recursive-recipe-link": "Рецепт не може посилатися на себе безпосередньо, або опосередковано",
         "no-entry-found": "Ресурс не знайдено",
         "integrity-error": "Помилка цілісності бази даних",
         "username-conflict-error": "Це ім'я користувача вже використовується",
@@ -43,7 +45,8 @@
         "generic-created-with-url": "{name} створено, {url}",
         "generic-updated-with-url": "{name} оновлено, {url}",
         "generic-duplicated": "{name} дубльовано",
-        "generic-deleted": "{name} видалено"
+        "generic-deleted": "{name} видалено",
+        "logged-out": "Вихід із системи"
     },
     "datetime": {
         "year": "рік|роки",

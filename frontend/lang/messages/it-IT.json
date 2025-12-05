@@ -399,6 +399,10 @@
       "description-long": "Mealie può importare ricette da Tandoor. Esporta i tuoi dati nel formato \"Predefinito\", quindi carica il file .zip sottostante.",
       "title": "Ricette Del Tandoore"
     },
+    "cookn": {
+      "description-long": "Mealie può importare ricette da DVO Cook'n X3. Per esportare un ricettario o un menu nel formato \"Cook'n\", rinominare l'estensione di esportazione in .zip, quindi caricare il file .zip qui sotto.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migrazione Dati Ricetta",
     "recipe-data-migrations-explanation": "Le ricette possono essere migrate da un'altra applicazione supportata da Mealie. Questo è un ottimo modo per iniziare con Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Arrivi da un'altra applicazione o da una versione più vecchia di Mealie? Scopri le migrazioni e scopri se i tuoi dati possono essere importati.",
@@ -444,7 +448,9 @@
     "split-by-numbered-line-description": "Tenta di dividere un paragrafo con i modelli '1)' o '1.'",
     "import-by-url": "Importa una ricetta tramite URL",
     "create-manually": "Crea una ricetta manualmente",
-    "make-recipe-image": "Usa come immagine della ricetta"
+    "make-recipe-image": "Usa come immagine della ricetta",
+    "add-food": "Aggiungi cibo",
+    "add-recipe": "Aggiungi ricetta"
   },
   "page": {
     "404-page-not-found": "404 Pagina non Trovata",
@@ -511,6 +517,9 @@
     "recipe-deleted": "Ricetta eliminata",
     "recipe-image": "Immagine Ricetta",
     "recipe-image-updated": "Immagine ricetta aggiornata",
+    "delete-image": "Elimina Immagine Ricetta",
+    "delete-image-confirmation": "Sei sicuro di voler eliminare questa immagine della ricetta?",
+    "recipe-image-deleted": "Immagine della ricetta eliminata",
     "recipe-name": "Nome Ricetta",
     "recipe-settings": "Impostazioni Ricetta",
     "recipe-update-failed": "Aggiornamento ricetta fallito",
@@ -556,12 +565,13 @@
     "choose-unit": "Scegli Unità",
     "press-enter-to-create": "Premi invio per creare",
     "choose-food": "Scegli Cibo",
+    "choose-recipe": "Scegli Ricetta",
     "notes": "Note",
     "toggle-section": "Attiva Sezione",
     "see-original-text": "Vedi Testo Originale",
     "original-text-with-value": "Testo originale: {originalText}",
     "ingredient-linker": "Linker degli Ingredienti",
-    "unlinked": "Not linked yet",
+    "unlinked": "Non ancora collegato",
     "linked-to-other-step": "Collegato ad un altro passaggio",
     "auto": "Automatico",
     "cook-mode": "Modalità di Cottura",
@@ -583,6 +593,7 @@
     "made-this": "L'Ho Preparato",
     "how-did-it-turn-out": "Come è venuto?",
     "user-made-this": "{user} l'ha preparato",
+    "made-for-recipe": "Creato per {recipe}",
     "added-to-timeline": "Aggiunto alla cronologia",
     "failed-to-add-to-timeline": "Impossibile aggiungere alla cronologia",
     "failed-to-update-recipe": "Impossibile aggiornare la ricetta",
@@ -624,6 +635,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "È possibile importare direttamente dai dati grezzi",
     "import-original-keywords-as-tags": "Importa parole chiave originali come tag",
     "stay-in-edit-mode": "Rimani in modalità Modifica",
+    "parse-recipe-ingredients-after-import": "Analizza gli ingredienti della ricetta dopo l'importazione",
     "import-from-zip": "Importa da Zip",
     "import-from-zip-description": "Importa una singola ricetta esportata da un'altra istanza di Mealie.",
     "import-from-html-or-json": "Importa da HTML o JSON",
@@ -669,7 +681,13 @@
       "missing-food": "Crea cibo mancante: {food}",
       "this-unit-could-not-be-parsed-automatically": "Questa unità non può essere analizzata automaticamente",
       "this-food-could-not-be-parsed-automatically": "Questo alimento non può essere analizzato automaticamente",
-      "no-food": "Nessun Alimento"
+      "no-food": "Nessun Alimento",
+      "review-parsed-ingredients": "Controlla ingredienti analizzati",
+      "confidence-score": "Punteggio Di Confidenza",
+      "ingredient-parser-description": "I tuoi ingredienti sono stati analizzati con successo. Controlla gli ingredienti di cui non siamo sicuri.",
+      "ingredient-parser-final-review-description": "Una volta che tutti gli ingredienti sono stati controllati, avrai ancora una possibilità di rivederli tutti prima di applicare le modifiche alla ricetta.",
+      "add-text-as-alias-for-item": "Aggiungi \"{text}\" come alias per {item}",
+      "delete-item": "Elimina elemento"
     },
     "reset-servings-count": "Reimposta conteggio porzioni",
     "not-linked-ingredients": "Ingredienti Aggiuntivi",
@@ -677,7 +695,10 @@
     "upload-images": "Carica immagini",
     "upload-more-images": "Carica altre immagini",
     "set-as-cover-image": "Imposta come immagine di copertina della ricetta",
-    "cover-image": "Immagine di copertina"
+    "cover-image": "Immagine di copertina",
+    "include-linked-recipes": "Includi Ricette Collegate",
+    "include-linked-recipe-ingredients": "Includi Ingredienti Della Ricetta Collegata",
+    "toggle-recipe": "Attiva/Disattiva Ricetta"
   },
   "recipe-finder": {
     "recipe-finder": "Trova ricette",
@@ -714,7 +735,8 @@
     "search-hint": "Premi '/'",
     "advanced": "Ricerca Avanzata",
     "auto-search": "Ricerca automatica",
-    "no-results": "Nessun risultato trovato"
+    "no-results": "Nessun risultato trovato",
+    "type-to-search": "Scrivi per cercare..."
   },
   "settings": {
     "add-a-new-theme": "Aggiungi un Nuovo Tema",
@@ -1052,7 +1074,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Non vuoi più vederlo? Assicurati di modificare la tua email nelle impostazioni utente!",
     "forgot-password": "Password Dimenticata",
     "forgot-password-text": "Inserisci il tuo indirizzo email e ti invieremo un collegamento per reimpostare la tua password.",
-    "changes-reflected-immediately": "Le modifiche a questo utente diventeranno immediatamente effettive."
+    "changes-reflected-immediately": "Le modifiche a questo utente diventeranno immediatamente effettive.",
+    "default-activity": "Attività Predefinita",
+    "default-activity-hint": "Seleziona a quale pagina vuoi navigare al momento dell'accesso da questo dispositivo"
   },
   "language-dialog": {
     "translated": "tradotto",

@@ -1,7 +1,7 @@
 <template>
   <v-form
     ref="domUrlForm"
-    @submit.prevent="createFromHtmlOrJson(newRecipeData, importKeywordsAsTags, stayInEditMode)"
+    @submit.prevent="createFromHtmlOrJson(newRecipeData, importKeywordsAsTags)"
   >
     <div>
       <v-card-title class="headline">
@@ -48,13 +48,21 @@
         />
         <v-checkbox
           v-model="importKeywordsAsTags"
+          color="primary"
           hide-details
           :label="$t('recipe.import-original-keywords-as-tags')"
         />
         <v-checkbox
           v-model="stayInEditMode"
+          color="primary"
           hide-details
           :label="$t('recipe.stay-in-edit-mode')"
+        />
+        <v-checkbox
+          v-model="parseRecipe"
+          color="primary"
+          hide-details
+          :label="$t('recipe.parse-recipe-ingredients-after-import')"
         />
       </v-card-text>
       <v-card-actions class="justify-center">
@@ -76,6 +84,7 @@
 import type { AxiosResponse } from "axios";
 import { useTagStore } from "~/composables/store/use-tag-store";
 import { useUserApi } from "~/composables/api";
+import { useNewRecipeOptions } from "~/composables/use-new-recipe-options";
 import { validators } from "~/composables/use-validators";
 import type { VForm } from "~/types/auto-forms";
 
@@ -92,28 +101,16 @@ export default defineNuxtComponent({
     const domUrlForm = ref<VForm | null>(null);
 
     const api = useUserApi();
-    const router = useRouter();
     const tags = useTagStore();
 
-    const importKeywordsAsTags = computed({
-      get() {
-        return route.query.use_keywords === "1";
-      },
-      set(v: boolean) {
-        router.replace({ query: { ...route.query, use_keywords: v ? "1" : "0" } });
-      },
-    });
+    const {
+      importKeywordsAsTags,
+      stayInEditMode,
+      parseRecipe,
+      navigateToRecipe,
+    } = useNewRecipeOptions();
 
-    const stayInEditMode = computed({
-      get() {
-        return route.query.edit === "1";
-      },
-      set(v: boolean) {
-        router.replace({ query: { ...route.query, edit: v ? "1" : "0" } });
-      },
-    });
-
-    function handleResponse(response: AxiosResponse<string> | null, edit = false, refreshTags = false) {
+    function handleResponse(response: AxiosResponse<string> | null, refreshTags = false) {
       if (response?.status !== 201) {
         state.error = true;
         state.loading = false;
@@ -123,7 +120,7 @@ export default defineNuxtComponent({
         tags.actions.refresh();
       }
 
-      router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}`);
+      navigateToRecipe(response.data, groupSlug.value, `/g/${groupSlug.value}/r/create/html`);
     }
 
     const newRecipeData = ref<string | object | null>(null);
@@ -151,7 +148,7 @@ export default defineNuxtComponent({
     }
     handleIsEditJson();
 
-    async function createFromHtmlOrJson(htmlOrJsonData: string | object | null, importKeywordsAsTags: boolean, stayInEditMode: boolean) {
+    async function createFromHtmlOrJson(htmlOrJsonData: string | object | null, importKeywordsAsTags: boolean) {
       if (!htmlOrJsonData || !domUrlForm.value?.validate()) {
         return;
       }
@@ -166,13 +163,14 @@ export default defineNuxtComponent({
 
       state.loading = true;
       const { response } = await api.recipes.createOneByHtmlOrJson(dataString, importKeywordsAsTags);
-      handleResponse(response, stayInEditMode, importKeywordsAsTags);
+      handleResponse(response, importKeywordsAsTags);
     }
 
     return {
       domUrlForm,
       importKeywordsAsTags,
       stayInEditMode,
+      parseRecipe,
       newRecipeData,
       handleIsEditJson,
       createFromHtmlOrJson,

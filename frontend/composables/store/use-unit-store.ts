@@ -18,5 +18,5 @@ export const useUnitData = function () {
 
 export const useUnitStore = function (i18n?: Composer) {
   const api = useUserApi(i18n);
-  return useStore<IngredientUnit>(store, loading, api.units);
+  return useStore<IngredientUnit>("unit", store, loading, api.units);
 };

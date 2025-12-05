@@ -69,7 +69,7 @@
     "new-notification": "Novo obvestilo",
     "event-notifiers": "Obvestila o dogodkih",
     "apprise-url-skipped-if-blank": "Apprise URL (preskočeno, če je prazno)",
-    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
+    "apprise-url-is-left-intentionally-blank": "Ker URL-ji Apprise običajno vsebujejo občutljive podatke, je to polje med urejanjem namerno prazno. Če želite posodobiti URL, vnesite novega tukaj, sicer pustite prazno, da ohranite trenutni URL.",
     "enable-notifier": "Vključi obvestila",
     "what-events": "Katere dogodke naj spremlja obveščevalni sistem?",
     "user-events": "Dogodki uporabnika",
@@ -81,7 +81,7 @@
     "category-events": "Dogodki kategorij",
     "when-a-new-user-joins-your-group": "Ko se novi uporabnik pridruži tvoji skupini",
     "recipe-events": "Dogodki receptov",
-    "label-events": "Label Events"
+    "label-events": "Dogodki oznak"
   },
   "general": {
     "add": "Dodaj",
@@ -399,6 +399,10 @@
       "description-long": "Mealie lahko uvozi recepte iz aplikacije Tandoor. Izvozi podatke v \"Default\" formatu, nato spodaj naloži .zip datoteko.",
       "title": "Tandoor recepti"
     },
+    "cookn": {
+      "description-long": "Mealie lahko uvozi recepte iz DVO Cook'n X3. Izvozite kuharsko knjigo ali jedilnik v formatu »Cook'n«, preimenujte izvozno končnico v .zip in nato naložite spodnjo datoteko .zip.",
+      "title": "DVO Cook'n X3"
+    },
     "recipe-data-migrations": "Migracije receptov",
     "recipe-data-migrations-explanation": "Recepte lahko migriraš iz drugih podprtih aplikacij v Mealie. To je super način za čim hitrejši začetek z Mealie.",
     "coming-from-another-application-or-an-even-older-version-of-mealie": "Prihajaš iz druge aplijacije ali celo starejše verzije Mealie aplikacije? Poglej podprte migracije in preveri, če lahko uvoziš svoje podatke.",
@@ -444,7 +448,9 @@
     "split-by-numbered-line-description": "Poskušaj razdeliti odstavek z ujemanjem '1)' ali '1.' vzorcev",
     "import-by-url": "Uvozi recept preko URL",
     "create-manually": "Ročno ustvari recept",
-    "make-recipe-image": "To sliko izberi kot sliko recepta"
+    "make-recipe-image": "To sliko izberi kot sliko recepta",
+    "add-food": "Dodaj hrano",
+    "add-recipe": "Dodaj recept"
   },
   "page": {
     "404-page-not-found": "404 strani ni mogoče najti",
@@ -474,7 +480,7 @@
     "comment": "Komentar",
     "comments": "Pripombe",
     "delete-confirmation": "Ali želite izbrisati ta recept?",
-    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
+    "admin-delete-confirmation": "Z administratorskimi pravicami boste izbrisali recept, ki ni vaš. Ste prepričani?",
     "delete-recipe": "Izbriši recept",
     "description": "Opis",
     "disable-amount": "Onemogoči prikaz količin sestavin",
@@ -511,6 +517,9 @@
     "recipe-deleted": "Recept je izbrisan",
     "recipe-image": "Slika recepta",
     "recipe-image-updated": "Slika recepta je posodobljena",
+    "delete-image": "Izbriši sliko recepta",
+    "delete-image-confirmation": "Ali ste prepričani, da želite izbrisati to sliko recepta?",
+    "recipe-image-deleted": "Slika recepta je bila izbrisana",
     "recipe-name": "Naslov recepta",
     "recipe-settings": "Nastavitve recepta",
     "recipe-update-failed": "Napaka pri posodobitvi recepta",
@@ -556,12 +565,13 @@
     "choose-unit": "Izberite enoto",
     "press-enter-to-create": "Pritisnite enter da izdelate",
     "choose-food": "Izberite hrano",
+    "choose-recipe": "Izberi recept",
     "notes": "Zapiski",
     "toggle-section": "Preklopi izbiro",
     "see-original-text": "Prikaži izvirno besedilo",
     "original-text-with-value": "Originalno besedilo: {originalText}",
     "ingredient-linker": "Povezovanje sestavin",
-    "unlinked": "Not linked yet",
+    "unlinked": "Še ni povezano",
     "linked-to-other-step": "Povezano s naslednjim korakom",
     "auto": "Samodejno",
     "cook-mode": "Način kuhanja",
@@ -583,14 +593,15 @@
     "made-this": "Naredil sem to",
     "how-did-it-turn-out": "Kako se je izkazalo?",
     "user-made-this": "{user} je tole pripravil/a",
-    "added-to-timeline": "Added to timeline",
-    "failed-to-add-to-timeline": "Failed to add to timeline",
-    "failed-to-update-recipe": "Failed to update recipe",
-    "added-to-timeline-but-failed-to-add-image": "Added to timeline, but failed to add image",
+    "made-for-recipe": "Narejeno za {recipe}",
+    "added-to-timeline": "Dodano na časovnico",
+    "failed-to-add-to-timeline": "Dodajanje na časovnico ni uspelo",
+    "failed-to-update-recipe": "Posodobitev recepta ni uspela",
+    "added-to-timeline-but-failed-to-add-image": "Dodano na časovnico, vendar slike ni bilo mogoče dodati",
     "api-extras-description": "Dodatni podatki za recepte so ključna funkcionalnost Mealie APIja. Omogočajo ustvarjanje lastnih JSON ključ / vrednost parov v okviru recepta, da lahko do njih dostopajo zunanje aplikacije. Te ključe lahko uporabiš za posredovanje informacij, na primer za sprožanje avtomatike ali sporočanje prilagojenih sporočil na poljubno napravo.",
     "message-key": "Ključ sporočila",
     "parse": "Razloči",
-    "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
+    "ingredients-not-parsed-description": "Zdi se, da vaše sestavine še niso razčlenjene. Kliknite spodnji gumb »{parse}«, da jih razčlenite v strukturirana živila.",
     "attach-images-hint": "Slike pripneš z odlaganjem v urejevalnik",
     "drop-image": "Odloži sliko",
     "enable-ingredient-amounts-to-use-this-feature": "Vključi količine sestavin, da uporabiš to funkcijo",
@@ -624,6 +635,7 @@
     "scrape-recipe-you-can-import-from-raw-data-directly": "Uvoziš lahko neposredno iz surovih podatkov",
     "import-original-keywords-as-tags": "Uvozi izvorne ključne besede kot značke",
     "stay-in-edit-mode": "Urejaj naprej",
+    "parse-recipe-ingredients-after-import": "Razčlenitev sestavin recepta po uvozu",
     "import-from-zip": "Uvozi z Zip",
     "import-from-zip-description": "Uvozi posamezen recept, ki je bil izvožen iz druge instance Mealie aplikacije.",
     "import-from-html-or-json": "Uvozi iz HTML ali JSON",
@@ -667,17 +679,26 @@
       "no-unit": "Ni enote",
       "missing-unit": "Ustvari manjkajočo enoto: {unit}",
       "missing-food": "Ustvari manjkajoče živilo: {food}",
-      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
-      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
-      "no-food": "Ni živila"
+      "this-unit-could-not-be-parsed-automatically": "Te enote ni bilo mogoče samodejno razčleniti",
+      "this-food-could-not-be-parsed-automatically": "Te hrane ni bilo mogoče samodejno razčleniti",
+      "no-food": "Ni živila",
+      "review-parsed-ingredients": "Pregled razčlenjenih sestavin",
+      "confidence-score": "Stopnja zaupanja",
+      "ingredient-parser-description": "Vaše sestavine so bile uspešno razčlenjene. Prosimo, preglejte sestavine, glede katerih nismo prepričani.",
+      "ingredient-parser-final-review-description": "Ko bodo vse sestavine pregledane, boste imeli še eno priložnost, da jih pregledate, preden spremembe uveljavite v svojem receptu.",
+      "add-text-as-alias-for-item": "Dodaj \"{text}\" kot vzdevek za {item}",
+      "delete-item": "Izbriši element"
     },
     "reset-servings-count": "Ponastavi števec obrokov",
     "not-linked-ingredients": "Dodatne sestavine",
     "upload-another-image": "Naloži drugo sliko",
     "upload-images": "Naloži slike",
     "upload-more-images": "Naloži več slik",
-    "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "set-as-cover-image": "Nastavi kot sliko naslovnice recepta",
+    "cover-image": "Naslovna slika",
+    "include-linked-recipes": "Vključi povezane recepte",
+    "include-linked-recipe-ingredients": "Vključi povezane sestavine recepta",
+    "toggle-recipe": "Preklopi recept"
   },
   "recipe-finder": {
     "recipe-finder": "Iskalnik receptov",
@@ -714,7 +735,8 @@
     "search-hint": "Pritisni '/'",
     "advanced": "Napredno",
     "auto-search": "Avtomatsko iskanje",
-    "no-results": "Ni zadetkov"
+    "no-results": "Ni zadetkov",
+    "type-to-search": "Vpiši iskalni niz..."
   },
   "settings": {
     "add-a-new-theme": "Dodaj novo temo",
@@ -1052,7 +1074,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ne želiš več videti tega sporočila? Spremeni svoj email v uporabiških nastavitvah!",
     "forgot-password": "Ste pozabili geslo",
     "forgot-password-text": "Vnesi svoj email naslov, poslali ti bomo povezavo za ponastavitev gesla.",
-    "changes-reflected-immediately": "Spremembe na tem uporabniku se poznajo takoj."
+    "changes-reflected-immediately": "Spremembe na tem uporabniku se poznajo takoj.",
+    "default-activity": "Privzeta dejavnost",
+    "default-activity-hint": "Izberite, na katero stran želite priti ob prijavi iz te naprave"
   },
   "language-dialog": {
     "translated": "prevedeno",
@@ -1170,7 +1194,7 @@
     "group-details": "Detajli skupine",
     "group-details-description": "Preden kreirate račun, morate kreirati skupino. V skupini boste sprva samo vi, vendar imate možnost povabiti še ostale člane. Člani v vaši skupini lahko delijo načrte obrokov, nakupovalne sezname, recepte in še več!",
     "use-seed-data": "Uporabi privzete podatke",
-    "use-seed-data-description": "Mealie ships with a collection of Foods, Units, and Labels that can be used to populate your group with helpful data for organizing your recipes. These are translated into the language you currently have selected. You can always add to or modify this data later.",
+    "use-seed-data-description": "Mealie ima na voljo zbirko živil, enot in oznak, ki jih lahko uporabite za dopolnitev vaše skupine s koristnimi podatki za organizacijo receptov. Ti so prevedeni v jezik, ki ste ga trenutno izbrali. Te podatke lahko kadar koli pozneje dodate ali spremenite.",
     "account-details": "Podatki o računu"
   },
   "validation": {

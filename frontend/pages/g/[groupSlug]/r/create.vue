@@ -43,24 +43,20 @@
 </template>
 
 <script lang="ts">
-import { useAppInfo } from "~/composables/api";
 import type { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 import AdvancedOnly from "~/components/global/AdvancedOnly.vue";
 
 export default defineNuxtComponent({
   components: { AdvancedOnly },
-  middleware: ["sidebase-auth", "group-only"],
+  middleware: ["group-only"],
   setup() {
     const i18n = useI18n();
     const $auth = useMealieAuth();
-    const $globals = useNuxtApp().$globals;
+    const { $appInfo, $globals } = useNuxtApp();
 
     useSeoMeta({
       title: i18n.t("general.create"),
     });
-
-    const appInfo = useAppInfo();
-    const enableOpenAIImages = computed(() => appInfo.value?.enableOpenaiImageServices);
 
     const subpages = computed<MenuItem[]>(() => [
       {
@@ -82,7 +78,7 @@ export default defineNuxtComponent({
         icon: $globals.icons.fileImage,
         text: i18n.t("recipe.create-from-images"),
         value: "image",
-        hide: !enableOpenAIImages.value,
+        hide: !$appInfo.enableOpenaiImageServices,
       },
       {
         icon: $globals.icons.edit,

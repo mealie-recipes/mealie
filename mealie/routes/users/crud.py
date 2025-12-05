@@ -42,7 +42,7 @@ class UserController(BaseUserController):
     @user_router.put("/password")
     def update_password(self, password_change: ChangePassword):
         """Resets the User Password"""
-        if self.user.password == "LDAP" or self.user.auth_method == AuthMethod.LDAP:
+        if self.user.auth_method == AuthMethod.LDAP:
             raise HTTPException(
                 status.HTTP_400_BAD_REQUEST, ErrorResponse.respond(self.t("user.ldap-update-password-unavailable"))
             )

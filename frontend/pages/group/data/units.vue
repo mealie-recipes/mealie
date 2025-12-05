@@ -233,11 +233,12 @@
           variant="outlined"
           offset
         >
-          <template #item="{ item }">
-            <v-list-item-title> {{ item.raw.name }} </v-list-item-title>
-            <v-list-item-subtitle>
-              {{ item.raw.progress }}% {{ $t("language-dialog.translated") }}
-            </v-list-item-subtitle>
+          <template #item="{ item, props }">
+            <v-list-item v-bind="props">
+              <v-list-item-subtitle>
+                {{ item.raw.progress }}% {{ $t("language-dialog.translated") }}
+              </v-list-item-subtitle>
+            </v-list-item>
           </template>
         </v-autocomplete>
 
@@ -293,7 +294,7 @@
         </v-icon>
       </template>
       <template #[`item.createdAt`]="{ item }">
-        {{ formatDate(item.createdAt) }}
+        {{ item.createdAt ? $d(new Date(item.createdAt)) : '' }}
       </template>
       <template #button-bottom>
         <BaseButton @click="seedDialog = true">
@@ -382,15 +383,6 @@ export default defineNuxtComponent({
         sortable: true,
       },
     ];
-
-    function formatDate(date: string) {
-      try {
-        return i18n.d(Date.parse(date), "medium");
-      }
-      catch {
-        return "";
-      }
-    }
 
     const { store, actions: unitActions } = useUnitStore();
 
@@ -547,7 +539,6 @@ export default defineNuxtComponent({
       tableHeaders,
       store,
       validators,
-      formatDate,
       normalizeFilter,
       // Create
       createDialog,
