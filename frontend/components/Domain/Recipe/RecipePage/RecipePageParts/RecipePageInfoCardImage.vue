@@ -28,7 +28,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 const display = useDisplay();
-const { recipeImage } = useStaticRoutes();
+const { recipeImage, recipeSmallImage } = useStaticRoutes();
 const { imageKey } = usePageState(props.recipe.slug);
 const { user } = usePageUser();
 
@@ -46,7 +46,9 @@ const imageHeight = computed(() => {
 });
 
 const recipeImageUrl = computed(() => {
-  return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
+  return display.smAndDown.value
+    ? recipeSmallImage(props.recipe.id, props.recipe.image, imageKey.value)
+    : recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
 });
 
 watch(
