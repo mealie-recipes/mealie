@@ -20,11 +20,11 @@ describe("test normalize", () => {
 
 describe("test normalize filter", () => {
   test("base case", () => {
-    const patern_a = "Escargots persillés";
-    const patern_b = "persillés";
+    const patternA = "Escargots persillés";
+    const patternB = "persillés";
 
-    expect(normalizeFilter(patern_a, patern_b)).toBeTruthy();
-    expect(normalizeFilter(patern_b, patern_a)).toBeFalsy();
+    expect(normalizeFilter(patternA, patternB)).toBeTruthy();
+    expect(normalizeFilter(patternB, patternA)).toBeFalsy();
   });
   test("normalize", () => {
     const value = "Cœur de bœuf";
