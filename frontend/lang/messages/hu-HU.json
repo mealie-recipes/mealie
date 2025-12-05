@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "A bekezdés felosztására tesz kísérletet az '1)' vagy '1.' mintákkal való egyezéssel",
     "import-by-url": "Recept importálása URL-cím alapján",
     "create-manually": "Recept kézi létrehozása",
-    "make-recipe-image": "Ez legyen a recept képe"
+    "make-recipe-image": "Ez legyen a recept képe",
+    "add-food": "Étel hozzáadása",
+    "add-recipe": "Recept hozzáadása"
   },
   "page": {
     "404-page-not-found": "404. Az oldal nem található",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Recept törölve",
     "recipe-image": "Recept képe",
     "recipe-image-updated": "Recept képe frissítve",
+    "delete-image": "Receptkép törlése",
+    "delete-image-confirmation": "Biztosan törli ezt a receptképet?",
+    "recipe-image-deleted": "Receptkép törölve",
     "recipe-name": "Recept neve",
     "recipe-settings": "Recept beállítások",
     "recipe-update-failed": "Recept frissítése sikertelen",
@@ -560,6 +565,7 @@
     "choose-unit": "Válasszon mennyiségi egységet",
     "press-enter-to-create": "Üssön Enter-t a létrehozáshoz",
     "choose-food": "Étel kiválasztása",
+    "choose-recipe": "Recept kiválasztása",
     "notes": "Megjegyzések",
     "toggle-section": "Szakaszcím megjelenítése/kikapcsolása",
     "see-original-text": "Eredeti szöveg megjelenítése",
@@ -587,6 +593,7 @@
     "made-this": "Elkészítettem ezt",
     "how-did-it-turn-out": "Hogyan sikerült?",
     "user-made-this": "ezt {user} készítette el",
+    "made-for-recipe": "Készült {recipe} számára",
     "added-to-timeline": "Idővonalhoz hozzáadva",
     "failed-to-add-to-timeline": "Nem sikerült az idővonalhoz hozzáadni",
     "failed-to-update-recipe": "Nem sikerült frissíteni a receptet",
@@ -688,7 +695,10 @@
     "upload-images": "Képek feltöltése",
     "upload-more-images": "További képek feltöltése",
     "set-as-cover-image": "Beállítás a recept borítóképének",
-    "cover-image": "Borítókép"
+    "cover-image": "Borítókép",
+    "include-linked-recipes": "Kapcsolódó receptek hozzáadása",
+    "include-linked-recipe-ingredients": "Kapcsolódó recept hozzávalók hozzáadása",
+    "toggle-recipe": "Recept váltása"
   },
   "recipe-finder": {
     "recipe-finder": "Receptkereső",
@@ -725,7 +735,8 @@
     "search-hint": "Üsse be '/'",
     "advanced": "Haladó mód",
     "auto-search": "Automatikus keresés",
-    "no-results": "Nincs találat"
+    "no-results": "Nincs találat",
+    "type-to-search": "Írja be a keresett szót..."
   },
   "settings": {
     "add-a-new-theme": "Új téma hozzáadása",

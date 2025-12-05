@@ -448,7 +448,9 @@
     "split-by-numbered-line-description": "Poskušaj razdeliti odstavek z ujemanjem '1)' ali '1.' vzorcev",
     "import-by-url": "Uvozi recept preko URL",
     "create-manually": "Ročno ustvari recept",
-    "make-recipe-image": "To sliko izberi kot sliko recepta"
+    "make-recipe-image": "To sliko izberi kot sliko recepta",
+    "add-food": "Dodaj hrano",
+    "add-recipe": "Dodaj recept"
   },
   "page": {
     "404-page-not-found": "404 strani ni mogoče najti",
@@ -515,6 +517,9 @@
     "recipe-deleted": "Recept je izbrisan",
     "recipe-image": "Slika recepta",
     "recipe-image-updated": "Slika recepta je posodobljena",
+    "delete-image": "Izbriši sliko recepta",
+    "delete-image-confirmation": "Ali ste prepričani, da želite izbrisati to sliko recepta?",
+    "recipe-image-deleted": "Slika recepta je bila izbrisana",
     "recipe-name": "Naslov recepta",
     "recipe-settings": "Nastavitve recepta",
     "recipe-update-failed": "Napaka pri posodobitvi recepta",
@@ -560,6 +565,7 @@
     "choose-unit": "Izberite enoto",
     "press-enter-to-create": "Pritisnite enter da izdelate",
     "choose-food": "Izberite hrano",
+    "choose-recipe": "Izberi recept",
     "notes": "Zapiski",
     "toggle-section": "Preklopi izbiro",
     "see-original-text": "Prikaži izvirno besedilo",
@@ -587,6 +593,7 @@
     "made-this": "Naredil sem to",
     "how-did-it-turn-out": "Kako se je izkazalo?",
     "user-made-this": "{user} je tole pripravil/a",
+    "made-for-recipe": "Narejeno za {recipe}",
     "added-to-timeline": "Dodano na časovnico",
     "failed-to-add-to-timeline": "Dodajanje na časovnico ni uspelo",
     "failed-to-update-recipe": "Posodobitev recepta ni uspela",
@@ -688,7 +695,10 @@
     "upload-images": "Naloži slike",
     "upload-more-images": "Naloži več slik",
     "set-as-cover-image": "Nastavi kot sliko naslovnice recepta",
-    "cover-image": "Naslovna slika"
+    "cover-image": "Naslovna slika",
+    "include-linked-recipes": "Vključi povezane recepte",
+    "include-linked-recipe-ingredients": "Vključi povezane sestavine recepta",
+    "toggle-recipe": "Preklopi recept"
   },
   "recipe-finder": {
     "recipe-finder": "Iskalnik receptov",
@@ -725,7 +735,8 @@
     "search-hint": "Pritisni '/'",
     "advanced": "Napredno",
     "auto-search": "Avtomatsko iskanje",
-    "no-results": "Ni zadetkov"
+    "no-results": "Ni zadetkov",
+    "type-to-search": "Vpiši iskalni niz..."
   },
   "settings": {
     "add-a-new-theme": "Dodaj novo temo",
