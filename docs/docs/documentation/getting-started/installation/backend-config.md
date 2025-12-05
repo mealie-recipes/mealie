@@ -145,8 +145,8 @@ Setting the following environmental variables will change the theme of the front
 
     If using YAML sequence syntax, don't include any quotes:<br>`THEME_LIGHT_PRIMARY=#E58325` or `THEME_LIGHT_PRIMARY=E58325`
 
-| Variables             | Default   | Description                        |
-| --------------------- | :-------: | ---------------------------------- |
+| Variables             | Default | Description                        |
+| --------------------- | :-----: | ---------------------------------- |
 | THEME_LIGHT_PRIMARY   | #E58325 | Main brand color and headers       |
 | THEME_LIGHT_ACCENT    | #007A99 | Buttons and interactive elements   |
 | THEME_LIGHT_SECONDARY | #973542 | Navigation and sidebar backgrounds |
