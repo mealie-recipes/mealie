@@ -38,7 +38,6 @@ class MinifierOptions:
     original: bool = True
     miniature: bool = True
     tiny: bool = True
-    uncropped: bool = True
 
 
 class ABCMinifier(ABC):
@@ -161,9 +160,8 @@ class PillowMinifier(ABCMinifier):
         org_dest = image_path.parent.joinpath("original.webp")
         min_dest = image_path.parent.joinpath("min-original.webp")
         tiny_dest = image_path.parent.joinpath("tiny-original.webp")
-        uncropped_dest = image_path.parent.joinpath("uncropped-original.webp")
 
-        if not force and min_dest.exists() and tiny_dest.exists() and org_dest.exists() and uncropped_dest.exists():
+        if not force and min_dest.exists() and tiny_dest.exists() and org_dest.exists():
             self._logger.info(f"{image_path.name} already exists in all formats")
             return
 
@@ -171,14 +169,6 @@ class PillowMinifier(ABCMinifier):
 
         try:
             with Image.open(image_path) as img:
-                if self._opts.uncropped:
-                    if not force and uncropped_dest.exists():
-                        self._logger.info(f"{uncropped_dest} already exists")
-                    else:
-                        result_path = PillowMinifier.to_webp(dest=uncropped_dest, quality=100, img=img.copy())
-                        self._logger.info(f"{result_path} created")
-                        success = True
-
                 if self._opts.original:
                     if not force and org_dest.exists():
                         self._logger.info(f"{org_dest} already exists")
