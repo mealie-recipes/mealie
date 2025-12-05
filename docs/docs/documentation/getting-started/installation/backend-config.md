@@ -164,28 +164,76 @@ Setting the following environmental variables will change the theme of the front
 
 #### Theming Examples
 
-The table below provides copy-ready example palettes. Add these to your environment variables and follow the syntax guidance above when formatting your YAML configuration
+The examples below provide copy-ready Docker Compose environment configurations for three different color palettes. Copy and paste the desired theme into your `docker-compose.yml` file's environment section.
 
-> These themes are functional and ready to use, but they are provided primarily as examples. The color palettes can be adjusted or refined to better suit your preferences
+!!! info
+    These themes are functional and ready to use, but they are provided primarily as examples. The color palettes can be adjusted or refined to better suit your preferences.
 
-| **Variable**          | **Blue**   | **Green**.  | **Pink**   |
-| --------------------- | ---------- | ----------- | ---------- |
-| **_Light Mode_**      |            |             |            |
-| THEME_LIGHT_PRIMARY   | #5E9BD1  | #75A86C   | #D97C96  |
-| THEME_LIGHT_ACCENT    | #A3C9E8  | #A8D0A6   | #E891A7  |
-| THEME_LIGHT_SECONDARY | #4F89BA  | #638E5E   | #C86C88  |
-| THEME_LIGHT_SUCCESS   | #4CAF50  | #4CAF50   | #4CAF50  |
-| THEME_LIGHT_INFO      | #4A9ED8  | #4A9ED8   | #2196F3  |
-| THEME_LIGHT_WARNING   | #EAC46B  | #EAC46B   | #FFC107  |
-| THEME_LIGHT_ERROR     | #E57373  | #E57373   | #E57373  |
-| **_Dark Mode_**       |            |             |            |
-| THEME_DARK_PRIMARY    | #5A8FBF  | #739B7A   | #C2185B  |
-| THEME_DARK_ACCENT     | #90B8D9  | #9FBE9D   | #FF80AB  |
-| THEME_DARK_SECONDARY  | #406D96  | #56775E   | #AD1457  |
-| THEME_DARK_SUCCESS    | #81C784  | #81C784   | #81C784  |
-| THEME_DARK_INFO       | #78B2C0  | #78B2C0   | #64B5F6  |
-| THEME_DARK_WARNING    | #EBC86E  | #EBC86E   | #FFD54F  |
-| THEME_DARK_ERROR      | #E57373  | #E57373   | #E57373  |
+=== "Blue Theme"
+
+    ```yaml
+    environment:
+      # Light mode colors
+      THEME_LIGHT_PRIMARY: '#5E9BD1'
+      THEME_LIGHT_ACCENT: '#A3C9E8'
+      THEME_LIGHT_SECONDARY: '#4F89BA'
+      THEME_LIGHT_SUCCESS: '#4CAF50'
+      THEME_LIGHT_INFO: '#4A9ED8'
+      THEME_LIGHT_WARNING: '#EAC46B'
+      THEME_LIGHT_ERROR: '#E57373'
+      # Dark mode colors
+      THEME_DARK_PRIMARY: '#5A8FBF'
+      THEME_DARK_ACCENT: '#90B8D9'
+      THEME_DARK_SECONDARY: '#406D96'
+      THEME_DARK_SUCCESS: '#81C784'
+      THEME_DARK_INFO: '#78B2C0'
+      THEME_DARK_WARNING: '#EBC86E'
+      THEME_DARK_ERROR: '#E57373'
+    ```
+
+=== "Green Theme"
+
+    ```yaml
+    environment:
+      # Light mode colors
+      THEME_LIGHT_PRIMARY: '#75A86C'
+      THEME_LIGHT_ACCENT: '#A8D0A6'
+      THEME_LIGHT_SECONDARY: '#638E5E'
+      THEME_LIGHT_SUCCESS: '#4CAF50'
+      THEME_LIGHT_INFO: '#4A9ED8'
+      THEME_LIGHT_WARNING: '#EAC46B'
+      THEME_LIGHT_ERROR: '#E57373'
+      # Dark mode colors
+      THEME_DARK_PRIMARY: '#739B7A'
+      THEME_DARK_ACCENT: '#9FBE9D'
+      THEME_DARK_SECONDARY: '#56775E'
+      THEME_DARK_SUCCESS: '#81C784'
+      THEME_DARK_INFO: '#78B2C0'
+      THEME_DARK_WARNING: '#EBC86E'
+      THEME_DARK_ERROR: '#E57373'
+    ```
+
+=== "Pink Theme"
+
+    ```yaml
+    environment:
+      # Light mode colors
+      THEME_LIGHT_PRIMARY: '#D97C96'
+      THEME_LIGHT_ACCENT: '#E891A7'
+      THEME_LIGHT_SECONDARY: '#C86C88'
+      THEME_LIGHT_SUCCESS: '#4CAF50'
+      THEME_LIGHT_INFO: '#2196F3'
+      THEME_LIGHT_WARNING: '#FFC107'
+      THEME_LIGHT_ERROR: '#E57373'
+      # Dark mode colors
+      THEME_DARK_PRIMARY: '#C2185B'
+      THEME_DARK_ACCENT: '#FF80AB'
+      THEME_DARK_SECONDARY: '#AD1457'
+      THEME_DARK_SUCCESS: '#81C784'
+      THEME_DARK_INFO: '#64B5F6'
+      THEME_DARK_WARNING: '#FFD54F'
+      THEME_DARK_ERROR: '#E57373'
+    ```
 
 ### Docker Secrets
 
