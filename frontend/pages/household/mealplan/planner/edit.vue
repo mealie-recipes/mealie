@@ -31,7 +31,6 @@
           color="primary"
           :first-day-of-week="firstDayOfWeek"
           :local="$i18n.locale"
-          @update:model-value="state.pickerMenu = false"
         />
         <v-card-text class="pb-0">
           <v-select
@@ -245,7 +244,6 @@ export default defineNuxtComponent({
 
     const state = ref({
       dialog: false,
-      pickerMenu: null as null | boolean,
     });
 
     const firstDayOfWeek = computed(() => {
