@@ -47,7 +47,7 @@ export const normalize = (str: string) => {
 export const normalizeFilter: FilterFunction = (value: string, query: string) => {
   const normalizedValue = normalize(value);
   const normalizeQuery = normalize(query);
-  return normalizedValue.indexOf(normalizeQuery) > -1;
+  return normalizedValue.includes(normalizeQuery);
 };
 
 export function uuid4() {
