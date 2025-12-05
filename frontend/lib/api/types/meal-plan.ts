@@ -5,9 +5,9 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
-export type PlanEntryType = "breakfast" | "lunch" | "dinner" | "side";
+export type PlanEntryType = "breakfast" | "lunch" | "dinner" | "side" | "snack" | "drink" | "dessert";
 export type PlanRulesDay = "monday" | "tuesday" | "wednesday" | "thursday" | "friday" | "saturday" | "sunday" | "unset";
-export type PlanRulesType = "breakfast" | "lunch" | "dinner" | "side" | "unset";
+export type PlanRulesType = "breakfast" | "lunch" | "dinner" | "side" | "snack" | "drink" | "dessert" | "unset";
 export type LogicalOperator = "AND" | "OR";
 export type RelationalKeyword = "IS" | "IS NOT" | "IN" | "NOT IN" | "CONTAINS ALL" | "LIKE" | "NOT LIKE";
 export type RelationalOperator = "=" | "<>" | ">" | "<" | ">=" | "<=";
@@ -53,7 +53,6 @@ export interface QueryFilterJSONPart {
   attributeName?: string | null;
   relationalOperator?: RelationalKeyword | RelationalOperator | null;
   value?: string | string[] | null;
-  [k: string]: unknown;
 }
 export interface PlanRulesSave {
   day?: PlanRulesDay;
@@ -106,14 +105,12 @@ export interface RecipeCategory {
   groupId?: string | null;
   name: string;
   slug: string;
-  [k: string]: unknown;
 }
 export interface RecipeTag {
   id?: string | null;
   groupId?: string | null;
   name: string;
   slug: string;
-  [k: string]: unknown;
 }
 export interface RecipeTool {
   id: string;
@@ -121,7 +118,6 @@ export interface RecipeTool {
   name: string;
   slug: string;
   householdsWithTool?: string[];
-  [k: string]: unknown;
 }
 export interface SavePlanEntry {
   date: string;
