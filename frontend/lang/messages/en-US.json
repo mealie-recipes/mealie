@@ -342,6 +342,9 @@
     "breakfast": "Breakfast",
     "lunch": "Lunch",
     "dinner": "Dinner",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Any",
     "day-any": "Any",
     "editor": "Editor",
@@ -565,6 +568,7 @@
     "choose-unit": "Choose Unit",
     "press-enter-to-create": "Press Enter to Create",
     "choose-food": "Choose Food",
+    "choose-recipe": "Choose Recipe",
     "notes": "Notes",
     "toggle-section": "Toggle Section",
     "see-original-text": "See Original Text",
@@ -734,7 +738,8 @@
     "search-hint": "Press '/'",
     "advanced": "Advanced",
     "auto-search": "Auto Search",
-    "no-results": "No results found"
+    "no-results": "No results found",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Add a New Theme",

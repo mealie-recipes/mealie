@@ -9,6 +9,7 @@
       <v-autocomplete
         v-model="selectedLocale"
         :items="locales"
+        :custom-filter="normalizeFilter"
         item-title="name"
         item-value="value"
         class="my-3"
@@ -44,6 +45,7 @@
 
 <script lang="ts">
 import { useLocales } from "~/composables/use-locales";
+import { normalizeFilter } from "~/composables/use-utils";
 
 export default defineNuxtComponent({
   props: {
@@ -83,6 +85,7 @@ export default defineNuxtComponent({
       locale,
       selectedLocale,
       onLocaleSelect,
+      normalizeFilter,
     };
   },
 });

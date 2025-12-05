@@ -23,10 +23,15 @@ const authUser = ref<UserOut | null>(null);
 const authStatus = ref<"loading" | "authenticated" | "unauthenticated">("loading");
 
 export const useAuthBackend = function (): AuthState {
-  const { $axios } = useNuxtApp();
+  const { $appInfo, $axios } = useNuxtApp();
   const router = useRouter();
-  const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
-  const tokenCookie = useCookie(tokenName);
+
+  const runtimeConfig = useRuntimeConfig();
+  const tokenName = runtimeConfig.public.AUTH_TOKEN;
+  const tokenCookie = useCookie(tokenName, {
+    maxAge: $appInfo.tokenTime * 60 * 60,
+    secure: $appInfo.production && window?.location?.protocol === "https:",
+  });
 
   function setToken(token: string | null) {
     tokenCookie.value = token;
@@ -113,30 +118,6 @@ export const useAuthBackend = function (): AuthState {
       handleAuthError(error, true);
       throw error;
     }
-  }
-
-  // Auto-refresh user data periodically when authenticated
-  if (import.meta.client) {
-    let refreshInterval: NodeJS.Timeout | null = null;
-
-    watch(() => authStatus.value, (status) => {
-      if (status === "authenticated") {
-        refreshInterval = setInterval(() => {
-          if (tokenCookie.value) {
-            getSession().catch(() => {
-              // Ignore errors in background refresh
-            });
-          }
-        }, 5 * 60 * 1000); // 5 minutes
-      }
-      else {
-        // Clear interval when not authenticated
-        if (refreshInterval) {
-          clearInterval(refreshInterval);
-          refreshInterval = null;
-        }
-      }
-    }, { immediate: true });
   }
 
   return {
