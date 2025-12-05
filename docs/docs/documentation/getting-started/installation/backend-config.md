@@ -145,47 +145,47 @@ Setting the following environmental variables will change the theme of the front
 
     If using YAML sequence syntax, don't include any quotes:<br>`THEME_LIGHT_PRIMARY=#E58325` or `THEME_LIGHT_PRIMARY=E58325`
 
-| Variables             | Default | Description                 |
-| --------------------- | :-----: | --------------------------- |
-| THEME_LIGHT_PRIMARY   | #E58325 | Light Theme Config Variable |
-| THEME_LIGHT_ACCENT    | #007A99 | Light Theme Config Variable |
-| THEME_LIGHT_SECONDARY | #973542 | Light Theme Config Variable |
-| THEME_LIGHT_SUCCESS   | #43A047 | Light Theme Config Variable |
-| THEME_LIGHT_INFO      | #1976D2 | Light Theme Config Variable |
-| THEME_LIGHT_WARNING   | #FF6D00 | Light Theme Config Variable |
-| THEME_LIGHT_ERROR     | #EF5350 | Light Theme Config Variable |
-| THEME_DARK_PRIMARY    | #E58325 | Dark Theme Config Variable  |
-| THEME_DARK_ACCENT     | #007A99 | Dark Theme Config Variable  |
-| THEME_DARK_SECONDARY  | #973542 | Dark Theme Config Variable  |
-| THEME_DARK_SUCCESS    | #43A047 | Dark Theme Config Variable  |
-| THEME_DARK_INFO       | #1976D2 | Dark Theme Config Variable  |
-| THEME_DARK_WARNING    | #FF6D00 | Dark Theme Config Variable  |
-| THEME_DARK_ERROR      | #EF5350 | Dark Theme Config Variable  |
+| Variables             | Default   | Description                             |
+| --------------------- | :-------: | --------------------------------------- |
+| THEME_LIGHT_PRIMARY   | #E58325 | Primary color for main UI elements      |
+| THEME_LIGHT_ACCENT    | #007A99 | Accent color for highlights/buttons     |
+| THEME_LIGHT_SECONDARY | #973542 | Secondary color for sidebars and tabs   |
+| THEME_LIGHT_SUCCESS   | #43A047 | Success / positive feedback             |
+| THEME_LIGHT_INFO      | #1976D2 | Info messages and highlights            |
+| THEME_LIGHT_WARNING   | #FF6D00 | Warning / caution messages              |
+| THEME_LIGHT_ERROR     | #EF5350 | Error / critical alerts                 |
+| THEME_DARK_PRIMARY    | #E58325 | Primary color for dark UI elements      |
+| THEME_DARK_ACCENT     | #007A99 | Accent color for highlights/buttons     |
+| THEME_DARK_SECONDARY  | #973542 | Secondary color for sidebars and tabs   |
+| THEME_DARK_SUCCESS    | #43A047 | Success / positive feedback             |
+| THEME_DARK_INFO       | #1976D2 | Info messages and highlights            |
+| THEME_DARK_WARNING    | #FF6D00 | Warning / caution messages              |
+| THEME_DARK_ERROR      | #EF5350 | Error / critical alerts                 |
 
 #### Theming Examples
 
 The table below provides copy-ready example palettes. Add these to your environment variables and follow the syntax guidance above when formatting your YAML configuration
 
-> These themes are functional and ready to use, but they are provided primarily as examples. The colour palettes can be adjusted or refined to better suit your preferences
+> These themes are functional and ready to use, but they are provided primarily as examples. The color palettes can be adjusted or refined to better suit your preferences
 
-| **Variable**          | **Blue** | **Green** | **Pink** | **Description**                        |
-| --------------------- | -------- | --------- | -------- | -------------------------------------- |
-| **_Light Mode_**      |          |           |          |                                        |
-| THEME_LIGHT_PRIMARY   | #5E9BD1  | #75A86C   | #D97C96  | Primary colour for main UI elements    |
-| THEME_LIGHT_ACCENT    | #A3C9E8  | #A8D0A6   | #E891A7  | Accent colour for highlights/buttons   |
-| THEME_LIGHT_SECONDARY | #4F89BA  | #638E5E   | #C86C88  | Secondary colour for sidebars and tabs |
-| THEME_LIGHT_SUCCESS   | #4CAF50  | #4CAF50   | #4CAF50  | Success / positive feedback            |
-| THEME_LIGHT_INFO      | #4A9ED8  | #4A9ED8   | #2196F3  | Info messages and highlights           |
-| THEME_LIGHT_WARNING   | #EAC46B  | #EAC46B   | #FFC107  | Warning / caution messages             |
-| THEME_LIGHT_ERROR     | #E57373  | #E57373   | #E57373  | Error / critical alerts                |
-| **_Dark Mode_**       |          |           |          |                                        |
-| THEME_DARK_PRIMARY    | #5A8FBF  | #739B7A   | #C2185B  | Primary colour for dark UI elements    |
-| THEME_DARK_ACCENT     | #90B8D9  | #9FBE9D   | #FF80AB  | Accent colour for highlights/buttons   |
-| THEME_DARK_SECONDARY  | #406D96  | #56775E   | #AD1457  | Secondary colour for sidebars and tabs |
-| THEME_DARK_SUCCESS    | #81C784  | #81C784   | #81C784  | Success / positive feedback            |
-| THEME_DARK_INFO       | #78B2C0  | #78B2C0   | #64B5F6  | Info messages and highlights           |
-| THEME_DARK_WARNING    | #EBC86E  | #EBC86E   | #FFD54F  | Warning / caution messages             |
-| THEME_DARK_ERROR      | #E57373  | #E57373   | #E57373  | Error / critical alerts                |
+| **Variable**          | **Blue**   | **Green**.  | **Pink**   |
+| --------------------- | ---------- | ----------- | ---------- |
+| **_Light Mode_**      |            |             |            |
+| THEME_LIGHT_PRIMARY   | #5E9BD1  | #75A86C   | #D97C96  |
+| THEME_LIGHT_ACCENT    | #A3C9E8  | #A8D0A6   | #E891A7  |
+| THEME_LIGHT_SECONDARY | #4F89BA  | #638E5E   | #C86C88  |
+| THEME_LIGHT_SUCCESS   | #4CAF50  | #4CAF50   | #4CAF50  |
+| THEME_LIGHT_INFO      | #4A9ED8  | #4A9ED8   | #2196F3  |
+| THEME_LIGHT_WARNING   | #EAC46B  | #EAC46B   | #FFC107  |
+| THEME_LIGHT_ERROR     | #E57373  | #E57373   | #E57373  |
+| **_Dark Mode_**       |            |             |            |
+| THEME_DARK_PRIMARY    | #5A8FBF  | #739B7A   | #C2185B  |
+| THEME_DARK_ACCENT     | #90B8D9  | #9FBE9D   | #FF80AB  |
+| THEME_DARK_SECONDARY  | #406D96  | #56775E   | #AD1457  |
+| THEME_DARK_SUCCESS    | #81C784  | #81C784   | #81C784  |
+| THEME_DARK_INFO       | #78B2C0  | #78B2C0   | #64B5F6  |
+| THEME_DARK_WARNING    | #EBC86E  | #EBC86E   | #FFD54F  |
+| THEME_DARK_ERROR      | #E57373  | #E57373   | #E57373  |
 
 ### Docker Secrets
 
