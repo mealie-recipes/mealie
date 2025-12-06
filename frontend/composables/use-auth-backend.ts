@@ -1,5 +1,6 @@
 import { ref, computed } from "vue";
 import type { UserOut } from "~/lib/api/types/user";
+import { clearAllStores } from "~/composables/store";
 
 interface AuthData {
   value: UserOut | null;
@@ -101,6 +102,13 @@ export const useAuthBackend = function (): AuthState {
       setToken(null);
       authUser.value = null;
       authStatus.value = "unauthenticated";
+
+      // Clear all cached store data to prevent data leakage between users
+      clearAllStores();
+
+      // Clear Nuxt's useAsyncData cache
+      clearNuxtData();
+
       await router.push(callbackUrl || "/login");
     }
   }
