@@ -250,6 +250,11 @@ export default defineNuxtComponent({
       const data = await $axios.get<AppStartupInfo>("/api/app/about/startup-info");
       isDemo.value = data.data.isDemo;
       isFirstLogin.value = data.data.isFirstLogin;
+
+      if (data.data.isFirstLogin) {
+        form.email = "changeme@example.com";
+        form.password = "MyPassword";
+      }
     });
 
     whenever(
