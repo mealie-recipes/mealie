@@ -20,6 +20,20 @@
     @update:model-value="resetSearchInput"
     @click:append="dialog = true"
   >
+    <template #chip="{ item, index }">
+      <v-chip
+        :key="index"
+        class="ma-1"
+        color="accent"
+        variant="flat"
+        label
+
+        closable
+        @click:close="removeByIndex(index)"
+      >
+        {{ item.value }}
+      </v-chip>
+    </template>
     <template
       v-if="showAdd"
       #append
