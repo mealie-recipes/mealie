@@ -16,7 +16,7 @@
     :append-icon="showAdd ? $globals.icons.create : undefined"
     return-object
     auto-select-first
-    class="pa-0"
+    class="pa-0 ma-0"
     @update:model-value="resetSearchInput"
     @click:append="dialog = true"
   >

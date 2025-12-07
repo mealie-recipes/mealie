@@ -76,13 +76,15 @@
                         can-confirm
                         @confirm="saveQueryFilter"
                       >
-                        <QueryFilterBuilder
-                          :key="queryFilterMenuKey"
-                          :initial-query-filter="queryFilterJSON"
-                          :field-defs="queryFilterBuilderFields"
-                          @input="(value) => queryFilterEditorValue = value"
-                          @input-j-s-o-n="(value) => queryFilterEditorValueJSON = value"
-                        />
+                        <v-card-text>
+                          <QueryFilterBuilder
+                            :key="queryFilterMenuKey"
+                            :initial-query-filter="queryFilterJSON"
+                            :field-defs="queryFilterBuilderFields"
+                            @input="(value) => queryFilterEditorValue = value"
+                            @input-j-s-o-n="(value) => queryFilterEditorValueJSON = value"
+                          />
+                        </v-card-text>
                         <template #custom-card-action>
                           <BaseButton
                             color="error"

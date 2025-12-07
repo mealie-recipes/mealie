@@ -17,14 +17,15 @@
         <v-row
           v-for="(field, index) in fields"
           :key="field.id"
-          class="d-flex flex-row flex-wrap mx-auto"
+          class="d-flex flex-row flex-wrap mx-auto pb-2"
+          :class="$vuetify.display.xs ? (Math.floor(index / 1) % 2 === 0 ? 'bg-dark' : 'bg-light') : ''"
           style="max-width: 100%;"
         >
           <!-- drag handle -->
           <v-col
             :cols="config.items.icon.cols(index)"
             :sm="config.items.icon.sm(index)"
-            :class="$vuetify.display.smAndDown ? 'd-flex pl-0' : 'd-flex justify-end pr-6'"
+            :class="$vuetify.display.smAndDown ? 'd-flex pa-0' : 'd-flex justify-end pr-6'"
           >
             <v-icon class="handle my-auto" :size="28" style="cursor: move;">
               {{ $globals.icons.arrowUpDown }}
@@ -622,7 +623,7 @@ const config = computed(() => {
 
   return {
     col: {
-      class: "d-flex justify-center align-end pa-1",
+      class: "d-flex justify-center align-end py-0",
     },
     select: {
       textClass: "d-flex justify-center text-center",
@@ -676,5 +677,14 @@ const config = computed(() => {
 <style scoped>
 * {
   font-size: 1em;
+  --bg-opactity: calc(var(--v-hover-opacity) * var(--v-theme-overlay-multiplier));
+}
+
+.bg-dark {
+  background-color: rgba(0, 0, 0, var(--bg-opactity));
+}
+
+.bg-light {
+  background-color: rgba(255, 255, 255, var(--bg-opactity));
 }
 </style>
