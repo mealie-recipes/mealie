@@ -9,7 +9,7 @@
     chips
     closable-chips
     :item-title="itemTitle"
-    item-value="id"
+    item-value="name"
     multiple
     :variant="variant"
     :prepend-inner-icon="icon"
