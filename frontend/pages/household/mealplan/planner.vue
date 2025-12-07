@@ -127,12 +127,21 @@ export default defineNuxtComponent({
     function onDateSelection(dates: Date[]) {
       if (!dates || dates.length === 0) return;
       
-      // Sort dates to get proper start and end
       const sortedDates = [...dates].sort((a, b) => a.getTime() - b.getTime());
-      const start = sortedDates[0];
-      const end = sortedDates[sortedDates.length - 1];
+      const currentRange = state.value.range;
       
-      state.value.range = [start, end];
+      // If we have a complete range and user clicks outside it, start new range
+      if (currentRange[0] && currentRange[1]) {
+        const clickedDate = sortedDates.find(d => 
+          d.getTime() < currentRange[0].getTime() || d.getTime() > currentRange[1].getTime()
+        );
+        if (clickedDate) {
+          state.value.range = [clickedDate, clickedDate];
+          return;
+        }
+      }
+      
+      state.value.range = [sortedDates[0], sortedDates[sortedDates.length - 1]];
     }
 
     const firstDayOfWeek = computed(() => {
