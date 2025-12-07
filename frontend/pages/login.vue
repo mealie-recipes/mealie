@@ -60,6 +60,7 @@
         <v-form @submit.prevent="authenticate">
           <v-text-field
             v-if="$appInfo.allowPasswordLogin"
+            id="username"
             v-model="form.email"
             :prepend-inner-icon="$globals.icons.email"
             variant="solo-filled"
@@ -67,7 +68,7 @@
             width="100%"
             autofocus
             autocomplete="username"
-            name="login"
+            name="username"
             :label="$t('user.email-or-username')"
             type="text"
           />
@@ -374,6 +375,13 @@ export default defineNuxtComponent({
   },
 });
 </script>
+
+<style lang="css" scoped>
+/* Fix password manager autofill detection - Vuetify uses opacity:0 during animation */
+:deep(.v-field__input) {
+  opacity: 1 !important;
+}
+</style>
 
 <style lang="css">
 .max-button {

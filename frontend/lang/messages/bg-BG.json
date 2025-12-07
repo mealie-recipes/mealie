@@ -342,9 +342,9 @@
     "breakfast": "Закуска",
     "lunch": "Обяд",
     "dinner": "Вечеря",
-    "snack": "Snack",
-    "drink": "Drink",
-    "dessert": "Dessert",
+    "snack": "Закуска",
+    "drink": "Питие",
+    "dessert": "Десерт",
     "type-any": "Всички",
     "day-any": "Всички",
     "editor": "Редактор",
@@ -701,7 +701,7 @@
     "cover-image": "Изображение на корицата",
     "include-linked-recipes": "Влючване на свързаните рецепти",
     "include-linked-recipe-ingredients": "Включване на съставките от свързаните рецепти",
-    "toggle-recipe": "Превключване на рецептата"
+    "toggle-recipe": "Вмъкни рецепта"
   },
   "recipe-finder": {
     "recipe-finder": "Търсачка на рецепти",
