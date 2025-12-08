@@ -2718,7 +2718,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "creme fraiche",
-                "plural_name": "creme fraiches"
+                "plural_name": "creme fraiche"
             },
             "frosting": {
                 "aliases": [],
@@ -3459,8 +3459,8 @@
             "vegan ranch": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan ranch",
-                "plural_name": "vegan ranches"
+                "name": "vegansk ranch",
+                "plural_name": "vegansk ranch"
             },
             "vegan chicken": {
                 "aliases": [],
@@ -3477,8 +3477,8 @@
             "vegetable suet": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable suet",
-                "plural_name": "vegetable suets"
+                "name": "vegetabilisk talg",
+                "plural_name": "vegetabilisk talg"
             },
             "dairy-free ice-cream": {
                 "aliases": [],
@@ -3495,8 +3495,8 @@
             "banana blossom": {
                 "aliases": [],
                 "description": "",
-                "name": "banana blossom",
-                "plural_name": "banana blossoms"
+                "name": "bananblomma",
+                "plural_name": "bananblommor"
             },
             "vegan fish sauce": {
                 "aliases": [],
@@ -3573,8 +3573,8 @@
             "vegan gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan gravy",
-                "plural_name": "vegan gravies"
+                "name": "vegansk sås",
+                "plural_name": "veganska såser"
             },
             "cashew cheese sauce": {
                 "aliases": [],
@@ -3591,8 +3591,8 @@
             "flax milk": {
                 "aliases": [],
                 "description": "",
-                "name": "flax milk",
-                "plural_name": "flax milks"
+                "name": "linmjölk",
+                "plural_name": "linmjölk"
             },
             "hazelnut creamer": {
                 "aliases": [],
@@ -3604,13 +3604,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "quorn",
-                "plural_name": "quorns"
+                "plural_name": "quorn"
             },
             "soy-free butter": {
                 "aliases": [],
                 "description": "",
-                "name": "soy-free butter",
-                "plural_name": "soy-free butter"
+                "name": "sojafritt smör",
+                "plural_name": "sojafritt smör"
             },
             "tofurky": {
                 "aliases": [],
@@ -3628,7 +3628,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Vegansk tzatziki",
-                "plural_name": "vegan tzatzikis"
+                "plural_name": "vegansk tzatziki"
             },
             "cashew cream cheese": {
                 "aliases": [],
@@ -3657,8 +3657,8 @@
             "egg tofu": {
                 "aliases": [],
                 "description": "",
-                "name": "egg tofu",
-                "plural_name": "egg tofus"
+                "name": "äggtofu",
+                "plural_name": "äggtofu"
             },
             "protein drink": {
                 "aliases": [],
@@ -3675,19 +3675,19 @@
             "vegan taco meat": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan taco meat",
-                "plural_name": "vegan taco meats"
+                "name": "veganskt tacokött",
+                "plural_name": "veganskt tacokött"
             },
             "walnut taco meat": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut taco meat",
-                "plural_name": "walnut taco meats"
+                "name": "valnötstacokött",
+                "plural_name": "valnötstacokött"
             },
             "vegan yogurt starter": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan yogurt starter",
+                "name": "vegansk yoghurtstartkultur",
                 "plural_name": "vegan yogurt starters"
             },
             "banana milk": {
@@ -3811,8 +3811,8 @@
             "beef stew meat": {
                 "aliases": [],
                 "description": "",
-                "name": "beef stew meat",
-                "plural_name": "beef stew meats"
+                "name": "grytbitar",
+                "plural_name": "grytbitar"
             },
             "pepperoni": {
                 "aliases": [],
@@ -3830,7 +3830,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pancetta",
-                "plural_name": "pancettas"
+                "plural_name": "pancetta"
             },
             "pork fillet": {
                 "aliases": [],
@@ -3841,8 +3841,8 @@
             "pork shoulder": {
                 "aliases": [],
                 "description": "",
-                "name": "pork shoulder",
-                "plural_name": "pork shoulders"
+                "name": "fläskbog",
+                "plural_name": "fläskbog"
             },
             "ground lamb": {
                 "aliases": [],
@@ -3865,8 +3865,8 @@
             "breakfast sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "breakfast sausage",
-                "plural_name": "breakfast sausages"
+                "name": "frukostkorv",
+                "plural_name": "frukostkorvar"
             },
             "hot dog": {
                 "aliases": [],
@@ -3889,13 +3889,13 @@
             "brisket": {
                 "aliases": [],
                 "description": "",
-                "name": "brisket",
-                "plural_name": "briskets"
+                "name": "bringa",
+                "plural_name": "bringa"
             },
             "deli ham": {
                 "aliases": [],
                 "description": "",
-                "name": "deli ham",
+                "name": "deliskinka",
                 "plural_name": "Deli skinka"
             },
             "leg of lamb": {
@@ -3907,8 +3907,8 @@
             "beef short rib": {
                 "aliases": [],
                 "description": "",
-                "name": "beef short rib",
-                "plural_name": "beef short ribs"
+                "name": "nötrevbensstek",
+                "plural_name": "nötrevbensstek"
             },
             "kielbasa": {
                 "aliases": [],
@@ -3950,13 +3950,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "rostbiff",
-                "plural_name": "roast beefs"
+                "plural_name": "rostbiff"
             },
             "bacon bit": {
                 "aliases": [],
                 "description": "",
                 "name": "baconbit",
-                "plural_name": "bacon bits"
+                "plural_name": "baconbitar"
             },
             "pork roast": {
                 "aliases": [],
@@ -13659,7 +13659,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kalvfond",
-                "plural_name": "kalvfonder"
+                "plural_name": "kalvfond"
             },
             "vegetable beef soup": {
                 "aliases": [],
