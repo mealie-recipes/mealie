@@ -12,10 +12,10 @@
           <p>{{ $t('recipe.scrape-recipe-description') }}</p>
           <p>
             {{ $t('recipe.scrape-recipe-have-a-lot-of-recipes') }}
-            <a :href="bulkImporterTarget">{{ $t('recipe.scrape-recipe-suggest-bulk-importer') }}</a>.
+            <router-link :to="bulkImporterTarget">{{ $t('recipe.scrape-recipe-suggest-bulk-importer') }}</router-link>.
             <br>
             {{ $t('recipe.scrape-recipe-have-raw-html-or-json-data') }}
-            <a :href="htmlOrJsonImporterTarget">{{ $t('recipe.scrape-recipe-you-can-import-from-raw-data-directly') }}</a>.
+            <router-link :to="htmlOrJsonImporterTarget">{{ $t('recipe.scrape-recipe-you-can-import-from-raw-data-directly') }}</router-link>.
           </p>
           <v-text-field
             v-model="recipeUrl"
@@ -84,7 +84,7 @@
         <div class="force-url-white">
           <p>
             {{ $t("recipe.scrape-recipe-website-being-blocked") }}
-            <a :href="htmlOrJsonImporterTarget">{{ $t("recipe.scrape-recipe-try-importing-raw-html-instead") }}</a>
+            <router-link :to="htmlOrJsonImporterTarget">{{ $t("recipe.scrape-recipe-try-importing-raw-html-instead") }}</router-link>
           </p>
           <br>
           <p>
