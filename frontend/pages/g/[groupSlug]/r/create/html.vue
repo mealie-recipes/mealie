@@ -1,7 +1,7 @@
 <template>
   <v-form
     ref="domUrlForm"
-    @submit.prevent="createFromHtmlOrJson(newRecipeData, importKeywordsAsTags, importCategories)"
+    @submit.prevent="createFromHtmlOrJson(newRecipeData, importKeywordsAsTags, importCategory)"
   >
     <div>
       <v-card-title class="headline">
@@ -53,10 +53,10 @@
           :label="$t('recipe.import-original-keywords-as-tags')"
         />
         <v-checkbox
-          v-model="importCategories"
+          v-model="importCategory"
           color="primary"
           hide-details
-          :label="$t('recipe.import-categories')"
+          :label="$t('recipe.import-category')"
         />
         <v-checkbox
           v-model="stayInEditMode"
@@ -111,7 +111,7 @@ export default defineNuxtComponent({
 
     const {
       importKeywordsAsTags,
-      importCategories,
+      importCategory,
       stayInEditMode,
       parseRecipe,
       navigateToRecipe,
@@ -155,7 +155,7 @@ export default defineNuxtComponent({
     }
     handleIsEditJson();
 
-    async function createFromHtmlOrJson(htmlOrJsonData: string | object | null, importKeywordsAsTags: boolean, importCategories: boolean) {
+    async function createFromHtmlOrJson(htmlOrJsonData: string | object | null, importKeywordsAsTags: boolean, importCategory: boolean) {
       if (!htmlOrJsonData || !domUrlForm.value?.validate()) {
         return;
       }
@@ -169,7 +169,7 @@ export default defineNuxtComponent({
       }
 
       state.loading = true;
-      const { response } = await api.recipes.createOneByHtmlOrJson(dataString, importKeywordsAsTags, importCategories);
+      const { response } = await api.recipes.createOneByHtmlOrJson(dataString, importKeywordsAsTags, importCategory);
       handleResponse(response, importKeywordsAsTags);
     }
 
@@ -178,7 +178,7 @@ export default defineNuxtComponent({
       importKeywordsAsTags,
       stayInEditMode,
       parseRecipe,
-      importCategories,
+      importCategory,
       newRecipeData,
       handleIsEditJson,
       createFromHtmlOrJson,
