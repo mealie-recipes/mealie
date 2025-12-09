@@ -342,6 +342,9 @@
     "breakfast": "Morgunverður",
     "lunch": "Hádegisverður",
     "dinner": "Kvöldverður",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Allir",
     "day-any": "Alla",
     "editor": "Ritill",
@@ -1217,7 +1220,7 @@
     "recipe-link-copied-message": "Tengill fyrir uppskriftina afritaður í klippispjald"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
+    "title": "Tilraunareiginleiki",
     "description": "This page contains experimental or still-baking features. Please excuse the mess.",
     "issue-link-text": "Track our progress here"
   },

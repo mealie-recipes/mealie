@@ -10036,8 +10036,8 @@
             "bread crumb": {
                 "aliases": [],
                 "description": "",
-                "name": "Brotkrümel",
-                "plural_name": "Paniermehl"
+                "name": "Semmelbrösel",
+                "plural_name": "Semmelbrösel"
             },
             "panko": {
                 "aliases": [],
@@ -10683,7 +10683,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Sonnenblumenöl",
-                "plural_name": "Sonnenblumenöle"
+                "plural_name": "Sonnenblumenöl"
             },
             "avocado oil": {
                 "aliases": [],
@@ -10762,8 +10762,8 @@
             "bacon grease": {
                 "aliases": [],
                 "description": "",
-                "name": "Baconfett",
-                "plural_name": "Baconfett"
+                "name": "Schweineschmalz",
+                "plural_name": "Schweineschmalz"
             },
             "safflower oil": {
                 "aliases": [],

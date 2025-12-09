@@ -7,6 +7,12 @@ const cookbooks: Ref<ReadCookBook[]> = ref([]);
 const loading = ref(false);
 const publicLoading = ref(false);
 
+export function resetCookbookStore() {
+  cookbooks.value = [];
+  loading.value = false;
+  publicLoading.value = false;
+}
+
 export const useCookbookStore = function (i18n?: Composer) {
   const api = useUserApi(i18n);
   const store = useStore<ReadCookBook>("cookbook", cookbooks, loading, api.cookbooks);

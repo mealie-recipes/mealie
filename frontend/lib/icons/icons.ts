@@ -154,6 +154,7 @@ import {
   mdiWebhook,
   mdiWindowClose,
   mdiWrench,
+  mdiHandWaveOutline,
 } from "@mdi/js";
 
 export const icons = {
@@ -287,6 +288,7 @@ export const icons = {
   undo: mdiUndo,
   bread: mdiCookie,
   fileSign: mdiFileSign,
+  wave: mdiHandWaveOutline,
 
   // Crud
   backArrow: mdiArrowLeftBoldOutline,
