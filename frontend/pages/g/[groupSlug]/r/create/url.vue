@@ -209,6 +209,16 @@ export default defineNuxtComponent({
 
     const domUrlForm = ref<VForm | null>(null);
 
+    // Remove import URL from query params when leaving the page
+    const isLeaving = ref(false);
+    onBeforeRouteLeave((to) => {
+      if (isLeaving.value) {
+        return;
+      }
+      isLeaving.value = true;
+      router.replace({ query: undefined }).then(() => router.push(to));
+    });
+
     async function createByUrl(url: string | null, importKeywordsAsTags: boolean) {
       if (url === null) {
         return;
