@@ -2213,7 +2213,7 @@
             "neufchatel": {
                 "aliases": [],
                 "description": "",
-                "name": "neufchatel",
+                "name": "neufchâtel",
                 "plural_name": "neufchatels"
             },
             "herb cream cheese": {
@@ -2285,8 +2285,8 @@
             "colby-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "colby-jack cheese",
-                "plural_name": "colby-jack cheeses"
+                "name": "colby-jack kaas",
+                "plural_name": "colby-jack kazen"
             },
             "jarlsberg cheese": {
                 "aliases": [],
@@ -2321,8 +2321,8 @@
             "creamy cheese wedge": {
                 "aliases": [],
                 "description": "",
-                "name": "creamy cheese wedge",
-                "plural_name": "creamy cheese wedges"
+                "name": "romig stukje kaas",
+                "plural_name": "romig stukjes kaas"
             },
             "cheese powder": {
                 "aliases": [],
@@ -2345,8 +2345,8 @@
             "marble cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "marble cheese",
-                "plural_name": "marble cheeses"
+                "name": "marble kaas",
+                "plural_name": "marble kazen"
             },
             "leicester": {
                 "aliases": [],
@@ -2387,8 +2387,8 @@
             "panela cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "panela cheese",
-                "plural_name": "panela cheeses"
+                "name": "panela kaas",
+                "plural_name": "panela kazen"
             },
             "longhorn": {
                 "aliases": [],
@@ -2399,8 +2399,8 @@
             "seasoned feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "seasoned feta cheese",
-                "plural_name": "seasoned feta cheeses"
+                "name": "gerijpte fetakaas",
+                "plural_name": "gerijpte fetakazen"
             },
             "comté": {
                 "aliases": [],
@@ -2435,8 +2435,8 @@
             "cheshire cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheshire cheese",
-                "plural_name": "cheshire cheeses"
+                "name": "cheshire-kaas",
+                "plural_name": "cheshire-kazen"
             },
             "anthotyro": {
                 "aliases": [],
@@ -2471,8 +2471,8 @@
             "amul cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "amul cheese",
-                "plural_name": "amul cheeses"
+                "name": "amulkaas",
+                "plural_name": "amul-kazen"
             },
             "reblochon": {
                 "aliases": [],
@@ -2573,8 +2573,8 @@
             "salad cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "salad cheese",
-                "plural_name": "salad cheeses"
+                "name": "salade kaas",
+                "plural_name": "salade kazen"
             },
             "truffle cheese": {
                 "aliases": [],
@@ -2585,8 +2585,8 @@
             "epoisses cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "epoisses cheese",
-                "plural_name": "epoisses cheeses"
+                "name": "epoisses-kaas",
+                "plural_name": "epoisses-kazen"
             },
             "maasdam": {
                 "aliases": [],
@@ -2741,14 +2741,14 @@
             "thickened cream": {
                 "aliases": [],
                 "description": "",
-                "name": "thickened cream",
-                "plural_name": "thickened creams"
+                "name": "verdikte room",
+                "plural_name": "verdikte crèmes"
             },
             "lemon curd": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon curd",
-                "plural_name": "lemon curds"
+                "name": "citroencurd",
+                "plural_name": "citroencurd"
             },
             "dulce de leche": {
                 "aliases": [],
@@ -2777,8 +2777,8 @@
             "sherbet": {
                 "aliases": [],
                 "description": "",
-                "name": "sherbet",
-                "plural_name": "sherbets"
+                "name": "sorbet",
+                "plural_name": "sorbets"
             },
             "chocolate milk": {
                 "aliases": [],
@@ -2855,8 +2855,8 @@
             "cheese curd": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese curd",
-                "plural_name": "cheese curds"
+                "name": "kaaswrongel",
+                "plural_name": "kaaswrongels"
             },
             "sour milk": {
                 "aliases": [],
@@ -2897,7 +2897,7 @@
             "pumpkin spice coffee creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin spice coffee creamer",
+                "name": "pompoenkruiden koffiemelk",
                 "plural_name": "pumpkin spice coffee creamers"
             },
             "raw milk": {
@@ -2939,14 +2939,14 @@
             "rainbow sherbet": {
                 "aliases": [],
                 "description": "",
-                "name": "rainbow sherbet",
-                "plural_name": "rainbow sherbets"
+                "name": "regenboogsorbet",
+                "plural_name": "regenboogsorbets"
             },
             "strawberry frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry frosting",
-                "plural_name": "strawberry frostings"
+                "name": "aardbeienglazuur",
+                "plural_name": "aardbeienglazuur"
             },
             "honey greek yogurt": {
                 "aliases": [],
@@ -2957,8 +2957,8 @@
             "amul butter": {
                 "aliases": [],
                 "description": "",
-                "name": "amul butter",
-                "plural_name": "amul butter"
+                "name": "amulboter",
+                "plural_name": "amulboters"
             },
             "honey butter": {
                 "aliases": [],
@@ -3005,8 +3005,8 @@
             "cinnamon sugar butter spread": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon sugar butter spread",
-                "plural_name": "cinnamon sugar butter spreads"
+                "name": "kaneelsuiker-boterpasta",
+                "plural_name": "kaneelsuiker-boterpastas"
             },
             "bulgarian yogurt": {
                 "aliases": [],
@@ -3042,7 +3042,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "aardbeien melk",
-                "plural_name": "strawberry milks"
+                "plural_name": "aardbeienmelk"
             },
             "ayran": {
                 "aliases": [],
@@ -3114,7 +3114,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "buffelmelk",
-                "plural_name": "buffalo milks"
+                "plural_name": "buffelmelk"
             },
             "goat kefir": {
                 "aliases": [],
@@ -3249,14 +3249,14 @@
             "non-dairy yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "non-dairy yogurt",
-                "plural_name": "non-dairy yogurts"
+                "name": "niet-zuivel yoghurt",
+                "plural_name": "niet-zuivel yoghurts"
             },
             "seed butter": {
                 "aliases": [],
                 "description": "",
-                "name": "seed butter",
-                "plural_name": "seed butter"
+                "name": "zadenboter",
+                "plural_name": "zadenboters"
             },
             "cashew milk": {
                 "aliases": [],
@@ -3316,7 +3316,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "non-dairy creamer",
-                "plural_name": "non-dairy creamers"
+                "plural_name": "niet-zuivel koffiemelk"
             },
             "vegan sausage": {
                 "aliases": [],
@@ -3327,8 +3327,8 @@
             "coconut whipped cream": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut whipped cream",
-                "plural_name": "coconut whipped creams"
+                "name": "kokosnoot slagroom",
+                "plural_name": "kokosnoot slagromen"
             },
             "smoked tofu": {
                 "aliases": [],
@@ -3363,8 +3363,8 @@
             "non-dairy whipped topping": {
                 "aliases": [],
                 "description": "",
-                "name": "non-dairy whipped topping",
-                "plural_name": "non-dairy whipped toppings"
+                "name": "niet-zuivelhoudende slagroomtopping",
+                "plural_name": "niet-zuivelhoudende slagroomtoppings"
             },
             "nut milk": {
                 "aliases": [],
@@ -3399,8 +3399,8 @@
             "pulled oat": {
                 "aliases": [],
                 "description": "",
-                "name": "pulled oat",
-                "plural_name": "pulled oats"
+                "name": "getrokken haver",
+                "plural_name": "getrokken havers"
             },
             "vegan bacon": {
                 "aliases": [],
@@ -3448,7 +3448,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vegan rundvlees",
-                "plural_name": "vegan beefs"
+                "plural_name": "veganistisch rundvlees"
             },
             "hazelnut butter": {
                 "aliases": [],
@@ -3459,7 +3459,7 @@
             "vegan ranch": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan ranch",
+                "name": "veganistische ranch",
                 "plural_name": "vegan ranches"
             },
             "vegan chicken": {
@@ -3531,8 +3531,8 @@
             "almond-milk yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "almond-milk yogurt",
-                "plural_name": "almond-milk yogurts"
+                "name": "amandelmelkyoghurt",
+                "plural_name": "amandelmelkyoghurts"
             },
             "almond creamer": {
                 "aliases": [],
@@ -3938,19 +3938,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "ground sausage",
-                "plural_name": "ground sausages"
+                "plural_name": "gehaktworsten"
             },
             "ground pork sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "ground pork sausage",
-                "plural_name": "ground pork sausages"
+                "name": "gemalen varkensworst",
+                "plural_name": "gemalen varkensworsten"
             },
             "roast beef": {
                 "aliases": [],
                 "description": "",
-                "name": "roast beef",
-                "plural_name": "roast beefs"
+                "name": "gebraden rundvlees",
+                "plural_name": "gebraden rundvlezen"
             },
             "bacon bit": {
                 "aliases": [],
@@ -3961,7 +3961,7 @@
             "pork roast": {
                 "aliases": [],
                 "description": "",
-                "name": "pork roast",
+                "name": "varkensgebraad",
                 "plural_name": "pork roasts"
             },
             "hot italian sausage": {
@@ -4021,14 +4021,14 @@
             "beef sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "beef sausage",
-                "plural_name": "beef sausages"
+                "name": "runderworst",
+                "plural_name": "runderworsten"
             },
             "lamb shank": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb shank",
-                "plural_name": "lamb shanks"
+                "name": "lamsschenkel",
+                "plural_name": "lamsschenkels"
             },
             "mutton": {
                 "aliases": [],
@@ -4057,7 +4057,7 @@
             "pulled pork": {
                 "aliases": [],
                 "description": "",
-                "name": "pulled pork",
+                "name": "gerookt varkensvlees",
                 "plural_name": "pulled porks"
             },
             "ham hock": {
@@ -4291,8 +4291,8 @@
             "burger patty": {
                 "aliases": [],
                 "description": "",
-                "name": "burger patty",
-                "plural_name": "burger patties"
+                "name": "hamburger",
+                "plural_name": "hamburgers"
             },
             "smoked pork chop": {
                 "aliases": [],
@@ -4409,8 +4409,8 @@
             "rotisserie chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "rotisserie chicken",
-                "plural_name": "rotisserie chickens"
+                "name": "rotisseriekip",
+                "plural_name": "rotisseriekippen"
             },
             "chicken tender": {
                 "aliases": [],
@@ -4517,14 +4517,14 @@
             "turkey leg": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey leg",
-                "plural_name": "turkey legs"
+                "name": "kalkoenpoot",
+                "plural_name": "kalkoenpoten"
             },
             "pheasant": {
                 "aliases": [],
                 "description": "",
-                "name": "pheasant",
-                "plural_name": "pheasants"
+                "name": "fazant",
+                "plural_name": "fazanten"
             },
             "goose": {
                 "aliases": [],
@@ -12455,7 +12455,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "canned sweet potato",
-                "plural_name": "canned sweet potatoes"
+                "plural_name": "zoete aardappels in blik"
             },
             "canned pear": {
                 "aliases": [],
@@ -12653,7 +12653,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "canned potato",
-                "plural_name": "canned potatoes"
+                "plural_name": "aardappels in blik"
             },
             "okra pickle": {
                 "aliases": [],

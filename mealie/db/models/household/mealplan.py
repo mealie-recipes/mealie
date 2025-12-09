@@ -39,7 +39,7 @@ class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
     )  # "MONDAY", "TUESDAY", "WEDNESDAY", etc...
     entry_type: Mapped[str] = mapped_column(
         String, nullable=False, default=""
-    )  # "breakfast", "lunch", "dinner", "side"
+    )  # "breakfast", "lunch", "dinner", etc ...
     query_filter_string: Mapped[str] = mapped_column(String, nullable=False, default="")
 
     # Old filters - deprecated in favor of query filter strings

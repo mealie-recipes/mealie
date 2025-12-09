@@ -4361,8 +4361,8 @@
             "cooked chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "cooked chicken",
-                "plural_name": "cooked chickens"
+                "name": "μαγειρεμένο κοτόπουλο",
+                "plural_name": "μαγειρεμένα κοτόπουλα"
             },
             "ground turkey": {
                 "aliases": [],
@@ -14040,8 +14040,8 @@
             "cookie": {
                 "aliases": [],
                 "description": "",
-                "name": "cookie",
-                "plural_name": "cookies"
+                "name": "μπισκότο",
+                "plural_name": "μπισκότα"
             },
             "peanut butter cup": {
                 "aliases": [
