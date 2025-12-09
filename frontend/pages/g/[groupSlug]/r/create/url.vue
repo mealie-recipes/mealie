@@ -81,9 +81,16 @@
         </v-card-title>
         <v-divider class="my-3 mx-2" />
 
-        <p>
-          {{ $t("new-recipe.error-details") }}
-        </p>
+        <div>
+          <p class="force-white">
+            {{ $t("recipe.scrape-recipe-website-being-blocked") }}
+            <a :href="htmlOrJsonImporterTarget">{{ $t("recipe.scrape-recipe-try-importing-raw-html-instead") }}</a>
+          </p>
+          <br>
+          <p>
+            {{ $t("new-recipe.error-details") }}
+          </p>
+        </div>
         <div class="d-flex row justify-space-around my-3 force-white">
           <a
             class="dark"
