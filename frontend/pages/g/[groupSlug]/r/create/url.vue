@@ -81,8 +81,8 @@
         </v-card-title>
         <v-divider class="my-3 mx-2" />
 
-        <div>
-          <p class="force-white">
+        <div class="force-url-white">
+          <p>
             {{ $t("recipe.scrape-recipe-website-being-blocked") }}
             <a :href="htmlOrJsonImporterTarget">{{ $t("recipe.scrape-recipe-try-importing-raw-html-instead") }}</a>
           </p>
@@ -91,7 +91,7 @@
             {{ $t("new-recipe.error-details") }}
           </p>
         </div>
-        <div class="d-flex row justify-space-around my-3 force-white">
+        <div class="d-flex row justify-space-around my-3 force-url-white">
           <a
             class="dark"
             href="https://developers.google.com/search/docs/data-types/recipe"
@@ -239,8 +239,8 @@ export default defineNuxtComponent({
 });
 </script>
 
-<style>
-.force-white > a {
+<style scoped>
+.force-url-white a {
   color: white !important;
 }
 </style>
