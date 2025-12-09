@@ -146,12 +146,12 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return await this.requests.post<Recipe | null>(routes.recipesTestScrapeUrl, { url, useOpenAI });
   }
 
-  async createOneByHtmlOrJson(data: string, includeTags: boolean) {
-    return await this.requests.post<string>(routes.recipesCreateFromHtmlOrJson, { data, includeTags });
+  async createOneByHtmlOrJson(data: string, includeTags: boolean, includeCategory: boolean) {
+    return await this.requests.post<string>(routes.recipesCreateFromHtmlOrJson, { data, includeTags, includeCategory });
   }
 
-  async createOneByUrl(url: string, includeTags: boolean) {
-    return await this.requests.post<string>(routes.recipesCreateUrl, { url, includeTags });
+  async createOneByUrl(url: string, includeTags: boolean, includeCategory: boolean) {
+    return await this.requests.post<string>(routes.recipesCreateUrl, { url, includeTags, includeCategory });
   }
 
   async createManyByUrl(payload: CreateRecipeByUrlBulk) {

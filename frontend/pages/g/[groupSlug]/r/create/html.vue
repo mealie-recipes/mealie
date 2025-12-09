@@ -1,7 +1,7 @@
 <template>
   <v-form
     ref="domUrlForm"
-    @submit.prevent="createFromHtmlOrJson(newRecipeData, importKeywordsAsTags)"
+    @submit.prevent="createFromHtmlOrJson(newRecipeData, importKeywordsAsTags, importCategory)"
   >
     <div>
       <v-card-title class="headline">
@@ -51,6 +51,12 @@
           color="primary"
           hide-details
           :label="$t('recipe.import-original-keywords-as-tags')"
+        />
+        <v-checkbox
+          v-model="importCategory"
+          color="primary"
+          hide-details
+          :label="$t('recipe.import-category')"
         />
         <v-checkbox
           v-model="stayInEditMode"
@@ -105,6 +111,7 @@ export default defineNuxtComponent({
 
     const {
       importKeywordsAsTags,
+      importCategory,
       stayInEditMode,
       parseRecipe,
       navigateToRecipe,
@@ -148,7 +155,7 @@ export default defineNuxtComponent({
     }
     handleIsEditJson();
 
-    async function createFromHtmlOrJson(htmlOrJsonData: string | object | null, importKeywordsAsTags: boolean) {
+    async function createFromHtmlOrJson(htmlOrJsonData: string | object | null, importKeywordsAsTags: boolean, importCategory: boolean) {
       if (!htmlOrJsonData || !domUrlForm.value?.validate()) {
         return;
       }
@@ -162,7 +169,7 @@ export default defineNuxtComponent({
       }
 
       state.loading = true;
-      const { response } = await api.recipes.createOneByHtmlOrJson(dataString, importKeywordsAsTags);
+      const { response } = await api.recipes.createOneByHtmlOrJson(dataString, importKeywordsAsTags, importCategory);
       handleResponse(response, importKeywordsAsTags);
     }
 
@@ -171,6 +178,7 @@ export default defineNuxtComponent({
       importKeywordsAsTags,
       stayInEditMode,
       parseRecipe,
+      importCategory,
       newRecipeData,
       handleIsEditJson,
       createFromHtmlOrJson,
