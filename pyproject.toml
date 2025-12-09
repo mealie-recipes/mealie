@@ -14,7 +14,7 @@ dependencies = [
     "alembic==1.17.2",
     "aniso8601==10.0.1",
     "appdirs==1.4.4",
-    "apprise==1.9.5",
+    "apprise==1.9.6",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
     "fastapi==0.124.0",
