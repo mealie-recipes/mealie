@@ -303,154 +303,154 @@
             "cayenne pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "cayenne pepper",
-                "plural_name": "cayenne peppers"
+                "name": "kırmızı biber",
+                "plural_name": "kırmızı biber"
             },
             "green tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "green tomato",
-                "plural_name": "green tomatoes"
+                "name": "yeşil domates",
+                "plural_name": "yeşil domates"
             },
             "watercress": {
                 "aliases": [],
                 "description": "",
-                "name": "watercress",
-                "plural_name": "watercress"
+                "name": "tere",
+                "plural_name": "tere"
             },
             "iceberg": {
                 "aliases": [],
                 "description": "",
                 "name": "iceberg",
-                "plural_name": "icebergs"
+                "plural_name": "iceberg"
             },
             "mashed potato": {
                 "aliases": [],
                 "description": "",
-                "name": "mashed potato",
-                "plural_name": "mashed potatoes"
+                "name": "patates püresi",
+                "plural_name": "patates püresi"
             },
             "horseradish": {
                 "aliases": [],
                 "description": "",
-                "name": "horseradish",
-                "plural_name": "horseradishes"
+                "name": "yaban turpu",
+                "plural_name": "yaban turpu"
             },
             "chard": {
                 "aliases": [],
                 "description": "",
-                "name": "chard",
-                "plural_name": "chards"
+                "name": "pazı",
+                "plural_name": "pazı"
             },
             "pimiento": {
                 "aliases": [],
                 "description": "",
-                "name": "pimiento",
-                "plural_name": "pimientoes"
+                "name": "kırmızı biber",
+                "plural_name": "kırmızı biber"
             },
             "spaghetti squash": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti squash",
-                "plural_name": "spaghetti squashes"
+                "name": "spagetti kabak",
+                "plural_name": "spagetti kabak"
             },
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter lettuce",
-                "plural_name": "butter lettuces"
+                "name": "yağlı marul",
+                "plural_name": "yağlı marul"
             },
             "hash brown": {
                 "aliases": [],
                 "description": "",
-                "name": "hash brown",
-                "plural_name": "hash browns"
+                "name": "mücver",
+                "plural_name": "mücver"
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "çin yeşillikleri"
                 ],
                 "description": "",
-                "name": "napa cabbage",
-                "plural_name": "napa cabbages"
+                "name": "çin lahanası",
+                "plural_name": "çin lahanası"
             },
             "celeriac": {
                 "aliases": [],
                 "description": "",
-                "name": "celeriac",
-                "plural_name": "celeriacs"
+                "name": "kereviz kökü",
+                "plural_name": "kereviz kökü"
             },
             "water chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "water chestnut",
-                "plural_name": "water chestnuts"
+                "name": "su kestanesi",
+                "plural_name": "su kestanesi"
             },
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "şalgam",
+                "plural_name": "şalgam"
             },
             "thai chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chile pepper",
-                "plural_name": "thai chile peppers"
+                "name": "acı biber",
+                "plural_name": "acı biber"
             },
             "bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "bok choy",
-                "plural_name": "bok choy"
+                "name": "çin lahanası",
+                "plural_name": "çin lahanası"
             },
             "okra": {
                 "aliases": [],
                 "description": "",
-                "name": "okra",
-                "plural_name": "okra"
+                "name": "bamya",
+                "plural_name": "bamya"
             },
             "acorn squash": {
                 "aliases": [],
                 "description": "",
-                "name": "acorn squash",
-                "plural_name": "acorn squashes"
+                "name": "meşe palamudu kabağı",
+                "plural_name": "meşe palamudu kabağı"
             },
             "corn cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn cob",
-                "plural_name": "corn cobs"
+                "name": "mısır koçanı",
+                "plural_name": "mısır koçanı"
             },
             "radicchio": {
                 "aliases": [],
                 "description": "",
-                "name": "radicchio",
-                "plural_name": "radicchio"
+                "name": "kırmızı hindiba",
+                "plural_name": "kırmızı hindiba"
             },
             "pearl onion": {
                 "aliases": [],
                 "description": "",
-                "name": "pearl onion",
-                "plural_name": "pearl onions"
+                "name": "inci soğan",
+                "plural_name": "inci soğan"
             },
             "tenderstem broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "tenderstem broccoli",
-                "plural_name": "tenderstem broccolis"
+                "name": "ince saplı brokoli",
+                "plural_name": "ince saplı brokoli"
             },
             "plantain": {
                 "aliases": [],
                 "description": "",
-                "name": "plantain",
-                "plural_name": "plantains"
+                "name": "yemeklik muz",
+                "plural_name": "yemeklik muz"
             },
             "leaf lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "leaf lettuce",
-                "plural_name": "leaf lettuces"
+                "name": "marul salatası",
+                "plural_name": "marul salatası"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -535,8 +535,8 @@
             "yam": {
                 "aliases": [],
                 "description": "",
-                "name": "yam",
-                "plural_name": "yams"
+                "name": "tatlı patates",
+                "plural_name": "tatlı patates"
             },
             "ancho chile pepper": {
                 "aliases": [],
