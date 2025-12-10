@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "جرب الإضافة بالجملة",
     "scrape-recipe-have-raw-html-or-json-data": "هل لديك بيانات HTML أو JSON خام؟",
     "scrape-recipe-you-can-import-from-raw-data-directly": "يمكنك الإضافة مباشرة باستخدام بيانات خام",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "استيراد الكلمات المفتاحية الأصلية كوسوم",
     "stay-in-edit-mode": "البقاء في وضع التعديل",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
