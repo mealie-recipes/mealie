@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "Próbálja ki a tömeges importálót",
     "scrape-recipe-have-raw-html-or-json-data": "Nyers HTML vagy JSON adatai vannak?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "A nyers adatokból közvetlenül is importálhat",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Eredeti kulcsszavak importálása címkeként",
     "stay-in-edit-mode": "Maradjon Szerkesztés módban",
     "parse-recipe-ingredients-after-import": "Recept összetevőinek elemzése importálás után",
