@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "Спробуйте масовий розпізнавач",
     "scrape-recipe-have-raw-html-or-json-data": "Маєте необроблені дані HTML або JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Ви можете імпортувати необроблені дані",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Імпортувати оригінальні ключові слова як теги",
     "stay-in-edit-mode": "Залишитися в режимі редактора",
     "parse-recipe-ingredients-after-import": "Розпізнавання інгредієнтів рецепту після імпорту",
