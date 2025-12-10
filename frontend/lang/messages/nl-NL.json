@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "Probeer importeren in bulk",
     "scrape-recipe-have-raw-html-or-json-data": "Heb je onbewerkte HTML of JSON gegevens?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "U kunt direct importeren uit onbewerkte gegevens",
+    "scrape-recipe-website-being-blocked": "Wordt de website geblokkeerd?",
+    "scrape-recipe-try-importing-raw-html-instead": "Probeer de HTML broncode te importeren.",
     "import-original-keywords-as-tags": "Importeer oorspronkelijke trefwoorden als labels",
     "stay-in-edit-mode": "Blijf in bewerkingsmodus",
     "parse-recipe-ingredients-after-import": "Ontleed de ingrediënten van het recept na importeren",
