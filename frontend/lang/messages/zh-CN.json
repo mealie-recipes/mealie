@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "试试批量导入器",
     "scrape-recipe-have-raw-html-or-json-data": "有原始 HTML 或 JSON 数据？",
     "scrape-recipe-you-can-import-from-raw-data-directly": "您可以直接从原始数据导入",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "导入原始关键字作为标签",
     "stay-in-edit-mode": "留在编辑模式",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
