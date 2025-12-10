@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "נסה את יכולת קריאת רשימה",
     "scrape-recipe-have-raw-html-or-json-data": "יש לך מידע גולמי ב-HTML או JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "ניתן לייבא ישירות ממידע גולמי",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "ייבוא שמות מפתח מקוריות כתגיות",
     "stay-in-edit-mode": "השאר במצב עריכה",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
