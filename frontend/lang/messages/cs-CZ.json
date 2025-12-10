@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "Vyzkoušejte hromadný import",
     "scrape-recipe-have-raw-html-or-json-data": "Máte surová data HTML nebo JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Můžete importovat přímo ze surových dat",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Importovat původní klíčová slova jako štítky",
     "stay-in-edit-mode": "Zůstat v režimu úprav",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
