@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "Încearcă importatorul în bulk",
     "scrape-recipe-have-raw-html-or-json-data": "Ai date de tip HTML sau JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Poți importa datele direct",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Importă cuvintele cheie originale ca tag-uri",
     "stay-in-edit-mode": "Rămâi în modul Editare",
     "parse-recipe-ingredients-after-import": "Analizează ingredientele rețetei după import",
