@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "Δοκιμάστε τον μαζικό εισαγωγέα συνταγών μας",
     "scrape-recipe-have-raw-html-or-json-data": "Εχουν ακατέργαστα δεδομένα HTML ή JSON;",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Μπορείτε να κάνετε εισαγωγή απευθείας από ακατέργαστα δεδομένα",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Εισαγωγή αρχικών λέξεων-κλειδιών ως ετικέτες",
     "stay-in-edit-mode": "Παραμονή σε λειτουργία επεξεργασίας",
     "parse-recipe-ingredients-after-import": "Ανάλυση συστατικών συνταγής μετά την εισαγωγή",
