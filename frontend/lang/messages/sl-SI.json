@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "Preizkusi masovni uvoz",
     "scrape-recipe-have-raw-html-or-json-data": "Imaš surove HTML ali JSON podatke?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Uvoziš lahko neposredno iz surovih podatkov",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Uvozi izvorne ključne besede kot značke",
     "stay-in-edit-mode": "Urejaj naprej",
     "parse-recipe-ingredients-after-import": "Razčlenitev sestavin recepta po uvozu",
