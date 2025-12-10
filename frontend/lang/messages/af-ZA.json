@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Voer oorspronklike sleutelwoorde as merkers in",
     "stay-in-edit-mode": "Bly in redigeer modus",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
