@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "Probiere den Massenimporter aus",
     "scrape-recipe-have-raw-html-or-json-data": "Hast du Roh-HTML oder JSON Daten?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kannst direkt von Rohdaten importieren",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Importiere ursprüngliche Stichwörter als Schlagwörter",
     "stay-in-edit-mode": "Im Bearbeitungsmodus bleiben",
     "parse-recipe-ingredients-after-import": "Zutaten nach dem Import parsen",
