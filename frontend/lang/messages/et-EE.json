@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "Proovi hulgiimportimist.",
     "scrape-recipe-have-raw-html-or-json-data": "Sul on töötlemata HTMLi või JSONi andmed?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Sa võid otse importida töötlemata andmetest",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Impordi originaal võtmesõnad siltidena",
     "stay-in-edit-mode": "Püsige redigeerimisrežiimis",
     "parse-recipe-ingredients-after-import": "Tuvasta retsepti koostisosad pärast importimist",
