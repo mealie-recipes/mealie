@@ -6,7 +6,7 @@
     "api-port": "API-port",
     "application-mode": "Applikationsläge",
     "database-type": "Databastyp",
-    "database-url": "Databas URL",
+    "database-url": "Databas-URL",
     "default-group": "Standardgrupp",
     "default-household": "Standardhushåll",
     "demo": "Demo",
@@ -51,7 +51,7 @@
     "category": "Kategori"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "Apprise-URL",
     "database": "Databas",
     "delete-event": "Radera händelse",
     "event-delete-confirmation": "Är du säker du vill ta bort denna händelse?",
@@ -342,6 +342,9 @@
     "breakfast": "Frukost",
     "lunch": "Lunch",
     "dinner": "Middag",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Alla",
     "day-any": "Alla",
     "editor": "Redigerare",
@@ -565,7 +568,7 @@
     "choose-unit": "Välj enhet",
     "press-enter-to-create": "Tryck Enter för att skapa",
     "choose-food": "Välj mat",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "Välj recept",
     "notes": "Anteckningar",
     "toggle-section": "Växla sektion",
     "see-original-text": "Visa originaltext",
@@ -633,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "Testa massimportören",
     "scrape-recipe-have-raw-html-or-json-data": "Har rå HTML eller JSON-data?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kan importera från rådata direkt",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Importera ursprungliga sökord som taggar",
     "stay-in-edit-mode": "Stanna kvar i redigeringsläge",
     "parse-recipe-ingredients-after-import": "Tolka receptingredienser efter import",
@@ -736,7 +741,7 @@
     "advanced": "Avancerat",
     "auto-search": "Autosök",
     "no-results": "Inga resultat hittades",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Skriv för att söka..."
   },
   "settings": {
     "add-a-new-theme": "Lägg till ett nytt tema",

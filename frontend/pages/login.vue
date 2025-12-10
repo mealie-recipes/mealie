@@ -59,7 +59,8 @@
       <v-card-text class="w-100">
         <v-form @submit.prevent="authenticate">
           <v-text-field
-            v-if="allowPasswordLogin"
+            v-if="$appInfo.allowPasswordLogin"
+            id="username"
             v-model="form.email"
             :prepend-inner-icon="$globals.icons.email"
             variant="solo-filled"
@@ -67,12 +68,12 @@
             width="100%"
             autofocus
             autocomplete="username"
-            name="login"
+            name="username"
             :label="$t('user.email-or-username')"
             type="text"
           />
           <v-text-field
-            v-if="allowPasswordLogin"
+            v-if="$appInfo.allowPasswordLogin"
             id="password"
             v-model="form.password"
             :prepend-inner-icon="$globals.icons.lock"
@@ -86,12 +87,12 @@
             @click:append-inner="togglePasswordShow"
           />
           <v-checkbox
-            v-if="allowPasswordLogin"
+            v-if="$appInfo.allowPasswordLogin"
             v-model="form.remember"
             class="ml-2 mt-n2"
             :label="$t('user.remember-me')"
           />
-          <v-card-actions v-if="allowPasswordLogin" class="justify-center pt-0">
+          <v-card-actions v-if="$appInfo.allowPasswordLogin" class="justify-center pt-0">
             <div class="max-button">
               <v-btn
                 :loading="loggingIn"
@@ -110,7 +111,7 @@
           </v-card-actions>
 
           <div
-            v-if="appInfoLoaded && allowOidc && allowPasswordLogin"
+            v-if="$appInfo.enableOidc && $appInfo.allowPasswordLogin"
             class="d-flex my-4 justify-center align-center"
             width="80%"
           >
@@ -126,7 +127,7 @@
             </span>
           </div>
           <v-card-actions
-            v-if="appInfoLoaded && allowOidc"
+            v-if="$appInfo.enableOidc"
             class="justify-center"
           >
             <div class="max-button">
@@ -140,7 +141,7 @@
                 block
                 @click="() => oidcAuthenticate()"
               >
-                {{ $t("user.login-oidc") }} {{ oidcProviderName }}
+                {{ $t("user.login-oidc") }} {{ $appInfo.oidcProviderName }}
               </v-btn>
             </div>
           </v-card-actions>
@@ -148,7 +149,7 @@
       </v-card-text>
       <v-card-actions class="d-flex justify-center flex-column flex-sm-row">
         <v-btn
-          v-if="allowSignup && allowPasswordLogin"
+          v-if="$appInfo.allowSignup && $appInfo.allowPasswordLogin"
           variant="text"
           to="/register"
         >
@@ -162,7 +163,7 @@
           {{ $t("user.invite-only") }}
         </v-btn>
         <v-btn
-          v-if="allowPasswordLogin"
+          v-if="$appInfo.allowPasswordLogin"
           class="mr-auto"
           variant="text"
           to="/forgot-password"
@@ -212,7 +213,6 @@
 <script lang="ts">
 import { useDark, whenever } from "@vueuse/core";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import { useAppInfo } from "~/composables/api";
 import { usePasswordField } from "~/composables/use-passwords";
 import { alert } from "~/composables/use-toast";
 import { useAsyncKey } from "~/composables/use-utils";
@@ -229,7 +229,7 @@ export default defineNuxtComponent({
     const router = useRouter();
     const i18n = useI18n();
     const $auth = useMealieAuth();
-    const { $axios } = useNuxtApp();
+    const { $appInfo, $axios } = useNuxtApp();
     const { loggedIn } = useLoggedInState();
     const groupSlug = computed(() => $auth.user.value?.groupSlug);
     const isDemo = ref(false);
@@ -251,6 +251,11 @@ export default defineNuxtComponent({
       const data = await $axios.get<AppStartupInfo>("/api/app/about/startup-info");
       isDemo.value = data.data.isDemo;
       isFirstLogin.value = data.data.isFirstLogin;
+
+      if (data.data.isFirstLogin) {
+        form.email = "changeme@example.com";
+        form.password = "MyPassword";
+      }
     });
 
     whenever(
@@ -276,19 +281,10 @@ export default defineNuxtComponent({
     const loggingIn = ref(false);
     const oidcLoggingIn = ref(false);
 
-    const appInfo = useAppInfo();
-
     const { passwordIcon, inputType, togglePasswordShow } = usePasswordField();
 
-    const appInfoLoaded = computed(() => appInfo.value !== null);
-    const allowSignup = computed(() => appInfo.value?.allowSignup || false);
-    const allowOidc = computed(() => appInfo.value?.enableOidc || false);
-    const oidcRedirect = computed(() => appInfo.value?.oidcRedirect || false);
-    const oidcProviderName = computed(() => appInfo.value?.oidcProviderName || "OAuth");
-    const allowPasswordLogin = computed(() => appInfo.value?.allowPasswordLogin ?? true);
-
     whenever(
-      () => appInfoLoaded.value && allowOidc.value && oidcRedirect.value && !isCallback() && !isDirectLogin() /* && !$auth.check().valid */,
+      () => $appInfo.enableOidc && $appInfo.oidcRedirect && !isCallback() && !isDirectLogin() /* && !$auth.check().valid */,
       () => oidcAuthenticate(),
       { immediate: true },
     );
@@ -368,13 +364,8 @@ export default defineNuxtComponent({
       isDark,
       form,
       loggingIn,
-      appInfoLoaded,
-      allowSignup,
-      allowPasswordLogin,
-      allowOidc,
       authenticate,
       oidcAuthenticate,
-      oidcProviderName,
       oidcLoggingIn,
       passwordIcon,
       inputType,
@@ -384,6 +375,13 @@ export default defineNuxtComponent({
   },
 });
 </script>
+
+<style lang="css" scoped>
+/* Fix password manager autofill detection - Vuetify uses opacity:0 during animation */
+:deep(.v-field__input) {
+  opacity: 1 !important;
+}
+</style>
 
 <style lang="css">
 .max-button {
