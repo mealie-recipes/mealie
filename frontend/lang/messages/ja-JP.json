@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "一括インポートを試す",
     "scrape-recipe-have-raw-html-or-json-data": "生の HTML または JSON データをお持ちですか？",
     "scrape-recipe-you-can-import-from-raw-data-directly": "生データから直接インポートできます",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "元のキーワードをタグとしてインポート",
     "stay-in-edit-mode": "編集モードを維持",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
