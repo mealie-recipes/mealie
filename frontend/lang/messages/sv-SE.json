@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "Testa massimportören",
     "scrape-recipe-have-raw-html-or-json-data": "Har rå HTML eller JSON-data?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kan importera från rådata direkt",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Importera ursprungliga sökord som taggar",
     "stay-in-edit-mode": "Stanna kvar i redigeringsläge",
     "parse-recipe-ingredients-after-import": "Tolka receptingredienser efter import",
