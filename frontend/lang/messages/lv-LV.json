@@ -636,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "Izmēģiniet lielapjoma importētāju",
     "scrape-recipe-have-raw-html-or-json-data": "Vai jums ir neapstrādāti HTML vai JSON dati?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Jūs varat importēt no neapstrādātiem datiem tieši",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Importējiet oriģinālos atslēgvārdus kā tagus",
     "stay-in-edit-mode": "Palieciet rediģēšanas režīmā",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
