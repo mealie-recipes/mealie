@@ -1,3 +1,6 @@
+import argparse
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 import sqlalchemy as sa
@@ -53,23 +56,23 @@ def check_needs_reprocess(recipe_id: UUID4) -> bool:
         return False
 
 
-def fetch_recipe_ids(force_process_all=False) -> set[UUID4]:
+def fetch_recipe_ids(force_all: bool = False) -> set[UUID4]:
     logger.info("Fetching recipes for image reprocessing")
-    if force_process_all:
+    if force_all:
         logger.info("!!Force processing all recipes regardless of current image state")
 
     with session_context() as session:
         result = session.execute(sa.text(f"SELECT id FROM {RecipeModel.__tablename__}"))
 
     recipe_ids = {UUID4(row[0]) for row in result}
-    if force_process_all:
+    if force_all:
         return recipe_ids
 
     else:
         return {recipe_id for recipe_id in recipe_ids if check_needs_reprocess(recipe_id)}
 
 
-def reprocess_recipe_images(recipe_id: UUID4) -> None:
+def reprocess_recipe_images(recipe_id: UUID4, force_all: bool = False) -> None:
     service = RecipeDataService(recipe_id, logger=minifier_logger)
     original_image = service.dir_image / "original.webp"
     if not original_image.exists():
@@ -99,7 +102,7 @@ def reprocess_recipe_images(recipe_id: UUID4) -> None:
                 continue
 
             event_tiny = event_dir / "tiny-original.webp"
-            if event_tiny.exists() and not check_if_tiny_image_is_old(event_tiny):
+            if not force_all and (event_tiny.exists() and not check_if_tiny_image_is_old(event_tiny)):
                 continue
 
             for image_filename in NON_ORIGINAL_FILENAMES:
@@ -112,33 +115,70 @@ def reprocess_recipe_images(recipe_id: UUID4) -> None:
             continue
 
 
+def process_recipe(recipe_id: UUID4, force_all: bool = False) -> tuple[UUID4, bool]:
+    """Process a single recipe's images, returning (recipe_id, success)"""
+    try:
+        reprocess_recipe_images(recipe_id, force_all)
+        return recipe_id, True
+    except Exception:
+        logger.exception(f"Failed to reprocess images for recipe {recipe_id}")
+        return recipe_id, False
+
+
+def process_all_recipes(recipe_ids: set[UUID4], force_all: bool = False, max_workers: int = 2) -> set[UUID4]:
+    """Process all given recipe IDs concurrently, returning set of failed recipe IDs."""
+    failed_recipe_ids: set[UUID4] = set()
+    progress_freq = 20 if len(recipe_ids) <= 1000 else 100
+    progress_lock = threading.Lock()
+    completed_count = 0
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        future_to_recipe = {
+            executor.submit(process_recipe, recipe_id, force_all): recipe_id for recipe_id in recipe_ids
+        }
+
+        for future in as_completed(future_to_recipe):
+            recipe_id, success = future.result()
+            if not success:
+                failed_recipe_ids.add(recipe_id)
+
+            # Progress reporting
+            with progress_lock:
+                completed_count += 1
+                if completed_count % progress_freq == 0:
+                    perc = (completed_count / len(recipe_ids)) * 100
+                    logger.info(f"{perc:.2f}% complete ({completed_count}/{len(recipe_ids)})")
+
+    return failed_recipe_ids
+
+
 def main() -> None:
-    recipe_ids = fetch_recipe_ids(force_process_all=False)
+    parser = argparse.ArgumentParser(
+        description="Reprocess recipe images to upgrade from old 300x300 to new 600x600 format"
+    )
+    parser.add_argument("--workers", type=int, default=2, help="Number of worker threads (default: 2)")
+    parser.add_argument(
+        "--force-all", action="store_true", help="Reprocess all recipes regardless of current image state"
+    )
+    args = parser.parse_args()
+    workers: int = max(1, args.workers)
+    force_all: bool = args.force_all
+
+    recipe_ids = fetch_recipe_ids(force_all=force_all)
     if not recipe_ids:
         logger.info("No recipes need image reprocessing. Exiting...")
         exit(0)
 
     confirmed = input(
         f"Found {len(recipe_ids)} {'recipe' if len(recipe_ids) == 1 else 'recipes'} "
-        "needing image reprocessing. Proceed? (y/n) "
+        f"needing image reprocessing (using {workers} {'worker' if workers == 1 else 'workers'}). Proceed? (y/n) "
     )
     if confirmed.lower() != "y":
         print("aborting")  # noqa
         exit(0)
 
     logger.info("Starting image reprocessing...")
-    failed_recipe_ids: set[UUID4] = set()
-    for i, recipe_id in enumerate(recipe_ids, start=1):
-        try:
-            reprocess_recipe_images(recipe_id)
-        except Exception:
-            logger.exception(f"Failed to reprocess images for recipe {recipe_id}")
-            failed_recipe_ids.add(recipe_id)
-
-        progress_freq = 20 if len(recipe_ids) <= 1000 else 100
-        if not i % progress_freq:
-            perc = (i / len(recipe_ids)) * 100
-            logger.info(f"{perc:.2f}% complete ({i}/{len(recipe_ids)})")
+    failed_recipe_ids = process_all_recipes(recipe_ids, force_all, max_workers=workers)
 
     logger.info(f"Image reprocessing complete. {len(recipe_ids) - len(failed_recipe_ids)} successfully processed")
     if failed_recipe_ids:
