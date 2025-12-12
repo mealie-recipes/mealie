@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import sqlalchemy as sa
 from PIL import Image
 from pydantic import UUID4
@@ -8,6 +10,17 @@ from mealie.db.models.recipe import RecipeModel
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 logger = root_logger.get_logger()
+minifier_logger = root_logger.get_logger("minifier")
+minifier_logger.setLevel("WARNING")
+
+NON_ORIGINAL_FILENAMES = {"min-original.webp", "tiny-original.webp"}
+
+
+def check_if_tiny_image_is_old(image_path: Path) -> bool:
+    with Image.open(image_path) as img:
+        # This will miss images which were originally smaller than 300x300,
+        # but we probably don't care about those anyway
+        return img.width == 300 and img.height == 300
 
 
 def check_needs_reprocess(recipe_id: UUID4) -> bool:
@@ -34,10 +47,7 @@ def check_needs_reprocess(recipe_id: UUID4) -> bool:
         return False
 
     try:
-        with Image.open(tiny_path) as img:
-            # This will miss images which were originally smaller than 300x300,
-            # but we probably don't care about those anyway
-            return img.width == 300 and img.height == 300
+        return check_if_tiny_image_is_old(tiny_path)
     except Exception:
         logger.error(f"Failed to open tiny image for recipe {recipe_id}; assuming reprocessing needed")
         return False
@@ -60,7 +70,46 @@ def fetch_recipe_ids(force_process_all=False) -> set[UUID4]:
 
 
 def reprocess_recipe_images(recipe_id: UUID4) -> None:
-    pass  # TODO
+    service = RecipeDataService(recipe_id, logger=minifier_logger)
+    original_image = service.dir_image / "original.webp"
+    if not original_image.exists():
+        # We should've checked for this already, but we check again to be safe
+        logger.error(f"Original image missing for recipe {recipe_id}; cannot reprocess")
+        return
+
+    # Reprocess recipe images
+    for image_filename in NON_ORIGINAL_FILENAMES:
+        image_file = service.dir_image / image_filename
+        image_file.unlink(missing_ok=True)
+
+    service.minifier.minify(original_image, force=True)
+
+    # Reprocess timeline event images
+    timeline_dir = service.dir_image_timeline
+    if not timeline_dir.exists():
+        return
+
+    for event_dir in timeline_dir.iterdir():
+        try:
+            if not event_dir.is_dir():
+                continue
+
+            event_original = event_dir / "original.webp"
+            if not event_original.exists():
+                continue
+
+            event_tiny = event_dir / "tiny-original.webp"
+            if event_tiny.exists() and not check_if_tiny_image_is_old(event_tiny):
+                continue
+
+            for image_filename in NON_ORIGINAL_FILENAMES:
+                image_file = event_dir / image_filename
+                image_file.unlink(missing_ok=True)
+
+            service.minifier.minify(event_original, force=True)
+        except Exception:
+            # Silently skip these; they're not as important and there could be a lot of them which could spam logs
+            continue
 
 
 def main() -> None:
@@ -77,6 +126,7 @@ def main() -> None:
         print("aborting")  # noqa
         exit(0)
 
+    logger.info("Starting image reprocessing...")
     failed_recipe_ids: set[UUID4] = set()
     for i, recipe_id in enumerate(recipe_ids, start=1):
         try:
