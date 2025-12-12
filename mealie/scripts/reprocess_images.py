@@ -153,7 +153,7 @@ def process_all_recipes(recipe_ids: set[UUID4], force_all: bool = False, max_wor
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description="Reprocess recipe images to upgrade from old 300x300 to new 600x600 format"
+        description="Reprocess old recipe images to improve compression and upgrade quality"
     )
     parser.add_argument("--workers", type=int, default=2, help="Number of worker threads (default: 2)")
     parser.add_argument(
