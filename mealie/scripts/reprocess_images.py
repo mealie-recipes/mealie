@@ -58,14 +58,13 @@ def check_needs_reprocess(recipe_id: UUID4) -> bool:
 
 def fetch_recipe_ids(force_all: bool = False) -> set[UUID4]:
     logger.info("Fetching recipes for image reprocessing")
-    if force_all:
-        logger.info("!!Force processing all recipes regardless of current image state")
 
     with session_context() as session:
         result = session.execute(sa.text(f"SELECT id FROM {RecipeModel.__tablename__}"))
 
     recipe_ids = {UUID4(row[0]) for row in result}
     if force_all:
+        logger.info("!!Force processing all recipes regardless of current image state")
         return recipe_ids
 
     else:
@@ -76,7 +75,7 @@ def reprocess_recipe_images(recipe_id: UUID4, force_all: bool = False) -> None:
     service = RecipeDataService(recipe_id, logger=minifier_logger)
     original_image = service.dir_image / "original.webp"
     if not original_image.exists():
-        # We should've checked for this already, but we check again to be safe
+        # Double-check that original image exists. We may have skipped this if we're using force_all
         logger.error(f"Original image missing for recipe {recipe_id}; cannot reprocess")
         return
 
