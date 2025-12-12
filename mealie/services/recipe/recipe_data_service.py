@@ -1,5 +1,6 @@
 import asyncio
 import shutil
+from logging import Logger
 from pathlib import Path
 
 from httpx import AsyncClient, Response
@@ -60,7 +61,7 @@ class InvalidDomainError(Exception):
 class RecipeDataService(BaseService):
     minifier: img.ABCMinifier
 
-    def __init__(self, recipe_id: UUID4) -> None:
+    def __init__(self, recipe_id: UUID4, logger: Logger | None = None) -> None:
         """
         RecipeDataService is a service that consolidates the reading/writing actions related
         to assets, and images for a recipe.
@@ -68,6 +69,7 @@ class RecipeDataService(BaseService):
         super().__init__()
 
         self.recipe_id = recipe_id
+        self.logger = logger or self.logger
         self.minifier = img.PillowMinifier(purge=True, logger=self.logger)
 
         self.dir_data = Recipe.directory_from_id(self.recipe_id)

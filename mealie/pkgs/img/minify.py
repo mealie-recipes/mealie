@@ -44,10 +44,10 @@ class ABCMinifier(ABC):
     def __init__(self, purge=False, opts: MinifierOptions | None = None, logger: Logger | None = None):
         self._purge = purge
         self._opts = opts or MinifierOptions()
-        self._logger = logger or Logger("Minifier")
+        self.logger = logger or Logger("Minifier")
 
     def get_image_sizes(self, org_img: Path, min_img: Path, tiny_img: Path):
-        self._logger.info(
+        self.logger.info(
             f"{org_img.name} Minified: {sizeof_fmt(org_img)} -> {sizeof_fmt(min_img)} -> {sizeof_fmt(tiny_img)}"
         )
 
@@ -162,7 +162,7 @@ class PillowMinifier(ABCMinifier):
         tiny_dest = image_path.parent.joinpath("tiny-original.webp")
 
         if not force and min_dest.exists() and tiny_dest.exists() and org_dest.exists():
-            self._logger.info(f"{image_path.name} already exists in all formats")
+            self.logger.info(f"{image_path.name} already exists in all formats")
             return
 
         success = False
@@ -171,35 +171,35 @@ class PillowMinifier(ABCMinifier):
             with Image.open(image_path) as img:
                 if self._opts.original:
                     if not force and org_dest.exists():
-                        self._logger.info(f"{org_dest} already exists")
+                        self.logger.info(f"{org_dest} already exists")
                     else:
                         original = img.copy()
                         original.thumbnail((2048, 2048), Image.LANCZOS)
                         result_path = PillowMinifier.to_webp(dest=org_dest, quality=80, img=original)
-                        self._logger.info(f"{result_path} created")
+                        self.logger.info(f"{result_path} created")
                         success = True
 
                 if self._opts.miniature:
                     if not force and min_dest.exists():
-                        self._logger.info(f"{min_dest} already exists")
+                        self.logger.info(f"{min_dest} already exists")
                     else:
                         mini = img.copy()
                         mini.thumbnail((1024, 1024), Image.LANCZOS)
                         result_path = PillowMinifier.to_webp(dest=min_dest, quality=80, img=mini)
-                        self._logger.info(f"{result_path} created")
+                        self.logger.info(f"{result_path} created")
                         success = True
 
                 if self._opts.tiny:
                     if not force and tiny_dest.exists():
-                        self._logger.info(f"{tiny_dest} already exists")
+                        self.logger.info(f"{tiny_dest} already exists")
                     else:
                         tiny = PillowMinifier.crop_center(img.copy(), size=(300, 300))
                         result_path = PillowMinifier.to_webp(dest=tiny_dest, quality=80, img=tiny)
-                        self._logger.info(f"{result_path} created")
+                        self.logger.info(f"{result_path} created")
                         success = True
 
         except Exception as e:
-            self._logger.error(f"[ERROR] Failed to minify {image_path.name}. Error: {e}")
+            self.logger.error(f"[ERROR] Failed to minify {image_path.name}. Error: {e}")
             raise
 
         if self._purge and success:
