@@ -62,7 +62,7 @@ def fetch_recipe_ids(force_all: bool = False) -> set[UUID4]:
     with session_context() as session:
         result = session.execute(sa.text(f"SELECT id FROM {RecipeModel.__tablename__}"))
 
-    recipe_ids = {UUID4(row[0]) for row in result}
+    recipe_ids = {UUID4(str(row[0])) for row in result}
     if force_all:
         logger.info("!!Force processing all recipes regardless of current image state")
         return recipe_ids
