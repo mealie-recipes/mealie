@@ -44,7 +44,6 @@ export interface QueryFilterJSONPart {
   attributeName?: string | null;
   relationalOperator?: RelationalKeyword | RelationalOperator | null;
   value?: string | string[] | null;
-  [k: string]: unknown;
 }
 export interface SaveCookBook {
   name: string;
