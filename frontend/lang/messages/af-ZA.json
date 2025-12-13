@@ -445,6 +445,7 @@
     "upload-a-recipe": "Laai 'n resep op",
     "upload-individual-zip-file": "Laai 'n .zip-lêer op wat vanaf 'n ander Mealie-instansie uitgevoer is.",
     "url-form-hint": "Kopieer en plak 'n skakel vanaf jou gunstelingresepwebwerf",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Bekyk opgespoorde data",
     "trim-whitespace-description": "Knip voorste en agterste witspasie sowel as leë reëls",
     "trim-prefix-description": "Knip die eerste karakter van elke reël af",
