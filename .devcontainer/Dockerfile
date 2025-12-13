@@ -13,6 +13,7 @@ RUN echo "export PROMPT_COMMAND='history -a'" >> /home/vscode/.bashrc \
     && chown vscode:vscode -R /home/vscode/
 
 RUN npm install -g @go-task/cli
+RUN npm install -g json-schema-to-typescript
 
 # Install additional OS packages
 RUN apt-get update \
