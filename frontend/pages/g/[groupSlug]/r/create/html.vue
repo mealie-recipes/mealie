@@ -21,6 +21,7 @@
         <v-switch
           v-model="isEditJSON"
           :label="$t('recipe.json-editor')"
+          color="primary"
           class="mt-2"
           @change="handleIsEditJson"
         />
