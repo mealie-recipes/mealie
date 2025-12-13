@@ -445,6 +445,7 @@
     "upload-a-recipe": "Rezept hochladen",
     "upload-individual-zip-file": "Lade eine individuelle .zip-Datei hoch, die von einer anderen Mealie-Instanz exportiert wird.",
     "url-form-hint": "Kopiere einen Link von deiner Lieblingsrezept-Website und füge ihn ein",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Gesammelte Daten anzeigen",
     "trim-whitespace-description": "Leerzeichen am Anfang und Ende sowie leere Zeilen entfernen",
     "trim-prefix-description": "Erste Zeichen aus jeder Zeile entfernen",
