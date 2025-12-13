@@ -445,6 +445,7 @@
     "upload-a-recipe": "Recept feltöltése",
     "upload-individual-zip-file": "Tölts fel egy .zíp archívumot, ami egy másik Mealie példányból lett exportálva.",
     "url-form-hint": "Másold be a linket a kedvenc recept weboldaladról",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Letöltött adat megtekintése",
     "trim-whitespace-description": "Vágja le a kezdő és a záró fehérjeleket, valamint az üres sorokat",
     "trim-prefix-description": "Minden sor első karakterének levágása",
