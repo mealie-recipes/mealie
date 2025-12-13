@@ -445,6 +445,7 @@
     "upload-a-recipe": "Puja una recepta",
     "upload-individual-zip-file": "Puja només un arxiu zip, exportat d'altre Mealie.",
     "url-form-hint": "Copia i enganxa l'enllaç del teu lloc web de receptes preferit",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Visualitza les dades recuperades",
     "trim-whitespace-description": "Elimina els espais a principi i final; i elimina les línies buides",
     "trim-prefix-description": "Elimina el primer caràcter de cada línia",
