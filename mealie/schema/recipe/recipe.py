@@ -117,9 +117,9 @@ class RecipeSummary(MealieModel):
     id: UUID4 | None = None
     _normalize_search: ClassVar[bool] = True
 
-    user_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
-    household_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
-    group_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
+    user_id: Annotated[UUID4, Field(default_factory=uuid4, validate_default=True)]
+    household_id: Annotated[UUID4, Field(default_factory=uuid4, validate_default=True)]
+    group_id: Annotated[UUID4, Field(default_factory=uuid4, validate_default=True)]
 
     name: str | None = None
     slug: Annotated[str, Field(validate_default=True)] = ""
@@ -134,7 +134,7 @@ class RecipeSummary(MealieModel):
     perform_time: str | None = None
 
     description: str | None = ""
-    recipe_category: Annotated[list[RecipeCategory] | None, Field(validate_default=True)] | None = []
+    recipe_category: Annotated[list[RecipeCategory] | None, Field(validate_default=True)] = []
     tags: Annotated[list[RecipeTag] | None, Field(validate_default=True)] = []
     tools: list[RecipeTool] = []
     rating: float | None = None
