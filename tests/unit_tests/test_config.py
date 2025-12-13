@@ -1,6 +1,7 @@
 import json
 import re
 from dataclasses import dataclass
+from typing import Any
 
 import pytest
 
@@ -174,11 +175,11 @@ def test_smtp_enable_with_bad_data_tls(data: SMTPValidationCase):
 @dataclass(slots=True)
 class EnvVar:
     name: str
-    value: any
+    value: Any
 
 
 class LDAPValidationCase:
-    settings = list[EnvVar]
+    settings: list[EnvVar]
     is_valid: bool
 
     def __init__(
@@ -222,7 +223,7 @@ def test_ldap_settings_validation(data: LDAPValidationCase, monkeypatch: pytest.
 
 
 class OIDCValidationCase:
-    settings = list[EnvVar]
+    settings: list[EnvVar]
     is_valid: bool
 
     def __init__(
