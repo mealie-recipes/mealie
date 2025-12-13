@@ -445,6 +445,7 @@
     "upload-a-recipe": "Retsepti üleslaadimne",
     "upload-individual-zip-file": "Lae üles üksik .zip fail, mis eksporditi teisest Mealie ekspemplarist.",
     "url-form-hint": "Kopeeri ja kleebi link oma lemmikust retsepti leheküljest",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Kuva omandatud andmed",
     "trim-whitespace-description": "Eemalda alguses ning lõpus olevad tühikud ning tühjad read",
     "trim-prefix-description": "Eemalda esimene tähemärk igast reast",
