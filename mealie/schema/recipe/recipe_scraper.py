@@ -27,3 +27,6 @@ class ScrapeRecipe(ScrapeRecipeBase):
 class ScrapeRecipeData(ScrapeRecipeBase):
     data: str
     """HTML data or JSON string of a https://schema.org/Recipe object"""
+
+    url: str | None = None
+    """Optional URL of the recipe source"""

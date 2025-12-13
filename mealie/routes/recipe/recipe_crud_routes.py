@@ -148,7 +148,7 @@ class RecipeController(BaseRecipeController):
     async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData):
         if isinstance(req, ScrapeRecipeData):
             html = req.data
-            url = ""
+            url = req.url or ""
         else:
             html = None
             url = req.url
