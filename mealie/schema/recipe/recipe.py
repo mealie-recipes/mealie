@@ -134,7 +134,7 @@ class RecipeSummary(MealieModel):
     perform_time: str | None = None
 
     description: str | None = ""
-    recipe_category: Annotated[list[RecipeCategory] | None, Field(validate_default=True)] | None = []
+    recipe_category: Annotated[list[RecipeCategory] | None, Field(validate_default=True)] = []
     tags: Annotated[list[RecipeTag] | None, Field(validate_default=True)] = []
     tools: list[RecipeTool] = []
     rating: float | None = None
