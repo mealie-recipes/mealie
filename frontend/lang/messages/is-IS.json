@@ -445,6 +445,7 @@
     "upload-a-recipe": "Hlaða inn uppskrift",
     "upload-individual-zip-file": "Hlaða inn .zip skrá sem er flutt úr annarri Mealie uppsetningu.",
     "url-form-hint": "Afritaðu og límdu tengil frá uppáhalds uppskriftar síðunni þinni",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Skoða unnin gögn",
     "trim-whitespace-description": "Fjarlægja bil fremst og aftast í texta sem og auðum línum",
     "trim-prefix-description": "Eyða fyrsta staf úr hverri línu",
