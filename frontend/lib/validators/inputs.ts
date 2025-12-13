@@ -19,6 +19,10 @@ export function url(v: string | undefined | null) {
   return (!!v && URL_REGEX.test(v)) || "Must Be A Valid URL";
 }
 
+export function urlOptional(v: string | undefined | null) {
+  return v ? url(v) : true;
+}
+
 export function minLength(min: number) {
   return (v: string | undefined | null) => (!!v && v.length >= min) || `Must Be At Least ${min} Characters`;
 }
