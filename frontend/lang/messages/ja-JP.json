@@ -445,6 +445,7 @@
     "upload-a-recipe": "レシピのアップロード",
     "upload-individual-zip-file": "別のMealieインスタンスからエクスポートされた個別の.zipファイルをアップロードします。",
     "url-form-hint": "お気に入りのレシピサイトからリンクをコピーして貼り付け",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "スクライピングされたデータの表示",
     "trim-whitespace-description": "先頭と末尾の空白、空白行をトリミングします。",
     "trim-prefix-description": "各行の最初の文字をトリミングする",
