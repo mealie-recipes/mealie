@@ -445,6 +445,7 @@
     "upload-a-recipe": "Nahrať recept",
     "upload-individual-zip-file": "Nahrať súbor .zip exportovaný z inej Mealie inštalácie.",
     "url-form-hint": "Okopírujte a zložte odkaz z vašej obľúbenej webstránky",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Náhľad získaných údajov",
     "trim-whitespace-description": "Vymazať medzery a prázdne riadky na začiatku a na konci",
     "trim-prefix-description": "Vymazať prvé písmeno z každého riadku",
