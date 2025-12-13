@@ -445,6 +445,7 @@
     "upload-a-recipe": "Încarcă o rețetă",
     "upload-individual-zip-file": "Încărcaţi un fişier individual .zip exportat dintr-o altă instanţă de Mealie.",
     "url-form-hint": "Copiază și lipește un link de pe site-ul tău web preferat de rețete",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Vezi datele colectate",
     "trim-whitespace-description": "Elimină spațiile albe de la început și sfârșit precum și liniile goale",
     "trim-prefix-description": "Elimină primul caracter din fiecare linie",
