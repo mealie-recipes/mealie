@@ -1579,8 +1579,8 @@
             "amla": {
                 "aliases": [],
                 "description": "",
-                "name": "amla",
-                "plural_name": "amlas"
+                "name": "Ягода амла (индийский крыжовник)",
+                "plural_name": "Ягоды амла"
             },
             "elderberry": {
                 "aliases": [],
@@ -1597,8 +1597,8 @@
             "huckleberry": {
                 "aliases": [],
                 "description": "",
-                "name": "huckleberry",
-                "plural_name": "huckleberries"
+                "name": "Ягода гекльберри",
+                "plural_name": "Ягоды гекльберри"
             },
             "dried elderberry": {
                 "aliases": [],

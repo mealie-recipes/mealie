@@ -7,6 +7,12 @@ const store: Ref<IngredientFood[]> = ref([]);
 const loading = ref(false);
 const publicLoading = ref(false);
 
+export function resetFoodStore() {
+  store.value = [];
+  loading.value = false;
+  publicLoading.value = false;
+}
+
 export const useFoodData = function () {
   return useData<IngredientFood>({
     id: "",

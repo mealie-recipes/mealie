@@ -342,6 +342,9 @@
     "breakfast": "Morgunverður",
     "lunch": "Hádegisverður",
     "dinner": "Kvöldverður",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Allir",
     "day-any": "Alla",
     "editor": "Ritill",
@@ -633,6 +636,8 @@
     "scrape-recipe-suggest-bulk-importer": "Prófaðu að setja inn margar uppskriftir í einu",
     "scrape-recipe-have-raw-html-or-json-data": "Ertu með hrá HTML eða JSON gögn?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Það er hægt að hlaða inn hráum gögnum beint",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Nota upprunanleg merki",
     "stay-in-edit-mode": "Vera í breytingarham",
     "parse-recipe-ingredients-after-import": "Greina innhald uppskriftar eftir að búið er að hlaða inn uppskrift",
@@ -1217,7 +1222,7 @@
     "recipe-link-copied-message": "Tengill fyrir uppskriftina afritaður í klippispjald"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
+    "title": "Tilraunareiginleiki",
     "description": "This page contains experimental or still-baking features. Please excuse the mess.",
     "issue-link-text": "Track our progress here"
   },
@@ -1334,7 +1339,7 @@
   },
   "profile": {
     "welcome-user": "👋 Velkomin/Velkominn/Velkomið, {0}!",
-    "description": "Umsjá með prófíl, uppskriftum og hóp stillingum.",
+    "description": "Umsjá með prófíl, uppskriftum og hópstillingum.",
     "invite-link": "Boð tengill",
     "get-invite-link": "Fá boð tengil",
     "get-public-link": "Fá almennan tengil",
@@ -1388,7 +1393,7 @@
     "hide-cookbooks-from-other-households": "Fela uppskriftarbækur frá öðrum heimilum",
     "hide-cookbooks-from-other-households-description": "Þegar þetta er valið þá munu aðeins uppskriftarbækur úr þínu heimili birtast á hliðarstikunni",
     "public-cookbook": "Opin uppskriftarbók",
-    "public-cookbook-description": "Opnar uppskriftarbækur er hægt að deila með þeim sem ekki eru notendur í mealie kerfinu og eru þær sýnilegar á hópsíðunni þinni.",
+    "public-cookbook-description": "Opnar uppskriftabækur er hægt að deila með þeim sem ekki eru notendur í Mealie kerfinu og eru þær sýnilegar á hópsíðunni þinni.",
     "filter-options": "Filter Options",
     "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
     "require-all-categories": "Þarf alla flokka",
@@ -1396,7 +1401,7 @@
     "require-all-tools": "Require All Tools",
     "cookbook-name": "Nafn á uppskriftabók",
     "cookbook-with-name": "Uppskriftabók {0}",
-    "household-cookbook-name": "{0} Uppskriftabók {1}",
+    "household-cookbook-name": "Uppskriftabók {0}  {1}",
     "create-a-cookbook": "Stofna uppskrifabók",
     "cookbook": "Uppskriftabók"
   },
