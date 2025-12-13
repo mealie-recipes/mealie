@@ -445,6 +445,7 @@
     "upload-a-recipe": "上传食谱",
     "upload-individual-zip-file": "上传从Mealie导出的.zip文件。",
     "url-form-hint": "从您最喜爱的食谱网站复制并粘贴链接",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "查看爬取的数据",
     "trim-whitespace-description": "删除开头和结尾的空格和空行",
     "trim-prefix-description": "删除每行的首个字符",
