@@ -43,22 +43,22 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
 
     model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
 
+    def _parse_override_url(self, url: str) -> str:
+        if not url.startswith("postgresql://"):
+            raise ValueError("POSTGRES_URL_OVERRIDE scheme must be postgresql")
+
+        scheme, remainder = url.split("://", 1)
+        if "@" in remainder and ":" in remainder.split("@")[0]:
+            credentials, host_part = remainder.rsplit("@", 1)
+            user, password = credentials.split(":", 1)
+            return f"{scheme}://{user}:{urlparse.quote(password, safe='')}@{host_part}"
+
+        return url
+
     @property
     def db_url(self) -> str:
         if self.POSTGRES_URL_OVERRIDE:
-            url = self.POSTGRES_URL_OVERRIDE
-
-            scheme, remainder = url.split("://", 1)
-            if scheme != "postgresql":
-                raise ValueError("POSTGRES_URL_OVERRIDE scheme must be postgresql")
-
-            remainder = remainder.split(":", 1)[1]
-            password = remainder[: remainder.rfind("@")]
-            quoted_password = urlparse.quote(password)
-
-            safe_url = url.replace(password, quoted_password)
-
-            return safe_url
+            return self._parse_override_url(self.POSTGRES_URL_OVERRIDE)
 
         return str(
             PostgresDsn.build(
