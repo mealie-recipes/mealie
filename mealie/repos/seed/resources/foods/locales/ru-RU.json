@@ -1609,8 +1609,8 @@
             "barberry": {
                 "aliases": [],
                 "description": "",
-                "name": "barberry",
-                "plural_name": "barberries"
+                "name": "Барбарис",
+                "plural_name": "Ягоды барбариса"
             },
             "dried berry": {
                 "aliases": [],
@@ -1621,38 +1621,38 @@
             "sea buckthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "sea buckthorn",
-                "plural_name": "sea buckthorns"
+                "name": "Облепиха",
+                "plural_name": "Ягоды облепихи"
             },
             "saskatoon berry": {
                 "aliases": [],
                 "description": "",
-                "name": "saskatoon berry",
-                "plural_name": "saskatoon berries"
+                "name": "Ирга ольхолистная",
+                "plural_name": "Ягоды ирга ольхолистная"
             },
             "rosehip": {
                 "aliases": [],
                 "description": "",
-                "name": "rosehip",
-                "plural_name": "rosehips"
+                "name": "Шиповник",
+                "plural_name": "Плоды шиповника"
             },
             "hawthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "hawthorn",
-                "plural_name": "hawthorns"
+                "name": "Боя́рышник",
+                "plural_name": "Плоды боярышника"
             },
             "boysenberry": {
                 "aliases": [],
                 "description": "",
-                "name": "boysenberry",
-                "plural_name": "boysenberries"
+                "name": "Бойзенова ягода",
+                "plural_name": "Бойзеновы ягоды"
             },
             "cloudberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cloudberry",
-                "plural_name": "cloudberries"
+                "name": "Морошка",
+                "plural_name": "Ягоды морошки"
             },
             "freeze-dried berry": {
                 "aliases": [],
@@ -1663,26 +1663,26 @@
             "aronia berry": {
                 "aliases": [],
                 "description": "",
-                "name": "aronia berry",
-                "plural_name": "aronia berries"
+                "name": "Ягода арония",
+                "plural_name": "Ягоды аронии"
             },
             "chokeberry": {
                 "aliases": [],
                 "description": "",
-                "name": "chokeberry",
-                "plural_name": "chokeberries"
+                "name": "Ягода арония черноплодная",
+                "plural_name": "Ягоды аронии черноплодной"
             },
             "loganberry": {
                 "aliases": [],
                 "description": "",
-                "name": "loganberry",
-                "plural_name": "loganberries"
+                "name": "Логанова ягода",
+                "plural_name": "Логановы ягоды"
             },
             "blackcurrant leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "blackcurrant leaf",
-                "plural_name": "blackcurrant leaves"
+                "name": "Лист черной смородины",
+                "plural_name": "Листья черной смородины"
             },
             "haskap berry": {
                 "aliases": [],
