@@ -445,6 +445,7 @@
     "upload-a-recipe": "Naloži recept",
     "upload-individual-zip-file": "Naloži posamezno .zip datoteko, izvoženo iz druge Mealie namestitve.",
     "url-form-hint": "Kopiraj in prilepi povezavo iz vaše priljubljene strani z recepti",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Kopirajte in prilepite izvorni URL svojih podatkov (neobvezno)",
     "view-scraped-data": "Poglej postrgane podatke",
     "trim-whitespace-description": "Poreži začetne in končne presledke, kot tudi prazne vrstice",
     "trim-prefix-description": "Poreži prvi znak v vsaki vrstici",

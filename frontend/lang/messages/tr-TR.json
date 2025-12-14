@@ -445,6 +445,7 @@
     "upload-a-recipe": "Tarif Yükle",
     "upload-individual-zip-file": "Başka bir Mealie örneğinden dışa aktarılan ayrı bir .zip dosyası yükleyin.",
     "url-form-hint": "Favori tarif sitenizden bir bağlantıyı kopyalayıp yapıştırın",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Kazınmış Verileri Görüntüle",
     "trim-whitespace-description": "Baştaki ve sondaki boşlukların yanı sıra boş satırları da kırpın",
     "trim-prefix-description": "Her satırın ilk karakterini kırpın",

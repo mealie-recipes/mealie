@@ -445,6 +445,7 @@
     "upload-a-recipe": "Nahrát recept",
     "upload-individual-zip-file": "Nahrát individuální .zip soubor exportovaný z jiné instance Mealie.",
     "url-form-hint": "Zkopírujte a vložte odkaz z vaší oblíbené stránky s recepty",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Zobrazit scrapovaná data",
     "trim-whitespace-description": "Oříznout počáteční a koncové mezery stejně jako prázdné řádky",
     "trim-prefix-description": "Oříznout první znak z každé řádky",

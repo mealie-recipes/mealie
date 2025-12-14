@@ -445,6 +445,7 @@
     "upload-a-recipe": "Завантажити рецепт",
     "upload-individual-zip-file": "Завантажити окремий .zip файл, експортований з іншого Mealie.",
     "url-form-hint": "Скопіюйте та вставте посилання з вашого улюбленого кулінарного веб-сайту",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Переглянути зібрані дані",
     "trim-whitespace-description": "Обрізати початкові та кінцеву пробілів і порожні лінії",
     "trim-prefix-description": "Обрізати перший символ з кожного рядка",

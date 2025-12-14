@@ -445,6 +445,7 @@
     "upload-a-recipe": "Enviar uma Receita",
     "upload-individual-zip-file": "Enviar um arquivo .zip individual exportado a partir de outra instância do Mealie.",
     "url-form-hint": "Copie e cole um link do seu site de receita favorito",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Visualizar Dados Rastreados",
     "trim-whitespace-description": "Aparar o espaço em branco e à direita, bem como linhas em branco",
     "trim-prefix-description": "Aparar primeiro caractere de cada linha",

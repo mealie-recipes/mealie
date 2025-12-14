@@ -445,6 +445,7 @@
     "upload-a-recipe": "تحميل وصفة",
     "upload-individual-zip-file": "تحميل مِلَفّ zip فردي تم تصديره من مثيل Malie آخر.",
     "url-form-hint": "نسخ ولصق رابط من موقعك المفضل للوصفة",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "عرض البيانات المحللة",
     "trim-whitespace-description": "قص المسافات البيضاء البادئة واللاحقة وكذلك الأسطر الفارغة",
     "trim-prefix-description": "قص الحرف الأول من كل سطر",

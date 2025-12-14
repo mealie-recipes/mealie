@@ -445,6 +445,7 @@
     "upload-a-recipe": "Ladda upp ett recept",
     "upload-individual-zip-file": "Ladda upp en individuell .zip-fil som exporteras från en annan Mealie-instans.",
     "url-form-hint": "Kopiera och klistra in en länk från din favorit recept webbplats",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Visa skrapade data",
     "trim-whitespace-description": "Ta bort inledande och avslutande blanksteg samt tomma rader",
     "trim-prefix-description": "Ta bort första tecknet från varje rad",
