@@ -1687,26 +1687,26 @@
             "haskap berry": {
                 "aliases": [],
                 "description": "",
-                "name": "haskap berry",
-                "plural_name": "haskap berries"
+                "name": "Жимолость голубая",
+                "plural_name": "Ягоды жимолости голубой"
             },
             "dewberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dewberry",
-                "plural_name": "dewberries"
+                "name": "Ягода рубуса (малинника)",
+                "plural_name": "Ягоды рубуса (малинника)"
             },
             "sloe berry": {
                 "aliases": [],
                 "description": "",
-                "name": "sloe berry",
-                "plural_name": "sloe berries"
+                "name": "Плод тёрна",
+                "plural_name": "Плоды тёрна"
             },
             "oregon grape": {
                 "aliases": [],
                 "description": "",
-                "name": "oregon grape",
-                "plural_name": "oregon grapes"
+                "name": "Ягода магонии (орегонский виноград)",
+                "plural_name": "Ягоды магонии (орегонский виноград)"
             }
         }
     },
