@@ -4034,7 +4034,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "schapenvlees",
-                "plural_name": "muttons"
+                "plural_name": "schapenvlees"
             },
             "ham steak": {
                 "aliases": [],
@@ -4051,8 +4051,8 @@
             "bratwurst": {
                 "aliases": [],
                 "description": "",
-                "name": "bratwurst",
-                "plural_name": "bratwursts"
+                "name": "braadworst",
+                "plural_name": "braadworsten"
             },
             "pulled pork": {
                 "aliases": [],
