@@ -1775,8 +1775,8 @@
             "slivered almond": {
                 "aliases": [],
                 "description": "",
-                "name": "slivered almond",
-                "plural_name": "slivered almonds"
+                "name": "Рубленный миндаль",
+                "plural_name": "Рубленный миндаль"
             },
             "pumpkin seed": {
                 "aliases": [],
@@ -1823,14 +1823,14 @@
             "hemp heart": {
                 "aliases": [],
                 "description": "",
-                "name": "hemp heart",
-                "plural_name": "hemp hearts"
+                "name": "Семя конопли",
+                "plural_name": "Семена конопли"
             },
             "nigella seed": {
                 "aliases": [],
                 "description": "",
-                "name": "nigella seed",
-                "plural_name": "nigella seeds"
+                "name": "Калинджи (чернушка посевная)",
+                "plural_name": "Плоды калинджи (чернушки посевной)"
             },
             "mixed nut": {
                 "aliases": [],
@@ -1847,8 +1847,8 @@
             "mixed seed": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed seed",
-                "plural_name": "mixed seeds"
+                "name": "Смесь семян ",
+                "plural_name": "Смесь семян "
             },
             "onion seed": {
                 "aliases": [],
@@ -1865,8 +1865,8 @@
             "honey-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted peanut",
-                "plural_name": "honey-roasted peanuts"
+                "name": "Жареный арахис с мёдом",
+                "plural_name": "Жареный арахис с мёдом"
             },
             "melon seed": {
                 "aliases": [],
@@ -1877,20 +1877,20 @@
             "lotus seed": {
                 "aliases": [],
                 "description": "",
-                "name": "lotus seed",
-                "plural_name": "lotus seeds"
+                "name": "Семя лотоса",
+                "plural_name": "Семена лотоса"
             },
             "white chia": {
                 "aliases": [],
                 "description": "",
-                "name": "white chia",
-                "plural_name": "white chias"
+                "name": "Семя чиа",
+                "plural_name": "Семена чиа"
             },
             "trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "trail mix",
-                "plural_name": "trail mixes"
+                "name": "Трейл-микс (смесь орехов и сухофруктов)",
+                "plural_name": "Трейл-микс (смесь орехов и сухофруктов)"
             },
             "basil seed": {
                 "aliases": [],
@@ -1901,8 +1901,8 @@
             "candlenut": {
                 "aliases": [],
                 "description": "",
-                "name": "candlenut",
-                "plural_name": "candlenuts"
+                "name": "Семя лумбанга (тунга молуккского)",
+                "plural_name": "Семена лумбанга (тунга молуккского)"
             },
             "peanut brittle": {
                 "aliases": [],
