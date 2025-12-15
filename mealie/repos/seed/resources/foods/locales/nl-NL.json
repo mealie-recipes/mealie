@@ -17,7 +17,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "paprika",
-                "plural_name": "paprikas"
+                "plural_name": "paprika's"
             },
             "carrot": {
                 "aliases": [],
@@ -292,7 +292,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "puntpaprika",
-                "plural_name": "puntpaprikas"
+                "plural_name": "puntpaprika's"
             },
             "serrano pepper": {
                 "aliases": [],
@@ -352,7 +352,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "spaghettipompoen",
-                "plural_name": "spaghettipompoenen"
+                "plural_name": "spaghetti pompoenen"
             },
             "butter lettuce": {
                 "aliases": [],
@@ -7650,7 +7650,7 @@
             "flour": {
                 "aliases": [],
                 "description": "",
-                "name": "flour",
+                "name": "bloem",
                 "plural_name": "flours"
             },
             "vanilla extract": {
