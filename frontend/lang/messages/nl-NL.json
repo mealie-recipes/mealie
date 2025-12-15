@@ -445,7 +445,7 @@
     "upload-a-recipe": "Upload een recept",
     "upload-individual-zip-file": "Upload een .zip-bestand dat uit een andere Mealie-instantie is geëxporteerd.",
     "url-form-hint": "Kopieer en plak een link vanuit jouw favoriete receptenwebsite",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Kopieer en plak de bron URL van uw gegevens (optioneel)",
     "view-scraped-data": "Bekijk opgehaalde data",
     "trim-whitespace-description": "Haal witruimtes en witregels aan het begin en einde weg",
     "trim-prefix-description": "Verwijder het eerste teken van elke regel",
@@ -1428,5 +1428,13 @@
       "is-like": "is zoals",
       "is-not-like": "is niet zoals"
     }
+  },
+  "validators": {
+    "required": "Dit is een verplicht veld",
+    "invalid-email": "E-mailadres moet geldig zijn",
+    "invalid-url": "Moet een geldige URL zijn",
+    "no-whitespace": "Geen spaties toegestaan",
+    "min-length": "Moet minimaal {min} tekens bevatten",
+    "max-length": "Zorg dat je {max} tekens gebruikt"
   }
 }
