@@ -1430,11 +1430,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "To polje je obvezno",
+    "invalid-email": "E-pošta mora biti veljavna",
+    "invalid-url": "URL mora biti veljaven",
+    "no-whitespace": "Presledki niso dovoljeni",
+    "min-length": "Mora vsebovati vsaj {min} znakov",
+    "max-length": "Lahko je največ {max} znakov"
   }
 }
