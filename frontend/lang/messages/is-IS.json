@@ -620,8 +620,8 @@
     "create-recipe-description": "Stofna nýja uppskrift frá grunni.",
     "create-recipes": "Stofna uppskriftir",
     "import-with-zip": "Hlaða inn með .zip",
-    "create-recipe-from-an-image": "Create Recipe from an Image",
-    "create-recipe-from-an-image-description": "Create a recipe by uploading an image of it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
+    "create-recipe-from-an-image": "Stofna uppskrift út frá mynd",
+    "create-recipe-from-an-image-description": "Stofna uppskrift með því hlaða inn myndum af uppskriftartextanum. Mealie mun reyna að vinna texta úr myndunum með gervigreind og stofna nýja uppskrift út frá textanum.",
     "crop-and-rotate-the-image": "Sníða og snúa mynd svo bara textinn sé sýnilegur og að myndin snúi rétt.",
     "create-from-images": "Stofna uppskrift frá mynd",
     "should-translate-description": "Þýða uppskrift á mitt tungumál",
@@ -661,7 +661,7 @@
     "recipe-debugger": "Yfirfara uppskrift",
     "recipe-debugger-description": "Náðu í slóðina af uppskriftinni sem þú villt yfirfara og límdu hana hér. Síðan með uppskriftinni verður greind með greiningarverkfærinu og þú munnt sjá niðurstöðuna. Ef þú sérð að engin gögn skila sér þá er slóðin sem þú ert að greina ekki studd af Mealie eða greiningarverkfærinu.",
     "use-openai": "Nota OpenAI",
-    "recipe-debugger-use-openai-description": "Nota OpenAI til að greina í staðinn fyrir að treysta á greiningar verkfærið. Þegar er fengin af slóð þá gerist þetta sjálfkrafa ef almenn greining mistekst, en þú getur prófað það hér.",
+    "recipe-debugger-use-openai-description": "Nota OpenAI til að greina í staðinn fyrir að treysta á greiningar verkfærið. Ef greiningar verkfærinu mistekst að greina uppskrift af vefslóð þá gerist það sjálfvirkt að OpenAI greinir uppskriftina en þú getur prófað þetta sjálfur hér.",
     "debug": "Villuleit",
     "tree-view": "Tré sýn",
     "recipe-servings": "Fjöldi skammta",
@@ -1430,11 +1430,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Þessi reitur er nauðsynlegur",
+    "invalid-email": "Verður að vera gilt netfang",
+    "invalid-url": "Verður að vera gild vefslóð",
+    "no-whitespace": "Engin bil leyfð",
+    "min-length": "Verður að vera að lágmarki {min} stafir",
+    "max-length": "Má vera að hámarki {max} stafir"
   }
 }
