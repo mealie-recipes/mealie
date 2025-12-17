@@ -1407,8 +1407,8 @@
             "djon djon mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "djon djon mushroom",
-                "plural_name": "djon djon mushrooms"
+                "name": "djon djon sveppur",
+                "plural_name": "djon djon sveppir"
             },
             "mixed asian mushroom": {
                 "aliases": [],
@@ -1543,20 +1543,20 @@
             "freeze-dried raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried raspberry",
-                "plural_name": "freeze-dried raspberries"
+                "name": "frostþurrkað hindber",
+                "plural_name": "frostþurrkuð hindber"
             },
             "lingonberry": {
                 "aliases": [],
                 "description": "",
-                "name": "lingonberry",
-                "plural_name": "lingonberries"
+                "name": "rauðber",
+                "plural_name": "rauðber"
             },
             "canned sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sour cherry",
-                "plural_name": "canned sour cherries"
+                "name": "niðursoðin súr kirsuber",
+                "plural_name": "niðursoðin súr kirsuber"
             },
             "mulberry": {
                 "aliases": [],
@@ -1727,38 +1727,38 @@
             "almond": {
                 "aliases": [],
                 "description": "",
-                "name": "almond",
-                "plural_name": "almonds"
+                "name": "mandla",
+                "plural_name": "möndlur"
             },
             "sesame seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame seed",
-                "plural_name": "sesame seeds"
+                "name": "sesam fræ",
+                "plural_name": "sesam fræ"
             },
             "cashew": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew",
-                "plural_name": "cashews"
+                "name": "kasúhneta",
+                "plural_name": "kasúhnetur"
             },
             "pine nut": {
                 "aliases": [],
                 "description": "",
-                "name": "pine nut",
-                "plural_name": "pine nuts"
+                "name": "furuhneta",
+                "plural_name": "furuhnetur"
             },
             "pistachio": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio",
-                "plural_name": "pistachios"
+                "name": "pistasía",
+                "plural_name": "pistasíur"
             },
             "peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut",
-                "plural_name": "peanuts"
+                "name": "jarðhneta",
+                "plural_name": "jarðhnetur"
             },
             "chia": {
                 "aliases": [],
