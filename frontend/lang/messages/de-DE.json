@@ -51,7 +51,7 @@
     "category": "Kategorie"
   },
   "events": {
-    "apprise-url": "Apprise-URL",
+    "apprise-url": "Apprise URL",
     "database": "Datenbank",
     "delete-event": "Ereignis löschen",
     "event-delete-confirmation": "Bist du dir sicher, dass du dieses Ereignis löschen möchtest?",
@@ -191,7 +191,7 @@
     "menu": "Menü",
     "a-name-is-required": "Ein Name wird benötigt",
     "delete-with-name": "{name} löschen",
-    "confirm-delete-generic-with-name": "Bist du dir sicher, dass du dies löschen möchtest?",
+    "confirm-delete-generic-with-name": "Bist du dir sicher, dass du {name} löschen möchtest?",
     "confirm-delete-own-admin-account": "Bitte beachte, dass du versuchst, dein eigenes Administrator-Konto zu löschen! Diese Aktion kann nicht rückgängig gemacht werden und wird dein Konto dauerhaft löschen?",
     "organizer": "Organisator",
     "transfer": "Übertragen",
@@ -342,9 +342,9 @@
     "breakfast": "Frühstück",
     "lunch": "Mittagessen",
     "dinner": "Abendessen",
-    "snack": "Snack",
-    "drink": "Drink",
-    "dessert": "Dessert",
+    "snack": "Zwischenmahlzeit ",
+    "drink": "Getränk",
+    "dessert": "Nachspeise",
     "type-any": "Alle",
     "day-any": "Alle",
     "editor": "Bearbeiten",
@@ -445,7 +445,7 @@
     "upload-a-recipe": "Rezept hochladen",
     "upload-individual-zip-file": "Lade eine individuelle .zip-Datei hoch, die von einer anderen Mealie-Instanz exportiert wird.",
     "url-form-hint": "Kopiere einen Link von deiner Lieblingsrezept-Website und füge ihn ein",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Kopieren und fügen Sie die Quell-URL Ihrer Daten ein (optional)",
     "view-scraped-data": "Gesammelte Daten anzeigen",
     "trim-whitespace-description": "Leerzeichen am Anfang und Ende sowie leere Zeilen entfernen",
     "trim-prefix-description": "Erste Zeichen aus jeder Zeile entfernen",
@@ -637,8 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Probiere den Massenimporter aus",
     "scrape-recipe-have-raw-html-or-json-data": "Hast du Roh-HTML oder JSON Daten?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kannst direkt von Rohdaten importieren",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-website-being-blocked": "Die Website wird blockiert?",
+    "scrape-recipe-try-importing-raw-html-instead": "Versuchen Sie stattdessen das reine HTML zu importieren.",
     "import-original-keywords-as-tags": "Importiere ursprüngliche Stichwörter als Schlagwörter",
     "stay-in-edit-mode": "Im Bearbeitungsmodus bleiben",
     "parse-recipe-ingredients-after-import": "Zutaten nach dem Import parsen",
@@ -1430,11 +1430,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Dieses Feld ist erforderlich",
+    "invalid-email": "E-Mail muss gültig sein",
+    "invalid-url": "Muss eine gültige URL sein",
+    "no-whitespace": "Kein Leerzeichen erlaubt",
+    "min-length": "Muss mindestens {min} Zeichen haben",
+    "max-length": "Darf mindestens {max} Zeichen haben"
   }
 }
