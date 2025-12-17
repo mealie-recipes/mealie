@@ -22,6 +22,7 @@ export default function LoginPage() {
 
         // Auto-redirect to OIDC if enabled and redirect is true
         if (appConfig.enableOidc && appConfig.oidcRedirect) {
+          // Use window.location.href for OIDC as it requires full page redirect to IdP
           window.location.href = "/api/auth/oidc/login";
           return;
         }
@@ -42,7 +43,6 @@ export default function LoginPage() {
 
     try {
       // TODO: Implement actual login API call
-      console.log("Login attempt:", { email, password });
       // Placeholder for actual authentication
       await new Promise((resolve) => setTimeout(resolve, 1000));
       router.push("/");
@@ -54,6 +54,7 @@ export default function LoginPage() {
   };
 
   const handleOidcLogin = () => {
+    // Use window.location.href for OIDC as it requires full page redirect to IdP
     window.location.href = "/api/auth/oidc/login";
   };
 
