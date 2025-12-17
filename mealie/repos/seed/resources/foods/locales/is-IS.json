@@ -1223,8 +1223,8 @@
             "green ume plum": {
                 "aliases": [],
                 "description": "",
-                "name": "green ume plum",
-                "plural_name": "green ume plums"
+                "name": "græn japönsk plóma",
+                "plural_name": "grænar japanskar plómur"
             },
             "kiwano": {
                 "aliases": [],
@@ -1323,14 +1323,14 @@
             "shimeji mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shimeji mushroom",
-                "plural_name": "shimeji mushrooms"
+                "name": "shimeji sveppur",
+                "plural_name": "shimeji sveppir"
             },
             "straw mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "straw mushroom",
-                "plural_name": "straw mushrooms"
+                "name": "matsokka",
+                "plural_name": "matsokka"
             },
             "dried chinese mushroom": {
                 "aliases": [],
