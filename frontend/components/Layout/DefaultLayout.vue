@@ -245,6 +245,12 @@ export default defineNuxtComponent({
         restricted: true,
       },
       {
+        icon: $globals.icons.foods,
+        title: i18n.t("Diet Planner"),
+        to: "/diet-planner",
+        restricted: true,
+      },
+      {
         icon: $globals.icons.formatListCheck,
         title: i18n.t("shopping-list.shopping-lists"),
         to: "/shopping-lists",
