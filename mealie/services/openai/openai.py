@@ -176,3 +176,21 @@ class OpenAIService(BaseService):
             return response.choices[0].message.content
         except Exception as e:
             raise Exception(f"OpenAI Request Failed. {e.__class__.__name__}: {e}") from e
+
+    async def transcribe_audio(self, file_path: Path | str) -> str | None:
+        settings = get_app_settings()
+        if not settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES:
+            self.logger.warning("OpenAI transcription services are disabled")
+            return None
+
+        client = self.get_client()
+        try:
+            with open(file_path, "rb") as audio_file:
+                transcript = await client.audio.transcriptions.create(
+                    model="whisper-1",
+                    file=audio_file,
+                )
+            return transcript.text
+        except Exception as e:
+            self.logger.error(f"OpenAI Transcription Failed: {e}")
+            return None

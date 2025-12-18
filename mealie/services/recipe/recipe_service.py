@@ -8,6 +8,7 @@ from typing import Any
 from uuid import UUID, uuid4
 from zipfile import ZipFile
 
+import yt_dlp
 from fastapi import UploadFile
 
 from mealie.core import exceptions
@@ -292,6 +293,13 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
+    async def create_from_video_url(self, url: str, translate_language: str | None = None) -> str:
+        openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.household, self.translator)
+        recipe_data = await openai_recipe_service.build_recipe_from_video_url(
+            url, translate_language=translate_language
+        )
+        return recipe_data
+
     async def create_from_images(self, images: list[UploadFile], translate_language: str | None = None) -> Recipe:
         openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.household, self.translator)
         with get_temporary_path() as temp_path:
@@ -499,6 +507,57 @@ class RecipeService(RecipeServiceBase):
 
 
 class OpenAIRecipeService(RecipeServiceBase):
+    def _download_audio(self, url: str) -> dict:
+        """Downloads audio and subtitles from a video URL.
+
+        Returns:
+            dict with keys:
+                - audio: path to downloaded audio file
+                - subtitle: path to subtitle file (or None if not available)
+                - title: video title
+                - description: video description
+                - thumbnail: video thumbnail URL
+        """
+        temp_id = os.getpid()
+        output_template = f"/tmp/mealie_{temp_id}"  # No extension here
+
+        ydl_opts = {
+            "format": "bestaudio/best",
+            "outtmpl": output_template + ".%(ext)s",
+            "quiet": True,
+            "writesubtitles": True,
+            "writeautomaticsub": True,
+            "subtitleslangs": ["en", "fr", "es", "de", "it"],
+            "skip_download": False,
+            "ignoreerrors": True,
+            "postprocessors": [
+                {
+                    "key": "FFmpegExtractAudio",
+                    "preferredcodec": "mp3",
+                    "preferredquality": "32",
+                }
+            ],
+            "postprocessor_args": ["-ac", "1"],
+        }
+
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            info = ydl.extract_info(url, download=True)
+
+            sub_path = None
+            for lang in ["en", "fr", "es", "de", "it"]:
+                potential_path = f"{output_template}.{lang}.vtt"
+                if os.path.exists(potential_path):
+                    sub_path = potential_path
+                    break
+
+            return {
+                "audio": f"{output_template}.mp3",
+                "subtitle": sub_path,
+                "title": info.get("title"),
+                "description": info.get("description"),
+                "thumbnail": info.get("thumbnail"),
+            }
+
     def _convert_recipe(self, openai_recipe: OpenAIRecipe) -> Recipe:
         return Recipe(
             user_id=self.user.id,
@@ -567,3 +626,60 @@ class OpenAIRecipeService(RecipeServiceBase):
             raise ValueError("Unable to parse recipe from image") from e
 
         return recipe
+
+    async def build_recipe_from_video_url(self, video_url: str, translate_language: str | None = None) -> str:
+        settings = get_app_settings()
+        if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES):
+            raise ValueError("OpenAI transcription services are not available")
+        openai_service = OpenAIService()
+
+        data = self._download_audio(video_url)
+
+        if data["subtitle"]:
+            try:
+                with open(data["subtitle"], encoding="utf-8") as f:
+                    subtitle_content = f.read()
+                lines = []
+                for line in subtitle_content.split("\n"):
+                    if line.strip() and not line.startswith("WEBVTT") and "-->" not in line and not line.isdigit():
+                        lines.append(line.strip())
+                data["transcription"] = " ".join(lines)
+                self.logger.info("Using subtitles from video instead of transcription")
+            except Exception as e:
+                self.logger.warning(f"Failed to read subtitles, falling back to transcription: {e}")
+                data["transcription"] = None
+
+        if not data.get("transcription"):
+            try:
+                transcription = await openai_service.transcribe_audio(data["audio"])
+            except Exception as e:
+                raise Exception("Failed to transcribe audio from video") from e
+            if not transcription:
+                raise ValueError("No transcription returned from OpenAI")
+            data["transcription"] = transcription
+
+        self.logger.debug(f"Transcription: {data['transcription'][:200]}...")
+        prompt = openai_service.get_prompt(
+            "recipes.parse-recipe-video",
+        )
+
+        message = (
+            f"Please extract the recipe from the video provided."
+            f"the video is titled '{data['title']}' and has the description: {data['description']}.\n"
+            f"here is the thumbnail for the video: {data['thumbnail']}\n"
+            f"Here is the transcription of the audio from the video:\n{data['transcription']}\n"
+            "There should be exactly one recipe."
+        )
+
+        if translate_language:
+            message += f" Please translate the recipe to {translate_language}."
+
+        try:
+            response = await openai_service.get_response(prompt, message, force_json_response=True)
+        except Exception as e:
+            raise Exception("Failed to call OpenAI services") from e
+        if not response:
+            raise ValueError("No response returned from OpenAI")
+
+        self.logger.info(f"Successfully extracted recipe from video: {data['title']}")
+        return response

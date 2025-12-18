@@ -398,6 +398,8 @@ class AppSettings(AppLoggingSettings):
     """Custom HTTP parameters to send with each OpenAI request"""
     OPENAI_ENABLE_IMAGE_SERVICES: bool = True
     """Whether to enable image-related features in OpenAI"""
+    OPENAI_ENABLE_TRANSCRIPTION_SERVICES: bool = True
+    """Whether to enable audio transcription features in OpenAI"""
     OPENAI_WORKERS: int = 2
     """
     Number of OpenAI workers per request. Higher values may increase

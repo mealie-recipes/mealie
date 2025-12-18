@@ -215,6 +215,21 @@ class RecipeController(BaseRecipeController):
 
         return recipe.slug
 
+    @router.post("/create/video", status_code=201)
+    async def parse_recipe_video_url(
+        self, req: ScrapeRecipe, translate_language: str | None = Query(None, alias="translateLanguage")
+    ):
+        """Takes in a video URL and attempts to scrape data and load it into the database"""
+
+        if not (self.settings.OPENAI_ENABLED and self.settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES):
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("OpenAI transcription services are not enabled"),
+            )
+        recipe_json = await self.service.create_from_video_url(req.url, translate_language=translate_language)
+        newReq = ScrapeRecipeData(url=req.url, data=RecipeScraperPackage.ld_json_to_html(recipe_json))
+        return await self._create_recipe_from_web(newReq)
+
     @router.post("/create/image", status_code=201)
     async def create_recipe_from_image(
         self,
