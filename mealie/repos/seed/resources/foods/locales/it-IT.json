@@ -2021,8 +2021,8 @@
             "sharp cheddar": {
                 "aliases": [],
                 "description": "",
-                "name": "sharp cheddar",
-                "plural_name": "sharp cheddars"
+                "name": "cheddar stagionato",
+                "plural_name": "cheddar stagionati"
             },
             "cheese": {
                 "aliases": [],
@@ -2154,7 +2154,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "formaggio fresco",
-                "plural_name": "queso frescoes"
+                "plural_name": "formaggi freschi"
             },
             "quark": {
                 "aliases": [],
@@ -2321,8 +2321,8 @@
             "creamy cheese wedge": {
                 "aliases": [],
                 "description": "",
-                "name": "creamy cheese wedge",
-                "plural_name": "creamy cheese wedges"
+                "name": "fetta di formaggio cremoso",
+                "plural_name": "fette di formaggio cremoso"
             },
             "cheese powder": {
                 "aliases": [],
@@ -2424,7 +2424,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "scamorza",
-                "plural_name": "scamorzas"
+                "plural_name": "scamorze"
             },
             "cambozola": {
                 "aliases": [],
@@ -2568,7 +2568,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fontal",
-                "plural_name": "fontals"
+                "plural_name": "fontal"
             },
             "salad cheese": {
                 "aliases": [],
@@ -2631,14 +2631,14 @@
             "heavy cream": {
                 "aliases": [],
                 "description": "",
-                "name": "heavy cream",
-                "plural_name": "heavy creams"
+                "name": "panna da cucina",
+                "plural_name": "panna da cucina"
             },
             "sour cream": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cream",
-                "plural_name": "sour creams"
+                "name": "panna acida",
+                "plural_name": "panna acida"
             },
             "buttermilk": {
                 "aliases": [],
@@ -2672,11 +2672,11 @@
             },
             "ghee": {
                 "aliases": [
-                    "clarified butter"
+                    "burro chiarificato"
                 ],
                 "description": "",
                 "name": "ghee",
-                "plural_name": "ghees"
+                "plural_name": "ghee"
             },
             "shortening": {
                 "aliases": [],
