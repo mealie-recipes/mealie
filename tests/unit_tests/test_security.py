@@ -2,10 +2,11 @@ from pathlib import Path
 
 import ldap
 import pytest
+from fastapi import HTTPException
 from pytest import MonkeyPatch
 
 from mealie.core import security
-from mealie.core.config import get_app_settings
+from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.core.dependencies import validate_file_token
 from mealie.core.security.providers.credentials_provider import (
     CredentialsProvider,
@@ -15,6 +16,7 @@ from mealie.core.security.providers.ldap_provider import LDAPProvider
 from mealie.db.db_setup import session_context
 from mealie.db.models.users.users import AuthMethod
 from mealie.repos.repository_factory import AllRepositories
+from mealie.routes.utility_routes import download_file
 from mealie.schema.user.auth import CredentialsRequestForm
 from mealie.schema.user.user import PrivateUser
 from tests.utils import random_string
@@ -120,6 +122,46 @@ def test_create_file_token():
     file_token = security.create_file_token(file_path)
 
     assert file_path == validate_file_token(file_token)
+
+
+@pytest.mark.asyncio
+async def test_download_file_security_restrictions():
+    dirs = get_app_dirs()
+
+    # Test 1: File in DATA_DIR but outside allowed dirs should be blocked
+    secret_file = dirs.DATA_DIR / ".secret"
+
+    with pytest.raises(HTTPException) as exc_info:
+        await download_file(secret_file)
+    assert exc_info.value.status_code == 400
+
+    # Test 2: File in BACKUP_DIR should be allowed (but only if it exists)
+    backup_file = dirs.BACKUP_DIR / "test.zip"
+    dirs.BACKUP_DIR.mkdir(parents=True, exist_ok=True)
+    backup_file.write_text("test backup content")
+
+    try:
+        response = await download_file(backup_file)
+        assert response.media_type == "application/octet-stream"
+        assert response.path == backup_file
+    finally:
+        backup_file.unlink(missing_ok=True)
+
+    # Test 3: File in GROUPS_DIR should be allowed (but only if it exists)
+    export_dir = dirs.GROUPS_DIR / "some-group-id" / "export"
+    export_dir.mkdir(parents=True, exist_ok=True)
+    export_file = export_dir / "test.zip"
+    export_file.write_text("test export content")
+
+    try:
+        response = await download_file(export_file)
+        assert response.media_type == "application/octet-stream"
+        assert response.path == export_file
+    finally:
+        export_file.unlink(missing_ok=True)
+        # Clean up the directory structure
+        export_dir.rmdir()
+        (dirs.GROUPS_DIR / "some-group-id").rmdir()
 
 
 def get_provider(session, username: str, password: str):
