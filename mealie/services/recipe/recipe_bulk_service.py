@@ -1,11 +1,14 @@
 from pathlib import Path
 
+from pydantic import UUID4
+
 from mealie.core.exceptions import UnexpectedNone
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.recipe import CategoryBase
 from mealie.schema.recipe.recipe_category import TagBase
 from mealie.schema.recipe.recipe_settings import RecipeSettings
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.user.user import GroupInDB, PrivateUser
 from mealie.services._base_service import BaseService
 from mealie.services.exporter import Exporter, RecipeExporter
@@ -25,7 +28,11 @@ class RecipeBulkActionsService(BaseService):
         exporter.run(self.repos)
 
     def get_exports(self) -> list[GroupDataExport]:
-        return self.repos.group_exports.multi_query({"group_id": self.group.id})
+        exports_page = self.repos.group_exports.page_all(PaginationQuery(per_page=-1))
+        return exports_page.items
+
+    def get_export(self, id: UUID4) -> GroupDataExport | None:
+        return self.repos.group_exports.get_one(id)
 
     def purge_exports(self) -> int:
         all_exports = self.get_exports()
