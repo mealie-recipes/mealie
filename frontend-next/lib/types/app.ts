@@ -15,3 +15,11 @@ export interface AppConfig {
   enableOpenai: boolean;
   enableOpenaiImageServices: boolean;
 }
+
+/**
+ * Response type from /api/app/about/startup-info endpoint
+ */
+export interface StartupInfo {
+  isFirstLogin: boolean;
+  isDemoMode: boolean;
+}
