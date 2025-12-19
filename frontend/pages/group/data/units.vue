@@ -465,9 +465,8 @@ export default defineNuxtComponent({
     }
 
     async function deleteSelected() {
-      for (const item of bulkDeleteTarget.value) {
-        await unitActions.deleteOne(item.id);
-      }
+      const ids = bulkDeleteTarget.value.map(item => item.id);
+      await unitActions.deleteMany(ids);
       bulkDeleteTarget.value = [];
     }
 

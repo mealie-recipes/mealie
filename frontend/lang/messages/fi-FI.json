@@ -445,6 +445,7 @@
     "upload-a-recipe": "Lataa resepti",
     "upload-individual-zip-file": "Tuo yksittäinen pakattu kansio toisesta Mealie instanssista.",
     "url-form-hint": "Liitä linkki lempireseptiverkkosivultasi",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Näytä hankittu data",
     "trim-whitespace-description": "Leikkaa alussa ja lopussa olevat välilyönnit sekä tyhjät rivit",
     "trim-prefix-description": "Poista joka rivin ensimmäinen merkki",
@@ -636,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Kokeile massasiirtotyökalua",
     "scrape-recipe-have-raw-html-or-json-data": "Onko sinulla raakaa HTML- tai JSON-dataa?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Voit tuoda raakadatan suoraan",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Tuo alkuperäiset avainsanat tunnisteiksi",
     "stay-in-edit-mode": "Pysy muokkaustilassa",
     "parse-recipe-ingredients-after-import": "Jäsennä reseptin ainesosat tuonnin jälkeen",
@@ -1425,5 +1428,13 @@
       "is-like": "on kuin",
       "is-not-like": "ei ole kuin"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

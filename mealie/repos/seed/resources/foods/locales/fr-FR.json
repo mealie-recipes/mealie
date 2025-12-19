@@ -4697,14 +4697,14 @@
             "turkey liver": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey liver",
+                "name": "foie de dinde",
                 "plural_name": "foies de dinde"
             },
             "chicken neck": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken neck",
-                "plural_name": "chicken necks"
+                "name": "cou de poulet",
+                "plural_name": "cous de poulet"
             },
             "duck confit": {
                 "aliases": [],
@@ -6324,7 +6324,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "oseille",
-                "plural_name": "sorrels"
+                "plural_name": "oseilles"
             },
             "gochugaru": {
                 "aliases": [],
@@ -6850,7 +6850,7 @@
             "cranberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry syrup",
+                "name": "sirop de canneberge",
                 "plural_name": "sirops de canneberge"
             },
             "golden sugar": {

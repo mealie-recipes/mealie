@@ -123,11 +123,12 @@ def test_bulk_export_recipes(api_client: TestClient, unique_user: TestUser, ten_
     response_data = response.json()
     assert len(response_data) == 1
 
+    export_id = response_data[0]["id"]
     export_path = response_data[0]["path"]
 
     # Get Export Token
     response = api_client.get(
-        f"{api_routes.recipes_bulk_actions_export_download}?path={export_path}", headers=unique_user.token
+        f"{api_routes.recipes_bulk_actions_export_export_id_download(export_id)}", headers=unique_user.token
     )
     assert response.status_code == 200
 

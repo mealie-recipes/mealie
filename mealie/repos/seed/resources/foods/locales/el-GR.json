@@ -4361,8 +4361,8 @@
             "cooked chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "cooked chicken",
-                "plural_name": "cooked chickens"
+                "name": "μαγειρεμένο κοτόπουλο",
+                "plural_name": "μαγειρεμένα κοτόπουλα"
             },
             "ground turkey": {
                 "aliases": [],
@@ -14040,8 +14040,8 @@
             "cookie": {
                 "aliases": [],
                 "description": "",
-                "name": "cookie",
-                "plural_name": "cookies"
+                "name": "μπισκότο",
+                "plural_name": "μπισκότα"
             },
             "peanut butter cup": {
                 "aliases": [
@@ -15927,8 +15927,8 @@
             "vitamin c": {
                 "aliases": [],
                 "description": "",
-                "name": "vitamin c",
-                "plural_name": "vitamin cs"
+                "name": "βιταμίνη C",
+                "plural_name": "βιταμίνες C"
             },
             "acai powder": {
                 "aliases": [],
@@ -16119,8 +16119,8 @@
             "vitamin e": {
                 "aliases": [],
                 "description": "",
-                "name": "vitamin e",
-                "plural_name": "vitamin es"
+                "name": "βιταμίνη Ε",
+                "plural_name": "βιταμίνες E"
             },
             "wine yeast": {
                 "aliases": [],
@@ -16156,7 +16156,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "βιταμίνη d",
-                "plural_name": "vitamin ds"
+                "plural_name": "βιταμίνες D"
             },
             "calcium lactate": {
                 "aliases": [],
@@ -16191,20 +16191,20 @@
             "magnesium": {
                 "aliases": [],
                 "description": "",
-                "name": "magnesium",
-                "plural_name": "magnesiums"
+                "name": "μαγνήσιο",
+                "plural_name": "μαγνήσια"
             },
             "creatine": {
                 "aliases": [],
                 "description": "",
-                "name": "creatine",
-                "plural_name": "creatines"
+                "name": "κρεατίνη",
+                "plural_name": "κρεατίνες"
             },
             "daily vitamin": {
                 "aliases": [],
                 "description": "",
-                "name": "daily vitamin",
-                "plural_name": "daily vitamins"
+                "name": "καθημερινή βιταμίνη",
+                "plural_name": "καθημερινές βιταμίνες"
             },
             "moringa powder": {
                 "aliases": [],

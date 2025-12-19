@@ -107,6 +107,11 @@ const fieldDefs: FieldDefinition[] = [
     type: Organizer.Household,
   },
   {
+    name: "user_id",
+    label: i18n.t("user.users"),
+    type: Organizer.User,
+  },
+  {
     name: "last_made",
     label: i18n.t("general.last-made"),
     type: "date",
