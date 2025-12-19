@@ -445,7 +445,7 @@
     "upload-a-recipe": "Recept feltöltése",
     "upload-individual-zip-file": "Tölts fel egy .zíp archívumot, ami egy másik Mealie példányból lett exportálva.",
     "url-form-hint": "Másold be a linket a kedvenc recept weboldaladról",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Másolja és illessze be az adatok forrás URL-jét (opcionális)",
     "view-scraped-data": "Letöltött adat megtekintése",
     "trim-whitespace-description": "Vágja le a kezdő és a záró fehérjeleket, valamint az üres sorokat",
     "trim-prefix-description": "Minden sor első karakterének levágása",
@@ -1428,5 +1428,13 @@
       "is-like": "hasonló",
       "is-not-like": "nem hasonló"
     }
+  },
+  "validators": {
+    "required": "Ez kötelező mező",
+    "invalid-email": "E-mail-nek érvényesnek kell lennie",
+    "invalid-url": "Érvényes URL-nek kell lennie",
+    "no-whitespace": "Szóközt nem tartalmazhat",
+    "min-length": "Legalább {min} karakter legyen",
+    "max-length": "Legfeljebb {max} karakter legyen"
   }
 }

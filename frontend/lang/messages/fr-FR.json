@@ -445,7 +445,7 @@
     "upload-a-recipe": "Télécharger une recette",
     "upload-individual-zip-file": "Chargez un fichier .zip exporté depuis une autre instance Mealie.",
     "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copiez et collez l'URL source de vos données (facultatif)",
     "view-scraped-data": "Voir les données récupérées",
     "trim-whitespace-description": "Ajuster les espaces de début et de fin ainsi que les lignes vides",
     "trim-prefix-description": "Couper le premier caractère de chaque ligne",
@@ -1428,5 +1428,13 @@
       "is-like": "est comme",
       "is-not-like": "n'est pas similaire à"
     }
+  },
+  "validators": {
+    "required": "Ce champ est obligatoire",
+    "invalid-email": "L’e-mail doit être valide",
+    "invalid-url": "Doit être une URL valide",
+    "no-whitespace": "Aucun espace n'est autorisé",
+    "min-length": "Doit contenir au moins {min} caractères",
+    "max-length": "Doit contenir au maximum {max} caractères"
   }
 }
