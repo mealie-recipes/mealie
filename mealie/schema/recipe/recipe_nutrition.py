@@ -22,3 +22,8 @@ class Nutrition(MealieModel):
         coerce_numbers_to_str=True,
         alias_generator=to_camel,
     )
+
+
+class FdcNutritionItem(MealieModel):
+    fdc_nutrition_id: int
+    value: float

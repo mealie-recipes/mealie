@@ -15,6 +15,7 @@ import type {
   RecipeTimelineEventIn,
   RecipeTimelineEventOut,
   RecipeTimelineEventUpdate,
+  IngredientFoodNutrition,
 } from "~/lib/api/types/recipe";
 import type { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
 
@@ -54,6 +55,8 @@ const routes = {
   recipesSlugLastMade: (slug: string) => `${prefix}/recipes/${slug}/last-made`,
   recipesTimelineEventId: (id: string) => `${prefix}/recipes/timeline/events/${id}`,
   recipesTimelineEventIdImage: (id: string) => `${prefix}/recipes/timeline/events/${id}/image`,
+
+  recipesFetchIngredientNutrition: (fdc_id: number) => `${prefix}/recipes/nutrition/fetch_fda/${fdc_id}`,
 };
 
 export type RecipeSearchQuery = {
@@ -222,5 +225,9 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     formData.append("extension", fileName.split(".").pop() ?? "");
 
     return await this.requests.put<UpdateImageResponse, FormData>(routes.recipesTimelineEventIdImage(eventId), formData);
+  }
+
+  async fetchIngredientNutrition(fdc_id: number) {
+    return await this.requests.get<IngredientFoodNutrition[]>(routes.recipesFetchIngredientNutrition(fdc_id));
   }
 }

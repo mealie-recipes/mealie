@@ -185,6 +185,12 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
         }
     )
 
+    nutrition: Mapped[list["IngredientFoodNutritionModel"]] = orm.relationship(
+        "IngredientFoodNutritionModel",
+        back_populates="food",
+        cascade="all, delete, delete-orphan",
+    )
+
     # Deprecated
     on_hand: Mapped[bool] = mapped_column(Boolean, default=False)
 
@@ -336,6 +342,30 @@ class IngredientFoodAliasModel(SqlAlchemyBase, BaseMixins):
             )
 
         self.__table_args__ = tableargs
+
+
+class IngredientFoodNutritionModel(SqlAlchemyBase, BaseMixins):
+    __tablename__ = "ingredient_foods_nutrition"
+    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+
+    food_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), index=True)
+    food: Mapped["IngredientFoodModel"] = orm.relationship("IngredientFoodModel", back_populates="nutrition")
+
+    fdc_nutrition_id: Mapped[int] = mapped_column(Integer, index=True)
+    value: Mapped[float] = mapped_column(Float)
+
+    @auto_init()
+    def __init__(
+        self,
+        session: Session,
+        fdc_nutrition_id: int | None = None,
+        value: float | None = None,
+        **_,
+    ) -> None:
+        if fdc_nutrition_id is not None:
+            self.fdc_nutrition_id = fdc_nutrition_id
+        if value is not None:
+            self.value = value
 
 
 class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
