@@ -7,6 +7,13 @@ import { Checkbox } from "../checkbox";
 import { Check } from "lucide-react";
 import { useRegistration } from "./registration-context";
 
+/**
+ * Render the "Create Group" registration step and handle updating registration state and navigation.
+ *
+ * Renders input and validation states for a required group name, options for private recipes and seed data, and Back/Continue controls. When the entered group name is valid, continuing updates the registration data with the group name and advances to the next step.
+ *
+ * @returns The React element tree for the create-group step of the registration flow.
+ */
 export function CreateGroup() {
   const { goNext, goBack, updateData, data, validations } = useRegistration();
   const { groupName } = validations;

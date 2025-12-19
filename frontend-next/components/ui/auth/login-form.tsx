@@ -32,6 +32,16 @@ interface LoginFormProps extends React.ComponentProps<"div"> {
   startupInfo: StartupInfo;
 }
 
+/**
+ * Render the sign-in UI and handle password and OIDC authentication flows.
+ *
+ * This component displays password and/or OIDC login options based on the provided configuration,
+ * shows first-login and error alerts when applicable, and performs navigation on successful sign-in.
+ *
+ * @param config - Application configuration controlling available login methods and UI flags (e.g., demoStatus, enableOidc, allowPasswordLogin, allowSignup, oidcProviderName).
+ * @param startupInfo - Startup information used to determine first-login alerts and related UI.
+ * @returns The React element for the login form.
+ */
 export function LoginForm({
   className,
   config,

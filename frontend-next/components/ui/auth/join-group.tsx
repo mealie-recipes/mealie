@@ -6,6 +6,16 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useRegistration } from "./registration-context";
 
+/**
+ * Render a form that collects a group registration token and provides Back/Continue actions.
+ *
+ * The component displays an input for a group token and two buttons. The Back button triggers
+ * the registration context's `goBack`. The Continue button is disabled when the token is empty
+ * after trimming; when clicked it trims the token, calls `updateData({ token })` on the
+ * registration context, and then calls `goNext`.
+ *
+ * @returns A JSX element containing the token input and action buttons.
+ */
 export function JoinGroup() {
   const { goBack, goNext, updateData } = useRegistration();
   const [token, setToken] = useState("");

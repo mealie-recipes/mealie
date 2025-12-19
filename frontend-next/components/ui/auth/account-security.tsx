@@ -6,6 +6,13 @@ import { Label } from "@/components/ui/label";
 import { PasswordStrength } from "./password-strength";
 import { useRegistration } from "./registration-context";
 
+/**
+ * Render the account security step with password and confirm-password inputs, live validation, strength indicator, and navigation controls.
+ *
+ * Displays an error when the passwords are non-empty and do not match, shows password strength for the current password, and enables the Continue action only when the password is at least 8 characters and matches the confirmation.
+ *
+ * @returns The component's UI as a JSX element
+ */
 export function AccountSecurity() {
   const { data, updateData, goBack, goNext } = useRegistration();
 

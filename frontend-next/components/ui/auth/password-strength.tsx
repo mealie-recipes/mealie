@@ -7,6 +7,14 @@ interface PasswordStrengthProps {
   password: string;
 }
 
+/**
+ * Map a password to a human-readable strength label, a Tailwind text color class, and a numeric strength score.
+ *
+ * @returns An object with:
+ *  - `label` — one of `"Very Strong"`, `"Strong"`, `"Good"`, `"Fair"`, or `"Weak"`;
+ *  - `color` — a Tailwind CSS text color class corresponding to the label;
+ *  - `score` — a numeric strength score (0–100) for the provided password
+ */
 export function getPasswordStrength(password: string) {
   const score = scorePassword(password);
   if (score > 90)
@@ -17,6 +25,12 @@ export function getPasswordStrength(password: string) {
   return { label: "Weak", color: "text-red-500", score };
 }
 
+/**
+ * Render a password strength UI showing a colored progress bar, a strength label, a checklist of criteria, and an optional flagged-word warning.
+ *
+ * @param password - The password string to evaluate and display strength information for.
+ * @returns A JSX element containing the strength bar, labeled strength, criteria checks, and a warning if the password includes common weak words.
+ */
 export function PasswordStrength({ password }: PasswordStrengthProps) {
   const { label, color: textColor, score } = getPasswordStrength(password);
 

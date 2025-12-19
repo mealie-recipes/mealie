@@ -8,6 +8,13 @@ import { ProjectLinks } from "@/components/ui/custom/auth/project-links";
 import Loader from "@/components/ui/custom/loader";
 import BasicError from "@/components/ui/custom/basic-error";
 
+/**
+ * Renders the login page: loads startup info and app configuration, displays a loader while fetching, shows errors when loading fails, and renders the login form and footer when successful.
+ *
+ * If the fetched configuration enables OIDC and requests a redirect, performs a full-page redirect to /api/auth/oidc/login.
+ *
+ * @returns The React element for the login page.
+ */
 export default function LoginPage() {
   const [startupInfo, setStartupInfo] = useState<StartupInfo | null>(null);
   const [config, setConfig] = useState<AppConfig | null>(null);

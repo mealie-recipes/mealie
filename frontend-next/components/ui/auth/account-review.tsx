@@ -6,6 +6,15 @@ import { Check, X } from "lucide-react";
 import { useRegistration } from "./registration-context";
 import { getPasswordStrength } from "./password-strength";
 
+/**
+ * Renders a review step that displays submitted account and group information for final confirmation.
+ *
+ * Shows group-specific fields when `groupMode` is "create" (Group Name, Seed Data, Keep Private) or "join" (Group Token),
+ * always shows Full Name, Username, Email, Password (with strength label), and Advanced Content,
+ * and provides Back and Create buttons wired to the registration flow's `goBack` and `goNext` handlers.
+ *
+ * @returns A React element containing the review UI for confirming account creation or joining a group.
+ */
 export function AccountReview() {
   const { data, groupMode, goBack, goNext } = useRegistration();
 

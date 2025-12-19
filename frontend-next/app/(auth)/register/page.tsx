@@ -8,6 +8,19 @@ import BasicError from "@/components/ui/custom/basic-error";
 import { Button } from "@/components/ui/button";
 import { RegistrationForm } from "@/components/ui/auth/registration-form";
 
+/**
+ * Render the registration page: fetch startup and app configuration, handle loading and error states,
+ * and either redirect for OIDC, show a disabled-registration message with a login button, or display the registration form.
+ *
+ * This component:
+ * - Shows a loader while fetching configuration.
+ * - Renders an error view if fetching configuration or startup info fails.
+ * - Redirects the browser to `/api/auth/oidc/login` when OIDC is enabled and `oidcRedirect` is true.
+ * - If registrations are disabled (`config.allowSignup === false`), displays a message and a "Go to Login" button that navigates to `/login`.
+ * - Otherwise renders `RegistrationForm` with the loaded app configuration.
+ *
+ * @returns The React element for the registration page.
+ */
 export default function RegistrationPage() {
   const [startupInfo, setStartupInfo] = useState<StartupInfo | null>(null);
   const [config, setConfig] = useState<AppConfig | null>(null);

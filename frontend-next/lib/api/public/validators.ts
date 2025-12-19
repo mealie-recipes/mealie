@@ -16,10 +16,13 @@ const routes = {
 };
 
 /**
- * Fetches the availability of the given type and value.
- * @param type - The type of value to validate (e.g., 'group', 'household', 'user', 'email', 'recipe').
- * @param value - The value to validate.
- * @returns A promise that resolves to a boolean indicating whether the value is available.
+ * Check whether a given identifier or resource name is available on the server.
+ *
+ * @param type - The kind of value to validate: "group", "household", "user", "email", or "recipe".
+ * @param value - The identifier or name to check for availability.
+ * @param groupId - Required when `type` is "recipe"; the group ID that the recipe belongs to.
+ * @returns `true` if the value is available, `false` otherwise.
+ * @throws Error when the validation endpoint responds with a non-OK status or when a required `groupId` is missing for `recipe` validations.
  */
 export async function validateAvailability(
   type: "group" | "household" | "user" | "email" | "recipe",
@@ -43,11 +46,14 @@ export async function validateAvailability(
 }
 
 /**
- * Constructs the validation URL based on the type and value.
- * @param type - The type of value to validate.
- * @param value - The value to validate.
- * @param groupId - The group ID (required for 'recipe' type).
- * @returns The constructed validation URL.
+ * Build the API URL used to validate a given resource value.
+ *
+ * @param type - The kind of resource to validate: "group", "household", "user", "email", or "recipe"
+ * @param value - The resource value to validate (will be encoded by the route builder)
+ * @param groupId - The group ID required when `type` is "recipe"
+ * @returns The full validation URL for the specified resource and value
+ * @throws Error if `type` is "recipe" and `groupId` is not provided
+ * @throws Error if `type` is not one of the supported validation types
  */
 function getValidationUrl(
   type: "group" | "household" | "user" | "email" | "recipe",

@@ -6,6 +6,14 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { useRegistration } from "./registration-context";
 
+/**
+ * Render an account details form with inputs for full name, username, and email plus Back and Continue controls.
+ *
+ * The component validates that full name is present and surface username/email validation states (checking, errors, availability).
+ * The Continue control is disabled until the full name is provided and username/email pass their validations.
+ *
+ * @returns The component's rendered JSX element for the account details step
+ */
 export function AccountDetails() {
   const { data, updateData, goBack, goNext, validations } = useRegistration();
   const { username, email } = validations;

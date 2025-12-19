@@ -1,3 +1,9 @@
+/**
+ * Layout component that centers authentication pages and displays the Mealie logo above its content.
+ *
+ * @param children - React nodes to render inside the centered authentication container
+ * @returns The auth page layout element containing the Mealie logo and the provided children
+ */
 export default function AuthLayout({
   children,
 }: {

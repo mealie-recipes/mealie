@@ -26,6 +26,15 @@ interface RegistrationFormProps extends React.ComponentProps<"div"> {
   config: AppConfig;
 }
 
+/**
+ * Render the registration UI or an error message when signups are disabled.
+ *
+ * Renders the multi-step registration flow when `config.allowSignup` is true; otherwise renders a disabled-registration error.
+ *
+ * @param className - Optional container class name applied to the registration content
+ * @param config - Application configuration used to determine whether signup is allowed
+ * @returns A React element that displays the registration form or a registration-disabled message
+ */
 export function RegistrationForm({
   className,
   config,
@@ -45,6 +54,13 @@ export function RegistrationForm({
   );
 }
 
+/**
+ * Renders the multi-step registration UI, including group selection, step progress, and step-specific forms.
+ *
+ * Displays a responsive card with a progress indicator and the current step's content (group selection, join/create group forms, account details, security, preferences, or review). Shows a loader while account creation is in progress and includes a sign-in link that navigates to /login.
+ *
+ * @returns The rendered registration form content as a JSX element.
+ */
 function RegistrationFormContent({
   className,
   ...props

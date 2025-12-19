@@ -5,6 +5,13 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "../checkbox";
 import { useRegistration } from "./registration-context";
 
+/**
+ * Render account preferences UI used during registration.
+ *
+ * Consumes the registration context to read and update the `advancedContent` flag and to navigate between steps.
+ *
+ * @returns A JSX element with a checkbox labeled "Enable Advanced Content" that updates `advancedContent` in context, a descriptive paragraph, and Back / Review Account buttons wired to the registration navigation handlers.
+ */
 export function AccountPreferences() {
   const { data, updateData, goBack, goNext } = useRegistration();
   return (

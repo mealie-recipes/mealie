@@ -64,6 +64,23 @@ const RegistrationContext = createContext<RegistrationContextType | undefined>(
   undefined
 );
 
+/**
+ * Provides debounced, asynchronous availability validation for a single input field.
+ *
+ * Performs client-side email format checks (when type is "email"), debounces user input, calls
+ * validateAvailability for remote availability, and exposes validity/error/checking state.
+ *
+ * @param type - The validation category: "group" validates group names, "user" validates usernames, and "email" validates email addresses.
+ * @param initialValue - Optional initial value for the field; the value is trimmed on update.
+ * @param onUpdate - Optional callback invoked with the trimmed value whenever the field value changes.
+ * @returns An object containing:
+ *  - `value`: the current trimmed field value,
+ *  - `setValue`: setter to update the field value (accepts the new value string),
+ *  - `error`: a human-readable validation or availability error message, or `null` if none,
+ *  - `isValid`: `true` if the value passed validation and is available, `false` otherwise,
+ *  - `isChecking`: `true` while an availability check is in progress,
+ *  - `validate`: a function to trigger validation immediately.
+ */
 function useDebouncedValidation(
   type: "group" | "user" | "email",
   initialValue: string = "",
@@ -160,6 +177,14 @@ function useDebouncedValidation(
   };
 }
 
+/**
+ * Provides registration state, debounced field validations, and navigation controls for a multi-step signup flow to descendant components.
+ *
+ * The provider exposes current `step`, `groupMode`, collected `data`, `creatingAccount` flag, validation states for `username`, `email`, and `groupName`, and actions: `setGroupMode`, `updateData`, `goBack`, and `goNext`.
+ *
+ * @param children - React children to render within the registration context provider
+ * @returns The RegistrationContext provider element wrapping the given children
+ */
 export function RegistrationProvider({ children }: { children: ReactNode }) {
   const [step, setStep] = useState<RegistrationStep>(1);
   const [groupMode, setGroupMode] = useState<GroupMode>("selection");
@@ -259,6 +284,12 @@ export function RegistrationProvider({ children }: { children: ReactNode }) {
   );
 }
 
+/**
+ * Access the registration context provided by RegistrationProvider.
+ *
+ * @returns The registration context value.
+ * @throws Error if called outside of a RegistrationProvider.
+ */
 export function useRegistration() {
   const context = useContext(RegistrationContext);
   if (context === undefined) {
