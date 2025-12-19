@@ -1,5 +1,5 @@
 import { Heart, GithubIcon, Folder, GitBranch } from "lucide-react";
-import { ResourceButton } from "@/components/ui/custom/resource-button";
+import { ResourceButton } from "@/components/ui/custom/auth/resource-button";
 
 export const ProjectLinks = () => {
   return (

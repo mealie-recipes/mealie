@@ -16,15 +16,16 @@ import {
 } from "@/components/ui/field";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
-import { Badge } from "./ui/badge";
-import { Alert, AlertTitle, AlertDescription } from "./ui/alert";
-import { AlertCircle, Loader2, Eye, EyeOff } from "lucide-react";
+import { PasswordInput } from "@/components/ui/password-input";
+import { Badge } from "../badge";
+import { Alert, AlertTitle, AlertDescription } from "../alert";
+import { AlertCircle, Loader2 } from "lucide-react";
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AppConfig, StartupInfo } from "@/lib/types/app";
-import { CredentialRow } from "./ui/custom/credential-row";
-import BasicError from "./ui/custom/basic-error";
+import { CredentialRow } from "../custom/auth/credential-row";
+import BasicError from "../custom/basic-error";
 
 interface LoginFormProps extends React.ComponentProps<"div"> {
   config: AppConfig;
@@ -41,7 +42,6 @@ export function LoginForm({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
 
   const handlePasswordLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,6 +49,10 @@ export function LoginForm({
     setError(null);
 
     try {
+      const submittedPassword = password.trim();
+      if (!submittedPassword) {
+        throw new Error("Password cannot be empty");
+      }
       // TODO: Implement actual login API call
       // Placeholder for actual authentication
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -124,7 +128,7 @@ export function LoginForm({
         </CardHeader>
         <CardContent>
           {config.allowPasswordLogin && (
-            <form>
+            <form onSubmit={handlePasswordLogin}>
               <FieldGroup>
                 <Field>
                   <FieldLabel htmlFor="email">Email or Username</FieldLabel>
@@ -146,33 +150,13 @@ export function LoginForm({
                       Forgot your password?
                     </a>
                   </div>
-                  <div className="relative">
-                    <Input
-                      id="password"
-                      type={showPassword ? "text" : "password"}
-                      autoComplete="current-password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      required
-                    />
-                    {password && (
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors p-1 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/30"
-                        title={showPassword ? "Hide password" : "Show password"}
-                        aria-label={
-                          showPassword ? "Hide password" : "Show password"
-                        }
-                      >
-                        {showPassword ? (
-                          <EyeOff size={16} />
-                        ) : (
-                          <Eye size={16} />
-                        )}
-                      </button>
-                    )}
-                  </div>
+                  <PasswordInput
+                    id="password"
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
                   <div className="flex items-center gap-2">
                     <Checkbox id="remember" />
                     <FieldLabel htmlFor="remember">Remember me</FieldLabel>
@@ -186,7 +170,13 @@ export function LoginForm({
                   {/* If Allowed sign up */}
                   {config.allowSignup ? (
                     <FieldDescription className="text-center pt-2">
-                      Don&apos;t have an account? <a href="#">Sign up</a>
+                      Don&apos;t have an account?{" "}
+                      <a
+                        href="/register"
+                        className="no-underline hover:underline text-primary"
+                      >
+                        Sign up
+                      </a>
                     </FieldDescription>
                   ) : (
                     <FieldDescription className="text-center">

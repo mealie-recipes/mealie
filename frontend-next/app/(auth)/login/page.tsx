@@ -1,0 +1,70 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { fetchAppConfig, fetchStartupInfo } from "@/lib/api/app";
+import type { AppConfig, StartupInfo } from "@/lib/types/app";
+import { LoginForm } from "@/components/ui/auth/login-form";
+import { ProjectLinks } from "@/components/ui/custom/auth/project-links";
+import Loader from "@/components/ui/custom/loader";
+import BasicError from "@/components/ui/custom/basic-error";
+
+export default function LoginPage() {
+  const [startupInfo, setStartupInfo] = useState<StartupInfo | null>(null);
+  const [config, setConfig] = useState<AppConfig | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function loadConfig() {
+      try {
+        const startupInfo = await fetchStartupInfo();
+        setStartupInfo(startupInfo);
+        const appConfig = await fetchAppConfig();
+        setConfig(appConfig);
+
+        // Auto-redirect to OIDC if enabled and redirect is true
+        if (appConfig.enableOidc && appConfig.oidcRedirect) {
+          // Use window.location.href for OIDC as it requires full page redirect to IdP
+          window.location.href = "/api/auth/oidc/login";
+          return;
+        }
+      } catch (err) {
+        setError(
+          err instanceof Error ? err.message : "Failed to load configuration"
+        );
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadConfig();
+  }, []);
+
+  if (loading) {
+    return <Loader />;
+  }
+
+  if (!config) {
+    return (
+      <BasicError error={error || "Failed to load application configuration"} />
+    );
+  }
+
+  if (!startupInfo) {
+    return <BasicError error={error || "Failed to load Database"} />;
+  }
+
+  return (
+    <>
+      <LoginForm config={config} startupInfo={startupInfo} />
+
+      {/* Footer */}
+      <div className="mt-8 flex flex-col gap-6 text-center font-mono text-xs text-zinc-500 dark:text-zinc-500">
+        <ProjectLinks />
+        {config.version && (
+          <p className="font-mono text-xs">Version {config.version}</p>
+        )}
+      </div>
+    </>
+  );
+}
