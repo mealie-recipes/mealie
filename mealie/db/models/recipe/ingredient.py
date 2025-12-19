@@ -173,6 +173,7 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
 
     label_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"), index=True)
     label: Mapped[MultiPurposeLabel | None] = orm.relationship(MultiPurposeLabel, uselist=False, back_populates="foods")
+    fdc_id: Mapped[int | None] = mapped_column(sa.Integer, nullable=True)
 
     # Automatically updated by sqlalchemy event, do not write to this manually
     name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)

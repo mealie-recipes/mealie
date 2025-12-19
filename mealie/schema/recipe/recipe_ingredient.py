@@ -68,6 +68,7 @@ class CreateIngredientFood(UnitFoodBase):
     label_id: UUID4 | None = None
     aliases: list[CreateIngredientFoodAlias] = []
     households_with_ingredient_food: list[str] = []
+    fdc_id: int | None = None
 
 
 class SaveIngredientFood(CreateIngredientFood):

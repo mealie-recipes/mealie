@@ -61,6 +61,8 @@ load_secrets() {
 
         "OPENAI_BASE_URL"
         "OPENAI_API_KEY"
+
+        "FDC_API_KEY"
     )
 
     # If any secrets are set, prefer them over base environment variables.

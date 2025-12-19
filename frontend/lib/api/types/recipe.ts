@@ -68,6 +68,7 @@ export interface CreateIngredientFood {
   labelId?: string | null;
   aliases?: CreateIngredientFoodAlias[];
   householdsWithIngredientFood?: string[];
+  fdcId?: number | null;
 }
 export interface CreateIngredientFoodAlias {
   name: string;
@@ -144,6 +145,7 @@ export interface IngredientFood {
   label?: MultiPurposeLabelSummary | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  fdcId?: number | null;
 }
 export interface IngredientFoodAlias {
   name: string;

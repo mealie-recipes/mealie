@@ -116,6 +116,35 @@
             item-title="name"
             :label="$t('data-pages.foods.food-label')"
           />
+          <v-text-field
+            v-model="createTarget.fdcId"
+            hide-details
+            label="FDC ID"
+          >
+            <template #append>
+              <v-btn
+                v-if="createTarget && createTarget.fdcId"
+                icon
+                target="_blank"
+                :href="createTarget && createTarget.fdcId ? `https://fdc.nal.usda.gov/food-details/${encodeURIComponent(createTarget.fdcId)}/nutrients` : ''"
+                title="See FDC Details"
+                rel="noopener"
+                @click.stop
+              >
+                <v-icon>{{ $globals.icons.openInNew }}</v-icon>
+              </v-btn>
+              <v-btn
+                v-if="createTarget && !createTarget.fdcId"
+                edit
+                icon
+                target="_blank"
+                href="https://fdc.nal.usda.gov/"
+                title="Open search FDC page"
+              >
+                <v-icon>{{ $globals.icons.search }}</v-icon>
+              </v-btn>
+            </template>
+          </v-text-field>
           <v-checkbox
             v-model="createTarget.onHand"
             hide-details
@@ -173,6 +202,35 @@
             item-title="name"
             :label="$t('data-pages.foods.food-label')"
           />
+          <v-text-field
+            v-model="editTarget.fdcId"
+            hide-details
+            label="FdcID"
+          >
+            <template #append>
+              <v-btn
+                v-if="editTarget && editTarget.fdcId"
+                icon
+                target="_blank"
+                :href="editTarget && editTarget.fdcId ? `https://fdc.nal.usda.gov/food-details/${encodeURIComponent(editTarget.fdcId)}/nutrients` : ''"
+                title="See FDC Details"
+                rel="noopener"
+                @click.stop
+              >
+                <v-icon>{{ $globals.icons.openInNew }}</v-icon>
+              </v-btn>
+              <v-btn
+                v-if="editTarget && !editTarget.fdcId"
+                edit
+                icon
+                target="_blank"
+                href="https://fdc.nal.usda.gov/"
+                title="Open search FDC page"
+              >
+                <v-icon>{{ $globals.icons.search }}</v-icon>
+              </v-btn>
+            </template>
+          </v-text-field>
           <v-checkbox
             v-model="editTarget.onHand"
             hide-details
@@ -400,6 +458,11 @@ export default defineNuxtComponent({
         show: true,
       },
       {
+        text: "FDC ID",
+        value: "fdcId",
+        show: true,
+      },
+      {
         text: i18n.t("shopping-list.label"),
         value: "label",
         show: true,
@@ -440,6 +503,7 @@ export default defineNuxtComponent({
       name: "",
       onHand: false,
       householdsWithIngredientFood: [],
+      fdcId: undefined,
     });
 
     function createEventHandler() {
