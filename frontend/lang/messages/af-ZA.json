@@ -1311,7 +1311,7 @@
     "ingredients-natural-language-processor-explanation-2": "Dit is nie perfek nie, maar dit lewer oor die algemeen uitstekende resultate en is 'n goeie beginpunt vir die handverwerking van bestanddele in individuele velde. Jy kan ook die \"Brute\" verwerker gebruik wat 'n patroonpastegniek gebruik om bestanddele te identifiseer.",
     "nlp": "NLP",
     "brute": "Brute",
-    "openai": "OpenAl",
+    "openai": "OpenAI",
     "show-individual-confidence": "Wys individuele oortuiging",
     "ingredient-text": "Bestanddeel teks",
     "average-confident": "{0} oortuig",
