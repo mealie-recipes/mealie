@@ -54,7 +54,7 @@ export default function LoginPage() {
     }
 
     loadConfig();
-  }, [loading, router]);
+  }, [loggedIn, router]);
 
   if (loading) {
     return <Loader />;
