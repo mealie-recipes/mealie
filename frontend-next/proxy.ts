@@ -64,12 +64,24 @@ export async function proxy(request: NextRequest) {
       }
 
       // Refresh success: Continue request with NEW token
-      const newToken = refreshRes?.cookies.get("mealie.access_token")?.value;
+      // Extract the new access token from Set-Cookie headers
+      let newToken: string | undefined;
+      const setCookies = refreshRes.headers.getSetCookie();
+
+      for (const cookieHeader of setCookies) {
+        // Parse cookie header to extract name and value
+        const cookieParts = cookieHeader.split(";")[0]; // Get the name=value part
+        const [name, value] = cookieParts.split("=");
+        if (name?.trim() === "mealie.access_token") {
+          newToken = value?.trim();
+          break;
+        }
+      }
+
       const response = NextResponse.next();
 
-      refreshRes?.headers
-        .getSetCookie()
-        .forEach((c) => response.headers.append("Set-Cookie", c));
+      // Transfer all Set-Cookie headers to the outgoing response
+      setCookies.forEach((c) => response.headers.append("Set-Cookie", c));
 
       if (pathname.startsWith("/api/") && newToken) {
         response.headers.set("Authorization", `Bearer ${newToken}`);

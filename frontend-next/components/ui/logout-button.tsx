@@ -1,14 +1,12 @@
 "use client";
-import { authApi } from "@/lib/api/auth";
-import { useRouter } from "next/navigation";
+import { useAuth } from "@/lib/auth/auth-context";
 import { Button } from "./button";
 
 export function LogoutButton() {
-  const router = useRouter();
+  const { signOut } = useAuth();
 
   const handleLogout = async () => {
-    await authApi.logout();
-    router.push("/login");
+    await signOut();
   };
 
   return (

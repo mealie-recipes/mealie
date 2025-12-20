@@ -1,4 +1,3 @@
-// src/lib/api/base/fetch-adapter.ts
 import { baseRequest } from "@/lib/http/base-request";
 import {
   ApiRequestConfig,
@@ -16,7 +15,7 @@ export class ApiRequestAdapter implements ApiRequestInstance {
 
   async post<T>(
     url: string,
-    data: unknown,
+    data?: unknown,
     config?: ApiRequestConfig
   ): Promise<RequestResponse<T>> {
     return this.request<T>(url, { ...config, method: "POST" }, data);

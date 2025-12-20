@@ -81,7 +81,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setStatus("loading");
       try {
         await authApi.fetchToken(credentials);
-        // await getSession();
+        await getSession();
       } catch (error) {
         setStatus("unauthenticated");
         throw error;

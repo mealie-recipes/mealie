@@ -9,7 +9,7 @@ export class ValidatorsApi extends BaseAPI {
   }
 
   async validateAvailability(
-    type: "group" | "household" | "user" | "email" | "recipe",
+    type: "group" | "user" | "email" | "recipe",
     value: string,
     groupId?: string
   ) {

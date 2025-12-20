@@ -13,8 +13,8 @@ export const API_ROUTES = {
   AUTH: {
     TOKEN: "/api/auth/token",
     OAUTH: "/api/auth/oauth",
-    OAUTH_CALLBACK: (searchParms: string) =>
-      `/api/auth/oauth/callback?${searchParms}`,
+    OAUTH_CALLBACK: (searchParams: string) =>
+      `/api/auth/oauth/callback?${searchParams}`,
     REFRESH: "/api/auth/refresh",
     LOGOUT: "/api/auth/logout",
   },
@@ -39,7 +39,7 @@ export const API_ROUTES = {
       RESET: "/api/users/reset-password",
     },
     IMAGES: {
-      UPDATE: "/api/users/${id}/image",
+      UPDATE: (id: string) => `/api/users/${id}/image`,
     },
     TOKENS: {
       CREATE: "/api/users/api-tokens",
@@ -100,7 +100,10 @@ export const API_ROUTES = {
       toolsGroupSlugToolId: (
         groupSlug: string | number,
         toolId: string | number
-      ) => `${exploreGroupSlug(groupSlug)}/organizers/tools`,
+      ) =>
+        `/explore/groups/${encodeURIComponent(
+          groupSlug
+        )}/organizers/tools/${encodeURIComponent(toolId)}`,
       recipesGroupSlug: (groupSlug: string | number) =>
         `${exploreGroupSlug(groupSlug)}/recipes`,
       recipesGroupSlugRecipeSlug: (
@@ -109,11 +112,16 @@ export const API_ROUTES = {
       ) => `${exploreGroupSlug(groupSlug)}/recipes/${recipeSlug}`,
     },
     VALIDATORS: {
-      group: (name: string) => `/api/validators/group?name=${name}`,
-      user: (name: string) => `/api/validators/user/name?name=${name}`,
-      email: (name: string) => `/api/validators/user/email?email=${name}`,
+      group: (name: string) =>
+        `/api/validators/group?name=${encodeURIComponent(name)}`,
+      user: (name: string) =>
+        `/api/validators/user/name?name=${encodeURIComponent(name)}`,
+      email: (name: string) =>
+        `/api/validators/user/email?email=${encodeURIComponent(name)}`,
       recipe: (groupId: string, name: string) =>
-        `/api/validators/group/recipe?group_id=${groupId}?name=${name}`,
+        `/api/validators/group/recipe?group_id=${encodeURIComponent(
+          groupId
+        )}&name=${encodeURIComponent(name)}`,
     },
     SHARED: {
       recipeShareToken: (token: string) => `/api/recipes/shared/${token}`,

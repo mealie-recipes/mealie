@@ -48,9 +48,9 @@ export async function refreshBackendToken(
 
     // Copy Set-Cookie headers from backend to our Next.js response
     // This effectively "passthrough" the new cookies to the browser
-    const setCookie = res.headers.get("set-cookie");
-    if (setCookie) {
-      nextRes.headers.set("Set-Cookie", setCookie);
+    const setCookies = res.headers.getSetCookie();
+    for (const cookie of setCookies) {
+      nextRes.headers.append("Set-Cookie", cookie);
     }
 
     return nextRes;

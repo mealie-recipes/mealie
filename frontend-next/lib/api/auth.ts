@@ -41,9 +41,9 @@ export class AuthAPI extends BaseAPI {
    * Fetches OAuth callback information from the backend
    * @returns Promise with OAuthCallback data
    */
-  async fetchOAuthCallback(searchParms: string) {
+  async fetchOAuthCallback(searchParams: string) {
     return await this.requests.get<OAuthCallback>(
-      API_ROUTES.AUTH.OAUTH_CALLBACK(searchParms)
+      API_ROUTES.AUTH.OAUTH_CALLBACK(searchParams)
     );
   }
 

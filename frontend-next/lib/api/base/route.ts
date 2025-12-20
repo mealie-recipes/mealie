@@ -1,13 +1,3 @@
-const parts = {
-  host: "http://localhost.com",
-  prefix: "",
-};
-
-export function overrideParts(host: string, prefix: string) {
-  parts.host = host;
-  parts.prefix = prefix;
-}
-
 export type QueryValue =
   | string
   | string[]
@@ -17,20 +7,29 @@ export type QueryValue =
   | null
   | undefined;
 
+const DEFAULT_HOST = "http://localhost.com";
+const DEFAULT_PREFIX = "";
+
 /**
- * route is a the main URL builder for the API. It will use a predefined host and prefix (global)
- * in the urls.ts file and then append the passed in path parameter uring the `URL` class from the
+ * route is the main URL builder for the API. It will use the provided host and prefix
+ * (or defaults) and then append the passed in path parameter using the `URL` class from the
  * browser. It will also append any query parameters passed in as the second parameter.
  *
  * The default host `http://localhost.com` is removed from the path if it is present. This allows us
  * to bootstrap the API with different hosts as needed (like for testing) but still allows us to use
  * relative URLs in production because the API and client bundle are served from the same server/host.
+ *
+ * This implementation is thread-safe and avoids race conditions in concurrent Next.js requests.
  */
 export function route(
   rest: string,
-  params: Record<string, QueryValue> | null = null
+  params: Record<string, QueryValue> | null = null,
+  options?: { host?: string; prefix?: string }
 ): string {
-  const url = new URL(parts.prefix + rest, parts.host);
+  const host = options?.host ?? DEFAULT_HOST;
+  const prefix = options?.prefix ?? DEFAULT_PREFIX;
+
+  const url = new URL(prefix + rest, host);
   if (params) {
     for (const [key, value] of Object.entries(params)) {
       if (Array.isArray(value)) {
@@ -43,5 +42,23 @@ export function route(
     }
   }
 
-  return url.toString().replace("http://localhost.com", "");
+  return url.toString().replace(DEFAULT_HOST, "");
+}
+
+/**
+ * Factory function to create a route builder with pre-configured host and prefix.
+ * This is useful when you need to create multiple routes with the same configuration
+ * without repeating the options parameter.
+ *
+ * @example
+ * const apiRoute = createRoute("https://api.example.com", "/v1");
+ * const url = apiRoute("/users", { page: 1 });
+ */
+export function createRoute(host: string, prefix: string = "") {
+  return (
+    rest: string,
+    params: Record<string, QueryValue> | null = null
+  ): string => {
+    return route(rest, params, { host, prefix });
+  };
 }
