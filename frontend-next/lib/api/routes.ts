@@ -4,7 +4,7 @@
  * @returns The route for the specified group slug
  */
 const exploreGroupSlug = (groupSlug: string | number) =>
-  `/explore/groups/${groupSlug}`;
+  `/explore/groups/${encodeURIComponent(groupSlug)}`;
 
 /**
  * API route constants for the application
@@ -29,31 +29,40 @@ export const API_ROUTES = {
       SELF: "/api/users/self",
       RATINGS: "/api/users/self/ratings",
       RECIPE_RATING: (recipe_id: string) =>
-        `/api/users/self/ratings/${recipe_id}`,
+        `/api/users/self/ratings/${encodeURIComponent(recipe_id)}`,
       FAVORITES: "/api/users/self/favorites",
       UPDATE_PASSWORD: "/api/users/self/password",
-      UPDATE_USER: (item_id: string) => `/api/users/${item_id}`,
+      UPDATE_USER: (item_id: string) =>
+        `/api/users/${encodeURIComponent(item_id)}`,
     },
     PASSWORDS: {
       FORGOT: "/api/users/forgot-password",
       RESET: "/api/users/reset-password",
     },
     IMAGES: {
-      UPDATE: (id: string) => `/api/users/${id}/image`,
+      UPDATE: (id: string) => `/api/users/${encodeURIComponent(id)}/image`,
     },
     TOKENS: {
       CREATE: "/api/users/api-tokens",
-      DELETE: (token_id: string) => `/api/users/api-tokens/${token_id}`,
+      DELETE: (token_id: string) =>
+        `/api/users/api-tokens/${encodeURIComponent(token_id)}`,
     },
     RATINGS: {
-      GET: (id: string) => `/api/users/${id}/ratings/`,
-      FAVORITES: (id: string) => `/api/users/${id}/favorites`,
+      GET: (id: string) => `/api/users/${encodeURIComponent(id)}/ratings/`,
+      FAVORITES: (id: string) =>
+        `/api/users/${encodeURIComponent(id)}/favorites`,
       SET_RATING: (id: string, slug: string) =>
-        `/api/users/${id}/ratings/${slug}`,
+        `/api/users/${encodeURIComponent(id)}/ratings/${encodeURIComponent(
+          slug
+        )}`,
       ADD_FAVORITE: (id: string, slug: string) =>
-        `/api/users/${id}/favorites/${slug}`,
+        `/api/users/${encodeURIComponent(id)}/favorites/${encodeURIComponent(
+          slug
+        )}`,
       DELETE_FAVORITE: (id: string, slug: string) =>
-        `/api/users/${id}/favorites/${slug}`,
+        `/api/users/${encodeURIComponent(id)}/favorites/${encodeURIComponent(
+          slug
+        )}`,
     },
   },
   PUBLIC_ROUTES: {
@@ -70,31 +79,43 @@ export const API_ROUTES = {
       cookbooksGroupSlugCookbookId: (
         groupSlug: string | number,
         cookbookId: string | number
-      ) => `${exploreGroupSlug(groupSlug)}/cookbooks/${cookbookId}`,
+      ) =>
+        `${exploreGroupSlug(groupSlug)}/cookbooks/${encodeURIComponent(
+          cookbookId
+        )}`,
       foodsGroupSlug: (groupSlug: string | number) =>
         `${exploreGroupSlug(groupSlug)}/foods`,
       foodsGroupSlugFoodId: (
         groupSlug: string | number,
         foodId: string | number
-      ) => `${exploreGroupSlug(groupSlug)}/foods/${foodId}`,
+      ) => `${exploreGroupSlug(groupSlug)}/foods/${encodeURIComponent(foodId)}`,
       householdsGroupSlug: (groupSlug: string | number) =>
         `${exploreGroupSlug(groupSlug)}/households`,
       householdsGroupSlugHouseholdSlug: (
         groupSlug: string | number,
         householdSlug: string | number
-      ) => `${exploreGroupSlug(groupSlug)}/households/${householdSlug}`,
+      ) =>
+        `${exploreGroupSlug(groupSlug)}/households/${encodeURIComponent(
+          householdSlug
+        )}`,
       categoriesGroupSlug: (groupSlug: string | number) =>
         `${exploreGroupSlug(groupSlug)}/organizers/categories`,
       categoriesGroupSlugCategoryId: (
         groupSlug: string | number,
         categoryId: string | number
-      ) => `${exploreGroupSlug(groupSlug)}/organizers/categories/${categoryId}`,
+      ) =>
+        `${exploreGroupSlug(
+          groupSlug
+        )}/organizers/categories/${encodeURIComponent(categoryId)}`,
       tagsGroupSlug: (groupSlug: string | number) =>
         `${exploreGroupSlug(groupSlug)}/organizers/tags`,
       tagsGroupSlugTagId: (
         groupSlug: string | number,
         tagId: string | number
-      ) => `${exploreGroupSlug(groupSlug)}/organizers/tags/${tagId}`,
+      ) =>
+        `${exploreGroupSlug(groupSlug)}/organizers/tags/${encodeURIComponent(
+          tagId
+        )}`,
       toolsGroupSlug: (groupSlug: string | number) =>
         `${exploreGroupSlug(groupSlug)}/organizers/tools`,
       toolsGroupSlugToolId: (
@@ -109,7 +130,10 @@ export const API_ROUTES = {
       recipesGroupSlugRecipeSlug: (
         groupSlug: string | number,
         recipeSlug: string | number
-      ) => `${exploreGroupSlug(groupSlug)}/recipes/${recipeSlug}`,
+      ) =>
+        `${exploreGroupSlug(groupSlug)}/recipes/${encodeURIComponent(
+          recipeSlug
+        )}`,
     },
     VALIDATORS: {
       group: (name: string) =>
@@ -124,7 +148,8 @@ export const API_ROUTES = {
         )}&name=${encodeURIComponent(name)}`,
     },
     SHARED: {
-      recipeShareToken: (token: string) => `/api/recipes/shared/${token}`,
+      recipeShareToken: (token: string) =>
+        `/api/recipes/shared/${encodeURIComponent(token)}`,
     },
   },
 };

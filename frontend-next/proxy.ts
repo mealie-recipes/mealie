@@ -1,4 +1,3 @@
-// middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { isTokenExpired, refreshBackendToken } from "@/lib/auth";
@@ -78,14 +77,18 @@ export async function proxy(request: NextRequest) {
         }
       }
 
-      const response = NextResponse.next();
+      // Create request with new Authorization header
+      const requestHeaders = new Headers(request.headers);
+      if (pathname.startsWith("/api/") && newToken) {
+        requestHeaders.set("Authorization", `Bearer ${newToken}`);
+      }
+      const response = NextResponse.next({
+        request: { headers: requestHeaders },
+      });
 
       // Transfer all Set-Cookie headers to the outgoing response
       setCookies.forEach((c) => response.headers.append("Set-Cookie", c));
 
-      if (pathname.startsWith("/api/") && newToken) {
-        response.headers.set("Authorization", `Bearer ${newToken}`);
-      }
       return response;
     }
   }

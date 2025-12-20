@@ -1,9 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { API_ROUTES } from "./api/routes";
-import { fetchAuthRefresh } from "./api/users/auth";
 
 // Standardize expiration buffer (e.g., refresh if expiring in < 24h)
-const EXPIRATION_BUFFER_SEC = 86400;
+const EXPIRATION_BUFFER_SEC = 900;
 
 /**
  * Checks if a JWT is expired or about to expire

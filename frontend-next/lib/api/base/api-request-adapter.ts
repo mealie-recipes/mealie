@@ -58,7 +58,7 @@ export class ApiRequestAdapter implements ApiRequestInstance {
       if (headers.has("Content-Type")) {
         // 1. Handle application/x-www-form-urlencoded
         if (headers.get("Content-Type")?.includes("x-www-form-urlencoded")) {
-          body = new URLSearchParams(data as any).toString();
+          body = new URLSearchParams(data as Record<string, string>).toString();
         } else {
           body = data as BodyInit;
         }
@@ -76,9 +76,7 @@ export class ApiRequestAdapter implements ApiRequestInstance {
       }
       // 4. Default: JSON
       else {
-        if (!headers.has("Content-Type")) {
-          headers.set("Content-Type", "application/json");
-        }
+        headers.set("Content-Type", "application/json");
         body = JSON.stringify(data);
       }
     }
