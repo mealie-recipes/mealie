@@ -26,9 +26,9 @@ function hasCookieToken(): boolean {
 function removeCookieToken() {
   if (typeof document === "undefined") return;
   const secure = window.location.protocol === "https:";
-  document.cookie = `${TOKEN_COOKIE}=; Path=/; Max-Age=0; SameSite=None; ${
-    secure ? " Secure;" : ""
-  }`;
+  document.cookie = `${TOKEN_COOKIE}=; Path=/; Max-Age=0; SameSite=${
+    secure ? "None" : "Lax"
+  }; ${secure ? "Secure;" : ""}`;
 }
 
 interface AuthContextType {

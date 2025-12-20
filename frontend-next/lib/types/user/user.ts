@@ -152,7 +152,7 @@ export interface PrivateUser {
   tokens?: LongLiveTokenOut[] | null;
   cacheKey: string;
   password: string;
-  loginAttemps?: number;
+  loginAttempts?: number;
   lockedAt?: string | null;
 }
 export interface LongLiveTokenOut {
