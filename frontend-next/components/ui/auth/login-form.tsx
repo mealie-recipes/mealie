@@ -26,6 +26,7 @@ import { useState } from "react";
 import { AppConfig, StartupInfo } from "@/lib/types/app";
 import { CredentialRow } from "../custom/auth/credential-row";
 import BasicError from "../custom/basic-error";
+import { useAuth } from "@/lib/auth/auth-context";
 
 interface LoginFormProps extends React.ComponentProps<"div"> {
   config: AppConfig;
@@ -34,13 +35,6 @@ interface LoginFormProps extends React.ComponentProps<"div"> {
 
 /**
  * Render the sign-in UI and handle password and OIDC authentication flows.
- *
- * This component displays password and/or OIDC login options based on the provided configuration,
- * shows first-login and error alerts when applicable, and performs navigation on successful sign-in.
- *
- * @param config - Application configuration controlling available login methods and UI flags (e.g., demoStatus, enableOidc, allowPasswordLogin, allowSignup, oidcProviderName).
- * @param startupInfo - Startup information used to determine first-login alerts and related UI.
- * @returns The React element for the login form.
  */
 export function LoginForm({
   className,
@@ -51,7 +45,14 @@ export function LoginForm({
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState(
+    startupInfo.isFirstLogin ? "changeme@example.com" : ""
+  );
+  const [password, setPassword] = useState(
+    startupInfo.isFirstLogin ? "MyPassword" : ""
+  );
+  const [rememberMe, setRememberMe] = useState(false);
+  const { signIn } = useAuth();
 
   const handlePasswordLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,9 +64,13 @@ export function LoginForm({
       if (!submittedPassword) {
         throw new Error("Password cannot be empty");
       }
-      // TODO: Implement actual login API call
-      // Placeholder for actual authentication
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      await signIn({
+        username: email,
+        password: submittedPassword,
+        remember_me: rememberMe,
+      });
+
       router.push("/");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Login failed");
@@ -75,7 +80,6 @@ export function LoginForm({
   };
 
   const handleOidcLogin = () => {
-    // Use window.location.href for OIDC as it requires full page redirect to IdP
     window.location.href = "/api/auth/oidc/login";
   };
 
@@ -147,18 +151,14 @@ export function LoginForm({
                     type="text"
                     autoComplete="username"
                     placeholder="name@company.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     required
                   />
                 </Field>
                 <Field>
                   <div className="flex items-center">
                     <FieldLabel htmlFor="password">Password</FieldLabel>
-                    <a
-                      href="#"
-                      className="ml-auto inline-block text-xs underline-offset-4 hover:underline text-primary"
-                    >
-                      Forgot your password?
-                    </a>
                   </div>
                   <PasswordInput
                     id="password"
@@ -168,7 +168,13 @@ export function LoginForm({
                     required
                   />
                   <div className="flex items-center gap-2">
-                    <Checkbox id="remember" />
+                    <Checkbox
+                      id="remember"
+                      checked={rememberMe}
+                      onCheckedChange={(checked) =>
+                        setRememberMe(checked === true)
+                      }
+                    />
                     <FieldLabel htmlFor="remember">Remember me</FieldLabel>
                   </div>
                 </Field>

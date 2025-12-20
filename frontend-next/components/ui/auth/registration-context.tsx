@@ -1,6 +1,8 @@
 "use client";
 
-import { validateAvailability } from "@/lib/api/public/validators";
+import { authApi } from "@/lib/api/auth";
+import { validatorsApi } from "@/lib/api/public/validators";
+import { useRouter } from "next/navigation";
 import {
   createContext,
   useContext,
@@ -43,6 +45,7 @@ interface RegistrationContextType {
   groupMode: GroupMode;
   data: RegistrationData;
   creatingAccount: boolean;
+  submitError: string | null;
 
   // Validations
   validations: {
@@ -57,30 +60,13 @@ interface RegistrationContextType {
 
   // Navigation
   goBack: () => void;
-  goNext: () => void;
+  goNext: () => Promise<void>;
 }
 
 const RegistrationContext = createContext<RegistrationContextType | undefined>(
   undefined
 );
 
-/**
- * Provides debounced, asynchronous availability validation for a single input field.
- *
- * Performs client-side email format checks (when type is "email"), debounces user input, calls
- * validateAvailability for remote availability, and exposes validity/error/checking state.
- *
- * @param type - The validation category: "group" validates group names, "user" validates usernames, and "email" validates email addresses.
- * @param initialValue - Optional initial value for the field; the value is trimmed on update.
- * @param onUpdate - Optional callback invoked with the trimmed value whenever the field value changes.
- * @returns An object containing:
- *  - `value`: the current trimmed field value,
- *  - `setValue`: setter to update the field value (accepts the new value string),
- *  - `error`: a human-readable validation or availability error message, or `null` if none,
- *  - `isValid`: `true` if the value passed validation and is available, `false` otherwise,
- *  - `isChecking`: `true` while an availability check is in progress,
- *  - `validate`: a function to trigger validation immediately.
- */
 function useDebouncedValidation(
   type: "group" | "user" | "email",
   initialValue: string = "",
@@ -93,7 +79,9 @@ function useDebouncedValidation(
   const lastCheckedValue = useRef<string | null>(null);
 
   const validate = useCallback(async () => {
+    // Only trim here for validation, not in state
     const trimmed = value.trim();
+
     if (!trimmed) {
       setError(null);
       setIsValid(false);
@@ -115,15 +103,17 @@ function useDebouncedValidation(
     }
 
     setIsChecking(true);
-    setIsValid(false);
+    setIsValid(false); // Assume false while checking
     lastCheckedValue.current = trimmed;
 
     try {
-      const available = await validateAvailability(type, trimmed);
+      const available = await validatorsApi.validateAvailability(type, trimmed);
+
       // Ignore stale responses if the current value changed since request
       if (lastCheckedValue.current !== trimmed) {
         return;
       }
+
       if (!available) {
         setError(
           type === "group"
@@ -149,6 +139,7 @@ function useDebouncedValidation(
 
   useEffect(() => {
     const timer = setTimeout(() => {
+      // Don't validate empty strings automatically
       if (value) {
         validate();
       }
@@ -158,11 +149,9 @@ function useDebouncedValidation(
   }, [value, validate]);
 
   const handleChange = (newValue: string) => {
-    const trimmed = newValue.trim();
-    setValue(trimmed);
-    if (onUpdate) onUpdate(trimmed);
-    // Reset validity when changing if it doesn't match the last checked value
-    if (trimmed !== lastCheckedValue.current) {
+    setValue(newValue);
+    if (onUpdate) onUpdate(newValue);
+    if (newValue.trim() !== lastCheckedValue.current) {
       setIsValid(false);
     }
   };
@@ -177,17 +166,12 @@ function useDebouncedValidation(
   };
 }
 
-/**
- * Provides registration state, debounced field validations, and navigation controls for a multi-step signup flow to descendant components.
- *
- * The provider exposes current `step`, `groupMode`, collected `data`, `creatingAccount` flag, validation states for `username`, `email`, and `groupName`, and actions: `setGroupMode`, `updateData`, `goBack`, and `goNext`.
- *
- * @param children - React children to render within the registration context provider
- * @returns The RegistrationContext provider element wrapping the given children
- */
 export function RegistrationProvider({ children }: { children: ReactNode }) {
   const [step, setStep] = useState<RegistrationStep>(1);
   const [groupMode, setGroupMode] = useState<GroupMode>("selection");
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const router = useRouter();
+
   const [data, setData] = useState<RegistrationData>({
     username: "",
     fullName: "",
@@ -200,6 +184,7 @@ export function RegistrationProvider({ children }: { children: ReactNode }) {
 
   const updateData = (newData: Partial<RegistrationData>) => {
     setData((prev) => ({ ...prev, ...newData }));
+    if (submitError) setSubmitError(null);
   };
 
   // Validations
@@ -215,36 +200,64 @@ export function RegistrationProvider({ children }: { children: ReactNode }) {
     (v) => updateData({ groupName: v })
   );
 
-  const goNext = () => {
+  const goNext = async () => {
+    setSubmitError(null);
+
     if (step === 1) {
       if (groupMode === "join" && !data.token) return;
       if (
         groupMode === "create" &&
         (!groupNameVal.isValid || groupNameVal.isChecking)
-      )
+      ) {
+        groupNameVal.validate();
         return;
+      }
       setStep(2);
     } else if (step === 2) {
-      if (!usernameVal.isValid || usernameVal.isChecking) return;
+      if (!usernameVal.isValid || usernameVal.isChecking) {
+        usernameVal.validate();
+        return;
+      }
       if (!data.fullName?.trim()) return;
       setStep(3);
     } else if (step === 3) {
-      if (!emailVal.isValid || emailVal.isChecking) return;
+      if (!emailVal.isValid || emailVal.isChecking) {
+        emailVal.validate();
+        return;
+      }
       if (!data.password || data.password !== data.confirmPassword) return;
       setStep(4);
     } else if (step === 4) {
       setStep(5);
     } else if (step === 5) {
-      console.log("Final Submission Data:", data);
-      // Trigger loading state during account creation (debugging placeholder)
       setCreatingAccount(true);
       try {
-        // TODO: Call API
-        // await createAccount(data);
-        // On success: redirect or show success screen
-      } catch (error) {
+        const user = {
+          username: data.username!,
+          fullName: data.fullName!,
+          email: data.email!,
+          password: data.password!,
+          passwordConfirm: data.confirmPassword!,
+          group: groupMode === "create" ? data.groupName : undefined,
+          groupToken: groupMode === "join" ? data.token : undefined,
+          advanced: data.advancedContent || false,
+          private: data.privateRecipes || false,
+          seedData: data.seedData || false,
+        };
+
+        await authApi.registerUser(user);
+        await authApi.fetchToken({
+          username: data.username!,
+          password: data.password!,
+          remember_me: true,
+        });
+
+        router.push("/");
+      } catch (error: any) {
         console.error("Account creation failed:", error);
-        // Show error to user
+        setSubmitError(
+          error.message || "Failed to create account. Please try again."
+        );
       } finally {
         setCreatingAccount(false);
       }
@@ -268,6 +281,7 @@ export function RegistrationProvider({ children }: { children: ReactNode }) {
         groupMode,
         data,
         creatingAccount,
+        submitError,
         validations: {
           username: usernameVal,
           email: emailVal,
@@ -284,12 +298,6 @@ export function RegistrationProvider({ children }: { children: ReactNode }) {
   );
 }
 
-/**
- * Access the registration context provided by RegistrationProvider.
- *
- * @returns The registration context value.
- * @throws Error if called outside of a RegistrationProvider.
- */
 export function useRegistration() {
   const context = useContext(RegistrationContext);
   if (context === undefined) {

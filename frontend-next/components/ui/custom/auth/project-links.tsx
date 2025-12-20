@@ -15,7 +15,10 @@ export const ProjectLinks = () => {
         Mealie Original
       </ResourceButton> */}
 
-      <ResourceButton href="https://mealie.io" icon={GitBranch}>
+      <ResourceButton
+        href="https://github.com/blawson490/mealie-next/"
+        icon={GitBranch}
+      >
         Mealie Next
       </ResourceButton>
 

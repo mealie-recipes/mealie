@@ -1,12 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { fetchAppConfig, fetchStartupInfo } from "@/lib/api/app";
 import type { AppConfig, StartupInfo } from "@/lib/types/app";
 import Loader from "@/components/ui/custom/loader";
 import BasicError from "@/components/ui/custom/basic-error";
 import { Button } from "@/components/ui/button";
 import { RegistrationForm } from "@/components/ui/auth/registration-form";
+import { configApi } from "@/lib/api/public/config";
 
 /**
  * Render the registration page: fetch startup and app configuration, handle loading and error states,
@@ -30,9 +30,9 @@ export default function RegistrationPage() {
   useEffect(() => {
     async function loadConfig() {
       try {
-        const startupInfo = await fetchStartupInfo();
+        const startupInfo = await configApi.getStartupInfo();
         setStartupInfo(startupInfo);
-        const appConfig = await fetchAppConfig();
+        const appConfig = await configApi.getAppConfig();
         setConfig(appConfig);
 
         // Auto-redirect to OIDC if enabled and redirect is true
