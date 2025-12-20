@@ -67,6 +67,22 @@ const RegistrationContext = createContext<RegistrationContextType | undefined>(
   undefined
 );
 
+/**
+ * Provides debounced, async availability validation for a single input field.
+ *
+ * Validates the current value (after an 800ms debounce) against a remote availability check and exposes state for value, error, validity, and in-progress checking. Triggers a basic email format check when `type` is "email".
+ *
+ * @param type - The kind of value to validate: `"group"`, `"user"`, or `"email"`.
+ * @param initialValue - Initial input value.
+ * @param onUpdate - Optional callback invoked whenever the input value changes.
+ * @returns An object with:
+ *  - `value` — the current input string.
+ *  - `setValue` — function to update the input (calls `onUpdate` if provided).
+ *  - `error` — a user-facing error message or `null` when there is no error.
+ *  - `isValid` — `true` when the last validated value is available; `false` otherwise.
+ *  - `isChecking` — `true` while an async validation is in progress.
+ *  - `validate` — function that performs an immediate validation and resolves when finished.
+ */
 function useDebouncedValidation(
   type: "group" | "user" | "email",
   initialValue: string = "",
@@ -166,6 +182,12 @@ function useDebouncedValidation(
   };
 }
 
+/**
+ * Provides registration state, debounced field validations, and navigation/actions for the multi-step registration flow to descendant components.
+ *
+ * @param children - Child elements that will receive the registration context
+ * @returns A React context provider element exposing the current registration step, group mode, collected data, validation states, submission status, and action handlers (setGroupMode, updateData, goBack, goNext)
+ */
 export function RegistrationProvider({ children }: { children: ReactNode }) {
   const [step, setStep] = useState<RegistrationStep>(1);
   const [groupMode, setGroupMode] = useState<GroupMode>("selection");
@@ -298,6 +320,12 @@ export function RegistrationProvider({ children }: { children: ReactNode }) {
   );
 }
 
+/**
+ * Accesses the registration context for the current component tree.
+ *
+ * @returns The registration context value provided by `RegistrationProvider`.
+ * @throws If called outside of a `RegistrationProvider`, throws an `Error` stating it must be used within a `RegistrationProvider`.
+ */
 export function useRegistration() {
   const context = useContext(RegistrationContext);
   if (context === undefined) {

@@ -7,6 +7,20 @@ import { API_ROUTES } from "./lib/api/routes";
 // These are likely hardcoded as they don't always align 1:1 with API_ROUTES
 const PUBLIC_PAGES = ["/login", "/register", "/forgot-password"];
 
+/**
+ * Middleware that enforces route access and injects authorization for API requests.
+ *
+ * Redirects authenticated users away from public pages. Protects private routes by
+ * requiring a valid access token: returns a 401 JSON response for API calls or redirects
+ * to "/login" for page requests. If the access token is expired, attempts a backend
+ * refresh; on refresh failure redirects to "/login" and clears auth cookies, on success
+ * forwards Set-Cookie headers and continues the request with the new token. For API
+ * requests with a valid token, injects an `Authorization: Bearer <token>` header.
+ *
+ * @param request - The incoming NextRequest to evaluate and potentially modify.
+ * @returns A NextResponse that may be a redirect, a 401 JSON response, or a forwarded
+ * response (NextResponse.next) with updated request headers and/or Set-Cookie headers.
+ */
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const token = request.cookies.get("mealie.access_token")?.value;

@@ -11,15 +11,18 @@ const DEFAULT_HOST = "http://localhost.com";
 const DEFAULT_PREFIX = "";
 
 /**
- * route is the main URL builder for the API. It will use the provided host and prefix
- * (or defaults) and then append the passed in path parameter using the `URL` class from the
- * browser. It will also append any query parameters passed in as the second parameter.
+ * Builds a URL from a path plus optional query parameters and optional host/prefix configuration.
  *
- * The default host `http://localhost.com` is removed from the path if it is present. This allows us
- * to bootstrap the API with different hosts as needed (like for testing) but still allows us to use
- * relative URLs in production because the API and client bundle are served from the same server/host.
+ * Constructs a URL by combining the configured or provided host and prefix with `rest`, appends any
+ * query parameters from `params` (array values produce multiple entries with the same key), and
+ * removes the DEFAULT_HOST substring from the final string if present.
  *
- * This implementation is thread-safe and avoids race conditions in concurrent Next.js requests.
+ * @param rest - The path portion to append to the configured prefix and host (e.g., "/users").
+ * @param params - An object mapping query parameter names to values; values may be strings, numbers, booleans, `null`, `undefined`, or arrays of those types. Pass `null` to omit query parameters.
+ * @param options - Optional overrides.
+ * @param options.host - Host to use instead of the default host.
+ * @param options.prefix - Prefix to prepend to `rest` (for example a versioned API prefix).
+ * @returns The resulting URL as a string, with the default host removed if it appears in the output.
  */
 export function route(
   rest: string,
@@ -46,9 +49,11 @@ export function route(
 }
 
 /**
- * Factory function to create a route builder with pre-configured host and prefix.
- * This is useful when you need to create multiple routes with the same configuration
- * without repeating the options parameter.
+ * Create a route builder bound to a specific host and prefix.
+ *
+ * @param host - Base host to use when constructing routes (e.g., "https://api.example.com")
+ * @param prefix - Optional path prefix to prepend to each route (e.g., "/v1")
+ * @returns A function that builds a URL string for a given path and optional query parameters
  *
  * @example
  * const apiRoute = createRoute("https://api.example.com", "/v1");

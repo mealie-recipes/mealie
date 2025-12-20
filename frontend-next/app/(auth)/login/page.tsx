@@ -31,6 +31,11 @@ export default function LoginPage() {
       return;
     }
 
+    /**
+     * Loads startup information and application configuration, updating component state.
+     *
+     * Retrieves startup info and app config, stores them in component state, and if OIDC login is enabled with redirect requested, performs a full-page redirect to /api/auth/oidc/login. On failure, records an error message. In all cases, clears the loading indicator when finished.
+     */
     async function loadConfig() {
       try {
         const startupInfo = await configApi.getStartupInfo();

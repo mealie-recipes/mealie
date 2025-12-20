@@ -1,8 +1,10 @@
 /**
- * Get the base URL for API requests
- * Server-side: use BACKEND_URL env var or localhost
- * Client-side: use relative URLs (handled by Next.js rewrites)
- * @returns Base URL as string for server-side, empty string for client-side
+ * Determine the base URL to use for API requests.
+ *
+ * On the server, returns BACKEND_URL (trimmed) from environment or "http://localhost:9000" if unset, with any trailing slash removed.
+ * In the browser, returns an empty string so relative URLs are used (Next.js rewrites handle routing).
+ *
+ * @returns The base URL to use for server-side API requests; an empty string when running in the browser.
  */
 export function getApiBaseUrl(): string {
   // Server-side: use backend URL from environment
@@ -16,7 +18,15 @@ export function getApiBaseUrl(): string {
 }
 
 /**
- * Base JSON request with timeout, retry, and consistent errors.
+ * Perform a JSON HTTP request against the API with built-in timeout, retry, and unified error messages.
+ *
+ * @param path - Request path appended to the API base URL; may start with or without a leading `/`.
+ * @param init - Optional fetch RequestInit overrides; `Content-Type` defaults to `application/json` and `cache` defaults to `no-store` if not provided.
+ * @param options - Optional behavior controls:
+ *   - `timeoutMs`: per-request timeout in milliseconds (defaults to NEXT_PUBLIC_API_TIMEOUT_MS or 10000).
+ *   - `retries`: number of retry attempts for network errors and 5xx responses (defaults to 3).
+ * @returns The parsed JSON response as type `T`.
+ * @throws Error when a non-OK HTTP response is received after retries (message includes status and URL), when the response body cannot be parsed as JSON (includes status and a 100-character preview), or when a network/timeout error occurs after all retries (message includes URL and underlying error).
  */
 export async function baseRequest<T>(
   path: string,

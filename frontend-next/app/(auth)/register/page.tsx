@@ -9,17 +9,14 @@ import { RegistrationForm } from "@/components/ui/auth/registration-form";
 import { configApi } from "@/lib/api/public/config";
 
 /**
- * Render the registration page: fetch startup and app configuration, handle loading and error states,
- * and either redirect for OIDC, show a disabled-registration message with a login button, or display the registration form.
+ * Display the registration page and manage initial configuration loading, error states, and OIDC redirect.
  *
- * This component:
- * - Shows a loader while fetching configuration.
- * - Renders an error view if fetching configuration or startup info fails.
- * - Redirects the browser to `/api/auth/oidc/login` when OIDC is enabled and `oidcRedirect` is true.
- * - If registrations are disabled (`config.allowSignup === false`), displays a message and a "Go to Login" button that navigates to `/login`.
- * - Otherwise renders `RegistrationForm` with the loaded app configuration.
+ * When mounted, the component loads startup information and app configuration, shows a loader while fetching,
+ * renders user-facing error views if loading fails, automatically performs a full-page redirect to the OIDC
+ * login endpoint when OIDC is enabled and `oidcRedirect` is true, and otherwise either shows a registration-disabled
+ * message with a login button or renders the registration form with the loaded configuration.
  *
- * @returns The React element for the registration page.
+ * @returns A React element for the registration page.
  */
 export default function RegistrationPage() {
   const [startupInfo, setStartupInfo] = useState<StartupInfo | null>(null);
@@ -28,6 +25,15 @@ export default function RegistrationPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    /**
+     * Load startup information and application configuration into component state,
+     * perform an OIDC full-page redirect when configured, and update loading/error state.
+     *
+     * Sets the component's startupInfo and config state values on success. If the
+     * fetched app config enables OIDC and requests a redirect, navigates the browser
+     * to /api/auth/oidc/login. On failure, sets an error message; in all cases,
+     * clears the loading flag when finished.
+     */
     async function loadConfig() {
       try {
         const startupInfo = await configApi.getStartupInfo();
