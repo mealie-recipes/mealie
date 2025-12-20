@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { API_ROUTES } from "./api/routes";
 
-// Standardize expiration buffer (e.g., refresh if expiring in < 24h)
+// Standardize expiration buffer (e.g., refresh if expiring in < 15 minutes)
 const EXPIRATION_BUFFER_SEC = 900;
 
 /**
@@ -32,12 +32,14 @@ export function isTokenExpired(token?: string): boolean {
  * Performs a server-side token refresh by POSTing the incoming request's cookies to the backend refresh endpoint.
  *
  * @param req - The incoming NextRequest; its Cookie header will be forwarded to the backend.
- * @returns A NextResponse containing the backend's JSON body and any forwarded `Set-Cookie` headers, or `null` if the refresh failed or the backend response was not OK.
+ * @returns A NextResponse containing the backend's JSON body and any forwarded `Set-Cookie` headers, or `null` if the refresh failed, timed out, or the response was not valid JSON.
  */
 export async function refreshBackendToken(
   req: NextRequest
 ): Promise<NextResponse | null> {
   const backendUrl = process.env.BACKEND_URL || "http://localhost:9000";
+  const controller = new AbortController();
+  const timeoutId = setTimeout(() => controller.abort(), 5000); // 5-second timeout
 
   try {
     const res = await fetch(`${backendUrl}${API_ROUTES.AUTH.REFRESH}`, {
@@ -45,11 +47,37 @@ export async function refreshBackendToken(
       headers: {
         Cookie: req.headers.get("cookie") || "",
       },
+      signal: controller.signal,
     });
 
-    if (!res.ok) return null;
+    clearTimeout(timeoutId);
 
-    const data = await res.json();
+    if (!res.ok) {
+      console.error(`Token refresh failed with status ${res.status}`);
+      return null;
+    }
+
+    // Validate content-type is JSON before attempting to parse
+    const contentType = res.headers.get("content-type");
+    if (!contentType || !contentType.includes("application/json")) {
+      console.error(
+        `Token refresh returned non-JSON response: ${
+          contentType || "no content-type"
+        }`
+      );
+      return null;
+    }
+
+    let data;
+    try {
+      data = await res.json();
+    } catch (parseError) {
+      console.error(
+        "Failed to parse token refresh response as JSON",
+        parseError
+      );
+      return null;
+    }
 
     // Create a new response to hold the new cookies
     const nextRes = new NextResponse(JSON.stringify(data));
@@ -63,7 +91,12 @@ export async function refreshBackendToken(
 
     return nextRes;
   } catch (e) {
-    console.error("Token refresh failed", e);
+    clearTimeout(timeoutId);
+    if (e instanceof Error && e.name === "AbortError") {
+      console.error("Token refresh request timed out (5s exceeded)");
+    } else {
+      console.error("Token refresh failed", e);
+    }
     return null;
   }
 }
