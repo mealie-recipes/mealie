@@ -773,8 +773,8 @@
             "currant": {
                 "aliases": [],
                 "description": "",
-                "name": "ribsber",
-                "plural_name": "ribsber"
+                "name": "rifsber",
+                "plural_name": "rifsber"
             },
             "mandarin": {
                 "aliases": [],
@@ -1531,8 +1531,8 @@
             "freeze-dried strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "frostþurrkuð jarðaber",
-                "plural_name": "frostþurrkuð jarðaber"
+                "name": "frostþurrkuð jarðarber",
+                "plural_name": "frostþurrkuð jarðarber"
             },
             "gooseberry": {
                 "aliases": [],
@@ -1913,8 +1913,8 @@
             "jackfruit seed": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit seed",
-                "plural_name": "jackfruit seeds"
+                "name": "fræ saðningaraldins",
+                "plural_name": "fræ saðningaraldins"
             },
             "honey-roasted almond": {
                 "aliases": [],
@@ -2945,8 +2945,8 @@
             "strawberry frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry frosting",
-                "plural_name": "strawberry frostings"
+                "name": "jarðarberjakrem",
+                "plural_name": "jarðarberjakrem"
             },
             "honey greek yogurt": {
                 "aliases": [],
@@ -2969,8 +2969,8 @@
             "strawberry cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry cream cheese",
-                "plural_name": "strawberry cream cheeses"
+                "name": "jarðarberja rjómaostur",
+                "plural_name": "jarðarberja rjómaostur"
             },
             "goat butter": {
                 "aliases": [],
@@ -3041,8 +3041,8 @@
             "strawberry milk": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry milk",
-                "plural_name": "strawberry milks"
+                "name": "jarðarberjamjólk",
+                "plural_name": "jarðarberjamjólk"
             },
             "ayran": {
                 "aliases": [],
@@ -5139,8 +5139,8 @@
             "orange roughy": {
                 "aliases": [],
                 "description": "",
-                "name": "orange roughy",
-                "plural_name": "orange roughies"
+                "name": "búrfiskur",
+                "plural_name": "búrfiskur"
             },
             "turbot": {
                 "aliases": [],
@@ -6658,8 +6658,8 @@
             "strawberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry syrup",
-                "plural_name": "strawberry syrups"
+                "name": "jarðarberja sírop",
+                "plural_name": "jarðarberjasírop"
             },
             "vanilla syrup": {
                 "aliases": [],
@@ -6760,8 +6760,8 @@
             "apple syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "apple syrup",
-                "plural_name": "apple syrups"
+                "name": "epla sírop",
+                "plural_name": "epla sírop"
             },
             "allulose": {
                 "aliases": [],
@@ -6940,8 +6940,8 @@
             "grape syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "grape syrup",
-                "plural_name": "grape syrups"
+                "name": "grape sírop",
+                "plural_name": "grape sírop"
             },
             "brown butter syrup": {
                 "aliases": [],
@@ -7208,8 +7208,8 @@
             "apple pie spice": {
                 "aliases": [],
                 "description": "",
-                "name": "apple pie spice",
-                "plural_name": "apple pie spices"
+                "name": "eplakökukrydd",
+                "plural_name": "eplakökukrydd"
             },
             "za'atar": {
                 "aliases": [],
@@ -8262,8 +8262,8 @@
             "fruit salt": {
                 "aliases": [],
                 "description": "",
-                "name": "fruit salt",
-                "plural_name": "fruit salts"
+                "name": "ávaxta salt",
+                "plural_name": "ávaxta sölt"
             }
         }
     },
@@ -10480,8 +10480,8 @@
             "fruit bread": {
                 "aliases": [],
                 "description": "",
-                "name": "fruit bread",
-                "plural_name": "fruit breads"
+                "name": "ávaxta brauð",
+                "plural_name": "ávaxta brauð"
             },
             "sprouted bread": {
                 "aliases": [],
@@ -10705,7 +10705,7 @@
             },
             "grapeseed oil": {
                 "aliases": [
-                    "grape seed oil"
+                    "grape fræ olía"
                 ],
                 "description": "",
                 "name": "grapeseed oil",
@@ -11276,8 +11276,8 @@
             "verjuice": {
                 "aliases": [],
                 "description": "",
-                "name": "verjuice",
-                "plural_name": "verjuices"
+                "name": "súr mjöður",
+                "plural_name": "súr mjöður"
             },
             "cane vinegar": {
                 "aliases": [],
@@ -11856,8 +11856,8 @@
             "yuzu juice": {
                 "aliases": [],
                 "description": "",
-                "name": "yuzu juice",
-                "plural_name": "yuzu juices"
+                "name": "yuzusafi",
+                "plural_name": "yuzu safar"
             },
             "tonkatsu sauce": {
                 "aliases": [],
@@ -12048,8 +12048,8 @@
             "grape must": {
                 "aliases": [],
                 "description": "",
-                "name": "grape must",
-                "plural_name": "grape musts"
+                "name": "þrúgusafi",
+                "plural_name": "þrúgusafar"
             },
             "shrimp powder": {
                 "aliases": [],
@@ -12160,8 +12160,8 @@
             "canned pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pineapple",
-                "plural_name": "canned pineapples"
+                "name": "niðursoðin ananas",
+                "plural_name": "niðursoðin ananas"
             },
             "chipotle in adobo": {
                 "aliases": [],
@@ -12286,8 +12286,8 @@
             "canned mandarin orange": {
                 "aliases": [],
                 "description": "",
-                "name": "canned mandarin orange",
-                "plural_name": "canned mandarin oranges"
+                "name": "niðursoðin mandarína",
+                "plural_name": "niðursoðnar mandarínur"
             },
             "chili bean": {
                 "aliases": [],
@@ -12358,8 +12358,8 @@
             "canned apple": {
                 "aliases": [],
                 "description": "",
-                "name": "canned apple",
-                "plural_name": "canned apples"
+                "name": "niðursoðin epli",
+                "plural_name": "niðursoðin epli"
             },
             "canned green bean": {
                 "aliases": [],
@@ -12562,8 +12562,8 @@
             "canned jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "canned jackfruit",
-                "plural_name": "canned jackfruits"
+                "name": "niðursoðið saðningaraldin",
+                "plural_name": "niðursoðið saðningaraldin"
             },
             "taggiasca olive": {
                 "aliases": [],
@@ -13048,14 +13048,14 @@
             "orange sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "orange sauce",
-                "plural_name": "orange sauces"
+                "name": "appelsínu sósa",
+                "plural_name": "appelsínu sósus"
             },
             "pineapple salsa": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple salsa",
-                "plural_name": "pineapple salsas"
+                "name": "ananas salsa",
+                "plural_name": "ananas salsa"
             },
             "artichoke dip": {
                 "aliases": [],
@@ -13920,8 +13920,8 @@
             "applesauce": {
                 "aliases": [],
                 "description": "",
-                "name": "applesauce",
-                "plural_name": "applesauces"
+                "name": "eplasósa",
+                "plural_name": "eplasósur"
             },
             "white chocolate": {
                 "aliases": [],
@@ -13998,8 +13998,8 @@
             "strawberry jam": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry jam",
-                "plural_name": "strawberry jams"
+                "name": "jarðarberjasulta",
+                "plural_name": "jarðarberjasultur"
             },
             "biscuit": {
                 "aliases": [],
@@ -14028,8 +14028,8 @@
             "orange marmalade": {
                 "aliases": [],
                 "description": "",
-                "name": "orange marmalade",
-                "plural_name": "orange marmalades"
+                "name": "appelsínu marmelaði",
+                "plural_name": "appelsínu marmelaði"
             },
             "wafer": {
                 "aliases": [],
@@ -14109,8 +14109,8 @@
             "apple butter": {
                 "aliases": [],
                 "description": "",
-                "name": "apple butter",
-                "plural_name": "apple butter"
+                "name": "epla smjör",
+                "plural_name": "epla smjör"
             },
             "peppermint candy": {
                 "aliases": [],
@@ -14151,8 +14151,8 @@
             "currant jelly": {
                 "aliases": [],
                 "description": "",
-                "name": "currant jelly",
-                "plural_name": "currant jellies"
+                "name": "rifsberjahlaup",
+                "plural_name": "rifsberjahlaup"
             },
             "candied ginger": {
                 "aliases": [],
@@ -14211,8 +14211,8 @@
             "grape jelly": {
                 "aliases": [],
                 "description": "",
-                "name": "grape jelly",
-                "plural_name": "grape jellies"
+                "name": "grape gel",
+                "plural_name": "grape gel"
             },
             "waffle": {
                 "aliases": [],
@@ -14271,8 +14271,8 @@
             "apple jelly": {
                 "aliases": [],
                 "description": "",
-                "name": "apple jelly",
-                "plural_name": "apple jellies"
+                "name": "eplagel",
+                "plural_name": "eplagel"
             },
             "blackberry preserve": {
                 "aliases": [],
@@ -14313,8 +14313,8 @@
             "strawberry puree": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry puree",
-                "plural_name": "strawberry purees"
+                "name": "jarðarberjamauk",
+                "plural_name": "jarðarberjamauk"
             },
             "chocolate powder": {
                 "aliases": [],
@@ -14337,8 +14337,8 @@
             "pineapple jam": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple jam",
-                "plural_name": "pineapple jams"
+                "name": "ananassulta",
+                "plural_name": "ananassultur"
             },
             "licorice": {
                 "aliases": [],
@@ -14409,8 +14409,8 @@
             "strawberry sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry sauce",
-                "plural_name": "strawberry sauces"
+                "name": "jarðarberjasósa",
+                "plural_name": "jarðarberjasósur"
             },
             "butterscotch pudding mix": {
                 "aliases": [],
@@ -14475,8 +14475,8 @@
             "candied pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "candied pineapple",
-                "plural_name": "candied pineapples"
+                "name": "sykraður ananas",
+                "plural_name": "sykraður ananas"
             },
             "hershey kiss": {
                 "aliases": [],
@@ -14533,8 +14533,8 @@
             "orange liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "orange liqueur",
-                "plural_name": "orange liqueurs"
+                "name": "appelsínu líkjör",
+                "plural_name": "appelsínu líkjör"
             },
             "cider": {
                 "aliases": [],
@@ -14701,8 +14701,8 @@
             "apple brandy": {
                 "aliases": [],
                 "description": "",
-                "name": "apple brandy",
-                "plural_name": "apple brandies"
+                "name": "epla brandí",
+                "plural_name": "epla brandí"
             },
             "rosé wine": {
                 "aliases": [],
@@ -14923,8 +14923,8 @@
             "strawberry liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry liqueur",
-                "plural_name": "strawberry liqueurs"
+                "name": "jarðarberjalíkjör",
+                "plural_name": "jarðarberjalíkjör"
             },
             "drambuie": {
                 "aliases": [],
@@ -15037,8 +15037,8 @@
             "grapefruit bitter": {
                 "aliases": [],
                 "description": "",
-                "name": "grapefruit bitter",
-                "plural_name": "grapefruit bitters"
+                "name": "greipaldin bitter",
+                "plural_name": "greipaldin bitter"
             },
             "peach brandy": {
                 "aliases": [],
@@ -15055,8 +15055,8 @@
             "apple liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "apple liqueur",
-                "plural_name": "apple liqueurs"
+                "name": "epla líkjör",
+                "plural_name": "epla líkjör"
             },
             "pear brandy": {
                 "aliases": [],
@@ -15101,8 +15101,8 @@
             "orange juice": {
                 "aliases": [],
                 "description": "",
-                "name": "orange juice",
-                "plural_name": "orange juices"
+                "name": "appelsínusafi",
+                "plural_name": "appelsínu safar"
             },
             "coffee": {
                 "aliases": [],
@@ -15125,14 +15125,14 @@
             "pineapple juice": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple juice",
-                "plural_name": "pineapple juices"
+                "name": "ananassafi",
+                "plural_name": "ananassafar"
             },
             "apple juice": {
                 "aliases": [],
                 "description": "",
-                "name": "apple juice",
-                "plural_name": "apple juices"
+                "name": "eplasafi",
+                "plural_name": "eplasafar"
             },
             "tea": {
                 "aliases": [],
@@ -15203,8 +15203,8 @@
             "orange juice concentrate": {
                 "aliases": [],
                 "description": "",
-                "name": "orange juice concentrate",
-                "plural_name": "orange juice concentrates"
+                "name": "appelsínusafaþykkni ",
+                "plural_name": "appelsínuþykkni"
             },
             "lemon lime soda": {
                 "aliases": [],
@@ -15341,8 +15341,8 @@
             "fruit juice": {
                 "aliases": [],
                 "description": "",
-                "name": "fruit juice",
-                "plural_name": "fruit juices"
+                "name": "ávaxtasafi",
+                "plural_name": "ávaxta safar"
             },
             "passion-fruit juice": {
                 "aliases": [],
@@ -15383,8 +15383,8 @@
             "orange soda": {
                 "aliases": [],
                 "description": "",
-                "name": "orange soda",
-                "plural_name": "orange sodas"
+                "name": "appelsín",
+                "plural_name": "appelsín"
             },
             "margarita mix": {
                 "aliases": [],
@@ -15485,8 +15485,8 @@
             "strawberry juice": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry juice",
-                "plural_name": "strawberry juices"
+                "name": "jarðarberjasafi",
+                "plural_name": "jarðarberjasafar"
             },
             "iced coffee concentrate": {
                 "aliases": [],
@@ -15587,8 +15587,8 @@
             "strawberry soda": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry soda",
-                "plural_name": "strawberry sodas"
+                "name": "jarðarberjagos",
+                "plural_name": "jarðarberjagos"
             },
             "lapsang souchong": {
                 "aliases": [],
@@ -15599,8 +15599,8 @@
             "blackcurrant juice": {
                 "aliases": [],
                 "description": "",
-                "name": "blackcurrant juice",
-                "plural_name": "blackcurrant juices"
+                "name": "sólberjasafi",
+                "plural_name": "sólberjasafar"
             },
             "herbal tea": {
                 "aliases": [],
@@ -15753,8 +15753,8 @@
             "orange extract": {
                 "aliases": [],
                 "description": "",
-                "name": "orange extract",
-                "plural_name": "orange extracts"
+                "name": "appelsínu þykkni",
+                "plural_name": "appelsínu þykkni"
             },
             "rum extract": {
                 "aliases": [],
@@ -15783,8 +15783,8 @@
             "orange blossom water": {
                 "aliases": [],
                 "description": "",
-                "name": "orange blossom water",
-                "plural_name": "orange blossom waters"
+                "name": "appelsínublómavatn",
+                "plural_name": "appelsínublómavatn"
             },
             "liquid egg white": {
                 "aliases": [],
@@ -15837,8 +15837,8 @@
             "strawberry extract": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry extract",
-                "plural_name": "strawberry extracts"
+                "name": "jarðarberjaþykkni",
+                "plural_name": "jarðarberjaþykkni"
             },
             "butter extract": {
                 "aliases": [],
@@ -15963,8 +15963,8 @@
             "freeze-dried strawberry powder": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried strawberry powder",
-                "plural_name": "freeze-dried strawberry powders"
+                "name": "frostþurrkað jarðarberja duft",
+                "plural_name": "frostþurrkað jarðarberja duft"
             },
             "tamarind extract": {
                 "aliases": [],
@@ -15993,8 +15993,8 @@
             "pineapple extract": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple extract",
-                "plural_name": "pineapple extracts"
+                "name": "ananasþykkni",
+                "plural_name": "ananasþykkni"
             },
             "lemon juice concentrate": {
                 "aliases": [],

@@ -853,7 +853,7 @@
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhook-vefkrækjur",
       "webhook-name": "Vefkrækju nafn",
-      "description": "Vefkrækjur (webhooks) sem skilgreindar eru hér að neðan verða keyrðar þegar máltíð er skilgreind fyrir daginn. Á fyrirfram ákveðnum tíma verða vefkrækjurnar sendar með gögnum úr þeirri uppskrift sem skipulögð er í dag. Athugaðu að keyrsla vefkrækja er ekki alveg nákvæm, þær eru keyrðar á 5 mínútna fresti, þannig að sendingin getur farið fram allt að 5 mínútum fyrir eða eftir áætlaðan tíma."
+      "description": "Vefkrækjur sem skilgreindar eru hér að neðan verða keyrðar þegar máltíð er skilgreind fyrir daginn. Á fyrirfram ákveðnum tíma verða vefkrækjurnar sendar með gögnum úr þeirri uppskrift sem skipulögð er í dag. Athugaðu að keyrsla vefkrækja er ekki alveg nákvæm, þær eru keyrðar á 5 mínútna fresti, þannig að sendingin getur farið fram allt að 5 mínútum fyrir eða eftir áætlaðan tíma."
     },
     "bug-report": "Villu skýrsla",
     "bug-report-information": "Notaður þessar upplýsingar til að tilkynna um villu. Með því að veita þróunaraðilum upplýsingar um þína uppsetningu hjálpar þú þeim að leysa vandamálið hraðar.",
@@ -1308,7 +1308,7 @@
     },
     "ingredients-natural-language-processor": "Innihaldsefna málgreining (Natural Language Processor)",
     "ingredients-natural-language-processor-explanation": "Mealie notar Conditional Random Fields (CRFs) til að greina og vinna með innihaldsefni. Líkanið sem notað er byggir á gagnasafni með yfir 100.000 innihaldsefnum úr gagnasafni sem New York Times tók saman. Athugaðu að þar sem líkanið er einungis þjálfað á ensku geturðu fengið misjafnar niðurstöður þegar það er notað á önnur tungumál. Þessi síða er ætluð til að prófa líkanið.",
-    "ingredients-natural-language-processor-explanation-2": "Þetta er ekki fullkomið en skilar almennt góðum niðurstöðum og er góður grunnur fyrir handvirka greiningu innihaldsefna í einstaka reiti. Þú getur einnig notað „Brute“ vinnsluna, sem notar mynsturgreiningu til að bera kennsl á innihaldsefni.",
+    "ingredients-natural-language-processor-explanation-2": "Þetta er ekki fullkomið en skilar almennt góðum niðurstöðum og er góður grunnur fyrir handvirka greiningu innihaldsefna í einstaka reiti. Þú getur einnig notað „Grófgreinir“ vinnsluna, sem notar mynsturgreiningu til að bera kennsl á innihaldsefni.",
     "nlp": "NLP",
     "brute": "Grófgreinir",
     "openai": "OpenAI",

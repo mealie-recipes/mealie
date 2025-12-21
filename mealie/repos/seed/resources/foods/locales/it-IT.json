@@ -2795,8 +2795,8 @@
             "whey": {
                 "aliases": [],
                 "description": "",
-                "name": "whey",
-                "plural_name": "wheys"
+                "name": "siero",
+                "plural_name": "siero"
             },
             "hung curd": {
                 "aliases": [],
@@ -2807,20 +2807,20 @@
             "quail egg": {
                 "aliases": [],
                 "description": "",
-                "name": "quail egg",
-                "plural_name": "quail eggs"
+                "name": "Uovo di quaglia",
+                "plural_name": "Uova di quaglia"
             },
             "buttermilk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "buttermilk powder",
-                "plural_name": "buttermilk powders"
+                "name": "Latte in polvere",
+                "plural_name": "Latte in polvere"
             },
             "frozen yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen yogurt",
-                "plural_name": "frozen yogurts"
+                "name": "Yogurt congelato",
+                "plural_name": "Yogurt congelato"
             },
             "khoya": {
                 "aliases": [],
@@ -2831,8 +2831,8 @@
             "milk cream": {
                 "aliases": [],
                 "description": "",
-                "name": "milk cream",
-                "plural_name": "milk creams"
+                "name": "Panna",
+                "plural_name": "Panna"
             },
             "coffee creamer": {
                 "aliases": [],
@@ -2855,8 +2855,8 @@
             "cheese curd": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese curd",
-                "plural_name": "cheese curds"
+                "name": "Caglio di formaggio",
+                "plural_name": "Caglio di formaggio"
             },
             "sour milk": {
                 "aliases": [],
@@ -2879,14 +2879,14 @@
             "duck egg": {
                 "aliases": [],
                 "description": "",
-                "name": "duck egg",
-                "plural_name": "duck eggs"
+                "name": "Uovo di anatra",
+                "plural_name": "Uova di anatra"
             },
             "salted egg": {
                 "aliases": [],
                 "description": "",
-                "name": "salted egg",
-                "plural_name": "salted eggs"
+                "name": "Uovo salato",
+                "plural_name": "Uova salate"
             },
             "skyr": {
                 "aliases": [],
@@ -2909,13 +2909,13 @@
             "lime curd": {
                 "aliases": [],
                 "description": "",
-                "name": "lime curd",
-                "plural_name": "lime curds"
+                "name": "Crema al lime",
+                "plural_name": "Crema al lime"
             },
             "powdered coffee creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "powdered coffee creamer",
+                "name": "Panna in polvere per caffè",
                 "plural_name": ""
             },
             "chantilly": {
@@ -2945,38 +2945,38 @@
             "strawberry frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry frosting",
-                "plural_name": "strawberry frostings"
+                "name": "Glassa alla fragola",
+                "plural_name": "Glasse alla fragola"
             },
             "honey greek yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "honey greek yogurt",
-                "plural_name": "honey greek yogurts"
+                "name": "Yogurt greco al miele",
+                "plural_name": "Yogurt greco al miele"
             },
             "amul butter": {
                 "aliases": [],
                 "description": "",
-                "name": "amul butter",
-                "plural_name": "amul butter"
+                "name": "",
+                "plural_name": "Burro amul"
             },
             "honey butter": {
                 "aliases": [],
                 "description": "",
-                "name": "honey butter",
-                "plural_name": "honey butter"
+                "name": "Burro al miele",
+                "plural_name": "Burro al miele"
             },
             "strawberry cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry cream cheese",
+                "name": "Crema di formaggio alla fragola",
                 "plural_name": "strawberry cream cheeses"
             },
             "goat butter": {
                 "aliases": [],
                 "description": "",
                 "name": "burro di capra",
-                "plural_name": "goat butter"
+                "plural_name": "Burro di capra"
             },
             "century egg": {
                 "aliases": [],
@@ -2987,8 +2987,8 @@
             "orange curd": {
                 "aliases": [],
                 "description": "",
-                "name": "orange curd",
-                "plural_name": "orange curds"
+                "name": "Crema all'arancia",
+                "plural_name": "Crema all'arancia"
             },
             "goat yogurt": {
                 "aliases": [],
@@ -3147,8 +3147,8 @@
             "almond butter": {
                 "aliases": [],
                 "description": "",
-                "name": "almond butter",
-                "plural_name": "almond butter"
+                "name": "burro di mandorle",
+                "plural_name": "burro di mandorle"
             },
             "tofu": {
                 "aliases": [],
@@ -3159,7 +3159,7 @@
             "coconut cream": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut cream",
+                "name": "crema di cocco",
                 "plural_name": "coconut creams"
             },
             "vegan butter": {
@@ -3358,7 +3358,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "coconut milk powder",
-                "plural_name": "coconut milk powders"
+                "plural_name": "latte di cocco in polvere"
             },
             "non-dairy whipped topping": {
                 "aliases": [],
