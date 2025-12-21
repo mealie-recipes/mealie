@@ -57,6 +57,9 @@ pgsql = [
 ]
 
 [dependency-groups]
+docs = [
+    "mkdocs-material==9.7.0",
+]
 dev = [
     "coverage==7.13.0",
     "coveragepy-lcov==0.1.2",

@@ -880,6 +880,9 @@ dev = [
     { name = "types-requests" },
     { name = "types-urllib3" },
 ]
+docs = [
+    { name = "mkdocs-material" },
+]
 
 [package.metadata]
 requires-dist = [
@@ -946,6 +949,7 @@ dev = [
     { name = "types-requests", specifier = "==2.32.4.20250913" },
     { name = "types-urllib3", specifier = "==1.26.25.14" },
 ]
+docs = [{ name = "mkdocs-material", specifier = "==9.7.0" }]
 
 [[package]]
 name = "mergedeep"
