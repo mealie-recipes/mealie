@@ -633,41 +633,41 @@ class OpenAIRecipeService(RecipeServiceBase):
             raise ValueError("OpenAI transcription services are not available")
         openai_service = OpenAIService()
 
-        data = self._download_audio(video_url)
+        video_data = self._download_audio(video_url)
 
-        if data["subtitle"]:
+        if video_data["subtitle"]:
             try:
-                with open(data["subtitle"], encoding="utf-8") as f:
+                with open(video_data["subtitle"], encoding="utf-8") as f:
                     subtitle_content = f.read()
                 lines = []
                 for line in subtitle_content.split("\n"):
                     if line.strip() and not line.startswith("WEBVTT") and "-->" not in line and not line.isdigit():
                         lines.append(line.strip())
-                data["transcription"] = " ".join(lines)
+                video_data["transcription"] = " ".join(lines)
                 self.logger.info("Using subtitles from video instead of transcription")
             except Exception as e:
                 self.logger.warning(f"Failed to read subtitles, falling back to transcription: {e}")
-                data["transcription"] = None
+                video_data["transcription"] = None
 
-        if not data.get("transcription"):
+        if not video_data.get("transcription"):
             try:
-                transcription = await openai_service.transcribe_audio(data["audio"])
+                transcription = await openai_service.transcribe_audio(video_data["audio"])
             except Exception as e:
                 raise Exception("Failed to transcribe audio from video") from e
             if not transcription:
                 raise ValueError("No transcription returned from OpenAI")
-            data["transcription"] = transcription
+            video_data["transcription"] = transcription
 
-        self.logger.debug(f"Transcription: {data['transcription'][:200]}...")
+        self.logger.debug(f"Transcription: {video_data['transcription'][:200]}...")
         prompt = openai_service.get_prompt(
             "recipes.parse-recipe-video",
         )
 
         message = (
             f"Please extract the recipe from the video provided."
-            f"the video is titled '{data['title']}' and has the description: {data['description']}.\n"
-            f"here is the thumbnail for the video: {data['thumbnail']}\n"
-            f"Here is the transcription of the audio from the video:\n{data['transcription']}\n"
+            f"the video is titled '{video_data['title']}' and has the description: {video_data['description']}.\n"
+            f"here is the thumbnail for the video: {video_data['thumbnail']}\n"
+            f"Here is the transcription of the audio from the video:\n{video_data['transcription']}\n"
             "There should be exactly one recipe."
         )
 
@@ -681,5 +681,5 @@ class OpenAIRecipeService(RecipeServiceBase):
         if not response:
             raise ValueError("No response returned from OpenAI")
 
-        self.logger.info(f"Successfully extracted recipe from video: {data['title']}")
+        self.logger.info(f"Successfully extracted recipe from video: {video_data['title']}")
         return response
