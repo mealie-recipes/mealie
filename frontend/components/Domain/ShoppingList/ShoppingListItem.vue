@@ -7,8 +7,16 @@
       no-gutters
       class="flex-nowrap align-center"
     >
-      <v-col :cols="itemLabelCols">
-        <div class="d-flex align-center flex-nowrap">
+      <v-card
+        flat
+        link
+        class="grow"
+        @click="() => {
+          listItem.checked = !listItem.checked
+          $emit('checked', listItem)
+        }"
+      >
+        <div class="d-flex align-center flex-nowrap grow">
           <v-checkbox
             v-model="listItem.checked"
             hide-details
@@ -25,84 +33,78 @@
             <RecipeIngredientListItem :ingredient="listItem" />
           </div>
         </div>
-      </v-col>
-      <v-spacer />
-      <v-col
-        cols="auto"
-        class="text-right"
+      </v-card>
+      <div
+        v-if="!listItem.checked"
+        style="min-width: 72px"
       >
-        <div
-          v-if="!listItem.checked"
-          style="min-width: 72px"
+        <v-menu
+          offset-x
+          start
+          min-width="125px"
         >
-          <v-menu
-            offset-x
-            start
-            min-width="125px"
-          >
-            <template #activator="{ props }">
-              <v-tooltip
-                v-if="recipeList && recipeList.length"
-                open-delay="200"
-                transition="slide-x-reverse-transition"
-                density="compact"
-                location="end"
-                content-class="text-caption"
-              >
-                <template #activator="{ props: tooltipProps }">
-                  <v-btn
-                    size="small"
-                    variant="text"
-                    class="ml-2"
-                    icon
-                    v-bind="tooltipProps"
-                    @click="displayRecipeRefs = !displayRecipeRefs"
-                  >
-                    <v-icon>
-                      {{ $globals.icons.potSteam }}
-                    </v-icon>
-                  </v-btn>
-                </template>
-                <span>Toggle Recipes</span>
-              </v-tooltip>
-              <v-btn
-                size="small"
-                variant="text"
-                class="ml-2"
-                icon
-                @click="toggleEdit(true)"
-              >
-                <v-icon>
-                  {{ $globals.icons.edit }}
-                </v-icon>
-              </v-btn>
-              <v-btn
-                size="small"
-                variant="text"
-                class="handle"
-                icon
-                v-bind="props"
-              >
-                <v-icon>
-                  {{ $globals.icons.arrowUpDown }}
-                </v-icon>
-              </v-btn>
-            </template>
-            <v-list density="compact">
-              <v-list-item
-                v-for="action in contextMenu"
-                :key="action.event"
-                density="compact"
-                @click="contextHandler(action.event)"
-              >
-                <v-list-item-title>
-                  {{ action.text }}
-                </v-list-item-title>
-              </v-list-item>
-            </v-list>
-          </v-menu>
-        </div>
-      </v-col>
+          <template #activator="{ props }">
+            <v-tooltip
+              v-if="recipeList && recipeList.length"
+              open-delay="200"
+              transition="slide-x-reverse-transition"
+              density="compact"
+              location="end"
+              content-class="text-caption"
+            >
+              <template #activator="{ props: tooltipProps }">
+                <v-btn
+                  size="small"
+                  variant="text"
+                  class="ml-2"
+                  icon
+                  v-bind="tooltipProps"
+                  @click="displayRecipeRefs = !displayRecipeRefs"
+                >
+                  <v-icon>
+                    {{ $globals.icons.potSteam }}
+                  </v-icon>
+                </v-btn>
+              </template>
+              <span>Toggle Recipes</span>
+            </v-tooltip>
+            <v-btn
+              size="small"
+              variant="text"
+              class="ml-2"
+              icon
+              @click="toggleEdit(true)"
+            >
+              <v-icon>
+                {{ $globals.icons.edit }}
+              </v-icon>
+            </v-btn>
+            <v-btn
+              size="small"
+              variant="text"
+              class="handle"
+              icon
+              v-bind="props"
+            >
+              <v-icon>
+                {{ $globals.icons.arrowUpDown }}
+              </v-icon>
+            </v-btn>
+          </template>
+          <v-list density="compact">
+            <v-list-item
+              v-for="action in contextMenu"
+              :key="action.event"
+              density="compact"
+              @click="contextHandler(action.event)"
+            >
+              <v-list-item-title>
+                {{ action.text }}
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
     </v-row>
     <v-row
       v-if="!listItem.checked && recipeList && recipeList.length && displayRecipeRefs"
@@ -310,5 +312,9 @@ export default defineNuxtComponent({
 <style lang="css">
 .strike-through {
   text-decoration: line-through !important;
+}
+
+.grow {
+  flex-grow: 1;
 }
 </style>
