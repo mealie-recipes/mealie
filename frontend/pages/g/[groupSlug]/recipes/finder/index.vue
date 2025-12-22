@@ -134,18 +134,22 @@
                   <v-card>
                     <v-card-text>
                       <div>
-                        <v-text-field
+                        <v-number-input
                           v-model="settings.maxMissingFoods"
-                          type="number"
+                          :precision="null"
+                          :min="0"
+                          control-variant="stacked"
+                          inset
                           hide-details
-                          hide-spin-buttons
                           :label="$t('recipe-finder.max-missing-ingredients')"
                         />
-                        <v-text-field
+                        <v-number-input
                           v-model="settings.maxMissingTools"
-                          type="number"
+                          :precision="null"
+                          :min="0"
+                          control-variant="stacked"
+                          inset
                           hide-details
-                          hide-spin-buttons
                           :label="$t('recipe-finder.max-missing-tools')"
                           class="mt-4"
                         />

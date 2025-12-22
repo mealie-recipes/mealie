@@ -30,9 +30,11 @@
         />
 
         <v-card-text>
-          <v-text-field
+          <v-number-input
             v-model="numberOfDays"
-            type="number"
+            :min="1"
+            control-variant="stacked"
+            inset
             :label="$t('meal-plan.numberOfDays-label')"
             :hint="$t('meal-plan.numberOfDays-hint')"
             persistent-hint
