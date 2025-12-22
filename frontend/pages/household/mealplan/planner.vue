@@ -69,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import { isSameDay, addDays, parseISO, format } from "date-fns";
+import { isSameDay, addDays, parseISO, format, isValid } from "date-fns";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { useMealplans } from "~/composables/use-group-mealplan";
 import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
@@ -99,11 +99,19 @@ export default defineNuxtComponent({
       });
     }
 
+    function safeParseISO(date: string, fallback: Date | undefined = undefined) {
+      try {
+        const parsed = parseISO(date);
+        return isValid(parsed) ? parsed : fallback;
+      }
+      catch {
+        return fallback;
+      }
+    }
+
     // Initialize dates from query parameters or defaults
-    const initialStartDate = route.query.start ? parseISO(route.query.start as string) : new Date();
-    const initialEndDate = route.query.end
-      ? parseISO(route.query.end as string)
-      : addDays(new Date(), adjustForToday(numberOfDays.value));
+    const initialStartDate = safeParseISO(route.query.start as string, new Date());
+    const initialEndDate = safeParseISO(route.query.end as string, addDays(new Date(), adjustForToday(numberOfDays.value)));
 
     const state = ref({
       range: [initialStartDate, initialEndDate] as [Date, Date],
