@@ -1,5 +1,7 @@
 import filecmp
 import statistics
+import tempfile
+import unittest.mock
 from pathlib import Path
 from typing import Any
 
@@ -74,6 +76,31 @@ def test_database_restore():
 
     for s1, s2 in zip(snapshop_1, snapshop_2, strict=False):
         assert snapshop_1[s1].sort(key=dict_sorter) == snapshop_2[s2].sort(key=dict_sorter)
+
+
+def test_secret_file_backup_and_restore():
+    settings = get_app_settings()
+
+    # Use a directory that isn't ".temp"
+    with tempfile.TemporaryDirectory(prefix="backup_test_") as temp_dir:
+        backup_v2 = BackupV2(settings.DB_URL)
+        backup_v2.directories.DATA_DIR = Path(temp_dir)
+        backup_v2.directories.BACKUP_DIR = Path(temp_dir) / "backups"
+        backup_v2.directories.BACKUP_DIR.mkdir()
+
+        secret_file = backup_v2.directories.DATA_DIR / ".secret"
+        secret_file.write_text("test-secret-value")
+        backup_path = backup_v2.backup()
+
+        with BackupFile(backup_path) as backup:
+            secret_in_backup = backup.data_directory / ".secret"
+            assert secret_in_backup.exists()
+            assert secret_in_backup.read_text() == "test-secret-value"
+
+        with unittest.mock.patch("mealie.services.backups_v2.backup_v2.get_app_settings") as mock_settings:
+            mock_settings.cache_clear = unittest.mock.MagicMock()
+            backup_v2.restore(backup_path)
+            mock_settings.cache_clear.assert_called_once()
 
 
 def _5ab195a474eb_add_normalized_search_properties(session: Session):
