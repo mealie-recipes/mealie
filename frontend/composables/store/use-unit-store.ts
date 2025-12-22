@@ -6,6 +6,11 @@ import { useUserApi } from "~/composables/api";
 const store: Ref<IngredientUnit[]> = ref([]);
 const loading = ref(false);
 
+export function resetUnitStore() {
+  store.value = [];
+  loading.value = false;
+}
+
 export const useUnitData = function () {
   return useData<IngredientUnit>({
     id: "",

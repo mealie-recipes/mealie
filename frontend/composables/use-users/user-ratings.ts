@@ -5,9 +5,9 @@ const userRatings = ref<UserRatingSummary[]>([]);
 const loading = ref(false);
 const ready = ref(false);
 
-const $auth = useMealieAuth();
-
 export const useUserSelfRatings = function () {
+  const $auth = useMealieAuth();
+
   async function refreshUserRatings() {
     if (!$auth.user.value || loading.value) {
       return;

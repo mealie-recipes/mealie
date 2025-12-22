@@ -245,7 +245,6 @@ export default defineNuxtConfig({
         "browser",
         "window-controls-overlay",
       ],
-      orientation: "any",
       categories: ["food", "lifestyle"],
       prefer_related_applications: false,
       handle_links: "preferred",
@@ -258,6 +257,7 @@ export default defineNuxtConfig({
       share_target: {
         action: "/r/create/url",
         method: "GET",
+        enctype: "application/x-www-form-urlencoded",
         params: {
           text: "recipe_import_url",
         },

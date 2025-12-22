@@ -23,6 +23,7 @@ class AppInfo(MealieModel):
     oidc_provider_name: str
     enable_openai: bool
     enable_openai_image_services: bool
+    token_time: int
 
 
 class AppTheme(MealieModel):

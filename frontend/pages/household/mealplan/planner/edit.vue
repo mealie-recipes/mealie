@@ -22,34 +22,17 @@
       "
       @close="resetDialog()"
     >
-      <v-card-text>
-        <v-menu
-          v-model="state.pickerMenu!"
-          :close-on-content-click="false"
-          transition="scale-transition"
-          offset-y
-          max-width="290px"
-          min-width="auto"
-        >
-          <template #activator="{ props }">
-            <v-text-field
-              :model-value="$d(newMeal.date)"
-              :label="$t('general.date')"
-              persistent-hint
-              :prepend-icon="$globals.icons.calendar"
-              v-bind="props"
-              readonly
-            />
-          </template>
-          <v-date-picker
-            v-model="newMeal.date"
-            hide-header
-            :first-day-of-week="firstDayOfWeek"
-            :local="$i18n.locale"
-            @update:model-value="state.pickerMenu = false"
-          />
-        </v-menu>
-        <v-card-text>
+      <v-card-text class="pb-2">
+        <v-date-picker
+          v-model="newMeal.date"
+          class="mx-auto"
+          hide-header
+          show-adjacent-months
+          color="primary"
+          :first-day-of-week="firstDayOfWeek"
+          :local="$i18n.locale"
+        />
+        <v-card-text class="pb-0">
           <v-select
             v-model="newMeal.entryType"
             :return-object="false"
@@ -64,6 +47,7 @@
             v-model:search="search.query.value"
             :label="$t('meal-plan.meal-recipe')"
             :items="search.data.value"
+            :custom-filter="normalizeFilter"
             :loading="search.loading.value"
             cache-items
             item-title="name"
@@ -76,8 +60,8 @@
             <v-textarea v-model="newMeal.text" rows="2" :label="$t('meal-plan.meal-note')" />
           </template>
         </v-card-text>
-        <v-card-actions class="my-0 py-0">
-          <v-switch v-model="dialog.note" class="mt-n3" :label="$t('meal-plan.note-only')" />
+        <v-card-actions class="py-0 px-4">
+          <v-switch v-model="dialog.note" class="mt-n3 mb-n4" :label="$t('meal-plan.note-only')" />
         </v-card-actions>
       </v-card-text>
     </BaseDialog>
@@ -195,6 +179,26 @@
                     text: $t('meal-plan.lunch'),
                     event: 'randomLunch',
                   },
+                  {
+                    icon: $globals.icons.diceMultiple,
+                    text: $t('meal-plan.side'),
+                    event: 'randomSide',
+                  },
+                  {
+                    icon: $globals.icons.diceMultiple,
+                    text: $t('meal-plan.snack'),
+                    event: 'randomSnack',
+                  },
+                  {
+                    icon: $globals.icons.diceMultiple,
+                    text: $t('meal-plan.drink'),
+                    event: 'randomDrink',
+                  },
+                  {
+                    icon: $globals.icons.diceMultiple,
+                    text: $t('meal-plan.dessert'),
+                    event: 'randomDessert',
+                  },
                 ],
               },
               {
@@ -218,6 +222,9 @@
             @random-lunch="randomMeal(plan.date, 'lunch')"
             @random-dinner="randomMeal(plan.date, 'dinner')"
             @random-side="randomMeal(plan.date, 'side')"
+            @random-snack="randomMeal(plan.date, 'snack')"
+            @random-drink="randomMeal(plan.date, 'drink')"
+            @random-dessert="randomMeal(plan.date, 'dessert')"
           />
         </div>
       </v-col>
@@ -236,6 +243,7 @@ import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
 import type { PlanEntryType, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
 import { useHouseholdSelf } from "~/composables/use-households";
+import { normalizeFilter } from "~/composables/use-utils";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 
 export default defineNuxtComponent({
@@ -261,7 +269,6 @@ export default defineNuxtComponent({
 
     const state = ref({
       dialog: false,
-      pickerMenu: null as null | boolean,
     });
 
     const firstDayOfWeek = computed(() => {
@@ -411,6 +418,7 @@ export default defineNuxtComponent({
       getEntryTypeText,
       requiredRule,
       isCreateDisabled,
+      normalizeFilter,
 
       // Dialog
       dialog,

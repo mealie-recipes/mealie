@@ -228,7 +228,7 @@ tasks:
     desc: runs the frontend linter
     dir: frontend
     cmds:
-      - yarn lint
+      - yarn lint --max-warnings=0
 
   ui:test:
     desc: runs the frontend tests

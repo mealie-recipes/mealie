@@ -1,19 +1,19 @@
 {
     "teaspoon": {
         "name": "teelusikas",
-        "plural_name": "teelusikad",
+        "plural_name": "teelusikat",
         "description": "",
         "abbreviation": "tl"
     },
     "tablespoon": {
         "name": "supilusikas",
-        "plural_name": "supilusikad",
+        "plural_name": "supilusikat",
         "description": "",
         "abbreviation": "sl"
     },
     "cup": {
         "name": "tass",
-        "plural_name": "tassid",
+        "plural_name": "tassi",
         "description": "",
         "abbreviation": "tassi"
     },

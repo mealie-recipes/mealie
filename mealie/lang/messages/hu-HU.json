@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "A receptek neveinek egyedi értéknek kell lenniük",
         "recipe-created": "Recept létrehozva",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "Receptkép törölve",
         "recipe-defaults": {
             "ingredient-note": "1 csésze liszt",
             "step-text": "A recept lépései és a receptoldal egyéb mezői támogatják a markdown szintaxist.\n\n**Hivatkozás hozzáadása**\n\n[Saját link](https://demo.mealie.io)\n"
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Nincs engedélye a műveletet végrehajtásához",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Egy recept nem hivatkozhat önmagára, sem közvetlenül, sem közvetve",
         "no-entry-found": "A kért erőforrás nem található",
         "integrity-error": "Adatbázis integritás hiba",
         "username-conflict-error": "A felhasználónév már foglalt",

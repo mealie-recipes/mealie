@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "食谱名称必须唯一",
         "recipe-created": "创建食谱",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "食谱图片已删除",
         "recipe-defaults": {
             "ingredient-note": "1杯面粉",
             "step-text": "食谱步骤以及食谱页面的其他字段支持markdown语法。\n\n**添加一个链接**\n\n[我的链接](https://demo.mealie.io)\n"
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "您没有执行此操作的权限",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "食谱不能直接或间接地引用自身",
         "no-entry-found": "您要找的网页不存在",
         "integrity-error": "数据库完整性错误",
         "username-conflict-error": "该用户名已被使用",
@@ -46,7 +46,7 @@
         "generic-updated-with-url": "{name} 已创建， {url}",
         "generic-duplicated": "{name} 已复制",
         "generic-deleted": "{name} 已删除",
-        "logged-out": "Logged out"
+        "logged-out": "已登出"
     },
     "datetime": {
         "year": "年|年",
