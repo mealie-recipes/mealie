@@ -392,6 +392,8 @@ class AppSettings(AppLoggingSettings):
     """Your OpenAI API key. Required to enable OpenAI features"""
     OPENAI_MODEL: str = "gpt-4o"
     """Which OpenAI model to send requests to. Leave this unset for most usecases"""
+    OPENAI_AUDIO_MODEL: str = "whisper-1"
+    """Which OpenAI model to use for audio transcription. Leave this unset for most usecases"""
     OPENAI_CUSTOM_HEADERS: dict[str, str] = {}
     """Custom HTTP headers to send with each OpenAI request"""
     OPENAI_CUSTOM_PARAMS: dict[str, Any] = {}
