@@ -132,8 +132,8 @@
             "baby green": {
                 "aliases": [],
                 "description": "",
-                "name": "baby green",
-                "plural_name": "baby greens"
+                "name": "baby-vihannes",
+                "plural_name": "baby-vihannekset"
             },
             "pumpkin": {
                 "aliases": [],
@@ -235,7 +235,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "punakaali",
-                "plural_name": "red cabbages"
+                "plural_name": "punakaali"
             },
             "artichoke": {
                 "aliases": [],
@@ -251,60 +251,60 @@
             },
             "summer squash": {
                 "aliases": [
-                    "courgette",
-                    "gem squash"
+                    "kesäkurpitsa",
+                    "kesäkurpitsa"
                 ],
                 "description": "",
-                "name": "summer squash",
-                "plural_name": "summer squashes"
+                "name": "kesäkurpitsa",
+                "plural_name": "kesäkurpitsa"
             },
             "mixed green": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed green",
-                "plural_name": "mixed greens"
+                "name": "salaattisekoitus",
+                "plural_name": "salaattisekoitukset"
             },
             "parsnip": {
                 "aliases": [],
                 "description": "",
-                "name": "parsnip",
-                "plural_name": "parsnips"
+                "name": "palsternakka",
+                "plural_name": "palsternakat"
             },
             "baby carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "baby carrot",
-                "plural_name": "baby carrots"
+                "name": "vauvaporkkana",
+                "plural_name": "vauvaporkkanat"
             },
             "mixed vegetable": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetable",
-                "plural_name": "mixed vegetables"
+                "name": "sekoitettu kasvikset",
+                "plural_name": "sekoitettu kasvikset"
             },
             "poblano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "poblano pepper",
-                "plural_name": "poblano peppers"
+                "name": "pablano chili",
+                "plural_name": "pablano chilit"
             },
             "sweet pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet pepper",
-                "plural_name": "sweet peppers"
+                "name": "paprika",
+                "plural_name": "paprikat"
             },
             "serrano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano pepper",
-                "plural_name": "serrano peppers"
+                "name": "serrano chili",
+                "plural_name": "serrano chilit"
             },
             "cayenne pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "cayenne pepper",
-                "plural_name": "cayenne peppers"
+                "name": "cayenne pippuri",
+                "plural_name": "cayenne pippurit"
             },
             "green tomato": {
                 "aliases": [],
@@ -315,20 +315,20 @@
             "watercress": {
                 "aliases": [],
                 "description": "",
-                "name": "watercress",
-                "plural_name": "watercress"
+                "name": "vesikrassi",
+                "plural_name": "vesikrassit"
             },
             "iceberg": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg",
-                "plural_name": "icebergs"
+                "name": "jäävuorisalaatti",
+                "plural_name": "jäävuorisalaatit"
             },
             "mashed potato": {
                 "aliases": [],
                 "description": "",
-                "name": "mashed potato",
-                "plural_name": "mashed potatoes"
+                "name": "perunamuusi",
+                "plural_name": "perunamuusit"
             },
             "horseradish": {
                 "aliases": [],
@@ -339,40 +339,40 @@
             "chard": {
                 "aliases": [],
                 "description": "",
-                "name": "chard",
-                "plural_name": "chards"
+                "name": "lehtijuurikas",
+                "plural_name": "lehtijuurikkaat"
             },
             "pimiento": {
                 "aliases": [],
                 "description": "",
-                "name": "pimiento",
-                "plural_name": "pimientoes"
+                "name": "paprika",
+                "plural_name": "paprikat"
             },
             "spaghetti squash": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti squash",
-                "plural_name": "spaghetti squashes"
+                "name": "spagettikurpitsa",
+                "plural_name": "spagettikurpitsat"
             },
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter lettuce",
-                "plural_name": "butter lettuces"
+                "name": "keräsalaatti",
+                "plural_name": "keräsalaatit"
             },
             "hash brown": {
                 "aliases": [],
                 "description": "",
-                "name": "hash brown",
-                "plural_name": "hash browns"
+                "name": "rösti",
+                "plural_name": "röstitetyt perunat"
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "kiinankaali"
                 ],
                 "description": "",
-                "name": "napa cabbage",
-                "plural_name": "napa cabbages"
+                "name": "kiinankaali",
+                "plural_name": "kiinankaalit"
             },
             "celeriac": {
                 "aliases": [],
@@ -383,26 +383,26 @@
             "water chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "water chestnut",
-                "plural_name": "water chestnuts"
+                "name": "vesikastanja",
+                "plural_name": "vesikastanjat"
             },
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "nauris",
+                "plural_name": "nauriit"
             },
             "thai chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chile pepper",
-                "plural_name": "thai chile peppers"
+                "name": "thai chile chili",
+                "plural_name": "thai chile chilit"
             },
             "bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "bok choy",
-                "plural_name": "bok choy"
+                "name": "pinaattikiinankaali",
+                "plural_name": "pinaattikiinankaalit"
             },
             "okra": {
                 "aliases": [],
@@ -554,37 +554,37 @@
                 "aliases": [],
                 "description": "",
                 "name": "boston salaatti",
-                "plural_name": "boston lettuces"
+                "plural_name": "bostonin salaatti"
             },
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
-                "name": "kohlrabi",
-                "plural_name": "kohlrabis"
+                "name": "kyssäkaali",
+                "plural_name": "Kyssäkaali"
             },
             "fresno chile": {
                 "aliases": [],
                 "description": "",
-                "name": "fresno chile",
-                "plural_name": "fresno chiles"
+                "name": "fresno chili",
+                "plural_name": "fresno chili"
             },
             "delicata squash": {
                 "aliases": [],
                 "description": "",
-                "name": "delicata squash",
-                "plural_name": "delicata squashes"
+                "name": "talvikurpitsa",
+                "plural_name": "talvikurpitsat"
             },
             "frisee": {
                 "aliases": [],
                 "description": "",
-                "name": "frisee",
-                "plural_name": "frisees"
+                "name": "friseesalaatti",
+                "plural_name": "friseesalaattia"
             },
             "anaheim pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "anaheim pepper",
-                "plural_name": "anaheim peppers"
+                "name": "anaheim pippuri",
+                "plural_name": "anaheim pippurit"
             },
             "cres": {
                 "aliases": [],
@@ -595,32 +595,32 @@
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli slaw",
-                "plural_name": "broccoli slaws"
+                "name": "parsakaali salaatti",
+                "plural_name": "parsakaali salaatit"
             },
             "arbol chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "arbol chile pepper",
-                "plural_name": "arbol chile peppers"
+                "name": "arbol chilipippuria",
+                "plural_name": "arbol chilipippurit"
             },
             "golden beet": {
                 "aliases": [],
                 "description": "",
-                "name": "golden beet",
-                "plural_name": "golden beets"
+                "name": "kultainen punajuuri",
+                "plural_name": "kultaiset punajuuret"
             },
             "pea shoot": {
                 "aliases": [],
                 "description": "",
-                "name": "pea shoot",
-                "plural_name": "pea shoots"
+                "name": "herneen verso",
+                "plural_name": "herneen versot"
             },
             "alfalfa": {
                 "aliases": [],
                 "description": "",
-                "name": "alfalfa",
-                "plural_name": "alfalfas"
+                "name": "sinimailainen",
+                "plural_name": "sinimailaiset"
             }
         }
     },
@@ -628,81 +628,81 @@
         "foods": {
             "tomato": {
                 "aliases": [],
-                "description": "Yes they are a fruit",
-                "name": "tomato",
-                "plural_name": "tomatoes"
+                "description": "Kyllä ne ovat hedelmä",
+                "name": "tomaatti",
+                "plural_name": "tomaatit"
             },
             "lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon",
-                "plural_name": "lemons"
+                "name": "sitruuna",
+                "plural_name": "sitruunat"
             },
             "lime": {
                 "aliases": [],
                 "description": "",
-                "name": "lime",
-                "plural_name": "limes"
+                "name": "limetti",
+                "plural_name": "limetit"
             },
             "apple": {
                 "aliases": [],
                 "description": "",
-                "name": "apple",
-                "plural_name": "apples"
+                "name": "omena",
+                "plural_name": "omenat"
             },
             "banana": {
                 "aliases": [],
                 "description": "",
-                "name": "banana",
-                "plural_name": "bananas"
+                "name": "banaani",
+                "plural_name": "banaanit"
             },
             "orange": {
                 "aliases": [],
                 "description": "",
-                "name": "orange",
-                "plural_name": "oranges"
+                "name": "appelsiini",
+                "plural_name": "appelsiinit"
             },
             "raisin": {
                 "aliases": [],
                 "description": "",
-                "name": "raisin",
-                "plural_name": "raisins"
+                "name": "rusina",
+                "plural_name": "rusinat"
             },
             "pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple",
-                "plural_name": "pineapples"
+                "name": "ananas",
+                "plural_name": "ananakset"
             },
             "mango": {
                 "aliases": [],
                 "description": "",
                 "name": "mango",
-                "plural_name": "mangoes"
+                "plural_name": "mangot"
             },
             "peach": {
                 "aliases": [],
                 "description": "",
-                "name": "peach",
-                "plural_name": "peaches"
+                "name": "persikka",
+                "plural_name": "persikat"
             },
             "date": {
                 "aliases": [],
                 "description": "",
-                "name": "date",
-                "plural_name": "dates"
+                "name": "päivämäärä",
+                "plural_name": "päivämäärät"
             },
             "coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut",
-                "plural_name": "coconuts"
+                "name": "kookospähkinä",
+                "plural_name": "kookospähkinät"
             },
             "craisin": {
                 "aliases": [],
                 "description": "",
-                "name": "craisin",
-                "plural_name": "craisins"
+                "name": "kuivattu karpalo",
+                "plural_name": "kuivattuja karpaloita"
             },
             "pear": {
                 "aliases": [],
@@ -839,14 +839,14 @@
             "meyer lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "meyer lemon",
-                "plural_name": "meyer lemons"
+                "name": "meyer sitruuna",
+                "plural_name": "meyer sitruunat"
             },
             "honeydew melon": {
                 "aliases": [],
                 "description": "",
-                "name": "honeydew melon",
-                "plural_name": "honeydew melons"
+                "name": "hunajameloni",
+                "plural_name": "hunajamelonit"
             },
             "dried fruit": {
                 "aliases": [],

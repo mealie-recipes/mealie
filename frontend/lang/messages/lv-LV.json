@@ -342,6 +342,9 @@
     "breakfast": "Brokastis",
     "lunch": "pusdienas",
     "dinner": "Vakariņas",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Jebkurš",
     "day-any": "Jebkurš",
     "editor": "Redaktors",
@@ -442,6 +445,7 @@
     "upload-a-recipe": "Augšupielādējiet recepti",
     "upload-individual-zip-file": "Augšupielādējiet atsevišķu.zip failu, kas eksportēts no citas Mealie instances.",
     "url-form-hint": "Kopējiet un ielīmējiet saiti no savas iecienītākās receptes vietnes",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Skatīt nokasītos datus",
     "trim-whitespace-description": "Apgrieziet priekšējo un aizmugurējo atstarpi, kā arī tukšas rindas",
     "trim-prefix-description": "Izgrieziet pirmo rakstzīmi no katras rindas",
@@ -633,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Izmēģiniet lielapjoma importētāju",
     "scrape-recipe-have-raw-html-or-json-data": "Vai jums ir neapstrādāti HTML vai JSON dati?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Jūs varat importēt no neapstrādātiem datiem tieši",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Importējiet oriģinālos atslēgvārdus kā tagus",
     "stay-in-edit-mode": "Palieciet rediģēšanas režīmā",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
@@ -1422,5 +1428,13 @@
       "is-like": "ir kā",
       "is-not-like": "nav tāds, kā"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

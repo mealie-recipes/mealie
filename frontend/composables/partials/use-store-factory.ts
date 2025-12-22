@@ -52,7 +52,7 @@ export const useStore = function <T extends BoundT>(
       return await storeActions.refresh(1, -1, params);
     },
     flushStore() {
-      store = ref([]);
+      store.value = [];
     },
   };
 

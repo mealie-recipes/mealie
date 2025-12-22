@@ -342,6 +342,9 @@
     "breakfast": "Morgenmad",
     "lunch": "Frokost",
     "dinner": "Aftensmad",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Alle",
     "day-any": "Alle",
     "editor": "Redigeringsværktøj",
@@ -442,6 +445,7 @@
     "upload-a-recipe": "Upload en opskrift",
     "upload-individual-zip-file": "Upload en individuel .zip-fil, eksporteret fra en anden Mealie-instans.",
     "url-form-hint": "Kopiér og indsæt et link fra din foretrukne opskrifts hjemmeside",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Vis dataudtræk",
     "trim-whitespace-description": "Fjern indledende og efterfølgende mellemrum samt blanke linjer",
     "trim-prefix-description": "Beskær første tegn fra hver linje",
@@ -449,8 +453,8 @@
     "import-by-url": "Importér opskrift fra en webside",
     "create-manually": "Opret opskrift manuelt",
     "make-recipe-image": "Gør dette til opskriftsbillede",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Tilføj Mad",
+    "add-recipe": "Tilføj opskrift"
   },
   "page": {
     "404-page-not-found": "404 Siden blev ikke fundet",
@@ -517,9 +521,9 @@
     "recipe-deleted": "Opskrift slettet",
     "recipe-image": "Opskriftsbillede",
     "recipe-image-updated": "Opskriftsbillede ændret",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Slet Opskrift Billede",
+    "delete-image-confirmation": "Er du sikker på, du vil slette dette opskrift billede?",
+    "recipe-image-deleted": "Opskrift billede slettet",
     "recipe-name": "Opskriftens navn",
     "recipe-settings": "Opskriftsindstillinger",
     "recipe-update-failed": "Opdatering af opskrift fejlede",
@@ -565,7 +569,7 @@
     "choose-unit": "Vælg enhed",
     "press-enter-to-create": "Tryk enter for at oprette",
     "choose-food": "Vælg fødevarer",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "Vælg Opskrift",
     "notes": "Kommentarer",
     "toggle-section": "Sektion",
     "see-original-text": "Vis den oprindelige tekst",
@@ -593,7 +597,7 @@
     "made-this": "Jeg har lavet denne",
     "how-did-it-turn-out": "Hvordan blev det?",
     "user-made-this": "{user} lavede denne",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Lavet til {recipe}",
     "added-to-timeline": "Tilføjet til tidslinjen",
     "failed-to-add-to-timeline": "Kunne ikke tilføje til tidslinjen",
     "failed-to-update-recipe": "Kunne ikke opdatere opskrift",
@@ -633,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Prøv masseimport",
     "scrape-recipe-have-raw-html-or-json-data": "Har rå HTML- eller JSON-data?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kan importere direkte fra rå data",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Importér originale nøgleord som mærker",
     "stay-in-edit-mode": "Bliv i redigeringstilstand",
     "parse-recipe-ingredients-after-import": "Fortolk opskrift ingredienser efter import",
@@ -696,9 +702,9 @@
     "upload-more-images": "Upload flere billeder",
     "set-as-cover-image": "Angiv som opskriftens coverbillede",
     "cover-image": "Coverbillede",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Inkluder Relaterede Opskrifter",
+    "include-linked-recipe-ingredients": "Inkluder Relaterede Opskrift Ingredienser",
+    "toggle-recipe": "Vis/Skjul Opskrift"
   },
   "recipe-finder": {
     "recipe-finder": "Opskriftssøger",
@@ -736,7 +742,7 @@
     "advanced": "Avanceret",
     "auto-search": "Automatisk søgning",
     "no-results": "Ingen resultater fundet",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Skriv for at søge..."
   },
   "settings": {
     "add-a-new-theme": "Tilføj et nyt tema",
@@ -1422,5 +1428,13 @@
       "is-like": "er ligesom",
       "is-not-like": "er ikke som"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

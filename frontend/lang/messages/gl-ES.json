@@ -342,6 +342,9 @@
     "breakfast": "Almorzo",
     "lunch": "Xantar",
     "dinner": "Cea",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Calquera",
     "day-any": "Calquera",
     "editor": "Editor",
@@ -442,6 +445,7 @@
     "upload-a-recipe": "Cargar unha Receita",
     "upload-individual-zip-file": "Cargar un ficheiro .zip individual, exportado de outra instancia do Mealie.",
     "url-form-hint": "Copie e pegue un link do seu site de receitas favorito",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Ver datos recollidos",
     "trim-whitespace-description": "Eliminar os espazos en branco no início e no fin, asi como as liñas en branco",
     "trim-prefix-description": "Eliminar o primeiro caracter de cada liña",
@@ -633,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Prove o importador en masa",
     "scrape-recipe-have-raw-html-or-json-data": "Ten datos HTML ou JSON en bruto?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "É posível importar diretamente a partir de datos en bruto",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Importar palavras-chave orixinais como etiquetas",
     "stay-in-edit-mode": "Permanecer no modo de edición",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
@@ -1422,5 +1428,13 @@
       "is-like": "é como",
       "is-not-like": "non é como"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

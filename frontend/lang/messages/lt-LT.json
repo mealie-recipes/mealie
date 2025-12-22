@@ -342,6 +342,9 @@
     "breakfast": "Pusryčiai",
     "lunch": "Pietūs",
     "dinner": "Vakarienė",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Bet kas",
     "day-any": "Bet kas",
     "editor": "Redagavimas",
@@ -442,6 +445,7 @@
     "upload-a-recipe": "Įkelti receptą",
     "upload-individual-zip-file": "Įkelkite .zip failą, eksportuotą iš kitos \"Mealie\" sistemos.",
     "url-form-hint": "Nukopijuokite ir įklijuokite nuorodą iš mėgstamų receptų svetainės",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Peržiūrėti nuskaitytus duomenis",
     "trim-whitespace-description": "Pašalinti tarpus bei tuščias eilutes pradžioje ir pabaigoje",
     "trim-prefix-description": "Pašalinti kiekvienos eilutės pirmąjį ženklą",
@@ -633,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Įkelti pradinius raktažodžius kaip žymas",
     "stay-in-edit-mode": "Toliau redaguoti",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
@@ -1422,5 +1428,13 @@
       "is-like": "is like",
       "is-not-like": "is not like"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

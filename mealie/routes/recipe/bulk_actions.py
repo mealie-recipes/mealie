@@ -2,6 +2,7 @@ from functools import cached_property
 from pathlib import Path
 
 from fastapi import APIRouter, HTTPException
+from pydantic import UUID4
 
 from mealie.core.dependencies.dependencies import get_temporary_zip_path
 from mealie.core.security import create_file_token
@@ -48,14 +49,15 @@ class RecipeBulkActionsController(BaseUserController):
         with get_temporary_zip_path() as temp_path:
             self.service.export_recipes(temp_path, export_recipes.recipes)
 
-    @router.get("/export/download")
-    def get_exported_data_token(self, path: Path):
+    @router.get("/export/{export_id}/download")
+    def get_exported_data_token(self, export_id: UUID4):
         """Returns a token to download a file"""
-        path = Path(path).resolve()
 
-        if not path.is_relative_to(self.folders.DATA_DIR):
-            raise HTTPException(400, "path must be relative to data directory")
+        export = self.service.get_export(export_id)
+        if not export:
+            raise HTTPException(404, "export not found")
 
+        path = Path(export.path).resolve()
         return {"fileToken": create_file_token(path)}
 
     @router.get("/export", response_model=list[GroupDataExport])

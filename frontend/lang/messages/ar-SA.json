@@ -342,6 +342,9 @@
     "breakfast": "الإفطار",
     "lunch": "الغداء",
     "dinner": "العشاء",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "أي",
     "day-any": "أي",
     "editor": "المحرر",
@@ -442,6 +445,7 @@
     "upload-a-recipe": "تحميل وصفة",
     "upload-individual-zip-file": "تحميل مِلَفّ zip فردي تم تصديره من مثيل Malie آخر.",
     "url-form-hint": "نسخ ولصق رابط من موقعك المفضل للوصفة",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "عرض البيانات المحللة",
     "trim-whitespace-description": "قص المسافات البيضاء البادئة واللاحقة وكذلك الأسطر الفارغة",
     "trim-prefix-description": "قص الحرف الأول من كل سطر",
@@ -633,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "جرب الإضافة بالجملة",
     "scrape-recipe-have-raw-html-or-json-data": "هل لديك بيانات HTML أو JSON خام؟",
     "scrape-recipe-you-can-import-from-raw-data-directly": "يمكنك الإضافة مباشرة باستخدام بيانات خام",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "استيراد الكلمات المفتاحية الأصلية كوسوم",
     "stay-in-edit-mode": "البقاء في وضع التعديل",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
@@ -1422,5 +1428,13 @@
       "is-like": "هو مثل",
       "is-not-like": "ليس مثل"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

@@ -39,7 +39,7 @@ jobs:
         working-directory: "frontend"
 
       - name: Run linter 👀
-        run: yarn lint
+        run: yarn lint --max-warnings=0
         working-directory: "frontend"
 
       - name: Run tests 🧪

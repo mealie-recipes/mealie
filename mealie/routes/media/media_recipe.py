@@ -54,6 +54,6 @@ async def get_recipe_asset(recipe_id: UUID4, file_name: str):
     file = Recipe.directory_from_id(recipe_id).joinpath("assets", file_name)
 
     try:
-        return FileResponse(file)
+        return FileResponse(file, content_disposition_type="attachment", filename=file_name)
     except Exception as e:
         raise HTTPException(status.HTTP_404_NOT_FOUND) from e

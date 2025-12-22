@@ -342,6 +342,9 @@
     "breakfast": "朝食",
     "lunch": "昼食",
     "dinner": "夕食",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "すべて",
     "day-any": "すべて",
     "editor": "エディタ",
@@ -442,6 +445,7 @@
     "upload-a-recipe": "レシピのアップロード",
     "upload-individual-zip-file": "別のMealieインスタンスからエクスポートされた個別の.zipファイルをアップロードします。",
     "url-form-hint": "お気に入りのレシピサイトからリンクをコピーして貼り付け",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "スクライピングされたデータの表示",
     "trim-whitespace-description": "先頭と末尾の空白、空白行をトリミングします。",
     "trim-prefix-description": "各行の最初の文字をトリミングする",
@@ -633,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "一括インポートを試す",
     "scrape-recipe-have-raw-html-or-json-data": "生の HTML または JSON データをお持ちですか？",
     "scrape-recipe-you-can-import-from-raw-data-directly": "生データから直接インポートできます",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "元のキーワードをタグとしてインポート",
     "stay-in-edit-mode": "編集モードを維持",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
@@ -692,11 +698,11 @@
     "reset-servings-count": "サービング数をリセット",
     "not-linked-ingredients": "追加の材料",
     "upload-another-image": "Upload another image",
-    "upload-images": "Upload images",
+    "upload-images": "画像のアップロード",
     "upload-more-images": "Upload more images",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image",
-    "include-linked-recipes": "Include Linked Recipes",
+    "cover-image": "カバー画像",
+    "include-linked-recipes": "リンクされたレシピを含める",
     "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
     "toggle-recipe": "Toggle Recipe"
   },
@@ -1422,5 +1428,13 @@
       "is-like": "次のようなものです",
       "is-not-like": "というわけではありません"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

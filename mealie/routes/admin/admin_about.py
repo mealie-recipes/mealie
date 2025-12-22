@@ -30,6 +30,7 @@ class AdminAboutController(BaseAdminController):
             default_household=settings.DEFAULT_HOUSEHOLD,
             allow_signup=settings.ALLOW_SIGNUP,
             allow_password_login=settings.ALLOW_PASSWORD_LOGIN,
+            token_time=settings.TOKEN_TIME,
             build_id=settings.GIT_COMMIT_HASH,
             recipe_scraper_version=recipe_scraper_version.__version__,
             enable_oidc=settings.OIDC_AUTH_ENABLED,

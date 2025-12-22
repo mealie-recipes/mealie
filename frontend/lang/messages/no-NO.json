@@ -342,6 +342,9 @@
     "breakfast": "Frokost",
     "lunch": "Lunsj",
     "dinner": "Middag",
+    "snack": "Snacks",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Enhver",
     "day-any": "Enhver",
     "editor": "Redigeringsverktøy",
@@ -442,6 +445,7 @@
     "upload-a-recipe": "Last opp oppskrift",
     "upload-individual-zip-file": "Last opp en individuell .zip-fil eksportert fra en annen Mealie-instans.",
     "url-form-hint": "Kopier og lim inn en lenke fra nettstedet med favorittoppskriftene dine",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Vis skrapte data",
     "trim-whitespace-description": "Fjern innledende og etterfølgende mellomrom i tillegg til tomme linjer",
     "trim-prefix-description": "Fjern første tegn fra hver linje",
@@ -633,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Prøv masseimportering",
     "scrape-recipe-have-raw-html-or-json-data": "Har du HTML- eller JSON-rådata?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kan importere fra rådata direkte",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Importer originale søkeord som emneord",
     "stay-in-edit-mode": "Forbli i redigeringsmodus",
     "parse-recipe-ingredients-after-import": "Analyser oppskriftens ingredienser etter at importen er fullført",
@@ -1422,5 +1428,13 @@
       "is-like": "er som",
       "is-not-like": "er ikke som"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

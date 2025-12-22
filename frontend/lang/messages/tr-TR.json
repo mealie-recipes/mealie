@@ -342,6 +342,9 @@
     "breakfast": "Kahvaltı",
     "lunch": "Öğle Yemeği",
     "dinner": "Akşam Yemeği",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Herhangi",
     "day-any": "Herhangi",
     "editor": "Editör",
@@ -442,6 +445,7 @@
     "upload-a-recipe": "Tarif Yükle",
     "upload-individual-zip-file": "Başka bir Mealie örneğinden dışa aktarılan ayrı bir .zip dosyası yükleyin.",
     "url-form-hint": "Favori tarif sitenizden bir bağlantıyı kopyalayıp yapıştırın",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Kazınmış Verileri Görüntüle",
     "trim-whitespace-description": "Baştaki ve sondaki boşlukların yanı sıra boş satırları da kırpın",
     "trim-prefix-description": "Her satırın ilk karakterini kırpın",
@@ -633,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Toplu ithalatçıyı deneyin",
     "scrape-recipe-have-raw-html-or-json-data": "Ham HTML veya JSON verileriniz mi var?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Ham veriden doğrudan içe aktarabilirsiniz",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Orijinal anahtar kelimeleri etiket olarak içe aktar",
     "stay-in-edit-mode": "Düzenleme modunda kalın",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
@@ -1422,5 +1428,13 @@
       "is-like": "is like",
       "is-not-like": "is not like"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

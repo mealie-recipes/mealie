@@ -342,6 +342,9 @@
     "breakfast": "Zajtrk",
     "lunch": "Kosilo",
     "dinner": "Večerja",
+    "snack": "Prigrizek",
+    "drink": "Pijača",
+    "dessert": "Sladica",
     "type-any": "Katerikoli",
     "day-any": "Katerikoli",
     "editor": "Urednik",
@@ -442,6 +445,7 @@
     "upload-a-recipe": "Naloži recept",
     "upload-individual-zip-file": "Naloži posamezno .zip datoteko, izvoženo iz druge Mealie namestitve.",
     "url-form-hint": "Kopiraj in prilepi povezavo iz vaše priljubljene strani z recepti",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Kopirajte in prilepite izvorni URL svojih podatkov (neobvezno)",
     "view-scraped-data": "Poglej postrgane podatke",
     "trim-whitespace-description": "Poreži začetne in končne presledke, kot tudi prazne vrstice",
     "trim-prefix-description": "Poreži prvi znak v vsaki vrstici",
@@ -633,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Preizkusi masovni uvoz",
     "scrape-recipe-have-raw-html-or-json-data": "Imaš surove HTML ali JSON podatke?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Uvoziš lahko neposredno iz surovih podatkov",
+    "scrape-recipe-website-being-blocked": "Je spletna stran blokirana?",
+    "scrape-recipe-try-importing-raw-html-instead": "Poskusite namesto tega uvoziti surovi HTML.",
     "import-original-keywords-as-tags": "Uvozi izvorne ključne besede kot značke",
     "stay-in-edit-mode": "Urejaj naprej",
     "parse-recipe-ingredients-after-import": "Razčlenitev sestavin recepta po uvozu",
@@ -1422,5 +1428,13 @@
       "is-like": "je kot",
       "is-not-like": "ni kot"
     }
+  },
+  "validators": {
+    "required": "To polje je obvezno",
+    "invalid-email": "E-pošta mora biti veljavna",
+    "invalid-url": "URL mora biti veljaven",
+    "no-whitespace": "Presledki niso dovoljeni",
+    "min-length": "Mora vsebovati vsaj {min} znakov",
+    "max-length": "Lahko je največ {max} znakov"
   }
 }

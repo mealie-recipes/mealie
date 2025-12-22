@@ -342,6 +342,9 @@
     "breakfast": "Mic dejun",
     "lunch": "Prânz",
     "dinner": "Cină",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Oricare",
     "day-any": "Oricare",
     "editor": "Editor",
@@ -442,6 +445,7 @@
     "upload-a-recipe": "Încarcă o rețetă",
     "upload-individual-zip-file": "Încărcaţi un fişier individual .zip exportat dintr-o altă instanţă de Mealie.",
     "url-form-hint": "Copiază și lipește un link de pe site-ul tău web preferat de rețete",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Vezi datele colectate",
     "trim-whitespace-description": "Elimină spațiile albe de la început și sfârșit precum și liniile goale",
     "trim-prefix-description": "Elimină primul caracter din fiecare linie",
@@ -633,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Încearcă importatorul în bulk",
     "scrape-recipe-have-raw-html-or-json-data": "Ai date de tip HTML sau JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Poți importa datele direct",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Importă cuvintele cheie originale ca tag-uri",
     "stay-in-edit-mode": "Rămâi în modul Editare",
     "parse-recipe-ingredients-after-import": "Analizează ingredientele rețetei după import",
@@ -1422,5 +1428,13 @@
       "is-like": "este similar",
       "is-not-like": "nu este similar"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

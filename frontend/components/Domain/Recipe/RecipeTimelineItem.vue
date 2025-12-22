@@ -119,7 +119,7 @@ defineEmits<{
 
 const { $globals } = useNuxtApp();
 const display = useDisplay();
-const { recipeTimelineEventImage } = useStaticRoutes();
+const { recipeTimelineEventSmallImage } = useStaticRoutes();
 const { eventTypeOptions } = useTimelineEventTypes();
 
 const { user: currentUser } = useMealieAuth();
@@ -173,7 +173,7 @@ const eventImageUrl = computed<string>(() => {
     return "";
   }
 
-  return recipeTimelineEventImage(props.event.recipeId, props.event.id);
+  return recipeTimelineEventSmallImage(props.event.recipeId, props.event.id);
 });
 </script>
 

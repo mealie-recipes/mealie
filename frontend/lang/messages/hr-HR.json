@@ -342,6 +342,9 @@
     "breakfast": "Doručak",
     "lunch": "Ručak",
     "dinner": "Večera",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Bilo koji",
     "day-any": "Bilo koji",
     "editor": "Urednik",
@@ -442,6 +445,7 @@
     "upload-a-recipe": "Učitaj Recept",
     "upload-individual-zip-file": "Prenesite pojedinačnu .zip datoteku koja je izvezena iz druge instance Mealie aplikacije.",
     "url-form-hint": "Kopirajte i zalijepite poveznicu s vaše omiljene web stranice za recepte",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Prikaz Prikupljenih Podataka",
     "trim-whitespace-description": "Ukloni vodeće i slijedeće praznine, kao i prazne linije",
     "trim-prefix-description": "Ukloni prvi znak sa svake linije",
@@ -633,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Isprobajte masovni uvoz",
     "scrape-recipe-have-raw-html-or-json-data": "Imate neobrađene HTML ili JSON podatke?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Možete uvesti iz neobrađenih podataka izravno",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Uvezi originalne ključne riječi kao oznake",
     "stay-in-edit-mode": "Ostanite u načinu uređivanja",
     "parse-recipe-ingredients-after-import": "Parsiranje sastojaka recepta nakon uvoza",
@@ -1422,5 +1428,13 @@
       "is-like": "is like",
       "is-not-like": "is not like"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

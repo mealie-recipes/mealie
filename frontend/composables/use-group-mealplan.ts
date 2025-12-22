@@ -15,6 +15,9 @@ export function usePlanTypeOptions() {
     { text: i18n.t("meal-plan.lunch"), value: "lunch" },
     { text: i18n.t("meal-plan.dinner"), value: "dinner" },
     { text: i18n.t("meal-plan.side"), value: "side" },
+    { text: i18n.t("meal-plan.snack"), value: "snack" },
+    { text: i18n.t("meal-plan.drink"), value: "drink" },
+    { text: i18n.t("meal-plan.dessert"), value: "dessert" },
   ] as PlanOption[];
 }
 
