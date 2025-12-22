@@ -127,10 +127,13 @@ For custom mapping variables (e.g. OPENAI_CUSTOM_HEADERS) you should pass values
 | OPENAI_BASE_URL<super>[&dagger;][secrets]</super> |  None   | The base URL for the OpenAI API. If you're not sure, leave this empty to use the standard OpenAI platform                                                                    |
 | OPENAI_API_KEY<super>[&dagger;][secrets]</super>  |  None   | Your OpenAI API Key. Enables OpenAI-related features                                                                                                                         |
 | OPENAI_MODEL                                      | gpt-4o  | Which OpenAI model to use. If you're not sure, leave this empty                                                                                                              |
+| OPENAI_AUDIO_MODEL                                | whisper-1  | Which OpenAI audio model to use. If you're not sure, leave this empty                                                                                                        |
 | OPENAI_CUSTOM_HEADERS                             |  None   | Custom HTTP headers to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                              |
 | OPENAI_CUSTOM_PARAMS                              |  None   | Custom HTTP query params to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                         |
 | OPENAI_ENABLE_IMAGE_SERVICES                      |  True   | Whether to enable OpenAI image services, such as creating recipes via image. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs     |
-| OPENAI_WORKERS                                    |    2    | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs                                                       |
+| OPENAI_ENABLE_TRANSCRIPTION_SERVICES                 |  True   | Whether to enable OpenAI transcription services, such as creating recipes via video URL. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs |
+|
+OPENAI_WORKERS                                    |    2    | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs                                                       |
 | OPENAI_SEND_DATABASE_DATA                         |  True   | Whether to send Mealie data to OpenAI to improve request accuracy. This will incur additional API costs                                                                      |
 | OPENAI_REQUEST_TIMEOUT                            |   300   | The number of seconds to wait for an OpenAI request to complete before cancelling the request. Leave this empty unless you're running into timeout issues on slower hardware |
 
