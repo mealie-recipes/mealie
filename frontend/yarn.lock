@@ -11082,7 +11082,7 @@ vite-plugin-vue-tracer@^1.0.1:
     pathe "^2.0.3"
     source-map-js "^1.2.1"
 
-vite-plugin-vuetify@^2.1.0:
+vite-plugin-vuetify@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/vite-plugin-vuetify/-/vite-plugin-vuetify-2.1.2.tgz#8e28dcb5b20f4635d350010547654cf2b4dad373"
   integrity sha512-I/wd6QS+DO6lHmuGoi1UTyvvBTQ2KDzQZ9oowJQEJ6OcjWfJnscYXx2ptm6S7fJSASuZT8jGRBL3LV4oS3LpaA==
@@ -11224,10 +11224,10 @@ vue@^3.4, vue@^3.5.13, vue@^3.5.22:
     "@vue/server-renderer" "3.5.22"
     "@vue/shared" "3.5.22"
 
-vuetify-nuxt-module@^0.18.8:
-  version "0.18.8"
-  resolved "https://registry.yarnpkg.com/vuetify-nuxt-module/-/vuetify-nuxt-module-0.18.8.tgz#04b7b04606cbf22cb9b8317309db6166a8058654"
-  integrity sha512-57J0MgmRTyEX4ZIIXZUyY+UodDi+hoJ9/UnUZQoBbpTc/9WAZyRonaJedIcHLnTBKyIxxWdvtWHkJdosngX3NQ==
+vuetify-nuxt-module@^0.18.9:
+  version "0.18.9"
+  resolved "https://registry.yarnpkg.com/vuetify-nuxt-module/-/vuetify-nuxt-module-0.18.9.tgz#154b8f8e689da4fac3bcb2372ef0e745b8e0b536"
+  integrity sha512-jr+Hujsw5U465LKJD1/SQgqJIXuJNbXM0HOp9vPmtPFPlGFwZ4kb1YfUPNmuCEDaSIY6rkb7+W+FEJvt9PQELQ==
   dependencies:
     "@nuxt/kit" "^3.12.4"
     defu "^6.1.4"
@@ -11238,7 +11238,7 @@ vuetify-nuxt-module@^0.18.8:
     ufo "^1.5.4"
     unconfig "^0.5.5"
     upath "^2.0.1"
-    vite-plugin-vuetify "^2.1.0"
+    vite-plugin-vuetify "^2.1.2"
     vuetify "^3.7.0"
 
 vuetify@^3.7.0:
