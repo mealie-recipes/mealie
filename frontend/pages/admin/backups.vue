@@ -238,7 +238,7 @@ export default defineNuxtComponent({
     });
 
     function setSelected(data: { name: string; date: string }) {
-      if (selected.value === null || selected.value === undefined) {
+      if (!data.name) {
         return;
       }
       selected.value = data.name;
