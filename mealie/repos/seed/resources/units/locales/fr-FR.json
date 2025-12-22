@@ -21,7 +21,7 @@
         "name": "centilitre",
         "plural_name": "centilitres",
         "description": "",
-        "abbreviation": "cL"
+        "abbreviation": "fl oz"
     },
     "pint": {
         "name": "pinte",

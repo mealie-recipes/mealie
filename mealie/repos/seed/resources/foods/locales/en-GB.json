@@ -109,7 +109,7 @@
                 ],
                 "description": "",
                 "name": "chile pepper",
-                "plural_name": "chile peppers"
+                "plural_name": "chilli peppers"
             },
             "sweet potato": {
                 "aliases": [],
@@ -395,14 +395,14 @@
             "thai chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chile pepper",
-                "plural_name": "thai chile peppers"
+                "name": "thai chilli pepper",
+                "plural_name": "thai chilli peppers"
             },
             "bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "bok choy",
-                "plural_name": "bok choy"
+                "name": "pak choi",
+                "plural_name": "pak choi"
             },
             "okra": {
                 "aliases": [],
@@ -438,7 +438,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tenderstem broccoli",
-                "plural_name": "tenderstem broccolis"
+                "plural_name": "tenderstem broccoli"
             },
             "plantain": {
                 "aliases": [],

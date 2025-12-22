@@ -115,7 +115,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "batat",
-                "plural_name": "sladké zemiaky"
+                "plural_name": "bataty"
             },
             "broccoli": {
                 "aliases": [],
@@ -145,12 +145,12 @@
                 "aliases": [],
                 "description": "",
                 "name": "karfiol",
-                "plural_name": "karfioly"
+                "plural_name": "karfiolu"
             },
             "cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "kel",
+                "name": "kapusta",
                 "plural_name": "kely"
             },
             "asparagu": {
@@ -204,7 +204,7 @@
             "beetroot": {
                 "aliases": [],
                 "description": "",
-                "name": "repa",
+                "name": "cvikla",
                 "plural_name": "cvikly"
             },
             "brussels sprout": {
@@ -1281,8 +1281,8 @@
             "chestnut mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut mushroom",
-                "plural_name": "chestnut mushrooms"
+                "name": "šupinovka slizká",
+                "plural_name": "šupinovky slizké"
             },
             "enoki mushroom": {
                 "aliases": [],
@@ -1299,8 +1299,8 @@
             "black truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "black truffle",
-                "plural_name": "black truffles"
+                "name": "čierna hľuzovka",
+                "plural_name": "čierne hľuzovky"
             },
             "morel mushroom": {
                 "aliases": [],
@@ -2001,16 +2001,16 @@
             "parmesan": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan",
-                "plural_name": "parmesans"
+                "name": "parmezán",
+                "plural_name": "parmezánu"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddars"
+                    "čedar"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheeses"
+                "name": "čedaru",
+                "plural_name": "čedarového syru"
             },
             "cream cheese": {
                 "aliases": [],
@@ -2034,19 +2034,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "mozzarella",
-                "plural_name": "mozzarellas"
+                "plural_name": "mozzarelly"
             },
             "feta": {
                 "aliases": [],
                 "description": "",
                 "name": "feta",
-                "plural_name": "fetas"
+                "plural_name": "feta"
             },
             "ricotta": {
                 "aliases": [],
                 "description": "",
                 "name": "ricotta",
-                "plural_name": "ricottas"
+                "plural_name": "ricotty"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
@@ -2063,14 +2063,14 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheeses"
+                "name": "plesňový syr",
+                "plural_name": "plesňového syra"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheeses"
+                "name": "kozí syr",
+                "plural_name": "kozieho syra"
             },
             "fresh mozzarella": {
                 "aliases": [],
@@ -2088,7 +2088,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pecorino",
-                "plural_name": "pecorinoes"
+                "plural_name": "pecorina"
             },
             "gruyere": {
                 "aliases": [],
@@ -2100,13 +2100,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "mascarpone",
-                "plural_name": "mascarpones"
+                "plural_name": "mascarpone"
             },
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "cottage cheese",
-                "plural_name": "cottage cheeses"
+                "plural_name": "cottage cheese"
             },
             "american cheese": {
                 "aliases": [],
@@ -2166,7 +2166,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "gouda",
-                "plural_name": "goudas"
+                "plural_name": "goudy"
             },
             "cotija": {
                 "aliases": [],
@@ -2183,8 +2183,8 @@
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheeses"
+                "name": "údený syr",
+                "plural_name": "údeného syra"
             },
             "halloumi": {
                 "aliases": [],
@@ -2244,7 +2244,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "grana-padano",
-                "plural_name": "grana-padanoes"
+                "plural_name": "grana-padanos"
             },
             "muenster": {
                 "aliases": [],
@@ -2315,8 +2315,8 @@
             "edam": {
                 "aliases": [],
                 "description": "",
-                "name": "edam",
-                "plural_name": "edams"
+                "name": "eidam",
+                "plural_name": "eidamu"
             },
             "creamy cheese wedge": {
                 "aliases": [],
@@ -2465,8 +2465,8 @@
             "sheep cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep cheese",
-                "plural_name": "sheep cheeses"
+                "name": "ovčí syr",
+                "plural_name": "ovčieho syra"
             },
             "amul cheese": {
                 "aliases": [],
@@ -2501,8 +2501,8 @@
             "farmer's cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "farmer's cheese",
-                "plural_name": "farmer's cheeses"
+                "name": "tvaroh",
+                "plural_name": "tvarohu"
             },
             "manouri": {
                 "aliases": [],
@@ -2613,32 +2613,32 @@
             "butter": {
                 "aliases": [],
                 "description": "",
-                "name": "butter",
-                "plural_name": "butter"
+                "name": "maslo",
+                "plural_name": "masla"
             },
             "egg": {
                 "aliases": [],
                 "description": "",
-                "name": "egg",
-                "plural_name": "eggs"
+                "name": "vajce",
+                "plural_name": "vajec"
             },
             "milk": {
                 "aliases": [],
                 "description": "",
-                "name": "milk",
-                "plural_name": "milks"
+                "name": "mlieko",
+                "plural_name": "mlieka"
             },
             "heavy cream": {
                 "aliases": [],
                 "description": "",
-                "name": "heavy cream",
-                "plural_name": "heavy creams"
+                "name": "smotana na šlahanie",
+                "plural_name": "smotany na šlahanie"
             },
             "sour cream": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cream",
-                "plural_name": "sour creams"
+                "name": "kyslá smotana",
+                "plural_name": "kyslej smotany"
             },
             "buttermilk": {
                 "aliases": [],
@@ -2649,26 +2649,26 @@
             "yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt",
-                "plural_name": "yogurts"
+                "name": "jogurt",
+                "plural_name": "jogurtu"
             },
             "greek yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "greek yogurt",
-                "plural_name": "greek yogurts"
+                "name": "grécky jogurt",
+                "plural_name": "gréckeho jogurtu"
             },
             "cream": {
                 "aliases": [],
                 "description": "",
-                "name": "cream",
-                "plural_name": "creams"
+                "name": "smotana na varenie",
+                "plural_name": "smotany na varenie"
             },
             "whipped cream": {
                 "aliases": [],
                 "description": "",
-                "name": "whipped cream",
-                "plural_name": "whipped creams"
+                "name": "šlahačka",
+                "plural_name": "šlahačky"
             },
             "ghee": {
                 "aliases": [
@@ -2687,8 +2687,8 @@
             "condensed milk": {
                 "aliases": [],
                 "description": "",
-                "name": "condensed milk",
-                "plural_name": "condensed milks"
+                "name": "salko",
+                "plural_name": "salka"
             },
             "half and half": {
                 "aliases": [],
@@ -2705,14 +2705,14 @@
             "ice cream": {
                 "aliases": [],
                 "description": "",
-                "name": "ice cream",
-                "plural_name": "ice creams"
+                "name": "zmrzlina",
+                "plural_name": "zmrzliny"
             },
             "margarine": {
                 "aliases": [],
                 "description": "",
-                "name": "margarine",
-                "plural_name": "margarines"
+                "name": "margarín",
+                "plural_name": "margarínu"
             },
             "creme fraiche": {
                 "aliases": [],
@@ -2849,8 +2849,8 @@
             "goat milk": {
                 "aliases": [],
                 "description": "",
-                "name": "goat milk",
-                "plural_name": "goat milks"
+                "name": "kozie mlieko",
+                "plural_name": "kozieho mlieka"
             },
             "cheese curd": {
                 "aliases": [],
@@ -2879,8 +2879,8 @@
             "duck egg": {
                 "aliases": [],
                 "description": "",
-                "name": "duck egg",
-                "plural_name": "duck eggs"
+                "name": "kačacie vajce",
+                "plural_name": "kačacie vajcia"
             },
             "salted egg": {
                 "aliases": [],
@@ -2993,8 +2993,8 @@
             "goat yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "goat yogurt",
-                "plural_name": "goat yogurts"
+                "name": "kozí jogurt",
+                "plural_name": "kozieho jogurtu"
             },
             "dahi": {
                 "aliases": [],
@@ -3017,8 +3017,8 @@
             "tvorog": {
                 "aliases": [],
                 "description": "",
-                "name": "tvorog",
-                "plural_name": "tvorogs"
+                "name": "tvaroh",
+                "plural_name": "tvarohu"
             },
             "chocolate milk powder": {
                 "aliases": [],
@@ -3077,8 +3077,8 @@
             "sheep milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep milk",
-                "plural_name": "sheep milks"
+                "name": "ovčie mlieko",
+                "plural_name": "ovčieho mlieka"
             },
             "starter culture": {
                 "aliases": [],
@@ -3159,8 +3159,8 @@
             "coconut cream": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut cream",
-                "plural_name": "coconut creams"
+                "name": "kokosové mlieko",
+                "plural_name": "kokosového mlieka"
             },
             "vegan butter": {
                 "aliases": [],

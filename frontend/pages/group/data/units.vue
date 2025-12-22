@@ -19,6 +19,7 @@
           v-model="fromUnit"
           return-object
           :items="store"
+          :custom-filter="normalizeFilter"
           item-title="name"
           :label="$t('data-pages.units.source-unit')"
         />
@@ -26,6 +27,7 @@
           v-model="toUnit"
           return-object
           :items="store"
+          :custom-filter="normalizeFilter"
           item-title="name"
           :label="$t('data-pages.units.target-unit')"
         />
@@ -313,6 +315,7 @@ import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import type { CreateIngredientUnit, IngredientUnit, IngredientUnitAlias } from "~/lib/api/types/recipe";
 import { useLocales } from "~/composables/use-locales";
+import { normalizeFilter } from "~/composables/use-utils";
 import { useUnitStore } from "~/composables/store";
 import type { VForm } from "~/types/auto-forms";
 
@@ -462,9 +465,8 @@ export default defineNuxtComponent({
     }
 
     async function deleteSelected() {
-      for (const item of bulkDeleteTarget.value) {
-        await unitActions.deleteOne(item.id);
-      }
+      const ids = bulkDeleteTarget.value.map(item => item.id);
+      await unitActions.deleteMany(ids);
       bulkDeleteTarget.value = [];
     }
 
@@ -536,6 +538,7 @@ export default defineNuxtComponent({
       tableHeaders,
       store,
       validators,
+      normalizeFilter,
       // Create
       createDialog,
       domNewUnitForm,

@@ -7,6 +7,12 @@ const store: Ref<RecipeCategory[]> = ref([]);
 const loading = ref(false);
 const publicLoading = ref(false);
 
+export function resetCategoryStore() {
+  store.value = [];
+  loading.value = false;
+  publicLoading.value = false;
+}
+
 export const useCategoryData = function () {
   return useData<RecipeCategory>({
     id: "",

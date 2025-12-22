@@ -192,83 +192,83 @@
             "butternut squash": {
                 "aliases": [],
                 "description": "",
-                "name": "butternut squash",
-                "plural_name": "butternut squashes"
+                "name": "muškatna buča",
+                "plural_name": "muškatne buče"
             },
             "romaine": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine",
-                "plural_name": "romaines"
+                "name": "romanska solata",
+                "plural_name": "romanske solate"
             },
             "beetroot": {
                 "aliases": [],
                 "description": "",
-                "name": "beetroot",
-                "plural_name": "beetroots"
+                "name": "pesa",
+                "plural_name": "pesa"
             },
             "brussels sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "brussels sprout",
-                "plural_name": "brussels sprouts"
+                "name": "brstični ohrovt",
+                "plural_name": "brstični ohrovt"
             },
             "fennel": {
                 "aliases": [],
                 "description": "",
-                "name": "fennel",
-                "plural_name": "fennels"
+                "name": "komarček",
+                "plural_name": "komarčki"
             },
             "sun dried tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "sun dried tomato",
-                "plural_name": "sun dried tomatoes"
+                "name": "sušeni paradižnik",
+                "plural_name": "sušeni paradižnik"
             },
             "radish": {
                 "aliases": [],
                 "description": "",
-                "name": "radish",
-                "plural_name": "radishes"
+                "name": "redkev",
+                "plural_name": "redkev"
             },
             "red cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "red cabbage",
-                "plural_name": "red cabbages"
+                "name": "rdeče zelje",
+                "plural_name": "rdeče zelje"
             },
             "artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke",
-                "plural_name": "artichokes"
+                "name": "artičoka",
+                "plural_name": "artičoke"
             },
             "new potato": {
                 "aliases": [],
                 "description": "",
-                "name": "new potato",
-                "plural_name": "new potatoes"
+                "name": "mlad krompir",
+                "plural_name": "mlad krompir"
             },
             "summer squash": {
                 "aliases": [
-                    "courgette",
-                    "gem squash"
+                    "bučke",
+                    "gem buča"
                 ],
                 "description": "",
-                "name": "summer squash",
-                "plural_name": "summer squashes"
+                "name": "poletna buča",
+                "plural_name": "poletne buče"
             },
             "mixed green": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed green",
-                "plural_name": "mixed greens"
+                "name": "mešana zelenjava",
+                "plural_name": "mešana zelenjava"
             },
             "parsnip": {
                 "aliases": [],
                 "description": "",
-                "name": "parsnip",
-                "plural_name": "parsnips"
+                "name": "pastinak",
+                "plural_name": "pastinak"
             },
             "baby carrot": {
                 "aliases": [],

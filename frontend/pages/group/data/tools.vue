@@ -30,7 +30,7 @@
       :icon="$globals.icons.potSteam"
       :title="$t('data-pages.tools.edit-tool')"
       :submit-text="$t('general.save')"
-      can-confirm
+      can-submit
       @submit="editSaveTool"
     >
       <v-card-text v-if="editTarget">
@@ -263,9 +263,8 @@ export default defineNuxtComponent({
     }
 
     async function deleteSelected() {
-      for (const item of bulkDeleteTarget.value) {
-        await toolStore.actions.deleteOne(item.id);
-      }
+      const ids = bulkDeleteTarget.value.map(item => item.id);
+      await toolStore.actions.deleteMany(ids);
       bulkDeleteTarget.value = [];
     }
 
