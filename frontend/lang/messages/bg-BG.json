@@ -445,7 +445,7 @@
     "upload-a-recipe": "Качи рецепта",
     "upload-individual-zip-file": "Качи като индивидуален .zip файлов формат от друга инстанция на Mealie.",
     "url-form-hint": "Копирай и постави линк от твоя любим сайт за рецепти",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Копирайте и поставете URL адреса на източника на вашите данни (по избор)",
     "view-scraped-data": "Виж събраните данни",
     "trim-whitespace-description": "Премахни интервалите в началото и края на текста, също така и празните редове",
     "trim-prefix-description": "Премахни първия символ от всеки ред",
@@ -1430,11 +1430,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Това поле е задължително",
+    "invalid-email": "Email адресът трябва да бъде валиден",
+    "invalid-url": "Линкът трябва да е валиден",
+    "no-whitespace": "Не са позволени интервали",
+    "min-length": "Трябва да съдържа поне {min} знака",
+    "max-length": "Трябва да съдържа най-много {max} знака"
   }
 }

@@ -29,7 +29,7 @@ export default defineNuxtComponent({
           "ul", "ol", "li", "dl", "dt", "dd", "abbr", "a", "img", "blockquote", "iframe",
           "del", "ins", "table", "thead", "tbody", "tfoot", "tr", "th", "td", "colgroup",
         ],
-        ADD_ATTR: [
+        ALLOWED_ATTR: [
           "href", "src", "alt", "height", "width", "class", "allow", "title", "allowfullscreen", "frameborder",
           "scrolling", "cite", "datetime", "name", "abbr", "target", "border",
         ],
