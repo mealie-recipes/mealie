@@ -4,10 +4,11 @@ import shutil
 from pathlib import Path
 from zipfile import ZipFile
 
+from mealie.core.config import get_app_settings
 from mealie.services._base_service import BaseService
 from mealie.services.backups_v2.alchemy_exporter import AlchemyExporter
 from mealie.services.backups_v2.backup_file import BackupFile
-from mealie.core.config import get_app_settings
+
 
 class BackupSchemaMismatch(Exception): ...
 
@@ -60,12 +61,13 @@ class BackupV2(BaseService):
         return backup_file
 
     def _copy_data(self, data_path: Path) -> None:
-        restoreFiles = { ".secret" }
+        restore_files = {".secret"}
         for f in data_path.iterdir():
             if f.is_file():
-                if f.name not in restoreFiles:
+                if f.name not in restore_files:
                     continue
-                shutil.copyfile(f,self.directories.DATA_DIR / f.name) 
+
+                shutil.copyfile(f, self.directories.DATA_DIR / f.name)
                 self.logger.info("invalidating appsettings cache")
                 get_app_settings.cache_clear()
                 continue
