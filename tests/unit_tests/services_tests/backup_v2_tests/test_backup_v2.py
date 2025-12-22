@@ -79,27 +79,34 @@ def test_database_restore():
 
 def test_secret_file_backup_and_restore():
     settings = get_app_settings()
-
     backup_v2 = BackupV2(settings.DB_URL)
+    original_backup_path = backup_v2.backup()
+
     try:
-        # our test backups use the .temp directory, so we don't want to exclude it
-        backup_v2.EXCLUDE_DIRS.remove(".temp")
-    except KeyError:
-        pass
+        try:
+            # our test backups use the .temp directory, so we don't want to exclude it
+            # this breaks a lot of things, so we restore the original backup after this test completes
+            backup_v2.EXCLUDE_DIRS.remove(".temp")
+        except KeyError:
+            pass
 
-    secret_file = backup_v2.directories.DATA_DIR / ".secret"
-    secret_file.write_text("test-secret-value")
-    backup_path = backup_v2.backup()
+        secret_file = backup_v2.directories.DATA_DIR / ".secret"
+        secret_file.write_text("test-secret-value")
+        backup_path = backup_v2.backup()
 
-    with BackupFile(backup_path) as backup:
-        secret_in_backup = backup.data_directory / ".secret"
-        assert secret_in_backup.exists()
-        assert secret_in_backup.read_text() == "test-secret-value"
+        with BackupFile(backup_path) as backup:
+            secret_in_backup = backup.data_directory / ".secret"
+            assert secret_in_backup.exists()
+            assert secret_in_backup.read_text() == "test-secret-value"
 
-    with unittest.mock.patch("mealie.services.backups_v2.backup_v2.get_app_settings") as mock_settings:
-        mock_settings.cache_clear = unittest.mock.MagicMock()
-        backup_v2.restore(backup_path)
-        mock_settings.cache_clear.assert_called_once()
+        with unittest.mock.patch("mealie.services.backups_v2.backup_v2.get_app_settings") as mock_settings:
+            mock_settings.cache_clear = unittest.mock.MagicMock()
+            backup_v2.restore(backup_path)
+            mock_settings.cache_clear.assert_called_once()
+    finally:
+        # restore ".temp" exclusion, which otherwise breaks tests
+        backup_v2.EXCLUDE_DIRS.add(".temp")
+        backup_v2.restore(original_backup_path)
 
 
 def _5ab195a474eb_add_normalized_search_properties(session: Session):
