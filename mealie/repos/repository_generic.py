@@ -364,14 +364,16 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
                 self.logger.error(e)
                 raise HTTPException(status_code=400, detail=str(e)) from e
 
-        count_query = select(func.count()).select_from(query.subquery())
+        count_query = select(func.count()).select_from(query.order_by(None).distinct().subquery())
         count = self.session.scalar(count_query)
         if not count:
             count = 0
 
         # interpret -1 as "get_all"
+        limit: int | None = pagination.per_page
         if pagination.per_page == -1:
             pagination.per_page = count
+            limit = None
 
         try:
             total_pages = ceil(count / pagination.per_page)
@@ -387,7 +389,11 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
             pagination.page = 1
 
         query = self.add_order_by_to_query(query, pagination)
-        return query.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page), count, total_pages
+
+        if limit is not None:
+            query = query.limit(limit)
+
+        return query.offset((pagination.page - 1) * pagination.per_page), count, total_pages
 
     def add_order_attr_to_query(
         self,
