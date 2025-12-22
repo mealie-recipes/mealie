@@ -1,6 +1,7 @@
 import json
 import re
 from dataclasses import dataclass
+from typing import Any
 
 import pytest
 
@@ -59,6 +60,14 @@ psql_validation_cases = [
         ],
     ),
     (
+        "unencoded_to_encoded_no_port_url",
+        [
+            "POSTGRES_URL_OVERRIDE",
+            "postgresql://mealie:P@ssword!@#$%%^^&&**()+;'\"'<>?{}[]@postgres/mealie",
+            "postgresql://mealie:P%40ssword%21%40%23%24%25%25%5E%5E%26%26%2A%2A%28%29%2B%3B%27%22%27%3C%3E%3F%7B%7D%5B%5D@postgres/mealie",
+        ],
+    ),
+    (
         "no_encode_needed_password",
         [
             "POSTGRES_PASSWORD",
@@ -72,6 +81,54 @@ psql_validation_cases = [
             "POSTGRES_URL_OVERRIDE",
             "postgresql://mealie:MyPassword@postgres:5432/mealie",
             "postgresql://mealie:MyPassword@postgres:5432/mealie",
+        ],
+    ),
+    (
+        "no_password_url",
+        [
+            "POSTGRES_URL_OVERRIDE",
+            "postgresql://mealie@postgres:5432/mealie",
+            "postgresql://mealie@postgres:5432/mealie",
+        ],
+    ),
+    (
+        "no_password_no_port_url",
+        [
+            "POSTGRES_URL_OVERRIDE",
+            "postgresql://mealie@postgres/mealie",
+            "postgresql://mealie@postgres/mealie",
+        ],
+    ),
+    (
+        "unix_socket_with_empty_password",
+        [
+            "POSTGRES_URL_OVERRIDE",
+            "postgresql://mealie:@/mealie?host=/run/postgresql",
+            "postgresql://mealie:@/mealie?host=/run/postgresql",
+        ],
+    ),
+    (
+        "unix_socket_no_password",
+        [
+            "POSTGRES_URL_OVERRIDE",
+            "postgresql://mealie@/mealie?host=/run/postgresql",
+            "postgresql://mealie@/mealie?host=/run/postgresql",
+        ],
+    ),
+    (
+        "no_credentials_at_all",
+        [
+            "POSTGRES_URL_OVERRIDE",
+            "postgresql:///mealie?host=/run/postgresql",
+            "postgresql:///mealie?host=/run/postgresql",
+        ],
+    ),
+    (
+        "query_params_with_colon",
+        [
+            "POSTGRES_URL_OVERRIDE",
+            "postgresql://user@host/db?sslmode=require&connect_timeout=10",
+            "postgresql://user@host/db?sslmode=require&connect_timeout=10",
         ],
     ),
 ]
@@ -174,11 +231,11 @@ def test_smtp_enable_with_bad_data_tls(data: SMTPValidationCase):
 @dataclass(slots=True)
 class EnvVar:
     name: str
-    value: any
+    value: Any
 
 
 class LDAPValidationCase:
-    settings = list[EnvVar]
+    settings: list[EnvVar]
     is_valid: bool
 
     def __init__(
@@ -222,7 +279,7 @@ def test_ldap_settings_validation(data: LDAPValidationCase, monkeypatch: pytest.
 
 
 class OIDCValidationCase:
-    settings = list[EnvVar]
+    settings: list[EnvVar]
     is_valid: bool
 
     def __init__(

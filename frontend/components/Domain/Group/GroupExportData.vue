@@ -14,7 +14,7 @@
       <BaseButton
         download
         size="small"
-        :download-url="`/api/recipes/bulk-actions/export/download?path=${item.path}`"
+        :download-url="`/api/recipes/bulk-actions/export/${item.id}/download`"
       />
     </template>
   </v-data-table>

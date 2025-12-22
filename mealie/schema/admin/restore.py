@@ -25,11 +25,3 @@ class GroupImport(ImportBase):
 
 class UserImport(ImportBase):
     pass
-
-
-class CustomPageImport(ImportBase):
-    pass
-
-
-class NotificationImport(ImportBase):
-    pass

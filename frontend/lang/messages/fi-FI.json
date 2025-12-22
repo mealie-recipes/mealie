@@ -445,6 +445,7 @@
     "upload-a-recipe": "Lataa resepti",
     "upload-individual-zip-file": "Tuo yksittäinen pakattu kansio toisesta Mealie instanssista.",
     "url-form-hint": "Liitä linkki lempireseptiverkkosivultasi",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Näytä hankittu data",
     "trim-whitespace-description": "Leikkaa alussa ja lopussa olevat välilyönnit sekä tyhjät rivit",
     "trim-prefix-description": "Poista joka rivin ensimmäinen merkki",
@@ -1427,5 +1428,13 @@
       "is-like": "on kuin",
       "is-not-like": "ei ole kuin"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }
