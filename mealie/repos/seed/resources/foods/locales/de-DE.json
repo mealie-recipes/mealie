@@ -6489,9 +6489,9 @@
             },
             "sugar syrup": {
                 "aliases": [],
-                "description": "zuckerfreier Süßstoff",
+                "description": "Zuckerfreier Süßstoff",
                 "name": "Zuckersirup",
-                "plural_name": "Zuckersirupe"
+                "plural_name": "Zuckersirups"
             },
             "isomalt": {
                 "aliases": [],
@@ -6502,8 +6502,8 @@
             "erythritol": {
                 "aliases": [],
                 "description": "",
-                "name": "Erythritol",
-                "plural_name": "Erythrit"
+                "name": "Erythrit",
+                "plural_name": "Erythrite"
             },
             "vanilla sugar": {
                 "aliases": [],
@@ -6545,7 +6545,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Zuckerrübensirup",
-                "plural_name": "Zuckerrübensirupe"
+                "plural_name": "Zuckerrübensirups"
             },
             "cinnamon sugar": {
                 "aliases": [],
@@ -6610,8 +6610,8 @@
             "blackstrap molass": {
                 "aliases": [],
                 "description": "",
-                "name": "schwarzer Riemen",
-                "plural_name": "schwarzer Riemen"
+                "name": "Schwarzer Riemen",
+                "plural_name": "Schwarzer Riemen"
             },
             "glucose": {
                 "aliases": [],
@@ -6652,26 +6652,26 @@
             "brown sugar substitute": {
                 "aliases": [],
                 "description": "",
-                "name": "brauner Zucker Ersatz",
-                "plural_name": "braune Zuckerersatzstoffe"
+                "name": "Brauner Zucker Ersatz",
+                "plural_name": "Braune Zuckerersatzstoffe"
             },
             "strawberry syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Erdbeersirup",
-                "plural_name": "Erdbeersirupe"
+                "plural_name": "Erdbeersirups"
             },
             "vanilla syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Vanillesirup",
-                "plural_name": "Vanillesirupe"
+                "plural_name": "Vanillesirups"
             },
             "ginger syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Ingwersirup",
-                "plural_name": "Ingwersirupe"
+                "plural_name": "Ingwersirups"
             },
             "orgeat": {
                 "aliases": [],
@@ -6683,25 +6683,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "Reismalz-Sirup",
-                "plural_name": "Reismalz-Sirupe"
+                "plural_name": "Reismalz-Sirups"
             },
             "pancake syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Pfannkuchen-Sirup",
-                "plural_name": "Pfannkuchen-Sirupe"
+                "plural_name": "Pfannkuchen-Sirups"
             },
             "raspberry syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Himbeer-Sirup",
-                "plural_name": "Himbeer-Sirupe"
+                "plural_name": "Himbeer-Sirups"
             },
             "date syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Dattel-Sirup",
-                "plural_name": "Dattel-Sirupe"
+                "plural_name": "Dattel-Sirups"
             },
             "black treacle": {
                 "aliases": [],
@@ -6719,13 +6719,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kokosnuss-Sirup",
-                "plural_name": "Kokosnuss-Sirupe"
+                "plural_name": "Kokosnuss-Sirups"
             },
             "mint syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Pfefferminz-Sirup",
-                "plural_name": "Pfefferminz-Sirupe"
+                "plural_name": "Pfefferminz-Sirups"
             },
             "treacle": {
                 "aliases": [],
@@ -6755,13 +6755,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Heidelbeer-Sirup",
-                "plural_name": "Heidelbeer-Sirupe"
+                "plural_name": "Heidelbeer-Sirups"
             },
             "apple syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Apfel-Sirup",
-                "plural_name": "Apfel-Sirupe"
+                "plural_name": "Apfel-Sirups"
             },
             "allulose": {
                 "aliases": [],
@@ -6773,7 +6773,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Brombeer-Sirup",
-                "plural_name": "Brombeer-Sirupe"
+                "plural_name": "Brombeer-Sirups"
             },
             "piloncillo": {
                 "aliases": [],
@@ -6785,19 +6785,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kirsch-Sirup",
-                "plural_name": "Kirsch-Sirupe"
+                "plural_name": "Kirsch-Sirups"
             },
             "hibiscus syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Hibiskus-Sirup",
-                "plural_name": "Hibiskus-Sirupe"
+                "plural_name": "Hibiskus-Sirups"
             },
             "lavender syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Lavendel-Sirup",
-                "plural_name": "Lavendel-Sirupe"
+                "plural_name": "Lavendel-Sirups"
             },
             "fresh sugar cane": {
                 "aliases": [],
@@ -6809,7 +6809,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Haselnuss-Sirup",
-                "plural_name": "Haselnuss-Sirupe"
+                "plural_name": "Haselnuss-Sirups"
             },
             "white chocolate sauce": {
                 "aliases": [],
@@ -6821,7 +6821,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kürbisgewürz-Sirup",
-                "plural_name": "Kürbisgewürz-Sirupe"
+                "plural_name": "Kürbisgewürz-Sirups"
             },
             "glycerine": {
                 "aliases": [],
@@ -6833,7 +6833,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Sorghum-Sirup",
-                "plural_name": "Sorghum-Sirupe"
+                "plural_name": "Sorghum-Sirups"
             },
             "lucuma powder": {
                 "aliases": [],
@@ -6851,7 +6851,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Preiselbeer-Sirup",
-                "plural_name": "Preiselbeer-Sirupe"
+                "plural_name": "Preiselbeer-Sirups"
             },
             "golden sugar": {
                 "aliases": [],
@@ -6863,7 +6863,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Zuckerrohr-Sirup",
-                "plural_name": "Zuckerrohr-Sirupe"
+                "plural_name": "Zuckerrohr-Sirups"
             },
             "mango syrup": {
                 "aliases": [],
@@ -6893,19 +6893,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Holunderbeerensirup",
-                "plural_name": "Holunderbeerensirupe"
+                "plural_name": "Holunderbeerensirups"
             },
             "rosemary syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Rosmarinsirup",
-                "plural_name": "Rosmarinsirupe"
+                "plural_name": "Rosmarinsirups"
             },
             "dark chocolate syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Dunkler Schokoladensirup",
-                "plural_name": "Dunkle Schokoladensirup"
+                "plural_name": "Dunkle Schokoladensirups"
             },
             "inulin": {
                 "aliases": [],
@@ -6941,13 +6941,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Ahornsirup",
-                "plural_name": "Ahornsirup"
+                "plural_name": "Ahornsirups"
             },
             "brown butter syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Brauner Reissirup",
-                "plural_name": "Brauner Reissirup"
+                "plural_name": "Braune Reissirups"
             },
             "date sugar": {
                 "aliases": [],
@@ -6970,20 +6970,20 @@
             "irish cream syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "irischer Sahne-Sirup",
-                "plural_name": "irischer Sahne-Sirup"
+                "name": "Irischer Sahne-Sirup",
+                "plural_name": "Irische Sahne-Sirups"
             },
             "prickly pear syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Kaktusfeigensirup",
-                "plural_name": "Kaktusfeigensirup"
+                "plural_name": "Kaktusfeigensirups"
             },
             "cookie butter syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Brauner Reissirup",
-                "plural_name": "Brauner Reissirup"
+                "plural_name": "Braune Reissirups"
             },
             "creamed honey": {
                 "aliases": [],
@@ -7006,8 +7006,8 @@
             "flavored syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "aromatisierter Sirup",
-                "plural_name": "aromatisierte Sirup"
+                "name": "Aromatisierter Sirup",
+                "plural_name": "Aromatisierte Sirups"
             },
             "elderflower syrup": {
                 "aliases": [],
@@ -7024,8 +7024,8 @@
             "buckwheat honey": {
                 "aliases": [],
                 "description": "",
-                "name": "",
-                "plural_name": "Buchweizen-Honig"
+                "name": "Buchweizen-Honig",
+                "plural_name": "Buchweizen-Honige"
             },
             "truffle honey": {
                 "aliases": [],
@@ -10240,8 +10240,8 @@
             "hawaiian roll": {
                 "aliases": [],
                 "description": "",
-                "name": "hawaiian roll",
-                "plural_name": "hawaiian rolls"
+                "name": "Hawaiianisches Brötchen",
+                "plural_name": "Hawaiianische Brötchen"
             },
             "pita chip": {
                 "aliases": [],
@@ -11276,8 +11276,8 @@
             "verjuice": {
                 "aliases": [],
                 "description": "",
-                "name": "verjuice",
-                "plural_name": "verjuices"
+                "name": "Verjus",
+                "plural_name": "Verjus"
             },
             "cane vinegar": {
                 "aliases": [],
@@ -12178,8 +12178,8 @@
             "roasted red pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted red pepper",
-                "plural_name": "roasted red peppers"
+                "name": "Geröstete rote Paprika",
+                "plural_name": "Geröstete rote Paprikas"
             },
             "tomato with green chiles": {
                 "aliases": [],
@@ -12802,8 +12802,8 @@
             "alfredo sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "alfredo sauce",
-                "plural_name": "alfredo sauces"
+                "name": "Alfredo-Sauce",
+                "plural_name": "Alfredo-Saucen"
             },
             "balsamic glaze": {
                 "aliases": [],
@@ -12820,8 +12820,8 @@
             "red enchilada sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "red enchilada sauce",
-                "plural_name": "red enchilada sauces"
+                "name": "Rote Enchilada-Sauce",
+                "plural_name": "Rote Enchilada-Saucen"
             },
             "steak sauce": {
                 "aliases": [],
@@ -12850,8 +12850,8 @@
             "beef gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "beef gravy",
-                "plural_name": "beef gravies"
+                "name": "Rinderbrühe",
+                "plural_name": "Rinderbrühen"
             },
             "sun-dried tomato pesto": {
                 "aliases": [],
@@ -12922,8 +12922,8 @@
             "stir-fry sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "stir-fry sauce",
-                "plural_name": "stir-fry sauces"
+                "name": "Pfannengerichte-Sauce",
+                "plural_name": "Pfannengerichte-Saucen"
             },
             "thai peanut sauce": {
                 "aliases": [],
@@ -12934,8 +12934,8 @@
             "chicken gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken gravy",
-                "plural_name": "chicken gravies"
+                "name": "Hühnerbrühe",
+                "plural_name": "Hühnerbrühen"
             },
             "sloppy joe sauce": {
                 "aliases": [],
@@ -12983,13 +12983,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Chimichurri Soße",
-                "plural_name": "chimichurri sauces"
+                "plural_name": "Chimichurri-Sauce"
             },
             "french onion dip": {
                 "aliases": [],
                 "description": "",
-                "name": "french onion dip",
-                "plural_name": "french onion dips"
+                "name": "Französischer Zwiebeldip",
+                "plural_name": "Französische Zwiebeldips"
             },
             "herb butter": {
                 "aliases": [],
@@ -13030,8 +13030,8 @@
             "mushroom gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "mushroom gravy",
-                "plural_name": "mushroom gravies"
+                "name": "Pilzsauce",
+                "plural_name": "Pilzsaucen"
             },
             "pork gravy": {
                 "aliases": [],
@@ -13742,8 +13742,8 @@
             "minestrone": {
                 "aliases": [],
                 "description": "",
-                "name": "minestrone",
-                "plural_name": "minestrones"
+                "name": "Minestrone",
+                "plural_name": "Minestrone-Suppen"
             },
             "thai chicken broth": {
                 "aliases": [],
@@ -13778,8 +13778,8 @@
             "chicken corn chowder": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken corn chowder",
-                "plural_name": "chicken corn chowders"
+                "name": "Hühnersuppe mit Mais",
+                "plural_name": "Hühnersuppen mit Mais"
             },
             "pork & bean": {
                 "aliases": [],
@@ -13802,8 +13802,8 @@
             "oxtail soup": {
                 "aliases": [],
                 "description": "",
-                "name": "oxtail soup",
-                "plural_name": "oxtail soups"
+                "name": "Ochsenschwanzsuppe",
+                "plural_name": "Ochsenschwanzsuppen"
             },
             "potato soup mix": {
                 "aliases": [],
@@ -14594,7 +14594,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Champagner",
-                "plural_name": "champagnes"
+                "plural_name": "Champagner"
             },
             "irish cream": {
                 "aliases": [],
@@ -14672,7 +14672,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Dessert Wein",
-                "plural_name": "dessert wines"
+                "plural_name": "Dessert-Weine"
             },
             "curacao": {
                 "aliases": [],
@@ -14695,8 +14695,8 @@
             "peach schnapp": {
                 "aliases": [],
                 "description": "",
-                "name": "peach schnapp",
-                "plural_name": "peach schnapps"
+                "name": "Pfirsichschnaps",
+                "plural_name": "Pfirsichschnäpse"
             },
             "apple brandy": {
                 "aliases": [],
@@ -14726,7 +14726,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Limoncello",
-                "plural_name": "limoncellos"
+                "plural_name": "Limoncellos"
             },
             "elderflower liqueur": {
                 "aliases": [],
@@ -14738,7 +14738,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kochwein",
-                "plural_name": "cooking wines"
+                "plural_name": "Kochweine"
             },
             "hazelnut liqueur": {
                 "aliases": [],
@@ -14773,8 +14773,8 @@
             "schnapp": {
                 "aliases": [],
                 "description": "",
-                "name": "schnapp",
-                "plural_name": "schnapps"
+                "name": "Schnaps",
+                "plural_name": "Schnäpse"
             },
             "banana liqueur": {
                 "aliases": [],
@@ -15450,7 +15450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Rooibos Tee",
-                "plural_name": "rooibos teas"
+                "plural_name": "Rooibos-Tees"
             },
             "lime soda": {
                 "aliases": [],
@@ -15539,14 +15539,14 @@
             "aloe vera juice": {
                 "aliases": [],
                 "description": "",
-                "name": "aloe vera juice",
-                "plural_name": "aloe vera juices"
+                "name": "Aloe-Vera-Saft",
+                "plural_name": "Aloe-Vera-Säfte"
             },
             "white tea": {
                 "aliases": [],
                 "description": "",
-                "name": "white tea",
-                "plural_name": "white teas"
+                "name": "Weißer Tee",
+                "plural_name": "Weiße Tees"
             },
             "juice blend": {
                 "aliases": [],
