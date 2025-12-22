@@ -68,12 +68,15 @@ class BackupV2(BaseService):
                     continue
 
                 shutil.copyfile(f, self.directories.DATA_DIR / f.name)
-                self.logger.info("invalidating appsettings cache")
-                get_app_settings.cache_clear()
                 continue
 
             shutil.rmtree(self.directories.DATA_DIR / f.name)
             shutil.copytree(f, self.directories.DATA_DIR / f.name)
+
+        # since we copied a new .secret, AppSettings has the wrong secret info
+        self.logger.info("invalidating appsettings cache")
+        get_app_settings.cache_clear()
+        self.settings = get_app_settings()
 
     def restore(self, backup_path: Path) -> None:
         self.logger.info("initializing backup restore")
