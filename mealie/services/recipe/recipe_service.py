@@ -369,25 +369,35 @@ class RecipeService(RecipeServiceBase):
 
         return new_recipe
 
-    def has_recursive_recipe_link(self, recipe: Recipe, visited: set[str] | None = None):
+    def has_recursive_recipe_link(self, recipe: Recipe, path: set[str] | None = None):
         """Recursively checks if a recipe links to itself through its ingredients."""
+        if path is None:
+            path = set()
 
-        if visited is None:
-            visited = set()
         recipe_id = str(getattr(recipe, "id", None))
-        if recipe_id in visited:
+
+        # Check if this recipe is already in the current path (cycle detected)
+        if recipe_id in path:
             return True
 
-        visited.add(recipe_id)
-        ingredients = getattr(recipe, "recipe_ingredient", [])
-        for ing in ingredients:
-            try:
-                sub_recipe = self.get_one(ing.referenced_recipe.id)
-            except (AttributeError, exceptions.NoEntryFound):
-                continue
+        # Add to the current path
+        path.add(recipe_id)
 
-            if self.has_recursive_recipe_link(sub_recipe, visited):
-                return True
+        try:
+            ingredients = getattr(recipe, "recipe_ingredient", [])
+            for ing in ingredients:
+                try:
+                    sub_recipe = self.get_one(ing.referenced_recipe.id)
+                except (AttributeError, exceptions.NoEntryFound):
+                    continue
+
+                # Recursively check - path is modified in place and cleaned up via backtracking
+                if self.has_recursive_recipe_link(sub_recipe, path):
+                    return True
+        finally:
+            # Backtrack: remove this recipe from the path when done exploring this branch
+            path.discard(recipe_id)
+
         return False
 
     def _pre_update_check(self, slug_or_id: str | UUID, new_data: Recipe) -> Recipe:

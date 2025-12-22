@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Rezeptnamen müssen einzigartig sein",
         "recipe-created": "Rezept erstellt",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "Rezeptbild gelöscht",
         "recipe-defaults": {
             "ingredient-note": "250 g Mehl",
             "step-text": "Zubereitungs-Schritte und andere Felder der Rezeptseite unterstützen Markdown Syntax.\n\n**Füge einen Link hinzu**\n\n[Mein Link](https://demo.mealie.io)\n"
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Du hast keine Berechtigung, um diese Aktion auszuführen",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Ein Rezept kann sich nicht direkt oder indirekt referenzieren",
         "no-entry-found": "Die angeforderte Ressource wurde nicht gefunden",
         "integrity-error": "Datenbankintegritätsfehler",
         "username-conflict-error": "Dieser Benutzername ist bereits vergeben",

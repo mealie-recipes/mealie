@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Назва рецепту повинна бути унікальною",
         "recipe-created": "Рецепт створено",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "Зображення рецепту видалено",
         "recipe-defaults": {
             "ingredient-note": "Стакан борошна",
             "step-text": "Кроки рецептів, так само як і інші поля сторінки, підтримують синтаксис markdown.\n\n**Додати посилання**\n\n[Моє посилання](https://demo.mealie.io)\n"
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "У вас немає дозволу на виконання цієї дії",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Рецепт не може посилатися на себе безпосередньо, або опосередковано",
         "no-entry-found": "Ресурс не знайдено",
         "integrity-error": "Помилка цілісності бази даних",
         "username-conflict-error": "Це ім'я користувача вже використовується",

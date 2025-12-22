@@ -7,6 +7,12 @@ const store: Ref<RecipeTag[]> = ref([]);
 const loading = ref(false);
 const publicLoading = ref(false);
 
+export function resetTagStore() {
+  store.value = [];
+  loading.value = false;
+  publicLoading.value = false;
+}
+
 export const useTagData = function () {
   return useData<RecipeTag>({
     id: "",

@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Nomes de receitas devem ser únicos",
         "recipe-created": "Receita criada",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "Imagem da receita deletada",
         "recipe-defaults": {
             "ingredient-note": "1 Xícara de Farinha",
             "step-text": "Passos das receitas, assim como outros campos na página da receita, suportam sintaxe \"markdown\".\n\n**Adicione um link**\n\n[Meu Link](https://demo.mealie.io)\n"
@@ -33,11 +33,11 @@
     },
     "exceptions": {
         "permission_denied": "Você não tem permissão para realizar esta ação",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Uma receita não pode referenciar a si mesma, diretamente ou indiretamente\n",
         "no-entry-found": "O recurso solicitado não foi encontrado",
         "integrity-error": "Erro de integridade de banco de dados",
         "username-conflict-error": "Este nome de usuário já está em uso",
-        "email-conflict-error": "Este email já está em uso"
+        "email-conflict-error": "Este e-mail já está em uso"
     },
     "notifications": {
         "generic-created": "{name} criado",
@@ -46,7 +46,7 @@
         "generic-updated-with-url": "{name} foi atualizado, {url}",
         "generic-duplicated": "{name} foi duplicada",
         "generic-deleted": "{name} foi excluído",
-        "logged-out": "Logged out"
+        "logged-out": "Desconectado"
     },
     "datetime": {
         "year": "ano|anos",

@@ -76,13 +76,15 @@
                         can-confirm
                         @confirm="saveQueryFilter"
                       >
-                        <QueryFilterBuilder
-                          :key="queryFilterMenuKey"
-                          :initial-query-filter="queryFilterJSON"
-                          :field-defs="queryFilterBuilderFields"
-                          @input="(value) => queryFilterEditorValue = value"
-                          @input-j-s-o-n="(value) => queryFilterEditorValueJSON = value"
-                        />
+                        <v-card-text>
+                          <QueryFilterBuilder
+                            :key="queryFilterMenuKey"
+                            :initial-query-filter="queryFilterJSON"
+                            :field-defs="queryFilterBuilderFields"
+                            @input="(value) => queryFilterEditorValue = value"
+                            @input-j-s-o-n="(value) => queryFilterEditorValueJSON = value"
+                          />
+                        </v-card-text>
                         <template #custom-card-action>
                           <BaseButton
                             color="error"
@@ -652,6 +654,11 @@ export default defineNuxtComponent({
         name: "household_id",
         label: i18n.t("household.households"),
         type: Organizer.Household,
+      },
+      {
+        name: "user_id",
+        label: i18n.t("user.users"),
+        type: Organizer.User,
       },
     ];
 

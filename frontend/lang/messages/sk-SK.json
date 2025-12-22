@@ -342,6 +342,9 @@
     "breakfast": "Raňajky",
     "lunch": "Obed",
     "dinner": "Večera",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Ľubovoľný",
     "day-any": "Ľubovoľný",
     "editor": "Editor",
@@ -442,6 +445,7 @@
     "upload-a-recipe": "Nahrať recept",
     "upload-individual-zip-file": "Nahrať súbor .zip exportovaný z inej Mealie inštalácie.",
     "url-form-hint": "Okopírujte a zložte odkaz z vašej obľúbenej webstránky",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Náhľad získaných údajov",
     "trim-whitespace-description": "Vymazať medzery a prázdne riadky na začiatku a na konci",
     "trim-prefix-description": "Vymazať prvé písmeno z každého riadku",
@@ -565,6 +569,7 @@
     "choose-unit": "Vyberte jednotku",
     "press-enter-to-create": "Stlačte Enter pre vytvorenie",
     "choose-food": "Vyberte potravinu",
+    "choose-recipe": "Choose Recipe",
     "notes": "Poznámky",
     "toggle-section": "Prepnúť sekciu",
     "see-original-text": "Pozrieť pôvodný text",
@@ -632,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Vyskúšajte hromadný importér",
     "scrape-recipe-have-raw-html-or-json-data": "Máte surové údaje HTML alebo JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Môžete importovať priamo nespracované údaje",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Importovať pôvodné kľúčové slová ako štítky",
     "stay-in-edit-mode": "Zostať v režime editovania",
     "parse-recipe-ingredients-after-import": "Analyzovať ingrediencie po importe",
@@ -734,7 +741,8 @@
     "search-hint": "Stlač '/'",
     "advanced": "Rozšírené",
     "auto-search": "Automatické vyhľadávanie",
-    "no-results": "Nenašli sa žiadne výsledky"
+    "no-results": "Nenašli sa žiadne výsledky",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Pridať nový motív",
@@ -1420,5 +1428,13 @@
       "is-like": "je ako",
       "is-not-like": "nie je ako"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

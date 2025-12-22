@@ -19,35 +19,45 @@
       </v-toolbar>
 
       <!-- Stepper Wizard -->
-      <v-stepper v-model="currentPage" mobile-breakpoint="sm">
+      <v-stepper v-model="currentPage" mobile-breakpoint="sm" alt-labels>
         <v-stepper-header>
           <v-stepper-item
             :value="Pages.LANDING"
+            :icon="$globals.icons.wave"
             :complete="currentPage > Pages.LANDING"
+            :color="getStepperColor(currentPage, Pages.LANDING)"
             :title="$t('general.start')"
           />
           <v-divider />
           <v-stepper-item
             :value="Pages.USER_INFO"
+            :icon="$globals.icons.user"
             :complete="currentPage > Pages.USER_INFO"
+            :color="getStepperColor(currentPage, Pages.USER_INFO)"
             :title="$t('user-registration.account-details')"
           />
           <v-divider />
           <v-stepper-item
             :value="Pages.PAGE_2"
+            :icon="$globals.icons.cog"
             :complete="currentPage > Pages.PAGE_2"
+            :color="getStepperColor(currentPage, Pages.PAGE_2)"
             :title="$t('settings.site-settings')"
           />
           <v-divider />
           <v-stepper-item
             :value="Pages.CONFIRM"
+            :icon="$globals.icons.chefHat"
             :complete="currentPage > Pages.CONFIRM"
+            :color="getStepperColor(currentPage, Pages.CONFIRM)"
             :title="$t('admin.maintenance.summary-title')"
           />
           <v-divider />
           <v-stepper-item
             :value="Pages.END"
+            :icon="$globals.icons.check"
             :complete="currentPage > Pages.END"
+            :color="getStepperColor(currentPage, Pages.END)"
             :title="$t('admin.setup.setup-complete')"
           />
         </v-stepper-header>
@@ -82,6 +92,8 @@
               <BaseButton
                 size="large"
                 color="primary"
+                class="px-10"
+                rounded
                 :icon="$globals.icons.translate"
                 @click="langDialog = true"
               >
@@ -95,6 +107,16 @@
               next-text="general.next"
               @click:next="onNext"
             >
+              <template #next>
+                <v-btn
+                  variant="flat"
+                  color="success"
+                  :disabled="isSubmitting"
+                  :loading="isSubmitting"
+                  :text="$t('general.next')"
+                  @click="onNext"
+                />
+              </template>
               <template #prev />
             </v-stepper-actions>
           </v-stepper-window-item>
@@ -107,10 +129,19 @@
             <v-stepper-actions
               :disabled="isSubmitting"
               prev-text="general.back"
-              next-text="general.next"
               @click:prev="onPrev"
-              @click:next="onNext"
-            />
+            >
+              <template #next>
+                <v-btn
+                  variant="flat"
+                  color="success"
+                  :disabled="isSubmitting"
+                  :loading="isSubmitting"
+                  :text="$t('general.next')"
+                  @click="onNext"
+                />
+              </template>
+            </v-stepper-actions>
           </v-stepper-window-item>
 
           <!-- COMMON SETTINGS -->
@@ -127,10 +158,19 @@
             <v-stepper-actions
               :disabled="isSubmitting"
               prev-text="general.back"
-              next-text="general.next"
               @click:prev="onPrev"
-              @click:next="onNext"
-            />
+            >
+              <template #next>
+                <v-btn
+                  variant="flat"
+                  color="success"
+                  :disabled="isSubmitting"
+                  :loading="isSubmitting"
+                  :text="$t('general.next')"
+                  @click="onNext"
+                />
+              </template>
+            </v-stepper-actions>
           </v-stepper-window-item>
 
           <!-- CONFIRMATION -->
@@ -177,35 +217,7 @@
 
           <!-- END -->
           <v-stepper-window-item :value="Pages.END">
-            <v-container max-width="880">
-              <v-card-title class="text-h4 justify-center">
-                {{ $t('admin.setup.setup-complete') }}
-              </v-card-title>
-              <v-card-title class="text-h6 justify-center">
-                {{ $t('admin.setup.here-are-a-few-things-to-help-you-get-started') }}
-              </v-card-title>
-              <div
-                v-for="link, idx in setupCompleteLinks"
-                :key="idx"
-                class="px-4 pt-4"
-              >
-                <div v-if="link.section">
-                  <v-divider v-if="idx" />
-                  <v-card-text class="headline pl-0">
-                    {{ link.section }}
-                  </v-card-text>
-                </div>
-                <v-btn
-                  :to="link.to"
-                  color="info"
-                >
-                  {{ link.text }}
-                </v-btn>
-                <v-card-text class="subtitle px-0 py-2">
-                  {{ link.description }}
-                </v-card-text>
-              </div>
-            </v-container>
+            <EndPageContent />
             <v-stepper-actions
               :disabled="isSubmitting"
               prev-text="general.back"
@@ -266,11 +278,21 @@ useSeoMeta({
 });
 
 enum Pages {
-  LANDING = 0,
-  USER_INFO = 1,
-  PAGE_2 = 2,
-  CONFIRM = 3,
-  END = 4,
+  LANDING = 1,
+  USER_INFO = 2,
+  PAGE_2 = 3,
+  CONFIRM = 4,
+  END = 5,
+}
+
+function getStepperColor(currentPage: Pages, page: Pages) {
+  if (currentPage == page) {
+    return "info";
+  }
+  if (currentPage > page) {
+    return "success";
+  }
+  return "";
 }
 
 // ================================================================
@@ -316,42 +338,6 @@ const confirmationData = computed(() => {
     },
   ];
 });
-
-const setupCompleteLinks = ref([
-  {
-    section: i18n.t("profile.data-migrations"),
-    to: "/admin/backups",
-    text: i18n.t("settings.backup.backup-restore"),
-    description: i18n.t("admin.setup.restore-from-v1-backup"),
-  },
-  {
-    to: "/group/migrations",
-    text: i18n.t("migration.recipe-migration"),
-    description: i18n.t("migration.coming-from-another-application-or-an-even-older-version-of-mealie"),
-  },
-  {
-    section: i18n.t("recipe.create-recipes"),
-    to: computed(() => `/g/${groupSlug.value || ""}/r/create/new`),
-    text: i18n.t("recipe.create-recipe"),
-    description: i18n.t("recipe.create-recipe-description"),
-  },
-  {
-    to: computed(() => `/g/${groupSlug.value || ""}/r/create/url`),
-    text: i18n.t("recipe.import-with-url"),
-    description: i18n.t("recipe.scrape-recipe-description"),
-  },
-  {
-    section: i18n.t("user.manage-users"),
-    to: "/admin/manage/users",
-    text: i18n.t("user.manage-users"),
-    description: i18n.t("user.manage-users-description"),
-  },
-  {
-    to: "/user/profile",
-    text: i18n.t("profile.manage-user-profile"),
-    description: i18n.t("admin.setup.manage-profile-or-get-invite-link"),
-  },
-]);
 
 // ================================================================
 // Page Navigation
@@ -548,7 +534,7 @@ async function onFinish() {
 }
 </script>
 
-<style scoped>
+<style>
 .icon-white {
   fill: white;
 }
@@ -574,5 +560,19 @@ async function onFinish() {
 
 .bg-off-white {
   background: #f5f8fa;
+}
+
+.v-stepper-item__avatar.v-avatar.v-stepper-item__avatar.v-avatar {
+  width: 3rem !important; /** Override inline style :( */
+  height: 3rem !important; /** Override inline style :( */
+  margin-inline-end: 0; /** reset weird margin */
+
+  .v-icon {
+    font-size: 1.4rem;
+  }
+}
+
+.v-stepper--alt-labels .v-stepper-header .v-divider {
+  margin: 48px -42px 0 !important;
 }
 </style>

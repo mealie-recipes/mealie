@@ -5,17 +5,73 @@ on:
     types: [published]
 
 jobs:
+  commit-version-bump:
+    name: Commit version bump to repository
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      commit-sha: ${{ steps.commit.outputs.commit-sha }}
+    steps:
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.COMMIT_BOT_APP_ID }}
+          private-key: ${{ secrets.COMMIT_BOT_APP_PRIVATE_KEY }}
+
+      - name: Checkout 🛎
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Extract Version From Tag Name
+        run: echo "VERSION_NUM=$(echo ${{ github.event.release.tag_name }} | sed 's/^v//')" >> $GITHUB_ENV
+
+      - name: Configure Git
+        run: |
+          git config user.name "mealie-commit-bot[bot]"
+          git config user.email "mealie-commit-bot[bot]@users.noreply.github.com"
+
+      - name: Update all version strings
+        run: |
+          sed -i 's/^version = "[^"]*"/version = "${{ env.VERSION_NUM }}"/' pyproject.toml
+          sed -i '/^name = "mealie"$/,/^version = / s/^version = "[^"]*"/version = "${{ env.VERSION_NUM }}"/' uv.lock
+          sed -i 's/\("version": "\)[^"]*"/\1${{ env.VERSION_NUM }}"/' frontend/package.json
+          sed -i 's/:v[0-9]*\.[0-9]*\.[0-9]*/:v${{ env.VERSION_NUM }}/' docs/docs/documentation/getting-started/installation/installation-checklist.md
+          sed -i 's/:v[0-9]*\.[0-9]*\.[0-9]*/:v${{ env.VERSION_NUM }}/' docs/docs/documentation/getting-started/installation/sqlite.md
+          sed -i 's/:v[0-9]*\.[0-9]*\.[0-9]*/:v${{ env.VERSION_NUM }}/' docs/docs/documentation/getting-started/installation/postgres.md
+
+      - name: Commit and push changes
+        id: commit
+        run: |
+          git add pyproject.toml frontend/package.json uv.lock docs/
+          git commit -m "chore: bump version to ${{ github.event.release.tag_name }}"
+          git push origin HEAD:${{ github.event.repository.default_branch }}
+          echo "commit-sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Move release tag to new commit
+        run: |
+          git tag -f ${{ github.event.release.tag_name }}
+          git push -f origin ${{ github.event.release.tag_name }}
+
   backend-tests:
     name: "Backend Server Tests"
     uses: ./.github/workflows/test-backend.yml
+    needs:
+      - commit-version-bump
 
   frontend-tests:
     name: "Frontend Tests"
     uses: ./.github/workflows/test-frontend.yml
+    needs:
+      - commit-version-bump
 
   build-package:
     name: Build Package
     uses: ./.github/workflows/build-package.yml
+    needs:
+      - commit-version-bump
     with:
       tag: ${{ github.event.release.tag_name }}
 
@@ -43,10 +99,48 @@ jobs:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
+  rollback-on-failure:
+    name: Rollback version commit if deployment fails
+    needs:
+      - commit-version-bump
+      - publish
+    if: always() && needs.publish.result == 'failure'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.COMMIT_BOT_APP_ID }}
+          private-key: ${{ secrets.COMMIT_BOT_APP_PRIVATE_KEY }}
+
+      - name: Checkout 🛎
+        uses: actions/checkout@v4
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "mealie-commit-bot[bot]"
+          git config user.email "mealie-commit-bot[bot]@users.noreply.github.com"
+
+      - name: Delete release tag
+        run: |
+          git push --delete origin ${{ github.event.release.tag_name }}
+
+      - name: Revert version bump commit
+        run: |
+          git revert --no-edit ${{ needs.commit-version-bump.outputs.commit-sha }}
+          git push origin HEAD:${{ github.event.repository.default_branch }}
+
   notify-discord:
     name: Notify Discord
     needs:
       - publish
+    if: success()
     runs-on: ubuntu-latest
     steps:
       - name: Discord notification
@@ -55,41 +149,3 @@ jobs:
         uses: Ilshidur/action-discord@0.3.2
         with:
           args: "🚀  Version {{ EVENT_PAYLOAD.release.tag_name }} of Mealie has been released. See the release notes https://github.com/mealie-recipes/mealie/releases/tag/{{ EVENT_PAYLOAD.release.tag_name }}"
-
-  update-image-tags:
-    name: Update image tag in sample docker-compose files
-    needs:
-      - publish
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    steps:
-      - name: Checkout 🛎
-        uses: actions/checkout@v4
-
-      - name: Extract Version From Tag Name
-        run: echo "VERSION_NUM=$(echo ${{ github.event.release.tag_name }} | sed 's/^v//')" >> $GITHUB_ENV
-
-      - name: Modify version strings
-        run: |
-          sed -i 's/:v[0-9]*.[0-9]*.[0-9]*/:v${{ env.VERSION_NUM }}/' docs/docs/documentation/getting-started/installation/installation-checklist.md
-          sed -i 's/:v[0-9]*.[0-9]*.[0-9]*/:v${{ env.VERSION_NUM }}/' docs/docs/documentation/getting-started/installation/sqlite.md
-          sed -i 's/:v[0-9]*.[0-9]*.[0-9]*/:v${{ env.VERSION_NUM }}/' docs/docs/documentation/getting-started/installation/postgres.md
-          sed -i 's/^version = "[^"]*"/version = "${{ env.VERSION_NUM }}"/' pyproject.toml
-          sed -i 's/\("version": "\)[^"]*"/\1${{ env.VERSION_NUM }}"/' frontend/package.json
-
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        # This doesn't currently work for us because it creates the PR but the workflows don't run.
-        # TODO: Provide a personal access token as a parameter here, that solves that problem.
-        # https://github.com/peter-evans/create-pull-request
-        with:
-          commit-message: "Update image tag, for release ${{ github.event.release.tag_name }}"
-          branch: "docs/newrelease-update-version-${{ github.event.release.tag_name }}"
-          labels: |
-            documentation
-          delete-branch: true
-          base: mealie-next
-          title: "docs(auto): Update image tag, for release ${{ github.event.release.tag_name }}"
-          body: "Auto-generated by `.github/workflows/release.yml`, on publish of release ${{ github.event.release.tag_name }}"

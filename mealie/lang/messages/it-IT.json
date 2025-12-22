@@ -5,10 +5,10 @@
     "recipe": {
         "unique-name-error": "I nomi delle ricette devono essere univoci",
         "recipe-created": "Ricetta Creata",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "Immagine della ricetta eliminata",
         "recipe-defaults": {
             "ingredient-note": "1 Tazza Di Farina",
-            "step-text": "I passaggi della ricetta e altri campi nella pagina delle ricette supportano la sintassi markdown.\n\n**Aggiungi un link**\n\n[Il mio Link](https://demo.mealie.io)"
+            "step-text": "I passaggi della ricetta e altri campi nella pagina delle ricette supportano la sintassi markdown.\n\n**Aggiungi un link**\n\n[Il mio Link](https://demo.mealie.io)\nrecipe.recipe-defaults.step-text"
         },
         "servings-text": {
             "makes": "Rende",
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Non hai i permessi per eseguire quest'azione",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Una ricetta non può fare riferimento a sé stessa, né direttamente né indirettamente",
         "no-entry-found": "La risorsa richiesta non è stata trovata",
         "integrity-error": "Errore di integrità del database",
         "username-conflict-error": "Questo nome utente è già in uso",
@@ -66,7 +66,7 @@
             "button_text": "Reimposta Password"
         },
         "invitation": {
-            "subject": "Invito ad unirsi a Mealie",
+            "subject": "Invito a unirsi a Mealie",
             "header_text": "Sei Invitato!",
             "message_top": "Sei stato invitato a unirti a Mealie.",
             "message_bottom": "Fare clic sul pulsante qui sopra per accettare l'invito.",
@@ -77,7 +77,7 @@
             "header_text": "Email di prova",
             "message_top": "Questa è una email di prova.",
             "message_bottom": "Fare clic sul pulsante qui sopra per inviare l'email di prova.",
-            "button_text": "Apri Mealie"
+            "button_text": "Apri Malie"
         }
     }
 }

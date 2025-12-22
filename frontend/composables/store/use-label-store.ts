@@ -6,6 +6,11 @@ import { useUserApi } from "~/composables/api";
 const store: Ref<MultiPurposeLabelOut[]> = ref([]);
 const loading = ref(false);
 
+export function resetLabelStore() {
+  store.value = [];
+  loading.value = false;
+}
+
 export const useLabelData = function () {
   return useData<MultiPurposeLabelOut>({
     groupId: "",

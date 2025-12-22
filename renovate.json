@@ -20,6 +20,12 @@
         "npm"
       ],
       "dependencyDashboardApproval": true
+    },
+    {
+      "matchManagers": [
+        "pep621"
+      ],
+      "rangeStrategy": "pin"
     }
   ]
 }

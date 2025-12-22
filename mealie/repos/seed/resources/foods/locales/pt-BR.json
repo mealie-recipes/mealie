@@ -101,7 +101,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "milho doce",
-                "plural_name": "milhos-doce"
+                "plural_name": "milhos doce"
             },
             "chile pepper": {
                 "aliases": [
@@ -109,13 +109,13 @@
                 ],
                 "description": "",
                 "name": "pimenta malagueta",
-                "plural_name": "pimentas-malagueta"
+                "plural_name": "pimentas malagueta"
             },
             "sweet potato": {
                 "aliases": [],
                 "description": "",
                 "name": "batata-doce",
-                "plural_name": "batatas-doce"
+                "plural_name": "batatas doce"
             },
             "broccoli": {
                 "aliases": [],
@@ -1246,7 +1246,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Cogumelo Shiitake",
-                "plural_name": "shiitake mushrooms"
+                "plural_name": "shitakes"
             },
             "portobello mushroom": {
                 "aliases": [],
@@ -10670,8 +10670,8 @@
             "sesame oil": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame oil",
-                "plural_name": "sesame oils"
+                "name": "óleo de gergelim",
+                "plural_name": "óleos de gergelim"
             },
             "frying oil": {
                 "aliases": [],
@@ -10694,8 +10694,8 @@
             "toasted sesame oil": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted sesame oil",
-                "plural_name": "toasted sesame oils"
+                "name": "óleo de gergelim torrado",
+                "plural_name": "óleos de gergelim torrado"
             },
             "peanut oil": {
                 "aliases": [],
@@ -11234,8 +11234,8 @@
             "sesame dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame dressing",
-                "plural_name": "sesame dressings"
+                "name": "molho de gergelim para salada",
+                "plural_name": "molhos de gergelim para salada"
             },
             "honey mustard dressing": {
                 "aliases": [],
@@ -13144,8 +13144,8 @@
             "sesame sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame sauce",
-                "plural_name": "sesame sauces"
+                "name": "molho de gergelim",
+                "plural_name": "molhos de gergelim"
             },
             "cheese spread": {
                 "aliases": [],

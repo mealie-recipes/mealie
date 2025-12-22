@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Numele rețetei trebuie să fie unic",
         "recipe-created": "Rețetă creată",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "Imaginea rețetei a fost ștearsă",
         "recipe-defaults": {
             "ingredient-note": "1 Cană de Făină",
             "step-text": "Pașii rețetei precum și alte domenii din sintaxa markdown de pe pagina de rețetă.\n\n**Adăugați un link**\n\n[Link-ul meu](https://demo.mealie.io)\n"
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Nu aveți permisiunile necesare pentru a efectua această acțiune",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "O rețetă nu poate să se refere la ea însăși, nici direct, nici indirect",
         "no-entry-found": "Pagina solicitată nu a fost găsită",
         "integrity-error": "Eroare la integritatea bazei de date",
         "username-conflict-error": "Acest nume de utilizator deja există",
@@ -46,7 +46,7 @@
         "generic-updated-with-url": "{name} a fost actualizat, {url}",
         "generic-duplicated": "{name} a fost duplicat",
         "generic-deleted": "{name} a fost șters",
-        "logged-out": "Logged out"
+        "logged-out": "Deconectat"
     },
     "datetime": {
         "year": "an|ani",
