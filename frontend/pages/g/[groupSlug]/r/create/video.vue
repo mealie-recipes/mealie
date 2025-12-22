@@ -26,12 +26,6 @@
           />
         </v-card-text>
         <v-checkbox
-          v-model="importKeywordsAsTags"
-          color="primary"
-          hide-details
-          :label="$t('recipe.import-original-keywords-as-tags')"
-        />
-        <v-checkbox
           v-model="stayInEditMode"
           color="primary"
           hide-details
@@ -52,6 +46,12 @@
               type="submit"
               :loading="loading"
             />
+            <p
+              v-if="loading"
+              class="text-center mt-2 text-caption"
+            >
+              {{ $t('recipe.create-recipe-from-video-loading-hint') }}
+            </p>
           </div>
         </v-card-actions>
       </div>
@@ -76,22 +76,17 @@
 
         <div class="force-url-white">
           <p>
-            {{ $t("recipe.scrape-recipe-website-being-blocked") }}
-            <router-link :to="htmlOrJsonImporterTarget">{{ $t("recipe.scrape-recipe-try-importing-raw-html-instead") }}</router-link>
-          </p>
-          <br>
-          <p>
-            {{ $t("new-recipe.error-details") }}
+            {{ $t('recipe.create-recipe-from-video-error-description') }}
           </p>
         </div>
         <div class="d-flex row justify-space-around my-3 force-url-white">
           <a
             class="dark"
-            href="https://developers.google.com/search/docs/data-types/recipe"
+            href="https://ytdl-org.github.io/youtube-dl/supportedsites.html"
             target="_blank"
             rel="noreferrer nofollow"
           >
-            {{ $t("new-recipe.google-ld-json-info") }}
+            {{ $t('recipe.create-recipe-from-video-supported-sites') }}
           </a>
           <a
             href="https://github.com/mealie-recipes/mealie/issues"
@@ -179,13 +174,6 @@ export default defineNuxtComponent({
         // Check if we have a query params for using keywords as tags or staying in edit mode.
         // We don't use these in the app anymore, but older automations such as Bookmarklet might still use them,
         // and they're easy enough to support.
-        const importKeywordsAsTagsParam = route.query.use_keywords;
-        if (importKeywordsAsTagsParam === "1") {
-          importKeywordsAsTags.value = true;
-        }
-        else if (importKeywordsAsTagsParam === "0") {
-          importKeywordsAsTags.value = false;
-        }
 
         const stayInEditModeParam = route.query.edit;
         if (stayInEditModeParam === "1") {
