@@ -37,7 +37,6 @@
                   $t('settings.backup.backup-restore-process-in-the-documentation') }}</a>
               </template>
             </i18n-t>
-            {{ $t('') }}
           </p>
 
           <v-checkbox
