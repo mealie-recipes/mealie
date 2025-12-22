@@ -14,6 +14,12 @@ class BackupSchemaMismatch(Exception): ...
 
 
 class BackupV2(BaseService):
+    EXCLUDE_DIRS = {"backups", ".temp"}
+    EXCLUDE_FILES = {"mealie.db", "mealie.log"}
+    EXCLUDE_EXTENTIONS = {".zip"}
+
+    RESTORE_FILES = {".secret"}
+
     def __init__(self, db_url: str | None = None) -> None:
         super().__init__()
 
@@ -34,10 +40,6 @@ class BackupV2(BaseService):
 
     def backup(self) -> Path:
         # sourcery skip: merge-nested-ifs, reintroduce-else, remove-redundant-continue
-        exclude = {"mealie.db", "mealie.log"}
-        exclude_ext = {".zip"}
-        exclude_dirs = {"backups", ".temp"}
-
         timestamp = datetime.datetime.now(datetime.UTC).strftime("%Y.%m.%d.%H.%M.%S")
 
         backup_name = f"mealie_{timestamp}.zip"
@@ -49,11 +51,11 @@ class BackupV2(BaseService):
             zip_file.writestr("database.json", json.dumps(database_json))
 
             for data_file in self.directories.DATA_DIR.glob("**/*"):
-                if data_file.name in exclude:
+                if data_file.name in self.EXCLUDE_FILES:
                     continue
 
-                if data_file.is_file() and data_file.suffix not in exclude_ext:
-                    if data_file.parent.name in exclude_dirs:
+                if data_file.is_file() and data_file.suffix not in self.EXCLUDE_EXTENTIONS:
+                    if data_file.parent.name in self.EXCLUDE_DIRS:
                         continue
 
                     zip_file.write(data_file, f"data/{data_file.relative_to(self.directories.DATA_DIR)}")
@@ -61,10 +63,9 @@ class BackupV2(BaseService):
         return backup_file
 
     def _copy_data(self, data_path: Path) -> None:
-        restore_files = {".secret"}
         for f in data_path.iterdir():
             if f.is_file():
-                if f.name not in restore_files:
+                if f.name not in self.RESTORE_FILES:
                     continue
 
                 shutil.copyfile(f, self.directories.DATA_DIR / f.name)
