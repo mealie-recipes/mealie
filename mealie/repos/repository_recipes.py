@@ -21,7 +21,7 @@ from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.db.models.users.users import User
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
-from mealie.schema.recipe.recipe import RecipeCategory, RecipePagination, RecipeSummary, create_recipe_slug
+from mealie.schema.recipe.recipe import RecipePagination, RecipeSummary, create_recipe_slug
 from mealie.schema.recipe.recipe_ingredient import IngredientFood
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponseItem
 from mealie.schema.recipe.recipe_tool import RecipeToolOut
@@ -270,24 +270,6 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             total_pages=total_pages,
             items=items,
         )
-
-    def get_by_categories(self, categories: list[RecipeCategory]) -> list[RecipeSummary]:
-        """
-        get_by_categories returns all the Recipes that contain every category provided in the list
-        """
-
-        ids = [x.id for x in categories]
-        stmt = (
-            sa.select(RecipeModel)
-            .join(RecipeModel.recipe_category)
-            .filter(RecipeModel.recipe_category.any(Category.id.in_(ids)))
-        )
-        if self.group_id:
-            stmt = stmt.filter(RecipeModel.group_id == self.group_id)
-        if self.household_id:
-            stmt = stmt.filter(RecipeModel.household_id == self.household_id)
-
-        return [RecipeSummary.model_validate(x) for x in self.session.execute(stmt).unique().scalars().all()]
 
     def _build_recipe_filter(
         self,
