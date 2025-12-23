@@ -165,6 +165,15 @@ const items = computed<any[]>(() => {
   return list;
 });
 
+function removeByIndex(index: number) {
+  if (selected.value === undefined) {
+    return;
+  }
+
+  const newSelected = selected.value.filter((_, i) => i !== index);
+  selected.value = [...newSelected];
+}
+
 function appendCreated(item: any) {
   if (selected.value === undefined) {
     return;
