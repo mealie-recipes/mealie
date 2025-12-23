@@ -9,6 +9,7 @@ from typing import Any
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
 from sqlalchemy import ColumnElement, Select, case, delete, func, nulls_first, nulls_last, select
+from sqlalchemy.ext.associationproxy import AssociationProxyInstance
 from sqlalchemy.orm import InstrumentedAttribute
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
@@ -77,6 +78,13 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
 
     def _query(self, override_schema: type[MealieModel] | None = None, with_options=True):
         q = select(self.model)
+
+        try:
+            if isinstance(self.model.household_id, AssociationProxyInstance):
+                q.filter(self.model.household_id.is_not(None))
+        except AttributeError:
+            pass
+
         if with_options:
             schema = override_schema or self.schema
             return q.options(*schema.loader_options())
@@ -87,6 +95,7 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         dct = {}
         if self.group_id:
             dct["group_id"] = self.group_id
+
         if self.household_id:
             dct["household_id"] = self.household_id
 
