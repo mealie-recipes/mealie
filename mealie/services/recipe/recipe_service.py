@@ -102,7 +102,7 @@ class RecipeService(RecipeServiceBase):
             LEFT JOIN users u ON u.id = r.user_id
             LEFT JOIN households h ON h.id = u.household_id
             LEFT JOIN household_preferences hp ON hp.household_id = h.id
-            WHERE r.slug IN (:recipe_slugs);
+            WHERE r.slug IN :recipe_slugs;
             """
         )
 
