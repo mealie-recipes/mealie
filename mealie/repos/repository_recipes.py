@@ -389,7 +389,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         ingredients_alias = orm.aliased(RecipeIngredientModel)
         tools_alias = orm.aliased(Tool)
 
-        q = sa.select(self.model).filter_by(self.model.household_id.is_not(None))
+        q = sa.select(self.model).filter(self.model.household_id.is_not(None))
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
 
