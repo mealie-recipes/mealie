@@ -83,12 +83,12 @@ class RecipeService(RecipeServiceBase):
                             WHEN r.user_id = :user_id THEN 1
 
                             -- Not owner: check if recipe is locked
-                            WHEN COALESCE(rs.locked, 0) = 1 THEN 0
+                            WHEN COALESCE(rs.locked, 1) = 1 THEN 0
 
                             -- Different household: check household policy
                             WHEN
                                 u.household_id != :household_id
-                                AND COALESCE(hp.lock_recipe_edits_from_other_households, 0) = 1
+                                AND COALESCE(hp.lock_recipe_edits_from_other_households, 1) = 1
                             THEN 0
 
                             -- All other cases: can update
