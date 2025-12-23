@@ -17,6 +17,7 @@ from mealie.schema.recipe.recipe_bulk_actions import (
 )
 from mealie.schema.response.responses import SuccessResponse
 from mealie.services.recipe.recipe_bulk_service import RecipeBulkActionsService
+from mealie.services.recipe.recipe_service import RecipeService
 
 router = APIRouter(prefix="/bulk-actions")
 
@@ -26,6 +27,10 @@ class RecipeBulkActionsController(BaseUserController):
     @cached_property
     def service(self) -> RecipeBulkActionsService:
         return RecipeBulkActionsService(self.repos, self.user, self.group)
+
+    @cached_property
+    def recipe_service(self) -> RecipeService:
+        return RecipeService(self.repos, self.user, self.household, self.translator)
 
     # TODO Should these actions return some success response?
     @router.post("/tag")
@@ -42,7 +47,7 @@ class RecipeBulkActionsController(BaseUserController):
 
     @router.post("/delete")
     def bulk_delete_recipes(self, delete_recipes: DeleteRecipes):
-        self.service.delete_recipes(delete_recipes.recipes)
+        self.recipe_service.delete_many(delete_recipes.recipes)
 
     @router.post("/export", status_code=202)
     def bulk_export_recipes(self, export_recipes: ExportRecipes):

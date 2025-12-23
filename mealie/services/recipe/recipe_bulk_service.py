@@ -110,11 +110,3 @@ class RecipeBulkActionsService(BaseService):
             except Exception as e:
                 self.logger.error(f"Failed to categorize recipe {slug}")
                 self.logger.error(e)
-
-    def delete_recipes(self, recipes: list[str]) -> None:
-        for slug in recipes:
-            try:
-                self.repos.recipes.delete(slug)
-            except Exception as e:
-                self.logger.error(f"Failed to delete recipe {slug}")
-                self.logger.error(e)
