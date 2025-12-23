@@ -514,7 +514,24 @@ class RecipeService(RecipeServiceBase):
             raise exceptions.PermissionDenied("You do not have permission to delete this recipe.")
 
         data = self.group_recipes.delete(recipe.id, "id")
-        self.delete_assets(data)
+        try:
+            self.delete_assets(data)
+        except Exception:
+            self.logger.exception(f"Failed to delete recipe assets for {data.slug}")
+
+        return data
+
+    def delete_many(self, recipe_slugs: list[str]) -> list[Recipe]:
+        if not self.can_delete(recipe_slugs):
+            raise exceptions.PermissionDenied("You do not have permission to delete all of these recipes.")
+
+        data = self.group_recipes.delete_many(recipe_slugs)
+        for r in data:
+            try:
+                self.delete_assets(r)
+            except Exception:
+                self.logger.exception(f"Failed to delete recipe assets for {r.slug}")
+
         return data
 
     # =================================================================
