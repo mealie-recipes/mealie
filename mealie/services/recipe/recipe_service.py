@@ -102,7 +102,7 @@ class RecipeService(RecipeServiceBase):
             LEFT JOIN users u ON u.id = r.user_id
             LEFT JOIN households h ON h.id = u.household_id
             LEFT JOIN household_preferences hp ON hp.household_id = h.id
-            WHERE r.slug IN :recipe_slugs;
+            WHERE r.slug IN :recipe_slugs AND r.group_id = :group_id;
             """
         )
 
@@ -111,6 +111,7 @@ class RecipeService(RecipeServiceBase):
             params={
                 "user_id": self.repos.uuid_to_str(self.user.id),
                 "household_id": self.repos.uuid_to_str(self.household.id),
+                "group_id": self.repos.uuid_to_str(self.user.group_id),
                 "recipe_slugs": recipe_slugs,
             },
         ).scalar()
