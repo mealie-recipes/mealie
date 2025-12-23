@@ -130,7 +130,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         return self._delete_recipe(recipe_in_db)
 
     def delete_many(self, values: Iterable) -> list[Recipe]:
-        query = self._query().filter(self.model.slug.in_(values))
+        query = self._query().filter(self.model.slug.in_(values)).filter_by(**self._filter_builder())
         recipes_in_db = self.session.execute(query).unique().scalars().all()
         results: list[Recipe] = []
 
