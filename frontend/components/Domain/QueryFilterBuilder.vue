@@ -144,11 +144,13 @@
               variant="underlined"
               @update:model-value="setFieldValue(field, index, $event)"
             />
-            <v-text-field
+            <v-number-input
               v-else-if="field.type === 'number'"
               :model-value="field.value"
-              type="number"
               variant="underlined"
+              control-variant="stacked"
+              inset
+              :precision="null"
               @update:model-value="setFieldValue(field, index, $event)"
             />
             <v-checkbox

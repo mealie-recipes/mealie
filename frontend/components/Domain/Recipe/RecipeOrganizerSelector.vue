@@ -48,8 +48,7 @@
 </template>
 
 <script setup lang="ts">
-import type { IngredientFood, RecipeCategory, RecipeTag } from "~/lib/api/types/recipe";
-import type { RecipeTool } from "~/lib/api/types/admin";
+import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
@@ -165,6 +164,15 @@ const items = computed<any[]>(() => {
   const list = (activeStore.value as unknown as any[]) ?? [];
   return list;
 });
+
+function removeByIndex(index: number) {
+  if (selected.value === undefined) {
+    return;
+  }
+
+  const newSelected = selected.value.filter((_, i) => i !== index);
+  selected.value = [...newSelected];
+}
 
 function appendCreated(item: any) {
   if (selected.value === undefined) {

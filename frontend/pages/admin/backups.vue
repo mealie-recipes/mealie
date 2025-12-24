@@ -81,6 +81,7 @@
         >
           <BaseButton
             class="mr-2"
+            :loading="runningBackup"
             @click="createBackup"
           >
             {{ $t("settings.backup.create-heading") }}
@@ -182,6 +183,7 @@ export default defineNuxtComponent({
     }
 
     async function createBackup() {
+      state.runningBackup = true;
       const { data } = await adminApi.backups.create();
 
       if (data?.error === false) {
@@ -191,6 +193,7 @@ export default defineNuxtComponent({
       else {
         alert.error(i18n.t("settings.backup.error-creating-backup-see-log-file"));
       }
+      state.runningBackup = false;
     }
 
     async function restoreBackup(fileName: string) {
@@ -227,6 +230,7 @@ export default defineNuxtComponent({
       deleteDialog: false,
       createDialog: false,
       importDialog: false,
+      runningBackup: false,
       runningRestore: false,
       search: "",
       headers: [

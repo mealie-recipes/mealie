@@ -22,12 +22,15 @@
         cols="12"
         class="flex-grow-0 flex-shrink-0"
       >
-        <v-text-field
+        <v-number-input
           v-model="model.quantity"
           variant="solo"
+          :precision="null"
+          :min="0"
           hide-details
+          control-variant="stacked"
+          inset
           density="compact"
-          type="number"
           :placeholder="$t('recipe.quantity')"
           @keypress="quantityFilter"
         >
@@ -38,7 +41,7 @@
               {{ $globals.icons.arrowUpDown }}
             </v-icon>
           </template>
-        </v-text-field>
+        </v-number-input>
       </v-col>
       <v-col
         v-if="!state.isRecipe"

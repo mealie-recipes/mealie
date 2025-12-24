@@ -27,7 +27,6 @@ import type HelpIcon from "@/components/global/HelpIcon.vue";
 import type ImageCropper from "@/components/global/ImageCropper.vue";
 import type InputColor from "@/components/global/InputColor.vue";
 import type InputLabelType from "@/components/global/InputLabelType.vue";
-import type InputQuantity from "@/components/global/InputQuantity.vue";
 import type LanguageDialog from "@/components/global/LanguageDialog.vue";
 import type MarkdownEditor from "@/components/global/MarkdownEditor.vue";
 import type RecipeJsonEditor from "@/components/global/RecipeJsonEditor.vue";
@@ -69,7 +68,6 @@ declare module "vue" {
     ImageCropper: typeof ImageCropper;
     InputColor: typeof InputColor;
     InputLabelType: typeof InputLabelType;
-    InputQuantity: typeof InputQuantity;
     LanguageDialog: typeof LanguageDialog;
     MarkdownEditor: typeof MarkdownEditor;
     RecipeJsonEditor: typeof RecipeJsonEditor;
