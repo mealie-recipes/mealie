@@ -3586,7 +3586,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "coconut fat",
-                "plural_name": "coconut fats"
+                "plural_name": "kokosvet"
             },
             "flax milk": {
                 "aliases": [],
@@ -3920,7 +3920,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pork belly",
-                "plural_name": "pork bellies"
+                "plural_name": "buikspek"
             },
             "andouille": {
                 "aliases": [],
@@ -4231,7 +4231,7 @@
             "blood sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "blood sausage",
+                "name": "bloedworst",
                 "plural_name": "bloedworsten"
             },
             "dried beef": {
