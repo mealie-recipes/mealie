@@ -40,14 +40,14 @@
             "potato": {
                 "aliases": [],
                 "description": "",
-                "name": "papa",
-                "plural_name": "papas"
+                "name": "patata",
+                "plural_name": "patatas"
             },
             "red onion": {
                 "aliases": [],
                 "description": "",
                 "name": "cebolla roja",
-                "plural_name": "cebolla roja"
+                "plural_name": "cebollas rojas"
             },
             "yellow onion": {
                 "aliases": [],
@@ -71,7 +71,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "aguacate",
-                "plural_name": "aguacate"
+                "plural_name": "aguacates"
             },
             "shallot": {
                 "aliases": [],
@@ -368,7 +368,7 @@
             },
             "napa cabbage": {
                 "aliases": [
-                    "Col Chino"
+                    "col china"
                 ],
                 "description": "",
                 "name": "repollo",
@@ -450,7 +450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hoja de lechuga",
-                "plural_name": "hoja de lechuga"
+                "plural_name": "hojas de lechuga"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -493,14 +493,14 @@
             "collard green": {
                 "aliases": [],
                 "description": "",
-                "name": "",
+                "name": "col rizada",
                 "plural_name": "col rizada"
             },
             "french-fried onion": {
                 "aliases": [],
                 "description": "",
-                "name": "Cebolla frita",
-                "plural_name": "Cebollas fritas"
+                "name": "cebolla frita",
+                "plural_name": "cebollas fritas"
             },
             "daikon": {
                 "aliases": [],
@@ -517,14 +517,14 @@
             "broccoli rabe": {
                 "aliases": [],
                 "description": "",
-                "name": "Grelo",
+                "name": "grelo",
                 "plural_name": "grelos"
             },
             "rutabaga": {
                 "aliases": [],
                 "description": "",
-                "name": "nabo sueco",
-                "plural_name": "Nabos suecos"
+                "name": "colinabo",
+                "plural_name": "colinabos"
             },
             "belgian endive": {
                 "aliases": [],
@@ -535,8 +535,8 @@
             "yam": {
                 "aliases": [],
                 "description": "",
-                "name": "Batata",
-                "plural_name": "Batatas"
+                "name": "batata",
+                "plural_name": "batatas"
             },
             "ancho chile pepper": {
                 "aliases": [],
@@ -559,8 +559,8 @@
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
-                "name": "Colinabo",
-                "plural_name": "Colinabos"
+                "name": "colirrábano",
+                "plural_name": "colirrábanos"
             },
             "fresno chile": {
                 "aliases": [],
@@ -1859,8 +1859,8 @@
             "watermelon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon seed",
-                "plural_name": "watermelon seeds"
+                "name": "semilla de sandía",
+                "plural_name": "semillas de sandía"
             },
             "honey-roasted peanut": {
                 "aliases": [],
@@ -1871,7 +1871,7 @@
             "melon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "melon seed",
+                "name": "semilla de melón",
                 "plural_name": "semillas de melón"
             },
             "lotus seed": {
@@ -2453,8 +2453,8 @@
             "hard goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "hard goat cheese",
-                "plural_name": "hard goat cheeses"
+                "name": "queso de cabra curado",
+                "plural_name": "quesos de cabra curados"
             },
             "kashkaval": {
                 "aliases": [],
@@ -2465,8 +2465,8 @@
             "sheep cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep cheese",
-                "plural_name": "sheep cheeses"
+                "name": "queso de oveja",
+                "plural_name": "quesos de oveja"
             },
             "amul cheese": {
                 "aliases": [],
@@ -2933,8 +2933,8 @@
             "yogurt starter": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt starter",
-                "plural_name": "yogurt starters"
+                "name": "fermento de yogur",
+                "plural_name": "fermentos de yogur"
             },
             "rainbow sherbet": {
                 "aliases": [],
@@ -3029,8 +3029,8 @@
             "liquid rennet": {
                 "aliases": [],
                 "description": "",
-                "name": "liquid rennet",
-                "plural_name": "liquid rennets"
+                "name": "cuajo líquido",
+                "plural_name": "cuajos líquidos"
             },
             "sheep’s milk yoghurt": {
                 "aliases": [],
@@ -3095,8 +3095,8 @@
             "ostrich egg": {
                 "aliases": [],
                 "description": "",
-                "name": "ostrich egg",
-                "plural_name": "ostrich eggs"
+                "name": "huevo de avestruz",
+                "plural_name": "huevos de avestruz"
             },
             "vanilla milk": {
                 "aliases": [],
