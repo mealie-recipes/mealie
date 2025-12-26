@@ -133,7 +133,7 @@ For custom mapping variables (e.g. OPENAI_CUSTOM_HEADERS) you should pass values
 | OPENAI_ENABLE_IMAGE_SERVICES                      |  True   | Whether to enable OpenAI image services, such as creating recipes via image. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs     |
 | OPENAI_ENABLE_TRANSCRIPTION_SERVICES                 |  True   | Whether to enable OpenAI transcription services, such as creating recipes via video URL. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs |
 |
-OPENAI_WORKERS                                    |    2    | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs                                                       |
+| OPENAI_WORKERS                                    |    2    | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs                                                       |
 | OPENAI_SEND_DATABASE_DATA                         |  True   | Whether to send Mealie data to OpenAI to improve request accuracy. This will incur additional API costs                                                                      |
 | OPENAI_REQUEST_TIMEOUT                            |   300   | The number of seconds to wait for an OpenAI request to complete before cancelling the request. Leave this empty unless you're running into timeout issues on slower hardware |
 
