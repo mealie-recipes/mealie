@@ -322,4 +322,3 @@ def test_proxy_auth_login_no_header(api_client: TestClient, unique_user: TestUse
     assert response.status_code == 200
 
     get_app_settings.cache_clear()
-

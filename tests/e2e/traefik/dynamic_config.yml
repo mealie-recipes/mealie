@@ -1,0 +1,22 @@
+http:
+  middlewares:
+    addRemoteUser:
+      headers:
+        customRequestHeaders:
+          # NOTE: DO NOT DO THIS IN A PRODUCTION ENVIRONMENT
+          Remote-User: "john"
+
+  routers:
+    mealie-http:
+      entryPoints:
+        - web
+      service: mealie
+      middlewares:
+        - "addRemoteUser"
+      rule: Host(`mealie.localhost`)
+
+  services:
+    mealie:
+      loadBalancer:
+        servers:
+          - url: http://mealie:9000
