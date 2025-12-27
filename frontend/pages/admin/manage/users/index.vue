@@ -35,6 +35,7 @@
           {{ $t("general.create") }}
         </BaseButton>
         <BaseButton
+          v-if="$appInfo.allowPasswordLogin"
           class="mr-2"
           color="info"
           :icon="$globals.icons.link"
@@ -116,7 +117,7 @@ export default defineNuxtComponent({
     const user = computed(() => $auth.user.value);
 
     const i18n = useI18n();
-    const { $globals } = useNuxtApp();
+    const { $globals, $appInfo } = useNuxtApp();
 
     const router = useRouter();
 
