@@ -385,6 +385,33 @@ class AppSettings(AppLoggingSettings):
         return self.OIDC_FEATURE.enabled
 
     # ===============================================
+    # Proxy Auth configuration
+
+    PROXY_AUTH_ENABLED: bool = False
+    REMOTE_USER_HEADER: str = "Remote-User"
+    REMOTE_EMAIL_HEADER: str | None = None
+
+    # For now, this only supports specifying a set of particular IPs.
+    # In future, it may be desirable to support CIDR notation so that
+    # users can trust an entire subnet, such as 10.0.0.0/24.
+
+    @property
+    def PROXY_AUTH_FEATURE(self) -> FeatureDetails:
+        description = None if self.PROXY_AUTH_ENABLED else "PROXY_AUTH_ENABLED is false"
+
+        if not self.REMOTE_USER_HEADER:
+            description = "REMOTE_USER_HEADER is not set"
+
+        return FeatureDetails(
+            enabled=bool(self.PROXY_AUTH_ENABLED and self.REMOTE_USER_HEADER),
+            description=description,
+        )
+
+    @property
+    def PROXY_AUTH_READY(self) -> bool:
+        return self.PROXY_AUTH_FEATURE.enabled
+
+    # ===============================================
     # OpenAI Configuration
 
     OPENAI_BASE_URL: str | None = None

@@ -11,6 +11,7 @@ from mealie.core.security.hasher import get_hasher
 from mealie.core.security.providers.auth_provider import AuthProvider
 from mealie.core.security.providers.credentials_provider import CredentialsProvider
 from mealie.core.security.providers.ldap_provider import LDAPProvider
+from mealie.core.security.providers.proxy_provider import ProxyProvider
 from mealie.schema.user.auth import CredentialsRequest, CredentialsRequestForm
 
 ALGORITHM = "HS256"
@@ -24,6 +25,9 @@ def get_auth_provider(session: Session, data: CredentialsRequestForm) -> AuthPro
     credentials_request = CredentialsRequest(**data.__dict__)
     if settings.LDAP_ENABLED:
         return LDAPProvider(session, credentials_request)
+
+    if settings.PROXY_AUTH_READY:
+        return ProxyProvider(session, credentials_request)
 
     return CredentialsProvider(session, credentials_request)
 
