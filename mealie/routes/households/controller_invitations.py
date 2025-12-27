@@ -2,6 +2,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, Header, HTTPException, status
 
+from mealie.core.config import get_app_settings
 from mealie.core.security import url_safe_token
 from mealie.routes._base import BaseUserController, controller
 from mealie.schema.household.invite_token import (
@@ -25,6 +26,13 @@ class GroupInvitationsController(BaseUserController):
 
     @router.post("", response_model=ReadInviteToken, status_code=status.HTTP_201_CREATED)
     def create_invite_token(self, body: CreateInviteToken):
+        settings = get_app_settings()
+        if not settings.ALLOW_PASSWORD_LOGIN:
+            raise HTTPException(
+                status.HTTP_403_FORBIDDEN,
+                detail="Invitation tokens are disabled when password login is not allowed",
+            )
+
         if not self.user.can_invite:
             raise HTTPException(
                 status.HTTP_403_FORBIDDEN,
@@ -51,6 +59,13 @@ class GroupInvitationsController(BaseUserController):
         invite: EmailInvitation,
         accept_language: Annotated[str | None, Header()] = None,
     ):
+        settings = get_app_settings()
+        if not settings.ALLOW_PASSWORD_LOGIN:
+            raise HTTPException(
+                status.HTTP_403_FORBIDDEN,
+                detail="Invitation email are disabled when password login is not allowed",
+            )
+
         email_service = EmailService(locale=accept_language)
         url = f"{self.settings.BASE_URL}/register?token={invite.token}"
 
