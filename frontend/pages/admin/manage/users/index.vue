@@ -117,7 +117,7 @@ export default defineNuxtComponent({
     const user = computed(() => $auth.user.value);
 
     const i18n = useI18n();
-    const { $globals, $appInfo } = useNuxtApp();
+    const { $globals } = useNuxtApp();
 
     const router = useRouter();
 
