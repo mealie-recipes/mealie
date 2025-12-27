@@ -176,6 +176,7 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   [key: string]: any;
   deleted: [slug: string];
+  print: [];
 }>();
 
 const api = useUserApi();
