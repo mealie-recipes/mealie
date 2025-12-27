@@ -40,6 +40,7 @@ class AdminAboutController(BaseAdminController):
             enable_openai_image_services=settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_IMAGE_SERVICES,
             enable_openai_transcription_services=settings.OPENAI_ENABLED
             and settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES,
+            proxy_auth_enabled=settings.PROXY_AUTH_ENABLED,
         )
 
     @router.get("/statistics", response_model=AppStatistics)
