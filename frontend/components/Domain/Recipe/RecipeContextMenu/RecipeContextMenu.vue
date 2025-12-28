@@ -23,7 +23,6 @@
           :fab="fab"
           v-bind="activatorProps"
           @click.prevent
-          @mouseenter="onHover"
         >
           <v-icon
             :size="!fab ? undefined : 'x-large'"
@@ -125,12 +124,6 @@ const contentProps = computed(() => {
   const { ...rest } = props;
   return rest;
 });
-
-function onHover() {
-  if (!isMenuContentLoaded.value) {
-    isMenuContentLoaded.value = true;
-  }
-}
 
 function onMenuToggle(isOpen: boolean) {
   if (isOpen && !isMenuContentLoaded.value) {
