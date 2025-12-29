@@ -11,7 +11,8 @@ test('password login', async ({ page }) => {
     await page.getByRole('button', { name: 'Login', exact: true }).click();
     // skip admin setup page
     await page.getByRole('link', { name: "I'm already set up, just bring me to the homepage" }).click();
-    await expect(page.getByRole('navigation')).toContainText(name);
+    await page.getByTestId("user-menu-button").click();
+    await expect(page.getByTestId("user-menu")).toContainText(name);
 });
 
 test('ldap login', async ({ page }) => {
@@ -24,8 +25,8 @@ test('ldap login', async ({ page }) => {
     await page.getByLabel('Password', { exact: true }).fill(password);
     await page.getByRole('button', { name: 'Login', exact: true }).click();
     await expect(page).toHaveURL(/\/g\/home/);
-    await expect(page.getByRole('navigation')).toContainText(name);
-    await page.getByText('Settings', { exact: true }).click();
+    await page.getByTestId("user-menu-button").click();
+    await expect(page.getByTestId("user-menu")).toContainText(name);
     await expect(page.getByText('Admin Settings')).not.toBeVisible();
 });
 
@@ -40,8 +41,8 @@ test('ldap admin login', async ({ page }) => {
     await page.getByRole('button', { name: 'Login', exact: true }).click();
     // skip admin setup page
     await page.getByRole('link', { name: "I'm already set up, just bring me to the homepage" }).click();
-    await expect(page.getByRole('navigation')).toContainText(name);
-    await page.getByText('Settings', { exact: true }).click();
+    await page.getByTestId("user-menu-button").click();
+    await expect(page.getByTestId("user-menu")).toContainText(name);
     await expect(page.getByText('Admin Settings')).toBeVisible();
 });
 
@@ -62,12 +63,12 @@ test('oidc initial login', async ({ page }) => {
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
     await expect(page).toHaveURL(/\/g\/home/);
-    await expect(page.getByRole('navigation')).toContainText(name);
-    await page.getByText('Settings', { exact: true }).click();
+    await page.getByTestId("user-menu-button").click();
+    await expect(page.getByTestId("user-menu")).toContainText(name);
     await expect(page.getByText('Admin Settings')).not.toBeVisible();
 });
 
-test('oidc login with user not in propery group', async ({ page }) => {
+test('oidc login with user not in property group', async ({ page }) => {
     const username = "testUserNoGroup"
     const name = "Test User No Group"
     const claims = {
@@ -104,15 +105,17 @@ test('oidc sequential login', async ({ page }) => {
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
     await expect(page).toHaveURL(/\/g\/home/, { timeout: 15000 });
-    await expect(page.getByRole('navigation')).toContainText(name);
-    await page.getByRole('button', { name: 'Logout' }).click();
+    await page.getByTestId("user-menu-button").click();
+    await expect(page.getByTestId("user-menu")).toContainText(name);
+    await page.getByTestId('user-menu').getByText('Logout').click();
 
     await expect(page).toHaveURL(/\/login\?direct=1/);
     await page.getByRole('button', { name: 'Login with OAuth' }).click();
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
-    await expect(page.getByRole('navigation')).toContainText(name, { timeout: 15000 });
+    await page.getByTestId("user-menu-button", { timeout: 15000 }).click();
+    await expect(page.getByTestId("user-menu")).toContainText(name);
 });
 
 test('settings page verify oidc', async ({ page }) => {
@@ -131,8 +134,9 @@ test('settings page verify oidc', async ({ page }) => {
     await page.getByPlaceholder('Enter any user/subject').fill(username);
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
-    await expect(page.getByRole('navigation')).toContainText(name);
-    await page.getByRole('button', { name: 'Logout' }).click();
+    await page.getByTestId("user-menu-button").click();
+    await expect(page.getByTestId("user-menu")).toContainText(name);
+    await page.getByTestId('user-menu').getByText('Logout').click();
 
     await expect(page).toHaveURL(/\/login\?direct=1/);
     await page.getByLabel('Email or Username').click();
@@ -169,7 +173,7 @@ test('oidc admin user', async ({ page }) => {
     // skip admin setup page
     await expect(page).toHaveURL(/\/admin\/setup/, { timeout: 15000 });
     await page.getByRole('link', { name: "I'm already set up, just bring me to the homepage" }).click();
-    await expect(page.getByRole('navigation')).toContainText(name);
-    await page.getByText('Settings', { exact: true }).click();
+    await page.getByTestId("user-menu-button").click();
+    await expect(page.getByTestId("user-menu")).toContainText(name);
     await expect(page.getByText('Admin Settings')).toBeVisible();
 });

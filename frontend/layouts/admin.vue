@@ -15,7 +15,6 @@
       v-model="sidebar"
       absolute
       :top-link="topLinks"
-      :user="{ data: true }"
       :secondary-header="$t('sidebar.developer')"
       :secondary-links="developerLinks"
     />
