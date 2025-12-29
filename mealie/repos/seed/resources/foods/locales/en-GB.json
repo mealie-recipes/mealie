@@ -340,7 +340,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chard",
-                "plural_name": "chards"
+                "plural_name": "chard"
             },
             "pimiento": {
                 "aliases": [],
@@ -2626,7 +2626,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "milk",
-                "plural_name": "milks"
+                "plural_name": "milk"
             },
             "heavy cream": {
                 "aliases": [],
@@ -2644,7 +2644,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "buttermilk",
-                "plural_name": "buttermilks"
+                "plural_name": "buttermilk"
             },
             "yogurt": {
                 "aliases": [],
@@ -2688,7 +2688,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "condensed milk",
-                "plural_name": "condensed milks"
+                "plural_name": "condensed milk"
             },
             "half and half": {
                 "aliases": [],
@@ -2700,7 +2700,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sweetened condensed milk",
-                "plural_name": "sweetened condensed milks"
+                "plural_name": "sweetened condensed milk"
             },
             "ice cream": {
                 "aliases": [],
@@ -2730,7 +2730,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "milk powder",
-                "plural_name": "milk powders"
+                "plural_name": "milk powder"
             },
             "curd": {
                 "aliases": [],
@@ -2784,7 +2784,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chocolate milk",
-                "plural_name": "chocolate milks"
+                "plural_name": "chocolate milk"
             },
             "liquid egg substitute": {
                 "aliases": [],
@@ -2814,7 +2814,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "buttermilk powder",
-                "plural_name": "buttermilk powders"
+                "plural_name": "buttermilk powder"
             },
             "frozen yogurt": {
                 "aliases": [],
@@ -2832,7 +2832,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "milk cream",
-                "plural_name": "milk creams"
+                "plural_name": "milk cream"
             },
             "coffee creamer": {
                 "aliases": [],
@@ -2850,7 +2850,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "goat milk",
-                "plural_name": "goat milks"
+                "plural_name": "goat milk"
             },
             "cheese curd": {
                 "aliases": [],
@@ -2862,7 +2862,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sour milk",
-                "plural_name": "sour milks"
+                "plural_name": "sour milk"
             },
             "ganache": {
                 "aliases": [],
@@ -2904,7 +2904,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "raw milk",
-                "plural_name": "raw milks"
+                "plural_name": "raw milk"
             },
             "lime curd": {
                 "aliases": [],
@@ -3024,7 +3024,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chocolate milk powder",
-                "plural_name": "chocolate milk powders"
+                "plural_name": "chocolate milk powder"
             },
             "liquid rennet": {
                 "aliases": [],
@@ -3035,14 +3035,14 @@
             "sheep’s milk yoghurt": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep’s milk yoghurt",
-                "plural_name": "sheep’s milk yoghurts"
+                "name": "sheep's milk yoghurt",
+                "plural_name": "sheep's milk yoghurt"
             },
             "strawberry milk": {
                 "aliases": [],
                 "description": "",
                 "name": "strawberry milk",
-                "plural_name": "strawberry milks"
+                "plural_name": "strawberry milk"
             },
             "ayran": {
                 "aliases": [],
@@ -3078,7 +3078,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sheep milk",
-                "plural_name": "sheep milks"
+                "plural_name": "sheep milk"
             },
             "starter culture": {
                 "aliases": [],
@@ -3102,7 +3102,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vanilla milk",
-                "plural_name": "vanilla milks"
+                "plural_name": "vanilla milk"
             },
             "yoplait whip": {
                 "aliases": [],
@@ -3114,7 +3114,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "buffalo milk",
-                "plural_name": "buffalo milks"
+                "plural_name": "buffalo milk"
             },
             "goat kefir": {
                 "aliases": [],
@@ -3136,13 +3136,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "coconut milk",
-                "plural_name": "coconut milks"
+                "plural_name": "coconut milk"
             },
             "almond milk": {
                 "aliases": [],
                 "description": "",
                 "name": "almond milk",
-                "plural_name": "almond milks"
+                "plural_name": "almond milk"
             },
             "almond butter": {
                 "aliases": [],
@@ -3172,13 +3172,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "non-dairy milk",
-                "plural_name": "non-dairy milks"
+                "plural_name": "non-dairy milk"
             },
             "soy milk": {
                 "aliases": [],
                 "description": "",
                 "name": "soy milk",
-                "plural_name": "soy milks"
+                "plural_name": "soy milk"
             },
             "extra firm tofu": {
                 "aliases": [],
@@ -3262,13 +3262,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "cashew milk",
-                "plural_name": "cashew milks"
+                "plural_name": "cashew milk"
             },
             "oat milk": {
                 "aliases": [],
                 "description": "",
                 "name": "oat milk",
-                "plural_name": "oat milks"
+                "plural_name": "oat milk"
             },
             "nut butter": {
                 "aliases": [],
@@ -3358,7 +3358,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "coconut milk powder",
-                "plural_name": "coconut milk powders"
+                "plural_name": "coconut milk powder"
             },
             "non-dairy whipped topping": {
                 "aliases": [],
@@ -3370,7 +3370,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "nut milk",
-                "plural_name": "nut milks"
+                "plural_name": "nut milk"
             },
             "non-dairy cream": {
                 "aliases": [],
@@ -3388,7 +3388,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "condensed coconut milk",
-                "plural_name": "condensed coconut milks"
+                "plural_name": "condensed coconut milk"
             },
             "vegan ground beef": {
                 "aliases": [],
@@ -3442,7 +3442,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hemp milk",
-                "plural_name": "hemp milks"
+                "plural_name": "hemp milk"
             },
             "vegan beef": {
                 "aliases": [],
@@ -3490,7 +3490,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "almond-coconut milk",
-                "plural_name": "almond-coconut milks"
+                "plural_name": "almond-coconut milk"
             },
             "banana blossom": {
                 "aliases": [],
@@ -3514,7 +3514,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hazelnut milk",
-                "plural_name": "hazelnut milks"
+                "plural_name": "hazelnut milk"
             },
             "maple almond butter": {
                 "aliases": [],
@@ -3531,8 +3531,8 @@
             "almond-milk yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "almond-milk yogurt",
-                "plural_name": "almond-milk yogurts"
+                "name": "almond-milk yoghurt",
+                "plural_name": "almond-milk yoghurt"
             },
             "almond creamer": {
                 "aliases": [],
@@ -3544,7 +3544,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "soy milk powder",
-                "plural_name": "soy milk powders"
+                "plural_name": "soy milk powder"
             },
             "vegan cream cheese frosting": {
                 "aliases": [],
@@ -3592,7 +3592,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "flax milk",
-                "plural_name": "flax milks"
+                "plural_name": "flax milk"
             },
             "hazelnut creamer": {
                 "aliases": [],
@@ -3670,7 +3670,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "macadamia milk",
-                "plural_name": "macadamia milks"
+                "plural_name": "macadamia milk"
             },
             "vegan taco meat": {
                 "aliases": [],
@@ -3694,7 +3694,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "banana milk",
-                "plural_name": "banana milks"
+                "plural_name": "banana milk"
             },
             "soy quark": {
                 "aliases": [],
@@ -3718,7 +3718,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "walnut milk",
-                "plural_name": "walnut milks"
+                "plural_name": "walnut milk"
             },
             "latik": {
                 "aliases": [],
@@ -6995,7 +6995,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "buttermilk syrup",
-                "plural_name": "buttermilk syrups"
+                "plural_name": "buttermilk syrup"
             },
             "chocolate sugar": {
                 "aliases": [],
@@ -7275,13 +7275,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "garlic & herb seasoning",
-                "plural_name": "garlic & herb seasonings"
+                "plural_name": "garlic & herb seasoning"
             },
             "garlic-pepper seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "garlic-pepper seasoning",
-                "plural_name": "garlic-pepper seasonings"
+                "plural_name": "garlic-pepper seasoning"
             },
             "pickling salt": {
                 "aliases": [],
@@ -11331,7 +11331,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "garlic mayonnaise",
-                "plural_name": "garlic mayonnaises"
+                "plural_name": "garlic mayonnaise"
             },
             "brown rice vinegar": {
                 "aliases": [],
@@ -11355,7 +11355,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "buttermilk ranch dressing",
-                "plural_name": "buttermilk ranch dressings"
+                "plural_name": "buttermilk ranch dressing"
             },
             "cilantro dressing": {
                 "aliases": [],
@@ -11575,7 +11575,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ginger-garlic paste",
-                "plural_name": "ginger-garlic pastes"
+                "plural_name": "ginger-garlic paste"
             },
             "brown mustard": {
                 "aliases": [],
@@ -11641,7 +11641,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chili-garlic sauce",
-                "plural_name": "chili-garlic sauces"
+                "plural_name": "chili-garlic sauce"
             },
             "tamarind paste": {
                 "aliases": [],
@@ -11755,7 +11755,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chili-garlic paste",
-                "plural_name": "chili-garlic pastes"
+                "plural_name": "chili-garlic paste"
             },
             "bonito flake": {
                 "aliases": [],
@@ -13187,7 +13187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "garlic spread",
-                "plural_name": "garlic spreads"
+                "plural_name": "garlic spread"
             },
             "black pepper sauce": {
                 "aliases": [],
@@ -15264,7 +15264,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "malted milk powder",
-                "plural_name": "malted milk powders"
+                "plural_name": "malted milk powder"
             },
             "mango juice": {
                 "aliases": [],
@@ -16018,7 +16018,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cannabis milk",
-                "plural_name": "cannabis milks"
+                "plural_name": "cannabis milk"
             },
             "malt extract": {
                 "aliases": [],
