@@ -47,8 +47,6 @@ tasks:
     sources:
       - package.json
       - yarn.lock
-    generates:
-      - node_modules/**
 
   setup:py:
     desc: setup python dependencies
@@ -179,12 +177,21 @@ tasks:
     status:
       - '{{ .SKIP_PACKAGE_DEPS | default "false"}}'
 
-  py:package:
-    desc: builds Python packages (sdist and wheel) in top-level dist directory
+  py:package:build:
+    internal: true
     deps:
       - py:package:deps
     cmds:
       - uv build --out-dir dist
+    sources:
+      - uv.lock
+      - pyproject.toml
+      - mealie/**
+
+  py:package:
+    desc: builds Python packages (sdist and wheel) in top-level dist directory
+    cmds:
+      - task: py:package:build
       - task: py:package:generate-requirements
 
   py:
@@ -215,6 +222,12 @@ tasks:
     dir: frontend
     cmds:
       - yarn build
+    sources:
+      - "**"
+      - exclude: .nuxt/**
+      - exclude: .output/**
+      - exclude: dist/**
+      - exclude: node_modules/.cache/**
 
   ui:generate:
     desc: generates a static version of the frontend in frontend/dist
@@ -223,18 +236,36 @@ tasks:
       - setup:ui
     cmds:
       - yarn generate
+    sources:
+      - "**"
+      - exclude: .nuxt/**
+      - exclude: .output/**
+      - exclude: dist/**
+      - exclude: node_modules/.cache/**
 
   ui:lint:
     desc: runs the frontend linter
     dir: frontend
     cmds:
       - yarn lint --max-warnings=0
+    sources:
+      - "**"
+      - exclude: .nuxt/**
+      - exclude: .output/**
+      - exclude: dist/**
+      - exclude: node_modules/.cache/**
 
   ui:test:
     desc: runs the frontend tests
     dir: frontend
     cmds:
       - yarn test
+    sources:
+      - "**"
+      - exclude: .nuxt/**
+      - exclude: .output/**
+      - exclude: dist/**
+      - exclude: node_modules/.cache/**
 
   ui:check:
     desc: runs all frontend checks
