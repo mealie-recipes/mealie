@@ -258,3 +258,68 @@ def test_ldap_user_login_complex_filter(api_client: TestClient):
     assert data.get("admin") is True
 
     get_app_settings.cache_clear()
+
+
+def test_proxy_auth_login(api_client: TestClient, unique_user: TestUser):
+    app_settings = get_app_settings()
+
+    app_settings.LDAP_AUTH_ENABLED = False
+    app_settings.PROXY_AUTH_ENABLED = True
+
+    # 'testclient` is the default host for Starlette TestClient
+    app_settings.TRUSTED_PROXIES = {"testclient"}
+
+    response = api_client.post(api_routes.auth_token, headers={"Remote-User": unique_user.username})
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data is not None
+    assert data.get("access_token") is not None
+
+    response = api_client.get(api_routes.users_self, headers={"Authorization": f"Bearer {data.get('access_token')}"})
+    assert response.status_code == 200
+
+    get_app_settings.cache_clear()
+
+
+def test_proxy_auth_custom_header(api_client: TestClient, unique_user: TestUser):
+    app_settings = get_app_settings()
+
+    app_settings.LDAP_AUTH_ENABLED = False
+    app_settings.PROXY_AUTH_ENABLED = True
+    app_settings.REMOTE_USER_HEADER = "USER"
+    app_settings.TRUSTED_PROXIES = {"testclient"}
+
+    response = api_client.post(api_routes.auth_token, headers={"USER": unique_user.username})
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data is not None
+    assert data.get("access_token") is not None
+
+    response = api_client.get(api_routes.users_self, headers={"Authorization": f"Bearer {data.get('access_token')}"})
+    assert response.status_code == 200
+
+    get_app_settings.cache_clear()
+
+
+def test_proxy_auth_login_no_header(api_client: TestClient, unique_user: TestUser):
+    app_settings = get_app_settings()
+
+    app_settings.LDAP_AUTH_ENABLED = False
+    app_settings.PROXY_AUTH_ENABLED = True
+
+    form_data = {"username": unique_user.username, "password": unique_user.password}
+
+    response = api_client.post(api_routes.auth_token, data=form_data)
+    assert response.status_code == 200
+
+    data = response.json()
+    assert data is not None
+    assert data.get("access_token") is not None
+
+    response = api_client.get(api_routes.users_self, headers={"Authorization": f"Bearer {data.get('access_token')}"})
+    assert response.status_code == 200
+
+    get_app_settings.cache_clear()
+
