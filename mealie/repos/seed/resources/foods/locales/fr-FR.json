@@ -5043,14 +5043,14 @@
             "hake": {
                 "aliases": [],
                 "description": "",
-                "name": "hake",
-                "plural_name": "hakes"
+                "name": "merlu",
+                "plural_name": "merlus"
             },
             "pollock": {
                 "aliases": [],
                 "description": "",
-                "name": "pollock",
-                "plural_name": "pollocks"
+                "name": "lieu noir",
+                "plural_name": "lieu noir"
             },
             "salt cod": {
                 "aliases": [],
@@ -5217,8 +5217,8 @@
             "pike": {
                 "aliases": [],
                 "description": "",
-                "name": "pike",
-                "plural_name": "pikes"
+                "name": "brochet",
+                "plural_name": "brochets"
             },
             "pickled herring": {
                 "aliases": [],
@@ -5469,8 +5469,8 @@
             "tiny fish": {
                 "aliases": [],
                 "description": "",
-                "name": "tiny fish",
-                "plural_name": "tiny fish"
+                "name": "petit poisson",
+                "plural_name": "petits poissons"
             },
             "tuna belly": {
                 "aliases": [],
@@ -5569,8 +5569,8 @@
             "crawfish": {
                 "aliases": [],
                 "description": "",
-                "name": "crawfish",
-                "plural_name": "crawfish"
+                "name": "écrevisse",
+                "plural_name": "écrevisses"
             },
             "octopu": {
                 "aliases": [],
@@ -5635,8 +5635,8 @@
             "squid ink": {
                 "aliases": [],
                 "description": "",
-                "name": "squid ink",
-                "plural_name": "squid inks"
+                "name": "encre de seiche",
+                "plural_name": "encres de seiches"
             },
             "dried prawn": {
                 "aliases": [],
@@ -5719,8 +5719,8 @@
             "sea urchin": {
                 "aliases": [],
                 "description": "",
-                "name": "sea urchin",
-                "plural_name": "sea urchins"
+                "name": "oursin",
+                "plural_name": "oursins"
             },
             "abalone": {
                 "aliases": [],
@@ -5743,8 +5743,8 @@
             "smoked mussel": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked mussel",
-                "plural_name": "smoked mussels"
+                "name": "moule fumée",
+                "plural_name": "moules fumées"
             },
             "sea snail": {
                 "aliases": [],
@@ -5761,8 +5761,8 @@
             "prepared crab cake": {
                 "aliases": [],
                 "description": "",
-                "name": "prepared crab cake",
-                "plural_name": "prepared crab cakes"
+                "name": "gâteau de crabe",
+                "plural_name": "gâteaux de crabe"
             },
             "sea lettuce": {
                 "aliases": [],
@@ -6095,8 +6095,8 @@
             "chipotle": {
                 "aliases": [],
                 "description": "",
-                "name": "chipotle",
-                "plural_name": "chipotles"
+                "name": "piment chipotle",
+                "plural_name": "piments chipotles"
             },
             "fenugreek": {
                 "aliases": [],
@@ -6107,8 +6107,8 @@
             "onion flake": {
                 "aliases": [],
                 "description": "",
-                "name": "onion flake",
-                "plural_name": "onion flakes"
+                "name": "oignon émincé",
+                "plural_name": "oignons émincés"
             },
             "matcha powder": {
                 "aliases": [],
@@ -6263,8 +6263,8 @@
             "garlic flake": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic flake",
-                "plural_name": "garlic flakes"
+                "name": "ail émincé",
+                "plural_name": "aulx émincés"
             },
             "dried cilantro": {
                 "aliases": [],
@@ -15705,7 +15705,7 @@
             "almond extract": {
                 "aliases": [],
                 "description": "",
-                "name": "extrait d'amandes",
+                "name": "extrait d'amande",
                 "plural_name": "extraits d'amandes"
             },
             "food coloring": {
