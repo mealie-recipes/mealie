@@ -494,6 +494,10 @@ class RecipeService(RecipeServiceBase):
     def patch_one(self, slug_or_id: str | UUID, patch_data: Recipe) -> Recipe:
         recipe: Recipe = self._pre_update_check(slug_or_id, patch_data)
 
+        if patch_data.tags:
+            for tag in patch_data.tags:
+                tag.group_id = self.user.group_id
+
         new_data = self.group_recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
 
         self.check_assets(new_data, recipe.slug)
