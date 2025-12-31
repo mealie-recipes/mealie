@@ -1335,8 +1335,8 @@
             "dried chinese mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "dried chinese mushroom",
-                "plural_name": "dried chinese mushrooms"
+                "name": "сушени гъби шийтаке",
+                "plural_name": "сушени гъби шийтаке"
             },
             "maitake": {
                 "aliases": [],
@@ -1366,7 +1366,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pioppini",
-                "plural_name": "pioppinis"
+                "plural_name": "пиопини"
             },
             "snow fungu": {
                 "aliases": [],
