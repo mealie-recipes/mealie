@@ -10,11 +10,8 @@
               :label="$t('form.quantity-label-abbreviated')"
               :min="0"
               :precision="null"
-              variant="plain"
               control-variant="stacked"
               inset
-              density="compact"
-              class="centered-number-input"
               style="width: 100px;"
             />
           </div>
@@ -242,10 +239,3 @@ export default defineNuxtComponent({
   },
 });
 </script>
-
-<style scoped>
-.centered-number-input :deep(.v-field) {
-  display: flex;
-  align-items: center;
-}
-</style>
