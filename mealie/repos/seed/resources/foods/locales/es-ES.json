@@ -1938,7 +1938,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "honey-roasted pecan",
-                "plural_name": "honey-roasted pecans"
+                "plural_name": "pecanos tostados con miel"
             },
             "tigernut": {
                 "aliases": [],
@@ -2388,7 +2388,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "panela cheese",
-                "plural_name": "panela cheeses"
+                "plural_name": "quesos de panela"
             },
             "longhorn": {
                 "aliases": [],
@@ -3012,7 +3012,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bulgarian yogurt",
-                "plural_name": "bulgarian yogurts"
+                "plural_name": "yogures búlgaros"
             },
             "tvorog": {
                 "aliases": [],
@@ -3072,7 +3072,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pickled egg",
-                "plural_name": "pickled eggs"
+                "plural_name": "huevos en vinagreta"
             },
             "sheep milk": {
                 "aliases": [],
@@ -3172,7 +3172,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "non-dairy milk",
-                "plural_name": "non-dairy milks"
+                "plural_name": "leches no lácteas"
             },
             "soy milk": {
                 "aliases": [],
