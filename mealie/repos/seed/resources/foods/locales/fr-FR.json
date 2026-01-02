@@ -4213,7 +4213,7 @@
             "ground venison": {
                 "aliases": [],
                 "description": "",
-                "name": "ground venison",
+                "name": "chevreuil haché",
                 "plural_name": "ground venisons"
             },
             "beef shank": {
@@ -4304,7 +4304,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lamb neck",
-                "plural_name": "lamb necks"
+                "plural_name": "colliers d'agneau"
             },
             "sausage patty": {
                 "aliases": [],
