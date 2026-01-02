@@ -3490,7 +3490,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "almond-coconut milk",
-                "plural_name": "almond-coconut milks"
+                "plural_name": "leches de almendra y coco"
             },
             "banana blossom": {
                 "aliases": [],
@@ -4118,7 +4118,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mexican chorizo",
-                "plural_name": "mexican chorizoes"
+                "plural_name": "chorizo mejicano"
             },
             "rack of lamb": {
                 "aliases": [],
@@ -4292,7 +4292,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "burger patty",
-                "plural_name": "burger patties"
+                "plural_name": "hamburguesas"
             },
             "smoked pork chop": {
                 "aliases": [],
@@ -4386,7 +4386,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chicken leg",
-                "plural_name": "chicken legs"
+                "plural_name": "patas de pollo"
             },
             "chicken wing": {
                 "aliases": [],
