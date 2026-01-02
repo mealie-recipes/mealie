@@ -342,9 +342,9 @@
     "breakfast": "Café da manhã",
     "lunch": "Almoço",
     "dinner": "Jantar",
-    "snack": "Snack",
-    "drink": "Drink",
-    "dessert": "Dessert",
+    "snack": "Lanche",
+    "drink": "Bebida",
+    "dessert": "Sobremesa",
     "type-any": "Qualquer",
     "day-any": "Qualquer",
     "editor": "Editor",
@@ -445,7 +445,7 @@
     "upload-a-recipe": "Enviar uma Receita",
     "upload-individual-zip-file": "Enviar um arquivo .zip individual exportado a partir de outra instância do Mealie.",
     "url-form-hint": "Copie e cole um link do seu site de receita favorito",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copie e cole o URL de origem dos seus dados (opcional)",
     "view-scraped-data": "Visualizar Dados Rastreados",
     "trim-whitespace-description": "Aparar o espaço em branco e à direita, bem como linhas em branco",
     "trim-prefix-description": "Aparar primeiro caractere de cada linha",
@@ -637,8 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Tente o importador em massa",
     "scrape-recipe-have-raw-html-or-json-data": "Tem dados HTML ou JSON brutos?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Você pode importar diretamente de dados brutos",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-website-being-blocked": "Site sendo bloqueado?",
+    "scrape-recipe-try-importing-raw-html-instead": "Tente importar o HTML ao invés disso.",
     "import-original-keywords-as-tags": "Importar palavras-chave originais como marcadores",
     "stay-in-edit-mode": "Permanecer no modo de edição",
     "parse-recipe-ingredients-after-import": "Interpretar os ingredientes da receita após importar",
@@ -1430,11 +1430,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Este campo é obrigatório",
+    "invalid-email": "O e-mail deve ser válido",
+    "invalid-url": "Precisa ser uma URL válida",
+    "no-whitespace": "Nenhum espaço em branco é permitido",
+    "min-length": "Precisa ter pelo menos {min} caracteres",
+    "max-length": "Pode ter até {max} caracteres"
   }
 }

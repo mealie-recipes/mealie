@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Názvy receptů musí být jedinečné",
         "recipe-created": "Recept byl vytvořen",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "Recept smazán",
         "recipe-defaults": {
             "ingredient-note": "1 hrnek mouky",
             "step-text": "Kroky receptu stejně jako další pole v receptu podporují syntaxi markdown.\n\n**Přidat odkaz**\n\n[Můj odkaz](https://demo.mealie.io)\n"
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Nemáte oprávnění k provedení této akce",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Recept se nemůže sám sebe přímo ani nepřímo odkazovat",
         "no-entry-found": "Požadovaný prostředek nebyl nalezen",
         "integrity-error": "Chyba integrity databáze",
         "username-conflict-error": "Toto uživatelské jméno je již používáno",
@@ -46,7 +46,7 @@
         "generic-updated-with-url": "{name} byl aktualizován, {url}",
         "generic-duplicated": "{name} byl duplikován",
         "generic-deleted": "{name} byl odstraněn",
-        "logged-out": "Logged out"
+        "logged-out": "Odhlášení"
     },
     "datetime": {
         "year": "rok|roky",

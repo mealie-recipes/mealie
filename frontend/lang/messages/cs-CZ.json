@@ -342,9 +342,9 @@
     "breakfast": "Snídaně",
     "lunch": "Oběd",
     "dinner": "Večeře",
-    "snack": "Snack",
-    "drink": "Drink",
-    "dessert": "Dessert",
+    "snack": "Svačina",
+    "drink": "Nápoje",
+    "dessert": "Dezerty",
     "type-any": "Libovolné",
     "day-any": "Libovolný",
     "editor": "Editor",
@@ -403,7 +403,7 @@
       "title": "Recepty Tandoor"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie může importovat recept z DVO Cook'n X3. Exportujte kuchařku nebo menu ve formátu \"Cook'n\", přejmenujte rozšíření exportu na .zip, poté nahrajte .zip níže.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migrace dat receptů",
@@ -445,7 +445,7 @@
     "upload-a-recipe": "Nahrát recept",
     "upload-individual-zip-file": "Nahrát individuální .zip soubor exportovaný z jiné instance Mealie.",
     "url-form-hint": "Zkopírujte a vložte odkaz z vaší oblíbené stránky s recepty",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Zkopírujte a vložte zdrojovou adresu URL vašich dat (volitelné)",
     "view-scraped-data": "Zobrazit scrapovaná data",
     "trim-whitespace-description": "Oříznout počáteční a koncové mezery stejně jako prázdné řádky",
     "trim-prefix-description": "Oříznout první znak z každé řádky",
@@ -453,8 +453,8 @@
     "import-by-url": "Importovat recept podle URL",
     "create-manually": "Vytvořit recept ručně",
     "make-recipe-image": "Nastavit jako obrázek receptu",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Přidat jídlo",
+    "add-recipe": "Přidat recept"
   },
   "page": {
     "404-page-not-found": "404 Stránka nebyla nalezena",
@@ -521,9 +521,9 @@
     "recipe-deleted": "Recept smazán",
     "recipe-image": "Obrázek receptu",
     "recipe-image-updated": "Obrázek receptu aktualizován",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Smazat recept",
+    "delete-image-confirmation": "Opravdu chcete smazat tento recept?",
+    "recipe-image-deleted": "Recept smazán",
     "recipe-name": "Název receptu",
     "recipe-settings": "Nastavení receptu",
     "recipe-update-failed": "Aktualizace receptu se nezdařila",
@@ -569,7 +569,7 @@
     "choose-unit": "Vybrat jednotku",
     "press-enter-to-create": "Stiskněte enter pro vytvoření",
     "choose-food": "Zvolte jídlo",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "Vybrat recept",
     "notes": "Poznámky",
     "toggle-section": "Přidat/odebrat název sekce",
     "see-original-text": "Zobrazit původní text",
@@ -597,7 +597,7 @@
     "made-this": "Toto jsem uvařil",
     "how-did-it-turn-out": "Jak to dopadlo?",
     "user-made-this": "{user} udělal toto",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Vytvořeno pro {recipe}",
     "added-to-timeline": "Přidáno na časovou osu",
     "failed-to-add-to-timeline": "Přidání na časovou osu selhalo",
     "failed-to-update-recipe": "Aktualizace receptu selhala",
@@ -637,11 +637,11 @@
     "scrape-recipe-suggest-bulk-importer": "Vyzkoušejte hromadný import",
     "scrape-recipe-have-raw-html-or-json-data": "Máte surová data HTML nebo JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Můžete importovat přímo ze surových dat",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-website-being-blocked": "Webové stránky jsou blokovány?",
+    "scrape-recipe-try-importing-raw-html-instead": "Zkuste namísto toho importovat raw HTML.",
     "import-original-keywords-as-tags": "Importovat původní klíčová slova jako štítky",
     "stay-in-edit-mode": "Zůstat v režimu úprav",
-    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
+    "parse-recipe-ingredients-after-import": "Po importu analyzovat ingredience receptu",
     "import-from-zip": "Importovat ze zipu",
     "import-from-zip-description": "Importovat jeden recept, který byl exportován z jiné instance Mealie.",
     "import-from-html-or-json": "Importovat z HTML nebo JSON",
@@ -688,12 +688,12 @@
       "this-unit-could-not-be-parsed-automatically": "Tuto jednotku nelze analyzovat automaticky",
       "this-food-could-not-be-parsed-automatically": "Toto jídlo nelze analyzovat automaticky",
       "no-food": "Žádné jídlo",
-      "review-parsed-ingredients": "Review parsed ingredients",
-      "confidence-score": "Confidence Score",
-      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
-      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
-      "delete-item": "Delete Item"
+      "review-parsed-ingredients": "Zkontrolovat analyzované ingredience",
+      "confidence-score": "Skóre spolehlivosti",
+      "ingredient-parser-description": "Vaše suroviny byly úspěšně analyzovány. Prosím zkontrolujte ingredience, o kterých si nejsme jisti.",
+      "ingredient-parser-final-review-description": "Jakmile budou všechny ingredience zkontrolovány, budete mít ještě jednu šanci zkontrolovat všechny ingredience před použitím změn ve vašem receptu.",
+      "add-text-as-alias-for-item": "Přidat \"{text}\" jako alias pro {item}",
+      "delete-item": "Odstranit položku"
     },
     "reset-servings-count": "Resetovat počet porcí",
     "not-linked-ingredients": "Další ingredience",
@@ -702,9 +702,9 @@
     "upload-more-images": "Nahrát více obrázků",
     "set-as-cover-image": "Nastavit recept jako úvodní obrázek",
     "cover-image": "Úvodní obrázek",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Zahrnout připojené recepty",
+    "include-linked-recipe-ingredients": "Zahrnout připojené ingredience",
+    "toggle-recipe": "Přidat/odebrat název sekce"
   },
   "recipe-finder": {
     "recipe-finder": "Vyhledávač receptů",
@@ -742,7 +742,7 @@
     "advanced": "Pokročilé",
     "auto-search": "Automatické vyhledávání",
     "no-results": "Nebyly nalezeny žádné výsledky",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Zadejte hledaný výraz..."
   },
   "settings": {
     "add-a-new-theme": "Přidat nový motiv",
@@ -1081,8 +1081,8 @@
     "forgot-password": "Zapomenuté heslo",
     "forgot-password-text": "Zadejte prosím svou e-mailovou adresu a my vám zašleme odkaz pro obnovení hesla.",
     "changes-reflected-immediately": "Změny tohoto uživatele budou okamžitě zohledněny.",
-    "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity": "Výchozí aktivita",
+    "default-activity-hint": "Vyberte stránku, na kterou chcete přejít po přihlášení z tohoto zařízení"
   },
   "language-dialog": {
     "translated": "přeloženo",
@@ -1430,11 +1430,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Toto pole je povinné",
+    "invalid-email": "E-mail musí být platný",
+    "invalid-url": "Musí být platná URL adresa",
+    "no-whitespace": "Prázdný prostor není povolen",
+    "min-length": "Musí být alespoň {min} znaků",
+    "max-length": "Musí být nejvíce {max} znaků"
   }
 }

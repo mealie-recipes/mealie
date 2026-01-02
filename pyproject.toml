@@ -1,6 +1,6 @@
 [project]
 name = "mealie"
-version = "3.8.0"
+version = "3.9.1"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
@@ -17,7 +17,7 @@ dependencies = [
     "apprise==1.9.6",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
-    "fastapi==0.127.1",
+    "fastapi==0.128.0",
     "httpx==0.28.1",
     "lxml==6.0.2",
     "orjson==3.11.5",
@@ -61,7 +61,7 @@ docs = [
     "mkdocs-material==9.7.1",
 ]
 dev = [
-    "coverage==7.13.0",
+    "coverage==7.13.1",
     "coveragepy-lcov==0.1.2",
     "mkdocs-material==9.7.1",
     "mypy==1.19.1",
