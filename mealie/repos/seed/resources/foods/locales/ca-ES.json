@@ -368,11 +368,11 @@
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "fulles xineses"
                 ],
                 "description": "",
-                "name": "napa cabbage",
-                "plural_name": "napa cabbages"
+                "name": "col xinesa",
+                "plural_name": "cols xineses"
             },
             "celeriac": {
                 "aliases": [],
@@ -383,8 +383,8 @@
             "water chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "water chestnut",
-                "plural_name": "water chestnuts"
+                "name": "castanya d'aigua",
+                "plural_name": "castanyes d'aigua"
             },
             "turnip": {
                 "aliases": [],
@@ -419,8 +419,8 @@
             "corn cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn cob",
-                "plural_name": "corn cobs"
+                "name": "panotxa de dacsa",
+                "plural_name": "panotxes de dacsa"
             },
             "radicchio": {
                 "aliases": [],
@@ -479,8 +479,8 @@
             "habanero pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "habanero pepper",
-                "plural_name": "habanero peppers"
+                "name": "pebrot havaner",
+                "plural_name": "pebrots havaners"
             },
             "corn husk": {
                 "aliases": [
@@ -499,8 +499,8 @@
             "french-fried onion": {
                 "aliases": [],
                 "description": "",
-                "name": "french-fried onion",
-                "plural_name": "french-fried onions"
+                "name": "ceba fregida",
+                "plural_name": "cebes fregides"
             },
             "daikon": {
                 "aliases": [],
