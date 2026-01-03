@@ -3985,8 +3985,8 @@
             "beef rib": {
                 "aliases": [],
                 "description": "",
-                "name": "beef rib",
-                "plural_name": "beef ribs"
+                "name": "hovězí žebro",
+                "plural_name": "hovězí žebra"
             },
             "veal steak": {
                 "aliases": [],
@@ -4349,14 +4349,14 @@
             "chicken breast": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken breast",
-                "plural_name": "chicken breasts"
+                "name": "kuřecí prso",
+                "plural_name": "kuřecí prsa"
             },
             "chicken thigh": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken thigh",
-                "plural_name": "chicken thighs"
+                "name": "kuřecí stehno",
+                "plural_name": "kuřecí stehna"
             },
             "cooked chicken": {
                 "aliases": [],
@@ -4373,8 +4373,8 @@
             "whole chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "whole chicken",
-                "plural_name": "whole chickens"
+                "name": "celé kuře",
+                "plural_name": "celá kuřata"
             },
             "whole turkey": {
                 "aliases": [],
@@ -4385,14 +4385,14 @@
             "chicken leg": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken leg",
-                "plural_name": "chicken legs"
+                "name": "kuřecí stehno",
+                "plural_name": "kuřecí stehna"
             },
             "chicken wing": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken wing",
-                "plural_name": "chicken wings"
+                "name": "kuřecí křídlo",
+                "plural_name": "kuřecí křídla"
             },
             "turkey breast": {
                 "aliases": [],
@@ -4451,14 +4451,14 @@
             "boneless chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "boneless chicken",
-                "plural_name": "boneless chickens"
+                "name": "vykostěné kuře",
+                "plural_name": "vykostěná kuřata"
             },
             "chicken liver": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken liver",
-                "plural_name": "chicken livers"
+                "name": "kuřecí játra",
+                "plural_name": "kuřecí játra"
             },
             "cornish hen": {
                 "aliases": [],
@@ -4511,8 +4511,8 @@
             "smoked chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked chicken",
-                "plural_name": "smoked chickens"
+                "name": "uzené kuře",
+                "plural_name": "uzená kuřata"
             },
             "turkey leg": {
                 "aliases": [],
@@ -4554,7 +4554,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chicken bone",
-                "plural_name": "chicken bones"
+                "plural_name": "kuřecí kosti"
             },
             "turkey meatball": {
                 "aliases": [],
@@ -4596,7 +4596,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chicken nugget",
-                "plural_name": "chicken nuggets"
+                "plural_name": "kuřecí nugety"
             },
             "turkey burger": {
                 "aliases": [],
@@ -4893,13 +4893,13 @@
             "salmon": {
                 "aliases": [],
                 "description": "",
-                "name": "salmon",
+                "name": "losos",
                 "plural_name": "salmon"
             },
             "smoked salmon": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked salmon",
+                "name": "uzený losos",
                 "plural_name": "smoked salmon"
             },
             "cod": {
@@ -7781,8 +7781,8 @@
             "bread flour": {
                 "aliases": [],
                 "description": "",
-                "name": "bread flour",
-                "plural_name": "bread flours"
+                "name": "chlebová mouka",
+                "plural_name": "chlebové mouky"
             },
             "almond meal": {
                 "aliases": [],
@@ -7809,8 +7809,8 @@
             "gluten-free flour": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free flour",
-                "plural_name": "gluten-free flours"
+                "name": "bezlepková mouka",
+                "plural_name": "bezlepkové mouky"
             },
             "rice flour": {
                 "aliases": [],
@@ -7968,8 +7968,8 @@
             "semolina flour": {
                 "aliases": [],
                 "description": "",
-                "name": "semolina flour",
-                "plural_name": "semolina flours"
+                "name": "semolinová mouka",
+                "plural_name": "semolinové mouky"
             },
             "glutinous rice flour": {
                 "aliases": [],
@@ -12322,7 +12322,7 @@
             "canned salmon": {
                 "aliases": [],
                 "description": "",
-                "name": "canned salmon",
+                "name": "konzervovaný losos",
                 "plural_name": "canned salmon"
             },
             "pickling juice": {
@@ -13310,8 +13310,8 @@
             "chicken broth": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken broth",
-                "plural_name": "chicken broths"
+                "name": "kuřecí vývar",
+                "plural_name": "kuřecí vývar"
             },
             "vegetable broth": {
                 "aliases": [],
@@ -13322,8 +13322,8 @@
             "chicken stock": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken stock",
-                "plural_name": "chicken stocks"
+                "name": "kuřecí vývar",
+                "plural_name": "kuřecí vývar"
             },
             "beef broth": {
                 "aliases": [],
@@ -13418,8 +13418,8 @@
             "chicken soup": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken soup",
-                "plural_name": "chicken soups"
+                "name": "kuřecí polévka",
+                "plural_name": "kuřecí polévky"
             },
             "veal stock": {
                 "aliases": [],
@@ -13496,8 +13496,8 @@
             "chicken noodle soup": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken noodle soup",
-                "plural_name": "chicken noodle soups"
+                "name": "kuřecí nudlová polévka",
+                "plural_name": "kuřecí nudlové polévky"
             },
             "vegetable soup mix": {
                 "aliases": [],
