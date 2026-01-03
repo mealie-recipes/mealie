@@ -344,7 +344,7 @@
     "dinner": "Akşam Yemeği",
     "snack": "Atıştırmalık",
     "drink": "İçecek",
-    "dessert": "Dessert",
+    "dessert": "Tatlı",
     "type-any": "Herhangi",
     "day-any": "Herhangi",
     "editor": "Editör",
@@ -521,9 +521,9 @@
     "recipe-deleted": "Tarif silindi",
     "recipe-image": "Tarif Resmi",
     "recipe-image-updated": "Tarif resmi güncellendi",
-    "delete-image": "Delete Recipe Image",
+    "delete-image": "Tarif Resmini Sil",
     "delete-image-confirmation": "Bu tarif görselini silmek istediğinizden emin misiniz?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "recipe-image-deleted": "Tarif Resmi Silindi",
     "recipe-name": "Tarif Adı",
     "recipe-settings": "Tarif Ayarları",
     "recipe-update-failed": "Tarifi güncellerken hata oluştu",
@@ -569,13 +569,13 @@
     "choose-unit": "Birim Seçin",
     "press-enter-to-create": "Oluşturmak İçin Enter'a Basın",
     "choose-food": "Yemek Seç",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "Tarif Seç",
     "notes": "Notlar",
     "toggle-section": "Bölümü Görünürlüğünü Değiştir",
     "see-original-text": "Orijinal Metni Göster",
     "original-text-with-value": "Orijinal Metin: {originalText}",
     "ingredient-linker": "Malzeme Bağlayıcı",
-    "unlinked": "Not linked yet",
+    "unlinked": "Henüz bağlanmadı",
     "linked-to-other-step": "Başka bir adıma bağlı",
     "auto": "Otomatik",
     "cook-mode": "Pişirme Modu",
@@ -600,7 +600,7 @@
     "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Added to timeline",
     "failed-to-add-to-timeline": "Failed to add to timeline",
-    "failed-to-update-recipe": "Failed to update recipe",
+    "failed-to-update-recipe": "Tarif yenileme başarısız",
     "added-to-timeline-but-failed-to-add-image": "Added to timeline, but failed to add image",
     "api-extras-description": "Tarif ekstraları Mealie API'nin önemli bir özelliğidir. Üçüncü taraf uygulamalardan referans almak üzere bir tarif içinde özel JSON anahtar/değer çiftleri oluşturmanıza olanak tanır. Bu tuşları, örneğin otomasyonları tetiklemek veya istediğiniz cihaza iletilecek özel mesajları bilgi sağlamak için kullanabilirsiniz.",
     "message-key": "İleti Anahtarı",
@@ -623,7 +623,7 @@
     "create-recipe-from-an-image": "Görüntüden yemek tarifi oluştur",
     "create-recipe-from-an-image-description": "Bir görsel yükleyerek yemek tarifi oluşturun. Mealie, yapay zekâ kullanarak görseldeki bilgileri çekip yemek tarifini oluşturmaya çalışacaktır.",
     "crop-and-rotate-the-image": "Resmi sadece yazılar gözükecek şekilde kesin ve döndürün, ayrıca doğru yönde durduğuna emin olun.",
-    "create-from-images": "Create from Images",
+    "create-from-images": "Resimden Oluştur",
     "should-translate-description": "Tarifi kendi dilime çevir",
     "please-wait-image-procesing": "Görsel işlenirken lütfen bekleyin. Bu, biraz zaman alabilir.",
     "please-wait-images-processing": "Lütfen bekleyin, görüntüler işleniyor. Bu biraz zaman alabilir.",
@@ -646,7 +646,7 @@
     "import-from-zip-description": "Başka bir Mealie örneğinden dışa aktarılmış tek bir tarifi içe aktarın.",
     "import-from-html-or-json": "HTML veya JSON veriden içe aktar",
     "import-from-html-or-json-description": "Ham HTML veya JSON'dan tek bir tarif içe aktar. Bu, Mealie'nin normalde veri çekemediği bir siteden ya da başka bir dış kaynaktan bir tarifin varsa faydalıdır.",
-    "json-import-format-description-colon": "To import via JSON, it must be in valid format:",
+    "json-import-format-description-colon": "JSON'dan içe aktarmak için, geçerli formatta olmalıdır:",
     "json-editor": "JSON Editör",
     "zip-files-must-have-been-exported-from-mealie": ".zip dosyası Mealie'den dışa aktarılmış olmalıdır",
     "create-a-recipe-by-uploading-a-scan": "Bir tarama yükleyerek tarif oluşturun.",
@@ -742,7 +742,7 @@
     "advanced": "Gelişmiş",
     "auto-search": "Otomatik Arama",
     "no-results": "Sonuç bulunamadı",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Aramak için yaz..."
   },
   "settings": {
     "add-a-new-theme": "Yeni Tema Ekle",
@@ -1081,7 +1081,7 @@
     "forgot-password": "Şifreni mi Unuttun?",
     "forgot-password-text": "Lütfen e-posta adresinizi girin, size şifrenizi sıfırlamanız için bir bağlantı göndereceğiz.",
     "changes-reflected-immediately": "Bu kullanıcıda yapılan değişiklikler hemen yansıtılacaktır.",
-    "default-activity": "Default Activity",
+    "default-activity": "Varsayılan Aktivite",
     "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
@@ -1416,25 +1416,25 @@
       "does-not-equal": "eşit değildir",
       "is-greater-than": "daha büyük",
       "is-greater-than-or-equal-to": "daha büyük veya eşit",
-      "is-less-than": "is less than",
-      "is-less-than-or-equal-to": "is less than or equal to"
+      "is-less-than": "daha mı az",
+      "is-less-than-or-equal-to": "daha az veya eşit mi"
     },
     "relational-keywords": {
       "is": "is",
-      "is-not": "is not",
+      "is-not": "değil mi",
       "is-one-of": "is one of",
       "is-not-one-of": "is not one of",
-      "contains-all-of": "contains all of",
+      "contains-all-of": "hepsini içeriyor mu",
       "is-like": "is like",
       "is-not-like": "is not like"
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
+    "required": "Bu Alan Gereklidir",
+    "invalid-email": "E-posta Geçerli Olmalıdır",
+    "invalid-url": "Geçerli Bir URL Olmalıdır",
     "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "min-length": "En Az {min} Karakter Olmalıdır",
+    "max-length": "En Fazla {max} Karakter Olmalıdır"
   }
 }
