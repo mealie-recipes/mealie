@@ -69,7 +69,7 @@
     "new-notification": "Nova notificació",
     "event-notifiers": "Notificacions d'esdeveniments",
     "apprise-url-skipped-if-blank": "Apprise URL (si es deixa buit, s'ignorarà)",
-    "apprise-url-is-left-intentionally-blank": "Since Apprise URLs typically contain sensitive information, this field is left intentionally blank while editing. If you wish to update the URL, please enter the new one here, otherwise leave it blank to keep the current URL.",
+    "apprise-url-is-left-intentionally-blank": "Com que les URLs de Apprise contenen informació sensible, aquest camp es deixa intencionadament en blanc a l'editar. Si vols actualitzar la URL, per favor, introdueix-ne una nova ací, si no, deixa-ho en blanc per a mantenir la URL actual.",
     "enable-notifier": "Habilita la notificació",
     "what-events": "Què esdeveniments vols que utilitzen aquest notificador?",
     "user-events": "Esdeveniments d'usuari",
@@ -81,7 +81,7 @@
     "category-events": "Esdeveniments de les categories",
     "when-a-new-user-joins-your-group": "Quan un nou usuari s'afegeix al grup",
     "recipe-events": "Esdeveniments de receptes",
-    "label-events": "Label Events"
+    "label-events": "Etiquetar Esdeveniments"
   },
   "general": {
     "add": "Afegeix",
@@ -403,7 +403,7 @@
       "title": "Tandoor Recipes"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie pot importar receptes des de DVO Cook'n K3. Exporta un receptari o menú en el format \"Cook'n\", canvia la extensió d'exportació a .zip, i després puja el .zip a sota.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migració de receptes",
@@ -445,7 +445,7 @@
     "upload-a-recipe": "Puja una recepta",
     "upload-individual-zip-file": "Puja només un arxiu zip, exportat d'altre Mealie.",
     "url-form-hint": "Copia i enganxa l'enllaç del teu lloc web de receptes preferit",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copia i enganxa la URL font a les teues dades (opcional)",
     "view-scraped-data": "Visualitza les dades recuperades",
     "trim-whitespace-description": "Elimina els espais a principi i final; i elimina les línies buides",
     "trim-prefix-description": "Elimina el primer caràcter de cada línia",
@@ -597,10 +597,10 @@
     "made-this": "Ho he fet",
     "how-did-it-turn-out": "Com ha sortit?",
     "user-made-this": "{user} ha fet això",
-    "made-for-recipe": "Made for {recipe}",
-    "added-to-timeline": "Added to timeline",
-    "failed-to-add-to-timeline": "Failed to add to timeline",
-    "failed-to-update-recipe": "Failed to update recipe",
+    "made-for-recipe": "Fet per a {recipe}",
+    "added-to-timeline": "Afegit a la cronologia",
+    "failed-to-add-to-timeline": "No s'ha pogut afegir a la cronologia",
+    "failed-to-update-recipe": "No s'ha pogut actualitzar la recepta",
     "added-to-timeline-but-failed-to-add-image": "S'ha afegit a la línia de temps, però no s'ha pogut afegir la imatge",
     "api-extras-description": "Els extres de receptes són una funcionalitat clau de l'API de Mealie. Permeten crear parells clau/valor JSON personalitzats dins una recepta, per referenciar-los des d'aplicacions de tercers. Pots emprar aquestes claus per proveir informació, per exemple per a desencadenar automatitzacions o missatges personlitzats per a propagar al teu dispositiu desitjat.",
     "message-key": "Clau del missatge",
@@ -637,8 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Prova l'importador a granel",
     "scrape-recipe-have-raw-html-or-json-data": "Teniu dades HTML o JSON pla?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Podeu importar directament des de les dades planes",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-website-being-blocked": "S'està bloquejant el lloc web?",
+    "scrape-recipe-try-importing-raw-html-instead": "Prova important l'HTML directament.",
     "import-original-keywords-as-tags": "Importa les paraules clau originals com a tags",
     "stay-in-edit-mode": "Segueix en el mode d'edició",
     "parse-recipe-ingredients-after-import": "Analitza els ingredients de la recepta després d'importar",
@@ -1430,11 +1430,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Aquest camp és obligatori",
+    "invalid-email": "El correu electrònic ha de ser vàlid",
+    "invalid-url": "La URL ha de ser vàlida",
+    "no-whitespace": "No es permeten espais en blanc",
+    "min-length": "Ha de tenir almenys {min} caràcters",
+    "max-length": "Ha de tenir com a màxim {max} caràcters"
   }
 }
