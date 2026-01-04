@@ -811,7 +811,7 @@ wheels = [
 
 [[package]]
 name = "mealie"
-version = "3.9.1"
+version = "3.9.2"
 source = { editable = "." }
 dependencies = [
     { name = "aiofiles" },

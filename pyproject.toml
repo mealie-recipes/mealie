@@ -1,6 +1,6 @@
 [project]
 name = "mealie"
-version = "3.9.1"
+version = "3.9.2"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"

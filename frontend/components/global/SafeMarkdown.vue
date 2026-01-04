@@ -31,7 +31,7 @@ export default defineNuxtComponent({
         ],
         ALLOWED_ATTR: [
           "href", "src", "alt", "height", "width", "class", "allow", "title", "allowfullscreen", "frameborder",
-          "scrolling", "cite", "datetime", "name", "abbr", "target", "border",
+          "scrolling", "cite", "datetime", "name", "abbr", "target", "border", "start",
         ],
       });
 
