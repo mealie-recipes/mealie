@@ -235,6 +235,10 @@ The examples below provide copy-ready Docker Compose environment configurations 
       THEME_DARK_ERROR: '#E57373'
     ```
 
+!!! info
+    Browser cookies may cause the client to keep outdated settings.
+    Clearing the cookies can be required for the change to take effect.
+
 ### Docker Secrets
 
 > <super>&dagger;</super> Starting in version `2.4.2`, any environment variable in the preceding lists with a dagger
