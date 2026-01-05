@@ -62,17 +62,31 @@
         <LanguageDialog v-model="languageDialog" />
         <v-menu z-index="2020">
           <template #activator="{ props }">
-            <v-btn v-bind="props" icon data-testid="user-menu-button">
+            <v-btn
+              v-if="!xs"
+              v-bind="props"
+              rounded="xl"
+              data-testid="user-menu-button"
+              class="ps-0"
+              height="40px"
+            >
+              <div class="d-flex align-center ga-2">
+                <UserAvatar list :user-id="sessionUser.id" :tooltip="false" />
+                <div>
+                  {{ sessionUser.fullName }}
+                </div>
+              </div>
+            </v-btn>
+            <v-btn v-else v-bind="props" icon data-testid="user-menu-button">
               <UserAvatar list :user-id="sessionUser.id" :tooltip="false" />
             </v-btn>
           </template>
           <v-list density="comfortable" color="primary" data-testid="user-menu">
-            <v-list-item :title="sessionUser.fullName ?? undefined" :to="userProfileLink">
-              <template #prepend>
-                <!-- TODO: horizontally center avatar with other icons in menu (why isn't it automatically centered?) -->
-                <UserAvatar list :user-id="sessionUser.id" :tooltip="false" />
-              </template>
-            </v-list-item>
+            <template v-if="xs">
+              <v-list-subheader :title="sessionUser.fullName ?? undefined" class="justify-center" />
+              <v-divider class="my-2" />
+            </template>
+            <v-list-item :prepend-icon="$globals.icons.user" :title="$t('settings.profile')" :to="userProfileLink" />
             <v-divider class="my-2" />
             <v-list-item :prepend-icon="$globals.icons.translate" :title="$t('sidebar.language')" @click="languageDialog=true" />
             <!-- TODO: prevent menu from closing when toggling light/dark mode -->
