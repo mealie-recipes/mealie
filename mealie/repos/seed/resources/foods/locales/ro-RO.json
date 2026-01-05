@@ -583,8 +583,8 @@
             "anaheim pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "anaheim pepper",
-                "plural_name": "anaheim peppers"
+                "name": "ardei Anaheim",
+                "plural_name": "ardei Anaheim"
             },
             "cres": {
                 "aliases": [],
@@ -629,127 +629,127 @@
             "tomato": {
                 "aliases": [],
                 "description": "Yes they are a fruit",
-                "name": "tomato",
-                "plural_name": "tomatoes"
+                "name": "roșie",
+                "plural_name": "roșii"
             },
             "lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon",
-                "plural_name": "lemons"
+                "name": "lămâie",
+                "plural_name": "lămâi"
             },
             "lime": {
                 "aliases": [],
                 "description": "",
-                "name": "lime",
+                "name": "limetă",
                 "plural_name": "limes"
             },
             "apple": {
                 "aliases": [],
                 "description": "",
-                "name": "apple",
-                "plural_name": "apples"
+                "name": "măr",
+                "plural_name": "mere"
             },
             "banana": {
                 "aliases": [],
                 "description": "",
-                "name": "banana",
-                "plural_name": "bananas"
+                "name": "banană",
+                "plural_name": "banane"
             },
             "orange": {
                 "aliases": [],
                 "description": "",
-                "name": "orange",
-                "plural_name": "oranges"
+                "name": "portocală",
+                "plural_name": "portocale"
             },
             "raisin": {
                 "aliases": [],
                 "description": "",
-                "name": "raisin",
-                "plural_name": "raisins"
+                "name": "stafidă",
+                "plural_name": "stafide"
             },
             "pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple",
-                "plural_name": "pineapples"
+                "name": "ananas",
+                "plural_name": "ananași"
             },
             "mango": {
                 "aliases": [],
                 "description": "",
                 "name": "mango",
-                "plural_name": "mangoes"
+                "plural_name": "mango"
             },
             "peach": {
                 "aliases": [],
                 "description": "",
-                "name": "peach",
-                "plural_name": "peaches"
+                "name": "Piersică",
+                "plural_name": "piersici"
             },
             "date": {
                 "aliases": [],
                 "description": "",
-                "name": "date",
-                "plural_name": "dates"
+                "name": "curmal",
+                "plural_name": "curmale"
             },
             "coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut",
-                "plural_name": "coconuts"
+                "name": "cocos",
+                "plural_name": "cocos"
             },
             "craisin": {
                 "aliases": [],
                 "description": "",
-                "name": "craisin",
-                "plural_name": "craisins"
+                "name": "merișoară",
+                "plural_name": "merișoare"
             },
             "pear": {
                 "aliases": [],
                 "description": "",
-                "name": "pear",
-                "plural_name": "pears"
+                "name": "pară",
+                "plural_name": "pere"
             },
             "grape": {
                 "aliases": [],
                 "description": "",
-                "name": "grape",
-                "plural_name": "grapes"
+                "name": "strugure",
+                "plural_name": "struguri"
             },
             "pomegranate": {
                 "aliases": [],
                 "description": "",
-                "name": "pomegranate",
-                "plural_name": "pomegranates"
+                "name": "rodie",
+                "plural_name": "rodii"
             },
             "watermelon": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon",
-                "plural_name": "watermelons"
+                "name": "pepene",
+                "plural_name": "pepeni"
             },
             "rhubarb": {
                 "aliases": [],
                 "description": "",
-                "name": "rhubarb",
-                "plural_name": "rhubarbs"
+                "name": "rubarbă",
+                "plural_name": "rubarbe"
             },
             "dried apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apricot",
-                "plural_name": "dried apricots"
+                "name": "caisă deshidratată",
+                "plural_name": "caise deshidratate"
             },
             "kiwi": {
                 "aliases": [],
                 "description": "",
                 "name": "kiwi",
-                "plural_name": "kiwis"
+                "plural_name": "kiwi"
             },
             "grapefruit": {
                 "aliases": [],
                 "description": "",
-                "name": "grapefruit",
+                "name": "grepfrut",
                 "plural_name": "grepfrut"
             },
             "plum": {
@@ -780,12 +780,12 @@
                 "aliases": [],
                 "description": "",
                 "name": "mandarină",
-                "plural_name": "mandarins"
+                "plural_name": "mandarine"
             },
             "prune": {
                 "aliases": [],
                 "description": "",
-                "name": "prune",
+                "name": "prune deshidratate",
                 "plural_name": "prunes"
             },
             "cantaloupe": {
@@ -1217,7 +1217,7 @@
             "sapote": {
                 "aliases": [],
                 "description": "",
-                "name": "sapote",
+                "name": "sapote negru",
                 "plural_name": "sapotes"
             },
             "green ume plum": {
@@ -1257,26 +1257,26 @@
             "wild mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "wild mushroom",
-                "plural_name": "wild mushrooms"
+                "name": "ciupercă sălbatică",
+                "plural_name": "ciuperci sălbatice"
             },
             "porcini": {
                 "aliases": [],
                 "description": "",
-                "name": "porcini",
-                "plural_name": "porcinis"
+                "name": "hrib",
+                "plural_name": "hribi"
             },
             "mixed mushroom": {
                 "aliases": [],
                 "description": "",
                 "name": "mixed mushroom",
-                "plural_name": "mixed mushrooms"
+                "plural_name": "ciuperci mixte"
             },
             "oyster mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "oyster mushroom",
-                "plural_name": "oyster mushrooms"
+                "name": "ciupercă Pleurotus",
+                "plural_name": "ciuperci Pleurotus"
             },
             "chestnut mushroom": {
                 "aliases": [],
@@ -1299,8 +1299,8 @@
             "black truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "black truffle",
-                "plural_name": "black truffles"
+                "name": "trufă neagră",
+                "plural_name": "trufe negre"
             },
             "morel mushroom": {
                 "aliases": [],
@@ -1353,8 +1353,8 @@
             "white truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "white truffle",
-                "plural_name": "white truffles"
+                "name": "trufă albă",
+                "plural_name": "trufe albe"
             },
             "white fungu": {
                 "aliases": [],
@@ -1453,38 +1453,38 @@
             "strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry",
-                "plural_name": "strawberries"
+                "name": "căpșună",
+                "plural_name": "căpșuni"
             },
             "blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry",
-                "plural_name": "blueberries"
+                "name": "coacăză",
+                "plural_name": "coacăze"
             },
             "raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry",
-                "plural_name": "raspberries"
+                "name": "zmeură",
+                "plural_name": "Zmeură"
             },
             "cranberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry",
-                "plural_name": "cranberries"
+                "name": "merișor",
+                "plural_name": "merișoare"
             },
             "cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry",
-                "plural_name": "cherries"
+                "name": "cireașă",
+                "plural_name": "cireșe"
             },
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
-                "plural_name": "blackberries"
+                "name": "mură",
+                "plural_name": "Mure"
             },
             "berry mix": {
                 "aliases": [],
@@ -1501,8 +1501,8 @@
             "dried cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cherry",
-                "plural_name": "dried cherries"
+                "name": "cireașă uscată",
+                "plural_name": "cireșe uscate"
             },
             "juniper berry": {
                 "aliases": [],
@@ -1531,14 +1531,14 @@
             "freeze-dried strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried strawberry",
-                "plural_name": "freeze-dried strawberries"
+                "name": "căpșună liofilizată",
+                "plural_name": "căpșuni liofilizate"
             },
             "gooseberry": {
                 "aliases": [],
                 "description": "",
-                "name": "gooseberry",
-                "plural_name": "gooseberries"
+                "name": "agrișă",
+                "plural_name": "agrișe"
             },
             "freeze-dried raspberry": {
                 "aliases": [],
@@ -1555,14 +1555,14 @@
             "canned sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sour cherry",
-                "plural_name": "canned sour cherries"
+                "name": "vișină la conservă",
+                "plural_name": "vișine la conservă"
             },
             "mulberry": {
                 "aliases": [],
                 "description": "",
-                "name": "mulberry",
-                "plural_name": "mulberries"
+                "name": "dudă",
+                "plural_name": "dude"
             },
             "acai berry": {
                 "aliases": [],
@@ -1585,8 +1585,8 @@
             "elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "elderberry",
-                "plural_name": "elderberries"
+                "name": "boabă de soc",
+                "plural_name": "boabe de soc"
             },
             "freeze-dried blueberry": {
                 "aliases": [],
@@ -1597,8 +1597,8 @@
             "huckleberry": {
                 "aliases": [],
                 "description": "",
-                "name": "huckleberry",
-                "plural_name": "huckleberries"
+                "name": "afin american",
+                "plural_name": "afine americane"
             },
             "dried elderberry": {
                 "aliases": [],
@@ -1609,8 +1609,8 @@
             "barberry": {
                 "aliases": [],
                 "description": "",
-                "name": "barberry",
-                "plural_name": "barberries"
+                "name": "drăcilă",
+                "plural_name": "drăcile"
             },
             "dried berry": {
                 "aliases": [],
@@ -1715,62 +1715,62 @@
             "walnut": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut",
-                "plural_name": "walnuts"
+                "name": "nucă",
+                "plural_name": "nuci"
             },
             "pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "pecan",
-                "plural_name": "pecans"
+                "name": "nucă pecan",
+                "plural_name": "nuci pecan"
             },
             "almond": {
                 "aliases": [],
                 "description": "",
-                "name": "almond",
-                "plural_name": "almonds"
+                "name": "migdală",
+                "plural_name": "migdale"
             },
             "sesame seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame seed",
-                "plural_name": "sesame seeds"
+                "name": "sămanță de susan",
+                "plural_name": "semințe de susan"
             },
             "cashew": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew",
-                "plural_name": "cashews"
+                "name": "caju",
+                "plural_name": "caju"
             },
             "pine nut": {
                 "aliases": [],
                 "description": "",
-                "name": "pine nut",
-                "plural_name": "pine nuts"
+                "name": "sămânță de pin",
+                "plural_name": "semințe de pin"
             },
             "pistachio": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio",
-                "plural_name": "pistachios"
+                "name": "fistic",
+                "plural_name": "fistic"
             },
             "peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut",
-                "plural_name": "peanuts"
+                "name": "arahidă",
+                "plural_name": "arahide"
             },
             "chia": {
                 "aliases": [],
                 "description": "",
                 "name": "chia",
-                "plural_name": "chias"
+                "plural_name": "chia"
             },
             "flax": {
                 "aliases": [],
                 "description": "",
-                "name": "flax",
-                "plural_name": "flaxes"
+                "name": "in",
+                "plural_name": "semințe de in"
             },
             "slivered almond": {
                 "aliases": [],
@@ -1781,32 +1781,32 @@
             "pumpkin seed": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin seed",
-                "plural_name": "pumpkin seeds"
+                "name": "sămânță de dovleac",
+                "plural_name": "semințe de dovleac"
             },
             "hazelnut": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut",
-                "plural_name": "hazelnuts"
+                "name": "alună",
+                "plural_name": "alune"
             },
             "poppy seed": {
                 "aliases": [],
                 "description": "",
-                "name": "poppy seed",
-                "plural_name": "poppy seeds"
+                "name": "sămânță de mac",
+                "plural_name": "semințe de mac"
             },
             "sunflower seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower seed",
-                "plural_name": "sunflower seeds"
+                "name": "semințe de floarea-soarelui",
+                "plural_name": "semințe de floarea-soarelui"
             },
             "macadamia": {
                 "aliases": [],
                 "description": "",
-                "name": "macadamia",
-                "plural_name": "macadamias"
+                "name": "nuci de macadamia",
+                "plural_name": "nuci de macadamia"
             },
             "roasted peanut": {
                 "aliases": [],
@@ -1835,14 +1835,14 @@
             "mixed nut": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed nut",
-                "plural_name": "mixed nuts"
+                "name": "nuca mixtă",
+                "plural_name": "nuci mixte"
             },
             "brazil nut": {
                 "aliases": [],
                 "description": "",
-                "name": "brazil nut",
-                "plural_name": "brazil nuts"
+                "name": "nuca braziliana",
+                "plural_name": "nuci braziliene"
             },
             "mixed seed": {
                 "aliases": [],
@@ -1859,8 +1859,8 @@
             "watermelon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon seed",
-                "plural_name": "watermelon seeds"
+                "name": "sămânță de pepene verde",
+                "plural_name": "semințe de pepene verde"
             },
             "honey-roasted peanut": {
                 "aliases": [],
@@ -1937,8 +1937,8 @@
             "honey-roasted pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted pecan",
-                "plural_name": "honey-roasted pecans"
+                "name": "nucă pecan prăjită în miere",
+                "plural_name": "nuci pecan prăjite în miere"
             },
             "tigernut": {
                 "aliases": [],
@@ -1950,7 +1950,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sunflower sprout",
-                "plural_name": "sunflower sprouts"
+                "plural_name": "germeni de floarea-soarelui"
             },
             "apricot kernel": {
                 "aliases": [],
@@ -2001,22 +2001,22 @@
             "parmesan": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan",
-                "plural_name": "parmesans"
+                "name": "parmezan",
+                "plural_name": "parmezan"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddars"
+                    "chedar"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheeses"
+                "name": "brânză cheddar",
+                "plural_name": "brânză cheddar"
             },
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheeses"
+                "name": "cremă de brânză",
+                "plural_name": "cremă de brânză"
             },
             "sharp cheddar": {
                 "aliases": [],
@@ -2027,26 +2027,26 @@
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheeses"
+                "name": "brânză",
+                "plural_name": "brânzeturi"
             },
             "mozzarella": {
                 "aliases": [],
                 "description": "",
                 "name": "mozzarella",
-                "plural_name": "mozzarellas"
+                "plural_name": "mozzarella"
             },
             "feta": {
                 "aliases": [],
                 "description": "",
                 "name": "feta",
-                "plural_name": "fetas"
+                "plural_name": "feta"
             },
             "ricotta": {
                 "aliases": [],
                 "description": "",
                 "name": "ricotta",
-                "plural_name": "ricottas"
+                "plural_name": "ricotta"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
@@ -2063,20 +2063,20 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheeses"
+                "name": "brânză cu mucegai",
+                "plural_name": "brânzeturi cu mucegai"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheeses"
+                "name": "brânză de capră",
+                "plural_name": "brânzeturi de capră"
             },
             "fresh mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella",
-                "plural_name": "fresh mozzarellas"
+                "name": "mozzarella proaspătă",
+                "plural_name": "mozzarella proaspătă"
             },
             "swiss cheese": {
                 "aliases": [],
@@ -2183,14 +2183,14 @@
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheeses"
+                "name": "brânză afumată",
+                "plural_name": "brânzeturi afumate"
             },
             "halloumi": {
                 "aliases": [],
                 "description": "",
                 "name": "halloumi",
-                "plural_name": "halloumis"
+                "plural_name": "halloumi"
             },
             "chevre": {
                 "aliases": [],
@@ -2226,7 +2226,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "burrata",
-                "plural_name": "burratas"
+                "plural_name": "burrata"
             },
             "havarti": {
                 "aliases": [],
@@ -2244,7 +2244,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "grana-padano",
-                "plural_name": "grana-padanoes"
+                "plural_name": "grana-padano"
             },
             "muenster": {
                 "aliases": [],
@@ -2262,7 +2262,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "camembert",
-                "plural_name": "camemberts"
+                "plural_name": "camembert"
             },
             "soft cheese": {
                 "aliases": [],
@@ -2613,32 +2613,32 @@
             "butter": {
                 "aliases": [],
                 "description": "",
-                "name": "butter",
-                "plural_name": "butter"
+                "name": "unt",
+                "plural_name": "unt"
             },
             "egg": {
                 "aliases": [],
                 "description": "",
-                "name": "egg",
-                "plural_name": "eggs"
+                "name": "ou",
+                "plural_name": "ouă"
             },
             "milk": {
                 "aliases": [],
                 "description": "",
-                "name": "milk",
-                "plural_name": "milks"
+                "name": "lapte",
+                "plural_name": "lapte"
             },
             "heavy cream": {
                 "aliases": [],
                 "description": "",
-                "name": "heavy cream",
+                "name": "smântână pentru frișcă",
                 "plural_name": "heavy creams"
             },
             "sour cream": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cream",
-                "plural_name": "sour creams"
+                "name": "smântână",
+                "plural_name": "smântână"
             },
             "buttermilk": {
                 "aliases": [],
@@ -2649,7 +2649,7 @@
             "yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt",
+                "name": "iaurt",
                 "plural_name": "yogurts"
             },
             "greek yogurt": {
@@ -2687,7 +2687,7 @@
             "condensed milk": {
                 "aliases": [],
                 "description": "",
-                "name": "condensed milk",
+                "name": "lapte condensat",
                 "plural_name": "condensed milks"
             },
             "half and half": {
@@ -2699,20 +2699,20 @@
             "sweetened condensed milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sweetened condensed milk",
+                "name": "lapte condensat îndulcit",
                 "plural_name": "sweetened condensed milks"
             },
             "ice cream": {
                 "aliases": [],
                 "description": "",
-                "name": "ice cream",
-                "plural_name": "ice creams"
+                "name": "înghețată",
+                "plural_name": "înghețate"
             },
             "margarine": {
                 "aliases": [],
                 "description": "",
-                "name": "margarine",
-                "plural_name": "margarines"
+                "name": "margarină",
+                "plural_name": "margarine"
             },
             "creme fraiche": {
                 "aliases": [],
@@ -2723,20 +2723,20 @@
             "frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "frosting",
-                "plural_name": "frostings"
+                "name": "glazură",
+                "plural_name": "glazuri"
             },
             "milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "milk powder",
+                "name": "lapte praf",
                 "plural_name": "milk powders"
             },
             "curd": {
                 "aliases": [],
                 "description": "",
-                "name": "curd",
-                "plural_name": "curds"
+                "name": "caș",
+                "plural_name": "cașuri"
             },
             "thickened cream": {
                 "aliases": [],
@@ -2759,32 +2759,32 @@
             "custard": {
                 "aliases": [],
                 "description": "",
-                "name": "custard",
-                "plural_name": "custards"
+                "name": "cremă de ouă",
+                "plural_name": "creme de ouă"
             },
             "chocolate frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate frosting",
-                "plural_name": "chocolate frostings"
+                "name": "glazură de ciocolată",
+                "plural_name": "glazuri de ciocolată"
             },
             "kefir": {
                 "aliases": [],
                 "description": "",
                 "name": "kefir",
-                "plural_name": "kefirs"
+                "plural_name": "kefir"
             },
             "sherbet": {
                 "aliases": [],
                 "description": "",
-                "name": "sherbet",
-                "plural_name": "sherbets"
+                "name": "șerbet",
+                "plural_name": "șerbeturi"
             },
             "chocolate milk": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk",
-                "plural_name": "chocolate milks"
+                "name": "lapte cu ciocolată",
+                "plural_name": "lapte cu ciocolată"
             },
             "liquid egg substitute": {
                 "aliases": [],
@@ -2795,8 +2795,8 @@
             "whey": {
                 "aliases": [],
                 "description": "",
-                "name": "whey",
-                "plural_name": "wheys"
+                "name": "zer",
+                "plural_name": "zeruri"
             },
             "hung curd": {
                 "aliases": [],
@@ -2819,7 +2819,7 @@
             "frozen yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen yogurt",
+                "name": "iaurt congelat",
                 "plural_name": "frozen yogurts"
             },
             "khoya": {
@@ -2903,8 +2903,8 @@
             "raw milk": {
                 "aliases": [],
                 "description": "",
-                "name": "raw milk",
-                "plural_name": "raw milks"
+                "name": "lapte crud",
+                "plural_name": "lapte crud"
             },
             "lime curd": {
                 "aliases": [],
@@ -2975,8 +2975,8 @@
             "goat butter": {
                 "aliases": [],
                 "description": "",
-                "name": "goat butter",
-                "plural_name": "goat butter"
+                "name": "unt de capră",
+                "plural_name": "unt de capră"
             },
             "century egg": {
                 "aliases": [],
@@ -2993,8 +2993,8 @@
             "goat yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "goat yogurt",
-                "plural_name": "goat yogurts"
+                "name": "iaurt de capră",
+                "plural_name": "iaurturi de capră"
             },
             "dahi": {
                 "aliases": [],
@@ -3048,7 +3048,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ayran",
-                "plural_name": "ayrans"
+                "plural_name": "ayran"
             },
             "cuajada": {
                 "aliases": [],
@@ -3077,8 +3077,8 @@
             "sheep milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep milk",
-                "plural_name": "sheep milks"
+                "name": "lapte de oaie",
+                "plural_name": "lapte de oaie"
             },
             "starter culture": {
                 "aliases": [],
@@ -3201,32 +3201,32 @@
             "coconut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut butter",
-                "plural_name": "coconut butter"
+                "name": "unt de cocos",
+                "plural_name": "unt de cocos"
             },
             "egg replacer": {
                 "aliases": [],
                 "description": "",
-                "name": "egg replacer",
-                "plural_name": "egg replacers"
+                "name": "înlocuitor de ouă",
+                "plural_name": "înlocuitor de ouă"
             },
             "vegan mayonnaise": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan mayonnaise",
-                "plural_name": "vegan mayonnaises"
+                "name": "maioneză vegană",
+                "plural_name": "maioneze vegane"
             },
             "vegan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan cheese",
-                "plural_name": "vegan cheeses"
+                "name": "brânză vegană",
+                "plural_name": "brânzeturi vegane"
             },
             "cashew butter": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew butter",
-                "plural_name": "cashew butter"
+                "name": "unt de caju",
+                "plural_name": "unt de caju"
             },
             "tempeh": {
                 "aliases": [],
@@ -3303,8 +3303,8 @@
             "soy yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "soy yogurt",
-                "plural_name": "soy yogurts"
+                "name": "iaurt de soia",
+                "plural_name": "iaurturi de soia"
             },
             "vegan mozzarella": {
                 "aliases": [],
@@ -3507,14 +3507,14 @@
             "vegetarian hot dog": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetarian hot dog",
-                "plural_name": "vegetarian hot dogs"
+                "name": "hot dog vegetarian",
+                "plural_name": "hot-dogi vegetarieni"
             },
             "hazelnut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut milk",
-                "plural_name": "hazelnut milks"
+                "name": "lapte de alune",
+                "plural_name": "lapte de alune"
             },
             "maple almond butter": {
                 "aliases": [],
@@ -3699,8 +3699,8 @@
             "soy quark": {
                 "aliases": [],
                 "description": "",
-                "name": "soy quark",
-                "plural_name": "soy quarks"
+                "name": "quark de soia",
+                "plural_name": "quarkuri de soia"
             },
             "vegan chicken nugget": {
                 "aliases": [],
@@ -3739,7 +3739,7 @@
             "bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "bacon",
+                "name": "șuncă",
                 "plural_name": "bacons"
             },
             "chopped bacon": {
@@ -3751,26 +3751,26 @@
             "ground beef": {
                 "aliases": [],
                 "description": "",
-                "name": "ground beef",
-                "plural_name": "ground beefs"
+                "name": "carne de vită tocată",
+                "plural_name": "carne de vită tocată"
             },
             "beef steak": {
                 "aliases": [],
                 "description": "",
-                "name": "beef steak",
-                "plural_name": "beef steaks"
+                "name": "friptură de vită",
+                "plural_name": "fripturi de vită"
             },
             "ham": {
                 "aliases": [],
                 "description": "",
-                "name": "ham",
-                "plural_name": "hams"
+                "name": "șuncă",
+                "plural_name": "șunci"
             },
             "pork chop": {
                 "aliases": [],
                 "description": "",
-                "name": "pork chop",
-                "plural_name": "pork chops"
+                "name": "cotlet de porc",
+                "plural_name": "cotlete de porc"
             },
             "sweet italian sausage": {
                 "aliases": [],
@@ -3781,20 +3781,20 @@
             "pork loin": {
                 "aliases": [],
                 "description": "",
-                "name": "pork loin",
-                "plural_name": "pork loins"
+                "name": "mușchi de porc",
+                "plural_name": "mușchiuri de porc"
             },
             "prosciutto": {
                 "aliases": [],
                 "description": "",
                 "name": "prosciutto",
-                "plural_name": "prosciuttoes"
+                "plural_name": "prosciutto"
             },
             "sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage",
-                "plural_name": "sausages"
+                "name": "cârnat",
+                "plural_name": "cârnați"
             },
             "beef roast": {
                 "aliases": [],
@@ -3805,14 +3805,14 @@
             "ground pork": {
                 "aliases": [],
                 "description": "",
-                "name": "ground pork",
-                "plural_name": "ground porks"
+                "name": "carne de porc tocată",
+                "plural_name": "carne de porc tocată"
             },
             "beef stew meat": {
                 "aliases": [],
                 "description": "",
-                "name": "beef stew meat",
-                "plural_name": "beef stew meats"
+                "name": "carne de vită pentru tocăniță",
+                "plural_name": "cărnuri de vită pentru tocăniță"
             },
             "pepperoni": {
                 "aliases": [],
@@ -3847,20 +3847,20 @@
             "ground lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "ground lamb",
-                "plural_name": "ground lambs"
+                "name": "carne de miel tocată",
+                "plural_name": "carne de miel tocată"
             },
             "pork rib": {
                 "aliases": [],
                 "description": "",
-                "name": "pork rib",
-                "plural_name": "pork ribs"
+                "name": "coaste de porc",
+                "plural_name": "costițe de porc"
             },
             "smoked sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked sausage",
-                "plural_name": "smoked sausages"
+                "name": "cârnat afumat",
+                "plural_name": "cârnați afumați"
             },
             "breakfast sausage": {
                 "aliases": [],
@@ -3872,18 +3872,18 @@
                 "aliases": [],
                 "description": "",
                 "name": "hot dog",
-                "plural_name": "hot dogs"
+                "plural_name": "hot dogi"
             },
             "beef sirloin": {
                 "aliases": [],
                 "description": "",
-                "name": "beef sirloin",
+                "name": "mușchi de vită",
                 "plural_name": "beef sirloins"
             },
             "salami": {
                 "aliases": [],
                 "description": "",
-                "name": "salami",
+                "name": "salam",
                 "plural_name": "salamis"
             },
             "brisket": {
@@ -3992,13 +3992,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "veal steak",
-                "plural_name": "veal steaks"
+                "plural_name": "friptură de vițel"
             },
             "lamb chop": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb chop",
-                "plural_name": "lamb chops"
+                "name": "cotlet de miel",
+                "plural_name": "cotlete de miel"
             },
             "bone-in ham": {
                 "aliases": [],
@@ -4009,7 +4009,7 @@
             "pork butt": {
                 "aliases": [],
                 "description": "",
-                "name": "pork butt",
+                "name": "spată de porc",
                 "plural_name": "pork butts"
             },
             "canadian bacon": {
@@ -4027,14 +4027,14 @@
             "lamb shank": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb shank",
-                "plural_name": "lamb shanks"
+                "name": "rasol de miel",
+                "plural_name": "rasoluri de miel"
             },
             "mutton": {
                 "aliases": [],
                 "description": "",
-                "name": "mutton",
-                "plural_name": "muttons"
+                "name": "carne de oaie",
+                "plural_name": "carne de oaie"
             },
             "ham steak": {
                 "aliases": [],
@@ -4045,8 +4045,8 @@
             "venison": {
                 "aliases": [],
                 "description": "",
-                "name": "venison",
-                "plural_name": "venisons"
+                "name": "carne de vânat",
+                "plural_name": "carne de vânat"
             },
             "bratwurst": {
                 "aliases": [],
@@ -4081,8 +4081,8 @@
             "rabbit": {
                 "aliases": [],
                 "description": "",
-                "name": "rabbit",
-                "plural_name": "rabbits"
+                "name": "iepure",
+                "plural_name": "iepure"
             },
             "pork cutlet": {
                 "aliases": [],
@@ -4123,8 +4123,8 @@
             "rack of lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "rack of lamb",
-                "plural_name": "rack of lamb"
+                "name": "coastă de miel",
+                "plural_name": "coaste de miel"
             },
             "pork back rib": {
                 "aliases": [],
@@ -4189,8 +4189,8 @@
             "hard salami": {
                 "aliases": [],
                 "description": "",
-                "name": "hard salami",
-                "plural_name": "hard salamis"
+                "name": "salam uscat",
+                "plural_name": "salamuri uscate"
             },
             "back bacon": {
                 "aliases": [],
@@ -4349,38 +4349,38 @@
             "chicken breast": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken breast",
-                "plural_name": "chicken breasts"
+                "name": "piept de pui",
+                "plural_name": "piept de pui"
             },
             "chicken thigh": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken thigh",
-                "plural_name": "chicken thighs"
+                "name": "pulpă de pui",
+                "plural_name": "pulpe de pui"
             },
             "cooked chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "cooked chicken",
-                "plural_name": "cooked chickens"
+                "name": "pui gătit",
+                "plural_name": "pui gătit"
             },
             "ground turkey": {
                 "aliases": [],
                 "description": "",
-                "name": "ground turkey",
-                "plural_name": "ground turkeys"
+                "name": "carne de curcan tocată",
+                "plural_name": "carne de curcan tocată"
             },
             "whole chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "whole chicken",
-                "plural_name": "whole chickens"
+                "name": "pui întreg",
+                "plural_name": "pui întreg"
             },
             "whole turkey": {
                 "aliases": [],
                 "description": "",
-                "name": "whole turkey",
-                "plural_name": "whole turkeys"
+                "name": "curcan întreg",
+                "plural_name": "curcan întreg"
             },
             "chicken leg": {
                 "aliases": [],
@@ -4391,74 +4391,74 @@
             "chicken wing": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken wing",
-                "plural_name": "chicken wings"
+                "name": "aripă de pui",
+                "plural_name": "aripi de pui"
             },
             "turkey breast": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey breast",
-                "plural_name": "turkey breasts"
+                "name": "piept de curcan",
+                "plural_name": "piept de curcan"
             },
             "ground chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "ground chicken",
-                "plural_name": "ground chickens"
+                "name": "carne de curcan pui",
+                "plural_name": "carne de curcan pui"
             },
             "rotisserie chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "rotisserie chicken",
-                "plural_name": "rotisserie chickens"
+                "name": "pui la rotisor",
+                "plural_name": "pui la rotisor"
             },
             "chicken tender": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken tender",
-                "plural_name": "chicken tenders"
+                "name": "file de pui",
+                "plural_name": "fileuri de pui"
             },
             "turkey sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey sausage",
-                "plural_name": "turkey sausages"
+                "name": "cârnat de curcan",
+                "plural_name": "cârnați de curcan"
             },
             "chicken sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken sausage",
-                "plural_name": "chicken sausages"
+                "name": "cârnat de pui",
+                "plural_name": "cârnați de pui"
             },
             "turkey bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey bacon",
-                "plural_name": "turkey bacons"
+                "name": "bacon de curcan",
+                "plural_name": "bacon de curcan"
             },
             "duck": {
                 "aliases": [],
                 "description": "",
-                "name": "duck",
+                "name": "rață",
                 "plural_name": "ducks"
             },
             "duck breast": {
                 "aliases": [],
                 "description": "",
-                "name": "duck breast",
+                "name": "piept de raţă",
                 "plural_name": "duck breasts"
             },
             "boneless chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "boneless chicken",
-                "plural_name": "boneless chickens"
+                "name": "pui dezosat",
+                "plural_name": "pui dezosat"
             },
             "chicken liver": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken liver",
-                "plural_name": "chicken livers"
+                "name": "ficat de pui",
+                "plural_name": "ficat de pui"
             },
             "cornish hen": {
                 "aliases": [],
@@ -4475,8 +4475,8 @@
             "smoked turkey": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked turkey",
-                "plural_name": "smoked turkeys"
+                "name": "curcan afumat",
+                "plural_name": "curcan afumat"
             },
             "turkey meat": {
                 "aliases": [],
@@ -8597,37 +8597,37 @@
                 "aliases": [],
                 "description": "",
                 "name": "rice cereal",
-                "plural_name": "rice cereals"
+                "plural_name": "cereale de orez"
             },
             "wild rice": {
                 "aliases": [],
                 "description": "",
-                "name": "wild rice",
-                "plural_name": "wild rices"
+                "name": "orez sălbatic",
+                "plural_name": "orezuri sălbatice"
             },
             "semolina": {
                 "aliases": [],
                 "description": "",
-                "name": "semolina",
-                "plural_name": "semolinas"
+                "name": "griș",
+                "plural_name": "griș"
             },
             "jasmine rice": {
                 "aliases": [],
                 "description": "",
-                "name": "jasmine rice",
+                "name": "orez jamin",
                 "plural_name": "jasmine rices"
             },
             "polenta": {
                 "aliases": [],
                 "description": "",
-                "name": "polenta",
-                "plural_name": "polentas"
+                "name": "mămăligă",
+                "plural_name": "mămăligi"
             },
             "granola cereal": {
                 "aliases": [],
                 "description": "",
-                "name": "granola cereal",
-                "plural_name": "granola cereals"
+                "name": "granola",
+                "plural_name": "cereale granola"
             },
             "bulgur": {
                 "aliases": [],
@@ -8650,14 +8650,14 @@
             "barley": {
                 "aliases": [],
                 "description": "",
-                "name": "barley",
-                "plural_name": "barleys"
+                "name": "orz",
+                "plural_name": "orz"
             },
             "wheat germ": {
                 "aliases": [],
                 "description": "",
-                "name": "wheat germ",
-                "plural_name": "wheat germs"
+                "name": "germeni de grâu",
+                "plural_name": "germeni de grâu"
             },
             "grit": {
                 "aliases": [],
@@ -8674,8 +8674,8 @@
             "millet": {
                 "aliases": [],
                 "description": "",
-                "name": "millet",
-                "plural_name": "millets"
+                "name": "mei",
+                "plural_name": "meiuri"
             },
             "oat bran": {
                 "aliases": [],
@@ -8686,8 +8686,8 @@
             "sushi rice": {
                 "aliases": [],
                 "description": "",
-                "name": "sushi rice",
-                "plural_name": "sushi rices"
+                "name": "orez sushi",
+                "plural_name": "orezuri sushi"
             },
             "glutinous rice": {
                 "aliases": [],
@@ -8698,8 +8698,8 @@
             "instant rice": {
                 "aliases": [],
                 "description": "",
-                "name": "instant rice",
-                "plural_name": "instant rices"
+                "name": "orez instant",
+                "plural_name": "orezuri instante"
             },
             "hominy": {
                 "aliases": [],
@@ -8710,14 +8710,14 @@
             "red quinoa": {
                 "aliases": [],
                 "description": "",
-                "name": "red quinoa",
-                "plural_name": "red quinoas"
+                "name": "quinoa roșie",
+                "plural_name": "quinoa roșie"
             },
             "raw buckwheat": {
                 "aliases": [],
                 "description": "",
-                "name": "raw buckwheat",
-                "plural_name": "raw buckwheats"
+                "name": "hrișcă crudă",
+                "plural_name": "hrișcă crudă"
             },
             "wheat bran": {
                 "aliases": [],
@@ -8728,8 +8728,8 @@
             "instant oat": {
                 "aliases": [],
                 "description": "",
-                "name": "instant oat",
-                "plural_name": "instant oats"
+                "name": "ovăz instant",
+                "plural_name": "ovăz instant"
             },
             "wheat berry": {
                 "aliases": [],
@@ -8824,13 +8824,13 @@
             "red rice": {
                 "aliases": [],
                 "description": "",
-                "name": "red rice",
-                "plural_name": "red rices"
+                "name": "orez roșu",
+                "plural_name": "orezuri roşii"
             },
             "mexican rice": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican rice",
+                "name": "orez mexican",
                 "plural_name": "mexican rices"
             },
             "idli rice": {
@@ -8987,7 +8987,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "gluten-free breakfast cereal",
-                "plural_name": "gluten-free breakfast cereals"
+                "plural_name": "cereale pentru micul dejun fără gluten"
             },
             "puffed amaranth": {
                 "aliases": [],
@@ -9092,8 +9092,8 @@
             "pea": {
                 "aliases": [],
                 "description": "",
-                "name": "pea",
-                "plural_name": "peas"
+                "name": "mazăre",
+                "plural_name": "mazăre"
             },
             "green bean": {
                 "aliases": [],
@@ -9104,8 +9104,8 @@
             "chickpea": {
                 "aliases": [],
                 "description": "",
-                "name": "chickpea",
-                "plural_name": "chickpeas"
+                "name": "năut",
+                "plural_name": "năuturi"
             },
             "black bean": {
                 "aliases": [],
@@ -9128,7 +9128,7 @@
             "lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "lentil",
+                "name": "linte",
                 "plural_name": "lentils"
             },
             "pinto bean": {
@@ -9242,8 +9242,8 @@
             "soybean": {
                 "aliases": [],
                 "description": "",
-                "name": "soybean",
-                "plural_name": "soybeans"
+                "name": "soia",
+                "plural_name": "soia"
             },
             "mung bean": {
                 "aliases": [],
@@ -9332,8 +9332,8 @@
             "dried pea": {
                 "aliases": [],
                 "description": "",
-                "name": "dried pea",
-                "plural_name": "dried peas"
+                "name": "mazăre uscată",
+                "plural_name": "mazăre uscată"
             },
             "pink bean": {
                 "aliases": [],
