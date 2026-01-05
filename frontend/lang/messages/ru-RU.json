@@ -1433,7 +1433,7 @@
     "required": "This Field is Required",
     "invalid-email": "Email Must Be Valid",
     "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
+    "no-whitespace": "Без пробелов",
     "min-length": "Must Be At Least {min} Characters",
     "max-length": "Must Be At Most {max} Characters"
   }
