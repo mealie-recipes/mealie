@@ -449,8 +449,8 @@
             "leaf lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "sałata",
-                "plural_name": "sałata"
+                "name": "liść sałaty",
+                "plural_name": "liści sałat"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -461,14 +461,14 @@
             "baby bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "baby bok choy",
-                "plural_name": "baby bok choys"
+                "name": "młoda kapusta pak choi",
+                "plural_name": "młode kapusty pak choi"
             },
             "jicama": {
                 "aliases": [],
                 "description": "",
-                "name": "jicama",
-                "plural_name": "jicamas"
+                "name": "kłębian kątowaty",
+                "plural_name": "kłębiany kątowate"
             },
             "endive": {
                 "aliases": [],
@@ -484,7 +484,7 @@
             },
             "corn husk": {
                 "aliases": [
-                    "kukurydza"
+                    "skrobia kukurydziana"
                 ],
                 "description": "",
                 "name": "łuska kukurydzy",
@@ -511,8 +511,8 @@
             "baby corn": {
                 "aliases": [],
                 "description": "",
-                "name": "baby corn",
-                "plural_name": "baby corns"
+                "name": "kukurydza mini",
+                "plural_name": "kukurydze mini"
             },
             "broccoli rabe": {
                 "aliases": [],
@@ -523,14 +523,14 @@
             "rutabaga": {
                 "aliases": [],
                 "description": "",
-                "name": "rutabaga",
-                "plural_name": "rutabagas"
+                "name": "brukiew",
+                "plural_name": "brukwie"
             },
             "belgian endive": {
                 "aliases": [],
                 "description": "",
-                "name": "belgian endive",
-                "plural_name": "belgian endives"
+                "name": "cykoria sałatowa",
+                "plural_name": "cykorie sałatowe"
             },
             "yam": {
                 "aliases": [],
@@ -547,8 +547,8 @@
             "microgreen": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreen",
-                "plural_name": "microgreens"
+                "name": "mikrolistek",
+                "plural_name": "mikrolistki"
             },
             "boston lettuce": {
                 "aliases": [],
@@ -577,8 +577,8 @@
             "frisee": {
                 "aliases": [],
                 "description": "",
-                "name": "frisee",
-                "plural_name": "frisees"
+                "name": "sałata Frisée",
+                "plural_name": "sałaty Frisée"
             },
             "anaheim pepper": {
                 "aliases": [],
@@ -589,8 +589,8 @@
             "cres": {
                 "aliases": [],
                 "description": "",
-                "name": "cres",
-                "plural_name": "cress"
+                "name": "kiełki",
+                "plural_name": "kiełków"
             },
             "broccoli slaw": {
                 "aliases": [],
@@ -845,8 +845,8 @@
             "honeydew melon": {
                 "aliases": [],
                 "description": "",
-                "name": "honeydew melon",
-                "plural_name": "honeydew melons"
+                "name": "żółty melon",
+                "plural_name": "żółte melony"
             },
             "dried fruit": {
                 "aliases": [],
@@ -918,7 +918,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "jackfruit",
-                "plural_name": "jackfruits"
+                "plural_name": "chlebowiec różnolistny"
             },
             "dragon fruit": {
                 "aliases": [],
@@ -989,20 +989,20 @@
             "calamansi": {
                 "aliases": [],
                 "description": "",
-                "name": "calamansi",
-                "plural_name": "calamansis"
+                "name": "kalamondin",
+                "plural_name": "kalamondinów"
             },
             "yuzu": {
                 "aliases": [],
                 "description": "",
                 "name": "yuzu",
-                "plural_name": "yuzus"
+                "plural_name": "yuzu"
             },
             "granadilla": {
                 "aliases": [],
                 "description": "",
-                "name": "granadilla",
-                "plural_name": "granadillas"
+                "name": "męczennica języczkowata",
+                "plural_name": "męczennic języczkowatych"
             },
             "apple chip": {
                 "aliases": [],
@@ -1020,13 +1020,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "kokum",
-                "plural_name": "kokums"
+                "plural_name": "kokum"
             },
             "tangelo": {
                 "aliases": [],
                 "description": "",
                 "name": "tangelo",
-                "plural_name": "tangeloes"
+                "plural_name": "tangele"
             },
             "dried lime": {
                 "aliases": [],
@@ -1037,8 +1037,8 @@
             "jujube": {
                 "aliases": [],
                 "description": "",
-                "name": "jujube",
-                "plural_name": "jujubes"
+                "name": "jujuba",
+                "plural_name": "jujube"
             },
             "sweet lime": {
                 "aliases": [],
