@@ -73,7 +73,6 @@
                 <UserAvatar list :user-id="sessionUser.id" :tooltip="false" />
               </template>
             </v-list-item>
-            <v-list-item :prepend-icon="$globals.icons.heart" :title="$t('user.favorite-recipes')" :to="userFavoritesLink" />
             <v-divider class="my-2" />
             <v-list-item :prepend-icon="$globals.icons.translate" :title="$t('sidebar.language')" @click="languageDialog=true" />
             <!-- TODO: prevent menu from closing when toggling light/dark mode -->
@@ -125,7 +124,6 @@ export default defineNuxtComponent({
     const { loggedIn } = useLoggedInState();
     const isAdmin = computed(() => $auth.user.value?.admin);
     const canManage = computed(() => $auth.user.value?.canManage);
-    const userFavoritesLink = computed(() => $auth.user.value ? `/user/${$auth.user.value.id}/favorites` : undefined);
     const userProfileLink = computed(() => $auth.user.value ? "/user/profile" : undefined);
     const route = useRoute();
     const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
@@ -181,7 +179,6 @@ export default defineNuxtComponent({
       sessionUser: $auth.user,
       smAndUp,
       toggleDark,
-      userFavoritesLink,
       userProfileLink,
       xs,
     };
