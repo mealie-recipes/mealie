@@ -235,7 +235,7 @@ export default defineNuxtComponent({
       {
         icon: $globals.icons.heart,
         // TODO: how to hide this for non-logged-in view?
-        to: `/user/${$auth.user.value.id}/favorites`,
+        to: `/user/${$auth.user.value?.id ?? ""}/favorites`,
         title: i18n.t("user.favorite-recipes"),
         restricted: false,
       },
