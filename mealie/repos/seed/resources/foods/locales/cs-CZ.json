@@ -395,8 +395,8 @@
             "thai chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chile pepper",
-                "plural_name": "thai chile peppers"
+                "name": "thajská chilli paprička",
+                "plural_name": "thaiské chilli papričky"
             },
             "bok choy": {
                 "aliases": [],
@@ -437,8 +437,8 @@
             "tenderstem broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "tenderstem broccoli",
-                "plural_name": "tenderstem broccolis"
+                "name": "stonková brokolice",
+                "plural_name": "stonkové brokolice"
             },
             "plantain": {
                 "aliases": [],
@@ -455,20 +455,20 @@
             "pepperoncini": {
                 "aliases": [],
                 "description": "",
-                "name": "pepperoncini",
-                "plural_name": "pepperoncinis"
+                "name": "chilli paprička",
+                "plural_name": "chilli papričky"
             },
             "baby bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "baby bok choy",
-                "plural_name": "baby bok choys"
+                "name": "čínské baby zelí",
+                "plural_name": "čínská baby zelí"
             },
             "jicama": {
                 "aliases": [],
                 "description": "",
                 "name": "jicama",
-                "plural_name": "jicamas"
+                "plural_name": "jicamy"
             },
             "endive": {
                 "aliases": [],
@@ -499,8 +499,8 @@
             "french-fried onion": {
                 "aliases": [],
                 "description": "",
-                "name": "french-fried onion",
-                "plural_name": "french-fried onions"
+                "name": "smažená cibule",
+                "plural_name": "smažené cibule"
             },
             "daikon": {
                 "aliases": [],
@@ -517,8 +517,8 @@
             "broccoli rabe": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli rabe",
-                "plural_name": "broccoli rabes"
+                "name": "rapini",
+                "plural_name": "rapini"
             },
             "rutabaga": {
                 "aliases": [],
@@ -529,20 +529,20 @@
             "belgian endive": {
                 "aliases": [],
                 "description": "",
-                "name": "belgian endive",
-                "plural_name": "belgian endives"
+                "name": "čekanka",
+                "plural_name": "čekanky"
             },
             "yam": {
                 "aliases": [],
                 "description": "",
-                "name": "yam",
-                "plural_name": "yams"
+                "name": "batát",
+                "plural_name": "batáty"
             },
             "ancho chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "ancho chile pepper",
-                "plural_name": "ancho chile peppers"
+                "name": "ancho chilli paprička",
+                "plural_name": "ancho chilli papričky"
             },
             "microgreen": {
                 "aliases": [],
@@ -553,8 +553,8 @@
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "boston lettuce",
-                "plural_name": "boston lettuces"
+                "name": "hlávkový salát",
+                "plural_name": "hlávkové saláty"
             },
             "kohlrabi": {
                 "aliases": [],
@@ -565,50 +565,50 @@
             "fresno chile": {
                 "aliases": [],
                 "description": "",
-                "name": "fresno chile",
-                "plural_name": "fresno chiles"
+                "name": "fresno chilli paprička",
+                "plural_name": "fresno chilli papričky"
             },
             "delicata squash": {
                 "aliases": [],
                 "description": "",
-                "name": "delicata squash",
-                "plural_name": "delicata squashes"
+                "name": "tykev obyčejná",
+                "plural_name": "tykve obyčejné"
             },
             "frisee": {
                 "aliases": [],
                 "description": "",
-                "name": "frisee",
+                "name": "čekanka",
                 "plural_name": "frisees"
             },
             "anaheim pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "anaheim pepper",
-                "plural_name": "anaheim peppers"
+                "name": "anaheim paprička",
+                "plural_name": "anaheim papričky"
             },
             "cres": {
                 "aliases": [],
                 "description": "",
-                "name": "cres",
-                "plural_name": "cress"
+                "name": "řeřicha",
+                "plural_name": "řeřichy"
             },
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli slaw",
-                "plural_name": "broccoli slaws"
+                "name": "brokolicový salát",
+                "plural_name": "brokolickové saláty"
             },
             "arbol chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "arbol chile pepper",
-                "plural_name": "arbol chile peppers"
+                "name": "arbol chilli paprička",
+                "plural_name": "arbol chilli papričky"
             },
             "golden beet": {
                 "aliases": [],
                 "description": "",
-                "name": "golden beet",
-                "plural_name": "golden beets"
+                "name": "žlutá řepa",
+                "plural_name": "žluté řepy"
             },
             "pea shoot": {
                 "aliases": [],
@@ -619,8 +619,8 @@
             "alfalfa": {
                 "aliases": [],
                 "description": "",
-                "name": "alfalfa",
-                "plural_name": "alfalfas"
+                "name": "vojtěška",
+                "plural_name": "vojtěšky"
             }
         }
     },
@@ -628,7 +628,7 @@
         "foods": {
             "tomato": {
                 "aliases": [],
-                "description": "Yes they are a fruit",
+                "description": "Ano, je to ovoce",
                 "name": "rajče",
                 "plural_name": "rajčata"
             },
@@ -701,8 +701,8 @@
             "craisin": {
                 "aliases": [],
                 "description": "",
-                "name": "craisin",
-                "plural_name": "craisins"
+                "name": "sušená brusinka",
+                "plural_name": "sušené brusinky"
             },
             "pear": {
                 "aliases": [],
@@ -839,14 +839,14 @@
             "meyer lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "meyer lemon",
-                "plural_name": "meyer lemons"
+                "name": "meyerův citron",
+                "plural_name": "meyerovy citrony"
             },
             "honeydew melon": {
                 "aliases": [],
                 "description": "",
-                "name": "honeydew melon",
-                "plural_name": "honeydew melons"
+                "name": "cukrový meloun",
+                "plural_name": "cukrové melouny"
             },
             "dried fruit": {
                 "aliases": [],
@@ -917,8 +917,8 @@
             "jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit",
-                "plural_name": "jackfruits"
+                "name": "žakie",
+                "plural_name": "žakie"
             },
             "dragon fruit": {
                 "aliases": [],
@@ -929,8 +929,8 @@
             "mixed fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed fruit",
-                "plural_name": "mixed fruits"
+                "name": "směs ovoce",
+                "plural_name": "směsi ovoce"
             },
             "asian pear": {
                 "aliases": [],
