@@ -198,7 +198,7 @@ Mealie lets you fully customize how you organize your users. You can use Groups 
 
 ### Groups
 
-Groups are fully isolated instances of Mealie. Think of a goup as a completely separate, fully self-contained site. There is no data shared between groups. Each group has its own users, recipes, tags, categories, etc. A user logged-in to one group cannot make any changes to another.
+Groups are fully isolated instances of Mealie. Think of a group as a completely separate, fully self-contained site. There is no data shared between groups. Each group has its own users, recipes, tags, categories, etc. A user logged-in to one group cannot make any changes to another.
 
 Common use cases for groups include:
 
