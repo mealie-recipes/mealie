@@ -865,7 +865,7 @@
     "volumes-are-configured-correctly": "볼륨이 올바르게 구성되었습니다.",
     "status-unknown-try-running-a-validation": "Status Unknown. Try running a validation.",
     "validate": "Validate",
-    "email-configuration-status": "Email Configuration Status",
+    "email-configuration-status": "이메일 설정 상태",
     "email-configured": "Email Configured",
     "email-test-results": "Email Test Results",
     "ready": "Ready",
@@ -1220,7 +1220,7 @@
     "share-recipe": "Share Recipe",
     "default-30-days": "Default 30 Days",
     "expires-at": "Expires At",
-    "recipe-link-copied-message": "Recipe link copied to clipboard"
+    "recipe-link-copied-message": "레시피 링크가 클립보드에 복사되었습니다"
   },
   "banner-experimental": {
     "title": "Experimental Feature",
