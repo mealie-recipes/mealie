@@ -22,6 +22,7 @@ export enum ImagePosition {
 }
 
 export interface UserMealPlanPreferences {
+  numberOfDaysPast: number;
   numberOfDays: number;
 }
 

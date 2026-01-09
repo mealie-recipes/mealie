@@ -31,6 +31,18 @@
 
         <v-card-text>
           <v-number-input
+            v-model="numberOfDaysPast"
+            :min="0"
+            control-variant="stacked"
+            inset
+            :label="$t('meal-plan.numberOfDaysPast-label')"
+            :hint="$t('meal-plan.numberOfDaysPast-hint')"
+            persistent-hint
+          />
+        </v-card-text>
+
+        <v-card-text>
+          <v-number-input
             v-model="numberOfDays"
             :min="1"
             control-variant="stacked"
@@ -88,7 +100,11 @@ export default defineNuxtComponent({
     });
 
     const mealPlanPreferences = useUserMealPlanPreferences();
+    const numberOfDaysPast = ref<number>(mealPlanPreferences.value.numberOfDaysPast || 0);
     const numberOfDays = ref<number>(mealPlanPreferences.value.numberOfDays || 7);
+    watch(numberOfDaysPast, (val) => {
+      mealPlanPreferences.value.numberOfDaysPast = Number(val);
+    });
     watch(numberOfDays, (val) => {
       mealPlanPreferences.value.numberOfDays = Number(val);
     });
@@ -112,7 +128,7 @@ export default defineNuxtComponent({
     }
 
     // Initialize dates from query parameters or defaults
-    const initialStartDate = safeParseISO(route.query.start as string, new Date());
+    const initialStartDate = safeParseISO(route.query.start as string, addDays(new Date(), adjustForToday(-numberOfDaysPast.value)));
     const initialEndDate = safeParseISO(route.query.end as string, addDays(new Date(), adjustForToday(numberOfDays.value)));
 
     const state = ref({
@@ -136,7 +152,7 @@ export default defineNuxtComponent({
         return { start, end };
       }
       return {
-        start: new Date(),
+        start: addDays(new Date(), adjustForToday(-numberOfDaysPast.value)),
         end: addDays(new Date(), adjustForToday(numberOfDays.value)),
       };
     });
@@ -168,7 +184,8 @@ export default defineNuxtComponent({
     function adjustForToday(days: number) {
       // The use case for this function is "how many days are we adding to 'today'?"
       // e.g. If the user wants 7 days, we substract one to do "today + 6"
-      return days > 0 ? days - 1 : days + 1;
+      // e.g. If the user wants 2 days in the past, we keep it as -2
+      return days > 0 ? days - 1 : days;
     }
 
     const days = computed(() => {
@@ -201,6 +218,7 @@ export default defineNuxtComponent({
       weekRange,
       firstDayOfWeek,
       numberOfDays,
+      numberOfDaysPast,
     };
   },
 });
