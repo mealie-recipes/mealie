@@ -607,8 +607,8 @@
             "golden beet": {
                 "aliases": [],
                 "description": "",
-                "name": "golden beet",
-                "plural_name": "golden beets"
+                "name": "burak złocisty",
+                "plural_name": "buraki złociste"
             },
             "pea shoot": {
                 "aliases": [],
@@ -1230,7 +1230,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kiwano",
-                "plural_name": "kiwanoes"
+                "plural_name": "kiwana"
             }
         }
     },
@@ -3817,8 +3817,8 @@
             "pepperoni": {
                 "aliases": [],
                 "description": "",
-                "name": "pepperoni",
-                "plural_name": "pepperonis"
+                "name": "papryka pepperoni",
+                "plural_name": "papryki pepperoni"
             },
             "chorizo": {
                 "aliases": [],
