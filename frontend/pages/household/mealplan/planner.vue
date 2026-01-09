@@ -183,8 +183,8 @@ export default defineNuxtComponent({
 
     function adjustForToday(days: number) {
       // The use case for this function is "how many days are we adding to 'today'?"
-      // e.g. If the user wants 7 days, we substract one to do "today + 6"
-      // e.g. If the user wants 2 days in the past, we keep it as -2
+      // e.g. If the user wants 7 days, we subtract one to do "today + 6"
+      // e.g. If the user wants 2 days in the past, we keep it the same to do "today - 2"
       return days > 0 ? days - 1 : days;
     }
 
