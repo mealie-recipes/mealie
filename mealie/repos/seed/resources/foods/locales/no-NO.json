@@ -401,7 +401,7 @@
             "bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "bok choy",
+                "name": "pak choi",
                 "plural_name": "pak choi"
             },
             "okra": {
@@ -443,8 +443,8 @@
             "plantain": {
                 "aliases": [],
                 "description": "",
-                "name": "plantain",
-                "plural_name": "plantains"
+                "name": "kokebanan",
+                "plural_name": "kokebananer"
             },
             "leaf lettuce": {
                 "aliases": [],
@@ -479,7 +479,7 @@
             "habanero pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "habanero pepper",
+                "name": "habanero",
                 "plural_name": "habanero peppers"
             },
             "corn husk": {
@@ -590,7 +590,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cres",
-                "plural_name": "cress"
+                "plural_name": "karse"
             },
             "broccoli slaw": {
                 "aliases": [],
@@ -846,7 +846,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "honning melon",
-                "plural_name": "honeydew melons"
+                "plural_name": "honningmeloner"
             },
             "dried fruit": {
                 "aliases": [],
@@ -888,7 +888,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tørket eple",
-                "plural_name": "dried apples"
+                "plural_name": "tørkede epler"
             },
             "quince": {
                 "aliases": [],
@@ -959,7 +959,7 @@
             "star fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "star fruit",
+                "name": "stjernefrukt",
                 "plural_name": "star fruits"
             },
             "green papaya": {
@@ -972,7 +972,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomeloes"
+                "plural_name": "pomeloer"
             },
             "chestnut puree": {
                 "aliases": [],
@@ -996,7 +996,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "yuzu",
-                "plural_name": "yuzus"
+                "plural_name": "yuzuer"
             },
             "granadilla": {
                 "aliases": [],
@@ -1079,8 +1079,8 @@
             "dried tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "dried tamarind",
-                "plural_name": "dried tamarinds"
+                "name": "tørket tamarind",
+                "plural_name": "tørkede tamarinder"
             },
             "honey date": {
                 "aliases": [],
@@ -1169,14 +1169,14 @@
             "fig leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "fig leaf",
-                "plural_name": "fig leaves"
+                "name": "fikenblad",
+                "plural_name": "fikenblader"
             },
             "freeze-dried pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried pineapple",
-                "plural_name": "freeze-dried pineapples"
+                "name": "frysetørket ananas",
+                "plural_name": "frysetørkede ananaser"
             },
             "pluot": {
                 "aliases": [],
@@ -1251,8 +1251,8 @@
             "portobello mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "portobello mushroom",
-                "plural_name": "portobello mushrooms"
+                "name": "portobello",
+                "plural_name": "portobelloer"
             },
             "wild mushroom": {
                 "aliases": [],
@@ -1281,8 +1281,8 @@
             "chestnut mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut mushroom",
-                "plural_name": "chestnut mushrooms"
+                "name": "bøkeskjellsopp",
+                "plural_name": "bøkeskjellsopp"
             },
             "enoki mushroom": {
                 "aliases": [],
@@ -1353,8 +1353,8 @@
             "white truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "white truffle",
-                "plural_name": "white truffles"
+                "name": "hvit trøffel",
+                "plural_name": "hvite trøffler"
             },
             "white fungu": {
                 "aliases": [],
@@ -1483,43 +1483,43 @@
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
-                "plural_name": "blackberries"
+                "name": "bjørnebær",
+                "plural_name": "bjørnebær"
             },
             "berry mix": {
                 "aliases": [],
                 "description": "",
-                "name": "berry mix",
-                "plural_name": "berry mixes"
+                "name": "bærmiks",
+                "plural_name": "bærmikser"
             },
             "maraschino cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "maraschino cherry",
-                "plural_name": "maraschino cherries"
+                "name": "maraschino kirsebær",
+                "plural_name": "maraschino kirsebær"
             },
             "dried cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cherry",
-                "plural_name": "dried cherries"
+                "name": "tørket kirsebær",
+                "plural_name": "tørkede kirsebær"
             },
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "einebær",
+                "plural_name": "einebær"
             },
             "sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cherry",
-                "plural_name": "sour cherries"
+                "name": "sure kirsebær",
+                "plural_name": "sure kirsebær"
             },
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
+                "name": "gojibær",
                 "plural_name": "gojibær"
             },
             "dried blueberry": {
@@ -1549,8 +1549,8 @@
             "lingonberry": {
                 "aliases": [],
                 "description": "",
-                "name": "lingonberry",
-                "plural_name": "lingonberries"
+                "name": "tyttebær",
+                "plural_name": "tyttebær"
             },
             "canned sour cherry": {
                 "aliases": [],
@@ -1561,8 +1561,8 @@
             "mulberry": {
                 "aliases": [],
                 "description": "",
-                "name": "mulberry",
-                "plural_name": "mulberries"
+                "name": "morbær",
+                "plural_name": "morbær"
             },
             "acai berry": {
                 "aliases": [],
@@ -1573,8 +1573,8 @@
             "canned cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cherry",
-                "plural_name": "canned cherries"
+                "name": "hermetiserte kirsebær",
+                "plural_name": "hermetiserte kirsebær"
             },
             "amla": {
                 "aliases": [],
@@ -1591,8 +1591,8 @@
             "freeze-dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried blueberry",
-                "plural_name": "freeze-dried blueberries"
+                "name": "frysetørkede blåbær",
+                "plural_name": "frysetørkede blåbær"
             },
             "huckleberry": {
                 "aliases": [],
@@ -1657,8 +1657,8 @@
             "freeze-dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried berry",
-                "plural_name": "freeze-dried berries"
+                "name": "frysetørkede bær",
+                "plural_name": "frysetørkede bær"
             },
             "aronia berry": {
                 "aliases": [],
@@ -2015,7 +2015,7 @@
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
+                "name": "kremost",
                 "plural_name": "cream cheeses"
             },
             "sharp cheddar": {
@@ -2039,7 +2039,7 @@
             "feta": {
                 "aliases": [],
                 "description": "",
-                "name": "feta",
+                "name": "fetaost",
                 "plural_name": "fetas"
             },
             "ricotta": {
@@ -8184,8 +8184,8 @@
             "mincemeat": {
                 "aliases": [],
                 "description": "",
-                "name": "mincemeat",
-                "plural_name": "mincemeats"
+                "name": "kjøttdeig",
+                "plural_name": "kjøttdeig"
             },
             "gluten-free baking flour": {
                 "aliases": [],
@@ -14343,7 +14343,7 @@
             "licorice": {
                 "aliases": [],
                 "description": "",
-                "name": "licorice",
+                "name": "lakris",
                 "plural_name": "licorices"
             },
             "plum jam": {
@@ -14498,13 +14498,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "white wine",
-                "plural_name": "white wines"
+                "plural_name": "hvite viner"
             },
             "red wine": {
                 "aliases": [],
                 "description": "",
-                "name": "red wine",
-                "plural_name": "red wines"
+                "name": "rødvin",
+                "plural_name": "røde viner"
             },
             "whisky": {
                 "aliases": [],
@@ -14515,7 +14515,7 @@
             "rum": {
                 "aliases": [],
                 "description": "",
-                "name": "rum",
+                "name": "rom",
                 "plural_name": "rums"
             },
             "vodka": {
@@ -14527,19 +14527,19 @@
             "beer": {
                 "aliases": [],
                 "description": "",
-                "name": "beer",
+                "name": "øl",
                 "plural_name": "beers"
             },
             "orange liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "orange liqueur",
+                "name": "appelsinlikør",
                 "plural_name": "orange liqueurs"
             },
             "cider": {
                 "aliases": [],
                 "description": "",
-                "name": "cider",
+                "name": "sider",
                 "plural_name": "ciders"
             },
             "tequila": {
@@ -14581,13 +14581,13 @@
             "white rum": {
                 "aliases": [],
                 "description": "",
-                "name": "white rum",
+                "name": "hvit rom",
                 "plural_name": "white rums"
             },
             "coffee liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee liqueur",
+                "name": "kaffelikør",
                 "plural_name": ""
             },
             "champagne": {
@@ -14617,19 +14617,19 @@
             "marsala wine": {
                 "aliases": [],
                 "description": "",
-                "name": "marsala wine",
+                "name": "marsala vin",
                 "plural_name": "marsala wines"
             },
             "cognac": {
                 "aliases": [],
                 "description": "",
-                "name": "cognac",
+                "name": "konjakk",
                 "plural_name": "cognacs"
             },
             "sparkling wine": {
                 "aliases": [],
                 "description": "",
-                "name": "sparkling wine",
+                "name": "musserende vin",
                 "plural_name": "sparkling wines"
             },
             "sake": {
@@ -14641,7 +14641,7 @@
             "rice wine": {
                 "aliases": [],
                 "description": "",
-                "name": "rice wine",
+                "name": "risvin",
                 "plural_name": "rice wines"
             },
             "shaoxing wine": {
@@ -14659,7 +14659,7 @@
             "liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "liqueur",
+                "name": "likør",
                 "plural_name": "liqueurs"
             },
             "coconut rum": {
@@ -14671,7 +14671,7 @@
             "dessert wine": {
                 "aliases": [],
                 "description": "",
-                "name": "dessert wine",
+                "name": "dessertvin",
                 "plural_name": "dessert wines"
             },
             "curacao": {
@@ -14683,7 +14683,7 @@
             "port wine": {
                 "aliases": [],
                 "description": "",
-                "name": "port wine",
+                "name": "portvin",
                 "plural_name": "port wines"
             },
             "kirsch": {
@@ -14701,7 +14701,7 @@
             "apple brandy": {
                 "aliases": [],
                 "description": "",
-                "name": "apple brandy",
+                "name": "eplebrandy",
                 "plural_name": "apple brandies"
             },
             "rosé wine": {
@@ -14713,7 +14713,7 @@
             "anise liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "anise liqueur",
+                "name": "anislikør",
                 "plural_name": "anise liqueurs"
             },
             "herbal liqueur": {
@@ -14743,7 +14743,7 @@
             "hazelnut liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut liqueur",
+                "name": "hasselnøttlikør",
                 "plural_name": "hazelnut liqueurs"
             },
             "peach liqueur": {
@@ -14755,13 +14755,13 @@
             "melon liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "melon liqueur",
+                "name": "melonlikør",
                 "plural_name": "melon liqueurs"
             },
             "raspberry liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry liqueur",
+                "name": "bringebærlikør",
                 "plural_name": "raspberry liqueurs"
             },
             "creme de cacao": {
@@ -14779,19 +14779,19 @@
             "banana liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "banana liqueur",
+                "name": "bananlikør",
                 "plural_name": "banana liqueurs"
             },
             "madeira wine": {
                 "aliases": [],
                 "description": "",
-                "name": "madeira wine",
+                "name": "maderia",
                 "plural_name": "madeira wines"
             },
             "absinthe": {
                 "aliases": [],
                 "description": "",
-                "name": "absinthe",
+                "name": "absint",
                 "plural_name": "absinthes"
             },
             "white cooking wine": {
@@ -14875,7 +14875,7 @@
             "bloody mary mix": {
                 "aliases": [],
                 "description": "",
-                "name": "bloody mary mix",
+                "name": "bloody mary miks",
                 "plural_name": "bloody mary mixes"
             },
             "cream sherry": {
@@ -14899,7 +14899,7 @@
             "sparkling rosé": {
                 "aliases": [],
                 "description": "",
-                "name": "sparkling rosé",
+                "name": "sprudlende rosé",
                 "plural_name": "sparkling rosés"
             },
             "grappa": {
@@ -14923,7 +14923,7 @@
             "strawberry liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry liqueur",
+                "name": "jordbærlikør",
                 "plural_name": "strawberry liqueurs"
             },
             "drambuie": {
@@ -14989,7 +14989,7 @@
             "daiquiri mix": {
                 "aliases": [],
                 "description": "",
-                "name": "daiquiri mix",
+                "name": "daiquiri miks",
                 "plural_name": "daiquiri mixes"
             },
             "galliano": {
@@ -15025,7 +15025,7 @@
             "vanilla liqueur": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla liqueur",
+                "name": "vaniljelikør",
                 "plural_name": "vanilla liqueurs"
             },
             "sangria": {
@@ -15101,13 +15101,13 @@
             "orange juice": {
                 "aliases": [],
                 "description": "",
-                "name": "orange juice",
+                "name": "appelsinjuice",
                 "plural_name": "orange juices"
             },
             "coffee": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee",
+                "name": "kaffe",
                 "plural_name": "coffees"
             },
             "club soda": {
@@ -15125,19 +15125,19 @@
             "pineapple juice": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple juice",
+                "name": "ananasjuice",
                 "plural_name": "pineapple juices"
             },
             "apple juice": {
                 "aliases": [],
                 "description": "",
-                "name": "apple juice",
+                "name": "eplejuice",
                 "plural_name": "apple juices"
             },
             "tea": {
                 "aliases": [],
                 "description": "",
-                "name": "tea",
+                "name": "te",
                 "plural_name": "teas"
             },
             "cranberry juice": {
@@ -15155,7 +15155,7 @@
             "coconut water": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut water",
+                "name": "kokosnøttvann",
                 "plural_name": "coconut waters"
             },
             "pomegranate juice": {
@@ -15191,7 +15191,7 @@
             "ginger ale": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger ale",
+                "name": "ingefærøl",
                 "plural_name": "ginger ales"
             },
             "ginger beer": {
@@ -15293,7 +15293,7 @@
             "grape juice": {
                 "aliases": [],
                 "description": "",
-                "name": "grape juice",
+                "name": "druejuice",
                 "plural_name": "grape juices"
             },
             "cherry juice": {
@@ -15353,7 +15353,7 @@
             "iced tea": {
                 "aliases": [],
                 "description": "",
-                "name": "iced tea",
+                "name": "iste",
                 "plural_name": "iced teas"
             },
             "kombucha": {
@@ -15545,7 +15545,7 @@
             "white tea": {
                 "aliases": [],
                 "description": "",
-                "name": "white tea",
+                "name": "hvit te",
                 "plural_name": "white teas"
             },
             "juice blend": {
@@ -15557,8 +15557,8 @@
             "prune juice": {
                 "aliases": [],
                 "description": "",
-                "name": "prune juice",
-                "plural_name": "prune juices"
+                "name": "sviskejuice",
+                "plural_name": "sviskejuicer"
             },
             "sparkling cider": {
                 "aliases": [],
@@ -15587,7 +15587,7 @@
             "strawberry soda": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry soda",
+                "name": "jordbærbrus",
                 "plural_name": "strawberry sodas"
             },
             "lapsang souchong": {
@@ -15599,13 +15599,13 @@
             "blackcurrant juice": {
                 "aliases": [],
                 "description": "",
-                "name": "blackcurrant juice",
+                "name": "solbærjuice",
                 "plural_name": "blackcurrant juices"
             },
             "herbal tea": {
                 "aliases": [],
                 "description": "",
-                "name": "herbal tea",
+                "name": "urtete",
                 "plural_name": "herbal teas"
             },
             "banana juice": {
@@ -15635,7 +15635,7 @@
             "decaf coffee": {
                 "aliases": [],
                 "description": "",
-                "name": "decaf coffee",
+                "name": "koffeinfri kaffe",
                 "plural_name": "decaf coffees"
             },
             "pumpkin spice coffee": {
@@ -15648,7 +15648,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pepsi",
-                "plural_name": "pepsis"
+                "plural_name": "pepsier"
             },
             "cherry soda": {
                 "aliases": [],
@@ -15659,7 +15659,7 @@
             "peppermint tea": {
                 "aliases": [],
                 "description": "",
-                "name": "peppermint tea",
+                "name": "peppermynte te",
                 "plural_name": "peppermint teas"
             },
             "sports drink": {
@@ -15759,7 +15759,7 @@
             "rum extract": {
                 "aliases": [],
                 "description": "",
-                "name": "rum extract",
+                "name": "romessens",
                 "plural_name": "rum extracts"
             },
             "maple extract": {
@@ -16167,7 +16167,7 @@
             "mango extract": {
                 "aliases": [],
                 "description": "",
-                "name": "mango extract",
+                "name": "mangoekstrakt",
                 "plural_name": "mango extracts"
             },
             "raspberry powder": {
