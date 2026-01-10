@@ -11,7 +11,7 @@ dependencies = [
     "PyYAML==6.0.3",
     "SQLAlchemy==2.0.45",
     "aiofiles==25.1.0",
-    "alembic==1.17.2",
+    "alembic==1.18.0",
     "aniso8601==10.0.1",
     "appdirs==1.4.4",
     "apprise==1.9.6",
