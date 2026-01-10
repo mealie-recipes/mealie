@@ -1,5 +1,5 @@
 from datetime import UTC, datetime, timedelta
-from uuid import UUID
+from uuid import UUID, uuid4
 
 import pytest
 from sqlalchemy.orm import Session
@@ -769,3 +769,39 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
     assert data[0].slug == recipe_2.slug  # global rating == 2.5 (avg of 4 and 1)
     assert data[1].slug == recipe_3.slug  # global rating == 3
     assert data[2].slug == recipe_1.slug  # global rating == 4.25 (avg of 5 and 3.5)
+
+
+
+def test_patch_recipe_relation_creation(unique_user: TestUser):
+    # Regression test for #6802 - Ensure explicit group_id injection works for new tags/cats/tools
+    database = unique_user.repos
+    recipe = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=random_string(),
+        )
+    )
+
+    new_tag_name = random_string()
+    new_cat_name = random_string()
+    new_tool_name = random_string()
+
+    patch_data = Recipe(
+        name=recipe.name,
+        tags=[new_tag_name],
+        recipe_category=[new_cat_name],
+        tools=[{"id": uuid4(), "name": new_tool_name, "slug": new_tool_name}],
+    )
+
+    # This should not raise IntegrityError or TypeError
+    updated_recipe = database.recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
+
+    assert len(updated_recipe.tags) == 1
+    assert updated_recipe.tags[0].name == new_tag_name
+
+    assert len(updated_recipe.recipe_category) == 1
+    assert updated_recipe.recipe_category[0].name == new_cat_name
+
+    assert len(updated_recipe.tools) == 1
+    assert updated_recipe.tools[0].name == new_tool_name
