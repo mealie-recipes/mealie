@@ -1793,8 +1793,8 @@
             "poppy seed": {
                 "aliases": [],
                 "description": "",
-                "name": "poppy seed",
-                "plural_name": "poppy seeds"
+                "name": "mák",
+                "plural_name": "mák"
             },
             "sunflower seed": {
                 "aliases": [],
@@ -2159,8 +2159,8 @@
             "quark": {
                 "aliases": [],
                 "description": "",
-                "name": "quark",
-                "plural_name": "quarks"
+                "name": "tvaroh",
+                "plural_name": "tvarohy"
             },
             "gouda": {
                 "aliases": [],
@@ -2736,7 +2736,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tvaroh",
-                "plural_name": "curds"
+                "plural_name": ""
             },
             "thickened cream": {
                 "aliases": [],
@@ -3740,7 +3740,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "slanina",
-                "plural_name": "bacons"
+                "plural_name": "slaniny"
             },
             "chopped bacon": {
                 "aliases": [],
@@ -5194,7 +5194,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fresh anchovy",
-                "plural_name": "fresh anchovies"
+                "plural_name": "čerstvé ančovičky"
             },
             "lemon sole": {
                 "aliases": [],
@@ -5813,8 +5813,8 @@
             "cinnamon": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon",
-                "plural_name": "cinnamons"
+                "name": "skořice",
+                "plural_name": "skořice"
             },
             "parsley": {
                 "aliases": [],
@@ -6005,7 +6005,7 @@
             "peppercorn": {
                 "aliases": [],
                 "description": "",
-                "name": "peppercorn",
+                "name": "pepř černý celý",
                 "plural_name": "peppercorns"
             },
             "mustard seed": {
@@ -6239,7 +6239,7 @@
             "pink peppercorn": {
                 "aliases": [],
                 "description": "",
-                "name": "pink peppercorn",
+                "name": "pepř růžový celý",
                 "plural_name": "pink peppercorns"
             },
             "hot paprika": {
@@ -6287,7 +6287,7 @@
             "green peppercorn": {
                 "aliases": [],
                 "description": "",
-                "name": "green peppercorn",
+                "name": "pepř zelený celý",
                 "plural_name": "green peppercorns"
             },
             "aleppo pepper": {
@@ -6424,20 +6424,20 @@
                 "aliases": [],
                 "description": "",
                 "name": "cukr",
-                "plural_name": "sugars"
+                "plural_name": "cukry"
             },
             "brown sugar": {
                 "aliases": [
                     "turbinado sugar"
                 ],
                 "description": "",
-                "name": "třtinový cukr",
-                "plural_name": "brown sugars"
+                "name": "hnědý cukr",
+                "plural_name": "hnědé cukry"
             },
             "confectioners sugar": {
                 "aliases": [
                     "moučkový cukr",
-                    "icing sugar"
+                    "moučkový cukr"
                 ],
                 "description": "",
                 "name": "confectioners sugar",
@@ -6445,7 +6445,7 @@
             },
             "bar sugar": {
                 "aliases": [
-                    "castor sugar"
+                    "krupicový cukr"
                 ],
                 "description": "",
                 "name": "bar sugar",
@@ -6454,7 +6454,7 @@
             "maple syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "maple syrup",
+                "name": "javorový syrup",
                 "plural_name": "maple syrups"
             },
             "corn syrup": {
@@ -6508,8 +6508,8 @@
             "vanilla sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla sugar",
-                "plural_name": "vanilla sugars"
+                "name": "vanilkový cukr",
+                "plural_name": "vanilkové cukry"
             },
             "demerara sugar": {
                 "aliases": [],
@@ -6550,8 +6550,8 @@
             "cinnamon sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon sugar",
-                "plural_name": "cinnamon sugars"
+                "name": "skořicový cukr",
+                "plural_name": "skořicové cukry"
             },
             "liquid stevia": {
                 "aliases": [],
@@ -9498,8 +9498,8 @@
             "spaghetti": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti",
-                "plural_name": "spaghettis"
+                "name": "špagety",
+                "plural_name": "špagety"
             },
             "macaroni": {
                 "aliases": [],
@@ -9698,7 +9698,7 @@
             "penne rigate": {
                 "aliases": [],
                 "description": "",
-                "name": "penne rigate",
+                "name": "penne",
                 "plural_name": "penne rigates"
             },
             "manicotti": {
@@ -10634,8 +10634,8 @@
             "olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "olive oil",
-                "plural_name": "olive oils"
+                "name": "olivový olej",
+                "plural_name": "olivový olej"
             },
             "vegetable oil": {
                 "aliases": [],
@@ -10646,8 +10646,8 @@
             "extra virgin olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "extra virgin olive oil",
-                "plural_name": "extra virgin olive oils"
+                "name": "panenský olivový olej",
+                "plural_name": "panenský olivový olej"
             },
             "canola oil": {
                 "aliases": [],
@@ -10682,8 +10682,8 @@
             "sunflower oil": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower oil",
-                "plural_name": "sunflower oils"
+                "name": "slunečnicový olej",
+                "plural_name": "slunečnicové oleje"
             },
             "avocado oil": {
                 "aliases": [],
@@ -13872,7 +13872,7 @@
             "cocoa": {
                 "aliases": [],
                 "description": "",
-                "name": "cocoa",
+                "name": "kakao",
                 "plural_name": "cocoas"
             },
             "dark chocolate": {
@@ -14004,8 +14004,8 @@
             "biscuit": {
                 "aliases": [],
                 "description": "",
-                "name": "biscuit",
-                "plural_name": "biscuits"
+                "name": "sušenka",
+                "plural_name": "sušenky"
             },
             "marshmallow creme": {
                 "aliases": [],
