@@ -3835,8 +3835,8 @@
             "pork fillet": {
                 "aliases": [],
                 "description": "",
-                "name": "pork fillet",
-                "plural_name": "pork fillets"
+                "name": "vepřový filet",
+                "plural_name": "vepřové filety"
             },
             "pork shoulder": {
                 "aliases": [],
@@ -5819,7 +5819,7 @@
             "parsley": {
                 "aliases": [],
                 "description": "",
-                "name": "parsley",
+                "name": "petržel",
                 "plural_name": "parsleys"
             },
             "cilantro": {
@@ -5831,7 +5831,7 @@
             "cumin": {
                 "aliases": [],
                 "description": "",
-                "name": "cumin",
+                "name": "kmín",
                 "plural_name": "cumins"
             },
             "basil": {
@@ -5843,13 +5843,13 @@
             "thyme": {
                 "aliases": [],
                 "description": "",
-                "name": "thyme",
+                "name": "tymián",
                 "plural_name": "thymes"
             },
             "ginger root": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger root",
+                "name": "zázvor",
                 "plural_name": "ginger roots"
             },
             "garlic powder": {
@@ -5885,7 +5885,7 @@
             "paprika": {
                 "aliases": [],
                 "description": "",
-                "name": "paprika",
+                "name": "mletá paprika",
                 "plural_name": "paprikas"
             },
             "cayenne": {
@@ -5927,8 +5927,8 @@
             "ginger powder": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger powder",
-                "plural_name": "ginger powders"
+                "name": "mletý zázvor",
+                "plural_name": "mletý zázvor"
             },
             "panch puran": {
                 "aliases": [],
@@ -5963,7 +5963,7 @@
             "smoked paprika": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked paprika",
+                "name": "uzená paprika",
                 "plural_name": "smoked paprikas"
             },
             "fresh mint": {
@@ -5975,7 +5975,7 @@
             "coriander powder": {
                 "aliases": [],
                 "description": "",
-                "name": "coriander powder",
+                "name": "mletý koriandr",
                 "plural_name": "coriander powders"
             },
             "sage": {
@@ -5987,7 +5987,7 @@
             "coriander": {
                 "aliases": [],
                 "description": "",
-                "name": "coriander",
+                "name": "koriandr",
                 "plural_name": "corianders"
             },
             "allspice": {
@@ -7478,8 +7478,8 @@
             "grey sea salt": {
                 "aliases": [],
                 "description": "",
-                "name": "grey sea salt",
-                "plural_name": "grey sea salts"
+                "name": "mořská sůl",
+                "plural_name": "mořská sůl"
             },
             "chicken taco seasoning": {
                 "aliases": [],
@@ -10036,8 +10036,8 @@
             "bread crumb": {
                 "aliases": [],
                 "description": "",
-                "name": "bread crumb",
-                "plural_name": "bread crumbs"
+                "name": "strouhanka",
+                "plural_name": "strouhanka"
             },
             "panko": {
                 "aliases": [],
@@ -11520,7 +11520,7 @@
             "ketchup": {
                 "aliases": [],
                 "description": "",
-                "name": "ketchup",
+                "name": "kečup",
                 "plural_name": "ketchups"
             },
             "mustard": {
@@ -15999,7 +15999,7 @@
             "lemon juice concentrate": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon juice concentrate",
+                "name": "citronová šťáva",
                 "plural_name": "lemon juice concentrates"
             },
             "chocolate collagen": {

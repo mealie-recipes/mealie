@@ -479,8 +479,8 @@
             "habanero pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "pepe habanero",
-                "plural_name": "pepe habanero"
+                "name": "peperoncino habanero",
+                "plural_name": "peperoncini habanero"
             },
             "corn husk": {
                 "aliases": [
@@ -1973,8 +1973,8 @@
             "keto trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "keto trail mix",
-                "plural_name": "keto trail mixes"
+                "name": "mix di frutta secca chetogenico",
+                "plural_name": "mix di frutta secca chetogenici"
             },
             "wattleseed": {
                 "aliases": [],
@@ -1985,8 +1985,8 @@
             "barùka": {
                 "aliases": [],
                 "description": "",
-                "name": "barùka",
-                "plural_name": "barùkas"
+                "name": "noce di barù",
+                "plural_name": "noci di barù"
             },
             "indian almond": {
                 "aliases": [],
@@ -2286,13 +2286,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "formaggio colby-jack",
-                "plural_name": "colby-jack cheeses"
+                "plural_name": "formaggi colby-jack"
             },
             "jarlsberg cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "jarlsberg cheese",
-                "plural_name": "jarlsberg cheeses"
+                "name": "formaggio jarlsberg",
+                "plural_name": "formaggi jarlsberg"
             },
             "taleggio": {
                 "aliases": [],
@@ -2303,14 +2303,14 @@
             "oaxaca": {
                 "aliases": [],
                 "description": "",
-                "name": "oaxaca",
-                "plural_name": "oaxacas"
+                "name": "formaggio oaxaca",
+                "plural_name": "formaggi oaxaca"
             },
             "labneh": {
                 "aliases": [],
                 "description": "",
                 "name": "labneh",
-                "plural_name": "labnehs"
+                "plural_name": "labneh"
             },
             "edam": {
                 "aliases": [],
@@ -2345,8 +2345,8 @@
             "marble cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "marble cheese",
-                "plural_name": "marble cheeses"
+                "name": "formaggio marmorizzato",
+                "plural_name": "formaggi marmorizzati"
             },
             "leicester": {
                 "aliases": [],
@@ -2357,26 +2357,26 @@
             "kefalotyri": {
                 "aliases": [],
                 "description": "",
-                "name": "kefalotyri",
-                "plural_name": "kefalotyris"
+                "name": "kefalotiri",
+                "plural_name": "kefalotiri"
             },
             "mizithra": {
                 "aliases": [],
                 "description": "",
                 "name": "mizithra",
-                "plural_name": "mizithras"
+                "plural_name": "mizithra"
             },
             "lancashire": {
                 "aliases": [],
                 "description": "",
                 "name": "lancashire",
-                "plural_name": "lancashires"
+                "plural_name": "lancashire"
             },
             "kasseri": {
                 "aliases": [],
                 "description": "",
                 "name": "kasseri",
-                "plural_name": "kasseris"
+                "plural_name": "kasseri"
             },
             "babybel": {
                 "aliases": [],
@@ -2387,14 +2387,14 @@
             "panela cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "panela cheese",
-                "plural_name": "panela cheeses"
+                "name": "formaggio panela",
+                "plural_name": "formaggi panela"
             },
             "longhorn": {
                 "aliases": [],
                 "description": "",
-                "name": "longhorn",
-                "plural_name": "longhorns"
+                "name": "formaggio longhorn",
+                "plural_name": "formaggi longhorn"
             },
             "seasoned feta cheese": {
                 "aliases": [],
@@ -2735,7 +2735,7 @@
             "curd": {
                 "aliases": [],
                 "description": "",
-                "name": "curd",
+                "name": "cagliata",
                 "plural_name": "cagliate"
             },
             "thickened cream": {
@@ -3639,8 +3639,8 @@
             "cricket flour": {
                 "aliases": [],
                 "description": "",
-                "name": "cricket flour",
-                "plural_name": "cricket flours"
+                "name": "farina di grillo",
+                "plural_name": "farine di grillo"
             },
             "macadamia butter": {
                 "aliases": [],
@@ -3817,8 +3817,8 @@
             "pepperoni": {
                 "aliases": [],
                 "description": "",
-                "name": "peperone",
-                "plural_name": "peperoni"
+                "name": "pepperoni",
+                "plural_name": "pepperoni"
             },
             "chorizo": {
                 "aliases": [],
@@ -4081,8 +4081,8 @@
             "rabbit": {
                 "aliases": [],
                 "description": "",
-                "name": "rabbit",
-                "plural_name": "rabbits"
+                "name": "coniglio",
+                "plural_name": "conigli"
             },
             "pork cutlet": {
                 "aliases": [],
@@ -4439,8 +4439,8 @@
             "duck": {
                 "aliases": [],
                 "description": "",
-                "name": "duck",
-                "plural_name": "ducks"
+                "name": "anatra",
+                "plural_name": "anatre"
             },
             "duck breast": {
                 "aliases": [],
@@ -4529,8 +4529,8 @@
             "goose": {
                 "aliases": [],
                 "description": "",
-                "name": "goose",
-                "plural_name": "geese"
+                "name": "oca",
+                "plural_name": "oche"
             },
             "turkey pepperoni": {
                 "aliases": [],
@@ -4685,8 +4685,8 @@
             "pigeon": {
                 "aliases": [],
                 "description": "",
-                "name": "pigeon",
-                "plural_name": "pigeons"
+                "name": "piccione",
+                "plural_name": "piccioni"
             },
             "wild game bird": {
                 "aliases": [],
@@ -6005,8 +6005,8 @@
             "peppercorn": {
                 "aliases": [],
                 "description": "",
-                "name": "peppercorn",
-                "plural_name": "peppercorns"
+                "name": "grano di pepe",
+                "plural_name": "pepe in grani"
             },
             "mustard seed": {
                 "aliases": [],
@@ -6017,8 +6017,8 @@
             "white pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "white pepper",
-                "plural_name": "white peppers"
+                "name": "pepe bianco",
+                "plural_name": "pepe bianco"
             },
             "curry leaf": {
                 "aliases": [],
@@ -7650,8 +7650,8 @@
             "flour": {
                 "aliases": [],
                 "description": "",
-                "name": "flour",
-                "plural_name": "flours"
+                "name": "farina",
+                "plural_name": "farine"
             },
             "vanilla extract": {
                 "aliases": [
@@ -7700,17 +7700,17 @@
             },
             "whole-wheat flour": {
                 "aliases": [
-                    "whole wheat flour"
+                    "farina integrale"
                 ],
                 "description": "",
-                "name": "whole-wheat flour",
-                "plural_name": "whole-wheat flours"
+                "name": "farina integrale",
+                "plural_name": "farine integrali"
             },
             "almond flour": {
                 "aliases": [],
                 "description": "",
-                "name": "almond flour",
-                "plural_name": "almond flours"
+                "name": "farina di mandorle",
+                "plural_name": "farine di mandorle"
             },
             "self-raising flour": {
                 "aliases": [],
@@ -8004,8 +8004,8 @@
             "coffee bean": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee bean",
-                "plural_name": "coffee beans"
+                "name": "chicco di caffè",
+                "plural_name": "chicchi di caffè"
             },
             "toffee bit": {
                 "aliases": [],
@@ -9492,36 +9492,36 @@
             "short-cut pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "short-cut pasta",
-                "plural_name": "short-cut pastas"
+                "name": "pasta corta",
+                "plural_name": "pasta corta"
             },
             "spaghetti": {
                 "aliases": [],
                 "description": "",
                 "name": "spaghetti",
-                "plural_name": "spaghettis"
+                "plural_name": "spaghetti"
             },
             "macaroni": {
                 "aliases": [],
                 "description": "",
-                "name": "macaroni",
-                "plural_name": "macaronis"
+                "name": "maccheroni",
+                "plural_name": "maccheroni"
             },
             "egg noodle": {
                 "aliases": [],
                 "description": "",
                 "name": "egg noodle",
-                "plural_name": "egg noodles"
+                "plural_name": "tagliatelle all'uovo"
             },
             "spiral pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "spiral pasta",
-                "plural_name": "spiral pastas"
+                "name": "fusilli",
+                "plural_name": "fusilli"
             },
             "lasagna noodle": {
                 "aliases": [
-                    "lasagnas"
+                    "lasagne"
                 ],
                 "description": "",
                 "name": "lasagna noodle",
@@ -9531,13 +9531,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "linguine",
-                "plural_name": "linguines"
+                "plural_name": "linguine"
             },
             "fettuccine": {
                 "aliases": [],
                 "description": "",
                 "name": "fettuccine",
-                "plural_name": "fettuccines"
+                "plural_name": "fettuccine"
             },
             "orzo": {
                 "aliases": [],
@@ -9548,8 +9548,8 @@
             "pasta shell": {
                 "aliases": [],
                 "description": "",
-                "name": "pasta shell",
-                "plural_name": "pasta shells"
+                "name": "conchiglie",
+                "plural_name": "conchiglie"
             },
             "bow-tie pasta": {
                 "aliases": [],
@@ -9567,7 +9567,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tortellini",
-                "plural_name": "tortellinis"
+                "plural_name": "tortellini"
             },
             "cheese tortellini": {
                 "aliases": [],
@@ -9585,13 +9585,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "rigatoni",
-                "plural_name": "rigatonis"
+                "plural_name": "rigatoni"
             },
             "gnocchi": {
                 "aliases": [],
                 "description": "",
                 "name": "gnocchi",
-                "plural_name": "gnocchis"
+                "plural_name": "gnocchi"
             },
             "angel hair pasta": {
                 "aliases": [],
@@ -9609,13 +9609,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "vermicelli",
-                "plural_name": "vermicellis"
+                "plural_name": "vermicelli"
             },
             "tagliatelle": {
                 "aliases": [],
                 "description": "",
                 "name": "tagliatelle",
-                "plural_name": "tagliatelles"
+                "plural_name": "tagliatelle"
             },
             "soba noodle": {
                 "aliases": [],
@@ -9627,19 +9627,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "ravioli",
-                "plural_name": "raviolis"
+                "plural_name": "ravioli"
             },
             "ziti": {
                 "aliases": [],
                 "description": "",
                 "name": "ziti",
-                "plural_name": "zitis"
+                "plural_name": "ziti"
             },
             "orecchiette": {
                 "aliases": [],
                 "description": "",
                 "name": "orecchiette",
-                "plural_name": "orecchiettes"
+                "plural_name": "orecchiette"
             },
             "israeli couscou": {
                 "aliases": [],
@@ -9663,7 +9663,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ditalini",
-                "plural_name": "ditalinis"
+                "plural_name": "ditalini"
             },
             "rice vermicelli": {
                 "aliases": [],
@@ -9675,7 +9675,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pappardelle",
-                "plural_name": "pappardelles"
+                "plural_name": "pappardelle"
             },
             "glass noodle": {
                 "aliases": [],
@@ -9699,7 +9699,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "penne rigate",
-                "plural_name": "penne rigates"
+                "plural_name": "penne rigate"
             },
             "manicotti": {
                 "aliases": [],
@@ -9711,13 +9711,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "bucatini",
-                "plural_name": "bucatinis"
+                "plural_name": "bucatini"
             },
             "cannelloni": {
                 "aliases": [],
                 "description": "",
                 "name": "cannelloni",
-                "plural_name": "cannellonis"
+                "plural_name": "cannelloni"
             },
             "thai rice noodle": {
                 "aliases": [],
@@ -9777,7 +9777,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cavatelli",
-                "plural_name": "cavatellis"
+                "plural_name": "cavatelli"
             },
             "instant noodle": {
                 "aliases": [],
@@ -9837,7 +9837,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "paccheri",
-                "plural_name": "paccheris"
+                "plural_name": "paccheri"
             },
             "kluski noodle": {
                 "aliases": [],
@@ -9885,7 +9885,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fregola",
-                "plural_name": "fregolas"
+                "plural_name": "fregola"
             },
             "beef tortellini": {
                 "aliases": [],
@@ -15107,8 +15107,8 @@
             "coffee": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee",
-                "plural_name": "coffees"
+                "name": "caffè",
+                "plural_name": "caffè"
             },
             "club soda": {
                 "aliases": [],
@@ -15635,8 +15635,8 @@
             "decaf coffee": {
                 "aliases": [],
                 "description": "",
-                "name": "decaf coffee",
-                "plural_name": "decaf coffees"
+                "name": "caffè decaffeinato",
+                "plural_name": "caffè decaffeinati"
             },
             "pumpkin spice coffee": {
                 "aliases": [],
