@@ -2340,7 +2340,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "asadero",
-                "plural_name": "asaderoes"
+                "plural_name": "asadero"
             },
             "marble cheese": {
                 "aliases": [],
@@ -2843,8 +2843,8 @@
             "clotted cream": {
                 "aliases": [],
                 "description": "",
-                "name": "clotted cream",
-                "plural_name": "clotted creams"
+                "name": "slagroom",
+                "plural_name": "slagroom"
             },
             "goat milk": {
                 "aliases": [],
@@ -2868,7 +2868,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ganache",
-                "plural_name": "ganaches"
+                "plural_name": "ganache"
             },
             "cajeta": {
                 "aliases": [],
@@ -2898,7 +2898,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pompoenkruiden koffiemelk",
-                "plural_name": "pumpkin spice coffee creamers"
+                "plural_name": "pompoenkruiden koffiemelk"
             },
             "raw milk": {
                 "aliases": [],
@@ -2981,8 +2981,8 @@
             "century egg": {
                 "aliases": [],
                 "description": "",
-                "name": "century egg",
-                "plural_name": "century eggs"
+                "name": "honderdjarig ei",
+                "plural_name": "honderdjarige eieren"
             },
             "orange curd": {
                 "aliases": [],
