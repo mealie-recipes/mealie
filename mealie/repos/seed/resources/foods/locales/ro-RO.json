@@ -578,7 +578,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "salată frize",
-                "plural_name": "frisees"
+                "plural_name": "salate frisée"
             },
             "anaheim pepper": {
                 "aliases": [],
@@ -589,7 +589,7 @@
             "cres": {
                 "aliases": [],
                 "description": "",
-                "name": "cres",
+                "name": "vrăbioară",
                 "plural_name": "năut"
             },
             "broccoli slaw": {
@@ -619,8 +619,8 @@
             "alfalfa": {
                 "aliases": [],
                 "description": "",
-                "name": "alfalfa",
-                "plural_name": "alfalfas"
+                "name": "lucernă",
+                "plural_name": "lucerne"
             }
         }
     },
@@ -628,7 +628,7 @@
         "foods": {
             "tomato": {
                 "aliases": [],
-                "description": "Yes they are a fruit",
+                "description": "Da, sunt fructe",
                 "name": "roșie",
                 "plural_name": "roșii"
             },
@@ -642,7 +642,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "limetă",
-                "plural_name": "limes"
+                "plural_name": "limete"
             },
             "apple": {
                 "aliases": [],
@@ -786,13 +786,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "prune deshidratate",
-                "plural_name": "prunes"
+                "plural_name": "prune"
             },
             "cantaloupe": {
                 "aliases": [],
                 "description": "",
-                "name": "cantaloupe",
-                "plural_name": "cantaloupes"
+                "name": "pepene galben",
+                "plural_name": "pepeni galbeni"
             },
             "sultana": {
                 "aliases": [],
@@ -983,56 +983,56 @@
             "prickly pear": {
                 "aliases": [],
                 "description": "",
-                "name": "prickly pear",
-                "plural_name": "prickly pears"
+                "name": "pară spinoasă",
+                "plural_name": "pere spinoase"
             },
             "calamansi": {
                 "aliases": [],
                 "description": "",
-                "name": "calamansi",
-                "plural_name": "calamansis"
+                "name": "lămâiță",
+                "plural_name": "lămâițe"
             },
             "yuzu": {
                 "aliases": [],
                 "description": "",
                 "name": "yuzu",
-                "plural_name": "yuzus"
+                "plural_name": "yuzu"
             },
             "granadilla": {
                 "aliases": [],
                 "description": "",
-                "name": "granadilla",
-                "plural_name": "granadillas"
+                "name": "fruct de pasiune",
+                "plural_name": "fructe de pasiune"
             },
             "apple chip": {
                 "aliases": [],
                 "description": "",
-                "name": "apple chip",
-                "plural_name": "apple chips"
+                "name": "chips de măr",
+                "plural_name": "chipsuri de mere"
             },
             "mixed peel": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed peel",
-                "plural_name": "mixed peels"
+                "name": "coajă amestecată",
+                "plural_name": "coji amestecate"
             },
             "kokum": {
                 "aliases": [],
                 "description": "",
                 "name": "kokum",
-                "plural_name": "kokums"
+                "plural_name": "kokum-uri"
             },
             "tangelo": {
                 "aliases": [],
                 "description": "",
                 "name": "tangelo",
-                "plural_name": "tangeloes"
+                "plural_name": "tangelo-uri"
             },
             "dried lime": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lime",
-                "plural_name": "dried limes"
+                "name": "limetă uscată",
+                "plural_name": "limete uscate"
             },
             "jujube": {
                 "aliases": [],
@@ -1152,7 +1152,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "felie de portocală uscată",
-                "plural_name": "dried orange slices"
+                "plural_name": "felii de portocală uscată"
             },
             "loquat": {
                 "aliases": [],
@@ -3059,8 +3059,8 @@
             "yogurt drink": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt drink",
-                "plural_name": "yogurt drinks"
+                "name": "băutură de iaurt",
+                "plural_name": "băuturi de iaurt"
             },
             "passion-fruit curd": {
                 "aliases": [],
@@ -3072,7 +3072,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pickled egg",
-                "plural_name": "pickled eggs"
+                "plural_name": "ouă murate"
             },
             "sheep milk": {
                 "aliases": [],
@@ -3095,13 +3095,13 @@
             "ostrich egg": {
                 "aliases": [],
                 "description": "",
-                "name": "ostrich egg",
-                "plural_name": "ostrich eggs"
+                "name": "ou de struț",
+                "plural_name": "ouă de struț"
             },
             "vanilla milk": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla milk",
+                "name": "lapte de vanilie",
                 "plural_name": "vanilla milks"
             },
             "yoplait whip": {
@@ -3113,8 +3113,8 @@
             "buffalo milk": {
                 "aliases": [],
                 "description": "",
-                "name": "buffalo milk",
-                "plural_name": "buffalo milks"
+                "name": "lapte de bivoliță",
+                "plural_name": "lapte de bivoliță"
             },
             "goat kefir": {
                 "aliases": [],
@@ -3135,20 +3135,20 @@
             "coconut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut milk",
+                "name": "lapte de cocos",
                 "plural_name": "coconut milks"
             },
             "almond milk": {
                 "aliases": [],
                 "description": "",
-                "name": "almond milk",
-                "plural_name": "almond milks"
+                "name": "lapte de migdale",
+                "plural_name": "lapte de migdale"
             },
             "almond butter": {
                 "aliases": [],
                 "description": "",
-                "name": "almond butter",
-                "plural_name": "almond butter"
+                "name": "unt de migdale",
+                "plural_name": "unt de migdale"
             },
             "tofu": {
                 "aliases": [],
@@ -3159,14 +3159,14 @@
             "coconut cream": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut cream",
+                "name": "cremă de cocos",
                 "plural_name": "coconut creams"
             },
             "vegan butter": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan butter",
-                "plural_name": "vegan butter"
+                "name": "unt vegan",
+                "plural_name": "unt vegan"
             },
             "non-dairy milk": {
                 "aliases": [],
@@ -3267,8 +3267,8 @@
             "oat milk": {
                 "aliases": [],
                 "description": "",
-                "name": "oat milk",
-                "plural_name": "oat milks"
+                "name": "lapte de ovăz",
+                "plural_name": "lapte de ovăz"
             },
             "nut butter": {
                 "aliases": [],
@@ -3279,8 +3279,8 @@
             "rice milk": {
                 "aliases": [],
                 "description": "",
-                "name": "rice milk",
-                "plural_name": "rice milks"
+                "name": "lapte de orez",
+                "plural_name": "lapte de orez"
             },
             "vegan sour cream": {
                 "aliases": [],
@@ -3309,8 +3309,8 @@
             "vegan mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan mozzarella",
-                "plural_name": "vegan mozzarellas"
+                "name": "mozzarella vegană",
+                "plural_name": "mozzarella vegană"
             },
             "non-dairy creamer": {
                 "aliases": [],
@@ -3339,7 +3339,7 @@
             "coconut powder": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut powder",
+                "name": "pudră de cocos",
                 "plural_name": "coconut powders"
             },
             "soy cream": {
@@ -3937,14 +3937,14 @@
             "ground sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "ground sausage",
-                "plural_name": "ground sausages"
+                "name": "cârnat tocat",
+                "plural_name": "cârnați tocați"
             },
             "ground pork sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "ground pork sausage",
-                "plural_name": "ground pork sausages"
+                "name": "cârnat tocat de porc",
+                "plural_name": "cârnați de porc tocați"
             },
             "roast beef": {
                 "aliases": [],
@@ -4021,8 +4021,8 @@
             "beef sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "beef sausage",
-                "plural_name": "beef sausages"
+                "name": "cârnat de carne de vită",
+                "plural_name": "cârnați de carne de vită"
             },
             "lamb shank": {
                 "aliases": [],

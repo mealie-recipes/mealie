@@ -5904,7 +5904,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bay leaf",
-                "plural_name": "bay leaves"
+                "plural_name": "liście laurowe"
             },
             "turmeric": {
                 "aliases": [],
@@ -7816,7 +7816,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rice flour",
-                "plural_name": "rice flours"
+                "plural_name": "mąka ryżowa"
             },
             "desiccated coconut": {
                 "aliases": [],
@@ -7839,7 +7839,7 @@
             "chickpea flour": {
                 "aliases": [],
                 "description": "",
-                "name": "chickpea flour",
+                "name": "",
                 "plural_name": "chickpea flours"
             },
             "xanthan gum": {
@@ -10647,12 +10647,12 @@
                 "aliases": [],
                 "description": "",
                 "name": "extra virgin olive oil",
-                "plural_name": "extra virgin olive oils"
+                "plural_name": "oliwa z oliwek extra"
             },
             "canola oil": {
                 "aliases": [],
                 "description": "",
-                "name": "canola oil",
+                "name": "olej rzepakowy",
                 "plural_name": "canola oils"
             },
             "coconut oil": {
@@ -15257,7 +15257,7 @@
             "tonic water": {
                 "aliases": [],
                 "description": "",
-                "name": "tonic water",
+                "name": "tonik",
                 "plural_name": "tonic waters"
             },
             "malted milk powder": {

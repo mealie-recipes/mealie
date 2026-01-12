@@ -9,7 +9,7 @@
         "name": "spiseske",
         "plural_name": "spiseskeer",
         "description": "",
-        "abbreviation": "spsk."
+        "abbreviation": "spsk"
     },
     "cup": {
         "name": "kop",
@@ -31,7 +31,7 @@
     },
     "quart": {
         "name": "quart",
-        "plural_name": "kvarter",
+        "plural_name": "quarts",
         "description": "",
         "abbreviation": "qt"
     },
@@ -91,8 +91,8 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "knivspids",
-        "plural_name": "strejfer",
+        "name": "skvæt",
+        "plural_name": "skvæt",
         "description": "",
         "abbreviation": ""
     },
