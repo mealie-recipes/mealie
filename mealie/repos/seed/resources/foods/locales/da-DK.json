@@ -10652,8 +10652,8 @@
             "canola oil": {
                 "aliases": [],
                 "description": "",
-                "name": "canola oil",
-                "plural_name": "canola oils"
+                "name": "rapsolie",
+                "plural_name": "rapsolier"
             },
             "coconut oil": {
                 "aliases": [],
@@ -10676,8 +10676,8 @@
             "frying oil": {
                 "aliases": [],
                 "description": "",
-                "name": "frying oil",
-                "plural_name": "frying oils"
+                "name": "fritureolie",
+                "plural_name": "fritureolier"
             },
             "sunflower oil": {
                 "aliases": [],
@@ -10694,8 +10694,8 @@
             "toasted sesame oil": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted sesame oil",
-                "plural_name": "toasted sesame oils"
+                "name": "ristet sesamolie",
+                "plural_name": "ristede sesamolier"
             },
             "peanut oil": {
                 "aliases": [],
@@ -10744,26 +10744,26 @@
             "walnut oil": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut oil",
-                "plural_name": "walnut oils"
+                "name": "valnøddeolie",
+                "plural_name": "valnøddeolier"
             },
             "garlic oil": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic oil",
-                "plural_name": "garlic oils"
+                "name": "hvidløgsolie",
+                "plural_name": "hvidløgsolier"
             },
             "truffle oil": {
                 "aliases": [],
                 "description": "",
-                "name": "truffle oil",
-                "plural_name": "truffle oils"
+                "name": "trøffelolie",
+                "plural_name": "trøffelolier"
             },
             "bacon grease": {
                 "aliases": [],
                 "description": "",
-                "name": "bacon grease",
-                "plural_name": "bacon greases"
+                "name": "baconfedt",
+                "plural_name": "baconfedt"
             },
             "safflower oil": {
                 "aliases": [],
@@ -10774,14 +10774,14 @@
             "cacao butter": {
                 "aliases": [],
                 "description": "",
-                "name": "cacao butter",
-                "plural_name": "cacao butter"
+                "name": "kakaosmør",
+                "plural_name": "kakaosmør"
             },
             "salad oil": {
                 "aliases": [],
                 "description": "",
-                "name": "salad oil",
-                "plural_name": "salad oils"
+                "name": "salatolie",
+                "plural_name": "salatolier"
             },
             "duck fat": {
                 "aliases": [],
@@ -10798,8 +10798,8 @@
             "soybean oil": {
                 "aliases": [],
                 "description": "",
-                "name": "soybean oil",
-                "plural_name": "soybean oils"
+                "name": "sojaolie",
+                "plural_name": "sojaolier"
             },
             "butter-flavored cooking spray": {
                 "aliases": [],
@@ -10816,68 +10816,68 @@
             "flaxseed oil": {
                 "aliases": [],
                 "description": "",
-                "name": "flaxseed oil",
-                "plural_name": "flaxseed oils"
+                "name": "hørfrøolie",
+                "plural_name": "hørfrøolier"
             },
             "white truffle oil": {
                 "aliases": [],
                 "description": "",
-                "name": "white truffle oil",
-                "plural_name": "white truffle oils"
+                "name": "hvid trøffelolie",
+                "plural_name": "hvide trøffelolier"
             },
             "pumpkin seed oil": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin seed oil",
-                "plural_name": "pumpkin seed oils"
+                "name": "græskarkerneolie",
+                "plural_name": "græskarkerneolier"
             },
             "hazelnut oil": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut oil",
-                "plural_name": "hazelnut oils"
+                "name": "hasselnøddeolie",
+                "plural_name": "hasselnøddeolier"
             },
             "coconut oil spray": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut oil spray",
-                "plural_name": "coconut oil sprays"
+                "name": "kokosoliespray",
+                "plural_name": "kokosoliesprays"
             },
             "almond oil": {
                 "aliases": [],
                 "description": "",
-                "name": "almond oil",
-                "plural_name": "almond oils"
+                "name": "mandelolie",
+                "plural_name": "mandelolier"
             },
             "lemon oil": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon oil",
-                "plural_name": "lemon oils"
+                "name": "citronolie",
+                "plural_name": "citronolier"
             },
             "macadamia oil": {
                 "aliases": [],
                 "description": "",
-                "name": "macadamia oil",
-                "plural_name": "macadamia oils"
+                "name": "macadamianøddeolie",
+                "plural_name": "macadamianøddeolier"
             },
             "goose fat": {
                 "aliases": [],
                 "description": "",
-                "name": "goose fat",
-                "plural_name": "goose fats"
+                "name": "gåsefedt",
+                "plural_name": "gåsefedt"
             },
             "palm oil": {
                 "aliases": [],
                 "description": "",
-                "name": "palm oil",
-                "plural_name": "palm oils"
+                "name": "palmeolie",
+                "plural_name": "palmeolier"
             },
             "basil oil": {
                 "aliases": [],
                 "description": "",
-                "name": "basil oil",
-                "plural_name": "basil oils"
+                "name": "basilikumolie",
+                "plural_name": "basilikumolier"
             },
             "pork fat": {
                 "aliases": [],
@@ -10900,20 +10900,20 @@
             "tallow": {
                 "aliases": [],
                 "description": "",
-                "name": "tallow",
-                "plural_name": "tallows"
+                "name": "talg",
+                "plural_name": "talg"
             },
             "sushi vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "sushi vinegar",
-                "plural_name": "sushi vinegars"
+                "name": "sushieddike",
+                "plural_name": "sushieddiker"
             },
             "pistachio oil": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio oil",
-                "plural_name": "pistachio oils"
+                "name": "pistacieolie",
+                "plural_name": "pistacieolier"
             },
             "herb-infused olive oil": {
                 "aliases": [],
@@ -10924,14 +10924,14 @@
             "roasted peanut oil": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted peanut oil",
-                "plural_name": "roasted peanut oils"
+                "name": "ristet peanutolie",
+                "plural_name": "ristede peanutolier"
             },
             "argan oil": {
                 "aliases": [],
                 "description": "",
-                "name": "argan oil",
-                "plural_name": "argan oils"
+                "name": "argan-olie",
+                "plural_name": "argan-olier"
             },
             "beef fat": {
                 "aliases": [],
@@ -10942,8 +10942,8 @@
             "pecan oil": {
                 "aliases": [],
                 "description": "",
-                "name": "pecan oil",
-                "plural_name": "pecan oils"
+                "name": "pekannøddeolie",
+                "plural_name": "pekannøddeolier"
             },
             "crisco oil": {
                 "aliases": [],
@@ -10954,26 +10954,26 @@
             "red palm oil": {
                 "aliases": [],
                 "description": "",
-                "name": "red palm oil",
-                "plural_name": "red palm oils"
+                "name": "rød palmeolie",
+                "plural_name": "røde palmeolier"
             },
             "shea butter": {
                 "aliases": [],
                 "description": "",
-                "name": "shea butter",
-                "plural_name": "shea butter"
+                "name": "shea-smør",
+                "plural_name": "shea-smør"
             },
             "lamb fat": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb fat",
-                "plural_name": "lamb fats"
+                "name": "lammefedt",
+                "plural_name": "lammefedt"
             },
             "castor oil": {
                 "aliases": [],
                 "description": "",
-                "name": "castor oil",
-                "plural_name": "castor oils"
+                "name": "amerikansk olie",
+                "plural_name": "amerikanske olier"
             },
             "chicken dripping": {
                 "aliases": [],
@@ -10984,8 +10984,8 @@
             "shallot oil": {
                 "aliases": [],
                 "description": "",
-                "name": "shallot oil",
-                "plural_name": "shallot oils"
+                "name": "skallotteløgsolie",
+                "plural_name": "skallotteløgsolier"
             },
             "achiote oil": {
                 "aliases": [],
@@ -10996,20 +10996,20 @@
             "jojoba oil": {
                 "aliases": [],
                 "description": "",
-                "name": "jojoba oil",
-                "plural_name": "jojoba oils"
+                "name": "jojoba-olie",
+                "plural_name": "jojoba-olier"
             },
             "oregano oil": {
                 "aliases": [],
                 "description": "",
-                "name": "oregano oil",
-                "plural_name": "oregano oils"
+                "name": "oregano-olie",
+                "plural_name": "oregano-olier"
             },
             "hemp seed oil": {
                 "aliases": [],
                 "description": "",
-                "name": "hemp seed oil",
-                "plural_name": "hemp seed oils"
+                "name": "hampefrøolie",
+                "plural_name": "hampefrøolier"
             },
             "wheat germ oil": {
                 "aliases": [],
@@ -11020,14 +11020,14 @@
             "ginger oil": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger oil",
-                "plural_name": "ginger oils"
+                "name": "ingefærolie",
+                "plural_name": "ingefærolier"
             },
             "cottonseed oil": {
                 "aliases": [],
                 "description": "",
-                "name": "cottonseed oil",
-                "plural_name": "cottonseed oils"
+                "name": "bomuldsfrøolie",
+                "plural_name": "bomuldsfrøolier"
             },
             "pork dripping": {
                 "aliases": [],
@@ -11062,8 +11062,8 @@
             "white cacao butter": {
                 "aliases": [],
                 "description": "",
-                "name": "white cacao butter",
-                "plural_name": "white cacao butter"
+                "name": "hvidt kakaosmør",
+                "plural_name": "hvide kakaosmør"
             },
             "black seed oil": {
                 "aliases": [],
@@ -11079,49 +11079,49 @@
                 "aliases": [],
                 "description": "",
                 "name": "mayonnaise",
-                "plural_name": "mayonnaises"
+                "plural_name": "mayonnaiser"
             },
             "apple cider vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "apple cider vinegar",
-                "plural_name": "apple cider vinegars"
+                "name": "æblevineddike",
+                "plural_name": "æblevineddiker"
             },
             "balsamic vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "balsamic vinegar",
-                "plural_name": "balsamic vinegars"
+                "name": "balsamicoeddike",
+                "plural_name": "balsamicoeddiker"
             },
             "vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "vinegar",
-                "plural_name": "vinegars"
+                "name": "eddike",
+                "plural_name": "eddiker"
             },
             "red wine vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "red wine vinegar",
-                "plural_name": "red wine vinegars"
+                "name": "rødvinseddike",
+                "plural_name": "rødvinseddiker"
             },
             "rice wine vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "rice wine vinegar",
-                "plural_name": "rice wine vinegars"
+                "name": "risvineddike",
+                "plural_name": "risvineddiker"
             },
             "white wine vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "white wine vinegar",
-                "plural_name": "white wine vinegars"
+                "name": "hvidvinseddike",
+                "plural_name": "hvidvinseddiker"
             },
             "ranch dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "ranch dressing",
-                "plural_name": "ranch dressings"
+                "name": "ranch-dressing",
+                "plural_name": "ranch-dressinger"
             },
             "italian dressing": {
                 "aliases": [],
