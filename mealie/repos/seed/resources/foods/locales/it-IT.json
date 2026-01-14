@@ -2643,8 +2643,8 @@
             "buttermilk": {
                 "aliases": [],
                 "description": "",
-                "name": "buttermilk",
-                "plural_name": "buttermilks"
+                "name": "latticello",
+                "plural_name": "latticelli"
             },
             "yogurt": {
                 "aliases": [],
@@ -2993,8 +2993,8 @@
             "goat yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "goat yogurt",
-                "plural_name": "goat yogurts"
+                "name": "yogurt di capra",
+                "plural_name": "yogurt di capra"
             },
             "dahi": {
                 "aliases": [],
@@ -3177,7 +3177,7 @@
             "soy milk": {
                 "aliases": [],
                 "description": "",
-                "name": "soy milk",
+                "name": "latte di soia",
                 "plural_name": "latti di soia"
             },
             "extra firm tofu": {
@@ -3787,14 +3787,14 @@
             "prosciutto": {
                 "aliases": [],
                 "description": "",
-                "name": "prosciutto",
-                "plural_name": "prosciuttoes"
+                "name": "prosciutto crudo",
+                "plural_name": "prosciutti crudi"
             },
             "sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage",
-                "plural_name": "sausages"
+                "name": "salsiccia",
+                "plural_name": "salsicce"
             },
             "beef roast": {
                 "aliases": [],
@@ -4268,7 +4268,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mortadella",
-                "plural_name": "mortadellas"
+                "plural_name": "mortadelle"
             },
             "ground bison": {
                 "aliases": [],
@@ -4475,14 +4475,14 @@
             "smoked turkey": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked turkey",
-                "plural_name": "smoked turkeys"
+                "name": "tacchino affumicato",
+                "plural_name": "tacchini affumicati"
             },
             "turkey meat": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey meat",
-                "plural_name": "turkey meats"
+                "name": "carne di tacchino",
+                "plural_name": "carni di tacchino"
             },
             "chicken quarter": {
                 "aliases": [],
@@ -4499,8 +4499,8 @@
             "quail": {
                 "aliases": [],
                 "description": "",
-                "name": "quail",
-                "plural_name": "quails"
+                "name": "quaglia",
+                "plural_name": "quaglie"
             },
             "smoked turkey sausage": {
                 "aliases": [],
