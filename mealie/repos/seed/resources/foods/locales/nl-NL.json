@@ -2501,8 +2501,8 @@
             "farmer's cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "farmer's cheese",
-                "plural_name": "farmer's cheeses"
+                "name": "boerenkaas",
+                "plural_name": "boerenkazen"
             },
             "manouri": {
                 "aliases": [],
@@ -2543,8 +2543,8 @@
             "brown cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "brown cheese",
-                "plural_name": "brown cheeses"
+                "name": "bruine kaas",
+                "plural_name": "bruine kazen"
             },
             "gloucester": {
                 "aliases": [],
@@ -7651,7 +7651,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bloem",
-                "plural_name": "flours"
+                "plural_name": "bloem"
             },
             "vanilla extract": {
                 "aliases": [
