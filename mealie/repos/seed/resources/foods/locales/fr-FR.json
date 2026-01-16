@@ -3249,8 +3249,8 @@
             "non-dairy yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "yaourt végétal",
-                "plural_name": "yaourts végétal"
+                "name": "yaourt non lacté",
+                "plural_name": "yaourts non lactés"
             },
             "seed butter": {
                 "aliases": [],
@@ -9687,7 +9687,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "gluten-free pasta",
-                "plural_name": "gluten-free pastas"
+                "plural_name": "pâtes sans gluten"
             },
             "mac 'n cheese": {
                 "aliases": [],

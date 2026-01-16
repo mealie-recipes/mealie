@@ -3447,8 +3447,8 @@
             "vegan beef": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan beef",
-                "plural_name": "vegan beefs"
+                "name": "vedella vegana",
+                "plural_name": ""
             },
             "hazelnut butter": {
                 "aliases": [],
@@ -3757,8 +3757,8 @@
             "beef steak": {
                 "aliases": [],
                 "description": "",
-                "name": "beef steak",
-                "plural_name": "beef steaks"
+                "name": "filet de vedella",
+                "plural_name": "filets de vedella"
             },
             "ham": {
                 "aliases": [],
@@ -3799,7 +3799,7 @@
             "beef roast": {
                 "aliases": [],
                 "description": "",
-                "name": "beef roast",
+                "name": "rostit de vedella",
                 "plural_name": "beef roasts"
             },
             "ground pork": {
@@ -3811,7 +3811,7 @@
             "beef stew meat": {
                 "aliases": [],
                 "description": "",
-                "name": "beef stew meat",
+                "name": "estofat de carn de vedella",
                 "plural_name": "beef stew meats"
             },
             "pepperoni": {
@@ -3877,7 +3877,7 @@
             "beef sirloin": {
                 "aliases": [],
                 "description": "",
-                "name": "beef sirloin",
+                "name": "rellom de vedella",
                 "plural_name": "beef sirloins"
             },
             "salami": {
@@ -3949,7 +3949,7 @@
             "roast beef": {
                 "aliases": [],
                 "description": "",
-                "name": "roast beef",
+                "name": "rosbif de vedella",
                 "plural_name": "roast beefs"
             },
             "bacon bit": {
@@ -3985,8 +3985,8 @@
             "beef rib": {
                 "aliases": [],
                 "description": "",
-                "name": "beef rib",
-                "plural_name": "beef ribs"
+                "name": "costella de vedella",
+                "plural_name": "costelles de vedella"
             },
             "veal steak": {
                 "aliases": [],
@@ -4021,8 +4021,8 @@
             "beef sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "beef sausage",
-                "plural_name": "beef sausages"
+                "name": "salsitxa de vedella",
+                "plural_name": "salsitxes de vedella"
             },
             "lamb shank": {
                 "aliases": [],
@@ -4171,8 +4171,8 @@
             "beef liver": {
                 "aliases": [],
                 "description": "",
-                "name": "beef liver",
-                "plural_name": "beef livers"
+                "name": "fetge de vedella",
+                "plural_name": "fetges de vedella"
             },
             "pastrami": {
                 "aliases": [],
@@ -4327,8 +4327,8 @@
             "beef shoulder": {
                 "aliases": [],
                 "description": "",
-                "name": "beef shoulder",
-                "plural_name": "beef shoulders"
+                "name": "espatlla de vedella",
+                "plural_name": "espatlles de vedella"
             },
             "steak tip": {
                 "aliases": [],
@@ -9800,8 +9800,8 @@
             "beef ravioli": {
                 "aliases": [],
                 "description": "",
-                "name": "beef ravioli",
-                "plural_name": "beef raviolis"
+                "name": "ravioli de vedella",
+                "plural_name": "raviolis de vedella"
             },
             "hakka noodle": {
                 "aliases": [],
@@ -9890,7 +9890,7 @@
             "beef tortellini": {
                 "aliases": [],
                 "description": "",
-                "name": "beef tortellini",
+                "name": "tortellini de vedella",
                 "plural_name": "beef tortellinis"
             },
             "banh pho": {
@@ -10936,7 +10936,7 @@
             "beef fat": {
                 "aliases": [],
                 "description": "",
-                "name": "beef fat",
+                "name": "greix de vedella",
                 "plural_name": "beef fats"
             },
             "pecan oil": {
