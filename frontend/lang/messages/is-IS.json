@@ -702,9 +702,9 @@
     "upload-more-images": "Setja inn fleiri myndir",
     "set-as-cover-image": "Velja sem forsíðumynd fyrir uppskriftina",
     "cover-image": "Forsíðumynd",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Víxla uppskrift"
+    "include-linked-recipes": "Hafa með tengda uppskrift",
+    "include-linked-recipe-ingredients": "Hafa með innihaldsefni úr tengdum uppskriftum",
+    "toggle-recipe": "Sýna/fela uppskrift"
   },
   "recipe-finder": {
     "recipe-finder": "Uppskriftaleit",

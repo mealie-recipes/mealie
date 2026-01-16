@@ -25,8 +25,9 @@
       v-model="state.editDialog"
       :icon="$globals.icons.tags"
       :title="$t('data-pages.tags.edit-tag')"
+      :submit-icon="$globals.icons.save"
       :submit-text="$t('general.save')"
-      can-confirm
+      can-submit
       @submit="editSaveTag"
     >
       <v-card-text v-if="editTarget">

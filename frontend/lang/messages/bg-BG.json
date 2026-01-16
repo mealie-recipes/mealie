@@ -156,7 +156,7 @@
     "sort-alphabetically": "По азбучен ред",
     "status": "състояние",
     "subject": "Относно",
-    "submit": "Изпрати",
+    "submit": "Потвърди",
     "success-count": "Успешни: {count}",
     "sunday": "Неделя",
     "system": "В хронологичен ред",
@@ -216,7 +216,7 @@
     "confirm-delete-generic-items": "Сигурни ли сте, че желаете да изтриете следните елементи?",
     "organizers": "Органайзер",
     "caution": "Внимание",
-    "show-advanced": "Покажи разширени",
+    "show-advanced": "Разширени настройки",
     "add-field": "Добави поле",
     "date-created": "Дата на създаване",
     "date-updated": "Дата на актуализация"
@@ -1178,17 +1178,17 @@
     "categories": {
       "edit-category": "Редактиране на категория",
       "new-category": "Нова категория",
-      "category-data": "Категория за данните"
+      "category-data": "Категории"
     },
     "tags": {
       "new-tag": "Нов етикет",
       "edit-tag": "Редакция на етикет",
-      "tag-data": "Данни на етикета"
+      "tag-data": "Етикети"
     },
     "tools": {
       "new-tool": "Нов инструмент",
       "edit-tool": "Редактирай инструмента",
-      "tool-data": "Данни на инструмента"
+      "tool-data": "Прибори"
     }
   },
   "user-registration": {

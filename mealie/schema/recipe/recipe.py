@@ -148,6 +148,10 @@ class RecipeSummary(MealieModel):
     last_made: datetime.datetime | None = None
     model_config = ConfigDict(from_attributes=True)
 
+    @field_validator("recipe_servings", "recipe_yield_quantity", mode="before")
+    def clean_numbers(val: Any):
+        return val or 0
+
     @field_validator("recipe_yield", "total_time", "prep_time", "cook_time", "perform_time", mode="before")
     def clean_strings(val: Any):
         if val is None:

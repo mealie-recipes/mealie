@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Názvy receptů musí být jedinečné",
         "recipe-created": "Recept byl vytvořen",
-        "recipe-image-deleted": "Recept smazán",
+        "recipe-image-deleted": "Obrázek receptu odstraněn",
         "recipe-defaults": {
             "ingredient-note": "1 hrnek mouky",
             "step-text": "Kroky receptu stejně jako další pole v receptu podporují syntaxi markdown.\n\n**Přidat odkaz**\n\n[Můj odkaz](https://demo.mealie.io)\n"

@@ -16,8 +16,8 @@
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "morrón",
-                "plural_name": "morrones"
+                "name": "pimiento morrón",
+                "plural_name": "pimientos morrones"
             },
             "carrot": {
                 "aliases": [],
@@ -1419,19 +1419,19 @@
             "puffball": {
                 "aliases": [],
                 "description": "",
-                "name": "puffball",
-                "plural_name": "puffballs"
+                "name": "pedo de lobo",
+                "plural_name": "pedos de lobo"
             },
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungu",
-                "plural_name": "honey fungus"
+                "name": "seta de la miel",
+                "plural_name": "setas de la miel"
             },
             "caesar's mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "caesar's mushroom",
+                "name": "huevo de rey",
                 "plural_name": ""
             },
             "candy cap mushroom": {
@@ -1561,13 +1561,13 @@
             "mulberry": {
                 "aliases": [],
                 "description": "",
-                "name": "mulberry",
-                "plural_name": "mulberries"
+                "name": "mora",
+                "plural_name": "moras"
             },
             "acai berry": {
                 "aliases": [],
                 "description": "",
-                "name": "acai berry",
+                "name": "baya de açaí",
                 "plural_name": "bayas de açaí"
             },
             "canned cherry": {
@@ -1913,8 +1913,8 @@
             "jackfruit seed": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit seed",
-                "plural_name": "jackfruit seeds"
+                "name": "semilla de yaca",
+                "plural_name": "semillas de yaca"
             },
             "honey-roasted almond": {
                 "aliases": [],
@@ -1938,7 +1938,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "honey-roasted pecan",
-                "plural_name": "honey-roasted pecans"
+                "plural_name": "pecanos tostados con miel"
             },
             "tigernut": {
                 "aliases": [],
@@ -2388,7 +2388,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "panela cheese",
-                "plural_name": "panela cheeses"
+                "plural_name": "quesos de panela"
             },
             "longhorn": {
                 "aliases": [],
@@ -3012,7 +3012,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bulgarian yogurt",
-                "plural_name": "bulgarian yogurts"
+                "plural_name": "yogures búlgaros"
             },
             "tvorog": {
                 "aliases": [],
@@ -3041,8 +3041,8 @@
             "strawberry milk": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry milk",
-                "plural_name": "strawberry milks"
+                "name": "leche de fresa",
+                "plural_name": "leche de fresa"
             },
             "ayran": {
                 "aliases": [],
@@ -3072,7 +3072,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pickled egg",
-                "plural_name": "pickled eggs"
+                "plural_name": "huevos en vinagreta"
             },
             "sheep milk": {
                 "aliases": [],
@@ -3101,8 +3101,8 @@
             "vanilla milk": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla milk",
-                "plural_name": "vanilla milks"
+                "name": "leche de vainilla",
+                "plural_name": "leche de vainilla"
             },
             "yoplait whip": {
                 "aliases": [],
@@ -3135,8 +3135,8 @@
             "coconut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut milk",
-                "plural_name": "coconut milks"
+                "name": "leche de coco",
+                "plural_name": "leche de coco"
             },
             "almond milk": {
                 "aliases": [],
@@ -3172,13 +3172,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "non-dairy milk",
-                "plural_name": "non-dairy milks"
+                "plural_name": "leches no lácteas"
             },
             "soy milk": {
                 "aliases": [],
                 "description": "",
                 "name": "leche de soja",
-                "plural_name": "soy milks"
+                "plural_name": "leche de soja"
             },
             "extra firm tofu": {
                 "aliases": [],
@@ -3214,7 +3214,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mayonesa vegana",
-                "plural_name": "vegan mayonnaises"
+                "plural_name": "mayonesa vegana"
             },
             "vegan cheese": {
                 "aliases": [],
@@ -3340,7 +3340,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "coconut powder",
-                "plural_name": "coconut powders"
+                "plural_name": "cocos rallados"
             },
             "soy cream": {
                 "aliases": [],
@@ -3490,7 +3490,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "almond-coconut milk",
-                "plural_name": "almond-coconut milks"
+                "plural_name": "leches de almendra y coco"
             },
             "banana blossom": {
                 "aliases": [],
@@ -4118,7 +4118,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mexican chorizo",
-                "plural_name": "mexican chorizoes"
+                "plural_name": "chorizo mejicano"
             },
             "rack of lamb": {
                 "aliases": [],
@@ -4292,7 +4292,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "burger patty",
-                "plural_name": "burger patties"
+                "plural_name": "hamburguesas"
             },
             "smoked pork chop": {
                 "aliases": [],
@@ -4386,7 +4386,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chicken leg",
-                "plural_name": "chicken legs"
+                "plural_name": "patas de pollo"
             },
             "chicken wing": {
                 "aliases": [],
