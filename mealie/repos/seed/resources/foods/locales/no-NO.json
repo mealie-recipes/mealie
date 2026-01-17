@@ -357,8 +357,8 @@
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter lettuce",
-                "plural_name": "butter lettuces"
+                "name": "smørsalat",
+                "plural_name": "smørsalater"
             },
             "hash brown": {
                 "aliases": [],
@@ -368,11 +368,11 @@
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "kinakål"
                 ],
                 "description": "",
                 "name": "",
-                "plural_name": "napa cabbages"
+                "plural_name": "napakål"
             },
             "celeriac": {
                 "aliases": [],
@@ -383,8 +383,8 @@
             "water chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "water chestnut",
-                "plural_name": "water chestnuts"
+                "name": "vannkastanje",
+                "plural_name": "vannkastanjer"
             },
             "turnip": {
                 "aliases": [],
@@ -395,8 +395,8 @@
             "thai chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chile pepper",
-                "plural_name": "thai chile peppers"
+                "name": "thai chili",
+                "plural_name": "thai chilier"
             },
             "bok choy": {
                 "aliases": [],
@@ -414,7 +414,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "acorn squash",
-                "plural_name": "acorn squashes"
+                "plural_name": "acorn squasher"
             },
             "corn cob": {
                 "aliases": [],
@@ -432,13 +432,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "perleløk",
-                "plural_name": "pearl onions"
+                "plural_name": "sølvløk"
             },
             "tenderstem broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "tenderstem broccoli",
-                "plural_name": "tenderstem broccolis"
+                "name": "brokkolini",
+                "plural_name": "brokkolinier"
             },
             "plantain": {
                 "aliases": [],
@@ -456,7 +456,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pepperoncini",
-                "plural_name": "pepperoncinis"
+                "plural_name": "chili"
             },
             "baby bok choy": {
                 "aliases": [],
@@ -468,7 +468,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "jicama",
-                "plural_name": "jicamas"
+                "plural_name": "jicama"
             },
             "endive": {
                 "aliases": [],
@@ -480,15 +480,15 @@
                 "aliases": [],
                 "description": "",
                 "name": "habanero",
-                "plural_name": "habanero peppers"
+                "plural_name": "habanero"
             },
             "corn husk": {
                 "aliases": [
-                    "maize"
+                    "mais"
                 ],
                 "description": "",
-                "name": "corn husk",
-                "plural_name": "corn husks"
+                "name": "maisskall",
+                "plural_name": "maisskall"
             },
             "collard green": {
                 "aliases": [],
