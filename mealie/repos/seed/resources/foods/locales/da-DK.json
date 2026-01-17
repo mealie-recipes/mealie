@@ -2495,8 +2495,8 @@
             "quick-melt cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "quick-melt cheese",
-                "plural_name": "quick-melt cheeses"
+                "name": "hurtigsmelteost",
+                "plural_name": "hurtigsmelteoste"
             },
             "farmer's cheese": {
                 "aliases": [],
@@ -2933,8 +2933,8 @@
             "yogurt starter": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt starter",
-                "plural_name": "yogurt starters"
+                "name": "yoghurt starter",
+                "plural_name": "yoghurt startere"
             },
             "rainbow sherbet": {
                 "aliases": [],
@@ -2945,8 +2945,8 @@
             "strawberry frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry frosting",
-                "plural_name": "strawberry frostings"
+                "name": "jordbærglasur",
+                "plural_name": "jordbærglasur"
             },
             "honey greek yogurt": {
                 "aliases": [],
@@ -2963,8 +2963,8 @@
             "honey butter": {
                 "aliases": [],
                 "description": "",
-                "name": "honey butter",
-                "plural_name": "honey butter"
+                "name": "honningsmør",
+                "plural_name": "honningsmør"
             },
             "strawberry cream cheese": {
                 "aliases": [],
@@ -3657,14 +3657,14 @@
             "egg tofu": {
                 "aliases": [],
                 "description": "",
-                "name": "egg tofu",
-                "plural_name": "egg tofus"
+                "name": "æggetofu",
+                "plural_name": "æggetofu"
             },
             "protein drink": {
                 "aliases": [],
                 "description": "",
-                "name": "protein drink",
-                "plural_name": "protein drinks"
+                "name": "protein drik",
+                "plural_name": "proteindrikke"
             },
             "macadamia milk": {
                 "aliases": [],
