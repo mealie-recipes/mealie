@@ -342,9 +342,9 @@
     "breakfast": "Сніданок",
     "lunch": "Обід",
     "dinner": "Вечеря",
-    "snack": "Snack",
-    "drink": "Drink",
-    "dessert": "Dessert",
+    "snack": "Закуска",
+    "drink": "Напій",
+    "dessert": "Десерт",
     "type-any": "Будь-який",
     "day-any": "Будь-який",
     "editor": "Редактор",
@@ -445,7 +445,7 @@
     "upload-a-recipe": "Завантажити рецепт",
     "upload-individual-zip-file": "Завантажити окремий .zip файл, експортований з іншого Mealie.",
     "url-form-hint": "Скопіюйте та вставте посилання з вашого улюбленого кулінарного веб-сайту",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Скопіюйте та вставте URL-адресу ваших даних (необов'язково)",
     "view-scraped-data": "Переглянути зібрані дані",
     "trim-whitespace-description": "Обрізати початкові та кінцеву пробілів і порожні лінії",
     "trim-prefix-description": "Обрізати перший символ з кожного рядка",
@@ -637,8 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Спробуйте масовий розпізнавач",
     "scrape-recipe-have-raw-html-or-json-data": "Маєте необроблені дані HTML або JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Ви можете імпортувати необроблені дані",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-website-being-blocked": "Заблокований сайт?",
+    "scrape-recipe-try-importing-raw-html-instead": "Спробуйте імпортувати вихідний HTML натомість.",
     "import-original-keywords-as-tags": "Імпортувати оригінальні ключові слова як теги",
     "stay-in-edit-mode": "Залишитися в режимі редактора",
     "parse-recipe-ingredients-after-import": "Розпізнавання інгредієнтів рецепту після імпорту",
@@ -1430,11 +1430,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Це поле обовʼязкове",
+    "invalid-email": "Електронна адреса повинна бути дійсною",
+    "invalid-url": "Має бути дійсною URL-адресою",
+    "no-whitespace": "Пробіли заборонені",
+    "min-length": "Повинно бути не менше ніж {min} символів ",
+    "max-length": "Повинно бути не більше ніж {max} символів"
   }
 }
