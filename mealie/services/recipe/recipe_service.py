@@ -463,8 +463,39 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
+    def _remove_non_existent_ingredient_references(self, update_data: Recipe) -> Recipe:
+        """Removes the references of ingredients from steps that no longer exist."""
+        """
+            Checks:
+                - If the recipe steps has references to ingredients that no longer exist.
+                - Removes those references
+            Args:
+                update_data (Recipe): the recipe data
+        """
+        if update_data is not None:
+            current_ingredient_reference_ids = set()  # set of current ingredient(s) reference id's
+            for ingredient in update_data.recipe_ingredient:
+                current_ingredient_reference_ids.add(ingredient.reference_id)
+
+            """
+                go through all steps and check if the reference ingredient id(s)
+                are present in the current ingredient, if not remove them
+            """
+            recipe_instructions = update_data.recipe_instructions
+            if recipe_instructions is not None:
+                for instruction in recipe_instructions:
+                    instruction.ingredient_references = [
+                        ref
+                        for ref in instruction.ingredient_references
+                        if ref.reference_id in current_ingredient_reference_ids
+                    ]
+
+        return update_data
+
     def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
         recipe = self._pre_update_check(slug_or_id, update_data)
+
+        update_data = self._remove_non_existent_ingredient_references(update_data)
 
         new_data = self.group_recipes.update(recipe.slug, update_data)
         self.check_assets(new_data, recipe.slug)
