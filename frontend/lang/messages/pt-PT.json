@@ -343,8 +343,8 @@
     "lunch": "Almoço",
     "dinner": "Jantar",
     "snack": "Snack",
-    "drink": "Drink",
-    "dessert": "Dessert",
+    "drink": "Bebida",
+    "dessert": "Sobremesa",
     "type-any": "Qualquer",
     "day-any": "Qualquer",
     "editor": "Editor",
@@ -445,7 +445,7 @@
     "upload-a-recipe": "Enviar uma Receita",
     "upload-individual-zip-file": "Carregar um ficheiro .zip individual, exportado de outra instância do Mealie.",
     "url-form-hint": "Copie e cole um link do seu site de receitas favorito",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copie e cole o URL de origem dos seus dados (opcional)",
     "view-scraped-data": "Ver dados recolhidos",
     "trim-whitespace-description": "Eliminar os espaços em branco no início e no fim, bem como as linhas em branco",
     "trim-prefix-description": "Apagar o primeiro caractere de cada linha",
@@ -637,8 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Experimente o importador em massa",
     "scrape-recipe-have-raw-html-or-json-data": "Tem dados HTML ou JSON em bruto?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "É possível importar diretamente a partir de dados em bruto",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-website-being-blocked": "O site está bloqueado?",
+    "scrape-recipe-try-importing-raw-html-instead": "Tente importar o HTML bruto em vez disso.",
     "import-original-keywords-as-tags": "Importar palavras-chave originais como etiquetas",
     "stay-in-edit-mode": "Permanecer no modo de edição",
     "parse-recipe-ingredients-after-import": "Analisar ingredientes da receita após a importação",
@@ -1430,11 +1430,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Este campo é obrigatório",
+    "invalid-email": "O Email deve ser válido",
+    "invalid-url": "O URL deve ser válido",
+    "no-whitespace": "Não são permitidos espaços em branco",
+    "min-length": "Deve ter pelo menos {min} caracteres",
+    "max-length": "Deve ter no máximo {max} caracteres"
   }
 }

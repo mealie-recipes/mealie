@@ -357,8 +357,8 @@
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter lettuce",
-                "plural_name": "butter lettuces"
+                "name": "smørsalat",
+                "plural_name": "smørsalater"
             },
             "hash brown": {
                 "aliases": [],
@@ -368,11 +368,11 @@
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "kinakål"
                 ],
                 "description": "",
                 "name": "",
-                "plural_name": "napa cabbages"
+                "plural_name": "napakål"
             },
             "celeriac": {
                 "aliases": [],
@@ -383,8 +383,8 @@
             "water chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "water chestnut",
-                "plural_name": "water chestnuts"
+                "name": "vannkastanje",
+                "plural_name": "vannkastanjer"
             },
             "turnip": {
                 "aliases": [],
@@ -395,8 +395,8 @@
             "thai chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chile pepper",
-                "plural_name": "thai chile peppers"
+                "name": "thai chili",
+                "plural_name": "thai chilier"
             },
             "bok choy": {
                 "aliases": [],
@@ -414,7 +414,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "acorn squash",
-                "plural_name": "acorn squashes"
+                "plural_name": "acorn squasher"
             },
             "corn cob": {
                 "aliases": [],
@@ -432,13 +432,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "perleløk",
-                "plural_name": "pearl onions"
+                "plural_name": "sølvløk"
             },
             "tenderstem broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "tenderstem broccoli",
-                "plural_name": "tenderstem broccolis"
+                "name": "brokkolini",
+                "plural_name": "brokkolinier"
             },
             "plantain": {
                 "aliases": [],
@@ -456,7 +456,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pepperoncini",
-                "plural_name": "pepperoncinis"
+                "plural_name": "chili"
             },
             "baby bok choy": {
                 "aliases": [],
@@ -468,27 +468,27 @@
                 "aliases": [],
                 "description": "",
                 "name": "jicama",
-                "plural_name": "jicamas"
+                "plural_name": "jicama"
             },
             "endive": {
                 "aliases": [],
                 "description": "",
-                "name": "endive",
-                "plural_name": "endives"
+                "name": "sikori",
+                "plural_name": "sikori"
             },
             "habanero pepper": {
                 "aliases": [],
                 "description": "",
                 "name": "habanero",
-                "plural_name": "habanero peppers"
+                "plural_name": "habanero"
             },
             "corn husk": {
                 "aliases": [
-                    "maize"
+                    "mais"
                 ],
                 "description": "",
-                "name": "corn husk",
-                "plural_name": "corn husks"
+                "name": "maisskall",
+                "plural_name": "maisskall"
             },
             "collard green": {
                 "aliases": [],
@@ -607,14 +607,14 @@
             "golden beet": {
                 "aliases": [],
                 "description": "",
-                "name": "golden beet",
-                "plural_name": "golden beets"
+                "name": "gulbete",
+                "plural_name": "gulbeter"
             },
             "pea shoot": {
                 "aliases": [],
                 "description": "",
-                "name": "pea shoot",
-                "plural_name": "pea shoots"
+                "name": "erteskudd",
+                "plural_name": "erteskudd"
             },
             "alfalfa": {
                 "aliases": [],
@@ -756,7 +756,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "plomme",
-                "plural_name": "plums"
+                "plural_name": "plommer"
             },
             "fig": {
                 "aliases": [],
@@ -792,7 +792,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cantaloupe",
-                "plural_name": "cantaloupes"
+                "plural_name": "cantaloupe-meloner"
             },
             "sultana": {
                 "aliases": [],
@@ -827,7 +827,7 @@
             "dried fig": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fig",
+                "name": "tørket fiken",
                 "plural_name": "tørkede fikener"
             },
             "chestnut": {
@@ -941,14 +941,14 @@
             "lychee": {
                 "aliases": [],
                 "description": "",
-                "name": "lychee",
-                "plural_name": "lychees"
+                "name": "litchi",
+                "plural_name": "litchi"
             },
             "young coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "young coconut",
-                "plural_name": "young coconuts"
+                "name": "ung kokosnøtt",
+                "plural_name": "ung kokosnøtt"
             },
             "kaffir lime": {
                 "aliases": [],
@@ -2016,7 +2016,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kremost",
-                "plural_name": "cream cheeses"
+                "plural_name": "kremost"
             },
             "sharp cheddar": {
                 "aliases": [],
@@ -2219,8 +2219,8 @@
             "herb cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "herb cream cheese",
-                "plural_name": "herb cream cheeses"
+                "name": "urtekremost",
+                "plural_name": "urtekremoster"
             },
             "burrata": {
                 "aliases": [],
@@ -2620,12 +2620,12 @@
                 "aliases": [],
                 "description": "",
                 "name": "egg",
-                "plural_name": "eggs"
+                "plural_name": "egg"
             },
             "milk": {
                 "aliases": [],
                 "description": "",
-                "name": "milk",
+                "name": "melk",
                 "plural_name": "milks"
             },
             "heavy cream": {
@@ -3101,8 +3101,8 @@
             "vanilla milk": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla milk",
-                "plural_name": "vanilla milks"
+                "name": "vaniljemelk",
+                "plural_name": "vaniljemelk"
             },
             "yoplait whip": {
                 "aliases": [],
@@ -3267,8 +3267,8 @@
             "oat milk": {
                 "aliases": [],
                 "description": "",
-                "name": "oat milk",
-                "plural_name": "oat milks"
+                "name": "havremelk",
+                "plural_name": "havremelk"
             },
             "nut butter": {
                 "aliases": [],
@@ -6432,7 +6432,7 @@
                 ],
                 "description": "",
                 "name": "brunt sukker",
-                "plural_name": "brown sugars"
+                "plural_name": "brun stukker"
             },
             "confectioners sugar": {
                 "aliases": [
@@ -6508,8 +6508,8 @@
             "vanilla sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla sugar",
-                "plural_name": "vanilla sugars"
+                "name": "vaniljesukker",
+                "plural_name": "vaniljesukker"
             },
             "demerara sugar": {
                 "aliases": [],
@@ -6664,8 +6664,8 @@
             "vanilla syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla syrup",
-                "plural_name": "vanilla syrups"
+                "name": "vaniljesirup",
+                "plural_name": "vaniljesirup"
             },
             "ginger syrup": {
                 "aliases": [],
@@ -7580,8 +7580,8 @@
             "vanilla salt": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla salt",
-                "plural_name": "vanilla salts"
+                "name": "vaniljesalt",
+                "plural_name": "vaniljesalt"
             },
             "thai seasoning": {
                 "aliases": [],
@@ -7655,18 +7655,18 @@
             },
             "vanilla extract": {
                 "aliases": [
-                    "vanilla",
-                    "vanillas"
+                    "vanilje",
+                    "vanilje"
                 ],
                 "description": "",
-                "name": "vanilla extract",
-                "plural_name": "vanilla extracts"
+                "name": "vaniljeekstrakt",
+                "plural_name": "vaniljeekstrakt"
             },
             "baking powder": {
                 "aliases": [],
                 "description": "",
-                "name": "baking powder",
-                "plural_name": "baking powders"
+                "name": "bakepulver",
+                "plural_name": "bakepulver"
             },
             "baking soda": {
                 "aliases": [],
@@ -7851,8 +7851,8 @@
             "oat flour": {
                 "aliases": [],
                 "description": "",
-                "name": "oat flour",
-                "plural_name": "oat flours"
+                "name": "havremel",
+                "plural_name": "havremel"
             },
             "whole-wheat pastry flour": {
                 "aliases": [],
@@ -8534,8 +8534,8 @@
             "rolled oat": {
                 "aliases": [],
                 "description": "",
-                "name": "rolled oat",
-                "plural_name": "rolled oats"
+                "name": "havregryn",
+                "plural_name": "havregryn"
             },
             "rice": {
                 "aliases": [],
@@ -8572,8 +8572,8 @@
             "quick-cooking oat": {
                 "aliases": [],
                 "description": "",
-                "name": "quick-cooking oat",
-                "plural_name": "quick-cooking oats"
+                "name": "lettkokt havregryn",
+                "plural_name": "lettkokt havregryn"
             },
             "breakfast cereal": {
                 "aliases": [],
@@ -8668,8 +8668,8 @@
             "steel cut oat": {
                 "aliases": [],
                 "description": "",
-                "name": "steel cut oat",
-                "plural_name": "steel cut oats"
+                "name": "stålskåret havre",
+                "plural_name": "stålskåret havre"
             },
             "millet": {
                 "aliases": [],
@@ -8680,8 +8680,8 @@
             "oat bran": {
                 "aliases": [],
                 "description": "",
-                "name": "oat bran",
-                "plural_name": "oat brans"
+                "name": "havrekli",
+                "plural_name": "havrekli"
             },
             "sushi rice": {
                 "aliases": [],
@@ -8728,8 +8728,8 @@
             "instant oat": {
                 "aliases": [],
                 "description": "",
-                "name": "instant oat",
-                "plural_name": "instant oats"
+                "name": "lettkokt havregryn",
+                "plural_name": "lettkokte havregryn"
             },
             "wheat berry": {
                 "aliases": [],
@@ -8884,7 +8884,7 @@
             "whole-grain oat": {
                 "aliases": [],
                 "description": "",
-                "name": "whole-grain oat",
+                "name": "fullkornshavre",
                 "plural_name": "whole-grain oats"
             },
             "puffed quinoa": {
@@ -14145,8 +14145,8 @@
             "vanilla pudding": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla pudding",
-                "plural_name": "vanilla puddings"
+                "name": "vaniljepudding",
+                "plural_name": "vaniljepuddinger"
             },
             "currant jelly": {
                 "aliases": [],
@@ -14809,8 +14809,8 @@
             "vanilla vodka": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla vodka",
-                "plural_name": "vanilla vodkas"
+                "name": "vaniljevodka",
+                "plural_name": "vaniljevodaer"
             },
             "cinnamon alcohol": {
                 "aliases": [],
@@ -15026,7 +15026,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vaniljelikør",
-                "plural_name": "vanilla liqueurs"
+                "plural_name": "vaniljelikør"
             },
             "sangria": {
                 "aliases": [],

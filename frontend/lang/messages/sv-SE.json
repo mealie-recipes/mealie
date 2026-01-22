@@ -445,7 +445,7 @@
     "upload-a-recipe": "Ladda upp ett recept",
     "upload-individual-zip-file": "Ladda upp en individuell .zip-fil som exporteras från en annan Mealie-instans.",
     "url-form-hint": "Kopiera och klistra in en länk från din favorit recept webbplats",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Kopiera och klistra in länk för din data (frivilligt)",
     "view-scraped-data": "Visa skrapade data",
     "trim-whitespace-description": "Ta bort inledande och avslutande blanksteg samt tomma rader",
     "trim-prefix-description": "Ta bort första tecknet från varje rad",
@@ -1430,11 +1430,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Detta Fält Krävs",
+    "invalid-email": "E-post Måste Vara Giltig",
+    "invalid-url": "Måste var en giltig länk",
+    "no-whitespace": "Ingen blanksteg tillåten",
+    "min-length": "Måste vara minst {min} tecken",
+    "max-length": "Måste vara som mest {max} tecken"
   }
 }
