@@ -3865,8 +3865,8 @@
             "breakfast sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "breakfast sausage",
-                "plural_name": "breakfast sausages"
+                "name": "saucisse de petit déjeuner",
+                "plural_name": "saucisses de petit déjeuner"
             },
             "hot dog": {
                 "aliases": [],
@@ -3967,8 +3967,8 @@
             "hot italian sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "hot italian sausage",
-                "plural_name": "hot italian sausages"
+                "name": "saucisse italienne chaude",
+                "plural_name": "saucisses italiennes chaudes"
             },
             "pork spare rib": {
                 "aliases": [],
@@ -15831,8 +15831,8 @@
             "brewer's yeast": {
                 "aliases": [],
                 "description": "",
-                "name": "brewer's yeast",
-                "plural_name": "brewer's yeasts"
+                "name": "levure de bière",
+                "plural_name": "levures de bière"
             },
             "strawberry extract": {
                 "aliases": [],
@@ -16198,13 +16198,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "créatine",
-                "plural_name": "creatines"
+                "plural_name": "créatines"
             },
             "daily vitamin": {
                 "aliases": [],
                 "description": "",
-                "name": "daily vitamin",
-                "plural_name": "daily vitamins"
+                "name": "vitamine quotidienne",
+                "plural_name": "vitamines quotidiennes"
             },
             "moringa powder": {
                 "aliases": [],
@@ -16239,14 +16239,14 @@
             "berry powder": {
                 "aliases": [],
                 "description": "",
-                "name": "berry powder",
-                "plural_name": "berry powders"
+                "name": "poudre de baie",
+                "plural_name": "poudres de baie"
             },
             "champagne yeast": {
                 "aliases": [],
                 "description": "",
-                "name": "champagne yeast",
-                "plural_name": "champagne yeasts"
+                "name": "levure de champagne",
+                "plural_name": "levures de champagne"
             },
             "maqui": {
                 "aliases": [],
@@ -16257,8 +16257,8 @@
             "rose oil": {
                 "aliases": [],
                 "description": "",
-                "name": "rose oil",
-                "plural_name": "rose oils"
+                "name": "huile de rose",
+                "plural_name": "huiles de rose"
             },
             "banana powder": {
                 "aliases": [],
@@ -16275,14 +16275,14 @@
             "clove oil": {
                 "aliases": [],
                 "description": "",
-                "name": "clove oil",
-                "plural_name": "clove oils"
+                "name": "huile de clou de girofle",
+                "plural_name": "huiles de clou de girofle"
             },
             "cranberry powder": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry powder",
-                "plural_name": "cranberry powders"
+                "name": "poudre de cranberry",
+                "plural_name": "poudres de cranberry"
             },
             "eucalyptus oil": {
                 "aliases": [],
