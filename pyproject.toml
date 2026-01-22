@@ -9,7 +9,7 @@ dependencies = [
     "Jinja2==3.1.6",
     "Pillow==12.1.0",
     "PyYAML==6.0.3",
-    "SQLAlchemy==2.0.45",
+    "SQLAlchemy==2.0.46",
     "aiofiles==25.1.0",
     "alembic==1.18.1",
     "aniso8601==10.0.1",
