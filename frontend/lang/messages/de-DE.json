@@ -1135,7 +1135,7 @@
       "seed-dialog-text": "Füllt die Datenbank mit gängigen Kategorien basierend auf deiner Sprache.",
       "edit-label": "Kategorie bearbeiten",
       "new-label": "Neue Kategorie",
-      "labels": "Kategorien",
+      "labels": "Bezeichnungen",
       "assign-label": "Kategorie zuweisen"
     },
     "recipes": {
