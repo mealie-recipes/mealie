@@ -45,13 +45,13 @@
         "name": "milliliter",
         "plural_name": "milliliter",
         "description": "",
-        "abbreviation": "ml"
+        "abbreviation": "mL"
     },
     "liter": {
         "name": "liter",
         "plural_name": "liter",
         "description": "",
-        "abbreviation": "l"
+        "abbreviation": "L"
     },
     "pound": {
         "name": "pund",
@@ -134,7 +134,7 @@
     },
     "pinch": {
         "name": "knivspids",
-        "plural_name": "knivspidse",
+        "plural_name": "knivspidser",
         "description": "",
         "abbreviation": ""
     }
