@@ -1555,8 +1555,8 @@
             "canned sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "Sauerkirsche aus der Dose",
-                "plural_name": "Sauerkirschen aus der Dose"
+                "name": "Sauerkirsche a. d. Dose",
+                "plural_name": "Sauerkirschen a. d. Dose"
             },
             "mulberry": {
                 "aliases": [],
@@ -1573,8 +1573,8 @@
             "canned cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "Kirsche aus der Dose",
-                "plural_name": "Kirschen aus der Dose"
+                "name": "Kirsche a. d. Dose",
+                "plural_name": "Kirschen a. d. Dose"
             },
             "amla": {
                 "aliases": [],
@@ -11271,7 +11271,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Catalina-Dressing",
-                "plural_name": "catalina dressings"
+                "plural_name": "Catalina-Dressings"
             },
             "verjuice": {
                 "aliases": [],
@@ -11378,8 +11378,8 @@
             "green goddess dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "green goddess dressing",
-                "plural_name": "green goddess dressings"
+                "name": "Green Goddess Dressing",
+                "plural_name": "Green Goddess Dressings"
             },
             "creamy dressing": {
                 "aliases": [],
@@ -11403,19 +11403,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Weiße Balsamico Vinaigrette",
-                "plural_name": "white balsamic vinaigrettes"
+                "plural_name": "Weiße Balsamico-Vinaigretten"
             },
             "chardonnay vinegar": {
                 "aliases": [],
                 "description": "",
                 "name": "Chardonnay-Essig",
-                "plural_name": "chardonnay vinegars"
+                "plural_name": "Chardonnay Weißweinessige"
             },
             "prepared coleslaw dressing": {
                 "aliases": [],
                 "description": "",
                 "name": "Fertiger Coleslaw Dressing",
-                "plural_name": "prepared coleslaw dressings"
+                "plural_name": "Fertige Coleslaw Dressings"
             },
             "honey vinegar": {
                 "aliases": [],
@@ -11444,8 +11444,8 @@
             "moscatel vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "moscatel vinegar",
-                "plural_name": "moscatel vinegars"
+                "name": "Moscatel-Essig",
+                "plural_name": "Moscatel-Essige"
             },
             "vinegar powder": {
                 "aliases": [],
@@ -11468,7 +11468,7 @@
             "sugarcane vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "sugarcane vinegar",
+                "name": "Zuckerrohressig",
                 "plural_name": "Zuckerrohr-Essig"
             },
             "avocado-lime dressing": {
@@ -11586,8 +11586,8 @@
             "wing sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "wing sauce",
-                "plural_name": "wing sauces"
+                "name": "Wing Sauce",
+                "plural_name": "Wing Saucen"
             },
             "teriyaki sauce": {
                 "aliases": [],
@@ -12025,7 +12025,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Pickapeppa Sauce",
-                "plural_name": "pickapeppa sauces"
+                "plural_name": "Pickapeppa Saucen"
             },
             "salsa lizano": {
                 "aliases": [],
@@ -12090,8 +12090,8 @@
             "guk ganjang": {
                 "aliases": [],
                 "description": "",
-                "name": "guk ganjang",
-                "plural_name": "guk ganjangs"
+                "name": "Guk-Ganjang",
+                "plural_name": "Guk-Ganjangs"
             }
         }
     },
@@ -12118,8 +12118,8 @@
             "canned chickpea": {
                 "aliases": [],
                 "description": "",
-                "name": "Kichererbsen in der Dose",
-                "plural_name": "Kichererbsen in Dosen"
+                "name": "Kichererbsen a. d. Dose",
+                "plural_name": "Kichererbsen a. d. Dose"
             },
             "black olive": {
                 "aliases": [],
@@ -12130,14 +12130,14 @@
             "canned black bean": {
                 "aliases": [],
                 "description": "",
-                "name": "Schwarze Dosen Bohnen",
-                "plural_name": "Schwarze Bohnen in der Dose"
+                "name": "Schwarze Bohnen a. d. Dose",
+                "plural_name": "Schwarze Bohnen a. d. Dose"
             },
             "canned pumpkin": {
                 "aliases": [],
                 "description": "",
-                "name": "Dosen Kürbis",
-                "plural_name": "canned pumpkins"
+                "name": "Kürbis a. d. Dose",
+                "plural_name": "Kürbisse a. d. Dose"
             },
             "kalamata olive": {
                 "aliases": [],
@@ -12148,8 +12148,8 @@
             "canned tuna": {
                 "aliases": [],
                 "description": "",
-                "name": "Thunfisch in Dosen",
-                "plural_name": "Thunfisch in Dosen"
+                "name": "Thunfisch a. d. Dosen",
+                "plural_name": "Thunfisch a. d. Dosen"
             },
             "pickle": {
                 "aliases": [],
@@ -12160,20 +12160,20 @@
             "canned pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "Dose Ananas",
-                "plural_name": "Dosen Ananas"
+                "name": "Ananas a. d. Dose",
+                "plural_name": "Ananas a. d. Dose"
             },
             "chipotle in adobo": {
                 "aliases": [],
                 "description": "",
-                "name": "chipotle in adobo",
-                "plural_name": "chipotle in adobo"
+                "name": "Chipotle in Adobo",
+                "plural_name": "Chipotle in Adobo"
             },
             "canned anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "Anchovis in einer Dose",
-                "plural_name": "Dosen Anchovis"
+                "name": "Anchovis a. d. Dose",
+                "plural_name": "Anchovis a. d. Dose"
             },
             "roasted red pepper": {
                 "aliases": [],
@@ -12190,38 +12190,38 @@
             "canned artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "Dose Artischocken",
-                "plural_name": "Dosen Artischocken"
+                "name": "Artischocke a. d. Dose",
+                "plural_name": "Artischocken a. d. Dose"
             },
             "canned corn": {
                 "aliases": [],
                 "description": "",
-                "name": "Dosenmais",
-                "plural_name": "Dosenmais"
+                "name": "Mais a. d. Dose",
+                "plural_name": "Mais a. d. Dose"
             },
             "canned kidney bean": {
                 "aliases": [],
                 "description": "",
-                "name": "Dose Kidneybohnen",
-                "plural_name": "Dosen Kidneybohnen"
+                "name": "Kidneybohnen a. d. Dose",
+                "plural_name": "Kidneybohnen a. d. Dose"
             },
             "canned pie filling": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pie filling",
-                "plural_name": "canned pie fillings"
+                "name": "Kuchenfüllung a. d. Dose",
+                "plural_name": "Kuchenfüllung a. d. Dose"
             },
             "canned cannellini bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cannellini bean",
-                "plural_name": "canned cannellini beans"
+                "name": "Cannelini-Bohne a. d. Dose",
+                "plural_name": "Cannelini-Bohnen a. d. Dose"
             },
             "refried bean": {
                 "aliases": [],
                 "description": "",
-                "name": "refried bean",
-                "plural_name": "refried beans"
+                "name": "Frijoles refritos",
+                "plural_name": "Frijoles refritos"
             },
             "canned whole tomato": {
                 "aliases": [],
@@ -12580,13 +12580,13 @@
             "red pepper relish": {
                 "aliases": [],
                 "description": "",
-                "name": "red pepper relish",
-                "plural_name": "red pepper relishes"
+                "name": "Rote Paprika-Relish",
+                "plural_name": "Rote Paprika-Relish"
             },
             "canned asparagu": {
                 "aliases": [],
                 "description": "",
-                "name": "canned asparagu",
+                "name": "Spargel a. d. Dose",
                 "plural_name": "Asparagus aus der Dose"
             },
             "fire-roasted green chile": {
@@ -12797,7 +12797,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Salsa Verde",
-                "plural_name": "salsa verdes"
+                "plural_name": "Salsa Verdes"
             },
             "alfredo sauce": {
                 "aliases": [],
@@ -12809,13 +12809,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Balsamico Glasur",
-                "plural_name": "balsamic glazes"
+                "plural_name": "Balsamico Glasur"
             },
             "anchovy paste": {
                 "aliases": [],
                 "description": "",
-                "name": "anchovy paste",
-                "plural_name": "anchovy pastes"
+                "name": "Anchovis-Paste",
+                "plural_name": "Anchovis-Paste"
             },
             "red enchilada sauce": {
                 "aliases": [],
@@ -12910,8 +12910,8 @@
             "tapenade": {
                 "aliases": [],
                 "description": "",
-                "name": "tapenade",
-                "plural_name": "tapenades"
+                "name": "Tapenade",
+                "plural_name": "Tapenaden"
             },
             "turkey gravy": {
                 "aliases": [],
@@ -12928,8 +12928,8 @@
             "thai peanut sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "thai peanut sauce",
-                "plural_name": "thai peanut sauces"
+                "name": "Thai-Erdnusssauce",
+                "plural_name": "Thai-Erdnusssaucen"
             },
             "chicken gravy": {
                 "aliases": [],
@@ -12940,14 +12940,14 @@
             "sloppy joe sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "sloppy joe sauce",
-                "plural_name": "sloppy joe sauces"
+                "name": "Sloppy Joe Sauce",
+                "plural_name": "Sloppy Joe Saucen"
             },
             "pimento cheese spread": {
                 "aliases": [],
                 "description": "",
-                "name": "pimento cheese spread",
-                "plural_name": "pimento cheese spreads"
+                "name": "Pimento-Käse-Aufstrich",
+                "plural_name": "Pimento-Käse-Aufstriche"
             },
             "sofrito": {
                 "aliases": [],
@@ -12971,13 +12971,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Käse Dip",
-                "plural_name": "queso dips"
+                "plural_name": "Gueso Dips"
             },
             "demi-glace": {
                 "aliases": [],
                 "description": "",
-                "name": "demi-glace",
-                "plural_name": "demi-glaces"
+                "name": "Braune Grundsauce",
+                "plural_name": "Braune Grundsaucen"
             },
             "chimichurri sauce": {
                 "aliases": [],
@@ -13013,13 +13013,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Leberwurst",
-                "plural_name": "liver spreads"
+                "plural_name": "Leber-Aufstriche"
             },
             "browning sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "browning sauce",
-                "plural_name": "browning sauces"
+                "name": "Browning Sauce",
+                "plural_name": "Browning Saucen"
             },
             "schezwan sauce": {
                 "aliases": [],
@@ -13042,7 +13042,7 @@
             "country gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "country gravy",
+                "name": "Country Gravy",
                 "plural_name": "Country gravies"
             },
             "orange sauce": {
@@ -13407,7 +13407,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Fischsud",
-                "plural_name": "dashis"
+                "plural_name": "Dashi-Brühen"
             },
             "onion soup": {
                 "aliases": [],
@@ -13454,7 +13454,7 @@
             "beef consommé": {
                 "aliases": [],
                 "description": "",
-                "name": "beef consommé",
+                "name": "Rinderonsommé",
                 "plural_name": "Rinderkraftbrühe"
             },
             "stock paste": {
@@ -13671,13 +13671,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Hühnesuppenmix",
-                "plural_name": "chicken soup mixes"
+                "plural_name": "Hühnersuppenmixe"
             },
             "cream of bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of bacon",
-                "plural_name": "cream of bacon"
+                "name": "Cream of Bacon-Suppe",
+                "plural_name": "Cream of Bacon-Suppen"
             },
             "lobster bisque": {
                 "aliases": [],
