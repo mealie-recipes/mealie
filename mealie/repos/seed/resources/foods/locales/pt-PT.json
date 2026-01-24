@@ -210,48 +210,48 @@
             "brussels sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "brussels sprout",
-                "plural_name": "brussels sprouts"
+                "name": "couve-de-bruxelas",
+                "plural_name": "couves-de-bruxelas"
             },
             "fennel": {
                 "aliases": [],
                 "description": "",
-                "name": "fennel",
-                "plural_name": "fennels"
+                "name": "funcho",
+                "plural_name": "funcho"
             },
             "sun dried tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "sun dried tomato",
-                "plural_name": "sun dried tomatoes"
+                "name": "tomate seco ao sol",
+                "plural_name": "tomates secos ao sol"
             },
             "radish": {
                 "aliases": [],
                 "description": "",
-                "name": "radish",
-                "plural_name": "radishes"
+                "name": "rabanete",
+                "plural_name": "rabanetes"
             },
             "red cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "red cabbage",
-                "plural_name": "red cabbages"
+                "name": "couve roxa",
+                "plural_name": "couves roxas"
             },
             "artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke",
-                "plural_name": "artichokes"
+                "name": "alcachofra",
+                "plural_name": "alcachofras"
             },
             "new potato": {
                 "aliases": [],
                 "description": "",
-                "name": "new potato",
-                "plural_name": "new potatoes"
+                "name": "batata nova",
+                "plural_name": "batatas novas"
             },
             "summer squash": {
                 "aliases": [
-                    "courgette",
+                    "curgete",
                     "gem squash"
                 ],
                 "description": "",

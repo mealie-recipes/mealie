@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cauliflower",
-                "plural_name": "cauliflowers"
+                "plural_name": "콜리플라워"
             },
             "cabbage": {
                 "aliases": [],
@@ -408,7 +408,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "okra",
-                "plural_name": "okra"
+                "plural_name": "오크라"
             },
             "acorn squash": {
                 "aliases": [],
@@ -708,7 +708,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pear",
-                "plural_name": "pears"
+                "plural_name": "배"
             },
             "grape": {
                 "aliases": [],
@@ -720,7 +720,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pomegranate",
-                "plural_name": "pomegranates"
+                "plural_name": "석류"
             },
             "watermelon": {
                 "aliases": [],
@@ -738,7 +738,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "dried apricot",
-                "plural_name": "dried apricots"
+                "plural_name": "말린 살구"
             },
             "kiwi": {
                 "aliases": [],
@@ -852,7 +852,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "dried fruit",
-                "plural_name": "dried fruits"
+                "plural_name": "말린 과일"
             },
             "clementine": {
                 "aliases": [],
@@ -996,7 +996,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "yuzu",
-                "plural_name": "yuzus"
+                "plural_name": "유자"
             },
             "granadilla": {
                 "aliases": [],
@@ -1305,7 +1305,7 @@
             "morel mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "morel mushroom",
+                "name": "곰보버섯",
                 "plural_name": "morel mushrooms"
             },
             "field mushroom": {
@@ -1483,7 +1483,7 @@
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
+                "name": "블랙베리",
                 "plural_name": "blackberries"
             },
             "berry mix": {
@@ -1788,7 +1788,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hazelnut",
-                "plural_name": "hazelnuts"
+                "plural_name": "헤이즐넛"
             },
             "poppy seed": {
                 "aliases": [],
@@ -2650,7 +2650,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "yogurt",
-                "plural_name": "yogurts"
+                "plural_name": "요거트"
             },
             "greek yogurt": {
                 "aliases": [],
@@ -2711,7 +2711,7 @@
             "margarine": {
                 "aliases": [],
                 "description": "",
-                "name": "margarine",
+                "name": "마가린",
                 "plural_name": "margarines"
             },
             "creme fraiche": {
@@ -11953,7 +11953,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "doenjang",
-                "plural_name": "doenjangs"
+                "plural_name": "된장"
             },
             "chili crisp": {
                 "aliases": [],
@@ -12281,7 +12281,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kimchi",
-                "plural_name": "kimchis"
+                "plural_name": "김치"
             },
             "canned mandarin orange": {
                 "aliases": [],
