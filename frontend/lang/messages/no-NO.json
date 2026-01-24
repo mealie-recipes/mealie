@@ -69,7 +69,7 @@
     "new-notification": "Nytt varsel",
     "event-notifiers": "Hendelsesvarsler",
     "apprise-url-skipped-if-blank": "Apprise-URL (hoppes over hvis tom)",
-    "apprise-url-is-left-intentionally-blank": "Siden Apprise URL-er vanligvis inneholder sensitiv informasjon, må dette feltet ikke være tomt mens du redigerer. Hvis du vil oppdatere URL, skriv inn den nye her, ellers la den være tom for å beholde den gjeldende URL.",
+    "apprise-url-is-left-intentionally-blank": "Siden Apprise URL-er vanligvis inneholder sensitiv informasjon forblir dette feltet tomt mens du redigerer. Hvis du vil oppdatere URL, skriv inn den nye her, eller la den være tom for å beholde den gjeldende URL.",
     "enable-notifier": "Aktiver varslingsagenten",
     "what-events": "Hvilke hendelser skal denne varslingsagenten abonnere på?",
     "user-events": "Brukerhendelser",
@@ -343,7 +343,7 @@
     "lunch": "Lunsj",
     "dinner": "Middag",
     "snack": "Snacks",
-    "drink": "Drink",
+    "drink": "Drikke",
     "dessert": "Dessert",
     "type-any": "Enhver",
     "day-any": "Enhver",
@@ -445,7 +445,7 @@
     "upload-a-recipe": "Last opp oppskrift",
     "upload-individual-zip-file": "Last opp en individuell .zip-fil eksportert fra en annen Mealie-instans.",
     "url-form-hint": "Kopier og lim inn en lenke fra nettstedet med favorittoppskriftene dine",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Kopier og lim inn kilde-URL-en til dataene dine (valgfritt)",
     "view-scraped-data": "Vis skrapte data",
     "trim-whitespace-description": "Fjern innledende og etterfølgende mellomrom i tillegg til tomme linjer",
     "trim-prefix-description": "Fjern første tegn fra hver linje",
@@ -569,7 +569,7 @@
     "choose-unit": "Velg enhet",
     "press-enter-to-create": "Trykk Enter for å opprette",
     "choose-food": "Velg matvarer",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "Velg oppskrift",
     "notes": "Notater",
     "toggle-section": "Legg til seksjon",
     "see-original-text": "Se opprinnelig tekst",
@@ -637,8 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Prøv masseimportering",
     "scrape-recipe-have-raw-html-or-json-data": "Har du HTML- eller JSON-rådata?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kan importere fra rådata direkte",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-website-being-blocked": "Er nettstedet blokkert?",
+    "scrape-recipe-try-importing-raw-html-instead": "Prøv å importere HTML-koden i stedet.",
     "import-original-keywords-as-tags": "Importer originale søkeord som emneord",
     "stay-in-edit-mode": "Forbli i redigeringsmodus",
     "parse-recipe-ingredients-after-import": "Analyser oppskriftens ingredienser etter at importen er fullført",
@@ -742,7 +742,7 @@
     "advanced": "Avansert",
     "auto-search": "Autosøk",
     "no-results": "Ingen resultater funnet",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Skriv for å søke..."
   },
   "settings": {
     "add-a-new-theme": "Legg til nytt tema",
@@ -1430,11 +1430,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Dette feltet er påkrevd",
+    "invalid-email": "E-postadressen må være gyldig",
+    "invalid-url": "Må være en gyldig nettadresse",
+    "no-whitespace": "Ingen mellomrom tillatt",
+    "min-length": "Må minst ha {min} tegn",
+    "max-length": "Kan maksimalt ha {max} tegn"
   }
 }

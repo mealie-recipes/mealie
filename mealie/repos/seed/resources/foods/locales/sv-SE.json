@@ -3376,7 +3376,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "",
-                "plural_name": "non-dairy creams"
+                "plural_name": "laktosfri grädde"
             },
             "vegan burger patty": {
                 "aliases": [],
@@ -3519,8 +3519,8 @@
             "maple almond butter": {
                 "aliases": [],
                 "description": "",
-                "name": "maple almond butter",
-                "plural_name": "maple almond butter"
+                "name": "lönn mandelsmör",
+                "plural_name": "lönn mandelsmör"
             },
             "vegan meatball": {
                 "aliases": [],
@@ -3531,44 +3531,44 @@
             "almond-milk yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "almond-milk yogurt",
-                "plural_name": "almond-milk yogurts"
+                "name": "mandelmjölksyoghurt",
+                "plural_name": "mandelmjölksyogurtar"
             },
             "almond creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "almond creamer",
-                "plural_name": "almond creamers"
+                "name": "mandel grädde",
+                "plural_name": "mandel grädde"
             },
             "soy milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "soy milk powder",
-                "plural_name": "soy milk powders"
+                "name": "sojamjölkpulver",
+                "plural_name": "sojamjölkpulver"
             },
             "vegan cream cheese frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan cream cheese frosting",
-                "plural_name": "vegan cream cheese frostings"
+                "name": "vegansk färskost glasyr",
+                "plural_name": "vegansk färskost glasyr"
             },
             "coconut manna": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut manna",
-                "plural_name": "coconut mannas"
+                "name": "kokosmanna",
+                "plural_name": "kokosmanna"
             },
             "falafel mix": {
                 "aliases": [],
                 "description": "",
-                "name": "falafel mix",
-                "plural_name": "falafel mixes"
+                "name": "falafel blandning",
+                "plural_name": "falafel blandning"
             },
             "ready-made falafel": {
                 "aliases": [],
                 "description": "",
-                "name": "ready-made falafel",
-                "plural_name": "ready-made falafels"
+                "name": "färdig falafel",
+                "plural_name": "färdiga falaflar"
             },
             "vegan gravy": {
                 "aliases": [],
@@ -3579,8 +3579,8 @@
             "cashew cheese sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew cheese sauce",
-                "plural_name": "cashew cheese sauces"
+                "name": "cashewostsås",
+                "plural_name": "cashewostsåser"
             },
             "coconut fat": {
                 "aliases": [],
@@ -3597,8 +3597,8 @@
             "hazelnut creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut creamer",
-                "plural_name": "hazelnut creamers"
+                "name": "hasselnötskräm",
+                "plural_name": "hasselnötskrämer"
             },
             "quorn": {
                 "aliases": [],
