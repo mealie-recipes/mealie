@@ -6,7 +6,7 @@
     "api-port": "API port",
     "application-mode": "Režim aplikácie",
     "database-type": "Typ databázy",
-    "database-url": "Link databázy",
+    "database-url": "URL databázy",
     "default-group": "Predvolená skupina",
     "default-household": "Predvolená domácnosť",
     "demo": "Demo",
@@ -342,9 +342,9 @@
     "breakfast": "Raňajky",
     "lunch": "Obed",
     "dinner": "Večera",
-    "snack": "Snack",
-    "drink": "Drink",
-    "dessert": "Dessert",
+    "snack": "Pochutina",
+    "drink": "Nápoj",
+    "dessert": "Dezert",
     "type-any": "Ľubovoľný",
     "day-any": "Ľubovoľný",
     "editor": "Editor",
@@ -453,8 +453,8 @@
     "import-by-url": "Importovať recept z URL",
     "create-manually": "Vytvoriť recept manuálne",
     "make-recipe-image": "Nastaviť ako obrázok receptu",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Pridať Jedlo",
+    "add-recipe": "Pridať Recept"
   },
   "page": {
     "404-page-not-found": "Chyba 404 - Stránka nenájdená",
@@ -521,9 +521,9 @@
     "recipe-deleted": "Recept bol odstránený",
     "recipe-image": "Obrázok receptu",
     "recipe-image-updated": "Obrázok receptu aktualizovaný",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Zmazať obrázok receptu",
+    "delete-image-confirmation": "Ste si istý že chcete zmazať tento obrázok receptu?",
+    "recipe-image-deleted": "Obrázok receptu zmazaný",
     "recipe-name": "Názov receptu",
     "recipe-settings": "Nastavenia receptu",
     "recipe-update-failed": "Aktualizácia receptu zlyhala",
@@ -569,7 +569,7 @@
     "choose-unit": "Vyberte jednotku",
     "press-enter-to-create": "Stlačte Enter pre vytvorenie",
     "choose-food": "Vyberte potravinu",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "Zvoľte Recept",
     "notes": "Poznámky",
     "toggle-section": "Prepnúť sekciu",
     "see-original-text": "Pozrieť pôvodný text",
@@ -637,8 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Vyskúšajte hromadný importér",
     "scrape-recipe-have-raw-html-or-json-data": "Máte surové údaje HTML alebo JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Môžete importovať priamo nespracované údaje",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-website-being-blocked": "Webstránka je blokovaná?",
+    "scrape-recipe-try-importing-raw-html-instead": "Skúste miesto toho naimportovať čisté HTML.",
     "import-original-keywords-as-tags": "Importovať pôvodné kľúčové slová ako štítky",
     "stay-in-edit-mode": "Zostať v režime editovania",
     "parse-recipe-ingredients-after-import": "Analyzovať ingrediencie po importe",
@@ -702,8 +702,8 @@
     "upload-more-images": "Nahrať ďalšie obrázky",
     "set-as-cover-image": "Nastaviť ako titulný obrázok receptu",
     "cover-image": "Titulný obrázok",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "include-linked-recipes": "Zahrnúť prepojené Recepty",
+    "include-linked-recipe-ingredients": "Zahrnúť Prísady prepojených receptov",
     "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
@@ -742,7 +742,7 @@
     "advanced": "Rozšírené",
     "auto-search": "Automatické vyhľadávanie",
     "no-results": "Nenašli sa žiadne výsledky",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Napíšte pre vyhľadanie..."
   },
   "settings": {
     "add-a-new-theme": "Pridať nový motív",
@@ -1082,7 +1082,7 @@
     "forgot-password-text": "Prosím zadajte svoju e-mailovú adresu a my vám zašleme odkaz, ktorý vám umožní heslo obnoviť.",
     "changes-reflected-immediately": "Zmeny týkajúce sa tohto používateľa budú vykonané okamžite.",
     "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity-hint": "Vyberte na ktorú štránku chcete byť nasmerovaný po prihlásení z tohto zariadenia"
   },
   "language-dialog": {
     "translated": "preložené",
@@ -1430,11 +1430,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Toto pole je požadované",
+    "invalid-email": "Email musí byť platný",
+    "invalid-url": "Musí byť platná URL",
+    "no-whitespace": "Prázdne znaky nepovolené",
+    "min-length": "Musí mať aspoň {min} znakov",
+    "max-length": "Musí mať najviac {max} znakov"
   }
 }
