@@ -6431,7 +6431,7 @@
                     "turbinado sugar"
                 ],
                 "description": "",
-                "name": "brown sugar",
+                "name": "zucchero di canna",
                 "plural_name": "zucchero di canna"
             },
             "confectioners sugar": {
@@ -6445,7 +6445,7 @@
             },
             "bar sugar": {
                 "aliases": [
-                    "castor sugar"
+                    "zucchero semolato"
                 ],
                 "description": "",
                 "name": "zucchero grezzo",
@@ -6454,20 +6454,20 @@
             "maple syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "maple syrup",
-                "plural_name": "maple syrups"
+                "name": "sciroppo d'acero",
+                "plural_name": "sciroppo d'acero"
             },
             "corn syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "corn syrup",
-                "plural_name": "corn syrups"
+                "name": "sciroppo di mais",
+                "plural_name": "sciroppo di mais"
             },
             "coconut sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut sugar",
-                "plural_name": "coconut sugars"
+                "name": "zucchero di cocco",
+                "plural_name": "zucchero di cocco"
             },
             "molass": {
                 "aliases": [],
@@ -6479,7 +6479,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "stevia",
-                "plural_name": "stevias"
+                "plural_name": "stevia"
             },
             "agave nectar": {
                 "aliases": [],
@@ -6489,33 +6489,33 @@
             },
             "sugar syrup": {
                 "aliases": [],
-                "description": "sugar free sweetner",
-                "name": "sugar syrup",
-                "plural_name": "sugar syrups"
+                "description": "dolcificante senza zucchero",
+                "name": "sciroppo di zucchero",
+                "plural_name": "sciroppo di zucchero"
             },
             "isomalt": {
                 "aliases": [],
                 "description": "",
-                "name": "isomalt",
-                "plural_name": "isomalts"
+                "name": "isomaltosio",
+                "plural_name": "isomaltosio"
             },
             "erythritol": {
                 "aliases": [],
                 "description": "",
-                "name": "erythritol",
-                "plural_name": "erythritols"
+                "name": "eritritolo",
+                "plural_name": "eritritolo"
             },
             "vanilla sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla sugar",
+                "name": "zucchero vanigliato",
                 "plural_name": "zucchero vanigliato"
             },
             "demerara sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "demerara sugar",
-                "plural_name": "demerara sugars"
+                "name": "zucchero grezzo di canna",
+                "plural_name": "zucchero grezzo di canna"
             },
             "caramel syrup": {
                 "aliases": [],
@@ -6538,8 +6538,8 @@
             "raw sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "raw sugar",
-                "plural_name": "raw sugars"
+                "name": "zucchero grezzo",
+                "plural_name": "zucchero grezzo"
             },
             "golden syrup": {
                 "aliases": [],
@@ -6550,14 +6550,14 @@
             "cinnamon sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon sugar",
-                "plural_name": "cinnamon sugars"
+                "name": "zucchero alla cannella",
+                "plural_name": "zucchero alla cannella"
             },
             "liquid stevia": {
                 "aliases": [],
                 "description": "",
-                "name": "liquid stevia",
-                "plural_name": "liquid stevias"
+                "name": "stevia liquida",
+                "plural_name": "stevie liquida"
             },
             "grenadine": {
                 "aliases": [],
@@ -6616,8 +6616,8 @@
             "glucose": {
                 "aliases": [],
                 "description": "",
-                "name": "glucose",
-                "plural_name": "glucoses"
+                "name": "glucosio",
+                "plural_name": "glucosio"
             },
             "rock sugar": {
                 "aliases": [],
