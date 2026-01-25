@@ -357,8 +357,8 @@
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "huvudsallad",
-                "plural_name": "huvudsallad"
+                "name": "smörsallad",
+                "plural_name": "smörsallad"
             },
             "hash brown": {
                 "aliases": [],
@@ -3717,7 +3717,7 @@
             "walnut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut milk",
+                "name": "hasselnötsdryck",
                 "plural_name": "walnut milks"
             },
             "latik": {
@@ -4178,30 +4178,30 @@
                 "aliases": [],
                 "description": "",
                 "name": "pastrami",
-                "plural_name": "pastramis"
+                "plural_name": "pastrami"
             },
             "cocktail sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "cocktail sausage",
-                "plural_name": "cocktail sausages"
+                "name": "cocktail korv",
+                "plural_name": "cocktail korvar"
             },
             "hard salami": {
                 "aliases": [],
                 "description": "",
-                "name": "hard salami",
-                "plural_name": "hard salamis"
+                "name": "hårdsalami",
+                "plural_name": "hårdsalami"
             },
             "back bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "back bacon",
-                "plural_name": "back bacons"
+                "name": "ryggbacon",
+                "plural_name": "ryggbacon"
             },
             "salt pork": {
                 "aliases": [],
                 "description": "",
-                "name": "salt pork",
+                "name": "salt fläsk",
                 "plural_name": "salt porks"
             },
             "veal shank": {
@@ -4232,13 +4232,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "blodkorv",
-                "plural_name": "blood sausages"
+                "plural_name": "blodkorv"
             },
             "dried beef": {
                 "aliases": [],
                 "description": "",
-                "name": "dried beef",
-                "plural_name": "dried beefs"
+                "name": "torkat nötkött",
+                "plural_name": "torkat nötkött"
             },
             "gammon joint": {
                 "aliases": [],
