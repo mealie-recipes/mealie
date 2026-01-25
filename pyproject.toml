@@ -26,7 +26,7 @@ dependencies = [
     "python-dateutil==2.9.0.post0",
     "python-dotenv==1.2.1",
     "python-ldap==3.4.5",
-    "python-multipart==0.0.21",
+    "python-multipart==0.0.22",
     "python-slugify==8.0.4",
     "recipe-scrapers==15.11.0",
     "requests==2.32.5",
