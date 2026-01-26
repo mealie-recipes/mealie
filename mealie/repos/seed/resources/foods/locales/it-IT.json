@@ -4905,8 +4905,8 @@
             "cod": {
                 "aliases": [],
                 "description": "",
-                "name": "cod",
-                "plural_name": "cod"
+                "name": "merluzzo",
+                "plural_name": "merluzzi"
             },
             "tilapia": {
                 "aliases": [],
@@ -4930,7 +4930,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "halibut",
-                "plural_name": "halibuts"
+                "plural_name": "halibut"
             },
             "red snapper": {
                 "aliases": [],
@@ -4953,8 +4953,8 @@
             "trout": {
                 "aliases": [],
                 "description": "",
-                "name": "trout",
-                "plural_name": "trout"
+                "name": "trota",
+                "plural_name": "trote"
             },
             "catfish": {
                 "aliases": [],
@@ -4971,8 +4971,8 @@
             "swordfish": {
                 "aliases": [],
                 "description": "",
-                "name": "swordfish",
-                "plural_name": "swordfish"
+                "name": "pesce spada",
+                "plural_name": "pesci spada"
             },
             "sardine": {
                 "aliases": [],
@@ -10085,7 +10085,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pita",
-                "plural_name": "pitas"
+                "plural_name": "pite"
             },
             "pretzel": {
                 "aliases": [],
@@ -11078,8 +11078,8 @@
             "mayonnaise": {
                 "aliases": [],
                 "description": "",
-                "name": "mayonnaise",
-                "plural_name": "mayonnaises"
+                "name": "maionese",
+                "plural_name": "maionesi"
             },
             "apple cider vinegar": {
                 "aliases": [],
@@ -11246,8 +11246,8 @@
             "aioli sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "aioli sauce",
-                "plural_name": "aioli sauces"
+                "name": "salsa aioli",
+                "plural_name": "salse aioli"
             },
             "french dressing": {
                 "aliases": [],
@@ -11742,8 +11742,8 @@
             "tartar sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "tartar sauce",
-                "plural_name": "tartar sauces"
+                "name": "salsa tartara",
+                "plural_name": "salse tartare"
             },
             "hot pepper jelly": {
                 "aliases": [],
@@ -12892,8 +12892,8 @@
             "cocktail sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "cocktail sauce",
-                "plural_name": "cocktail sauces"
+                "name": "salsa rosa",
+                "plural_name": "salse rosa"
             },
             "cheese dip": {
                 "aliases": [],
