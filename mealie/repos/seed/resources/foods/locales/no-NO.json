@@ -493,8 +493,8 @@
             "collard green": {
                 "aliases": [],
                 "description": "",
-                "name": "collard green",
-                "plural_name": "collard greens"
+                "name": "grønnkål",
+                "plural_name": "grønnkål"
             },
             "french-fried onion": {
                 "aliases": [],
@@ -595,7 +595,7 @@
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli slaw",
+                "name": "brokkoli slaw",
                 "plural_name": "broccoli slaws"
             },
             "arbol chile pepper": {
@@ -720,7 +720,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "granateple",
-                "plural_name": "pomegranates"
+                "plural_name": "granateple"
             },
             "watermelon": {
                 "aliases": [],
@@ -810,7 +810,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "papaya",
-                "plural_name": "papayas"
+                "plural_name": "papaya"
             },
             "tamarind": {
                 "aliases": [],
@@ -875,8 +875,8 @@
             "tangerine": {
                 "aliases": [],
                 "description": "",
-                "name": "tangerine",
-                "plural_name": "tangerines"
+                "name": "mandarin",
+                "plural_name": "mandariner"
             },
             "dried mango": {
                 "aliases": [],
@@ -905,8 +905,8 @@
             "banana chip": {
                 "aliases": [],
                 "description": "",
-                "name": "banana chip",
-                "plural_name": "banana chips"
+                "name": "bananchips",
+                "plural_name": "bananchips"
             },
             "kumquat": {
                 "aliases": [],
@@ -7650,8 +7650,8 @@
             "flour": {
                 "aliases": [],
                 "description": "",
-                "name": "flour",
-                "plural_name": "flours"
+                "name": "mel",
+                "plural_name": "mel"
             },
             "vanilla extract": {
                 "aliases": [
@@ -7700,10 +7700,10 @@
             },
             "whole-wheat flour": {
                 "aliases": [
-                    "whole wheat flour"
+                    "fullkornmel"
                 ],
                 "description": "",
-                "name": "whole-wheat flour",
+                "name": "fullkornmel",
                 "plural_name": "whole-wheat flours"
             },
             "almond flour": {
@@ -7769,8 +7769,8 @@
             "corn flour": {
                 "aliases": [],
                 "description": "",
-                "name": "corn flour",
-                "plural_name": "corn flours"
+                "name": "maismel",
+                "plural_name": "maismel"
             },
             "cream of tartar": {
                 "aliases": [],
@@ -7793,12 +7793,12 @@
             "unbleached all-purpose flour": {
                 "aliases": [
                     "unbleached flour",
-                    "all-purpose flour",
-                    "all purpose flour"
+                    "siktet hvetemel",
+                    "siktet hvetemel"
                 ],
                 "description": "",
-                "name": "unbleached all-purpose flour",
-                "plural_name": "unbleached all-purpose flours"
+                "name": "siktet hvetemel",
+                "plural_name": "siktet hvetemel"
             },
             "white baking chip": {
                 "aliases": [],
@@ -7809,14 +7809,14 @@
             "gluten-free flour": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free flour",
-                "plural_name": "gluten-free flours"
+                "name": "glutenfritt mel",
+                "plural_name": "glutenfritt mel"
             },
             "rice flour": {
                 "aliases": [],
                 "description": "",
-                "name": "rice flour",
-                "plural_name": "rice flours"
+                "name": "rismel",
+                "plural_name": "rismel"
             },
             "desiccated coconut": {
                 "aliases": [],
