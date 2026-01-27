@@ -11162,14 +11162,14 @@
             "vinaigrette dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "vinaigrette-dressing",
-                "plural_name": "vinaigrette-dressinger"
+                "name": "eddikedressing",
+                "plural_name": "eddikedressing"
             },
             "balsamic vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "balsamico-vineddike",
-                "plural_name": "balsamico-vineddiker"
+                "name": "balsamico-eddikedressing",
+                "plural_name": "balsamico-eddikedressing"
             },
             "blue cheese dressing": {
                 "aliases": [],
@@ -11228,8 +11228,8 @@
             "greek vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "greek vinaigrette",
-                "plural_name": "greek vinaigrettes"
+                "name": "græsk eddikedressing",
+                "plural_name": "græsk eddikedressing"
             },
             "sesame dressing": {
                 "aliases": [],
@@ -11288,14 +11288,14 @@
             "raspberry vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry vinaigrette",
-                "plural_name": "raspberry vinaigrettes"
+                "name": "hindbæreddikedressing",
+                "plural_name": "hindbæreddikedressing"
             },
             "red wine vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "red wine vinaigrette",
-                "plural_name": "red wine vinaigrettes"
+                "name": "rødvinseddikedressing",
+                "plural_name": "rødvinseddikedressing"
             },
             "russian dressing": {
                 "aliases": [],
@@ -11318,14 +11318,14 @@
             "champagne vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "champagne vinaigrette",
-                "plural_name": "champagne vinaigrettes"
+                "name": "champagneeddikedressing",
+                "plural_name": "champagneeddikedressing"
             },
             "sun-dried tomato vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "sun-dried tomato vinaigrette",
-                "plural_name": "sun-dried tomato vinaigrettes"
+                "name": "eddikedressing med soltørrede tomater",
+                "plural_name": "eddikedressing med soltørrede tomater"
             },
             "garlic mayonnaise": {
                 "aliases": [],
@@ -11402,8 +11402,8 @@
             "white balsamic vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "white balsamic vinaigrette",
-                "plural_name": "white balsamic vinaigrettes"
+                "name": "hvid balsamico-eddikedressing",
+                "plural_name": "hvid balsamico-eddikedressing"
             },
             "chardonnay vinegar": {
                 "aliases": [],
@@ -11420,8 +11420,8 @@
             "honey vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "honey vinegar",
-                "plural_name": "honey vinegars"
+                "name": "honningeddike",
+                "plural_name": "honningeddike"
             },
             "tandoori mayonnaise": {
                 "aliases": [],
@@ -11432,8 +11432,8 @@
             "chili vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "chili vinegar",
-                "plural_name": "chili vinegars"
+                "name": "chilieddike",
+                "plural_name": "chilieddike"
             },
             "chili-lime dressing": {
                 "aliases": [],
@@ -11462,8 +11462,8 @@
             "mango vinaigrette": {
                 "aliases": [],
                 "description": "",
-                "name": "mango vinaigrette",
-                "plural_name": "mango vinaigrettes"
+                "name": "mangoeddikedressing",
+                "plural_name": "mangoeddikedressing"
             },
             "sugarcane vinegar": {
                 "aliases": [],
