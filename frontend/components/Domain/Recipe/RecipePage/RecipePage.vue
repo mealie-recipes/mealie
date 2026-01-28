@@ -262,8 +262,7 @@ function hasUnsavedChanges(): boolean {
 
 function restoreOriginalRecipe() {
   if (originalRecipe.value) {
-    Object.keys(recipe.value).forEach(key => delete recipe.value[key]);
-    Object.assign(recipe.value, deepCopy(originalRecipe.value));
+    recipe.value = deepCopy(originalRecipe.value) as NoUndefinedField<Recipe>;
   }
 }
 
