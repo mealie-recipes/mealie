@@ -11469,19 +11469,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "sugarcane vinegar",
-                "plural_name": "sugarcane vinegars"
+                "plural_name": "rørsukkereddike"
             },
             "avocado-lime dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado-lime dressing",
-                "plural_name": "avocado-lime dressings"
+                "name": "avocado-/lime-dressing",
+                "plural_name": "avocado-/lime-dressing"
             },
             "spicy vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "spicy vinegar",
-                "plural_name": "spicy vinegars"
+                "name": "kryddereddike",
+                "plural_name": "kryddereddike"
             }
         }
     },
@@ -11490,8 +11490,8 @@
             "soy sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "soy sauce",
-                "plural_name": "soy sauces"
+                "name": "sojasauce",
+                "plural_name": "sojasauce"
             },
             "dijon mustard": {
                 "aliases": [],
@@ -11514,8 +11514,8 @@
             "worcestershire sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "worcestershire sauce",
-                "plural_name": "worcestershire sauces"
+                "name": "worcestershire-sauce",
+                "plural_name": "worcestershire-sauce"
             },
             "ketchup": {
                 "aliases": [],
@@ -11538,14 +11538,14 @@
             "bbq sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "bbq sauce",
-                "plural_name": "bbq sauces"
+                "name": "bbq-sauce",
+                "plural_name": "bbq-sauce"
             },
             "sriracha": {
                 "aliases": [],
                 "description": "",
                 "name": "sriracha",
-                "plural_name": "srirachas"
+                "plural_name": "sriracha"
             },
             "wholegrain mustard": {
                 "aliases": [],
@@ -11568,20 +11568,20 @@
             "chili sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "chili sauce",
-                "plural_name": "chili sauces"
+                "name": "chili-sauce",
+                "plural_name": "chili-sauce"
             },
             "ginger-garlic paste": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger-garlic paste",
-                "plural_name": "ginger-garlic pastes"
+                "name": "ingefær-/hvidløgspasta",
+                "plural_name": "ingefær-/hvidløgspasta"
             },
             "brown mustard": {
                 "aliases": [],
                 "description": "",
-                "name": "brown mustard",
-                "plural_name": "brown mustards"
+                "name": "brun sennep",
+                "plural_name": "brun sennep"
             },
             "wing sauce": {
                 "aliases": [],
@@ -11592,8 +11592,8 @@
             "teriyaki sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "teriyaki sauce",
-                "plural_name": "teriyaki sauces"
+                "name": "teriyaki-sauce",
+                "plural_name": "teriyaki-sauce"
             },
             "prepared horseradish": {
                 "aliases": [],
@@ -11604,14 +11604,14 @@
             "ginger paste": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger paste",
-                "plural_name": "ginger pastes"
+                "name": "ingefærpasta",
+                "plural_name": "ingefærpasta"
             },
             "dark soy sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "dark soy sauce",
-                "plural_name": "dark soy sauces"
+                "name": "mørk soja-sauce",
+                "plural_name": "mørk soja-sauce"
             },
             "coconut amino": {
                 "aliases": [],
@@ -11622,14 +11622,14 @@
             "chili paste": {
                 "aliases": [],
                 "description": "",
-                "name": "chili paste",
-                "plural_name": "chili pastes"
+                "name": "chilipasta",
+                "plural_name": "chilipasta"
             },
             "cranberry sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry sauce",
-                "plural_name": "cranberry sauces"
+                "name": "tranebærsauce",
+                "plural_name": "tranebærsauce"
             },
             "harissa": {
                 "aliases": [],
@@ -11640,14 +11640,14 @@
             "chili-garlic sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "chili-garlic sauce",
-                "plural_name": "chili-garlic sauces"
+                "name": "chili-/hvidløgssauce",
+                "plural_name": "chili-/hvidløgssauce"
             },
             "tamarind paste": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarind paste",
-                "plural_name": "tamarind pastes"
+                "name": "tamarind-pasta",
+                "plural_name": "tamarind-pasta"
             },
             "pomegranate molass": {
                 "aliases": [],
@@ -11665,31 +11665,31 @@
                 "aliases": [],
                 "description": "",
                 "name": "wasabi",
-                "plural_name": "wasabis"
+                "plural_name": "wasabi"
             },
             "honey mustard": {
                 "aliases": [],
                 "description": "",
-                "name": "honey mustard",
-                "plural_name": "honey mustards"
+                "name": "honningsennep",
+                "plural_name": "honningsennep"
             },
             "mango chutney": {
                 "aliases": [],
                 "description": "",
-                "name": "mango chutney",
-                "plural_name": "mango chutneys"
+                "name": "mango-chutney",
+                "plural_name": "mango-chutney"
             },
             "english mustard": {
                 "aliases": [],
                 "description": "",
-                "name": "english mustard",
-                "plural_name": "english mustards"
+                "name": "engelsk sennep",
+                "plural_name": "engelsk sennep"
             },
             "sambal oelek": {
                 "aliases": [],
                 "description": "",
                 "name": "sambal oelek",
-                "plural_name": "sambal oeleks"
+                "plural_name": "sambal oelek"
             },
             "preserved lemon": {
                 "aliases": [],
@@ -11701,19 +11701,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "kecap mani",
-                "plural_name": "kecap manis"
+                "plural_name": "kecap mani"
             },
             "chutney": {
                 "aliases": [],
                 "description": "",
                 "name": "chutney",
-                "plural_name": "chutneys"
+                "plural_name": "chutney"
             },
             "shrimp paste": {
                 "aliases": [],
                 "description": "",
-                "name": "shrimp paste",
-                "plural_name": "shrimp pastes"
+                "name": "rejepasta",
+                "plural_name": "rejepasta"
             },
             "picante sauce": {
                 "aliases": [],
@@ -11724,14 +11724,14 @@
             "thai sweet chili sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "thai sweet chili sauce",
-                "plural_name": "thai sweet chili sauces"
+                "name": "thailandsk sød chilisauce",
+                "plural_name": "thailandsk sød chilisauce"
             },
             "sweet and sour sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet and sour sauce",
-                "plural_name": "sweet and sour sauces"
+                "name": "sur-/sød sauce",
+                "plural_name": "sur-/sød sauce"
             },
             "liquid amino": {
                 "aliases": [],
@@ -11742,8 +11742,8 @@
             "tartar sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "tartar sauce",
-                "plural_name": "tartar sauces"
+                "name": "tartar-sauce",
+                "plural_name": "tartar-sauce"
             },
             "hot pepper jelly": {
                 "aliases": [],
@@ -11754,8 +11754,8 @@
             "chili-garlic paste": {
                 "aliases": [],
                 "description": "",
-                "name": "chili-garlic paste",
-                "plural_name": "chili-garlic pastes"
+                "name": "chili-/hvidløgspasta",
+                "plural_name": "chili-/hvidløgspasta"
             },
             "bonito flake": {
                 "aliases": [],
@@ -11766,8 +11766,8 @@
             "green chutney": {
                 "aliases": [],
                 "description": "",
-                "name": "green chutney",
-                "plural_name": "green chutneys"
+                "name": "grøn chutney",
+                "plural_name": "grøn chutney"
             },
             "mexican hot sauce": {
                 "aliases": [],
@@ -11784,14 +11784,14 @@
             "green chilli sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "green chilli sauce",
-                "plural_name": "green chilli sauces"
+                "name": "grøn chilisauce",
+                "plural_name": "grøn chilisauce"
             },
             "sambal": {
                 "aliases": [],
                 "description": "",
                 "name": "sambal",
-                "plural_name": "sambals"
+                "plural_name": "sambal"
             },
             "crispy onion": {
                 "aliases": [],
@@ -11808,26 +11808,26 @@
             "thai chili paste": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chili paste",
-                "plural_name": "thai chili pastes"
+                "name": "thailandsk chilipasta",
+                "plural_name": "thailandsk chilipasta"
             },
             "peri peri": {
                 "aliases": [],
                 "description": "",
                 "name": "peri peri",
-                "plural_name": "peri peris"
+                "plural_name": "peri perier"
             },
             "green chilli paste": {
                 "aliases": [],
                 "description": "",
-                "name": "green chilli paste",
-                "plural_name": "green chilli pastes"
+                "name": "grøn chilipasta",
+                "plural_name": "grøn chilipasta"
             },
             "mint jelly": {
                 "aliases": [],
                 "description": "",
-                "name": "mint jelly",
-                "plural_name": "mint jellies"
+                "name": "myntegele",
+                "plural_name": "myntegele"
             },
             "horseradish mustard": {
                 "aliases": [],
@@ -11838,8 +11838,8 @@
             "mustard paste": {
                 "aliases": [],
                 "description": "",
-                "name": "mustard paste",
-                "plural_name": "mustard pastes"
+                "name": "sennepspasta",
+                "plural_name": "sennepspasta"
             },
             "aji amarillo": {
                 "aliases": [],
@@ -11874,14 +11874,14 @@
             "tamarind chutney": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarind chutney",
-                "plural_name": "tamarind chutneys"
+                "name": "tamarind-chutney",
+                "plural_name": "tamarind-chutney"
             },
             "hp sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "hp sauce",
-                "plural_name": "hp sauces"
+                "plural_name": "hp sauce"
             },
             "duck sauce": {
                 "aliases": [],
@@ -11892,14 +11892,14 @@
             "ginger chili paste": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger chili paste",
-                "plural_name": "ginger chili pastes"
+                "name": "ingefær-/chilipasta",
+                "plural_name": "ingefær-/chilipasta"
             },
             "onion marmalade": {
                 "aliases": [],
                 "description": "",
-                "name": "onion marmalade",
-                "plural_name": "onion marmalades"
+                "name": "løgmarmelade",
+                "plural_name": "løgmarmelade"
             },
             "giardiniera": {
                 "aliases": [],
@@ -11910,8 +11910,8 @@
             "black soy sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "black soy sauce",
-                "plural_name": "black soy sauces"
+                "name": "sort sojasauce",
+                "plural_name": "sort sojasauce"
             },
             "doubanjiang": {
                 "aliases": [],
@@ -11922,20 +11922,20 @@
             "korean bbq sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "korean bbq sauce",
-                "plural_name": "korean bbq sauces"
+                "name": "koreansk bbq-sauce",
+                "plural_name": "koreansk bbq-sauce"
             },
             "maggi sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "maggi sauce",
-                "plural_name": "maggi sauces"
+                "name": "maggi-sauce",
+                "plural_name": "maggi-sauce"
             },
             "chinese mustard": {
                 "aliases": [],
                 "description": "",
-                "name": "chinese mustard",
-                "plural_name": "chinese mustards"
+                "name": "kinesisk sennep",
+                "plural_name": "kinesisk sennep"
             },
             "chamoy": {
                 "aliases": [],
@@ -11982,8 +11982,8 @@
             "german mustard": {
                 "aliases": [],
                 "description": "",
-                "name": "german mustard",
-                "plural_name": "german mustards"
+                "name": "tysk sennep",
+                "plural_name": "tysk sennep"
             },
             "taucheo": {
                 "aliases": [],
@@ -11994,8 +11994,8 @@
             "eel sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "eel sauce",
-                "plural_name": "eel sauces"
+                "name": "ålesauce",
+                "plural_name": "ålesauce"
             },
             "hot bean paste": {
                 "aliases": [],
@@ -12013,13 +12013,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "remoulade",
-                "plural_name": "remoulades"
+                "plural_name": "remoulade"
             },
             "white bbq sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "white bbq sauce",
-                "plural_name": "white bbq sauces"
+                "name": "hvid bbq-sauce",
+                "plural_name": "hvid bbq-sauce"
             },
             "pickapeppa sauce": {
                 "aliases": [],
@@ -12036,14 +12036,14 @@
             "shrimp sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "shrimp sauce",
-                "plural_name": "shrimp sauces"
+                "name": "rejesauce",
+                "plural_name": "rejesauce"
             },
             "sweet soybean paste": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet soybean paste",
-                "plural_name": "sweet soybean pastes"
+                "name": "sød sojabønnepasta",
+                "plural_name": "sød sojabønnepasta"
             },
             "grape must": {
                 "aliases": [],
@@ -12054,38 +12054,38 @@
             "shrimp powder": {
                 "aliases": [],
                 "description": "",
-                "name": "shrimp powder",
-                "plural_name": "shrimp powders"
+                "name": "rejepulver",
+                "plural_name": "rejepulver"
             },
             "banana ketchup": {
                 "aliases": [],
                 "description": "",
-                "name": "banana ketchup",
-                "plural_name": "banana ketchups"
+                "name": "bananketchup",
+                "plural_name": "bananketchup"
             },
             "chili puree": {
                 "aliases": [],
                 "description": "",
-                "name": "chili puree",
-                "plural_name": "chili purees"
+                "name": "chilipuré",
+                "plural_name": "chilipuré"
             },
             "green harissa": {
                 "aliases": [],
                 "description": "",
-                "name": "green harissa",
-                "plural_name": "green harissas"
+                "name": "grøn harissa",
+                "plural_name": "grøn harissa"
             },
             "crab paste": {
                 "aliases": [],
                 "description": "",
-                "name": "crab paste",
-                "plural_name": "crab pastes"
+                "name": "krabbepasta",
+                "plural_name": "krabbepasta"
             },
             "beer mustard": {
                 "aliases": [],
                 "description": "",
-                "name": "beer mustard",
-                "plural_name": "beer mustards"
+                "name": "ølsennep",
+                "plural_name": "ølsennep"
             },
             "guk ganjang": {
                 "aliases": [],
@@ -12100,8 +12100,8 @@
             "canned tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned tomato",
-                "plural_name": "canned tomatoes"
+                "name": "dåsetomat",
+                "plural_name": "dåsetomater"
             },
             "caper": {
                 "aliases": [],
@@ -12112,26 +12112,26 @@
             "green olive": {
                 "aliases": [],
                 "description": "",
-                "name": "green olive",
-                "plural_name": "green olives"
+                "name": "grøn oliven",
+                "plural_name": "grønne oliven"
             },
             "canned chickpea": {
                 "aliases": [],
                 "description": "",
-                "name": "canned chickpea",
-                "plural_name": "canned chickpeas"
+                "name": "dåsekikært",
+                "plural_name": "dåsekikærter"
             },
             "black olive": {
                 "aliases": [],
                 "description": "",
-                "name": "black olive",
-                "plural_name": "black olives"
+                "name": "sort oliven",
+                "plural_name": "sorte oliven"
             },
             "canned black bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned black bean",
-                "plural_name": "canned black beans"
+                "name": "sort dåsebønne",
+                "plural_name": "sorte dåsebønner"
             },
             "canned pumpkin": {
                 "aliases": [],
@@ -12142,14 +12142,14 @@
             "kalamata olive": {
                 "aliases": [],
                 "description": "",
-                "name": "kalamata olive",
-                "plural_name": "kalamata olives"
+                "name": "kalamata-oliven",
+                "plural_name": "kalamata-oliven"
             },
             "canned tuna": {
                 "aliases": [],
                 "description": "",
-                "name": "canned tuna",
-                "plural_name": "canned tuna"
+                "name": "dåsetun",
+                "plural_name": "dåsetun"
             },
             "pickle": {
                 "aliases": [],
@@ -12160,8 +12160,8 @@
             "canned pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pineapple",
-                "plural_name": "canned pineapples"
+                "name": "dåseananas",
+                "plural_name": "dåseananas"
             },
             "chipotle in adobo": {
                 "aliases": [],
@@ -12172,8 +12172,8 @@
             "canned anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "canned anchovy",
-                "plural_name": "canned anchovies"
+                "name": "dåseansjos",
+                "plural_name": "dåseansjoser"
             },
             "roasted red pepper": {
                 "aliases": [],
@@ -12190,20 +12190,20 @@
             "canned artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "canned artichoke",
-                "plural_name": "canned artichokes"
+                "name": "dåseartiskok",
+                "plural_name": "dåseartiskokker"
             },
             "canned corn": {
                 "aliases": [],
                 "description": "",
-                "name": "canned corn",
-                "plural_name": "canned corns"
+                "name": "dåsemajs",
+                "plural_name": "dåsemajs"
             },
             "canned kidney bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned kidney bean",
-                "plural_name": "canned kidney beans"
+                "name": "dåse-kidneybønne",
+                "plural_name": "dåse-kidneybønner"
             },
             "canned pie filling": {
                 "aliases": [],
@@ -12214,8 +12214,8 @@
             "canned cannellini bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cannellini bean",
-                "plural_name": "canned cannellini beans"
+                "name": "dåse-cannelinibønne",
+                "plural_name": "dåse-cannelinibønner"
             },
             "refried bean": {
                 "aliases": [],
@@ -12226,8 +12226,8 @@
             "canned whole tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned whole tomato",
-                "plural_name": "canned whole tomatoes"
+                "name": "hel dåsetomat",
+                "plural_name": "hele dåsetomater"
             },
             "sweet pickle relish": {
                 "aliases": [],
@@ -12251,19 +12251,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "corned beef",
-                "plural_name": "corned beefs"
+                "plural_name": "corned beef"
             },
             "canned bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned bean",
-                "plural_name": "canned beans"
+                "name": "dåsebønne",
+                "plural_name": "dåsebønne"
             },
             "pickled jalapeno": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled jalapeno",
-                "plural_name": "pickled jalapenos"
+                "name": "syltet jalapeño",
+                "plural_name": "syltede jalapeñoer"
             },
             "diced green chile": {
                 "aliases": [],
@@ -12281,31 +12281,31 @@
                 "aliases": [],
                 "description": "",
                 "name": "kimchi",
-                "plural_name": "kimchis"
+                "plural_name": "kimchi"
             },
             "canned mandarin orange": {
                 "aliases": [],
                 "description": "",
-                "name": "canned mandarin orange",
-                "plural_name": "canned mandarin oranges"
+                "name": "dåsemandarin",
+                "plural_name": "dåsemandariner"
             },
             "chili bean": {
                 "aliases": [],
                 "description": "",
-                "name": "chili bean",
-                "plural_name": "chili beans"
+                "name": "chilibønne",
+                "plural_name": "chilibønner"
             },
             "canned crab": {
                 "aliases": [],
                 "description": "",
-                "name": "canned crab",
-                "plural_name": "canned crabs"
+                "name": "dåsekrabbe",
+                "plural_name": "dåsekrabber"
             },
             "bamboo shoot": {
                 "aliases": [],
                 "description": "",
-                "name": "bamboo shoot",
-                "plural_name": "bamboo shoots"
+                "name": "bambusskud",
+                "plural_name": "bambusskud"
             },
             "canned mushroom": {
                 "aliases": [],
@@ -12328,8 +12328,8 @@
             "pickling juice": {
                 "aliases": [],
                 "description": "",
-                "name": "pickling juice",
-                "plural_name": "pickling juices"
+                "name": "syltelage",
+                "plural_name": "syltelage"
             },
             "dill pickle relish": {
                 "aliases": [],
@@ -12340,8 +12340,8 @@
             "canned peach": {
                 "aliases": [],
                 "description": "",
-                "name": "canned peach",
-                "plural_name": "canned peaches"
+                "name": "dåsefersken",
+                "plural_name": "dåseferskner"
             },
             "canned black-eyed pea": {
                 "aliases": [],
@@ -12352,14 +12352,14 @@
             "pickled ginger": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled ginger",
-                "plural_name": "pickled gingers"
+                "name": "syltet ingefær",
+                "plural_name": "syltet ingefær"
             },
             "canned apple": {
                 "aliases": [],
                 "description": "",
-                "name": "canned apple",
-                "plural_name": "canned apples"
+                "name": "dåseæble",
+                "plural_name": "dåseæbler"
             },
             "canned green bean": {
                 "aliases": [],
@@ -12388,8 +12388,8 @@
             "pickled onion": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled onion",
-                "plural_name": "pickled onions"
+                "name": "syltet løg",
+                "plural_name": "syltede løg"
             },
             "fruit cocktail": {
                 "aliases": [],
@@ -12400,20 +12400,20 @@
             "canned lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "canned lentil",
-                "plural_name": "canned lentils"
+                "name": "dåselinse",
+                "plural_name": "dåselinser"
             },
             "canned pea": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pea",
-                "plural_name": "canned peas"
+                "name": "dåseært",
+                "plural_name": "dåseærter"
             },
             "pickled red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled red onion",
-                "plural_name": "pickled red onions"
+                "name": "dåserødløg",
+                "plural_name": "dåserødløg"
             },
             "pimiento-stuffed green olive": {
                 "aliases": [],
@@ -12424,8 +12424,8 @@
             "canned pork": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pork",
-                "plural_name": "canned porks"
+                "name": "dåseskinke",
+                "plural_name": "dåseskinke"
             },
             "pickled beet": {
                 "aliases": [],
@@ -12448,8 +12448,8 @@
             "canned apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "canned apricot",
-                "plural_name": "canned apricots"
+                "name": "dåseabrikos",
+                "plural_name": "dåseabrikoser"
             },
             "canned sweet potato": {
                 "aliases": [],
@@ -12460,8 +12460,8 @@
             "canned pear": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pear",
-                "plural_name": "canned pears"
+                "name": "dåsepære",
+                "plural_name": "dåsepærer"
             },
             "peppadew pepper": {
                 "aliases": [],
@@ -12472,14 +12472,14 @@
             "pickled vegetable": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled vegetable",
-                "plural_name": "pickled vegetables"
+                "name": "syltet grøntsag",
+                "plural_name": "syltede grøntsager"
             },
             "onion paste": {
                 "aliases": [],
                 "description": "",
-                "name": "onion paste",
-                "plural_name": "onion pastes"
+                "name": "løgpasta",
+                "plural_name": "løgpasta"
             },
             "canned baby corn": {
                 "aliases": [],
@@ -12544,8 +12544,8 @@
             "canned sardine": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sardine",
-                "plural_name": "canned sardines"
+                "name": "dåsesardin",
+                "plural_name": "dåsesardiner"
             },
             "pickled pepper": {
                 "aliases": [],
@@ -12556,8 +12556,8 @@
             "tomato relish": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato relish",
-                "plural_name": "tomato relishes"
+                "name": "tomatrelish",
+                "plural_name": "tomatrelish"
             },
             "canned jackfruit": {
                 "aliases": [],
@@ -12568,26 +12568,26 @@
             "taggiasca olive": {
                 "aliases": [],
                 "description": "",
-                "name": "taggiasca olive",
-                "plural_name": "taggiasca olives"
+                "name": "taggiasca-oliven",
+                "plural_name": "taggiasca-oliven"
             },
             "cranberry relish": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry relish",
-                "plural_name": "cranberry relishes"
+                "name": "tranebærrelish",
+                "plural_name": "tranebærrelish"
             },
             "red pepper relish": {
                 "aliases": [],
                 "description": "",
-                "name": "red pepper relish",
-                "plural_name": "red pepper relishes"
+                "name": "rød peber-relish",
+                "plural_name": "rød peber-relish"
             },
             "canned asparagu": {
                 "aliases": [],
                 "description": "",
-                "name": "canned asparagu",
-                "plural_name": "canned asparagus"
+                "name": "dåseasparges",
+                "plural_name": "dåseasparges"
             },
             "fire-roasted green chile": {
                 "aliases": [],
