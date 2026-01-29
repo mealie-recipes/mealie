@@ -212,6 +212,8 @@
     "upload-file": "Subir Archivo",
     "created-on-date": "Creado el {0}",
     "unsaved-changes": "Tienes cambios sin guardar. ¿Quieres guardar antes de salir? Aceptar para guardar, Cancelar para descartar cambios.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "No se pudo copiar al portapapeles.",
     "confirm-delete-generic-items": "¿Estás seguro que quieres eliminar los siguientes elementos?",
     "organizers": "Organizadores",
