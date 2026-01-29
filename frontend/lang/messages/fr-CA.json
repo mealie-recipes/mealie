@@ -1434,7 +1434,7 @@
     "invalid-email": "L’e-mail doit être valide",
     "invalid-url": "Doit être une URL valide",
     "no-whitespace": "Aucun espace n'est autorisé",
-    "min-length": "Doit contenir au moins {min} caractères",
+    "min-length": "",
     "max-length": "Doit contenir au maximum {max} caractères"
   }
 }

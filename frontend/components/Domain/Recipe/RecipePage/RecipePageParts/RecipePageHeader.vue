@@ -16,7 +16,7 @@
       :open="isEditMode"
       :recipe-id="recipe.id"
       class="ml-auto mt-n7 pb-4"
-      @close="setMode(PageMode.VIEW)"
+      @close="$emit('close')"
       @json="toggleEditMode()"
       @edit="setMode(PageMode.EDIT)"
       @save="$emit('save')"
@@ -47,7 +47,7 @@ const props = withDefaults(defineProps<Props>(), {
   landscape: false,
 });
 
-defineEmits(["save", "delete", "print"]);
+defineEmits(["save", "delete", "print", "close"]);
 
 const { recipeImage } = useStaticRoutes();
 const { imageKey, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
