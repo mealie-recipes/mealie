@@ -80,7 +80,7 @@ dev = [
 ]
 
 [build-system]
-requires = ["setuptools==80.10.1"]
+requires = ["setuptools==80.10.2"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
