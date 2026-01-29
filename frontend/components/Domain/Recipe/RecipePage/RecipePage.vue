@@ -352,6 +352,10 @@ async function saveRecipe() {
   const { data, error } = await api.recipes.updateOne(recipe.value.slug, recipe.value);
   if (!error) {
     setMode(PageMode.VIEW);
+  } else {
+    // Restore original recipe data on error to prevent data loss
+    restoreOriginalRecipe();
+    return;
   }
   if (data?.slug) {
     router.push(`/g/${groupSlug.value}/r/` + data.slug);
