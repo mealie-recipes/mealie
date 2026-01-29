@@ -212,6 +212,8 @@
     "upload-file": "Laai dokument op",
     "created-on-date": "Geskep op: {0}",
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Kon nie kopieer na die knipbord toe nie.",
     "confirm-delete-generic-items": "Is jy seker jy wil die volgende items verwyder?",
     "organizers": "Organiseerders",
