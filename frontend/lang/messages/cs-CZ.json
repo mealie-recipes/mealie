@@ -212,6 +212,8 @@
     "upload-file": "Nahrát soubor",
     "created-on-date": "Vytvořeno dne: {0}",
     "unsaved-changes": "Máte neuložené změny. Chcete je uložit před odchodem? Klikněte Okay pro uložení, Cancel pro smazání změn.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Zkopírování do schránky se nezdařilo.",
     "confirm-delete-generic-items": "Opravdu chcete smazat následující položky?",
     "organizers": "Organizace",
