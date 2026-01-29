@@ -212,6 +212,8 @@
     "upload-file": "Завантажити файл",
     "created-on-date": "Створено: {0}",
     "unsaved-changes": "У вас є незбережені зміни. Ви хочете зберегти їх перед виходом? Гаразд, щоб зберегти, Скасувати, щоб скасувати.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Не вдалося скопіювати до буфера обміну.",
     "confirm-delete-generic-items": "Ви впевнені, що хочете видалити вибрані елементи?",
     "organizers": "Органайзери",
