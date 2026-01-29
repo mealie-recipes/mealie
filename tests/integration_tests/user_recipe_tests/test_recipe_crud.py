@@ -1327,7 +1327,7 @@ def test_create_recipe_slug_length_validation(api_client: TestClient, unique_use
 
 
 def test_recipe_update_duplicate_name_error(api_client: TestClient, unique_user: TestUser):
-    """Test that updating a recipe with a duplicate name returns a 400 error."""
+    """Test that updating a recipe with a duplicate name returns a 400 error with a helpful message."""
     # Create two recipes with different names
     recipe1_name = random_string(10)
     recipe2_name = random_string(10)
@@ -1353,12 +1353,15 @@ def test_recipe_update_duplicate_name_error(api_client: TestClient, unique_user:
         headers=unique_user.token
     )
     
-    # Should return 400 error with appropriate message
+    # Should return 400 error with helpful message
     assert update_response.status_code == 400
     response_data = json.loads(update_response.text)
-    assert "already exists" in response_data["detail"]["message"].lower()
+    error_message = response_data["detail"]["message"]
+    assert "already exists" in error_message.lower()
+    assert "choose a different name" in error_message.lower()
+    assert "try saving again" in error_message.lower()
     
-    # Verify original recipe2 is unchanged
+    # Verify original recipe2 is unchanged in the database
     get_response = api_client.get(api_routes.recipes_slug(recipe2_slug), headers=unique_user.token)
     assert get_response.status_code == 200
     unchanged_recipe = json.loads(get_response.text)

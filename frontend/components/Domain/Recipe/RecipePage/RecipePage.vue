@@ -13,6 +13,22 @@
         {{ $t("general.discard-changes-description") }}
       </v-card-text>
     </BaseDialog>
+    <BaseDialog
+      v-model="saveErrorDialog"
+      :title="$t('recipe.save-error')"
+      color="error"
+      :icon="$globals.icons.alertCircle"
+      @cancel="saveErrorDialog = false"
+    >
+      <v-card-text>
+        <p class="mb-2">
+          <strong>{{ saveErrorMessage }}</strong>
+        </p>
+        <p>
+          {{ $t('recipe.save-error-description') }}
+        </p>
+      </v-card-text>
+    </BaseDialog>
     <RecipePageParseDialog
       :model-value="isParsing"
       :ingredients="recipe.recipeIngredient"
@@ -246,6 +262,8 @@ const notLinkedIngredients = computed(() => {
  */
 const originalRecipe = ref<Recipe | null>(null);
 const discardDialog = ref(false);
+const saveErrorDialog = ref(false);
+const saveErrorMessage = ref("");
 const pendingRoute = ref<RouteLocationNormalized | null>(null);
 
 invoke(async () => {
@@ -353,8 +371,9 @@ async function saveRecipe() {
   if (!error) {
     setMode(PageMode.VIEW);
   } else {
-    // Restore original recipe data on error to prevent data loss
-    restoreOriginalRecipe();
+    // Show prominent error dialog for save failures
+    saveErrorMessage.value = error?.response?.data?.detail?.message || "An error occurred while saving the recipe.";
+    saveErrorDialog.value = true;
     return;
   }
   if (data?.slug) {
