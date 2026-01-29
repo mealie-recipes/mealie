@@ -1324,3 +1324,42 @@ def test_create_recipe_slug_length_validation(api_client: TestClient, unique_use
 
     response = api_client.get(api_routes.recipes_slug(created_slug), headers=unique_user.token)
     assert response.status_code == 200
+
+
+def test_recipe_update_duplicate_name_error(api_client: TestClient, unique_user: TestUser):
+    """Test that updating a recipe with a duplicate name returns a 400 error."""
+    # Create two recipes with different names
+    recipe1_name = random_string(10)
+    recipe2_name = random_string(10)
+    
+    response1 = api_client.post(api_routes.recipes, json={"name": recipe1_name}, headers=unique_user.token)
+    assert response1.status_code == 201
+    recipe1_slug = json.loads(response1.text)
+    
+    response2 = api_client.post(api_routes.recipes, json={"name": recipe2_name}, headers=unique_user.token)
+    assert response2.status_code == 201
+    recipe2_slug = json.loads(response2.text)
+    
+    # Fetch the full recipe2 object
+    get_recipe2 = api_client.get(api_routes.recipes_slug(recipe2_slug), headers=unique_user.token)
+    assert get_recipe2.status_code == 200
+    recipe2 = json.loads(get_recipe2.text)
+    
+    # Try to update recipe2 with recipe1's name (should fail)
+    recipe2["name"] = recipe1_name
+    update_response = api_client.put(
+        api_routes.recipes_slug(recipe2_slug),
+        json=recipe2,
+        headers=unique_user.token
+    )
+    
+    # Should return 400 error with appropriate message
+    assert update_response.status_code == 400
+    response_data = json.loads(update_response.text)
+    assert "already exists" in response_data["detail"]["message"].lower()
+    
+    # Verify original recipe2 is unchanged
+    get_response = api_client.get(api_routes.recipes_slug(recipe2_slug), headers=unique_user.token)
+    assert get_response.status_code == 200
+    unchanged_recipe = json.loads(get_response.text)
+    assert unchanged_recipe["name"] == recipe2_name
