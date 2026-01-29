@@ -212,6 +212,8 @@
     "upload-file": "Datei hochladen",
     "created-on-date": "Erstellt am: {0}",
     "unsaved-changes": "Du hast ungespeicherte Änderungen. Möchtest du vor dem Verlassen speichern? OK um zu speichern, Cancel um Änderungen zu verwerfen.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Fehler beim Kopieren in die Zwischenablage.",
     "confirm-delete-generic-items": "Bist du dir sicher, dass du die folgenden Einträge löschen möchtest?",
     "organizers": "Organisieren",
