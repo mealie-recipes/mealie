@@ -212,6 +212,8 @@
     "upload-file": "העלאת קבצים",
     "created-on-date": "נוצר ב-{0}",
     "unsaved-changes": "יש שינויים שלא נשמרו. לצאת לפני שמירה? אשר לשמירה, בטל למחיקת שינויים.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "כשלון בהעתקה ללוח ההדבקה.",
     "confirm-delete-generic-items": "למחוק את הפריטים שנבחרו?",
     "organizers": "מארגנים",
