@@ -71,11 +71,11 @@ jobs:
           APPROVED=$(gh pr view "$PR_NUMBER" \
             --repo "$REPO" \
             --json reviews \
-            --jq '.reviews[] | select(.state == "APPROVED" and .author.login == "github-actions[bot]") | .id' \
+            --jq '.reviews[] | select(.state == "APPROVED") | .id' \
             | wc -l)
 
           if [ "$APPROVED" -gt 0 ]; then
-            echo "PR already approved by bot"
+            echo "PR already approved"
             exit 0
           fi
 
