@@ -882,9 +882,7 @@ def test_recipe_reference_deleted(api_client: TestClient, unique_user: TestUser)
     assert recipe_a_data["recipeIngredient"][0]["referencedRecipe"] is None
 
 
-def test_sub_recipe_resolves_within_same_group(
-        api_client: TestClient, unique_user: TestUser, g2_user: TestUser
-):
+def test_sub_recipe_resolves_within_same_group(api_client: TestClient, unique_user: TestUser, g2_user: TestUser):
     """
     Test that when two groups have recipes with the same slug, updating a recipe
     with a sub-recipe reference by slug correctly resolves to the current group's recipe.
@@ -952,9 +950,7 @@ def test_sub_recipe_resolves_within_same_group(
     assert referenced["id"] == str(sub_recipe_g1.id)
 
 
-def test_sub_recipe_not_found_in_other_group(
-        api_client: TestClient, unique_user: TestUser, g2_user: TestUser
-):
+def test_sub_recipe_not_found_in_other_group(api_client: TestClient, unique_user: TestUser, g2_user: TestUser):
     """
     Test that referencing a sub-recipe that only exists in another group fails.
     """
@@ -994,7 +990,8 @@ def test_sub_recipe_not_found_in_other_group(
     # This should fail because the sub-recipe doesn't exist in group 1
     response = api_client.put(recipe_url, json=recipe_data, headers=unique_user.token)
     assert response.status_code == 404
-    assert response.json()['detail']['message'] == "No Entry Found"
+    assert response.json()["detail"]["message"] == "No Entry Found"
+
 
 def test_duplicate(api_client: TestClient, unique_user: TestUser):
     recipe_data = recipe_test_data[0]

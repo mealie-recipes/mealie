@@ -475,17 +475,13 @@ class RecipeService(RecipeServiceBase):
                 if not ref.id and ref.slug:
                     recipe = self.group_recipes.get_by_slug(self.user.group_id, ref.slug)
                     if not recipe:
-                        raise exceptions.NoEntryFound(
-                            f"Referenced recipe '{ref.slug}' not found in this group"
-                        )
+                        raise exceptions.NoEntryFound(f"Referenced recipe '{ref.slug}' not found in this group")
                     ref.id = recipe.id
                 # If id is provided, verify it belongs to this group
                 elif ref.id:
                     recipe = self.group_recipes.get_one(ref.id, key="id")
                     if not recipe:
-                        raise exceptions.NoEntryFound(
-                            f"Referenced recipe with id '{ref.id}' not found in this group"
-                        )
+                        raise exceptions.NoEntryFound(f"Referenced recipe with id '{ref.id}' not found in this group")
 
         return update_data
 
