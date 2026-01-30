@@ -67,7 +67,7 @@
           v-model="importCategories"
           color="primary"
           hide-details
-          :label="$t('recipe.import-category')"
+          :label="$t('recipe.import-original-categories')"
         />
         <v-checkbox
           v-model="stayInEditMode"
@@ -122,7 +122,7 @@ export default defineNuxtComponent({
 
     const {
       importKeywordsAsTags,
-      importCategory,
+      importCategories,
       stayInEditMode,
       parseRecipe,
       navigateToRecipe,
@@ -167,7 +167,7 @@ export default defineNuxtComponent({
     }
     handleIsEditJson();
 
-    async function createFromHtmlOrJson(htmlOrJsonData: string | object | null, importKeywordsAsTags: boolean, importCategory: boolean, url: string | null = null) {
+    async function createFromHtmlOrJson(htmlOrJsonData: string | object | null, importKeywordsAsTags: boolean, importCategories: boolean, url: string | null = null) {
       if (!htmlOrJsonData) {
         return;
       }
@@ -186,7 +186,7 @@ export default defineNuxtComponent({
       }
 
       state.loading = true;
-      const { response } = await api.recipes.createOneByHtmlOrJson(dataString, importKeywordsAsTags, importCategory, url);
+      const { response } = await api.recipes.createOneByHtmlOrJson(dataString, importKeywordsAsTags, importCategories, url);
       handleResponse(response, importKeywordsAsTags);
     }
 
@@ -195,7 +195,7 @@ export default defineNuxtComponent({
       importKeywordsAsTags,
       stayInEditMode,
       parseRecipe,
-      importCategories: importCategory,
+      importCategories,
       newRecipeData,
       newRecipeUrl,
       handleIsEditJson,

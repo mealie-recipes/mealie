@@ -2,7 +2,7 @@ import { useRecipeCreatePreferences } from "~/composables/use-users/preferences"
 
 export interface UseNewRecipeOptionsProps {
   enableImportKeywords?: boolean;
-  enableImportCategory?: boolean;
+  enableImportCategories?: boolean;
   enableStayInEditMode?: boolean;
   enableParseRecipe?: boolean;
 }
@@ -10,7 +10,7 @@ export interface UseNewRecipeOptionsProps {
 export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
   const {
     enableImportKeywords = true,
-    enableImportCategory = true,
+    enableImportCategories = true,
     enableStayInEditMode = true,
     enableParseRecipe = true,
   } = props;
@@ -29,14 +29,14 @@ export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
     },
   });
 
-  const importCategory = computed({
+  const importCategories = computed({
     get() {
-      if (!enableImportCategory) return false;
-      return recipeCreatePreferences.value.importCategory;
+      if (!enableImportCategories) return false;
+      return recipeCreatePreferences.value.importCategories;
     },
     set(v: boolean) {
-      if (!enableImportCategory) return;
-      recipeCreatePreferences.value.importCategory = v;
+      if (!enableImportCategories) return;
+      recipeCreatePreferences.value.importCategories = v;
     },
   });
 
@@ -84,7 +84,7 @@ export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
   return {
     // Computed properties for the checkboxes
     importKeywordsAsTags,
-    importCategory,
+    importCategories,
     stayInEditMode,
     parseRecipe,
 
@@ -93,7 +93,7 @@ export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
 
     // Props for conditional rendering
     enableImportKeywords,
-    enableImportCategory,
+    enableImportCategories,
     enableStayInEditMode,
     enableParseRecipe,
   };

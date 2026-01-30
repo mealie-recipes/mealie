@@ -10,7 +10,7 @@ class ScrapeRecipeTest(MealieModel):
 
 class ScrapeRecipeBase(MealieModel):
     include_tags: bool = False
-    include_category: bool = False
+    include_categories: bool = False
 
 
 class ScrapeRecipe(ScrapeRecipeBase):
@@ -20,7 +20,7 @@ class ScrapeRecipe(ScrapeRecipeBase):
             "example": {
                 "url": "https://myfavoriterecipes.com/recipes",
                 "includeTags": True,
-                "includeCategory": True,
+                "includeCategories": True,
             },
         }
     )

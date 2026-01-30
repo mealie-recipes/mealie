@@ -63,7 +63,7 @@ export interface UserRecipeFinderPreferences {
 
 export interface UserRecipeCreatePreferences {
   importKeywordsAsTags: boolean;
-  importCategory: boolean;
+  importCategories: boolean;
   stayInEditMode: boolean;
   parseRecipe: boolean;
 }
@@ -234,7 +234,7 @@ export function useRecipeCreatePreferences(): Ref<UserRecipeCreatePreferences> {
     "recipe-create-preferences",
     {
       importKeywordsAsTags: false,
-      importCategory: false,
+      importCategories: false,
       stayInEditMode: false,
       parseRecipe: true,
     },
