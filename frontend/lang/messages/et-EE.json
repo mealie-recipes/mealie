@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Website being blocked?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Impordi originaal võtmesõnad siltidena",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Püsige redigeerimisrežiimis",
     "parse-recipe-ingredients-after-import": "Tuvasta retsepti koostisosad pärast importimist",
     "import-from-zip": "Impordi .zip-st",
