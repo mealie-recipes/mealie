@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Заблокований сайт?",
     "scrape-recipe-try-importing-raw-html-instead": "Спробуйте імпортувати вихідний HTML натомість.",
     "import-original-keywords-as-tags": "Імпортувати оригінальні ключові слова як теги",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Залишитися в режимі редактора",
     "parse-recipe-ingredients-after-import": "Розпізнавання інгредієнтів рецепту після імпорту",
     "import-from-zip": "Імпортувати з Zip",
