@@ -3,7 +3,6 @@ import inspect
 import json
 import os
 from abc import ABC, abstractmethod
-from os import PathLike
 from pathlib import Path
 from textwrap import dedent
 
@@ -110,10 +109,16 @@ class OpenAIService(BaseService):
         tree = name.split(".")
         relative_path = Path(*tree[:-1], tree[-1] + ".txt")
         default_prompt_file = Path(self.PROMPTS_DIR, relative_path)
-        custom_dir = self.custom_prompt_dir
 
-        # Only include custom files if the custom_dir is configured, is a directory, and the prompt file exists
-        if isinstance(custom_dir, (str, PathLike)) and Path(custom_dir).is_dir():
+        try:
+            # Only include custom files if the custom_dir is configured, is a directory, and the prompt file exists
+            custom_dir = Path(self.custom_prompt_dir) if self.custom_prompt_dir else None
+            if custom_dir and not custom_dir.is_dir():
+                custom_dir = None
+        except Exception:
+            custom_dir = None
+
+        if custom_dir:
             custom_prompt_file = Path(custom_dir, relative_path)
             if custom_prompt_file.exists():
                 logger.debug(f"Found valid custom prompt file: {custom_prompt_file}")
