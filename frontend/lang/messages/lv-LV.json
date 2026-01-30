@@ -212,6 +212,8 @@
     "upload-file": "Augšupielādēt failu",
     "created-on-date": "Izveidots: {0}",
     "unsaved-changes": "Jums ir nesaglabātas izmaiņas. Vai vēlaties ietaupīt pirms aiziešanas? Labi, lai saglabātu, Atcelt, lai izmestu izmaiņas.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Neizdevās kopēt starpliktuvē.",
     "confirm-delete-generic-items": "Vai tiešām vēlaties dzēst šādus vienumus?",
     "organizers": "Organizatori",

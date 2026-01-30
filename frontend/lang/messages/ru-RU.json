@@ -212,6 +212,8 @@
     "upload-file": "Загрузить файл",
     "created-on-date": "Создано: {0}",
     "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Не удалось скопировать текст.",
     "confirm-delete-generic-items": "Вы уверены, что хотите удалить следующие элементы?",
     "organizers": "Органайзеры",
@@ -1433,7 +1435,7 @@
     "required": "This Field is Required",
     "invalid-email": "Email Must Be Valid",
     "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
+    "no-whitespace": "Без пробелов",
     "min-length": "Must Be At Least {min} Characters",
     "max-length": "Must Be At Most {max} Characters"
   }

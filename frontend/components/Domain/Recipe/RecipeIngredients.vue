@@ -17,15 +17,13 @@
         v-for="(ingredient, index) in value"
         :key="'ingredient' + index"
       >
-        <template v-if="!isCookMode">
-          <h3
-            v-if="showTitleEditor[index]"
-            class="mt-2"
-          >
-            {{ ingredient.title }}
-          </h3>
-          <v-divider v-if="showTitleEditor[index]" />
-        </template>
+        <h3
+          v-if="showTitleEditor[index]"
+          class="mt-2"
+        >
+          {{ ingredient.title }}
+        </h3>
+        <v-divider v-if="showTitleEditor[index]" />
         <v-list-item
           density="compact"
           class="pa-0"

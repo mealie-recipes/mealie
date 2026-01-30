@@ -16,8 +16,8 @@
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "morrón",
-                "plural_name": "morrones"
+                "name": "pimiento morrón",
+                "plural_name": "pimientos morrones"
             },
             "carrot": {
                 "aliases": [],
@@ -1561,13 +1561,13 @@
             "mulberry": {
                 "aliases": [],
                 "description": "",
-                "name": "mulberry",
-                "plural_name": "mulberries"
+                "name": "mora",
+                "plural_name": "moras"
             },
             "acai berry": {
                 "aliases": [],
                 "description": "",
-                "name": "acai berry",
+                "name": "baya de açaí",
                 "plural_name": "bayas de açaí"
             },
             "canned cherry": {
@@ -1913,8 +1913,8 @@
             "jackfruit seed": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit seed",
-                "plural_name": "jackfruit seeds"
+                "name": "semilla de yaca",
+                "plural_name": "semillas de yaca"
             },
             "honey-roasted almond": {
                 "aliases": [],
@@ -3041,8 +3041,8 @@
             "strawberry milk": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry milk",
-                "plural_name": "strawberry milks"
+                "name": "leche de fresa",
+                "plural_name": "leche de fresa"
             },
             "ayran": {
                 "aliases": [],
@@ -3101,8 +3101,8 @@
             "vanilla milk": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla milk",
-                "plural_name": "vanilla milks"
+                "name": "leche de vainilla",
+                "plural_name": "leche de vainilla"
             },
             "yoplait whip": {
                 "aliases": [],
@@ -3135,8 +3135,8 @@
             "coconut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut milk",
-                "plural_name": "coconut milks"
+                "name": "leche de coco",
+                "plural_name": "leche de coco"
             },
             "almond milk": {
                 "aliases": [],
@@ -3178,7 +3178,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "leche de soja",
-                "plural_name": "soy milks"
+                "plural_name": "leche de soja"
             },
             "extra firm tofu": {
                 "aliases": [],
@@ -3214,7 +3214,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mayonesa vegana",
-                "plural_name": "vegan mayonnaises"
+                "plural_name": "mayonesa vegana"
             },
             "vegan cheese": {
                 "aliases": [],

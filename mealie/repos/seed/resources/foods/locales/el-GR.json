@@ -869,8 +869,8 @@
             "melon": {
                 "aliases": [],
                 "description": "",
-                "name": "melon",
-                "plural_name": "melons"
+                "name": "πεπόνι",
+                "plural_name": "πεπόνια"
             },
             "tangerine": {
                 "aliases": [],
@@ -881,14 +881,14 @@
             "dried mango": {
                 "aliases": [],
                 "description": "",
-                "name": "dried mango",
-                "plural_name": "dried mangoes"
+                "name": "αποξηραμένο μάνγκο",
+                "plural_name": "αποξηραμένα μάνγκο"
             },
             "dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apple",
-                "plural_name": "dried apples"
+                "name": "αποξηραμένο μήλο",
+                "plural_name": "αποξηραμένα μήλα"
             },
             "quince": {
                 "aliases": [],
@@ -15711,8 +15711,8 @@
             "food coloring": {
                 "aliases": [],
                 "description": "",
-                "name": "food coloring",
-                "plural_name": "food colorings"
+                "name": "χρώμα ζαχαροπλαστικής",
+                "plural_name": "χρώματα ζαχαροπλαστικής"
             },
             "nutritional yeast": {
                 "aliases": [],
@@ -15771,8 +15771,8 @@
             "collagen": {
                 "aliases": [],
                 "description": "",
-                "name": "collagen",
-                "plural_name": "collagens"
+                "name": "κολλαγόνο",
+                "plural_name": "κολλαγόνα"
             },
             "chocolate protein powder": {
                 "aliases": [],
@@ -15819,8 +15819,8 @@
             "spirulina": {
                 "aliases": [],
                 "description": "",
-                "name": "spirulina",
-                "plural_name": "spirulinas"
+                "name": "σπιρουλίνα",
+                "plural_name": "σπιρουλίνα"
             },
             "coffee extract": {
                 "aliases": [],

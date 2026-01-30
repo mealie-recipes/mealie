@@ -389,6 +389,23 @@ export default defineNuxtConfig({
         locale: "en-US",
         fallback: "en-US",
       },
+      defaults: {
+        VOverlay: {
+          scrollStrategy: "close",
+        },
+        VMenu: {
+          scrollStrategy: "close",
+        },
+        VAutocomplete: {
+          scrollStrategy: "close",
+        },
+        VCombobox: {
+          scrollStrategy: "close",
+        },
+        VSelect: {
+          scrollStrategy: "close",
+        },
+      },
     },
   },
 });

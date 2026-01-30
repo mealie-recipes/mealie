@@ -100,6 +100,7 @@
                 v-model="state.auto"
                 :label="$t('search.auto-search')"
                 single-line
+                color="primary"
               />
               <v-btn
                 block

@@ -463,8 +463,33 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
+    def _resolve_ingredient_sub_recipes(self, update_data: Recipe) -> Recipe:
+        """Resolve all referenced_recipe slugs to IDs within the current group."""
+        if not update_data.recipe_ingredient:
+            return update_data
+
+        for ingredient in update_data.recipe_ingredient:
+            if ingredient.referenced_recipe:
+                ref = ingredient.referenced_recipe
+                # If no id, resolve by slug
+                if not ref.id and ref.slug:
+                    recipe = self.group_recipes.get_by_slug(self.user.group_id, ref.slug)
+                    if not recipe:
+                        raise exceptions.NoEntryFound(f"Referenced recipe '{ref.slug}' not found in this group")
+                    ref.id = recipe.id
+                # If id is provided, verify it belongs to this group
+                elif ref.id:
+                    recipe = self.group_recipes.get_one(ref.id, key="id")
+                    if not recipe:
+                        raise exceptions.NoEntryFound(f"Referenced recipe with id '{ref.id}' not found in this group")
+
+        return update_data
+
     def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
         recipe = self._pre_update_check(slug_or_id, update_data)
+
+        # Resolve sub-recipe references before passing to repository
+        update_data = self._resolve_ingredient_sub_recipes(update_data)
 
         new_data = self.group_recipes.update(recipe.slug, update_data)
         self.check_assets(new_data, recipe.slug)

@@ -35,6 +35,7 @@
           {{ $t("general.create") }}
         </BaseButton>
         <BaseButton
+          v-if="$appInfo.allowPasswordLogin"
           class="mr-2"
           color="info"
           :icon="$globals.icons.link"

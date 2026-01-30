@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Názov receptu musí byť unikátny",
         "recipe-created": "Vytvorený recept",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "Obrázok receptu zmazaný",
         "recipe-defaults": {
             "ingredient-note": "1 šálka múky",
             "step-text": "Kroky receptu, ako aj ďalšie polia na stránke receptu podporujú markdown syntax.\n\n**Pridanie odkazu**\n\n[Môj odkaz](https://demo.mealie.io)\n"
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Nemáte povolenie na vykonanie tejto akcie",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Recept nemôže odkazovať na seba, priamo alebo nepriamo",
         "no-entry-found": "404 - Požadovaná stránka nebola nájdená",
         "integrity-error": "Chyba integrity databázy",
         "username-conflict-error": "Toto meno používateľa je už obsadené",
@@ -46,7 +46,7 @@
         "generic-updated-with-url": "{name} bol aktualizovaný, {url}",
         "generic-duplicated": "{name} bol duplikovaný",
         "generic-deleted": "{name} bol vymazaný",
-        "logged-out": "Logged out"
+        "logged-out": "Odhlásený"
     },
     "datetime": {
         "year": "rok|roky",
