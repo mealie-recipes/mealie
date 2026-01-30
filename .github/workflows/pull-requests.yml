@@ -16,6 +16,7 @@ concurrency:
 jobs:
   pull-request-lint:
     name: "Lint PR"
+    if: github.event_name == 'pull_request'
     uses: ./.github/workflows/pull-request-lint.yml
 
   backend-tests:
