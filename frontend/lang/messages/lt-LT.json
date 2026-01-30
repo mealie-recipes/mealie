@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Svetainė blokuojama?",
     "scrape-recipe-try-importing-raw-html-instead": "Pabandykite vietoj to importuoti neapdorotą HTML.",
     "import-original-keywords-as-tags": "Įkelti pradinius raktažodžius kaip žymas",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Toliau redaguoti",
     "parse-recipe-ingredients-after-import": "Analizuoti recepto ingredientus po importavimo",
     "import-from-zip": "Įkelti iš .ZIP archyvo",
