@@ -25,8 +25,9 @@
       v-model="state.editDialog"
       :icon="$globals.icons.tags"
       :title="$t('data-pages.tags.edit-tag')"
+      :submit-icon="$globals.icons.save"
       :submit-text="$t('general.save')"
-      can-confirm
+      can-submit
       @submit="editSaveTag"
     >
       <v-card-text v-if="editTarget">
@@ -211,12 +212,8 @@ export default defineNuxtComponent({
     }
 
     async function deleteSelected() {
-      for (const item of bulkDeleteTarget.value) {
-        if (!item.id) {
-          continue;
-        }
-        await tagStore.actions.deleteOne(item.id);
-      }
+      const ids = bulkDeleteTarget.value.map(item => item.id).filter(id => !!id);
+      await tagStore.actions.deleteMany(ids);
       bulkDeleteTarget.value = [];
     }
 

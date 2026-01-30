@@ -212,6 +212,8 @@
     "upload-file": "Carica file",
     "created-on-date": "Creato il: {0}",
     "unsaved-changes": "Sono state apportate modifiche non salvate. Salvare prima di uscire? Premi Ok per salvare, Annulla per scartare le modifiche.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Impossibile copiare negli appunti.",
     "confirm-delete-generic-items": "Sei sicuro di voler eliminare i seguenti elementi?",
     "organizers": "Organizzatori",
@@ -343,7 +345,7 @@
     "lunch": "Pranzo",
     "dinner": "Cena",
     "snack": "Snack",
-    "drink": "Drink",
+    "drink": "Bevanda",
     "dessert": "Dessert",
     "type-any": "Qualsiasi",
     "day-any": "Qualsiasi",
@@ -445,6 +447,7 @@
     "upload-a-recipe": "Carica una Ricetta",
     "upload-individual-zip-file": "Carica un singolo file .zip esportato da un'altra istanza di Mealie.",
     "url-form-hint": "Copia e incolla un link dal tuo sito di ricette preferito",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copia e incolla lo URL della fonte dei dati (opzionale)",
     "view-scraped-data": "Visualizza Dati Ottenuti dallo Scraping",
     "trim-whitespace-description": "Tagliare lo spazio bianco iniziale e finale così come le linee vuote",
     "trim-prefix-description": "Taglia il primo carattere da ogni riga",
@@ -577,7 +580,7 @@
     "unlinked": "Non ancora collegato",
     "linked-to-other-step": "Collegato ad un altro passaggio",
     "auto": "Automatico",
-    "cook-mode": "Modalità di Cottura",
+    "cook-mode": "Modalità Cucina",
     "link-ingredients": "Link Ingredienti",
     "merge-above": "Unisci Sopra",
     "move-to-bottom": "Sposta in fondo",
@@ -636,6 +639,8 @@
     "scrape-recipe-suggest-bulk-importer": "Prova l'importatore massivo",
     "scrape-recipe-have-raw-html-or-json-data": "Hai dei dati grezzi HTML o JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "È possibile importare direttamente dai dati grezzi",
+    "scrape-recipe-website-being-blocked": "Il sito viene bloccato?",
+    "scrape-recipe-try-importing-raw-html-instead": "Prova a importare l'HTML puro.",
     "import-original-keywords-as-tags": "Importa parole chiave originali come tag",
     "stay-in-edit-mode": "Rimani in modalità Modifica",
     "parse-recipe-ingredients-after-import": "Analizza gli ingredienti della ricetta dopo l'importazione",
@@ -1425,5 +1430,13 @@
       "is-like": "è simile",
       "is-not-like": "non è come"
     }
+  },
+  "validators": {
+    "required": "Questo Campo è Obbligatorio",
+    "invalid-email": "L'Email Deve Essere Valida",
+    "invalid-url": "Lo URL Deve Essere Valido",
+    "no-whitespace": "Gli Spazi Non Sono Ammessi",
+    "min-length": "Deve Essere Almeno {min} Caratteri",
+    "max-length": "Deve Essere Al Massimo {max} Caratteri"
   }
 }

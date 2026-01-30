@@ -29,7 +29,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "зелен лук",
-                "plural_name": "пера зален лук"
+                "plural_name": "зелен лук"
             },
             "zucchini": {
                 "aliases": [],
@@ -1013,8 +1013,8 @@
             "mixed peel": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed peel",
-                "plural_name": "mixed peels"
+                "name": "захаросани цитрусови кори",
+                "plural_name": "захаросани цитрусови кори"
             },
             "kokum": {
                 "aliases": [],
@@ -1031,8 +1031,8 @@
             "dried lime": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lime",
-                "plural_name": "dried limes"
+                "name": "сушен лайм",
+                "plural_name": "сушени лаймове"
             },
             "jujube": {
                 "aliases": [],
@@ -1335,8 +1335,8 @@
             "dried chinese mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "dried chinese mushroom",
-                "plural_name": "dried chinese mushrooms"
+                "name": "сушени гъби шийтаке",
+                "plural_name": "сушени гъби шийтаке"
             },
             "maitake": {
                 "aliases": [],
@@ -1366,7 +1366,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pioppini",
-                "plural_name": "pioppinis"
+                "plural_name": "пиопини"
             },
             "snow fungu": {
                 "aliases": [],

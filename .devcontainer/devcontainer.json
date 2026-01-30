@@ -23,7 +23,6 @@
       "settings": {
         "python.defaultInterpreterPath": "/usr/local/bin/python",
         "python.formatting.autopep8Path": "/usr/local/py-utils/bin/autopep8",
-        "python.formatting.blackPath": "/usr/local/py-utils/bin/black",
         "python.formatting.yapfPath": "/usr/local/py-utils/bin/yapf",
         "mypy.runUsingActiveInterpreter": true
       },
@@ -34,6 +33,7 @@
         "ms-python.pylint",
         "ms-python.python",
         "ms-python.vscode-pylance",
+        "streetsidesoftware.code-spell-checker-cspell-bundled-dictionaries",
         "Vue.volar"
       ]
     }
@@ -41,6 +41,7 @@
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   "forwardPorts": [
     3000,
+    8000, // used by mkdocs
     9000,
     9091, // used by docker production
     24678 // used by nuxt when hot-reloading using polling

@@ -4,7 +4,7 @@
     },
     "recipe": {
         "unique-name-error": "Nazwy przepisów muszą być unikatowe",
-        "recipe-created": "Utworzono przepis",
+        "recipe-created": "Przepis został utworzony",
         "recipe-image-deleted": "Obrazek przepisu został usunięty",
         "recipe-defaults": {
             "ingredient-note": "1 szklanka mąki",
@@ -23,7 +23,7 @@
         "no-recipes-match-your-rules": "Nie znaleziono przepisu spełniającego warunki"
     },
     "user": {
-        "user-updated": "Użytkownik zaktualizowany",
+        "user-updated": "Użytkownik został zaktualizowany",
         "password-updated": "Hasło zostało zmienione",
         "invalid-current-password": "Bieżące hasło jest nieprawidłowe",
         "ldap-update-password-unavailable": "Nie można zaktualizować hasła, użytkownik jest kontrolowany przez LDAP"
@@ -40,9 +40,9 @@
         "email-conflict-error": "Ten adres email już jest zajęty"
     },
     "notifications": {
-        "generic-created": "Stworzono {name}",
+        "generic-created": "Utworzono {name}",
         "generic-updated": "Zaktualizowano {name}",
-        "generic-created-with-url": "Stworzono {name}, {url}",
+        "generic-created-with-url": "Utworzono {name}, {url}",
         "generic-updated-with-url": "Zaktualizowano {name}, {url}",
         "generic-duplicated": "Zduplikowano {name}",
         "generic-deleted": "Usunięto {name}",

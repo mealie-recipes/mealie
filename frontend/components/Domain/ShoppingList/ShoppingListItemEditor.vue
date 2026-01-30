@@ -4,7 +4,16 @@
       <v-card-text class="pb-3 pt-1">
         <div class="d-md-flex align-center mb-2" style="gap: 20px">
           <div>
-            <InputQuantity v-model="listItem.quantity" />
+            <v-number-input
+              v-model="listItem.quantity"
+              hide-details
+              :label="$t('form.quantity-label-abbreviated')"
+              :min="0"
+              :precision="null"
+              control-variant="stacked"
+              inset
+              style="width: 100px;"
+            />
           </div>
           <InputLabelType
             v-model="listItem.unit"
@@ -157,6 +166,15 @@ export default defineNuxtComponent({
         context.emit("update:modelValue", val);
       },
     });
+
+    watch(
+      () => props.modelValue.quantity,
+      () => {
+        if (!props.modelValue.quantity) {
+          listItem.value.quantity = 0;
+        }
+      },
+    );
 
     watch(
       () => props.modelValue.food,

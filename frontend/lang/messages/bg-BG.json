@@ -156,7 +156,7 @@
     "sort-alphabetically": "По азбучен ред",
     "status": "състояние",
     "subject": "Относно",
-    "submit": "Изпрати",
+    "submit": "Потвърди",
     "success-count": "Успешни: {count}",
     "sunday": "Неделя",
     "system": "В хронологичен ред",
@@ -212,11 +212,13 @@
     "upload-file": "Качване на файл",
     "created-on-date": "Добавена на {0}",
     "unsaved-changes": "Имате незапазени промени. Желаете ли да ги запазите преди да излезете? Натиснете Ок за запазване и Отказ за отхвърляне на промените.",
+    "discard-changes": "Отхвърляне на промените",
+    "discard-changes-description": "Имате незаписани промени, сигурни ли сте, че искате да ги отмените?",
     "clipboard-copy-failure": "Линкът към рецептата е копиран в клипборда.",
     "confirm-delete-generic-items": "Сигурни ли сте, че желаете да изтриете следните елементи?",
     "organizers": "Органайзер",
     "caution": "Внимание",
-    "show-advanced": "Покажи разширени",
+    "show-advanced": "Разширени настройки",
     "add-field": "Добави поле",
     "date-created": "Дата на създаване",
     "date-updated": "Дата на актуализация"
@@ -445,6 +447,7 @@
     "upload-a-recipe": "Качи рецепта",
     "upload-individual-zip-file": "Качи като индивидуален .zip файлов формат от друга инстанция на Mealie.",
     "url-form-hint": "Копирай и постави линк от твоя любим сайт за рецепти",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Копирайте и поставете URL адреса на източника на вашите данни (по избор)",
     "view-scraped-data": "Виж събраните данни",
     "trim-whitespace-description": "Премахни интервалите в началото и края на текста, също така и празните редове",
     "trim-prefix-description": "Премахни първия символ от всеки ред",
@@ -636,6 +639,8 @@
     "scrape-recipe-suggest-bulk-importer": "Пробвайте масовото импорторане",
     "scrape-recipe-have-raw-html-or-json-data": "Имате ли сурови HTML или JSON данни?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Можете да импортирате директно от сурови данни",
+    "scrape-recipe-website-being-blocked": "Блокиран ли е уебсайтът?",
+    "scrape-recipe-try-importing-raw-html-instead": "Опитайте вместо това да импортирате суровия HTML код.",
     "import-original-keywords-as-tags": "Добави оригиналните ключови думи като етикети",
     "stay-in-edit-mode": "Остани в режим на редакция",
     "parse-recipe-ingredients-after-import": "Анализиране на съставките на рецептата след импортиране",
@@ -1175,17 +1180,17 @@
     "categories": {
       "edit-category": "Редактиране на категория",
       "new-category": "Нова категория",
-      "category-data": "Категория за данните"
+      "category-data": "Категории"
     },
     "tags": {
       "new-tag": "Нов етикет",
       "edit-tag": "Редакция на етикет",
-      "tag-data": "Данни на етикета"
+      "tag-data": "Етикети"
     },
     "tools": {
       "new-tool": "Нов инструмент",
       "edit-tool": "Редактирай инструмента",
-      "tool-data": "Данни на инструмента"
+      "tool-data": "Прибори"
     }
   },
   "user-registration": {
@@ -1425,5 +1430,13 @@
       "is-like": "е като",
       "is-not-like": "не е като"
     }
+  },
+  "validators": {
+    "required": "Това поле е задължително",
+    "invalid-email": "Email адресът трябва да бъде валиден",
+    "invalid-url": "Линкът трябва да е валиден",
+    "no-whitespace": "Не са позволени интервали",
+    "min-length": "Трябва да съдържа поне {min} знака",
+    "max-length": "Трябва да съдържа най-много {max} знака"
   }
 }

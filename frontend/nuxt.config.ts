@@ -257,6 +257,7 @@ export default defineNuxtConfig({
       share_target: {
         action: "/r/create/url",
         method: "GET",
+        enctype: "application/x-www-form-urlencoded",
         params: {
           text: "recipe_import_url",
         },
@@ -387,6 +388,23 @@ export default defineNuxtConfig({
       locale: {
         locale: "en-US",
         fallback: "en-US",
+      },
+      defaults: {
+        VOverlay: {
+          scrollStrategy: "close",
+        },
+        VMenu: {
+          scrollStrategy: "close",
+        },
+        VAutocomplete: {
+          scrollStrategy: "close",
+        },
+        VCombobox: {
+          scrollStrategy: "close",
+        },
+        VSelect: {
+          scrollStrategy: "close",
+        },
       },
     },
   },
