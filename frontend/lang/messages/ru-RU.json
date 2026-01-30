@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Сайт заблокирован?",
     "scrape-recipe-try-importing-raw-html-instead": "Попробуйте импортировать необработанный HTML файл.",
     "import-original-keywords-as-tags": "Импортировать исходные ключевые слова как теги",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Остаться в режиме редактирования",
     "parse-recipe-ingredients-after-import": "Распознавание ингредиентов рецепта после импорта",
     "import-from-zip": "Импорт из архива",
