@@ -5,6 +5,7 @@
       :title="$t('recipe.edit-timeline-event')"
       :icon="$globals.icons.edit"
       can-submit
+      disable-submit-on-enter
       :submit-text="$t('general.save')"
       @submit="submitEdit"
     >

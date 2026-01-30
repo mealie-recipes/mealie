@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Tarif adları benzersiz olmalıdır",
         "recipe-created": "Tarif oluşturuldu",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "Tarif görseli silindi",
         "recipe-defaults": {
             "ingredient-note": "1 Bardak Un",
             "step-text": "Tarif sayfasındaki tarif adımlarının yanı sıra diğer alanlar da markdown destekler.\n\n**Bağlantı ekle**\n\n[Bağlantım](https://demo.mealie.io)\n"
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Bu eylemi gerçekleştirme izniniz yok",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Bir tarif, doğrudan ya da dolaylı olarak kendine referans veremez",
         "no-entry-found": "İstenen kaynak bulunamadı",
         "integrity-error": "Veritabanı bütünlüğü hatası",
         "username-conflict-error": "Bu kullanıcı adı zaten alınmış",
@@ -46,7 +46,7 @@
         "generic-updated-with-url": "{name} güncellendi, {url}",
         "generic-duplicated": "{name} yinelendi",
         "generic-deleted": "{name} silindi",
-        "logged-out": "Logged out"
+        "logged-out": "Oturum kapatıldı"
     },
     "datetime": {
         "year": "yıl|yıl",

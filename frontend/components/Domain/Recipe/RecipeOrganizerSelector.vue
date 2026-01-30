@@ -4,17 +4,19 @@
     v-bind="inputAttrs"
     v-model:search="searchInput"
     :items="items"
+    :custom-filter="normalizeFilter"
     :label="label"
     chips
     closable-chips
-    item-title="name"
+    :item-title="itemTitle"
+    item-value="name"
     multiple
     :variant="variant"
     :prepend-inner-icon="icon"
     :append-icon="showAdd ? $globals.icons.create : undefined"
     return-object
     auto-select-first
-    class="pa-0"
+    class="pa-0 ma-0"
     @update:model-value="resetSearchInput"
     @click:append="dialog = true"
   >
@@ -32,7 +34,6 @@
         {{ item.value }}
       </v-chip>
     </template>
-
     <template
       v-if="showAdd"
       #append
@@ -47,16 +48,17 @@
 </template>
 
 <script setup lang="ts">
-import type { IngredientFood, RecipeCategory, RecipeTag } from "~/lib/api/types/recipe";
-import type { RecipeTool } from "~/lib/api/types/admin";
+import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
+import { useUserStore } from "~/composables/store/use-user-store";
+import { normalizeFilter } from "~/composables/use-utils";
+import type { UserSummary } from "~/lib/api/types/user";
 
 interface Props {
   selectorType: RecipeOrganizer;
   inputAttrs?: Record<string, any>;
-  returnObject?: boolean;
   showAdd?: boolean;
   showLabel?: boolean;
   showIcon?: boolean;
@@ -65,7 +67,6 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {
   inputAttrs: () => ({}),
-  returnObject: true,
   showAdd: true,
   showLabel: true,
   showIcon: true,
@@ -78,7 +79,7 @@ const selected = defineModel<(
   | RecipeCategory
   | RecipeTool
   | IngredientFood
-  | string
+  | UserSummary
 )[] | undefined>({ required: true });
 
 onMounted(() => {
@@ -106,6 +107,8 @@ const label = computed(() => {
       return i18n.t("general.foods");
     case Organizer.Household:
       return i18n.t("household.households");
+    case Organizer.User:
+      return i18n.t("user.users");
     default:
       return i18n.t("general.organizer");
   }
@@ -127,10 +130,18 @@ const icon = computed(() => {
       return $globals.icons.foods;
     case Organizer.Household:
       return $globals.icons.household;
+    case Organizer.User:
+      return $globals.icons.user;
     default:
       return $globals.icons.tags;
   }
 });
+
+const itemTitle = computed(() =>
+  props.selectorType === Organizer.User
+    ? (i: any) => i?.fullName ?? i?.name ?? ""
+    : "name",
+);
 
 // ===========================================================================
 // Store & Items Setup
@@ -141,24 +152,24 @@ const storeMap = {
   [Organizer.Tool]: useToolStore(),
   [Organizer.Food]: useFoodStore(),
   [Organizer.Household]: useHouseholdStore(),
+  [Organizer.User]: useUserStore(),
 };
 
-const store = computed(() => {
+const activeStore = computed(() => {
   const { store } = storeMap[props.selectorType];
   return store.value;
 });
 
-const items = computed(() => {
-  if (!props.returnObject) {
-    return store.value.map(item => item.name);
-  }
-  return store.value;
+const items = computed<any[]>(() => {
+  const list = (activeStore.value as unknown as any[]) ?? [];
+  return list;
 });
 
 function removeByIndex(index: number) {
   if (selected.value === undefined) {
     return;
   }
+
   const newSelected = selected.value.filter((_, i) => i !== index);
   selected.value = [...newSelected];
 }

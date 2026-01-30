@@ -11,6 +11,12 @@ const store: Ref<RecipeTool[]> = ref([]);
 const loading = ref(false);
 const publicLoading = ref(false);
 
+export function resetToolStore() {
+  store.value = [];
+  loading.value = false;
+  publicLoading.value = false;
+}
+
 export const useToolData = function () {
   return useData<RecipeToolWithOnHand>({
     id: "",

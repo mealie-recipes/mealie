@@ -126,7 +126,7 @@ withDefaults(defineProps<Props>(), {
   canEdit: false,
 });
 
-const emit = defineEmits(["print", "input", "delete", "close", "edit"]);
+const emit = defineEmits(["print", "input", "save", "delete", "close", "json", "edit"]);
 
 const deleteDialog = ref(false);
 

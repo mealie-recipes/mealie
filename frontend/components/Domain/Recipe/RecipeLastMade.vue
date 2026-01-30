@@ -8,6 +8,7 @@
         :title="$t('recipe.made-this')"
         :submit-text="$t('recipe.add-to-timeline')"
         can-submit
+        disable-submit-on-enter
         @submit="createTimelineEvent"
       >
         <v-card-text>

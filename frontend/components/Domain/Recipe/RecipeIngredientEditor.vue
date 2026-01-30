@@ -22,12 +22,15 @@
         cols="12"
         class="flex-grow-0 flex-shrink-0"
       >
-        <v-text-field
+        <v-number-input
           v-model="model.quantity"
           variant="solo"
+          :precision="null"
+          :min="0"
           hide-details
+          control-variant="stacked"
+          inset
           density="compact"
-          type="number"
           :placeholder="$t('recipe.quantity')"
           @keypress="quantityFilter"
         >
@@ -38,7 +41,7 @@
               {{ $globals.icons.arrowUpDown }}
             </v-icon>
           </template>
-        </v-text-field>
+        </v-number-input>
       </v-col>
       <v-col
         v-if="!state.isRecipe"
@@ -56,6 +59,7 @@
           variant="solo"
           return-object
           :items="units || []"
+          :custom-filter="normalizeFilter"
           item-title="name"
           class="mx-1"
           :placeholder="$t('recipe.choose-unit')"
@@ -114,6 +118,7 @@
           variant="solo"
           return-object
           :items="foods || []"
+          :custom-filter="normalizeFilter"
           item-title="name"
           class="mx-1 py-0"
           :placeholder="$t('recipe.choose-food')"
@@ -171,6 +176,7 @@
           variant="solo"
           return-object
           :items="search.data.value || []"
+          :custom-filter="normalizeFilter"
           item-title="name"
           class="mx-1 py-0"
           :placeholder="$t('search.type-to-search')"
@@ -225,6 +231,7 @@ import { ref, computed, reactive, toRefs } from "vue";
 import { useDisplay } from "vuetify";
 import { useI18n } from "vue-i18n";
 import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
+import { normalizeFilter } from "~/composables/use-utils";
 import { useNuxtApp } from "#app";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";

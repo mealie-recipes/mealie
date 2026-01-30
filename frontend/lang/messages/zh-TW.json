@@ -342,6 +342,9 @@
     "breakfast": "Breakfast",
     "lunch": "午餐",
     "dinner": "晚餐",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Any",
     "day-any": "Any",
     "editor": "Editor",
@@ -442,6 +445,7 @@
     "upload-a-recipe": "上傳食譜",
     "upload-individual-zip-file": "上傳從另一個Mealie匯出的zip壓縮檔",
     "url-form-hint": "複製您最喜歡的食譜網站的網址並在此貼上",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "查看網頁擷取資料",
     "trim-whitespace-description": "Trim leading and trailing whitespace as well as blank lines",
     "trim-prefix-description": "Trim first character from each line",
@@ -633,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "You can import from raw data directly",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Import original keywords as tags",
     "stay-in-edit-mode": "Stay in Edit mode",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
@@ -1422,5 +1428,13 @@
       "is-like": "is like",
       "is-not-like": "is not like"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

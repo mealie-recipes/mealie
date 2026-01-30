@@ -9,6 +9,7 @@ from typing import Any
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
 from sqlalchemy import ColumnElement, Select, case, delete, func, nulls_first, nulls_last, select
+from sqlalchemy.ext.associationproxy import AssociationProxyInstance
 from sqlalchemy.orm import InstrumentedAttribute
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
@@ -77,6 +78,13 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
 
     def _query(self, override_schema: type[MealieModel] | None = None, with_options=True):
         q = select(self.model)
+
+        try:
+            if isinstance(self.model.household_id, AssociationProxyInstance):
+                q.filter(self.model.household_id.is_not(None))
+        except (AttributeError, NotImplementedError):
+            pass
+
         if with_options:
             schema = override_schema or self.schema
             return q.options(*schema.loader_options())
@@ -87,6 +95,7 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         dct = {}
         if self.group_id:
             dct["group_id"] = self.group_id
+
         if self.household_id:
             dct["household_id"] = self.household_id
 
@@ -364,14 +373,16 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
                 self.logger.error(e)
                 raise HTTPException(status_code=400, detail=str(e)) from e
 
-        count_query = select(func.count()).select_from(query.subquery())
+        count_query = select(func.count()).select_from(query.order_by(None).distinct().subquery())
         count = self.session.scalar(count_query)
         if not count:
             count = 0
 
         # interpret -1 as "get_all"
+        limit: int | None = pagination.per_page
         if pagination.per_page == -1:
             pagination.per_page = count
+            limit = None
 
         try:
             total_pages = ceil(count / pagination.per_page)
@@ -387,7 +398,11 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
             pagination.page = 1
 
         query = self.add_order_by_to_query(query, pagination)
-        return query.limit(pagination.per_page).offset((pagination.page - 1) * pagination.per_page), count, total_pages
+
+        if limit is not None:
+            query = query.limit(limit)
+
+        return query.offset((pagination.page - 1) * pagination.per_page), count, total_pages
 
     def add_order_attr_to_query(
         self,

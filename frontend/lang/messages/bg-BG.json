@@ -156,7 +156,7 @@
     "sort-alphabetically": "По азбучен ред",
     "status": "състояние",
     "subject": "Относно",
-    "submit": "Изпрати",
+    "submit": "Потвърди",
     "success-count": "Успешни: {count}",
     "sunday": "Неделя",
     "system": "В хронологичен ред",
@@ -216,7 +216,7 @@
     "confirm-delete-generic-items": "Сигурни ли сте, че желаете да изтриете следните елементи?",
     "organizers": "Органайзер",
     "caution": "Внимание",
-    "show-advanced": "Покажи разширени",
+    "show-advanced": "Разширени настройки",
     "add-field": "Добави поле",
     "date-created": "Дата на създаване",
     "date-updated": "Дата на актуализация"
@@ -342,6 +342,9 @@
     "breakfast": "Закуска",
     "lunch": "Обяд",
     "dinner": "Вечеря",
+    "snack": "Закуска",
+    "drink": "Питие",
+    "dessert": "Десерт",
     "type-any": "Всички",
     "day-any": "Всички",
     "editor": "Редактор",
@@ -442,6 +445,7 @@
     "upload-a-recipe": "Качи рецепта",
     "upload-individual-zip-file": "Качи като индивидуален .zip файлов формат от друга инстанция на Mealie.",
     "url-form-hint": "Копирай и постави линк от твоя любим сайт за рецепти",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Копирайте и поставете URL адреса на източника на вашите данни (по избор)",
     "view-scraped-data": "Виж събраните данни",
     "trim-whitespace-description": "Премахни интервалите в началото и края на текста, също така и празните редове",
     "trim-prefix-description": "Премахни първия символ от всеки ред",
@@ -449,7 +453,7 @@
     "import-by-url": "Импортиране на рецепта от линк",
     "create-manually": "Създай рецепта ръчно",
     "make-recipe-image": "Задай като изображението на рецептата",
-    "add-food": "Добавяне на ястие",
+    "add-food": "Добавяне на продукт",
     "add-recipe": "Добавяне на рецепта"
   },
   "page": {
@@ -497,7 +501,7 @@
     "insert-section": "Въведете раздел",
     "insert-above": "Вмъкни отгоре",
     "insert-below": "Вмъкни отдолу",
-    "instructions": "Инструкции",
+    "instructions": "Начин на приготвяне",
     "key-name-required": "Ключовото име е задължително",
     "landscape-view-coming-soon": "Пейзажен изглед",
     "milligrams": "милиграма",
@@ -567,14 +571,14 @@
     "choose-food": "Избери продукт",
     "choose-recipe": "Избор на рецепта",
     "notes": "Бележки",
-    "toggle-section": "Превключване на раздела",
+    "toggle-section": "Създай раздел",
     "see-original-text": "Виж оригиналния текст",
     "original-text-with-value": "Оригинален текст: {originalText}",
     "ingredient-linker": "Инструмент за свързване на съставки",
     "unlinked": "Все още не е свързано",
     "linked-to-other-step": "Свързано към друга стъпка",
     "auto": "Автоматично",
-    "cook-mode": "Начин на приготвяне",
+    "cook-mode": "Инструкции",
     "link-ingredients": "Свържи съставки",
     "merge-above": "Обедини с по-горната стъпка",
     "move-to-bottom": "Премести най-долу",
@@ -633,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Пробвайте масовото импорторане",
     "scrape-recipe-have-raw-html-or-json-data": "Имате ли сурови HTML или JSON данни?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Можете да импортирате директно от сурови данни",
+    "scrape-recipe-website-being-blocked": "Блокиран ли е уебсайтът?",
+    "scrape-recipe-try-importing-raw-html-instead": "Опитайте вместо това да импортирате суровия HTML код.",
     "import-original-keywords-as-tags": "Добави оригиналните ключови думи като етикети",
     "stay-in-edit-mode": "Остани в режим на редакция",
     "parse-recipe-ingredients-after-import": "Анализиране на съставките на рецептата след импортиране",
@@ -698,7 +704,7 @@
     "cover-image": "Изображение на корицата",
     "include-linked-recipes": "Влючване на свързаните рецепти",
     "include-linked-recipe-ingredients": "Включване на съставките от свързаните рецепти",
-    "toggle-recipe": "Превключване на рецептата"
+    "toggle-recipe": "Вмъкни рецепта"
   },
   "recipe-finder": {
     "recipe-finder": "Търсачка на рецепти",
@@ -969,14 +975,14 @@
     "tag": "Етикет"
   },
   "tool": {
-    "tools": "Инструменти",
+    "tools": "Прибори",
     "on-hand": "Наличности",
     "create-a-tool": "Създаване на инструмент",
     "tool-name": "Име на инструмента",
     "create-new-tool": "Създаване на нов инструмент",
     "on-hand-checkbox-label": "Показване като налични (отметнато)",
     "required-tools": "Задължителни инструменти",
-    "tool": "Инструменти"
+    "tool": "Прибори"
   },
   "user": {
     "admin": "Админ",
@@ -1017,7 +1023,7 @@
     "please-enter-password": "Моля, въведете новата си парола.",
     "register": "Регистриране",
     "reset-password": "Забравена парола",
-    "sign-in": "Вписване",
+    "sign-in": "Вход в системата",
     "total-mealplans": "Хранителни планове общо",
     "total-users": "Общо потребители",
     "upload-photo": "Качете снимка",
@@ -1172,17 +1178,17 @@
     "categories": {
       "edit-category": "Редактиране на категория",
       "new-category": "Нова категория",
-      "category-data": "Категория за данните"
+      "category-data": "Категории"
     },
     "tags": {
       "new-tag": "Нов етикет",
       "edit-tag": "Редакция на етикет",
-      "tag-data": "Данни на етикета"
+      "tag-data": "Етикети"
     },
     "tools": {
       "new-tool": "Нов инструмент",
       "edit-tool": "Редактирай инструмента",
-      "tool-data": "Данни на инструмента"
+      "tool-data": "Прибори"
     }
   },
   "user-registration": {
@@ -1422,5 +1428,13 @@
       "is-like": "е като",
       "is-not-like": "не е като"
     }
+  },
+  "validators": {
+    "required": "Това поле е задължително",
+    "invalid-email": "Email адресът трябва да бъде валиден",
+    "invalid-url": "Линкът трябва да е валиден",
+    "no-whitespace": "Не са позволени интервали",
+    "min-length": "Трябва да съдържа поне {min} знака",
+    "max-length": "Трябва да съдържа най-много {max} знака"
   }
 }

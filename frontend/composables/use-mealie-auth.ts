@@ -1,5 +1,5 @@
 import { ref, watch, computed } from "vue";
-import { useAuthBackend } from "~/composables/useAuthBackend";
+import { useAuthBackend } from "~/composables/use-auth-backend";
 import type { UserOut } from "~/lib/api/types/user";
 
 export const useMealieAuth = function () {

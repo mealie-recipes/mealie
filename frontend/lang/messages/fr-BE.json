@@ -342,6 +342,9 @@
     "breakfast": "Petit-déjeuner",
     "lunch": "Déjeuner",
     "dinner": "Souper",
+    "snack": "Goûter",
+    "drink": "Boissons",
+    "dessert": "Dessert",
     "type-any": "Tous",
     "day-any": "Tous",
     "editor": "Éditeur",
@@ -442,6 +445,7 @@
     "upload-a-recipe": "Télécharger une recette",
     "upload-individual-zip-file": "Chargez un fichier .zip exporté depuis une autre instance Mealie.",
     "url-form-hint": "Copiez et collez un lien depuis votre site de recettes favori",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copiez et collez l'URL source de vos données (facultatif)",
     "view-scraped-data": "Voir les données récupérées",
     "trim-whitespace-description": "Ajuster les espaces de début et de fin ainsi que les lignes vides",
     "trim-prefix-description": "Couper le premier caractère de chaque ligne",
@@ -565,7 +569,7 @@
     "choose-unit": "Choisissez une unité",
     "press-enter-to-create": "Clique sur Entrer pour créer",
     "choose-food": "Choisissez un aliment",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "Choisissez la recette",
     "notes": "Notes",
     "toggle-section": "Activer/Désactiver la section",
     "see-original-text": "Afficher le texte original",
@@ -633,6 +637,8 @@
     "scrape-recipe-suggest-bulk-importer": "Essayez l’importateur de masse",
     "scrape-recipe-have-raw-html-or-json-data": "Vous avez des données brutes en HTML ou JSON ?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Vous pouvez directement importer des données brutes",
+    "scrape-recipe-website-being-blocked": "Le site web est bloqué ?",
+    "scrape-recipe-try-importing-raw-html-instead": "Essayez plutôt d'importer le code HTML brut.",
     "import-original-keywords-as-tags": "Importer les mots-clés d'origine en tant que tags",
     "stay-in-edit-mode": "Rester en mode édition",
     "parse-recipe-ingredients-after-import": "Analyser les ingrédients de la recette après l'import",
@@ -736,7 +742,7 @@
     "advanced": "Avancé",
     "auto-search": "Recherche automatique",
     "no-results": "Aucun résultat trouvé",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Tapez pour chercher..."
   },
   "settings": {
     "add-a-new-theme": "Ajouter un nouveau thème",
@@ -1422,5 +1428,13 @@
       "is-like": "est comme",
       "is-not-like": "n'est pas similaire à"
     }
+  },
+  "validators": {
+    "required": "Ce champ est obligatoire",
+    "invalid-email": "L’e-mail doit être valide",
+    "invalid-url": "Doit être une URL valide",
+    "no-whitespace": "Aucun espace n'est autorisé",
+    "min-length": "Doit contenir au moins {min} caractères",
+    "max-length": "Doit contenir au maximum {max} caractères"
   }
 }

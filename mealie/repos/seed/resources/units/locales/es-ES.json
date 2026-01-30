@@ -37,56 +37,56 @@
     },
     "gallon": {
         "name": "galón",
-        "plural_name": "galón/es",
+        "plural_name": "galones",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "mililitro/s",
+        "name": "mililitro",
         "plural_name": "mililitros",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
-        "name": "litro/s",
+        "name": "litro",
         "plural_name": "litros",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
-        "name": "libra/s",
+        "name": "libra",
         "plural_name": "libras",
         "description": "",
         "abbreviation": "lb",
-        "plural_abbreviation": "libras"
+        "plural_abbreviation": "lbs"
     },
     "ounce": {
-        "name": "onza/s",
+        "name": "onza",
         "plural_name": "onzas",
         "description": "",
         "abbreviation": "onz"
     },
     "gram": {
-        "name": "gramo/s",
+        "name": "gramo",
         "plural_name": "gramos",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogramo/s",
+        "name": "kilogramo",
         "plural_name": "kilogramos",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
-        "name": "miligramo/s",
+        "name": "miligramo",
         "plural_name": "miligramos",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "gota/s",
-        "plural_name": "gota/s",
+        "name": "gota",
+        "plural_name": "gotas",
         "description": "",
         "abbreviation": ""
     },
@@ -97,20 +97,20 @@
         "abbreviation": ""
     },
     "serving": {
-        "name": "porción/es",
+        "name": "porción",
         "plural_name": "porciones",
         "description": "",
         "abbreviation": ""
     },
     "head": {
-        "name": "cabeza/s",
+        "name": "cabeza",
         "plural_name": "cabezas",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "diente/s",
-        "plural_name": "clavos de olor",
+        "name": "diente",
+        "plural_name": "dientes",
         "description": "",
         "abbreviation": ""
     },
