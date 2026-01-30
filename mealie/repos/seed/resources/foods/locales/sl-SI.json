@@ -473,8 +473,8 @@
             "endive": {
                 "aliases": [],
                 "description": "",
-                "name": "endive",
-                "plural_name": "endives"
+                "name": "endivija",
+                "plural_name": "endivije"
             },
             "habanero pepper": {
                 "aliases": [],
@@ -548,7 +548,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "microgreen",
-                "plural_name": "microgreens"
+                "plural_name": "mikrozelenje"
             },
             "boston lettuce": {
                 "aliases": [],
@@ -559,14 +559,14 @@
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
-                "name": "kohlrabi",
-                "plural_name": "kohlrabis"
+                "name": "koleraba",
+                "plural_name": "kolerabe"
             },
             "fresno chile": {
                 "aliases": [],
                 "description": "",
-                "name": "fresno chile",
-                "plural_name": "fresno chiles"
+                "name": "čili paprika Fresno",
+                "plural_name": "čili paprike Fresno"
             },
             "delicata squash": {
                 "aliases": [],
