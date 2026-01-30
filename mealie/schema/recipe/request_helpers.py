@@ -17,9 +17,5 @@ class UpdateImageResponse(BaseModel):
     image: str
 
 
-class RecipeZipTokenResponse(BaseModel):
-    token: str
-
-
 class RecipeDuplicate(BaseModel):
     name: str | None = None

@@ -37,21 +37,27 @@
             :label="$t('search.search')"
             clearable
           />
-          <div class="d-flex py-4 px-1">
-            <v-switch
+          <div />
+          <div class="d-flex py-4 px-1 align-center">
+            <v-btn-toggle
               v-if="requireAll != undefined"
-              v-model="requireAllValue"
+              v-model="combinator"
+              mandatory
               density="compact"
-              hide-details
-              class="my-auto"
+              variant="outlined"
               color="primary"
-              :label="requireAllValue ? $t('search.has-all') : $t('search.has-any')"
-            />
+            >
+              <v-btn value="hasAll">
+                {{ $t('search.has-all') }}
+              </v-btn>
+              <v-btn value="hasAny">
+                {{ $t('search.has-any') }}
+              </v-btn>
+            </v-btn-toggle>
             <v-spacer />
             <v-btn
               size="small"
               color="accent"
-              class="mr-2 my-auto"
               @click="clearSelection"
             >
               {{ $t("search.clear-selection") }}
@@ -174,10 +180,10 @@ export default defineNuxtComponent({
     // Use shallowRef for better performance with arrays
     const debouncedSearch = shallowRef("");
 
-    const requireAllValue = computed({
-      get: () => props.requireAll,
+    const combinator = computed({
+      get: () => (props.requireAll ? "hasAll" : "hasAny"),
       set: (value) => {
-        context.emit("update:requireAll", value);
+        context.emit("update:requireAll", value === "hasAll");
       },
     });
 
@@ -246,7 +252,7 @@ export default defineNuxtComponent({
     }
 
     return {
-      requireAllValue,
+      combinator,
       state,
       selected,
       selectedRadio,

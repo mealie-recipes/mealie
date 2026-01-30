@@ -5,7 +5,7 @@
         <v-icon class="mr-1">
           {{ $globals.icons.calendar }}
         </v-icon>
-        {{ new Date(event.timestamp).toLocaleDateString($i18n.locale) }}
+        {{ $d(new Date(event.timestamp)) }}
       </v-chip>
     </template>
     <v-card
@@ -22,7 +22,7 @@
           <v-col v-if="useMobileFormat" align-self="center" class="pr-0">
             <v-chip label>
               <v-icon> {{ $globals.icons.calendar }} </v-icon>
-              {{ new Date(event.timestamp || "").toLocaleDateString($i18n.locale) }}
+              {{ $d(new Date(event.timestamp || "")) }}
             </v-chip>
           </v-col>
           <v-col v-else cols="9" style="margin: auto; text-align: center">
@@ -119,7 +119,7 @@ defineEmits<{
 
 const { $globals } = useNuxtApp();
 const display = useDisplay();
-const { recipeTimelineEventImage } = useStaticRoutes();
+const { recipeTimelineEventSmallImage } = useStaticRoutes();
 const { eventTypeOptions } = useTimelineEventTypes();
 
 const { user: currentUser } = useMealieAuth();
@@ -173,7 +173,7 @@ const eventImageUrl = computed<string>(() => {
     return "";
   }
 
-  return recipeTimelineEventImage(props.event.recipeId, props.event.id);
+  return recipeTimelineEventSmallImage(props.event.recipeId, props.event.id);
 });
 </script>
 

@@ -109,6 +109,7 @@
         <v-autocomplete
           v-model="locale"
           :items="locales"
+          :custom-filter="normalizeFilter"
           item-title="name"
           :label="$t('data-pages.select-language')"
           class="my-3"
@@ -116,11 +117,12 @@
           variant="outlined"
           offset
         >
-          <template #item="{ item }">
-            <v-list-item-title> {{ item.raw.name }} </v-list-item-title>
-            <v-list-item-subtitle>
-              {{ item.raw.progress }}% {{ $t("language-dialog.translated") }}
-            </v-list-item-subtitle>
+          <template #item="{ item, props }">
+            <v-list-item v-bind="props">
+              <v-list-item-subtitle>
+                {{ item.raw.progress }}% {{ $t("language-dialog.translated") }}
+              </v-list-item-subtitle>
+            </v-list-item>
           </template>
         </v-autocomplete>
 
@@ -185,6 +187,7 @@ import { useUserApi } from "~/composables/api";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import type { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import { useLocales } from "~/composables/use-locales";
+import { normalizeFilter } from "~/composables/use-utils";
 import { useLabelData, useLabelStore } from "~/composables/store";
 
 export default defineNuxtComponent({
@@ -258,9 +261,8 @@ export default defineNuxtComponent({
     }
 
     async function deleteSelected() {
-      for (const item of bulkDeleteTarget.value) {
-        await labelStore.actions.deleteOne(item.id);
-      }
+      const ids = bulkDeleteTarget.value.map(item => item.id);
+      await labelStore.actions.deleteMany(ids);
       bulkDeleteTarget.value = [];
     }
 
@@ -315,6 +317,7 @@ export default defineNuxtComponent({
       tableHeaders,
       labels: labelStore.store,
       validators,
+      normalizeFilter,
 
       // create
       createLabel,

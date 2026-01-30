@@ -141,6 +141,13 @@ function save() {
   dialog.value = false;
 }
 
+function open() {
+  dialog.value = true;
+}
+function close() {
+  dialog.value = false;
+}
+
 const i18n = useI18n();
 
 const utilities = [
@@ -160,4 +167,10 @@ const utilities = [
     action: splitByNumberedLine,
   },
 ];
+
+// Expose functions to parent components
+defineExpose({
+  open,
+  close,
+});
 </script>

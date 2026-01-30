@@ -212,6 +212,8 @@
     "upload-file": "ファイルのアップロード",
     "created-on-date": "作成日: {0}",
     "unsaved-changes": "保存されていない変更があります。移動する前に保存しますか？保存するには はい を、変更を破棄するにはキャンセルしてください。",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "クリップボードにコピーできませんでした",
     "confirm-delete-generic-items": "次のアイテムを本当に削除しますか？",
     "organizers": "収納",
@@ -342,6 +344,9 @@
     "breakfast": "朝食",
     "lunch": "昼食",
     "dinner": "夕食",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "すべて",
     "day-any": "すべて",
     "editor": "エディタ",
@@ -442,13 +447,16 @@
     "upload-a-recipe": "レシピのアップロード",
     "upload-individual-zip-file": "別のMealieインスタンスからエクスポートされた個別の.zipファイルをアップロードします。",
     "url-form-hint": "お気に入りのレシピサイトからリンクをコピーして貼り付け",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "スクライピングされたデータの表示",
     "trim-whitespace-description": "先頭と末尾の空白、空白行をトリミングします。",
     "trim-prefix-description": "各行の最初の文字をトリミングする",
     "split-by-numbered-line-description": "「1)」または「1.」に一致する段落を分割しようとします。",
     "import-by-url": "URLからレシピをインポート",
     "create-manually": "レシピを手動で作成",
-    "make-recipe-image": "これをレシピ画像にします"
+    "make-recipe-image": "これをレシピ画像にします",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 ページが見つかりません",
@@ -515,6 +523,9 @@
     "recipe-deleted": "レシピを削除しました",
     "recipe-image": "レシピの画像",
     "recipe-image-updated": "レシピ画像を更新しました",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "レシピ名",
     "recipe-settings": "レシピの設定",
     "recipe-update-failed": "レシピの更新に失敗しました",
@@ -560,6 +571,7 @@
     "choose-unit": "単位を選択",
     "press-enter-to-create": "Enterキーを押して作成",
     "choose-food": "食料を選択",
+    "choose-recipe": "Choose Recipe",
     "notes": "備考",
     "toggle-section": "セクションの切り替え",
     "see-original-text": "元のテキストを見る",
@@ -587,6 +599,7 @@
     "made-this": "これを作りました",
     "how-did-it-turn-out": "どうなりましたか？",
     "user-made-this": "{user} がこれを作りました",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Added to timeline",
     "failed-to-add-to-timeline": "Failed to add to timeline",
     "failed-to-update-recipe": "Failed to update recipe",
@@ -626,6 +639,8 @@
     "scrape-recipe-suggest-bulk-importer": "一括インポートを試す",
     "scrape-recipe-have-raw-html-or-json-data": "生の HTML または JSON データをお持ちですか？",
     "scrape-recipe-you-can-import-from-raw-data-directly": "生データから直接インポートできます",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "元のキーワードをタグとしてインポート",
     "stay-in-edit-mode": "編集モードを維持",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
@@ -685,10 +700,13 @@
     "reset-servings-count": "サービング数をリセット",
     "not-linked-ingredients": "追加の材料",
     "upload-another-image": "Upload another image",
-    "upload-images": "Upload images",
+    "upload-images": "画像のアップロード",
     "upload-more-images": "Upload more images",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "カバー画像",
+    "include-linked-recipes": "リンクされたレシピを含める",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "レシピ検索",
@@ -725,7 +743,8 @@
     "search-hint": "'/' を押す",
     "advanced": "詳細",
     "auto-search": "自動検索",
-    "no-results": "結果は見つかりませんでした。"
+    "no-results": "結果は見つかりませんでした。",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "新しいテーマを追加",
@@ -1063,7 +1082,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "これ以上表示したくないですか？ユーザー設定でメールアドレスを変更してください！",
     "forgot-password": "パスワードを忘れた",
     "forgot-password-text": "メールアドレスを入力すると、パスワードをリセットするためのリンクが送信されます。",
-    "changes-reflected-immediately": "このユーザーへの変更はすぐに反映されます。"
+    "changes-reflected-immediately": "このユーザーへの変更はすぐに反映されます。",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "翻訳済み",
@@ -1409,5 +1430,13 @@
       "is-like": "次のようなものです",
       "is-not-like": "というわけではありません"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

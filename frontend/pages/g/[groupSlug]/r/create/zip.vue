@@ -37,14 +37,14 @@
 </template>
 
 <script lang="ts">
-import type { AxiosResponse } from "axios";
 import { useUserApi } from "~/composables/api";
+import { useGlobalI18n } from "~/composables/use-global-i18n";
+import { alert } from "~/composables/use-toast";
 import { validators } from "~/composables/use-validators";
 
 export default defineNuxtComponent({
   setup() {
     const state = reactive({
-      error: false,
       loading: false,
     });
     const $auth = useMealieAuth();
@@ -53,15 +53,6 @@ export default defineNuxtComponent({
 
     const api = useUserApi();
     const router = useRouter();
-
-    function handleResponse(response: AxiosResponse<string> | null, edit = false) {
-      if (response?.status !== 201) {
-        state.error = true;
-        state.loading = false;
-        return;
-      }
-      router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}`);
-    }
 
     const newRecipeZip = ref<File | null>(null);
     const newRecipeZipFileName = "archive";
@@ -73,8 +64,21 @@ export default defineNuxtComponent({
       const formData = new FormData();
       formData.append(newRecipeZipFileName, newRecipeZip.value);
 
-      const { response } = await api.upload.file("/api/recipes/create/zip", formData);
-      handleResponse(response);
+      try {
+        const response = await api.upload.file("/api/recipes/create/zip", formData);
+        if (response?.status !== 201) {
+          throw new Error("Failed to upload zip");
+        }
+        router.push(`/g/${groupSlug.value}/r/${response.data}`);
+      }
+      catch (error) {
+        console.error(error);
+        const i18n = useGlobalI18n();
+        alert.error(i18n.t("events.something-went-wrong"));
+      }
+      finally {
+        state.loading = false;
+      }
     }
 
     return {

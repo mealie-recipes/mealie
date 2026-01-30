@@ -175,7 +175,7 @@
     "view": "Weergave",
     "wednesday": "woensdag",
     "yes": "Ja",
-    "foods": "Levensmiddelen",
+    "foods": "Ingrediënten",
     "units": "Eenheden",
     "back": "Terug",
     "next": "Volgende",
@@ -212,6 +212,8 @@
     "upload-file": "Bestand uploaden",
     "created-on-date": "Gemaakt op: {0}",
     "unsaved-changes": "Er zijn niet-opgeslagen wijzigingen. Wil je eerst opslaan voordat je vertrekt? Oké om op te slaan, Annuleren om wijzigingen ongedaan te maken.",
+    "discard-changes": "Sla wijzigingen niet op",
+    "discard-changes-description": "Je wilt je wijzigingen niet opslaan. Weet je het zeker?",
     "clipboard-copy-failure": "Kopiëren naar klembord mislukt.",
     "confirm-delete-generic-items": "Weet je zeker dat je de volgende items wilt verwijderen?",
     "organizers": "Organisatoren",
@@ -268,7 +270,7 @@
     "default-to-landscape-view-description": "Als dit is ingeschakeld zie je de koptekst van dit recept in liggende weergave",
     "disable-users-from-commenting-on-recipes": "Gebruikersreacties op recepten uitschakelen",
     "disable-users-from-commenting-on-recipes-description": "Als dit is ingeschakeld zie je geen reacties op dit recept en kunnen bezoekers ook geen reacties achterlaten",
-    "disable-organizing-recipe-ingredients-by-units-and-food": "Het organiseren van receptingrediënten met eenheden en levensmiddelen uitschakelen",
+    "disable-organizing-recipe-ingredients-by-units-and-food": "Het organiseren van ingrediënten met eenheden en levensmiddelen uitschakelen",
     "disable-organizing-recipe-ingredients-by-units-and-food-description": "Als dit is ingeschakeld zijn levensmiddelen, eenheden en hoeveelheden verborgen en worden ingrediënten als gewone tekstvelden behandeld",
     "general-preferences": "Algemene voorkeuren",
     "group-recipe-preferences": "Receptvoorkeuren voor groep",
@@ -342,6 +344,9 @@
     "breakfast": "Ontbijt",
     "lunch": "Lunch",
     "dinner": "Diner",
+    "snack": "Tussendoortje",
+    "drink": "Drankje",
+    "dessert": "Toetje",
     "type-any": "Alle",
     "day-any": "Elke",
     "editor": "Editor",
@@ -442,13 +447,16 @@
     "upload-a-recipe": "Upload een recept",
     "upload-individual-zip-file": "Upload een .zip-bestand dat uit een andere Mealie-instantie is geëxporteerd.",
     "url-form-hint": "Kopieer en plak een link vanuit jouw favoriete receptenwebsite",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Kopieer en plak de bron URL van uw gegevens (optioneel)",
     "view-scraped-data": "Bekijk opgehaalde data",
     "trim-whitespace-description": "Haal witruimtes en witregels aan het begin en einde weg",
     "trim-prefix-description": "Verwijder het eerste teken van elke regel",
     "split-by-numbered-line-description": "Probeert om een alinea te splitsen door de '1)' of '1.' patronen te gebruiken",
     "import-by-url": "Importeer een recept van een website",
     "create-manually": "Maak handmatig een recept aan",
-    "make-recipe-image": "Maak dit de afbeelding voor dit recept"
+    "make-recipe-image": "Maak dit de afbeelding voor dit recept",
+    "add-food": "Voeg eten toe",
+    "add-recipe": "Voeg recept toe"
   },
   "page": {
     "404-page-not-found": "404 Pagina niet gevonden",
@@ -515,6 +523,9 @@
     "recipe-deleted": "Recept verwijderd",
     "recipe-image": "Receptafbeelding",
     "recipe-image-updated": "Receptafbeelding bijgewerkt",
+    "delete-image": "Verwijder Recept Afbeelding",
+    "delete-image-confirmation": "Weet je zeker dat je deze afbeelding wil verwijderen?",
+    "recipe-image-deleted": "Receptafbeelding verwijderd",
     "recipe-name": "Receptnaam",
     "recipe-settings": "Receptinstellingen",
     "recipe-update-failed": "Recept bijwerken mislukt",
@@ -560,6 +571,7 @@
     "choose-unit": "Kies een eenheid",
     "press-enter-to-create": "Druk op Enter om aan te maken",
     "choose-food": "Levensmiddelen kiezen",
+    "choose-recipe": "Kies recept",
     "notes": "Notities",
     "toggle-section": "Sectie schakelen",
     "see-original-text": "Zie oorspronkelijke tekst",
@@ -587,6 +599,7 @@
     "made-this": "Ik heb dit gemaakt",
     "how-did-it-turn-out": "Hoe was je gerecht?",
     "user-made-this": "{user} heeft dit gemaakt",
+    "made-for-recipe": "Gemaakt voor {recipe}",
     "added-to-timeline": "Toevoegen aan tijdlijn",
     "failed-to-add-to-timeline": "Toegevoegd aan tijdlijn",
     "failed-to-update-recipe": "Updaten recept mislukt",
@@ -626,6 +639,8 @@
     "scrape-recipe-suggest-bulk-importer": "Probeer importeren in bulk",
     "scrape-recipe-have-raw-html-or-json-data": "Heb je onbewerkte HTML of JSON gegevens?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "U kunt direct importeren uit onbewerkte gegevens",
+    "scrape-recipe-website-being-blocked": "Wordt de website geblokkeerd?",
+    "scrape-recipe-try-importing-raw-html-instead": "Probeer de HTML broncode te importeren.",
     "import-original-keywords-as-tags": "Importeer oorspronkelijke trefwoorden als labels",
     "stay-in-edit-mode": "Blijf in bewerkingsmodus",
     "parse-recipe-ingredients-after-import": "Ontleed de ingrediënten van het recept na importeren",
@@ -688,7 +703,10 @@
     "upload-images": "Afbeelding uploaden",
     "upload-more-images": "Meer afbeeldingen uploaden",
     "set-as-cover-image": "Als recept omslagfoto instellen",
-    "cover-image": "Omslagfoto"
+    "cover-image": "Omslagfoto",
+    "include-linked-recipes": "Reken gekoppelde recepten mee",
+    "include-linked-recipe-ingredients": "Voeg gekoppelde receptingrediënten toe",
+    "toggle-recipe": "Recept wisselen"
   },
   "recipe-finder": {
     "recipe-finder": "Recept zoeker",
@@ -725,7 +743,8 @@
     "search-hint": "Druk op '/'",
     "advanced": "Geavanceerd",
     "auto-search": "Automatisch zoeken",
-    "no-results": "Geen resultaten gevonden"
+    "no-results": "Geen resultaten gevonden",
+    "type-to-search": "Zoek..."
   },
   "settings": {
     "add-a-new-theme": "Voeg een nieuw thema toe",
@@ -1063,7 +1082,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Wil je dit niet meer zien? Verander dan je e-mailadres in je gebruikersinstellingen!",
     "forgot-password": "Wachtwoord vergeten",
     "forgot-password-text": "Voer je e-mailadres in, dan sturen we je een link om het wachtwoord te herstellen.",
-    "changes-reflected-immediately": "Wijzigingen in deze groep zijn meteen zichtbaar."
+    "changes-reflected-immediately": "Wijzigingen in deze groep zijn meteen zichtbaar.",
+    "default-activity": "Standaard activiteit",
+    "default-activity-hint": "Kies de pagina waar u naar toe wilt, na inloggen op dit apparaat"
   },
   "language-dialog": {
     "translated": "vertaald",
@@ -1409,5 +1430,13 @@
       "is-like": "is zoals",
       "is-not-like": "is niet zoals"
     }
+  },
+  "validators": {
+    "required": "Dit is een verplicht veld",
+    "invalid-email": "E-mailadres moet geldig zijn",
+    "invalid-url": "Moet een geldige URL zijn",
+    "no-whitespace": "Geen spaties toegestaan",
+    "min-length": "Moet minimaal {min} tekens bevatten",
+    "max-length": "Zorg dat je {max} tekens gebruikt"
   }
 }

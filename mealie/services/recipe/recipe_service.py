@@ -4,10 +4,12 @@ import shutil
 from datetime import UTC, datetime
 from pathlib import Path
 from shutil import copytree, rmtree
+from textwrap import dedent
 from typing import Any
 from uuid import UUID, uuid4
 from zipfile import ZipFile
 
+import sqlalchemy as sa
 from fastapi import UploadFile
 
 from mealie.core import exceptions
@@ -64,31 +66,57 @@ class RecipeService(RecipeServiceBase):
             raise exceptions.NoEntryFound("Recipe not found.")
         return recipe
 
-    def can_delete(self, recipe: Recipe) -> bool:
+    def can_delete(self, recipe_slugs: list[str]) -> bool:
         if self.user.admin:
             return True
         else:
-            return self.can_update(recipe)
+            return self.can_update(recipe_slugs)
 
-    def can_update(self, recipe: Recipe) -> bool:
-        if recipe.settings is None:
-            raise exceptions.UnexpectedNone("Recipe Settings is None")
+    def can_update(self, recipe_slugs: list[str]) -> bool:
+        sql = dedent(
+            """
+            SELECT
+                CASE
+                    WHEN COUNT(*) = SUM(
+                        CASE
+                            -- User owns the recipe
+                            WHEN r.user_id = :user_id THEN 1
 
-        # Check if this user owns the recipe
-        if self.user.id == recipe.user_id:
-            return True
+                            -- Not owner: check if recipe is locked
+                            WHEN COALESCE(rs.locked, TRUE) = TRUE THEN 0
 
-        # Check if this user has permission to edit this recipe
-        if self.household.id != recipe.household_id:
-            other_household = self.repos.households.get_one(recipe.household_id)
-            if not (other_household and other_household.preferences):
-                return False
-            if other_household.preferences.lock_recipe_edits_from_other_households:
-                return False
-        if recipe.settings.locked:
-            return False
+                            -- Different household: check household policy
+                            WHEN
+                                u.household_id != :household_id
+                                AND COALESCE(hp.lock_recipe_edits_from_other_households, TRUE) = TRUE
+                            THEN 0
 
-        return True
+                            -- All other cases: can update
+                            ELSE 1
+                        END
+                    ) THEN 1
+                    ELSE 0
+                END AS all_can_update
+            FROM recipes r
+            LEFT JOIN recipe_settings rs ON rs.recipe_id = r.id
+            LEFT JOIN users u ON u.id = r.user_id
+            LEFT JOIN households h ON h.id = u.household_id
+            LEFT JOIN household_preferences hp ON hp.household_id = h.id
+            WHERE r.slug IN :recipe_slugs AND r.group_id = :group_id;
+            """
+        )
+
+        result = self.repos.session.execute(
+            sa.text(sql).bindparams(sa.bindparam("recipe_slugs", expanding=True)),
+            params={
+                "user_id": self.repos.uuid_to_str(self.user.id),
+                "household_id": self.repos.uuid_to_str(self.household.id),
+                "group_id": self.repos.uuid_to_str(self.user.group_id),
+                "recipe_slugs": recipe_slugs,
+            },
+        ).scalar()
+
+        return bool(result)
 
     def can_lock_unlock(self, recipe: Recipe) -> bool:
         return recipe.user_id == self.user.id
@@ -369,6 +397,37 @@ class RecipeService(RecipeServiceBase):
 
         return new_recipe
 
+    def has_recursive_recipe_link(self, recipe: Recipe, path: set[str] | None = None):
+        """Recursively checks if a recipe links to itself through its ingredients."""
+        if path is None:
+            path = set()
+
+        recipe_id = str(getattr(recipe, "id", None))
+
+        # Check if this recipe is already in the current path (cycle detected)
+        if recipe_id in path:
+            return True
+
+        # Add to the current path
+        path.add(recipe_id)
+
+        try:
+            ingredients = getattr(recipe, "recipe_ingredient", [])
+            for ing in ingredients:
+                try:
+                    sub_recipe = self.get_one(ing.referenced_recipe.id)
+                except (AttributeError, exceptions.NoEntryFound):
+                    continue
+
+                # Recursively check - path is modified in place and cleaned up via backtracking
+                if self.has_recursive_recipe_link(sub_recipe, path):
+                    return True
+        finally:
+            # Backtrack: remove this recipe from the path when done exploring this branch
+            path.discard(recipe_id)
+
+        return False
+
     def _pre_update_check(self, slug_or_id: str | UUID, new_data: Recipe) -> Recipe:
         """
         gets the recipe from the database and performs a check to see if the user can update the recipe.
@@ -392,12 +451,15 @@ class RecipeService(RecipeServiceBase):
         if recipe is None or recipe.settings is None:
             raise exceptions.NoEntryFound("Recipe not found.")
 
-        if not self.can_update(recipe):
+        if not self.can_update([recipe.slug]):
             raise exceptions.PermissionDenied("You do not have permission to edit this recipe.")
 
         setting_lock = new_data.settings is not None and recipe.settings.locked != new_data.settings.locked
         if setting_lock and not self.can_lock_unlock(recipe):
             raise exceptions.PermissionDenied("You do not have permission to lock/unlock this recipe.")
+
+        if self.has_recursive_recipe_link(new_data):
+            raise exceptions.RecursiveRecipe("Recursive recipe link detected. Update aborted.")
 
         return recipe
 
@@ -410,13 +472,24 @@ class RecipeService(RecipeServiceBase):
 
     def update_recipe_image(self, slug: str, image: bytes, extension: str):
         recipe = self.get_one(slug)
-        if not self.can_update(recipe):
+        if not self.can_update([recipe.slug]):
             raise exceptions.PermissionDenied("You do not have permission to edit this recipe.")
 
         data_service = RecipeDataService(recipe.id)
         data_service.write_image(image, extension)
 
         return self.group_recipes.update_image(slug, extension)
+
+    def delete_recipe_image(self, slug: str) -> None:
+        recipe = self.get_one(slug)
+        if not self.can_update([recipe.slug]):
+            raise exceptions.PermissionDenied("You do not have permission to edit this recipe.")
+
+        data_service = RecipeDataService(recipe.id)
+        data_service.delete_image()
+
+        self.group_recipes.delete_image(slug)
+        return None
 
     def patch_one(self, slug_or_id: str | UUID, patch_data: Recipe) -> Recipe:
         recipe: Recipe = self._pre_update_check(slug_or_id, patch_data)
@@ -437,12 +510,24 @@ class RecipeService(RecipeServiceBase):
 
     def delete_one(self, slug_or_id: str | UUID) -> Recipe:
         recipe = self.get_one(slug_or_id)
+        resp = self.delete_many([recipe.slug])
+        return resp[0]
 
-        if not self.can_delete(recipe):
-            raise exceptions.PermissionDenied("You do not have permission to delete this recipe.")
+    def delete_many(self, recipe_slugs: list[str]) -> list[Recipe]:
+        if not self.can_delete(recipe_slugs):
+            if len(recipe_slugs) == 1:
+                msg = "You do not have permission to delete this recipe."
+            else:
+                msg = "You do not have permission to delete all of these recipes."
+            raise exceptions.PermissionDenied(msg)
 
-        data = self.group_recipes.delete(recipe.id, "id")
-        self.delete_assets(data)
+        data = self.group_recipes.delete_many(recipe_slugs)
+        for r in data:
+            try:
+                self.delete_assets(r)
+            except Exception:
+                self.logger.exception(f"Failed to delete recipe assets for {r.slug}")
+
         return data
 
     # =================================================================

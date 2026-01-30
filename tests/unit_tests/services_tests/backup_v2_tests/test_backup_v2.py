@@ -249,6 +249,8 @@ def test_database_restore_data():
 
     settings = get_app_settings()
     backup_v2 = BackupV2(settings.DB_URL)
+
+    backup_v2.directories.BACKUP_DIR.mkdir(parents=True, exist_ok=True)
     original_data_backup = backup_v2.backup()
 
     try:

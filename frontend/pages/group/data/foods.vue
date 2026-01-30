@@ -16,6 +16,7 @@
           v-model="fromFood"
           return-object
           :items="foods"
+          :custom-filter="normalizeFilter"
           item-title="name"
           :label="$t('data-pages.foods.source-food')"
         />
@@ -23,6 +24,7 @@
           v-model="toFood"
           return-object
           :items="foods"
+          :custom-filter="normalizeFilter"
           item-title="name"
           :label="$t('data-pages.foods.target-food')"
         />
@@ -51,17 +53,19 @@
           v-model="locale"
           :items="locales"
           item-title="name"
+          :custom-filter="normalizeFilter"
           :label="$t('data-pages.select-language')"
           class="my-3"
           hide-details
           variant="outlined"
           offset
         >
-          <template #item="{ item }">
-            <v-list-item-title> {{ item.raw.name }} </v-list-item-title>
-            <v-list-item-subtitle>
-              {{ item.raw.progress }}% {{ $t("language-dialog.translated") }}
-            </v-list-item-subtitle>
+          <template #item="{ item, props }">
+            <v-list-item v-bind="props">
+              <v-list-item-subtitle>
+                {{ item.raw.progress }}% {{ $t("language-dialog.translated") }}
+              </v-list-item-subtitle>
+            </v-list-item>
           </template>
         </v-autocomplete>
 
@@ -107,6 +111,7 @@
             v-model="createTarget.labelId"
             clearable
             :items="allLabels"
+            :custom-filter="normalizeFilter"
             item-value="id"
             item-title="name"
             :label="$t('data-pages.foods.food-label')"
@@ -163,6 +168,7 @@
             v-model="editTarget.labelId"
             clearable
             :items="allLabels"
+            :custom-filter="normalizeFilter"
             item-value="id"
             item-title="name"
             :label="$t('data-pages.foods.food-label')"
@@ -255,6 +261,7 @@
           v-model="bulkAssignLabelId"
           clearable
           :items="allLabels"
+          :custom-filter="normalizeFilter"
           item-value="id"
           item-title="name"
           :label="$t('data-pages.foods.food-label')"
@@ -323,7 +330,7 @@
         </v-icon>
       </template>
       <template #[`item.createdAt`]="{ item }">
-        {{ formatDate(item.createdAt) }}
+        {{ item.createdAt ? $d(new Date(item.createdAt)) : '' }}
       </template>
       <template #button-bottom>
         <BaseButton @click="seedDialog = true">
@@ -345,6 +352,7 @@ import { useUserApi } from "~/composables/api";
 import type { CreateIngredientFood, IngredientFood, IngredientFoodAlias } from "~/lib/api/types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
+import { normalizeFilter } from "~/composables/use-utils";
 import { useFoodStore, useLabelStore } from "~/composables/store";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import type { VForm } from "~/types/auto-forms";
@@ -415,15 +423,6 @@ export default defineNuxtComponent({
         sortable: true,
       },
     ];
-
-    function formatDate(date: string) {
-      try {
-        return i18n.d(Date.parse(date), "medium");
-      }
-      catch {
-        return "";
-      }
-    }
 
     const userHousehold = computed(() => $auth.user.value?.householdSlug || "");
     const foodStore = useFoodStore();
@@ -529,9 +528,8 @@ export default defineNuxtComponent({
     }
 
     async function deleteSelected() {
-      for (const item of bulkDeleteTarget.value) {
-        await foodStore.actions.deleteOne(item.id);
-      }
+      const ids = bulkDeleteTarget.value.map(item => item.id);
+      await foodStore.actions.deleteMany(ids);
       bulkDeleteTarget.value = [];
     }
 
@@ -633,7 +631,7 @@ export default defineNuxtComponent({
       foods,
       allLabels,
       validators,
-      formatDate,
+      normalizeFilter,
       // Create
       createDialog,
       domNewFoodForm,

@@ -8,6 +8,7 @@ export interface UserPrintPreferences {
   showDescription: boolean;
   showNotes: boolean;
   showNutrition: boolean;
+  expandChildRecipes: boolean;
 }
 
 export interface UserSearchQuery {
@@ -91,6 +92,7 @@ export function useUserPrintPreferences(): Ref<UserPrintPreferences> {
       imagePosition: "left",
       showDescription: true,
       showNotes: true,
+      expandChildRecipes: false,
     },
     { mergeDefaults: true },
     // we cast to a Ref because by default it will return an optional type ref

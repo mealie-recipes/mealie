@@ -50,11 +50,11 @@ export default defineNuxtConfig({
         },
       ],
       link: [
-        { "rel": "icon", "type": "image/x-icon", "href": "/favicon.ico", "data-n-head": "ssr" },
-        { "rel": "shortcut icon", "type": "image/png", "href": "/icons/icon-x64.png", "data-n-head": "ssr" },
-        { "rel": "apple-touch-icon", "type": "image/png", "href": "/icons/apple-touch-icon.png", "data-n-head": "ssr" },
-        { "rel": "mask-icon", "href": "/icons/safari-pinned-tab.svg", "data-n-head": "ssr" },
-        { "rel": "manifest", "href": "/manifest.webmanifest", "data-n-head": "ssr" },
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+        { rel: "shortcut icon", type: "image/png", href: "/icons/icon-x64.png" },
+        { rel: "apple-touch-icon", type: "image/png", href: "/icons/apple-touch-icon.png" },
+        { rel: "mask-icon", href: "/icons/safari-pinned-tab.svg" },
+        { rel: "manifest", href: "/manifest.webmanifest", crossorigin: "use-credentials" },
       ],
     },
 
@@ -245,7 +245,6 @@ export default defineNuxtConfig({
         "browser",
         "window-controls-overlay",
       ],
-      orientation: "any",
       categories: ["food", "lifestyle"],
       prefer_related_applications: false,
       handle_links: "preferred",
@@ -258,6 +257,7 @@ export default defineNuxtConfig({
       share_target: {
         action: "/r/create/url",
         method: "GET",
+        enctype: "application/x-www-form-urlencoded",
         params: {
           text: "recipe_import_url",
         },
@@ -388,6 +388,23 @@ export default defineNuxtConfig({
       locale: {
         locale: "en-US",
         fallback: "en-US",
+      },
+      defaults: {
+        VOverlay: {
+          scrollStrategy: "close",
+        },
+        VMenu: {
+          scrollStrategy: "close",
+        },
+        VAutocomplete: {
+          scrollStrategy: "close",
+        },
+        VCombobox: {
+          scrollStrategy: "close",
+        },
+        VSelect: {
+          scrollStrategy: "close",
+        },
       },
     },
   },

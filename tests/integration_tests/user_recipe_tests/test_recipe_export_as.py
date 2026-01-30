@@ -28,13 +28,15 @@ def test_get_recipe_as_zip(api_client: TestClient, unique_user: TestUser) -> Non
     assert response.status_code == 201
     slug = response.json()
 
-    # Get zip token
-    response = api_client.post(api_routes.recipes_slug_exports(slug), headers=unique_user.token)
-    assert response.status_code == 200
-    token = response.json()["token"]
-    assert token
+    # Get token
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["slug"] == slug
+    response = api_client.post(api_routes.shared_recipes, json={"recipeId": recipe["id"]}, headers=unique_user.token)
+    assert response.status_code == 201
+    token_id = response.json()["id"]
 
-    response = api_client.get(api_routes.recipes_slug_exports_zip(slug) + f"?token={token}", headers=unique_user.token)
+    # Get zip file
+    response = api_client.get(api_routes.recipes_shared_token_id_zip(token_id))
     assert response.status_code == 200
 
     # Verify the zip

@@ -14,6 +14,7 @@ from sqlalchemy.orm.session import object_session
 from mealie.db.models._model_utils.auto_init import auto_init
 from mealie.db.models._model_utils.datetime import NaiveDateTime, get_utc_today
 from mealie.db.models._model_utils.guid import GUID
+from mealie.db.models.recipe.ingredient import RecipeIngredientModel
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from ..household.household_to_recipe import HouseholdToRecipe
@@ -22,7 +23,6 @@ from .api_extras import ApiExtras, api_extras
 from .assets import RecipeAsset
 from .category import recipes_to_categories
 from .comment import RecipeComment
-from .ingredient import RecipeIngredientModel
 from .instruction import RecipeInstruction
 from .note import Note
 from .nutrition import Nutrition
@@ -100,11 +100,17 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     )
     tools: Mapped[list["Tool"]] = orm.relationship("Tool", secondary=recipes_to_tools, back_populates="recipes")
 
-    recipe_ingredient: Mapped[list[RecipeIngredientModel]] = orm.relationship(
+    recipe_ingredient: Mapped[list["RecipeIngredientModel"]] = orm.relationship(
         "RecipeIngredientModel",
         cascade="all, delete-orphan",
         order_by="RecipeIngredientModel.position",
         collection_class=ordering_list("position"),
+        foreign_keys="RecipeIngredientModel.recipe_id",
+    )
+    referenced_ingredients: Mapped[list["RecipeIngredientModel"]] = orm.relationship(
+        "RecipeIngredientModel",
+        foreign_keys="RecipeIngredientModel.referenced_recipe_id",
+        back_populates="referenced_recipe",
     )
     recipe_instructions: Mapped[list[RecipeInstruction]] = orm.relationship(
         "RecipeInstruction",

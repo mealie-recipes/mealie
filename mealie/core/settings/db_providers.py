@@ -43,28 +43,28 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
 
     model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
 
+    def _parse_override_url(self, url: str) -> str:
+        if not url.startswith("postgresql://"):
+            raise ValueError("POSTGRES_URL_OVERRIDE scheme must be postgresql")
+
+        scheme, remainder = url.split("://", 1)
+        if "@" in remainder and ":" in remainder.split("@")[0]:
+            credentials, host_part = remainder.rsplit("@", 1)
+            user, password = credentials.split(":", 1)
+            return f"{scheme}://{user}:{urlparse.quote(password, safe='')}@{host_part}"
+
+        return url
+
     @property
     def db_url(self) -> str:
         if self.POSTGRES_URL_OVERRIDE:
-            url = self.POSTGRES_URL_OVERRIDE
-
-            scheme, remainder = url.split("://", 1)
-            if scheme != "postgresql":
-                raise ValueError("POSTGRES_URL_OVERRIDE scheme must be postgresql")
-
-            remainder = remainder.split(":", 1)[1]
-            password = remainder[: remainder.rfind("@")]
-            quoted_password = urlparse.quote(password)
-
-            safe_url = url.replace(password, quoted_password)
-
-            return safe_url
+            return self._parse_override_url(self.POSTGRES_URL_OVERRIDE)
 
         return str(
             PostgresDsn.build(
                 scheme="postgresql",
                 username=self.POSTGRES_USER,
-                password=self.POSTGRES_PASSWORD,
+                password=urlparse.quote(self.POSTGRES_PASSWORD),
                 host=f"{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}",
                 path=f"{self.POSTGRES_DB or ''}",
             )
@@ -75,15 +75,7 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
         if self.POSTGRES_URL_OVERRIDE:
             return "Postgres Url Overridden"
 
-        return str(
-            PostgresDsn.build(
-                scheme="postgresql",
-                username="******",
-                password="******",
-                host=f"{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}",
-                path=f"{self.POSTGRES_DB or ''}",
-            )
-        )
+        return f"postgresql://******:******@{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}/{self.POSTGRES_DB or ''}"
 
 
 def db_provider_factory(provider_name: str, data_dir: Path, env_file: Path, env_encoding="utf-8") -> AbstractDBProvider:

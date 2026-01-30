@@ -19,6 +19,7 @@
           v-model="fromUnit"
           return-object
           :items="store"
+          :custom-filter="normalizeFilter"
           item-title="name"
           :label="$t('data-pages.units.source-unit')"
         />
@@ -26,6 +27,7 @@
           v-model="toUnit"
           return-object
           :items="store"
+          :custom-filter="normalizeFilter"
           item-title="name"
           :label="$t('data-pages.units.target-unit')"
         />
@@ -231,11 +233,12 @@
           variant="outlined"
           offset
         >
-          <template #item="{ item }">
-            <v-list-item-title> {{ item.raw.name }} </v-list-item-title>
-            <v-list-item-subtitle>
-              {{ item.raw.progress }}% {{ $t("language-dialog.translated") }}
-            </v-list-item-subtitle>
+          <template #item="{ item, props }">
+            <v-list-item v-bind="props">
+              <v-list-item-subtitle>
+                {{ item.raw.progress }}% {{ $t("language-dialog.translated") }}
+              </v-list-item-subtitle>
+            </v-list-item>
           </template>
         </v-autocomplete>
 
@@ -291,7 +294,7 @@
         </v-icon>
       </template>
       <template #[`item.createdAt`]="{ item }">
-        {{ formatDate(item.createdAt) }}
+        {{ item.createdAt ? $d(new Date(item.createdAt)) : '' }}
       </template>
       <template #button-bottom>
         <BaseButton @click="seedDialog = true">
@@ -312,6 +315,7 @@ import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import type { CreateIngredientUnit, IngredientUnit, IngredientUnitAlias } from "~/lib/api/types/recipe";
 import { useLocales } from "~/composables/use-locales";
+import { normalizeFilter } from "~/composables/use-utils";
 import { useUnitStore } from "~/composables/store";
 import type { VForm } from "~/types/auto-forms";
 
@@ -379,15 +383,6 @@ export default defineNuxtComponent({
         sortable: true,
       },
     ];
-
-    function formatDate(date: string) {
-      try {
-        return i18n.d(Date.parse(date), "medium");
-      }
-      catch {
-        return "";
-      }
-    }
 
     const { store, actions: unitActions } = useUnitStore();
 
@@ -470,9 +465,8 @@ export default defineNuxtComponent({
     }
 
     async function deleteSelected() {
-      for (const item of bulkDeleteTarget.value) {
-        await unitActions.deleteOne(item.id);
-      }
+      const ids = bulkDeleteTarget.value.map(item => item.id);
+      await unitActions.deleteMany(ids);
       bulkDeleteTarget.value = [];
     }
 
@@ -544,7 +538,7 @@ export default defineNuxtComponent({
       tableHeaders,
       store,
       validators,
-      formatDate,
+      normalizeFilter,
       // Create
       createDialog,
       domNewUnitForm,

@@ -22,6 +22,22 @@ class PermissionDenied(Exception):
     pass
 
 
+class RecursiveRecipe(Exception):
+    """
+    This exception is raised when a recipe references itself, either directly or indirectly.
+    """
+
+    pass
+
+
+class SlugError(Exception):
+    """
+    This exception is raised when the recipe name generates an invalid slug.
+    """
+
+    pass
+
+
 class NoEntryFound(Exception):
     """
     This exception is raised when a user tries to access a resource that does not exist.
@@ -39,6 +55,7 @@ def mealie_registered_exceptions(t: Translator) -> dict:
         PermissionDenied: t.t("exceptions.permission-denied"),
         NoEntryFound: t.t("exceptions.no-entry-found"),
         IntegrityError: t.t("exceptions.integrity-error"),
+        RecursiveRecipe: t.t("exceptions.recursive-recipe-link"),
     }
 
 

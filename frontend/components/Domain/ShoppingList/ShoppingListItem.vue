@@ -15,7 +15,10 @@
             density="compact"
             class="mt-0 flex-shrink-0"
             color="null"
-            @change="$emit('checked', listItem)"
+            @click="() => {
+              listItem.checked = !listItem.checked
+              $emit('checked', listItem)
+            }"
           />
           <div
             class="ml-2 text-truncate"
@@ -130,9 +133,8 @@
       <v-col cols="auto">
         <div class="text-caption font-weight-light font-italic">
           {{ $t("shopping-list.completed-on", {
-            date: new Date(listItem.updatedAt
-              || "").toLocaleDateString($i18n.locale) })
-          }}
+            date: listItem.updatedAt ? $d(new Date(listItem.updatedAt)) : '',
+          }) }}
         </div>
       </v-col>
     </v-row>

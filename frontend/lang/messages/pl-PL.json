@@ -41,9 +41,9 @@
     "category-created": "Kategoria stworzona",
     "category-creation-failed": "Błąd podczas tworzenia kategorii",
     "category-deleted": "Usunięto kategorię",
-    "category-deletion-failed": "Usunięcie kategorii nie powiodło się",
+    "category-deletion-failed": "Nie udało się usunąć kategorii",
     "category-filter": "Filtr kategorii",
-    "category-update-failed": "Aktualizacja kategorii nie powiodła się",
+    "category-update-failed": "Nie udało się zaktualizować kategorii",
     "category-updated": "Zaktualizowano kategorię",
     "uncategorized-count": "{count} bez kategorii",
     "create-a-category": "Stwórz kategorię",
@@ -201,7 +201,7 @@
     "last-made": "Ostatnio wykonane",
     "learn-more": "Dowiedz się więcej",
     "this-feature-is-currently-inactive": "Ta funkcja jest obecnie nieaktywna",
-    "clipboard-not-supported": "Schowek nieobsługiwany",
+    "clipboard-not-supported": "Schowek nie jest obsługiwany",
     "copied-to-clipboard": "Skopiowano do schowka",
     "your-browser-does-not-support-clipboard": "Twoja przeglądarka nie obsługuje schowka",
     "copied-items-to-clipboard": "Nie skopiowano elementu do schowka|Jeden element skopiowany do schowka|Skopiowano {count} elementów do schowka",
@@ -212,6 +212,8 @@
     "upload-file": "Prześlij plik",
     "created-on-date": "Utworzono dnia: {0}",
     "unsaved-changes": "Masz niezapisane zmiany. Czy chcesz zapisać przed wyjściem? Ok, aby zapisać, Anuluj, żeby odrzucić zmiany.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Nie udało się skopiować do schowka.",
     "confirm-delete-generic-items": "Czy na pewno chcesz usunąć następujące elementy?",
     "organizers": "Organizatory",
@@ -307,8 +309,8 @@
     "create-a-new-meal-plan": "Utwórz nowy plan posiłku",
     "update-this-meal-plan": "Zaktualizuj plan posiłku",
     "dinner-this-week": "Obiad w tym tygodniu",
-    "dinner-today": "Obiad dziś",
-    "dinner-tonight": "OBIAD DZIŚ",
+    "dinner-today": "Obiad na dziś",
+    "dinner-tonight": "Kolacja na dziś",
     "edit-meal-plan": "Edytuj plan posiłku",
     "end-date": "Data zakończenia",
     "group": "Grupa (Beta)",
@@ -342,6 +344,9 @@
     "breakfast": "Śniadanie",
     "lunch": "Obiad",
     "dinner": "Kolacja",
+    "snack": "Przekąska",
+    "drink": "Napój",
+    "dessert": "Deser",
     "type-any": "Dowolny",
     "day-any": "Dowolny",
     "editor": "Edytor",
@@ -400,7 +405,7 @@
       "title": "Przepisy Tandoor"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie może importować przepisy z DVO Cook'n X3. Wyeksportuj książkę kucharską lub menu w formacie \"Cook'n\", zmień rozszerzenie eksportu na .zip, a następnie prześlij plik .zip poniżej.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migracja danych przepisów",
@@ -442,13 +447,16 @@
     "upload-a-recipe": "Wrzuć przepis",
     "upload-individual-zip-file": "Prześlij pojedynczy plik .zip wyeksportowany z innej instancji Mealie.",
     "url-form-hint": "Skopiuj i wklej link ze swojej ulubionej strony z przepisami",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Skopiuj i wklej źródłowy adres URL swoich danych (opcjonalnie)",
     "view-scraped-data": "Wyświetl zebrane dane",
     "trim-whitespace-description": "Przytnij pustą przestrzeń przed i po zawartości oraz puste linie",
     "trim-prefix-description": "Przytnij pierwszy znak z każdej linii",
     "split-by-numbered-line-description": "Próbuj podzielić paragrafy poprzez dopasowanie po wzorcach '1)' i '1.'",
     "import-by-url": "Importuj przepis przez URL",
     "create-manually": "Stwórz przepis ręcznie",
-    "make-recipe-image": "Niech to będzie obraz przepisu"
+    "make-recipe-image": "Niech to będzie obraz przepisu",
+    "add-food": "Dodaj Składnik",
+    "add-recipe": "Dodaj przepis"
   },
   "page": {
     "404-page-not-found": "404. Nie znaleziono strony",
@@ -515,6 +523,9 @@
     "recipe-deleted": "Przepis został usunięty",
     "recipe-image": "Zdjęcie do przepisu",
     "recipe-image-updated": "Zdjęcie przepisu zostało zaktualizowane",
+    "delete-image": "Usuń obrazek przepisu",
+    "delete-image-confirmation": "Czy jesteś pewien, że chcesz usunąć obrazek przepisu?",
+    "recipe-image-deleted": "Obrazek przepisu został usunięty",
     "recipe-name": "Nazwa przepisu",
     "recipe-settings": "Ustawienia przepisu",
     "recipe-update-failed": "Aktualizacja przepisu nie powiodła się",
@@ -560,6 +571,7 @@
     "choose-unit": "Wybierz jednostkę",
     "press-enter-to-create": "Naciśnij \"enter\", aby utworzyć",
     "choose-food": "Wybierz jedzenie",
+    "choose-recipe": "Wybierz Przepis",
     "notes": "Notatki",
     "toggle-section": "Przełącz Sekcję",
     "see-original-text": "Zobacz oryginalny tekst",
@@ -587,6 +599,7 @@
     "made-this": "Ugotowałem to",
     "how-did-it-turn-out": "Jak się to udało?",
     "user-made-this": "{user} ugotował(a) to",
+    "made-for-recipe": "Wykonane do {recipe}",
     "added-to-timeline": "Dodano do osi czasu",
     "failed-to-add-to-timeline": "Nie udało się dodać do osi czasu",
     "failed-to-update-recipe": "Nie udało się zaktualizować przepisu",
@@ -626,6 +639,8 @@
     "scrape-recipe-suggest-bulk-importer": "Wypróbuj importer zbiorczy",
     "scrape-recipe-have-raw-html-or-json-data": "Masz dane HTML bądź JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Możesz zaimportować bezpośrednio z surowych danych",
+    "scrape-recipe-website-being-blocked": "Witryna jest zablokowana?",
+    "scrape-recipe-try-importing-raw-html-instead": "Zamiast tego spróbuj zaimportować surowy HTML.",
     "import-original-keywords-as-tags": "Importuj oryginalne słowa kluczowe jako tagi",
     "stay-in-edit-mode": "Pozostań w trybie edycji",
     "parse-recipe-ingredients-after-import": "Analizuj składniki receptury po zaimportowaniu",
@@ -677,9 +692,9 @@
       "no-food": "Brak potrawy",
       "review-parsed-ingredients": "Przejrzyj przeanalizowane składniki",
       "confidence-score": "Wskaźnik pewności",
-      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
-      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "ingredient-parser-description": "Twoja lista składników została przetworzona. Sprawdź proszę składniki co , do  których mamy wątpliwości",
+      "ingredient-parser-final-review-description": "Gdy wszystkie składniki zostaną sprawdzone, będziesz mieć jeszcze jedną szansę na sprawdzenie ich przed zastosowaniem zmian w przepisie.",
+      "add-text-as-alias-for-item": "Dodaj \"{text}\" jako alternatywną nazwę dla {item}",
       "delete-item": "Usuń przedmiot"
     },
     "reset-servings-count": "Zresetuj liczbę porcji",
@@ -688,7 +703,10 @@
     "upload-images": "Prześlij obraz",
     "upload-more-images": "Prześlij więcej obrazów",
     "set-as-cover-image": "Ustaw jako okładkę przepisu",
-    "cover-image": "Okładka"
+    "cover-image": "Okładka",
+    "include-linked-recipes": "Dołącz połączone przepisy",
+    "include-linked-recipe-ingredients": "Uwzględnij Składniki Powiązanego Przepisu",
+    "toggle-recipe": "Przełącz Przepis"
   },
   "recipe-finder": {
     "recipe-finder": "Wyszukiwarka przepisów",
@@ -725,7 +743,8 @@
     "search-hint": "Naciśnij '/'",
     "advanced": "Zaawansowane",
     "auto-search": "Auto wyszukiwanie",
-    "no-results": "Nie znaleziono wyników"
+    "no-results": "Nie znaleziono wyników",
+    "type-to-search": "Wpisz, aby wyszukać..."
   },
   "settings": {
     "add-a-new-theme": "Dodaj nowy motyw",
@@ -813,7 +832,7 @@
       "api-token": "Token API",
       "api-tokens": "Tokeny API",
       "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Skopiuj ten token w celu użycia w zewnętrznej aplikacji. Tokenu tego nie będzie można więcej wyświetlić.",
-      "create-an-api-token": "Utworz token API",
+      "create-an-api-token": "Utwórz token API",
       "token-name": "Nazwa tokenu",
       "generate": "Generuj",
       "you-have-token-count": "Nie masz aktywnych tokenów. |Masz jeden aktywny token.|Masz {count} aktywnych tokenów."
@@ -949,8 +968,8 @@
     "tag-creation-failed": "Utworzenie etykiety nie powiodło się",
     "tag-deleted": "Etykieta została usunięta",
     "tag-deletion-failed": "Usunięcie etykiety nie powiodło się",
-    "tag-update-failed": "Atkualizacja etykiety nie powiodła się",
-    "tag-updated": "Etykieta została zakutalizowana",
+    "tag-update-failed": "Aktualizacja etykiety nie powiodła się",
+    "tag-updated": "Etykieta została zaktualizowana",
     "tags": "Tagi",
     "untagged-count": "{count} bez etykiety",
     "create-a-tag": "Utwórz znacznik",
@@ -1063,7 +1082,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Nie chcesz już tego widzieć? Pamiętaj, aby zmienić swój adres e-mail w ustawieniach użytkownika!",
     "forgot-password": "Nie pamiętam hasła",
     "forgot-password-text": "Podaj adres e-mail konta, do którego chcesz odzyskać hasło.",
-    "changes-reflected-immediately": "Zmiany dla tego użytkownika będą zastosowane natychmiastowo."
+    "changes-reflected-immediately": "Zmiany dla tego użytkownika będą zastosowane natychmiastowo.",
+    "default-activity": "Domyślna aktywność",
+    "default-activity-hint": "Wybierz stronę, do której chcesz przejść po zalogowaniu się z tego urządzenia"
   },
   "language-dialog": {
     "translated": "przetłumaczone",
@@ -1409,5 +1430,13 @@
       "is-like": "jest jak",
       "is-not-like": "nie jest jak"
     }
+  },
+  "validators": {
+    "required": "To pole jest wymagane",
+    "invalid-email": "E-mail musi być prawidłowy",
+    "invalid-url": "Musi być prawidłowym odnośnikiem",
+    "no-whitespace": "Niedozwolone są puste spacje",
+    "min-length": "Musi zawierać co najmniej {min} znaków",
+    "max-length": "Musi zawierać co najwyżej {max} znaków"
   }
 }

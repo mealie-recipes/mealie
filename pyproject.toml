@@ -1,95 +1,96 @@
-[tool.poetry]
-authors = ["Hayden <hay-kot@pm.me>"]
-description = "A Recipe Manager"
-license = "AGPL"
+[project]
 name = "mealie"
-version = "3.3.2"
-include = [
-    # Explicit include to override .gitignore when packaging the frontend
-    { path = "mealie/frontend/**/*", format = ["sdist", "wheel"] }
+version = "3.9.2"
+description = "A Recipe Manager"
+authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
+license = "AGPL-3.0-only"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "Jinja2==3.1.6",
+    "Pillow==12.1.0",
+    "PyYAML==6.0.3",
+    "SQLAlchemy==2.0.46",
+    "aiofiles==25.1.0",
+    "alembic==1.18.3",
+    "aniso8601==10.0.1",
+    "appdirs==1.4.4",
+    "apprise==1.9.7",
+    "bcrypt==5.0.0",
+    "extruct==0.18.0",
+    "fastapi==0.128.0",
+    "httpx==0.28.1",
+    "lxml==6.0.2",
+    "orjson==3.11.6",
+    "pydantic==2.12.5",
+    "pyhumps==3.8.0",
+    "python-dateutil==2.9.0.post0",
+    "python-dotenv==1.2.1",
+    "python-ldap==3.4.5",
+    "python-multipart==0.0.22",
+    "python-slugify==8.0.4",
+    "recipe-scrapers==15.11.0",
+    "requests==2.32.5",
+    "tzdata==2025.3",
+    "uvicorn[standard]==0.40.0",
+    "beautifulsoup4==4.14.3",
+    "isodate==0.7.2",
+    "text-unidecode==1.3",
+    "rapidfuzz==3.14.3",
+    "authlib==1.6.6",
+    "html2text==2025.4.15",
+    "paho-mqtt==1.6.1",
+    "pydantic-settings==2.12.0",
+    "pillow-heif==1.2.0",
+    "pyjwt==2.10.1",
+    "openai==2.16.0",
+    "typing-extensions==4.15.0",
+    "itsdangerous==2.2.0",
+    "ingredient-parser-nlp==2.4.0",
 ]
 
-[tool.poetry.scripts]
+[project.scripts]
 mealie = "mealie.main:main"
 
-[tool.poetry.dependencies]
-Jinja2 = "^3.1.2"
-Pillow = "^12.0.0"
-PyYAML = "^6.0.1"
-SQLAlchemy = "^2"
-aiofiles = "^25.0.0"
-alembic = "^1.11.3"
-aniso8601 = "10.0.1"
-appdirs = "1.4.4"
-apprise = "^1.4.5"
-bcrypt = "^5.0.0"
-extruct = "^0.18.0"
-fastapi = "^0.119.0"
-httpx = "^0.28.0"
-lxml = "^6.0.0"
-orjson = "^3.8.0"
-psycopg2-binary = { version = "^2.9.1", optional = true }
-pydantic = "^2.6.1"
-pyhumps = "^3.5.3"
-python = ">=3.12,<3.13"
-python-dateutil = "^2.8.2"
-python-dotenv = "^1.0.0"
-python-ldap = "^3.3.1"
-python-multipart = "^0.0.20"
-python-slugify = "^8.0.0"
-recipe-scrapers = "^15.0.0"
-requests = "^2.31.0"
-tzdata = "^2024.1"
-uvicorn = { extras = ["standard"], version = "^0.37.0" }
-beautifulsoup4 = "^4.11.2"
-isodate = "^0.7.0"
-text-unidecode = "^1.3"
-rapidfuzz = "^3.2.0"
-authlib = "^1.3.0"
-html2text = "^2025.0.0"
-paho-mqtt = "^1.6.1"
-pydantic-settings = "^2.1.0"
-pillow-heif = "^1.0.0"
-pyjwt = "^2.8.0"
-openai = "^2.0.0"
-typing-extensions = "^4.12.2"
-itsdangerous = "^2.2.0"
-ingredient-parser-nlp = "^2.0.0"
+[project.optional-dependencies]
+pgsql = [
+    "psycopg2-binary==2.9.11"
+]
 
-[tool.poetry.group.postgres.dependencies]
-psycopg2-binary = { version = "^2.9.1" }
-
-[tool.poetry.group.dev.dependencies]
-coverage = "^7.0"
-coveragepy-lcov = "^0.1.1"
-mkdocs-material = "^9.0.0"
-mypy = "^1.5.1"
-pre-commit = "^4.0.0"
-pylint = "^4.0.0"
-pytest = "^8.0.0"
-pytest-asyncio = "^1.0.0"
-rich = "^14.0.0"
-ruff = "^0.14.0"
-types-PyYAML = "^6.0.4"
-types-python-dateutil = "^2.8.18"
-types-python-slugify = "^6.0.0"
-types-requests = "^2.27.12"
-types-urllib3 = "^1.26.11"
-pydantic-to-typescript2 = "^1.0.4"
-freezegun = "^1.5.1"
-
+[dependency-groups]
+docs = [
+    "mkdocs-material==9.7.1",
+]
+dev = [
+    "coverage==7.13.2",
+    "coveragepy-lcov==0.1.2",
+    "mkdocs-material==9.7.1",
+    "mypy==1.19.1",
+    "pre-commit==4.5.1",
+    "pylint==4.0.4",
+    "pytest==9.0.2",
+    "pytest-asyncio==1.3.0",
+    "rich==14.3.1",
+    "ruff==0.14.14",
+    "types-PyYAML==6.0.12.20250915",
+    "types-python-dateutil==2.9.0.20260124",
+    "types-python-slugify==8.0.2.20240310",
+    "types-requests==2.32.4.20260107",
+    "types-urllib3==1.26.25.14",
+    "pydantic-to-typescript2==1.0.6",
+]
 
 [build-system]
-build-backend = "poetry.core.masonry.api"
-requires = ["poetry-core>=1.0.0"]
+requires = ["setuptools==80.10.2"]
+build-backend = "setuptools.build_meta"
 
-[tool.vulture]
-exclude = ["**/models/**/*.py", "dir/"]
-ignore_decorators = ["@*router.*", "@app.on_event", "@field_validator", "@controller"]
-make_whitelist = true
-min_confidence = 60
-paths = ["mealie"]
-sort_by_size = true
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+include = ["mealie*"]
+
+[tool.setuptools.package-data]
+"*" = ["*"]
 
 [tool.pytest.ini_options]
 addopts = "-ra -q"
@@ -103,9 +104,6 @@ testpaths = ["tests"]
 [tool.coverage.report]
 skip_empty = true
 
-[tool.poetry.extras]
-pgsql = ["psycopg2-binary"]
-
 [tool.mypy]
 follow_imports = "skip"
 ignore_missing_imports = true
@@ -114,6 +112,7 @@ python_version = "3.12"
 strict_optional = true
 
 [tool.ruff]
+target-version = "py312"
 line-length = 120
 output-format = "concise"
 
@@ -139,9 +138,6 @@ exclude = [
   "node_modules",
   "venv",
 ]
-
-# Assume Python 3.12.
-target-version = "py312"
 
 [tool.ruff.lint.isort]
 known-third-party = ["alembic"]

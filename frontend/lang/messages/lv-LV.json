@@ -212,6 +212,8 @@
     "upload-file": "Augšupielādēt failu",
     "created-on-date": "Izveidots: {0}",
     "unsaved-changes": "Jums ir nesaglabātas izmaiņas. Vai vēlaties ietaupīt pirms aiziešanas? Labi, lai saglabātu, Atcelt, lai izmestu izmaiņas.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Neizdevās kopēt starpliktuvē.",
     "confirm-delete-generic-items": "Vai tiešām vēlaties dzēst šādus vienumus?",
     "organizers": "Organizatori",
@@ -342,6 +344,9 @@
     "breakfast": "Brokastis",
     "lunch": "pusdienas",
     "dinner": "Vakariņas",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Jebkurš",
     "day-any": "Jebkurš",
     "editor": "Redaktors",
@@ -442,13 +447,16 @@
     "upload-a-recipe": "Augšupielādējiet recepti",
     "upload-individual-zip-file": "Augšupielādējiet atsevišķu.zip failu, kas eksportēts no citas Mealie instances.",
     "url-form-hint": "Kopējiet un ielīmējiet saiti no savas iecienītākās receptes vietnes",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Skatīt nokasītos datus",
     "trim-whitespace-description": "Apgrieziet priekšējo un aizmugurējo atstarpi, kā arī tukšas rindas",
     "trim-prefix-description": "Izgrieziet pirmo rakstzīmi no katras rindas",
     "split-by-numbered-line-description": "Mēģinājumi sadalīt rindkopu, saskaņojot modeļus “1)” vai “1.”",
     "import-by-url": "Receptes importēšana pēc URL",
     "create-manually": "Izveidojiet recepti manuāli",
-    "make-recipe-image": "Padariet šo par receptes attēlu"
+    "make-recipe-image": "Padariet šo par receptes attēlu",
+    "add-food": "Add Food",
+    "add-recipe": "Add Recipe"
   },
   "page": {
     "404-page-not-found": "404 Lapa nav atrasta",
@@ -515,6 +523,9 @@
     "recipe-deleted": "Recepte izdzēsta",
     "recipe-image": "Receptes attēls",
     "recipe-image-updated": "Receptes attēls atjaunināts",
+    "delete-image": "Delete Recipe Image",
+    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
+    "recipe-image-deleted": "Recipe image deleted",
     "recipe-name": "Receptes nosaukums",
     "recipe-settings": "Receptes iestatījumi",
     "recipe-update-failed": "Receptes atjaunināšana neizdevās",
@@ -560,6 +571,7 @@
     "choose-unit": "Izvēlieties vienību",
     "press-enter-to-create": "Nospiediet taustiņu Enter, lai izveidotu",
     "choose-food": "Izvēlieties ēdienu",
+    "choose-recipe": "Choose Recipe",
     "notes": "Piezīmes",
     "toggle-section": "Pārslēgt sadaļu",
     "see-original-text": "Skatīt oriģinālo tekstu",
@@ -587,6 +599,7 @@
     "made-this": "Es to pagatavoju",
     "how-did-it-turn-out": "Kā tas izrādījās?",
     "user-made-this": "{user}izdarīja šo",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "Added to timeline",
     "failed-to-add-to-timeline": "Failed to add to timeline",
     "failed-to-update-recipe": "Failed to update recipe",
@@ -626,6 +639,8 @@
     "scrape-recipe-suggest-bulk-importer": "Izmēģiniet lielapjoma importētāju",
     "scrape-recipe-have-raw-html-or-json-data": "Vai jums ir neapstrādāti HTML vai JSON dati?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Jūs varat importēt no neapstrādātiem datiem tieši",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Importējiet oriģinālos atslēgvārdus kā tagus",
     "stay-in-edit-mode": "Palieciet rediģēšanas režīmā",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
@@ -688,7 +703,10 @@
     "upload-images": "Upload images",
     "upload-more-images": "Upload more images",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "Cover image",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
@@ -725,7 +743,8 @@
     "search-hint": "Nospiediet '/'",
     "advanced": "Papildu Opcijas",
     "auto-search": "Automātiskā meklēšana",
-    "no-results": "Nav atrasts neviens rezultāts"
+    "no-results": "Nav atrasts neviens rezultāts",
+    "type-to-search": "Type to search..."
   },
   "settings": {
     "add-a-new-theme": "Pievienot jaunu motīvu",
@@ -1063,7 +1082,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vai nevēlaties to vairs redzēt? Noteikti mainiet savu e-pastu lietotāja iestatījumos!",
     "forgot-password": "Aizmirsāt paroli",
     "forgot-password-text": "Lūdzu, ievadiet savu e-pasta adresi, un mēs jums nosūtīsim saiti, lai atiestatītu jūsu paroli.",
-    "changes-reflected-immediately": "Izmaiņas šim lietotājam tiks atspoguļotas nekavējoties."
+    "changes-reflected-immediately": "Izmaiņas šim lietotājam tiks atspoguļotas nekavējoties.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "tulkots",
@@ -1409,5 +1430,13 @@
       "is-like": "ir kā",
       "is-not-like": "nav tāds, kā"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

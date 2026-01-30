@@ -19,10 +19,10 @@
           cover
         >
           <RecipeCardImage
+            tiny
             :icon-size="100"
             :slug="slug"
             :recipe-id="recipeId"
-            size="small"
             :image-version="image"
             :height="height"
           />
@@ -41,11 +41,11 @@
               name="avatar"
             >
               <RecipeCardImage
+                tiny
                 :icon-size="100"
                 :slug="slug"
                 :recipe-id="recipeId"
                 :image-version="image"
-                size="small"
                 width="125"
                 :height="height"
               />

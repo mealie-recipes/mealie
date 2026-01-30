@@ -1,5 +1,6 @@
 import asyncio
 import shutil
+from logging import Logger
 from pathlib import Path
 
 from httpx import AsyncClient, Response
@@ -8,6 +9,7 @@ from pydantic import UUID4
 from mealie.pkgs import img, safehttp
 from mealie.pkgs.safehttp.transport import AsyncSafeTransport
 from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe_image_types import RecipeImageTypes
 from mealie.services._base_service import BaseService
 from mealie.services.scraper.user_agents_manager import get_user_agents_manager
 
@@ -59,7 +61,7 @@ class InvalidDomainError(Exception):
 class RecipeDataService(BaseService):
     minifier: img.ABCMinifier
 
-    def __init__(self, recipe_id: UUID4) -> None:
+    def __init__(self, recipe_id: UUID4, logger: Logger | None = None) -> None:
         """
         RecipeDataService is a service that consolidates the reading/writing actions related
         to assets, and images for a recipe.
@@ -67,6 +69,7 @@ class RecipeDataService(BaseService):
         super().__init__()
 
         self.recipe_id = recipe_id
+        self.logger = logger or self.logger
         self.minifier = img.PillowMinifier(purge=True, logger=self.logger)
 
         self.dir_data = Recipe.directory_from_id(self.recipe_id)
@@ -103,6 +106,14 @@ class RecipeDataService(BaseService):
         self.minifier.minify(image_path)
 
         return image_path
+
+    def delete_image(self, image_dir: Path | None = None):
+        if not image_dir:
+            image_dir = self.dir_image
+
+        for img_type in RecipeImageTypes:
+            image_path = image_dir.joinpath(img_type.value)
+            image_path.unlink(missing_ok=True)
 
     async def scrape_image(self, image_url: str | dict[str, str] | list[str]) -> None:
         self.logger.info(f"Image URL: {image_url}")

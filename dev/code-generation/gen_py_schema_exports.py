@@ -100,8 +100,8 @@ def main() -> None:
         render_python_template(template, template_path, {"module": module})
 
     path_args = (str(p) for p in template_paths)
-    subprocess.run(["poetry", "run", "ruff", "check", *path_args, "--fix"])
-    subprocess.run(["poetry", "run", "ruff", "format", *path_args])
+    subprocess.run(["uv", "run", "ruff", "check", *path_args, "--fix"])
+    subprocess.run(["uv", "run", "ruff", "format", *path_args])
 
 
 if __name__ == "__main__":

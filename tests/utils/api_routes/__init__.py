@@ -141,8 +141,6 @@ recipes_bulk_actions_delete = "/api/recipes/bulk-actions/delete"
 """`/api/recipes/bulk-actions/delete`"""
 recipes_bulk_actions_export = "/api/recipes/bulk-actions/export"
 """`/api/recipes/bulk-actions/export`"""
-recipes_bulk_actions_export_download = "/api/recipes/bulk-actions/export/download"
-"""`/api/recipes/bulk-actions/export/download`"""
 recipes_bulk_actions_export_purge = "/api/recipes/bulk-actions/export/purge"
 """`/api/recipes/bulk-actions/export/purge`"""
 recipes_bulk_actions_settings = "/api/recipes/bulk-actions/settings"
@@ -463,9 +461,19 @@ def organizers_tools_slug_tool_slug(tool_slug):
     return f"{prefix}/organizers/tools/slug/{tool_slug}"
 
 
+def recipes_bulk_actions_export_export_id_download(export_id):
+    """`/api/recipes/bulk-actions/export/{export_id}/download`"""
+    return f"{prefix}/recipes/bulk-actions/export/{export_id}/download"
+
+
 def recipes_shared_token_id(token_id):
     """`/api/recipes/shared/{token_id}`"""
     return f"{prefix}/recipes/shared/{token_id}"
+
+
+def recipes_shared_token_id_zip(token_id):
+    """`/api/recipes/shared/{token_id}/zip`"""
+    return f"{prefix}/recipes/shared/{token_id}/zip"
 
 
 def recipes_slug(slug):
@@ -491,11 +499,6 @@ def recipes_slug_duplicate(slug):
 def recipes_slug_exports(slug):
     """`/api/recipes/{slug}/exports`"""
     return f"{prefix}/recipes/{slug}/exports"
-
-
-def recipes_slug_exports_zip(slug):
-    """`/api/recipes/{slug}/exports/zip`"""
-    return f"{prefix}/recipes/{slug}/exports/zip"
 
 
 def recipes_slug_image(slug):

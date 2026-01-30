@@ -13,6 +13,10 @@
       class="text-bold d-inline"
       :source="parsedIng.note"
     />
+    <template v-else-if="parsedIng.recipeLink">
+      <SafeMarkdown v-if="parsedIng.recipeLink" class="text-bold d-inline" :source="parsedIng.recipeLink" />
+      <SafeMarkdown v-if="parsedIng.note" class="note" :source="parsedIng.note" />
+    </template>
     <template v-else>
       <SafeMarkdown
         v-if="parsedIng.name"
@@ -39,9 +43,12 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   scale: 1,
 });
+const route = useRoute();
+const $auth = useMealieAuth();
+const groupSlug = computed(() => route.params.groupSlug || $auth.user?.value?.groupSlug || "");
 
 const parsedIng = computed(() => {
-  return useParsedIngredientText(props.ingredient, props.scale);
+  return useParsedIngredientText(props.ingredient, props.scale, true, groupSlug.value.toString());
 });
 </script>
 

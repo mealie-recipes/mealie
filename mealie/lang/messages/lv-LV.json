@@ -5,6 +5,7 @@
     "recipe": {
         "unique-name-error": "Receptes nosaukums nevar atkārtoties",
         "recipe-created": "Recipe Created",
+        "recipe-image-deleted": "Recipe image deleted",
         "recipe-defaults": {
             "ingredient-note": "1 gl. Milti",
             "step-text": "Receptes darbības, kā arī citi lauki receptes lapā atbalsta atzīmes sintaksi.\n\n**Pievienot saiti**\n\n[Mana saite](https://demo.mealie.io)\n"
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Jums nav atļaujas veikt šo darbību",
+        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "Pieprasītais resurss netika atrasts",
         "integrity-error": "Datu bāzes integritātes kļūda",
         "username-conflict-error": "Šis lietotājvārds jau ir aizņemts",

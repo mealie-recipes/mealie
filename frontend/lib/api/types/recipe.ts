@@ -214,6 +214,7 @@ export interface RecipeIngredient {
   quantity?: number | null;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
   title?: string | null;
@@ -349,6 +350,7 @@ export interface RecipeIngredientBase {
   quantity?: number | null;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
 }
@@ -470,9 +472,6 @@ export interface RecipeToolSave {
   householdsWithTool?: string[];
   groupId: string;
 }
-export interface RecipeZipTokenResponse {
-  token: string;
-}
 export interface SaveIngredientFood {
   id?: string | null;
   name: string;
@@ -511,6 +510,7 @@ export interface ScrapeRecipeBase {
 export interface ScrapeRecipeData {
   includeTags?: boolean;
   data: string;
+  url?: string | null;
 }
 export interface ScrapeRecipeTest {
   url: string;

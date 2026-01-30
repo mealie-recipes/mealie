@@ -212,6 +212,8 @@
     "upload-file": "Fájl feltöltése",
     "created-on-date": "Létrehozva: {0}",
     "unsaved-changes": "El nem mentett módosításai vannak. Szeretné elmenteni, mielőtt kilép? A mentéshez kattintson az Ok, a módosítások elvetéséhez a Mégsem gombra.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "Nem mentett módosításai vannak, biztos, hogy elveti?",
     "clipboard-copy-failure": "Nem sikerült a vágólapra másolás.",
     "confirm-delete-generic-items": "Biztos benne, hogy törölni szeretné az alábbi tételeket?",
     "organizers": "Rendszerezők",
@@ -342,6 +344,9 @@
     "breakfast": "Reggeli",
     "lunch": "Ebéd",
     "dinner": "Vacsora",
+    "snack": "Rágcsa",
+    "drink": "Ital",
+    "dessert": "Desszert",
     "type-any": "Bármely",
     "day-any": "Bármely",
     "editor": "Szerkesztő",
@@ -442,13 +447,16 @@
     "upload-a-recipe": "Recept feltöltése",
     "upload-individual-zip-file": "Tölts fel egy .zíp archívumot, ami egy másik Mealie példányból lett exportálva.",
     "url-form-hint": "Másold be a linket a kedvenc recept weboldaladról",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Másolja és illessze be az adatok forrás URL-jét (opcionális)",
     "view-scraped-data": "Letöltött adat megtekintése",
     "trim-whitespace-description": "Vágja le a kezdő és a záró fehérjeleket, valamint az üres sorokat",
     "trim-prefix-description": "Minden sor első karakterének levágása",
     "split-by-numbered-line-description": "A bekezdés felosztására tesz kísérletet az '1)' vagy '1.' mintákkal való egyezéssel",
     "import-by-url": "Recept importálása URL-cím alapján",
     "create-manually": "Recept kézi létrehozása",
-    "make-recipe-image": "Ez legyen a recept képe"
+    "make-recipe-image": "Ez legyen a recept képe",
+    "add-food": "Étel hozzáadása",
+    "add-recipe": "Recept hozzáadása"
   },
   "page": {
     "404-page-not-found": "404. Az oldal nem található",
@@ -515,6 +523,9 @@
     "recipe-deleted": "Recept törölve",
     "recipe-image": "Recept képe",
     "recipe-image-updated": "Recept képe frissítve",
+    "delete-image": "Receptkép törlése",
+    "delete-image-confirmation": "Biztosan törli ezt a receptképet?",
+    "recipe-image-deleted": "Receptkép törölve",
     "recipe-name": "Recept neve",
     "recipe-settings": "Recept beállítások",
     "recipe-update-failed": "Recept frissítése sikertelen",
@@ -560,6 +571,7 @@
     "choose-unit": "Válasszon mennyiségi egységet",
     "press-enter-to-create": "Üssön Enter-t a létrehozáshoz",
     "choose-food": "Étel kiválasztása",
+    "choose-recipe": "Recept kiválasztása",
     "notes": "Megjegyzések",
     "toggle-section": "Szakaszcím megjelenítése/kikapcsolása",
     "see-original-text": "Eredeti szöveg megjelenítése",
@@ -587,6 +599,7 @@
     "made-this": "Elkészítettem ezt",
     "how-did-it-turn-out": "Hogyan sikerült?",
     "user-made-this": "ezt {user} készítette el",
+    "made-for-recipe": "Készült {recipe} számára",
     "added-to-timeline": "Idővonalhoz hozzáadva",
     "failed-to-add-to-timeline": "Nem sikerült az idővonalhoz hozzáadni",
     "failed-to-update-recipe": "Nem sikerült frissíteni a receptet",
@@ -626,6 +639,8 @@
     "scrape-recipe-suggest-bulk-importer": "Próbálja ki a tömeges importálót",
     "scrape-recipe-have-raw-html-or-json-data": "Nyers HTML vagy JSON adatai vannak?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "A nyers adatokból közvetlenül is importálhat",
+    "scrape-recipe-website-being-blocked": "A weboldal blokkolva van?",
+    "scrape-recipe-try-importing-raw-html-instead": "Próbálja meg inkább a nyers HTML-t importálni.",
     "import-original-keywords-as-tags": "Eredeti kulcsszavak importálása címkeként",
     "stay-in-edit-mode": "Maradjon Szerkesztés módban",
     "parse-recipe-ingredients-after-import": "Recept összetevőinek elemzése importálás után",
@@ -688,7 +703,10 @@
     "upload-images": "Képek feltöltése",
     "upload-more-images": "További képek feltöltése",
     "set-as-cover-image": "Beállítás a recept borítóképének",
-    "cover-image": "Borítókép"
+    "cover-image": "Borítókép",
+    "include-linked-recipes": "Kapcsolódó receptek hozzáadása",
+    "include-linked-recipe-ingredients": "Kapcsolódó recept hozzávalók hozzáadása",
+    "toggle-recipe": "Recept váltása"
   },
   "recipe-finder": {
     "recipe-finder": "Receptkereső",
@@ -725,7 +743,8 @@
     "search-hint": "Üsse be '/'",
     "advanced": "Haladó mód",
     "auto-search": "Automatikus keresés",
-    "no-results": "Nincs találat"
+    "no-results": "Nincs találat",
+    "type-to-search": "Írja be a keresett szót..."
   },
   "settings": {
     "add-a-new-theme": "Új téma hozzáadása",
@@ -1063,7 +1082,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Nem akarja ezt többé látni? Mindenképpen változtassa meg az e-mail címét a felhasználói beállítások között!",
     "forgot-password": "Elfelejtett jelszó",
     "forgot-password-text": "Írja be e-mail címét és mi küldünk egy linket a jelszó visszaállításához.",
-    "changes-reflected-immediately": "Ehhez a felhasználóhoz tartozó változtatások azonnal megjelennek."
+    "changes-reflected-immediately": "Ehhez a felhasználóhoz tartozó változtatások azonnal megjelennek.",
+    "default-activity": "Alapértelmezett tevékenység",
+    "default-activity-hint": "Válassza ki, melyik oldalra szeretne navigálni, amikor bejelentkezik erről az eszközről"
   },
   "language-dialog": {
     "translated": "lefordítva",
@@ -1409,5 +1430,13 @@
       "is-like": "hasonló",
       "is-not-like": "nem hasonló"
     }
+  },
+  "validators": {
+    "required": "Ez kötelező mező",
+    "invalid-email": "E-mail-nek érvényesnek kell lennie",
+    "invalid-url": "Érvényes URL-nek kell lennie",
+    "no-whitespace": "Szóközt nem tartalmazhat",
+    "min-length": "Legalább {min} karakter legyen",
+    "max-length": "Legfeljebb {max} karakter legyen"
   }
 }

@@ -434,10 +434,10 @@ def test_parser_ingredient_match(
 
         if expect_food_match:
             assert isinstance(parsed_ingredient.ingredient.food, IngredientFood)
+        elif parsed_ingredient.ingredient.food and parsed_ingredient.ingredient.food.name:
+            assert isinstance(parsed_ingredient.ingredient.food, CreateIngredientFood)
         else:
-            assert parsed_ingredient.ingredient.food is None or isinstance(
-                parsed_ingredient.ingredient.food, CreateIngredientFood
-            )
+            assert parsed_ingredient.ingredient.food is None
 
         if expected_unit_name:
             assert parsed_ingredient.ingredient.unit and parsed_ingredient.ingredient.unit.name == expected_unit_name
@@ -446,10 +446,10 @@ def test_parser_ingredient_match(
 
         if expect_unit_match:
             assert isinstance(parsed_ingredient.ingredient.unit, IngredientUnit)
+        elif parsed_ingredient.ingredient.unit and parsed_ingredient.ingredient.unit.name:
+            assert isinstance(parsed_ingredient.ingredient.unit, CreateIngredientUnit)
         else:
-            assert parsed_ingredient.ingredient.unit is None or isinstance(
-                parsed_ingredient.ingredient.unit, CreateIngredientUnit
-            )
+            assert parsed_ingredient.ingredient.unit is None
 
 
 def test_openai_parser(

@@ -30,6 +30,7 @@ interface RecipeExplorerSearchState {
     requireAllTags: boolean;
     requireAllTools: boolean;
     requireAllFoods: boolean;
+    randomSeed: number;
   }>;
   selectedCategories: Ref<NoUndefinedField<RecipeCategory>[]>;
   selectedFoods: Ref<IngredientFood[]>;
@@ -41,6 +42,7 @@ interface RecipeExplorerSearchState {
   reset: () => void;
   toggleOrderDirection: () => void;
   setOrderBy: (value: string) => void;
+  setRandomOrderBy: () => void;
   filterItems: (item: RecipeCategory | RecipeTag | RecipeTool, urlPrefix: string) => void;
   initialize: () => Promise<void>;
 }
@@ -67,6 +69,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     requireAllTags: false,
     requireAllTools: false,
     requireAllFoods: false,
+    randomSeed: 0,
   });
 
   // Store references
@@ -131,8 +134,15 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     return {
       ...passedQuery.value,
       _searchSeed: Date.now().toString(),
+      _randomSeed: state.value.randomSeed,
     };
   });
+
+  // Update the seed to trigger a new search
+  function setRandomOrderBy() {
+    state.value.orderBy = "random";
+    state.value.randomSeed = Date.now();
+  }
 
   // Wait utility for async hydration
   function waitUntilAndExecute(
@@ -442,6 +452,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     reset,
     toggleOrderDirection,
     setOrderBy,
+    setRandomOrderBy,
     filterItems,
     initialize,
   };

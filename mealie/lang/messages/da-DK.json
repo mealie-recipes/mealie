@@ -5,17 +5,18 @@
     "recipe": {
         "unique-name-error": "Opskriftsnavnet er allerede i brug",
         "recipe-created": "Opskrift oprettet",
+        "recipe-image-deleted": "Opskriftsbillede slettet",
         "recipe-defaults": {
             "ingredient-note": "1 kop mel",
-            "step-text": "Du kan bruge markdown kode i beskrivelser og andre felter i opskrifter.\n\n**Tilføj et link**\n\n[Mit link](https://demo.mealie.io)\n"
+            "step-text": "Du kan bruge markdown-kode i beskrivelser og andre felter i opskrifter.\n\n**Tilføj et link**\n\n[Mit link](https://demo.mealie.io)\n"
         },
         "servings-text": {
             "makes": "Udgør",
-            "serves": "Portioner",
-            "serving": "Servering",
+            "serves": "Mætter",
+            "serving": "Portion",
             "servings": "Portioner",
-            "yield": "Portioner",
-            "yields": "Portioner"
+            "yield": "Mængde",
+            "yields": "Mængde"
         }
     },
     "mealplan": {
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Du har ikke tilladelse til at udføre denne handling",
+        "recursive-recipe-link": "En opskrift kan ikke henvise til sig selv, hverken direkte eller indirekte",
         "no-entry-found": "Siden kunne ikke findes",
         "integrity-error": "Databaseintegritetsfejl",
         "username-conflict-error": "Dette brugernavn er allerede i brug",

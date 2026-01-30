@@ -133,6 +133,9 @@ class NLPParser(ABCIngredientParser):
         if ingredient.comment:
             note_parts.append(ingredient.comment.text)
             confidences.append(ingredient.comment.confidence)
+        if ingredient.purpose:
+            note_parts.append(ingredient.purpose.text)
+            confidences.append(ingredient.purpose.confidence)
 
         # average confidence among all note parts
         confidence = sum(confidences) / len(confidences) if confidences else 0

@@ -16,7 +16,7 @@
         >
           <template #activator="{ props: activatorProps }">
             <v-text-field
-              v-model="expirationDateString"
+              :model-value="$d(expirationDate)"
               :label="$t('recipe-share.expiration-date')"
               :hint="$t('recipe-share.default-30-days')"
               persistent-hint
@@ -59,11 +59,8 @@
 
           <div class="pl-3 flex-grow-1">
             <v-list-item-title>
-              {{ $t("recipe-share.expires-at") }}
+              {{ $t("recipe-share.expires-at") + ' ' + $d(new Date(token.expiresAt!), "short") }}
             </v-list-item-title>
-            <v-list-item-subtitle>
-              {{ $d(new Date(token.expiresAt!), "long") }}
-            </v-list-item-subtitle>
           </div>
 
           <v-btn
@@ -110,10 +107,6 @@ const dialog = defineModel<boolean>({ default: false });
 const datePickerMenu = ref(false);
 const expirationDate = ref(new Date(Date.now() - new Date().getTimezoneOffset() * 60000));
 const tokens = ref<RecipeShareToken[]>([]);
-
-const expirationDateString = computed(() => {
-  return expirationDate.value.toISOString().substring(0, 10);
-});
 
 whenever(
   () => dialog.value,

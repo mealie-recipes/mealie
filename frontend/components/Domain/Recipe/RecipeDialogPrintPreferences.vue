@@ -69,7 +69,14 @@
                 :label="$t('recipe.nutrition')"
               />
             </v-row>
-            <v-row no-gutters />
+            <v-row no-gutters>
+              <v-switch
+                v-model="preferences.expandChildRecipes"
+                hide-details
+                color="primary"
+                :label="$t('recipe.include-linked-recipe-ingredients')"
+              />
+            </v-row>
           </v-col>
         </v-row>
       </v-container>

@@ -47,7 +47,7 @@
             left
             color="primary"
           >
-            {{ $globals.icons.knfife }}
+            {{ $globals.icons.knife }}
           </v-icon>
           <p class="my-0">
             <span class="font-weight-bold opacity-80">{{ validatePrepTime.name }}</span><br>{{ validatePrepTime.value }}

@@ -5,6 +5,7 @@
     "recipe": {
         "unique-name-error": "Os nomes de receitas deven ser únicos",
         "recipe-created": "Receita creada",
+        "recipe-image-deleted": "Recipe image deleted",
         "recipe-defaults": {
             "ingredient-note": "1 Cunca de Fariña",
             "step-text": "Os pasos da receita, como outros campos na páxina da receita, suportan a sintaxe markdown.\n\n**Adicionar un link**\n\n[Meu link](https://demo.mealie.io)\n"
@@ -32,6 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "Non ten permisos para efetuar esta ación",
+        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "O recurso solicitado non foi encontrado",
         "integrity-error": "Erro de integridade da base de datos",
         "username-conflict-error": "Este nome de usuario xa está en uso",

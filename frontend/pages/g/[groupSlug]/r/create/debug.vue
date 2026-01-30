@@ -25,7 +25,7 @@
             persistent-hint
           />
         </v-card-text>
-        <v-card-text v-if="appInfo && appInfo.enableOpenai">
+        <v-card-text v-if="$appInfo.enableOpenai">
           {{ $t('recipe.recipe-debugger-use-openai-description') }}
           <v-checkbox
             v-model="useOpenAI"
@@ -68,7 +68,7 @@
 </template>
 
 <script lang="ts">
-import { useAppInfo, useUserApi } from "~/composables/api";
+import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import type { Recipe } from "~/lib/api/types/recipe";
 
@@ -83,7 +83,6 @@ export default defineNuxtComponent({
     const api = useUserApi();
     const route = useRoute();
     const router = useRouter();
-    const appInfo = useAppInfo();
 
     const recipeUrl = computed({
       set(recipe_import_url: string | null) {
@@ -115,7 +114,6 @@ export default defineNuxtComponent({
     }
 
     return {
-      appInfo,
       recipeUrl,
       debugTreeView,
       debugUrl,

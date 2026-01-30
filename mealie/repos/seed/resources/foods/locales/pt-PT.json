@@ -126,14 +126,14 @@
             "heart of palm": {
                 "aliases": [],
                 "description": "",
-                "name": "heart of palm",
-                "plural_name": "heart of palms"
+                "name": "palmito",
+                "plural_name": "palmitos"
             },
             "baby green": {
                 "aliases": [],
                 "description": "",
-                "name": "baby green",
-                "plural_name": "baby greens"
+                "name": "folhas verdes baby",
+                "plural_name": "folhas verdes baby"
             },
             "pumpkin": {
                 "aliases": [],
@@ -150,8 +150,8 @@
             "cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "cabbage",
-                "plural_name": "cabbages"
+                "name": "couve",
+                "plural_name": "couves"
             },
             "asparagu": {
                 "aliases": [],
@@ -162,20 +162,20 @@
             "kale": {
                 "aliases": [],
                 "description": "",
-                "name": "kale",
-                "plural_name": "kales"
+                "name": "couve kale",
+                "plural_name": "couves kale"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
-                "name": "arugula",
-                "plural_name": "arugulas"
+                "name": "rúcula",
+                "plural_name": "rúculas"
             },
             "leek": {
                 "aliases": [],
                 "description": "",
-                "name": "leek",
-                "plural_name": "leeks"
+                "name": "alho-francês",
+                "plural_name": "alhos-francês"
             },
             "eggplant": {
                 "aliases": [],
@@ -187,71 +187,71 @@
                 "aliases": [],
                 "description": "",
                 "name": "alface",
-                "plural_name": "lettuces"
+                "plural_name": "alfaces"
             },
             "butternut squash": {
                 "aliases": [],
                 "description": "",
-                "name": "butternut squash",
-                "plural_name": "butternut squashes"
+                "name": "abóbora-manteiga",
+                "plural_name": "abóboras-manteiga"
             },
             "romaine": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine",
-                "plural_name": "romaines"
+                "name": "alface romana",
+                "plural_name": "alfaces romanas"
             },
             "beetroot": {
                 "aliases": [],
                 "description": "",
-                "name": "beetroot",
-                "plural_name": "beetroots"
+                "name": "beterraba",
+                "plural_name": "beterrabas"
             },
             "brussels sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "brussels sprout",
-                "plural_name": "brussels sprouts"
+                "name": "couve-de-bruxelas",
+                "plural_name": "couves-de-bruxelas"
             },
             "fennel": {
                 "aliases": [],
                 "description": "",
-                "name": "fennel",
-                "plural_name": "fennels"
+                "name": "funcho",
+                "plural_name": "funcho"
             },
             "sun dried tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "sun dried tomato",
-                "plural_name": "sun dried tomatoes"
+                "name": "tomate seco ao sol",
+                "plural_name": "tomates secos ao sol"
             },
             "radish": {
                 "aliases": [],
                 "description": "",
-                "name": "radish",
-                "plural_name": "radishes"
+                "name": "rabanete",
+                "plural_name": "rabanetes"
             },
             "red cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "red cabbage",
-                "plural_name": "red cabbages"
+                "name": "couve roxa",
+                "plural_name": "couves roxas"
             },
             "artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke",
-                "plural_name": "artichokes"
+                "name": "alcachofra",
+                "plural_name": "alcachofras"
             },
             "new potato": {
                 "aliases": [],
                 "description": "",
-                "name": "new potato",
-                "plural_name": "new potatoes"
+                "name": "batata nova",
+                "plural_name": "batatas novas"
             },
             "summer squash": {
                 "aliases": [
-                    "courgette",
+                    "curgete",
                     "gem squash"
                 ],
                 "description": "",
@@ -407,7 +407,7 @@
             "okra": {
                 "aliases": [],
                 "description": "",
-                "name": "okra",
+                "name": "",
                 "plural_name": "okra"
             },
             "acorn squash": {

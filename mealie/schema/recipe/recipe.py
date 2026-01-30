@@ -14,6 +14,7 @@ from sqlalchemy.orm import Session, joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs
+from mealie.core.exceptions import SlugError
 from mealie.db.models.users.users import User
 from mealie.schema._mealie import MealieModel, SearchType
 from mealie.schema._mealie.mealie_model import UpdatedAtField
@@ -45,8 +46,13 @@ def create_recipe_slug(name: str, max_length: int = 250) -> str:
 
     Returns:
         A truncated slug string
+
+    Raises:
+        ValueError: If the name cannot be converted to a valid slug
     """
     generated_slug = slugify(name)
+    if not generated_slug:
+        raise SlugError("Recipe name cannot be empty or contain only special characters")
     if len(generated_slug) > max_length:
         generated_slug = generated_slug[:max_length]
     return generated_slug
@@ -111,9 +117,9 @@ class RecipeSummary(MealieModel):
     id: UUID4 | None = None
     _normalize_search: ClassVar[bool] = True
 
-    user_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
-    household_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
-    group_id: UUID4 = Field(default_factory=uuid4, validate_default=True)
+    user_id: Annotated[UUID4, Field(default_factory=uuid4, validate_default=True)]
+    household_id: Annotated[UUID4, Field(default_factory=uuid4, validate_default=True)]
+    group_id: Annotated[UUID4, Field(default_factory=uuid4, validate_default=True)]
 
     name: str | None = None
     slug: Annotated[str, Field(validate_default=True)] = ""
@@ -128,7 +134,7 @@ class RecipeSummary(MealieModel):
     perform_time: str | None = None
 
     description: str | None = ""
-    recipe_category: Annotated[list[RecipeCategory] | None, Field(validate_default=True)] | None = []
+    recipe_category: Annotated[list[RecipeCategory] | None, Field(validate_default=True)] = []
     tags: Annotated[list[RecipeTag] | None, Field(validate_default=True)] = []
     tools: list[RecipeTool] = []
     rating: float | None = None
@@ -141,6 +147,10 @@ class RecipeSummary(MealieModel):
     updated_at: datetime.datetime | None = UpdatedAtField(None)
     last_made: datetime.datetime | None = None
     model_config = ConfigDict(from_attributes=True)
+
+    @field_validator("recipe_servings", "recipe_yield_quantity", mode="before")
+    def clean_numbers(val: Any):
+        return val or 0
 
     @field_validator("recipe_yield", "total_time", "prep_time", "cook_time", "perform_time", mode="before")
     def clean_strings(val: Any):

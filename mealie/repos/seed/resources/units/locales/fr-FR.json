@@ -9,7 +9,7 @@
         "name": "cuillère à soupe",
         "plural_name": "cuillères à soupe",
         "description": "",
-        "abbreviation": "càS"
+        "abbreviation": "càs"
     },
     "cup": {
         "name": "tasse",
@@ -21,7 +21,7 @@
         "name": "centilitre",
         "plural_name": "centilitres",
         "description": "",
-        "abbreviation": "cL"
+        "abbreviation": "fl oz"
     },
     "pint": {
         "name": "pinte",

@@ -15,11 +15,11 @@
         @click.self="$emit('click')"
       >
         <RecipeCardImage
+          small
           :icon-size="imageHeight"
           :height="imageHeight"
           :slug="slug"
           :recipe-id="recipeId"
-          size="small"
           :image-version="image"
         >
           <v-expand-transition v-if="description">
@@ -49,7 +49,6 @@
           >
             <RecipeFavoriteBadge
               v-if="isOwnGroup"
-              class="absolute"
               :recipe-id="recipeId"
               show-always
             />

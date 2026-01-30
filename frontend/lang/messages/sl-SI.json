@@ -212,6 +212,8 @@
     "upload-file": "Naloži datoteko",
     "created-on-date": "Ustvarjeno dne: {0}",
     "unsaved-changes": "Imate neohranjene spremembe. Ali želite shraniti pred odhodom? V redu, če želite shraniti, Prekliči, če želite zavreči spremembe.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Kopiranje na odložišče ni bilo uspešno.",
     "confirm-delete-generic-items": "Ali ste prepričani, da želite izbrisati izbrane elemente?",
     "organizers": "Organizatorji",
@@ -342,6 +344,9 @@
     "breakfast": "Zajtrk",
     "lunch": "Kosilo",
     "dinner": "Večerja",
+    "snack": "Prigrizek",
+    "drink": "Pijača",
+    "dessert": "Sladica",
     "type-any": "Katerikoli",
     "day-any": "Katerikoli",
     "editor": "Urednik",
@@ -400,7 +405,7 @@
       "title": "Tandoor recepti"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie lahko uvozi recepte iz DVO Cook'n X3. Izvozite kuharsko knjigo ali jedilnik v formatu »Cook'n«, preimenujte izvozno končnico v .zip in nato naložite spodnjo datoteko .zip.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migracije receptov",
@@ -442,13 +447,16 @@
     "upload-a-recipe": "Naloži recept",
     "upload-individual-zip-file": "Naloži posamezno .zip datoteko, izvoženo iz druge Mealie namestitve.",
     "url-form-hint": "Kopiraj in prilepi povezavo iz vaše priljubljene strani z recepti",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Kopirajte in prilepite izvorni URL svojih podatkov (neobvezno)",
     "view-scraped-data": "Poglej postrgane podatke",
     "trim-whitespace-description": "Poreži začetne in končne presledke, kot tudi prazne vrstice",
     "trim-prefix-description": "Poreži prvi znak v vsaki vrstici",
     "split-by-numbered-line-description": "Poskušaj razdeliti odstavek z ujemanjem '1)' ali '1.' vzorcev",
     "import-by-url": "Uvozi recept preko URL",
     "create-manually": "Ročno ustvari recept",
-    "make-recipe-image": "To sliko izberi kot sliko recepta"
+    "make-recipe-image": "To sliko izberi kot sliko recepta",
+    "add-food": "Dodaj hrano",
+    "add-recipe": "Dodaj recept"
   },
   "page": {
     "404-page-not-found": "404 strani ni mogoče najti",
@@ -488,7 +496,7 @@
     "edit-scale": "Uredi stran",
     "fat-content": "Maščoba",
     "fiber-content": "Vlakna",
-    "grams": "grami",
+    "grams": "gramov",
     "ingredient": "Sestavina",
     "ingredients": "Sestavine",
     "insert-ingredient": "Dodaj sestavino",
@@ -515,6 +523,9 @@
     "recipe-deleted": "Recept je izbrisan",
     "recipe-image": "Slika recepta",
     "recipe-image-updated": "Slika recepta je posodobljena",
+    "delete-image": "Izbriši sliko recepta",
+    "delete-image-confirmation": "Ali ste prepričani, da želite izbrisati to sliko recepta?",
+    "recipe-image-deleted": "Slika recepta je bila izbrisana",
     "recipe-name": "Naslov recepta",
     "recipe-settings": "Nastavitve recepta",
     "recipe-update-failed": "Napaka pri posodobitvi recepta",
@@ -560,6 +571,7 @@
     "choose-unit": "Izberite enoto",
     "press-enter-to-create": "Pritisnite enter da izdelate",
     "choose-food": "Izberite hrano",
+    "choose-recipe": "Izberi recept",
     "notes": "Zapiski",
     "toggle-section": "Preklopi izbiro",
     "see-original-text": "Prikaži izvirno besedilo",
@@ -587,6 +599,7 @@
     "made-this": "Naredil sem to",
     "how-did-it-turn-out": "Kako se je izkazalo?",
     "user-made-this": "{user} je tole pripravil/a",
+    "made-for-recipe": "Narejeno za {recipe}",
     "added-to-timeline": "Dodano na časovnico",
     "failed-to-add-to-timeline": "Dodajanje na časovnico ni uspelo",
     "failed-to-update-recipe": "Posodobitev recepta ni uspela",
@@ -626,9 +639,11 @@
     "scrape-recipe-suggest-bulk-importer": "Preizkusi masovni uvoz",
     "scrape-recipe-have-raw-html-or-json-data": "Imaš surove HTML ali JSON podatke?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Uvoziš lahko neposredno iz surovih podatkov",
+    "scrape-recipe-website-being-blocked": "Je spletna stran blokirana?",
+    "scrape-recipe-try-importing-raw-html-instead": "Poskusite namesto tega uvoziti surovi HTML.",
     "import-original-keywords-as-tags": "Uvozi izvorne ključne besede kot značke",
     "stay-in-edit-mode": "Urejaj naprej",
-    "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
+    "parse-recipe-ingredients-after-import": "Razčlenitev sestavin recepta po uvozu",
     "import-from-zip": "Uvozi z Zip",
     "import-from-zip-description": "Uvozi posamezen recept, ki je bil izvožen iz druge instance Mealie aplikacije.",
     "import-from-html-or-json": "Uvozi iz HTML ali JSON",
@@ -675,12 +690,12 @@
       "this-unit-could-not-be-parsed-automatically": "Te enote ni bilo mogoče samodejno razčleniti",
       "this-food-could-not-be-parsed-automatically": "Te hrane ni bilo mogoče samodejno razčleniti",
       "no-food": "Ni živila",
-      "review-parsed-ingredients": "Review parsed ingredients",
-      "confidence-score": "Confidence Score",
-      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
-      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
-      "delete-item": "Delete Item"
+      "review-parsed-ingredients": "Pregled razčlenjenih sestavin",
+      "confidence-score": "Stopnja zaupanja",
+      "ingredient-parser-description": "Vaše sestavine so bile uspešno razčlenjene. Prosimo, preglejte sestavine, glede katerih nismo prepričani.",
+      "ingredient-parser-final-review-description": "Ko bodo vse sestavine pregledane, boste imeli še eno priložnost, da jih pregledate, preden spremembe uveljavite v svojem receptu.",
+      "add-text-as-alias-for-item": "Dodaj \"{text}\" kot vzdevek za {item}",
+      "delete-item": "Izbriši element"
     },
     "reset-servings-count": "Ponastavi števec obrokov",
     "not-linked-ingredients": "Dodatne sestavine",
@@ -688,7 +703,10 @@
     "upload-images": "Naloži slike",
     "upload-more-images": "Naloži več slik",
     "set-as-cover-image": "Nastavi kot sliko naslovnice recepta",
-    "cover-image": "Naslovna slika"
+    "cover-image": "Naslovna slika",
+    "include-linked-recipes": "Vključi povezane recepte",
+    "include-linked-recipe-ingredients": "Vključi povezane sestavine recepta",
+    "toggle-recipe": "Preklopi recept"
   },
   "recipe-finder": {
     "recipe-finder": "Iskalnik receptov",
@@ -725,7 +743,8 @@
     "search-hint": "Pritisni '/'",
     "advanced": "Napredno",
     "auto-search": "Avtomatsko iskanje",
-    "no-results": "Ni zadetkov"
+    "no-results": "Ni zadetkov",
+    "type-to-search": "Vpiši iskalni niz..."
   },
   "settings": {
     "add-a-new-theme": "Dodaj novo temo",
@@ -1063,7 +1082,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ne želiš več videti tega sporočila? Spremeni svoj email v uporabiških nastavitvah!",
     "forgot-password": "Ste pozabili geslo",
     "forgot-password-text": "Vnesi svoj email naslov, poslali ti bomo povezavo za ponastavitev gesla.",
-    "changes-reflected-immediately": "Spremembe na tem uporabniku se poznajo takoj."
+    "changes-reflected-immediately": "Spremembe na tem uporabniku se poznajo takoj.",
+    "default-activity": "Privzeta dejavnost",
+    "default-activity-hint": "Izberite, na katero stran želite priti ob prijavi iz te naprave"
   },
   "language-dialog": {
     "translated": "prevedeno",
@@ -1409,5 +1430,13 @@
       "is-like": "je kot",
       "is-not-like": "ni kot"
     }
+  },
+  "validators": {
+    "required": "To polje je obvezno",
+    "invalid-email": "E-pošta mora biti veljavna",
+    "invalid-url": "URL mora biti veljaven",
+    "no-whitespace": "Presledki niso dovoljeni",
+    "min-length": "Mora vsebovati vsaj {min} znakov",
+    "max-length": "Lahko je največ {max} znakov"
   }
 }

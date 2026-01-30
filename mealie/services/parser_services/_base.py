@@ -173,4 +173,10 @@ class ABCIngredientParser(ABC):
                 ingredient.ingredient.food = food_match
                 ingredient.ingredient.unit = None
 
+        # Make sure empty foods/units are set to None
+        if ingredient.ingredient.food and not ingredient.ingredient.food.name:
+            ingredient.ingredient.food = None
+        if ingredient.ingredient.unit and not ingredient.ingredient.unit.name:
+            ingredient.ingredient.unit = None
+
         return ingredient

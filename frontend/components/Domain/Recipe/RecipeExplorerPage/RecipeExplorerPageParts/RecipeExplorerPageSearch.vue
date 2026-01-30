@@ -32,7 +32,7 @@
               v-bind="props"
             >
               <v-icon :start="!$vuetify.display.xs">
-                {{ state.orderDirection === "asc" ? $globals.icons.sortAscending : $globals.icons.sortDescending }}
+                {{ state.orderDirection === "asc" ? $globals.icons.sortDescending : $globals.icons.sortAscending }}
               </v-icon>
               {{ $vuetify.display.xs ? null : sortText }}
             </v-btn>
@@ -42,7 +42,7 @@
               <v-list-item
                 slim
                 density="comfortable"
-                :prepend-icon="state.orderDirection === 'asc' ? $globals.icons.sortDescending : $globals.icons.sortAscending"
+                :prepend-icon="state.orderDirection === 'asc' ? $globals.icons.sortAscending : $globals.icons.sortDescending"
                 :title="state.orderDirection === 'asc' ? $t('general.sort-descending') : $t('general.sort-ascending')"
                 @click="toggleOrderDirection"
               />
@@ -53,10 +53,23 @@
                 :active="state.orderBy === v.value"
                 slim
                 density="comfortable"
-                :prepend-icon="v.icon"
-                :title="v.name"
-                @click="setOrderBy(v.value)"
-              />
+                @click="v.value === 'random' ? setRandomOrderByWrapper() : setOrderBy(v.value)"
+              >
+                <template #prepend>
+                  <v-icon>{{ v.icon }}</v-icon>
+                </template>
+
+                <template #title>
+                  <span>{{ v.name }}</span>
+                  <v-icon
+                    v-if="v.value === 'random' && showRandomLoading"
+                    size="small"
+                    class="ml-3"
+                  >
+                    {{ $globals.icons.refreshCircle }}
+                  </v-icon>
+                </template>
+              </v-list-item>
             </v-list>
           </v-card>
         </v-menu>
@@ -87,6 +100,7 @@
                 v-model="state.auto"
                 :label="$t('search.auto-search')"
                 single-line
+                color="primary"
               />
               <v-btn
                 block
@@ -131,6 +145,7 @@ const $auth = useMealieAuth();
 const route = useRoute();
 const { $globals } = useNuxtApp();
 const i18n = useI18n();
+const showRandomLoading = ref(false);
 
 const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
 
@@ -141,6 +156,7 @@ const {
   reset,
   toggleOrderDirection,
   setOrderBy,
+  setRandomOrderBy,
   filterItems,
   initialize,
 } = useRecipeExplorerSearch(groupSlug);
@@ -204,6 +220,14 @@ const input: Ref<any> = ref(null);
 
 function hideKeyboard() {
   input.value?.blur();
+}
+
+// function to show refresh icon
+async function setRandomOrderByWrapper() {
+  if (!showRandomLoading.value) {
+    showRandomLoading.value = true;
+  }
+  await setRandomOrderBy();
 }
 </script>
 

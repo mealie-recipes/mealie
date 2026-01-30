@@ -212,6 +212,8 @@
     "upload-file": "העלאת קבצים",
     "created-on-date": "נוצר ב-{0}",
     "unsaved-changes": "יש שינויים שלא נשמרו. לצאת לפני שמירה? אשר לשמירה, בטל למחיקת שינויים.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "כשלון בהעתקה ללוח ההדבקה.",
     "confirm-delete-generic-items": "למחוק את הפריטים שנבחרו?",
     "organizers": "מארגנים",
@@ -342,6 +344,9 @@
     "breakfast": "ארוחת בוקר",
     "lunch": "ארוחת צהריים",
     "dinner": "ארוחת ערב",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "הכל",
     "day-any": "הכל",
     "editor": "עורך",
@@ -442,13 +447,16 @@
     "upload-a-recipe": "העלאת מתכון",
     "upload-individual-zip-file": "העלאת קובץ זיפ שיוצא ממילי אחר.",
     "url-form-hint": "העתק והדבק קישור מאתר המתכונים המועדף עליך",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "צפייה במידע שנאסף",
     "trim-whitespace-description": "הסר רווחים מתחילת / סוף שורה ושורות ריקות",
     "trim-prefix-description": "חתוך תו ראשון מכל שורה",
     "split-by-numbered-line-description": "מנסה לפצל את הפסקה עם תבניות '1)' או '1.'",
     "import-by-url": "ייבוא מתכון באמצעות לינק",
     "create-manually": "יצירת מתכון ידנית",
-    "make-recipe-image": "הפוך תמונה זאת לתמונת המתכון"
+    "make-recipe-image": "הפוך תמונה זאת לתמונת המתכון",
+    "add-food": "הוסף מאכל",
+    "add-recipe": "הוסף מתכון"
   },
   "page": {
     "404-page-not-found": "404 העמוד אינו נמצא",
@@ -478,7 +486,7 @@
     "comment": "הערה",
     "comments": "הערות",
     "delete-confirmation": "למחוק את המתכון הזה?",
-    "admin-delete-confirmation": "You're about to delete a recipe that isn't yours using admin permissions. Are you sure?",
+    "admin-delete-confirmation": "אתה עומד למחוק מתכון שאינו שלך באמצעות הרשאות מנהל. האם אתה בטוח?",
     "delete-recipe": "מחיקת מתכון",
     "description": "תיאור",
     "disable-amount": "ביטול כמויות מרכיבים",
@@ -515,6 +523,9 @@
     "recipe-deleted": "מתכון נמחק",
     "recipe-image": "תמונת המתכון",
     "recipe-image-updated": "תמונת המתכון עודכנה",
+    "delete-image": "מחק תמונת מתכון",
+    "delete-image-confirmation": "האם אתה בטוח שאתה רוצה למחוק את תמונת המתכון?",
+    "recipe-image-deleted": "תמונת מתכון נמחקה",
     "recipe-name": "שם המתכון",
     "recipe-settings": "הגדרות המתכון",
     "recipe-update-failed": "עדכון מתכון נכשל",
@@ -560,6 +571,7 @@
     "choose-unit": "בחירת יחידת מידה",
     "press-enter-to-create": "הקש Enter כדי להוסיף",
     "choose-food": "בחר מזון",
+    "choose-recipe": "בחר מתכון",
     "notes": "הערות",
     "toggle-section": "צור כותרת",
     "see-original-text": "הטקסט המקורי",
@@ -587,6 +599,7 @@
     "made-this": "הכנתי את זה",
     "how-did-it-turn-out": "איך יצא?",
     "user-made-this": "{user} הכין את זה",
+    "made-for-recipe": "Made for {recipe}",
     "added-to-timeline": "נוסף לציר הזמן",
     "failed-to-add-to-timeline": "כישלון בהוספה לציר הזמן",
     "failed-to-update-recipe": "כישלון בעדכון מתכון",
@@ -626,6 +639,8 @@
     "scrape-recipe-suggest-bulk-importer": "נסה את יכולת קריאת רשימה",
     "scrape-recipe-have-raw-html-or-json-data": "יש לך מידע גולמי ב-HTML או JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "ניתן לייבא ישירות ממידע גולמי",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "ייבוא שמות מפתח מקוריות כתגיות",
     "stay-in-edit-mode": "השאר במצב עריכה",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
@@ -688,7 +703,10 @@
     "upload-images": "העלאת תמונות",
     "upload-more-images": "העלאת תמונות נוספות",
     "set-as-cover-image": "Set as recipe cover image",
-    "cover-image": "Cover image"
+    "cover-image": "Cover image",
+    "include-linked-recipes": "Include Linked Recipes",
+    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "toggle-recipe": "Toggle Recipe"
   },
   "recipe-finder": {
     "recipe-finder": "מצא מתכון",
@@ -725,7 +743,8 @@
     "search-hint": "לחץ '/'",
     "advanced": "מתקדם",
     "auto-search": "חיפוש אוטומטי",
-    "no-results": "לא נמצאו תוצאות"
+    "no-results": "לא נמצאו תוצאות",
+    "type-to-search": "הקלד לחיפוש..."
   },
   "settings": {
     "add-a-new-theme": "הוסף ערכת נושא חדשה",
@@ -1063,7 +1082,9 @@
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "לא רוצה לראות את זה יותר? ניתן לשנות את המייל שלך בהגדרות המשתמש!",
     "forgot-password": "שכחתי סיסמא",
     "forgot-password-text": "נא לספק כתובת דוא\"ל. אנו נשלח לך הודעת דוא\"ל לצורך איפוס הסיסמה שלך.",
-    "changes-reflected-immediately": "שינויים למשתמש זה ישתקפו מיידית."
+    "changes-reflected-immediately": "שינויים למשתמש זה ישתקפו מיידית.",
+    "default-activity": "Default Activity",
+    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
   },
   "language-dialog": {
     "translated": "תורגם",
@@ -1409,5 +1430,13 @@
       "is-like": "דומה ל-",
       "is-not-like": "לא דומה לא-"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }
