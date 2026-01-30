@@ -29,6 +29,7 @@ jobs:
 
   container-scanning:
     name: "Trivy Container Scanning"
+    if: github.event_name == 'pull_request'
     uses: ./.github/workflows/partial-trivy-container-scanning.yml
 
   code-ql:
