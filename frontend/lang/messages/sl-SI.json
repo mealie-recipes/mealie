@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Je spletna stran blokirana?",
     "scrape-recipe-try-importing-raw-html-instead": "Poskusite namesto tega uvoziti surovi HTML.",
     "import-original-keywords-as-tags": "Uvozi izvorne ključne besede kot značke",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Urejaj naprej",
     "parse-recipe-ingredients-after-import": "Razčlenitev sestavin recepta po uvozu",
     "import-from-zip": "Uvozi z Zip",
