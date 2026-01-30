@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Site-ul este blocat?",
     "scrape-recipe-try-importing-raw-html-instead": "Încercați în schimb să importați HTML-ul brut.",
     "import-original-keywords-as-tags": "Importă cuvintele cheie originale ca tag-uri",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Rămâi în modul Editare",
     "parse-recipe-ingredients-after-import": "Analizează ingredientele rețetei după import",
     "import-from-zip": "Importă din zip",
