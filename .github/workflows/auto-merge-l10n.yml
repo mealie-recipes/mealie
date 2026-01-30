@@ -72,6 +72,17 @@ jobs:
           PR_NUMBER: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
         run: |
+          APPROVED=$(gh pr view "$PR_NUMBER" \
+            --repo "$REPO" \
+            --json reviews \
+            --jq '.reviews[] | select(.state == "APPROVED" and .author.login == "github-actions[bot]") | .id' \
+            | wc -l)
+
+          if [ "$APPROVED" -gt 0 ]; then
+            echo "PR already approved by bot"
+            exit 0
+          fi
+
           gh pr review "$PR_NUMBER" \
             --repo "$REPO" \
             --approve \
