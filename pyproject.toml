@@ -41,7 +41,7 @@ dependencies = [
     "paho-mqtt==1.6.1",
     "pydantic-settings==2.12.0",
     "pillow-heif==1.2.0",
-    "pyjwt==2.10.1",
+    "pyjwt==2.11.0",
     "openai==2.16.0",
     "typing-extensions==4.15.0",
     "itsdangerous==2.2.0",
