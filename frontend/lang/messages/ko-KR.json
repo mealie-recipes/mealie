@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "웹사이트가 차단되고 있나요?",
     "scrape-recipe-try-importing-raw-html-instead": "대신 원본 HTML 가져오기를 시도해보세요.",
     "import-original-keywords-as-tags": "원본 키워드를 태그로 가져오기",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "편집 모드 유지",
     "parse-recipe-ingredients-after-import": "가져오기 후 레시피 재료 추출",
     "import-from-zip": "Zip 파일에서 가져오기",
