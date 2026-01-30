@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Web sitesi engelleniyor?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Orijinal anahtar kelimeleri etiket olarak içe aktar",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Düzenleme modunda kalın",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Zip'ten içeri aktar",
