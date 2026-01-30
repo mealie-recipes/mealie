@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Η ιστοσελίδα μπλοκάρεται;",
     "scrape-recipe-try-importing-raw-html-instead": "Δοκιμάστε να εισάγετε τον ακατέργαστο κώδικα HTML.",
     "import-original-keywords-as-tags": "Εισαγωγή αρχικών λέξεων-κλειδιών ως ετικέτες",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Παραμονή σε λειτουργία επεξεργασίας",
     "parse-recipe-ingredients-after-import": "Ανάλυση συστατικών συνταγής μετά την εισαγωγή",
     "import-from-zip": "Εισαγωγή μέσω zip",
