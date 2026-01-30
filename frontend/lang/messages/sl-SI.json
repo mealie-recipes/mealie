@@ -212,6 +212,8 @@
     "upload-file": "Naloži datoteko",
     "created-on-date": "Ustvarjeno dne: {0}",
     "unsaved-changes": "Imate neohranjene spremembe. Ali želite shraniti pred odhodom? V redu, če želite shraniti, Prekliči, če želite zavreči spremembe.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Kopiranje na odložišče ni bilo uspešno.",
     "confirm-delete-generic-items": "Ali ste prepričani, da želite izbrisati izbrane elemente?",
     "organizers": "Organizatorji",

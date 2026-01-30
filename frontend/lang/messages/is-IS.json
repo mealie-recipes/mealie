@@ -212,6 +212,8 @@
     "upload-file": "Hlaða upp skrá",
     "created-on-date": "Búið til: {0}",
     "unsaved-changes": "Þú hefur ekki vistað breytingar. Viltu vista áður en þú ferð? Ýttu á \"Í lagi\" til að vista, \"Hætta við\" til að henda breytingum.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Mistókst að afrita klippispjaldið.",
     "confirm-delete-generic-items": "Ertu viss um að þú viljir eyða eftirfylgjandi atriðum?",
     "organizers": "Skipuleggjarar",

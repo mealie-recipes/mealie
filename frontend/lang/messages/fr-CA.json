@@ -212,6 +212,8 @@
     "upload-file": "Téléverser un fichier",
     "created-on-date": "Créé le {0}",
     "unsaved-changes": "Vous avez des modifications non enregistrées. Voulez-vous les enregistrer ? Ok pour enregistrer, annuler pour ignorer les modifications.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Échec de la copie vers le presse-papiers.",
     "confirm-delete-generic-items": "Êtes-vous sûr de vouloir supprimer les éléments suivants ?",
     "organizers": "Classification",

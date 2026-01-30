@@ -212,6 +212,8 @@
     "upload-file": "Prześlij plik",
     "created-on-date": "Utworzono dnia: {0}",
     "unsaved-changes": "Masz niezapisane zmiany. Czy chcesz zapisać przed wyjściem? Ok, aby zapisać, Anuluj, żeby odrzucić zmiany.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Nie udało się skopiować do schowka.",
     "confirm-delete-generic-items": "Czy na pewno chcesz usunąć następujące elementy?",
     "organizers": "Organizatory",

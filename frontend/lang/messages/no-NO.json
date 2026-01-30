@@ -212,6 +212,8 @@
     "upload-file": "Last opp fil",
     "created-on-date": "Opprettet: {0}",
     "unsaved-changes": "Du har ulagrede endringer. Ønsker du å lagre før du forlater? Trykk 'OK' for å lagre, 'Avbryt' for å forkaste endringene.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Kunne ikke kopiere til utklippstavlen.",
     "confirm-delete-generic-items": "Er du sikker på at du vil slette følgende elementer?",
     "organizers": "Organisatorer",

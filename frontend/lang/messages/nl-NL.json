@@ -212,6 +212,8 @@
     "upload-file": "Bestand uploaden",
     "created-on-date": "Gemaakt op: {0}",
     "unsaved-changes": "Er zijn niet-opgeslagen wijzigingen. Wil je eerst opslaan voordat je vertrekt? Oké om op te slaan, Annuleren om wijzigingen ongedaan te maken.",
+    "discard-changes": "Sla wijzigingen niet op",
+    "discard-changes-description": "Je wilt je wijzigingen niet opslaan. Weet je het zeker?",
     "clipboard-copy-failure": "Kopiëren naar klembord mislukt.",
     "confirm-delete-generic-items": "Weet je zeker dat je de volgende items wilt verwijderen?",
     "organizers": "Organisatoren",

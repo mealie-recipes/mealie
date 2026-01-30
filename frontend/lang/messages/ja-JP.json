@@ -212,6 +212,8 @@
     "upload-file": "ファイルのアップロード",
     "created-on-date": "作成日: {0}",
     "unsaved-changes": "保存されていない変更があります。移動する前に保存しますか？保存するには はい を、変更を破棄するにはキャンセルしてください。",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "クリップボードにコピーできませんでした",
     "confirm-delete-generic-items": "次のアイテムを本当に削除しますか？",
     "organizers": "収納",
