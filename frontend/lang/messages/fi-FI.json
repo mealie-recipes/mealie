@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Onko sivusto estetty?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Tuo alkuperäiset avainsanat tunnisteiksi",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Pysy muokkaustilassa",
     "parse-recipe-ingredients-after-import": "Jäsennä reseptin ainesosat tuonnin jälkeen",
     "import-from-zip": "Tuo zip-arkistosta",
