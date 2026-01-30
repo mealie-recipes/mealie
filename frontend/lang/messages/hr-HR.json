@@ -212,6 +212,8 @@
     "upload-file": "Prenesi Datoteku",
     "created-on-date": "Kreirano dana: {0}",
     "unsaved-changes": "Imate promjene koje nisu spremljene. Želite li ih spremiti prije odlaska? Ok za spremanje, Odustani za odbaciti promjene.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Pogreška prilikom spremanja u međuspremnik.",
     "confirm-delete-generic-items": "Jeste li sigurni da želite izbrisati ove stavke?",
     "organizers": "Organizatori",

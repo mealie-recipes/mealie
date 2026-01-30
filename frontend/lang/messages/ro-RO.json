@@ -212,6 +212,8 @@
     "upload-file": "Încărcă fișier",
     "created-on-date": "Creat pe {0}",
     "unsaved-changes": "Aveți modificări nesalvate. Doriți să salvați înainte de a închide aplicația? Apăsați \"OK\" pentru a salva sau \"Anulare\" pentru a renunța la modificări.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Copierea în clipboard a eșuat.",
     "confirm-delete-generic-items": "Sunteți sigur că doriți să ștergeți următoarele?",
     "organizers": "Organizatori",

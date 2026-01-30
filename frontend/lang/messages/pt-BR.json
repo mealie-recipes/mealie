@@ -212,6 +212,8 @@
     "upload-file": "Enviar arquivo",
     "created-on-date": "Criado em {0}",
     "unsaved-changes": "Você possui alterações não salvas. Deseja salvar antes de sair? Ok para salvar, Cancelar para descartar alterações.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Falha ao copiar para a área de transferência.",
     "confirm-delete-generic-items": "Tem certeza que quer excluir os itens seguintes?",
     "organizers": "Organizadores",

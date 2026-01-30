@@ -212,6 +212,8 @@
     "upload-file": "Puja un fitxer",
     "created-on-date": "Creat el: {0}",
     "unsaved-changes": "Tens canvis que no estan guardats. Vols guardar-los abans de sortir? Clica d'acord per guardar-los o cancel·lar per descartar els canvis.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "No s'ha pogut copiar al porta-retalls.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
     "organizers": "Organitzadors",

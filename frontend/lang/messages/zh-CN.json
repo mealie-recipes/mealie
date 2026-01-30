@@ -212,6 +212,8 @@
     "upload-file": "上传文件",
     "created-on-date": "创建于: {0}",
     "unsaved-changes": "你有未保存的更改。你希望现在离开前保存吗？保存选择“是”，不保存选择“取消”。",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "未能复制到剪切板。",
     "confirm-delete-generic-items": "你确定删除以下条目吗？",
     "organizers": "管理器",
