@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Er nettstedet blokkert?",
     "scrape-recipe-try-importing-raw-html-instead": "Prøv å importere HTML-koden i stedet.",
     "import-original-keywords-as-tags": "Importer originale søkeord som emneord",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Forbli i redigeringsmodus",
     "parse-recipe-ingredients-after-import": "Analyser oppskriftens ingredienser etter at importen er fullført",
     "import-from-zip": "Importer fra zip-fil",
