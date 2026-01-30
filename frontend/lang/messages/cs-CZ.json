@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Webové stránky jsou blokovány?",
     "scrape-recipe-try-importing-raw-html-instead": "Zkuste namísto toho importovat raw HTML.",
     "import-original-keywords-as-tags": "Importovat původní klíčová slova jako štítky",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Zůstat v režimu úprav",
     "parse-recipe-ingredients-after-import": "Po importu analyzovat ingredience receptu",
     "import-from-zip": "Importovat ze zipu",
