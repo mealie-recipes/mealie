@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Er vefsíðan lokuð?",
     "scrape-recipe-try-importing-raw-html-instead": "Reyndu að flytja inn HTML kóðann í staðinn.",
     "import-original-keywords-as-tags": "Nota upprunanleg merki",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Vera í breytingarham",
     "parse-recipe-ingredients-after-import": "Greina innhald uppskriftar eftir að búið er að hlaða inn uppskrift",
     "import-from-zip": "Hlaða inn frá .zip",
