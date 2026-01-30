@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Stranica ne radi?",
     "scrape-recipe-try-importing-raw-html-instead": "Pokušajte s uvozom HTML-a.",
     "import-original-keywords-as-tags": "Uvezi originalne ključne riječi kao oznake",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Ostanite u načinu uređivanja",
     "parse-recipe-ingredients-after-import": "Parsiranje sastojaka recepta nakon uvoza",
     "import-from-zip": "Uvoz iz Zip-a",
