@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Le site web est bloqué ?",
     "scrape-recipe-try-importing-raw-html-instead": "Essayez plutôt d'importer le code HTML brut.",
     "import-original-keywords-as-tags": "Importer les mots-clés d'origine en tant que tags",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Rester en mode édition",
     "parse-recipe-ingredients-after-import": "Analyser les ingrédients de la recette après l'import",
     "import-from-zip": "Importer depuis un zip",
