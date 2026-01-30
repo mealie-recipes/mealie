@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Witryna jest zablokowana?",
     "scrape-recipe-try-importing-raw-html-instead": "Zamiast tego spróbuj zaimportować surowy HTML.",
     "import-original-keywords-as-tags": "Importuj oryginalne słowa kluczowe jako tagi",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Pozostań w trybie edycji",
     "parse-recipe-ingredients-after-import": "Analizuj składniki receptury po zaimportowaniu",
     "import-from-zip": "Importuj z pliku Zip",
