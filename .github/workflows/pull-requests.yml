@@ -10,7 +10,7 @@ on:
       - mealie-next
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.event.merge_group.head_ref }}
   cancel-in-progress: true
 
 jobs:
@@ -51,7 +51,10 @@ jobs:
 
   publish-image:
     name: "Publish PR Image"
-    if: contains(github.event.pull_request.labels.*.name, 'build-image') && github.repository == 'mealie-recipes/mealie'
+    if: |
+      github.event_name == 'pull_request' &&
+      contains(github.event.pull_request.labels.*.name, 'build-image') &&
+      github.repository == 'mealie-recipes/mealie'
     permissions:
       contents: read
       packages: write
