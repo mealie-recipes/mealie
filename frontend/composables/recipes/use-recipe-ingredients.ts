@@ -82,7 +82,6 @@ export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1,
     }
   }
 
-  // TODO: Add support for sub-recipes here?
   const unitName = useUnitName(unit || undefined, usePluralUnit);
   const ingName = referencedRecipe ? referencedRecipe.name || "" : useFoodName(food || undefined, usePluralFood);
 

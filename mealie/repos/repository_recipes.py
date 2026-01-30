@@ -21,7 +21,7 @@ from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.db.models.users.users import User
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
-from mealie.schema.recipe.recipe import RecipeCategory, RecipePagination, RecipeSummary, create_recipe_slug
+from mealie.schema.recipe.recipe import RecipePagination, RecipeSummary, create_recipe_slug
 from mealie.schema.recipe.recipe_ingredient import IngredientFood
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponseItem
 from mealie.schema.recipe.recipe_tool import RecipeToolOut
@@ -130,7 +130,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         return self._delete_recipe(recipe_in_db)
 
     def delete_many(self, values: Iterable) -> list[Recipe]:
-        query = self._query().filter(self.model.id.in_(values))
+        query = self._query().filter(self.model.slug.in_(values)).filter_by(**self._filter_builder())
         recipes_in_db = self.session.execute(query).unique().scalars().all()
         results: list[Recipe] = []
 
@@ -214,7 +214,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
     ) -> RecipePagination:
         # Copy this, because calling methods (e.g. tests) might rely on it not getting mutated
         pagination_result = pagination.model_copy()
-        q = sa.select(self.model)
+        q = sa.select(self.model).filter(self.model.household_id.is_not(None))
 
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
@@ -271,24 +271,6 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             items=items,
         )
 
-    def get_by_categories(self, categories: list[RecipeCategory]) -> list[RecipeSummary]:
-        """
-        get_by_categories returns all the Recipes that contain every category provided in the list
-        """
-
-        ids = [x.id for x in categories]
-        stmt = (
-            sa.select(RecipeModel)
-            .join(RecipeModel.recipe_category)
-            .filter(RecipeModel.recipe_category.any(Category.id.in_(ids)))
-        )
-        if self.group_id:
-            stmt = stmt.filter(RecipeModel.group_id == self.group_id)
-        if self.household_id:
-            stmt = stmt.filter(RecipeModel.household_id == self.household_id)
-
-        return [RecipeSummary.model_validate(x) for x in self.session.execute(stmt).unique().scalars().all()]
-
     def _build_recipe_filter(
         self,
         categories: list[UUID4] | None = None,
@@ -334,7 +316,9 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         return fltr
 
     def get_random(self, limit=1) -> list[Recipe]:
-        stmt = sa.select(RecipeModel).order_by(sa.func.random()).limit(limit)  # Postgres and SQLite specific
+        stmt = (
+            sa.select(RecipeModel).filter(RecipeModel.household_id.is_not(None)).order_by(sa.func.random()).limit(limit)
+        )  # Postgres and SQLite specific
         if self.group_id:
             stmt = stmt.filter(RecipeModel.group_id == self.group_id)
         if self.household_id:
@@ -405,7 +389,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         ingredients_alias = orm.aliased(RecipeIngredientModel)
         tools_alias = orm.aliased(Tool)
 
-        q = sa.select(self.model)
+        q = sa.select(self.model).filter(self.model.household_id.is_not(None))
         fltr = self._filter_builder()
         q = q.filter_by(**fltr)
 

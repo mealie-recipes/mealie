@@ -179,41 +179,45 @@
         </BaseButton>
       </div>
 
-      <BaseExpansionPanels v-for="(value, key) in itemsByLabel" :key="key" :v-model="0" start-open>
-        <v-expansion-panel class="shopping-list-section">
-          <v-expansion-panel-title
-            :color="getLabelColor(key)"
-            class="body-1 font-weight-bold section-title"
-          >
-            {{ key }}
-          </v-expansion-panel-title>
-          <v-expansion-panel-text eager>
-            <VueDraggable
-              :model-value="value"
-              handle=".handle"
-              :delay="250"
-              :delay-on-touch-only="true"
-              @start="loadingCounter += 1"
-              @end="loadingCounter -= 1"
-              @update:model-value="updateIndexUncheckedByLabel(key.toString(), $event)"
+      <TransitionGroup name="scroll-x-transition">
+        <BaseExpansionPanels v-for="(value, key) in itemsByLabel" :key="key" :v-model="0" start-open>
+          <v-expansion-panel class="shopping-list-section">
+            <v-expansion-panel-title
+              :color="getLabelColor(key)"
+              class="body-1 font-weight-bold section-title"
             >
-              <ShoppingListItem
-                v-for="(item, index) in value"
-                :key="item.id"
-                v-model="value[index]"
-                class="ml-2 my-2 w-auto"
-                :labels="allLabels || []"
-                :units="allUnits || []"
-                :foods="allFoods || []"
-                :recipes="recipeMap"
-                @checked="saveListItem"
-                @save="saveListItem"
-                @delete="deleteListItem(item)"
-              />
-            </VueDraggable>
-          </v-expansion-panel-text>
-        </v-expansion-panel>
-      </BaseExpansionPanels>
+              {{ key }}
+            </v-expansion-panel-title>
+            <v-expansion-panel-text eager>
+              <VueDraggable
+                :model-value="value"
+                handle=".handle"
+                :delay="250"
+                :delay-on-touch-only="true"
+                @start="loadingCounter += 1"
+                @end="loadingCounter -= 1"
+                @update:model-value="updateIndexUncheckedByLabel(key.toString(), $event)"
+              >
+                <TransitionGroup name="scroll-x-transition">
+                  <ShoppingListItem
+                    v-for="(item, index) in value"
+                    :key="item.id"
+                    v-model="value[index]"
+                    class="ml-2 my-2 w-auto"
+                    :labels="allLabels || []"
+                    :units="allUnits || []"
+                    :foods="allFoods || []"
+                    :recipes="recipeMap"
+                    @checked="saveListItem"
+                    @save="saveListItem"
+                    @delete="deleteListItem(item)"
+                  />
+                </TransitionGroup>
+              </VueDraggable>
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </BaseExpansionPanels>
+      </TransitionGroup>
       <!-- Checked Items -->
       <v-expansion-panels flat>
         <v-expansion-panel v-if="listItems.checked && listItems.checked.length > 0">
@@ -243,18 +247,20 @@
             </div>
           </v-expansion-panel-title>
           <v-expansion-panel-text eager>
-            <div v-for="(item, idx) in listItems.checked" :key="item.id">
-              <ShoppingListItem
-                v-model="listItems.checked[idx]"
-                class="strike-through-note"
-                :labels="allLabels || []"
-                :units="allUnits || []"
-                :foods="allFoods || []"
-                @checked="saveListItem"
-                @save="saveListItem"
-                @delete="deleteListItem(item)"
-              />
-            </div>
+            <TransitionGroup name="scroll-x-transition">
+              <div v-for="(item, idx) in listItems.checked" :key="item.id">
+                <ShoppingListItem
+                  v-model="listItems.checked[idx]"
+                  class="strike-through-note"
+                  :labels="allLabels || []"
+                  :units="allUnits || []"
+                  :foods="allFoods || []"
+                  @checked="saveListItem"
+                  @save="saveListItem"
+                  @delete="deleteListItem(item)"
+                />
+              </div>
+            </TransitionGroup>
           </v-expansion-panel-text>
         </v-expansion-panel>
       </v-expansion-panels>

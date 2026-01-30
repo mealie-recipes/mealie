@@ -148,7 +148,7 @@ class RecipeController(BaseRecipeController):
     async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData):
         if isinstance(req, ScrapeRecipeData):
             html = req.data
-            url = ""
+            url = req.url or ""
         else:
             html = None
             url = req.url
@@ -164,6 +164,11 @@ class RecipeController(BaseRecipeController):
             ctx = ScraperContext(self.repos)
 
             recipe.tags = extras.use_tags(ctx)  # type: ignore
+
+        if req.include_categories:
+            ctx = ScraperContext(self.repos)
+
+            recipe.recipe_category = extras.use_categories(ctx)  # type: ignore
 
         new_recipe = self.service.create_one(recipe)
 

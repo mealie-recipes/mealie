@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "レシピ名が重複しています",
         "recipe-created": "レシピが作成されました",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "レシピ画像を削除しました",
         "recipe-defaults": {
             "ingredient-note": "小麦粉1カップ",
             "step-text": "レシピの手順など、レシピページはmarkdown構文に対応しています\n\n例）\n[ミーリー](https://demo.mealie.io)\n"
@@ -46,7 +46,7 @@
         "generic-updated-with-url": "{name} が更新されました: {url}",
         "generic-duplicated": "{name} が複製されました",
         "generic-deleted": "{name} が削除されました",
-        "logged-out": "Logged out"
+        "logged-out": "ログアウトしました"
     },
     "datetime": {
         "year": "年",

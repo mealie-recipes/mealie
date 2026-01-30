@@ -2,7 +2,7 @@
   "about": {
     "about": "Tietoja",
     "about-mealie": "Tietoja Mealiestä",
-    "api-docs": "API-dokumentit",
+    "api-docs": "API-dokumentaatio",
     "api-port": "API-portti",
     "application-mode": "Sovellustila",
     "database-type": "Tietokannan tyyppi",
@@ -54,7 +54,7 @@
     "apprise-url": "Apprise URL",
     "database": "Tietokanta",
     "delete-event": "Poista tapahtuma",
-    "event-delete-confirmation": "Oletko varma että haluat poistaa tämän tapahtuman?",
+    "event-delete-confirmation": "Haluatko varmasti poistaa tämän tapahtuman?",
     "event-deleted": "Tapahtuma poistettu",
     "event-updated": "Tapahtuma päivitetty",
     "new-notification-form-description": "Mealie käyttää Apprise-kirjastoa ilmoitusten luomiseen. Se tarjoaa monia ilmoituspalvelveluvaihtoehtoja. Lisää tietoa siitä, kuinka luoda URL palvelua varten, löydät Apprisen wikistä. Joihinkin ilmoitustyyppeihin voi sisältyä lisäominaisuuksia.",
@@ -212,6 +212,8 @@
     "upload-file": "Tuo tiedosto",
     "created-on-date": "Luotu {0}",
     "unsaved-changes": "Et ole tallentanut tekemiäsi muutoksia. Tallennetaanko ne? Paina \"ok\" tallentaaksesi ja \"peruuta\", jos et halua tallentaa.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Kopioiminen leikepöydälle epäonnistui.",
     "confirm-delete-generic-items": "Haluatko varmasti poistaa seuraavat kohteet?",
     "organizers": "Järjestäjät",
@@ -342,6 +344,9 @@
     "breakfast": "Aamiainen",
     "lunch": "Lounas",
     "dinner": "Päivällinen",
+    "snack": "Välipala",
+    "drink": "Juoma",
+    "dessert": "Jälkiruoka",
     "type-any": "Mikä tahansa",
     "day-any": "Koska tahansa",
     "editor": "Editori",
@@ -442,6 +447,7 @@
     "upload-a-recipe": "Lataa resepti",
     "upload-individual-zip-file": "Tuo yksittäinen pakattu kansio toisesta Mealie instanssista.",
     "url-form-hint": "Liitä linkki lempireseptiverkkosivultasi",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Näytä hankittu data",
     "trim-whitespace-description": "Leikkaa alussa ja lopussa olevat välilyönnit sekä tyhjät rivit",
     "trim-prefix-description": "Poista joka rivin ensimmäinen merkki",
@@ -449,8 +455,8 @@
     "import-by-url": "Tuo resepti osoitteesta",
     "create-manually": "Luo resepti manuaalisesti",
     "make-recipe-image": "Luo reseptikuva",
-    "add-food": "Add Food",
-    "add-recipe": "Add Recipe"
+    "add-food": "Lisää Ruoka",
+    "add-recipe": "Lisää resepti"
   },
   "page": {
     "404-page-not-found": "404 sivua ei löydy",
@@ -517,9 +523,9 @@
     "recipe-deleted": "Resepti poistettu",
     "recipe-image": "Reseptikuva",
     "recipe-image-updated": "Reseptikuva päivitetty",
-    "delete-image": "Delete Recipe Image",
-    "delete-image-confirmation": "Are you sure you want to delete this recipe image?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "delete-image": "Poista Reseptin Kuva",
+    "delete-image-confirmation": "Haluatko varmasti poistaa reseptikuvan?",
+    "recipe-image-deleted": "Reseptikuva poistettu",
     "recipe-name": "Reseptin nimi",
     "recipe-settings": "Reseptiasetukset",
     "recipe-update-failed": "Reseptin päivitys epäonnistui",
@@ -565,7 +571,7 @@
     "choose-unit": "Valitse Yksikkö",
     "press-enter-to-create": "Luo painamalla Enter",
     "choose-food": "Valitse Ruoka",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "Valitse Resepti",
     "notes": "Merkinnät",
     "toggle-section": "Vaihda osio",
     "see-original-text": "Katso Alkuperäinen Teksti",
@@ -593,7 +599,7 @@
     "made-this": "Tein tämän",
     "how-did-it-turn-out": "Miten se onnistui?",
     "user-made-this": "{user} teki tämän",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Tehty reseptille",
     "added-to-timeline": "Lisätty aikajanalle",
     "failed-to-add-to-timeline": "Aikajanaan lisääminen epäonnistui",
     "failed-to-update-recipe": "Reseptin päivitys epäonnistui",
@@ -633,6 +639,8 @@
     "scrape-recipe-suggest-bulk-importer": "Kokeile massasiirtotyökalua",
     "scrape-recipe-have-raw-html-or-json-data": "Onko sinulla raakaa HTML- tai JSON-dataa?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Voit tuoda raakadatan suoraan",
+    "scrape-recipe-website-being-blocked": "Onko sivusto estetty?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Tuo alkuperäiset avainsanat tunnisteiksi",
     "stay-in-edit-mode": "Pysy muokkaustilassa",
     "parse-recipe-ingredients-after-import": "Jäsennä reseptin ainesosat tuonnin jälkeen",
@@ -696,9 +704,9 @@
     "upload-more-images": "Lataa lisää kuvia",
     "set-as-cover-image": "Aseta reseptin kansikuvaksi",
     "cover-image": "Kansikuva",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "include-linked-recipes": "Sisällytä Linkitetyt Reseptit",
+    "include-linked-recipe-ingredients": "Sisällytä Yhdistetyt Reseptin Ainesosat",
+    "toggle-recipe": "Vaihda osio"
   },
   "recipe-finder": {
     "recipe-finder": "Reseptin etsijä",
@@ -736,7 +744,7 @@
     "advanced": "Lisäasetukset",
     "auto-search": "Automaattinen Haku",
     "no-results": "Ei tuloksia",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Kirjoita haettavaksi..."
   },
   "settings": {
     "add-a-new-theme": "Lisää uusi teema",
@@ -1075,8 +1083,8 @@
     "forgot-password": "Unohditko salasanasi",
     "forgot-password-text": "Syötä sähköpostiosoitteesi, niin voit muuttaa salasanaasi linkin kautta.",
     "changes-reflected-immediately": "Muutokset tähän käyttäjään astuvat välittömästi voimaan.",
-    "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity": "Oletusnäkymä",
+    "default-activity-hint": "Valitse haluamasi sivu, johon haluat navigoida kirjautuessasi tältä laitteelta"
   },
   "language-dialog": {
     "translated": "käännetty",
@@ -1422,5 +1430,13 @@
       "is-like": "on kuin",
       "is-not-like": "ei ole kuin"
     }
+  },
+  "validators": {
+    "required": "Tämä kenttä on pakollinen",
+    "invalid-email": "Sähköpostiosoite ei ole kelvollinen",
+    "invalid-url": "URL ei ole kelvollinen",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Vähimmäispituus on {min} merkkiä",
+    "max-length": "Enimmäispituus on {max} merkkiä"
   }
 }

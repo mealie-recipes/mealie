@@ -160,6 +160,36 @@ def test_other_user_cant_delete_recipe(api_client: TestClient, user_tuple: list[
     assert response.status_code == 403
 
 
+def test_other_user_bulk_delete(api_client: TestClient, user_tuple: list[TestUser]):
+    slug_locked = random_string(10)
+    slug_unlocked = random_string(10)
+    unique_user, other_user = user_tuple
+
+    unique_user.repos.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug_locked,
+            settings=RecipeSettings(locked=True),
+        )
+    )
+    unique_user.repos.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug_unlocked,
+            settings=RecipeSettings(locked=False),
+        )
+    )
+
+    response = api_client.post(
+        api_routes.recipes_bulk_actions_delete,
+        json={"recipes": [slug_locked, slug_unlocked]},
+        headers=other_user.token,
+    )
+    assert response.status_code == 403
+
+
 def test_admin_can_delete_locked_recipe_owned_by_another_user(
     api_client: TestClient, unfiltered_database: AllRepositories, unique_user: TestUser, admin_user: TestUser
 ):

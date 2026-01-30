@@ -9,7 +9,7 @@
 
 Mealie supports 3rd party authentication via [OpenID Connect (OIDC)](https://openid.net/connect/), an identity layer built on top of OAuth2. OIDC is supported by many Identity Providers (IdP), including:
 
-- [Authentik](https://goauthentik.io/integrations/sources/oauth/#openid-connect)
+- [Authentik](https://integrations.goauthentik.io/documentation/mealie/)
 - [Authelia](https://www.authelia.com/integration/openid-connect/mealie/)
 - [Keycloak](https://www.keycloak.org/docs/latest/securing_apps/#_oidc)
 - [Okta](https://www.okta.com/openid-connect/)
@@ -67,7 +67,6 @@ There are two (optional) [environment variables](../installation/backend-config.
 Example configurations for several Identity Providers have been provided by the Community in the [GitHub Discussions](https://github.com/mealie-recipes/mealie/discussions/categories/oauth-provider-example).
 
 If you don't see your provider and have successfully set it up, please consider [creating your own example](https://github.com/mealie-recipes/mealie/discussions/new?category=oauth-provider-example) so that others can have a smoother setup.
-
 
 ## Migration from Mealie v1.x
 

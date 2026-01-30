@@ -1212,13 +1212,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "mamey",
-                "plural_name": "mameys"
+                "plural_name": "mamey"
             },
             "sapote": {
                 "aliases": [],
                 "description": "",
-                "name": "sapote",
-                "plural_name": "sapotes"
+                "name": "datolyaszilva",
+                "plural_name": "datolyaszilva"
             },
             "green ume plum": {
                 "aliases": [],
@@ -1229,8 +1229,8 @@
             "kiwano": {
                 "aliases": [],
                 "description": "",
-                "name": "kiwano",
-                "plural_name": "kiwanoes"
+                "name": "szarvasdinnye",
+                "plural_name": "szarvasdinnye"
             }
         }
     },
@@ -1622,13 +1622,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "homoktövis",
-                "plural_name": "sea buckthorns"
+                "plural_name": "tengeri homoktövis"
             },
             "saskatoon berry": {
                 "aliases": [],
                 "description": "",
-                "name": "saskatoon berry",
-                "plural_name": "saskatoon berries"
+                "name": "mézalmácska",
+                "plural_name": "mézalmácska"
             },
             "rosehip": {
                 "aliases": [],
@@ -1657,14 +1657,14 @@
             "freeze-dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried berry",
-                "plural_name": "freeze-dried berries"
+                "name": "liofilizált bogyós gyümölcs",
+                "plural_name": "liofilizált bogyós gyümölcs"
             },
             "aronia berry": {
                 "aliases": [],
                 "description": "",
-                "name": "aronia berry",
-                "plural_name": "aronia berries"
+                "name": "fekete berkenye",
+                "plural_name": "fekete berkenye"
             },
             "chokeberry": {
                 "aliases": [],
@@ -2070,7 +2070,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kecskesajt",
-                "plural_name": "kecskesajtok"
+                "plural_name": "kecskesajt"
             },
             "fresh mozzarella": {
                 "aliases": [],
@@ -2226,7 +2226,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "burrata",
-                "plural_name": "burratas"
+                "plural_name": "burrata"
             },
             "havarti": {
                 "aliases": [],
@@ -2466,7 +2466,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "juhsajt",
-                "plural_name": "juhsajtok"
+                "plural_name": "juhsajt"
             },
             "amul cheese": {
                 "aliases": [],
@@ -2850,7 +2850,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kecsketej",
-                "plural_name": "kecsketejek"
+                "plural_name": "kecsketej"
             },
             "cheese curd": {
                 "aliases": [],
@@ -2976,7 +2976,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kecskevaj",
-                "plural_name": "kecskevajak"
+                "plural_name": "kecskevaj"
             },
             "century egg": {
                 "aliases": [],
@@ -2994,7 +2994,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kecskejoghurt",
-                "plural_name": "kecskejoghurtok"
+                "plural_name": "kecskejoghurt"
             },
             "dahi": {
                 "aliases": [],
@@ -3035,8 +3035,8 @@
             "sheep’s milk yoghurt": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep’s milk yoghurt",
-                "plural_name": "sheep’s milk yoghurts"
+                "name": "juhjoghurt",
+                "plural_name": "juhjoghurt"
             },
             "strawberry milk": {
                 "aliases": [],
@@ -3078,7 +3078,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "juhtej",
-                "plural_name": "juhtejek"
+                "plural_name": "juhtej"
             },
             "starter culture": {
                 "aliases": [],
@@ -3119,8 +3119,8 @@
             "goat kefir": {
                 "aliases": [],
                 "description": "",
-                "name": "goat kefir",
-                "plural_name": "goat kefirs"
+                "name": "kecske kefír",
+                "plural_name": "kecske kefír"
             },
             "lebneh": {
                 "aliases": [],
@@ -3207,8 +3207,8 @@
             "egg replacer": {
                 "aliases": [],
                 "description": "",
-                "name": "egg replacer",
-                "plural_name": "egg replacers"
+                "name": "tojás helyettesítő",
+                "plural_name": "tojás helyettesítő"
             },
             "vegan mayonnaise": {
                 "aliases": [],
@@ -3267,8 +3267,8 @@
             "oat milk": {
                 "aliases": [],
                 "description": "",
-                "name": "oat milk",
-                "plural_name": "oat milks"
+                "name": "zabtej",
+                "plural_name": "zabtej"
             },
             "nut butter": {
                 "aliases": [],
@@ -14996,7 +14996,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "galliano",
-                "plural_name": "gallianoes"
+                "plural_name": "galliano"
             },
             "blackberry brandy": {
                 "aliases": [],
@@ -15149,26 +15149,26 @@
             "tomato juice": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato juice",
-                "plural_name": "tomato juices"
+                "name": "paradicsomlé",
+                "plural_name": "paradicsomlé"
             },
             "coconut water": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut water",
-                "plural_name": "coconut waters"
+                "name": "kókuszvíz",
+                "plural_name": "kókuszvíz"
             },
             "pomegranate juice": {
                 "aliases": [],
                 "description": "",
-                "name": "pomegranate juice",
-                "plural_name": "pomegranate juices"
+                "name": "gránátalmalé",
+                "plural_name": "gránátalmalé"
             },
             "grapefruit juice": {
                 "aliases": [],
                 "description": "",
-                "name": "grapefruit juice",
-                "plural_name": "grapefruit juices"
+                "name": "grépfrutlé",
+                "plural_name": "grépfrutlé"
             },
             "lemonade": {
                 "aliases": [],
@@ -15191,8 +15191,8 @@
             "ginger ale": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger ale",
-                "plural_name": "ginger ales"
+                "name": "gyömbérsör",
+                "plural_name": ""
             },
             "ginger beer": {
                 "aliases": [],
@@ -15227,8 +15227,8 @@
             "green tea": {
                 "aliases": [],
                 "description": "",
-                "name": "green tea",
-                "plural_name": "green teas"
+                "name": "zöld tea",
+                "plural_name": "zöld tea"
             },
             "lemonade concentrate": {
                 "aliases": [],
@@ -15287,14 +15287,14 @@
             "tea leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "tea leaf",
-                "plural_name": "tea leaves"
+                "name": "tealevél",
+                "plural_name": "tealevél"
             },
             "grape juice": {
                 "aliases": [],
                 "description": "",
-                "name": "grape juice",
-                "plural_name": "grape juices"
+                "name": "szőlőlé",
+                "plural_name": "szőlőlé"
             },
             "cherry juice": {
                 "aliases": [],
@@ -15305,8 +15305,8 @@
             "carrot juice": {
                 "aliases": [],
                 "description": "",
-                "name": "carrot juice",
-                "plural_name": "carrot juices"
+                "name": "répalé",
+                "plural_name": "répalé"
             },
             "limeade concentrate": {
                 "aliases": [],
@@ -15318,13 +15318,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "dr pepper",
-                "plural_name": "dr peppers"
+                "plural_name": "dr pepper"
             },
             "white grape juice": {
                 "aliases": [],
                 "description": "",
-                "name": "white grape juice",
-                "plural_name": "white grape juices"
+                "name": "fehér szőlőlé",
+                "plural_name": "fehér szőlőlé"
             },
             "watermelon juice": {
                 "aliases": [],
@@ -15401,14 +15401,14 @@
             "energy drink": {
                 "aliases": [],
                 "description": "",
-                "name": "energy drink",
-                "plural_name": "energy drinks"
+                "name": "energiaital",
+                "plural_name": "energiaital"
             },
             "chamomile tea": {
                 "aliases": [],
                 "description": "",
-                "name": "chamomile tea",
-                "plural_name": "chamomile teas"
+                "name": "kamillatea",
+                "plural_name": "kamillatea"
             },
             "pear juice": {
                 "aliases": [],
@@ -15438,7 +15438,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mountain dew",
-                "plural_name": "mountain dews"
+                "plural_name": "mountain dew"
             },
             "grapefruit soda": {
                 "aliases": [],
@@ -15450,7 +15450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rooibos tea",
-                "plural_name": "rooibos teas"
+                "plural_name": "rooibos tea"
             },
             "lime soda": {
                 "aliases": [],
@@ -15473,8 +15473,8 @@
             "jasmine tea": {
                 "aliases": [],
                 "description": "",
-                "name": "jasmine tea",
-                "plural_name": "jasmine teas"
+                "name": "jázmin tea",
+                "plural_name": "jázmin tea"
             },
             "clamato": {
                 "aliases": [],
@@ -15497,8 +15497,8 @@
             "green tea leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "green tea leaf",
-                "plural_name": "green tea leaves"
+                "name": "zöld tealevél",
+                "plural_name": "zöld tealevél"
             },
             "beetroot juice": {
                 "aliases": [],
@@ -15659,8 +15659,8 @@
             "peppermint tea": {
                 "aliases": [],
                 "description": "",
-                "name": "peppermint tea",
-                "plural_name": "peppermint teas"
+                "name": "borsmenta tea",
+                "plural_name": "borsmenta tea"
             },
             "sports drink": {
                 "aliases": [],
@@ -15747,8 +15747,8 @@
             "rose water": {
                 "aliases": [],
                 "description": "",
-                "name": "rose water",
-                "plural_name": "rose waters"
+                "name": "rózsavíz",
+                "plural_name": "rózsavíz"
             },
             "orange extract": {
                 "aliases": [],
@@ -15771,8 +15771,8 @@
             "collagen": {
                 "aliases": [],
                 "description": "",
-                "name": "collagen",
-                "plural_name": "collagens"
+                "name": "kollagén",
+                "plural_name": "kollagén"
             },
             "chocolate protein powder": {
                 "aliases": [],
@@ -15825,8 +15825,8 @@
             "coffee extract": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee extract",
-                "plural_name": "coffee extracts"
+                "name": "kávékivonat",
+                "plural_name": "kávékivonat"
             },
             "brewer's yeast": {
                 "aliases": [],
@@ -15885,8 +15885,8 @@
             "lavender oil": {
                 "aliases": [],
                 "description": "",
-                "name": "lavender oil",
-                "plural_name": "lavender oils"
+                "name": "levendula olaj",
+                "plural_name": "levendula olaj"
             },
             "essential oil": {
                 "aliases": [],
@@ -15927,8 +15927,8 @@
             "vitamin c": {
                 "aliases": [],
                 "description": "",
-                "name": "vitamin c",
-                "plural_name": "vitamin cs"
+                "name": "C-vitamin",
+                "plural_name": "C-vitamin"
             },
             "acai powder": {
                 "aliases": [],

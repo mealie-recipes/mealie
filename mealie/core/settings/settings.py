@@ -128,11 +128,8 @@ class AppSettings(AppLoggingSettings):
     def validate_token_time(cls, v: int) -> int:
         if v < 1:
             raise ValueError("TOKEN_TIME must be at least 1 hour")
-        # If TOKEN_TIME is unreasonably high (e.g. hundreds of years), JWT encoding
-        # can overflow, so we set the max to 10 years (87600 hours).
-        if v > 87600:
-            raise ValueError("TOKEN_TIME is too high; maximum is 87600 hours (10 years)")
-        return v
+        # Certain browsers (webkit) have issues with very long-lived cookies, so we limit to 400 days
+        return min(v, 400 * 24)
 
     SECRET: str
     SESSION_SECRET: str
@@ -414,6 +411,11 @@ class AppSettings(AppLoggingSettings):
     OPENAI_REQUEST_TIMEOUT: int = 300
     """
     The number of seconds to wait for an OpenAI request to complete before cancelling the request
+    """
+    OPENAI_CUSTOM_PROMPT_DIR: str | None = None
+    """
+    Path to a folder containing custom prompt files;
+    files are individually optional, each prompt name will fall back to the default if no custom file exists
     """
 
     @property

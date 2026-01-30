@@ -17,8 +17,12 @@ async def download_file(file_path: Path = Depends(validate_file_token)):
     file_path = Path(file_path).resolve()
 
     dirs = get_app_dirs()
+    allowed_dirs = [
+        dirs.BACKUP_DIR,  # admin backups
+        dirs.GROUPS_DIR,  # group exports
+    ]
 
-    if not file_path.is_relative_to(dirs.DATA_DIR):
+    if not any(file_path.is_relative_to(allowed_dir) for allowed_dir in allowed_dirs):
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     if not file_path.is_file():

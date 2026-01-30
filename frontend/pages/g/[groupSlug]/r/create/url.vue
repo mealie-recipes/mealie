@@ -2,7 +2,7 @@
   <div>
     <v-form
       ref="domUrlForm"
-      @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags)"
+      @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags, importCategories)"
     >
       <div>
         <v-card-title class="headline">
@@ -12,10 +12,10 @@
           <p>{{ $t('recipe.scrape-recipe-description') }}</p>
           <p>
             {{ $t('recipe.scrape-recipe-have-a-lot-of-recipes') }}
-            <a :href="bulkImporterTarget">{{ $t('recipe.scrape-recipe-suggest-bulk-importer') }}</a>.
+            <router-link :to="bulkImporterTarget">{{ $t('recipe.scrape-recipe-suggest-bulk-importer') }}</router-link>.
             <br>
             {{ $t('recipe.scrape-recipe-have-raw-html-or-json-data') }}
-            <a :href="htmlOrJsonImporterTarget">{{ $t('recipe.scrape-recipe-you-can-import-from-raw-data-directly') }}</a>.
+            <router-link :to="htmlOrJsonImporterTarget">{{ $t('recipe.scrape-recipe-you-can-import-from-raw-data-directly') }}</router-link>.
           </p>
           <v-text-field
             v-model="recipeUrl"
@@ -37,6 +37,12 @@
           color="primary"
           hide-details
           :label="$t('recipe.import-original-keywords-as-tags')"
+        />
+        <v-checkbox
+          v-model="importCategories"
+          color="primary"
+          hide-details
+          :label="$t('recipe.import-original-categories')"
         />
         <v-checkbox
           v-model="stayInEditMode"
@@ -81,10 +87,17 @@
         </v-card-title>
         <v-divider class="my-3 mx-2" />
 
-        <p>
-          {{ $t("new-recipe.error-details") }}
-        </p>
-        <div class="d-flex row justify-space-around my-3 force-white">
+        <div class="force-url-white">
+          <p>
+            {{ $t("recipe.scrape-recipe-website-being-blocked") }}
+            <router-link :to="htmlOrJsonImporterTarget">{{ $t("recipe.scrape-recipe-try-importing-raw-html-instead") }}</router-link>
+          </p>
+          <br>
+          <p>
+            {{ $t("new-recipe.error-details") }}
+          </p>
+        </div>
+        <div class="d-flex row justify-space-around my-3 force-url-white">
           <a
             class="dark"
             href="https://developers.google.com/search/docs/data-types/recipe"
@@ -141,6 +154,7 @@ export default defineNuxtComponent({
 
     const {
       importKeywordsAsTags,
+      importCategories,
       stayInEditMode,
       parseRecipe,
       navigateToRecipe,
@@ -202,7 +216,17 @@ export default defineNuxtComponent({
 
     const domUrlForm = ref<VForm | null>(null);
 
-    async function createByUrl(url: string | null, importKeywordsAsTags: boolean) {
+    // Remove import URL from query params when leaving the page
+    const isLeaving = ref(false);
+    onBeforeRouteLeave((to) => {
+      if (isLeaving.value) {
+        return;
+      }
+      isLeaving.value = true;
+      router.replace({ query: undefined }).then(() => router.push(to));
+    });
+
+    async function createByUrl(url: string | null, importKeywordsAsTags: boolean, importCategories: boolean) {
       if (url === null) {
         return;
       }
@@ -212,7 +236,7 @@ export default defineNuxtComponent({
         return;
       }
       state.loading = true;
-      const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags);
+      const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags, importCategories);
       handleResponse(response, importKeywordsAsTags);
     }
 
@@ -221,6 +245,7 @@ export default defineNuxtComponent({
       htmlOrJsonImporterTarget,
       recipeUrl,
       importKeywordsAsTags,
+      importCategories: importCategories,
       stayInEditMode,
       parseRecipe,
       domUrlForm,
@@ -232,8 +257,8 @@ export default defineNuxtComponent({
 });
 </script>
 
-<style>
-.force-white > a {
+<style scoped>
+.force-url-white a {
   color: white !important;
 }
 </style>

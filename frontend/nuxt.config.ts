@@ -72,7 +72,6 @@ export default defineNuxtConfig({
     apiUrl: process.env.API_URL || "http://localhost:9000",
     public: {
       AUTH_TOKEN,
-      TOKEN_TIME: process.env.TOKEN_TIME || "48",
       GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || undefined,
       SUB_PATH: process.env.SUB_PATH || "",
       // ==============================================
@@ -246,7 +245,6 @@ export default defineNuxtConfig({
         "browser",
         "window-controls-overlay",
       ],
-      orientation: "any",
       categories: ["food", "lifestyle"],
       prefer_related_applications: false,
       handle_links: "preferred",
@@ -259,6 +257,7 @@ export default defineNuxtConfig({
       share_target: {
         action: "/r/create/url",
         method: "GET",
+        enctype: "application/x-www-form-urlencoded",
         params: {
           text: "recipe_import_url",
         },
@@ -389,6 +388,23 @@ export default defineNuxtConfig({
       locale: {
         locale: "en-US",
         fallback: "en-US",
+      },
+      defaults: {
+        VOverlay: {
+          scrollStrategy: "close",
+        },
+        VMenu: {
+          scrollStrategy: "close",
+        },
+        VAutocomplete: {
+          scrollStrategy: "close",
+        },
+        VCombobox: {
+          scrollStrategy: "close",
+        },
+        VSelect: {
+          scrollStrategy: "close",
+        },
       },
     },
   },
