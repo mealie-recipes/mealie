@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Wordt de website geblokkeerd?",
     "scrape-recipe-try-importing-raw-html-instead": "Probeer de HTML broncode te importeren.",
     "import-original-keywords-as-tags": "Importeer oorspronkelijke trefwoorden als labels",
+    "import-original-categories": "Importeer oorspronkelijke categorieën",
     "stay-in-edit-mode": "Blijf in bewerkingsmodus",
     "parse-recipe-ingredients-after-import": "Ontleed de ingrediënten van het recept na importeren",
     "import-from-zip": "Importeren uit zip",
