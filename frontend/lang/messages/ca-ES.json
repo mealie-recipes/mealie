@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "S'està bloquejant el lloc web?",
     "scrape-recipe-try-importing-raw-html-instead": "Prova important l'HTML directament.",
     "import-original-keywords-as-tags": "Importa les paraules clau originals com a tags",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Segueix en el mode d'edició",
     "parse-recipe-ingredients-after-import": "Analitza els ingredients de la recepta després d'importar",
     "import-from-zip": "Importa des d'un ZIP",
