@@ -126,7 +126,8 @@ class OpenAIService(BaseService):
         # Otherwise, only return the default internal prompt file
         return [default_prompt_file]
 
-    def _load_prompt_from_file(self, name) -> str:
+    def _load_prompt_from_file(self, name: str) -> str:
+        """Attempts to load custom prompt, otherwise falling back to the default"""
         prompt_file_candidates = self._get_prompt_file_candidates(name)
         content = None
         last_error = None
@@ -140,7 +141,6 @@ class OpenAIService(BaseService):
                         break
             except OSError as e:
                 last_error = e
-                pass
 
         if not content:
             if last_error:
