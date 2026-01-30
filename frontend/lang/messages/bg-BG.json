@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Блокиран ли е уебсайтът?",
     "scrape-recipe-try-importing-raw-html-instead": "Опитайте вместо това да импортирате суровия HTML код.",
     "import-original-keywords-as-tags": "Добави оригиналните ключови думи като етикети",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Остани в режим на редакция",
     "parse-recipe-ingredients-after-import": "Анализиране на съставките на рецептата след импортиране",
     "import-from-zip": "Импортирай от Zip",
