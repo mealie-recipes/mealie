@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "A weboldal blokkolva van?",
     "scrape-recipe-try-importing-raw-html-instead": "Próbálja meg inkább a nyers HTML-t importálni.",
     "import-original-keywords-as-tags": "Eredeti kulcsszavak importálása címkeként",
+    "import-original-categories": "Eredeti kategóriák importálása",
     "stay-in-edit-mode": "Maradjon Szerkesztés módban",
     "parse-recipe-ingredients-after-import": "Recept összetevőinek elemzése importálás után",
     "import-from-zip": "Importálás ZIP-ből",
