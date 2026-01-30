@@ -212,6 +212,8 @@
     "upload-file": "Загрузить файл",
     "created-on-date": "Создано: {0}",
     "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Не удалось скопировать текст.",
     "confirm-delete-generic-items": "Вы уверены, что хотите удалить следующие элементы?",
     "organizers": "Органайзеры",

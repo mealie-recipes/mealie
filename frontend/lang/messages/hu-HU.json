@@ -212,6 +212,8 @@
     "upload-file": "Fájl feltöltése",
     "created-on-date": "Létrehozva: {0}",
     "unsaved-changes": "El nem mentett módosításai vannak. Szeretné elmenteni, mielőtt kilép? A mentéshez kattintson az Ok, a módosítások elvetéséhez a Mégsem gombra.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "Nem mentett módosításai vannak, biztos, hogy elveti?",
     "clipboard-copy-failure": "Nem sikerült a vágólapra másolás.",
     "confirm-delete-generic-items": "Biztos benne, hogy törölni szeretné az alábbi tételeket?",
     "organizers": "Rendszerezők",

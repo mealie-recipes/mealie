@@ -212,6 +212,8 @@
     "upload-file": "Nahrať súbor",
     "created-on-date": "Vytvorené: {0}",
     "unsaved-changes": "Posledne vykonané zmeny nie sú uložené. Želáte si ich uložiť alebo zrušiť?",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Skopírovanie do schránky zlyhalo.",
     "confirm-delete-generic-items": "Ste si istý, že chcete odstrániť nasledujúce položky?",
     "organizers": "Organizéry",

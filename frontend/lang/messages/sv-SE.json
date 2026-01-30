@@ -212,6 +212,8 @@
     "upload-file": "Ladda upp fil",
     "created-on-date": "Skapad {0}",
     "unsaved-changes": "Du har osparade ändringar. Vill du spara innan du lämnar? Tryck Okej att spara, Avbryt för att ignorera ändringar.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Det gick inte att kopiera till urklipp.",
     "confirm-delete-generic-items": "Är du säker på att du vill radera följande objekt?",
     "organizers": "Organisatörer",

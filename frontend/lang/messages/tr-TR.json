@@ -212,6 +212,8 @@
     "upload-file": "Dosya Yükle",
     "created-on-date": "{0} tarihinde oluşturuldu",
     "unsaved-changes": "Kaydedilmemiş değişiklikleriniz mevcut. Ayrılmadan önce kaydetmek ister misiniz? Kaydetmek için Tamam'ı, değişiklikleri iptal etmek için İptal'i seçin.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Panoya kopyalanamadı.",
     "confirm-delete-generic-items": "Aşağıdaki öğeleri silmek istediğinizden emin misiniz?",
     "organizers": "Organizatörler",

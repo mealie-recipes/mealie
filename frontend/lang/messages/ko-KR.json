@@ -212,6 +212,8 @@
     "upload-file": "파일 업로드",
     "created-on-date": "생성일: {0}",
     "unsaved-changes": "저장되지 않은 변경 사항이 있습니다. 떠나기 전에 저장하시겠습니까? 저장하려면 확인을 클릭하고, 변경 사항을 삭제하려면 취소를 클릭합니다.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "클립보드에 복사하는 데 실패했습니다.",
     "confirm-delete-generic-items": "이 항목을 삭제하시겠습니까?",
     "organizers": "분류자",

@@ -212,6 +212,8 @@
     "upload-file": "Upload fil",
     "created-on-date": "Oprettet den: {0}",
     "unsaved-changes": "Du har ændringer som ikke er gemt. Vil du gemme før du forlader? Vælg \"Okay\" for at gemme, eller \"Annullér\" for at kassere ændringer.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Kopiering til udklipsholderen mislykkedes.",
     "confirm-delete-generic-items": "Er du sikker på at du ønsker at slette de valgte emner?",
     "organizers": "Organisatorer",

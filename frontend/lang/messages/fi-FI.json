@@ -212,6 +212,8 @@
     "upload-file": "Tuo tiedosto",
     "created-on-date": "Luotu {0}",
     "unsaved-changes": "Et ole tallentanut tekemiäsi muutoksia. Tallennetaanko ne? Paina \"ok\" tallentaaksesi ja \"peruuta\", jos et halua tallentaa.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Kopioiminen leikepöydälle epäonnistui.",
     "confirm-delete-generic-items": "Haluatko varmasti poistaa seuraavat kohteet?",
     "organizers": "Järjestäjät",

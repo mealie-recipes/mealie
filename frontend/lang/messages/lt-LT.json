@@ -212,6 +212,8 @@
     "upload-file": "Įkelti failą",
     "created-on-date": "Sukurta: {0}",
     "unsaved-changes": "Turite neišsaugotų pakeitimų. Ar norite juos išsaugoti prieš išeidami?\nSpauskite „Gerai“, jei norite išsaugoti, arba „Atšaukti“, jei norite atmesti pakeitimus.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Nepavyko nukopijuoti į iškarpinę.",
     "confirm-delete-generic-items": "Ar tikrai norite ištrinti šiuos elementus?",
     "organizers": "Organizatoriai",
