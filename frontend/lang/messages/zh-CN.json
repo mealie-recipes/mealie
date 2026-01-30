@@ -642,6 +642,7 @@
     "scrape-recipe-website-being-blocked": "Website being blocked?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "导入原始关键字作为标签",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "留在编辑模式",
     "parse-recipe-ingredients-after-import": "导入后解析食材",
     "import-from-zip": "从Zip压缩包导入",
