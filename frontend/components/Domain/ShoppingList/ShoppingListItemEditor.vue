@@ -56,25 +56,6 @@
                 width="250"
               />
             </div>
-
-            <v-menu
-              v-if="listItem.recipeReferences && listItem.recipeReferences.length > 0"
-              open-on-hover
-              offset-y
-              start
-              top
-            >
-              <template #activator="{ props }">
-                <v-icon class="mt-auto" :icon="$globals.icons.alert" v-bind="props" color="warning">
-                  {{ $globals.icons.alert }}
-                </v-icon>
-              </template>
-              <v-card max-width="350px" class="left-warning-border">
-                <v-card-text>
-                  {{ $t("shopping-list.linked-item-warning") }}
-                </v-card-text>
-              </v-card>
-            </v-menu>
           </div>
           <BaseButton
             v-if="listItem.labelId && listItem.food && listItem.labelId !== listItem.food.labelId"
