@@ -45,7 +45,7 @@ dependencies = [
     "openai==2.16.0",
     "typing-extensions==4.15.0",
     "itsdangerous==2.2.0",
-    "ingredient-parser-nlp==2.4.0",
+    "ingredient-parser-nlp==2.5.0",
 ]
 
 [project.scripts]
