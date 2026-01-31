@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "aglio",
-                "plural_name": "garlic"
+                "plural_name": "aglio"
             },
             "onion": {
                 "aliases": [],
@@ -59,7 +59,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sedano",
-                "plural_name": "celery"
+                "plural_name": "sedano"
             },
             "jalapeño": {
                 "aliases": [],
@@ -95,7 +95,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "spinaci",
-                "plural_name": "spinach"
+                "plural_name": "spinaci"
             },
             "sweet corn": {
                 "aliases": [],
@@ -127,7 +127,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cuore di palma",
-                "plural_name": "heart of palm"
+                "plural_name": "cuore di palma"
             },
             "baby greens": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cavolfiore",
-                "plural_name": "cauliflower"
+                "plural_name": "cavolfiore"
             },
             "cabbage": {
                 "aliases": [],
@@ -156,7 +156,7 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
+                "name": "asparago",
                 "plural_name": "asparagus"
             },
             "kale": {
