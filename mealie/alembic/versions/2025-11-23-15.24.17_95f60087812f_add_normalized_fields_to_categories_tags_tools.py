@@ -74,9 +74,9 @@ def populate_normalized_fields():
     for tag in tags:
         if tag.name is not None:
             session.execute(
-                sa.text(
-                    f"UPDATE {Tag.__tablename__} SET name_normalized=:name_normalized WHERE id=:id"
-                ).bindparams(name_normalized=normalize(tag.name), id=tag.id)
+                sa.text(f"UPDATE {Tag.__tablename__} SET name_normalized=:name_normalized WHERE id=:id").bindparams(
+                    name_normalized=normalize(tag.name), id=tag.id
+                )
             )
 
     # Populate tools
@@ -84,9 +84,9 @@ def populate_normalized_fields():
     for tool in tools:
         if tool.name is not None:
             session.execute(
-                sa.text(
-                    f"UPDATE {Tool.__tablename__} SET name_normalized=:name_normalized WHERE id=:id"
-                ).bindparams(name_normalized=normalize(tool.name), id=tool.id)
+                sa.text(f"UPDATE {Tool.__tablename__} SET name_normalized=:name_normalized WHERE id=:id").bindparams(
+                    name_normalized=normalize(tool.name), id=tool.id
+                )
             )
 
     session.commit()
@@ -145,4 +145,3 @@ def downgrade():
     op.drop_column("tags", "name_normalized")
     op.drop_column("categories", "name_normalized")
     # ### end Alembic commands ###
-
