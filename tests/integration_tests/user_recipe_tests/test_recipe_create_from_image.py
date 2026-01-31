@@ -21,7 +21,7 @@ def test_openai_create_recipe_from_image(
     unique_user: TestUser,
     test_image_jpg: str,
 ):
-    async def mock_get_response(self, prompt: str, message: str, *args, **kwargs) -> str | None:
+    async def mock_get_response(self, prompt: str, message: str, *args, **kwargs) -> OpenAIRecipe | None:
         data = OpenAIRecipe(
             name=random_string(),
             description=random_string(),
@@ -33,7 +33,7 @@ def test_openai_create_recipe_from_image(
             instructions=[OpenAIRecipeInstruction(text=random_string()) for _ in range(1, random_int(5, 10))],
             notes=[OpenAIRecipeNotes(text=random_string()) for _ in range(random_int(2, 5))],
         )
-        return data.model_dump_json()
+        return data
 
     monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
     with open(test_image_jpg, "rb") as f:
