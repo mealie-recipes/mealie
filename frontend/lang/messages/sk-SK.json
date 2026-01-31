@@ -212,8 +212,8 @@
     "upload-file": "Nahrať súbor",
     "created-on-date": "Vytvorené: {0}",
     "unsaved-changes": "Posledne vykonané zmeny nie sú uložené. Želáte si ich uložiť alebo zrušiť?",
-    "discard-changes": "Discard Changes",
-    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
+    "discard-changes": "Zahodiť zmeny",
+    "discard-changes-description": "Máte neuložené zmeny, naozaj ich chcete zahodiť?",
     "clipboard-copy-failure": "Skopírovanie do schránky zlyhalo.",
     "confirm-delete-generic-items": "Ste si istý, že chcete odstrániť nasledujúce položky?",
     "organizers": "Organizéry",
@@ -405,7 +405,7 @@
       "title": "Tandoor recepty"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie môže importovať recepty z DVO Cook'n X3. Exportujte kuchársku knihu alebo menu vo formáte „Cook'n“, premenujte exportnú príponu na .zip a potom nahrajte súbor .zip nižšie.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migrácie dát receptov",
@@ -447,7 +447,7 @@
     "upload-a-recipe": "Nahrať recept",
     "upload-individual-zip-file": "Nahrať súbor .zip exportovaný z inej Mealie inštalácie.",
     "url-form-hint": "Okopírujte a zložte odkaz z vašej obľúbenej webstránky",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Skopírujte a vložte zdrojovú URL adresu vašich údajov (voliteľné)",
     "view-scraped-data": "Náhľad získaných údajov",
     "trim-whitespace-description": "Vymazať medzery a prázdne riadky na začiatku a na konci",
     "trim-prefix-description": "Vymazať prvé písmeno z každého riadku",
@@ -599,7 +599,7 @@
     "made-this": "Toto som uvaril",
     "how-did-it-turn-out": "Ako to dopadlo?",
     "user-made-this": "{user} toto uvaril(a)",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Vytvorené pre {recipe}",
     "added-to-timeline": "Pridané na časovú os",
     "failed-to-add-to-timeline": "Pridanie na časovú os skončilo chybou",
     "failed-to-update-recipe": "Recept sa nepodarilo aktualizovať",
@@ -642,7 +642,7 @@
     "scrape-recipe-website-being-blocked": "Webstránka je blokovaná?",
     "scrape-recipe-try-importing-raw-html-instead": "Skúste miesto toho naimportovať čisté HTML.",
     "import-original-keywords-as-tags": "Importovať pôvodné kľúčové slová ako štítky",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "Importovať pôvodné kategórie",
     "stay-in-edit-mode": "Zostať v režime editovania",
     "parse-recipe-ingredients-after-import": "Analyzovať ingrediencie po importe",
     "import-from-zip": "Importovať zo Zip-súboru",
@@ -707,7 +707,7 @@
     "cover-image": "Titulný obrázok",
     "include-linked-recipes": "Zahrnúť prepojené Recepty",
     "include-linked-recipe-ingredients": "Zahrnúť Prísady prepojených receptov",
-    "toggle-recipe": "Toggle Recipe"
+    "toggle-recipe": "Prepnúť recept"
   },
   "recipe-finder": {
     "recipe-finder": "Hľadač receptov",
@@ -1084,7 +1084,7 @@
     "forgot-password": "Zabudnuté heslo",
     "forgot-password-text": "Prosím zadajte svoju e-mailovú adresu a my vám zašleme odkaz, ktorý vám umožní heslo obnoviť.",
     "changes-reflected-immediately": "Zmeny týkajúce sa tohto používateľa budú vykonané okamžite.",
-    "default-activity": "Default Activity",
+    "default-activity": "Predvolená aktivita",
     "default-activity-hint": "Vyberte na ktorú štránku chcete byť nasmerovaný po prihlásení z tohto zariadenia"
   },
   "language-dialog": {
