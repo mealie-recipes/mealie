@@ -5,8 +5,9 @@ import os
 from abc import ABC, abstractmethod
 from pathlib import Path
 from textwrap import dedent
+from typing import TypeVar
 
-from openai import NOT_GIVEN, AsyncOpenAI
+from openai import AsyncOpenAI
 from openai.types.chat import ChatCompletion
 from pydantic import BaseModel, field_validator
 
@@ -16,6 +17,7 @@ from mealie.pkgs import img
 
 from .._base_service import BaseService
 
+T = TypeVar("T", bound=BaseModel)
 logger = root_logger.get_logger(__name__)
 
 
@@ -189,8 +191,18 @@ class OpenAIService(BaseService):
             )
         return "\n".join(content_parts)
 
-    async def _get_raw_response(self, prompt: str, content: list[dict], force_json_response=True) -> ChatCompletion:
+    async def _get_raw_response(self, prompt: str, content: list[dict], response_schema: type[T]) -> ChatCompletion:
         client = self.get_client()
+        json_schema = response_schema.model_json_schema()
+        response_format = {
+            "type": "json_schema",
+            "json_schema": {
+                "name": response_schema.__name__,
+                "schema": json_schema,
+                "strict": True,
+            },
+        }
+
         return await client.chat.completions.create(
             messages=[
                 {
@@ -203,7 +215,7 @@ class OpenAIService(BaseService):
                 },
             ],
             model=self.model,
-            response_format={"type": "json_object"} if force_json_response else NOT_GIVEN,
+            response_format=response_format,
         )
 
     async def get_response(
@@ -211,9 +223,9 @@ class OpenAIService(BaseService):
         prompt: str,
         message: str,
         *,
+        response_schema: type[T],
         images: list[OpenAIImageBase] | None = None,
-        force_json_response=True,
-    ) -> str | None:
+    ) -> T | None:
         """Send data to OpenAI and return the response message content"""
         if images and not self.enable_image_services:
             self.logger.warning("OpenAI image services are disabled, ignoring images")
@@ -224,9 +236,11 @@ class OpenAIService(BaseService):
             for image in images or []:
                 user_messages.append(image.build_message())
 
-            response = await self._get_raw_response(prompt, user_messages, force_json_response)
+            response = await self._get_raw_response(prompt, user_messages, response_schema)
             if not response.choices:
                 return None
-            return response.choices[0].message.content
+
+            response_text = response.choices[0].message.content
+            return response_schema.model_validate_json(response_text)
         except Exception as e:
             raise Exception(f"OpenAI Request Failed. {e.__class__.__name__}: {e}") from e

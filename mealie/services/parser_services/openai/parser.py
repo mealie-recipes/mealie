@@ -1,6 +1,5 @@
 import asyncio
 import json
-from collections.abc import Awaitable
 
 from rapidfuzz import fuzz
 
@@ -148,26 +147,18 @@ class OpenAIParser(ABCIngredientParser):
 
         # chunk ingredients and send each chunk to its own worker
         ingredient_chunks = self._chunk_messages(ingredients, n=service.workers)
-        tasks: list[Awaitable[str | None]] = []
-        for ingredient_chunk in ingredient_chunks:
-            message = json.dumps(ingredient_chunk, separators=(",", ":"))
-            tasks.append(service.get_response(prompt, message, force_json_response=True))
+        tasks = [
+            service.get_response(prompt, json.dumps(chunk, separators=(",", ":")), response_schema=OpenAIIngredients)
+            for chunk in ingredient_chunks
+        ]
 
         # re-combine chunks into one response
         try:
-            responses_json = await asyncio.gather(*tasks)
+            unfiltered_responses = await asyncio.gather(*tasks)
         except Exception as e:
             raise Exception("Failed to call OpenAI services") from e
 
-        try:
-            responses = [
-                OpenAIIngredients.parse_openai_response(response_json)
-                for response_json in responses_json
-                if responses_json
-            ]
-        except Exception as e:
-            raise Exception("Failed to parse OpenAI response") from e
-
+        responses = [response for response in unfiltered_responses if response]
         if not responses:
             raise Exception("No response from OpenAI")
 
