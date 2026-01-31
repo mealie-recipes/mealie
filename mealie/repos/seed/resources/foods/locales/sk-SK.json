@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cesnak",
-                "plural_name": "garlic"
+                "plural_name": "cesnak"
             },
             "onion": {
                 "aliases": [],
@@ -59,13 +59,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "zeler",
-                "plural_name": "celery"
+                "plural_name": "zeler"
             },
             "jalapeño": {
                 "aliases": [],
                 "description": "",
                 "name": "jalapeño",
-                "plural_name": "jalapeños"
+                "plural_name": "jalapeño"
             },
             "avocado": {
                 "aliases": [],
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "špenát",
-                "plural_name": "spinach"
+                "plural_name": "špenát"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "cukrová kukurica",
-                "plural_name": "sweet corn"
+                "plural_name": "cukrová kukurica"
             },
             "chile pepper": {
                 "aliases": [
@@ -121,19 +121,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "brokolica",
-                "plural_name": "broccoli"
+                "plural_name": "brokolica"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
                 "name": "srdce palmy",
-                "plural_name": "heart of palm"
+                "plural_name": "palmové srdce"
             },
             "baby greens": {
                 "aliases": [],
                 "description": "",
-                "name": "baby greens",
-                "plural_name": "baby greens"
+                "name": "listová zelenina",
+                "plural_name": "listová zelenina"
             },
             "pumpkin": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "karfiol",
-                "plural_name": "cauliflower"
+                "plural_name": "karfiol"
             },
             "cabbage": {
                 "aliases": [],
@@ -156,20 +156,20 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
-                "plural_name": "asparagus"
+                "name": "špargľa",
+                "plural_name": "špargľa"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
                 "name": "kučeravý kel",
-                "plural_name": "kale"
+                "plural_name": "kel"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
                 "name": "list rukoly",
-                "plural_name": "arugula"
+                "plural_name": "rukola"
             },
             "leek": {
                 "aliases": [],
@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "šalát",
-                "plural_name": "lettuce"
+                "plural_name": "šalát"
             },
             "butternut squash": {
                 "aliases": [],
@@ -198,8 +198,8 @@
             "romaine lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine lettuce",
-                "plural_name": "romaine lettuce"
+                "name": "rímsky šalát",
+                "plural_name": "rímsky šalát"
             },
             "beetroot": {
                 "aliases": [],
@@ -217,7 +217,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fenikel",
-                "plural_name": "fennel"
+                "plural_name": "fenikel"
             },
             "sun dried tomato": {
                 "aliases": [],
@@ -261,8 +261,8 @@
             "mixed greens": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed greens",
-                "plural_name": "mixed greens"
+                "name": "miešaná listová zelenina",
+                "plural_name": "miešaná listová zelenina"
             },
             "parsnip": {
                 "aliases": [],
@@ -279,8 +279,8 @@
             "mixed vegetables": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetables",
-                "plural_name": "mixed vegetables"
+                "name": "miešaná zelenina",
+                "plural_name": "miešaná zelenina"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -304,7 +304,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kajenská paprika",
-                "plural_name": "cayenne pepper"
+                "plural_name": "kajenská paprika"
             },
             "green tomato": {
                 "aliases": [],
@@ -321,8 +321,8 @@
             "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg lettuce",
-                "plural_name": "iceberg lettuce"
+                "name": "ľadový šalát",
+                "plural_name": "ľadový šalát"
             },
             "mashed potato": {
                 "aliases": [],
@@ -340,13 +340,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "mangold",
-                "plural_name": "chard"
+                "plural_name": "mangold"
             },
             "pimiento": {
                 "aliases": [],
                 "description": "",
                 "name": "čerešňová paprička",
-                "plural_name": "pimientos"
+                "plural_name": "čerešňové papričky"
             },
             "spaghetti squash": {
                 "aliases": [],
@@ -358,7 +358,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "maslový šalát",
-                "plural_name": "butter lettuce"
+                "plural_name": "maslový šalát"
             },
             "hash brown": {
                 "aliases": [],
@@ -419,8 +419,8 @@
             "corn on the cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn on the cob",
-                "plural_name": "corn on the cob"
+                "name": "kukurica",
+                "plural_name": "kukurica"
             },
             "radicchio": {
                 "aliases": [],
@@ -438,7 +438,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "stonková brokolica",
-                "plural_name": "tenderstem broccoli"
+                "plural_name": "stonková brokolica"
             },
             "plantain": {
                 "aliases": [],
@@ -450,7 +450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "listový šalát",
-                "plural_name": "leaf lettuce"
+                "plural_name": "listový šalát"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -462,7 +462,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "baby pak choi",
-                "plural_name": "baby bok choy"
+                "plural_name": "baby pak choi"
             },
             "jicama": {
                 "aliases": [],
@@ -484,17 +484,17 @@
             },
             "maize": {
                 "aliases": [
-                    "corn husk"
+                    "kukuričná šupka"
                 ],
                 "description": "",
-                "name": "maize",
-                "plural_name": "maize"
+                "name": "kukurica",
+                "plural_name": "kukurica"
             },
             "collard greens": {
                 "aliases": [],
                 "description": "",
-                "name": "collard greens",
-                "plural_name": "collard greens"
+                "name": "kelové listy",
+                "plural_name": "kelové listy"
             },
             "french-fried onion": {
                 "aliases": [],
@@ -547,20 +547,20 @@
             "microgreens": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreens",
-                "plural_name": "microgreens"
+                "name": "mikrolístky",
+                "plural_name": "mikrolístky"
             },
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
                 "name": "hlávkový šalát",
-                "plural_name": "boston lettuce"
+                "plural_name": "hlávkový šalát"
             },
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
                 "name": "kaleráb",
-                "plural_name": "kohlrabi"
+                "plural_name": "kaleráb"
             },
             "fresno chile": {
                 "aliases": [],
@@ -591,14 +591,14 @@
             "cress": {
                 "aliases": [],
                 "description": "",
-                "name": "cress",
-                "plural_name": "cress"
+                "name": "žeruchy",
+                "plural_name": "žeruchy"
             },
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
                 "name": "brokolicový šalát",
-                "plural_name": "broccoli slaw"
+                "plural_name": "brokolicový šalát"
             },
             "arbol chile pepper": {
                 "aliases": [],
@@ -622,7 +622,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lucerna",
-                "plural_name": "alfalfa"
+                "plural_name": "lucerna"
             }
         }
     },
@@ -974,13 +974,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomelos"
+                "plural_name": "pomelá"
             },
             "chestnut purée": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut purée",
-                "plural_name": "chestnut purée"
+                "name": "gaštanové pyré",
+                "plural_name": "gaštanové pyré"
             },
             "prickly pear": {
                 "aliases": [],
@@ -998,7 +998,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "citrón Yuzu",
-                "plural_name": "yuzu"
+                "plural_name": "citróny Yuzu"
             },
             "granadilla": {
                 "aliases": [],
@@ -1028,7 +1028,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tangelo",
-                "plural_name": "tangelos"
+                "plural_name": "tangelo"
             },
             "dried lime": {
                 "aliases": [],
@@ -1100,7 +1100,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tamarillo",
-                "plural_name": "tamarillos"
+                "plural_name": "tamarillá"
             },
             "ice-apple": {
                 "aliases": [],
@@ -1232,7 +1232,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kiwano (uhorka rohatá)",
-                "plural_name": "kiwanos"
+                "plural_name": "kiwano"
             }
         }
     },
@@ -1379,8 +1379,8 @@
             "white beech mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "white beech mushroom",
-                "plural_name": "white beech mushrooms"
+                "name": "šampiňón",
+                "plural_name": "šampiňóny"
             },
             "boletu": {
                 "aliases": [],
@@ -2055,56 +2055,56 @@
             "cheddar-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheddar-jack cheese",
-                "plural_name": "cheddar-jack cheese"
+                "name": "čedar",
+                "plural_name": "čedar"
             },
             "monterey jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "monterey jack cheese",
-                "plural_name": "monterey jack cheese"
+                "name": "syr monterey",
+                "plural_name": "syr monterey"
             },
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheese"
+                "name": "syr niva",
+                "plural_name": "syr niva"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheese"
+                "name": "kozí syr",
+                "plural_name": "kozí syr"
             },
             "fresh mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella cheese",
-                "plural_name": "fresh mozzarella cheese"
+                "name": "čerstvá mozzarella",
+                "plural_name": "čerstvé mozzarelly"
             },
             "swis cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swis cheese",
-                "plural_name": "swis cheese"
+                "name": "švajčiarsky syr",
+                "plural_name": "švajčiarsky syr"
             },
             "pecorino cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pecorino cheese",
-                "plural_name": "pecorino cheese"
+                "name": "syr pecorino",
+                "plural_name": "syr pecorino"
             },
             "gruyere cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gruyere cheese",
-                "plural_name": "gruyere cheese"
+                "name": "syr Gruyère",
+                "plural_name": "syr Gruyère"
             },
             "mascarpone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mascarpone cheese",
-                "plural_name": "mascarpone cheese"
+                "name": "mascarpone",
+                "plural_name": "mascarpone"
             },
             "cottage cheese": {
                 "aliases": [],
@@ -2115,50 +2115,50 @@
             "american cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "american cheese",
-                "plural_name": "american cheese"
+                "name": "americký tavený syr",
+                "plural_name": "americký tavený syr"
             },
             "provolone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "provolone cheese",
-                "plural_name": "provolone cheese"
+                "name": "syr provolone",
+                "plural_name": "syr provolone"
             },
             "mexican cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican cheese blend",
-                "plural_name": "mexican cheese blend"
+                "name": "mexická zmes syrov",
+                "plural_name": "mexická zmes syrov"
             },
             "pepper jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pepper jack cheese",
-                "plural_name": "pepper jack cheese"
+                "name": "syr pepper jack",
+                "plural_name": "syr pepper jack"
             },
             "brie cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "brie cheese",
-                "plural_name": "brie cheese"
+                "name": "syr brie",
+                "plural_name": "syr brie"
             },
             "paneer cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "paneer cheese",
-                "plural_name": "paneer cheese"
+                "name": "syr paneer",
+                "plural_name": "syr paneer syr"
             },
             "fontina cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fontina cheese",
-                "plural_name": "fontina cheese"
+                "name": "syr fontina",
+                "plural_name": "syr fontina"
             },
             "queso fresco cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "queso fresco cheese",
-                "plural_name": "queso fresco cheese"
+                "name": "syr queso fresco",
+                "plural_name": "syr queso fresco"
             },
             "quark cheese": {
                 "aliases": [],
@@ -2169,38 +2169,38 @@
             "gouda cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gouda cheese",
-                "plural_name": "gouda cheese"
+                "name": "gouda",
+                "plural_name": "gouda"
             },
             "cotija cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cotija cheese",
-                "plural_name": "cotija cheese"
+                "name": "syr cotija",
+                "plural_name": "syr cotija"
             },
             "asiago cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "asiago cheese",
-                "plural_name": "asiago cheese"
+                "name": "syr asiago",
+                "plural_name": "syr asiago"
             },
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheese"
+                "name": "údený syr",
+                "plural_name": "údený syr"
             },
             "halloumi cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "halloumi cheese",
-                "plural_name": "halloumi cheese"
+                "name": "syr halloumi",
+                "plural_name": "syr halloumi"
             },
             "chevre cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "chevre cheese",
-                "plural_name": "chevre cheese"
+                "name": "kozí syr",
+                "plural_name": "kozí syr"
             },
             "manchego cheese": {
                 "aliases": [],
@@ -4909,8 +4909,8 @@
             "cod": {
                 "aliases": [],
                 "description": "",
-                "name": "cod",
-                "plural_name": "cod"
+                "name": "treska",
+                "plural_name": "treska"
             },
             "tilapia": {
                 "aliases": [],
