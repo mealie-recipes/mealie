@@ -7,47 +7,15 @@ Create Date: 2025-11-23 15:24:17.000000
 """
 
 import sqlalchemy as sa
-from sqlalchemy import orm, select
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from text_unidecode import unidecode
 
 from alembic import op
-from mealie.db.models._model_utils.guid import GUID
 
 # revision identifiers, used by Alembic.
 revision = "95f60087812f"
 down_revision: str | None = "1d9a002d7234"
 branch_labels: str | tuple[str, ...] | None = None
 depends_on: str | tuple[str, ...] | None = None
-
-
-class SqlAlchemyBase(DeclarativeBase):
-    pass
-
-
-# Intermediate table definitions
-class Category(SqlAlchemyBase):
-    __tablename__ = "categories"
-
-    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    name: Mapped[str] = mapped_column(sa.String, nullable=False)
-    name_normalized: Mapped[str] = mapped_column(sa.String, nullable=False, index=True)
-
-
-class Tag(SqlAlchemyBase):
-    __tablename__ = "tags"
-
-    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    name: Mapped[str] = mapped_column(sa.String, nullable=False)
-    name_normalized: Mapped[str] = mapped_column(sa.String, nullable=False, index=True)
-
-
-class Tool(SqlAlchemyBase):
-    __tablename__ = "tools"
-
-    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    name: Mapped[str] = mapped_column(sa.String, nullable=False)
-    name_normalized: Mapped[str] = mapped_column(sa.String, nullable=False, index=True)
 
 
 def normalize(val: str) -> str:
@@ -57,39 +25,37 @@ def normalize(val: str) -> str:
 
 def populate_normalized_fields():
     bind = op.get_bind()
-    session = orm.Session(bind=bind)
+    BATCH_SIZE = 1_000
 
-    # Populate categories
-    categories = session.execute(select(Category)).scalars().all()
-    for category in categories:
-        if category.name is not None:
-            session.execute(
-                sa.text(
-                    f"UPDATE {Category.__tablename__} SET name_normalized=:name_normalized WHERE id=:id"
-                ).bindparams(name_normalized=normalize(category.name), id=category.id)
+    def process_table(table_name):
+        result = bind.execute(sa.text(f"SELECT id, name FROM {table_name} WHERE name IS NOT NULL"))
+
+        batch = []
+        for row in result:
+            batch.append(
+                {
+                    "id": row.id,
+                    "name_normalized": normalize(row.name),
+                }
             )
 
-    # Populate tags
-    tags = session.execute(select(Tag)).scalars().all()
-    for tag in tags:
-        if tag.name is not None:
-            session.execute(
-                sa.text(f"UPDATE {Tag.__tablename__} SET name_normalized=:name_normalized WHERE id=:id").bindparams(
-                    name_normalized=normalize(tag.name), id=tag.id
+            if len(batch) >= BATCH_SIZE:
+                bind.execute(
+                    sa.text(f"UPDATE {table_name} SET name_normalized = :name_normalized WHERE id = :id"),
+                    batch,
                 )
+                batch.clear()
+
+        if batch:
+            bind.execute(
+                sa.text(f"UPDATE {table_name} SET name_normalized = :name_normalized WHERE id = :id"),
+                batch,
             )
 
-    # Populate tools
-    tools = session.execute(select(Tool)).scalars().all()
-    for tool in tools:
-        if tool.name is not None:
-            session.execute(
-                sa.text(f"UPDATE {Tool.__tablename__} SET name_normalized=:name_normalized WHERE id=:id").bindparams(
-                    name_normalized=normalize(tool.name), id=tool.id
-                )
-            )
+        result.close()
 
-    session.commit()
+    for table in ("categories", "tags", "tools"):
+        process_table(table)
 
 
 def upgrade():
