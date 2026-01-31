@@ -219,7 +219,7 @@ function getIconDefinition(icon: string) {
 
 function isImage(fileName?: string | null) {
   if (!fileName) return false;
-  return /\.(png|jpe?g|gif|webp|bmp|svg|avif)$/i.test(fileName);
+  return /\.(png|jpe?g|gif|webp|bmp|avif)$/i.test(fileName);
 }
 
 const { recipeAssetPath } = useStaticRoutes();
