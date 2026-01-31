@@ -122,17 +122,18 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 Mealie supports various integrations using OpenAI. For more information, check out our [OpenAI documentation](./open-ai.md).
 For custom mapping variables (e.g. OPENAI_CUSTOM_HEADERS) you should pass values as JSON encoded strings (e.g. `OPENAI_CUSTOM_PARAMS='{"k1": "v1", "k2": "v2"}'`)
 
-| Variables                                         | Default | Description                                                                                                                                                                  |
-| ------------------------------------------------- | :-----: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| OPENAI_BASE_URL<super>[&dagger;][secrets]</super> |  None   | The base URL for the OpenAI API. If you're not sure, leave this empty to use the standard OpenAI platform                                                                    |
-| OPENAI_API_KEY<super>[&dagger;][secrets]</super>  |  None   | Your OpenAI API Key. Enables OpenAI-related features                                                                                                                         |
-| OPENAI_MODEL                                      | gpt-4o  | Which OpenAI model to use. If you're not sure, leave this empty                                                                                                              |
-| OPENAI_CUSTOM_HEADERS                             |  None   | Custom HTTP headers to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                              |
-| OPENAI_CUSTOM_PARAMS                              |  None   | Custom HTTP query params to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                         |
-| OPENAI_ENABLE_IMAGE_SERVICES                      |  True   | Whether to enable OpenAI image services, such as creating recipes via image. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs     |
-| OPENAI_WORKERS                                    |    2    | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs                                                       |
-| OPENAI_SEND_DATABASE_DATA                         |  True   | Whether to send Mealie data to OpenAI to improve request accuracy. This will incur additional API costs                                                                      |
-| OPENAI_REQUEST_TIMEOUT                            |   300   | The number of seconds to wait for an OpenAI request to complete before cancelling the request. Leave this empty unless you're running into timeout issues on slower hardware |
+| Variables                                         | Default | Description                                                                                                                                                                                                                                                                                                        |
+|---------------------------------------------------|:-------:|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| OPENAI_BASE_URL<super>[&dagger;][secrets]</super> |  None   | The base URL for the OpenAI API. If you're not sure, leave this empty to use the standard OpenAI platform                                                                                                                                                                                                          |
+| OPENAI_API_KEY<super>[&dagger;][secrets]</super>  |  None   | Your OpenAI API Key. Enables OpenAI-related features                                                                                                                                                                                                                                                               |
+| OPENAI_MODEL                                      | gpt-4o  | Which OpenAI model to use. If you're not sure, leave this empty                                                                                                                                                                                                                                                    |
+| OPENAI_CUSTOM_HEADERS                             |  None   | Custom HTTP headers to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                                                                                                                                                                    |
+| OPENAI_CUSTOM_PARAMS                              |  None   | Custom HTTP query params to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                                                                                                                                                               |
+| OPENAI_ENABLE_IMAGE_SERVICES                      |  True   | Whether to enable OpenAI image services, such as creating recipes via image. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs                                                                                                                                           |
+| OPENAI_WORKERS                                    |    2    | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs                                                                                                                                                                                             |
+| OPENAI_SEND_DATABASE_DATA                         |  True   | Whether to send Mealie data to OpenAI to improve request accuracy. This will incur additional API costs                                                                                                                                                                                                            |
+| OPENAI_REQUEST_TIMEOUT                            |   300   | The number of seconds to wait for an OpenAI request to complete before cancelling the request. Leave this empty unless you're running into timeout issues on slower hardware                                                                                                                                       |
+| OPENAI_CUSTOM_PROMPT_DIR                          |  None   | Path to custom prompt files. Only existing files in your custom directory will override the defaults; any missing or empty custom files will automatically fall back to the system defaults. See https://github.com/mealie-recipes/mealie/tree/mealie-next/mealie/services/openai/prompts for expected file names. |
 
 ### Theming
 
@@ -145,22 +146,99 @@ Setting the following environmental variables will change the theme of the front
 
     If using YAML sequence syntax, don't include any quotes:<br>`THEME_LIGHT_PRIMARY=#E58325` or `THEME_LIGHT_PRIMARY=E58325`
 
-| Variables             | Default | Description                 |
-| --------------------- | :-----: | --------------------------- |
-| THEME_LIGHT_PRIMARY   | #E58325 | Light Theme Config Variable |
-| THEME_LIGHT_ACCENT    | #007A99 | Light Theme Config Variable |
-| THEME_LIGHT_SECONDARY | #973542 | Light Theme Config Variable |
-| THEME_LIGHT_SUCCESS   | #43A047 | Light Theme Config Variable |
-| THEME_LIGHT_INFO      | #1976D2 | Light Theme Config Variable |
-| THEME_LIGHT_WARNING   | #FF6D00 | Light Theme Config Variable |
-| THEME_LIGHT_ERROR     | #EF5350 | Light Theme Config Variable |
-| THEME_DARK_PRIMARY    | #E58325 | Dark Theme Config Variable  |
-| THEME_DARK_ACCENT     | #007A99 | Dark Theme Config Variable  |
-| THEME_DARK_SECONDARY  | #973542 | Dark Theme Config Variable  |
-| THEME_DARK_SUCCESS    | #43A047 | Dark Theme Config Variable  |
-| THEME_DARK_INFO       | #1976D2 | Dark Theme Config Variable  |
-| THEME_DARK_WARNING    | #FF6D00 | Dark Theme Config Variable  |
-| THEME_DARK_ERROR      | #EF5350 | Dark Theme Config Variable  |
+| Variables             | Default | Description                        |
+| --------------------- | :-----: | ---------------------------------- |
+| THEME_LIGHT_PRIMARY   | #E58325 | Main brand color and headers       |
+| THEME_LIGHT_ACCENT    | #007A99 | Buttons and interactive elements   |
+| THEME_LIGHT_SECONDARY | #973542 | Navigation and sidebar backgrounds |
+| THEME_LIGHT_SUCCESS   | #43A047 | Success messages and confirmations |
+| THEME_LIGHT_INFO      | #1976D2 | Information alerts and tooltips    |
+| THEME_LIGHT_WARNING   | #FF6D00 | Warning notifications              |
+| THEME_LIGHT_ERROR     | #EF5350 | Error messages and alerts          |
+| THEME_DARK_PRIMARY    | #E58325 | Main brand color and headers       |
+| THEME_DARK_ACCENT     | #007A99 | Buttons and interactive elements   |
+| THEME_DARK_SECONDARY  | #973542 | Navigation and sidebar backgrounds |
+| THEME_DARK_SUCCESS    | #43A047 | Success messages and confirmations |
+| THEME_DARK_INFO       | #1976D2 | Information alerts and tooltips    |
+| THEME_DARK_WARNING    | #FF6D00 | Warning notifications              |
+| THEME_DARK_ERROR      | #EF5350 | Error messages and alerts          |
+
+#### Theming Examples
+
+The examples below provide copy-ready Docker Compose environment configurations for three different color palettes. Copy and paste the desired theme into your `docker-compose.yml` file's environment section.
+
+!!! info
+    These themes are functional and ready to use, but they are provided primarily as examples. The color palettes can be adjusted or refined to better suit your preferences.
+
+=== "Blue Theme"
+
+    ```yaml
+    environment:
+      # Light mode colors
+      THEME_LIGHT_PRIMARY: '#5E9BD1'
+      THEME_LIGHT_ACCENT: '#A3C9E8'
+      THEME_LIGHT_SECONDARY: '#4F89BA'
+      THEME_LIGHT_SUCCESS: '#4CAF50'
+      THEME_LIGHT_INFO: '#4A9ED8'
+      THEME_LIGHT_WARNING: '#EAC46B'
+      THEME_LIGHT_ERROR: '#E57373'
+      # Dark mode colors
+      THEME_DARK_PRIMARY: '#5A8FBF'
+      THEME_DARK_ACCENT: '#90B8D9'
+      THEME_DARK_SECONDARY: '#406D96'
+      THEME_DARK_SUCCESS: '#81C784'
+      THEME_DARK_INFO: '#78B2C0'
+      THEME_DARK_WARNING: '#EBC86E'
+      THEME_DARK_ERROR: '#E57373'
+    ```
+
+=== "Green Theme"
+
+    ```yaml
+    environment:
+      # Light mode colors
+      THEME_LIGHT_PRIMARY: '#75A86C'
+      THEME_LIGHT_ACCENT: '#A8D0A6'
+      THEME_LIGHT_SECONDARY: '#638E5E'
+      THEME_LIGHT_SUCCESS: '#4CAF50'
+      THEME_LIGHT_INFO: '#4A9ED8'
+      THEME_LIGHT_WARNING: '#EAC46B'
+      THEME_LIGHT_ERROR: '#E57373'
+      # Dark mode colors
+      THEME_DARK_PRIMARY: '#739B7A'
+      THEME_DARK_ACCENT: '#9FBE9D'
+      THEME_DARK_SECONDARY: '#56775E'
+      THEME_DARK_SUCCESS: '#81C784'
+      THEME_DARK_INFO: '#78B2C0'
+      THEME_DARK_WARNING: '#EBC86E'
+      THEME_DARK_ERROR: '#E57373'
+    ```
+
+=== "Pink Theme"
+
+    ```yaml
+    environment:
+      # Light mode colors
+      THEME_LIGHT_PRIMARY: '#D97C96'
+      THEME_LIGHT_ACCENT: '#E891A7'
+      THEME_LIGHT_SECONDARY: '#C86C88'
+      THEME_LIGHT_SUCCESS: '#4CAF50'
+      THEME_LIGHT_INFO: '#2196F3'
+      THEME_LIGHT_WARNING: '#FFC107'
+      THEME_LIGHT_ERROR: '#E57373'
+      # Dark mode colors
+      THEME_DARK_PRIMARY: '#C2185B'
+      THEME_DARK_ACCENT: '#FF80AB'
+      THEME_DARK_SECONDARY: '#AD1457'
+      THEME_DARK_SUCCESS: '#81C784'
+      THEME_DARK_INFO: '#64B5F6'
+      THEME_DARK_WARNING: '#FFD54F'
+      THEME_DARK_ERROR: '#E57373'
+    ```
+
+!!! info
+    Browser cookies may cause the client to keep outdated settings.
+    Clearing the cookies can be required for the change to take effect.
 
 ### Docker Secrets
 

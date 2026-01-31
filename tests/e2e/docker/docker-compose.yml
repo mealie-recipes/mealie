@@ -1,4 +1,3 @@
-version: "3.4"
 services:
   oidc-mock-server:
     container_name: oidc-mock-server
@@ -14,12 +13,14 @@ services:
       - 10389:10389
 
   mealie:
-    container_name: mealie
+    container_name: mealie-e2e
     image: mealie:e2e
     build:
       context: ../../../
       target: production
       dockerfile: ./docker/Dockerfile
+      additional_contexts:
+        packages: ../../../dist
     restart: always
     volumes:
       - mealie-data:/app/data/

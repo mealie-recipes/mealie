@@ -1,7 +1,7 @@
 <template>
   <v-form
     ref="domUrlForm"
-    @submit.prevent="createFromHtmlOrJson(newRecipeData, importKeywordsAsTags)"
+    @submit.prevent="createFromHtmlOrJson(newRecipeData, importKeywordsAsTags, importCategories, newRecipeUrl)"
   >
     <div>
       <v-card-title class="headline">
@@ -21,14 +21,28 @@
         <v-switch
           v-model="isEditJSON"
           :label="$t('recipe.json-editor')"
+          color="primary"
           class="mt-2"
           @change="handleIsEditJson"
+        />
+        <v-text-field
+          v-model="newRecipeUrl"
+          :label="$t('new-recipe.recipe-url')"
+          :prepend-inner-icon="$globals.icons.link"
+          validate-on="blur"
+          variant="solo-filled"
+          clearable
+          rounded
+          :rules="[validators.urlOptional]"
+          :hint="$t('new-recipe.copy-and-paste-the-source-url-of-your-data-optional')"
+          persistent-hint
+          class="mt-10 mb-4"
+          style="max-width: 500px"
         />
         <RecipeJsonEditor
           v-if="isEditJSON"
           v-model="newRecipeData"
           height="250px"
-          class="mt-10"
           mode="code"
           :main-menu-bar="false"
         />
@@ -41,16 +55,19 @@
           autofocus
           variant="solo-filled"
           clearable
-          class="rounded-lg mt-2"
           rounded
-          :hint="$t('new-recipe.url-form-hint')"
-          persistent-hint
         />
         <v-checkbox
           v-model="importKeywordsAsTags"
           color="primary"
           hide-details
           :label="$t('recipe.import-original-keywords-as-tags')"
+        />
+        <v-checkbox
+          v-model="importCategories"
+          color="primary"
+          hide-details
+          :label="$t('recipe.import-original-categories')"
         />
         <v-checkbox
           v-model="stayInEditMode"
@@ -105,6 +122,7 @@ export default defineNuxtComponent({
 
     const {
       importKeywordsAsTags,
+      importCategories,
       stayInEditMode,
       parseRecipe,
       navigateToRecipe,
@@ -124,6 +142,7 @@ export default defineNuxtComponent({
     }
 
     const newRecipeData = ref<string | object | null>(null);
+    const newRecipeUrl = ref<string | null>(null);
 
     function handleIsEditJson() {
       if (state.isEditJSON) {
@@ -148,8 +167,13 @@ export default defineNuxtComponent({
     }
     handleIsEditJson();
 
-    async function createFromHtmlOrJson(htmlOrJsonData: string | object | null, importKeywordsAsTags: boolean) {
-      if (!htmlOrJsonData || !domUrlForm.value?.validate()) {
+    async function createFromHtmlOrJson(htmlOrJsonData: string | object | null, importKeywordsAsTags: boolean, importCategories: boolean, url: string | null = null) {
+      if (!htmlOrJsonData) {
+        return;
+      }
+
+      const isValid = await domUrlForm.value?.validate();
+      if (!isValid?.valid) {
         return;
       }
 
@@ -162,7 +186,7 @@ export default defineNuxtComponent({
       }
 
       state.loading = true;
-      const { response } = await api.recipes.createOneByHtmlOrJson(dataString, importKeywordsAsTags);
+      const { response } = await api.recipes.createOneByHtmlOrJson(dataString, importKeywordsAsTags, importCategories, url);
       handleResponse(response, importKeywordsAsTags);
     }
 
@@ -171,7 +195,9 @@ export default defineNuxtComponent({
       importKeywordsAsTags,
       stayInEditMode,
       parseRecipe,
+      importCategories,
       newRecipeData,
+      newRecipeUrl,
       handleIsEditJson,
       createFromHtmlOrJson,
       ...toRefs(state),

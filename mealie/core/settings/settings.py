@@ -412,6 +412,11 @@ class AppSettings(AppLoggingSettings):
     """
     The number of seconds to wait for an OpenAI request to complete before cancelling the request
     """
+    OPENAI_CUSTOM_PROMPT_DIR: str | None = None
+    """
+    Path to a folder containing custom prompt files;
+    files are individually optional, each prompt name will fall back to the default if no custom file exists
+    """
 
     @property
     def OPENAI_FEATURE(self) -> FeatureDetails:

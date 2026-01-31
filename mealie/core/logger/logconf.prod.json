@@ -40,7 +40,7 @@
       "level": "DEBUG",
       "formatter": "detailed",
       "filename": "${DATA_DIR}/mealie.log",
-      "maxBytes": 10000,
+      "maxBytes": 10000000,
       "backupCount": 3
     }
   },

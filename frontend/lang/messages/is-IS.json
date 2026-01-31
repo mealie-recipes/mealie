@@ -69,7 +69,7 @@
     "new-notification": "Ný tilkynning",
     "event-notifiers": "Viðburðar tilkynningar",
     "apprise-url-skipped-if-blank": "Apprise URL (sleppt ef tómt)",
-    "apprise-url-is-left-intentionally-blank": "Þar sem \"Apprise\" slóðir innihalda yfirleitt viðkvæmar upplýsingar, er þessum reit viljandi skilið eftir auðum við breytingar. Ef þú vilt uppfæra slóðina skaltu slá inn þá nýju hér, annars skaltu skilja reitinn eftir auðan til að halda núverandi slóð.",
+    "apprise-url-is-left-intentionally-blank": "Þar sem \"Apprise\" slóðir innihalda yfirleitt viðkvæmar upplýsingar, er þessi reitur viljandi skilinn eftir auður. Ef þú vilt uppfæra slóðina skaltu slá inn hana inn hér, annars skaltu skilja reitinn eftir auðan til að halda núverandi slóð.",
     "enable-notifier": "Virkja tilkynningar",
     "what-events": "Hvaða viðburði ætti þessi tilkynnir að vera áskrifandi að?",
     "user-events": "Notenda viðburðir",
@@ -212,6 +212,8 @@
     "upload-file": "Hlaða upp skrá",
     "created-on-date": "Búið til: {0}",
     "unsaved-changes": "Þú hefur ekki vistað breytingar. Viltu vista áður en þú ferð? Ýttu á \"Í lagi\" til að vista, \"Hætta við\" til að henda breytingum.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Mistókst að afrita klippispjaldið.",
     "confirm-delete-generic-items": "Ertu viss um að þú viljir eyða eftirfylgjandi atriðum?",
     "organizers": "Skipuleggjarar",
@@ -342,6 +344,9 @@
     "breakfast": "Morgunverður",
     "lunch": "Hádegisverður",
     "dinner": "Kvöldverður",
+    "snack": "Snarl",
+    "drink": "Drykkur",
+    "dessert": "Eftirréttur",
     "type-any": "Allir",
     "day-any": "Alla",
     "editor": "Ritill",
@@ -397,7 +402,7 @@
     },
     "tandoor": {
       "description-long": "Mealie getur flutt inn uppskriftir frá Tandoor. Flyttu út gögnin í sjálfgefnu formi svo hleður þú upp .zip skránni hér fyrir neðan.",
-      "title": "Tandoor uppskriftir"
+      "title": "Tandoor Recipes"
     },
     "cookn": {
       "description-long": "Mealie getur flutt inn uppskriftir frá DVO Cook'n X3. Flyttu matreiðslubókina eða valmyndina í „Cook'n“ sniði, endurnefndu skráarendinguna í .zip og flyttu svo .zip skrána inn hér fyrir neðan.",
@@ -442,6 +447,7 @@
     "upload-a-recipe": "Hlaða inn uppskrift",
     "upload-individual-zip-file": "Hlaða inn .zip skrá sem er flutt úr annarri Mealie uppsetningu.",
     "url-form-hint": "Afritaðu og límdu tengil frá uppáhalds uppskriftar síðunni þinni",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Skoða unnin gögn",
     "trim-whitespace-description": "Fjarlægja bil fremst og aftast í texta sem og auðum línum",
     "trim-prefix-description": "Eyða fyrsta staf úr hverri línu",
@@ -616,8 +622,8 @@
     "create-recipe-description": "Stofna nýja uppskrift frá grunni.",
     "create-recipes": "Stofna uppskriftir",
     "import-with-zip": "Hlaða inn með .zip",
-    "create-recipe-from-an-image": "Create Recipe from an Image",
-    "create-recipe-from-an-image-description": "Create a recipe by uploading an image of it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
+    "create-recipe-from-an-image": "Stofna uppskrift út frá mynd",
+    "create-recipe-from-an-image-description": "Stofna uppskrift með því hlaða inn myndum af uppskriftartextanum. Mealie mun reyna að vinna texta úr myndunum með gervigreind og stofna nýja uppskrift út frá textanum.",
     "crop-and-rotate-the-image": "Sníða og snúa mynd svo bara textinn sé sýnilegur og að myndin snúi rétt.",
     "create-from-images": "Stofna uppskrift frá mynd",
     "should-translate-description": "Þýða uppskrift á mitt tungumál",
@@ -633,7 +639,10 @@
     "scrape-recipe-suggest-bulk-importer": "Prófaðu að setja inn margar uppskriftir í einu",
     "scrape-recipe-have-raw-html-or-json-data": "Ertu með hrá HTML eða JSON gögn?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Það er hægt að hlaða inn hráum gögnum beint",
+    "scrape-recipe-website-being-blocked": "Er vefsíðan lokuð?",
+    "scrape-recipe-try-importing-raw-html-instead": "Reyndu að flytja inn HTML kóðann í staðinn.",
     "import-original-keywords-as-tags": "Nota upprunanleg merki",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Vera í breytingarham",
     "parse-recipe-ingredients-after-import": "Greina innhald uppskriftar eftir að búið er að hlaða inn uppskrift",
     "import-from-zip": "Hlaða inn frá .zip",
@@ -655,7 +664,7 @@
     "recipe-debugger": "Yfirfara uppskrift",
     "recipe-debugger-description": "Náðu í slóðina af uppskriftinni sem þú villt yfirfara og límdu hana hér. Síðan með uppskriftinni verður greind með greiningarverkfærinu og þú munnt sjá niðurstöðuna. Ef þú sérð að engin gögn skila sér þá er slóðin sem þú ert að greina ekki studd af Mealie eða greiningarverkfærinu.",
     "use-openai": "Nota OpenAI",
-    "recipe-debugger-use-openai-description": "Nota OpenAI til að greina í staðinn fyrir að treysta á greiningar verkfærið. Þegar er fengin af slóð þá gerist þetta sjálfkrafa ef almenn greining mistekst, en þú getur prófað það hér.",
+    "recipe-debugger-use-openai-description": "Nota OpenAI til að greina í staðinn fyrir að treysta á greiningar verkfærið. Ef greiningar verkfærinu mistekst að greina uppskrift af vefslóð þá gerist það sjálfvirkt að OpenAI greinir uppskriftina en þú getur prófað þetta sjálfur hér.",
     "debug": "Villuleit",
     "tree-view": "Tré sýn",
     "recipe-servings": "Fjöldi skammta",
@@ -696,9 +705,9 @@
     "upload-more-images": "Setja inn fleiri myndir",
     "set-as-cover-image": "Velja sem forsíðumynd fyrir uppskriftina",
     "cover-image": "Forsíðumynd",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Víxla uppskrift"
+    "include-linked-recipes": "Hafa með tengda uppskrift",
+    "include-linked-recipe-ingredients": "Hafa með innihaldsefni úr tengdum uppskriftum",
+    "toggle-recipe": "Sýna/fela uppskrift"
   },
   "recipe-finder": {
     "recipe-finder": "Uppskriftaleit",
@@ -843,11 +852,11 @@
     "webhooks": {
       "test-webhooks": "Test Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "The URLs listed below will receive webhooks containing the recipe data for the meal plan on it's scheduled day. Currently Webhooks will execute at",
-      "webhook-url": "Webhook URL",
+      "webhook-url": "Vefkrækju URL",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhook-vefkrækjur",
       "webhook-name": "Vefkrækju nafn",
-      "description": "Vefkrækjur (webhooks) sem skilgreindar eru hér að neðan verða keyrðar þegar máltíð er skilgreind fyrir daginn. Á fyrirfram ákveðnum tíma verða vefkrækjurnar sendar með gögnum úr þeirri uppskrift sem skipulögð er í dag. Athugaðu að keyrsla vefkrækja er ekki alveg nákvæm, þær eru keyrðar á 5 mínútna fresti, þannig að sendingin getur farið fram allt að 5 mínútum fyrir eða eftir áætlaðan tíma."
+      "description": "Vefkrækjur sem skilgreindar eru hér að neðan verða keyrðar þegar máltíð er skilgreind fyrir daginn. Á fyrirfram ákveðnum tíma verða vefkrækjurnar sendar með gögnum úr þeirri uppskrift sem skipulögð er í dag. Athugaðu að keyrsla vefkrækja er ekki alveg nákvæm, þær eru keyrðar á 5 mínútna fresti, þannig að sendingin getur farið fram allt að 5 mínútum fyrir eða eftir áætlaðan tíma."
     },
     "bug-report": "Villu skýrsla",
     "bug-report-information": "Notaður þessar upplýsingar til að tilkynna um villu. Með því að veita þróunaraðilum upplýsingar um þína uppsetningu hjálpar þú þeim að leysa vandamálið hraðar.",
@@ -1036,7 +1045,7 @@
     "users-header": "NOTENDUR",
     "users": "Notendur",
     "user-not-found": "User not found",
-    "webhook-time": "Webhook Time",
+    "webhook-time": "Vefkrækju tími",
     "webhooks-enabled": "Vefkrækjur virkjaðar",
     "you-are-not-allowed-to-create-a-user": "Þú hefur ekki réttindi til að stofna notanda",
     "you-are-not-allowed-to-delete-this-user": "Þú hefur ekki réttindi til að eyða þessum notanda",
@@ -1217,7 +1226,7 @@
     "recipe-link-copied-message": "Tengill fyrir uppskriftina afritaður í klippispjald"
   },
   "banner-experimental": {
-    "title": "Experimental Feature",
+    "title": "Tilraunareiginleiki",
     "description": "This page contains experimental or still-baking features. Please excuse the mess.",
     "issue-link-text": "Track our progress here"
   },
@@ -1302,7 +1311,7 @@
     },
     "ingredients-natural-language-processor": "Innihaldsefna málgreining (Natural Language Processor)",
     "ingredients-natural-language-processor-explanation": "Mealie notar Conditional Random Fields (CRFs) til að greina og vinna með innihaldsefni. Líkanið sem notað er byggir á gagnasafni með yfir 100.000 innihaldsefnum úr gagnasafni sem New York Times tók saman. Athugaðu að þar sem líkanið er einungis þjálfað á ensku geturðu fengið misjafnar niðurstöður þegar það er notað á önnur tungumál. Þessi síða er ætluð til að prófa líkanið.",
-    "ingredients-natural-language-processor-explanation-2": "Þetta er ekki fullkomið en skilar almennt góðum niðurstöðum og er góður grunnur fyrir handvirka greiningu innihaldsefna í einstaka reiti. Þú getur einnig notað „Brute“ vinnsluna, sem notar mynsturgreiningu til að bera kennsl á innihaldsefni.",
+    "ingredients-natural-language-processor-explanation-2": "Þetta er ekki fullkomið en skilar almennt góðum niðurstöðum og er góður grunnur fyrir handvirka greiningu innihaldsefna í einstaka reiti. Þú getur einnig notað „Grófgreinir“ vinnsluna, sem notar mynsturgreiningu til að bera kennsl á innihaldsefni.",
     "nlp": "NLP",
     "brute": "Grófgreinir",
     "openai": "OpenAI",
@@ -1333,8 +1342,8 @@
     "household-delete-note": "Heimili með notendum er ekki hægt að eyða"
   },
   "profile": {
-    "welcome-user": "👋 Velkomin/Velkominn/Velkomið, {0}!",
-    "description": "Umsjá með prófíl, uppskriftum og hóp stillingum.",
+    "welcome-user": "👋 Halló, {0}",
+    "description": "Umsjá með prófíl, uppskriftum og hópstillingum.",
     "invite-link": "Boð tengill",
     "get-invite-link": "Fá boð tengil",
     "get-public-link": "Fá almennan tengil",
@@ -1357,7 +1366,7 @@
     "household-description": "Þessum einingum er deilt innan heimilis þíns, að breyta hér hefur áhrif á stillingar fyrir alla í heimilinu!",
     "household-settings": "Heimilis stillingar",
     "household-settings-description": "Stjórnaðu stillingum heimilis, eins og matarplani og persónuverndarstillingum.",
-    "cookbooks-description": "Manage a collection of recipe categories and generate pages for them.",
+    "cookbooks-description": "Stjórna safni uppskriftaflokka og búa til síður fyrir þá.",
     "members": "Stillingasíða fyrir heimili",
     "members-description": "Sjáðu hverjir eru í þínu heimili og stjórnaðu réttindum þeirra.",
     "webhooks-description": "Settu upp vefkrækju sem virkjast á dögum sem þú hefur virkt matarplan.",
@@ -1388,7 +1397,7 @@
     "hide-cookbooks-from-other-households": "Fela uppskriftarbækur frá öðrum heimilum",
     "hide-cookbooks-from-other-households-description": "Þegar þetta er valið þá munu aðeins uppskriftarbækur úr þínu heimili birtast á hliðarstikunni",
     "public-cookbook": "Opin uppskriftarbók",
-    "public-cookbook-description": "Opnar uppskriftarbækur er hægt að deila með þeim sem ekki eru notendur í mealie kerfinu og eru þær sýnilegar á hópsíðunni þinni.",
+    "public-cookbook-description": "Opnar uppskriftabækur er hægt að deila með þeim sem ekki eru notendur í Mealie kerfinu og eru þær sýnilegar á hópsíðunni þinni.",
     "filter-options": "Filter Options",
     "filter-options-description": "When require all is selected the cookbook will only include recipes that have all of the items selected. This applies to each subset of selectors and not a cross section of the selected items.",
     "require-all-categories": "Þarf alla flokka",
@@ -1396,7 +1405,7 @@
     "require-all-tools": "Require All Tools",
     "cookbook-name": "Nafn á uppskriftabók",
     "cookbook-with-name": "Uppskriftabók {0}",
-    "household-cookbook-name": "{0} Uppskriftabók {1}",
+    "household-cookbook-name": "Uppskriftabók {0}  {1}",
     "create-a-cookbook": "Stofna uppskrifabók",
     "cookbook": "Uppskriftabók"
   },
@@ -1422,5 +1431,13 @@
       "is-like": "is like",
       "is-not-like": "is not like"
     }
+  },
+  "validators": {
+    "required": "Þessi reitur er nauðsynlegur",
+    "invalid-email": "Verður að vera gilt netfang",
+    "invalid-url": "Verður að vera gild vefslóð",
+    "no-whitespace": "Engin bil leyfð",
+    "min-length": "Verður að vera að lágmarki {min} stafir",
+    "max-length": "Má vera að hámarki {max} stafir"
   }
 }

@@ -10,14 +10,17 @@
           v-for="(item, key, index) in modelValue"
           :key="index"
         >
-          <v-text-field
-            density="compact"
+          <v-number-input
             :model-value="modelValue[key]"
             :label="labels[key].label"
             :suffix="labels[key].suffix"
-            type="number"
+            density="compact"
             autocomplete="off"
             variant="underlined"
+            control-variant="stacked"
+            inset
+            :precision="null"
+            :min="0"
             @update:model-value="updateValue(key, $event)"
           />
         </div>

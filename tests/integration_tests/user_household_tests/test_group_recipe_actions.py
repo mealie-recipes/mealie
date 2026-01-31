@@ -25,7 +25,7 @@ def create_action(action_type: GroupRecipeActionType = GroupRecipeActionType.lin
     return CreateGroupRecipeAction(
         action_type=action_type,
         title=random_string(),
-        url=random_string(),
+        url=f"https://example.com/{random_string()}",
     )
 
 
@@ -194,3 +194,40 @@ def test_group_recipe_actions_trigger_invalid_type(api_client: TestClient, uniqu
     )
 
     assert response.status_code == 400
+
+
+@pytest.mark.parametrize(
+    "url,should_pass",
+    [
+        ("https://example.com", True),
+        ("http://example.com", True),
+        ("HTTPS://EXAMPLE.COM", True),
+        ("HTTP://EXAMPLE.COM", True),
+        ("javascript:alert('xss')", False),
+        ("JAVASCRIPT:alert('xss')", False),
+        ("data:text/html,<script>alert('xss')</script>", False),
+        ("file:///etc/passwd", False),
+        ("ftp://example.com", False),
+        ("//example.com", False),
+        ("example.com", False),
+    ],
+)
+def test_group_recipe_actions_url_scheme_validation(
+    api_client: TestClient, unique_user: TestUser, url: str, should_pass: bool
+):
+    """Test that only http and https URLs are allowed to prevent XSS via javascript: URIs."""
+    action_data = {
+        "action_type": "link",
+        "title": random_string(),
+        "url": url,
+    }
+    response = api_client.post(
+        api_routes.households_recipe_actions,
+        json=action_data,
+        headers=unique_user.token,
+    )
+
+    if should_pass:
+        assert response.status_code == 201
+    else:
+        assert response.status_code == 422

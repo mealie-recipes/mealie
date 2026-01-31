@@ -4,11 +4,11 @@
     },
     "recipe": {
         "unique-name-error": "Naziv recepta mora imati jedinstveno ime",
-        "recipe-created": "Recipe Created",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-created": "Kreiran novi recept",
+        "recipe-image-deleted": "Slika recepta obrisana",
         "recipe-defaults": {
             "ingredient-note": "1 Cup Flour",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "step-text": "Koraci u receptu, kao i druga polja u receptu podržavaju markdown.\n\n**Dodaj poveznicu**\n\n[Poveznica](https://demo.mealie.io)\n"
         },
         "servings-text": {
             "makes": "Makes",
@@ -24,8 +24,8 @@
     },
     "user": {
         "user-updated": "Korisnik je ažuriran",
-        "password-updated": "Zaporka je ažurirana",
-        "invalid-current-password": "Trenutna lozinka nije ispravna",
+        "password-updated": "Lozinka ažurirana",
+        "invalid-current-password": "Lozinka neispravna",
         "ldap-update-password-unavailable": "Nije moguće ažurirati lozinku, korisnik je pod kontrolom LDAP sustava"
     },
     "group": {
@@ -37,7 +37,7 @@
         "no-entry-found": "Traženi izvor nije pronađen",
         "integrity-error": "Greška integriteta baze podataka",
         "username-conflict-error": "Ovo korisničko ime je već u upotrebi",
-        "email-conflict-error": "Ova e-pošta se već koristi"
+        "email-conflict-error": "Ovaj račun e-pošte se već koristi"
     },
     "notifications": {
         "generic-created": "{name} je kreiran",
@@ -46,38 +46,38 @@
         "generic-updated-with-url": "{name} je ažuriran, {url}",
         "generic-duplicated": "{name} je dupliciran",
         "generic-deleted": "{name} je obrisan",
-        "logged-out": "Logged out"
+        "logged-out": "Odjavljeni"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "year": "godina|godine",
+        "day": "dan|dani",
+        "hour": "sat|sati",
+        "minute": "minuta|minute",
+        "second": "sekunda|sekunde",
+        "millisecond": "milisekunda|milisekundi",
+        "microsecond": "mikrosekunda|mikrosekundi"
     },
     "emails": {
         "password": {
-            "subject": "Mealie Forgot Password",
-            "header_text": "Forgot Password",
-            "message_top": "You have requested to reset your password.",
-            "message_bottom": "Please click the button above to reset your password.",
-            "button_text": "Reset Password"
+            "subject": "Zaboravljena lozinka - Mealie",
+            "header_text": "Zaboravljena lozinka",
+            "message_top": "Zatražili ste ponovno postavljanje lozinke.",
+            "message_bottom": "Kliknite na gumb iznad kako biste ponovno postavili svoju lozinku.",
+            "button_text": "Ponovno postavi lozinku"
         },
         "invitation": {
-            "subject": "Invitation to join Mealie",
-            "header_text": "You're Invited!",
-            "message_top": "You have been invited to join Mealie.",
-            "message_bottom": "Please click the button above to accept the invitation.",
-            "button_text": "Accept Invitation"
+            "subject": "Pozivnica za Mealie",
+            "header_text": "Pozvani ste!",
+            "message_top": "Pozvani ste da nam se pridružite na Mealie.",
+            "message_bottom": "Molim Vas, kliknite na gumb iznad kako biste prihvatili pozivnicu.",
+            "button_text": "Prihvati Pozivnicu"
         },
         "test": {
             "subject": "Mealie Test Email",
             "header_text": "Test Email",
             "message_top": "This is a test email.",
             "message_bottom": "Please click the button above to test the email.",
-            "button_text": "Open Mealie"
+            "button_text": "Otvori Mealie"
         }
     }
 }

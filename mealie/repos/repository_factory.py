@@ -5,6 +5,7 @@ from pydantic import UUID4
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from mealie.db.models._model_utils.guid import GUID
 from mealie.db.models.group import Group, ReportEntryModel, ReportModel
 from mealie.db.models.group.exports import GroupDataExportsModel
 from mealie.db.models.group.preferences import GroupPreferencesModel
@@ -116,6 +117,12 @@ class AllRepositories:
         self.session = session
         self.group_id = group_id
         self.household_id = household_id
+
+    def uuid_to_str(self, val: UUID4) -> str:
+        """Helper method to convert a UUID into a database-safe string"""
+
+        dialect = self.session.bind.dialect
+        return GUID.convert_value_to_guid(val, dialect) or ""
 
     # ================================================================
     # Recipe

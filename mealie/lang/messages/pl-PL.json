@@ -4,8 +4,8 @@
     },
     "recipe": {
         "unique-name-error": "Nazwy przepisów muszą być unikatowe",
-        "recipe-created": "Utworzono przepis",
-        "recipe-image-deleted": "Obrazek przepisu został usunięty ",
+        "recipe-created": "Przepis został utworzony",
+        "recipe-image-deleted": "Obrazek przepisu został usunięty",
         "recipe-defaults": {
             "ingredient-note": "1 szklanka mąki",
             "step-text": "Kroki przepisu, jak również inne pola na stronie przepisu obsługują składnię markdown.\n\n**Dodaj link**\n\n[Mój link](https://demo.mealie.io)\n"
@@ -23,7 +23,7 @@
         "no-recipes-match-your-rules": "Nie znaleziono przepisu spełniającego warunki"
     },
     "user": {
-        "user-updated": "Użytkownik zaktualizowany",
+        "user-updated": "Użytkownik został zaktualizowany",
         "password-updated": "Hasło zostało zmienione",
         "invalid-current-password": "Bieżące hasło jest nieprawidłowe",
         "ldap-update-password-unavailable": "Nie można zaktualizować hasła, użytkownik jest kontrolowany przez LDAP"
@@ -33,16 +33,16 @@
     },
     "exceptions": {
         "permission_denied": "Nie masz uprawnień do wykonania tej akcji",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Przepis nie może odnosić się do samego siebie bezpośrednio, ani pośrednio",
         "no-entry-found": "Wskazany zasób jest niedostępny",
         "integrity-error": "Błąd spójności bazy danych",
         "username-conflict-error": "Ta nazwa użytkownika jest już zajęta",
         "email-conflict-error": "Ten adres email już jest zajęty"
     },
     "notifications": {
-        "generic-created": "Stworzono {name}",
+        "generic-created": "Utworzono {name}",
         "generic-updated": "Zaktualizowano {name}",
-        "generic-created-with-url": "Stworzono {name}, {url}",
+        "generic-created-with-url": "Utworzono {name}, {url}",
         "generic-updated-with-url": "Zaktualizowano {name}, {url}",
         "generic-duplicated": "Zduplikowano {name}",
         "generic-deleted": "Usunięto {name}",

@@ -7,6 +7,11 @@ import { BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
 const store: Ref<UserSummary[]> = ref([]);
 const loading = ref(false);
 
+export function resetUserStore() {
+  store.value = [];
+  loading.value = false;
+}
+
 class GroupUserAPIReadOnly extends BaseCRUDAPIReadOnly<UserSummary> {
   baseRoute = "/api/groups/members";
   itemRoute = (idOrUsername: string | number) => `/groups/members/${idOrUsername}`;

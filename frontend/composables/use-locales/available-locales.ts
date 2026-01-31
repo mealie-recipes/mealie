@@ -15,25 +15,25 @@ export const LOCALES = [
   {
     name: "Tiếng Việt (Vietnamese)",
     value: "vi-VN",
-    progress: 1,
+    progress: 2,
     dir: "ltr",
   },
   {
     name: "Українська (Ukrainian)",
     value: "uk-UA",
-    progress: 93,
+    progress: 100,
     dir: "ltr",
   },
   {
     name: "Türkçe (Turkish)",
     value: "tr-TR",
-    progress: 35,
+    progress: 41,
     dir: "ltr",
   },
   {
     name: "Svenska (Swedish)",
     value: "sv-SE",
-    progress: 67,
+    progress: 68,
     dir: "ltr",
   },
   {
@@ -63,7 +63,7 @@ export const LOCALES = [
   {
     name: "Română (Romanian)",
     value: "ro-RO",
-    progress: 41,
+    progress: 45,
     dir: "ltr",
   },
   {
@@ -75,43 +75,43 @@ export const LOCALES = [
   {
     name: "Português do Brasil (Brazilian Portuguese)",
     value: "pt-BR",
-    progress: 46,
+    progress: 49,
     dir: "ltr",
   },
   {
     name: "Polski (Polish)",
     value: "pl-PL",
-    progress: 46,
+    progress: 53,
     dir: "ltr",
   },
   {
     name: "Norsk (Norwegian)",
     value: "no-NO",
-    progress: 41,
+    progress: 43,
     dir: "ltr",
   },
   {
     name: "Nederlands (Dutch)",
     value: "nl-NL",
-    progress: 54,
+    progress: 59,
     dir: "ltr",
   },
   {
     name: "Latviešu (Latvian)",
     value: "lv-LV",
-    progress: 36,
+    progress: 35,
     dir: "ltr",
   },
   {
     name: "Lietuvių (Lithuanian)",
     value: "lt-LT",
-    progress: 27,
+    progress: 31,
     dir: "ltr",
   },
   {
     name: "한국어 (Korean)",
     value: "ko-KR",
-    progress: 9,
+    progress: 39,
     dir: "ltr",
   },
   {
@@ -123,19 +123,19 @@ export const LOCALES = [
   {
     name: "Italiano (Italian)",
     value: "it-IT",
-    progress: 47,
+    progress: 52,
     dir: "ltr",
   },
   {
     name: "Íslenska (Icelandic)",
     value: "is-IS",
-    progress: 44,
+    progress: 46,
     dir: "ltr",
   },
   {
     name: "Magyar (Hungarian)",
     value: "hu-HU",
-    progress: 47,
+    progress: 48,
     dir: "ltr",
   },
   {
@@ -147,7 +147,7 @@ export const LOCALES = [
   {
     name: "עברית (Hebrew)",
     value: "he-IL",
-    progress: 73,
+    progress: 72,
     dir: "rtl",
   },
   {
@@ -159,13 +159,13 @@ export const LOCALES = [
   {
     name: "Français (French)",
     value: "fr-FR",
-    progress: 69,
+    progress: 74,
     dir: "ltr",
   },
   {
     name: "Français canadien (Canadian French)",
     value: "fr-CA",
-    progress: 100,
+    progress: 99,
     dir: "ltr",
   },
   {
@@ -189,7 +189,7 @@ export const LOCALES = [
   {
     name: "Español (Spanish)",
     value: "es-ES",
-    progress: 46,
+    progress: 47,
     dir: "ltr",
   },
   {
@@ -201,49 +201,49 @@ export const LOCALES = [
   {
     name: "British English",
     value: "en-GB",
-    progress: 44,
+    progress: 45,
     dir: "ltr",
   },
   {
     name: "Ελληνικά (Greek)",
     value: "el-GR",
-    progress: 41,
+    progress: 42,
     dir: "ltr",
   },
   {
     name: "Deutsch (German)",
     value: "de-DE",
-    progress: 97,
+    progress: 98,
     dir: "ltr",
   },
   {
     name: "Dansk (Danish)",
     value: "da-DK",
-    progress: 47,
+    progress: 66,
     dir: "ltr",
   },
   {
     name: "Čeština (Czech)",
     value: "cs-CZ",
-    progress: 42,
+    progress: 45,
     dir: "ltr",
   },
   {
     name: "Català (Catalan)",
     value: "ca-ES",
-    progress: 38,
+    progress: 41,
     dir: "ltr",
   },
   {
     name: "Български (Bulgarian)",
     value: "bg-BG",
-    progress: 47,
+    progress: 51,
     dir: "ltr",
   },
   {
     name: "العربية (Arabic)",
     value: "ar-SA",
-    progress: 23,
+    progress: 25,
     dir: "rtl",
   },
   {

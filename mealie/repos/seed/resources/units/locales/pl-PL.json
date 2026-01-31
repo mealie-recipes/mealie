@@ -3,13 +3,13 @@
         "name": "łyżeczka",
         "plural_name": "łyżeczki",
         "description": "",
-        "abbreviation": ""
+        "abbreviation": "łyżeczka"
     },
     "tablespoon": {
         "name": "łyżka",
         "plural_name": "łyżki",
         "description": "",
-        "abbreviation": ""
+        "abbreviation": "łyżka"
     },
     "cup": {
         "name": "szklanka",
@@ -135,6 +135,12 @@
     "pinch": {
         "name": "szczypta",
         "plural_name": "szczypty",
+        "description": "",
+        "abbreviation": ""
+    },
+    "sprig": {
+        "name": "sprig",
+        "plural_name": "sprigs",
         "description": "",
         "abbreviation": ""
     }

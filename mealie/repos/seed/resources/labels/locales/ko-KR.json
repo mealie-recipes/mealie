@@ -1,6 +1,6 @@
 [
     {
-        "name": "Produce"
+        "name": "농산물"
     },
     {
         "name": "곡물"
@@ -24,7 +24,7 @@
         "name": "제빵 음식"
     },
     {
-        "name": "Canned Goods"
+        "name": "통조림"
     },
     {
         "name": "조미료"
@@ -36,7 +36,7 @@
         "name": "유제품"
     },
     {
-        "name": "Frozen Foods"
+        "name": "냉동식품"
     },
     {
         "name": "Health Foods"
@@ -45,7 +45,7 @@
         "name": "Household"
     },
     {
-        "name": "Meat Products"
+        "name": "가구"
     },
     {
         "name": "간식"

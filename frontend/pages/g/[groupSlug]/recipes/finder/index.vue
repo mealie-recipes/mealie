@@ -76,13 +76,15 @@
                         can-confirm
                         @confirm="saveQueryFilter"
                       >
-                        <QueryFilterBuilder
-                          :key="queryFilterMenuKey"
-                          :initial-query-filter="queryFilterJSON"
-                          :field-defs="queryFilterBuilderFields"
-                          @input="(value) => queryFilterEditorValue = value"
-                          @input-j-s-o-n="(value) => queryFilterEditorValueJSON = value"
-                        />
+                        <v-card-text>
+                          <QueryFilterBuilder
+                            :key="queryFilterMenuKey"
+                            :initial-query-filter="queryFilterJSON"
+                            :field-defs="queryFilterBuilderFields"
+                            @input="(value) => queryFilterEditorValue = value"
+                            @input-j-s-o-n="(value) => queryFilterEditorValueJSON = value"
+                          />
+                        </v-card-text>
                         <template #custom-card-action>
                           <BaseButton
                             color="error"
@@ -132,18 +134,22 @@
                   <v-card>
                     <v-card-text>
                       <div>
-                        <v-text-field
+                        <v-number-input
                           v-model="settings.maxMissingFoods"
-                          type="number"
+                          :precision="null"
+                          :min="0"
+                          control-variant="stacked"
+                          inset
                           hide-details
-                          hide-spin-buttons
                           :label="$t('recipe-finder.max-missing-ingredients')"
                         />
-                        <v-text-field
+                        <v-number-input
                           v-model="settings.maxMissingTools"
-                          type="number"
+                          :precision="null"
+                          :min="0"
+                          control-variant="stacked"
+                          inset
                           hide-details
-                          hide-spin-buttons
                           :label="$t('recipe-finder.max-missing-tools')"
                           class="mt-4"
                         />
@@ -652,6 +658,11 @@ export default defineNuxtComponent({
         name: "household_id",
         label: i18n.t("household.households"),
         type: Organizer.Household,
+      },
+      {
+        name: "user_id",
+        label: i18n.t("user.users"),
+        type: Organizer.User,
       },
     ];
 

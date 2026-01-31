@@ -212,6 +212,8 @@
     "upload-file": "Lae fail üles",
     "created-on-date": "Loodud: {0}",
     "unsaved-changes": "Sul on salvestamata muudatusi. Kas sa tahad salvestada enne lehelt lahkumist? Vajuta OK salvestamiseks või Tühista, et muudatused tühistada.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Lõikepuhvrisse kopeerimine ebaõnnestus.",
     "confirm-delete-generic-items": "Kas oled kindel, et tahad kustutada järgnevad asjad?",
     "organizers": "Korraldajad",
@@ -342,6 +344,9 @@
     "breakfast": "Hommikusöök",
     "lunch": "Lõuna",
     "dinner": "Õhtusöök",
+    "snack": "Snack",
+    "drink": "Drink",
+    "dessert": "Dessert",
     "type-any": "Kõik",
     "day-any": "Kõik",
     "editor": "Editor",
@@ -442,6 +447,7 @@
     "upload-a-recipe": "Retsepti üleslaadimne",
     "upload-individual-zip-file": "Lae üles üksik .zip fail, mis eksporditi teisest Mealie ekspemplarist.",
     "url-form-hint": "Kopeeri ja kleebi link oma lemmikust retsepti leheküljest",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
     "view-scraped-data": "Kuva omandatud andmed",
     "trim-whitespace-description": "Eemalda alguses ning lõpus olevad tühikud ning tühjad read",
     "trim-prefix-description": "Eemalda esimene tähemärk igast reast",
@@ -633,7 +639,10 @@
     "scrape-recipe-suggest-bulk-importer": "Proovi hulgiimportimist.",
     "scrape-recipe-have-raw-html-or-json-data": "Sul on töötlemata HTMLi või JSONi andmed?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Sa võid otse importida töötlemata andmetest",
+    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Impordi originaal võtmesõnad siltidena",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Püsige redigeerimisrežiimis",
     "parse-recipe-ingredients-after-import": "Tuvasta retsepti koostisosad pärast importimist",
     "import-from-zip": "Impordi .zip-st",
@@ -1422,5 +1431,13 @@
       "is-like": "on nagu",
       "is-not-like": "ei ole nagu"
     }
+  },
+  "validators": {
+    "required": "This Field is Required",
+    "invalid-email": "Email Must Be Valid",
+    "invalid-url": "Must Be A Valid URL",
+    "no-whitespace": "No Whitespace Allowed",
+    "min-length": "Must Be At Least {min} Characters",
+    "max-length": "Must Be At Most {max} Characters"
   }
 }

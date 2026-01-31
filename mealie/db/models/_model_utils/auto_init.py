@@ -168,14 +168,20 @@ def auto_init():  # sourcery no-metrics
                         setattr(self, key, instance)
 
                     elif relation_dir == MANYTOONE and not use_list:
+                        lookup_attr = get_attr
                         if isinstance(val, dict):
-                            val = val.get(get_attr)
+                            # Prefer primary key when provided to avoid ambiguous alternate-key lookups
+                            if "id" in val and val["id"] is not None:
+                                lookup_attr = "id"
+                                val = val["id"]
+                            else:
+                                val = val.get(get_attr)
 
                             if val is None:
-                                raise ValueError(f"Expected 'id' to be provided for {key}")
+                                raise ValueError(f"Expected '{lookup_attr}' to be provided for {key}")
 
                         if isinstance(val, str | int | UUID):
-                            stmt = select(relation_cls).filter_by(**{get_attr: val})
+                            stmt = select(relation_cls).filter_by(**{lookup_attr: val})
                             instance = session.execute(stmt).scalars().one_or_none()
                             setattr(self, key, instance)
                         else:

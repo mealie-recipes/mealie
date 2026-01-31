@@ -10,6 +10,7 @@ class ScrapeRecipeTest(MealieModel):
 
 class ScrapeRecipeBase(MealieModel):
     include_tags: bool = False
+    include_categories: bool = False
 
 
 class ScrapeRecipe(ScrapeRecipeBase):
@@ -19,6 +20,7 @@ class ScrapeRecipe(ScrapeRecipeBase):
             "example": {
                 "url": "https://myfavoriterecipes.com/recipes",
                 "includeTags": True,
+                "includeCategories": True,
             },
         }
     )
@@ -27,3 +29,6 @@ class ScrapeRecipe(ScrapeRecipeBase):
 class ScrapeRecipeData(ScrapeRecipeBase):
     data: str
     """HTML data or JSON string of a https://schema.org/Recipe object"""
+
+    url: str | None = None
+    """Optional URL of the recipe source"""
