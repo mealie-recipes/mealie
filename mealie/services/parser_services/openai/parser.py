@@ -107,31 +107,21 @@ class OpenAIParser(ABCIngredientParser):
         return self.find_ingredient_match(parsed_ingredient)
 
     def _get_prompt(self, service: OpenAIService) -> str:
-        data_injections = [
-            OpenAIDataInjection(
-                description=(
-                    "This is the JSON response schema. You must respond in valid JSON that follows this schema. "
-                    "Your payload should be as compact as possible, eliminating unncessesary whitespace. Any fields "
-                    "with default values which you do not populate should not be in the payload."
-                ),
-                value=OpenAIIngredients,
-            ),
-        ]
-
         if service.send_db_data and self.data_matcher.units_by_alias:
-            data_injections.extend(
-                [
-                    OpenAIDataInjection(
-                        description=(
-                            "Below is a list of units found in the units database. While parsing, you should "
-                            "reference this list when determining which part of the input is the unit. You may "
-                            "find a unit in the input that does not exist in this list. This should not prevent "
-                            "you from parsing that text as a unit."
-                        ),
-                        value=list(set(self.data_matcher.units_by_alias)),
+            data_injections = [
+                OpenAIDataInjection(
+                    description=(
+                        "Below is a list of units found in the units database. While parsing, you should "
+                        "reference this list when determining which part of the input is the unit. You may "
+                        "find a unit in the input that does not exist in this list. This should not prevent "
+                        "you from parsing that text as a unit."
                     ),
-                ]
-            )
+                    value=list(set(self.data_matcher.units_by_alias)),
+                ),
+            ]
+
+        else:
+            data_injections = None
 
         return service.get_prompt("recipes.parse-recipe-ingredients", data_injections=data_injections)
 
