@@ -82,8 +82,6 @@ const emit = defineEmits<{
   [key: string]: [];
 }>();
 
-const { mdAndUp } = useDisplay();
-
 const i18n = useI18n();
 const { $globals } = useNuxtApp();
 const api = useUserApi();
