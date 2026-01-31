@@ -237,8 +237,8 @@ const { shoppingListDialog, shoppingListIngredientDialog, shoppingListShowAllTog
 const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);
 const selectedShoppingList = ref<ShoppingListSummary | null>(null);
 
-watch(dialog, (newVal, oldVal) => {
-  if (newVal && !oldVal) {
+watch([dialog, () => preferences.value.viewAllLists], () => {
+  if (dialog.value) {
     currentHouseholdSlug.value = $auth.user.value?.householdSlug || "";
     filteredShoppingLists.value = props.shoppingLists.filter(
       list => preferences.value.viewAllLists || list.userId === $auth.user.value?.id,
@@ -252,7 +252,7 @@ watch(dialog, (newVal, oldVal) => {
       ready.value = true;
     }
   }
-  else if (!newVal) {
+  else if (!dialog.value) {
     initState();
   }
 });

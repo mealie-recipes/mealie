@@ -15,7 +15,6 @@
       :nudge-top="menuTop ? '5' : '0'"
       allow-overflow
       close-delay="125"
-      :open-on-hover="mdAndUp"
       content-class="d-print-none"
     >
       <template #activator="{ props: activatorProps }">
@@ -82,8 +81,6 @@ const props = withDefaults(defineProps<Props>(), {
 const emit = defineEmits<{
   [key: string]: [];
 }>();
-
-const { mdAndUp } = useDisplay();
 
 const i18n = useI18n();
 const { $globals } = useNuxtApp();
