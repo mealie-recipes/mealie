@@ -194,17 +194,7 @@ class OpenAIService(BaseService):
 
     async def _get_raw_response(self, prompt: str, content: list[dict], response_schema: type[T]) -> ChatCompletion:
         client = self.get_client()
-        json_schema = response_schema.model_json_schema()
-        response_format = {
-            "type": "json_schema",
-            "json_schema": {
-                "name": response_schema.__name__,
-                "schema": json_schema,
-                "strict": True,
-            },
-        }
-
-        return await client.chat.completions.create(
+        return await client.chat.completions.parse(
             messages=[
                 {
                     "role": "system",
@@ -216,7 +206,7 @@ class OpenAIService(BaseService):
                 },
             ],
             model=self.model,
-            response_format=response_format,
+            response_format=response_schema,
         )
 
     async def get_response(
