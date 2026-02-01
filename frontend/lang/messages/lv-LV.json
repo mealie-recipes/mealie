@@ -369,7 +369,9 @@
     "recipe-rules": "Recepšu noteikumi",
     "applies-to-all-days": "Attiecas uz visām dienām",
     "applies-on-days": "Attiecas uz {0} s",
-    "meal-plan-settings": "Maltītes plāna iestatījumi"
+    "meal-plan-settings": "Maltītes plāna iestatījumi",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Migrācijas dati noņemti",
