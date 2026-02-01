@@ -61,11 +61,20 @@ jobs:
           FILES=$(gh pr view "$PR_NUMBER" --repo "$REPO" --json files --jq '.files[].path')
 
           for file in $FILES; do
-            if [[ ! "$file" =~ ^frontend/lang/ ]] && [[ ! "$file" =~ ^mealie/repos/seed/resources/[^/]+/locales/ ]]; then
-              echo "::error::Invalid file path: $file"
-              echo "Only files in frontend/lang/ or mealie/repos/seed/resources/*/locales/ are allowed"
-              exit 1
+            # Check if file matches any allowed path
+            if [[ "$file" == "frontend/composables/use-locales/available-locales.ts" ]] || \
+               [[ "$file" =~ ^frontend/lang/ ]] || \
+               [[ "$file" =~ ^mealie/repos/seed/resources/[^/]+/locales/ ]]; then
+              continue
             fi
+
+            # File doesn't match allowed paths
+            echo "::error::Invalid file path: $file"
+            echo "Only the following paths are allowed:"
+            echo "  - frontend/composables/use-locales/available-locales.ts"
+            echo "  - frontend/lang/"
+            echo "  - mealie/repos/seed/resources/*/locales/"
+            exit 1
           done
 
           echo "All files are in allowed paths"
