@@ -123,8 +123,8 @@ async function getShoppingLists() {
 
 // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
 const eventHandlers: { [key: string]: () => void | Promise<any> } = {
-  shoppingList: () => {
-    getShoppingLists();
+  shoppingList: async () => {
+    await getShoppingLists();
     state.shoppingListDialog = true;
   },
 };
