@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "czosnek",
-                "plural_name": "garlic"
+                "plural_name": "czosnek"
             },
             "onion": {
                 "aliases": [],
@@ -59,13 +59,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "seler naciowy",
-                "plural_name": "celery"
+                "plural_name": "seler"
             },
             "jalapeño": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeño",
-                "plural_name": "jalapeños"
+                "name": "papryczka jalapeño",
+                "plural_name": "papryczki jalapeño"
             },
             "avocado": {
                 "aliases": [],
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "szpinak",
-                "plural_name": "spinach"
+                "plural_name": "szpinak"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "kukurydza cukrowa",
-                "plural_name": "sweet corn"
+                "plural_name": "kukurydza cukrowa"
             },
             "chile pepper": {
                 "aliases": [
@@ -121,19 +121,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "brokuł",
-                "plural_name": "broccoli"
+                "plural_name": "brokuł"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
                 "name": "serce palmy",
-                "plural_name": "heart of palm"
+                "plural_name": "serce palmy"
             },
             "baby greens": {
                 "aliases": [],
                 "description": "",
-                "name": "baby greens",
-                "plural_name": "baby greens"
+                "name": "młode liście",
+                "plural_name": "młode liście"
             },
             "pumpkin": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kalafior",
-                "plural_name": "cauliflower"
+                "plural_name": "kalafior"
             },
             "cabbage": {
                 "aliases": [],
@@ -156,20 +156,20 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
-                "plural_name": "asparagus"
+                "name": "szparagi",
+                "plural_name": "szparagi"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
                 "name": "jarmuż",
-                "plural_name": "kale"
+                "plural_name": "jarmuż"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
                 "name": "rukola",
-                "plural_name": "arugula"
+                "plural_name": "rukola"
             },
             "leek": {
                 "aliases": [],
@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sałata",
-                "plural_name": "lettuce"
+                "plural_name": "sałata"
             },
             "butternut squash": {
                 "aliases": [],
@@ -198,8 +198,8 @@
             "romaine lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine lettuce",
-                "plural_name": "romaine lettuce"
+                "name": "sałata rzymska",
+                "plural_name": "sałata rzymska"
             },
             "beetroot": {
                 "aliases": [],
@@ -217,7 +217,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "koper włoski",
-                "plural_name": "fennel"
+                "plural_name": "koper włoski"
             },
             "sun dried tomato": {
                 "aliases": [],
@@ -261,8 +261,8 @@
             "mixed greens": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed greens",
-                "plural_name": "mixed greens"
+                "name": "mieszanka zielenin",
+                "plural_name": "mieszanka zielenin"
             },
             "parsnip": {
                 "aliases": [],
@@ -279,8 +279,8 @@
             "mixed vegetables": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetables",
-                "plural_name": "mixed vegetables"
+                "name": "mieszanka warzywna",
+                "plural_name": "mieszanki warzywne"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -304,7 +304,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pieprz cayenne",
-                "plural_name": "cayenne pepper"
+                "plural_name": "pieprz cayenne"
             },
             "green tomato": {
                 "aliases": [],
@@ -321,8 +321,8 @@
             "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg lettuce",
-                "plural_name": "iceberg lettuce"
+                "name": "sałata lodowa",
+                "plural_name": "sałaty lodowe"
             },
             "mashed potato": {
                 "aliases": [],
@@ -340,7 +340,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "botwina",
-                "plural_name": "chard"
+                "plural_name": "botwina"
             },
             "pimiento": {
                 "aliases": [],
