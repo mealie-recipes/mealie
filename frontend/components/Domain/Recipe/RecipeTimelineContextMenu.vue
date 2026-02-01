@@ -39,7 +39,6 @@
       :nudge-top="props.menuTop ? '5' : '0'"
       allow-overflow
       close-delay="125"
-      :open-on-hover="!props.useMobileFormat"
       content-class="d-print-none"
     >
       <template #activator="{ props: btnProps }">
@@ -99,7 +98,6 @@ const props = defineProps<{
   color?: string;
   event: RecipeTimelineEventOut;
   menuIcon?: string | null;
-  useMobileFormat?: boolean;
 }>();
 
 const emit = defineEmits(["delete", "update"]);

@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "No teniu autorització per executar aquesta acció",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Una recepta no pot fer referència a ella mateixa, tant directa com indirectament",
         "no-entry-found": "No s'ha trobat el recurs demanat",
         "integrity-error": "S'ha produït un error en la integritat de la base de dades",
         "username-conflict-error": "Aquest nom d'usuari ja està en ús",
@@ -46,7 +46,7 @@
         "generic-updated-with-url": "{name} ha estat actualitzat, {url}",
         "generic-duplicated": "S'ha duplicat {name}",
         "generic-deleted": "{name} ha estat eliminat",
-        "logged-out": "Logged out"
+        "logged-out": "Sessió tancada"
     },
     "datetime": {
         "year": "any|anys",

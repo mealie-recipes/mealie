@@ -176,7 +176,16 @@ class LDAPProvider(CredentialsProvider):
             )
 
         if settings.LDAP_ADMIN_FILTER:
-            should_be_admin = len(conn.search_s(user_dn, ldap.SCOPE_BASE, settings.LDAP_ADMIN_FILTER, [])) > 0
+            try:
+                should_be_admin = len(conn.search_s(user_dn, ldap.SCOPE_BASE, settings.LDAP_ADMIN_FILTER, [])) > 0
+            except (ldap.FILTER_ERROR, ldap.NO_SUCH_OBJECT) as e:
+                self._logger.warning(
+                    "Unable to determine if LDAP user should be an admin, defaulting to False. "
+                    "Is the LDAP_ADMIN_FILTER correct?"
+                )
+                self._logger.warning(f"{e.__class__.__name__}: {e}")
+                should_be_admin = False
+
             if user.admin != should_be_admin:
                 self._logger.debug(f"[LDAP] {'Setting' if should_be_admin else 'Removing'} user as admin")
                 user.admin = should_be_admin

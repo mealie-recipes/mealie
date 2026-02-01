@@ -4,7 +4,16 @@
       <v-card-text class="pb-3 pt-1">
         <div class="d-md-flex align-center mb-2" style="gap: 20px">
           <div>
-            <InputQuantity v-model="listItem.quantity" />
+            <v-number-input
+              v-model="listItem.quantity"
+              hide-details
+              :label="$t('form.quantity-label-abbreviated')"
+              :min="0"
+              :precision="null"
+              control-variant="stacked"
+              inset
+              style="width: 100px;"
+            />
           </div>
           <InputLabelType
             v-model="listItem.unit"
@@ -47,25 +56,6 @@
                 width="250"
               />
             </div>
-
-            <v-menu
-              v-if="listItem.recipeReferences && listItem.recipeReferences.length > 0"
-              open-on-hover
-              offset-y
-              start
-              top
-            >
-              <template #activator="{ props }">
-                <v-icon class="mt-auto" :icon="$globals.icons.alert" v-bind="props" color="warning">
-                  {{ $globals.icons.alert }}
-                </v-icon>
-              </template>
-              <v-card max-width="350px" class="left-warning-border">
-                <v-card-text>
-                  {{ $t("shopping-list.linked-item-warning") }}
-                </v-card-text>
-              </v-card>
-            </v-menu>
           </div>
           <BaseButton
             v-if="listItem.labelId && listItem.food && listItem.labelId !== listItem.food.labelId"
@@ -157,6 +147,15 @@ export default defineNuxtComponent({
         context.emit("update:modelValue", val);
       },
     });
+
+    watch(
+      () => props.modelValue.quantity,
+      () => {
+        if (!props.modelValue.quantity) {
+          listItem.value.quantity = 0;
+        }
+      },
+    );
 
     watch(
       () => props.modelValue.food,

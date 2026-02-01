@@ -3,6 +3,7 @@ from functools import cached_property
 from fastapi import APIRouter, Depends
 from pydantic import UUID4, BaseModel, ConfigDict
 
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
@@ -123,9 +124,15 @@ class RecipeCategoryController(BaseCrudController):
     def get_one_by_slug(self, category_slug: str):
         """Returns a category object with the associated recieps relating to the category"""
         category: RecipeCategory = self.mixins.get_one(category_slug, "slug")
+
+        group_recipes = get_repositories(self.repos.session, group_id=self.group_id, household_id=None).recipes
+        recipe_data = group_recipes.page_all(
+            PaginationQuery(per_page=-1, query_filter=f'recipe_category.id IN ["{category.id}"]')
+        )
+
         return RecipeCategoryResponse.model_construct(
             id=category.id,
             slug=category.slug,
             name=category.name,
-            recipes=self.repos.recipes.get_by_categories([category]),
+            recipes=recipe_data.items,
         )

@@ -31,9 +31,11 @@
         />
 
         <v-card-text>
-          <v-text-field
+          <v-number-input
             v-model="numberOfDays"
-            type="number"
+            :min="1"
+            control-variant="stacked"
+            inset
             :label="$t('meal-plan.numberOfDays-label')"
             :hint="$t('meal-plan.numberOfDays-hint')"
             persistent-hint
@@ -44,10 +46,10 @@
 
     <div class="d-flex flex-wrap align-center justify-space-between mb-2">
       <v-tabs style="width: fit-content;">
-        <v-tab :to="`/household/mealplan/planner/view`">
+        <v-tab :to="{ name: 'household-mealplan-planner-view', query: route.query }">
           {{ $t('meal-plan.meal-planner') }}
         </v-tab>
-        <v-tab :to="`/household/mealplan/planner/edit`">
+        <v-tab :to="{ name: 'household-mealplan-planner-edit', query: route.query }">
           {{ $t('general.edit') }}
         </v-tab>
       </v-tabs>
@@ -70,7 +72,7 @@
 </template>
 
 <script lang="ts">
-import { isSameDay, addDays, parseISO } from "date-fns";
+import { isSameDay, addDays, parseISO, format, isValid } from "date-fns";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { useMealplans } from "~/composables/use-group-mealplan";
 import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
@@ -94,14 +96,31 @@ export default defineNuxtComponent({
 
     // Force to /view if current route is /planner
     if (route.path === "/household/mealplan/planner") {
-      router.push("/household/mealplan/planner/view");
+      router.push({
+        name: "household-mealplan-planner-view",
+        query: route.query,
+      });
     }
 
+    function safeParseISO(date: string, fallback: Date | undefined = undefined) {
+      try {
+        const parsed = parseISO(date);
+        return isValid(parsed) ? parsed : fallback;
+      }
+      catch {
+        return fallback;
+      }
+    }
+
+    // Initialize dates from query parameters or defaults
+    const initialStartDate = safeParseISO(route.query.start as string, new Date());
+    const initialEndDate = safeParseISO(route.query.end as string, addDays(new Date(), adjustForToday(numberOfDays.value)));
+
     const state = ref({
-      range: [new Date(), addDays(new Date(), adjustForToday(numberOfDays.value))] as [Date, Date],
-      start: new Date(),
+      range: [initialStartDate, initialEndDate] as [Date, Date],
+      start: initialStartDate,
       picker: false,
-      end: addDays(new Date(), adjustForToday(numberOfDays.value)),
+      end: initialEndDate,
     });
 
     // Generate all dates between start and end for visual selection
@@ -163,6 +182,20 @@ export default defineNuxtComponent({
       };
     });
 
+    // Update query parameters when date range changes
+    watch(weekRange, (newRange) => {
+      // Keep current route name and params, just update the query
+      router.replace({
+        name: route.name || "household-mealplan-planner-view",
+        params: route.params,
+        query: {
+          ...route.query,
+          start: format(newRange.start, "yyyy-MM-dd"),
+          end: format(newRange.end, "yyyy-MM-dd"),
+        },
+      });
+    }, { immediate: true });
+
     const { mealplans, actions } = useMealplans(weekRange);
 
     function filterMealByDate(date: Date) {
@@ -202,6 +235,7 @@ export default defineNuxtComponent({
     });
 
     return {
+      route,
       state,
       actions,
       mealsByDate,

@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "يجب أن تكون أسماء الوصفات فريدة",
         "recipe-created": "تم إنشاء الوصفة",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "تم حذف صورة الوصفة",
         "recipe-defaults": {
             "ingredient-note": "كوب 1 طحين",
             "step-text": "تدعم خطوات الوصفة بالإضافة إلى الحقول الأخرى في صفحة الوصفة صياغة تخفيض السعر. **أضف رابطًا** [الرابط الخاص بي](https://demo.mealie.io)\n"
@@ -33,7 +33,7 @@
     },
     "exceptions": {
         "permission_denied": "لا يوجد لديك صلاحيات كافية لتنفيذ هذا الإجراء",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "الوصفة لا يمكن أن تشير إلى نفسها، سواء بشكل مباشر أو غير مباشر",
         "no-entry-found": "لم يتم العثور على الصفحة المطلوبة",
         "integrity-error": "خطأ في سلامة قاعدة البيانات",
         "username-conflict-error": "اسم المستخدم هذا مستخدم مسبقاً",
@@ -46,7 +46,7 @@
         "generic-updated-with-url": "{name} تم تحديثه، {url}",
         "generic-duplicated": "تم تكرار {name}",
         "generic-deleted": "تم حذف {name}",
-        "logged-out": "Logged out"
+        "logged-out": "تم تسجيل الخروج"
     },
     "datetime": {
         "year": "سنة|سنوات",

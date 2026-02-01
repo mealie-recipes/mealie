@@ -101,4 +101,14 @@ const { store: tags } = isOwnGroup.value ? useTagStore() : usePublicTagStore(gro
 const { store: tools } = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
 const { store: foods } = isOwnGroup.value ? useFoodStore() : usePublicFoodStore(groupSlug.value);
 const { store: households } = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value);
+
+watch(
+  households,
+  () => {
+    // if exactly one household exists, then we shouldn't be filtering by household
+    if (households.value.length == 1) {
+      selectedHouseholds.value = [];
+    }
+  },
+);
 </script>
