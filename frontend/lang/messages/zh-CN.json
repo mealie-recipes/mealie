@@ -369,7 +369,9 @@
     "recipe-rules": "食谱规则",
     "applies-to-all-days": "应用到所有日期",
     "applies-on-days": "应用于{0}",
-    "meal-plan-settings": "饮食计划设置"
+    "meal-plan-settings": "饮食计划设置",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "已删除迁移数据",
