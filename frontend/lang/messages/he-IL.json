@@ -369,7 +369,9 @@
     "recipe-rules": "חוקי מתכון",
     "applies-to-all-days": "החל על כל הימים",
     "applies-on-days": "חל על {0}",
-    "meal-plan-settings": "הגדרות תכנון ארוחות"
+    "meal-plan-settings": "הגדרות תכנון ארוחות",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "מידע ממוגרץ נמחק",
