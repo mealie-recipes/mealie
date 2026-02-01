@@ -51,14 +51,15 @@
 
     <div class="d-flex flex-wrap align-center justify-space-between mb-2">
       <v-tabs style="width: fit-content;">
-        <v-tab :to="{ name: 'household-mealplan-planner-view', query: route.query }">
+        <v-tab :to="{ name: TABS.view, query: route.query }">
           {{ $t('meal-plan.meal-planner') }}
         </v-tab>
-        <v-tab :to="{ name: 'household-mealplan-planner-edit', query: route.query }">
+        <v-tab :to="{ name: TABS.edit, query: route.query }">
           {{ $t('general.edit') }}
         </v-tab>
       </v-tabs>
       <BaseButton
+        v-if="route.name === TABS.view"
         color="info"
         :icon="$globals.icons.cartCheck"
         :text="$t('meal-plan.add-all-to-list')"
@@ -99,6 +100,11 @@ export default defineNuxtComponent({
     RecipeDialogAddToShoppingList,
   },
   setup() {
+    const TABS = {
+      view: "household-mealplan-planner-view",
+      edit: "household-mealplan-planner-edit",
+    };
+
     const route = useRoute();
     const router = useRouter();
     const i18n = useI18n();
@@ -118,7 +124,7 @@ export default defineNuxtComponent({
     // Force to /view if current route is /planner
     if (route.path === "/household/mealplan/planner") {
       router.push({
-        name: "household-mealplan-planner-view",
+        name: TABS.view,
         query: route.query,
       });
     }
@@ -171,7 +177,7 @@ export default defineNuxtComponent({
     watch(weekRange, (newRange) => {
       // Keep current route name and params, just update the query
       router.replace({
-        name: route.name || "household-mealplan-planner-view",
+        name: route.name || TABS.view,
         params: route.params,
         query: {
           ...route.query,
@@ -253,6 +259,7 @@ export default defineNuxtComponent({
     }
 
     return {
+      TABS,
       route,
       state,
       actions,
