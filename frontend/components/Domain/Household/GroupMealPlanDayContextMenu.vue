@@ -91,7 +91,7 @@ const state = reactive({
   shoppingListDialog: false,
   menuItems: [
     {
-      title: i18n.t("recipe.add-to-list"),
+      title: i18n.t("meal-plan.add-day-to-list"),
       icon: $globals.icons.cartCheck,
       color: undefined,
       event: "shoppingList",
