@@ -369,7 +369,9 @@
     "recipe-rules": "Pravidlá receptov",
     "applies-to-all-days": "Platí pre všetky dni",
     "applies-on-days": "Platí v {0}",
-    "meal-plan-settings": "Nastavenia jedálnička"
+    "meal-plan-settings": "Nastavenia jedálnička",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Prenesené dáta odstránené",
