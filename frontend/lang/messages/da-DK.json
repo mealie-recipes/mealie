@@ -369,7 +369,9 @@
     "recipe-rules": "Opskriftsregler",
     "applies-to-all-days": "Gælder for alle dage",
     "applies-on-days": "Gælder for {0}e",
-    "meal-plan-settings": "Indstillinger for madplanlægning"
+    "meal-plan-settings": "Indstillinger for madplanlægning",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Migreringsdata fjernet",
