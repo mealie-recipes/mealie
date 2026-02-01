@@ -15,12 +15,12 @@ jobs:
   sync-locales:
     runs-on: ubuntu-latest
     steps:
-      - name: Generate app token
-        uses: actions/create-github-app-token@v1
+      - name: Generate GitHub App Token
         id: app-token
+        uses: actions/create-github-app-token@v1
         with:
-          app-id: ${{ secrets.APP_ID }}
-          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+          app-id: ${{ secrets.COMMIT_BOT_APP_ID }}
+          private-key: ${{ secrets.COMMIT_BOT_APP_PRIVATE_KEY }}
 
       - name: Checkout repository
         uses: actions/checkout@v4
