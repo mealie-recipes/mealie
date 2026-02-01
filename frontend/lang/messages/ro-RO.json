@@ -369,7 +369,9 @@
     "recipe-rules": "Reguli rețetă",
     "applies-to-all-days": "Se aplică pentru toate zilele",
     "applies-on-days": "Aplică pe {0}s",
-    "meal-plan-settings": "Setările Planului de Masă"
+    "meal-plan-settings": "Setările Planului de Masă",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Datele migrării au fost șterse",
