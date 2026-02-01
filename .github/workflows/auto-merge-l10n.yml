@@ -14,13 +14,6 @@ jobs:
     if: contains(github.event.pull_request.labels.*.name, 'l10n')
 
     steps:
-      - name: Generate GitHub App Token
-        id: app-token
-        uses: actions/create-github-app-token@v1
-        with:
-          app-id: ${{ secrets.COMMIT_BOT_APP_ID }}
-          private-key: ${{ secrets.COMMIT_BOT_APP_PRIVATE_KEY }}
-
       - name: Validate PR author
         env:
           AUTHOR: ${{ github.event.pull_request.user.login }}
@@ -81,7 +74,7 @@ jobs:
 
       - name: Approve PR
         env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           REPO: ${{ github.repository }}
         run: |
