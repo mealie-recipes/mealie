@@ -369,7 +369,9 @@
     "recipe-rules": "Pravila Recepata",
     "applies-to-all-days": "Primjeni na sve dane",
     "applies-on-days": "Primjeni na {0}",
-    "meal-plan-settings": "Postavke Plana Obroka"
+    "meal-plan-settings": "Postavke Plana Obroka",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Podaci o migraciji su uklonjeni",
