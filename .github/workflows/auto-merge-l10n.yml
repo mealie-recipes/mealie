@@ -43,8 +43,8 @@ jobs:
 
           echo "PR changes: +$ADDITIONS -$DELETIONS (total: $TOTAL lines)"
 
-          if [ "$TOTAL" -gt 200 ]; then
-            echo "::error::PR exceeds 200 line change limit ($TOTAL lines)"
+          if [ "$TOTAL" -gt 400 ]; then
+            echo "::error::PR exceeds 400 line change limit ($TOTAL lines)"
             exit 1
           fi
 
