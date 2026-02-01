@@ -369,7 +369,9 @@
     "recipe-rules": "레시피 규칙",
     "applies-to-all-days": "모든 날짜에 적용됨",
     "applies-on-days": "{0}에 적용됨",
-    "meal-plan-settings": "식단 계획 설정"
+    "meal-plan-settings": "식단 계획 설정",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "이전된 데이터 제거됨",
