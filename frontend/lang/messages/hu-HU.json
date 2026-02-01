@@ -369,7 +369,9 @@
     "recipe-rules": "Recept szabályok",
     "applies-to-all-days": "Minden napra vonatkozóan",
     "applies-on-days": "Érvényes {0}-ként",
-    "meal-plan-settings": "Menütervező beállításai"
+    "meal-plan-settings": "Menütervező beállításai",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Migrációs adatok eltávolítva",
