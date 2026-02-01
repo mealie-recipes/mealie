@@ -369,7 +369,9 @@
     "recipe-rules": "Правила рецептів",
     "applies-to-all-days": "Застосовується до всіх днів",
     "applies-on-days": "Застосовується на {0}сек",
-    "meal-plan-settings": "Налаштування меню"
+    "meal-plan-settings": "Налаштування меню",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Дані міграції видалені",
