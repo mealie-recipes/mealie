@@ -19,7 +19,9 @@ export default defineNuxtComponent({
     },
   },
   setup(props) {
-    const ALLOWED_STYLE_TAGS = ["color"];
+    const ALLOWED_STYLE_TAGS = [
+      "background-color", "color", "font-style", "font-weight", "text-decoration", "text-align",
+    ];
 
     function sanitizeMarkdown(rawHtml: string | null | undefined): string {
       if (!rawHtml) {
