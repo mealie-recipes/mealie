@@ -25,8 +25,12 @@ jobs:
         env:
           AUTHOR: ${{ github.event.pull_request.user.login }}
         run: |
-          if [[ "$AUTHOR" != "hay-kot" && "$AUTHOR" != "github-actions[bot]" ]]; then
-            echo "::error::PR author must be hay-kot or github-actions[bot] for auto-merge (got: $AUTHOR)"
+          if [[
+            "$AUTHOR" != "hay-kot" &&
+            "$AUTHOR" != "github-actions[bot]" &&
+            "$AUTHOR" != "mealie-actions[bot]"
+          ]]; then
+            echo "::error::PR author must be hay-kot, github-actions[bot], or mealie-actions[bot] for auto-merge (got: $AUTHOR)"
             exit 1
           fi
           echo "Author validated: $AUTHOR"
