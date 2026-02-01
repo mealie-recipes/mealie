@@ -227,7 +227,7 @@ const currentHouseholdSlug = ref("");
 const filteredShoppingLists = ref<ShoppingListSummary[]>([]);
 
 const state = reactive({
-  shoppingListDialog: true,
+  shoppingListDialog: false,
   shoppingListIngredientDialog: false,
   shoppingListShowAllToggled: false,
 });
@@ -249,6 +249,7 @@ watch([dialog, () => preferences.value.viewAllLists], () => {
       openShoppingListIngredientDialog(selectedShoppingList.value);
     }
     else {
+      state.shoppingListDialog = true;
       ready.value = true;
     }
   }
@@ -371,7 +372,7 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
 }
 
 function initState() {
-  state.shoppingListDialog = true;
+  state.shoppingListDialog = false;
   state.shoppingListIngredientDialog = false;
   state.shoppingListShowAllToggled = false;
   recipeIngredientSections.value = [];
