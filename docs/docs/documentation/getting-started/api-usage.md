@@ -52,6 +52,7 @@ Many applications will keep track of the query and adjust the page parameter app
 Notice that the route does not contain the baseurl (e.g. `https://mymealieapplication.com/api`).
 
 There are a few shorthands available to reduce the number of calls for certain common requests:
+
 - if you want to return _all_ results, effectively disabling pagination, set `perPage = -1` (and fetch the first page)
 - if you want to fetch the _last_ page, set `page = -1`
 
@@ -96,10 +97,12 @@ You can use placeholders to insert dynamic values as opposed to static values. C
 `lastMade <= "$NOW-30d"`
 
 Supported offsets operations include:
+
 - `-` for subtracting a time (i.e. in the past)
 - `+` for adding a time (i.e. in the future)
 
 Supported offset intervals include:
+
 - `y` for years
 - `m` for months
 - `d` for days
