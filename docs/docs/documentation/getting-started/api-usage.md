@@ -116,7 +116,7 @@ When querying tables with relationships, you can filter properties on related ta
 This timeline event filter will return all timeline events for recipes that were created after a particular date: <br>
 `recipe.createdAt >= "2023-02-25"`
 
-This recipe filter will return all recipes that contains a particular set of tags: <br>
+This recipe filter will return all recipes that contain a particular set of tags: <br>
 `tags.name CONTAINS ALL ["Easy", "Cajun"]`
 
 ##### Compound Filters
