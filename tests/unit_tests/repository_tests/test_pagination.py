@@ -8,6 +8,7 @@ from urllib.parse import parse_qsl, urlsplit
 import pytest
 from dateutil.relativedelta import relativedelta
 from fastapi.testclient import TestClient
+from freezegun import freeze_time
 from humps import camelize
 from pydantic import UUID4
 
@@ -1589,34 +1590,30 @@ def test_parse_now_passthrough_non_placeholder():
     assert result == test_string
 
 
+@freeze_time("2024-01-15 12:00:00")
 def test_parse_now_with_int_amount():
-    before = datetime.now(UTC)
     result = PlaceholderKeyword._parse_now("$NOW+30d")
-    after = datetime.now(UTC)
     assert isinstance(result, str)
     dt = datetime.fromisoformat(result)
     assert isinstance(dt, datetime)
-    # Verify offset is exactly 30 days from when the function was called
+    # Verify offset is exactly 30 days from the frozen time
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=UTC)
-    expected_min = before + timedelta(days=30)
-    expected_max = after + timedelta(days=30)
-    assert expected_min <= dt <= expected_max
+    expected = datetime(2024, 2, 14, 12, 0, 0, tzinfo=UTC)
+    assert dt == expected
 
 
+@freeze_time("2024-01-15 12:00:00")
 def test_parse_now_with_single_digit_int():
-    before = datetime.now(UTC)
     result = PlaceholderKeyword._parse_now("$NOW+1d")
-    after = datetime.now(UTC)
     assert isinstance(result, str)
     dt = datetime.fromisoformat(result)
     assert isinstance(dt, datetime)
-    # Verify offset is exactly 1 day from when the function was called
+    # Verify offset is exactly 1 day from the frozen time
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=UTC)
-    expected_min = before + timedelta(days=1)
-    expected_max = after + timedelta(days=1)
-    assert expected_min <= dt <= expected_max
+    expected = datetime(2024, 1, 16, 12, 0, 0, tzinfo=UTC)
+    assert dt == expected
 
 
 @pytest.mark.parametrize("invalid_amount", ["apple", "abc", "!@#"])
@@ -1636,19 +1633,18 @@ def test_parse_now_with_invalid_amount(invalid_amount):
         ("S", timedelta(seconds=5)),
     ],
 )
+@freeze_time("2024-01-15 12:00:00")
 def test_parse_now_with_valid_units(unit, offset_delta):
-    before = datetime.now(UTC)
     result = PlaceholderKeyword._parse_now(f"$NOW+5{unit}")
-    after = datetime.now(UTC)
     assert isinstance(result, str)
     dt = datetime.fromisoformat(result)
     assert isinstance(dt, datetime)
-    # Verify offset is correct from when the function was called
+    # Verify offset is correct from the frozen time
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=UTC)
-    expected_min = before + offset_delta
-    expected_max = after + offset_delta
-    assert expected_min <= dt <= expected_max
+    frozen_time = datetime(2024, 1, 15, 12, 0, 0, tzinfo=UTC)
+    expected = frozen_time + offset_delta
+    assert dt == expected
 
 
 def test_parse_now_with_invalid_unit():
@@ -1662,19 +1658,18 @@ def test_parse_now_with_missing_unit():
 
 
 @pytest.mark.parametrize("operation,expected_sign", [("+", 1), ("-", -1)])
+@freeze_time("2024-01-15 12:00:00")
 def test_parse_now_with_valid_operations(operation, expected_sign):
-    before = datetime.now(UTC)
     result = PlaceholderKeyword._parse_now(f"$NOW{operation}5d")
-    after = datetime.now(UTC)
     assert isinstance(result, str)
     dt = datetime.fromisoformat(result)
     assert isinstance(dt, datetime)
-    # Verify offset direction is correct from when the function was called
+    # Verify offset direction is correct from the frozen time
     if dt.tzinfo is None:
         dt = dt.replace(tzinfo=UTC)
-    expected_min = before + (timedelta(days=5) * expected_sign)
-    expected_max = after + (timedelta(days=5) * expected_sign)
-    assert expected_min <= dt <= expected_max
+    frozen_time = datetime(2024, 1, 15, 12, 0, 0, tzinfo=UTC)
+    expected = frozen_time + (timedelta(days=5) * expected_sign)
+    assert dt == expected
 
 
 @pytest.mark.parametrize("invalid_operation", ["*", "/", "=", "x"])
