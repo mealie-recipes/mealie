@@ -4,7 +4,7 @@
     "about-mealie": "Over Mealie",
     "api-docs": "API-documentatie",
     "api-port": "API-poort",
-    "application-mode": "Toepassingsmodus",
+    "application-mode": "Applicatiemodus",
     "database-type": "Databasetype",
     "database-url": "Database URL",
     "default-group": "Standaardgroep",
@@ -370,8 +370,8 @@
     "applies-to-all-days": "Van toepassing op alle dagen",
     "applies-on-days": "Van toepassing op {0}s",
     "meal-plan-settings": "Maaltijdplan-instellingen",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Alles aan lijst toevoegen",
+    "add-day-to-list": "Dag aan lijst toevoegen"
   },
   "migration": {
     "migration-data-removed": "Migratiegegevens verwijderd",
