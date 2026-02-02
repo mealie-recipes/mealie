@@ -38,7 +38,7 @@
             clearable
           />
           <div />
-          <div class="d-flex py-4 px-1 align-center">
+          <div class="d-flex flex-wrap py-4 px-1 align-center">
             <v-btn-toggle
               v-if="requireAll != undefined"
               v-model="combinator"
