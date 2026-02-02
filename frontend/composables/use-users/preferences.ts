@@ -1,7 +1,7 @@
 import { useLocalStorage, useSessionStorage } from "@vueuse/core";
 import { ActivityKey } from "~/lib/api/types/activity";
 import type { RegisteredParser, TimelineEventType } from "~/lib/api/types/recipe";
-import type { QueryFilterJSON } from "~/lib/api/types/response";
+import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
 
 export interface UserPrintPreferences {
   imagePosition: string;

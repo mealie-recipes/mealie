@@ -502,13 +502,16 @@ export interface SaveIngredientUnit {
 }
 export interface ScrapeRecipe {
   includeTags?: boolean;
+  includeCategories?: boolean;
   url: string;
 }
 export interface ScrapeRecipeBase {
   includeTags?: boolean;
+  includeCategories?: boolean;
 }
 export interface ScrapeRecipeData {
   includeTags?: boolean;
+  includeCategories?: boolean;
   data: string;
   url?: string | null;
 }

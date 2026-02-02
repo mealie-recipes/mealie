@@ -16,7 +16,7 @@ export interface OpenAIIngredients {
 }
 export interface OpenAIRecipe {
   name: string;
-  description: string | null;
+  description?: string | null;
   recipe_yield?: string | null;
   total_time?: string | null;
   prep_time?: string | null;
@@ -35,6 +35,9 @@ export interface OpenAIRecipeInstruction {
 }
 export interface OpenAIRecipeNotes {
   title?: string | null;
+  text: string;
+}
+export interface OpenAIText {
   text: string;
 }
 export interface OpenAIBase {}
