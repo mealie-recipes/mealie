@@ -16,7 +16,7 @@ Recipes extras are a key feature of the Mealie API. They allow you to create cus
 For example you could add `{"message": "Remember to thaw the chicken"}` to a recipe and use the webhooks built into mealie to send that message payload to a destination to be processed.
 
 #### Shopping List and Food Extras
-Similarly to recipes, extras are supported on shopping lists, shopping list items, and foods. At this time they are only accessible through the API. Extras for these objects allow for rich integrations between the Mealie shopping list and your favorite list manager, such as Alexa, ToDoist, Trello, or any other list manager with an API.
+Similarly to recipes, extras are supported on shopping lists, shopping list items, and foods. At this time they are only accessible through the API. Extras for these objects allow for rich integrations between the Mealie shopping list and your favorite list manager, such as ToDoist, Trello, or any other list manager with an API.
 
 To keep shopping lists in sync, for instance, you can store your Trello list id on your Mealie shopping list: <br />
 `{"trello_list_id": "5abbe4b7ddc1b351ef961414"}`
