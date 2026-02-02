@@ -96,7 +96,7 @@ You can use placeholders to insert dynamic values as opposed to static values. C
 `$NOW` can optionally be paired with basic offsets. Here is an example of a filter which gives you recipes not made within the past 30 days: <br>
 `lastMade <= "$NOW-30d"`
 
-Supported offsets operations include:
+Supported offset operations include:
 
 - `-` for subtracting a time (i.e. in the past)
 - `+` for adding a time (i.e. in the future)
