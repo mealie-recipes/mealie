@@ -370,8 +370,8 @@
     "applies-to-all-days": "Minden napra vonatkozóan",
     "applies-on-days": "Érvényes {0}-ként",
     "meal-plan-settings": "Menütervező beállításai",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Összes hozzáadása a listához",
+    "add-day-to-list": "Nap hozzáadása a listához"
   },
   "migration": {
     "migration-data-removed": "Migrációs adatok eltávolítva",
