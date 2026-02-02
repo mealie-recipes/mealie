@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "küüslauk",
-                "plural_name": "garlic"
+                "plural_name": "küüslauku"
             },
             "onion": {
                 "aliases": [],
@@ -59,7 +59,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "seller",
-                "plural_name": "celery"
+                "plural_name": "sellerit"
             },
             "jalapeño": {
                 "aliases": [],
@@ -95,7 +95,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "spinat",
-                "plural_name": "spinach"
+                "plural_name": "spinatit"
             },
             "sweet corn": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lillkapsas",
-                "plural_name": "cauliflower"
+                "plural_name": "lillkapsast"
             },
             "cabbage": {
                 "aliases": [],
@@ -169,7 +169,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rukkola",
-                "plural_name": "arugula"
+                "plural_name": "rukolat"
             },
             "leek": {
                 "aliases": [],
@@ -321,8 +321,8 @@
             "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg lettuce",
-                "plural_name": "iceberg lettuce"
+                "name": "jääkapsas",
+                "plural_name": "jääkapsad"
             },
             "mashed potato": {
                 "aliases": [],
@@ -630,7 +630,7 @@
         "foods": {
             "tomato": {
                 "aliases": [],
-                "description": "Yes they are a fruit",
+                "description": "Jah, need on puuviljad",
                 "name": "tomat",
                 "plural_name": "tomatit"
             },
@@ -739,8 +739,8 @@
             "dried apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apricot",
-                "plural_name": "dried apricots"
+                "name": "kuivatatud aprikoos",
+                "plural_name": "kuivatatud aprikoosid"
             },
             "kiwi": {
                 "aliases": [],
@@ -853,8 +853,8 @@
             "dried fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fruit",
-                "plural_name": "dried fruits"
+                "name": "kuivatatud puuvili",
+                "plural_name": "kuivatatud puuviljad"
             },
             "clementine": {
                 "aliases": [],
@@ -907,8 +907,8 @@
             "banana chip": {
                 "aliases": [],
                 "description": "",
-                "name": "banana chip",
-                "plural_name": "banana chips"
+                "name": "banaanikrõps",
+                "plural_name": "banaanikrõpsud"
             },
             "kumquat": {
                 "aliases": [],
@@ -925,8 +925,8 @@
             "dragon fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "dragon fruit",
-                "plural_name": "dragon fruits"
+                "name": "draakonivili",
+                "plural_name": "draakoniviljad"
             },
             "mixed fruit": {
                 "aliases": [],
@@ -1009,8 +1009,8 @@
             "apple chip": {
                 "aliases": [],
                 "description": "",
-                "name": "apple chip",
-                "plural_name": "apple chips"
+                "name": "õunakrõps",
+                "plural_name": "õunakrõpsu"
             },
             "mixed peel": {
                 "aliases": [],
@@ -1093,8 +1093,8 @@
             "physali": {
                 "aliases": [],
                 "description": "",
-                "name": "physali",
-                "plural_name": "physalis"
+                "name": "füüsal",
+                "plural_name": "füüsalit"
             },
             "tamarillo": {
                 "aliases": [],
@@ -1153,8 +1153,8 @@
             "dried orange slice": {
                 "aliases": [],
                 "description": "",
-                "name": "dried orange slice",
-                "plural_name": "dried orange slices"
+                "name": "kuivatatud apelsiniviil",
+                "plural_name": "kuivatatud apelsiniviilu"
             },
             "loquat": {
                 "aliases": [],
@@ -1503,8 +1503,8 @@
             "dried cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cherry",
-                "plural_name": "dried cherries"
+                "name": "kuivatatud kirss",
+                "plural_name": "kuivatatud kirsse"
             },
             "juniper berry": {
                 "aliases": [],
@@ -1515,8 +1515,8 @@
             "sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cherry",
-                "plural_name": "sour cherries"
+                "name": "hapu kirss",
+                "plural_name": "hapusid kirsse"
             },
             "goji berry": {
                 "aliases": [],
@@ -1551,8 +1551,8 @@
             "lingonberry": {
                 "aliases": [],
                 "description": "",
-                "name": "lingonberry",
-                "plural_name": "lingonberries"
+                "name": "pohl",
+                "plural_name": "pohla"
             },
             "canned sour cherry": {
                 "aliases": [],
@@ -1593,8 +1593,8 @@
             "freeze-dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried blueberry",
-                "plural_name": "freeze-dried blueberries"
+                "name": "külmkuivatatud mustikas",
+                "plural_name": "külmkuivatatud mustikat"
             },
             "huckleberry": {
                 "aliases": [],
@@ -1617,14 +1617,14 @@
             "dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried berry",
-                "plural_name": "dried berries"
+                "name": "kuivatatud mari",
+                "plural_name": "kuivatatud marju"
             },
             "sea buckthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "sea buckthorn",
-                "plural_name": "sea buckthorns"
+                "name": "astelpaju",
+                "plural_name": "astelpaju"
             },
             "saskatoon berry": {
                 "aliases": [],
@@ -1683,7 +1683,7 @@
             "blackcurrant leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "blackcurrant leaf",
+                "name": "mustsõstraleht",
                 "plural_name": "blackcurrant leaves"
             },
             "haskap berry": {
@@ -1735,13 +1735,13 @@
             "sesame seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame seed",
-                "plural_name": "sesame seeds"
+                "name": "seesamiseeme",
+                "plural_name": "seesamiseemneid"
             },
             "cashew": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew",
+                "name": "India pähkel",
                 "plural_name": "cashews"
             },
             "pine nut": {
@@ -1795,7 +1795,7 @@
             "poppy seed": {
                 "aliases": [],
                 "description": "",
-                "name": "poppy seed",
+                "name": "mooniseeme",
                 "plural_name": "poppy seeds"
             },
             "sunflower seed": {
@@ -1861,7 +1861,7 @@
             "watermelon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon seed",
+                "name": "arbuusiseeme",
                 "plural_name": "watermelon seeds"
             },
             "honey-roasted peanut": {
@@ -1873,7 +1873,7 @@
             "melon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "melon seed",
+                "name": "meloniseeme",
                 "plural_name": "melon seeds"
             },
             "lotus seed": {
@@ -2031,7 +2031,7 @@
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
+                "name": "juust",
                 "plural_name": "cheese"
             },
             "mozzarella cheese": {
@@ -2073,8 +2073,8 @@
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheese"
+                "name": "kitsejuust",
+                "plural_name": "kitsejuustu"
             },
             "fresh mozzarella cheese": {
                 "aliases": [],
@@ -2187,8 +2187,8 @@
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheese"
+                "name": "suitsujuust",
+                "plural_name": "suitsujuustu"
             },
             "halloumi cheese": {
                 "aliases": [],
@@ -2457,8 +2457,8 @@
             "hard goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "hard goat cheese",
-                "plural_name": "hard goat cheese"
+                "name": "kõva kitsejuust",
+                "plural_name": "kõva kitsejuustu"
             },
             "kashkaval cheese": {
                 "aliases": [],
@@ -2469,8 +2469,8 @@
             "sheep cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep cheese",
-                "plural_name": "sheep cheese"
+                "name": "lambajuust",
+                "plural_name": "lambajuustu"
             },
             "amul cheese": {
                 "aliases": [],
@@ -2630,7 +2630,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "piim",
-                "plural_name": "milk"
+                "plural_name": "piima"
             },
             "heavy cream": {
                 "aliases": [],
@@ -2641,8 +2641,8 @@
             "sour cream": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cream",
-                "plural_name": "sour cream"
+                "name": "hapukoor",
+                "plural_name": "hapukoort"
             },
             "buttermilk": {
                 "aliases": [],
@@ -2665,14 +2665,14 @@
             "cream": {
                 "aliases": [],
                 "description": "",
-                "name": "cream",
-                "plural_name": "cream"
+                "name": "koor",
+                "plural_name": "koort"
             },
             "whipped cream": {
                 "aliases": [],
                 "description": "",
                 "name": "vahukoor",
-                "plural_name": "whipped cream"
+                "plural_name": "vahukoort"
             },
             "ghee": {
                 "aliases": [
@@ -2692,7 +2692,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kondenspiim",
-                "plural_name": "condensed milk"
+                "plural_name": "kondenspiima"
             },
             "half and half": {
                 "aliases": [],
@@ -2704,13 +2704,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "magustatud kondenspiim",
-                "plural_name": "sweetened condensed milk"
+                "plural_name": "magustatud kondenspiima"
             },
             "ice cream": {
                 "aliases": [],
                 "description": "",
                 "name": "jäätis",
-                "plural_name": "ice cream"
+                "plural_name": "jäätist"
             },
             "margarine": {
                 "aliases": [],
@@ -2739,7 +2739,7 @@
             "curd": {
                 "aliases": [],
                 "description": "",
-                "name": "curd",
+                "name": "",
                 "plural_name": "curds"
             },
             "thickened cream": {
@@ -2787,8 +2787,8 @@
             "chocolate milk": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk",
-                "plural_name": "chocolate milk"
+                "name": "šokolaadipiim",
+                "plural_name": "šokolaadipiima"
             },
             "liquid egg substitute": {
                 "aliases": [],
@@ -2811,8 +2811,8 @@
             "quail egg": {
                 "aliases": [],
                 "description": "",
-                "name": "quail egg",
-                "plural_name": "quail eggs"
+                "name": "vutimuna",
+                "plural_name": "vutimuna"
             },
             "buttermilk powder": {
                 "aliases": [],
@@ -3045,8 +3045,8 @@
             "strawberry milk": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry milk",
-                "plural_name": "strawberry milk"
+                "name": "maasikapiim",
+                "plural_name": "maasikapiima"
             },
             "ayran": {
                 "aliases": [],
@@ -3081,8 +3081,8 @@
             "sheep milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep milk",
-                "plural_name": "sheep milk"
+                "name": "lambapiim",
+                "plural_name": "lambapiima"
             },
             "starter culture": {
                 "aliases": [],
@@ -3123,8 +3123,8 @@
             "goat kefir": {
                 "aliases": [],
                 "description": "",
-                "name": "goat kefir",
-                "plural_name": "goat kefirs"
+                "name": "kitsekeefir",
+                "plural_name": "kitsekeefirit"
             },
             "lebneh": {
                 "aliases": [],
@@ -3146,7 +3146,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mandlipiim",
-                "plural_name": "almond milk"
+                "plural_name": "mandlipiima"
             },
             "almond butter": {
                 "aliases": [],
@@ -3205,7 +3205,7 @@
             "coconut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut butter",
+                "name": "kookosvõi",
                 "plural_name": "coconut butter"
             },
             "egg replacer": {
@@ -3272,7 +3272,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kaerapiim",
-                "plural_name": "oat milk"
+                "plural_name": "kaerapiim"
             },
             "nut butter": {
                 "aliases": [],
@@ -3284,7 +3284,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "riisipiim",
-                "plural_name": "rice milk"
+                "plural_name": "riisipiim"
             },
             "vegan sour cream": {
                 "aliases": [],
@@ -3755,8 +3755,8 @@
             "ground beef": {
                 "aliases": [],
                 "description": "",
-                "name": "ground beef",
-                "plural_name": "ground beefs"
+                "name": "veisehakkliha",
+                "plural_name": "veisehakkliha"
             },
             "beef steak": {
                 "aliases": [],
@@ -3809,8 +3809,8 @@
             "ground pork": {
                 "aliases": [],
                 "description": "",
-                "name": "ground pork",
-                "plural_name": "ground porks"
+                "name": "seahakkliha",
+                "plural_name": "seahakkliha"
             },
             "beef stew meat": {
                 "aliases": [],
@@ -3851,7 +3851,7 @@
             "ground lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "ground lamb",
+                "name": "lambahakkliha",
                 "plural_name": "ground lambs"
             },
             "pork rib": {
@@ -4079,8 +4079,8 @@
             "mixed ground meat": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed ground meat",
-                "plural_name": "mixed ground meats"
+                "name": "hakklihasegu",
+                "plural_name": "hakklihasegu"
             },
             "rabbit": {
                 "aliases": [],
@@ -4235,8 +4235,8 @@
             "blood sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "blood sausage",
-                "plural_name": "blood sausages"
+                "name": "verivorst",
+                "plural_name": "verivorsti"
             },
             "dried beef": {
                 "aliases": [],
@@ -4395,8 +4395,8 @@
             "chicken wing": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken wing",
-                "plural_name": "chicken wings"
+                "name": "kanatiib",
+                "plural_name": "kanatiiba"
             },
             "turkey breast": {
                 "aliases": [],
@@ -4407,8 +4407,8 @@
             "ground chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "ground chicken",
-                "plural_name": "ground chickens"
+                "name": "kanahakkliha",
+                "plural_name": "kanahakkliha"
             },
             "rotisserie chicken": {
                 "aliases": [],
