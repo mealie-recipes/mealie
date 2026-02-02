@@ -35,7 +35,7 @@ from mealie.schema.response.pagination import (
     PaginationQuery,
 )
 from mealie.schema.user.user import UserRatingUpdate
-from mealie.services.query_filter.query_filter import PlaceholderKeyword
+from mealie.services.query_filter.builder import PlaceholderKeyword
 from mealie.services.seeder.seeder_service import SeederService
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string

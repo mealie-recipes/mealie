@@ -25,7 +25,7 @@ from mealie.schema.response.pagination import (
     RequestQuery,
 )
 from mealie.schema.response.query_search import SearchFilter
-from mealie.services.query_filter.query_filter import QueryFilterBuilder
+from mealie.services.query_filter.builder import QueryFilterBuilder
 
 from ._utils import NOT_SET, NotSet
 
