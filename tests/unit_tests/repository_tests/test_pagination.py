@@ -1597,8 +1597,7 @@ def test_parse_now_with_int_amount():
     dt = datetime.fromisoformat(result)
     assert isinstance(dt, datetime)
     # Verify offset is exactly 30 days from the frozen time
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=UTC)
+    dt = dt.replace(tzinfo=UTC)
     expected = datetime(2024, 2, 14, 12, 0, 0, tzinfo=UTC)
     assert dt == expected
 
@@ -1610,8 +1609,7 @@ def test_parse_now_with_single_digit_int():
     dt = datetime.fromisoformat(result)
     assert isinstance(dt, datetime)
     # Verify offset is exactly 1 day from the frozen time
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=UTC)
+    dt = dt.replace(tzinfo=UTC)
     expected = datetime(2024, 1, 16, 12, 0, 0, tzinfo=UTC)
     assert dt == expected
 
@@ -1640,8 +1638,7 @@ def test_parse_now_with_valid_units(unit, offset_delta):
     dt = datetime.fromisoformat(result)
     assert isinstance(dt, datetime)
     # Verify offset is correct from the frozen time
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=UTC)
+    dt = dt.replace(tzinfo=UTC)
     frozen_time = datetime(2024, 1, 15, 12, 0, 0, tzinfo=UTC)
     expected = frozen_time + offset_delta
     assert dt == expected
@@ -1665,8 +1662,7 @@ def test_parse_now_with_valid_operations(operation, expected_sign):
     dt = datetime.fromisoformat(result)
     assert isinstance(dt, datetime)
     # Verify offset direction is correct from the frozen time
-    if dt.tzinfo is None:
-        dt = dt.replace(tzinfo=UTC)
+    dt = dt.replace(tzinfo=UTC)
     frozen_time = datetime(2024, 1, 15, 12, 0, 0, tzinfo=UTC)
     expected = frozen_time + (timedelta(days=5) * expected_sign)
     assert dt == expected
