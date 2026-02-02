@@ -286,10 +286,10 @@ export default defineNuxtComponent({
       }
     }
 
-    const avatarKey = ref(0)
+    const avatarKey = ref(0);
     function onAvatarUploaded() {
       $auth.refresh();
-      avatarKey.value++
+      avatarKey.value++;
     }
 
     const state = reactive({
