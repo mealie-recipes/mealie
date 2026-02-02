@@ -4,6 +4,7 @@
       <template #header>
         <div class="d-flex flex-column align-center justify-center">
           <UserAvatar
+            :key="avatarKey"
             :tooltip="false"
             size="96"
             :user-id="userCopy.id!"
@@ -13,7 +14,7 @@
             file-name="profile"
             accept="image/*"
             :url="`/api/users/${userCopy.id}/image`"
-            @uploaded="$auth.refresh()"
+            @uploaded="onAvatarUploaded"
           />
         </div>
       </template>
@@ -285,6 +286,12 @@ export default defineNuxtComponent({
       }
     }
 
+    const avatarKey = ref(0)
+    function onAvatarUploaded() {
+      $auth.refresh();
+      avatarKey.value++
+    }
+
     const state = reactive({
       hideImage: false,
       passwordLoading: false,
@@ -303,6 +310,8 @@ export default defineNuxtComponent({
       domUpdatePassword,
       passwordsMatch,
       validators,
+      avatarKey,
+      onAvatarUploaded,
       $auth,
     };
   },
