@@ -946,7 +946,7 @@ provides-extras = ["pgsql"]
 dev = [
     { name = "coverage", specifier = "==7.13.2" },
     { name = "coveragepy-lcov", specifier = "==0.1.2" },
-    { name = "freezegun", specifier = ">=1.5.5" },
+    { name = "freezegun", specifier = "==1.5.5" },
     { name = "mkdocs-material", specifier = "==9.7.1" },
     { name = "mypy", specifier = "==1.19.1" },
     { name = "pre-commit", specifier = "==4.5.1" },

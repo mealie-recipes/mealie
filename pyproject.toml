@@ -77,7 +77,7 @@ dev = [
     "types-requests==2.32.4.20260107",
     "types-urllib3==1.26.25.14",
     "pydantic-to-typescript2==1.0.6",
-    "freezegun>=1.5.5",
+    "freezegun==1.5.5",
 ]
 
 [build-system]
