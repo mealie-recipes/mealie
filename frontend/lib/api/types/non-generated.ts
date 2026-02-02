@@ -40,3 +40,20 @@ export enum Organizer {
   Household = "households",
   User = "users",
 }
+
+export type LogicalOperator = "AND" | "OR";
+export type RelationalKeyword = "IS" | "IS NOT" | "IN" | "NOT IN" | "CONTAINS ALL" | "LIKE" | "NOT LIKE";
+export type RelationalOperator = "=" | "<>" | ">" | "<" | ">=" | "<=";
+
+export interface QueryFilterJSON {
+  parts?: QueryFilterJSONPart[];
+}
+
+export interface QueryFilterJSONPart {
+  leftParenthesis?: string | null;
+  rightParenthesis?: string | null;
+  logicalOperator?: LogicalOperator | null;
+  attributeName?: string | null;
+  relationalOperator?: RelationalKeyword | RelationalOperator | null;
+  value?: string | string[] | null;
+}

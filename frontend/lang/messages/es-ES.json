@@ -212,6 +212,8 @@
     "upload-file": "Subir Archivo",
     "created-on-date": "Creado el {0}",
     "unsaved-changes": "Tienes cambios sin guardar. ¿Quieres guardar antes de salir? Aceptar para guardar, Cancelar para descartar cambios.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "No se pudo copiar al portapapeles.",
     "confirm-delete-generic-items": "¿Estás seguro que quieres eliminar los siguientes elementos?",
     "organizers": "Organizadores",
@@ -343,8 +345,8 @@
     "lunch": "Comida principal",
     "dinner": "Cena",
     "snack": "Snack",
-    "drink": "Drink",
-    "dessert": "Dessert",
+    "drink": "Bebida",
+    "dessert": "Postre",
     "type-any": "Cualquiera",
     "day-any": "Cualquier",
     "editor": "Editor",
@@ -367,7 +369,9 @@
     "recipe-rules": "Reglas de Recetas",
     "applies-to-all-days": "Aplica para todos los días",
     "applies-on-days": "Se aplica en {0}s",
-    "meal-plan-settings": "Configuración del Plan de Comidas"
+    "meal-plan-settings": "Configuración del Plan de Comidas",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Datos de migración eliminados",
@@ -445,7 +449,7 @@
     "upload-a-recipe": "Subir una receta",
     "upload-individual-zip-file": "Sube un archivo .zip individual exportado desde otra instancia de Mealie.",
     "url-form-hint": "Copia y pega un enlace desde tu página web favorita",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copia y pega la URL de origen de tus datos (opcional)",
     "view-scraped-data": "Ver información recuperada",
     "trim-whitespace-description": "Eliminar espacios en blanco iniciales y finales así como líneas en blanco",
     "trim-prefix-description": "Eliminar el primer carácter de cada línea",
@@ -453,7 +457,7 @@
     "import-by-url": "Importar una receta desde URL",
     "create-manually": "Crear receta manualmente",
     "make-recipe-image": "Haz de esta la imagen de la receta",
-    "add-food": "Add Food",
+    "add-food": "Agregar comida",
     "add-recipe": "Agregar receta"
   },
   "page": {
@@ -523,7 +527,7 @@
     "recipe-image-updated": "Imagen de la receta actualizada",
     "delete-image": "Borra la imagen de la receta",
     "delete-image-confirmation": "¿Estás seguro de que quieres borrar esta imagen de la receta?",
-    "recipe-image-deleted": "Recipe image deleted",
+    "recipe-image-deleted": "Imagen de receta eliminada",
     "recipe-name": "Nombre de la receta",
     "recipe-settings": "Ajustes de la receta",
     "recipe-update-failed": "Error al actualizar la receta",
@@ -569,7 +573,7 @@
     "choose-unit": "Elija unidad",
     "press-enter-to-create": "Presione Intro para crear",
     "choose-food": "Elija comida",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "Elige la receta",
     "notes": "Notas",
     "toggle-section": "Activar sección",
     "see-original-text": "Mostrar Texto Original",
@@ -597,7 +601,7 @@
     "made-this": "Lo hice",
     "how-did-it-turn-out": "¿Cómo resultó esto?",
     "user-made-this": "{user} hizo esto",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "Hecha para {recipe}",
     "added-to-timeline": "Añadido a la línea de tiempo",
     "failed-to-add-to-timeline": "No se pudo agregar a la línea de tiempo",
     "failed-to-update-recipe": "Error al actualizar la receta",
@@ -637,9 +641,10 @@
     "scrape-recipe-suggest-bulk-importer": "Prueba el importador masivo",
     "scrape-recipe-have-raw-html-or-json-data": "¿Tiene datos HTML o JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Puede importar directamente desde datos brutos",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-website-being-blocked": "¿Sitio web bloqueado?",
+    "scrape-recipe-try-importing-raw-html-instead": "Intenta importar el HTML en bruto.",
     "import-original-keywords-as-tags": "Importar palabras clave originales como etiquetas",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Permanecer en modo edición",
     "parse-recipe-ingredients-after-import": "Analizar los ingredientes de la receta después de importarla",
     "import-from-zip": "Importar desde zip",
@@ -702,8 +707,8 @@
     "upload-more-images": "Subir más imágenes",
     "set-as-cover-image": "Establecer como imagen de portada de receta",
     "cover-image": "Imagen de portada",
-    "include-linked-recipes": "Include Linked Recipes",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "include-linked-recipes": "Incluye recetas vinculadas",
+    "include-linked-recipe-ingredients": "Incluye ingredientes de receta vinculados",
     "toggle-recipe": "Alternar Receta"
   },
   "recipe-finder": {
@@ -742,7 +747,7 @@
     "advanced": "Avanzado",
     "auto-search": "Búsqueda automática",
     "no-results": "No se encontraron resultados",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Escribe para buscar..."
   },
   "settings": {
     "add-a-new-theme": "Añadir un nuevo tema",
@@ -1430,11 +1435,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Este campo es requerido",
+    "invalid-email": "El email debe ser válido",
+    "invalid-url": "Debe ser una URL válida",
+    "no-whitespace": "No se permiten espacios en blanco",
+    "min-length": "Debe ser como mínimo {min} caracteres",
+    "max-length": "Debe ser como máximo {max} caracteres"
   }
 }

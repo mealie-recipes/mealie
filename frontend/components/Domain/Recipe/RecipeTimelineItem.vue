@@ -35,7 +35,6 @@
               :menu-top="false"
               :event="event"
               :menu-icon="$globals.icons.dotsVertical"
-              :use-mobile-format="useMobileFormat"
               color="transparent"
               :elevation="0"
               :card-menu="false"

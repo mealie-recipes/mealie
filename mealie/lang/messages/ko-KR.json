@@ -4,11 +4,11 @@
     },
     "recipe": {
         "unique-name-error": "Recipe 이름은 고유해야 합니다",
-        "recipe-created": "Recipe Created",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-created": "레시피 생성됨",
+        "recipe-image-deleted": "레시피 이미지 삭제됨",
         "recipe-defaults": {
             "ingredient-note": "밀가루 1컵",
-            "step-text": "Recipe 단계는 물론 recipe 페이지의 다른 필드도 Markdown 문법을 지원합니다.\n\n**Add a link**\n\n[\b나의 링크](https://demo.mealie.io)"
+            "step-text": "Recipe 단계는 물론 recipe 페이지의 다른 필드도 Markdown 문법을 지원합니다.\n\n**Add a link**\n\n[나의 링크](https://demo.mealie.io)\n"
         },
         "servings-text": {
             "makes": "Makes",
@@ -23,7 +23,7 @@
         "no-recipes-match-your-rules": "규칙과 일치하는 Recipe가 없습니다"
     },
     "user": {
-        "user-updated": "사용자 업데이트됨",
+        "user-updated": "사용자 수정됨",
         "password-updated": "비밀번호가 변경되었습니다",
         "invalid-current-password": "현재 비밀번호가 잘못되었습니다",
         "ldap-update-password-unavailable": "사용자가 LDAP으로 제어되기 때문에 비밀번호를 변경할 수 없습니다"
@@ -33,51 +33,51 @@
     },
     "exceptions": {
         "permission_denied": "이 작업을 수행할 권한이 없습니다.",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "레시피는 직접적이든 간접적이든 자신을 참조할 수 없습니다.",
         "no-entry-found": "요청한 페이지를 찾을 수 없습니다. 주소를 정확히 입력했는지 확인해보세요.",
-        "integrity-error": "Database integrity error",
+        "integrity-error": "데이터베이스 무결성 오류",
         "username-conflict-error": "이미 사용 중인 사용자 이름입니다.",
         "email-conflict-error": "이 이메일은 이미 사용중입니다"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted",
-        "logged-out": "Logged out"
+        "generic-created": "{name}이(가) 생성되었습니다",
+        "generic-updated": "{name}이(가) 수정되었습니다",
+        "generic-created-with-url": "{name}이(가) 생성되었습니다, {url}",
+        "generic-updated-with-url": "{name}이(가) 수정되었습니다, {url}",
+        "generic-duplicated": "{name}이(가) 복제되었습니다",
+        "generic-deleted": "{name}이(가) 삭제되었습니다",
+        "logged-out": "로그아웃됨"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
+        "year": "년|년",
+        "day": "일|일",
+        "hour": "시간/시간",
+        "minute": "분/분",
+        "second": "초|초",
         "millisecond": "millisecond|milliseconds",
         "microsecond": "microsecond|microseconds"
     },
     "emails": {
         "password": {
-            "subject": "Mealie Forgot Password",
+            "subject": "Mealie 비밀번호 잊음",
             "header_text": "비밀번호를 분실",
             "message_top": "비밀번호 재설정을 요청하셨습니다",
             "message_bottom": "비밀번호를 변경하려면 아래 버튼을 클릭하십시오.",
             "button_text": "비밀번호 재설정"
         },
         "invitation": {
-            "subject": "Invitation to join Mealie",
+            "subject": "Mealie 가입 초대",
             "header_text": "귀하는 초대되었습니다!",
-            "message_top": "You have been invited to join Mealie.",
-            "message_bottom": "Please click the button above to accept the invitation.",
+            "message_top": "Mealie에 초대되었습니다.",
+            "message_bottom": "초대를 수락하려면 위의 버튼을 클릭해 주세요.",
             "button_text": "초대 수락"
         },
         "test": {
-            "subject": "Mealie Test Email",
+            "subject": "Mealie 테스트 이메일",
             "header_text": "테스트 이메일",
             "message_top": "이것은 테스트용 이메일입니다.",
             "message_bottom": "비밀번호를 변경하려면 아래 버튼을 클릭하십시오.",
-            "button_text": "Open Mealie"
+            "button_text": "Mealie 열기"
         }
     }
 }

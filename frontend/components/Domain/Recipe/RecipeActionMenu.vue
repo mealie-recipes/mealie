@@ -79,7 +79,7 @@
         @print="$emit('print')"
       />
     </div>
-    <div v-if="open" class="custom-btn-group gapped">
+    <div v-if="open" class="custom-btn-group gapped ma-1">
       <v-btn
         v-for="(btn, index) in editorButtons"
         :key="index"
@@ -126,7 +126,7 @@ withDefaults(defineProps<Props>(), {
   canEdit: false,
 });
 
-const emit = defineEmits(["print", "input", "delete", "close", "edit"]);
+const emit = defineEmits(["print", "input", "save", "delete", "close", "json", "edit"]);
 
 const deleteDialog = ref(false);
 

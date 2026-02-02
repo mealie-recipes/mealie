@@ -24,8 +24,9 @@ export default defineNuxtConfig({
   devtools: {
     enabled: false,
   },
+
   app: {
-    baseURL: process.env.SUB_PATH || "",
+    baseURL: process.env.SUB_PATH || "/",
 
     head: {
       title: "Mealie",
@@ -219,6 +220,7 @@ export default defineNuxtConfig({
     workbox: {
       navigateFallback: "/",
       globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
+      globIgnores: ["404.html", "200.html"],
       cleanupOutdatedCaches: true,
       skipWaiting: true,
       clientsClaim: true,
@@ -388,6 +390,23 @@ export default defineNuxtConfig({
       locale: {
         locale: "en-US",
         fallback: "en-US",
+      },
+      defaults: {
+        VOverlay: {
+          scrollStrategy: "close",
+        },
+        VMenu: {
+          scrollStrategy: "close",
+        },
+        VAutocomplete: {
+          scrollStrategy: "close",
+        },
+        VCombobox: {
+          scrollStrategy: "close",
+        },
+        VSelect: {
+          scrollStrategy: "close",
+        },
       },
     },
   },

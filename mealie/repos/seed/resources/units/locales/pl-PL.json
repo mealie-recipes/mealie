@@ -137,5 +137,11 @@
         "plural_name": "szczypty",
         "description": "",
         "abbreviation": ""
+    },
+    "sprig": {
+        "name": "gałązka",
+        "plural_name": "gałązki",
+        "description": "",
+        "abbreviation": ""
     }
 }

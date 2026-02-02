@@ -4,7 +4,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
 
 import sqlalchemy as sa
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 from pydantic import UUID4
 
 from mealie.core import root_logger
@@ -84,7 +84,12 @@ def reprocess_recipe_images(recipe_id: UUID4, force_all: bool = False) -> None:
         image_file = service.dir_image / image_filename
         image_file.unlink(missing_ok=True)
 
-    service.minifier.minify(original_image, force=True)
+    try:
+        service.minifier.minify(original_image, force=True)
+    except UnidentifiedImageError:
+        pass  # source image is corrupted or invalid; skip
+    except Exception:
+        logger.exception(f"Failed to reprocess images for recipe {recipe_id}")
 
     # Reprocess timeline event images
     timeline_dir = service.dir_image_timeline

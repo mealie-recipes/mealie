@@ -65,13 +65,13 @@
             </v-card-title>
             <v-card-text class="mt-n5">
               <div class="mt-4 d-flex align-center">
-                <v-text-field
+                <v-number-input
                   :model-value="yieldQuantity"
-                  type="number"
+                  :precision="null"
                   :min="0"
                   variant="underlined"
-                  hide-spin-buttons
-                  @update:model-value="recalculateScale(parseFloat($event) || 0)"
+                  control-variant="hidden"
+                  @update:model-value="recalculateScale($event || 0)"
                 />
                 <v-tooltip
                   location="end"

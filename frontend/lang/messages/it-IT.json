@@ -212,6 +212,8 @@
     "upload-file": "Carica file",
     "created-on-date": "Creato il: {0}",
     "unsaved-changes": "Sono state apportate modifiche non salvate. Salvare prima di uscire? Premi Ok per salvare, Annulla per scartare le modifiche.",
+    "discard-changes": "Scarta le modifiche",
+    "discard-changes-description": "Sono state apportate modifiche non salvate. Sei sicuro di volerle scartare?",
     "clipboard-copy-failure": "Impossibile copiare negli appunti.",
     "confirm-delete-generic-items": "Sei sicuro di voler eliminare i seguenti elementi?",
     "organizers": "Organizzatori",
@@ -367,7 +369,9 @@
     "recipe-rules": "Regole per le ricette",
     "applies-to-all-days": "Si applica a ogni giorno",
     "applies-on-days": "Si applica ai {0}",
-    "meal-plan-settings": "Impostazioni del piano alimentare"
+    "meal-plan-settings": "Impostazioni del piano alimentare",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Dati di migrazione rimossi",
@@ -578,7 +582,7 @@
     "unlinked": "Non ancora collegato",
     "linked-to-other-step": "Collegato ad un altro passaggio",
     "auto": "Automatico",
-    "cook-mode": "Modalità di Cottura",
+    "cook-mode": "Modalità Cucina",
     "link-ingredients": "Link Ingredienti",
     "merge-above": "Unisci Sopra",
     "move-to-bottom": "Sposta in fondo",
@@ -640,6 +644,7 @@
     "scrape-recipe-website-being-blocked": "Il sito viene bloccato?",
     "scrape-recipe-try-importing-raw-html-instead": "Prova a importare l'HTML puro.",
     "import-original-keywords-as-tags": "Importa parole chiave originali come tag",
+    "import-original-categories": "Importa categorie originali",
     "stay-in-edit-mode": "Rimani in modalità Modifica",
     "parse-recipe-ingredients-after-import": "Analizza gli ingredienti della ricetta dopo l'importazione",
     "import-from-zip": "Importa da Zip",

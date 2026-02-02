@@ -136,6 +136,7 @@ For custom mapping variables (e.g. OPENAI_CUSTOM_HEADERS) you should pass values
 | OPENAI_WORKERS                                    |    2    | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs                                                       |
 | OPENAI_SEND_DATABASE_DATA                         |  True   | Whether to send Mealie data to OpenAI to improve request accuracy. This will incur additional API costs                                                                      |
 | OPENAI_REQUEST_TIMEOUT                            |   300   | The number of seconds to wait for an OpenAI request to complete before cancelling the request. Leave this empty unless you're running into timeout issues on slower hardware |
+| OPENAI_CUSTOM_PROMPT_DIR                          |  None   | Path to custom prompt files. Only existing files in your custom directory will override the defaults; any missing or empty custom files will automatically fall back to the system defaults. See https://github.com/mealie-recipes/mealie/tree/mealie-next/mealie/services/openai/prompts for expected file names. |
 
 ### Theming
 
@@ -237,6 +238,10 @@ The examples below provide copy-ready Docker Compose environment configurations 
       THEME_DARK_WARNING: '#FFD54F'
       THEME_DARK_ERROR: '#E57373'
     ```
+
+!!! info
+    Browser cookies may cause the client to keep outdated settings.
+    Clearing the cookies can be required for the change to take effect.
 
 ### Docker Secrets
 

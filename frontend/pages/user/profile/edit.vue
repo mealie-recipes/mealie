@@ -26,7 +26,7 @@
       <ToggleState tag="article">
         <template #activator="{ toggle, state }">
           <v-btn
-            v-if="!state"
+            v-if="!state && $appInfo.allowPasswordLogin"
             color="info"
             class="mt-2 mb-n3"
             @click="toggle"
@@ -37,7 +37,7 @@
             {{ $t("settings.change-password") }}
           </v-btn>
           <v-btn
-            v-else
+            v-else-if="$appInfo.allowPasswordLogin"
             color="info"
             class="mt-2 mb-n3"
             @click="toggle"
@@ -111,7 +111,7 @@
                 class="mt-10"
                 :title="$t('settings.change-password')"
               />
-              <v-card variant="outlined">
+              <v-card variant="outlined" style="border-color: lightgrey;">
                 <v-card-text class="pb-0">
                   <v-form ref="passChange">
                     <v-text-field

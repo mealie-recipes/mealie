@@ -212,6 +212,8 @@
     "upload-file": "העלאת קבצים",
     "created-on-date": "נוצר ב-{0}",
     "unsaved-changes": "יש שינויים שלא נשמרו. לצאת לפני שמירה? אשר לשמירה, בטל למחיקת שינויים.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "כשלון בהעתקה ללוח ההדבקה.",
     "confirm-delete-generic-items": "למחוק את הפריטים שנבחרו?",
     "organizers": "מארגנים",
@@ -367,7 +369,9 @@
     "recipe-rules": "חוקי מתכון",
     "applies-to-all-days": "החל על כל הימים",
     "applies-on-days": "חל על {0}",
-    "meal-plan-settings": "הגדרות תכנון ארוחות"
+    "meal-plan-settings": "הגדרות תכנון ארוחות",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "מידע ממוגרץ נמחק",
@@ -640,6 +644,7 @@
     "scrape-recipe-website-being-blocked": "Website being blocked?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "ייבוא שמות מפתח מקוריות כתגיות",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "השאר במצב עריכה",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "ייבא מקובץ",

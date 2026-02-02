@@ -134,18 +134,22 @@
                   <v-card>
                     <v-card-text>
                       <div>
-                        <v-text-field
+                        <v-number-input
                           v-model="settings.maxMissingFoods"
-                          type="number"
+                          :precision="null"
+                          :min="0"
+                          control-variant="stacked"
+                          inset
                           hide-details
-                          hide-spin-buttons
                           :label="$t('recipe-finder.max-missing-ingredients')"
                         />
-                        <v-text-field
+                        <v-number-input
                           v-model="settings.maxMissingTools"
-                          type="number"
+                          :precision="null"
+                          :min="0"
+                          control-variant="stacked"
+                          inset
                           hide-details
-                          hide-spin-buttons
                           :label="$t('recipe-finder.max-missing-tools')"
                           class="mt-4"
                         />
@@ -418,7 +422,7 @@ import { Organizer } from "~/lib/api/types/non-generated";
 import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
 import RecipeSuggestion from "~/components/Domain/Recipe/RecipeSuggestion.vue";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
-import type { QueryFilterJSON } from "~/lib/api/types/response";
+import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
 import type { FieldDefinition } from "~/composables/use-query-filter-builder";
 import { useRecipeFinderPreferences } from "~/composables/use-users/preferences";
 

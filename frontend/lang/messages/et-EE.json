@@ -212,6 +212,8 @@
     "upload-file": "Lae fail üles",
     "created-on-date": "Loodud: {0}",
     "unsaved-changes": "Sul on salvestamata muudatusi. Kas sa tahad salvestada enne lehelt lahkumist? Vajuta OK salvestamiseks või Tühista, et muudatused tühistada.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Lõikepuhvrisse kopeerimine ebaõnnestus.",
     "confirm-delete-generic-items": "Kas oled kindel, et tahad kustutada järgnevad asjad?",
     "organizers": "Korraldajad",
@@ -367,7 +369,9 @@
     "recipe-rules": "Retsepti reeglid",
     "applies-to-all-days": "Kehtib kõikide päevade kohta",
     "applies-on-days": "Kehtib {0}l",
-    "meal-plan-settings": "Toitumisplaani sätted"
+    "meal-plan-settings": "Toitumisplaani sätted",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Ületoomiste andmed eemaldatud",
@@ -640,6 +644,7 @@
     "scrape-recipe-website-being-blocked": "Website being blocked?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Impordi originaal võtmesõnad siltidena",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Püsige redigeerimisrežiimis",
     "parse-recipe-ingredients-after-import": "Tuvasta retsepti koostisosad pärast importimist",
     "import-from-zip": "Impordi .zip-st",

@@ -89,6 +89,26 @@ This filter will find all recipes that don't start with the word "Test": <br>
 This filter will find all recipes that have particular slugs: <br>
 `slug IN ["pasta-fagioli", "delicious-ramen"]`
 
+##### Placeholder Keywords
+You can use placeholders to insert dynamic values as opposed to static values. Currently the only supported placeholder keyword is `$NOW`, to insert the current time.
+
+`$NOW` can optionally be paired with basic offsets. Here is an example of a filter which gives you recipes not made within the past 30 days: <br>
+`lastMade <= "$NOW-30d"`
+
+Supported offsets operations include:
+- `-` for subtracting a time (i.e. in the past)
+- `+` for adding a time (i.e. in the future)
+
+Supported offset intervals include:
+- `y` for years
+- `m` for months
+- `d` for days
+- `H` for hours
+- `M` for minutes
+- `S` for seconds
+
+Note that intervals are _case sensitive_ (e.g. `s` is an invalid interval).
+
 ##### Nested Property filters
 When querying tables with relationships, you can filter properties on related tables. For instance, if you want to query all recipes owned by a particular user: <br>
 `user.username = "SousChef20220320"`

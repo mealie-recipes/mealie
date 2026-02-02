@@ -15,7 +15,10 @@
             density="compact"
             class="mt-0 flex-shrink-0"
             color="null"
-            @change="$emit('checked', listItem)"
+            @click="() => {
+              listItem.checked = !listItem.checked
+              $emit('checked', listItem)
+            }"
           />
           <div
             class="ml-2 text-truncate"

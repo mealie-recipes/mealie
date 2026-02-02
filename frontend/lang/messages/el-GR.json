@@ -212,6 +212,8 @@
     "upload-file": "Μεταφόρτωση αρχείου",
     "created-on-date": "Δημιουργήθηκε στις: {0}",
     "unsaved-changes": "Εχετε μη αποθηκευμένες αλλαγές. Θέλετε να κάνετε αποθήκευση πριν από την αποχώρηση; Εντάξει για αποθήκευση, Ακυρο για απόρριψη των αλλαγών.",
+    "discard-changes": "Απόρριψη αλλαγών",
+    "discard-changes-description": "Εχετε μη αποθηκευμένες αλλαγές, θέλετε σίγουρα να τις απορρίψετε;",
     "clipboard-copy-failure": "Η αντιγραφή στο πρόχειρο απέτυχε.",
     "confirm-delete-generic-items": "Θέλετε σίγουρα να διαγράψετε τα ακόλουθα αντικείμενα;",
     "organizers": "Οργανωτές",
@@ -367,7 +369,9 @@
     "recipe-rules": "Κανόνες Συνταγής",
     "applies-to-all-days": "Εφαρμόζεται για όλες τις ημέρες",
     "applies-on-days": "Εφαρμόζεται κάθε {0}",
-    "meal-plan-settings": "Ρυθμίσεις προγράμματος γευμάτων"
+    "meal-plan-settings": "Ρυθμίσεις προγράμματος γευμάτων",
+    "add-all-to-list": "Προσθήκη όλων στη λίστα",
+    "add-day-to-list": "Προσθήκη ημέρας στη λίστα"
   },
   "migration": {
     "migration-data-removed": "Τα δεδομένα μετεγκατάστασης καταργήθηκαν",
@@ -640,6 +644,7 @@
     "scrape-recipe-website-being-blocked": "Η ιστοσελίδα μπλοκάρεται;",
     "scrape-recipe-try-importing-raw-html-instead": "Δοκιμάστε να εισάγετε τον ακατέργαστο κώδικα HTML.",
     "import-original-keywords-as-tags": "Εισαγωγή αρχικών λέξεων-κλειδιών ως ετικέτες",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Παραμονή σε λειτουργία επεξεργασίας",
     "parse-recipe-ingredients-after-import": "Ανάλυση συστατικών συνταγής μετά την εισαγωγή",
     "import-from-zip": "Εισαγωγή μέσω zip",

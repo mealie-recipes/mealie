@@ -212,6 +212,8 @@
     "upload-file": "Fájl feltöltése",
     "created-on-date": "Létrehozva: {0}",
     "unsaved-changes": "El nem mentett módosításai vannak. Szeretné elmenteni, mielőtt kilép? A mentéshez kattintson az Ok, a módosítások elvetéséhez a Mégsem gombra.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "Nem mentett módosításai vannak, biztos, hogy elveti?",
     "clipboard-copy-failure": "Nem sikerült a vágólapra másolás.",
     "confirm-delete-generic-items": "Biztos benne, hogy törölni szeretné az alábbi tételeket?",
     "organizers": "Rendszerezők",
@@ -367,7 +369,9 @@
     "recipe-rules": "Recept szabályok",
     "applies-to-all-days": "Minden napra vonatkozóan",
     "applies-on-days": "Érvényes {0}-ként",
-    "meal-plan-settings": "Menütervező beállításai"
+    "meal-plan-settings": "Menütervező beállításai",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Migrációs adatok eltávolítva",
@@ -640,6 +644,7 @@
     "scrape-recipe-website-being-blocked": "A weboldal blokkolva van?",
     "scrape-recipe-try-importing-raw-html-instead": "Próbálja meg inkább a nyers HTML-t importálni.",
     "import-original-keywords-as-tags": "Eredeti kulcsszavak importálása címkeként",
+    "import-original-categories": "Eredeti kategóriák importálása",
     "stay-in-edit-mode": "Maradjon Szerkesztés módban",
     "parse-recipe-ingredients-after-import": "Recept összetevőinek elemzése importálás után",
     "import-from-zip": "Importálás ZIP-ből",

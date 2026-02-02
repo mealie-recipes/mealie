@@ -15,6 +15,7 @@ from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.pkgs import safehttp
+from mealie.schema.openai.general import OpenAIText
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
 from mealie.services.openai import OpenAIService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
@@ -194,6 +195,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
         extras = ScrapedExtras()
 
         extras.set_tags(try_get_default(scraped_data.keywords, "keywords", "", cleaner.clean_tags))
+        extras.set_categories(try_get_default(scraped_data.category, "recipeCategory", "", cleaner.clean_categories))
 
         recipe = Recipe(
             name=try_get_default(scraped_data.title, "name", "No Name Found", cleaner.clean_string),
@@ -338,11 +340,11 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
             service = OpenAIService()
             prompt = service.get_prompt("recipes.scrape-recipe")
 
-            response_json = await service.get_response(prompt, text, force_json_response=True)
-            if not response_json:
+            response = await service.get_response(prompt, text, response_schema=OpenAIText)
+            if not (response and response.text):
                 raise Exception("OpenAI did not return any data")
 
-            return self.ld_json_to_html(response_json)
+            return self.ld_json_to_html(response.text)
         except Exception:
             self.logger.exception(f"OpenAI was unable to extract a recipe from {url}")
             return ""

@@ -36,7 +36,7 @@
 import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
 import type { FieldDefinition } from "~/composables/use-query-filter-builder";
 import { Organizer } from "~/lib/api/types/non-generated";
-import type { QueryFilterJSON } from "~/lib/api/types/response";
+import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
 
 interface Props {
   queryFilter?: QueryFilterJSON | null;

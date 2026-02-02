@@ -10,7 +10,6 @@
       :nudge-top="menuTop ? '5' : '0'"
       allow-overflow
       close-delay="125"
-      :open-on-hover="$vuetify.display.mdAndUp"
       content-class="d-print-none"
       @update:model-value="onMenuToggle"
     >
@@ -24,7 +23,6 @@
           :fab="fab"
           v-bind="activatorProps"
           @click.prevent
-          @mouseenter="onHover"
         >
           <v-icon
             :size="!fab ? undefined : 'x-large'"
@@ -126,12 +124,6 @@ const contentProps = computed(() => {
   const { ...rest } = props;
   return rest;
 });
-
-function onHover() {
-  if (!isMenuContentLoaded.value) {
-    isMenuContentLoaded.value = true;
-  }
-}
 
 function onMenuToggle(isOpen: boolean) {
   if (isOpen && !isMenuContentLoaded.value) {

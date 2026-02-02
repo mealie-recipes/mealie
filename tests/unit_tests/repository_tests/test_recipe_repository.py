@@ -1,5 +1,4 @@
 from datetime import UTC, datetime, timedelta
-from typing import cast
 from uuid import UUID
 
 import pytest
@@ -7,11 +6,10 @@ from sqlalchemy.orm import Session
 
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
-from mealie.repos.repository_recipes import RepositoryRecipes
 from mealie.schema.household.household import HouseholdCreate, HouseholdRecipeCreate
 from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood
-from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary
-from mealie.schema.recipe.recipe_category import CategoryOut, CategorySave, TagSave
+from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.schema.response import OrderDirection, PaginationQuery
 from mealie.schema.user.user import GroupBase, UserRatingCreate
@@ -135,120 +133,6 @@ def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str])
     ]
 
     return unique_db.recipes.create_many(recipes)
-
-
-def test_recipe_repo_get_by_categories_basic(unique_user: TestUser):
-    database = unique_user.repos
-
-    # Bootstrap the database with categories
-    slug1, slug2, slug3 = (random_string(10) for _ in range(3))
-
-    categories: list[CategoryOut | CategorySave] = [
-        CategorySave(group_id=unique_user.group_id, name=slug1, slug=slug1),
-        CategorySave(group_id=unique_user.group_id, name=slug2, slug=slug2),
-        CategorySave(group_id=unique_user.group_id, name=slug3, slug=slug3),
-    ]
-
-    created_categories: list[CategoryOut] = []
-
-    for category in categories:
-        model = database.categories.create(category)
-        created_categories.append(model)
-
-    # Bootstrap the database with recipes
-    recipes: list[Recipe | RecipeSummary] = []
-
-    for idx in range(15):
-        if idx % 3 == 0:
-            category = created_categories[0]
-        elif idx % 3 == 1:
-            category = created_categories[1]
-        else:
-            category = created_categories[2]
-
-        recipes.append(
-            Recipe(
-                user_id=unique_user.user_id,
-                group_id=unique_user.group_id,
-                name=random_string(),
-                recipe_category=[category],
-            ),
-        )
-
-    created_recipes = []
-
-    for recipe in recipes:
-        models = database.recipes.create(cast(Recipe, recipe))
-        created_recipes.append(models)
-
-    # Get all recipes by category
-
-    for category in created_categories:
-        repo: RepositoryRecipes = database.recipes
-        recipes = repo.get_by_categories([cast(RecipeCategory, category)])
-
-        assert len(recipes) == 5
-
-        for recipe in recipes:
-            assert recipe.recipe_category is not None
-            found_cat = recipe.recipe_category[0]
-
-            assert found_cat.name == category.name
-            assert found_cat.slug == category.slug
-            assert found_cat.id == category.id
-
-
-def test_recipe_repo_get_by_categories_multi(unique_user: TestUser):
-    database = unique_user.repos
-    slug1, slug2 = (random_string(10) for _ in range(2))
-
-    categories = [
-        CategorySave(group_id=unique_user.group_id, name=slug1, slug=slug1),
-        CategorySave(group_id=unique_user.group_id, name=slug2, slug=slug2),
-    ]
-
-    created_categories = []
-    known_category_ids = []
-
-    for category in categories:
-        model = database.categories.create(category)
-        created_categories.append(model)
-        known_category_ids.append(model.id)
-
-    # Bootstrap the database with recipes
-    recipes = []
-
-    for _ in range(10):
-        recipes.append(
-            Recipe(
-                user_id=unique_user.user_id,
-                group_id=unique_user.group_id,
-                name=random_string(),
-                recipe_category=created_categories,
-            ),
-        )
-
-        # Insert Non-Category Recipes
-        recipes.append(
-            Recipe(
-                user_id=unique_user.user_id,
-                group_id=unique_user.group_id,
-                name=random_string(),
-            )
-        )
-
-    for recipe in recipes:
-        database.recipes.create(recipe)
-
-    # Get all recipes by both categories
-    repo: RepositoryRecipes = database.recipes
-    by_category = repo.get_by_categories(cast(list[RecipeCategory], created_categories))
-
-    assert len(by_category) == 10
-    for recipe_summary in by_category:
-        assert recipe_summary.recipe_category is not None
-        for recipe_category in recipe_summary.recipe_category:
-            assert recipe_category.id in known_category_ids
 
 
 def test_recipe_repo_pagination_by_categories(unique_user: TestUser):

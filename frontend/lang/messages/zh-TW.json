@@ -212,6 +212,8 @@
     "upload-file": "上傳文件",
     "created-on-date": "Created on: {0}",
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Failed to copy to the clipboard.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
     "organizers": "Organizers",
@@ -367,7 +369,9 @@
     "recipe-rules": "Recipe Rules",
     "applies-to-all-days": "Applies to all days",
     "applies-on-days": "Applies on {0}s",
-    "meal-plan-settings": "Meal Plan Settings"
+    "meal-plan-settings": "Meal Plan Settings",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "遷移數據已刪除",
@@ -640,6 +644,7 @@
     "scrape-recipe-website-being-blocked": "Website being blocked?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Import original keywords as tags",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Stay in Edit mode",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Import from Zip",

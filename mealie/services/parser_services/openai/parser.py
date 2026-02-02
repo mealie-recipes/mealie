@@ -1,6 +1,5 @@
 import asyncio
 import json
-from collections.abc import Awaitable
 
 from rapidfuzz import fuzz
 
@@ -108,31 +107,21 @@ class OpenAIParser(ABCIngredientParser):
         return self.find_ingredient_match(parsed_ingredient)
 
     def _get_prompt(self, service: OpenAIService) -> str:
-        data_injections = [
-            OpenAIDataInjection(
-                description=(
-                    "This is the JSON response schema. You must respond in valid JSON that follows this schema. "
-                    "Your payload should be as compact as possible, eliminating unncessesary whitespace. Any fields "
-                    "with default values which you do not populate should not be in the payload."
-                ),
-                value=OpenAIIngredients,
-            ),
-        ]
-
         if service.send_db_data and self.data_matcher.units_by_alias:
-            data_injections.extend(
-                [
-                    OpenAIDataInjection(
-                        description=(
-                            "Below is a list of units found in the units database. While parsing, you should "
-                            "reference this list when determining which part of the input is the unit. You may "
-                            "find a unit in the input that does not exist in this list. This should not prevent "
-                            "you from parsing that text as a unit."
-                        ),
-                        value=list(set(self.data_matcher.units_by_alias)),
+            data_injections = [
+                OpenAIDataInjection(
+                    description=(
+                        "Below is a list of units found in the units database. While parsing, you should "
+                        "reference this list when determining which part of the input is the unit. You may "
+                        "find a unit in the input that does not exist in this list. This should not prevent "
+                        "you from parsing that text as a unit."
                     ),
-                ]
-            )
+                    value=list(set(self.data_matcher.units_by_alias)),
+                ),
+            ]
+
+        else:
+            data_injections = None
 
         return service.get_prompt("recipes.parse-recipe-ingredients", data_injections=data_injections)
 
@@ -148,26 +137,18 @@ class OpenAIParser(ABCIngredientParser):
 
         # chunk ingredients and send each chunk to its own worker
         ingredient_chunks = self._chunk_messages(ingredients, n=service.workers)
-        tasks: list[Awaitable[str | None]] = []
-        for ingredient_chunk in ingredient_chunks:
-            message = json.dumps(ingredient_chunk, separators=(",", ":"))
-            tasks.append(service.get_response(prompt, message, force_json_response=True))
+        tasks = [
+            service.get_response(prompt, json.dumps(chunk, separators=(",", ":")), response_schema=OpenAIIngredients)
+            for chunk in ingredient_chunks
+        ]
 
         # re-combine chunks into one response
         try:
-            responses_json = await asyncio.gather(*tasks)
+            unfiltered_responses = await asyncio.gather(*tasks)
         except Exception as e:
             raise Exception("Failed to call OpenAI services") from e
 
-        try:
-            responses = [
-                OpenAIIngredients.parse_openai_response(response_json)
-                for response_json in responses_json
-                if responses_json
-            ]
-        except Exception as e:
-            raise Exception("Failed to parse OpenAI response") from e
-
+        responses = [response for response in unfiltered_responses if response]
         if not responses:
             raise Exception("No response from OpenAI")
 

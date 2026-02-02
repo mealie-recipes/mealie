@@ -144,11 +144,13 @@
               variant="underlined"
               @update:model-value="setFieldValue(field, index, $event)"
             />
-            <v-text-field
+            <v-number-input
               v-else-if="field.type === 'number'"
               :model-value="field.value"
-              type="number"
               variant="underlined"
+              control-variant="stacked"
+              inset
+              :precision="null"
               @update:model-value="setFieldValue(field, index, $event)"
             />
             <v-checkbox
@@ -317,7 +319,7 @@ import { useDebounceFn } from "@vueuse/core";
 import { useHouseholdSelf } from "~/composables/use-households";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { Organizer } from "~/lib/api/types/non-generated";
-import type { LogicalOperator, QueryFilterJSON, QueryFilterJSONPart, RelationalKeyword, RelationalOperator } from "~/lib/api/types/response";
+import type { LogicalOperator, QueryFilterJSON, QueryFilterJSONPart, RelationalKeyword, RelationalOperator } from "~/lib/api/types/non-generated";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
 import { useUserStore } from "~/composables/store/use-user-store";
 import { type Field, type FieldDefinition, type FieldValue, type OrganizerBase, useQueryFilterBuilder } from "~/composables/use-query-filter-builder";

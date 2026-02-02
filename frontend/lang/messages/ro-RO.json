@@ -212,6 +212,8 @@
     "upload-file": "Încărcă fișier",
     "created-on-date": "Creat pe {0}",
     "unsaved-changes": "Aveți modificări nesalvate. Doriți să salvați înainte de a închide aplicația? Apăsați \"OK\" pentru a salva sau \"Anulare\" pentru a renunța la modificări.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Copierea în clipboard a eșuat.",
     "confirm-delete-generic-items": "Sunteți sigur că doriți să ștergeți următoarele?",
     "organizers": "Organizatori",
@@ -342,9 +344,9 @@
     "breakfast": "Mic dejun",
     "lunch": "Prânz",
     "dinner": "Cină",
-    "snack": "Snack",
-    "drink": "Drink",
-    "dessert": "Dessert",
+    "snack": "Gustare",
+    "drink": "Băutură",
+    "dessert": "Desert",
     "type-any": "Oricare",
     "day-any": "Oricare",
     "editor": "Editor",
@@ -367,7 +369,9 @@
     "recipe-rules": "Reguli rețetă",
     "applies-to-all-days": "Se aplică pentru toate zilele",
     "applies-on-days": "Aplică pe {0}s",
-    "meal-plan-settings": "Setările Planului de Masă"
+    "meal-plan-settings": "Setările Planului de Masă",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Datele migrării au fost șterse",
@@ -445,7 +449,7 @@
     "upload-a-recipe": "Încarcă o rețetă",
     "upload-individual-zip-file": "Încărcaţi un fişier individual .zip exportat dintr-o altă instanţă de Mealie.",
     "url-form-hint": "Copiază și lipește un link de pe site-ul tău web preferat de rețete",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copiați și lipiți adresa URL sursă a datelor dvs. (opțional)",
     "view-scraped-data": "Vezi datele colectate",
     "trim-whitespace-description": "Elimină spațiile albe de la început și sfârșit precum și liniile goale",
     "trim-prefix-description": "Elimină primul caracter din fiecare linie",
@@ -637,9 +641,10 @@
     "scrape-recipe-suggest-bulk-importer": "Încearcă importatorul în bulk",
     "scrape-recipe-have-raw-html-or-json-data": "Ai date de tip HTML sau JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Poți importa datele direct",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-website-being-blocked": "Site-ul este blocat?",
+    "scrape-recipe-try-importing-raw-html-instead": "Încercați în schimb să importați HTML-ul brut.",
     "import-original-keywords-as-tags": "Importă cuvintele cheie originale ca tag-uri",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Rămâi în modul Editare",
     "parse-recipe-ingredients-after-import": "Analizează ingredientele rețetei după import",
     "import-from-zip": "Importă din zip",
@@ -1430,11 +1435,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Acest Câmp Este Obligatoriu",
+    "invalid-email": "E-mailul Trebuie Să Fie Valid",
+    "invalid-url": "Trebuie Să Fie Un URL Valid",
+    "no-whitespace": "Niciun Spațiu Alb Permis",
+    "min-length": "Trebuie Să Aibă Cel Puțin {min} Caractere",
+    "max-length": "Trebuie Să Aibă Cel Mult {max} Caractere"
   }
 }

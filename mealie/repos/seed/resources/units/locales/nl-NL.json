@@ -137,5 +137,11 @@
         "plural_name": "snufjes",
         "description": "",
         "abbreviation": ""
+    },
+    "sprig": {
+        "name": "takje",
+        "plural_name": "takjes",
+        "description": "",
+        "abbreviation": ""
     }
 }

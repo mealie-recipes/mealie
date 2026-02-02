@@ -3,12 +3,12 @@
         "server-error": "Vyskytla sa neočakávaná chyba"
     },
     "recipe": {
-        "unique-name-error": "Názov receptu musí byť unikátny",
+        "unique-name-error": "Názov receptu musí byť jedinečný",
         "recipe-created": "Vytvorený recept",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "Obrázok receptu bol vymazaný",
         "recipe-defaults": {
             "ingredient-note": "1 šálka múky",
-            "step-text": "Kroky receptu, ako aj ďalšie polia na stránke receptu podporujú markdown syntax.\n\n**Pridanie odkazu**\n\n[Môj odkaz](https://demo.mealie.io)\n"
+            "step-text": "Postup receptu, ako aj ďalšie polia na stránke receptu podporujú markdown syntax.\n\n**Pridanie odkazu**\n\n[Môj odkaz](https://demo.mealie.io)\n"
         },
         "servings-text": {
             "makes": "Porcie",
@@ -20,20 +20,20 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Vaše pravidlá nespĺňa žiadny recept"
+        "no-recipes-match-your-rules": "Žiadne recepty nezodpovedajú vašim pravidlám"
     },
     "user": {
         "user-updated": "Používateľ bol aktualizovaný",
         "password-updated": "Heslo bolo aktualizované",
-        "invalid-current-password": "Aktuálne heslo neplatné",
+        "invalid-current-password": "Aktuálne heslo je neplatné",
         "ldap-update-password-unavailable": "Aktualizácia hesla nie je možná, používateľ je spravovaný v LDAPe"
     },
     "group": {
-        "report-deleted": "Report bol odstránený."
+        "report-deleted": "Hlásenie bolo vymazané."
     },
     "exceptions": {
-        "permission_denied": "Nemáte povolenie na vykonanie tejto akcie",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "permission_denied": "Nemáte oprávnenia na vykonanie tejto akcie",
+        "recursive-recipe-link": "Recept nemôže odkazovať na seba, priamo alebo nepriamo",
         "no-entry-found": "404 - Požadovaná stránka nebola nájdená",
         "integrity-error": "Chyba integrity databázy",
         "username-conflict-error": "Toto meno používateľa je už obsadené",
@@ -46,7 +46,7 @@
         "generic-updated-with-url": "{name} bol aktualizovaný, {url}",
         "generic-duplicated": "{name} bol duplikovaný",
         "generic-deleted": "{name} bol vymazaný",
-        "logged-out": "Logged out"
+        "logged-out": "Odhlásený"
     },
     "datetime": {
         "year": "rok|roky",
@@ -69,8 +69,8 @@
             "subject": "Pozvanie na pripojenie k Mealie",
             "header_text": "Boli ste pozvaní!",
             "message_top": "Boli ste pozvaní na pripojenie k Mealie.",
-            "message_bottom": "Prosím, kliknite na tlačidlo vyššie pre akceptáciu pozvánky.",
-            "button_text": "Prijat pozvanie"
+            "message_bottom": "Prosím, kliknite na tlačidlo vyššie pre prijatie pozvánky.",
+            "button_text": "Prijať pozvánku"
         },
         "test": {
             "subject": "Testovací email Mealie",

@@ -5,7 +5,7 @@
 ## Recipes
 
 ### Creating Recipes
-
+x
 Mealie offers several ways to create recipes:
 - **Recipe Scraper:** Create recipes from hundreds of websites by simply providing a URL.
 - **Video URL Import:** Provide a video URL (e.g., YouTube) and Mealie will transcribe the audio and parse the recipe.
@@ -107,9 +107,6 @@ Here you will be able to:
 !!! tip
     You can use Labels to categorize your ingredients. You may want to Label by Food Type (Frozen, Fresh, etc), by Store, Tool, Recipe, or more. Play around with this to see what works best for you.
 
-!!! tip
-    You can toggle 'Food' on items so that if you add multiple of the same food / ingredient, Mealie will automatically combine them together. Do this by editing an item in the Shopping List and clicking the 'Apple' icon. If you then have recipes that contain "1 | cup | cheese" and "2 | cup | cheese" this would be combined to show "3 cups of cheese."
-
 [See FAQ for more information](../getting-started/faq.md)
 
 
@@ -201,7 +198,7 @@ Mealie lets you fully customize how you organize your users. You can use Groups 
 
 ### Groups
 
-Groups are fully isolated instances of Mealie. Think of a goup as a completely separate, fully self-contained site. There is no data shared between groups. Each group has its own users, recipes, tags, categories, etc. A user logged-in to one group cannot make any changes to another.
+Groups are fully isolated instances of Mealie. Think of a group as a completely separate, fully self-contained site. There is no data shared between groups. Each group has its own users, recipes, tags, categories, etc. A user logged-in to one group cannot make any changes to another.
 
 Common use cases for groups include:
 
