@@ -369,7 +369,9 @@
     "recipe-rules": "Recipe Rules",
     "applies-to-all-days": "Applies to all days",
     "applies-on-days": "Applies on {0}s",
-    "meal-plan-settings": "Meal Plan Settings"
+    "meal-plan-settings": "Meal Plan Settings",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "遷移數據已刪除",

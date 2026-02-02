@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "knoflook",
-                "plural_name": "garlic"
+                "plural_name": "knoflook"
             },
             "onion": {
                 "aliases": [],
@@ -132,8 +132,8 @@
             "baby greens": {
                 "aliases": [],
                 "description": "",
-                "name": "baby greens",
-                "plural_name": "baby greens"
+                "name": "babybladgroenten",
+                "plural_name": "babybladgroenten"
             },
             "pumpkin": {
                 "aliases": [],
@@ -169,7 +169,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rucola",
-                "plural_name": "arugula"
+                "plural_name": "rucola"
             },
             "leek": {
                 "aliases": [],
@@ -199,7 +199,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "romaine sla",
-                "plural_name": "romaine lettuce"
+                "plural_name": "romaine sla"
             },
             "beetroot": {
                 "aliases": [],
@@ -261,8 +261,8 @@
             "mixed greens": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed greens",
-                "plural_name": "mixed greens"
+                "name": "gemengde groenten",
+                "plural_name": "gemengde groenten"
             },
             "parsnip": {
                 "aliases": [],
@@ -279,8 +279,8 @@
             "mixed vegetables": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetables",
-                "plural_name": "mixed vegetables"
+                "name": "gemengde groenten",
+                "plural_name": "gemengde groenten"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -304,7 +304,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cayennepeper",
-                "plural_name": "cayenne pepper"
+                "plural_name": "cayenne peper"
             },
             "green tomato": {
                 "aliases": [],
@@ -321,8 +321,8 @@
             "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg lettuce",
-                "plural_name": "iceberg lettuce"
+                "name": "ijsberg sla",
+                "plural_name": "ijsberg sla"
             },
             "mashed potato": {
                 "aliases": [],
@@ -340,13 +340,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "snijbiet",
-                "plural_name": "chard"
+                "plural_name": "snijbiet"
             },
             "pimiento": {
                 "aliases": [],
                 "description": "",
                 "name": "pimiento",
-                "plural_name": "pimientos"
+                "plural_name": "spaanse peper"
             },
             "spaghetti squash": {
                 "aliases": [],
@@ -358,7 +358,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kropsla",
-                "plural_name": "butter lettuce"
+                "plural_name": "kropsla"
             },
             "hash brown": {
                 "aliases": [],
@@ -419,8 +419,8 @@
             "corn on the cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn on the cob",
-                "plural_name": "corn on the cob"
+                "name": "maïskolf",
+                "plural_name": "maïskolf"
             },
             "radicchio": {
                 "aliases": [],
@@ -438,7 +438,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "broccolini",
-                "plural_name": "tenderstem broccoli"
+                "plural_name": "broccolini"
             },
             "plantain": {
                 "aliases": [],
@@ -450,7 +450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "blad sla",
-                "plural_name": "leaf lettuce"
+                "plural_name": "blad sla"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -462,7 +462,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "baby boksoi",
-                "plural_name": "baby bok choy"
+                "plural_name": "mini paksoi"
             },
             "jicama": {
                 "aliases": [],
@@ -484,17 +484,17 @@
             },
             "maize": {
                 "aliases": [
-                    "corn husk"
+                    "maïsschil"
                 ],
                 "description": "",
-                "name": "maize",
-                "plural_name": "maize"
+                "name": "maïs",
+                "plural_name": "maïs"
             },
             "collard greens": {
                 "aliases": [],
                 "description": "",
-                "name": "collard greens",
-                "plural_name": "collard greens"
+                "name": "boerenkool",
+                "plural_name": "boerenkool"
             },
             "french-fried onion": {
                 "aliases": [],
@@ -547,20 +547,20 @@
             "microgreens": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreens",
-                "plural_name": "microgreens"
+                "name": "kiemgroenten",
+                "plural_name": "kiemgroenten"
             },
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
                 "name": "botersla",
-                "plural_name": "boston lettuce"
+                "plural_name": "botersla"
             },
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
                 "name": "koolrabi",
-                "plural_name": "kohlrabi"
+                "plural_name": "koolrabi"
             },
             "fresno chile": {
                 "aliases": [],
@@ -576,11 +576,11 @@
             },
             "Frisée": {
                 "aliases": [
-                    "curly endive"
+                    "krulandijvie"
                 ],
                 "description": "",
-                "name": "Frisée",
-                "plural_name": "Frisées"
+                "name": "Krulandijvie",
+                "plural_name": "Krulandijvie"
             },
             "anaheim pepper": {
                 "aliases": [],
@@ -591,14 +591,14 @@
             "cress": {
                 "aliases": [],
                 "description": "",
-                "name": "cress",
-                "plural_name": "cress"
+                "name": "tuinkers",
+                "plural_name": "tuinkers"
             },
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
                 "name": "broccoli salade",
-                "plural_name": "broccoli slaw"
+                "plural_name": "broccoli salade"
             },
             "arbol chile pepper": {
                 "aliases": [],
@@ -974,13 +974,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "pompelmoes",
-                "plural_name": "pomelos"
+                "plural_name": "pomelo's"
             },
             "chestnut purée": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut purée",
-                "plural_name": "chestnut purée"
+                "name": "kastanje puree",
+                "plural_name": "kastanje puree"
             },
             "prickly pear": {
                 "aliases": [],
@@ -1028,7 +1028,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tangelo",
-                "plural_name": "tangelos"
+                "plural_name": "tangelo"
             },
             "dried lime": {
                 "aliases": [],
@@ -1100,7 +1100,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tamarillo",
-                "plural_name": "tamarillos"
+                "plural_name": "boomtomaat"
             },
             "ice-apple": {
                 "aliases": [],
@@ -1232,7 +1232,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hoornmeloen",
-                "plural_name": "kiwanos"
+                "plural_name": "hoornmeloenen"
             }
         }
     },
@@ -1295,7 +1295,7 @@
             "black fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "black fungus",
+                "name": "boomoren",
                 "plural_name": "boomoren"
             },
             "black truffle": {
@@ -1361,7 +1361,7 @@
             "white fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "white fungus",
+                "name": "witte zwammen",
                 "plural_name": "witte zwammen"
             },
             "pioppini": {
@@ -1373,7 +1373,7 @@
             "snow fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "snow fungus",
+                "name": "sneeuwzwammen",
                 "plural_name": "sneeuwzwammen"
             },
             "white beech mushroom": {
@@ -1385,7 +1385,7 @@
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletus",
+                "name": "boleten",
                 "plural_name": "boleten"
             },
             "huitlacoche": {
@@ -1404,7 +1404,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bundelzwam",
-                "plural_name": "namekos"
+                "plural_name": "bundelzwammen"
             },
             "djon djon mushroom": {
                 "aliases": [],
@@ -1427,7 +1427,7 @@
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungus",
+                "name": "honingzwammen",
                 "plural_name": "honingzwammen"
             },
             "caesar's mushroom": {
@@ -2003,15 +2003,15 @@
             "parmesan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan cheese",
-                "plural_name": "parmesan cheese"
+                "name": "parmesaanse kaas",
+                "plural_name": "parmezaanse kaas"
             },
             "cheddar cheese": {
                 "aliases": [
                     "cheddar cheese"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
+                "name": "cheddar kaas",
                 "plural_name": "cheddar cheese"
             },
             "cream cheese": {
@@ -2080,7 +2080,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fresh mozzarella cheese",
-                "plural_name": "fresh mozzarella cheese"
+                "plural_name": "verse mozzarella kaas"
             },
             "swis cheese": {
                 "aliases": [],

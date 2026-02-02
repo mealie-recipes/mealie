@@ -369,7 +369,9 @@
     "recipe-rules": "Règles de recette",
     "applies-to-all-days": "S'applique à tous les jours",
     "applies-on-days": "S'applique les {0}s",
-    "meal-plan-settings": "Paramètres des menus"
+    "meal-plan-settings": "Paramètres des menus",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Données de migration supprimées",

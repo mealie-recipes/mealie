@@ -369,7 +369,9 @@
     "recipe-rules": "Receptregels",
     "applies-to-all-days": "Van toepassing op alle dagen",
     "applies-on-days": "Van toepassing op {0}s",
-    "meal-plan-settings": "Maaltijdplan-instellingen"
+    "meal-plan-settings": "Maaltijdplan-instellingen",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Migratiegegevens verwijderd",

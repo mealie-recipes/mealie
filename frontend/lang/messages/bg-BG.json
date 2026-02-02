@@ -369,7 +369,9 @@
     "recipe-rules": "Правила на рецептата",
     "applies-to-all-days": "Прилага се за всички дни",
     "applies-on-days": "Всеки/всяка {0}",
-    "meal-plan-settings": "Настройки на плана за хранене"
+    "meal-plan-settings": "Настройки на плана за хранене",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Данните за мигриране са премахнати",

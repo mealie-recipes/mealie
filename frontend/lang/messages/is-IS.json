@@ -369,7 +369,9 @@
     "recipe-rules": "Uppskriftar reglur",
     "applies-to-all-days": "Á við alla daga",
     "applies-on-days": "Gildir þegar er {0},",
-    "meal-plan-settings": "Stillingar matarplans"
+    "meal-plan-settings": "Stillingar matarplans",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Gagnaflutningur fjarlægður",

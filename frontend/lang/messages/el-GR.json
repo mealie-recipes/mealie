@@ -369,7 +369,9 @@
     "recipe-rules": "Κανόνες Συνταγής",
     "applies-to-all-days": "Εφαρμόζεται για όλες τις ημέρες",
     "applies-on-days": "Εφαρμόζεται κάθε {0}",
-    "meal-plan-settings": "Ρυθμίσεις προγράμματος γευμάτων"
+    "meal-plan-settings": "Ρυθμίσεις προγράμματος γευμάτων",
+    "add-all-to-list": "Προσθήκη όλων στη λίστα",
+    "add-day-to-list": "Προσθήκη ημέρας στη λίστα"
   },
   "migration": {
     "migration-data-removed": "Τα δεδομένα μετεγκατάστασης καταργήθηκαν",

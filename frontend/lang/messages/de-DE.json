@@ -369,7 +369,9 @@
     "recipe-rules": "Rezeptregeln",
     "applies-to-all-days": "Gilt an allen Tagen",
     "applies-on-days": "Gilt {0}s",
-    "meal-plan-settings": "Essensplan Einstellungen"
+    "meal-plan-settings": "Essensplan Einstellungen",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Migrationsdaten entfernt",
