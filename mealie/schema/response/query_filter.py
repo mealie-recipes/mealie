@@ -2,13 +2,15 @@ from __future__ import annotations
 
 import re
 from collections import deque
+from datetime import datetime
 from enum import Enum
-from typing import Any, cast
+from typing import Any, cast, overload
 from uuid import UUID
 
 import sqlalchemy as sa
 from dateutil import parser as date_parser
 from dateutil.parser import ParserError
+from dateutil.relativedelta import relativedelta
 from humps import decamelize
 from sqlalchemy.ext.associationproxy import AssociationProxyInstance
 from sqlalchemy.orm import InstrumentedAttribute, Mapper
@@ -18,6 +20,104 @@ from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.db.models._model_utils.datetime import NaiveDateTime
 from mealie.db.models._model_utils.guid import GUID
 from mealie.schema._mealie.mealie_model import MealieModel
+
+
+class PlaceholderKeyword(Enum):
+    NOW = "$NOW"
+
+    @classmethod
+    def _parse_now(cls, value: str) -> str:
+        """
+        Parses a NOW value, with optional math using an int or float.
+
+        Operation:
+            - '+'
+            - '-'
+
+        Unit:
+            - 'y' (year)
+            - 'm' (month)
+            - 'd' (day)
+            - 'H' (hour)
+            - 'M' (minute)
+            - 'S' (second)
+
+        Examples:
+            - '$NOW'
+            - '$NOW+30d'
+            - '$NOW-5M'
+        """
+
+        if not value.startswith(cls.NOW.value):
+            return value
+
+        now = datetime.now(tz=None)  # noqa: DTZ005
+        remainder = value[len(cls.NOW.value) :]
+
+        if remainder:
+            if len(remainder) < 3:
+                raise ValueError(f"Invalid remainder in NOW string ({value})")
+
+            op = remainder[0]
+            amount_str = remainder[1:-1]
+            unit = remainder[-1]
+
+            try:
+                amount = int(amount_str)
+            except Exception as e:
+                raise ValueError(f"Invalid amount in NOW string ({value})") from e
+
+            if op == "-":
+                amount = -amount
+            elif op != "+":
+                raise ValueError(f"Invalid operator in NOW string ({value})")
+
+            if unit == "y":
+                delta = relativedelta(years=amount)
+            elif unit == "m":
+                delta = relativedelta(months=amount)
+            elif unit == "d":
+                delta = relativedelta(days=amount)
+            elif unit == "H":
+                delta = relativedelta(hours=amount)
+            elif unit == "M":
+                delta = relativedelta(minutes=amount)
+            elif unit == "S":
+                delta = relativedelta(seconds=amount)
+            else:
+                raise ValueError(f"Invalid time unit in NOW string ({value})")
+
+            dt = now + delta
+
+        else:
+            dt = now
+
+        return dt.isoformat()
+
+    @overload
+    @classmethod
+    def parse_value(cls, value: str) -> str: ...
+
+    @overload
+    @classmethod
+    def parse_value(cls, value: list[str]) -> list[str]: ...
+
+    @overload
+    @classmethod
+    def parse_value(cls, value: None) -> None: ...
+
+    @classmethod
+    def parse_value(cls, value: str | list[str] | None) -> str | list[str] | None:
+        if not value:
+            return value
+
+        if isinstance(value, list):
+            return [cls.parse_value(v) for v in value]
+
+        if value.startswith(PlaceholderKeyword.NOW.value):
+            return cls._parse_now(value)
+
+        return value
 
 
 class RelationalKeyword(Enum):
@@ -160,6 +260,9 @@ class QueryFilterBuilderComponent:
             self.value = None
         else:
             self.value = value
+
+        # process placeholder keywords
+        self.value = PlaceholderKeyword.parse_value(self.value)
 
     def __repr__(self) -> str:
         return f"[{self.attribute_name} {self.relationship.value} {self.value}]"
