@@ -370,8 +370,8 @@
     "applies-to-all-days": "Velja za vse dneve",
     "applies-on-days": "Velja za {0}",
     "meal-plan-settings": "Nastavitve jedilnika",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Dodaj vse na seznam",
+    "add-day-to-list": "Dodaj dan na seznam"
   },
   "migration": {
     "migration-data-removed": "Migrirani podatki so odstranjeni",
