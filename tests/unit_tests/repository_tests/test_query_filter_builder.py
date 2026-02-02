@@ -1,4 +1,4 @@
-from mealie.schema.response.query_filter import (
+from mealie.services.query_filter.query_filter import (
     LogicalOperator,
     QueryFilterBuilder,
     QueryFilterJSON,
