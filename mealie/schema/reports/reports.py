@@ -11,14 +11,14 @@ from mealie.db.models.group import ReportModel
 from mealie.schema._mealie import MealieModel
 
 
-class ReportCategory(str, enum.Enum):
+class ReportCategory(enum.StrEnum):
     backup = "backup"
     restore = "restore"
     migration = "migration"
     bulk_import = "bulk_import"
 
 
-class ReportSummaryStatus(str, enum.Enum):
+class ReportSummaryStatus(enum.StrEnum):
     in_progress = "in-progress"
     success = "success"
     failure = "failure"
