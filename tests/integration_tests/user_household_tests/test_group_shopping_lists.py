@@ -537,13 +537,12 @@ def test_shopping_lists_add_custom_recipe_items(
     assert refs[0]["recipeQuantity"] == 2
 
 
-def test_shopping_list_ref_removes_itself(
+def test_shopping_list_ref_persists_when_checked(
     api_client: TestClient,
     unique_user: TestUser,
     shopping_list: ShoppingListOut,
     recipe_ingredient_only: Recipe,
 ):
-    # add a recipe to a list, then check off all recipe items and make sure the recipe ref is deleted
     recipe = recipe_ingredient_only
     response = api_client.post(
         api_routes.households_shopping_lists_item_id_recipe(shopping_list.id),
@@ -575,7 +574,9 @@ def test_shopping_list_ref_removes_itself(
         headers=unique_user.token,
     )
     shopping_list_json = utils.assert_deserialize(response, 200)
-    assert len(shopping_list_json["recipeReferences"]) == 0
+
+    assert len(shopping_list_json["recipeReferences"]) == 1
+    assert shopping_list_json["recipeReferences"][0]["recipeId"] == str(recipe.id)
 
 
 def test_shopping_lists_add_recipe_with_merge(

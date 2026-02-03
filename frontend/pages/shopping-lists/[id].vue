@@ -284,7 +284,7 @@
         </div>
         <v-divider />
         <RecipeList
-          :recipes="recipeList"
+          :recipes="activeRecipeList"
           show-description
           :disabled="isOffline"
         >
@@ -369,6 +369,20 @@ export default defineNuxtComponent({
     const { store: allUnits } = useUnitStore();
     const { store: allFoods } = useFoodStore();
 
+    const activeRecipeList = computed(() => {
+      const activeRecipeIds = new Set();
+
+      Object.values(shoppingListPage.itemsByLabel.value).forEach((labelGroup) => {
+        labelGroup.forEach((item) => {
+          item.recipeReferences?.forEach(ref => activeRecipeIds.add(ref.recipeId));
+        });
+      });
+
+      return shoppingListPage.recipeList.value.filter(recipe =>
+        activeRecipeIds.has(recipe.id),
+      );
+    });
+
     return {
       groupSlug,
       preferences,
@@ -378,6 +392,7 @@ export default defineNuxtComponent({
       getTextColor,
       mdAndUp,
       ...shoppingListPage,
+      activeRecipeList,
     };
   },
 });
