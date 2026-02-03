@@ -101,7 +101,7 @@ async def oauth_login(request: Request):
     else:
         # Prioritize User Configuration over Request Headers.
         if not settings.is_default_base_url:
-            base = settings.BASE_URL
+            base = settings.BASE_URL or request.base_url
         else:
             base = request.base_url
         redirect_url = URLPath("/login").make_absolute_url(base)
