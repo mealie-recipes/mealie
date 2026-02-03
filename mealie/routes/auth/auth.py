@@ -104,6 +104,8 @@ async def oauth_login(request: Request):
             base = settings.BASE_URL
         else:
             base = request.base_url
+        redirect_url = URLPath("/login").make_absolute_url(base)
+    
     response: RedirectResponse = await client.authorize_redirect(request, redirect_url)
     return response
 
