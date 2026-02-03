@@ -99,13 +99,13 @@ async def oauth_login(request: Request):
         # in development, we want to redirect to the frontend
         redirect_url = "http://localhost:3000/login"
     else:
-        # Prioritize User Configuration over Request Headers. 
+        # Prioritize User Configuration over Request Headers.
         if not settings.is_default_base_url:
             base = settings.BASE_URL
         else:
             base = request.base_url
         redirect_url = URLPath("/login").make_absolute_url(base)
-    
+
     response: RedirectResponse = await client.authorize_redirect(request, redirect_url)
     return response
 
