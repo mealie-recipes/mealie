@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date as DateType
 from enum import StrEnum
 from typing import Annotated
 from uuid import UUID
@@ -27,13 +27,13 @@ class PlanEntryType(StrEnum):
 
 
 class CreateRandomEntry(MealieModel):
-    date: date
-    entry_type: PlanEntryType = PlanEntryType.dinner
+    date: DateType | None = None
+    entry_type: PlanEntryType | None = None
 
 
 class CreatePlanEntry(MealieModel):
-    date: date
-    entry_type: PlanEntryType = PlanEntryType.breakfast
+    date: DateType | None = None
+    entry_type: PlanEntryType | None = None
     title: str = ""
     text: str = ""
     recipe_id: Annotated[UUID | None, Field(validate_default=True)] = None
@@ -41,7 +41,11 @@ class CreatePlanEntry(MealieModel):
     @field_validator("recipe_id")
     @classmethod
     def id_or_title(cls, value, info: ValidationInfo):
-        if bool(value) is False and bool(info.data["title"]) is False:
+        # Allow entries without recipe_id or title if date is None (unassigned items)
+        if info.data.get("date") is None:
+            return value
+
+        if bool(value) is False and bool(info.data.get("title")) is False:
             raise ValueError(f"`recipe_id={value}` or `title={info.data['title']}` must be provided")
 
         return value

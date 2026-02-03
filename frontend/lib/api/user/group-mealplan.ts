@@ -6,6 +6,7 @@ const prefix = "/api";
 const routes = {
   mealplan: `${prefix}/households/mealplans`,
   random: `${prefix}/households/mealplans/random`,
+  unassigned: `${prefix}/households/mealplans/unassigned`,
   mealplanId: (id: string | number) => `${prefix}/households/mealplans/${id}`,
 };
 
@@ -15,5 +16,9 @@ export class MealPlanAPI extends BaseCRUDAPI<CreatePlanEntry, ReadPlanEntry, Upd
 
   async setRandom(payload: CreateRandomEntry) {
     return await this.requests.post<ReadPlanEntry>(routes.random, payload);
+  }
+
+  async getUnassigned() {
+    return await this.requests.get<ReadPlanEntry[]>(routes.unassigned);
   }
 }

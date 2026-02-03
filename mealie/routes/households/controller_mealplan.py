@@ -43,16 +43,31 @@ class GroupMealplanController(BaseCrudController):
         )
 
     def _get_random_recipes_from_mealplan(
-        self, plan_date: date, entry_type: PlanEntryType, limit: int = 1
+        self, plan_date: date | None, entry_type: PlanEntryType | None, limit: int = 1
     ) -> list[Recipe]:
         """
         Gets rules for a mealplan and returns a list of random recipes based on the rules.
         May return zero recipes if no recipes match the filter criteria.
 
         Recipes from all households are included unless the rules specify a household filter.
+
+        If plan_date or entry_type is None (unassigned), rules from all weekdays/entry types are combined.
         """
 
-        rules = self.repos.group_meal_plan_rules.get_rules(PlanRulesDay.from_date(plan_date), entry_type.value)
+        if plan_date is not None and entry_type is not None:
+            # For scheduled meals, use specific day and entry type
+            rules = self.repos.group_meal_plan_rules.get_rules(PlanRulesDay.from_date(plan_date), entry_type.value)
+        else:
+            # For unassigned entries, get rules from all weekdays and entry types
+            all_rules = []
+            for day in PlanRulesDay:
+                if day == PlanRulesDay.unset:
+                    continue
+                for et in PlanEntryType:
+                    day_rules = self.repos.group_meal_plan_rules.get_rules(day, et.value)
+                    all_rules.extend(day_rules)
+            rules = all_rules
+
         cross_household_recipes = get_repositories(
             self.session, group_id=self.group_id, household_id=None
         ).recipes.by_user(self.user.id)
@@ -100,19 +115,21 @@ class GroupMealplanController(BaseCrudController):
         data = mapper.cast(data, SavePlanEntry, group_id=self.group_id, user_id=self.user.id)
         result = self.mixins.create_one(data)
 
-        self.publish_event(
-            event_type=EventTypes.mealplan_entry_created,
-            document_data=EventMealplanCreatedData(
-                mealplan_id=result.id,
-                recipe_id=data.recipe_id,
-                recipe_name=result.recipe.name if result.recipe else None,
-                recipe_slug=result.recipe.slug if result.recipe else None,
-                date=data.date,
-            ),
-            group_id=result.group_id,
-            household_id=result.household_id,
-            message=f"Mealplan entry created for {data.date} for {data.entry_type}",
-        )
+        # Only publish event if date is set (not an unassigned item)
+        if data.date:
+            self.publish_event(
+                event_type=EventTypes.mealplan_entry_created,
+                document_data=EventMealplanCreatedData(
+                    mealplan_id=result.id,
+                    recipe_id=data.recipe_id,
+                    recipe_name=result.recipe.name if result.recipe else None,
+                    recipe_slug=result.recipe.slug if result.recipe else None,
+                    date=data.date,
+                ),
+                group_id=result.group_id,
+                household_id=result.household_id,
+                message=f"Mealplan entry created for {data.date} for {data.entry_type}",
+            )
 
         return result
 
@@ -121,12 +138,20 @@ class GroupMealplanController(BaseCrudController):
         local_tz = tzlocal()
         return self.repo.get_today(tz=local_tz)
 
+    @router.get("/unassigned", response_model=list[ReadPlanEntry])
+    def get_unassigned(self):
+        """Get all meals without an assigned date (unassigned)"""
+        return self.repo.get_unassigned()
+
     @router.post("/random", response_model=ReadPlanEntry)
     def create_random_meal(self, data: CreateRandomEntry):
         """
         `create_random_meal` is a route that provides the randomized functionality for mealplaners.
         It operates by following the rules set out in the household's mealplan settings. If no settings
         are set, it will return any random meal.
+
+        If date and entry_type are None, creates an unscheduled unassigned entry using rules from all
+        weekdays and entry types.
 
         Refer to the mealplan settings routes for more information on how rules can be applied
         to the random meal selector.

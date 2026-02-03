@@ -79,6 +79,7 @@
       <NuxtPage
         :mealplans="mealsByDate"
         :actions="actions"
+        :unassigned="unassigned"
       />
     </div>
 
@@ -187,7 +188,7 @@ export default defineNuxtComponent({
       });
     }, { immediate: true });
 
-    const { mealplans, actions } = useMealplans(weekRange);
+    const { mealplans, unassigned, actions } = useMealplans(weekRange);
 
     function filterMealByDate(date: Date) {
       if (!mealplans.value) return [];
@@ -263,6 +264,7 @@ export default defineNuxtComponent({
       route,
       state,
       actions,
+      unassigned,
       mealsByDate,
       weekRange,
       firstDayOfWeek,

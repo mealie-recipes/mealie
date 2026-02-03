@@ -55,8 +55,8 @@ class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
 class GroupMealPlan(SqlAlchemyBase, BaseMixins):
     __tablename__ = "group_meal_plans"
 
-    date: Mapped[datetime.date] = mapped_column(Date, index=True, nullable=False)
-    entry_type: Mapped[str] = mapped_column(String, index=True, nullable=False)
+    date: Mapped[datetime.date | None] = mapped_column(Date, index=True, nullable=True)
+    entry_type: Mapped[str | None] = mapped_column(String, index=True, nullable=True)
     title: Mapped[str] = mapped_column(String, index=True, nullable=False)
     text: Mapped[str] = mapped_column(String, nullable=False)
 

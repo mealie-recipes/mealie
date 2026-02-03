@@ -31,3 +31,15 @@ class RepositoryMeals(HouseholdRepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
         )
         plans = self.session.execute(stmt).scalars().all()
         return [self.schema.model_validate(x) for x in plans]
+
+    def get_unassigned(self) -> list[ReadPlanEntry]:
+        """Get unassigned entries (no date assigned)"""
+        if not self.household_id:
+            raise Exception("household_id not set")
+
+        stmt = select(GroupMealPlan).filter(
+            GroupMealPlan.date.is_(None),
+            GroupMealPlan.household_id == self.household_id,
+        )
+        plans = self.session.execute(stmt).scalars().all()
+        return [self.schema.model_validate(x) for x in plans]

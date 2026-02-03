@@ -13,15 +13,15 @@ export type RelationalKeyword = "IS" | "IS NOT" | "IN" | "NOT IN" | "CONTAINS AL
 export type RelationalOperator = "=" | "<>" | ">" | "<" | ">=" | "<=";
 
 export interface CreatePlanEntry {
-  date: string;
-  entryType?: PlanEntryType;
+  date?: string | null;
+  entryType?: PlanEntryType | null;
   title?: string;
   text?: string;
   recipeId?: string | null;
 }
 export interface CreateRandomEntry {
-  date: string;
-  entryType?: PlanEntryType;
+  date?: string | null;
+  entryType?: PlanEntryType | null;
 }
 export interface ListItem {
   title?: string | null;
@@ -63,8 +63,8 @@ export interface PlanRulesSave {
   householdId: string;
 }
 export interface ReadPlanEntry {
-  date: string;
-  entryType?: PlanEntryType;
+  date?: string | null;
+  entryType?: PlanEntryType | null;
   title?: string;
   text?: string;
   recipeId?: string | null;
@@ -106,12 +106,14 @@ export interface RecipeCategory {
   groupId?: string | null;
   name: string;
   slug: string;
+  [k: string]: unknown;
 }
 export interface RecipeTag {
   id?: string | null;
   groupId?: string | null;
   name: string;
   slug: string;
+  [k: string]: unknown;
 }
 export interface RecipeTool {
   id: string;
@@ -119,10 +121,11 @@ export interface RecipeTool {
   name: string;
   slug: string;
   householdsWithTool?: string[];
+  [k: string]: unknown;
 }
 export interface SavePlanEntry {
-  date: string;
-  entryType?: PlanEntryType;
+  date?: string | null;
+  entryType?: PlanEntryType | null;
   title?: string;
   text?: string;
   recipeId?: string | null;
@@ -141,8 +144,8 @@ export interface ShoppingListOut {
   id: number;
 }
 export interface UpdatePlanEntry {
-  date: string;
-  entryType?: PlanEntryType;
+  date?: string | null;
+  entryType?: PlanEntryType | null;
   title?: string;
   text?: string;
   recipeId?: string | null;

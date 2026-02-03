@@ -338,3 +338,154 @@ def test_get_mealplan_with_rules_households_filter_includes_any_households(
         assert response.json()["recipe"]["slug"] == recipe.slug
     finally:
         unique_user.repos.group_meal_plan_rules.delete(rule.id)
+
+
+def test_create_unassigned_entry(api_client: TestClient, unique_user: TestUser):
+    """Test creating a meal entry without date (unassigned item)"""
+    recipe_name = random_string(length=25)
+    response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=unique_user.token)
+    assert response.status_code == 201
+
+    response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
+    recipe = response.json()
+    recipe_id = recipe["id"]
+
+    # Create unassigned entry (no date, no entry_type)
+    new_plan = {"recipeId": str(recipe_id), "title": "", "text": ""}
+
+    response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
+    assert response.status_code == 201
+
+    response_json = response.json()
+    assert response_json["date"] is None
+    assert response_json["entryType"] is None
+    assert response_json["recipe"]["slug"] == recipe_name
+
+
+def test_get_unassigned(api_client: TestClient, unique_user: TestUser):
+    """Test fetching all unassigned entries"""
+    # Create some unassigned entries
+    unassigned_recipes = []
+    for _ in range(3):
+        recipe_name = random_string(length=25)
+        response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=unique_user.token)
+        assert response.status_code == 201
+
+        response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
+        recipe = response.json()
+        recipe_id = recipe["id"]
+        unassigned_recipes.append(recipe_name)
+
+        new_plan = {"recipeId": str(recipe_id)}
+        response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
+        assert response.status_code == 201
+
+    # Create a scheduled entry (should not appear in unassigned)
+    scheduled_plan = CreatePlanEntry(
+        date=datetime.now(UTC).date(), entry_type="dinner", title=random_string()
+    ).model_dump()
+    scheduled_plan["date"] = datetime.now(UTC).date().strftime("%Y-%m-%d")
+    response = api_client.post(api_routes.households_mealplans, json=scheduled_plan, headers=unique_user.token)
+    assert response.status_code == 201
+
+    # Get unassigned
+    response = api_client.get(f"{api_routes.households_mealplans}/unassigned", headers=unique_user.token)
+    assert response.status_code == 200
+
+    unassigned = response.json()
+    assert len(unassigned) >= 3
+
+    # Verify all unassigned entries have no date
+    for entry in unassigned:
+        if entry["recipe"] and entry["recipe"]["slug"] in unassigned_recipes:
+            assert entry["date"] is None
+
+
+def test_schedule_unassigned_entry(api_client: TestClient, unique_user: TestUser):
+    """Test promoting unassigned item to scheduled meal"""
+    # Create unassigned entry
+    recipe_name = random_string(length=25)
+    response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=unique_user.token)
+    assert response.status_code == 201
+
+    response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
+    recipe = response.json()
+    recipe_id = recipe["id"]
+
+    new_plan = {"recipeId": str(recipe_id)}
+    response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
+    assert response.status_code == 201
+    plan_id = response.json()["id"]
+
+    # Schedule the unassigned entry
+    schedule_date = (datetime.now(UTC).date() + timedelta(days=1)).strftime("%Y-%m-%d")
+    update_data = {
+        "id": plan_id,
+        "date": schedule_date,
+        "entryType": "dinner",
+        "recipeId": str(recipe_id),
+        "title": "",
+        "text": "",
+        "groupId": unique_user.group_id,
+        "userId": str(unique_user.user_id),
+    }
+
+    response = api_client.put(
+        api_routes.households_mealplans_item_id(plan_id), json=update_data, headers=unique_user.token
+    )
+    assert response.status_code == 200
+
+    response_json = response.json()
+    assert response_json["date"] == schedule_date
+    assert response_json["entryType"] == "dinner"
+
+
+def test_unschedule_meal_to_unassigned(api_client: TestClient, unique_user: TestUser):
+    """Test moving scheduled meal back to unassigned"""
+    # Create scheduled entry
+    recipe_name = random_string(length=25)
+    response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=unique_user.token)
+    assert response.status_code == 201
+
+    response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
+    recipe = response.json()
+    recipe_id = recipe["id"]
+
+    new_plan = CreatePlanEntry(date=datetime.now(UTC).date(), entry_type="dinner", recipe_id=recipe_id).model_dump(
+        by_alias=True
+    )
+    new_plan["date"] = datetime.now(UTC).date().strftime("%Y-%m-%d")
+    new_plan["recipeId"] = str(recipe_id)
+
+    response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
+    assert response.status_code == 201
+    plan_id = response.json()["id"]
+
+    # Unschedule to unassigned (set date and entry_type to null)
+    update_data = {
+        "id": plan_id,
+        "date": None,
+        "entryType": None,
+        "recipeId": str(recipe_id),
+        "title": "",
+        "text": "",
+        "groupId": unique_user.group_id,
+        "userId": str(unique_user.user_id),
+    }
+
+    response = api_client.put(
+        api_routes.households_mealplans_item_id(plan_id), json=update_data, headers=unique_user.token
+    )
+    assert response.status_code == 200
+
+    response_json = response.json()
+    assert response_json["date"] is None
+    assert response_json["entryType"] is None
+
+    # Verify it appears in unassigned
+    response = api_client.get(f"{api_routes.households_mealplans}/unassigned", headers=unique_user.token)
+    assert response.status_code == 200
+
+    unassigned = response.json()
+    unassigned_ids = [entry["id"] for entry in unassigned]
+    assert plan_id in unassigned_ids

@@ -11,11 +11,16 @@
       can-submit
       @submit="
         () => {
+          const updateData = {
+            ...newMeal,
+            date: dialog.assigned ? newMealDateString : null,
+            entryType: dialog.assigned ? newMeal.entryType : null,
+          };
           if (newMeal.existing) {
-            actions.updateOne({ ...newMeal, date: newMealDateString });
+            actions.updateOne(updateData);
           }
           else {
-            actions.createOne({ ...newMeal, date: newMealDateString });
+            actions.createOne(updateData);
           }
           resetDialog();
         }
@@ -23,7 +28,11 @@
       @close="resetDialog()"
     >
       <v-card-text class="pb-2">
+        <v-card-actions class="py-0 px-4">
+          <v-switch v-model="dialog.assigned" color="primary" class="mt-n3 mb-n4" :label="$t('meal-plan.plan-for-specific-day')" />
+        </v-card-actions>
         <v-date-picker
+          v-if="dialog.assigned"
           v-model="newMeal.date"
           class="mx-auto"
           hide-header
@@ -34,6 +43,7 @@
         />
         <v-card-text class="pb-0">
           <v-select
+            v-if="dialog.assigned"
             v-model="newMeal.entryType"
             :return-object="false"
             :items="planTypeOptions"
@@ -61,13 +71,14 @@
           </template>
         </v-card-text>
         <v-card-actions class="py-0 px-4">
-          <v-switch v-model="dialog.note" class="mt-n3 mb-n4" :label="$t('meal-plan.note-only')" />
+          <v-switch v-model="dialog.note" color="primary" class="mt-n3 mb-n4" :label="$t('meal-plan.note-only')" />
         </v-card-actions>
       </v-card-text>
     </BaseDialog>
     <v-row>
+      <!-- All Columns (Unassigned + Days) -->
       <v-col
-        v-for="(plan, index) in mealplans"
+        v-for="(plan, index) in allPlans"
         :key="index"
         cols="12"
         sm="12"
@@ -78,23 +89,23 @@
       >
         <v-card class="mb-2 border-left-primary rounded-sm pa-2">
           <p class="pl-2 mb-1">
-            {{ $d(plan.date, "short") }}
+            {{ plan.date === null ? $t('meal-plan.unassigned') : $d(plan.date, "short") }}
           </p>
         </v-card>
         <VueDraggable
-          v-model="mealplansByDate[plan.date.toString()]"
+          v-model="mealplansByDate[plan.dateKey]"
           tag="div"
           handle=".handle"
           :delay="250"
           :delay-on-touch-only="true"
           group="meals"
           :data-index="index"
-          :data-box="plan.date"
+          :data-box="plan.dateKey"
           style="min-height: 150px"
           @end="onMoveCallback"
         >
           <v-card
-            v-for="mealplan in mealplansByDate[plan.date.toString()]"
+            v-for="mealplan in mealplansByDate[plan.dateKey]"
             :key="mealplan.id"
             class="my-1"
             :class="{ handle: $vuetify.display.smAndUp }"
@@ -128,7 +139,7 @@
                   {{ $globals.icons.arrowUpDown }}
                 </v-icon>
               </v-btn>
-              <v-menu offset-y>
+              <v-menu v-if="plan.date !== null" offset-y>
                 <template #activator="{ props }">
                   <v-chip
                     v-bind="props"
@@ -240,7 +251,7 @@ import type { MealsByDate } from "./types";
 import type { useMealplans } from "~/composables/use-group-mealplan";
 import { usePlanTypeOptions, getEntryTypeText } from "~/composables/use-group-mealplan";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
-import type { PlanEntryType, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
+import type { PlanEntryType, ReadPlanEntry, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { normalizeFilter } from "~/composables/use-utils";
@@ -260,6 +271,10 @@ export default defineNuxtComponent({
       type: Object as () => ReturnType<typeof useMealplans>["actions"],
       required: true,
     },
+    unassigned: {
+      type: Array as () => ReadPlanEntry[],
+      default: () => [],
+    },
   },
   setup(props) {
     const api = useUserApi();
@@ -275,23 +290,57 @@ export default defineNuxtComponent({
       return household.value?.preferences?.firstDayOfWeek || 0;
     });
 
-    // Local mutable meals object
-    const mealplansByDate = reactive<{ [date: string]: UpdatePlanEntry[] }>({});
+    // Local mutable meals object - includes unassigned and regular plans
+    const mealplansByDate = reactive<{ [date: string]: UpdatePlanEntry[] }>({
+      unassigned: [],
+    });
+
+    // Watch unassigned changes
+    watch(
+      () => props.unassigned,
+      (items) => {
+        mealplansByDate.unassigned = items ? [...items] : [];
+      },
+      { immediate: true, deep: true },
+    );
+
+    // Watch regular meal plans
     watch(
       () => props.mealplans,
       (plans) => {
         for (const plan of plans) {
           mealplansByDate[plan.date.toString()] = plan.meals ? [...plan.meals] : [];
         }
-        // Remove any dates that no longer exist
+        // Remove any dates that no longer exist (except unassigned)
         Object.keys(mealplansByDate).forEach((date) => {
-          if (!plans.find(p => p.date.toString() === date)) {
+          if (date !== "unassigned" && !plans.find(p => p.date.toString() === date)) {
             mealplansByDate[date] = [];
           }
         });
       },
       { immediate: true, deep: true },
     );
+
+    // Combine unassigned and regular plans for rendering
+    const allPlans = computed(() => {
+      const plans: Array<{ date: Date | null; dateKey: string; meals: any[] }> = [];
+
+      // Always add unassigned as first column in edit mode
+      plans.push({
+        date: null,
+        dateKey: "unassigned",
+        meals: mealplansByDate.unassigned || [],
+      });
+
+      // Add regular meal plans
+      plans.push(...props.mealplans.map(p => ({
+        date: p.date,
+        dateKey: p.date.toString(),
+        meals: p.meals,
+      })));
+
+      return plans;
+    });
 
     function onMoveCallback(evt: SortableEvent) {
       const supportedEvents = ["drop", "touchend"];
@@ -304,18 +353,30 @@ export default defineNuxtComponent({
         console.log("Cancel Move Event");
       }
       else {
-        // A Meal was moved, set the new date value and make an update request and refresh the meals
-        const fromMealsByIndex = parseInt(evt.from.getAttribute("data-index") ?? "");
-        const toMealsByIndex = parseInt(evt.to.getAttribute("data-index") ?? "");
+        const fromBox = evt.from.getAttribute("data-box") ?? "";
+        const toBox = evt.to.getAttribute("data-box") ?? "";
+        const toIndex = parseInt(evt.to.getAttribute("data-index") ?? "");
 
-        if (!isNaN(fromMealsByIndex) && !isNaN(toMealsByIndex)) {
-          const destDate = props.mealplans[toMealsByIndex].date;
-          const mealData = mealplansByDate[destDate.toString()][evt.newIndex as number];
+        const mealData = mealplansByDate[toBox][evt.newIndex as number];
+
+        if (toBox === "unassigned") {
+          mealData.date = null;
+          mealData.entryType = null;
+        }
+        else {
+          if (fromBox === "unassigned") {
+            mealData.entryType = "dinner";
+          }
+
+          const destDate = allPlans.value[toIndex].date;
+          if (!destDate) {
+            return;
+          }
 
           mealData.date = format(destDate, "yyyy-MM-dd");
-
-          props.actions.updateOne(mealData);
         }
+
+        props.actions.updateOne(mealData);
       }
     }
 
@@ -326,6 +387,7 @@ export default defineNuxtComponent({
       loading: false,
       error: false,
       note: false,
+      assigned: true,
     });
 
     watch(dialog, () => {
@@ -357,21 +419,38 @@ export default defineNuxtComponent({
       return !newMeal.recipeId;
     });
 
-    function openDialog(date: Date) {
-      newMeal.date = date;
+    function openDialog(date: Date | null) {
+      if (date) {
+        newMeal.date = date;
+        dialog.assigned = true;
+      }
+      else {
+        // Open dialog for unassigned entry
+        newMeal.date = new Date();
+        dialog.assigned = false;
+      }
       state.value.dialog = true;
     }
 
     function editMeal(mealplan: UpdatePlanEntry) {
       const { date, title, text, entryType, recipeId, id, groupId, userId } = mealplan;
-      if (!entryType) return;
 
-      const [year, month, day] = date.split("-").map(Number);
-      newMeal.date = new Date(year, month - 1, day);
+      // Set assigned mode if this item has a date and entryType
+      dialog.assigned = !!(date && entryType);
+
+      // Handle date - if it's null (unassigned item), use current date
+      if (date) {
+        const [year, month, day] = date.split("-").map(Number);
+        newMeal.date = new Date(year, month - 1, day);
+      }
+      else {
+        newMeal.date = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
+      }
+
       newMeal.title = title || "";
       newMeal.text = text || "";
       newMeal.recipeId = recipeId || undefined;
-      newMeal.entryType = entryType;
+      newMeal.entryType = entryType || "dinner"; // Default to dinner if null (unassigned item)
       newMeal.existing = true;
       newMeal.id = id;
       newMeal.groupId = groupId;
@@ -388,16 +467,18 @@ export default defineNuxtComponent({
       newMeal.entryType = "dinner";
       newMeal.recipeId = undefined;
       newMeal.existing = false;
+      dialog.assigned = true;
     }
 
-    async function randomMeal(date: Date, type: PlanEntryType) {
+    async function randomMeal(date: Date | null, type: PlanEntryType) {
       const { data } = await api.mealplans.setRandom({
-        date: format(date, "yyyy-MM-dd"),
-        entryType: type,
+        date: date ? format(date, "yyyy-MM-dd") : null,
+        entryType: date ? type : null,
       });
 
       if (data) {
         props.actions.refreshAll();
+        props.actions.refreshUnassigned();
       }
     }
 
@@ -433,6 +514,7 @@ export default defineNuxtComponent({
       search,
       firstDayOfWeek,
       mealplansByDate,
+      allPlans,
     };
   },
 });

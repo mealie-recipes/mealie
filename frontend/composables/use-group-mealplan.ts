@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
-import type { CreatePlanEntry, PlanEntryType, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
+import type { CreatePlanEntry, PlanEntryType, ReadPlanEntry, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
 
 type PlanOption = {
   text: string;
@@ -28,6 +28,10 @@ export function getEntryTypeText(value: PlanEntryType) {
 export interface DateRange {
   start: Date;
   end: Date;
+}
+
+function isUnassignedEntry(payload: CreatePlanEntry | UpdatePlanEntry | ReadPlanEntry): boolean {
+  return !payload.date;
 }
 
 export const useMealplans = function (range: Ref<DateRange>) {
@@ -70,12 +74,39 @@ export const useMealplans = function (range: Ref<DateRange>) {
 
       loading.value = false;
     },
+    getUnassigned() {
+      loading.value = true;
+      const { data: items } = useAsyncData(useAsyncKey(), async () => {
+        const { data } = await api.mealplans.getUnassigned();
+        return data;
+      });
+      loading.value = false;
+      return items;
+    },
+    async refreshUnassigned() {
+      loading.value = true;
+      const { data } = await api.mealplans.getUnassigned();
+
+      if (data) {
+        unassigned.value = data;
+      }
+
+      loading.value = false;
+    },
+    _refreshBasedOnEntry(entry: ReadPlanEntry | UpdatePlanEntry) {
+      if (isUnassignedEntry(entry)) {
+        this.refreshUnassigned();
+      }
+      else {
+        this.refreshAll();
+      }
+    },
     async createOne(payload: CreatePlanEntry) {
       loading.value = true;
 
       const { data } = await api.mealplans.createOne(payload);
       if (data) {
-        this.refreshAll();
+        this._refreshBasedOnEntry(data);
       }
 
       loading.value = false;
@@ -88,7 +119,9 @@ export const useMealplans = function (range: Ref<DateRange>) {
       loading.value = true;
       const { data } = await api.mealplans.updateOne(updateData.id, updateData);
       if (data) {
+        // Might have moved between mealplans and unassigned, so refresh both
         this.refreshAll();
+        this.refreshUnassigned();
       }
       loading.value = false;
     },
@@ -97,7 +130,7 @@ export const useMealplans = function (range: Ref<DateRange>) {
       loading.value = true;
       const { data } = await api.mealplans.deleteOne(id);
       if (data) {
-        this.refreshAll();
+        this._refreshBasedOnEntry(data);
       }
     },
 
@@ -108,8 +141,9 @@ export const useMealplans = function (range: Ref<DateRange>) {
   };
 
   const mealplans = actions.getAll();
+  const unassigned = actions.getUnassigned();
 
   watch(range, actions.refreshAll);
 
-  return { mealplans, actions, validForm, loading };
+  return { mealplans, unassigned, actions, validForm, loading };
 };

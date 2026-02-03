@@ -45,7 +45,15 @@
     @confirm="addRecipeToPlan()"
   >
     <v-card-text>
+      <v-switch
+        v-model="assigned"
+        :label="$t('meal-plan.plan-for-specific-day')"
+        color="primary"
+        class="mb-3"
+        hide-details
+      />
       <v-date-picker
+        v-if="assigned"
         v-model="newMealdate"
         class="mx-auto mb-3"
         hide-header
@@ -55,6 +63,7 @@
         :local="$i18n.locale"
       />
       <v-select
+        v-if="assigned"
         v-model="newMealType"
         :return-object="false"
         :items="planTypeOptions"
@@ -192,6 +201,7 @@ const loading = ref(false);
 const menuItems = ref<ContextMenuItem[]>([]);
 const newMealdate = ref(new Date());
 const newMealType = ref<PlanEntryType>("dinner");
+const assigned = ref(true);
 
 const newMealdateString = computed(() => {
   // Format the date to YYYY-MM-DD in the same timezone as newMealdate
@@ -373,18 +383,28 @@ async function handleDownloadEvent() {
 
 async function addRecipeToPlan() {
   const { response } = await api.mealplans.createOne({
-    date: newMealdateString.value,
-    entryType: newMealType.value,
+    date: assigned.value ? newMealdateString.value : null,
+    entryType: assigned.value ? newMealType.value : null,
     title: "",
     text: "",
     recipeId: props.recipeId,
   });
 
   if (response?.status === 201) {
-    alert.success(i18n.t("recipe.recipe-added-to-mealplan") as string);
+    if (assigned.value) {
+      alert.success(i18n.t("recipe.recipe-added-to-mealplan") as string);
+    }
+    else {
+      alert.success(i18n.t("recipe.recipe-added-to-mealplan-unassigned") as string);
+    }
   }
   else {
-    alert.error(i18n.t("recipe.failed-to-add-recipe-to-mealplan") as string);
+    if (assigned.value) {
+      alert.error(i18n.t("recipe.failed-to-add-recipe-to-mealplan") as string);
+    }
+    else {
+      alert.error(i18n.t("recipe.failed-to-add-recipe-without-date") as string);
+    }
   }
 }
 
