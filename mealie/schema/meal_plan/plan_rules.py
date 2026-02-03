@@ -1,5 +1,5 @@
 import datetime
-from enum import Enum
+from enum import StrEnum
 from typing import Annotated
 
 import sqlalchemy as sa
@@ -14,7 +14,7 @@ from mealie.services.query_filter.builder import QueryFilterBuilder, QueryFilter
 logger = get_logger()
 
 
-class PlanRulesDay(str, Enum):
+class PlanRulesDay(StrEnum):
     monday = "monday"
     tuesday = "tuesday"
     wednesday = "wednesday"
@@ -33,7 +33,7 @@ class PlanRulesDay(str, Enum):
             return PlanRulesDay.unset
 
 
-class PlanRulesType(str, Enum):
+class PlanRulesType(StrEnum):
     breakfast = "breakfast"
     lunch = "lunch"
     dinner = "dinner"

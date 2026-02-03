@@ -27,6 +27,7 @@ services:
     network_mode: host
     environment:
       ALLOW_SIGNUP: True
+      BASE_URL: http://localhost:9000
       DB_ENGINE: sqlite
 
       OIDC_AUTH_ENABLED: True

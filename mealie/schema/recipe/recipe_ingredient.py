@@ -320,7 +320,7 @@ class ParsedIngredient(MealieModel):
     ingredient: RecipeIngredient
 
 
-class RegisteredParser(str, enum.Enum):
+class RegisteredParser(enum.StrEnum):
     nlp = "nlp"
     brute = "brute"
     openai = "openai"
