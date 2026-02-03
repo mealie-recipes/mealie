@@ -212,8 +212,8 @@
     "upload-file": "Datei hochladen",
     "created-on-date": "Erstellt am: {0}",
     "unsaved-changes": "Du hast ungespeicherte Änderungen. Möchtest du vor dem Verlassen speichern? OK um zu speichern, Cancel um Änderungen zu verwerfen.",
-    "discard-changes": "Discard Changes",
-    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
+    "discard-changes": "Änderungen verwerfen",
+    "discard-changes-description": "Du hast ungespeicherte Änderungen. Bist du sicher, dass du sie verwerfen möchtest?",
     "clipboard-copy-failure": "Fehler beim Kopieren in die Zwischenablage.",
     "confirm-delete-generic-items": "Bist du dir sicher, dass du die folgenden Einträge löschen möchtest?",
     "organizers": "Organisieren",
@@ -370,8 +370,8 @@
     "applies-to-all-days": "Gilt an allen Tagen",
     "applies-on-days": "Gilt {0}s",
     "meal-plan-settings": "Essensplan Einstellungen",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Alle zur Einkaufsliste hinzufügen",
+    "add-day-to-list": "Tag zur Einkaufsliste hinzufügen"
   },
   "migration": {
     "migration-data-removed": "Migrationsdaten entfernt",
@@ -644,7 +644,7 @@
     "scrape-recipe-website-being-blocked": "Die Website wird blockiert?",
     "scrape-recipe-try-importing-raw-html-instead": "Versuche stattdessen das reine HTML zu importieren.",
     "import-original-keywords-as-tags": "Importiere ursprüngliche Stichwörter als Schlagwörter",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "Importiere ursprüngliche Kategorien",
     "stay-in-edit-mode": "Im Bearbeitungsmodus bleiben",
     "parse-recipe-ingredients-after-import": "Zutaten nach dem Import parsen",
     "import-from-zip": "Von Zip importieren",
