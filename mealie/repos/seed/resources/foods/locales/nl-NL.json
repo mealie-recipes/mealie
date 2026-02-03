@@ -261,8 +261,8 @@
             "mixed greens": {
                 "aliases": [],
                 "description": "",
-                "name": "gemengde groenten",
-                "plural_name": "gemengde groenten"
+                "name": "gemengde sla",
+                "plural_name": "gemengde sla"
             },
             "parsnip": {
                 "aliases": [],
@@ -2193,20 +2193,20 @@
             "halloumi cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "halloumi cheese",
-                "plural_name": "halloumi cheese"
+                "name": "halloumi kaas",
+                "plural_name": "halloumi kaas"
             },
             "chevre cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "chevre cheese",
-                "plural_name": "chevre cheese"
+                "name": "chèvre",
+                "plural_name": "chèvre"
             },
             "manchego cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "manchego cheese",
-                "plural_name": "manchego cheese"
+                "name": "manchego",
+                "plural_name": "manchego"
             },
             "italian cheese blend": {
                 "aliases": [],
@@ -2229,8 +2229,8 @@
             "burrata cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "burrata cheese",
-                "plural_name": "burrata cheese"
+                "name": "burrata",
+                "plural_name": "burrata"
             },
             "havarti cheese": {
                 "aliases": [],
@@ -2277,8 +2277,8 @@
             "stilton cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "stilton cheese",
-                "plural_name": "stilton cheese"
+                "name": "stilton",
+                "plural_name": "stilton"
             },
             "raclette cheese": {
                 "aliases": [],
@@ -2457,8 +2457,8 @@
             "hard goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "hard goat cheese",
-                "plural_name": "hard goat cheese"
+                "name": "harde geitenkaas",
+                "plural_name": "harde geitenkaas"
             },
             "kashkaval cheese": {
                 "aliases": [],
@@ -3124,7 +3124,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "geitenkefir",
-                "plural_name": "goat kefirs"
+                "plural_name": "geitenkefir"
             },
             "lebneh": {
                 "aliases": [],
