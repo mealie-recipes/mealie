@@ -1,9 +1,8 @@
-import json
-
 import pytest
 from fastapi.testclient import TestClient
 
 from mealie.core.config import get_app_settings
+from mealie.schema.openai.recipe import OpenAIRecipe, OpenAIRecipeIngredient, OpenAIRecipeInstruction
 from mealie.services.openai import OpenAIService
 from mealie.services.recipe.recipe_service import OpenAIRecipeService
 from tests.utils import api_routes
@@ -35,19 +34,19 @@ def test_create_recipe_from_video(
     monkeypatch.setattr(OpenAIRecipeService, "_download_audio", mock_download_audio)
 
     # Mock OpenAI Response
-    async def mock_get_response(self, prompt: str, message: str, *args, **kwargs) -> str | None:
-        data = {
-            "@context": "https://schema.org",
-            "@type": "Recipe",
-            "name": "Mock Recipe",
-            "description": "Mock Description",
-            "recipeIngredient": ["1 cup flour", "2 eggs"],
-            "recipeInstructions": [
-                {"@type": "HowToStep", "text": "Mix ingredients"},
-                {"@type": "HowToStep", "text": "Bake"},
+    async def mock_get_response(self, prompt: str, message: str, *args, **kwargs) -> OpenAIRecipe | None:
+        return OpenAIRecipe(
+            name="Mock Recipe",
+            description="Mock Description",
+            ingredients=[
+                OpenAIRecipeIngredient(text="1 cup flour"),
+                OpenAIRecipeIngredient(text="2 eggs"),
             ],
-        }
-        return json.dumps(data)
+            instructions=[
+                OpenAIRecipeInstruction(text="Mix ingredients"),
+                OpenAIRecipeInstruction(text="Bake"),
+            ],
+        )
 
     monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
 

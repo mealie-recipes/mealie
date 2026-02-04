@@ -231,9 +231,28 @@ class RecipeController(BaseRecipeController):
                 status_code=400,
                 detail=ErrorResponse.respond("OpenAI transcription services are not enabled"),
             )
-        recipe_json = await self.service.create_from_video_url(req.url, translate_language=translate_language)
-        newReq = ScrapeRecipeData(url=req.url, data=RecipeScraperPackage.ld_json_to_html(recipe_json))
-        return await self._create_recipe_from_web(newReq)
+
+        try:
+            recipe = await self.service.create_from_video_url(req.url, translate_language=translate_language)
+        except exceptions.VideoDownloadError as e:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond(str(e)),
+            ) from e
+        except exceptions.OpenAIServiceError as e:
+            raise HTTPException(
+                status_code=500,
+                detail=ErrorResponse.respond(str(e)),
+            ) from e
+
+        self.publish_event(
+            event_type=EventTypes.recipe_created,
+            document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
+            group_id=recipe.group_id,
+            household_id=recipe.household_id,
+        )
+
+        return recipe.slug
 
     @router.post("/create/image", status_code=201)
     async def create_recipe_from_image(
