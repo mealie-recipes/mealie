@@ -315,8 +315,8 @@
             "watercress": {
                 "aliases": [],
                 "description": "",
-                "name": "watercress",
-                "plural_name": "watercress"
+                "name": "поточарка",
+                "plural_name": "поточарка"
             },
             "iceberg lettuce": {
                 "aliases": [],
@@ -327,20 +327,20 @@
             "mashed potato": {
                 "aliases": [],
                 "description": "",
-                "name": "mashed potato",
-                "plural_name": "mashed potatoes"
+                "name": "пире кромпир",
+                "plural_name": "пире кромпир"
             },
             "horseradish": {
                 "aliases": [],
                 "description": "",
-                "name": "horseradish",
-                "plural_name": "horseradishes"
+                "name": "рен",
+                "plural_name": "рен"
             },
             "chard": {
                 "aliases": [],
                 "description": "",
-                "name": "chard",
-                "plural_name": "chard"
+                "name": "блитва",
+                "plural_name": "блитва"
             },
             "pimiento": {
                 "aliases": [],
@@ -357,8 +357,8 @@
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter lettuce",
-                "plural_name": "butter lettuce"
+                "name": "зелена салата",
+                "plural_name": "зелена салата "
             },
             "hash brown": {
                 "aliases": [],
@@ -368,11 +368,11 @@
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "кинески купус"
                 ],
                 "description": "",
-                "name": "napa cabbage",
-                "plural_name": "napa cabbages"
+                "name": "кинески купус",
+                "plural_name": "кинески купус"
             },
             "celeriac": {
                 "aliases": [],
@@ -383,44 +383,44 @@
             "water chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "water chestnut",
-                "plural_name": "water chestnuts"
+                "name": "водени кестен",
+                "plural_name": "водени кестен"
             },
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "бела ротква",
+                "plural_name": "бела ротква"
             },
             "thai chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chile pepper",
-                "plural_name": "thai chile peppers"
+                "name": "таи чили паприка",
+                "plural_name": "таи чили паприка"
             },
             "bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "bok choy",
-                "plural_name": "bok choy"
+                "name": "кинеско зеље",
+                "plural_name": "кинеско зеље"
             },
             "okra": {
                 "aliases": [],
                 "description": "",
-                "name": "okra",
-                "plural_name": "okra"
+                "name": "бамија",
+                "plural_name": "бамиј"
             },
             "acorn squash": {
                 "aliases": [],
                 "description": "",
-                "name": "acorn squash",
-                "plural_name": "acorn squashes"
+                "name": "жир бундева",
+                "plural_name": "жир бундева"
             },
             "corn on the cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn on the cob",
-                "plural_name": "corn on the cob"
+                "name": "кукуруз",
+                "plural_name": "кукуруз"
             },
             "radicchio": {
                 "aliases": [],
@@ -437,32 +437,32 @@
             "tenderstem broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "tenderstem broccoli",
-                "plural_name": "tenderstem broccoli"
+                "name": "беби броколи",
+                "plural_name": "беби броколи"
             },
             "plantain": {
                 "aliases": [],
                 "description": "",
-                "name": "plantain",
-                "plural_name": "plantains"
+                "name": "плантаин",
+                "plural_name": "плантаин"
             },
             "leaf lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "leaf lettuce",
-                "plural_name": "leaf lettuce"
+                "name": "зелена салата",
+                "plural_name": "зелена салата"
             },
             "pepperoncini": {
                 "aliases": [],
                 "description": "",
-                "name": "pepperoncini",
-                "plural_name": "pepperoncinis"
+                "name": "фригатело",
+                "plural_name": "фригатело"
             },
             "baby bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "baby bok choy",
-                "plural_name": "baby bok choy"
+                "name": "беби кинеско зеље",
+                "plural_name": "беби кинеско зеље"
             },
             "jicama": {
                 "aliases": [],
@@ -473,8 +473,8 @@
             "endive": {
                 "aliases": [],
                 "description": "",
-                "name": "endive",
-                "plural_name": "endives"
+                "name": "ендивија",
+                "plural_name": "ендивија"
             },
             "habanero pepper": {
                 "aliases": [],
@@ -484,7 +484,7 @@
             },
             "maize": {
                 "aliases": [
-                    "corn husk"
+                    "кукуруз"
                 ],
                 "description": "",
                 "name": "кукуруз",
@@ -493,20 +493,20 @@
             "collard greens": {
                 "aliases": [],
                 "description": "",
-                "name": "collard greens",
-                "plural_name": "collard greens"
+                "name": "раштан",
+                "plural_name": "раштан"
             },
             "french-fried onion": {
                 "aliases": [],
                 "description": "",
-                "name": "french-fried onion",
-                "plural_name": "french-fried onions"
+                "name": "колутићи од лука",
+                "plural_name": "колутићи од лука"
             },
             "daikon": {
                 "aliases": [],
                 "description": "",
-                "name": "daikon",
-                "plural_name": "daikons"
+                "name": "даикон",
+                "plural_name": "даикон"
             },
             "baby corn": {
                 "aliases": [],
@@ -523,8 +523,8 @@
             "rutabaga": {
                 "aliases": [],
                 "description": "",
-                "name": "rutabaga",
-                "plural_name": "rutabagas"
+                "name": "рутабага",
+                "plural_name": "рутабага"
             },
             "belgian endive": {
                 "aliases": [],
@@ -535,14 +535,14 @@
             "yam": {
                 "aliases": [],
                 "description": "",
-                "name": "yam",
-                "plural_name": "yams"
+                "name": "јам",
+                "plural_name": "јам"
             },
             "ancho chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "ancho chile pepper",
-                "plural_name": "ancho chile peppers"
+                "name": "поблано чили",
+                "plural_name": "поблано чили"
             },
             "microgreens": {
                 "aliases": [],
@@ -553,26 +553,26 @@
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "boston lettuce",
-                "plural_name": "boston lettuce"
+                "name": "бостонска зелена салата",
+                "plural_name": "бостонска зелена салата"
             },
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
-                "name": "kohlrabi",
-                "plural_name": "kohlrabi"
+                "name": "келераба",
+                "plural_name": "келераба"
             },
             "fresno chile": {
                 "aliases": [],
                 "description": "",
-                "name": "fresno chile",
-                "plural_name": "fresno chiles"
+                "name": "фресно чили",
+                "plural_name": "фресно чили"
             },
             "delicata squash": {
                 "aliases": [],
                 "description": "",
-                "name": "delicata squash",
-                "plural_name": "delicata squashes"
+                "name": "деликата бундева",
+                "plural_name": "деликата бундева"
             },
             "Frisée": {
                 "aliases": [
@@ -591,8 +591,8 @@
             "cress": {
                 "aliases": [],
                 "description": "",
-                "name": "cress",
-                "plural_name": "cress"
+                "name": "крес салата",
+                "plural_name": "крес салата"
             },
             "broccoli slaw": {
                 "aliases": [],
@@ -603,14 +603,14 @@
             "arbol chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "arbol chile pepper",
-                "plural_name": "arbol chile peppers"
+                "name": "арбол чили",
+                "plural_name": "арбол чили"
             },
             "golden beet": {
                 "aliases": [],
                 "description": "",
-                "name": "golden beet",
-                "plural_name": "golden beets"
+                "name": "златна цвекла",
+                "plural_name": "златна цвекла"
             },
             "pea shoot": {
                 "aliases": [],
@@ -703,8 +703,8 @@
             "craisin": {
                 "aliases": [],
                 "description": "",
-                "name": "craisin",
-                "plural_name": "craisins"
+                "name": "сува брусница",
+                "plural_name": "сува брусница"
             },
             "pear": {
                 "aliases": [],
@@ -817,8 +817,8 @@
             "tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarind",
-                "plural_name": "tamarinds"
+                "name": "тамаринд",
+                "plural_name": "тамаринд"
             },
             "nectarine": {
                 "aliases": [],
@@ -919,8 +919,8 @@
             "jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit",
-                "plural_name": "jackfruits"
+                "name": "џекфрут",
+                "plural_name": "џекфрут"
             },
             "dragon fruit": {
                 "aliases": [],
@@ -943,8 +943,8 @@
             "lychee": {
                 "aliases": [],
                 "description": "",
-                "name": "lychee",
-                "plural_name": "lychees"
+                "name": "личи",
+                "plural_name": "личи"
             },
             "young coconut": {
                 "aliases": [],
