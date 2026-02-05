@@ -1,15 +1,15 @@
 {
     "teaspoon": {
-        "name": "кашичица",
-        "plural_name": "кашичица",
+        "name": "кафена кашичица",
+        "plural_name": "кафене кашичице",
         "description": "",
-        "abbreviation": "кашичица"
+        "abbreviation": "tsp"
     },
     "tablespoon": {
         "name": "кашика",
         "plural_name": "кашика",
         "description": "",
-        "abbreviation": "кашика"
+        "abbreviation": "tbsp"
     },
     "cup": {
         "name": "шоља",
@@ -21,7 +21,7 @@
         "name": "течна унца",
         "plural_name": "течна унца",
         "description": "",
-        "abbreviation": "течна унца"
+        "abbreviation": "fl oz"
     },
     "pint": {
         "name": "пинта",
@@ -64,13 +64,13 @@
         "name": "унца",
         "plural_name": "унци",
         "description": "",
-        "abbreviation": "унца (oz)"
+        "abbreviation": "oz"
     },
     "gram": {
         "name": "грам",
         "plural_name": "грама",
         "description": "",
-        "abbreviation": "г"
+        "abbreviation": "g"
     },
     "kilogram": {
         "name": "килограм",
@@ -85,14 +85,14 @@
         "abbreviation": "мг"
     },
     "splash": {
-        "name": "мала количина (splash)",
-        "plural_name": "неколико капи",
+        "name": "мало",
+        "plural_name": "мало",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "осмина кашичице",
-        "plural_name": "на врх ножа",
+        "name": "осмина кашикице",
+        "plural_name": "осмина кашичице",
         "description": "",
         "abbreviation": ""
     },
@@ -103,13 +103,13 @@
         "abbreviation": ""
     },
     "head": {
-        "name": "head",
+        "name": "главица",
         "plural_name": "главица",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
-        "name": "клинчић",
+        "name": "чешањ",
         "plural_name": "чешњева",
         "description": "",
         "abbreviation": ""
@@ -133,14 +133,14 @@
         "abbreviation": ""
     },
     "pinch": {
-        "name": "напрстак",
-        "plural_name": "напрстака",
+        "name": "прстохват",
+        "plural_name": "прстохвата",
         "description": "",
         "abbreviation": ""
     },
     "sprig": {
         "name": "гранчица",
-        "plural_name": "гранчица",
+        "plural_name": "гранчице",
         "description": "",
         "abbreviation": ""
     }
