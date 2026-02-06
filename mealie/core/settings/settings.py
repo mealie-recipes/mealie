@@ -110,6 +110,11 @@ class AppSettings(AppLoggingSettings):
     BASE_URL: str = "http://localhost:8080"
     """trailing slashes are trimmed (ex. `http://localhost:8080/` becomes ``http://localhost:8080`)"""
 
+    @property
+    def is_default_base_url(self) -> bool:
+        """Returns True if BASE_URL has not been changed from the default."""
+        return self.BASE_URL == "http://localhost:8080"
+
     STATIC_FILES: str = str(PACKAGE_DIR / "frontend")
     """path to static files directory (ex. `mealie/dist`)"""
 
@@ -411,6 +416,11 @@ class AppSettings(AppLoggingSettings):
     OPENAI_REQUEST_TIMEOUT: int = 300
     """
     The number of seconds to wait for an OpenAI request to complete before cancelling the request
+    """
+    OPENAI_CUSTOM_PROMPT_DIR: str | None = None
+    """
+    Path to a folder containing custom prompt files;
+    files are individually optional, each prompt name will fall back to the default if no custom file exists
     """
 
     @property

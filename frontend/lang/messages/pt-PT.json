@@ -212,6 +212,8 @@
     "upload-file": "Carregar ficheiro",
     "created-on-date": "Criado em: {0}",
     "unsaved-changes": "Tem alterações por gravar. Quer gravar antes de sair? OK para gravar, Cancelar para descartar alterações.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Erro ao copiar para a área de transferência.",
     "confirm-delete-generic-items": "Tem a certeza de que deseja eliminar os seguintes itens?",
     "organizers": "Organizadores",
@@ -343,8 +345,8 @@
     "lunch": "Almoço",
     "dinner": "Jantar",
     "snack": "Snack",
-    "drink": "Drink",
-    "dessert": "Dessert",
+    "drink": "Bebida",
+    "dessert": "Sobremesa",
     "type-any": "Qualquer",
     "day-any": "Qualquer",
     "editor": "Editor",
@@ -367,7 +369,9 @@
     "recipe-rules": "Regras das receitas",
     "applies-to-all-days": "Aplica-se a todos os dias",
     "applies-on-days": "Aplica-se em {0}s",
-    "meal-plan-settings": "Definições do Plano de Refeições"
+    "meal-plan-settings": "Definições do Plano de Refeições",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Dados de migração removidos",
@@ -445,7 +449,7 @@
     "upload-a-recipe": "Enviar uma Receita",
     "upload-individual-zip-file": "Carregar um ficheiro .zip individual, exportado de outra instância do Mealie.",
     "url-form-hint": "Copie e cole um link do seu site de receitas favorito",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copie e cole o URL de origem dos seus dados (opcional)",
     "view-scraped-data": "Ver dados recolhidos",
     "trim-whitespace-description": "Eliminar os espaços em branco no início e no fim, bem como as linhas em branco",
     "trim-prefix-description": "Apagar o primeiro caractere de cada linha",
@@ -637,9 +641,10 @@
     "scrape-recipe-suggest-bulk-importer": "Experimente o importador em massa",
     "scrape-recipe-have-raw-html-or-json-data": "Tem dados HTML ou JSON em bruto?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "É possível importar diretamente a partir de dados em bruto",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-website-being-blocked": "O site está bloqueado?",
+    "scrape-recipe-try-importing-raw-html-instead": "Tente importar o HTML bruto em vez disso.",
     "import-original-keywords-as-tags": "Importar palavras-chave originais como etiquetas",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Permanecer no modo de edição",
     "parse-recipe-ingredients-after-import": "Analisar ingredientes da receita após a importação",
     "import-from-zip": "Importar de Zip",
@@ -1430,11 +1435,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Este campo é obrigatório",
+    "invalid-email": "O Email deve ser válido",
+    "invalid-url": "O URL deve ser válido",
+    "no-whitespace": "Não são permitidos espaços em branco",
+    "min-length": "Deve ter pelo menos {min} caracteres",
+    "max-length": "Deve ter no máximo {max} caracteres"
   }
 }

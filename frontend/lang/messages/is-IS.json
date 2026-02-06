@@ -212,6 +212,8 @@
     "upload-file": "Hlaða upp skrá",
     "created-on-date": "Búið til: {0}",
     "unsaved-changes": "Þú hefur ekki vistað breytingar. Viltu vista áður en þú ferð? Ýttu á \"Í lagi\" til að vista, \"Hætta við\" til að henda breytingum.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Mistókst að afrita klippispjaldið.",
     "confirm-delete-generic-items": "Ertu viss um að þú viljir eyða eftirfylgjandi atriðum?",
     "organizers": "Skipuleggjarar",
@@ -367,7 +369,9 @@
     "recipe-rules": "Uppskriftar reglur",
     "applies-to-all-days": "Á við alla daga",
     "applies-on-days": "Gildir þegar er {0},",
-    "meal-plan-settings": "Stillingar matarplans"
+    "meal-plan-settings": "Stillingar matarplans",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Gagnaflutningur fjarlægður",
@@ -640,6 +644,7 @@
     "scrape-recipe-website-being-blocked": "Er vefsíðan lokuð?",
     "scrape-recipe-try-importing-raw-html-instead": "Reyndu að flytja inn HTML kóðann í staðinn.",
     "import-original-keywords-as-tags": "Nota upprunanleg merki",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Vera í breytingarham",
     "parse-recipe-ingredients-after-import": "Greina innhald uppskriftar eftir að búið er að hlaða inn uppskrift",
     "import-from-zip": "Hlaða inn frá .zip",

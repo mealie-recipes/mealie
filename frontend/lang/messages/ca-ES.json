@@ -212,6 +212,8 @@
     "upload-file": "Puja un fitxer",
     "created-on-date": "Creat el: {0}",
     "unsaved-changes": "Tens canvis que no estan guardats. Vols guardar-los abans de sortir? Clica d'acord per guardar-los o cancel·lar per descartar els canvis.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "No s'ha pogut copiar al porta-retalls.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
     "organizers": "Organitzadors",
@@ -367,7 +369,9 @@
     "recipe-rules": "Normes per la recepta",
     "applies-to-all-days": "Aplica a tots els dies",
     "applies-on-days": "S'aplicarà en {0}s",
-    "meal-plan-settings": "Opcions de planificació de menús"
+    "meal-plan-settings": "Opcions de planificació de menús",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "S'han suprimit les dades migrades",
@@ -640,6 +644,7 @@
     "scrape-recipe-website-being-blocked": "S'està bloquejant el lloc web?",
     "scrape-recipe-try-importing-raw-html-instead": "Prova important l'HTML directament.",
     "import-original-keywords-as-tags": "Importa les paraules clau originals com a tags",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Segueix en el mode d'edició",
     "parse-recipe-ingredients-after-import": "Analitza els ingredients de la recepta després d'importar",
     "import-from-zip": "Importa des d'un ZIP",

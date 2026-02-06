@@ -212,6 +212,8 @@
     "upload-file": "Enviar arquivo",
     "created-on-date": "Criado em {0}",
     "unsaved-changes": "Você possui alterações não salvas. Deseja salvar antes de sair? Ok para salvar, Cancelar para descartar alterações.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Falha ao copiar para a área de transferência.",
     "confirm-delete-generic-items": "Tem certeza que quer excluir os itens seguintes?",
     "organizers": "Organizadores",
@@ -367,7 +369,9 @@
     "recipe-rules": "Regras das receitas",
     "applies-to-all-days": "Aplica-se diariamente",
     "applies-on-days": "Aplica-se em:",
-    "meal-plan-settings": "Configurações de plano de refeições"
+    "meal-plan-settings": "Configurações de plano de refeições",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Dados de migração removidos",
@@ -640,6 +644,7 @@
     "scrape-recipe-website-being-blocked": "Site sendo bloqueado?",
     "scrape-recipe-try-importing-raw-html-instead": "Tente importar o HTML ao invés disso.",
     "import-original-keywords-as-tags": "Importar palavras-chave originais como marcadores",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Permanecer no modo de edição",
     "parse-recipe-ingredients-after-import": "Interpretar os ingredientes da receita após importar",
     "import-from-zip": "Importar do .zip",

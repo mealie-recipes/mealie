@@ -212,6 +212,8 @@
     "upload-file": "Naloži datoteko",
     "created-on-date": "Ustvarjeno dne: {0}",
     "unsaved-changes": "Imate neohranjene spremembe. Ali želite shraniti pred odhodom? V redu, če želite shraniti, Prekliči, če želite zavreči spremembe.",
+    "discard-changes": "Zavrzi spremembe",
+    "discard-changes-description": "Imate neshranjene spremembe. Ste prepričani, da jih želite zavreči?",
     "clipboard-copy-failure": "Kopiranje na odložišče ni bilo uspešno.",
     "confirm-delete-generic-items": "Ali ste prepričani, da želite izbrisati izbrane elemente?",
     "organizers": "Organizatorji",
@@ -367,7 +369,9 @@
     "recipe-rules": "Pravila za recepte",
     "applies-to-all-days": "Velja za vse dneve",
     "applies-on-days": "Velja za {0}",
-    "meal-plan-settings": "Nastavitve jedilnika"
+    "meal-plan-settings": "Nastavitve jedilnika",
+    "add-all-to-list": "Dodaj vse na seznam",
+    "add-day-to-list": "Dodaj dan na seznam"
   },
   "migration": {
     "migration-data-removed": "Migrirani podatki so odstranjeni",
@@ -640,6 +644,7 @@
     "scrape-recipe-website-being-blocked": "Je spletna stran blokirana?",
     "scrape-recipe-try-importing-raw-html-instead": "Poskusite namesto tega uvoziti surovi HTML.",
     "import-original-keywords-as-tags": "Uvozi izvorne ključne besede kot značke",
+    "import-original-categories": "Uvozi izvirne kategorije",
     "stay-in-edit-mode": "Urejaj naprej",
     "parse-recipe-ingredients-after-import": "Razčlenitev sestavin recepta po uvozu",
     "import-from-zip": "Uvozi z Zip",

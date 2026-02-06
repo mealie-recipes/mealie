@@ -3,10 +3,13 @@ import time
 from collections import defaultdict
 from datetime import UTC, datetime, timedelta
 from random import randint
+from unittest.mock import patch
 from urllib.parse import parse_qsl, urlsplit
 
 import pytest
+from dateutil.relativedelta import relativedelta
 from fastapi.testclient import TestClient
+from freezegun import freeze_time
 from humps import camelize
 from pydantic import UUID4
 
@@ -34,6 +37,7 @@ from mealie.schema.response.pagination import (
     PaginationQuery,
 )
 from mealie.schema.user.user import UserRatingUpdate
+from mealie.services.query_filter.builder import PlaceholderKeyword
 from mealie.services.seeder.seeder_service import SeederService
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
@@ -1567,3 +1571,130 @@ def test_pagination_filter_by_custom_rating(api_client: TestClient, user_tuple: 
     recipes_data = response.json()["items"]
     assert len(recipes_data) == 1
     assert recipes_data[0]["id"] == str(recipe_2.id)
+
+
+def test_parse_now_with_remainder_too_short():
+    with pytest.raises(ValueError, match="Invalid remainder"):
+        PlaceholderKeyword._parse_now("$NOW+d")
+
+
+def test_parse_now_without_arithmetic():
+    result = PlaceholderKeyword._parse_now("$NOW")
+    assert isinstance(result, str)
+    dt = datetime.fromisoformat(result)
+    assert isinstance(dt, datetime)
+
+
+def test_parse_now_passthrough_non_placeholder():
+    test_string = "2024-01-15"
+    result = PlaceholderKeyword._parse_now(test_string)
+    assert result == test_string
+
+
+@freeze_time("2024-01-15 12:00:00")
+def test_parse_now_with_int_amount():
+    result = PlaceholderKeyword._parse_now("$NOW+30d")
+    assert isinstance(result, str)
+    dt = datetime.fromisoformat(result)
+    assert isinstance(dt, datetime)
+    # Verify offset is exactly 30 days from the frozen time
+    dt = dt.replace(tzinfo=UTC)
+    expected = datetime(2024, 2, 14, 12, 0, 0, tzinfo=UTC)
+    assert dt == expected
+
+
+@freeze_time("2024-01-15 12:00:00")
+def test_parse_now_with_single_digit_int():
+    result = PlaceholderKeyword._parse_now("$NOW+1d")
+    assert isinstance(result, str)
+    dt = datetime.fromisoformat(result)
+    assert isinstance(dt, datetime)
+    # Verify offset is exactly 1 day from the frozen time
+    dt = dt.replace(tzinfo=UTC)
+    expected = datetime(2024, 1, 16, 12, 0, 0, tzinfo=UTC)
+    assert dt == expected
+
+
+@pytest.mark.parametrize("invalid_amount", ["apple", "abc", "!@#"])
+def test_parse_now_with_invalid_amount(invalid_amount):
+    with pytest.raises(ValueError, match="Invalid amount"):
+        PlaceholderKeyword._parse_now(f"$NOW+{invalid_amount}d")
+
+
+@pytest.mark.parametrize(
+    "unit,offset_delta",
+    [
+        ("y", relativedelta(years=5)),
+        ("m", relativedelta(months=5)),
+        ("d", timedelta(days=5)),
+        ("H", timedelta(hours=5)),
+        ("M", timedelta(minutes=5)),
+        ("S", timedelta(seconds=5)),
+    ],
+)
+@freeze_time("2024-01-15 12:00:00")
+def test_parse_now_with_valid_units(unit, offset_delta):
+    result = PlaceholderKeyword._parse_now(f"$NOW+5{unit}")
+    assert isinstance(result, str)
+    dt = datetime.fromisoformat(result)
+    assert isinstance(dt, datetime)
+    # Verify offset is correct from the frozen time
+    dt = dt.replace(tzinfo=UTC)
+    frozen_time = datetime(2024, 1, 15, 12, 0, 0, tzinfo=UTC)
+    expected = frozen_time + offset_delta
+    assert dt == expected
+
+
+def test_parse_now_with_invalid_unit():
+    with pytest.raises(ValueError, match="Invalid time unit"):
+        PlaceholderKeyword._parse_now("$NOW+1x")
+
+
+def test_parse_now_with_missing_unit():
+    with pytest.raises(ValueError, match="Invalid remainder"):
+        PlaceholderKeyword._parse_now("$NOW+1")
+
+
+@pytest.mark.parametrize("operation,expected_sign", [("+", 1), ("-", -1)])
+@freeze_time("2024-01-15 12:00:00")
+def test_parse_now_with_valid_operations(operation, expected_sign):
+    result = PlaceholderKeyword._parse_now(f"$NOW{operation}5d")
+    assert isinstance(result, str)
+    dt = datetime.fromisoformat(result)
+    assert isinstance(dt, datetime)
+    # Verify offset direction is correct from the frozen time
+    dt = dt.replace(tzinfo=UTC)
+    frozen_time = datetime(2024, 1, 15, 12, 0, 0, tzinfo=UTC)
+    expected = frozen_time + (timedelta(days=5) * expected_sign)
+    assert dt == expected
+
+
+@pytest.mark.parametrize("invalid_operation", ["*", "/", "=", "x"])
+def test_parse_now_with_invalid_operations(invalid_operation):
+    with pytest.raises(ValueError, match="Invalid operator"):
+        PlaceholderKeyword._parse_now(f"$NOW{invalid_operation}5d")
+
+
+@pytest.mark.parametrize(
+    "placeholder",
+    [
+        pytest.param("$NOW", id="now_current_day"),
+        pytest.param("$NOW+1d", id="now_plus_one_day"),
+    ],
+)
+def test_e2e_parse_now_placeholder(
+    api_client: TestClient,
+    unique_user: TestUser,
+    placeholder: str,
+):
+    with patch.object(PlaceholderKeyword, "parse_value", wraps=PlaceholderKeyword.parse_value) as mock_parse:
+        params = {
+            "page": 1,
+            "perPage": -1,
+            "queryFilter": f'id="{unique_user.user_id}" AND lastMade >= "{placeholder}"',
+        }
+        response = api_client.get(api_routes.recipes, params=params, headers=unique_user.token)
+        assert response.status_code == 200
+
+    # Verify that the placeholder parsing was called
+    assert mock_parse.call_count

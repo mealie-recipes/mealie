@@ -5,7 +5,7 @@ from mealie.schema.recipe.recipe_category import CategoryBase, TagBase
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 
 
-class ExportTypes(str, enum.Enum):
+class ExportTypes(enum.StrEnum):
     JSON = "json"
 
 

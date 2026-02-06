@@ -2,6 +2,7 @@ import asyncio
 import json
 from dataclasses import dataclass
 from typing import cast
+from unittest.mock import MagicMock
 
 import pytest
 from pydantic import UUID4
@@ -459,7 +460,7 @@ def test_openai_parser(
 ):
     ingredient_count = random_int(10, 20)
 
-    async def mock_get_response(self, prompt: str, message: str, *args, **kwargs) -> str | None:
+    async def mock_get_response(self, prompt: str, message: str, *args, **kwargs) -> OpenAIIngredients | None:
         inputs = json.loads(message)
         data = OpenAIIngredients(
             ingredients=[
@@ -469,10 +470,10 @@ def test_openai_parser(
                     food=random_string(),
                     note=random_string(),
                 )
-                for input in inputs
+                for _ in inputs
             ]
         )
-        return data.model_dump_json()
+        return data
 
     monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
 
@@ -496,7 +497,8 @@ def test_openai_parser_sanitize_output(
     parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
     monkeypatch: pytest.MonkeyPatch,
 ):
-    async def mock_get_response(self, prompt: str, message: str, *args, **kwargs) -> str | None:
+    async def mock_get_raw_response(self, prompt: str, content: list[dict], response_schema) -> MagicMock:
+        # Create data with null character in JSON to test preprocessing
         data = OpenAIIngredients(
             ingredients=[
                 OpenAIIngredient(
@@ -507,9 +509,15 @@ def test_openai_parser_sanitize_output(
                 )
             ]
         )
-        return data.model_dump_json()
 
-    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+        # Create a mock raw response which matches the OpenAI chat response format
+        mock_response = MagicMock()
+        mock_response.choices = [MagicMock()]
+        mock_response.choices[0].message.content = data.model_dump_json()
+        return mock_response
+
+    # Mock the raw response here since we want to make sure our service executes processing before loading the model
+    monkeypatch.setattr(OpenAIService, "_get_raw_response", mock_get_raw_response)
 
     with session_context() as session:
         loop = asyncio.get_event_loop()

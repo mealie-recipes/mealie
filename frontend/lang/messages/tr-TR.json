@@ -212,6 +212,8 @@
     "upload-file": "Dosya Yükle",
     "created-on-date": "{0} tarihinde oluşturuldu",
     "unsaved-changes": "Kaydedilmemiş değişiklikleriniz mevcut. Ayrılmadan önce kaydetmek ister misiniz? Kaydetmek için Tamam'ı, değişiklikleri iptal etmek için İptal'i seçin.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Panoya kopyalanamadı.",
     "confirm-delete-generic-items": "Aşağıdaki öğeleri silmek istediğinizden emin misiniz?",
     "organizers": "Organizatörler",
@@ -367,7 +369,9 @@
     "recipe-rules": "Tarif Kuralları",
     "applies-to-all-days": "Tüm günler için geçerlidir",
     "applies-on-days": "{0} günlerine geçerlidir",
-    "meal-plan-settings": "Öğün Planı Ayarları"
+    "meal-plan-settings": "Öğün Planı Ayarları",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Taşıma verileri kaldırıldı",
@@ -640,6 +644,7 @@
     "scrape-recipe-website-being-blocked": "Web sitesi engelleniyor?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Orijinal anahtar kelimeleri etiket olarak içe aktar",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Düzenleme modunda kalın",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Zip'ten içeri aktar",

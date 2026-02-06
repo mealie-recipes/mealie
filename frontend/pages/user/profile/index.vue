@@ -295,6 +295,7 @@ export default defineNuxtComponent({
   async setup() {
     const i18n = useI18n();
     const $auth = useMealieAuth();
+    const { $appInfo } = useNuxtApp();
     const route = useRoute();
     const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
 
@@ -302,7 +303,18 @@ export default defineNuxtComponent({
       title: i18n.t("settings.profile"),
     });
 
-    const user = computed<UserOut | null>(() => $auth.user.value);
+    const user = computed<UserOut | null>(() => {
+      const authUser = $auth.user.value;
+      if (!authUser) return null;
+
+      // Override canInvite if password login is disabled
+      const canInvite = !$appInfo.allowPasswordLogin ? false : authUser.canInvite;
+
+      return {
+        ...authUser,
+        canInvite,
+      };
+    });
 
     const inviteDialog = ref(false);
     const api = useUserApi();

@@ -212,6 +212,8 @@
     "upload-file": "ファイルのアップロード",
     "created-on-date": "作成日: {0}",
     "unsaved-changes": "保存されていない変更があります。移動する前に保存しますか？保存するには はい を、変更を破棄するにはキャンセルしてください。",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "クリップボードにコピーできませんでした",
     "confirm-delete-generic-items": "次のアイテムを本当に削除しますか？",
     "organizers": "収納",
@@ -367,7 +369,9 @@
     "recipe-rules": "レシピのルール",
     "applies-to-all-days": "すべての日に適用",
     "applies-on-days": "{0}曜日に適用",
-    "meal-plan-settings": "献立設定"
+    "meal-plan-settings": "献立設定",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "移行データが削除されました",
@@ -640,6 +644,7 @@
     "scrape-recipe-website-being-blocked": "Website being blocked?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "元のキーワードをタグとしてインポート",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "編集モードを維持",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Zipからインポート",

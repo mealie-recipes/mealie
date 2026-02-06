@@ -26,7 +26,7 @@ from mealie.schema.recipe.recipe_ingredient import IngredientFood
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponseItem
 from mealie.schema.recipe.recipe_tool import RecipeToolOut
 from mealie.schema.response.pagination import PaginationQuery
-from mealie.schema.response.query_filter import QueryFilterBuilder
+from mealie.services.query_filter.builder import QueryFilterBuilder
 
 from ..db.models._model_base import SqlAlchemyBase
 from .repository_generic import HouseholdRepositoryGeneric

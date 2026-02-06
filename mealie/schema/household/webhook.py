@@ -9,7 +9,7 @@ from mealie.schema._mealie.datetime_parse import parse_datetime
 from mealie.schema.response.pagination import PaginationBase
 
 
-class WebhookType(str, enum.Enum):
+class WebhookType(enum.StrEnum):
     mealplan = "mealplan"
 
 

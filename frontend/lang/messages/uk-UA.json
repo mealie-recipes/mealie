@@ -212,6 +212,8 @@
     "upload-file": "Завантажити файл",
     "created-on-date": "Створено: {0}",
     "unsaved-changes": "У вас є незбережені зміни. Ви хочете зберегти їх перед виходом? Гаразд, щоб зберегти, Скасувати, щоб скасувати.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Не вдалося скопіювати до буфера обміну.",
     "confirm-delete-generic-items": "Ви впевнені, що хочете видалити вибрані елементи?",
     "organizers": "Органайзери",
@@ -342,9 +344,9 @@
     "breakfast": "Сніданок",
     "lunch": "Обід",
     "dinner": "Вечеря",
-    "snack": "Snack",
-    "drink": "Drink",
-    "dessert": "Dessert",
+    "snack": "Закуска",
+    "drink": "Напій",
+    "dessert": "Десерт",
     "type-any": "Будь-який",
     "day-any": "Будь-який",
     "editor": "Редактор",
@@ -367,7 +369,9 @@
     "recipe-rules": "Правила рецептів",
     "applies-to-all-days": "Застосовується до всіх днів",
     "applies-on-days": "Застосовується на {0}сек",
-    "meal-plan-settings": "Налаштування меню"
+    "meal-plan-settings": "Налаштування меню",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Дані міграції видалені",
@@ -445,7 +449,7 @@
     "upload-a-recipe": "Завантажити рецепт",
     "upload-individual-zip-file": "Завантажити окремий .zip файл, експортований з іншого Mealie.",
     "url-form-hint": "Скопіюйте та вставте посилання з вашого улюбленого кулінарного веб-сайту",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Скопіюйте та вставте URL-адресу ваших даних (необов'язково)",
     "view-scraped-data": "Переглянути зібрані дані",
     "trim-whitespace-description": "Обрізати початкові та кінцеву пробілів і порожні лінії",
     "trim-prefix-description": "Обрізати перший символ з кожного рядка",
@@ -637,9 +641,10 @@
     "scrape-recipe-suggest-bulk-importer": "Спробуйте масовий розпізнавач",
     "scrape-recipe-have-raw-html-or-json-data": "Маєте необроблені дані HTML або JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Ви можете імпортувати необроблені дані",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-website-being-blocked": "Заблокований сайт?",
+    "scrape-recipe-try-importing-raw-html-instead": "Спробуйте імпортувати вихідний HTML натомість.",
     "import-original-keywords-as-tags": "Імпортувати оригінальні ключові слова як теги",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Залишитися в режимі редактора",
     "parse-recipe-ingredients-after-import": "Розпізнавання інгредієнтів рецепту після імпорту",
     "import-from-zip": "Імпортувати з Zip",
@@ -1430,11 +1435,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Це поле обовʼязкове",
+    "invalid-email": "Електронна адреса повинна бути дійсною",
+    "invalid-url": "Має бути дійсною URL-адресою",
+    "no-whitespace": "Пробіли заборонені",
+    "min-length": "Повинно бути не менше ніж {min} символів ",
+    "max-length": "Повинно бути не більше ніж {max} символів"
   }
 }

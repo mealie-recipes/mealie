@@ -54,7 +54,7 @@
     "apprise-url": "Apprise URL",
     "database": "Tietokanta",
     "delete-event": "Poista tapahtuma",
-    "event-delete-confirmation": "Oletko varma että haluat poistaa tämän tapahtuman?",
+    "event-delete-confirmation": "Haluatko varmasti poistaa tämän tapahtuman?",
     "event-deleted": "Tapahtuma poistettu",
     "event-updated": "Tapahtuma päivitetty",
     "new-notification-form-description": "Mealie käyttää Apprise-kirjastoa ilmoitusten luomiseen. Se tarjoaa monia ilmoituspalvelveluvaihtoehtoja. Lisää tietoa siitä, kuinka luoda URL palvelua varten, löydät Apprisen wikistä. Joihinkin ilmoitustyyppeihin voi sisältyä lisäominaisuuksia.",
@@ -212,6 +212,8 @@
     "upload-file": "Tuo tiedosto",
     "created-on-date": "Luotu {0}",
     "unsaved-changes": "Et ole tallentanut tekemiäsi muutoksia. Tallennetaanko ne? Paina \"ok\" tallentaaksesi ja \"peruuta\", jos et halua tallentaa.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Kopioiminen leikepöydälle epäonnistui.",
     "confirm-delete-generic-items": "Haluatko varmasti poistaa seuraavat kohteet?",
     "organizers": "Järjestäjät",
@@ -342,9 +344,9 @@
     "breakfast": "Aamiainen",
     "lunch": "Lounas",
     "dinner": "Päivällinen",
-    "snack": "Snack",
-    "drink": "Drink",
-    "dessert": "Dessert",
+    "snack": "Välipala",
+    "drink": "Juoma",
+    "dessert": "Jälkiruoka",
     "type-any": "Mikä tahansa",
     "day-any": "Koska tahansa",
     "editor": "Editori",
@@ -367,7 +369,9 @@
     "recipe-rules": "Reseptimääritykset",
     "applies-to-all-days": "Sovelletaan kaikkiin päiviin",
     "applies-on-days": "Käytetään {0}",
-    "meal-plan-settings": "Ateriasuunnitelman asetukset"
+    "meal-plan-settings": "Ateriasuunnitelman asetukset",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Tuodut tiedot poistettu",
@@ -637,9 +641,10 @@
     "scrape-recipe-suggest-bulk-importer": "Kokeile massasiirtotyökalua",
     "scrape-recipe-have-raw-html-or-json-data": "Onko sinulla raakaa HTML- tai JSON-dataa?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Voit tuoda raakadatan suoraan",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-website-being-blocked": "Onko sivusto estetty?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Tuo alkuperäiset avainsanat tunnisteiksi",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Pysy muokkaustilassa",
     "parse-recipe-ingredients-after-import": "Jäsennä reseptin ainesosat tuonnin jälkeen",
     "import-from-zip": "Tuo zip-arkistosta",
@@ -1081,7 +1086,7 @@
     "forgot-password": "Unohditko salasanasi",
     "forgot-password-text": "Syötä sähköpostiosoitteesi, niin voit muuttaa salasanaasi linkin kautta.",
     "changes-reflected-immediately": "Muutokset tähän käyttäjään astuvat välittömästi voimaan.",
-    "default-activity": "Oletus Toiminta",
+    "default-activity": "Oletusnäkymä",
     "default-activity-hint": "Valitse haluamasi sivu, johon haluat navigoida kirjautuessasi tältä laitteelta"
   },
   "language-dialog": {
@@ -1430,11 +1435,11 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
+    "required": "Tämä kenttä on pakollinen",
+    "invalid-email": "Sähköpostiosoite ei ole kelvollinen",
+    "invalid-url": "URL ei ole kelvollinen",
     "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "min-length": "Vähimmäispituus on {min} merkkiä",
+    "max-length": "Enimmäispituus on {max} merkkiä"
   }
 }

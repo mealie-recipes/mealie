@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import re
 from collections import deque
-from enum import Enum
 from typing import Any, cast
 from uuid import UUID
 
@@ -19,88 +18,8 @@ from mealie.db.models._model_utils.datetime import NaiveDateTime
 from mealie.db.models._model_utils.guid import GUID
 from mealie.schema._mealie.mealie_model import MealieModel
 
-
-class RelationalKeyword(Enum):
-    IS = "IS"
-    IS_NOT = "IS NOT"
-    IN = "IN"
-    NOT_IN = "NOT IN"
-    CONTAINS_ALL = "CONTAINS ALL"
-    LIKE = "LIKE"
-    NOT_LIKE = "NOT LIKE"
-
-    @classmethod
-    def parse_component(cls, component: str) -> list[str] | None:
-        """
-        Try to parse a component using a relational keyword
-
-        If no matching keyword is found, returns None
-        """
-
-        # extract the attribute name from the component
-        parsed_component = component.split(maxsplit=1)
-        if len(parsed_component) < 2:
-            return None
-
-        # assume the component has already filtered out the value and try to match a keyword
-        # if we try to filter out the value without checking first, keywords with spaces won't parse correctly
-        possible_keyword = parsed_component[1].strip().lower()
-        for rel_kw in sorted([keyword.value for keyword in cls], key=len, reverse=True):
-            if rel_kw.lower() != possible_keyword:
-                continue
-
-            parsed_component[1] = rel_kw
-            return parsed_component
-
-        # there was no match, so the component may still have the value in it
-        try:
-            _possible_keyword, _value = parsed_component[-1].rsplit(maxsplit=1)
-            parsed_component = [parsed_component[0], _possible_keyword, _value]
-        except ValueError:
-            # the component has no value to filter out
-            return None
-
-        possible_keyword = parsed_component[1].strip().lower()
-        for rel_kw in sorted([keyword.value for keyword in cls], key=len, reverse=True):
-            if rel_kw.lower() != possible_keyword:
-                continue
-
-            parsed_component[1] = rel_kw
-            return parsed_component
-
-        return None
-
-
-class RelationalOperator(Enum):
-    EQ = "="
-    NOTEQ = "<>"
-    GT = ">"
-    LT = "<"
-    GTE = ">="
-    LTE = "<="
-
-    @classmethod
-    def parse_component(cls, component: str) -> list[str] | None:
-        """
-        Try to parse a component using a relational operator
-
-        If no matching operator is found, returns None
-        """
-
-        for rel_op in sorted([operator.value for operator in cls], key=len, reverse=True):
-            if rel_op not in component:
-                continue
-
-            parsed_component = [base_component.strip() for base_component in component.split(rel_op) if base_component]
-            parsed_component.insert(1, rel_op)
-            return parsed_component
-
-        return None
-
-
-class LogicalOperator(Enum):
-    AND = "AND"
-    OR = "OR"
+from .keywords import PlaceholderKeyword, RelationalKeyword
+from .operators import LogicalOperator, RelationalOperator
 
 
 class QueryFilterJSONPart(MealieModel):
@@ -160,6 +79,9 @@ class QueryFilterBuilderComponent:
             self.value = None
         else:
             self.value = value
+
+        # process placeholder keywords
+        self.value = PlaceholderKeyword.parse_value(self.value)
 
     def __repr__(self) -> str:
         return f"[{self.attribute_name} {self.relationship.value} {self.value}]"

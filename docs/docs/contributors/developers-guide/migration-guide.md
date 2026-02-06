@@ -6,7 +6,7 @@ While this guide aims to simplify the migration process for developers, it's not
 
 ## V1 → V2
 
-The biggest change between V1 and V2 is the introduction of Households. For more information on how households work in relation to groups/users, check out the [Groups and Households](./features.md#groups-and-households) section in the Features guide.
+The biggest change between V1 and V2 is the introduction of Households. For more information on how households work in relation to groups/users, check out the [Groups and Households](../../documentation/getting-started/features.md#groups-and-households) section in the Features guide.
 
 ### `updateAt` is now `updatedAt`
 

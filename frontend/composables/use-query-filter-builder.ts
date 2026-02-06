@@ -1,5 +1,5 @@
-import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
-import type { LogicalOperator, RelationalKeyword, RelationalOperator } from "~/lib/api/types/response";
+import { Organizer } from "~/lib/api/types/non-generated";
+import type { LogicalOperator, RecipeOrganizer, RelationalKeyword, RelationalOperator } from "~/lib/api/types/non-generated";
 
 export interface FieldLogicalOperator {
   label: string;

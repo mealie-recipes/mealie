@@ -212,6 +212,8 @@
     "upload-file": "Загрузить файл",
     "created-on-date": "Создано: {0}",
     "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Не удалось скопировать текст.",
     "confirm-delete-generic-items": "Вы уверены, что хотите удалить следующие элементы?",
     "organizers": "Органайзеры",
@@ -367,7 +369,9 @@
     "recipe-rules": "Правила рецептов",
     "applies-to-all-days": "Применяется к всем дням",
     "applies-on-days": "Применяется по {0}",
-    "meal-plan-settings": "Настройки плана питания"
+    "meal-plan-settings": "Настройки плана питания",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Данные миграции удалены",
@@ -640,6 +644,7 @@
     "scrape-recipe-website-being-blocked": "Сайт заблокирован?",
     "scrape-recipe-try-importing-raw-html-instead": "Попробуйте импортировать необработанный HTML файл.",
     "import-original-keywords-as-tags": "Импортировать исходные ключевые слова как теги",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Остаться в режиме редактирования",
     "parse-recipe-ingredients-after-import": "Распознавание ингредиентов рецепта после импорта",
     "import-from-zip": "Импорт из архива",

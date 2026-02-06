@@ -7,6 +7,10 @@
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 
+enum DOMPurifyHook {
+  UponSanitizeAttribute = "uponSanitizeAttribute",
+}
+
 export default defineNuxtComponent({
   props: {
     source: {
@@ -15,14 +19,26 @@ export default defineNuxtComponent({
     },
   },
   setup(props) {
+    const ALLOWED_STYLE_TAGS = [
+      "background-color", "color", "font-style", "font-weight", "text-decoration", "text-align",
+    ];
+
     function sanitizeMarkdown(rawHtml: string | null | undefined): string {
       if (!rawHtml) {
         return "";
       }
 
+      DOMPurify.addHook(DOMPurifyHook.UponSanitizeAttribute, (node, data) => {
+        if (data.attrName === "style") {
+          const styles = data.attrValue.split(";").filter((style) => {
+            const [property] = style.split(":");
+            return ALLOWED_STYLE_TAGS.includes(property.trim().toLowerCase());
+          });
+          data.attrValue = styles.join(";");
+        }
+      });
+
       const sanitized = DOMPurify.sanitize(rawHtml, {
-        // List based on
-        // https://support.zendesk.com/hc/en-us/articles/4408824584602-Allowing-unsafe-HTML-in-help-center-articles
         ALLOWED_TAGS: [
           "strong", "em", "b", "i", "u", "p", "code", "pre", "samp", "kbd", "var", "sub", "sup", "dfn", "cite",
           "small", "address", "hr", "br", "id", "div", "span", "h1", "h2", "h3", "h4", "h5", "h6",
@@ -31,8 +47,12 @@ export default defineNuxtComponent({
         ],
         ALLOWED_ATTR: [
           "href", "src", "alt", "height", "width", "class", "allow", "title", "allowfullscreen", "frameborder",
-          "scrolling", "cite", "datetime", "name", "abbr", "target", "border", "start",
+          "scrolling", "cite", "datetime", "name", "abbr", "target", "border", "start", "style",
         ],
+      });
+
+      Object.values(DOMPurifyHook).forEach((hook) => {
+        DOMPurify.removeHook(hook);
       });
 
       return sanitized;

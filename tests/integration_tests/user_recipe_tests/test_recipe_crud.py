@@ -882,6 +882,117 @@ def test_recipe_reference_deleted(api_client: TestClient, unique_user: TestUser)
     assert recipe_a_data["recipeIngredient"][0]["referencedRecipe"] is None
 
 
+def test_sub_recipe_resolves_within_same_group(api_client: TestClient, unique_user: TestUser, g2_user: TestUser):
+    """
+    Test that when two groups have recipes with the same slug, updating a recipe
+    with a sub-recipe reference by slug correctly resolves to the current group's recipe.
+
+    This prevents the MultipleResultsFound error when slugs are duplicated across groups.
+    """
+    # Create a recipe with the same slug in both groups
+    shared_slug = random_string(10)
+
+    # Create sub-recipe in group 1 (unique_user's group)
+    sub_recipe_g1 = unique_user.repos.recipes.create(
+        Recipe(
+            name=shared_slug,
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+        )
+    )
+
+    # Create sub-recipe in group 2 (g2_user's group) with the same name/slug
+    sub_recipe_g2 = g2_user.repos.recipes.create(
+        Recipe(
+            name=shared_slug,
+            user_id=g2_user.user_id,
+            group_id=g2_user.group_id,
+        )
+    )
+
+    # Verify both recipes have the same slug but different IDs
+    assert sub_recipe_g1.slug == sub_recipe_g2.slug
+    assert sub_recipe_g1.id != sub_recipe_g2.id
+
+    # Create a parent recipe in group 1
+    parent_recipe = unique_user.repos.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+        )
+    )
+
+    # Get the parent recipe via API
+    recipe_url = api_routes.recipes_slug(parent_recipe.slug)
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe_data = response.json()
+
+    # Update the parent recipe to reference the sub-recipe BY SLUG (not ID)
+    # This is the scenario that previously caused MultipleResultsFound
+    recipe_data["recipeIngredient"] = [
+        {
+            "note": "Sub-recipe ingredient",
+            "referencedRecipe": {"slug": shared_slug},
+        }
+    ]
+
+    # This should succeed and resolve to group 1's sub-recipe
+    response = api_client.put(recipe_url, json=recipe_data, headers=unique_user.token)
+    assert response.status_code == 200
+
+    # Verify the referenced recipe is the one from group 1, not group 2
+    updated_recipe = response.json()
+    assert len(updated_recipe["recipeIngredient"]) == 1
+    referenced = updated_recipe["recipeIngredient"][0].get("referencedRecipe")
+    assert referenced is not None
+    assert referenced["id"] == str(sub_recipe_g1.id)
+
+
+def test_sub_recipe_not_found_in_other_group(api_client: TestClient, unique_user: TestUser, g2_user: TestUser):
+    """
+    Test that referencing a sub-recipe that only exists in another group fails.
+    """
+    # Create a sub-recipe ONLY in group 2
+    sub_recipe_slug = random_string(10)
+    g2_user.repos.recipes.create(
+        Recipe(
+            name=sub_recipe_slug,
+            user_id=g2_user.user_id,
+            group_id=g2_user.group_id,
+        )
+    )
+
+    # Create a parent recipe in group 1
+    parent_recipe = unique_user.repos.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+        )
+    )
+
+    # Get the parent recipe via API
+    recipe_url = api_routes.recipes_slug(parent_recipe.slug)
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe_data = response.json()
+
+    # Try to reference the sub-recipe from group 2 by slug
+    recipe_data["recipeIngredient"] = [
+        {
+            "note": "Sub-recipe from other group",
+            "referencedRecipe": {"slug": sub_recipe_slug},
+        }
+    ]
+
+    # This should fail because the sub-recipe doesn't exist in group 1
+    response = api_client.put(recipe_url, json=recipe_data, headers=unique_user.token)
+    assert response.status_code == 404
+    assert response.json()["detail"]["message"] == "No Entry Found"
+
+
 def test_duplicate(api_client: TestClient, unique_user: TestUser):
     recipe_data = recipe_test_data[0]
 

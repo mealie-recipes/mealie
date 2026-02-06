@@ -9,17 +9,17 @@ from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.fixture(scope="function")
-def invite(api_client: TestClient, unique_user: TestUser) -> None:
+def invite(api_client: TestClient, admin_user: TestUser) -> None:
     # Test Creation
-    r = api_client.post(api_routes.households_invitations, json={"uses": 2}, headers=unique_user.token)
+    r = api_client.post(api_routes.households_invitations, json={"uses": 2}, headers=admin_user.token)
     assert r.status_code == 201
     invitation = r.json()
     return invitation["token"]
 
 
-def test_get_all_invitation(api_client: TestClient, unique_user: TestUser, invite: str) -> None:
+def test_get_all_invitation(api_client: TestClient, admin_user: TestUser, invite: str) -> None:
     # Get All Invites
-    r = api_client.get(api_routes.households_invitations, headers=unique_user.token)
+    r = api_client.get(api_routes.households_invitations, headers=admin_user.token)
 
     assert r.status_code == 200
 
@@ -28,8 +28,8 @@ def test_get_all_invitation(api_client: TestClient, unique_user: TestUser, invit
     assert len(items) == 1
 
     for item in items:
-        assert item["groupId"] == unique_user.group_id
-        assert item["householdId"] == unique_user.household_id
+        assert item["groupId"] == admin_user.group_id
+        assert item["householdId"] == admin_user.household_id
         assert item["token"] == invite
 
 
@@ -59,7 +59,7 @@ def register_user(api_client: TestClient, invite: str):
     return registration, response
 
 
-def test_group_invitation_link(api_client: TestClient, unique_user: TestUser, invite: str):
+def test_group_invitation_link(api_client: TestClient, admin_user: TestUser, invite: str):
     registration, r = register_user(api_client, invite)
     assert r.status_code == 201
 
@@ -75,8 +75,8 @@ def test_group_invitation_link(api_client: TestClient, unique_user: TestUser, in
     r = api_client.get(api_routes.users_self, headers={"Authorization": f"Bearer {token}"})
 
     assert r.status_code == 200
-    assert r.json()["groupId"] == unique_user.group_id
-    assert r.json()["householdId"] == unique_user.household_id
+    assert r.json()["groupId"] == admin_user.group_id
+    assert r.json()["householdId"] == admin_user.household_id
 
 
 def test_group_invitation_delete_after_uses(api_client: TestClient, invite: str) -> None:

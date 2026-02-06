@@ -1,5 +1,18 @@
 <template>
   <div>
+    <BaseDialog
+      v-model="discardDialog"
+      :title="$t('general.discard-changes')"
+      color="warning"
+      :icon="$globals.icons.alertCircle"
+      can-confirm
+      @confirm="confirmDiscard"
+      @cancel="cancelDiscard"
+    >
+      <v-card-text>
+        {{ $t("general.discard-changes-description") }}
+      </v-card-text>
+    </BaseDialog>
     <RecipePageParseDialog
       :model-value="isParsing"
       :ingredients="recipe.recipeIngredient"
@@ -15,6 +28,7 @@
           :landscape="landscape"
           @save="saveRecipe"
           @delete="deleteRecipe"
+          @close="closeEditor"
         />
         <RecipeJsonEditor
           v-if="isEditJSON"
@@ -174,6 +188,7 @@
 
 <script setup lang="ts">
 import { invoke, until } from "@vueuse/core";
+import type { RouteLocationNormalized } from "vue-router";
 import RecipeIngredients from "../RecipeIngredients.vue";
 import RecipePageEditorToolbar from "./RecipePageParts/RecipePageEditorToolbar.vue";
 import RecipePageFooter from "./RecipePageParts/RecipePageFooter.vue";
@@ -205,7 +220,6 @@ import { useNavigationWarning } from "~/composables/use-navigation-warning";
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 
 const display = useDisplay();
-const i18n = useI18n();
 const $auth = useMealieAuth();
 const route = useRoute();
 const { isOwnGroup } = useLoggedInState();
@@ -231,26 +245,68 @@ const notLinkedIngredients = computed(() => {
  * and prompts the user to save if they have unsaved changes.
  */
 const originalRecipe = ref<Recipe | null>(null);
+const discardDialog = ref(false);
+const pendingRoute = ref<RouteLocationNormalized | null>(null);
 
 invoke(async () => {
   await until(recipe.value).not.toBeNull();
   originalRecipe.value = deepCopy(recipe.value);
 });
 
-onUnmounted(async () => {
-  const isSame = JSON.stringify(recipe.value) === JSON.stringify(originalRecipe.value);
-  if (isEditMode.value && !isSame && recipe.value?.slug !== undefined) {
-    const save = window.confirm(i18n.t("general.unsaved-changes"));
-
-    if (save) {
-      await api.recipes.updateOne(recipe.value.slug, recipe.value);
-    }
+function hasUnsavedChanges(): boolean {
+  if (originalRecipe.value === null) {
+    return false;
   }
+  return JSON.stringify(recipe.value) !== JSON.stringify(originalRecipe.value);
+}
+
+function restoreOriginalRecipe() {
+  if (originalRecipe.value) {
+    recipe.value = deepCopy(originalRecipe.value) as NoUndefinedField<Recipe>;
+  }
+}
+
+function closeEditor() {
+  if (hasUnsavedChanges()) {
+    pendingRoute.value = null;
+    discardDialog.value = true;
+  }
+  else {
+    setMode(PageMode.VIEW);
+  }
+}
+
+function confirmDiscard() {
+  restoreOriginalRecipe();
+  discardDialog.value = false;
+
+  if (pendingRoute.value) {
+    const destination = pendingRoute.value;
+    pendingRoute.value = null;
+    router.push(destination);
+  }
+  else {
+    setMode(PageMode.VIEW);
+  }
+}
+
+function cancelDiscard() {
+  discardDialog.value = false;
+  pendingRoute.value = null;
+}
+
+onBeforeRouteLeave((to) => {
+  if (isEditMode.value && hasUnsavedChanges()) {
+    pendingRoute.value = to;
+    discardDialog.value = true;
+    return false;
+  }
+});
+
+onUnmounted(() => {
   deactivateNavigationWarning();
   toggleCookMode();
-
   clearPageState(recipe.value.slug || "");
-  console.debug("reset RecipePage state during unmount");
 });
 const hasLinkedIngredients = computed(() => {
   return recipe.value.recipeInstructions.some(
@@ -300,6 +356,8 @@ async function saveRecipe() {
   if (data?.slug) {
     router.push(`/g/${groupSlug.value}/r/` + data.slug);
     recipe.value = data as NoUndefinedField<Recipe>;
+    // Update the snapshot after successful save
+    originalRecipe.value = deepCopy(recipe.value);
   }
 }
 

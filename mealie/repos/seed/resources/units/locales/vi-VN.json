@@ -1,13 +1,13 @@
 {
     "teaspoon": {
         "name": "muỗng cà phê",
-        "plural_name": "teaspoons",
+        "plural_name": "muỗng cà phê",
         "description": "",
         "abbreviation": "tsp"
     },
     "tablespoon": {
         "name": "muỗng canh",
-        "plural_name": "tablespoons",
+        "plural_name": "muỗng canh",
         "description": "",
         "abbreviation": "tbsp"
     },
@@ -55,37 +55,37 @@
     },
     "pound": {
         "name": "pound",
-        "plural_name": "pounds",
+        "plural_name": "pound",
         "description": "",
-        "abbreviation": "lb",
+        "abbreviation": "pound",
         "plural_abbreviation": "lbs"
     },
     "ounce": {
         "name": "ounce",
-        "plural_name": "ounces",
+        "plural_name": "ounce",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
         "name": "gram",
-        "plural_name": "grams",
+        "plural_name": "gram",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilogram",
-        "plural_name": "kilograms",
+        "plural_name": "kilogram",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "miligram",
-        "plural_name": "milligrams",
+        "plural_name": "miligram",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "",
         "plural_name": "splashes",
         "description": "",
         "abbreviation": ""
@@ -135,6 +135,12 @@
     "pinch": {
         "name": "pinch",
         "plural_name": "pinches",
+        "description": "",
+        "abbreviation": ""
+    },
+    "sprig": {
+        "name": "sprig",
+        "plural_name": "sprigs",
         "description": "",
         "abbreviation": ""
     }

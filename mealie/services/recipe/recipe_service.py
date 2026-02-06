@@ -32,7 +32,7 @@ from mealie.schema.recipe.request_helpers import RecipeDuplicate
 from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
 from mealie.services.household_services.household_service import HouseholdService
-from mealie.services.openai import OpenAIDataInjection, OpenAILocalImage, OpenAIService
+from mealie.services.openai import OpenAILocalImage, OpenAIService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper import cleaner
 
@@ -463,8 +463,33 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
+    def _resolve_ingredient_sub_recipes(self, update_data: Recipe) -> Recipe:
+        """Resolve all referenced_recipe slugs to IDs within the current group."""
+        if not update_data.recipe_ingredient:
+            return update_data
+
+        for ingredient in update_data.recipe_ingredient:
+            if ingredient.referenced_recipe:
+                ref = ingredient.referenced_recipe
+                # If no id, resolve by slug
+                if not ref.id and ref.slug:
+                    recipe = self.group_recipes.get_by_slug(self.user.group_id, ref.slug)
+                    if not recipe:
+                        raise exceptions.NoEntryFound(f"Referenced recipe '{ref.slug}' not found in this group")
+                    ref.id = recipe.id
+                # If id is provided, verify it belongs to this group
+                elif ref.id:
+                    recipe = self.group_recipes.get_one(ref.id, key="id")
+                    if not recipe:
+                        raise exceptions.NoEntryFound(f"Referenced recipe with id '{ref.id}' not found in this group")
+
+        return update_data
+
     def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
         recipe = self._pre_update_check(slug_or_id, update_data)
+
+        # Resolve sub-recipe references before passing to repository
+        update_data = self._resolve_ingredient_sub_recipes(update_data)
 
         new_data = self.group_recipes.update(recipe.slug, update_data)
         self.check_assets(new_data, recipe.slug)
@@ -570,19 +595,7 @@ class OpenAIRecipeService(RecipeServiceBase):
             raise ValueError("OpenAI image services are not available")
 
         openai_service = OpenAIService()
-        prompt = openai_service.get_prompt(
-            "recipes.parse-recipe-image",
-            data_injections=[
-                OpenAIDataInjection(
-                    description=(
-                        "This is the JSON response schema. You must respond in valid JSON that follows this schema. "
-                        "Your payload should be as compact as possible, eliminating unncessesary whitespace. "
-                        "Any fields with default values which you do not populate should not be in the payload."
-                    ),
-                    value=OpenAIRecipe,
-                )
-            ],
-        )
+        prompt = openai_service.get_prompt("recipes.parse-recipe-image")
 
         openai_images = [OpenAILocalImage(filename=os.path.basename(image), path=image) for image in images]
         message = (
@@ -595,14 +608,19 @@ class OpenAIRecipeService(RecipeServiceBase):
 
         try:
             response = await openai_service.get_response(
-                prompt, message, images=openai_images, force_json_response=True
+                prompt,
+                message,
+                response_schema=OpenAIRecipe,
+                images=openai_images,
             )
+            if not response:
+                raise ValueError("Received empty response from OpenAI")
+
         except Exception as e:
             raise Exception("Failed to call OpenAI services") from e
 
         try:
-            openai_recipe = OpenAIRecipe.parse_openai_response(response)
-            recipe = self._convert_recipe(openai_recipe)
+            recipe = self._convert_recipe(response)
         except Exception as e:
             raise ValueError("Unable to parse recipe from image") from e
 
