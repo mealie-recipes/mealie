@@ -14,7 +14,7 @@
     "development": "개발",
     "docs": "문서",
     "download-log": "다운로드 기록",
-    "download-recipe-json": "마지막으로 불러온 JSON",
+    "download-recipe-json": "마지막으로 스크랩한 JSON",
     "github": "GitHub",
     "log-lines": "로그 줄",
     "not-demo": "데모 아님",
@@ -67,10 +67,10 @@
     "test-message-sent": "테스트 메시지가 전송됐습니다.",
     "message-sent": "메세지가 전송됨",
     "new-notification": "새 알림",
-    "event-notifiers": "이벤트 알림이",
+    "event-notifiers": "이벤트 알리미",
     "apprise-url-skipped-if-blank": "Apprise URL (비워두면 생략합니다)",
     "apprise-url-is-left-intentionally-blank": "Apprise URL에는 일반적으로 민감한 정보가 포함되므로, 편집 시 이 필드는 의도적으로 비워둡니다. URL을 수정하려면 여기에 새 주소를 입력하시고, 현재 URL을 유지하려면 비워두십시오.",
-    "enable-notifier": "알림 활성화",
+    "enable-notifier": "알리미 활성화",
     "what-events": "이 알리미는 어떤 이벤트를 구독해야 합니까?",
     "user-events": "사용자 이벤트",
     "mealplan-events": "Mealplan 이벤트",
@@ -193,7 +193,7 @@
     "delete-with-name": "{name} 삭제",
     "confirm-delete-generic-with-name": "{name}을(를) 정말 삭제하시겠습니까?",
     "confirm-delete-own-admin-account": "본인의 관리자 계정을 삭제하려고 한다는 점에 유의하세요! 이 작업은 취소할 수 없으며 계정이 영구적으로 삭제됩니다.",
-    "organizer": "정리 도구",
+    "organizer": "정리함",
     "transfer": "전송",
     "copy": "복사",
     "color": "색상",
@@ -216,7 +216,7 @@
     "discard-changes-description": "저장되지 않은 변경사항이 있습니다. 삭제하시겠습니까?",
     "clipboard-copy-failure": "클립보드에 복사하는 데 실패했습니다.",
     "confirm-delete-generic-items": "이 항목을 삭제하시겠습니까?",
-    "organizers": "정리 도구",
+    "organizers": "정리함",
     "caution": "주의",
     "show-advanced": "고급 표시",
     "add-field": "필드 추가",
@@ -339,7 +339,7 @@
     "side": "사이드",
     "sides": "사이드",
     "start-date": "시작 일자",
-    "rule-day": "규칙의 날",
+    "rule-day": "규칙을 적용할 요일",
     "meal-type": "식사 유형",
     "breakfast": "조식",
     "lunch": "점심",
@@ -357,14 +357,14 @@
     "random-meal": "랜덤 식사",
     "random-dinner": "랜덤 저녁식사",
     "random-side": "랜덤 사이드 메뉴",
-    "this-rule-will-apply": "이 규칙은 {dayCriteria} {mealTypeCriteria}에 적용됩니다.",
+    "this-rule-will-apply": "이 규칙은 {dayCriteria} {mealTypeCriteria} 적용됩니다.",
     "to-all-days": "모든 날에",
     "on-days": "{0}에",
     "for-all-meal-types": "모든 식사 종류에",
     "for-type-meal-types": "{0} 식사 종류에",
     "meal-plan-rules": "식단 계획 규칙",
     "new-rule": "새 규칙",
-    "meal-plan-rules-description": "식단 계획에 사용할 레시피를 자동 선택하는 규칙을 생성할 수 있습니다. 이 규칙들은 서버가 식단 계획을 생성할 때 선택할 무작위 레시피 풀을 결정하는 데 사용됩니다. 동일한 요일/유형 제약 조건을 가진 규칙들은 필터가 병합된다는 점에 유의하세요. 실제로 중복 규칙을 생성할 필요는 없지만, 생성하는 것은 가능합니다.",
+    "meal-plan-rules-description": "식단 계획에 사용할 레시피를 자동으로 선택하기 위한 규칙을 만들 수 있습니다. 이러한 규칙은 서버에서 식단 계획을 생성할 때 무작위로 선택할 레시피 목록을 결정하는 데 사용됩니다. 규칙에 동일한 요일/식사 유형 조건이 있는 경우 규칙 필터가 병합된다는 점에 유의하십시오. 실제로 중복 규칙을 만들 필요는 없지만, 만드는 것도 가능합니다.",
     "new-rule-description": "식단 계획에 새 규칙을 생성할 때, 특정 요일 및/또는 특정 식사 유형에만 적용되도록 규칙을 제한할 수 있습니다. 모든 요일 또는 모든 식사 유형에 규칙을 적용하려면 규칙을 \"모든\"으로 설정하면 됩니다. 이렇게 하면 해당 요일 및/또는 식사 유형의 모든 가능한 값에 규칙이 적용됩니다.",
     "recipe-rules": "레시피 규칙",
     "applies-to-all-days": "모든 날짜에 적용됨",
@@ -375,7 +375,7 @@
   },
   "migration": {
     "migration-data-removed": "이전된 데이터 제거됨",
-    "new-migration": "새 마이그레이션",
+    "new-migration": "새 데이터 이전",
     "no-file-selected": "선택된 파일이 없습니다",
     "no-migration-data-available": "이전 데이터가 없습니다.",
     "previous-migrations": "이전 데이터 이전",
@@ -392,19 +392,19 @@
     },
     "copymethat": {
       "description-long": "Mealie는 Copy Me That에서 레시피를 가져올 수 있습니다. 레시피를 HTML 형식으로 내보낸 후, 아래의 .zip 파일을 업로드하세요.",
-      "title": "Copy Me That 레시피 매니저"
+      "title": "Copy Me That Recipe Manager"
     },
     "paprika": {
       "description-long": "Mealie는 Paprika 애플리케이션에서 레시피를 가져올 수 있습니다. Paprika에서 레시피를 내보낸 후, 내보낸 파일의 확장자를 .zip으로 변경하여 아래에 업로드하세요.",
-      "title": "Paprika 레시피 매니저"
+      "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie는 v1.0 이전 버전의 Mealie 애플리케이션에서 레시피를 가져올 수 있습니다. 기존 인스턴스에서 레시피를 내보낸 후 아래의 zip 파일을 업로드하세요. 내보낸 파일에서 레시피만 가져올 수 있다는 점에 유의하십시오.",
+      "description-long": "Mealie는 v1.0 이전 버전의 Mealie 애플리케이션에서 레시피를 가져올 수 있습니다. 기존 인스턴스에서 레시피를 내보낸 후 아래에 있는 압축 파일을 업로드하세요. 내보내기 파일에서는 레시피만 가져올 수 있다는 점에 유의하세요.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
       "description-long": "Mealie는 Tandoor에서 레시피를 가져올 수 있습니다. 데이터를 \"기본\" 형식으로 내보낸 후 아래의 .zip 파일을 업로드하세요.",
-      "title": "Tandoor 레시피"
+      "title": "Tandoor Recipes"
     },
     "cookn": {
       "description-long": "Mealie는 DVO Cook'n X3의 레시피를 가져올 수 있습니다. \"Cook'n\" 형식으로 요리책이나 메뉴를 내보낸 후, 내보낸 파일의 확장자를 .zip으로 변경하고 아래에 .zip 파일을 업로드하세요.",
@@ -420,17 +420,17 @@
     "recipe-1": "레시피 1",
     "recipe-2": "레시피 2",
     "paprika-text": "Mealie는 Paprika 애플리케이션에서 레시피를 가져올 수 있습니다. Paprika에서 레시피를 내보낸 후, 내보낸 파일의 확장자를 .zip으로 변경하여 아래에 업로드하세요.",
-    "mealie-text": "Mealie는 v1.0 이전 버전의 Mealie 애플리케이션에서 레시피를 가져올 수 있습니다. 기존 인스턴스에서 레시피를 내보낸 후 아래의 zip 파일을 업로드하세요. 내보낸 파일에서 레시피만 가져올 수 있다는 점에 유의하십시오.",
+    "mealie-text": "Mealie는 v1.0 이전 버전의 Mealie 애플리케이션에서 레시피를 가져올 수 있습니다. 기존 인스턴스에서 레시피를 내보낸 후 아래에 있는 압축 파일을 업로드하세요. 내보내기 파일에서는 레시피만 가져올 수 있다는 점에 유의하세요.",
     "plantoeat": {
       "title": "Plan to Eat",
       "description-long": "Mealie는 Plan to Eat에서 레시피를 가져올 수 있습니다."
     },
     "myrecipebox": {
-      "title": "내 레시피 박스",
+      "title": "My Recipe Box",
       "description-long": "Mealie는 My Recipe Box에서 레시피를 가져올 수 있습니다. CSV 형식으로 레시피를 내보낸 다음 아래의 .csv 파일을 업로드하세요."
     },
     "recipekeeper": {
-      "title": "레시피 보관함",
+      "title": "Recipe Keeper",
       "description-long": "Mealie는 Recipe Keeper에서 레시피를 가져올 수 있습니다. 레시피를 zip 형식으로 내보낸 다음 아래의 .zip 파일을 업로드하세요."
     }
   },
@@ -712,7 +712,7 @@
     "toggle-recipe": "레시피로 전환"
   },
   "recipe-finder": {
-    "recipe-finder": "레시피 찾기",
+    "recipe-finder": "레시피 검색",
     "recipe-finder-description": "가지고 있는 재료로 레시피를 검색하세요. 사용 가능한 도구로도 필터링할 수 있으며, 부족한 재료나 도구의 최대 개수를 설정할 수 있습니다.",
     "selected-ingredients": "선택된 재료",
     "no-ingredients-selected": "선택된 재료 없음",
@@ -794,7 +794,7 @@
     "latest": "가장 최근",
     "local-api": "로컬 API",
     "locale-settings": "국가별 설정",
-    "migrations": "마이그레이션",
+    "migrations": "데이터 이전",
     "new-page": "새 페이지",
     "notify": "알림",
     "organize": "정리",
@@ -1395,7 +1395,7 @@
   },
   "cookbook": {
     "cookbooks": "요리책",
-    "description": "요리책은 레시피, 정리 도구 및 기타 필터를 교차 조합하여 레시피를 체계화하는 또 다른 방법입니다. 요리책을 생성하면 사이드바에 항목이 추가되며, 선택한 필터가 적용된 모든 레시피가 해당 요리책에 표시됩니다.",
+    "description": "요리책은 레시피, 정리함 및 기타 필터를 교차 조합하여 레시피를 체계화하는 또 다른 방법입니다. 요리책을 생성하면 사이드바에 항목이 추가되며, 선택한 필터가 적용된 모든 레시피가 해당 요리책에 표시됩니다.",
     "hide-cookbooks-from-other-households": "다른 가구의 요리책 숨기기",
     "hide-cookbooks-from-other-households-description": "이 기능을 활성화하면 사이드바에는 귀하의 가구에 속한 요리책만 표시됩니다.",
     "public-cookbook": "공개 요리책",
@@ -1419,19 +1419,19 @@
     "relational-operators": {
       "equals": "정확히 일치",
       "does-not-equal": "일치하지 않음",
-      "is-greater-than": "은(는) 다음보다 크다:",
-      "is-greater-than-or-equal-to": "은(는) 다음보다 크거나 같다:",
-      "is-less-than": "은(는) 다음보다 작다:",
-      "is-less-than-or-equal-to": "은(는) 다음보다 작거나 같다:"
+      "is-greater-than": "다음보다 큼",
+      "is-greater-than-or-equal-to": "다음보다 크거나 같음",
+      "is-less-than": "다음보다 작음",
+      "is-less-than-or-equal-to": "다음보다 작거나 같음"
     },
     "relational-keywords": {
-      "is": "은(는)",
-      "is-not": "은(는) 아니다",
-      "is-one-of": "은(는) 다음에 포함:",
-      "is-not-one-of": "은(는) 다음에 포함되지 않음:",
-      "contains-all-of": "은(는) 다음 모두를 포함:",
-      "is-like": "은(는) 다음과 같음:",
-      "is-not-like": "은(는) 다음과 같지 않음:"
+      "is": "같음",
+      "is-not": "아님",
+      "is-one-of": "다음에 포함",
+      "is-not-one-of": "다음에 포함되지 않음",
+      "contains-all-of": "다음 모두를 포함",
+      "is-like": "다음과 같음",
+      "is-not-like": "다음과 같지 않음"
     }
   },
   "validators": {
