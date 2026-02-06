@@ -42,8 +42,8 @@
         "abbreviation": "gal"
     },
     "milliliter": {
-        "name": "милиметар",
-        "plural_name": "милиметара",
+        "name": "милилитар",
+        "plural_name": "милилитар",
         "description": "",
         "abbreviation": "ml"
     },
@@ -76,13 +76,13 @@
         "name": "килограм",
         "plural_name": "килограма",
         "description": "",
-        "abbreviation": "кг"
+        "abbreviation": "kg"
     },
     "milligram": {
         "name": "милиграм",
         "plural_name": "милиграма",
         "description": "",
-        "abbreviation": "мг"
+        "abbreviation": "mg"
     },
     "splash": {
         "name": "мало",
