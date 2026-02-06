@@ -576,11 +576,11 @@
             },
             "Frisée": {
                 "aliases": [
-                    "curly endive"
+                    "Krause Endivie"
                 ],
                 "description": "",
                 "name": "Frisée",
-                "plural_name": "Frisées"
+                "plural_name": "Friséesalate"
             },
             "anaheim pepper": {
                 "aliases": [],
@@ -592,7 +592,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kresse",
-                "plural_name": "cress"
+                "plural_name": "Kresse"
             },
             "broccoli slaw": {
                 "aliases": [],
@@ -622,7 +622,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Luzerne",
-                "plural_name": "alfalfa"
+                "plural_name": "Luzernen"
             }
         }
     },
@@ -998,7 +998,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Yuzu",
-                "plural_name": "yuzu"
+                "plural_name": "Yuzus"
             },
             "granadilla": {
                 "aliases": [],
