@@ -3,7 +3,7 @@
     "about": "Dettagli",
     "about-mealie": "Info su Mealie",
     "api-docs": "Documentazione API",
-    "api-port": "Porta API",
+    "api-port": "Importazione API",
     "application-mode": "Modalità",
     "database-type": "Tipo Database",
     "database-url": "URL Database",
@@ -97,7 +97,7 @@
     "custom": "Personalizzato",
     "dashboard": "Pannello di controllo",
     "delete": "Elimina",
-    "disabled": "Disabilitato",
+    "disabled": "Disabilita",
     "download": "Download",
     "duplicate": "Duplicato",
     "edit": "Modifica",
@@ -370,8 +370,8 @@
     "applies-to-all-days": "Si applica a ogni giorno",
     "applies-on-days": "Si applica ai {0}",
     "meal-plan-settings": "Impostazioni del piano alimentare",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Aggiungi tutto alla lista",
+    "add-day-to-list": "Aggiungi Giorno"
   },
   "migration": {
     "migration-data-removed": "Dati di migrazione rimossi",
