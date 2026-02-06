@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lattuga",
-                "plural_name": "lettuce"
+                "plural_name": "lattuga"
             },
             "butternut squash": {
                 "aliases": [],
@@ -198,7 +198,7 @@
             "romaine lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine lettuce",
+                "name": "lattuga romana",
                 "plural_name": "romaine lettuce"
             },
             "beetroot": {
@@ -217,7 +217,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "finocchio",
-                "plural_name": "fennel"
+                "plural_name": "finocchio"
             },
             "sun dried tomato": {
                 "aliases": [],
@@ -321,7 +321,7 @@
             "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg lettuce",
+                "name": "lattuga iceberg",
                 "plural_name": "iceberg lettuce"
             },
             "mashed potato": {
@@ -346,7 +346,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pimiento",
-                "plural_name": "pimientos"
+                "plural_name": "pimiento"
             },
             "spaghetti squash": {
                 "aliases": [],
@@ -358,7 +358,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Lattuga liscia",
-                "plural_name": "butter lettuce"
+                "plural_name": "lattuga liscia"
             },
             "hash brown": {
                 "aliases": [],
@@ -591,8 +591,8 @@
             "cress": {
                 "aliases": [],
                 "description": "",
-                "name": "cress",
-                "plural_name": "cress"
+                "name": "crescione",
+                "plural_name": "crescione"
             },
             "broccoli slaw": {
                 "aliases": [],
@@ -974,7 +974,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomelos"
+                "plural_name": "pomeli"
             },
             "chestnut purée": {
                 "aliases": [],
@@ -1100,7 +1100,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tamarillo",
-                "plural_name": "tamarillos"
+                "plural_name": "tamarilli"
             },
             "ice-apple": {
                 "aliases": [],
@@ -2012,13 +2012,13 @@
                 ],
                 "description": "",
                 "name": "cheddar cheese",
-                "plural_name": "cheddar cheese"
+                "plural_name": "formaggio cheddar"
             },
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheese"
+                "name": "formaggio cremoso",
+                "plural_name": "formaggio cremoso"
             },
             "sharp cheddar cheese": {
                 "aliases": [
@@ -2031,26 +2031,26 @@
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheese"
+                "name": "formaggio",
+                "plural_name": "formaggio"
             },
             "mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella cheese",
-                "plural_name": "mozzarella cheese"
+                "name": "mozzarella",
+                "plural_name": "mozzarella"
             },
             "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "feta cheese",
-                "plural_name": "feta cheese"
+                "name": "formaggio feta",
+                "plural_name": "formaggio feta"
             },
             "ricotta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "ricotta cheese",
-                "plural_name": "ricotta cheese"
+                "name": "ricotta",
+                "plural_name": "ricotta"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
@@ -2067,32 +2067,32 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheese"
+                "name": "gorgonzola",
+                "plural_name": "gorgonzola"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheese"
+                "name": "formaggio di capra",
+                "plural_name": "formaggio di capra"
             },
             "fresh mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella cheese",
-                "plural_name": "fresh mozzarella cheese"
+                "name": "mozzarella fresca",
+                "plural_name": "mozzarella fresca"
             },
             "swis cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swis cheese",
-                "plural_name": "swis cheese"
+                "name": "formaggio svizzero",
+                "plural_name": "formaggio svizzero"
             },
             "pecorino cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pecorino cheese",
-                "plural_name": "pecorino cheese"
+                "name": "pecorino",
+                "plural_name": "pecorino"
             },
             "gruyere cheese": {
                 "aliases": [],
@@ -2103,8 +2103,8 @@
             "mascarpone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mascarpone cheese",
-                "plural_name": "mascarpone cheese"
+                "name": "mascarpone",
+                "plural_name": "mascarpone"
             },
             "cottage cheese": {
                 "aliases": [],
@@ -2121,8 +2121,8 @@
             "provolone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "provolone cheese",
-                "plural_name": "provolone cheese"
+                "name": "provolone",
+                "plural_name": "provolone"
             },
             "mexican cheese blend": {
                 "aliases": [],
@@ -2139,8 +2139,8 @@
             "brie cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "brie cheese",
-                "plural_name": "brie cheese"
+                "name": "formaggio brie",
+                "plural_name": "formaggio brie"
             },
             "paneer cheese": {
                 "aliases": [],
@@ -2151,14 +2151,14 @@
             "fontina cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fontina cheese",
-                "plural_name": "fontina cheese"
+                "name": "fontina",
+                "plural_name": "fontina"
             },
             "queso fresco cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "queso fresco cheese",
-                "plural_name": "queso fresco cheese"
+                "name": "formaggio queso fresco",
+                "plural_name": "formaggio queso fresco"
             },
             "quark cheese": {
                 "aliases": [],
@@ -2265,8 +2265,8 @@
             "camembert cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "camembert cheese",
-                "plural_name": "camembert cheese"
+                "name": "camembert",
+                "plural_name": "camembert"
             },
             "soft cheese": {
                 "aliases": [],
@@ -2301,8 +2301,8 @@
             "taleggio cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "taleggio cheese",
-                "plural_name": "taleggio cheese"
+                "name": "taleggio",
+                "plural_name": "taleggio"
             },
             "oaxaca cheese": {
                 "aliases": [],
@@ -2469,8 +2469,8 @@
             "sheep cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep cheese",
-                "plural_name": "sheep cheese"
+                "name": "formaggio di pecora",
+                "plural_name": "formaggio di pecora"
             },
             "amul cheese": {
                 "aliases": [],
@@ -2487,8 +2487,8 @@
             "robiola cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "robiola cheese",
-                "plural_name": "robiola cheese"
+                "name": "robiola",
+                "plural_name": "robiola"
             },
             "brick cheese": {
                 "aliases": [],
@@ -2529,8 +2529,8 @@
             "caciocavallo cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "caciocavallo cheese",
-                "plural_name": "caciocavalloe cheese"
+                "name": "caciocavallo",
+                "plural_name": "caciocavallo"
             },
             "requeijão cheese": {
                 "aliases": [],
