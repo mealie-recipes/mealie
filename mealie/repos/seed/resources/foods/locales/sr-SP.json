@@ -1135,8 +1135,8 @@
             "dried persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried persimmon",
-                "plural_name": "dried persimmons"
+                "name": "сушене јапанске јабуке",
+                "plural_name": "сушене јапанске јабуке"
             },
             "rambutan": {
                 "aliases": [],
@@ -1201,8 +1201,8 @@
             "bergamot orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bergamot orange",
-                "plural_name": "bergamot oranges"
+                "name": "бергамот",
+                "plural_name": "бергамот"
             },
             "luo han guo": {
                 "aliases": [],
@@ -1367,8 +1367,8 @@
             "pioppini": {
                 "aliases": [],
                 "description": "",
-                "name": "pioppini",
-                "plural_name": "pioppinis"
+                "name": "јаблановача",
+                "plural_name": "јаблановача"
             },
             "snow fungu": {
                 "aliases": [],
@@ -1397,14 +1397,14 @@
             "matsutake": {
                 "aliases": [],
                 "description": "",
-                "name": "matsutake",
-                "plural_name": "matsutakes"
+                "name": "матсутаке",
+                "plural_name": "матсутаке"
             },
             "nameko": {
                 "aliases": [],
                 "description": "",
-                "name": "nameko",
-                "plural_name": "namekos"
+                "name": "намеко",
+                "plural_name": "намеко"
             },
             "djon djon mushroom": {
                 "aliases": [],
@@ -1415,8 +1415,8 @@
             "mixed asian mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed asian mushroom",
-                "plural_name": "mixed asian mushrooms"
+                "name": "мешане азијске печурке",
+                "plural_name": "мешане азијске печурке"
             },
             "puffball": {
                 "aliases": [],
@@ -1433,20 +1433,20 @@
             "caesar's mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "caesar's mushroom",
-                "plural_name": "caesar's mushrooms"
+                "name": "благва",
+                "plural_name": "благва"
             },
             "candy cap mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "candy cap mushroom",
-                "plural_name": "candy cap mushrooms"
+                "name": "цикоријевка",
+                "plural_name": "цикоријевка"
             },
             "lion’s mane mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "lion’s mane mushroom",
-                "plural_name": "lion’s mane mushrooms"
+                "name": "лавља грива",
+                "plural_name": "лавља грива"
             }
         }
     },
@@ -1455,116 +1455,116 @@
             "strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry",
-                "plural_name": "strawberries"
+                "name": "јагода",
+                "plural_name": "јагода"
             },
             "blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry",
-                "plural_name": "blueberries"
+                "name": "боровница",
+                "plural_name": "боровница"
             },
             "raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry",
-                "plural_name": "raspberries"
+                "name": "малина",
+                "plural_name": "малина"
             },
             "cranberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry",
-                "plural_name": "cranberries"
+                "name": "брусница",
+                "plural_name": "брусница"
             },
             "cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry",
-                "plural_name": "cherries"
+                "name": "вишња",
+                "plural_name": "вишња"
             },
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
-                "plural_name": "blackberries"
+                "name": "купина",
+                "plural_name": "купина"
             },
             "berry mix": {
                 "aliases": [],
                 "description": "",
-                "name": "berry mix",
-                "plural_name": "berry mixes"
+                "name": "мешано шумско воће",
+                "plural_name": "мешано шумско воће"
             },
             "maraschino cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "maraschino cherry",
-                "plural_name": "maraschino cherries"
+                "name": "марскино вишња",
+                "plural_name": "мараскино вишња"
             },
             "dried cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cherry",
-                "plural_name": "dried cherries"
+                "name": "суве вишња",
+                "plural_name": "сува вишња"
             },
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "клека",
+                "plural_name": "клека"
             },
             "sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cherry",
-                "plural_name": "sour cherries"
+                "name": "укишељена вишња",
+                "plural_name": "укишељена вишња"
             },
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
-                "plural_name": "goji berries"
+                "name": "гођи бобице",
+                "plural_name": "гођи бобице"
             },
             "dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried blueberry",
-                "plural_name": "dried blueberries"
+                "name": "суве боровнице",
+                "plural_name": "суве боровнице"
             },
             "freeze-dried strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried strawberry",
-                "plural_name": "freeze-dried strawberries"
+                "name": "замрзнуте јагоде",
+                "plural_name": "земрзнуте јагоде"
             },
             "gooseberry": {
                 "aliases": [],
                 "description": "",
-                "name": "gooseberry",
-                "plural_name": "gooseberries"
+                "name": "огрозд",
+                "plural_name": "огрозд"
             },
             "freeze-dried raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried raspberry",
-                "plural_name": "freeze-dried raspberries"
+                "name": "замрзнуте малине",
+                "plural_name": "замрзнуте малине"
             },
             "lingonberry": {
                 "aliases": [],
                 "description": "",
-                "name": "lingonberry",
-                "plural_name": "lingonberries"
+                "name": "планинска брусница",
+                "plural_name": "планинска брусница"
             },
             "canned sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sour cherry",
-                "plural_name": "canned sour cherries"
+                "name": "конзервирана кисела вишња",
+                "plural_name": "конзервирана кисела вишња"
             },
             "mulberry": {
                 "aliases": [],
                 "description": "",
-                "name": "mulberry",
-                "plural_name": "mulberries"
+                "name": "дуд",
+                "plural_name": "дуд"
             },
             "acai berry": {
                 "aliases": [],
@@ -1575,8 +1575,8 @@
             "canned cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cherry",
-                "plural_name": "canned cherries"
+                "name": "конзервирана вишња",
+                "plural_name": "конзервирана вишња"
             },
             "amla": {
                 "aliases": [],
@@ -1587,14 +1587,14 @@
             "elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "elderberry",
-                "plural_name": "elderberries"
+                "name": "зова бобице",
+                "plural_name": "зова бобице"
             },
             "freeze-dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried blueberry",
-                "plural_name": "freeze-dried blueberries"
+                "name": "замрзнуте боровнице",
+                "plural_name": "замрзнуте боровнице"
             },
             "huckleberry": {
                 "aliases": [],
@@ -1605,8 +1605,8 @@
             "dried elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried elderberry",
-                "plural_name": "dried elderberries"
+                "name": "суве зовине бобице",
+                "plural_name": "суве зовине бобице"
             },
             "barberry": {
                 "aliases": [],
@@ -1617,14 +1617,14 @@
             "dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried berry",
-                "plural_name": "dried berries"
+                "name": "суве бобице",
+                "plural_name": "суве бобице "
             },
             "sea buckthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "sea buckthorn",
-                "plural_name": "sea buckthorns"
+                "name": "пасји трн",
+                "plural_name": "пасји трн"
             },
             "saskatoon berry": {
                 "aliases": [],
@@ -1635,14 +1635,14 @@
             "rosehip": {
                 "aliases": [],
                 "description": "",
-                "name": "rosehip",
-                "plural_name": "rosehips"
+                "name": "шипак",
+                "plural_name": "шипак"
             },
             "hawthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "hawthorn",
-                "plural_name": "hawthorns"
+                "name": "глогиње",
+                "plural_name": "глогиње"
             },
             "boysenberry": {
                 "aliases": [],
@@ -1653,26 +1653,26 @@
             "cloudberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cloudberry",
-                "plural_name": "cloudberries"
+                "name": "арктичка малина",
+                "plural_name": "арктичка малина"
             },
             "freeze-dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried berry",
-                "plural_name": "freeze-dried berries"
+                "name": "замрзнуто бобичасто воће",
+                "plural_name": "замрзнуто бобичасто воће"
             },
             "aronia berry": {
                 "aliases": [],
                 "description": "",
-                "name": "aronia berry",
-                "plural_name": "aronia berries"
+                "name": "аронија",
+                "plural_name": "аронија"
             },
             "chokeberry": {
                 "aliases": [],
                 "description": "",
-                "name": "chokeberry",
-                "plural_name": "chokeberries"
+                "name": "аронија",
+                "plural_name": "аронија"
             },
             "loganberry": {
                 "aliases": [],
@@ -1683,14 +1683,14 @@
             "blackcurrant leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "blackcurrant leaf",
-                "plural_name": "blackcurrant leaves"
+                "name": "црна рибизла",
+                "plural_name": "лишће црне рибизле"
             },
             "haskap berry": {
                 "aliases": [],
                 "description": "",
-                "name": "haskap berry",
-                "plural_name": "haskap berries"
+                "name": "сибирска боровница",
+                "plural_name": "сибирска боровница"
             },
             "dewberry": {
                 "aliases": [],
@@ -1701,14 +1701,14 @@
             "sloe berry": {
                 "aliases": [],
                 "description": "",
-                "name": "sloe berry",
-                "plural_name": "sloe berries"
+                "name": "трњине",
+                "plural_name": "трњине"
             },
             "oregon grape": {
                 "aliases": [],
                 "description": "",
-                "name": "oregon grape",
-                "plural_name": "oregon grapes"
+                "name": "махонија",
+                "plural_name": "махонија"
             }
         }
     },
@@ -1717,62 +1717,62 @@
             "walnut": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut",
-                "plural_name": "walnuts"
+                "name": "орах",
+                "plural_name": "орах"
             },
             "pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "pecan",
-                "plural_name": "pecans"
+                "name": "пекан",
+                "plural_name": "пекан"
             },
             "almond": {
                 "aliases": [],
                 "description": "",
-                "name": "almond",
-                "plural_name": "almonds"
+                "name": "бадем",
+                "plural_name": "бадем"
             },
             "sesame seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame seed",
-                "plural_name": "sesame seeds"
+                "name": "сусам",
+                "plural_name": "сусам"
             },
             "cashew": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew",
-                "plural_name": "cashews"
+                "name": "индијски орах",
+                "plural_name": "индијски орах"
             },
             "pine nut": {
                 "aliases": [],
                 "description": "",
-                "name": "pine nut",
-                "plural_name": "pine nuts"
+                "name": "пињоли",
+                "plural_name": "пињоли"
             },
             "pistachio": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio",
-                "plural_name": "pistachios"
+                "name": "пистаћи",
+                "plural_name": "пистаћи"
             },
             "peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut",
-                "plural_name": "peanuts"
+                "name": "кикирики",
+                "plural_name": "кикирики"
             },
             "chia": {
                 "aliases": [],
                 "description": "",
-                "name": "chia",
-                "plural_name": "chias"
+                "name": "чиа",
+                "plural_name": "чиа"
             },
             "flax": {
                 "aliases": [],
                 "description": "",
-                "name": "flax",
-                "plural_name": "flaxes"
+                "name": "лан",
+                "plural_name": "лан"
             },
             "slivered almond": {
                 "aliases": [],
@@ -1783,26 +1783,26 @@
             "pumpkin seed": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin seed",
-                "plural_name": "pumpkin seeds"
+                "name": "семе бундеве",
+                "plural_name": "семе бундеве"
             },
             "hazelnut": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut",
-                "plural_name": "hazelnuts"
+                "name": "лешник",
+                "plural_name": "лешник"
             },
             "poppy seed": {
                 "aliases": [],
                 "description": "",
-                "name": "poppy seed",
-                "plural_name": "poppy seeds"
+                "name": "мак",
+                "plural_name": "мак"
             },
             "sunflower seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower seed",
-                "plural_name": "sunflower seeds"
+                "name": "сунцокрет",
+                "plural_name": "сунцокрет"
             },
             "macadamia": {
                 "aliases": [],
