@@ -36,6 +36,8 @@ class EventTypes(Enum):
     data_import = auto()
 
     mealplan_entry_created = auto()
+    mealplan_entry_updated = auto()
+    mealplan_entry_deleted = auto()
 
     shopping_list_created = auto()
     shopping_list_updated = auto()
@@ -92,6 +94,26 @@ class EventDocumentDataBase(MealieModel):
 class EventMealplanCreatedData(EventDocumentDataBase):
     document_type: EventDocumentType = EventDocumentType.mealplan
     operation: EventOperation = EventOperation.create
+    mealplan_id: int
+    date: date
+    recipe_id: UUID4 | None = None
+    recipe_name: str | None = None
+    recipe_slug: str | None = None
+
+
+class EventMealplanUpdatedData(EventDocumentDataBase):
+    document_type: EventDocumentType = EventDocumentType.mealplan
+    operation: EventOperation = EventOperation.update
+    mealplan_id: int
+    date: date
+    recipe_id: UUID4 | None = None
+    recipe_name: str | None = None
+    recipe_slug: str | None = None
+
+
+class EventMealplanDeletedData(EventDocumentDataBase):
+    document_type: EventDocumentType = EventDocumentType.mealplan
+    operation: EventOperation = EventOperation.delete
     mealplan_id: int
     date: date
     recipe_id: UUID4 | None = None

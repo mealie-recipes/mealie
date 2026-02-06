@@ -292,8 +292,16 @@ export default defineNuxtComponent({
         text: i18n.t("events.mealplan-events"),
         options: [
           {
-            text: i18n.t("events.when-a-user-in-your-group-creates-a-new-mealplan"),
+            text: i18n.t("general.create") as string,
             key: "mealplanEntryCreated",
+          },
+          {
+            text: i18n.t("general.update") as string,
+            key: "mealplanEntryUpdated",
+          },
+          {
+            text: i18n.t("general.delete") as string,
+            key: "mealplanEntryDeleted",
           },
         ],
       },

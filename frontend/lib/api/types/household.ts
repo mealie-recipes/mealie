@@ -58,6 +58,8 @@ export interface GroupEventNotifierOptions {
   dataExport?: boolean;
   dataImport?: boolean;
   mealplanEntryCreated?: boolean;
+  mealplanEntryUpdated?: boolean;
+  mealplanEntryDeleted?: boolean;
   shoppingListCreated?: boolean;
   shoppingListUpdated?: boolean;
   shoppingListDeleted?: boolean;
@@ -85,6 +87,8 @@ export interface GroupEventNotifierOptionsOut {
   dataExport?: boolean;
   dataImport?: boolean;
   mealplanEntryCreated?: boolean;
+  mealplanEntryUpdated?: boolean;
+  mealplanEntryDeleted?: boolean;
   shoppingListCreated?: boolean;
   shoppingListUpdated?: boolean;
   shoppingListDeleted?: boolean;
@@ -113,6 +117,8 @@ export interface GroupEventNotifierOptionsSave {
   dataExport?: boolean;
   dataImport?: boolean;
   mealplanEntryCreated?: boolean;
+  mealplanEntryUpdated?: boolean;
+  mealplanEntryDeleted?: boolean;
   shoppingListCreated?: boolean;
   shoppingListUpdated?: boolean;
   shoppingListDeleted?: boolean;
