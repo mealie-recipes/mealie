@@ -36,7 +36,7 @@ dependencies = [
     "isodate==0.7.2",
     "text-unidecode==1.3",
     "rapidfuzz==3.14.3",
-    "authlib==1.6.6",
+    "authlib==1.6.7",
     "html2text==2025.4.15",
     "paho-mqtt==1.6.1",
     "pydantic-settings==2.12.0",
