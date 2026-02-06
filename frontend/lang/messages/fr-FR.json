@@ -212,7 +212,7 @@
     "upload-file": "Téléverser un fichier",
     "created-on-date": "Créé le {0}",
     "unsaved-changes": "Vous avez des modifications non enregistrées. Voulez-vous enregistrer avant de partir ? OK pour enregistrer, Annuler pour ignorer les modifications.",
-    "discard-changes": "Discard Changes",
+    "discard-changes": "Annuler les modifications",
     "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Échec de la copie dans le presse-papiers.",
     "confirm-delete-generic-items": "Êtes-vous sûr de vouloir supprimer les éléments suivants ?",
