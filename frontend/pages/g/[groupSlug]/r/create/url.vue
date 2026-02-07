@@ -83,21 +83,37 @@
           >
             {{ $globals.icons.robot }}
           </v-icon>
-          {{ $t("new-recipe.error-title") }}
+          {{ errorType === 'rate-limit'
+            ? $t("new-recipe.error-title-rate-limit")
+            : errorType === 'server'
+              ? $t("new-recipe.error-title-server")
+              : $t("new-recipe.error-title")
+          }}
         </v-card-title>
         <v-divider class="my-3 mx-2" />
 
         <div class="force-url-white">
-          <p>
-            {{ $t("recipe.scrape-recipe-website-being-blocked") }}
-            <router-link :to="htmlOrJsonImporterTarget">{{ $t("recipe.scrape-recipe-try-importing-raw-html-instead") }}</router-link>
-          </p>
-          <br>
-          <p>
-            {{ $t("new-recipe.error-details") }}
-          </p>
+          <template v-if="errorType === 'rate-limit'">
+            <p>{{ $t("new-recipe.error-details-rate-limit") }}</p>
+          </template>
+          <template v-else-if="errorType === 'server'">
+            <p>{{ $t("new-recipe.error-details-server") }}</p>
+          </template>
+          <template v-else>
+            <p>
+              {{ $t("recipe.scrape-recipe-website-being-blocked") }}
+              <router-link :to="htmlOrJsonImporterTarget">{{ $t("recipe.scrape-recipe-try-importing-raw-html-instead") }}</router-link>
+            </p>
+            <br>
+            <p>
+              {{ $t("new-recipe.error-details") }}
+            </p>
+          </template>
         </div>
-        <div class="d-flex row justify-space-around my-3 force-url-white">
+        <div
+          v-if="errorType === 'scrape'"
+          class="d-flex row justify-space-around my-3 force-url-white"
+        >
           <a
             class="dark"
             href="https://developers.google.com/search/docs/data-types/recipe"
@@ -141,6 +157,7 @@ export default defineNuxtComponent({
     });
     const state = reactive({
       error: false,
+      errorType: "scrape" as "scrape" | "rate-limit" | "server",
       loading: false,
     });
 
@@ -163,8 +180,18 @@ export default defineNuxtComponent({
     const bulkImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/bulk`);
     const htmlOrJsonImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/html`);
 
-    function handleResponse(response: AxiosResponse<string> | null, refreshTags = false) {
+    function handleResponse(response: AxiosResponse<string> | null, error: any, refreshTags = false) {
       if (response?.status !== 201) {
+        const errorStatus = error?.response?.status;
+        if (errorStatus === 429) {
+          state.errorType = "rate-limit";
+        }
+        else if (errorStatus !== undefined && errorStatus >= 500) {
+          state.errorType = "server";
+        }
+        else {
+          state.errorType = "scrape";
+        }
         state.error = true;
         state.loading = false;
         return;
@@ -236,8 +263,8 @@ export default defineNuxtComponent({
         return;
       }
       state.loading = true;
-      const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags, importCategories);
-      handleResponse(response, importKeywordsAsTags);
+      const { response, error } = await api.recipes.createOneByUrl(url, importKeywordsAsTags, importCategories);
+      handleResponse(response, error, importKeywordsAsTags);
     }
 
     return {

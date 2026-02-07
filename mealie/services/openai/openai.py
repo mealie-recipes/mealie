@@ -7,11 +7,12 @@ from pathlib import Path
 from textwrap import dedent
 from typing import TypeVar
 
+import openai
 from openai import AsyncOpenAI
 from openai.types.chat import ChatCompletion
 from pydantic import BaseModel, field_validator
 
-from mealie.core import root_logger
+from mealie.core import exceptions, root_logger
 from mealie.core.config import get_app_settings
 from mealie.pkgs import img
 from mealie.schema.openai._base import OpenAIBase
@@ -233,6 +234,8 @@ class OpenAIService(BaseService):
 
             response_text = response.choices[0].message.content
             return response_schema.parse_openai_response(response_text)
+        except openai.RateLimitError as e:
+            raise exceptions.RateLimitError(str(e)) from e
         except Exception as e:
             raise Exception(f"OpenAI Request Failed. {e.__class__.__name__}: {e}") from e
 
@@ -276,6 +279,8 @@ class OpenAIService(BaseService):
             )
             return response.choices[0].message.content
 
+        except openai.RateLimitError as e:
+            raise exceptions.RateLimitError(str(e)) from e
         except Exception as e:
             self.logger.error(f"AI Transcription Failed: {e}")
             return None

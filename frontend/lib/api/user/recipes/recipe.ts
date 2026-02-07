@@ -35,7 +35,6 @@ const routes = {
   recipesSuggestions: `${prefix}/recipes/suggestions`,
   recipesTestScrapeUrl: `${prefix}/recipes/test-scrape-url`,
   recipesCreateUrl: `${prefix}/recipes/create/url`,
-  recipesCreateVideoUrl: `${prefix}/recipes/create/video`,
   recipesCreateUrlBulk: `${prefix}/recipes/create/url/bulk`,
   recipesCreateFromZip: `${prefix}/recipes/create/zip`,
   recipesCreateFromImage: `${prefix}/recipes/create/image`,
@@ -153,10 +152,6 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
 
   async createOneByUrl(url: string, includeTags: boolean, includeCategories: boolean) {
     return await this.requests.post<string>(routes.recipesCreateUrl, { url, includeTags, includeCategories });
-  }
-
-  async createOneByVideoUrl(url: string, includeTags: boolean) {
-    return await this.requests.post<string>(routes.recipesCreateVideoUrl, { url, includeTags });
   }
 
   async createManyByUrl(payload: CreateRecipeByUrlBulk) {

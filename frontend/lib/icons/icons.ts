@@ -155,7 +155,6 @@ import {
   mdiWindowClose,
   mdiWrench,
   mdiHandWaveOutline,
-  mdiFileVideo,
 } from "@mdi/js";
 
 export const icons = {
@@ -223,7 +222,6 @@ export const icons = {
   eyeOff: mdiEyeOff,
   file: mdiFile,
   fileImage: mdiFileImage,
-  fileVideo: mdiFileVideo,
   filePDF: mdiFilePdfBox,
   filter: mdiFilter,
   flipHorizontal: mdiFlipHorizontal,

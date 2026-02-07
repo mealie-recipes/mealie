@@ -54,6 +54,14 @@ class OpenAIServiceError(Exception):
     pass
 
 
+class RateLimitError(Exception):
+    """
+    This exception is raised when an external API returns a rate limit (429) error.
+    """
+
+    pass
+
+
 class VideoDownloadError(Exception):
     """
     This exception is raised when there is an error downloading or processing a video.

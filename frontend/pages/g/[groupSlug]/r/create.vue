@@ -75,13 +75,6 @@ export default defineNuxtComponent({
         value: "html",
       },
       {
-        icon: $globals.icons.fileVideo,
-        text: i18n.t("recipe.recipe-from-video"),
-        value: "video",
-        // hide: !$appInfo.enableOpenaiTranscriptionServices,
-      },
-
-      {
         icon: $globals.icons.fileImage,
         text: i18n.t("recipe.create-from-images"),
         value: "image",

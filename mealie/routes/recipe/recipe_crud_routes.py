@@ -140,10 +140,46 @@ class RecipeController(BaseRecipeController):
         return await self._create_recipe_from_web(req)
 
     @router.post("/create/url", status_code=201, response_model=str)
-    async def parse_recipe_url(self, req: ScrapeRecipe):
-        """Takes in a URL and attempts to scrape data and load it into the database"""
+    async def parse_recipe_url(
+        self, req: ScrapeRecipe, translate_language: str | None = Query(None, alias="translateLanguage")
+    ):
+        """Takes in a URL and attempts to scrape data and load it into the database.
+        If normal scraping fails and OpenAI transcription services are enabled,
+        it will attempt to parse the URL as a video."""
 
-        return await self._create_recipe_from_web(req)
+        video_fallback_enabled = self.settings.OPENAI_ENABLED and self.settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES
+
+        try:
+            return await self._create_recipe_from_web(req)
+        except HTTPException as e:
+            if e.status_code != 400:
+                raise
+            # If OpenAI transcription is not available so re-raises the original error
+            if not video_fallback_enabled:
+                raise
+
+        # Normal scraping failed so try parsing as a video URL
+        return await self._create_recipe_from_video_url(req.url, translate_language=translate_language)
+
+    async def _create_recipe_from_video_url(self, url: str, translate_language: str | None = None) -> str:
+        """Scrape a video URL, save the recipe, publish an event, and return the slug."""
+        recipe = await self.service.scrape_from_video_url(url, translate_language=translate_language)
+        new_recipe = self.service.create_one(recipe)
+
+        if new_recipe:
+            self.publish_event(
+                event_type=EventTypes.recipe_created,
+                document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
+                group_id=new_recipe.group_id,
+                household_id=new_recipe.household_id,
+                message=self.t(
+                    "notifications.generic-created-with-url",
+                    name=new_recipe.name,
+                    url=urls.recipe_url(self.group.slug, new_recipe.slug, self.settings.BASE_URL),
+                ),
+            )
+
+        return new_recipe.slug
 
     async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData):
         if isinstance(req, ScrapeRecipeData):
@@ -232,27 +268,7 @@ class RecipeController(BaseRecipeController):
                 detail=ErrorResponse.respond("OpenAI transcription services are not enabled"),
             )
 
-        try:
-            recipe = await self.service.create_from_video_url(req.url, translate_language=translate_language)
-        except exceptions.VideoDownloadError as e:
-            raise HTTPException(
-                status_code=400,
-                detail=ErrorResponse.respond(str(e)),
-            ) from e
-        except exceptions.OpenAIServiceError as e:
-            raise HTTPException(
-                status_code=500,
-                detail=ErrorResponse.respond(str(e)),
-            ) from e
-
-        self.publish_event(
-            event_type=EventTypes.recipe_created,
-            document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
-            group_id=recipe.group_id,
-            household_id=recipe.household_id,
-        )
-
-        return recipe.slug
+        return await self._create_recipe_from_video_url(req.url, translate_language=translate_language)
 
     @router.post("/create/image", status_code=201)
     async def create_recipe_from_image(

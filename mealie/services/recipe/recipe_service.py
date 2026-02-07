@@ -11,7 +11,8 @@ from zipfile import ZipFile
 
 import sqlalchemy as sa
 import yt_dlp
-from fastapi import UploadFile
+from fastapi import HTTPException, UploadFile
+from starlette import status
 
 from mealie.core import exceptions
 from mealie.core.config import get_app_settings
@@ -321,22 +322,40 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
-    async def create_from_video_url(self, url: str, translate_language: str | None = None) -> Recipe:
-        openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.household, self.translator)
-        recipe_data, thumbnail_url = await openai_recipe_service.build_recipe_from_video_url(
-            url, translate_language=translate_language
-        )
+    async def scrape_from_video_url(self, url: str, translate_language: str | None = None) -> Recipe:
+        """Scrape recipe data from a video URL without saving to DB.
+        Returns a Recipe object. Raises HTTPException on failure."""
+        try:
+            openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.household, self.translator)
+            recipe_data, thumbnail_url = await openai_recipe_service.build_recipe_from_video_url(
+                url, translate_language=translate_language
+            )
+        except exceptions.VideoDownloadError as e:
+            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail={"details": str(e)}) from e
+        except exceptions.RateLimitError as e:
+            raise HTTPException(
+                status_code=status.HTTP_429_TOO_MANY_REQUESTS,
+                detail={"details": "AI service rate limit exceeded. Please try again later."},
+            ) from e
+        except exceptions.OpenAIServiceError as e:
+            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail={"details": str(e)}) from e
+
         recipe_data = cleaner.clean(recipe_data, self.translator)
-        recipe = self.create_one(recipe_data)
 
         if thumbnail_url:
-            data_service = RecipeDataService(recipe.id)
+            recipe_data.id = recipe_data.id or uuid4()
+            data_service = RecipeDataService(recipe_data.id)
             try:
                 await data_service.scrape_image(thumbnail_url)
+                recipe_data.image = cache.new_key(4)
             except Exception as e:
                 self.logger.warning(f"Failed to download video thumbnail: {e}")
 
-        return recipe
+        return recipe_data
+
+    async def create_from_video_url(self, url: str, translate_language: str | None = None) -> Recipe:
+        recipe_data = await self.scrape_from_video_url(url, translate_language=translate_language)
+        return self.create_one(recipe_data)
 
     async def create_from_images(self, images: list[UploadFile], translate_language: str | None = None) -> Recipe:
         openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.household, self.translator)
@@ -732,6 +751,8 @@ class OpenAIRecipeService(RecipeServiceBase):
         if not video_data.get("transcription"):
             try:
                 transcription = await openai_service.transcribe_audio(video_data["audio"])
+            except exceptions.RateLimitError:
+                raise
             except Exception as e:
                 raise exceptions.OpenAIServiceError(f"Failed to transcribe audio: {e}") from e
             if not transcription:
@@ -756,6 +777,8 @@ class OpenAIRecipeService(RecipeServiceBase):
 
         try:
             response = await openai_service.get_response(prompt, message, response_schema=OpenAIRecipe)
+        except exceptions.RateLimitError:
+            raise
         except Exception as e:
             raise exceptions.OpenAIServiceError(f"Failed to extract recipe from video: {e}") from e
         if not response:
