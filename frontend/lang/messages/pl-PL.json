@@ -370,8 +370,8 @@
     "applies-to-all-days": "Dotyczy wszystkich dni",
     "applies-on-days": "Dotyczy {0}",
     "meal-plan-settings": "Ustawienia planera posiłków",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Dodaj wszystko do listy",
+    "add-day-to-list": "Dodaj Dzień do Listy"
   },
   "migration": {
     "migration-data-removed": "Dane migracji usunięte",
