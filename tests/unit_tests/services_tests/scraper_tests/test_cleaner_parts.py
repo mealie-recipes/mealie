@@ -511,6 +511,11 @@ category_test_cases = (
         ],
         expected=["Dessert", "Lunch"],
     ),
+    CleanerCase(
+        test_id="numeric",
+        input=4,
+        expected=[],
+    ),
 )
 
 
