@@ -108,7 +108,7 @@
             <v-select
               v-if="field.type !== 'boolean'"
               :model-value="field.relationalOperatorValue"
-              :items="field.relationalOperatorOptions"
+              :items="field.relationalOperatorChoices"
               item-title="label"
               item-value="value"
               variant="underlined"
@@ -129,9 +129,9 @@
             :class="config.col.class"
           >
             <v-select
-              v-if="field.fieldOptions"
+              v-if="field.fieldChoices"
               :model-value="field.values"
-              :items="field.fieldOptions"
+              :items="field.fieldChoices"
               item-title="label"
               item-value="value"
               multiple
@@ -396,11 +396,11 @@ function setField(index: number, fieldLabel: string) {
     return;
   }
 
-  const resetValue = (fieldDef.type !== fields.value[index].type) || (fieldDef.fieldOptions !== fields.value[index].fieldOptions);
+  const resetValue = (fieldDef.type !== fields.value[index].type) || (fieldDef.fieldChoices !== fields.value[index].fieldChoices);
   const updatedField = { ...fields.value[index], ...fieldDef };
 
   // we have to set this explicitly since it might be undefined
-  updatedField.fieldOptions = fieldDef.fieldOptions;
+  updatedField.fieldChoices = fieldDef.fieldChoices;
 
   fields.value[index] = {
     ...getFieldFromFieldDef(updatedField, resetValue),
@@ -532,7 +532,7 @@ async function initializeFields() {
       state.showAdvanced = true;
     }
 
-    if (field.fieldOptions?.length || isOrganizerType(field.type)) {
+    if (field.fieldChoices?.length || isOrganizerType(field.type)) {
       if (typeof part.value === "string") {
         field.values = part.value ? [part.value] : [];
       }
@@ -601,7 +601,7 @@ function buildQueryFilterJSON(): QueryFilterJSON {
       relationalOperator: field.relationalOperatorValue?.value,
     };
 
-    if (field.fieldOptions?.length || isOrganizerType(field.type)) {
+    if (field.fieldChoices?.length || isOrganizerType(field.type)) {
       part.value = field.values.map(value => value.toString());
     }
     else if (field.type === "boolean") {
