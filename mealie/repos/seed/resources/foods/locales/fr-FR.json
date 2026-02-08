@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ail",
-                "plural_name": "garlic"
+                "plural_name": "ail"
             },
             "onion": {
                 "aliases": [],
@@ -59,13 +59,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "céleri",
-                "plural_name": "celery"
+                "plural_name": "céleri"
             },
             "jalapeño": {
                 "aliases": [],
                 "description": "",
                 "name": "jalapeño",
-                "plural_name": "jalapeños"
+                "plural_name": "jalapeños"
             },
             "avocado": {
                 "aliases": [],
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "épinard",
-                "plural_name": "spinach"
+                "plural_name": "épinard"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "maïs doux",
-                "plural_name": "sweet corn"
+                "plural_name": "maïs doux"
             },
             "chile pepper": {
                 "aliases": [
@@ -121,13 +121,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "brocoli",
-                "plural_name": "broccoli"
+                "plural_name": "brocoli"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
                 "name": "cœur de palmier",
-                "plural_name": "heart of palm"
+                "plural_name": "cœur de palmier"
             },
             "baby greens": {
                 "aliases": [],
@@ -974,7 +974,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomelos"
+                "plural_name": "Pomelos"
             },
             "chestnut purée": {
                 "aliases": [],
