@@ -1,5 +1,5 @@
 import { Organizer } from "~/lib/api/types/non-generated";
-import type { LogicalOperator, RecipeOrganizer, RelationalKeyword, RelationalOperator } from "~/lib/api/types/non-generated";
+import type { LogicalOperator, PlaceholderKeyword, RecipeOrganizer, RelationalKeyword, RelationalOperator } from "~/lib/api/types/non-generated";
 
 export interface FieldLogicalOperator {
   label: string;
@@ -9,6 +9,11 @@ export interface FieldLogicalOperator {
 export interface FieldRelationalOperator {
   label: string;
   value: RelationalKeyword | RelationalOperator;
+}
+
+export interface FieldPlaceholderKeyword {
+  label: string;
+  value: PlaceholderKeyword;
 }
 
 export interface OrganizerBase {
@@ -41,8 +46,12 @@ export interface FieldDefinition {
   label: string;
   type: FieldType;
 
-  // only for select/organizer fields
+  // Select/Organizer
   fieldChoices?: SelectableItem[];
+}
+
+export interface FieldConfig {
+  absoluteDate: boolean;
 }
 
 export interface Field extends FieldDefinition {
@@ -53,9 +62,12 @@ export interface Field extends FieldDefinition {
   relationalOperatorChoices: FieldRelationalOperator[];
   rightParenthesis?: string;
 
-  // only for select/organizer fields
+  // Select/Organizer
   values: FieldValue[];
   organizers: OrganizerBase[];
+
+  // Dates
+  fieldConfig: FieldConfig;
 }
 
 export function useQueryFilterBuilder() {
@@ -161,6 +173,17 @@ export function useQueryFilterBuilder() {
     };
   });
 
+  const placeholderKeywords = computed<Record<PlaceholderKeyword, FieldPlaceholderKeyword>>(() => {
+    const NOW = {
+      label: "Now",
+      value: "$NOW",
+    } as FieldPlaceholderKeyword;
+
+    return {
+      $NOW: NOW,
+    };
+  });
+
   function isOrganizerType(type: FieldType): type is Organizer {
     return (
       type === Organizer.Category
@@ -173,7 +196,15 @@ export function useQueryFilterBuilder() {
   };
 
   function getFieldFromFieldDef(field: Field | FieldDefinition, resetValue = false): Field {
-    const updatedField = { logicalOperator: logOps.value.AND, ...field } as Field;
+    const defaultFieldConfig: FieldConfig = {
+      absoluteDate: false,
+    };
+    const updatedField = {
+      logicalOperator: logOps.value.AND,
+      fieldConfig: defaultFieldConfig,
+      ...field,
+    } as Field;
+
     let operatorChoices: FieldRelationalOperator[];
     if (updatedField.fieldChoices?.length || isOrganizerType(updatedField.type)) {
       operatorChoices = [
@@ -317,6 +348,7 @@ export function useQueryFilterBuilder() {
   return {
     logOps,
     relOps,
+    placeholderKeywords,
     buildQueryFilterString,
     getFieldFromFieldDef,
     isOrganizerType,
