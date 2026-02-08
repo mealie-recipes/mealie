@@ -60,3 +60,17 @@ def test_query_filter_builder_json():
             ),
         ]
     )
+
+
+def test_query_filter_builder_json_uses_raw_value():
+    qf = "last_made <= $NOW-30d"
+    builder = QueryFilterBuilder(qf)
+    assert builder.as_json_model() == QueryFilterJSON(
+        parts=[
+            QueryFilterJSONPart(
+                attribute_name="last_made",
+                relational_operator=RelationalOperator.LTE,
+                value="$NOW-30d",
+            ),
+        ]
+    )

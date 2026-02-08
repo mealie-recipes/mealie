@@ -39,6 +39,12 @@ class QueryFilterJSON(MealieModel):
 class QueryFilterBuilderComponent:
     """A single relational statement"""
 
+    raw_value: str | list[str] | None
+    """The raw value parsed from the query filter string, before processing placeholder keywords"""
+
+    value: str | list[str] | None
+    """The value parsed from the query filter string, after processing placeholder keywords"""
+
     @staticmethod
     def strip_quotes_from_string(val: str) -> str:
         if len(val) > 2 and val[0] == '"' and val[-1] == '"':
@@ -76,12 +82,12 @@ class QueryFilterBuilderComponent:
                     f'invalid query string: "{relationship.value}" can only be used with "NULL", not "{value}"'
                 )
 
-            self.value = None
+            self.raw_value = None
         else:
-            self.value = value
+            self.raw_value = value
 
         # process placeholder keywords
-        self.value = PlaceholderKeyword.parse_value(self.value)
+        self.value = PlaceholderKeyword.parse_value(self.raw_value)
 
     def __repr__(self) -> str:
         return f"[{self.attribute_name} {self.relationship.value} {self.value}]"
@@ -138,7 +144,7 @@ class QueryFilterBuilderComponent:
             logical_operator=None,
             attribute_name=self.attribute_name,
             relational_operator=self.relationship,
-            value=self.value,
+            value=self.raw_value,  # we use the raw value to preserve placeholder keywords
         )
 
 
