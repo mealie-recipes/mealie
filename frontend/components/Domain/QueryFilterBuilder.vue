@@ -158,34 +158,63 @@
               :model-value="field.value"
               @update:model-value="setFieldValue(field, index, $event!)"
             />
-            <v-menu
+            <div
               v-else-if="field.type === 'date'"
-              v-model="datePickers[index]"
-              :close-on-content-click="false"
-              transition="scale-transition"
-              offset-y
-              max-width="290px"
-              min-width="auto"
+              class="d-flex gap-2 flex-wrap align-end"
+              style="width: 100%;"
             >
-              <template #activator="{ props: activatorProps }">
-                <v-text-field
-                  :model-value="field.value ? $d(new Date(field.value + 'T00:00:00')) : null"
-                  persistent-hint
-                  :prepend-icon="$globals.icons.calendar"
-                  variant="underlined"
-                  color="primary"
-                  v-bind="activatorProps"
-                  readonly
+              <v-switch
+                :model-value="field.fieldConfig.absoluteDate"
+                class="mr-4"
+                hide-details
+                inset
+                color="primary"
+                @update:model-value="toggleAbsoluteDate(field, index, $event)"
+              >
+                <template #label>
+                  <v-icon size="24">
+                    {{ $globals.icons.calendar }}
+                  </v-icon>
+                </template>
+              </v-switch>
+              <v-menu
+                v-if="field.fieldConfig.absoluteDate"
+                v-model="datePickers[index]"
+                :close-on-content-click="false"
+                transition="scale-transition"
+                offset-y
+                max-width="290px"
+                min-width="auto"
+              >
+                <template #activator="{ props: activatorProps }">
+                  <v-text-field
+                    :model-value="$d(safeNewDate(field.value + 'T00:00:00'))"
+                    variant="underlined"
+                    color="primary"
+                    v-bind="activatorProps"
+                    readonly
+                  />
+                </template>
+                <v-date-picker
+                  :model-value="safeNewDate(field.value + 'T00:00:00')"
+                  hide-header
+                  :first-day-of-week="firstDayOfWeek"
+                  :local="$i18n.locale"
+                  @update:model-value="val => setFieldValue(field, index, val ? val.toISOString().slice(0, 10) : '')"
                 />
-              </template>
-              <v-date-picker
-                :model-value="field.value ? new Date(field.value + 'T00:00:00') : null"
-                hide-header
-                :first-day-of-week="firstDayOfWeek"
-                :local="$i18n.locale"
-                @update:model-value="val => setFieldValue(field, index, val ? val.toISOString().slice(0, 10) : '')"
+              </v-menu>
+              <v-number-input
+                v-else
+                :model-value="parseRelativeDateOffset(field.value)"
+                variant="underlined"
+                control-variant="stacked"
+                density="compact"
+                inset
+                :precision="0"
+                class="relative-date-input"
+                @update:model-value="setFieldValue(field, index, $event)"
               />
-            </v-menu>
+            </div>
             <RecipeOrganizerSelector
               v-else-if="field.type === Organizer.Category"
               v-model="field.organizers"
@@ -319,7 +348,13 @@ import { useDebounceFn } from "@vueuse/core";
 import { useHouseholdSelf } from "~/composables/use-households";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { Organizer } from "~/lib/api/types/non-generated";
-import type { LogicalOperator, QueryFilterJSON, QueryFilterJSONPart, RelationalKeyword, RelationalOperator } from "~/lib/api/types/non-generated";
+import type {
+  LogicalOperator,
+  QueryFilterJSON,
+  QueryFilterJSONPart,
+  RelationalKeyword,
+  RelationalOperator,
+} from "~/lib/api/types/non-generated";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
 import { useUserStore } from "~/composables/store/use-user-store";
 import { type Field, type FieldDefinition, type FieldValue, type OrganizerBase, useQueryFilterBuilder } from "~/composables/use-query-filter-builder";
@@ -341,7 +376,14 @@ const emit = defineEmits<{
 }>();
 
 const { household } = useHouseholdSelf();
-const { logOps, relOps, buildQueryFilterString, getFieldFromFieldDef, isOrganizerType } = useQueryFilterBuilder();
+const {
+  logOps,
+  relOps,
+  placeholderKeywords,
+  buildQueryFilterString,
+  getFieldFromFieldDef,
+  isOrganizerType,
+} = useQueryFilterBuilder();
 
 const firstDayOfWeek = computed(() => {
   return household.value?.preferences?.firstDayOfWeek || 0;
@@ -430,7 +472,15 @@ function setRelationalOperatorValue(field: FieldWithId, index: number, value: Re
 
 function setFieldValue(field: FieldWithId, index: number, value: FieldValue) {
   state.datePickers[index] = false;
-  fields.value[index].value = value;
+
+  if (field.type == "date" && !field.fieldConfig.absoluteDate) {
+    // Value is set to an int representing the offset from $NOW
+    const op = value < 0 ? "-" : "+";
+    fields.value[index].value = `$NOW${op}${Math.abs(value)}d`;
+  }
+  else {
+    fields.value[index].value = value;
+  }
 }
 
 function setFieldValues(field: FieldWithId, index: number, values: FieldValue[]) {
@@ -446,6 +496,11 @@ function setFieldOrganizers(field: FieldWithId, index: number, organizers: Organ
 function removeField(index: number) {
   fields.value.splice(index, 1);
   state.datePickers.splice(index, 1);
+}
+
+function toggleAbsoluteDate(field: FieldWithId, index: number, isAbsolute: boolean) {
+  field.fieldConfig.absoluteDate = isAbsolute;
+  setFieldValue(field, index, parseRelativeDateOffset(field.value));
 }
 
 const fieldsUpdater = useDebounceFn((/* newFields: typeof fields.value */) => {
@@ -519,6 +574,11 @@ async function initializeFields() {
       ...getFieldFromFieldDef(fieldDef),
       id: useUid(),
     };
+
+    field.fieldConfig = {
+      absoluteDate: false,
+    };
+
     field.leftParenthesis = part.leftParenthesis || field.leftParenthesis;
     field.rightParenthesis = part.rightParenthesis || field.rightParenthesis;
     field.logicalOperator = part.logicalOperator
@@ -561,10 +621,16 @@ async function initializeFields() {
     }
     else if (field.type === "date") {
       field.value = part.value as string || "";
-      const date = new Date(field.value);
-      if (isNaN(date.getTime())) {
-        error = true;
-        return initFieldsError(`Invalid query filter; invalid date value "${(part.value || "").toString()}"`);
+      if (field.value.startsWith(placeholderKeywords.value["$NOW"].value)) {
+        field.fieldConfig.absoluteDate = false;
+      }
+      else {
+        field.fieldConfig.absoluteDate = true;
+        const date = new Date(field.value);
+        if (isNaN(date.getTime())) {
+          error = true;
+          return initFieldsError(`Invalid query filter; invalid date value "${(part.value || "").toString()}"`);
+        }
       }
     }
     else {
@@ -617,6 +683,64 @@ function buildQueryFilterJSON(): QueryFilterJSON {
   const qfJSON = { parts } as QueryFilterJSON;
   console.debug(`Built query filter JSON: ${JSON.stringify(qfJSON)}`);
   return qfJSON;
+}
+
+function safeNewDate(input: string): Date {
+  const date = new Date(input);
+  if (isNaN(date.getTime())) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return today;
+  }
+  return date;
+}
+
+/**
+ * Parse a relative date string offset (e.g. $NOW-30d --> -30)
+ */
+function parseRelativeDateOffset(value: string): number {
+  const defaultVal = -30;
+  if (!value) {
+    return defaultVal;
+  }
+
+  try {
+    if (!value.startsWith(placeholderKeywords.value["$NOW"].value)) {
+      return defaultVal;
+    }
+
+    const remainder = value.slice(placeholderKeywords.value["$NOW"].value.length);
+    let sign = 1;
+    if (remainder.startsWith("-")) {
+      sign = -1;
+    }
+    else if (!remainder.startsWith("+")) {
+      throw new Error("Invalid operator");
+    }
+
+    const baseAmount = parseInt(remainder.slice(1, -1));
+    let multiplier = 1;
+    switch (remainder.slice(-1)) {
+      case "y":
+        multiplier = 365;
+        break;
+      // We intentionally don't support "m" since months are not a static number of days.
+      // If we add months to the UI we can pass it directly to the backend,
+      // but then we'd have to re-write this anyway.
+      case "d":
+        // multiplier already set to 1
+        break;
+
+      default:
+        throw new Error("Invalid unit");
+    }
+
+    return sign * baseAmount * multiplier;
+  }
+  catch (error) {
+    console.warn(`Unable to parse relative date offset from '${value}': ${error}`);
+    return defaultVal;
+  }
 }
 
 const config = computed(() => {
@@ -688,5 +812,14 @@ const config = computed(() => {
 
 .bg-light {
   background-color: rgba(255, 255, 255, var(--bg-opactity));
+}
+
+:deep(.relative-date-input input) {
+  text-align: end;
+  padding-right: 6px;
+}
+
+:deep(.relative-date-input .v-field__field) {
+  align-items: center;
 }
 </style>
