@@ -524,12 +524,7 @@ function toggleAbsoluteDate(field: FieldWithId, index: number, isAbsolute: boole
   setFieldValue(field, index, parseRelativeDateOffset(field.value));
 }
 
-const fieldsUpdater = useDebounceFn((/* newFields: typeof fields.value */) => {
-  /* newFields.forEach((field, index) => {
-    const updatedField = getFieldFromFieldDef(field);
-    fields.value[index] = updatedField; // recursive!!!
-  }); */
-
+const fieldsUpdater = useDebounceFn(() => {
   const qf = buildQueryFilterString(fields.value, state.showAdvanced);
   if (qf) {
     console.debug(`Set query filter: ${qf}`);
