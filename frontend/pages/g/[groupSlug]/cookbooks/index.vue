@@ -39,7 +39,7 @@
 
     <!-- Cookbook Page -->
     <!-- Page Title -->
-    <v-container max-width="1000">
+    <v-container class="lg-container">
       <BasePageTitle divider>
         <template #header>
           <v-img width="100%" max-height="100" max-width="100" src="/svgs/manage-cookbooks.svg" />

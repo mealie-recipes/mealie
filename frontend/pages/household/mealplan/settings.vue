@@ -1,5 +1,5 @@
 <template>
-  <v-container class="md-container">
+  <v-container class="lg-container">
     <BasePageTitle divider>
       <template #header>
         <v-img
