@@ -163,20 +163,37 @@
               class="d-flex gap-2 flex-wrap align-end"
               style="width: 100%;"
             >
-              <v-switch
+              <v-btn-toggle
                 :model-value="field.fieldConfig.absoluteDate"
-                class="mr-4"
-                hide-details
-                inset
-                color="primary"
+                mandatory
+                density="compact"
+                variant="outlined"
+                class="mb-5 mr-2"
                 @update:model-value="toggleAbsoluteDate(field, index, $event)"
               >
-                <template #label>
-                  <v-icon size="24">
-                    {{ $globals.icons.calendar }}
-                  </v-icon>
-                </template>
-              </v-switch>
+                <v-tooltip location="bottom">
+                  <template #activator="{ props: tooltipProps }">
+                    <v-btn
+                      :value="false"
+                      :icon="$globals.icons.clockOutline"
+                      class="px-4"
+                      v-bind="tooltipProps"
+                    />
+                  </template>
+                  <span>{{ $t("query-filter.date.days-relative-to-today") }}</span>
+                </v-tooltip>
+                <v-tooltip location="bottom">
+                  <template #activator="{ props: tooltipProps }">
+                    <v-btn
+                      :value="true"
+                      :icon="$globals.icons.calendar"
+                      class="px-4"
+                      v-bind="tooltipProps"
+                    />
+                  </template>
+                  <span>{{ $t("query-filter.date.fixed-date") }}</span>
+                </v-tooltip>
+              </v-btn-toggle>
               <v-menu
                 v-if="field.fieldConfig.absoluteDate"
                 v-model="datePickers[index]"
@@ -191,6 +208,7 @@
                     :model-value="$d(safeNewDate(field.value + 'T00:00:00'))"
                     variant="underlined"
                     color="primary"
+                    class="date-input"
                     v-bind="activatorProps"
                     readonly
                   />
@@ -203,17 +221,19 @@
                   @update:model-value="val => setFieldValue(field, index, val ? val.toISOString().slice(0, 10) : '')"
                 />
               </v-menu>
-              <v-number-input
-                v-else
-                :model-value="parseRelativeDateOffset(field.value)"
-                variant="underlined"
-                control-variant="stacked"
-                density="compact"
-                inset
-                :precision="0"
-                class="relative-date-input"
-                @update:model-value="setFieldValue(field, index, $event)"
-              />
+              <div v-else class="d-flex" style="flex: 1;">
+                <v-number-input
+                  :model-value="parseRelativeDateOffset(field.value)"
+                  :suffix="$t('general.days')"
+                  variant="underlined"
+                  control-variant="stacked"
+                  density="compact"
+                  inset
+                  :precision="0"
+                  class="date-input"
+                  @update:model-value="setFieldValue(field, index, $event)"
+                />
+              </div>
             </div>
             <RecipeOrganizerSelector
               v-else-if="field.type === Organizer.Category"
@@ -814,12 +834,12 @@ const config = computed(() => {
   background-color: rgba(255, 255, 255, var(--bg-opactity));
 }
 
-:deep(.relative-date-input input) {
+:deep(.date-input input) {
   text-align: end;
   padding-right: 6px;
 }
 
-:deep(.relative-date-input .v-field__field) {
+:deep(.date-input .v-field__field) {
   align-items: center;
 }
 </style>

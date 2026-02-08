@@ -221,7 +221,8 @@
     "show-advanced": "Show Advanced",
     "add-field": "Add Field",
     "date-created": "Date Created",
-    "date-updated": "Date Updated"
+    "date-updated": "Date Updated",
+    "days": "days"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
@@ -1432,6 +1433,10 @@
       "contains-all-of": "contains all of",
       "is-like": "is like",
       "is-not-like": "is not like"
+    },
+    "date": {
+      "days-relative-to-today": "Days relative to today",
+      "fixed-date": "Fixed date"
     }
   },
   "validators": {
