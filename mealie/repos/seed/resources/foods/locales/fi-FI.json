@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "valkosipuli",
-                "plural_name": "garlic"
+                "plural_name": "valkosipulia"
             },
             "onion": {
                 "aliases": [],
@@ -59,13 +59,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "selleri",
-                "plural_name": "celery"
+                "plural_name": "selleriä"
             },
             "jalapeño": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeño",
-                "plural_name": "jalapeños"
+                "name": "jalapeno",
+                "plural_name": "jalapenoa"
             },
             "avocado": {
                 "aliases": [],
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "pinaatti",
-                "plural_name": "spinach"
+                "plural_name": "pinaattia"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "maissi",
-                "plural_name": "sweet corn"
+                "plural_name": "sokerimaissia"
             },
             "chile pepper": {
                 "aliases": [
@@ -121,13 +121,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "parsakaali",
-                "plural_name": "broccoli"
+                "plural_name": "parsakaalia"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
                 "name": "palmunydin",
-                "plural_name": "heart of palm"
+                "plural_name": "palmunsydäntä"
             },
             "baby greens": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kukkakaali",
-                "plural_name": "cauliflower"
+                "plural_name": "kukkakaalia"
             },
             "cabbage": {
                 "aliases": [],
@@ -156,14 +156,14 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
-                "plural_name": "asparagus"
+                "name": "parsa",
+                "plural_name": "parsaa"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
                 "name": "lehtikaali",
-                "plural_name": "kale"
+                "plural_name": "lehtikaalia"
             },
             "arugula": {
                 "aliases": [],
@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lehtisalaatti",
-                "plural_name": "lettuce"
+                "plural_name": "lehtisalaattia"
             },
             "butternut squash": {
                 "aliases": [],
@@ -199,7 +199,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "romaine lettuce",
-                "plural_name": "romaine lettuce"
+                "plural_name": "romainesalaattia"
             },
             "beetroot": {
                 "aliases": [],
@@ -217,7 +217,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fenkoli",
-                "plural_name": "fennel"
+                "plural_name": "fenkolia"
             },
             "sun dried tomato": {
                 "aliases": [],
@@ -261,8 +261,8 @@
             "mixed greens": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed greens",
-                "plural_name": "mixed greens"
+                "name": "salaattisekoitus",
+                "plural_name": "salaattisekoitusta"
             },
             "parsnip": {
                 "aliases": [],
@@ -321,8 +321,8 @@
             "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg lettuce",
-                "plural_name": "iceberg lettuce"
+                "name": "jäävuorisalaatti",
+                "plural_name": "jäävuorisalaattia"
             },
             "mashed potato": {
                 "aliases": [],
