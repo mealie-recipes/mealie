@@ -229,6 +229,7 @@
                   control-variant="stacked"
                   density="compact"
                   inset
+                  :max="0"
                   :precision="0"
                   class="date-input"
                   @update:model-value="setFieldValue(field, index, $event)"
