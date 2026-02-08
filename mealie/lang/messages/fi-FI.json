@@ -69,7 +69,7 @@
             "subject": "Kutsu liittyä Mealieen",
             "header_text": "Sinut on kutsuttu.",
             "message_top": "Sinut on kutsuttu liittymään Mealieen.",
-            "message_bottom": "Ole hyvä ja klikkaa yllä olevaa painiketta hyväksyäksesi kutsun.",
+            "message_bottom": "Klikkaa yllä olevaa painiketta hyväksyäksesi kutsun.",
             "button_text": "Hyväksy kutsu"
         },
         "test": {
