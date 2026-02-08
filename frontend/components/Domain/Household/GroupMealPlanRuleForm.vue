@@ -76,7 +76,6 @@ const MEAL_DAY_OPTIONS = [
 ];
 
 function handleQueryFilterInput(value: string | undefined) {
-  console.warn("handleQueryFilterInput called with value:", value);
   queryFilterString.value = value || "";
 }
 
