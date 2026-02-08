@@ -198,7 +198,7 @@
             "romaine lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine lettuce",
+                "name": "romainesalaatti",
                 "plural_name": "romainesalaattia"
             },
             "beetroot": {
@@ -211,7 +211,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ruusukaali",
-                "plural_name": "ruusukaalit"
+                "plural_name": "ruusukaalia"
             },
             "fennel": {
                 "aliases": [],
@@ -357,8 +357,8 @@
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "keräsalaatti",
-                "plural_name": "butter lettuce"
+                "name": "bataviasalaatti",
+                "plural_name": "bataviasalaattia"
             },
             "hash brown": {
                 "aliases": [],
@@ -390,7 +390,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "nauris",
-                "plural_name": "nauriit"
+                "plural_name": "naurista"
             },
             "thai chile pepper": {
                 "aliases": [],
@@ -449,8 +449,8 @@
             "leaf lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "lehtisalaatti",
-                "plural_name": "leaf lettuce"
+                "name": "tammenlehtisalaatti",
+                "plural_name": "tammenlehtisalaattia"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -553,8 +553,8 @@
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "boston salaatti",
-                "plural_name": "boston lettuce"
+                "name": "boston-salaatti",
+                "plural_name": "boston-salaattia"
             },
             "kohlrabi": {
                 "aliases": [],
@@ -5771,8 +5771,8 @@
             "sea lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "sea lettuce",
-                "plural_name": "sea lettuce"
+                "name": "merisalaatti",
+                "plural_name": "merisalaattia"
             },
             "korean seaweed": {
                 "aliases": [],
@@ -5859,8 +5859,8 @@
             "garlic powder": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic powder",
-                "plural_name": "garlic powder"
+                "name": "valkosipulijauhe",
+                "plural_name": "valkosipulijauhetta"
             },
             "oregano": {
                 "aliases": [],
@@ -6081,8 +6081,8 @@
             "garlic granule": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic granule",
-                "plural_name": "garlic granules"
+                "name": "valkosipulirouhe",
+                "plural_name": "valkosipulirouhetta"
             },
             "celery seed": {
                 "aliases": [],
@@ -6267,8 +6267,8 @@
             "garlic flake": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic flake",
-                "plural_name": "garlic flakes"
+                "name": "valkosipulilastu",
+                "plural_name": "valkosipulilastuja"
             },
             "dried cilantro": {
                 "aliases": [],
@@ -7278,14 +7278,14 @@
             "garlic & herb seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic & herb seasoning",
-                "plural_name": "garlic & herb seasoning"
+                "name": "valkosipuli-yrttimausteseos",
+                "plural_name": "valkosipuli-yrttimausteseosta"
             },
             "garlic-pepper seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic-pepper seasoning",
-                "plural_name": "garlic-pepper seasoning"
+                "name": "valkosipulipippuri",
+                "plural_name": "valkosipulipippuria"
             },
             "pickling salt": {
                 "aliases": [],
@@ -10310,8 +10310,8 @@
             "garlic bread": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic bread",
-                "plural_name": "garlic breads"
+                "name": "valkosipulileipä",
+                "plural_name": "valkosipulileipää"
             },
             "yeast extract spread": {
                 "aliases": [],
@@ -10754,8 +10754,8 @@
             "garlic oil": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic oil",
-                "plural_name": "garlic oil"
+                "name": "valkosipuliöljy",
+                "plural_name": "valkosipuliöljyä"
             },
             "truffle oil": {
                 "aliases": [],
@@ -11328,8 +11328,8 @@
             "garlic mayonnaise": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic mayonnaise",
-                "plural_name": "garlic mayonnaise"
+                "name": "valkosipulimajoneesi",
+                "plural_name": "valkosipulimajoneesia"
             },
             "brown rice vinegar": {
                 "aliases": [],
@@ -11578,8 +11578,8 @@
             "ginger-garlic paste": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger-garlic paste",
-                "plural_name": "ginger-garlic paste"
+                "name": "inkivääri-valkosipulitahna",
+                "plural_name": "inkivääri-valkosipulitahnaa"
             },
             "brown mustard": {
                 "aliases": [],
@@ -11644,8 +11644,8 @@
             "chili-garlic sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "chili-garlic sauce",
-                "plural_name": "chili-garlic sauce"
+                "name": "chili-valkosipulikastike",
+                "plural_name": "chili-valkosipulikastiketta"
             },
             "tamarind paste": {
                 "aliases": [],
@@ -11758,8 +11758,8 @@
             "chili-garlic paste": {
                 "aliases": [],
                 "description": "",
-                "name": "chili-garlic paste",
-                "plural_name": "chili-garlic paste"
+                "name": "chili-valkosipulitahna",
+                "plural_name": "chili-valkosipulitahnaa"
             },
             "bonito flake": {
                 "aliases": [],
@@ -12884,8 +12884,8 @@
             "garlic butter": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic butter",
-                "plural_name": "garlic butter"
+                "name": "valkosipulivoi",
+                "plural_name": "valkosipulivoita"
             },
             "hollandaise sauce": {
                 "aliases": [],
@@ -13190,8 +13190,8 @@
             "garlic spread": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic spread",
-                "plural_name": "garlic spreads"
+                "name": "valkosipulilevite",
+                "plural_name": "valkosipulilevitettä"
             },
             "black pepper sauce": {
                 "aliases": [],
@@ -13208,8 +13208,8 @@
             "garlic pasta sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic pasta sauce",
-                "plural_name": "garlic pasta sauce"
+                "name": "valkosipulinen pastakastike",
+                "plural_name": "valkosipulista pastakastiketta"
             },
             "green olive tapenade": {
                 "aliases": [],
@@ -13268,8 +13268,8 @@
             "honey garlic sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "honey garlic sauce",
-                "plural_name": "honey garlic sauce"
+                "name": "hunaja-valkosipulikastike",
+                "plural_name": "hunaja-valkosipulikastiketta"
             },
             "mole sauce": {
                 "aliases": [],
