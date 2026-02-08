@@ -664,6 +664,11 @@ export default defineNuxtComponent({
         label: i18n.t("user.users"),
         type: Organizer.User,
       },
+      {
+        name: "last_made",
+        label: i18n.t("general.last-made"),
+        type: "date",
+      },
     ];
 
     function clearQueryFilter() {
