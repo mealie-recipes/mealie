@@ -18,9 +18,8 @@ from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services.event_bus_service.event_types import (
-    EventMealplanCreatedData,
-    EventMealplanDeletedData,
-    EventMealplanUpdatedData,
+    EventMealplanData,
+    EventOperation,
     EventTypes,
 )
 
@@ -107,7 +106,8 @@ class GroupMealplanController(BaseCrudController):
 
         self.publish_event(
             event_type=EventTypes.mealplan_entry_created,
-            document_data=EventMealplanCreatedData(
+            document_data=EventMealplanData(
+                operation=EventOperation.create,
                 mealplan_id=result.id,
                 recipe_id=data.recipe_id,
                 recipe_name=result.recipe.name if result.recipe else None,
@@ -155,7 +155,8 @@ class GroupMealplanController(BaseCrudController):
 
         self.publish_event(
             event_type=EventTypes.mealplan_entry_created,
-            document_data=EventMealplanCreatedData(
+            document_data=EventMealplanData(
+                operation=EventOperation.create,
                 mealplan_id=result.id,
                 recipe_id=recipe.id,
                 recipe_name=recipe.name,
@@ -179,7 +180,8 @@ class GroupMealplanController(BaseCrudController):
 
         self.publish_event(
             event_type=EventTypes.mealplan_entry_updated,
-            document_data=EventMealplanUpdatedData(
+            document_data=EventMealplanData(
+                operation=EventOperation.update,
                 mealplan_id=result.id,
                 recipe_id=result.recipe_id,
                 recipe_name=result.recipe.name if result.recipe else None,
@@ -199,7 +201,8 @@ class GroupMealplanController(BaseCrudController):
 
         self.publish_event(
             event_type=EventTypes.mealplan_entry_deleted,
-            document_data=EventMealplanDeletedData(
+            document_data=EventMealplanData(
+                operation=EventOperation.delete,
                 mealplan_id=result.id,
                 recipe_id=result.recipe_id,
                 recipe_name=result.recipe.name if result.recipe else None,

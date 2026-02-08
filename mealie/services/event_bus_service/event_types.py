@@ -91,29 +91,8 @@ class EventDocumentDataBase(MealieModel):
     ...
 
 
-class EventMealplanCreatedData(EventDocumentDataBase):
+class EventMealplanData(EventDocumentDataBase):
     document_type: EventDocumentType = EventDocumentType.mealplan
-    operation: EventOperation = EventOperation.create
-    mealplan_id: int
-    date: date
-    recipe_id: UUID4 | None = None
-    recipe_name: str | None = None
-    recipe_slug: str | None = None
-
-
-class EventMealplanUpdatedData(EventDocumentDataBase):
-    document_type: EventDocumentType = EventDocumentType.mealplan
-    operation: EventOperation = EventOperation.update
-    mealplan_id: int
-    date: date
-    recipe_id: UUID4 | None = None
-    recipe_name: str | None = None
-    recipe_slug: str | None = None
-
-
-class EventMealplanDeletedData(EventDocumentDataBase):
-    document_type: EventDocumentType = EventDocumentType.mealplan
-    operation: EventOperation = EventOperation.delete
     mealplan_id: int
     date: date
     recipe_id: UUID4 | None = None
