@@ -2061,8 +2061,8 @@
             "monterey jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "monterey jack cheese",
-                "plural_name": "monterey jack cheese"
+                "name": "monterey jack",
+                "plural_name": "monterey jack"
             },
             "blue cheese": {
                 "aliases": [],
@@ -2115,8 +2115,8 @@
             "american cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "american cheese",
-                "plural_name": "american cheese"
+                "name": "amerikansk ost",
+                "plural_name": "amerikansk ost"
             },
             "provolone cheese": {
                 "aliases": [],
@@ -2133,8 +2133,8 @@
             "pepper jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pepper jack cheese",
-                "plural_name": "pepper jack cheese"
+                "name": "pepper jack",
+                "plural_name": "pepper jack"
             },
             "brie cheese": {
                 "aliases": [],
@@ -2181,8 +2181,8 @@
             "asiago cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "asiago cheese",
-                "plural_name": "asiago cheese"
+                "name": "asiago",
+                "plural_name": "asiago"
             },
             "smoked cheese": {
                 "aliases": [],
@@ -2223,8 +2223,8 @@
             "herb cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "herb cream cheese",
-                "plural_name": "herb cream cheese"
+                "name": "flødeost med urter",
+                "plural_name": "flødeost med urter"
             },
             "burrata cheese": {
                 "aliases": [],
@@ -2271,8 +2271,8 @@
             "soft cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "soft cheese",
-                "plural_name": "soft cheese"
+                "name": "blød ost",
+                "plural_name": "blød ost"
             },
             "stilton cheese": {
                 "aliases": [],
@@ -2325,8 +2325,8 @@
             "creamy cheese wedge": {
                 "aliases": [],
                 "description": "",
-                "name": "creamy cheese wedge",
-                "plural_name": "creamy cheese wedges"
+                "name": "flødeostetrekant",
+                "plural_name": "flødeostetrekanter"
             },
             "cheese powder cheese": {
                 "aliases": [],
@@ -4647,8 +4647,8 @@
             "popcorn chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "popcorn chicken",
-                "plural_name": "popcorn chickens"
+                "name": "popcorn-kylling",
+                "plural_name": "popcorn-kylling"
             },
             "turkey kielbasa": {
                 "aliases": [],
@@ -4791,8 +4791,8 @@
             "turkey roast": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey roast",
-                "plural_name": "turkey roasts"
+                "name": "kalkunsteg",
+                "plural_name": "kalkunsteg"
             },
             "capon": {
                 "aliases": [],
@@ -4803,8 +4803,8 @@
             "smoked turkey bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked turkey bacon",
-                "plural_name": "smoked turkey bacons"
+                "name": "røget kalkunbacon",
+                "plural_name": "røget kalkunbacon"
             },
             "chicken bacon": {
                 "aliases": [],
@@ -4815,8 +4815,8 @@
             "turkey rissole": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey rissole",
-                "plural_name": "turkey rissoles"
+                "name": "kalkun-rissole",
+                "plural_name": "kalkun-rissole"
             },
             "chicken kebab": {
                 "aliases": [],
@@ -5437,8 +5437,8 @@
             "mullet": {
                 "aliases": [],
                 "description": "",
-                "name": "mullet",
-                "plural_name": "mullets"
+                "name": "multe",
+                "plural_name": "multer"
             },
             "skipjack tuna": {
                 "aliases": [],
@@ -5604,7 +5604,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "wakame",
-                "plural_name": "wakames"
+                "plural_name": "wakame"
             },
             "soft-shell crab": {
                 "aliases": [],
@@ -5651,14 +5651,14 @@
             "dulse seaweed": {
                 "aliases": [],
                 "description": "",
-                "name": "dulse seaweed",
-                "plural_name": "dulse seaweeds"
+                "name": "dulse",
+                "plural_name": "dulse"
             },
             "roasted seaweed": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted seaweed",
-                "plural_name": "roasted seaweeds"
+                "name": "ristet tang",
+                "plural_name": "ristet tang"
             },
             "smoked oyster": {
                 "aliases": [],
@@ -5676,7 +5676,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kizami nori",
-                "plural_name": "kizami noris"
+                "plural_name": "kizami nori"
             },
             "hijiki": {
                 "aliases": [],
