@@ -13,7 +13,7 @@
             file-name="profile"
             accept="image/*"
             :url="`/api/users/${userCopy.id}/image`"
-            @uploaded="$auth.refresh()"
+            @uploaded="auth.refresh()"
           />
         </div>
       </template>
@@ -231,9 +231,9 @@ export default defineNuxtComponent({
   },
   setup() {
     const i18n = useI18n();
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const { getDefaultActivityLabels, getActivityLabel, getActivityKey } = useDefaultActivity();
-    const user = computed(() => $auth.user.value);
+    const user = computed(() => auth.user.value);
 
     useSeoMeta({
       title: i18n.t("settings.profile"),
@@ -267,7 +267,7 @@ export default defineNuxtComponent({
       if (!userCopy.value?.id) return;
       const { response } = await api.users.updateOne(userCopy.value.id, userCopy.value);
       if (response?.status === 200) {
-        $auth.refresh();
+        auth.refresh();
       }
     }
 
@@ -303,7 +303,7 @@ export default defineNuxtComponent({
       domUpdatePassword,
       passwordsMatch,
       validators,
-      $auth,
+      auth,
     };
   },
 });
