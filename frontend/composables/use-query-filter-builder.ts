@@ -27,6 +27,7 @@ export type FieldType
     | "number"
     | "boolean"
     | "date"
+    | "relativeDate"
     | RecipeOrganizer;
 
 export type FieldValue
@@ -50,10 +51,6 @@ export interface FieldDefinition {
   fieldChoices?: SelectableItem[];
 }
 
-export interface FieldConfig {
-  absoluteDate: boolean;
-}
-
 export interface Field extends FieldDefinition {
   leftParenthesis?: string;
   logicalOperator?: FieldLogicalOperator;
@@ -65,9 +62,6 @@ export interface Field extends FieldDefinition {
   // Select/Organizer
   values: FieldValue[];
   organizers: OrganizerBase[];
-
-  // Dates
-  fieldConfig: FieldConfig;
 }
 
 export function useQueryFilterBuilder() {
@@ -184,6 +178,15 @@ export function useQueryFilterBuilder() {
     };
   });
 
+  const relativeDateRelOps = computed<Record<RelationalKeyword | RelationalOperator, FieldRelationalOperator>>(() => {
+    const ops = { ...relOps.value };
+
+    ops[">="] = { ...relOps.value[">="], label: i18n.t("query-filter.relational-operators.is-newer-than") };
+    ops["<="] = { ...relOps.value["<="], label: i18n.t("query-filter.relational-operators.is-older-than") };
+
+    return ops;
+  });
+
   function isOrganizerType(type: FieldType): type is Organizer {
     return (
       type === Organizer.Category
@@ -196,12 +199,8 @@ export function useQueryFilterBuilder() {
   };
 
   function getFieldFromFieldDef(field: Field | FieldDefinition, resetValue = false): Field {
-    const defaultFieldConfig: FieldConfig = {
-      absoluteDate: false,
-    };
     const updatedField = {
       logicalOperator: logOps.value.AND,
-      fieldConfig: defaultFieldConfig,
       ...field,
     } as Field;
 
@@ -244,6 +243,13 @@ export function useQueryFilterBuilder() {
             relOps.value[">="],
             relOps.value["<"],
             relOps.value["<="],
+          ];
+          break;
+        case "relativeDate":
+          operatorChoices = [
+            // "<=" is first since "older than" is the most common operator
+            relativeDateRelOps.value["<="],
+            relativeDateRelOps.value[">="],
           ];
           break;
         default:
@@ -348,6 +354,7 @@ export function useQueryFilterBuilder() {
   return {
     logOps,
     relOps,
+    relativeDateRelOps,
     placeholderKeywords,
     buildQueryFilterString,
     getFieldFromFieldDef,

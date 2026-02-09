@@ -667,7 +667,7 @@ export default defineNuxtComponent({
       {
         name: "last_made",
         label: i18n.t("general.last-made"),
-        type: "date",
+        type: "relativeDate",
       },
     ];
 

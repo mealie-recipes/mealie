@@ -221,8 +221,7 @@
     "show-advanced": "Show Advanced",
     "add-field": "Add Field",
     "date-created": "Date Created",
-    "date-updated": "Date Updated",
-    "days": "days"
+    "date-updated": "Date Updated"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
@@ -1423,7 +1422,9 @@
       "is-greater-than": "is greater than",
       "is-greater-than-or-equal-to": "is greater than or equal to",
       "is-less-than": "is less than",
-      "is-less-than-or-equal-to": "is less than or equal to"
+      "is-less-than-or-equal-to": "is less than or equal to",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "is",
@@ -1434,9 +1435,8 @@
       "is-like": "is like",
       "is-not-like": "is not like"
     },
-    "date": {
-      "days-relative-to-today": "Days relative to today",
-      "fixed-date": "Fixed date"
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
