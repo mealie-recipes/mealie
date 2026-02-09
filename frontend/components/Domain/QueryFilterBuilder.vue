@@ -365,9 +365,8 @@ const emit = defineEmits<{
 const { household } = useHouseholdSelf();
 const {
   logOps,
-  relOps,
-  relativeDateRelOps,
   placeholderKeywords,
+  getRelOps,
   buildQueryFilterString,
   getFieldFromFieldDef,
   isOrganizerType,
@@ -465,15 +464,8 @@ function setLogicalOperatorValue(field: FieldWithId, index: number, value: Logic
 }
 
 function setRelationalOperatorValue(field: FieldWithId, index: number, value: RelationalKeyword | RelationalOperator) {
-  switch (fields.value[index].type) {
-    case "relativeDate":
-      fields.value[index].relationalOperatorValue = relativeDateRelOps.value[value];
-      break;
-
-    default:
-      fields.value[index].relationalOperatorValue = relOps.value[value];
-      break;
-  }
+  const relOps = getRelOps(field.type);
+  fields.value[index].relationalOperatorValue = relOps.value[value];
 }
 
 function setFieldValue(field: FieldWithId, index: number, value: FieldValue) {
@@ -571,25 +563,16 @@ async function initializeFields() {
       id: useUid(),
     };
 
+    const relOps = getRelOps(field.type);
+
     field.leftParenthesis = part.leftParenthesis || field.leftParenthesis;
     field.rightParenthesis = part.rightParenthesis || field.rightParenthesis;
     field.logicalOperator = part.logicalOperator
       ? logOps.value[part.logicalOperator]
       : field.logicalOperator;
-
-    switch (field.type) {
-      case "relativeDate":
-        field.relationalOperatorValue = part.relationalOperator
-          ? relativeDateRelOps.value[part.relationalOperator]
-          : field.relationalOperatorValue;
-        break;
-
-      default:
-        field.relationalOperatorValue = part.relationalOperator
-          ? relOps.value[part.relationalOperator]
-          : field.relationalOperatorValue;
-        break;
-    }
+    field.relationalOperatorValue = part.relationalOperator
+      ? relOps.value[part.relationalOperator]
+      : field.relationalOperatorValue;
     field.relationalOperatorValue = part.relationalOperator
       ? relOps.value[part.relationalOperator]
       : field.relationalOperatorValue;

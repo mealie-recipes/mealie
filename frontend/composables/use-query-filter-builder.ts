@@ -187,6 +187,16 @@ export function useQueryFilterBuilder() {
     return ops;
   });
 
+  function getRelOps(fieldType: FieldType): typeof relOps | typeof relativeDateRelOps {
+    switch (fieldType) {
+      case "relativeDate":
+        return relativeDateRelOps;
+
+      default:
+        return relOps;
+    }
+  }
+
   function isOrganizerType(type: FieldType): type is Organizer {
     return (
       type === Organizer.Category
@@ -353,9 +363,8 @@ export function useQueryFilterBuilder() {
 
   return {
     logOps,
-    relOps,
-    relativeDateRelOps,
     placeholderKeywords,
+    getRelOps,
     buildQueryFilterString,
     getFieldFromFieldDef,
     isOrganizerType,
