@@ -1569,8 +1569,8 @@
             "acai berry": {
                 "aliases": [],
                 "description": "",
-                "name": "acai berry",
-                "plural_name": "acai berries"
+                "name": "акаи бобице",
+                "plural_name": "акаи бобице"
             },
             "canned cherry": {
                 "aliases": [],
@@ -1807,20 +1807,20 @@
             "macadamia": {
                 "aliases": [],
                 "description": "",
-                "name": "macadamia",
-                "plural_name": "macadamias"
+                "name": "макадемија",
+                "plural_name": "макадемија"
             },
             "roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted peanut",
-                "plural_name": "roasted peanuts"
+                "name": "печени кикирики",
+                "plural_name": "печени кикирики"
             },
             "chopped nut": {
                 "aliases": [],
                 "description": "",
-                "name": "chopped nut",
-                "plural_name": "chopped nuts"
+                "name": "сецкани орах",
+                "plural_name": "сецкани орах"
             },
             "hemp heart": {
                 "aliases": [],
@@ -1837,68 +1837,68 @@
             "mixed nut": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed nut",
-                "plural_name": "mixed nuts"
+                "name": "мешано орашасто воће",
+                "plural_name": "мешано орашасто воће"
             },
             "brazil nut": {
                 "aliases": [],
                 "description": "",
-                "name": "brazil nut",
-                "plural_name": "brazil nuts"
+                "name": "бразилски орах",
+                "plural_name": "бразилски орах"
             },
             "mixed seed": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed seed",
-                "plural_name": "mixed seeds"
+                "name": "мешано семење",
+                "plural_name": "мешано семење"
             },
             "onion seed": {
                 "aliases": [],
                 "description": "",
-                "name": "onion seed",
-                "plural_name": "onion seeds"
+                "name": "семе лука",
+                "plural_name": "семе лука"
             },
             "watermelon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon seed",
-                "plural_name": "watermelon seeds"
+                "name": "семе лубенице",
+                "plural_name": "семе лубенице"
             },
             "honey-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted peanut",
-                "plural_name": "honey-roasted peanuts"
+                "name": "печени кикирики са медом",
+                "plural_name": "печени кикирики са медом"
             },
             "melon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "melon seed",
-                "plural_name": "melon seeds"
+                "name": "семе диње",
+                "plural_name": "семе диње"
             },
             "lotus seed": {
                 "aliases": [],
                 "description": "",
-                "name": "lotus seed",
-                "plural_name": "lotus seeds"
+                "name": "семе локвања",
+                "plural_name": "семе локвања"
             },
             "white chia": {
                 "aliases": [],
                 "description": "",
-                "name": "white chia",
-                "plural_name": "white chias"
+                "name": "бела чиа",
+                "plural_name": "бела чиа"
             },
             "trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "trail mix",
-                "plural_name": "trail mixes"
+                "name": "микс орашастог воћа",
+                "plural_name": "микс орашастог воћа"
             },
             "basil seed": {
                 "aliases": [],
                 "description": "",
-                "name": "basil seed",
-                "plural_name": "basil seeds"
+                "name": "семе босиљка",
+                "plural_name": "семе босиљка"
             },
             "candlenut": {
                 "aliases": [],
@@ -1909,8 +1909,8 @@
             "peanut brittle": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut brittle",
-                "plural_name": "peanut brittles"
+                "name": "ушећерени кикирики",
+                "plural_name": "ушећерени кикирики"
             },
             "jackfruit seed": {
                 "aliases": [],
@@ -1921,8 +1921,8 @@
             "honey-roasted almond": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted almond",
-                "plural_name": "honey-roasted almonds"
+                "name": "печени бадем са медом",
+                "plural_name": "печени бадем са медом"
             },
             "toasted nut": {
                 "aliases": [],
@@ -1939,8 +1939,8 @@
             "honey-roasted pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted pecan",
-                "plural_name": "honey-roasted pecans"
+                "name": "печени пекан са медом",
+                "plural_name": "печени пекан са медом"
             },
             "tigernut": {
                 "aliases": [],
@@ -1951,38 +1951,38 @@
             "sunflower sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower sprout",
-                "plural_name": "sunflower sprouts"
+                "name": "клице сунцокрета",
+                "plural_name": "клице сунцокрета"
             },
             "apricot kernel": {
                 "aliases": [],
                 "description": "",
-                "name": "apricot kernel",
-                "plural_name": "apricot kernels"
+                "name": "коштице брескве",
+                "plural_name": "коштице брескве"
             },
             "palm seed": {
                 "aliases": [],
                 "description": "",
-                "name": "palm seed",
-                "plural_name": "palm seeds"
+                "name": "семенке палме",
+                "plural_name": "семенке палме"
             },
             "ginkgo nut": {
                 "aliases": [],
                 "description": "",
-                "name": "ginkgo nut",
-                "plural_name": "ginkgo nuts"
+                "name": "коштице гинка",
+                "plural_name": "коштице гинка"
             },
             "keto trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "keto trail mix",
-                "plural_name": "keto trail mixes"
+                "name": "кето микс орашастог воћа",
+                "plural_name": "кето микс орашастог воћа"
             },
             "wattleseed": {
                 "aliases": [],
                 "description": "",
-                "name": "wattleseed",
-                "plural_name": "wattleseeds"
+                "name": "семе акакије",
+                "plural_name": "семе акакије"
             },
             "barùka": {
                 "aliases": [],
@@ -1993,8 +1993,8 @@
             "indian almond": {
                 "aliases": [],
                 "description": "",
-                "name": "indian almond",
-                "plural_name": "indian almonds"
+                "name": "индијски бадем",
+                "plural_name": "индијски бадем"
             }
         }
     },
@@ -2003,60 +2003,60 @@
             "parmesan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan cheese",
-                "plural_name": "parmesan cheese"
+                "name": "пармезан сир",
+                "plural_name": "пармезан сир"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddar cheese"
+                    "чедар сир "
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheese"
+                "name": "чедар сир",
+                "plural_name": "чедар сир"
             },
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheese"
+                "name": "крем сир",
+                "plural_name": "крем сир"
             },
             "sharp cheddar cheese": {
                 "aliases": [
-                    "sharp cheddar"
+                    "оштрији чедар сир"
                 ],
                 "description": "",
-                "name": "sharp cheddar cheese",
-                "plural_name": "sharp cheddar cheese"
+                "name": "оштрији чедар сир",
+                "plural_name": "оштрији чедар сир"
             },
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheese"
+                "name": "сир",
+                "plural_name": "сир"
             },
             "mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella cheese",
-                "plural_name": "mozzarella cheese"
+                "name": "моцарела сир",
+                "plural_name": "моцарела сир"
             },
             "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "feta cheese",
-                "plural_name": "feta cheese"
+                "name": "фета сир",
+                "plural_name": "фета сир"
             },
             "ricotta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "ricotta cheese",
-                "plural_name": "ricotta cheese"
+                "name": "рикота сир",
+                "plural_name": "рикота сир"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheddar-jack cheese",
-                "plural_name": "cheddar-jack cheese"
+                "name": "чедар-џек сир",
+                "plural_name": "чедар-џек сир"
             },
             "monterey jack cheese": {
                 "aliases": [],
@@ -2067,32 +2067,32 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheese"
+                "name": "плави сир",
+                "plural_name": "плави сир"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheese"
+                "name": "козији сир",
+                "plural_name": "козији сир"
             },
             "fresh mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella cheese",
-                "plural_name": "fresh mozzarella cheese"
+                "name": "свеж моцарела сир",
+                "plural_name": "свеж моцарела сир"
             },
             "swis cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swis cheese",
-                "plural_name": "swis cheese"
+                "name": "швајцарски сир",
+                "plural_name": "швајцарски сир"
             },
             "pecorino cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pecorino cheese",
-                "plural_name": "pecorino cheese"
+                "name": "пекорино сир",
+                "plural_name": "пекорино сир"
             },
             "gruyere cheese": {
                 "aliases": [],
@@ -2103,20 +2103,20 @@
             "mascarpone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mascarpone cheese",
-                "plural_name": "mascarpone cheese"
+                "name": "маскарпоне сир",
+                "plural_name": "маскарпоне сир"
             },
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cottage cheese",
-                "plural_name": "cottage cheese"
+                "name": "бели ситни сир",
+                "plural_name": "бели ситни сир"
             },
             "american cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "american cheese",
-                "plural_name": "american cheese"
+                "name": "амерички сир",
+                "plural_name": "амерички сир"
             },
             "provolone cheese": {
                 "aliases": [],
@@ -2139,8 +2139,8 @@
             "brie cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "brie cheese",
-                "plural_name": "brie cheese"
+                "name": "бри сир",
+                "plural_name": "бри сир"
             },
             "paneer cheese": {
                 "aliases": [],
@@ -2169,8 +2169,8 @@
             "gouda cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gouda cheese",
-                "plural_name": "gouda cheese"
+                "name": "гауда сир",
+                "plural_name": "гауда сир"
             },
             "cotija cheese": {
                 "aliases": [],
@@ -2187,14 +2187,14 @@
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheese"
+                "name": "димљени сир",
+                "plural_name": "димљени сир"
             },
             "halloumi cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "halloumi cheese",
-                "plural_name": "halloumi cheese"
+                "name": "халуми сир",
+                "plural_name": "халуми сир"
             },
             "chevre cheese": {
                 "aliases": [],
@@ -2247,8 +2247,8 @@
             "grana-padano cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "grana-padano cheese",
-                "plural_name": "grana-padano cheese"
+                "name": "грана-падано сир",
+                "plural_name": "грана-падано сир"
             },
             "muenster cheese": {
                 "aliases": [],
@@ -2265,14 +2265,14 @@
             "camembert cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "camembert cheese",
-                "plural_name": "camembert cheese"
+                "name": "камербер сир",
+                "plural_name": "камербер сир"
             },
             "soft cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "soft cheese",
-                "plural_name": "soft cheese"
+                "name": "мекани сир",
+                "plural_name": "мекани сир"
             },
             "stilton cheese": {
                 "aliases": [],
@@ -2319,8 +2319,8 @@
             "edam cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "edam cheese",
-                "plural_name": "edam cheese"
+                "name": "едам сир",
+                "plural_name": "едам сир"
             },
             "creamy cheese wedge": {
                 "aliases": [],
@@ -2355,8 +2355,8 @@
             "leicester cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "leicester cheese",
-                "plural_name": "leicester cheese"
+                "name": "лестер сир",
+                "plural_name": "лестер сир"
             },
             "kefalotyri cheese": {
                 "aliases": [],
@@ -2373,8 +2373,8 @@
             "lancashire cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "lancashire cheese",
-                "plural_name": "lancashire cheese"
+                "name": "ланкешир сир",
+                "plural_name": "ланкешир сир"
             },
             "kasseri cheese": {
                 "aliases": [],
@@ -2397,14 +2397,14 @@
             "longhorn cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "longhorn cheese",
-                "plural_name": "longhorn cheese"
+                "name": "лонгхорн сир",
+                "plural_name": "лонгхорн сир"
             },
             "seasoned feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "seasoned feta cheese",
-                "plural_name": "seasoned feta cheese"
+                "name": "зрели фета сир",
+                "plural_name": "зрели фета сир"
             },
             "comté cheese": {
                 "aliases": [],
@@ -2457,8 +2457,8 @@
             "hard goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "hard goat cheese",
-                "plural_name": "hard goat cheese"
+                "name": "тврди козији сир",
+                "plural_name": "тврди козији сир"
             },
             "kashkaval cheese": {
                 "aliases": [],
@@ -2469,8 +2469,8 @@
             "sheep cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep cheese",
-                "plural_name": "sheep cheese"
+                "name": "овчији сир",
+                "plural_name": "овчији сир"
             },
             "amul cheese": {
                 "aliases": [],
@@ -2553,8 +2553,8 @@
             "gloucester cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gloucester cheese",
-                "plural_name": "gloucester cheese"
+                "name": "глостер сир",
+                "plural_name": "глостер сир"
             },
             "port salut cheese": {
                 "aliases": [],
@@ -2583,8 +2583,8 @@
             "truffle cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "truffle cheese",
-                "plural_name": "truffle cheese"
+                "name": "сир са тартуфима",
+                "plural_name": "сир са тартуфима"
             },
             "epoisses cheese": {
                 "aliases": [],
@@ -2595,8 +2595,8 @@
             "maasdam cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "maasdam cheese",
-                "plural_name": "maasdam cheese"
+                "name": "масдам сир",
+                "plural_name": "масдам сир"
             },
             "petit-suisse cheese": {
                 "aliases": [],
