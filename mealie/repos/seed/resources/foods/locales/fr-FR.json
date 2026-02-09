@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ail",
-                "plural_name": "ail"
+                "plural_name": "ails"
             },
             "onion": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chou-fleur",
-                "plural_name": "cauliflower"
+                "plural_name": "choux-fleurs"
             },
             "cabbage": {
                 "aliases": [],
@@ -156,8 +156,8 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
-                "plural_name": "asparagus"
+                "name": "asperge",
+                "plural_name": "asperges"
             },
             "kale": {
                 "aliases": [],
@@ -5859,8 +5859,8 @@
             "garlic powder": {
                 "aliases": [],
                 "description": "",
-                "name": "poudre d'ail",
-                "plural_name": "garlic powder"
+                "name": "ail en poudre",
+                "plural_name": "ail en poudre"
             },
             "oregano": {
                 "aliases": [],
