@@ -438,6 +438,9 @@ function setField(index: number, fieldLabel: string) {
 
   // Defaults
   switch (fields.value[index].type) {
+    case "date":
+      fields.value[index].value = safeNewDate("");
+      break;
     case "relativeDate":
       fields.value[index].value = "$NOW-30d";
       break;
