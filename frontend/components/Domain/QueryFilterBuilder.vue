@@ -469,6 +469,31 @@ function setField(index: number, fieldLabel: string) {
     ...getFieldFromFieldDef(updatedField, resetValue),
     id: fields.value[index].id, // keep the id
   };
+
+  // Defaults
+  switch (fields.value[index].type) {
+    case "date":
+      switch (fields.value[index].name) {
+        case "last_made":
+          fields.value[index].fieldConfig.absoluteDate = false;
+          break;
+
+        default:
+          fields.value[index].fieldConfig.absoluteDate = true;
+          break;
+      }
+
+      if (fields.value[index].fieldConfig.absoluteDate) {
+        fields.value[index].value = safeNewDate("");
+      }
+      else {
+        fields.value[index].value = "$NOW-30d";
+      }
+      break;
+
+    default:
+      break;
+  }
 }
 
 function setLeftParenthesisValue(field: FieldWithId, index: number, value: string) {
