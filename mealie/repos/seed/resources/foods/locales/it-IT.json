@@ -101,7 +101,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mais dolce",
-                "plural_name": "sweet corn"
+                "plural_name": "mais dolce"
             },
             "chile pepper": {
                 "aliases": [
@@ -598,7 +598,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "insalata di broccoli",
-                "plural_name": "broccoli slaw"
+                "plural_name": "insalata di broccoli"
             },
             "arbol chile pepper": {
                 "aliases": [],
@@ -980,7 +980,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "purea di castagne",
-                "plural_name": "chestnut purée"
+                "plural_name": "purea di castagne"
             },
             "prickly pear": {
                 "aliases": [],
@@ -2583,8 +2583,8 @@
             "truffle cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "truffle cheese",
-                "plural_name": "truffle cheese"
+                "name": "formaggio al tartufo",
+                "plural_name": "formaggio al tartufo"
             },
             "epoisses cheese": {
                 "aliases": [],
@@ -3218,7 +3218,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "maionese vegana",
-                "plural_name": "vegan mayonnaise"
+                "plural_name": "maionese vegana"
             },
             "vegan cheese": {
                 "aliases": [],
@@ -3290,7 +3290,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "panna acida vegana",
-                "plural_name": "vegan sour cream"
+                "plural_name": "panna acida vegana"
             },
             "textured vegetable protein": {
                 "aliases": [],
@@ -3362,7 +3362,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "latte di cocco in polvere",
-                "plural_name": "coconut milk powder"
+                "plural_name": "latte di cocco in polvere"
             },
             "non-dairy whipped topping": {
                 "aliases": [],
@@ -3374,7 +3374,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "latte di noci",
-                "plural_name": "nut milk"
+                "plural_name": "latte di noci"
             },
             "non-dairy cream": {
                 "aliases": [],
@@ -3547,8 +3547,8 @@
             "soy milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "soy milk powder",
-                "plural_name": "soy milk powder"
+                "name": "latte di soia in polvere",
+                "plural_name": "latte di soia in polvere"
             },
             "vegan cream cheese frosting": {
                 "aliases": [],
@@ -3785,8 +3785,8 @@
             "pork loin": {
                 "aliases": [],
                 "description": "",
-                "name": "pork loin",
-                "plural_name": "pork loins"
+                "name": "lobata di maiale",
+                "plural_name": "lombate di maiale"
             },
             "prosciutto": {
                 "aliases": [],
@@ -3923,8 +3923,8 @@
             "pork belly": {
                 "aliases": [],
                 "description": "",
-                "name": "pork belly",
-                "plural_name": "pork bellies"
+                "name": "pancia di maiale",
+                "plural_name": "pance di maiale"
             },
             "andouille": {
                 "aliases": [],
@@ -4103,8 +4103,8 @@
             "soup bone": {
                 "aliases": [],
                 "description": "",
-                "name": "soup bone",
-                "plural_name": "soup bones"
+                "name": "zuppa di osso",
+                "plural_name": "zuppa di ossa"
             },
             "lamb loin": {
                 "aliases": [],
@@ -4115,14 +4115,14 @@
             "pork steak": {
                 "aliases": [],
                 "description": "",
-                "name": "pork steak",
-                "plural_name": "pork steaks"
+                "name": "bistecca di maiale",
+                "plural_name": "bistecche di maiale"
             },
             "mexican chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican chorizo",
-                "plural_name": "mexican chorizoes"
+                "name": "chorizo messicana",
+                "plural_name": "chorizo messicane"
             },
             "rack of lamb": {
                 "aliases": [],
