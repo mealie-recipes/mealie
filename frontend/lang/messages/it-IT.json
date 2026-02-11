@@ -1422,7 +1422,9 @@
       "is-greater-than": "è maggiore di",
       "is-greater-than-or-equal-to": "è maggiore o uguale di",
       "is-less-than": "è minore di",
-      "is-less-than-or-equal-to": "è minore o uguale di"
+      "is-less-than-or-equal-to": "è minore o uguale di",
+      "is-older-than": "è più vecchio di",
+      "is-newer-than": "è più recente di"
     },
     "relational-keywords": {
       "is": "è",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "contiene tutti i",
       "is-like": "è simile",
       "is-not-like": "non è come"
+    },
+    "dates": {
+      "days-ago": "giorni fa|giorno fa|giorni fa"
     }
   },
   "validators": {
