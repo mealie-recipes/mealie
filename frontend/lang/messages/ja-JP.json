@@ -1422,7 +1422,9 @@
       "is-greater-than": "より大きい",
       "is-greater-than-or-equal-to": "以上",
       "is-less-than": "より小さい",
-      "is-less-than-or-equal-to": "以下"
+      "is-less-than-or-equal-to": "以下",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "は",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "すべてを含む",
       "is-like": "次のようなものです",
       "is-not-like": "というわけではありません"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
