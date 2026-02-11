@@ -1422,7 +1422,9 @@
       "is-greater-than": "er større end",
       "is-greater-than-or-equal-to": "er større end eller lig med (Automatic Translation)",
       "is-less-than": "er mindre end (Automatic Translation)",
-      "is-less-than-or-equal-to": "er mindre end eller lig med (Automatic Translation)"
+      "is-less-than-or-equal-to": "er mindre end eller lig med (Automatic Translation)",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "er",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "indeholder alle af",
       "is-like": "er ligesom",
       "is-not-like": "er ikke som"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
