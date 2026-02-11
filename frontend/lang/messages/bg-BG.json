@@ -1422,7 +1422,9 @@
       "is-greater-than": "е по-голямо от",
       "is-greater-than-or-equal-to": "е по-голямо от или равно на",
       "is-less-than": "е по-малко от",
-      "is-less-than-or-equal-to": "e по-малко или равно на"
+      "is-less-than-or-equal-to": "e по-малко или равно на",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "е",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "съдържа всички от",
       "is-like": "е като",
       "is-not-like": "не е като"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
