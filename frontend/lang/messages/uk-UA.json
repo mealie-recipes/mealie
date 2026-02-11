@@ -1422,7 +1422,9 @@
       "is-greater-than": "більше ніж",
       "is-greater-than-or-equal-to": "більше або дорівнює",
       "is-less-than": "менше ніж",
-      "is-less-than-or-equal-to": "менше або дорівнює"
+      "is-less-than-or-equal-to": "менше або дорівнює",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "є",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "містить усі",
       "is-like": "схожий",
       "is-not-like": "не схожий"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
