@@ -37,6 +37,14 @@ jobs:
 
       - uses: depot/setup-action@v1
 
+      - name: Generate Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: |
+            hkotel/mealie
+            ghcr.io/${{ github.repository }}
+
       - name: Retrieve Python package
         uses: actions/download-artifact@v4
         with:
@@ -57,5 +65,8 @@ jobs:
             hkotel/mealie:${{ inputs.tag }}
             ghcr.io/${{ github.repository }}:${{ inputs.tag }}
             ${{ inputs.tags }}
+          labels: |
+            ${{ steps.meta.outputs.labels }}
+            org.opencontainers.image.version=${{ inputs.tag }}
           build-args: |
             COMMIT=${{ github.sha }}
