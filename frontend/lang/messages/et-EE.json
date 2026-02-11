@@ -1422,7 +1422,9 @@
       "is-greater-than": "on suurem kui",
       "is-greater-than-or-equal-to": "on suurem või võrdne kui",
       "is-less-than": "on vähem kui",
-      "is-less-than-or-equal-to": "on väiksem või võrdne kui"
+      "is-less-than-or-equal-to": "on väiksem või võrdne kui",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "on",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "sisaldab kõiki",
       "is-like": "on nagu",
       "is-not-like": "ei ole nagu"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
