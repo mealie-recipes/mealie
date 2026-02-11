@@ -1100,7 +1100,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Tamarillo",
-                "plural_name": "tamarillos"
+                "plural_name": "Tamarillos"
             },
             "ice-apple": {
                 "aliases": [],
@@ -2004,15 +2004,15 @@
                 "aliases": [],
                 "description": "",
                 "name": "Parmesankäse",
-                "plural_name": "parmesan cheese"
+                "plural_name": "Parmesankäse"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddar cheese"
+                    "Cheddarkäse"
                 ],
                 "description": "",
                 "name": "Cheddarkäse",
-                "plural_name": "cheddar cheese"
+                "plural_name": "Cheddarkäse"
             },
             "cream cheese": {
                 "aliases": [],
@@ -2067,8 +2067,8 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheese"
+                "name": "Blauschimmelkäse",
+                "plural_name": "Blauschimmelkäse"
             },
             "goat cheese": {
                 "aliases": [],
@@ -2139,8 +2139,8 @@
             "brie cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "brie cheese",
-                "plural_name": "brie cheese"
+                "name": "Brie-Käse",
+                "plural_name": "Brie-Käse"
             },
             "paneer cheese": {
                 "aliases": [],
@@ -2169,8 +2169,8 @@
             "gouda cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gouda cheese",
-                "plural_name": "gouda cheese"
+                "name": "Gouda-Käse",
+                "plural_name": "Gouda-Käse"
             },
             "cotija cheese": {
                 "aliases": [],
@@ -7057,7 +7057,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Gewürzsalz",
-                "plural_name": "seasoned salt"
+                "plural_name": "Gewürzsalz"
             },
             "curry": {
                 "aliases": [],
@@ -7111,7 +7111,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Himalaya Salz",
-                "plural_name": "himalayan salt"
+                "plural_name": "Himalaya Salz"
             },
             "lemon & pepper seasoning": {
                 "aliases": [],
@@ -7655,7 +7655,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Mehl",
-                "plural_name": "flour"
+                "plural_name": "Mehl"
             },
             "vanilla extract": {
                 "aliases": [
@@ -7708,7 +7708,7 @@
                 ],
                 "description": "",
                 "name": "Weizenvollkornmehl",
-                "plural_name": "whole-wheat flour"
+                "plural_name": "Weizenvollkornmehl"
             },
             "almond flour": {
                 "aliases": [],
@@ -7866,12 +7866,12 @@
             },
             "whole-wheat": {
                 "aliases": [
-                    "vollkorn",
-                    "vollkorn"
+                    "Vollkorn",
+                    "Vollkorn"
                 ],
                 "description": "",
-                "name": "vollkorn",
-                "plural_name": "vollkorn"
+                "name": "Vollkorn",
+                "plural_name": "Vollkorn"
             },
             "candy sprinkle": {
                 "aliases": [],
