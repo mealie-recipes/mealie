@@ -1422,7 +1422,9 @@
       "is-greater-than": "다음보다 큼",
       "is-greater-than-or-equal-to": "다음보다 크거나 같음",
       "is-less-than": "다음보다 작음",
-      "is-less-than-or-equal-to": "다음보다 작거나 같음"
+      "is-less-than-or-equal-to": "다음보다 작거나 같음",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "같음",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "다음 모두를 포함",
       "is-like": "다음과 같음",
       "is-not-like": "다음과 같지 않음"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
