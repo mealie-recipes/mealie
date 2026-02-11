@@ -1422,7 +1422,9 @@
       "is-greater-than": "je več kot",
       "is-greater-than-or-equal-to": "je več kot ali enako kot",
       "is-less-than": "je manj kot",
-      "is-less-than-or-equal-to": "je manj kot ali enako kot"
+      "is-less-than-or-equal-to": "je manj kot ali enako kot",
+      "is-older-than": "je starejše od",
+      "is-newer-than": "je novejše od"
     },
     "relational-keywords": {
       "is": "je",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "vsebuje vse",
       "is-like": "je kot",
       "is-not-like": "ni kot"
+    },
+    "dates": {
+      "days-ago": "pred dnevi|dan nazaj|pred dnevi"
     }
   },
   "validators": {
