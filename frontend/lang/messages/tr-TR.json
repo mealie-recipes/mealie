@@ -1422,7 +1422,9 @@
       "is-greater-than": "daha büyük",
       "is-greater-than-or-equal-to": "daha büyük veya eşit",
       "is-less-than": "daha mı az",
-      "is-less-than-or-equal-to": "daha az veya eşit mi"
+      "is-less-than-or-equal-to": "daha az veya eşit mi",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "is",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "hepsini içeriyor mu",
       "is-like": "is like",
       "is-not-like": "is not like"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
