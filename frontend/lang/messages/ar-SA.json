@@ -1422,7 +1422,9 @@
       "is-greater-than": "أكبر من",
       "is-greater-than-or-equal-to": "أكبر من أو يساوي",
       "is-less-than": "أقل من",
-      "is-less-than-or-equal-to": "أقل من أو يساوي"
+      "is-less-than-or-equal-to": "أقل من أو يساوي",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "هو",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "يحتوي على كل من",
       "is-like": "هو مثل",
       "is-not-like": "ليس مثل"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
