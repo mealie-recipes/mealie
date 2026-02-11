@@ -1422,7 +1422,9 @@
       "is-greater-than": "eftir þann",
       "is-greater-than-or-equal-to": "þann eða eftir þann",
       "is-less-than": "fyrir þann",
-      "is-less-than-or-equal-to": "fyrir þann eða þann"
+      "is-less-than-or-equal-to": "fyrir þann eða þann",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "er",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "inniheldur alla af",
       "is-like": "is like",
       "is-not-like": "is not like"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
