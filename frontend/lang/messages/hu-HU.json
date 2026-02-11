@@ -1422,7 +1422,9 @@
       "is-greater-than": "nagyobb, mint",
       "is-greater-than-or-equal-to": "nagyobb vagy egyenlő",
       "is-less-than": "kevesebb, mint",
-      "is-less-than-or-equal-to": "kevesebb vagy egyenlő"
+      "is-less-than-or-equal-to": "kevesebb vagy egyenlő",
+      "is-older-than": "régebbi, mint",
+      "is-newer-than": "újabb, mint"
     },
     "relational-keywords": {
       "is": "van",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "tartalmazza az összes",
       "is-like": "hasonló",
       "is-not-like": "nem hasonló"
+    },
+    "dates": {
+      "days-ago": "napja|napja|napja"
     }
   },
   "validators": {
