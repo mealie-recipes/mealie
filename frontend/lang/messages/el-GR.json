@@ -1422,7 +1422,9 @@
       "is-greater-than": "είναι μεγαλύτερο από",
       "is-greater-than-or-equal-to": "είναι μεγαλύτερο από ή ίσο με",
       "is-less-than": "είναι μικρότερο από",
-      "is-less-than-or-equal-to": "είναι μικρότερο από ή ίσο με"
+      "is-less-than-or-equal-to": "είναι μικρότερο από ή ίσο με",
+      "is-older-than": "είναι παλαιότερο από",
+      "is-newer-than": "είναι νεότερο από"
     },
     "relational-keywords": {
       "is": "είναι",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "περιέχει όλα τα",
       "is-like": "είναι όμοιο με",
       "is-not-like": "δεν είναι όμοιο με"
+    },
+    "dates": {
+      "days-ago": "ημέρες πριν|ημέρα πριν|ημέρες πριν"
     }
   },
   "validators": {
