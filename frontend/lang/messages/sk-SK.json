@@ -1422,7 +1422,9 @@
       "is-greater-than": "je väčšie ako",
       "is-greater-than-or-equal-to": "je väčšie alebo rovné",
       "is-less-than": "je menšie ako",
-      "is-less-than-or-equal-to": "je menšie alebo rovné"
+      "is-less-than-or-equal-to": "je menšie alebo rovné",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "je",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "obsahuje všetky",
       "is-like": "je ako",
       "is-not-like": "nie je ako"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
