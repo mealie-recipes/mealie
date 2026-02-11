@@ -1422,7 +1422,9 @@
       "is-greater-than": "je větší než",
       "is-greater-than-or-equal-to": "je větší než nebo rovno",
       "is-less-than": "je menší než",
-      "is-less-than-or-equal-to": "je menší než nebo rovno"
+      "is-less-than-or-equal-to": "je menší než nebo rovno",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "je",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "obsahuje všechny z",
       "is-like": "je jako",
       "is-not-like": "není jako"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
