@@ -1422,7 +1422,9 @@
       "is-greater-than": "је веће од",
       "is-greater-than-or-equal-to": "је веће или једнако са",
       "is-less-than": "је мање од",
-      "is-less-than-or-equal-to": "је мање или једнако са"
+      "is-less-than-or-equal-to": "је мање или једнако са",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "је",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "садржи све из",
       "is-like": "је као",
       "is-not-like": "није као"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
