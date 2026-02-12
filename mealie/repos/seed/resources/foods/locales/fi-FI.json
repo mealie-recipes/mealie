@@ -853,26 +853,26 @@
             "dried fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fruit",
-                "plural_name": "dried fruits"
+                "name": "kuivattu hedelmä",
+                "plural_name": "kuivattua hedelmää"
             },
             "clementine": {
                 "aliases": [],
                 "description": "",
-                "name": "clementine",
-                "plural_name": "clementines"
+                "name": "klementiini",
+                "plural_name": "klementiiniä"
             },
             "persimmon": {
                 "aliases": [],
                 "description": "",
                 "name": "persimoni",
-                "plural_name": "persimmons"
+                "plural_name": "persimonia"
             },
             "melon": {
                 "aliases": [],
                 "description": "",
-                "name": "melon",
-                "plural_name": "melons"
+                "name": "meloni",
+                "plural_name": "melonia"
             },
             "tangerine": {
                 "aliases": [],
@@ -883,14 +883,14 @@
             "dried mango": {
                 "aliases": [],
                 "description": "",
-                "name": "dried mango",
-                "plural_name": "dried mangoes"
+                "name": "kuivattu mango",
+                "plural_name": "kuivattua mangoa"
             },
             "dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apple",
-                "plural_name": "dried apples"
+                "name": "kuivattu omena",
+                "plural_name": "kuivattua omenaa"
             },
             "quince": {
                 "aliases": [],
@@ -1033,8 +1033,8 @@
             "dried lime": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lime",
-                "plural_name": "dried limes"
+                "name": "kuivattu limetti",
+                "plural_name": "kuivattua limettiä"
             },
             "jujube": {
                 "aliases": [],
@@ -1057,8 +1057,8 @@
             "dried lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lemon",
-                "plural_name": "dried lemons"
+                "name": "kuivattu sitruuna",
+                "plural_name": "kuivattua sitruunaa"
             },
             "young jackfruit": {
                 "aliases": [],
@@ -1455,38 +1455,38 @@
             "strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry",
-                "plural_name": "strawberries"
+                "name": "mansikka",
+                "plural_name": "mansikkaa"
             },
             "blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry",
-                "plural_name": "blueberries"
+                "name": "mustikka",
+                "plural_name": "mustikkaa"
             },
             "raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry",
-                "plural_name": "raspberries"
+                "name": "vadelma",
+                "plural_name": "vadelmaa"
             },
             "cranberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry",
-                "plural_name": "cranberries"
+                "name": "karpalo",
+                "plural_name": "karpaloa"
             },
             "cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry",
-                "plural_name": "cherries"
+                "name": "kirsikka",
+                "plural_name": "kirsikkaa"
             },
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
-                "plural_name": "blackberries"
+                "name": "karhunvatukka",
+                "plural_name": "karhunvatukkaa"
             },
             "berry mix": {
                 "aliases": [],
@@ -1509,8 +1509,8 @@
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "katajanmarja",
+                "plural_name": "katajanmarjaa"
             },
             "sour cherry": {
                 "aliases": [],
@@ -1521,14 +1521,14 @@
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
-                "plural_name": "goji berries"
+                "name": "gojimarja",
+                "plural_name": "gojimarjaa"
             },
             "dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried blueberry",
-                "plural_name": "dried blueberries"
+                "name": "kuivattu mustikka",
+                "plural_name": "kuivattua mustikkaa"
             },
             "freeze-dried strawberry": {
                 "aliases": [],
@@ -1539,8 +1539,8 @@
             "gooseberry": {
                 "aliases": [],
                 "description": "",
-                "name": "gooseberry",
-                "plural_name": "gooseberries"
+                "name": "karviaismarja",
+                "plural_name": "karviaismarja"
             },
             "freeze-dried raspberry": {
                 "aliases": [],
@@ -1551,8 +1551,8 @@
             "lingonberry": {
                 "aliases": [],
                 "description": "",
-                "name": "lingonberry",
-                "plural_name": "lingonberries"
+                "name": "puolukka",
+                "plural_name": "puolukkaa"
             },
             "canned sour cherry": {
                 "aliases": [],
@@ -1653,8 +1653,8 @@
             "cloudberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cloudberry",
-                "plural_name": "cloudberries"
+                "name": "lakka",
+                "plural_name": "lakkaa"
             },
             "freeze-dried berry": {
                 "aliases": [],
@@ -1717,20 +1717,20 @@
             "walnut": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut",
-                "plural_name": "walnuts"
+                "name": "saksanpähkinä",
+                "plural_name": "saksanpähkinää"
             },
             "pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "pecan",
-                "plural_name": "pecans"
+                "name": "pekaanipähkinä",
+                "plural_name": "pekaanipähkinää"
             },
             "almond": {
                 "aliases": [],
                 "description": "",
-                "name": "almond",
-                "plural_name": "almonds"
+                "name": "manteli",
+                "plural_name": "mantelia"
             },
             "sesame seed": {
                 "aliases": [],
@@ -1741,8 +1741,8 @@
             "cashew": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew",
-                "plural_name": "cashews"
+                "name": "cashewpähkinä",
+                "plural_name": "cashewpähkinää"
             },
             "pine nut": {
                 "aliases": [],
@@ -1753,20 +1753,20 @@
             "pistachio": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio",
-                "plural_name": "pistachios"
+                "name": "pistaasipähkinä",
+                "plural_name": "pistaasipähkinää"
             },
             "peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut",
-                "plural_name": "peanuts"
+                "name": "maapähkinä",
+                "plural_name": "maapähkinää"
             },
             "chia": {
                 "aliases": [],
                 "description": "",
-                "name": "chia",
-                "plural_name": "chias"
+                "name": "chia-siemen",
+                "plural_name": "chia-siemeniä"
             },
             "flax": {
                 "aliases": [],
@@ -1789,8 +1789,8 @@
             "hazelnut": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut",
-                "plural_name": "hazelnuts"
+                "name": "hasselpähkinä",
+                "plural_name": "hasselpähkinää"
             },
             "poppy seed": {
                 "aliases": [],
@@ -1807,8 +1807,8 @@
             "macadamia": {
                 "aliases": [],
                 "description": "",
-                "name": "macadamia",
-                "plural_name": "macadamias"
+                "name": "macadamiapähkinä",
+                "plural_name": "macadamiapähkinää"
             },
             "roasted peanut": {
                 "aliases": [],
@@ -5829,8 +5829,8 @@
             "cilantro": {
                 "aliases": [],
                 "description": "",
-                "name": "cilantro",
-                "plural_name": "cilantro"
+                "name": "korianterin lehti",
+                "plural_name": "korianterin lehteä"
             },
             "cumin": {
                 "aliases": [],
@@ -5979,8 +5979,8 @@
             "coriander powder": {
                 "aliases": [],
                 "description": "",
-                "name": "coriander powder",
-                "plural_name": "coriander powder"
+                "name": "korianterijauhe",
+                "plural_name": "korianterijauhetta"
             },
             "sage": {
                 "aliases": [],
@@ -5991,8 +5991,8 @@
             "coriander": {
                 "aliases": [],
                 "description": "",
-                "name": "coriander",
-                "plural_name": "corianders"
+                "name": "korianteri",
+                "plural_name": "korianteria"
             },
             "allspice": {
                 "aliases": [],
@@ -6219,8 +6219,8 @@
             "dried chili": {
                 "aliases": [],
                 "description": "",
-                "name": "dried chili",
-                "plural_name": "dried chilies"
+                "name": "kuivattu chili",
+                "plural_name": "kuivattua chiliä"
             },
             "black cardamom": {
                 "aliases": [],
@@ -6273,8 +6273,8 @@
             "dried cilantro": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cilantro",
-                "plural_name": "dried cilantro"
+                "name": "kuivattu korianterin lehti",
+                "plural_name": "kuivattua korianterin lehteä"
             },
             "lemon balm": {
                 "aliases": [],
