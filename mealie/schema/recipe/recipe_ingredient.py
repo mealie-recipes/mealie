@@ -11,7 +11,7 @@ from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.recipe import IngredientFoodModel
-from mealie.lang.locale_config import LocalePluralHandling
+from mealie.lang.locale_config import LocalePluralFoodHandling
 from mealie.lang.providers import get_locale_context
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.mealie_model import UpdatedAtField
@@ -241,7 +241,7 @@ class RecipeIngredientBase(MealieModel):
 
         return unit_val
 
-    def _format_food_for_display(self, plural_handling: LocalePluralHandling) -> str:
+    def _format_food_for_display(self, plural_handling: LocalePluralFoodHandling) -> str:
         if not self.food:
             return ""
 
@@ -249,12 +249,12 @@ class RecipeIngredientBase(MealieModel):
             use_plural = False
         else:
             match plural_handling:
-                case LocalePluralHandling.NEVER:
+                case LocalePluralFoodHandling.NEVER:
                     use_plural = False
-                case LocalePluralHandling.WITHOUT_UNIT:
+                case LocalePluralFoodHandling.WITHOUT_UNIT:
                     # if quantity is zero then unit is not shown even if it's set
                     use_plural = not (self.quantity and self.unit)
-                case LocalePluralHandling.ALWAYS:
+                case LocalePluralFoodHandling.ALWAYS:
                     use_plural = True
                 case _:
                     use_plural = False
@@ -268,9 +268,9 @@ class RecipeIngredientBase(MealieModel):
         locale_context = get_locale_context()
         if locale_context:
             _, locale_cfg = locale_context
-            plural_handling = locale_cfg.plural_handling
+            plural_food_handling = locale_cfg.plural_food_handling
         else:
-            plural_handling = LocalePluralHandling.WITHOUT_UNIT
+            plural_food_handling = LocalePluralFoodHandling.WITHOUT_UNIT
 
         components: list[str] = []
 
@@ -281,15 +281,12 @@ class RecipeIngredientBase(MealieModel):
             components.append(self._format_unit_for_display())
 
         if self.food:
-            components.append(self._format_food_for_display(plural_handling))
+            components.append(self._format_food_for_display(plural_food_handling))
 
         if self.note:
             components.append(self.note)
 
         return " ".join(components).strip()
-
-    def handle_inject_locale(self, translator, locale_config):
-        self.display = self._format_display(locale_config.plural_handling)
 
 
 class IngredientUnitPagination(PaginationBase):

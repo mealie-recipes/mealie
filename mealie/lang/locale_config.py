@@ -7,7 +7,7 @@ class LocaleTextDirection(StrEnum):
     RTL = "rtl"
 
 
-class LocalePluralHandling(StrEnum):
+class LocalePluralFoodHandling(StrEnum):
     ALWAYS = "always"
     WITHOUT_UNIT = "without-unit"
     NEVER = "never"
@@ -17,7 +17,7 @@ class LocalePluralHandling(StrEnum):
 class LocaleConfig:
     name: str
     dir: LocaleTextDirection = LocaleTextDirection.LTR
-    plural_handling: LocalePluralHandling = LocalePluralHandling.ALWAYS
+    plural_food_handling: LocalePluralFoodHandling = LocalePluralFoodHandling.ALWAYS
 
 
 LOCALE_CONFIG: dict[str, LocaleConfig] = {
@@ -29,8 +29,8 @@ LOCALE_CONFIG: dict[str, LocaleConfig] = {
     "da-DK": LocaleConfig(name="Dansk (Danish)"),
     "de-DE": LocaleConfig(name="Deutsch (German)"),
     "el-GR": LocaleConfig(name="Ελληνικά (Greek)"),
-    "en-GB": LocaleConfig(name="British English", plural_handling=LocalePluralHandling.WITHOUT_UNIT),
-    "en-US": LocaleConfig(name="American English", plural_handling=LocalePluralHandling.WITHOUT_UNIT),
+    "en-GB": LocaleConfig(name="British English", plural_food_handling=LocalePluralFoodHandling.WITHOUT_UNIT),
+    "en-US": LocaleConfig(name="American English", plural_food_handling=LocalePluralFoodHandling.WITHOUT_UNIT),
     "es-ES": LocaleConfig(name="Español (Spanish)"),
     "et-EE": LocaleConfig(name="Eesti (Estonian)"),
     "fi-FI": LocaleConfig(name="Suomi (Finnish)"),
@@ -43,8 +43,8 @@ LOCALE_CONFIG: dict[str, LocaleConfig] = {
     "hu-HU": LocaleConfig(name="Magyar (Hungarian)"),
     "is-IS": LocaleConfig(name="Íslenska (Icelandic)"),
     "it-IT": LocaleConfig(name="Italiano (Italian)"),
-    "ja-JP": LocaleConfig(name="日本語 (Japanese)", plural_handling=LocalePluralHandling.NEVER),
-    "ko-KR": LocaleConfig(name="한국어 (Korean)", plural_handling=LocalePluralHandling.NEVER),
+    "ja-JP": LocaleConfig(name="日本語 (Japanese)", plural_food_handling=LocalePluralFoodHandling.NEVER),
+    "ko-KR": LocaleConfig(name="한국어 (Korean)", plural_food_handling=LocalePluralFoodHandling.NEVER),
     "lt-LT": LocaleConfig(name="Lietuvių (Lithuanian)"),
     "lv-LV": LocaleConfig(name="Latviešu (Latvian)"),
     "nl-NL": LocaleConfig(name="Nederlands (Dutch)"),
@@ -58,9 +58,9 @@ LOCALE_CONFIG: dict[str, LocaleConfig] = {
     "sl-SI": LocaleConfig(name="Slovenščina (Slovenian)"),
     "sr-SP": LocaleConfig(name="српски (Serbian)"),
     "sv-SE": LocaleConfig(name="Svenska (Swedish)"),
-    "tr-TR": LocaleConfig(name="Türkçe (Turkish)", plural_handling=LocalePluralHandling.NEVER),
+    "tr-TR": LocaleConfig(name="Türkçe (Turkish)", plural_food_handling=LocalePluralFoodHandling.NEVER),
     "uk-UA": LocaleConfig(name="Українська (Ukrainian)"),
-    "vi-VN": LocaleConfig(name="Tiếng Việt (Vietnamese)", plural_handling=LocalePluralHandling.NEVER),
-    "zh-CN": LocaleConfig(name="简体中文 (Chinese simplified)", plural_handling=LocalePluralHandling.NEVER),
-    "zh-TW": LocaleConfig(name="繁體中文 (Chinese traditional)", plural_handling=LocalePluralHandling.NEVER),
+    "vi-VN": LocaleConfig(name="Tiếng Việt (Vietnamese)", plural_food_handling=LocalePluralFoodHandling.NEVER),
+    "zh-CN": LocaleConfig(name="简体中文 (Chinese simplified)", plural_food_handling=LocalePluralFoodHandling.NEVER),
+    "zh-TW": LocaleConfig(name="繁體中文 (Chinese traditional)", plural_food_handling=LocalePluralFoodHandling.NEVER),
 }

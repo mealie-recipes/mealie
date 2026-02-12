@@ -57,12 +57,12 @@ type ParsedIngredientText = {
   recipeLink?: string;
 };
 
-function shouldUsePluralFood(quantity: number, hasUnit: boolean, pluralHandling: string): boolean {
+function shouldUsePluralFood(quantity: number, hasUnit: boolean, pluralFoodHandling: string): boolean {
   if (quantity && quantity <= 1) {
     return false;
   }
 
-  switch (pluralHandling) {
+  switch (pluralFoodHandling) {
     case "always":
       return true;
     case "without-unit":
@@ -79,11 +79,11 @@ function shouldUsePluralFood(quantity: number, hasUnit: boolean, pluralHandling:
 export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true, groupSlug?: string): ParsedIngredientText {
   const { locales, locale } = useLocales();
   const filteredLocales = locales.filter(lc => lc.value === locale.value);
-  const pluralHandling = filteredLocales.length ? filteredLocales[0].pluralHandling : "without-unit";
+  const pluralFoodHandling = filteredLocales.length ? filteredLocales[0].pluralFoodHandling : "without-unit";
 
   const { quantity, food, unit, note, referencedRecipe } = ingredient;
   const usePluralUnit = quantity !== undefined && ((quantity || 0) * scale > 1 || (quantity || 0) * scale === 0);
-  const usePluralFood = shouldUsePluralFood((quantity || 0) * scale, !!unit, pluralHandling);
+  const usePluralFood = shouldUsePluralFood((quantity || 0) * scale, !!unit, pluralFoodHandling);
 
   let returnQty = "";
 
