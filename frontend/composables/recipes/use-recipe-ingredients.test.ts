@@ -1,8 +1,19 @@
-import { describe, test, expect } from "vitest";
-import { parseIngredientText } from "./use-recipe-ingredients";
+import { describe, test, expect, vi, beforeEach } from "vitest";
+import { parseIngredientText, useParsedIngredientText } from "./use-recipe-ingredients";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
+import { useLocales } from "../use-locales";
+
+vi.mock("../use-locales");
 
 describe(parseIngredientText.name, () => {
+  beforeEach(() => {
+    vi.clearAllMocks();
+    vi.mocked(useLocales).mockReturnValue({
+      locales: [{ value: "en-US", pluralFoodHandling: "always" }],
+      locale: { value: "en-US", pluralFoodHandling: "always" },
+    } as any);
+  });
+
   const createRecipeIngredient = (overrides: Partial<RecipeIngredient>): RecipeIngredient => ({
     quantity: 1,
     food: {
@@ -127,5 +138,65 @@ describe(parseIngredientText.name, () => {
     });
 
     expect(parseIngredientText(ingredient, 2)).toEqual("2 tablespoons diced onions");
+  });
+
+  test("plural handling: 'always' strategy uses plural food with unit", () => {
+    vi.mocked(useLocales).mockReturnValue({
+      locales: [{ value: "en-US", pluralFoodHandling: "always" }],
+      locale: { value: "en-US", pluralFoodHandling: "always" },
+    } as any);
+
+    const ingredient = createRecipeIngredient({
+      quantity: 2,
+      unit: { id: "1", name: "tablespoon", pluralName: "tablespoons", useAbbreviation: false },
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" },
+    });
+
+    expect(parseIngredientText(ingredient)).toEqual("2 tablespoons diced onions");
+  });
+
+  test("plural handling: 'never' strategy never uses plural food", () => {
+    vi.mocked(useLocales).mockReturnValue({
+      locales: [{ value: "en-US", pluralFoodHandling: "never" }],
+      locale: { value: "en-US", pluralFoodHandling: "never" },
+    } as any);
+
+    const ingredient = createRecipeIngredient({
+      quantity: 2,
+      unit: { id: "1", name: "tablespoon", pluralName: "tablespoons", useAbbreviation: false },
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" },
+    });
+
+    expect(parseIngredientText(ingredient)).toEqual("2 tablespoons diced onion");
+  });
+
+  test("plural handling: 'without-unit' strategy uses plural food without unit", () => {
+    vi.mocked(useLocales).mockReturnValue({
+      locales: [{ value: "en-US", pluralFoodHandling: "without-unit" }],
+      locale: { value: "en-US", pluralFoodHandling: "without-unit" },
+    } as any);
+
+    const ingredient = createRecipeIngredient({
+      quantity: 2,
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" },
+      unit: undefined,
+    });
+
+    expect(parseIngredientText(ingredient)).toEqual("2 diced onions");
+  });
+
+  test("plural handling: 'without-unit' strategy uses singular food with unit", () => {
+    vi.mocked(useLocales).mockReturnValue({
+      locales: [{ value: "en-US", pluralFoodHandling: "without-unit" }],
+      locale: { value: "en-US", pluralFoodHandling: "without-unit" },
+    } as any);
+
+    const ingredient = createRecipeIngredient({
+      quantity: 2,
+      unit: { id: "1", name: "tablespoon", pluralName: "tablespoons", useAbbreviation: false },
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" },
+    });
+
+    expect(parseIngredientText(ingredient)).toEqual("2 tablespoons diced onion");
   });
 });
