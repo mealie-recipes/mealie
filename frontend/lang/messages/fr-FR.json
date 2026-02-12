@@ -1423,8 +1423,8 @@
       "is-greater-than-or-equal-to": "est plus grand que ou égal à",
       "is-less-than": "est inférieur à",
       "is-less-than-or-equal-to": "est inférieur ou égal à",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "est plus ancien que",
+      "is-newer-than": "est plus récent que"
     },
     "relational-keywords": {
       "is": "est",
