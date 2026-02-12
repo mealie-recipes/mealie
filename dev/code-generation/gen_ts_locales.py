@@ -11,7 +11,7 @@ from pydantic import ConfigDict
 from requests import Response
 from utils import CodeDest, CodeKeys, inject_inline, log
 
-from mealie.lang.locale_config import LOCALE_CONFIG, LocalePluralType, LocaleTextDirection
+from mealie.lang.locale_config import LOCALE_CONFIG, LocalePluralHandling, LocaleTextDirection
 from mealie.schema._mealie import MealieModel
 
 BASE = pathlib.Path(__file__).parent.parent.parent
@@ -26,7 +26,7 @@ export const LOCALES = [{% for locale in locales %}
     value: "{{ locale.locale }}",
     progress: {{ locale.progress }},
     dir: "{{ locale.dir }}",
-    pluralType: "{{ locale.plural_type }}",
+    pluralHandling: "{{ locale.plural_handling }}",
   },{% endfor %}
 ];
 
@@ -40,7 +40,7 @@ class TargetLanguage(MealieModel):
     name: str
     locale: str
     dir: LocaleTextDirection = LocaleTextDirection.LTR
-    plural_type: LocalePluralType = LocalePluralType.ALWAYS
+    plural_handling: LocalePluralHandling = LocalePluralHandling.ALWAYS
     threeLettersCode: str
     twoLettersCode: str
     progress: int = 0
@@ -199,7 +199,7 @@ def get_languages() -> list[TargetLanguage]:
             name="English",
             locale="en-US",
             dir=LocaleTextDirection.LTR,
-            plural_type=LocalePluralType.NO_UNIT,
+            plural_handling=LocalePluralHandling.WITHOUT_UNIT,
             threeLettersCode="en",
             twoLettersCode="en",
             progress=100,
@@ -211,7 +211,7 @@ def get_languages() -> list[TargetLanguage]:
             locale_data = LOCALE_CONFIG[model.locale]
             model.name = locale_data.name
             model.dir = locale_data.dir
-            model.plural_type = locale_data.plural_type
+            model.plural_handling = locale_data.plural_handling
             model.progress = progress.get(model.id, model.progress)
 
     models.sort(key=lambda x: x.locale, reverse=True)
