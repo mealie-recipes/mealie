@@ -25,7 +25,7 @@ def _load_factory() -> i18n.ProviderFactory:
     )
 
 
-def local_provider(accept_language: str | None = Header(None)) -> Translator:
+def get_locale_provider(accept_language: str | None = Header(None)) -> Translator:
     factory = _load_factory()
     accept_language = accept_language or "en-US"
     return factory.get(accept_language)

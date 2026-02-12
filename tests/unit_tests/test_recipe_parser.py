@@ -1,6 +1,6 @@
 import pytest
 
-from mealie.lang.providers import local_provider
+from mealie.lang.providers import get_locale_provider
 from mealie.services.scraper import scraper
 from tests.utils.recipe_data import RecipeSiteTestCase, get_recipe_test_cases
 
@@ -19,7 +19,7 @@ and then use this test case by removing the `@pytest.mark.skip` and than testing
 @pytest.mark.parametrize("recipe_test_data", test_cases)
 @pytest.mark.asyncio
 async def test_recipe_parser(recipe_test_data: RecipeSiteTestCase):
-    translator = local_provider()
+    translator = get_locale_provider()
     recipe, _ = await scraper.create_from_html(recipe_test_data.url, translator)
 
     assert recipe.slug == recipe_test_data.expected_slug

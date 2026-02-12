@@ -17,7 +17,7 @@ from mealie.core.root_logger import get_logger
 from mealie.core.settings.directories import AppDirectories
 from mealie.core.settings.settings import AppSettings
 from mealie.db.db_setup import generate_session
-from mealie.lang import local_provider
+from mealie.lang import get_locale_provider
 from mealie.lang.providers import Translator
 from mealie.repos._utils import NOT_SET, NotSet
 from mealie.repos.all_repositories import AllRepositories, get_repositories
@@ -30,7 +30,7 @@ from mealie.services.event_bus_service.event_types import EventDocumentDataBase,
 
 class _BaseController(ABC):  # noqa: B024
     session: Session = Depends(generate_session)
-    translator: Translator = Depends(local_provider)
+    translator: Translator = Depends(get_locale_provider)
 
     _repos: AllRepositories | None = None
     _logger: Logger | None = None
@@ -39,7 +39,7 @@ class _BaseController(ABC):  # noqa: B024
 
     @property
     def t(self):
-        return self.translator.t if self.translator else local_provider().t
+        return self.translator.t if self.translator else get_locale_provider().t
 
     @property
     def repos(self):
@@ -136,7 +136,7 @@ class BaseUserController(_BaseController):
 
     user: PrivateUser = Depends(get_current_user)
     integration_id: str = Depends(get_integration_id)
-    translator: Translator = Depends(local_provider)
+    translator: Translator = Depends(get_locale_provider)
 
     # Manual Cache
     _checks: OperationChecks
