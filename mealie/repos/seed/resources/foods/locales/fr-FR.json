@@ -132,8 +132,8 @@
             "baby greens": {
                 "aliases": [],
                 "description": "",
-                "name": "baby greens",
-                "plural_name": "baby greens"
+                "name": "pousses de légumes verts",
+                "plural_name": "pousses de légumes verts"
             },
             "pumpkin": {
                 "aliases": [],
@@ -163,13 +163,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "chou kale",
-                "plural_name": "kale"
+                "plural_name": "chou frisé"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
                 "name": "roquette",
-                "plural_name": "arugula"
+                "plural_name": "roquette"
             },
             "leek": {
                 "aliases": [],
@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "laitue",
-                "plural_name": "lettuce"
+                "plural_name": "laitue"
             },
             "butternut squash": {
                 "aliases": [],
@@ -198,8 +198,8 @@
             "romaine lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine lettuce",
-                "plural_name": "romaine lettuce"
+                "name": "laitue romaine",
+                "plural_name": "laitue romaine"
             },
             "beetroot": {
                 "aliases": [],
@@ -217,7 +217,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fenouil",
-                "plural_name": "fennel"
+                "plural_name": "fenouil"
             },
             "sun dried tomato": {
                 "aliases": [],
@@ -261,8 +261,8 @@
             "mixed greens": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed greens",
-                "plural_name": "mixed greens"
+                "name": "mesclun",
+                "plural_name": "mesclun"
             },
             "parsnip": {
                 "aliases": [],
@@ -279,8 +279,8 @@
             "mixed vegetables": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetables",
-                "plural_name": "mixed vegetables"
+                "name": "mélanges de légumes",
+                "plural_name": "mélanges de légumes"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -304,7 +304,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "piment de Cayenne",
-                "plural_name": "cayenne pepper"
+                "plural_name": "piment de Cayenne"
             },
             "green tomato": {
                 "aliases": [],
@@ -321,8 +321,8 @@
             "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg lettuce",
-                "plural_name": "iceberg lettuce"
+                "name": "laitue iceberg",
+                "plural_name": "laitue iceberg"
             },
             "mashed potato": {
                 "aliases": [],
@@ -340,7 +340,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "blette",
-                "plural_name": "chard"
+                "plural_name": "blette"
             },
             "pimiento": {
                 "aliases": [],
@@ -358,7 +358,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "laitue beurre",
-                "plural_name": "butter lettuce"
+                "plural_name": "laitue beurre"
             },
             "hash brown": {
                 "aliases": [],
@@ -438,7 +438,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "broccolini",
-                "plural_name": "tenderstem broccoli"
+                "plural_name": "broccolini"
             },
             "plantain": {
                 "aliases": [],
@@ -450,7 +450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "feuille de laitue",
-                "plural_name": "leaf lettuce"
+                "plural_name": "feuille de laitue"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -462,7 +462,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bébé bok choy",
-                "plural_name": "baby bok choy"
+                "plural_name": "chou de Chine jeune"
             },
             "jicama": {
                 "aliases": [],
@@ -484,7 +484,7 @@
             },
             "maize": {
                 "aliases": [
-                    "corn husk"
+                    "feuille de maïs"
                 ],
                 "description": "",
                 "name": "maize",
@@ -493,7 +493,7 @@
             "collard greens": {
                 "aliases": [],
                 "description": "",
-                "name": "collard greens",
+                "name": "cressons",
                 "plural_name": "collard greens"
             },
             "french-fried onion": {
@@ -554,7 +554,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "laitue",
-                "plural_name": "boston lettuce"
+                "plural_name": "laitue beurre"
             },
             "kohlrabi": {
                 "aliases": [],
@@ -576,11 +576,11 @@
             },
             "Frisée": {
                 "aliases": [
-                    "curly endive"
+                    "frisée"
                 ],
                 "description": "",
-                "name": "Frisée",
-                "plural_name": "Frisées"
+                "name": "Frisée",
+                "plural_name": "Frisées"
             },
             "anaheim pepper": {
                 "aliases": [],
@@ -591,8 +591,8 @@
             "cress": {
                 "aliases": [],
                 "description": "",
-                "name": "cress",
-                "plural_name": "cress"
+                "name": "cresson",
+                "plural_name": "cressons"
             },
             "broccoli slaw": {
                 "aliases": [],
@@ -622,7 +622,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "luzerne",
-                "plural_name": "alfalfa"
+                "plural_name": "luzerne"
             }
         }
     },
@@ -979,8 +979,8 @@
             "chestnut purée": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut purée",
-                "plural_name": "chestnut purée"
+                "name": "purée de châtaignes",
+                "plural_name": "purée de châtaignes"
             },
             "prickly pear": {
                 "aliases": [],
@@ -1028,7 +1028,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tangelo",
-                "plural_name": "tangelos"
+                "plural_name": "tangelo"
             },
             "dried lime": {
                 "aliases": [],
@@ -1295,7 +1295,7 @@
             "black fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "black fungus",
+                "name": "champignon noir",
                 "plural_name": "champignon noir"
             },
             "black truffle": {
@@ -1385,7 +1385,7 @@
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletus",
+                "name": "bolet",
                 "plural_name": "bolets"
             },
             "huitlacoche": {
