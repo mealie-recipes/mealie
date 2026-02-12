@@ -20,6 +20,7 @@ from starlette.middleware.sessions import SessionMiddleware
 from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
 from mealie.core.settings.static import APP_VERSION
+from mealie.middleware.locale_context import LocaleContextMiddleware
 from mealie.routes import router, spa, utility_routes
 from mealie.routes.handlers import register_debug_handler
 from mealie.routes.media import media_router
@@ -107,6 +108,7 @@ app = FastAPI(
 
 app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(SessionMiddleware, secret_key=settings.SESSION_SECRET)
+app.add_middleware(LocaleContextMiddleware)
 
 if not settings.PRODUCTION:
     allowed_origins = ["http://localhost:3000"]

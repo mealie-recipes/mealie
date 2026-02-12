@@ -1,4 +1,5 @@
 from abc import abstractmethod
+from contextvars import ContextVar
 from functools import lru_cache
 from pathlib import Path
 from typing import Protocol
@@ -18,6 +19,19 @@ class Translator(Protocol):
         pass
 
 
+_locale_context: ContextVar[tuple[Translator, LocaleConfig] | None] = ContextVar("locale_context", default=None)
+
+
+def set_locale_context(translator: Translator, locale_config: LocaleConfig) -> None:
+    """Set the locale context for the current request"""
+    _locale_context.set((translator, locale_config))
+
+
+def get_locale_context() -> tuple[Translator, LocaleConfig] | None:
+    """Get the current locale context"""
+    return _locale_context.get()
+
+
 @lru_cache
 def _load_factory() -> i18n.ProviderFactory:
     return i18n.ProviderFactory(
@@ -33,10 +47,10 @@ def get_locale_provider(accept_language: str | None = Header(None)) -> Translato
 
 
 def get_locale_config(accept_language: str | None = Header(None)) -> LocaleConfig:
-    if accept_language:
-        cfg = LOCALE_CONFIG.get(accept_language)
-
-    return cfg or LOCALE_CONFIG["en-US"]
+    if accept_language and accept_language in LOCALE_CONFIG:
+        return LOCALE_CONFIG[accept_language]
+    else:
+        return LOCALE_CONFIG["en-US"]
 
 
 @lru_cache
