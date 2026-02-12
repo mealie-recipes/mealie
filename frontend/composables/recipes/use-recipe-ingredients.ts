@@ -1,5 +1,6 @@
 import DOMPurify from "isomorphic-dompurify";
 import { useFraction } from "./use-fraction";
+import { useLocales } from "../use-locales";
 import type { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit, Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 
 const { frac } = useFraction();
@@ -56,10 +57,33 @@ type ParsedIngredientText = {
   recipeLink?: string;
 };
 
+function shouldUsePluralFood(quantity: number, hasUnit: boolean, pluralHandling: string): boolean {
+  if (quantity && quantity <= 1) {
+    return false;
+  }
+
+  switch (pluralHandling) {
+    case "always":
+      return true;
+    case "without-unit":
+      return !(quantity && hasUnit);
+    case "never":
+      return false;
+
+    default:
+      // same as without-unit
+      return !(quantity && hasUnit);
+  }
+}
+
 export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true, groupSlug?: string): ParsedIngredientText {
+  const { locales, locale } = useLocales();
+  const filteredLocales = locales.filter(lc => lc.value === locale.value);
+  const pluralHandling = filteredLocales.length ? filteredLocales[0].pluralHandling : "without-unit";
+
   const { quantity, food, unit, note, referencedRecipe } = ingredient;
   const usePluralUnit = quantity !== undefined && ((quantity || 0) * scale > 1 || (quantity || 0) * scale === 0);
-  const usePluralFood = (!quantity) || quantity * scale > 1;
+  const usePluralFood = shouldUsePluralFood((quantity || 0) * scale, !!unit, pluralHandling);
 
   let returnQty = "";
 
