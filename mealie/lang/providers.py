@@ -5,6 +5,7 @@ from typing import Protocol
 
 from fastapi import Header
 
+from mealie.lang.locale_config import LOCALE_CONFIG, LocaleConfig
 from mealie.pkgs import i18n
 
 CWD = Path(__file__).parent
@@ -29,6 +30,13 @@ def get_locale_provider(accept_language: str | None = Header(None)) -> Translato
     factory = _load_factory()
     accept_language = accept_language or "en-US"
     return factory.get(accept_language)
+
+
+def get_locale_config(accept_language: str | None = Header(None)) -> LocaleConfig:
+    if accept_language:
+        cfg = LOCALE_CONFIG.get(accept_language)
+
+    return cfg or LOCALE_CONFIG["en-US"]
 
 
 @lru_cache

@@ -17,7 +17,8 @@ from mealie.core.root_logger import get_logger
 from mealie.core.settings.directories import AppDirectories
 from mealie.core.settings.settings import AppSettings
 from mealie.db.db_setup import generate_session
-from mealie.lang import get_locale_provider
+from mealie.lang import get_locale_config, get_locale_provider
+from mealie.lang.locale_config import LocaleConfig
 from mealie.lang.providers import Translator
 from mealie.repos._utils import NOT_SET, NotSet
 from mealie.repos.all_repositories import AllRepositories, get_repositories
@@ -31,6 +32,7 @@ from mealie.services.event_bus_service.event_types import EventDocumentDataBase,
 class _BaseController(ABC):  # noqa: B024
     session: Session = Depends(generate_session)
     translator: Translator = Depends(get_locale_provider)
+    locale_config: LocaleConfig = Depends(get_locale_config)
 
     _repos: AllRepositories | None = None
     _logger: Logger | None = None
