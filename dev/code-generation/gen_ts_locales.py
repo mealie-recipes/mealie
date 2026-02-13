@@ -1,4 +1,4 @@
-import ast
+import json
 import os
 import pathlib
 import re
@@ -165,19 +165,21 @@ def _get_local_progress() -> dict[str, int]:
         content = f.read()
 
     # Extract the array content between [ and ]
-    match = re.search(r"export const LOCALES = \[(.*?)\];", content, re.DOTALL)
+    match = re.search(r"export const LOCALES = (\[.*?\]);", content, re.DOTALL)
     if not match:
         raise ValueError("Could not find LOCALES array in file")
 
-    js_array = match.group(1)
+    # Convert JS to JSON
+    array_content = match.group(1)
 
-    # Replace unquoted keys with quoted keys for Python dict syntax
+    # Replace unquoted keys with quoted keys for valid JSON
     # This converts: { name: "value" } to { "name": "value" }
-    py_str = re.sub(r"([a-zA-Z_][a-zA-Z0-9_]*)\s*:", r'"\1":', js_array)
+    json_str = re.sub(r"([,\{\s])([a-zA-Z_][a-zA-Z0-9_]*)\s*:", r'\1"\2":', array_content)
 
-    # Parse as Python literal
-    locales = ast.literal_eval(f"[{py_str}]")
+    # Remove trailing commas before } and ]
+    json_str = re.sub(r",(\s*[}\]])", r"\1", json_str)
 
+    locales = json.loads(json_str)
     return {locale["value"]: locale["progress"] for locale in locales}
 
 
