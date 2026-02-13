@@ -28,9 +28,9 @@ export function useSearch<T extends ISearchableItem>(
   options: ISearchOptions = {},
 ) {
   const {
-    debounceMs = 500,
+    debounceMs = 0,
     maxWaitMs = 1500,
-    minSearchLength = 2,
+    minSearchLength = 1,
     fuseOptions: customFuseOptions = {},
   } = options;
 
