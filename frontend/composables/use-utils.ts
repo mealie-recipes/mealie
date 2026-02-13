@@ -34,6 +34,9 @@ const normalizeLigatures = replaceAllBuilder(new Map([
   ["ﬆ", "st"],
 ]));
 
+/**
+ * @deprecated prefer fuse.js/use-search.ts
+ */
 export const normalize = (str: string) => {
   if (!str) {
     return "";
@@ -45,6 +48,9 @@ export const normalize = (str: string) => {
   return normalized;
 };
 
+/**
+ * @deprecated prefer fuse.js/use-search.ts
+ */
 export const normalizeFilter: FilterFunction = (value: string, query: string) => {
   const normalizedValue = normalize(value);
   const normalizeQuery = normalize(query);
