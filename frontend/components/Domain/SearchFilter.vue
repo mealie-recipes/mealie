@@ -147,6 +147,8 @@
 
 <script lang="ts">
 import { watchDebounced } from "@vueuse/core";
+import type { IFuseOptions } from "fuse.js";
+import Fuse from "fuse.js";
 
 export interface SelectableItem {
   id: string;
@@ -182,6 +184,15 @@ export default defineNuxtComponent({
     // Use shallowRef for better performance with arrays
     const debouncedSearch = shallowRef("");
 
+    const fuseOptions: IFuseOptions<SelectableItem> = {
+      keys: ["name"],
+      ignoreLocation: true,
+      shouldSort: true,
+      threshold: 0.3,
+      minMatchCharLength: 1,
+      findAllMatches: false,
+    };
+
     const combinator = computed({
       get: () => (props.requireAll ? "hasAll" : "hasAny"),
       set: (value) => {
@@ -209,19 +220,28 @@ export default defineNuxtComponent({
       (newSearch) => {
         debouncedSearch.value = newSearch;
       },
-      { debounce: 500, maxWait: 1500, immediate: false }, // Increased debounce time
+      { debounce: 500, maxWait: 1500, immediate: false },
     );
+
+    const fuse = computed(() => {
+      return new Fuse(props.items || [], fuseOptions);
+    });
 
     const filtered = computed(() => {
       const items = props.items;
-      const search = debouncedSearch.value;
+      const search = debouncedSearch.value.trim();
 
-      if (!search || search.length < 2) { // Only filter after 2 characters
+      // If no search query or less than 2 characters, return all items
+      if (!search || search.length < 2) {
         return items;
       }
 
-      const searchLower = search.toLowerCase();
-      return items.filter(item => item.name.toLowerCase().includes(searchLower));
+      if (!items || items.length === 0) {
+        return [];
+      }
+
+      const results = fuse.value.search(search);
+      return results.map(result => result.item);
     });
 
     const selectedCount = computed(() => selected.value.length);
