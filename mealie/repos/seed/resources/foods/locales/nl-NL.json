@@ -2241,8 +2241,8 @@
             "colby cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "colby cheese",
-                "plural_name": "colby cheese"
+                "name": "colby kaas",
+                "plural_name": "colby kaas"
             },
             "grana-padano cheese": {
                 "aliases": [],
@@ -2253,7 +2253,7 @@
             "muenster cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "muenster cheese",
+                "name": "muenster kaas",
                 "plural_name": "muenster cheese"
             },
             "string cheese": {
