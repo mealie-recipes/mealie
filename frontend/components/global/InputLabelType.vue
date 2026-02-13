@@ -91,9 +91,11 @@ export default defineNuxtComponent({
     // Flatten item aliases to include as searchable text
     const searchItems = computed(() => {
       return props.items.map((item) => {
-        // @ts-expect-error labels don't have aliases, so this will evaluate to ""
-        item.aliasesText = item.aliases ? item.aliases.map((a: any) => a.name).join(" ") : "";
-        return item;
+        return {
+          ...item,
+          // @ts-expect-error labels don't have aliases, so this will evaluate to ""
+          aliasesText: item.aliases ? item.aliases.map((a: any) => a.name).join(" ") : "",
+        };
       });
     });
 
