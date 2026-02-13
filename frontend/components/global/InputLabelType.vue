@@ -87,12 +87,7 @@ export default defineNuxtComponent({
     const autocompleteRef = ref<HTMLInputElement>();
 
     // Use the search composable
-    const { search: searchInput, filtered: filteredItems } = useSearch(
-      computed(() => props.items),
-      {
-        minSearchLength: 1, // Allow search with 1 character for autocomplete
-      },
-    );
+    const { search: searchInput, filtered: filteredItems } = useSearch(computed(() => props.items));
 
     const itemIdVal = computed({
       get: () => {

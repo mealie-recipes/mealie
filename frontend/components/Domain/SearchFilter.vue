@@ -175,14 +175,7 @@ export default defineNuxtComponent({
     });
 
     // Use the search composable
-    const { search: searchInput, filtered } = useSearch(
-      computed(() => props.items),
-      {
-        debounceMs: 500,
-        maxWaitMs: 1500,
-        minSearchLength: 1, // Allow search with 1 character for UI filters
-      },
-    );
+    const { search: searchInput, filtered } = useSearch(computed(() => props.items));
 
     const combinator = computed({
       get: () => (props.requireAll ? "hasAll" : "hasAny"),
