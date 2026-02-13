@@ -4851,8 +4851,8 @@
             "duck bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "duck bacon",
-                "plural_name": "duck bacons"
+                "name": "pancetta di anatra",
+                "plural_name": "pancette di anatre"
             },
             "pulled turkey": {
                 "aliases": [],
@@ -5281,8 +5281,8 @@
             "sturgeon": {
                 "aliases": [],
                 "description": "",
-                "name": "sturgeon",
-                "plural_name": "sturgeons"
+                "name": "storione",
+                "plural_name": "storioni"
             },
             "bluefish": {
                 "aliases": [],
@@ -5597,8 +5597,8 @@
             "bay scallop": {
                 "aliases": [],
                 "description": "",
-                "name": "bay scallop",
-                "plural_name": "bay scallops"
+                "name": "capesante di baia",
+                "plural_name": "capesante di baia"
             },
             "wakame": {
                 "aliases": [],
@@ -5645,7 +5645,7 @@
             "dried prawn": {
                 "aliases": [],
                 "description": "",
-                "name": "dried prawn",
+                "name": "gamberetto essiccato",
                 "plural_name": "dried prawns"
             },
             "dulse seaweed": {
