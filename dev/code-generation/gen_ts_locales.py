@@ -156,7 +156,7 @@ def _get_local_models() -> list[TargetLanguage]:
             twoLettersCode=locale.split("-")[-1],
         )
         for locale, data in LOCALE_CONFIG.items()
-        if locale != "en-US"
+        if locale != "en-US"  # Crowdin doesn't include this, so we manually inject it later
     ]
 
 
