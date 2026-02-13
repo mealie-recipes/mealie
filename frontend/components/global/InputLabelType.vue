@@ -51,10 +51,9 @@
  * using the .sync syntax `item-id.sync="item.labelId"`
  */
 
-import Fuse from "fuse.js";
-import type { IFuseOptions } from "fuse.js";
 import type { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
+import { useSearch } from "~/composables/use-search";
 
 export default defineNuxtComponent({
   props: {
@@ -86,45 +85,14 @@ export default defineNuxtComponent({
   emits: ["update:modelValue", "update:item-id", "create"],
   setup(props, context) {
     const autocompleteRef = ref<HTMLInputElement>();
-    const searchInput = ref("");
 
-    // Flatten item aliases to include as searchable text
-    const searchItems = computed(() => {
-      return props.items.map((item) => {
-        return {
-          ...item,
-          // @ts-expect-error labels don't have aliases, so this will evaluate to ""
-          aliasesText: item.aliases ? item.aliases.map((a: any) => a.name).join(" ") : "",
-        };
-      });
-    });
-
-    // Fuse configuration for relevance-sorted autocomplete
-    const fuseOptions: IFuseOptions<MultiPurposeLabelSummary | IngredientFood | IngredientUnit> = {
-      keys: [{ name: "name", weight: 2 }, { name: "aliasesText", weight: 1 }],
-      ignoreLocation: true,
-      shouldSort: true,
-      threshold: 0.3,
-      minMatchCharLength: 1,
-      findAllMatches: false,
-    };
-
-    const fuse = computed(() => {
-      return new Fuse(searchItems.value || [], fuseOptions);
-    });
-
-    // Filter items using Fuse for relevance-based sorting
-    const filteredItems = computed(() => {
-      const search = searchInput.value.trim();
-
-      // If no search query, return all items
-      if (!search || search.length < 1) {
-        return props.items;
-      }
-
-      const results = fuse.value.search(search);
-      return results.map(result => result.item);
-    });
+    // Use the search composable
+    const { search: searchInput, filtered: filteredItems } = useSearch(
+      computed(() => props.items),
+      {
+        minSearchLength: 1, // Allow search with 1 character for autocomplete
+      },
+    );
 
     const itemIdVal = computed({
       get: () => {
