@@ -1,5 +1,5 @@
 import { describe, test, expect, vi, beforeEach } from "vitest";
-import { parseIngredientText, useParsedIngredientText } from "./use-recipe-ingredients";
+import { parseIngredientText } from "./use-recipe-ingredients";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
 import { useLocales } from "../use-locales";
 
