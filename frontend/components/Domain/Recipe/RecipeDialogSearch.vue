@@ -12,6 +12,7 @@
         dark
         color="primary-lighten-1 top-0 position-relative left-0"
         :rounded="!$vuetify.display.xs"
+        style="width: 100%;"
       >
         <v-text-field
           id="arrow-search"
@@ -32,9 +33,8 @@
 
         <v-btn
           v-if="$vuetify.display.xs"
+          icon
           size="x-small"
-          class="rounded-circle"
-          light
           @click="dialog = false"
         >
           <v-icon>
