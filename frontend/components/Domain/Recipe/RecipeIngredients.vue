@@ -52,7 +52,7 @@
 
 <script setup lang="ts">
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
-import { parseIngredientText } from "~/composables/recipes";
+import { useIngredientTextParser } from "~/composables/recipes";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
 
 interface Props {
@@ -65,6 +65,8 @@ const props = withDefaults(defineProps<Props>(), {
   scale: 1,
   isCookMode: false,
 });
+
+const { parseIngredientText } = useIngredientTextParser();
 
 function validateTitle(title?: string | null) {
   return !(title === undefined || title === "" || title === null);

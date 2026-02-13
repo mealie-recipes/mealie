@@ -1,9 +1,11 @@
 import { describe, test, expect, vi, beforeEach } from "vitest";
-import { parseIngredientText } from "./use-recipe-ingredients";
+import { useIngredientTextParser } from "./use-recipe-ingredients";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
 import { useLocales } from "../use-locales";
 
 vi.mock("../use-locales");
+
+const { parseIngredientText } = useIngredientTextParser();
 
 describe(parseIngredientText.name, () => {
   beforeEach(() => {

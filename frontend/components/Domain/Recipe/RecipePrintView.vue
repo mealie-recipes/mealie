@@ -192,7 +192,7 @@ import { useStaticRoutes } from "~/composables/api";
 import type { Recipe, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
-import { parseIngredientText, useNutritionLabels } from "~/composables/recipes";
+import { useIngredientTextParser, useNutritionLabels } from "~/composables/recipes";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
@@ -361,6 +361,8 @@ const instructionSections = computed<InstructionSection[]>(() => {
 const hasNotes = computed(() => {
   return props.recipe.notes && props.recipe.notes.length > 0;
 });
+
+const { parseIngredientText } = useIngredientTextParser();
 
 function parseText(ingredient: RecipeIngredient) {
   return parseIngredientText(ingredient, props.scale);

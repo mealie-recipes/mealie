@@ -76,51 +76,59 @@ function shouldUsePluralFood(quantity: number, hasUnit: boolean, pluralFoodHandl
   }
 }
 
-export function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true, groupSlug?: string): ParsedIngredientText {
+export function useIngredientTextParser() {
   const { locales, locale } = useLocales();
-  const filteredLocales = locales.filter(lc => lc.value === locale.value);
-  const pluralFoodHandling = filteredLocales.length ? filteredLocales[0].pluralFoodHandling : "without-unit";
 
-  const { quantity, food, unit, note, referencedRecipe } = ingredient;
-  const usePluralUnit = quantity !== undefined && ((quantity || 0) * scale > 1 || (quantity || 0) * scale === 0);
-  const usePluralFood = shouldUsePluralFood((quantity || 0) * scale, !!unit, pluralFoodHandling);
+  function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true, groupSlug?: string): ParsedIngredientText {
+    const filteredLocales = locales.filter(lc => lc.value === locale.value);
+    const pluralFoodHandling = filteredLocales.length ? filteredLocales[0].pluralFoodHandling : "without-unit";
 
-  let returnQty = "";
+    const { quantity, food, unit, note, referencedRecipe } = ingredient;
+    const usePluralUnit = quantity !== undefined && ((quantity || 0) * scale > 1 || (quantity || 0) * scale === 0);
+    const usePluralFood = shouldUsePluralFood((quantity || 0) * scale, !!unit, pluralFoodHandling);
 
-  // casting to number is required as sometimes quantity is a string
-  if (quantity && Number(quantity) !== 0) {
-    if (unit && !unit.fraction) {
-      returnQty = Number((quantity * scale).toPrecision(3)).toString();
-    }
-    else {
-      const fraction = frac(quantity * scale, 10, true);
-      if (fraction[0] !== undefined && fraction[0] > 0) {
-        returnQty += fraction[0];
+    let returnQty = "";
+
+    // casting to number is required as sometimes quantity is a string
+    if (quantity && Number(quantity) !== 0) {
+      if (unit && !unit.fraction) {
+        returnQty = Number((quantity * scale).toPrecision(3)).toString();
       }
+      else {
+        const fraction = frac(quantity * scale, 10, true);
+        if (fraction[0] !== undefined && fraction[0] > 0) {
+          returnQty += fraction[0];
+        }
 
-      if (fraction[1] > 0) {
-        returnQty += includeFormating
-          ? `<sup>${fraction[1]}</sup><span>&frasl;</span><sub>${fraction[2]}</sub>`
-          : ` ${fraction[1]}/${fraction[2]}`;
+        if (fraction[1] > 0) {
+          returnQty += includeFormating
+            ? `<sup>${fraction[1]}</sup><span>&frasl;</span><sub>${fraction[2]}</sub>`
+            : ` ${fraction[1]}/${fraction[2]}`;
+        }
       }
     }
-  }
 
-  const unitName = useUnitName(unit || undefined, usePluralUnit);
-  const ingName = referencedRecipe ? referencedRecipe.name || "" : useFoodName(food || undefined, usePluralFood);
+    const unitName = useUnitName(unit || undefined, usePluralUnit);
+    const ingName = referencedRecipe ? referencedRecipe.name || "" : useFoodName(food || undefined, usePluralFood);
+
+    return {
+      quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
+      unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
+      name: ingName ? sanitizeIngredientHTML(ingName) : undefined,
+      note: note ? sanitizeIngredientHTML(note) : undefined,
+      recipeLink: useRecipeLink(referencedRecipe || undefined, groupSlug),
+    };
+  };
+
+  function parseIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true): string {
+    const { quantity, unit, name, note } = useParsedIngredientText(ingredient, scale, includeFormating);
+
+    const text = `${quantity || ""} ${unit || ""} ${name || ""} ${note || ""}`.replace(/ {2,}/g, " ").trim();
+    return sanitizeIngredientHTML(text);
+  };
 
   return {
-    quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
-    unit: unitName && quantity ? sanitizeIngredientHTML(unitName) : undefined,
-    name: ingName ? sanitizeIngredientHTML(ingName) : undefined,
-    note: note ? sanitizeIngredientHTML(note) : undefined,
-    recipeLink: useRecipeLink(referencedRecipe || undefined, groupSlug),
+    useParsedIngredientText,
+    parseIngredientText,
   };
-}
-
-export function parseIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true): string {
-  const { quantity, unit, name, note } = useParsedIngredientText(ingredient, scale, includeFormating);
-
-  const text = `${quantity || ""} ${unit || ""} ${name || ""} ${note || ""}`.replace(/ {2,}/g, " ").trim();
-  return sanitizeIngredientHTML(text);
 }

@@ -197,7 +197,7 @@ import type { IngredientFood, IngredientUnit, ParsedIngredient, RecipeIngredient
 import type { Parser } from "~/lib/api/user/recipes/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useUserApi } from "~/composables/api";
-import { parseIngredientText } from "~/composables/recipes";
+import { useIngredientTextParser } from "~/composables/recipes";
 import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "~/composables/store";
 import { useGlobalI18n } from "~/composables/use-global-i18n";
 import { alert } from "~/composables/use-toast";
@@ -207,6 +207,8 @@ const props = defineProps<{
   modelValue: boolean;
   ingredients: NoUndefinedField<RecipeIngredient[]>;
 }>();
+
+const { parseIngredientText } = useIngredientTextParser();
 
 const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
