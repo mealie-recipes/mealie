@@ -33,9 +33,8 @@
 
         <v-btn
           v-if="$vuetify.display.xs"
+          icon
           size="x-small"
-          class="rounded-circle"
-          light
           @click="dialog = false"
         >
           <v-icon>
