@@ -12,6 +12,7 @@
     clearable
     color="primary"
     hide-details
+    :custom-filter="() => true"
     @keyup.enter="emitCreate"
   >
     <template
@@ -87,9 +88,18 @@ export default defineNuxtComponent({
     const autocompleteRef = ref<HTMLInputElement>();
     const searchInput = ref("");
 
+    // Flatten item aliases to include as searchable text
+    const searchItems = computed(() => {
+      return props.items.map((item) => {
+        // @ts-expect-error labels don't have aliases, so this will evaluate to ""
+        item.aliasesText = item.aliases ? item.aliases.map((a: any) => a.name).join(" ") : "";
+        return item;
+      });
+    });
+
     // Fuse configuration for relevance-sorted autocomplete
     const fuseOptions: IFuseOptions<MultiPurposeLabelSummary | IngredientFood | IngredientUnit> = {
-      keys: ["name"],
+      keys: [{ name: "name", weight: 2 }, { name: "aliasesText", weight: 1 }],
       ignoreLocation: true,
       shouldSort: true,
       threshold: 0.3,
@@ -98,7 +108,7 @@ export default defineNuxtComponent({
     };
 
     const fuse = computed(() => {
-      return new Fuse(props.items || [], fuseOptions);
+      return new Fuse(searchItems.value || [], fuseOptions);
     });
 
     // Filter items using Fuse for relevance-based sorting
@@ -110,7 +120,6 @@ export default defineNuxtComponent({
         return props.items;
       }
 
-      // Use Fuse for fuzzy search with relevance scoring
       const results = fuse.value.search(search);
       return results.map(result => result.item);
     });
