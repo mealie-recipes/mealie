@@ -150,9 +150,18 @@ import { watchDebounced } from "@vueuse/core";
 import type { IFuseOptions } from "fuse.js";
 import Fuse from "fuse.js";
 
+interface SelectableItemAlias {
+  name: string;
+}
+
 export interface SelectableItem {
   id: string;
   name: string;
+  aliases: SelectableItemAlias[] | undefined;
+}
+
+interface SelectableItemWithAlias extends SelectableItem {
+  aliasesText: string | undefined;
 }
 
 export default defineNuxtComponent({
@@ -184,8 +193,18 @@ export default defineNuxtComponent({
     // Use shallowRef for better performance with arrays
     const debouncedSearch = shallowRef("");
 
+    // Flatten item aliases to include as searchable text
+    const searchItems = computed(() => {
+      return props.items.map((item: SelectableItem) => {
+        return {
+          ...item,
+          aliasesText: item.aliases ? item.aliases.map((a: any) => a.name).join(" ") : "",
+        } as SelectableItemWithAlias;
+      });
+    });
+
     const fuseOptions: IFuseOptions<SelectableItem> = {
-      keys: ["name"],
+      keys: [{ name: "name", weight: 2 }, { name: "aliasesText", weight: 1 }],
       ignoreLocation: true,
       shouldSort: true,
       threshold: 0.3,
@@ -224,7 +243,7 @@ export default defineNuxtComponent({
     );
 
     const fuse = computed(() => {
-      return new Fuse(props.items || [], fuseOptions);
+      return new Fuse(searchItems.value || [], fuseOptions);
     });
 
     const filtered = computed(() => {
