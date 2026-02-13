@@ -146,7 +146,7 @@
 </template>
 
 <script lang="ts">
-import type { IAlias, ISearchableItem } from "~/composables/use-search";
+import type { ISearchableItem } from "~/composables/use-search";
 import { useSearch } from "~/composables/use-search";
 
 export default defineNuxtComponent({
