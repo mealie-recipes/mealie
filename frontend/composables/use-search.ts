@@ -51,7 +51,13 @@ export function useSearch<T extends ISearchableItem>(
 
   // Default Fuse options
   const defaultFuseOptions: IFuseOptions<ISearchItemInternal> = {
-    keys: [{ name: "name", weight: 2 }, { name: "aliasesText", weight: 1 }],
+    keys: [
+      { name: "name", weight: 3 },
+      { name: "pluralName", weight: 3 },
+      { name: "abbreviation", weight: 2 },
+      { name: "pluralAbbreviation", weight: 2 },
+      { name: "aliasesText", weight: 1 },
+    ],
     ignoreLocation: true,
     shouldSort: true,
     threshold: 0.3,
