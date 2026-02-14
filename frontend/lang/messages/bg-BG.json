@@ -370,8 +370,8 @@
     "applies-to-all-days": "Прилага се за всички дни",
     "applies-on-days": "Всеки/всяка {0}",
     "meal-plan-settings": "Настройки на плана за хранене",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Добавяне на всички към списъка за пазаруване",
+    "add-day-to-list": "Добавяне на ден към списъка за пазаруване"
   },
   "migration": {
     "migration-data-removed": "Данните за мигриране са премахнати",
@@ -644,7 +644,7 @@
     "scrape-recipe-website-being-blocked": "Блокиран ли е уебсайтът?",
     "scrape-recipe-try-importing-raw-html-instead": "Опитайте вместо това да импортирате суровия HTML код.",
     "import-original-keywords-as-tags": "Добави оригиналните ключови думи като етикети",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "Импортиране на оригиналните категории",
     "stay-in-edit-mode": "Остани в режим на редакция",
     "parse-recipe-ingredients-after-import": "Анализиране на съставките на рецептата след импортиране",
     "import-from-zip": "Импортирай от Zip",
@@ -1423,8 +1423,8 @@
       "is-greater-than-or-equal-to": "е по-голямо от или равно на",
       "is-less-than": "е по-малко от",
       "is-less-than-or-equal-to": "e по-малко или равно на",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "е по-стар от",
+      "is-newer-than": "е по-нов от"
     },
     "relational-keywords": {
       "is": "е",
@@ -1436,7 +1436,7 @@
       "is-not-like": "не е като"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "преди дни|преди ден|преди дни"
     }
   },
   "validators": {
