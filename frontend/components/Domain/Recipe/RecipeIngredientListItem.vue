@@ -44,8 +44,8 @@ const props = withDefaults(defineProps<Props>(), {
   scale: 1,
 });
 const route = useRoute();
-const $auth = useMealieAuth();
-const groupSlug = computed(() => route.params.groupSlug || $auth.user?.value?.groupSlug || "");
+const auth = useMealieAuth();
+const groupSlug = computed(() => route.params.groupSlug || auth.user?.value?.groupSlug || "");
 const { useParsedIngredientText } = useIngredientTextParser();
 
 const parsedIng = computed(() => {

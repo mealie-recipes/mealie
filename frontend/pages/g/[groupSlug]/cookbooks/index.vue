@@ -159,7 +159,7 @@ export default defineNuxtComponent({
       title: i18n.t("cookbook.cookbooks"),
     });
 
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const { store: allCookbooks, actions, updateAll } = useCookbookStore();
 
     // Make a local reactive copy of myCookbooks
@@ -169,7 +169,7 @@ export default defineNuxtComponent({
       (cookbooks) => {
         myCookbooks.value
           = cookbooks?.filter(
-            cookbook => cookbook.householdId === $auth.user.value?.householdId,
+            cookbook => cookbook.householdId === auth.user.value?.householdId,
           ).sort((a, b) => a.position > b.position) ?? [];
       },
       { immediate: true },

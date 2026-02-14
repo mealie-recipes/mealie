@@ -353,7 +353,7 @@ export default defineNuxtComponent({
   setup() {
     const { mdAndUp } = useDisplay();
     const i18n = useI18n();
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const preferences = useShoppingListPreferences();
 
     useSeoMeta({
@@ -361,7 +361,7 @@ export default defineNuxtComponent({
     });
 
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
     const id = route.params.id as string;
 
     const shoppingListPage = useShoppingListPage(id);

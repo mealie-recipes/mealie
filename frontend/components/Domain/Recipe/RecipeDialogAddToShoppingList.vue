@@ -217,7 +217,7 @@ const props = withDefaults(defineProps<Props>(), {
 const dialog = defineModel<boolean>({ default: false });
 
 const i18n = useI18n();
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const api = useUserApi();
 const preferences = useShoppingListPreferences();
 const ready = ref(false);
@@ -239,9 +239,9 @@ const selectedShoppingList = ref<ShoppingListSummary | null>(null);
 
 watch([dialog, () => preferences.value.viewAllLists], () => {
   if (dialog.value) {
-    currentHouseholdSlug.value = $auth.user.value?.householdSlug || "";
+    currentHouseholdSlug.value = auth.user.value?.householdSlug || "";
     filteredShoppingLists.value = props.shoppingLists.filter(
-      list => preferences.value.viewAllLists || list.userId === $auth.user.value?.id,
+      list => preferences.value.viewAllLists || list.userId === auth.user.value?.id,
     );
 
     if (filteredShoppingLists.value.length === 1 && !state.shoppingListShowAllToggled) {

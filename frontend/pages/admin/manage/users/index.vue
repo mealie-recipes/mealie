@@ -112,9 +112,9 @@ export default defineNuxtComponent({
     const api = useAdminApi();
     const refUserDialog = ref();
     const inviteDialog = ref();
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
 
-    const user = computed(() => $auth.user.value);
+    const user = computed(() => auth.user.value);
 
     const i18n = useI18n();
     const { $globals } = useNuxtApp();
@@ -149,7 +149,7 @@ export default defineNuxtComponent({
       deleteUserMixin(id);
 
       if (isUserOwnAccount.value) {
-        $auth.refresh();
+        auth.refresh();
       }
     }
 

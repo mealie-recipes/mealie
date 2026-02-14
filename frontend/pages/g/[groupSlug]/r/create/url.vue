@@ -144,10 +144,10 @@ export default defineNuxtComponent({
       loading: false,
     });
 
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const api = useUserApi();
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
     const router = useRouter();
     const tags = useTagStore();

@@ -163,9 +163,9 @@ export default defineNuxtComponent({
     });
 
     const i18n = useI18n();
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
 
     const adminApi = useAdminApi();
     const selected = ref("");

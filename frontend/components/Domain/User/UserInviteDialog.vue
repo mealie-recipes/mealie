@@ -102,9 +102,9 @@ export default defineNuxtComponent({
   emits: ["update:modelValue"],
   setup(props, context) {
     const i18n = useI18n();
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
 
-    const isAdmin = computed(() => $auth.user.value?.admin);
+    const isAdmin = computed(() => auth.user.value?.admin);
     const token = ref("");
     const selectedGroup = ref<string | null>(null);
     const selectedHousehold = ref<string | null>(null);

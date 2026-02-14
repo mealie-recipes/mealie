@@ -14,12 +14,12 @@ export default defineNuxtComponent({
       layout: "blank",
     });
 
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const { $axios } = useNuxtApp();
     const router = useRouter();
     const activityPreferences = useUserActivityPreferences();
     const { getDefaultActivityRoute } = useDefaultActivity();
-    const groupSlug = computed(() => $auth.user.value?.groupSlug);
+    const groupSlug = computed(() => auth.user.value?.groupSlug);
 
     async function redirectPublicUserToDefaultGroup() {
       const { data } = await $axios.get<AppInfo>("/api/app/about");
@@ -40,7 +40,7 @@ export default defineNuxtComponent({
           activityPreferences.value.defaultActivity,
           groupSlug.value,
         );
-        if (!isDemo && isFirstLogin && $auth.user.value?.admin) {
+        if (!isDemo && isFirstLogin && auth.user.value?.admin) {
           router.push("/admin/setup");
         }
         else if (defaultActivityRoute) {

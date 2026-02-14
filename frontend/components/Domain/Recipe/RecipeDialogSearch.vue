@@ -87,7 +87,7 @@ const emit = defineEmits<{
   selected: [recipe: RecipeSummary];
 }>();
 
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const loading = ref(false);
 const selectedIndex = ref(-1);
 
@@ -153,7 +153,7 @@ watch(dialog, (val) => {
 });
 
 const route = useRoute();
-const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 watch(route, close);
 
 function open() {

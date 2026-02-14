@@ -52,14 +52,14 @@ const isFavorite = computed(() => {
 
 async function toggleFavorite() {
   const api = useUserApi();
-  const $auth = useMealieAuth();
+  const auth = useMealieAuth();
 
-  if (!$auth.user.value) return;
+  if (!auth.user.value) return;
   if (!isFavorite.value) {
-    await api.users.addFavorite($auth.user.value?.id, props.recipeId);
+    await api.users.addFavorite(auth.user.value?.id, props.recipeId);
   }
   else {
-    await api.users.removeFavorite($auth.user.value?.id, props.recipeId);
+    await api.users.removeFavorite(auth.user.value?.id, props.recipeId);
   }
   await refreshUserRatings();
 }

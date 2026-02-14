@@ -262,11 +262,11 @@ definePageMeta({
 // ================================================================
 // Setup
 const i18n = useI18n();
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const userApi = useUserApi();
 const adminApi = useAdminApi();
 
-const groupSlug = computed(() => $auth.user.value?.groupSlug);
+const groupSlug = computed(() => auth.user.value?.groupSlug);
 const { locale } = useLocales();
 const router = useRouter();
 const isSubmitting = ref(false);
@@ -347,9 +347,9 @@ const currentPage = ref(Pages.LANDING);
 // Page Submission
 
 async function updateUser() {
-  // Note: $auth.user is now a ref
-  const { response } = await userApi.users.updateOne($auth.user.value!.id, {
-    ...$auth.user.value,
+  // Note: auth.user is now a ref
+  const { response } = await userApi.users.updateOne(auth.user.value!.id, {
+    ...auth.user.value,
     email: accountDetails.email.value,
     username: accountDetails.username.value,
     fullName: accountDetails.fullName.value,
@@ -360,7 +360,7 @@ async function updateUser() {
     alert.error(i18n.t("events.something-went-wrong"));
   }
   else {
-    $auth.refresh();
+    auth.refresh();
   }
 }
 
@@ -381,8 +381,8 @@ async function submitRegistration() {
 }
 
 async function updateGroup() {
-  // Note: $auth.user is now a ref
-  const { data } = await userApi.groups.getOne($auth.user.value!.groupId);
+  // Note: auth.user is now a ref
+  const { data } = await userApi.groups.getOne(auth.user.value!.groupId);
   if (!data || !data.preferences) {
     alert.error(i18n.t("events.something-went-wrong"));
     return;
@@ -398,16 +398,16 @@ async function updateGroup() {
     preferences,
   };
 
-  // Note: $auth.user is now a ref
-  const { response } = await userApi.groups.updateOne($auth.user.value!.groupId, payload);
+  // Note: auth.user is now a ref
+  const { response } = await userApi.groups.updateOne(auth.user.value!.groupId, payload);
   if (!response || response.status !== 200) {
     alert.error(i18n.t("events.something-went-wrong"));
   }
 }
 
 async function updateHousehold() {
-  // Note: $auth.user is now a ref
-  const { data } = await adminApi.households.getOne($auth.user.value!.householdId);
+  // Note: auth.user is now a ref
+  const { data } = await adminApi.households.getOne(auth.user.value!.householdId);
   if (!data || !data.preferences) {
     alert.error(i18n.t("events.something-went-wrong"));
     return;
@@ -424,8 +424,8 @@ async function updateHousehold() {
     preferences,
   };
 
-  // Note: $auth.user is now a ref
-  const { response } = await adminApi.households.updateOne($auth.user.value!.householdId, payload);
+  // Note: auth.user is now a ref
+  const { response } = await adminApi.households.updateOne(auth.user.value!.householdId, payload);
   if (!response || response.status !== 200) {
     alert.error(i18n.t("events.something-went-wrong"));
   }

@@ -354,8 +354,8 @@ async function createAssignFood() {
 
 // Recipes
 const route = useRoute();
-const $auth = useMealieAuth();
-const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+const auth = useMealieAuth();
+const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
 const { isOwnGroup } = useLoggedInState();
 const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;

@@ -294,17 +294,17 @@ export default defineNuxtComponent({
   scrollToTop: true,
   async setup() {
     const i18n = useI18n();
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const { $appInfo } = useNuxtApp();
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
 
     useSeoMeta({
       title: i18n.t("settings.profile"),
     });
 
     const user = computed<UserOut | null>(() => {
-      const authUser = $auth.user.value;
+      const authUser = auth.user.value;
       if (!authUser) return null;
 
       // Override canInvite if password login is disabled
