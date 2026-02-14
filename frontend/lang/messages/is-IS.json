@@ -212,8 +212,8 @@
     "upload-file": "Hlaða upp skrá",
     "created-on-date": "Búið til: {0}",
     "unsaved-changes": "Þú hefur ekki vistað breytingar. Viltu vista áður en þú ferð? Ýttu á \"Í lagi\" til að vista, \"Hætta við\" til að henda breytingum.",
-    "discard-changes": "Discard Changes",
-    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
+    "discard-changes": "Henda breytingum",
+    "discard-changes-description": "Þú ert með óvistaðar breytingar, ertu viss um að þú viljir henda þeim?",
     "clipboard-copy-failure": "Mistókst að afrita klippispjaldið.",
     "confirm-delete-generic-items": "Ertu viss um að þú viljir eyða eftirfylgjandi atriðum?",
     "organizers": "Skipuleggjarar",
@@ -371,7 +371,7 @@
     "applies-on-days": "Gildir þegar er {0},",
     "meal-plan-settings": "Stillingar matarplans",
     "add-all-to-list": "Bæta öllum á innkaupalista",
-    "add-day-to-list": "Add Day to List"
+    "add-day-to-list": "Bæta deginum á innkaupalista"
   },
   "migration": {
     "migration-data-removed": "Gagnaflutningur fjarlægður",
