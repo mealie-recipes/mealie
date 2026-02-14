@@ -560,7 +560,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chou-rave",
-                "plural_name": "kohlrabi"
+                "plural_name": "choux-raves"
             },
             "fresno chile": {
                 "aliases": [],
@@ -597,7 +597,7 @@
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
-                "name": "",
+                "name": "salade de chou",
                 "plural_name": "broccoli slaw"
             },
             "arbol chile pepper": {
@@ -2230,7 +2230,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "burrata cheese",
-                "plural_name": "burrata cheese"
+                "plural_name": "fromages burrata"
             },
             "havarti cheese": {
                 "aliases": [],
@@ -6555,7 +6555,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sucre à la cannelle",
-                "plural_name": "cinnamon sugar"
+                "plural_name": "sucre à la cannelle"
             },
             "liquid stevia": {
                 "aliases": [],
@@ -6705,7 +6705,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sirop de date",
-                "plural_name": "date syrup"
+                "plural_name": "sirop de datte"
             },
             "black treacle": {
                 "aliases": [],
@@ -6855,7 +6855,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sirop de canneberge",
-                "plural_name": "cranberry syrup"
+                "plural_name": "sirop de canneberge"
             },
             "golden sugar": {
                 "aliases": [],
@@ -7011,7 +7011,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sirop aromatisé",
-                "plural_name": "flavored syrup"
+                "plural_name": "sirop aromatisé"
             },
             "elderflower syrup": {
                 "aliases": [],
@@ -11107,7 +11107,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vinaigre de riz",
-                "plural_name": "rice wine vinegar"
+                "plural_name": "vinaigre de riz"
             },
             "white wine vinegar": {
                 "aliases": [],
@@ -11461,7 +11461,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mango vinaigrette",
-                "plural_name": "mango vinaigrettes"
+                "plural_name": "vinaigrette à la mangue"
             },
             "sugarcane vinegar": {
                 "aliases": [],
@@ -15628,7 +15628,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "jus de canne à sucre",
-                "plural_name": "sugar cane juice"
+                "plural_name": "jus de canne à sucre"
             },
             "cranberry-raspberry juice": {
                 "aliases": [],
