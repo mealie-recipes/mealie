@@ -5,15 +5,15 @@ import { useLocales } from "../use-locales";
 
 vi.mock("../use-locales");
 
-const { parseIngredientText } = useIngredientTextParser();
+let parseIngredientText: (ingredient: RecipeIngredient, scale?: number, includeFormating?: boolean) => string;
 
-describe(parseIngredientText.name, () => {
+describe("parseIngredientText", () => {
   beforeEach(() => {
-    vi.clearAllMocks();
     vi.mocked(useLocales).mockReturnValue({
       locales: [{ value: "en-US", pluralFoodHandling: "always" }],
       locale: { value: "en-US", pluralFoodHandling: "always" },
     } as any);
+    ({ parseIngredientText } = useIngredientTextParser());
   });
 
   const createRecipeIngredient = (overrides: Partial<RecipeIngredient>): RecipeIngredient => ({
@@ -147,6 +147,7 @@ describe(parseIngredientText.name, () => {
       locales: [{ value: "en-US", pluralFoodHandling: "always" }],
       locale: { value: "en-US", pluralFoodHandling: "always" },
     } as any);
+    const { parseIngredientText } = useIngredientTextParser();
 
     const ingredient = createRecipeIngredient({
       quantity: 2,
@@ -162,6 +163,7 @@ describe(parseIngredientText.name, () => {
       locales: [{ value: "en-US", pluralFoodHandling: "never" }],
       locale: { value: "en-US", pluralFoodHandling: "never" },
     } as any);
+    const { parseIngredientText } = useIngredientTextParser();
 
     const ingredient = createRecipeIngredient({
       quantity: 2,
@@ -177,6 +179,7 @@ describe(parseIngredientText.name, () => {
       locales: [{ value: "en-US", pluralFoodHandling: "without-unit" }],
       locale: { value: "en-US", pluralFoodHandling: "without-unit" },
     } as any);
+    const { parseIngredientText } = useIngredientTextParser();
 
     const ingredient = createRecipeIngredient({
       quantity: 2,
@@ -192,6 +195,7 @@ describe(parseIngredientText.name, () => {
       locales: [{ value: "en-US", pluralFoodHandling: "without-unit" }],
       locale: { value: "en-US", pluralFoodHandling: "without-unit" },
     } as any);
+    const { parseIngredientText } = useIngredientTextParser();
 
     const ingredient = createRecipeIngredient({
       quantity: 2,
