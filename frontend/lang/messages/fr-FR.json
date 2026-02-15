@@ -1436,7 +1436,7 @@
       "is-not-like": "n'est pas similaire à"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "jours|jour|jours"
     }
   },
   "validators": {
