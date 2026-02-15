@@ -1,117 +1,101 @@
 <template>
   <section @keyup.ctrl.z="undoMerge">
     <!-- Ingredient Link Editor -->
-    <v-dialog
-      v-if="dialog"
+    <BaseDialog
       v-model="dialog"
-      width="600"
+      :title="$t('recipe.ingredient-linker')"
+      :icon="$globals.icons.link"
+      width="100%"
+      max-width="600px"
+      max-height="40%"
     >
-      <v-card :ripple="false">
-        <v-sheet
-          color="primary"
-          class="mt-n1 mb-3 pa-3 d-flex align-center"
-          style="border-radius: 6px; width: 100%;"
-        >
-          <v-icon
-            size="large"
-            start
-          >
-            {{ $globals.icons.link }}
-          </v-icon>
-          <v-toolbar-title class="headline">
-            {{ $t("recipe.ingredient-linker") }}
-          </v-toolbar-title>
-          <v-spacer />
-        </v-sheet>
-
-        <v-card-text class="pt-4">
-          <p>
-            {{ activeText }}
-          </p>
-          <v-divider class="mb-4" />
-          <template v-if="Object.keys(groupedUnusedIngredients).length > 0">
-            <h4 class="py-3 ml-1">
-              {{ $t("recipe.unlinked") }}
+      <v-card-text class="pt-4">
+        <p>
+          {{ activeText }}
+        </p>
+        <v-divider class="my-4" />
+        <template v-if="Object.keys(groupedUnusedIngredients).length > 0">
+          <h4 class="ml-1">
+            {{ $t("recipe.unlinked") }}
+          </h4>
+          <template v-for="(ingredients, title) in groupedUnusedIngredients" :key="title">
+            <h4 v-if="title" class="py-3 ml-1 pl-4">
+              {{ title }}
             </h4>
-            <template v-for="(ingredients, title) in groupedUnusedIngredients" :key="title">
-              <h4 v-if="title" class="py-3 ml-1 pl-4">
-                {{ title }}
-              </h4>
-              <v-checkbox-btn
-                v-for="ing in ingredients"
-                :key="ing.referenceId"
-                v-model="activeRefs"
-                :value="ing.referenceId"
-                class="ml-4"
-              >
-                <template #label>
-                  <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
-                </template>
-              </v-checkbox-btn>
-            </template>
+            <v-checkbox-btn
+              v-for="ing in ingredients"
+              :key="ing.referenceId"
+              v-model="activeRefs"
+              :value="ing.referenceId"
+              class="ml-4"
+            >
+              <template #label>
+                <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
+              </template>
+            </v-checkbox-btn>
           </template>
+        </template>
 
-          <template v-if="Object.keys(groupedUsedIngredients).length > 0">
-            <h4 class="py-3 ml-1">
-              {{ $t("recipe.linked-to-other-step") }}
+        <template v-if="Object.keys(groupedUsedIngredients).length > 0">
+          <h4 class="py-3 ml-1">
+            {{ $t("recipe.linked-to-other-step") }}
+          </h4>
+          <template v-for="(ingredients, title) in groupedUsedIngredients" :key="title">
+            <h4 v-if="title" class="py-3 ml-1 pl-4">
+              {{ title }}
             </h4>
-            <template v-for="(ingredients, title) in groupedUsedIngredients" :key="title">
-              <h4 v-if="title" class="py-3 ml-1 pl-4">
-                {{ title }}
-              </h4>
-              <v-checkbox-btn
-                v-for="ing in ingredients"
-                :key="ing.referenceId"
-                v-model="activeRefs"
-                :value="ing.referenceId"
-                class="ml-4"
-              >
-                <template #label>
-                  <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
-                </template>
-              </v-checkbox-btn>
-            </template>
+            <v-checkbox-btn
+              v-for="ing in ingredients"
+              :key="ing.referenceId"
+              v-model="activeRefs"
+              :value="ing.referenceId"
+              class="ml-4"
+            >
+              <template #label>
+                <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
+              </template>
+            </v-checkbox-btn>
           </template>
-        </v-card-text>
+        </template>
+      </v-card-text>
 
-        <v-divider />
+      <v-divider />
 
-        <v-card-actions>
+      <template #card-actions>
+        <BaseButton
+          cancel
+          @click="dialog = false"
+        />
+        <v-spacer />
+        <div class="d-flex flex-wrap justify-end">
           <BaseButton
-            cancel
-            @click="dialog = false"
+            class="my-1"
+            color="info"
+            @click="autoSetReferences"
+          >
+            <template #icon>
+              {{ $globals.icons.robot }}
+            </template>
+            {{ $t("recipe.auto") }}
+          </BaseButton>
+          <BaseButton
+            class="ml-2 my-1"
+            save
+            @click="setIngredientIds"
           />
-          <v-spacer />
-          <div class="d-flex flex-wrap justify-end">
-            <BaseButton
-              class="my-1"
-              color="info"
-              @click="autoSetReferences"
-            >
-              <template #icon>
-                {{ $globals.icons.robot }}
-              </template>
-              {{ $t("recipe.auto") }}
-            </BaseButton>
-            <BaseButton
-              class="ml-2 my-1"
-              save
-              @click="setIngredientIds"
-            />
-            <BaseButton
-              v-if="availableNextStep"
-              class="ml-2 my-1"
-              @click="saveAndOpenNextLinkIngredients"
-            >
-              <template #icon>
-                {{ $globals.icons.forward }}
-              </template>
-              {{ $t("recipe.nextStep") }}
-            </BaseButton>
-          </div>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+          <BaseButton
+            v-if="availableNextStep"
+            class="ml-2 my-1"
+            @click="saveAndOpenNextLinkIngredients"
+          >
+            <template #icon>
+              {{ $globals.icons.forward }}
+            </template>
+            {{ $t("recipe.nextStep") }}
+          </BaseButton>
+        </div>
+      </template>
+    </BaseDialog>
 
     <div class="d-flex justify-space-between justify-start">
       <h2
@@ -849,6 +833,10 @@ function openImageUpload(index: number) {
 
 .v-text-field :deep(input) {
   font-size: 1.5rem;
+}
+
+.v-card-text {
+  font-size: 1rem;
 }
 
 .recipe-step-title {
