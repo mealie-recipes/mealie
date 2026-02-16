@@ -7655,7 +7655,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "брашно",
-                "plural_name": "flour"
+                "plural_name": "брашно"
             },
             "vanilla extract": {
                 "aliases": [
@@ -7669,14 +7669,14 @@
             "baking powder": {
                 "aliases": [],
                 "description": "",
-                "name": "baking powder",
-                "plural_name": "baking powder"
+                "name": "бакпулвер",
+                "plural_name": "бакпулвер"
             },
             "baking soda": {
                 "aliases": [],
                 "description": "",
-                "name": "baking soda",
-                "plural_name": "baking sodas"
+                "name": "сода за хляб",
+                "plural_name": "сода за хляб"
             },
             "cornstarch": {
                 "aliases": [],
@@ -7819,8 +7819,8 @@
             "rice flour": {
                 "aliases": [],
                 "description": "",
-                "name": "rice flour",
-                "plural_name": "rice flour"
+                "name": "оризово брашно",
+                "plural_name": "оризово брашно"
             },
             "desiccated coconut": {
                 "aliases": [],
@@ -10639,13 +10639,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "зехтин",
-                "plural_name": "olive oil"
+                "plural_name": "зехтин"
             },
             "vegetable oil": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable oil",
-                "plural_name": "vegetable oil"
+                "name": "олио",
+                "plural_name": "олио"
             },
             "extra virgin olive oil": {
                 "aliases": [],
@@ -10875,7 +10875,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "палмово масло",
-                "plural_name": "palm oil"
+                "plural_name": "палмово масло"
             },
             "basil oil": {
                 "aliases": [],
@@ -11077,7 +11077,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "майонеза",
-                "plural_name": "mayonnaise"
+                "plural_name": "майонеза"
             },
             "apple cider vinegar": {
                 "aliases": [],
@@ -11095,13 +11095,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "оцет",
-                "plural_name": "vinegar"
+                "plural_name": "оцет"
             },
             "red wine vinegar": {
                 "aliases": [],
                 "description": "",
                 "name": "винен оцет",
-                "plural_name": "red wine vinegar"
+                "plural_name": "винен оцет"
             },
             "rice wine vinegar": {
                 "aliases": [],
@@ -11494,14 +11494,14 @@
             "soy sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "soy sauce",
-                "plural_name": "soy sauce"
+                "name": "соев сос",
+                "plural_name": "соев сос"
             },
             "dijon mustard": {
                 "aliases": [],
                 "description": "",
                 "name": "дижонска горчица",
-                "plural_name": "dijon mustard"
+                "plural_name": "дижонска горчица"
             },
             "worcestershire": {
                 "aliases": [],
@@ -11512,26 +11512,26 @@
             "hot sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "hot sauce",
-                "plural_name": "hot sauce"
+                "name": "лютив сос",
+                "plural_name": "соев сос"
             },
             "worcestershire sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "сос Уорчестър",
-                "plural_name": "worcestershire sauce"
+                "plural_name": "сос Уорчестър"
             },
             "ketchup": {
                 "aliases": [],
                 "description": "",
                 "name": "кетчуп",
-                "plural_name": "ketchup"
+                "plural_name": "кетчуп"
             },
             "mustard": {
                 "aliases": [],
                 "description": "",
                 "name": "горчица",
-                "plural_name": "mustard"
+                "plural_name": "горчица"
             },
             "fish sauce": {
                 "aliases": [],
@@ -11747,7 +11747,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "сос Тартар",
-                "plural_name": "tartar sauce"
+                "plural_name": "сос Тартар"
             },
             "hot pepper jelly": {
                 "aliases": [],

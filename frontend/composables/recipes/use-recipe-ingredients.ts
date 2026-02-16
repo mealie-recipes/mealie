@@ -5,6 +5,9 @@ import type { CreateIngredientFood, CreateIngredientUnit, IngredientFood, Ingred
 
 const { frac } = useFraction();
 
+const FRAC_MIN_DENOM = 10;
+const DECIMAL_PRECISION = 3;
+
 export function sanitizeIngredientHTML(rawHtml: string) {
   return DOMPurify.sanitize(rawHtml, {
     USE_PROFILES: { html: true },
@@ -91,11 +94,19 @@ export function useIngredientTextParser() {
 
     // casting to number is required as sometimes quantity is a string
     if (quantity && Number(quantity) !== 0) {
+      const scaledQuantity = Number((quantity * scale));
+
       if (unit && !unit.fraction) {
-        returnQty = Number((quantity * scale).toPrecision(3)).toString();
+        const minVal = 10 ** -DECIMAL_PRECISION;
+        returnQty = scaledQuantity >= minVal
+          ? Number(scaledQuantity.toPrecision(DECIMAL_PRECISION)).toString()
+          : `< ${minVal}`;
       }
       else {
-        const fraction = frac(quantity * scale, 10, true);
+        const minVal = 1 / FRAC_MIN_DENOM;
+        const isUnderMinVal = !(scaledQuantity >= minVal);
+
+        const fraction = !isUnderMinVal ? frac(scaledQuantity, FRAC_MIN_DENOM, true) : [0, 1, FRAC_MIN_DENOM];
         if (fraction[0] !== undefined && fraction[0] > 0) {
           returnQty += fraction[0];
         }
@@ -104,6 +115,10 @@ export function useIngredientTextParser() {
           returnQty += includeFormating
             ? `<sup>${fraction[1]}</sup><span>&frasl;</span><sub>${fraction[2]}</sub>`
             : ` ${fraction[1]}/${fraction[2]}`;
+        }
+
+        if (isUnderMinVal) {
+          returnQty = `< ${returnQty}`;
         }
       }
     }
