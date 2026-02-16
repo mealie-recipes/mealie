@@ -4,6 +4,7 @@
     <BaseDialog
       v-model="deleteDialog"
       :title="$t('general.confirm')"
+      :icon="$globals.icons.alertCircle"
       color="error"
       can-confirm
       @confirm="deleteUser(deleteTargetId)"

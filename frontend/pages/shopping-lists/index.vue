@@ -6,6 +6,7 @@
     <BaseDialog
       v-model="createDialog"
       :title="$t('shopping-list.create-shopping-list')"
+      :icon="$globals.icons.formatListCheck"
       can-submit
       @submit="createOne"
     >
@@ -43,6 +44,7 @@
     <BaseDialog
       v-model="deleteDialog"
       :title="$t('general.confirm')"
+      :icon="$globals.icons.alertCircle"
       color="error"
       can-confirm
       @confirm="deleteOne"
