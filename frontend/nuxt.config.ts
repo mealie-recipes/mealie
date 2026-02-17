@@ -219,7 +219,7 @@ export default defineNuxtConfig({
     },
     workbox: {
       navigateFallback: "/",
-      navigateFallbackAllowlist: [/^(?!\/api)/],
+      navigateFallbackAllowlist: [/^(?!\/api|\/docs|\/redoc)/],
       globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
       globIgnores: ["404.html", "200.html"],
       cleanupOutdatedCaches: true,
