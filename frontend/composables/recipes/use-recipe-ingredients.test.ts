@@ -205,4 +205,34 @@ describe("parseIngredientText", () => {
 
     expect(parseIngredientText(ingredient)).toEqual("2 tablespoons diced onion");
   });
+
+  test("decimal below minimum precision shows < 0.001", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 0.0001,
+      unit: { id: "1", name: "cup", useAbbreviation: false },
+      food: { id: "1", name: "salt" },
+    });
+
+    expect(parseIngredientText(ingredient)).toEqual("&lt; 0.001 cup salt");
+  });
+
+  test("fraction below minimum denominator shows < 1/10", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 0.05,
+      unit: { id: "1", name: "cup", fraction: true, useAbbreviation: false },
+      food: { id: "1", name: "salt" },
+    });
+
+    expect(parseIngredientText(ingredient)).toEqual("&lt; <sup>1</sup><span>⁄</span><sub>10</sub> cup salt");
+  });
+
+  test("fraction below minimum denominator without formatting shows < 1/10", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 0.05,
+      unit: { id: "1", name: "cup", fraction: true, useAbbreviation: false },
+      food: { id: "1", name: "salt" },
+    });
+
+    expect(parseIngredientText(ingredient, 1, false)).toEqual("&lt; 1/10 cup salt");
+  });
 });
