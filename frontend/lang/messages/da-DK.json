@@ -1423,8 +1423,8 @@
       "is-greater-than-or-equal-to": "er større end eller lig med (Automatic Translation)",
       "is-less-than": "er mindre end (Automatic Translation)",
       "is-less-than-or-equal-to": "er mindre end eller lig med (Automatic Translation)",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "er ældre end",
+      "is-newer-than": "er nyere end"
     },
     "relational-keywords": {
       "is": "er",
@@ -1436,7 +1436,7 @@
       "is-not-like": "er ikke som"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "dage siden|dag siden|dage siden"
     }
   },
   "validators": {
