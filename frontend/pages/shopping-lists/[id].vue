@@ -339,7 +339,6 @@ import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useShoppingListPage } from "~/composables/shopping-list-page/use-shopping-list-page";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
-import { getTextColor } from "~/composables/use-text-color";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 
 export default defineNuxtComponent({
@@ -375,7 +374,6 @@ export default defineNuxtComponent({
       allLabels,
       allUnits,
       allFoods,
-      getTextColor,
       mdAndUp,
       ...shoppingListPage,
     };
