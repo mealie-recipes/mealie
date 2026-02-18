@@ -657,7 +657,7 @@
     "create-a-recipe-by-uploading-a-scan": "Create a recipe by uploading a scan.",
     "upload-a-png-image-from-a-recipe-book": "Upload a png image from a recipe book",
     "recipe-bulk-importer": "Recipe Bulk Importer",
-    "recipe-bulk-importer-description": "The Bulk recipe importer allows you to import multiple recipes at once by queueing the sites on the backend and running the task in the background. This can be useful when initially migrating to Mealie, or when you want to import a large number of recipes.",
+    "recipe-bulk-importer-description": "The Bulk recipe importer allows you to import multiple recipes at once by queueing the sites on the backend and running the task in the background. This can be useful when initially migrating to Mealie, or when you want to import a large number of recipes.\n\nClick New to add additional recipes, then click Create when finished. Alternatively, click Bulk Add to add recipes line-by-line, then click Save and Create when finished.",
     "set-categories-and-tags": "Set Categories and Tags",
     "bulk-imports": "Bulk Imports",
     "bulk-import-process-has-started": "Bulk Import process has started",
