@@ -295,4 +295,58 @@ describe("ingredientToParserString", () => {
 
     expect(ingredientToParserString(ingredient)).toEqual("");
   });
+
+  test("unparsed ingredient with note starting with an integer uses just the note", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 1,
+      unit: undefined,
+      food: undefined,
+      note: "2 tbsp olive oil",
+    });
+
+    expect(ingredientToParserString(ingredient)).toEqual("2 tbsp olive oil");
+  });
+
+  test("unparsed ingredient with purely descriptive note uses just the note", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 1,
+      unit: undefined,
+      food: undefined,
+      note: "salt to taste",
+    });
+
+    expect(ingredientToParserString(ingredient)).toEqual("salt to taste");
+  });
+
+  test("originalText wins even when ingredient is unparsed (no unit, no food)", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 1,
+      unit: undefined,
+      food: undefined,
+      note: "2 tbsp olive oil",
+      originalText: "two tablespoons olive oil",
+    });
+
+    expect(ingredientToParserString(ingredient)).toEqual("two tablespoons olive oil");
+  });
+
+  test("ingredient with only food (no unit) uses full reconstruction", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 2,
+      unit: undefined,
+      food: { id: "1", name: "apples" },
+    });
+
+    expect(ingredientToParserString(ingredient)).toEqual("2 apples");
+  });
+
+  test("ingredient with only unit (no food) uses full reconstruction", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 2,
+      unit: { id: "1", name: "cup" },
+      food: undefined,
+    });
+
+    expect(ingredientToParserString(ingredient)).toEqual("2 cup");
+  });
 });
