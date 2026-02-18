@@ -75,6 +75,12 @@ export default defineNuxtComponent({
         value: "html",
       },
       {
+        icon: $globals.icons.robot,
+        text: i18n.t("recipe.import-with-ai"),
+        value: "openai",
+        hide: !$appInfo.enableOpenai,
+      },
+      {
         icon: $globals.icons.fileImage,
         text: i18n.t("recipe.create-from-images"),
         value: "image",

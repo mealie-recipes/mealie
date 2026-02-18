@@ -95,6 +95,26 @@
                 </v-tooltip>
               </div>
             </v-card-text>
+            <!-- Yield-based scaling -->
+            <template v-if="hasYieldScaling">
+              <v-divider class="mx-4" />
+              <v-card-title class="mb-0">
+                {{ $t("recipe.yield") }} ({{ recipeYieldText }})
+              </v-card-title>
+              <v-card-text class="mt-n5">
+                <div class="mt-4 d-flex align-center">
+                  <v-number-input
+                    :model-value="scaledYieldQuantity"
+                    :precision="null"
+                    :min="0"
+                    variant="underlined"
+                    control-variant="hidden"
+                    @update:model-value="recalculateScaleFromYield($event || 0)"
+                  />
+                  <span class="ml-2 text-no-wrap">{{ recipeYieldText }}</span>
+                </div>
+              </v-card-text>
+            </template>
           </v-card>
         </v-menu>
       </div>
@@ -127,10 +147,14 @@ import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
 interface Props {
   recipeServings?: number;
+  recipeYieldQuantity?: number;
+  recipeYieldText?: string;
   editScale?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   recipeServings: 0,
+  recipeYieldQuantity: 0,
+  recipeYieldText: "",
   editScale: false,
 });
 
@@ -139,6 +163,11 @@ const scale = defineModel<number>({ required: true });
 const i18n = useI18n();
 const menu = ref<boolean>(false);
 const canEditScale = computed(() => props.editScale && props.recipeServings > 0);
+
+// Show yield-based scaling when yield quantity is set and has text (e.g., "12 bucati")
+const hasYieldScaling = computed(() => {
+  return props.recipeYieldQuantity > 0 && props.recipeYieldText;
+});
 
 function recalculateScale(newYield: number) {
   if (isNaN(newYield) || newYield <= 0) {
@@ -153,6 +182,14 @@ function recalculateScale(newYield: number) {
   }
 }
 
+function recalculateScaleFromYield(desiredYield: number) {
+  if (isNaN(desiredYield) || desiredYield <= 0 || props.recipeYieldQuantity <= 0) {
+    return;
+  }
+  scale.value = desiredYield / props.recipeYieldQuantity;
+}
+
+// Servings-based display
 const recipeYieldAmount = computed(() => {
   return useScaledAmount(props.recipeServings, scale.value);
 });
@@ -163,6 +200,11 @@ const yieldDisplay = computed(() => {
       "recipe.serves-amount", { amount: recipeYieldAmount.value.scaledAmountDisplay },
     ) as string
     : "";
+});
+
+// Yield-based display (e.g., scaled "12 bucati" → "6 bucati")
+const scaledYieldQuantity = computed(() => {
+  return Number((props.recipeYieldQuantity * scale.value).toFixed(3));
 });
 
 const disableDecrement = computed(() => {

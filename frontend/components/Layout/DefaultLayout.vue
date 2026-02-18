@@ -207,6 +207,15 @@ export default defineNuxtComponent({
       },
       {
         insertDivider: false,
+        icon: $globals.icons.robot,
+        title: i18n.t("recipe.import-with-ai"),
+        subtitle: i18n.t("recipe.import-with-ai-subtitle"),
+        to: `/g/${groupSlug.value}/r/create/openai`,
+        restricted: true,
+        hide: !$appInfo.enableOpenai,
+      },
+      {
+        insertDivider: false,
         icon: $globals.icons.fileImage,
         title: i18n.t("recipe.create-from-images"),
         subtitle: i18n.t("recipe.create-recipe-from-an-image"),

@@ -23,7 +23,7 @@ from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeUpdate
 from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe, create_recipe_slug
-from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientFood, SaveIngredientUnit
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
@@ -187,6 +187,37 @@ class RecipeService(RecipeServiceBase):
         else:
             return self._get_recipe(slug_or_id, "slug")
 
+    def _resolve_ingredient_foods_and_units(self, recipe: Recipe) -> None:
+        """Look up or create IngredientFood/IngredientUnit DB records for each ingredient."""
+        group_id = self.user.group_id
+
+        for ingredient in recipe.recipe_ingredient:
+            # Resolve food
+            if ingredient.food and ingredient.food.name:
+                existing = self.repos.ingredient_foods.get_one(
+                    ingredient.food.name, key="name", any_case=True
+                )
+                if existing:
+                    ingredient.food = existing
+                else:
+                    created = self.repos.ingredient_foods.create(
+                        SaveIngredientFood(name=ingredient.food.name, group_id=group_id)
+                    )
+                    ingredient.food = created
+
+            # Resolve unit
+            if ingredient.unit and ingredient.unit.name:
+                existing = self.repos.ingredient_units.get_one(
+                    ingredient.unit.name, key="name", any_case=True
+                )
+                if existing:
+                    ingredient.unit = existing
+                else:
+                    created = self.repos.ingredient_units.create(
+                        SaveIngredientUnit(name=ingredient.unit.name, group_id=group_id)
+                    )
+                    ingredient.unit = created
+
     def create_one(self, create_data: Recipe | CreateRecipe) -> Recipe:
         if create_data.name is None:
             create_data.name = "New Recipe"
@@ -207,6 +238,7 @@ class RecipeService(RecipeServiceBase):
 
         rating_input = data.rating
         data.last_made = None
+        self._resolve_ingredient_foods_and_units(data)
         new_recipe = self.repos.recipes.create(data)
 
         # convert rating into user rating
@@ -318,6 +350,13 @@ class RecipeService(RecipeServiceBase):
         if recipe_image:
             data_service.write_image(recipe_image, "webp")
 
+        return recipe
+
+    async def create_from_text(self, text: str) -> Recipe:
+        openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.household, self.translator)
+        recipe_data = await openai_recipe_service.build_recipe_from_text(text)
+        recipe_data = cleaner.clean(recipe_data, self.translator)
+        recipe = self.create_one(recipe_data)
         return recipe
 
     async def create_from_images(self, images: list[UploadFile], translate_language: str | None = None) -> Recipe:
@@ -565,6 +604,22 @@ class RecipeService(RecipeServiceBase):
 
 class OpenAIRecipeService(RecipeServiceBase):
     def _convert_recipe(self, openai_recipe: OpenAIRecipe) -> Recipe:
+        recipe_ingredients: list[RecipeIngredient] = []
+        for ingredient in openai_recipe.ingredients:
+            if not (ingredient.food or ingredient.original_text or ingredient.title):
+                continue
+
+            recipe_ingredients.append(
+                RecipeIngredient(
+                    title=ingredient.title,
+                    quantity=ingredient.quantity,
+                    unit=ingredient.unit,
+                    food=ingredient.food,
+                    note=ingredient.note or "",
+                    original_text=ingredient.original_text,
+                )
+            )
+
         return Recipe(
             user_id=self.user.id,
             group_id=self.user.group_id,
@@ -576,11 +631,7 @@ class OpenAIRecipeService(RecipeServiceBase):
             total_time=openai_recipe.total_time,
             prep_time=openai_recipe.prep_time,
             perform_time=openai_recipe.perform_time,
-            recipe_ingredient=[
-                RecipeIngredient(title=ingredient.title, note=ingredient.text)
-                for ingredient in openai_recipe.ingredients
-                if ingredient.text
-            ],
+            recipe_ingredient=recipe_ingredients,
             recipe_instructions=[
                 RecipeStep(title=instruction.title, text=instruction.text)
                 for instruction in openai_recipe.instructions
@@ -588,6 +639,28 @@ class OpenAIRecipeService(RecipeServiceBase):
             ],
             notes=[RecipeNote(title=note.title or "", text=note.text) for note in openai_recipe.notes if note.text],
         )
+
+    async def build_recipe_from_text(self, text: str) -> Recipe:
+        settings = get_app_settings()
+        if not settings.OPENAI_ENABLED:
+            raise ValueError("OpenAI is not available")
+
+        openai_service = OpenAIService()
+        prompt = openai_service.get_prompt("recipes.parse-recipe-text")
+
+        try:
+            response = await openai_service.get_response(prompt, text, response_schema=OpenAIRecipe)
+            if not response:
+                raise ValueError("Received empty response from OpenAI")
+        except Exception as e:
+            raise Exception("Failed to call OpenAI services") from e
+
+        try:
+            recipe = self._convert_recipe(response)
+        except Exception as e:
+            raise ValueError("Unable to parse recipe from text") from e
+
+        return recipe
 
     async def build_recipe_from_images(self, images: list[Path], translate_language: str | None) -> Recipe:
         settings = get_app_settings()

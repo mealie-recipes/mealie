@@ -4,6 +4,8 @@
       v-if="!isEditMode"
       v-model.number="scale"
       :recipe-servings="recipeServings"
+      :recipe-yield-quantity="props.recipe.recipeYieldQuantity || 0"
+      :recipe-yield-text="props.recipe.recipeYield || ''"
       :edit-scale="hasFoodOrUnit && !isEditMode"
     />
   </div>

@@ -1,3 +1,5 @@
+from slugify import slugify
+
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.schema.recipe.recipe import Recipe
@@ -7,6 +9,7 @@ from mealie.services.scraper.scraped_extras import ScrapedExtras
 from .scraper_strategies import (
     ABCScraperStrategy,
     RecipeScraperOpenAI,
+    RecipeScraperOpenAIDirect,
     RecipeScraperOpenGraph,
     RecipeScraperPackage,
     safe_scrape_html,
@@ -56,7 +59,11 @@ class RecipeScraper:
 
             recipe_result, extras = result
             try:
-                recipe = cleaner.clean(recipe_result, self.translator)
+                if not scraper.skip_cleaning:
+                    recipe = cleaner.clean(recipe_result, self.translator)
+                else:
+                    recipe = recipe_result
+                    recipe.slug = slugify(recipe.name or "")
             except Exception:
                 self.logger.exception(f"Failed to clean recipe data from {scraper.__class__.__name__}")
                 continue

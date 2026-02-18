@@ -1,0 +1,22 @@
+Extract recipe data from the provided freeform text and return it as a fully structured recipe.
+
+Do not create or make up any information. If insufficient data is found, return only the fields you can confidently extract.
+
+You will receive the full text of a recipe, which may have been copied from a website, book, or other source. It may include a title, description, ingredients, instructions, notes, and other recipe data in any format.
+
+Extract the recipe name, description, yield, times, ingredients, instructions, notes/tips, and nutritional information. Preserve the original order of ingredients and instructions.
+
+IMPORTANT for time fields (total_time, prep_time, perform_time): Always return times in plain human-readable text like "30 minutes", "1 hour 30 minutes", "2 hours". Do NOT use ISO 8601 duration format (e.g., do NOT return "PT30M" or "55M"). If the source uses ISO format, convert it to readable text.
+
+IMPORTANT for ingredients: Parse each ingredient into its structured components:
+- quantity: The numeric amount as a number (e.g., 2, 0.5, 1.5). Use null if no quantity is specified.
+- unit: The unit of measurement as a string (e.g., "cup", "tbsp", "g", "ml", "pound"). Use null if no unit.
+- food: The food item name (e.g., "flour", "onion", "chicken breast"). This should be the core ingredient without preparation notes.
+- note: Any additional information like preparation method ("chopped", "minced"), temperature ("room temperature"), or other qualifiers ("to taste", "divided"). Use null if none.
+- original_text: The complete original ingredient text exactly as it appears in the recipe (e.g., "1 cup all-purpose flour, sifted").
+- title: Only set this for section headers (e.g., "For the sauce"). When a title is set, the other fields can be null if the title line has no ingredient.
+
+IMPORTANT for nutrition: Extract nutritional values as plain numbers without units in the value string:
+- calories: Just the number, e.g. "350" (not "350 kcal")
+- fat_content, protein_content, carbohydrate_content, fiber_content, sugar_content: In grams, just the number, e.g. "12"
+- sodium_content, cholesterol_content: In milligrams, just the number, e.g. "450"

@@ -16,7 +16,11 @@ from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.pkgs import safehttp
 from mealie.schema.openai.general import OpenAIText
+from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
+from mealie.schema.recipe.recipe_notes import RecipeNote
+from mealie.schema.recipe.recipe_nutrition import Nutrition
 from mealie.services.openai import OpenAIService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
@@ -103,6 +107,7 @@ class ABCScraperStrategy(ABC):
     """
 
     url: str
+    skip_cleaning: bool = False
 
     def __init__(
         self,
@@ -348,6 +353,95 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         except Exception:
             self.logger.exception(f"OpenAI was unable to extract a recipe from {url}")
             return ""
+
+
+class RecipeScraperOpenAIDirect(RecipeScraperOpenAI):
+    """
+    Sends the full page content directly to OpenAI and gets a structured recipe back
+    using the OpenAIRecipe schema, bypassing the JSON-LD roundtrip.
+    """
+
+    skip_cleaning: bool = True
+
+    async def parse(self) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+        settings = get_app_settings()
+        if not settings.OPENAI_ENABLED:
+            return None, None
+
+        html = self.raw_html or await safe_scrape_html(self.url)
+        text = self.format_html_to_text(html)
+
+        try:
+            service = OpenAIService()
+            prompt = service.get_prompt("recipes.scrape-recipe-structured")
+            response = await service.get_response(prompt, text, response_schema=OpenAIRecipe)
+            if not response:
+                raise Exception("OpenAI did not return any data")
+        except Exception:
+            self.logger.exception(f"OpenAI (direct) was unable to extract a recipe from {self.url}")
+            return None, None
+
+        nutrition = None
+        if response.nutrition:
+            nutrition = Nutrition(
+                calories=response.nutrition.calories,
+                fat_content=response.nutrition.fat_content,
+                protein_content=response.nutrition.protein_content,
+                carbohydrate_content=response.nutrition.carbohydrate_content,
+                fiber_content=response.nutrition.fiber_content,
+                sugar_content=response.nutrition.sugar_content,
+                sodium_content=response.nutrition.sodium_content,
+                cholesterol_content=response.nutrition.cholesterol_content,
+                saturated_fat_content=response.nutrition.saturated_fat_content,
+                trans_fat_content=response.nutrition.trans_fat_content,
+                unsaturated_fat_content=response.nutrition.unsaturated_fat_content,
+            )
+
+        recipe_ingredients: list[RecipeIngredient] = []
+        for ingredient in response.ingredients:
+            if not (ingredient.food or ingredient.original_text or ingredient.title):
+                continue
+
+            recipe_ingredients.append(
+                RecipeIngredient(
+                    title=ingredient.title,
+                    quantity=ingredient.quantity,
+                    unit=ingredient.unit,
+                    food=ingredient.food,
+                    note=ingredient.note or "",
+                    original_text=ingredient.original_text,
+                )
+            )
+
+        recipe = Recipe(
+            name=response.name,
+            slug="",
+            description=response.description,
+            recipe_yield=response.recipe_yield,
+            total_time=response.total_time,
+            prep_time=response.prep_time,
+            perform_time=response.perform_time,
+            nutrition=nutrition,
+            recipe_ingredient=recipe_ingredients,
+            recipe_instructions=[
+                RecipeStep(title=instruction.title, text=instruction.text)
+                for instruction in response.instructions
+                if instruction.text
+            ],
+            notes=[RecipeNote(title=note.title or "", text=note.text) for note in response.notes if note.text],
+            org_url=self.url,
+        )
+
+        # Try to get image from HTML if not already set
+        try:
+            soup = bs4.BeautifulSoup(html, "lxml")
+            image = self.find_image(soup)
+            if image:
+                recipe.image = image
+        except Exception:
+            pass
+
+        return recipe, ScrapedExtras()
 
 
 class RecipeScraperOpenGraph(ABCScraperStrategy):

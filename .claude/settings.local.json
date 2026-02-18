@@ -1,0 +1,37 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python:*)",
+      "Bash(task dev:generate:*)",
+      "Bash(uv run python:*)",
+      "Bash(where:*)",
+      "Bash(echo:*)",
+      "Bash(export PATH=\"$PATH:/c/Users/Narcis.Badea/.local/bin:/c/Program Files/Rancher Desktop/resources/resources/win32/bin:/c/nvm4w/nodejs\")",
+      "Bash(powershell.exe -Command \"Get-Command podman -ErrorAction SilentlyContinue | Select-Object Source; Get-Command uv -ErrorAction SilentlyContinue | Select-Object Source; Get-Command yarn -ErrorAction SilentlyContinue | Select-Object Source; Get-Command node -ErrorAction SilentlyContinue | Select-Object Source; Get-Command task -ErrorAction SilentlyContinue | Select-Object Source\")",
+      "Bash(export PATH=\"/c/Users/Narcis.Badea/.local/bin:/c/Program Files/RedHat/Podman:/c/nvm4w/nodejs:$PATH\")",
+      "Bash(uv:*)",
+      "Bash(podman:*)",
+      "Bash(node:*)",
+      "Bash(yarn:*)",
+      "Bash(npm:*)",
+      "Bash(npx yarn --version)",
+      "Bash(export PATH=\"/c/Program Files/RedHat/Podman:$PATH\")",
+      "Bash(\"/c/Program Files/RedHat/Podman/podman.exe\" image ls)",
+      "Bash(\"/c/Program Files/RedHat/Podman/podman.exe\" images)",
+      "Bash(BASE_CONFIG_PATH=\"C:/Environments/pw/mealie/data\" podman compose:*)",
+      "Bash(\"/c/Program Files/RedHat/Podman/podman.exe\" ps --filter name=mealie)",
+      "Bash(\"/c/Program Files/RedHat/Podman/podman.exe\" logs mealie)",
+      "Bash(\"/c/Program Files/RedHat/Podman/podman.exe\" compose -f \"C:/Environments/pw/mealie/docker-compose.dev.local.yml\" down)",
+      "Bash(\"/c/Program Files/RedHat/Podman/podman.exe\" stop mealie)",
+      "Bash(\"/c/Program Files/RedHat/Podman/podman.exe\" rm mealie)",
+      "Bash(\"/c/Program Files/RedHat/Podman/podman.exe\" rm -f mealie)",
+      "Bash(\"/c/Program Files/RedHat/Podman/podman.exe\" compose -f \"C:/Environments/pw/mealie/docker-compose.dev.local.yml\" up -d)",
+      "Bash(find:*)",
+      "Bash(dir:*)",
+      "Bash(ls:*)",
+      "Bash(git remote set-url:*)",
+      "Bash(git checkout:*)",
+      "Bash(git add:*)"
+    ]
+  }
+}

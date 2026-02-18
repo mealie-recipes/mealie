@@ -45,6 +45,13 @@
           :label="$t('recipe.import-original-categories')"
         />
         <v-checkbox
+          v-if="$appInfo.enableOpenai"
+          v-model="useOpenAI"
+          color="primary"
+          hide-details
+          :label="$t('recipe.use-openai-for-scraping')"
+        />
+        <v-checkbox
           v-model="stayInEditMode"
           color="primary"
           hide-details
@@ -160,6 +167,8 @@ export default defineNuxtComponent({
       navigateToRecipe,
     } = useNewRecipeOptions();
 
+    const useOpenAI = ref(false);
+
     const bulkImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/bulk`);
     const htmlOrJsonImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/html`);
 
@@ -236,7 +245,7 @@ export default defineNuxtComponent({
         return;
       }
       state.loading = true;
-      const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags, importCategories);
+      const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags, importCategories, useOpenAI.value);
       handleResponse(response, importKeywordsAsTags);
     }
 
@@ -246,6 +255,7 @@ export default defineNuxtComponent({
       recipeUrl,
       importKeywordsAsTags,
       importCategories: importCategories,
+      useOpenAI,
       stayInEditMode,
       parseRecipe,
       domUrlForm,

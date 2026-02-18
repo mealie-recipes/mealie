@@ -504,6 +504,7 @@ export interface ScrapeRecipe {
   includeTags?: boolean;
   includeCategories?: boolean;
   url: string;
+  useOpenAI?: boolean;
 }
 export interface ScrapeRecipeBase {
   includeTags?: boolean;
@@ -518,6 +519,9 @@ export interface ScrapeRecipeData {
 export interface ScrapeRecipeTest {
   url: string;
   useOpenAI?: boolean;
+}
+export interface ScrapeRecipeText {
+  text: string;
 }
 export interface SlugResponse {}
 export interface TagIn {

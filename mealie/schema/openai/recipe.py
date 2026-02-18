@@ -9,9 +9,29 @@ class OpenAIRecipeIngredient(OpenAIBase):
         description="Ingredient section title (e.g., 'Dry Ingredients'). Only set on the first item in each section.",
     )
 
-    text: str = Field(
-        ...,
-        description="The complete ingredient text, e.g., '1 cup of flour' or '2 cups of onions, chopped'.",
+    quantity: float | None = Field(
+        None,
+        description="Numeric quantity, e.g. 2.5. Use null if no quantity.",
+    )
+
+    unit: str | None = Field(
+        None,
+        description="Unit of measurement, e.g. 'cup', 'tbsp', 'g', 'ml'. Use null if no unit.",
+    )
+
+    food: str | None = Field(
+        None,
+        description="The food item, e.g. 'flour', 'onion', 'chicken breast'.",
+    )
+
+    note: str | None = Field(
+        None,
+        description="Additional info like 'chopped', 'to taste', 'room temperature'.",
+    )
+
+    original_text: str | None = Field(
+        None,
+        description="The complete original ingredient text as it appears in the recipe.",
     )
 
 
@@ -40,6 +60,20 @@ class OpenAIRecipeNotes(OpenAIBase):
         ...,
         description="The note content, such as tips, variations, or preparation advice.",
     )
+
+
+class OpenAIRecipeNutrition(OpenAIBase):
+    calories: str | None = Field(None, description="Calories, e.g. '350'")
+    fat_content: str | None = Field(None, description="Total fat in grams, e.g. '12'")
+    protein_content: str | None = Field(None, description="Protein in grams, e.g. '25'")
+    carbohydrate_content: str | None = Field(None, description="Carbs in grams, e.g. '40'")
+    fiber_content: str | None = Field(None, description="Fiber in grams")
+    sugar_content: str | None = Field(None, description="Sugar in grams")
+    sodium_content: str | None = Field(None, description="Sodium in milligrams")
+    cholesterol_content: str | None = Field(None, description="Cholesterol in milligrams")
+    saturated_fat_content: str | None = Field(None, description="Saturated fat in grams")
+    trans_fat_content: str | None = Field(None, description="Trans fat in grams")
+    unsaturated_fat_content: str | None = Field(None, description="Unsaturated fat in grams")
 
 
 class OpenAIRecipe(OpenAIBase):
@@ -86,4 +120,9 @@ class OpenAIRecipe(OpenAIBase):
     notes: list[OpenAIRecipeNotes] = Field(
         default_factory=list,
         description="List of notes, tips, or variations.",
+    )
+
+    nutrition: OpenAIRecipeNutrition | None = Field(
+        None,
+        description="Nutritional information per serving, if available.",
     )

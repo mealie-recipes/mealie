@@ -30,7 +30,7 @@ from mealie.routes._base import controller
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.make_dependable import make_dependable
-from mealie.schema.recipe import Recipe, ScrapeRecipe, ScrapeRecipeData
+from mealie.schema.recipe import Recipe, ScrapeRecipe, ScrapeRecipeData, ScrapeRecipeText
 from mealie.schema.recipe.recipe import (
     CreateRecipe,
     CreateRecipeByUrlBulk,
@@ -149,12 +149,20 @@ class RecipeController(BaseRecipeController):
         if isinstance(req, ScrapeRecipeData):
             html = req.data
             url = req.url or ""
+            use_openai = False
         else:
             html = None
             url = req.url
+            use_openai = req.use_openai
+
+        if use_openai and not self.settings.OPENAI_ENABLED:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("OpenAI is not enabled"),
+            )
 
         try:
-            recipe, extras = await create_from_html(url, self.translator, html)
+            recipe, extras = await create_from_html(url, self.translator, html, use_openai=use_openai)
         except ForceTimeoutException as e:
             raise HTTPException(
                 status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
@@ -238,6 +246,26 @@ class RecipeController(BaseRecipeController):
             )
 
         recipe = await self.service.create_from_images(images, translate_language)
+        self.publish_event(
+            event_type=EventTypes.recipe_created,
+            document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
+            group_id=recipe.group_id,
+            household_id=recipe.household_id,
+        )
+
+        return recipe.slug
+
+    @router.post("/create/text", status_code=201)
+    async def create_recipe_from_text(self, req: ScrapeRecipeText):
+        """Create a recipe from pasted text using OpenAI."""
+
+        if not self.settings.OPENAI_ENABLED:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("OpenAI is not enabled"),
+            )
+
+        recipe = await self.service.create_from_text(req.text)
         self.publish_event(
             event_type=EventTypes.recipe_created,
             document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),

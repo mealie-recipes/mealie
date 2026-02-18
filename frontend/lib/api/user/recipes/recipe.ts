@@ -38,6 +38,7 @@ const routes = {
   recipesCreateUrlBulk: `${prefix}/recipes/create/url/bulk`,
   recipesCreateFromZip: `${prefix}/recipes/create/zip`,
   recipesCreateFromImage: `${prefix}/recipes/create/image`,
+  recipesCreateFromText: `${prefix}/recipes/create/text`,
   recipesCreateFromHtmlOrJson: `${prefix}/recipes/create/html-or-json`,
   recipesCategory: `${prefix}/recipes/category`,
   recipesParseIngredient: `${prefix}/parser/ingredient`,
@@ -150,12 +151,16 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return await this.requests.post<string>(routes.recipesCreateFromHtmlOrJson, { data, includeTags, includeCategories, url });
   }
 
-  async createOneByUrl(url: string, includeTags: boolean, includeCategories: boolean) {
-    return await this.requests.post<string>(routes.recipesCreateUrl, { url, includeTags, includeCategories });
+  async createOneByUrl(url: string, includeTags: boolean, includeCategories: boolean, useOpenAI = false) {
+    return await this.requests.post<string>(routes.recipesCreateUrl, { url, includeTags, includeCategories, useOpenAI });
   }
 
   async createManyByUrl(payload: CreateRecipeByUrlBulk) {
     return await this.requests.post<string>(routes.recipesCreateUrlBulk, payload);
+  }
+
+  async createOneFromText(text: string) {
+    return await this.requests.post<string>(routes.recipesCreateFromText, { text });
   }
 
   async createOneFromImages(fileObjects: (Blob | File)[], translateLanguage: string | null = null) {
