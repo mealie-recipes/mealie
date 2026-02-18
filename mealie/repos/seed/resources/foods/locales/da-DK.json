@@ -101,7 +101,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sukkermajs",
-                "plural_name": "sweet corn"
+                "plural_name": "sukkermajs"
             },
             "chile pepper": {
                 "aliases": [
@@ -127,7 +127,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "palmehjerte",
-                "plural_name": "heart of palm"
+                "plural_name": "palmehjerte"
             },
             "baby greens": {
                 "aliases": [],
@@ -169,7 +169,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rucola",
-                "plural_name": "arugula"
+                "plural_name": "rucola"
             },
             "leek": {
                 "aliases": [],
@@ -261,8 +261,8 @@
             "mixed greens": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed greens",
-                "plural_name": "mixed greens"
+                "name": "blandet grønt",
+                "plural_name": "blandet grønt"
             },
             "parsnip": {
                 "aliases": [],
@@ -5233,8 +5233,8 @@
             "john dory": {
                 "aliases": [],
                 "description": "",
-                "name": "john dory",
-                "plural_name": "john dories"
+                "name": "sankt petersfisk",
+                "plural_name": "sankt petersfisk"
             },
             "swai fish": {
                 "aliases": [],
@@ -5389,8 +5389,8 @@
             "gilt-head bream": {
                 "aliases": [],
                 "description": "",
-                "name": "gilt-head bream",
-                "plural_name": "gilt-head bream"
+                "name": "dorade",
+                "plural_name": "dorade"
             },
             "pangasius": {
                 "aliases": [],
