@@ -30,6 +30,7 @@
             :items="foods"
             :label="$t('shopping-list.food')"
             :icon="$globals.icons.foods"
+            :autofocus="autoFocus === 'food'"
             create
             @create="createAssignFood"
           />
@@ -41,7 +42,7 @@
             :label="$t('shopping-list.note')"
             rows="1"
             auto-grow
-            autofocus
+            :autofocus="autoFocus === 'note'"
             @keypress="handleNoteKeyPress"
           />
         </div>
@@ -165,6 +166,8 @@ export default defineNuxtComponent({
       },
     );
 
+    const autoFocus = !listItem.value.food && listItem.value.note ? "note" : "food";
+
     async function createAssignFood(val: string) {
       // keep UI reactive
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -204,6 +207,7 @@ export default defineNuxtComponent({
 
     return {
       listItem,
+      autoFocus,
       createAssignFood,
       createAssignUnit,
       assignLabelToFood,

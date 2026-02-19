@@ -5425,14 +5425,14 @@
             "amberjack": {
                 "aliases": [],
                 "description": "",
-                "name": "amberjack",
-                "plural_name": "amberjacks"
+                "name": "sériole",
+                "plural_name": "sérioles"
             },
             "korean fish cake": {
                 "aliases": [],
                 "description": "",
-                "name": "korean fish cake",
-                "plural_name": "korean fish cakes"
+                "name": "fish cake coréen",
+                "plural_name": "fish cakes coréens"
             },
             "mullet": {
                 "aliases": [],
@@ -5467,8 +5467,8 @@
             "threadfin": {
                 "aliases": [],
                 "description": "",
-                "name": "threadfin",
-                "plural_name": "threadfins"
+                "name": "cohana",
+                "plural_name": "cohanas"
             },
             "tiny fish": {
                 "aliases": [],
@@ -5479,8 +5479,8 @@
             "tuna belly": {
                 "aliases": [],
                 "description": "",
-                "name": "tuna belly",
-                "plural_name": "tuna bellies"
+                "name": "ventrèche de thon",
+                "plural_name": "ventrèches de thon"
             },
             "beluga caviar": {
                 "aliases": [],

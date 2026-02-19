@@ -980,7 +980,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kastanienpüree",
-                "plural_name": "chestnut purée"
+                "plural_name": "Kastanienpüree"
             },
             "prickly pear": {
                 "aliases": [],
@@ -1232,7 +1232,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Horngurke",
-                "plural_name": "kiwanos"
+                "plural_name": "Horn gurken"
             }
         }
     },
@@ -1295,7 +1295,7 @@
             "black fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "black fungus",
+                "name": "Mu-Err-Pilze",
                 "plural_name": "Mu-Err-Pilze"
             },
             "black truffle": {
@@ -1361,7 +1361,7 @@
             "white fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "white fungus",
+                "name": "Tremella",
                 "plural_name": "Weiße Pilze"
             },
             "pioppini": {
@@ -1373,7 +1373,7 @@
             "snow fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "snow fungus",
+                "name": "Tremella",
                 "plural_name": "Schneepilze"
             },
             "white beech mushroom": {
@@ -1385,7 +1385,7 @@
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletus",
+                "name": "Steinpilz",
                 "plural_name": "Steinpilze"
             },
             "huitlacoche": {
@@ -1404,7 +1404,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Nameko",
-                "plural_name": "namekos"
+                "plural_name": "Nameko Pilz"
             },
             "djon djon mushroom": {
                 "aliases": [],
@@ -1427,7 +1427,7 @@
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungus",
+                "name": "Hallimasche",
                 "plural_name": "Hallimasche"
             },
             "caesar's mushroom": {
@@ -2017,16 +2017,16 @@
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheese"
+                "name": "Frischkäse",
+                "plural_name": "Frischkäse"
             },
             "sharp cheddar cheese": {
                 "aliases": [
-                    "sharp cheddar"
+                    "Kräftiger Cheddar"
                 ],
                 "description": "",
-                "name": "sharp cheddar cheese",
-                "plural_name": "sharp cheddar cheese"
+                "name": "Kräftiger Cheddar",
+                "plural_name": "Kräftiger Cheddar"
             },
             "cheese": {
                 "aliases": [],
@@ -2055,14 +2055,14 @@
             "cheddar-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheddar-jack cheese",
-                "plural_name": "cheddar-jack cheese"
+                "name": "Cheddar-Käse",
+                "plural_name": "Cheddar-Käse"
             },
             "monterey jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "monterey jack cheese",
-                "plural_name": "monterey jack cheese"
+                "name": "Monterey-Jack-Käse",
+                "plural_name": "Monterey-Jack-Käse"
             },
             "blue cheese": {
                 "aliases": [],
@@ -2074,25 +2074,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "Ziegenkäse",
-                "plural_name": "goat cheese"
+                "plural_name": "Ziegenkäse"
             },
             "fresh mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella cheese",
-                "plural_name": "fresh mozzarella cheese"
+                "name": "Frischer Mozzarella",
+                "plural_name": "Frischer Mozzarella"
             },
             "swis cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swis cheese",
-                "plural_name": "swis cheese"
+                "name": "Schweizer Käse",
+                "plural_name": "Schweizer Käse"
             },
             "pecorino cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pecorino cheese",
-                "plural_name": "pecorino cheese"
+                "name": "Pecorino",
+                "plural_name": "Pecorino"
             },
             "gruyere cheese": {
                 "aliases": [],
@@ -2103,8 +2103,8 @@
             "mascarpone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mascarpone cheese",
-                "plural_name": "mascarpone cheese"
+                "name": "Mascarpone",
+                "plural_name": "Mascarpone"
             },
             "cottage cheese": {
                 "aliases": [],
@@ -2115,26 +2115,26 @@
             "american cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "american cheese",
-                "plural_name": "american cheese"
+                "name": "Schmelzkäse",
+                "plural_name": "Schmelzkäse"
             },
             "provolone cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Provolone-Käse",
-                "plural_name": "provolone cheese"
+                "plural_name": "Provolone"
             },
             "mexican cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican cheese blend",
-                "plural_name": "mexican cheese blend"
+                "name": "mexikanische Käsemischung",
+                "plural_name": "mexikanische Käsemischung"
             },
             "pepper jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pepper jack cheese",
-                "plural_name": "pepper jack cheese"
+                "name": "Pfefferkäse",
+                "plural_name": "Pfefferkäse"
             },
             "brie cheese": {
                 "aliases": [],
@@ -2145,26 +2145,26 @@
             "paneer cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "paneer cheese",
-                "plural_name": "paneer cheese"
+                "name": "Paneer",
+                "plural_name": "Paneer"
             },
             "fontina cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fontina cheese",
-                "plural_name": "fontina cheese"
+                "name": "Fontina",
+                "plural_name": "Fontina"
             },
             "queso fresco cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "queso fresco cheese",
-                "plural_name": "queso fresco cheese"
+                "name": "Cottage Käse",
+                "plural_name": "Cottage Käse"
             },
             "quark cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "quark cheese",
-                "plural_name": "quark cheese"
+                "name": "Quark",
+                "plural_name": "Quark"
             },
             "gouda cheese": {
                 "aliases": [],
@@ -2175,32 +2175,32 @@
             "cotija cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cotija cheese",
-                "plural_name": "cotija cheese"
+                "name": "Cotija",
+                "plural_name": "Cotija"
             },
             "asiago cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "asiago cheese",
-                "plural_name": "asiago cheese"
+                "name": "Asiago",
+                "plural_name": "Asiago"
             },
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheese"
+                "name": "geräucherter Käse",
+                "plural_name": "geräucherter Käse"
             },
             "halloumi cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "halloumi cheese",
-                "plural_name": "halloumi cheese"
+                "name": "Halloumi",
+                "plural_name": "Halloumi"
             },
             "chevre cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "chevre cheese",
-                "plural_name": "chevre cheese"
+                "name": "Chèvre",
+                "plural_name": "Chèvre"
             },
             "manchego cheese": {
                 "aliases": [],
@@ -2211,8 +2211,8 @@
             "italian cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "italian cheese blend",
-                "plural_name": "italian cheese blend"
+                "name": "italienische Käsemischung",
+                "plural_name": "italienische Käsemischung"
             },
             "neufchatel cheese": {
                 "aliases": [],
@@ -2229,8 +2229,8 @@
             "burrata cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "burrata cheese",
-                "plural_name": "burrata cheese"
+                "name": "Burrata",
+                "plural_name": "Burrata"
             },
             "havarti cheese": {
                 "aliases": [],
@@ -2247,8 +2247,8 @@
             "grana-padano cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "grana-padano cheese",
-                "plural_name": "grana-padano cheese"
+                "name": "Grana Padano",
+                "plural_name": "Grana Padano"
             },
             "muenster cheese": {
                 "aliases": [],
@@ -6483,19 +6483,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Stevia",
-                "plural_name": "stevia"
+                "plural_name": "Stevia"
             },
             "agave nectar": {
                 "aliases": [],
                 "description": "",
                 "name": "Agavendicksaft",
-                "plural_name": "agave nectar"
+                "plural_name": "Agavendicksaft"
             },
             "sugar syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Zuckersirup",
-                "plural_name": "sugar syrup"
+                "plural_name": "Zuckersirup"
             },
             "isomalt": {
                 "aliases": [],
@@ -6879,7 +6879,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Malzsirup",
-                "plural_name": "malt syrup"
+                "plural_name": "Malzsirup"
             },
             "hot honey": {
                 "aliases": [],

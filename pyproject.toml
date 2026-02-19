@@ -40,7 +40,7 @@ dependencies = [
     "html2text==2025.4.15",
     "paho-mqtt==1.6.1",
     "pydantic-settings==2.13.0",
-    "pillow-heif==1.2.0",
+    "pillow-heif==1.2.1",
     "pyjwt==2.11.0",
     "openai==2.21.0",
     "typing-extensions==4.15.0",
@@ -58,12 +58,12 @@ pgsql = [
 
 [dependency-groups]
 docs = [
-    "mkdocs-material==9.7.1",
+    "mkdocs-material==9.7.2",
 ]
 dev = [
     "coverage==7.13.4",
     "coveragepy-lcov==0.1.2",
-    "mkdocs-material==9.7.1",
+    "mkdocs-material==9.7.2",
     "mypy==1.19.1",
     "pre-commit==4.5.1",
     "pylint==4.0.4",

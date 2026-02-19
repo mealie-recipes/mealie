@@ -1423,8 +1423,8 @@
       "is-greater-than-or-equal-to": "is groter dan of gelijk aan",
       "is-less-than": "is kleiner dan",
       "is-less-than-or-equal-to": "is kleiner dan of gelijk aan",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "is ouder dan",
+      "is-newer-than": "is nieuwer dan"
     },
     "relational-keywords": {
       "is": "is",
@@ -1436,7 +1436,7 @@
       "is-not-like": "is niet zoals"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "dagen geleden|dag geleden|dagen geleden"
     }
   },
   "validators": {
