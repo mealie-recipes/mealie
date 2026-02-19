@@ -31,31 +31,8 @@
     >
       <v-card-text v-if="editTarget">
         <div class="mt-4">
-          <v-text-field
-            v-model="editTarget.name"
-            :label="$t('general.name')"
-          />
+          <v-text-field v-model="editTarget.name" :label="$t('general.name')" />
         </div>
-      </v-card-text>
-    </BaseDialog>
-
-    <!-- Delete Dialog -->
-    <BaseDialog
-      v-model="state.deleteDialog"
-      :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      can-confirm
-      @confirm="deleteCategory"
-    >
-      <v-card-text>
-        {{ $t("general.confirm-delete-generic") }}
-        <p
-          v-if="deleteTarget"
-          class="mt-4 ml-4"
-        >
-          {{ deleteTarget.name }}
-        </p>
       </v-card-text>
     </BaseDialog>
 
@@ -74,11 +51,7 @@
           {{ $t('general.confirm-delete-generic-items') }}
         </p>
         <v-card variant="outlined">
-          <v-virtual-scroll
-            height="400"
-            item-height="25"
-            :items="bulkDeleteTarget"
-          >
+          <v-virtual-scroll height="400" item-height="25" :items="bulkDeleteTarget">
             <template #default="{ item }">
               <v-list-item class="pb-2">
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
@@ -89,31 +62,16 @@
       </v-card-text>
     </BaseDialog>
 
-    <!-- Data Table -->
-    <BaseCardSectionTitle
+    <DataPage
       :icon="$globals.icons.categories"
-      section
       :title="$t('data-pages.categories.category-data')"
-    />
-    <CrudTable
-      v-model:headers="tableHeaders"
+      :table-headers="tableHeaders"
       :table-config="tableConfig"
-      :data="categories || []"
+      :data="categories"
       :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
-      initial-sort="name"
-      @delete-one="deleteEventHandler"
-      @edit-one="editEventHandler"
-      @delete-selected="bulkDeleteEventHandler"
-    >
-      <template #button-row>
-        <BaseButton
-          create
-          @click="state.createDialog = true"
-        >
-          {{ $t("general.create") }}
-        </BaseButton>
-      </template>
-    </CrudTable>
+      @delete-one="categoryStore.actions.deleteOne"
+      @delete-many="categoryStore.actions.deleteMany"
+    />
   </div>
 </template>
 
@@ -121,15 +79,16 @@
 import { validators } from "~/composables/use-validators";
 import { useCategoryStore, useCategoryData } from "~/composables/store";
 import type { RecipeCategory } from "~/lib/api/types/recipe";
+import type { DataPageTableHeader, DataPageTableConfig } from "~/components/Domain/Group/DataPage.vue";
 
 export default defineNuxtComponent({
   setup() {
     const i18n = useI18n();
-    const tableConfig = {
+    const tableConfig: DataPageTableConfig = {
       hideColumns: true,
       canExport: true,
     };
-    const tableHeaders = [
+    const tableHeaders: Array<DataPageTableHeader> = [
       {
         text: i18n.t("general.id"),
         value: "id",
@@ -182,43 +141,12 @@ export default defineNuxtComponent({
       state.editDialog = false;
     }
 
-    // ============================================================
-    // Delete Category
-
-    const deleteTarget = ref<RecipeCategory | null>(null);
-
-    function deleteEventHandler(item: RecipeCategory) {
-      state.deleteDialog = true;
-      deleteTarget.value = item;
-    }
-
-    async function deleteCategory() {
-      if (!deleteTarget.value || deleteTarget.value.id === undefined) {
-        return;
-      }
-      await categoryStore.actions.deleteOne(deleteTarget.value.id);
-      state.deleteDialog = false;
-    }
-
-    // ============================================================
-    // Bulk Delete Category
-    const bulkDeleteTarget = ref<RecipeCategory[]>([]);
-    function bulkDeleteEventHandler(selection: RecipeCategory[]) {
-      bulkDeleteTarget.value = selection;
-      state.bulkDeleteDialog = true;
-    }
-
-    async function deleteSelected() {
-      const ids = bulkDeleteTarget.value.map(item => item.id).filter(id => !!id);
-      await categoryStore.actions.deleteMany(ids);
-      bulkDeleteTarget.value = [];
-    }
-
     return {
       state,
       tableConfig,
       tableHeaders,
       categories: categoryStore.store,
+      categoryStore: categoryStore,
       validators,
 
       // create
@@ -229,16 +157,6 @@ export default defineNuxtComponent({
       editTarget,
       editEventHandler,
       editSaveCategory,
-
-      // delete
-      deleteTarget,
-      deleteEventHandler,
-      deleteCategory,
-
-      // bulk delete
-      bulkDeleteTarget,
-      bulkDeleteEventHandler,
-      deleteSelected,
     };
   },
 });
