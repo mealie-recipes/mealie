@@ -299,8 +299,8 @@
     "private-household-description": "귀하의 가구를 비공개로 설정하면 모든 공개 보기 옵션이 비활성화됩니다. 이는 개별 공개 보기 설정을 재정의합니다.",
     "lock-recipe-edits-from-other-households": "다른 가구의 레시피 편집 잠금",
     "lock-recipe-edits-from-other-households-description": "이 기능을 활성화하면 귀하의 가족 구성원만 귀하의 가족이 만든 요리법을 편집할 수 있습니다.",
-    "household-recipe-preferences": "가정용 레시피 선호도",
-    "default-recipe-preferences-description": "이는 가정에서 새로운 레시피를 만들 때의 기본 설정입니다. 레시피 설정 메뉴에서 개별 레시피에 대해 이를 변경할 수 있습니다.",
+    "household-recipe-preferences": "가구 레시피 설정",
+    "default-recipe-preferences-description": "이는 가구에서 새로운 레시피를 만들 때의 기본 설정입니다. 레시피 설정 메뉴에서 개별 레시피에 대해 이를 변경할 수 있습니다.",
     "allow-users-outside-of-your-household-to-see-your-recipes": "가족 외의 사용자에게도 요리법을 볼 수 있도록 허용",
     "allow-users-outside-of-your-household-to-see-your-recipes-description": "활성화하면 공개 공유 링크를 사용하여 사용자에게 권한을 부여하지 않고도 특정 레시피를 공유할 수 있습니다. 비활성화하면 가족 구성원 또는 사전 생성된 비공개 링크로만 레시피를 공유할 수 있습니다.",
     "household-preferences": "가구 설정"
@@ -1423,8 +1423,8 @@
       "is-greater-than-or-equal-to": "다음보다 크거나 같음",
       "is-less-than": "다음보다 작음",
       "is-less-than-or-equal-to": "다음보다 작거나 같음",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "~보다 오래됨",
+      "is-newer-than": "~보다 최근임"
     },
     "relational-keywords": {
       "is": "같음",
@@ -1436,7 +1436,7 @@
       "is-not-like": "다음과 같지 않음"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "일 전|일 전|일 전"
     }
   },
   "validators": {
