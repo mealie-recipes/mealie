@@ -60,7 +60,6 @@
     <template #button-row>
       <BaseButton
         create
-        @click="state.createDialog = true"
       >
         {{ $t("general.create") }}
       </BaseButton>
