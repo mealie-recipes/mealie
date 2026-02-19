@@ -43,6 +43,7 @@
             :description="mealplan.recipe ? mealplan.recipe.description! : mealplan.text!"
             :name="mealplan.recipe ? mealplan.recipe.name! : mealplan.title!"
             :tags="mealplan.recipe ? mealplan.recipe.tags! : []"
+            hide-meal-plan-badge
           />
         </div>
       </v-col>

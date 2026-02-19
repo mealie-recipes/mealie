@@ -45,7 +45,7 @@
         <slot name="actions">
           <v-card-actions
             v-if="showRecipeContent"
-            class="px-1"
+            class="px-1 ga-0"
           >
             <RecipeFavoriteBadge
               v-if="isOwnGroup"
@@ -54,9 +54,16 @@
             />
             <div v-else class="px-1" /> <!-- Empty div to keep the layout consistent -->
 
+            <RecipeMealPlanBadge
+              v-if="isOwnGroup && !hideMealPlanBadge"
+              :recipe-id="recipeId"
+              show-always
+            />
+
             <RecipeCardRating
               :model-value="rating"
               :recipe-id="recipeId"
+              class="pa-2"
             />
             <v-spacer />
             <RecipeChips
@@ -115,6 +122,7 @@ interface Props {
   tags?: Array<any>;
   recipeId: string;
   imageHeight?: number;
+  hideMealPlanBadge?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   description: null,
@@ -123,6 +131,7 @@ const props = withDefaults(defineProps<Props>(), {
   image: "abc123",
   tags: () => [],
   imageHeight: 200,
+  hideMealPlanBadge: false,
 });
 
 defineEmits<{

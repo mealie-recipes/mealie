@@ -79,7 +79,7 @@
             </div>
           </div>
           <slot name="actions">
-            <v-card-actions class="w-100 my-0 px-1 py-0">
+            <v-card-actions class="w-100 my-0 px-1 py-0 ga-0">
               <RecipeFavoriteBadge
                 v-if="isOwnGroup && showRecipeContent"
                 :recipe-id="recipeId"
@@ -87,9 +87,17 @@
                 class="ma-0 pa-0"
               />
               <div v-else class="my-0 px-1 py-0" /> <!-- Empty div to keep the layout consistent -->
+
+              <RecipeMealPlanBadge
+                v-if="isOwnGroup && showRecipeContent && !hideMealPlanBadge"
+                :recipe-id="recipeId"
+                show-always
+                class="ma-0 pa-0"
+              />
+
               <RecipeCardRating
                 v-if="showRecipeContent"
-                :class="[{ 'pb-2': !isOwnGroup }, 'ml-n2']"
+                :class="[{ 'pb-2': !isOwnGroup }, 'px-2']"
                 :model-value="rating"
                 :recipe-id="recipeId"
               />
@@ -144,6 +152,7 @@ interface Props {
   isFlat?: boolean;
   height?: number;
   disableHighlight?: boolean;
+  hideMealPlanBadge?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   rating: 0,
@@ -153,6 +162,7 @@ const props = withDefaults(defineProps<Props>(), {
   isFlat: false,
   height: 150,
   disableHighlight: false,
+  hideMealPlanBadge: false,
 });
 
 defineEmits<{

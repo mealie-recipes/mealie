@@ -119,6 +119,7 @@ import { useGroupRecipeActions } from "~/composables/use-group-recipe-actions";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { alert } from "~/composables/use-toast";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
+import { useRecipeMealPlans } from "~/composables/use-recipe-mealplans";
 import type { Recipe } from "~/lib/api/types/recipe";
 import type { GroupRecipeActionOut, ShoppingListSummary } from "~/lib/api/types/household";
 import type { PlanEntryType } from "~/lib/api/types/meal-plan";
@@ -216,6 +217,7 @@ const auth = useMealieAuth();
 const { $globals } = useNuxtApp();
 const { household } = useHouseholdSelf();
 const { isOwnGroup } = useLoggedInState();
+const { refreshMealPlans } = useRecipeMealPlans();
 
 const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
@@ -391,6 +393,7 @@ async function addRecipeToPlan() {
   });
 
   if (response?.status === 201) {
+    await refreshMealPlans();
     if (assigned.value) {
       alert.success(i18n.t("recipe.recipe-added-to-mealplan") as string);
     }
