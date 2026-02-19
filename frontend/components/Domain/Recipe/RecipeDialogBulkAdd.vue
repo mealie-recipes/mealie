@@ -37,6 +37,7 @@
                   <v-btn
                     icon
                     variant="tonal"
+                    base-color="info"
                     :title="$t('general.run')"
                     @click="util.action"
                   >
