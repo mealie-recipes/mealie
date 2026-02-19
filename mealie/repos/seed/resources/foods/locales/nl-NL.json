@@ -2254,13 +2254,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "muenster kaas",
-                "plural_name": "muenster cheese"
+                "plural_name": "Munster kaas"
             },
             "string cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "string cheese",
-                "plural_name": "string cheese"
+                "name": "stripkaas",
+                "plural_name": "stripkaas"
             },
             "camembert cheese": {
                 "aliases": [],
@@ -2283,8 +2283,8 @@
             "raclette cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "raclette cheese",
-                "plural_name": "raclette cheese"
+                "name": "raclette kaas",
+                "plural_name": "raclette kaas"
             },
             "colby-jack cheese": {
                 "aliases": [],
