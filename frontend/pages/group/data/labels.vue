@@ -138,7 +138,7 @@ const createForm = reactive({
   items: formItems,
   data: {
     name: "",
-    color: "#7417BE",
+    color: "",
   } as MultiPurposeLabelSummary,
 });
 
