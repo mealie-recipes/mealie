@@ -30,7 +30,7 @@ const tableConfig: GroupDataPageTableConfig = {
   hideColumns: true,
   canExport: true,
 };
-const tableHeaders: Array<GroupDataPageTableHeader> = [
+const tableHeaders: GroupDataPageTableHeader[] = [
   {
     text: i18n.t("general.id"),
     value: "id",
