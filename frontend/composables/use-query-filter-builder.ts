@@ -1,5 +1,5 @@
 import { Organizer } from "~/lib/api/types/non-generated";
-import type { LogicalOperator, RecipeOrganizer, RelationalKeyword, RelationalOperator } from "~/lib/api/types/non-generated";
+import type { LogicalOperator, PlaceholderKeyword, RecipeOrganizer, RelationalKeyword, RelationalOperator } from "~/lib/api/types/non-generated";
 
 export interface FieldLogicalOperator {
   label: string;
@@ -9,6 +9,11 @@ export interface FieldLogicalOperator {
 export interface FieldRelationalOperator {
   label: string;
   value: RelationalKeyword | RelationalOperator;
+}
+
+export interface FieldPlaceholderKeyword {
+  label: string;
+  value: PlaceholderKeyword;
 }
 
 export interface OrganizerBase {
@@ -22,6 +27,7 @@ export type FieldType
     | "number"
     | "boolean"
     | "date"
+    | "relativeDate"
     | RecipeOrganizer;
 
 export type FieldValue
@@ -41,8 +47,8 @@ export interface FieldDefinition {
   label: string;
   type: FieldType;
 
-  // only for select/organizer fields
-  fieldOptions?: SelectableItem[];
+  // Select/Organizer
+  fieldChoices?: SelectableItem[];
 }
 
 export interface Field extends FieldDefinition {
@@ -50,10 +56,10 @@ export interface Field extends FieldDefinition {
   logicalOperator?: FieldLogicalOperator;
   value: FieldValue;
   relationalOperatorValue: FieldRelationalOperator;
-  relationalOperatorOptions: FieldRelationalOperator[];
+  relationalOperatorChoices: FieldRelationalOperator[];
   rightParenthesis?: string;
 
-  // only for select/organizer fields
+  // Select/Organizer
   values: FieldValue[];
   organizers: OrganizerBase[];
 }
@@ -161,6 +167,36 @@ export function useQueryFilterBuilder() {
     };
   });
 
+  const placeholderKeywords = computed<Record<PlaceholderKeyword, FieldPlaceholderKeyword>>(() => {
+    const NOW = {
+      label: "Now",
+      value: "$NOW",
+    } as FieldPlaceholderKeyword;
+
+    return {
+      $NOW: NOW,
+    };
+  });
+
+  const relativeDateRelOps = computed<Record<RelationalKeyword | RelationalOperator, FieldRelationalOperator>>(() => {
+    const ops = { ...relOps.value };
+
+    ops[">="] = { ...relOps.value[">="], label: i18n.t("query-filter.relational-operators.is-newer-than") };
+    ops["<="] = { ...relOps.value["<="], label: i18n.t("query-filter.relational-operators.is-older-than") };
+
+    return ops;
+  });
+
+  function getRelOps(fieldType: FieldType): typeof relOps | typeof relativeDateRelOps {
+    switch (fieldType) {
+      case "relativeDate":
+        return relativeDateRelOps;
+
+      default:
+        return relOps;
+    }
+  }
+
   function isOrganizerType(type: FieldType): type is Organizer {
     return (
       type === Organizer.Category
@@ -173,10 +209,14 @@ export function useQueryFilterBuilder() {
   };
 
   function getFieldFromFieldDef(field: Field | FieldDefinition, resetValue = false): Field {
-    const updatedField = { logicalOperator: logOps.value.AND, ...field } as Field;
-    let operatorOptions: FieldRelationalOperator[];
-    if (updatedField.fieldOptions?.length || isOrganizerType(updatedField.type)) {
-      operatorOptions = [
+    const updatedField = {
+      logicalOperator: logOps.value.AND,
+      ...field,
+    } as Field;
+
+    let operatorChoices: FieldRelationalOperator[];
+    if (updatedField.fieldChoices?.length || isOrganizerType(updatedField.type)) {
+      operatorChoices = [
         relOps.value["IN"],
         relOps.value["NOT IN"],
         relOps.value["CONTAINS ALL"],
@@ -185,7 +225,7 @@ export function useQueryFilterBuilder() {
     else {
       switch (updatedField.type) {
         case "string":
-          operatorOptions = [
+          operatorChoices = [
             relOps.value["="],
             relOps.value["<>"],
             relOps.value["LIKE"],
@@ -193,7 +233,7 @@ export function useQueryFilterBuilder() {
           ];
           break;
         case "number":
-          operatorOptions = [
+          operatorChoices = [
             relOps.value["="],
             relOps.value["<>"],
             relOps.value[">"],
@@ -203,10 +243,10 @@ export function useQueryFilterBuilder() {
           ];
           break;
         case "boolean":
-          operatorOptions = [relOps.value["="]];
+          operatorChoices = [relOps.value["="]];
           break;
         case "date":
-          operatorOptions = [
+          operatorChoices = [
             relOps.value["="],
             relOps.value["<>"],
             relOps.value[">"],
@@ -215,13 +255,20 @@ export function useQueryFilterBuilder() {
             relOps.value["<="],
           ];
           break;
+        case "relativeDate":
+          operatorChoices = [
+            // "<=" is first since "older than" is the most common operator
+            relativeDateRelOps.value["<="],
+            relativeDateRelOps.value[">="],
+          ];
+          break;
         default:
-          operatorOptions = [relOps.value["="], relOps.value["<>"]];
+          operatorChoices = [relOps.value["="], relOps.value["<>"]];
       }
     }
-    updatedField.relationalOperatorOptions = operatorOptions;
-    if (!operatorOptions.includes(updatedField.relationalOperatorValue)) {
-      updatedField.relationalOperatorValue = operatorOptions[0];
+    updatedField.relationalOperatorChoices = operatorChoices;
+    if (!operatorChoices.includes(updatedField.relationalOperatorValue)) {
+      updatedField.relationalOperatorValue = operatorChoices[0];
     }
 
     if (resetValue) {
@@ -271,7 +318,7 @@ export function useQueryFilterBuilder() {
         isValid = false;
       }
 
-      if (field.fieldOptions?.length || isOrganizerType(field.type)) {
+      if (field.fieldChoices?.length || isOrganizerType(field.type)) {
         if (field.values?.length) {
           let val: string;
           if (field.type === "string" || field.type === "date" || isOrganizerType(field.type)) {
@@ -316,7 +363,8 @@ export function useQueryFilterBuilder() {
 
   return {
     logOps,
-    relOps,
+    placeholderKeywords,
+    getRelOps,
     buildQueryFilterString,
     getFieldFromFieldDef,
     isOrganizerType,

@@ -6,10 +6,10 @@ const loading = ref(false);
 const ready = ref(false);
 
 export const useUserSelfRatings = function () {
-  const $auth = useMealieAuth();
+  const auth = useMealieAuth();
 
   async function refreshUserRatings() {
-    if (!$auth.user.value || loading.value) {
+    if (!auth.user.value || loading.value) {
       return;
     }
 
@@ -27,7 +27,7 @@ export const useUserSelfRatings = function () {
     loading.value = true;
     const api = useUserApi();
 
-    const userId = $auth.user.value?.id || "";
+    const userId = auth.user.value?.id || "";
     await api.users.setRating(userId, slug, rating, isFavorite);
 
     loading.value = false;

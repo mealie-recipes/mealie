@@ -1,7 +1,7 @@
 ###############################################
 # Frontend Build
 ###############################################
-FROM node:24@sha256:b2b2184ba9b78c022e1d6a7924ec6fba577adf28f15c9d9c457730cc4ad3807a \
+FROM node:24@sha256:00e9195ebd49985a6da8921f419978d85dfe354589755192dc090425ce4da2f7 \
     AS frontend-builder
 
 WORKDIR /frontend
@@ -112,7 +112,6 @@ RUN . $VENV_PATH/bin/activate \
 # Production Image
 ###############################################
 FROM python-base AS production
-LABEL org.opencontainers.image.source="https://github.com/mealie-recipes/mealie"
 ENV PRODUCTION=true
 ENV TESTING=false
 

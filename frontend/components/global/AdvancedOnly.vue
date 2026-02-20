@@ -9,9 +9,9 @@
  */
 export default defineNuxtComponent({
   setup(_, ctx) {
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
 
-    const r = $auth.user.value?.advanced || false;
+    const r = auth.user.value?.advanced || false;
 
     return () => {
       return r ? ctx.slots.default?.() : null;

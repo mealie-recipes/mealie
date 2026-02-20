@@ -1,26 +1,26 @@
 [project]
 name = "mealie"
-version = "3.9.2"
+version = "3.11.0"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "Jinja2==3.1.6",
-    "Pillow==12.1.0",
+    "Pillow==12.1.1",
     "PyYAML==6.0.3",
     "SQLAlchemy==2.0.46",
     "aiofiles==25.1.0",
-    "alembic==1.18.3",
+    "alembic==1.18.4",
     "aniso8601==10.0.1",
     "appdirs==1.4.4",
     "apprise==1.9.7",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
-    "fastapi==0.128.0",
+    "fastapi==0.129.0",
     "httpx==0.28.1",
     "lxml==6.0.2",
-    "orjson==3.11.6",
+    "orjson==3.11.7",
     "pydantic==2.12.5",
     "pyhumps==3.8.0",
     "python-dateutil==2.9.0.post0",
@@ -31,18 +31,18 @@ dependencies = [
     "recipe-scrapers==15.11.0",
     "requests==2.32.5",
     "tzdata==2025.3",
-    "uvicorn[standard]==0.40.0",
+    "uvicorn[standard]==0.41.0",
     "beautifulsoup4==4.14.3",
     "isodate==0.7.2",
     "text-unidecode==1.3",
     "rapidfuzz==3.14.3",
-    "authlib==1.6.6",
+    "authlib==1.6.8",
     "html2text==2025.4.15",
     "paho-mqtt==1.6.1",
-    "pydantic-settings==2.12.0",
-    "pillow-heif==1.2.0",
+    "pydantic-settings==2.13.1",
+    "pillow-heif==1.2.1",
     "pyjwt==2.11.0",
-    "openai==2.16.0",
+    "openai==2.21.0",
     "typing-extensions==4.15.0",
     "itsdangerous==2.2.0",
     "yt-dlp>=2025.12.8",
@@ -59,29 +59,30 @@ pgsql = [
 
 [dependency-groups]
 docs = [
-    "mkdocs-material==9.7.1",
+    "mkdocs-material==9.7.2",
 ]
 dev = [
-    "coverage==7.13.2",
+    "coverage==7.13.4",
     "coveragepy-lcov==0.1.2",
-    "mkdocs-material==9.7.1",
+    "mkdocs-material==9.7.2",
     "mypy==1.19.1",
     "pre-commit==4.5.1",
     "pylint==4.0.4",
     "pytest==9.0.2",
     "pytest-asyncio==1.3.0",
-    "rich==14.3.2",
-    "ruff==0.14.14",
+    "rich==14.3.3",
+    "ruff==0.15.2",
     "types-PyYAML==6.0.12.20250915",
     "types-python-dateutil==2.9.0.20260124",
     "types-python-slugify==8.0.2.20240310",
     "types-requests==2.32.4.20260107",
     "types-urllib3==1.26.25.14",
     "pydantic-to-typescript2==1.0.6",
+    "freezegun==1.5.5",
 ]
 
 [build-system]
-requires = ["setuptools==80.10.2"]
+requires = ["setuptools==82.0.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]

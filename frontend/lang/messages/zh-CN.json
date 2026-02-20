@@ -1422,7 +1422,9 @@
       "is-greater-than": "大于",
       "is-greater-than-or-equal-to": "大于等于",
       "is-less-than": "小于",
-      "is-less-than-or-equal-to": "小于等于"
+      "is-less-than-or-equal-to": "小于等于",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "是",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "包含所有",
       "is-like": "匹配",
       "is-not-like": "不匹配"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {

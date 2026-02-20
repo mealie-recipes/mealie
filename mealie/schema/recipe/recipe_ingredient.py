@@ -11,6 +11,8 @@ from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.recipe import IngredientFoodModel
+from mealie.lang.locale_config import LocalePluralFoodHandling
+from mealie.lang.providers import get_locale_context
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema._mealie.types import NoneFloat
@@ -239,18 +241,38 @@ class RecipeIngredientBase(MealieModel):
 
         return unit_val
 
-    def _format_food_for_display(self) -> str:
+    def _format_food_for_display(self, plural_handling: LocalePluralFoodHandling) -> str:
         if not self.food:
             return ""
 
-        use_plural = (not self.quantity) or self.quantity > 1
+        if self.quantity and self.quantity <= 1:
+            use_plural = False
+        else:
+            match plural_handling:
+                case LocalePluralFoodHandling.NEVER:
+                    use_plural = False
+                case LocalePluralFoodHandling.WITHOUT_UNIT:
+                    # if quantity is zero then unit is not shown even if it's set
+                    use_plural = not (self.quantity and self.unit)
+                case LocalePluralFoodHandling.ALWAYS:
+                    use_plural = True
+                case _:
+                    use_plural = False
+
         if use_plural:
             return self.food.plural_name or self.food.name
         else:
             return self.food.name
 
     def _format_display(self) -> str:
-        components = []
+        locale_context = get_locale_context()
+        if locale_context:
+            _, locale_cfg = locale_context
+            plural_food_handling = locale_cfg.plural_food_handling
+        else:
+            plural_food_handling = LocalePluralFoodHandling.WITHOUT_UNIT
+
+        components: list[str] = []
 
         if self.quantity:
             components.append(self._format_quantity_for_display())
@@ -259,7 +281,7 @@ class RecipeIngredientBase(MealieModel):
             components.append(self._format_unit_for_display())
 
         if self.food:
-            components.append(self._format_food_for_display())
+            components.append(self._format_food_for_display(plural_food_handling))
 
         if self.note:
             components.append(self.note)
@@ -320,7 +342,7 @@ class ParsedIngredient(MealieModel):
     ingredient: RecipeIngredient
 
 
-class RegisteredParser(str, enum.Enum):
+class RegisteredParser(enum.StrEnum):
     nlp = "nlp"
     brute = "brute"
     openai = "openai"

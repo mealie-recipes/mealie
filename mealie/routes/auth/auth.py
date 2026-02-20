@@ -15,7 +15,7 @@ from mealie.core.exceptions import MissingClaimException, UserLockedOut
 from mealie.core.security.providers.openid_provider import OpenIDProvider
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
-from mealie.lang import local_provider
+from mealie.lang import get_locale_provider
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
 from mealie.schema.user.auth import CredentialsRequestForm
@@ -99,7 +99,12 @@ async def oauth_login(request: Request):
         # in development, we want to redirect to the frontend
         redirect_url = "http://localhost:3000/login"
     else:
-        redirect_url = URLPath("/login").make_absolute_url(request.base_url)
+        # Prioritize User Configuration over Request Headers.
+        if not settings.is_default_base_url:
+            base = settings.BASE_URL or request.base_url
+        else:
+            base = request.base_url
+        redirect_url = URLPath("/login").make_absolute_url(base)
 
     response: RedirectResponse = await client.authorize_redirect(request, redirect_url)
     return response
@@ -150,5 +155,5 @@ async def logout(
 ):
     response.delete_cookie("mealie.access_token")
 
-    translator = local_provider(accept_language)
+    translator = get_locale_provider(accept_language)
     return {"message": translator.t("notifications.logged-out")}

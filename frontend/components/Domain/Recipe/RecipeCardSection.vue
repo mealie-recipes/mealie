@@ -219,7 +219,7 @@ const EVENTS = {
   shuffle: "shuffle",
 };
 
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const { $globals } = useNuxtApp();
 const { isOwnGroup } = useLoggedInState();
 const useMobileCards = computed(() => {
@@ -234,7 +234,7 @@ const sortLoading = ref(false);
 const randomSeed = ref(Date.now().toString());
 
 const route = useRoute();
-const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
 const page = ref(1);
 const perPage = 32;

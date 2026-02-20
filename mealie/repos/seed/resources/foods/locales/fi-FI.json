@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "valkosipuli",
-                "plural_name": "garlic"
+                "plural_name": "valkosipulia"
             },
             "onion": {
                 "aliases": [],
@@ -59,13 +59,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "selleri",
-                "plural_name": "celery"
+                "plural_name": "selleriä"
             },
             "jalapeño": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeño",
-                "plural_name": "jalapeños"
+                "name": "jalapeno",
+                "plural_name": "jalapenoa"
             },
             "avocado": {
                 "aliases": [],
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "pinaatti",
-                "plural_name": "spinach"
+                "plural_name": "pinaattia"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "maissi",
-                "plural_name": "sweet corn"
+                "plural_name": "sokerimaissia"
             },
             "chile pepper": {
                 "aliases": [
@@ -121,13 +121,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "parsakaali",
-                "plural_name": "broccoli"
+                "plural_name": "parsakaalia"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
                 "name": "palmunydin",
-                "plural_name": "heart of palm"
+                "plural_name": "palmunsydäntä"
             },
             "baby greens": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kukkakaali",
-                "plural_name": "cauliflower"
+                "plural_name": "kukkakaalia"
             },
             "cabbage": {
                 "aliases": [],
@@ -156,14 +156,14 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
-                "plural_name": "asparagus"
+                "name": "parsa",
+                "plural_name": "parsaa"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
                 "name": "lehtikaali",
-                "plural_name": "kale"
+                "plural_name": "lehtikaalia"
             },
             "arugula": {
                 "aliases": [],
@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lehtisalaatti",
-                "plural_name": "lettuce"
+                "plural_name": "lehtisalaattia"
             },
             "butternut squash": {
                 "aliases": [],
@@ -198,8 +198,8 @@
             "romaine lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine lettuce",
-                "plural_name": "romaine lettuce"
+                "name": "romainesalaatti",
+                "plural_name": "romainesalaattia"
             },
             "beetroot": {
                 "aliases": [],
@@ -211,13 +211,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "ruusukaali",
-                "plural_name": "ruusukaalit"
+                "plural_name": "ruusukaalia"
             },
             "fennel": {
                 "aliases": [],
                 "description": "",
                 "name": "fenkoli",
-                "plural_name": "fennel"
+                "plural_name": "fenkolia"
             },
             "sun dried tomato": {
                 "aliases": [],
@@ -261,8 +261,8 @@
             "mixed greens": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed greens",
-                "plural_name": "mixed greens"
+                "name": "salaattisekoitus",
+                "plural_name": "salaattisekoitusta"
             },
             "parsnip": {
                 "aliases": [],
@@ -321,8 +321,8 @@
             "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg lettuce",
-                "plural_name": "iceberg lettuce"
+                "name": "jäävuorisalaatti",
+                "plural_name": "jäävuorisalaattia"
             },
             "mashed potato": {
                 "aliases": [],
@@ -357,8 +357,8 @@
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "keräsalaatti",
-                "plural_name": "butter lettuce"
+                "name": "bataviasalaatti",
+                "plural_name": "bataviasalaattia"
             },
             "hash brown": {
                 "aliases": [],
@@ -390,7 +390,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "nauris",
-                "plural_name": "nauriit"
+                "plural_name": "naurista"
             },
             "thai chile pepper": {
                 "aliases": [],
@@ -449,8 +449,8 @@
             "leaf lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "lehtisalaatti",
-                "plural_name": "leaf lettuce"
+                "name": "tammenlehtisalaatti",
+                "plural_name": "tammenlehtisalaattia"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -553,8 +553,8 @@
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "boston salaatti",
-                "plural_name": "boston lettuce"
+                "name": "boston-salaatti",
+                "plural_name": "boston-salaattia"
             },
             "kohlrabi": {
                 "aliases": [],
@@ -853,26 +853,26 @@
             "dried fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fruit",
-                "plural_name": "dried fruits"
+                "name": "kuivattu hedelmä",
+                "plural_name": "kuivattua hedelmää"
             },
             "clementine": {
                 "aliases": [],
                 "description": "",
-                "name": "clementine",
-                "plural_name": "clementines"
+                "name": "klementiini",
+                "plural_name": "klementiiniä"
             },
             "persimmon": {
                 "aliases": [],
                 "description": "",
                 "name": "persimoni",
-                "plural_name": "persimmons"
+                "plural_name": "persimonia"
             },
             "melon": {
                 "aliases": [],
                 "description": "",
-                "name": "melon",
-                "plural_name": "melons"
+                "name": "meloni",
+                "plural_name": "melonia"
             },
             "tangerine": {
                 "aliases": [],
@@ -883,14 +883,14 @@
             "dried mango": {
                 "aliases": [],
                 "description": "",
-                "name": "dried mango",
-                "plural_name": "dried mangoes"
+                "name": "kuivattu mango",
+                "plural_name": "kuivattua mangoa"
             },
             "dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apple",
-                "plural_name": "dried apples"
+                "name": "kuivattu omena",
+                "plural_name": "kuivattua omenaa"
             },
             "quince": {
                 "aliases": [],
@@ -1033,8 +1033,8 @@
             "dried lime": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lime",
-                "plural_name": "dried limes"
+                "name": "kuivattu limetti",
+                "plural_name": "kuivattua limettiä"
             },
             "jujube": {
                 "aliases": [],
@@ -1057,8 +1057,8 @@
             "dried lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lemon",
-                "plural_name": "dried lemons"
+                "name": "kuivattu sitruuna",
+                "plural_name": "kuivattua sitruunaa"
             },
             "young jackfruit": {
                 "aliases": [],
@@ -1455,38 +1455,38 @@
             "strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry",
-                "plural_name": "strawberries"
+                "name": "mansikka",
+                "plural_name": "mansikkaa"
             },
             "blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry",
-                "plural_name": "blueberries"
+                "name": "mustikka",
+                "plural_name": "mustikkaa"
             },
             "raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry",
-                "plural_name": "raspberries"
+                "name": "vadelma",
+                "plural_name": "vadelmaa"
             },
             "cranberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry",
-                "plural_name": "cranberries"
+                "name": "karpalo",
+                "plural_name": "karpaloa"
             },
             "cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry",
-                "plural_name": "cherries"
+                "name": "kirsikka",
+                "plural_name": "kirsikkaa"
             },
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
-                "plural_name": "blackberries"
+                "name": "karhunvatukka",
+                "plural_name": "karhunvatukkaa"
             },
             "berry mix": {
                 "aliases": [],
@@ -1509,8 +1509,8 @@
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "katajanmarja",
+                "plural_name": "katajanmarjaa"
             },
             "sour cherry": {
                 "aliases": [],
@@ -1521,14 +1521,14 @@
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
-                "plural_name": "goji berries"
+                "name": "gojimarja",
+                "plural_name": "gojimarjaa"
             },
             "dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried blueberry",
-                "plural_name": "dried blueberries"
+                "name": "kuivattu mustikka",
+                "plural_name": "kuivattua mustikkaa"
             },
             "freeze-dried strawberry": {
                 "aliases": [],
@@ -1539,8 +1539,8 @@
             "gooseberry": {
                 "aliases": [],
                 "description": "",
-                "name": "gooseberry",
-                "plural_name": "gooseberries"
+                "name": "karviaismarja",
+                "plural_name": "karviaismarja"
             },
             "freeze-dried raspberry": {
                 "aliases": [],
@@ -1551,8 +1551,8 @@
             "lingonberry": {
                 "aliases": [],
                 "description": "",
-                "name": "lingonberry",
-                "plural_name": "lingonberries"
+                "name": "puolukka",
+                "plural_name": "puolukkaa"
             },
             "canned sour cherry": {
                 "aliases": [],
@@ -1653,8 +1653,8 @@
             "cloudberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cloudberry",
-                "plural_name": "cloudberries"
+                "name": "lakka",
+                "plural_name": "lakkaa"
             },
             "freeze-dried berry": {
                 "aliases": [],
@@ -1717,20 +1717,20 @@
             "walnut": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut",
-                "plural_name": "walnuts"
+                "name": "saksanpähkinä",
+                "plural_name": "saksanpähkinää"
             },
             "pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "pecan",
-                "plural_name": "pecans"
+                "name": "pekaanipähkinä",
+                "plural_name": "pekaanipähkinää"
             },
             "almond": {
                 "aliases": [],
                 "description": "",
-                "name": "almond",
-                "plural_name": "almonds"
+                "name": "manteli",
+                "plural_name": "mantelia"
             },
             "sesame seed": {
                 "aliases": [],
@@ -1741,8 +1741,8 @@
             "cashew": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew",
-                "plural_name": "cashews"
+                "name": "cashewpähkinä",
+                "plural_name": "cashewpähkinää"
             },
             "pine nut": {
                 "aliases": [],
@@ -1753,20 +1753,20 @@
             "pistachio": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio",
-                "plural_name": "pistachios"
+                "name": "pistaasipähkinä",
+                "plural_name": "pistaasipähkinää"
             },
             "peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut",
-                "plural_name": "peanuts"
+                "name": "maapähkinä",
+                "plural_name": "maapähkinää"
             },
             "chia": {
                 "aliases": [],
                 "description": "",
-                "name": "chia",
-                "plural_name": "chias"
+                "name": "chia-siemen",
+                "plural_name": "chia-siemeniä"
             },
             "flax": {
                 "aliases": [],
@@ -1789,8 +1789,8 @@
             "hazelnut": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut",
-                "plural_name": "hazelnuts"
+                "name": "hasselpähkinä",
+                "plural_name": "hasselpähkinää"
             },
             "poppy seed": {
                 "aliases": [],
@@ -1807,8 +1807,8 @@
             "macadamia": {
                 "aliases": [],
                 "description": "",
-                "name": "macadamia",
-                "plural_name": "macadamias"
+                "name": "macadamiapähkinä",
+                "plural_name": "macadamiapähkinää"
             },
             "roasted peanut": {
                 "aliases": [],
@@ -5771,8 +5771,8 @@
             "sea lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "sea lettuce",
-                "plural_name": "sea lettuce"
+                "name": "merisalaatti",
+                "plural_name": "merisalaattia"
             },
             "korean seaweed": {
                 "aliases": [],
@@ -5829,8 +5829,8 @@
             "cilantro": {
                 "aliases": [],
                 "description": "",
-                "name": "cilantro",
-                "plural_name": "cilantro"
+                "name": "korianterin lehti",
+                "plural_name": "korianterin lehteä"
             },
             "cumin": {
                 "aliases": [],
@@ -5859,8 +5859,8 @@
             "garlic powder": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic powder",
-                "plural_name": "garlic powder"
+                "name": "valkosipulijauhe",
+                "plural_name": "valkosipulijauhetta"
             },
             "oregano": {
                 "aliases": [],
@@ -5979,8 +5979,8 @@
             "coriander powder": {
                 "aliases": [],
                 "description": "",
-                "name": "coriander powder",
-                "plural_name": "coriander powder"
+                "name": "korianterijauhe",
+                "plural_name": "korianterijauhetta"
             },
             "sage": {
                 "aliases": [],
@@ -5991,8 +5991,8 @@
             "coriander": {
                 "aliases": [],
                 "description": "",
-                "name": "coriander",
-                "plural_name": "corianders"
+                "name": "korianteri",
+                "plural_name": "korianteria"
             },
             "allspice": {
                 "aliases": [],
@@ -6081,8 +6081,8 @@
             "garlic granule": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic granule",
-                "plural_name": "garlic granules"
+                "name": "valkosipulirouhe",
+                "plural_name": "valkosipulirouhetta"
             },
             "celery seed": {
                 "aliases": [],
@@ -6219,8 +6219,8 @@
             "dried chili": {
                 "aliases": [],
                 "description": "",
-                "name": "dried chili",
-                "plural_name": "dried chilies"
+                "name": "kuivattu chili",
+                "plural_name": "kuivattua chiliä"
             },
             "black cardamom": {
                 "aliases": [],
@@ -6267,14 +6267,14 @@
             "garlic flake": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic flake",
-                "plural_name": "garlic flakes"
+                "name": "valkosipulilastu",
+                "plural_name": "valkosipulilastuja"
             },
             "dried cilantro": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cilantro",
-                "plural_name": "dried cilantro"
+                "name": "kuivattu korianterin lehti",
+                "plural_name": "kuivattua korianterin lehteä"
             },
             "lemon balm": {
                 "aliases": [],
@@ -7278,14 +7278,14 @@
             "garlic & herb seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic & herb seasoning",
-                "plural_name": "garlic & herb seasoning"
+                "name": "valkosipuli-yrttimausteseos",
+                "plural_name": "valkosipuli-yrttimausteseosta"
             },
             "garlic-pepper seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic-pepper seasoning",
-                "plural_name": "garlic-pepper seasoning"
+                "name": "valkosipulipippuri",
+                "plural_name": "valkosipulipippuria"
             },
             "pickling salt": {
                 "aliases": [],
@@ -10310,8 +10310,8 @@
             "garlic bread": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic bread",
-                "plural_name": "garlic breads"
+                "name": "valkosipulileipä",
+                "plural_name": "valkosipulileipää"
             },
             "yeast extract spread": {
                 "aliases": [],
@@ -10754,8 +10754,8 @@
             "garlic oil": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic oil",
-                "plural_name": "garlic oil"
+                "name": "valkosipuliöljy",
+                "plural_name": "valkosipuliöljyä"
             },
             "truffle oil": {
                 "aliases": [],
@@ -11328,8 +11328,8 @@
             "garlic mayonnaise": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic mayonnaise",
-                "plural_name": "garlic mayonnaise"
+                "name": "valkosipulimajoneesi",
+                "plural_name": "valkosipulimajoneesia"
             },
             "brown rice vinegar": {
                 "aliases": [],
@@ -11578,8 +11578,8 @@
             "ginger-garlic paste": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger-garlic paste",
-                "plural_name": "ginger-garlic paste"
+                "name": "inkivääri-valkosipulitahna",
+                "plural_name": "inkivääri-valkosipulitahnaa"
             },
             "brown mustard": {
                 "aliases": [],
@@ -11644,8 +11644,8 @@
             "chili-garlic sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "chili-garlic sauce",
-                "plural_name": "chili-garlic sauce"
+                "name": "chili-valkosipulikastike",
+                "plural_name": "chili-valkosipulikastiketta"
             },
             "tamarind paste": {
                 "aliases": [],
@@ -11758,8 +11758,8 @@
             "chili-garlic paste": {
                 "aliases": [],
                 "description": "",
-                "name": "chili-garlic paste",
-                "plural_name": "chili-garlic paste"
+                "name": "chili-valkosipulitahna",
+                "plural_name": "chili-valkosipulitahnaa"
             },
             "bonito flake": {
                 "aliases": [],
@@ -12884,8 +12884,8 @@
             "garlic butter": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic butter",
-                "plural_name": "garlic butter"
+                "name": "valkosipulivoi",
+                "plural_name": "valkosipulivoita"
             },
             "hollandaise sauce": {
                 "aliases": [],
@@ -13190,8 +13190,8 @@
             "garlic spread": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic spread",
-                "plural_name": "garlic spreads"
+                "name": "valkosipulilevite",
+                "plural_name": "valkosipulilevitettä"
             },
             "black pepper sauce": {
                 "aliases": [],
@@ -13208,8 +13208,8 @@
             "garlic pasta sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic pasta sauce",
-                "plural_name": "garlic pasta sauce"
+                "name": "valkosipulinen pastakastike",
+                "plural_name": "valkosipulista pastakastiketta"
             },
             "green olive tapenade": {
                 "aliases": [],
@@ -13268,8 +13268,8 @@
             "honey garlic sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "honey garlic sauce",
-                "plural_name": "honey garlic sauce"
+                "name": "hunaja-valkosipulikastike",
+                "plural_name": "hunaja-valkosipulikastiketta"
             },
             "mole sauce": {
                 "aliases": [],

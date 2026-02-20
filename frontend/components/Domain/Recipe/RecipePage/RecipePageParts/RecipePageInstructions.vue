@@ -431,6 +431,7 @@ const props = defineProps({
 const emit = defineEmits(["click-instruction-field", "update:assets"]);
 
 const { isCookMode, toggleCookMode, isEditForm } = usePageState(props.recipe.slug);
+const { extractIngredientReferences } = useExtractIngredientReferences();
 
 const dialog = ref(false);
 const disabledSteps = ref<number[]>([]);
@@ -581,7 +582,7 @@ function setUsedIngredients() {
 watch(activeRefs, () => setUsedIngredients());
 
 function autoSetReferences() {
-  useExtractIngredientReferences(
+  extractIngredientReferences(
     props.recipe.recipeIngredient,
     activeRefs.value,
     activeText.value,

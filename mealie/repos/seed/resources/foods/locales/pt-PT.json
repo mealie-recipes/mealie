@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "alho",
-                "plural_name": "garlic"
+                "plural_name": "alho"
             },
             "onion": {
                 "aliases": [],
@@ -59,13 +59,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "aipo",
-                "plural_name": "celery"
+                "plural_name": "aipo"
             },
             "jalapeño": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeño",
-                "plural_name": "jalapeños"
+                "name": "pimento jalapenho",
+                "plural_name": "pimentos jalapenho"
             },
             "avocado": {
                 "aliases": [],
@@ -95,7 +95,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "espinafre",
-                "plural_name": "spinach"
+                "plural_name": "espinafre"
             },
             "sweet corn": {
                 "aliases": [],
@@ -121,7 +121,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brócolos",
-                "plural_name": "broccoli"
+                "plural_name": "brócolos"
             },
             "heart of palm": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "couve-flor",
-                "plural_name": "cauliflower"
+                "plural_name": "couve flor"
             },
             "cabbage": {
                 "aliases": [],
@@ -156,20 +156,20 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
-                "plural_name": "asparagus"
+                "name": "espargo",
+                "plural_name": "espargo"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
                 "name": "couve kale",
-                "plural_name": "kale"
+                "plural_name": "couve"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
                 "name": "rúcula",
-                "plural_name": "arugula"
+                "plural_name": "rúcula"
             },
             "leek": {
                 "aliases": [],
@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "alface",
-                "plural_name": "lettuce"
+                "plural_name": "alface"
             },
             "butternut squash": {
                 "aliases": [],
@@ -198,8 +198,8 @@
             "romaine lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine lettuce",
-                "plural_name": "romaine lettuce"
+                "name": "alface romana",
+                "plural_name": "alface romana"
             },
             "beetroot": {
                 "aliases": [],
@@ -273,7 +273,7 @@
             "baby carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "baby carrot",
+                "name": "cenoura bebê",
                 "plural_name": "baby carrots"
             },
             "mixed vegetables": {

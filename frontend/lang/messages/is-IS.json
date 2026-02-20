@@ -212,8 +212,8 @@
     "upload-file": "Hlaða upp skrá",
     "created-on-date": "Búið til: {0}",
     "unsaved-changes": "Þú hefur ekki vistað breytingar. Viltu vista áður en þú ferð? Ýttu á \"Í lagi\" til að vista, \"Hætta við\" til að henda breytingum.",
-    "discard-changes": "Discard Changes",
-    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
+    "discard-changes": "Henda breytingum",
+    "discard-changes-description": "Þú ert með óvistaðar breytingar, ertu viss um að þú viljir henda þeim?",
     "clipboard-copy-failure": "Mistókst að afrita klippispjaldið.",
     "confirm-delete-generic-items": "Ertu viss um að þú viljir eyða eftirfylgjandi atriðum?",
     "organizers": "Skipuleggjarar",
@@ -370,8 +370,8 @@
     "applies-to-all-days": "Á við alla daga",
     "applies-on-days": "Gildir þegar er {0},",
     "meal-plan-settings": "Stillingar matarplans",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Bæta öllum á innkaupalista",
+    "add-day-to-list": "Bæta deginum á innkaupalista"
   },
   "migration": {
     "migration-data-removed": "Gagnaflutningur fjarlægður",
@@ -644,7 +644,7 @@
     "scrape-recipe-website-being-blocked": "Er vefsíðan lokuð?",
     "scrape-recipe-try-importing-raw-html-instead": "Reyndu að flytja inn HTML kóðann í staðinn.",
     "import-original-keywords-as-tags": "Nota upprunanleg merki",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "Flytja inn upprunalega flokka",
     "stay-in-edit-mode": "Vera í breytingarham",
     "parse-recipe-ingredients-after-import": "Greina innhald uppskriftar eftir að búið er að hlaða inn uppskrift",
     "import-from-zip": "Hlaða inn frá .zip",
@@ -1422,7 +1422,9 @@
       "is-greater-than": "eftir þann",
       "is-greater-than-or-equal-to": "þann eða eftir þann",
       "is-less-than": "fyrir þann",
-      "is-less-than-or-equal-to": "fyrir þann eða þann"
+      "is-less-than-or-equal-to": "fyrir þann eða þann",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "er",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "inniheldur alla af",
       "is-like": "is like",
       "is-not-like": "is not like"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {

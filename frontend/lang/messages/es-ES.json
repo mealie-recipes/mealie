@@ -212,8 +212,8 @@
     "upload-file": "Subir Archivo",
     "created-on-date": "Creado el {0}",
     "unsaved-changes": "Tienes cambios sin guardar. ¿Quieres guardar antes de salir? Aceptar para guardar, Cancelar para descartar cambios.",
-    "discard-changes": "Discard Changes",
-    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
+    "discard-changes": "Descartar Cambios",
+    "discard-changes-description": "Tiene cambios sin guardar. ¿Está seguro que desea descartarlos?",
     "clipboard-copy-failure": "No se pudo copiar al portapapeles.",
     "confirm-delete-generic-items": "¿Estás seguro que quieres eliminar los siguientes elementos?",
     "organizers": "Organizadores",
@@ -370,8 +370,8 @@
     "applies-to-all-days": "Aplica para todos los días",
     "applies-on-days": "Se aplica en {0}s",
     "meal-plan-settings": "Configuración del Plan de Comidas",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Añadir todos a la lista",
+    "add-day-to-list": "Añadir Día a la Lista"
   },
   "migration": {
     "migration-data-removed": "Datos de migración eliminados",
@@ -644,7 +644,7 @@
     "scrape-recipe-website-being-blocked": "¿Sitio web bloqueado?",
     "scrape-recipe-try-importing-raw-html-instead": "Intenta importar el HTML en bruto.",
     "import-original-keywords-as-tags": "Importar palabras clave originales como etiquetas",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "Importar categorías originales",
     "stay-in-edit-mode": "Permanecer en modo edición",
     "parse-recipe-ingredients-after-import": "Analizar los ingredientes de la receta después de importarla",
     "import-from-zip": "Importar desde zip",
@@ -1422,7 +1422,9 @@
       "is-greater-than": "es mayor que",
       "is-greater-than-or-equal-to": "es mayor que o igual a",
       "is-less-than": "es menor que",
-      "is-less-than-or-equal-to": "es menor que o igual a"
+      "is-less-than-or-equal-to": "es menor que o igual a",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "es",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "contiene todo de",
       "is-like": "es como",
       "is-not-like": "no es como"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {

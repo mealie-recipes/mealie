@@ -41,8 +41,8 @@
 export default defineNuxtComponent({
   setup() {
     const i18n = useI18n();
-    const $auth = useMealieAuth();
-    const groupSlug = computed(() => $auth.user.value?.groupSlug);
+    const auth = useMealieAuth();
+    const groupSlug = computed(() => auth.user.value?.groupSlug);
     const { $globals } = useNuxtApp();
 
     const sections = ref([

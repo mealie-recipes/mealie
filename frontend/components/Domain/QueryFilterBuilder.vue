@@ -108,7 +108,7 @@
             <v-select
               v-if="field.type !== 'boolean'"
               :model-value="field.relationalOperatorValue"
-              :items="field.relationalOperatorOptions"
+              :items="field.relationalOperatorChoices"
               item-title="label"
               item-value="value"
               variant="underlined"
@@ -129,9 +129,9 @@
             :class="config.col.class"
           >
             <v-select
-              v-if="field.fieldOptions"
+              v-if="field.fieldChoices"
               :model-value="field.values"
-              :items="field.fieldOptions"
+              :items="field.fieldChoices"
               item-title="label"
               item-value="value"
               multiple
@@ -169,23 +169,39 @@
             >
               <template #activator="{ props: activatorProps }">
                 <v-text-field
-                  :model-value="field.value ? $d(new Date(field.value + 'T00:00:00')) : null"
-                  persistent-hint
-                  :prepend-icon="$globals.icons.calendar"
+                  :model-value="$d(safeNewDate(field.value + 'T00:00:00'))"
                   variant="underlined"
                   color="primary"
+                  class="date-input"
                   v-bind="activatorProps"
                   readonly
                 />
               </template>
               <v-date-picker
-                :model-value="field.value ? new Date(field.value + 'T00:00:00') : null"
+                :model-value="safeNewDate(field.value + 'T00:00:00')"
                 hide-header
                 :first-day-of-week="firstDayOfWeek"
                 :local="$i18n.locale"
                 @update:model-value="val => setFieldValue(field, index, val ? val.toISOString().slice(0, 10) : '')"
               />
             </v-menu>
+            <!--
+              Relative dates are assumed to be negative intervals with a unit of days.
+              The input is a *positive*, interpreted internally as a *negative* offset.
+            -->
+            <v-number-input
+              v-else-if="field.type === 'relativeDate'"
+              :model-value="parseRelativeDateOffset(field.value)"
+              :suffix="$t('query-filter.dates.days-ago', parseRelativeDateOffset(field.value))"
+              variant="underlined"
+              control-variant="stacked"
+              density="compact"
+              inset
+              :min="0"
+              :precision="0"
+              class="date-input"
+              @update:model-value="setFieldValue(field, index, $event)"
+            />
             <RecipeOrganizerSelector
               v-else-if="field.type === Organizer.Category"
               v-model="field.organizers"
@@ -319,7 +335,13 @@ import { useDebounceFn } from "@vueuse/core";
 import { useHouseholdSelf } from "~/composables/use-households";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { Organizer } from "~/lib/api/types/non-generated";
-import type { LogicalOperator, QueryFilterJSON, QueryFilterJSONPart, RelationalKeyword, RelationalOperator } from "~/lib/api/types/non-generated";
+import type {
+  LogicalOperator,
+  QueryFilterJSON,
+  QueryFilterJSONPart,
+  RelationalKeyword,
+  RelationalOperator,
+} from "~/lib/api/types/non-generated";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
 import { useUserStore } from "~/composables/store/use-user-store";
 import { type Field, type FieldDefinition, type FieldValue, type OrganizerBase, useQueryFilterBuilder } from "~/composables/use-query-filter-builder";
@@ -341,7 +363,14 @@ const emit = defineEmits<{
 }>();
 
 const { household } = useHouseholdSelf();
-const { logOps, relOps, buildQueryFilterString, getFieldFromFieldDef, isOrganizerType } = useQueryFilterBuilder();
+const {
+  logOps,
+  placeholderKeywords,
+  getRelOps,
+  buildQueryFilterString,
+  getFieldFromFieldDef,
+  isOrganizerType,
+} = useQueryFilterBuilder();
 
 const firstDayOfWeek = computed(() => {
   return household.value?.preferences?.firstDayOfWeek || 0;
@@ -396,16 +425,29 @@ function setField(index: number, fieldLabel: string) {
     return;
   }
 
-  const resetValue = (fieldDef.type !== fields.value[index].type) || (fieldDef.fieldOptions !== fields.value[index].fieldOptions);
+  const resetValue = (fieldDef.type !== fields.value[index].type) || (fieldDef.fieldChoices !== fields.value[index].fieldChoices);
   const updatedField = { ...fields.value[index], ...fieldDef };
 
   // we have to set this explicitly since it might be undefined
-  updatedField.fieldOptions = fieldDef.fieldOptions;
+  updatedField.fieldChoices = fieldDef.fieldChoices;
 
   fields.value[index] = {
     ...getFieldFromFieldDef(updatedField, resetValue),
     id: fields.value[index].id, // keep the id
   };
+
+  // Defaults
+  switch (fields.value[index].type) {
+    case "date":
+      fields.value[index].value = safeNewDate("");
+      break;
+    case "relativeDate":
+      fields.value[index].value = "$NOW-30d";
+      break;
+
+    default:
+      break;
+  }
 }
 
 function setLeftParenthesisValue(field: FieldWithId, index: number, value: string) {
@@ -425,12 +467,21 @@ function setLogicalOperatorValue(field: FieldWithId, index: number, value: Logic
 }
 
 function setRelationalOperatorValue(field: FieldWithId, index: number, value: RelationalKeyword | RelationalOperator) {
+  const relOps = getRelOps(field.type);
   fields.value[index].relationalOperatorValue = relOps.value[value];
 }
 
 function setFieldValue(field: FieldWithId, index: number, value: FieldValue) {
   state.datePickers[index] = false;
-  fields.value[index].value = value;
+
+  if (field.type === "relativeDate") {
+    // Value is set to an int representing the offset from $NOW
+    // Values are assumed to be negative offsets ('-') with a unit of days ('d')
+    fields.value[index].value = `$NOW-${Math.abs(value)}d`;
+  }
+  else {
+    fields.value[index].value = value;
+  }
 }
 
 function setFieldValues(field: FieldWithId, index: number, values: FieldValue[]) {
@@ -448,12 +499,7 @@ function removeField(index: number) {
   state.datePickers.splice(index, 1);
 }
 
-const fieldsUpdater = useDebounceFn((/* newFields: typeof fields.value */) => {
-  /* newFields.forEach((field, index) => {
-    const updatedField = getFieldFromFieldDef(field);
-    fields.value[index] = updatedField; // recursive!!!
-  }); */
-
+const fieldsUpdater = useDebounceFn(() => {
   const qf = buildQueryFilterString(fields.value, state.showAdvanced);
   if (qf) {
     console.debug(`Set query filter: ${qf}`);
@@ -519,6 +565,9 @@ async function initializeFields() {
       ...getFieldFromFieldDef(fieldDef),
       id: useUid(),
     };
+
+    const relOps = getRelOps(field.type);
+
     field.leftParenthesis = part.leftParenthesis || field.leftParenthesis;
     field.rightParenthesis = part.rightParenthesis || field.rightParenthesis;
     field.logicalOperator = part.logicalOperator
@@ -527,12 +576,15 @@ async function initializeFields() {
     field.relationalOperatorValue = part.relationalOperator
       ? relOps.value[part.relationalOperator]
       : field.relationalOperatorValue;
+    field.relationalOperatorValue = part.relationalOperator
+      ? relOps.value[part.relationalOperator]
+      : field.relationalOperatorValue;
 
     if (field.leftParenthesis || field.rightParenthesis) {
       state.showAdvanced = true;
     }
 
-    if (field.fieldOptions?.length || isOrganizerType(field.type)) {
+    if (field.fieldChoices?.length || isOrganizerType(field.type)) {
       if (typeof part.value === "string") {
         field.values = part.value ? [part.value] : [];
       }
@@ -601,7 +653,7 @@ function buildQueryFilterJSON(): QueryFilterJSON {
       relationalOperator: field.relationalOperatorValue?.value,
     };
 
-    if (field.fieldOptions?.length || isOrganizerType(field.type)) {
+    if (field.fieldChoices?.length || isOrganizerType(field.type)) {
       part.value = field.values.map(value => value.toString());
     }
     else if (field.type === "boolean") {
@@ -617,6 +669,50 @@ function buildQueryFilterJSON(): QueryFilterJSON {
   const qfJSON = { parts } as QueryFilterJSON;
   console.debug(`Built query filter JSON: ${JSON.stringify(qfJSON)}`);
   return qfJSON;
+}
+
+function safeNewDate(input: string): Date {
+  const date = new Date(input);
+  if (isNaN(date.getTime())) {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return today;
+  }
+  return date;
+}
+
+/**
+ * Parse a relative date string offset (e.g. $NOW-30d --> 30)
+ *
+ * Currently only values with a negative offset ('-') and a unit of days ('d') are supported
+ */
+function parseRelativeDateOffset(value: string): number {
+  const defaultVal = 30;
+  if (!value) {
+    return defaultVal;
+  }
+
+  try {
+    if (!value.startsWith(placeholderKeywords.value["$NOW"].value)) {
+      return defaultVal;
+    }
+
+    const remainder = value.slice(placeholderKeywords.value["$NOW"].value.length);
+    if (!remainder.startsWith("-")) {
+      throw new Error("Invalid operator (not '-')");
+    }
+
+    if (remainder.slice(-1) !== "d") {
+      throw new Error("Invalid unit (not 'd')");
+    }
+
+    // Slice off sign and unit
+    return parseInt(remainder.slice(1, -1));
+  }
+  catch (error) {
+    console.warn(`Unable to parse relative date offset from '${value}': ${error}`);
+    return defaultVal;
+  }
 }
 
 const config = computed(() => {
@@ -688,5 +784,14 @@ const config = computed(() => {
 
 .bg-light {
   background-color: rgba(255, 255, 255, var(--bg-opactity));
+}
+
+:deep(.date-input input) {
+  text-align: end;
+  padding-right: 6px;
+}
+
+:deep(.date-input .v-field__field) {
+  align-items: center;
 }
 </style>

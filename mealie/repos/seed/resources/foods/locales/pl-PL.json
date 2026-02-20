@@ -346,7 +346,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "papryka",
-                "plural_name": "pimientos"
+                "plural_name": "papryki"
             },
             "spaghetti squash": {
                 "aliases": [],
@@ -358,7 +358,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sałata masłowa",
-                "plural_name": "butter lettuce"
+                "plural_name": "sałata masłowa"
             },
             "hash brown": {
                 "aliases": [],
@@ -419,8 +419,8 @@
             "corn on the cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn on the cob",
-                "plural_name": "corn on the cob"
+                "name": "kukurydza na kolbie",
+                "plural_name": "kukurydza na kolbie"
             },
             "radicchio": {
                 "aliases": [],

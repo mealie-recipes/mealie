@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ajo",
-                "plural_name": "garlic"
+                "plural_name": "ajo"
             },
             "onion": {
                 "aliases": [],
@@ -59,7 +59,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "apio",
-                "plural_name": "celery"
+                "plural_name": "apio"
             },
             "jalapeño": {
                 "aliases": [],
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "espinaca",
-                "plural_name": "spinach"
+                "plural_name": "espinaca"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "maíz dulce",
-                "plural_name": "sweet corn"
+                "plural_name": "maíz dulce"
             },
             "chile pepper": {
                 "aliases": [
@@ -121,7 +121,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brócoli",
-                "plural_name": "broccoli"
+                "plural_name": "brócoli"
             },
             "heart of palm": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "coliflor",
-                "plural_name": "cauliflower"
+                "plural_name": "coliflor"
             },
             "cabbage": {
                 "aliases": [],
@@ -156,20 +156,20 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
-                "plural_name": "asparagus"
+                "name": "espárragos",
+                "plural_name": "espárragos"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
                 "name": "col rizada",
-                "plural_name": "kale"
+                "plural_name": ""
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
                 "name": "rúcula",
-                "plural_name": "arugula"
+                "plural_name": "rúcula"
             },
             "leek": {
                 "aliases": [],
@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lechuga",
-                "plural_name": "lettuce"
+                "plural_name": "lechuga"
             },
             "butternut squash": {
                 "aliases": [],
@@ -217,7 +217,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hinojo",
-                "plural_name": "fennel"
+                "plural_name": "hinojo"
             },
             "sun dried tomato": {
                 "aliases": [],
@@ -262,7 +262,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mixed greens",
-                "plural_name": "mixed greens"
+                "plural_name": "mézclum"
             },
             "parsnip": {
                 "aliases": [],
@@ -304,7 +304,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pimienta de cayena",
-                "plural_name": "cayenne pepper"
+                "plural_name": "pimienta de cayena"
             },
             "green tomato": {
                 "aliases": [],
@@ -321,8 +321,8 @@
             "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg lettuce",
-                "plural_name": "iceberg lettuce"
+                "name": "lechuga iceberg",
+                "plural_name": "lechuga iceberg"
             },
             "mashed potato": {
                 "aliases": [],
@@ -462,7 +462,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mini Acelga China",
-                "plural_name": "baby bok choy"
+                "plural_name": ""
             },
             "jicama": {
                 "aliases": [],
@@ -487,14 +487,14 @@
                     "corn husk"
                 ],
                 "description": "",
-                "name": "maize",
-                "plural_name": "maize"
+                "name": "maíz",
+                "plural_name": "maíz"
             },
             "collard greens": {
                 "aliases": [],
                 "description": "",
-                "name": "collard greens",
-                "plural_name": "collard greens"
+                "name": "berza",
+                "plural_name": "berza"
             },
             "french-fried onion": {
                 "aliases": [],
@@ -2003,22 +2003,22 @@
             "parmesan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan cheese",
-                "plural_name": "parmesan cheese"
+                "name": "queso parmesano",
+                "plural_name": "queso parmesano"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddar cheese"
+                    "queso cheddar"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheese"
+                "name": "queso cheddar",
+                "plural_name": "queso cheddar"
             },
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheese"
+                "name": "queso crema",
+                "plural_name": "queso crema"
             },
             "sharp cheddar cheese": {
                 "aliases": [
@@ -2031,26 +2031,26 @@
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheese"
+                "name": "queso",
+                "plural_name": "queso"
             },
             "mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella cheese",
-                "plural_name": "mozzarella cheese"
+                "name": "queso mozzarella",
+                "plural_name": "queso mozzarella"
             },
             "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "feta cheese",
-                "plural_name": "feta cheese"
+                "name": "queso feta",
+                "plural_name": "queso feta"
             },
             "ricotta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "ricotta cheese",
-                "plural_name": "ricotta cheese"
+                "name": "queso ricotta",
+                "plural_name": "queso ricotta"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
@@ -2067,14 +2067,14 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheese"
+                "name": "queso azul",
+                "plural_name": "queso azul"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheese"
+                "name": "queso de cabra",
+                "plural_name": "queso de cabra"
             },
             "fresh mozzarella cheese": {
                 "aliases": [],
@@ -3307,14 +3307,14 @@
             "soy yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "soy yogurt",
+                "name": "yogur de soja",
                 "plural_name": "soy yogurts"
             },
             "vegan mozzarella": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan mozzarella",
-                "plural_name": "vegan mozzarellas"
+                "name": "mozzarella vegana",
+                "plural_name": "mozzarella vegana"
             },
             "non-dairy creamer": {
                 "aliases": [],
@@ -3325,8 +3325,8 @@
             "vegan sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan sausage",
-                "plural_name": "vegan sausages"
+                "name": "salchicha vegana",
+                "plural_name": "salchichas veganas"
             },
             "coconut whipped cream": {
                 "aliases": [],
@@ -3337,8 +3337,8 @@
             "smoked tofu": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked tofu",
-                "plural_name": "smoked tofus"
+                "name": "tofu ahumado",
+                "plural_name": "tofus ahumados"
             },
             "coconut powder": {
                 "aliases": [],
@@ -3427,8 +3427,8 @@
             "marinated tofu": {
                 "aliases": [],
                 "description": "",
-                "name": "marinated tofu",
-                "plural_name": "marinated tofus"
+                "name": "tofu marinado",
+                "plural_name": "tofus marinados"
             },
             "vegan feta": {
                 "aliases": [],
@@ -3505,7 +3505,7 @@
             "vegan fish sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan fish sauce",
+                "name": "salsa de pescado vegetal",
                 "plural_name": "vegan fish sauce"
             },
             "vegetarian hot dog": {

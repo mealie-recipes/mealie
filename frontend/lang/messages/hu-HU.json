@@ -370,8 +370,8 @@
     "applies-to-all-days": "Minden napra vonatkozóan",
     "applies-on-days": "Érvényes {0}-ként",
     "meal-plan-settings": "Menütervező beállításai",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Összes hozzáadása a listához",
+    "add-day-to-list": "Nap hozzáadása a listához"
   },
   "migration": {
     "migration-data-removed": "Migrációs adatok eltávolítva",
@@ -1422,7 +1422,9 @@
       "is-greater-than": "nagyobb, mint",
       "is-greater-than-or-equal-to": "nagyobb vagy egyenlő",
       "is-less-than": "kevesebb, mint",
-      "is-less-than-or-equal-to": "kevesebb vagy egyenlő"
+      "is-less-than-or-equal-to": "kevesebb vagy egyenlő",
+      "is-older-than": "régebbi, mint",
+      "is-newer-than": "újabb, mint"
     },
     "relational-keywords": {
       "is": "van",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "tartalmazza az összes",
       "is-like": "hasonló",
       "is-not-like": "nem hasonló"
+    },
+    "dates": {
+      "days-ago": "napja|napja|napja"
     }
   },
   "validators": {

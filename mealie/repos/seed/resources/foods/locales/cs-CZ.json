@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "česnek",
-                "plural_name": "garlic"
+                "plural_name": "česneky"
             },
             "onion": {
                 "aliases": [],
@@ -121,7 +121,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brokolice",
-                "plural_name": "broccoli"
+                "plural_name": "brokolice"
             },
             "heart of palm": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "květák",
-                "plural_name": "cauliflower"
+                "plural_name": "květáky"
             },
             "cabbage": {
                 "aliases": [],
@@ -163,7 +163,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kapusta",
-                "plural_name": "kale"
+                "plural_name": "kapusty"
             },
             "arugula": {
                 "aliases": [],
@@ -199,7 +199,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "romaine lettuce",
-                "plural_name": "romaine lettuce"
+                "plural_name": "římské saláty"
             },
             "beetroot": {
                 "aliases": [],

@@ -16,7 +16,7 @@ import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useRecipe } from "~/composables/recipes";
 import type { Recipe } from "~/lib/api/types/recipe";
 
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const { isOwnGroup } = useLoggedInState();
 const route = useRoute();
 const title = ref(route.meta?.title as string || "");
@@ -34,7 +34,7 @@ function loadRecipe() {
 }
 
 async function loadPublicRecipe() {
-  const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+  const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
   const api = usePublicExploreApi(groupSlug.value);
   const { data } = await useAsyncData(useAsyncKey(), async () => {
     const { data, error } = await api.explore.recipes.getOne(slug);

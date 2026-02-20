@@ -1,8 +1,21 @@
-import { describe, test, expect } from "vitest";
-import { parseIngredientText } from "./use-recipe-ingredients";
+import { describe, test, expect, vi, beforeEach } from "vitest";
+import { useIngredientTextParser } from "./use-recipe-ingredients";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
+import { useLocales } from "../use-locales";
 
-describe(parseIngredientText.name, () => {
+vi.mock("../use-locales");
+
+let parseIngredientText: (ingredient: RecipeIngredient, scale?: number, includeFormating?: boolean) => string;
+
+describe("parseIngredientText", () => {
+  beforeEach(() => {
+    vi.mocked(useLocales).mockReturnValue({
+      locales: [{ value: "en-US", pluralFoodHandling: "always" }],
+      locale: { value: "en-US", pluralFoodHandling: "always" },
+    } as any);
+    ({ parseIngredientText } = useIngredientTextParser());
+  });
+
   const createRecipeIngredient = (overrides: Partial<RecipeIngredient>): RecipeIngredient => ({
     quantity: 1,
     food: {
@@ -127,5 +140,99 @@ describe(parseIngredientText.name, () => {
     });
 
     expect(parseIngredientText(ingredient, 2)).toEqual("2 tablespoons diced onions");
+  });
+
+  test("plural handling: 'always' strategy uses plural food with unit", () => {
+    vi.mocked(useLocales).mockReturnValue({
+      locales: [{ value: "en-US", pluralFoodHandling: "always" }],
+      locale: { value: "en-US", pluralFoodHandling: "always" },
+    } as any);
+    const { parseIngredientText } = useIngredientTextParser();
+
+    const ingredient = createRecipeIngredient({
+      quantity: 2,
+      unit: { id: "1", name: "tablespoon", pluralName: "tablespoons", useAbbreviation: false },
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" },
+    });
+
+    expect(parseIngredientText(ingredient)).toEqual("2 tablespoons diced onions");
+  });
+
+  test("plural handling: 'never' strategy never uses plural food", () => {
+    vi.mocked(useLocales).mockReturnValue({
+      locales: [{ value: "en-US", pluralFoodHandling: "never" }],
+      locale: { value: "en-US", pluralFoodHandling: "never" },
+    } as any);
+    const { parseIngredientText } = useIngredientTextParser();
+
+    const ingredient = createRecipeIngredient({
+      quantity: 2,
+      unit: { id: "1", name: "tablespoon", pluralName: "tablespoons", useAbbreviation: false },
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" },
+    });
+
+    expect(parseIngredientText(ingredient)).toEqual("2 tablespoons diced onion");
+  });
+
+  test("plural handling: 'without-unit' strategy uses plural food without unit", () => {
+    vi.mocked(useLocales).mockReturnValue({
+      locales: [{ value: "en-US", pluralFoodHandling: "without-unit" }],
+      locale: { value: "en-US", pluralFoodHandling: "without-unit" },
+    } as any);
+    const { parseIngredientText } = useIngredientTextParser();
+
+    const ingredient = createRecipeIngredient({
+      quantity: 2,
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" },
+      unit: undefined,
+    });
+
+    expect(parseIngredientText(ingredient)).toEqual("2 diced onions");
+  });
+
+  test("plural handling: 'without-unit' strategy uses singular food with unit", () => {
+    vi.mocked(useLocales).mockReturnValue({
+      locales: [{ value: "en-US", pluralFoodHandling: "without-unit" }],
+      locale: { value: "en-US", pluralFoodHandling: "without-unit" },
+    } as any);
+    const { parseIngredientText } = useIngredientTextParser();
+
+    const ingredient = createRecipeIngredient({
+      quantity: 2,
+      unit: { id: "1", name: "tablespoon", pluralName: "tablespoons", useAbbreviation: false },
+      food: { id: "1", name: "diced onion", pluralName: "diced onions" },
+    });
+
+    expect(parseIngredientText(ingredient)).toEqual("2 tablespoons diced onion");
+  });
+
+  test("decimal below minimum precision shows < 0.001", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 0.0001,
+      unit: { id: "1", name: "cup", useAbbreviation: false },
+      food: { id: "1", name: "salt" },
+    });
+
+    expect(parseIngredientText(ingredient)).toEqual("&lt; 0.001 cup salt");
+  });
+
+  test("fraction below minimum denominator shows < 1/10", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 0.05,
+      unit: { id: "1", name: "cup", fraction: true, useAbbreviation: false },
+      food: { id: "1", name: "salt" },
+    });
+
+    expect(parseIngredientText(ingredient)).toEqual("&lt; <sup>1</sup><span>⁄</span><sub>10</sub> cup salt");
+  });
+
+  test("fraction below minimum denominator without formatting shows < 1/10", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 0.05,
+      unit: { id: "1", name: "cup", fraction: true, useAbbreviation: false },
+      food: { id: "1", name: "salt" },
+    });
+
+    expect(parseIngredientText(ingredient, 1, false)).toEqual("&lt; 1/10 cup salt");
   });
 });

@@ -1422,7 +1422,9 @@
       "is-greater-than": "ir lielāks par",
       "is-greater-than-or-equal-to": "ir lielāks vai vienāds ar",
       "is-less-than": "ir mazāks par",
-      "is-less-than-or-equal-to": "ir mazāks vai vienāds ar"
+      "is-less-than-or-equal-to": "ir mazāks vai vienāds ar",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "IR",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "satur visus",
       "is-like": "ir kā",
       "is-not-like": "nav tāds, kā"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {

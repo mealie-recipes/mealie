@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import type { RecipeIngredient } from "~/lib/api/types/household";
-import { useParsedIngredientText } from "~/composables/recipes";
+import { useIngredientTextParser } from "~/composables/recipes";
 
 interface Props {
   ingredient: RecipeIngredient;
@@ -44,8 +44,9 @@ const props = withDefaults(defineProps<Props>(), {
   scale: 1,
 });
 const route = useRoute();
-const $auth = useMealieAuth();
-const groupSlug = computed(() => route.params.groupSlug || $auth.user?.value?.groupSlug || "");
+const auth = useMealieAuth();
+const groupSlug = computed(() => route.params.groupSlug || auth.user?.value?.groupSlug || "");
+const { useParsedIngredientText } = useIngredientTextParser();
 
 const parsedIng = computed(() => {
   return useParsedIngredientText(props.ingredient, props.scale, true, groupSlug.value.toString());

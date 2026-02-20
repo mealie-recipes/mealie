@@ -106,11 +106,11 @@ export default defineNuxtComponent({
     const i18n = useI18n();
     const { $appInfo, $globals } = useNuxtApp();
     const display = useDisplay();
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const { isOwnGroup } = useLoggedInState();
 
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
     const cookbookPreferences = useCookbookPreferences();
     const ownCookbookStore = useCookbookStore(i18n);
@@ -152,7 +152,7 @@ export default defineNuxtComponent({
       };
     }
 
-    const currentUserHouseholdId = computed(() => $auth.user.value?.householdId);
+    const currentUserHouseholdId = computed(() => auth.user.value?.householdId);
     const cookbookLinks = computed<SideBarLink[]>(() => {
       if (!cookbooks.value?.length) {
         return [];
@@ -187,7 +187,7 @@ export default defineNuxtComponent({
       });
 
       links.sort((a, b) => a.title.localeCompare(b.title));
-      if ($auth.user.value && cookbookPreferences.value.hideOtherHouseholds) {
+      if (auth.user.value && cookbookPreferences.value.hideOtherHouseholds) {
         return ownLinks;
       }
       else {

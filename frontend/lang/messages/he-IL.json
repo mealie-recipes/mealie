@@ -1422,7 +1422,9 @@
       "is-greater-than": "גדול מ-",
       "is-greater-than-or-equal-to": "גדול או שווה ל-",
       "is-less-than": "קטן מ-",
-      "is-less-than-or-equal-to": "קטן או שווה ל-"
+      "is-less-than-or-equal-to": "קטן או שווה ל-",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "זהה ל-",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "מכיל הכל מתוך",
       "is-like": "דומה ל-",
       "is-not-like": "לא דומה לא-"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {

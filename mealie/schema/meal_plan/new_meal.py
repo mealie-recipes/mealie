@@ -1,5 +1,5 @@
 from datetime import date
-from enum import Enum
+from enum import StrEnum
 from typing import Annotated
 from uuid import UUID
 
@@ -16,7 +16,7 @@ from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.response.pagination import PaginationBase
 
 
-class PlanEntryType(str, Enum):
+class PlanEntryType(StrEnum):
     breakfast = "breakfast"
     lunch = "lunch"
     dinner = "dinner"

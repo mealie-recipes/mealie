@@ -220,11 +220,11 @@ import { useNavigationWarning } from "~/composables/use-navigation-warning";
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 
 const display = useDisplay();
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const route = useRoute();
 const { isOwnGroup } = useLoggedInState();
 
-const groupSlug = computed(() => (route.params.groupSlug as string) || $auth.user?.value?.groupSlug || "");
+const groupSlug = computed(() => (route.params.groupSlug as string) || auth.user?.value?.groupSlug || "");
 
 const router = useRouter();
 const api = useUserApi();

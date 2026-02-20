@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import StrEnum
 
 from fastapi import APIRouter, HTTPException, status
 from pydantic import UUID4
@@ -10,7 +10,7 @@ from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
 router = APIRouter(prefix="/recipes")
 
 
-class ImageType(str, Enum):
+class ImageType(StrEnum):
     original = "original.webp"
     small = "min-original.webp"
     tiny = "tiny-original.webp"

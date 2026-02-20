@@ -97,10 +97,10 @@ export default defineNuxtComponent({
     },
   },
   setup() {
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const { loggedIn } = useLoggedInState();
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
     const { xs, smAndUp } = useDisplay();
 
     const routerLink = computed(() => groupSlug.value ? `/g/${groupSlug.value}` : "/");
@@ -128,7 +128,7 @@ export default defineNuxtComponent({
 
     async function logout() {
       try {
-        await $auth.signOut("/login?direct=1");
+        await auth.signOut("/login?direct=1");
       }
       catch (e) {
         console.error(e);

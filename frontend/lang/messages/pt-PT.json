@@ -1,7 +1,7 @@
 {
   "about": {
     "about": "Sobre",
-    "about-mealie": "Sobre o Mealie",
+    "about-mealie": "Sobre Mealie",
     "api-docs": "Documentação de API",
     "api-port": "Porta da API",
     "application-mode": "Modo de aplicação",
@@ -16,7 +16,7 @@
     "download-log": "Transferir Log",
     "download-recipe-json": "Último JSON recuperado",
     "github": "GitHub",
-    "log-lines": "Linhas de registo",
+    "log-lines": "Linhas de Logs",
     "not-demo": "Não Demonstração",
     "portfolio": "Portefólio",
     "production": "Produção",
@@ -212,8 +212,8 @@
     "upload-file": "Carregar ficheiro",
     "created-on-date": "Criado em: {0}",
     "unsaved-changes": "Tem alterações por gravar. Quer gravar antes de sair? OK para gravar, Cancelar para descartar alterações.",
-    "discard-changes": "Discard Changes",
-    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
+    "discard-changes": "Descartar alterações",
+    "discard-changes-description": "Tem alterações por gravar. De certeza que as quer descartar?",
     "clipboard-copy-failure": "Erro ao copiar para a área de transferência.",
     "confirm-delete-generic-items": "Tem a certeza de que deseja eliminar os seguintes itens?",
     "organizers": "Organizadores",
@@ -370,8 +370,8 @@
     "applies-to-all-days": "Aplica-se a todos os dias",
     "applies-on-days": "Aplica-se em {0}s",
     "meal-plan-settings": "Definições do Plano de Refeições",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Adicionar todos",
+    "add-day-to-list": "Adicionar Dia"
   },
   "migration": {
     "migration-data-removed": "Dados de migração removidos",
@@ -644,7 +644,7 @@
     "scrape-recipe-website-being-blocked": "O site está bloqueado?",
     "scrape-recipe-try-importing-raw-html-instead": "Tente importar o HTML bruto em vez disso.",
     "import-original-keywords-as-tags": "Importar palavras-chave originais como etiquetas",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "Importar categorias originais",
     "stay-in-edit-mode": "Permanecer no modo de edição",
     "parse-recipe-ingredients-after-import": "Analisar ingredientes da receita após a importação",
     "import-from-zip": "Importar de Zip",
@@ -1422,7 +1422,9 @@
       "is-greater-than": "é maior que",
       "is-greater-than-or-equal-to": "é maior ou igual a",
       "is-less-than": "é menor que",
-      "is-less-than-or-equal-to": "é menor ou igual a"
+      "is-less-than-or-equal-to": "é menor ou igual a",
+      "is-older-than": "é mais antigo que",
+      "is-newer-than": "é mais recente que"
     },
     "relational-keywords": {
       "is": "é",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "contém todos os",
       "is-like": "é como",
       "is-not-like": "não é como"
+    },
+    "dates": {
+      "days-ago": "dias atrás|dia atrás|dias atrás"
     }
   },
   "validators": {

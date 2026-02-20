@@ -228,10 +228,10 @@ export default defineNuxtComponent({
 
     const router = useRouter();
     const i18n = useI18n();
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const { $appInfo, $axios } = useNuxtApp();
     const { loggedIn } = useLoggedInState();
-    const groupSlug = computed(() => $auth.user.value?.groupSlug);
+    const groupSlug = computed(() => auth.user.value?.groupSlug);
     const isDemo = ref(false);
     const isFirstLogin = ref(false);
     const activityPreferences = useUserActivityPreferences();
@@ -265,7 +265,7 @@ export default defineNuxtComponent({
           activityPreferences.value.defaultActivity,
           groupSlug.value,
         );
-        if (!isDemo.value && isFirstLogin.value && $auth.user.value?.admin) {
+        if (!isDemo.value && isFirstLogin.value && auth.user.value?.admin) {
           router.push("/admin/setup");
         }
         else if (defaultActivityRoute) {
@@ -284,7 +284,7 @@ export default defineNuxtComponent({
     const { passwordIcon, inputType, togglePasswordShow } = usePasswordField();
 
     whenever(
-      () => $appInfo.enableOidc && $appInfo.oidcRedirect && !isCallback() && !isDirectLogin() /* && !$auth.check().valid */,
+      () => $appInfo.enableOidc && $appInfo.oidcRedirect && !isCallback() && !isDirectLogin() /* && !auth.check().valid */,
       () => oidcAuthenticate(),
       { immediate: true },
     );
@@ -309,7 +309,7 @@ export default defineNuxtComponent({
       if (callback) {
         oidcLoggingIn.value = true;
         try {
-          await $auth.oauthSignIn();
+          await auth.oauthSignIn();
         }
         catch (error) {
           await router.replace("/login?direct=1");
@@ -335,7 +335,7 @@ export default defineNuxtComponent({
       formData.append("remember_me", String(form.remember));
 
       try {
-        await $auth.signIn(formData);
+        await auth.signIn(formData);
       }
       catch (error) {
         console.log(error);

@@ -110,6 +110,11 @@ class AppSettings(AppLoggingSettings):
     BASE_URL: str = "http://localhost:8080"
     """trailing slashes are trimmed (ex. `http://localhost:8080/` becomes ``http://localhost:8080`)"""
 
+    @property
+    def is_default_base_url(self) -> bool:
+        """Returns True if BASE_URL has not been changed from the default."""
+        return self.BASE_URL == "http://localhost:8080"
+
     STATIC_FILES: str = str(PACKAGE_DIR / "frontend")
     """path to static files directory (ex. `mealie/dist`)"""
 

@@ -1422,7 +1422,9 @@
       "is-greater-than": "este mai mare ca",
       "is-greater-than-or-equal-to": "este mai mare sau egală cu",
       "is-less-than": "este mai mic decât",
-      "is-less-than-or-equal-to": "este mai mic sau egal cu"
+      "is-less-than-or-equal-to": "este mai mic sau egal cu",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "este",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "conţine toate din",
       "is-like": "este similar",
       "is-not-like": "nu este similar"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {

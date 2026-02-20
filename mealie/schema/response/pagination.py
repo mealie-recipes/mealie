@@ -9,12 +9,12 @@ from pydantic_core.core_schema import ValidationInfo
 from mealie.schema._mealie import MealieModel
 
 
-class OrderDirection(str, enum.Enum):
+class OrderDirection(enum.StrEnum):
     asc = "asc"
     desc = "desc"
 
 
-class OrderByNullPosition(str, enum.Enum):
+class OrderByNullPosition(enum.StrEnum):
     first = "first"
     last = "last"
 

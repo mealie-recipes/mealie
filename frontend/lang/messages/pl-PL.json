@@ -370,8 +370,8 @@
     "applies-to-all-days": "Dotyczy wszystkich dni",
     "applies-on-days": "Dotyczy {0}",
     "meal-plan-settings": "Ustawienia planera posiłków",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Dodaj wszystko do listy",
+    "add-day-to-list": "Dodaj Dzień do Listy"
   },
   "migration": {
     "migration-data-removed": "Dane migracji usunięte",
@@ -1422,7 +1422,9 @@
       "is-greater-than": "jest większe niż",
       "is-greater-than-or-equal-to": "jest większe lub równe",
       "is-less-than": "jest mniejsze niż",
-      "is-less-than-or-equal-to": "jest mniejsze lub równe"
+      "is-less-than-or-equal-to": "jest mniejsze lub równe",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "jest",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "zawiera wszystkie z",
       "is-like": "jest jak",
       "is-not-like": "nie jest jak"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {

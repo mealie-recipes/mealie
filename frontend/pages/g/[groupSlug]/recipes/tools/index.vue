@@ -30,7 +30,7 @@ export default defineNuxtComponent({
   },
   middleware: ["group-only"],
   setup() {
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const toolStore = useToolStore();
     const dialog = ref(false);
     const i18n = useI18n();
@@ -39,7 +39,7 @@ export default defineNuxtComponent({
       title: i18n.t("tool.tools"),
     });
 
-    const userHousehold = computed(() => $auth.user.value?.householdSlug || "");
+    const userHousehold = computed(() => auth.user.value?.householdSlug || "");
     const tools = computed(() => toolStore.store.value.map(tool => (
       {
         ...tool,

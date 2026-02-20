@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from mealie.lang.providers import local_provider
+from mealie.lang.providers import get_locale_provider
 from mealie.services.scraper import cleaner
 from mealie.services.scraper.scraper_strategies import RecipeScraperOpenGraph
 from tests import data as test_data
@@ -38,7 +38,7 @@ test_cleaner_data = [
 
 @pytest.mark.parametrize("json_file,num_steps", test_cleaner_data)
 def test_cleaner_clean(json_file: Path, num_steps):
-    translator = local_provider()
+    translator = get_locale_provider()
     recipe_data = cleaner.clean(json.loads(json_file.read_text()), translator)
     assert len(recipe_data.recipe_instructions or []) == num_steps
 
@@ -46,7 +46,7 @@ def test_cleaner_clean(json_file: Path, num_steps):
 def test_html_with_recipe_data():
     path = test_data.html_healthy_pasta_bake_60759
     url = "https://www.bbc.co.uk/food/recipes/healthy_pasta_bake_60759"
-    translator = local_provider()
+    translator = get_locale_provider()
 
     open_graph_strategy = RecipeScraperOpenGraph(url, translator)
 

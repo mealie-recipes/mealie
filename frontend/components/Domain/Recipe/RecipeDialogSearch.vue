@@ -12,6 +12,7 @@
         dark
         color="primary-lighten-1 top-0 position-relative left-0"
         :rounded="!$vuetify.display.xs"
+        style="width: 100%;"
       >
         <v-text-field
           id="arrow-search"
@@ -32,9 +33,8 @@
 
         <v-btn
           v-if="$vuetify.display.xs"
+          icon
           size="x-small"
-          class="rounded-circle"
-          light
           @click="dialog = false"
         >
           <v-icon>
@@ -87,7 +87,7 @@ const emit = defineEmits<{
   selected: [recipe: RecipeSummary];
 }>();
 
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const loading = ref(false);
 const selectedIndex = ref(-1);
 
@@ -153,7 +153,7 @@ watch(dialog, (val) => {
 });
 
 const route = useRoute();
-const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 watch(route, close);
 
 function open() {

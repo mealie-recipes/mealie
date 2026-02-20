@@ -370,8 +370,8 @@
     "applies-to-all-days": "Gäller för alla dagar",
     "applies-on-days": "Gäller på {0}s",
     "meal-plan-settings": "Inställningar för måltidsplanering",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Lägg till alla i inköpslista",
+    "add-day-to-list": "Lägg till dag i inköpslista"
   },
   "migration": {
     "migration-data-removed": "Importerad data borttagen",
@@ -1422,7 +1422,9 @@
       "is-greater-than": "är större än",
       "is-greater-than-or-equal-to": "är större än eller lika med",
       "is-less-than": "är mindre än",
-      "is-less-than-or-equal-to": "är mindre eller lika med"
+      "is-less-than-or-equal-to": "är mindre eller lika med",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "är",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "innehåller alla",
       "is-like": "är som",
       "is-not-like": "är inte som"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {

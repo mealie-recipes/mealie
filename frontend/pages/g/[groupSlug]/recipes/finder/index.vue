@@ -436,7 +436,7 @@ export default defineNuxtComponent({
   setup() {
     const display = useDisplay();
     const i18n = useI18n();
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const route = useRoute();
 
     useSeoMeta({
@@ -445,7 +445,7 @@ export default defineNuxtComponent({
 
     const useMobile = computed(() => display.smAndDown.value);
 
-    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
     const { isOwnGroup } = useLoggedInState();
     const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
 
@@ -663,6 +663,11 @@ export default defineNuxtComponent({
         name: "user_id",
         label: i18n.t("user.users"),
         type: Organizer.User,
+      },
+      {
+        name: "last_made",
+        label: i18n.t("general.last-made"),
+        type: "relativeDate",
       },
     ];
 

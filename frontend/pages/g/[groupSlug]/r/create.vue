@@ -51,7 +51,7 @@ export default defineNuxtComponent({
   middleware: ["group-only"],
   setup() {
     const i18n = useI18n();
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const { $appInfo, $globals } = useNuxtApp();
 
     useSeoMeta({
@@ -99,7 +99,7 @@ export default defineNuxtComponent({
 
     const route = useRoute();
     const router = useRouter();
-    const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
 
     const subpage = computed({
       set(subpage: string) {

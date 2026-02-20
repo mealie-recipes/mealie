@@ -212,8 +212,8 @@
     "upload-file": "Nahrát soubor",
     "created-on-date": "Vytvořeno dne: {0}",
     "unsaved-changes": "Máte neuložené změny. Chcete je uložit před odchodem? Klikněte Okay pro uložení, Cancel pro smazání změn.",
-    "discard-changes": "Discard Changes",
-    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
+    "discard-changes": "Zahodit změny",
+    "discard-changes-description": "Máte neuložené změny. Určitě je chcete zahodit?",
     "clipboard-copy-failure": "Zkopírování do schránky se nezdařilo.",
     "confirm-delete-generic-items": "Opravdu chcete smazat následující položky?",
     "organizers": "Organizace",
@@ -370,8 +370,8 @@
     "applies-to-all-days": "Použije se na všechny dny",
     "applies-on-days": "Platí pro {0}",
     "meal-plan-settings": "Nastavení jídelníčku",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Přidat vše do seznamu",
+    "add-day-to-list": "Přidat den do seznamu"
   },
   "migration": {
     "migration-data-removed": "Data z migrace byla smazána",
@@ -644,7 +644,7 @@
     "scrape-recipe-website-being-blocked": "Webové stránky jsou blokovány?",
     "scrape-recipe-try-importing-raw-html-instead": "Zkuste namísto toho importovat raw HTML.",
     "import-original-keywords-as-tags": "Importovat původní klíčová slova jako štítky",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "Importovat původní kategorie",
     "stay-in-edit-mode": "Zůstat v režimu úprav",
     "parse-recipe-ingredients-after-import": "Po importu analyzovat ingredience receptu",
     "import-from-zip": "Importovat ze zipu",
@@ -1422,7 +1422,9 @@
       "is-greater-than": "je větší než",
       "is-greater-than-or-equal-to": "je větší než nebo rovno",
       "is-less-than": "je menší než",
-      "is-less-than-or-equal-to": "je menší než nebo rovno"
+      "is-less-than-or-equal-to": "je menší než nebo rovno",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "je",
@@ -1432,6 +1434,9 @@
       "contains-all-of": "obsahuje všechny z",
       "is-like": "je jako",
       "is-not-like": "není jako"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {

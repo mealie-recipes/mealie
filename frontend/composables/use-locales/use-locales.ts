@@ -1,8 +1,9 @@
 import type { LocaleObject } from "@nuxtjs/i18n";
 import { LOCALES } from "./available-locales";
+import { useGlobalI18n } from "../use-global-i18n";
 
 export const useLocales = () => {
-  const i18n = useI18n();
+  const i18n = useGlobalI18n();
   const { current: vuetifyLocale } = useLocale();
 
   const locale = computed<LocaleObject["code"]>({
