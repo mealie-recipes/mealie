@@ -30,11 +30,11 @@ interface RecipeToolWithOnHand extends RecipeTool {
 }
 
 const i18n = useI18n();
-const tableConfig = {
+const tableConfig: GroupDataPageTableConfig = {
   hideColumns: true,
   canExport: true,
 };
-const tableHeaders = [
+const tableHeaders: Array<GroupDataPageTableHeader> = [
   {
     text: i18n.t("general.id"),
     value: "id",
