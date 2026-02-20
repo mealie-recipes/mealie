@@ -110,19 +110,19 @@
 <script setup lang="ts">
 import type { AutoFormItems } from "~/types/auto-forms";
 
-export type DataPageTableHeader = {
+export type GroupDataPageTableHeader = {
   text: string;
   value: string;
   show: boolean;
   sortable?: boolean;
 };
 
-export type DataPageTableConfig = {
+export type GroupDataPageTableConfig = {
   hideColumns: boolean;
   canExport: boolean;
 };
 
-export type DataPageBulkAction = {
+export type GroupDataPageBulkAction = {
   icon: string;
   text: string;
   event: string;
@@ -134,7 +134,7 @@ const emit = defineEmits<{
   (e: "create-one" | "edit-one", data: any): void;
 }>();
 
-const tableHeaders = defineModel<Array<DataPageTableHeader>>("tableHeaders", { required: true });
+const tableHeaders = defineModel<Array<GroupDataPageTableHeader>>("tableHeaders", { required: true });
 const createForm = defineModel<{ items: AutoFormItems; data: Record<string, any> }>("createForm", { required: true });
 const createDialog = defineModel("createDialog", { type: Boolean, default: false });
 
@@ -151,7 +151,7 @@ defineProps({
     required: true,
   },
   tableConfig: {
-    type: Object as PropType<DataPageTableConfig>,
+    type: Object as PropType<GroupDataPageTableConfig>,
     default: () => ({
       hideColumns: false,
       canExport: true,
@@ -162,7 +162,7 @@ defineProps({
     required: true,
   },
   bulkActions: {
-    type: Array as PropType<Array<DataPageBulkAction>>,
+    type: Array as PropType<Array<GroupDataPageBulkAction>>,
     required: true,
   },
 });
