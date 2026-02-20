@@ -8,7 +8,9 @@
       :data="categoryStore.store.value || []"
       :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
       :create-form="createForm"
+      :edit-form="editForm"
       @create-one="handleCreate"
+      @edit-one="handleEdit"
       @delete-one="categoryStore.actions.deleteOne"
       @delete-many="categoryStore.actions.deleteMany"
     />
@@ -44,21 +46,37 @@ const tableHeaders: Array<DataPageTableHeader> = [
 const categoryStore = useCategoryStore();
 
 // ============================================================
+// Form items (shared)
+const formItems = [
+  {
+    label: i18n.t("general.name"),
+    varName: "name",
+    type: fieldTypes.TEXT,
+    rules: [validators.required],
+  },
+] as AutoFormItems;
+
+// ============================================================
 // Create
 const createForm = reactive({
-  items: [
-    {
-      label: i18n.t("general.name"),
-      varName: "name",
-      type: fieldTypes.TEXT,
-      rules: [validators.required],
-    },
-  ] as AutoFormItems,
+  items: formItems,
   data: { name: "" } as RecipeCategory,
 });
 
 async function handleCreate(createFormData: RecipeCategory) {
   await categoryStore.actions.createOne(createFormData);
   createForm.data.name = "";
+}
+
+// ============================================================
+// Edit
+const editForm = reactive({
+  items: formItems,
+  data: {} as RecipeCategory,
+});
+
+async function handleEdit(editFormData: RecipeCategory) {
+  await categoryStore.actions.updateOne(editFormData);
+  editForm.data = {} as RecipeCategory;
 }
 </script>

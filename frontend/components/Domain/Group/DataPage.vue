@@ -24,11 +24,16 @@
     :title="$t('general.edit')"
     :icon="icon"
     color="primary"
+    :submit-disabled="!editFormValid"
     can-confirm
-    @confirm="emit('edit-one', createForm.data)"
+    @confirm="emit('edit-one', editForm.data)"
   >
     <div class="mx-2 mt-2">
-      <slot name="edit-dialog" />
+      <AutoForm
+        v-model="editForm.data"
+        v-model:is-valid="editFormValid"
+        :items="editForm.items"
+      />
     </div>
   </BaseDialog>
 
@@ -87,6 +92,7 @@
     :data="data || []"
     :bulk-actions="bulkActions"
     initial-sort="name"
+    @edit-one="editEventHandler"
     @delete-one="deleteEventHandler"
     @delete-selected="bulkDeleteEventHandler"
   >
@@ -131,8 +137,9 @@ const emit = defineEmits<{
 const tableHeaders = defineModel<Array<DataPageTableHeader>>("tableHeaders", { required: true });
 const createForm = defineModel<{ items: AutoFormItems; data: Record<string, any> }>("createForm", { required: true });
 const createDialog = defineModel("createDialog", { type: Boolean, default: false });
+
+const editForm = defineModel<{ items: AutoFormItems; data: Record<string, any> }>("editForm", { required: true });
 const editDialog = defineModel("editDialog", { type: Boolean, default: false });
-const createFormValid = ref(false);
 
 defineProps({
   icon: {
@@ -159,6 +166,15 @@ defineProps({
     required: true,
   },
 });
+
+// ============================================================
+// Create & Edit
+const createFormValid = ref(false);
+const editFormValid = ref(false);
+const editEventHandler = (item: any) => {
+  editForm.value.data = { ...item };
+  editDialog.value = true;
+};
 
 // ============================================================
 // Delete Logic
