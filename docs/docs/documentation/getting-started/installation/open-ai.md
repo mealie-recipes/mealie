@@ -21,4 +21,4 @@ For more information on what configuration options are available, check out the 
 - The OpenAI Ingredient Parser can be used as an alternative to the NLP and Brute Force parsers. Simply choose the OpenAI parser while parsing ingredients (:octicons-tag-24: v1.7.0)
 - When importing a recipe via URL, if the default recipe scraper is unable to read the recipe data from a webpage, the webpage contents will be parsed by OpenAI (:octicons-tag-24: v1.9.0)
 - You can import an image of a written recipe, which is sent to OpenAI and imported into Mealie. The recipe can be hand-written or typed, as long as the text is in the picture. You can also optionally have OpenAI translate the recipe into your own language (:octicons-tag-24: v1.12.0)
-- You can import a recipe via a video URL (e.g., a YouTube link). The video is transcribed using OpenAI's Whisper model, and the transcription is parsed into a recipe
+- You can import a recipe via a video URL (e.g., a YouTube link). The video is transcribed using OpenAI's Whisper model, and the transcription is parsed into a recipe (:octicons-tag-24: v3.12.0)
