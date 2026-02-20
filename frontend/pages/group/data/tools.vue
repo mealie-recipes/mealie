@@ -92,7 +92,7 @@ const createForm = reactive({
 });
 
 async function handleCreate(createFormData: RecipeToolCreate) {
-  // TODO: The store use RecipeToolCreate or make id/slug optional as in categories and tags
+  // @ts-expect-error createOne eroniusly expects id and slug which are not preset at time of creation
   await toolStore.actions.createOne({ name: createFormData.name, householdsWithTool: createFormData.onHand ? [userHousehold.value] : [] } as RecipeToolCreate);
   createForm.data = { name: "", onHand: false } as RecipeToolCreate;
 }

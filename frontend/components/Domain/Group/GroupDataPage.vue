@@ -126,6 +126,7 @@ export type GroupDataPageTableHeader = {
   value: string;
   show: boolean;
   sortable?: boolean;
+  sort?: "asc" | "desc" | ((a: any, b: any) => number);
 };
 
 export type GroupDataPageTableConfig = {
