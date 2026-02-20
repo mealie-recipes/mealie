@@ -96,6 +96,15 @@
     @delete-one="deleteEventHandler"
     @delete-selected="bulkDeleteEventHandler"
   >
+    <template
+      v-for="slotName in itemSlotNames"
+      #[slotName]="slotProps"
+    >
+      <slot
+        :name="slotName"
+        v-bind="slotProps"
+      />
+    </template>
     <template #button-row>
       <BaseButton
         create
@@ -109,6 +118,8 @@
 
 <script setup lang="ts">
 import type { AutoFormItems } from "~/types/auto-forms";
+
+const slots = useSlots();
 
 export type GroupDataPageTableHeader = {
   text: string;
@@ -171,6 +182,7 @@ defineProps({
 // Create & Edit
 const createFormValid = ref(false);
 const editFormValid = ref(false);
+const itemSlotNames = computed(() => Object.keys(slots).filter(slotName => slotName.startsWith("item.")));
 const editEventHandler = (item: any) => {
   editForm.value.data = { ...item };
   editDialog.value = true;

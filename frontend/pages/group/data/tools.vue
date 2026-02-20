@@ -13,7 +13,13 @@
       @edit-one="handleEdit"
       @delete-one="toolStore.actions.deleteOne"
       @delete-many="toolStore.actions.deleteMany"
-    />
+    >
+      <template #[`item.onHand`]="{ item }">
+        <v-icon :color="item.onHand ? 'success' : undefined">
+          {{ item.onHand ? $globals.icons.check : $globals.icons.close }}
+        </v-icon>
+      </template>
+    </GroupDataPage>
   </div>
 </template>
 
