@@ -5,56 +5,54 @@
       :title="$t('data-pages.categories.category-data')"
       :table-headers="tableHeaders"
       :table-config="tableConfig"
-      :data="categories"
+      :data="categoryStore.store.value || []"
       :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
+      :create-form="createForm"
       @delete-one="categoryStore.actions.deleteOne"
       @delete-many="categoryStore.actions.deleteMany"
     />
   </div>
 </template>
 
-<script lang="ts">
-import { validators } from "~/composables/use-validators";
+<script  setup lang="ts">
 import { useCategoryStore } from "~/composables/store";
+import { validators } from "~/composables/use-validators";
+import { fieldTypes } from "~/composables/forms";
+import type { AutoFormItems } from "~/types/auto-forms";
+import type { CategoryIn } from "~/lib/api/types/recipe";
 import type { DataPageTableHeader, DataPageTableConfig } from "~/components/Domain/Group/DataPage.vue";
 
-export default defineNuxtComponent({
-  setup() {
-    const i18n = useI18n();
-    const tableConfig: DataPageTableConfig = {
-      hideColumns: true,
-      canExport: true,
-    };
-    const tableHeaders: Array<DataPageTableHeader> = [
-      {
-        text: i18n.t("general.id"),
-        value: "id",
-        show: false,
-      },
-      {
-        text: i18n.t("general.name"),
-        value: "name",
-        show: true,
-        sortable: true,
-      },
-    ];
-
-    const state = reactive({
-      createDialog: false,
-      editDialog: false,
-      deleteDialog: false,
-      bulkDeleteDialog: false,
-    });
-    const categoryStore = useCategoryStore();
-
-    return {
-      state,
-      tableConfig,
-      tableHeaders,
-      categories: categoryStore.store,
-      categoryStore: categoryStore,
-      validators,
-    };
+const i18n = useI18n();
+const tableConfig: DataPageTableConfig = {
+  hideColumns: true,
+  canExport: true,
+};
+const tableHeaders: Array<DataPageTableHeader> = [
+  {
+    text: i18n.t("general.id"),
+    value: "id",
+    show: false,
   },
+  {
+    text: i18n.t("general.name"),
+    value: "name",
+    show: true,
+    sortable: true,
+  },
+];
+const categoryStore = useCategoryStore();
+
+// ============================================================
+// Create
+const createForm = reactive({
+  items: [
+    {
+      label: i18n.t("general.name"),
+      varName: "name",
+      type: fieldTypes.TEXT,
+      rules: [validators.required],
+    },
+  ] as AutoFormItems,
+  data: { name: "" } as CategoryIn,
 });
 </script>

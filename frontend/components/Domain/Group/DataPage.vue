@@ -1,4 +1,35 @@
 <template>
+  <!-- Create Dialog -->
+  <BaseDialog
+    v-model="createDialog"
+    :title="$t('general.create')"
+    :icon="icon"
+    color="primary"
+    :submit-disabled="!createFormValid"
+    can-confirm
+  >
+    <div class="mx-2 mt-2">
+      <AutoForm
+        v-model="createForm.data"
+        v-model:is-valid="createFormValid"
+        :items="createForm.items"
+      />
+    </div>
+  </BaseDialog>
+
+  <!-- Edit Dialog -->
+  <BaseDialog
+    v-model="editDialog"
+    :title="$t('general.edit')"
+    :icon="icon"
+    color="primary"
+    can-confirm
+  >
+    <div class="mx-2 mt-2">
+      <slot name="edit-dialog" />
+    </div>
+  </BaseDialog>
+
   <!-- Delete Dialog -->
   <BaseDialog
     v-model="deleteDialog"
@@ -60,6 +91,7 @@
     <template #button-row>
       <BaseButton
         create
+        @click="createDialog = true"
       >
         {{ $t("general.create") }}
       </BaseButton>
@@ -68,6 +100,8 @@
 </template>
 
 <script setup lang="ts">
+import type { AutoFormItems } from "~/types/auto-forms";
+
 export type DataPageTableHeader = {
   text: string;
   value: string;
@@ -89,9 +123,14 @@ export type DataPageBulkAction = {
 defineEmits<{
   (e: "deleteOne", id: string): void;
   (e: "deleteMany", ids: Array<string>): void;
+  (e: "create" | "edit"): void;
 }>();
 
 const tableHeaders = defineModel<Array<DataPageTableHeader>>("tableHeaders", { required: true });
+const createForm = defineModel<{ items: AutoFormItems; data: Record<string, any> }>("createForm", { required: true });
+const createDialog = defineModel("createDialog", { type: Boolean, default: false });
+const editDialog = defineModel("editDialog", { type: Boolean, default: false });
+const createFormValid = ref(false);
 
 defineProps({
   icon: {
