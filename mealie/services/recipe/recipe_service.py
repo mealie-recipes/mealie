@@ -11,8 +11,7 @@ from zipfile import ZipFile
 
 import sqlalchemy as sa
 import yt_dlp
-from fastapi import HTTPException, UploadFile
-from starlette import status
+from fastapi import HTTPException, UploadFile, status
 
 from mealie.core import exceptions
 from mealie.core.config import get_app_settings
@@ -738,11 +737,7 @@ class OpenAIRecipeService(RecipeServiceBase):
             try:
                 with open(video_data["subtitle"], encoding="utf-8") as f:
                     subtitle_content = f.read()
-                lines = []
-                for line in subtitle_content.split("\n"):
-                    if line.strip() and not line.startswith("WEBVTT") and "-->" not in line and not line.isdigit():
-                        lines.append(line.strip())
-                video_data["transcription"] = " ".join(lines)
+                video_data["transcription"] = self._parse_subtitle_content(subtitle_content)
                 self.logger.info("Using subtitles from video instead of transcription")
             except Exception as e:
                 self.logger.warning(f"Failed to read subtitles, falling back to transcription: {e}")
