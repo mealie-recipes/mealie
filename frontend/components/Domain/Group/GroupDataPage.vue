@@ -113,6 +113,7 @@
       >
         {{ $t("general.create") }}
       </BaseButton>
+      <slot name="table-button-row" />
     </template>
     <template #button-bottom>
       <slot name="table-button-bottom" />

@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- Merge Dialog -->
-    <!-- <BaseDialog
+    <BaseDialog
       v-model="mergeDialog"
       :icon="$globals.icons.units"
       :title="$t('data-pages.units.combine-unit')"
@@ -22,6 +22,7 @@
           :custom-filter="normalizeFilter"
           item-title="name"
           :label="$t('data-pages.units.source-unit')"
+          class="mt-2"
         />
         <v-autocomplete
           v-model="toUnit"
@@ -38,7 +39,7 @@
           </div>
         </template>
       </v-card-text>
-    </BaseDialog> -->
+    </BaseDialog>
 
     <!-- Alias Sub-Dialog -->
     <!-- <RecipeDataAliasManagerDialog
@@ -105,6 +106,15 @@
       @delete-one="unitActions.deleteOne"
       @delete-many="unitActions.deleteMany"
     >
+      <template #table-button-row>
+        <BaseButton
+          :icon="$globals.icons.externalLink"
+          @click="mergeDialog = true"
+        >
+          {{ $t('data-pages.combine') }}
+        </BaseButton>
+      </template>
+
       <template #[`item.useAbbreviation`]="{ item }">
         <v-icon :color="item.useAbbreviation ? 'success' : undefined">
           {{ item.useAbbreviation ? $globals.icons.check : $globals.icons.close }}
@@ -122,10 +132,7 @@
       </template>
 
       <template #table-button-bottom>
-        <BaseButton @click="seedDialog = true">
-          <template #icon>
-            {{ $globals.icons.database }}
-          </template>
+        <BaseButton :icon="$globals.icons.database" @click="seedDialog = true">
           {{ $t('data-pages.seed') }}
         </BaseButton>
       </template>
@@ -288,9 +295,6 @@ async function handleEdit(editFormData: IngredientUnit) {
 // Alias Manager
 
 const aliasManagerDialog = ref(false);
-function aliasManagerEventHandler() {
-  aliasManagerDialog.value = true;
-}
 
 function updateUnitAlias(newAliases: IngredientUnitAlias[]) {
   if (!editTarget.value) {
