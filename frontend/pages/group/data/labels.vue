@@ -33,7 +33,7 @@
         </v-autocomplete>
 
         <v-alert
-          v-if="labels && labels.length > 0"
+          v-if="labelStore.store.value && labelStore.store.value.length > 0"
           type="error"
           class="mb-0 text-body-2"
         >
@@ -164,7 +164,7 @@ async function handleEdit(editFormData: MultiPurposeLabelSummary) {
 const seedDialog = ref(false);
 const locale = ref("");
 
-const { locales: LOCALES, locale: currentLocale } = useLocales();
+const { locales: locales, locale: currentLocale } = useLocales();
 
 onMounted(() => {
   locale.value = currentLocale.value;
