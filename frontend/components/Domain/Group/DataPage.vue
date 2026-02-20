@@ -7,6 +7,7 @@
     color="primary"
     :submit-disabled="!createFormValid"
     can-confirm
+    @confirm="emit('create-one', createForm.data)"
   >
     <div class="mx-2 mt-2">
       <AutoForm
@@ -24,6 +25,7 @@
     :icon="icon"
     color="primary"
     can-confirm
+    @confirm="emit('edit-one', createForm.data)"
   >
     <div class="mx-2 mt-2">
       <slot name="edit-dialog" />
@@ -120,10 +122,10 @@ export type DataPageBulkAction = {
   event: string;
 };
 
-defineEmits<{
+const emit = defineEmits<{
   (e: "deleteOne", id: string): void;
   (e: "deleteMany", ids: Array<string>): void;
-  (e: "create" | "edit"): void;
+  (e: "create-one" | "edit-one", data: any): void;
 }>();
 
 const tableHeaders = defineModel<Array<DataPageTableHeader>>("tableHeaders", { required: true });

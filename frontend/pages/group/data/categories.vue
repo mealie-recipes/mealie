@@ -8,6 +8,7 @@
       :data="categoryStore.store.value || []"
       :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
       :create-form="createForm"
+      @create-one="handleCreate"
       @delete-one="categoryStore.actions.deleteOne"
       @delete-many="categoryStore.actions.deleteMany"
     />
@@ -19,7 +20,7 @@ import { useCategoryStore } from "~/composables/store";
 import { validators } from "~/composables/use-validators";
 import { fieldTypes } from "~/composables/forms";
 import type { AutoFormItems } from "~/types/auto-forms";
-import type { CategoryIn } from "~/lib/api/types/recipe";
+import type { RecipeCategory } from "~/lib/api/types/recipe";
 import type { DataPageTableHeader, DataPageTableConfig } from "~/components/Domain/Group/DataPage.vue";
 
 const i18n = useI18n();
@@ -53,6 +54,11 @@ const createForm = reactive({
       rules: [validators.required],
     },
   ] as AutoFormItems,
-  data: { name: "" } as CategoryIn,
+  data: { name: "" } as RecipeCategory,
 });
+
+function handleCreate(createFormData: RecipeCategory) {
+  categoryStore.actions.createOne(createFormData);
+  createForm.data.name = "";
+}
 </script>
