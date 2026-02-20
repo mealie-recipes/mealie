@@ -10,6 +10,7 @@
     @confirm="emit('create-one', createForm.data)"
   >
     <div class="mx-2 mt-2">
+      <slot name="create-dialog-top" />
       <AutoForm
         v-model="createForm.data"
         v-model:is-valid="createFormValid"

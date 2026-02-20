@@ -65,6 +65,10 @@
         </MultiPurposeLabel>
       </template>
 
+      <template #create-dialog-top>
+        <MultiPurposeLabel :label="createForm.data" class="my-2" />
+      </template>
+
       <template #table-button-bottom>
         <BaseButton @click="seedDialog = true">
           <template #icon>
@@ -78,7 +82,6 @@
 </template>
 
 <script setup lang="ts">
-import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
@@ -87,7 +90,7 @@ import type { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import type { AutoFormItems } from "~/types/auto-forms";
 import { useLocales } from "~/composables/use-locales";
 import { normalizeFilter } from "~/composables/use-utils";
-import { useLabelData, useLabelStore } from "~/composables/store";
+import { useLabelStore } from "~/composables/store";
 
 const userApi = useUserApi();
 const i18n = useI18n();
@@ -137,6 +140,23 @@ const createForm = reactive({
     color: "#7417BE",
   } as MultiPurposeLabelSummary,
 });
+
+async function handleCreate(createFormData: MultiPurposeLabelSummary) {
+  await labelStore.actions.createOne(createFormData);
+  createForm.data = { name: "", color: "#7417BE" } as MultiPurposeLabelSummary;
+}
+
+// ============================================================
+// Edit
+const editForm = reactive({
+  items: formItems,
+  data: {} as MultiPurposeLabelSummary,
+});
+
+async function handleEdit(editFormData: MultiPurposeLabelSummary) {
+  await labelStore.actions.updateOne(editFormData);
+  editForm.data = {} as MultiPurposeLabelSummary;
+}
 
 // ============================================================
 // Seed
