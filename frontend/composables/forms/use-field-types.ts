@@ -4,4 +4,5 @@ export const fieldTypes = {
   SELECT: "select",
   BOOLEAN: "boolean",
   PASSWORD: "password",
+  COLOR: "color",
 } as const;

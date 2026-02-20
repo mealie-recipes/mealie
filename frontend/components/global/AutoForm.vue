@@ -105,6 +105,15 @@
             persistent-hint
             validate-on="input"
           />
+
+          <!-- Color Picker -->
+          <div
+            v-else-if="inputField.type === fieldTypes.COLOR"
+            class="d-flex"
+            style="width: 100%"
+          >
+            <InputColor v-model="model[inputField.varName]" />
+          </div>
         </v-col>
       </v-row>
     </v-card>
