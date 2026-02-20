@@ -43,9 +43,9 @@
 
     <!-- Alias Sub-Dialog -->
     <RecipeDataAliasManagerDialog
-      v-if="editTarget"
+      v-if="editForm.data"
       v-model="aliasManagerDialog"
-      :data="editTarget"
+      :data="editForm.data"
       can-submit
       @submit="updateUnitAlias"
       @cancel="aliasManagerDialog = false"
@@ -162,7 +162,6 @@ import { useUnitStore } from "~/composables/store";
 import type { AutoFormItems } from "~/types/auto-forms";
 import type { GroupDataPageTableHeader, GroupDataPageTableConfig } from "~/components/Domain/Group/GroupDataPage.vue";
 import { fieldTypes } from "~/composables/forms";
-import { info } from "sass-embedded";
 
 const userApi = useUserApi();
 const i18n = useI18n();
@@ -306,12 +305,11 @@ async function handleEdit(editFormData: IngredientUnit) {
 // Alias Manager
 
 const aliasManagerDialog = ref(false);
-
 function updateUnitAlias(newAliases: IngredientUnitAlias[]) {
-  if (!editTarget.value) {
+  if (!editForm.data) {
     return;
   }
-  editTarget.value.aliases = newAliases;
+  editForm.data.aliases = newAliases;
   aliasManagerDialog.value = false;
 }
 
