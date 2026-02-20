@@ -136,30 +136,20 @@
       </v-card-text>
     </BaseDialog>
 
-    <!-- Data Table -->
-    <BaseCardSectionTitle
+    <GroupDataPage
       :icon="$globals.icons.tags"
-      section
       :title="$t('data-pages.labels.labels')"
-    />
-    <CrudTable
-      v-model:headers="tableHeaders"
+      :table-headers="tableHeaders"
       :table-config="tableConfig"
-      :data="labels || []"
+      :data="labelStore.store.value || []"
       :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
-      initial-sort="name"
-      @delete-one="deleteEventHandler"
-      @edit-one="editEventHandler"
-      @delete-selected="bulkDeleteEventHandler"
+      :create-form="createForm"
+      :edit-form="editForm"
+      @create-one="handleCreate"
+      @edit-one="handleEdit"
+      @delete-one="labelStore.actions.deleteOne"
+      @delete-many="labelStore.actions.deleteMany"
     >
-      <template #button-row>
-        <BaseButton
-          create
-          @click="state.createDialog = true"
-        >
-          {{ $t("general.create") }}
-        </BaseButton>
-      </template>
       <template #[`item.name`]="{ item }">
         <MultiPurposeLabel
           v-if="item"
@@ -168,7 +158,8 @@
           {{ item.name }}
         </MultiPurposeLabel>
       </template>
-      <template #button-bottom>
+
+      <template #table-button-bottom>
         <BaseButton @click="seedDialog = true">
           <template #icon>
             {{ $globals.icons.database }}
@@ -176,7 +167,7 @@
           {{ $t('data-pages.seed') }}
         </BaseButton>
       </template>
-    </CrudTable>
+    </GroupDataPage>
   </div>
 </template>
 
