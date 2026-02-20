@@ -36,6 +36,9 @@
         :items="editForm.items"
       />
     </div>
+    <template #custom-card-action>
+      <slot name="edit-dialog-custom-action" />
+    </template>
   </BaseDialog>
 
   <!-- Delete Dialog -->

@@ -42,14 +42,14 @@
     </BaseDialog>
 
     <!-- Alias Sub-Dialog -->
-    <!-- <RecipeDataAliasManagerDialog
+    <RecipeDataAliasManagerDialog
       v-if="editTarget"
       v-model="aliasManagerDialog"
       :data="editTarget"
       can-submit
       @submit="updateUnitAlias"
       @cancel="aliasManagerDialog = false"
-    /> -->
+    />
 
     <!-- Seed Dialog -->
     <!-- <BaseDialog
@@ -136,6 +136,16 @@
           {{ $t('data-pages.seed') }}
         </BaseButton>
       </template>
+
+      <template #edit-dialog-custom-action>
+        <BaseButton
+          :icon="$globals.icons.tags"
+          color="info"
+          @click="aliasManagerDialog = true"
+        >
+          {{ $t('data-pages.manage-aliases') }}
+        </BaseButton>
+      </template>
     </GroupDataPage>
   </div>
 </template>
@@ -152,6 +162,7 @@ import { useUnitStore } from "~/composables/store";
 import type { AutoFormItems } from "~/types/auto-forms";
 import type { GroupDataPageTableHeader, GroupDataPageTableConfig } from "~/components/Domain/Group/GroupDataPage.vue";
 import { fieldTypes } from "~/composables/forms";
+import { info } from "sass-embedded";
 
 const userApi = useUserApi();
 const i18n = useI18n();
