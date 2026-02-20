@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DataPage
+    <GroupDataPage
       :icon="$globals.icons.categories"
       :title="$t('data-pages.categories.category-data')"
       :table-headers="tableHeaders"
