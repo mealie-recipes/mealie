@@ -57,8 +57,8 @@ const createForm = reactive({
   data: { name: "" } as RecipeCategory,
 });
 
-function handleCreate(createFormData: RecipeCategory) {
-  categoryStore.actions.createOne(createFormData);
+async function handleCreate(createFormData: RecipeCategory) {
+  await categoryStore.actions.createOne(createFormData);
   createForm.data.name = "";
 }
 </script>
