@@ -484,7 +484,7 @@
             },
             "maize": {
                 "aliases": [
-                    "corn husk"
+                    "łuska kukurydzy"
                 ],
                 "description": "",
                 "name": "maize",
@@ -3469,8 +3469,8 @@
             "vegan chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan chicken",
-                "plural_name": "vegan chickens"
+                "name": "wegański kurczak",
+                "plural_name": "wegański kurczak"
             },
             "coconut paste": {
                 "aliases": [],
@@ -3709,8 +3709,8 @@
             "vegan chicken nugget": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan chicken nugget",
-                "plural_name": "vegan chicken nuggets"
+                "name": "wegański nuggets z kurczaka",
+                "plural_name": "wegańskie nuggetsy z kurczaka"
             },
             "vegan starter culture": {
                 "aliases": [],
@@ -4353,20 +4353,20 @@
             "chicken breast": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken breast",
-                "plural_name": "chicken breasts"
+                "name": "pierś z kurczaka",
+                "plural_name": "piersi z kurczaka"
             },
             "chicken thigh": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken thigh",
-                "plural_name": "chicken thighs"
+                "name": "udko z kurczaka",
+                "plural_name": "udka z kurczaka"
             },
             "cooked chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "cooked chicken",
-                "plural_name": "cooked chickens"
+                "name": "gotowany kurczak",
+                "plural_name": "gotowany kurczak"
             },
             "ground turkey": {
                 "aliases": [],
@@ -4395,8 +4395,8 @@
             "chicken wing": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken wing",
-                "plural_name": "chicken wings"
+                "name": "skrzydełko z kurczaka",
+                "plural_name": "skrzydełka z kurczaka"
             },
             "turkey breast": {
                 "aliases": [],
@@ -4407,20 +4407,20 @@
             "ground chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "ground chicken",
-                "plural_name": "ground chickens"
+                "name": "zmielone mięso z kurczaka",
+                "plural_name": "zmielone mięso z kurczaka"
             },
             "rotisserie chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "rotisserie chicken",
-                "plural_name": "rotisserie chickens"
+                "name": "zmielone mięso z kurczaka",
+                "plural_name": "kurczak z rożna"
             },
             "chicken tender": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken tender",
-                "plural_name": "chicken tenders"
+                "name": "polędwica z kurczaka",
+                "plural_name": "polędwiczki z kurczaka"
             },
             "turkey sausage": {
                 "aliases": [],
@@ -4455,14 +4455,14 @@
             "boneless chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "boneless chicken",
-                "plural_name": "boneless chickens"
+                "name": "kurczak bez kości",
+                "plural_name": "kurczak bez kości"
             },
             "chicken liver": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken liver",
-                "plural_name": "chicken livers"
+                "name": "wątroba z kurczaka",
+                "plural_name": "wątroba z kurczaka"
             },
             "cornish hen": {
                 "aliases": [],
@@ -4491,8 +4491,8 @@
             "chicken quarter": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken quarter",
-                "plural_name": "chicken quarters"
+                "name": "ćwiartka z kurczaka",
+                "plural_name": "ćwiartka z kurczaka"
             },
             "ground turkey sausage": {
                 "aliases": [],
@@ -4557,8 +4557,8 @@
             "chicken bone": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken bone",
-                "plural_name": "chicken bones"
+                "name": "kość z kurczaka",
+                "plural_name": "kości z kurczaka"
             },
             "turkey meatball": {
                 "aliases": [],
@@ -4575,8 +4575,8 @@
             "chicken giblet": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken giblet",
-                "plural_name": "chicken giblets"
+                "name": "podroby z kurczaka",
+                "plural_name": "podroby z kurczaka"
             },
             "turkey wing": {
                 "aliases": [],
@@ -4599,8 +4599,8 @@
             "chicken nugget": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken nugget",
-                "plural_name": "chicken nuggets"
+                "name": "nuggets z kurczaka",
+                "plural_name": "nuggetsy z kurczaka"
             },
             "turkey burger": {
                 "aliases": [],
