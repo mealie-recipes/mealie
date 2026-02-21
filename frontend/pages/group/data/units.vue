@@ -52,7 +52,7 @@
     />
 
     <!-- Seed Dialog -->
-    <!-- <BaseDialog
+    <BaseDialog
       v-model="seedDialog"
       :icon="$globals.icons.foods"
       :title="$t('data-pages.seed-data')"
@@ -83,14 +83,14 @@
         </v-autocomplete>
 
         <v-alert
-          v-if="store && store.length > 0"
+          v-if="unitStore && unitStore.length > 0"
           type="error"
           class="mb-0 text-body-2"
         >
           {{ $t("data-pages.foods.seed-dialog-warning") }}
         </v-alert>
       </v-card-text>
-    </BaseDialog> -->
+    </BaseDialog>
 
     <GroupDataPage
       :icon="$globals.icons.units"
