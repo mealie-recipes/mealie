@@ -144,6 +144,8 @@ class CreateIngredientUnit(UnitFoodBase):
         elif not ((self.standard_quantity or 0) > 0):
             self.standard_quantity = self.standard_unit = None
 
+        return self
+
 
 class SaveIngredientUnit(CreateIngredientUnit):
     group_id: UUID4
