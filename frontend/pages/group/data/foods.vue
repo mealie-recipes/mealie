@@ -282,33 +282,24 @@
       </v-card-text>
     </BaseDialog>
 
-    <!-- Data Table -->
-    <BaseCardSectionTitle
+    <GroupDataPage
       :icon="$globals.icons.foods"
-      section
       :title="$t('data-pages.foods.food-data')"
-    />
-    <CrudTable
-      v-model:headers="tableHeaders"
+      :table-headers="tableHeaders"
       :table-config="tableConfig"
       :data="foods || []"
       :bulk-actions="[
         { icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' },
         { icon: $globals.icons.tags, text: $t('data-pages.labels.assign-label'), event: 'assign-selected' },
       ]"
-      initial-sort="createdAt"
-      initial-sort-desc
-      @delete-one="deleteEventHandler"
-      @edit-one="editEventHandler"
-      @create-one="createEventHandler"
-      @delete-selected="bulkDeleteEventHandler"
-      @assign-selected="bulkAssignEventHandler"
+      :create-form="createForm"
+      :edit-form="editForm"
+      @create-one="handleCreate"
+      @edit-one="handleEdit"
+      @delete-one="foodStore.actions.deleteOne"
+      @delete-many="foodStore.actions.deleteMany"
     >
-      <template #button-row>
-        <BaseButton
-          create
-          @click="createDialog = true"
-        />
+      <template #table-button-row>
         <BaseButton @click="mergeDialog = true">
           <template #icon>
             {{ $globals.icons.externalLink }}
@@ -316,6 +307,7 @@
           {{ $t('data-pages.combine') }}
         </BaseButton>
       </template>
+
       <template #[`item.label`]="{ item }">
         <MultiPurposeLabel
           v-if="item.label"
@@ -324,15 +316,18 @@
           {{ item.label.name }}
         </MultiPurposeLabel>
       </template>
+
       <template #[`item.onHand`]="{ item }">
         <v-icon :color="item.onHand ? 'success' : undefined">
           {{ item.onHand ? $globals.icons.check : $globals.icons.close }}
         </v-icon>
       </template>
+
       <template #[`item.createdAt`]="{ item }">
         {{ item.createdAt ? $d(new Date(item.createdAt)) : '' }}
       </template>
-      <template #button-bottom>
+
+      <template #table-button-bottom>
         <BaseButton @click="seedDialog = true">
           <template #icon>
             {{ $globals.icons.database }}
@@ -340,7 +335,7 @@
           {{ $t('data-pages.seed') }}
         </BaseButton>
       </template>
-    </CrudTable>
+    </GroupDataPage>
   </div>
 </template>
 
@@ -356,6 +351,7 @@ import { normalizeFilter } from "~/composables/use-utils";
 import { useFoodStore, useLabelStore } from "~/composables/store";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import type { VForm } from "~/types/auto-forms";
+import type { GroupDataPageTableHeader, GroupDataPageTableConfig } from "~/components/Domain/Group/GroupDataPage.vue";
 
 interface CreateIngredientFoodWithOnHand extends CreateIngredientFood {
   onHand: boolean;
@@ -368,11 +364,11 @@ interface IngredientFoodWithOnHand extends IngredientFood {
 const userApi = useUserApi();
 const i18n = useI18n();
 const auth = useMealieAuth();
-const tableConfig = {
+const tableConfig: GroupDataPageTableConfig = {
   hideColumns: true,
   canExport: true,
 };
-const tableHeaders = [
+const tableHeaders: GroupDataPageTableHeader[] = [
   {
     text: i18n.t("general.id"),
     value: "id",
