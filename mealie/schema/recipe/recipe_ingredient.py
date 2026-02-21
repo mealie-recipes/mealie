@@ -130,7 +130,19 @@ class CreateIngredientUnit(UnitFoodBase):
     abbreviation: str = ""
     plural_abbreviation: str | None = ""
     use_abbreviation: bool = False
+
     aliases: list[CreateIngredientUnitAlias] = []
+    standard_quantity: float | None = None
+    standard_unit: str | None = None
+
+    @model_validator(mode="after")
+    def validate_standardization_fields(self):
+        # If one is set, the other must be set.
+        # If quantity is <= 0, it's considered not set.
+        if not self.standard_unit:
+            self.standard_quantity = self.standard_unit = None
+        elif not ((self.standard_quantity or 0) > 0):
+            self.standard_quantity = self.standard_unit = None
 
 
 class SaveIngredientUnit(CreateIngredientUnit):
