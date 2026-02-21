@@ -1,10 +1,13 @@
-from typing import Literal, overload
+from typing import TYPE_CHECKING, Literal, overload
 
 from pint import Quantity, Unit, UnitRegistry
 
+if TYPE_CHECKING:
+    from mealie.schema.recipe.recipe_ingredient import CreateIngredientUnit
+
 
 class UnitNotFound(Exception):
-    """Raised when trying to access a unit not found in the unit registry"""
+    """Raised when trying to access a unit not found in the unit registry."""
 
     def __init__(self, message: str = "Unit not found in unit registry"):
         self.message = message
@@ -61,7 +64,7 @@ class UnitConverter:
             return unit
 
     def can_convert(self, unit: str | Unit, to_unit: str | Unit) -> bool:
-        """Whether or not a given unit can be converted into another unit"""
+        """Whether or not a given unit can be converted into another unit."""
 
         unit = self.parse(unit)
         to_unit = self.parse(to_unit)
@@ -74,7 +77,7 @@ class UnitConverter:
 
     def convert(self, quantity: float, unit: str | Unit, to_unit: str | Unit) -> tuple[float, Unit]:
         """
-        Convert a quantity and a unit into another unit
+        Convert a quantity and a unit into another unit.
 
         Returns tuple[quantity, unit]
         """
@@ -98,17 +101,39 @@ class UnitConverter:
         q2 = quantity_2 * unit_2
 
         out: Quantity = q1 + q2
-
-        # Choose which unit to keep
-        # If the result is >= 1, prefer the larger one, otherwise prefer the smaller one
-        if unit_1 > unit_2:
-            larger, smaller = unit_1, unit_2
-        else:
-            larger, smaller = unit_2, unit_1
-
-        if abs(out.magnitude) >= 1:
-            out = out.to(larger)
-        else:
-            out = out.to(smaller)
-
         return float(out.magnitude), out.units
+
+
+def merge_quantity_and_unit[T: CreateIngredientUnit](
+    qty_1: float, unit_1: T, qty_2: float, unit_2: T
+) -> tuple[float, T]:
+    """
+    Merge a quantity and unit.
+
+    Returns tuple[quantity, unit]
+    """
+
+    if not (unit_1.standard_quantity and unit_1.standard_unit and unit_2.standard_quantity and unit_2.standard_unit):
+        raise ValueError("Both units must contain standardized unit data")
+
+    PINT_UNIT_1_TXT = "_mealie_unit_1"
+    PINT_UNIT_2_TXT = "_mealie_unit_2"
+
+    uc = UnitConverter()
+    uc.ureg.define(f"{PINT_UNIT_1_TXT} = {unit_1.standard_quantity} * {unit_1.standard_unit}")
+    uc.ureg.define(f"{PINT_UNIT_2_TXT} = {unit_2.standard_quantity} * {unit_2.standard_unit}")
+
+    pint_unit_1 = uc.parse(PINT_UNIT_1_TXT)
+    pint_unit_2 = uc.parse(PINT_UNIT_2_TXT)
+
+    merged_q, merged_u = uc.merge(qty_1, pint_unit_1, qty_2, pint_unit_2)
+
+    # Convert to the bigger unit if quantity >= 1, else the smaller unit
+    merged_q, merged_u = uc.convert(merged_q, merged_u, max(pint_unit_1, pint_unit_2))
+    if abs(merged_q) < 1:
+        merged_q, merged_u = uc.convert(merged_q, merged_u, min(pint_unit_1, pint_unit_2))
+
+    if str(merged_u) == PINT_UNIT_1_TXT:
+        return merged_q, unit_1
+    else:
+        return merged_q, unit_2
