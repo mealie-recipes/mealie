@@ -28,6 +28,7 @@ from mealie.schema.recipe.recipe_ingredient import (
 )
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.services.parser_services._base import DataMatcher
+from mealie.services.parser_services.parser_utils import UnitConverter, merge_quantity_and_unit
 
 
 class ShoppingListService:
@@ -50,10 +51,20 @@ class ShoppingListService:
                 item1.checked,
                 item2.checked,
                 item1.food_id != item2.food_id,
-                item1.unit_id != item2.unit_id,
             ]
         ):
             return False
+
+        # check if units match or if they're compatable
+        if item1.unit_id != item2.unit_id:
+            if not (item1.unit and item1.unit.standard_unit):
+                return False
+            if not (item2.unit and item2.unit.standard_unit):
+                return False
+
+            uc = UnitConverter()
+            if not uc.can_convert(item1.unit.standard_unit, item2.unit.standard_unit):
+                return False
 
         # if foods match, we can merge, otherwise compare the notes
         return bool(item1.food_id) or item1.note == item2.note
@@ -69,7 +80,18 @@ class ShoppingListService:
         Attributes of the `to_item` take priority over the `from_item`, except extras with overlapping keys
         """
 
-        to_item.quantity += from_item.quantity
+        if to_item.unit and to_item.unit.standard_unit and from_item.unit and from_item.unit.standard_unit:
+            merged_qty, merged_unit = merge_quantity_and_unit(
+                from_item.quantity or 0, from_item.unit, to_item.quantity or 0, to_item.unit
+            )
+            to_item.quantity = merged_qty
+            to_item.unit_id = merged_unit.id
+            to_item.unit = merged_unit
+
+        else:
+            # No conversion needed, just sum the quantities
+            to_item.quantity += from_item.quantity
+
         if to_item.note != from_item.note:
             to_item.note = " | ".join([note for note in [to_item.note, from_item.note] if note])
 
