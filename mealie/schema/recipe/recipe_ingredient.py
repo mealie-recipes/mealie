@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import datetime
 import enum
+from enum import StrEnum
 from fractions import Fraction
 from typing import ClassVar
 from uuid import UUID, uuid4
@@ -32,6 +33,28 @@ def display_fraction(fraction: Fraction):
         + "/"
         + "".join([SUBSCRIPT[c] for c in str(fraction.denominator)])
     )
+
+
+class StandardizedUnitType(StrEnum):
+    """
+    An arbitrary list of standardized units supported by unit conversions.
+    The backend doesn't really care what standardized unit you use, as long as it's recognized,
+    but defining them here keeps it consistant with the frontend.
+    """
+
+    # Imperial
+    FLUID_OUNCE = "fluid ounce"
+    CUP = "cup"
+
+    OUNCE = "ounce"
+    POUND = "pound"
+
+    # Metric
+    MILLILITER = "milliliter"
+    LITER = "liter"
+
+    GRAM = "gram"
+    KILOGRAM = "kilogram"
 
 
 class UnitFoodBase(MealieModel):
