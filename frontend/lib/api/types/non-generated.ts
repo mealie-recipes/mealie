@@ -58,3 +58,13 @@ export interface QueryFilterJSONPart {
   relationalOperator?: RelationalKeyword | RelationalOperator | null;
   value?: string | string[] | null;
 }
+
+export type StandardizedUnitType
+  = | "fluid ounce"
+    | "cup"
+    | "ounce"
+    | "pound"
+    | "milliliter"
+    | "liter"
+    | "gram"
+    | "kilogram";

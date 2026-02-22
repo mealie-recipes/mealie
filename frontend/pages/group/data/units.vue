@@ -88,6 +88,34 @@
             hide-details
             :label="$t('data-pages.units.use-abbreviation')"
           />
+          <v-divider />
+          <v-card-text class="text-h6 mt-2 mb-3 pa-0">
+            {{ $t('data-pages.units.standardization') }}
+          </v-card-text>
+          <v-card-text class="ma-0 pa-0">
+            {{ $t('data-pages.units.unit-conversion') }}
+          </v-card-text>
+          <div class="d-flex flex-nowrap">
+            <v-number-input
+              v-model="createTarget.standardQuantity"
+              variant="underlined"
+              control-variant="hidden"
+              density="compact"
+              inset
+              :min="0"
+              :precision="null"
+              hide-details
+              class="mt-2"
+              style="max-width: 125px;"
+            />
+            <v-autocomplete
+              v-model="createTarget.standardUnit"
+              :items="standardUnitItems"
+              clearable
+              hide-details
+              class="ml-2"
+            />
+          </div>
         </v-form>
       </v-card-text>
     </BaseDialog>
@@ -149,6 +177,34 @@
             hide-details
             :label="$t('data-pages.units.use-abbreviation')"
           />
+          <v-divider />
+          <v-card-text class="text-h6 mt-2 mb-3 pa-0">
+            {{ $t('data-pages.units.standardization') }}
+          </v-card-text>
+          <v-card-text class="ma-0 pa-0">
+            {{ $t('data-pages.units.unit-conversion') }}
+          </v-card-text>
+          <div class="d-flex flex-nowrap">
+            <v-number-input
+              v-model="editTarget.standardQuantity"
+              variant="underlined"
+              control-variant="hidden"
+              density="compact"
+              inset
+              :min="0"
+              :precision="null"
+              hide-details
+              class="mt-2"
+              style="max-width: 125px;"
+            />
+            <v-autocomplete
+              v-model="editTarget.standardUnit"
+              :items="standardUnitItems"
+              clearable
+              hide-details
+              class="ml-2"
+            />
+          </div>
         </v-form>
       </v-card-text>
       <template #custom-card-action>
@@ -314,10 +370,16 @@ import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataA
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import type { CreateIngredientUnit, IngredientUnit, IngredientUnitAlias } from "~/lib/api/types/recipe";
+import type { StandardizedUnitType } from "~/lib/api/types/non-generated";
 import { useLocales } from "~/composables/use-locales";
 import { normalizeFilter } from "~/composables/use-utils";
 import { useUnitStore } from "~/composables/store";
 import type { VForm } from "~/types/auto-forms";
+
+interface StandardUnitItem {
+  title: string;
+  value: StandardizedUnitType;
+};
 
 export default defineNuxtComponent({
   components: { RecipeDataAliasManagerDialog },
@@ -377,12 +439,57 @@ export default defineNuxtComponent({
         sortable: true,
       },
       {
+        text: i18n.t("data-pages.units.standard-quantity"),
+        value: "standardQuantity",
+        show: false,
+      },
+      {
+        text: i18n.t("data-pages.units.standard-unit"),
+        value: "standardUnit",
+        show: false,
+      },
+      {
         text: i18n.t("general.date-added"),
         value: "createdAt",
         show: false,
         sortable: true,
       },
     ];
+
+    const standardUnitItems = computed<StandardUnitItem[]>(() => [
+      {
+        title: i18n.t("data-pages.units.standard-unit-labels.fluid-ounce"),
+        value: "fluid ounce",
+      },
+      {
+        title: i18n.t("data-pages.units.standard-unit-labels.cup"),
+        value: "cup",
+      },
+      {
+        title: i18n.t("data-pages.units.standard-unit-labels.ounce"),
+        value: "ounce",
+      },
+      {
+        title: i18n.t("data-pages.units.standard-unit-labels.pound"),
+        value: "pound",
+      },
+      {
+        title: i18n.t("data-pages.units.standard-unit-labels.milliliter"),
+        value: "milliliter",
+      },
+      {
+        title: i18n.t("data-pages.units.standard-unit-labels.liter"),
+        value: "liter",
+      },
+      {
+        title: i18n.t("data-pages.units.standard-unit-labels.gram"),
+        value: "gram",
+      },
+      {
+        title: i18n.t("data-pages.units.standard-unit-labels.kilogram"),
+        value: "kilogram",
+      },
+    ]);
 
     const { store, actions: unitActions } = useUnitStore();
 
@@ -536,6 +643,7 @@ export default defineNuxtComponent({
     return {
       tableConfig,
       tableHeaders,
+      standardUnitItems,
       store,
       validators,
       normalizeFilter,
