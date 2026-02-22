@@ -1136,6 +1136,8 @@
       "example-unit-abbreviation-singular": "ex: Tbsp",
       "example-unit-abbreviation-plural": "ex: Tbsps",
       "standardization": "Standardization",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
       "unit-conversion": "Unit Conversion",
       "standard-unit-labels": {
         "fluid-ounce": "fluid ounce",
