@@ -60,7 +60,7 @@ class UnitConverter:
             return self.ureg(unit).units
         except Exception as e:
             if strict:
-                raise UnitNotFound() from e
+                raise UnitNotFound(f"Unit '{unit}' not found in unit registry") from e
             return unit
 
     def can_convert(self, unit: str | Unit, to_unit: str | Unit) -> bool:
