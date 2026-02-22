@@ -111,7 +111,7 @@ def test_user_standardization(unique_db: AllRepositories, name: str):
     unit_in = SaveIngredientUnit(
         name=name,
         group_id=unique_db.group_id,
-        standard_quantity=random_int(),
+        standard_quantity=random_int(1, 10),
         standard_unit=random_string(),
     )
     unit_out = unique_db.ingredient_units.create(unit_in)
@@ -124,7 +124,7 @@ def test_ignore_incomplete_standardization(unique_db: AllRepositories):
     unit_in = SaveIngredientUnit(
         name=random_string(),
         group_id=unique_db.group_id,
-        standard_quantity=random_int(),
+        standard_quantity=random_int(1, 10),
         standard_unit=None,
     )
     unit_out = unique_db.ingredient_units.create(unit_in)
