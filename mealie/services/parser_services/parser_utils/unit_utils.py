@@ -120,8 +120,15 @@ def merge_quantity_and_unit[T: CreateIngredientUnit](
     PINT_UNIT_2_TXT = "_mealie_unit_2"
 
     uc = UnitConverter()
-    uc.ureg.define(f"{PINT_UNIT_1_TXT} = {unit_1.standard_quantity} * {unit_1.standard_unit}")
-    uc.ureg.define(f"{PINT_UNIT_2_TXT} = {unit_2.standard_quantity} * {unit_2.standard_unit}")
+
+    # pre-process units to account for ounce -> fluid ounce conversion
+    unit_1_standard = uc.parse(unit_1.standard_unit, strict=True)
+    unit_2_standard = uc.parse(unit_2.standard_unit, strict=True)
+    unit_1_standard, unit_2_standard = uc._resolve_ounce(unit_1_standard, unit_2_standard)
+
+    # create custon unit definition so pint can handle them natively
+    uc.ureg.define(f"{PINT_UNIT_1_TXT} = {unit_1.standard_quantity} * {unit_1_standard}")
+    uc.ureg.define(f"{PINT_UNIT_2_TXT} = {unit_2.standard_quantity} * {unit_2_standard}")
 
     pint_unit_1 = uc.parse(PINT_UNIT_1_TXT)
     pint_unit_2 = uc.parse(PINT_UNIT_2_TXT)
