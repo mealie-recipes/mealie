@@ -44,6 +44,11 @@ class RepositoryUnit(GroupRepositoryGeneric[IngredientUnit, IngredientUnitModel]
         if not isinstance(data, dict):
             data = data.model_dump()
 
+        # Don't overwrite user data if it exists
+        if data.get("standard_quantity") is not None or data.get("standard_unit") is not None:
+            return data
+
+        # Compare name attrs to translation files and see if there's a match to a known standard unit
         for prop in ["name", "plural_name", "abbreviation", "plural_abbreviation"]:
             val = data.get(prop)
             if not (val and isinstance(val, str)):
