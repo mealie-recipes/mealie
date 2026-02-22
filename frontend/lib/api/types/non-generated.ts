@@ -60,7 +60,7 @@ export interface QueryFilterJSONPart {
 }
 
 export type StandardizedUnitType
-  = | "fluid ounce"
+  = | "fluid_ounce"
     | "cup"
     | "ounce"
     | "pound"

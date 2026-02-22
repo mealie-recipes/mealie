@@ -43,7 +43,7 @@ class StandardizedUnitType(StrEnum):
     """
 
     # Imperial
-    FLUID_OUNCE = "fluid ounce"
+    FLUID_OUNCE = "fluid_ounce"
     CUP = "cup"
 
     OUNCE = "ounce"

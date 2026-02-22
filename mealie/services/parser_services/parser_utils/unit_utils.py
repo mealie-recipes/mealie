@@ -121,7 +121,7 @@ def merge_quantity_and_unit[T: CreateIngredientUnit](
 
     uc = UnitConverter()
 
-    # pre-process units to account for ounce -> fluid ounce conversion
+    # pre-process units to account for ounce -> fluid_ounce conversion
     unit_1_standard = uc.parse(unit_1.standard_unit, strict=True)
     unit_2_standard = uc.parse(unit_2.standard_unit, strict=True)
     unit_1_standard, unit_2_standard = uc._resolve_ounce(unit_1_standard, unit_2_standard)

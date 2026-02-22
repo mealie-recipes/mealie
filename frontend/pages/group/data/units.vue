@@ -459,7 +459,7 @@ export default defineNuxtComponent({
     const standardUnitItems = computed<StandardUnitItem[]>(() => [
       {
         title: i18n.t("data-pages.units.standard-unit-labels.fluid-ounce"),
-        value: "fluid ounce",
+        value: "fluid_ounce",
       },
       {
         title: i18n.t("data-pages.units.standard-unit-labels.cup"),
