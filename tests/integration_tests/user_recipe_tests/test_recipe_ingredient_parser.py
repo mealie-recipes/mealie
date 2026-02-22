@@ -2,7 +2,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from mealie.schema.recipe.recipe_ingredient import RegisteredParser
-from tests.unit_tests.test_ingredient_parser import TestIngredient
+from tests.unit_tests.ingredient_parser.test_ingredient_parser import TestIngredient
 from tests.utils import api_routes
 from tests.utils.fixture_schemas import TestUser
 
