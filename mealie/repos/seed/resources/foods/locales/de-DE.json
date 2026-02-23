@@ -2494,25 +2494,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "Backstein Käse",
-                "plural_name": "brick cheese"
+                "plural_name": "Brick-Käse"
             },
             "quick-melt cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "quick-melt cheese",
-                "plural_name": "quick-melt cheese"
+                "name": "schnellschmelzender Käse",
+                "plural_name": "schnellschmelzender Käse"
             },
             "farmer's cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "farmer's cheese",
-                "plural_name": "farmer's cheese"
+                "name": "Bauernkäse",
+                "plural_name": "Bauernkäse"
             },
             "manouri cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "manouri cheese",
-                "plural_name": "manouri cheese"
+                "plural_name": "Manouri Käse"
             },
             "mimolette cheese": {
                 "aliases": [],
@@ -7670,7 +7670,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Backpulver",
-                "plural_name": "baking powder"
+                "plural_name": "Backpulver"
             },
             "baking soda": {
                 "aliases": [],
