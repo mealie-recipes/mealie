@@ -31,20 +31,19 @@
     <a href="https://github.com/mealie-recipes/mealie/pkgs/container/mealie">GitHub Container Registry</a>
 </p>
 
-
-
-
 [![Product Name Screen Shot][product-screenshot]](https://docs.mealie.io)
 
 # About The Project
+
+Hi my name is Matt, I'm an AI-first engineer.
 
 Mealie is a self hosted recipe manager, meal planner and shopping list with a RestAPI backend and a reactive frontend built in Vue for a pleasant user experience for the whole family. Easily add recipes into your database by providing the URL and Mealie will automatically import the relevant data, or add a family recipe with the UI editor. Mealie also provides an API for interactions from 3rd party applications.
 
 - [Remember to join the Discord](https://discord.gg/QuStdQGSGK)!
 - [Documentation](https://docs.mealie.io/)
 
-
 ## Key Features
+
 - Recipe imports: Create recipes, by **importing from a URL** or entering data manually
 - Meal Planner: Use the **Meal Planner** to plan your what you'll cook for the next week
 - Shopping List: Put the necessary ingredients on your **Shopping List**, organised into sections of your local supermarket
@@ -53,6 +52,7 @@ Mealie is a self hosted recipe manager, meal planner and shopping list with a Re
 - Localisation: **Translations** for 35+ languages
 
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**. If you're going to be working on the code-base, you'll want to use the nightly documentation to ensure you get the latest information.
@@ -71,9 +71,10 @@ Translations can be a great way for **non-coders** to contribute to the project.
 For more information, check out the translation page on the [contributor's guide](https://nightly.mealie.io/contributors/translating/).
 
 <!-- LICENSE -->
-## License
-Distributed under the AGPL License. See `LICENSE` for more information.
 
+## License
+
+Distributed under the AGPL License. See `LICENSE` for more information.
 
 ## Sponsors
 
@@ -83,10 +84,9 @@ Thanks to Depot for providing build instances for our Docker image builds.
 
 [![Built with Depot](https://depot.dev/badges/built-with-depot.svg)](https://depot.dev?utm_source=Mealie)
 
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/mealie-recipes/mealie.svg?style=flat-square
 [docker-pull]: https://img.shields.io/docker/pulls/hkotel/mealie?style=flat-square
 [docker-url]: https://hub.docker.com/r/hkotel/mealie
