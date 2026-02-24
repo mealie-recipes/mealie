@@ -1,286 +1,121 @@
 <template>
   <div>
-    <!-- Create Dialog -->
-    <BaseDialog
-      v-model="state.createDialog"
-      :title="$t('data-pages.recipe-actions.new-recipe-action')"
-      :icon="$globals.icons.linkVariantPlus"
-      can-submit
-      @submit="createAction"
-    >
-      <v-card-text>
-        <v-form ref="domNewActionForm">
-          <v-text-field
-            v-model="createTarget.title"
-            autofocus
-            :label="$t('general.title')"
-            :rules="[validators.required]"
-          />
-          <v-text-field
-            v-model="createTarget.url"
-            :label="$t('general.url')"
-            :rules="[validators.required]"
-          />
-          <v-select
-            v-model="createTarget.actionType"
-            :items="actionTypeOptions"
-            :label="$t('data-pages.recipe-actions.action-type')"
-            :rules="[validators.required]"
-          />
-        </v-form>
-      </v-card-text>
-    </BaseDialog>
-
-    <!-- Edit Dialog -->
-    <BaseDialog
-      v-model="state.editDialog"
-      :icon="$globals.icons.linkVariantPlus"
-      :title="$t('data-pages.recipe-actions.edit-recipe-action')"
-      :submit-text="$t('general.save')"
-      can-submit
-      @submit="editSaveAction"
-    >
-      <v-card-text v-if="editTarget">
-        <div class="mt-4">
-          <v-text-field
-            v-model="editTarget.title"
-            :label="$t('general.title')"
-          />
-        </div>
-        <div class="mt-4">
-          <v-text-field
-            v-model="editTarget.url"
-            :label="$t('general.url')"
-          />
-        </div>
-        <div class="mt-4">
-          <v-select
-            v-model="editTarget.actionType"
-            :items="actionTypeOptions"
-            :label="$t('data-pages.recipe-actions.action-type')"
-          />
-        </div>
-      </v-card-text>
-    </BaseDialog>
-
-    <!-- Delete Dialog -->
-    <BaseDialog
-      v-model="state.deleteDialog"
-      :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      can-confirm
-      @confirm="deleteAction"
-    >
-      <v-card-text>
-        {{ $t("general.confirm-delete-generic") }}
-        <p
-          v-if="deleteTarget"
-          class="mt-4 ml-4"
-        >
-          {{ deleteTarget.title }}
-        </p>
-      </v-card-text>
-    </BaseDialog>
-
-    <!-- Bulk Delete Dialog -->
-    <BaseDialog
-      v-model="state.bulkDeleteDialog"
-      width="650px"
-      :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      can-confirm
-      @confirm="deleteSelected"
-    >
-      <v-card-text>
-        <p class="h4">
-          {{ $t('general.confirm-delete-generic-items') }}
-        </p>
-        <v-card variant="outlined">
-          <v-virtual-scroll
-            height="400"
-            item-height="25"
-            :items="bulkDeleteTarget"
-          >
-            <template #default="{ item }">
-              <v-list-item class="pb-2">
-                <v-list-item-title>{{ item.title }}</v-list-item-title>
-              </v-list-item>
-            </template>
-          </v-virtual-scroll>
-        </v-card>
-      </v-card-text>
-    </BaseDialog>
-
-    <!-- Data Table -->
-    <BaseCardSectionTitle
-      :icon="$globals.icons.linkVariantPlus"
-      section
-      :title="$t('data-pages.recipe-actions.recipe-actions-data')"
-    />
-    <CrudTable
-      v-model:headers="tableHeaders"
+    <GroupDataPage
+      :icon="$globals.icons.categories"
+      :title="$t('data-pages.categories.category-data')"
+      :table-headers="tableHeaders"
       :table-config="tableConfig"
-      :data="actions || []"
+      :data="actionStore.recipeActions.value || []"
       :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
+      :create-form="createForm"
+      :edit-form="editForm"
       initial-sort="title"
-      @delete-one="deleteEventHandler"
-      @edit-one="editEventHandler"
-      @delete-selected="bulkDeleteEventHandler"
-    >
-      <template #button-row>
-        <BaseButton
-          create
-          @click="state.createDialog = true"
-        >
-          {{ $t("general.create") }}
-        </BaseButton>
-      </template>
-    </CrudTable>
+      @create-one="handleCreate"
+      @edit-one="handleEdit"
+      @delete-one="actionStore.actions.deleteOne"
+      @bulk-action="handleBulkAction"
+    />
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { validators } from "~/composables/use-validators";
-import { useGroupRecipeActions, useGroupRecipeActionData } from "~/composables/use-group-recipe-actions";
+import { useGroupRecipeActions } from "~/composables/use-group-recipe-actions";
 import type { GroupRecipeActionOut } from "~/lib/api/types/household";
+import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
+import type { AutoFormItems } from "~/types/auto-forms";
+import { fieldTypes } from "~/composables/forms";
 
-export default defineNuxtComponent({
-  setup() {
-    const i18n = useI18n();
+const i18n = useI18n();
 
-    const tableConfig = {
-      hideColumns: true,
-      canExport: true,
-    };
-    const tableHeaders = [
-      {
-        text: i18n.t("general.id"),
-        value: "id",
-        show: false,
-      },
-      {
-        text: i18n.t("general.title"),
-        value: "title",
-        show: true,
-        sortable: true,
-      },
-      {
-        text: i18n.t("general.url"),
-        value: "url",
-        show: true,
-      },
-      {
-        text: i18n.t("data-pages.recipe-actions.action-type"),
-        value: "actionType",
-        show: true,
-        sortable: true,
-      },
-    ];
-
-    const state = reactive({
-      createDialog: false,
-      editDialog: false,
-      deleteDialog: false,
-      bulkDeleteDialog: false,
-    });
-
-    const actionData = useGroupRecipeActionData();
-    const actionStore = useGroupRecipeActions(null, null);
-    const actionTypeOptions = ["link", "post"];
-
-    // ============================================================
-    // Create Action
-
-    async function createAction() {
-      await actionStore.actions.createOne({
-        actionType: actionData.data.actionType,
-        title: actionData.data.title,
-        url: actionData.data.url,
-      } as GroupRecipeActionOut);
-      actionData.reset();
-      state.createDialog = false;
-    }
-
-    // ============================================================
-    // Edit Action
-
-    const editTarget = ref<GroupRecipeActionOut | null>(null);
-
-    function editEventHandler(item: GroupRecipeActionOut) {
-      state.editDialog = true;
-      editTarget.value = item;
-    }
-
-    async function editSaveAction() {
-      if (!editTarget.value) {
-        return;
-      }
-      await actionStore.actions.updateOne(editTarget.value);
-      state.editDialog = false;
-    }
-
-    // ============================================================
-    // Delete Action
-
-    const deleteTarget = ref<GroupRecipeActionOut | null>(null);
-
-    function deleteEventHandler(item: GroupRecipeActionOut) {
-      state.deleteDialog = true;
-      deleteTarget.value = item;
-    }
-
-    async function deleteAction() {
-      if (!deleteTarget.value || deleteTarget.value.id === undefined) {
-        return;
-      }
-      await actionStore.actions.deleteOne(deleteTarget.value.id);
-      state.deleteDialog = false;
-    }
-
-    // ============================================================
-    // Bulk Delete Action
-
-    const bulkDeleteTarget = ref<GroupRecipeActionOut[]>([]);
-    function bulkDeleteEventHandler(selection: GroupRecipeActionOut[]) {
-      bulkDeleteTarget.value = selection;
-      state.bulkDeleteDialog = true;
-    }
-
-    async function deleteSelected() {
-      const ids = bulkDeleteTarget.value.map(item => item.id);
-      await actionStore.actions.deleteMany(ids);
-      bulkDeleteTarget.value = [];
-    }
-
-    return {
-      state,
-      tableConfig,
-      tableHeaders,
-      actionTypeOptions,
-      actions: actionStore.recipeActions,
-      validators,
-
-      // create
-      createTarget: actionData.data,
-      createAction,
-
-      // edit
-      editTarget,
-      editEventHandler,
-      editSaveAction,
-
-      // delete
-      deleteTarget,
-      deleteEventHandler,
-      deleteAction,
-
-      // bulk delete
-      bulkDeleteTarget,
-      bulkDeleteEventHandler,
-      deleteSelected,
-    };
+const tableConfig: TableConfig = {
+  hideColumns: true,
+  canExport: true,
+};
+const tableHeaders: TableHeaders[] = [
+  {
+    text: i18n.t("general.id"),
+    value: "id",
+    show: false,
   },
+  {
+    text: i18n.t("general.title"),
+    value: "title",
+    show: true,
+    sortable: true,
+  },
+  {
+    text: i18n.t("general.url"),
+    value: "url",
+    show: true,
+  },
+  {
+    text: i18n.t("data-pages.recipe-actions.action-type"),
+    value: "actionType",
+    show: true,
+    sortable: true,
+  },
+];
+
+const actionStore = useGroupRecipeActions(null, null);
+
+// ============================================================
+// Form items (shared)
+const formItems: AutoFormItems = [
+  {
+    label: i18n.t("general.title"),
+    varName: "title",
+    type: fieldTypes.TEXT,
+    rules: [validators.required],
+  },
+  {
+    label: i18n.t("general.url"),
+    varName: "url",
+    type: fieldTypes.TEXT,
+    rules: [validators.required, validators.url],
+  },
+  {
+    label: i18n.t("data-pages.recipe-actions.action-type"),
+    varName: "actionType",
+    type: fieldTypes.SELECT,
+    options: [{ text: "link" }, { text: "post" }],
+    rules: [validators.required],
+  },
+];
+
+// ============================================================
+// Create
+
+const createForm = reactive({
+  items: formItems,
+  data: {} as GroupRecipeActionOut,
 });
+
+async function handleCreate() {
+  await actionStore.actions.createOne(createForm.data);
+  createForm.data = {} as GroupRecipeActionOut;
+}
+
+// ============================================================
+// Edit Action
+
+const editForm = reactive({
+  items: formItems,
+  data: {} as GroupRecipeActionOut,
+});
+
+async function handleEdit(editFormData: GroupRecipeActionOut) {
+  await actionStore.actions.updateOne(editFormData);
+  editForm.data = {} as GroupRecipeActionOut;
+}
+
+// ============================================================
+// Bulk Actions
+async function handleBulkAction(event: string, items: GroupRecipeActionOut[]) {
+  console.log("Bulk Action Event:", event, "Items:", items);
+  if (event === "delete-selected") {
+    const ids = items.filter(item => item.id != null).map(item => item.id!);
+    await actionStore.actions.deleteMany(ids);
+  }
+}
 </script>

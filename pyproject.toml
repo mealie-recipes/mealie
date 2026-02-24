@@ -17,7 +17,7 @@ dependencies = [
     "apprise==1.9.7",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
-    "fastapi==0.129.1",
+    "fastapi==0.131.0",
     "httpx==0.28.1",
     "lxml==6.0.2",
     "orjson==3.11.7",
@@ -42,7 +42,7 @@ dependencies = [
     "pydantic-settings==2.13.1",
     "pillow-heif==1.2.1",
     "pyjwt==2.11.0",
-    "openai==2.21.0",
+    "openai==2.23.0",
     "typing-extensions==4.15.0",
     "itsdangerous==2.2.0",
     "ingredient-parser-nlp==2.5.0",
@@ -59,12 +59,12 @@ pgsql = [
 
 [dependency-groups]
 docs = [
-    "mkdocs-material==9.7.2",
+    "mkdocs-material==9.7.3",
 ]
 dev = [
     "coverage==7.13.4",
     "coveragepy-lcov==0.1.2",
-    "mkdocs-material==9.7.2",
+    "mkdocs-material==9.7.3",
     "mypy==1.19.1",
     "pre-commit==4.5.1",
     "pylint==4.0.5",

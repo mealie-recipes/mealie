@@ -9,7 +9,7 @@
         "name": "colher de sopa",
         "plural_name": "colheres de sopa",
         "description": "",
-        "abbreviation": "csp"
+        "abbreviation": "c. sopa"
     },
     "cup": {
         "name": "chávena",
@@ -25,7 +25,7 @@
     },
     "pint": {
         "name": "pint",
-        "plural_name": "pintas",
+        "plural_name": "pints",
         "description": "",
         "abbreviation": "pt"
     },
@@ -139,8 +139,8 @@
         "abbreviation": ""
     },
     "sprig": {
-        "name": "sprig",
-        "plural_name": "sprigs",
+        "name": "ramo",
+        "plural_name": "ramos",
         "description": "",
         "abbreviation": ""
     }
