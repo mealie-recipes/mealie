@@ -1445,6 +1445,6 @@
     "invalid-url": "Érvényes URL-nek kell lennie",
     "no-whitespace": "Szóközt nem tartalmazhat",
     "min-length": "Legalább {min} karakter legyen",
-    "max-length": "Legfeljebb {max} karakter legyen"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }
