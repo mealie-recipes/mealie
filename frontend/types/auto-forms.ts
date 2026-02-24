@@ -19,6 +19,7 @@ export interface FormField {
   disableUpdate?: boolean;
   disableCreate?: boolean;
   options?: FormSelectOption[];
+  selectReturnValue?: string;
 }
 
 export type AutoFormItems = FormField[];
