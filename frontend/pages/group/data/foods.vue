@@ -205,7 +205,7 @@ import { normalizeFilter } from "~/composables/use-utils";
 import { useFoodStore, useLabelStore } from "~/composables/store";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import type { AutoFormItems } from "~/types/auto-forms";
-import type { GroupDataPageTableHeader, GroupDataPageTableConfig } from "~/components/Domain/Group/GroupDataPage.vue";
+import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
 import { fieldTypes } from "~/composables/forms";
 
 interface CreateIngredientFoodWithOnHand extends CreateIngredientFood {
@@ -219,11 +219,11 @@ interface IngredientFoodWithOnHand extends IngredientFood {
 const userApi = useUserApi();
 const i18n = useI18n();
 const auth = useMealieAuth();
-const tableConfig: GroupDataPageTableConfig = {
+const tableConfig: TableConfig = {
   hideColumns: true,
   canExport: true,
 };
-const tableHeaders: GroupDataPageTableHeader[] = [
+const tableHeaders: TableHeaders[] = [
   {
     text: i18n.t("general.id"),
     value: "id",

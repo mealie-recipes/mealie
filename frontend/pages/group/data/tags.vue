@@ -23,15 +23,15 @@ import { useTagStore } from "~/composables/store";
 import { fieldTypes } from "~/composables/forms";
 import type { AutoFormItems } from "~/types/auto-forms";
 import type { RecipeTag } from "~/lib/api/types/recipe";
-import type { GroupDataPageTableHeader, GroupDataPageTableConfig } from "~/components/Domain/Group/GroupDataPage.vue";
+import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
 
 const i18n = useI18n();
 
-const tableConfig: GroupDataPageTableConfig = {
+const tableConfig: TableConfig = {
   hideColumns: true,
   canExport: true,
 };
-const tableHeaders: GroupDataPageTableHeader[] = [
+const tableHeaders: TableHeaders[] = [
   {
     text: i18n.t("general.id"),
     value: "id",

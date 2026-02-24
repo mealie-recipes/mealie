@@ -91,7 +91,7 @@
   />
 
   <CrudTable
-    v-model:headers="tableHeaders"
+    :headers="tableHeaders"
     :table-config="tableConfig"
     :data="data || []"
     :bulk-actions="bulkActions"
@@ -125,36 +125,18 @@
 </template>
 
 <script setup lang="ts">
+import type { TableHeaders, TableConfig, BulkAction } from "~/components/global/CrudTable.vue";
 import type { AutoFormItems } from "~/types/auto-forms";
 
 const slots = useSlots();
 
-export type GroupDataPageTableHeader = {
-  text: string;
-  value: string;
-  show: boolean;
-  sortable?: boolean;
-  sort?: "asc" | "desc" | ((a: any, b: any) => number);
-};
-
-export type GroupDataPageTableConfig = {
-  hideColumns: boolean;
-  canExport: boolean;
-};
-
-export type GroupDataPageBulkAction = {
-  icon: string;
-  text: string;
-  event: string;
-};
-
 const emit = defineEmits<{
   (e: "deleteOne", id: string): void;
-  (e: "deleteMany", ids: Array<string>): void;
+  (e: "deleteMany", ids: string[]): void;
   (e: "create-one" | "edit-one", data: any): void;
 }>();
 
-const tableHeaders = defineModel<Array<GroupDataPageTableHeader>>("tableHeaders", { required: true });
+const tableHeaders = defineModel<TableHeaders[]>("tableHeaders", { required: true });
 const createForm = defineModel<{ items: AutoFormItems; data: Record<string, any> }>("createForm", { required: true });
 const createDialog = defineModel("createDialog", { type: Boolean, default: false });
 
@@ -171,7 +153,7 @@ defineProps({
     required: true,
   },
   tableConfig: {
-    type: Object as PropType<GroupDataPageTableConfig>,
+    type: Object as PropType<TableConfig>,
     default: () => ({
       hideColumns: false,
       canExport: true,
@@ -182,7 +164,7 @@ defineProps({
     required: true,
   },
   bulkActions: {
-    type: Array as PropType<Array<GroupDataPageBulkAction>>,
+    type: Array as PropType<BulkAction[]>,
     required: true,
   },
 });
