@@ -1445,6 +1445,6 @@
     "invalid-url": "Verður að vera gild vefslóð",
     "no-whitespace": "Engin bil leyfð",
     "min-length": "Verður að vera að lágmarki {min} stafir",
-    "max-length": "Má vera að hámarki {max} stafir"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }
