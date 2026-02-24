@@ -1445,6 +1445,6 @@
     "invalid-url": "Musí být platná URL adresa",
     "no-whitespace": "Mezery nejsou povoleny",
     "min-length": "Musí být alespoň {min} znaků",
-    "max-length": "Musí být nejvíce {max} znaků"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }
