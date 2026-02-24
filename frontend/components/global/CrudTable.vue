@@ -8,11 +8,11 @@
         nudge-bottom="6"
         :close-on-content-click="false"
       >
-        <template #activator="{ props }">
+        <template #activator="{ props: activatorProps }">
           <v-btn
             color="accent"
             variant="elevated"
-            v-bind="props"
+            v-bind="activatorProps"
           >
             <v-icon>
               {{ $globals.icons.cog }}
