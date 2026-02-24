@@ -95,7 +95,7 @@
     :table-config="tableConfig"
     :data="data || []"
     :bulk-actions="bulkActions"
-    initial-sort="name"
+    :initial-sort="initialSort"
     @edit-one="editEventHandler"
     @delete-one="deleteEventHandler"
     @bulk-action="handleBulkAction"
@@ -167,6 +167,10 @@ defineProps({
   bulkActions: {
     type: Array as PropType<BulkAction[]>,
     required: true,
+  },
+  initialSort: {
+    type: String,
+    default: "name",
   },
 });
 

@@ -1,7 +1,5 @@
 <template>
   <div>
-    {{ createForm.data }}
-
     <GroupDataPage
       :icon="$globals.icons.categories"
       :title="$t('data-pages.categories.category-data')"
@@ -11,6 +9,7 @@
       :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
       :create-form="createForm"
       :edit-form="editForm"
+      initial-sort="title"
       @create-one="handleCreate"
       @edit-one="handleEdit"
       @delete-one="actionStore.actions.deleteOne"
