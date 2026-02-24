@@ -1445,6 +1445,6 @@
     "invalid-url": "Precisa ser uma URL válida",
     "no-whitespace": "Nenhum espaço em branco é permitido",
     "min-length": "Precisa ter pelo menos {min} caracteres",
-    "max-length": "Pode ter até {max} caracteres"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }
