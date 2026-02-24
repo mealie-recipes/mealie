@@ -1,11 +1,28 @@
 import type { VForm as VuetifyForm } from "vuetify/components/VForm";
 
-type FormFieldType = "text" | "textarea" | "list" | "select" | "object" | "boolean" | "color" | "password";
+type FormFieldType
+  = | "text"
+    | "textarea"
+    | "number"
+    | "list"
+    | "select"
+    | "object"
+    | "boolean"
+    | "color"
+    | "password";
 
 export type FormValidationRule = (value: any) => boolean | string;
 
 export interface FormSelectOption {
   text: string;
+  value?: string;
+}
+
+export interface FormFieldNumberInputConfig {
+  min?: number;
+  max?: number;
+  precision?: number;
+  controlVariant?: "split" | "default" | "hidden" | "stacked";
 }
 
 export interface FormField {
@@ -18,8 +35,9 @@ export interface FormField {
   rules?: FormValidationRule[];
   disableUpdate?: boolean;
   disableCreate?: boolean;
+  numberInputConfig?: FormFieldNumberInputConfig;
   options?: FormSelectOption[];
-  selectReturnValue?: string;
+  selectReturnValue?: "text" | "value";
 }
 
 export type AutoFormItems = FormField[];

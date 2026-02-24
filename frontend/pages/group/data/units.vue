@@ -219,6 +219,16 @@ const tableHeaders: TableHeaders[] = [
     sortable: true,
   },
   {
+    text: i18n.t("data-pages.units.standard-quantity"),
+    value: "standardQuantity",
+    show: false,
+  },
+  {
+    text: i18n.t("data-pages.units.standard-unit"),
+    value: "standardUnit",
+    show: false,
+  },
+  {
     text: i18n.t("general.date-added"),
     value: "createdAt",
     show: false,
@@ -230,7 +240,12 @@ const { store: unitStore, actions: unitActions } = useUnitStore();
 
 // ============================================================
 // Form items (shared)
-const formItems: AutoFormItems = [
+type StandardizedUnitTypeOption = {
+  text: string;
+  value: StandardizedUnitType;
+};
+
+const formItems = computed<AutoFormItems>(() => [
   {
     label: i18n.t("general.name"),
     varName: "name",
@@ -267,7 +282,57 @@ const formItems: AutoFormItems = [
     varName: "fraction",
     type: fieldTypes.BOOLEAN,
   },
-];
+  {
+    label: i18n.t("data-pages.units.standard-quantity"),
+    varName: "standardQuantity",
+    type: fieldTypes.NUMBER,
+    numberInputConfig: {
+      min: 0,
+      max: undefined,
+      precision: undefined,
+      controlVariant: "hidden",
+    },
+  },
+  {
+    label: i18n.t("data-pages.units.standard-unit"),
+    varName: "standardUnit",
+    type: fieldTypes.SELECT,
+    options: [
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.fluid-ounce"),
+        value: "fluid_ounce",
+      },
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.cup"),
+        value: "cup",
+      },
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.ounce"),
+        value: "ounce",
+      },
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.pound"),
+        value: "pound",
+      },
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.milliliter"),
+        value: "milliliter",
+      },
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.liter"),
+        value: "liter",
+      },
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.gram"),
+        value: "gram",
+      },
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.kilogram"),
+        value: "kilogram",
+      },
+    ] as StandardizedUnitTypeOption[],
+  },
+]);
 
 // ============================================================
 // Create
