@@ -120,7 +120,7 @@ export interface TableHeaders {
   text: string;
   value: string;
   show: boolean;
-  align?: string;
+  align?: "start" | "center" | "end";
   sortable?: boolean;
   sort?: (a: any, b: any) => number;
 }
@@ -167,7 +167,7 @@ const emit = defineEmits<{
 }>();
 
 const i18n = useI18n();
-const sortBy = computed(() => [{
+const sortBy = computed<{ key: string; order: "asc" | "desc" }[]>(() => [{
   key: props.initialSort,
   order: props.initialSortDesc ? "desc" : "asc",
 }]);
