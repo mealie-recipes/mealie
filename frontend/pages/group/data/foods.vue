@@ -142,7 +142,7 @@
       @create-one="handleCreate"
       @edit-one="handleEdit"
       @delete-one="foodStore.actions.deleteOne"
-      @delete-many="foodStore.actions.deleteMany"
+      @bulk-action="handleBulkAction"
     >
       <template #table-button-row>
         <BaseButton @click="mergeDialog = true">
@@ -372,6 +372,18 @@ async function handleEdit() {
 
   await foodStore.actions.updateOne(editForm.data);
   editForm.data = {} as IngredientFoodWithOnHand;
+}
+
+// ============================================================
+// Bulk Actions
+async function handleBulkAction(event: string, items: IngredientFoodWithOnHand[]) {
+  if (event === "delete-selected") {
+    const ids = items.map(item => item.id);
+    await foodStore.actions.deleteMany(ids);
+  }
+  else if (event === "assign-selected") {
+    bulkAssignEventHandler(items);
+  }
 }
 
 // ============================================================

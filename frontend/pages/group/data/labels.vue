@@ -54,7 +54,7 @@
       @create-one="handleCreate"
       @edit-one="handleEdit"
       @delete-one="labelStore.actions.deleteOne"
-      @delete-many="labelStore.actions.deleteMany"
+      @bulk-action="handleBulkAction"
     >
       <template #[`item.name`]="{ item }">
         <MultiPurposeLabel
@@ -157,6 +157,15 @@ const editForm = reactive({
 async function handleEdit(editFormData: MultiPurposeLabelSummary) {
   await labelStore.actions.updateOne(editFormData);
   editForm.data = {} as MultiPurposeLabelSummary;
+}
+
+// ============================================================
+// Bulk Actions
+async function handleBulkAction(event: string, items: MultiPurposeLabelSummary[]) {
+  if (event === "delete-selected") {
+    const ids = items.filter(item => item.id != null).map(item => item.id!);
+    await labelStore.actions.deleteMany(ids);
+  }
 }
 
 // ============================================================

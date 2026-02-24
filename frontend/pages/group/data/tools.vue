@@ -12,7 +12,7 @@
       @create-one="handleCreate"
       @edit-one="handleEdit"
       @delete-one="toolStore.actions.deleteOne"
-      @delete-many="toolStore.actions.deleteMany"
+      @bulk-action="handleBulkAction"
     >
       <template #[`item.onHand`]="{ item }">
         <v-icon :color="item.onHand ? 'success' : undefined">
@@ -120,5 +120,14 @@ async function handleEdit(editFormData: RecipeToolWithOnHand) {
 
   await toolStore.actions.updateOne({ ...editFormData, id: editFormData.id } as RecipeTool);
   editForm.data = {} as RecipeToolWithOnHand;
+}
+
+// ============================================================
+// Bulk Actions
+async function handleBulkAction(event: string, items: RecipeToolWithOnHand[]) {
+  if (event === "delete-selected") {
+    const ids = items.filter(item => item.id != null).map(item => item.id!);
+    await toolStore.actions.deleteMany(ids);
+  }
 }
 </script>

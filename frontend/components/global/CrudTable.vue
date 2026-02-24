@@ -108,7 +108,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { downloadAsJson } from "~/composables/use-utils";
 
 export interface TableConfig {
@@ -131,106 +131,95 @@ export interface BulkAction {
   event: string;
 }
 
-export default defineNuxtComponent({
-  props: {
-    tableConfig: {
-      type: Object as () => TableConfig,
-      default: () => ({
-        hideColumns: false,
-        canExport: false,
-      }),
-    },
-    headers: {
-      type: Array as () => TableHeaders[],
-      required: true,
-    },
-    data: {
-      type: Array as () => any[],
-      required: true,
-    },
-    bulkActions: {
-      type: Array as () => BulkAction[],
-      default: () => [],
-    },
-    initialSort: {
-      type: String,
-      default: "id",
-    },
-    initialSortDesc: {
-      type: Boolean,
-      default: false,
-    },
+const props = defineProps({
+  tableConfig: {
+    type: Object as () => TableConfig,
+    default: () => ({
+      hideColumns: false,
+      canExport: false,
+    }),
   },
-  emits: ["delete-one", "edit-one"],
-  setup(props, context) {
-    const i18n = useI18n();
-    const sortBy = computed(() => [{
-      key: props.initialSort,
-      order: props.initialSortDesc ? "desc" : "asc",
-    }]);
-
-    // ===========================================================
-    // Reactive Headers
-    // Create a local reactive copy of headers that we can modify
-    const localHeaders = ref([...props.headers]);
-
-    // Watch for changes in props.headers and update local copy
-    watch(() => props.headers, (newHeaders) => {
-      localHeaders.value = [...newHeaders];
-    }, { deep: true });
-
-    const filteredHeaders = computed<string[]>(() => {
-      return localHeaders.value.filter(header => header.show).map(header => header.value);
-    });
-
-    const headersWithoutActions = computed(() =>
-      localHeaders.value
-        .filter(header => filteredHeaders.value.includes(header.value))
-        .map(header => ({
-          ...header,
-          title: i18n.t(header.text),
-        })),
-    );
-
-    const activeHeaders = computed(() => [
-      ...headersWithoutActions.value,
-      { title: "", value: "actions", show: true, align: "end" },
-    ]);
-
-    const selected = ref<any[]>([]);
-
-    // ===========================================================
-    // Bulk Action Event Handler
-
-    const bulkActionListener = computed(() => {
-      const handlers: { [key: string]: () => void } = {};
-
-      props.bulkActions.forEach((action) => {
-        handlers[action.event] = () => {
-          context.emit(action.event, selected.value);
-          // clear selection
-          selected.value = [];
-        };
-      });
-
-      return handlers;
-    });
-
-    const search = ref("");
-
-    return {
-      sortBy,
-      selected,
-      localHeaders,
-      filteredHeaders,
-      headersWithoutActions,
-      activeHeaders,
-      bulkActionListener,
-      search,
-      downloadAsJson,
-    };
+  headers: {
+    type: Array as () => TableHeaders[],
+    required: true,
+  },
+  data: {
+    type: Array as () => any[],
+    required: true,
+  },
+  bulkActions: {
+    type: Array as () => BulkAction[],
+    default: () => [],
+  },
+  initialSort: {
+    type: String,
+    default: "id",
+  },
+  initialSortDesc: {
+    type: Boolean,
+    default: false,
   },
 });
+
+const emit = defineEmits<{
+  (e: "delete-one" | "edit-one", item: any): void;
+  (e: "bulk-action", event: string, items: any[]): void;
+}>();
+
+const i18n = useI18n();
+const sortBy = computed(() => [{
+  key: props.initialSort,
+  order: props.initialSortDesc ? "desc" : "asc",
+}]);
+
+// ===========================================================
+// Reactive Headers
+// Create a local reactive copy of headers that we can modify
+const localHeaders = ref([...props.headers]);
+
+// Watch for changes in props.headers and update local copy
+watch(() => props.headers, (newHeaders) => {
+  localHeaders.value = [...newHeaders];
+}, { deep: true });
+
+const filteredHeaders = computed<string[]>(() => {
+  return localHeaders.value.filter(header => header.show).map(header => header.value);
+});
+
+const headersWithoutActions = computed(() =>
+  localHeaders.value
+    .filter(header => filteredHeaders.value.includes(header.value))
+    .map(header => ({
+      ...header,
+      title: i18n.t(header.text),
+    })),
+);
+
+const activeHeaders = computed(() => [
+  ...headersWithoutActions.value,
+  { title: "", value: "actions", show: true, align: "end" },
+]);
+
+const selected = ref<any[]>([]);
+
+// ===========================================================
+// Bulk Action Event Handler
+
+const bulkActionListener = computed(() => {
+  const handlers: { [key: string]: () => void } = {};
+
+  props.bulkActions.forEach((action) => {
+    handlers[action.event] = () => {
+      emit("bulk-action", action.event, selected.value);
+      // clear selection
+      selected.value = [];
+    };
+  });
+
+  return handlers;
+});
+
+const search = ref("");
 </script>
 
 <style>

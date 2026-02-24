@@ -104,7 +104,7 @@
       @create-one="handleCreate"
       @edit-one="handleEdit"
       @delete-one="unitActions.deleteOne"
-      @delete-many="unitActions.deleteMany"
+      @bulk-action="handleBulkAction"
     >
       <template #table-button-row>
         <BaseButton
@@ -302,6 +302,15 @@ async function handleEdit(editFormData: IngredientUnit) {
 }
 
 // ============================================================
+// Bulk Actions
+async function handleBulkAction(event: string, items: IngredientUnit[]) {
+  if (event === "delete-selected") {
+    const ids = items.filter(item => item.id != null).map(item => item.id!);
+    await unitActions.deleteMany(ids);
+  }
+}
+
+// ============================================================
 // Alias Manager
 
 const aliasManagerDialog = ref(false);
@@ -349,7 +358,7 @@ onMounted(() => {
 });
 
 const locales = LOCALES.filter(locale =>
-  (i18n.locales.value as LocaleObject[]).map(i18nLocale => i18nLocale.code).includes(locale.value),
+  (i18n.locales.value as LocaleObject[]).map(i18nLocale => i18nLocale.code).includes(locale.value as any),
 );
 
 async function seedDatabase() {

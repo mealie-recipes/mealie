@@ -12,7 +12,7 @@
       @create-one="handleCreate"
       @edit-one="handleEdit"
       @delete-one="tagStore.actions.deleteOne"
-      @delete-many="tagStore.actions.deleteMany"
+      @bulk-action="handleBulkAction"
     />
   </div>
 </template>
@@ -79,5 +79,14 @@ const editForm = reactive({
 async function handleEdit(editFormData: RecipeTag) {
   await tagStore.actions.updateOne(editFormData);
   editForm.data = {} as RecipeTag;
+}
+
+// ============================================================
+// Bulk Actions
+async function handleBulkAction(event: string, items: RecipeTag[]) {
+  if (event === "delete-selected") {
+    const ids = items.filter(item => item.id != null).map(item => item.id!);
+    await tagStore.actions.deleteMany(ids);
+  }
 }
 </script>

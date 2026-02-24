@@ -66,7 +66,7 @@
     :icon="$globals.icons.alertCircle"
     color="error"
     can-confirm
-    @confirm="$emit('deleteMany', bulkDeleteTarget.map((item) => item.id))"
+    @confirm="$emit('bulk-action', 'delete-selected', bulkDeleteTarget)"
   >
     <v-card-text>
       <p class="h4">
@@ -98,7 +98,7 @@
     initial-sort="name"
     @edit-one="editEventHandler"
     @delete-one="deleteEventHandler"
-    @delete-selected="bulkDeleteEventHandler"
+    @bulk-action="handleBulkAction"
   >
     <template
       v-for="slotName in itemSlotNames"
@@ -134,6 +134,7 @@ const emit = defineEmits<{
   (e: "deleteOne", id: string): void;
   (e: "deleteMany", ids: string[]): void;
   (e: "create-one" | "edit-one", data: any): void;
+  (e: "bulk-action", event: string, items: any[]): void;
 }>();
 
 const tableHeaders = defineModel<TableHeaders[]>("tableHeaders", { required: true });
@@ -168,6 +169,16 @@ defineProps({
     required: true,
   },
 });
+
+// ============================================================
+// Bulk Action Handler
+function handleBulkAction(event: string, items: any[]) {
+  if (event === "delete-selected") {
+    bulkDeleteEventHandler(items);
+    return;
+  }
+  emit("bulk-action", event, items);
+}
 
 // ============================================================
 // Create & Edit
