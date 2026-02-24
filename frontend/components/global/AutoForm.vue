@@ -103,6 +103,7 @@
             :hint="inputField.hint"
             density="comfortable"
             persistent-hint
+            :rules="!(inputField.disableUpdate && updateMode) ? inputField.rules || [] : []"
             validate-on="input"
           />
 
