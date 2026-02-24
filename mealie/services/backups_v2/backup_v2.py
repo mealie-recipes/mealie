@@ -15,7 +15,7 @@ class BackupSchemaMismatch(Exception): ...
 
 class BackupV2(BaseService):
     EXCLUDE_DIRS = {"backups", ".temp"}
-    EXCLUDE_FILES = {"mealie.db", "mealie.log"}
+    EXCLUDE_FILES = {"mealie.db", "mealie.log", "mealie.log.1", "mealie.log.2", "mealie.log.3"}
     EXCLUDE_EXTENTIONS = {".zip"}
 
     RESTORE_FILES = {".secret"}
