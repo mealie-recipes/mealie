@@ -1445,6 +1445,6 @@
     "invalid-url": "Må være en gyldig nettadresse",
     "no-whitespace": "Ingen mellomrom tillatt",
     "min-length": "Må minst ha {min} tegn",
-    "max-length": "Kan maksimalt ha {max} tegn"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }
