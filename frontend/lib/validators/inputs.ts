@@ -29,6 +29,11 @@ export function urlOptional(v: string | undefined | null) {
   return v ? url(v) : true;
 }
 
+export function startsWithHttp(v: string | undefined | null) {
+  const i18n = useGlobalI18n();
+  return (!!v && (v.startsWith("http://") || v.startsWith("https://"))) || i18n.t("validators.http");
+}
+
 export function minLength(min: number) {
   const i18n = useGlobalI18n();
   return (v: string | undefined | null) => (!!v && v.length >= min) || i18n.t("validators.min-length", { min });

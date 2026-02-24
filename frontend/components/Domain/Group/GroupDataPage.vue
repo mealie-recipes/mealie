@@ -53,7 +53,7 @@
     <v-card-text>
       {{ $t("general.confirm-delete-generic") }}
       <p v-if="deleteTarget" class="mt-4 ml-4">
-        {{ deleteTarget.name }}
+        {{ deleteTarget.name || deleteTarget.title || deleteTarget.id }}
       </p>
     </v-card-text>
   </BaseDialog>
@@ -76,7 +76,7 @@
         <v-virtual-scroll height="400" item-height="25" :items="bulkDeleteTarget">
           <template #default="{ item }">
             <v-list-item class="pb-2">
-              <v-list-item-title>{{ item.name }}</v-list-item-title>
+              <v-list-item-title>{{ item.name || item.title || item.id }}</v-list-item-title>
             </v-list-item>
           </template>
         </v-virtual-scroll>

@@ -1,6 +1,6 @@
 import type { RequestResponse } from "~/lib/api/types/non-generated";
 import type { ValidationResponse } from "~/lib/api/types/response";
-import { required, email, whitespace, url, urlOptional, minLength, maxLength } from "~/lib/validators";
+import { required, email, whitespace, url, urlOptional, minLength, maxLength, startsWithHttp } from "~/lib/validators";
 
 export const validators = {
   required,
@@ -10,13 +10,14 @@ export const validators = {
   urlOptional,
   minLength,
   maxLength,
+  startsWithHttp,
 };
 
 /**
- * useAsyncValidator us a factory function that returns an async function that
- * when called will validate the input against the backend database and set the
- * error messages when applicable to the ref.
- */
+   * useAsyncValidator us a factory function that returns an async function that
+   * when called will validate the input against the backend database and set the
+   * error messages when applicable to the ref.
+   */
 export const useAsyncValidator = (
   value: Ref<string>,
   validatorFunc: (v: string) => Promise<RequestResponse<ValidationResponse>>,
