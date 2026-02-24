@@ -1446,6 +1446,6 @@
     "no-whitespace": "No Whitespace Allowed",
     "min-length": "Must Be At Least {min} Characters",
     "max-length": "Must Be At Most {max} Characters",
-    "http": "Must start with http:// or https://"
+    "http": "Must Start With http:// Or https://"
   }
 }
