@@ -127,8 +127,6 @@
       </v-card-text>
     </BaseDialog>
 
-    {{ createForm.data }}
-
     <GroupDataPage
       :icon="$globals.icons.foods"
       :title="$t('data-pages.foods.food-data')"
@@ -180,6 +178,15 @@
             {{ $globals.icons.database }}
           </template>
           {{ $t('data-pages.seed') }}
+        </BaseButton>
+      </template>
+
+      <template #edit-dialog-custom-action>
+        <BaseButton
+          edit
+          @click="aliasManagerDialog = true"
+        >
+          {{ $t('data-pages.manage-aliases') }}
         </BaseButton>
       </template>
     </GroupDataPage>
