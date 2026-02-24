@@ -1445,6 +1445,6 @@
     "invalid-url": "Måste var en giltig länk",
     "no-whitespace": "Ingen blanksteg tillåten",
     "min-length": "Måste vara minst {min} tecken",
-    "max-length": "Måste vara som mest {max} tecken"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }
