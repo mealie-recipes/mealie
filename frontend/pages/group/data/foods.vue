@@ -79,169 +79,14 @@
       </v-card-text>
     </BaseDialog>
 
-    <!-- Create Dialog -->
-    <BaseDialog
-      v-model="createDialog"
-      :icon="$globals.icons.foods"
-      :title="$t('data-pages.foods.create-food')"
-      :submit-icon="$globals.icons.save"
-      :submit-text="$t('general.save')"
-      can-submit
-      @submit="createFood"
-    >
-      <v-card-text>
-        <v-form ref="domNewFoodForm">
-          <v-text-field
-            v-model="createTarget.name"
-            autofocus
-            :label="$t('general.name')"
-            :hint="$t('data-pages.foods.example-food-singular')"
-            :rules="[validators.required]"
-          />
-          <v-text-field
-            v-model="createTarget.pluralName"
-            :label="$t('general.plural-name')"
-            :hint="$t('data-pages.foods.example-food-plural')"
-          />
-          <v-text-field
-            v-model="createTarget.description"
-            :label="$t('recipe.description')"
-          />
-          <v-autocomplete
-            v-model="createTarget.labelId"
-            clearable
-            :items="allLabels"
-            :custom-filter="normalizeFilter"
-            item-value="id"
-            item-title="name"
-            :label="$t('data-pages.foods.food-label')"
-          />
-          <v-checkbox
-            v-model="createTarget.onHand"
-            hide-details
-            :label="$t('tool.on-hand')"
-          />
-          <p class="text-caption mt-1">
-            {{ $t("data-pages.foods.on-hand-checkbox-label") }}
-          </p>
-        </v-form>
-      </v-card-text>
-    </BaseDialog>
-
     <!-- Alias Sub-Dialog -->
     <RecipeDataAliasManagerDialog
-      v-if="editTarget"
+      v-if="editForm.data"
       v-model="aliasManagerDialog"
-      :data="editTarget"
+      :data="editForm.data"
       @submit="updateFoodAlias"
       @cancel="aliasManagerDialog = false"
     />
-
-    <!-- Edit Dialog -->
-    <BaseDialog
-      v-model="editDialog"
-      :icon="$globals.icons.foods"
-      :title="$t('data-pages.foods.edit-food')"
-      :submit-icon="$globals.icons.save"
-      :submit-text="$t('general.save')"
-      can-submit
-      @submit="editSaveFood"
-    >
-      <v-card-text v-if="editTarget">
-        <v-form ref="domEditFoodForm">
-          <v-text-field
-            v-model="editTarget.name"
-            :label="$t('general.name')"
-            :hint="$t('data-pages.foods.example-food-singular')"
-            :rules="[validators.required]"
-          />
-          <v-text-field
-            v-model="editTarget.pluralName"
-            :label="$t('general.plural-name')"
-            :hint="$t('data-pages.foods.example-food-plural')"
-          />
-          <v-text-field
-            v-model="editTarget.description"
-            :label="$t('recipe.description')"
-          />
-          <v-autocomplete
-            v-model="editTarget.labelId"
-            clearable
-            :items="allLabels"
-            :custom-filter="normalizeFilter"
-            item-value="id"
-            item-title="name"
-            :label="$t('data-pages.foods.food-label')"
-          />
-          <v-checkbox
-            v-model="editTarget.onHand"
-            hide-details
-            :label="$t('tool.on-hand')"
-          />
-          <p class="text-caption mt-1">
-            {{ $t("data-pages.foods.on-hand-checkbox-label") }}
-          </p>
-        </v-form>
-      </v-card-text>
-      <template #custom-card-action>
-        <BaseButton
-          edit
-          @click="aliasManagerEventHandler"
-        >
-          {{ $t('data-pages.manage-aliases') }}
-        </BaseButton>
-      </template>
-    </BaseDialog>
-
-    <!-- Delete Dialog -->
-    <BaseDialog
-      v-model="deleteDialog"
-      :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      can-confirm
-      @confirm="deleteFood"
-    >
-      <v-card-text>
-        {{ $t("general.confirm-delete-generic") }}
-        <p
-          v-if="deleteTarget"
-          class="mt-4 ml-4"
-        >
-          {{ deleteTarget.name }}
-        </p>
-      </v-card-text>
-    </BaseDialog>
-
-    <!-- Bulk Delete Dialog -->
-    <BaseDialog
-      v-model="bulkDeleteDialog"
-      width="650px"
-      :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      can-confirm
-      @confirm="deleteSelected"
-    >
-      <v-card-text>
-        <p class="h4">
-          {{ $t('general.confirm-delete-generic-items') }}
-        </p>
-        <v-card variant="outlined">
-          <v-virtual-scroll
-            height="400"
-            item-height="25"
-            :items="bulkDeleteTarget"
-          >
-            <template #default="{ item }">
-              <v-list-item class="pb-2">
-                <v-list-item-title>{{ item.name }}</v-list-item-title>
-              </v-list-item>
-            </template>
-          </v-virtual-scroll>
-        </v-card>
-      </v-card-text>
-    </BaseDialog>
 
     <!-- Bulk Assign Labels Dialog -->
     <BaseDialog
@@ -281,6 +126,8 @@
         </v-card>
       </v-card-text>
     </BaseDialog>
+
+    {{ createForm.data }}
 
     <GroupDataPage
       :icon="$globals.icons.foods"
@@ -350,8 +197,9 @@ import { useLocales } from "~/composables/use-locales";
 import { normalizeFilter } from "~/composables/use-utils";
 import { useFoodStore, useLabelStore } from "~/composables/store";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
-import type { VForm } from "~/types/auto-forms";
+import type { AutoFormItems } from "~/types/auto-forms";
 import type { GroupDataPageTableHeader, GroupDataPageTableConfig } from "~/components/Domain/Group/GroupDataPage.vue";
+import { fieldTypes } from "~/composables/forms";
 
 interface CreateIngredientFoodWithOnHand extends CreateIngredientFood {
   onHand: boolean;
@@ -423,36 +271,66 @@ const foods = computed(() => foodStore.store.value.map((food) => {
   return { ...food, onHand } as IngredientFoodWithOnHand;
 }));
 
-// ===============================================================
-// Food Creator
+// ============================================================
+// Labels
+const { store: allLabels } = useLabelStore();
+const labelOptions = computed(() => allLabels.value.map(label => ({ text: label.name, value: label.id })) || []);
 
-const domNewFoodForm = ref<VForm>();
-const createDialog = ref(false);
-const createTarget = ref<CreateIngredientFoodWithOnHand>({
-  name: "",
-  onHand: false,
-  householdsWithIngredientFood: [],
+// ============================================================
+// Form items (shared)
+const formItems = computed<AutoFormItems>(() => [
+  {
+    label: i18n.t("general.name"),
+    varName: "name",
+    type: fieldTypes.TEXT,
+    rules: [validators.required],
+  },
+  {
+    label: i18n.t("general.plural-name"),
+    varName: "pluralName",
+    type: fieldTypes.TEXT,
+  },
+  {
+    label: i18n.t("recipe.description"),
+    varName: "description",
+    type: fieldTypes.TEXT,
+  },
+  {
+    label: i18n.t("data-pages.foods.food-label"),
+    varName: "labelId",
+    type: fieldTypes.SELECT,
+    options: labelOptions.value,
+  },
+  {
+    label: i18n.t("tool.on-hand"),
+    varName: "onHand",
+    type: fieldTypes.BOOLEAN,
+    hint: i18n.t("data-pages.foods.on-hand-checkbox-label"),
+  },
+]);
+
+// ===============================================================
+// Create
+
+const createForm = reactive({
+  get items() {
+    return formItems.value;
+  },
+  data: { name: "", onHand: false, householdsWithIngredientFood: [] } as CreateIngredientFoodWithOnHand,
 });
 
-function createEventHandler() {
-  createDialog.value = true;
-}
-
-async function createFood() {
-  if (!createTarget.value || !createTarget.value.name) {
+async function handleCreate() {
+  if (!createForm.data || !createForm.data.name) {
     return;
   }
 
-  if (createTarget.value.onHand) {
-    createTarget.value.householdsWithIngredientFood = [userHousehold.value];
+  if (createForm.data.onHand) {
+    createForm.data.householdsWithIngredientFood = [userHousehold.value];
   }
 
   // @ts-expect-error the createOne function erroneously expects an id because it uses the IngredientFood type
-  await foodStore.actions.createOne(createTarget.value);
-  createDialog.value = false;
-
-  domNewFoodForm.value?.reset();
-  createTarget.value = {
+  await foodStore.actions.createOne(createForm.data);
+  createForm.data = {
     name: "",
     onHand: false,
     householdsWithIngredientFood: [],
@@ -460,84 +338,44 @@ async function createFood() {
 }
 
 // ===============================================================
-// Food Editor
+// Edit
 
-const editDialog = ref(false);
-const editTarget = ref<IngredientFoodWithOnHand | null>(null);
+const editForm = reactive({
+  get items() {
+    return formItems.value;
+  },
+  data: {} as IngredientFoodWithOnHand,
+});
 
-function editEventHandler(item: IngredientFoodWithOnHand) {
-  editTarget.value = item;
-  editTarget.value.onHand = item.householdsWithIngredientFood?.includes(userHousehold.value) || false;
-  editDialog.value = true;
-}
-
-async function editSaveFood() {
-  if (!editTarget.value) {
+async function handleEdit() {
+  if (!editForm.data) {
     return;
   }
-  if (editTarget.value.onHand && !editTarget.value.householdsWithIngredientFood?.includes(userHousehold.value)) {
-    if (!editTarget.value.householdsWithIngredientFood) {
-      editTarget.value.householdsWithIngredientFood = [userHousehold.value];
-    }
-    else {
-      editTarget.value.householdsWithIngredientFood.push(userHousehold.value);
-    }
-  }
-  else if (!editTarget.value.onHand && editTarget.value.householdsWithIngredientFood?.includes(userHousehold.value)) {
-    editTarget.value.householdsWithIngredientFood = editTarget.value.householdsWithIngredientFood.filter(
-      household => household !== userHousehold.value,
-    );
+  if (!editForm.data.householdsWithIngredientFood) {
+    editForm.data.householdsWithIngredientFood = [];
   }
 
-  await foodStore.actions.updateOne(editTarget.value);
-  editDialog.value = false;
-}
-
-// ===============================================================
-// Food Delete
-
-const deleteDialog = ref(false);
-const deleteTarget = ref<IngredientFoodWithOnHand | null>(null);
-function deleteEventHandler(item: IngredientFoodWithOnHand) {
-  deleteTarget.value = item;
-  deleteDialog.value = true;
-}
-async function deleteFood() {
-  if (!deleteTarget.value) {
-    return;
+  if (editForm.data.onHand && !editForm.data.householdsWithIngredientFood.includes(userHousehold.value)) {
+    editForm.data.householdsWithIngredientFood.push(userHousehold.value);
+  }
+  else if (!editForm.data.onHand && editForm.data.householdsWithIngredientFood.includes(userHousehold.value)) {
+    const idx = editForm.data.householdsWithIngredientFood.indexOf(userHousehold.value);
+    if (idx !== -1) editForm.data.householdsWithIngredientFood.splice(idx, 1);
   }
 
-  await foodStore.actions.deleteOne(deleteTarget.value.id);
-  deleteDialog.value = false;
-}
-
-const bulkDeleteDialog = ref(false);
-const bulkDeleteTarget = ref<IngredientFoodWithOnHand[]>([]);
-
-function bulkDeleteEventHandler(selection: IngredientFoodWithOnHand[]) {
-  bulkDeleteTarget.value = selection;
-  bulkDeleteDialog.value = true;
-}
-
-async function deleteSelected() {
-  const ids = bulkDeleteTarget.value.map(item => item.id);
-  await foodStore.actions.deleteMany(ids);
-  bulkDeleteTarget.value = [];
+  await foodStore.actions.updateOne(editForm.data);
+  editForm.data = {} as IngredientFoodWithOnHand;
 }
 
 // ============================================================
 // Alias Manager
 
 const aliasManagerDialog = ref(false);
-function aliasManagerEventHandler() {
-  aliasManagerDialog.value = true;
-}
-
 function updateFoodAlias(newAliases: IngredientFoodAlias[]) {
-  if (!editTarget.value) {
+  if (!editForm.data) {
     return;
   }
-  editTarget.value.aliases = newAliases;
+  editForm.data.aliases = newAliases;
   aliasManagerDialog.value = false;
 }
 
@@ -563,11 +401,6 @@ async function mergeFoods() {
     foodStore.actions.refresh();
   }
 }
-
-// ============================================================
-// Labels
-
-const { store: allLabels } = useLabelStore();
 
 // ============================================================
 // Seed

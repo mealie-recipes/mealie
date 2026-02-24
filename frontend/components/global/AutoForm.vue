@@ -98,7 +98,7 @@
             :name="inputField.varName"
             :items="inputField.options"
             item-title="text"
-            item-value="text"
+            item-value="value"
             :return-object="false"
             :hint="inputField.hint"
             density="comfortable"

@@ -118,7 +118,7 @@ const labelStore = useLabelStore();
 
 // ============================================================
 // Form items (shared)
-const formItems = [
+const formItems: AutoFormItems = [
   {
     label: i18n.t("general.name"),
     varName: "name",
@@ -130,7 +130,7 @@ const formItems = [
     varName: "color",
     type: fieldTypes.COLOR,
   },
-] as AutoFormItems;
+];
 
 // ============================================================
 // Create
