@@ -1445,6 +1445,6 @@
     "invalid-url": "Geçerli Bir URL Olmalıdır",
     "no-whitespace": "No Whitespace Allowed",
     "min-length": "En Az {min} Karakter Olmalıdır",
-    "max-length": "En Fazla {max} Karakter Olmalıdır"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }
