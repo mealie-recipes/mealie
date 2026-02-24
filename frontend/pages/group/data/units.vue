@@ -297,6 +297,7 @@ const formItems = computed<AutoFormItems>(() => [
     label: i18n.t("data-pages.units.standard-unit"),
     varName: "standardUnit",
     type: fieldTypes.SELECT,
+    selectReturnValue: "value",
     options: [
       {
         text: i18n.t("data-pages.units.standard-unit-labels.fluid-ounce"),
