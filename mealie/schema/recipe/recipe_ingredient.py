@@ -58,6 +58,12 @@ class UnitFoodBase(MealieModel):
         return {x.key_name: x.value for x in v} if v else {}
 
 
+class IngredientFoodNutrition(MealieModel):
+    fdc_nutrition_id: int
+    value: float | None = None
+    model_config = ConfigDict(from_attributes=True)
+
+
 class CreateIngredientFoodAlias(MealieModel):
     name: str
 
@@ -70,6 +76,8 @@ class CreateIngredientFood(UnitFoodBase):
     label_id: UUID4 | None = None
     aliases: list[CreateIngredientFoodAlias] = []
     households_with_ingredient_food: list[str] = []
+    fdc_id: int | None = None
+    nutrition: list[IngredientFoodNutrition] = []
 
 
 class SaveIngredientFood(CreateIngredientFood):

@@ -173,6 +173,7 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
 
     label_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"), index=True)
     label: Mapped[MultiPurposeLabel | None] = orm.relationship(MultiPurposeLabel, uselist=False, back_populates="foods")
+    fdc_id: Mapped[int | None] = mapped_column(sa.Integer, nullable=True)
 
     # Automatically updated by sqlalchemy event, do not write to this manually
     name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
@@ -182,6 +183,12 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
         exclude={
             "households_with_ingredient_food",
         }
+    )
+
+    nutrition: Mapped[list["IngredientFoodNutritionModel"]] = orm.relationship(
+        "IngredientFoodNutritionModel",
+        back_populates="food",
+        cascade="all, delete, delete-orphan",
     )
 
     # Deprecated
@@ -335,6 +342,30 @@ class IngredientFoodAliasModel(SqlAlchemyBase, BaseMixins):
             )
 
         self.__table_args__ = tableargs
+
+
+class IngredientFoodNutritionModel(SqlAlchemyBase, BaseMixins):
+    __tablename__ = "ingredient_foods_nutrition"
+    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+
+    food_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), index=True)
+    food: Mapped["IngredientFoodModel"] = orm.relationship("IngredientFoodModel", back_populates="nutrition")
+
+    fdc_nutrition_id: Mapped[int] = mapped_column(Integer, index=True)
+    value: Mapped[float] = mapped_column(Float)
+
+    @auto_init()
+    def __init__(
+        self,
+        session: Session,
+        fdc_nutrition_id: int | None = None,
+        value: float | None = None,
+        **_,
+    ) -> None:
+        if fdc_nutrition_id is not None:
+            self.fdc_nutrition_id = fdc_nutrition_id
+        if value is not None:
+            self.value = value
 
 
 class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):

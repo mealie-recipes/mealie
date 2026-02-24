@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-from . import bulk_actions, comments, exports, recipe_crud_routes, shared_routes, timeline_events
+from . import bulk_actions, comments, exports, nutrition, recipe_crud_routes, shared_routes, timeline_events
 
 prefix = "/recipes"
 
@@ -12,3 +12,4 @@ router.include_router(comments.router, prefix=prefix, tags=["Recipe: Comments"])
 router.include_router(bulk_actions.router, prefix=prefix, tags=["Recipe: Bulk Actions"])
 router.include_router(shared_routes.router, prefix=prefix, tags=["Recipe: Shared"])
 router.include_router(timeline_events.router, prefix=prefix, tags=["Recipe: Timeline"])
+router.include_router(nutrition.router, prefix=prefix, tags=["Recipe: Nutrition"])

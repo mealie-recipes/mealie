@@ -68,6 +68,8 @@ export interface CreateIngredientFood {
   labelId?: string | null;
   aliases?: CreateIngredientFoodAlias[];
   householdsWithIngredientFood?: string[];
+  fdcId?: number | null;
+  nutrition?: IngredientFoodNutrition[];
 }
 export interface CreateIngredientFoodAlias {
   name: string;
@@ -130,6 +132,10 @@ export interface IngredientConfidence {
   quantity?: number | null;
   food?: number | null;
 }
+export interface IngredientFoodNutrition {
+  fdc_nutrition_id: number;
+  value: number | null;
+}
 export interface IngredientFood {
   id: string;
   name: string;
@@ -144,6 +150,8 @@ export interface IngredientFood {
   label?: MultiPurposeLabelSummary | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  fdcId?: number | null;
+  nutrition?: IngredientFoodNutrition[];
 }
 export interface IngredientFoodAlias {
   name: string;

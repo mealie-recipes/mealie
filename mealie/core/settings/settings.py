@@ -461,6 +461,11 @@ class AppSettings(AppLoggingSettings):
     TLS_PRIVATE_KEY_PATH: str | os.PathLike[str] | None = None
     """Path where the private key resides."""
 
+    # ===============================================
+    # FDC Configuration
+    FDC_API_KEY: MaskedNoneString = None
+    """Your USDA Food Data Central API key. Required to enable FDC access for nutrinion data."""
+
 
 def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:
     """

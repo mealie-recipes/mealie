@@ -116,6 +116,35 @@
             item-title="name"
             :label="$t('data-pages.foods.food-label')"
           />
+          <v-text-field
+            v-model="createTarget.fdcId"
+            hide-details
+            label="FDC ID"
+          >
+            <template #append>
+              <v-btn
+                v-if="createTarget && createTarget.fdcId"
+                icon
+                target="_blank"
+                :href="createTarget && createTarget.fdcId ? `https://fdc.nal.usda.gov/food-details/${encodeURIComponent(createTarget.fdcId)}/nutrients` : ''"
+                title="See FDC Details"
+                rel="noopener"
+                @click.stop
+              >
+                <v-icon>{{ $globals.icons.openInNew }}</v-icon>
+              </v-btn>
+              <v-btn
+                v-if="createTarget && !createTarget.fdcId"
+                edit
+                icon
+                target="_blank"
+                href="https://fdc.nal.usda.gov/"
+                title="Open search FDC page"
+              >
+                <v-icon>{{ $globals.icons.search }}</v-icon>
+              </v-btn>
+            </template>
+          </v-text-field>
           <v-checkbox
             v-model="createTarget.onHand"
             hide-details
@@ -173,6 +202,35 @@
             item-title="name"
             :label="$t('data-pages.foods.food-label')"
           />
+          <v-text-field
+            v-model="editTarget.fdcId"
+            hide-details
+            label="FdcID"
+          >
+            <template #append>
+              <v-btn
+                v-if="editTarget && editTarget.fdcId"
+                icon
+                target="_blank"
+                :href="editTarget && editTarget.fdcId ? `https://fdc.nal.usda.gov/food-details/${encodeURIComponent(editTarget.fdcId)}/nutrients` : ''"
+                title="See FDC Details"
+                rel="noopener"
+                @click.stop
+              >
+                <v-icon>{{ $globals.icons.openInNew }}</v-icon>
+              </v-btn>
+              <v-btn
+                v-if="editTarget && !editTarget.fdcId"
+                edit
+                icon
+                target="_blank"
+                href="https://fdc.nal.usda.gov/"
+                title="Open search FDC page"
+              >
+                <v-icon>{{ $globals.icons.search }}</v-icon>
+              </v-btn>
+            </template>
+          </v-text-field>
           <v-checkbox
             v-model="editTarget.onHand"
             hide-details
@@ -356,6 +414,7 @@ import { normalizeFilter } from "~/composables/use-utils";
 import { useFoodStore, useLabelStore } from "~/composables/store";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import type { VForm } from "~/types/auto-forms";
+import { alert } from "~/composables/use-toast";
 
 interface CreateIngredientFoodWithOnHand extends CreateIngredientFood {
   onHand: boolean;
@@ -400,6 +459,11 @@ export default defineNuxtComponent({
         show: true,
       },
       {
+        text: "FDC ID",
+        value: "fdcId",
+        show: true,
+      },
+      {
         text: i18n.t("shopping-list.label"),
         value: "label",
         show: true,
@@ -440,6 +504,7 @@ export default defineNuxtComponent({
       name: "",
       onHand: false,
       householdsWithIngredientFood: [],
+      fdcId: null,
     });
 
     function createEventHandler() {
@@ -453,6 +518,17 @@ export default defineNuxtComponent({
 
       if (createTarget.value.onHand) {
         createTarget.value.householdsWithIngredientFood = [userHousehold.value];
+      }
+
+      createTarget.value.fdcId = createTarget.value.fdcId ? Number(createTarget.value.fdcId) : null;
+      if (createTarget.value.fdcId) {
+        const { data } = await userApi.recipes.fetchIngredientNutrition(createTarget.value.fdcId);
+        if (data) {
+          createTarget.value.nutrition = data;
+        }
+        else {
+          alert.error("Failed to fetch nutrition data from FDC ID.");
+        }
       }
 
       // @ts-expect-error the createOne function erroneously expects an id because it uses the IngredientFood type
@@ -472,9 +548,11 @@ export default defineNuxtComponent({
 
     const editDialog = ref(false);
     const editTarget = ref<IngredientFoodWithOnHand | null>(null);
+    let originalFdcId: number | null | undefined = null;
 
     function editEventHandler(item: IngredientFoodWithOnHand) {
       editTarget.value = item;
+      originalFdcId = item.fdcId;
       editTarget.value.onHand = item.householdsWithIngredientFood?.includes(userHousehold.value) || false;
       editDialog.value = true;
     }
@@ -495,6 +573,21 @@ export default defineNuxtComponent({
         editTarget.value.householdsWithIngredientFood = editTarget.value.householdsWithIngredientFood.filter(
           household => household !== userHousehold.value,
         );
+      }
+
+      editTarget.value.fdcId = editTarget.value.fdcId ? Number(editTarget.value.fdcId) : null;
+      if (editTarget.value.fdcId && editTarget.value.fdcId !== originalFdcId) {
+        const { data } = await userApi.recipes.fetchIngredientNutrition(editTarget.value.fdcId);
+        if (data && data?.length > 0) {
+          editTarget.value.nutrition = data;
+        }
+        else {
+          alert.error("Failed to fetch nutrition data from FDC ID.");
+          editTarget.value.nutrition = [];
+        }
+      }
+      else if (!editTarget.value.fdcId) {
+        editTarget.value.nutrition = [];
       }
 
       await foodStore.actions.updateOne(editTarget.value);
