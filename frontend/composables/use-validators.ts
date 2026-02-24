@@ -1,6 +1,6 @@
 import type { RequestResponse } from "~/lib/api/types/non-generated";
 import type { ValidationResponse } from "~/lib/api/types/response";
-import { required, email, whitespace, url, urlOptional, minLength, maxLength, startsWithHttp } from "~/lib/validators";
+import { required, email, whitespace, url, urlOptional, minLength, maxLength } from "~/lib/validators";
 
 export const validators = {
   required,
@@ -10,7 +10,6 @@ export const validators = {
   urlOptional,
   minLength,
   maxLength,
-  startsWithHttp,
 };
 
 /**

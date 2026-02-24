@@ -72,7 +72,7 @@ const formItems: AutoFormItems = [
     label: i18n.t("general.url"),
     varName: "url",
     type: fieldTypes.TEXT,
-    rules: [validators.required, validators.url, validators.startsWithHttp],
+    rules: [validators.required, validators.url],
   },
   {
     label: i18n.t("data-pages.recipe-actions.action-type"),
