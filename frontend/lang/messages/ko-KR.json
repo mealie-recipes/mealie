@@ -1445,6 +1445,6 @@
     "invalid-url": "유효한 URL이어야 합니다.",
     "no-whitespace": "공백 허용 안 됨",
     "min-length": "최소 {min}자 이상이어야 합니다",
-    "max-length": "최대 {min}자 이하여야 합니다"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }
