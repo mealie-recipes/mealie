@@ -42,7 +42,7 @@ dependencies = [
     "pydantic-settings==2.13.1",
     "pillow-heif==1.2.1",
     "pyjwt==2.11.0",
-    "openai==2.22.0",
+    "openai==2.23.0",
     "typing-extensions==4.15.0",
     "itsdangerous==2.2.0",
     "ingredient-parser-nlp==2.5.0",
