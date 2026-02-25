@@ -1445,6 +1445,6 @@
     "invalid-url": "URL mora biti veljaven",
     "no-whitespace": "Presledki niso dovoljeni",
     "min-length": "Mora vsebovati vsaj {min} znakov",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Največ {max} znakov|Vsebuje lahko največ {max} znakov"
   }
 }
