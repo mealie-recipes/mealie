@@ -62,6 +62,9 @@ _(fill-in or delete this section)_
 -->
 
 ## AI / LLM Assistance
+
+_(REQUIRED)_
+
 <!--
   Describe to which degree an LLM was used in creating this pull request.
 -->
