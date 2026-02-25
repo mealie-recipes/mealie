@@ -57,12 +57,11 @@ _(fill-in or delete this section)_
 ## Testing
 
 _(fill-in or delete this section)_
+<!--
+  Describe how you tested this change.
+-->
 
 ## AI / LLM Assistance
 <!--
   Describe to which degree an LLM was used in creating this pull request.
--->
-
-<!--
-  Describe how you tested this change.
 -->
