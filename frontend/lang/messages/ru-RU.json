@@ -1445,6 +1445,6 @@
     "invalid-url": "Must Be A Valid URL",
     "no-whitespace": "Без пробелов",
     "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

@@ -1445,6 +1445,6 @@
     "invalid-url": "يجب أن يكون عنوان URL صالحًا",
     "no-whitespace": "لا يسمح باستخدام المسافات",
     "min-length": "يجب أن يكون على الأقل {min} أحرف",
-    "max-length": "يجب أن يكون على الأكثر {max} أحرف"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

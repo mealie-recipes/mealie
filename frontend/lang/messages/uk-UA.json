@@ -1445,6 +1445,6 @@
     "invalid-url": "Має бути дійсною URL-адресою",
     "no-whitespace": "Пробіли заборонені",
     "min-length": "Повинно бути не менше ніж {min} символів ",
-    "max-length": "Повинно бути не більше ніж {max} символів"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

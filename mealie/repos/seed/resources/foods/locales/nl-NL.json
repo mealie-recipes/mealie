@@ -2866,7 +2866,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "zure melk",
-                "plural_name": "sour milk"
+                "plural_name": "karnemelk"
             },
             "ganache": {
                 "aliases": [],
@@ -3003,8 +3003,8 @@
             "dahi": {
                 "aliases": [],
                 "description": "",
-                "name": "dahi",
-                "plural_name": "dahis"
+                "name": "dahi/curd (indiase yoghurt)",
+                "plural_name": "dahi/curd (indiase yoghurt)"
             },
             "cinnamon sugar butter spread": {
                 "aliases": [],
@@ -3070,7 +3070,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "passievruchten curd",
-                "plural_name": "passion-fruit curds"
+                "plural_name": "passievrucht curd"
             },
             "pickled egg": {
                 "aliases": [],
@@ -3893,7 +3893,7 @@
             "brisket": {
                 "aliases": [],
                 "description": "",
-                "name": "",
+                "name": "klapstuk",
                 "plural_name": "klapstukken"
             },
             "deli ham": {
@@ -4289,8 +4289,8 @@
             "bologna": {
                 "aliases": [],
                 "description": "",
-                "name": "bologna",
-                "plural_name": "bolognas"
+                "name": "bolognese",
+                "plural_name": "bologneses"
             },
             "burger patty": {
                 "aliases": [],
@@ -4695,13 +4695,13 @@
             "wild game bird": {
                 "aliases": [],
                 "description": "",
-                "name": "wild game bird",
+                "name": "wild vogel",
                 "plural_name": "wild game birds"
             },
             "turkey liver": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey liver",
+                "name": "kalkoenen levertjes",
                 "plural_name": "kalkoen levertjes"
             },
             "chicken neck": {
@@ -4827,20 +4827,20 @@
             "chicken ham": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken ham",
-                "plural_name": "chicken hams"
+                "name": "kipham",
+                "plural_name": "kippenham"
             },
             "duck neck": {
                 "aliases": [],
                 "description": "",
-                "name": "duck neck",
-                "plural_name": "duck necks"
+                "name": "eendennek",
+                "plural_name": "eendennekken"
             },
             "chicken chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken chorizo",
-                "plural_name": "chicken chorizoes"
+                "name": "chorizo van Kip",
+                "plural_name": "chorizo's van Kip"
             },
             "chicken frame": {
                 "aliases": [],
@@ -9540,8 +9540,8 @@
             "fettuccine": {
                 "aliases": [],
                 "description": "",
-                "name": "fettuccine",
-                "plural_name": "fettuccines"
+                "name": "fettucini",
+                "plural_name": "fettucini's"
             },
             "orzo": {
                 "aliases": [],
@@ -9552,8 +9552,8 @@
             "pasta shell": {
                 "aliases": [],
                 "description": "",
-                "name": "pasta shell",
-                "plural_name": "pasta shells"
+                "name": "pasta schelp",
+                "plural_name": "pastaschelpen"
             },
             "bow-tie pasta": {
                 "aliases": [],
@@ -9571,7 +9571,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tortellini",
-                "plural_name": "tortellinis"
+                "plural_name": "tortellini's"
             },
             "cheese tortellini": {
                 "aliases": [],

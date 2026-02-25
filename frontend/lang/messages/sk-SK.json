@@ -1445,6 +1445,6 @@
     "invalid-url": "Musí byť platná URL",
     "no-whitespace": "Prázdne znaky nepovolené",
     "min-length": "Musí mať aspoň {min} znakov",
-    "max-length": "Musí mať najviac {max} znakov"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

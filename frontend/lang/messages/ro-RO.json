@@ -1445,6 +1445,6 @@
     "invalid-url": "Trebuie Să Fie Un URL Valid",
     "no-whitespace": "Niciun Spațiu Alb Permis",
     "min-length": "Trebuie Să Aibă Cel Puțin {min} Caractere",
-    "max-length": "Trebuie Să Aibă Cel Mult {max} Caractere"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

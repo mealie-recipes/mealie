@@ -1445,6 +1445,6 @@
     "invalid-url": "Musi być prawidłowym odnośnikiem",
     "no-whitespace": "Niedozwolone są puste spacje",
     "min-length": "Musi zawierać co najmniej {min} znaków",
-    "max-length": "Musi zawierać co najwyżej {max} znaków"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

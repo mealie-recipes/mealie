@@ -1445,6 +1445,6 @@
     "invalid-url": "Мора бити валидан URL",
     "no-whitespace": "Размак није дозвољен",
     "min-length": "Мора бити најмање {min} карактера",
-    "max-length": "Мора бити највише {max} карактера"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }
