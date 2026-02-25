@@ -1445,6 +1445,6 @@
     "invalid-url": "Πρέπει να είναι μια έγκυρη διεύθυνση URL",
     "no-whitespace": "Δεν επιτρέπονται κενοί χαρακτήρες",
     "min-length": "Πρέπει να αποτελείται από τουλάχιστον {min} χαρακτήρες",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Πρέπει να αποτελείται το πολύ από {max} χαρακτήρα|Πρέπει να αποτελείται το πολύ από {max} χαρακτήρες"
   }
 }
