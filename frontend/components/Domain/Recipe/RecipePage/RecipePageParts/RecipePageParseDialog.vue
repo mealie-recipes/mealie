@@ -373,7 +373,18 @@ async function parseIngredients() {
   try {
     const ingsAsString = props.ingredients
       .filter(ing => !ing.referencedRecipe)
-      .map(ing => parseIngredientText(ing, 1, false) ?? "");
+      .map((ing) => {
+        // If the ingredient has not been parsed into structured data (no food and no unit),
+        // the note field contains the full original ingredient text. Using
+        // parseIngredientText in this case would incorrectly prepend the quantity to the
+        // note, producing strings like "1 1/2 cup apples" instead of "1/2 cup apples".
+        // See: https://github.com/mealie-recipes/mealie/issues/7079
+        const isUnparsed = !ing.food && !ing.unit;
+        if (isUnparsed) {
+          return ing.originalText || ing.note || "";
+        }
+        return parseIngredientText(ing, 1, false) ?? "";
+      });
     const { data, error } = await api.recipes.parseIngredients(parser.value, ingsAsString);
     if (error || !data) {
       throw new Error("Failed to parse ingredients");

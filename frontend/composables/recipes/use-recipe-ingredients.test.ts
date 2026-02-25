@@ -235,4 +235,28 @@ describe("parseIngredientText", () => {
 
     expect(parseIngredientText(ingredient, 1, false)).toEqual("&lt; 1/10 cup salt");
   });
+
+  // Regression test for https://github.com/mealie-recipes/mealie/issues/7079
+  // Unparsed ingredients (no food, no unit) store the full text in the note field.
+  // When such an ingredient also has a quantity (e.g. from a forced-quantity setting),
+  // parseIngredientText incorrectly prepends that quantity to the note, producing
+  // strings like "1 1/2 cup apples" instead of the original "1/2 cup apples".
+  // Callers constructing strings for the NLP parser should use the note directly
+  // for unparsed ingredients instead of calling parseIngredientText.
+  test("unparsed ingredient with quantity prepends quantity to note (issue #7079)", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 1,
+      unit: undefined,
+      food: undefined,
+      note: "1/2 cup apples",
+    });
+
+    // This demonstrates the problematic behavior: parseIngredientText combines
+    // the quantity field with the note, producing "1 1/2 cup apples"
+    const result = parseIngredientText(ingredient, 1, false);
+    expect(result).toEqual("1 1/2 cup apples");
+
+    // The note alone contains the correct text for NLP parsing
+    expect(ingredient.note).toEqual("1/2 cup apples");
+  });
 });
