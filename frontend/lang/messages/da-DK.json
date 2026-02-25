@@ -1445,6 +1445,6 @@
     "invalid-url": "URL'en skal være gyldig",
     "no-whitespace": "Mellemrum er ikke tilladt",
     "min-length": "Der skal mindst være {min} tegn",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Må højst være {max} tegn|Må højst være {max} tegn"
   }
 }
