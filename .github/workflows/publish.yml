@@ -42,7 +42,7 @@ jobs:
         uses: docker/metadata-action@v5
         with:
           images: |
-            hkotel/mealie
+            sulc/mealie
             ghcr.io/${{ github.repository }}
           # Overwrite the image.version label with our tag
           labels: |
@@ -65,7 +65,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            hkotel/mealie:${{ inputs.tag }}
+            sulc/mealie:${{ inputs.tag }}
             ghcr.io/${{ github.repository }}:${{ inputs.tag }}
             ${{ inputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

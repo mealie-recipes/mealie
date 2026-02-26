@@ -1,0 +1,22 @@
+name: Publish Containers On Push
+
+on:
+  push:
+    branches: ['**']
+
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
+jobs:
+  publish:
+    uses: ./.github/workflows/publish.yml
+    with:
+      tag: ${{ github.sha }}
+      tags: |
+        sulc/mealie:latest
+        ghcr.io/${{ github.repository }}:latest
+    secrets:
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}

@@ -93,8 +93,8 @@ jobs:
     with:
       tag: ${{ github.event.release.tag_name }}
       tags: |
-          hkotel/mealie:latest
-          ghcr.io/${{ github.repository }}:latest
+        sulc/mealie:latest
+        ghcr.io/${{ github.repository }}:latest
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
@@ -135,17 +135,3 @@ jobs:
         run: |
           git revert --no-edit ${{ needs.commit-version-bump.outputs.commit-sha }}
           git push origin HEAD:${{ github.event.repository.default_branch }}
-
-  notify-discord:
-    name: Notify Discord
-    needs:
-      - publish
-    if: success()
-    runs-on: ubuntu-latest
-    steps:
-      - name: Discord notification
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_RELEASE_WEBHOOK }}
-        uses: Ilshidur/action-discord@0.3.2
-        with:
-          args: "🚀  Version {{ EVENT_PAYLOAD.release.tag_name }} of Mealie has been released. See the release notes https://github.com/mealie-recipes/mealie/releases/tag/{{ EVENT_PAYLOAD.release.tag_name }}"
