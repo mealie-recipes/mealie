@@ -2,9 +2,11 @@
   <!-- Create Dialog -->
   <BaseDialog
     v-model="createDialog"
-    :title="$t('general.create')"
+    :title="createTitle || $t('general.create')"
     :icon="icon"
     color="primary"
+    max-width="600px"
+    width="100%"
     :submit-disabled="!createFormValid"
     can-confirm
     @confirm="emit('create-one', createForm.data)"
@@ -15,6 +17,7 @@
         v-model="createForm.data"
         v-model:is-valid="createFormValid"
         :items="createForm.items"
+        class="py-2"
       />
     </div>
   </BaseDialog>
@@ -22,18 +25,22 @@
   <!-- Edit Dialog -->
   <BaseDialog
     v-model="editDialog"
-    :title="$t('general.edit')"
+    :title="editTitle || $t('general.edit')"
     :icon="icon"
     color="primary"
+    max-width="600px"
+    width="100%"
     :submit-disabled="!editFormValid"
     can-confirm
     @confirm="emit('edit-one', editForm.data)"
   >
     <div class="mx-2 mt-2">
+      <slot name="edit-dialog-top" />
       <AutoForm
         v-model="editForm.data"
         v-model:is-valid="editFormValid"
         :items="editForm.items"
+        class="py-2"
       />
     </div>
     <template #custom-card-action>
@@ -152,6 +159,12 @@ defineProps({
   title: {
     type: String,
     required: true,
+  },
+  createTitle: {
+    type: String,
+  },
+  editTitle: {
+    type: String,
   },
   tableConfig: {
     type: Object as PropType<TableConfig>,

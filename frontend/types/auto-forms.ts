@@ -28,6 +28,7 @@ export interface FormFieldNumberInputConfig {
 export interface FormField {
   section?: string;
   sectionDetails?: string;
+  cols?: number | "auto";
   label?: string;
   hint?: string;
   varName: string;
