@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Gögn fyrir uppskriftaaðgerðir",
       "new-recipe-action": "Nú uppskriftaaðgerð",
       "edit-recipe-action": "Breyta uppskriftaaðgerð",
-      "action-type": "Aðgerð"
+      "action-type": "Aðgerð",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Stofna samheiti",
     "manage-aliases": "Vinna með samheiti",
