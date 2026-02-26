@@ -2,7 +2,7 @@ name: Publish Containers On Push
 
 on:
   push:
-    branches: ['**']
+    branches: ["**"]
 
 permissions:
   contents: read
@@ -10,8 +10,21 @@ permissions:
   id-token: write
 
 jobs:
+  build-package:
+    name: Build Package
+    uses: ./.github/workflows/build-package.yml
+    with:
+      tag: ${{ github.sha }}
+
   publish:
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+    name: Publish Containers
     uses: ./.github/workflows/publish.yml
+    needs:
+      - build-package
     with:
       tag: ${{ github.sha }}
       tags: |
