@@ -3,6 +3,8 @@
     <GroupDataPage
       :icon="$globals.icons.categories"
       :title="$t('data-pages.categories.category-data')"
+      :create-title="$t('data-pages.recipe-actions.new-recipe-action')"
+      :edit-title="$t('data-pages.recipe-actions.edit-recipe-action')"
       :table-headers="tableHeaders"
       :table-config="tableConfig"
       :data="actionStore.recipeActions.value || []"

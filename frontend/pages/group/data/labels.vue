@@ -45,6 +45,8 @@
     <GroupDataPage
       :icon="$globals.icons.tags"
       :title="$t('data-pages.labels.labels')"
+      :create-title="$t('data-pages.labels.new-label')"
+      :edit-title="$t('data-pages.labels.edit-label')"
       :table-headers="tableHeaders"
       :table-config="tableConfig"
       :data="labelStore.store.value || []"

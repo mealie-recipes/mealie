@@ -95,6 +95,8 @@
     <GroupDataPage
       :icon="$globals.icons.units"
       :title="$t('general.units')"
+      :create-title="$t('data-pages.units.create-unit')"
+      :edit-title="$t('data-pages.units.edit-unit')"
       :table-headers="tableHeaders"
       :table-config="tableConfig"
       :data="unitStore || []"

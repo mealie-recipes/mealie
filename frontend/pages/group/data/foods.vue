@@ -130,6 +130,8 @@
     <GroupDataPage
       :icon="$globals.icons.foods"
       :title="$t('data-pages.foods.food-data')"
+      :create-title="$t('data-pages.foods.create-food')"
+      :edit-title="$t('data-pages.foods.edit-food')"
       :table-headers="tableHeaders"
       :table-config="tableConfig"
       :data="foods || []"
