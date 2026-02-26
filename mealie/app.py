@@ -102,7 +102,6 @@ app = FastAPI(
     description=description,
     version=APP_VERSION,
     docs_url=settings.DOCS_URL,
-    redoc_url=settings.REDOC_URL,
     lifespan=lifespan_fn,
 )
 

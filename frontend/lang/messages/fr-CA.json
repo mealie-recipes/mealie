@@ -1423,8 +1423,8 @@
       "is-greater-than-or-equal-to": "est supérieur ou égal à",
       "is-less-than": "est inférieure à",
       "is-less-than-or-equal-to": "est inférieur ou égal à",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "est plus ancien que",
+      "is-newer-than": "est plus récent que"
     },
     "relational-keywords": {
       "is": "est",
@@ -1436,7 +1436,7 @@
       "is-not-like": "n'est pas similaire à"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "jours|jour|jours"
     }
   },
   "validators": {
@@ -1445,6 +1445,6 @@
     "invalid-url": "Doit être une URL valide",
     "no-whitespace": "Aucun espace n'est autorisé",
     "min-length": "",
-    "max-length": "Doit contenir au maximum {max} caractères"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

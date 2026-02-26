@@ -18,15 +18,16 @@
         <v-autocomplete
           v-model="fromUnit"
           return-object
-          :items="store"
+          :items="unitStore"
           :custom-filter="normalizeFilter"
           item-title="name"
           :label="$t('data-pages.units.source-unit')"
+          class="mt-2"
         />
         <v-autocomplete
           v-model="toUnit"
           return-object
-          :items="store"
+          :items="unitStore"
           :custom-filter="normalizeFilter"
           item-title="name"
           :label="$t('data-pages.units.target-unit')"
@@ -40,176 +41,15 @@
       </v-card-text>
     </BaseDialog>
 
-    <!-- Create Dialog -->
-    <BaseDialog
-      v-model="createDialog"
-      :icon="$globals.icons.units"
-      :title="$t('data-pages.units.create-unit')"
-      :submit-icon="$globals.icons.save"
-      :submit-text="$t('general.save')"
-      can-submit
-      @submit="createUnit"
-    >
-      <v-card-text>
-        <v-form ref="domNewUnitForm">
-          <v-text-field
-            v-model="createTarget.name"
-            autofocus
-            :label="$t('general.name')"
-            :hint="$t('data-pages.units.example-unit-singular')"
-            :rules="[validators.required]"
-          />
-          <v-text-field
-            v-model="createTarget.pluralName"
-            :label="$t('general.plural-name')"
-            :hint="$t('data-pages.units.example-unit-plural')"
-          />
-          <v-text-field
-            v-model="createTarget.abbreviation"
-            :label="$t('data-pages.units.abbreviation')"
-            :hint="$t('data-pages.units.example-unit-abbreviation-singular')"
-          />
-          <v-text-field
-            v-model="createTarget.pluralAbbreviation"
-            :label="$t('data-pages.units.plural-abbreviation')"
-            :hint="$t('data-pages.units.example-unit-abbreviation-plural')"
-          />
-          <v-text-field
-            v-model="createTarget.description"
-            :label="$t('data-pages.units.description')"
-          />
-          <v-checkbox
-            v-model="createTarget.fraction"
-            hide-details
-            :label="$t('data-pages.units.display-as-fraction')"
-          />
-          <v-checkbox
-            v-model="createTarget.useAbbreviation"
-            hide-details
-            :label="$t('data-pages.units.use-abbreviation')"
-          />
-        </v-form>
-      </v-card-text>
-    </BaseDialog>
-
     <!-- Alias Sub-Dialog -->
     <RecipeDataAliasManagerDialog
-      v-if="editTarget"
+      v-if="editForm.data"
       v-model="aliasManagerDialog"
-      :data="editTarget"
+      :data="editForm.data"
       can-submit
       @submit="updateUnitAlias"
       @cancel="aliasManagerDialog = false"
     />
-
-    <!-- Edit Dialog -->
-    <BaseDialog
-      v-model="editDialog"
-      :icon="$globals.icons.units"
-      :title="$t('data-pages.units.edit-unit')"
-      :submit-icon="$globals.icons.save"
-      :submit-text="$t('general.save')"
-      can-submit
-      @submit="editSaveUnit"
-    >
-      <v-card-text v-if="editTarget">
-        <v-form ref="domEditUnitForm">
-          <v-text-field
-            v-model="editTarget.name"
-            :label="$t('general.name')"
-            :hint="$t('data-pages.units.example-unit-singular')"
-            :rules="[validators.required]"
-          />
-          <v-text-field
-            v-model="editTarget.pluralName"
-            :label="$t('general.plural-name')"
-            :hint="$t('data-pages.units.example-unit-plural')"
-          />
-          <v-text-field
-            v-model="editTarget.abbreviation"
-            :label="$t('data-pages.units.abbreviation')"
-            :hint="$t('data-pages.units.example-unit-abbreviation-singular')"
-          />
-          <v-text-field
-            v-model="editTarget.pluralAbbreviation"
-            :label="$t('data-pages.units.plural-abbreviation')"
-            :hint="$t('data-pages.units.example-unit-abbreviation-plural')"
-          />
-          <v-text-field
-            v-model="editTarget.description"
-            :label="$t('data-pages.units.description')"
-          />
-          <v-checkbox
-            v-model="editTarget.fraction"
-            hide-details
-            :label="$t('data-pages.units.display-as-fraction')"
-          />
-          <v-checkbox
-            v-model="editTarget.useAbbreviation"
-            hide-details
-            :label="$t('data-pages.units.use-abbreviation')"
-          />
-        </v-form>
-      </v-card-text>
-      <template #custom-card-action>
-        <BaseButton
-          edit
-          @click="aliasManagerEventHandler"
-        >
-          {{ $t('data-pages.manage-aliases') }}
-        </BaseButton>
-      </template>
-    </BaseDialog>
-
-    <!-- Delete Dialog -->
-    <BaseDialog
-      v-model="deleteDialog"
-      :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      can-confirm
-      @confirm="deleteUnit"
-    >
-      <v-card-text>
-        {{ $t("general.confirm-delete-generic") }}
-        <p
-          v-if="deleteTarget"
-          class="mt-4 ml-4"
-        >
-          {{ deleteTarget.name }}
-        </p>
-      </v-card-text>
-    </BaseDialog>
-
-    <!-- Bulk Delete Dialog -->
-    <BaseDialog
-      v-model="bulkDeleteDialog"
-      width="650px"
-      :title="$t('general.confirm')"
-      :icon="$globals.icons.alertCircle"
-      color="error"
-      can-confirm
-      @confirm="deleteSelected"
-    >
-      <v-card-text>
-        <p class="h4">
-          {{ $t('general.confirm-delete-generic-items') }}
-        </p>
-        <v-card variant="outlined">
-          <v-virtual-scroll
-            height="400"
-            item-height="25"
-            :items="bulkDeleteTarget"
-          >
-            <template #default="{ item }">
-              <v-list-item class="pb-2">
-                <v-list-item-title>{{ item.name }}</v-list-item-title>
-              </v-list-item>
-            </template>
-          </v-virtual-scroll>
-        </v-card>
-      </v-card-text>
-    </BaseDialog>
 
     <!-- Seed Dialog -->
     <BaseDialog
@@ -243,7 +83,7 @@
         </v-autocomplete>
 
         <v-alert
-          v-if="store && store.length > 0"
+          v-if="unitStore && unitStore.length > 0"
           type="error"
           class="mb-0 text-body-2"
         >
@@ -252,63 +92,65 @@
       </v-card-text>
     </BaseDialog>
 
-    <!-- Data Table -->
-    <BaseCardSectionTitle
+    <GroupDataPage
       :icon="$globals.icons.units"
-      section
-      :title="$t('data-pages.units.unit-data')"
-    />
-    <CrudTable
-      v-model:headers="tableHeaders"
+      :title="$t('general.units')"
+      :table-headers="tableHeaders"
       :table-config="tableConfig"
-      :data="store"
+      :data="unitStore || []"
       :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
-      initial-sort="createdAt"
-      initial-sort-desc
-      @delete-one="deleteEventHandler"
-      @edit-one="editEventHandler"
-      @create-one="createEventHandler"
-      @delete-selected="bulkDeleteEventHandler"
+      :create-form="createForm"
+      :edit-form="editForm"
+      @create-one="handleCreate"
+      @edit-one="handleEdit"
+      @delete-one="unitActions.deleteOne"
+      @bulk-action="handleBulkAction"
     >
-      <template #button-row>
+      <template #table-button-row>
         <BaseButton
-          create
-          @click="createDialog = true"
-        />
-
-        <BaseButton @click="mergeDialog = true">
-          <template #icon>
-            {{ $globals.icons.externalLink }}
-          </template>
+          :icon="$globals.icons.externalLink"
+          @click="mergeDialog = true"
+        >
           {{ $t('data-pages.combine') }}
         </BaseButton>
       </template>
+
       <template #[`item.useAbbreviation`]="{ item }">
         <v-icon :color="item.useAbbreviation ? 'success' : undefined">
           {{ item.useAbbreviation ? $globals.icons.check : $globals.icons.close }}
         </v-icon>
       </template>
+
       <template #[`item.fraction`]="{ item }">
         <v-icon :color="item.fraction ? 'success' : undefined">
           {{ item.fraction ? $globals.icons.check : $globals.icons.close }}
         </v-icon>
       </template>
+
       <template #[`item.createdAt`]="{ item }">
         {{ item.createdAt ? $d(new Date(item.createdAt)) : '' }}
       </template>
-      <template #button-bottom>
-        <BaseButton @click="seedDialog = true">
-          <template #icon>
-            {{ $globals.icons.database }}
-          </template>
+
+      <template #table-button-bottom>
+        <BaseButton :icon="$globals.icons.database" @click="seedDialog = true">
           {{ $t('data-pages.seed') }}
         </BaseButton>
       </template>
-    </CrudTable>
+
+      <template #edit-dialog-custom-action>
+        <BaseButton
+          :icon="$globals.icons.tags"
+          color="info"
+          @click="aliasManagerDialog = true"
+        >
+          {{ $t('data-pages.manage-aliases') }}
+        </BaseButton>
+      </template>
+    </GroupDataPage>
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { LocaleObject } from "@nuxtjs/i18n";
 import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
@@ -317,265 +159,213 @@ import type { CreateIngredientUnit, IngredientUnit, IngredientUnitAlias } from "
 import { useLocales } from "~/composables/use-locales";
 import { normalizeFilter } from "~/composables/use-utils";
 import { useUnitStore } from "~/composables/store";
-import type { VForm } from "~/types/auto-forms";
+import type { AutoFormItems } from "~/types/auto-forms";
+import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
+import { fieldTypes } from "~/composables/forms";
 
-export default defineNuxtComponent({
-  components: { RecipeDataAliasManagerDialog },
-  setup() {
-    const userApi = useUserApi();
-    const i18n = useI18n();
+const userApi = useUserApi();
+const i18n = useI18n();
 
-    const tableConfig = {
-      hideColumns: true,
-      canExport: true,
-    };
-    const tableHeaders = [
-      {
-        text: i18n.t("general.id"),
-        value: "id",
-        show: false,
-      },
-      {
-        text: i18n.t("general.name"),
-        value: "name",
-        show: true,
-        sortable: true,
-      },
-      {
-        text: i18n.t("general.plural-name"),
-        value: "pluralName",
-        show: true,
-        sortable: true,
-      },
-      {
-        text: i18n.t("data-pages.units.abbreviation"),
-        value: "abbreviation",
-        show: true,
-        sortable: true,
-      },
-      {
-        text: i18n.t("data-pages.units.plural-abbreviation"),
-        value: "pluralAbbreviation",
-        show: true,
-        sortable: true,
-      },
-      {
-        text: i18n.t("data-pages.units.use-abbv"),
-        value: "useAbbreviation",
-        show: true,
-        sortable: true,
-      },
-      {
-        text: i18n.t("data-pages.units.description"),
-        value: "description",
-        show: false,
-      },
-      {
-        text: i18n.t("data-pages.units.fraction"),
-        value: "fraction",
-        show: true,
-        sortable: true,
-      },
-      {
-        text: i18n.t("general.date-added"),
-        value: "createdAt",
-        show: false,
-        sortable: true,
-      },
-    ];
-
-    const { store, actions: unitActions } = useUnitStore();
-
-    // ============================================================
-    // Create Units
-
-    const createDialog = ref(false);
-    const domNewUnitForm = ref<VForm>();
-
-    // we explicitly set booleans to false since forms don't POST unchecked boxes
-    const createTarget = ref<CreateIngredientUnit>({
-      name: "",
-      fraction: true,
-      useAbbreviation: false,
-    });
-
-    function createEventHandler() {
-      createDialog.value = true;
-    }
-
-    async function createUnit() {
-      if (!createTarget.value || !createTarget.value.name) {
-        return;
-      }
-
-      // @ts-expect-error the createOne function erroneously expects an id because it uses the IngredientUnit type
-      await unitActions.createOne(createTarget.value);
-      createDialog.value = false;
-
-      domNewUnitForm.value?.reset();
-      createTarget.value = {
-        name: "",
-        fraction: false,
-        useAbbreviation: false,
-      };
-    }
-
-    // ============================================================
-    // Edit Units
-    const editDialog = ref(false);
-    const editTarget = ref<IngredientUnit | null>(null);
-    function editEventHandler(item: IngredientUnit) {
-      editTarget.value = item;
-      editDialog.value = true;
-    }
-
-    async function editSaveUnit() {
-      if (!editTarget.value) {
-        return;
-      }
-
-      await unitActions.updateOne(editTarget.value);
-      editDialog.value = false;
-    }
-
-    // ============================================================
-    // Delete Units
-    const deleteDialog = ref(false);
-    const deleteTarget = ref<IngredientUnit | null>(null);
-    function deleteEventHandler(item: IngredientUnit) {
-      deleteTarget.value = item;
-      deleteDialog.value = true;
-    }
-
-    async function deleteUnit() {
-      if (!deleteTarget.value) {
-        return;
-      }
-      await unitActions.deleteOne(deleteTarget.value.id);
-      deleteDialog.value = false;
-    }
-
-    // ============================================================
-    // Bulk Delete Units
-    const bulkDeleteDialog = ref(false);
-    const bulkDeleteTarget = ref<IngredientUnit[]>([]);
-    function bulkDeleteEventHandler(selection: IngredientUnit[]) {
-      bulkDeleteTarget.value = selection;
-      bulkDeleteDialog.value = true;
-    }
-
-    async function deleteSelected() {
-      const ids = bulkDeleteTarget.value.map(item => item.id);
-      await unitActions.deleteMany(ids);
-      bulkDeleteTarget.value = [];
-    }
-
-    // ============================================================
-    // Alias Manager
-
-    const aliasManagerDialog = ref(false);
-    function aliasManagerEventHandler() {
-      aliasManagerDialog.value = true;
-    }
-
-    function updateUnitAlias(newAliases: IngredientUnitAlias[]) {
-      if (!editTarget.value) {
-        return;
-      }
-      editTarget.value.aliases = newAliases;
-      aliasManagerDialog.value = false;
-    }
-
-    // ============================================================
-    // Merge Units
-
-    const mergeDialog = ref(false);
-    const fromUnit = ref<IngredientUnit | null>(null);
-    const toUnit = ref<IngredientUnit | null>(null);
-
-    const canMerge = computed(() => {
-      return fromUnit.value && toUnit.value && fromUnit.value.id !== toUnit.value.id;
-    });
-
-    async function mergeUnits() {
-      if (!canMerge.value || !fromUnit.value || !toUnit.value) {
-        return;
-      }
-
-      const { data } = await userApi.units.merge(fromUnit.value.id, toUnit.value.id);
-
-      if (data) {
-        unitActions.refresh();
-      }
-    }
-
-    // ============================================================
-    // Seed
-
-    const seedDialog = ref(false);
-    const locale = ref("");
-
-    const { locales: LOCALES, locale: currentLocale } = useLocales();
-
-    onMounted(() => {
-      locale.value = currentLocale.value;
-    });
-
-    const locales = LOCALES.filter(locale =>
-      (i18n.locales.value as LocaleObject[]).map(i18nLocale => i18nLocale.code).includes(locale.value),
-    );
-
-    async function seedDatabase() {
-      const { data } = await userApi.seeders.units({ locale: locale.value });
-
-      if (data) {
-        unitActions.refresh();
-      }
-    }
-
-    return {
-      tableConfig,
-      tableHeaders,
-      store,
-      validators,
-      normalizeFilter,
-      // Create
-      createDialog,
-      domNewUnitForm,
-      createEventHandler,
-      createUnit,
-      createTarget,
-      // Edit
-      editDialog,
-      editEventHandler,
-      editSaveUnit,
-      editTarget,
-      // Delete
-      deleteEventHandler,
-      deleteDialog,
-      deleteUnit,
-      deleteTarget,
-      // Bulk Delete
-      bulkDeleteDialog,
-      bulkDeleteEventHandler,
-      bulkDeleteTarget,
-      deleteSelected,
-      // Alias Manager
-      aliasManagerDialog,
-      aliasManagerEventHandler,
-      updateUnitAlias,
-      // Merge
-      canMerge,
-      mergeUnits,
-      mergeDialog,
-      fromUnit,
-      toUnit,
-      // Seed
-      seedDatabase,
-      locales,
-      locale,
-      seedDialog,
-    };
+const tableConfig: TableConfig = {
+  hideColumns: true,
+  canExport: true,
+};
+const tableHeaders: TableHeaders[] = [
+  {
+    text: i18n.t("general.id"),
+    value: "id",
+    show: false,
   },
+  {
+    text: i18n.t("general.name"),
+    value: "name",
+    show: true,
+    sortable: true,
+  },
+  {
+    text: i18n.t("general.plural-name"),
+    value: "pluralName",
+    show: true,
+    sortable: true,
+  },
+  {
+    text: i18n.t("data-pages.units.abbreviation"),
+    value: "abbreviation",
+    show: true,
+    sortable: true,
+  },
+  {
+    text: i18n.t("data-pages.units.plural-abbreviation"),
+    value: "pluralAbbreviation",
+    show: true,
+    sortable: true,
+  },
+  {
+    text: i18n.t("data-pages.units.use-abbv"),
+    value: "useAbbreviation",
+    show: true,
+    sortable: true,
+  },
+  {
+    text: i18n.t("data-pages.units.description"),
+    value: "description",
+    show: false,
+  },
+  {
+    text: i18n.t("data-pages.units.fraction"),
+    value: "fraction",
+    show: true,
+    sortable: true,
+  },
+  {
+    text: i18n.t("general.date-added"),
+    value: "createdAt",
+    show: false,
+    sortable: true,
+  },
+];
+
+const { store: unitStore, actions: unitActions } = useUnitStore();
+
+// ============================================================
+// Form items (shared)
+const formItems: AutoFormItems = [
+  {
+    label: i18n.t("general.name"),
+    varName: "name",
+    type: fieldTypes.TEXT,
+    rules: [validators.required],
+  },
+  {
+    label: i18n.t("general.plural-name"),
+    varName: "pluralName",
+    type: fieldTypes.TEXT,
+  },
+  {
+    label: i18n.t("data-pages.units.abbreviation"),
+    varName: "abbreviation",
+    type: fieldTypes.TEXT,
+  },
+  {
+    label: i18n.t("data-pages.units.plural-abbreviation"),
+    varName: "pluralAbbreviation",
+    type: fieldTypes.TEXT,
+  },
+  {
+    label: i18n.t("data-pages.units.description"),
+    varName: "description",
+    type: fieldTypes.TEXT,
+  },
+  {
+    label: i18n.t("data-pages.units.use-abbv"),
+    varName: "useAbbreviation",
+    type: fieldTypes.BOOLEAN,
+  },
+  {
+    label: i18n.t("data-pages.units.fraction"),
+    varName: "fraction",
+    type: fieldTypes.BOOLEAN,
+  },
+];
+
+// ============================================================
+// Create
+const createForm = reactive({
+  items: formItems,
+  data: {
+    name: "",
+    fraction: false,
+    useAbbreviation: false,
+  } as CreateIngredientUnit,
 });
+
+async function handleCreate(createFormData: CreateIngredientUnit) {
+  // @ts-expect-error createOne eroniusly expects id which is not preset at time of creation
+  await unitActions.createOne(createFormData);
+  createForm.data = {
+    name: "",
+    fraction: false,
+    useAbbreviation: false,
+  } as CreateIngredientUnit;
+}
+
+// ============================================================
+// Edit
+const editForm = reactive({
+  items: formItems,
+  data: {} as IngredientUnit,
+});
+
+async function handleEdit(editFormData: IngredientUnit) {
+  await unitActions.updateOne(editFormData);
+  editForm.data = {} as IngredientUnit;
+}
+
+// ============================================================
+// Bulk Actions
+async function handleBulkAction(event: string, items: IngredientUnit[]) {
+  if (event === "delete-selected") {
+    const ids = items.filter(item => item.id != null).map(item => item.id!);
+    await unitActions.deleteMany(ids);
+  }
+}
+
+// ============================================================
+// Alias Manager
+
+const aliasManagerDialog = ref(false);
+function updateUnitAlias(newAliases: IngredientUnitAlias[]) {
+  if (!editForm.data) {
+    return;
+  }
+  editForm.data.aliases = newAliases;
+  aliasManagerDialog.value = false;
+}
+
+// ============================================================
+// Merge Units
+
+const mergeDialog = ref(false);
+const fromUnit = ref<IngredientUnit | null>(null);
+const toUnit = ref<IngredientUnit | null>(null);
+
+const canMerge = computed(() => {
+  return fromUnit.value && toUnit.value && fromUnit.value.id !== toUnit.value.id;
+});
+
+async function mergeUnits() {
+  if (!canMerge.value || !fromUnit.value || !toUnit.value) {
+    return;
+  }
+
+  const { data } = await userApi.units.merge(fromUnit.value.id, toUnit.value.id);
+
+  if (data) {
+    unitActions.refresh();
+  }
+}
+
+// ============================================================
+// Seed
+
+const seedDialog = ref(false);
+const locale = ref("");
+
+const { locales: LOCALES, locale: currentLocale } = useLocales();
+
+onMounted(() => {
+  locale.value = currentLocale.value;
+});
+
+const locales = LOCALES.filter(locale =>
+  (i18n.locales.value as LocaleObject[]).map(i18nLocale => i18nLocale.code).includes(locale.value as any),
+);
+
+async function seedDatabase() {
+  const { data } = await userApi.seeders.units({ locale: locale.value });
+
+  if (data) {
+    unitActions.refresh();
+  }
+}
 </script>

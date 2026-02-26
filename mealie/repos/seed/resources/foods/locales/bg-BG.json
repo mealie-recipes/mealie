@@ -576,11 +576,11 @@
             },
             "Frisée": {
                 "aliases": [
-                    "curly endive"
+                    "къдрава ендивия"
                 ],
                 "description": "",
-                "name": "Frisée",
-                "plural_name": "Frisées"
+                "name": "Фризе",
+                "plural_name": "Фризе"
             },
             "anaheim pepper": {
                 "aliases": [],
@@ -591,14 +591,14 @@
             "cress": {
                 "aliases": [],
                 "description": "",
-                "name": "cress",
-                "plural_name": "cress"
+                "name": "кресон",
+                "plural_name": "кресон"
             },
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
                 "name": "салата от броколи",
-                "plural_name": "broccoli slaw"
+                "plural_name": "салата от броколи"
             },
             "arbol chile pepper": {
                 "aliases": [],
@@ -1027,8 +1027,8 @@
             "tangelo": {
                 "aliases": [],
                 "description": "",
-                "name": "tangelo",
-                "plural_name": "tangelos"
+                "name": "танжело",
+                "plural_name": "танжело"
             },
             "dried lime": {
                 "aliases": [],
@@ -1069,8 +1069,8 @@
             "durian": {
                 "aliases": [],
                 "description": "",
-                "name": "durian",
-                "plural_name": "durians"
+                "name": "дуриан",
+                "plural_name": "дуриан"
             },
             "freeze-dried apple": {
                 "aliases": [],
@@ -1087,8 +1087,8 @@
             "honey date": {
                 "aliases": [],
                 "description": "",
-                "name": "honey date",
-                "plural_name": "honey dates"
+                "name": "медена фурма",
+                "plural_name": "медени фурми"
             },
             "physali": {
                 "aliases": [],
@@ -1135,8 +1135,8 @@
             "dried persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried persimmon",
-                "plural_name": "dried persimmons"
+                "name": "сушена райска ябълка",
+                "plural_name": "сушени райски ябълки"
             },
             "rambutan": {
                 "aliases": [],
@@ -1232,7 +1232,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "кивано",
-                "plural_name": "kiwanos"
+                "plural_name": "кивано"
             }
         }
     },
@@ -1343,8 +1343,8 @@
             "maitake": {
                 "aliases": [],
                 "description": "",
-                "name": "maitake",
-                "plural_name": "maitakes"
+                "name": "майтаке",
+                "plural_name": "майтаке"
             },
             "trumpet mushroom": {
                 "aliases": [],
@@ -1367,7 +1367,7 @@
             "pioppini": {
                 "aliases": [],
                 "description": "",
-                "name": "pioppini",
+                "name": "пиопини",
                 "plural_name": "пиопини"
             },
             "snow fungu": {
@@ -1397,8 +1397,8 @@
             "matsutake": {
                 "aliases": [],
                 "description": "",
-                "name": "matsutake",
-                "plural_name": "matsutakes"
+                "name": "мацутаке",
+                "plural_name": "мацутаке"
             },
             "nameko": {
                 "aliases": [],
@@ -1415,8 +1415,8 @@
             "mixed asian mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed asian mushroom",
-                "plural_name": "mixed asian mushrooms"
+                "name": "микс от азиатски гъби",
+                "plural_name": "микс от азиатски гъби"
             },
             "puffball": {
                 "aliases": [],
@@ -1641,8 +1641,8 @@
             "hawthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "hawthorn",
-                "plural_name": "hawthorns"
+                "name": "глог",
+                "plural_name": "глог"
             },
             "boysenberry": {
                 "aliases": [],
@@ -1665,14 +1665,14 @@
             "aronia berry": {
                 "aliases": [],
                 "description": "",
-                "name": "aronia berry",
-                "plural_name": "aronia berries"
+                "name": "плодове от арония",
+                "plural_name": "плодове от арония"
             },
             "chokeberry": {
                 "aliases": [],
                 "description": "",
-                "name": "chokeberry",
-                "plural_name": "chokeberries"
+                "name": "арония",
+                "plural_name": "арония"
             },
             "loganberry": {
                 "aliases": [],
@@ -1915,8 +1915,8 @@
             "jackfruit seed": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit seed",
-                "plural_name": "jackfruit seeds"
+                "name": "семена от джакфрут",
+                "plural_name": "семена от джакфрут"
             },
             "honey-roasted almond": {
                 "aliases": [],
@@ -1933,7 +1933,7 @@
             "chironji": {
                 "aliases": [],
                 "description": "",
-                "name": "chironji",
+                "name": "чиронджи",
                 "plural_name": "chironjis"
             },
             "honey-roasted pecan": {
@@ -1987,8 +1987,8 @@
             "barùka": {
                 "aliases": [],
                 "description": "",
-                "name": "barùka",
-                "plural_name": "barùkas"
+                "name": "барука",
+                "plural_name": "барука"
             },
             "indian almond": {
                 "aliases": [],
@@ -2017,8 +2017,8 @@
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheese"
+                "name": "крема сирене",
+                "plural_name": "крема сирене"
             },
             "sharp cheddar cheese": {
                 "aliases": [
@@ -2091,14 +2091,14 @@
             "pecorino cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pecorino cheese",
-                "plural_name": "pecorino cheese"
+                "name": "сирене пекорино",
+                "plural_name": "сирене пекорино"
             },
             "gruyere cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gruyere cheese",
-                "plural_name": "gruyere cheese"
+                "name": "сирене Грюер",
+                "plural_name": "сирене Грюер"
             },
             "mascarpone cheese": {
                 "aliases": [],
@@ -2121,8 +2121,8 @@
             "provolone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "provolone cheese",
-                "plural_name": "provolone cheese"
+                "name": "сирене проволоне",
+                "plural_name": "сирене проволоне"
             },
             "mexican cheese blend": {
                 "aliases": [],
@@ -2133,8 +2133,8 @@
             "pepper jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pepper jack cheese",
-                "plural_name": "pepper jack cheese"
+                "name": "сирене пепър джак",
+                "plural_name": "сирене пепър джак"
             },
             "brie cheese": {
                 "aliases": [],
@@ -2145,14 +2145,14 @@
             "paneer cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "paneer cheese",
-                "plural_name": "paneer cheese"
+                "name": "сирене панеер",
+                "plural_name": "сирене панеер"
             },
             "fontina cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fontina cheese",
-                "plural_name": "fontina cheese"
+                "name": "сирене фонтина",
+                "plural_name": "сирене фонтина"
             },
             "queso fresco cheese": {
                 "aliases": [],
@@ -2163,8 +2163,8 @@
             "quark cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "quark cheese",
-                "plural_name": "quark cheese"
+                "name": "сирене кварк",
+                "plural_name": "сирене кварк"
             },
             "gouda cheese": {
                 "aliases": [],
@@ -2175,14 +2175,14 @@
             "cotija cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cotija cheese",
-                "plural_name": "cotija cheese"
+                "name": "сирене котия",
+                "plural_name": "сирене котия"
             },
             "asiago cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "asiago cheese",
-                "plural_name": "asiago cheese"
+                "name": "сирене азиаго",
+                "plural_name": "сирене азиаго"
             },
             "smoked cheese": {
                 "aliases": [],
@@ -2205,8 +2205,8 @@
             "manchego cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "manchego cheese",
-                "plural_name": "manchego cheese"
+                "name": "сирене манчего",
+                "plural_name": "сирене манчего"
             },
             "italian cheese blend": {
                 "aliases": [],
@@ -2217,14 +2217,14 @@
             "neufchatel cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "neufchatel cheese",
-                "plural_name": "neufchatel cheese"
+                "name": "сирене Ньофшател",
+                "plural_name": "сирене Ньофшател"
             },
             "herb cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "herb cream cheese",
-                "plural_name": "herb cream cheese"
+                "name": "крема сирене с билки",
+                "plural_name": "крема сирене с билки"
             },
             "burrata cheese": {
                 "aliases": [],
@@ -2241,8 +2241,8 @@
             "colby cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "colby cheese",
-                "plural_name": "colby cheese"
+                "name": "сирене Колби",
+                "plural_name": "сирене Колби"
             },
             "grana-padano cheese": {
                 "aliases": [],
@@ -2253,14 +2253,14 @@
             "muenster cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "muenster cheese",
-                "plural_name": "muenster cheese"
+                "name": "сирене Мюнстер",
+                "plural_name": "сирене Мюнстер"
             },
             "string cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "string cheese",
-                "plural_name": "string cheese"
+                "name": "сирене на нишки",
+                "plural_name": "сирене на нишки"
             },
             "camembert cheese": {
                 "aliases": [],
@@ -2277,19 +2277,19 @@
             "stilton cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "stilton cheese",
-                "plural_name": "stilton cheese"
+                "name": "сирене Стилтън",
+                "plural_name": "сирене Стилтън"
             },
             "raclette cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "raclette cheese",
-                "plural_name": "raclette cheese"
+                "name": "сирене Раклет",
+                "plural_name": "сирене Раклет"
             },
             "colby-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "colby-jack cheese",
+                "name": "сирене Колби Джак",
                 "plural_name": "colby-jack cheese"
             },
             "jarlsberg cheese": {
@@ -2415,14 +2415,14 @@
             "graviera cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "graviera cheese",
-                "plural_name": "graviera cheese"
+                "name": "сирене Гравиера",
+                "plural_name": "сирене Гравиера"
             },
             "wensleydale cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "wensleydale cheese",
-                "plural_name": "wensleydale cheese"
+                "name": "сирене Уенслидейл",
+                "plural_name": "сирене Уенслидейл"
             },
             "scamorza cheese": {
                 "aliases": [],
@@ -2433,26 +2433,26 @@
             "cambozola cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cambozola cheese",
-                "plural_name": "cambozola cheese"
+                "name": "сирене Камбозола",
+                "plural_name": "сирене Камбозола"
             },
             "cheshire cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheshire cheese",
-                "plural_name": "cheshire cheese"
+                "name": "чеширско сирене",
+                "plural_name": "чеширско сирене"
             },
             "anthotyro cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "anthotyro cheese",
-                "plural_name": "anthotyro cheese"
+                "name": "сирене Антотиро",
+                "plural_name": "сирене Антотиро"
             },
             "chenna cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "chenna cheese",
-                "plural_name": "chenna cheese"
+                "name": "сирене Чена",
+                "plural_name": "сирене Чена"
             },
             "hard goat cheese": {
                 "aliases": [],
@@ -2475,20 +2475,20 @@
             "amul cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "amul cheese",
-                "plural_name": "amul cheese"
+                "name": "сирене Амул",
+                "plural_name": "сирене Амул"
             },
             "reblochon cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "reblochon cheese",
-                "plural_name": "reblochon cheese"
+                "name": "сирене Реблошон",
+                "plural_name": "сирене Реблошон"
             },
             "robiola cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "robiola cheese",
-                "plural_name": "robiola cheese"
+                "name": "сирене Робиола",
+                "plural_name": "сирене Робиола"
             },
             "brick cheese": {
                 "aliases": [],
@@ -2511,14 +2511,14 @@
             "manouri cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "manouri cheese",
-                "plural_name": "manouri cheese"
+                "name": "сирене Манури",
+                "plural_name": "сирене Манури"
             },
             "mimolette cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mimolette cheese",
-                "plural_name": "mimolette cheese"
+                "name": "сирене Мимолет",
+                "plural_name": "сирене Мимолет"
             },
             "queso quesadilla cheese": {
                 "aliases": [],
@@ -2529,50 +2529,50 @@
             "caciocavallo cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "caciocavallo cheese",
-                "plural_name": "caciocavalloe cheese"
+                "name": "сирене Качокавало",
+                "plural_name": "сирене Качокавало"
             },
             "requeijão cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "requeijão cheese",
-                "plural_name": "requeijãoe cheese"
+                "name": "сирене Рекежао",
+                "plural_name": "сирене Рекежао"
             },
             "vacherin cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "vacherin cheese",
-                "plural_name": "vacherin cheese"
+                "name": "сирене Вашерин",
+                "plural_name": "сирене Вашерин"
             },
             "brown cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "brown cheese",
-                "plural_name": "brown cheese"
+                "name": "кафяво сирене",
+                "plural_name": "кафяво сирене"
             },
             "gloucester cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gloucester cheese",
-                "plural_name": "gloucester cheese"
+                "name": "сирене Глостър",
+                "plural_name": "сирене Глостър"
             },
             "port salut cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "port salut cheese",
-                "plural_name": "port salut cheese"
+                "name": "сирене Порт Салут",
+                "plural_name": "сирене Порт Салут"
             },
             "derby cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "derby cheese",
-                "plural_name": "derby cheese"
+                "name": "сирене Дерби",
+                "plural_name": "сирене Дерби"
             },
             "fontal cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fontal cheese",
-                "plural_name": "fontal cheese"
+                "name": "сирене Фонтал",
+                "plural_name": "сирене Фонтал"
             },
             "salad cheese": {
                 "aliases": [],
@@ -2589,8 +2589,8 @@
             "epoisses cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "epoisses cheese",
-                "plural_name": "epoisses cheese"
+                "name": "сирене Епоас",
+                "plural_name": "сирене Епоас"
             },
             "maasdam cheese": {
                 "aliases": [],
@@ -2866,19 +2866,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "sour milk",
-                "plural_name": "sour milk"
+                "plural_name": "пресечено мляко"
             },
             "ganache": {
                 "aliases": [],
                 "description": "",
-                "name": "ganache",
-                "plural_name": "ganaches"
+                "name": "ганаш",
+                "plural_name": "ганаш"
             },
             "cajeta": {
                 "aliases": [],
                 "description": "",
-                "name": "cajeta",
-                "plural_name": "cajetas"
+                "name": "кахета",
+                "plural_name": "кахета"
             },
             "duck egg": {
                 "aliases": [],
@@ -2889,14 +2889,14 @@
             "salted egg": {
                 "aliases": [],
                 "description": "",
-                "name": "salted egg",
-                "plural_name": "salted eggs"
+                "name": "осолено яйце",
+                "plural_name": "осолени яйца"
             },
             "skyr": {
                 "aliases": [],
                 "description": "",
-                "name": "skyr",
-                "plural_name": "skyrs"
+                "name": "скайр",
+                "plural_name": "скайр"
             },
             "pumpkin spice coffee creamer": {
                 "aliases": [],
@@ -2919,14 +2919,14 @@
             "powdered coffee creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "powdered coffee creamer",
-                "plural_name": "powdered coffee creamers"
+                "name": "сметана за кафе на прах",
+                "plural_name": "сметана за кафе на прах"
             },
             "chantilly": {
                 "aliases": [],
                 "description": "",
-                "name": "chantilly",
-                "plural_name": "chantillies"
+                "name": "Шантили",
+                "plural_name": "Шантили"
             },
             "milkfat": {
                 "aliases": [],
@@ -2991,8 +2991,8 @@
             "orange curd": {
                 "aliases": [],
                 "description": "",
-                "name": "orange curd",
-                "plural_name": "orange curds"
+                "name": "портокалов крем",
+                "plural_name": "портокалов крем"
             },
             "goat yogurt": {
                 "aliases": [],
@@ -3039,8 +3039,8 @@
             "sheep’s milk yoghurt": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep’s milk yoghurt",
-                "plural_name": "sheep’s milk yoghurts"
+                "name": "овче кисело мляко",
+                "plural_name": "овче кисело мляко"
             },
             "strawberry milk": {
                 "aliases": [],
@@ -3057,7 +3057,7 @@
             "cuajada": {
                 "aliases": [],
                 "description": "",
-                "name": "cuajada",
+                "name": "куахада",
                 "plural_name": "cuajadas"
             },
             "yogurt drink": {
@@ -3499,8 +3499,8 @@
             "banana blossom": {
                 "aliases": [],
                 "description": "",
-                "name": "banana blossom",
-                "plural_name": "banana blossoms"
+                "name": "бананов цвят",
+                "plural_name": "бананов цвят"
             },
             "vegan fish sauce": {
                 "aliases": [],
@@ -3529,8 +3529,8 @@
             "vegan meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan meatball",
-                "plural_name": "vegan meatballs"
+                "name": "веган кюфте",
+                "plural_name": "веган кюфтета"
             },
             "almond-milk yogurt": {
                 "aliases": [],
@@ -3941,14 +3941,14 @@
             "ground sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "ground sausage",
-                "plural_name": "ground sausages"
+                "name": "смляна наденица",
+                "plural_name": "смляна наденица"
             },
             "ground pork sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "ground pork sausage",
-                "plural_name": "ground pork sausages"
+                "name": "смляна свинска наденица",
+                "plural_name": "смляна свинска наденица"
             },
             "roast beef": {
                 "aliases": [],
@@ -3959,8 +3959,8 @@
             "bacon bit": {
                 "aliases": [],
                 "description": "",
-                "name": "bacon bit",
-                "plural_name": "bacon bits"
+                "name": "парче бекон",
+                "plural_name": "парчета бекон"
             },
             "pork roast": {
                 "aliases": [],
@@ -4049,8 +4049,8 @@
             "venison": {
                 "aliases": [],
                 "description": "",
-                "name": "venison",
-                "plural_name": "venisons"
+                "name": "еленско месо",
+                "plural_name": "еленско месо"
             },
             "bratwurst": {
                 "aliases": [],
@@ -4169,8 +4169,8 @@
             "raw chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "raw chorizo",
-                "plural_name": "raw chorizoes"
+                "name": "сурово чоризо",
+                "plural_name": "сурово чоризо"
             },
             "beef liver": {
                 "aliases": [],
@@ -4283,8 +4283,8 @@
             "fresh sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh sausage",
-                "plural_name": "fresh sausages"
+                "name": "прясна наденица",
+                "plural_name": "прясна наденица"
             },
             "bologna": {
                 "aliases": [],
@@ -4307,8 +4307,8 @@
             "lamb neck": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb neck",
-                "plural_name": "lamb necks"
+                "name": "агнешки врат",
+                "plural_name": "агнешки врат"
             },
             "sausage patty": {
                 "aliases": [],
@@ -4921,8 +4921,8 @@
             "tuna steak": {
                 "aliases": [],
                 "description": "",
-                "name": "tuna steak",
-                "plural_name": "tuna steaks"
+                "name": "стек от риба тон",
+                "plural_name": "стек от риба тон"
             },
             "whitefish": {
                 "aliases": [],
@@ -4933,8 +4933,8 @@
             "halibut": {
                 "aliases": [],
                 "description": "",
-                "name": "halibut",
-                "plural_name": "halibuts"
+                "name": "камбала",
+                "plural_name": "камбала"
             },
             "red snapper": {
                 "aliases": [],
@@ -4945,7 +4945,7 @@
             "sea bas": {
                 "aliases": [],
                 "description": "",
-                "name": "sea bas",
+                "name": "лефер",
                 "plural_name": "лефер"
             },
             "fish fillet": {
@@ -4975,8 +4975,8 @@
             "swordfish": {
                 "aliases": [],
                 "description": "",
-                "name": "swordfish",
-                "plural_name": "swordfish"
+                "name": "риба меч",
+                "plural_name": "риба меч"
             },
             "sardine": {
                 "aliases": [],
@@ -5029,8 +5029,8 @@
             "smoked haddock": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked haddock",
-                "plural_name": "smoked haddocks"
+                "name": "пушена пикша",
+                "plural_name": "пушена пикша"
             },
             "flounder": {
                 "aliases": [],
@@ -5377,8 +5377,8 @@
             "shark meat": {
                 "aliases": [],
                 "description": "",
-                "name": "shark meat",
-                "plural_name": "shark meats"
+                "name": "месо от акула",
+                "plural_name": "месо от акула"
             },
             "garoupa": {
                 "aliases": [],
@@ -5395,20 +5395,20 @@
             "pangasius": {
                 "aliases": [],
                 "description": "",
-                "name": "pangasius",
-                "plural_name": "pangasius"
+                "name": "пангасиус",
+                "plural_name": "пангасиус"
             },
             "salt herring": {
                 "aliases": [],
                 "description": "",
-                "name": "salt herring",
-                "plural_name": "salt herrings"
+                "name": "солена херинга",
+                "plural_name": "солена херинга"
             },
             "soused herring": {
                 "aliases": [],
                 "description": "",
-                "name": "soused herring",
-                "plural_name": "soused herrings"
+                "name": "маринована херинга",
+                "plural_name": "маринована херинга"
             },
             "tinapa": {
                 "aliases": [],
@@ -5615,8 +5615,8 @@
             "scampi": {
                 "aliases": [],
                 "description": "",
-                "name": "scampi",
-                "plural_name": "scampis"
+                "name": "скариди",
+                "plural_name": "скариди"
             },
             "king crab": {
                 "aliases": [],
@@ -5664,7 +5664,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "пушена стрида",
-                "plural_name": "smoked oysters"
+                "plural_name": "пушени стриди"
             },
             "kelp": {
                 "aliases": [],
@@ -5687,8 +5687,8 @@
             "salted shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "salted shrimp",
-                "plural_name": "salted shrimps"
+                "name": "осолени скариди",
+                "plural_name": "осолени скариди"
             },
             "yaki-nori": {
                 "aliases": [],
@@ -5723,8 +5723,8 @@
             "sea urchin": {
                 "aliases": [],
                 "description": "",
-                "name": "sea urchin",
-                "plural_name": "sea urchins"
+                "name": "морски таралеж",
+                "plural_name": "морски таралеж"
             },
             "abalone": {
                 "aliases": [],
@@ -5931,8 +5931,8 @@
             "ginger powder": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger powder",
-                "plural_name": "ginger powder"
+                "name": "джинджифил на прах",
+                "plural_name": "джинджифил на прах"
             },
             "panch puran": {
                 "aliases": [],
@@ -5968,7 +5968,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "пушен червен пипер",
-                "plural_name": "smoked paprika"
+                "plural_name": "пушен червен пипер"
             },
             "fresh mint": {
                 "aliases": [],
@@ -5980,7 +5980,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "кориандър на прах",
-                "plural_name": "coriander powder"
+                "plural_name": "кориандър на прах"
             },
             "sage": {
                 "aliases": [],
@@ -6015,14 +6015,14 @@
             "mustard seed": {
                 "aliases": [],
                 "description": "",
-                "name": "mustard seed",
-                "plural_name": "mustard seeds"
+                "name": "синапено семе",
+                "plural_name": "синапено семе"
             },
             "white pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "white pepper",
-                "plural_name": "white pepper"
+                "name": "бял пипер",
+                "plural_name": "бял пипер"
             },
             "curry leaf": {
                 "aliases": [],
@@ -6033,7 +6033,7 @@
             "fennel seed": {
                 "aliases": [],
                 "description": "",
-                "name": "fennel seed",
+                "name": "семена от копър",
                 "plural_name": "семена от копър"
             },
             "tarragon": {
@@ -6141,8 +6141,8 @@
             "fenugreek seed": {
                 "aliases": [],
                 "description": "",
-                "name": "fenugreek seed",
-                "plural_name": "fenugreek seeds"
+                "name": "семена от сминдух",
+                "plural_name": "семена от сминдух"
             },
             "kashmiri red chilli": {
                 "aliases": [],
@@ -6213,8 +6213,8 @@
             "black mustard seed": {
                 "aliases": [],
                 "description": "",
-                "name": "black mustard seed",
-                "plural_name": "black mustard seeds"
+                "name": "черно синапено семе",
+                "plural_name": "черно синапено семе"
             },
             "dried chili": {
                 "aliases": [],
@@ -6225,8 +6225,8 @@
             "black cardamom": {
                 "aliases": [],
                 "description": "",
-                "name": "black cardamom",
-                "plural_name": "black cardamoms"
+                "name": "черен кардамон",
+                "plural_name": "черен кардамон"
             },
             "saffron strand": {
                 "aliases": [],
@@ -6286,7 +6286,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "dill seed",
-                "plural_name": "dill seeds"
+                "plural_name": "семена от копър"
             },
             "green peppercorn": {
                 "aliases": [],
@@ -6315,8 +6315,8 @@
             "savory herb": {
                 "aliases": [],
                 "description": "",
-                "name": "savory herb",
-                "plural_name": "savory herbs"
+                "name": "чубрица",
+                "plural_name": "чубрица"
             },
             "pandan leaf": {
                 "aliases": [],
@@ -6357,8 +6357,8 @@
             "celery powder": {
                 "aliases": [],
                 "description": "",
-                "name": "celery powder",
-                "plural_name": "celery powder"
+                "name": "целина на прах",
+                "plural_name": "целина на прах"
             },
             "black cumin": {
                 "aliases": [],
@@ -6441,15 +6441,15 @@
             "confectioners sugar": {
                 "aliases": [
                     "пудра захар",
-                    "icing sugar"
+                    "пудра захар"
                 ],
                 "description": "",
-                "name": "confectioners sugar",
-                "plural_name": "confectioners sugar"
+                "name": "пудра захар",
+                "plural_name": "пудра захар"
             },
             "bar sugar": {
                 "aliases": [
-                    "castor sugar"
+                    "захар"
                 ],
                 "description": "",
                 "name": "bar sugar",
@@ -6638,8 +6638,8 @@
             "xylitol": {
                 "aliases": [],
                 "description": "",
-                "name": "xylitol",
-                "plural_name": "xylitols"
+                "name": "ксилитол",
+                "plural_name": "ксилитол"
             },
             "jam sugar": {
                 "aliases": [],
@@ -7140,8 +7140,8 @@
             "red curry": {
                 "aliases": [],
                 "description": "",
-                "name": "red curry",
-                "plural_name": "red curries"
+                "name": "червено къри",
+                "plural_name": "червено къри"
             },
             "old bay seasoning": {
                 "aliases": [],
@@ -7152,8 +7152,8 @@
             "herbe de provence": {
                 "aliases": [],
                 "description": "",
-                "name": "herbe de provence",
-                "plural_name": "herbes de provence"
+                "name": "билки от Прованс",
+                "plural_name": "билки от Прованс"
             },
             "chaat masala": {
                 "aliases": [],
@@ -10681,7 +10681,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "олио за пържене",
-                "plural_name": "frying oil"
+                "plural_name": "олио за пържене"
             },
             "sunflower oil": {
                 "aliases": [],
@@ -11088,8 +11088,8 @@
             "balsamic vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "balsamic vinegar",
-                "plural_name": "balsamic vinegar"
+                "name": "балсамов оцет",
+                "plural_name": "балсамов оцет"
             },
             "vinegar": {
                 "aliases": [],
@@ -11418,8 +11418,8 @@
             "honey vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "honey vinegar",
-                "plural_name": "honey vinegar"
+                "name": "меден оцет",
+                "plural_name": "меден оцет"
             },
             "tandoori mayonnaise": {
                 "aliases": [],
@@ -11914,8 +11914,8 @@
             "black soy sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "black soy sauce",
-                "plural_name": "black soy sauce"
+                "name": "черен соев сос",
+                "plural_name": "черен соев сос"
             },
             "doubanjiang": {
                 "aliases": [],
@@ -12104,8 +12104,8 @@
             "canned tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned tomato",
-                "plural_name": "canned tomatoes"
+                "name": "домати от консерва",
+                "plural_name": "домати от консерва"
             },
             "caper": {
                 "aliases": [],
@@ -12122,8 +12122,8 @@
             "canned chickpea": {
                 "aliases": [],
                 "description": "",
-                "name": "canned chickpea",
-                "plural_name": "canned chickpeas"
+                "name": "нахут от консерва",
+                "plural_name": "нахут от консерва"
             },
             "black olive": {
                 "aliases": [],
@@ -12134,14 +12134,14 @@
             "canned black bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned black bean",
-                "plural_name": "canned black beans"
+                "name": "черен боб от консерва",
+                "plural_name": "черен боб от консерва"
             },
             "canned pumpkin": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pumpkin",
-                "plural_name": "canned pumpkins"
+                "name": "тиква от консерва",
+                "plural_name": "тиква от консерва"
             },
             "kalamata olive": {
                 "aliases": [],
@@ -12152,8 +12152,8 @@
             "canned tuna": {
                 "aliases": [],
                 "description": "",
-                "name": "canned tuna",
-                "plural_name": "canned tuna"
+                "name": "риба тон от консерва",
+                "plural_name": "риба тон от консерва"
             },
             "pickle": {
                 "aliases": [],
@@ -12164,8 +12164,8 @@
             "canned pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pineapple",
-                "plural_name": "canned pineapples"
+                "name": "ананас от консерва",
+                "plural_name": "ананас от консерва"
             },
             "chipotle in adobo": {
                 "aliases": [],
@@ -12176,14 +12176,14 @@
             "canned anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "canned anchovy",
-                "plural_name": "canned anchovies"
+                "name": "аншоа от консерва",
+                "plural_name": "аншоа от консерва"
             },
             "roasted red pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted red pepper",
-                "plural_name": "roasted red peppers"
+                "name": "печени червени пиперки",
+                "plural_name": "печени червени пиперки"
             },
             "tomato with green chiles": {
                 "aliases": [],
@@ -12194,20 +12194,20 @@
             "canned artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "canned artichoke",
-                "plural_name": "canned artichokes"
+                "name": "артишок от консерва",
+                "plural_name": "артишок от консерва"
             },
             "canned corn": {
                 "aliases": [],
                 "description": "",
-                "name": "canned corn",
-                "plural_name": "canned corns"
+                "name": "царевица от консерва",
+                "plural_name": "царевица от консерва"
             },
             "canned kidney bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned kidney bean",
-                "plural_name": "canned kidney beans"
+                "name": "червен боб от консерва",
+                "plural_name": "червен боб от консерва"
             },
             "canned pie filling": {
                 "aliases": [],
@@ -12218,8 +12218,8 @@
             "canned cannellini bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cannellini bean",
-                "plural_name": "canned cannellini beans"
+                "name": "боб канелини от консерва",
+                "plural_name": "боб канелини от консерва"
             },
             "refried bean": {
                 "aliases": [],
@@ -12230,8 +12230,8 @@
             "canned whole tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned whole tomato",
-                "plural_name": "canned whole tomatoes"
+                "name": "цял домат от консерва",
+                "plural_name": "цели домати от консерва"
             },
             "sweet pickle relish": {
                 "aliases": [],
@@ -12260,8 +12260,8 @@
             "canned bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned bean",
-                "plural_name": "canned beans"
+                "name": "боб от консерва",
+                "plural_name": "консерва боб"
             },
             "pickled jalapeño": {
                 "aliases": [],
@@ -12284,8 +12284,8 @@
             "kimchi": {
                 "aliases": [],
                 "description": "",
-                "name": "kimchi",
-                "plural_name": "kimchis"
+                "name": "кимчи",
+                "plural_name": "кимчи"
             },
             "canned mandarin orange": {
                 "aliases": [],
@@ -12302,8 +12302,8 @@
             "canned crab": {
                 "aliases": [],
                 "description": "",
-                "name": "canned crab",
-                "plural_name": "canned crabs"
+                "name": "раци от консерва",
+                "plural_name": "раци от консерва"
             },
             "bamboo shoot": {
                 "aliases": [],
@@ -12326,8 +12326,8 @@
             "canned salmon": {
                 "aliases": [],
                 "description": "",
-                "name": "canned salmon",
-                "plural_name": "canned salmon"
+                "name": "сьомга от консерва",
+                "plural_name": "сьомга от консерва"
             },
             "pickling juice": {
                 "aliases": [],
@@ -12344,8 +12344,8 @@
             "canned peach": {
                 "aliases": [],
                 "description": "",
-                "name": "canned peach",
-                "plural_name": "canned peaches"
+                "name": "праскова от консерва",
+                "plural_name": "консервирани праскови"
             },
             "canned black-eyed pea": {
                 "aliases": [],
@@ -12362,14 +12362,14 @@
             "canned apple": {
                 "aliases": [],
                 "description": "",
-                "name": "canned apple",
-                "plural_name": "canned apples"
+                "name": "ябълки от консерва",
+                "plural_name": "ябълки от консерва"
             },
             "canned green bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned green bean",
-                "plural_name": "canned green beans"
+                "name": "зелен фасул от консерва",
+                "plural_name": "зелен фасул от консерва"
             },
             "spam": {
                 "aliases": [],
@@ -12380,8 +12380,8 @@
             "canned clam": {
                 "aliases": [],
                 "description": "",
-                "name": "canned clam",
-                "plural_name": "canned clams"
+                "name": "миди от консерва",
+                "plural_name": "миди от консерва"
             },
             "chili with beans": {
                 "aliases": [],
@@ -12416,7 +12416,7 @@
             "pickled red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled red onion",
+                "name": "маринован червен лук",
                 "plural_name": "pickled red onions"
             },
             "pimiento-stuffed green olive": {
@@ -12428,8 +12428,8 @@
             "canned pork": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pork",
-                "plural_name": "canned porks"
+                "name": "свинско от консерва",
+                "plural_name": "свинско от консерва"
             },
             "pickled beet": {
                 "aliases": [],
@@ -12440,8 +12440,8 @@
             "canned cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cherry tomato",
-                "plural_name": "canned cherry tomatoes"
+                "name": "чери домати от консерва",
+                "plural_name": "чери домати от консерва"
             },
             "bread & butter pickle": {
                 "aliases": [],
@@ -12452,20 +12452,20 @@
             "canned apricot": {
                 "aliases": [],
                 "description": "",
-                "name": "canned apricot",
-                "plural_name": "canned apricots"
+                "name": "кайсии от консерва",
+                "plural_name": "кайсии от консерва"
             },
             "canned sweet potato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sweet potato",
-                "plural_name": "canned sweet potatoes"
+                "name": "сладки картофи от консерва",
+                "plural_name": "сладки картофи от консерва"
             },
             "canned pear": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pear",
-                "plural_name": "canned pears"
+                "name": "круша от консерва",
+                "plural_name": "круши от консерва"
             },
             "peppadew pepper": {
                 "aliases": [],
@@ -12488,8 +12488,8 @@
             "canned baby corn": {
                 "aliases": [],
                 "description": "",
-                "name": "canned baby corn",
-                "plural_name": "canned baby corns"
+                "name": "бейби царевички от консерва",
+                "plural_name": "бейби царевички от консерва"
             },
             "mexican-style corn": {
                 "aliases": [],
@@ -12524,7 +12524,7 @@
             "canned carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "canned carrot",
+                "name": "консервирани моркови",
                 "plural_name": "консервирани моркови"
             },
             "banana pepper ring": {
@@ -12536,8 +12536,8 @@
             "canned lychee": {
                 "aliases": [],
                 "description": "",
-                "name": "canned lychee",
-                "plural_name": "canned lychees"
+                "name": "консервирано личи",
+                "plural_name": "консервирано личи"
             },
             "pumpkin pie filling": {
                 "aliases": [],
@@ -12548,8 +12548,8 @@
             "canned sardine": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sardine",
-                "plural_name": "canned sardines"
+                "name": "сардини от консерва",
+                "plural_name": "сардини от консерва"
             },
             "pickled pepper": {
                 "aliases": [],
@@ -12566,8 +12566,8 @@
             "canned jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "canned jackfruit",
-                "plural_name": "canned jackfruits"
+                "name": "джакфрут от консерва",
+                "plural_name": "джакфрут от консерва"
             },
             "taggiasca olive": {
                 "aliases": [],
@@ -12590,8 +12590,8 @@
             "canned asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "canned asparagus",
-                "plural_name": "canned asparagus"
+                "name": "аспержи от консерва",
+                "plural_name": "аспержи от консерва"
             },
             "fire-roasted green chile": {
                 "aliases": [],
@@ -12602,8 +12602,8 @@
             "pickled hot pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled hot pepper",
-                "plural_name": "pickled hot peppers"
+                "name": "маринована люта чушка",
+                "plural_name": "мариновани люти чушки"
             },
             "canned peas and carrot": {
                 "aliases": [],
@@ -12626,8 +12626,8 @@
             "canned mackerel": {
                 "aliases": [],
                 "description": "",
-                "name": "canned mackerel",
-                "plural_name": "canned mackerel"
+                "name": "скумрия от консерва",
+                "plural_name": "скумрия от консерва"
             },
             "pickled cherry pepper": {
                 "aliases": [],
@@ -13350,8 +13350,8 @@
             "bouillon cube": {
                 "aliases": [],
                 "description": "",
-                "name": "bouillon cube",
-                "plural_name": "bouillon cubes"
+                "name": "кубче бульон",
+                "plural_name": "кубчета бульон"
             },
             "cream of chicken": {
                 "aliases": [],
@@ -13848,8 +13848,8 @@
             "cream of cauliflower": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of cauliflower",
-                "plural_name": "cream of cauliflower"
+                "name": "крем от карфиол",
+                "plural_name": "крем от карфиол"
             },
             "dashida": {
                 "aliases": [],
@@ -14245,8 +14245,8 @@
             "butterscotch": {
                 "aliases": [],
                 "description": "",
-                "name": "butterscotch",
-                "plural_name": "butterscotches"
+                "name": "карамел",
+                "plural_name": "карамел"
             },
             "blueberry jam": {
                 "aliases": [],
@@ -16303,8 +16303,8 @@
             "maltodextrin": {
                 "aliases": [],
                 "description": "",
-                "name": "maltodextrin",
-                "plural_name": "maltodextrins"
+                "name": "Малтодекстрин",
+                "plural_name": "Малтодекстрини"
             }
         }
     }

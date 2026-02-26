@@ -7110,8 +7110,8 @@
             "himalayan salt": {
                 "aliases": [],
                 "description": "",
-                "name": "himalayan salt",
-                "plural_name": "himalayan salt"
+                "name": "Sal del Himalaya",
+                "plural_name": "Sal del Himalaya"
             },
             "lemon & pepper seasoning": {
                 "aliases": [],
@@ -7326,8 +7326,8 @@
             "smoked salt": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked salt",
-                "plural_name": "smoked salt"
+                "name": "Sal ahumada",
+                "plural_name": "Sal ahumada"
             },
             "dash seasoning": {
                 "aliases": [],
@@ -7428,8 +7428,8 @@
             "truffle salt": {
                 "aliases": [],
                 "description": "",
-                "name": "truffle salt",
-                "plural_name": "truffle salt"
+                "name": "Sal de trufa",
+                "plural_name": "Sal de trufa"
             },
             "biryani masala": {
                 "aliases": [],
@@ -10030,8 +10030,8 @@
             "bread": {
                 "aliases": [],
                 "description": "",
-                "name": "bread",
-                "plural_name": "breads"
+                "name": "Pan",
+                "plural_name": "Panes"
             }
         }
     },
@@ -10052,20 +10052,20 @@
             "flour tortilla": {
                 "aliases": [],
                 "description": "",
-                "name": "flour tortilla",
-                "plural_name": "flour tortillas"
+                "name": "Tortilla de harina",
+                "plural_name": "Tortillas de harina"
             },
             "almond flour tortilla": {
                 "aliases": [],
                 "description": "",
-                "name": "almond flour tortilla",
-                "plural_name": "almond flour tortillas"
+                "name": "Tortilla de harina de almendra",
+                "plural_name": "Tortillas de harina de almendras"
             },
             "corn tortilla": {
                 "aliases": [],
                 "description": "",
-                "name": "corn tortilla",
-                "plural_name": "corn tortillas"
+                "name": "Tortilla de maíz",
+                "plural_name": "Tortillas de maíz"
             },
             "cracker": {
                 "aliases": [],
@@ -10082,14 +10082,14 @@
             "tortilla chip": {
                 "aliases": [],
                 "description": "",
-                "name": "tortilla chip",
-                "plural_name": "tortilla chips"
+                "name": "totopo",
+                "plural_name": "totopos"
             },
             "pita": {
                 "aliases": [],
                 "description": "",
-                "name": "pita",
-                "plural_name": "pitas"
+                "name": "Pan de pita",
+                "plural_name": "Panes de pita"
             },
             "pretzel": {
                 "aliases": [],
@@ -10106,14 +10106,14 @@
             "rustic italian bread": {
                 "aliases": [],
                 "description": "",
-                "name": "rustic italian bread",
-                "plural_name": "rustic italian breads"
+                "name": "Pan italiano rústico",
+                "plural_name": "Panes italianos rústicos"
             },
             "popcorn": {
                 "aliases": [],
                 "description": "",
-                "name": "popcorn",
-                "plural_name": "popcorns"
+                "name": "Palomita",
+                "plural_name": "Palomitas"
             },
             "crouton": {
                 "aliases": [],
@@ -10124,8 +10124,8 @@
             "whole-wheat tortilla": {
                 "aliases": [],
                 "description": "",
-                "name": "whole-wheat tortilla",
-                "plural_name": "whole-wheat tortillas"
+                "name": "Tortilla de harina integral",
+                "plural_name": "Tortillas de harina integral"
             },
             "english muffin": {
                 "aliases": [],

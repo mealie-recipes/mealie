@@ -22,7 +22,7 @@ export function whitespace(v: string | null | undefined) {
 
 export function url(v: string | undefined | null) {
   const i18n = useGlobalI18n();
-  return (!!v && URL_REGEX.test(v)) || i18n.t("validators.invalid-url");
+  return (!!v && URL_REGEX.test(v) && (v.startsWith("http://") || v.startsWith("https://"))) || i18n.t("validators.invalid-url");
 }
 
 export function urlOptional(v: string | undefined | null) {

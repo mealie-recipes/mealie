@@ -61,3 +61,11 @@ _(fill-in or delete this section)_
 <!--
   Describe how you tested this change.
 -->
+
+## AI / LLM Assistance
+
+_(REQUIRED)_
+
+<!--
+  Describe to which degree an LLM was used in creating this pull request.
+-->

@@ -1445,6 +1445,6 @@
     "invalid-url": "URL ei ole kelvollinen",
     "no-whitespace": "Tekstissä ei saa olla välilyöntejä",
     "min-length": "Vähimmäispituus on {min} merkkiä",
-    "max-length": "Enimmäispituus on {max} merkkiä"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

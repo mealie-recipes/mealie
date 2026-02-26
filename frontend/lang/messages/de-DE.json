@@ -1445,6 +1445,6 @@
     "invalid-url": "Muss eine gültige URL sein",
     "no-whitespace": "Kein Leerzeichen erlaubt",
     "min-length": "Muss mindestens {min} Zeichen haben",
-    "max-length": "Darf mindestens {max} Zeichen haben"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }
