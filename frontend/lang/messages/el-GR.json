@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Δεδομένα Ενεργειών Συνταγής",
       "new-recipe-action": "Νέα Ενέργεια Συνταγής",
       "edit-recipe-action": "Επεξεργασία Ενέργειας Συνταγής",
-      "action-type": "Τύπος Ενέργειας"
+      "action-type": "Τύπος Ενέργειας",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Δημιουργία ψευδώνυμου",
     "manage-aliases": "Διαχείριση ψευδωνύμων",
