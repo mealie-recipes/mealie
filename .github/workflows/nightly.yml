@@ -40,7 +40,7 @@ jobs:
       # https://github.com/orgs/community/discussions/76409#discussioncomment-8131390
       id-token: write
     name: Build Tagged Release
-    if: github.repository == 'mealie-recipes/mealie'
+    if: github.repository == 'sulc/mealie'
     uses: ./.github/workflows/publish.yml
     needs:
       - frontend-tests
@@ -51,17 +51,3 @@ jobs:
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-
-  notify-discord:
-    name: Notify Discord
-    if: github.repository == 'mealie-recipes/mealie'
-    needs:
-      - publish
-    runs-on: ubuntu-latest
-    steps:
-      - name: Discord notification
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_NIGHTLY_WEBHOOK }}
-        uses: Ilshidur/action-discord@0.3.2
-        with:
-          args: "🚀  New builds of ghcr.io/mealie-recipes/mealie:nightly"
