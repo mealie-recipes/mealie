@@ -198,7 +198,7 @@
             "romaine lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine sla",
+                "name": "Romeinse sla",
                 "plural_name": "romaine sla"
             },
             "beetroot": {
@@ -2577,8 +2577,8 @@
             "salad cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "salad cheese",
-                "plural_name": "salad cheese"
+                "name": "salade kaas",
+                "plural_name": "Salade kaas"
             },
             "truffle cheese": {
                 "aliases": [],
@@ -3559,8 +3559,8 @@
             "coconut manna": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut manna",
-                "plural_name": "coconut mannas"
+                "name": "kokosnoot manna",
+                "plural_name": "kokosnoten manna"
             },
             "falafel mix": {
                 "aliases": [],
@@ -3661,8 +3661,8 @@
             "egg tofu": {
                 "aliases": [],
                 "description": "",
-                "name": "egg tofu",
-                "plural_name": "egg tofus"
+                "name": "ei tofu",
+                "plural_name": "ei tofu"
             },
             "protein drink": {
                 "aliases": [],
@@ -3917,7 +3917,7 @@
             "kielbasa": {
                 "aliases": [],
                 "description": "",
-                "name": "kielbasa",
+                "name": "kielbasa worst",
                 "plural_name": "kielbasas"
             },
             "pork belly": {
@@ -4313,14 +4313,14 @@
             "sausage patty": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage patty",
-                "plural_name": "sausage patties"
+                "name": "worstenburger",
+                "plural_name": "worst burgers"
             },
             "beef suet": {
                 "aliases": [],
                 "description": "",
-                "name": "beef suet",
-                "plural_name": "beef suets"
+                "name": "rundervet",
+                "plural_name": "rundervetten"
             },
             "veal roast": {
                 "aliases": [],
@@ -4467,8 +4467,8 @@
             "cornish hen": {
                 "aliases": [],
                 "description": "",
-                "name": "cornish hen",
-                "plural_name": "cornish hens"
+                "name": "piepkuiken",
+                "plural_name": "piepkuikens"
             },
             "deli turkey": {
                 "aliases": [],
@@ -4851,26 +4851,26 @@
             "duck bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "duck bacon",
-                "plural_name": "duck bacons"
+                "name": "eenden spek",
+                "plural_name": "eenden spekken"
             },
             "pulled turkey": {
                 "aliases": [],
                 "description": "",
-                "name": "pulled turkey",
-                "plural_name": "pulled turkeys"
+                "name": "getrokken kalkoen",
+                "plural_name": "getrokken kalkoenen"
             },
             "chicken gyro": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken gyro",
-                "plural_name": "chicken gyros"
+                "name": "kip gyro",
+                "plural_name": "kip gyros"
             },
             "chicken patty": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken patty",
-                "plural_name": "chicken patties"
+                "name": "kip burger",
+                "plural_name": "kip burgers"
             },
             "chicken rib": {
                 "aliases": [],
