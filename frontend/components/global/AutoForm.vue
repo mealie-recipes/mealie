@@ -11,8 +11,7 @@
         <v-col
           v-for="(inputField, index) in items"
           :key="index"
-          cols="12"
-          sm="12"
+          :cols="inputField.cols || 12"
         >
           <v-divider
             v-if="inputField.section"
