@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Reseptin toimintojen käyttötiedot",
       "new-recipe-action": "Uusi reseptin toiminto",
       "edit-recipe-action": "Muuta reseptin toimintoa",
-      "action-type": "Toiminnon tyyppi"
+      "action-type": "Toiminnon tyyppi",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Luo alias",
     "manage-aliases": "Hallitse aliaksia",
