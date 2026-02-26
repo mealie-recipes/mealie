@@ -35,6 +35,7 @@
     @confirm="emit('edit-one', editForm.data)"
   >
     <div class="mx-2 mt-2">
+      <slot name="edit-dialog-top" />
       <AutoForm
         v-model="editForm.data"
         v-model:is-valid="editFormValid"

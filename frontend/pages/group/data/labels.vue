@@ -68,7 +68,11 @@
       </template>
 
       <template #create-dialog-top>
-        <MultiPurposeLabel :label="createForm.data" class="my-2" />
+        <MultiPurposeLabel v-if="createForm.data.name" :label="createForm.data" class="my-2" />
+      </template>
+
+      <template #edit-dialog-top>
+        <MultiPurposeLabel v-if="editForm.data.name" :label="editForm.data" class="my-2" />
       </template>
 
       <template #table-button-bottom>
