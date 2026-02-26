@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Opskriftshandlinger",
       "new-recipe-action": "Ny opskriftshandling",
       "edit-recipe-action": "Rediger opskriftshandling",
-      "action-type": "Handlingstype"
+      "action-type": "Handlingstype",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Opret alias",
     "manage-aliases": "Administrer aliaser",
