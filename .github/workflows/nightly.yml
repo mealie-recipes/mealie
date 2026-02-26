@@ -5,11 +5,11 @@ on:
     branches:
       - mealie-next
     paths-ignore:
-      - '*.md'
-      - '.devcontainer/**'
+      - "*.md"
+      - ".devcontainer/**"
       # I'm not excluding .github as changes in there might be to workflows etc
-      - '.vscode/**'
-      - 'docs/**'
+      - ".vscode/**"
+      - "docs/**"
 
 concurrency:
   group: nightly-${{ github.ref }}
@@ -40,7 +40,7 @@ jobs:
       # https://github.com/orgs/community/discussions/76409#discussioncomment-8131390
       id-token: write
     name: Build Tagged Release
-    if: github.repository == 'sulc/mealie'
+    if: github.repository == 'lukasulc/mealie'
     uses: ./.github/workflows/publish.yml
     needs:
       - frontend-tests
