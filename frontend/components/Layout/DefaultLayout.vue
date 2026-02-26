@@ -3,12 +3,17 @@
     <TheSnackbar />
 
     <AppHeader>
-      <v-btn
-        icon
-        @click.stop="sidebar = !sidebar"
-      >
-        <v-icon> {{ $globals.icons.menu }}</v-icon>
-      </v-btn>
+      <!-- burger + optional external-app button -->
+      <div class="d-flex align-center">
+        <v-btn icon @click.stop="sidebar = !sidebar">
+          <v-icon> {{ $globals.icons.menu }}</v-icon>
+        </v-btn>
+
+        <!-- global external link button shown to everyone -->
+        <v-btn icon :href="externalHref" target="_blank" v-if="externalHref">
+          <v-icon>{{ $globals.icons.externalLink }}</v-icon>
+        </v-btn>
+      </div>
     </AppHeader>
 
     <AppSidebar
@@ -140,6 +145,13 @@ export default defineNuxtComponent({
     const sidebar = ref<boolean>(false);
     onMounted(() => {
       sidebar.value = display.lgAndUp.value;
+    });
+
+    // external link target – derive from Nuxt runtime config (public)
+    const runtime = useRuntimeConfig();
+    const externalHref = computed(() => {
+      // set PUBLIC_OTHER_APP_URL in nuxt config or env to change
+      return runtime.public.otherAppUrl || "https://parser.mealie.lukasulc.com";
     });
 
     function cookbookAsLink(cookbook: ReadCookBook): SideBarLink {
@@ -297,6 +309,7 @@ export default defineNuxtComponent({
       isOwnGroup,
       languageDialog,
       sidebar,
+      externalHref,
     };
   },
 });

@@ -75,6 +75,7 @@ export default defineNuxtConfig({
       AUTH_TOKEN,
       GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || undefined,
       SUB_PATH: process.env.SUB_PATH || "",
+      otherAppUrl: process.env.PUBLIC_OTHER_APP_URL,
       // ==============================================
       // Theme Runtime Config
       useDark: Boolean(process.env.THEME_USE_DARK) || false,
