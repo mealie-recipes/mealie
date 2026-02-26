@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Données des actions de recette",
       "new-recipe-action": "Nouvelle action de recette",
       "edit-recipe-action": "Modifier l'action de recette",
-      "action-type": "Type d'action"
+      "action-type": "Type d'action",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Créer un alias",
     "manage-aliases": "Gérer les alias",
