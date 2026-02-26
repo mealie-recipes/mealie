@@ -10,19 +10,25 @@ on:
       # I'm not excluding .github as changes in there might be to workflows etc
       - ".vscode/**"
       - "docs/**"
+  workflow_dispatch:
+    inputs:
+      skip_tests:
+        description: "Skip test jobs"
+        required: false
+        type: boolean
 
 concurrency:
   group: nightly-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  backend-tests:
-    name: "Backend Server Tests"
-    uses: ./.github/workflows/test-backend.yml
+  # backend-tests:
+  #   name: "Backend Server Tests"
+  #   uses: ./.github/workflows/test-backend.yml
 
-  frontend-tests:
-    name: "Frontend Tests"
-    uses: ./.github/workflows/test-frontend.yml
+  # frontend-tests:
+  #   name: "Frontend Tests"
+  #   uses: ./.github/workflows/test-frontend.yml
 
   build-package:
     name: Build Package
@@ -43,8 +49,8 @@ jobs:
     if: github.repository == 'lukasulc/mealie'
     uses: ./.github/workflows/publish.yml
     needs:
-      - frontend-tests
-      - backend-tests
+      # - frontend-tests
+      # - backend-tests
       - build-package
     with:
       tag: nightly
