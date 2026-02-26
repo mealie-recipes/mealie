@@ -307,6 +307,7 @@ const formItems = computed<AutoFormItems>(() => [
     varName: "labelId",
     type: fieldTypes.SELECT,
     options: labelOptions.value,
+    selectReturnValue: "value",
   },
   {
     label: i18n.t("tool.on-hand"),
