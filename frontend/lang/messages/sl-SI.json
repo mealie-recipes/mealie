@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Podatki o opravilu na receptu",
       "new-recipe-action": "Novo opravilo na receptu",
       "edit-recipe-action": "Urejaj opravilo na receptu",
-      "action-type": "Tip opravila"
+      "action-type": "Tip opravila",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Ustvari alias",
     "manage-aliases": "Upravljanje z aliasi",
