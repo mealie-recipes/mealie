@@ -59,11 +59,11 @@ const tableHeaders: TableHeaders[] = [
   },
 ];
 
-const actionStore = useGroupRecipeActions(null, null);
+const actionStore = useGroupRecipeActions();
 
 // ============================================================
 // Form items (shared)
-const formItems: AutoFormItems = [
+const formItems = computed<AutoFormItems>(() => [
   {
     label: i18n.t("general.title"),
     varName: "title",
@@ -80,10 +80,14 @@ const formItems: AutoFormItems = [
     label: i18n.t("data-pages.recipe-actions.action-type"),
     varName: "actionType",
     type: fieldTypes.SELECT,
-    options: [{ text: "link" }, { text: "post" }],
+    options: [
+      { text: i18n.t("data-pages.recipe-actions.action-types.link"), value: "link" },
+      { text: i18n.t("data-pages.recipe-actions.action-types.post"), value: "post" },
+    ],
+    selectReturnValue: "value",
     rules: [validators.required],
   },
-];
+]);
 
 // ============================================================
 // Create
