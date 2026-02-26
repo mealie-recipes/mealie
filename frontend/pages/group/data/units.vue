@@ -279,20 +279,9 @@ const formItems = computed<AutoFormItems>(() => [
     type: fieldTypes.TEXT,
   },
   {
-    section: i18n.t("general.settings"),
-    cols: 4,
-    label: i18n.t("data-pages.units.use-abbv"),
-    varName: "useAbbreviation",
-    type: fieldTypes.BOOLEAN,
-  },
-  {
-    cols: 4,
-    label: i18n.t("data-pages.units.fraction"),
-    varName: "fraction",
-    type: fieldTypes.BOOLEAN,
-  },
-  {
-    label: i18n.t("data-pages.units.standard-quantity"),
+    section: i18n.t("data-pages.units.standardization"),
+    sectionDetails: i18n.t("data-pages.units.standardization-description"),
+    cols: 2,
     varName: "standardQuantity",
     type: fieldTypes.NUMBER,
     numberInputConfig: {
@@ -303,7 +292,7 @@ const formItems = computed<AutoFormItems>(() => [
     },
   },
   {
-    label: i18n.t("data-pages.units.standard-unit"),
+    cols: 10,
     varName: "standardUnit",
     type: fieldTypes.SELECT,
     selectReturnValue: "value",
@@ -341,6 +330,19 @@ const formItems = computed<AutoFormItems>(() => [
         value: "kilogram",
       },
     ] as StandardizedUnitTypeOption[],
+  },
+  {
+    section: i18n.t("general.settings"),
+    cols: 4,
+    label: i18n.t("data-pages.units.use-abbv"),
+    varName: "useAbbreviation",
+    type: fieldTypes.BOOLEAN,
+  },
+  {
+    cols: 4,
+    label: i18n.t("data-pages.units.fraction"),
+    varName: "fraction",
+    type: fieldTypes.BOOLEAN,
   },
 ]);
 

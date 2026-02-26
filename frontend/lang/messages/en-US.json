@@ -1135,6 +1135,8 @@
       "example-unit-plural": "ex: Tablespoons",
       "example-unit-abbreviation-singular": "ex: Tbsp",
       "example-unit-abbreviation-plural": "ex: Tbsps",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
       "standard-unit": "Standard Unit",
       "standard-quantity": "Standard Quantity",
       "unit-conversion": "Unit Conversion",
