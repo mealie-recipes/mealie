@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Receptekkel kapcsolatos tevékenységek adatai",
       "new-recipe-action": "Új recept tevékenység",
       "edit-recipe-action": "Recept tevékenység szerkesztése",
-      "action-type": "Művelet típusa"
+      "action-type": "Művelet típusa",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Alias készítése",
     "manage-aliases": "Alias kezelése",
