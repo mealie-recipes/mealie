@@ -6,7 +6,7 @@ from pathlib import Path
 from typing import Annotated, Any, NamedTuple
 
 from dateutil.tz import tzlocal
-from pydantic import PlainSerializer, field_validator
+from pydantic import PlainSerializer, field_validator, validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from mealie.core.settings.themes import Theme
@@ -128,14 +128,6 @@ class AppSettings(AppLoggingSettings):
     TOKEN_TIME: int = 48
     """time in hours"""
 
-    @field_validator("TOKEN_TIME")
-    @classmethod
-    def validate_token_time(cls, v: int) -> int:
-        if v < 1:
-            raise ValueError("TOKEN_TIME must be at least 1 hour")
-        # Certain browsers (webkit) have issues with very long-lived cookies, so we limit to 400 days
-        return min(v, 400 * 24)
-
     SECRET: str
     SESSION_SECRET: str
 
@@ -186,14 +178,6 @@ class AppSettings(AppLoggingSettings):
     SECURITY_MAX_LOGIN_ATTEMPTS: int = 5
     SECURITY_USER_LOCKOUT_TIME: int = 24
     "time in hours"
-
-    @field_validator("BASE_URL")
-    @classmethod
-    def remove_trailing_slash(cls, v: str) -> str:
-        if v and v[-1] == "/":
-            return v[:-1]
-
-        return v
 
     @property
     def DOCS_URL(self) -> str | None:
@@ -438,6 +422,29 @@ class AppSettings(AppLoggingSettings):
         return self.OPENAI_FEATURE.enabled
 
     # ===============================================
+    # Flaresolverr
+
+    FLARESOLVERR_URL: str | None = None
+    """
+    The protocol and url (and port if needed) to a flaresolverr instance.
+    We will append "/v1" to hit the api.
+    """
+
+    @property
+    def FLARESOLVERR_FEATURE(self) -> FeatureDetails:
+        description = None
+        if not self.FLARESOLVERR_URL:
+            description = "FLARESOLVERR_URL is not set"
+        return FeatureDetails(
+            enabled=bool(self.FLARESOLVERR_URL),
+            description=description,
+        )
+
+    @property
+    def FLARESOLVERR_ENABLED(self) -> bool:
+        return self.FLARESOLVERR_FEATURE.enabled
+
+    # ===============================================
     # Web Concurrency
 
     WORKER_PER_CORE: int = 1
@@ -460,6 +467,24 @@ class AppSettings(AppLoggingSettings):
 
     TLS_PRIVATE_KEY_PATH: str | os.PathLike[str] | None = None
     """Path where the private key resides."""
+
+    # ===============================================
+    # pydantic validators after all definitions are done
+
+    @validator("BASE_URL", "FLARESOLVERR_URL")
+    @classmethod
+    def remove_trailing_slash(cls, v: str) -> str:
+        if v and v[-1] == "/":
+            return v[:-1]
+        return v
+
+    @field_validator("TOKEN_TIME")
+    @classmethod
+    def validate_token_time(cls, v: int) -> int:
+        if v < 1:
+            raise ValueError("TOKEN_TIME must be at least 1 hour")
+        # Certain browsers (webkit) have issues with very long-lived cookies, so we limit to 400 days
+        return min(v, 400 * 24)
 
 
 def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:
