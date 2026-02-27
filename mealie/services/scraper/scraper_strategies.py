@@ -55,6 +55,41 @@ class ForceTimeoutException(Exception):
     pass
 
 
+async def flaresolverr_scrape_html(url: str) -> str:
+    """
+    Passes an html GET to a flaresolverr instance. Mass scraping implementation may
+    require code tweaks here to add sessions and/or cookies.
+    """
+    settings = get_app_settings()
+    if not (settings.FLARESOLVERR_ENABLED and settings.FLARESOLVERR_URL):
+        return ""
+
+    logger.debug(f"Scraping URL through Flaresolverr: {url}")
+
+    headers = {"Content-Type": "application/json"}
+    payload = {"cmd": "request.get", "url": url, "maxTimeout": 60000, "skipResource": True}
+
+    async with AsyncClient(transport=safehttp.AsyncSafeTransport()) as client:
+        html = b""
+        response = await client.post(
+            settings.FLARESOLVERR_URL,
+            headers=headers,
+            timeout=SCRAPER_TIMEOUT,
+            json=payload,
+        )
+
+        if response["status"] == "ok":
+            html = response["solution"]["response"]
+            user_agent = response["solution"]["userAgent"]
+            logger.debug(f"Successful Flaresolverr scrape with user agent {user_agent}")
+
+        if not (response and html):
+            return ""
+
+        # selenium driver in flaresolverr does not return encoding or apparent_encoding
+        return str(html, errors="replace")
+
+
 async def safe_scrape_html(url: str) -> str:
     """
     Scrapes the html from a url but will cancel the request
