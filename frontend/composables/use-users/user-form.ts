@@ -26,6 +26,7 @@ export const useUserForm = () => {
       rules: [validators.required],
     },
     {
+      cols: 6,
       label: i18n.t("user.password"),
       varName: "password",
       disableUpdate: true,
@@ -33,6 +34,7 @@ export const useUserForm = () => {
       rules: [validators.required, validators.minLength(8)],
     },
     {
+      cols: 6,
       label: i18n.t("user.authentication-method"),
       varName: "authMethod",
       type: fieldTypes.SELECT,
@@ -42,36 +44,42 @@ export const useUserForm = () => {
     },
     {
       section: i18n.t("user.permissions"),
+      cols: 6,
       label: i18n.t("user.administrator"),
       varName: "admin",
       type: fieldTypes.BOOLEAN,
       rules: [validators.required],
     },
     {
+      cols: 6,
       label: i18n.t("user.user-can-invite-other-to-group"),
       varName: "canInvite",
       type: fieldTypes.BOOLEAN,
       rules: [validators.required],
     },
     {
+      cols: 6,
       label: i18n.t("user.user-can-manage-group"),
       varName: "canManage",
       type: fieldTypes.BOOLEAN,
       rules: [validators.required],
     },
     {
+      cols: 6,
       label: i18n.t("user.user-can-organize-group-data"),
       varName: "canOrganize",
       type: fieldTypes.BOOLEAN,
       rules: [validators.required],
     },
     {
+      cols: 6,
       label: i18n.t("user.user-can-manage-household"),
       varName: "canManageHousehold",
       type: fieldTypes.BOOLEAN,
       rules: [validators.required],
     },
     {
+      cols: 6,
       label: i18n.t("user.enable-advanced-features"),
       varName: "advanced",
       type: fieldTypes.BOOLEAN,

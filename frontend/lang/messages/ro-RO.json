@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Date acțiuni rețetă",
       "new-recipe-action": "Acțiune rețetă nouă",
       "edit-recipe-action": "Editează Acțiune Rețetă",
-      "action-type": "Tip de acțiune"
+      "action-type": "Tip de acțiune",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Creează Alias",
     "manage-aliases": "Gestionare Aliasuri",

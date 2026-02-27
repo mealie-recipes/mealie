@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Data akcí receptu",
       "new-recipe-action": "Nová akce receptu",
       "edit-recipe-action": "Upravit akci receptu",
-      "action-type": "Typ akce"
+      "action-type": "Typ akce",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Vytvořit alias",
     "manage-aliases": "Spravovat aliasy",

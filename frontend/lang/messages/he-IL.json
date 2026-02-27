@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "מידע על הפעולות במתכון",
       "new-recipe-action": "פעולת-מתכון חדשה",
       "edit-recipe-action": "עריכת פעולת-מתכון",
-      "action-type": "סוג פעולה"
+      "action-type": "סוג פעולה",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "יצירת שם נרדף",
     "manage-aliases": "נהל שמות נרדפים",

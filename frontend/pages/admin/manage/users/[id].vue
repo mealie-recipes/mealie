@@ -27,92 +27,102 @@
         variant="outlined"
         style="border-color: lightgrey;"
       >
-        <v-card-text>
-          <div class="d-flex">
-            <p> {{ $t("user.user-id-with-value", { id: user.id }) }}</p>
-          </div>
-          <!-- This is disabled since we can't properly handle changing the user's group in most scenarios -->
-          <v-select
-            v-if="groups"
-            v-model="user.group"
-            disabled
-            :items="groups"
-            variant="solo-filled"
-            flat
-            item-title="name"
-            item-value="name"
-            :return-object="false"
-            :label="$t('group.user-group')"
-            :rules="[validators.required]"
-          />
-          <v-select
-            v-if="households"
-            v-model="user.household"
-            :items="households"
-            variant="solo-filled"
-            flat
-            item-title="name"
-            item-value="name"
-            :return-object="false"
-            :label="$t('household.user-household')"
-            :rules="[validators.required]"
-          />
-          <div class="d-flex py-2 pr-2">
-            <BaseButton
-              type="button"
-              :loading="generatingToken"
-              create
-              @click.prevent="handlePasswordReset"
-            >
-              {{ $t("user.generate-password-reset-link") }}
-            </BaseButton>
-          </div>
-          <div
-            v-if="resetUrl"
-            class="mb-2"
-          >
-            <v-card-text>
-              <p class="text-center pb-0">
-                {{ resetUrl }}
-              </p>
-            </v-card-text>
-            <v-card-actions
-              class="align-center pt-0"
-              style="gap: 4px"
-            >
-              <BaseButton
-                cancel
-                @click="resetUrl = ''"
-              >
-                {{ $t("general.close") }}
-              </BaseButton>
-              <v-spacer />
-              <BaseButton
-                v-if="user.email"
-                color="info"
-                class="mr-1"
-                @click="sendResetEmail"
-              >
-                <template #icon>
-                  {{ $globals.icons.email }}
-                </template>
-                {{ $t("user.email") }}
-              </BaseButton>
-              <AppButtonCopy
-                :icon="false"
-                color="info"
-                :copy-text="resetUrl"
-              />
-            </v-card-actions>
-          </div>
+        <v-sheet class="pt-4">
+          <v-card-text>
+            <div class="d-flex">
+              <p> {{ $t("user.user-id-with-value", { id: user.id }) }}</p>
+            </div>
+            <!-- This is disabled since we can't properly handle changing the user's group in most scenarios -->
 
-          <AutoForm
-            v-model="user"
-            :items="userForm"
-            update-mode
-            :disabled-fields="disabledFields"
-          />
-        </v-card-text>
+            <v-row>
+              <v-col cols="6">
+                <v-select
+                  v-if="groups"
+                  v-model="user.group"
+                  disabled
+                  :items="groups"
+                  variant="solo-filled"
+                  flat
+                  item-title="name"
+                  item-value="name"
+                  :return-object="false"
+                  :label="$t('group.user-group')"
+                  :rules="[validators.required]"
+                />
+              </v-col>
+              <v-col cols="6">
+                <v-select
+                  v-if="households"
+                  v-model="user.household"
+                  :items="households"
+                  variant="solo-filled"
+                  flat
+                  item-title="name"
+                  item-value="name"
+                  :return-object="false"
+                  :label="$t('household.user-household')"
+                  :rules="[validators.required]"
+                />
+              </v-col>
+            </v-row>
+            <div class="d-flex py-2 pr-2">
+              <BaseButton
+                type="button"
+                :loading="generatingToken"
+                create
+                @click.prevent="handlePasswordReset"
+              >
+                {{ $t("user.generate-password-reset-link") }}
+              </BaseButton>
+            </div>
+
+            <div
+              v-if="resetUrl"
+              class="mb-2"
+            >
+              <v-card-text>
+                <p class="text-center pb-0">
+                  {{ resetUrl }}
+                </p>
+              </v-card-text>
+              <v-card-actions
+                class="align-center pt-0"
+                style="gap: 4px"
+              >
+                <BaseButton
+                  cancel
+                  @click="resetUrl = ''"
+                >
+                  {{ $t("general.close") }}
+                </BaseButton>
+                <v-spacer />
+                <BaseButton
+                  v-if="user.email"
+                  color="info"
+                  class="mr-1"
+                  @click="sendResetEmail"
+                >
+                  <template #icon>
+                    {{ $globals.icons.email }}
+                  </template>
+                  {{ $t("user.email") }}
+                </BaseButton>
+                <AppButtonCopy
+                  :icon="false"
+                  color="info"
+                  :copy-text="resetUrl"
+                />
+              </v-card-actions>
+            </div>
+
+            <AutoForm
+              v-model="user"
+              :items="userForm"
+              update-mode
+              :disabled-fields="disabledFields"
+            />
+          </v-card-text>
+        </v-sheet>
       </v-card>
       <div class="d-flex pa-2">
         <BaseButton

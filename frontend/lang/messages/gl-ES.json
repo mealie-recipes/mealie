@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Datos das Acións da Receita",
       "new-recipe-action": "Nova Ación da Receita",
       "edit-recipe-action": "Editar Ación da Receita",
-      "action-type": "Tipo de Ación"
+      "action-type": "Tipo de Ación",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Crear Pseudónimo",
     "manage-aliases": "Xestionar Pseudónimos",

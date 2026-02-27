@@ -3,6 +3,8 @@
     <GroupDataPage
       :icon="$globals.icons.categories"
       :title="$t('data-pages.categories.category-data')"
+      :create-title="$t('data-pages.categories.new-category')"
+      :edit-title="$t('data-pages.categories.edit-category')"
       :table-headers="tableHeaders"
       :table-config="tableConfig"
       :data="categoryStore.store.value || []"

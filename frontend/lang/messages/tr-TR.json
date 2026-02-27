@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Tarif İşlemleri Verisi",
       "new-recipe-action": "Yeni Tarif İşlemi",
       "edit-recipe-action": "Tarif İşlemini Düzenle",
-      "action-type": "İşlem Türü"
+      "action-type": "İşlem Türü",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Takma Ad Oluştur",
     "manage-aliases": "Takma Adları Yönet",

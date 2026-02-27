@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Retsepti kasutusteave",
       "new-recipe-action": "Uus retsepti tegevus",
       "edit-recipe-action": "Muuda retsepti tegevust",
-      "action-type": "Tegevuse tüüp"
+      "action-type": "Tegevuse tüüp",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Loo alias",
     "manage-aliases": "Halda aliaseid",

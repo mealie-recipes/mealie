@@ -3,6 +3,8 @@
     <GroupDataPage
       :icon="$globals.icons.tools"
       :title="$t('data-pages.tools.tool-data')"
+      :create-title="$t('data-pages.tools.new-tool')"
+      :edit-title="$t('data-pages.tools.edit-tool')"
       :table-headers="tableHeaders"
       :table-config="tableConfig"
       :data="tools || []"
