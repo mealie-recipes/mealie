@@ -67,16 +67,17 @@ async def flaresolverr_scrape_html(url: str) -> str:
     logger.debug(f"Scraping URL through Flaresolverr: {url}")
 
     headers = {"Content-Type": "application/json"}
-    payload = {"cmd": "request.get", "url": url, "maxTimeout": 60000, "skipResource": True}
+    payload = {"cmd": "request.get", "url": url, "maxTimeout": 30000, "skipResource": True}
 
-    async with AsyncClient(transport=safehttp.AsyncSafeTransport()) as client:
-        html = b""
-        response = await client.post(
+    async with AsyncClient() as client:
+        html = ""
+        fs_response = await client.post(
             settings.FLARESOLVERR_URL + "/v1",
             headers=headers,
-            timeout=SCRAPER_TIMEOUT,
+            timeout=30,
             json=payload,
         )
+        response = fs_response.json()
 
         if response["status"] == "ok":
             html = response["solution"]["response"]
@@ -86,8 +87,8 @@ async def flaresolverr_scrape_html(url: str) -> str:
         if not (response and html):
             return ""
 
-        # selenium driver in flaresolverr does not return encoding or apparent_encoding
-        return str(html, errors="replace")
+        # Selenium driver in flaresolverr does not return encoding or apparent_encoding.
+        return str(html)
 
 
 async def safe_scrape_html(url: str) -> str:
