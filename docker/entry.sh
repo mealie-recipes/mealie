@@ -61,6 +61,8 @@ load_secrets() {
 
         "OPENAI_BASE_URL"
         "OPENAI_API_KEY"
+
+        "FLARESOLVERR_URL"
     )
 
     # If any secrets are set, prefer them over base environment variables.

@@ -897,7 +897,10 @@
     "oidc-ready-success-text": "Required OIDC variables are all set.",
     "openai-ready": "OpenAI Ready",
     "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready-success-text": "Required OpenAI variables are all set.",
+    "flaresolverr-ready": "Flaresolverr Ready",
+    "flaresolverr-ready-error-text": "Flaresolverr URL not set. This can be ignored if you are not using Flaresolverr features.",
+    "flaresolverr-ready-success-text": "Required Flaresolverr variables are all set."
   },
   "shopping-list": {
     "all-lists": "All Lists",
