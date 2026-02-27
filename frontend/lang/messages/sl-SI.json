@@ -1170,8 +1170,8 @@
       "edit-recipe-action": "Urejaj opravilo na receptu",
       "action-type": "Tip opravila",
       "action-types": {
-        "link": "Link",
-        "post": "Post"
+        "link": "Povezava",
+        "post": "Objava"
       }
     },
     "create-alias": "Ustvari alias",
