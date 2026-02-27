@@ -1170,8 +1170,8 @@
       "edit-recipe-action": "Recept tevékenység szerkesztése",
       "action-type": "Művelet típusa",
       "action-types": {
-        "link": "Link",
-        "post": "Post"
+        "link": "Hivatkozás",
+        "post": "Közzététel"
       }
     },
     "create-alias": "Alias készítése",
