@@ -38,6 +38,7 @@ class AdminAboutController(BaseAdminController):
             oidc_provider_name=settings.OIDC_PROVIDER_NAME,
             enable_openai=settings.OPENAI_ENABLED,
             enable_openai_image_services=settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_IMAGE_SERVICES,
+            enable_flaresolverr=settings.FLARESOLVERR_ENABLED,
         )
 
     @router.get("/statistics", response_model=AppStatistics)
@@ -62,4 +63,5 @@ class AdminAboutController(BaseAdminController):
             is_up_to_date=APP_VERSION == "develop" or APP_VERSION == "nightly" or get_latest_version() == APP_VERSION,
             oidc_ready=settings.OIDC_READY,
             enable_openai=settings.OPENAI_ENABLED,
+            enable_flaresolverr=settings.FLARESOLVERR_ENABLED,
         )
