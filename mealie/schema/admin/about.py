@@ -24,6 +24,7 @@ class AppInfo(MealieModel):
     enable_openai: bool
     enable_openai_image_services: bool
     enable_openai_transcription_services: bool
+    enable_flaresolverr: bool
     token_time: int
 
 
@@ -73,5 +74,6 @@ class CheckAppConfig(MealieModel):
     ldap_ready: bool
     oidc_ready: bool
     enable_openai: bool
+    enable_flaresolverr: bool
     base_url_set: bool
     is_up_to_date: bool
