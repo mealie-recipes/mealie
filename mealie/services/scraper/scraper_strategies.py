@@ -72,7 +72,7 @@ async def flaresolverr_scrape_html(url: str) -> str:
     async with AsyncClient(transport=safehttp.AsyncSafeTransport()) as client:
         html = b""
         response = await client.post(
-            settings.FLARESOLVERR_URL,
+            settings.FLARESOLVERR_URL + "/v1",
             headers=headers,
             timeout=SCRAPER_TIMEOUT,
             json=payload,
