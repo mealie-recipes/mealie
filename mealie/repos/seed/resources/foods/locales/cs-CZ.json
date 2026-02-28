@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "špenát",
-                "plural_name": "spinach"
+                "plural_name": "špenát"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "sladká kukuřice",
-                "plural_name": "sweet corn"
+                "plural_name": "sladká kukuřice"
             },
             "chile pepper": {
                 "aliases": [
@@ -156,7 +156,7 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
+                "name": "chřest",
                 "plural_name": "asparagus"
             },
             "kale": {
