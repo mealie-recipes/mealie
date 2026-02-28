@@ -1171,7 +1171,7 @@
       "action-type": "Handlingstype",
       "action-types": {
         "link": "Link",
-        "post": "Post"
+        "post": "Opslag"
       }
     },
     "create-alias": "Opret alias",
