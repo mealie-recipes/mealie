@@ -12,6 +12,8 @@
     "lint:log": "yarn lint:js --debug",
     "test": "vitest",
     "test:ci": "vitest --watch=false",
+    "test:coverage": "vitest run --coverage",
+    "test:ui": "vitest --ui",
     "cleanup": "nuxt cleanup"
   },
   "lint-staged": {
@@ -48,6 +50,9 @@
     "@types/node": "^25.5.2",
     "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^6.0.7",
+    "@vitest/coverage-v8": "3.2.4",
+    "@vitest/ui": "3.2.4",
+    "@vue/test-utils": "^2.4.6",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.0.2",
     "eslint-plugin-format": "^1.0.1",
@@ -57,6 +62,7 @@
     "prettier": "^3.5.2",
     "sass-embedded": "^1.85.1",
     "typescript": "^5.3",
+    "unplugin-auto-import": "^21.0.0",
     "vite-plugin-commonjs": "^0.10.4",
     "vitest": "^3.0.7"
   },
