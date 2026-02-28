@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hvitløk",
-                "plural_name": "garlic"
+                "plural_name": "hvitløk"
             },
             "onion": {
                 "aliases": [],
@@ -4897,8 +4897,8 @@
             "salmon": {
                 "aliases": [],
                 "description": "",
-                "name": "salmon",
-                "plural_name": "salmon"
+                "name": "laks",
+                "plural_name": "laks"
             },
             "smoked salmon": {
                 "aliases": [],
@@ -4957,8 +4957,8 @@
             "trout": {
                 "aliases": [],
                 "description": "",
-                "name": "trout",
-                "plural_name": "trout"
+                "name": "ørret",
+                "plural_name": "ørreter"
             },
             "catfish": {
                 "aliases": [],
@@ -5853,14 +5853,14 @@
             "ginger root": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger root",
-                "plural_name": "ginger roots"
+                "name": "ingefærrot",
+                "plural_name": "ingefærrøtter"
             },
             "garlic powder": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic powder",
-                "plural_name": "garlic powder"
+                "name": "malt hvitløk",
+                "plural_name": "malt hvitløk"
             },
             "oregano": {
                 "aliases": [],
@@ -5913,8 +5913,8 @@
             "turmeric": {
                 "aliases": [],
                 "description": "",
-                "name": "turmeric",
-                "plural_name": "turmerics"
+                "name": "gurkemeie",
+                "plural_name": "gurkemeie"
             },
             "clove": {
                 "aliases": [],
@@ -5931,8 +5931,8 @@
             "ginger powder": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger powder",
-                "plural_name": "ginger powder"
+                "name": "malt ingefær",
+                "plural_name": "malt ingefær"
             },
             "panch puran": {
                 "aliases": [],
@@ -5979,8 +5979,8 @@
             "coriander powder": {
                 "aliases": [],
                 "description": "",
-                "name": "coriander powder",
-                "plural_name": "coriander powder"
+                "name": "malt koriander",
+                "plural_name": "malt koriander"
             },
             "sage": {
                 "aliases": [],
@@ -5991,7 +5991,7 @@
             "coriander": {
                 "aliases": [],
                 "description": "",
-                "name": "coriander",
+                "name": "koriander",
                 "plural_name": "corianders"
             },
             "allspice": {
@@ -6081,8 +6081,8 @@
             "garlic granule": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic granule",
-                "plural_name": "garlic granules"
+                "name": "granulert hvitløk",
+                "plural_name": "granulert hvitløk"
             },
             "celery seed": {
                 "aliases": [],
@@ -6267,8 +6267,8 @@
             "garlic flake": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic flake",
-                "plural_name": "garlic flakes"
+                "name": "hvitløksflak",
+                "plural_name": "hvitløksflak"
             },
             "dried cilantro": {
                 "aliases": [],
@@ -6674,8 +6674,8 @@
             "ginger syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger syrup",
-                "plural_name": "ginger syrup"
+                "name": "ingefærsirup",
+                "plural_name": "ingefærsirup"
             },
             "orgeat": {
                 "aliases": [],
@@ -7506,7 +7506,7 @@
             "gingerbread spice": {
                 "aliases": [],
                 "description": "",
-                "name": "gingerbread spice",
+                "name": "",
                 "plural_name": "gingerbread spices"
             },
             "popcorn seasoning": {
@@ -10310,8 +10310,8 @@
             "garlic bread": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic bread",
-                "plural_name": "garlic breads"
+                "name": "hvitløksbrød",
+                "plural_name": "hvitløksbrød"
             },
             "yeast extract spread": {
                 "aliases": [],
