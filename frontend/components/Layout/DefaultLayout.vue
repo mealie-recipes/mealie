@@ -151,7 +151,7 @@ export default defineNuxtComponent({
     const runtime = useRuntimeConfig();
     const externalHref = computed(() => {
       // set PUBLIC_OTHER_APP_URL in nuxt config or env to change
-      return runtime.public.otherAppUrl || "https://parser.mealie.lukasulc.com";
+      return runtime.public.OTHER_APP_URL;
     });
 
     function cookbookAsLink(cookbook: ReadCookBook): SideBarLink {
