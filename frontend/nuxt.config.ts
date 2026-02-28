@@ -1,6 +1,8 @@
 import { defineNuxtConfig } from "nuxt/config";
 
 const AUTH_TOKEN = "mealie.access_token";
+console.log("build PUBLIC_OTHER_APP_URL:", process.env.PUBLIC_OTHER_APP_URL);
+
 
 export default defineNuxtConfig({
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -75,7 +77,7 @@ export default defineNuxtConfig({
       AUTH_TOKEN,
       GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || undefined,
       SUB_PATH: process.env.SUB_PATH || "",
-      OTHER_APP_URL: process.env.PUBLIC_OTHER_APP_URL || "",
+      OTHER_APP_URL: process.env.PUBLIC_OTHER_APP_URL || "https://parser-mealie.lukasulc.com",
       // ==============================================
       // Theme Runtime Config
       useDark: Boolean(process.env.THEME_USE_DARK) || false,
