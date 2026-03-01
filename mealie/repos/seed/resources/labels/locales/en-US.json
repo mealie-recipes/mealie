@@ -61,5 +61,20 @@
     },
     {
         "name": "Other"
+    },
+    {
+        "name": "Vegan"
+    },
+    {
+        "name": "Vegetarian"
+    },
+    {
+        "name": "Plant-Based"
+    },
+    {
+        "name": "Dairy-Free"
+    },
+    {
+        "name": "Gluten-Free"
     }
 ]
