@@ -157,7 +157,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chřest",
-                "plural_name": "asparagus"
+                "plural_name": "chřesty"
             },
             "kale": {
                 "aliases": [],
@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "salát",
-                "plural_name": "lettuce"
+                "plural_name": "hlávkové saláty"
             },
             "butternut squash": {
                 "aliases": [],
@@ -198,7 +198,7 @@
             "romaine lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine lettuce",
+                "name": "římský salát",
                 "plural_name": "římské saláty"
             },
             "beetroot": {
@@ -217,7 +217,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fenykl",
-                "plural_name": "fennel"
+                "plural_name": "fenykly"
             },
             "sun dried tomato": {
                 "aliases": [],
@@ -279,8 +279,8 @@
             "mixed vegetables": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetables",
-                "plural_name": "mixed vegetables"
+                "name": "zeleninová směs",
+                "plural_name": "zeleninová směs"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -304,7 +304,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kajenský pepř",
-                "plural_name": "cayenne pepper"
+                "plural_name": "kajenský pepř"
             },
             "green tomato": {
                 "aliases": [],
@@ -322,7 +322,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "iceberg lettuce",
-                "plural_name": "iceberg lettuce"
+                "plural_name": "saláty ledové"
             },
             "mashed potato": {
                 "aliases": [],
@@ -488,7 +488,7 @@
                 ],
                 "description": "",
                 "name": "maize",
-                "plural_name": "maize"
+                "plural_name": "kukuřice"
             },
             "collard greens": {
                 "aliases": [],
