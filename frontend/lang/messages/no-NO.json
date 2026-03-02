@@ -212,8 +212,8 @@
     "upload-file": "Last opp fil",
     "created-on-date": "Opprettet: {0}",
     "unsaved-changes": "Du har ulagrede endringer. Ønsker du å lagre før du forlater? Trykk 'OK' for å lagre, 'Avbryt' for å forkaste endringene.",
-    "discard-changes": "Discard Changes",
-    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
+    "discard-changes": "Forkast endringer",
+    "discard-changes-description": "Du har ulagrede endringer, er du sikker på at du vil fjerne dem?",
     "clipboard-copy-failure": "Kunne ikke kopiere til utklippstavlen.",
     "confirm-delete-generic-items": "Er du sikker på at du vil slette følgende elementer?",
     "organizers": "Organisatorer",
@@ -370,8 +370,8 @@
     "applies-to-all-days": "Gjelder for alle dager",
     "applies-on-days": "Gjelder på {0}er",
     "meal-plan-settings": "Innstillinger for måltidsplan",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Legg alt til listen",
+    "add-day-to-list": "Legg til dag i listen"
   },
   "migration": {
     "migration-data-removed": "Overføringsdata er fjernet",
@@ -644,7 +644,7 @@
     "scrape-recipe-website-being-blocked": "Er nettstedet blokkert?",
     "scrape-recipe-try-importing-raw-html-instead": "Prøv å importere HTML-koden i stedet.",
     "import-original-keywords-as-tags": "Importer originale søkeord som emneord",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "Importer opprinnelige kategorier",
     "stay-in-edit-mode": "Forbli i redigeringsmodus",
     "parse-recipe-ingredients-after-import": "Analyser oppskriftens ingredienser etter at importen er fullført",
     "import-from-zip": "Importer fra zip-fil",
@@ -1170,8 +1170,8 @@
       "edit-recipe-action": "Rediger oppskriftshandling",
       "action-type": "Handlingstype",
       "action-types": {
-        "link": "Link",
-        "post": "Post"
+        "link": "Lenke",
+        "post": "Innlegg"
       }
     },
     "create-alias": "Opprett alias",
@@ -1427,8 +1427,8 @@
       "is-greater-than-or-equal-to": "er større enn eller lik",
       "is-less-than": "er mindre enn",
       "is-less-than-or-equal-to": "er mindre enn eller lik",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "er høyere enn",
+      "is-newer-than": "er nyere enn"
     },
     "relational-keywords": {
       "is": "er",
@@ -1440,7 +1440,7 @@
       "is-not-like": "er ikke som"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "dager siden|dag siden|dager siden"
     }
   },
   "validators": {
@@ -1449,6 +1449,6 @@
     "invalid-url": "Må være en gyldig nettadresse",
     "no-whitespace": "Ingen mellomrom tillatt",
     "min-length": "Må minst ha {min} tegn",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Må være minst minst {max} tegn må bestå av maks {max} tegn"
   }
 }
