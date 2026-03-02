@@ -73,8 +73,8 @@
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilograma",
-        "plural_name": "quilos",
+        "name": "quilograma",
+        "plural_name": "quilogramas",
         "description": "",
         "abbreviation": "kg"
     },
@@ -85,8 +85,8 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "salpico",
-        "plural_name": "salpicadas",
+        "name": "fio",
+        "plural_name": "fios",
         "description": "",
         "abbreviation": ""
     },
@@ -109,8 +109,8 @@
         "abbreviation": ""
     },
     "clove": {
-        "name": "cravo",
-        "plural_name": "cravos",
+        "name": "dente",
+        "plural_name": "dentes",
         "description": "",
         "abbreviation": ""
     },
@@ -121,8 +121,8 @@
         "abbreviation": ""
     },
     "bunch": {
-        "name": "punhado",
-        "plural_name": "punhados",
+        "name": "maço",
+        "plural_name": "maços",
         "description": "",
         "abbreviation": ""
     },
@@ -139,8 +139,8 @@
         "abbreviation": ""
     },
     "sprig": {
-        "name": "sprig",
-        "plural_name": "sprigs",
+        "name": "raminho",
+        "plural_name": "raminhos",
         "description": "",
         "abbreviation": ""
     }
