@@ -212,8 +212,8 @@
     "upload-file": "Încărcă fișier",
     "created-on-date": "Creat pe {0}",
     "unsaved-changes": "Aveți modificări nesalvate. Doriți să salvați înainte de a închide aplicația? Apăsați \"OK\" pentru a salva sau \"Anulare\" pentru a renunța la modificări.",
-    "discard-changes": "Discard Changes",
-    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
+    "discard-changes": "Renunțați la modificări",
+    "discard-changes-description": "Ai modificări nesalvate. Sigur dorești să le abandonezi?",
     "clipboard-copy-failure": "Copierea în clipboard a eșuat.",
     "confirm-delete-generic-items": "Sunteți sigur că doriți să ștergeți următoarele?",
     "organizers": "Organizatori",
@@ -370,8 +370,8 @@
     "applies-to-all-days": "Se aplică pentru toate zilele",
     "applies-on-days": "Aplică pe {0}s",
     "meal-plan-settings": "Setările Planului de Masă",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Adaugă toate în Listă",
+    "add-day-to-list": "Adaugă Ziua la Listă"
   },
   "migration": {
     "migration-data-removed": "Datele migrării au fost șterse",
@@ -644,7 +644,7 @@
     "scrape-recipe-website-being-blocked": "Site-ul este blocat?",
     "scrape-recipe-try-importing-raw-html-instead": "Încercați în schimb să importați HTML-ul brut.",
     "import-original-keywords-as-tags": "Importă cuvintele cheie originale ca tag-uri",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "Importă categoriile originale",
     "stay-in-edit-mode": "Rămâi în modul Editare",
     "parse-recipe-ingredients-after-import": "Analizează ingredientele rețetei după import",
     "import-from-zip": "Importă din zip",
@@ -1171,7 +1171,7 @@
       "action-type": "Tip de acțiune",
       "action-types": {
         "link": "Link",
-        "post": "Post"
+        "post": "Postare"
       }
     },
     "create-alias": "Creează Alias",
@@ -1427,8 +1427,8 @@
       "is-greater-than-or-equal-to": "este mai mare sau egală cu",
       "is-less-than": "este mai mic decât",
       "is-less-than-or-equal-to": "este mai mic sau egal cu",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "este mai vechi de",
+      "is-newer-than": "este mai nou decât"
     },
     "relational-keywords": {
       "is": "este",
@@ -1440,7 +1440,7 @@
       "is-not-like": "nu este similar"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "zile în urmă|zi în urmă|zile în urmă"
     }
   },
   "validators": {
@@ -1449,6 +1449,6 @@
     "invalid-url": "Trebuie Să Fie Un URL Valid",
     "no-whitespace": "Niciun Spațiu Alb Permis",
     "min-length": "Trebuie Să Aibă Cel Puțin {min} Caractere",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Trebuie să aibă cel mult {max} caracter | Trebuie să aibă cel mult {max} caractere"
   }
 }
