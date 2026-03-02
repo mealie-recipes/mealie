@@ -420,7 +420,7 @@
     "recipe-1": "وصفة 1",
     "recipe-2": "وصفة 2",
     "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+    "mealie-text": "يُمكن لبرنامج Mealie استيراد الوصفات من تطبيق Mealie من إصدار سابق للإصدار 1.0. صدّر وصفاتك من نسختك القديمة، ثم ارفع ملف ZIP أدناه. يُرجى العلم أنه لا يُمكن استيراد سوى الوصفات من الملف المُصدّر.",
     "plantoeat": {
       "title": "خِطَّة تناول الطعام",
       "description-long": "يمكن لمالي أن تستورد الوصفات من Plan to Eat."

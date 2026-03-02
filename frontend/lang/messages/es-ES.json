@@ -64,8 +64,8 @@
     "scheduled": "Programado",
     "something-went-wrong": "¡Algo ha salido mal!",
     "subscribed-events": "Eventos suscritos",
-    "test-message-sent": "Mensaje Enviado",
-    "message-sent": "Mensaje Enviado",
+    "test-message-sent": "Mensaje enviado",
+    "message-sent": "Mensaje de prueba enviado",
     "new-notification": "Nueva notificación",
     "event-notifiers": "Notificaciones de eventos",
     "apprise-url-skipped-if-blank": "URL de Apprise (omitida si está en blanco)",
@@ -1170,8 +1170,8 @@
       "edit-recipe-action": "Editar Acción de Receta",
       "action-type": "Tipo de Acción",
       "action-types": {
-        "link": "Link",
-        "post": "Post"
+        "link": "Enlace",
+        "post": "Publicar"
       }
     },
     "create-alias": "Crear un Alias",
@@ -1427,8 +1427,8 @@
       "is-greater-than-or-equal-to": "es mayor que o igual a",
       "is-less-than": "es menor que",
       "is-less-than-or-equal-to": "es menor que o igual a",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "es anterior a",
+      "is-newer-than": "es más reciente que"
     },
     "relational-keywords": {
       "is": "es",
@@ -1448,7 +1448,7 @@
     "invalid-email": "El email debe ser válido",
     "invalid-url": "Debe ser una URL válida",
     "no-whitespace": "No se permiten espacios en blanco",
-    "min-length": "Debe ser como mínimo {min} caracteres",
+    "min-length": "Debe tener como mínimo {min} caracteres",
     "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }
