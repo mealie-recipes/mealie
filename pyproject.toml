@@ -24,7 +24,7 @@ dependencies = [
     "pydantic==2.12.5",
     "pyhumps==3.8.0",
     "python-dateutil==2.9.0.post0",
-    "python-dotenv==1.2.1",
+    "python-dotenv==1.2.2",
     "python-ldap==3.4.5",
     "python-multipart==0.0.22",
     "python-slugify==8.0.4",
