@@ -1,83 +1,83 @@
 {
     "generic": {
-        "server-error": "An unexpected error occurred"
+        "server-error": "發生未預期的錯誤"
     },
     "recipe": {
-        "unique-name-error": "Recipe names must be unique",
-        "recipe-created": "Recipe Created",
-        "recipe-image-deleted": "Recipe image deleted",
+        "unique-name-error": "食譜名稱必須是唯一的",
+        "recipe-created": "食譜已建立",
+        "recipe-image-deleted": "食譜圖片已刪除",
         "recipe-defaults": {
-            "ingredient-note": "1 Cup Flour",
-            "step-text": "Recipe steps as well as other fields in the recipe page support markdown syntax.\n\n**Add a link**\n\n[My Link](https://demo.mealie.io)\n"
+            "ingredient-note": "1 杯麵粉",
+            "step-text": "食譜步驟以及食譜頁面中的其他欄位皆支援 Markdown 語法。\n\n**新增連結**\n\n[我的連結](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Makes",
-            "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
-            "yield": "Yield",
-            "yields": "Yields"
+            "makes": "製作",
+            "serves": "份量",
+            "serving": "份量",
+            "servings": "份量",
+            "yield": "產出",
+            "yields": "產出"
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "沒有符合您條件的食譜"
     },
     "user": {
-        "user-updated": "User updated",
-        "password-updated": "Password updated",
-        "invalid-current-password": "目前密碼無效",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "user-updated": "使用者資料已更新",
+        "password-updated": "密碼已更新",
+        "invalid-current-password": "目前的密碼無效",
+        "ldap-update-password-unavailable": "無法更新密碼，此使用者由 LDAP 管理"
     },
     "group": {
-        "report-deleted": "Report deleted."
+        "report-deleted": "報告已刪除。"
     },
     "exceptions": {
-        "permission_denied": "You do not have permission to perform this action",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
-        "no-entry-found": "The requested resource was not found",
-        "integrity-error": "Database integrity error",
-        "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "該電子郵件已被使用"
+        "permission_denied": "您沒有執行此操作的權限",
+        "recursive-recipe-link": "食譜不能直接或間接地參照自身",
+        "no-entry-found": "找不到要求的資源",
+        "integrity-error": "資料庫完整性錯誤",
+        "username-conflict-error": "此使用者名稱已被使用",
+        "email-conflict-error": "該電子郵件地址已被使用"
     },
     "notifications": {
-        "generic-created": "{name} was created",
-        "generic-updated": "{name} was updated",
-        "generic-created-with-url": "{name} has been created, {url}",
-        "generic-updated-with-url": "{name} has been updated, {url}",
-        "generic-duplicated": "{name} has been duplicated",
-        "generic-deleted": "{name} has been deleted",
-        "logged-out": "Logged out"
+        "generic-created": "{name} 已建立",
+        "generic-updated": "{name} 已更新",
+        "generic-created-with-url": "{name} 已建立，{url}",
+        "generic-updated-with-url": "{name} 已更新，{url}",
+        "generic-duplicated": "{name} 已複製",
+        "generic-deleted": "{name} 已刪除",
+        "logged-out": "已登出"
     },
     "datetime": {
-        "year": "year|years",
-        "day": "day|days",
-        "hour": "hour|hours",
-        "minute": "minute|minutes",
-        "second": "second|seconds",
-        "millisecond": "millisecond|milliseconds",
-        "microsecond": "microsecond|microseconds"
+        "year": "年|年",
+        "day": "天|天",
+        "hour": "小時|小時",
+        "minute": "分鐘|分鐘",
+        "second": "秒|秒",
+        "millisecond": "毫秒|毫秒",
+        "microsecond": "微秒|微秒"
     },
     "emails": {
         "password": {
-            "subject": "Mealie Forgot Password",
-            "header_text": "Forgot Password",
-            "message_top": "You have requested to reset your password.",
-            "message_bottom": "Please click the button above to reset your password.",
-            "button_text": "Reset Password"
+            "subject": "Mealie 忘記密碼",
+            "header_text": "忘記密碼",
+            "message_top": "您已申請重設密碼。",
+            "message_bottom": "請點擊上方按鈕以重設您的密碼。",
+            "button_text": "重設密碼"
         },
         "invitation": {
-            "subject": "Invitation to join Mealie",
-            "header_text": "You're Invited!",
-            "message_top": "You have been invited to join Mealie.",
-            "message_bottom": "Please click the button above to accept the invitation.",
-            "button_text": "Accept Invitation"
+            "subject": "邀請加入 Mealie",
+            "header_text": "受邀通知",
+            "message_top": "您已被邀請加入 Mealie。",
+            "message_bottom": "請點擊上方按鈕以接受邀請。",
+            "button_text": "接受邀請"
         },
         "test": {
-            "subject": "Mealie Test Email",
-            "header_text": "Test Email",
-            "message_top": "This is a test email.",
-            "message_bottom": "Please click the button above to test the email.",
-            "button_text": "Open Mealie"
+            "subject": "Mealie 測試郵件",
+            "header_text": "測試郵件",
+            "message_top": "這是一封測試郵件。",
+            "message_bottom": "請點擊上方按鈕以測試郵件功能。",
+            "button_text": "開啟 Mealie"
         }
     }
 }
