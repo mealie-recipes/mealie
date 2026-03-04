@@ -1,6 +1,7 @@
 import datetime
 import json
 import shutil
+import re
 from pathlib import Path
 from zipfile import ZipFile
 
@@ -15,7 +16,8 @@ class BackupSchemaMismatch(Exception): ...
 
 class BackupV2(BaseService):
     EXCLUDE_DIRS = {"backups", ".temp"}
-    EXCLUDE_FILES = {"mealie.db", "mealie.log", "mealie.log.1", "mealie.log.2", "mealie.log.3"}
+    EXCLUDE_FILES = {"mealie.db"}
+    EXCLUDE_FILES_REGEX = {re.compile(r"^mealie\.log(?:\.\d+)?$")}
     EXCLUDE_EXTENTIONS = {".zip"}
 
     RESTORE_FILES = {".secret"}
@@ -52,6 +54,9 @@ class BackupV2(BaseService):
 
             for data_file in self.directories.DATA_DIR.glob("**/*"):
                 if data_file.name in self.EXCLUDE_FILES:
+                    continue
+
+                if any(pattern.search(data_file.name) for pattern in self.EXCLUDE_FILES_REGEX):
                     continue
 
                 if data_file.is_file() and data_file.suffix not in self.EXCLUDE_EXTENTIONS:
