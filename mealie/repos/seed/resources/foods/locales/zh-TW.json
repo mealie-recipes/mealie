@@ -630,7 +630,7 @@
         "foods": {
             "tomato": {
                 "aliases": [],
-                "description": "Yes they are a fruit",
+                "description": "",
                 "name": "番茄",
                 "plural_name": "番茄"
             },
@@ -998,7 +998,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "柚子（ゆず）",
-                "plural_name": "柚子（ゆず）"
+                "plural_name": "柚子"
             },
             "granadilla": {
                 "aliases": [],
@@ -4988,7 +4988,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "比目魚（龍利魚）",
-                "plural_name": "比目魚（龍利魚）"
+                "plural_name": "比目魚"
             },
             "mahi mahi": {
                 "aliases": [],
@@ -5414,7 +5414,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "煙燻魚（菲律賓式）",
-                "plural_name": "煙燻魚（菲律賓式）"
+                "plural_name": "菲律賓煙燻魚"
             },
             "zander": {
                 "aliases": [],
@@ -6891,7 +6891,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "椰糖（古拉馬拉卡）",
-                "plural_name": "椰糖（古拉馬拉卡）"
+                "plural_name": "馬六甲椰糖"
             },
             "elderberry syrup": {
                 "aliases": [],
@@ -7866,7 +7866,7 @@
             },
             "whole-wheat": {
                 "aliases": [
-                    "whole wheat",
+                    "全麥",
                     "全麥"
                 ],
                 "description": "",
@@ -9187,7 +9187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "黑扁豆仁（烏拉達豆）",
-                "plural_name": "黑扁豆仁（烏拉達豆）"
+                "plural_name": "小黑扁豆仁"
             },
             "lima bean": {
                 "aliases": [],
@@ -9217,7 +9217,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "綠豆仁（木豆）",
-                "plural_name": "綠豆仁（木豆）"
+                "plural_name": "綠豆仁"
             },
             "split pea": {
                 "aliases": [],
@@ -9469,7 +9469,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "扁豆（鳳眼果豆）",
-                "plural_name": "扁豆（鳳眼果豆）"
+                "plural_name": "扁豆"
             },
             "petai": {
                 "aliases": [],
@@ -9823,7 +9823,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "細麵線（菲德奧麵）",
-                "plural_name": "細麵線（菲德奧麵）"
+                "plural_name": "義大利細麵"
             },
             "spaetzle": {
                 "aliases": [],
@@ -10899,7 +10899,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "雞油（熬製）",
-                "plural_name": "雞油（熬製）"
+                "plural_name": "雞油"
             },
             "tallow": {
                 "aliases": [],
@@ -12807,7 +12807,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "白醬（阿爾弗雷多醬）",
-                "plural_name": "白醬（阿爾弗雷多醬）"
+                "plural_name": "阿爾弗雷多白醬"
             },
             "balsamic glaze": {
                 "aliases": [],
@@ -12867,7 +12867,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "白醬（貝夏美醬）",
-                "plural_name": "白醬（貝夏美醬）"
+                "plural_name": "貝夏美白醬"
             },
             "horseradish sauce": {
                 "aliases": [],
