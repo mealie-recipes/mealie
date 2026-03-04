@@ -69,13 +69,15 @@ export default defineNuxtComponent({
     });
 
     // if a user unsets their rating, we don't want to fall back to the group rating since it's out of sync
+    // this also handles showing the user rating input after they clear their rating
     const hideGroupRating = ref(!!userRating.value);
     watch(
       () => userRating.value,
-      () => {
-        if (userRating.value) {
+      (newVal) => {
+        if (newVal) {
           hideGroupRating.value = true;
         }
+        // When rating is cleared (undefined), keep showing user rating input so they can rate again
       },
     );
 
@@ -84,12 +86,18 @@ export default defineNuxtComponent({
     });
 
     function updateRating(val?: number) {
-      if (!isOwnGroup.value || !val) {
+      if (!isOwnGroup.value) {
+        return;
+      }
+
+      // Allow val to be 0 (unset rating) - only return if undefined/null
+      if (val === undefined || val === null) {
         return;
       }
 
       if (!props.emitOnly) {
-        setRating(props.slug, val || 0, null);
+        // Send 0 to clear rating, otherwise send the actual rating
+        setRating(props.slug, val, null);
       }
       context.emit("update:modelValue", val);
     }

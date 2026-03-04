@@ -53,23 +53,26 @@ class UserRatingsController(BaseUserController):
 
     @router.post("/{id}/ratings/{slug}")
     def set_rating(self, id: UUID4, slug: str, data: UserRatingUpdate):
-        """Sets the user's rating for a recipe"""
+        """Sets the user's rating for a recipe. Use rating=0 to unset/clear the rating."""
         assert_user_change_allowed(id, self.user, self.user)
 
         recipe = self.get_recipe_or_404(slug)
         user_rating = self.repos.user_ratings.get_by_user_and_recipe(id, recipe.id)
         if not user_rating:
-            self.repos.user_ratings.create(
-                UserRatingCreate(
-                    user_id=id,
-                    recipe_id=recipe.id,
-                    rating=data.rating,
-                    is_favorite=data.is_favorite or False,
+            # Only create if rating is non-zero (0 means clear/no rating)
+            if data.rating is None or data.rating > 0:
+                self.repos.user_ratings.create(
+                    UserRatingCreate(
+                        user_id=id,
+                        recipe_id=recipe.id,
+                        rating=data.rating,
+                        is_favorite=data.is_favorite or False,
+                    )
                 )
-            )
         else:
+            # Handle rating update: 0 clears to None, otherwise update normally
             if data.rating is not None:
-                user_rating.rating = data.rating
+                user_rating.rating = data.rating if data.rating > 0 else None
             if data.is_favorite is not None:
                 user_rating.is_favorite = data.is_favorite
 
