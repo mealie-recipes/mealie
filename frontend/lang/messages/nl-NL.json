@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Gegevens voor acties met recepten",
       "new-recipe-action": "Nieuwe actie met recept",
       "edit-recipe-action": "Pas actie met recept aan",
-      "action-type": "Soort actie"
+      "action-type": "Soort actie",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Maak alias",
     "manage-aliases": "Beheer aliassen ",

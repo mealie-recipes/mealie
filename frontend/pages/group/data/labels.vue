@@ -45,6 +45,8 @@
     <GroupDataPage
       :icon="$globals.icons.tags"
       :title="$t('data-pages.labels.labels')"
+      :create-title="$t('data-pages.labels.new-label')"
+      :edit-title="$t('data-pages.labels.edit-label')"
       :table-headers="tableHeaders"
       :table-config="tableConfig"
       :data="labelStore.store.value || []"
@@ -66,7 +68,11 @@
       </template>
 
       <template #create-dialog-top>
-        <MultiPurposeLabel :label="createForm.data" class="my-2" />
+        <MultiPurposeLabel v-if="createForm.data.name" :label="createForm.data" class="my-2" />
+      </template>
+
+      <template #edit-dialog-top>
+        <MultiPurposeLabel v-if="editForm.data.name" :label="editForm.data" class="my-2" />
       </template>
 
       <template #table-button-bottom>

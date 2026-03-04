@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "レシピ操作データ",
       "new-recipe-action": "新しいレシピ操作",
       "edit-recipe-action": "レシピ操作の編集",
-      "action-type": "操作タイプ"
+      "action-type": "操作タイプ",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "エイリアスを作成",
     "manage-aliases": "エイリアスの管理",

@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "레시피 액션 데이터",
       "new-recipe-action": "새 레시피 액션",
       "edit-recipe-action": "레시피 액션 편집",
-      "action-type": "액션 종류"
+      "action-type": "액션 종류",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "별칭 생성",
     "manage-aliases": "별칭 관리",

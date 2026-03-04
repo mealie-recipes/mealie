@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Данни за действия с рецепти",
       "new-recipe-action": "Ново действие с рецепта",
       "edit-recipe-action": "Редактиране на действието с рецепта",
-      "action-type": "Вид действие"
+      "action-type": "Вид действие",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Създаване на псевдоним",
     "manage-aliases": "Управление на псевдоними",

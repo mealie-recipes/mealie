@@ -3,6 +3,8 @@
     <GroupDataPage
       :icon="$globals.icons.tags"
       :title="$t('data-pages.tags.tag-data')"
+      :create-title="$t('data-pages.tags.new-tag')"
+      :edit-title="$t('data-pages.tags.edit-tag')"
       :table-headers="tableHeaders"
       :table-config="tableConfig"
       :data="tagStore.store.value || []"

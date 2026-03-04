@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Dáta akcií receptu",
       "new-recipe-action": "Nová akcia receptu",
       "edit-recipe-action": "Upraviť akciu receptu",
-      "action-type": "Typ akcie"
+      "action-type": "Typ akcie",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Vytvoriť alias",
     "manage-aliases": "Spravovať aliasy",

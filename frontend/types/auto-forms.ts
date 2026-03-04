@@ -6,11 +6,13 @@ export type FormValidationRule = (value: any) => boolean | string;
 
 export interface FormSelectOption {
   text: string;
+  value?: string;
 }
 
 export interface FormField {
   section?: string;
   sectionDetails?: string;
+  cols?: number | "auto";
   label?: string;
   hint?: string;
   varName: string;
@@ -19,7 +21,7 @@ export interface FormField {
   disableUpdate?: boolean;
   disableCreate?: boolean;
   options?: FormSelectOption[];
-  selectReturnValue?: string;
+  selectReturnValue?: "text" | "value";
 }
 
 export type AutoFormItems = FormField[];

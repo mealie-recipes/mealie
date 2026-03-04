@@ -95,6 +95,8 @@
     <GroupDataPage
       :icon="$globals.icons.units"
       :title="$t('general.units')"
+      :create-title="$t('data-pages.units.create-unit')"
+      :edit-title="$t('data-pages.units.edit-unit')"
       :table-headers="tableHeaders"
       :table-config="tableConfig"
       :data="unitStore || []"
@@ -231,22 +233,26 @@ const { store: unitStore, actions: unitActions } = useUnitStore();
 // Form items (shared)
 const formItems: AutoFormItems = [
   {
+    cols: 8,
     label: i18n.t("general.name"),
     varName: "name",
     type: fieldTypes.TEXT,
     rules: [validators.required],
   },
   {
-    label: i18n.t("general.plural-name"),
-    varName: "pluralName",
-    type: fieldTypes.TEXT,
-  },
-  {
+    cols: 4,
     label: i18n.t("data-pages.units.abbreviation"),
     varName: "abbreviation",
     type: fieldTypes.TEXT,
   },
   {
+    cols: 8,
+    label: i18n.t("general.plural-name"),
+    varName: "pluralName",
+    type: fieldTypes.TEXT,
+  },
+  {
+    cols: 4,
     label: i18n.t("data-pages.units.plural-abbreviation"),
     varName: "pluralAbbreviation",
     type: fieldTypes.TEXT,
@@ -257,11 +263,14 @@ const formItems: AutoFormItems = [
     type: fieldTypes.TEXT,
   },
   {
+    section: i18n.t("general.settings"),
+    cols: 4,
     label: i18n.t("data-pages.units.use-abbv"),
     varName: "useAbbreviation",
     type: fieldTypes.BOOLEAN,
   },
   {
+    cols: 4,
     label: i18n.t("data-pages.units.fraction"),
     varName: "fraction",
     type: fieldTypes.BOOLEAN,

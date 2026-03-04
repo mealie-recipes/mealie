@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "食谱行为数据",
       "new-recipe-action": "新建食谱行为",
       "edit-recipe-action": "编辑食谱行为",
-      "action-type": "行为种类"
+      "action-type": "行为种类",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "创建别名",
     "manage-aliases": "管理别名",
