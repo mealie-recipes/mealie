@@ -135,7 +135,13 @@ export function useIngredientTextParser() {
     };
   };
 
-  function parseIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true): string {
+  function parseIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true, forParsing = false): string {
+    // When parsing unparsed ingredients (no food and no unit), use the note directly
+    // to avoid duplicating quantities (e.g., "1 1/2 cup apples" from quantity=1 + note="1/2 cup apples")
+    if (forParsing && !ingredient.food && !ingredient.unit && ingredient.note) {
+      return sanitizeIngredientHTML(ingredient.note);
+    }
+
     const { quantity, unit, name, note } = useParsedIngredientText(ingredient, scale, includeFormating);
 
     const text = `${quantity || ""} ${unit || ""} ${name || ""} ${note || ""}`.replace(/ {2,}/g, " ").trim();

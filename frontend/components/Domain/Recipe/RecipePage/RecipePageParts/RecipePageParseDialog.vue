@@ -373,7 +373,7 @@ async function parseIngredients() {
   try {
     const ingsAsString = props.ingredients
       .filter(ing => !ing.referencedRecipe)
-      .map(ing => parseIngredientText(ing, 1, false) ?? "");
+      .map(ing => parseIngredientText(ing, 1, false, true) ?? "");
     const { data, error } = await api.recipes.parseIngredients(parser.value, ingsAsString);
     if (error || !data) {
       throw new Error("Failed to parse ingredients");

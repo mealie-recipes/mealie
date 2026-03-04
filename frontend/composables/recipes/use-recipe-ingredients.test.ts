@@ -5,7 +5,7 @@ import { useLocales } from "../use-locales";
 
 vi.mock("../use-locales");
 
-let parseIngredientText: (ingredient: RecipeIngredient, scale?: number, includeFormating?: boolean) => string;
+let parseIngredientText: (ingredient: RecipeIngredient, scale?: number, includeFormating?: boolean, forParsing?: boolean) => string;
 
 describe("parseIngredientText", () => {
   beforeEach(() => {
@@ -234,5 +234,43 @@ describe("parseIngredientText", () => {
     });
 
     expect(parseIngredientText(ingredient, 1, false)).toEqual("&lt; 1/10 cup salt");
+  });
+
+  test("forParsing: unparsed ingredient with quantity uses note directly", () => {
+    // This tests the fix for issue #7079
+    // When an unparsed ingredient has quantity=1 and note="1/2 cup apples",
+    // forParsing=true should return "1/2 cup apples" (not "1 1/2 cup apples")
+    const ingredient: RecipeIngredient = {
+      quantity: 1,
+      note: "1/2 cup apples",
+      food: undefined,
+      unit: undefined,
+    };
+
+    expect(parseIngredientText(ingredient, 1, false, true)).toEqual("1/2 cup apples");
+  });
+
+  test("forParsing: parsed ingredient with food/unit still formats normally", () => {
+    const ingredient = createRecipeIngredient({
+      quantity: 1,
+      unit: { id: "1", name: "cup", useAbbreviation: false },
+      food: { id: "1", name: "apples" },
+      note: "diced",
+    });
+
+    expect(parseIngredientText(ingredient, 1, false, true)).toEqual("1 cup apples diced");
+  });
+
+  test("forParsing: false (default) still prepends quantity to unparsed ingredient", () => {
+    const ingredient: RecipeIngredient = {
+      quantity: 1,
+      note: "1/2 cup apples",
+      food: undefined,
+      unit: undefined,
+    };
+
+    // Default behavior (forParsing=false or omitted) prepends quantity
+    expect(parseIngredientText(ingredient, 1, false, false)).toEqual("1 1/2 cup apples");
+    expect(parseIngredientText(ingredient, 1, false)).toEqual("1 1/2 cup apples");
   });
 });
