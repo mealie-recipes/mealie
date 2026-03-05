@@ -1,3 +1,4 @@
+from dataclasses import dataclass, field
 from fractions import Fraction
 from itertools import zip_longest
 
@@ -70,6 +71,22 @@ class BruteForceParser(ABCIngredientParser):
 
     async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
         return [await self.parse_one(ingredient) for ingredient in ingredients]
+
+
+@dataclass
+class _IngredientPart:
+    qty: float = 0
+    unit: str = ""
+    food: str = ""
+    extra_amounts: list[IngredientAmount] = field(default_factory=list)
+    qty_conf: float = 0
+    unit_conf: float = 0
+    food_conf: float = 0
+
+    @property
+    def avg_conf(self) -> float:
+        confs = [self.qty_conf, self.unit_conf, self.food_conf]
+        return sum(confs) / len(confs)
 
 
 class NLPParser(ABCIngredientParser):
@@ -145,75 +162,62 @@ class NLPParser(ABCIngredientParser):
         return note, confidence
 
     def _convert_ingredient(self, ingredient: IngredientParserParsedIngredient) -> ParsedIngredient:
-        # qty, unit, food, extra_composite_amounts, (qty_conf, unit_conf, food_conf)
-        ing_parts: list[tuple[float, str, str, list[IngredientAmount], tuple[float, float, float]]] = []
+        ing_parts: list[_IngredientPart] = []
 
         for amount, ing_name in zip_longest(ingredient.amount, ingredient.name, fillvalue=None):
-            per_ing_extra_amounts: list[IngredientAmount] = []
+            part = _IngredientPart()
 
             if amount:
                 if isinstance(amount, CompositeIngredientAmount):
-                    per_ing_extra_amounts = list(amount.amounts[1:])
+                    part.extra_amounts = list(amount.amounts[1:])
                     amount = amount.amounts[0]
 
-                qty, qty_conf = self._extract_quantity(amount)
-                unit, unit_conf = self._extract_unit(amount)
-            else:
-                qty = 0
-                qty_conf = 0
-
-                unit = ""
-                unit_conf = 0
+                part.qty, part.qty_conf = self._extract_quantity(amount)
+                part.unit, part.unit_conf = self._extract_unit(amount)
 
             if ing_name:
-                food = ing_name.text
-                food_conf = ing_name.confidence
-            else:
-                food = ""
-                food_conf = 0
+                part.food = ing_name.text
+                part.food_conf = ing_name.confidence
 
-            ing_parts.append((qty, unit, food, per_ing_extra_amounts, (qty_conf, unit_conf, food_conf)))
+            ing_parts.append(part)
 
-        note, note_conf = self._extract_note(ingredient, ing_parts[0][3] if ing_parts else None)
+        note, note_conf = self._extract_note(ingredient, ing_parts[0].extra_amounts if ing_parts else None)
 
         # Safeguard in case the parser outputs nothing
         if not ing_parts:
-            ing_parts.append((0, "", "", [], (0, 0, 0)))
+            ing_parts.append(_IngredientPart())
 
         # average confidence for components which were parsed
-        # uses ing_part[0] since this is the primary ingredient
+        # uses ing_parts[0] since this is the primary ingredient
+        primary = ing_parts[0]
         confidences: list[float] = []
 
-        qty, unit, food, _, primary_conf = ing_parts[0]
-        qty_conf, unit_conf, food_conf = primary_conf
-
-        if qty:
-            confidences.append(qty_conf)
-        if unit:
-            confidences.append(unit_conf)
-        if food:
-            confidences.append(food_conf)
+        if primary.qty:
+            confidences.append(primary.qty_conf)
+        if primary.unit:
+            confidences.append(primary.unit_conf)
+        if primary.food:
+            confidences.append(primary.food_conf)
         if note:
             confidences.append(note_conf)
         if len(ing_parts) > 1:
-            confidences.extend([(sum(ing_part[4]) / len(ing_part[4])) for ing_part in ing_parts[1:]])
+            confidences.extend([part.avg_conf for part in ing_parts[1:]])
 
         recipe_ingredients: list[RecipeIngredient] = []
-        for i, ing_part in enumerate(ing_parts):
-            ing_qty, ing_unit, ing_food, extra_amounts, _ = ing_part
+        for i, part in enumerate(ing_parts):
             if not i:
                 ing_note = note
-            elif extra_amounts:
+            elif part.extra_amounts:
                 # TODO: handle extra amounts when we add support for them
                 # For now, just add them as a note ("and amt_1, and amt_2, and ...")
-                ing_note = ", ".join(self.t("recipe.and-amount", amount=a.text) for a in extra_amounts)
+                ing_note = ", ".join(self.t("recipe.and-amount", amount=a.text) for a in part.extra_amounts)
             else:
                 ing_note = None
             recipe_ingredients.append(
                 RecipeIngredient(
-                    quantity=ing_qty,
-                    unit=CreateIngredientUnit(name=ing_unit) if ing_unit else None,
-                    food=CreateIngredientFood(name=ing_food) if ing_food else None,
+                    quantity=part.qty,
+                    unit=CreateIngredientUnit(name=part.unit) if part.unit else None,
+                    food=CreateIngredientFood(name=part.food) if part.food else None,
                     note=ing_note,
                 )
             )
@@ -237,9 +241,9 @@ class NLPParser(ABCIngredientParser):
             input=ingredient.sentence,
             confidence=IngredientConfidence(
                 average=(sum(confidences) / len(confidences)) if confidences else 0,
-                quantity=qty_conf,
-                unit=unit_conf,
-                food=food_conf,
+                quantity=primary.qty_conf,
+                unit=primary.unit_conf,
+                food=primary.food_conf,
                 comment=note_conf,
             ),
             ingredient=primary_ingredient,
