@@ -143,6 +143,7 @@ ENV APP_PORT=9000
 EXPOSE ${APP_PORT}
 
 COPY ./docker/healthcheck.sh $MEALIE_HOME/healthcheck.sh
+RUN chmod +x $MEALIE_HOME/healthcheck.sh
 HEALTHCHECK CMD $MEALIE_HOME/healthcheck.sh
 
 ENV HOST 0.0.0.0
