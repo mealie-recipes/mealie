@@ -44,9 +44,7 @@ def normalize(val: str) -> str:
             "russet potatoes",
             "peeled, and cut into 3/4 inch cubes",
         ),
-        TestIngredient("2 tablespoons (30ml) vegetable oil ", 2, "tablespoon", "vegetable oil", ""),
         TestIngredient("2 teaspoons salt (to taste) ", 2, "teaspoon", "salt", "to taste"),
-        TestIngredient("2 cups chicken broth or beef broth ", 2, "cup", "chicken broth", ""),
         TestIngredient("1/2 cup", 0.5, "cup", "", ""),
     ],
 )
@@ -86,6 +84,14 @@ def test_nlp_parser(unique_local_group_id: UUID4, test_ingredient: TestIngredien
         (
             "153 grams all-purpose flour (1 cup plus 1 tablespoon and 2 teaspoons)",
             "153 gram all-purpose flour or 1 cup plus 1 tablespoon and 2 teaspoons",
+        ),
+        (
+            "2 cups chicken broth or beef broth",
+            "2 cup chicken broth or beef broth",
+        ),
+        (
+            "2 tablespoons (30ml) vegetable oil",
+            "2 tablespoon vegetable oil or 30 milliliter",
         ),
     ],
 )
