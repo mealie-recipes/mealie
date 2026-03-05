@@ -7,6 +7,7 @@ from pydantic import UUID4
 from sqlalchemy.orm import Session
 
 from mealie.core.root_logger import get_logger
+from mealie.lang.providers import Translator
 from mealie.schema.recipe import RecipeIngredient
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFood,
@@ -197,7 +198,9 @@ __registrar: dict[RegisteredParser, type[ABCIngredientParser]] = {
 }
 
 
-def get_parser(parser: RegisteredParser, group_id: UUID4, session: Session) -> ABCIngredientParser:
+def get_parser(
+    parser: RegisteredParser, group_id: UUID4, session: Session, translator: Translator
+) -> ABCIngredientParser:
     """
     get_parser returns an ingrdeint parser based on the string enum value
     passed in.
