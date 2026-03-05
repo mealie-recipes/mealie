@@ -7,6 +7,7 @@ import pytest
 from pydantic import UUID4
 
 from mealie.db.db_setup import session_context
+from mealie.lang.providers import get_locale_provider
 from mealie.schema.openai.recipe_ingredient import OpenAIIngredient, OpenAIIngredients
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import (
@@ -50,7 +51,7 @@ def test_openai_parser(
 
     with session_context() as session:
         loop = asyncio.get_event_loop()
-        parser = get_parser(RegisteredParser.openai, unique_local_group_id, session)
+        parser = get_parser(RegisteredParser.openai, unique_local_group_id, session, get_locale_provider())
 
         inputs = [random_string() for _ in range(ingredient_count)]
         parsed = loop.run_until_complete(parser.parse(inputs))
@@ -92,7 +93,7 @@ def test_openai_parser_sanitize_output(
 
     with session_context() as session:
         loop = asyncio.get_event_loop()
-        parser = get_parser(RegisteredParser.openai, unique_local_group_id, session)
+        parser = get_parser(RegisteredParser.openai, unique_local_group_id, session, get_locale_provider())
 
         parsed = loop.run_until_complete(parser.parse([""]))
         assert len(parsed) == 1
@@ -259,7 +260,9 @@ def test_openai_parser_confidence(
     with session_context() as session:
         from mealie.services.parser_services.openai.parser import OpenAIParser
 
-        parser = cast(OpenAIParser, get_parser(RegisteredParser.openai, unique_local_group_id, session))
+        parser = cast(
+            OpenAIParser, get_parser(RegisteredParser.openai, unique_local_group_id, session, get_locale_provider())
+        )
 
         # Create test ingredient
         ingredient = RecipeIngredient(
