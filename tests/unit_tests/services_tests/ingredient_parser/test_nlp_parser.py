@@ -93,6 +93,10 @@ def test_nlp_parser(unique_local_group_id: UUID4, test_ingredient: TestIngredien
             "2 tablespoons (30ml) vegetable oil",
             "2 tablespoon vegetable oil or 30 milliliter",
         ),
+        (
+            "1 cup fresh basil or 2 tablespoons dried basil",
+            "1 cup fresh basil or 2 tablespoons dried basil",
+        ),
     ],
 )
 @pytest.mark.asyncio
