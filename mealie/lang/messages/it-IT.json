@@ -17,7 +17,9 @@
             "servings": "Portate",
             "yield": "Porzione",
             "yields": "Porzioni"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Nessuna ricetta corrisponde alle tue regole"
