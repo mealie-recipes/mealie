@@ -17,7 +17,9 @@
             "servings": "Adag",
             "yield": "Adag",
             "yields": "Késleltetve"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Nem található recept a beállítottt szabályok alapján"
