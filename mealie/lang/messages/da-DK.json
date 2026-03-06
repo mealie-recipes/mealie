@@ -17,7 +17,9 @@
             "servings": "Portioner",
             "yield": "Mængde",
             "yields": "Mængde"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Ingen opskrifter matcher dine regler"
