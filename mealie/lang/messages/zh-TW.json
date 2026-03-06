@@ -17,7 +17,9 @@
             "servings": "份量",
             "yield": "產出",
             "yields": "產出"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "沒有符合您條件的食譜"
