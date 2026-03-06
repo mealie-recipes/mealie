@@ -17,7 +17,9 @@
             "servings": "Porties",
             "yield": "Opbrengst",
             "yields": "Opbrengsten"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Geen recepten die overeenkomen met je regels"
