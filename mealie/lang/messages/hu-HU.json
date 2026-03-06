@@ -18,8 +18,8 @@
             "yield": "Adag",
             "yields": "Késleltetve"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}"
+        "and-amount": "és {amount}",
+        "or-ingredient": "vagy {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Nem található recept a beállítottt szabályok alapján"
