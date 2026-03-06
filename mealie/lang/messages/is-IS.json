@@ -17,7 +17,9 @@
             "servings": "Skammtar",
             "yield": "Skilar",
             "yields": "Skilar"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Eingin uppskrift passar við settar reglur"
