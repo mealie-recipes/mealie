@@ -17,7 +17,9 @@
             "servings": "Obroki",
             "yield": "donos",
             "yields": "donosi"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Noben recept ne ustreza vašim pogojem"
