@@ -17,7 +17,9 @@
             "servings": "Број порција",
             "yield": "Количина",
             "yields": "Количина"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Нема рецепата који одговарају вашим правилима"
