@@ -57,6 +57,7 @@ jobs:
             # Check if file matches any allowed path
             if [[ "$file" == "frontend/composables/use-locales/available-locales.ts" ]] || \
                [[ "$file" =~ ^frontend/lang/ ]] || \
+               [[ "$file" =~ ^mealie/lang/ ]] || \
                [[ "$file" =~ ^mealie/repos/seed/resources/[^/]+/locales/ ]]; then
               continue
             fi
@@ -66,6 +67,7 @@ jobs:
             echo "Only the following paths are allowed:"
             echo "  - frontend/composables/use-locales/available-locales.ts"
             echo "  - frontend/lang/"
+            echo "  - mealie/lang/"
             echo "  - mealie/repos/seed/resources/*/locales/"
             exit 1
           done
