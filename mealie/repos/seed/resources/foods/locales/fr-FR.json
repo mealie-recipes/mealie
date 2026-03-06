@@ -5789,8 +5789,8 @@
             "seaweed caviar": {
                 "aliases": [],
                 "description": "",
-                "name": "seaweed caviar",
-                "plural_name": "seaweed caviars"
+                "name": "Caviar d'algues",
+                "plural_name": "Caviars d'algues"
             },
             "haddock": {
                 "aliases": [],
@@ -5801,8 +5801,8 @@
             "sea mos": {
                 "aliases": [],
                 "description": "",
-                "name": "sea mos",
-                "plural_name": "sea moss"
+                "name": "Mousse de mer",
+                "plural_name": "Mousses de mer"
             },
             "langoustine": {
                 "aliases": [],
@@ -5937,8 +5937,8 @@
             "panch puran": {
                 "aliases": [],
                 "description": "",
-                "name": "panch puran",
-                "plural_name": "panch purans"
+                "name": "Panch Puran",
+                "plural_name": "Panch Puran"
             },
             "dill": {
                 "aliases": [],
@@ -6075,8 +6075,8 @@
             "caraway": {
                 "aliases": [],
                 "description": "",
-                "name": "caraway",
-                "plural_name": "caraways"
+                "name": "Carvi",
+                "plural_name": "Carvi"
             },
             "garlic granule": {
                 "aliases": [],
@@ -6094,7 +6094,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "poudre de chipotle",
-                "plural_name": "chipotle powder"
+                "plural_name": "Poudre de chipotle"
             },
             "chipotle": {
                 "aliases": [],
@@ -6118,7 +6118,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "poudre de matcha",
-                "plural_name": "matcha powder"
+                "plural_name": "poudre de matcha"
             },
             "ancho chile powder": {
                 "aliases": [],

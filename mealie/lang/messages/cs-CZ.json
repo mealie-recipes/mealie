@@ -17,7 +17,9 @@
             "servings": "Porcí",
             "yield": "Výnos",
             "yields": "Výnosy"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Žádné recepty neodpovídají vašim pravidlům"

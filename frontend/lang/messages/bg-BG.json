@@ -1170,8 +1170,8 @@
       "edit-recipe-action": "Редактиране на действието с рецепта",
       "action-type": "Вид действие",
       "action-types": {
-        "link": "Link",
-        "post": "Post"
+        "link": "Връзка",
+        "post": "Публикувай"
       }
     },
     "create-alias": "Създаване на псевдоним",
@@ -1449,6 +1449,6 @@
     "invalid-url": "Линкът трябва да е валиден",
     "no-whitespace": "Не са позволени интервали",
     "min-length": "Трябва да съдържа поне {min} знака",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Трябва да бъде най-много {max} символа|Трябва да бъде най-много {max} символа"
   }
 }

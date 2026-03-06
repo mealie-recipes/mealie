@@ -579,8 +579,8 @@
                     "curly endive"
                 ],
                 "description": "",
-                "name": "Frisée",
-                "plural_name": "Frisées"
+                "name": "Frizé saláta",
+                "plural_name": "Frizé saláta"
             },
             "anaheim pepper": {
                 "aliases": [],
@@ -591,14 +591,14 @@
             "cress": {
                 "aliases": [],
                 "description": "",
-                "name": "cress",
-                "plural_name": "cress"
+                "name": "zsázsa",
+                "plural_name": "zsázsa"
             },
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
                 "name": "brokkoli saláta",
-                "plural_name": "broccoli slaw"
+                "plural_name": "aprított brokkolisaláta"
             },
             "arbol chile pepper": {
                 "aliases": [],
@@ -622,7 +622,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lucernacsíra",
-                "plural_name": "alfalfa"
+                "plural_name": "lucernacsíra"
             }
         }
     },
@@ -974,13 +974,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomelos"
+                "plural_name": "pomelo"
             },
             "chestnut purée": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut purée",
-                "plural_name": "chestnut purée"
+                "name": "gesztenyepüré",
+                "plural_name": "gesztenyepüré"
             },
             "prickly pear": {
                 "aliases": [],

@@ -17,7 +17,9 @@
             "servings": "Порції",
             "yield": "Вихід",
             "yields": "Вихід"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Немає рецептів, що відповідають вашим правилам"

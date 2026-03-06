@@ -5,6 +5,7 @@ from rapidfuzz import fuzz, process
 from sqlalchemy.orm import Session
 
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
+from mealie.lang.providers import Translator
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe_ingredient import (
@@ -126,10 +127,13 @@ class ABCIngredientParser(ABC):
     Abstract class for ingredient parsers.
     """
 
-    def __init__(self, group_id: UUID4, session: Session) -> None:
+    def __init__(self, group_id: UUID4, session: Session, translator: Translator) -> None:
         self.group_id = group_id
         self.session = session
         self.data_matcher = DataMatcher(self._repos, self.food_fuzzy_match_threshold, self.unit_fuzzy_match_threshold)
+
+        self.translator = translator
+        self.t = self.translator.t
 
     @property
     def _repos(self) -> AllRepositories:

@@ -17,7 +17,9 @@
             "servings": "حصص الطعام",
             "yield": "العائد",
             "yields": "العائد"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "لا توجد وصفات تتطابق مع المرشحات الخاصة بك"
