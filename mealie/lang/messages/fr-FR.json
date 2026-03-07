@@ -18,8 +18,8 @@
             "yield": "Quantité",
             "yields": "Produit"
         },
-        "and-amount": "Et",
-        "or-ingredient": "Ou"
+        "and-amount": "et {amount}",
+        "or-ingredient": "ou {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Aucune recette ne correspond à vos filtres"
