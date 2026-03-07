@@ -18,8 +18,8 @@
             "yield": "Mængde",
             "yields": "Mængde"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}"
+        "and-amount": "og {amount}",
+        "or-ingredient": "eller {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Ingen opskrifter matcher dine regler"
