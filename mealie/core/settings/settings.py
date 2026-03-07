@@ -120,6 +120,9 @@ class AppSettings(AppLoggingSettings):
 
     IS_DEMO: bool = False
 
+    DEFAULT_LOCALE: str = "en-US"
+    """The default locale for the frontend when no user preference is set (e.g. en-US, de-DE, fr-FR)"""
+
     HOST_IP: str = "*"
 
     API_HOST: str = "0.0.0.0"

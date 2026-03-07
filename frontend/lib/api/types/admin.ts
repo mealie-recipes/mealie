@@ -19,6 +19,7 @@ export interface AdminAboutInfo {
   enableOpenai: boolean;
   enableOpenaiImageServices: boolean;
   tokenTime: number;
+  defaultLocale: string;
   versionLatest: string;
   apiPort: number;
   apiDocs: boolean;
@@ -52,6 +53,7 @@ export interface AppInfo {
   enableOpenai: boolean;
   enableOpenaiImageServices: boolean;
   tokenTime: number;
+  defaultLocale: string;
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;
