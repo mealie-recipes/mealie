@@ -18,8 +18,8 @@
             "yield": "Skilar",
             "yields": "Skilar"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}"
+        "and-amount": "og {amount}",
+        "or-ingredient": "eða {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Eingin uppskrift passar við settar reglur"
