@@ -17,6 +17,7 @@ export interface AdminAboutInfo {
   oidcRedirect: boolean;
   oidcProviderName: string;
   tokenTime: number;
+  defaultLocale: string;
   versionLatest: string;
   apiPort: number;
   apiDocs: boolean;
@@ -48,6 +49,7 @@ export interface AppInfo {
   oidcRedirect: boolean;
   oidcProviderName: string;
   tokenTime: number;
+  defaultLocale: string;
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;

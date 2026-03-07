@@ -52,9 +52,11 @@ const modelValue = defineModel<boolean>({ default: () => false });
 
 const { locales: LOCALES, locale, i18n } = useLocales();
 
+const localeCookie = useCookie("mealie_locale", { maxAge: 365 * 24 * 60 * 60 });
 const selectedLocale = ref(locale.value);
 const onLocaleSelect = (value: string) => {
   if (value && locales.some(l => l.value === value)) {
+    localeCookie.value = value;
     locale.value = value as any;
   }
 };

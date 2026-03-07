@@ -22,6 +22,7 @@ class AppInfo(MealieModel):
     oidc_redirect: bool
     oidc_provider_name: str
     token_time: int
+    default_locale: str
 
 
 class AppTheme(MealieModel):
