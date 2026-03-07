@@ -17,7 +17,7 @@
             </v-card-title>
             <RecipeRating
               :key="recipe.slug"
-              :value="recipe.rating"
+              v-model="recipe.rating"
               :recipe-id="recipe.id"
               :slug="recipe.slug"
             />
