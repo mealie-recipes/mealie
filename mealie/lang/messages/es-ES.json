@@ -17,7 +17,9 @@
             "servings": "Porciones",
             "yield": "Ración",
             "yields": "Raciones"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "No hay recetas que coincidan con tus reglas"

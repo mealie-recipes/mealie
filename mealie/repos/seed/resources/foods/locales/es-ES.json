@@ -279,8 +279,8 @@
             "mixed vegetables": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetables",
-                "plural_name": "mixed vegetables"
+                "name": "verduras mixtas",
+                "plural_name": "verduras mixtas"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -1951,8 +1951,8 @@
             "sunflower sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower sprout",
-                "plural_name": "sunflower sprouts"
+                "name": "germinado de girasol",
+                "plural_name": "germinados de girasol"
             },
             "apricot kernel": {
                 "aliases": [],
@@ -2085,8 +2085,8 @@
             "swis cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swis cheese",
-                "plural_name": "swis cheese"
+                "name": "queso suizo",
+                "plural_name": "queso suizo"
             },
             "pecorino cheese": {
                 "aliases": [],
@@ -2103,8 +2103,8 @@
             "mascarpone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mascarpone cheese",
-                "plural_name": "mascarpone cheese"
+                "name": "queso mascarpone",
+                "plural_name": "queso mascarpone"
             },
             "cottage cheese": {
                 "aliases": [],
@@ -2205,8 +2205,8 @@
             "manchego cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "manchego cheese",
-                "plural_name": "manchego cheese"
+                "name": "queso manchego",
+                "plural_name": "queso manchego"
             },
             "italian cheese blend": {
                 "aliases": [],
@@ -2630,7 +2630,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "leche",
-                "plural_name": "milk"
+                "plural_name": "leche"
             },
             "heavy cream": {
                 "aliases": [],
@@ -2710,7 +2710,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "helado",
-                "plural_name": "ice cream"
+                "plural_name": "helado"
             },
             "margarine": {
                 "aliases": [],
@@ -2734,7 +2734,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "leche en polvo",
-                "plural_name": "milk powder"
+                "plural_name": "leche en polvo"
             },
             "curd": {
                 "aliases": [],
@@ -2764,7 +2764,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "natilla",
-                "plural_name": "custard"
+                "plural_name": "natilla"
             },
             "chocolate frosting": {
                 "aliases": [],
@@ -2836,7 +2836,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "crema de leche",
-                "plural_name": "milk cream"
+                "plural_name": "crema de leche"
             },
             "coffee creamer": {
                 "aliases": [],
@@ -2931,8 +2931,8 @@
             "milkfat": {
                 "aliases": [],
                 "description": "",
-                "name": "milkfat",
-                "plural_name": "milkfats"
+                "name": "grasa de leche",
+                "plural_name": "grasa de leche"
             },
             "yogurt starter": {
                 "aliases": [],
@@ -3063,8 +3063,8 @@
             "yogurt drink": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt drink",
-                "plural_name": "yogurt drinks"
+                "name": "yogur líquido",
+                "plural_name": "yogures líquidos"
             },
             "passion-fruit curd": {
                 "aliases": [],
@@ -3117,8 +3117,8 @@
             "buffalo milk": {
                 "aliases": [],
                 "description": "",
-                "name": "buffalo milk",
-                "plural_name": "buffalo milk"
+                "name": "leche de búfalo",
+                "plural_name": "leche de búfalo"
             },
             "goat kefir": {
                 "aliases": [],
@@ -3493,8 +3493,8 @@
             "almond-coconut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "almond-coconut milk",
-                "plural_name": "almond-coconut milk"
+                "name": "leche de almendra y coco",
+                "plural_name": "leche de almendra y coco"
             },
             "banana blossom": {
                 "aliases": [],
@@ -3517,8 +3517,8 @@
             "hazelnut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut milk",
-                "plural_name": "hazelnut milk"
+                "name": "leche de avellana",
+                "plural_name": "leche de avellana"
             },
             "maple almond butter": {
                 "aliases": [],
@@ -3529,8 +3529,8 @@
             "vegan meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan meatball",
-                "plural_name": "vegan meatballs"
+                "name": "albóndiga vegana",
+                "plural_name": "albóndigas veganas"
             },
             "almond-milk yogurt": {
                 "aliases": [],
@@ -3761,19 +3761,19 @@
             "beef steak": {
                 "aliases": [],
                 "description": "",
-                "name": "beef steak",
-                "plural_name": "beef steaks"
+                "name": "bistec",
+                "plural_name": "bistecs"
             },
             "ham": {
                 "aliases": [],
                 "description": "",
-                "name": "ham",
-                "plural_name": "hams"
+                "name": "jamón",
+                "plural_name": "jamones"
             },
             "pork chop": {
                 "aliases": [],
                 "description": "",
-                "name": "pork chop",
+                "name": "chuletas de cerdo",
                 "plural_name": "chuletas de cerdo"
             },
             "sweet italian sausage": {
@@ -3797,8 +3797,8 @@
             "sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage",
-                "plural_name": "sausages"
+                "name": "salchicha",
+                "plural_name": "salchichas"
             },
             "beef roast": {
                 "aliases": [],
@@ -3828,19 +3828,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "chorizo",
-                "plural_name": "chorizoes"
+                "plural_name": "chorizos"
             },
             "pancetta": {
                 "aliases": [],
                 "description": "",
-                "name": "pancetta",
+                "name": "panceta",
                 "plural_name": "panceta"
             },
             "pork fillet": {
                 "aliases": [],
                 "description": "",
-                "name": "pork fillet",
-                "plural_name": "pork fillets"
+                "name": "filete de cerdo",
+                "plural_name": "filetes de cerdo"
             },
             "pork shoulder": {
                 "aliases": [],
@@ -3858,13 +3858,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "costilla de cerdo",
-                "plural_name": "pork ribs"
+                "plural_name": "costillas de cerdo"
             },
             "smoked sausage": {
                 "aliases": [],
                 "description": "",
                 "name": "salchicha ahumada",
-                "plural_name": "smoked sausages"
+                "plural_name": "salchichas ahumadas"
             },
             "breakfast sausage": {
                 "aliases": [],
@@ -3905,8 +3905,8 @@
             "leg of lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "leg of lamb",
-                "plural_name": "leg of lamb"
+                "name": "pierna del cordero",
+                "plural_name": "piernas del cordero"
             },
             "beef short rib": {
                 "aliases": [],
@@ -3990,19 +3990,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "beef rib",
-                "plural_name": "beef ribs"
+                "plural_name": "costillas de vacuno"
             },
             "veal steak": {
                 "aliases": [],
                 "description": "",
-                "name": "veal steak",
-                "plural_name": "veal steaks"
+                "name": "filete de ternera",
+                "plural_name": "filetes de ternera"
             },
             "lamb chop": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb chop",
-                "plural_name": "lamb chops"
+                "name": "chuleta de cordero",
+                "plural_name": "chuletas de cordero"
             },
             "bone-in ham": {
                 "aliases": [],
@@ -4025,8 +4025,8 @@
             "beef sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "beef sausage",
-                "plural_name": "beef sausages"
+                "name": "salchicha de vacuno",
+                "plural_name": "salchichas de vacuno"
             },
             "lamb shank": {
                 "aliases": [],
@@ -4085,8 +4085,8 @@
             "rabbit": {
                 "aliases": [],
                 "description": "",
-                "name": "rabbit",
-                "plural_name": "rabbits"
+                "name": "conejo",
+                "plural_name": "conejos"
             },
             "pork cutlet": {
                 "aliases": [],
@@ -4115,13 +4115,13 @@
             "pork steak": {
                 "aliases": [],
                 "description": "",
-                "name": "pork steak",
-                "plural_name": "pork steaks"
+                "name": "bistec de cerdo",
+                "plural_name": "bistecs de cerdo"
             },
             "mexican chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican chorizo",
+                "name": "chorizo mexicano",
                 "plural_name": "chorizo mejicano"
             },
             "rack of lamb": {
@@ -4163,8 +4163,8 @@
             "serrano ham": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano ham",
-                "plural_name": "serrano hams"
+                "name": "jamón serrano",
+                "plural_name": "jamones serranos"
             },
             "raw chorizo": {
                 "aliases": [],
@@ -4175,8 +4175,8 @@
             "beef liver": {
                 "aliases": [],
                 "description": "",
-                "name": "beef liver",
-                "plural_name": "beef livers"
+                "name": "hígado de vacuno",
+                "plural_name": "hígados de vacuno"
             },
             "pastrami": {
                 "aliases": [],
@@ -4235,8 +4235,8 @@
             "blood sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "blood sausage",
-                "plural_name": "blood sausages"
+                "name": "morcilla",
+                "plural_name": "morcillas"
             },
             "dried beef": {
                 "aliases": [],
@@ -4271,8 +4271,8 @@
             "mortadella": {
                 "aliases": [],
                 "description": "",
-                "name": "mortadella",
-                "plural_name": "mortadellas"
+                "name": "mortadela",
+                "plural_name": "mortadelas"
             },
             "ground bison": {
                 "aliases": [],
@@ -4389,7 +4389,7 @@
             "chicken leg": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken leg",
+                "name": "muslo de pollo",
                 "plural_name": "patas de pollo"
             },
             "chicken wing": {
@@ -4425,14 +4425,14 @@
             "turkey sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey sausage",
-                "plural_name": "turkey sausages"
+                "name": "salchicha de pavo",
+                "plural_name": "salchichas de pavo"
             },
             "chicken sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken sausage",
-                "plural_name": "chicken sausages"
+                "name": "salchicha de pollo",
+                "plural_name": "salchichas de pollo"
             },
             "turkey bacon": {
                 "aliases": [],
@@ -4449,8 +4449,8 @@
             "duck breast": {
                 "aliases": [],
                 "description": "",
-                "name": "duck breast",
-                "plural_name": "duck breasts"
+                "name": "pechuga de pato",
+                "plural_name": "pechugas de pato"
             },
             "boneless chicken": {
                 "aliases": [],
@@ -4461,8 +4461,8 @@
             "chicken liver": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken liver",
-                "plural_name": "chicken livers"
+                "name": "hígado de pollo",
+                "plural_name": "hígados de pollo"
             },
             "cornish hen": {
                 "aliases": [],
@@ -4479,14 +4479,14 @@
             "smoked turkey": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked turkey",
-                "plural_name": "smoked turkeys"
+                "name": "pavo ahumado",
+                "plural_name": "pavos ahumados"
             },
             "turkey meat": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey meat",
-                "plural_name": "turkey meats"
+                "name": "carne de pavo",
+                "plural_name": "carnes de pavo"
             },
             "chicken quarter": {
                 "aliases": [],
@@ -4515,14 +4515,14 @@
             "smoked chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked chicken",
-                "plural_name": "smoked chickens"
+                "name": "pollo ahumado",
+                "plural_name": "pollos ahumados"
             },
             "turkey leg": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey leg",
-                "plural_name": "turkey legs"
+                "name": "muslo de pavo",
+                "plural_name": "muslos de pavo"
             },
             "pheasant": {
                 "aliases": [],
@@ -4533,8 +4533,8 @@
             "goose": {
                 "aliases": [],
                 "description": "",
-                "name": "goose",
-                "plural_name": "geese"
+                "name": "ganso",
+                "plural_name": "gansos"
             },
             "turkey pepperoni": {
                 "aliases": [],
@@ -4546,7 +4546,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "turkey ham",
-                "plural_name": "turkey hams"
+                "plural_name": "jamones de pavo"
             },
             "turkey thigh": {
                 "aliases": [],
@@ -4563,13 +4563,13 @@
             "turkey meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey meatball",
-                "plural_name": "turkey meatballs"
+                "name": "albóndiga de pavo",
+                "plural_name": "albóndigas de pavo"
             },
             "foie gra": {
                 "aliases": [],
                 "description": "",
-                "name": "foie gra",
+                "name": "foie gras",
                 "plural_name": "foie gras"
             },
             "chicken giblet": {
@@ -4581,8 +4581,8 @@
             "turkey wing": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey wing",
-                "plural_name": "turkey wings"
+                "name": "ala de pavo",
+                "plural_name": "alas de pavo"
             },
             "turkey giblet": {
                 "aliases": [],
@@ -4605,8 +4605,8 @@
             "turkey burger": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey burger",
-                "plural_name": "turkey burgers"
+                "name": "hamburguesa de pavo",
+                "plural_name": "hamburguesas de pavo"
             },
             "chicken andouille": {
                 "aliases": [],
@@ -4641,8 +4641,8 @@
             "ostrich": {
                 "aliases": [],
                 "description": "",
-                "name": "ostrich",
-                "plural_name": "ostriches"
+                "name": "avestruz",
+                "plural_name": "avestruces"
             },
             "popcorn chicken": {
                 "aliases": [],
@@ -4683,14 +4683,14 @@
             "smoked duck breast": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked duck breast",
-                "plural_name": "smoked duck breasts"
+                "name": "pechuga de pato ahumado",
+                "plural_name": "pechugas de pato ahumado"
             },
             "pigeon": {
                 "aliases": [],
                 "description": "",
-                "name": "pigeon",
-                "plural_name": "pigeons"
+                "name": "paloma",
+                "plural_name": "palomas"
             },
             "wild game bird": {
                 "aliases": [],
@@ -4701,8 +4701,8 @@
             "turkey liver": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey liver",
-                "plural_name": "turkey livers"
+                "name": "hígado pavo",
+                "plural_name": "hígados de pavo"
             },
             "chicken neck": {
                 "aliases": [],
@@ -4713,26 +4713,26 @@
             "duck confit": {
                 "aliases": [],
                 "description": "",
-                "name": "duck confit",
-                "plural_name": "duck confits"
+                "name": "confit de pato",
+                "plural_name": "confit de pato"
             },
             "roast duck": {
                 "aliases": [],
                 "description": "",
-                "name": "roast duck",
-                "plural_name": "roast ducks"
+                "name": "pato asado",
+                "plural_name": "patos asados"
             },
             "chicken meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken meatball",
-                "plural_name": "chicken meatballs"
+                "name": "albóndiga de pollo",
+                "plural_name": "albóndigas de pollo"
             },
             "duck liver": {
                 "aliases": [],
                 "description": "",
-                "name": "duck liver",
-                "plural_name": "duck livers"
+                "name": "hígado de pato",
+                "plural_name": "hígados de pato"
             },
             "guinea fowl": {
                 "aliases": [],
@@ -4743,8 +4743,8 @@
             "smoked turkey wing": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked turkey wing",
-                "plural_name": "smoked turkey wings"
+                "name": "ala de pavo ahumado",
+                "plural_name": "alas de pavo ahumado"
             },
             "chicken curry-cut": {
                 "aliases": [],
@@ -4767,14 +4767,14 @@
             "chicken roast": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken roast",
-                "plural_name": "chicken roasts"
+                "name": "asado de pollo",
+                "plural_name": "asados de pollo"
             },
             "goose liver": {
                 "aliases": [],
                 "description": "",
-                "name": "goose liver",
-                "plural_name": "goose livers"
+                "name": "hígado de oca",
+                "plural_name": "hígados de oca"
             },
             "turkey bone": {
                 "aliases": [],
@@ -4791,14 +4791,14 @@
             "turkey roast": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey roast",
-                "plural_name": "turkey roasts"
+                "name": "asado de pavo",
+                "plural_name": "asados de pavo"
             },
             "capon": {
                 "aliases": [],
                 "description": "",
-                "name": "capon",
-                "plural_name": "capons"
+                "name": "capón",
+                "plural_name": "capones"
             },
             "smoked turkey bacon": {
                 "aliases": [],
@@ -4897,20 +4897,20 @@
             "salmon": {
                 "aliases": [],
                 "description": "",
-                "name": "salmon",
-                "plural_name": "salmon"
+                "name": "salmón",
+                "plural_name": "salmones"
             },
             "smoked salmon": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked salmon",
-                "plural_name": "smoked salmon"
+                "name": "salmón ahumado",
+                "plural_name": "salmones ahumados"
             },
             "cod": {
                 "aliases": [],
                 "description": "",
-                "name": "cod",
-                "plural_name": "cod"
+                "name": "bacalao",
+                "plural_name": "bacalao"
             },
             "tilapia": {
                 "aliases": [],
@@ -4921,14 +4921,14 @@
             "tuna steak": {
                 "aliases": [],
                 "description": "",
-                "name": "tuna steak",
-                "plural_name": "tuna steaks"
+                "name": "filete de atún",
+                "plural_name": "filetes de atún"
             },
             "whitefish": {
                 "aliases": [],
                 "description": "",
-                "name": "whitefish",
-                "plural_name": "whitefish"
+                "name": "pescado blanco",
+                "plural_name": "pescado blanco"
             },
             "halibut": {
                 "aliases": [],
@@ -4945,20 +4945,20 @@
             "sea bas": {
                 "aliases": [],
                 "description": "",
-                "name": "sea bas",
-                "plural_name": "sea bass"
+                "name": "lubina",
+                "plural_name": "lubinas"
             },
             "fish fillet": {
                 "aliases": [],
                 "description": "",
-                "name": "fish fillet",
-                "plural_name": "fish fillets"
+                "name": "filete de pescado",
+                "plural_name": "filetes de pescado"
             },
             "trout": {
                 "aliases": [],
                 "description": "",
-                "name": "trout",
-                "plural_name": "trout"
+                "name": "trucha",
+                "plural_name": "truchas"
             },
             "catfish": {
                 "aliases": [],
@@ -4975,20 +4975,20 @@
             "swordfish": {
                 "aliases": [],
                 "description": "",
-                "name": "swordfish",
-                "plural_name": "swordfish"
+                "name": "pez espada",
+                "plural_name": "peces espada"
             },
             "sardine": {
                 "aliases": [],
                 "description": "",
-                "name": "sardine",
-                "plural_name": "sardines"
+                "name": "sardina",
+                "plural_name": "sardinas"
             },
             "sole": {
                 "aliases": [],
                 "description": "",
-                "name": "sole",
-                "plural_name": "soles"
+                "name": "lenguado",
+                "plural_name": "lenguados"
             },
             "mahi mahi": {
                 "aliases": [],
@@ -5005,20 +5005,20 @@
             "smoked trout": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked trout",
-                "plural_name": "smoked trout"
+                "name": "trucha ahumada",
+                "plural_name": "truchas ahumadas"
             },
             "caviar": {
                 "aliases": [],
                 "description": "",
                 "name": "caviar",
-                "plural_name": "caviars"
+                "plural_name": "caviares"
             },
             "haddock": {
                 "aliases": [],
                 "description": "",
-                "name": "haddock",
-                "plural_name": "haddocks"
+                "name": "eglefino",
+                "plural_name": "eglefinos"
             },
             "monkfish": {
                 "aliases": [],
@@ -5041,8 +5041,8 @@
             "perch": {
                 "aliases": [],
                 "description": "",
-                "name": "perch",
-                "plural_name": "perches"
+                "name": "perca",
+                "plural_name": "percas"
             },
             "hake": {
                 "aliases": [],
@@ -5059,8 +5059,8 @@
             "salt cod": {
                 "aliases": [],
                 "description": "",
-                "name": "salt cod",
-                "plural_name": "salt cod"
+                "name": "bacalao salado",
+                "plural_name": "bacalaos salados"
             },
             "smoked mackerel": {
                 "aliases": [],
@@ -5083,14 +5083,14 @@
             "carp": {
                 "aliases": [],
                 "description": "",
-                "name": "carp",
-                "plural_name": "carp"
+                "name": "carpa",
+                "plural_name": "carpas"
             },
             "cuttlefish": {
                 "aliases": [],
                 "description": "",
-                "name": "cuttlefish",
-                "plural_name": "cuttlefish"
+                "name": "sepia",
+                "plural_name": "sepia"
             },
             "grouper": {
                 "aliases": [],
@@ -5101,8 +5101,8 @@
             "herring": {
                 "aliases": [],
                 "description": "",
-                "name": "herring",
-                "plural_name": "herrings"
+                "name": "arenque",
+                "plural_name": "arenques"
             },
             "salmon roe": {
                 "aliases": [],
@@ -5149,8 +5149,8 @@
             "turbot": {
                 "aliases": [],
                 "description": "",
-                "name": "turbot",
-                "plural_name": "turbots"
+                "name": "rodaballo",
+                "plural_name": "rodaballo"
             },
             "bangús": {
                 "aliases": [],
@@ -5179,8 +5179,8 @@
             "eel": {
                 "aliases": [],
                 "description": "",
-                "name": "eel",
-                "plural_name": "eels"
+                "name": "anguila",
+                "plural_name": "anguilas"
             },
             "dried anchovy": {
                 "aliases": [],
@@ -5197,8 +5197,8 @@
             "fresh anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh anchovy",
-                "plural_name": "fresh anchovies"
+                "name": "anchoa fresca",
+                "plural_name": "anchoas frescas"
             },
             "lemon sole": {
                 "aliases": [],
@@ -5281,14 +5281,14 @@
             "sturgeon": {
                 "aliases": [],
                 "description": "",
-                "name": "sturgeon",
-                "plural_name": "sturgeons"
+                "name": "esturión",
+                "plural_name": "esturiones"
             },
             "bluefish": {
                 "aliases": [],
                 "description": "",
-                "name": "bluefish",
-                "plural_name": "bluefish"
+                "name": "pescado azul",
+                "plural_name": "pescados azules"
             },
             "red mullet": {
                 "aliases": [],
@@ -5317,14 +5317,14 @@
             "smoked fish": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked fish",
-                "plural_name": "smoked fish"
+                "name": "pescado ahumado",
+                "plural_name": "pescados ahumados"
             },
             "fish head": {
                 "aliases": [],
                 "description": "",
-                "name": "fish head",
-                "plural_name": "fish heads"
+                "name": "cabeza de pescado",
+                "plural_name": "cabezas de pescado"
             },
             "rohu fish": {
                 "aliases": [],
@@ -5401,8 +5401,8 @@
             "salt herring": {
                 "aliases": [],
                 "description": "",
-                "name": "salt herring",
-                "plural_name": "salt herrings"
+                "name": "arenque salado",
+                "plural_name": "arenques salados"
             },
             "soused herring": {
                 "aliases": [],
@@ -5485,8 +5485,8 @@
             "beluga caviar": {
                 "aliases": [],
                 "description": "",
-                "name": "beluga caviar",
-                "plural_name": "beluga caviars"
+                "name": "caviar de beluga",
+                "plural_name": "caviar de beluga"
             },
             "bombay duck": {
                 "aliases": [],
@@ -5501,50 +5501,50 @@
             "shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "shrimp",
-                "plural_name": "shrimps"
+                "name": "camarón",
+                "plural_name": "camarones"
             },
             "octopuse": {
                 "aliases": [],
                 "description": "",
-                "name": "octopuse",
-                "plural_name": "octopi"
+                "name": "pulpo",
+                "plural_name": "pulpos"
             },
             "prawn": {
                 "aliases": [],
                 "description": "",
-                "name": "prawn",
-                "plural_name": "prawns"
+                "name": "gamba",
+                "plural_name": "gambas"
             },
             "crab": {
                 "aliases": [],
                 "description": "",
-                "name": "crab",
-                "plural_name": "crabs"
+                "name": "cangrejo",
+                "plural_name": "cangrejos"
             },
             "scallop": {
                 "aliases": [],
                 "description": "",
-                "name": "scallop",
-                "plural_name": "scallops"
+                "name": "vieira",
+                "plural_name": "vieiras"
             },
             "mussel": {
                 "aliases": [],
                 "description": "",
-                "name": "mussel",
-                "plural_name": "mussels"
+                "name": "mejillón",
+                "plural_name": "mejillones"
             },
             "clam": {
                 "aliases": [],
                 "description": "",
-                "name": "clam",
-                "plural_name": "clams"
+                "name": "almeja",
+                "plural_name": "almejas"
             },
             "squid": {
                 "aliases": [],
                 "description": "",
-                "name": "squid",
-                "plural_name": "squids"
+                "name": "calamar",
+                "plural_name": "calamares"
             },
             "nori": {
                 "aliases": [],
@@ -5555,20 +5555,20 @@
             "lobster": {
                 "aliases": [],
                 "description": "",
-                "name": "lobster",
-                "plural_name": "lobsters"
+                "name": "langosta",
+                "plural_name": "langostas"
             },
             "oyster": {
                 "aliases": [],
                 "description": "",
-                "name": "oyster",
-                "plural_name": "oysters"
+                "name": "ostra",
+                "plural_name": "ostras"
             },
             "lobster tail": {
                 "aliases": [],
                 "description": "",
-                "name": "lobster tail",
-                "plural_name": "lobster tails"
+                "name": "cola de langosta",
+                "plural_name": "colas de langosta"
             },
             "crawfish": {
                 "aliases": [],
@@ -5579,8 +5579,8 @@
             "octopus": {
                 "aliases": [],
                 "description": "",
-                "name": "octopus",
-                "plural_name": "octopi"
+                "name": "pulpo",
+                "plural_name": "pulpos"
             },
             "kombu": {
                 "aliases": [],
@@ -5615,14 +5615,14 @@
             "scampi": {
                 "aliases": [],
                 "description": "",
-                "name": "scampi",
-                "plural_name": "scampis"
+                "name": "langostino",
+                "plural_name": "langostinos"
             },
             "king crab": {
                 "aliases": [],
                 "description": "",
-                "name": "king crab",
-                "plural_name": "king crabs"
+                "name": "cangrejo real",
+                "plural_name": "cangrejos reales"
             },
             "mixed seafood": {
                 "aliases": [],
@@ -5639,8 +5639,8 @@
             "squid ink": {
                 "aliases": [],
                 "description": "",
-                "name": "squid ink",
-                "plural_name": "squid inks"
+                "name": "tinta de calamar",
+                "plural_name": "tinta de calamar"
             },
             "dried prawn": {
                 "aliases": [],
@@ -5687,8 +5687,8 @@
             "salted shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "salted shrimp",
-                "plural_name": "salted shrimps"
+                "name": "camarón salado",
+                "plural_name": "camarones salados"
             },
             "yaki-nori": {
                 "aliases": [],
@@ -5795,8 +5795,8 @@
             "haddock": {
                 "aliases": [],
                 "description": "",
-                "name": "haddock",
-                "plural_name": "haddocks"
+                "name": "eglefino",
+                "plural_name": "eglefinos"
             },
             "sea mos": {
                 "aliases": [],
@@ -5807,8 +5807,8 @@
             "langoustine": {
                 "aliases": [],
                 "description": "",
-                "name": "langoustine",
-                "plural_name": "langoustines"
+                "name": "langostino",
+                "plural_name": "langostinos"
             }
         }
     },
@@ -5817,14 +5817,14 @@
             "cinnamon": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon",
-                "plural_name": "cinnamon"
+                "name": "canela",
+                "plural_name": "canela"
             },
             "parsley": {
                 "aliases": [],
                 "description": "",
-                "name": "parsley",
-                "plural_name": "parsleys"
+                "name": "perejil",
+                "plural_name": "perejil"
             },
             "cilantro": {
                 "aliases": [],
@@ -5835,14 +5835,14 @@
             "cumin": {
                 "aliases": [],
                 "description": "",
-                "name": "cumin",
-                "plural_name": "cumins"
+                "name": "comino",
+                "plural_name": "comino"
             },
             "basil": {
                 "aliases": [],
                 "description": "",
-                "name": "basil",
-                "plural_name": "basils"
+                "name": "albahaca",
+                "plural_name": "albahaca"
             },
             "thyme": {
                 "aliases": [],
@@ -5853,20 +5853,20 @@
             "ginger root": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger root",
-                "plural_name": "ginger roots"
+                "name": "raíz de jengibre",
+                "plural_name": "raíces de jengibre"
             },
             "garlic powder": {
                 "aliases": [],
                 "description": "",
                 "name": "sal de ajo",
-                "plural_name": "garlic powder"
+                "plural_name": "ajo en polvo"
             },
             "oregano": {
                 "aliases": [],
                 "description": "",
-                "name": "oregano",
-                "plural_name": "oreganos"
+                "name": "orégano",
+                "plural_name": "orégano"
             },
             "nutmeg": {
                 "aliases": [],
@@ -5889,8 +5889,8 @@
             "paprika": {
                 "aliases": [],
                 "description": "",
-                "name": "paprika",
-                "plural_name": "paprika"
+                "name": "pimentón dulce",
+                "plural_name": "pimentón dulce"
             },
             "cayenne": {
                 "aliases": [],
@@ -5925,8 +5925,8 @@
             "onion powder": {
                 "aliases": [],
                 "description": "",
-                "name": "onion powder",
-                "plural_name": "onion powder"
+                "name": "cebolla en polvo",
+                "plural_name": "cebolla en polvo"
             },
             "ginger powder": {
                 "aliases": [],
@@ -5955,8 +5955,8 @@
             "mint": {
                 "aliases": [],
                 "description": "",
-                "name": "mint",
-                "plural_name": "mints"
+                "name": "menta",
+                "plural_name": "menta"
             },
             "green cardamom": {
                 "aliases": [],
@@ -5967,14 +5967,14 @@
             "smoked paprika": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked paprika",
-                "plural_name": "smoked paprika"
+                "name": "pimentón ahumado",
+                "plural_name": "pimentón ahumado"
             },
             "fresh mint": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mint",
-                "plural_name": "fresh mints"
+                "name": "menta fresca",
+                "plural_name": "menta fresca"
             },
             "coriander powder": {
                 "aliases": [],
@@ -6022,7 +6022,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "white pepper",
-                "plural_name": "white pepper"
+                "plural_name": "pimienta blanca"
             },
             "curry leaf": {
                 "aliases": [],
@@ -6045,8 +6045,8 @@
             "saffron": {
                 "aliases": [],
                 "description": "",
-                "name": "saffron",
-                "plural_name": "saffrons"
+                "name": "azafrán",
+                "plural_name": "azafrán"
             },
             "asafoetida": {
                 "aliases": [],
@@ -6183,8 +6183,8 @@
             "lavender": {
                 "aliases": [],
                 "description": "",
-                "name": "lavender",
-                "plural_name": "lavenders"
+                "name": "lavanda",
+                "plural_name": "lavanda"
             },
             "carom seed": {
                 "aliases": [],
@@ -6249,8 +6249,8 @@
             "hot paprika": {
                 "aliases": [],
                 "description": "",
-                "name": "hot paprika",
-                "plural_name": "hot paprika"
+                "name": "pimentón picante",
+                "plural_name": "pimentón picante"
             },
             "lemon thyme": {
                 "aliases": [],
@@ -6428,7 +6428,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "azucar",
-                "plural_name": "sugar"
+                "plural_name": "azúcares"
             },
             "brown sugar": {
                 "aliases": [
@@ -6436,7 +6436,7 @@
                 ],
                 "description": "",
                 "name": "azucar moreno",
-                "plural_name": "brown sugar"
+                "plural_name": "azúcares morenos"
             },
             "confectioners sugar": {
                 "aliases": [
@@ -6524,14 +6524,14 @@
             "caramel syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "caramel syrup",
-                "plural_name": "caramel syrup"
+                "name": "sirope de caramelo",
+                "plural_name": "sirope de caramelo"
             },
             "chocolate syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate syrup",
-                "plural_name": "chocolate syrup"
+                "name": "sirope de chocolate",
+                "plural_name": "sirope de chocolate"
             },
             "jaggery": {
                 "aliases": [],
@@ -6620,8 +6620,8 @@
             "glucose": {
                 "aliases": [],
                 "description": "",
-                "name": "glucose",
-                "plural_name": "glucose"
+                "name": "glucosa",
+                "plural_name": "glucosas"
             },
             "rock sugar": {
                 "aliases": [],
@@ -6662,8 +6662,8 @@
             "strawberry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry syrup",
-                "plural_name": "strawberry syrup"
+                "name": "sirope de fresa",
+                "plural_name": "sirope de fresa"
             },
             "vanilla syrup": {
                 "aliases": [],

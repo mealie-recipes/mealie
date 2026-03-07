@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Dados de Ações de Receita",
       "new-recipe-action": "Nova Ação de Receita",
       "edit-recipe-action": "Alterar Ação de Receita",
-      "action-type": "Tipo de Ação"
+      "action-type": "Tipo de Ação",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Criar Apelido",
     "manage-aliases": "Gerenciar apelidos",

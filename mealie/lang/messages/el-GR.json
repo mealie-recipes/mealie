@@ -17,7 +17,9 @@
             "servings": "Μερίδες",
             "yield": "Ποσότητα",
             "yields": "Ποσότητα"
-        }
+        },
+        "and-amount": "και {amount}",
+        "or-ingredient": "ή {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Καμία συνταγή δεν ταιριάζει στα κριτήρια αναζήτησης"

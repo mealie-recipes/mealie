@@ -84,8 +84,12 @@ export default defineNuxtComponent({
     });
 
     function updateRating(val?: number) {
-      if (!isOwnGroup.value || !val) {
+      if (!isOwnGroup.value) {
         return;
+      }
+
+      if (val === userRating.value) {
+        val = 0;
       }
 
       if (!props.emitOnly) {

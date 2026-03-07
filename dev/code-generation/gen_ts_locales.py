@@ -78,7 +78,7 @@ class CrowdinApi:
             headers=self.headers,
         )
         data = response.json()["data"]
-        return {p["data"]["languageId"]: p["translationProgress"] for p in data}
+        return {p["data"]["languageId"]: p["data"]["translationProgress"] for p in data}
 
 
 PROJECT_DIR = Path(__file__).parent.parent.parent

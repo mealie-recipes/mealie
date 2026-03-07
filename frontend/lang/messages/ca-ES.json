@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Dades d'accions de receptes",
       "new-recipe-action": "Nova acció de receptes",
       "edit-recipe-action": "Edita acció de receptes",
-      "action-type": "Tipus d'acció"
+      "action-type": "Tipus d'acció",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Crea un àlies",
     "manage-aliases": "Gestiona els àlies",

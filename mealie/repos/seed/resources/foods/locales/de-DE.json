@@ -2511,26 +2511,26 @@
             "manouri cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "manouri cheese",
+                "name": "Manouri Käse",
                 "plural_name": "Manouri Käse"
             },
             "mimolette cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mimolette cheese",
-                "plural_name": "mimolette cheese"
+                "name": "Mimolette",
+                "plural_name": "Mimoletten"
             },
             "queso quesadilla cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "queso quesadilla cheese",
-                "plural_name": "queso quesadilla cheese"
+                "name": "Queso Quesadilla Käse",
+                "plural_name": "Queso Quesadilla Käse"
             },
             "caciocavallo cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "caciocavallo cheese",
-                "plural_name": "caciocavalloe cheese"
+                "name": "Caciocavallo Käse",
+                "plural_name": "Caciocavallo Käse"
             },
             "requeijão cheese": {
                 "aliases": [],
@@ -2818,7 +2818,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Buttermilchpulver",
-                "plural_name": "buttermilk powder"
+                "plural_name": "Buttermilchpulver"
             },
             "frozen yogurt": {
                 "aliases": [],
@@ -2836,7 +2836,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Milchcreme",
-                "plural_name": "milk cream"
+                "plural_name": "Milchcreme"
             },
             "coffee creamer": {
                 "aliases": [],
@@ -2848,7 +2848,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Streichrahm",
-                "plural_name": "clotted cream"
+                "plural_name": "Streichrahm"
             },
             "goat milk": {
                 "aliases": [],
@@ -3200,7 +3200,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kala Namak Salz",
-                "plural_name": "kala namak salt"
+                "plural_name": "Kala-Namak-Salz"
             },
             "coconut butter": {
                 "aliases": [],
@@ -3488,7 +3488,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "milchfreies Eis",
-                "plural_name": "dairy-free ice-cream"
+                "plural_name": "Milchfreies Speiseeis"
             },
             "almond-coconut milk": {
                 "aliases": [],
@@ -3584,7 +3584,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Cashew Käsesauce",
-                "plural_name": "cashew cheese sauce"
+                "plural_name": "Cashew-Käsesauce"
             },
             "coconut fat": {
                 "aliases": [],
@@ -3638,7 +3638,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Cashew Frischkäse",
-                "plural_name": "cashew cream cheese"
+                "plural_name": "Cashew-Frischkäse"
             },
             "cricket flour": {
                 "aliases": [],
@@ -3734,7 +3734,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Reiscreme",
-                "plural_name": "rice cream"
+                "plural_name": "Reiscreme"
             }
         }
     },
@@ -5586,7 +5586,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kombu",
-                "plural_name": "kombu"
+                "plural_name": "Kombu"
             },
             "dried shrimp": {
                 "aliases": [],
@@ -6124,7 +6124,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Ancho-Chili Pulver",
-                "plural_name": "ancho chile powder"
+                "plural_name": "Ancho-Chilipulver"
             },
             "sumac": {
                 "aliases": [],
@@ -6400,13 +6400,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Rohe Stevia",
-                "plural_name": "raw stevia"
+                "plural_name": "Stevia"
             },
             "achiote paste": {
                 "aliases": [],
                 "description": "",
                 "name": "Annatto-Paste",
-                "plural_name": "achiote paste"
+                "plural_name": "Recado Rojo"
             },
             "summer savory": {
                 "aliases": [],
@@ -6501,7 +6501,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Isomalt",
-                "plural_name": "isomalt"
+                "plural_name": "Isomalt"
             },
             "erythritol": {
                 "aliases": [],
@@ -6537,7 +6537,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Palmzucker",
-                "plural_name": "jaggery"
+                "plural_name": "Unraffinierter Zucker"
             },
             "raw sugar": {
                 "aliases": [],
@@ -6621,7 +6621,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Glukose",
-                "plural_name": "glucose"
+                "plural_name": "Glukose"
             },
             "rock sugar": {
                 "aliases": [],

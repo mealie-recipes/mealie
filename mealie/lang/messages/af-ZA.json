@@ -17,7 +17,9 @@
             "servings": "Servings",
             "yield": "Yield",
             "yields": "Yields"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Geen resepte voldoen aan jou reëls nie"

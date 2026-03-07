@@ -5377,8 +5377,8 @@
             "shark meat": {
                 "aliases": [],
                 "description": "",
-                "name": "shark meat",
-                "plural_name": "shark meats"
+                "name": "haaienvlees",
+                "plural_name": "haaienvlees"
             },
             "garoupa": {
                 "aliases": [],
@@ -5687,7 +5687,7 @@
             "salted shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "salted shrimp",
+                "name": "gezouten garnalen",
                 "plural_name": "gezouten garnalen"
             },
             "yaki-nori": {

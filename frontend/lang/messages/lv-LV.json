@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Recepšu darbību dati",
       "new-recipe-action": "Jaunas receptes darbība",
       "edit-recipe-action": "Rediģēt receptes darbību",
-      "action-type": "Darbības veids"
+      "action-type": "Darbības veids",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Izveidot aizstājvārdu",
     "manage-aliases": "Pārvaldīt aizstājvārdus",

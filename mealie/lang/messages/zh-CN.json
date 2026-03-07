@@ -17,7 +17,9 @@
             "servings": "可供食用人数",
             "yield": "菜量（可做数量）",
             "yields": "份量"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "没有符合条件的食谱"

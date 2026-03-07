@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Data för receptåtgärder",
       "new-recipe-action": "Ny receptåtgärd",
       "edit-recipe-action": "Redigera receptåtgärd",
-      "action-type": "Åtgärdstyp"
+      "action-type": "Åtgärdstyp",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Skapa alias",
     "manage-aliases": "Hantera alias",
