@@ -6123,8 +6123,8 @@
             "ancho chile powder": {
                 "aliases": [],
                 "description": "",
-                "name": "ancho chile powder",
-                "plural_name": "ancho chile powder"
+                "name": "Piment ancho en poudre",
+                "plural_name": "Piment ancho en poudre"
             },
             "sumac": {
                 "aliases": [],
@@ -6147,8 +6147,8 @@
             "kashmiri red chilli": {
                 "aliases": [],
                 "description": "",
-                "name": "kashmiri red chilli",
-                "plural_name": "kashmiri red chillis"
+                "name": "Piment kashmiri rouge",
+                "plural_name": "Piment Kashmiri rouge"
             },
             "thai basil": {
                 "aliases": [],
@@ -6165,20 +6165,20 @@
             "aniseed": {
                 "aliases": [],
                 "description": "",
-                "name": "aniseed",
-                "plural_name": "aniseeds"
+                "name": "Anis vert",
+                "plural_name": "Anis verts"
             },
             "kaffir lime leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "kaffir lime leaf",
-                "plural_name": "kaffir lime leaves"
+                "name": "Feuille de Combava",
+                "plural_name": "Feuilles de Combava"
             },
             "chervil": {
                 "aliases": [],
                 "description": "",
-                "name": "chervil",
-                "plural_name": "chervils"
+                "name": "Cerfeuil",
+                "plural_name": "Cerfeuil"
             },
             "lavender": {
                 "aliases": [],
@@ -6189,8 +6189,8 @@
             "carom seed": {
                 "aliases": [],
                 "description": "",
-                "name": "carom seed",
-                "plural_name": "carom seeds"
+                "name": "Graine de Ajwain",
+                "plural_name": "Graines de Ajwain"
             },
             "mexican oregano": {
                 "aliases": [],
@@ -6201,14 +6201,14 @@
             "mace": {
                 "aliases": [],
                 "description": "",
-                "name": "mace",
-                "plural_name": "maces"
+                "name": "Macis",
+                "plural_name": "Macis"
             },
             "mango powder": {
                 "aliases": [],
                 "description": "",
                 "name": "poudre de mangue",
-                "plural_name": "mango powder"
+                "plural_name": "Poudre de mangue"
             },
             "black mustard seed": {
                 "aliases": [],
@@ -6237,20 +6237,20 @@
             "guajillo pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "guajillo pepper",
-                "plural_name": "guajillo peppers"
+                "name": "Piment guajillo",
+                "plural_name": "Piments guajillo"
             },
             "pink peppercorn": {
                 "aliases": [],
                 "description": "",
-                "name": "pink peppercorn",
-                "plural_name": "pink peppercorns"
+                "name": "Baie rose",
+                "plural_name": "Baies roses"
             },
             "hot paprika": {
                 "aliases": [],
                 "description": "",
                 "name": "paprika fort",
-                "plural_name": "hot paprika"
+                "plural_name": "Paprika fort"
             },
             "lemon thyme": {
                 "aliases": [],
@@ -6261,8 +6261,8 @@
             "galangal": {
                 "aliases": [],
                 "description": "",
-                "name": "galangal",
-                "plural_name": "galangals"
+                "name": "Galanga",
+                "plural_name": "Galangas"
             },
             "garlic flake": {
                 "aliases": [],
@@ -6274,7 +6274,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "coriandre séchée",
-                "plural_name": "dried cilantro"
+                "plural_name": ""
             },
             "lemon balm": {
                 "aliases": [],
