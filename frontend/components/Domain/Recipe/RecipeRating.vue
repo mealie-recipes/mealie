@@ -1,10 +1,10 @@
 <template>
   <div @click.prevent>
     <!-- User Rating -->
-    <v-hover v-slot="{ isHovering, props }">
+    <v-hover v-slot="{ isHovering, props: hoverProps }">
       <v-rating
         v-if="isOwnGroup && (userRating || isHovering || !ratingsLoaded)"
-        v-bind="props"
+        v-bind="hoverProps"
         :model-value="userRating"
         active-color="secondary"
         color="secondary-lighten-3"
@@ -18,7 +18,7 @@
       <!-- Group Rating -->
       <v-rating
         v-else
-        v-bind="props"
+        v-bind="hoverProps"
         :model-value="groupRating"
         :half-increments="true"
         active-color="grey-darken-1"
