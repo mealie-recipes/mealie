@@ -17,7 +17,7 @@
             </v-card-title>
             <RecipeRating
               :key="recipe.slug"
-              :value="recipe.rating"
+              v-model="rating"
               :recipe-id="recipe.id"
               :slug="recipe.slug"
             />
@@ -92,9 +92,20 @@ interface Props {
   landscape: boolean;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   recipeScale: 1,
 });
+const recipe = toRef(props, "recipe");
+// Local copy for binding to RecipeRating; the recipe prop remains the source of truth when refreshed.
+const rating = ref(0);
+
+watch(
+  () => recipe.value.rating,
+  value => {
+    rating.value = value ?? 0;
+  },
+  { immediate: true },
+);
 
 const { isOwnGroup } = useLoggedInState();
 </script>
