@@ -212,8 +212,8 @@
     "upload-file": "Загрузить файл",
     "created-on-date": "Создано: {0}",
     "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?",
-    "discard-changes": "Discard Changes",
-    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
+    "discard-changes": "Отменить изменения",
+    "discard-changes-description": "Имеются несохраненные изменения. Вы уверены, что хотите отменить их?",
     "clipboard-copy-failure": "Не удалось скопировать текст.",
     "confirm-delete-generic-items": "Вы уверены, что хотите удалить следующие элементы?",
     "organizers": "Органайзеры",
@@ -370,8 +370,8 @@
     "applies-to-all-days": "Применяется к всем дням",
     "applies-on-days": "Применяется по {0}",
     "meal-plan-settings": "Настройки плана питания",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Добавить всё в список",
+    "add-day-to-list": "Добавить день в список"
   },
   "migration": {
     "migration-data-removed": "Данные миграции удалены",
@@ -449,7 +449,7 @@
     "upload-a-recipe": "Загрузить рецепт",
     "upload-individual-zip-file": "Загрузить отдельный .zip файл, экспортированный из другой Mealie.",
     "url-form-hint": "Скопируйте и вставьте ссылку из вашего любимого сайта рецептов",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Скопируйте и вставьте исходный ЮРЛ ваших данных (необязательно)",
     "view-scraped-data": "Просмотр отсканированных данных",
     "trim-whitespace-description": "Обрезать ведущие и конечные пробелы, а также пустые строки",
     "trim-prefix-description": "Обрезать первый символ из каждой строки",
@@ -644,7 +644,7 @@
     "scrape-recipe-website-being-blocked": "Сайт заблокирован?",
     "scrape-recipe-try-importing-raw-html-instead": "Попробуйте импортировать необработанный HTML файл.",
     "import-original-keywords-as-tags": "Импортировать исходные ключевые слова как теги",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "Импортировать оригинальные категории",
     "stay-in-edit-mode": "Остаться в режиме редактирования",
     "parse-recipe-ingredients-after-import": "Распознавание ингредиентов рецепта после импорта",
     "import-from-zip": "Импорт из архива",
@@ -1170,8 +1170,8 @@
       "edit-recipe-action": "Редактировать действие рецепта",
       "action-type": "Тип Действия",
       "action-types": {
-        "link": "Link",
-        "post": "Post"
+        "link": "Ссылка",
+        "post": "Пост"
       }
     },
     "create-alias": "Создать псевдоним",
@@ -1427,8 +1427,8 @@
       "is-greater-than-or-equal-to": "больше или равно",
       "is-less-than": "меньше чем",
       "is-less-than-or-equal-to": "меньше или равно",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "старше чем",
+      "is-newer-than": "новее, чем"
     },
     "relational-keywords": {
       "is": "соответствует",
@@ -1440,15 +1440,15 @@
       "is-not-like": "не содержит"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "дней назад|день назад|дней назад"
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
+    "required": "Это поле обязательно для заполнения",
+    "invalid-email": "Адрес электронной почты должен быть действительным",
+    "invalid-url": "Должен быть действительным ЮРЛ",
     "no-whitespace": "Без пробелов",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "min-length": "Должно быть минимум {min} символов",
+    "max-length": "Должно быть как минимум {max} знак|Должно быть больше {max} знаков"
   }
 }
