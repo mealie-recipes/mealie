@@ -1296,7 +1296,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "judasøre",
-                "plural_name": "sorte træører"
+                "plural_name": "judasører"
             },
             "black truffle": {
                 "aliases": [],
@@ -1361,8 +1361,8 @@
             "white fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "hvid svamp",
-                "plural_name": "snesvampe"
+                "name": "sølvøresvamp",
+                "plural_name": "sølvøresvamp"
             },
             "pioppini": {
                 "aliases": [],
@@ -1374,7 +1374,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sølvøresvamp",
-                "plural_name": "snesvampe"
+                "plural_name": "sølvøresvamp"
             },
             "white beech mushroom": {
                 "aliases": [],
@@ -1409,8 +1409,8 @@
             "djon djon mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "djon djon svamp",
-                "plural_name": "djon djon svampe"
+                "name": "djon djon-svamp",
+                "plural_name": "djon djon-svampe"
             },
             "mixed asian mushroom": {
                 "aliases": [],
@@ -13034,8 +13034,8 @@
             "mushroom gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "svampesovs",
-                "plural_name": "svampesovse"
+                "name": "svampesauce",
+                "plural_name": "svampesauce"
             },
             "pork gravy": {
                 "aliases": [],
