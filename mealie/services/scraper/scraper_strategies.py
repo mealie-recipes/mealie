@@ -1,3 +1,4 @@
+import asyncio
 import re
 import time
 from abc import ABC, abstractmethod
@@ -468,7 +469,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         openai_service = OpenAIService()
 
         with get_temporary_path() as temp_path:
-            video_data = self._download_audio(temp_path)
+            video_data = await asyncio.to_thread(self._download_audio, temp_path)
 
             if video_data["subtitle"]:
                 try:
