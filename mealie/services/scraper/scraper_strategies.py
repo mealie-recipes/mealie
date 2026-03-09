@@ -399,7 +399,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         """Downloads audio and subtitles from the video URL."""
         output_template = temp_path / "mealie"  # No extension here
 
-        ydl_opts = {
+        ydl_opts: dict = {
             "format": "bestaudio/best",
             "outtmpl": str(output_template) + ".%(ext)s",
             "quiet": True,
@@ -427,7 +427,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
                     )
 
                 sub_path = None
-                for lang in ["en", "fr", "es", "de", "it"]:
+                for lang in ydl_opts["subtitleslangs"]:
                     potential_path = output_template.with_suffix(f".{lang}.vtt")
                     if potential_path.exists():
                         sub_path = potential_path
@@ -436,9 +436,9 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
                 return {
                     "audio": output_template.with_suffix(".mp3"),
                     "subtitle": sub_path,
-                    "title": info.get("title"),
-                    "description": info.get("description"),
-                    "thumbnail_url": info.get("thumbnail"),
+                    "title": info.get("title", ""),
+                    "description": info.get("description", ""),
+                    "thumbnail_url": info.get("thumbnail", ""),
                     "transcription": "",
                 }
         except exceptions.VideoDownloadError:
