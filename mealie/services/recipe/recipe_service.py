@@ -661,6 +661,14 @@ class OpenAIRecipeService(RecipeServiceBase):
         except Exception as e:
             raise exceptions.VideoDownloadError(f"Failed to download video: {e}") from e
 
+    def _parse_subtitle_content(self, subtitle_content: str) -> str:
+        lines = []
+        for line in subtitle_content.split("\n"):
+            if line.strip() and not line.startswith("WEBVTT") and "-->" not in line and not line.isdigit():
+                lines.append(line.strip())
+
+        return " ".join(lines)
+
     def _convert_recipe(self, openai_recipe: OpenAIRecipe) -> Recipe:
         return Recipe(
             user_id=self.user.id,
