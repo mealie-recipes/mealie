@@ -3,7 +3,7 @@ import time
 from abc import ABC, abstractmethod
 from collections.abc import Callable
 from pathlib import Path
-from typing import Any
+from typing import Any, TypedDict
 
 import bs4
 import extruct
@@ -358,6 +358,15 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
             return ""
 
 
+class TranscribedAudio(TypedDict):
+    audio: Path
+    subtitle: Path | None
+    title: str
+    description: str
+    thumbnail_url: str
+    transcription: str
+
+
 class RecipeScraperOpenAITranscription(ABCScraperStrategy):
     @staticmethod
     def _parse_subtitle_content(subtitle_content: str) -> str:
@@ -367,18 +376,8 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
                 lines.append(line.strip())
         return " ".join(lines)
 
-    def _download_audio(self, temp_path: Path) -> dict:
-        """
-        Downloads audio and subtitles from the video URL.
-
-        Returns:
-            dict with keys:
-                - audio: path to downloaded audio file
-                - subtitle: path to subtitle file (or None if not available)
-                - title: video title
-                - description: video description
-                - thumbnail: video thumbnail URL
-        """
+    def _download_audio(self, temp_path: Path) -> TranscribedAudio:
+        """Downloads audio and subtitles from the video URL."""
         output_template = temp_path / "mealie"  # No extension here
 
         ydl_opts = {
@@ -411,17 +410,18 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
 
                 sub_path = None
                 for lang in ["en", "fr", "es", "de", "it"]:
-                    potential_path = f"{output_template}.{lang}.vtt"
+                    potential_path = output_template / f".{lang}.vtt"
                     if os.path.exists(potential_path):
                         sub_path = potential_path
                         break
 
                 return {
-                    "audio": f"{output_template}.mp3",
+                    "audio": Path(output_template / ".mp3"),
                     "subtitle": sub_path,
                     "title": info.get("title"),
                     "description": info.get("description"),
-                    "thumbnail": info.get("thumbnail"),
+                    "thumbnail_url": info.get("thumbnail"),
+                    "transcription": "",
                 }
         except exceptions.VideoDownloadError:
             raise
@@ -453,9 +453,9 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
                     self.logger.info("Using subtitles from video instead of transcription")
                 except Exception as e:
                     self.logger.warning(f"Failed to read subtitles, falling back to transcription: {e}")
-                    video_data["transcription"] = None
+                    video_data["transcription"] = ""
 
-            if not video_data.get("transcription"):
+            if video_data["transcription"]:
                 try:
                     transcription = await openai_service.transcribe_audio(video_data["audio"])
                 except exceptions.RateLimitError:
@@ -472,7 +472,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         message = (
             f"Please extract the recipe from the video provided."
             f"the video is titled '{video_data['title']}' and has the description: {video_data['description']}.\n"
-            f"here is the thumbnail for the video: {video_data['thumbnail']}\n"
+            f"here is the thumbnail for the video: {video_data['thumbnail_url']}\n"
             f"Here is the transcription of the audio from the video:\n{video_data['transcription']}\n"
             "There should be exactly one recipe."
         )
@@ -506,7 +506,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
                 if instruction.text
             ],
             notes=[RecipeNote(title=note.title or "", text=note.text) for note in response.notes if note.text],
-            image=video_data.get("thumbnail"),
+            image=video_data["thumbnail_url"],
             org_url=self.url,
         )
 

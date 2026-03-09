@@ -239,7 +239,7 @@ class OpenAIService(BaseService):
         except Exception as e:
             raise Exception(f"OpenAI Request Failed. {e.__class__.__name__}: {e}") from e
 
-    async def transcribe_audio(self, file_path: Path | str) -> str | None:
+    async def transcribe_audio(self, file_path: Path) -> str | None:
         settings = get_app_settings()
         if not settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES:
             self.logger.warning("OpenAI transcription services are disabled")
