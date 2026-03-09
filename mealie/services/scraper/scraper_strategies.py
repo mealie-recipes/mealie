@@ -451,8 +451,8 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
                         subtitle_content = f.read()
                     video_data["transcription"] = self._parse_subtitle_content(subtitle_content)
                     self.logger.info("Using subtitles from video instead of transcription")
-                except Exception as e:
-                    self.logger.warning(f"Failed to read subtitles, falling back to transcription: {e}")
+                except Exception:
+                    self.logger.exception("Failed to read subtitles, falling back to transcription")
                     video_data["transcription"] = ""
 
             if video_data["transcription"]:
@@ -466,19 +466,24 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
                     raise exceptions.OpenAIServiceError("No transcription returned from OpenAI")
                 video_data["transcription"] = transcription
 
+        if not video_data["transcription"]:
+            self.logger.error("Could not extract a transcript (no data)")
+            return None, None
+
         self.logger.debug(f"Transcription: {video_data['transcription'][:200]}...")
         prompt = openai_service.get_prompt("recipes.parse-recipe-video")
 
-        message = (
-            f"Please extract the recipe from the video provided."
-            f"the video is titled '{video_data['title']}' and has the description: {video_data['description']}.\n"
-            f"here is the thumbnail for the video: {video_data['thumbnail_url']}\n"
-            f"Here is the transcription of the audio from the video:\n{video_data['transcription']}\n"
-            "There should be exactly one recipe."
-        )
+        message_parts = [
+            f"Title: {video_data['title']}",
+            f"Description: {video_data['description']}",
+            f"Transcription: {video_data['transcription']}",
+        ]
+
+        if video_data["thumbnail_url"]:
+            message_parts.append(f"Thumbnail URL: {video_data['thumbnail_url']}")
 
         try:
-            response = await openai_service.get_response(prompt, message, response_schema=OpenAIRecipe)
+            response = await openai_service.get_response(prompt, "\n".join(message_parts), response_schema=OpenAIRecipe)
         except exceptions.RateLimitError:
             raise
         except Exception as e:
