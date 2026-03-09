@@ -13,6 +13,7 @@ from httpx import AsyncClient, Response
 from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, scrape_html
 from slugify import slugify
 from w3lib.html import get_base_url
+from yt_dlp.extractor.generic import GenericIE
 
 from mealie.core import exceptions
 from mealie.core.config import get_app_settings
@@ -379,8 +380,19 @@ class TranscribedAudio(TypedDict):
 
 class RecipeScraperOpenAITranscription(ABCScraperStrategy):
     def can_scrape(self) -> bool:
+        if not self.url:
+            return False
+
         settings = get_app_settings()
-        return bool(settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES and self.url)
+        if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES):
+            return False
+
+        # Check if we can actually download something to transcribe
+        return any(
+            ie.suitable(self.url)
+            for ie in yt_dlp.extractor.gen_extractors()
+            if ie.working() and not isinstance(ie, GenericIE)
+        )
 
     @staticmethod
     def _parse_subtitle_content(subtitle_content: str) -> str:
@@ -450,10 +462,6 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         return self.raw_html or ""  # we don't use HTML with this scraper since we use ytdlp
 
     async def parse(self) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
-        settings = get_app_settings()
-        if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES):
-            return None, None
-
         openai_service = OpenAIService()
 
         with get_temporary_path() as temp_path:
