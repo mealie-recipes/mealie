@@ -169,7 +169,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rucola",
-                "plural_name": "arugula"
+                "plural_name": "rucolaa"
             },
             "leek": {
                 "aliases": [],
@@ -279,8 +279,8 @@
             "mixed vegetables": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetables",
-                "plural_name": "mixed vegetables"
+                "name": "sekakasvikset",
+                "plural_name": "sekakasvikset"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -419,8 +419,8 @@
             "corn on the cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn on the cob",
-                "plural_name": "corn on the cob"
+                "name": "tähkämaissi",
+                "plural_name": "tähkämaissia"
             },
             "radicchio": {
                 "aliases": [],
@@ -488,13 +488,13 @@
                 ],
                 "description": "",
                 "name": "maize",
-                "plural_name": "maize"
+                "plural_name": "maissia"
             },
             "collard greens": {
                 "aliases": [],
                 "description": "",
-                "name": "collard greens",
-                "plural_name": "collard greens"
+                "name": "lehtikaali",
+                "plural_name": "lehtikaalia"
             },
             "french-fried onion": {
                 "aliases": [],
@@ -1241,8 +1241,8 @@
             "button mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "button mushroom",
-                "plural_name": "button mushrooms"
+                "name": "pieni herkkusieni",
+                "plural_name": "pieniä herkkusieniä"
             },
             "shiitake mushroom": {
                 "aliases": [],
@@ -1253,8 +1253,8 @@
             "portobello mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "portobello mushroom",
-                "plural_name": "portobello mushrooms"
+                "name": "herkkusieni",
+                "plural_name": "herkkusieniä"
             },
             "wild mushroom": {
                 "aliases": [],
@@ -1503,8 +1503,8 @@
             "dried cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cherry",
-                "plural_name": "dried cherries"
+                "name": "kuivattu kirsikka",
+                "plural_name": "kuivattuja kirsikoita"
             },
             "juniper berry": {
                 "aliases": [],

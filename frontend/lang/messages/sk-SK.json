@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Dáta akcií receptu",
       "new-recipe-action": "Nová akcia receptu",
       "edit-recipe-action": "Upraviť akciu receptu",
-      "action-type": "Typ akcie"
+      "action-type": "Typ akcie",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Vytvoriť alias",
     "manage-aliases": "Spravovať aliasy",
@@ -1445,6 +1449,6 @@
     "invalid-url": "Musí byť platná URL",
     "no-whitespace": "Prázdne znaky nepovolené",
     "min-length": "Musí mať aspoň {min} znakov",
-    "max-length": "Musí mať najviac {max} znakov"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

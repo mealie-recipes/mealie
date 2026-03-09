@@ -17,7 +17,9 @@
             "servings": "Porții",
             "yield": "Recoltă",
             "yields": "Producţii"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Nicio rețetă nu corespunde criteriilor tale"

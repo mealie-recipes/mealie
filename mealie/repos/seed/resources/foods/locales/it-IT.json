@@ -65,7 +65,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "jalapeño",
-                "plural_name": "jalapeños"
+                "plural_name": "jalapeño"
             },
             "avocado": {
                 "aliases": [],
@@ -132,8 +132,8 @@
             "baby greens": {
                 "aliases": [],
                 "description": "",
-                "name": "baby greens",
-                "plural_name": "baby greens"
+                "name": "verdura tenera",
+                "plural_name": "verdure tenere"
             },
             "pumpkin": {
                 "aliases": [],
@@ -163,13 +163,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "cavolo riccio",
-                "plural_name": "kale"
+                "plural_name": "cavoli"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
                 "name": "rucola",
-                "plural_name": "arugula"
+                "plural_name": "rucole"
             },
             "leek": {
                 "aliases": [],
@@ -199,7 +199,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lattuga romana",
-                "plural_name": "romaine lettuce"
+                "plural_name": "lattuga romana"
             },
             "beetroot": {
                 "aliases": [],
@@ -261,8 +261,8 @@
             "mixed greens": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed greens",
-                "plural_name": "mixed greens"
+                "name": "verdura mista",
+                "plural_name": "verdure miste"
             },
             "parsnip": {
                 "aliases": [],
@@ -279,8 +279,8 @@
             "mixed vegetables": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetables",
-                "plural_name": "mixed vegetables"
+                "name": "verdure miste",
+                "plural_name": "verdure miste"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -304,7 +304,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pepe di Caienna",
-                "plural_name": "cayenne pepper"
+                "plural_name": "peperoncini di Cayenna"
             },
             "green tomato": {
                 "aliases": [],
@@ -419,8 +419,8 @@
             "corn on the cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn on the cob",
-                "plural_name": "corn on the cob"
+                "name": "pannocchia",
+                "plural_name": "pannocchie"
             },
             "radicchio": {
                 "aliases": [],
@@ -438,7 +438,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "broccoli spinarolo",
-                "plural_name": "tenderstem broccoli"
+                "plural_name": "broccoletti"
             },
             "plantain": {
                 "aliases": [],
@@ -5730,7 +5730,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "abalone",
-                "plural_name": "abalones"
+                "plural_name": "abaloni"
             },
             "seaweed salad": {
                 "aliases": [],
@@ -6309,8 +6309,8 @@
             "achiote seed": {
                 "aliases": [],
                 "description": "",
-                "name": "achiote seed",
-                "plural_name": "achiote seeds"
+                "name": "seme di achiote",
+                "plural_name": "semi di achiote"
             },
             "savory herb": {
                 "aliases": [],
@@ -6405,8 +6405,8 @@
             "achiote paste": {
                 "aliases": [],
                 "description": "",
-                "name": "achiote paste",
-                "plural_name": "achiote paste"
+                "name": "pasta di achiote",
+                "plural_name": "pasta di achiote"
             },
             "summer savory": {
                 "aliases": [],
@@ -9774,8 +9774,8 @@
             "acini di pepe": {
                 "aliases": [],
                 "description": "",
-                "name": "acini di pepe",
-                "plural_name": "acini di pepes"
+                "name": "acino di pepe",
+                "plural_name": "acini di pepe"
             },
             "cavatelli": {
                 "aliases": [],
@@ -10687,7 +10687,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "olio di semi di girasole",
-                "plural_name": "sunflower oil"
+                "plural_name": "olio di semi di girasole"
             },
             "avocado oil": {
                 "aliases": [],
@@ -10988,8 +10988,8 @@
             "achiote oil": {
                 "aliases": [],
                 "description": "",
-                "name": "achiote oil",
-                "plural_name": "achiote oil"
+                "name": "olio di achiote",
+                "plural_name": "olio di achiote"
             },
             "jojoba oil": {
                 "aliases": [],
@@ -15676,7 +15676,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "succo alla bacca di acai",
-                "plural_name": "acai berry juice"
+                "plural_name": "succo di acai"
             },
             "lemon crystal": {
                 "aliases": [],
@@ -15938,7 +15938,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "polvere di bacca di acai",
-                "plural_name": "acai powder"
+                "plural_name": "polvere di acai"
             },
             "hemp protein": {
                 "aliases": [],
@@ -16105,8 +16105,8 @@
             "activated charcoal": {
                 "aliases": [],
                 "description": "",
-                "name": "activated charcoal",
-                "plural_name": "activated charcoals"
+                "name": "carbone attivo",
+                "plural_name": "carboni attivi"
             },
             "egg powder": {
                 "aliases": [],
@@ -16231,7 +16231,7 @@
             "sunflower lecithin": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower lecithin",
+                "name": "lecitina di girasole",
                 "plural_name": "lecitina di girasole"
             },
             "thc": {
@@ -16304,7 +16304,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "maltodestrina",
-                "plural_name": "maltodextrins"
+                "plural_name": "maltodestrine"
             }
         }
     }

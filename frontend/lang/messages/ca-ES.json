@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Dades d'accions de receptes",
       "new-recipe-action": "Nova acció de receptes",
       "edit-recipe-action": "Edita acció de receptes",
-      "action-type": "Tipus d'acció"
+      "action-type": "Tipus d'acció",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Crea un àlies",
     "manage-aliases": "Gestiona els àlies",
@@ -1445,6 +1449,6 @@
     "invalid-url": "La URL ha de ser vàlida",
     "no-whitespace": "No es permeten espais en blanc",
     "min-length": "Ha de tenir almenys {min} caràcters",
-    "max-length": "Ha de tenir com a màxim {max} caràcters"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

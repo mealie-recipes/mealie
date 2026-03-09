@@ -25,16 +25,9 @@ dotenv:
   - .env
   - .dev.env
 tasks:
-  docs:gen:
-    desc: runs the API documentation generator
-    cmds:
-      - uv run python dev/code-generation/gen_docs_api.py
-
   docs:
     desc: runs the documentation server
     dir: docs
-    deps:
-      - docs:gen
     cmds:
       - uv run python -m mkdocs serve
 
@@ -81,7 +74,6 @@ tasks:
     desc: run code generators
     cmds:
       - uv run python dev/code-generation/main.py {{ .CLI_ARGS }}
-      - task: docs:gen
       - task: py:format
 
   dev:services:

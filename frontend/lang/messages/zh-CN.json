@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "食谱行为数据",
       "new-recipe-action": "新建食谱行为",
       "edit-recipe-action": "编辑食谱行为",
-      "action-type": "行为种类"
+      "action-type": "行为种类",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "创建别名",
     "manage-aliases": "管理别名",
@@ -1445,6 +1449,6 @@
     "invalid-url": "Must Be A Valid URL",
     "no-whitespace": "No Whitespace Allowed",
     "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

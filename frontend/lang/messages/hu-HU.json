@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Receptekkel kapcsolatos tevékenységek adatai",
       "new-recipe-action": "Új recept tevékenység",
       "edit-recipe-action": "Recept tevékenység szerkesztése",
-      "action-type": "Művelet típusa"
+      "action-type": "Művelet típusa",
+      "action-types": {
+        "link": "Hivatkozás",
+        "post": "Közzététel"
+      }
     },
     "create-alias": "Alias készítése",
     "manage-aliases": "Alias kezelése",
@@ -1445,6 +1449,6 @@
     "invalid-url": "Érvényes URL-nek kell lennie",
     "no-whitespace": "Szóközt nem tartalmazhat",
     "min-length": "Legalább {min} karakter legyen",
-    "max-length": "Legfeljebb {max} karakter legyen"
+    "max-length": "Legfeljebb {max} karakter lehet|Legfeljebb {max} karakter lehet"
   }
 }

@@ -17,7 +17,9 @@
             "servings": "Порции",
             "yield": "Порции",
             "yields": "Порции"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Няма рецепти отговарящи на Вашите критерии"
