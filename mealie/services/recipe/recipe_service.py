@@ -600,8 +600,9 @@ class RecipeService(RecipeServiceBase):
 
 
 class OpenAIRecipeService(RecipeServiceBase):
-    def _download_audio(self, url: str) -> dict:
-        """Downloads audio and subtitles from a video URL.
+    def _download_audio(self, url: str, temp_path: Path) -> dict:
+        """
+        Downloads audio and subtitles from a video URL.
 
         Returns:
             dict with keys:
@@ -611,12 +612,11 @@ class OpenAIRecipeService(RecipeServiceBase):
                 - description: video description
                 - thumbnail: video thumbnail URL
         """
-        temp_id = os.getpid()
-        output_template = f"/tmp/mealie_{temp_id}"  # No extension here
+        output_template = temp_path / "mealie"  # No extension here
 
         ydl_opts = {
             "format": "bestaudio/best",
-            "outtmpl": output_template + ".%(ext)s",
+            "outtmpl": output_template / ".%(ext)s",
             "quiet": True,
             "writesubtitles": True,
             "writeautomaticsub": True,
@@ -731,28 +731,29 @@ class OpenAIRecipeService(RecipeServiceBase):
             raise ValueError("OpenAI transcription services are not available")
         openai_service = OpenAIService()
 
-        video_data = self._download_audio(video_url)
+        with get_temporary_path() as temp_path:
+            video_data = self._download_audio(video_url, temp_path)
 
-        if video_data["subtitle"]:
-            try:
-                with open(video_data["subtitle"], encoding="utf-8") as f:
-                    subtitle_content = f.read()
-                video_data["transcription"] = self._parse_subtitle_content(subtitle_content)
-                self.logger.info("Using subtitles from video instead of transcription")
-            except Exception as e:
-                self.logger.warning(f"Failed to read subtitles, falling back to transcription: {e}")
-                video_data["transcription"] = None
+            if video_data["subtitle"]:
+                try:
+                    with open(video_data["subtitle"], encoding="utf-8") as f:
+                        subtitle_content = f.read()
+                    video_data["transcription"] = self._parse_subtitle_content(subtitle_content)
+                    self.logger.info("Using subtitles from video instead of transcription")
+                except Exception as e:
+                    self.logger.warning(f"Failed to read subtitles, falling back to transcription: {e}")
+                    video_data["transcription"] = None
 
-        if not video_data.get("transcription"):
-            try:
-                transcription = await openai_service.transcribe_audio(video_data["audio"])
-            except exceptions.RateLimitError:
-                raise
-            except Exception as e:
-                raise exceptions.OpenAIServiceError(f"Failed to transcribe audio: {e}") from e
-            if not transcription:
-                raise exceptions.OpenAIServiceError("No transcription returned from OpenAI")
-            video_data["transcription"] = transcription
+            if not video_data.get("transcription"):
+                try:
+                    transcription = await openai_service.transcribe_audio(video_data["audio"])
+                except exceptions.RateLimitError:
+                    raise
+                except Exception as e:
+                    raise exceptions.OpenAIServiceError(f"Failed to transcribe audio: {e}") from e
+                if not transcription:
+                    raise exceptions.OpenAIServiceError("No transcription returned from OpenAI")
+                video_data["transcription"] = transcription
 
         self.logger.debug(f"Transcription: {video_data['transcription'][:200]}...")
         prompt = openai_service.get_prompt(
