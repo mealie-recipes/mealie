@@ -6,6 +6,9 @@ on:
       tag:
         required: true
         type: string
+      ref:
+        required: false
+        type: string
 
 jobs:
   build-frontend:
@@ -15,6 +18,8 @@ jobs:
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.sha }}
 
       - name: Setup node env 🏗
         uses: actions/setup-node@v4.0.0

@@ -9,6 +9,9 @@ on:
       tags:
         required: false
         type: string
+      ref:
+        required: false
+        type: string
     secrets:
       DOCKERHUB_USERNAME:
         required: true
@@ -21,6 +24,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.sha }}
 
       - name: Log in to the Container registry (ghcr.io)
         uses: docker/login-action@v3
