@@ -403,7 +403,6 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             "writeautomaticsub": True,
             "subtitleslangs": ["en", "fr", "es", "de", "it"],
             "skip_download": False,
-            "ignoreerrors": True,
             "postprocessors": [
                 {
                     "key": "FFmpegExtractAudio",
