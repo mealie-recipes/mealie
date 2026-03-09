@@ -46,7 +46,7 @@ dependencies = [
     "typing-extensions==4.15.0",
     "itsdangerous==2.2.0",
     "ingredient-parser-nlp==2.5.0",
-    "pint>=0.25",
+    "pint==0.25",
 ]
 
 [project.scripts]
