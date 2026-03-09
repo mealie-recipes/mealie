@@ -266,8 +266,10 @@ class OpenAIService(BaseService):
             return transcript.text
         except openai.RateLimitError as e:
             raise exceptions.RateLimitError(str(e)) from e
-        except Exception:
-            pass
+        except Exception as e:
+            self.logger.warning(
+                f"Failed to create audio transcription, falling back to chat completion ({e.__class__.__name__}: e)"
+            )
 
         # Fallback to chat completion
         path_obj = Path(audio_file_path)
