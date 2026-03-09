@@ -79,7 +79,7 @@
     </v-form>
     <v-expand-transition>
       <v-alert
-        v-if="error"
+        v-if="errorType"
         color="error"
         class="mt-6 white--text"
       >
@@ -91,12 +91,15 @@
           >
             {{ $globals.icons.robot }}
           </v-icon>
-          {{ errorType === 'rate-limit'
-            ? $t("new-recipe.error-title-rate-limit")
-            : errorType === 'server'
-              ? $t("new-recipe.error-title-server")
-              : $t("new-recipe.error-title")
-          }}
+          <template v-if="errorType === 'rate-limit'">
+            {{ $t("new-recipe.error-title-rate-limit") }}
+          </template>
+          <template v-else-if="errorType === 'server'">
+            {{ $t("events.something-went-wrong") }}
+          </template>
+          <template v-else>
+            {{ $t("new-recipe.error-title") }}
+          </template>
         </v-card-title>
         <v-divider class="my-3 mx-2" />
 
@@ -105,12 +108,14 @@
             <p>{{ $t("new-recipe.error-details-rate-limit") }}</p>
           </template>
           <template v-else-if="errorType === 'server'">
-            <p>{{ $t("new-recipe.error-details-server") }}</p>
+            <p>{{ $t("events.unexpected-error-occurred") }}</p>
           </template>
           <template v-else>
             <p>
               {{ $t("recipe.scrape-recipe-website-being-blocked") }}
-              <router-link :to="htmlOrJsonImporterTarget">{{ $t("recipe.scrape-recipe-try-importing-raw-html-instead") }}</router-link>
+              <router-link :to="htmlOrJsonImporterTarget">
+                {{ $t("recipe.scrape-recipe-try-importing-raw-html-instead") }}
+              </router-link>
             </p>
             <br>
             <p>
@@ -164,8 +169,7 @@ export default defineNuxtComponent({
       key: route => route.path,
     });
     const state = reactive({
-      error: false,
-      errorType: "scrape" as "scrape" | "rate-limit" | "server",
+      errorType: null as null | "scrape" | "rate-limit" | "server",
       loading: false,
     });
 
@@ -194,13 +198,12 @@ export default defineNuxtComponent({
         if (errorStatus === 429) {
           state.errorType = "rate-limit";
         }
-        else if (errorStatus !== undefined && errorStatus >= 500) {
+        else if (errorStatus && errorStatus >= 500) {
           state.errorType = "server";
         }
         else {
           state.errorType = "scrape";
         }
-        state.error = true;
         state.loading = false;
         return;
       }
