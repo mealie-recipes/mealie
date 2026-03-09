@@ -7,7 +7,7 @@ from mealie.services.openai.openai import OpenAIService
 class _SettingsStub:
     OPENAI_ENABLED = True
     OPENAI_MODEL = "gpt-4o"
-    OPENAI_AUDIO_MODEL = "whisper"
+    OPENAI_AUDIO_MODEL = "whisper-1"
     OPENAI_WORKERS = 1
     OPENAI_SEND_DATABASE_DATA = False
     OPENAI_ENABLE_IMAGE_SERVICES = True
