@@ -16,6 +16,7 @@ from mealie.core import exceptions, root_logger
 from mealie.core.config import get_app_settings
 from mealie.pkgs import img
 from mealie.schema.openai._base import OpenAIBase
+from mealie.schema.openai.general import OpenAIText
 
 from .._base_service import BaseService
 
@@ -49,7 +50,12 @@ class OpenAIDataInjection(BaseModel):
             return value
 
 
-class OpenAIImageBase(BaseModel, ABC):
+class OpenAIAttachment(BaseModel, ABC):
+    @abstractmethod
+    def build_message(self) -> dict: ...
+
+
+class OpenAIImageBase(OpenAIAttachment):
     @abstractmethod
     def get_image_url(self) -> str: ...
 
@@ -80,6 +86,17 @@ class OpenAILocalImage(OpenAIImageBase):
         return f"data:image/jpeg;base64,{b64content}"
 
 
+class OpenAILocalAudio(OpenAIAttachment):
+    data: str
+    format: str
+
+    def build_message(self) -> dict:
+        return {
+            "type": "input_audio",
+            "input_audio": {"data": self.data, "format": self.format},
+        }
+
+
 class OpenAIService(BaseService):
     PROMPTS_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / "prompts"
 
@@ -92,8 +109,6 @@ class OpenAIService(BaseService):
         self.audio_model = settings.OPENAI_AUDIO_MODEL
         self.workers = settings.OPENAI_WORKERS
         self.send_db_data = settings.OPENAI_SEND_DATABASE_DATA
-        self.enable_image_services = settings.OPENAI_ENABLE_IMAGE_SERVICES
-        self.enable_transcription_services = settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES
         self.custom_prompt_dir = settings.OPENAI_CUSTOM_PROMPT_DIR
 
         self.get_client = lambda: AsyncOpenAI(
@@ -218,17 +233,14 @@ class OpenAIService(BaseService):
         message: str,
         *,
         response_schema: type[T],
-        images: list[OpenAIImageBase] | None = None,
+        attachments: list[OpenAIAttachment] | None = None,
     ) -> T | None:
         """Send data to OpenAI and return the response message content"""
-        if images and not self.enable_image_services:
-            self.logger.warning("OpenAI image services are disabled, ignoring images")
-            images = None
 
         try:
             user_messages = [{"type": "text", "text": message}]
-            for image in images or []:
-                user_messages.append(image.build_message())
+            for attachment in attachments or []:
+                user_messages.append(attachment.build_message())
 
             response = await self._get_raw_response(prompt, user_messages, response_schema)
             if not response.choices:
@@ -241,49 +253,34 @@ class OpenAIService(BaseService):
         except Exception as e:
             raise Exception(f"OpenAI Request Failed. {e.__class__.__name__}: {e}") from e
 
-    async def transcribe_audio(self, file_path: Path) -> str | None:
-        if not self.enable_transcription_services:
-            self.logger.warning("OpenAI transcription services are disabled")
-            return None
-
+    async def transcribe_audio(self, audio_file_path: Path) -> str | None:
         client = self.get_client()
 
+        # Create a transcription from the audio
         try:
-            try:
-                # Create a transcription from the audio
-                with open(file_path, "rb") as audio_file:
-                    transcript = await client.audio.transcriptions.create(
-                        model=self.audio_model,
-                        file=audio_file,
-                    )
-                return transcript.text
-            except Exception:
-                # Fallback to chat completion
-                path_obj = Path(file_path)
-                with open(path_obj, "rb") as audio_file:
-                    audio_data = base64.b64encode(audio_file.read()).decode("utf-8")
-
-                file_ext = path_obj.suffix.lstrip(".").lower()
-
-                response = await client.chat.completions.create(
+            with open(audio_file_path, "rb") as audio_file:
+                transcript = await client.audio.transcriptions.create(
                     model=self.audio_model,
-                    messages=[
-                        {
-                            "role": "user",
-                            "content": [
-                                {"type": "text", "text": "Transcribe the audio content to text."},
-                                {
-                                    "type": "input_audio",
-                                    "input_audio": {"data": audio_data, "format": file_ext},
-                                },
-                            ],
-                        }
-                    ],
+                    file=audio_file,
                 )
-                return response.choices[0].message.content
+            return transcript.text
+        except exceptions.RateLimitError:
+            raise
+        except Exception:
+            pass
 
-        except openai.RateLimitError as e:
-            raise exceptions.RateLimitError(str(e)) from e
-        except Exception as e:
-            self.logger.error(f"AI Transcription Failed: {e}")
-            return None
+        # Fallback to chat completion
+        path_obj = Path(audio_file_path)
+        with open(path_obj, "rb") as audio_file:
+            audio_data = base64.b64encode(audio_file.read()).decode("utf-8")
+
+        file_ext = path_obj.suffix.lstrip(".").lower()
+        audio_attachment = OpenAILocalAudio(data=audio_data, format=file_ext)
+        response = await self.get_response(
+            "Transcribe this audio data into a string.",
+            "Attached is the audio data.",
+            response_schema=OpenAIText,
+            attachments=[audio_attachment],
+        )
+
+        return response.text if response else None

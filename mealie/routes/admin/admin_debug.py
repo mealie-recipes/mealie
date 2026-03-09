@@ -41,7 +41,7 @@ class AdminDebugController(BaseAdminController):
                     message = f"{message} Here is an image to test with:"
 
                 response = await openai_service.get_response(
-                    prompt, message, response_schema=OpenAIText, images=local_images
+                    prompt, message, response_schema=OpenAIText, attachments=local_images
                 )
 
                 if not response:
