@@ -1,3 +1,4 @@
+import re
 import time
 from abc import ABC, abstractmethod
 from collections.abc import Callable
@@ -389,7 +390,10 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         for line in subtitle_content.split("\n"):
             if line.strip() and not line.startswith("WEBVTT") and "-->" not in line and not line.isdigit():
                 lines.append(line.strip())
-        return " ".join(lines)
+
+        raw_content = " ".join(lines)
+        content = re.sub(r"<[^>]+>", "", raw_content)
+        return content
 
     def _download_audio(self, temp_path: Path) -> TranscribedAudio:
         """Downloads audio and subtitles from the video URL."""
