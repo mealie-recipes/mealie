@@ -383,7 +383,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
 
         ydl_opts = {
             "format": "bestaudio/best",
-            "outtmpl": output_template / ".%(ext)s",
+            "outtmpl": str(output_template) + ".%(ext)s",
             "quiet": True,
             "writesubtitles": True,
             "writeautomaticsub": True,
