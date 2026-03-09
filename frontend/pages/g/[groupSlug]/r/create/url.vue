@@ -79,7 +79,7 @@
     </v-form>
     <v-expand-transition>
       <v-alert
-        v-if="errorType"
+        v-if="error"
         color="error"
         class="mt-6 white--text"
       >
@@ -91,42 +91,21 @@
           >
             {{ $globals.icons.robot }}
           </v-icon>
-          <template v-if="errorType === 'rate-limit'">
-            {{ $t("new-recipe.error-title-rate-limit") }}
-          </template>
-          <template v-else-if="errorType === 'server'">
-            {{ $t("events.something-went-wrong") }}
-          </template>
-          <template v-else>
-            {{ $t("new-recipe.error-title") }}
-          </template>
+          {{ $t("new-recipe.error-title") }}
         </v-card-title>
         <v-divider class="my-3 mx-2" />
 
         <div class="force-url-white">
-          <template v-if="errorType === 'rate-limit'">
-            <p>{{ $t("new-recipe.error-details-rate-limit") }}</p>
-          </template>
-          <template v-else-if="errorType === 'server'">
-            <p>{{ $t("events.unexpected-error-occurred") }}</p>
-          </template>
-          <template v-else>
-            <p>
-              {{ $t("recipe.scrape-recipe-website-being-blocked") }}
-              <router-link :to="htmlOrJsonImporterTarget">
-                {{ $t("recipe.scrape-recipe-try-importing-raw-html-instead") }}
-              </router-link>
-            </p>
-            <br>
-            <p>
-              {{ $t("new-recipe.error-details") }}
-            </p>
-          </template>
+          <p>
+            {{ $t("recipe.scrape-recipe-website-being-blocked") }}
+            <router-link :to="htmlOrJsonImporterTarget">{{ $t("recipe.scrape-recipe-try-importing-raw-html-instead") }}</router-link>
+          </p>
+          <br>
+          <p>
+            {{ $t("new-recipe.error-details") }}
+          </p>
         </div>
-        <div
-          v-if="errorType === 'scrape'"
-          class="d-flex row justify-space-around my-3 force-url-white"
-        >
+        <div class="d-flex row justify-space-around my-3 force-url-white">
           <a
             class="dark"
             href="https://developers.google.com/search/docs/data-types/recipe"
@@ -169,7 +148,7 @@ export default defineNuxtComponent({
       key: route => route.path,
     });
     const state = reactive({
-      errorType: null as null | "scrape" | "rate-limit" | "server",
+      error: false,
       loading: false,
     });
 
@@ -192,18 +171,9 @@ export default defineNuxtComponent({
     const bulkImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/bulk`);
     const htmlOrJsonImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/html`);
 
-    function handleResponse(response: AxiosResponse<string> | null, error: any, refreshTags = false) {
+    function handleResponse(response: AxiosResponse<string> | null, refreshTags = false) {
       if (response?.status !== 201) {
-        const errorStatus = error?.response?.status;
-        if (errorStatus === 429) {
-          state.errorType = "rate-limit";
-        }
-        else if (errorStatus && errorStatus >= 500) {
-          state.errorType = "server";
-        }
-        else {
-          state.errorType = "scrape";
-        }
+        state.error = true;
         state.loading = false;
         return;
       }
@@ -274,8 +244,8 @@ export default defineNuxtComponent({
         return;
       }
       state.loading = true;
-      const { response, error } = await api.recipes.createOneByUrl(url, importKeywordsAsTags, importCategories);
-      handleResponse(response, error, importKeywordsAsTags);
+      const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags, importCategories);
+      handleResponse(response, importKeywordsAsTags);
     }
 
     return {
