@@ -382,7 +382,7 @@ class TranscribedAudio(TypedDict):
     subtitle: Path | None
     title: str
     description: str
-    thumbnail_url: str
+    thumbnail_url: str | None
     transcription: str
 
 
@@ -457,7 +457,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
                     "subtitle": sub_path,
                     "title": info.get("title", ""),
                     "description": info.get("description", ""),
-                    "thumbnail_url": info.get("thumbnail"),
+                    "thumbnail_url": info.get("thumbnail") or None,
                     "transcription": "",
                 }
         except exceptions.VideoDownloadError:
