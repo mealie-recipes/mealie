@@ -277,7 +277,7 @@ class OpenAIService(BaseService):
         file_ext = path_obj.suffix.lstrip(".").lower()
         audio_attachment = OpenAILocalAudio(data=audio_data, format=file_ext)
         response = await self.get_response(
-            "Transcribe this audio data into a string.",
+            self.get_prompt("general.transcribe-audio"),
             "Attached is the audio data.",
             response_schema=OpenAIText,
             attachments=[audio_attachment],
