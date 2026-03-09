@@ -123,6 +123,9 @@ class ABCScraperStrategy(ABC):
         self.translator = translator
 
     @abstractmethod
+    def can_scrape(self) -> bool: ...
+
+    @abstractmethod
     async def get_html(self, url: str) -> str: ...
 
     @abstractmethod
@@ -139,6 +142,9 @@ class ABCScraperStrategy(ABC):
 
 
 class RecipeScraperPackage(ABCScraperStrategy):
+    def can_scrape(self) -> bool:
+        return bool(self.url or self.raw_html)
+
     @staticmethod
     def ld_json_to_html(ld_json: str) -> str:
         return (
@@ -278,6 +284,10 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
     rather than trying to scrape it directly.
     """
 
+    def can_scrape(self) -> bool:
+        settings = get_app_settings()
+        return settings.OPENAI_ENABLED and super().can_scrape()
+
     def extract_json_ld_data_from_html(self, soup: bs4.BeautifulSoup) -> str:
         data_parts: list[str] = []
         for script in soup.find_all("script", type="application/ld+json"):
@@ -367,6 +377,10 @@ class TranscribedAudio(TypedDict):
 
 
 class RecipeScraperOpenAITranscription(ABCScraperStrategy):
+    def can_scrape(self) -> bool:
+        settings = get_app_settings()
+        return bool(settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES and self.url)
+
     @staticmethod
     def _parse_subtitle_content(subtitle_content: str) -> str:
         # TODO: is there a better way to parse subtitles that's more efficient?
@@ -430,11 +444,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             raise exceptions.VideoDownloadError(f"Failed to download video: {e}") from e
 
     async def get_html(self, url: str) -> str:
-        settings = get_app_settings()
-        if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES):
-            return ""
-
-        return self.raw_html or await safe_scrape_html(url)
+        return self.raw_html or ""  # we don't use HTML with this scraper since we use ytdlp
 
     async def parse(self) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         settings = get_app_settings()
@@ -521,6 +531,9 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
 
 
 class RecipeScraperOpenGraph(ABCScraperStrategy):
+    def can_scrape(self) -> bool:
+        return bool(self.url or self.raw_html)
+
     async def get_html(self, url: str) -> str:
         return self.raw_html or await safe_scrape_html(url)
 

@@ -44,8 +44,11 @@ class RecipeScraper:
         """
 
         raw_html = html or await safe_scrape_html(url)
-        for scraper_type in self.scrapers:
-            scraper = scraper_type(url, self.translator, raw_html=raw_html)
+        for ScraperClass in self.scrapers:
+            scraper = ScraperClass(url, self.translator, raw_html=raw_html)
+            if not scraper.can_scrape():
+                self.logger.debug(f"Skipping {scraper.__class__.__name__}")
+                continue
 
             try:
                 result = await scraper.parse()
