@@ -370,6 +370,8 @@ class TranscribedAudio(TypedDict):
 class RecipeScraperOpenAITranscription(ABCScraperStrategy):
     @staticmethod
     def _parse_subtitle_content(subtitle_content: str) -> str:
+        # TODO: is there a better way to parse subtitles that's more efficient?
+
         lines = []
         for line in subtitle_content.split("\n"):
             if line.strip() and not line.startswith("WEBVTT") and "-->" not in line and not line.isdigit():
