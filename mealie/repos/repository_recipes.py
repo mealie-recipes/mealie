@@ -1,5 +1,6 @@
 import re as re
 from collections.abc import Iterable, Sequence
+from datetime import UTC, datetime
 from random import randint
 from typing import Self, cast
 from uuid import UUID
@@ -51,10 +52,13 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         return self
 
     def _get_last_made_col_alias(self) -> sa.ColumnElement | None:
-        """Computed last_made which uses `HouseholdToRecipe.last_made` for the user's household, otherwise None"""
+        """
+        Computed last_made which uses `HouseholdToRecipe.last_made` for the user's household,
+        otherwise an arbitrarily low date
+        """
 
         user_household_subquery = sa.select(User.household_id).where(User.id == self.user_id).scalar_subquery()
-        return (
+        last_made_subquery = (
             sa.select(HouseholdToRecipe.last_made)
             .where(
                 HouseholdToRecipe.recipe_id == self.model.id,
@@ -63,6 +67,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             .correlate(self.model)
             .scalar_subquery()
         )
+        return sa.func.coalesce(last_made_subquery, datetime(year=1900, month=1, day=1, tzinfo=UTC))
 
     def _get_rating_col_alias(self) -> sa.ColumnElement | None:
         """Computed rating which uses the user's rating if it exists, otherwise falling back to the recipe's rating"""

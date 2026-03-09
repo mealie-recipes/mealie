@@ -95,6 +95,7 @@
 <script lang="ts">
 import { fieldTypes } from "~/composables/forms";
 import { useGroups } from "~/composables/use-groups";
+import { validators } from "~/composables/use-validators";
 import type { GroupInDB } from "~/lib/api/types/user";
 
 export default defineNuxtComponent({
@@ -136,7 +137,7 @@ export default defineNuxtComponent({
             label: i18n.t("group.group-name"),
             varName: "name",
             type: fieldTypes.TEXT,
-            rules: ["required"],
+            rules: [validators.required],
           },
         ],
         data: {

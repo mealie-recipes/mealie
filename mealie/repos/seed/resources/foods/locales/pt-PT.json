@@ -101,7 +101,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "milho doce",
-                "plural_name": "sweet corn"
+                "plural_name": "milho doce"
             },
             "chile pepper": {
                 "aliases": [
@@ -280,7 +280,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mixed vegetables",
-                "plural_name": "mixed vegetables"
+                "plural_name": "mistura de vegetais"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -1671,8 +1671,8 @@
             "chokeberry": {
                 "aliases": [],
                 "description": "",
-                "name": "chokeberry",
-                "plural_name": "chokeberries"
+                "name": "arónia",
+                "plural_name": "arónias"
             },
             "loganberry": {
                 "aliases": [],
@@ -1717,7 +1717,7 @@
             "walnut": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut",
+                "name": "noz",
                 "plural_name": "walnuts"
             },
             "pecan": {
@@ -1783,8 +1783,8 @@
             "pumpkin seed": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin seed",
-                "plural_name": "pumpkin seeds"
+                "name": "semente de abóbora",
+                "plural_name": "sementes de abóbora"
             },
             "hazelnut": {
                 "aliases": [],
@@ -1801,8 +1801,8 @@
             "sunflower seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower seed",
-                "plural_name": "sunflower seeds"
+                "name": "semente de girassol",
+                "plural_name": "sementes de girassol"
             },
             "macadamia": {
                 "aliases": [],
@@ -1813,8 +1813,8 @@
             "roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted peanut",
-                "plural_name": "roasted peanuts"
+                "name": "amendoim torrado",
+                "plural_name": "amendoins torrados"
             },
             "chopped nut": {
                 "aliases": [],
@@ -2003,22 +2003,22 @@
             "parmesan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan cheese",
+                "name": "queijo parmesão",
                 "plural_name": "parmesan cheese"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddar cheese"
+                    "queijo cheddar"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheese"
+                "name": "queijo cheddar",
+                "plural_name": "queijos cheddar"
             },
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheese"
+                "name": "queijo creme",
+                "plural_name": "queijo creme"
             },
             "sharp cheddar cheese": {
                 "aliases": [
@@ -2031,26 +2031,26 @@
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheese"
+                "name": "queijo",
+                "plural_name": "queijos"
             },
             "mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella cheese",
-                "plural_name": "mozzarella cheese"
+                "name": "queijo mozzarella",
+                "plural_name": "queijos mozzarella"
             },
             "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "feta cheese",
-                "plural_name": "feta cheese"
+                "name": "queijo feta",
+                "plural_name": "queijos feta"
             },
             "ricotta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "ricotta cheese",
-                "plural_name": "ricotta cheese"
+                "name": "queijo ricotta",
+                "plural_name": "queijos ricotta"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
@@ -2139,8 +2139,8 @@
             "brie cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "brie cheese",
-                "plural_name": "brie cheese"
+                "name": "queijo brie",
+                "plural_name": "queijos brie"
             },
             "paneer cheese": {
                 "aliases": [],
@@ -2617,26 +2617,26 @@
             "butter": {
                 "aliases": [],
                 "description": "",
-                "name": "butter",
-                "plural_name": "butter"
+                "name": "manteiga",
+                "plural_name": "manteigas"
             },
             "egg": {
                 "aliases": [],
                 "description": "",
-                "name": "egg",
-                "plural_name": "eggs"
+                "name": "ovo",
+                "plural_name": "ovos"
             },
             "milk": {
                 "aliases": [],
                 "description": "",
-                "name": "milk",
-                "plural_name": "milk"
+                "name": "leite",
+                "plural_name": "leites"
             },
             "heavy cream": {
                 "aliases": [],
                 "description": "",
-                "name": "heavy cream",
-                "plural_name": "heavy cream"
+                "name": "nata",
+                "plural_name": "natas"
             },
             "sour cream": {
                 "aliases": [],
@@ -2691,8 +2691,8 @@
             "condensed milk": {
                 "aliases": [],
                 "description": "",
-                "name": "condensed milk",
-                "plural_name": "condensed milk"
+                "name": "leite condensado",
+                "plural_name": "leites condensados"
             },
             "half and half": {
                 "aliases": [],
@@ -2703,20 +2703,20 @@
             "sweetened condensed milk": {
                 "aliases": [],
                 "description": "",
-                "name": "sweetened condensed milk",
-                "plural_name": "sweetened condensed milk"
+                "name": "leite condensado açucarado",
+                "plural_name": "leites condensados açucarados"
             },
             "ice cream": {
                 "aliases": [],
                 "description": "",
-                "name": "ice cream",
-                "plural_name": "ice cream"
+                "name": "gelado",
+                "plural_name": "gelados"
             },
             "margarine": {
                 "aliases": [],
                 "description": "",
-                "name": "margarine",
-                "plural_name": "margarines"
+                "name": "margarina",
+                "plural_name": "margarinas"
             },
             "creme fraiche": {
                 "aliases": [],
@@ -2757,8 +2757,8 @@
             "dulce de leche": {
                 "aliases": [],
                 "description": "",
-                "name": "dulce de leche",
-                "plural_name": "dulce de leche"
+                "name": "doce de leite",
+                "plural_name": "doces de leite"
             },
             "custard": {
                 "aliases": [],
@@ -2787,8 +2787,8 @@
             "chocolate milk": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk",
-                "plural_name": "chocolate milk"
+                "name": "leite achocolatado",
+                "plural_name": "leites achocolatados"
             },
             "liquid egg substitute": {
                 "aliases": [],
@@ -3325,8 +3325,8 @@
             "vegan sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan sausage",
-                "plural_name": "vegan sausages"
+                "name": "salsicha vegan",
+                "plural_name": "salsichas vegan"
             },
             "coconut whipped cream": {
                 "aliases": [],
@@ -3373,8 +3373,8 @@
             "nut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "nut milk",
-                "plural_name": "nut milk"
+                "name": "leite de noz",
+                "plural_name": "leite de nozes"
             },
             "non-dairy cream": {
                 "aliases": [],
@@ -3744,37 +3744,37 @@
                 "aliases": [],
                 "description": "",
                 "name": "bacon",
-                "plural_name": "bacons"
+                "plural_name": "bacon"
             },
             "chopped bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "chopped bacon",
-                "plural_name": "chopped bacons"
+                "name": "bacon",
+                "plural_name": "bacon"
             },
             "ground beef": {
                 "aliases": [],
                 "description": "",
-                "name": "ground beef",
-                "plural_name": "ground beefs"
+                "name": "carne picada",
+                "plural_name": "carne picada"
             },
             "beef steak": {
                 "aliases": [],
                 "description": "",
-                "name": "beef steak",
-                "plural_name": "beef steaks"
+                "name": "bife de vaca",
+                "plural_name": "bifes de vaca"
             },
             "ham": {
                 "aliases": [],
                 "description": "",
-                "name": "ham",
-                "plural_name": "hams"
+                "name": "fiambre",
+                "plural_name": "fiambres"
             },
             "pork chop": {
                 "aliases": [],
                 "description": "",
-                "name": "pork chop",
-                "plural_name": "pork chops"
+                "name": "costoleta",
+                "plural_name": "costoletas"
             },
             "sweet italian sausage": {
                 "aliases": [],
@@ -3827,8 +3827,8 @@
             "chorizo": {
                 "aliases": [],
                 "description": "",
-                "name": "chorizo",
-                "plural_name": "chorizoes"
+                "name": "chouriço",
+                "plural_name": "chouriços"
             },
             "pancetta": {
                 "aliases": [],
@@ -3899,8 +3899,8 @@
             "deli ham": {
                 "aliases": [],
                 "description": "",
-                "name": "deli ham",
-                "plural_name": "deli hams"
+                "name": "fiambre",
+                "plural_name": "fiambres"
             },
             "leg of lamb": {
                 "aliases": [],
@@ -10638,8 +10638,8 @@
             "olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "olive oil",
-                "plural_name": "olive oil"
+                "name": "azeite",
+                "plural_name": "azeite"
             },
             "vegetable oil": {
                 "aliases": [],
@@ -10650,8 +10650,8 @@
             "extra virgin olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "extra virgin olive oil",
-                "plural_name": "extra virgin olive oil"
+                "name": "azeite extra virgem",
+                "plural_name": "azeite extra virgem"
             },
             "canola oil": {
                 "aliases": [],
@@ -10916,8 +10916,8 @@
             "herb-infused olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "herb-infused olive oil",
-                "plural_name": "herb-infused olive oil"
+                "name": "azeite de ervas",
+                "plural_name": "azeite de ervas"
             },
             "roasted peanut oil": {
                 "aliases": [],

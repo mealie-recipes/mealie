@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "レシピ操作データ",
       "new-recipe-action": "新しいレシピ操作",
       "edit-recipe-action": "レシピ操作の編集",
-      "action-type": "操作タイプ"
+      "action-type": "操作タイプ",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "エイリアスを作成",
     "manage-aliases": "エイリアスの管理",
@@ -1445,6 +1449,6 @@
     "invalid-url": "Must Be A Valid URL",
     "no-whitespace": "No Whitespace Allowed",
     "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

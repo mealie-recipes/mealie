@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Dados das Ações da Receita",
       "new-recipe-action": "Nova Ação da Receita",
       "edit-recipe-action": "Editar Ação da Receita",
-      "action-type": "Tipo de Ação"
+      "action-type": "Tipo de Ação",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Criar Pseudónimo",
     "manage-aliases": "Gerir Pseudónimos",
@@ -1445,6 +1449,6 @@
     "invalid-url": "O URL deve ser válido",
     "no-whitespace": "Não são permitidos espaços em branco",
     "min-length": "Deve ter pelo menos {min} caracteres",
-    "max-length": "Deve ter no máximo {max} caracteres"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

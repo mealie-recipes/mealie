@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Dati Azioni Ricetta",
       "new-recipe-action": "Nuova Azione Ricetta",
       "edit-recipe-action": "Modifica Azione Ricetta",
-      "action-type": "Tipo Di Azione"
+      "action-type": "Tipo Di Azione",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Crea Alias",
     "manage-aliases": "Gestisci Alias",
@@ -1445,6 +1449,6 @@
     "invalid-url": "Lo URL Deve Essere Valido",
     "no-whitespace": "Gli Spazi Non Sono Ammessi",
     "min-length": "Deve Essere Almeno {min} Caratteri",
-    "max-length": "Deve Essere Al Massimo {max} Caratteri"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

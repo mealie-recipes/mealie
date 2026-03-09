@@ -199,10 +199,6 @@ class AppSettings(AppLoggingSettings):
     def DOCS_URL(self) -> str | None:
         return "/docs" if self.API_DOCS else None
 
-    @property
-    def REDOC_URL(self) -> str | None:
-        return "/redoc" if self.API_DOCS else None
-
     # ===============================================
     # Database Configuration
 

@@ -29,7 +29,9 @@
       flat
     />
 
-    <BaseCardSectionTitle class="mt-5" :title="$t('household.household-recipe-preferences')" />
+    <BaseCardSectionTitle class="mt-5" :title="$t('household.household-recipe-preferences')">
+      {{ $t("household.default-recipe-preferences-description") }}
+    </BaseCardSectionTitle>
     <div class="preference-container">
       <div v-for="p in recipePreferences" :key="p.key">
         <v-checkbox v-model="preferences[p.key]" hide-details density="compact" :label="p.label" color="primary" />

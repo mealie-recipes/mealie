@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Recepšu darbību dati",
       "new-recipe-action": "Jaunas receptes darbība",
       "edit-recipe-action": "Rediģēt receptes darbību",
-      "action-type": "Darbības veids"
+      "action-type": "Darbības veids",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Izveidot aizstājvārdu",
     "manage-aliases": "Pārvaldīt aizstājvārdus",
@@ -1445,6 +1449,6 @@
     "invalid-url": "Must Be A Valid URL",
     "no-whitespace": "No Whitespace Allowed",
     "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

@@ -1168,7 +1168,11 @@
       "recipe-actions-data": "Gegevens voor acties met recepten",
       "new-recipe-action": "Nieuwe actie met recept",
       "edit-recipe-action": "Pas actie met recept aan",
-      "action-type": "Soort actie"
+      "action-type": "Soort actie",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Maak alias",
     "manage-aliases": "Beheer aliassen ",
@@ -1445,6 +1449,6 @@
     "invalid-url": "Moet een geldige URL zijn",
     "no-whitespace": "Geen spaties toegestaan",
     "min-length": "Moet minimaal {min} tekens bevatten",
-    "max-length": "Zorg dat je {max} tekens gebruikt"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }
