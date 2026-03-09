@@ -236,7 +236,7 @@ export default defineNuxtComponent({
           stayInEditMode.value = false;
         }
 
-        createByUrl(recipeUrl.value, importKeywordsAsTags.value);
+        createByUrl(recipeUrl.value, importKeywordsAsTags.value, false);
         return;
       }
     });
