@@ -379,6 +379,8 @@ class TranscribedAudio(TypedDict):
 
 
 class RecipeScraperOpenAITranscription(ABCScraperStrategy):
+    SUBTITLE_LANGS = ["en", "fr", "es", "de", "it"]
+
     def can_scrape(self) -> bool:
         if not self.url:
             return False
@@ -411,14 +413,15 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         """Downloads audio and subtitles from the video URL."""
         output_template = temp_path / "mealie"  # No extension here
 
-        ydl_opts: dict = {
+        ydl_opts = {
             "format": "bestaudio/best",
             "outtmpl": str(output_template) + ".%(ext)s",
             "quiet": True,
             "writesubtitles": True,
             "writeautomaticsub": True,
-            "subtitleslangs": ["en", "fr", "es", "de", "it"],
+            "subtitleslangs": self.SUBTITLE_LANGS,
             "skip_download": False,
+            "ignoreerrors": True,
             "postprocessors": [
                 {
                     "key": "FFmpegExtractAudio",
@@ -439,7 +442,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
                     )
 
                 sub_path = None
-                for lang in ydl_opts["subtitleslangs"]:
+                for lang in self.SUBTITLE_LANGS:
                     potential_path = output_template.with_suffix(f".{lang}.vtt")
                     if potential_path.exists():
                         sub_path = potential_path
