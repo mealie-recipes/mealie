@@ -158,6 +158,7 @@ import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataA
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import type { CreateIngredientUnit, IngredientUnit, IngredientUnitAlias } from "~/lib/api/types/recipe";
+import type { StandardizedUnitType } from "~/lib/api/types/non-generated";
 import { useLocales } from "~/composables/use-locales";
 import { normalizeFilter } from "~/composables/use-utils";
 import { useUnitStore } from "~/composables/store";
@@ -220,6 +221,16 @@ const tableHeaders: TableHeaders[] = [
     sortable: true,
   },
   {
+    text: i18n.t("data-pages.units.standard-quantity"),
+    value: "standardQuantity",
+    show: false,
+  },
+  {
+    text: i18n.t("data-pages.units.standard-unit"),
+    value: "standardUnit",
+    show: false,
+  },
+  {
     text: i18n.t("general.date-added"),
     value: "createdAt",
     show: false,
@@ -231,7 +242,12 @@ const { store: unitStore, actions: unitActions } = useUnitStore();
 
 // ============================================================
 // Form items (shared)
-const formItems: AutoFormItems = [
+type StandardizedUnitTypeOption = {
+  text: string;
+  value: StandardizedUnitType;
+};
+
+const formItems = computed<AutoFormItems>(() => [
   {
     cols: 8,
     label: i18n.t("general.name"),
@@ -263,6 +279,59 @@ const formItems: AutoFormItems = [
     type: fieldTypes.TEXT,
   },
   {
+    section: i18n.t("data-pages.units.standardization"),
+    sectionDetails: i18n.t("data-pages.units.standardization-description"),
+    cols: 2,
+    varName: "standardQuantity",
+    type: fieldTypes.NUMBER,
+    numberInputConfig: {
+      min: 0,
+      max: undefined,
+      precision: undefined,
+      controlVariant: "hidden",
+    },
+  },
+  {
+    cols: 10,
+    varName: "standardUnit",
+    type: fieldTypes.SELECT,
+    selectReturnValue: "value",
+    options: [
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.fluid-ounce"),
+        value: "fluid_ounce",
+      },
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.cup"),
+        value: "cup",
+      },
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.ounce"),
+        value: "ounce",
+      },
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.pound"),
+        value: "pound",
+      },
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.milliliter"),
+        value: "milliliter",
+      },
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.liter"),
+        value: "liter",
+      },
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.gram"),
+        value: "gram",
+      },
+      {
+        text: i18n.t("data-pages.units.standard-unit-labels.kilogram"),
+        value: "kilogram",
+      },
+    ] as StandardizedUnitTypeOption[],
+  },
+  {
     section: i18n.t("general.settings"),
     cols: 4,
     label: i18n.t("data-pages.units.use-abbv"),
@@ -275,7 +344,7 @@ const formItems: AutoFormItems = [
     varName: "fraction",
     type: fieldTypes.BOOLEAN,
   },
-];
+]);
 
 // ============================================================
 // Create

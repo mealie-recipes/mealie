@@ -29,18 +29,38 @@ class DataMatcher:
 
         self._food_fuzzy_match_threshold = food_fuzzy_match_threshold
         self._unit_fuzzy_match_threshold = unit_fuzzy_match_threshold
+
+        self._foods_by_id: dict[UUID4, IngredientFood] | None = None
+        self._units_by_id: dict[UUID4, IngredientUnit] | None = None
+
         self._foods_by_alias: dict[str, IngredientFood] | None = None
         self._units_by_alias: dict[str, IngredientUnit] | None = None
 
     @property
-    def foods_by_alias(self) -> dict[str, IngredientFood]:
-        if self._foods_by_alias is None:
+    def foods_by_id(self) -> dict[UUID4, IngredientFood]:
+        if self._foods_by_id is None:
             foods_repo = self.repos.ingredient_foods
             query = PaginationQuery(page=1, per_page=-1)
             all_foods = foods_repo.page_all(query).items
+            self._foods_by_id = {food.id: food for food in all_foods}
 
+        return self._foods_by_id
+
+    @property
+    def units_by_id(self) -> dict[UUID4, IngredientUnit]:
+        if self._units_by_id is None:
+            units_repo = self.repos.ingredient_units
+            query = PaginationQuery(page=1, per_page=-1)
+            all_units = units_repo.page_all(query).items
+            self._units_by_id = {unit.id: unit for unit in all_units}
+
+        return self._units_by_id
+
+    @property
+    def foods_by_alias(self) -> dict[str, IngredientFood]:
+        if self._foods_by_alias is None:
             foods_by_alias: dict[str, IngredientFood] = {}
-            for food in all_foods:
+            for food in self.foods_by_id.values():
                 if food.name:
                     foods_by_alias[IngredientFoodModel.normalize(food.name)] = food
                 if food.plural_name:
@@ -57,12 +77,8 @@ class DataMatcher:
     @property
     def units_by_alias(self) -> dict[str, IngredientUnit]:
         if self._units_by_alias is None:
-            units_repo = self.repos.ingredient_units
-            query = PaginationQuery(page=1, per_page=-1)
-            all_units = units_repo.page_all(query).items
-
             units_by_alias: dict[str, IngredientUnit] = {}
-            for unit in all_units:
+            for unit in self.units_by_id.values():
                 if unit.name:
                     units_by_alias[IngredientUnitModel.normalize(unit.name)] = unit
                 if unit.plural_name:

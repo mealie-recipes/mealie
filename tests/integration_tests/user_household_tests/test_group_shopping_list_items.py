@@ -7,7 +7,7 @@ from fastapi.testclient import TestClient
 from pydantic import UUID4
 
 from mealie.schema.household.group_shopping_list import ShoppingListItemOut, ShoppingListOut
-from mealie.schema.recipe.recipe_ingredient import SaveIngredientFood
+from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientFood
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
@@ -639,6 +639,96 @@ def test_shopping_list_items_with_zero_quantity(
     )
     as_json = utils.assert_deserialize(response, 200)
     assert len(as_json["listItems"]) == len(normal_items + zero_qty_items) - 1
+
+
+def test_shopping_list_merge_standard_unit(
+    api_client: TestClient, unique_user: TestUser, shopping_list: ShoppingListOut
+):
+    unit_1_cup_data = {"name": random_string(), "standardQuantity": 1, "standardUnit": "cup"}
+    unit_2_cup_data = {"name": random_string(), "standardQuantity": 2, "standardUnit": "cup"}
+    unit_1_out = api_client.post(api_routes.units, json=unit_1_cup_data, headers=unique_user.token)
+    unit_2_out = api_client.post(api_routes.units, json=unit_2_cup_data, headers=unique_user.token)
+
+    unit_1 = IngredientUnit.model_validate(unit_1_out.json())
+    unit_2 = IngredientUnit.model_validate(unit_2_out.json())
+
+    list_item_1_data = create_item(shopping_list.id, unit_id=str(unit_1.id), note="mealie-food")
+    list_item_2_data = create_item(shopping_list.id, unit_id=str(unit_2.id), note="mealie-food")
+    response = api_client.post(
+        api_routes.households_shopping_items_create_bulk,
+        json=[list_item_1_data, list_item_2_data],
+        headers=unique_user.token,
+    )
+
+    as_json = utils.assert_deserialize(response, 201)
+    assert len(as_json["createdItems"]) == 1
+
+    item_out = as_json["createdItems"][0]
+
+    # should use larger "2 cup" unit (a la "pint")
+    assert item_out["unitId"] == str(unit_2.id)
+    # calculate quantity by summing base "cup" amount and dividing by 2 (a la pints)
+    assert item_out["quantity"] == (list_item_1_data["quantity"] + (list_item_2_data["quantity"] * 2)) / 2
+
+
+def test_shopping_list_merge_standard_unit_different_foods(
+    api_client: TestClient, unique_user: TestUser, shopping_list: ShoppingListOut
+):
+    unit_1_cup_data = {"name": random_string(), "standardQuantity": 1, "standardUnit": "cup"}
+    unit_2_cup_data = {"name": random_string(), "standardQuantity": 2, "standardUnit": "cup"}
+    unit_1_out = api_client.post(api_routes.units, json=unit_1_cup_data, headers=unique_user.token)
+    unit_2_out = api_client.post(api_routes.units, json=unit_2_cup_data, headers=unique_user.token)
+
+    unit_1 = IngredientUnit.model_validate(unit_1_out.json())
+    unit_2 = IngredientUnit.model_validate(unit_2_out.json())
+
+    list_item_1_data = create_item(shopping_list.id, unit_id=str(unit_1.id), note="mealie-food-1")
+    list_item_2_data = create_item(shopping_list.id, unit_id=str(unit_2.id), note="mealie-food-2")
+    response = api_client.post(
+        api_routes.households_shopping_items_create_bulk,
+        json=[list_item_1_data, list_item_2_data],
+        headers=unique_user.token,
+    )
+
+    as_json = utils.assert_deserialize(response, 201)
+    assert len(as_json["createdItems"]) == 2
+    for in_data, out_data in zip(
+        [list_item_1_data, list_item_2_data], [as_json["createdItems"][0], as_json["createdItems"][1]], strict=True
+    ):
+        assert in_data["quantity"] == out_data["quantity"]
+        assert out_data["unit"]
+        assert in_data["unit_id"] == out_data["unit"]["id"]
+        assert in_data["note"] == out_data["note"]
+
+
+def test_shopping_list_merge_standard_unit_incompatible_units(
+    api_client: TestClient, unique_user: TestUser, shopping_list: ShoppingListOut
+):
+    unit_1_data = {"name": random_string(), "standardQuantity": 1, "standardUnit": "cup"}
+    unit_2_data = {"name": random_string(), "standardQuantity": 2, "standardUnit": "gram"}
+    unit_1_out = api_client.post(api_routes.units, json=unit_1_data, headers=unique_user.token)
+    unit_2_out = api_client.post(api_routes.units, json=unit_2_data, headers=unique_user.token)
+
+    unit_1 = IngredientUnit.model_validate(unit_1_out.json())
+    unit_2 = IngredientUnit.model_validate(unit_2_out.json())
+
+    list_item_1_data = create_item(shopping_list.id, unit_id=str(unit_1.id), note="mealie-food")
+    list_item_2_data = create_item(shopping_list.id, unit_id=str(unit_2.id), note="mealie-food")
+    response = api_client.post(
+        api_routes.households_shopping_items_create_bulk,
+        json=[list_item_1_data, list_item_2_data],
+        headers=unique_user.token,
+    )
+
+    as_json = utils.assert_deserialize(response, 201)
+    assert len(as_json["createdItems"]) == 2
+    for in_data, out_data in zip(
+        [list_item_1_data, list_item_2_data], [as_json["createdItems"][0], as_json["createdItems"][1]], strict=True
+    ):
+        assert in_data["quantity"] == out_data["quantity"]
+        assert out_data["unit"]
+        assert in_data["unit_id"] == out_data["unit"]["id"]
+        assert in_data["note"] == out_data["note"]
 
 
 def test_shopping_list_item_extras(

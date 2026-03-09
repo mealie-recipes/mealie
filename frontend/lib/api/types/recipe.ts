@@ -85,6 +85,8 @@ export interface CreateIngredientUnit {
   pluralAbbreviation?: string | null;
   useAbbreviation?: boolean;
   aliases?: CreateIngredientUnitAlias[];
+  standardQuantity?: number | null;
+  standardUnit?: string | null;
 }
 export interface CreateIngredientUnitAlias {
   name: string;
@@ -174,6 +176,8 @@ export interface IngredientUnit {
   pluralAbbreviation?: string | null;
   useAbbreviation?: boolean;
   aliases?: IngredientUnitAlias[];
+  standardQuantity?: number | null;
+  standardUnit?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
 }
@@ -498,6 +502,8 @@ export interface SaveIngredientUnit {
   pluralAbbreviation?: string | null;
   useAbbreviation?: boolean;
   aliases?: CreateIngredientUnitAlias[];
+  standardQuantity?: number | null;
+  standardUnit?: string | null;
   groupId: string;
 }
 export interface ScrapeRecipe {
