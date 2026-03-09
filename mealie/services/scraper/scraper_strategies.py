@@ -1,4 +1,5 @@
 import asyncio
+import functools
 import re
 import time
 from abc import ABC, abstractmethod
@@ -35,6 +36,12 @@ from .user_agents_manager import get_user_agents_manager
 
 SCRAPER_TIMEOUT = 15
 logger = get_logger()
+
+
+@functools.cache
+def _get_yt_dlp_extractors() -> list:
+    """Build and cache the yt-dlp extractor list once per process lifetime."""
+    return [ie for ie in yt_dlp.extractor.gen_extractors() if ie.working() and not isinstance(ie, GenericIE)]
 
 
 class ForceTimeoutException(Exception):
@@ -391,11 +398,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             return False
 
         # Check if we can actually download something to transcribe
-        return any(
-            ie.suitable(self.url)
-            for ie in yt_dlp.extractor.gen_extractors()
-            if ie.working() and not isinstance(ie, GenericIE)
-        )
+        return any(ie.suitable(self.url) for ie in _get_yt_dlp_extractors())
 
     @staticmethod
     def _parse_subtitle_content(subtitle_content: str) -> str:
