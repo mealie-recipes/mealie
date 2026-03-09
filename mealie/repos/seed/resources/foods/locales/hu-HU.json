@@ -560,7 +560,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "karalábé",
-                "plural_name": "kohlrabi"
+                "plural_name": "karalábé"
             },
             "fresno chile": {
                 "aliases": [],
@@ -576,7 +576,7 @@
             },
             "Frisée": {
                 "aliases": [
-                    "curly endive"
+                    "fodros endíviasaláta"
                 ],
                 "description": "",
                 "name": "Frizé saláta",
@@ -1028,7 +1028,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tangelo",
-                "plural_name": "tangelos"
+                "plural_name": "tangelo"
             },
             "dried lime": {
                 "aliases": [],
@@ -1100,7 +1100,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tamarillo",
-                "plural_name": "tamarillos"
+                "plural_name": "tamarillo"
             },
             "ice-apple": {
                 "aliases": [],
@@ -1385,7 +1385,7 @@
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletus",
+                "name": "vargánya",
                 "plural_name": "vargánya"
             },
             "huitlacoche": {
@@ -1404,7 +1404,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "nameko tőkegomba",
-                "plural_name": "namekos"
+                "plural_name": "nameko tőkegomba"
             },
             "djon djon mushroom": {
                 "aliases": [],
@@ -1427,7 +1427,7 @@
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungus",
+                "name": "tuskógomba",
                 "plural_name": "tuskógomba"
             },
             "caesar's mushroom": {
@@ -1677,8 +1677,8 @@
             "loganberry": {
                 "aliases": [],
                 "description": "",
-                "name": "loganberry",
-                "plural_name": "loganberries"
+                "name": "kaliforniai szedermálna",
+                "plural_name": "kaliforniai szedermálna"
             },
             "blackcurrant leaf": {
                 "aliases": [],
@@ -1689,14 +1689,14 @@
             "haskap berry": {
                 "aliases": [],
                 "description": "",
-                "name": "haskap berry",
-                "plural_name": "haskap berries"
+                "name": "kék mézbogyó",
+                "plural_name": "kék mézbogyó"
             },
             "dewberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dewberry",
-                "plural_name": "dewberries"
+                "name": "hamvas szeder",
+                "plural_name": "hamvas szeder"
             },
             "sloe berry": {
                 "aliases": [],
