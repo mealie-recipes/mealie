@@ -268,7 +268,7 @@ class OpenAIService(BaseService):
             raise exceptions.RateLimitError(str(e)) from e
         except Exception as e:
             self.logger.warning(
-                f"Failed to create audio transcription, falling back to chat completion ({e.__class__.__name__}: e)"
+                f"Failed to create audio transcription, falling back to chat completion ({e.__class__.__name__}: {e})"
             )
 
         # Fallback to chat completion
