@@ -264,8 +264,8 @@ class OpenAIService(BaseService):
                     file=audio_file,
                 )
             return transcript.text
-        except exceptions.RateLimitError:
-            raise
+        except openai.RateLimitError as e:
+            raise exceptions.RateLimitError(str(e)) from e
         except Exception:
             pass
 
