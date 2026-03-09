@@ -89,9 +89,11 @@ class OpenAIService(BaseService):
             raise ValueError("OpenAI is not enabled")
 
         self.model = settings.OPENAI_MODEL
+        self.audio_model = settings.OPENAI_AUDIO_MODEL
         self.workers = settings.OPENAI_WORKERS
         self.send_db_data = settings.OPENAI_SEND_DATABASE_DATA
         self.enable_image_services = settings.OPENAI_ENABLE_IMAGE_SERVICES
+        self.enable_transcription_services = settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES
         self.custom_prompt_dir = settings.OPENAI_CUSTOM_PROMPT_DIR
 
         self.get_client = lambda: AsyncOpenAI(
@@ -240,44 +242,45 @@ class OpenAIService(BaseService):
             raise Exception(f"OpenAI Request Failed. {e.__class__.__name__}: {e}") from e
 
     async def transcribe_audio(self, file_path: Path) -> str | None:
-        settings = get_app_settings()
-        if not settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES:
+        if not self.enable_transcription_services:
             self.logger.warning("OpenAI transcription services are disabled")
             return None
 
         client = self.get_client()
+
         try:
-            if "whisper" in settings.OPENAI_AUDIO_MODEL.lower():
+            try:
+                # Create a transcription from the audio
                 with open(file_path, "rb") as audio_file:
                     transcript = await client.audio.transcriptions.create(
-                        model=settings.OPENAI_AUDIO_MODEL,
+                        model=self.audio_model,
                         file=audio_file,
                     )
                 return transcript.text
+            except Exception:
+                # Fallback to chat completion
+                path_obj = Path(file_path)
+                with open(path_obj, "rb") as audio_file:
+                    audio_data = base64.b64encode(audio_file.read()).decode("utf-8")
 
-            # Fallback to Chat Completion for non-Whisper models (e.g. Gemini, GPT-4o-Audio)
-            path_obj = Path(file_path)
-            with open(path_obj, "rb") as audio_file:
-                audio_data = base64.b64encode(audio_file.read()).decode("utf-8")
+                file_ext = path_obj.suffix.lstrip(".").lower()
 
-            file_ext = path_obj.suffix.lstrip(".").lower()
-
-            response = await client.chat.completions.create(
-                model=settings.OPENAI_AUDIO_MODEL,
-                messages=[
-                    {
-                        "role": "user",
-                        "content": [
-                            {"type": "text", "text": "Transcribe the audio content to text."},
-                            {
-                                "type": "input_audio",
-                                "input_audio": {"data": audio_data, "format": file_ext},
-                            },
-                        ],
-                    }
-                ],
-            )
-            return response.choices[0].message.content
+                response = await client.chat.completions.create(
+                    model=self.audio_model,
+                    messages=[
+                        {
+                            "role": "user",
+                            "content": [
+                                {"type": "text", "text": "Transcribe the audio content to text."},
+                                {
+                                    "type": "input_audio",
+                                    "input_audio": {"data": audio_data, "format": file_ext},
+                                },
+                            ],
+                        }
+                    ],
+                )
+                return response.choices[0].message.content
 
         except openai.RateLimitError as e:
             raise exceptions.RateLimitError(str(e)) from e
