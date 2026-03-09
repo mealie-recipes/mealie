@@ -1,22 +1,30 @@
+import os
 import time
 from abc import ABC, abstractmethod
 from collections.abc import Callable
+from pathlib import Path
 from typing import Any
 
 import bs4
 import extruct
+import yt_dlp
 from fastapi import HTTPException, status
 from httpx import AsyncClient, Response
 from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, scrape_html
 from slugify import slugify
 from w3lib.html import get_base_url
 
+from mealie.core import exceptions
 from mealie.core.config import get_app_settings
+from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.pkgs import safehttp
 from mealie.schema.openai.general import OpenAIText
+from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
+from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.services.openai import OpenAIService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
@@ -348,6 +356,162 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         except Exception:
             self.logger.exception(f"OpenAI was unable to extract a recipe from {url}")
             return ""
+
+
+class RecipeScraperOpenAITranscription(ABCScraperStrategy):
+    @staticmethod
+    def _parse_subtitle_content(subtitle_content: str) -> str:
+        lines = []
+        for line in subtitle_content.split("\n"):
+            if line.strip() and not line.startswith("WEBVTT") and "-->" not in line and not line.isdigit():
+                lines.append(line.strip())
+        return " ".join(lines)
+
+    def _download_audio(self, temp_path: Path) -> dict:
+        """
+        Downloads audio and subtitles from the video URL.
+
+        Returns:
+            dict with keys:
+                - audio: path to downloaded audio file
+                - subtitle: path to subtitle file (or None if not available)
+                - title: video title
+                - description: video description
+                - thumbnail: video thumbnail URL
+        """
+        output_template = temp_path / "mealie"  # No extension here
+
+        ydl_opts = {
+            "format": "bestaudio/best",
+            "outtmpl": output_template / ".%(ext)s",
+            "quiet": True,
+            "writesubtitles": True,
+            "writeautomaticsub": True,
+            "subtitleslangs": ["en", "fr", "es", "de", "it"],
+            "skip_download": False,
+            "ignoreerrors": True,
+            "postprocessors": [
+                {
+                    "key": "FFmpegExtractAudio",
+                    "preferredcodec": "mp3",
+                    "preferredquality": "32",
+                }
+            ],
+            "postprocessor_args": ["-ac", "1"],
+        }
+
+        try:
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(self.url, download=True)
+
+                if info is None:
+                    raise exceptions.VideoDownloadError(
+                        "Failed to extract video information. The video may be unavailable or the URL is invalid."
+                    )
+
+                sub_path = None
+                for lang in ["en", "fr", "es", "de", "it"]:
+                    potential_path = f"{output_template}.{lang}.vtt"
+                    if os.path.exists(potential_path):
+                        sub_path = potential_path
+                        break
+
+                return {
+                    "audio": f"{output_template}.mp3",
+                    "subtitle": sub_path,
+                    "title": info.get("title"),
+                    "description": info.get("description"),
+                    "thumbnail": info.get("thumbnail"),
+                }
+        except exceptions.VideoDownloadError:
+            raise
+        except Exception as e:
+            raise exceptions.VideoDownloadError(f"Failed to download video: {e}") from e
+
+    async def get_html(self, url: str) -> str:
+        settings = get_app_settings()
+        if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES):
+            return ""
+
+        return self.raw_html or await safe_scrape_html(url)
+
+    async def parse(self) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+        settings = get_app_settings()
+        if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES):
+            return None, None
+
+        openai_service = OpenAIService()
+
+        with get_temporary_path() as temp_path:
+            video_data = self._download_audio(temp_path)
+
+            if video_data["subtitle"]:
+                try:
+                    with open(video_data["subtitle"], encoding="utf-8") as f:
+                        subtitle_content = f.read()
+                    video_data["transcription"] = self._parse_subtitle_content(subtitle_content)
+                    self.logger.info("Using subtitles from video instead of transcription")
+                except Exception as e:
+                    self.logger.warning(f"Failed to read subtitles, falling back to transcription: {e}")
+                    video_data["transcription"] = None
+
+            if not video_data.get("transcription"):
+                try:
+                    transcription = await openai_service.transcribe_audio(video_data["audio"])
+                except exceptions.RateLimitError:
+                    raise
+                except Exception as e:
+                    raise exceptions.OpenAIServiceError(f"Failed to transcribe audio: {e}") from e
+                if not transcription:
+                    raise exceptions.OpenAIServiceError("No transcription returned from OpenAI")
+                video_data["transcription"] = transcription
+
+        self.logger.debug(f"Transcription: {video_data['transcription'][:200]}...")
+        prompt = openai_service.get_prompt("recipes.parse-recipe-video")
+
+        message = (
+            f"Please extract the recipe from the video provided."
+            f"the video is titled '{video_data['title']}' and has the description: {video_data['description']}.\n"
+            f"here is the thumbnail for the video: {video_data['thumbnail']}\n"
+            f"Here is the transcription of the audio from the video:\n{video_data['transcription']}\n"
+            "There should be exactly one recipe."
+        )
+
+        try:
+            response = await openai_service.get_response(prompt, message, response_schema=OpenAIRecipe)
+        except exceptions.RateLimitError:
+            raise
+        except Exception as e:
+            raise exceptions.OpenAIServiceError(f"Failed to extract recipe from video: {e}") from e
+
+        if not response:
+            raise exceptions.OpenAIServiceError("OpenAI returned an empty response when extracting recipe")
+
+        recipe = Recipe(
+            name=response.name,
+            slug="",
+            description=response.description,
+            recipe_yield=response.recipe_yield,
+            total_time=response.total_time,
+            prep_time=response.prep_time,
+            perform_time=response.perform_time,
+            recipe_ingredient=[
+                RecipeIngredient(title=ingredient.title, note=ingredient.text)
+                for ingredient in response.ingredients
+                if ingredient.text
+            ],
+            recipe_instructions=[
+                RecipeStep(title=instruction.title, text=instruction.text)
+                for instruction in response.instructions
+                if instruction.text
+            ],
+            notes=[RecipeNote(title=note.title or "", text=note.text) for note in response.notes if note.text],
+            image=video_data.get("thumbnail"),
+            org_url=self.url,
+        )
+
+        self.logger.info(f"Successfully extracted recipe from video: {video_data['title']}")
+        return recipe, ScrapedExtras()
 
 
 class RecipeScraperOpenGraph(ABCScraperStrategy):

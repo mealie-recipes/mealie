@@ -2,7 +2,6 @@ import asyncio
 
 from pydantic import UUID4
 
-from mealie.core.config import get_app_settings
 from mealie.lang.providers import Translator
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import CreateRecipeByUrlBulk, Recipe
@@ -82,8 +81,6 @@ class RecipeBulkScraperService(BaseService):
 
     async def scrape(self, urls: CreateRecipeByUrlBulk) -> None:
         sem = asyncio.Semaphore(3)
-        settings = get_app_settings()
-        video_fallback_enabled = settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES
 
         async def _do(url: str) -> Recipe | None:
             async with sem:
@@ -91,19 +88,7 @@ class RecipeBulkScraperService(BaseService):
                     recipe, _ = await create_from_html(url, self.translator)
                     return recipe
                 except Exception as e:
-                    if not video_fallback_enabled:
-                        self.service.logger.error(f"failed to scrape url during bulk url import {url}")
-                        self.service.logger.exception(e)
-                        self._add_error_entry(f"failed to scrape url {url}", str(e))
-                        return None
-
-                # HTML scraping failed so try video fallback
-                try:
-                    return await self.service.scrape_from_video_url(url)
-                except Exception as e:
-                    self.service.logger.error(
-                        f"failed to scrape url (including video fallback) during bulk url import {url}"
-                    )
+                    self.service.logger.error(f"failed to scrape url during bulk url import {url}")
                     self.service.logger.exception(e)
                     self._add_error_entry(f"failed to scrape url {url}", str(e))
                     return None

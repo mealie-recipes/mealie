@@ -10,8 +10,7 @@ from uuid import UUID, uuid4
 from zipfile import ZipFile
 
 import sqlalchemy as sa
-import yt_dlp
-from fastapi import HTTPException, UploadFile, status
+from fastapi import UploadFile
 
 from mealie.core import exceptions
 from mealie.core.config import get_app_settings
@@ -321,41 +320,6 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
-    async def scrape_from_video_url(self, url: str, translate_language: str | None = None) -> Recipe:
-        """Scrape recipe data from a video URL without saving to DB.
-        Returns a Recipe object. Raises HTTPException on failure."""
-        try:
-            openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.household, self.translator)
-            recipe_data, thumbnail_url = await openai_recipe_service.build_recipe_from_video_url(
-                url, translate_language=translate_language
-            )
-        except exceptions.VideoDownloadError as e:
-            raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail={"details": str(e)}) from e
-        except exceptions.RateLimitError as e:
-            raise HTTPException(
-                status_code=status.HTTP_429_TOO_MANY_REQUESTS,
-                detail={"details": "AI service rate limit exceeded. Please try again later."},
-            ) from e
-        except exceptions.OpenAIServiceError as e:
-            raise HTTPException(status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail={"details": str(e)}) from e
-
-        recipe_data = cleaner.clean(recipe_data, self.translator)
-
-        if thumbnail_url:
-            recipe_data.id = recipe_data.id or uuid4()
-            data_service = RecipeDataService(recipe_data.id)
-            try:
-                await data_service.scrape_image(thumbnail_url)
-                recipe_data.image = cache.new_key(4)
-            except Exception as e:
-                self.logger.warning(f"Failed to download video thumbnail: {e}")
-
-        return recipe_data
-
-    async def create_from_video_url(self, url: str, translate_language: str | None = None) -> Recipe:
-        recipe_data = await self.scrape_from_video_url(url, translate_language=translate_language)
-        return self.create_one(recipe_data)
-
     async def create_from_images(self, images: list[UploadFile], translate_language: str | None = None) -> Recipe:
         openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.household, self.translator)
         with get_temporary_path() as temp_path:
@@ -600,75 +564,6 @@ class RecipeService(RecipeServiceBase):
 
 
 class OpenAIRecipeService(RecipeServiceBase):
-    def _download_audio(self, url: str, temp_path: Path) -> dict:
-        """
-        Downloads audio and subtitles from a video URL.
-
-        Returns:
-            dict with keys:
-                - audio: path to downloaded audio file
-                - subtitle: path to subtitle file (or None if not available)
-                - title: video title
-                - description: video description
-                - thumbnail: video thumbnail URL
-        """
-        output_template = temp_path / "mealie"  # No extension here
-
-        ydl_opts = {
-            "format": "bestaudio/best",
-            "outtmpl": output_template / ".%(ext)s",
-            "quiet": True,
-            "writesubtitles": True,
-            "writeautomaticsub": True,
-            "subtitleslangs": ["en", "fr", "es", "de", "it"],
-            "skip_download": False,
-            "ignoreerrors": True,
-            "postprocessors": [
-                {
-                    "key": "FFmpegExtractAudio",
-                    "preferredcodec": "mp3",
-                    "preferredquality": "32",
-                }
-            ],
-            "postprocessor_args": ["-ac", "1"],
-        }
-
-        try:
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(url, download=True)
-
-                if info is None:
-                    raise exceptions.VideoDownloadError(
-                        "Failed to extract video information. The video may be unavailable or the URL is invalid."
-                    )
-
-                sub_path = None
-                for lang in ["en", "fr", "es", "de", "it"]:
-                    potential_path = f"{output_template}.{lang}.vtt"
-                    if os.path.exists(potential_path):
-                        sub_path = potential_path
-                        break
-
-                return {
-                    "audio": f"{output_template}.mp3",
-                    "subtitle": sub_path,
-                    "title": info.get("title"),
-                    "description": info.get("description"),
-                    "thumbnail": info.get("thumbnail"),
-                }
-        except exceptions.VideoDownloadError:
-            raise
-        except Exception as e:
-            raise exceptions.VideoDownloadError(f"Failed to download video: {e}") from e
-
-    def _parse_subtitle_content(self, subtitle_content: str) -> str:
-        lines = []
-        for line in subtitle_content.split("\n"):
-            if line.strip() and not line.startswith("WEBVTT") and "-->" not in line and not line.isdigit():
-                lines.append(line.strip())
-
-        return " ".join(lines)
-
     def _convert_recipe(self, openai_recipe: OpenAIRecipe) -> Recipe:
         return Recipe(
             user_id=self.user.id,
@@ -730,64 +625,3 @@ class OpenAIRecipeService(RecipeServiceBase):
             raise ValueError("Unable to parse recipe from image") from e
 
         return recipe
-
-    async def build_recipe_from_video_url(
-        self, video_url: str, translate_language: str | None = None
-    ) -> tuple[Recipe, str | None]:
-        settings = get_app_settings()
-        if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES):
-            raise ValueError("OpenAI transcription services are not available")
-        openai_service = OpenAIService()
-
-        with get_temporary_path() as temp_path:
-            video_data = self._download_audio(video_url, temp_path)
-
-            if video_data["subtitle"]:
-                try:
-                    with open(video_data["subtitle"], encoding="utf-8") as f:
-                        subtitle_content = f.read()
-                    video_data["transcription"] = self._parse_subtitle_content(subtitle_content)
-                    self.logger.info("Using subtitles from video instead of transcription")
-                except Exception as e:
-                    self.logger.warning(f"Failed to read subtitles, falling back to transcription: {e}")
-                    video_data["transcription"] = None
-
-            if not video_data.get("transcription"):
-                try:
-                    transcription = await openai_service.transcribe_audio(video_data["audio"])
-                except exceptions.RateLimitError:
-                    raise
-                except Exception as e:
-                    raise exceptions.OpenAIServiceError(f"Failed to transcribe audio: {e}") from e
-                if not transcription:
-                    raise exceptions.OpenAIServiceError("No transcription returned from OpenAI")
-                video_data["transcription"] = transcription
-
-        self.logger.debug(f"Transcription: {video_data['transcription'][:200]}...")
-        prompt = openai_service.get_prompt(
-            "recipes.parse-recipe-video",
-        )
-
-        message = (
-            f"Please extract the recipe from the video provided."
-            f"the video is titled '{video_data['title']}' and has the description: {video_data['description']}.\n"
-            f"here is the thumbnail for the video: {video_data['thumbnail']}\n"
-            f"Here is the transcription of the audio from the video:\n{video_data['transcription']}\n"
-            "There should be exactly one recipe."
-        )
-
-        if translate_language:
-            message += f" Please translate the recipe to {translate_language}."
-
-        try:
-            response = await openai_service.get_response(prompt, message, response_schema=OpenAIRecipe)
-        except exceptions.RateLimitError:
-            raise
-        except Exception as e:
-            raise exceptions.OpenAIServiceError(f"Failed to extract recipe from video: {e}") from e
-        if not response:
-            raise exceptions.OpenAIServiceError("OpenAI returned an empty response when extracting recipe")
-
-        recipe = self._convert_recipe(response)
-        self.logger.info(f"Successfully extracted recipe from video: {video_data['title']}")
-        return recipe, video_data.get("thumbnail")
