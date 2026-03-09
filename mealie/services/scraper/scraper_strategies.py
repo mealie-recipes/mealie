@@ -1,4 +1,3 @@
-import os
 import time
 from abc import ABC, abstractmethod
 from collections.abc import Callable
@@ -412,13 +411,13 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
 
                 sub_path = None
                 for lang in ["en", "fr", "es", "de", "it"]:
-                    potential_path = output_template / f".{lang}.vtt"
-                    if os.path.exists(potential_path):
+                    potential_path = output_template.with_suffix(f".{lang}.vtt")
+                    if potential_path.exists():
                         sub_path = potential_path
                         break
 
                 return {
-                    "audio": Path(output_template / ".mp3"),
+                    "audio": output_template.with_suffix(".mp3"),
                     "subtitle": sub_path,
                     "title": info.get("title"),
                     "description": info.get("description"),
@@ -457,7 +456,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
                     self.logger.exception("Failed to read subtitles, falling back to transcription")
                     video_data["transcription"] = ""
 
-            if video_data["transcription"]:
+            if not video_data["transcription"]:
                 try:
                     transcription = await openai_service.transcribe_audio(video_data["audio"])
                 except exceptions.RateLimitError:
