@@ -453,7 +453,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
                     "subtitle": sub_path,
                     "title": info.get("title", ""),
                     "description": info.get("description", ""),
-                    "thumbnail_url": info.get("thumbnail", ""),
+                    "thumbnail_url": info.get("thumbnail"),
                     "transcription": "",
                 }
         except exceptions.VideoDownloadError:
@@ -504,9 +504,6 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             f"Transcription: {video_data['transcription']}",
         ]
 
-        if video_data["thumbnail_url"]:
-            message_parts.append(f"Thumbnail URL: {video_data['thumbnail_url']}")
-
         try:
             response = await openai_service.get_response(prompt, "\n".join(message_parts), response_schema=OpenAIRecipe)
         except exceptions.RateLimitError:
@@ -536,7 +533,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
                 if instruction.text
             ],
             notes=[RecipeNote(title=note.title or "", text=note.text) for note in response.notes if note.text],
-            image=video_data["thumbnail_url"],
+            image=video_data["thumbnail_url"] or None,
             org_url=self.url,
         )
 
