@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crear una receta proporcionando el nombre. Todas las recetas deben tener nombres únicos.",
     "new-recipe-names-must-be-unique": "El nombre de la receta debe ser único",
     "scrape-recipe": "Analiza receta",
-    "scrape-recipe-description": "Importa una receta por URL. Proporcione la URL para el sitio que desea importar, y Mealie intentará importar la receta de ese sitio y añadirla a su colección.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "¿Tienes muchas recetas que quieres raspar a la vez?",
     "scrape-recipe-suggest-bulk-importer": "Prueba el importador masivo",
     "scrape-recipe-have-raw-html-or-json-data": "¿Tiene datos HTML o JSON?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "ej: Cucharada",
       "example-unit-plural": "ej: Cucharadas",
       "example-unit-abbreviation-singular": "ej: Cda",
-      "example-unit-abbreviation-plural": "ej: Cdas"
+      "example-unit-abbreviation-plural": "ej: Cdas",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Añade a la base de datos etiquetas comunes basadas en su idioma local.",
