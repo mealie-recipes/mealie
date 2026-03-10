@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Vytvoriť recept zadaním názvu. Všetky recepty musia mať jedinečné názvy.",
     "new-recipe-names-must-be-unique": "Názvy nových receptov musia byť jedinečné",
     "scrape-recipe": "Scrapovať recept",
-    "scrape-recipe-description": "Stiahne recept zo zadanej adresy URL. Zadajte URL adresu stránky, z ktorej chcete stiahnuť recept, a Mealie sa pokúsi recept stiahnuť a vložiť do vašej zbierky.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Máte množstvo receptov, ktoré by ste chceli naraz zoscrapovať?",
     "scrape-recipe-suggest-bulk-importer": "Vyskúšajte hromadný importér",
     "scrape-recipe-have-raw-html-or-json-data": "Máte surové údaje HTML alebo JSON?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "napr.: polievková lyžica",
       "example-unit-plural": "napr.: polievkové lyžice",
       "example-unit-abbreviation-singular": "napr.: PL",
-      "example-unit-abbreviation-plural": "napr.: PL"
+      "example-unit-abbreviation-plural": "napr.: PL",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka.",
