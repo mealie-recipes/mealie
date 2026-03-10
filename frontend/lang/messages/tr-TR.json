@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Oluşturmak için tarifi adlandırın. Tüm tariflerin benzersiz adları olmalı.",
     "new-recipe-names-must-be-unique": "Yeni tarif ismi benzersiz olmalı",
     "scrape-recipe": "Tarifi Kazı",
-    "scrape-recipe-description": "Url'den bir tarif kazıyın. Kazımak istediğiniz sitenin url'sini verin ve Mealie, tarifi o siteden alıp koleksiyonunuza eklemeye çalışacaktır.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Aynı anda kazımak istediğiniz birçok tarifiniz mi var?",
     "scrape-recipe-suggest-bulk-importer": "Toplu ithalatçıyı deneyin",
     "scrape-recipe-have-raw-html-or-json-data": "Ham HTML veya JSON verileriniz mi var?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "örn: Yemek kaşığı",
       "example-unit-plural": "örn: Yemek kaşığı",
       "example-unit-abbreviation-singular": "örn: Yk",
-      "example-unit-abbreviation-plural": "örn: Yk"
+      "example-unit-abbreviation-plural": "örn: Yk",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Veritabanını yerel dilinize göre yaygın etiketlerle tohumlayın.",
