@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Добави рецепта като предоставиш име. Всички рецепти трябва да имат уникални имена.",
     "new-recipe-names-must-be-unique": "Името на рецептата трябва да бъде уникално",
     "scrape-recipe": "Обхождане на рецепта",
-    "scrape-recipe-description": "Обходи рецепта по линк. Предоставете линк за сайт, който искате да бъде обходен. Mealie ще опита да обходи рецептата от този сайт и да я добави във Вашата колекция.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Имате много рецепти, които искате да обходите наведнъж?",
     "scrape-recipe-suggest-bulk-importer": "Пробвайте масовото импорторане",
     "scrape-recipe-have-raw-html-or-json-data": "Имате ли сурови HTML или JSON данни?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "пример: Чаена лъжичка",
       "example-unit-plural": "пример: Чаени лъжички",
       "example-unit-abbreviation-singular": "пример: ч.л.",
-      "example-unit-abbreviation-plural": "пример: ч.л.-ки"
+      "example-unit-abbreviation-plural": "пример: ч.л.-ки",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Заредете базата данни с етикети на Вашия местен език.",
