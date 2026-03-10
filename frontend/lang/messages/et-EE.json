@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Loo retsept selle nime kasutades. Igal retseptil peab olema unikaalne nimi",
     "new-recipe-names-must-be-unique": "Uue retsepti nimed peavad olema unikaalsed",
     "scrape-recipe": "Retsepti lugemine",
-    "scrape-recipe-description": "Lugege retsept URL-i abil. Sisestage soovitud retsepti URL, ja Mealie proovib selle saidi retsepti jäädvustada ja lisada selle teie kogusse.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Sul on palju retsepte ja sa soovida lugeda kõik sisse üheaegselt?",
     "scrape-recipe-suggest-bulk-importer": "Proovi hulgiimportimist.",
     "scrape-recipe-have-raw-html-or-json-data": "Sul on töötlemata HTMLi või JSONi andmed?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "nt: Supilusikas",
       "example-unit-plural": "nt: Supilusikad",
       "example-unit-abbreviation-singular": "nt: sl",
-      "example-unit-abbreviation-plural": "nt: sl"
+      "example-unit-abbreviation-plural": "nt: sl",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Alusta andmebaasi täitmist tüüpiliste siltidega kohalikus keeles.",
