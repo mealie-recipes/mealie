@@ -636,7 +636,7 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crea la recepta proporcionant-ne un nom. Totes les receptes han de tenir un nom únic.",
     "new-recipe-names-must-be-unique": "Els noms de les noves receptes han de ser únics",
     "scrape-recipe": "Rastrejar recepta",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
     "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Tens moltes receptes a processar alhora?",
     "scrape-recipe-suggest-bulk-importer": "Prova l'importador a granel",
