@@ -636,7 +636,7 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "輸入名稱來建立食譜，所有食譜名稱必須是唯一的。",
     "new-recipe-names-must-be-unique": "新食譜名稱必須是唯一的",
     "scrape-recipe": "爬取食譜",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
     "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "想一次爬取大量食譜？",
     "scrape-recipe-suggest-bulk-importer": "試試批次匯入工具",
