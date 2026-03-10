@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crea una ricetta fornendo il nome. Tutte le ricette devono avere nomi univoci.",
     "new-recipe-names-must-be-unique": "I nuovi nomi delle ricette devono essere univoci",
     "scrape-recipe": "Recupera Ricetta",
-    "scrape-recipe-description": "Recupera una ricetta da url. Fornire l'url per il sito che si desidera analizzare, e Mealie cercherà di recuperare la ricetta da quel sito e aggiungerlo alla vostra raccolta.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Hai un sacco di ricette che vuoi importare contemporaneamente?",
     "scrape-recipe-suggest-bulk-importer": "Prova l'importatore massivo",
     "scrape-recipe-have-raw-html-or-json-data": "Hai dei dati grezzi HTML o JSON?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "esempio: Cucchiaino",
       "example-unit-plural": "esempio: Cucchiaini",
       "example-unit-abbreviation-singular": "esempio: Ccno",
-      "example-unit-abbreviation-plural": "esempio: Ccni"
+      "example-unit-abbreviation-plural": "esempio: Ccni",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Riempie il database con etichette comuni basate sulla lingua.",
