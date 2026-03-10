@@ -636,7 +636,7 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "יצירת מתכון באמצעות שם. כל שמות המתכונים צריכים להיות שונים.",
     "new-recipe-names-must-be-unique": "שם מתכון חדש חייב להיות ייחודי",
     "scrape-recipe": "קריאת מתכון",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
     "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "יש לך הרבה מתכונים שאתה רוצה לקרוא בבת אחת?",
     "scrape-recipe-suggest-bulk-importer": "נסה את יכולת קריאת רשימה",
