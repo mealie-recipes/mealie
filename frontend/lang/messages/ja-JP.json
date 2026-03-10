@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "名前を指定してレシピを作成します。すべてのレシピには固有の名前が必要です。",
     "new-recipe-names-must-be-unique": "新しいレシピ名は固有のものでなければなりません",
     "scrape-recipe": "レシピをスクレイプ",
-    "scrape-recipe-description": "URLからレシピをスクレイプします。 スクレイプしたいサイトのURLを入力してください。Mealieはそのサイトからレシピを抽出してコレクションに追加しようとします。",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "一度に読み込みたいレシピがたくさんありますか？",
     "scrape-recipe-suggest-bulk-importer": "一括インポートを試す",
     "scrape-recipe-have-raw-html-or-json-data": "生の HTML または JSON データをお持ちですか？",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "例: 大さじ",
       "example-unit-plural": "例: 大さじ",
       "example-unit-abbreviation-singular": "例: Tbsp",
-      "example-unit-abbreviation-plural": "例: Tbsp"
+      "example-unit-abbreviation-plural": "例: Tbsp",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "ローカル言語に基づいた共通ラベルをデータベースにシードします。",
