@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Создайте рецепт, указав имя. Все рецепты должны иметь уникальные имена.",
     "new-recipe-names-must-be-unique": "Название рецепта должно быть уникальным",
     "scrape-recipe": "Отсканировать рецепт",
-    "scrape-recipe-description": "Отсканировать рецепт по ссылке. Предоставьте ссылку на страницу, которую вы хотите отсканировать, и Mealie попытается вырезать рецепт с этого сайта и добавить его в свою коллекцию.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Хотите отсканировать несколько рецептов за раз?",
     "scrape-recipe-suggest-bulk-importer": "Воспользуйтесь массовым импортом",
     "scrape-recipe-have-raw-html-or-json-data": "У Вас есть данные HTML или JSON?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "пр. Столовая ложка",
       "example-unit-plural": "пр. Столовых ложек",
       "example-unit-abbreviation-singular": "пример: ст. л.",
-      "example-unit-abbreviation-plural": "пример: ст. л."
+      "example-unit-abbreviation-plural": "пример: ст. л.",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Дополнить базу данных типичными единицами измерений на основе выбранного языка.",
