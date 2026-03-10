@@ -636,8 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crear una receta proporcionando el nombre. Todas las recetas deben tener nombres únicos.",
     "new-recipe-names-must-be-unique": "El nombre de la receta debe ser único",
     "scrape-recipe": "Analiza receta",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
-    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
+    "scrape-recipe-description": "Importa una receta por URL. Proporcione la URL para el sitio que desea importar, y Mealie intentará extraer la receta de ese sitio y añadirla a su colección.",
+    "scrape-recipe-description-transcription": "También puedes proporcionar la url a un video y Mealie intentará transcribirla a una receta.",
     "scrape-recipe-have-a-lot-of-recipes": "¿Tienes muchas recetas que quieres raspar a la vez?",
     "scrape-recipe-suggest-bulk-importer": "Prueba el importador masivo",
     "scrape-recipe-have-raw-html-or-json-data": "¿Tiene datos HTML o JSON?",
@@ -1136,20 +1136,20 @@
       "example-unit-plural": "ej: Cucharadas",
       "example-unit-abbreviation-singular": "ej: Cda",
       "example-unit-abbreviation-plural": "ej: Cdas",
-      "standardization": "Standardization",
-      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
-      "standard-unit": "Standard Unit",
-      "standard-quantity": "Standard Quantity",
-      "unit-conversion": "Unit Conversion",
+      "standardization": "Estandarización",
+      "standardization-description": "Cómo esta unidad puede ser representada como una unidad estándar. Esto permite características de conversión de unidades tales como la fusión de unidades compatibles en listas de compras.",
+      "standard-unit": "Unidad Estándar",
+      "standard-quantity": "Cantidad Estándar",
+      "unit-conversion": "Conversión de Unidad",
       "standard-unit-labels": {
-        "fluid-ounce": "fluid ounce",
-        "cup": "cup",
-        "ounce": "ounce",
-        "pound": "pound",
-        "milliliter": "milliliter",
-        "liter": "liter",
-        "gram": "gram",
-        "kilogram": "kilogram"
+        "fluid-ounce": "onza líquida",
+        "cup": "taza",
+        "ounce": "onza",
+        "pound": "libra",
+        "milliliter": "mililitro",
+        "liter": "litro",
+        "gram": "gramo",
+        "kilogram": "kilogramo"
       }
     },
     "labels": {
@@ -1465,6 +1465,6 @@
     "invalid-url": "Debe ser una URL válida",
     "no-whitespace": "No se permiten espacios en blanco",
     "min-length": "Debe tener como mínimo {min} caracteres",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Debe Ser Como Máximo {max} Carácter|Debe Ser Como Máximo {max} Caracteres"
   }
 }
