@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Erstelle ein Rezept, indem du den Namen angibst. Alle Rezepte müssen eindeutige Namen haben.",
     "new-recipe-names-must-be-unique": "Neue Rezeptnamen müssen eindeutig sein",
     "scrape-recipe": "Rezept einlesen",
-    "scrape-recipe-description": "Importiere ein Rezept mit der URL. Gib die URL für die Seite an, die du importieren möchtest und Mealie wird versuchen, das Rezept von dieser Seite einzulesen und deiner Sammlung hinzuzufügen.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Hast Du viele Rezepte, die Du auf einmal einlesen willst?",
     "scrape-recipe-suggest-bulk-importer": "Probiere den Massenimporter aus",
     "scrape-recipe-have-raw-html-or-json-data": "Hast du Roh-HTML oder JSON Daten?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "z.B. gehäufter Teelöffel",
       "example-unit-plural": "z.B. gehäufte Teelöffel",
       "example-unit-abbreviation-singular": "z.B. EL",
-      "example-unit-abbreviation-plural": "z.B. EL"
+      "example-unit-abbreviation-plural": "z.B. EL",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Füllt die Datenbank mit gängigen Kategorien basierend auf deiner Sprache.",
