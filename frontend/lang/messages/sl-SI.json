@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Ustvari recept z izbranim imenom. Vsi recepti morajo imeti unikatna imena.",
     "new-recipe-names-must-be-unique": "Ime recepta mora biti unikatno",
     "scrape-recipe": "Postrgaj recept",
-    "scrape-recipe-description": "Postrgaj recept preko povezave. Priskrbi povezavo do strani, ki jo želiš postrgati in Mealie bo poskusil uvoziti recept iz strani in ga dodati v tvojo zbirko.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Imaš veliko receptov, ki jih želiš naenkrat postrgati s spleta?",
     "scrape-recipe-suggest-bulk-importer": "Preizkusi masovni uvoz",
     "scrape-recipe-have-raw-html-or-json-data": "Imaš surove HTML ali JSON podatke?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "npr: tablespoon",
       "example-unit-plural": "npr: tablespoons",
       "example-unit-abbreviation-singular": "npr: tbsp",
-      "example-unit-abbreviation-plural": "npr: tbsps"
+      "example-unit-abbreviation-plural": "npr: tbsps",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Napolni podatkovno bazi s običajnimi oznakami, glede na vaš lokalni jezik.",
