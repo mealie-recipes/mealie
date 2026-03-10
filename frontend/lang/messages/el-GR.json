@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Δημιουργήστε μια συνταγή δίνοντας το όνομα. Ολες οι συνταγές πρέπει να έχουν μοναδικά ονόματα.",
     "new-recipe-names-must-be-unique": "Τα νέα ονόματα συνταγών πρέπει να είναι μοναδικά",
     "scrape-recipe": "Scrape συνταγής",
-    "scrape-recipe-description": "Κάντε scrape μια συνταγή από μια διεύθυνση url. Δώστε τη διεύθυνση url για την ιστοσελίδα που θέλετε να κάνετε scrape, και το Mealie θα προσπαθήσει να εξάγει τη συνταγή από αυτή την ιστοσελίδα και να την προσθέσει στη συλλογή σας.",
+    "scrape-recipe-description": "Κάντε scrape μια συνταγή από μια διεύθυνση url. Δώστε τη διεύθυνση url για την ιστοσελίδα ή το βίντεο που θέλετε να κάνετε scrape, και το Mealie θα προσπαθήσει να εξάγει τη συνταγή από αυτή την ιστοσελίδα και να την προσθέσει στη συλλογή σας.",
+    "scrape-recipe-description-transcription": "Μπορείτε επίσης να δώσετε το url προς ένα βίντεο και το Mealie θα προσπαθήσει να το απομαγνητοφωνήσει σε μια συνταγή.",
     "scrape-recipe-have-a-lot-of-recipes": "Εχετε πολλές συνταγές που θέλετε να κάνετε scrape από ένα μέρος;",
     "scrape-recipe-suggest-bulk-importer": "Δοκιμάστε τον μαζικό εισαγωγέα συνταγών μας",
     "scrape-recipe-have-raw-html-or-json-data": "Εχουν ακατέργαστα δεδομένα HTML ή JSON;",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "π.χ.: Κουταλιά της σούπας",
       "example-unit-plural": "π.χ.: Κουταλιές της σούπας",
       "example-unit-abbreviation-singular": "π.χ.: Κ. σ.",
-      "example-unit-abbreviation-plural": "π.χ.: Κ. σ."
+      "example-unit-abbreviation-plural": "π.χ.: Κ. σ.",
+      "standardization": "Τυποποίηση",
+      "standardization-description": "Πώς αυτή η μονάδα μπορεί να αναπαρασταθεί ως μια τυπική μονάδα. Αυτό επιτρέπει δυνατότητες μετατροπής μονάδας, όπως η συγχώνευση συμβατών μονάδων σε λίστες αγορών.",
+      "standard-unit": "Τυπική μονάδα",
+      "standard-quantity": "Τυπική ποσότητα",
+      "unit-conversion": "Μετατροπή μονάδων",
+      "standard-unit-labels": {
+        "fluid-ounce": "ρευστή ουγγιά",
+        "cup": "φλιτζάνι",
+        "ounce": "ουγγιά",
+        "pound": "λίβρα",
+        "milliliter": "χιλιοστόλιτρο",
+        "liter": "λίτρο",
+        "gram": "γραμμάριο",
+        "kilogram": "κιλό"
+      }
     },
     "labels": {
       "seed-dialog-text": "Τροφοδοτήστε τη βάση δεδομένων με κοινές ετικέτες με βάση την τοπική σας γλώσσα.",
@@ -1170,8 +1186,8 @@
       "edit-recipe-action": "Επεξεργασία Ενέργειας Συνταγής",
       "action-type": "Τύπος Ενέργειας",
       "action-types": {
-        "link": "Link",
-        "post": "Post"
+        "link": "Σύνδεση",
+        "post": "Δημοσίευση"
       }
     },
     "create-alias": "Δημιουργία ψευδώνυμου",
