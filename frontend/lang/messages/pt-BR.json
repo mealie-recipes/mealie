@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crie uma receita fornecendo o nome. Todas as receitas devem ter nomes exclusivos.",
     "new-recipe-names-must-be-unique": "Novos nomes de receitas devem ser únicos",
     "scrape-recipe": "Extrair receita do site",
-    "scrape-recipe-description": "Scrape uma receita por url. Forneça o Url para o site que você deseja scrape, e Mealie tentará raspar a receita desse site e adicioná-la à sua coleção.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Tem muitas receitas a extrair de uma vez?",
     "scrape-recipe-suggest-bulk-importer": "Tente o importador em massa",
     "scrape-recipe-have-raw-html-or-json-data": "Tem dados HTML ou JSON brutos?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "ex: Colher de Sopa",
       "example-unit-plural": "ex: Colheres de Sopa",
       "example-unit-abbreviation-singular": "ex: Clsp",
-      "example-unit-abbreviation-plural": "ex: Clssp"
+      "example-unit-abbreviation-plural": "ex: Clssp",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Semente o banco de dados com rótulos comuns baseados no seu idioma local.",
