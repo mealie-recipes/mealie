@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Luo resepti antamalla nimi. Kaikilla resepteillä on oltava yksilölliset nimet.",
     "new-recipe-names-must-be-unique": "Reseptin nimen on oltava yksilöllinen",
     "scrape-recipe": "Reseptin kaappain",
-    "scrape-recipe-description": "Kaappaa resepti urlin avulla. Anna sen reseptin url-osoite, jonka haluat kaapata, ja Mealie yrittää kaapata reseptin kyseiseltä sivustolta ja lisätä sen kokoelmaasi.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Haluatko kerätä useamman reseptin kerralla?",
     "scrape-recipe-suggest-bulk-importer": "Kokeile massasiirtotyökalua",
     "scrape-recipe-have-raw-html-or-json-data": "Onko sinulla raakaa HTML- tai JSON-dataa?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "esim. ruokalusikka",
       "example-unit-plural": "esim. ruokalusikat",
       "example-unit-abbreviation-singular": "esim. rkl",
-      "example-unit-abbreviation-plural": "esim. rkl"
+      "example-unit-abbreviation-plural": "esim. rkl",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Lisää tietokantaan yleiset tunnisteet paikallisen kielen perusteella.",
