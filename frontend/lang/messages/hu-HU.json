@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Hozzon létre egy receptet a név megadásával. Minden receptnek egyedi névvel kell rendelkeznie.",
     "new-recipe-names-must-be-unique": "Az új recept nevének egyedinek kell lennie",
     "scrape-recipe": "Recept kinyerése",
-    "scrape-recipe-description": "Recept (adatok) kinyerése Url alapján. Adja meg a beolvasni kívánt oldal Url-címét, és Mealie megpróbálja beolvasni a receptet az adott oldalról, majd hozzáadja azt gyűjteményéhez.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Sok receptje van, amit egyszerre szeretne átvenni?",
     "scrape-recipe-suggest-bulk-importer": "Próbálja ki a tömeges importálót",
     "scrape-recipe-have-raw-html-or-json-data": "Nyers HTML vagy JSON adatai vannak?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "pl. Evőkanál",
       "example-unit-plural": "pl. Evőkanalak",
       "example-unit-abbreviation-singular": "pl. ek",
-      "example-unit-abbreviation-plural": "pl. ek"
+      "example-unit-abbreviation-plural": "pl. ek",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Töltse be az Ön nyelve szerinti közös címkélet tartalmazó adatbázist.",
