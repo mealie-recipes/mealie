@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Cree unha receita introducindo o nome. Todas as receitas deven ter nomes únicos.",
     "new-recipe-names-must-be-unique": "Os nomes de receitas deven ser únicos",
     "scrape-recipe": "Extrair receita (Scrape)",
-    "scrape-recipe-description": "Extrair unha receita por url. Propercione o URL do site que pretende extrair, e o Mealie tentará extrair a receita dese site e adicionala à sua coleción.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Ten moitas receitas para procesar dunha vez?",
     "scrape-recipe-suggest-bulk-importer": "Prove o importador en masa",
     "scrape-recipe-have-raw-html-or-json-data": "Ten datos HTML ou JSON en bruto?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "ex: Culler de Sopa",
       "example-unit-plural": "ex: Culleres de Sopa",
       "example-unit-abbreviation-singular": "ex: Cdsp",
-      "example-unit-abbreviation-plural": "ex: Cdsps"
+      "example-unit-abbreviation-plural": "ex: Cdsps",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Adicionar à base de datos rótulos comuns no seu idioma local.",
