@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "이름을 입력하여 레시피를 생성하세요. 모든 레시피는 고유한 이름을 가져야 합니다.",
     "new-recipe-names-must-be-unique": "새로운 레시피 이름은 반드시 고유해야 합니다",
     "scrape-recipe": "레시피 스크랩하기",
-    "scrape-recipe-description": "URL로 레시피를 스크랩하세요. 스크랩하려는 사이트의 URL을 제공하면, Mealie가 해당 사이트에서 레시피를 스크랩하여 여러분의 컬렉션에 추가합니다.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "한 번에 스크랩하고 싶은 레시피가 많으신가요?",
     "scrape-recipe-suggest-bulk-importer": "대량 가져오기 도구를 사용해 보세요",
     "scrape-recipe-have-raw-html-or-json-data": "원본 HTML 또는 JSON 데이터를 가지고 계신가요?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "예: 큰술",
       "example-unit-plural": "예: 큰술",
       "example-unit-abbreviation-singular": "예: Tbsp",
-      "example-unit-abbreviation-plural": "예: Tbsps"
+      "example-unit-abbreviation-plural": "예: Tbsps",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "당신의 언어를 기반으로 한 일반적인 라벨을 데이터베이스에 설정하십시오.",
