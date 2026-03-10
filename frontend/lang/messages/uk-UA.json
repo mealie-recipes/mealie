@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Створіть рецепт, надавши назву. Усі рецепти повинні мати унікальні назви.",
     "new-recipe-names-must-be-unique": "Назви нового рецепту має бути унікальна",
     "scrape-recipe": "Розпізнати рецепт",
-    "scrape-recipe-description": "Розпізнати рецепт за посиланням. Вкажіть посилання на рецепт який ви хочете розпізнати й Mealie спробує розпізнати його і додати в вашу колекцію.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Багато рецептів, які ви хочете розпізнати відразу?",
     "scrape-recipe-suggest-bulk-importer": "Спробуйте масовий розпізнавач",
     "scrape-recipe-have-raw-html-or-json-data": "Маєте необроблені дані HTML або JSON?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "приклад: Столова ложка",
       "example-unit-plural": "приклад: Столові ложки",
       "example-unit-abbreviation-singular": "приклад: ст. л",
-      "example-unit-abbreviation-plural": "приклад: ст. л"
+      "example-unit-abbreviation-plural": "приклад: ст. л",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Заповнити базу даних розповсюдженими категоріями що відповідають мові.",
