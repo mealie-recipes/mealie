@@ -636,7 +636,7 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "이름을 입력하여 레시피를 생성하세요. 모든 레시피는 고유한 이름을 가져야 합니다.",
     "new-recipe-names-must-be-unique": "새로운 레시피 이름은 반드시 고유해야 합니다",
     "scrape-recipe": "레시피 스크랩하기",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
     "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "한 번에 스크랩하고 싶은 레시피가 많으신가요?",
     "scrape-recipe-suggest-bulk-importer": "대량 가져오기 도구를 사용해 보세요",
