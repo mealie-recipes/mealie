@@ -636,7 +636,7 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Stofnaðu uppskrift með því að gefa henni nafn, allar uppskriftir þurfa að hafa einstakt nafn.",
     "new-recipe-names-must-be-unique": "Nöfn uppskrifta þurfa að vera einstök",
     "scrape-recipe": "Vinna uppskrift",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
     "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Ertu með margar uppskriftir sem þú villt setja inn í einu?",
     "scrape-recipe-suggest-bulk-importer": "Prófaðu að setja inn margar uppskriftir í einu",
