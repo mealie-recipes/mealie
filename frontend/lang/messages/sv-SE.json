@@ -636,7 +636,7 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Skapa ett recept genom att ange namnet. Alla recept måste ha unika namn.",
     "new-recipe-names-must-be-unique": "Nya receptnamn måste vara unika",
     "scrape-recipe": "Skrapa Recept",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
     "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Har du många recept som du vill skrapa på en gång?",
     "scrape-recipe-suggest-bulk-importer": "Testa massimportören",
