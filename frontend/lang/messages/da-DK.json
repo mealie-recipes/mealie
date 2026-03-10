@@ -636,7 +636,7 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Opret en opskrift ved at angive navnet. Alle opskrifter skal have unikke navne.",
     "new-recipe-names-must-be-unique": "Opskriftsnavnet er allerede i brug",
     "scrape-recipe": "Hent opskrift",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
     "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Har du en masse opskrifter, du ønsker at hente på én gang?",
     "scrape-recipe-suggest-bulk-importer": "Prøv masseimport",
