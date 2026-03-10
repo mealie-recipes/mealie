@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Kreirajte recept pružajući naziv. Svi recepti moraju imati jedinstvena imena.",
     "new-recipe-names-must-be-unique": "Naziv novog recepta mora imati jedinstveno ime",
     "scrape-recipe": "Prikupi (skraperaj) recept",
-    "scrape-recipe-description": "Prikupi (skraperaj) recept putem URL-a. Priložite URL web stranice s koje želite prikupiti recept, a Mealie će pokušati prikupiti recept s te stranice i dodati ga u vašu kolekciju.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Imate puno recepata koje želite odjednom preuzeti?",
     "scrape-recipe-suggest-bulk-importer": "Isprobajte masovni uvoz",
     "scrape-recipe-have-raw-html-or-json-data": "Imate neobrađene HTML ili JSON podatke?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "ex: Tablespoon",
       "example-unit-plural": "ex: Tablespoons",
       "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-abbreviation-plural": "ex: Tbsps",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Popunite bazu podataka uobičajenim oznakama na temelju vašeg lokalnog jezika.",
