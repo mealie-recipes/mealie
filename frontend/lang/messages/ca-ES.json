@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crea la recepta proporcionant-ne un nom. Totes les receptes han de tenir un nom únic.",
     "new-recipe-names-must-be-unique": "Els noms de les noves receptes han de ser únics",
     "scrape-recipe": "Rastrejar recepta",
-    "scrape-recipe-description": "Rastrejar recepta des de l'Url. Proporciona un Url del lloc que vols rastrejar i Mealie intentarà analitzar la recepta del lloc web i afegir-la a la teva col·lecció.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Tens moltes receptes a processar alhora?",
     "scrape-recipe-suggest-bulk-importer": "Prova l'importador a granel",
     "scrape-recipe-have-raw-html-or-json-data": "Teniu dades HTML o JSON pla?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "ex: Cullerada sopera",
       "example-unit-plural": "ex: Cullerades soperes",
       "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-abbreviation-plural": "ex: Tbsps",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Afegeix a la base de dades etiquetes comunes en el vostre idioma.",
