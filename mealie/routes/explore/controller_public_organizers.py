@@ -6,6 +6,7 @@ from mealie.routes._base.base_controllers import BasePublicGroupExploreControlle
 from mealie.schema.make_dependable import make_dependable
 from mealie.schema.recipe.recipe import RecipeCategory, RecipeTag, RecipeTool
 from mealie.schema.recipe.recipe_category import CategoryOut, TagOut
+from mealie.schema.recipe.recipe_tag_group import TagGroupOut, TagGroupPagination
 from mealie.schema.recipe.recipe_tool import RecipeToolOut
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery
 
@@ -13,6 +14,7 @@ base_prefix = "/organizers"
 categories_router = APIRouter(prefix=f"{base_prefix}/categories")
 tags_router = APIRouter(prefix=f"{base_prefix}/tags")
 tools_router = APIRouter(prefix=f"{base_prefix}/tools")
+tag_groups_router = APIRouter(prefix=f"{base_prefix}/tag-groups")
 
 
 @controller(categories_router)
@@ -101,5 +103,36 @@ class PublicToolsController(BasePublicGroupExploreController):
         item = self.tools.get_one(item_id)
         if not item:
             raise HTTPException(404, "tool not found")
+
+        return item
+
+
+@controller(tag_groups_router)
+class PublicTagGroupsController(BasePublicGroupExploreController):
+    @property
+    def tag_groups(self):
+        return self.repos.tag_groups
+
+    @tag_groups_router.get("", response_model=TagGroupPagination)
+    def get_all(
+        self,
+        q: PaginationQuery = Depends(make_dependable(PaginationQuery)),
+        search: str | None = None,
+    ) -> TagGroupPagination:
+        response = self.tag_groups.page_all(
+            pagination=q,
+            override=TagGroupOut,
+            search=search,
+        )
+        response.set_pagination_guides(
+            self.get_explore_url_path(tag_groups_router.url_path_for("get_all")), q.model_dump()
+        )
+        return response
+
+    @tag_groups_router.get("/{item_id}", response_model=TagGroupOut)
+    def get_one(self, item_id: UUID4) -> TagGroupOut:
+        item = self.tag_groups.get_one(item_id)
+        if not item:
+            raise HTTPException(404, "tag group not found")
 
         return item

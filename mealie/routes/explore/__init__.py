@@ -16,6 +16,7 @@ router.include_router(controller_public_households.router, tags=["Explore: House
 router.include_router(controller_public_organizers.categories_router, tags=["Explore: Categories"])
 router.include_router(controller_public_organizers.tags_router, tags=["Explore: Tags"])
 router.include_router(controller_public_organizers.tools_router, tags=["Explore: Tools"])
+router.include_router(controller_public_organizers.tag_groups_router, tags=["Explore: Tag Groups"])
 
 # household
 router.include_router(controller_public_cookbooks.router, tags=["Explore: Cookbooks"])

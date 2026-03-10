@@ -12,6 +12,19 @@
     {{ $t("category.categories") }}
   </SearchFilter>
 
+  <!-- Tag Group Filter -->
+  <SearchFilter
+    v-if="tagGroups && tagGroups.length > 0"
+    v-model="selectedTagGroups"
+    v-model:require-all="state.requireAllTagGroups"
+    :items="tagGroups"
+  >
+    <v-icon start>
+      {{ $globals.icons.tags }}
+    </v-icon>
+    {{ $t("tag.tag-groups") }}
+  </SearchFilter>
+
   <!-- Tag Filter -->
   <SearchFilter
     v-if="tags"
@@ -77,6 +90,8 @@ import {
   usePublicHouseholdStore,
   useTagStore,
   usePublicTagStore,
+  useTagGroupStore,
+  usePublicTagGroupStore,
   useToolStore,
   usePublicToolStore,
 } from "~/composables/store";
@@ -93,11 +108,13 @@ const {
   selectedFoods,
   selectedHouseholds,
   selectedTags,
+  selectedTagGroups,
   selectedTools,
 } = useRecipeExplorerSearch(groupSlug);
 
 const { store: categories } = isOwnGroup.value ? useCategoryStore() : usePublicCategoryStore(groupSlug.value);
 const { store: tags } = isOwnGroup.value ? useTagStore() : usePublicTagStore(groupSlug.value);
+const { store: tagGroups } = isOwnGroup.value ? useTagGroupStore() : usePublicTagGroupStore(groupSlug.value);
 const { store: tools } = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
 const { store: foods } = isOwnGroup.value ? useFoodStore() : usePublicFoodStore(groupSlug.value);
 const { store: households } = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value);

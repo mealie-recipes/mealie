@@ -17,6 +17,7 @@ import { MealPlanAPI } from "./user/group-mealplan";
 import { EmailAPI } from "./user/email";
 import { BulkActionsAPI } from "./user/recipe-bulk-actions";
 import { ToolsApi } from "./user/organizer-tools";
+import { TagGroupsAPI } from "./user/organizer-tag-groups";
 import { GroupMigrationApi } from "./user/group-migrations";
 import { GroupReportsApi } from "./user/group-reports";
 import { ShoppingApi } from "./user/group-shopping-lists";
@@ -48,6 +49,7 @@ export class UserApiClient {
   public groupMigration: GroupMigrationApi;
   public groupReports: GroupReportsApi;
   public tools: ToolsApi;
+  public tagGroups: TagGroupsAPI;
   public shopping: ShoppingApi;
   public multiPurposeLabels: MultiPurposeLabelsApi;
   public groupEventNotifier: GroupEventNotifierApi;
@@ -59,6 +61,7 @@ export class UserApiClient {
     this.recipes = new RecipeAPI(requests);
     this.categories = new CategoriesAPI(requests);
     this.tags = new TagsAPI(requests);
+    this.tagGroups = new TagGroupsAPI(requests);
     this.units = new UnitAPI(requests);
     this.foods = new FoodAPI(requests);
     this.tools = new ToolsApi(requests);

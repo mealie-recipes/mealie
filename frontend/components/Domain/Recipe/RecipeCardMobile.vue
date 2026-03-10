@@ -69,7 +69,7 @@
             >
               <RecipeChips
                 :truncate="true"
-                :items="tags"
+                :items="tagsSortedByGroup"
                 :title="false"
                 :limit="2"
                 small
@@ -131,6 +131,7 @@ import RecipeCardImage from "./RecipeCardImage.vue";
 import RecipeCardRating from "./RecipeCardRating.vue";
 import RecipeChips from "./RecipeChips.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
+import { useTagGroupStore } from "~/composables/store";
 
 interface Props {
   name: string;
@@ -162,6 +163,17 @@ defineEmits<{
 
 const auth = useMealieAuth();
 const { isOwnGroup } = useLoggedInState();
+
+const { store: tagGroups } = useTagGroupStore();
+
+const tagsSortedByGroup = computed(() => {
+  if (!props.tags?.length) return [];
+  return [...props.tags].sort((a, b) => {
+    const posA = a.tagGroupId ? (tagGroups.value.find(g => g.id === a.tagGroupId)?.position ?? 999) : 999;
+    const posB = b.tagGroupId ? (tagGroups.value.find(g => g.id === b.tagGroupId)?.position ?? 999) : 999;
+    return posA - posB;
+  });
+});
 
 const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");

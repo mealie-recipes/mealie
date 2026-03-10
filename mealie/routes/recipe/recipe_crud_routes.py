@@ -261,6 +261,7 @@ class RecipeController(BaseRecipeController):
         tools: list[UUID4 | str] | None = Query(None),
         foods: list[UUID4 | str] | None = Query(None),
         households: list[UUID4 | str] | None = Query(None),
+        tag_groups: list[UUID4 | str] | None = Query(None, alias="tagGroups"),
     ):
         cookbook_data: ReadCookBook | None = None
         if search_query.cookbook:
@@ -288,10 +289,12 @@ class RecipeController(BaseRecipeController):
             tools=tools,
             foods=foods,
             households=households,
+            tag_groups=tag_groups,
             require_all_categories=search_query.require_all_categories,
             require_all_tags=search_query.require_all_tags,
             require_all_tools=search_query.require_all_tools,
             require_all_foods=search_query.require_all_foods,
+            require_all_tag_groups=search_query.require_all_tag_groups,
             search=search_query.search,
         )
 

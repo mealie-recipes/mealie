@@ -47,6 +47,7 @@ export default defineNuxtComponent({
       labels: i18n.t("data-pages.labels.labels"),
       categories: i18n.t("category.categories"),
       tags: i18n.t("tag.tags"),
+      tagGroups: i18n.t("tag.tag-groups"),
       tools: i18n.t("tool.tools"),
     };
 
@@ -89,6 +90,11 @@ export default defineNuxtComponent({
         text: i18n.t("tag.tags"),
         value: "new",
         to: "/group/data/tags",
+      },
+      {
+        text: i18n.t("tag.tag-groups"),
+        value: "new",
+        to: "/group/data/tag-groups",
       },
       {
         text: i18n.t("tool.tools"),

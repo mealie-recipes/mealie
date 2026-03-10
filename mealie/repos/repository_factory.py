@@ -33,6 +33,7 @@ from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.recipe_timeline import RecipeTimelineEvent
 from mealie.db.models.recipe.shared import RecipeShareTokenModel
 from mealie.db.models.recipe.tag import Tag
+from mealie.db.models.recipe.tag_group import TagGroup
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users import LongLiveToken, User
 from mealie.db.models.users.password_reset import PasswordResetModel
@@ -63,6 +64,7 @@ from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 from mealie.schema.meal_plan.plan_rules import PlanRulesOut
 from mealie.schema.recipe import Recipe, RecipeCommentOut, RecipeToolOut
 from mealie.schema.recipe.recipe_category import CategoryOut, TagOut
+from mealie.schema.recipe.recipe_tag_group import TagGroupOut
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 from mealie.schema.recipe.recipe_share_token import RecipeShareToken
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
@@ -97,6 +99,10 @@ class RepositoryTags(GroupRepositoryGeneric[TagOut, Tag]):
     def get_empty(self) -> Sequence[Tag]:
         stmt = select(Tag).filter(~Tag.recipes.any())
         return self.session.execute(stmt).scalars().all()
+
+
+class RepositoryTagGroups(GroupRepositoryGeneric[TagGroupOut, TagGroup]):
+    pass
 
 
 class AllRepositories:
@@ -158,6 +164,10 @@ class AllRepositories:
     @cached_property
     def tags(self) -> RepositoryTags:
         return RepositoryTags(self.session, PK_ID, Tag, TagOut, group_id=self.group_id)
+
+    @cached_property
+    def tag_groups(self) -> RepositoryTagGroups:
+        return RepositoryTagGroups(self.session, PK_ID, TagGroup, TagGroupOut, group_id=self.group_id)
 
     @cached_property
     def recipe_share_tokens(self) -> GroupRepositoryGeneric[RecipeShareToken, RecipeShareTokenModel]:

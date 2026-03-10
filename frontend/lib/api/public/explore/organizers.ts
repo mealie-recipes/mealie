@@ -1,5 +1,5 @@
 import { BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
-import { RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import { RecipeCategory, RecipeTag, RecipeTool, TagGroupOut } from "~/lib/api/types/recipe";
 import { ApiRequestInstance } from "~/lib/api/types/non-generated";
 
 const prefix = "/api";
@@ -12,6 +12,8 @@ const routes = {
     tagsGroupSlugTagId: (groupSlug: string | number, tagId: string | number) => `${exploreGroupSlug(groupSlug)}/organizers/tags/${tagId}`,
     toolsGroupSlug: (groupSlug: string | number) => `${exploreGroupSlug(groupSlug)}/organizers/tools`,
     toolsGroupSlugToolId: (groupSlug: string | number, toolId: string | number) => `${exploreGroupSlug(groupSlug)}/organizers/tools`,
+    tagGroupsGroupSlug: (groupSlug: string | number) => `${exploreGroupSlug(groupSlug)}/organizers/tag-groups`,
+    tagGroupsGroupSlugId: (groupSlug: string | number, id: string | number) => `${exploreGroupSlug(groupSlug)}/organizers/tag-groups/${id}`,
 };
 
 export class PublicCategoriesApi extends BaseCRUDAPIReadOnly<RecipeCategory> {
@@ -40,6 +42,16 @@ export class PublicToolsApi extends BaseCRUDAPIReadOnly<RecipeTool> {
             requests,
             routes.toolsGroupSlug(groupSlug),
             (itemId: string | number) => routes.toolsGroupSlugToolId(groupSlug, itemId)
+        );
+    }
+}
+
+export class PublicTagGroupsApi extends BaseCRUDAPIReadOnly<TagGroupOut> {
+    constructor(requests: ApiRequestInstance, groupSlug: string) {
+        super(
+            requests,
+            routes.tagGroupsGroupSlug(groupSlug),
+            (itemId: string | number) => routes.tagGroupsGroupSlugId(groupSlug, itemId)
         );
     }
 }

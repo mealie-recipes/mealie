@@ -15,6 +15,7 @@ from ..household.invite_tokens import GroupInviteToken
 from ..household.mealplan import GroupMealPlan
 from ..household.webhooks import GroupWebhooksModel
 from ..recipe.category import Category, group_to_categories
+from ..recipe.tag_group import TagGroup
 from ..server.task import ServerTaskModel
 from .preferences import GroupPreferencesModel
 
@@ -80,6 +81,7 @@ class Group(SqlAlchemyBase, BaseMixins):
     ingredient_foods: Mapped[list["IngredientFoodModel"]] = orm.relationship("IngredientFoodModel", **common_args)
     tools: Mapped[list["Tool"]] = orm.relationship("Tool", **common_args)
     tags: Mapped[list["Tag"]] = orm.relationship("Tag", **common_args)
+    tag_groups: Mapped[list[TagGroup]] = orm.relationship(TagGroup, **common_args)
     model_config = ConfigDict(
         exclude={
             "households",

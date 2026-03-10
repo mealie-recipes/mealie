@@ -12,6 +12,7 @@ from mealie.db.models._model_utils import guid
 if TYPE_CHECKING:
     from ..group import Group
     from . import RecipeModel
+    from .tag_group import TagGroup
 
 
 logger = root_logger.get_logger()
@@ -52,6 +53,10 @@ class Tag(SqlAlchemyBase, BaseMixins):
 
     name: Mapped[str] = mapped_column(sa.String, index=True, nullable=False)
     slug: Mapped[str] = mapped_column(sa.String, index=True, nullable=False)
+    tag_group_id: Mapped[guid.GUID | None] = mapped_column(
+        guid.GUID, sa.ForeignKey("tag_groups.id", ondelete="SET NULL"), nullable=True, index=True
+    )
+    tag_group: Mapped["TagGroup | None"] = orm.relationship("TagGroup", back_populates="tags", foreign_keys=[tag_group_id])
     recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=recipes_to_tags, back_populates="tags"
     )
@@ -61,7 +66,8 @@ class Tag(SqlAlchemyBase, BaseMixins):
         assert name != ""
         return name
 
-    def __init__(self, name, group_id, **_) -> None:
+    def __init__(self, name, group_id, tag_group_id=None, **_) -> None:
         self.group_id = group_id
         self.name = name.strip()
         self.slug = slugify(self.name)
+        self.tag_group_id = tag_group_id

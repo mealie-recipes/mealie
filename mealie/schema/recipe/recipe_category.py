@@ -33,7 +33,7 @@ class RecipeCategoryResponse(CategoryBase):
 
 
 class TagIn(CategoryIn):
-    pass
+    tag_group_id: UUID4 | None = None
 
 
 class TagSave(TagIn):
@@ -41,7 +41,7 @@ class TagSave(TagIn):
 
 
 class TagBase(CategoryBase):
-    pass
+    tag_group_id: UUID4 | None = None
 
 
 class TagOut(TagSave):
@@ -51,6 +51,8 @@ class TagOut(TagSave):
 
 
 class RecipeTagResponse(RecipeCategoryResponse):
+    tag_group_id: UUID4 | None = None
+
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [

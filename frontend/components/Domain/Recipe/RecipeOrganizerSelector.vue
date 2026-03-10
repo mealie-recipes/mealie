@@ -63,6 +63,7 @@ interface Props {
   showLabel?: boolean;
   showIcon?: boolean;
   variant?: "filled" | "underlined" | "outlined" | "plain" | "solo" | "solo-inverted" | "solo-filled";
+  filterByTagGroup?: string | null;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -71,6 +72,7 @@ const props = withDefaults(defineProps<Props>(), {
   showLabel: true,
   showIcon: true,
   variant: "outlined",
+  filterByTagGroup: undefined,
 });
 
 const selected = defineModel<(
@@ -162,6 +164,10 @@ const activeStore = computed(() => {
 
 const items = computed<any[]>(() => {
   const list = (activeStore.value as unknown as any[]) ?? [];
+  if (props.selectorType === Organizer.Tag && props.filterByTagGroup !== undefined) {
+    // filterByTagGroup === null → ungrouped tags; string → tags in that group
+    return list.filter((item: any) => (item.tagGroupId ?? null) === props.filterByTagGroup);
+  }
   return list;
 });
 

@@ -17,6 +17,7 @@ from mealie.db.models.recipe.ingredient import RecipeIngredientModel, households
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tag import Tag
+from mealie.db.models.recipe.tag_group import TagGroup
 from mealie.db.models.recipe.tool import Tool, households_to_tools, recipes_to_tools
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.db.models.users.users import User
@@ -211,10 +212,12 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         tools: list[UUID4 | str] | None = None,
         foods: list[UUID4 | str] | None = None,
         households: list[UUID4 | str] | None = None,
+        tag_groups: list[UUID4 | str] | None = None,
         require_all_categories=True,
         require_all_tags=True,
         require_all_tools=True,
         require_all_foods=True,
+        require_all_tag_groups=True,
         search: str | None = None,
     ) -> RecipePagination:
         # Copy this, because calling methods (e.g. tests) might rely on it not getting mutated
@@ -236,16 +239,19 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             tag_ids = self._uuids_for_items(tags, Tag)
             tool_ids = self._uuids_for_items(tools, Tool)
             household_ids = self._uuids_for_items(households, Household)
+            tag_group_ids = self._uuids_for_items(tag_groups, TagGroup)
             filters = self._build_recipe_filter(
                 categories=category_ids,
                 tags=tag_ids,
                 tools=tool_ids,
                 foods=foods,
                 households=household_ids,
+                tag_groups=tag_group_ids,
                 require_all_categories=require_all_categories,
                 require_all_tags=require_all_tags,
                 require_all_tools=require_all_tools,
                 require_all_foods=require_all_foods,
+                require_all_tag_groups=require_all_tag_groups,
             )
             q = q.filter(*filters)
         if search:
@@ -283,10 +289,12 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         tools: list[UUID4] | None = None,
         foods: list[UUID4] | None = None,
         households: list[UUID4] | None = None,
+        tag_groups: list[UUID4] | None = None,
         require_all_categories: bool = True,
         require_all_tags: bool = True,
         require_all_tools: bool = True,
         require_all_foods: bool = True,
+        require_all_tag_groups: bool = True,
     ) -> list:
         fltr: list[sa.ColumnElement] = []
         if self.group_id:
@@ -318,6 +326,13 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
                 fltr.append(RecipeModel.recipe_ingredient.any(RecipeIngredientModel.food_id.in_(foods)))
         if households:
             fltr.append(RecipeModel.household_id.in_(households))
+
+        if tag_groups:
+            if require_all_tag_groups:
+                fltr.extend(RecipeModel.tags.any(Tag.tag_group_id == tg_id) for tg_id in tag_groups)
+            else:
+                fltr.append(RecipeModel.tags.any(Tag.tag_group_id.in_(tag_groups)))
+
         return fltr
 
     def get_random(self, limit=1) -> list[Recipe]:

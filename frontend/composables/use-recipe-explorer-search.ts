@@ -1,5 +1,5 @@
 import { watchDebounced } from "@vueuse/shared";
-import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool, TagGroupOut } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
@@ -12,6 +12,8 @@ import {
   usePublicHouseholdStore,
   useTagStore,
   usePublicTagStore,
+  useTagGroupStore,
+  usePublicTagGroupStore,
   useToolStore,
   usePublicToolStore,
 } from "~/composables/store";
@@ -30,12 +32,14 @@ interface RecipeExplorerSearchState {
     requireAllTags: boolean;
     requireAllTools: boolean;
     requireAllFoods: boolean;
+    requireAllTagGroups: boolean;
     randomSeed: number;
   }>;
   selectedCategories: Ref<NoUndefinedField<RecipeCategory>[]>;
   selectedFoods: Ref<IngredientFood[]>;
   selectedHouseholds: Ref<NoUndefinedField<HouseholdSummary>[]>;
   selectedTags: Ref<NoUndefinedField<RecipeTag>[]>;
+  selectedTagGroups: Ref<TagGroupOut[]>;
   selectedTools: Ref<NoUndefinedField<RecipeTool>[]>;
   passedQueryWithSeed: ComputedRef<RecipeSearchQuery & { _searchSeed: string }>;
   search: () => Promise<void>;
@@ -69,6 +73,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     requireAllTags: false,
     requireAllTools: false,
     requireAllFoods: false,
+    requireAllTagGroups: false,
     randomSeed: 0,
   });
 
@@ -77,6 +82,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
   const foods = isOwnGroup ? useFoodStore() : usePublicFoodStore(groupSlug.value);
   const households = isOwnGroup ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value);
   const tags = isOwnGroup ? useTagStore() : usePublicTagStore(groupSlug.value);
+  const tagGroups = isOwnGroup ? useTagGroupStore() : usePublicTagGroupStore(groupSlug.value);
   const tools = isOwnGroup ? useToolStore() : usePublicToolStore(groupSlug.value);
 
   // Selected items
@@ -84,6 +90,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
   const selectedFoods = ref<IngredientFood[]>([]);
   const selectedHouseholds = ref<NoUndefinedField<HouseholdSummary>[]>([]);
   const selectedTags = ref<NoUndefinedField<RecipeTag>[]>([]);
+  const selectedTagGroups = ref<TagGroupOut[]>([]);
   const selectedTools = ref<NoUndefinedField<RecipeTool>[]>([]);
 
   // Query defaults
@@ -95,6 +102,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     requireAllTags: false,
     requireAllTools: false,
     requireAllFoods: false,
+    requireAllTagGroups: false,
   };
 
   // Sync sort preferences
@@ -118,11 +126,13 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
       foods: toIDArray(selectedFoods.value),
       households: toIDArray(selectedHouseholds.value),
       tags: toIDArray(selectedTags.value),
+      tagGroups: toIDArray(selectedTagGroups.value),
       tools: toIDArray(selectedTools.value),
       requireAllCategories: state.value.requireAllCategories,
       requireAllTags: state.value.requireAllTags,
       requireAllTools: state.value.requireAllTools,
       requireAllFoods: state.value.requireAllFoods,
+      requireAllTagGroups: state.value.requireAllTagGroups,
       orderBy: state.value.orderBy,
       orderDirection: state.value.orderDirection,
     };
@@ -184,10 +194,12 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     state.value.requireAllTags = queryDefaults.requireAllTags;
     state.value.requireAllTools = queryDefaults.requireAllTools;
     state.value.requireAllFoods = queryDefaults.requireAllFoods;
+    state.value.requireAllTagGroups = queryDefaults.requireAllTagGroups;
     selectedCategories.value = [];
     selectedFoods.value = [];
     selectedHouseholds.value = [];
     selectedTags.value = [];
+    selectedTagGroups.value = [];
     selectedTools.value = [];
   }
 
@@ -214,6 +226,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
       categories: passedQuery.value.categories,
       foods: passedQuery.value.foods,
       tags: passedQuery.value.tags,
+      tagGroups: passedQuery.value.tagGroups,
       tools: passedQuery.value.tools,
       // Only add the query param if it's not the default value
       ...{
@@ -224,6 +237,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
         requireAllTags: passedQuery.value.requireAllTags ? "true" : undefined,
         requireAllTools: passedQuery.value.requireAllTools ? "true" : undefined,
         requireAllFoods: passedQuery.value.requireAllFoods ? "true" : undefined,
+        requireAllTagGroups: passedQuery.value.requireAllTagGroups ? "true" : undefined,
       },
     };
     await router.push({ query });
@@ -287,6 +301,13 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     }
     else {
       state.value.requireAllFoods = queryDefaults.requireAllFoods;
+    }
+
+    if (query.requireAllTagGroups?.length) {
+      state.value.requireAllTagGroups = query.requireAllTagGroups === "true";
+    }
+    else {
+      state.value.requireAllTagGroups = queryDefaults.requireAllTagGroups;
     }
 
     const promises: Promise<void>[] = [];
@@ -378,6 +399,21 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
       selectedHouseholds.value = [];
     }
 
+    if (query.tagGroups?.length) {
+      promises.push(
+        waitUntilAndExecute(
+          () => tagGroups.store.value.length > 0,
+          () => {
+            const result = tagGroups.store.value.filter(item => (query.tagGroups as string[]).includes(item.id));
+            selectedTagGroups.value = result;
+          },
+        ),
+      );
+    }
+    else {
+      selectedTagGroups.value = [];
+    }
+
     await Promise.allSettled(promises);
   }
 
@@ -417,12 +453,14 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
       () => state.value.requireAllTags,
       () => state.value.requireAllTools,
       () => state.value.requireAllFoods,
+      () => state.value.requireAllTagGroups,
       () => state.value.orderBy,
       () => state.value.orderDirection,
       selectedCategories,
       selectedFoods,
       selectedHouseholds,
       selectedTags,
+      selectedTagGroups,
       selectedTools,
     ],
     async () => {
@@ -442,6 +480,7 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
     selectedFoods,
     selectedHouseholds,
     selectedTags,
+    selectedTagGroups,
     selectedTools,
 
     // Computed

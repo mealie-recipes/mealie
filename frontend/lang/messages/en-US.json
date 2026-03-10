@@ -977,7 +977,22 @@
     "untagged-count": "Untagged {count}",
     "create-a-tag": "Create a Tag",
     "tag-name": "Tag Name",
-    "tag": "Tag"
+    "tag": "Tag",
+    "ungrouped": "Ungrouped",
+    "tag-group": "Tag Group",
+    "tag-groups": "Tag Groups",
+    "tag-group-name": "Tag Group Name",
+    "tag-group-color": "Color",
+    "tag-group-created": "Tag Group created",
+    "tag-group-creation-failed": "Tag Group creation failed",
+    "tag-group-deleted": "Tag Group deleted",
+    "tag-group-deletion-failed": "Tag Group deletion failed",
+    "tag-group-update-failed": "Tag Group update failed",
+    "tag-group-updated": "Tag Group updated",
+    "create-a-tag-group": "Create a Tag Group",
+    "tag-group-filter": "Tag Group Filter",
+    "no-tag-groups": "No tag groups yet.",
+    "tag-group-position": "Position"
   },
   "tool": {
     "tools": "Tools",
@@ -1193,6 +1208,11 @@
       "new-tag": "New Tag",
       "edit-tag": "Edit Tag",
       "tag-data": "Tag Data"
+    },
+    "tag-groups": {
+      "new-tag-group": "New Tag Group",
+      "edit-tag-group": "Edit Tag Group",
+      "tag-group-data": "Tag Group Data"
     },
     "tools": {
       "new-tool": "New Tool",
