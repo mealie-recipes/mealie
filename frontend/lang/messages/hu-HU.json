@@ -636,7 +636,7 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Hozzon létre egy receptet a név megadásával. Minden receptnek egyedi névvel kell rendelkeznie.",
     "new-recipe-names-must-be-unique": "Az új recept nevének egyedinek kell lennie",
     "scrape-recipe": "Recept kinyerése",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
     "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Sok receptje van, amit egyszerre szeretne átvenni?",
     "scrape-recipe-suggest-bulk-importer": "Próbálja ki a tömeges importálót",
