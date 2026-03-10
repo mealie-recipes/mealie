@@ -636,7 +636,7 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Créer une recette en fournissant le nom. Toutes les recettes doivent avoir des noms uniques.",
     "new-recipe-names-must-be-unique": "Les noms de nouvelles recettes doivent être uniques",
     "scrape-recipe": "Récupérer une recette",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
     "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Vous avez un tas de recettes à récupérer d’un coup ?",
     "scrape-recipe-suggest-bulk-importer": "Essayez l’importateur de masse",
