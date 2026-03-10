@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Opprett en oppskrift ved å angi navnet. Alle oppskrifter må ha unike navn.",
     "new-recipe-names-must-be-unique": "Navn på oppskrift må være unike",
     "scrape-recipe": "Skrap oppskrift",
-    "scrape-recipe-description": "Skrap en oppskrift ved bruk av nettadresse. Oppgi nettadressen til nettstedet du vil skrape, så vil Mealie forsøke å skrape oppskriften fra den siden og legge den til i samlingen din.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Har du mange oppskrifter du ønsker å skrape samtidig?",
     "scrape-recipe-suggest-bulk-importer": "Prøv masseimportering",
     "scrape-recipe-have-raw-html-or-json-data": "Har du HTML- eller JSON-rådata?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "f.eks: spiseskje",
       "example-unit-plural": "f.eks: spiseskjeer",
       "example-unit-abbreviation-singular": "f.eks: ss",
-      "example-unit-abbreviation-plural": "f.eks: ss"
+      "example-unit-abbreviation-plural": "f.eks: ss",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Tilfør typiske etiketter i databasen basert på ditt lokale språk.",
