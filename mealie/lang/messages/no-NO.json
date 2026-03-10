@@ -18,8 +18,8 @@
             "yield": "Gir",
             "yields": "Gir"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}"
+        "and-amount": "og {amount}",
+        "or-ingredient": "eller {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Ingen oppskrifter samsvarer med reglene dine"
