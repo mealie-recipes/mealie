@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Vytvořte recept zadáním názvu. Všechny recepty musí mít jedinečná jména.",
     "new-recipe-names-must-be-unique": "Názvy receptů musí být jedinečné",
     "scrape-recipe": "Zpracovat recept",
-    "scrape-recipe-description": "Zpracovat recept z URL. Uveďte adresu URL pro stránku, kterou chcete zpracovat a Mealie se pokusí zpracovat recept z tohoto webu a přidat jej do vaší sbírky.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Máte spoustu receptů, které chcete zpracovat najednou?",
     "scrape-recipe-suggest-bulk-importer": "Vyzkoušejte hromadný import",
     "scrape-recipe-have-raw-html-or-json-data": "Máte surová data HTML nebo JSON?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "např.: Čajová lžička",
       "example-unit-plural": "např.: Čajové lžičky",
       "example-unit-abbreviation-singular": "např.: čl",
-      "example-unit-abbreviation-plural": "např.: čl"
+      "example-unit-abbreviation-plural": "např.: čl",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Naplnit databázi s běžnými popisky používanými ve vašem jazyce.",
@@ -1171,7 +1187,7 @@
       "action-type": "Typ akce",
       "action-types": {
         "link": "Link",
-        "post": "Post"
+        "post": "Publikovat"
       }
     },
     "create-alias": "Vytvořit alias",
@@ -1427,8 +1443,8 @@
       "is-greater-than-or-equal-to": "je větší než nebo rovno",
       "is-less-than": "je menší než",
       "is-less-than-or-equal-to": "je menší než nebo rovno",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "je starší než",
+      "is-newer-than": "je novější než"
     },
     "relational-keywords": {
       "is": "je",
@@ -1440,7 +1456,7 @@
       "is-not-like": "není jako"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "před dny|dnem|před dny"
     }
   },
   "validators": {
@@ -1449,6 +1465,6 @@
     "invalid-url": "Musí být platná URL adresa",
     "no-whitespace": "Mezery nejsou povoleny",
     "min-length": "Musí být alespoň {min} znaků",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Musí být maximálně {max} znak|Musí být na většině {max} znaků"
   }
 }
