@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "通过名称创建食谱，食谱不可重名。",
     "new-recipe-names-must-be-unique": "新食谱名必须唯一",
     "scrape-recipe": "刮削食谱",
-    "scrape-recipe-description": "通过URL刮削食谱。提供你想要刮削网址的URL，Mealie会尝试从该网址刮削食谱并添加到你的收藏中。",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "你想要一次刮削多个食谱吗？",
     "scrape-recipe-suggest-bulk-importer": "试试批量导入器",
     "scrape-recipe-have-raw-html-or-json-data": "有原始 HTML 或 JSON 数据？",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "例如：茶匙",
       "example-unit-plural": "中文用户可忽略",
       "example-unit-abbreviation-singular": "例如：勺",
-      "example-unit-abbreviation-plural": "中文用户可忽略"
+      "example-unit-abbreviation-plural": "中文用户可忽略",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "基于你的本地语言，将一些常见标注添加到数据库。",
