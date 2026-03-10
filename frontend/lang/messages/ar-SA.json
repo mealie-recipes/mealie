@@ -636,7 +636,7 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "قم بإنشاء وصفة عن طريق تقديم الاسم. يجب أن يكون لجميع الوصفات أسماء فريدة.",
     "new-recipe-names-must-be-unique": "يجب أن تكون أسماء الوصفات فريدة",
     "scrape-recipe": "تحليل الوصفة",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site or the video you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
     "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "هل لديك الكثير من الوصفات التي تريد أن تحللها في نفس الوقت؟",
     "scrape-recipe-suggest-bulk-importer": "جرب الإضافة بالجملة",
