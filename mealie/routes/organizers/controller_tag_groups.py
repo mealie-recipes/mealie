@@ -42,7 +42,10 @@ class TagGroupController(BaseCrudController):
     @router.get("/{item_id}", response_model=TagGroupSummary)
     def get_one(self, item_id: UUID4):
         """Returns a tag group with its associated tags"""
-        return self.mixins.get_one(item_id)
+        result = self.repo.get_one(item_id, override_schema=TagGroupSummary)
+        if not result:
+            raise HTTPException(status.HTTP_404_NOT_FOUND)
+        return result
 
     @router.post("", status_code=201, response_model=TagGroupOut)
     def create_one(self, tag_group: TagGroupIn):
@@ -70,4 +73,7 @@ class TagGroupController(BaseCrudController):
     @router.get("/slug/{tag_group_slug}", response_model=TagGroupSummary)
     async def get_one_by_slug(self, tag_group_slug: str):
         """Returns a tag group by slug"""
-        return self.repo.get_one(tag_group_slug, "slug", override_schema=TagGroupSummary)
+        result = self.repo.get_one(tag_group_slug, "slug", override_schema=TagGroupSummary)
+        if not result:
+            raise HTTPException(status.HTTP_404_NOT_FOUND)
+        return result

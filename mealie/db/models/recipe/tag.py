@@ -45,6 +45,12 @@ cookbooks_to_tags = sa.Table(
 class Tag(SqlAlchemyBase, BaseMixins):
     __tablename__ = "tags"
     __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="tags_slug_group_id_key"),)
+
+    # Exclude tag_group_id from auto_init setattr when Tag is processed as part of a many-to-many
+    # relationship (e.g. recipe update). Tag group assignment should only be modified via the tag's
+    # own update endpoint, not implicitly cleared by recipe association updates.
+    model_config = {"exclude": {"id", "tag_group_id"}}
+
     id: Mapped[guid.GUID] = mapped_column(guid.GUID, primary_key=True, default=guid.GUID.generate)
 
     # ID Relationships
