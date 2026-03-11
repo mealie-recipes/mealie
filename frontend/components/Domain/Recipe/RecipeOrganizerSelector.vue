@@ -24,10 +24,9 @@
       <v-chip
         :key="index"
         class="ma-1"
-        color="accent"
+        :color="selectorType === 'tags' ? (tagGroupColor((item.raw as any)?.tagGroupId) ?? 'accent') : 'accent'"
         variant="flat"
         label
-
         closable
         @click:close="removeByIndex(index)"
       >
@@ -51,7 +50,7 @@
 import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
 import type { HouseholdSummary } from "~/lib/api/types/household";
-import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
+import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useTagGroupStore, useToolStore } from "~/composables/store";
 import { useUserStore } from "~/composables/store/use-user-store";
 import { normalizeFilter } from "~/composables/use-utils";
 import type { UserSummary } from "~/lib/api/types/user";
@@ -157,19 +156,33 @@ const storeMap = {
   [Organizer.User]: useUserStore(),
 };
 
+const { store: tagGroups } = useTagGroupStore();
+
 const activeStore = computed(() => {
   const { store } = storeMap[props.selectorType];
   return store.value;
 });
 
 const items = computed<any[]>(() => {
-  const list = (activeStore.value as unknown as any[]) ?? [];
-  if (props.selectorType === Organizer.Tag && props.filterByTagGroup !== undefined) {
-    // filterByTagGroup === null → ungrouped tags; string → tags in that group
-    return list.filter((item: any) => (item.tagGroupId ?? null) === props.filterByTagGroup);
+  let list = (activeStore.value as unknown as any[]) ?? [];
+  if (props.selectorType === Organizer.Tag) {
+    if (props.filterByTagGroup !== undefined) {
+      list = list.filter((item: any) => (item.tagGroupId ?? null) === props.filterByTagGroup);
+    }
+    // Sort tags by tag group position, then alphabetically within group
+    return [...list].sort((a: any, b: any) => {
+      const posA = a.tagGroupId ? (tagGroups.value.find((g: any) => g.id === a.tagGroupId)?.position ?? 999) : 999;
+      const posB = b.tagGroupId ? (tagGroups.value.find((g: any) => g.id === b.tagGroupId)?.position ?? 999) : 999;
+      return posA !== posB ? posA - posB : a.name.localeCompare(b.name);
+    });
   }
   return list;
 });
+
+function tagGroupColor(tagGroupId: string | null | undefined): string | undefined {
+  if (!tagGroupId) return undefined;
+  return tagGroups.value.find((g: any) => g.id === tagGroupId)?.color ?? undefined;
+}
 
 function removeByIndex(index: number) {
   if (selected.value === undefined) {
