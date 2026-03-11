@@ -123,6 +123,8 @@ organizers_categories = "/api/organizers/categories"
 """`/api/organizers/categories`"""
 organizers_categories_empty = "/api/organizers/categories/empty"
 """`/api/organizers/categories/empty`"""
+organizers_tag_groups = "/api/organizers/tag-groups"
+"""`/api/organizers/tag-groups`"""
 organizers_tags = "/api/organizers/tags"
 """`/api/organizers/tags`"""
 organizers_tags_empty = "/api/organizers/tags/empty"
@@ -269,6 +271,16 @@ def explore_groups_group_slug_organizers_categories(group_slug):
 def explore_groups_group_slug_organizers_categories_item_id(group_slug, item_id):
     """`/api/explore/groups/{group_slug}/organizers/categories/{item_id}`"""
     return f"{prefix}/explore/groups/{group_slug}/organizers/categories/{item_id}"
+
+
+def explore_groups_group_slug_organizers_tag_groups(group_slug):
+    """`/api/explore/groups/{group_slug}/organizers/tag-groups`"""
+    return f"{prefix}/explore/groups/{group_slug}/organizers/tag-groups"
+
+
+def explore_groups_group_slug_organizers_tag_groups_item_id(group_slug, item_id):
+    """`/api/explore/groups/{group_slug}/organizers/tag-groups/{item_id}`"""
+    return f"{prefix}/explore/groups/{group_slug}/organizers/tag-groups/{item_id}"
 
 
 def explore_groups_group_slug_organizers_tags(group_slug):
@@ -439,6 +451,16 @@ def organizers_categories_item_id(item_id):
 def organizers_categories_slug_category_slug(category_slug):
     """`/api/organizers/categories/slug/{category_slug}`"""
     return f"{prefix}/organizers/categories/slug/{category_slug}"
+
+
+def organizers_tag_groups_item_id(item_id):
+    """`/api/organizers/tag-groups/{item_id}`"""
+    return f"{prefix}/organizers/tag-groups/{item_id}"
+
+
+def organizers_tag_groups_slug_tag_group_slug(tag_group_slug):
+    """`/api/organizers/tag-groups/slug/{tag_group_slug}`"""
+    return f"{prefix}/organizers/tag-groups/slug/{tag_group_slug}"
 
 
 def organizers_tags_item_id(item_id):

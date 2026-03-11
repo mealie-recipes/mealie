@@ -31,6 +31,7 @@ export interface RecipeSearchQuery {
   requireAllTags?: boolean;
   requireAllTools?: boolean;
   requireAllFoods?: boolean;
+  requireAllTagGroups?: boolean;
   search?: string | null;
 }
 export interface RequestQuery {

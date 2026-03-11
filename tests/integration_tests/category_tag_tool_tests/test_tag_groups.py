@@ -6,6 +6,7 @@ Tests cover:
 - Cascade delete: deleting a group sets tag_group_id to null (ungrouped)
 - Recipe filter: ?tagGroups=<id> (OR mode) and ?tagGroups=<id>&requireAllTagGroups=true (AND mode)
 """
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -118,9 +119,7 @@ def test_tag_group_get_by_slug(api_client: TestClient, unique_user: TestUser) ->
 def test_tag_group_list(api_client: TestClient, unique_user: TestUser) -> None:
     created_ids = []
     for _ in range(3):
-        response = api_client.post(
-            TAG_GROUPS_BASE, json={"name": random_string(10)}, headers=unique_user.token
-        )
+        response = api_client.post(TAG_GROUPS_BASE, json={"name": random_string(10)}, headers=unique_user.token)
         assert response.status_code == 201
         created_ids.append(response.json()["id"])
 
@@ -138,9 +137,7 @@ def test_tag_group_list(api_client: TestClient, unique_user: TestUser) -> None:
 
 def test_tag_group_summary_includes_tags(api_client: TestClient, unique_user: TestUser) -> None:
     """GET /tag-groups/{id} returns the tags belonging to the group."""
-    group_resp = api_client.post(
-        TAG_GROUPS_BASE, json={"name": random_string(10)}, headers=unique_user.token
-    )
+    group_resp = api_client.post(TAG_GROUPS_BASE, json={"name": random_string(10)}, headers=unique_user.token)
     assert group_resp.status_code == 201
     group_id = group_resp.json()["id"]
 
@@ -173,9 +170,7 @@ def test_tag_group_summary_includes_tags(api_client: TestClient, unique_user: Te
 
 def test_tag_group_id_saved_and_returned(api_client: TestClient, unique_user: TestUser) -> None:
     """Assigning a tagGroupId to a tag is persisted and returned by GET."""
-    group_resp = api_client.post(
-        TAG_GROUPS_BASE, json={"name": random_string(10)}, headers=unique_user.token
-    )
+    group_resp = api_client.post(TAG_GROUPS_BASE, json={"name": random_string(10)}, headers=unique_user.token)
     assert group_resp.status_code == 201
     group_id = group_resp.json()["id"]
 
@@ -202,9 +197,7 @@ def test_tag_group_id_saved_and_returned(api_client: TestClient, unique_user: Te
 
 def test_tag_group_id_can_be_cleared(api_client: TestClient, unique_user: TestUser) -> None:
     """Setting tagGroupId to null removes the tag from its group."""
-    group_resp = api_client.post(
-        TAG_GROUPS_BASE, json={"name": random_string(10)}, headers=unique_user.token
-    )
+    group_resp = api_client.post(TAG_GROUPS_BASE, json={"name": random_string(10)}, headers=unique_user.token)
     assert group_resp.status_code == 201
     group_id = group_resp.json()["id"]
 
@@ -235,9 +228,7 @@ def test_tag_group_id_can_be_cleared(api_client: TestClient, unique_user: TestUs
 
 def test_cascade_delete_group_ungroups_tags(api_client: TestClient, unique_user: TestUser) -> None:
     """Deleting a tag group sets tag_group_id to NULL on all its tags."""
-    group_resp = api_client.post(
-        TAG_GROUPS_BASE, json={"name": random_string(10)}, headers=unique_user.token
-    )
+    group_resp = api_client.post(TAG_GROUPS_BASE, json={"name": random_string(10)}, headers=unique_user.token)
     assert group_resp.status_code == 201
     group_id = group_resp.json()["id"]
 
@@ -285,9 +276,7 @@ def _create_recipe_with_tags(
         t = tag_resp.json()
         tags_payload.append({"id": t["id"], "groupId": t["groupId"], "name": t["name"], "slug": t["slug"]})
 
-    recipe_resp = api_client.post(
-        api_routes.recipes, json={"name": random_string(10)}, headers=user.token
-    )
+    recipe_resp = api_client.post(api_routes.recipes, json={"name": random_string(10)}, headers=user.token)
     assert recipe_resp.status_code == 201
     slug = recipe_resp.json()
 
@@ -304,9 +293,7 @@ def _create_recipe_with_tags(
 
 def test_recipe_filter_by_tag_group_or_mode(api_client: TestClient, unique_user: TestUser) -> None:
     """GET /api/recipes?tagGroups=<id> returns only recipes that have at least one tag from the group."""
-    group_resp = api_client.post(
-        TAG_GROUPS_BASE, json={"name": random_string(10)}, headers=unique_user.token
-    )
+    group_resp = api_client.post(TAG_GROUPS_BASE, json={"name": random_string(10)}, headers=unique_user.token)
     assert group_resp.status_code == 201
     group_id = group_resp.json()["id"]
 
@@ -325,9 +312,7 @@ def test_recipe_filter_by_tag_group_or_mode(api_client: TestClient, unique_user:
     # Recipe C: no tags from this group
     slug_a = _create_recipe_with_tags(api_client, unique_user, [tag_ids[0]], unique_user.group_id)
     slug_b = _create_recipe_with_tags(api_client, unique_user, [tag_ids[1]], unique_user.group_id)
-    slug_c_resp = api_client.post(
-        api_routes.recipes, json={"name": random_string(10)}, headers=unique_user.token
-    )
+    slug_c_resp = api_client.post(api_routes.recipes, json={"name": random_string(10)}, headers=unique_user.token)
     assert slug_c_resp.status_code == 201
     slug_c = slug_c_resp.json()
 
@@ -353,17 +338,13 @@ def test_recipe_filter_by_tag_group_or_mode(api_client: TestClient, unique_user:
     api_client.delete(tag_groups_item(group_id), headers=unique_user.token)
 
 
-def test_recipe_filter_by_multiple_tag_groups_and_mode(
-    api_client: TestClient, unique_user: TestUser
-) -> None:
+def test_recipe_filter_by_multiple_tag_groups_and_mode(api_client: TestClient, unique_user: TestUser) -> None:
     """?tagGroups=A&tagGroups=B&requireAllTagGroups=true returns recipes with tags from BOTH groups."""
     group_ids = []
     tag_ids_per_group: list[list[str]] = []
 
     for _ in range(2):
-        group_resp = api_client.post(
-            TAG_GROUPS_BASE, json={"name": random_string(10)}, headers=unique_user.token
-        )
+        group_resp = api_client.post(TAG_GROUPS_BASE, json={"name": random_string(10)}, headers=unique_user.token)
         assert group_resp.status_code == 201
         group_id = group_resp.json()["id"]
         group_ids.append(group_id)
@@ -377,14 +358,13 @@ def test_recipe_filter_by_multiple_tag_groups_and_mode(
 
     # Recipe A: tags from both groups
     slug_both = _create_recipe_with_tags(
-        api_client, unique_user,
+        api_client,
+        unique_user,
         [tag_ids_per_group[0][0], tag_ids_per_group[1][0]],
         unique_user.group_id,
     )
     # Recipe B: tag from group[0] only
-    slug_one = _create_recipe_with_tags(
-        api_client, unique_user, [tag_ids_per_group[0][0]], unique_user.group_id
-    )
+    slug_one = _create_recipe_with_tags(api_client, unique_user, [tag_ids_per_group[0][0]], unique_user.group_id)
 
     # AND mode: only slug_both should appear
     filter_resp = api_client.get(

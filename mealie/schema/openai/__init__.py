@@ -4,11 +4,11 @@ from .recipe import OpenAIRecipe, OpenAIRecipeIngredient, OpenAIRecipeInstructio
 from .recipe_ingredient import OpenAIIngredient, OpenAIIngredients
 
 __all__ = [
-    "OpenAIIngredient",
-    "OpenAIIngredients",
+    "OpenAIText",
     "OpenAIRecipe",
     "OpenAIRecipeIngredient",
     "OpenAIRecipeInstruction",
     "OpenAIRecipeNotes",
-    "OpenAIText",
+    "OpenAIIngredient",
+    "OpenAIIngredients",
 ]

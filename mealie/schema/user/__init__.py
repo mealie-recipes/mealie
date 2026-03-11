@@ -38,12 +38,12 @@ from .user_passwords import (
 )
 
 __all__ = [
-    "CreateUserRegistration",
     "CredentialsRequest",
     "CredentialsRequestForm",
     "Token",
     "TokenData",
     "UnlockResults",
+    "CreateUserRegistration",
     "ChangePassword",
     "CreateToken",
     "DeleteTokenResponse",
