@@ -38,9 +38,9 @@ class TagGroupSummary(TagGroupBase):
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
-        from mealie.db.models.recipe.tag import Tag
-        from mealie.db.models.recipe.tag_group import TagGroup
         from sqlalchemy.orm import selectinload
+
+        from mealie.db.models.recipe.tag_group import TagGroup
 
         return [selectinload(TagGroup.tags)]
 

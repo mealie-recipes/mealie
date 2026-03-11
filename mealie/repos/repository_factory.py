@@ -64,9 +64,9 @@ from mealie.schema.meal_plan.new_meal import ReadPlanEntry
 from mealie.schema.meal_plan.plan_rules import PlanRulesOut
 from mealie.schema.recipe import Recipe, RecipeCommentOut, RecipeToolOut
 from mealie.schema.recipe.recipe_category import CategoryOut, TagOut
-from mealie.schema.recipe.recipe_tag_group import TagGroupOut
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit
 from mealie.schema.recipe.recipe_share_token import RecipeShareToken
+from mealie.schema.recipe.recipe_tag_group import TagGroupOut
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
 from mealie.schema.reports.reports import ReportEntryOut, ReportOut
 from mealie.schema.user import GroupInDB, LongLiveTokenInDB, PrivateUser

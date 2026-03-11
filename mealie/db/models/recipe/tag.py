@@ -62,7 +62,9 @@ class Tag(SqlAlchemyBase, BaseMixins):
     tag_group_id: Mapped[guid.GUID | None] = mapped_column(
         guid.GUID, sa.ForeignKey("tag_groups.id", ondelete="SET NULL"), nullable=True, index=True
     )
-    tag_group: Mapped["TagGroup | None"] = orm.relationship("TagGroup", back_populates="tags", foreign_keys=[tag_group_id])
+    tag_group: Mapped["TagGroup | None"] = orm.relationship(
+        "TagGroup", back_populates="tags", foreign_keys=[tag_group_id]
+    )
     recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=recipes_to_tags, back_populates="tags"
     )
