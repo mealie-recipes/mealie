@@ -59,7 +59,9 @@
     >
       <v-card-text>
         <p>{{ $t('general.confirm-delete-generic-with-name', { name: $t('tag.tag-group') }) }}</p>
-        <p class="mt-4 mb-0 ml-4">{{ deleteGroupTarget.name }}</p>
+        <p class="mt-4 mb-0 ml-4">
+          {{ deleteGroupTarget.name }}
+        </p>
       </v-card-text>
     </BaseDialog>
 
@@ -124,7 +126,9 @@
     >
       <v-card-text>
         <p>{{ $t('general.confirm-delete-generic-with-name', { name: $t('tag.tag') }) }}</p>
-        <p class="mt-4 mb-0 ml-4">{{ deleteTagTarget.name }}</p>
+        <p class="mt-4 mb-0 ml-4">
+          {{ deleteTagTarget.name }}
+        </p>
       </v-card-text>
     </BaseDialog>
 

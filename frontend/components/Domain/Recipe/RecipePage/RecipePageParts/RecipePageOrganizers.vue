@@ -49,7 +49,9 @@
             :class="{ 'mt-3': i > 0 }"
           >
             <template v-if="section.name">
-              <h3 class="mt-2">{{ section.name }}</h3>
+              <h3 class="mt-2">
+                {{ section.name }}
+              </h3>
               <v-divider />
             </template>
             <RecipeChips
