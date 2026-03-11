@@ -126,8 +126,9 @@ class AppSettings(AppLoggingSettings):
 
     IS_DEMO: bool = False
 
-    DEFAULT_LOCALE: str = "en-US"
-    """The default locale for the frontend when no user preference is set (e.g. en-US, de-DE, fr-FR)"""
+    DEFAULT_LOCALE: str = "auto"
+    """The default locale for the frontend. Set to 'auto' to detect from browser,
+    or a specific locale like en-US, de-DE, fr-FR"""
 
     HOST_IP: str = "*"
 

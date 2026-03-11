@@ -17,7 +17,7 @@
 | TZ                            |          UTC          | Must be set to get correct date/time on the server                                                                                                      |
 | ALLOW_SIGNUP<super>\*</super> |         false         | Allow user sign-up without token                                                                                                                        |
 | ALLOW_PASSWORD_LOGIN          |         true          | Whether or not to display the username+password input fields. Keep set to true unless you use OIDC authentication                                       |
-| DEFAULT_LOCALE                |         en-US         | The default locale/language for the frontend when no user preference is set (e.g. `en-US`, `de-DE`, `fr-FR`, `nl-NL`)                                   |
+| DEFAULT_LOCALE                |         auto          | The default locale/language for the frontend. Set to `auto` to detect from browser language, or a specific locale (e.g. `en-US`, `de-DE`, `fr-FR`, `nl-NL`) |
 | LOG_CONFIG_OVERRIDE           |                       | Override the config for logging with a custom path                                                                                                      |
 | LOG_LEVEL                     |         info          | Logging level (e.g. critical, error, warning, info, debug)                                                                                              |
 | DAILY_SCHEDULE_TIME           |         23:45         | The time of day to run daily server tasks, in HH:MM format. Use the server's local time, *not* UTC                                                      |
